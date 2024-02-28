@@ -3,47 +3,22 @@ import { useIntl } from "react-intl";
 
 import { Button, CardRepeater, Dialog } from "@gc-digital-talent/ui";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
 
 type RemoveDialogProps = {
-  onRemove: () => void;
+  onRemove: () => Promise<void>;
   index: number;
 };
 
 const RemoveDialog = ({ onRemove, index }: RemoveDialogProps): JSX.Element => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
-  const Footer = React.useMemo(
-    () => (
-      <>
-        <div>
-          <Dialog.Close>
-            <Button color="secondary">
-              {intl.formatMessage(formMessages.cancelGoBack)}
-            </Button>
-          </Dialog.Close>
-        </div>
-        <div>
-          <Dialog.Close>
-            <Button
-              onClick={() => {
-                onRemove();
-              }}
-              mode="solid"
-              color="error"
-            >
-              {intl.formatMessage(commonMessages.remove)}
-            </Button>
-          </Dialog.Close>
-        </div>
-      </>
-    ),
-    [intl, onRemove],
-  );
+  const [isBusy, setIsBusy] = React.useState<boolean>(false);
+
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
       <Dialog.Trigger>
         <CardRepeater.Remove
-          onClick={() => setIsOpen(true)}
           aria-label={intl.formatMessage(formMessages.repeaterRemove, {
             index,
           })}
@@ -68,7 +43,40 @@ const RemoveDialog = ({ onRemove, index }: RemoveDialogProps): JSX.Element => {
               description: "Question to continue in a confirmation dialog",
             })}
           </p>
-          <Dialog.Footer>{Footer}</Dialog.Footer>
+          <Dialog.Footer>
+            <div>
+              <Dialog.Close>
+                <Button color="secondary">
+                  {intl.formatMessage(formMessages.cancelGoBack)}
+                </Button>
+              </Dialog.Close>
+            </div>
+            <div>
+              <Button
+                onClick={() => {
+                  setIsBusy(true);
+                  onRemove()
+                    .then(() => setIsOpen(false))
+                    .catch(() =>
+                      toast.error(
+                        intl.formatMessage({
+                          defaultMessage: "Error: updating skill failed",
+                          id: "kfjmTt",
+                          description:
+                            "Message displayed to user after skill fails to be updated",
+                        }),
+                      ),
+                    )
+                    .finally(() => setIsBusy(false));
+                }}
+                mode="solid"
+                color="error"
+                disabled={isBusy}
+              >
+                {intl.formatMessage(commonMessages.remove)}
+              </Button>
+            </div>
+          </Dialog.Footer>
         </Dialog.Body>
       </Dialog.Content>
     </Dialog.Root>

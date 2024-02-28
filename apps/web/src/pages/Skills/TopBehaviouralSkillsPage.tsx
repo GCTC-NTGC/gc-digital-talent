@@ -96,20 +96,18 @@ const TopBehaviouralSkills = ({
   const handleUpdateUserSkillRankings = (
     formValues: FormValues,
   ): Promise<void> =>
-    new Promise((resolve, reject) => {
-      executeMutation({
-        userId: userAuthInfo?.id,
-        userSkillRanking: {
-          topBehaviouralSkillsRanked: [
-            ...formValues.userSkills.map((userSkill) => userSkill.skill),
-          ],
-        },
-      }).then((res) => {
-        if (res.data?.updateUserSkillRankings) {
-          resolve();
-        }
-        reject();
-      });
+    executeMutation({
+      userId: userAuthInfo?.id,
+      userSkillRanking: {
+        topBehaviouralSkillsRanked: [
+          ...formValues.userSkills.map((userSkill) => userSkill.skill),
+        ],
+      },
+    }).then((res) => {
+      if (res.data?.updateUserSkillRankings) {
+        return;
+      }
+      throw new Error("No data returned");
     });
 
   const updateRankingsAfterAddingSkill = (
@@ -117,18 +115,16 @@ const TopBehaviouralSkills = ({
     newSkillId: string,
   ): Promise<void> => {
     const mergedSkillIds = [...initialSkillRanking, newSkillId];
-    return new Promise((resolve, reject) => {
-      executeMutation({
-        userId: userAuthInfo?.id,
-        userSkillRanking: {
-          topBehaviouralSkillsRanked: mergedSkillIds,
-        },
-      }).then((res) => {
-        if (res.data?.updateUserSkillRankings) {
-          resolve();
-        }
-        reject();
-      });
+    return executeMutation({
+      userId: userAuthInfo?.id,
+      userSkillRanking: {
+        topBehaviouralSkillsRanked: mergedSkillIds,
+      },
+    }).then((res) => {
+      if (res.data?.updateUserSkillRankings) {
+        return;
+      }
+      throw new Error("No data returned");
     });
   };
 
@@ -143,6 +139,7 @@ const TopBehaviouralSkills = ({
       handleSubmit={handleUpdateUserSkillRankings}
       onAddition={updateRankingsAfterAddingSkill}
       maxItems={MAX_SKILL_COUNT}
+      userSkillRanking="topBehaviouralSkillsRanked"
     />
   );
 };

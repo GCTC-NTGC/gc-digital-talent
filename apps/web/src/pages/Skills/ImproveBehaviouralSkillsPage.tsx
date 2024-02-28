@@ -102,20 +102,18 @@ const ImproveBehaviouralSkills = ({
   const handleUpdateUserSkillRankings = (
     formValues: FormValues,
   ): Promise<void> =>
-    new Promise((resolve, reject) => {
-      executeUpdateUserSkillRankingsMutation({
-        userId: userAuthInfo?.id,
-        userSkillRanking: {
-          improveBehaviouralSkillsRanked: [
-            ...formValues.userSkills.map((userSkill) => userSkill.skill),
-          ],
-        },
-      }).then((res) => {
-        if (res.data?.updateUserSkillRankings) {
-          resolve();
-        }
-        reject();
-      });
+    executeUpdateUserSkillRankingsMutation({
+      userId: userAuthInfo?.id,
+      userSkillRanking: {
+        improveBehaviouralSkillsRanked: [
+          ...formValues.userSkills.map((userSkill) => userSkill.skill),
+        ],
+      },
+    }).then((res) => {
+      if (res.data?.updateUserSkillRankings) {
+        return;
+      }
+      throw new Error("No data returned");
     });
 
   const updateRankingsAfterAddingSkill = (
@@ -123,21 +121,19 @@ const ImproveBehaviouralSkills = ({
     newSkillId: string,
   ): Promise<void> => {
     const mergedSkillIds = [...initialSkillRanking, newSkillId];
-    return new Promise((resolve, reject) => {
-      executeUpdateUserSkillRankingsMutation(
-        {
-          userId: userAuthInfo?.id,
-          userSkillRanking: {
-            improveBehaviouralSkillsRanked: mergedSkillIds,
-          },
+    return executeUpdateUserSkillRankingsMutation(
+      {
+        userId: userAuthInfo?.id,
+        userSkillRanking: {
+          improveBehaviouralSkillsRanked: mergedSkillIds,
         },
-        context,
-      ).then((res) => {
-        if (res.data?.updateUserSkillRankings) {
-          resolve();
-        }
-        reject();
-      });
+      },
+      context,
+    ).then((res) => {
+      if (res.data?.updateUserSkillRankings) {
+        return;
+      }
+      throw new Error("No data returned");
     });
   };
 
@@ -152,6 +148,7 @@ const ImproveBehaviouralSkills = ({
       handleSubmit={handleUpdateUserSkillRankings}
       onAddition={updateRankingsAfterAddingSkill}
       maxItems={MAX_SKILL_COUNT}
+      userSkillRanking="improveBehaviouralSkillsRanked"
     />
   );
 };

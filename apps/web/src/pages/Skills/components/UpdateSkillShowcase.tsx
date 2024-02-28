@@ -14,20 +14,19 @@ import {
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { ItemWithId } from "@gc-digital-talent/ui/src/components/CardRepeater/types";
+import { UpdateUserSkillRankingsInput } from "@gc-digital-talent/graphql";
 
 import { Skill, UserSkill, Scalars } from "~/api/generated";
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
 import { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
-import useDeepCompareEffect from "~/hooks/useDeepCompareEffect";
+import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
 
-import SkillShowcaseCard from "./SkillShowcaseCard";
 import {
   CreateUserSkill_Mutation,
   UpdateUserSkill_Mutation,
 } from "../operations";
-import SkillBrowserDialogInRepeater from "./SkillBrowserDialogInRepater";
+import SkillShowcaseCard from "./SkillShowcaseCard";
 
 export type FormValues = { userSkills: SkillBrowserDialogFormValues[] };
 
@@ -49,6 +48,7 @@ interface UpdateSkillShowcaseProps {
   };
   handleSubmit: (formValues: FormValues) => Promise<void>;
   onAddition: (initialSkillRanking: string[], newSkillId: string) => void;
+  userSkillRanking: keyof UpdateUserSkillRankingsInput;
 }
 
 // To help the URQL cache work
@@ -65,28 +65,16 @@ const UpdateSkillShowcase = ({
   pageInfo,
   handleSubmit,
   onAddition,
+  userSkillRanking,
 }: UpdateSkillShowcaseProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const addId = React.useId();
 
+  const [isBusy, updateIsBusy] = React.useState<boolean>(false);
+
   const [, executeCreateMutation] = useMutation(CreateUserSkill_Mutation);
   const [, executeUpdateMutation] = useMutation(UpdateUserSkill_Mutation);
-
-  // an optimistically updated list of user skills
-  const [userSkills, setUserSkills] = React.useState<
-    SkillBrowserDialogFormValues[]
-  >(initialData.userSkills);
-
-  // sync the displayed user skills back to what's coming from the API
-  const resetUserSkills = React.useCallback(() => {
-    setUserSkills(initialData.userSkills);
-  }, [initialData.userSkills]);
-
-  // sync back to the API data if the incoming user skills from the parent change
-  useDeepCompareEffect(() => {
-    setUserSkills(initialData.userSkills);
-  }, [initialData.userSkills]);
 
   const existingSkillsRanking = initialData.userSkills.map(
     (userSkill) => userSkill.skill,
@@ -105,7 +93,6 @@ const UpdateSkillShowcase = ({
   };
 
   const handleError = (msg?: React.ReactNode) => {
-    resetUserSkills();
     toast.error(
       msg ||
         intl.formatMessage({
@@ -117,7 +104,8 @@ const UpdateSkillShowcase = ({
     );
   };
 
-  const handleAdd = async (values: SkillBrowserDialogFormValues) => {
+  const handleAdd = (values: SkillBrowserDialogFormValues): Promise<void> => {
+    updateIsBusy(true);
     const skillId = values.skill;
     const userHasSkill =
       allUserSkills.filter((userSkill) => userSkill.skill.id === values.skill)
@@ -126,58 +114,60 @@ const UpdateSkillShowcase = ({
         (userSkill) => userSkill.skill === values.skill,
       ).length > 0;
 
-    if (userHasSkill) {
-      executeUpdateMutation(
-        {
-          id: allUserSkills.find(
-            (userSkill) => userSkill.skill.id === values.skill,
-          )?.id,
-          userSkill: {
-            skillLevel: values.skillLevel,
-            whenSkillUsed: values.whenSkillUsed,
+    const mutationPromise = userHasSkill
+      ? executeUpdateMutation(
+          {
+            id: allUserSkills.find(
+              (userSkill) => userSkill.skill.id === values.skill,
+            )?.id,
+            userSkill: {
+              skillLevel: values.skillLevel,
+              whenSkillUsed: values.whenSkillUsed,
+            },
           },
-        },
-        context,
-      )
-        .then((res) => {
-          handleSuccess();
-          if (res.data?.updateUserSkill?.skill.id) {
-            // having claimed a user skill in the modal and the mutation successful, update the ranking
-            onAddition(
-              existingSkillsRankingFiltered,
-              res.data.updateUserSkill.skill.id,
-            );
-          }
-        })
-        .catch(() => handleError());
-    } else {
-      executeCreateMutation(
-        {
-          userId,
-          skillId,
-          userSkill: {
-            skillLevel: values.skillLevel,
-            whenSkillUsed: values.whenSkillUsed,
-          },
-        },
-        context,
-      )
-        .then((res) => {
-          if (res.data?.createUserSkill?.skill.id) {
+          context,
+        )
+          .then((res) => {
             handleSuccess();
-            onAddition(
-              existingSkillsRankingFiltered,
-              res.data.createUserSkill.skill.id,
-            );
-          } else {
-            handleError();
-          }
-        })
-        .catch(() => handleError());
-    }
+            if (res.data?.updateUserSkill?.skill.id) {
+              // having claimed a user skill in the modal and the mutation successful, update the ranking
+              onAddition(
+                existingSkillsRankingFiltered,
+                res.data.updateUserSkill.skill.id,
+              );
+            }
+          })
+          .catch(() => handleError())
+          .finally(() => updateIsBusy(false))
+      : executeCreateMutation(
+          {
+            userId,
+            skillId,
+            userSkill: {
+              skillLevel: values.skillLevel,
+              whenSkillUsed: values.whenSkillUsed,
+            },
+          },
+          context,
+        )
+          .then((res) => {
+            if (res.data?.createUserSkill?.skill.id) {
+              handleSuccess();
+              onAddition(
+                existingSkillsRankingFiltered,
+                res.data.createUserSkill.skill.id,
+              );
+            } else {
+              handleError();
+            }
+          })
+          .catch(() => handleError())
+          .finally(() => updateIsBusy(false));
+
+    return mutationPromise;
   };
 
-  const canAdd = userSkills.length < pageInfo.maxSkillCount;
+  const canAdd = initialData.userSkills.length < pageInfo.maxSkillCount;
 
   const triggerProps = canAdd
     ? {
@@ -192,7 +182,7 @@ const UpdateSkillShowcase = ({
               "Label for skill dialog trigger on skills showcase section.",
           },
           {
-            numOfSkills: userSkills.length,
+            numOfSkills: initialData.userSkills.length,
             maxSkills: pageInfo.maxSkillCount,
           },
         ),
@@ -209,39 +199,50 @@ const UpdateSkillShowcase = ({
               "Label for disabled dialog trigger on skills showcase section.",
           },
           {
-            numOfSkills: userSkills.length,
+            numOfSkills: initialData.userSkills.length,
             maxSkills: pageInfo.maxSkillCount,
           },
         ),
         disabled: true,
       };
 
-  const handleUpdate = (formValues: FormValues) => {
-    setUserSkills(formValues.userSkills); // optimistic update
+  // const handleUpdate = (formValues: FormValues): Promise<void> => {
+  //   const submitPromise = handleSubmit(formValues);
 
-    handleSubmit(formValues)
-      .then(() => {
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Successfully updated your skills!",
-            id: "j7nWu/",
-            description:
-              "Message displayed to users when saving skills is successful.",
-          }),
-        );
-      })
-      .catch(() => {
-        resetUserSkills(); // the client provider will pop a toast
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: updating skill failed",
-            id: "kfjmTt",
-            description:
-              "Message displayed to user after skill fails to be updated",
-          }),
-        );
-      });
-  };
+  //   submitPromise
+  //     .then(() => {
+  //       toast.success(
+  //         intl.formatMessage({
+  //           defaultMessage: "Successfully updated your skills!",
+  //           id: "j7nWu/",
+  //           description:
+  //             "Message displayed to users when saving skills is successful.",
+  //         }),
+  //       );
+  //     })
+  //     .catch(() => {
+  //       toast.error(
+  //         intl.formatMessage({
+  //           defaultMessage: "Error: updating skill failed",
+  //           id: "kfjmTt",
+  //           description:
+  //             "Message displayed to user after skill fails to be updated",
+  //         }),
+  //       );
+  //     });
+
+  //   return submitPromise;
+  // };
+
+  // const handleRemove = (index: number): Promise<void> => {
+  //   updateIsBusy(true);
+  //   const copyOfUserSkills = [...initialData.userSkills];
+  //   copyOfUserSkills.splice(index, 1);
+  //   const updatePromise = handleUpdate({ userSkills: copyOfUserSkills });
+  //   updatePromise.finally(() => updateIsBusy(false));
+
+  //   return updatePromise;
+  // };
 
   return (
     <>
@@ -275,13 +276,14 @@ const UpdateSkillShowcase = ({
               <div>
                 <div data-h2-margin-bottom="base(1rem)">
                   <CardRepeater.Root<SkillBrowserDialogFormValues>
-                    items={userSkills.map((userSkill) => ({
+                    disabled={isBusy}
+                    items={initialData.userSkills.map((userSkill) => ({
                       id: userSkill.skill ?? "unknown",
                       ...userSkill,
                     }))}
                     max={maxItems}
                     add={
-                      <SkillBrowserDialogInRepeater
+                      <SkillBrowserDialog
                         inLibrary={allUserSkills
                           .map((userSkill) => userSkill.skill)
                           .filter(
@@ -289,22 +291,28 @@ const UpdateSkillShowcase = ({
                               !existingSkillsRankingFiltered.includes(skill.id),
                           )}
                         trigger={triggerProps}
+                        context="showcase"
                         skills={allSkills.filter(
                           (skill) =>
                             !existingSkillsRankingFiltered.includes(skill.id),
                         )}
+                        onSave={handleAdd}
+                        showCategory={false}
+                        noToast
                       />
                     }
-                    onUpdate={(items) => {
-                      handleUpdate({ userSkills: items });
-                    }}
+                    // onUpdate={(items) => {
+                    //   handleUpdate({ userSkills: items });
+                    // }}
                   >
-                    {userSkills.map((item, index) => (
+                    {initialData.userSkills.map((item, index) => (
                       <SkillShowcaseCard
                         key={item.skill}
                         item={item}
                         index={index}
                         skills={allSkills}
+                        userSkillRanking={userSkillRanking}
+                        // onRemove={() => handleRemove(index)}
                       />
                     ))}
                   </CardRepeater.Root>

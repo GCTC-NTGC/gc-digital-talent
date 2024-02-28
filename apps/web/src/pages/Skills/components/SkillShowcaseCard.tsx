@@ -1,5 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { useMutation } from "urql";
 
 import {
   getLocalizedName,
@@ -7,33 +8,62 @@ import {
   getTechnicalSkillLevel,
 } from "@gc-digital-talent/i18n";
 import { CardRepeater, useCardRepeaterContext } from "@gc-digital-talent/ui";
+import { UpdateUserSkillRankingsInput } from "@gc-digital-talent/graphql";
+import { useAuthorization } from "@gc-digital-talent/auth";
 
 import { Skill, SkillCategory } from "~/api/generated";
 import { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
 
 import RemoveDialog from "./RemoveDialog";
+import { UpdateUserSkillRankings_Mutation } from "../operations";
 
 type SkillShowcaseCardProps = {
   index: number;
   item: SkillBrowserDialogFormValues;
   skills: Skill[];
+  // which user-skill ranking are we updating with this card
+  userSkillRanking: keyof UpdateUserSkillRankingsInput;
 };
 
-const SkillShowcaseCard = ({ index, item, skills }: SkillShowcaseCardProps) => {
+const SkillShowcaseCard = ({
+  index,
+  item,
+  skills,
+  userSkillRanking,
+}: SkillShowcaseCardProps) => {
   const intl = useIntl();
-  const { remove: removeFromRepeater } = useCardRepeaterContext();
+  const { userAuthInfo } = useAuthorization();
+  const [, updateUserSkillRankingsMutation] = useMutation(
+    UpdateUserSkillRankings_Mutation,
+  );
+  const { items } = useCardRepeaterContext();
 
   const getSkill = (skillId: string | undefined) =>
     skills.find((skill) => skill.id === skillId);
 
-  const handleRemove = (removeIndex: number) => removeFromRepeater(removeIndex);
+  // the mutation has be done at the card level.  If done in the parent the card is unmounted and dialog is lost if there is an error.
+  const handleRemove = (): Promise<void> => {
+    const copyOfItems = [...(items || [])];
+    copyOfItems.splice(index, 1);
+    return updateUserSkillRankingsMutation({
+      userId: userAuthInfo?.id,
+      userSkillRanking: {
+        [userSkillRanking]: [
+          ...copyOfItems.map((userSkill) => userSkill.skill),
+        ],
+      },
+    }).then((res) => {
+      if (res.data?.updateUserSkillRankings) {
+        return;
+      }
+      throw new Error("No data returned");
+    });
+  };
 
   return (
     <CardRepeater.Card
       index={index}
-      remove={
-        <RemoveDialog index={index} onRemove={() => handleRemove(index)} />
-      }
+      remove={<RemoveDialog index={index} onRemove={handleRemove} />}
     >
       <div
         data-h2-display="base(flex)"
