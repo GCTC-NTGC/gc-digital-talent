@@ -25,12 +25,14 @@ interface ImproveTechnicalSkillsProps {
   skills: Skill[];
   userSkills: UserSkill[];
   initialSkills: FormValues;
+  stale: boolean;
 }
 
 const ImproveTechnicalSkills = ({
   skills,
   userSkills,
   initialSkills,
+  stale,
 }: ImproveTechnicalSkillsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -140,6 +142,7 @@ const ImproveTechnicalSkills = ({
       onAddition={updateRankingsAfterAddingSkill}
       maxItems={MAX_SKILL_COUNT}
       userSkillRanking="improveTechnicalSkillsRanked"
+      disabled={stale}
     />
   );
 };
@@ -149,7 +152,7 @@ const context: Partial<OperationContext> = {
 };
 
 const ImproveTechnicalSkillsPage = () => {
-  const [{ data, fetching, error }] = useQuery({
+  const [{ data, fetching, error, stale }] = useQuery({
     query: UserSkills_Query,
     context,
   });
@@ -187,6 +190,7 @@ const ImproveTechnicalSkillsPage = () => {
         skills={technicalSkills ?? []}
         userSkills={userSkills ?? []}
         initialSkills={initialSkills ?? []}
+        stale={stale}
       />
     </Pending>
   );

@@ -27,6 +27,7 @@ export const CardRepeaterProvider = <T extends BaseItem>({
   removeDisabledIndexes,
   max,
   hideIndex,
+  onItemsMoved,
 }: CardRepeaterProviderProps<T>) => {
   const [items, setItems] = useControllableState<ItemWithId<T>[]>({
     controlledProp: itemsProp,
@@ -45,6 +46,7 @@ export const CardRepeaterProvider = <T extends BaseItem>({
       max,
       disabled,
       hideIndex,
+      onItemsMoved,
     }),
     [
       items,
@@ -56,6 +58,7 @@ export const CardRepeaterProvider = <T extends BaseItem>({
       disabled,
       hideIndex,
       setItems,
+      onItemsMoved,
     ],
   );
 
@@ -89,6 +92,7 @@ export const useCardRepeaterContext = <T extends BaseItem = BaseItem>() => {
 
     newItems.splice(newIndex, 0, newItems.splice(from, 1)[0]);
 
+    ctx?.onItemsMoved?.(newItems);
     ctx?.onUpdate?.(newItems);
     if (announce) {
       announce(

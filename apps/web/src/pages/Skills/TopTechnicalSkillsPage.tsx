@@ -25,12 +25,14 @@ interface TopTechnicalSkillsProps {
   skills: Skill[];
   userSkills: UserSkill[];
   initialSkills: FormValues;
+  stale: boolean;
 }
 
 const TopTechnicalSkills = ({
   skills,
   userSkills,
   initialSkills,
+  stale,
 }: TopTechnicalSkillsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -144,6 +146,7 @@ const TopTechnicalSkills = ({
       onAddition={updateRankingsAfterAddingSkill}
       maxItems={MAX_SKILL_COUNT}
       userSkillRanking="topTechnicalSkillsRanked"
+      disabled={stale}
     />
   );
 };
@@ -153,7 +156,7 @@ const context: Partial<OperationContext> = {
 };
 
 const TopTechnicalSkillsPage = () => {
-  const [{ data, fetching, error }] = useQuery({
+  const [{ data, fetching, error, stale }] = useQuery({
     query: UserSkills_Query,
     context,
   });
@@ -189,6 +192,7 @@ const TopTechnicalSkillsPage = () => {
         skills={technicalSkills ?? []}
         userSkills={userSkills ?? []}
         initialSkills={initialSkills ?? []}
+        stale={stale}
       />
     </Pending>
   );

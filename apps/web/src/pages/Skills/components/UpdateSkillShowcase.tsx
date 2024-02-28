@@ -49,6 +49,7 @@ interface UpdateSkillShowcaseProps {
   handleSubmit: (formValues: FormValues) => Promise<void>;
   onAddition: (initialSkillRanking: string[], newSkillId: string) => void;
   userSkillRanking: keyof UpdateUserSkillRankingsInput;
+  disabled: boolean;
 }
 
 // To help the URQL cache work
@@ -66,6 +67,7 @@ const UpdateSkillShowcase = ({
   handleSubmit,
   onAddition,
   userSkillRanking,
+  disabled,
 }: UpdateSkillShowcaseProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
@@ -268,7 +270,7 @@ const UpdateSkillShowcase = ({
               <div>
                 <div data-h2-margin-bottom="base(1rem)">
                   <CardRepeater.Root<SkillBrowserDialogFormValues>
-                    disabled={isBusy}
+                    disabled={isBusy || disabled}
                     items={initialData.userSkills.map((userSkill) => ({
                       id: userSkill.skill ?? "unknown",
                       ...userSkill,
@@ -293,9 +295,9 @@ const UpdateSkillShowcase = ({
                         noToast
                       />
                     }
-                    onUpdate={(items) => {
-                      handleUpdate({ userSkills: items });
-                    }}
+                    onItemsMoved={(items) =>
+                      handleUpdate({ userSkills: items })
+                    }
                   >
                     {initialData.userSkills.map((item, index) => (
                       <SkillShowcaseCard

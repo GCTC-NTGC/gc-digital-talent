@@ -29,12 +29,14 @@ interface ImproveBehaviouralSkillsProps {
   skills: Skill[];
   userSkills: UserSkill[];
   initialSkills: FormValues;
+  stale: boolean;
 }
 
 const ImproveBehaviouralSkills = ({
   skills,
   userSkills,
   initialSkills,
+  stale,
 }: ImproveBehaviouralSkillsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -149,12 +151,13 @@ const ImproveBehaviouralSkills = ({
       onAddition={updateRankingsAfterAddingSkill}
       maxItems={MAX_SKILL_COUNT}
       userSkillRanking="improveBehaviouralSkillsRanked"
+      disabled={stale}
     />
   );
 };
 
 const ImproveBehaviouralSkillsPage = () => {
-  const [{ data, fetching, error }] = useQuery({
+  const [{ data, fetching, error, stale }] = useQuery({
     query: UserSkills_Query,
     context,
   });
@@ -192,6 +195,7 @@ const ImproveBehaviouralSkillsPage = () => {
         skills={behaviouralSkills ?? []}
         userSkills={userSkills ?? []}
         initialSkills={initialSkills ?? []}
+        stale={stale}
       />
     </Pending>
   );

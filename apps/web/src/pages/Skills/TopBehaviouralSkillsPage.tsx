@@ -25,12 +25,14 @@ interface TopBehaviouralSkillsProps {
   skills: Skill[];
   userSkills: UserSkill[];
   initialSkills: FormValues;
+  stale: boolean;
 }
 
 const TopBehaviouralSkills = ({
   skills,
   userSkills,
   initialSkills,
+  stale,
 }: TopBehaviouralSkillsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -140,6 +142,7 @@ const TopBehaviouralSkills = ({
       onAddition={updateRankingsAfterAddingSkill}
       maxItems={MAX_SKILL_COUNT}
       userSkillRanking="topBehaviouralSkillsRanked"
+      disabled={stale}
     />
   );
 };
@@ -149,7 +152,7 @@ const context: Partial<OperationContext> = {
 };
 
 const TopBehaviouralSkillsPage = () => {
-  const [{ data, fetching, error }] = useQuery({
+  const [{ data, fetching, error, stale }] = useQuery({
     query: UserSkills_Query,
     context,
   });
@@ -185,6 +188,7 @@ const TopBehaviouralSkillsPage = () => {
         skills={behaviouralSkills ?? []}
         userSkills={userSkills ?? []}
         initialSkills={initialSkills ?? []}
+        stale={stale}
       />
     </Pending>
   );
