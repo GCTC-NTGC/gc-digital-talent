@@ -71,7 +71,7 @@ const UpdateSkillShowcase = ({
   const navigate = useNavigate();
   const addId = React.useId();
 
-  const [isBusy, updateIsBusy] = React.useState<boolean>(false);
+  const [isBusy, setIsBusy] = React.useState<boolean>(false);
 
   const [, executeCreateMutation] = useMutation(CreateUserSkill_Mutation);
   const [, executeUpdateMutation] = useMutation(UpdateUserSkill_Mutation);
@@ -105,7 +105,7 @@ const UpdateSkillShowcase = ({
   };
 
   const handleAdd = (values: SkillBrowserDialogFormValues): Promise<void> => {
-    updateIsBusy(true);
+    setIsBusy(true);
     const skillId = values.skill;
     const userHasSkill =
       allUserSkills.filter((userSkill) => userSkill.skill.id === values.skill)
@@ -138,7 +138,7 @@ const UpdateSkillShowcase = ({
             }
           })
           .catch(() => handleError())
-          .finally(() => updateIsBusy(false))
+          .finally(() => setIsBusy(false))
       : executeCreateMutation(
           {
             userId,
@@ -162,7 +162,7 @@ const UpdateSkillShowcase = ({
             }
           })
           .catch(() => handleError())
-          .finally(() => updateIsBusy(false));
+          .finally(() => setIsBusy(false));
 
     return mutationPromise;
   };
@@ -206,43 +206,35 @@ const UpdateSkillShowcase = ({
         disabled: true,
       };
 
-  // const handleUpdate = (formValues: FormValues): Promise<void> => {
-  //   const submitPromise = handleSubmit(formValues);
+  const handleUpdate = (formValues: FormValues): Promise<void> => {
+    setIsBusy(true);
+    const submitPromise = handleSubmit(formValues);
 
-  //   submitPromise
-  //     .then(() => {
-  //       toast.success(
-  //         intl.formatMessage({
-  //           defaultMessage: "Successfully updated your skills!",
-  //           id: "j7nWu/",
-  //           description:
-  //             "Message displayed to users when saving skills is successful.",
-  //         }),
-  //       );
-  //     })
-  //     .catch(() => {
-  //       toast.error(
-  //         intl.formatMessage({
-  //           defaultMessage: "Error: updating skill failed",
-  //           id: "kfjmTt",
-  //           description:
-  //             "Message displayed to user after skill fails to be updated",
-  //         }),
-  //       );
-  //     });
+    submitPromise
+      .then(() => {
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Successfully updated your skills!",
+            id: "j7nWu/",
+            description:
+              "Message displayed to users when saving skills is successful.",
+          }),
+        );
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: updating skill failed",
+            id: "kfjmTt",
+            description:
+              "Message displayed to user after skill fails to be updated",
+          }),
+        );
+      })
+      .finally(() => setIsBusy(false));
 
-  //   return submitPromise;
-  // };
-
-  // const handleRemove = (index: number): Promise<void> => {
-  //   updateIsBusy(true);
-  //   const copyOfUserSkills = [...initialData.userSkills];
-  //   copyOfUserSkills.splice(index, 1);
-  //   const updatePromise = handleUpdate({ userSkills: copyOfUserSkills });
-  //   updatePromise.finally(() => updateIsBusy(false));
-
-  //   return updatePromise;
-  // };
+    return submitPromise;
+  };
 
   return (
     <>
@@ -301,9 +293,9 @@ const UpdateSkillShowcase = ({
                         noToast
                       />
                     }
-                    // onUpdate={(items) => {
-                    //   handleUpdate({ userSkills: items });
-                    // }}
+                    onUpdate={(items) => {
+                      handleUpdate({ userSkills: items });
+                    }}
                   >
                     {initialData.userSkills.map((item, index) => (
                       <SkillShowcaseCard
@@ -312,7 +304,6 @@ const UpdateSkillShowcase = ({
                         index={index}
                         skills={allSkills}
                         userSkillRanking={userSkillRanking}
-                        // onRemove={() => handleRemove(index)}
                       />
                     ))}
                   </CardRepeater.Root>

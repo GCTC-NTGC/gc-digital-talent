@@ -15,6 +15,32 @@ const RemoveDialog = ({ onRemove, index }: RemoveDialogProps): JSX.Element => {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const [isBusy, setIsBusy] = React.useState<boolean>(false);
 
+  const handleRemove = () => {
+    setIsBusy(true);
+    onRemove()
+      .then(() => {
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Successfully updated skill",
+            id: "vMBiMV",
+            description: "Message displayed when a user updates a skill",
+          }),
+        );
+        setIsOpen(false);
+      })
+      .catch(() =>
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: updating skill failed",
+            id: "kfjmTt",
+            description:
+              "Message displayed to user after skill fails to be updated",
+          }),
+        ),
+      )
+      .finally(() => setIsBusy(false));
+  };
+
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
       <Dialog.Trigger>
@@ -53,22 +79,7 @@ const RemoveDialog = ({ onRemove, index }: RemoveDialogProps): JSX.Element => {
             </div>
             <div>
               <Button
-                onClick={() => {
-                  setIsBusy(true);
-                  onRemove()
-                    .then(() => setIsOpen(false))
-                    .catch(() =>
-                      toast.error(
-                        intl.formatMessage({
-                          defaultMessage: "Error: updating skill failed",
-                          id: "kfjmTt",
-                          description:
-                            "Message displayed to user after skill fails to be updated",
-                        }),
-                      ),
-                    )
-                    .finally(() => setIsBusy(false));
-                }}
+                onClick={handleRemove}
                 mode="solid"
                 color="error"
                 disabled={isBusy}
