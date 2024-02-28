@@ -1,6 +1,15 @@
 import React from "react";
 import * as SeparatorPrimitive from "@radix-ui/react-separator";
 
+type SeparatorProps = React.ComponentPropsWithoutRef<
+  typeof SeparatorPrimitive.Root
+> & {
+  space?: "none" | "sm" | "md" | "lg";
+} & Omit<
+    React.DetailedHTMLProps<React.HTMLAttributes<HTMLHRElement>, HTMLHRElement>,
+    "ref"
+  >;
+
 /**
  * @name Separator
  * @desc Visually or semantically separates content.
@@ -8,18 +17,34 @@ import * as SeparatorPrimitive from "@radix-ui/react-separator";
  */
 const Separator = React.forwardRef<
   React.ElementRef<typeof SeparatorPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof SeparatorPrimitive.Root>
->((props, forwardedRef) => (
-  <SeparatorPrimitive.Root
-    data-h2-height="
+  SeparatorProps
+>(({ space = "sm", ...rest }, forwardedRef) => {
+  let spaceStyles: Record<string, string> = {};
+  if (space !== "none") {
+    if (space === "sm") {
+      spaceStyles = { "data-h2-margin": "base(x1)" };
+    }
+    if (space === "md") {
+      spaceStyles = { "data-h2-margin": "base(x2)" };
+    }
+    if (space === "lg") {
+      spaceStyles = { "data-h2-margin": "base(x3)" };
+    }
+  }
+  return (
+    <SeparatorPrimitive.Root
+      ref={forwardedRef}
+      data-h2-height="
       base:selectors[[data-orientation='vertical']](100%)
       base:selectors[[data-orientation='horizontal']](1px)"
-    data-h2-width="
+      data-h2-width="
       base:selectors[[data-orientation='vertical']](1px)
       base:selectors[[data-orientation='horizontal']](100%)"
-    ref={forwardedRef}
-    {...props}
-  />
-));
+      data-h2-background-color="base(gray)"
+      {...spaceStyles}
+      {...rest}
+    />
+  );
+});
 
 export default Separator;
