@@ -432,6 +432,14 @@ const computeInAssessmentStatusPill = (
   steps: AssessmentStep[],
   intl: IntlShape,
 ): StatusPill => {
+  if (steps.length === 0) {
+    // This escape hatch mostly applies to Pools created before Record of Decision.
+    return {
+      label: intl.formatMessage(poolCandidateMessages.toAssess),
+      color: "warning",
+    };
+  }
+
   const orderedSteps = sortBy(steps, (step) => step.sortOrder);
   const candidateResults = determineCandidateStatusPerStep(
     [candidate],
