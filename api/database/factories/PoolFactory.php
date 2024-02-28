@@ -217,10 +217,14 @@ class PoolFactory extends Factory
     public function withCompletePoolSkills()
     {
         return $this->afterCreating(function (Pool $pool) {
-            PoolSkill::where('pool_id', $pool->id)
-                ->update([
+            $poolSkills = PoolSkill::where('pool_id', $pool->id)
+                ->where('required_skill_level', null)
+                ->get();
+            foreach ($poolSkills as $poolSkill) {
+                $poolSkill->update([
                     'required_skill_level' => $this->faker->randomElement(array_column(SkillLevel::cases(), 'name')),
                 ]);
+            }
         });
     }
 }

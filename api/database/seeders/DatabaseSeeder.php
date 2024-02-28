@@ -62,7 +62,11 @@ class DatabaseSeeder extends Seeder
 
         // Seed random pools
         Pool::factory()->count(2)->draft()->create();
-        Pool::factory()->count(6)->published()->withAssessments()->create();
+        Pool::factory()->count(6)
+            ->published()
+            ->withCompletePoolSkills()
+            ->withAssessments()
+            ->create();
         Pool::factory()->count(2)->closed()->create();
         Pool::factory()->count(2)->archived()->create();
         // Seed some expected values

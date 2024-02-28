@@ -51,7 +51,10 @@ class PoolSeeder extends Seeder
             ];
             $poolModel = Pool::where($identifier)->first();
             if (! $poolModel) {
-                $createdPool = Pool::factory()->published()->create($poolData);
+                $createdPool = Pool::factory()
+                    ->published()
+                    ->withCompletePoolSkills()
+                    ->create($poolData);
                 // constrain CMO Digital Careers pool to predictable values
                 if ($identifier['name->en'] == 'CMO Digital Careers') {
                     $classificationIT01Id = Classification::where('group', 'ilike', 'IT')->where('level', 1)->first()['id'];
