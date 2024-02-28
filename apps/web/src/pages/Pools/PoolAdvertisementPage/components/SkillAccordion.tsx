@@ -58,14 +58,13 @@ const SkillAccordion = ({ poolSkill, required }: SkillAccordionProps) => {
     ? definitionAndLevel.level
     : intl.formatMessage(commonMessages.notFound);
 
-  const skillLevelItem = intl.formatMessage(
-    {
-      defaultMessage: "Level: {skillLevel}",
-      id: "9pMkpd",
-      description: "Level",
-    },
-    { skillLevel },
-  );
+  const skillLevelItem = `${`${
+    intl.formatMessage({
+      defaultMessage: "Level",
+      id: "bVRixs",
+      description: "Label displayed on the classification form level field.",
+    }) + intl.formatMessage(commonMessages.dividingColon)
+  } ${skillLevel}`}`;
 
   const screeningTime =
     poolSkill.skill.category === SkillCategory.Technical
