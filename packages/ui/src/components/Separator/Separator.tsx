@@ -18,33 +18,39 @@ type SeparatorProps = React.ComponentPropsWithoutRef<
 const Separator = React.forwardRef<
   React.ElementRef<typeof SeparatorPrimitive.Root>,
   SeparatorProps
->(({ space = "sm", ...rest }, forwardedRef) => {
-  let spaceStyles: Record<string, string> = {};
-  if (space !== "none") {
-    if (space === "sm") {
-      spaceStyles = { "data-h2-margin": "base(x1)" };
+>(
+  (
+    { space = "md", orientation = "horizontal", decorative = true, ...rest },
+    forwardedRef,
+  ) => {
+    let spaceStyles: Record<string, string> = {};
+    if (space !== "none") {
+      if (space === "sm") {
+        spaceStyles = { "data-h2-margin": "base(x1)" };
+      }
+      if (space === "md") {
+        spaceStyles = { "data-h2-margin": "base(x2)" };
+      }
+      if (space === "lg") {
+        spaceStyles = { "data-h2-margin": "base(x3)" };
+      }
     }
-    if (space === "md") {
-      spaceStyles = { "data-h2-margin": "base(x2)" };
-    }
-    if (space === "lg") {
-      spaceStyles = { "data-h2-margin": "base(x3)" };
-    }
-  }
-  return (
-    <SeparatorPrimitive.Root
-      ref={forwardedRef}
-      data-h2-height="
+    return (
+      <SeparatorPrimitive.Root
+        ref={forwardedRef}
+        {...{ orientation, decorative }}
+        data-h2-height="
       base:selectors[[data-orientation='vertical']](100%)
       base:selectors[[data-orientation='horizontal']](1px)"
-      data-h2-width="
+        data-h2-width="
       base:selectors[[data-orientation='vertical']](1px)
       base:selectors[[data-orientation='horizontal']](100%)"
-      data-h2-background-color="base(gray)"
-      {...spaceStyles}
-      {...rest}
-    />
-  );
-});
+        data-h2-background-color="base(gray)"
+        {...spaceStyles}
+        {...rest}
+      />
+    );
+  },
+);
 
 export default Separator;
