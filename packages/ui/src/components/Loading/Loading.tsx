@@ -1,5 +1,5 @@
 import React from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 
 export interface LoadingProps extends React.HTMLProps<HTMLDivElement> {
   inline?: boolean;
@@ -68,7 +68,7 @@ const Loading = ({
       <div {...inlineWrapper[inline === true ? "inline" : "none"]}>
         <span data-h2-display="base(inline-block)">
           <span data-h2-visually-hidden="base(invisible)">{children}</span>
-          <motion.span
+          <m.span
             data-h2-display="base(block)"
             data-h2-height="base(x1)"
             data-h2-width="base(x1)"

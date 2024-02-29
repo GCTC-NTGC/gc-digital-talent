@@ -2,12 +2,10 @@
   "name": "@gc-digital-talent/ui",
   "license": "AGPL-3.0",
   "version": "1.0.0",
-  "main": "./dist/index.js",
+  "main": "./src/index.tsx",
   "types": "./dist/index.d.ts",
   "sideEffects": [
-    "**/*.css"
-  ],
-  "files": [
+    "**/*.css",
     "dist/**"
   ],
   "scripts": {
