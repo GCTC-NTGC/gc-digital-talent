@@ -6714,10 +6714,6 @@
     "defaultMessage": "Aucun prénom fourni",
     "description": "Fallback for first name value"
   },
-  "bOAF9o": {
-    "defaultMessage": "Ajouter une nouvelle expérience",
-    "description": "Title for adding a new experience"
-  },
   "ZNne50": {
     "defaultMessage": "Enregistrer les notes",
     "description": "Button to save notes for a pool candidate on the view-user page"
@@ -7041,6 +7037,10 @@
   "bOA3EH": {
     "defaultMessage": "Employé du gouvernement",
     "description": "Label for the government employee field"
+  },
+  "bOAF9o": {
+    "defaultMessage": "Ajouter une nouvelle expérience",
+    "description": "Title for adding a new experience"
   },
   "bQtRF+": {
     "defaultMessage": "Réussite",
