@@ -15,7 +15,7 @@
     "@gc-digital-talent/date-helpers": "*",
     "@gc-digital-talent/env": "*",
     "@gc-digital-talent/graphql": "*",
-    "@playwright/test": "^1.41.2",
+    "@playwright/test": "^1.42.0",
     "@types/node": "^20.11.20",
     "axe-core": "^4.8.4",
     "dotenv": "^16.4.5",
