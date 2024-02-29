@@ -41,7 +41,7 @@ type ToastProps = {
   autoClose?: ToastContainerProps["autoClose"];
 };
 
-const Toast = ({ disableTransition, autoClose }: ToastProps) => (
+const Toast = ({ disableTransition, autoClose = 5000 }: ToastProps) => (
   <ToastContainer
     position="bottom-right"
     transition={!disableTransition ? Slide : undefined}
