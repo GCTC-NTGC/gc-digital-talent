@@ -55,10 +55,6 @@ interface UpdateSkillShowcaseProps {
   disabled: boolean;
 }
 
-// To help the URQL cache work
-// Keep the reference stable.
-const context = { additionalTypenames: ["UserSkill"] };
-
 const UpdateSkillShowcase = ({
   userId,
   allSkills,
@@ -109,18 +105,15 @@ const UpdateSkillShowcase = ({
 
     const mutationPromise = userHasSkill
       ? // update existing userSkill
-        executeUpdateMutation(
-          {
-            id: allUserSkills.find(
-              (userSkill) => userSkill.skill.id === values.skill,
-            )?.id,
-            userSkill: {
-              skillLevel: values.skillLevel,
-              whenSkillUsed: values.whenSkillUsed,
-            },
+        executeUpdateMutation({
+          id: allUserSkills.find(
+            (userSkill) => userSkill.skill.id === values.skill,
+          )?.id,
+          userSkill: {
+            skillLevel: values.skillLevel,
+            whenSkillUsed: values.whenSkillUsed,
           },
-          context,
-        ).then((res) => {
+        }).then((res) => {
           if (res.data?.updateUserSkill?.skill.id) {
             handleSuccess();
             // having claimed a user skill in the modal and the mutation successful, update the ranking
@@ -132,17 +125,14 @@ const UpdateSkillShowcase = ({
           throw new Error("No data returned");
         })
       : // otherwise, create new userSkill
-        executeCreateMutation(
-          {
-            userId,
-            skillId,
-            userSkill: {
-              skillLevel: values.skillLevel,
-              whenSkillUsed: values.whenSkillUsed,
-            },
+        executeCreateMutation({
+          userId,
+          skillId,
+          userSkill: {
+            skillLevel: values.skillLevel,
+            whenSkillUsed: values.whenSkillUsed,
           },
-          context,
-        ).then((res) => {
+        }).then((res) => {
           if (res.data?.createUserSkill?.skill.id) {
             handleSuccess();
             return onAddition(
