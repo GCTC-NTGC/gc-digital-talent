@@ -123,12 +123,7 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
             ))
           : null}
       </p>
-      <Separator
-        orientation="horizontal"
-        decorative
-        data-h2-background-color="base(gray)"
-        data-h2-margin="base(x1 0)"
-      />
+      <Separator space="sm" />
       <div
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(row)"

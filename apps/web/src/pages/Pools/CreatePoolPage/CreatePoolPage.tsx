@@ -5,7 +5,7 @@ import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 
 import { toast } from "@gc-digital-talent/toast";
-import { Select, Submit } from "@gc-digital-talent/forms";
+import { Option, Select, Submit } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   errorMessages,
@@ -28,8 +28,6 @@ import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
 import AdminHero from "~/components/Hero/AdminHero";
-
-type Option<V> = { value: V; label: string };
 
 type FormValues = {
   classification: string[];
@@ -93,19 +91,17 @@ export const CreatePoolForm = ({
   };
 
   // recycled from EditPool
-  const classificationOptions: Option<string>[] = classificationsArray
-    .map(({ id, group, level, name }) => ({
+  const classificationOptions: Option[] = classificationsArray.map(
+    ({ id, group, level, name }) => ({
       value: id,
       label: `${group}-0${level} (${getLocalizedName(name, intl)})`,
-    }))
-    .sort((a, b) => (a.label >= b.label ? 1 : -1));
+    }),
+  );
 
-  const teamOptions: Option<string>[] = teamsArray
-    .map(({ id, displayName }) => ({
-      value: id,
-      label: getLocalizedName(displayName, intl),
-    }))
-    .sort((a, b) => (a.label >= b.label ? 1 : -1));
+  const teamOptions: Option[] = teamsArray.map(({ id, displayName }) => ({
+    value: id,
+    label: getLocalizedName(displayName, intl),
+  }));
 
   return (
     <div data-h2-container="base(left, small, 0)">

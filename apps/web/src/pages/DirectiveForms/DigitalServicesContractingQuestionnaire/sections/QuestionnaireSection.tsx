@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import ListBulletIcon from "@heroicons/react/24/outline/ListBulletIcon";
 
-import { Heading, TableOfContents } from "@gc-digital-talent/ui";
+import { Heading, Separator, TableOfContents } from "@gc-digital-talent/ui";
 import { Submit } from "@gc-digital-talent/forms";
 import { Department, Skill } from "@gc-digital-talent/graphql";
 
@@ -47,12 +47,7 @@ const QuestionnaireSection = ({
       <TechnologicalChangeSection />
       <OperationsConsiderationsSection />
       <TalentSourcingDecisionSection />
-      <hr
-        data-h2-margin-top="base(x2)"
-        data-h2-border="base(none)"
-        data-h2-height="base(1px)"
-        data-h2-background-color="base(gray)"
-      />
+      <Separator />
       <Submit data-h2-margin-top="base(x2)" isSubmitting={isSubmitting} />
     </TableOfContents.Section>
   );

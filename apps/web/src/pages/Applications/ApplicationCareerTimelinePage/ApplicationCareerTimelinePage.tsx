@@ -402,12 +402,7 @@ export const ApplicationCareerTimeline = ({
             }}
           />
 
-          <Separator
-            orientation="horizontal"
-            decorative
-            data-h2-background="base(gray)"
-            data-h2-margin="base(x2, 0)"
-          />
+          <Separator />
           <div
             data-h2-display="base(flex)"
             data-h2-gap="base(x1)"

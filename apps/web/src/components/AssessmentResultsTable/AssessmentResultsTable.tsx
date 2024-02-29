@@ -19,10 +19,12 @@ import {
   PoolSkillType,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { Well } from "@gc-digital-talent/ui";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import adminMessages from "~/messages/adminMessages";
 import { getOrderedSteps } from "~/utils/poolCandidate";
+import processMessages from "~/messages/processMessages";
 
 import cells from "../Table/cells";
 import { buildColumn, columnHeader, columnStatus } from "./utils";
@@ -44,6 +46,14 @@ const AssessmentResultsTable = ({
   const assessmentSteps: Array<AssessmentStep> = unpackMaybes(
     poolCandidate?.pool?.assessmentSteps,
   );
+
+  if (!assessmentSteps.length) {
+    return (
+      <Well>
+        <p>{intl.formatMessage(processMessages.noAssessmentPlan)}</p>
+      </Well>
+    );
+  }
 
   // Get pool skills from pool
   const poolSkills: Array<PoolSkill> = unpackMaybes(

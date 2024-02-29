@@ -335,12 +335,7 @@ export const ApplicationSelfDeclaration = ({
               </>
             )}
           </div>
-          <Separator
-            orientation="horizontal"
-            decorative
-            data-h2-background-color="base(gray)"
-            data-h2-margin="base(x2, 0)"
-          />
+          <Separator />
           <HelpLink />
           <p data-h2-font-weight="base(700)" data-h2-margin="base(x1, 0)">
             {intl.formatMessage(

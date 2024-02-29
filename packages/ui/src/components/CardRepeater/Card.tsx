@@ -1,5 +1,5 @@
 import React from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { useIntl } from "react-intl";
 import ArrowDownIcon from "@heroicons/react/20/solid/ArrowDownIcon";
 import ArrowUpIcon from "@heroicons/react/20/solid/ArrowUpIcon";
@@ -115,7 +115,7 @@ const Card = ({ index, edit, remove, error, onMove, children }: CardProps) => {
   }
 
   return (
-    <motion.li
+    <m.li
       layout
       transition={
         shouldReduceMotion
@@ -215,7 +215,7 @@ const Card = ({ index, edit, remove, error, onMove, children }: CardProps) => {
         </Actions>
       </div>
       {children}
-    </motion.li>
+    </m.li>
   );
 };
 
