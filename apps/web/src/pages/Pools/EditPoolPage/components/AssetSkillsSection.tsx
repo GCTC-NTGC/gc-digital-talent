@@ -44,10 +44,7 @@ const AssetSkillsSection = ({
     .filter(notEmpty)
     .filter(
       (poolSkill) =>
-        poolSkill.type === PoolSkillType.Nonessential &&
-        poolSkill.skill &&
-        poolSkill.skill.category &&
-        poolSkill.skill.id,
+        poolSkill.type === PoolSkillType.Nonessential && poolSkill.skill,
     );
 
   const nonessentialSkills: (Skill & {

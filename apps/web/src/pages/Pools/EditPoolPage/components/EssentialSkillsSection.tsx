@@ -46,10 +46,7 @@ const EssentialSkillsSection = ({
     .filter(notEmpty)
     .filter(
       (poolSkill) =>
-        poolSkill.type === PoolSkillType.Essential &&
-        poolSkill.skill &&
-        poolSkill.skill.category &&
-        poolSkill.skill.id,
+        poolSkill.type === PoolSkillType.Essential && poolSkill.skill,
     );
 
   const essentialSkills: (Skill & {
