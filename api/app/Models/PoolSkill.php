@@ -34,14 +34,13 @@ class PoolSkill extends Model
         parent::boot();
 
         static::created(function (PoolSkill $poolSkill) {
-            $pool = Pool::where('id', $poolSkill->pool_id)->sole();
+            $pool = $poolSkill->pool;
             $screeningStep = $pool->assessmentSteps()->firstOrCreate([
                 'type' => AssessmentStepType::APPLICATION_SCREENING->name,
                 'sort_order' => 1,
             ]);
 
-            $technicalSkills = $pool->poolSkills()->get()->filter(function (PoolSkill $poolSkill) {
-                $poolSkill->load('skill');
+            $technicalSkills = $pool->poolSkills()->with('skill')->get()->filter(function (PoolSkill $poolSkill) {
 
                 return $poolSkill->skill->category === SkillCategory::TECHNICAL->name;
             });
@@ -56,8 +55,7 @@ class PoolSkill extends Model
                 'sort_order' => 1,
             ]);
 
-            $technicalSkills = $pool->poolSkills()->get()->filter(function (PoolSkill $poolSkill) {
-                $poolSkill->load('skill');
+            $technicalSkills = $pool->poolSkills()->with('skill')->get()->filter(function (PoolSkill $poolSkill) {
 
                 return $poolSkill->skill->category === SkillCategory::TECHNICAL->name;
             });
