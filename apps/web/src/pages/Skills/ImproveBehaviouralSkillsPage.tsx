@@ -21,10 +21,6 @@ import {
 
 const MAX_SKILL_COUNT = 3;
 
-const context: Partial<OperationContext> = {
-  additionalTypenames: ["UserSkill"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
-};
-
 interface ImproveBehaviouralSkillsProps {
   skills: Skill[];
   userSkills: UserSkill[];
@@ -123,15 +119,12 @@ const ImproveBehaviouralSkills = ({
     newSkillId: string,
   ): Promise<void> => {
     const mergedSkillIds = [...initialSkillRanking, newSkillId];
-    return executeUpdateUserSkillRankingsMutation(
-      {
-        userId: userAuthInfo?.id,
-        userSkillRanking: {
-          improveBehaviouralSkillsRanked: mergedSkillIds,
-        },
+    return executeUpdateUserSkillRankingsMutation({
+      userId: userAuthInfo?.id,
+      userSkillRanking: {
+        improveBehaviouralSkillsRanked: mergedSkillIds,
       },
-      context,
-    ).then((res) => {
+    }).then((res) => {
       if (res.data?.updateUserSkillRankings) {
         return;
       }
@@ -154,6 +147,10 @@ const ImproveBehaviouralSkills = ({
       disabled={stale}
     />
   );
+};
+
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["UserSkill"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
 };
 
 const ImproveBehaviouralSkillsPage = () => {

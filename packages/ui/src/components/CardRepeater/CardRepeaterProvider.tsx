@@ -27,6 +27,7 @@ export const CardRepeaterProvider = <T extends BaseItem>({
   removeDisabledIndexes,
   max,
   hideIndex,
+  // event fired only after items were reordered
   onItemsMoved,
 }: CardRepeaterProviderProps<T>) => {
   const [items, setItems] = useControllableState<ItemWithId<T>[]>({

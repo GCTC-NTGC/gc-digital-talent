@@ -14,13 +14,17 @@ import {
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { UpdateUserSkillRankingsInput } from "@gc-digital-talent/graphql";
+import {
+  UpdateUserSkillRankingsInput,
+  Skill,
+  UserSkill,
+  Scalars,
+} from "@gc-digital-talent/graphql";
 
-import { Skill, UserSkill, Scalars } from "~/api/generated";
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
-import { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
 import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
+import { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
 
 import {
   CreateUserSkill_Mutation,
@@ -71,7 +75,6 @@ const UpdateSkillShowcase = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const addId = React.useId();
-
   const [isBusy, setIsBusy] = React.useState<boolean>(false);
 
   const [, executeCreateMutation] = useMutation(CreateUserSkill_Mutation);
