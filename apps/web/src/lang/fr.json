@@ -9126,6 +9126,10 @@
     "defaultMessage": "2. <strong>Balayez le code QR</strong> ou <strong>saisissez votre code secret</strong> au moyen de votre application d’authentification à deux facteurs.",
     "description": "Text for second sign up -> mfa step."
   },
+  "mYnQH4": {
+    "defaultMessage": "Ce processus n'a pas de plan d'évaluation.",
+    "description": "A process has no assessment plan"
+  },
   "mYuXWF": {
     "defaultMessage": "utilisateurs_{date}.csv",
     "description": "Filename for user CSV file download"
@@ -10257,6 +10261,10 @@
   "tgGPyx": {
     "defaultMessage": "Le questionnaire rempli doit être soumis au moment où un contrat de services numériques (y compris la commande d’un instrument contractuel établi) est soumis aux autorités ministérielles chargées de l’approvisionnement aux fins de traitement.",
     "description": "Paragraph three of the _requirements_ section of the _digital services contracting questionnaire_"
+  },
+  "tgtpgb": {
+    "defaultMessage": "Vous pouvez visualiser vos candidat(e)s sur la page <a>Placement de talents</a>.",
+    "description": "Message to direct users to the talent placement page"
   },
   "thgFzS": {
     "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les gestionnaires (texte clair)",
