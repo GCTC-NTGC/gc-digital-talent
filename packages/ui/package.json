@@ -42,7 +42,7 @@
     "@radix-ui/react-toggle": "^1.0.2",
     "@radix-ui/react-toggle-group": "^1.0.3",
     "chromatic": "^11.0.0",
-    "framer-motion": "^11.0.5",
+    "framer-motion": "^11.0.7",
     "lodash": "4.17.21",
     "react-csv-downloader": "^3.1.0",
     "react-dom": "^18.2.0",
