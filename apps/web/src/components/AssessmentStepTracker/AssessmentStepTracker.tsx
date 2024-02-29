@@ -12,6 +12,7 @@ import { AssessmentStep, Pool } from "@gc-digital-talent/graphql";
 
 import applicationMessages from "~/messages/applicationMessages";
 import useRoutes from "~/hooks/useRoutes";
+import processMessages from "~/messages/processMessages";
 
 import ResultsDetails from "./ResultsDetails";
 import AssessmentResults from "./AssessmentResults";
@@ -87,22 +88,11 @@ const AssessmentStepTracker = ({ pool }: AssessmentStepTrackerProps) => {
       ) : (
         <Well>
           <p>
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "This process does not have an assessment plan. You can view your candidates on the <a>Talent placement</a> page.",
-                id: "C42d2P",
-                description:
-                  "Message displayed when a process has no assessment plan",
-              },
-              {
-                a: (chunks: React.ReactNode) =>
-                  talentPlacementLink(
-                    chunks,
-                    paths.poolCandidateTable(pool.id),
-                  ),
-              },
-            )}
+            {intl.formatMessage(processMessages.noAssessmentPlan)}{" "}
+            {intl.formatMessage(processMessages.viewTalentPlacement, {
+              a: (chunks: React.ReactNode) =>
+                talentPlacementLink(chunks, paths.poolCandidateTable(pool.id)),
+            })}
           </p>
         </Well>
       )}

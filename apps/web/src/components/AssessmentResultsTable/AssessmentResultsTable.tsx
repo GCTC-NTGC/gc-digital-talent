@@ -24,6 +24,7 @@ import { Well } from "@gc-digital-talent/ui";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import adminMessages from "~/messages/adminMessages";
 import { getOrderedSteps } from "~/utils/poolCandidate";
+import processMessages from "~/messages/processMessages";
 
 import cells from "../Table/cells";
 import { buildColumn, columnHeader, columnStatus } from "./utils";
@@ -49,14 +50,7 @@ const AssessmentResultsTable = ({
   if (!assessmentSteps.length) {
     return (
       <Well>
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "This process does not have an assessment plan.",
-            id: "jz53Y9",
-            description:
-              "Message for when an applicants process does not have an assessment plan",
-          })}
-        </p>
+        <p>{intl.formatMessage(processMessages.noAssessmentPlan)}</p>
       </Well>
     );
   }

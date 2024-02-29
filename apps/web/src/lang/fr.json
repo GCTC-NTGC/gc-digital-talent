@@ -2543,10 +2543,6 @@
     "defaultMessage": "Version",
     "description": "Label for the specific version number of the site"
   },
-  "C42d2P": {
-    "defaultMessage": "This process does not have an assessment plan. You can view your candidates on the <a>Talent placement</a> page.Ce processus n'a pas de plan d'évaluation. Vous pouvez visualiser vos candidat(e)s sur la page <a>Placement de talents</a>.",
-    "description": "Message displayed when a process has no assessment plan"
-  },
   "C43ZgD": {
     "defaultMessage": "La plupart des offres d’emploi ne nécessiteront pas de note spéciale. Cette section est réservée à des circonstances particulières. Cette note spéciale peut notamment servir à indiquer si un processus peut être utilisé pour embaucher dans plusieurs classifications ou non et si le processus est limité aux candidatures d’un groupe visé par l’équité en matière d’emploi spécifique.",
     "description": "Describes the 'special note' section of a process' advertisement."
@@ -8758,10 +8754,6 @@
     "defaultMessage": "Ce que nous pouvons faire pour vous",
     "description": "Heading for the manager opportunities"
   },
-  "jz53Y9": {
-    "defaultMessage": "Ce processus n'a pas de plan d'évaluation.",
-    "description": "Message for when an applicants process does not have an assessment plan"
-  },
   "k1uZ7o": {
     "defaultMessage": "Une cote de fiabilité valide",
     "description": "Item 3 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section"
@@ -9185,6 +9177,10 @@
   "mVqKm+": {
     "defaultMessage": "2. <strong>Balayez le code QR</strong> ou <strong>saisissez votre code secret</strong> au moyen de votre application d’authentification à deux facteurs.",
     "description": "Text for second sign up -> mfa step."
+  },
+  "mYnQH4": {
+    "defaultMessage": "Ce processus n'a pas de plan d'évaluation.",
+    "description": "A process has no assessment plan"
   },
   "mYuXWF": {
     "defaultMessage": "utilisateurs_{date}.csv",
@@ -10325,6 +10321,10 @@
   "tgGPyx": {
     "defaultMessage": "Le questionnaire rempli doit être soumis au moment où un contrat de services numériques (y compris la commande d’un instrument contractuel établi) est soumis aux autorités ministérielles chargées de l’approvisionnement aux fins de traitement.",
     "description": "Paragraph three of the _requirements_ section of the _digital services contracting questionnaire_"
+  },
+  "tgtpgb": {
+    "defaultMessage": "Vous pouvez visualiser vos candidat(e)s sur la page <a>Placement de talents</a>.",
+    "description": "Message to direct users to the talent placement page"
   },
   "thgFzS": {
     "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les gestionnaires (texte clair)",
