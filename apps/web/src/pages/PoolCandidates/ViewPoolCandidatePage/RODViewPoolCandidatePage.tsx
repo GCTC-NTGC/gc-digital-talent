@@ -3,7 +3,7 @@ import { defineMessage, useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import HandRaisedIcon from "@heroicons/react/24/outline/HandRaisedIcon";
 import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTriangleIcon";
-import { useQuery } from "urql";
+import { OperationContext, useQuery } from "urql";
 
 import {
   NotFound,
@@ -923,6 +923,10 @@ export const ViewPoolCandidate = ({
   );
 };
 
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["AssessmentResult"],
+};
+
 type RouteParams = {
   poolId: Scalars["ID"]["output"];
   poolCandidateId: Scalars["ID"]["output"];
@@ -933,6 +937,7 @@ export const RODViewPoolCandidatePage = () => {
   const { poolCandidateId } = useRequiredParams<RouteParams>("poolCandidateId");
   const [{ data, fetching, error }] = useQuery({
     query: PoolCandidate_SnapshotQuery,
+    context,
     variables: { poolCandidateId },
   });
 
