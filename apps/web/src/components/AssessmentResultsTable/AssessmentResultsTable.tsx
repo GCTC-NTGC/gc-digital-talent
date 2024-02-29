@@ -19,6 +19,7 @@ import {
   PoolSkillType,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { Well } from "@gc-digital-talent/ui";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import adminMessages from "~/messages/adminMessages";
@@ -44,6 +45,21 @@ const AssessmentResultsTable = ({
   const assessmentSteps: Array<AssessmentStep> = unpackMaybes(
     poolCandidate?.pool?.assessmentSteps,
   );
+
+  if (!assessmentSteps.length) {
+    return (
+      <Well>
+        <p>
+          {intl.formatMessage({
+            defaultMessage: "This process does not have an assessment plan.",
+            id: "jz53Y9",
+            description:
+              "Message for when an applicants process does not have an assessment plan",
+          })}
+        </p>
+      </Well>
+    );
+  }
 
   // Get pool skills from pool
   const poolSkills: Array<PoolSkill> = unpackMaybes(

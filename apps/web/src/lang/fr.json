@@ -2543,6 +2543,10 @@
     "defaultMessage": "Version",
     "description": "Label for the specific version number of the site"
   },
+  "C42d2P": {
+    "defaultMessage": "This process does not have an assessment plan. You can view your candidates on the <a>Talent placement</a> page.Ce processus n'a pas de plan d'évaluation. Vous pouvez visualiser vos candidat(e)s sur la page <a>Placement de talents</a>.",
+    "description": "Message displayed when a process has no assessment plan"
+  },
   "C43ZgD": {
     "defaultMessage": "La plupart des offres d’emploi ne nécessiteront pas de note spéciale. Cette section est réservée à des circonstances particulières. Cette note spéciale peut notamment servir à indiquer si un processus peut être utilisé pour embaucher dans plusieurs classifications ou non et si le processus est limité aux candidatures d’un groupe visé par l’équité en matière d’emploi spécifique.",
     "description": "Describes the 'special note' section of a process' advertisement."
@@ -8753,6 +8757,10 @@
   "jz/FoH": {
     "defaultMessage": "Ce que nous pouvons faire pour vous",
     "description": "Heading for the manager opportunities"
+  },
+  "jz53Y9": {
+    "defaultMessage": "Ce processus n'a pas de plan d'évaluation.",
+    "description": "Message for when an applicants process does not have an assessment plan"
   },
   "k1uZ7o": {
     "defaultMessage": "Une cote de fiabilité valide",

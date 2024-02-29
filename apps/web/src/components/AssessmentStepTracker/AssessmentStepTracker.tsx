@@ -1,7 +1,7 @@
 import React from "react";
 import { IntlShape, useIntl } from "react-intl";
 
-import { Board } from "@gc-digital-talent/ui";
+import { Board, Link, Well } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   getAssessmentStepType,
@@ -11,6 +11,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { AssessmentStep, Pool } from "@gc-digital-talent/graphql";
 
 import applicationMessages from "~/messages/applicationMessages";
+import useRoutes from "~/hooks/useRoutes";
 
 import ResultsDetails from "./ResultsDetails";
 import AssessmentResults from "./AssessmentResults";
@@ -22,6 +23,9 @@ import {
 } from "./utils";
 import Filters from "./Filters";
 
+const talentPlacementLink = (chunks: React.ReactNode, href: string) => (
+  <Link href={href}>{chunks}</Link>
+);
 export interface AssessmentStepTrackerProps {
   pool: Pool;
 }
@@ -40,6 +44,7 @@ const generateStepName = (step: AssessmentStep, intl: IntlShape): string => {
 
 const AssessmentStepTracker = ({ pool }: AssessmentStepTrackerProps) => {
   const intl = useIntl();
+  const paths = useRoutes();
   const [filters, setFilters] = React.useState<ResultFilters>(defaultFilters);
   const steps = unpackMaybes(pool.assessmentSteps);
   const candidates = unpackMaybes(pool.poolCandidates);
@@ -49,35 +54,58 @@ const AssessmentStepTracker = ({ pool }: AssessmentStepTrackerProps) => {
   return (
     <>
       <Filters onFiltersChange={setFilters} />
-      <Board.Root>
-        {filteredSteps.map(({ step, resultCounts, results }, index) => {
-          const stepName = generateStepName(step, intl);
-          const stepNumber = intl.formatMessage(
-            applicationMessages.numberedStep,
-            {
-              stepOrdinal: index + 1,
-            },
-          );
+      {steps.length ? (
+        <Board.Root>
+          {filteredSteps.map(({ step, resultCounts, results }, index) => {
+            const stepName = generateStepName(step, intl);
+            const stepNumber = intl.formatMessage(
+              applicationMessages.numberedStep,
+              {
+                stepOrdinal: index + 1,
+              },
+            );
 
-          return (
-            <Board.Column key={step.id}>
-              <Board.ColumnHeader prefix={stepNumber}>
-                {stepName}
-              </Board.ColumnHeader>
-              <ResultsDetails {...{ resultCounts, step }} />
-              <AssessmentResults
-                stepType={step.type}
-                stepName={
-                  stepNumber +
-                  intl.formatMessage(commonMessages.dividingColon) +
-                  stepName
-                }
-                {...{ results }}
-              />
-            </Board.Column>
-          );
-        })}
-      </Board.Root>
+            return (
+              <Board.Column key={step.id}>
+                <Board.ColumnHeader prefix={stepNumber}>
+                  {stepName}
+                </Board.ColumnHeader>
+                <ResultsDetails {...{ resultCounts, step }} />
+                <AssessmentResults
+                  stepType={step.type}
+                  stepName={
+                    stepNumber +
+                    intl.formatMessage(commonMessages.dividingColon) +
+                    stepName
+                  }
+                  {...{ results }}
+                />
+              </Board.Column>
+            );
+          })}
+        </Board.Root>
+      ) : (
+        <Well>
+          <p>
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "This process does not have an assessment plan. You can view your candidates on the <a>Talent placement</a> page.",
+                id: "C42d2P",
+                description:
+                  "Message displayed when a process has no assessment plan",
+              },
+              {
+                a: (chunks: React.ReactNode) =>
+                  talentPlacementLink(
+                    chunks,
+                    paths.poolCandidateTable(pool.id),
+                  ),
+              },
+            )}
+          </p>
+        </Well>
+      )}
     </>
   );
 };
