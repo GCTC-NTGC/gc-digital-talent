@@ -14,7 +14,7 @@ import {
   enumToOptions,
   objectsToSortedOptions,
 } from "@gc-digital-talent/forms";
-import { Heading, Link, Pending } from "@gc-digital-talent/ui";
+import { Heading, Link, Pending, Separator } from "@gc-digital-talent/ui";
 import { errorMessages, getSearchRequestReason } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
@@ -516,12 +516,7 @@ export const RequestForm = ({
             filters={applicantFilterInputToType}
             selectedClassifications={selectedClassifications}
           />
-          <hr
-            data-h2-height="base(1px)"
-            data-h2-border="base(none)"
-            data-h2-background="base(gray)"
-            data-h2-margin="base(x1, 0, x2, 0)"
-          />
+          <Separator />
           <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x1)">
             {intl.formatMessage(
               {
