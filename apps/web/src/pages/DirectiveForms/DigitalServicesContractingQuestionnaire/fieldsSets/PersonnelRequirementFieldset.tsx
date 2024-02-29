@@ -248,12 +248,7 @@ const PersonnelRequirementFieldset = ({
                   )}
                 </Button>
               </div>
-              <Separator
-                orientation="horizontal"
-                decorative
-                data-h2-background-color="base(gray.lighter)"
-                data-h2-margin="base(x.5 0)"
-              />
+              <Separator space="xs" />
             </div>
           </div>
         );

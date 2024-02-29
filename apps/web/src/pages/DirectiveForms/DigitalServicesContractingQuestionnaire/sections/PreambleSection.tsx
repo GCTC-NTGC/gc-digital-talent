@@ -309,12 +309,7 @@ const PreambleSection = () => {
               </Button>
             </Collapsible.Trigger>
             <Collapsible.Content data-h2-padding-left="base(x1.5)">
-              <Separator
-                orientation="horizontal"
-                decorative
-                data-h2-background-color="base(gray.lighter)"
-                data-h2-margin="base(x1 0)"
-              />
+              <Separator space="sm" />
               <p>
                 {intl.formatMessage({
                   defaultMessage:

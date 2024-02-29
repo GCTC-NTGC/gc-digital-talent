@@ -325,12 +325,7 @@ export const ApplicationSkills = ({
       ) : null}
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(handleSubmit)}>
-          <Separator
-            orientation="horizontal"
-            decorative
-            data-h2-background="base(gray)"
-            data-h2-margin="base(x2, 0)"
-          />
+          <Separator />
           {/* -x.25 removes stray gap from flex layout */}
           <div data-h2-margin="base(-x.25 0 x1 0)">
             <Input

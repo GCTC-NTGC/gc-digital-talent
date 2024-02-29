@@ -34,13 +34,7 @@ export const ViewTeamContent = ({ team }: ViewTeamContentProps) => {
     <>
       <SEO title={pageTitle} />
       <ViewTeam team={team} />
-      <Separator
-        decorative
-        data-h2-margin="base(x2, 0, 0, 0)"
-        data-h2-height="base(1px)"
-        data-h2-background-color="base(black.2)"
-        data-h2-border="base(none)"
-      />
+      <Separator data-h2-margin="base(x2, 0, 0, 0)" />
     </>
   );
 };

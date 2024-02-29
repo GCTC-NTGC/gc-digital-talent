@@ -54,11 +54,7 @@ const NoResults = () => {
         })}
       </p>
 
-      <Separator
-        orientation="horizontal"
-        data-h2-margin="base(x1 0)"
-        data-h2-background-color="base(gray.lighter)"
-      />
+      <Separator space="sm" />
 
       <Button
         color="secondary"

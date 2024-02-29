@@ -29,12 +29,7 @@ const SkillExperiences = ({ skill, experiences }: SkillExperiencesProps) => {
           {getLocalizedName(skill.description, intl)}
         </p>
       )}
-      <Separator
-        data-h2-margin="base(x1 0)"
-        data-h2-background-color="base(tertiary)"
-        orientation="horizontal"
-        decorative
-      />
+      <Separator data-h2-background-color="base(tertiary)" space="sm" />
       {skillExperiences.length ? (
         <div
           data-h2-display="base(flex)"
