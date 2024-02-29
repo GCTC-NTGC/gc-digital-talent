@@ -8,10 +8,13 @@ import {
   getTechnicalSkillLevel,
 } from "@gc-digital-talent/i18n";
 import { CardRepeater, useCardRepeaterContext } from "@gc-digital-talent/ui";
-import { UpdateUserSkillRankingsInput } from "@gc-digital-talent/graphql";
+import {
+  UpdateUserSkillRankingsInput,
+  Skill,
+  SkillCategory,
+} from "@gc-digital-talent/graphql";
 import { useAuthorization } from "@gc-digital-talent/auth";
 
-import { Skill, SkillCategory } from "~/api/generated";
 import { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
 
 import RemoveDialog from "./RemoveDialog";
