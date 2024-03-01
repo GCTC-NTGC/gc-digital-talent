@@ -142,8 +142,8 @@ class DirectivesTest extends TestCase
         ]);
     }
 
-    // Ensure the canOnParent custom directive works as expected
-    public function testCanOnParent(): void
+    // Ensure canRoot directive works as expected.
+    public function testCanRoot(): void
     {
         $admin = User::factory()
             ->asApplicant()
@@ -188,7 +188,7 @@ class DirectivesTest extends TestCase
         }
         type User {
             id: ID
-            poolCandidates: [PoolCandidate] @hasMany @canOnParent(ability: "view")
+            poolCandidates: [PoolCandidate] @hasMany @canRoot(ability: "view")
         }
         type Query {
             user: User @mock

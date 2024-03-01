@@ -211,8 +211,8 @@ type Pool {
   isComplete: Boolean
   assessmentSteps: [AssessmentStep]
     @hasMany
-    @canOnParent(ability: "viewAssessmentPlan")
-  poolSkills: [PoolSkill] @hasMany @canOnParent(ability: "viewAssessmentPlan")
+    @canRoot(ability: "viewAssessmentPlan")
+  poolSkills: [PoolSkill] @hasMany @canRoot(ability: "viewAssessmentPlan")
 }
 
 type GeneralQuestionResponse {
@@ -237,7 +237,7 @@ type AssessmentStep {
   poolSkills: [PoolSkill] @belongsToMany
   assessmentResults: [AssessmentResult]
     @hasMany
-    @canOnParent(ability: "viewAssessmentResults")
+    @canRoot(ability: "viewAssessmentResults")
   screeningQuestions: [ScreeningQuestion] @with(relation: "screeningQuestions")
 }
 
@@ -278,18 +278,18 @@ type PoolCandidate {
 
   status: PoolCandidateStatus
     @rename(attribute: "pool_candidate_status")
-    @canOnParent(ability: "viewStatus")
+    @canRoot(ability: "viewStatus")
   statusWeight: Int
     @rename(attribute: "status_weight")
-    @canOnParent(ability: "viewStatus")
-  notes: String @canOnParent(ability: "viewNotes")
+    @canRoot(ability: "viewStatus")
+  notes: String @canRoot(ability: "viewNotes")
   archivedAt: DateTime @rename(attribute: "archived_at")
   submittedAt: DateTime @rename(attribute: "submitted_at")
   suspendedAt: DateTime @rename(attribute: "suspended_at")
   deletedDate: DateTime @rename(attribute: "deleted_at")
   isBookmarked: Boolean
     @rename(attribute: "is_bookmarked")
-    @canOnParent(ability: "viewNotes")
+    @canRoot(ability: "viewNotes")
 
   profileSnapshot: JSON @rename(attribute: "profile_snapshot")
   signature: String
@@ -307,7 +307,7 @@ type PoolCandidate {
   # record of decision
   assessmentResults: [AssessmentResult]
     @hasMany
-    @canOnParent(ability: "viewAssessmentResults")
+    @canRoot(ability: "viewAssessmentResults")
 }
 
 type PoolCandidateWithSkillCount {
@@ -350,7 +350,7 @@ type Team {
   pools: [Pool] @hasMany @canResolved(ability: "view")
   roleAssignments: [RoleAssignment!]
     @hasMany
-    @canOnParent(ability: "viewTeamMembers")
+    @canRoot(ability: "viewTeamMembers")
 }
 
 type Role {
