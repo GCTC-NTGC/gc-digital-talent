@@ -401,13 +401,13 @@ extend type Mutation {
   ): DigitalContractingQuestionnaire
     @update
     @guard
-    @can(ability: "update", find: "id")
+    @canFind(ability: "update", find: "id")
   deleteDigitalContractingQuestionnaire(
     id: UUID! @whereKey
   ): DigitalContractingQuestionnaire
     @delete
     @guard
-    @can(ability: "delete", find: "id")
+    @canFind(ability: "delete", find: "id")
 
   createDepartmentSpecificRecruitmentProcessForm(
     departmentSpecificRecruitmentProcessForm: DepartmentSpecificRecruitmentProcessFormInput!
@@ -423,11 +423,11 @@ extend type Mutation {
   ): DepartmentSpecificRecruitmentProcessForm
     @update
     @guard
-    @can(ability: "update", find: "id")
+    @canFind(ability: "update", find: "id")
   deleteDepartmentSpecificRecruitmentProcessForm(
     id: UUID! @whereKey
   ): DepartmentSpecificRecruitmentProcessForm
     @delete
     @guard
-    @can(ability: "delete", find: "id")
+    @canFind(ability: "delete", find: "id")
 }
