@@ -1,5 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import {
+  ColumnDef,
+  PaginationState,
+  createColumnHelper,
+} from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { OperationContext, useQuery } from "urql";
 import { useLocation } from "react-router-dom";
@@ -64,10 +68,16 @@ const columnHelper = createColumnHelper<Skill>();
 interface SkillTableProps {
   skills: Array<Skill>;
   title: string;
+  paginationState?: PaginationState;
   addButton?: boolean;
 }
 
-export const SkillTable = ({ skills, title, addButton }: SkillTableProps) => {
+export const SkillTable = ({
+  skills,
+  title,
+  paginationState,
+  addButton,
+}: SkillTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const searchParams = new URLSearchParams(window.location.search);
@@ -177,10 +187,7 @@ export const SkillTable = ({ skills, title, addButton }: SkillTableProps) => {
         internal: true,
         total: dataState.length,
         pageSizes: [10, 20, 50],
-        initialState: {
-          pageIndex: INITIAL_STATE.paginationState.pageIndex,
-          pageSize: 20,
-        },
+        initialState: paginationState ?? INITIAL_STATE.paginationState,
       }}
       sort={{
         internal: true,
@@ -266,9 +273,11 @@ const context: Partial<OperationContext> = {
 
 const SkillTableApi = ({
   title,
+  paginationState,
   addButton,
 }: {
   title: string;
+  paginationState?: PaginationState;
   addButton?: boolean;
 }) => {
   const [{ data, fetching, error }] = useQuery({
@@ -282,6 +291,7 @@ const SkillTableApi = ({
         skills={unpackMaybes(data?.skills)}
         title={title}
         addButton={addButton}
+        paginationState={paginationState}
       />
     </Pending>
   );

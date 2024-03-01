@@ -4,6 +4,7 @@ import { MessageDescriptor, defineMessage, useIntl } from "react-intl";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import Hero from "~/components/Hero";
+import { INITIAL_STATE } from "~/components/Table/ResponsiveTable/constants";
 
 import SkillTableApi from "./components/SkillTable";
 
@@ -52,7 +53,10 @@ export const SkillPage = () => {
         data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
         data-h2-margin="base(x3)"
       >
-        <SkillTableApi title={formattedPageTitle} />
+        <SkillTableApi
+          title={formattedPageTitle}
+          paginationState={{ ...INITIAL_STATE.paginationState, pageSize: 20 }}
+        />
       </section>
     </>
   );
