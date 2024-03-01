@@ -97,7 +97,7 @@ type User {
   # Pool info
   poolCandidates: [PoolCandidate]
     @hasMany(scopes: ["authorizedToView"])
-    @can(ability: "view", resolved: true) # PoolsCandidate objects associate the user with a pool
+    @canResolved(ability: "view") # PoolsCandidate objects associate the user with a pool
   # Experiences
   experiences: [Experience]
     @with(relation: "awardExperiences")
@@ -164,9 +164,7 @@ type GeneralQuestion {
 
 type ScreeningQuestion {
   id: ID!
-  assessmentStep: AssessmentStep
-    @belongsTo
-    @can(ability: "view", resolved: true)
+  assessmentStep: AssessmentStep @belongsTo @canResolved(ability: "view")
   question: LocalizedString
   sortOrder: Int @rename(attribute: "sort_order")
 }
@@ -181,7 +179,7 @@ type Pool {
     @rename(attribute: "operational_requirements")
   poolCandidates: [PoolCandidate]
     @hasMany(relation: "publishedPoolCandidates", scopes: ["authorizedToView"])
-    @can(ability: "view", resolved: true)
+    @canResolved(ability: "view")
     @guard
   keyTasks: LocalizedString @rename(attribute: "key_tasks")
   yourImpact: LocalizedString @rename(attribute: "your_impact")
@@ -221,7 +219,7 @@ type GeneralQuestionResponse {
   id: ID!
   answer: String
   generalQuestion: GeneralQuestion @belongsTo
-  poolCandidate: PoolCandidate @belongsTo @can(ability: "view", resolved: true)
+  poolCandidate: PoolCandidate @belongsTo @canResolved(ability: "view")
 }
 
 type ScreeningQuestionResponse {
@@ -271,8 +269,8 @@ type PoolSkill {
 
 type PoolCandidate {
   id: ID!
-  pool: Pool! @belongsTo @can(ability: "view", resolved: true)
-  user: User! @belongsTo(relation: "user") @can(ability: "view", resolved: true)
+  pool: Pool! @belongsTo @canResolved(ability: "view")
+  user: User! @belongsTo(relation: "user") @canResolved(ability: "view")
   # cmoIdentifier can be an arbitrary string used to relate this candidate to an external database.
   cmoIdentifier: ID @rename(attribute: "cmo_identifier")
   # Expiry date for this candidate being in the pool.
@@ -349,7 +347,7 @@ type Team {
   description: LocalizedString
   departments: [Department] @belongsToMany
   contactEmail: Email @rename(attribute: "contact_email")
-  pools: [Pool] @hasMany @can(ability: "view", resolved: true)
+  pools: [Pool] @hasMany @canResolved(ability: "view")
   roleAssignments: [RoleAssignment!]
     @hasMany
     @canOnParent(ability: "viewTeamMembers")
@@ -400,7 +398,7 @@ type PoolCandidateFilter {
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   workRegions: [WorkRegion] @rename(attribute: "work_regions")
-  pools: [Pool] @belongsToMany @can(ability: "view", resolved: true)
+  pools: [Pool] @belongsToMany @canResolved(ability: "view")
 }
 
 # ApplicantFilter only includes the fields which Talent Seekers can use to search for candidates.
@@ -419,7 +417,7 @@ type ApplicantFilter {
   # request creation connects to qualifiedClassifications
   qualifiedClassifications: [Classification] @belongsToMany # Filters applicants based on the classifications pools they've qualified in.
   qualifiedStreams: [PoolStream] @rename(attribute: "qualified_streams") # Filters applicants based on the streams of the pools they've qualified in.
-  pools: [Pool] @belongsToMany @can(ability: "view", resolved: true)
+  pools: [Pool] @belongsToMany @canResolved(ability: "view")
 }
 
 type PoolCandidateSearchRequest {
@@ -467,7 +465,7 @@ type Skill {
 
 type UserSkill {
   id: ID!
-  user: User! @belongsTo @can(ability: "view", resolved: true)
+  user: User! @belongsTo @canResolved(ability: "view")
   skill: Skill! @belongsTo
   skillLevel: SkillLevel @rename(attribute: "skill_level")
   whenSkillUsed: WhenSkillUsed @rename(attribute: "when_skill_used")
@@ -489,7 +487,7 @@ type SkillKeywords {
 
 interface Experience {
   id: ID!
-  user: User! @belongsTo(relation: "user") @can(ability: "view", resolved: true)
+  user: User! @belongsTo(relation: "user") @canResolved(ability: "view")
   details: String
   skills: [Skill!] @morphToMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
@@ -500,7 +498,7 @@ interface Experience {
 
 type WorkExperience implements Experience {
   id: ID!
-  user: User! @belongsTo(relation: "user") @can(ability: "view", resolved: true)
+  user: User! @belongsTo(relation: "user") @canResolved(ability: "view")
   role: String
   organization: String
   division: String
@@ -515,7 +513,7 @@ type WorkExperience implements Experience {
 }
 type PersonalExperience implements Experience {
   id: ID!
-  user: User! @belongsTo(relation: "user") @can(ability: "view", resolved: true)
+  user: User! @belongsTo(relation: "user") @canResolved(ability: "view")
   title: String
   description: String
   startDate: Date @rename(attribute: "start_date")
@@ -529,7 +527,7 @@ type PersonalExperience implements Experience {
 }
 type CommunityExperience implements Experience {
   id: ID!
-  user: User! @belongsTo(relation: "user") @can(ability: "view", resolved: true)
+  user: User! @belongsTo(relation: "user") @canResolved(ability: "view")
   title: String
   organization: String
   project: String
@@ -544,7 +542,7 @@ type CommunityExperience implements Experience {
 }
 type EducationExperience implements Experience {
   id: ID!
-  user: User! @belongsTo(relation: "user") @can(ability: "view", resolved: true)
+  user: User! @belongsTo(relation: "user") @canResolved(ability: "view")
   institution: String
   areaOfStudy: String @rename(attribute: "area_of_study")
   thesisTitle: String @rename(attribute: "thesis_title")
@@ -561,7 +559,7 @@ type EducationExperience implements Experience {
 }
 type AwardExperience implements Experience {
   id: ID!
-  user: User! @belongsTo(relation: "user") @can(ability: "view", resolved: true)
+  user: User! @belongsTo(relation: "user") @canResolved(ability: "view")
   title: String
   issuedBy: String @rename(attribute: "issued_by")
   awardedDate: Date @rename(attribute: "awarded_date")
@@ -669,7 +667,7 @@ input PoolCandidatePoolNameOrderByInput {
 }
 
 type CandidateSearchPoolResult {
-  pool: Pool! @can(ability: "view", resolved: true)
+  pool: Pool! @canResolved(ability: "view")
   candidateCount: Int! @rename(attribute: "candidate_count")
 }
 
@@ -700,7 +698,7 @@ type Query {
     @orderBy(column: "created_at", direction: DESC)
     @paginate(defaultCount: 10, maxCount: 1000, scopes: ["authorizedToView"])
     @guard
-    @can(ability: "view", resolved: true)
+    @canResolved(ability: "view")
   applicants(includeIds: [ID]! @in(key: "id")): [User]!
     @all(model: "User")
     @guard
@@ -734,7 +732,7 @@ type Query {
     @can(ability: "viewAnyPublished", model: "Pool")
   pools: [Pool]!
     @all(scopes: ["authorizedToView", "notArchived"])
-    @can(ability: "view", resolved: true)
+    @canResolved(ability: "view")
   poolCandidate(id: UUID! @eq): PoolCandidate
     @find
     @guard
@@ -742,7 +740,7 @@ type Query {
   poolCandidates(includeIds: [ID]! @in(key: "id")): [PoolCandidate]!
     @all(scopes: ["notDraft"])
     @guard
-    @can(ability: "view", resolved: true)
+    @canResolved(ability: "view")
     @deprecated(
       reason: "poolCandidates is deprecated. Use poolCandidatesPaginated instead. Remove in #7656."
     )
@@ -774,7 +772,7 @@ type Query {
       model: "App\\Models\\PoolCandidate"
     )
     @guard
-    @can(ability: "view", resolved: true, model: "App\\Models\\PoolCandidate")
+    @canResolved(ability: "view", model: "App\\Models\\PoolCandidate")
   # This query lives at api/app/GraphQL/Queries/CountPoolCandidatesByPool.php.
   # Returns the number of candidates by filtering their parent applicant, grouped by pool.
   countPoolCandidatesByPool(
