@@ -11082,6 +11082,10 @@
     "defaultMessage": "Vous pouvez ajouter des points en vous servant du bouton \"Ajouter une nouvelle question \" ayant été fourni à cet effet.",
     "description": "Instructions on how to add a question when there are none"
   },
+  "z59tbA": {
+    "defaultMessage": "Tout le tableau",
+    "description": "Default text in table search form column dropdown when no column is selected"
+  },
   "z5YYOk": {
     "defaultMessage": "Veuillez préciser l’instrument",
     "description": "Label for _instrument type other_ fieldset in the _digital services contracting questionnaire_"
