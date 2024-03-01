@@ -425,6 +425,12 @@ const UserTable = ({ title }: UserTableProps) => {
         onChange: ({ term, type }: SearchState) => {
           handleSearchStateChange({ term, type });
         },
+        overrideAllTableMsg: intl.formatMessage({
+          defaultMessage: "Full Profile",
+          id: "rN333X",
+          description:
+            "Text in table search form column dropdown when no column is selected.",
+        }),
       }}
       sort={{
         internal: false,
