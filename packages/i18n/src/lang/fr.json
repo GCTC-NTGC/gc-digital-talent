@@ -787,6 +787,10 @@
     "defaultMessage": "Niveau 3 : Chef d'équipe",
     "description": "The name of the Team leader Analyst role."
   },
+  "NAKad/": {
+    "defaultMessage": "Supprimer",
+    "description": "Remove action"
+  },
   "NQhU3F": {
     "defaultMessage": "Un champ obligatoire est vide : Français - Note spéciale pour ce processus",
     "description": "Error message that Special note for this process in French must be filled"
