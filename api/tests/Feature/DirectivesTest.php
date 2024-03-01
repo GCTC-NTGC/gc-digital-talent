@@ -297,7 +297,7 @@ class DirectivesTest extends TestCase
 
     public function testLowerCase(): void
     {
-        // testing Lighthouse with PHPUnit https://lighthouse-php.com/master/testing/extensions.html
+        // testing Lighthouse with PHPUnit https://lighthouse-php.com/6/testing/extensions.html
         $this->mockResolver(function ($root, array $args): string {
             return $args['bar'];
         });
