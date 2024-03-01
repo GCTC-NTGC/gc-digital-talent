@@ -739,6 +739,7 @@ class PoolTest extends TestCase
         ]);
 
         // assert cannot publish due to the additional assessment step not having any pool skills
+        // Note: Default factory has no pool skills attached to Screening question step
         $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
@@ -759,7 +760,7 @@ class PoolTest extends TestCase
             $assessmentStep->poolSkills()->sync($completePool->poolSkills->pluck('id')->toArray());
         }
 
-        // assert can publish if it is a screening questions step that is missing skills
+        // assert can now publish as all steps have attached skills
         $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
