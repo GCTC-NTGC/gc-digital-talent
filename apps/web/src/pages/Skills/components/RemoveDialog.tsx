@@ -57,8 +57,9 @@ const RemoveDialog = ({ onRemove, index }: RemoveDialogProps): JSX.Element => {
         <Dialog.Body>
           <p>
             {intl.formatMessage({
-              defaultMessage: "You're about to remove this skill.",
-              id: "D0wyx7",
+              defaultMessage:
+                "You're about to remove this skill from your showcase.",
+              id: "cqJw3g",
               description: "First paragraph for remove skill dialog",
             })}
           </p>
