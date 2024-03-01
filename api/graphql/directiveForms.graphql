@@ -376,7 +376,7 @@ extend type Query {
   digitalContractingQuestionnaires: [DigitalContractingQuestionnaire!]!
     @all
     @guard
-    @can(ability: "viewAny")
+    @canModel(ability: "viewAny")
   departmentSpecificRecruitmentProcessForm(
     id: UUID! @eq
   ): DepartmentSpecificRecruitmentProcessForm
@@ -386,14 +386,14 @@ extend type Query {
   departmentSpecificRecruitmentProcessForms: [DepartmentSpecificRecruitmentProcessForm!]!
     @all
     @guard
-    @can(ability: "viewAny")
+    @canModel(ability: "viewAny")
 }
 
 extend type Mutation {
   createDigitalContractingQuestionnaire(
     digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!
       @spread
-  ): DigitalContractingQuestionnaire @create @guard @can(ability: "create")
+  ): DigitalContractingQuestionnaire @create @guard @canModel(ability: "create")
   updateDigitalContractingQuestionnaire(
     id: UUID!
     digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!
@@ -415,7 +415,7 @@ extend type Mutation {
   ): DepartmentSpecificRecruitmentProcessForm
     @create
     @guard
-    @can(ability: "create")
+    @canModel(ability: "create")
   updateDepartmentSpecificRecruitmentProcessForm(
     id: UUID!
     departmentSpecificRecruitmentProcessForm: DepartmentSpecificRecruitmentProcessFormInput!
