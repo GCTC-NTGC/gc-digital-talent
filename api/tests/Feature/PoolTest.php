@@ -738,7 +738,6 @@ class PoolTest extends TestCase
             'published_at' => null,
         ]);
 
-        // assert cannot publish due to the additional assessment step not having any pool skills
         // Note: Default factory has no pool skills attached to Screening question step
         $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
