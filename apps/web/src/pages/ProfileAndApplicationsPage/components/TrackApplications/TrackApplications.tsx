@@ -11,7 +11,7 @@ import useRoutes from "~/hooks/useRoutes";
 import { isApplicationInProgress, notRemoved } from "~/utils/applicationUtils";
 import { PAGE_SECTION_ID as CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
 
-import TrackApplicationsCard from "./TrackApplicationsCard";
+import ApplicationCard from "./ApplicationCard";
 
 function buildLink(href: string, chunks: React.ReactNode): React.ReactElement {
   return <Link href={href}>{chunks}</Link>;
@@ -142,7 +142,7 @@ const TrackApplications = ({
             <Accordion.Content>
               {inProgressApplications.length > 0 ? (
                 inProgressApplications.map((activeRecruitment) => (
-                  <TrackApplicationsCard
+                  <ApplicationCard
                     key={activeRecruitment.id}
                     application={activeRecruitment}
                   />
@@ -215,7 +215,7 @@ const TrackApplications = ({
             <Accordion.Content>
               {pastApplications.length > 0 ? (
                 pastApplications.map((pastApplication) => (
-                  <TrackApplicationsCard
+                  <ApplicationCard
                     key={pastApplication.id}
                     application={pastApplication}
                   />
