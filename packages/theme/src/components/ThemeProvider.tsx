@@ -70,7 +70,6 @@ const ThemeProvider = ({
   override,
   themeSelector,
 }: ThemeProviderProps) => {
-  const { darkMode } = useFeatureFlags();
   const [theme, setTheme] = useLocalStorage<Theme>(
     "theme",
     getDefaultTheme(override),
@@ -111,9 +110,6 @@ const ThemeProvider = ({
 
     if (computedMode && key) {
       themeString = `${key} ${computedMode}`;
-      if (!darkMode) {
-        themeString = key;
-      }
     } else if (key) {
       themeString = key;
     } else if (mode) {
@@ -129,7 +125,7 @@ const ThemeProvider = ({
         item.dataset.h2 = themeString;
       }
     });
-  }, [computedMode, darkMode, key, mode, themeSelector]);
+  }, [computedMode, key, mode, themeSelector]);
 
   const testDark = React.useCallback(() => {
     const isSet = mode && mode !== "pref";
