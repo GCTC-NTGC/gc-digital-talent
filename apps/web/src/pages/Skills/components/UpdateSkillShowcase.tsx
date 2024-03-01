@@ -1,15 +1,14 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useNavigate } from "react-router-dom";
 import { useMutation } from "urql";
 
 import {
   TableOfContents,
   IconType,
   Separator,
-  Button,
   ButtonLinkMode,
   CardRepeater,
+  Link,
 } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -73,7 +72,6 @@ const UpdateSkillShowcase = ({
   disabled,
 }: UpdateSkillShowcaseProps) => {
   const intl = useIntl();
-  const navigate = useNavigate();
   const addId = React.useId();
   const [isBusy, setIsBusy] = React.useState<boolean>(false);
 
@@ -304,24 +302,9 @@ const UpdateSkillShowcase = ({
                   </CardRepeater.Root>
                 </div>
                 <Separator />
-                <div
-                  data-h2-display="base(flex)"
-                  data-h2-gap="base(x.5, x1)"
-                  data-h2-flex-wrap="base(wrap)"
-                  data-h2-flex-direction="base(column) l-tablet(row)"
-                  data-h2-align-items="base(flex-start) l-tablet(center)"
-                >
-                  <Button
-                    type="button"
-                    mode="inline"
-                    color="secondary"
-                    onClick={() => {
-                      navigate(pageInfo.returnPath);
-                    }}
-                  >
-                    {intl.formatMessage(commonMessages.return)}
-                  </Button>
-                </div>
+                <Link mode="solid" color="secondary" href={pageInfo.returnPath}>
+                  {intl.formatMessage(commonMessages.return)}
+                </Link>
               </div>
             </TableOfContents.Section>
           </TableOfContents.Content>
