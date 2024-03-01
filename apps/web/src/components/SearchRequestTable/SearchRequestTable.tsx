@@ -186,6 +186,10 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
     useState<PoolCandidateSearchRequestInput>(initialFilters);
 
   const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
+    setPaginationState((previous) => ({
+      ...previous,
+      pageIndex: 0,
+    }));
     const transformedData = transformFormValuesToSearchRequestFilterInput(data);
     setFilterState(transformedData);
     if (!isEqual(transformedData, filterRef.current)) {
@@ -376,6 +380,8 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
       }}
       pagination={{
         internal: false,
+        initialState: INITIAL_STATE.paginationState,
+        state: paginationState,
         total: data?.poolCandidateSearchRequestsPaginated.paginatorInfo.total,
         pageSizes: [10, 20, 50],
         onPaginationChange: ({ pageIndex, pageSize }: PaginationState) => {

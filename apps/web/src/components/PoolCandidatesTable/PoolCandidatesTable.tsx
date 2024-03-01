@@ -311,6 +311,7 @@ const PoolCandidatesTable = ({
   const filterRef = React.useRef<PoolCandidateSearchInput | undefined>(
     initialFilters,
   );
+
   const [paginationState, setPaginationState] = React.useState<PaginationState>(
     initialState.paginationState
       ? {
@@ -359,6 +360,10 @@ const PoolCandidatesTable = ({
   };
 
   const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
+    setPaginationState((previous) => ({
+      ...previous,
+      pageIndex: 0,
+    }));
     const transformedData: PoolCandidateSearchInput =
       transformFormValuesToFilterState(data);
 
@@ -824,6 +829,8 @@ const PoolCandidatesTable = ({
       }}
       pagination={{
         internal: false,
+        initialState: INITIAL_STATE.paginationState,
+        state: paginationState,
         total: data?.poolCandidatesPaginated?.paginatorInfo.total,
         pageSizes: [10, 20, 50, 100, 500],
         onPaginationChange: ({ pageIndex, pageSize }: PaginationState) => {

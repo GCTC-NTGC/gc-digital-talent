@@ -129,6 +129,8 @@ export type PaginationDef = {
   onPaginationChange?: (newPagination: PaginationState) => void;
   /** Initial pagination state */
   initialState?: PaginationState;
+  /** Pagination state */
+  state?: PaginationState;
   /** Total number of pages */
   total?: number;
   /** Available page sizes */
