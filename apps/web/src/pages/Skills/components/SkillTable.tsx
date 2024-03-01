@@ -1,19 +1,24 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { OperationContext, useQuery } from "urql";
 import { useLocation } from "react-router-dom";
+import { SubmitHandler } from "react-hook-form";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Pending } from "@gc-digital-talent/ui";
-import { Skill, graphql } from "@gc-digital-talent/graphql";
+import { Skill, SkillCategory, graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
 import { normalizedText } from "~/components/Table/sortingFns";
+import {
+  INITIAL_STATE,
+  SEARCH_PARAM_KEY,
+} from "~/components/Table/ResponsiveTable/constants";
 
 import {
   categoryAccessor,
@@ -21,17 +26,67 @@ import {
   keywordsAccessor,
   skillFamiliesCell,
 } from "./tableHelpers";
+import SkillFilterDialog, { FormValues } from "./SkillFilterDialog";
+
+export type SkillFilterInput = FormValues;
+
+export function stringToEnumSkillCategory(
+  selection: string,
+): SkillCategory | undefined {
+  if (Object.values(SkillCategory).includes(selection as SkillCategory)) {
+    return selection as SkillCategory;
+  }
+  return undefined;
+}
+
+export function transformFormValuesToSkillFilterInput(
+  data: FormValues,
+): SkillFilterInput {
+  return {
+    skillCategories: data.skillCategories?.length
+      ? data.skillCategories.map(stringToEnumSkillCategory).filter(notEmpty)
+      : undefined,
+    skillFamilies: data.skillFamilies?.length ? data.skillFamilies : undefined,
+  };
+}
+
+export function transformSkillFilterInputToFormValues(
+  input: SkillFilterInput | undefined,
+): FormValues {
+  return {
+    skillCategories: input?.skillCategories?.filter(notEmpty) ?? [],
+    skillFamilies: input?.skillFamilies?.filter(notEmpty) ?? [],
+  };
+}
 
 const columnHelper = createColumnHelper<Skill>();
 
 interface SkillTableProps {
   skills: Array<Skill>;
   title: string;
+  addButton?: boolean;
 }
 
-export const SkillTable = ({ skills, title }: SkillTableProps) => {
+export const SkillTable = ({ skills, title, addButton }: SkillTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const searchParams = new URLSearchParams(window.location.search);
+  const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
+  const initialFilters: SkillFilterInput = useMemo(
+    () => (filtersEncoded ? JSON.parse(filtersEncoded) : undefined),
+    [filtersEncoded],
+  );
+
+  const [filterState, setFilterState] =
+    useState<SkillFilterInput>(initialFilters);
+
+  const [dataState, setDataState] = useState<Skill[]>(skills);
+
+  const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
+    const transformedData = transformFormValuesToSkillFilterInput(data);
+    setFilterState(transformedData);
+  };
+
   const columns = [
     columnHelper.accessor("id", {
       id: "id",
@@ -49,6 +104,18 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
         const skillName = getLocalizedName(skill.name, intl);
         return cells.edit(skill.id, paths.skillTable(), skillName, skillName);
       },
+    }),
+    columnHelper.accessor((skill) => familiesAccessor(skill, intl), {
+      id: "skillFamilies",
+      sortingFn: normalizedText,
+      header: intl.formatMessage(adminMessages.skillFamilies),
+      cell: ({ row: { original: skill } }) =>
+        skillFamiliesCell(skill.families, intl),
+    }),
+    columnHelper.accessor(({ category }) => categoryAccessor(category, intl), {
+      id: "category",
+      sortingFn: normalizedText,
+      header: intl.formatMessage(adminMessages.category),
     }),
     columnHelper.accessor(
       (skill) => getLocalizedName(skill.description, intl, true),
@@ -72,21 +139,30 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
         description: "Title displayed for the skill table Keywords column.",
       }),
     }),
-    columnHelper.accessor((skill) => familiesAccessor(skill, intl), {
-      id: "skillFamilies",
-      sortingFn: normalizedText,
-      header: intl.formatMessage(adminMessages.skillFamilies),
-      cell: ({ row: { original: skill } }) =>
-        skillFamiliesCell(skill.families, intl),
-    }),
-    columnHelper.accessor(({ category }) => categoryAccessor(category, intl), {
-      id: "category",
-      sortingFn: normalizedText,
-      header: intl.formatMessage(adminMessages.category),
-    }),
   ] as ColumnDef<Skill>[];
 
-  const data = skills.filter(notEmpty);
+  useEffect(() => {
+    let filteredData;
+    // filter by skill family
+    if (filterState?.skillFamilies)
+      filteredData = skills.filter((skill) =>
+        skill.families?.find((skillFamily) =>
+          filterState.skillFamilies?.includes(skillFamily.key),
+        ),
+      );
+
+    // filter by skill category
+    if (filterState?.skillCategories)
+      filteredData = filteredData?.filter(
+        (skill) =>
+          skill.category ===
+          filterState.skillCategories?.find(
+            (category) => category === skill.category,
+          ),
+      );
+
+    setDataState(filteredData ?? skills);
+  }, [filterState, skills]);
 
   const { pathname, search, hash } = useLocation();
   const currentUrl = `${pathname}${search}${hash}`;
@@ -94,13 +170,17 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
   return (
     <Table<Skill>
       caption={title}
-      data={data}
+      data={dataState}
       columns={columns}
       hiddenColumnIds={["id", "keywords"]}
       pagination={{
         internal: true,
-        total: data.length,
+        total: dataState.length,
         pageSizes: [10, 20, 50],
+        initialState: {
+          pageIndex: INITIAL_STATE.paginationState.pageIndex,
+          pageSize: 20,
+        },
       }}
       sort={{
         internal: true,
@@ -114,16 +194,32 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
           description: "Label for the skills table search input",
         }),
       }}
-      add={{
-        linkProps: {
-          href: paths.skillCreate(),
-          label: intl.formatMessage({
-            defaultMessage: "Create skill",
-            id: "71mPNh",
-            description: "Title for Create skill",
-          }),
-          from: currentUrl,
-        },
+      add={
+        addButton
+          ? {
+              linkProps: {
+                href: paths.skillCreate(),
+                label: intl.formatMessage({
+                  defaultMessage: "Create skill",
+                  id: "71mPNh",
+                  description: "Title for Create skill",
+                }),
+                from: currentUrl,
+              },
+            }
+          : undefined
+      }
+      filter={{
+        state: filterState,
+        component: (
+          <SkillFilterDialog
+            onSubmit={handleFilterSubmit}
+            resetValues={transformSkillFilterInputToFormValues({})}
+            initialValues={transformSkillFilterInputToFormValues(
+              initialFilters,
+            )}
+          />
+        ),
       }}
     />
   );
@@ -168,7 +264,13 @@ const context: Partial<OperationContext> = {
   requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
 };
 
-const SkillTableApi = ({ title }: { title: string }) => {
+const SkillTableApi = ({
+  title,
+  addButton,
+}: {
+  title: string;
+  addButton?: boolean;
+}) => {
   const [{ data, fetching, error }] = useQuery({
     query: SkillTableSkills_Query,
     context,
@@ -176,7 +278,11 @@ const SkillTableApi = ({ title }: { title: string }) => {
 
   return (
     <Pending fetching={fetching} error={error}>
-      <SkillTable skills={unpackMaybes(data?.skills)} title={title} />
+      <SkillTable
+        skills={unpackMaybes(data?.skills)}
+        title={title}
+        addButton={addButton}
+      />
     </Pending>
   );
 };
