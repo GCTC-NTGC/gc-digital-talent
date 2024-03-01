@@ -1,7 +1,6 @@
 import React from "react";
 
 import { useLocalStorage } from "@gc-digital-talent/storage";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import {
   ThemeMode,
