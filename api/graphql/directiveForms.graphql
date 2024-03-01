@@ -372,10 +372,7 @@ input DepartmentSpecificRecruitmentProcessFormInput
 extend type Query {
   digitalContractingQuestionnaire(
     id: UUID! @eq
-  ): DigitalContractingQuestionnaire
-    @find
-    @guard
-    @can(ability: "view", query: true)
+  ): DigitalContractingQuestionnaire @find @guard @canQuery(ability: "view")
   digitalContractingQuestionnaires: [DigitalContractingQuestionnaire!]!
     @all
     @guard
@@ -385,7 +382,7 @@ extend type Query {
   ): DepartmentSpecificRecruitmentProcessForm
     @find
     @guard
-    @can(ability: "view", query: true)
+    @canQuery(ability: "view")
   departmentSpecificRecruitmentProcessForms: [DepartmentSpecificRecruitmentProcessForm!]!
     @all
     @guard
