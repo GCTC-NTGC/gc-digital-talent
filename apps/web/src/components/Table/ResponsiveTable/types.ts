@@ -49,6 +49,8 @@ export interface SearchFormProps<TData extends RowData> {
   id: React.HTMLAttributes<HTMLInputElement>["id"];
   /** Additional props forwarded to the search input */
   inputProps?: Omit<React.HTMLProps<HTMLInputElement>, "aria-label" | "id">;
+  /** Override default allTable message */
+  overrideAllTableMsg?: string;
 }
 
 type SearchDefFormProps<T> = Omit<
