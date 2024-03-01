@@ -35,6 +35,11 @@ return [
             'root' => storage_path('app'),
         ],
 
+        'userGenerated' => [
+            'driver' => 'local',
+            'root' => storage_path('app').'/user-generated',
+        ],
+
         // A somewhat hacky solution to enable deploying the app in a read-only directory
         'tmp' => [
             'driver' => 'local',
