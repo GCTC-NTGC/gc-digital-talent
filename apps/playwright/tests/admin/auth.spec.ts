@@ -58,7 +58,7 @@ test.describe("Anonymous user", () => {
     expect(xsrf).toBeUndefined();
   });
 
-  test("Sets cookies on login redirect", async ({ request, page }) => {
+  test("Sets cookies on login redirect", async ({ page }) => {
     let cookies = await getAuthCookies(page);
 
     expect(cookies.apiSession).toBeUndefined();
@@ -88,6 +88,7 @@ test.describe("Authenticated", () => {
     await applicantPage.gotoHome();
     const cookies = await getAuthCookies(applicantPage.page);
 
+    expect(cookies).toBeDefined();
     expectAuthCookies(cookies);
   });
 
@@ -99,7 +100,6 @@ test.describe("Authenticated", () => {
     });
 
     await logoutDialog.getByRole("button", { name: /sign out/i }).click();
-    await applicantPage.page.waitForLoadState("networkidle");
 
     await expect(
       applicantPage.page.getByRole("link", { name: /sign in/i }),

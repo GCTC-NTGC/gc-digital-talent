@@ -5,6 +5,14 @@ module.exports = {
     "plugin:playwright/recommended"
   ],
   ignorePatterns: ["tsconfig.json"],
+  rules: {
+    "playwright/expect-expect": [
+      "error",
+      {
+        "assertFunctionNames": ["assertError", "assertSuccess"]
+      }
+    ]
+  },
   settings: {
     "import/resolver": {
       typescript: {
