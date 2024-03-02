@@ -63,6 +63,15 @@ type UserPaginator {
   data: [User!]!
 }
 
+"A paginated list of UserPublicProfile items."
+type UserPublicProfilePaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of UserPublicProfile items."
+  data: [UserPublicProfile!]!
+}
+
 "A paginated list of PoolCandidateWithSkillCount items."
 type PoolCandidateWithSkillCountPaginator {
   "Pagination information about the list of items."
@@ -374,6 +383,7 @@ enum PoolCandidateStatus {
   QUALIFIED_AVAILABLE
   QUALIFIED_UNAVAILABLE
   QUALIFIED_WITHDREW
+  PLACED_TENTATIVE
   PLACED_CASUAL
   PLACED_TERM
   PLACED_INDETERMINATE
@@ -393,6 +403,14 @@ enum PoolLanguage {
   VARIOUS
   BILINGUAL_INTERMEDIATE
   BILINGUAL_ADVANCED
+}
+
+enum PoolOpportunityLength {
+  TERM_SIX_MONTHS
+  TERM_ONE_YEAR
+  TERM_TWO_YEARS
+  INDETERMINATE
+  VARIOUS
 }
 
 enum PublishingGroup {
@@ -447,15 +465,6 @@ enum OperationalRequirement {
   OVERTIME_SHORT_NOTICE
   OVERTIME_OCCASIONAL
   OVERTIME_REGULAR
-}
-
-enum SalaryRange {
-  _50_59K
-  _60_69K
-  _70_79K
-  _80_89K
-  _90_99K
-  _100K_PLUS
 }
 
 enum GenericJobTitleKey {
