@@ -6,7 +6,8 @@
     "e2e:open": "cypress open --e2e",
     "e2e:run": "npm run e2e:run:all",
     "e2e:run:all": "cypress run --browser=electron --spec \"cypress/e2e/**/*${TEST_FILTER:-}*.cy.ts\"",
-    "e2e:run:inspect": "cypress run --browser=electron --spec \"cypress/e2e/**/*${TEST_FILTER:-language-selection}*.cy.ts\" --no-exit --headed"
+    "e2e:run:inspect": "cypress run --browser=electron --spec \"cypress/e2e/**/*${TEST_FILTER:-language-selection}*.cy.ts\" --no-exit --headed",
+    "lint": "eslint ./cypress --ext .js,.ts"
   },
   "dependencies": {
     "@gc-digital-talent/date-helpers": "*",
@@ -14,6 +15,7 @@
     "@gc-digital-talent/graphql": "*"
   },
   "devDependencies": {
+    "@gc-digital-talent/eslint-config": "*",
     "@testing-library/cypress": "^10.0.1",
     "@types/node": "^20.11.23",
     "axe-core": "^4.8.4",

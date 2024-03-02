@@ -371,7 +371,7 @@ describe("Directive Forms Tests", () => {
       name: /Please specify the other requirement/i,
     }).type("Please specify the other requirement");
 
-    //technological change
+    // technological change
     cy.findByRole("group", {
       name: /Select "yes" if any of the listed technological change factors apply/i,
     }).within(() => {
@@ -466,6 +466,7 @@ describe("Directive Forms Tests", () => {
           id: questionnaireId,
         },
       }).then((data) => {
+        // eslint-disable-next-line no-unused-expressions
         expect(
           Cypress._.isMatch(data.digitalContractingQuestionnaire, {
             // preamble not saved
@@ -758,7 +759,7 @@ describe("Directive Forms Tests", () => {
       cy.findByRole("radio", { name: "No" }).click();
     });
 
-    //technological change
+    // technological change
     cy.findByRole("group", {
       name: /Select "yes" if any of the listed technological change factors apply/i,
     }).within(() => {
@@ -847,6 +848,7 @@ describe("Directive Forms Tests", () => {
           id: questionnaireId,
         },
       }).then((data) => {
+        // eslint-disable-next-line no-unused-expressions
         expect(
           Cypress._.isMatch(data.digitalContractingQuestionnaire, {
             // preamble not saved

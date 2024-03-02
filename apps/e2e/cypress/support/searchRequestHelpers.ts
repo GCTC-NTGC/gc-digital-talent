@@ -11,8 +11,8 @@ type CreateSearchRequestArgs = {
   searchRequestAlias: string;
 };
 
+// eslint-disable-next-line import/prefer-default-export
 export function createSearchRequest({
-  classificationId,
   departmentId,
   poolId,
   searchRequestAlias,

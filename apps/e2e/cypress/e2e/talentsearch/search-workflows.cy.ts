@@ -131,9 +131,10 @@ describe("Talent Search Workflow Tests", () => {
     // use new test user to submit an application
     cy.get<User>("@testUser").then((testUser) => {
       cy.loginBySubject(testUser.authInfo.sub);
-      cy.getMe().then((testUser) => {
+      cy.getMe().then((myUser) => {
         cy.get<Pool>("@publishedTestPool1").then((pool) => {
-          cy.createApplication(testUser.id, pool.id).then((poolCandidate) => {
+          cy.createApplication(myUser.id, pool.id).then((poolCandidate) => {
+            // eslint-disable-next-line cypress/unsafe-to-chain-command
             cy.submitApplication(poolCandidate.id, uniqueTestId.toString())
               .its("id")
               .as("poolCandidateId");
