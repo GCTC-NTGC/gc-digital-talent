@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@gc-digital-talent/date-helpers": "*",
+    "@gc-digital-talent/eslint-config": "*",
     "@gc-digital-talent/graphql": "*"
   },
   "devDependencies": {
@@ -21,6 +22,7 @@
     "cypress-axe": "^1.5.0",
     "cypress-terminal-report": "^6.0.1",
     "dotenv": "^16.4.5",
+    "eslint": "^8.57.0",
     "eslint-plugin-cypress": "^2.15.1",
     "jwt-decode": "4.0.0",
     "prettier": "^3.2.5",

@@ -23,12 +23,12 @@
     "react-router-dom": "^6.22.2"
   },
   "devDependencies": {
+    "@gc-digital-talent/eslint-config": "*",
     "@swc/core": "^1.4.2",
     "@testing-library/react": "14.2.1",
     "@testing-library/user-event": "^14.5.2",
     "@types/react": "^18.2.61",
     "eslint": "^8.57.0",
-    "eslint-config-custom": "*",
     "jest-axe": "^8.0.0",
     "jest-presets": "*",
     "react": "^18.2.0",

@@ -25,11 +25,11 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
+    "@gc-digital-talent/eslint-config": "*",
     "@storybook/react": "^7.6.17",
     "@swc/core": "^1.4.2",
     "@types/react": "^18.2.61",
     "eslint": "^8.57.0",
-    "eslint-config-custom": "*",
     "react": "^18.2.0",
     "tsconfig": "*",
     "tsup": "^8.0.2",

@@ -6,6 +6,9 @@
   "files": [
     "main.ts"
   ],
+  "scripts": {
+    "lint": "eslint \"src/**/*.ts*\""
+  },
   "dependencies": {
     "@gc-digital-talent/env": "*",
     "@gc-digital-talent/theme": "*",
@@ -21,12 +24,14 @@
   },
   "devDependencies": {
     "@formatjs/ts-transformer": "^3.13.12",
+    "@gc-digital-talent/eslint-config": "*",
     "@storybook/addon-a11y": "^7.6.17",
     "@storybook/addon-essentials": "^7.6.17",
     "@storybook/addon-links": "^7.6.17",
     "@storybook/addon-viewport": "^7.6.17",
     "@storybook/addons": "^7.6.17",
     "@storybook/react-webpack5": "^7.6.17",
+    "eslint": "^8.57.0",
     "hydrogen-webpack-plugin": "*",
     "react": "^18.2.0",
     "storybook": "^7.6.17",
