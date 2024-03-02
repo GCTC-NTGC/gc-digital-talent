@@ -1,6 +1,7 @@
 import React from "react";
 import type { StoryContext, StoryFn } from "@storybook/react";
 import isChromatic from "chromatic/isChromatic";
+
 import { ThemeProvider } from "@gc-digital-talent/theme";
 
 export const themeKey = {

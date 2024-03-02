@@ -7,7 +7,7 @@
     "main.ts"
   ],
   "scripts": {
-    "lint": "eslint \"src/**/*.ts*\""
+    "lint": "eslint \"./**/*.ts*\""
   },
   "dependencies": {
     "@gc-digital-talent/env": "*",
