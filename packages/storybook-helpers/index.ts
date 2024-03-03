@@ -4,10 +4,7 @@ import MockGraphqlDecorator from "./decorators/MockGraphqlDecorator";
 import OverlayOrDialogDecorator from "./decorators/OverlayOrDialogDecorator";
 import ReducedMotionDecorator from "./decorators/ReducedMotionDecorator";
 import RouterDecorator from "./decorators/RouterDecorator";
-import ThemeDecorator, {
-  themeKey,
-  themeMode,
-} from "./decorators/ThemeDecorator";
+import ThemeDecorator, { THEMES } from "./decorators/ThemeDecorator";
 
 import { CHROMATIC_VIEWPORTS, VIEWPORTS, VIEWPORT } from "./viewports";
 
@@ -19,8 +16,7 @@ export {
   ReducedMotionDecorator,
   RouterDecorator,
   ThemeDecorator,
-  themeKey,
-  themeMode,
+  THEMES,
   VIEWPORT,
   VIEWPORTS,
   CHROMATIC_VIEWPORTS,
