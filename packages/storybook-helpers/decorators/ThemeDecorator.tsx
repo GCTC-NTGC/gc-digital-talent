@@ -1,10 +1,19 @@
-import { withThemeByDataAttribute } from "@storybook/addon-themes";
+import { DecoratorHelpers } from "@storybook/addon-themes";
+import type { DecoratorFunction, Renderer, StoryFn } from "@storybook/types";
+import {
+  Theme,
+  ThemeKey,
+  ThemeProvider,
+  useTheme,
+} from "@gc-digital-talent/theme";
+import React from "react";
 
-type ThemeKey = "gcdt" | "iap";
-type ThemeMode = "dark" | "light";
+const { useThemeParameters, initializeThemeState, pluckThemeFromContext } =
+  DecoratorHelpers;
 
+type ThemeMode = "light" | "dark";
 export const THEMES: Record<ThemeKey, Record<ThemeMode, string>> = {
-  gcdt: {
+  default: {
     light: "GCDT Light",
     dark: "GCDT Dark",
   },
@@ -14,15 +23,64 @@ export const THEMES: Record<ThemeKey, Record<ThemeMode, string>> = {
   },
 };
 
-const withTheme = withThemeByDataAttribute({
+export interface WithThemeFromHydrogenConfig {
+  themes: Record<string, string>;
+  defaultTheme: string;
+}
+
+type ThemeSetterProps = {
+  theme: Theme;
+};
+const ThemeSetter = ({ theme }: ThemeSetterProps) => {
+  const { setTheme } = useTheme();
+
+  React.useEffect(() => {
+    setTheme({
+      key: theme.key,
+      mode: theme.mode,
+    });
+  }, [theme.key, theme.mode]);
+
+  return null;
+};
+
+const withThemeFromHydrogen = <TRenderer extends Renderer = any>({
+  themes,
+  defaultTheme,
+}: WithThemeFromHydrogenConfig): DecoratorFunction<TRenderer> => {
+  initializeThemeState(Object.keys(themes), defaultTheme);
+  return (storyFn, context) => {
+    const selectedTheme = pluckThemeFromContext(context);
+    const { themeOverride } = useThemeParameters();
+    const selected = themeOverride || selectedTheme || defaultTheme;
+
+    const themeArr = themes[selected].split(" ") as [
+      ThemeKey | undefined,
+      ThemeMode | undefined,
+    ];
+
+    return (
+      <ThemeProvider>
+        {storyFn() as React.ReactNode}
+        <ThemeSetter
+          theme={{
+            key: themeArr[0] ?? "default",
+            mode: themeArr[1] ?? "light",
+          }}
+        />
+      </ThemeProvider>
+    );
+  };
+};
+
+const withHydrogenTheme = withThemeFromHydrogen({
   themes: {
-    [THEMES.gcdt.light]: "default light",
-    [THEMES.gcdt.dark]: "default dark",
+    [THEMES.default.light]: "default light",
+    [THEMES.default.dark]: "default dark",
     [THEMES.iap.light]: "iap light",
     [THEMES.iap.dark]: "iap dark",
   },
-  defaultTheme: THEMES.gcdt.light,
-  attributeName: "data-h2",
+  defaultTheme: THEMES.default.light,
 });
 
-export default withTheme;
+export default withHydrogenTheme;

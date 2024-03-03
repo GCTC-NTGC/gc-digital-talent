@@ -8,6 +8,7 @@
   ],
   "dependencies": {
     "@gc-digital-talent/env": "*",
+    "@gc-digital-talent/theme": "*",
     "@storybook/react": "^7.6.17",
     "chromatic": "^11.0.0",
     "framer-motion": "^11.0.8",
@@ -27,6 +28,7 @@
     "@storybook/addon-viewport": "^7.6.17",
     "@storybook/addons": "^7.6.17",
     "@storybook/react-webpack5": "^7.6.17",
+    "@storybook/types": "^7.6.17",
     "hydrogen-webpack-plugin": "*",
     "react": "^18.2.0",
     "storybook": "^7.6.17",
