@@ -1,7 +1,10 @@
 import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { CHROMATIC_VIEWPORTS } from "@gc-digital-talent/storybook-helpers";
+import {
+  CHROMATIC_VIEWPORTS,
+  THEMES,
+} from "@gc-digital-talent/storybook-helpers";
 
 import Home from "./HomePage";
 
@@ -21,7 +24,15 @@ const Template: Story = () => (
 
 export const Default = Template.bind({});
 Default.parameters = {
-  chromatic: { viewports: CHROMATIC_VIEWPORTS },
-  hasDarkMode: true,
-  themeKey: "default",
+  chromatic: {
+    viewports: CHROMATIC_VIEWPORTS,
+    modes: {
+      light: {
+        theme: THEMES.default.light,
+      },
+      dark: {
+        theme: THEMES.default.dark,
+      },
+    },
+  },
 };
