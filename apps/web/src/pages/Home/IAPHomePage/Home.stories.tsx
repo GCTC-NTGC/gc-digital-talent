@@ -1,7 +1,10 @@
 import React from "react";
 import type { Meta, Story } from "@storybook/react";
 
-import { CHROMATIC_VIEWPORTS } from "@gc-digital-talent/storybook-helpers";
+import {
+  CHROMATIC_VIEWPORTS,
+  THEMES,
+} from "@gc-digital-talent/storybook-helpers";
 import NestedLanguageProvider from "@gc-digital-talent/i18n/src/components/NestedLanguageProvider";
 import { Messages } from "@gc-digital-talent/i18n";
 
@@ -23,11 +26,10 @@ export default {
   component: Home,
   title: "Pages/Home Page/IAP",
   parameters: {
-    backgrounds: {
-      default: "white",
-      values: [{ name: "white", value: "#fff" }],
+    layout: "fullscreen",
+    themes: {
+      themeOverride: THEMES.iap.light,
     },
-    themeKey: "iap", // Set the default theme to IAP
   },
 } as Meta;
 
