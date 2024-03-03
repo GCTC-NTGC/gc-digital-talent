@@ -25,10 +25,13 @@ const Template: Story = () => (
 export const Default = Template.bind({});
 Default.parameters = {
   chromatic: {
-    viewports: CHROMATIC_VIEWPORTS,
     modes: {
       light: {
         theme: THEMES.default.light,
+      },
+      "light mobile": {
+        theme: THEMES.default.light,
+        viewport: CHROMATIC_VIEWPORTS[1],
       },
       dark: {
         theme: THEMES.default.dark,
