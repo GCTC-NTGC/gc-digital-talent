@@ -1,5 +1,5 @@
 import { DecoratorHelpers } from "@storybook/addon-themes";
-import type { DecoratorFunction, Renderer, StoryFn } from "@storybook/types";
+import type { DecoratorFunction, Renderer } from "@storybook/types";
 import {
   Theme,
   ThemeKey,
