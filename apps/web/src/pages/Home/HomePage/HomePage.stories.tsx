@@ -31,7 +31,7 @@ Default.parameters = {
       },
       "light mobile": {
         theme: THEMES.default.light,
-        viewport: CHROMATIC_VIEWPORTS[1],
+        viewport: CHROMATIC_VIEWPORTS[0],
       },
       dark: {
         theme: THEMES.default.dark,
