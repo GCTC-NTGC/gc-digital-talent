@@ -73,7 +73,7 @@ module.exports = {
     "@typescript-eslint/no-empty-function": "warn",
   },
   settings: {
-    "import/extensions": [".ts", "tsx"],
+    "import/extensions": [".ts", ".tsx"],
     "import/parsers": {
       "@typescript-eslint/parser": [".ts", ".tsx"],
     },
