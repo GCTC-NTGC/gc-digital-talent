@@ -28,7 +28,7 @@ export default {
   title: "Tables/User Table",
   parameters: {
     apiResponses: {
-      AllUsersPaginated: {
+      UsersPaginated: {
         data: {
           usersPaginated: {
             data: [...userData.slice(0, 4)],
@@ -36,7 +36,7 @@ export default {
           },
         },
       },
-      getFilterData: {
+      UserFilterData: {
         data: {
           classifications: fakeClassifications(),
           pools: fakePools(),

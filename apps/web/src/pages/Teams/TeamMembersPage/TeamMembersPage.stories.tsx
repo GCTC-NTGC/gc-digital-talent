@@ -28,12 +28,23 @@ export default {
       initialEntries: [`/en/admin/teams/${teamData.id}/members`],
     },
     apiResponses: {
-      GetTeam: {
+      TeamMembersTeam: {
         data: {
           team: teamData,
         },
       },
-      ListRoles: {
+      TeamName: {
+        data: {
+          team: teamData,
+        },
+      },
+      // eslint-disable-next-line camelcase
+      TeamMembers_AvailableUsers: {
+        data: {
+          users: usersData,
+        },
+      },
+      AvailableUserRoles: {
         data: {
           roles: availableRoles,
         },
