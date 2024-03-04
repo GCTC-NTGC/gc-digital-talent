@@ -7,9 +7,6 @@ import { CreateClassificationForm } from "./CreateClassificationPage";
 export default {
   component: CreateClassificationForm,
   title: "Forms/Create Classification Form",
-  parameters: {
-    themeKey: "admin",
-  },
 } as ComponentMeta<typeof CreateClassificationForm>;
 
 const Template: ComponentStory<typeof CreateClassificationForm> = () => (

@@ -28,9 +28,6 @@ const mockRolesAndTeams: MyRoleTeam[] = [
 export default {
   component: TeamTable,
   title: "Tables/Team Table",
-  parameters: {
-    themeKey: "admin",
-  },
 } as ComponentMeta<typeof TeamTable>;
 
 const Template: ComponentStory<typeof TeamTable> = (args) => {

@@ -2,7 +2,8 @@ import React from "react";
 import type { Meta, Story } from "@storybook/react";
 
 import {
-  CHROMATIC_VIEWPORTS,
+  THEMES,
+  allModes,
   MockGraphqlDecorator,
 } from "@gc-digital-talent/storybook-helpers";
 import NestedLanguageProvider from "@gc-digital-talent/i18n/src/components/NestedLanguageProvider";
@@ -48,11 +49,12 @@ export default {
         },
       },
     },
-    backgrounds: {
-      default: "white",
-      values: [{ name: "white", value: "#fff" }],
+    layout: "fullscreen",
+    chromatic: {
+      mode: {
+        mobile: allModes.mobile,
+      },
     },
-    themeKey: "iap", // Set the default theme to IAP
   },
 } as Meta;
 
@@ -64,5 +66,14 @@ const Template: Story = () => (
 
 export const Default = Template.bind({});
 Default.parameters = {
-  chromatic: { viewports: CHROMATIC_VIEWPORTS },
+  themes: {
+    themeOverride: THEMES.iap.light,
+  },
+};
+
+export const Dark = Template.bind({});
+Dark.parameters = {
+  themes: {
+    themeOverride: THEMES.iap.dark,
+  },
 };

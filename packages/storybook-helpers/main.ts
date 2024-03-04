@@ -57,6 +57,7 @@ const main: StorybookConfig = {
     "@storybook/addon-a11y",
     "@storybook/addon-essentials",
     "@storybook/addon-links",
+    "@storybook/addon-themes",
     "@storybook/addon-viewport",
     "storybook-addon-intl",
   ],

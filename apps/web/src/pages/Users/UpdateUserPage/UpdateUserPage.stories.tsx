@@ -22,7 +22,6 @@ export default {
   component: UpdateUserPage,
   title: "Pages/Update User Page",
   parameters: {
-    themeKey: "admin",
     defaultPath: {
       path: "/en/admin/users/:userId/edit",
       initialEntries: [`/en/admin/users/${userData.id}/edit`],

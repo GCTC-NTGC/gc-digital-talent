@@ -10,9 +10,6 @@ const mockSkillFamilies = fakeSkillFamilies();
 export default {
   component: SkillFamilyTable,
   title: "Tables/Skill Family Table",
-  parameters: {
-    themeKey: "admin",
-  },
 } as ComponentMeta<typeof SkillFamilyTable>;
 
 const Template: ComponentStory<typeof SkillFamilyTable> = (args) => {
