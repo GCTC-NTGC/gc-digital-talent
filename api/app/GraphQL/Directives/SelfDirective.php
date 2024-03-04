@@ -10,7 +10,7 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 final class SelfDirective extends BaseDirective implements FieldResolver
 {
-    // TODO: implement the directive https://lighthouse-php.com/6/custom-directives/getting-started.html#implementing-your-own-directives
+    // implement the directive https://lighthouse-php.com/6/custom-directives/getting-started.html#implementing-your-own-directives
 
     public static function definition(): string
     {
