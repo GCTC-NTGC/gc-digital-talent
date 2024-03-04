@@ -6,6 +6,7 @@ import ReducedMotionDecorator from "./decorators/ReducedMotionDecorator";
 import RouterDecorator from "./decorators/RouterDecorator";
 import ThemeDecorator, { THEMES } from "./decorators/ThemeDecorator";
 
+import allModes from "./modes";
 import { CHROMATIC_VIEWPORTS, VIEWPORTS, VIEWPORT } from "./viewports";
 
 export {
@@ -20,4 +21,5 @@ export {
   VIEWPORT,
   VIEWPORTS,
   CHROMATIC_VIEWPORTS,
+  allModes,
 };
