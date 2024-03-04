@@ -10,11 +10,7 @@ export default {
   title: "Pages/Home Page/Manager",
 };
 
-const Template: StoryFn = () => (
-  <div data-h2-color="base(black) base:dark(white)">
-    <ManagerHomePage />
-  </div>
-);
+const Template: StoryFn = () => <ManagerHomePage />;
 
 export const Default = Template.bind({});
 Default.parameters = {

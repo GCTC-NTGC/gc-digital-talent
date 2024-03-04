@@ -13,11 +13,7 @@ export default {
   title: "Pages/Home Page/Digital Talent",
 } as Meta;
 
-const Template: Story = () => (
-  <div data-h2-color="base(black) base:dark(white)">
-    <Home defaultImage={0} />
-  </div>
-);
+const Template: Story = () => <Home defaultImage={0} />;
 
 export const Default = Template.bind({});
 Default.parameters = {

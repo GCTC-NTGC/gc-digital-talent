@@ -24,11 +24,7 @@ export default {
   title: "Pages/Home Page/Executive",
 };
 
-const Template: StoryFn<typeof HomePage> = (args) => (
-  <div data-h2-color="base(black) base:dark(white)">
-    <HomePage {...args} />
-  </div>
-);
+const Template: StoryFn<typeof HomePage> = (args) => <HomePage {...args} />;
 
 export const WithPools = Template.bind({});
 WithPools.parameters = defaultParameters;
