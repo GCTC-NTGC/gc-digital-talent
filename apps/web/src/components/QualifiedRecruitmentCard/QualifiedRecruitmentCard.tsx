@@ -16,8 +16,8 @@ import {
 } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { getLocalizedName, getSkillCategory } from "@gc-digital-talent/i18n";
+import { SkillCategory } from "@gc-digital-talent/graphql";
 
-import { SkillCategory } from "~/api/generated";
 import { categorizeSkill } from "~/utils/skillUtils";
 import { getRecruitmentType } from "~/utils/poolCandidate";
 import { Application } from "~/utils/applicationUtils";
@@ -240,9 +240,6 @@ const QualifiedRecruitmentCard = ({
         </Collapsible.Content>
       </Collapsible.Root>
       <Separator
-        orientation="horizontal"
-        decorative
-        data-h2-background-color="base(gray)"
         data-h2-width="base(calc(100% + x2))"
         data-h2-margin="base(x1 -x1 x.5 -x1)"
       />

@@ -150,6 +150,11 @@ const commonMessages = defineMessages({
     id: "2/YsnJ",
     description: "Delete action",
   },
+  remove: {
+    defaultMessage: "Remove",
+    id: "NAKad/",
+    description: "Remove action",
+  },
   name: {
     defaultMessage: "Name",
     id: "WhLeuS",
@@ -204,6 +209,31 @@ const commonMessages = defineMessages({
     defaultMessage: "Not sure",
     id: "GLRLYT",
     description: "A decision has not been made",
+  },
+  anyLanguage: {
+    defaultMessage: "Any language",
+    id: "sotCgD",
+    description: "Any language",
+  },
+  screenedOut: {
+    defaultMessage: "Screened out",
+    id: "4lV1Od",
+    description: "Screened out",
+  },
+  removed: {
+    defaultMessage: "Removed",
+    id: "tExKws",
+    description: "Removed",
+  },
+  finalAssessmentDecision: {
+    defaultMessage: "Final assessment decision",
+    id: "6/U6rm",
+    description: "Final assessment decision",
+  },
+  return: {
+    defaultMessage: "Return",
+    id: "VV8TA5",
+    description: "An action to go back to a previous location",
   },
 });
 

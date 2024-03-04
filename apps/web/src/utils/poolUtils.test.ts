@@ -5,8 +5,7 @@
 import { createIntl, createIntlCache } from "react-intl";
 
 import { fakeClassifications } from "@gc-digital-talent/fake-data";
-
-import { PoolStream } from "~/api/generated";
+import { PoolStream } from "@gc-digital-talent/graphql";
 
 import { formattedPoolPosterTitle } from "./poolUtils";
 

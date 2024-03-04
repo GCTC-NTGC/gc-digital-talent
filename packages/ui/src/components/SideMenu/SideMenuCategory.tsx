@@ -1,5 +1,5 @@
 import React, { Children } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 
 import { useSideMenuContext } from "./SideMenuProvider";
 
@@ -51,7 +51,7 @@ const SideMenuCategory = ({ title, children }: SideMenuCategoryProps) => {
         data-h2-padding-bottom="base(x.15)"
         data-h2-height="base(x1)"
       >
-        <motion.span
+        <m.span
           data-h2-display="base(flex)"
           transition={transitionConfig}
           animate={
@@ -66,7 +66,7 @@ const SideMenuCategory = ({ title, children }: SideMenuCategoryProps) => {
           >
             {title}
           </span>
-        </motion.span>
+        </m.span>
       </div>
 
       {children}

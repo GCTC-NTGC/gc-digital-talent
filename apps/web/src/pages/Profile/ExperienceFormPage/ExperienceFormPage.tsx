@@ -2,7 +2,7 @@ import React from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { OperationContext } from "urql";
+import { OperationContext, useQuery } from "urql";
 
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -19,13 +19,9 @@ import {
   formMessages,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
+import { Scalars, Skill, graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import {
-  Scalars,
-  Skill,
-  useGetMyExperiencesQuery,
-  useGetSkillsQuery,
-} from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import {
   useDeleteExperienceMutation,
@@ -352,12 +348,7 @@ export const ExperienceForm = ({
                     skills={skills}
                   />
                 </TableOfContents.Section>
-                <Separator
-                  orientation="horizontal"
-                  decorative
-                  data-h2-background="base(gray)"
-                  data-h2-margin="base(x3, 0)"
-                />
+                <Separator space="lg" />
                 {edit ? (
                   <div
                     data-h2-display="base(flex)"
@@ -479,10 +470,102 @@ const context: Partial<OperationContext> = {
   requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
 };
 
+const ExperienceFormData_Query = graphql(/* GraphQL */ `
+  query ExperienceFormData {
+    skills {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      keywords {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+      category
+      families {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+      }
+    }
+    me {
+      id
+      experiences {
+        id
+        details
+        user {
+          id
+        }
+        skills {
+          id
+          key
+          name {
+            en
+            fr
+          }
+          category
+          experienceSkillRecord {
+            details
+          }
+        }
+        ... on AwardExperience {
+          title
+          issuedBy
+          awardedDate
+          awardedTo
+          awardedScope
+        }
+        ... on CommunityExperience {
+          title
+          organization
+          project
+          startDate
+          endDate
+        }
+        ... on EducationExperience {
+          institution
+          areaOfStudy
+          thesisTitle
+          startDate
+          endDate
+          type
+          status
+        }
+        ... on PersonalExperience {
+          title
+          description
+          startDate
+          endDate
+        }
+        ... on WorkExperience {
+          role
+          organization
+          division
+          startDate
+          endDate
+        }
+      }
+    }
+  }
+`);
+
 type RouteParams = {
-  userId: Scalars["ID"];
+  userId: Scalars["ID"]["output"];
   experienceType: ExperienceType;
-  experienceId: Scalars["ID"];
+  experienceId: Scalars["ID"]["output"];
 };
 export interface ExperienceFormContainerProps {
   edit?: boolean;
@@ -490,46 +573,31 @@ export interface ExperienceFormContainerProps {
 
 const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
   const intl = useIntl();
-  const { userId, experienceId } = useParams<RouteParams>();
+  const { experienceId, userId } = useParams<RouteParams>();
   const { state } = useLocation();
 
-  const [
-    {
-      data: experienceData,
-      fetching: experienceFetching,
-      error: experienceError,
-    },
-  ] = useGetMyExperiencesQuery();
-
-  const [skillResults] = useGetSkillsQuery({
+  const [{ data, fetching, error }] = useQuery({
+    query: ExperienceFormData_Query,
     context,
   });
-  const {
-    data: skillsData,
-    fetching: fetchingSkills,
-    error: skillError,
-  } = skillResults;
 
+  const skills = unpackMaybes(data?.skills);
   const experience =
-    experienceData?.me?.experiences?.find((exp) => exp?.id === experienceId) ??
-    undefined;
+    data?.me?.experiences?.find((exp) => exp?.id === experienceId) ?? undefined;
 
   const experienceType = experience
     ? deriveExperienceType(experience)
     : state?.experienceType || "";
 
   return (
-    <Pending
-      fetching={fetchingSkills || experienceFetching}
-      error={skillError || experienceError}
-    >
-      {skillsData ? (
+    <Pending fetching={fetching} error={error}>
+      {skills ? (
         <ExperienceForm
           edit={edit}
           experience={experience}
           experienceId={experienceId || ""}
           experienceType={experienceType}
-          skills={skillsData.skills as Skill[]} // Only grab technical skills (hard skills).
+          skills={skills}
           userId={userId || ""}
         />
       ) : (

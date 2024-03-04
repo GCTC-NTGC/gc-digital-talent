@@ -16,13 +16,13 @@ import {
   getLocale,
 } from "@gc-digital-talent/i18n";
 import { Heading, TableOfContents } from "@gc-digital-talent/ui";
-
 import {
   ContractAuthority,
   Department,
   YesNo,
   YesNoUnsure,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import talentPlanEn from "~/assets/documents/Forward_Talent_Plan_EN.docx";
 import talentPlanFr from "~/assets/documents/Plan_prospectif_sur_les_talents_FR.docx";
 

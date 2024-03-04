@@ -12,7 +12,6 @@ import {
 } from "@gc-digital-talent/i18n";
 import { matchStringCaseDiacriticInsensitive } from "@gc-digital-talent/forms";
 import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
-
 import {
   UserSkill,
   SkillLevel,
@@ -21,7 +20,7 @@ import {
   Skill,
   SkillCategory,
   SkillFamily,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
 
 /**
  * Transforms an array of skills with child skill families into a tree of skill families with child skills.
@@ -36,11 +35,10 @@ export function invertSkillSkillFamilyTree(skills: Skill[]): SkillFamily[] {
   const skillFamiliesWithSkills = uniqueSkillFamilies.map(
     (family: SkillFamily) => {
       // step 1 - find the skills that belong to this family
-      const skillsInThisFamily = skills.filter(
-        (skill) =>
-          skill.families?.some(
-            (childSkillFamilies) => family.id === childSkillFamilies?.id,
-          ),
+      const skillsInThisFamily = skills.filter((skill) =>
+        skill.families?.some(
+          (childSkillFamilies) => family.id === childSkillFamilies?.id,
+        ),
       );
 
       // step 2 - clone the skills and strip off the child skillFamilies to prevent circular references
@@ -78,11 +76,8 @@ export function invertSkillExperienceTree(
     .filter(notEmpty)
     .map((skill: Skill) => {
       // step 1 - find the skills that belong to this experience
-      const skillsInThisExperience = experiences.filter(
-        (experience) =>
-          experience.skills?.some(
-            (childSkills) => skill.id === childSkills?.id,
-          ),
+      const skillsInThisExperience = experiences.filter((experience) =>
+        experience.skills?.some((childSkills) => skill.id === childSkills?.id),
       );
 
       // step 2 - clone the skill and attach the experience collection
@@ -225,11 +220,10 @@ export const getExperienceSkills = (
   experiences: Experience[],
   skill?: Pick<Skill, "id">,
 ): Experience[] => {
-  return experiences.filter(
-    (experience) =>
-      experience.skills?.some(
-        (experienceSkill) => experienceSkill.id === skill?.id,
-      ),
+  return experiences.filter((experience) =>
+    experience.skills?.some(
+      (experienceSkill) => experienceSkill.id === skill?.id,
+    ),
   );
 };
 

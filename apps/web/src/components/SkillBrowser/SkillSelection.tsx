@@ -14,8 +14,8 @@ import {
 import { Combobox, Field, Select } from "@gc-digital-talent/forms";
 import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { normalizeString } from "@gc-digital-talent/helpers";
+import { Skill } from "@gc-digital-talent/graphql";
 
-import { Skill } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
 import skillBrowserMessages from "./messages";
@@ -230,12 +230,7 @@ const SkillSelection = ({
           </Button>
         </Collapsible.Trigger>
         <Collapsible.Content data-h2-padding-left="base(x1.5)">
-          <Separator
-            orientation="horizontal"
-            decorative
-            data-h2-background-color="base(gray.lighter)"
-            data-h2-margin="base(x1 0)"
-          />
+          <Separator space="sm" />
           <p data-h2-margin-bottom="base(x.5)">
             {intl.formatMessage({
               defaultMessage:

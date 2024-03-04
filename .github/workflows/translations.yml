@@ -101,7 +101,7 @@ jobs:
 
       - name: "Upload untranslated files: all workspaces"
         if: always()
-        uses: actions/upload-artifact@v4.3.1
+        uses: actions/upload-artifact@v4
         with:
           name: untranslated
           path: |

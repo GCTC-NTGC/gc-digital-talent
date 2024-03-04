@@ -16,6 +16,11 @@ const messages = defineMessages({
     id: "9pYlYz",
     description: "Label for a process' stream",
   },
+  opportunityLength: {
+    defaultMessage: "Length of opportunity",
+    id: "08rkLr",
+    description: "Label for a process' opportunity employment duration",
+  },
   titleEn: {
     defaultMessage: "Specific title (English)",
     id: "QISMlC",
@@ -110,6 +115,27 @@ const messages = defineMessages({
     defaultMessage: "Screening questions",
     id: "p8+wKq",
     description: "Title of screening questions",
+  },
+  additionalQuestions: {
+    defaultMessage: "Additional questions",
+    id: "JhBsgc",
+    description: "Title of additional questions",
+  },
+  generalQuestions: {
+    defaultMessage: "General questions",
+    id: "PnWNZn",
+    description: "Title of general questions",
+  },
+  noAssessmentPlan: {
+    defaultMessage: "This process does not have an assessment plan.",
+    id: "mYnQH4",
+    description: "A process has no assessment plan",
+  },
+  viewTalentPlacement: {
+    defaultMessage:
+      "You can view your candidates on the <a>Talent placement</a> page.",
+    id: "tgtpgb",
+    description: "Message to direct users to the talent placement page",
   },
 });
 

@@ -59,7 +59,6 @@
     "package.json",
     "composer.json",
     "composer.lock",
-    "generated.ts",
     "tsconfig.json",
     ".eslintrc",
     "hydrogen.config.json"
@@ -81,29 +80,17 @@
   "terminal.integrated.profiles.linux": {
     "Maintenance": {
       "path": "docker-compose",
-      "args": [
-         "run",
-         "--rm",
-         "--workdir=/var/www/html",
-         "maintenance",
-         "bash"
-      ],
+      "args": ["run", "--rm", "--workdir=/var/www/html", "maintenance", "bash"],
       "overrideName": true,
       "icon": "terminal-ubuntu"
-    },
+    }
   },
   "terminal.integrated.profiles.osx": {
     "Maintenance": {
       "path": "docker-compose",
-      "args": [
-         "run",
-         "--rm",
-         "--workdir=/var/www/html",
-         "maintenance",
-         "bash"
-      ],
+      "args": ["run", "--rm", "--workdir=/var/www/html", "maintenance", "bash"],
       "overrideName": true,
       "icon": "terminal-ubuntu"
-    },
+    }
   }
 }

@@ -3,8 +3,9 @@ import {
   GenericJobTitle,
   Pool,
   Skill,
+  SkillCategory,
   User,
-} from "@gc-digital-talent/web/src/api/generated";
+} from "@gc-digital-talent/graphql";
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 import { createAndPublishPool } from "../../support/poolHelpers";
 import { createApplicant, addRolesToUser } from "../../support/userHelpers";
@@ -33,7 +34,10 @@ describe("Pool Candidates", () => {
 
     // select some dimensions to use for testing
     cy.getSkills().then((allSkills) => {
-      cy.wrap(allSkills[0]).as("testSkill"); // take the first skill for testing
+      const technicalSkill = allSkills.find(
+        (skill) => skill.category === SkillCategory.Technical,
+      );
+      cy.wrap(technicalSkill).as("testSkill"); // take the first skill for testing
     });
     cy.getGenericJobTitles().then((allGenericJobTitles) => {
       const testGenericJobTitle = allGenericJobTitles[0]; // take the first ID for testing matching
@@ -121,10 +125,13 @@ describe("Pool Candidates", () => {
       .should("exist")
       .click();
     cy.wait("@gqlCandidatesTableCandidatesPaginated_QueryQuery");
-
-    cy.findAllByRole("link", { name: /view(.+)application/i })
-      .eq(0)
-      .click();
+    cy.get<User>("@testUser").then((testUser) => {
+      cy.findAllByRole("link", {
+        name: new RegExp(testUser.firstName + " " + testUser.lastName, "i"),
+      })
+        .eq(0)
+        .click();
+    });
 
     cy.wait("@gqlViewPoolCandidatesPageQuery");
 
@@ -232,9 +239,13 @@ describe("Pool Candidates", () => {
       .click();
     cy.wait("@gqlCandidatesTableCandidatesPaginated_QueryQuery");
 
-    cy.findAllByRole("link", { name: /view(.+)application/i })
-      .eq(0)
-      .click();
+    cy.get<User>("@testUser").then((testUser) => {
+      cy.findAllByRole("link", {
+        name: new RegExp(testUser.firstName + " " + testUser.lastName, "i"),
+      })
+        .eq(0)
+        .click();
+    });
 
     cy.wait("@gqlViewPoolCandidatesPageQuery");
 

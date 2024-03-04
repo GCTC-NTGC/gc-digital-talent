@@ -109,10 +109,10 @@ type User {
   workExperiences: [WorkExperience] @hasMany # Work experiences that a user owns
   # Skill Library
   userSkills(includeSkillIds: [UUID] @in(key: "skill_id")): [UserSkill] @hasMany
-  topTechnicalSkillsRanking: [UserSkill]
-  topBehaviouralSkillsRanking: [UserSkill]
-  improveTechnicalSkillsRanking: [UserSkill]
-  improveBehaviouralSkillsRanking: [UserSkill]
+  topTechnicalSkillsRanking: [UserSkill] @with(relation: "userSkills")
+  topBehaviouralSkillsRanking: [UserSkill] @with(relation: "userSkills")
+  improveTechnicalSkillsRanking: [UserSkill] @with(relation: "userSkills")
+  improveBehaviouralSkillsRanking: [UserSkill] @with(relation: "userSkills")
   # Profile Status
   isProfileComplete: Boolean
   priorityWeight: Int @rename(attribute: "priority_weight")
@@ -194,6 +194,8 @@ type Pool {
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
+  opportunityLength: PoolOpportunityLength
+    @rename(attribute: "opportunity_length")
   createdDate: DateTime @rename(attribute: "created_at")
   updatedDate: DateTime @rename(attribute: "updated_at")
   generalQuestions: [GeneralQuestion]
@@ -418,6 +420,7 @@ type PoolCandidateSearchRequest {
   department: Department @belongsTo
   jobTitle: String @rename(attribute: "job_title")
   additionalComments: String @rename(attribute: "additional_comments")
+  hrAdvisorEmail: Email @rename(attribute: "hr_advisor_email")
   requestedDate: DateTime @rename(attribute: "created_at")
   status: PoolCandidateSearchStatus @rename(attribute: "request_status")
   statusChangedAt: DateTime @rename(attribute: "request_status_changed_at")
@@ -468,11 +471,6 @@ type UserSkill {
     @with(relation: "educationExperiences")
     @with(relation: "personalExperiences")
     @with(relation: "workExperiences") # All experiences that a user owns
-  awardExperiences: [AwardExperience!] @hasMany
-  communityExperiences: [CommunityExperience!] @hasMany
-  educationExperiences: [EducationExperience!] @hasMany
-  personalExperiences: [PersonalExperience!] @hasMany
-  workExperiences: [WorkExperience!] @hasMany
 }
 
 type SkillKeywords {
@@ -650,6 +648,7 @@ input PoolCandidateSearchRequestInput {
   id: ID @scope
   jobTitle: String @scope
   additionalComments: String @scope
+  hrAdvisorEmail: String @scope
   adminNotes: String @scope
   generalSearch: String @scope
 }
@@ -1152,6 +1151,7 @@ input CreatePoolCandidateSearchRequestInput {
   department: DepartmentBelongsTo!
   jobTitle: String! @rename(attribute: "job_title")
   additionalComments: String @rename(attribute: "additional_comments")
+  hrAdvisorEmail: Email @rename(attribute: "hr_advisor_email")
   applicantFilter: ApplicantFilterBelongsTo!
   # status will be set to NEW by default in Postgres
   wasEmpty: Boolean @rename(attribute: "was_empty")
@@ -1388,6 +1388,8 @@ input UpdatePoolInput {
   location: LocalizedStringInput @rename(attribute: "advertisement_location")
   isRemote: Boolean @rename(attribute: "is_remote")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
+  opportunityLength: PoolOpportunityLength
+    @rename(attribute: "opportunity_length")
   generalQuestions: UpdateGeneralQuestionsHasMany
 }
 

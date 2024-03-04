@@ -1,6 +1,5 @@
 import { empty } from "@gc-digital-talent/helpers";
-
-import { Pool } from "~/api/generated";
+import { Pool } from "@gc-digital-talent/graphql";
 
 // Note: Only one field to check here
 // eslint-disable-next-line import/prefer-default-export

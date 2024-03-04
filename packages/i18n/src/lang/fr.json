@@ -135,6 +135,10 @@
     "defaultMessage": "Nouveau",
     "description": "The status is new."
   },
+  "261Ycu": {
+    "defaultMessage": "Indéterminée (Permanente)",
+    "description": "Option for pool opportunity length"
+  },
   "2G+fJt": {
     "defaultMessage": "L’article {index} a été supprimé.",
     "description": "Message announced to assistive technology when a repeatable field has been removed"
@@ -227,6 +231,10 @@
     "defaultMessage": "Recherche...",
     "description": "Message to display when a search is being done."
   },
+  "4lV1Od": {
+    "defaultMessage": "Éliminé à la présélection",
+    "description": "Screened out"
+  },
   "4mMU7Q": {
     "defaultMessage": "cela m'oblige à faire des heures supplémentaires occasionnelles.",
     "description": "The operational requirement described as occasional overtime."
@@ -271,6 +279,10 @@
     "defaultMessage": "Démontré",
     "description": "Option for assessment decision when candidate has successful assessment."
   },
+  "6/U6rm": {
+    "defaultMessage": "Décision finale relative à l’évaluation",
+    "description": "Final assessment decision"
+  },
   "6O1sjV": {
     "defaultMessage": "Impossible de mettre à jour – cet identifiant d’utilisateur (sub) est déjà utilisé.",
     "description": "Error message that the given user identifier is already in use when updating."
@@ -282,6 +294,10 @@
   "6iZHGg": {
     "defaultMessage": "Alerte d’avertissement :",
     "description": "Descriptor for a warning alert"
+  },
+  "6pBOi2": {
+    "defaultMessage": "Démontré",
+    "description": "Table assessment decision when candidate has successful assessment."
   },
   "6tekaa": {
     "defaultMessage": "Septembre",
@@ -347,6 +363,10 @@
     "defaultMessage": "Accès à l’information et protection des renseignements personnels",
     "description": "Pool Stream described as Access to Information and Privacy."
   },
+  "9L4c8m": {
+    "defaultMessage": "Divers",
+    "description": "Option for pool opportunity length"
+  },
   "9SP4JF": {
     "defaultMessage": "Maîtrise",
     "description": "Master's Degree selection for education type input"
@@ -411,6 +431,10 @@
     "defaultMessage": "Permis de conduire",
     "description": "The operational requirement described as driver's license. (short-form for limited space)"
   },
+  "BoTqZU": {
+    "defaultMessage": "Terme (1 an)",
+    "description": "Option for pool opportunity length"
+  },
   "Bvr4b6": {
     "defaultMessage": "Champ obligatoire",
     "description": "Displayed next to required form inputs."
@@ -474,6 +498,10 @@
   "DoFRsj": {
     "defaultMessage": "examen de la CFP",
     "description": "PSC exam assessment."
+  },
+  "EOzHrh": {
+    "defaultMessage": "Non démontré",
+    "description": "Table assessment decision when candidate has unsuccessful assessment and been removed from the process."
   },
   "EPEKU2": {
     "defaultMessage": "Capacité démontrée à définir, entreprendre et exécuter des tâches de complexité modérée à élevée sous des niveaux de supervision minimaux. Capacité démontrée à encadrer d’autres personnes à des niveaux inférieurs de développement de compétences, soit par le biais d’une supervision directe, soit en donnant l’exemple et en fournissant des explications. Généralement associée à des postes de conseiller technique principal ou de supervision de niveau d’entrée.",
@@ -691,9 +719,17 @@
     "defaultMessage": "Provincial",
     "description": "The scope of the award was provincial."
   },
+  "LldtPo": {
+    "defaultMessage": "Terme (2 ans)",
+    "description": "Option for pool opportunity length"
+  },
   "Lw0WrP": {
     "defaultMessage": "Travailler occasionnellement des heures supplémentaires",
     "description": "The operational requirement described as occasional overtime. (short-form for limited space)"
+  },
+  "LyVI+p": {
+    "defaultMessage": "En attente d’une évaluation plus approfondie",
+    "description": "Table assessment decision when candidate has unsuccessful assessment but on hold."
   },
   "LzUgil": {
     "defaultMessage": "Secret ou plus élevée",
@@ -739,6 +775,10 @@
     "defaultMessage": "Impossible d’appliquer à un bassin fermé",
     "description": "Message displayed when user attempts to apply to a closed pool"
   },
+  "MrQfby": {
+    "defaultMessage": "Terme (6 mois)",
+    "description": "Option for pool opportunity length"
+  },
   "MvSp9b": {
     "defaultMessage": "Gestion de bases de données de la TI",
     "description": "Pool Stream described as Database Management."
@@ -747,9 +787,9 @@
     "defaultMessage": "Niveau 3 : Chef d'équipe",
     "description": "The name of the Team leader Analyst role."
   },
-  "NNFXCN": {
-    "defaultMessage": "Retiré",
-    "description": "The pool candidate's status is Removed."
+  "NAKad/": {
+    "defaultMessage": "Supprimer",
+    "description": "Remove action"
   },
   "NQhU3F": {
     "defaultMessage": "Un champ obligatoire est vide : Français - Note spéciale pour ce processus",
@@ -1010,6 +1050,10 @@
   "V3+fXY": {
     "defaultMessage": "L’exigence relative à l’éducation est incomplete",
     "description": "Message displayed when user attempts to apply to a pool with incomplete education requirement"
+  },
+  "VV8TA5": {
+    "defaultMessage": "Retour",
+    "description": "An action to go back to a previous location"
   },
   "VXC0uU": {
     "defaultMessage": "N’est pas démontré suffisamment que le niveau requis est atteint",
@@ -1739,6 +1783,10 @@
     "defaultMessage": "<a>Veuillez communiquer avec notre équipe de soutien</a> si vous avez des questions.",
     "description": "Telling users to email support team with any questions about errors"
   },
+  "sbmUVq": {
+    "defaultMessage": "Selon la définition fournie, je m'identifie en tant que :",
+    "description": "Prompt text for a user selecting an employment equity group for their profile"
+  },
   "sfQN9S": {
     "defaultMessage": "<hidden>Erreur au niveau de l’étape, </hidden>{label}",
     "description": "Prefix when a step has an error."
@@ -1750,6 +1798,10 @@
   "skfKnv": {
     "defaultMessage": "Veuillez sélectionner les Premières Nations qui détiennent le statut ou les Premières Nations qui ne détiennent pas le statut.",
     "description": "Error message that the user has selected both status and non-status first nations."
+  },
+  "sotCgD": {
+    "defaultMessage": "N'importe quelle langue",
+    "description": "Any language"
   },
   "spP+Tz": {
     "defaultMessage": "Nunavut",
@@ -1774,6 +1826,10 @@
   "tEUGpL": {
     "defaultMessage": "Liste",
     "description": "Label for toggling a bullet list in the rich text editor"
+  },
+  "tExKws": {
+    "defaultMessage": "Retiré",
+    "description": "Removed"
   },
   "tW4k56": {
     "defaultMessage": "Un champ obligatoire est vide : Anglais – Votre travail",

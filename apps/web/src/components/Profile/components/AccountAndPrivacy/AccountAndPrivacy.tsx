@@ -4,10 +4,10 @@ import { useIntl } from "react-intl";
 
 import { Accordion, Heading, Link, Well } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
 
-import { PoolCandidateStatus } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
-import TrackApplicationsCard from "~/pages/ProfileAndApplicationsPage/components/TrackApplications/TrackApplicationsCard";
+import ApplicationCard from "~/pages/ProfileAndApplicationsPage/components/TrackApplications/ApplicationCard";
 
 import { SectionProps } from "../../types";
 import { getSectionTitle } from "../../utils";
@@ -177,7 +177,7 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
             </p>
             {activeApplications.length > 0 ? (
               activeApplications.map((application) => (
-                <TrackApplicationsCard
+                <ApplicationCard
                   key={application.id}
                   application={application}
                 />

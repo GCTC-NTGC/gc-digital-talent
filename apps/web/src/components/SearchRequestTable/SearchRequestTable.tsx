@@ -32,6 +32,7 @@ import {
   classificationAccessor,
   classificationsCell,
   detailsCell,
+  jobTitleCell,
   notesCell,
   statusCell,
 } from "./components/helpers";
@@ -185,6 +186,10 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
     useState<PoolCandidateSearchRequestInput>(initialFilters);
 
   const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
+    setPaginationState((previous) => ({
+      ...previous,
+      pageIndex: 0,
+    }));
     const transformedData = transformFormValuesToSearchRequestFilterInput(data);
     setFilterState(transformedData);
     if (!isEqual(transformedData, filterRef.current)) {
@@ -203,8 +208,8 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
       meta: {
         isRowTitle: true,
       },
-      cell: ({ row: { original: searchRequest }, getValue }) =>
-        cells.view(paths.searchRequestView(searchRequest.id), getValue() || ""),
+      cell: ({ row: { original: searchRequest } }) =>
+        jobTitleCell(searchRequest, paths),
     }),
     columnHelper.accessor(
       (row) =>
@@ -375,6 +380,8 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
       }}
       pagination={{
         internal: false,
+        initialState: INITIAL_STATE.paginationState,
+        state: paginationState,
         total: data?.poolCandidateSearchRequestsPaginated.paginatorInfo.total,
         pageSizes: [10, 20, 50],
         onPaginationChange: ({ pageIndex, pageSize }: PaginationState) => {

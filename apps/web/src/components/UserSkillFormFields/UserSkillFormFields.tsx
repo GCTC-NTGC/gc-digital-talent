@@ -9,8 +9,8 @@ import {
   getTechnicalSkillLevel,
   getTechnicalSkillLevelDefinition,
 } from "@gc-digital-talent/i18n";
+import { WhenSkillUsed } from "@gc-digital-talent/graphql";
 
-import { WhenSkillUsed } from "~/api/generated";
 import { getSortedSkillLevels } from "~/utils/skillUtils";
 
 import { SkillBrowserDialogContext } from "../SkillBrowser/types";

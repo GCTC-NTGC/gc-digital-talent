@@ -15,17 +15,14 @@
     "codegen": {
       "inputs": [
         "../../api/storage/app/lighthouse-schema.graphql",
-        "src/**/*.graphql",
-        "../../packages/**/src/**/*.graphql",
         "../../packages/**/src/**/*.ts",
         "../../packages/**/src/**/*.tsx",
-        "../../apps/e2e/**/src/**/*.graphql",
         "../../apps/e2e/**/src/**/*.ts",
         "../../apps/e2e/**/src/**/*.tsx",
         "src/**/*.ts",
         "src/**/*.tsx"
       ],
-      "outputs": ["src/api/generated.ts", "src/index.ts"],
+      "outputs": ["src/index.ts"],
       "outputMode": "new-only",
       "cache": false
     },
@@ -97,6 +94,7 @@
     },
     "e2e": {},
     "e2e:open": {},
+    "e2e:playwright": {},
     "e2e:run": {},
     "e2e:run:all": {
       "dependsOn": ["^e2e:run:all"]

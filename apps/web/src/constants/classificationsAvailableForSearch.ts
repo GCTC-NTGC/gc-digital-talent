@@ -1,4 +1,4 @@
-import { Classification } from "~/api/generated";
+import { Classification } from "@gc-digital-talent/graphql";
 
 export default (): Pick<Classification, "group" | "level">[] => {
   return [
@@ -17,6 +17,10 @@ export default (): Pick<Classification, "group" | "level">[] => {
     {
       group: "IT",
       level: 4,
+    },
+    {
+      group: "IT",
+      level: 5,
     },
     {
       group: "PM",

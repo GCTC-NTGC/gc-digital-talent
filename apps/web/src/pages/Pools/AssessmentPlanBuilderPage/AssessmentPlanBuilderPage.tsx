@@ -23,9 +23,9 @@ import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import {
   AssessmentPlanBuilderPageQuery,
   graphql,
+  Scalars,
 } from "@gc-digital-talent/graphql";
 
-import { Scalars } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
@@ -34,16 +34,13 @@ import SEO from "~/components/SEO/SEO";
 import { routeErrorMessages } from "~/hooks/useErrorMessages";
 import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
 import { getPoolCompletenessBadge } from "~/utils/poolUtils";
+import messages from "~/messages/adminMessages";
 
 import OrganizeSection from "./components/OrganizeSection";
 import SkillSummarySection from "./components/SkillSummarySection";
 import SkillsQuickSummary from "./components/SkillsQuickSummary";
 
-const pageTitle = defineMessage({
-  defaultMessage: "Assessment plan",
-  id: "fkYYe3",
-  description: "Title for the assessment plan builder",
-});
+const pageTitle = defineMessage(messages.assessmentPlan);
 
 const pageSubtitle = defineMessage({
   defaultMessage:
@@ -91,12 +88,7 @@ export const AssessmentPlanBuilder = ({
           </Pill>
         </Heading>
         <p data-h2-margin="base(x1 0)">{intl.formatMessage(pageSubtitle)}</p>
-        <Separator
-          orientation="horizontal"
-          decorative
-          data-h2-background-color="base(gray)"
-          data-h2-margin="base(x2, 0, x1, 0)"
-        />
+        <Separator data-h2-margin="base(x2, 0, x1, 0)" />
         <Sidebar.Wrapper>
           <Sidebar.Sidebar>
             <div data-h2-margin-top="base(x1.5)">
@@ -109,12 +101,7 @@ export const AssessmentPlanBuilder = ({
           <Sidebar.Content>
             <OrganizeSection pool={pool} pageIsLoading={pageIsLoading} />
             <SkillSummarySection pool={pool} />
-            <Separator
-              orientation="horizontal"
-              decorative
-              data-h2-background-color="base(gray)"
-              data-h2-margin="base(x3 0)"
-            />
+            <Separator space="lg" />
             <div
               data-h2-display="base(flex)"
               data-h2-gap="base(x.5, x1)"
@@ -152,7 +139,7 @@ export const AssessmentPlanBuilder = ({
 };
 
 type RouteParams = {
-  poolId: Scalars["ID"];
+  poolId: Scalars["ID"]["output"];
 };
 
 const AssessmentPlanBuilderPage_Query = graphql(/* GraphQL */ `

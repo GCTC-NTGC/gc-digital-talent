@@ -30,8 +30,8 @@ const RequireAuth = ({
 
   const isAuthorized =
     isLoaded &&
-    authorizedRoleNames.some(
-      (authorizedRoleName) => userRoleNames?.includes(authorizedRoleName),
+    authorizedRoleNames.some((authorizedRoleName) =>
+      userRoleNames?.includes(authorizedRoleName),
     );
 
   React.useEffect(() => {

@@ -3,19 +3,22 @@ import { useIntl } from "react-intl";
 
 import { TextArea } from "@gc-digital-talent/forms";
 import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import { GeneralQuestion } from "@gc-digital-talent/graphql";
+import { GeneralQuestion, ScreeningQuestion } from "@gc-digital-talent/graphql";
 
 const TEXT_AREA_ROWS = 3;
 const TEXT_AREA_MAX_WORDS = 200;
 
 interface AnswerInputProps {
   index: number;
-  question: GeneralQuestion;
+  question: ScreeningQuestion | GeneralQuestion;
 }
 
 const AnswerInput = ({ index, question }: AnswerInputProps) => {
   const intl = useIntl();
-  const questionId = `answers.${index}.question`;
+  // eslint-disable-next-line no-underscore-dangle
+  const isScreening = question.__typename === "ScreeningQuestion";
+  const answerPrefix = isScreening ? "screeningAnswers" : "generalAnswers";
+  const questionId = `${answerPrefix}.${index}.question`;
 
   return (
     <>
@@ -27,8 +30,8 @@ const AnswerInput = ({ index, question }: AnswerInputProps) => {
         {getLocalizedName(question.question, intl)}
       </p>
       <TextArea
-        id={`answers.${index}.answer`}
-        name={`answers.${index}.answer`}
+        id={`${answerPrefix}.${index}.answer`}
+        name={`${answerPrefix}.${index}.answer`}
         aria-labelledby={questionId}
         rows={TEXT_AREA_ROWS}
         wordLimit={TEXT_AREA_MAX_WORDS}

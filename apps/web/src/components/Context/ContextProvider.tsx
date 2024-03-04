@@ -1,6 +1,6 @@
 import React from "react";
 import { HelmetProvider } from "react-helmet-async";
-import { MotionConfig } from "framer-motion";
+import { MotionConfig, LazyMotion } from "framer-motion";
 
 import { AppInsightsProvider } from "@gc-digital-talent/app-insights";
 import {
@@ -18,6 +18,8 @@ import { Announcer } from "@gc-digital-talent/ui";
 import { ThemeProvider } from "@gc-digital-talent/theme";
 import Toast from "@gc-digital-talent/toast";
 
+const loadFeatures = () =>
+  import("./motion-features").then((res) => res.default);
 interface ContextContainerProps {
   messages: Messages;
   children: React.ReactNode;
@@ -34,9 +36,11 @@ const ContextContainer = ({ messages, children }: ContextContainerProps) => (
               <ClientProvider>
                 <AppInsightsProvider>
                   <AuthorizationProvider>
-                    <MotionConfig reducedMotion="user">
-                      <Announcer>{children}</Announcer>
-                    </MotionConfig>
+                    <LazyMotion features={loadFeatures}>
+                      <MotionConfig reducedMotion="user">
+                        <Announcer>{children}</Announcer>
+                      </MotionConfig>
+                    </LazyMotion>
                   </AuthorizationProvider>
                 </AppInsightsProvider>
               </ClientProvider>

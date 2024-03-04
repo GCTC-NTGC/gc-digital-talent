@@ -14,7 +14,7 @@ import {
   enumToOptions,
   objectsToSortedOptions,
 } from "@gc-digital-talent/forms";
-import { Heading, Link, Pending } from "@gc-digital-talent/ui";
+import { Heading, Link, Pending, Separator } from "@gc-digital-talent/ui";
 import { errorMessages, getSearchRequestReason } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
@@ -64,6 +64,7 @@ type FormValues = {
   positionType?: boolean;
   reason: CreatePoolCandidateSearchRequestInput["reason"];
   additionalComments?: CreatePoolCandidateSearchRequestInput["additionalComments"];
+  hrAdvisorEmail?: CreatePoolCandidateSearchRequestInput["hrAdvisorEmail"];
   applicantFilter?: {
     qualifiedClassifications?: {
       sync?: Array<Maybe<Classification["id"]>>;
@@ -139,6 +140,7 @@ export const RequestForm = ({
       positionType: positionTypeMassaged,
       reason: values.reason,
       additionalComments: values.additionalComments,
+      hrAdvisorEmail: values.hrAdvisorEmail ?? "",
       wasEmpty: candidateCount === 0 && !state.allPools,
       applicantFilter: {
         create: {
@@ -347,6 +349,19 @@ export const RequestForm = ({
                 }}
               />
             </div>
+            <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+              <Input
+                id="hrAdvisorEmail"
+                type="email"
+                name="hrAdvisorEmail"
+                label={intl.formatMessage({
+                  defaultMessage: "HR advisor email",
+                  id: "VrLfLw",
+                  description:
+                    "Input label asking for the HR advisor's email address.",
+                })}
+              />
+            </div>
           </div>
           <Heading
             level="h2"
@@ -497,12 +512,7 @@ export const RequestForm = ({
             filters={applicantFilterInputToType}
             selectedClassifications={selectedClassifications}
           />
-          <hr
-            data-h2-height="base(1px)"
-            data-h2-border="base(none)"
-            data-h2-background="base(gray)"
-            data-h2-margin="base(x1, 0, x2, 0)"
-          />
+          <Separator />
           <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x1)">
             {intl.formatMessage(
               {
@@ -570,6 +580,7 @@ const RequestForm_CreateRequestMutation = graphql(/* GraphQL */ `
       }
       jobTitle
       additionalComments
+      hrAdvisorEmail
       poolCandidateFilter {
         id
       }

@@ -6,8 +6,8 @@ import {
   getBilingualEvaluation,
   getLanguageProficiency,
 } from "@gc-digital-talent/i18n";
+import { BilingualEvaluation } from "@gc-digital-talent/graphql";
 
-import { BilingualEvaluation } from "~/api/generated";
 import { getEvaluatedLanguageLevels } from "~/utils/userUtils";
 
 import FieldDisplay from "../FieldDisplay";

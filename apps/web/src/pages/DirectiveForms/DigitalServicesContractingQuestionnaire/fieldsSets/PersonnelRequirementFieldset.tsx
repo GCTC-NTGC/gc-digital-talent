@@ -11,7 +11,6 @@ import {
   getTechnicalSkillLevel,
 } from "@gc-digital-talent/i18n";
 import { Button, Separator } from "@gc-digital-talent/ui";
-
 import {
   PersonnelLanguage,
   PersonnelScreeningLevel,
@@ -19,7 +18,8 @@ import {
   Skill,
   SkillCategory,
   SkillLevel,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import SkillDialog from "~/components/SkillBrowser/SkillBrowserDialog";
 import { FormValues as SkillDialogFormValues } from "~/components/SkillBrowser/types";
 
@@ -248,12 +248,7 @@ const PersonnelRequirementFieldset = ({
                   )}
                 </Button>
               </div>
-              <Separator
-                orientation="horizontal"
-                decorative
-                data-h2-background-color="base(gray.lighter)"
-                data-h2-margin="base(x.5 0)"
-              />
+              <Separator space="xs" />
             </div>
           </div>
         );

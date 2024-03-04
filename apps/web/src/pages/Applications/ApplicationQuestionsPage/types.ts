@@ -7,6 +7,7 @@ type QuestionResponse = {
 };
 
 export type FormValues = {
-  answers: Array<QuestionResponse>;
+  screeningAnswers: Array<QuestionResponse>;
+  generalAnswers: Array<QuestionResponse>;
   action: "continue" | "cancel";
 };

@@ -1,10 +1,14 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Board, Link } from "@gc-digital-talent/ui";
-import { Maybe, Scalars } from "@gc-digital-talent/graphql";
+import { Board, Link, Well } from "@gc-digital-talent/ui";
+import {
+  Maybe,
+  Scalars,
+  ArmedForcesStatus,
+  AssessmentStepType,
+} from "@gc-digital-talent/graphql";
 
-import { ArmedForcesStatus, AssessmentStepType } from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
 
 import CandidateBookmark from "../CandidateBookmark/CandidateBookmark";
@@ -148,12 +152,13 @@ const AssessmentResults = ({
   stepType,
   stepName,
 }: AssessmentResultsProps) => {
+  const intl = useIntl();
   const sortedResults = sortResultsAndAddOrdinal(results);
   const candidateIds = sortedResults.map((result) => result.poolCandidate.id);
   const isApplicationStep =
     stepType === AssessmentStepType.ApplicationScreening;
 
-  return (
+  return sortedResults.length ? (
     <Board.List>
       {sortedResults.map((result) => (
         <AssessmentResult
@@ -165,6 +170,17 @@ const AssessmentResults = ({
         />
       ))}
     </Board.List>
+  ) : (
+    <Well fontSize="caption" data-h2-margin="base(x.25)">
+      <p>
+        {intl.formatMessage({
+          defaultMessage: "There are no candidate results in this step.",
+          id: "BCBPYT",
+          description:
+            "Message displayed when no candidates are being assessed in a step",
+        })}
+      </p>
+    </Well>
   );
 };
 

@@ -1,16 +1,14 @@
 import React from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { useIntl } from "react-intl";
 import ArrowDownIcon from "@heroicons/react/20/solid/ArrowDownIcon";
 import ArrowUpIcon from "@heroicons/react/20/solid/ArrowUpIcon";
 import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
-import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 
 import { formMessages } from "@gc-digital-talent/i18n";
 
 import { useCardRepeaterContext } from "./CardRepeaterProvider";
-import { useAnnouncer } from "../Announcer/Announcer";
-import { Action, Edit } from "./Button";
+import { Action, Edit, Remove } from "./Button";
 
 type ActionsProps = {
   children: React.ReactNode;
@@ -50,25 +48,16 @@ export type CardProps = {
   index: number;
   children: React.ReactNode;
   edit?: React.ReactNode;
+  remove?: React.ReactNode;
   error?: boolean;
   onMove?: (from: number, to: number) => void;
-  onRemove?: (index: number) => void;
 };
 
-const Card = ({
-  index,
-  edit,
-  error,
-  onMove,
-  onRemove,
-  children,
-}: CardProps) => {
+const Card = ({ index, edit, remove, error, onMove, children }: CardProps) => {
   const intl = useIntl();
   const shouldReduceMotion = useReducedMotion();
-  const { announce } = useAnnouncer();
   const {
     move,
-    remove,
     total,
     items,
     id,
@@ -108,14 +97,6 @@ const Card = ({
   const handleMove = (from: number, to: number) => {
     move(from, to);
     onMove?.(from, to);
-    if (announce) {
-      announce(
-        intl.formatMessage(formMessages.repeaterAnnounceMove, {
-          from: position,
-          to: to + 1,
-        }),
-      );
-    }
   };
 
   const decrement = () => {
@@ -128,25 +109,13 @@ const Card = ({
     handleMove(index, to > total ? total : to);
   };
 
-  const removeItem = () => {
-    remove(index);
-    onRemove?.(index);
-    if (announce) {
-      announce(
-        intl.formatMessage(formMessages.repeaterAnnounceRemove, {
-          index: position,
-        }),
-      );
-    }
-  };
-
   let DisabledDecrementAction = DisabledAction;
   if (lockDecrement) {
     DisabledDecrementAction = LockedIcon;
   }
 
   return (
-    <motion.li
+    <m.li
       layout
       transition={
         shouldReduceMotion
@@ -233,19 +202,20 @@ const Card = ({
           ) : (
             edit
           )}
-          <Action
-            onClick={removeItem}
-            icon={TrashIcon}
-            disabled={isRemoveDisabled}
-            color="error"
-            aria-label={intl.formatMessage(formMessages.repeaterRemove, {
-              index: position,
-            })}
-          />
+          {isRemoveDisabled && remove ? (
+            <Remove
+              disabled
+              aria-label={intl.formatMessage(formMessages.repeaterRemove, {
+                index: position,
+              })}
+            />
+          ) : (
+            remove
+          )}
         </Actions>
       </div>
       {children}
-    </motion.li>
+    </m.li>
   );
 };
 

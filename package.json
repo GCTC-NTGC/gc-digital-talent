@@ -20,7 +20,7 @@
     "build:css": "h2-build",
     "build:project": "turbo run build",
     "build:intl-cli": "turbo run build --filter=@gc-digital-talent/i18n",
-    "codegen": "turbo run codegen",
+    "codegen": "turbo run codegen --filter=@gc-digital-talent/graphql",
     "check-intl:i18n": "turbo run check-intl --filter=@gc-digital-talent/i18n -- --dir $INIT_CWD --en ./packages/i18n/src/lang/en.json --fr ./packages/i18n/src/lang/fr.json --rm-orphaned --output-untranslated ./packages/i18n/src/lang/untranslated.json --whitelist ./packages/i18n/src/lang/whitelist.yml",
     "check-intl:web": "turbo run check-intl --filter=@gc-digital-talent/i18n -- --dir $INIT_CWD --en ./apps/web/src/lang/en.json --fr ./apps/web/src/lang/fr.json --rm-orphaned --output-untranslated ./apps/web/src/lang/untranslated.json --whitelist ./apps/web/src/lang/whitelist.yml",
     "check-intl-merge:i18n": "turbo run check-intl --filter=@gc-digital-talent/i18n -- --dir $INIT_CWD --en ./packages/i18n/src/lang/en.json --fr ./packages/i18n/src/lang/fr.json --rm-orphaned --output-untranslated ./packages/i18n/src/lang/untranslated.json --whitelist ./packages/i18n/src/lang/whitelist.yml --merge-fr ./packages/i18n/src/lang/newTranslations.json",
@@ -42,6 +42,11 @@
     "watch": "turbo run watch --concurrency=30",
     "watch:project": "turbo run watch",
     "e2e": "npm run e2e --workspace=@gc-digital-talent/e2e",
+    "e2e:playwright": "npm run e2e:playwright --workspace=@gc-digital-talent/playwright",
+    "e2e:playwright:chromium": "npm run e2e:playwright:chromium --workspace=@gc-digital-talent/playwright",
+    "e2e:playwright:firefox": "npm run e2e:playwright:firefox --workspace=@gc-digital-talent/playwright",
+    "e2e:playwright:webkit": "npm run e2e:playwright:webkit --workspace=@gc-digital-talent/playwright",
+    "e2e:playwright:report": "npm run e2e:playwright:report --workspace=@gc-digital-talent/playwright",
     "e2e:open": "npm run e2e:open",
     "e2e:run:all": "npm run e2e:run:all --workspace=@gc-digital-talent/e2e",
     "e2e:run:inspect": "npm run e2e:run:inspect --workspace=@gc-digital-talent/e2e",
@@ -52,7 +57,7 @@
     "@hydrogen-css/hydrogen": "2.0.3",
     "eslint-config-custom": "*",
     "jest-fail-on-console": "^3.1.2",
-    "prettier": "^3.1.1",
+    "prettier": "^3.2.5",
     "turbo": "^1.12.4"
   }
 }

@@ -5,7 +5,7 @@ import SparklesIcon from "@heroicons/react/24/outline/SparklesIcon";
 import ArrowLeftOnRectangleIcon from "@heroicons/react/24/outline/ArrowLeftOnRectangleIcon";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
 
-import { Accordion, Heading, Link } from "@gc-digital-talent/ui";
+import { Accordion, Heading, Link, Separator } from "@gc-digital-talent/ui";
 import { useApiRoutes } from "@gc-digital-talent/auth";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { useTheme } from "@gc-digital-talent/theme";
@@ -397,12 +397,7 @@ const SignInPage = () => {
               </p>
             </>
           )}
-          <hr
-            data-h2-margin="base(x2, 0)"
-            data-h2-border="base(none)"
-            data-h2-height="base(1px)"
-            data-h2-background-color="base(gray)"
-          />
+          <Separator />
           <div
             data-h2-display="base(flex)"
             data-h2-flex-direction="base(row)"

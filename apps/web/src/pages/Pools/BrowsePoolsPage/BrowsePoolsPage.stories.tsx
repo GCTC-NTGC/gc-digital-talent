@@ -6,8 +6,7 @@ import {
   MockGraphqlDecorator,
 } from "@gc-digital-talent/storybook-helpers";
 import { fakePools } from "@gc-digital-talent/fake-data";
-
-import { PoolStatus, PublishingGroup } from "~/api/generated";
+import { PoolStatus, PublishingGroup } from "@gc-digital-talent/graphql";
 
 import { BrowsePools } from "./BrowsePoolsPage";
 
@@ -31,8 +30,6 @@ const Template: Story = () => <BrowsePools />;
 export const Default = Template.bind({});
 Default.parameters = {
   chromatic: { viewports: CHROMATIC_VIEWPORTS },
-  hasDarkMode: true,
-  themeKey: "default",
   apiResponsesConfig: {
     latency: {
       min: 0,

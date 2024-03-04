@@ -17,7 +17,12 @@ import {
   commonMessages,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Maybe } from "@gc-digital-talent/graphql";
+import {
+  Maybe,
+  PoolCandidate,
+  PositionDuration,
+  Pool,
+} from "@gc-digital-talent/graphql";
 
 import {
   yesOrNo,
@@ -31,7 +36,6 @@ import {
   getIndigenousCommunities,
   sanitizeCSVString,
 } from "~/utils/csvUtils";
-import { PoolCandidate, PositionDuration, Pool } from "~/api/generated";
 import adminMessages from "~/messages/adminMessages";
 
 export const getPoolCandidateCsvData = (

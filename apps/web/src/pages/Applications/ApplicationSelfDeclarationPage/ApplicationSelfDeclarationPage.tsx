@@ -20,6 +20,7 @@ import {
   graphql,
   IndigenousCommunity,
 } from "@gc-digital-talent/graphql";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -133,12 +134,14 @@ export const ApplicationSelfDeclaration = ({
 }: ApplicationSelfDeclarationProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const features = useFeatureFlags();
   const { currentStepOrdinal } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
     paths,
     application,
     stepOrdinal: currentStepOrdinal,
+    RoDFlag: features.recordOfDecision,
   });
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -332,12 +335,7 @@ export const ApplicationSelfDeclaration = ({
               </>
             )}
           </div>
-          <Separator
-            orientation="horizontal"
-            decorative
-            data-h2-background-color="base(gray)"
-            data-h2-margin="base(x2, 0)"
-          />
+          <Separator />
           <HelpLink />
           <p data-h2-font-weight="base(700)" data-h2-margin="base(x1, 0)">
             {intl.formatMessage(

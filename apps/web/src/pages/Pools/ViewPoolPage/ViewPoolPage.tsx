@@ -13,9 +13,8 @@ import {
 } from "@gc-digital-talent/date-helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { useFeatureFlags } from "@gc-digital-talent/env";
-import { graphql, Pool, PoolStatus } from "@gc-digital-talent/graphql";
+import { graphql, Pool, PoolStatus, Scalars } from "@gc-digital-talent/graphql";
 
-import { Scalars } from "~/api/generated";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -30,6 +29,7 @@ import {
 import { checkRole } from "~/utils/teamUtils";
 import usePoolMutations from "~/hooks/usePoolMutations";
 import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
+import messages from "~/messages/adminMessages";
 
 import SubmitForPublishingDialog from "./components/SubmitForPublishingDialog";
 import DuplicateProcessDialog from "./components/DuplicateProcessDialog";
@@ -44,7 +44,7 @@ export interface ViewPoolProps {
   isFetching: boolean;
   onPublish: () => Promise<void>;
   onDelete: () => Promise<void>;
-  onExtend: (closingDate: Scalars["DateTime"]) => Promise<void>;
+  onExtend: (closingDate: Scalars["DateTime"]["output"]) => Promise<void>;
   onArchive: () => Promise<void>;
   onDuplicate: () => Promise<void>;
   onUnarchive: () => Promise<void>;
@@ -197,12 +197,7 @@ export const ViewPool = ({
           <ProcessCard.Root>
             <ProcessCard.Header>
               <Heading level="h3" size="h6" data-h2-margin="base(0)">
-                {intl.formatMessage({
-                  defaultMessage: "Assessment plan",
-                  id: "eGNxdM",
-                  description:
-                    "Title for card for actions related to a process' assessment plan",
-                })}
+                {intl.formatMessage(messages.assessmentPlan)}
               </Heading>
               {recordOfDecisionFlag && (
                 <Pill
@@ -405,7 +400,7 @@ export const ViewPool = ({
 };
 
 type RouteParams = {
-  poolId: Scalars["ID"];
+  poolId: Scalars["ID"]["output"];
 };
 
 const ViewPoolPage_Query = graphql(/* GraphQL */ `

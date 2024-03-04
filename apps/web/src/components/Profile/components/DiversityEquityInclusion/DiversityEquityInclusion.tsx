@@ -3,8 +3,8 @@ import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
 import { useIntl } from "react-intl";
 
 import { Accordion, Heading, Well } from "@gc-digital-talent/ui";
+import { UpdateUserAsUserInput } from "@gc-digital-talent/graphql";
 
-import { UpdateUserAsUserInput } from "~/api/generated";
 import EquityOptions from "~/components/EmploymentEquity/EquityOptions";
 import { EquityKeys } from "~/components/EmploymentEquity/types";
 import { hasEmptyRequiredFields } from "~/validators/profile/diversityEquityInclusion";

@@ -6,8 +6,7 @@ import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 import { Button, ButtonProps, Dialog, IconType } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-
-import { Skill, SkillCategory } from "~/api/generated";
+import { Skill, SkillCategory } from "@gc-digital-talent/graphql";
 
 import SkillDetails from "./SkillDetails";
 import SkillSelection from "./SkillSelection";
@@ -36,6 +35,7 @@ interface SkillBrowserDialogProps {
     icon?: IconType | null;
     mode?: ButtonProps["mode"];
     disabled?: boolean;
+    block?: boolean;
   };
   // initial state (like when editing)
   initialState?: FormValues;
@@ -122,6 +122,7 @@ const SkillBrowserDialog = ({
     icon: derivedIcon,
     mode: trigger?.mode,
     disabled: trigger?.disabled,
+    block: trigger?.block,
   };
 
   React.useEffect(() => {

@@ -20,6 +20,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property int $department_id
  * @property string $job_title
  * @property string $additional_comments
+ * @property string $hr_advisor_email
  * @property string $pool_candidate_filter_id
  * @property bool $was_empty
  * @property string $admin_notes

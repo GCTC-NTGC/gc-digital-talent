@@ -4,8 +4,7 @@ import { useFieldArray, useFormContext } from "react-hook-form";
 
 import { Heading, TableOfContents, Well } from "@gc-digital-talent/ui";
 import { Repeater } from "@gc-digital-talent/forms";
-
-import { Skill } from "~/api/generated";
+import { Skill } from "@gc-digital-talent/graphql";
 
 import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
 import PersonnelRequirementFieldset from "../fieldsSets/PersonnelRequirementFieldset";

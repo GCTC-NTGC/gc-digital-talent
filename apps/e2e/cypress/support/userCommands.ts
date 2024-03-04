@@ -1,17 +1,11 @@
 import {
-  CreateUserMutation,
-  GetMeQuery,
-  ListRolesQuery,
-  UpdateUserAsAdminMutation,
-  CreateUserDocument,
-  GetMeDocument,
-  ListRolesDocument,
-  UpdateUserAsAdminDocument,
-  UpdateUserRolesMutation,
-  UpdateUserRolesDocument,
-} from "@gc-digital-talent/web/src/api/generated";
-
-import { getGqlString } from "./graphql-test-utils";
+  Command_CreateUserMutation,
+  Command_UpdateUserMutation,
+  Command_UpdateUserRolesMutation,
+  Command_CurrentUserQuery,
+  Command_RolesQuery,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 const defaultUser = {
   // required
@@ -48,10 +42,27 @@ const defaultUser = {
   positionDuration: undefined,
 };
 
+const commandCreateUserMutationDoc = /* GraphQL */ `
+  mutation Command_CreateUser($user: CreateUserInput!) {
+    createUser(user: $user) {
+      id
+      firstName
+      lastName
+      email
+      authInfo {
+        id
+        sub
+      }
+    }
+  }
+`;
+
+const Command_CreateUserMutation = graphql(commandCreateUserMutationDoc);
+
 Cypress.Commands.add("createUser", (user) => {
-  cy.graphqlRequest<CreateUserMutation>({
-    operationName: "CreateUser",
-    query: getGqlString(CreateUserDocument),
+  cy.graphqlRequest<Command_CreateUserMutation>({
+    operationName: "Command_CreateUser",
+    query: commandCreateUserMutationDoc,
     variables: {
       user: {
         ...defaultUser,
@@ -61,10 +72,20 @@ Cypress.Commands.add("createUser", (user) => {
   }).then((data) => cy.wrap(data.createUser));
 });
 
+const commandUpdateUserMutationDoc = /* GraphQL */ `
+  mutation Command_UpdateUser($id: ID!, $user: UpdateUserAsAdminInput!) {
+    updateUserAsAdmin(id: $id, user: $user) {
+      id
+    }
+  }
+`;
+
+const Command_UpdateUserMutation = graphql(commandUpdateUserMutationDoc);
+
 Cypress.Commands.add("updateUser", (id, user) => {
-  cy.graphqlRequest<UpdateUserAsAdminMutation>({
-    operationName: "UpdateUserAsAdmin",
-    query: getGqlString(UpdateUserAsAdminDocument),
+  cy.graphqlRequest<Command_UpdateUserMutation>({
+    operationName: "Command_UpdateUser",
+    query: commandUpdateUserMutationDoc,
     variables: {
       id: id,
       user: {
@@ -75,10 +96,44 @@ Cypress.Commands.add("updateUser", (id, user) => {
   }).then((data) => cy.wrap(data.updateUserAsAdmin));
 });
 
+const commandUpdateUserRolesMutationDoc = /* GraphQL */ `
+  mutation Command_UpdateUserRoles(
+    $updateUserRolesInput: UpdateUserRolesInput!
+  ) {
+    updateUserRoles(updateUserRolesInput: $updateUserRolesInput) {
+      id
+      roleAssignments {
+        id
+        role {
+          id
+          name
+          isTeamBased
+          displayName {
+            en
+            fr
+          }
+        }
+        team {
+          id
+          name
+          displayName {
+            en
+            fr
+          }
+        }
+      }
+    }
+  }
+`;
+
+const Command_UpdateUserRolesMutation = graphql(
+  commandUpdateUserRolesMutationDoc,
+);
+
 Cypress.Commands.add("updateUserRoles", ({ userId, roleAssignmentsInput }) => {
-  cy.graphqlRequest<UpdateUserRolesMutation>({
-    operationName: "UpdateUserRoles",
-    query: getGqlString(UpdateUserRolesDocument),
+  cy.graphqlRequest<Command_UpdateUserRolesMutation>({
+    operationName: "Command_UpdateUserRoles",
+    query: commandUpdateUserRolesMutationDoc,
     variables: {
       updateUserRolesInput: {
         userId: userId,
@@ -88,20 +143,45 @@ Cypress.Commands.add("updateUserRoles", ({ userId, roleAssignmentsInput }) => {
   }).then((data) => cy.wrap(data.updateUserRoles));
 });
 
+const commandCurrentUserQueryDoc = /* GraphQL */ `
+  query Command_CurrentUser {
+    me {
+      id
+      email
+      experiences {
+        id
+      }
+    }
+  }
+`;
+
+const Command_CurrentUserQuery = graphql(commandCurrentUserQueryDoc);
+
 Cypress.Commands.add("getMe", () => {
-  cy.graphqlRequest<GetMeQuery>({
-    operationName: "getMe",
-    query: getGqlString(GetMeDocument),
+  cy.graphqlRequest<Command_CurrentUserQuery>({
+    operationName: "Command_CurrentUser",
+    query: commandCurrentUserQueryDoc,
     variables: {},
   }).then((data) => {
     cy.wrap(data.me);
   });
 });
 
+const commandRolesQueryDoc = /* GraphQL */ `
+  query Command_Roles {
+    roles {
+      id
+      name
+    }
+  }
+`;
+
+const Command_RolesQuery = graphql(commandRolesQueryDoc);
+
 Cypress.Commands.add("getRoles", () => {
-  cy.graphqlRequest<ListRolesQuery>({
-    operationName: "ListRoles",
-    query: getGqlString(ListRolesDocument),
+  cy.graphqlRequest<Command_RolesQuery>({
+    operationName: "Command_Roles",
+    query: commandRolesQueryDoc,
     variables: {},
   }).then((data) => {
     cy.wrap(data.roles);

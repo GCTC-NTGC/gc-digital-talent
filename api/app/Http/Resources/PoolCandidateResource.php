@@ -35,6 +35,7 @@ class PoolCandidateResource extends JsonResource
             'educationRequirementOption' => $this->education_requirement_option,
             'educationRequirementExperiences' => $collection,
             'signature' => $this->signature,
+            'screeningQuestionResponses' => ScreeningQuestionResponseResource::collection($this->screeningQuestionResponses),
             'generalQuestionResponses' => GeneralQuestionResponseResource::collection($this->generalQuestionResponses),
             'archivedAt' => $this->archived_at,
             'submittedAt' => $this->submitted_at,

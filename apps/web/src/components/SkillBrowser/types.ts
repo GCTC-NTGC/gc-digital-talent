@@ -4,7 +4,7 @@ import {
   SkillCategory,
   SkillLevel,
   WhenSkillUsed,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
 
 export type SkillBrowserDialogContext =
   | "pool"
@@ -15,8 +15,8 @@ export type SkillBrowserDialogContext =
 
 export interface FormValues {
   category?: SkillCategory | "all" | "";
-  family?: Scalars["ID"];
-  skill?: Scalars["ID"];
+  family?: Scalars["ID"]["output"];
+  skill?: Scalars["ID"]["output"];
   details?: string;
   skillLevel?: SkillLevel;
   whenSkillUsed?: WhenSkillUsed;

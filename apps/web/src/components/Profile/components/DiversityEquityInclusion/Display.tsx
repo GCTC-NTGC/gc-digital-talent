@@ -8,8 +8,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { Separator } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-
-import { IndigenousCommunity, User } from "~/api/generated";
+import { IndigenousCommunity, User } from "@gc-digital-talent/graphql";
 
 import CommunityIcon from "./CommunityIcon";
 
@@ -78,12 +77,7 @@ const Display = ({
           </li>
         )}
       </ul>
-      <Separator
-        orientation="horizontal"
-        data-h2-background-color="base:all(gray.lighter)"
-        data-h2-margin="base(x1, 0)"
-        decorative
-      />
+      <Separator space="sm" />
       <p>
         {intl.formatMessage({
           defaultMessage:

@@ -2,6 +2,7 @@ import {
   ArmedForcesStatus,
   CitizenshipStatus,
   PoolLanguage,
+  PoolOpportunityLength,
   PoolStream,
   PositionDuration,
   ProvinceOrTerritory,
@@ -10,7 +11,7 @@ import {
   WorkRegion,
   SkillCategory,
   User,
-} from "@gc-digital-talent/web/src/api/generated";
+} from "@gc-digital-talent/graphql";
 import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 
 import { addRolesToUser } from "../../support/userHelpers";
@@ -99,6 +100,7 @@ describe("Submit Application for IAP Workflow Tests", () => {
                         fr: "test location FR",
                       },
                       isRemote: true,
+                      opportunityLength: PoolOpportunityLength.Various,
                       publishingGroup: PublishingGroup.Iap,
                     });
                     cy.publishPool(testPoolId);

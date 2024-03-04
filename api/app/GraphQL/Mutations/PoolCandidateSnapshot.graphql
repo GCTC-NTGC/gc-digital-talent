@@ -124,6 +124,18 @@ query getProfile($userId: UUID!) {
           }
         }
       }
+      screeningQuestionResponses {
+        id
+        answer
+        screeningQuestion {
+          id
+          sortOrder
+          question {
+            en
+            fr
+          }
+        }
+      }
     }
   }
 }

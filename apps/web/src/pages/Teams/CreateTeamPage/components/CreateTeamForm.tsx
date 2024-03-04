@@ -7,7 +7,6 @@ import kebabCase from "lodash/kebabCase";
 import { Link } from "@gc-digital-talent/ui";
 import { BasicForm, Submit } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
-
 import {
   CreateTeamInput,
   CreateTeamMutation,
@@ -15,24 +14,27 @@ import {
   LocalizedStringInput,
   Maybe,
   Scalars,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import useRoutes from "~/hooks/useRoutes";
 
 import CreateTeamFormFields from "./CreateTeamFormFields";
 
 type FormValues = {
   displayName?: Maybe<LocalizedStringInput>;
-  contactEmail?: Maybe<Scalars["Email"]>;
-  departments?: Array<Scalars["UUID"]>;
+  contactEmail?: Maybe<Scalars["Email"]["output"]>;
+  departments?: Array<Scalars["UUID"]["output"]>;
+  description?: Maybe<LocalizedStringInput>;
 };
 
 const formValuesToSubmitData = (data: FormValues): CreateTeamInput => {
-  const { displayName, contactEmail, departments } = data;
+  const { displayName, contactEmail, departments, description } = data;
   return {
     displayName,
     contactEmail,
     name: kebabCase(displayName?.en || ""),
     departments: { sync: departments },
+    description,
   };
 };
 
@@ -76,12 +78,7 @@ const CreateTeamForm = ({ departments, onSubmit }: CreateTeamFormProps) => {
 
   return (
     <BasicForm onSubmit={handleSubmit}>
-      <div
-        data-h2-flex-grid="base(center, x1, x1)"
-        data-h2-margin-bottom="base(x1)"
-      >
-        <CreateTeamFormFields departments={departments} />
-      </div>
+      <CreateTeamFormFields departments={departments} />
       <div
         data-h2-display="base(flex)"
         data-h2-gap="base(x1)"

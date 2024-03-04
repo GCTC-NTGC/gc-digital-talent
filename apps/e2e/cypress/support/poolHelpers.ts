@@ -6,7 +6,8 @@ import {
   PoolStream,
   PublishingGroup,
   SecurityStatus,
-} from "@gc-digital-talent/web/src/api/generated";
+  PoolOpportunityLength,
+} from "@gc-digital-talent/graphql";
 
 type CreateAndPublishPoolArgs = {
   adminUserId: string;
@@ -26,7 +27,6 @@ export function createAndPublishPool({
   cy.createPool(adminUserId, teamId, [classification.id]).then(
     (createdPool) => {
       cy.get<Skill>("@testSkill").then((skill) => {
-        cy.log(JSON.stringify(skill));
         cy.updatePool(createdPool.id, {
           name: {
             en: englishName
@@ -52,6 +52,7 @@ export function createAndPublishPool({
           },
           isRemote: true,
           publishingGroup: PublishingGroup.ItJobs,
+          opportunityLength: PoolOpportunityLength.Various,
         }).then((updatedPool) => {
           cy.publishPool(updatedPool.id).as(poolAlias);
         });

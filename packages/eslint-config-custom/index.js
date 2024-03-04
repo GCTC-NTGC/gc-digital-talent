@@ -33,7 +33,6 @@ module.exports = {
     "index.js",
     ".eslintrc",
     ".eslintrc.js",
-    "generated.ts",
     "webpack.*.js",
     "tsconfig.json",
     "CssStub.js",
@@ -211,7 +210,7 @@ module.exports = {
         message: "Please use WebP as the image format.",
       },
     ],
-    "react/forbid-elements": [1, { forbid: ["a"] }],
+    "react/forbid-elements": [1, { forbid: ["a", "hr"] }],
     "no-restricted-syntax": [
       "error",
       {

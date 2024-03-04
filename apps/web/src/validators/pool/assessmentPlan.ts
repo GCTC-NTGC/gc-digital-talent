@@ -1,8 +1,8 @@
 /* eslint-disable import/prefer-default-export */
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { AssessmentStepType, Pool } from "@gc-digital-talent/graphql";
 
-import { AssessmentStepType, Pool } from "~/api/generated";
 import { PoolCompleteness } from "~/types/pool";
 
 export function getAssessmentPlanStatus(pool: Pool): PoolCompleteness {
@@ -19,9 +19,8 @@ export function getAssessmentPlanStatus(pool: Pool): PoolCompleteness {
     .map((poolSkill) => poolSkill.id);
   const assessedPoolSkillIds = pool.assessmentSteps
     .filter(notEmpty)
-    .flatMap(
-      (step) =>
-        step.poolSkills?.filter(notEmpty).map((poolSkill) => poolSkill.id),
+    .flatMap((step) =>
+      step.poolSkills?.filter(notEmpty).map((poolSkill) => poolSkill.id),
     );
   const thereAreUnassessedPoolSkills = allPoolSkillIds.some(
     (poolSkillId) => !assessedPoolSkillIds.includes(poolSkillId),

@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import SparklesIcon from "@heroicons/react/20/solid/SparklesIcon";
 
 import { Heading, Link, Separator } from "@gc-digital-talent/ui";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -50,12 +51,14 @@ const ApplicationSkillsIntroduction = ({
 }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const features = useFeatureFlags();
   const { currentStepOrdinal, isIAP } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
     paths,
     application,
     stepOrdinal: currentStepOrdinal,
+    RoDFlag: features.recordOfDecision,
   });
 
   return (
@@ -85,12 +88,7 @@ const ApplicationSkillsIntroduction = ({
             "Application step for skill requirements, introduction, description, paragraph two",
         })}
       </p>
-      <Separator
-        orientation="horizontal"
-        decorative
-        data-h2-background="base(gray)"
-        data-h2-margin="base(x2, 0)"
-      />
+      <Separator />
       <div
         data-h2-display="base(flex)"
         data-h2-gap="base(x1)"

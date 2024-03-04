@@ -14,8 +14,8 @@ import {
   Well,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { Skill } from "@gc-digital-talent/graphql";
 
-import { Skill } from "~/api/generated";
 import { AnyExperience } from "~/types/experience";
 import {
   getExperienceFormLabels,
@@ -253,12 +253,7 @@ const ExperienceCard = ({
             </Button>
           </Collapsible.Trigger>
           <Collapsible.Content data-h2-padding-left="base(x1.5)">
-            <Separator
-              orientation="horizontal"
-              decorative
-              data-h2-background-color="base(gray)"
-              data-h2-margin="base(x1 0)"
-            />
+            <Separator space="sm" />
             {isAwardExperience(experience) && (
               <AwardContent
                 experience={experience}
@@ -284,14 +279,7 @@ const ExperienceCard = ({
               />
             )}
             {/** Personal type has no custom content so separator is redundant */}
-            {!isPersonalExperience(experience) && (
-              <Separator
-                orientation="horizontal"
-                decorative
-                data-h2-background-color="base(gray)"
-                data-h2-margin="base(x1 0)"
-              />
-            )}
+            {!isPersonalExperience(experience) && <Separator space="sm" />}
             <ContentSection
               title={experienceLabels.details}
               headingLevel={headingLevel}
@@ -301,12 +289,7 @@ const ExperienceCard = ({
             </ContentSection>
             {showSkills && !singleSkill && (
               <>
-                <Separator
-                  orientation="horizontal"
-                  decorative
-                  data-h2-background-color="base(gray)"
-                  data-h2-margin="base(x1 0)"
-                />
+                <Separator space="sm" />
                 <ContentSection
                   headingLevel={headingLevel}
                   title={intl.formatMessage({

@@ -9,7 +9,8 @@ import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import Form from "../BasicForm";
 import Submit from "../Submit";
-import Select, { OptGroup, Option } from "./Select";
+import Select from "./Select";
+import { OptGroup, Option } from "../../types";
 
 import type { SelectProps } from ".";
 
@@ -95,6 +96,7 @@ const TemplateGroups: StoryFn<SelectProps> = (args) => {
     },
   ];
   const groupOptions: OptGroup[] = groups.map((group) => ({
+    value: group.id,
     label: getLocalizedName(group.label, intl),
     options: group.options,
   }));

@@ -7,6 +7,7 @@ import UserGroupIcon from "@heroicons/react/24/solid/UserGroupIcon";
 import { useIntl } from "react-intl";
 
 import { HeadingRank } from "@gc-digital-talent/ui";
+import { AwardExperience, Experience } from "@gc-digital-talent/graphql";
 
 import {
   compareByDate,
@@ -16,7 +17,6 @@ import {
   isPersonalExperience,
   isWorkExperience,
 } from "~/utils/experienceUtils";
-import { AwardExperience, Experience } from "~/api/generated";
 
 import ExperienceCard from "../ExperienceCard/ExperienceCard";
 

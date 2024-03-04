@@ -7,6 +7,7 @@ import { Button, Heading, Link, Separator } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { ApplicationStep } from "@gc-digital-talent/graphql";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -63,6 +64,7 @@ export const getPageInfo: GetPageNavInfo = ({
 const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const features = useFeatureFlags();
   const navigate = useNavigate();
   const { followingPageUrl, currentStepOrdinal, isIAP } =
     useApplicationContext();
@@ -71,6 +73,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
     paths,
     application,
     stepOrdinal: currentStepOrdinal,
+    RoDFlag: features.recordOfDecision,
   });
   const poolName = getShortPoolTitleHtml(intl, application.pool);
   const [{ fetching }, executeMutation] = useUpdateApplicationMutation();
@@ -148,12 +151,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
             "Description of the application process and the next step",
         })}
       </p>
-      <Separator
-        orientation="horizontal"
-        data-h2-background-color="base(gray)"
-        data-h2-margin="base(x2, 0)"
-        decorative
-      />
+      <Separator />
       <div
         data-h2-display="base(flex)"
         data-h2-gap="base(x1)"

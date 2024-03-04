@@ -2,10 +2,10 @@ import React from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Button } from "@gc-digital-talent/ui";
+import { Scalars, Skill } from "@gc-digital-talent/graphql";
 
-import { Scalars, Skill } from "~/api/generated";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
 import { normalizedText } from "~/components/Table/sortingFns";
@@ -41,7 +41,7 @@ interface SkillTableProps {
   caption: string;
   data: Skill[];
   allSkills: Skill[];
-  onSave: (submitData: Scalars["ID"][]) => Promise<void>;
+  onSave: (submitData: Scalars["ID"]["output"][]) => Promise<void>;
   disableAdd?: boolean;
   nullMessage?: NullMessageProps;
 }
@@ -86,11 +86,7 @@ const SkillTable = ({
       columnHelper.display({
         id: "edit",
         enableHiding: false,
-        header: intl.formatMessage({
-          defaultMessage: "Remove",
-          id: "yBZaZy",
-          description: "Header for the remove column on a skill table",
-        }),
+        header: intl.formatMessage(commonMessages.remove),
         meta: {
           hideMobileHeader: true,
         },

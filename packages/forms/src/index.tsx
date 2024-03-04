@@ -29,7 +29,7 @@ import RadioGroup, {
 import Repeater from "./components/Repeater/Repeater";
 import RichTextInput from "./components/RichTextInput/RichTextInput";
 import RichTextRenderer from "./components/RichTextInput/RichTextRenderer";
-import Select, { type SelectProps, type Option } from "./components/Select";
+import Select, { type SelectProps } from "./components/Select";
 import Submit, { type SubmitProps } from "./components/Submit";
 import SwitchInput, {
   type SwitchInputProps,
@@ -53,8 +53,11 @@ import {
   countNumberOfWords,
   objectsToSortedOptions,
   htmlToRichTextJSON,
+  flattenErrors,
+  alphaSortOptions,
 } from "./utils";
 import useInputStyles from "./hooks/useInputStyles";
+import { Option, OptGroup, OptGroupOrOption } from "./types";
 
 export {
   DATE_SEGMENT,
@@ -97,6 +100,8 @@ export type {
   RadioGroupProps,
   SelectProps,
   Option,
+  OptGroup,
+  OptGroupOrOption,
   SubmitProps,
   SwitchInputProps,
   TextAreaProps,
@@ -122,4 +127,6 @@ export {
   objectsToSortedOptions,
   useInputStyles as useCommonInputStyles,
   htmlToRichTextJSON,
+  flattenErrors,
+  alphaSortOptions,
 };

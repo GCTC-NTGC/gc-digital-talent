@@ -5,7 +5,8 @@ import {
   Skill,
   PoolCandidateStatus,
   User,
-} from "@gc-digital-talent/web/src/api/generated";
+  SkillCategory,
+} from "@gc-digital-talent/graphql";
 
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 import { createAndPublishPool } from "../../support/poolHelpers";
@@ -21,7 +22,10 @@ describe("Talent Search Workflow Tests", () => {
 
     // select some dimensions to use for testing
     cy.getSkills().then((allSkills) => {
-      cy.wrap(allSkills[0]).as("testSkill"); // take the first skill for testing
+      const technicalSkill = allSkills.find(
+        (skill) => skill.category === SkillCategory.Technical,
+      );
+      cy.wrap(technicalSkill).as("testSkill"); // take the first skill for testing
     });
     cy.getGenericJobTitles().then((allGenericJobTitles) => {
       const testGenericJobTitle1 = allGenericJobTitles[0]; // take the first ID for testing matching

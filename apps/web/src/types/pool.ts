@@ -1,11 +1,11 @@
 import { IconType } from "@gc-digital-talent/ui";
-
 import {
   Pool,
   Classification,
   Maybe,
   UserPublicProfile,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import { Status, StatusColor } from "~/components/StatusItem/StatusItem";
 
 export type SimpleClassification = Pick<Classification, "group" | "level">;
