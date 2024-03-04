@@ -21,6 +21,7 @@ const Template: Story = () => (
 
 export const Default = Template.bind({});
 Default.parameters = {
+  layout: "fullscreen",
   chromatic: {
     modes: {
       light: allModes.light,

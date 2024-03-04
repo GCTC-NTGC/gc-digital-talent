@@ -1,10 +1,7 @@
 import React from "react";
 import type { Meta, Story } from "@storybook/react";
 
-import {
-  CHROMATIC_VIEWPORTS,
-  THEMES,
-} from "@gc-digital-talent/storybook-helpers";
+import { THEMES, allModes } from "@gc-digital-talent/storybook-helpers";
 import NestedLanguageProvider from "@gc-digital-talent/i18n/src/components/NestedLanguageProvider";
 import { Messages } from "@gc-digital-talent/i18n";
 
@@ -30,6 +27,13 @@ export default {
     themes: {
       themeOverride: THEMES.iap.light,
     },
+    chromatic: {
+      modes: {
+        light: allModes.light,
+        "light mobile": allModes["light mobile"],
+        dark: allModes.dark,
+      },
+    },
   },
 } as Meta;
 
@@ -40,6 +44,3 @@ const Template: Story = () => (
 );
 
 export const Default = Template.bind({});
-Default.parameters = {
-  chromatic: { viewports: CHROMATIC_VIEWPORTS },
-};
