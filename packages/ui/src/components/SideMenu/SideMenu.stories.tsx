@@ -33,7 +33,6 @@ export default {
   },
   parameters: {
     layout: "fullscreen",
-    themeKey: "admin",
   },
 } as Meta;
 

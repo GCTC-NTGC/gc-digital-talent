@@ -23,7 +23,6 @@ export default {
   component: TeamMembersPage,
   title: "Pages/Team Members Page",
   parameters: {
-    themeKey: "admin",
     defaultPath: {
       path: "/en/admin/teams/:teamId/members",
       initialEntries: [`/en/admin/teams/${teamData.id}/members`],

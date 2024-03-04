@@ -16,9 +16,6 @@ const flawedUserData = [
 export default {
   component: UpdateUserForm,
   title: "Forms/Update User Form",
-  parameters: {
-    themeKey: "admin",
-  },
 } as ComponentMeta<typeof UpdateUserForm>;
 
 const Template: ComponentStory<typeof UpdateUserForm> = (args) => {
