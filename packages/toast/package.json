@@ -26,6 +26,7 @@
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
     "@gc-digital-talent/eslint-config": "*",
+    "@gc-digital-talent/storybook-helpers": "*",
     "@storybook/react": "^7.6.17",
     "@swc/core": "^1.4.2",
     "@types/react": "^18.2.61",

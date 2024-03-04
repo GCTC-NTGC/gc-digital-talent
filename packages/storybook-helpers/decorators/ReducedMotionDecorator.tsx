@@ -1,12 +1,14 @@
 import React from "react";
-import { MotionConfig } from "framer-motion";
+import { LazyMotion, MotionConfig, domAnimation } from "framer-motion";
 import isChromatic from "chromatic/isChromatic";
 import { StoryFn } from "@storybook/react";
 
 const ReducedMotionDecorator = (Story: StoryFn) => (
-  <MotionConfig reducedMotion={isChromatic() ? "always" : "user"}>
-    <Story />
-  </MotionConfig>
+  <LazyMotion features={domAnimation}>
+    <MotionConfig reducedMotion={isChromatic() ? "always" : "user"}>
+      <Story />
+    </MotionConfig>
+  </LazyMotion>
 );
 
 export default ReducedMotionDecorator;
