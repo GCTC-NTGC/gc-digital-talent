@@ -50,14 +50,9 @@ export default {
       },
     },
     layout: "fullscreen",
-    themes: {
-      themeOverride: THEMES.iap.light,
-    },
     chromatic: {
-      modes: {
-        light: allModes.light,
-        "light mobile": allModes["light mobile"],
-        dark: allModes.dark,
+      mode: {
+        mobile: allModes.mobile,
       },
     },
   },
@@ -70,3 +65,15 @@ const Template: Story = () => (
 );
 
 export const Default = Template.bind({});
+Default.parameters = {
+  themes: {
+    themeOverride: THEMES.iap.light,
+  },
+};
+
+export const Dark = Template.bind({});
+Dark.parameters = {
+  themes: {
+    themeOverride: THEMES.iap.dark,
+  },
+};
