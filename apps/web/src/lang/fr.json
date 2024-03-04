@@ -103,10 +103,6 @@
     "defaultMessage": "Créer une nouvelle demande de talent",
     "description": "Link text to start a new talent request"
   },
-  "+dmNpa": {
-    "defaultMessage": "Erreur : échec de la mise à jour des principales compétences comportementales",
-    "description": "Message displayed to user after top behavioural skills fails to update"
-  },
   "+do6jV": {
     "defaultMessage": "Voir les critères d’admissibilité",
     "description": "Button text for program eligibility criteria"
@@ -2363,10 +2359,6 @@
     "defaultMessage": "Publication des bassins et gestion d'équipes",
     "description": "Heading for Community Manager dashboard links"
   },
-  "B6SS7l": {
-    "defaultMessage": "Mise à jour réussie de l’amélioration des compétences comportementales",
-    "description": "Success message displayed after updating improve behavioural skills"
-  },
   "B6SqfX": {
     "defaultMessage": "Sauvegarder le changement d’état",
     "description": "Button label displayed that saves the users status selection."
@@ -2702,10 +2694,6 @@
   "CzK1qY": {
     "defaultMessage": "Supprimé",
     "description": "Label for the trashed field"
-  },
-  "D1+SmE": {
-    "defaultMessage": "Erreur : échec de la mise à jour des principales compétences techniques",
-    "description": "Message displayed to user after top technical skills fails to update"
   },
   "D3UXq2": {
     "defaultMessage": "Liste des tâches que l’entrepreneur doit accomplir dans le cadre du contrat.",
@@ -3394,10 +3382,6 @@
   "GdOQeo": {
     "defaultMessage": "Quelle est la Directive sur les talents numériques?",
     "description": "Heading for section describing the directive"
-  },
-  "GfjNqa": {
-    "defaultMessage": "Mise à jour réussie des principales compétences comportementales",
-    "description": "Success message displayed after updating top behavioural skills"
   },
   "GgBjAd": {
     "defaultMessage": "Échelle salariale",
@@ -4563,10 +4547,6 @@
     "defaultMessage": "À qui ce programme est-il destiné?",
     "description": "Heading for section about who the program is for"
   },
-  "O53DAg": {
-    "defaultMessage": "Erreur : échec de la mise à jour de l’amélioration des compétences comportementales",
-    "description": "Message displayed to user after improve behavioural skills fails to update"
-  },
   "O5dDCM": {
     "defaultMessage": "Aller à la page suivante ",
     "description": "Aria label for next page button in pagination nav"
@@ -5550,10 +5530,6 @@
   "TPw/0u": {
     "defaultMessage": "sont menaçants, violents, intimidants ou harcelants",
     "description": "Comments or contributions list item"
-  },
-  "TQt+3L": {
-    "defaultMessage": "Enregistrer et retourner",
-    "description": "Text on a button to save the skill order and return to skill showcase"
   },
   "TRqbR/": {
     "defaultMessage": "Créer une famille de compétences",
@@ -7310,6 +7286,10 @@
     "defaultMessage": "Le gouvernement du Canada se réserve le droit de supprimer des commentaires et des contributions, et de bloquer des utilisateurs en fonction des critères ci-dessous:",
     "description": "Paragraph for comments and interaction section"
   },
+  "cqJw3g": {
+    "defaultMessage": "Vous êtes sur le point de supprimer cette compétence de la démonstration de vos compétences.",
+    "description": "First paragraph for remove skill dialog"
+  },
   "crzWxb": {
     "defaultMessage": "Ouvrir le menu",
     "description": "Text label for header button that opens side menu."
@@ -7485,10 +7465,6 @@
   "doatZI": {
     "defaultMessage": "Les conseillers techniques sont des travailleurs individuels qui fournissent des conseils et des recommandations afin d’appuyer la prestation de services.",
     "description": "Description for the 'IT-03 Advisor' classification, paragraph 2"
-  },
-  "dpvwTf": {
-    "defaultMessage": "Erreur : échec de la mise à jour de l’amélioration des compétences techniques",
-    "description": "Message displayed to user after improve technical skills fails to update"
   },
   "drDPf3": {
     "defaultMessage": "Parcourez les offres dans le domaine des <abbreviation>TI</abbreviation> pour la communauté autochtone",
@@ -8473,10 +8449,6 @@
   "ipsXat": {
     "defaultMessage": "Capture d’écran de la demande",
     "description": "Document title for printing a user's application snapshot."
-  },
-  "iqmE+5": {
-    "defaultMessage": "Mise à jour réussie des principales compétences techniques",
-    "description": "Success message displayed after updating top technical skills"
   },
   "iruU4c": {
     "defaultMessage": "10 millions de dollars à 15 millions de dollars",
@@ -10918,10 +10890,6 @@
     "defaultMessage": "Cette liste permet au candidat de mettre en évidence <strong>jusqu’à 5 compétences comportementales ou relationnelles</strong> dans lesquelles ils excellent le plus.",
     "description": "Description of a users top behavioural skills"
   },
-  "yBZaZy": {
-    "defaultMessage": "Supprimer",
-    "description": "Header for the remove column on a skill table"
-  },
   "yBlzbT": {
     "defaultMessage": "Présenter sa candidature pour les opportunités gestionnaires et conseillers<hidden> {name}</hidden>",
     "description": "Invitation to apply for the 'IT-04 Manager' classification"
@@ -11089,10 +11057,6 @@
   "z5YYOk": {
     "defaultMessage": "Veuillez préciser l’instrument",
     "description": "Label for _instrument type other_ fieldset in the _digital services contracting questionnaire_"
-  },
-  "z5f+GT": {
-    "defaultMessage": "Mise à jour réussie de l’amélioration des compétences techniques",
-    "description": "Success message displayed after updating improve technical skills"
   },
   "z6omvn": {
     "defaultMessage": "ne respectent pas les principes de la Charte canadienne des droits et libertés, Loi constitutionnelle de 1982",

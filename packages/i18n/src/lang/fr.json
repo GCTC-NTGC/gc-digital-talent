@@ -787,6 +787,10 @@
     "defaultMessage": "Niveau 3 : Chef d'équipe",
     "description": "The name of the Team leader Analyst role."
   },
+  "NAKad/": {
+    "defaultMessage": "Supprimer",
+    "description": "Remove action"
+  },
   "NQhU3F": {
     "defaultMessage": "Un champ obligatoire est vide : Français - Note spéciale pour ce processus",
     "description": "Error message that Special note for this process in French must be filled"
@@ -1046,6 +1050,10 @@
   "V3+fXY": {
     "defaultMessage": "L’exigence relative à l’éducation est incomplete",
     "description": "Message displayed when user attempts to apply to a pool with incomplete education requirement"
+  },
+  "VV8TA5": {
+    "defaultMessage": "Retour",
+    "description": "An action to go back to a previous location"
   },
   "VXC0uU": {
     "defaultMessage": "N’est pas démontré suffisamment que le niveau requis est atteint",

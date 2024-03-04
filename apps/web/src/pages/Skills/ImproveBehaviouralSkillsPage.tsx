@@ -2,12 +2,10 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { OperationContext, useMutation, useQuery } from "urql";
 import StarIcon from "@heroicons/react/24/outline/StarIcon";
-import { useNavigate } from "react-router-dom";
 
 import { Pending } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers/src/utils/util";
 import { useAuthorization } from "@gc-digital-talent/auth";
-import { toast } from "@gc-digital-talent/toast";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { Skill, SkillCategory, UserSkill } from "@gc-digital-talent/graphql";
 
@@ -27,19 +25,22 @@ interface ImproveBehaviouralSkillsProps {
   skills: Skill[];
   userSkills: UserSkill[];
   initialSkills: FormValues;
+  stale: boolean;
 }
 
 const ImproveBehaviouralSkills = ({
   skills,
   userSkills,
   initialSkills,
+  stale,
 }: ImproveBehaviouralSkillsProps) => {
   const intl = useIntl();
-  const navigate = useNavigate();
   const paths = useRoutes();
   const returnPath = paths.skillShowcase();
   const { userAuthInfo } = useAuthorization();
-  const [, executeMutation] = useMutation(UpdateUserSkillRankings_Mutation);
+  const [, executeUpdateUserSkillRankingsMutation] = useMutation(
+    UpdateUserSkillRankings_Mutation,
+  );
 
   const pageId = "improve-behavioural-skills";
 
@@ -96,73 +97,39 @@ const ImproveBehaviouralSkills = ({
     returnPath,
   };
 
-  const handleUpdateUserSkillRankings = (formValues: FormValues) => {
-    executeMutation({
+  const handleUpdateUserSkillRankings = (
+    formValues: FormValues,
+  ): Promise<void> =>
+    executeUpdateUserSkillRankingsMutation({
       userId: userAuthInfo?.id,
       userSkillRanking: {
         improveBehaviouralSkillsRanked: [
           ...formValues.userSkills.map((userSkill) => userSkill.skill),
         ],
       },
-    })
-      .then((res) => {
-        if (res.data) {
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Successfully updated improve behavioural skills",
-              id: "B6SS7l",
-              description:
-                "Success message displayed after updating improve behavioural skills",
-            }),
-          );
-          navigate(returnPath);
-        }
-      })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: updating improve behavioural skills failed",
-            id: "O53DAg",
-            description:
-              "Message displayed to user after improve behavioural skills fails to update",
-          }),
-        );
-      });
-  };
+    }).then((res) => {
+      if (res.data?.updateUserSkillRankings) {
+        return;
+      }
+      throw new Error("No data returned");
+    });
 
   const updateRankingsAfterAddingSkill = (
     initialSkillRanking: string[],
     newSkillId: string,
-  ) => {
+  ): Promise<void> => {
     const mergedSkillIds = [...initialSkillRanking, newSkillId];
-    executeMutation({
+    return executeUpdateUserSkillRankingsMutation({
       userId: userAuthInfo?.id,
       userSkillRanking: {
         improveBehaviouralSkillsRanked: mergedSkillIds,
       },
-    })
-      .then((res) => {
-        if (res.data) {
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Successfully updated improve behavioural skills",
-              id: "B6SS7l",
-              description:
-                "Success message displayed after updating improve behavioural skills",
-            }),
-          );
-        }
-      })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: updating improve behavioural skills failed",
-            id: "O53DAg",
-            description:
-              "Message displayed to user after improve behavioural skills fails to update",
-          }),
-        );
-      });
+    }).then((res) => {
+      if (res.data?.updateUserSkillRankings) {
+        return;
+      }
+      throw new Error("No data returned");
+    });
   };
 
   return (
@@ -170,12 +137,14 @@ const ImproveBehaviouralSkills = ({
       userId={userAuthInfo?.id}
       crumbs={crumbs}
       pageInfo={pageInfo}
-      skills={skills}
-      userSkills={userSkills}
-      initialSkills={initialSkills}
+      allSkills={skills}
+      allUserSkills={userSkills}
+      initialData={initialSkills}
       handleSubmit={handleUpdateUserSkillRankings}
       onAddition={updateRankingsAfterAddingSkill}
       maxItems={MAX_SKILL_COUNT}
+      userSkillRanking="improveBehaviouralSkillsRanked"
+      disabled={stale}
     />
   );
 };
@@ -185,7 +154,7 @@ const context: Partial<OperationContext> = {
 };
 
 const ImproveBehaviouralSkillsPage = () => {
-  const [{ data, fetching, error }] = useQuery({
+  const [{ data, fetching, error, stale }] = useQuery({
     query: UserSkills_Query,
     context,
   });
@@ -223,6 +192,7 @@ const ImproveBehaviouralSkillsPage = () => {
         skills={behaviouralSkills ?? []}
         userSkills={userSkills ?? []}
         initialSkills={initialSkills ?? []}
+        stale={stale}
       />
     </Pending>
   );
