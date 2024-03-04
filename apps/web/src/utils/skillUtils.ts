@@ -11,7 +11,11 @@ import {
   getTechnicalSkillLevelDefinition,
 } from "@gc-digital-talent/i18n";
 import { matchStringCaseDiacriticInsensitive } from "@gc-digital-talent/forms";
-import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
+import {
+  notEmpty,
+  uniqueItems,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
 import {
   UserSkill,
   SkillLevel,
@@ -21,6 +25,7 @@ import {
   SkillCategory,
   SkillFamily,
   PoolSkill,
+  PoolSkillType,
 } from "@gc-digital-talent/graphql";
 
 /**
@@ -356,4 +361,21 @@ export const sortPoolSkillsBySkillCategory = (
     }
     return 0;
   });
+};
+
+/**
+ * Filter poolSkills to get an array of essential or nonessential skills
+ *
+ * @param poolSkills PoolSkill[]
+ * @param poolSkillType PoolSkillType
+ * @returns Skill[]
+ */
+export const filterPoolSkillsByType = (
+  poolSkills: PoolSkill[],
+  poolSkillType: PoolSkillType,
+): Skill[] => {
+  const skills = poolSkills
+    .filter((poolSkill) => poolSkill.type === poolSkillType)
+    .map((poolSkill) => poolSkill.skill);
+  return unpackMaybes(skills);
 };
