@@ -771,10 +771,6 @@
     "defaultMessage": "Avez-vous un droit de priorité pour les candidatures du gouvernement du Canada? Ce statut est accordé par la Commission de la fonction publique du Canada. Pour en savoir plus, <priorityEntitlementLink>visitez le site de l'information sur les droits de priorité</priorityEntitlementLink>.",
     "description": "Sentence asking whether the user possesses priority entitlement"
   },
-  "26Qj2A": {
-    "defaultMessage": "Visitez votre profil et la page de candidature",
-    "description": "Link text to navigate to the profile and applications page"
-  },
   "27FjxB": {
     "defaultMessage": "Avoir une passion ou un intérêt pour la technologie de l’information (TI), avec cette passion ou cet intérêt démontrés par une expérience personnelle, bénévole, communautaire ou professionnelle.",
     "description": "IAP Requirement list item four"
@@ -8234,6 +8230,10 @@
     "defaultMessage": "Affinez les résultats de votre tableau à l'aide des filtres suivants.",
     "description": "Candidate search filter dialog: subtitle"
   },
+  "htxH4r": {
+    "defaultMessage": "Retourner à votre tableau de bord",
+    "description": "Link text to navigate to the profile and applications page"
+  },
   "hvG6bH": {
     "defaultMessage": "Exécuter des processus de recrutement pangouvernementaux pour les talents numériques",
     "description": "An OCIO role in the _supporting the community_ section of the _digital services contracting questionnaire_"
@@ -8690,6 +8690,10 @@
     "defaultMessage": "Téléchargement a échoué : Aucune rangée n’a été sélectionnée",
     "description": "Alert message displayed when a user attempts to print without selecting items first"
   },
+  "k5bZg7": {
+    "defaultMessage": "Parlez-nous de votre expérience",
+    "description": "Link text for application survey"
+  },
   "k8lEf0": {
     "defaultMessage": "Niveaux de compétence technique",
     "description": "Heading for the skills level definitions of technical skills"
@@ -8797,6 +8801,10 @@
   "l1f8zy": {
     "defaultMessage": "Ou demander à recevoir des candidats par ordre de bassin",
     "description": "Lead-in text to list of pools managers can request candidates from"
+  },
+  "l5R6Nc": {
+    "defaultMessage": "Veuillez remplir une demande d’habilitation",
+    "description": "Link text for government of canada security clearance forms"
   },
   "l62TJM": {
     "defaultMessage": "Disponibilité",
@@ -9297,6 +9305,10 @@
   "naE1xF": {
     "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez votre histoire, montrez la manière dont vous avez développé vos capacités et utilisez votre profil pour postuler des emplois. Que vous soyez à la recherche d’un emploi ou que vous songiez à l’avenir, un profil solide vous ouvrira la voie vers de nouvelles possibilités d’emploi.",
     "description": "Description of how application profiles works for managers/executives."
+  },
+  "nc5GGm": {
+    "defaultMessage": "Exploiter d’autres occasions",
+    "description": "Link text to the ongoing recruitments section on the browse page"
   },
   "ndW6vI": {
     "defaultMessage": "En attente d’une évaluation",
@@ -11005,6 +11017,10 @@
   "ysKXVP": {
     "defaultMessage": "Groupe de publication",
     "description": "Label for a process' publishing group"
+  },
+  "ytHyUL": {
+    "defaultMessage": "Effectuez la mise à jour de l’information de votre profil",
+    "description": "Link text to users profile to update contact information"
   },
   "ytTGvb": {
     "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique une famille de compétences. Elle devrait être fondée sur le nom anglais de la famille de compétences et devrait être concise. Un bon exemple serait « information_management ». Elle peut être utilisée dans le code pour faire référence à cette compétence particulière, et ne peut donc pas être modifiée ultérieurement.",
