@@ -26,17 +26,17 @@ type Application = Omit<
   "user" | "educationRequirementExperiences"
 >;
 
-export interface TrackApplicationsCardProps {
+export interface ApplicationCardProps {
   application: Application;
   headingLevel?: HeadingProps["level"];
   onDelete: DeleteActionProps["onDelete"];
 }
 
-const TrackApplicationsCard = ({
+const ApplicationCard = ({
   application,
   headingLevel = "h2",
   onDelete,
-}: TrackApplicationsCardProps) => {
+}: ApplicationCardProps) => {
   const intl = useIntl();
 
   // Conditionals for card actions
@@ -179,24 +179,20 @@ const TrackApplicationsCard = ({
   );
 };
 
-const TrackApplicationsCardDelete_Mutation = graphql(/* GraphQL */ `
-  mutation TrackApplicationsCardDelete($id: ID!) {
+const ApplicationCardDelete_Mutation = graphql(/* GraphQL */ `
+  mutation ApplicationCardDelete($id: ID!) {
     deleteApplication(id: $id) {
       id
     }
   }
 `);
 
-interface TrackApplicationsCardApiProps {
+interface ApplicationCardApiProps {
   application: Application;
 }
 
-const TrackApplicationsCardApi = ({
-  application,
-}: TrackApplicationsCardApiProps) => {
-  const [, executeDeleteMutation] = useMutation(
-    TrackApplicationsCardDelete_Mutation,
-  );
+const ApplicationCardApi = ({ application }: ApplicationCardApiProps) => {
+  const [, executeDeleteMutation] = useMutation(ApplicationCardDelete_Mutation);
   const intl = useIntl();
 
   const deleteApplication = () => {
@@ -217,11 +213,8 @@ const TrackApplicationsCardApi = ({
   };
 
   return (
-    <TrackApplicationsCard
-      application={application}
-      onDelete={deleteApplication}
-    />
+    <ApplicationCard application={application} onDelete={deleteApplication} />
   );
 };
 
-export default TrackApplicationsCardApi;
+export default ApplicationCardApi;

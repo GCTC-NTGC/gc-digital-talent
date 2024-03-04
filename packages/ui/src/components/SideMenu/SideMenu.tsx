@@ -81,7 +81,7 @@ const SideMenu = ({
             data-h2-flex-item="base(content)"
             data-h2-position="base(fixed) p-tablet(static)"
             data-h2-location="base(0, auto, auto, auto) p-tablet(auto)"
-            data-h2-z-index="base(9999)"
+            data-h2-z-index="base(9999) p-tablet(1)"
             {...animConfig}
           >
             <div
@@ -155,9 +155,10 @@ const SideMenu = ({
       <AnimatePresence>
         {showOverlay && (
           <m.div
+            onClick={() => setOpen(false)}
             data-h2-position="base(fixed)"
             data-h2-location="base(0, 0, 0, 0)"
-            data-h2-background-color="base(black)"
+            data-h2-background-color="base:all(black)"
             data-h2-z-index="base(9998)"
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.8 }}

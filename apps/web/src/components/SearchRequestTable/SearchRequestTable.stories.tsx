@@ -22,7 +22,7 @@ export default {
   component: SearchRequestTable,
   parameters: {
     apiResponses: {
-      getPoolCandidateSearchRequestsPaginated: {
+      SearchRequestTable: {
         data: {
           poolCandidateSearchRequestsPaginated: {
             data: requestsData,

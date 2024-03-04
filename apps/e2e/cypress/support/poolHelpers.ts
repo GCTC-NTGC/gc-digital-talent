@@ -29,7 +29,6 @@ export function createAndPublishPool({
   cy.createPool(adminUserId, teamId, [classification.id]).then(
     (createdPool) => {
       cy.get<Skill>("@testSkill").then((skill) => {
-        cy.log(JSON.stringify(skill));
         cy.updatePool(createdPool.id, {
           name: {
             en: englishName

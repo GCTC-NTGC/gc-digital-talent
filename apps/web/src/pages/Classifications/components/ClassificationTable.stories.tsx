@@ -10,9 +10,6 @@ const mockClassifications = fakeClassifications();
 export default {
   component: ClassificationTable,
   title: "Tables/Classification Table",
-  parameters: {
-    themeKey: "admin",
-  },
 } as ComponentMeta<typeof ClassificationTable>;
 
 const Template: ComponentStory<typeof ClassificationTable> = (args) => {

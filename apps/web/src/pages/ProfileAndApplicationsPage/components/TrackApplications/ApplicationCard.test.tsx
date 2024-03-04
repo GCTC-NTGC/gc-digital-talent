@@ -17,9 +17,7 @@ import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
 
 import { PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
 
-import TrackApplicationsCard, {
-  TrackApplicationsCardProps,
-} from "./TrackApplicationsCard";
+import ApplicationCard, { ApplicationCardProps } from "./ApplicationCard";
 
 const mockApplication = fakePoolCandidates()[0];
 
@@ -34,14 +32,14 @@ const mockClient = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 } as any;
 
-const renderCard = (props: TrackApplicationsCardProps) =>
+const renderCard = (props: ApplicationCardProps) =>
   renderWithProviders(
     <GraphqlProvider value={mockClient}>
-      <TrackApplicationsCard {...props} />
+      <ApplicationCard {...props} />
     </GraphqlProvider>,
   );
 
-describe("TrackApplicationsCard", () => {
+describe("ApplicationCard", () => {
   it("should have no accessibility errors", async () => {
     const { container } = renderCard(defaultProps);
     await axeTest(container);

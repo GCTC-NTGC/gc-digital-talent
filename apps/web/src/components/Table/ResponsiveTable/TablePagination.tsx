@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { Table } from "@tanstack/react-table";
+import { PaginationState, Table } from "@tanstack/react-table";
 
 import Pagination from "~/components/Pagination";
 
@@ -45,7 +45,22 @@ const TablePagination = <T,>({
     }
   };
 
-  const tablePaginationState = table.getState().pagination;
+  let currentPageIndex: number = 0;
+  if (
+    !pagination?.internal &&
+    typeof pagination?.state?.pageIndex !== "undefined"
+  ) {
+    const externalPageIndex = pagination.state.pageIndex - 1;
+    currentPageIndex = externalPageIndex < 0 ? 0 : externalPageIndex;
+  }
+
+  const tablePaginationState: PaginationState =
+    !pagination.internal && pagination.state
+      ? {
+          pageIndex: currentPageIndex,
+          pageSize: pagination.state.pageSize,
+        }
+      : table.getState().pagination;
 
   return (
     <Pagination

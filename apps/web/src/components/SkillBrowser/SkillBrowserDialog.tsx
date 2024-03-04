@@ -36,6 +36,7 @@ interface SkillBrowserDialogProps {
     icon?: IconType | null;
     mode?: ButtonProps["mode"];
     disabled?: boolean;
+    block?: boolean;
   };
   // initial state (like when editing)
   initialState?: FormValues;
@@ -122,6 +123,7 @@ const SkillBrowserDialog = ({
     icon: derivedIcon,
     mode: trigger?.mode,
     disabled: trigger?.disabled,
+    block: trigger?.block,
   };
 
   React.useEffect(() => {
