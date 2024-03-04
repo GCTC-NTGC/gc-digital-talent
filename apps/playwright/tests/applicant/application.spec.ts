@@ -271,7 +271,7 @@ test.describe("Application", () => {
     ).toBeVisible();
     await expect(
       application.page.getByRole("link", {
-        name: /visit your Profile and applications page/i,
+        name: /return to your dashboard/i,
       }),
     ).toBeVisible();
   });
