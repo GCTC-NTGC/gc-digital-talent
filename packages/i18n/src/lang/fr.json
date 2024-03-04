@@ -1051,6 +1051,10 @@
     "defaultMessage": "L’exigence relative à l’éducation est incomplete",
     "description": "Message displayed when user attempts to apply to a pool with incomplete education requirement"
   },
+  "VV8TA5": {
+    "defaultMessage": "Retour",
+    "description": "An action to go back to a previous location"
+  },
   "VXC0uU": {
     "defaultMessage": "N’est pas démontré suffisamment que le niveau requis est atteint",
     "description": "Option for justification when assessment decision is unsuccessful."

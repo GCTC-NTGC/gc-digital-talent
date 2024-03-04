@@ -7286,6 +7286,10 @@
     "defaultMessage": "Le gouvernement du Canada se réserve le droit de supprimer des commentaires et des contributions, et de bloquer des utilisateurs en fonction des critères ci-dessous:",
     "description": "Paragraph for comments and interaction section"
   },
+  "cqJw3g": {
+    "defaultMessage": "Vous êtes sur le point de supprimer cette compétence de la démonstration de vos compétences.",
+    "description": "First paragraph for remove skill dialog"
+  },
   "crzWxb": {
     "defaultMessage": "Ouvrir le menu",
     "description": "Text label for header button that opens side menu."
