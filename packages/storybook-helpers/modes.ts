@@ -1,6 +1,14 @@
 import { THEMES } from "./decorators/ThemeDecorator";
 import { DIMENSIONS } from "./viewports";
 
+/**
+ * Chromatic Modes
+ *
+ * Used to define different modes used by
+ * chromatic snapshots.
+ *
+ * REF: https://www.chromatic.com/docs/modes/
+ */
 const allModes = {
   mobile: {
     viewport: DIMENSIONS.phone.width,
