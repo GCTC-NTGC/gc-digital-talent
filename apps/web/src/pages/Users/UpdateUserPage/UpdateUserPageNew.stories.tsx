@@ -31,7 +31,7 @@ export default {
           roles: availableRoles,
         },
       },
-      ListTeams: {
+      AddTeamRoleName: {
         data: {
           teams: teamsData,
         },
@@ -47,7 +47,7 @@ const Template: ComponentStory<typeof UpdateUserPage> = () => (
 export const Default = Template.bind({});
 Default.parameters = {
   apiResponses: {
-    User: {
+    UpdateUserData: {
       data: {
         user: userData,
       },
@@ -59,12 +59,9 @@ Default.parameters = {
 export const FlawedUserData = Template.bind({});
 FlawedUserData.parameters = {
   apiResponses: {
-    User: {
+    UpdateUserData: {
       data: {
-        user: {
-          ...userData,
-          lastName: null,
-        },
+        user: userData,
       },
     },
   },
