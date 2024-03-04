@@ -16,14 +16,7 @@ const DataRow = ({
   hideSeparator = false,
 }: DataRowProps) => (
   <>
-    {!hideSeparator && (
-      <Separator
-        orientation="horizontal"
-        decorative
-        data-h2-background-color="base(gray)"
-        data-h2-margin="base(x1, 0)"
-      />
-    )}
+    {!hideSeparator && <Separator space="sm" />}
     <div
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column) p-tablet(row)"

@@ -21,6 +21,7 @@ import Footer from "~/components/Footer/Footer";
 import Header from "~/components/Header/Header";
 import SEO, { Favicon } from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
+import useLayoutTheme from "~/hooks/useLayoutTheme";
 import { checkRole } from "~/utils/teamUtils";
 import {
   pageTitle as indexPoolPageTitle,
@@ -85,7 +86,7 @@ const OpenMenuButton = React.forwardRef<
       icon={Bars3Icon}
       onClick={onClick}
       type="button"
-      color="black"
+      color="blackFixed"
       data-h2-text-align="base(left)"
       data-h2-radius="base(0)"
       data-h2-align-self="base(flex-start)"
@@ -104,6 +105,7 @@ const AdminLayout = () => {
   const intl = useIntl();
   const { locale } = useLocale();
   const paths = useRoutes();
+  useLayoutTheme("default");
   const isSmallScreen = useIsSmallScreen();
   const { roleAssignments } = useAuthorization();
 

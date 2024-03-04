@@ -1,15 +1,17 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
+import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 
-import { HeadingRank, Well } from "@gc-digital-talent/ui";
+import { HeadingRank, Link, Well } from "@gc-digital-talent/ui";
 import { Experience } from "@gc-digital-talent/graphql";
 
-import AddExperienceDialog from "~/pages/Profile/CareerTimelineAndRecruitmentPage/components/AddExperienceDialog";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSortAndFilter, {
   FormValues as ExperienceSortAndFilterFormValues,
 } from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
 import { sortAndFilterExperiences } from "~/components/ExperienceSortAndFilter/sortAndFilterUtil";
+import useRoutes from "~/hooks/useRoutes";
+import experienceMessages from "~/messages/experienceMessages";
 
 interface CareerTimelineSectionProps {
   experiences?: Experience[];
@@ -25,6 +27,7 @@ const CareerTimelineSection = ({
   userId,
 }: CareerTimelineSectionProps) => {
   const intl = useIntl();
+  const paths = useRoutes();
 
   const [sortAndFilterValues, setSortAndFilterValues] =
     React.useState<ExperienceSortAndFilterFormValues>({
@@ -57,7 +60,14 @@ const CareerTimelineSection = ({
             data-h2-flex-item="base(1of1) p-tablet(content)"
             data-h2-align-self="base(flex-end)"
           >
-            <AddExperienceDialog userId={userId} />
+            <Link
+              href={paths.createExperience(userId)}
+              icon={PlusCircleIcon}
+              mode="solid"
+              color="secondary"
+            >
+              {intl.formatMessage(experienceMessages.addNewExperience)}
+            </Link>
           </div>
         ) : null}
       </div>

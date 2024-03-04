@@ -118,12 +118,7 @@ const ApplicationQuestionsIntroduction = ({
         </>
       )}
 
-      <Separator
-        orientation="horizontal"
-        data-h2-background-color="base(gray)"
-        data-h2-margin="base(x2, 0)"
-        decorative
-      />
+      <Separator />
       <div
         data-h2-display="base(flex)"
         data-h2-gap="base(x1)"

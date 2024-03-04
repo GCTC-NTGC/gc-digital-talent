@@ -657,10 +657,7 @@ export const ViewPoolCandidate = ({
                 },
               )}
             </p>
-            <Separator
-              data-h2-background-color="base(black.lightest)"
-              data-h2-margin="base(x1, 0, x1, 0)"
-            />
+            <Separator space="sm" />
             {parsedSnapshot && (
               <div
                 data-h2-container="base(center, large, 0)"
@@ -775,10 +772,7 @@ export const ViewPoolCandidate = ({
                     {sections.statusForm.title}
                   </TableOfContents.Heading>
                   <ApplicationStatusForm candidateQuery={poolCandidate} />
-                  <Separator
-                    data-h2-background-color="base(black.lightest)"
-                    data-h2-margin="base(x1, 0, 0, 0)"
-                  />
+                  <Separator space="sm" />
                 </TableOfContents.Section>
                 <TableOfContents.Section id={sections.poolInformation.id}>
                   <TableOfContents.Heading
@@ -789,10 +783,7 @@ export const ViewPoolCandidate = ({
                     {sections.poolInformation.title}
                   </TableOfContents.Heading>
                   <PoolStatusTable user={poolCandidate.user} pools={pools} />
-                  <Separator
-                    data-h2-background-color="base(black.lightest)"
-                    data-h2-margin="base(x1, 0, 0, 0)"
-                  />
+                  <Separator data-h2-margin="base(x1, 0, 0, 0)" />
                 </TableOfContents.Section>
                 {mainContent}
               </TableOfContents.Content>

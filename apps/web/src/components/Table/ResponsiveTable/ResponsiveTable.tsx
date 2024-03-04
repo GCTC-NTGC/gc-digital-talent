@@ -212,13 +212,20 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
       const initialPageIndex =
         pagination?.initialState?.pageIndex ??
         INITIAL_STATE.paginationState.pageIndex;
-      if (paginationState.pageIndex === initialPageIndex) {
+
+      let currentPageIndex: number = paginationState.pageIndex;
+      if (
+        !pagination?.internal &&
+        typeof pagination?.state?.pageIndex !== "undefined"
+      ) {
+        const externalPageIndex = pagination.state.pageIndex - 1;
+        currentPageIndex = externalPageIndex < 0 ? 0 : externalPageIndex;
+      }
+
+      if (currentPageIndex === initialPageIndex) {
         newParams.delete(SEARCH_PARAM_KEY.PAGE);
       } else {
-        newParams.set(
-          SEARCH_PARAM_KEY.PAGE,
-          String(paginationState.pageIndex + 1),
-        );
+        newParams.set(SEARCH_PARAM_KEY.PAGE, String(currentPageIndex + 1));
       }
 
       const initialSearchState =
@@ -270,6 +277,8 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
     sort?.initialState,
     hiddenColumnIds,
     search?.initialState,
+    pagination?.internal,
+    pagination?.state,
     pagination?.initialState?.pageSize,
     pagination?.initialState?.pageIndex,
     urlSync,

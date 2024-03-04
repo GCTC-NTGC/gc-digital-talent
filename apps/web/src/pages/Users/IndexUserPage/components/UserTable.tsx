@@ -188,6 +188,10 @@ const UserTable = ({ title }: UserTableProps) => {
   };
 
   const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
+    setPaginationState((previous) => ({
+      ...previous,
+      pageIndex: 0,
+    }));
     const transformedData = transformFormValuesToUserFilterInput(data);
     setFilterState(transformedData);
     if (!isEqual(transformedData, filterRef.current)) {
@@ -409,6 +413,8 @@ const UserTable = ({ title }: UserTableProps) => {
       }}
       pagination={{
         internal: false,
+        initialState: INITIAL_STATE.paginationState,
+        state: paginationState,
         total: data?.usersPaginated?.paginatorInfo.total,
         pageSizes: [10, 20, 50],
         onPaginationChange: ({ pageIndex, pageSize }: PaginationState) => {
@@ -425,6 +431,12 @@ const UserTable = ({ title }: UserTableProps) => {
         onChange: ({ term, type }: SearchState) => {
           handleSearchStateChange({ term, type });
         },
+        overrideAllTableMsg: intl.formatMessage({
+          defaultMessage: "Full Profile",
+          id: "rN333X",
+          description:
+            "Text in table search form column dropdown when no column is selected.",
+        }),
       }}
       sort={{
         internal: false,

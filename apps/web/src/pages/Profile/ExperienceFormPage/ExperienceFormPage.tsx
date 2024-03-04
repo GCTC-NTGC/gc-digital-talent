@@ -348,12 +348,7 @@ export const ExperienceForm = ({
                     skills={skills}
                   />
                 </TableOfContents.Section>
-                <Separator
-                  orientation="horizontal"
-                  decorative
-                  data-h2-background="base(gray)"
-                  data-h2-margin="base(x3, 0)"
-                />
+                <Separator space="lg" />
                 {edit ? (
                   <div
                     data-h2-display="base(flex)"

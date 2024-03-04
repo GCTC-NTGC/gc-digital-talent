@@ -27,6 +27,7 @@ const SearchForm = <T,>({
   label,
   id,
   inputProps,
+  overrideAllTableMsg,
 }: SearchFormProps<T>) => {
   const intl = useIntl();
   const searchRef = React.useRef<HTMLInputElement | null>(null);
@@ -104,12 +105,14 @@ const SearchForm = <T,>({
     });
   };
 
-  const allTableMsg = intl.formatMessage({
-    defaultMessage: "Full Profile",
-    id: "rN333X",
+  const defaultAllTableMsg = intl.formatMessage({
+    defaultMessage: "Entire table",
+    id: "z59tbA",
     description:
-      "Text in table search form column dropdown when no column is selected.",
+      "Default text in table search form column dropdown when no column is selected",
   });
+
+  const allTableMsg = overrideAllTableMsg ?? defaultAllTableMsg;
 
   return (
     <div data-h2-width="base(100%) l-tablet(auto)">

@@ -135,12 +135,7 @@ export const ApplicationProfile = ({
       <div data-h2-margin="base(x2, 0, 0, 0)">
         <LanguageProfile {...sectionProps} application={application} />
       </div>
-      <Separator
-        orientation="horizontal"
-        data-h2-background-color="base(gray)"
-        data-h2-margin="base(x2, 0)"
-        decorative
-      />
+      <Separator />
       <StepNavigation
         application={application}
         user={user}

@@ -4,6 +4,8 @@
 import React from "react";
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
 
+import Separator from "../Separator";
+
 const StyledOverlay = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Overlay>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Overlay>
@@ -121,12 +123,7 @@ interface AlertDialogFooterProps {
 
 const Footer = ({ children }: AlertDialogFooterProps) => (
   <div data-h2-padding="base(x1 0 0 0)">
-    <hr
-      data-h2-border="base(none)"
-      data-h2-height="base(1px)"
-      data-h2-background="base(black.2)"
-      data-h2-margin="base(0 0 x1 0)"
-    />
+    <Separator space="none" data-h2-margin-bottom="base(x1)" />
     <div
       data-h2-align-items="base(center)"
       data-h2-display="base(flex)"
