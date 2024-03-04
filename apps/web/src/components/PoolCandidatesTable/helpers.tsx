@@ -308,8 +308,6 @@ export function transformSortStateToOrderByClause(
     ["candidateName", "FIRST_NAME"],
     ["email", "EMAIL"],
     ["preferredLang", "PREFERRED_LANG"],
-    ["preferredLang", "PREFERRED_LANGUAGE_FOR_INTERVIEW"],
-    ["preferredLang", "PREFERRED_LANGUAGE_FOR_EXAM"],
     ["currentLocation", "CURRENT_CITY"],
     ["skillCount", "skill_count"],
     ["priority", "PRIORITY_WEIGHT"],
