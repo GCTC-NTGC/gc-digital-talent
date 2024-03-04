@@ -34,7 +34,7 @@ const StepLink = ({
 
   return (
     <Link
-      aria-current={state === "active" ? "step" : undefined}
+      aria-current={state.includes("active") ? "step" : undefined}
       href={href}
       mode="text"
       {...(linkStyles || {})}

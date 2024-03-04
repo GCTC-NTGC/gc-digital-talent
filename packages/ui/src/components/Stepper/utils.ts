@@ -21,6 +21,7 @@ export const messageMap = new Map<
   MessageDescriptor
 >([
   ["active", uiMessages.stepActive],
+  ["active-error", uiMessages.stepActive],
   ["completed", uiMessages.stepCompleted],
   ["error", uiMessages.stepError],
 ]);
