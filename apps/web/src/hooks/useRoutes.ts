@@ -31,14 +31,6 @@ const getRoutes = (lang: Locales) => {
   );
   const userUrl = (userId: string) => path.join(baseUrl, "users", userId);
 
-  const createExperienceUrl = (userId: string) =>
-    `${path.join(
-      userUrl(userId),
-      "personal-information",
-      "career-timeline",
-      "create",
-    )}`;
-
   return {
     // Main Routes
     home: () => baseUrl,
@@ -265,11 +257,13 @@ const getRoutes = (lang: Locales) => {
         experienceId,
         "edit",
       ),
-    createAward: (userId: string) => createExperienceUrl(userId),
-    createCommunity: (userId: string) => createExperienceUrl(userId),
-    createEducation: (userId: string) => createExperienceUrl(userId),
-    createPersonal: (userId: string) => createExperienceUrl(userId),
-    createWork: (userId: string) => createExperienceUrl(userId),
+    createExperience: (userId: string) =>
+      path.join(
+        userUrl(userId),
+        "personal-information",
+        "career-timeline",
+        "create",
+      ),
 
     // Profile and Applications
     profileAndApplications: (opts?: {

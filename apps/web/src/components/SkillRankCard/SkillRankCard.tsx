@@ -60,11 +60,7 @@ const SkillRankCard = ({
         )}
       </div>
       <p>{description}</p>
-      <Separator
-        orientation="horizontal"
-        data-h2-background-color="base(gray.lighter)"
-        data-h2-margin="base(x1 0)"
-      />
+      <Separator space="sm" />
       {userSkills.length ? (
         <ul data-h2-margin="base(0)" data-h2-padding-left="base(x.75)">
           {userSkills.map((userSkill) => (

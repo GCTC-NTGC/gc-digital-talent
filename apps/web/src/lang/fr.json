@@ -127,10 +127,6 @@
     "defaultMessage": "Sélectionnez une catégorie",
     "description": "Placeholder displayed on the skill family form category field."
   },
-  "+ikQY0": {
-    "defaultMessage": "Prix",
-    "description": "Title for award section"
-  },
   "+jknvj": {
     "defaultMessage": "Évaluation enregistrée avec succès.",
     "description": "Message displayed to user if the assessment result was saved successfully."
@@ -1571,10 +1567,6 @@
     "defaultMessage": "Expériences personnelles",
     "description": "Heading for personal experiences in experience by type listing"
   },
-  "6XQGne": {
-    "defaultMessage": "Ajouter l’expérience en matière d’éducation",
-    "description": "Button text to add an education experience to the profile"
-  },
   "6Y6hy9": {
     "defaultMessage": "L’ajout des utilisateurs aux bassins suivants a échoué :",
     "description": "Error message displayed when an attempt to add users to known pools"
@@ -2211,10 +2203,6 @@
     "defaultMessage": "Membre ajouté avec succès",
     "description": "Alert displayed to user when a team member's roles have been updated"
   },
-  "AKRd34": {
-    "defaultMessage": "Ajouter une expérience communautaire",
-    "description": "Button text to add a community experience to the profile"
-  },
   "ALIgEC": {
     "defaultMessage": "Les rôles des membres ont été mis à jour avec succès",
     "description": "Alert displayed to user when a team member's roles have been updated"
@@ -2627,10 +2615,6 @@
     "defaultMessage": "Cacher les exemples de « contrats de services numériques » où cette exigence s’applique",
     "description": "Button text to hide a specific qualified recruitment cards's skill assessments"
   },
-  "CSg8cH": {
-    "defaultMessage": "Ajouter un prix",
-    "description": "Button text to add an award to the profile"
-  },
   "CU5XqI": {
     "defaultMessage": "Formulaire d’auto-déclaration des peuples autochtones",
     "description": "Page title for the self-declaration page"
@@ -3022,10 +3006,6 @@
   "EkBES+": {
     "defaultMessage": "Membre des FAC :",
     "description": "label for CAF status"
-  },
-  "El/lyl": {
-    "defaultMessage": "Les gens sont plus que des études et des expériences professionnelles. Nous voulons vous laisser un espace pour que vous puissiez partager votre apprentissage à partir d’autres expériences.",
-    "description": "Description for personal experience section"
   },
   "EnvwAC": {
     "defaultMessage": "Téléphone :",
@@ -3955,10 +3935,6 @@
     "defaultMessage": "Vous vous êtes identifié(e) en tant que membre d’un groupe d’équité en matière d’emploi.<strong> Vous pouvez ajouter d’autres groupes d’équité en matière d’emploi à votre profil en modifiant la présente section, s’ils s’appliquent à vous.</strong>",
     "description": "Final paragraph in the employment equity profile section"
   },
-  "K5UiWg": {
-    "defaultMessage": "Avez-vous des accréditations? Indiquez vos diplômes, vos certificats, les cours en ligne que vous avez suivis, votre apprentissage d’un métier, vos licences ou autres titres de compétences. Si vous avez appris quelque chose auprès d’un fournisseur de services éducatifs reconnu, indiquez ici cette expérience.",
-    "description": "Description for work experience section"
-  },
   "K6Tzh1": {
     "defaultMessage": "Relier votre parcours professionnel",
     "description": "Heading for checklist section in application education page."
@@ -4083,10 +4059,6 @@
     "defaultMessage": "Voir",
     "description": "Title displayed for a tables View column."
   },
-  "KmqF8d": {
-    "defaultMessage": "Avez-vous été reconnu(e) pour vous être surpassé(e)? Il existe de nombreuses manières d’être reconnu(e), les prix et récompenses en sont une parmi d’autres.",
-    "description": "Description for award section"
-  },
   "KoKXUw": {
     "defaultMessage": "Outils avancés",
     "description": "Heading for making major changes to a user"
@@ -4146,10 +4118,6 @@
   "L6MgeM": {
     "defaultMessage": "Afin d’offrir une possibilité équitable afin que tous les Canadiens et toutes les Canadiennes puissant postuler ce poste, la date limite aura lieu à <strong>23:59 heure du Pacifique</strong>, à la date précisée.",
     "description": "First paragraph for the pool deadlines dialog"
-  },
-  "L6UnSl": {
-    "defaultMessage": "Ajoutez votre expérience personnelle",
-    "description": "Button text to add a personal experience to the profile"
   },
   "L7Pe9h": {
     "defaultMessage": "Liens vers d’autres sites Web et des annonces",
@@ -4403,10 +4371,6 @@
     "defaultMessage": "Demande élevée",
     "description": "Talent portal strategy item 1 heading"
   },
-  "MhgtB6": {
-    "defaultMessage": "Avant de commencer à décrire votre expérience, nous aimerions d’abord savoir dans quelle catégorie elle se situe. Il y a cinq options parmi lesquelles choisir, vous pouvez ajouter autant d’expériences que vous le souhaitez dans chaque catégorie.",
-    "description": "Instructions for the Add Experience dialog"
-  },
   "Mi+AuD": {
     "defaultMessage": "Processus",
     "description": "Title for the index pool page"
@@ -4594,10 +4558,6 @@
   "O+Lj1u": {
     "defaultMessage": "Paramètres du compte et de confidentialité",
     "description": "Title of the Account and privacy settings link section"
-  },
-  "O+fNOe": {
-    "defaultMessage": "Selon la définition fournie, je veux ajouter :",
-    "description": "Prompt text for a user selecting an employment equity group for their profile"
   },
   "O0z6Ym": {
     "defaultMessage": "À qui ce programme est-il destiné?",
@@ -5359,10 +5319,6 @@
     "defaultMessage": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
     "description": "Question displayed when authenticated user attempts to sign out"
   },
-  "Rz7WtH": {
-    "defaultMessage": "Bénévolat et expérience communautaire",
-    "description": "Title for community experience section"
-  },
   "RzXSJ9": {
     "defaultMessage": "Modifier une expérience",
     "description": "Button to open modal to add a new experience to the profile"
@@ -5410,6 +5366,10 @@
   "SH3WsZ": {
     "defaultMessage": "Sauvegarder la note spéciale",
     "description": "Text on a button to save the pool special note"
+  },
+  "SK20us": {
+    "defaultMessage": "femme.",
+    "description": "Statement for when someone indicates they are a woman"
   },
   "SLedtO": {
     "defaultMessage": "Profil de l’utilisateur",
@@ -6038,6 +5998,10 @@
     "defaultMessage": "Ces notes sont accessibles à tous les gestionnaires de ce bassin, mais pas aux candidats.",
     "description": "Description for the notes about this request section of the single search request view."
   },
+  "VlI6x0": {
+    "defaultMessage": "membre d'une minorité visible.",
+    "description": "Statement for when someone indicates they are a visible minority"
+  },
   "VldclB": {
     "defaultMessage": "Expériences relatives aux exigences pédagogiques",
     "description": "CSV Header, Education Requirement Experiences column"
@@ -6226,10 +6190,6 @@
     "defaultMessage": "En vertu de la nouvelle Directive, les ministères sont tenus de fournir des renseignements supplémentaires au Bureau de la dirigeante principale de l’information du Canada. Ces données sont ensuite utilisées pour créer des renseignements opérationnels et des processus de recrutement accélérés au service des ministères et des organismes du gouvernement fédéral. L’objectif est de veiller à ce que la collectivité du numérique du GC ait accès aux talents dont elle a besoin pour fournir des services numériques modernes et efficaces aux Canadiens.",
     "description": "Second paragraph describing the directive on digital talent"
   },
-  "WkD8tV": {
-    "defaultMessage": "Ajouter une expérience professionnelle",
-    "description": "Button text to add a work experience to the profile"
-  },
   "WlMSeh": {
     "defaultMessage": "En apprendre davantage sur les cotes de sécurité",
     "description": "Link text for security clearance information"
@@ -6317,6 +6277,10 @@
   "X8JZSG": {
     "defaultMessage": "Date de fin",
     "description": "Label displayed on an Experience form for end date input"
+  },
+  "X8e/zb": {
+    "defaultMessage": "personne en situation de handicap.",
+    "description": "Statement for when someone indicates they have a disability"
   },
   "XBfpuW": {
     "defaultMessage": "Ouvert",
@@ -6681,10 +6645,6 @@
   "YwO4XP": {
     "defaultMessage": "Décrire les expériences personnelles et liées au travail, aux études, à la collectivité et aux prix.",
     "description": "Display text for add experience form in breadcrumbs"
-  },
-  "YxJELj": {
-    "defaultMessage": "Ajoutez une nouvelle expérience à votre parcours professionnel",
-    "description": "Heading for the Add Experience dialog"
   },
   "YxqhQt": {
     "defaultMessage": "Posez votre candidature dans le cadre de ce processus de recrutement ({name})",
@@ -7088,7 +7048,7 @@
   },
   "bOAF9o": {
     "defaultMessage": "Ajouter une nouvelle expérience",
-    "description": "Button to open modal to add a new experience to the profile"
+    "description": "Title for adding a new experience"
   },
   "bQtRF+": {
     "defaultMessage": "Réussite",
@@ -8142,10 +8102,6 @@
     "defaultMessage": "De quelle manière sera vérifié le statut?",
     "description": "Heading for the self-declaration verification dialog"
   },
-  "h5MtHc": {
-    "defaultMessage": "Commencez par sélectionner le type d’expérience que vous souhaitez ajouter.",
-    "description": "Subtitle for the Add Experience dialog"
-  },
   "h5OdMq": {
     "defaultMessage": "Apprenez-en davantage sur les types d’expérience que vous pouvez ajouter",
     "description": "Button text to open section describing experience types"
@@ -9170,6 +9126,10 @@
     "defaultMessage": "2. <strong>Balayez le code QR</strong> ou <strong>saisissez votre code secret</strong> au moyen de votre application d’authentification à deux facteurs.",
     "description": "Text for second sign up -> mfa step."
   },
+  "mYnQH4": {
+    "defaultMessage": "Ce processus n'a pas de plan d'évaluation.",
+    "description": "A process has no assessment plan"
+  },
   "mYuXWF": {
     "defaultMessage": "utilisateurs_{date}.csv",
     "description": "Filename for user CSV file download"
@@ -9261,10 +9221,6 @@
   "mtFK6A": {
     "defaultMessage": "Courriel :",
     "description": "Email label and colon"
-  },
-  "muduUA": {
-    "defaultMessage": "Vous avez acquis de l’expérience en faisant partie d’une communauté ou en lui donnant en retour? Les gens acquièrent des compétences à partir d’un large éventail d’expériences, comme le bénévolat ou la participation à des organisations sans but lucratif, à des communautés autochtones ou à des collaborations virtuelles. Il peut s’agir d’aider lors d’événements et de cérémonies, de faire le disc-jockey au mariage d’un ami, de jouer et de faire de la diffusion en continu.",
-    "description": "Description for community experience section"
   },
   "mvYSmp": {
     "defaultMessage": "Expression orale",
@@ -10290,10 +10246,6 @@
     "defaultMessage": "La plateforme Talents numériques du GC offre plusieurs ressources utiles pour faciliter l’exécution de vos responsabilités en vertu de la Directive sur les talents numériques. Il s’agit notamment de formulaires en ligne, de conseils de mise en œuvre et de liens vers la Directive.",
     "description": "Summary of the directive on digital talent"
   },
-  "tVVb0b": {
-    "defaultMessage": "Partagez vos expériences acquises dans le cadre d’un emploi à temps plein, d’un emploi à temps partiel, d’un travail indépendant, de bourses ou de stages.",
-    "description": "Description for work experience section"
-  },
   "tXw1VV": {
     "defaultMessage": "Aux fins de cette exigence, les contrats sur les services numériques comprennent tout contrat, quel que soit le type de contrat ou la procédure d'appel d'offres, qui appuie l’élaboration ou la réalisation d’initiatives, de produits ou de services numériques du GC, tels que les contrats portant sur :",
     "description": "Paragraph one of the _examples of contracts_ section of the _digital services contracting questionnaire_"
@@ -10309,6 +10261,10 @@
   "tgGPyx": {
     "defaultMessage": "Le questionnaire rempli doit être soumis au moment où un contrat de services numériques (y compris la commande d’un instrument contractuel établi) est soumis aux autorités ministérielles chargées de l’approvisionnement aux fins de traitement.",
     "description": "Paragraph three of the _requirements_ section of the _digital services contracting questionnaire_"
+  },
+  "tgtpgb": {
+    "defaultMessage": "Vous pouvez visualiser vos candidat(e)s sur la page <a>Placement de talents</a>.",
+    "description": "Message to direct users to the talent placement page"
   },
   "thgFzS": {
     "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les gestionnaires (texte clair)",
@@ -10381,10 +10337,6 @@
   "u6GmEz": {
     "defaultMessage": "Portail du gestionnaire de portail",
     "description": "Title for the pool manager login link."
-  },
-  "u6LIbY": {
-    "defaultMessage": "Expérience en matière d’éducation",
-    "description": "Title for education experience section"
   },
   "u7IbDO": {
     "defaultMessage": "Comment le programme fonctionne",
@@ -10697,10 +10649,6 @@
   "wTAdQe": {
     "defaultMessage": "{role} à {organization}",
     "description": "Role at organization"
-  },
-  "wTFUPE": {
-    "defaultMessage": "Expérience personnelle",
-    "description": "Title for personal experience section"
   },
   "wUdfC1": {
     "defaultMessage": "la science des données et analyse pour l’élaboration ou la réalisation d’initiatives, de produits ou de services numériques du GC;",
@@ -11133,6 +11081,10 @@
   "z4wfGZ": {
     "defaultMessage": "Vous pouvez ajouter des points en vous servant du bouton \"Ajouter une nouvelle question \" ayant été fourni à cet effet.",
     "description": "Instructions on how to add a question when there are none"
+  },
+  "z59tbA": {
+    "defaultMessage": "Tout le tableau",
+    "description": "Default text in table search form column dropdown when no column is selected"
   },
   "z5YYOk": {
     "defaultMessage": "Veuillez préciser l’instrument",

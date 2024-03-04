@@ -62,12 +62,7 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
             size="h3"
             data-h2-font-weight="base(400)"
           >
-            {intl.formatMessage({
-              defaultMessage: "Add a new experience",
-              id: "bOAF9o",
-              description:
-                "Button to open modal to add a new experience to the profile",
-            })}
+            {intl.formatMessage(experienceMessages.addNewExperience)}
           </Heading>
           <p data-h2-margin="base(x1, 0)">
             {intl.formatMessage({

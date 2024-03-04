@@ -16,7 +16,6 @@ const data = new Map([
     // Feature flags
     ["FEATURE_DIRECTIVE_FORMS", filterUnusable("$FEATURE_DIRECTIVE_FORMS") ?? "<%= htmlWebpackPlugin.options.environment.FEATURE_DIRECTIVE_FORMS %>"],
     ["FEATURE_RECORD_OF_DECISION", filterUnusable("$FEATURE_RECORD_OF_DECISION") ?? "<%= htmlWebpackPlugin.options.environment.FEATURE_RECORD_OF_DECISION %>"],
-    ["FEATURE_DARK_MODE", filterUnusable("$FEATURE_DARK_MODE") ?? "<%= htmlWebpackPlugin.options.environment.FEATURE_DARK_MODE %>"],
 
     // Azure application insights not used in dev
     ["APPLICATIONINSIGHTS_CONNECTION_STRING", filterUnusable("$APPLICATIONINSIGHTS_CONNECTION_STRING")],

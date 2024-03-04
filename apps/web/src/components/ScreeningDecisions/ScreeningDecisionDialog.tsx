@@ -252,6 +252,8 @@ interface ScreeningDecisionDialogProps {
   initialValues?: FormValues;
   educationRequirement?: boolean;
   onSubmit: SubmitHandler<FormValues>;
+  isOpen: boolean;
+  onOpenChanged: (newOpen: boolean) => void;
 }
 
 export const ScreeningDecisionDialog = ({
@@ -262,6 +264,8 @@ export const ScreeningDecisionDialog = ({
   initialValues,
   educationRequirement,
   onSubmit,
+  isOpen,
+  onOpenChanged,
 }: ScreeningDecisionDialogProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -289,7 +293,6 @@ export const ScreeningDecisionDialog = ({
     skillLevel: getLocalizedSkillLevel(userSkill, intl),
   });
   const labels = useLabels();
-  const [isOpen, setIsOpen] = React.useState(false);
 
   const experiences =
     dialogType === "EDUCATION"
@@ -298,10 +301,6 @@ export const ScreeningDecisionDialog = ({
           poolCandidate.user.experiences?.filter(notEmpty) || [],
           skill,
         );
-
-  const handleOpenChange = (newIsOpen: boolean) => {
-    setIsOpen(newIsOpen);
-  };
 
   const classificationGroup = poolCandidate.pool.classifications
     ? (poolCandidate.pool.classifications[0]?.group as ClassificationGroup)
@@ -345,7 +344,7 @@ export const ScreeningDecisionDialog = ({
   };
 
   return (
-    <Dialog.Root open={isOpen} onOpenChange={handleOpenChange}>
+    <Dialog.Root open={isOpen} onOpenChange={onOpenChanged}>
       <Dialog.Trigger>
         <Button
           type="button"
@@ -481,6 +480,7 @@ const ScreeningDecisionDialogApi = ({
   educationRequirement?: boolean;
 }) => {
   const intl = useIntl();
+  const [isOpen, setOpen] = React.useState<boolean>(false);
 
   const assessmentResultId = assessmentResult?.id;
   const poolSkill = assessmentResult?.poolSkill ?? poolSkillToAssess;
@@ -548,7 +548,7 @@ const ScreeningDecisionDialogApi = ({
       .then((result) => {
         if (result.data?.createAssessmentResult?.id) {
           toastSuccess();
-          // Do something
+          setOpen(false);
         } else {
           toastError();
         }
@@ -564,7 +564,7 @@ const ScreeningDecisionDialogApi = ({
       .then((result) => {
         if (result.data?.updateAssessmentResult?.id) {
           toastSuccess();
-          // Do something
+          setOpen(false);
         } else {
           toastError();
         }
@@ -576,6 +576,8 @@ const ScreeningDecisionDialogApi = ({
 
   return (
     <ScreeningDecisionDialog
+      isOpen={isOpen}
+      onOpenChanged={setOpen}
       poolCandidate={poolCandidate}
       assessmentStep={assessmentStep}
       poolSkill={poolSkill}

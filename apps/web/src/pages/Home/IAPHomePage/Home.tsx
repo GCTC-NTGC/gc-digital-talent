@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import orderBy from "lodash/orderBy";
 import { useSearchParams } from "react-router-dom";
 import { useQuery } from "urql";
@@ -73,10 +73,10 @@ export const Home = ({ query }: HomeProps) => {
   const latestPool = getFragment(IAPHome_PoolFragment, query);
   /**
    * Language swapping is a little rough here,
-   * motion.div adds a fade to smooth things out a bit
+   * m.div adds a fade to smooth things out a bit
    */
   return (
-    <motion.div
+    <m.div
       data-h2-background="base(white) base:dark(background)"
       data-h2-overflow="base(hidden visible)"
       initial={{ opacity: 0 }}
@@ -993,7 +993,7 @@ export const Home = ({ query }: HomeProps) => {
           </div>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 

@@ -1,9 +1,7 @@
 <?php
 
-use App\Enums\AssessmentStepType;
 use App\Enums\PoolStatus;
 use App\Enums\SkillCategory;
-use App\Models\AssessmentStep;
 use App\Models\Classification;
 use App\Models\Pool;
 use App\Models\Skill;
@@ -740,14 +738,7 @@ class PoolTest extends TestCase
             'published_at' => null,
         ]);
 
-        $step = AssessmentStep::factory()->create(
-            [
-                'pool_id' => $completePool->id,
-                'type' => AssessmentStepType::ADDITIONAL_ASSESSMENT->name,
-            ]
-        );
-
-        // assert cannot publish due to the additional assessment step not having any pool skills
+        // Note: Default factory has no pool skills attached to Screening question step
         $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
@@ -763,10 +754,12 @@ class PoolTest extends TestCase
         )
             ->assertGraphQLErrorMessage('AssessmentStepMissingSkills');
 
-        $step->type = AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name;
-        $step->save();
+        $completePool->load(['assessmentSteps', 'poolSkills']);
+        foreach ($completePool->assessmentSteps as $assessmentStep) {
+            $assessmentStep->poolSkills()->sync($completePool->poolSkills->pluck('id')->toArray());
+        }
 
-        // assert can publish if it is a screening questions step that is missing skills
+        // assert can now publish as all steps have attached skills
         $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
@@ -801,8 +794,15 @@ class PoolTest extends TestCase
             'published_at' => null,
         ]);
 
+        $poolStepSkills = $completePool->assessmentSteps()->first()->poolSkills()->get()->toArray();
+
         // confirm application screening missing one skill seeded that isn't technical
-        assertEquals(1, count($completePool->assessmentSteps[0]->poolSkills));
+        assertEquals(1, count($poolStepSkills));
+
+        $completePool->load(['assessmentSteps', 'poolSkills']);
+        foreach ($completePool->assessmentSteps as $assessmentStep) {
+            $assessmentStep->poolSkills()->sync([$completePool->poolSkills[0]->id]);
+        }
 
         // assert cannot publish due to the one pool skill lacking an assessment
         $this->actingAs($this->adminUser, 'api')->graphQL(
@@ -820,13 +820,10 @@ class PoolTest extends TestCase
         )
             ->assertGraphQLErrorMessage('PoolSkillsWithoutAssessments');
 
-        $step = AssessmentStep::factory()->create(
-            [
-                'pool_id' => $completePool->id,
-                'type' => AssessmentStepType::ADDITIONAL_ASSESSMENT->name,
-            ]
-        );
-        $step->poolSkills()->sync($completePool->poolSkills->pluck('id')->toArray());
+        $completePool->load(['assessmentSteps', 'poolSkills']);
+        foreach ($completePool->assessmentSteps as $assessmentStep) {
+            $assessmentStep->poolSkills()->sync($completePool->poolSkills->pluck('id')->toArray());
+        }
 
         // assert successful now that all pool skills have an assessment
         $this->actingAs($this->adminUser, 'api')->graphQL(

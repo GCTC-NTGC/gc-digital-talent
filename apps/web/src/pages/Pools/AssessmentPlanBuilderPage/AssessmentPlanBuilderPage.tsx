@@ -88,12 +88,7 @@ export const AssessmentPlanBuilder = ({
           </Pill>
         </Heading>
         <p data-h2-margin="base(x1 0)">{intl.formatMessage(pageSubtitle)}</p>
-        <Separator
-          orientation="horizontal"
-          decorative
-          data-h2-background-color="base(gray)"
-          data-h2-margin="base(x2, 0, x1, 0)"
-        />
+        <Separator data-h2-margin="base(x2, 0, x1, 0)" />
         <Sidebar.Wrapper>
           <Sidebar.Sidebar>
             <div data-h2-margin-top="base(x1.5)">
@@ -106,12 +101,7 @@ export const AssessmentPlanBuilder = ({
           <Sidebar.Content>
             <OrganizeSection pool={pool} pageIsLoading={pageIsLoading} />
             <SkillSummarySection pool={pool} />
-            <Separator
-              orientation="horizontal"
-              decorative
-              data-h2-background-color="base(gray)"
-              data-h2-margin="base(x3 0)"
-            />
+            <Separator space="lg" />
             <div
               data-h2-display="base(flex)"
               data-h2-gap="base(x.5, x1)"
