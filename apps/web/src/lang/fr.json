@@ -2383,6 +2383,10 @@
     "defaultMessage": "À moins d’avis contraire, il est interdit de reproduire le contenu de ce site, en totalité ou en partie, à des fins de diffusion commerciale sans avoir obtenu au préalable la permission écrite de l’administrateur du droit d’auteur. Si vous souhaitez obtenir les droits de reproduction du contenu du gouvernement du Canada du présent site à des fins commerciales, écrivez aux :",
     "description": "Commercial reproduction list description in ownership and usage section"
   },
+  "BCBPYT": {
+    "defaultMessage": "Il n’y a aucun résultat de candidats à cette étape.",
+    "description": "Message displayed when no candidates are being assessed in a step"
+  },
   "BDrP1l": {
     "defaultMessage": "« Minorité visible réfère au fait qu'une personne est ou non une minorité visible, tel que défini dans la Loi sur l'équité en matière d'emploi. Dans le cadre de la Loi sur l'équité en matière d'emploi, les minorités visibles sont définies comme « les personnes, autres que les Autochtones, qui ne sont pas de race blanche ou qui n'ont pas la peau blanche ». La population des minorités visibles est principalement composée des groupes suivants : Sud-Asiatique, Chinois, Noir, Philippin, Arabe, Latino-Américain, Asiatique du Sud-Est, Asiatique occidental, Coréen et Japonais. »",
     "description": "Definition of Visible minority from the StatsCan 'Visible minority of person' page."
@@ -4446,6 +4450,10 @@
   "NHjbIl": {
     "defaultMessage": "Planification et établissement de rapports en matière de TI",
     "description": "Label for the 'planning and reporting' IT work stream"
+  },
+  "NJUJl0": {
+    "defaultMessage": "Il n’y a aucun statut de selectionné.",
+    "description": "Message displayed when no statuses are shown"
   },
   "NP/fsS": {
     "defaultMessage": "Pour quel ministère travaillez-vous?",
