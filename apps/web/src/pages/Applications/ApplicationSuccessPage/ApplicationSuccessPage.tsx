@@ -106,9 +106,8 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
               data-h2-vertical-align="base(top)"
             >
               {intl.formatMessage({
-                defaultMessage:
-                  "Find and complete security clearance forms.Complete a security clearance application",
-                id: "bCWCpS",
+                defaultMessage: "Complete a security clearance application",
+                id: "l5R6Nc",
                 description:
                   "Link text for government of canada security clearance forms",
               })}
@@ -151,22 +150,41 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
       <p
         data-h2-margin="base(x.5, 0)"
         data-h2-display="base(flex)"
-        data-h2-gap="base(x1 x.25)"
+        data-h2-flex-wrap="base(wrap)"
+        data-h2-gap="base(x1)"
+        data-h2-align-items="base(center)"
       >
+        <Link
+          href={
+            locale === "fr"
+              ? "https://forms-formulaires.alpha.canada.ca/fr/id/clsdw2j7t00igxd8211b53rlv"
+              : "https://forms-formulaires.alpha.canada.ca/en/id/clsdw2j7t00igxd8211b53rlv"
+          }
+          color="secondary"
+          mode="solid"
+          external
+          newTab
+        >
+          {intl.formatMessage({
+            defaultMessage: "Tell us about your experience",
+            id: "k5bZg7",
+            description: "Link text for application survey",
+          })}
+        </Link>
         <Link
           href={paths.profileAndApplications({ fromIapSuccess: isIAP })}
           mode="inline"
           color="secondary"
         >
           {intl.formatMessage({
-            defaultMessage: "Visit your Profile and applications page",
-            id: "26Qj2A",
+            defaultMessage: "Return to your dashboard",
+            id: "htxH4r",
             description:
               "Link text to navigate to the profile and applications page",
           })}
         </Link>
       </p>
-      <p data-h2-font-size="base(caption)">
+      <Alert.Footer>
         {intl.formatMessage({
           defaultMessage:
             "* Note that your confirmation number can also be found in the Track your applications section on your Profile and applications page.",
@@ -174,7 +192,7 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
           description:
             "Note that the application confirmation number is available on the profile and applications page",
         })}
-      </p>
+      </Alert.Footer>
     </Alert.Root>
   );
 };
