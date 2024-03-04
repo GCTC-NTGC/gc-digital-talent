@@ -690,6 +690,7 @@ input SitewideAnnouncementInput {
 }
 
 type Query {
+  containerProperties: String
   myAuth: UserAuthInfo @auth
   me: User @auth
   user(id: UUID! @eq): User
@@ -1567,6 +1568,8 @@ input UpdateApplicationInput {
 }
 
 type Mutation {
+  createContainer: String
+  deleteContainer: String
   # User mutations
   createUser(user: CreateUserInput! @spread): User
     @create

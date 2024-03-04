@@ -107,6 +107,16 @@ services:
     #  - 8081:8081
     #hostname: auth.talent.canada.test
 
+  azurite:
+    image: mcr.microsoft.com/azure-storage/azurite:3.29.0
+    container_name: "azurite"
+    hostname: azurite
+    restart: always
+    ports:
+      - "10000:10000"
+      - "10001:10001"
+      - "10002:10002"
+
 volumes:
   pgdata:
   maintenancedata:
