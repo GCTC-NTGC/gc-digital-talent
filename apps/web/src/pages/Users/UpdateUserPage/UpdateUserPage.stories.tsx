@@ -1,52 +1,59 @@
 import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
 
-import { fakeUsers } from "@gc-digital-talent/fake-data";
+import { fakeUsers, fakeTeams, fakeRoles } from "@gc-digital-talent/fake-data";
 
-import { UpdateUserForm } from "./UpdateUserPage";
+import UpdateUserPage from "./UpdateUserPage";
 
-const userData = fakeUsers(1);
-// It is possible data may come back from api with missing data.
-const flawedUserData = [
-  { id: "100-bob", email: "bob@boop.com", lastName: null },
-  ...userData,
-];
+const availableRoles = fakeRoles();
+const teamsData = fakeTeams(10);
+
+const userData = {
+  ...fakeUsers(1)[0],
+  authInfo: {
+    roleAssignments: [
+      { id: "assignment1", role: availableRoles[0] },
+      { id: "assignment2", role: availableRoles[2], team: teamsData[0] },
+    ],
+  },
+};
 
 export default {
-  component: UpdateUserForm,
-  title: "Forms/Update User Form",
+  component: UpdateUserPage,
+  title: "Pages/Update User Page",
   parameters: {
     themeKey: "admin",
+    defaultPath: {
+      path: "/en/admin/users/:userId/edit",
+      initialEntries: [`/en/admin/users/${userData.id}/edit`],
+    },
+    apiResponses: {
+      ListRoles: {
+        data: {
+          roles: availableRoles,
+        },
+      },
+      AddTeamRoleName: {
+        data: {
+          teams: teamsData,
+        },
+      },
+    },
   },
-} as ComponentMeta<typeof UpdateUserForm>;
+} as ComponentMeta<typeof UpdateUserPage>;
 
-const Template: ComponentStory<typeof UpdateUserForm> = (args) => {
-  const { initialUser } = args;
-
-  return (
-    <UpdateUserForm
-      initialUser={initialUser}
-      handleUpdateUser={async (id, data) => {
-        await new Promise((resolve) => {
-          setTimeout(resolve, 1000);
-        });
-        action("Update User")({
-          id,
-          data,
-        });
-        return null;
-      }}
-    />
-  );
-};
+const Template: ComponentStory<typeof UpdateUserPage> = () => (
+  <UpdateUserPage />
+);
 
 export const Default = Template.bind({});
-Default.args = {
-  initialUser: userData[0],
-};
-
-export const FlawedUserData = Template.bind({});
-FlawedUserData.args = {
-  initialUser: flawedUserData[0],
+Default.parameters = {
+  apiResponses: {
+    UpdateUserData: {
+      data: {
+        user: userData,
+        roles: availableRoles,
+      },
+    },
+  },
 };
