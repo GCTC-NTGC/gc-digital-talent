@@ -27,7 +27,6 @@ export default {
   component: UserTable,
   title: "Tables/User Table",
   parameters: {
-    themeKey: "admin",
     apiResponses: {
       UsersPaginated: {
         data: {

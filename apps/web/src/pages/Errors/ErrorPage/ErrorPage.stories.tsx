@@ -18,5 +18,4 @@ const Template: Story = () => <Error404 />;
 export const Default = Template.bind({});
 Default.parameters = {
   chromatic: { viewports: CHROMATIC_VIEWPORTS },
-  themeKey: "default",
 };
