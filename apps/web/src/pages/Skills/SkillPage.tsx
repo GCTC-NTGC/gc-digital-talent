@@ -5,14 +5,11 @@ import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import Hero from "~/components/Hero";
 import { INITIAL_STATE } from "~/components/Table/ResponsiveTable/constants";
+import adminMessages from "~/messages/adminMessages";
 
 import SkillTableApi from "./components/SkillTable";
 
-export const pageTitle: MessageDescriptor = defineMessage({
-  defaultMessage: "Skills",
-  id: "o2wisD",
-  description: "Title for explore skills page",
-});
+export const pageTitle: MessageDescriptor = defineMessage(adminMessages.skills);
 export const pageSubtitle: MessageDescriptor = defineMessage({
   defaultMessage: "Explore all the skills on our site.",
   id: "eTOg2E",

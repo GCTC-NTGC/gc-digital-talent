@@ -7614,6 +7614,10 @@
     "defaultMessage": "Afficher l’utilisateur",
     "description": "Title for the user information page"
   },
+  "eTOg2E": {
+    "defaultMessage": "Exploitez toutes les compétences sur notre site",
+    "description": "Subtitle for explore skills page"
+  },
   "eTTlR0": {
     "defaultMessage": "Soumettre la demande",
     "description": "Submit button text on request form."
