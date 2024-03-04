@@ -11,7 +11,6 @@ export type StepState =
 
 export type StepType = {
   href: string;
-  icon?: IconType;
   label: React.ReactNode;
   completed?: boolean | null;
   disabled?: boolean | null;

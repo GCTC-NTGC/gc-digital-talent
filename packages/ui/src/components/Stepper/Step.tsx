@@ -1,7 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { IconType } from "../../types";
 import { StepState } from "./types";
 import { linkStyleMap, getIconFromState, messageMap } from "./utils";
 import Link from "../Link";
@@ -46,7 +45,6 @@ const StepLink = ({
   );
 };
 interface StepProps extends Omit<StepLinkProps, "children"> {
-  icon?: IconType;
   last?: boolean;
   label: React.ReactNode;
 }
@@ -54,14 +52,19 @@ interface StepProps extends Omit<StepLinkProps, "children"> {
 const Step = ({
   label,
   href,
-  icon,
   preventDisable,
   last = false,
   state,
 }: StepProps) => {
   const intl = useIntl();
-  const Icon = getIconFromState(state, icon);
+  const Icon = getIconFromState(state);
   const message = messageMap.get(state);
+
+  const innerProps = {
+    "data-h2-position": "base(absolute)",
+    "data-h2-location": "base(50%, auto, auto, 50%)",
+    "data-h2-transform": "base(translate(-50%, -50%))",
+  };
 
   return (
     <li>
@@ -104,11 +107,18 @@ const Step = ({
           >
             {Icon && (
               <Icon
-                data-h2-position="base(absolute)"
-                data-h2-location="base(50%, auto, auto, 50%)"
-                data-h2-transform="base(translate(-50%, -50%))"
+                {...innerProps}
                 data-h2-height="base(x.65)"
                 data-h2-width="base(x.65)"
+              />
+            )}
+            {state.includes("active") && (
+              <span
+                {...innerProps}
+                data-h2-height="base(x.75)"
+                data-h2-width="base(x.75)"
+                data-h2-radius="base(circle)"
+                data-h2-border="base(3px solid background)"
               />
             )}
           </span>

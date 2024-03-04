@@ -10,10 +10,7 @@ import { StepState } from "./types";
 
 export const getIconFromState = (state: StepState, defaultIcon?: IconType) => {
   const iconMap = new Map<StepState, IconType | undefined>([
-    ["active", PencilSquareIcon],
     ["completed", CheckIcon],
-    ["disabled", defaultIcon],
-    ["default", defaultIcon],
     ["error", XMarkIcon],
   ]);
 
