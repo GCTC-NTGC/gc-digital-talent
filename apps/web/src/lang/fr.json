@@ -6714,10 +6714,6 @@
     "defaultMessage": "Message (Français)",
     "description": "The message, in French"
   },
-  "ZTnze/": {
-    "defaultMessage": "Soumettre une candidature au bassin de talent pour le recrutement.",
-    "description": "Link text to the ongoing recruitments section on the browse page"
-  },
   "ZUO1OX": {
     "defaultMessage": "Numéro de priorité :",
     "description": "Label for applicant's priority number value"
@@ -9242,10 +9238,6 @@
     "defaultMessage": "Information sur l'employé(e) du gouvernement",
     "description": "Title for the government employee information snapshot section"
   },
-  "nFO3Ai": {
-    "defaultMessage": "Mettez à jour votre profil et vos coordonnées pour vous assurer de recevoir les notifications.",
-    "description": "Link text to users profile to update contact information"
-  },
   "nGNj5Q": {
     "defaultMessage": "Courriel de la personne-ressource",
     "description": "Contact email"
@@ -9509,10 +9501,6 @@
   "osGGIt": {
     "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones + Portail des talents autochtones",
     "description": "heading for indigenous talent portal section"
-  },
-  "otUMji": {
-    "defaultMessage": "Trouvez et remplissez le formulaire d’autorisation de sécurité",
-    "description": "Link text for government of canada security clearance forms"
   },
   "ow4z7W": {
     "defaultMessage": "Modifier<hidden> la classification</hidden>",

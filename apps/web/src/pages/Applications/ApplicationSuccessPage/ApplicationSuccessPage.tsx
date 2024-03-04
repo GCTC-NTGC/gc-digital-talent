@@ -106,8 +106,9 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
               data-h2-vertical-align="base(top)"
             >
               {intl.formatMessage({
-                defaultMessage: "Find and complete security clearance forms.",
-                id: "otUMji",
+                defaultMessage:
+                  "Find and complete security clearance forms.Complete a security clearance application",
+                id: "bCWCpS",
                 description:
                   "Link text for government of canada security clearance forms",
               })}
@@ -122,9 +123,8 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
             data-h2-vertical-align="base(top)"
           >
             {intl.formatMessage({
-              defaultMessage:
-                "Update profile and contact information to ensure you receive notifications.",
-              id: "nFO3Ai",
+              defaultMessage: "Update your profile information",
+              id: "ytHyUL",
               description:
                 "Link text to users profile to update contact information",
             })}
@@ -139,9 +139,8 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
               data-h2-vertical-align="base(top)"
             >
               {intl.formatMessage({
-                defaultMessage:
-                  "Submit an application to ongoing recruitment talent pools.",
-                id: "ZTnze/",
+                defaultMessage: "Browse for other opportunities",
+                id: "nc5GGm",
                 description:
                   "Link text to the ongoing recruitments section on the browse page",
               })}
@@ -149,11 +148,15 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
           </li>
         )}
       </ul>
-      <p data-h2-margin="base(x.5, 0)">
+      <p
+        data-h2-margin="base(x.5, 0)"
+        data-h2-display="base(flex)"
+        data-h2-gap="base(x1 x.25)"
+      >
         <Link
           href={paths.profileAndApplications({ fromIapSuccess: isIAP })}
-          mode="solid"
-          color="primary"
+          mode="inline"
+          color="secondary"
         >
           {intl.formatMessage({
             defaultMessage: "Visit your Profile and applications page",
