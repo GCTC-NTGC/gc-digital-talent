@@ -1,9 +1,8 @@
 import React from "react";
 
-import { IconType } from "../../types";
-
 export type StepState =
   | "active"
+  | "active-error"
   | "completed"
   | "disabled"
   | "error"

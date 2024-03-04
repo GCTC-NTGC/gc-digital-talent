@@ -100,7 +100,6 @@ const Step = ({
             data-h2-position="base(absolute)"
             data-h2-location="base(-x.1, auto, auto, 50%)"
             data-h2-transform="base(translate(-50%, 0))"
-            data-h2-background="base(primary.light)"
             data-h2-radius="base(circle)"
             data-h2-height="base(x1.15)"
             data-h2-width="base(x1.15)"
