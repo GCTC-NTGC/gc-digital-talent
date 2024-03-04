@@ -67,8 +67,8 @@ class DatabaseSeeder extends Seeder
             ->withCompletePoolSkills()
             ->withAssessments()
             ->create();
-        Pool::factory()->count(2)->closed()->create();
-        Pool::factory()->count(2)->archived()->create();
+        Pool::factory()->count(2)->closed()->withCompletePoolSkills()->create();
+        Pool::factory()->count(2)->archived()->withCompletePoolSkills()->create();
         // Seed some expected values
         $this->seedPools();
 

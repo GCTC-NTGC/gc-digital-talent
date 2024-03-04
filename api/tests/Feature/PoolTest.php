@@ -786,10 +786,13 @@ class PoolTest extends TestCase
         Skill::factory()->count(5)->create([
             'category' => SkillCategory::TECHNICAL->name,
         ]);
-        $completePool = Pool::factory()->published()->create([
-            'closing_date' => config('constants.far_future_date'),
-            'published_at' => null,
-        ]);
+        $completePool = Pool::factory()
+            ->published()
+            ->withCompletePoolSkills()
+            ->create([
+                'closing_date' => config('constants.far_future_date'),
+                'published_at' => null,
+            ]);
 
         // Note: Default factory has no pool skills attached to Screening question step
         $this->actingAs($this->adminUser, 'api')->graphQL(
@@ -842,10 +845,13 @@ class PoolTest extends TestCase
         Skill::factory()->create([
             'category' => SkillCategory::BEHAVIOURAL->name,
         ]);
-        $completePool = Pool::factory()->published()->create([
-            'closing_date' => config('constants.far_future_date'),
-            'published_at' => null,
-        ]);
+        $completePool = Pool::factory()
+            ->published()
+            ->withCompletePoolSkills()
+            ->create([
+                'closing_date' => config('constants.far_future_date'),
+                'published_at' => null,
+            ]);
 
         $poolStepSkills = $completePool->assessmentSteps()->first()->poolSkills()->get()->toArray();
 
