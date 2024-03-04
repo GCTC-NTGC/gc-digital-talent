@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
 
 import { Alert, Link } from "@gc-digital-talent/ui";
 import { useLocale } from "@gc-digital-talent/i18n";
@@ -26,7 +25,6 @@ export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
       id: "zJdfyv",
       description: "Subtitle for the application success page",
     }),
-    icon: RocketLaunchIcon,
     crumbs: [
       {
         url: path,

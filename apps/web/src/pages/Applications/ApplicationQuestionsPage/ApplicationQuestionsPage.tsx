@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
-import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
 import { Heading, Link } from "@gc-digital-talent/ui";
 import { BasicForm } from "@gc-digital-talent/forms";
@@ -40,7 +39,6 @@ export const getPageInfo: GetPageNavInfo = ({
       id: "GTHuSJ",
       description: "Subtitle for the application screening questions page",
     }),
-    icon: PencilSquareIcon,
     crumbs: [
       {
         url: path,
