@@ -57,16 +57,3 @@ Default.parameters = {
     },
   },
 };
-
-// It is possible data may come back from api with missing data.
-export const FlawedUserData = Template.bind({});
-FlawedUserData.parameters = {
-  apiResponses: {
-    UpdateUserData: {
-      data: {
-        user: userData,
-        roles: availableRoles,
-      },
-    },
-  },
-};
