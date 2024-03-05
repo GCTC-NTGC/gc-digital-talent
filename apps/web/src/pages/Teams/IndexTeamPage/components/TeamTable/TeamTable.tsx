@@ -160,6 +160,7 @@ const TeamTableData_Query = graphql(/* GraphQL */ `
     }
 
     me {
+      id
       authInfo {
         id
         roleAssignments {

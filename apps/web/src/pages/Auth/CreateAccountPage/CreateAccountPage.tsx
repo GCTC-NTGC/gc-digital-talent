@@ -309,6 +309,7 @@ const CreateAccount_Query = graphql(/** GraphQL */ `
   query CreateAccount_Query {
     ...CreateAccount_QueryFragment
     me {
+      id
       email
     }
   }

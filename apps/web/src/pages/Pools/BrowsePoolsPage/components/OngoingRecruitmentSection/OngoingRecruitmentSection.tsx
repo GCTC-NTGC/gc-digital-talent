@@ -88,6 +88,7 @@ const streamIsRecommended = (
 const OngoingRecruitmentSection_QueryFragment = graphql(/* GraphQL */ `
   fragment OngoingRecruitmentSection on Query {
     me {
+      id
       experiences {
         id
         skills {

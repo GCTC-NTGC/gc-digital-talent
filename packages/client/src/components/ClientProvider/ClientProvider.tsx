@@ -20,7 +20,7 @@ import { useLogger } from "@gc-digital-talent/logger";
 import { toast } from "@gc-digital-talent/toast";
 import { uniqueItems } from "@gc-digital-talent/helpers";
 import { getLocale } from "@gc-digital-talent/i18n";
-import introspectedSchema from "@gc-digital-talent/graphql/dist/introspection.json";
+import { introspectedSchema } from "@gc-digital-talent/graphql";
 
 import {
   buildValidationErrorMessageNode,
