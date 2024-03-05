@@ -26,6 +26,19 @@ export const messageMap = new Map<
   ["error", uiMessages.stepError],
 ]);
 
+/**
+ * Map for the different state styles
+ *
+ * Note:
+ *
+ * This consists of hardcoded colour values.
+ * The figma design used overlapping transparency to create the colour
+ * however, this resulted in exposing elements underneath. So, we used the
+ * computed value of the semi-transparent foreground and background mixing.
+ *
+ * Light: #C5C6C7
+ * Dark: #7C89A3
+ */
 export const linkStyleMap = new Map<StepState, Record<string, string>>([
   [
     "active",
