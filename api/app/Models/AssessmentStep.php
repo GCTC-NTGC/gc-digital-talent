@@ -63,6 +63,11 @@ class AssessmentStep extends Model
         return $this->hasMany(AssessmentResult::class);
     }
 
+    public function screeningQuestions(): HasMany
+    {
+        return $this->hasMany(ScreeningQuestion::class);
+    }
+
     /**
      * Boot function for using with AssessmentStep Events
      *

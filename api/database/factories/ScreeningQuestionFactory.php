@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Pool;
 use App\Models\ScreeningQuestion;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -24,8 +23,9 @@ class ScreeningQuestionFactory extends Factory
     {
         $question = $this->faker->sentence();
 
+        // pool id and assessment step id omitted to force failure if not passed into create()
+        // preventing infinite loops
         return [
-            'pool_id' => Pool::factory(),
             'question' => ['en' => $question.' EN?', 'fr' => $question.' FR?'],
             'sort_order' => $this->faker->optional->numberBetween(1, 10),
         ];

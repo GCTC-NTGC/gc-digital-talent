@@ -10,9 +10,6 @@ const mockSkills = fakeSkills();
 export default {
   component: SkillTable,
   title: "Tables/Skill Table",
-  parameters: {
-    themeKey: "admin",
-  },
 } as ComponentMeta<typeof SkillTable>;
 
 const Template: ComponentStory<typeof SkillTable> = (args) => {

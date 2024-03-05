@@ -6,8 +6,8 @@ import {
   getAwardedScope,
   getAwardedTo,
 } from "@gc-digital-talent/i18n";
+import { AwardExperience } from "@gc-digital-talent/graphql";
 
-import { AwardExperience } from "~/api/generated";
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 
 import ContentSection from "./ContentSection";

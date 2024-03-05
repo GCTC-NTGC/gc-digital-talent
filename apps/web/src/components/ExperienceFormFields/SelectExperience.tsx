@@ -5,8 +5,8 @@ import { Heading } from "@gc-digital-talent/ui";
 import { Select } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
-import { experienceTypeTitles } from "~/pages/Applications/ApplicationCareerTimelineAddPage/messages";
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
+import experienceMessages from "~/messages/experienceMessages";
 
 const SelectExperience = () => {
   const intl = useIntl();
@@ -32,23 +32,23 @@ const SelectExperience = () => {
         options={[
           {
             value: "work",
-            label: intl.formatMessage(experienceTypeTitles.work),
+            label: intl.formatMessage(experienceMessages.work),
           },
           {
             value: "education",
-            label: intl.formatMessage(experienceTypeTitles.education),
+            label: intl.formatMessage(experienceMessages.education),
           },
           {
             value: "community",
-            label: intl.formatMessage(experienceTypeTitles.community),
+            label: intl.formatMessage(experienceMessages.community),
           },
           {
             value: "personal",
-            label: intl.formatMessage(experienceTypeTitles.personal),
+            label: intl.formatMessage(experienceMessages.personal),
           },
           {
             value: "award",
-            label: intl.formatMessage(experienceTypeTitles.award),
+            label: intl.formatMessage(experienceMessages.award),
           },
         ]}
       />

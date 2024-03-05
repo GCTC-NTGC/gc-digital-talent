@@ -1,21 +1,80 @@
 import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
+import { useMutation } from "urql";
 
 import { toast } from "@gc-digital-talent/toast";
+import { graphql, UpdatePoolInput, Scalars } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import {
-  useClosePoolMutation,
-  useDeletePoolMutation,
-  useDuplicatePoolMutation,
-  usePublishPoolMutation,
-  useUpdatePoolMutation,
-  useChangePoolClosingDateMutation,
-  useArchivePoolMutation,
-  useUnarchivePoolMutation,
-  UpdatePoolInput,
-  Scalars,
-} from "~/api/generated";
+
+const UpdatePool_Mutation = graphql(/* GraphQL */ `
+  mutation UpdatePool($id: ID!, $pool: UpdatePoolInput!) {
+    updatePool(id: $id, pool: $pool) {
+      id
+      generalQuestions {
+        id
+      }
+    }
+  }
+`);
+
+const ExtendPool_Mutation = graphql(/* GraphQL */ `
+  mutation ExtendPool($id: ID!, $closingDate: DateTime!) {
+    changePoolClosingDate(id: $id, newClosingDate: $closingDate) {
+      id
+    }
+  }
+`);
+
+const PublishPool_Mutation = graphql(/* GraphQL */ `
+  mutation PublishPool($id: ID!) {
+    publishPool(id: $id) {
+      id
+      publishedAt
+    }
+  }
+`);
+
+const ClosePool_Mutation = graphql(/* GraphQL */ `
+  mutation ClosePool($id: ID!) {
+    closePool(id: $id) {
+      id
+      closingDate
+    }
+  }
+`);
+
+const DeletePool_Mutation = graphql(/* GraphQL */ `
+  mutation DeletePool($id: ID!) {
+    deletePool(id: $id) {
+      id
+    }
+  }
+`);
+
+const DuplicatePool_Mutation = graphql(/* GraphQL */ `
+  mutation DuplicatePool($id: ID!, $teamId: ID!) {
+    duplicatePool(id: $id, teamId: $teamId) {
+      id
+    }
+  }
+`);
+
+const ArchivePool_Mutation = graphql(/* GraphQL */ `
+  mutation ArchivePool($id: ID!) {
+    archivePool(id: $id) {
+      id
+    }
+  }
+`);
+
+const UnarchivePool_Mutation = graphql(/* GraphQL */ `
+  mutation UnarchivePool($id: ID!) {
+    unarchivePool(id: $id) {
+      id
+    }
+  }
+`);
 
 const usePoolMutations = (returnPath?: string) => {
   const intl = useIntl();
@@ -25,7 +84,7 @@ const usePoolMutations = (returnPath?: string) => {
   const navigateBack = () => navigate(returnPath ?? paths.poolTable());
 
   const [{ fetching: updateFetching }, executeUpdateMutation] =
-    useUpdatePoolMutation();
+    useMutation(UpdatePool_Mutation);
 
   const handleUpdateError = () => {
     toast.error(
@@ -37,7 +96,7 @@ const usePoolMutations = (returnPath?: string) => {
       }),
     );
 
-    throw new Error("PoolEditError");
+    return Promise.reject();
   };
 
   const update = async (id: string, pool: UpdatePoolInput) => {
@@ -51,17 +110,21 @@ const usePoolMutations = (returnPath?: string) => {
               description: "Message displayed to user after pool is updated",
             }),
           );
-        } else {
-          handleUpdateError();
+
+          return Promise.resolve();
         }
+        return handleUpdateError();
       })
       .catch(handleUpdateError);
   };
 
   const [{ fetching: extendFetching }, executeExtendMutation] =
-    useChangePoolClosingDateMutation();
+    useMutation(ExtendPool_Mutation);
 
-  const extend = async (id: string, closingDate: Scalars["DateTime"]) => {
+  const extend = async (
+    id: string,
+    closingDate: Scalars["DateTime"]["input"],
+  ) => {
     await executeExtendMutation({ id, closingDate })
       .then((result) => {
         if (result.data?.changePoolClosingDate) {
@@ -80,7 +143,7 @@ const usePoolMutations = (returnPath?: string) => {
   };
 
   const [{ fetching: publishFetching }, executePublishMutation] =
-    usePublishPoolMutation();
+    useMutation(PublishPool_Mutation);
 
   const handlePublishError = () => {
     toast.error(
@@ -113,7 +176,7 @@ const usePoolMutations = (returnPath?: string) => {
   };
 
   const [{ fetching: closeFetching }, executeCloseMutation] =
-    useClosePoolMutation();
+    useMutation(ClosePool_Mutation);
 
   const handleCloseError = () => {
     toast.error(
@@ -146,7 +209,7 @@ const usePoolMutations = (returnPath?: string) => {
   };
 
   const [{ fetching: deleteFetching }, executeDeleteMutation] =
-    useDeletePoolMutation();
+    useMutation(DeletePool_Mutation);
 
   const handleDeleteError = () => {
     toast.error(
@@ -179,7 +242,7 @@ const usePoolMutations = (returnPath?: string) => {
   };
 
   const [{ fetching: archiveFetching }, executeArchiveMutation] =
-    useArchivePoolMutation();
+    useMutation(ArchivePool_Mutation);
 
   const handleArchiveError = () => {
     toast.error(
@@ -212,7 +275,7 @@ const usePoolMutations = (returnPath?: string) => {
   };
 
   const [{ fetching: duplicateFetching }, executeDuplicateMutation] =
-    useDuplicatePoolMutation();
+    useMutation(DuplicatePool_Mutation);
 
   const handleDuplicateError = () => {
     toast.error(
@@ -247,7 +310,7 @@ const usePoolMutations = (returnPath?: string) => {
   };
 
   const [{ fetching: unarchiveFetching }, executeUnarchiveMutation] =
-    useUnarchivePoolMutation();
+    useMutation(UnarchivePool_Mutation);
 
   const handleUnarchiveError = () => {
     toast.error(

@@ -3,7 +3,6 @@ import { useForm, FormProvider } from "react-hook-form";
 import { useIntl } from "react-intl";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
-import { Pool, Scalars } from "@gc-digital-talent/graphql";
 import {
   convertDateTimeZone,
   strToFormDate,
@@ -14,6 +13,7 @@ import {
   errorMessages,
   formMessages,
 } from "@gc-digital-talent/i18n";
+import { Pool, Scalars } from "@gc-digital-talent/graphql";
 
 import { ProcessDialogProps } from "./types";
 
@@ -23,7 +23,7 @@ type FormValues = {
 
 type ExtendProcessDialogProps = ProcessDialogProps & {
   closingDate?: Pool["closingDate"];
-  onExtend: (closingDate: Scalars["DateTime"]) => Promise<void>;
+  onExtend: (closingDate: Scalars["DateTime"]["input"]) => Promise<void>;
 };
 
 const ExtendProcessDialog = ({

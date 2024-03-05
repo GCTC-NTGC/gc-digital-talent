@@ -10,18 +10,20 @@ import {
   Scalars,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
-import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
+import { Locales, commonMessages, getLocale } from "@gc-digital-talent/i18n";
 import { getId, unpackMaybes } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
 
 import { Node } from "./components/RichTextInput/types";
+import { OptGroupOrOption } from "./types";
+
 /**
  * Filters out empty data from data response, and returns list of ids.
  * @param data
  * @returns string[]
  */
 export const unpackIds = (
-  data: Maybe<Array<Maybe<{ id: string }>>>,
+  data?: Maybe<Array<Maybe<{ id: string }> | undefined>>,
 ): string[] => unpackMaybes<{ id: string }>(data).map(getId);
 
 /**
@@ -153,16 +155,16 @@ export const countNumberOfWords = (text: string): number => {
  */
 export const objectsToSortedOptions = (
   objects: {
-    id: Scalars["ID"];
-    name: LocalizedString;
+    id: Scalars["ID"]["input"];
+    name?: LocalizedString;
   }[],
   intl: IntlShape,
 ): { value: string; label: string }[] => {
   const locale = getLocale(intl);
   return objects
     .sort((a, b) => {
-      const aName: Maybe<string> = a.name[locale];
-      const bName: Maybe<string> = b.name[locale];
+      const aName = a.name?.[locale];
+      const bName = b.name?.[locale];
       if (aName && bName) {
         return aName.localeCompare(bName, locale);
       }
@@ -171,7 +173,7 @@ export const objectsToSortedOptions = (
     })
     .map(({ id, name }) => ({
       value: id,
-      label: name[locale] ?? intl.formatMessage(commonMessages.notFound),
+      label: name?.[locale] ?? intl.formatMessage(commonMessages.notFound),
     }));
 };
 
@@ -255,4 +257,15 @@ export function flattenErrors(
   }
 
   return errorNames;
+}
+
+export function alphaSortOptions(
+  list?: OptGroupOrOption[],
+  locale?: Locales,
+): OptGroupOrOption[] {
+  return list
+    ? list.sort((a, b) =>
+        Intl.Collator(locale).compare(String(a.label), String(b.label)),
+      )
+    : [];
 }

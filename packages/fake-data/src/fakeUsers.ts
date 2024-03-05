@@ -126,7 +126,6 @@ const generateUser = (
     // Employment Equity
     isWoman: faker.datatype.boolean(),
     hasDisability: faker.datatype.boolean(),
-    isIndigenous: faker.datatype.boolean(),
     isVisibleMinority: faker.datatype.boolean(),
     indigenousCommunities: faker.helpers.arrayElements<IndigenousCommunity>([
       IndigenousCommunity.StatusFirstNations,
@@ -164,6 +163,8 @@ const generateUser = (
     educationExperiences,
     personalExperiences,
     workExperiences,
+
+    userSkills: [],
   };
 };
 

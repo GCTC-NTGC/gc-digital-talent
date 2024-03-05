@@ -2,8 +2,7 @@ import React from "react";
 import { Meta, Story } from "@storybook/react";
 
 import { fakeExperiences, fakeApplicants } from "@gc-digital-talent/fake-data";
-
-import { User, IndigenousCommunity } from "~/api/generated";
+import { User, IndigenousCommunity } from "@gc-digital-talent/graphql";
 
 import UserProfile from "./UserProfile";
 
@@ -77,7 +76,6 @@ UserProfileNull.args = {
   currentClassification: null,
   isWoman: null,
   hasDisability: null,
-  isIndigenous: null,
   indigenousCommunities: null,
   isVisibleMinority: null,
   hasDiploma: null,

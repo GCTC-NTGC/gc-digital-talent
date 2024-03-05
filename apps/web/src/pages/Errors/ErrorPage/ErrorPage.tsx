@@ -39,8 +39,8 @@ const ErrorPage = () => {
         data-h2-height="base(x1)"
       />
       <div
-        data-h2-background-color="base(white) base:dark(black.light)"
-        data-h2-color="base(black) base:dark(white)"
+        data-h2-background-color="base(background)"
+        data-h2-color="base(black)"
         data-h2-padding="base(x3, 0)"
       >
         <div
@@ -50,7 +50,7 @@ const ErrorPage = () => {
           <Heading
             level="h1"
             size="h2"
-            data-h2-font-size="base(h4, 1.4)"
+            data-h2-font-size="base(h4, 1.1)"
             data-h2-font-weight="base(700)"
             data-h2-margin="base(0)"
           >

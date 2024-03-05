@@ -1,6 +1,14 @@
 import { IntlShape } from "react-intl";
 
+import { Option, enumToOptions } from "@gc-digital-talent/forms";
+import { notEmpty } from "@gc-digital-talent/helpers";
 import {
+  getLocalizedName,
+  getPoolStream,
+  getPoolOpportunityLength,
+} from "@gc-digital-talent/i18n";
+import {
+  PoolOpportunityLength,
   Classification,
   LocalizedString,
   Maybe,
@@ -10,13 +18,12 @@ import {
   Scalars,
   UpdatePoolInput,
 } from "@gc-digital-talent/graphql";
-import { Option, enumToOptions } from "@gc-digital-talent/forms";
-import { notEmpty } from "@gc-digital-talent/helpers";
-import { getLocalizedName, getPoolStream } from "@gc-digital-talent/i18n";
+
+import { sortedOpportunityLengths } from "~/utils/poolUtils";
 
 const firstId = (
-  collection: Maybe<Maybe<Classification>[]>,
-): Scalars["ID"] | undefined => {
+  collection: Maybe<Maybe<Classification>[]> | undefined,
+): Scalars["ID"]["output"] | undefined => {
   if (!collection) return undefined;
 
   if (collection.length < 1) return undefined;
@@ -30,7 +37,8 @@ export type FormValues = {
   specificTitleEn?: LocalizedString["en"];
   specificTitleFr?: LocalizedString["fr"];
   processNumber?: string;
-  publishingGroup: Maybe<PublishingGroup>;
+  publishingGroup?: Maybe<PublishingGroup>;
+  opportunityLength?: Maybe<PoolOpportunityLength>;
 };
 
 export const dataToFormValues = (initialData: Pool): FormValues => ({
@@ -40,11 +48,17 @@ export const dataToFormValues = (initialData: Pool): FormValues => ({
   specificTitleFr: initialData.name?.fr ?? "",
   processNumber: initialData.processNumber ?? "",
   publishingGroup: initialData.publishingGroup,
+  opportunityLength: initialData.opportunityLength,
 });
 
 export type PoolNameSubmitData = Pick<
   UpdatePoolInput,
-  "classifications" | "name" | "stream" | "processNumber" | "publishingGroup"
+  | "classifications"
+  | "name"
+  | "stream"
+  | "processNumber"
+  | "publishingGroup"
+  | "opportunityLength"
 >;
 
 export const formValuesToSubmitData = (
@@ -62,24 +76,31 @@ export const formValuesToSubmitData = (
   publishingGroup: formValues.publishingGroup
     ? formValues.publishingGroup
     : undefined, // can't be set to null, assume not updating if empty
+  opportunityLength: formValues.opportunityLength
+    ? formValues.opportunityLength
+    : null, // can't be set to null, assume not updating if empty
 });
 
 export const getClassificationOptions = (
   classifications: Maybe<Classification>[],
   intl: IntlShape,
 ): Option[] => {
-  return classifications
-    .filter(notEmpty)
-    .map(({ id, group, level, name }) => ({
-      value: id,
-      label: `${group}-0${level} (${getLocalizedName(name, intl)})`,
-    }))
-    .sort((a, b) => (a.label >= b.label ? 1 : -1));
+  return classifications.filter(notEmpty).map(({ id, group, level, name }) => ({
+    value: id,
+    label: `${group}-0${level} (${getLocalizedName(name, intl)})`,
+  }));
 };
 
 export const getStreamOptions = (intl: IntlShape): Option[] => {
   return enumToOptions(PoolStream).map(({ value }) => ({
     value,
     label: intl.formatMessage(getPoolStream(value)),
+  }));
+};
+
+export const getOpportunityLengthOptions = (intl: IntlShape): Option[] => {
+  return sortedOpportunityLengths.map((value) => ({
+    value,
+    label: intl.formatMessage(getPoolOpportunityLength(value)),
   }));
 };

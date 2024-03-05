@@ -10,6 +10,7 @@ import {
   getBehaviouralSkillLevel,
   getTechnicalSkillLevel,
 } from "@gc-digital-talent/i18n";
+import { Button, Separator } from "@gc-digital-talent/ui";
 import {
   PersonnelLanguage,
   PersonnelScreeningLevel,
@@ -18,7 +19,6 @@ import {
   SkillCategory,
   SkillLevel,
 } from "@gc-digital-talent/graphql";
-import { Button, Separator } from "@gc-digital-talent/ui";
 
 import SkillDialog from "~/components/SkillBrowser/SkillBrowserDialog";
 import { FormValues as SkillDialogFormValues } from "~/components/SkillBrowser/types";
@@ -151,9 +151,8 @@ const PersonnelRequirementFieldset = ({
       <SignPost
         title={intl.formatMessage({
           defaultMessage: "Skill requirements",
-          id: "v27PDJ",
-          description:
-            "Title for _skills_ fieldset in the _digital services contracting questionnaire_",
+          id: "tON7JL",
+          description: "Title for skill requirements",
         })}
         introduction={intl.formatMessage({
           defaultMessage:
@@ -249,12 +248,7 @@ const PersonnelRequirementFieldset = ({
                   )}
                 </Button>
               </div>
-              <Separator
-                orientation="horizontal"
-                decorative
-                data-h2-background-color="base(gray.lighter)"
-                data-h2-margin="base(x.5 0)"
-              />
+              <Separator space="xs" />
             </div>
           </div>
         );

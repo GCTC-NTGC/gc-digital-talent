@@ -212,13 +212,20 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
       const initialPageIndex =
         pagination?.initialState?.pageIndex ??
         INITIAL_STATE.paginationState.pageIndex;
-      if (paginationState.pageIndex === initialPageIndex) {
+
+      let currentPageIndex: number = paginationState.pageIndex;
+      if (
+        !pagination?.internal &&
+        typeof pagination?.state?.pageIndex !== "undefined"
+      ) {
+        const externalPageIndex = pagination.state.pageIndex - 1;
+        currentPageIndex = externalPageIndex < 0 ? 0 : externalPageIndex;
+      }
+
+      if (currentPageIndex === initialPageIndex) {
         newParams.delete(SEARCH_PARAM_KEY.PAGE);
       } else {
-        newParams.set(
-          SEARCH_PARAM_KEY.PAGE,
-          String(paginationState.pageIndex + 1),
-        );
+        newParams.set(SEARCH_PARAM_KEY.PAGE, String(currentPageIndex + 1));
       }
 
       const initialSearchState =
@@ -270,6 +277,8 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
     sort?.initialState,
     hiddenColumnIds,
     search?.initialState,
+    pagination?.internal,
+    pagination?.state,
     pagination?.initialState?.pageSize,
     pagination?.initialState?.pageIndex,
     urlSync,
@@ -295,6 +304,16 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
       ? nullSearchMessage
       : nullMessage;
 
+  // manipulate pagination object prop as needed
+  // adjust total for client side only, to be post filtering
+  let paginationAdjusted: PaginationDef | undefined = pagination;
+  if (paginationAdjusted?.internal) {
+    paginationAdjusted = {
+      ...paginationAdjusted,
+      total: table.getFilteredRowModel().rows.length,
+    };
+  }
+
   return (
     <>
       <Table.Controls add={add}>
@@ -317,8 +336,11 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
       {hasNoData || hasNoVisibleRows ? (
         <NullMessage {...(nullStateMessage ? { ...nullStateMessage } : {})} />
       ) : (
-        <div aria-labelledby={captionId}>
-          <Table.Wrapper data-h2-position="base(relative)">
+        <>
+          <Table.Wrapper
+            data-h2-position="base(relative)"
+            aria-labelledby={captionId}
+          >
             <Table.Table>
               <Table.Caption id={captionId}>{caption}</Table.Caption>
               <Table.Head>
@@ -360,10 +382,14 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
               />
             )}
           </Table.Wrapper>
-          {pagination && (
-            <TablePagination table={table} pagination={pagination} />
+          {paginationAdjusted && (
+            <TablePagination
+              table={table}
+              pagination={paginationAdjusted}
+              label={caption?.toString() ?? ""}
+            />
           )}
-        </div>
+        </>
       )}
     </>
   );

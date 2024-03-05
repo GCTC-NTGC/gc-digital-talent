@@ -91,8 +91,8 @@ const PreambleSection = () => {
           <li data-h2-margin-top="base(x.25)">
             {intl.formatMessage({
               defaultMessage:
-                "Implementing and supporting initiatives to advance diversity, equity and inclusion in the digital community",
-              id: "0jfEjz",
+                "Implementing and supporting initiatives to advance diversity, equity, and inclusion in the digital community",
+              id: "lDSa8Q",
               description:
                 "An OCIO role in the _supporting the community_ section of the _digital services contracting questionnaire_",
             })}
@@ -309,12 +309,7 @@ const PreambleSection = () => {
               </Button>
             </Collapsible.Trigger>
             <Collapsible.Content data-h2-padding-left="base(x1.5)">
-              <Separator
-                orientation="horizontal"
-                decorative
-                data-h2-background-color="base(gray.lighter)"
-                data-h2-margin="base(x1 0)"
-              />
+              <Separator space="sm" />
               <p>
                 {intl.formatMessage({
                   defaultMessage:

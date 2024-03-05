@@ -1,8 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 
-import Toast from "@gc-digital-talent/toast";
-
 import "@gc-digital-talent/forms/dist/index.css";
 import "@gc-digital-talent/ui/dist/index.css";
 import "@gc-digital-talent/toast/dist/index.css";
@@ -18,7 +16,6 @@ if (container) {
       <ContextContainer messages={messages}>
         <Router />
       </ContextContainer>
-      <Toast />
     </React.StrictMode>,
   );
 }

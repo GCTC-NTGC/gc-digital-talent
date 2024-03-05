@@ -55,7 +55,7 @@ class Department extends Model
     /**
      * Re-useable scope to filter by an array of department ids
      *
-     * @param  array<string>|null  $departmentIds An array of department ids
+     * @param  array<string>|null  $departmentIds  An array of department ids
      */
     public static function scopeDepartmentsByIds(Builder $query, ?array $departmentIds): Builder
     {

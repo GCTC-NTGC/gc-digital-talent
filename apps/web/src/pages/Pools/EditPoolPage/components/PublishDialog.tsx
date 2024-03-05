@@ -8,8 +8,7 @@ import {
   relativeClosingDate,
 } from "@gc-digital-talent/date-helpers";
 import { formMessages } from "@gc-digital-talent/i18n";
-
-import { Pool } from "~/api/generated";
+import { Pool } from "@gc-digital-talent/graphql";
 
 type PublishDialogProps = {
   closingDate: Pool["closingDate"];

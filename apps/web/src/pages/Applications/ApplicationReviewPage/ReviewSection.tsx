@@ -2,6 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Heading, Link } from "@gc-digital-talent/ui";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 interface ReviewSectionProps {
   title: string;
@@ -33,11 +34,7 @@ const ReviewSection = ({
           {title}
         </Heading>
         <Link mode="inline" href={path} aria-label={editLinkAriaLabel}>
-          {intl.formatMessage({
-            defaultMessage: "Edit this section",
-            id: "Z8hEuY",
-            description: "Default edit link text for application review page",
-          })}
+          {intl.formatMessage(commonMessages.editThisSection)}
         </Link>
       </div>
       {children}

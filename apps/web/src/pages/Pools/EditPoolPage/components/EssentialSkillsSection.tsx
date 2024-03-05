@@ -3,8 +3,8 @@ import { useIntl } from "react-intl";
 import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
 
 import { ToggleSection } from "@gc-digital-talent/ui";
+import { PoolStatus, Skill, UpdatePoolInput } from "@gc-digital-talent/graphql";
 
-import { PoolStatus, Skill, UpdatePoolInput } from "~/api/generated";
 import { hasEmptyRequiredFields } from "~/validators/process/essentialSkills";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 
@@ -53,12 +53,13 @@ const EssentialSkillsSection = ({
   });
 
   return (
-    <>
+    <section>
       <ToggleSection.Header
         Icon={icon.icon}
         color={icon.color}
         level="h3"
-        size="h5"
+        size="h4"
+        data-h2-font-weight="base(bold)"
       >
         {sectionMetadata.title}
       </ToggleSection.Header>
@@ -69,8 +70,20 @@ const EssentialSkillsSection = ({
         allSkills={skills}
         onSave={handleSave}
         disableAdd={formDisabled}
+        nullMessage={{
+          title: intl.formatMessage({
+            defaultMessage: "You haven't added any essential skills yet.",
+            id: "V0U95l",
+            description: "Null message title for essential skills table.",
+          }),
+          description: intl.formatMessage({
+            defaultMessage: `Use the "Add a new skill" button to get started.`,
+            id: "uiuMqi",
+            description: "Null message description for essential skills table.",
+          }),
+        }}
       />
-    </>
+    </section>
   );
 };
 

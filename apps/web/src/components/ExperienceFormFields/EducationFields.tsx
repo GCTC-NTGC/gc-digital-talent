@@ -14,11 +14,12 @@ import {
   errorMessages,
   getEducationStatus,
   getEducationType,
+  uiMessages,
 } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
+import { EducationStatus, EducationType } from "@gc-digital-talent/graphql";
 
 import { SubExperienceFormProps } from "~/types/experience";
-import { EducationStatus, EducationType } from "~/api/generated";
 
 const EducationFields = ({ labels }: SubExperienceFormProps) => {
   const intl = useIntl();
@@ -36,12 +37,7 @@ const EducationFields = ({ labels }: SubExperienceFormProps) => {
             id="educationType"
             label={labels.educationType}
             name="educationType"
-            nullSelection={intl.formatMessage({
-              defaultMessage: "Select an option",
-              id: "gIXZ1i",
-              description:
-                "Null selection for select education type in the education form.",
-            })}
+            nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
@@ -97,12 +93,7 @@ const EducationFields = ({ labels }: SubExperienceFormProps) => {
             id="educationStatus"
             label={labels.educationStatus}
             name="educationStatus"
-            nullSelection={intl.formatMessage({
-              defaultMessage: "Select an option",
-              id: "0iSfwq",
-              description:
-                "Null selection for select status in the education form.",
-            })}
+            nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}

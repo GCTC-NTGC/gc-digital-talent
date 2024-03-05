@@ -33,6 +33,7 @@ class PoolCandidateSearchRequestFactory extends Factory
             'department_id' => Department::inRandomOrder()->first()->id,
             'job_title' => $this->faker->jobTitle(),
             'additional_comments' => $this->faker->text(),
+            'hr_advisor_email' => $this->faker->unique()->safeEmail,
             'created_at' => $this->faker->dateTimeBetween($startDate = '-6 months', $endDate = '-1 months'),
             'admin_notes' => $this->faker->text(),
             'applicant_filter_id' => ApplicantFilter::factory(),
@@ -55,6 +56,7 @@ class PoolCandidateSearchRequestFactory extends Factory
             if ($isOldRequest) {
                 $request->manager_job_title = null;
                 $request->position_type = null;
+                $request->hr_advisor_email = null;
                 $request->save();
             }
         });

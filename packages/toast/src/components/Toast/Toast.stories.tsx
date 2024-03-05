@@ -2,6 +2,8 @@ import React from "react";
 import type { Story, Meta } from "@storybook/react";
 import { faker } from "@faker-js/faker";
 
+import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
+
 import toast from "../../toast";
 import Toast from "./Toast";
 import "./toast.css";
@@ -21,6 +23,7 @@ export default {
     text: "Toast text",
     longText: faker.lorem.sentences(3),
   },
+  decorators: [OverlayOrDialogDecorator],
   parameters: {
     docs: {
       page: ToastDocs,
@@ -31,14 +34,18 @@ export default {
 const Template: Story<StoryArgs> = (args) => {
   const { text, longText } = args;
 
-  toast.info(text, { autoClose: false });
-  toast.info(longText, { autoClose: false });
-  toast.success(text, { autoClose: false });
-  toast.warning(text, { autoClose: false });
-  toast.error(text, { autoClose: false });
+  toast.info(text);
+  toast.info(longText);
+  toast.success(text);
+  toast.warning(text);
+  toast.error(text);
 
   // avoid animations with Chromatic snapshots
-  return <Toast disableTransition autoClose={false} />;
+  return (
+    <div>
+      <Toast disableTransition autoClose={false} />
+    </div>
+  );
 };
 
 export const BasicToast = Template.bind({});

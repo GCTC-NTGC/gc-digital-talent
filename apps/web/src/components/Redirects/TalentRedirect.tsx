@@ -23,21 +23,7 @@ const TalentRedirect = () => {
         profilePath = paths.careerTimelineAndRecruitment(id);
 
         if (pathname.includes("create")) {
-          if (pathname.includes("award")) {
-            profilePath = paths.createAward(id);
-          }
-          if (pathname.includes("community")) {
-            profilePath = paths.createCommunity(id);
-          }
-          if (pathname.includes("education")) {
-            profilePath = paths.createEducation(id);
-          }
-          if (pathname.includes("personal")) {
-            profilePath = paths.createPersonal(id);
-          }
-          if (pathname.includes("work")) {
-            profilePath = paths.createWork(id);
-          }
+          profilePath = paths.createExperience(id);
         }
       }
 

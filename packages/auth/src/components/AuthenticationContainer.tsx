@@ -11,6 +11,7 @@ import {
   ID_TOKEN,
   POST_LOGOUT_URI_KEY,
 } from "../const";
+import useLogoutChannel from "../hooks/useLogoutChannel";
 
 export interface AuthenticationState {
   loggedIn: boolean;
@@ -39,6 +40,7 @@ const logoutAndRefreshPage = (
   logoutUri: string,
   logoutRedirectUri: string,
   postLogoutUri?: string,
+  broadcastLogoutMessage?: () => void,
 ): void => {
   defaultLogger.notice("Logging out and refreshing the page");
   // capture tokens before they are removed
@@ -68,6 +70,9 @@ const logoutAndRefreshPage = (
       authSessionIsCurrentlyActive = Date.now() < decodedAccessToken.exp * 1000; // JWT expiry date in seconds, not milliseconds
   }
 
+  // Post a logout message to the broadcast channel
+  // so they know to logout as well
+  broadcastLogoutMessage?.();
   if (idToken && authSessionIsCurrentlyActive) {
     // SiC logout will error out unless there is actually an active session
     window.location.href = `${logoutUri}?post_logout_redirect_uri=${logoutRedirectUri}&id_token_hint=${idToken}`;
@@ -110,11 +115,11 @@ const AuthenticationContainer = ({
   children,
 }: AuthenticationContainerProps) => {
   const logger = useLogger();
-  const existingTokens = {
-    accessToken: localStorage.getItem(ACCESS_TOKEN),
-    refreshToken: localStorage.getItem(REFRESH_TOKEN),
-    idToken: localStorage.getItem(ID_TOKEN),
-  };
+  const { broadcastLogoutMessage } = useLogoutChannel(() => {
+    if (!localStorage.getItem(ACCESS_TOKEN)) {
+      window.location.href = logoutRedirectUri;
+    }
+  });
 
   const newTokens = getTokensFromLocation();
   logger.debug(`new tokens from location: ${JSON.stringify(newTokens)}`);
@@ -129,6 +134,21 @@ const AuthenticationContainer = ({
     }
   }
 
+  // Logout if the access token is removed in another way other than
+  // the user logging out manually
+  useEffect(() => {
+    const logoutOnAccessTokenRemoved = (event: StorageEvent) => {
+      if (event.key === ACCESS_TOKEN && event.newValue === null) {
+        window.location.href = logoutRedirectUri;
+      }
+    };
+
+    window.addEventListener("storage", logoutOnAccessTokenRemoved);
+
+    return () =>
+      window.removeEventListener("storage", logoutOnAccessTokenRemoved);
+  });
+
   // We have saved it in local storage , then clear query parameters.
   useEffect(() => {
     if (newTokens?.accessToken) {
@@ -137,25 +157,30 @@ const AuthenticationContainer = ({
     }
   }, [newTokens?.accessToken, logger]); // Check for tokens individually so a new tokens object with identical contents doesn't trigger a re-render.
 
-  // If tokens were just found in the url, then get them from newTokens instead of local storage, which we haven't reloaded yet
-  const tokens = newTokens ?? existingTokens;
+  // this is a memoized object so get the tokens from storage.
   const state = useMemo<AuthenticationState>(() => {
     return {
-      loggedIn: !!tokens.accessToken,
-      logout: tokens.accessToken
+      loggedIn: !!localStorage.getItem(ACCESS_TOKEN),
+      logout: localStorage.getItem(ACCESS_TOKEN)
         ? (postLogoutUri) =>
-            logoutAndRefreshPage(logoutUri, logoutRedirectUri, postLogoutUri)
+            logoutAndRefreshPage(
+              logoutUri,
+              logoutRedirectUri,
+              postLogoutUri,
+              broadcastLogoutMessage,
+            )
         : () => {
             /* If not logged in, logout does nothing. */
           },
       refreshTokenSet: async () => {
-        if (tokens.refreshToken === null) {
+        const storedRefreshToken = localStorage.getItem(REFRESH_TOKEN);
+        if (storedRefreshToken === null) {
           logger.notice("No refresh token available.  Can't refresh.");
           return;
         }
         defaultLogger.notice("Attempting to refresh the auth token set");
         const response = await fetch(
-          `${tokenRefreshPath}?refresh_token=${tokens.refreshToken}`,
+          `${tokenRefreshPath}?refresh_token=${storedRefreshToken}`,
         );
         if (response.ok) {
           const responseBody: {
@@ -188,10 +213,9 @@ const AuthenticationContainer = ({
       },
     };
   }, [
-    tokens.accessToken,
-    tokens.refreshToken,
     logoutUri,
     logoutRedirectUri,
+    broadcastLogoutMessage,
     tokenRefreshPath,
     logger,
   ]);

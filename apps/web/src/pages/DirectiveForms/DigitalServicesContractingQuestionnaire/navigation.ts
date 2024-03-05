@@ -81,9 +81,8 @@ const sectionTitles = new Map<PageSectionId, MessageDescriptor>([
     PAGE_SECTION_ID.GENERAL_INFORMATION,
     defineMessage({
       defaultMessage: "General information",
-      id: "D2v0V5",
-      description:
-        "Heading for the General information section on the digital services contracting questionnaire",
+      id: "Ot2eBH",
+      description: "Title for general information section",
     }),
   ],
   [

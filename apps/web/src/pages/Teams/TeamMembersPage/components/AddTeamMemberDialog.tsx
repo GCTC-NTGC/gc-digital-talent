@@ -1,10 +1,12 @@
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
+import debounce from "lodash/debounce";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
+import { useMutation } from "urql";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
-import { Combobox, MultiSelectField, Select } from "@gc-digital-talent/forms";
+import { Combobox, Select } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
@@ -13,32 +15,39 @@ import {
   getLocalizedName,
   uiMessages,
 } from "@gc-digital-talent/i18n";
+import { Team } from "@gc-digital-talent/graphql";
 
-import {
-  Role,
-  Team,
-  UserPublicProfile,
-  useUpdateUserTeamRolesMutation,
-} from "~/api/generated";
 import { getFullNameAndEmailLabel } from "~/utils/nameUtils";
+import { TeamMember } from "~/utils/teamUtils";
+import adminMessages from "~/messages/adminMessages";
 
 import { TeamMemberFormValues } from "./types";
 import { getTeamBasedRoleOptions } from "./utils";
+import useAvailableUsers from "./useAvailableUsers";
+import useAvailableRoles from "./useAvailableRoles";
+import { UpdateUserTeamRoles_Mutation } from "./operations";
 
 interface AddTeamMemberDialogProps {
   team: Team;
-  availableUsers: Array<UserPublicProfile> | null;
-  availableRoles: Array<Role>;
+  members: Array<TeamMember>;
 }
 
 const AddTeamMemberDialog = ({
   team,
-  availableRoles,
-  availableUsers,
+  members,
 }: // onSave,
 AddTeamMemberDialogProps) => {
   const intl = useIntl();
-  const [, executeMutation] = useUpdateUserTeamRolesMutation();
+  const [query, setQuery] = React.useState<string>("");
+  const {
+    users,
+    total,
+    fetching: usersFetching,
+  } = useAvailableUsers(members, {
+    publicProfileSearch: query || undefined,
+  });
+  const { roles, fetching: rolesFetching } = useAvailableRoles();
+  const [, executeMutation] = useMutation(UpdateUserTeamRoles_Mutation);
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   const methods = useForm<TeamMemberFormValues>({
@@ -92,8 +101,12 @@ AddTeamMemberDialogProps) => {
       });
   };
 
-  const roleOptions = getTeamBasedRoleOptions(availableRoles, intl);
-  const userOptions = availableUsers?.map((user) => ({
+  const handleDebouncedSearch = debounce((newQuery: string) => {
+    setQuery(newQuery);
+  }, 300);
+
+  const roleOptions = getTeamBasedRoleOptions(roles, intl);
+  const userOptions = users?.map((user) => ({
     value: user.id,
     label: getFullNameAndEmailLabel(
       user.firstName,
@@ -108,8 +121,6 @@ AddTeamMemberDialogProps) => {
     id: "+e2nr6",
     description: "Label for the add member to team form",
   });
-
-  const fetchingUsers = availableUsers === null;
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
@@ -140,7 +151,10 @@ AddTeamMemberDialogProps) => {
                 <Combobox
                   id="userId"
                   name="userId"
-                  disabled={fetchingUsers}
+                  fetching={usersFetching}
+                  isExternalSearch
+                  onSearch={handleDebouncedSearch}
+                  total={total}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
@@ -161,12 +175,7 @@ AddTeamMemberDialogProps) => {
                     uiMessages.nullSelectionOption,
                   )}
                   disabled
-                  label={intl.formatMessage({
-                    defaultMessage: "Team",
-                    id: "0AaeXe",
-                    description:
-                      "Label for the team select field on team membership form",
-                  })}
+                  label={intl.formatMessage(adminMessages.team)}
                   options={[
                     {
                       value: team.id,
@@ -174,9 +183,11 @@ AddTeamMemberDialogProps) => {
                     },
                   ]}
                 />
-                <MultiSelectField
+                <Combobox
                   id="roles"
                   name="roles"
+                  isMulti
+                  fetching={rolesFetching}
                   label={intl.formatMessage({
                     defaultMessage: "Membership roles",
                     id: "cOJVBW",

@@ -21,6 +21,8 @@ export type SearchColumn = {
   value: string;
 };
 
+export type SelectingFor = "print" | "download" | null;
+
 export type RowSelectDef<T> = {
   /** Label for the "select all" checkbox in the header */
   allLabel?: string;
@@ -47,6 +49,8 @@ export interface SearchFormProps<TData extends RowData> {
   id: React.HTMLAttributes<HTMLInputElement>["id"];
   /** Additional props forwarded to the search input */
   inputProps?: Omit<React.HTMLProps<HTMLInputElement>, "aria-label" | "id">;
+  /** Override default allTable message */
+  overrideAllTableMsg?: string;
 }
 
 type SearchDefFormProps<T> = Omit<
@@ -107,6 +111,10 @@ export type DatasetDownload = {
   selection: DatasetDownloadItem;
   /** Props for the download button for all items */
   all?: DatasetDownloadItem;
+  /** Show loading icon when download data is being fetched */
+  fetching?: boolean;
+  /** Disabled the button for download */
+  disableBtn?: boolean;
 };
 
 /** Controls the print button in `RowSelection.Actions` */
@@ -123,6 +131,8 @@ export type PaginationDef = {
   onPaginationChange?: (newPagination: PaginationState) => void;
   /** Initial pagination state */
   initialState?: PaginationState;
+  /** Pagination state */
+  state?: PaginationState;
   /** Total number of pages */
   total?: number;
   /** Available page sizes */

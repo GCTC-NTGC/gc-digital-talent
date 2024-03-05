@@ -2,9 +2,10 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import PencilIcon from "@heroicons/react/24/outline/PencilIcon";
+import { useMutation } from "urql";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
-import { MultiSelectField, Select } from "@gc-digital-talent/forms";
+import { Combobox, Select } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
@@ -13,27 +14,26 @@ import {
   getLocalizedName,
   uiMessages,
 } from "@gc-digital-talent/i18n";
+import { Team } from "@gc-digital-talent/graphql";
 
-import { Role, Team, useUpdateUserTeamRolesMutation } from "~/api/generated";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { TeamMember } from "~/utils/teamUtils";
+import adminMessages from "~/messages/adminMessages";
 
 import { TeamMemberFormValues } from "./types";
 import { getTeamBasedRoleOptions } from "./utils";
+import useAvailableRoles from "./useAvailableRoles";
+import { UpdateUserTeamRoles_Mutation } from "./operations";
 
 interface EditTeamMemberDialogProps {
   user: TeamMember;
   team: Team;
-  availableRoles: Array<Role>;
 }
 
-const EditTeamMemberDialog = ({
-  user,
-  team,
-  availableRoles,
-}: EditTeamMemberDialogProps) => {
+const EditTeamMemberDialog = ({ user, team }: EditTeamMemberDialogProps) => {
   const intl = useIntl();
-  const [, executeMutation] = useUpdateUserTeamRolesMutation();
+  const { roles, fetching } = useAvailableRoles();
+  const [, executeMutation] = useMutation(UpdateUserTeamRoles_Mutation);
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   const methods = useForm<TeamMemberFormValues>({
@@ -88,7 +88,7 @@ const EditTeamMemberDialog = ({
       });
   };
 
-  const roleOptions = getTeamBasedRoleOptions(availableRoles, intl);
+  const roleOptions = getTeamBasedRoleOptions(roles, intl);
 
   const userName = getFullNameLabel(user.firstName, user.lastName, intl);
 
@@ -158,12 +158,7 @@ const EditTeamMemberDialog = ({
                     uiMessages.nullSelectionOption,
                   )}
                   disabled
-                  label={intl.formatMessage({
-                    defaultMessage: "Team",
-                    id: "0AaeXe",
-                    description:
-                      "Label for the team select field on team membership form",
-                  })}
+                  label={intl.formatMessage(adminMessages.team)}
                   options={[
                     {
                       value: team.id,
@@ -171,9 +166,11 @@ const EditTeamMemberDialog = ({
                     },
                   ]}
                 />
-                <MultiSelectField
+                <Combobox
                   id="roles"
                   name="roles"
+                  isMulti
+                  fetching={fetching}
                   label={intl.formatMessage({
                     defaultMessage: "Membership roles",
                     id: "cOJVBW",

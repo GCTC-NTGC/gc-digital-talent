@@ -398,5 +398,13 @@
   "dY3Qr4": {
     "defaultMessage": "L’nu e’pit naski’k mekwe’k a’tlai aqq etl-lukwet laptopiktuk.",
     "description": "Indigenous Apprenticeship woman on laptop image text alternative"
+  },
+  "CKsQyK": {
+    "defaultMessage": "Apoqnmasuti aqq koqo’wel",
+    "description": "Title of the accessibility and accommodations information dialog"
+  },
+  "jO8i+2": {
+    "defaultMessage": "Nuta’n apoqnmasuti, kesna me’ koqowey ketu kejitu’n wjit ta’n tela’sik koqowey? Ke pipanima’tis Office Of Indigenous Initiatives elmiaq me’ koqowey nuta’n wjit apoqnmasuti wla applicationl tel nuta’q <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>.",
+    "description": "First paragraph of the accessibility and accommodations information dialog"
   }
 }

@@ -2,11 +2,16 @@ import { IntlShape } from "react-intl";
 import isPast from "date-fns/isPast";
 
 import { StepType } from "@gc-digital-talent/ui";
-import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import {
+  Application_PoolCandidateFragment,
+  PoolCandidateStatus,
+  ApplicationStep,
+  Maybe,
+  PoolCandidate,
+} from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import { ApplicationStep, Maybe, PoolCandidate } from "~/api/generated";
 import { ApplicationStepInfo } from "~/types/applicationStep";
 import welcomeStepInfo from "~/pages/Applications/welcomeStep/welcomeStepInfo";
 import selfDeclarationStepInfo from "~/pages/Applications/selfDeclarationStep/selfDeclarationStepInfo";
@@ -22,8 +27,9 @@ import careerTimelineStepInfo from "~/pages/Applications/careerTimelineStep/care
 type GetApplicationPagesArgs = {
   paths: ReturnType<typeof useRoutes>;
   intl: IntlShape;
-  application: PoolCandidate;
+  application: Application_PoolCandidateFragment;
   experienceId?: string;
+  RoDFlag: boolean;
 };
 
 // Dynamically build the list of application steps for this application
@@ -32,7 +38,12 @@ export const getApplicationSteps = ({
   intl,
   application,
   experienceId,
+  RoDFlag,
 }: GetApplicationPagesArgs): Array<ApplicationStepInfo> => {
+  const showQuestionStep =
+    application.pool.generalQuestions?.length ||
+    (RoDFlag && application.pool.screeningQuestions?.length);
+
   // build the order of step functions to call
   const stepInfoFunctions = [
     welcomeStepInfo,
@@ -41,7 +52,7 @@ export const getApplicationSteps = ({
     careerTimelineStepInfo,
     educationStepInfo,
     skillsStepInfo,
-    ...(application.pool.screeningQuestions?.length ? [questionsStepInfo] : []),
+    ...(showQuestionStep ? [questionsStepInfo] : []),
     reviewStepInfo,
     successPageInfo,
   ];
@@ -54,6 +65,7 @@ export const getApplicationSteps = ({
       application,
       resourceId: experienceId,
       stepOrdinal: index + 1,
+      RoDFlag,
     }),
   );
 
@@ -63,9 +75,9 @@ export const getApplicationSteps = ({
 // Filter the prerequisite list by steps present in this application and then figure out if any are missing from the submitted steps
 const missingPrerequisitesFromThisApplication = (
   stepsInfosInApplication: Array<ApplicationStepInfo>,
-  prerequisiteSteps: Maybe<Array<ApplicationStep>>,
-  submittedSteps: Maybe<Array<ApplicationStep>>,
-): Maybe<Array<ApplicationStep>> => {
+  prerequisiteSteps: Maybe<Array<ApplicationStep>> | undefined,
+  submittedSteps: Maybe<Array<ApplicationStep>> | undefined,
+): Maybe<Array<ApplicationStep>> | undefined => {
   // figure out the application step enum values for this flow (may or may not include conditional steps)
   const stepsInThisApplication = stepsInfosInApplication.map(
     (step) => step.applicationStep,
@@ -86,7 +98,7 @@ const missingPrerequisitesFromThisApplication = (
 // What step should we go to, to resume the application
 export function getNextStepToSubmit(
   stepsInThisApplication: Array<ApplicationStepInfo>,
-  submittedSteps: Maybe<ApplicationStep[]>,
+  submittedSteps: Maybe<ApplicationStep[]> | undefined,
 ): ApplicationStepInfo {
   let nextStep = stepsInThisApplication[0];
 
@@ -109,7 +121,7 @@ export function getNextStepToSubmit(
 export function isOnDisabledPage(
   currentPageUrl: string | undefined,
   steps: Array<ApplicationStepInfo>,
-  submittedSteps: Maybe<ApplicationStep[]>,
+  submittedSteps: Maybe<ApplicationStep[]> | undefined,
 ): boolean {
   // where are we right now?
   const currentStep = steps.find(
@@ -134,6 +146,7 @@ export function isOnDisabledPage(
 export function applicationStepsToStepperArgs(
   applicationSteps: Array<ApplicationStepInfo>,
   application: PoolCandidate,
+  RoDFlag: boolean,
 ): StepType[] {
   return applicationSteps
     .filter((step) => step.showInStepper)
@@ -150,7 +163,12 @@ export function applicationStepsToStepperArgs(
           step.prerequisites,
           application.submittedSteps,
         )?.length,
-        error: step.hasError?.(application.user, application.pool, application),
+        error: step.hasError?.(
+          application.user,
+          application.pool,
+          application,
+          RoDFlag,
+        ),
       };
     });
 }
@@ -175,6 +193,7 @@ export function isApplicationQualifiedRecruitment(a: Application): boolean {
     a.status === PoolCandidateStatus.QualifiedAvailable ||
     a.status === PoolCandidateStatus.QualifiedUnavailable ||
     a.status === PoolCandidateStatus.QualifiedWithdrew ||
+    a.status === PoolCandidateStatus.PlacedTentative ||
     a.status === PoolCandidateStatus.PlacedCasual ||
     a.status === PoolCandidateStatus.PlacedTerm ||
     a.status === PoolCandidateStatus.PlacedIndeterminate ||

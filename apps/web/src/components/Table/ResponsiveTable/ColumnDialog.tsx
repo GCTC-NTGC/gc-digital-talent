@@ -8,6 +8,8 @@ import { Field } from "@gc-digital-talent/forms";
 
 import adminMessages from "~/messages/adminMessages";
 
+import { getColumnHeader } from "./utils";
+
 interface ColumnDialogProps<TData> {
   /** Instance of the `react-table` */
   table: Table<TData>;
@@ -71,20 +73,23 @@ const ColumnDialog = <T extends object>({ table }: ColumnDialogProps<T>) => {
               {table
                 .getAllLeafColumns()
                 .filter((c) => c.getCanHide())
-                .map((column) => (
-                  <div key={column.id} data-h2-margin="base(x.125, 0)">
-                    <label>
-                      <input
-                        {...{
-                          type: "checkbox",
-                          checked: column.getIsVisible(),
-                          onChange: column.getToggleVisibilityHandler(),
-                        }}
-                      />{" "}
-                      {column.columnDef.header?.toString() || ""}
-                    </label>
-                  </div>
-                ))}
+                .map((column) => {
+                  const header = getColumnHeader(column, "columnDialogHeader");
+                  return (
+                    <div key={column.id} data-h2-margin="base(x.125, 0)">
+                      <label>
+                        <input
+                          {...{
+                            type: "checkbox",
+                            checked: column.getIsVisible(),
+                            onChange: column.getToggleVisibilityHandler(),
+                          }}
+                        />{" "}
+                        {header}
+                      </label>
+                    </div>
+                  );
+                })}
             </Field.BoundingBox>
           </Field.Fieldset>
         </Dialog.Body>

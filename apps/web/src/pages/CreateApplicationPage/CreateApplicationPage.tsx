@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
+import { useMutation, useQuery } from "urql";
 
 import { Loading } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
@@ -10,18 +11,64 @@ import {
   errorMessages,
 } from "@gc-digital-talent/i18n";
 import { useAuthorization } from "@gc-digital-talent/auth";
+import { graphql, Scalars } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import {
-  Scalars,
-  useCreateApplicationMutation,
-  useMyApplicationsQuery,
-} from "~/api/generated";
 
 type RouteParams = {
-  poolId: Scalars["ID"];
+  poolId: Scalars["ID"]["output"];
 };
+
+const CreateApplicationApplications_Query = graphql(/* GraphQL */ `
+  query CreateApplicationApplications {
+    me {
+      id
+      poolCandidates {
+        id
+        status
+        archivedAt
+        submittedAt
+        pool {
+          id
+          closingDate
+          name {
+            en
+            fr
+          }
+          stream
+          classifications {
+            id
+            group
+            level
+            name {
+              en
+              fr
+            }
+            genericJobTitles {
+              id
+              key
+              name {
+                en
+                fr
+              }
+            }
+            minSalary
+            maxSalary
+          }
+        }
+      }
+    }
+  }
+`);
+
+const CreateApplication_Mutation = graphql(/* GraphQL */ `
+  mutation CreateApplication($userId: ID!, $poolId: ID!) {
+    createApplication(userId: $userId, poolId: $poolId) {
+      id
+    }
+  }
+`);
 
 /**
  * Note: This is not a real page
@@ -34,9 +81,12 @@ const CreateApplication = () => {
   const paths = useRoutes();
   const navigate = useNavigate();
   const auth = useAuthorization();
-  const [{ data: newApplicationData }, executeMutation] =
-    useCreateApplicationMutation();
-  const [{ data: existingApplicationsData }] = useMyApplicationsQuery();
+  const [{ data: newApplicationData }, executeMutation] = useMutation(
+    CreateApplication_Mutation,
+  );
+  const [{ data: existingApplicationsData }] = useQuery({
+    query: CreateApplicationApplications_Query,
+  });
 
   // Store path to redirect to later on
   let redirectPath = paths.pool(poolId);

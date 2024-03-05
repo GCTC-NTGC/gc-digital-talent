@@ -7,15 +7,16 @@ import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
 import LightBulbIcon from "@heroicons/react/20/solid/LightBulbIcon";
 
 import { Accordion, DefinitionList, Heading } from "@gc-digital-talent/ui";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
+import experienceMessages from "~/messages/experienceMessages";
 
 import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import AddExperienceForm from "./components/AddExperienceForm";
-import { experienceTypeTitles } from "./messages";
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
@@ -27,9 +28,8 @@ export const getPageInfo: GetPageNavInfo = ({
   return {
     title: intl.formatMessage({
       defaultMessage: "Add an experience to your career timeline",
-      id: "9YuUR/",
-      description:
-        "Page title for the application career timeline add experience page",
+      id: "gU/nxf",
+      description: "Title for application career timeline add experience",
     }),
     subtitle: intl.formatMessage({
       defaultMessage: "Update and review your career timeline information.",
@@ -65,12 +65,14 @@ const ApplicationCareerTimelineAdd = ({
 }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const features = useFeatureFlags();
   const { currentStepOrdinal } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
     paths,
     application,
     stepOrdinal: currentStepOrdinal,
+    RoDFlag: features.recordOfDecision,
   });
 
   return (
@@ -115,7 +117,7 @@ const ApplicationCareerTimelineAdd = ({
             <DefinitionList.Root>
               <DefinitionList.Item
                 Icon={BriefcaseIcon}
-                title={intl.formatMessage(experienceTypeTitles.work)}
+                title={intl.formatMessage(experienceMessages.work)}
               >
                 {intl.formatMessage({
                   defaultMessage:
@@ -126,7 +128,7 @@ const ApplicationCareerTimelineAdd = ({
               </DefinitionList.Item>
               <DefinitionList.Item
                 Icon={BookOpenIcon}
-                title={intl.formatMessage(experienceTypeTitles.education)}
+                title={intl.formatMessage(experienceMessages.education)}
               >
                 {intl.formatMessage({
                   defaultMessage:
@@ -137,7 +139,7 @@ const ApplicationCareerTimelineAdd = ({
               </DefinitionList.Item>
               <DefinitionList.Item
                 Icon={UserGroupIcon}
-                title={intl.formatMessage(experienceTypeTitles.community)}
+                title={intl.formatMessage(experienceMessages.community)}
               >
                 {intl.formatMessage({
                   defaultMessage:
@@ -148,7 +150,7 @@ const ApplicationCareerTimelineAdd = ({
               </DefinitionList.Item>
               <DefinitionList.Item
                 Icon={LightBulbIcon}
-                title={intl.formatMessage(experienceTypeTitles.personal)}
+                title={intl.formatMessage(experienceMessages.personal)}
               >
                 {intl.formatMessage({
                   defaultMessage:
@@ -159,7 +161,7 @@ const ApplicationCareerTimelineAdd = ({
               </DefinitionList.Item>
               <DefinitionList.Item
                 Icon={StarIcon}
-                title={intl.formatMessage(experienceTypeTitles.award)}
+                title={intl.formatMessage(experienceMessages.award)}
               >
                 {intl.formatMessage({
                   defaultMessage:

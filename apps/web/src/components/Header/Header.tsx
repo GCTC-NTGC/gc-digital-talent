@@ -10,6 +10,7 @@ import {
 } from "@gc-digital-talent/i18n";
 
 import { GocLogoEn, GocLogoFr, GocLogoWhiteEn, GocLogoWhiteFr } from "../Svg";
+import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
 
 interface HeaderProps {
   width?: string;
@@ -34,7 +35,7 @@ const Header = ({ width }: HeaderProps) => {
     <header
       data-h2-background-color="base(foreground) base:dark(white)"
       data-h2-border-bottom="base(1px solid black.20)"
-      data-h2-padding="base(x1, 0) p-tablet(x.5, 0)"
+      data-h2-padding="base(x1, 0) p-tablet(x.75, 0)"
     >
       <div {...headerWidth}>
         <div
@@ -52,22 +53,22 @@ const Header = ({ width }: HeaderProps) => {
               {locale === "en" ? (
                 <>
                   <GocLogoEn
-                    data-h2-max-width="base(x12) p-tablet(x15)"
+                    data-h2-max-width="base(x12)"
                     data-h2-display="base(block) base:dark(none)"
                   />
                   <GocLogoWhiteEn
-                    data-h2-max-width="base(x12) p-tablet(x15)"
+                    data-h2-max-width="base(x12)"
                     data-h2-display="base(none) base:dark(block)"
                   />
                 </>
               ) : (
                 <>
                   <GocLogoFr
-                    data-h2-max-width="base(x12) p-tablet(x15)"
+                    data-h2-max-width="base(x12)"
                     data-h2-display="base(block) base:dark(none)"
                   />
                   <GocLogoWhiteFr
-                    data-h2-max-width="base(x12) p-tablet(x15)"
+                    data-h2-max-width="base(x12)"
                     data-h2-display="base(none) base:dark(block)"
                   />
                 </>
@@ -90,7 +91,9 @@ const Header = ({ width }: HeaderProps) => {
             data-h2-justify-content="base(center) p-tablet(flex-end)"
             data-h2-text-align="base(center) p-tablet(left)"
           >
-            <div>{/* <ThemeSwitcher / > */}</div>
+            <div>
+              <ThemeSwitcher />
+            </div>
             <div>
               <a
                 data-h2-background-color="base:focus-visible(focus)"

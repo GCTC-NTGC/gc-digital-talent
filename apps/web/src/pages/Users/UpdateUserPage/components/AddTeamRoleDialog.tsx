@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
+import { useQuery } from "urql";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
-import { MultiSelectField, Select } from "@gc-digital-talent/forms";
+import { Combobox, Select } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -12,15 +13,29 @@ import {
   errorMessages,
   formMessages,
   getLocalizedName,
-  uiMessages,
 } from "@gc-digital-talent/i18n";
 import {
   UpdateUserRolesInput,
   UpdateUserRolesMutation,
+  Role,
+  User,
+  graphql,
 } from "@gc-digital-talent/graphql";
 
-import { Role, User, useListTeamsQuery } from "~/api/generated";
 import { getFullNameHtml } from "~/utils/nameUtils";
+import adminMessages from "~/messages/adminMessages";
+
+const AddTeamRoleTeams_Query = graphql(/* GraphQL */ `
+  query AddTeamRoleTeams {
+    teams {
+      id
+      displayName {
+        en
+        fr
+      }
+    }
+  }
+`);
 
 type FormValues = {
   roles: Array<string>;
@@ -103,7 +118,9 @@ const AddTeamRoleDialog = ({
     setValue("roles", activeRoleIds);
   }, [user?.authInfo?.roleAssignments, teamId, setValue]);
 
-  const [{ data: teamsData }] = useListTeamsQuery();
+  const [{ data: teamsData }] = useQuery({
+    query: AddTeamRoleTeams_Query,
+  });
 
   const teamOptions = teamsData?.teams.filter(notEmpty).map((team) => ({
     label: getLocalizedName(team.displayName, intl),
@@ -141,26 +158,18 @@ const AddTeamRoleDialog = ({
                 <Select
                   id="team"
                   name="team"
-                  nullSelection={intl.formatMessage(
-                    uiMessages.nullSelectionOption,
-                  )}
-                  label={intl.formatMessage({
-                    defaultMessage: "Team",
-                    id: "GaMSN8",
-                    description:
-                      "Label for the input to select team of a team role",
-                  })}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                  placeholder={intl.formatMessage({
+                  nullSelection={intl.formatMessage({
                     defaultMessage: "Select team",
                     id: "5C8xs4",
                     description: "Placeholder text for team selection input",
                   })}
+                  label={intl.formatMessage(adminMessages.team)}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
                   options={teamOptions ?? []}
                 />
-                <MultiSelectField
+                <Combobox
                   id="roles"
                   name="roles"
                   label={intl.formatMessage({

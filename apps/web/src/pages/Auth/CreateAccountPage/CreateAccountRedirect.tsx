@@ -5,12 +5,21 @@ import {
   useLocation,
   useNavigate,
 } from "react-router-dom";
+import { useQuery } from "urql";
 
 import { useAuthentication } from "@gc-digital-talent/auth";
 import { empty } from "@gc-digital-talent/helpers";
-import { useMyEmailQuery } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
+
+const CreateAccount_EmailQuery = graphql(/** GraphQL */ `
+  query CreateAccount_EmailQuery {
+    me {
+      email
+    }
+  }
+`);
 
 /**
  * If user is logged in but has not
@@ -21,9 +30,11 @@ const CreateAccountRedirect = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { loggedIn } = useAuthentication();
-  const [lookUpResult] = useMyEmailQuery();
-  const { data: lookupData, fetching, stale } = lookUpResult;
-  const email = lookupData?.me?.email;
+  const [{ data, fetching, stale }] = useQuery({
+    query: CreateAccount_EmailQuery,
+  });
+
+  const email = data?.me?.email;
   const paths = useRoutes();
   const isToCreateAccount = pathname !== paths.createAccount();
 

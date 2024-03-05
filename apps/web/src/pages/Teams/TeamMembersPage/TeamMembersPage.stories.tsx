@@ -23,23 +23,28 @@ export default {
   component: TeamMembersPage,
   title: "Pages/Team Members Page",
   parameters: {
-    themeKey: "admin",
     defaultPath: {
       path: "/en/admin/teams/:teamId/members",
       initialEntries: [`/en/admin/teams/${teamData.id}/members`],
     },
     apiResponses: {
-      GetTeam: {
+      TeamMembersTeam: {
         data: {
           team: teamData,
         },
       },
-      AllUsers: {
+      TeamName: {
+        data: {
+          team: teamData,
+        },
+      },
+      // eslint-disable-next-line camelcase
+      TeamMembers_AvailableUsers: {
         data: {
           users: usersData,
         },
       },
-      ListRoles: {
+      AvailableUserRoles: {
         data: {
           roles: availableRoles,
         },

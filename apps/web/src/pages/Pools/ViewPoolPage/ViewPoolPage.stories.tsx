@@ -12,8 +12,7 @@ import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
-
-import { PoolStatus } from "~/api/generated";
+import { PoolStatus } from "@gc-digital-talent/graphql";
 
 import { ViewPool, ViewPoolProps } from "./ViewPoolPage";
 

@@ -10,18 +10,15 @@ const mockSearchRequests = fakeSearchRequests();
 export default {
   component: ViewSearchRequest,
   title: "Pages/View Search Request Page",
-  parameters: {
-    themeKey: "admin",
+  args: {
+    searchRequestQuery: mockSearchRequests[0],
   },
 } as ComponentMeta<typeof ViewSearchRequest>;
 
 const Template: ComponentStory<typeof ViewSearchRequest> = (args) => {
-  const { searchRequest } = args;
+  const { searchRequestQuery } = args;
 
-  return <ViewSearchRequest searchRequest={searchRequest} />;
+  return <ViewSearchRequest searchRequestQuery={searchRequestQuery} />;
 };
 
 export const Default = Template.bind({});
-Default.args = {
-  searchRequest: mockSearchRequests[0],
-};

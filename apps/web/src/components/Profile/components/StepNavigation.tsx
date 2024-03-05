@@ -6,14 +6,10 @@ import { FormProvider, useForm } from "react-hook-form";
 import { Button } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { errorMessages } from "@gc-digital-talent/i18n";
+import { PoolCandidate, ApplicationStep } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import applicationMessages from "~/messages/applicationMessages";
-import {
-  PoolCandidate,
-  useUpdateApplicationMutation,
-  ApplicationStep,
-} from "~/api/generated";
 import {
   getMissingLanguageRequirements,
   PartialUser as LanguageUser,
@@ -23,6 +19,7 @@ import {
   PartialUser as DeiUser,
 } from "~/validators/profile/diversityEquityInclusion";
 import { useApplicationContext } from "~/pages/Applications/ApplicationContext";
+import useUpdateApplicationMutation from "~/pages/Applications/useUpdateApplicationMutation";
 
 import { useProfileFormContext } from "./ProfileFormContext";
 

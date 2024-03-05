@@ -5,7 +5,6 @@ export const PAGE_SECTION_ID = {
   GOVERNMENT: "government-section",
   WORK_LOCATION: "work-location-section",
   WORK_PREFERENCES: "work-preferences-section",
-  ROLE_AND_SALARY: "role-and-salary-section",
   CAREER_TIMELINE_AND_RECRUITMENT: "career-timeline-section",
   SKILL_SHOWCASE: "skill-showcase",
   ACCOUNT_AND_PRIVACY: "account-and-privacy-section",

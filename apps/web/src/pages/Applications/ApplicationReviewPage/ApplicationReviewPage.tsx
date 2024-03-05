@@ -3,25 +3,21 @@ import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
+import { useMutation } from "urql";
 
 import {
   Button,
   Heading,
   Link,
-  Pending,
   ThrowNotFound,
   Well,
 } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
 import { Input } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
-import {
-  SkillCategory,
-  useGetApplicationQuery,
-  useGetMyExperiencesQuery,
-  useSubmitApplicationMutation,
-} from "@gc-digital-talent/graphql";
+import { Experience, SkillCategory, graphql } from "@gc-digital-talent/graphql";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -29,12 +25,22 @@ import applicationMessages from "~/messages/applicationMessages";
 import { ExperienceForDate } from "~/types/experience";
 import { categorizeSkill } from "~/utils/skillUtils";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
+import SkillTree from "~/components/SkillTree/SkillTree";
+import processMessages from "~/messages/processMessages";
 
-import SkillTree from "../ApplicationSkillsPage/components/SkillTree";
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import ReviewSection from "./ReviewSection";
-import useApplicationId from "../useApplicationId";
+import useApplication from "../useApplication";
+
+const Application_SubmitMutation = graphql(/* GraphQL */ `
+  mutation Application_Submit($id: ID!, $signature: String!) {
+    submitApplication(id: $id, signature: $signature) {
+      id
+      signature
+    }
+  }
+`);
 
 type FormValues = {
   signature: string;
@@ -89,6 +95,7 @@ const ApplicationReview = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
+  const features = useFeatureFlags();
   const navigate = useNavigate();
   const { currentStepOrdinal, followingPageUrl, isIAP } =
     useApplicationContext();
@@ -97,11 +104,13 @@ const ApplicationReview = ({
     paths,
     application,
     stepOrdinal: currentStepOrdinal,
+    RoDFlag: features.recordOfDecision,
   });
   const nextStep = followingPageUrl ?? paths.applicationSuccess(application.id);
 
-  const [{ fetching: mutating }, executeMutation] =
-    useSubmitApplicationMutation();
+  const [{ fetching: mutating }, executeMutation] = useMutation(
+    Application_SubmitMutation,
+  );
   const methods = useForm<FormValues>();
   const {
     formState: { isSubmitting },
@@ -141,7 +150,7 @@ const ApplicationReview = ({
     careerTimeline: paths.applicationCareerTimeline(application.id),
     education: paths.applicationEducation(application.id),
     skills: paths.applicationSkills(application.id),
-    screeningQuestions: paths.applicationQuestions(application.id),
+    applicationQuestions: paths.applicationQuestions(application.id),
   };
 
   const nonEmptyExperiences = experiences?.filter(notEmpty) ?? [];
@@ -159,6 +168,10 @@ const ApplicationReview = ({
     application.pool.screeningQuestions?.filter(notEmpty) || [];
   const screeningQuestionResponses =
     application.screeningQuestionResponses?.filter(notEmpty) || [];
+  const generalQuestions =
+    application.pool.generalQuestions?.filter(notEmpty) || [];
+  const generalQuestionResponses =
+    application.generalQuestionResponses?.filter(notEmpty) || [];
 
   const classificationGroup = application.pool.classifications
     ? application.pool.classifications[0]?.group
@@ -278,9 +291,8 @@ const ApplicationReview = ({
       <ReviewSection
         title={intl.formatMessage({
           defaultMessage: "Minimum experience or equivalent education",
-          id: "2je6Bi",
-          description:
-            "Heading for education requirements section of the application review page.",
+          id: "LvYEdh",
+          description: "Title for Minimum experience or equivalent education",
         })}
         path={editPaths.education}
         editLinkAriaLabel={intl.formatMessage({
@@ -361,9 +373,8 @@ const ApplicationReview = ({
       <ReviewSection
         title={intl.formatMessage({
           defaultMessage: "Skill requirements",
-          id: "jX2LG0",
-          description:
-            "Heading for skill requirements section of the application review page.",
+          id: "tON7JL",
+          description: "Title for skill requirements",
         })}
         path={editPaths.skills}
         editLinkAriaLabel={intl.formatMessage({
@@ -397,63 +408,169 @@ const ApplicationReview = ({
           )}
         </div>
       </ReviewSection>
-      {screeningQuestions.length > 0 && (
-        <ReviewSection
-          title={intl.formatMessage({
-            defaultMessage: "Screening questions",
-            id: "qGyD4w",
-            description:
-              "Heading for screening questions section of the application review page.",
-          })}
-          path={editPaths.screeningQuestions}
-          editLinkAriaLabel={intl.formatMessage({
-            defaultMessage: "Edit screening questions",
-            id: "5A0a7w",
-            description:
-              "Edit link text for screening questions section of the application review page.",
-          })}
-        >
-          {screeningQuestionResponses.length > 0 ? (
-            <div>
-              <p data-h2-margin="base(x1, 0, x.5, 0)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "You’ve answered the following screening questions:",
-                  id: "Sd8883",
-                  description:
-                    "Message in screening questions section of the application review page.",
-                })}
-              </p>
-              <ul data-h2-padding="base(0, 0, 0, x1)">
-                {screeningQuestionResponses.map((response) => (
-                  <li key={response.id} data-h2-margin-bottom="base(x.5)">
-                    <p
-                      data-h2-font-weight="base(700)"
-                      data-h2-margin-bottom="base(x.25)"
-                    >
-                      {response.screeningQuestion?.question
-                        ? response.screeningQuestion.question[locale]
-                        : ""}
-                    </p>
-                    <p>{response.answer}</p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : (
-            <Well>
-              <p data-h2-text-align="base(center)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "It looks like you haven't answered any screening questions yet.",
-                  id: "V9lxDE",
-                  description:
-                    "Null state message in screening questions section of the application review page.",
-                })}
-              </p>
-            </Well>
+      {features.recordOfDecision ? (
+        <>
+          {screeningQuestions.length > 0 && (
+            <ReviewSection
+              title={intl.formatMessage(processMessages.screeningQuestions)}
+              path={editPaths.applicationQuestions}
+              editLinkAriaLabel={intl.formatMessage({
+                defaultMessage: "Edit screening questions",
+                id: "5A0a7w",
+                description:
+                  "Edit link text for screening questions section of the application review page.",
+              })}
+            >
+              {screeningQuestionResponses.length > 0 ? (
+                <div>
+                  <p data-h2-margin="base(x1, 0, x.5, 0)">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "You’ve answered the following screening questions:",
+                      id: "Sd8883",
+                      description:
+                        "Message in screening questions section of the application review page.",
+                    })}
+                  </p>
+                  <ul data-h2-padding="base(0, 0, 0, x1)">
+                    {screeningQuestionResponses.map((response) => (
+                      <li key={response.id} data-h2-margin-bottom="base(x.5)">
+                        <p
+                          data-h2-font-weight="base(700)"
+                          data-h2-margin-bottom="base(x.25)"
+                        >
+                          {response.screeningQuestion?.question
+                            ? response.screeningQuestion.question[locale]
+                            : ""}
+                        </p>
+                        <p>{response.answer}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : (
+                <Well>
+                  <p data-h2-text-align="base(center)">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "It looks like you haven't answered any screening questions yet.",
+                      id: "V9lxDE",
+                      description:
+                        "Null state message in screening questions section of the application review page.",
+                    })}
+                  </p>
+                </Well>
+              )}
+            </ReviewSection>
           )}
-        </ReviewSection>
+          {generalQuestions.length > 0 && (
+            <ReviewSection
+              title={intl.formatMessage(processMessages.generalQuestions)}
+              path={editPaths.applicationQuestions}
+              editLinkAriaLabel={intl.formatMessage({
+                defaultMessage: "Edit general questions",
+                id: "gIzUDr",
+                description:
+                  "Edit link text for general questions section of the application review page.",
+              })}
+            >
+              {generalQuestionResponses.length > 0 ? (
+                <div>
+                  <p data-h2-margin="base(x1, 0, x.5, 0)">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "You've answered the following general questions:",
+                      id: "96AvU9",
+                      description:
+                        "Message in general questions section of the application review page.",
+                    })}
+                  </p>
+                  <ul data-h2-padding="base(0, 0, 0, x1)">
+                    {generalQuestionResponses.map((response) => (
+                      <li key={response.id} data-h2-margin-bottom="base(x.5)">
+                        <p
+                          data-h2-font-weight="base(700)"
+                          data-h2-margin-bottom="base(x.25)"
+                        >
+                          {response.generalQuestion?.question
+                            ? response.generalQuestion.question[locale]
+                            : ""}
+                        </p>
+                        <p>{response.answer}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : (
+                <Well>
+                  <p data-h2-text-align="base(center)">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "It looks like you haven't answered any general questions yet.",
+                      id: "OPbfwn",
+                      description:
+                        "Null state message in general questions section of the application review page.",
+                    })}
+                  </p>
+                </Well>
+              )}
+            </ReviewSection>
+          )}
+        </>
+      ) : (
+        generalQuestions.length > 0 && (
+          <ReviewSection
+            title={intl.formatMessage(processMessages.screeningQuestions)}
+            path={editPaths.applicationQuestions}
+            editLinkAriaLabel={intl.formatMessage({
+              defaultMessage: "Edit screening questions",
+              id: "5A0a7w",
+              description:
+                "Edit link text for screening questions section of the application review page.",
+            })}
+          >
+            {generalQuestionResponses.length > 0 ? (
+              <div>
+                <p data-h2-margin="base(x1, 0, x.5, 0)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "You’ve answered the following screening questions:",
+                    id: "Sd8883",
+                    description:
+                      "Message in screening questions section of the application review page.",
+                  })}
+                </p>
+                <ul data-h2-padding="base(0, 0, 0, x1)">
+                  {generalQuestionResponses.map((response) => (
+                    <li key={response.id} data-h2-margin-bottom="base(x.5)">
+                      <p
+                        data-h2-font-weight="base(700)"
+                        data-h2-margin-bottom="base(x.25)"
+                      >
+                        {response.generalQuestion?.question
+                          ? response.generalQuestion.question[locale]
+                          : ""}
+                      </p>
+                      <p>{response.answer}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : (
+              <Well>
+                <p data-h2-text-align="base(center)">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "It looks like you haven't answered any screening questions yet.",
+                    id: "V9lxDE",
+                    description:
+                      "Null state message in screening questions section of the application review page.",
+                  })}
+                </p>
+              </Well>
+            )}
+          </ReviewSection>
+        )
       )}
 
       <section data-h2-margin="base(x3, 0, 0, 0)">
@@ -494,12 +611,9 @@ const ApplicationReview = ({
                 </li>
                 <li>
                   <p data-h2-margin-bottom="base(x.5)">
-                    {intl.formatMessage({
-                      defaultMessage: `"I understand that I am part of a community who trusts each other"`,
-                      id: "jT5ANA",
-                      description:
-                        "Community list item for sign and submit section of application review page.",
-                    })}
+                    {intl.formatMessage(
+                      applicationMessages.confirmationCommunity,
+                    )}
                   </p>
                 </li>
                 <li>
@@ -561,44 +675,14 @@ const ApplicationReview = ({
 };
 
 const ApplicationReviewPage = () => {
-  const id = useApplicationId();
-  const [
-    {
-      data: applicationData,
-      fetching: applicationFetching,
-      error: applicationError,
-    },
-  ] = useGetApplicationQuery({
-    variables: {
-      id,
-    },
-    requestPolicy: "cache-first",
-  });
-  const [
-    {
-      data: experienceData,
-      fetching: experienceFetching,
-      error: experienceError,
-    },
-  ] = useGetMyExperiencesQuery();
+  const { application } = useApplication();
 
-  const application = applicationData?.poolCandidate;
-  const experiences = experienceData?.me?.experiences as ExperienceForDate[];
+  const experiences: Experience[] = unpackMaybes(application.user.experiences);
 
-  return (
-    <Pending
-      fetching={applicationFetching || experienceFetching}
-      error={applicationError || experienceError}
-    >
-      {application?.pool ? (
-        <ApplicationReview
-          application={application}
-          experiences={experiences}
-        />
-      ) : (
-        <ThrowNotFound />
-      )}
-    </Pending>
+  return application?.pool ? (
+    <ApplicationReview application={application} experiences={experiences} />
+  ) : (
+    <ThrowNotFound />
   );
 };
 

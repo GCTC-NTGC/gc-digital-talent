@@ -1,25 +1,19 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import {
-  AssessmentDecision,
-  AssessmentStep,
-  AssessmentStepType,
-} from "@gc-digital-talent/graphql";
-import { Board } from "@gc-digital-talent/ui";
+import { Board, Well } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import Counter from "@gc-digital-talent/ui/src/components/Button/Counter";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { AssessmentStep, AssessmentStepType } from "@gc-digital-talent/graphql";
 
-import {
-  getDecisionInfo,
-  getResultDecisionCount,
-  decisionOrder,
-} from "./utils";
+import { NullableDecision } from "~/utils/assessmentResults";
+import { ResultDecisionCounts } from "~/utils/poolCandidate";
+
+import { getDecisionInfo, decisionOrder, ResultFilters } from "./utils";
 
 interface StatusCountProps {
   counter: number;
-  decision: AssessmentDecision;
+  decision: NullableDecision;
   isApplicationStep: boolean;
 }
 
@@ -75,22 +69,34 @@ const StatusCount = ({
 
 interface ResultsDetailsProps {
   step: AssessmentStep;
+  resultCounts?: ResultDecisionCounts;
+  filters?: ResultFilters;
 }
 
-const ResultsDetails = ({ step }: ResultsDetailsProps) => {
+const ResultsDetails = ({
+  step,
+  resultCounts,
+  filters,
+}: ResultsDetailsProps) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(true);
   const intl = useIntl();
-  const assessmentResults = step.assessmentResults?.filter(notEmpty);
-  const stepCounts = getResultDecisionCount(assessmentResults ?? []);
   const stepTitle = getLocalizedName(step.title, intl);
   const isApplicationStep =
     step.type === AssessmentStepType.ApplicationScreening;
+  const totalCount = Object.values(resultCounts ?? {}).reduce(
+    (total, decisionCount) => {
+      return total + decisionCount;
+    },
+    0,
+  );
+
+  const decisions = decisionOrder.filter((decision) => !!filters?.[decision]);
 
   return (
     <Board.Info
       open={isOpen}
       onOpenChange={setIsOpen}
-      counter={assessmentResults?.length}
+      counter={totalCount}
       title={
         isOpen
           ? intl.formatMessage(
@@ -116,14 +122,26 @@ const ResultsDetails = ({ step }: ResultsDetailsProps) => {
       }
     >
       <div data-h2-display="base(flex)" data-h2-flex-direction="base(column)">
-        {decisionOrder.map((decision) => (
-          <StatusCount
-            key={decision}
-            decision={decision}
-            counter={stepCounts[decision]}
-            isApplicationStep={isApplicationStep}
-          />
-        ))}
+        {decisions.length ? (
+          decisions.map((decision) => (
+            <StatusCount
+              key={decision}
+              decision={decision}
+              counter={resultCounts ? resultCounts[decision] : 0}
+              isApplicationStep={isApplicationStep}
+            />
+          ))
+        ) : (
+          <Well fontSize="caption">
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "There are no selected statuses.",
+                id: "NJUJl0",
+                description: "Message displayed when no statuses are shown",
+              })}
+            </p>
+          </Well>
+        )}
       </div>
     </Board.Info>
   );

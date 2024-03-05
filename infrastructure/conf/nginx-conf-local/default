@@ -89,6 +89,7 @@ server {
         fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/xdebuginfo.php;
     }
     location = /graphql {
+        access_log off;
         fastcgi_pass 127.0.0.1:9000;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
@@ -127,6 +128,20 @@ server {
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
     }
+    # For debugging FPM.
+    location ~ ^/(fpm-status)$ {
+        fastcgi_pass 127.0.0.1:9001;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_index index.php;
+    }
+    # For checking FPM status.
+    location ~ ^/(fpm-ping)$ {
+        fastcgi_pass 127.0.0.1:9000;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_index index.php;
+    }
 
     # rewrite root-level possible lang prefix to apps/web index.html
     location ~ "^(?:/[a-z]{2})?/?$" {
@@ -144,13 +159,13 @@ server {
     }
 
     # rewrite talent static contenthashed files to "apps/web/dist"
-    location ~ "^(/(?:.*\.)?[a-z0-9]{20}\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp))$" {
-        rewrite "^(/(?:.*\.)?[a-z0-9]{20}\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp))$" /apps/web/dist/$1 break;
+    location ~ "^(/(?:.*\.)?[a-z0-9]{20}\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx))$" {
+        rewrite "^(/(?:.*\.)?[a-z0-9]{20}\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx))$" /apps/web/dist/$1 break;
     }
 
      # rewrite talent static unhashed files to "apps/web/dist"
-    location ~ "^(/.*\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp))$" {
-        rewrite "^(/.*\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp))$" /apps/web/dist/$1 break;
+    location ~ "^(/.*\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx))$" {
+        rewrite "^(/.*\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx))$" /apps/web/dist/$1 break;
     }
 
     # rewrite possible lang prefix then "talent" to apps/web index.html
@@ -206,6 +221,16 @@ server {
     # rewrite possible lang prefix then "support" to apps/web index.html
     location ~ "^(?:/[a-z]{2})?/support(/.*|$)" {
         rewrite "^(?:/[a-z]{2})?/support(/.*|$)" /apps/web/dist/index.html break;
+    }
+
+    # rewrite possible lang prefix then "terms-and-conditions" to apps/web index.html
+    location ~ "^(?:/[a-z]{2})?/terms-and-conditions(/.*|$)" {
+        rewrite "^(?:/[a-z]{2})?/terms-and-conditions(/.*|$)" /apps/web/dist/index.html break;
+    }
+
+    # rewrite possible lang prefix then "privacy-policy" to apps/web index.html
+    location ~ "^(?:/[a-z]{2})?/privacy-policy(/.*|$)" {
+        rewrite "^(?:/[a-z]{2})?/privacy-policy(/.*|$)" /apps/web/dist/index.html break;
     }
 
     # rewrite possible lang prefix then "accessibility-statement" to apps/web index.html

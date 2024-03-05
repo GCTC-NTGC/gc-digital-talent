@@ -13,13 +13,13 @@ import {
   HeadingRank,
 } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
+import type { Skill } from "@gc-digital-talent/graphql";
 
 import {
   categorizeSkill,
   differentiateMissingSkills,
   getMissingSkills,
 } from "~/utils/skillUtils";
-import type { Maybe, Skill } from "~/api/generated";
 
 interface MissingSkillsBlockProps {
   pillType: { color: Color; mode: PillMode };
@@ -127,8 +127,8 @@ const MissingSkills = ({
   const locale = getLocale(intl);
 
   const byLocalizedName = (a: Skill, b: Skill) => {
-    const aName: Maybe<string> = a.name[locale];
-    const bName: Maybe<string> = b.name[locale];
+    const aName = a.name?.[locale];
+    const bName = b.name?.[locale];
     if (aName && bName) {
       return aName.localeCompare(bName, locale);
     }

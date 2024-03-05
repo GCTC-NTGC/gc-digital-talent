@@ -1,21 +1,21 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
+import { useQuery } from "urql";
 
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { Pending, NotFound, Link, Separator } from "@gc-digital-talent/ui";
+import { Scalars, Team, graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
-import { Scalars, Team, useViewTeamQuery } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import adminMessages from "~/messages/adminMessages";
 
 import ViewTeam from "./components/ViewTeam";
 
 type RouteParams = {
-  teamId: Scalars["ID"];
+  teamId: Scalars["ID"]["output"];
 };
 
 interface ViewTeamContentProps {
@@ -26,62 +26,60 @@ export const ViewTeamContent = ({ team }: ViewTeamContentProps) => {
   const intl = useIntl();
   const pageTitle = intl.formatMessage({
     defaultMessage: "Team information",
-    id: "SXoCma",
-    description: "Page title for the view team page",
+    id: "b+KdqW",
+    description: "Title for team information page",
   });
 
   return (
     <>
       <SEO title={pageTitle} />
       <ViewTeam team={team} />
-      <Separator
-        decorative
-        data-h2-margin="base(x2, 0, 0, 0)"
-        data-h2-height="base(1px)"
-        data-h2-background-color="base(gray)"
-        data-h2-border="base(none)"
-      />
+      <Separator data-h2-margin="base(x2, 0, 0, 0)" />
     </>
   );
 };
+
+const ViewTeam_Query = graphql(/* GraphQL */ `
+  query ViewTeam($id: UUID!) {
+    team(id: $id) {
+      id
+      name
+      contactEmail
+      displayName {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+      departments {
+        id
+        departmentNumber
+        name {
+          en
+          fr
+        }
+      }
+    }
+  }
+`);
 
 const ViewTeamPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
 
   const { teamId } = useRequiredParams<RouteParams>("teamId");
-  const [{ data, fetching, error }] = useViewTeamQuery({
+  const [{ data, fetching, error }] = useQuery({
+    query: ViewTeam_Query,
     variables: { id: teamId },
   });
-
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(adminMessages.teams),
-      url: routes.teamTable(),
-    },
-    ...(teamId
-      ? [
-          {
-            label: getLocalizedName(data?.team?.displayName, intl),
-            url: routes.teamView(teamId),
-          },
-        ]
-      : []),
-  ];
 
   const { state } = useLocation();
   const navigateTo = state?.from ?? routes.teamTable();
 
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
+    <AdminContentWrapper>
       <Pending fetching={fetching} error={error}>
         {data?.team ? (
           <ViewTeamContent team={data.team} />

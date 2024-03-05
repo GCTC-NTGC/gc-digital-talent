@@ -30,6 +30,7 @@ const generateSearchRequest = (
       Object.values(PoolCandidateSearchRequestReason),
     ),
     additionalComments: faker.lorem.sentences(5),
+    hrAdvisorEmail: faker.internet.email(),
     applicantFilter:
       faker.helpers.arrayElement<ApplicantFilter>(applicantFilters),
     requestedDate: faker.date

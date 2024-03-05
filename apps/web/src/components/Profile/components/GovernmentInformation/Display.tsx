@@ -8,9 +8,9 @@ import {
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { empty } from "@gc-digital-talent/helpers";
+import { GovEmployeeType } from "@gc-digital-talent/graphql";
 
 import { wrapAbbr } from "~/utils/nameUtils";
-import { GovEmployeeType } from "~/api/generated";
 
 import FieldDisplay from "../FieldDisplay";
 import { PartialUser } from "./types";
@@ -75,13 +75,7 @@ const Display = ({
       </FieldDisplay>
       {isGovEmployee && (
         <>
-          <FieldDisplay
-            label={intl.formatMessage({
-              defaultMessage: "Department",
-              id: "CBnsBK",
-              description: "Department label",
-            })}
-          >
+          <FieldDisplay label={intl.formatMessage(commonMessages.department)}>
             {department ? getLocalizedName(department.name, intl) : notProvided}
           </FieldDisplay>
           <FieldDisplay

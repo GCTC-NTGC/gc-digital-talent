@@ -3,8 +3,7 @@ import { Meta, Story } from "@storybook/react";
 import React from "react";
 
 import { fakeSkills } from "@gc-digital-talent/fake-data";
-
-import { Skill } from "~/api/generated";
+import { Skill } from "@gc-digital-talent/graphql";
 
 import Pagination from "./Pagination";
 import type { PaginationProps } from "./Pagination";

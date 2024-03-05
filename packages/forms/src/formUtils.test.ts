@@ -6,6 +6,7 @@ import {
   matchStringCaseDiacriticInsensitive,
   enumToOptions,
   countNumberOfWords,
+  alphaSortOptions,
 } from "./utils";
 
 describe("string matching tests", () => {
@@ -108,5 +109,103 @@ describe("countNumberOfWords tests", () => {
     const textWithBoth = "L34#$# &(*da($# this is a 34^@# sentence.";
     numOfWords = countNumberOfWords(textWithBoth);
     expect(numOfWords).toEqual(7);
+  });
+});
+
+describe("Alphabetically sorting select and combobox options tests", () => {
+  test("should sort array of options alphabetically", () => {
+    const convertToOptions = (list: string[]) => {
+      return list.map((x) => ({
+        label: x,
+        value: x,
+      }));
+    };
+
+    // alphabetical handling of capitalization
+    let sortedList = ["Aa", "Bb", "Cc", "Dd", "Ee", "Ff"];
+
+    let unsortedList = ["Dd", "Ee", "Aa", "Bb", "Ff", "Cc"];
+
+    let modifiedList = alphaSortOptions(convertToOptions(unsortedList));
+    expect(modifiedList).toStrictEqual(convertToOptions(sortedList));
+
+    // handling of French accented characters
+    sortedList = ["à", "ä", "Ç", "é", "É", "ü"];
+
+    unsortedList = ["Ç", "à", "é", "ü", "É", "ä"];
+
+    modifiedList = alphaSortOptions(convertToOptions(unsortedList), "fr");
+    expect(modifiedList).toStrictEqual(convertToOptions(sortedList));
+
+    // handling of non-alphanumeric characters
+    // Non-alphanumeric sort order: _-,;:!?.'"()@*/\&#%`^<>|~$ (https://support.google.com/drive/thread/150638299?hl=en&msgid=150657957)
+    sortedList = [
+      "_",
+      "-",
+      ",",
+      ";",
+      ":",
+      "!",
+      "?",
+      ".",
+      "@",
+      "*",
+      "&",
+      "#",
+      "%",
+      "~",
+      "$",
+    ];
+
+    unsortedList = [
+      "_",
+      ";",
+      ":",
+      "$",
+      "?",
+      "!",
+      "~",
+      ",",
+      "-",
+      "@",
+      "*",
+      "%",
+      ".",
+      "#",
+      "&",
+    ];
+
+    modifiedList = alphaSortOptions(convertToOptions(unsortedList));
+    expect(modifiedList).toStrictEqual(convertToOptions(sortedList));
+
+    // handling all edge cases together
+    sortedList = [
+      ".NET Programming",
+      "~alpha",
+      "azure",
+      "C#",
+      "C++",
+      "Database Design & Data Administration",
+      "F# or Visual Basic",
+      "integrity",
+      "python",
+      "React",
+    ];
+
+    unsortedList = [
+      "React",
+      "azure",
+      ".NET Programming",
+      "integrity",
+      "~alpha",
+      "C#",
+      "F# or Visual Basic",
+      "python",
+      "Database Design & Data Administration",
+      "C++",
+    ];
+
+    modifiedList = alphaSortOptions(convertToOptions(unsortedList));
+    expect(modifiedList).toStrictEqual(convertToOptions(sortedList));
   });
 });

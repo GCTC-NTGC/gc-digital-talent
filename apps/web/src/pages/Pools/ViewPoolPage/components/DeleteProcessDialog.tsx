@@ -34,7 +34,7 @@ const DeleteProcessDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button color="warning" mode="inline">
+        <Button color="error" mode="inline">
           {title}
         </Button>
       </Dialog.Trigger>

@@ -72,7 +72,8 @@ const DeadlineDialog = ({ deadline }: DeadlineDialogProps): JSX.Element => {
                 id: "IOtzp7",
                 description: "Second paragraph for pool deadlines dialog",
               })}
-              <div
+              <span
+                data-h2-display="base(block)"
                 data-h2-font-weight="base(700)"
                 data-h2-margin="base(x.5 0 0 x.75)"
               >
@@ -98,7 +99,7 @@ const DeadlineDialog = ({ deadline }: DeadlineDialogProps): JSX.Element => {
                     }),
                   },
                 )}.`}
-              </div>
+              </span>
             </p>
             <p>
               {intl.formatMessage({
@@ -107,7 +108,8 @@ const DeadlineDialog = ({ deadline }: DeadlineDialogProps): JSX.Element => {
                 id: "kzd/yK",
                 description: "Third paragraph for pool deadlines dialog",
               })}
-              <div
+              <span
+                data-h2-display="base(block)"
                 data-h2-font-weight="base(700)"
                 data-h2-margin="base(x.5 0 0 x.75)"
               >
@@ -133,7 +135,7 @@ const DeadlineDialog = ({ deadline }: DeadlineDialogProps): JSX.Element => {
                     }),
                   },
                 )}.`}
-              </div>
+              </span>
             </p>
             <p>
               {intl.formatMessage(

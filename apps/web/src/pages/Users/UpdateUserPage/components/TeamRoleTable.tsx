@@ -5,12 +5,18 @@ import { useIntl } from "react-intl";
 import { notEmpty, groupBy } from "@gc-digital-talent/helpers";
 import { Heading } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { UpdateUserRolesInput } from "@gc-digital-talent/graphql";
+import {
+  UpdateUserRolesInput,
+  Role,
+  Scalars,
+  Team,
+  User,
+} from "@gc-digital-talent/graphql";
 
-import { Role, Scalars, Team, User } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
+import adminMessages from "~/messages/adminMessages";
 
 import { TeamAssignment, UpdateUserRolesFunc } from "../types";
 import AddTeamRoleDialog from "./AddTeamRoleDialog";
@@ -28,7 +34,7 @@ type RoleTeamPair = {
 
 const columnHelper = createColumnHelper<TeamAssignment>();
 
-type GetRoleTeamIdFunc = (arg: RoleTeamPair) => Scalars["ID"];
+type GetRoleTeamIdFunc = (arg: RoleTeamPair) => Scalars["ID"]["output"];
 
 interface TeamRoleTableProps {
   user: User;
@@ -68,11 +74,7 @@ const TeamRoleTable = ({
       {
         id: "team",
         sortingFn: normalizedText,
-        header: intl.formatMessage({
-          defaultMessage: "Team",
-          id: "3IZ3mN",
-          description: "Title displayed for the role table display team column",
-        }),
+        header: intl.formatMessage(adminMessages.team),
         cell: ({
           row: {
             original: { team },
@@ -116,7 +118,7 @@ const TeamRoleTable = ({
       .filter(notEmpty);
 
     const pairsGroupedByTeam = groupBy<
-      Scalars["ID"],
+      Scalars["ID"]["output"],
       RoleTeamPair,
       GetRoleTeamIdFunc
     >(roleTeamPairs, (pair) => {

@@ -68,7 +68,7 @@ class ClassificationTest extends TestCase
      *
      * @return void
      */
-    public function test_view_any_classification()
+    public function testViewAnyClassification()
     {
         $this->actingAs($this->baseUser, 'api')
             ->graphQL('query { classifications { id } }')
@@ -80,7 +80,7 @@ class ClassificationTest extends TestCase
      *
      * @return void
      */
-    public function test_view_classification()
+    public function testViewClassification()
     {
 
         $variables = ['id' => $this->uuid];
@@ -105,7 +105,7 @@ class ClassificationTest extends TestCase
      *
      * @return void
      */
-    public function test_update_classification()
+    public function testUpdateClassification()
     {
 
         $variables = [
@@ -146,7 +146,7 @@ class ClassificationTest extends TestCase
      *
      * @return void
      */
-    public function test_create_classification()
+    public function testCreateClassification()
     {
         $variables = [
             'classification' => [
@@ -187,7 +187,7 @@ class ClassificationTest extends TestCase
      *
      * @return void
      */
-    public function test_delete_classification()
+    public function testDeleteClassification()
     {
         $variables = ['id' => $this->toBeDeletedUUID];
 

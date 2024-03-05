@@ -1,6 +1,9 @@
 import * as React from "react";
 import get from "lodash/get";
 import { FieldError, useFormContext } from "react-hook-form";
+import { useIntl } from "react-intl";
+
+import { errorMessages } from "@gc-digital-talent/i18n";
 
 import Field from "../Field";
 import { CommonInputProps, HTMLInputProps } from "../../types";
@@ -16,6 +19,7 @@ export type InputProps = HTMLInputProps &
     type: "text" | "number" | "email" | "tel" | "password" | "search";
     // Whether to trim leading/ending whitespace upon blurring of an input, default on
     whitespaceTrim?: boolean;
+    maxLength?: number;
   };
 
 const Input = ({
@@ -29,8 +33,10 @@ const Input = ({
   "aria-describedby": describedBy,
   whitespaceTrim = true,
   trackUnsaved = true,
+  maxLength = 255,
   ...rest
 }: InputProps) => {
+  const intl = useIntl();
   const {
     register,
     setValue,
@@ -75,6 +81,12 @@ const Input = ({
         {...baseStyles}
         {...stateStyles}
         {...register(name, {
+          maxLength: {
+            message: intl.formatMessage(errorMessages.overCharacterLimit, {
+              value: maxLength + 1,
+            }),
+            value: maxLength,
+          },
           ...rules,
           onBlur: normalizeInput,
         })}

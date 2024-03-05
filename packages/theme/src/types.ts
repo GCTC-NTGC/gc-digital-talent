@@ -1,4 +1,4 @@
-export type ThemeKey = "default" | "admin" | "iap";
+export type ThemeKey = "default" | "iap";
 export type SetThemeKeyFunc = (newThemeKey: ThemeKey) => void;
 export type ThemeMode = "dark" | "light" | "pref";
 export type SetThemeModeFunc = (newThemeMode: ThemeMode) => void;

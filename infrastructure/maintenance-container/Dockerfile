@@ -1,5 +1,5 @@
 # aliased image used in build
-FROM node:18.16.0 as node
+FROM node:20.11.0 as node
 
 # base
 FROM ubuntu:23.10
@@ -26,7 +26,7 @@ RUN cd /usr/local/bin \
 RUN git config --global --add safe.directory /var/www/html
 
 # bump npm version
-RUN npm install --location=global npm@8.11.0
+RUN npm install --location=global npm@9.9.2
 
 # install composer from official image
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer

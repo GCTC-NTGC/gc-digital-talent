@@ -4,12 +4,13 @@ import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
 import sortBy from "lodash/sortBy";
+import { useMutation, useQuery } from "urql";
 
 import { toast } from "@gc-digital-talent/toast";
 import {
   Submit,
   Input,
-  MultiSelectField,
+  Combobox,
   TextArea,
   unpackIds,
 } from "@gc-digital-talent/forms";
@@ -20,21 +21,21 @@ import {
   commonMessages,
 } from "@gc-digital-talent/i18n";
 import { Pending, NotFound, Heading } from "@gc-digital-talent/ui";
-
-import SEO from "~/components/SEO/SEO";
-import useRoutes from "~/hooks/useRoutes";
-import useRequiredParams from "~/hooks/useRequiredParams";
 import {
   Skill,
   SkillFamily,
   UpdateSkillFamilyInput,
   UpdateSkillFamilyMutation,
-  useUpdateSkillFamilyMutation,
-  useGetUpdateSkillFamilyDataQuery,
   Scalars,
-} from "~/api/generated";
+  graphql,
+} from "@gc-digital-talent/graphql";
+
+import SEO from "~/components/SEO/SEO";
+import useRoutes from "~/hooks/useRoutes";
+import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
+import AdminHero from "~/components/Hero/AdminHero";
 
 type Option<V> = { value: V; label: string };
 
@@ -147,12 +148,7 @@ export const UpdateSkillFamilyForm = ({
             <Input
               id="name_en"
               name="name.en"
-              label={intl.formatMessage({
-                defaultMessage: "Name (English)",
-                id: "2wo24b",
-                description:
-                  "Label displayed on the create a skill family form name (English) field.",
-              })}
+              label={intl.formatMessage(adminMessages.nameEn)}
               type="text"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
@@ -161,12 +157,7 @@ export const UpdateSkillFamilyForm = ({
             <Input
               id="name_fr"
               name="name.fr"
-              label={intl.formatMessage({
-                defaultMessage: "Name (French)",
-                id: "0oqRIl",
-                description:
-                  "Label displayed on the create a skill family form name (French) field.",
-              })}
+              label={intl.formatMessage(adminMessages.nameFr)}
               type="text"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
@@ -199,9 +190,10 @@ export const UpdateSkillFamilyForm = ({
               }}
             />
             <div data-h2-margin="base(x1, 0)">
-              <MultiSelectField
+              <Combobox
                 id="skills"
                 name="skills"
+                isMulti
                 label={intl.formatMessage(adminMessages.skills)}
                 placeholder={intl.formatMessage({
                   defaultMessage: "Select one or more skills",
@@ -223,20 +215,69 @@ export const UpdateSkillFamilyForm = ({
 };
 
 type RouteParams = {
-  skillFamilyId: Scalars["ID"];
+  skillFamilyId: Scalars["ID"]["output"];
 };
+
+const UpdateSkillFamilyData_Query = graphql(/* GraphQL */ `
+  query SkillFamilySkillsData($id: UUID!) {
+    skills {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      category
+    }
+
+    skillFamily(id: $id) {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+      skills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        category
+      }
+    }
+  }
+`);
+
+const UpdateSkillFamily_Mutation = graphql(/* GraphQL */ `
+  mutation UpdateSkillFamily($id: ID!, $skillFamily: UpdateSkillFamilyInput!) {
+    updateSkillFamily(id: $id, skillFamily: $skillFamily) {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+  }
+`);
 
 const UpdateSkillFamilyPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
   const { skillFamilyId } = useRequiredParams<RouteParams>("skillFamilyId");
-  const [{ data: lookupData, fetching, error }] =
-    useGetUpdateSkillFamilyDataQuery({
-      variables: { id: skillFamilyId || "" },
-    });
+  const [{ data: lookupData, fetching, error }] = useQuery({
+    query: UpdateSkillFamilyData_Query,
+    variables: { id: skillFamilyId || "" },
+  });
   const skills: Skill[] | [] = lookupData?.skills.filter(notEmpty) ?? [];
 
-  const [, executeMutation] = useUpdateSkillFamilyMutation();
+  const [, executeMutation] = useMutation(UpdateSkillFamily_Mutation);
   const handleUpdateSkillFamily = (
     id: string,
     formData: UpdateSkillFamilyInput,
@@ -282,40 +323,46 @@ const UpdateSkillFamilyPage = () => {
       : []),
   ];
 
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "Edit skill family",
+    id: "azdo5+",
+    description: "Page title for the skill family edit page",
+  });
+
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
-      <SEO
-        title={intl.formatMessage({
-          defaultMessage: "Edit skill family",
-          id: "azdo5+",
-          description: "Page title for the skill family edit page",
-        })}
+    <>
+      <SEO title={pageTitle} />
+      <AdminHero
+        title={pageTitle}
+        nav={{ mode: "crumbs", items: navigationCrumbs }}
       />
-      <Pending fetching={fetching} error={error}>
-        {lookupData?.skillFamily ? (
-          <UpdateSkillFamilyForm
-            initialSkillFamily={lookupData?.skillFamily}
-            skills={skills}
-            handleUpdateSkillFamily={handleUpdateSkillFamily}
-          />
-        ) : (
-          <NotFound
-            headingMessage={intl.formatMessage(commonMessages.notFound)}
-          >
-            <p>
-              {intl.formatMessage(
-                {
-                  defaultMessage: "SkillFamily {skillFamilyId} not found.",
-                  id: "ZWnKEJ",
-                  description: "Message displayed for skillFamily not found.",
-                },
-                { skillFamilyId },
-              )}
-            </p>
-          </NotFound>
-        )}
-      </Pending>
-    </AdminContentWrapper>
+      <AdminContentWrapper>
+        <Pending fetching={fetching} error={error}>
+          {lookupData?.skillFamily ? (
+            <UpdateSkillFamilyForm
+              initialSkillFamily={lookupData?.skillFamily}
+              skills={skills}
+              handleUpdateSkillFamily={handleUpdateSkillFamily}
+            />
+          ) : (
+            <NotFound
+              headingMessage={intl.formatMessage(commonMessages.notFound)}
+            >
+              <p>
+                {intl.formatMessage(
+                  {
+                    defaultMessage: "SkillFamily {skillFamilyId} not found.",
+                    id: "ZWnKEJ",
+                    description: "Message displayed for skillFamily not found.",
+                  },
+                  { skillFamilyId },
+                )}
+              </p>
+            </NotFound>
+          )}
+        </Pending>
+      </AdminContentWrapper>
+    </>
   );
 };
 

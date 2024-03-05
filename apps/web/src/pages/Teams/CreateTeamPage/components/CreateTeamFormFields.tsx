@@ -3,13 +3,15 @@ import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import kebabCase from "lodash/kebabCase";
 
-import { Input, MultiSelectField } from "@gc-digital-talent/forms";
+import { Input, Combobox, TextArea } from "@gc-digital-talent/forms";
 import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import { Maybe } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { Maybe, Department } from "@gc-digital-talent/graphql";
 
-import { Department } from "~/api/generated";
 import adminMessages from "~/messages/adminMessages";
+
+const TEXT_AREA_ROWS = 4;
+const TEXT_AREA_MAX_WORDS = 200;
 
 interface CreateTeamFormFieldsProps {
   departments?: Maybe<Array<Maybe<Omit<Department, "teams">>>>;
@@ -19,10 +21,11 @@ const CreateTeamFormFields = ({ departments }: CreateTeamFormFieldsProps) => {
   const intl = useIntl();
   const { setValue, getValues } = useFormContext();
 
-  const departmentOptions = departments?.filter(notEmpty).map((department) => ({
-    value: department.id,
-    label: getLocalizedName(department.name, intl),
-  }));
+  const departmentOptions =
+    departments?.filter(notEmpty).map((department) => ({
+      value: department.id,
+      label: getLocalizedName(department.name, intl),
+    })) ?? [];
 
   const handleDisplayBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const { value: newValue } = e.target;
@@ -33,7 +36,10 @@ const CreateTeamFormFields = ({ departments }: CreateTeamFormFieldsProps) => {
   };
 
   return (
-    <>
+    <div
+      data-h2-flex-grid="base(center, x1, x1)"
+      data-h2-margin-bottom="base(x1)"
+    >
       <div data-h2-flex-item="base(1/2)">
         <Input
           type="text"
@@ -67,9 +73,10 @@ const CreateTeamFormFields = ({ departments }: CreateTeamFormFieldsProps) => {
         />
       </div>
       <div data-h2-flex-item="base(1/2)">
-        <MultiSelectField
+        <Combobox
           id="departments"
           name="departments"
+          isMulti
           label={intl.formatMessage(adminMessages.departments)}
           placeholder={intl.formatMessage({
             defaultMessage: "Select one or more departments",
@@ -97,7 +104,39 @@ const CreateTeamFormFields = ({ departments }: CreateTeamFormFieldsProps) => {
           }}
         />
       </div>
-    </>
+      <div data-h2-flex-item="base(1/2)">
+        <TextArea
+          id="description_en"
+          name="description.en"
+          rows={TEXT_AREA_ROWS}
+          wordLimit={TEXT_AREA_MAX_WORDS}
+          label={intl.formatMessage({
+            defaultMessage: "Team's short description (English)",
+            id: "sSGgnI",
+            description: "Label for team description in English language",
+          })}
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+        />
+      </div>
+      <div data-h2-flex-item="base(1/2)">
+        <TextArea
+          id="description_fr"
+          name="description.fr"
+          rows={TEXT_AREA_ROWS}
+          wordLimit={TEXT_AREA_MAX_WORDS}
+          label={intl.formatMessage({
+            defaultMessage: "Team's short description (French)",
+            id: "RSkJQR",
+            description: "Label for team description in French language",
+          })}
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+        />
+      </div>
+    </div>
   );
 };
 

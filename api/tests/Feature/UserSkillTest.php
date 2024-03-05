@@ -1004,4 +1004,51 @@ class UserSkillTest extends TestCase
                     )
             );
     }
+
+    // cannot have duplicates in one showcase section
+    // also tests App\\Rules\\ArrayIsUnique
+    public function testNoDuplicatesInOneShowcase(): void
+    {
+        $userSkillTechnical1 = UserSkill::factory()->create([
+            'user_id' => $this->user->id,
+            'skill_id' => Skill::factory(['category' => 'TECHNICAL']),
+        ]);
+        $userSkillTechnical2 = UserSkill::factory()->create([
+            'user_id' => $this->user->id,
+            'skill_id' => Skill::factory(['category' => 'TECHNICAL']),
+        ]);
+
+        // pass duplicates within one array, it fails
+        $this->actingAs($this->user, 'api')
+            ->graphQL(
+                $this->updateUserSkillRankings,
+                [
+                    'userId' => $this->user->id,
+                    'userSkillRanking' => [
+                        'improveTechnicalSkillsRanked' => [
+                            $userSkillTechnical1->skill_id,
+                            $userSkillTechnical1->skill_id,
+                        ],
+                    ],
+                ]
+            )->assertGraphQLValidationError('userSkillRanking.improveTechnicalSkillsRanked', 'ArrayContainsDuplicates');
+
+        // passes even if the same skill appears multiple times, so long as it is in separate arrays
+        $this->actingAs($this->user, 'api')
+            ->graphQL(
+                $this->updateUserSkillRankings,
+                [
+                    'userId' => $this->user->id,
+                    'userSkillRanking' => [
+                        'improveTechnicalSkillsRanked' => [
+                            $userSkillTechnical1->skill_id,
+                            $userSkillTechnical2->skill_id,
+                        ],
+                        'topTechnicalSkillsRanked' => [
+                            $userSkillTechnical1->skill_id,
+                        ],
+                    ],
+                ]
+            )->assertJsonFragment(['id' => $this->user->id]);
+    }
 }

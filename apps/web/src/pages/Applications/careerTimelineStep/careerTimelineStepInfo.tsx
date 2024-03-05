@@ -17,24 +17,39 @@ const getStepInfo: GetApplicationStepInfo = ({
   resourceId,
   intl,
   stepOrdinal,
+  RoDFlag,
 }): ApplicationStepInfo => {
   return {
     applicationStep: ApplicationStep.ReviewYourResume,
-    mainPage: careerTimelinePageInfo({ paths, intl, application, stepOrdinal }),
+    mainPage: careerTimelinePageInfo({
+      paths,
+      intl,
+      application,
+      stepOrdinal,
+      RoDFlag,
+    }),
     introductionPage: careerTimelineIntroductionPageInfo({
       paths,
       intl,
       application,
       stepOrdinal,
+      RoDFlag,
     }),
     auxiliaryPages: [
-      careerTimelineAddPageInfo({ paths, intl, application, stepOrdinal }),
+      careerTimelineAddPageInfo({
+        paths,
+        intl,
+        application,
+        stepOrdinal,
+        RoDFlag,
+      }),
       careerTimelineEditPageInfo({
         paths,
         intl,
         application,
         stepOrdinal,
         resourceId,
+        RoDFlag,
       }),
     ],
     showInStepper: true,

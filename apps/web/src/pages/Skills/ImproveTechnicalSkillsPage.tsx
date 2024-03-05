@@ -1,25 +1,23 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { OperationContext } from "urql";
+import { OperationContext, useMutation, useQuery } from "urql";
 import StarIcon from "@heroicons/react/24/outline/StarIcon";
-import { useNavigate } from "react-router-dom";
 
 import { Pending } from "@gc-digital-talent/ui";
-import {
-  Skill,
-  SkillCategory,
-  useUserSkillsQuery,
-} from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers/src/utils/util";
 import { useAuthorization } from "@gc-digital-talent/auth";
-import { toast } from "@gc-digital-talent/toast";
+import { navigationMessages } from "@gc-digital-talent/i18n";
+import { Skill, SkillCategory, UserSkill } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import { UserSkill, useUpdateUserSkillRankingsMutation } from "~/api/generated";
 
 import UpdateSkillShowcase, {
   FormValues,
 } from "./components/UpdateSkillShowcase";
+import {
+  UpdateUserSkillRankings_Mutation,
+  UserSkills_Query,
+} from "./operations";
 
 const MAX_SKILL_COUNT = 5;
 
@@ -27,19 +25,20 @@ interface ImproveTechnicalSkillsProps {
   skills: Skill[];
   userSkills: UserSkill[];
   initialSkills: FormValues;
+  stale: boolean;
 }
 
 const ImproveTechnicalSkills = ({
   skills,
   userSkills,
   initialSkills,
+  stale,
 }: ImproveTechnicalSkillsProps) => {
   const intl = useIntl();
-  const navigate = useNavigate();
   const paths = useRoutes();
   const returnPath = paths.skillShowcase();
   const { userAuthInfo } = useAuthorization();
-  const [, executeMutation] = useUpdateUserSkillRankingsMutation();
+  const [, executeMutation] = useMutation(UpdateUserSkillRankings_Mutation);
 
   const pageId = "improve-technical-skills";
 
@@ -59,19 +58,11 @@ const ImproveTechnicalSkills = ({
       url: paths.home(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Profile and applications",
-        id: "wDc+F3",
-        description: "Breadcrumb for profile and applications page.",
-      }),
+      label: intl.formatMessage(navigationMessages.profileAndApplications),
       url: paths.profileAndApplications(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Skill Showcase",
-        id: "r4R1KZ",
-        description: "Title for the skill showcase page",
-      }),
+      label: intl.formatMessage(navigationMessages.skillShowcase),
       url: paths.skillShowcase(),
     },
     {
@@ -104,7 +95,9 @@ const ImproveTechnicalSkills = ({
     returnPath,
   };
 
-  const handleUpdateUserSkillRankings = (formValues: FormValues) => {
+  const handleUpdateUserSkillRankings = (
+    formValues: FormValues,
+  ): Promise<void> =>
     executeMutation({
       userId: userAuthInfo?.id,
       userSkillRanking: {
@@ -112,65 +105,29 @@ const ImproveTechnicalSkills = ({
           ...formValues.userSkills.map((userSkill) => userSkill.skill),
         ],
       },
-    })
-      .then((res) => {
-        if (res.data) {
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Successfully updated improve technical skills",
-              id: "z5f+GT",
-              description:
-                "Success message displayed after updating improve technical skills",
-            }),
-          );
-          navigate(returnPath);
-        }
-      })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: updating improve technical skills failed",
-            id: "dpvwTf",
-            description:
-              "Message displayed to user after improve technical skills fails to update",
-          }),
-        );
-      });
-  };
+    }).then((res) => {
+      if (res.data?.updateUserSkillRankings) {
+        return;
+      }
+      throw new Error("No data returned");
+    });
 
   const updateRankingsAfterAddingSkill = (
     initialSkillRanking: string[],
     newSkillId: string,
-  ) => {
+  ): Promise<void> => {
     const mergedSkillIds = [...initialSkillRanking, newSkillId];
-    executeMutation({
+    return executeMutation({
       userId: userAuthInfo?.id,
       userSkillRanking: {
         improveTechnicalSkillsRanked: mergedSkillIds,
       },
-    })
-      .then((res) => {
-        if (res.data) {
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Successfully updated improve technical skills",
-              id: "z5f+GT",
-              description:
-                "Success message displayed after updating improve technical skills",
-            }),
-          );
-        }
-      })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: updating improve technical skills failed",
-            id: "dpvwTf",
-            description:
-              "Message displayed to user after improve technical skills fails to update",
-          }),
-        );
-      });
+    }).then((res) => {
+      if (res.data?.updateUserSkillRankings) {
+        return;
+      }
+      throw new Error("No data returned");
+    });
   };
 
   return (
@@ -178,12 +135,14 @@ const ImproveTechnicalSkills = ({
       userId={userAuthInfo?.id}
       crumbs={crumbs}
       pageInfo={pageInfo}
-      skills={skills}
-      userSkills={userSkills}
-      initialSkills={initialSkills}
+      allSkills={skills}
+      allUserSkills={userSkills}
+      initialData={initialSkills}
       handleSubmit={handleUpdateUserSkillRankings}
       onAddition={updateRankingsAfterAddingSkill}
       maxItems={MAX_SKILL_COUNT}
+      userSkillRanking="improveTechnicalSkillsRanked"
+      disabled={stale}
     />
   );
 };
@@ -193,7 +152,10 @@ const context: Partial<OperationContext> = {
 };
 
 const ImproveTechnicalSkillsPage = () => {
-  const [{ data, fetching, error }] = useUserSkillsQuery({ context });
+  const [{ data, fetching, error, stale }] = useQuery({
+    query: UserSkills_Query,
+    context,
+  });
 
   const userSkills = data?.me?.userSkills?.filter(notEmpty);
   const technicalSkills = data?.skills
@@ -228,6 +190,7 @@ const ImproveTechnicalSkillsPage = () => {
         skills={technicalSkills ?? []}
         userSkills={userSkills ?? []}
         initialSkills={initialSkills ?? []}
+        stale={stale}
       />
     </Pending>
   );

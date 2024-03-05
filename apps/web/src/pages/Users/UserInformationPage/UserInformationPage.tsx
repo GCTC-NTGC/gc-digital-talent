@@ -4,16 +4,16 @@ import CalculatorIcon from "@heroicons/react/24/outline/CalculatorIcon";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 import UserIcon from "@heroicons/react/24/outline/UserIcon";
+import { useQuery } from "urql";
 
 import { Pending, TableOfContents, ThrowNotFound } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { Scalars, graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
-import { Scalars, useGetViewUserDataQuery } from "~/api/generated";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import { getFullNameLabel } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
 
 import AboutSection from "./components/AboutSection";
@@ -55,12 +55,7 @@ const UserInformation = ({ user, pools }: UserInformationProps) => {
     },
     {
       id: "employment-equity",
-      title: intl.formatMessage({
-        defaultMessage: "Employment equity",
-        id: "BYGKiT",
-        description:
-          "Title of the 'Employment equity' section of the view-user page",
-      }),
+      title: intl.formatMessage(commonMessages.employmentEquity),
       titleIcon: InformationCircleIcon,
       content: <EmploymentEquitySection user={user} />,
     },
@@ -103,46 +98,263 @@ const UserInformation = ({ user, pools }: UserInformationProps) => {
   );
 };
 
+const UserInformation_Query = graphql(/* GraphQL */ `
+  query GetViewUserData($id: UUID!) {
+    user(id: $id, trashed: WITH) {
+      id
+      email
+      firstName
+      lastName
+      telephone
+      citizenship
+      armedForcesStatus
+      preferredLang
+      preferredLanguageForInterview
+      preferredLanguageForExam
+      currentProvince
+      currentCity
+      lookingForEnglish
+      lookingForFrench
+      lookingForBilingual
+      bilingualEvaluation
+      comprehensionLevel
+      writtenLevel
+      verbalLevel
+      estimatedLanguageAbility
+      isGovEmployee
+      govEmployeeType
+      hasPriorityEntitlement
+      priorityNumber
+      locationPreferences
+      locationExemptions
+      positionDuration
+      acceptedOperationalRequirements
+      indigenousCommunities
+      indigenousDeclarationSignature
+      hasDisability
+      isVisibleMinority
+      isWoman
+      poolCandidates {
+        id
+        status
+        expiryDate
+        notes
+        suspendedAt
+        user {
+          id
+        }
+        pool {
+          id
+          name {
+            en
+            fr
+          }
+          classifications {
+            id
+            group
+            level
+          }
+          stream
+          publishingGroup
+          team {
+            id
+            name
+            displayName {
+              en
+              fr
+            }
+          }
+        }
+      }
+      department {
+        id
+        departmentNumber
+        name {
+          en
+          fr
+        }
+      }
+      currentClassification {
+        id
+        group
+        level
+        name {
+          en
+          fr
+        }
+      }
+      experiences {
+        id
+        __typename
+        user {
+          id
+          email
+        }
+        details
+        skills {
+          id
+          key
+          name {
+            en
+            fr
+          }
+          description {
+            en
+            fr
+          }
+          keywords {
+            en
+            fr
+          }
+          category
+          experienceSkillRecord {
+            details
+          }
+        }
+        ... on AwardExperience {
+          title
+          issuedBy
+          awardedDate
+          awardedTo
+          awardedScope
+        }
+        ... on CommunityExperience {
+          title
+          organization
+          project
+          startDate
+          endDate
+        }
+        ... on EducationExperience {
+          institution
+          areaOfStudy
+          thesisTitle
+          startDate
+          endDate
+          type
+          status
+        }
+        ... on PersonalExperience {
+          title
+          description
+          startDate
+          endDate
+        }
+        ... on WorkExperience {
+          role
+          organization
+          division
+          startDate
+          endDate
+        }
+      }
+      topTechnicalSkillsRanking {
+        id
+        user {
+          id
+        }
+        skill {
+          id
+          key
+          category
+          name {
+            en
+            fr
+          }
+        }
+        skillLevel
+        topSkillsRank
+        improveSkillsRank
+      }
+      topBehaviouralSkillsRanking {
+        id
+        user {
+          id
+        }
+        skill {
+          id
+          key
+          category
+          name {
+            en
+            fr
+          }
+        }
+        skillLevel
+        topSkillsRank
+        improveSkillsRank
+      }
+      improveTechnicalSkillsRanking {
+        id
+        user {
+          id
+        }
+        skill {
+          id
+          key
+          category
+          name {
+            en
+            fr
+          }
+        }
+        skillLevel
+        topSkillsRank
+        improveSkillsRank
+      }
+      improveBehaviouralSkillsRanking {
+        id
+        user {
+          id
+        }
+        skill {
+          id
+          key
+          category
+          name {
+            en
+            fr
+          }
+        }
+        skillLevel
+        topSkillsRank
+        improveSkillsRank
+      }
+    }
+    pools {
+      id
+      name {
+        en
+        fr
+      }
+      stream
+      classifications {
+        id
+        group
+        level
+      }
+      status
+    }
+  }
+`);
+
 type RouteParams = {
-  userId: Scalars["ID"];
+  userId: Scalars["ID"]["output"];
 };
 
 const UserInformationPage = () => {
   const { userId } = useRequiredParams<RouteParams>("userId");
   const intl = useIntl();
-  const routes = useRoutes();
-  const [{ data: lookupData, fetching, error }] = useGetViewUserDataQuery({
+  const [{ data, fetching, error }] = useQuery({
+    query: UserInformation_Query,
     variables: { id: userId },
   });
 
-  const user = lookupData?.user;
-  const pools = lookupData?.pools.filter(notEmpty);
-
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(adminMessages.users),
-      url: routes.userTable(),
-    },
-    ...(userId
-      ? [
-          {
-            label: getFullNameLabel(user?.firstName, user?.lastName, intl),
-            url: routes.userView(userId),
-          },
-        ]
-      : []),
-  ];
+  const user = data?.user;
+  const pools = unpackMaybes(data?.pools);
 
   return (
-    <AdminContentWrapper crumbs={navigationCrumbs}>
+    <AdminContentWrapper>
       <SEO
         title={intl.formatMessage({
           defaultMessage: "Candidate details",

@@ -2,10 +2,24 @@ const path = require("path");
 const { merge } = require("webpack-merge");
 const HydrogenPlugin = require("hydrogen-webpack-plugin");
 const base = require("@gc-digital-talent/webpack-config/webpack.base.js");
+require("dotenv").config({ path: "./.env" });
 
 const basePath = path.resolve(__dirname);
 
-module.exports = merge(base(basePath), {
+const appUrl = "https://talent.canada.ca";
+
+const meta = {
+  title:
+    process.env.APP_TITLE ?? "GC Digital Talent | Talents numériques du GC",
+  description:
+    process.env.APP_DESCRIPTION ??
+    "Recruitment platform for digital jobs in the Government of Canada. Plateforme de recrutement pour les emplois numériques au gouvernement du Canada.",
+  url: appUrl,
+  domain: process.env.APP_DOMAIN ?? "talent.canada.ca",
+  image: `${appUrl}/images/digital-talent/banner.jpg`,
+};
+
+module.exports = merge(base(basePath, meta), {
   entry: {
     app: [
       "./src/main.tsx",

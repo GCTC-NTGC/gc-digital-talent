@@ -88,14 +88,15 @@ class AuthServiceProvider extends ServiceProvider
                 foreach ($e->violations() as $violationError) {
                     array_push($violations, $violationError->getMessage());
                 }
-                throw new AuthenticationException('Authorization token not valid: '.$violations, 'invalid_token');
+                throw new AuthenticationException('Authorization token not valid: '.implode(',', $violations), 'invalid_token');
             } catch (Throwable $e) {
                 throw new AuthenticationException('Error while validating authorization token: '.$e->getMessage(), 'token_validation');
             }
 
             // By this point we have verified that the token is legitimate
-
-            $userMatch = User::where('sub', $sub)->withTrashed()->first(); // 3. match "sub" claim to user 'sub' field.
+            $userMatch = User::where('sub', $sub)->withTrashed()->select(
+                User::getSelectableColumns()
+            )->first();
             if ($userMatch) {
                 if ($userMatch->deleted_at != null) {
                     throw new AuthenticationException('Login as deleted user: '.$userMatch->sub, 'user_deleted');

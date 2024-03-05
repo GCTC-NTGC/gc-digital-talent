@@ -16,6 +16,7 @@ use App\Models\PoolCandidate;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\WorkExperience;
+use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
@@ -51,26 +52,53 @@ class ApplicantTest extends TestCase
     {
         // Get the ID of the base admin user
         $user = User::All()->first();
-        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
+        $ITPool1 = Pool::factory()->candidatesAvailableInSearch()->create([
             'user_id' => $user['id'],
+            'publishing_group' => PublishingGroup::IT_JOBS_ONGOING->name,
         ]);
-        $pool2 = Pool::factory()->candidatesAvailableInSearch()->create([
+        $ITPool2 = Pool::factory()->candidatesAvailableInSearch()->create([
             'user_id' => $user['id'],
+            'publishing_group' => PublishingGroup::IT_JOBS->name,
+        ]);
+        $EXPool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'user_id' => $user['id'],
+            'publishing_group' => PublishingGroup::EXECUTIVE_JOBS->name,
         ]);
 
         PoolCandidate::factory()->count(3)->create([
-            'pool_id' => $pool1['id'],
+            'pool_id' => $ITPool1['id'],
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
         ]);
 
         PoolCandidate::factory()->count(4)->create([
-            'pool_id' => $pool2['id'],
+            'pool_id' => $ITPool2['id'],
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
         ]);
 
-        // Assert empty filter returns all
+        // Unqualified candidate - should not appear in searches
+        PoolCandidate::factory()->count(3)->create([
+            'pool_id' => $ITPool1['id'],
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => PoolCandidateStatus::SCREENED_IN->name,
+        ]);
+
+        // Expired candidate- should not appear in searches
+        PoolCandidate::factory()->count(3)->create([
+            'pool_id' => $ITPool1['id'],
+            'expiry_date' => config('constants.past_date'),
+            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+        ]);
+
+        // Executive pool - should not appear in searches
+        PoolCandidate::factory()->create([
+            'pool_id' => $EXPool['id'],
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+        ]);
+
+        // Assert empty filter returns only available applicants in IT pools
         $this->graphQL(
             /** @lang GraphQL */
             '
@@ -87,7 +115,7 @@ class ApplicantTest extends TestCase
             ],
         ]);
 
-        // Assert pool1 filter returns only pool1
+        // Assert ITPool1 filter returns only ITPool1
         $this->graphQL(
             /** @lang GraphQL */
             '
@@ -98,7 +126,7 @@ class ApplicantTest extends TestCase
             [
                 'where' => [
                     'pools' => [
-                        ['id' => $pool1['id']],
+                        ['id' => $ITPool1['id']],
                     ],
                 ],
             ]
@@ -136,7 +164,7 @@ class ApplicantTest extends TestCase
             'user_id' => User::factory([
                 'is_woman' => true,
                 'has_disability' => false,
-                'indigenous_communities' => [IndigenousCommunity::OTHER->name], // will not be filtered for
+                'indigenous_communities' => [IndigenousCommunity::STATUS_FIRST_NATIONS->name],
                 'is_visible_minority' => false,
             ]),
         ]);
@@ -146,9 +174,57 @@ class ApplicantTest extends TestCase
             'expiry_date' => config('constants.far_future_date'),
             'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
             'user_id' => User::factory([
-                'is_woman' => true,
+                'is_woman' => false,
                 'has_disability' => true,
-                'indigenous_communities' => [IndigenousCommunity::LEGACY_IS_INDIGENOUS->name], // will be filtered for
+                'indigenous_communities' => [IndigenousCommunity::NON_STATUS_FIRST_NATIONS->name],
+                'is_visible_minority' => false,
+            ]),
+        ]);
+
+        PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'user_id' => User::factory([
+                'is_woman' => false,
+                'has_disability' => false,
+                'indigenous_communities' => [IndigenousCommunity::INUIT->name],
+                'is_visible_minority' => false,
+            ]),
+        ]);
+
+        PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'user_id' => User::factory([
+                'is_woman' => false,
+                'has_disability' => false,
+                'indigenous_communities' => [IndigenousCommunity::METIS->name],
+                'is_visible_minority' => false,
+            ]),
+        ]);
+
+        PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'user_id' => User::factory([
+                'is_woman' => false,
+                'has_disability' => false,
+                'indigenous_communities' => [IndigenousCommunity::OTHER->name],
+                'is_visible_minority' => false,
+            ]),
+        ]);
+
+        PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'user_id' => User::factory([
+                'is_woman' => false,
+                'has_disability' => false,
+                'indigenous_communities' => [IndigenousCommunity::LEGACY_IS_INDIGENOUS->name],
                 'is_visible_minority' => false,
             ]),
         ]);
@@ -170,7 +246,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 5,
+                'countApplicants' => 9,
             ],
         ]);
 
@@ -197,11 +273,11 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 5,
+                'countApplicants' => 9,
             ],
         ]);
 
-        // Assert query will OR filter the equity
+        // Assert query if isWoman OR hasDisability is true
         $this->graphQL(
             /** @lang GraphQL */
             '
@@ -226,7 +302,7 @@ class ApplicantTest extends TestCase
             ],
         ]);
 
-        // Assert query will correctly filter for LEGACY_IS_INDIGENOUS
+        // Assert query will correctly filter for any indigenous community
         $this->graphQL(
             /** @lang GraphQL */
             '
@@ -246,7 +322,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicants' => 1,
+                'countApplicants' => 6,
             ],
         ]);
     }
@@ -1650,5 +1726,161 @@ class ApplicantTest extends TestCase
                 'countApplicants' => 2,
             ],
         ]);
+    }
+
+    public function testEmploymentEquity(): void
+    {
+        $itPool = Pool::factory()->published()->candidatesAvailableInSearch()->create([
+            'user_id' => $this->adminUser->id,
+        ]);
+
+        $disabledUser = User::factory()->create([
+            'has_disability' => true,
+            'is_woman' => false,
+            'is_visible_minority' => false,
+            'indigenous_communities' => [],
+        ]);
+        PoolCandidate::factory()->availableInSearch()->create([
+            'pool_id' => $itPool->id,
+            'user_id' => $disabledUser->id,
+        ]);
+
+        $womanUser = User::factory()->create([
+            'has_disability' => false,
+            'is_woman' => true,
+            'is_visible_minority' => false,
+            'indigenous_communities' => [],
+        ]);
+        PoolCandidate::factory()->availableInSearch()->create([
+            'pool_id' => $itPool->id,
+            'user_id' => $womanUser->id,
+        ]);
+
+        $visibleMinorityUser = User::factory()->create([
+            'has_disability' => false,
+            'is_woman' => false,
+            'is_visible_minority' => true,
+            'indigenous_communities' => [],
+        ]);
+        PoolCandidate::factory()->availableInSearch()->create([
+            'pool_id' => $itPool->id,
+            'user_id' => $visibleMinorityUser->id,
+        ]);
+
+        $indigenousUser = User::factory()->create([
+            'has_disability' => false,
+            'is_woman' => false,
+            'is_visible_minority' => false,
+            'indigenous_communities' => [IndigenousCommunity::OTHER->name],
+        ]);
+        PoolCandidate::factory()->availableInSearch()->create([
+            'pool_id' => $itPool->id,
+            'user_id' => $indigenousUser->id,
+        ]);
+
+        $allGroupsUser = User::factory()->create([
+            'has_disability' => true,
+            'is_woman' => true,
+            'is_visible_minority' => true,
+            'indigenous_communities' => [IndigenousCommunity::OTHER->name],
+        ]);
+        PoolCandidate::factory()->availableInSearch()->create([
+            'pool_id' => $itPool->id,
+            'user_id' => $allGroupsUser->id,
+        ]);
+
+        $query = /** @lang GraphQL */ '
+            query poolCandidatesPaginated($where: PoolCandidateSearchInput) {
+                poolCandidatesPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ';
+
+        $expectedJson = [
+            'data' => [
+                'poolCandidatesPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 2,
+                    ],
+                ],
+            ],
+        ];
+
+        // Returns 2 disabled users
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($query,
+                [
+                    'where' => [
+                        'applicantFilter' => [
+                            'equity' => ['hasDisability' => true],
+                        ],
+                    ],
+                ]
+            )->assertJson($expectedJson);
+
+        // Returns 2 women
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($query,
+                [
+                    'where' => [
+                        'applicantFilter' => [
+                            'equity' => ['isWoman' => true],
+                        ],
+                    ],
+                ]
+            )->assertJson($expectedJson);
+
+        // Returns 2 visible minorities
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($query,
+                [
+                    'where' => [
+                        'applicantFilter' => [
+                            'equity' => ['isVisibleMinority' => true],
+                        ],
+                    ],
+                ]
+            )->assertJson($expectedJson);
+
+        // Returns 2 Indigenous users
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($query,
+                [
+                    'where' => [
+                        'applicantFilter' => [
+                            'equity' => ['isIndigenous' => true],
+                        ],
+                    ],
+                ]
+            )->assertJson($expectedJson);
+
+        // Returns all users
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($query,
+                [
+                    'where' => [
+                        'applicantFilter' => [
+                            'equity' => [
+                                'hasDisability' => true,
+                                'isWoman' => true,
+                                'isVisibleMinority' => true,
+                                'isIndigenous' => true,
+                            ],
+                        ],
+                    ],
+                ]
+            )->assertJson([
+                'data' => [
+                    'poolCandidatesPaginated' => [
+                        'paginatorInfo' => [
+                            'total' => 5,
+                        ],
+                    ],
+                ],
+            ]);
+
     }
 }

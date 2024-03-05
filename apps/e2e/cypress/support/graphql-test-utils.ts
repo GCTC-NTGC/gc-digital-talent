@@ -33,15 +33,3 @@ export const aliasMutation = (req: GraphqlRequest, operationName: string) => {
     req.alias = `gql${operationName}Mutation`;
   }
 };
-
-type GraphqlDocument = {
-  loc?: {
-    source: {
-      body: string;
-    };
-  };
-};
-
-export function getGqlString(doc: GraphqlDocument): string | undefined {
-  return doc.loc && doc.loc.source.body;
-}

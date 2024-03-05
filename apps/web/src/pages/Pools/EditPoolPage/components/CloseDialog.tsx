@@ -5,8 +5,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { formMessages } from "@gc-digital-talent/i18n";
-
-import { Pool } from "~/api/generated";
+import { Pool } from "@gc-digital-talent/graphql";
 
 type CloseDialogProps = {
   closingDate: Pool["closingDate"];

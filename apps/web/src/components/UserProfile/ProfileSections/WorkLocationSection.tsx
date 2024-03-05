@@ -4,8 +4,8 @@ import { useIntl } from "react-intl";
 import { Link, Well } from "@gc-digital-talent/ui";
 import { commonMessages, getWorkRegion } from "@gc-digital-talent/i18n";
 import { insertBetween } from "@gc-digital-talent/helpers";
+import { User } from "@gc-digital-talent/graphql";
 
-import { User } from "~/api/generated";
 import {
   anyCriteriaSelected,
   hasAllEmptyFields,
@@ -90,14 +90,7 @@ const WorkLocationSection = ({
         )}
         {hasAllEmptyFields(user) && !editPath && (
           <div data-h2-flex-item="base(1of1)">
-            <p>
-              {intl.formatMessage({
-                defaultMessage: "No information has been provided.",
-                id: "1VFyrc",
-                description:
-                  "Message on Admin side when user not filled WorkLocation section.",
-              })}
-            </p>
+            <p>{intl.formatMessage(commonMessages.noInformationProvided)}</p>
           </div>
         )}
       </div>

@@ -1,25 +1,12 @@
 import React from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { NavLink, NavLinkProps, useNavigate } from "react-router-dom";
 
 import { sanitizeUrl, useIsSmallScreen } from "@gc-digital-talent/helpers";
 
 import { IconType } from "../../types";
 import { useSideMenuContext } from "./SideMenuProvider";
-
-const commonStyles = {
-  "data-h2-background-color":
-    "base(transparent) base:selectors[.active](secondary.darker) base:focus-visible(focus) base:hover(secondary.darker) base:iap(secondary.light) base:iap:selectors[.active](secondary.lighter.10) base:iap:focus-visible(focus) base:iap:hover(secondary.lighter.30)",
-  "data-h2-outline": "base(none)",
-  "data-h2-padding": "base(x.5, x1)",
-  "data-h2-cursor": "base(pointer)",
-  "data-h2-border-bottom": "base(1px solid white.10)",
-  "data-h2-color":
-    "base(white) base:all:focus-visible(black) base:all:iap:focus-visible(black)",
-  "data-h2-width": "base(100%)",
-  "data-h2-text-align": "base(left)",
-  "data-h2-display": "base(block)",
-};
+import { commonStyles } from "./styles";
 
 interface SideMenuItemChildProps {
   icon: IconType;
@@ -34,7 +21,7 @@ const SideMenuItemChildren = ({ icon, children }: SideMenuItemChildProps) => {
   const transitionConfig = { duration: shouldReduceMotion ? 0 : undefined };
 
   return (
-    <motion.span
+    <m.span
       data-h2-display="base(grid)"
       data-h2-grid-template-columns="base(x1 1fr)"
       transition={transitionConfig}
@@ -57,7 +44,7 @@ const SideMenuItemChildren = ({ icon, children }: SideMenuItemChildProps) => {
           />
         ) : null}
       </span>
-      <motion.span
+      <m.span
         transition={transitionConfig}
         animate={
           ctx?.open
@@ -77,8 +64,8 @@ const SideMenuItemChildren = ({ icon, children }: SideMenuItemChildProps) => {
         >
           {children}
         </span>
-      </motion.span>
-    </motion.span>
+      </m.span>
+    </m.span>
   );
 };
 

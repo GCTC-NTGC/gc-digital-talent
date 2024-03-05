@@ -11,22 +11,33 @@ import {
   fakeDepartments,
 } from "@gc-digital-talent/fake-data";
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
-import { CreateAccountForm, CreateAccountFormProps } from "./CreateAccountPage";
+import {
+  CreateAccountForm,
+  CreateAccountFormProps,
+  CreateAccount_QueryFragment,
+} from "./CreateAccountPage";
 
 const mockDepartments = fakeDepartments();
 const mockClassifications = fakeClassifications();
 const mockSave = jest.fn();
 
+const mockFragmentData = makeFragmentData(
+  {
+    departments: mockDepartments,
+    classifications: mockClassifications,
+  },
+  CreateAccount_QueryFragment,
+);
+
 const renderCreateAccountForm = ({
-  departments,
-  classifications,
+  query,
   handleCreateAccount,
 }: CreateAccountFormProps) =>
   renderWithProviders(
     <CreateAccountForm
-      departments={departments}
-      classifications={classifications}
+      query={query}
       handleCreateAccount={handleCreateAccount}
     />,
   );
@@ -36,8 +47,7 @@ describe("Create Account Form tests", () => {
 
   it("should have no accessibility errors", async () => {
     const { container } = renderCreateAccountForm({
-      departments: mockDepartments,
-      classifications: mockClassifications,
+      query: mockFragmentData,
       handleCreateAccount: mockSave,
     });
 
@@ -46,8 +56,7 @@ describe("Create Account Form tests", () => {
 
   it("should render fields", async () => {
     renderCreateAccountForm({
-      departments: mockDepartments,
-      classifications: mockClassifications,
+      query: mockFragmentData,
       handleCreateAccount: mockSave,
     });
 
@@ -149,8 +158,7 @@ describe("Create Account Form tests", () => {
 
   it("should not render with empty fields.", async () => {
     renderCreateAccountForm({
-      departments: mockDepartments,
-      classifications: mockClassifications,
+      query: mockFragmentData,
       handleCreateAccount: mockSave,
     });
 
@@ -161,8 +169,7 @@ describe("Create Account Form tests", () => {
 
   it("should submit successfully with required fields", async () => {
     renderCreateAccountForm({
-      departments: mockDepartments,
-      classifications: mockClassifications,
+      query: mockFragmentData,
       handleCreateAccount: mockSave,
     });
 

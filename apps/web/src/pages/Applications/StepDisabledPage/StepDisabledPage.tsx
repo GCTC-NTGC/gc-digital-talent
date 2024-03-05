@@ -23,12 +23,7 @@ const StepDisabledPage = ({ returnUrl }: { returnUrl: string | undefined }) => {
           description: "Application step skipped page details",
         })}
       </p>
-      <Separator
-        orientation="horizontal"
-        data-h2-background-color="base(gray.lighter)"
-        data-h2-margin="base(x2, 0)"
-        decorative
-      />
+      <Separator />
       {returnUrl ? (
         <Link href={returnUrl} color="primary" mode="solid">
           {intl.formatMessage({

@@ -55,6 +55,13 @@ declare global {
        * @example cy.logout()
        */
       graphqlRequest<T extends Object>(body: Object): Promise<T>;
+      /**
+       * Override specific feature flags.
+       * Note: Should be used in `before*`
+       * @param {Record<string, boolean | null>} flags - Feature flags you want to override.
+       * @example cy.overrideFeatureFlags({FEATURE_FLAG: false})
+       */
+      overrideFeatureFlags(flags: Record<string, boolean | null>): void;
 
       /**
        * ======================================

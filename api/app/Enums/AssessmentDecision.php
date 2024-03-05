@@ -4,7 +4,7 @@ namespace App\Enums;
 
 enum AssessmentDecision
 {
-    case NOT_SURE;
+    case HOLD;
     case SUCCESSFUL;
     case UNSUCCESSFUL;
 }

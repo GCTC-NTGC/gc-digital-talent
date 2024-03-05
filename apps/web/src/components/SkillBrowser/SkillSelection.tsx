@@ -13,8 +13,9 @@ import {
 } from "@gc-digital-talent/ui";
 import { Combobox, Field, Select } from "@gc-digital-talent/forms";
 import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { normalizeString } from "@gc-digital-talent/helpers";
+import { Skill } from "@gc-digital-talent/graphql";
 
-import { Skill } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
 import skillBrowserMessages from "./messages";
@@ -62,12 +63,30 @@ const SkillSelection = ({
   const [category, family, skill] = watch(["category", "family", "skill"]);
 
   const filteredFamilies = React.useMemo(() => {
-    return getFilteredFamilies({ skills, category });
-  }, [skills, category]);
+    return getFilteredFamilies({ skills, category }).sort(
+      (familyA, familyB) => {
+        const a = normalizeString(getLocalizedName(familyA.name, intl));
+        const b = normalizeString(getLocalizedName(familyB.name, intl));
+
+        if (a === b) return 0;
+
+        return a > b ? 1 : -1;
+      },
+    );
+  }, [skills, category, intl]);
 
   const filteredSkills = React.useMemo(() => {
-    return getFilteredSkills({ skills, family, inLibrary, category });
-  }, [category, family, inLibrary, skills]);
+    return getFilteredSkills({ skills, family, inLibrary, category }).sort(
+      (skillA, skillB) => {
+        const a = normalizeString(getLocalizedName(skillA.name, intl));
+        const b = normalizeString(getLocalizedName(skillB.name, intl));
+
+        if (a === b) return 0;
+
+        return a > b ? 1 : -1;
+      },
+    );
+  }, [category, family, inLibrary, skills, intl]);
 
   const selectedSkill = React.useMemo(() => {
     return skill
@@ -211,12 +230,7 @@ const SkillSelection = ({
           </Button>
         </Collapsible.Trigger>
         <Collapsible.Content data-h2-padding-left="base(x1.5)">
-          <Separator
-            orientation="horizontal"
-            decorative
-            data-h2-background-color="base(gray.lighter)"
-            data-h2-margin="base(x1 0)"
-          />
+          <Separator space="sm" />
           <p data-h2-margin-bottom="base(x.5)">
             {intl.formatMessage({
               defaultMessage:

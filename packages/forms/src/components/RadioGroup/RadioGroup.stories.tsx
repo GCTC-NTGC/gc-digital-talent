@@ -1,12 +1,15 @@
 import React from "react";
 import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+import { faker } from "@faker-js/faker";
 
 import { VIEWPORT } from "@gc-digital-talent/storybook-helpers";
 
 import Form from "../BasicForm";
 import Submit from "../Submit";
 import RadioGroup from "./RadioGroup";
+
+faker.seed(0);
 
 export default {
   component: RadioGroup,
@@ -122,4 +125,13 @@ LongLegendRadioGroup.args = {
   ...BasicRadioGroup.args,
   legend:
     "This is a super, super long title which will wrap around to a second line at some point. Fusce lacinia sollicitudin nulla, sit amet semper metus mattis id. Suspendisse nisl enim, bibendum sed sem eget, porttitor ultrices metus.",
+};
+
+export const ContentBelowRadioGroup = TemplateRadioGroup.bind({});
+ContentBelowRadioGroup.args = {
+  ...BasicRadioGroup.args,
+  items: BasicRadioGroup.args.items?.map((item) => ({
+    ...item,
+    contentBelow: faker.lorem.lines(6),
+  })),
 };

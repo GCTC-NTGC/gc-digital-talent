@@ -398,5 +398,13 @@
   "dY3Qr4": {
     "defaultMessage": "Indigene la faem kawkishkam li roozh la shmeezh katahkounihk li computer.",
     "description": "Indigenous Apprenticeship woman on laptop image text alternative"
+  },
+  "CKsQyK": {
+    "defaultMessage": "Kaw-ayawniwun pi peehtikwahiwaywina",
+    "description": "Title of the accessibility and accommodations information dialog"
+  },
+  "jO8i+2": {
+    "defaultMessage": "Ki-natawayistaen chin peehtikwahiwaywin, keema ki-ayawn lee kesyoon ouschi ooma paminikaywin? Madoon kawschitinik L’ofis di Indigene Oneekawneewak keeshpin ki-natawayistaen peehtikwahiwaywin maykwawt ooma aplikasyoon <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>.",
+    "description": "First paragraph of the accessibility and accommodations information dialog"
   }
 }

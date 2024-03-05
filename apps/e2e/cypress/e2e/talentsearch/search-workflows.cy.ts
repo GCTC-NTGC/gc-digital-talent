@@ -5,6 +5,7 @@ import {
   Skill,
   PoolCandidateStatus,
   User,
+  SkillCategory,
 } from "@gc-digital-talent/graphql";
 
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
@@ -14,15 +15,17 @@ import { createApplicant, addRolesToUser } from "../../support/userHelpers";
 describe("Talent Search Workflow Tests", () => {
   beforeEach(() => {
     cy.intercept("POST", "/graphql", (req) => {
-      aliasQuery(req, "CountApplicantsAndCountPoolCandidatesByPool");
-      aliasQuery(req, "getPoolCandidateSearchRequestData");
-      aliasQuery(req, "getSearchFormDataAcrossAllPools");
-      aliasMutation(req, "createPoolCandidateSearchRequest");
+      aliasQuery(req, "CandidateCount");
+      aliasQuery(req, "SearchForm");
+      aliasMutation(req, "RequestForm_CreateRequest");
     });
 
     // select some dimensions to use for testing
     cy.getSkills().then((allSkills) => {
-      cy.wrap(allSkills[0]).as("testSkill"); // take the first skill for testing
+      const technicalSkill = allSkills.find(
+        (skill) => skill.category === SkillCategory.Technical,
+      );
+      cy.wrap(technicalSkill).as("testSkill"); // take the first skill for testing
     });
     cy.getGenericJobTitles().then((allGenericJobTitles) => {
       const testGenericJobTitle1 = allGenericJobTitles[0]; // take the first ID for testing matching
@@ -48,9 +51,9 @@ describe("Talent Search Workflow Tests", () => {
 
     const searchFindsMySingleCandidate = () => {
       cy.findByRole("article", {
-        name: `Cypress Test Pool EN 1 ${uniqueTestId} (I T 1 Business Line Advisory Services)`,
+        name: `I T 1: Cypress Test Pool EN 1 ${uniqueTestId}`,
       }).within(() => {
-        cy.contains("There is approximately 1 matching candidate in this pool");
+        cy.contains("1 approximate match");
 
         cy.findByRole("button", { name: /Request candidates/i })
           .should("exist")
@@ -61,7 +64,7 @@ describe("Talent Search Workflow Tests", () => {
 
     const searchRejectsMySingleCandidate = () => {
       cy.findByRole("article", {
-        name: `Cypress Test Pool 1 EN ${uniqueTestId} (I T 1 Business Line Advisory Services)`,
+        name: `I T 1: Cypress Test Pool 1 EN ${uniqueTestId}`,
       }).should("not.exist");
     };
 
@@ -159,7 +162,7 @@ describe("Talent Search Workflow Tests", () => {
         .invoke("text")
         .then((text) => {
           cy.findByRole("combobox", { name: /Classification/i }).select(text);
-          cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+          cy.wait("@gqlCandidateCountQuery");
           searchRejectsMySingleCandidate();
         });
     });
@@ -171,7 +174,7 @@ describe("Talent Search Workflow Tests", () => {
         .invoke("text")
         .then((text) => {
           cy.findByRole("combobox", { name: /Classification/i }).select(text);
-          cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+          cy.wait("@gqlCandidateCountQuery");
           searchFindsMySingleCandidate();
         });
     });
@@ -193,35 +196,35 @@ describe("Talent Search Workflow Tests", () => {
     cy.findByRole("radio", {
       name: /Required diploma from post-secondary institution/i,
     }).click();
-    cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+    cy.wait("@gqlCandidateCountQuery");
     searchFindsMySingleCandidate();
 
     // work location - fail
     cy.findByRole("checkbox", {
       name: /Atlantic \(NB, NS, PE and NL\)/i,
     }).click();
-    cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+    cy.wait("@gqlCandidateCountQuery");
     searchRejectsMySingleCandidate();
 
     // work location - pass
     cy.findByRole("checkbox", {
       name: /Ontario \(excluding Ottawa area\)/i,
     }).click();
-    cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+    cy.wait("@gqlCandidateCountQuery");
     searchFindsMySingleCandidate();
 
     // working language ability - fail
     cy.findByRole("radio", {
       name: /French only/i,
     }).click();
-    cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+    cy.wait("@gqlCandidateCountQuery");
     searchRejectsMySingleCandidate();
 
     // working language ability - pass
     cy.findByRole("radio", {
       name: /English only/i,
     }).click();
-    cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+    cy.wait("@gqlCandidateCountQuery");
     searchFindsMySingleCandidate();
 
     // employment duration moved to last change of page to avoid "dom detached" errors on request button
@@ -230,7 +233,7 @@ describe("Talent Search Workflow Tests", () => {
     cy.findByRole("checkbox", {
       name: /Woman/i,
     }).click();
-    cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+    cy.wait("@gqlCandidateCountQuery");
     searchFindsMySingleCandidate();
 
     // skills selection, not currently used in search
@@ -254,7 +257,7 @@ describe("Talent Search Workflow Tests", () => {
     cy.findByRole("checkbox", {
       name: /ability to work overtime \(Occasionally\)/i,
     }).click();
-    cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+    cy.wait("@gqlCandidateCountQuery");
     searchFindsMySingleCandidate();
 
     // employment duration - fail
@@ -264,14 +267,14 @@ describe("Talent Search Workflow Tests", () => {
     cy.findByRole("radio", {
       name: /Term duration/i,
     }).click();
-    cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+    cy.wait("@gqlCandidateCountQuery");
     searchRejectsMySingleCandidate();
 
     // employment duration - pass
     cy.findByRole("radio", {
       name: /Indeterminate duration/i,
     }).click();
-    cy.wait("@gqlCountApplicantsAndCountPoolCandidatesByPoolQuery");
+    cy.wait("@gqlCandidateCountQuery");
     searchFindsMySingleCandidate();
 
     // check total user count
@@ -281,7 +284,7 @@ describe("Talent Search Workflow Tests", () => {
     });
 
     cy.findByRole("article", {
-      name: `Cypress Test Pool EN 1 ${uniqueTestId} (I T 1 Business Line Advisory Services)`,
+      name: `I T 1: Cypress Test Pool EN 1 ${uniqueTestId}`,
     }).within(() => {
       // Finding this button is sensitive to "dom detached" errors.
       // Must not try to click it unless we know there are no inflight searches.
@@ -292,9 +295,9 @@ describe("Talent Search Workflow Tests", () => {
      * Request Page (/en/search/request)
      * I'm using findAllByText instead of findByText since the strings appear multiple times in the DOM.
      */
-    cy.wait("@gqlgetPoolCandidateSearchRequestDataQuery");
+    cy.wait("@gqlSearchFormQuery");
 
-    cy.findByRole("textbox", { name: /Full Name/i }).type("Test Full Name");
+    cy.findByRole("textbox", { name: /Full name/i }).type("Test Full Name");
 
     cy.findByRole("textbox", { name: /Government e-mail/i }).type(
       "test@tbs-sct.gc.ca",
@@ -359,7 +362,7 @@ describe("Talent Search Workflow Tests", () => {
 
     cy.findByRole("button", { name: /Submit Request/i }).click();
 
-    cy.wait("@gqlcreatePoolCandidateSearchRequestMutation");
+    cy.wait("@gqlRequestForm_CreateRequestMutation");
 
     cy.expectToast(/Request created successfully/i);
   });

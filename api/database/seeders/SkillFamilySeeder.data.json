@@ -1,0 +1,270 @@
+{
+  "data": {
+    "skillFamilies": [
+      {
+        "description": {
+          "en": "IM work stream - Technical skill family for ATIP (PM/AS classification)",
+          "fr": "IM - famille de compétences techniques pour le volet de travail ATIP"
+        },
+        "key": "atip",
+        "name": {
+          "en": "Access to Information and Privacy",
+          "fr": "Accès à l’information et de la protection des renseignements personnels"
+        }
+      },
+      {
+        "description": {
+          "en": "Behavioural - Communication",
+          "fr": "Comportemental - Communication"
+        },
+        "key": "communication",
+        "name": {
+          "en": "Communication Skills",
+          "fr": "Compétences en communication"
+        }
+      },
+      {
+        "description": {
+          "en": "IT generic work stream - IT Security; sub-stream - Cyber Security",
+          "fr": "Flux de travail générique de TI - Sécurité informatique; sous-flux - cybersécurité"
+        },
+        "key": "cyber_security",
+        "name": {
+          "en": "Cyber Security",
+          "fr": "Cybersécurité"
+        }
+      },
+      {
+        "description": {
+          "en": "IT generic work stream - Database Management",
+          "fr": "Flux de travail générique de TI - Gestion des bases de données"
+        },
+        "key": "database_design___data_administration",
+        "name": {
+          "en": "Database Management",
+          "fr": "Gestion des bases de données"
+        }
+      },
+      {
+        "description": {
+          "en": "IT generic work stream - Software Solutions; sub-stream - Application Development",
+          "fr": "Flux de travail générique de TI - Solutions logicielles; sous-flux - Développement d'applications"
+        },
+        "key": "development_and_programming",
+        "name": {
+          "en": "Software Solutions - Application Development",
+          "fr": "Solutions logicielles - développement d'applications"
+        }
+      },
+      {
+        "description": {
+          "en": "Technical skills required for executive leadership for digital roles, designed to support EX poster creation",
+          "fr": "Compétences techniques requises pour le leadership exécutif pour les rôles numériques, conçues pour soutenir la création d’affiches EX"
+        },
+        "key": "executive_leadership",
+        "name": {
+          "en": "Leadership - Executive Technical Skills",
+          "fr": "Leadership - Compétences techniques des cadres"
+        }
+      },
+      {
+        "description": {
+          "en": "IM work stream - Information Management",
+          "fr": "IM - Gestion de l’information"
+        },
+        "key": "information_management",
+        "name": {
+          "en": "Information Management",
+          "fr": "Gestion de l’information"
+        }
+      },
+      {
+        "description": {
+          "en": "IT generic work stream - Infrastructure Operations",
+          "fr": "Flux de travail générique de TI - Opérations d'infrastructure informatique"
+        },
+        "key": "infrastructure_operations",
+        "name": {
+          "en": "IT Infrastructure Operations",
+          "fr": "Opérations d'infrastructure informatique"
+        }
+      },
+      {
+        "description": {
+          "en": "Behavioural - Interpersonal",
+          "fr": "Comportemental - Interpersonnel"
+        },
+        "key": "interpersonal",
+        "name": {
+          "en": "Interpersonal Behaviours",
+          "fr": "Comportements interpersonnels"
+        }
+      },
+      {
+        "description": {
+          "en": "IT generic work stream - Enterprise Architecture",
+          "fr": "Flux de travail générique de TI - Architecture informatique"
+        },
+        "key": "it_architecture",
+        "name": {
+          "en": "Enterprise Architecture",
+          "fr": "Architecture d'entreprise"
+        }
+      },
+      {
+        "description": {
+          "en": "IT generic work stream - Digital project portfolio management",
+          "fr": "Flux de travail générique de TI - gestion de portefeuille de projets numériques"
+        },
+        "key": "it_management",
+        "name": {
+          "en": "Digital Project Portfolio Management",
+          "fr": "Gestion de portefeuille de projets numériques"
+        }
+      },
+      {
+        "description": {
+          "en": "IT generic work stream - Business Line Advisory Services",
+          "fr": "Flux de travail générique de TI - Services de conseil aux entreprises numériques"
+        },
+        "key": "it_project_management",
+        "name": {
+          "en": "Digital Business Line Advisory Services",
+          "fr": "Services de conseil aux entreprises numériques"
+        }
+      },
+      {
+        "description": {
+          "en": "IT generic work stream - IT Security",
+          "fr": "Flux de travail générique de TI - Sécurité informatique"
+        },
+        "key": "it_security",
+        "name": {
+          "en": "IT Security",
+          "fr": "Sécurité informatique"
+        }
+      },
+      {
+        "description": {
+          "en": "Behavioural - Key Leadership Competencies",
+          "fr": "Comportemental – Compétences clés en leadership"
+        },
+        "key": "klc",
+        "name": {
+          "en": "Leadership - Executive Behaviours",
+          "fr": "Leadership - Comportements des cadres"
+        }
+      },
+      {
+        "description": {
+          "en": "Behavioural - Leadership",
+          "fr": "Comportemental - Leadership"
+        },
+        "key": "leadership",
+        "name": {
+          "en": "Leadership - General Behaviours",
+          "fr": "Leadership - Comportements généraux"
+        }
+      },
+      {
+        "description": {
+          "en": "Management skills at the non-executive level for oversight of finances, human resources, initiatives, and accountabilities",
+          "fr": "Compétences en gestion au niveau non exécutif pour la surveillance des finances, des ressources humaines, des initiatives et des responsabilités"
+        },
+        "key": "management_competencies",
+        "name": {
+          "en": "Leadership - General Technical Skills",
+          "fr": "Leadership - Compétences techniques générales"
+        }
+      },
+      {
+        "description": {
+          "en": "Behavioural - Personal",
+          "fr": "Comportemental - Personnel"
+        },
+        "key": "personal",
+        "name": {
+          "en": "Personal Behaviours",
+          "fr": "Comportements personnels"
+        }
+      },
+      {
+        "description": {
+          "en": "IT support stream - Programming Languages and Tools",
+          "fr": "Volet de support informatique - Langages et outils de programmation"
+        },
+        "key": "programming_languages_and_tools",
+        "name": {
+          "en": "Programming Languages, Frameworks, and Tools",
+          "fr": "Langages de programmation, frameworks et outils"
+        }
+      },
+      {
+        "description": {
+          "en": "IT generic work stream - Software Solutions; sub-stream - Quality Assurance",
+          "fr": "Flux de travail générique de TI - solutions logicielles; sous-flux - assurance qualité"
+        },
+        "key": "software_solutions_quality_assurance",
+        "name": {
+          "en": "Software Solutions - Quality Assurance",
+          "fr": "Solutions logicielles - assurance qualité"
+        }
+      },
+      {
+        "description": {
+          "en": "IT generic work stream - IT Planning and Reporting",
+          "fr": "Flux de travail générique de TI - Planification et reddition de comptes pour l'informatique"
+        },
+        "key": "technical_advising",
+        "name": {
+          "en": "IT Planning and Reporting",
+          "fr": "Planification et reddition de comptes pour l'informatique"
+        }
+      },
+      {
+        "description": {
+          "en": "Behavioural - Thinking",
+          "fr": "Comportemental - Réfléchir"
+        },
+        "key": "thinking",
+        "name": {
+          "en": "Thinking Skills",
+          "fr": "Capacités de raisonnement"
+        }
+      },
+      {
+        "description": {
+          "en": "IT generic work stream - Software Solutions; sub-stream: Digital Product and User Interface Design",
+          "fr": "Flux de travail générique de TI - Solutions logicielles; sous-flux - conception de produits numériques et d'interfaces utilisateur"
+        },
+        "key": "user_experience_and_interface_design",
+        "name": {
+          "en": "Software Solutions - Product Design",
+          "fr": "Solutions logicielles - Conception de produits"
+        }
+      },
+      {
+        "description": {
+          "en": "IT generic work stream - Software Solutions; sub-stream - Web Development",
+          "fr": "Flux de travail générique de TI - Solutions logicielles; sous-flux - développement web"
+        },
+        "key": "ux",
+        "name": {
+          "en": "Software Solutions - Web Development",
+          "fr": "Solutions logicielles - développement web"
+        }
+      },
+      {
+        "description": {
+          "en": "Technical skills family - Working in Government",
+          "fr": "Famille de compétences techniques - Travailler au sein du gouvernement"
+        },
+        "key": "working_in_government",
+        "name": {
+          "en": "Working in Government",
+          "fr": "Travailler au sein du gouvernement"
+        }
+      }
+    ]
+  }
+}

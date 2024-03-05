@@ -1,13 +1,18 @@
 /* eslint-disable import/prefer-default-export */
-import { Pool, PoolCandidate } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import { Pool, PoolCandidate } from "@gc-digital-talent/graphql";
 
 type PartialPoolCandidate = Pick<PoolCandidate, "screeningQuestionResponses">;
 
 export function hasMissingResponses(
   poolCandidate: PartialPoolCandidate,
   pool: Pool | null,
+  RoDFlag: boolean,
 ): boolean {
+  if (!RoDFlag) {
+    return false;
+  }
+
   const poolQuestionIds =
     pool?.screeningQuestions
       ?.map((q) => {

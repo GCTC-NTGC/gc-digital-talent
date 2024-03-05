@@ -1,8 +1,13 @@
 import { IntlShape } from "react-intl";
 
-import { ApplicationStep, Pool } from "@gc-digital-talent/graphql";
+import {
+  ApplicationStep,
+  Pool,
+  PoolCandidate,
+  Scalars,
+  User,
+} from "@gc-digital-talent/graphql";
 
-import { PoolCandidate, Scalars, User } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 
 import { PageNavInfo } from "./pages";
@@ -10,9 +15,10 @@ import { PageNavInfo } from "./pages";
 type GetApplicationStepInfoArgs = {
   application: Omit<PoolCandidate, "pool">;
   paths: ReturnType<typeof useRoutes>;
-  resourceId?: Scalars["ID"];
+  resourceId?: Scalars["ID"]["output"];
   intl: IntlShape;
   stepOrdinal?: number;
+  RoDFlag: boolean;
 };
 
 export type ApplicationStepInfo = {
@@ -33,6 +39,7 @@ export type ApplicationStepInfo = {
     user: User,
     pool: Pool,
     application: Omit<PoolCandidate, "pool">,
+    RoDFlag: boolean,
   ) => boolean;
 };
 

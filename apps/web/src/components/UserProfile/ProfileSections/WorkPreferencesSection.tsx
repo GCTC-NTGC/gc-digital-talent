@@ -7,12 +7,12 @@ import {
   commonMessages,
   getOperationalRequirement,
 } from "@gc-digital-talent/i18n";
-
 import {
   User,
   OperationalRequirement,
   PositionDuration,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
 import {
   hasAllEmptyFields,
   hasEmptyRequiredFields,
@@ -218,14 +218,7 @@ const WorkPreferencesSection = ({
 
         {hasAllEmptyFields(user) && !editPath && (
           <div data-h2-flex-item="base(1of1)">
-            <p>
-              {intl.formatMessage({
-                defaultMessage: "No information has been provided.",
-                id: "/fv4O0",
-                description:
-                  "Message on Admin side when user not filled WorkPreferences section.",
-              })}
-            </p>
+            <p>{intl.formatMessage(commonMessages.noInformationProvided)}</p>
           </div>
         )}
       </div>

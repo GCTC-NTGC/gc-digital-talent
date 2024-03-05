@@ -2,7 +2,10 @@ import { IntlShape } from "react-intl";
 import omit from "lodash/omit";
 import compact from "lodash/compact";
 
-import { BilingualEvaluation, EstimatedLanguageAbility } from "~/api/generated";
+import {
+  BilingualEvaluation,
+  EstimatedLanguageAbility,
+} from "@gc-digital-talent/graphql";
 
 import { FormValues, PartialUser } from "./types";
 
@@ -115,8 +118,8 @@ export const getConsideredLangItems = (intl: IntlShape) => [
     value: "lookingForBilingual",
     label: intl.formatMessage({
       defaultMessage: "Bilingual positions (English and French)",
-      id: "Mu+1pI",
-      description: "Message for the bilingual positions option",
+      id: "6eCvv1",
+      description: "Bilingual Positions message",
     }),
   },
 ];

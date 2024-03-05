@@ -2,6 +2,7 @@ import * as React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { useMutation, useQuery } from "urql";
 
 import {
   Checkbox,
@@ -13,8 +14,8 @@ import {
   enumToOptions,
   objectsToSortedOptions,
 } from "@gc-digital-talent/forms";
-import { Heading, Link, Pending } from "@gc-digital-talent/ui";
-import { errorMessages } from "@gc-digital-talent/i18n";
+import { Heading, Link, Pending, Separator } from "@gc-digital-talent/ui";
+import { errorMessages, getSearchRequestReason } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -26,9 +27,6 @@ import {
   EquitySelections,
   Department,
   CreatePoolCandidateSearchRequestInput,
-  useGetPoolCandidateSearchRequestDataQuery,
-  useCreatePoolCandidateSearchRequestMutation,
-  CreatePoolCandidateSearchRequestMutation,
   Maybe,
   DepartmentBelongsTo,
   Classification,
@@ -39,8 +37,9 @@ import {
   ApplicantFilterInput,
   PoolCandidateSearchPositionType,
   PoolCandidateSearchRequestReason,
+  type RequestForm_CreateRequestMutation as CreateRequestMutation,
+  graphql,
 } from "@gc-digital-talent/graphql";
-import { getSearchRequestReason } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
 
 import SEO from "~/components/SEO/SEO";
 import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
@@ -56,7 +55,6 @@ const directiveLink = (chunks: React.ReactNode, href: string) => (
     {chunks}
   </Link>
 );
-
 // Have to explicitly define this type since the backing object of the form has to be fully nullable.
 type FormValues = {
   fullName?: CreatePoolCandidateSearchRequestInput["fullName"];
@@ -66,6 +64,7 @@ type FormValues = {
   positionType?: boolean;
   reason: CreatePoolCandidateSearchRequestInput["reason"];
   additionalComments?: CreatePoolCandidateSearchRequestInput["additionalComments"];
+  hrAdvisorEmail?: CreatePoolCandidateSearchRequestInput["hrAdvisorEmail"];
   applicantFilter?: {
     qualifiedClassifications?: {
       sync?: Array<Maybe<Classification["id"]>>;
@@ -98,9 +97,7 @@ export interface RequestFormProps {
   selectedClassifications?: Maybe<SimpleClassification>[];
   handleCreatePoolCandidateSearchRequest: (
     data: CreatePoolCandidateSearchRequestInput,
-  ) => Promise<
-    CreatePoolCandidateSearchRequestMutation["createPoolCandidateSearchRequest"]
-  >;
+  ) => Promise<CreateRequestMutation["createPoolCandidateSearchRequest"]>;
 }
 
 export const RequestForm = ({
@@ -144,7 +141,8 @@ export const RequestForm = ({
       positionType: positionTypeMassaged,
       reason: values.reason,
       additionalComments: values.additionalComments,
-      wasEmpty: candidateCount === 0,
+      hrAdvisorEmail: values.hrAdvisorEmail ?? "",
+      wasEmpty: candidateCount === 0 && !state.allPools,
       applicantFilter: {
         create: {
           positionDuration:
@@ -234,27 +232,31 @@ export const RequestForm = ({
     id: "", // Set Id to empty string since the PoolCandidateSearchRequest doesn't exist yet.
     ...applicantFilter,
     qualifiedClassifications:
-      applicantFilter?.qualifiedClassifications?.map(
-        (qualifiedClassification) => {
+      applicantFilter?.qualifiedClassifications
+        ?.map((qualifiedClassification) => {
           return classifications.find((classification) => {
             return (
               classification.group === qualifiedClassification?.group &&
               classification.level === qualifiedClassification.level
             );
           });
-        },
-      ) ?? [],
+        })
+        .filter(notEmpty) ?? [],
     skills:
-      applicantFilter?.skills?.map((skillId) => {
-        return skills.find((skill) => {
-          return skill && skillId && skill.id === skillId.id;
+      applicantFilter?.skills
+        ?.map((skillId) => {
+          return skills.find((skill) => {
+            return skill && skillId && skill.id === skillId.id;
+          });
+        })
+        .filter(notEmpty) ?? [],
+    pools: applicantFilter?.pools
+      ?.map((poolId) => {
+        return pools.find((pool) => {
+          return pool && poolId && pool.id === poolId.id;
         });
-      }) ?? [],
-    pools: applicantFilter?.pools?.map((poolId) => {
-      return pools.find((pool) => {
-        return pool && poolId && pool.id === poolId.id;
-      });
-    }),
+      })
+      .filter(notEmpty),
   };
 
   return (
@@ -289,9 +291,9 @@ export const RequestForm = ({
                 type="text"
                 name="fullName"
                 label={intl.formatMessage({
-                  defaultMessage: "Full Name",
-                  id: "dRnKNR",
-                  description: "Label for full name input in the request form",
+                  defaultMessage: "Full name",
+                  id: "IBc2sp",
+                  description: "Label for full name",
                 })}
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
@@ -349,6 +351,19 @@ export const RequestForm = ({
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
+              />
+            </div>
+            <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+              <Input
+                id="hrAdvisorEmail"
+                type="email"
+                name="hrAdvisorEmail"
+                label={intl.formatMessage({
+                  defaultMessage: "HR advisor email",
+                  id: "VrLfLw",
+                  description:
+                    "Input label asking for the HR advisor's email address.",
+                })}
               />
             </div>
           </div>
@@ -501,12 +516,7 @@ export const RequestForm = ({
             filters={applicantFilterInputToType}
             selectedClassifications={selectedClassifications}
           />
-          <hr
-            data-h2-height="base(1px)"
-            data-h2-border="base(none)"
-            data-h2-background="base(gray)"
-            data-h2-margin="base(x1, 0, x2, 0)"
-          />
+          <Separator />
           <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x1)">
             {intl.formatMessage(
               {
@@ -559,6 +569,69 @@ export const RequestForm = ({
   );
 };
 
+const RequestForm_CreateRequestMutation = graphql(/* GraphQL */ `
+  mutation RequestForm_CreateRequest(
+    $poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!
+  ) {
+    createPoolCandidateSearchRequest(
+      poolCandidateSearchRequest: $poolCandidateSearchRequest
+    ) {
+      id
+      fullName
+      email
+      department {
+        id
+      }
+      jobTitle
+      additionalComments
+      hrAdvisorEmail
+      poolCandidateFilter {
+        id
+      }
+    }
+  }
+`);
+
+const RequestForm_SearchRequestDataQuery = graphql(/* GraphQL */ `
+  query RequestForm_SearchRequestData {
+    departments {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+    skills {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      category
+    }
+    classifications {
+      id
+      group
+      level
+    }
+    pools {
+      id
+      name {
+        en
+        fr
+      }
+      classifications {
+        id
+        group
+        level
+      }
+      stream
+    }
+  }
+`);
+
 const RequestFormApi = ({
   applicantFilter,
   candidateCount,
@@ -571,9 +644,9 @@ const RequestFormApi = ({
   selectedClassifications?: Maybe<SimpleClassification>[];
 }) => {
   const intl = useIntl();
-  const [lookupResult] = useGetPoolCandidateSearchRequestDataQuery();
-  const { data: lookupData, fetching, error } = lookupResult;
-
+  const [{ data: lookupData, fetching, error }] = useQuery({
+    query: RequestForm_SearchRequestDataQuery,
+  });
   const classifications: Classification[] =
     lookupData?.classifications.filter(notEmpty) ?? [];
   const departments: Department[] =
@@ -581,7 +654,7 @@ const RequestFormApi = ({
   const skills: Skill[] = lookupData?.skills.filter(notEmpty) ?? [];
   const pools: Pool[] = lookupData?.pools.filter(notEmpty) ?? [];
 
-  const [, executeMutation] = useCreatePoolCandidateSearchRequestMutation();
+  const [, executeMutation] = useMutation(RequestForm_CreateRequestMutation);
   const handleCreatePoolCandidateSearchRequest = (
     data: CreatePoolCandidateSearchRequestInput,
   ) =>

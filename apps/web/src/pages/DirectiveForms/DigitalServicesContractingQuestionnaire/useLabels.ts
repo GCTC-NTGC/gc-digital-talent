@@ -1,6 +1,7 @@
 import { IntlShape, useIntl } from "react-intl";
 
 import { FieldLabels } from "@gc-digital-talent/forms";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 const getLabels = (intl: IntlShape) => {
   return {
@@ -31,42 +32,20 @@ const getLabels = (intl: IntlShape) => {
       description:
         "Label for _branch_ field in the _digital services contracting questionnaire_",
     }),
-    businessOwnerName: intl.formatMessage({
-      defaultMessage: "Name",
-      id: "AkuIfT",
-      description:
-        "Label for _business owner name_ field in the _digital services contracting questionnaire_",
-    }),
+    businessOwnerName: intl.formatMessage(commonMessages.name),
     businessOwnerJobTitle: intl.formatMessage({
       defaultMessage: "Job title",
-      id: "wRhcac",
-      description:
-        "Label for _business owner job title_ field in the _digital services contracting questionnaire_",
+      id: "HBuWZ0",
+      description: "Title for job title for a position",
     }),
-    businessOwnerEmail: intl.formatMessage({
-      defaultMessage: "Email",
-      id: "sg9olk",
-      description:
-        "Label for _business owner email_ field in the _digital services contracting questionnaire_",
-    }),
-    financialAuthorityName: intl.formatMessage({
-      defaultMessage: "Name",
-      id: "ttIQ0Q",
-      description:
-        "Label for _financial authority name_ field in the _digital services contracting questionnaire_",
-    }),
+    businessOwnerEmail: intl.formatMessage(commonMessages.email),
+    financialAuthorityName: intl.formatMessage(commonMessages.name),
     financialAuthorityJobTitle: intl.formatMessage({
       defaultMessage: "Job title",
-      id: "dgVAPq",
-      description:
-        "Label for _financial authority job title_ field in the _digital services contracting questionnaire_",
+      id: "HBuWZ0",
+      description: "Title for job title for a position",
     }),
-    financialAuthorityEmail: intl.formatMessage({
-      defaultMessage: "Email",
-      id: "51Hc86",
-      description:
-        "Label for _financial authority email_ field in the _digital services contracting questionnaire_",
-    }),
+    financialAuthorityEmail: intl.formatMessage(commonMessages.email),
     isAuthorityInvolved: intl.formatMessage({
       defaultMessage:
         "Are there any other authorities involved or engaged on this contract?",

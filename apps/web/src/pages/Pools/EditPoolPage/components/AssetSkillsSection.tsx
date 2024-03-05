@@ -3,8 +3,8 @@ import { useIntl } from "react-intl";
 import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
 
 import { ToggleSection } from "@gc-digital-talent/ui";
+import { PoolStatus, Skill, UpdatePoolInput } from "@gc-digital-talent/graphql";
 
-import { PoolStatus, Skill, UpdatePoolInput } from "~/api/generated";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 
 import SkillTable from "./SkillTable";
@@ -48,12 +48,13 @@ const AssetSkillsSection = ({
   });
 
   return (
-    <>
+    <section>
       <ToggleSection.Header
         Icon={icon.icon}
         color={icon.color}
         level="h3"
-        size="h5"
+        size="h4"
+        data-h2-font-weight="base(bold)"
       >
         {sectionMetadata.title}
       </ToggleSection.Header>
@@ -64,8 +65,20 @@ const AssetSkillsSection = ({
         allSkills={skills}
         onSave={handleSave}
         disableAdd={formDisabled}
+        nullMessage={{
+          title: intl.formatMessage({
+            defaultMessage: "You haven't added any asset skills yet.",
+            id: "DJL4F5",
+            description: "Null message title for asset skills table.",
+          }),
+          description: intl.formatMessage({
+            defaultMessage: `Use the "Add a new skill" button to get started.`,
+            id: "Wd9+xg",
+            description: "Null message description for asset skills table.",
+          }),
+        }}
       />
-    </>
+    </section>
   );
 };
 

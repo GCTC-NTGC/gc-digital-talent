@@ -1,6 +1,8 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 
+import { navigationMessages } from "@gc-digital-talent/i18n";
+
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import Hero from "~/components/Hero/Hero";
@@ -27,13 +29,7 @@ const SearchPage = () => {
 
   return (
     <>
-      <SEO
-        title={intl.formatMessage({
-          defaultMessage: "Find talent",
-          id: "ccBhi2",
-          description: "Page title for the search page",
-        })}
-      />
+      <SEO title={intl.formatMessage(navigationMessages.findTalent)} />
       <Hero
         title={title}
         subtitle={intl.formatMessage({

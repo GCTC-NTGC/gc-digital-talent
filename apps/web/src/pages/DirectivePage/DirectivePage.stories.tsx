@@ -18,5 +18,4 @@ const Template: Story = () => <DirectivePage />;
 export const Default = Template.bind({});
 Default.parameters = {
   chromatic: { viewports: CHROMATIC_VIEWPORTS },
-  themeKey: "default",
 };

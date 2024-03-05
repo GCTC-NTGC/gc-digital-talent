@@ -9,10 +9,9 @@ import userEvent from "@testing-library/user-event";
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 
 import ToggleGroup from "./ToggleGroup";
-import type { ToggleGroupProps } from "./ToggleGroup";
 
 const renderToggleGroup = (
-  props: React.ComponentPropsWithoutRef<ToggleGroupProps>,
+  props: React.ComponentPropsWithoutRef<typeof ToggleGroup.Root>,
 ) => {
   return renderWithProviders(
     <ToggleGroup.Root {...props}>

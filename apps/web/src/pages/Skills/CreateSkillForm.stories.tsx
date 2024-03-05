@@ -11,9 +11,6 @@ const mockFamilies = fakeSkillFamilies();
 export default {
   component: CreateSkillForm,
   title: "Forms/Create Skill Form",
-  parameters: {
-    themeKey: "admin",
-  },
 } as ComponentMeta<typeof CreateSkillForm>;
 
 const Template: ComponentStory<typeof CreateSkillForm> = (args) => {
@@ -24,7 +21,7 @@ const Template: ComponentStory<typeof CreateSkillForm> = (args) => {
       handleCreateSkill={async (data) => {
         return new Promise((resolve) => {
           setTimeout(() => {
-            action("Create Skill")(data);
+            action("Create skill")(data);
             return resolve(data);
           }, 1000);
         });

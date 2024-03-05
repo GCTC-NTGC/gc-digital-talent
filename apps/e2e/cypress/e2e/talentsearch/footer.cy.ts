@@ -14,7 +14,7 @@ describe("Footer", () => {
           cy.findByRole("link", { name: /privacy Policy/i }).should(
             "have.attr",
             "href",
-            "/en/privacy-notice",
+            "/en/privacy-policy",
           );
         },
       );
@@ -71,7 +71,7 @@ describe("Footer", () => {
           cy.findByRole("link", { name: /Énoncé de confidentialité/i }).should(
             "have.attr",
             "href",
-            "/fr/privacy-notice",
+            "/fr/privacy-policy",
           );
         },
       );

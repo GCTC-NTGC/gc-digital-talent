@@ -6,8 +6,7 @@ import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
-
-import { PoolStatus, Pool, PublishingGroup } from "~/api/generated";
+import { PoolStatus, Pool, PublishingGroup } from "@gc-digital-talent/graphql";
 
 import ActiveRecruitmentSection, {
   ActiveRecruitmentSectionProps,

@@ -11,17 +11,17 @@ import {
   RadioGroup,
 } from "@gc-digital-talent/forms";
 import {
+  commonMessages,
   errorMessages,
-  formMessages,
   getLocale,
 } from "@gc-digital-talent/i18n";
+import { Heading, TableOfContents } from "@gc-digital-talent/ui";
 import {
   ContractAuthority,
   Department,
   YesNo,
   YesNoUnsure,
 } from "@gc-digital-talent/graphql";
-import { Heading, TableOfContents } from "@gc-digital-talent/ui";
 
 import talentPlanEn from "~/assets/documents/Forward_Talent_Plan_EN.docx";
 import talentPlanFr from "~/assets/documents/Plan_prospectif_sur_les_talents_FR.docx";
@@ -148,7 +148,7 @@ const GeneralInformationSection = ({
             ...objectsToSortedOptions(departments, intl),
             {
               value: OTHER_ID,
-              label: intl.formatMessage(formMessages.other),
+              label: intl.formatMessage(commonMessages.other),
             },
           ]}
           rules={{

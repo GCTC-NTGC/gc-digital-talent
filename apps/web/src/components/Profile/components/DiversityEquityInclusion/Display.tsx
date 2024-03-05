@@ -1,13 +1,14 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { IndigenousCommunity, User } from "@gc-digital-talent/graphql";
 import {
+  commonMessages,
   getEmploymentEquityStatement,
   getIndigenousCommunity,
 } from "@gc-digital-talent/i18n";
 import { Separator } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { IndigenousCommunity, User } from "@gc-digital-talent/graphql";
 
 import CommunityIcon from "./CommunityIcon";
 
@@ -30,8 +31,10 @@ const Display = ({
     ) || [];
   const isIndigenous =
     indigenousCommunities && indigenousCommunities.length > 0;
+  const hasClaimedEquityGroup =
+    isWoman || hasDisability || isVisibleMinority || isIndigenous;
 
-  return (
+  return hasClaimedEquityGroup ? (
     <>
       <ul>
         {isWoman && (
@@ -74,12 +77,7 @@ const Display = ({
           </li>
         )}
       </ul>
-      <Separator
-        orientation="horizontal"
-        data-h2-background-color="base:all(gray.lighter)"
-        data-h2-margin="base(x1, 0)"
-        decorative
-      />
+      <Separator space="sm" />
       <p>
         {intl.formatMessage({
           defaultMessage:
@@ -90,6 +88,8 @@ const Display = ({
         })}
       </p>
     </>
+  ) : (
+    <p>{intl.formatMessage(commonMessages.notProvided)}</p>
   );
 };
 

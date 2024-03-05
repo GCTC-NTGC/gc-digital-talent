@@ -1,6 +1,11 @@
 import { defineMessages } from "react-intl";
 
 const messages = defineMessages({
+  process: {
+    defaultMessage: "Process",
+    id: "WSMupE",
+    description: "Title for process sections",
+  },
   classification: {
     defaultMessage: "Classification",
     id: "YmWKlv",
@@ -10,6 +15,11 @@ const messages = defineMessages({
     defaultMessage: "Stream",
     id: "9pYlYz",
     description: "Label for a process' stream",
+  },
+  opportunityLength: {
+    defaultMessage: "Length of opportunity",
+    id: "08rkLr",
+    description: "Label for a process' opportunity employment duration",
   },
   titleEn: {
     defaultMessage: "Specific title (English)",
@@ -30,6 +40,11 @@ const messages = defineMessages({
     defaultMessage: "Publishing group",
     id: "ysKXVP",
     description: "Label for a process' publishing group",
+  },
+  closingDate: {
+    defaultMessage: "Closing date",
+    id: "CQxGrS",
+    description: "Label for a process' closing date",
   },
   closingDatePacific: {
     defaultMessage: "Closing date (Pacific timezone)",
@@ -95,6 +110,32 @@ const messages = defineMessages({
     defaultMessage: "Special note (French)",
     id: "g7RC9u",
     description: "Label for a process' French special note",
+  },
+  screeningQuestions: {
+    defaultMessage: "Screening questions",
+    id: "p8+wKq",
+    description: "Title of screening questions",
+  },
+  additionalQuestions: {
+    defaultMessage: "Additional questions",
+    id: "JhBsgc",
+    description: "Title of additional questions",
+  },
+  generalQuestions: {
+    defaultMessage: "General questions",
+    id: "PnWNZn",
+    description: "Title of general questions",
+  },
+  noAssessmentPlan: {
+    defaultMessage: "This process does not have an assessment plan.",
+    id: "mYnQH4",
+    description: "A process has no assessment plan",
+  },
+  viewTalentPlacement: {
+    defaultMessage:
+      "You can view your candidates on the <a>Talent placement</a> page.",
+    id: "tgtpgb",
+    description: "Message to direct users to the talent placement page",
   },
 });
 

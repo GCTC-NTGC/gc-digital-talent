@@ -2,14 +2,16 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 import BuildingLibraryIcon from "@heroicons/react/24/outline/BuildingLibraryIcon";
+import { useQuery } from "urql";
 
 import { ToggleSection, Well } from "@gc-digital-talent/ui";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import profileMessages from "~/messages/profileMessages";
-import { useGetProfileFormOptionsQuery } from "~/api/generated";
 import {
   hasEmptyRequiredFields,
   hasAllEmptyFields,
@@ -24,6 +26,30 @@ import { FormValues } from "./types";
 import FormFields from "./FormFields";
 import NullDisplay from "./NullDisplay";
 import Display from "./Display";
+
+const GovernmentInformationFormData_Query = graphql(/* GraphQL */ `
+  query GetProfileFormOptions {
+    departments {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+    classifications {
+      id
+      name {
+        en
+        fr
+      }
+      group
+      level
+      minSalary
+      maxSalary
+    }
+  }
+`);
 
 const GovernmentInformation = ({
   user,
@@ -41,9 +67,9 @@ const GovernmentInformation = ({
     fallbackIcon: BuildingLibraryIcon,
   });
 
-  const [{ data }] = useGetProfileFormOptionsQuery();
-  const classifications = data?.classifications.filter(notEmpty) || [];
-  const departments = data?.departments.filter(notEmpty) || [];
+  const [{ data }] = useQuery({ query: GovernmentInformationFormData_Query });
+  const classifications = unpackMaybes(data?.classifications);
+  const departments = unpackMaybes(data?.departments);
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     return onUpdate(
@@ -89,12 +115,7 @@ const GovernmentInformation = ({
                   "Button text to start editing government information",
               })}
             >
-              {intl.formatMessage({
-                defaultMessage: "Edit this section",
-                id: "co9aIV",
-                description:
-                  "Button text to start editing one of the profile sections.",
-              })}
+              {intl.formatMessage(commonMessages.editThisSection)}
             </ToggleForm.Trigger>
           ) : undefined
         }

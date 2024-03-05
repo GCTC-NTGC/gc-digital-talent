@@ -1,13 +1,6 @@
 import React from "react";
 import { IntlShape } from "react-intl";
 
-import {
-  Classification,
-  Maybe,
-  PoolCandidateSearchRequest,
-  PoolCandidateSearchStatus,
-  Scalars,
-} from "@gc-digital-talent/graphql";
 import { Link, Pill, Spoiler } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -15,9 +8,18 @@ import {
   commonMessages,
   getPoolCandidateSearchStatus,
 } from "@gc-digital-talent/i18n";
+import {
+  Classification,
+  Maybe,
+  PoolCandidateSearchRequest,
+  PoolCandidateSearchStatus,
+  Scalars,
+} from "@gc-digital-talent/graphql";
+
+import useRoutes from "~/hooks/useRoutes";
 
 export function classificationAccessor(
-  classifications: Maybe<Maybe<Classification>[]>,
+  classifications: Maybe<Maybe<Classification>[]> | undefined,
 ) {
   return classifications
     ?.filter(notEmpty)
@@ -26,7 +28,7 @@ export function classificationAccessor(
 }
 
 export function classificationsCell(
-  classifications: Maybe<Maybe<Classification>[]>,
+  classifications: Maybe<Maybe<Classification>[] | undefined> | undefined,
   intl: IntlShape,
 ) {
   const filteredClassifications = classifications
@@ -50,7 +52,10 @@ export function classificationsCell(
   );
 }
 
-export function dateCell(date: Maybe<Scalars["DateTime"]>, intl: IntlShape) {
+export function dateCell(
+  date: Maybe<Scalars["DateTime"]["output"]>,
+  intl: IntlShape,
+) {
   return date ? (
     <span>
       {formatDate({
@@ -61,6 +66,17 @@ export function dateCell(date: Maybe<Scalars["DateTime"]>, intl: IntlShape) {
     </span>
   ) : null;
 }
+
+export const jobTitleCell = (
+  searchRequest: PoolCandidateSearchRequest,
+  paths: ReturnType<typeof useRoutes>,
+) => {
+  return (
+    <Link href={paths.searchRequestView(searchRequest.id)}>
+      {searchRequest.jobTitle}
+    </Link>
+  );
+};
 
 export const notesCell = (
   searchRequest: PoolCandidateSearchRequest,
@@ -115,12 +131,7 @@ export const statusCell = (
 export function viewCell(url: string, label: Maybe<string>, intl: IntlShape) {
   return (
     <Link href={url} color="black">
-      {label ||
-        intl.formatMessage({
-          defaultMessage: "No name provided",
-          id: "L9Ked5",
-          description: "Fallback for team display name value",
-        })}
+      {label || intl.formatMessage(commonMessages.noNameProvided)}
     </Link>
   );
 }

@@ -1,6 +1,11 @@
 import { defineMessages } from "react-intl";
 
 const messages = defineMessages({
+  addNewExperience: {
+    defaultMessage: "Add a new experience",
+    id: "bOAF9o",
+    description: "Button to open modal to add a new experience to the profile",
+  },
   award: {
     defaultMessage: "Awards and recognition",
     id: "DRYl88",

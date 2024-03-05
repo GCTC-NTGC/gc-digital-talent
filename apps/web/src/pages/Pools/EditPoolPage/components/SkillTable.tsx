@@ -2,13 +2,14 @@ import React from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 
-import { Scalars, Skill } from "@gc-digital-talent/graphql";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Button } from "@gc-digital-talent/ui";
+import { Scalars, Skill } from "@gc-digital-talent/graphql";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
 import { normalizedText } from "~/components/Table/sortingFns";
+import { NullMessageProps } from "~/components/Table/ResponsiveTable/NullMessage";
 
 const columnHelper = createColumnHelper<Skill>();
 
@@ -40,8 +41,9 @@ interface SkillTableProps {
   caption: string;
   data: Skill[];
   allSkills: Skill[];
-  onSave: (submitData: Scalars["ID"][]) => Promise<void>;
+  onSave: (submitData: Scalars["ID"]["output"][]) => Promise<void>;
   disableAdd?: boolean;
+  nullMessage?: NullMessageProps;
 }
 
 const SkillTable = ({
@@ -50,6 +52,7 @@ const SkillTable = ({
   allSkills,
   onSave,
   disableAdd,
+  nullMessage,
 }: SkillTableProps) => {
   const intl = useIntl();
   const availableSkills = allSkills.filter(
@@ -83,11 +86,7 @@ const SkillTable = ({
       columnHelper.display({
         id: "edit",
         enableHiding: false,
-        header: intl.formatMessage({
-          defaultMessage: "Remove",
-          id: "yBZaZy",
-          description: "Header for the remove column on a skill table",
-        }),
+        header: intl.formatMessage(commonMessages.remove),
         meta: {
           hideMobileHeader: true,
         },
@@ -108,7 +107,7 @@ const SkillTable = ({
           ? {
               component: (
                 <SkillBrowserDialog
-                  context="experience"
+                  context="pool"
                   showCategory={false}
                   skills={availableSkills}
                   onSave={async (value) => {
@@ -129,6 +128,7 @@ const SkillTable = ({
         total: data.length,
         pageSizes: [10, 20, 50],
       }}
+      nullMessage={nullMessage}
     />
   );
 };

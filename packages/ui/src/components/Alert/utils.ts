@@ -82,21 +82,6 @@ export const iconStyleMap: Record<AlertType, Record<string, string>> = {
   },
 };
 
-export const bannerStyleMap: Record<AlertType, Record<string, string>> = {
-  success: {
-    "data-h2-background-color": "base:all(success.lightest)",
-  },
-  warning: {
-    "data-h2-background-color": "base:all(warning.lightest)",
-  },
-  info: {
-    "data-h2-background-color": "base:all(secondary.lightest)",
-  },
-  error: {
-    "data-h2-background-color": "base:all(error.lightest)",
-  },
-};
-
 export const getAlertLevelTitle = (type: AlertType, intl: IntlShape) => {
   const alertLevelTitles = new Map<AlertType, React.ReactNode>([
     ["success", intl.formatMessage(uiMessages.successAlert)],

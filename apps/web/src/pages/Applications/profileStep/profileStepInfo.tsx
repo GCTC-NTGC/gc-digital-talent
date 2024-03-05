@@ -13,10 +13,17 @@ const getStepInfo: GetApplicationStepInfo = ({
   paths,
   intl,
   stepOrdinal,
+  RoDFlag,
 }): ApplicationStepInfo => {
   return {
     applicationStep: ApplicationStep.ReviewYourProfile,
-    mainPage: profilePageInfo({ paths, intl, application, stepOrdinal }),
+    mainPage: profilePageInfo({
+      paths,
+      intl,
+      application,
+      stepOrdinal,
+      RoDFlag,
+    }),
     showInStepper: true,
     prerequisites: [ApplicationStep.Welcome, ApplicationStep.SelfDeclaration],
     hasError: stepHasError,

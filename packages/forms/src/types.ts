@@ -29,7 +29,7 @@ export type CommonInputProps = {
   /** HTML id used to identify the element. */
   id: string;
   /** Optional context which user can view by toggling a button. */
-  context?: string;
+  context?: string | React.ReactNode;
   /** Holds text for the label associated with the input element */
   label: string | React.ReactNode;
   /** A string specifying a name for the input control. */
@@ -47,3 +47,22 @@ export type InputFieldError =
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   | Merge<FieldError, FieldErrorsImpl<any>>
   | undefined;
+
+export type Option = {
+  label: React.ReactNode;
+  value: string | number;
+  disabled?: boolean;
+  options?: Option[];
+  /** Aria labels for alternate text that will be read by assistive technologies. */
+  ariaLabel?: string;
+};
+export type OptGroup = {
+  label: React.ReactNode;
+  options: Option[];
+  disabled?: boolean;
+  value: string | number;
+  /** Aria labels for alternate text that will be read by assistive technologies. */
+  ariaLabel?: string;
+};
+
+export type OptGroupOrOption = OptGroup | Option;

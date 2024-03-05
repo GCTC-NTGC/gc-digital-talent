@@ -3,16 +3,14 @@ import { useIntl } from "react-intl";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { Skill } from "@gc-digital-talent/graphql";
-
-import { Experience, Scalars } from "~/api/generated";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { Skill, Experience, Scalars } from "@gc-digital-talent/graphql";
 
 import ExperienceSkillForm from "./ExperienceSkillForm";
 
 type FormValues = {
-  experience?: Scalars["ID"];
-  skill?: Scalars["ID"];
+  experience?: Scalars["ID"]["output"];
+  skill?: Scalars["ID"]["output"];
   details?: string;
 };
 
@@ -68,11 +66,7 @@ const ExperienceSkillFormDialog = ({
       <Dialog.Trigger>
         {trigger || (
           <Button icon={PencilSquareIcon} color="tertiary" mode="inline">
-            {intl.formatMessage({
-              defaultMessage: "Edit",
-              id: "vXwT4K",
-              description: "Generic link text to edit a miscellaneous item",
-            })}
+            {intl.formatMessage(commonMessages.edit)}
           </Button>
         )}
       </Dialog.Trigger>

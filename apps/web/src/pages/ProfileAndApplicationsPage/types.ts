@@ -1,4 +1,4 @@
-import { Maybe, PoolCandidate, User } from "~/api/generated";
+import { Maybe, PoolCandidate, User } from "@gc-digital-talent/graphql";
 
 type Application = Omit<PoolCandidate, "user">;
 

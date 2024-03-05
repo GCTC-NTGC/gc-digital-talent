@@ -2,6 +2,7 @@ import {
   ArmedForcesStatus,
   CitizenshipStatus,
   PoolLanguage,
+  PoolOpportunityLength,
   PoolStream,
   PositionDuration,
   ProvinceOrTerritory,
@@ -19,7 +20,7 @@ import { aliasQuery } from "../../support/graphql-test-utils";
 describe("Submit Application for IAP Workflow Tests", () => {
   beforeEach(() => {
     cy.intercept("POST", "/graphql", function (req) {
-      aliasQuery(req, "getMyExperiences");
+      aliasQuery(req, "Application");
     });
 
     cy.getSkills().then((allSkills) => {
@@ -99,6 +100,7 @@ describe("Submit Application for IAP Workflow Tests", () => {
                         fr: "test location FR",
                       },
                       isRemote: true,
+                      opportunityLength: PoolOpportunityLength.Various,
                       publishingGroup: PublishingGroup.Iap,
                     });
                     cy.publishPool(testPoolId);
@@ -247,7 +249,7 @@ describe("Submit Application for IAP Workflow Tests", () => {
     );
     cy.findByRole("button", { name: /Save and go back/i }).click();
     cy.expectToast(/Successfully added experience!/i);
-    cy.wait("@gqlgetMyExperiencesQuery");
+    cy.wait("@gqlApplicationQuery");
     // returned to main career timeline review page
     cy.contains(/1 education and certificate experience/i)
       .should("exist")
@@ -259,7 +261,9 @@ describe("Submit Application for IAP Workflow Tests", () => {
     cy.expectToast(/Successfully updated your career timeline!/i);
 
     // Education experience page - step five
-    cy.findByRole("heading", { name: /Minimum experience or education/i })
+    cy.findByRole("heading", {
+      name: /Minimum experience or equivalent education/i,
+    })
       .should("exist")
       .and("be.visible");
     cy.findByRole("radio", {

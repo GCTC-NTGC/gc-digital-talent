@@ -4,17 +4,18 @@ import { Outlet } from "react-router-dom";
 import UserIcon from "@heroicons/react/24/outline/UserIcon";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
+import { useQuery } from "urql";
 
 import { ThrowNotFound, Pending, Alert } from "@gc-digital-talent/ui";
+import { User, graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
-import PageHeader from "~/components/PageHeader";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import { getFullNameHtml } from "~/utils/nameUtils";
-import { User, useUserNameQuery } from "~/api/generated";
 import { PageNavInfo } from "~/types/pages";
+import AdminHero from "~/components/Hero/AdminHero";
 
 type PageNavKeys = "profile" | "info" | "edit";
 
@@ -83,9 +84,17 @@ const UserHeader = ({ user }: UserHeaderProps) => {
   return (
     <>
       <SEO title={currentPage?.title} />
-      <PageHeader subtitle={userName} icon={currentPage?.icon} navItems={pages}>
-        {currentPage?.title}
-      </PageHeader>
+      <AdminHero
+        title={currentPage?.title}
+        subtitle={userName}
+        nav={{
+          mode: "subNav",
+          items: Array.from(pages.values()).map((page) => ({
+            label: page.link.label ?? page.title,
+            url: page.link.url,
+          })),
+        }}
+      />
       {userDeleted ? (
         <Alert.Root
           type="warning"
@@ -109,22 +118,31 @@ type RouteParams = {
   userId: string;
 };
 
+const UserName_Query = graphql(/* GraphQL */ `
+  query UserName($userId: UUID!) {
+    user(id: $userId, trashed: WITH) {
+      id
+      firstName
+      lastName
+      deletedDate
+    }
+  }
+`);
+
 const UserLayout = () => {
   const { userId } = useRequiredParams<RouteParams>("userId");
-  const [{ data, fetching, error }] = useUserNameQuery({
+  const [{ data, fetching, error }] = useQuery({
+    query: UserName_Query,
     variables: {
-      userId: userId || "",
+      userId,
     },
   });
 
   return (
     <>
-      {/* This is above the AdminContentWrapper so it needs its own centering */}
-      <div data-h2-container="base(center, full, x2)">
-        <Pending fetching={fetching} error={error}>
-          {data?.user ? <UserHeader user={data.user} /> : <ThrowNotFound />}
-        </Pending>
-      </div>
+      <Pending fetching={fetching} error={error}>
+        {data?.user ? <UserHeader user={data.user} /> : <ThrowNotFound />}
+      </Pending>
       <Outlet />
     </>
   );

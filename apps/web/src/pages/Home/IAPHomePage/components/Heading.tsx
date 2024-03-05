@@ -20,7 +20,7 @@ const Heading = ({
   return (
     <El
       {...(color === "pink"
-        ? { "data-h2-color": "base(primary.dark)" }
+        ? { "data-h2-color": "base(primary.dark) base:dark(primary.lightest)" }
         : { "data-h2-color": "base(white)" })}
       {...(light
         ? { "data-h2-font-weight": "base(100)" }

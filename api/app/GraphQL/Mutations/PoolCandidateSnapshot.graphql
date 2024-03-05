@@ -49,7 +49,6 @@ query getProfile($userId: UUID!) {
     }
     isWoman
     hasDisability
-    isIndigenous
     indigenousCommunities
     indigenousDeclarationSignature
     isVisibleMinority
@@ -113,6 +112,18 @@ query getProfile($userId: UUID!) {
       educationRequirementOption
       educationRequirementExperiences {
         ...profileExperience
+      }
+      generalQuestionResponses {
+        id
+        answer
+        generalQuestion {
+          id
+          sortOrder
+          question {
+            en
+            fr
+          }
+        }
       }
       screeningQuestionResponses {
         id

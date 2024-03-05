@@ -1,7 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { UserSkill } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   getBehaviouralSkillLevel,
@@ -9,6 +8,7 @@ import {
   getTechnicalSkillLevel,
 } from "@gc-digital-talent/i18n";
 import { Heading } from "@gc-digital-talent/ui";
+import { UserSkill } from "@gc-digital-talent/graphql";
 
 interface UserSkillListProps {
   technical: UserSkill[];

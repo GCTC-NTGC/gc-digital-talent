@@ -60,7 +60,7 @@ class DepartmentTest extends TestCase
      *
      * @return void
      */
-    public function test_view_any_department()
+    public function testViewAnyDepartment()
     {
         $this->actingAs($this->baseUser, 'api')
             ->graphQL('query { departments { id } }')
@@ -72,7 +72,7 @@ class DepartmentTest extends TestCase
      *
      * @return void
      */
-    public function test_view_department()
+    public function testViewDepartment()
     {
 
         $variables = ['id' => $this->department->id];
@@ -97,7 +97,7 @@ class DepartmentTest extends TestCase
      *
      * @return void
      */
-    public function test_update_department()
+    public function testUpdateDepartment()
     {
 
         $variables = [
@@ -138,7 +138,7 @@ class DepartmentTest extends TestCase
      *
      * @return void
      */
-    public function test_create_department()
+    public function testCreateDepartment()
     {
         $variables = [
             'department' => [
@@ -178,7 +178,7 @@ class DepartmentTest extends TestCase
      *
      * @return void
      */
-    public function test_delete_department()
+    public function testDeleteDepartment()
     {
         $variables = ['id' => $this->toBeDeleted->id];
 

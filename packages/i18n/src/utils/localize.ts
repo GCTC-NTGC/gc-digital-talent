@@ -63,7 +63,7 @@ export function localeRedirect(locale: Locales) {
 }
 
 export const getLocalizedName = (
-  name: Maybe<LocalizedString>,
+  name: Maybe<LocalizedString> | undefined,
   intl: IntlShape,
   emptyNotFound: boolean = false,
 ): string => {
@@ -127,8 +127,8 @@ export const localizeCurrency = (
 };
 
 export const localizeSalaryRange = (
-  min: Maybe<number>,
-  max: Maybe<number>,
+  min: Maybe<number> | undefined,
+  max: Maybe<number> | undefined,
   locale: string,
   currency = "USD",
 ) => {

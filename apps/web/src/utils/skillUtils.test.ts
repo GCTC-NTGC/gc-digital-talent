@@ -3,8 +3,12 @@
  */
 
 import { fakeApplicants } from "@gc-digital-talent/fake-data";
-
-import { Experience, Skill, SkillCategory, SkillFamily } from "~/api/generated";
+import {
+  Experience,
+  Skill,
+  SkillCategory,
+  SkillFamily,
+} from "@gc-digital-talent/graphql";
 
 import {
   InvertedSkillExperience,

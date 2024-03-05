@@ -6,8 +6,8 @@ import PencilIcon from "@heroicons/react/24/outline/PencilIcon";
 import MegaphoneIcon from "@heroicons/react/24/outline/MegaphoneIcon";
 
 import { TableOfContents, Well } from "@gc-digital-talent/ui";
+import { Pool, PoolStatus, Scalars } from "@gc-digital-talent/graphql";
 
-import { Pool, PoolStatus, Scalars } from "~/api/generated";
 import { EditPoolSectionMetadata } from "~/types/pool";
 
 import PublishDialog from "./PublishDialog";
@@ -24,7 +24,7 @@ interface StatusSectionProps {
   onPublish: () => void;
   onDelete: () => void;
   onClose: () => void;
-  onExtend: (submitData: Scalars["DateTime"]) => Promise<void>;
+  onExtend: (submitData: Scalars["DateTime"]["output"]) => Promise<void>;
   onArchive: () => void;
   onDuplicate: () => void;
   onUnarchive: () => void;

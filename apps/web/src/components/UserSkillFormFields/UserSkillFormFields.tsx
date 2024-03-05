@@ -2,7 +2,6 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { RadioGroup } from "@gc-digital-talent/forms";
-import { WhenSkillUsed } from "@gc-digital-talent/graphql";
 import {
   errorMessages,
   getBehaviouralSkillLevel,
@@ -10,6 +9,7 @@ import {
   getTechnicalSkillLevel,
   getTechnicalSkillLevelDefinition,
 } from "@gc-digital-talent/i18n";
+import { WhenSkillUsed } from "@gc-digital-talent/graphql";
 
 import { getSortedSkillLevels } from "~/utils/skillUtils";
 
@@ -37,13 +37,7 @@ const UserSkillFormFields = ({
     value: skillLevel,
     label: <strong>{intl.formatMessage(levelGetter(skillLevel))}</strong>,
     contentBelow: (
-      <p
-        data-h2-margin="base(x.15, 0, x.5, x1)"
-        data-h2-color="base(black.light)"
-        data-h2-font-size="base(caption)"
-      >
-        {intl.formatMessage(levelDefinitionGetter(skillLevel))}
-      </p>
+      <p>{intl.formatMessage(levelDefinitionGetter(skillLevel))}</p>
     ),
   }));
 

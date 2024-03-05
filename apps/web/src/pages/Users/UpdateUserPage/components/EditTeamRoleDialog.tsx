@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import PencilIcon from "@heroicons/react/24/outline/PencilIcon";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
-import { MultiSelectField } from "@gc-digital-talent/forms";
+import { Combobox } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
@@ -15,13 +15,16 @@ import {
 import {
   UpdateUserRolesInput,
   UpdateUserRolesMutation,
+  Role,
+  User,
+  Team,
+  Scalars,
 } from "@gc-digital-talent/graphql";
 
-import { Role, User, Team, Scalars } from "~/api/generated";
 import { getFullNameHtml } from "~/utils/nameUtils";
 
 type FormValues = {
-  roles: Array<Scalars["UUID"]>;
+  roles: Array<Scalars["UUID"]["output"]>;
 };
 
 interface EditTeamRoleDialogProps {
@@ -113,7 +116,7 @@ const EditTeamRoleDialog = ({
       <Dialog.Trigger>
         <Button color="black">
           <PencilIcon data-h2-height="base(x.75)" data-h2-width="base(x.75)" />
-          <span data-h2-visually-hidden="base(hidden)">{label}</span>
+          <span data-h2-visually-hidden="base(invisible)">{label}</span>
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
@@ -143,9 +146,10 @@ const EditTeamRoleDialog = ({
           </p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleEditRoles)}>
-              <MultiSelectField
+              <Combobox
                 id="roles"
                 name="roles"
+                isMulti
                 label={intl.formatMessage({
                   defaultMessage: "Membership roles",
                   id: "s5hTYo",

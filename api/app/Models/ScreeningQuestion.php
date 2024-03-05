@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * @property string $id
  * @property string $pool_id
+ * @property string $assessment_step_id
  * @property array $question
  * @property int $sort_order
  * @property Illuminate\Support\Carbon $created_at
@@ -45,6 +46,11 @@ class ScreeningQuestion extends Model
     public function pool(): BelongsTo
     {
         return $this->belongsTo(Pool::class);
+    }
+
+    public function assessmentStep(): BelongsTo
+    {
+        return $this->belongsTo(AssessmentStep::class);
     }
 
     public function screeningQuestionResponses(): HasMany

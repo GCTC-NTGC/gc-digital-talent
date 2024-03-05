@@ -4,6 +4,7 @@ import { useFormContext } from "react-hook-form";
 
 import { Input, RadioGroup, DateInput } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
+import { Heading, TableOfContents } from "@gc-digital-talent/ui";
 import {
   ContractCommodity,
   ContractFteRange,
@@ -15,7 +16,6 @@ import {
   YesNo,
   YesNoUnsure,
 } from "@gc-digital-talent/graphql";
-import { Heading, TableOfContents } from "@gc-digital-talent/ui";
 
 import { getSectionTitle, PAGE_SECTION_ID } from "../navigation";
 import { enumToOptions } from "../../util";

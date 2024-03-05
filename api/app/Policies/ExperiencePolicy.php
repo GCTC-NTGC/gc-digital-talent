@@ -12,8 +12,8 @@ class ExperiencePolicy
     /**
      * The ability to edit Experiences is essentially the ability to update the User.
      *
-     * @param    $request: The arguments included in the request, acquired with the injectArgs lighthouse directive
-     *      We need to use this because the model hasn't been created yet so we can't read from it
+     * @param  $request:  The arguments included in the request, acquired with the injectArgs lighthouse directive
+     *                   We need to use this because the model hasn't been created yet so we can't read from it
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function create(User $user, $request)
@@ -26,7 +26,7 @@ class ExperiencePolicy
     /**
      * The ability to edit Experiences is essentially the ability to update the User.
      *
-     * @param  \App\Models\User  $user     *
+     * @param  \App\Models\User  $user  *
      * @param  \App\Models\Experience  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */

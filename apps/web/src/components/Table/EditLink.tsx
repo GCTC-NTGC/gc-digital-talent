@@ -3,8 +3,7 @@ import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
 
 import { Link } from "@gc-digital-talent/ui";
-
-import { Maybe } from "~/api/generated";
+import { Maybe } from "@gc-digital-talent/graphql";
 
 interface EditLinkProps {
   /** Id of the object in the table. */
@@ -34,8 +33,8 @@ function EditLink({
       aria-label={intl.formatMessage(
         {
           defaultMessage: "Edit {label}",
-          id: "GG15JI",
-          description: "Aria Label displayed for the Edit column.",
+          id: "2jFKrM",
+          description: "Label for link to edit a specific item in a table",
         },
         { label },
       )}

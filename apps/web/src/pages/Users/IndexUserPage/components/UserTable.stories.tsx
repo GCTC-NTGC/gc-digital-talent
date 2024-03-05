@@ -1,10 +1,15 @@
 import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { fakeUsers } from "@gc-digital-talent/fake-data";
+import {
+  fakeClassifications,
+  fakePools,
+  fakeRoles,
+  fakeSkills,
+  fakeUsers,
+} from "@gc-digital-talent/fake-data";
 
 import UserTable from "./UserTable";
-import UserTableFilterDialogMeta from "./UserTableFilterDialog/UserTableFilterDialog.stories";
 
 const userData = fakeUsers(20);
 const mockPaginatorInfo = {
@@ -22,9 +27,8 @@ export default {
   component: UserTable,
   title: "Tables/User Table",
   parameters: {
-    themeKey: "admin",
     apiResponses: {
-      AllUsersPaginated: {
+      UsersPaginated: {
         data: {
           usersPaginated: {
             data: [...userData.slice(0, 4)],
@@ -32,7 +36,14 @@ export default {
           },
         },
       },
-      ...UserTableFilterDialogMeta.parameters?.apiResponses,
+      UserFilterData: {
+        data: {
+          classifications: fakeClassifications(),
+          pools: fakePools(),
+          skills: fakeSkills(30),
+          roles: fakeRoles(),
+        },
+      },
     },
   },
 } as ComponentMeta<typeof UserTable>;

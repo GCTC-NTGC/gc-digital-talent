@@ -39,8 +39,8 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
         <Dialog.Body>
           <Heading
             as="h3"
-            data-h2-font-size="base(h6, 1.3)"
-            data-h2-margin="base(0)"
+            data-h2-font-size="base(h6, 1.1)"
+            data-h2-margin="base(0, 0, x.5, 0)"
           >
             {intl.formatMessage({
               defaultMessage:
@@ -49,7 +49,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
               description: "Learn more dialog question one heading",
             })}
           </Heading>
-          <p data-h2-margin="base(x1, 0)">
+          <p data-h2-margin="base(x.5, 0, 0, 0)">
             {intl.formatMessage({
               defaultMessage:
                 "If you are First Nations, Inuk, or Métis, and you live in Canada, then you can apply to become an apprentice in this program.",
@@ -59,8 +59,8 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
           </p>
           <Heading
             as="h3"
-            data-h2-font-size="base(h6, 1.3)"
-            data-h2-margin="base(x2, 0, x1, 0)"
+            data-h2-font-size="base(h6, 1.1)"
+            data-h2-margin="base(x2, 0, x.5, 0)"
           >
             {intl.formatMessage({
               defaultMessage: "How long is the program?",
@@ -68,7 +68,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
               description: "Learn more dialog question two heading",
             })}
           </Heading>
-          <p data-h2-margin="base(x1, 0)">
+          <p data-h2-margin="base(x.5, 0, 0, 0)">
             {intl.formatMessage({
               defaultMessage:
                 "The program is 24 months in length, with supports available to apprentices during their time in the program.",
@@ -76,7 +76,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
               description: "Learn more dialog question two paragraph one",
             })}
           </p>
-          <p data-h2-margin="base(x1, 0)">
+          <p data-h2-margin="base(x.5, 0, 0, 0)">
             {intl.formatMessage({
               defaultMessage:
                 "All apprentices will be supported by carefully selected peer partners and mentors. Apprentices will also be invited to join an Indigenous Apprenticeship Network, where there will be opportunities to connect with other Indigenous employees in the Government of Canada, and with other Indigenous apprentices who are participating in this program.",
@@ -86,8 +86,8 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
           </p>
           <Heading
             as="h3"
-            data-h2-font-size="base(h6, 1.3)"
-            data-h2-margin="base(x2, 0, x1, 0)"
+            data-h2-font-size="base(h6, 1.1)"
+            data-h2-margin="base(x2, 0, x.5, 0)"
           >
             {intl.formatMessage({
               defaultMessage:
@@ -96,7 +96,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
               description: "Learn more dialog question three heading",
             })}
           </Heading>
-          <p data-h2-margin="base(x1, 0)">
+          <p data-h2-margin="base(x.5, 0, 0, 0)">
             {intl.formatMessage({
               defaultMessage:
                 "Upon successful completion of the program, it is hoped that apprentices will consider remaining with the Government of Canada.",
@@ -106,8 +106,8 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
           </p>
           <Heading
             as="h3"
-            data-h2-font-size="base(h6, 1.3)"
-            data-h2-margin="base(x2, 0, x1, 0)"
+            data-h2-font-size="base(h6, 1.1)"
+            data-h2-margin="base(x2, 0, x.5, 0)"
           >
             {intl.formatMessage({
               defaultMessage: "Will apprentices be paid?",
@@ -115,7 +115,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
               description: "Learn more dialog question four heading",
             })}
           </Heading>
-          <p data-h2-margin="base(x1, 0)">
+          <p data-h2-margin="base(x.5, 0, 0, 0)">
             {intl.formatMessage({
               defaultMessage:
                 "Absolutely! Your time is valuable. Apprentices will receive pay and benefits as employees of the Government of Canada. Apprentices will earn between $29.00 and $33.00 per hour to start, with the exact salary to be determined at the time of hire and dependent upon the collective agreement in place within the hiring organization. Apprentices will be employed full-time, for a total of 37.5 hours per week.",
@@ -125,8 +125,8 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
           </p>
           <Heading
             as="h3"
-            data-h2-font-size="base(h6, 1.3)"
-            data-h2-margin="base(x2, 0, x1, 0)"
+            data-h2-font-size="base(h6, 1.1)"
+            data-h2-margin="base(x2, 0, x.5, 0)"
           >
             {intl.formatMessage({
               defaultMessage: "Will apprentices be entitled to any benefits?",
@@ -134,7 +134,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
               description: "Learn more dialog question five heading",
             })}
           </Heading>
-          <p data-h2-margin="base(x1, 0)">
+          <p data-h2-margin="base(x.5, 0, 0, 0)">
             {intl.formatMessage({
               defaultMessage:
                 "You bet! As employees of the Government of Canada, all apprentices will be entitled to vacation leave, sick leave, and family related leave. After six months, apprentices will also have access to medical and dental insurance coverage for themselves and their dependents, in addition to becoming a member of the federal public service pension plan.",
@@ -144,8 +144,8 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
           </p>
           <Heading
             as="h3"
-            data-h2-font-size="base(h6, 1.3)"
-            data-h2-margin="base(x2, 0, x1, 0)"
+            data-h2-font-size="base(h6, 1.1)"
+            data-h2-margin="base(x2, 0, x.5, 0)"
           >
             {intl.formatMessage({
               defaultMessage:
@@ -154,7 +154,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
               description: "Learn more dialog question six heading",
             })}
           </Heading>
-          <p data-h2-margin="base(x1, 0)">
+          <p data-h2-margin="base(x.5, 0, 0, 0)">
             {intl.formatMessage({
               defaultMessage:
                 "Not necessarily. Most apprenticeship opportunities can be done by working from home, as long as there is an internet connection. Some positions do have a location-specific requirement. We value the importance of family and community, and we encourage individuals to join our family without having to leave theirs, and to become part of our community while remaining in theirs. Talk to your hiring manager about your situation/preference and we will do our best to work with you to find a suitable solution.",
@@ -164,8 +164,8 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
           </p>
           <Heading
             as="h3"
-            data-h2-font-size="base(h6, 1.3)"
-            data-h2-margin="base(x2, 0, x1, 0)"
+            data-h2-font-size="base(h6, 1.1)"
+            data-h2-margin="base(x2, 0, x.5, 0)"
           >
             {intl.formatMessage({
               defaultMessage: "How do I know if this program is for me?",
@@ -173,7 +173,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
               description: "Learn more dialog question seven heading",
             })}
           </Heading>
-          <p data-h2-margin="base(x1, 0)">
+          <p data-h2-margin="base(x.5, 0, 0, 0)">
             {intl.formatMessage({
               defaultMessage:
                 "If you have an interest and a passion for technology and self-identify as Indigenous, then this program is for you.",
@@ -183,8 +183,8 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
           </p>
           <Heading
             as="h3"
-            data-h2-font-size="base(h6, 1.3)"
-            data-h2-margin="base(x2, 0, x1, 0)"
+            data-h2-font-size="base(h6, 1.1)"
+            data-h2-margin="base(x2, 0, x.5, 0)"
           >
             {intl.formatMessage({
               defaultMessage:
@@ -193,7 +193,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
               description: "Learn more dialog question eight heading",
             })}
           </Heading>
-          <p data-h2-margin="base(x1, 0)">
+          <p data-h2-margin="base(x.5, 0, 0, 0)">
             {intl.formatMessage({
               defaultMessage:
                 "Apprentices will experience a combination of on-the-job learning and online training in one or more information technology areas. Apprentices are expected to demonstrate their interest and passion for technology by being willing to observe, learn, and practice new skills that are developed over the course of the program. On average, an apprentice will spend four days a week doing hands-on learning, while the fifth day of the week will be dedicated to personal and professional development through online training and through other developmental training opportunities.",
@@ -203,8 +203,8 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
           </p>
           <Heading
             as="h3"
-            data-h2-font-size="base(h6, 1.3)"
-            data-h2-margin="base(x2, 0, x1, 0)"
+            data-h2-font-size="base(h6, 1.1)"
+            data-h2-margin="base(x2, 0, x.5, 0)"
           >
             {intl.formatMessage({
               defaultMessage:
@@ -213,7 +213,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
               description: "Learn more dialog question nine heading",
             })}
           </Heading>
-          <p data-h2-margin="base(x1, 0)">
+          <p data-h2-margin="base(x.5, 0, 0, 0)">
             {intl.formatMessage({
               defaultMessage:
                 "Opportunities exist in a large number of departments and agencies across the Government of Canada. The program will attempt to match apprentices with opportunities that best align with their interests.",
@@ -223,8 +223,8 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
           </p>
           <Heading
             as="h3"
-            data-h2-font-size="base(h6, 1.3)"
-            data-h2-margin="base(x2, 0, x1, 0)"
+            data-h2-font-size="base(h6, 1.1)"
+            data-h2-margin="base(x2, 0, x.5, 0)"
           >
             {intl.formatMessage({
               defaultMessage: "Is there a cost to participate in the program?",
@@ -232,7 +232,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
               description: "Learn more dialog question ten heading",
             })}
           </Heading>
-          <p data-h2-margin="base(x1, 0)">
+          <p data-h2-margin="base(x.5, 0, 0, 0)">
             {intl.formatMessage({
               defaultMessage:
                 "All required computer equipment (laptop, mouse, monitor, phone) and training material will be provided at no-cost. If a person chooses to work from home, the cost of internet access will be the responsibility of the apprentice.",
@@ -242,8 +242,8 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
           </p>
           <Heading
             as="h3"
-            data-h2-font-size="base(h6, 1.3)"
-            data-h2-margin="base(x2, 0, x1, 0)"
+            data-h2-font-size="base(h6, 1.1)"
+            data-h2-margin="base(x2, 0, x.5, 0)"
           >
             {intl.formatMessage({
               defaultMessage: "How can a person apply to become an apprentice?",
@@ -251,7 +251,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
               description: "Learn more dialog question eleven heading",
             })}
           </Heading>
-          <p data-h2-margin="base(x1, 0)">
+          <p data-h2-margin="base(x.5, 0, 0, 0)">
             {intl.formatMessage({
               defaultMessage:
                 "Soon, an online application process will be available for people to express their interest. In the meantime, we encourage you to send your résumé and cover letter to: edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca",
@@ -261,8 +261,8 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
           </p>
           <Heading
             as="h3"
-            data-h2-font-size="base(h6, 1.3)"
-            data-h2-margin="base(x2, 0, x1, 0)"
+            data-h2-font-size="base(h6, 1.1)"
+            data-h2-margin="base(x2, 0, x.5, 0)"
           >
             {intl.formatMessage({
               defaultMessage:
@@ -271,7 +271,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
               description: "Learn more dialog question twelve heading",
             })}
           </Heading>
-          <p data-h2-margin="base(x1, 0)">
+          <p data-h2-margin="base(x.5, 0, 0, 0)">
             {intl.formatMessage({
               defaultMessage:
                 "The minimum education requirement is a GED or high school diploma. A college or university education is not required.",

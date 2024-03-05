@@ -12,15 +12,15 @@ import {
 } from "@gc-digital-talent/i18n";
 import { matchStringCaseDiacriticInsensitive } from "@gc-digital-talent/forms";
 import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
-import { UserSkill, SkillLevel } from "@gc-digital-talent/graphql";
-
 import {
+  UserSkill,
+  SkillLevel,
   Experience,
   Maybe,
   Skill,
   SkillCategory,
   SkillFamily,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
 
 /**
  * Transforms an array of skills with child skill families into a tree of skill families with child skills.
@@ -35,11 +35,10 @@ export function invertSkillSkillFamilyTree(skills: Skill[]): SkillFamily[] {
   const skillFamiliesWithSkills = uniqueSkillFamilies.map(
     (family: SkillFamily) => {
       // step 1 - find the skills that belong to this family
-      const skillsInThisFamily = skills.filter(
-        (skill) =>
-          skill.families?.some(
-            (childSkillFamilies) => family.id === childSkillFamilies?.id,
-          ),
+      const skillsInThisFamily = skills.filter((skill) =>
+        skill.families?.some(
+          (childSkillFamilies) => family.id === childSkillFamilies?.id,
+        ),
       );
 
       // step 2 - clone the skills and strip off the child skillFamilies to prevent circular references
@@ -77,11 +76,8 @@ export function invertSkillExperienceTree(
     .filter(notEmpty)
     .map((skill: Skill) => {
       // step 1 - find the skills that belong to this experience
-      const skillsInThisExperience = experiences.filter(
-        (experience) =>
-          experience.skills?.some(
-            (childSkills) => skill.id === childSkills?.id,
-          ),
+      const skillsInThisExperience = experiences.filter((experience) =>
+        experience.skills?.some((childSkills) => skill.id === childSkills?.id),
       );
 
       // step 2 - clone the skill and attach the experience collection
@@ -94,7 +90,7 @@ export function invertSkillExperienceTree(
 }
 
 export function filterSkillsByCategory(
-  skills: Maybe<Array<Skill>>,
+  skills: Maybe<Array<Skill>> | undefined,
   category: SkillCategory,
 ) {
   return skills
@@ -114,8 +110,8 @@ export function filterUserSkillsByCategory(
 }
 
 export function categorizeSkill(
-  skills: Maybe<Array<Skill>>,
-): Record<SkillCategory, Maybe<Array<Skill>>> {
+  skills: Maybe<Array<Skill>> | undefined,
+): Record<SkillCategory, Maybe<Array<Skill> | undefined>> {
   return {
     [SkillCategory.Technical]: filterSkillsByCategory(
       skills,
@@ -130,7 +126,7 @@ export function categorizeSkill(
 
 export function categorizeUserSkill(
   userSkills: Maybe<Array<UserSkill>>,
-): Record<SkillCategory, Maybe<Array<UserSkill>>> {
+): Record<SkillCategory, Maybe<Array<UserSkill> | undefined>> {
   return {
     [SkillCategory.Technical]: filterUserSkillsByCategory(
       userSkills,
@@ -222,13 +218,12 @@ export const differentiateMissingSkills = (
  */
 export const getExperienceSkills = (
   experiences: Experience[],
-  skill: Skill,
+  skill?: Pick<Skill, "id">,
 ): Experience[] => {
-  return experiences.filter(
-    (experience) =>
-      experience.skills?.some(
-        (experienceSkill) => experienceSkill.id === skill.id,
-      ),
+  return experiences.filter((experience) =>
+    experience.skills?.some(
+      (experienceSkill) => experienceSkill.id === skill?.id,
+    ),
   );
 };
 
@@ -319,4 +314,23 @@ export const getUserSkillLevelAndDefinition = (
         : getBehaviouralSkillLevelDefinition(skillLevel),
     ),
   };
+};
+
+const categoryOrder = [SkillCategory.Technical, SkillCategory.Behavioural];
+
+/**
+ * Sort skills by category
+ *
+ * Technical first, behavioural second
+ *
+ * @param skills Skill[]
+ * @returns Skill[]
+ */
+export const sortSkillsByCategory = (skills: Skill[]): Skill[] => {
+  return skills.sort((skillA, skillB) => {
+    return (
+      categoryOrder.indexOf(skillA.category) -
+      categoryOrder.indexOf(skillB.category)
+    );
+  });
 };

@@ -7,25 +7,18 @@ type Query {
     "Allows to filter if trashed elements should be fetched."
     trashed: Trashed
   ): User
-  users(
-    "Allows to filter if trashed elements should be fetched."
-    trashed: Trashed
-  ): [User]! @deprecated(reason: "users is deprecated. Use usersPaginated instead. Remove in #7660.")
   applicants(includeIds: [ID]!): [User]! @deprecated(reason: "applicants is deprecated. Use usersPaginated instead. Remove in #7652.")
-  userPublicProfiles: [UserPublicProfile]! @deprecated(reason: "We should avoid non-paginated queries when we know a query will return thousands of values. In this case, we must write an alternative first!")
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
   pools: [Pool]!
   poolCandidate(id: UUID!): PoolCandidate
-  poolCandidates(includeIds: [ID]): [PoolCandidate]! @deprecated(reason: "poolCandidates is deprecated. Use poolCandidatesPaginated instead. Remove in #7656.")
+  poolCandidates(includeIds: [ID]!): [PoolCandidate]! @deprecated(reason: "poolCandidates is deprecated. Use poolCandidatesPaginated instead. Remove in #7656.")
   countPoolCandidatesByPool(where: ApplicantFilterInput): [CandidateSearchPoolResult!]!
   classification(id: UUID!): Classification
   classifications: [Classification]!
   department(id: UUID!): Department
   departments: [Department]!
-  poolCandidateFilters: [PoolCandidateFilter]! @deprecated(reason: "poolCandidateFilters is deprecated. Use poolCandidateSearchRequest.poolCandidateFilter instead. Remove in #7658.")
-  applicantFilters: [ApplicantFilter]! @deprecated(reason: "applicantFilters is deprecated. Use poolCandidateSearchRequest.applicantFilter instead. Remove in #7654.")
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
   skillFamily(id: UUID!): SkillFamily
   skillFamilies: [SkillFamily]!
@@ -36,6 +29,7 @@ type Query {
   team(id: UUID!): Team
   teams: [Team]!
   roles: [Role]!
+  sitewideAnnouncement: SitewideAnnouncement
   digitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
   digitalContractingQuestionnaires: [DigitalContractingQuestionnaire!]!
   departmentSpecificRecruitmentProcessForm(id: UUID!): DepartmentSpecificRecruitmentProcessForm
@@ -50,8 +44,20 @@ type Query {
     "The offset from which items are returned."
     page: Int
   ): UserPaginator!
+  userPublicProfilesPaginated(
+    where: UserPublicProfileFilterInput
+    excludeIds: [ID!]
+    orderBy: [OrderByClause!]
+
+    "Limits number of fetched items. Maximum allowed value: 1000."
+    first: Int! = 10
+
+    "The offset from which items are returned."
+    page: Int
+  ): UserPublicProfilePaginator!
   poolCandidatesPaginated(
     where: PoolCandidateSearchInput
+    orderByPoolName: PoolCandidatePoolNameOrderByInput
     orderBy: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
@@ -81,7 +87,9 @@ type Mutation {
   deleteUser(id: ID!): User
   restoreUser(id: ID!): User
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
-  updatePoolCandidateAsAdmin(id: ID!, poolCandidate: UpdatePoolCandidateAsAdminInput!): PoolCandidate
+  updatePoolCandidateAsAdmin(id: UUID!, poolCandidate: UpdatePoolCandidateAsAdminInput!): PoolCandidate
+  togglePoolCandidateBookmark(id: ID!): Boolean
+  updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
   deletePoolCandidate(id: ID!): PoolCandidate
   createClassification(classification: CreateClassificationInput!): Classification
   updateClassification(id: ID!, classification: UpdateClassificationInput!): Classification
@@ -143,6 +151,7 @@ type Mutation {
   createAssessmentResult(createAssessmentResult: CreateAssessmentResultInput!): AssessmentResult
   updateAssessmentResult(updateAssessmentResult: UpdateAssessmentResultInput!): AssessmentResult
   deleteAssessmentResult(id: UUID!): AssessmentResult
+  updateSitewideAnnouncement(sitewideAnnouncementInput: SitewideAnnouncementInput!): SitewideAnnouncement
   createDigitalContractingQuestionnaire(digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   updateDigitalContractingQuestionnaire(id: UUID!, digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!): DigitalContractingQuestionnaire
   deleteDigitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
@@ -217,7 +226,6 @@ type User {
   priorityNumber: String
   isWoman: Boolean
   hasDisability: Boolean
-  isIndigenous: Boolean @deprecated(reason: "isIndigenous is deprecated. Use indigenousCommunities instead. Remove in #7662.")
   isVisibleMinority: Boolean
   indigenousCommunities: [IndigenousCommunity]
   indigenousDeclarationSignature: String
@@ -270,12 +278,18 @@ type UserPublicProfile {
   lastName: String
 }
 
-type ScreeningQuestion {
+type GeneralQuestion {
   id: ID!
   pool: Pool
   question: LocalizedString
   sortOrder: Int
-  screeningQuestionResponses: [ScreeningQuestionResponse]
+}
+
+type ScreeningQuestion {
+  id: ID!
+  assessmentStep: AssessmentStep
+  question: LocalizedString
+  sortOrder: Int
 }
 
 type Pool {
@@ -300,8 +314,10 @@ type Pool {
   stream: PoolStream
   processNumber: String
   publishingGroup: PublishingGroup
+  opportunityLength: PoolOpportunityLength
   createdDate: DateTime
   updatedDate: DateTime
+  generalQuestions: [GeneralQuestion]
   screeningQuestions: [ScreeningQuestion]
   closingDate: DateTime
   publishedAt: DateTime
@@ -311,11 +327,17 @@ type Pool {
   poolSkills: [PoolSkill]
 }
 
+type GeneralQuestionResponse {
+  id: ID!
+  answer: String
+  generalQuestion: GeneralQuestion
+  poolCandidate: PoolCandidate
+}
+
 type ScreeningQuestionResponse {
   id: ID!
   answer: String
   screeningQuestion: ScreeningQuestion
-  poolCandidate: PoolCandidate
 }
 
 type AssessmentStep {
@@ -326,6 +348,7 @@ type AssessmentStep {
   title: LocalizedString
   poolSkills: [PoolSkill]
   assessmentResults: [AssessmentResult]
+  screeningQuestions: [ScreeningQuestion]
 }
 
 type AssessmentResult {
@@ -339,6 +362,7 @@ type AssessmentResult {
   otherJustificationNotes: String
   assessmentDecisionLevel: AssessmentDecisionLevel
   skillDecisionNotes: String
+  assessmentNotes: String
 }
 
 type PoolSkill {
@@ -362,9 +386,11 @@ type PoolCandidate {
   submittedAt: DateTime
   suspendedAt: DateTime
   deletedDate: DateTime
+  isBookmarked: Boolean
   profileSnapshot: JSON
   signature: String
   submittedSteps: [ApplicationStep!]
+  generalQuestionResponses: [GeneralQuestionResponse]
   screeningQuestionResponses: [ScreeningQuestionResponse]
   educationRequirementOption: EducationRequirementOption
   educationRequirementExperiences: [Experience]
@@ -474,6 +500,7 @@ type PoolCandidateSearchRequest {
   department: Department
   jobTitle: String
   additionalComments: String
+  hrAdvisorEmail: Email
   requestedDate: DateTime
   status: PoolCandidateSearchStatus
   statusChangedAt: DateTime
@@ -514,11 +541,6 @@ type UserSkill {
   topSkillsRank: Int
   improveSkillsRank: Int
   experiences: [Experience!]
-  awardExperiences: [AwardExperience!]
-  communityExperiences: [CommunityExperience!]
-  educationExperiences: [EducationExperience!]
-  personalExperiences: [PersonalExperience!]
-  workExperiences: [WorkExperience!]
 }
 
 type SkillKeywords {
@@ -638,9 +660,13 @@ input UserFilterInput {
   telephone: String
   email: String
   name: String
-  generalSearch: String
+  generalSearch: [String]
   roles: [ID]
   trashed: Trashed
+}
+
+input UserPublicProfileFilterInput {
+  publicProfileSearch: String
 }
 
 input ApplicantFilterInput {
@@ -660,7 +686,7 @@ input ApplicantFilterInput {
 input PoolCandidateSearchInput {
   applicantFilter: ApplicantFilterInput
   email: String
-  generalSearch: String
+  generalSearch: [String]
   name: String
   notes: String
   isGovEmployee: Boolean
@@ -681,13 +707,35 @@ input PoolCandidateSearchRequestInput {
   id: ID
   jobTitle: String
   additionalComments: String
+  hrAdvisorEmail: String
   adminNotes: String
   generalSearch: String
+}
+
+input PoolCandidatePoolNameOrderByInput {
+  locale: String!
+  order: SortOrder!
 }
 
 type CandidateSearchPoolResult {
   pool: Pool!
   candidateCount: Int!
+}
+
+type SitewideAnnouncement {
+  isEnabled: Boolean!
+  publishDate: DateTime!
+  expiryDate: DateTime!
+  title: LocalizedString!
+  message: LocalizedString!
+}
+
+input SitewideAnnouncementInput {
+  isEnabled: Boolean!
+  publishDate: DateTime!
+  expiryDate: DateTime!
+  title: LocalizedStringInput!
+  message: LocalizedStringInput!
 }
 
 input ClassificationBelongsTo {
@@ -879,6 +927,7 @@ input CreatePoolCandidateAsAdminInput {
   expiryDate: Date
   status: PoolCandidateStatus = NEW_APPLICATION
   notes: String
+  isBookmarked: Boolean
 }
 
 input UpdateClassificationInput {
@@ -892,7 +941,7 @@ input UpdatePoolCandidateAsAdminInput {
   cmoIdentifier: ID
   expiryDate: Date
   status: PoolCandidateStatus
-  notes: String
+  isBookmarked: Boolean
 }
 
 input CreateDepartmentInput {
@@ -959,6 +1008,7 @@ input CreatePoolCandidateSearchRequestInput {
   department: DepartmentBelongsTo!
   jobTitle: String!
   additionalComments: String
+  hrAdvisorEmail: Email
   applicantFilter: ApplicantFilterBelongsTo!
   wasEmpty: Boolean
   managerJobTitle: String!
@@ -1071,6 +1121,7 @@ input AwardExperienceInput {
 
 input UpdateExperienceSkills {
   connect: [ConnectExperienceSkills!]
+  update: [ConnectExperienceSkills!]
   disconnect: [ID!]
   sync: [ConnectExperienceSkills!]
 }
@@ -1125,20 +1176,20 @@ input CreatePoolInput {
   classifications: ClassificationBelongsToMany
 }
 
-input CreateScreeningQuestionInput {
+input CreateGeneralQuestionInput {
   question: LocalizedStringInput!
   sortOrder: Int
 }
 
-input UpdateScreeningQuestionInput {
+input UpdateGeneralQuestionInput {
   id: ID!
   question: LocalizedStringInput
   sortOrder: Int
 }
 
-input UpdateScreeningQuestionsHasMany {
-  create: [CreateScreeningQuestionInput!]
-  update: [UpdateScreeningQuestionInput!]
+input UpdateGeneralQuestionsHasMany {
+  create: [CreateGeneralQuestionInput!]
+  update: [UpdateGeneralQuestionInput!]
   delete: [ID!]
 }
 
@@ -1173,7 +1224,8 @@ input UpdatePoolInput {
   location: LocalizedStringInput
   isRemote: Boolean
   publishingGroup: PublishingGroup
-  screeningQuestions: UpdateScreeningQuestionsHasMany
+  opportunityLength: PoolOpportunityLength
+  generalQuestions: UpdateGeneralQuestionsHasMany
 }
 
 input AssessmentStepInput {
@@ -1197,6 +1249,7 @@ input CreateAssessmentResultInput {
   otherJustificationNotes: String
   assessmentDecisionLevel: AssessmentDecisionLevel
   skillDecisionNotes: String
+  assessmentNotes: String
 }
 
 input UpdateAssessmentResultInput {
@@ -1207,10 +1260,11 @@ input UpdateAssessmentResultInput {
   otherJustificationNotes: String
   assessmentDecisionLevel: AssessmentDecisionLevel
   skillDecisionNotes: String
+  assessmentNotes: String
 }
 
 input PoolSkillBelongsToMany {
-  sync: [UUID!]
+  sync: [UUID!]!
 }
 
 input RolesInput {
@@ -1240,6 +1294,26 @@ input UpdateUserTeamRolesInput {
   roleAssignments: RolesForTeamHasMany!
 }
 
+input GeneralResponseBelongsTo {
+  connect: ID!
+}
+
+input CreateGeneralQuestionResponseInput {
+  generalQuestion: GeneralResponseBelongsTo!
+  answer: String!
+}
+
+input UpdateGeneralQuestionResponseInput {
+  id: ID!
+  answer: String
+}
+
+input UpdateGeneralQuestionResponsesHasMany {
+  create: [CreateGeneralQuestionResponseInput!]
+  update: [UpdateGeneralQuestionResponseInput!]
+  delete: [ID!]
+}
+
 input ScreeningResponseBelongsTo {
   connect: ID!
 }
@@ -1266,6 +1340,7 @@ input UpdateEducationExperiencesRequirementBelongsToMany {
 
 input UpdateApplicationInput {
   insertSubmittedStep: ApplicationStep
+  generalQuestionResponses: UpdateGeneralQuestionResponsesHasMany
   screeningQuestionResponses: UpdateScreeningQuestionResponsesHasMany
   educationRequirementOption: EducationRequirementOption
   educationRequirementAwardExperiences: UpdateEducationExperiencesRequirementBelongsToMany
@@ -1572,6 +1647,15 @@ type UserPaginator {
 
   "A list of User items."
   data: [User!]!
+}
+
+"A paginated list of UserPublicProfile items."
+type UserPublicProfilePaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of UserPublicProfile items."
+  data: [UserPublicProfile!]!
 }
 
 "A paginated list of PoolCandidateWithSkillCount items."
@@ -1885,6 +1969,7 @@ enum PoolCandidateStatus {
   QUALIFIED_AVAILABLE
   QUALIFIED_UNAVAILABLE
   QUALIFIED_WITHDREW
+  PLACED_TENTATIVE
   PLACED_CASUAL
   PLACED_TERM
   PLACED_INDETERMINATE
@@ -1904,6 +1989,14 @@ enum PoolLanguage {
   VARIOUS
   BILINGUAL_INTERMEDIATE
   BILINGUAL_ADVANCED
+}
+
+enum PoolOpportunityLength {
+  TERM_SIX_MONTHS
+  TERM_ONE_YEAR
+  TERM_TWO_YEARS
+  INDETERMINATE
+  VARIOUS
 }
 
 enum PublishingGroup {
@@ -1958,15 +2051,6 @@ enum OperationalRequirement {
   OVERTIME_SHORT_NOTICE
   OVERTIME_OCCASIONAL
   OVERTIME_REGULAR
-}
-
-enum SalaryRange {
-  _50_59K
-  _60_69K
-  _70_79K
-  _80_89K
-  _90_99K
-  _100K_PLUS
 }
 
 enum GenericJobTitleKey {
@@ -2247,7 +2331,7 @@ enum AssessmentResultType {
 }
 
 enum AssessmentDecision {
-  NOT_SURE
+  HOLD
   SUCCESSFUL
   UNSUCCESSFUL
 }

@@ -29,7 +29,8 @@ jobs:
       - script: infrastructure/bin/set_php_versions.sh ${{ variables.phpVersion }}
         displayName: "PHP version"
 
-      - script: infrastructure/bin/deploy.sh $(System.DefaultWorkingDirectory)
+        # -r option to specify the root directory
+      - script: infrastructure/bin/deploy.sh -r $(System.DefaultWorkingDirectory)
         displayName: Dependencies
         env:
           API_URI: /graphql

@@ -226,11 +226,11 @@ const formMessages = defineMessages({
     id: "spoY2L",
     description: "Select the option to sort or filter by all types",
   },
-  other: {
-    defaultMessage: "Other",
-    id: "E6JTyY",
+  identifyAs: {
+    defaultMessage: "Based on this definition, I identify as:",
+    id: "sbmUVq",
     description:
-      "The selection to choose when the expected option is not available",
+      "Prompt text for a user selecting an employment equity group for their profile",
   },
 });
 

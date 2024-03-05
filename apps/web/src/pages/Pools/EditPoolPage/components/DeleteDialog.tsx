@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
-import { formMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 
 type DeleteDialogProps = {
   onDelete: () => void;
@@ -29,12 +29,7 @@ const DeleteDialog = ({ onDelete }: DeleteDialogProps): JSX.Element => {
               mode="solid"
               color="secondary"
             >
-              {intl.formatMessage({
-                defaultMessage: "Delete",
-                id: "FA+cJX",
-                description:
-                  "Button to delete the pool in the delete pool dialog",
-              })}
+              {intl.formatMessage(commonMessages.delete)}
             </Button>
           </Dialog.Close>
         </div>
@@ -46,20 +41,12 @@ const DeleteDialog = ({ onDelete }: DeleteDialogProps): JSX.Element => {
     <Dialog.Root>
       <Dialog.Trigger>
         <Button color="secondary" mode="solid">
-          {intl.formatMessage({
-            defaultMessage: "Delete",
-            id: "IFGKCz",
-            description: "Text on a button to delete the pool",
-          })}
+          {intl.formatMessage(commonMessages.delete)}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>
-          {intl.formatMessage({
-            defaultMessage: "Delete",
-            id: "iOgr3Z",
-            description: "Heading for the delete pool dialog",
-          })}
+          {intl.formatMessage(commonMessages.delete)}
         </Dialog.Header>
         <Dialog.Body>
           <p>

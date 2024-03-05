@@ -27,6 +27,7 @@ import {
   DatasetPrint,
   RowSelectDef,
 } from "./types";
+import SpinnerIcon from "../../SpinnerIcon/SpinnerIcon";
 
 type BaseProps = Omit<
   CheckButtonProps,
@@ -249,6 +250,10 @@ const Actions = ({
                 </span>
                 <DownloadCsv
                   data-h2-font-weight="base(400)"
+                  disabled={download.disableBtn}
+                  {...(download.fetching && {
+                    icon: SpinnerIcon,
+                  })}
                   {...download.selection.csv}
                   {...actionButtonStyles}
                 >

@@ -1,7 +1,7 @@
 import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { CHROMATIC_VIEWPORTS } from "@gc-digital-talent/storybook-helpers";
+import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Home from "./HomePage";
 
@@ -13,15 +13,16 @@ export default {
   title: "Pages/Home Page/Digital Talent",
 } as Meta;
 
-const Template: Story = () => (
-  <div data-h2-color="base(black) base:dark(white)">
-    <Home defaultImage={0} />
-  </div>
-);
+const Template: Story = () => <Home defaultImage={0} />;
 
 export const Default = Template.bind({});
 Default.parameters = {
-  chromatic: { viewports: CHROMATIC_VIEWPORTS },
-  hasDarkMode: true,
-  themeKey: "default",
+  layout: "fullscreen",
+  chromatic: {
+    modes: {
+      light: allModes.light,
+      "light mobile": allModes["light mobile"],
+      dark: allModes.dark,
+    },
+  },
 };

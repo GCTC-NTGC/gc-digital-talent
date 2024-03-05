@@ -8,8 +8,8 @@ import {
   Separator,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import { AssessmentStep, PoolSkill } from "@gc-digital-talent/graphql";
 import { assertUnreachable } from "@gc-digital-talent/helpers/src/utils/util";
+import { AssessmentStep, PoolSkill } from "@gc-digital-talent/graphql";
 
 import StatusItem, { Status } from "~/components/StatusItem/StatusItem";
 
@@ -33,12 +33,11 @@ const SkillsQuickSummary = ({
 
   // count how many assessment steps there are for a given pool skill
   const assessmentStepCount = (poolSkill: PoolSkill): number => {
-    return assessmentSteps.filter(
-      (assessmentStep) =>
-        assessmentStep.poolSkills?.some(
-          (assessmentStepPoolSkill) =>
-            assessmentStepPoolSkill?.id === poolSkill.id,
-        ),
+    return assessmentSteps.filter((assessmentStep) =>
+      assessmentStep.poolSkills?.some(
+        (assessmentStepPoolSkill) =>
+          assessmentStepPoolSkill?.id === poolSkill.id,
+      ),
     ).length;
   };
 
@@ -51,6 +50,8 @@ const SkillsQuickSummary = ({
         return intl.formatMessage(commonMessages.warning);
       case "error":
         return intl.formatMessage(commonMessages.error);
+      case "optional":
+        return "";
       default:
         return assertUnreachable(status);
     }
@@ -103,12 +104,7 @@ const SkillsQuickSummary = ({
             />
           );
         })}
-        <Separator
-          orientation="horizontal"
-          decorative
-          data-h2-background-color="base(gray.lighter)"
-          data-h2-margin="base(x1, 0, x1, 0)"
-        />
+        <Separator space="sm" />
 
         <ScrollToLink to={PAGE_SECTION_ID.SKILL_SUMMARY}>
           {intl.formatMessage({

@@ -9,12 +9,14 @@ Authorizable
 behavioural
 Behavioural
 BEHAVIOURAL
+camelcase
 Canonicalizing
 chra
 chrc
 codegen
 colour
 colours
+columnheader
 combobox
 corejs
 CRTC
@@ -23,6 +25,7 @@ darkgray
 darknavy
 darkpink
 darkpurple
+datas
 datetime
 DCMO
 dedup
@@ -35,6 +38,7 @@ gctalent
 headlessui
 Helpdesk
 heroicons
+Inclusivity
 INDIGENOUSAPPRENTICESHIP
 Inuk
 jwks
@@ -63,6 +67,7 @@ recruitments
 recrutementgiti
 rolepermission
 roundtable
+Sitewide
 skillset
 Spatie
 spinbutton

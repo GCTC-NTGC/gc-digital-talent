@@ -1,6 +1,141 @@
-import { GetPoolDocument, GetPoolQuery } from "@gc-digital-talent/graphql";
+import { PoolTestQuery, graphql } from "@gc-digital-talent/graphql";
 
-import { getGqlString } from "../../support/graphql-test-utils";
+const poolQueryDoc = /* GraphQL */ `
+  query PoolTest($id: UUID!) {
+    me {
+      id
+      poolCandidates {
+        id
+        pool {
+          id
+        }
+        submittedAt
+      }
+    }
+    pool(id: $id) {
+      id
+      name {
+        en
+        fr
+      }
+      stream
+      closingDate
+      status
+      language
+      securityClearance
+      classifications {
+        id
+        group
+        level
+        name {
+          en
+          fr
+        }
+        minSalary
+        maxSalary
+        genericJobTitles {
+          id
+          key
+          name {
+            en
+            fr
+          }
+        }
+      }
+      yourImpact {
+        en
+        fr
+      }
+      keyTasks {
+        en
+        fr
+      }
+      whatToExpect {
+        en
+        fr
+      }
+      specialNote {
+        en
+        fr
+      }
+      essentialSkills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+        category
+        families {
+          id
+          key
+          description {
+            en
+            fr
+          }
+          name {
+            en
+            fr
+          }
+        }
+      }
+      nonessentialSkills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+        category
+        families {
+          id
+          key
+          description {
+            en
+            fr
+          }
+          name {
+            en
+            fr
+          }
+        }
+      }
+      isRemote
+      location {
+        en
+        fr
+      }
+      stream
+      processNumber
+      publishingGroup
+      generalQuestions {
+        id
+        question {
+          en
+          fr
+        }
+      }
+      team {
+        id
+        name
+        contactEmail
+        displayName {
+          en
+          fr
+        }
+      }
+    }
+  }
+`;
+const PoolTest_Query = graphql(poolQueryDoc);
 
 describe("Artisan command tests", () => {
   it("Can create a new custom pool using an Artisan command", () => {
@@ -20,8 +155,8 @@ describe("Artisan command tests", () => {
     });
 
     cy.get<string>("@poolId").then((poolId) => {
-      cy.graphqlRequest<GetPoolQuery>({
-        query: getGqlString(GetPoolDocument),
+      cy.graphqlRequest<PoolTestQuery>({
+        query: poolQueryDoc,
         variables: {
           id: poolId,
         },

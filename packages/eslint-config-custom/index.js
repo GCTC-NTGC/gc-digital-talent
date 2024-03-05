@@ -33,7 +33,6 @@ module.exports = {
     "index.js",
     ".eslintrc",
     ".eslintrc.js",
-    "generated.ts",
     "webpack.*.js",
     "tsconfig.json",
     "CssStub.js",
@@ -65,7 +64,9 @@ module.exports = {
       },
     ],
     "formatjs/enforce-description": ["error", "literal"],
-    camelcase: "warn",
+    camelcase: ["warn", {
+      allow: ["\w*Query$", "\w*Fragment$", "\w*Mutation$"]
+    }],
     "consistent-return": "warn",
     "import/no-extraneous-dependencies": "off",
     "import/extensions": ["warn", "never", { json: "always" }],
@@ -209,7 +210,7 @@ module.exports = {
         message: "Please use WebP as the image format.",
       },
     ],
-    "react/forbid-elements": [1, { forbid: ["a"] }],
+    "react/forbid-elements": [1, { forbid: ["a", "hr"] }],
     "no-restricted-syntax": [
       "error",
       {

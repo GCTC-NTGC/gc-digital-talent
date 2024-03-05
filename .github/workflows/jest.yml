@@ -1,4 +1,4 @@
-name: Jest Tests
+name: Jest
 
 on:
   push:
@@ -15,11 +15,11 @@ on:
   merge_group:
     branches: [main]
 jobs:
-  build:
-    name: Unit tests
+  jest:
+    name: Jest
     runs-on: ubuntu-22.04
     env:
-      NPM_VERSION: "8.11.0"
+      NPM_VERSION: "9.9.2"
 
     steps:
       - name: Get number of CPU cores

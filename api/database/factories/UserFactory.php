@@ -57,7 +57,7 @@ class UserFactory extends Factory
         return [
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
-            'email' => $this->faker->unique()->safeEmail(),
+            'email' => $this->faker->firstName().'_'.$this->faker->unique()->safeEmail(),
             'sub' => $this->faker->boolean(75) ? $this->faker->unique()->uuid() : null,
             'telephone' => $this->faker->e164PhoneNumber(),
             'preferred_lang' => $this->faker->randomElement(Language::cases())->value,
@@ -117,7 +117,6 @@ class UserFactory extends Factory
             'priority_number' => $hasPriorityEntitlement ? $this->faker->word() : null,
             'indigenous_declaration_signature' => $isDeclared ? $this->faker->firstName() : null,
             'indigenous_communities' => $isDeclared ? [$this->faker->randomElement(IndigenousCommunity::cases())->name] : [],
-            // mirroring migration where isIndigenous = false maps to []
         ];
     }
 
@@ -234,7 +233,7 @@ class UserFactory extends Factory
     /**
      * Attach the pool operator role to a user after creation.
      *
-     * @param  string|array  $team   Name of the team or teams to attach the role to
+     * @param  string|array  $team  Name of the team or teams to attach the role to
      * @return $this
      */
     public function asPoolOperator(string|array $team)

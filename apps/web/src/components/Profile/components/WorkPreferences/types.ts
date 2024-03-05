@@ -1,4 +1,4 @@
-import { UpdateUserAsUserInput, User } from "~/api/generated";
+import { UpdateUserAsUserInput, User } from "@gc-digital-talent/graphql";
 
 export type PartialUser = Pick<
   User,

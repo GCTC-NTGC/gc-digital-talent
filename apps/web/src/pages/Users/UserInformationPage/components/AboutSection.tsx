@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 
 import { Link, Well } from "@gc-digital-talent/ui";
 import {
+  commonMessages,
   getArmedForcesStatusesAdmin,
   getCitizenshipStatusesAdmin,
   getLanguage,
@@ -57,11 +58,11 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
         <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
           <p data-h2-font-weight="base(700)">
             {intl.formatMessage({
-              defaultMessage: "Preferred Spoken Interview Language:",
-              id: "Wmuizf",
-              description:
-                "Display text for the preferred spoken interview language field on users",
+              defaultMessage: "Preferred spoken interview language",
+              id: "DB9pFd",
+              description: "Title for preferred spoken interview language",
             })}
+            {intl.formatMessage(commonMessages.dividingColon)}
           </p>
           <p>
             {user.preferredLanguageForInterview
@@ -74,11 +75,11 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
         <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
           <p data-h2-font-weight="base(700)">
             {intl.formatMessage({
-              defaultMessage: "Preferred Written Exam Language:",
-              id: "zzwPOR",
-              description:
-                "Display text for the preferred written exam language field on users",
+              defaultMessage: "Preferred written exam language",
+              id: "fg2wla",
+              description: "Title for preferred written exam language",
             })}
+            {intl.formatMessage(commonMessages.dividingColon)}
           </p>
           <p>
             {user.preferredLanguageForExam

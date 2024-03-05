@@ -3,11 +3,11 @@ import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
 import { useIntl } from "react-intl";
 
 import { Accordion, Heading, Link, Well } from "@gc-digital-talent/ui";
-import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import TrackApplicationsCard from "~/pages/ProfileAndApplicationsPage/components/TrackApplications/TrackApplicationsCard";
+import ApplicationCard from "~/pages/ProfileAndApplicationsPage/components/TrackApplications/ApplicationCard";
 
 import { SectionProps } from "../../types";
 import { getSectionTitle } from "../../utils";
@@ -30,6 +30,7 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
         PoolCandidateStatus.QualifiedAvailable,
         PoolCandidateStatus.QualifiedUnavailable,
         PoolCandidateStatus.QualifiedWithdrew,
+        PoolCandidateStatus.PlacedTentative,
         PoolCandidateStatus.PlacedCasual,
         PoolCandidateStatus.PlacedIndeterminate,
         PoolCandidateStatus.PlacedTerm,
@@ -176,7 +177,7 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
             </p>
             {activeApplications.length > 0 ? (
               activeApplications.map((application) => (
-                <TrackApplicationsCard
+                <ApplicationCard
                   key={application.id}
                   application={application}
                 />

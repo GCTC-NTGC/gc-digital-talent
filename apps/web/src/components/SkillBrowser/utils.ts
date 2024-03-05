@@ -1,7 +1,7 @@
 import { IntlShape } from "react-intl";
 
-import { Skill, SkillCategory, SkillFamily } from "@gc-digital-talent/graphql";
 import { Option } from "@gc-digital-talent/forms";
+import { Skill, SkillCategory, SkillFamily } from "@gc-digital-talent/graphql";
 
 import { invertSkillSkillFamilyTree } from "~/utils/skillUtils";
 
@@ -74,6 +74,28 @@ export const getSkillBrowserDialogMessages: GetSkillBrowserDialogMessages = ({
         },
       ),
   };
+
+  if (context === "pool") {
+    return {
+      ...defaults,
+      trigger: intl.formatMessage({
+        defaultMessage: "Add a new skill",
+        id: "ZYqWBR",
+        description: "Button text to open the skill dialog and add a skill",
+      }),
+      title: intl.formatMessage({
+        defaultMessage: "Manage a skill criteria",
+        id: "Pi5icf",
+        description: "Title for the find a skill dialog within a pool",
+      }),
+      subtitle: intl.formatMessage({
+        defaultMessage:
+          "Select from a variety of skills and identify the level required of applicants.",
+        id: "md/sEi",
+        description: "Subtitle for the find a skill dialog within a pool",
+      }),
+    };
+  }
 
   if (context === "experience") {
     return {
@@ -245,20 +267,18 @@ export const getFilteredSkills: GetFilteredSkills = ({
 }) => {
   if (inLibrary && family && family === "library") {
     // If `inLibrary` was passed and selected, filter by those instead of family
-    return skills.filter(
-      (currentSkill) =>
-        inLibrary?.find(
-          (skillInLibrary) => skillInLibrary.id === currentSkill.id,
-        ),
+    return skills.filter((currentSkill) =>
+      inLibrary?.find(
+        (skillInLibrary) => skillInLibrary.id === currentSkill.id,
+      ),
     );
   }
 
   if (family && family !== "all") {
     // We only care about family if it is set
     // since we are filtering families by category
-    return skills.filter(
-      (currentSkill) =>
-        currentSkill.families?.some((skillFamily) => skillFamily.id === family),
+    return skills.filter((currentSkill) =>
+      currentSkill.families?.some((skillFamily) => skillFamily.id === family),
     );
   }
   if (category && category !== "all") {
@@ -282,7 +302,7 @@ export const getSkillFamilySkillCount = (
 
 export const getSkillCategorySkillCount = (
   skills: Skill[],
-  category: SkillCategory,
+  category: SkillCategory | "all",
 ): number => {
   const skillsByCategory = skills.filter(
     (skill) => skill.category === category,
@@ -340,9 +360,17 @@ export const getCategoryOptions = (
 export const getFamilyOptions = (
   skills: Skill[],
   intl: IntlShape,
-  category?: SkillCategory,
+  category?: SkillCategory | "all",
   inLibrary?: Skill[],
 ): Option[] => {
+  const filteredSkills =
+    category !== "all"
+      ? skills.filter((skill) => skill.category === category)
+      : skills;
+  const filteredLibrary = inLibrary?.filter((librarySkill) =>
+    skills.some((skill) => skill.id === librarySkill.id),
+  );
+
   let familyOptions = [
     {
       value: "all",
@@ -353,15 +381,16 @@ export const getFamilyOptions = (
           description: "Label for removing the skill family filter",
         },
         {
-          count: category
-            ? getSkillCategorySkillCount(skills, category)
-            : skills.length,
+          count:
+            category && category !== "all"
+              ? filteredSkills.length
+              : skills.length,
         },
       ),
     },
   ];
 
-  if (inLibrary) {
+  if (filteredLibrary) {
     familyOptions = [
       ...familyOptions,
       {
@@ -374,7 +403,7 @@ export const getFamilyOptions = (
               "Label for filtering skills by ones already added to the users library",
           },
           {
-            count: inLibrary.length,
+            count: filteredLibrary.length,
           },
         ),
       },

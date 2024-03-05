@@ -27,7 +27,8 @@ abstract class Experience extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class)->withTrashed();
+        return $this->belongsTo(User::class)
+            ->select(User::getSelectableColumns());
     }
 
     public function userSkills(): MorphToMany
@@ -146,5 +147,24 @@ abstract class Experience extends Model
             ->delete();
         // If this experience instance continues to be used, ensure the in-memory instance is updated.
         $this->refresh();
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($experience) {
+            $user = $experience->user;
+            if ($user) {
+                $user->searchable();
+            }
+        });
+
+        static::deleted(function ($experience) {
+            $user = $experience->user;
+            if ($user) {
+                $user->searchable();
+            }
+        });
     }
 }

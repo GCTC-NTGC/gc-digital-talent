@@ -1,5 +1,7 @@
 import { defineMessages, MessageDescriptor } from "react-intl";
 
+import { getOrThrowError } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   ContractAuthority,
   ContractCommodity,
@@ -19,25 +21,15 @@ import {
   YesNo,
   YesNoUnsure,
 } from "@gc-digital-talent/graphql";
-import { getOrThrowError } from "@gc-digital-talent/helpers";
-import { formMessages } from "@gc-digital-talent/i18n";
 
 const yesNoUnsureValues = defineMessages({
-  [YesNoUnsure.Yes]: {
-    defaultMessage: "Yes",
-    id: "IKkBm7",
-    description: "The affirmative option to answer a question",
-  },
-  [YesNoUnsure.No]: {
-    defaultMessage: "No",
-    id: "LTmcVS",
-    description: "The negative option to answer a question",
-  },
   [YesNoUnsure.IDontKnow]: {
     defaultMessage: "I don’t know",
     id: "mcZbcM",
     description: "The unsure option to answer a question",
   },
+  [YesNoUnsure.Yes]: commonMessages.yes,
+  [YesNoUnsure.No]: commonMessages.no,
 });
 
 export const getYesNoUnsure = (
@@ -56,16 +48,8 @@ export const yesNoUnsureSortOrder = [
 ];
 
 const yesNoValues = defineMessages({
-  [YesNo.Yes]: {
-    defaultMessage: "Yes",
-    id: "IKkBm7",
-    description: "The affirmative option to answer a question",
-  },
-  [YesNo.No]: {
-    defaultMessage: "No",
-    id: "LTmcVS",
-    description: "The negative option to answer a question",
-  },
+  [YesNo.Yes]: commonMessages.yes,
+  [YesNo.No]: commonMessages.no,
 });
 
 export const yesNoSortOrder = [YesNo.Yes, YesNo.No];
@@ -100,7 +84,7 @@ const contractAuthorities = defineMessages({
     description:
       "Label for _labour relations_ option in _authorities involved_ fieldset in the _digital services contracting questionnaire_",
   },
-  [ContractAuthority.Other]: formMessages.other,
+  [ContractAuthority.Other]: commonMessages.other,
 });
 
 export const getContractAuthorities = (
@@ -314,7 +298,7 @@ const contractCommodities = defineMessages({
     id: "s7Uy7q",
     description: "Support services contract commodity",
   },
-  [ContractCommodity.Other]: formMessages.other,
+  [ContractCommodity.Other]: commonMessages.other,
 });
 
 export const getContractCommodity = (
@@ -353,7 +337,7 @@ const contractInstruments = defineMessages({
     id: "mieIXc",
     description: "Amendment contract instrument",
   },
-  [ContractInstrument.Other]: formMessages.other,
+  [ContractInstrument.Other]: commonMessages.other,
 });
 
 export const getContractInstrument = (
@@ -396,7 +380,7 @@ const contractSupplyMethods = defineMessages({
     id: "RogeBe",
     description: "Temporary help services contract supply method",
   },
-  [ContractSupplyMethod.Other]: formMessages.other,
+  [ContractSupplyMethod.Other]: commonMessages.other,
 });
 
 export const getContractSupplyMethod = (
@@ -472,7 +456,7 @@ const personnelScreeningLevels = defineMessages({
     id: "hnrC2A",
     description: "Top secret screening level",
   },
-  [PersonnelScreeningLevel.Other]: formMessages.other,
+  [PersonnelScreeningLevel.Other]: commonMessages.other,
 });
 
 export const getPersonnelScreeningLevel = (
@@ -513,7 +497,7 @@ const personnelLanguages = defineMessages({
     id: "KeMgYF",
     description: "Bilingual advanced personnel language",
   },
-  [PersonnelLanguage.Other]: formMessages.other,
+  [PersonnelLanguage.Other]: commonMessages.other,
 });
 
 export const getPersonnelLanguage = (
@@ -587,7 +571,7 @@ const personnelOtherRequirements = defineMessages({
     id: "/rmunL",
     description: "As and when needed personnel other requirement",
   },
-  [PersonnelOtherRequirement.Other]: formMessages.other,
+  [PersonnelOtherRequirement.Other]: commonMessages.other,
 });
 
 export const getPersonnelOtherRequirement = (
@@ -618,11 +602,7 @@ const personnelTeleworkOptions = defineMessages({
     id: "hP2Dxo",
     description: "Part-time personnel telework option",
   },
-  [PersonnelTeleworkOption.No]: {
-    defaultMessage: "No",
-    id: "hVLtXr",
-    description: "No personnel telework option",
-  },
+  [PersonnelTeleworkOption.No]: commonMessages.no,
 });
 
 export const getPersonnelTeleworkOption = (
@@ -678,7 +658,7 @@ const operationsConsiderations = defineMessages({
     id: "DdTqTh",
     description: "Staffing freeze operations consideration",
   },
-  [OperationsConsideration.Other]: formMessages.other,
+  [OperationsConsideration.Other]: commonMessages.other,
 });
 
 export const getOperationsConsideration = (
@@ -733,7 +713,7 @@ const contractingRationales = defineMessages({
     id: "LAW/ov",
     description: "Intellectual property factors contracting rationale",
   },
-  [ContractingRationale.Other]: formMessages.other,
+  [ContractingRationale.Other]: commonMessages.other,
 });
 
 export const getContractingRationale = (

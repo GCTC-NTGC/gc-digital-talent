@@ -1,17 +1,19 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { Table } from "@tanstack/react-table";
+import { PaginationState, Table } from "@tanstack/react-table";
 
 import Pagination from "~/components/Pagination";
 
 import { PaginationDef } from "./types";
 
 interface TablePaginationProps<T> {
+  label: string;
   pagination: PaginationDef;
   table: Table<T>;
 }
 
 const TablePagination = <T,>({
+  label,
   pagination,
   table,
 }: TablePaginationProps<T>) => {
@@ -43,17 +45,35 @@ const TablePagination = <T,>({
     }
   };
 
-  const tablePaginationState = table.getState().pagination;
+  let currentPageIndex: number = 0;
+  if (
+    !pagination?.internal &&
+    typeof pagination?.state?.pageIndex !== "undefined"
+  ) {
+    const externalPageIndex = pagination.state.pageIndex - 1;
+    currentPageIndex = externalPageIndex < 0 ? 0 : externalPageIndex;
+  }
+
+  const tablePaginationState: PaginationState =
+    !pagination.internal && pagination.state
+      ? {
+          pageIndex: currentPageIndex,
+          pageSize: pagination.state.pageSize,
+        }
+      : table.getState().pagination;
 
   return (
     <Pagination
       data-h2-margin-top="base(x1) l-tablet(x.5)"
       color="black"
-      ariaLabel={intl.formatMessage({
-        defaultMessage: "Page navigation",
-        description: "Label for the table pagination",
-        id: "N3sUUc",
-      })}
+      ariaLabel={intl.formatMessage(
+        {
+          defaultMessage: "{label} page navigation",
+          description: "Label for the table pagination",
+          id: "RRlKyW",
+        },
+        { label },
+      )}
       currentPage={tablePaginationState.pageIndex + 1}
       pageSize={tablePaginationState.pageSize}
       pageSizes={pagination.pageSizes}

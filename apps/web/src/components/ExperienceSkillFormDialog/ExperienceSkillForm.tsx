@@ -12,8 +12,8 @@ import {
 import { Select, TextArea } from "@gc-digital-talent/forms";
 import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
+import { Experience, Scalars } from "@gc-digital-talent/graphql";
 
-import { Experience, Scalars } from "~/api/generated";
 import {
   deriveExperienceType,
   getExperienceName,
@@ -23,7 +23,7 @@ import { useExperienceMutations } from "~/hooks/useExperienceMutations";
 const TEXT_AREA_MAX_WORDS = 160;
 
 const getSkillArgs = (
-  skillId: Scalars["ID"],
+  skillId: Scalars["ID"]["output"],
   experience?: Experience,
   details?: string,
   remove?: boolean,
@@ -32,42 +32,22 @@ const getSkillArgs = (
     (experienceSkill) => experienceSkill.id === skillId,
   );
 
-  if (!isExisting && !remove) {
-    return {
-      connect: [
-        {
-          id: skillId,
-          details,
-        },
-      ],
-    };
-  }
+  if (!remove) {
+    const args = [{ id: skillId, details }];
 
-  // Disconnect if we are removing
-  if (remove) {
-    return {
-      disconnect: [skillId],
-    };
+    return isExisting ? { update: args } : { connect: args };
   }
-
-  // Massage data for an update to single experienceSkillRecord
-  const newExperienceSkills = experience?.skills?.map(
-    ({ id, experienceSkillRecord }) => ({
-      id,
-      details: id !== skillId ? experienceSkillRecord?.details : details,
-    }),
-  );
 
   return {
-    sync: newExperienceSkills,
+    disconnect: [skillId],
   };
 };
 
 type FormAction = "connect" | "remove";
 
 type FormValues = {
-  experience?: Scalars["ID"];
-  skill?: Scalars["ID"];
+  experience?: Scalars["ID"]["output"];
+  skill?: Scalars["ID"]["output"];
   details?: string;
   action?: FormAction;
 };
@@ -169,14 +149,14 @@ const ExperienceSkillForm = ({
           disabled={!!defaultValues.experience}
           label={intl.formatMessage({
             defaultMessage: "Select an experience",
-            id: "ODZmvO",
-            description: "Label for the experience select input",
+            id: "baAj/Z",
+            description: "Title for select an experience action",
           })}
           rules={{ required: intl.formatMessage(errorMessages.required) }}
           nullSelection={intl.formatMessage({
             defaultMessage: "Select an experience",
-            id: "WP7NTc",
-            description: "Placeholder for selecting an experience",
+            id: "baAj/Z",
+            description: "Title for select an experience action",
           })}
           options={experiences.map((experienceOption) => ({
             value: experienceOption.id,
@@ -216,32 +196,32 @@ const ExperienceSkillForm = ({
                     {intl.formatMessage({
                       defaultMessage:
                         "What did you accomplish, create or deliver using this skill?",
-                      id: "pV+oii",
-                      description: "Question 1 for clarifying skill details",
+                      id: "WEVxYV",
+                      description: "Question for clarifying skill details",
                     })}
                   </li>
                   <li>
                     {intl.formatMessage({
                       defaultMessage:
                         "What tasks or activities did you do that relate to this skill?",
-                      id: "3sXEjF",
-                      description: "Question 2 for clarifying skill details",
+                      id: "ac1z9L",
+                      description: "Question about related tasks to a skill",
                     })}
                   </li>
                   <li>
                     {intl.formatMessage({
                       defaultMessage:
                         "Were there any special techniques or approaches that you used?",
-                      id: "e9fSNq",
-                      description: "Question 3 for clarifying skill details",
+                      id: "Ivvi/F",
+                      description: "Question about techniques used for a skill",
                     })}
                   </li>
                   <li>
                     {intl.formatMessage({
                       defaultMessage:
                         "How much responsibility did you have in this role?",
-                      id: "mQHftn",
-                      description: "Question 4 for clarifying skill details",
+                      id: "Qjpmm8",
+                      description: "Question for clarifying skill details",
                     })}
                   </li>
                 </ul>

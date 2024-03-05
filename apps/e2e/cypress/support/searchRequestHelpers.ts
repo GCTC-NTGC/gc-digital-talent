@@ -1,5 +1,5 @@
-import { PoolCandidateSearchRequestReason } from "@gc-digital-talent/graphql";
 import {
+  PoolCandidateSearchRequestReason,
   PoolCandidateSearchPositionType,
   WorkRegion,
 } from "@gc-digital-talent/graphql";

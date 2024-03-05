@@ -9,7 +9,7 @@ import {
   Link,
 } from "@gc-digital-talent/ui";
 import { useAuthentication } from "@gc-digital-talent/auth";
-import { getLocale } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero/Hero";
 import SEO from "~/components/SEO/SEO";
@@ -135,11 +135,7 @@ const SignedOutPage = () => {
                 mode="inline"
                 href={paths.profileAndApplications()}
               >
-                {intl.formatMessage({
-                  defaultMessage: "Cancel",
-                  id: "AhNR6n",
-                  description: "Link text to cancel logging out.",
-                })}
+                {intl.formatMessage(commonMessages.cancel)}
               </Link>
             </AlertDialog.Cancel>
             <AlertDialog.Action>

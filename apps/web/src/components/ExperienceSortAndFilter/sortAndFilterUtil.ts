@@ -1,9 +1,9 @@
 /* eslint-disable import/prefer-default-export */
 import { IntlShape } from "react-intl";
 
-import { Experience } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { PAST_DATE } from "@gc-digital-talent/date-helpers";
+import { Experience } from "@gc-digital-talent/graphql";
 
 import {
   compareByDate,

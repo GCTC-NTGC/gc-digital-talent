@@ -3,8 +3,7 @@ import type { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
-
-import { UpdatePoolCandidateAsAdminInput } from "~/api/generated";
+import { UpdatePoolCandidateAsAdminInput } from "@gc-digital-talent/graphql";
 
 import { ApplicationStatusForm } from "./ApplicationStatusForm";
 
@@ -17,9 +16,6 @@ const mockApplication = mockApplications[0];
 export default {
   component: ApplicationStatusForm,
   title: "Forms/Application Status Form",
-  parameters: {
-    themeKey: "admin",
-  },
 } as Meta;
 
 const Template: Story = (args) => {

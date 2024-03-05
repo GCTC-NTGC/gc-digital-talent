@@ -67,8 +67,17 @@ const SkillBrowser = ({
   }, [skills, category, intl]);
 
   const filteredSkills = React.useMemo(() => {
-    return getFilteredSkills({ skills, family, category });
-  }, [category, family, skills]);
+    return getFilteredSkills({ skills, family, category }).sort(
+      (skillA, skillB) => {
+        const a = normalizeString(getLocalizedName(skillA.name, intl));
+        const b = normalizeString(getLocalizedName(skillB.name, intl));
+
+        if (a === b) return 0;
+
+        return a > b ? 1 : -1;
+      },
+    );
+  }, [category, family, skills, intl]);
 
   React.useEffect(() => {
     resetField("skill");

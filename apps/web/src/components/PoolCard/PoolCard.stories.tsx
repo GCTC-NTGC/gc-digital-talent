@@ -2,8 +2,7 @@ import React from "react";
 import { Story, Meta } from "@storybook/react";
 
 import { fakePools } from "@gc-digital-talent/fake-data";
-
-import { Pool } from "~/api/generated";
+import { Pool } from "@gc-digital-talent/graphql";
 
 import PoolCard from "./PoolCard";
 

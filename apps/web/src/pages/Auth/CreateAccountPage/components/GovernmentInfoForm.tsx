@@ -8,6 +8,7 @@ import {
   getGovEmployeeType,
   getLocale,
   getLocalizedName,
+  uiMessages,
 } from "@gc-digital-talent/i18n";
 import {
   Input,
@@ -19,14 +20,14 @@ import {
 } from "@gc-digital-talent/forms";
 import { empty, notEmpty } from "@gc-digital-talent/helpers";
 import { Link } from "@gc-digital-talent/ui";
-
-import { splitAndJoin } from "~/utils/nameUtils";
 import {
   Classification,
   UpdateUserAsUserInput,
   GovEmployeeType,
   Department,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
+
+import { splitAndJoin } from "~/utils/nameUtils";
 
 type FormValues = {
   govEmployeeYesNo?: "yes" | "no";
@@ -393,11 +394,9 @@ export const GovernmentInfoFormFields = ({
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
-                nullSelection={intl.formatMessage({
-                  defaultMessage: "Select a level",
-                  id: "/ImWz4",
-                  description: "Null selection for form.",
-                })}
+                nullSelection={intl.formatMessage(
+                  uiMessages.nullSelectionOptionLevel,
+                )}
                 options={levelOptions}
               />
             )}

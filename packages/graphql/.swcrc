@@ -1,0 +1,12 @@
+{
+  "jsc": {
+    "experimental": {
+      "plugins": [
+        [
+          "@graphql-codegen/client-preset-swc-plugin",
+          { "artifactDirectory": "./src/gql", "gqlTagName": "graphql" }
+        ]
+      ]
+    }
+  }
+}

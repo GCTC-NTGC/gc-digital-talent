@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
-import { formMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 
 type DeleteDialogProps = {
   onDelete: () => void;
@@ -34,11 +34,7 @@ const DeleteDialog = ({
               mode="solid"
               color="error"
             >
-              {intl.formatMessage({
-                defaultMessage: "Delete",
-                id: "sBksyQ",
-                description: "Delete confirmation",
-              })}
+              {intl.formatMessage(commonMessages.delete)}
             </Button>
           </Dialog.Close>
         </div>
@@ -51,11 +47,7 @@ const DeleteDialog = ({
       <Dialog.Trigger>{trigger}</Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>
-          {intl.formatMessage({
-            defaultMessage: "Delete",
-            id: "sBksyQ",
-            description: "Delete confirmation",
-          })}
+          {intl.formatMessage(commonMessages.delete)}
         </Dialog.Header>
         <Dialog.Body>
           <p>

@@ -25,6 +25,7 @@ import {
 } from "./workPreferences";
 import { isIncomplete as careerTimelineIsIncomplete } from "./careerTimeline";
 import { isIncomplete as skillRequirementsIsIncomplete } from "./skillRequirements";
+import { hasMissingResponses as generalQuestionsSectionHasMissingResponses } from "./generalQuestions";
 import { hasMissingResponses as screeningQuestionsSectionHasMissingResponses } from "./screeningQuestions";
 
 export {
@@ -37,6 +38,7 @@ export {
   workPreferencesSectionHasEmptyRequiredFields,
   careerTimelineIsIncomplete,
   skillRequirementsIsIncomplete,
+  generalQuestionsSectionHasMissingResponses,
   screeningQuestionsSectionHasMissingResponses,
   PartialUserAbout,
   PartialUserDei,

@@ -8,6 +8,7 @@ import SparklesIcon from "@heroicons/react/24/outline/SparklesIcon";
 import UserPlusIcon from "@heroicons/react/24/outline/UserPlusIcon";
 
 import { CardFlat, Flourish, Heading, Link } from "@gc-digital-talent/ui";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -16,7 +17,9 @@ import SkewedContainer from "~/components/SkewedContainer/SkewedContainer";
 import SkewedImageContainer from "~/components/SkewedContainer/SkewedImageContainer";
 import FlourishContainer from "~/components/FlourishContainer/FlourishContainer";
 import FeatureBlock from "~/components/FeatureBlock/FeatureBlock";
-import managerHero from "~/assets/img/manager-hero.webp";
+import managerHeroPortrait from "~/assets/img/manager-hero-portrait.webp";
+import managerHeroTablet from "~/assets/img/manager-hero-tablet-portrait.webp";
+import managerHeroLandscape from "~/assets/img/manager-hero-landscape.webp";
 import managerProfileHero from "~/assets/img/manager-profile-hero.webp";
 import peopleGatheredAroundLaptop from "~/assets/img/people-gathered-around-laptop.webp";
 import peopleSittingOnCouch from "~/assets/img/people-sitting-on-couch-discussing-something.webp";
@@ -29,8 +32,8 @@ const HomePage = () => {
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Managers community",
-    id: "Izo/vB",
-    description: "Page title for the managers homepage",
+    id: "l75mNg",
+    description: "Title for Managers community",
   });
 
   return (
@@ -38,7 +41,8 @@ const HomePage = () => {
       <SEO title={pageTitle} />
       <HomeHero
         img={{
-          src: managerHero,
+          srcset: `${managerHeroPortrait} 600w, ${managerHeroTablet} 900w, ${managerHeroLandscape} 1200w`,
+          src: managerHeroLandscape,
           alt: "",
         }}
         callToAction={
@@ -49,11 +53,7 @@ const HomePage = () => {
               icon={MagnifyingGlassIcon}
               href={paths.search()}
             >
-              {intl.formatMessage({
-                defaultMessage: "Find talent",
-                id: "sbEk4X",
-                description: "Link text for hiring manager call to action",
-              })}
+              {intl.formatMessage(navigationMessages.findTalent)}
             </Link>
             <Link
               color="secondary"
@@ -77,7 +77,7 @@ const HomePage = () => {
           data-h2-font-size="base(h6, 1.4)"
           data-h2-font-weight="base(300)"
           data-h2-margin="base(x1, 0, x2, 0)"
-          data-h2-max-width="p-tablet(50%)"
+          data-h2-max-width="p-tablet(65%) l-tablet(50%)"
         >
           {intl.formatMessage({
             defaultMessage: "Grow your career and find talent for your team.",
@@ -109,20 +109,12 @@ const HomePage = () => {
         >
           <CardFlat
             color="quaternary"
-            title={intl.formatMessage({
-              defaultMessage: "Find talent",
-              id: "93Dk4Q",
-              description: "Heading for the digital government talent search",
-            })}
+            title={intl.formatMessage(navigationMessages.findTalent)}
             links={[
               {
                 href: paths.search(),
                 mode: "solid",
-                label: intl.formatMessage({
-                  defaultMessage: "Find talent",
-                  id: "sbEk4X",
-                  description: "Link text for hiring manager call to action",
-                }),
+                label: intl.formatMessage(navigationMessages.findTalent),
               },
             ]}
           >
@@ -159,9 +151,8 @@ const HomePage = () => {
                 external: true,
                 label: intl.formatMessage({
                   defaultMessage: "Contact us",
-                  description:
-                    "Link text to contact the the team about starting a recruitment process",
-                  id: "g0/bWP",
+                  description: "Title for Contact us action",
+                  id: "RIi/3q",
                 }),
               },
             ]}
@@ -282,9 +273,8 @@ const HomePage = () => {
               img: { path: peopleGatheredAroundLaptop },
               title: intl.formatMessage({
                 defaultMessage: "Get hiring experience",
-                id: "azBrrC",
-                description:
-                  "Title for the feature about getting hiring experience",
+                id: "SfhT1q",
+                description: "Title to get hiring experience",
               }),
               summary: (
                 <>
@@ -349,12 +339,7 @@ const HomePage = () => {
               ),
               link: {
                 path: paths.browsePools(), // Note: Update once we have a manager specific page
-                label: intl.formatMessage({
-                  defaultMessage: "Browse jobs",
-                  id: "NNosUu",
-                  description:
-                    "Link text for manager jobs in government call to action",
-                }),
+                label: intl.formatMessage(navigationMessages.browseJobs),
               },
             }}
           />

@@ -1,13 +1,13 @@
 import { IntlShape } from "react-intl";
 
 import { emptyToNull } from "@gc-digital-talent/helpers";
-
+import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
   UpdateUserAsUserInput,
   User,
-} from "~/api/generated";
+} from "@gc-digital-talent/graphql";
 
 import { FormValues, PartialUser } from "./types";
 
@@ -38,11 +38,7 @@ export const getLabels = (intl: IntlShape) => ({
     id: "de/Vcy",
     description: "Label for current city field in About Me form",
   }),
-  telephone: intl.formatMessage({
-    defaultMessage: "Telephone",
-    id: "gBWsuB",
-    description: "Label for telephone field in About Me form",
-  }),
+  telephone: intl.formatMessage(commonMessages.telephone),
   firstName: intl.formatMessage({
     defaultMessage: "Given name",
     id: "DUh8zg",
@@ -65,8 +61,8 @@ export const getLabels = (intl: IntlShape) => ({
   }),
   armedForcesStatus: intl.formatMessage({
     defaultMessage: "Veteran status",
-    id: "WyejQ2",
-    description: "Legend text for Veteran status selection",
+    id: "OVWo88",
+    description: "Title for Veteran status",
   }),
 });
 

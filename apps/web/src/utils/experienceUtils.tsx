@@ -11,6 +11,15 @@ import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIc
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { IconType } from "@gc-digital-talent/ui";
+import {
+  AwardExperience,
+  CommunityExperience,
+  EducationExperience,
+  Maybe,
+  PersonalExperience,
+  Skill,
+  WorkExperience,
+} from "@gc-digital-talent/graphql";
 
 import {
   AllExperienceFormValues,
@@ -23,15 +32,6 @@ import {
 } from "~/types/experience";
 
 import { formattedDate, getDateRange } from "./dateUtils";
-import {
-  AwardExperience,
-  CommunityExperience,
-  EducationExperience,
-  Maybe,
-  PersonalExperience,
-  Skill,
-  WorkExperience,
-} from "../api/generated";
 import useRoutes from "../hooks/useRoutes";
 import experienceMessages from "../messages/experienceMessages";
 
@@ -182,11 +182,7 @@ export const getExperienceFormLabels = (
       id: "o0Yt8Q",
       description: "Label displayed on education form for institution input",
     }),
-    educationStatus: intl.formatMessage({
-      defaultMessage: "Status",
-      id: "OQhL7A",
-      description: "Label displayed on Education form for status input",
-    }),
+    educationStatus: intl.formatMessage(commonMessages.status),
     thesisTitle: intl.formatMessage({
       defaultMessage: "Thesis Title",
       id: "N87bC7",
@@ -317,7 +313,7 @@ export const formValuesToSubmitData = (
             ? data.skills.map((skill) => {
                 return {
                   id: skill.skillId,
-                  details: skill.details,
+                  details: skill.details ?? "",
                 };
               })
             : []),
@@ -325,7 +321,7 @@ export const formValuesToSubmitData = (
             ? hiddenSkills.map((skill) => {
                 return {
                   id: skill.id,
-                  details: skill.experienceSkillRecord?.details,
+                  details: skill.experienceSkillRecord?.details ?? "",
                 };
               })
             : []),
@@ -335,7 +331,7 @@ export const formValuesToSubmitData = (
 
   return {
     details: data.details,
-    skills: data.skills ? { sync: skillSync } : undefined,
+    skills: { sync: skillSync },
     ...(type ? dataMap[type] : {}),
   };
 };

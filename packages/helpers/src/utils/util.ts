@@ -101,7 +101,7 @@ export function isStringTrue(str: string | undefined): boolean {
  * @param s String value from an input
  * @returns The possibly-transformed-to-null input string
  */
-export const emptyToNull = (s: InputMaybe<string>): string | null =>
+export const emptyToNull = (s?: InputMaybe<string>): string | null =>
   empty(s) || s === "" ? null : s;
 
 /**
@@ -168,7 +168,9 @@ export function assertUnreachable(x: never): never {
  * @param data
  * @returns T[]
  */
-export function unpackMaybes<T>(data: Maybe<Array<Maybe<T>>>): T[] {
+export function unpackMaybes<T>(
+  data?: Maybe<Array<Maybe<T> | undefined>>,
+): T[] {
   return data?.filter(notEmpty) ?? [];
 }
 

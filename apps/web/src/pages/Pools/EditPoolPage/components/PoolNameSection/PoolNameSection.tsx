@@ -6,19 +6,25 @@ import TagIcon from "@heroicons/react/24/outline/TagIcon";
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import {
   commonMessages,
+  formMessages,
   getPublishingGroup,
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { Input, Select, Submit, enumToOptions } from "@gc-digital-talent/forms";
-import { PublishingGroup } from "@gc-digital-talent/graphql";
-
-import { PoolStatus, Classification, Maybe } from "~/api/generated";
 import {
-  hasAllEmptyFields,
+  PublishingGroup,
+  PoolStatus,
+  Classification,
+  Maybe,
+} from "@gc-digital-talent/graphql";
+
+import {
+  isInNullState,
   hasEmptyRequiredFields,
 } from "~/validators/process/classification";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
+import processMessages from "~/messages/processMessages";
 
 import { useEditPoolContext } from "../EditPoolContext";
 import Display from "./Display";
@@ -28,6 +34,7 @@ import {
   dataToFormValues,
   formValuesToSubmitData,
   getClassificationOptions,
+  getOpportunityLengthOptions,
   getStreamOptions,
 } from "./utils";
 import { SectionProps } from "../../types";
@@ -44,7 +51,7 @@ const PoolNameSection = ({
   onSave,
 }: PoolNameSectionProps): JSX.Element => {
   const intl = useIntl();
-  const isNull = hasAllEmptyFields(pool);
+  const isNull = isInNullState(pool);
   const emptyRequired = hasEmptyRequiredFields(pool);
   const { isSubmitting } = useEditPoolContext();
   const { isEditing, setIsEditing, icon } = useToggleSectionInfo({
@@ -74,9 +81,9 @@ const PoolNameSection = ({
 
   const subtitle = intl.formatMessage({
     defaultMessage:
-      "Select the classification intended for this recruitment process.",
-    id: "7BMnFp",
-    description: "Describes selecting a target classification for a process.",
+      "This section covers the process' basics, including classification, job title, and closing date.",
+    id: "pQGDiR",
+    description: "Describes selecting a advertisement details for a process.",
   });
 
   return (
@@ -89,36 +96,30 @@ const PoolNameSection = ({
         Icon={icon.icon}
         color={icon.color}
         level="h3"
-        size="h5"
+        size="h4"
         toggle={
           <ToggleForm.LabelledTrigger
             disabled={formDisabled}
             sectionTitle={sectionMetadata.title}
           />
         }
+        data-h2-font-weight="base(bold)"
       >
         {sectionMetadata.title}
       </ToggleSection.Header>
+      <p>{subtitle}</p>
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
-          {isNull ? (
-            <ToggleForm.NullDisplay
-              title={sectionMetadata.id}
-              content={subtitle}
-            />
-          ) : (
-            <Display pool={pool} subtitle={subtitle} />
-          )}
+          {isNull ? <ToggleForm.NullDisplay /> : <Display pool={pool} />}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
-          <p>{subtitle}</p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
               <div
                 data-h2-display="base(grid)"
                 data-h2-gap="base(x1)"
                 data-h2-grid-template-columns="l-tablet(repeat(2, 1fr))"
-                data-h2-margin="base(x1 0)"
+                data-h2-margin-bottom="base(x1)"
               >
                 <Select
                   id="classification"
@@ -138,18 +139,15 @@ const PoolNameSection = ({
                 <Select
                   id="stream"
                   label={intl.formatMessage({
-                    defaultMessage: "Streams/Job Titles",
-                    id: "PzijvH",
+                    defaultMessage: "Work stream",
+                    id: "UKw7sB",
                     description:
                       "Label displayed on the pool form stream/job title field.",
                   })}
                   name="stream"
-                  nullSelection={intl.formatMessage({
-                    defaultMessage: "Select a stream/job title",
-                    id: "fR6xVv",
-                    description:
-                      "Placeholder displayed on the pool form classification field.",
-                  })}
+                  nullSelection={intl.formatMessage(
+                    uiMessages.nullSelectionOption,
+                  )}
                   options={getStreamOptions(intl)}
                   disabled={formDisabled}
                 />
@@ -158,8 +156,8 @@ const PoolNameSection = ({
                   name="specificTitleEn"
                   type="text"
                   label={intl.formatMessage({
-                    defaultMessage: "Specific Title (English)",
-                    id: "fTwl6k",
+                    defaultMessage: "Job title (EN)",
+                    id: "XiODnT",
                     description:
                       "Label for a pool advertisements specific English title",
                   })}
@@ -170,12 +168,29 @@ const PoolNameSection = ({
                   name="specificTitleFr"
                   type="text"
                   label={intl.formatMessage({
-                    defaultMessage: "Specific Title (French)",
-                    id: "MDjwSO",
+                    defaultMessage: "Job title (FR)",
+                    id: "bkAzZm",
                     description:
                       "Label for a pool advertisements specific French title",
                   })}
                   disabled={formDisabled}
+                />
+              </div>
+              <div
+                data-h2-display="base(grid)"
+                data-h2-gap="base(x1)"
+                data-h2-margin-bottom="base(x1)"
+              >
+                <Select
+                  id="opportunityLength"
+                  name="opportunityLength"
+                  label={intl.formatMessage(processMessages.opportunityLength)}
+                  nullSelection={intl.formatMessage(
+                    uiMessages.nullSelectionOption,
+                  )}
+                  options={getOpportunityLengthOptions(intl)}
+                  disabled={formDisabled}
+                  doNotSort
                 />
                 <Input
                   id="processNumber"
@@ -197,12 +212,7 @@ const PoolNameSection = ({
                 />
                 <Select
                   id="publishingGroup"
-                  label={intl.formatMessage({
-                    defaultMessage: "Publishing group",
-                    id: "tQ674x",
-                    description:
-                      "Label displayed on the edit pool form publishing group field.",
-                  })}
+                  label={intl.formatMessage(processMessages.publishingGroup)}
                   name="publishingGroup"
                   nullSelection={intl.formatMessage({
                     defaultMessage: "Select a publishing group",
@@ -226,10 +236,12 @@ const PoolNameSection = ({
               <ActionWrapper>
                 {!formDisabled && (
                   <Submit
-                    text={intl.formatMessage({
-                      defaultMessage: "Save pool name",
-                      id: "bbIDc9",
-                      description: "Text on a button to save the pool name",
+                    text={intl.formatMessage(formMessages.saveChanges)}
+                    aria-label={intl.formatMessage({
+                      defaultMessage: "Save advertisement details",
+                      id: "sF6S0Z",
+                      description:
+                        "Text on a button to save advertisement details",
                     })}
                     color="secondary"
                     mode="solid"

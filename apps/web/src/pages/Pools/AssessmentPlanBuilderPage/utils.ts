@@ -1,12 +1,12 @@
 /* eslint-disable import/prefer-default-export */
 import { IntlShape } from "react-intl";
 
-import { AssessmentStep } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   getAssessmentStepType,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
+import { AssessmentStep } from "@gc-digital-talent/graphql";
 
 export const assessmentStepDisplayName = (
   assessmentStep: AssessmentStep,

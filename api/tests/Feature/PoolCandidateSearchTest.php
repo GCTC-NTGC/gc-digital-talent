@@ -489,4 +489,47 @@ class PoolCandidateSearchTest extends TestCase
             ],
         ]);
     }
+
+    // test pool candidates  general search by notes
+    public function testPoolCandidatesSearchByNotes()
+    {
+        $candidateId = PoolCandidate::factory()->create([
+            'pool_id' => $this->pool->id,
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => PoolCandidateStatus::PLACED_CASUAL->name,
+            'suspended_at' => null,
+            'notes' => 'test notes',
+        ]);
+
+        $query =
+            /** @lang GraphQL */
+            '
+        query poolCandidatesPaginated($where: PoolCandidateSearchInput) {
+            poolCandidatesPaginated(
+                where: $where
+            ) {
+                paginatorInfo {
+                    count
+                }
+            }
+        }
+    ';
+
+        $this->actingAs($this->teamUser, 'api')->graphQL(
+            $query,
+            [
+                'where' => [
+                    'generalSearch' => ['test notes'],
+                ],
+            ]
+        )->assertJson([
+            'data' => [
+                'poolCandidatesPaginated' => [
+                    'paginatorInfo' => [
+                        'count' => 1,
+                    ],
+                ],
+            ],
+        ]);
+    }
 }

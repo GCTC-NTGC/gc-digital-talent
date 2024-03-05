@@ -25,7 +25,7 @@ const reactIntlTransformRule = {
 };
 
 const staticDocumentsRule = {
-  test: /\.(pdf|doc|docx)$/i,
+  test: /\.(pdf|doc|docx|pptx)$/i,
   type: "asset/resource",
   generator: {
     filename: "documents/[name][ext]",
@@ -51,6 +51,7 @@ const config: StorybookConfig = {
     "@storybook/addon-a11y",
     "@storybook/addon-essentials",
     "@storybook/addon-links",
+    "@storybook/addon-themes",
     "@storybook/addon-viewport",
     "storybook-addon-intl",
   ],

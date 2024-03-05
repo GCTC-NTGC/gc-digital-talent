@@ -15,8 +15,7 @@ import {
   getLanguage,
   getProvinceOrTerritory,
 } from "@gc-digital-talent/i18n";
-
-import { Language, ProvinceOrTerritory } from "~/api/generated";
+import { Language, ProvinceOrTerritory } from "@gc-digital-talent/graphql";
 
 import { FormFieldProps } from "../../types";
 import useDirtyFields from "../../hooks/useDirtyFields";

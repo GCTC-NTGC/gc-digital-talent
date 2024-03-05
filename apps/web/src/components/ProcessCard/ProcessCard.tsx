@@ -28,18 +28,13 @@ const Header = (props: DivProps) => (
 
 const Footer = (props: DivProps) => (
   <>
-    <Separator
-      orientation="horizontal"
-      decorative
-      data-h2-background-color="base(gray.lighter)"
-      data-h2-margin="base(x1 0)"
-    />
+    <Separator space="sm" />
     <div
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column) p-tablet(row)"
       data-h2-justify-content="base(flex-start)"
       data-h2-gap="base(x.5 0) p-tablet(0 x1)"
-      data-h2-align-items="base(flex-end)"
+      data-h2-align-items="base(center)"
       {...props}
     />
   </>

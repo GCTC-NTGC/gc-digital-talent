@@ -13,6 +13,8 @@ import {
   ClassificationFilterInput,
   PoolCandidateSearchInput,
   PoolCandidateStatus,
+  CandidateSuspendedFilter,
+  CandidateExpiryFilter,
 } from "@gc-digital-talent/graphql";
 
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
@@ -112,7 +114,15 @@ const SingleSearchRequestTableApi = ({
 
   return (
     <PoolCandidatesTable
-      initialFilterInput={isLegacyFilter ? undefined : applicantFilterInput}
+      initialFilterInput={
+        isLegacyFilter
+          ? undefined
+          : {
+              ...applicantFilterInput,
+              suspendedStatus: CandidateSuspendedFilter.Active, // add default filters
+              expiryStatus: CandidateExpiryFilter.Active,
+            }
+      }
       title={intl.formatMessage(adminMessages.poolsCandidates)}
     />
   );

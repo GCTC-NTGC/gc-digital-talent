@@ -4,20 +4,20 @@ import { IntlShape, useIntl } from "react-intl";
 import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import groupBy from "lodash/groupBy";
 import { FormProvider, useForm } from "react-hook-form";
-import { OperationContext } from "urql";
 
 import {
   Button,
   Heading,
   Link,
-  Pending,
   Separator,
   ThrowNotFound,
   Well,
 } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { Input } from "@gc-digital-talent/forms";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { Experience, ApplicationStep } from "@gc-digital-talent/graphql";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -25,20 +25,15 @@ import { ExperienceForDate, ExperienceType } from "~/types/experience";
 import { deriveExperienceType } from "~/utils/experienceUtils";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import applicationMessages from "~/messages/applicationMessages";
-import {
-  ApplicationStep,
-  useGetApplicationQuery,
-  useGetMyExperiencesQuery,
-  useUpdateApplicationMutation,
-} from "~/api/generated";
 import ExperienceSortAndFilter, {
   FormValues as ExperienceSortAndFilterFormValues,
 } from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
 import { sortAndFilterExperiences } from "~/components/ExperienceSortAndFilter/sortAndFilterUtil";
 
+import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
-import useApplicationId from "../useApplicationId";
+import useApplication from "../useApplication";
 
 type SortOptions = "date_desc" | "type_asc";
 
@@ -172,6 +167,7 @@ export const ApplicationCareerTimeline = ({
 }: ApplicationCareerTimelineProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const features = useFeatureFlags();
   const navigate = useNavigate();
   const { followingPageUrl, currentStepOrdinal, isIAP } =
     useApplicationContext();
@@ -180,6 +176,7 @@ export const ApplicationCareerTimeline = ({
     paths,
     application,
     stepOrdinal: currentStepOrdinal,
+    RoDFlag: features.recordOfDecision,
   });
   const instructionsPath = paths.applicationCareerTimelineIntro(application.id);
   const nextStep =
@@ -268,8 +265,8 @@ export const ApplicationCareerTimeline = ({
         <Link href={instructionsPath} mode="inline">
           {intl.formatMessage({
             defaultMessage: "Review instructions",
-            id: "VRxiNC",
-            description: "A link back to the instructions for this section",
+            id: "cCSlti",
+            description: "Title for review instructions action",
           })}
         </Link>
       </div>
@@ -405,12 +402,7 @@ export const ApplicationCareerTimeline = ({
             }}
           />
 
-          <Separator
-            orientation="horizontal"
-            decorative
-            data-h2-background="base(gray)"
-            data-h2-margin="base(x2, 0)"
-          />
+          <Separator />
           <div
             data-h2-display="base(flex)"
             data-h2-gap="base(x1)"
@@ -439,58 +431,18 @@ export const ApplicationCareerTimeline = ({
   );
 };
 
-const context: Partial<OperationContext> = {
-  additionalTypenames: [
-    "AwardExperience",
-    "CommunityExperience",
-    "EducationExperience",
-    "PersonalExperience",
-    "WorkExperience",
-  ], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
-  requestPolicy: "cache-first",
-};
-
 const ApplicationCareerTimelinePage = () => {
-  const id = useApplicationId();
-  const [
-    {
-      data: applicationData,
-      fetching: applicationFetching,
-      error: applicationError,
-    },
-  ] = useGetApplicationQuery({
-    variables: {
-      id,
-    },
-    requestPolicy: "cache-first",
-  });
-  const [
-    {
-      data: experienceData,
-      fetching: experienceFetching,
-      error: experienceError,
-    },
-  ] = useGetMyExperiencesQuery({
-    context,
-  });
+  const { application } = useApplication();
 
-  const application = applicationData?.poolCandidate;
-  const experiences = experienceData?.me?.experiences as ExperienceForDate[];
+  const experiences: Experience[] = unpackMaybes(application.user.experiences);
 
-  return (
-    <Pending
-      fetching={applicationFetching || experienceFetching}
-      error={applicationError || experienceError}
-    >
-      {application ? (
-        <ApplicationCareerTimeline
-          application={application}
-          experiences={experiences}
-        />
-      ) : (
-        <ThrowNotFound />
-      )}
-    </Pending>
+  return application ? (
+    <ApplicationCareerTimeline
+      application={application}
+      experiences={experiences}
+    />
+  ) : (
+    <ThrowNotFound />
   );
 };
 

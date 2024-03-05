@@ -14,11 +14,17 @@ import {
   Button,
 } from "@gc-digital-talent/ui";
 import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
-import { useAuthorization } from "@gc-digital-talent/auth";
 import { getId, notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
 import { getPoolStream } from "@gc-digital-talent/i18n";
+import {
+  graphql,
+  PoolStream,
+  Skill,
+  Pool,
+  getFragment,
+  FragmentType,
+} from "@gc-digital-talent/graphql";
 
-import { PoolStream, Skill, Pool, useMySkillsQuery } from "~/api/generated";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
 
@@ -73,19 +79,33 @@ const streamIsRecommended = (
   stream: StreamViewModel,
   userSkillIds: Skill["id"][],
 ): boolean =>
-  stream.classifications.some(
-    (classification) =>
-      classification.pool?.essentialSkills?.every((skill) =>
-        userSkillIds.includes(skill.id),
-      ),
+  stream.classifications.some((classification) =>
+    classification.pool?.essentialSkills?.every((skill) =>
+      userSkillIds.includes(skill.id),
+    ),
   );
+
+const OngoingRecruitmentSection_QueryFragment = graphql(/* GraphQL */ `
+  fragment OngoingRecruitmentSection on Query {
+    me {
+      experiences {
+        id
+        skills {
+          id
+        }
+      }
+    }
+  }
+`);
 
 export interface OngoingRecruitmentSectionProps {
   pools: Pool[];
+  query?: FragmentType<typeof OngoingRecruitmentSection_QueryFragment>;
 }
 
 const OngoingRecruitmentSection = ({
   pools,
+  query,
 }: OngoingRecruitmentSectionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -112,12 +132,12 @@ const OngoingRecruitmentSection = ({
     PoolStream | "ALL"
   >("ALL");
 
-  const { userAuthInfo, isLoaded } = useAuthorization();
-  const [{ data: skillsData }] = useMySkillsQuery({
-    pause: !isLoaded || !userAuthInfo,
-  });
-
-  const mySkillIdsWithDuplicates = skillsData?.me?.experiences
+  const data = getFragment(OngoingRecruitmentSection_QueryFragment, query);
+  // const pools =
+  //   data?.publishedPools.filter(
+  //     (pool) => typeof pool !== `undefined` && !!pool,
+  //   ) ?? [];
+  const mySkillIdsWithDuplicates = data?.me?.experiences
     ?.flatMap((e) => e?.skills)
     .filter(notEmpty)
     .map(getId);

@@ -4,44 +4,42 @@
 import React from "react";
 import * as TabsPrimitive from "@radix-ui/react-tabs";
 
+import { commonTabStyles, handleTabFocus } from "./utils";
+
 const Root = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Root>
 >((props, forwardedRef) => (
-  <TabsPrimitive.Root ref={forwardedRef} {...props} />
+  <TabsPrimitive.Root ref={forwardedRef} {...commonTabStyles.root} {...props} />
 ));
 
 const List = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>
->((props, forwardedRef) => (
-  <TabsPrimitive.List ref={forwardedRef} {...props} />
+>(({ children, ...rest }, forwardedRef) => (
+  <TabsPrimitive.List
+    ref={forwardedRef}
+    className="Tabs__List"
+    {...commonTabStyles.list}
+    {...rest}
+  >
+    {children}
+  </TabsPrimitive.List>
 ));
 
 const Trigger = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>
->((props, forwardedRef) => (
+>(({ children, ...rest }, forwardedRef) => (
   <TabsPrimitive.Trigger
     className="Tabs__Trigger"
-    data-h2-background-color="base(white)"
-    data-h2-border="base(1px solid gray)"
-    data-h2-border-top="
-      base:selectors[[data-state='inactive']](x.5 solid gray)
-      base:selectors[[data-state='active']](x.5 solid primary)
-      base:selectors[[data-state='inactive']]:hover(x.5 solid gray.dark)
-      base:selectors[[data-state='active']]:hover(x.5 solid primary.dark)"
-    data-h2-border-bottom="base:selectors[[data-state='active']](1px solid white)"
-    data-h2-cursor="base(pointer)"
-    data-h2-padding="base(x.5, x1)"
-    data-h2-margin="base(0, x.5, 0, 0)"
-    data-h2-position="base(relative)"
-    data-h2-location="base(1px, auto, auto, auto)"
-    data-h2-radius="base(s, s, 0, 0)"
-    data-h2-transition="base(border 100ms ease)"
+    onFocus={handleTabFocus}
+    {...commonTabStyles.trigger}
     ref={forwardedRef}
-    {...props}
-  />
+    {...rest}
+  >
+    <span {...commonTabStyles.triggerInner}>{children}</span>
+  </TabsPrimitive.Trigger>
 ));
 
 const Content = React.forwardRef<
@@ -49,11 +47,9 @@ const Content = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>
 >((props, forwardedRef) => (
   <TabsPrimitive.Content
-    data-h2-background-color="base(white)"
-    data-h2-border="base(1px solid gray)"
-    data-h2-radius="base(0, s, s, s)"
-    data-h2-padding="base(x1, x.75)"
     ref={forwardedRef}
+    {...commonTabStyles.contentDivide}
+    data-h2-padding="base(x1)"
     {...props}
   />
 ));
@@ -67,7 +63,7 @@ const Tabs = {
   /**
    * @name Root
    * @desc An item in the group.
-   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/toggle-group#item)
+   * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/tabs#root)
    */
   Root,
   /**

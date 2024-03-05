@@ -1,16 +1,28 @@
 import {
-  AllTeamsQuery,
-  AllTeamsDocument,
-  CreateTeamMutation,
-  CreateTeamDocument,
+  Command_AllTeamsQuery,
+  Command_CreateTeamMutation,
+  graphql,
 } from "@gc-digital-talent/graphql";
 
-import { getGqlString } from "./graphql-test-utils";
+const commandAllTeamsDoc = /* GraphQL */ `
+  query Command_AllTeams {
+    teams {
+      id
+      name
+      displayName {
+        en
+        fr
+      }
+    }
+  }
+`;
+
+const Command_AllTeamsQuery = graphql(commandAllTeamsDoc);
 
 Cypress.Commands.add("getDCM", () => {
-  cy.graphqlRequest<AllTeamsQuery>({
-    operationName: "allTeams",
-    query: getGqlString(AllTeamsDocument),
+  cy.graphqlRequest<Command_AllTeamsQuery>({
+    operationName: "Command_AllTeams",
+    query: commandAllTeamsDoc,
     variables: {},
   }).then((data) => {
     const teams = data.teams;
@@ -23,19 +35,29 @@ Cypress.Commands.add("getDCM", () => {
 });
 
 Cypress.Commands.add("getTeams", () => {
-  cy.graphqlRequest<AllTeamsQuery>({
-    operationName: "allTeams",
-    query: getGqlString(AllTeamsDocument),
+  cy.graphqlRequest<Command_AllTeamsQuery>({
+    operationName: "Command_AllTeams",
+    query: commandAllTeamsDoc,
     variables: {},
   }).then((data) => {
     cy.wrap(data.teams);
   });
 });
 
+const commandCreateTeamDoc = /* GraphQL */ `
+  mutation Command_CreateTeam($team: CreateTeamInput!) {
+    createTeam(team: $team) {
+      id
+    }
+  }
+`;
+
+const Command_CreateTeamMutation = graphql(commandAllTeamsDoc);
+
 Cypress.Commands.add("createTeam", (team) => {
-  cy.graphqlRequest<CreateTeamMutation>({
-    operationName: "CreateTeam",
-    query: getGqlString(CreateTeamDocument),
+  cy.graphqlRequest<Command_CreateTeamMutation>({
+    operationName: "Command_CreateTeam",
+    query: commandCreateTeamDoc,
     variables: {
       team,
     },

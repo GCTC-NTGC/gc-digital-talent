@@ -7,8 +7,10 @@ import {
   fakeTeams,
   fakeDepartments,
 } from "@gc-digital-talent/fake-data";
-
-import { PoolCandidateStatus, PublishingGroup } from "~/api/generated";
+import {
+  PoolCandidateStatus,
+  PublishingGroup,
+} from "@gc-digital-talent/graphql";
 
 import QualifiedRecruitmentCard from "./QualifiedRecruitmentCard";
 

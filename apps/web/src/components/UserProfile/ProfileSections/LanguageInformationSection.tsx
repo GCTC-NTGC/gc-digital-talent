@@ -7,8 +7,8 @@ import {
   getLanguageProficiency,
   commonMessages,
 } from "@gc-digital-talent/i18n";
+import { User, BilingualEvaluation } from "@gc-digital-talent/graphql";
 
-import { User, BilingualEvaluation } from "~/api/generated";
 import {
   hasAllEmptyFields,
   hasEmptyRequiredFields,
@@ -220,14 +220,7 @@ const LanguageInformationSection = ({
                 </>
               )}
               {!editPath && (
-                <>
-                  {intl.formatMessage({
-                    defaultMessage: "No information has been provided.",
-                    id: "xjtRjr",
-                    description:
-                      "Message on Admin side when user not filled language section.",
-                  })}
-                </>
+                <>{intl.formatMessage(commonMessages.noInformationProvided)}</>
               )}
             </p>
           </div>

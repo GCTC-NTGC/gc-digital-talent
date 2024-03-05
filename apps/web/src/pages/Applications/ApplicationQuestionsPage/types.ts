@@ -1,12 +1,13 @@
-import { Scalars } from "~/api/generated";
+import { Scalars } from "@gc-digital-talent/graphql";
 
 type QuestionResponse = {
-  id: Scalars["ID"];
-  questionId: Scalars["ID"];
+  id: Scalars["ID"]["output"];
+  questionId: Scalars["ID"]["output"];
   answer: string;
 };
 
 export type FormValues = {
-  answers: Array<QuestionResponse>;
+  screeningAnswers: Array<QuestionResponse>;
+  generalAnswers: Array<QuestionResponse>;
   action: "continue" | "cancel";
 };
