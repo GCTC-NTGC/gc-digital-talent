@@ -19,6 +19,7 @@ export type InputProps = HTMLInputProps &
     type: "text" | "number" | "email" | "tel" | "password" | "search";
     // Whether to trim leading/ending whitespace upon blurring of an input, default on
     whitespaceTrim?: boolean;
+    maxLength?: number;
   };
 
 const Input = ({
@@ -32,6 +33,7 @@ const Input = ({
   "aria-describedby": describedBy,
   whitespaceTrim = true,
   trackUnsaved = true,
+  maxLength = 255,
   ...rest
 }: InputProps) => {
   const intl = useIntl();
@@ -81,9 +83,9 @@ const Input = ({
         {...register(name, {
           maxLength: {
             message: intl.formatMessage(errorMessages.overCharacterLimit, {
-              value: 256,
+              value: maxLength + 1,
             }),
-            value: 255,
+            value: maxLength,
           },
           ...rules,
           onBlur: normalizeInput,
