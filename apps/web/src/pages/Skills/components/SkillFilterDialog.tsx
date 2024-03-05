@@ -1,15 +1,9 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { OperationContext, useQuery } from "urql";
 
 import { Combobox, enumToOptions } from "@gc-digital-talent/forms";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import {
-  SkillCategory,
-  SkillFamily,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import { SkillCategory, SkillFamily } from "@gc-digital-talent/graphql";
 
 import adminMessages from "~/messages/adminMessages";
 import FilterDialog, {
@@ -21,39 +15,19 @@ export type FormValues = {
   skillCategories?: SkillCategory[];
 };
 
-const SkillFilterDialogData_Query = graphql(/* GraphQL */ `
-  query SkillFilterDialogData {
-    skillFamilies {
-      id
-      key
-      name {
-        en
-        fr
-      }
-    }
-  }
-`);
-
-const context: Partial<OperationContext> = {
-  additionalTypenames: ["SkillFamily"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
-  requestPolicy: "cache-first",
+type SkillFilterDialogProps = CommonFilterDialogProps<FormValues> & {
+  skillFamilies: SkillFamily[];
+  fetching?: boolean;
 };
 
-type SkillFilterDialogProps = CommonFilterDialogProps<FormValues>;
-
 const SkillFilterDialog = ({
-  onSubmit,
-  resetValues,
+  skillFamilies,
+  fetching,
   initialValues,
+  resetValues,
+  onSubmit,
 }: SkillFilterDialogProps) => {
   const intl = useIntl();
-
-  const [{ data, fetching }] = useQuery({
-    query: SkillFilterDialogData_Query,
-    context,
-  });
-
-  const skillFamilies: SkillFamily[] = unpackMaybes(data?.skillFamilies);
 
   return (
     <FilterDialog<FormValues>

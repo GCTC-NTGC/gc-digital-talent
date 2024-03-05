@@ -6,13 +6,18 @@ import {
 } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { OperationContext, useQuery } from "urql";
-import { useLocation } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import { SubmitHandler } from "react-hook-form";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Pending } from "@gc-digital-talent/ui";
-import { Skill, SkillCategory, graphql } from "@gc-digital-talent/graphql";
+import {
+  Skill,
+  SkillCategory,
+  SkillFamily,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
@@ -67,9 +72,11 @@ const columnHelper = createColumnHelper<Skill>();
 
 interface SkillTableProps {
   skills: Array<Skill>;
+  skillFamilies: SkillFamily[];
   title: string;
   paginationState?: PaginationState;
   addButton?: boolean;
+  fetching?: boolean;
 }
 
 export const SkillTable = ({
@@ -77,6 +84,8 @@ export const SkillTable = ({
   title,
   paginationState,
   addButton,
+  skillFamilies,
+  fetching,
 }: SkillTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -220,6 +229,8 @@ export const SkillTable = ({
         state: filterState,
         component: (
           <SkillFilterDialog
+            skillFamilies={skillFamilies}
+            fetching={fetching}
             onSubmit={handleFilterSubmit}
             resetValues={transformSkillFilterInputToFormValues({})}
             initialValues={transformSkillFilterInputToFormValues(
@@ -263,6 +274,14 @@ const SkillTableSkills_Query = graphql(/* GraphQL */ `
         }
       }
     }
+    skillFamilies {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
   }
 `);
 
@@ -285,6 +304,8 @@ const SkillTableApi = ({
     context,
   });
 
+  const skillFamilies: SkillFamily[] = unpackMaybes(data?.skillFamilies);
+
   return (
     <Pending fetching={fetching} error={error}>
       <SkillTable
@@ -292,6 +313,8 @@ const SkillTableApi = ({
         title={title}
         addButton={addButton}
         paginationState={paginationState}
+        fetching={fetching}
+        skillFamilies={skillFamilies}
       />
     </Pending>
   );
