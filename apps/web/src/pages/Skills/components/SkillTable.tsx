@@ -1,5 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { PaginationState, createColumnHelper } from "@tanstack/react-table";
+import {
+  ColumnDef,
+  PaginationState,
+  createColumnHelper,
+} from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { OperationContext, useQuery } from "urql";
 import { useLocation, useSearchParams } from "react-router-dom";
@@ -144,7 +148,7 @@ export const SkillTable = ({
         }),
       },
     ),
-  ];
+  ] as ColumnDef<Skill>[];
 
   useEffect(() => {
     let filteredData;
