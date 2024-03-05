@@ -267,15 +267,18 @@ class DatabaseSeeder extends Seeder
         foreach ($classifications as $classification) {
             foreach ($publishingGroups as $publishingGroup) {
                 foreach ($dates as $date) {
-                    Pool::factory()->published()->afterCreating(function ($pool) use ($classification) {
-                        $pool->classifications()->sync([$classification->id]);
-                    })->create([
-                        'closing_date' => $date,
-                        'publishing_group' => $publishingGroup,
-                        'published_at' => $faker->dateTimeBetween('-1 year', 'now'),
-                        'stream' => $faker->randomElement(PoolStream::cases())->name,
-                        'team_id' => $testTeamId,
-                    ]);
+                    Pool::factory()
+                        ->published()
+                        ->withCompletePoolSkills()
+                        ->afterCreating(function ($pool) use ($classification) {
+                            $pool->classifications()->sync([$classification->id]);
+                        })->create([
+                            'closing_date' => $date,
+                            'publishing_group' => $publishingGroup,
+                            'published_at' => $faker->dateTimeBetween('-1 year', 'now'),
+                            'stream' => $faker->randomElement(PoolStream::cases())->name,
+                            'team_id' => $testTeamId,
+                        ]);
                 }
             }
         }

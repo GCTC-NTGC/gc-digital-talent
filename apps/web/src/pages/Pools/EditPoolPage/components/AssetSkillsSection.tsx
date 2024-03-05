@@ -15,6 +15,7 @@ import {
 
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import { EditPoolSectionMetadata } from "~/types/pool";
+import { hasEmptyRequiredFields } from "~/validators/process/nonEssentialSkills";
 
 import SkillTable from "./SkillTable";
 import { PoolSkillMutationsType } from "../types";
@@ -33,9 +34,10 @@ const AssetSkillsSection = ({
   poolSkillMutations,
 }: AssetSkillsSectionProps): JSX.Element => {
   const intl = useIntl();
+  const emptyRequired = hasEmptyRequiredFields(pool);
   const { icon } = useToggleSectionInfo({
-    isNull: false,
-    emptyRequired: false,
+    isNull: emptyRequired,
+    emptyRequired,
     fallbackIcon: AcademicCapIcon,
   });
 

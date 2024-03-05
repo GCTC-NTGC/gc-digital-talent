@@ -35,6 +35,7 @@ import { hasEmptyRequiredFields as yourImpactError } from "~/validators/process/
 import { hasEmptyRequiredFields as keyTasksError } from "~/validators/process/keyTasks";
 import { hasEmptyRequiredFields as coreRequirementsError } from "~/validators/process/coreRequirements";
 import { hasEmptyRequiredFields as essentialSkillsError } from "~/validators/process/essentialSkills";
+import { hasEmptyRequiredFields as nonessentialSkillsError } from "~/validators/process/nonEssentialSkills";
 import usePoolMutations from "~/hooks/usePoolMutations";
 import { hasAllEmptyFields as specialNoteIsNull } from "~/validators/process/specialNote";
 
@@ -109,7 +110,8 @@ export const EditPoolForm = ({
   });
 
   const basicInfoHasError = poolNameError(pool) || closingDateError(pool);
-  const skillRequirementsHasError = essentialSkillsError(pool);
+  const skillRequirementsHasError =
+    essentialSkillsError(pool) || nonessentialSkillsError(pool);
   const aboutRoleHasError = yourImpactError(pool) || keyTasksError(pool);
   const sectionMetadata: Record<SectionKey, EditPoolSectionMetadata> = {
     basicInfo: {
@@ -206,7 +208,7 @@ export const EditPoolForm = ({
     },
     assetSkills: {
       id: "asset-skills",
-      hasError: false, // Optional section
+      hasError: nonessentialSkillsError(pool),
       title: intl.formatMessage({
         defaultMessage: "Asset skill criteria",
         id: "TE2Nwv",
