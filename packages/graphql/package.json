@@ -5,10 +5,6 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
-  "exports": {
-    ".": "./dist/index.js",
-    "./introspection.json": "./dist/introspection.json"
-  },
   "scripts": {
     "build": "env NODE_ENV=production tsup",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",

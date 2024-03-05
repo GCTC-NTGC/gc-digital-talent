@@ -19,5 +19,4 @@ export const tsup: Options = {
   outDir: "dist",
   external: ["react", "lodash"],
   treeshake: true,
-  publicDir: true,
 };
