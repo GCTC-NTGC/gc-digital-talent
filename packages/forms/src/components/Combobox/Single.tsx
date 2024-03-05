@@ -79,6 +79,10 @@ const Single = ({
     inputRef?.current?.focus();
   };
 
+  React.useEffect(() => {
+    setAvailable(options);
+  }, [options]);
+
   return (
     <>
       <Field.Label {...getLabelProps()} required={isRequired}>
