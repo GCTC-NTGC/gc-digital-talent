@@ -107,6 +107,7 @@ const Step = ({
             {Icon && (
               <Icon
                 {...innerProps}
+                data-h2-color="base(background)"
                 data-h2-height="base(x.65)"
                 data-h2-width="base(x.65)"
               />
