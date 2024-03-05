@@ -1,9 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import {
-  ColumnDef,
-  PaginationState,
-  createColumnHelper,
-} from "@tanstack/react-table";
+import { PaginationState, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { OperationContext, useQuery } from "urql";
 import { useLocation, useSearchParams } from "react-router-dom";
@@ -32,7 +28,6 @@ import {
 import {
   categoryAccessor,
   familiesAccessor,
-  keywordsAccessor,
   skillFamiliesCell,
 } from "./tableHelpers";
 import SkillFilterDialog, { FormValues } from "./SkillFilterDialog";
