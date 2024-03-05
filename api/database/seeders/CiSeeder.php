@@ -17,7 +17,7 @@ class CiSeeder extends Seeder
         $this->call(GenericJobTitleSeeder::class);
         $this->call(SkillFamilySeeder::class);
         $this->call(SkillSeeder::class);
-        $this->call(TeamSeederLocal::class);
+        $this->call(TeamSeeder::class);
         $this->call(UserSeederLocal::class);
     }
 }
