@@ -97,7 +97,7 @@ type User {
   # Pool info
   poolCandidates: [PoolCandidate]
     @hasMany(scopes: ["authorizedToView"])
-    @can(ability: "view", resolved: true) # PoolsCandidate objects associate the user with a pool
+    @canResolved(ability: "view") # PoolsCandidate objects associate the user with a pool
   # Experiences
   experiences: [Experience]
     @with(relation: "awardExperiences")
@@ -164,9 +164,7 @@ type GeneralQuestion {
 
 type ScreeningQuestion {
   id: ID!
-  assessmentStep: AssessmentStep
-    @belongsTo
-    @can(ability: "view", resolved: true)
+  assessmentStep: AssessmentStep @belongsTo @canResolved(ability: "view")
   question: LocalizedString
   sortOrder: Int @rename(attribute: "sort_order")
 }
@@ -174,14 +172,14 @@ type ScreeningQuestion {
 type Pool {
   id: ID!
   owner: UserPublicProfile @belongsTo(relation: "user")
-  team: Team @belongsTo @can(ability: "viewAny")
+  team: Team @belongsTo @canModel(ability: "viewAny")
   name: LocalizedString
   classifications: [Classification] @belongsToMany
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   poolCandidates: [PoolCandidate]
     @hasMany(relation: "publishedPoolCandidates", scopes: ["authorizedToView"])
-    @can(ability: "view", resolved: true)
+    @canResolved(ability: "view")
     @guard
   keyTasks: LocalizedString @rename(attribute: "key_tasks")
   yourImpact: LocalizedString @rename(attribute: "your_impact")
@@ -221,7 +219,7 @@ type Pool {
   isComplete: Boolean
   assessmentSteps: [AssessmentStep]
     @hasMany
-    @canOnParent(ability: "viewAssessmentPlan")
+    @canRoot(ability: "viewAssessmentPlan")
   poolSkills: [PoolSkill] @hasMany
 }
 
@@ -229,7 +227,7 @@ type GeneralQuestionResponse {
   id: ID!
   answer: String
   generalQuestion: GeneralQuestion @belongsTo
-  poolCandidate: PoolCandidate @belongsTo @can(ability: "view", resolved: true)
+  poolCandidate: PoolCandidate @belongsTo @canResolved(ability: "view")
 }
 
 type ScreeningQuestionResponse {
@@ -247,7 +245,7 @@ type AssessmentStep {
   poolSkills: [PoolSkill] @belongsToMany
   assessmentResults: [AssessmentResult]
     @hasMany
-    @canOnParent(ability: "viewAssessmentResults")
+    @canRoot(ability: "viewAssessmentResults")
   screeningQuestions: [ScreeningQuestion] @with(relation: "screeningQuestions")
 }
 
@@ -276,13 +274,13 @@ type PoolSkill {
   skill: Skill @belongsTo
   assessmentSteps: [AssessmentStep]
     @belongsToMany
-    @canOnParent(ability: "viewAssessmentSteps")
+    @canRoot(ability: "viewAssessmentSteps")
 }
 
 type PoolCandidate {
   id: ID!
-  pool: Pool! @belongsTo @can(ability: "view", resolved: true)
-  user: User! @belongsTo(relation: "user") @can(ability: "view", resolved: true)
+  pool: Pool! @belongsTo @canResolved(ability: "view")
+  user: User! @belongsTo(relation: "user") @canResolved(ability: "view")
   # cmoIdentifier can be an arbitrary string used to relate this candidate to an external database.
   cmoIdentifier: ID @rename(attribute: "cmo_identifier")
   # Expiry date for this candidate being in the pool.
@@ -290,18 +288,18 @@ type PoolCandidate {
 
   status: PoolCandidateStatus
     @rename(attribute: "pool_candidate_status")
-    @canOnParent(ability: "viewStatus")
+    @canRoot(ability: "viewStatus")
   statusWeight: Int
     @rename(attribute: "status_weight")
-    @canOnParent(ability: "viewStatus")
-  notes: String @canOnParent(ability: "viewNotes")
+    @canRoot(ability: "viewStatus")
+  notes: String @canRoot(ability: "viewNotes")
   archivedAt: DateTime @rename(attribute: "archived_at")
   submittedAt: DateTime @rename(attribute: "submitted_at")
   suspendedAt: DateTime @rename(attribute: "suspended_at")
   deletedDate: DateTime @rename(attribute: "deleted_at")
   isBookmarked: Boolean
     @rename(attribute: "is_bookmarked")
-    @canOnParent(ability: "viewNotes")
+    @canRoot(ability: "viewNotes")
 
   profileSnapshot: JSON @rename(attribute: "profile_snapshot")
   signature: String
@@ -319,7 +317,7 @@ type PoolCandidate {
   # record of decision
   assessmentResults: [AssessmentResult]
     @hasMany
-    @canOnParent(ability: "viewAssessmentResults")
+    @canRoot(ability: "viewAssessmentResults")
 }
 
 type PoolCandidateWithSkillCount {
@@ -349,7 +347,7 @@ type Department {
   id: ID!
   departmentNumber: Int! @rename(attribute: "department_number")
   name: LocalizedString!
-  teams: [Team] @belongsToMany @can(ability: "viewAny")
+  teams: [Team] @belongsToMany @canModel(ability: "viewAny")
 }
 
 type Team {
@@ -359,10 +357,10 @@ type Team {
   description: LocalizedString
   departments: [Department] @belongsToMany
   contactEmail: Email @rename(attribute: "contact_email")
-  pools: [Pool] @hasMany @can(ability: "view", resolved: true)
+  pools: [Pool] @hasMany @canResolved(ability: "view")
   roleAssignments: [RoleAssignment!]
     @hasMany
-    @canOnParent(ability: "viewTeamMembers")
+    @canRoot(ability: "viewTeamMembers")
 }
 
 type Role {
@@ -373,7 +371,7 @@ type Role {
   isTeamBased: Boolean @rename(attribute: "is_team_based")
   roleAssignments: [RoleAssignment!]
     @hasMany
-    @can(ability: "viewAnyRoleAssignments", model: "Role")
+    @canModel(ability: "viewAnyRoleAssignments", model: "Role")
 }
 
 # This model represents the polymorphic role_user table and allows querying the team relationship
@@ -410,7 +408,7 @@ type PoolCandidateFilter {
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   workRegions: [WorkRegion] @rename(attribute: "work_regions")
-  pools: [Pool] @belongsToMany @can(ability: "view", resolved: true)
+  pools: [Pool] @belongsToMany @canResolved(ability: "view")
 }
 
 # ApplicantFilter only includes the fields which Talent Seekers can use to search for candidates.
@@ -429,7 +427,7 @@ type ApplicantFilter {
   # request creation connects to qualifiedClassifications
   qualifiedClassifications: [Classification] @belongsToMany # Filters applicants based on the classifications pools they've qualified in.
   qualifiedStreams: [PoolStream] @rename(attribute: "qualified_streams") # Filters applicants based on the streams of the pools they've qualified in.
-  pools: [Pool] @belongsToMany @can(ability: "view", resolved: true)
+  pools: [Pool] @belongsToMany @canResolved(ability: "view")
 }
 
 type PoolCandidateSearchRequest {
@@ -477,7 +475,7 @@ type Skill {
 
 type UserSkill {
   id: ID!
-  user: User! @belongsTo @can(ability: "view", resolved: true)
+  user: User! @belongsTo @canResolved(ability: "view")
   skill: Skill! @belongsTo
   skillLevel: SkillLevel @rename(attribute: "skill_level")
   whenSkillUsed: WhenSkillUsed @rename(attribute: "when_skill_used")
@@ -499,7 +497,7 @@ type SkillKeywords {
 
 interface Experience {
   id: ID!
-  user: User! @belongsTo(relation: "user") @can(ability: "view", resolved: true)
+  user: User! @belongsTo(relation: "user") @canResolved(ability: "view")
   details: String
   skills: [Skill!] @morphToMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
@@ -510,7 +508,7 @@ interface Experience {
 
 type WorkExperience implements Experience {
   id: ID!
-  user: User! @belongsTo(relation: "user") @can(ability: "view", resolved: true)
+  user: User! @belongsTo(relation: "user") @canResolved(ability: "view")
   role: String
   organization: String
   division: String
@@ -525,7 +523,7 @@ type WorkExperience implements Experience {
 }
 type PersonalExperience implements Experience {
   id: ID!
-  user: User! @belongsTo(relation: "user") @can(ability: "view", resolved: true)
+  user: User! @belongsTo(relation: "user") @canResolved(ability: "view")
   title: String
   description: String
   startDate: Date @rename(attribute: "start_date")
@@ -539,7 +537,7 @@ type PersonalExperience implements Experience {
 }
 type CommunityExperience implements Experience {
   id: ID!
-  user: User! @belongsTo(relation: "user") @can(ability: "view", resolved: true)
+  user: User! @belongsTo(relation: "user") @canResolved(ability: "view")
   title: String
   organization: String
   project: String
@@ -554,7 +552,7 @@ type CommunityExperience implements Experience {
 }
 type EducationExperience implements Experience {
   id: ID!
-  user: User! @belongsTo(relation: "user") @can(ability: "view", resolved: true)
+  user: User! @belongsTo(relation: "user") @canResolved(ability: "view")
   institution: String
   areaOfStudy: String @rename(attribute: "area_of_study")
   thesisTitle: String @rename(attribute: "thesis_title")
@@ -571,7 +569,7 @@ type EducationExperience implements Experience {
 }
 type AwardExperience implements Experience {
   id: ID!
-  user: User! @belongsTo(relation: "user") @can(ability: "view", resolved: true)
+  user: User! @belongsTo(relation: "user") @canResolved(ability: "view")
   title: String
   issuedBy: String @rename(attribute: "issued_by")
   awardedDate: Date @rename(attribute: "awarded_date")
@@ -679,7 +677,7 @@ input PoolCandidatePoolNameOrderByInput {
 }
 
 type CandidateSearchPoolResult {
-  pool: Pool! @can(ability: "view", resolved: true)
+  pool: Pool! @canResolved(ability: "view")
   candidateCount: Int! @rename(attribute: "candidate_count")
 }
 
@@ -702,11 +700,7 @@ input SitewideAnnouncementInput {
 type Query {
   myAuth: UserAuthInfo @auth
   me: User @auth
-  user(id: UUID! @eq): User
-    @find
-    @softDeletes
-    @guard
-    @can(ability: "view", query: true)
+  user(id: UUID! @eq): User @find @softDeletes @guard @canQuery(ability: "view")
   usersPaginated(
     where: UserFilterInput
     orderBy: [OrderByClause!] @orderBy
@@ -714,11 +708,11 @@ type Query {
     @orderBy(column: "created_at", direction: DESC)
     @paginate(defaultCount: 10, maxCount: 1000, scopes: ["authorizedToView"])
     @guard
-    @can(ability: "view", resolved: true)
+    @canResolved(ability: "view")
   applicants(includeIds: [ID]! @in(key: "id")): [User]!
     @all(model: "User")
     @guard
-    @can(ability: "viewAny", model: "User")
+    @canModel(ability: "viewAny", model: "User")
     @deprecated(
       reason: "applicants is deprecated. Use usersPaginated instead. Remove in #7652."
     )
@@ -734,29 +728,29 @@ type Query {
       scopes: ["authorizedToViewBasicInfo"]
     )
     @guard
-    @can(ability: "viewBasicInfo", model: "User")
+    @canModel(ability: "viewBasicInfo", model: "User")
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
   countApplicants(where: ApplicantFilterInput): Int!
     @count(model: "User", scopes: ["availableInITPublishingGroup"])
-  pool(id: UUID! @eq): Pool @find @can(ability: "view", query: true)
+  pool(id: UUID! @eq): Pool @find @canQuery(ability: "view")
   publishedPools(
     closingAfter: DateTime @where(key: "closing_date", operator: ">")
     publishingGroup: PublishingGroup
       @where(key: "publishing_group", operator: "=")
   ): [Pool!]!
     @all(scopes: ["wasPublished", "notArchived"])
-    @can(ability: "viewAnyPublished", model: "Pool")
+    @canModel(ability: "viewAnyPublished", model: "Pool")
   pools: [Pool]!
     @all(scopes: ["authorizedToView", "notArchived"])
-    @can(ability: "view", resolved: true)
+    @canResolved(ability: "view")
   poolCandidate(id: UUID! @eq): PoolCandidate
     @find
     @guard
-    @can(ability: "view", query: true)
+    @canQuery(ability: "view")
   poolCandidates(includeIds: [ID]! @in(key: "id")): [PoolCandidate]!
     @all(scopes: ["notDraft"])
     @guard
-    @can(ability: "view", resolved: true)
+    @canResolved(ability: "view")
     @deprecated(
       reason: "poolCandidates is deprecated. Use poolCandidatesPaginated instead. Remove in #7656."
     )
@@ -788,20 +782,20 @@ type Query {
       model: "App\\Models\\PoolCandidate"
     )
     @guard
-    @can(ability: "view", resolved: true, model: "App\\Models\\PoolCandidate")
+    @canResolved(ability: "view", model: "App\\Models\\PoolCandidate")
   # This query lives at api/app/GraphQL/Queries/CountPoolCandidatesByPool.php.
   # Returns the number of candidates by filtering their parent applicant, grouped by pool.
   countPoolCandidatesByPool(
     where: ApplicantFilterInput
   ): [CandidateSearchPoolResult!]!
-  classification(id: UUID! @eq): Classification @find @can(ability: "view")
-  classifications: [Classification]! @all @can(ability: "viewAny")
-  department(id: UUID! @eq): Department @find @can(ability: "view")
-  departments: [Department]! @all @can(ability: "viewAny")
+  classification(id: UUID! @eq): Classification @find @canModel(ability: "view")
+  classifications: [Classification]! @all @canModel(ability: "viewAny")
+  department(id: UUID! @eq): Department @find @canModel(ability: "view")
+  departments: [Department]! @all @canModel(ability: "viewAny")
   poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest
     @find
     @guard
-    @can(ability: "view", query: true)
+    @canQuery(ability: "view")
   poolCandidateSearchRequestsPaginated(
     where: PoolCandidateSearchRequestInput
     orderBy: [OrderByClause!] @orderBy
@@ -809,16 +803,18 @@ type Query {
     @orderBy(column: "created_at", direction: DESC)
     @paginate(defaultCount: 10, maxCount: 500)
     @guard
-    @can(ability: "viewAny")
-  skillFamily(id: UUID! @eq): SkillFamily @find @can(ability: "view")
-  skillFamilies: [SkillFamily]! @all @can(ability: "viewAny")
-  skill(id: UUID! @eq): Skill @find @can(ability: "view")
-  skills: [Skill]! @all @can(ability: "viewAny")
-  genericJobTitle(id: UUID! @eq): GenericJobTitle @find @can(ability: "view")
-  genericJobTitles: [GenericJobTitle]! @all @can(ability: "viewAny")
-  team(id: UUID! @eq): Team @find @can(ability: "view", query: true)
-  teams: [Team]! @all @can(ability: "viewAny")
-  roles: [Role]! @all @can(ability: "viewAny")
+    @canModel(ability: "viewAny")
+  skillFamily(id: UUID! @eq): SkillFamily @find @canModel(ability: "view")
+  skillFamilies: [SkillFamily]! @all @canModel(ability: "viewAny")
+  skill(id: UUID! @eq): Skill @find @canModel(ability: "view")
+  skills: [Skill]! @all @canModel(ability: "viewAny")
+  genericJobTitle(id: UUID! @eq): GenericJobTitle
+    @find
+    @canModel(ability: "view")
+  genericJobTitles: [GenericJobTitle]! @all @canModel(ability: "viewAny")
+  team(id: UUID! @eq): Team @find @canQuery(ability: "view")
+  teams: [Team]! @all @canModel(ability: "viewAny")
+  roles: [Role]! @all @canModel(ability: "viewAny")
 
   sitewideAnnouncement: SitewideAnnouncement
 }
@@ -1579,39 +1575,39 @@ type Mutation {
   createUser(user: CreateUserInput! @spread): User
     @create
     @guard
-    @can(ability: "create")
+    @canModel(ability: "create")
     @throttle(maxAttempts: 100)
   updateUserAsUser(id: ID!, user: UpdateUserAsUserInput! @spread): User
     @update
     @guard
-    @can(ability: "update", find: "id", injectArgs: true)
+    @canFind(ability: "update", find: "id", injectArgs: true)
   updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput! @spread): User
     @update
     @guard
-    @can(ability: "update", find: "id", injectArgs: true)
+    @canFind(ability: "update", find: "id", injectArgs: true)
   updateUserSub(updateUserSubInput: UpdateUserSubInput! @spread): UserAuthInfo
     @update(model: "User")
-    @can(ability: "updateSub", model: "User")
+    @canModel(ability: "updateSub", model: "User")
   updateUserRoles(
     updateUserRolesInput: UpdateUserRolesInput! @spread
   ): UserAuthInfo
     @update(model: "User")
-    @can(ability: "updateRoles", model: "User")
+    @canModel(ability: "updateRoles", model: "User")
   deleteUser(id: ID! @whereKey): User
     @delete
     @guard
-    @can(ability: "delete", find: "id")
+    @canFind(ability: "delete", find: "id")
   restoreUser(id: ID! @whereKey): User
     @restore
     @guard
-    @can(ability: "restore", find: "id")
+    @canFind(ability: "restore", find: "id")
 
   createPoolCandidateAsAdmin(
     poolCandidate: CreatePoolCandidateAsAdminInput! @spread
   ): PoolCandidate
     @create
     @guard
-    @can(ability: "create")
+    @canModel(ability: "create")
     @injectNow(name: "submitted_at")
   updatePoolCandidateAsAdmin(
     id: UUID!
@@ -1619,11 +1615,11 @@ type Mutation {
   ): PoolCandidate
     @update
     @guard
-    @can(ability: "updateAsAdmin", find: "id", injectArgs: true)
+    @canFind(ability: "updateAsAdmin", find: "id", injectArgs: true)
   # Return a boolean to prevent automatically updating the client's cache
   togglePoolCandidateBookmark(id: ID!): Boolean
     @guard
-    @can(
+    @canFind(
       ability: "updateAsAdmin"
       find: "id"
       model: "PoolCandidate"
@@ -1632,150 +1628,150 @@ type Mutation {
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
     @update
     @guard
-    @can(ability: "updateNotes", find: "id")
+    @canFind(ability: "updateNotes", find: "id")
   deletePoolCandidate(id: ID! @whereKey): PoolCandidate
     @delete
     @guard
-    @can(ability: "delete", find: "id")
+    @canFind(ability: "delete", find: "id")
   createClassification(
     classification: CreateClassificationInput! @spread
-  ): Classification @create @guard @can(ability: "create")
+  ): Classification @create @guard @canModel(ability: "create")
   updateClassification(
     id: ID!
     classification: UpdateClassificationInput! @spread
-  ): Classification @update @guard @can(ability: "update", find: "id")
+  ): Classification @update @guard @canFind(ability: "update", find: "id")
   deleteClassification(id: ID! @whereKey): Classification
     @delete
     @guard
-    @can(ability: "delete", find: "id")
+    @canFind(ability: "delete", find: "id")
   createDepartment(department: CreateDepartmentInput! @spread): Department
     @create
     @guard
-    @can(ability: "create")
+    @canModel(ability: "create")
   updateDepartment(
     id: ID!
     department: UpdateDepartmentInput! @spread
-  ): Department @update @can(ability: "update", find: "id") @validator
+  ): Department @update @canFind(ability: "update", find: "id") @validator
   deleteDepartment(id: ID! @whereKey): Department
     @delete
     @guard
-    @can(ability: "delete", find: "id")
+    @canFind(ability: "delete", find: "id")
 
   # SearchRequest mutations
   createPoolCandidateSearchRequest(
     poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput! @spread
-  ): PoolCandidateSearchRequest @create @can(ability: "create")
+  ): PoolCandidateSearchRequest @create @canModel(ability: "create")
   updatePoolCandidateSearchRequest(
     id: ID!
     poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput! @spread
   ): PoolCandidateSearchRequest
     @update
     @guard
-    @can(ability: "update", find: "id")
+    @canFind(ability: "update", find: "id")
   deletePoolCandidateSearchRequest(
     id: ID! @whereKey
   ): PoolCandidateSearchRequest
     @delete
     @guard
-    @can(ability: "delete", find: "id")
+    @canFind(ability: "delete", find: "id")
 
   createSkillFamily(skillFamily: CreateSkillFamilyInput! @spread): SkillFamily
     @create
     @guard
-    @can(ability: "create")
+    @canModel(ability: "create")
   updateSkillFamily(
     id: ID!
     skillFamily: UpdateSkillFamilyInput! @spread
-  ): SkillFamily @update @guard @can(ability: "update", find: "id")
+  ): SkillFamily @update @guard @canFind(ability: "update", find: "id")
 
   # skill mutations
   createSkill(skill: CreateSkillInput! @spread): Skill
     @create
     @guard
-    @can(ability: "create")
+    @canModel(ability: "create")
   updateSkill(id: ID!, skill: UpdateSkillInput! @spread): Skill
     @update
     @guard
-    @can(ability: "update", find: "id")
+    @canFind(ability: "update", find: "id")
   deleteSkill(id: UUID! @whereKey): Skill
     @delete
     @validator(class: "App\\GraphQL\\Validators\\DeleteSkillValidator")
-    @can(ability: "delete")
+    @canModel(ability: "delete")
 
   createWorkExperience(
     userId: ID! @rename(attribute: "user_id")
     workExperience: WorkExperienceInput! @spread
-  ): WorkExperience @create @can(ability: "create", injectArgs: true)
+  ): WorkExperience @create @canModel(ability: "create", injectArgs: true)
   createPersonalExperience(
     userId: ID! @rename(attribute: "user_id")
     personalExperience: PersonalExperienceInput! @spread
-  ): PersonalExperience @create @can(ability: "create", injectArgs: true)
+  ): PersonalExperience @create @canModel(ability: "create", injectArgs: true)
   createCommunityExperience(
     userId: ID! @rename(attribute: "user_id")
     communityExperience: CommunityExperienceInput! @spread
-  ): CommunityExperience @create @can(ability: "create", injectArgs: true)
+  ): CommunityExperience @create @canModel(ability: "create", injectArgs: true)
   createEducationExperience(
     userId: ID! @rename(attribute: "user_id")
     educationExperience: EducationExperienceInput! @spread
-  ): EducationExperience @create @can(ability: "create", injectArgs: true)
+  ): EducationExperience @create @canModel(ability: "create", injectArgs: true)
   createAwardExperience(
     userId: ID! @rename(attribute: "user_id")
     awardExperience: AwardExperienceInput! @spread
-  ): AwardExperience @create @can(ability: "create", injectArgs: true)
+  ): AwardExperience @create @canModel(ability: "create", injectArgs: true)
   updateWorkExperience(
     id: ID!
     workExperience: WorkExperienceInput! @spread
-  ): WorkExperience @update @guard @can(ability: "update", find: "id")
+  ): WorkExperience @update @guard @canFind(ability: "update", find: "id")
   updatePersonalExperience(
     id: ID!
     personalExperience: PersonalExperienceInput! @spread
-  ): PersonalExperience @update @guard @can(ability: "update", find: "id")
+  ): PersonalExperience @update @guard @canFind(ability: "update", find: "id")
   updateCommunityExperience(
     id: ID!
     communityExperience: CommunityExperienceInput! @spread
-  ): CommunityExperience @update @guard @can(ability: "update", find: "id")
+  ): CommunityExperience @update @guard @canFind(ability: "update", find: "id")
   updateEducationExperience(
     id: ID!
     educationExperience: EducationExperienceInput! @spread
-  ): EducationExperience @update @guard @can(ability: "update", find: "id")
+  ): EducationExperience @update @guard @canFind(ability: "update", find: "id")
   updateAwardExperience(
     id: ID!
     awardExperience: AwardExperienceInput! @spread
-  ): AwardExperience @update @guard @can(ability: "update", find: "id")
+  ): AwardExperience @update @guard @canFind(ability: "update", find: "id")
   deleteWorkExperience(id: ID! @whereKey): WorkExperience
     @delete
     @guard
-    @can(ability: "delete", find: "id")
+    @canFind(ability: "delete", find: "id")
   deletePersonalExperience(id: ID! @whereKey): PersonalExperience
     @delete
     @guard
-    @can(ability: "delete", find: "id")
+    @canFind(ability: "delete", find: "id")
   deleteCommunityExperience(id: ID! @whereKey): CommunityExperience
     @delete
     @guard
-    @can(ability: "delete", find: "id")
+    @canFind(ability: "delete", find: "id")
   deleteEducationExperience(id: ID! @whereKey): EducationExperience
     @delete
     @guard
-    @can(ability: "delete", find: "id")
+    @canFind(ability: "delete", find: "id")
   deleteAwardExperience(id: ID! @whereKey): AwardExperience
     @delete
     @guard
-    @can(ability: "delete", find: "id")
+    @canFind(ability: "delete", find: "id")
 
   # Pool mutations
   createPool(
     userId: ID! @rename(attribute: "user_id")
     teamId: ID! @rename(attribute: "team_id")
     pool: CreatePoolInput! @spread
-  ): Pool @create @guard @can(ability: "create", injectArgs: true)
+  ): Pool @create @guard @canModel(ability: "create", injectArgs: true)
   duplicatePool(id: ID!, teamId: ID! @rename(attribute: "team_id")): Pool
     @guard
-    @can(ability: "duplicate", injectArgs: true)
+    @canModel(ability: "duplicate", injectArgs: true)
   updatePool(id: ID!, pool: UpdatePoolInput! @spread): Pool
     @update
     @guard
-    @can(ability: "updateDraft", find: "id")
+    @canFind(ability: "updateDraft", find: "id")
   createPoolSkill(
     poolId: ID! @rename(attribute: "pool_id")
     skillId: ID! @rename(attribute: "skill_id")
@@ -1783,7 +1779,7 @@ type Mutation {
   ): PoolSkill
     @create
     @guard
-    @can(
+    @canFind(
       ability: "updateDraft"
       find: "pool_id"
       model: "Pool"
@@ -1792,13 +1788,12 @@ type Mutation {
   updatePoolSkill(id: ID!, poolSkill: UpdatePoolSkillInput! @spread): PoolSkill
     @update
     @guard
-    @can(ability: "update", find: "id", model: "PoolSkill")
+    @canFind(ability: "update", find: "id", model: "PoolSkill")
   deletePoolSkill(id: ID! @whereKey): PoolSkill
     @delete
     @guard
-    @can(ability: "delete", find: "id", model: "PoolSkill")
-
-  publishPool(id: ID!): Pool @guard @can(ability: "publish", find: "id")
+    @canFind(ability: "delete", find: "id", model: "PoolSkill")
+  publishPool(id: ID!): Pool @guard @canFind(ability: "publish", find: "id")
   changePoolClosingDate(
     id: ID!
     newClosingDate: DateTime!
@@ -1807,54 +1802,54 @@ type Mutation {
         apply: ["after:today"]
         messages: [{ rule: "after", message: "UpdatePoolClosingDate" }]
       )
-  ): Pool @guard @can(ability: "changePoolClosingDate", find: "id")
-  closePool(id: ID!): Pool @guard @can(ability: "closePool", find: "id")
+  ): Pool @guard @canFind(ability: "changePoolClosingDate", find: "id")
+  closePool(id: ID!): Pool @guard @canFind(ability: "closePool", find: "id")
   deletePool(id: ID! @whereKey): Pool
     @forceDelete(model: "Pool")
     @guard
-    @can(ability: "deleteDraft", find: "id")
+    @canFind(ability: "deleteDraft", find: "id")
   archivePool(id: ID!): Pool
     @guard
-    @can(ability: "archiveAndUnarchive", find: "id")
+    @canFind(ability: "archiveAndUnarchive", find: "id")
   unarchivePool(id: ID!): Pool
     @guard
-    @can(ability: "archiveAndUnarchive", find: "id")
+    @canFind(ability: "archiveAndUnarchive", find: "id")
 
   # Application mutations
   changeApplicationSuspendedAt(id: ID!, isSuspended: Boolean!): PoolCandidate
     @guard
-    @can(ability: "suspend", find: "id")
+    @canFind(ability: "suspend", find: "id")
   createApplication(userId: ID!, poolId: ID!): PoolCandidate
-    @can(ability: "createDraft")
+    @canModel(ability: "createDraft")
   deleteApplication(id: ID!): PoolCandidate
     @guard
-    @can(ability: "delete", find: "id", model: "PoolCandidate")
+    @canFind(ability: "delete", find: "id", model: "PoolCandidate")
   submitApplication(id: ID!, signature: String!): PoolCandidate
     @guard
-    @can(ability: "submit", find: "id")
+    @canFind(ability: "submit", find: "id")
   updateApplication(
     id: ID!
     application: UpdateApplicationInput! @spread
   ): PoolCandidate
     @update(model: "PoolCandidate")
     @guard
-    @can(ability: "update", find: "id", model: "PoolCandidate")
+    @canFind(ability: "update", find: "id", model: "PoolCandidate")
 
   # Teams mutations
   createTeam(team: CreateTeamInput! @spread): Team
     @create
-    @can(ability: "create")
+    @canModel(ability: "create")
   updateTeam(id: UUID!, team: UpdateTeamInput! @spread): Team
     @update
-    @can(ability: "update")
+    @canModel(ability: "update")
     @validator
   deleteTeam(id: UUID! @whereKey): Team
     @delete
     @guard
-    @can(ability: "delete", find: "id")
+    @canFind(ability: "delete", find: "id")
   updateUserTeamRoles(
     teamRoleAssignments: UpdateUserTeamRolesInput! @spread
-  ): Team @guard @can(ability: "assignTeamMembers", find: "teamId")
+  ): Team @guard @canFind(ability: "assignTeamMembers", find: "teamId")
 
   # Notifications
   markNotificationAsRead(id: UUID!): Notification @guard # can only affect notifications belonging to the logged-in user
@@ -1863,50 +1858,56 @@ type Mutation {
     userId: UUID! @rename(attribute: "user_id")
     skillId: UUID! @rename(attribute: "skill_id")
     userSkill: CreateUserSkillInput @spread
-  ): UserSkill @can(ability: "create", injectArgs: true)
+  ): UserSkill @canModel(ability: "create", injectArgs: true)
   updateUserSkill(
     id: UUID!
     userSkill: UpdateUserSkillInput @spread
-  ): UserSkill @update @can(ability: "update", find: "id")
+  ): UserSkill @update @canFind(ability: "update", find: "id")
   updateUserSkillRankings(
     userId: UUID!
     userSkillRanking: UpdateUserSkillRankingsInput!
-  ): User @can(ability: "update", find: "userId")
+  ): User @canFind(ability: "update", find: "userId")
   deleteUserSkill(id: UUID! @whereKey): UserSkill
-    @can(ability: "delete", find: "id")
+    @canFind(ability: "delete", find: "id")
     @delete
 
   # Assessment mutations
   createAssessmentStep(
     poolId: UUID! @rename(attribute: "pool_id")
     assessmentStep: AssessmentStepInput @spread
-  ): AssessmentStep @create @guard @can(ability: "create", injectArgs: true)
+  ): AssessmentStep
+    @create
+    @guard
+    @canModel(ability: "create", injectArgs: true)
   updateAssessmentStep(
     id: UUID!
     assessmentStep: AssessmentStepInput @spread
-  ): AssessmentStep @update @guard @can(ability: "update", find: "id")
+  ): AssessmentStep @update @guard @canFind(ability: "update", find: "id")
   swapAssessmentStepOrder(stepIdA: UUID!, stepIdB: UUID!): [AssessmentStep]
     @guard
-    @can(ability: "update", find: "stepIdA")
-    @can(ability: "update", find: "stepIdB")
+    @canFind(ability: "update", find: "stepIdA")
+    @canFind(ability: "update", find: "stepIdB")
   createOrUpdateScreeningQuestionAssessmentStep(
     poolId: UUID!
     screeningQuestions: [SyncScreeningQuestionsInput]
     assessmentStep: ScreeningQuestionAssessmentStepInput
-  ): Pool @guard @can(ability: "updateDraft", find: "poolId")
+  ): Pool @guard @canFind(ability: "updateDraft", find: "poolId")
   deleteAssessmentStep(id: UUID! @whereKey): AssessmentStep
     @delete
     @guard
-    @can(ability: "update", find: "id")
+    @canFind(ability: "update", find: "id")
   createAssessmentResult(
     createAssessmentResult: CreateAssessmentResultInput! @spread
-  ): AssessmentResult @create @guard @can(ability: "create", injectArgs: true)
+  ): AssessmentResult
+    @create
+    @guard
+    @canModel(ability: "create", injectArgs: true)
   updateAssessmentResult(
     updateAssessmentResult: UpdateAssessmentResultInput! @spread
-  ): AssessmentResult @update @guard @can(ability: "update", find: "id")
+  ): AssessmentResult @update @guard @canFind(ability: "update", find: "id")
   deleteAssessmentResult(id: UUID! @whereKey): AssessmentResult
     @delete
-    @can(ability: "update", find: "id")
+    @canFind(ability: "update", find: "id")
 
   updateSitewideAnnouncement(
     sitewideAnnouncementInput: SitewideAnnouncementInput! @spread
