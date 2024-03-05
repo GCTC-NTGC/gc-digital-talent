@@ -23,6 +23,7 @@ class TeamSeeder extends Seeder
                     'fr' => 'Gestion de la collectivité numérique',
                 ],
                 'contact_email' => 'dcm@test.test',
+                'department_ids' => [Department::select('id')->where('name->en', 'Treasury Board Secretariat')->sole()->id],
             ],
             [
                 'name' => 'office-of-indigenous-initiatives',
@@ -31,33 +32,20 @@ class TeamSeeder extends Seeder
                     'fr' => 'Bureau initiatives autochtones',
                 ],
                 'contact_email' => 'oit@test.test',
-            ],
-        ];
-
-        $teamDepartments = [
-            'digital-community-management' => [
-                ['department_number' => 56], // Treasury Board Secretariat
-            ],
-            'office-of-indigenous-initiatives' => [
-                ['department_number' => 14], // Employment and Social Development (Department of)
+                'department_ids' => [Department::select('id')->where('name->en', 'Employment and Social Development (Department of)')->sole()->id],
             ],
         ];
 
         foreach ($teams as $team) {
-            $identifier = [
-                'name' => $team['name'],
-            ];
-            Team::updateOrCreate($identifier, $team);
-        }
-
-        foreach ($teamDepartments as $teamName => $departments) {
-            $team = Team::where('name', $teamName)->first();
-            foreach ($departments as $departmentIdentifier) {
-                $department = Department::where($departmentIdentifier)->first();
-                if ($team && $department) {
-                    $team->departments()->attach($department);
-                }
-            }
+            Team::updateOrCreate(
+                [
+                    'name' => $team['name'],
+                ],
+                [
+                    'display_name' => $team['display_name'],
+                    'contact_email' => $team['contact_email'],
+                ])
+                ->departments()->sync($team['department_ids']);
         }
     }
 }

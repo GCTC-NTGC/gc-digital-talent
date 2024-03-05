@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -18,16 +17,13 @@ class UserSeederLocal extends Seeder
     {
         // Note: to manually promote a Sign In Canada user to admin, refer to instructions in documentation/sign-in-canada.md.
 
-        // collect roles and teams for assignment
-        $roles = Role::all();
-
         // shared auth users for testing
         User::factory()
             ->asApplicant()
             ->asRequestResponder()
             ->asCommunityManager()
             ->asAdmin()
-            ->asPoolOperator(['digital-community-management', 'test-team'])
+            ->asPoolOperator(['digital-community-management', 'office-of-indigenous-initiatives'])
             ->withExperiences()
             ->withSkills()
             ->asGovEmployee()
@@ -76,7 +72,7 @@ class UserSeederLocal extends Seeder
 
         User::factory()
             ->asApplicant()
-            ->asPoolOperator(['digital-community-management', 'test-team'])
+            ->asPoolOperator(['digital-community-management', 'office-of-indigenous-initiatives'])
             ->withExperiences()
             ->asGovEmployee()
             ->create([

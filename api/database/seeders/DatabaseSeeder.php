@@ -33,6 +33,15 @@ use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
+    public Carbon $intervalStart;
+
+    public function logEvent(string $event)
+    {
+        $diff = Carbon::now()->diffInMilliseconds($this->intervalStart);
+        echo "$event ($diff)".PHP_EOL;
+        $this->intervalStart = Carbon::now();
+    }
+
     /**
      * Run the database seeds.
      *
@@ -42,23 +51,28 @@ class DatabaseSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
 
+        $this->intervalStart = Carbon::now();
+
         $this->truncateTables();
 
-        // seed a test team and random teams
-        Team::factory()->count(9)->create();
+        $this->logEvent('truncate tables');
 
-        $this->call(RolePermissionSeeder::class);
-        $this->call(ClassificationSeeder::class);
-        $this->call(DepartmentSeeder::class);
-        $this->call(GenericJobTitleSeeder::class);
-        $this->call(SkillFamilySeeder::class);
-        $this->call(SkillSeeder::class);
-        $this->call(TeamSeederLocal::class);
-        $this->call(TeamSeeder::class);
-        $this->call(UserSeederLocal::class);
-        $this->call(PoolSeeder::class);
-        $this->call(DigitalContractingQuestionnaireSeeder::class);
-        $this->call(DepartmentSpecificRecruitmentProcessFormSeeder::class);
+        $this->call([
+            RolePermissionSeeder::class,
+            ClassificationSeeder::class,
+            DepartmentSeeder::class,
+            GenericJobTitleSeeder::class,
+            SkillFamilySeeder::class,
+            SkillSeeder::class,
+            TeamSeeder::class,
+            TeamSeederLocal::class,
+            UserSeederLocal::class,
+            PoolSeeder::class,
+            DigitalContractingQuestionnaireSeeder::class,
+            DepartmentSpecificRecruitmentProcessFormSeeder::class,
+        ]);
+
+        $this->logEvent('seeder calls');
 
         // Seed random pools
         Pool::factory()->count(2)->draft()->create();
@@ -69,6 +83,8 @@ class DatabaseSeeder extends Seeder
         $this->seedPools();
 
         $digitalTalentPool = Pool::where('name->en', 'CMO Digital Careers')->sole();
+
+        $this->logEvent('more pools');
 
         // Government employees (see asGovEmployee function in UserFactory for fields that are related to a user being a current Government of Canada employee).
         User::factory()
@@ -91,6 +107,8 @@ class DatabaseSeeder extends Seeder
                 }
             })
             ->create();
+
+        $this->logEvent('government users');
 
         // applicant@test.com bespoke seeding
         $applicant = User::where('sub', 'applicant@test.com')->sole();
@@ -131,6 +149,8 @@ class DatabaseSeeder extends Seeder
         $applicantUserBehaviouralSkills[2]->improve_skills_rank = 1;
         $applicantUserBehaviouralSkills[2]->save();
 
+        $this->logEvent('applicant@test.com bespoke');
+
         // Not government employees (see asGovEmployee function in UserFactory for fields that are related to a user being a current Government of Canada employee).
         User::factory()
             ->count(75)
@@ -153,6 +173,8 @@ class DatabaseSeeder extends Seeder
             })
             ->create();
 
+        $this->logEvent('non-gov employees');
+
         // attach either a work or education experience to a pool candidate to meet minimum criteria
         PoolCandidate::all()->load('user')->each(function ($poolCandidate) {
             $educationRequirementOption = $poolCandidate->education_requirement_option;
@@ -173,13 +195,19 @@ class DatabaseSeeder extends Seeder
             }
         });
 
+        $this->logEvent('attach experience');
+
         // Create some SearchRequests
         PoolCandidateSearchRequest::factory()->count(50)->create([
             'applicant_filter_id' => ApplicantFilter::factory()->sparse()->withRelationships(true),
         ]);
 
+        $this->logEvent('create search requests');
+
         // Create some AssessmentResults, and some bespoke to one pool
         $this->seedAssessmentResults($digitalTalentPool);
+
+        $this->logEvent('seed assessment results');
     }
 
     // drop all rows from some tables so that the seeder can fill them fresh
@@ -258,7 +286,7 @@ class DatabaseSeeder extends Seeder
             ->where('level', '<', 5)
             ->get();
 
-        $testTeamId = Team::where('name', 'test-team')->sole()['id'];
+        $testTeamId = Team::where('name', 'digital-community-management')->sole()['id'];
 
         foreach ($classifications as $classification) {
             foreach ($publishingGroups as $publishingGroup) {
