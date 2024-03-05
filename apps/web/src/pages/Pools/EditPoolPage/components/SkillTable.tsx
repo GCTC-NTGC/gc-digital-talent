@@ -5,7 +5,7 @@ import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import { Button, Dialog } from "@gc-digital-talent/ui";
+import { Button } from "@gc-digital-talent/ui";
 import { SkillCategory, SkillLevel, Skill } from "@gc-digital-talent/graphql";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
@@ -30,7 +30,7 @@ const ActionCell = (
   onRemove: (poolSkillSelected: string) => Promise<void>,
 ) => {
   const intl = useIntl();
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen] = React.useState<boolean>(false);
   const { poolSkillId, name } = skill;
   const localizedName = getLocalizedName(name, intl);
 
@@ -40,8 +40,11 @@ const ActionCell = (
       data-h2-flex-wrap="base(wrap)"
       data-h2-gap="base(x.25)"
     >
-      <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
-        <Dialog.Trigger>
+      <SkillBrowserDialog
+        context="pool"
+        defaultOpen={isOpen}
+        showCategory={false}
+        customTrigger={
           <Button
             icon={PencilSquareIcon}
             color="success"
@@ -57,23 +60,14 @@ const ActionCell = (
               },
             )}
           />
-        </Dialog.Trigger>
-        <Dialog.Content>
-          <Dialog.Body>
-            <SkillBrowserDialog
-              context="pool"
-              defaultOpen={isOpen}
-              showCategory={false}
-              skills={[skill]}
-              onSave={async (value) => {
-                if (value.skill && value.skillLevel) {
-                  onUpdate(poolSkillId, value.skillLevel);
-                }
-              }}
-            />
-          </Dialog.Body>
-        </Dialog.Content>
-      </Dialog.Root>
+        }
+        skills={[skill]}
+        onSave={async (value) => {
+          if (value.skill && value.skillLevel) {
+            onUpdate(poolSkillId, value.skillLevel);
+          }
+        }}
+      />
       <Button
         color="error"
         mode="inline"
