@@ -2,7 +2,6 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
-import PresentationChartBarIcon from "@heroicons/react/20/solid/PresentationChartBarIcon";
 
 import {
   Button,
@@ -75,7 +74,6 @@ export const getPageInfo: GetPageNavInfo = ({
       id: "gtns9R",
       description: "Subtitle for the application education  page",
     }),
-    icon: PresentationChartBarIcon,
     crumbs: [
       {
         url: path,

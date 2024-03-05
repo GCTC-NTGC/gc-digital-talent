@@ -2,7 +2,6 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import SparklesIcon from "@heroicons/react/20/solid/SparklesIcon";
 
 import {
   Button,
@@ -63,7 +62,6 @@ export const getPageInfo: GetPageNavInfo = ({
       id: "+vHVZ2",
       description: "Subtitle for the application skills page",
     }),
-    icon: SparklesIcon,
     crumbs: [
       {
         url: path,

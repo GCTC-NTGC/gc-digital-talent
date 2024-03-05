@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import HeartIcon from "@heroicons/react/20/solid/HeartIcon";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { useMutation } from "urql";
@@ -78,7 +77,6 @@ export const getPageInfo: GetPageNavInfo = ({
       id: "gQl1LT",
       description: "Subtitle for the self-declaration page",
     }),
-    icon: HeartIcon,
     crumbs: [
       {
         url: path,

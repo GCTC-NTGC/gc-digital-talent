@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { IntlShape, useIntl } from "react-intl";
-import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import groupBy from "lodash/groupBy";
 import { FormProvider, useForm } from "react-hook-form";
 
@@ -60,7 +59,6 @@ export const getPageInfo: GetPageNavInfo = ({
       id: "5dFzBc",
       description: "Subtitle for the application career timeline page",
     }),
-    icon: StarIcon,
     crumbs: [
       {
         url: path,
