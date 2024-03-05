@@ -104,8 +104,8 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
               data-h2-vertical-align="base(top)"
             >
               {intl.formatMessage({
-                defaultMessage: "Find and complete security clearance forms.",
-                id: "otUMji",
+                defaultMessage: "Complete a security clearance application",
+                id: "l5R6Nc",
                 description:
                   "Link text for government of canada security clearance forms",
               })}
@@ -120,9 +120,8 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
             data-h2-vertical-align="base(top)"
           >
             {intl.formatMessage({
-              defaultMessage:
-                "Update profile and contact information to ensure you receive notifications.",
-              id: "nFO3Ai",
+              defaultMessage: "Update your profile information",
+              id: "ytHyUL",
               description:
                 "Link text to users profile to update contact information",
             })}
@@ -131,15 +130,14 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
         {!isIAP && (
           <li data-h2-margin-bottom="base(x.25)">
             <Link
-              href={`${paths.browsePools()}#ongoingRecruitments`}
+              href={paths.browsePools()}
               data-h2-display="base(inline-block)"
               data-h2-text-align="base(left)"
               data-h2-vertical-align="base(top)"
             >
               {intl.formatMessage({
-                defaultMessage:
-                  "Submit an application to ongoing recruitment talent pools.",
-                id: "ZTnze/",
+                defaultMessage: "Browse for other opportunities",
+                id: "nc5GGm",
                 description:
                   "Link text to the ongoing recruitments section on the browse page",
               })}
@@ -147,21 +145,44 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
           </li>
         )}
       </ul>
-      <p data-h2-margin="base(x.5, 0)">
+      <p
+        data-h2-margin="base(x.5, 0)"
+        data-h2-display="base(flex)"
+        data-h2-flex-wrap="base(wrap)"
+        data-h2-gap="base(x1)"
+        data-h2-align-items="base(center)"
+      >
         <Link
-          href={paths.profileAndApplications({ fromIapSuccess: isIAP })}
+          href={
+            locale === "fr"
+              ? "https://forms-formulaires.alpha.canada.ca/fr/id/clsdw2j7t00igxd8211b53rlv"
+              : "https://forms-formulaires.alpha.canada.ca/en/id/clsdw2j7t00igxd8211b53rlv"
+          }
+          color="secondary"
           mode="solid"
-          color="primary"
+          external
+          newTab
         >
           {intl.formatMessage({
-            defaultMessage: "Visit your Profile and applications page",
-            id: "26Qj2A",
+            defaultMessage: "Tell us about your experience",
+            id: "k5bZg7",
+            description: "Link text for application survey",
+          })}
+        </Link>
+        <Link
+          href={paths.profileAndApplications({ fromIapSuccess: isIAP })}
+          mode="inline"
+          color="secondary"
+        >
+          {intl.formatMessage({
+            defaultMessage: "Return to your dashboard",
+            id: "htxH4r",
             description:
               "Link text to navigate to the profile and applications page",
           })}
         </Link>
       </p>
-      <p data-h2-font-size="base(caption)">
+      <Alert.Footer>
         {intl.formatMessage({
           defaultMessage:
             "* Note that your confirmation number can also be found in the Track your applications section on your Profile and applications page.",
@@ -169,7 +190,7 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
           description:
             "Note that the application confirmation number is available on the profile and applications page",
         })}
-      </p>
+      </Alert.Footer>
     </Alert.Root>
   );
 };
