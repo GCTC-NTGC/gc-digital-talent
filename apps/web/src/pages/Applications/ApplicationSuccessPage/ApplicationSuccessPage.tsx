@@ -132,7 +132,7 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
         {!isIAP && (
           <li data-h2-margin-bottom="base(x.25)">
             <Link
-              href={`${paths.browsePools()}#ongoingRecruitments`}
+              href={paths.browsePools()}
               data-h2-display="base(inline-block)"
               data-h2-text-align="base(left)"
               data-h2-vertical-align="base(top)"
