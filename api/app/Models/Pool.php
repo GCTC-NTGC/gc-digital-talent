@@ -209,7 +209,7 @@ class Pool extends Model
     }
 
     // Sync the APPLICATION_SCREENING assessment step with the pools technical skills
-    private function syncApplicationScreeningStepPoolSkills()
+    public function syncApplicationScreeningStepPoolSkills()
     {
         $screeningStep = $this->assessmentSteps()->firstOrCreate([
             'type' => AssessmentStepType::APPLICATION_SCREENING->name,
