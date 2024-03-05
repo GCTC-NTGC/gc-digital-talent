@@ -71,7 +71,7 @@ const AssessmentStepTracker = ({ pool }: AssessmentStepTrackerProps) => {
                 <Board.ColumnHeader prefix={stepNumber}>
                   {stepName}
                 </Board.ColumnHeader>
-                <ResultsDetails {...{ resultCounts, step }} />
+                <ResultsDetails {...{ resultCounts, step, filters }} />
                 <AssessmentResults
                   stepType={step.type}
                   stepName={

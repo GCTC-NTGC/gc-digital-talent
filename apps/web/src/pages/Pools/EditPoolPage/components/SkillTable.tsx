@@ -2,7 +2,7 @@ import React from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Button } from "@gc-digital-talent/ui";
 import { Scalars, Skill } from "@gc-digital-talent/graphql";
 
@@ -86,11 +86,7 @@ const SkillTable = ({
       columnHelper.display({
         id: "edit",
         enableHiding: false,
-        header: intl.formatMessage({
-          defaultMessage: "Remove",
-          id: "yBZaZy",
-          description: "Header for the remove column on a skill table",
-        }),
+        header: intl.formatMessage(commonMessages.remove),
         meta: {
           hideMobileHeader: true,
         },

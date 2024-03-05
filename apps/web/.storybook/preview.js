@@ -5,8 +5,6 @@ import {
   ReducedMotionDecorator,
   RouterDecorator,
   ThemeDecorator,
-  themeKey,
-  themeMode,
   VIEWPORTS
 } from "@gc-digital-talent/storybook-helpers";
 import { richTextElements as defaultRichTextElements } from "@gc-digital-talent/i18n";
@@ -33,9 +31,7 @@ const getMessages = (locale) => messages[locale];
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   backgrounds: {
-    // Set default to "light gray" rather that default "white", to better catch
-    // components with transparent backgrounds.
-    default: "light",
+    disable: true
   },
   controls: {
     matchers: {
@@ -52,11 +48,6 @@ export const parameters = {
   viewport: {
     viewports: VIEWPORTS,
   },
-};
-
-export const globalTypes = {
-  themeKey,
-  themeMode,
 };
 
 export const decorators = [

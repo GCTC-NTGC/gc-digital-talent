@@ -22,8 +22,8 @@ const specialErrorExchange = ({ intl }: SpecialErrorExchangeOptions) => {
         forward,
         tap((result) => {
           if (
-            result.error?.response.status === 403 &&
-            result.error.networkError?.message.includes("Request Rejected")
+            result?.error?.response?.status === 403 &&
+            result?.error?.networkError?.message?.includes("Request Rejected")
           ) {
             toast.error(intl.formatMessage(errorMessages.specialCharacters));
           }

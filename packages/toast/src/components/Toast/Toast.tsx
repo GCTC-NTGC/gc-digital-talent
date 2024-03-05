@@ -44,7 +44,9 @@ type ToastProps = {
 const Toast = ({ disableTransition, autoClose = 5000 }: ToastProps) => (
   <ToastContainer
     position="bottom-right"
-    transition={!disableTransition ? Slide : undefined}
+    {...(!disableTransition && {
+      transition: Slide,
+    })}
     hideProgressBar
     role="alert"
     closeButton={CloseButton}

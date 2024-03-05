@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import UserCircleIcon from "@heroicons/react/20/solid/UserCircleIcon";
 import { useMutation } from "urql";
 
 import { Heading, Separator, ThrowNotFound } from "@gc-digital-talent/ui";
@@ -51,7 +50,6 @@ export const getPageInfo: GetPageNavInfo = ({
       id: "ImTMRk",
       description: "Subtitle for the application profile  page",
     }),
-    icon: UserCircleIcon,
     crumbs: [
       {
         url: path,

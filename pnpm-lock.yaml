@@ -80,7 +80,7 @@ importers:
     dependencies:
       '@axe-core/playwright':
         specifier: ^4.8.5
-        version: 4.8.5(playwright-core@1.41.2)
+        version: 4.8.5(playwright-core@1.42.1)
     devDependencies:
       '@gc-digital-talent/date-helpers':
         specifier: '*'
@@ -1125,6 +1125,9 @@ importers:
       '@storybook/addon-links':
         specifier: ^7.6.17
         version: 7.6.17(react@18.2.0)
+      '@storybook/addon-themes':
+        specifier: ^7.6.17
+        version: 7.6.17
       '@storybook/addon-viewport':
         specifier: ^7.6.17
         version: 7.6.17
@@ -1134,6 +1137,9 @@ importers:
       '@storybook/react-webpack5':
         specifier: ^7.6.17
         version: 7.6.17(@babel/core@7.24.0)(@swc/core@1.4.2)(esbuild@0.18.20)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)
+      '@storybook/types':
+        specifier: ^7.6.17
+        version: 7.6.17
       hydrogen-webpack-plugin:
         specifier: workspace:*
         version: link:../hydrogen-webpack-plugin
@@ -1205,6 +1211,9 @@ importers:
       '@faker-js/faker':
         specifier: ^8.4.1
         version: 8.4.1
+      '@gc-digital-talent/storybook-helpers':
+        specifier: '*'
+        version: link:../storybook-helpers
       '@storybook/react':
         specifier: ^7.6.17
         version: 7.6.17(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)
@@ -1525,13 +1534,13 @@ packages:
       default-browser-id: 3.0.0
     dev: true
 
-  /@axe-core/playwright@4.8.5(playwright-core@1.41.2):
+  /@axe-core/playwright@4.8.5(playwright-core@1.42.1):
     resolution: {integrity: sha512-GFdXXAEn9uk0Vyzgl2eEP+VwvgGzas0YSnacoJ/0U237G83zWZ1PhbP/RDymm0cqevoA+xRjMo+ONzh9Q711nw==}
     peerDependencies:
       playwright-core: '>= 1.0.0'
     dependencies:
       axe-core: 4.8.4
-      playwright-core: 1.41.2
+      playwright-core: 1.42.1
     dev: false
 
   /@babel/code-frame@7.23.5:
@@ -6078,6 +6087,12 @@ packages:
     resolution: {integrity: sha512-9o9JXDsYjNaDgz/cY5+jv694+aik/1aiRGGvsCv68e1p/ob0glkGKav4lnJe2VJqD+gCmaARoD8GOJlhoQl8JQ==}
     dependencies:
       '@storybook/global': 5.0.0
+      ts-dedent: 2.2.0
+    dev: true
+
+  /@storybook/addon-themes@7.6.17:
+    resolution: {integrity: sha512-i/dI3GKlJmQv0Di9HM3fKJvFIab55kvva0vXCGBkqSw3wYoZuq++npkWeDnjjZUvggV12H2RTdGqYwMCXB/GHg==}
+    dependencies:
       ts-dedent: 2.2.0
     dev: true
 
@@ -14410,17 +14425,10 @@ packages:
     dependencies:
       find-up: 6.3.0
 
-  /playwright-core@1.41.2:
-    resolution: {integrity: sha512-VaTvwCA4Y8kxEe+kfm2+uUUw5Lubf38RxF7FpBxLPmGe5sdNkSg5e3ChEigaGrX7qdqT3pt2m/98LiyvU2x6CA==}
-    engines: {node: '>=16'}
-    hasBin: true
-    dev: false
-
   /playwright-core@1.42.1:
     resolution: {integrity: sha512-mxz6zclokgrke9p1vtdy/COWBH+eOZgYUVVU34C73M+4j4HLlQJHtfcqiqqxpP0o8HhMkflvfbquLX5dg6wlfA==}
     engines: {node: '>=16'}
     hasBin: true
-    dev: true
 
   /playwright@1.42.1:
     resolution: {integrity: sha512-PgwB03s2DZBcNRoW+1w9E+VkLBxweib6KTXM0M3tkiT4jVxKSi6PmVJ591J+0u10LUrgxB7dLRbiJqO5s2QPMg==}

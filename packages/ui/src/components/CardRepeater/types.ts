@@ -15,4 +15,5 @@ export type CardRepeaterContextProps<T extends BaseItem = BaseItem> = {
   max?: number;
   hideIndex?: boolean;
   onUpdate?: (newItems: ItemWithId<T>[]) => void;
+  onItemsMoved?: (newItems: ItemWithId<T>[]) => void;
 };
