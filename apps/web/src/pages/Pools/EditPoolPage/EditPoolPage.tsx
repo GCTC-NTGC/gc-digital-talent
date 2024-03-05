@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
 import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
-import { useQuery } from "urql";
+import { OperationContext, useQuery } from "urql";
 
 import {
   NotFound,
@@ -655,6 +655,11 @@ type RouteParams = {
   poolId: Scalars["ID"]["output"];
 };
 
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["PoolSkill"],
+  requestPolicy: "cache-first",
+};
+
 export const EditPoolPage = () => {
   const intl = useIntl();
   const { poolId } = useRequiredParams<RouteParams>("poolId");
@@ -677,6 +682,7 @@ export const EditPoolPage = () => {
 
   const [{ data, fetching, error }] = useQuery({
     query: EditPoolPage_Query,
+    context,
     variables: { poolId },
   });
 
