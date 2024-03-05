@@ -34,7 +34,7 @@ import {
   Locales,
   getPoolOpportunityLength,
 } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { parseDateTimeUtc, formatDate } from "@gc-digital-talent/date-helpers";
 import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
@@ -46,8 +46,6 @@ import {
   PublishingGroup,
   Maybe,
   PoolSkillType,
-  PoolSkill,
-  Skill,
 } from "@gc-digital-talent/graphql";
 
 import {
@@ -70,7 +68,10 @@ import ApplicationLink, {
   ApplicationLinkProps,
 } from "./components/ApplicationLink";
 import Text from "./components/Text";
-import SkillAccordion from "./components/SkillAccordion";
+import SkillAccordion, {
+  PoolSkillWithSkill,
+  isPoolWithSkill as isPoolSkillWithSkill,
+} from "./components/SkillAccordion";
 import DataRow from "./components/DataRow";
 import GenericJobTitleAccordion from "./components/GenericJobTitleAccordion";
 import DeadlineDialog from "./components/DeadlineDialog";
@@ -173,24 +174,20 @@ export const PoolPoster = ({
     ? intl.formatMessage(getSecurityClearance(pool.securityClearance))
     : "";
 
-  // filter and confirm poolSkill.skill truthy
-  const poolSkills = pool.poolSkills ?? [];
-  const filteredPoolSkills = poolSkills
-    .filter(notEmpty)
-    .filter(
-      (poolSkill) =>
-        poolSkill.skill && poolSkill.skill.category && poolSkill.skill.id,
-    );
-  const essentialPoolSkills = sortPoolSkillsBySkillCategory(
-    filteredPoolSkills.filter(
-      (poolSkill) => poolSkill.type === PoolSkillType.Essential,
-    ),
-  ) as (PoolSkill & { skill: Skill })[];
-  const nonessentialPoolSkills = sortPoolSkillsBySkillCategory(
-    filteredPoolSkills.filter(
-      (poolSkill) => poolSkill.type === PoolSkillType.Nonessential,
-    ),
-  ) as (PoolSkill & { skill: Skill })[];
+  // Separate essential and asset skills, sort them by category, and confirm they include skill data
+  const poolSkills = unpackMaybes(pool.poolSkills);
+  const essentialPoolSkills: PoolSkillWithSkill[] =
+    sortPoolSkillsBySkillCategory(
+      poolSkills.filter(
+        (poolSkill) => poolSkill.type === PoolSkillType.Essential,
+      ),
+    ).filter(isPoolSkillWithSkill);
+  const nonessentialPoolSkills: PoolSkillWithSkill[] =
+    sortPoolSkillsBySkillCategory(
+      poolSkills.filter(
+        (poolSkill) => poolSkill.type === PoolSkillType.Nonessential,
+      ),
+    ).filter(isPoolSkillWithSkill);
 
   const contactEmail = pool.team?.contactEmail;
 

@@ -3,7 +3,8 @@ import { useIntl } from "react-intl";
 
 import { Accordion } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import { PoolSkill, Skill, SkillCategory } from "@gc-digital-talent/graphql";
+import { PoolSkill, SkillCategory } from "@gc-digital-talent/graphql";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import { getUserSkillLevelAndDefinition } from "~/utils/skillUtils";
 
@@ -38,8 +39,17 @@ const Context = ({ required }: ContextProps) => {
   );
 };
 
+// A version of the PoolSkill type where skill has been confirmed non-null and defined.
+export type PoolSkillWithSkill = PoolSkill & {
+  skill: NonNullable<PoolSkill["skill"]>;
+};
+export function isPoolWithSkill(
+  poolSkill: PoolSkill,
+): poolSkill is PoolSkillWithSkill {
+  return notEmpty(poolSkill.skill);
+}
 interface SkillAccordionProps {
-  poolSkill: PoolSkill & { skill: Skill };
+  poolSkill: PoolSkillWithSkill;
   required?: ContextProps["required"];
 }
 
