@@ -231,6 +231,7 @@ server {
 
     # rewrite possible lang prefix then "skills" to apps/web index.hstml
     location ~ "^(?:/[a-z]{2})?/skills(/.*|$)" {
+          add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
         rewrite "^(?:/[a-z]{2})?/skills(/.*|$)" /apps/web/dist/index.html break;
     }
 
