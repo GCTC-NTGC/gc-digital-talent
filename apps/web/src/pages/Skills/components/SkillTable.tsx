@@ -149,16 +149,7 @@ export const SkillTable = ({
         }),
       },
     ),
-    columnHelper.accessor((skill) => keywordsAccessor(skill, intl), {
-      id: "keywords",
-      sortingFn: normalizedText,
-      header: intl.formatMessage({
-        defaultMessage: "Keywords",
-        id: "I7rxxQ",
-        description: "Title displayed for the skill table Keywords column.",
-      }),
-    }),
-  ] as ColumnDef<Skill>[];
+  ];
 
   useEffect(() => {
     let filteredData;
@@ -191,7 +182,7 @@ export const SkillTable = ({
       caption={title}
       data={dataState}
       columns={columns}
-      hiddenColumnIds={["id", "keywords"]}
+      hiddenColumnIds={["id"]}
       pagination={{
         internal: true,
         total: dataState.length,
