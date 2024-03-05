@@ -30,7 +30,10 @@ const Single = ({
 }: SingleProps) => {
   const [available, setAvailable] = React.useState<Option[]>(options);
   const inputRef = React.useRef<HTMLInputElement | null>(null);
-  const items = isExternalSearch ? options : available;
+  const items = React.useMemo(
+    () => (isExternalSearch ? options : available),
+    [available, isExternalSearch, options],
+  );
 
   const {
     isOpen,
@@ -75,10 +78,6 @@ const Single = ({
     selectItem(null);
     inputRef?.current?.focus();
   };
-
-  React.useEffect(() => {
-    setAvailable(options);
-  }, [options]);
 
   return (
     <>

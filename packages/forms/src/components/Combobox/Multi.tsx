@@ -35,9 +35,12 @@ const Multi = ({
 }: MultiProps) => {
   const intl = useIntl();
   const [inputValue, setInputValue] = React.useState<string>("");
-  const [available, setAvailable] = React.useState<Option[]>([]);
+  const [available, setAvailable] = React.useState<Option[]>(options);
   const inputRef = React.useRef<HTMLInputElement | null>(null);
-  const items = isExternalSearch ? options : available;
+  const items = React.useMemo(
+    () => (isExternalSearch ? options : available),
+    [available, isExternalSearch, options],
+  );
 
   const handleInputChanged = (newQuery?: string) => {
     const query = newQuery ?? "";
