@@ -53,7 +53,6 @@ class PoolSeeder extends Seeder
             if (! $poolModel) {
                 $createdPool = Pool::factory()
                     ->published()
-                    ->withCompletePoolSkills()
                     ->create($poolData);
                 // constrain CMO Digital Careers pool to predictable values
                 if ($identifier['name->en'] == 'CMO Digital Careers') {

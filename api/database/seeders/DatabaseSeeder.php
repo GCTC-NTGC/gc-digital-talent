@@ -64,11 +64,10 @@ class DatabaseSeeder extends Seeder
         Pool::factory()->count(2)->draft()->create();
         Pool::factory()->count(6)
             ->published()
-            ->withCompletePoolSkills()
             ->withAssessments()
             ->create();
-        Pool::factory()->count(2)->closed()->withCompletePoolSkills()->create();
-        Pool::factory()->count(2)->archived()->withCompletePoolSkills()->create();
+        Pool::factory()->count(2)->closed()->create();
+        Pool::factory()->count(2)->archived()->create();
         // Seed some expected values
         $this->seedPools();
 
@@ -269,7 +268,7 @@ class DatabaseSeeder extends Seeder
                 foreach ($dates as $date) {
                     Pool::factory()
                         ->published()
-                        ->withCompletePoolSkills()
+
                         ->afterCreating(function ($pool) use ($classification) {
                             $pool->classifications()->sync([$classification->id]);
                         })->create([

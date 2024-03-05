@@ -6,6 +6,7 @@ use App\Enums\AssessmentStepType;
 use App\Enums\OperationalRequirement;
 use App\Enums\PoolLanguage;
 use App\Enums\PoolOpportunityLength;
+use App\Enums\PoolSkillType;
 use App\Enums\PoolStream;
 use App\Enums\PublishingGroup;
 use App\Enums\SecurityStatus;
@@ -71,8 +72,21 @@ class PoolFactory extends Factory
             $classifications = Classification::inRandomOrder()->limit(1)->get();
             $skills = Skill::inRandomOrder()->limit(10)->get();
             $pool->classifications()->saveMany($classifications);
-            $pool->setEssentialPoolSkills($skills->slice(0, 5)->pluck('id'));
-            $pool->setNonessentialPoolSkills($skills->slice(5, 5)->pluck('id'));
+
+            foreach ($skills->slice(0, 5) as $skill) {
+                $poolSkill = new PoolSkill();
+                $poolSkill->skill_id = $skill->id;
+                $poolSkill->type = PoolSkillType::ESSENTIAL->name;
+                $poolSkill->required_skill_level = $this->faker->randomElement(array_column(SkillLevel::cases(), 'name'));
+                $pool->poolSkills()->save($poolSkill);
+            }
+            foreach ($skills->slice(5, 5) as $skill) {
+                $poolSkill = new PoolSkill();
+                $poolSkill->skill_id = $skill->id;
+                $poolSkill->type = PoolSkillType::NONESSENTIAL->name;
+                $poolSkill->required_skill_level = $this->faker->randomElement(array_column(SkillLevel::cases(), 'name'));
+                $pool->poolSkills()->save($poolSkill);
+            }
 
             GeneralQuestion::factory()
                 ->count(3)
@@ -206,24 +220,6 @@ class PoolFactory extends Factory
             $poolSkillArray = $pool->poolSkills->pluck('id')->toArray();
             $step1->poolSkills()->sync(array_slice($poolSkillArray, 0, 5, true));
             $step2->poolSkills()->sync(array_slice($poolSkillArray, 5, 5, true));
-        });
-    }
-
-    /** Update the pool's pool_skill table to be complete
-     * For use in testing and seeding convenience, edits pool skill models after the pivot table was filled
-     *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
-     */
-    public function withCompletePoolSkills()
-    {
-        return $this->afterCreating(function (Pool $pool) {
-            $poolSkills = PoolSkill::where('pool_id', $pool->id)
-                ->where('required_skill_level', null)
-                ->get();
-            foreach ($poolSkills as $poolSkill) {
-                $poolSkill->required_skill_level = $this->faker->randomElement(array_column(SkillLevel::cases(), 'name'));
-                $poolSkill->save();
-            }
         });
     }
 }

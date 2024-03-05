@@ -563,7 +563,6 @@ class PoolTest extends TestCase
         $classification = Classification::factory()->create();
         $pool = Pool::factory()
             ->published()
-            ->withCompletePoolSkills()
             ->create([
                 'published_at' => null,
                 'closing_date' => config('constants.far_future_datetime'),
@@ -692,7 +691,6 @@ class PoolTest extends TestCase
 
         $completePool = Pool::factory()
             ->published()
-            ->withCompletePoolSkills()
             ->create([
                 'closing_date' => config('constants.far_future_date'),
             ]);
@@ -746,7 +744,6 @@ class PoolTest extends TestCase
 
         $completePool = Pool::factory()
             ->published()
-            ->withCompletePoolSkills()
             ->create([
                 'closing_date' => config('constants.far_future_date'),
             ]);
@@ -788,7 +785,6 @@ class PoolTest extends TestCase
         ]);
         $completePool = Pool::factory()
             ->published()
-            ->withCompletePoolSkills()
             ->create([
                 'closing_date' => config('constants.far_future_date'),
                 'published_at' => null,
@@ -847,7 +843,6 @@ class PoolTest extends TestCase
         ]);
         $completePool = Pool::factory()
             ->published()
-            ->withCompletePoolSkills()
             ->create([
                 'closing_date' => config('constants.far_future_date'),
                 'published_at' => null,
