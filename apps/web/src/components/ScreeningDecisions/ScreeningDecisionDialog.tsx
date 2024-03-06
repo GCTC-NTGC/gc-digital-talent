@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useIntl } from "react-intl";
+import { IntlShape, useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 import { useMutation } from "urql";
 
@@ -18,7 +18,6 @@ import {
   Skill,
   SkillCategory,
   UpdateAssessmentResultInput,
-  UserSkill,
   graphql,
 } from "@gc-digital-talent/graphql";
 import {
@@ -43,7 +42,9 @@ import {
 import { toast } from "@gc-digital-talent/toast";
 import {
   getAssessmentDecisionLevel,
+  getBehaviouralSkillLevel,
   getTableAssessmentDecision,
+  getTechnicalSkillLevel,
 } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
 
 import { getExperienceSkills } from "~/utils/skillUtils";
@@ -59,23 +60,36 @@ import useHeaders from "./useHeaders";
 import {
   convertFormValuesToApiCreateInput,
   convertFormValuesToApiUpdateInput,
-  getLocalizedSkillLevel,
   FormValues,
 } from "./utils";
 
+const getSkillLevelMessage = (
+  poolSkill: PoolSkill | undefined,
+  intl: IntlShape,
+): string => {
+  let skillLevel = "";
+  if (poolSkill?.requiredLevel && poolSkill.skill) {
+    skillLevel =
+      poolSkill.skill.category === SkillCategory.Technical
+        ? intl.formatMessage(getTechnicalSkillLevel(poolSkill.requiredLevel))
+        : intl.formatMessage(getBehaviouralSkillLevel(poolSkill.requiredLevel));
+  } else skillLevel = intl.formatMessage(commonMessages.notFound);
+
+  return skillLevel;
+};
+
 const AssessmentStepTypeSection = ({
   educationRequirementOption,
-  userSkill,
   poolSkill,
   type,
 }: {
   educationRequirementOption: React.ReactNode;
-  userSkill?: UserSkill;
   poolSkill?: PoolSkill;
   type: DialogType;
 }) => {
   const intl = useIntl();
-  const localizedSkillLevel = getLocalizedSkillLevel(userSkill, intl);
+  const skillLevel = getSkillLevelMessage(poolSkill, intl);
+
   switch (type) {
     case "EDUCATION":
       return (
@@ -115,7 +129,7 @@ const AssessmentStepTypeSection = ({
                     },
                     {
                       skillName: getLocalizedName(poolSkill?.skill?.name, intl),
-                      skillLevel: localizedSkillLevel,
+                      skillLevel,
                     },
                   )}
                 </Accordion.Trigger>
@@ -132,22 +146,22 @@ const AssessmentStepTypeSection = ({
                     </p>
                   </div>
                   <div>
-                    {userSkill?.skillLevel ? (
+                    {poolSkill?.requiredLevel && poolSkill.skill ? (
                       <>
                         <p
                           data-h2-margin-bottom="base(x1)"
                           data-h2-font-weight="base(bold)"
                         >
-                          {localizedSkillLevel}
+                          {skillLevel}
                         </p>
                         <p>
                           {intl.formatMessage(
-                            userSkill.skill.category === SkillCategory.Technical
+                            poolSkill.skill.category === SkillCategory.Technical
                               ? getTechnicalSkillLevelDefinition(
-                                  userSkill.skillLevel,
+                                  poolSkill.requiredLevel,
                                 )
                               : getBehaviouralSkillLevelDefinition(
-                                  userSkill.skillLevel,
+                                  poolSkill.requiredLevel,
                                 ),
                           )}
                         </p>
@@ -273,12 +287,7 @@ export const ScreeningDecisionDialog = ({
     educationRequirement ? undefined : assessmentStep,
   );
   const skill = poolSkill?.skill ? poolSkill.skill : undefined;
-
-  const userSkill = poolCandidate.user?.userSkills
-    ? poolCandidate.user?.userSkills
-        ?.filter(notEmpty)
-        .find((usrSkill) => usrSkill.skill.id === skill?.id)
-    : undefined;
+  const skillLevel = getSkillLevelMessage(poolSkill, intl);
 
   const headers = useHeaders({
     type: dialogType,
@@ -290,7 +299,7 @@ export const ScreeningDecisionDialog = ({
     customTitle: getLocalizedName(assessmentStep?.title, intl),
     candidateName: poolCandidate.user.firstName,
     skillName: getLocalizedName(skill?.name, intl),
-    skillLevel: getLocalizedSkillLevel(userSkill, intl),
+    skillLevel,
   });
   const labels = useLabels();
 
@@ -399,7 +408,6 @@ export const ScreeningDecisionDialog = ({
             <AssessmentStepTypeSection
               educationRequirementOption={educationRequirementOption}
               poolSkill={poolSkill}
-              userSkill={userSkill}
               type={dialogType}
             />
             {dialogType === "SCREENING_QUESTIONS" ? (
