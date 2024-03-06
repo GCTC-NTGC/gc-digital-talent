@@ -42,3 +42,26 @@ jobs:
         displayName: "Publish Artifact: gcDigitalTalent"
         inputs:
           ArtifactName: gcDigitalTalent
+  - job: run_playwright_tests
+    displayName: Run Playwright tests
+    pool:
+      vmImage: ubuntu-20.04
+    steps:
+      - checkout: self
+        clean: true
+        fetchDepth: 1
+
+      - script: npm install
+        displayName: "Install Node.js dependencies"
+
+      - script: npx playwright install
+        displayName: "Install Playwright browsers"
+
+      - script: npm run e2e:playwright:chromium
+        displayName: "Run Chromium tests"
+
+      - script: npm run e2e:playwright:firefox
+        displayName: "Run Firefox tests"
+
+      - script: npm run e2e:playwright:webkit
+        displayName: "Run WebKit tests"
