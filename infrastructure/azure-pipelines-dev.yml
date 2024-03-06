@@ -68,5 +68,5 @@ stages:
       - script: npx playwright install --with-deps
         displayName: "Install Playwright browsers"
 
-      - script: npx playwright test
+      - script: npm run e2e:playwright 
         displayName: "Run playwright tests"
