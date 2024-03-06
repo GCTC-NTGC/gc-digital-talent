@@ -1,6 +1,10 @@
 import React from "react";
 
-import { Pool } from "@gc-digital-talent/graphql";
+import {
+  CreatePoolSkillInput,
+  UpdatePoolSkillInput,
+  Pool,
+} from "@gc-digital-talent/graphql";
 
 import { EditPoolSectionMetadata } from "~/types/pool";
 
@@ -31,3 +35,13 @@ export type SectionKey =
   | "commonQuestions"
   | "whatToExpect"
   | "generalQuestions";
+
+export type PoolSkillMutationsType = {
+  create: (
+    poolId: string,
+    skillId: string,
+    poolSkill: CreatePoolSkillInput,
+  ) => Promise<void>;
+  update: (id: string, poolSkill: UpdatePoolSkillInput) => Promise<void>;
+  delete: (id: string) => Promise<void>;
+};

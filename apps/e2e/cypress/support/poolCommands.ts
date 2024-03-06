@@ -1,8 +1,8 @@
 import {
-  Command_CreatePoolMutation,
-  Command_UpdatePoolMutation,
-  Command_PublishPoolMutation,
-  graphql,
+  CreatePoolMutation,
+  UpdatePoolMutation,
+  PublishPoolMutation,
+  CreatePoolSkillMutation,
 } from "@gc-digital-talent/graphql";
 
 const commandCreatePoolDoc = /* GraphQL */ `
@@ -21,11 +21,9 @@ const commandCreatePoolDoc = /* GraphQL */ `
   }
 `;
 
-const Command_CreatePoolMutation = graphql(commandCreatePoolDoc);
-
 Cypress.Commands.add("createPool", (userId, teamId, classificationIds) => {
   // there are no optional fields on the variables for this mutation
-  cy.graphqlRequest<Command_CreatePoolMutation>({
+  cy.graphqlRequest<CreatePoolMutation>({
     operationName: "Command_CreatePool",
     query: commandCreatePoolDoc,
     variables: {
@@ -50,10 +48,8 @@ const commandUpdatePoolDoc = /* GraphQL */ `
   }
 `;
 
-const Command_UpdatePoolMutation = graphql(commandUpdatePoolDoc);
-
 Cypress.Commands.add("updatePool", (id, pool) => {
-  cy.graphqlRequest<Command_UpdatePoolMutation>({
+  cy.graphqlRequest<UpdatePoolMutation>({
     operationName: "Command_UpdatePool",
     query: commandUpdatePoolDoc,
     variables: {
@@ -62,6 +58,32 @@ Cypress.Commands.add("updatePool", (id, pool) => {
     },
   }).then((data) => {
     cy.wrap(data.updatePool);
+  });
+});
+
+const commandCreatePoolSkillDoc = /* GraphQL */ `
+  mutation Command_CreatePoolSkill(
+    $poolId: ID!
+    $skillId: ID!
+    $poolSkill: CreatePoolSkillInput!
+  ) {
+    createPoolSkill(poolId: $poolId, skillId: $skillId, poolSkill: $poolSkill) {
+      id
+    }
+  }
+`;
+
+Cypress.Commands.add("createPoolSkill", (poolId, skillId, poolSkill) => {
+  cy.graphqlRequest<CreatePoolSkillMutation>({
+    operationName: "Command_CreatePoolSkill",
+    query: commandCreatePoolSkillDoc,
+    variables: {
+      poolId: poolId,
+      skillId: skillId,
+      poolSkill: poolSkill,
+    },
+  }).then((data) => {
+    cy.wrap(data.createPoolSkill);
   });
 });
 
@@ -74,10 +96,8 @@ const commandPublishPoolDoc = /* GraphQL */ `
   }
 `;
 
-const Command_PublishPoolMutation = graphql(commandPublishPoolDoc);
-
 Cypress.Commands.add("publishPool", (id) => {
-  cy.graphqlRequest<Command_PublishPoolMutation>({
+  cy.graphqlRequest<PublishPoolMutation>({
     operationName: "Command_PublishPool",
     query: commandPublishPoolDoc,
     variables: {

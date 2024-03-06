@@ -190,8 +190,16 @@ type Pool {
   securityClearance: SecurityStatus @rename(attribute: "security_clearance")
   language: PoolLanguage @rename(attribute: "advertisement_language")
   status: PoolStatus @rename(attribute: "status")
-  essentialSkills: [Skill!] @belongsToMany
-  nonessentialSkills: [Skill!] @belongsToMany
+  essentialSkills: [Skill!]
+    @belongsToMany
+    @deprecated(
+      reason: "Switch to poolSkills filtering for PoolSkillType.ESSENTIAL"
+    )
+  nonessentialSkills: [Skill!]
+    @belongsToMany
+    @deprecated(
+      reason: "Switch to poolSkills filtering for PoolSkillType.NONESSENTIAL"
+    )
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
@@ -212,7 +220,7 @@ type Pool {
   assessmentSteps: [AssessmentStep]
     @hasMany
     @canRoot(ability: "viewAssessmentPlan")
-  poolSkills: [PoolSkill] @hasMany @canRoot(ability: "viewAssessmentPlan")
+  poolSkills: [PoolSkill] @hasMany
 }
 
 type GeneralQuestionResponse {
@@ -262,9 +270,11 @@ type AssessmentResult {
 type PoolSkill {
   id: ID!
   type: PoolSkillType
-  pool: Pool @belongsTo
+  requiredLevel: SkillLevel @rename(attribute: "required_skill_level")
   skill: Skill @belongsTo
-  assessmentSteps: [AssessmentStep] @belongsToMany
+  assessmentSteps: [AssessmentStep]
+    @belongsToMany
+    @canRoot(ability: "viewAssessmentSteps")
 }
 
 type PoolCandidate {
@@ -1368,14 +1378,6 @@ input SyncScreeningQuestionsInput {
   sortOrder: Int
 }
 
-input SyncEssentialPoolSkills {
-  sync: [ID] @resolveWith(method: "setEssentialPoolSkills")
-}
-
-input SyncNonessentialPoolSkills {
-  sync: [ID] @resolveWith(method: "setNonessentialPoolSkills")
-}
-
 input UpdatePoolInput {
   # Pool name and classification
   name: LocalizedStringInput
@@ -1397,9 +1399,6 @@ input UpdatePoolInput {
   whatToExpect: LocalizedStringInput @rename(attribute: "what_to_expect")
   # Special note
   specialNote: LocalizedStringInput @rename(attribute: "special_note")
-  # Essential skills and Asset skills
-  essentialSkills: SyncEssentialPoolSkills @spread
-  nonessentialSkills: SyncNonessentialPoolSkills @spread
   # Other requirements
   language: PoolLanguage @rename(attribute: "advertisement_language")
   securityClearance: SecurityStatus @rename(attribute: "security_clearance")
@@ -1409,6 +1408,15 @@ input UpdatePoolInput {
   opportunityLength: PoolOpportunityLength
     @rename(attribute: "opportunity_length")
   generalQuestions: UpdateGeneralQuestionsHasMany
+}
+
+input CreatePoolSkillInput {
+  type: PoolSkillType!
+  requiredLevel: SkillLevel @rename(attribute: "required_skill_level")
+}
+
+input UpdatePoolSkillInput {
+  requiredLevel: SkillLevel @rename(attribute: "required_skill_level")
 }
 
 input AssessmentStepInput {
@@ -1764,6 +1772,27 @@ type Mutation {
     @update
     @guard
     @canFind(ability: "updateDraft", find: "id")
+  createPoolSkill(
+    poolId: ID! @rename(attribute: "pool_id")
+    skillId: ID! @rename(attribute: "skill_id")
+    poolSkill: CreatePoolSkillInput! @spread
+  ): PoolSkill
+    @create
+    @guard
+    @canFind(
+      ability: "updateDraft"
+      find: "pool_id"
+      model: "Pool"
+      injectArgs: true
+    )
+  updatePoolSkill(id: ID!, poolSkill: UpdatePoolSkillInput! @spread): PoolSkill
+    @update
+    @guard
+    @canFind(ability: "update", find: "id", model: "PoolSkill")
+  deletePoolSkill(id: ID! @whereKey): PoolSkill
+    @delete
+    @guard
+    @canFind(ability: "delete", find: "id", model: "PoolSkill")
   publishPool(id: ID!): Pool @guard @canFind(ability: "publish", find: "id")
   changePoolClosingDate(
     id: ID!

@@ -62,7 +62,10 @@ class DatabaseSeeder extends Seeder
 
         // Seed random pools
         Pool::factory()->count(2)->draft()->create();
-        Pool::factory()->count(6)->published()->withAssessments()->create();
+        Pool::factory()->count(6)
+            ->published()
+            ->withAssessments()
+            ->create();
         Pool::factory()->count(2)->closed()->create();
         Pool::factory()->count(2)->archived()->create();
         // Seed some expected values
@@ -263,15 +266,18 @@ class DatabaseSeeder extends Seeder
         foreach ($classifications as $classification) {
             foreach ($publishingGroups as $publishingGroup) {
                 foreach ($dates as $date) {
-                    Pool::factory()->published()->afterCreating(function ($pool) use ($classification) {
-                        $pool->classifications()->sync([$classification->id]);
-                    })->create([
-                        'closing_date' => $date,
-                        'publishing_group' => $publishingGroup,
-                        'published_at' => $faker->dateTimeBetween('-1 year', 'now'),
-                        'stream' => $faker->randomElement(PoolStream::cases())->name,
-                        'team_id' => $testTeamId,
-                    ]);
+                    Pool::factory()
+                        ->published()
+
+                        ->afterCreating(function ($pool) use ($classification) {
+                            $pool->classifications()->sync([$classification->id]);
+                        })->create([
+                            'closing_date' => $date,
+                            'publishing_group' => $publishingGroup,
+                            'published_at' => $faker->dateTimeBetween('-1 year', 'now'),
+                            'stream' => $faker->randomElement(PoolStream::cases())->name,
+                            'team_id' => $testTeamId,
+                        ]);
                 }
             }
         }

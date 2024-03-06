@@ -123,6 +123,9 @@ type Mutation {
   createPool(userId: ID!, teamId: ID!, pool: CreatePoolInput!): Pool
   duplicatePool(id: ID!, teamId: ID!): Pool
   updatePool(id: ID!, pool: UpdatePoolInput!): Pool
+  createPoolSkill(poolId: ID!, skillId: ID!, poolSkill: CreatePoolSkillInput!): PoolSkill
+  updatePoolSkill(id: ID!, poolSkill: UpdatePoolSkillInput!): PoolSkill
+  deletePoolSkill(id: ID!): PoolSkill
   publishPool(id: ID!): Pool
   changePoolClosingDate(id: ID!, newClosingDate: DateTime!): Pool
   closePool(id: ID!): Pool
@@ -309,8 +312,8 @@ type Pool {
   securityClearance: SecurityStatus
   language: PoolLanguage
   status: PoolStatus
-  essentialSkills: [Skill!]
-  nonessentialSkills: [Skill!]
+  essentialSkills: [Skill!] @deprecated(reason: "Switch to poolSkills filtering for PoolSkillType.ESSENTIAL")
+  nonessentialSkills: [Skill!] @deprecated(reason: "Switch to poolSkills filtering for PoolSkillType.NONESSENTIAL")
   stream: PoolStream
   processNumber: String
   publishingGroup: PublishingGroup
@@ -368,7 +371,7 @@ type AssessmentResult {
 type PoolSkill {
   id: ID!
   type: PoolSkillType
-  pool: Pool
+  requiredLevel: SkillLevel
   skill: Skill
   assessmentSteps: [AssessmentStep]
 }
@@ -1199,14 +1202,6 @@ input SyncScreeningQuestionsInput {
   sortOrder: Int
 }
 
-input SyncEssentialPoolSkills {
-  sync: [ID]
-}
-
-input SyncNonessentialPoolSkills {
-  sync: [ID]
-}
-
 input UpdatePoolInput {
   name: LocalizedStringInput
   classifications: ClassificationBelongsToMany
@@ -1217,8 +1212,6 @@ input UpdatePoolInput {
   keyTasks: LocalizedStringInput
   whatToExpect: LocalizedStringInput
   specialNote: LocalizedStringInput
-  essentialSkills: SyncEssentialPoolSkills
-  nonessentialSkills: SyncNonessentialPoolSkills
   language: PoolLanguage
   securityClearance: SecurityStatus
   location: LocalizedStringInput
@@ -1226,6 +1219,15 @@ input UpdatePoolInput {
   publishingGroup: PublishingGroup
   opportunityLength: PoolOpportunityLength
   generalQuestions: UpdateGeneralQuestionsHasMany
+}
+
+input CreatePoolSkillInput {
+  type: PoolSkillType!
+  requiredLevel: SkillLevel
+}
+
+input UpdatePoolSkillInput {
+  requiredLevel: SkillLevel
 }
 
 input AssessmentStepInput {
