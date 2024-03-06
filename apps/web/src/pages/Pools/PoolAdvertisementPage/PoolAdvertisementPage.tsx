@@ -924,28 +924,33 @@ export const PoolPoster = ({
                     ))}
                   </>
                 ) : null}
-                <Accordion.Item value={moreInfoAccordions.dei}>
-                  <Accordion.Trigger as="h3">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        '"How are equity and inclusion considered in this recruitment process?"',
-                      id: "WPJAiw",
-                      description:
-                        "Button text to toggle the accordion for diversity, equity, and inclusion",
-                    })}
-                  </Accordion.Trigger>
-                  <Accordion.Content>
-                    <Text data-h2-margin="base(0)">
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "You can learn more about our commitment to equity and inclusion by reading our Inclusivity statement. We also provide an Accessibility statement that outlines how the platform considers and implements accessible best practices.",
-                        id: "UOHEw1",
-                        description:
-                          "Information on commitment to diversity, equity, and inclusion",
-                      })}
-                    </Text>
-                  </Accordion.Content>
-                </Accordion.Item>
+                {
+                  // TODO: restore this accordion when Equity Statement page exists https://github.com/GCTC-NTGC/design-gc-digital-talent/issues/45
+                  false && (
+                    <Accordion.Item value={moreInfoAccordions.dei}>
+                      <Accordion.Trigger as="h3">
+                        {intl.formatMessage({
+                          defaultMessage:
+                            '"How are equity and inclusion considered in this recruitment process?"',
+                          id: "WPJAiw",
+                          description:
+                            "Button text to toggle the accordion for diversity, equity, and inclusion",
+                        })}
+                      </Accordion.Trigger>
+                      <Accordion.Content>
+                        <Text data-h2-margin="base(0)">
+                          {intl.formatMessage({
+                            defaultMessage:
+                              "You can learn more about our commitment to equity and inclusion by reading our Inclusivity statement. We also provide an Accessibility statement that outlines how the platform considers and implements accessible best practices.",
+                            id: "UOHEw1",
+                            description:
+                              "Information on commitment to diversity, equity, and inclusion",
+                          })}
+                        </Text>
+                      </Accordion.Content>
+                    </Accordion.Item>
+                  )
+                }
                 <Accordion.Item value={moreInfoAccordions.accommodations}>
                   <Accordion.Trigger as="h3">
                     {intl.formatMessage({
