@@ -68,7 +68,7 @@ php artisan lighthouse:print-schema --write
 
 ### Install all npm dependencies
 cd $ROOT_DIR
-npm ci --include=dev
+npm install --include=dev
 
 ### Build frontend
 npm run build
