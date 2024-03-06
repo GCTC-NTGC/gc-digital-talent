@@ -55,7 +55,7 @@ jobs:
       - script: npm install
         displayName: "Install Node.js dependencies"
 
-      - script: npx playwright install
+      - script: npx playwright install --with-deps
         displayName: "Install Playwright browsers"
 
       - script: npx playwright test
