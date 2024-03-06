@@ -35,8 +35,8 @@ const uiMessages = defineMessages({
     description: "Label for the links to page ancestors",
   },
   removeChip: {
-    defaultMessage: "Remove {label}",
-    id: "rsxrMs",
+    defaultMessage: "Remove",
+    id: "+6/qCF",
     description: "Button text for a dismissible chip",
   },
   searching: {

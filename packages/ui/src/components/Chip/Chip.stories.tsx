@@ -1,62 +1,49 @@
 import React from "react";
-import { Story, Meta } from "@storybook/react";
+import { StoryFn, Meta } from "@storybook/react";
+import { action } from "@storybook/addon-actions";
+import AcademicCapIcon from "@heroicons/react/20/solid/AcademicCapIcon";
 
+import { Color } from "../../types";
 import Chip from "./Chip";
 import Chips from "./Chips";
-import type { ChipProps } from "./Chip";
+
+const colors: Color[] = [
+  "primary",
+  "secondary",
+  "tertiary",
+  "quaternary",
+  "quinary",
+  "error",
+  "warning",
+  "success",
+  "black",
+];
 
 export default {
   component: Chip,
   title: "Components/Chip",
-  args: {
-    label: "IT Business Analyst / IT Project Management",
-  },
-  argTypes: {
-    label: {
-      name: "label",
-      type: { name: "string", required: true },
-      control: {
-        type: "text",
-      },
-    },
-    onDismiss: {
-      table: {
-        disable: true,
-      },
-    },
-  },
-} as Meta;
+} as Meta<typeof Chip>;
 
-const TemplateDismissChip: Story<ChipProps> = (args) => {
-  return <Chip {...args} />;
-};
-const TemplateNoDismissChip: Story<ChipProps> = (args) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { onDismiss, ...argsWithNoDismiss } = args;
-  return <Chip {...argsWithNoDismiss} />;
-};
-
-const TemplateMultiChip: Story<ChipProps> = (args) => {
+const Template: StoryFn<typeof Chip> = (args) => {
   return (
     <Chips>
-      <Chip {...args} />
-      <Chip {...args} />
-      <Chip {...args} />
-      <Chip {...args} />
-      <Chip {...args} />
+      {colors.map((color) => (
+        <Chip key={color} color={color} {...args}>
+          {color}
+        </Chip>
+      ))}
     </Chips>
   );
 };
 
-export const ChipDismiss = TemplateDismissChip.bind({});
-export const ChipNoDismiss = TemplateNoDismissChip.bind({});
-export const ChipMulti = TemplateMultiChip.bind({});
+export const NoDismiss = Template.bind({});
 
-const defaultLook: Partial<ChipProps> = {
-  color: "black",
-  mode: "outline",
+export const Dismissible = Template.bind({});
+Dismissible.args = {
+  onDismiss: () => action("dismiss")({}),
 };
 
-ChipDismiss.args = defaultLook;
-ChipNoDismiss.args = defaultLook;
-ChipMulti.args = defaultLook;
+export const WithIcon = Template.bind({});
+WithIcon.args = {
+  icon: AcademicCapIcon,
+};

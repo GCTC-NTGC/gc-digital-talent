@@ -23,7 +23,8 @@ import CardLink, { type CardLinkProps } from "./components/CardLink";
 import CardRepeater, {
   useCardRepeaterContext,
 } from "./components/CardRepeater/CardRepeater";
-import Chip, { Chips, type ChipProps } from "./components/Chip";
+import Chip, { type ChipProps } from "./components/Chip/Chip";
+import Chips from "./components/Chip/Chips";
 import Collapsible from "./components/Collapsible";
 import DefinitionList from "./components/DefinitionList/DefinitionList";
 import Dialog from "./components/Dialog";
