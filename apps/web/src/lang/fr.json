@@ -3583,10 +3583,6 @@
     "defaultMessage": "Impossible de créer de nouveaux postes à durée déterminée dans les délais requis",
     "description": "Unable to create new term positions operations consideration"
   },
-  "I7rxxQ": {
-    "defaultMessage": "Mots-clés",
-    "description": "Title displayed for the skill table Keywords column."
-  },
   "I8jlr2": {
     "defaultMessage": "Date de clôture",
     "description": "Sub title for pool closing date"
@@ -7589,6 +7585,10 @@
   "eP8dfW": {
     "defaultMessage": "Afficher l’utilisateur",
     "description": "Title for the user information page"
+  },
+  "eTOg2E": {
+    "defaultMessage": "Exploitez toutes les compétences sur notre site",
+    "description": "Subtitle for explore skills page"
   },
   "eTTlR0": {
     "defaultMessage": "Soumettre la demande",
