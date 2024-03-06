@@ -375,10 +375,6 @@
     "defaultMessage": "Collectivité des cadres",
     "description": "Heading for executive jobs in government"
   },
-  "/zx1kX": {
-    "defaultMessage": "Exigence d’études",
-    "description": "Education requirement section header."
-  },
   "00lloL": {
     "defaultMessage": "Les compétences qui ne sont pas liées à cette demande seront dissimulées dans le cadre de l’évaluation initiale de votre demande, mais elles seront toujours visibles dans votre profil.",
     "description": "Text that appears during an application to explain skills appearing missing from their profile."
@@ -1270,10 +1266,6 @@
   "4v9y7U": {
     "defaultMessage": "Statut de citoyenneté",
     "description": "Citizenship status label"
-  },
-  "4xXPIe": {
-    "defaultMessage": "Exigences pédagogiques",
-    "description": "Education requirement row header."
   },
   "4yBTfg": {
     "defaultMessage": "<heavyPrimary>Ébauche</heavyPrimary>",
@@ -4259,6 +4251,10 @@
     "defaultMessage": "La mise à jour du rôle du membre a échoué",
     "description": "Alert displayed to user when an error occurs while editing a team member's roles"
   },
+  "LyUTqa": {
+    "defaultMessage": "Exigence d’études",
+    "description": "Education requirement title"
+  },
   "LzJpQo": {
     "defaultMessage": "Une fois l’apprentissage terminé avec succès, les diplômés reçoivent un certificat numérique ainsi qu’un certificat vérifiable portable. Il est approuvé par le, la dirigeant·e principal·e de l’information du Canada et officiellement reconnu comme répondant à <link>l‘alternative aux exigences d’études de la norme de qualification minimale du GC pour le groupe professionnel IT</link>.",
     "description": "Paragraph 1 of the 'Digital certificate credential' subsection"
@@ -4674,10 +4670,6 @@
   "OgizOq": {
     "defaultMessage": "Vous êtes à l'aise de partager vos renseignements sur l'équité en matière d'emploi pour des possibilités de recrutement et à des fins de statistiques anonymisées.",
     "description": "Second condition for selecting an employment equity group"
-  },
-  "Oi5hI5": {
-    "defaultMessage": "Éducation",
-    "description": "Label for the education requirement screening"
   },
   "Ok+Ojl": {
     "defaultMessage": "{skill} est défini comme :",

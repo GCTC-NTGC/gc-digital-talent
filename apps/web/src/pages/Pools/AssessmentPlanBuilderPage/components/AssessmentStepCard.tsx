@@ -110,11 +110,7 @@ const AssessmentStepCard = ({
         >
           {isApplicationScreening && (
             <li data-h2-padding-left="base(0)" data-h2-display="base(inline)">
-              {intl.formatMessage({
-                defaultMessage: "Education",
-                id: "Oi5hI5",
-                description: "Label for the education requirement screening",
-              })}
+              {intl.formatMessage(processMessages.educationRequirement)}
             </li>
           )}
           {skillNames.map((skillName, skillIndex) => (
