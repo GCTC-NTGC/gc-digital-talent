@@ -6,7 +6,7 @@ use App\Models\Department;
 use App\Models\Team;
 use Illuminate\Database\Seeder;
 
-class TeamSeeder extends Seeder
+class TeamTestSeeder extends Seeder
 {
     /**
      * Run the database seeds.

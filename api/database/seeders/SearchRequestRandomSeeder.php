@@ -6,7 +6,7 @@ use App\Models\ApplicantFilter;
 use App\Models\PoolCandidateSearchRequest;
 use Illuminate\Database\Seeder;
 
-class SearchRequestSeederRandom extends Seeder
+class SearchRequestRandomSeeder extends Seeder
 {
     /**
      * Seeds initial user records into that database.

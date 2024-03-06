@@ -11,7 +11,7 @@ use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
-class PoolSeeder extends Seeder
+class PoolTestSeeder extends Seeder
 {
     /**
      * Run the database seeds.

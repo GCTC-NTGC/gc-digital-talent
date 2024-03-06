@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\Team;
 use Illuminate\Database\Seeder;
 
-class TeamSeederRandom extends Seeder
+class TeamRandomSeeder extends Seeder
 {
     /**
      * Run the database seeds.

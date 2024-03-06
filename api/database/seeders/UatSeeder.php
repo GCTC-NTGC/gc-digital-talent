@@ -21,7 +21,7 @@ class UatSeeder extends Seeder
             GenericJobTitleSeeder::class,
             SkillFamilySeeder::class,
             SkillSeeder::class,
-            TeamSeeder::class,
+            TeamTestSeeder::class,
         ]);
     }
 }

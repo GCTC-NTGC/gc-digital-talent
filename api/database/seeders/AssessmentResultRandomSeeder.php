@@ -11,7 +11,7 @@ use Faker\Generator;
 use Illuminate\Container\Container;
 use Illuminate\Database\Seeder;
 
-class AssessmentResultSeederRandom extends Seeder
+class AssessmentResultRandomSeeder extends Seeder
 {
     /**
      * The current Faker instance.
