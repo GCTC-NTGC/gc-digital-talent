@@ -74,5 +74,7 @@ npm ci --include=dev
 npm run build
 chmod -R a+r,a+w node_modules
 
+if [ "$GCDT_DEV" = false ]; then
 ### Cleanup frontend npm dependencies
-npm prune --production
+ npm prune --production
+fi
