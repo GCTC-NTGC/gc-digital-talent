@@ -115,7 +115,7 @@ const AssessmentStepCard = ({
           )}
           {skillNames.map((skillName, skillIndex) => (
             <React.Fragment key={skillName}>
-              {skillIndex !== 0 && !isApplicationScreening ? (
+              {skillIndex !== 0 || isApplicationScreening ? (
                 <span data-h2-margin="base(0 x.5)" aria-hidden>
                   •
                 </span>
