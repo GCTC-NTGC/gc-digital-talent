@@ -310,7 +310,7 @@ describe("Submit Application for IAP Workflow Tests", () => {
       "Thank you for your interest in becoming an IT apprentice with the Government of Canada.",
     ); // customized copy for IAP
     cy.findByRole("link", {
-      name: /Visit your Profile and applications page/i,
+      name: /return to your dashboard/i,
     }).click();
 
     // Back on dashboard

@@ -150,6 +150,11 @@ const commonMessages = defineMessages({
     id: "2/YsnJ",
     description: "Delete action",
   },
+  remove: {
+    defaultMessage: "Remove",
+    id: "NAKad/",
+    description: "Remove action",
+  },
   name: {
     defaultMessage: "Name",
     id: "WhLeuS",
@@ -224,6 +229,11 @@ const commonMessages = defineMessages({
     defaultMessage: "Final assessment decision",
     id: "6/U6rm",
     description: "Final assessment decision",
+  },
+  return: {
+    defaultMessage: "Return",
+    id: "VV8TA5",
+    description: "An action to go back to a previous location",
   },
 });
 

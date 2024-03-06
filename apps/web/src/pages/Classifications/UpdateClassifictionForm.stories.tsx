@@ -11,9 +11,6 @@ const mockClassifications = fakeClassifications();
 export default {
   component: UpdateClassificationForm,
   title: "Forms/Update Classification Form",
-  parameters: {
-    themeKey: "admin",
-  },
 } as ComponentMeta<typeof UpdateClassificationForm>;
 
 const Template: ComponentStory<typeof UpdateClassificationForm> = (args) => {

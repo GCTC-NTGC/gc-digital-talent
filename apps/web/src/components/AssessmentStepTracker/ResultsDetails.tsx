@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Board } from "@gc-digital-talent/ui";
+import { Board, Well } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import Counter from "@gc-digital-talent/ui/src/components/Button/Counter";
 import { AssessmentStep, AssessmentStepType } from "@gc-digital-talent/graphql";
@@ -9,7 +9,7 @@ import { AssessmentStep, AssessmentStepType } from "@gc-digital-talent/graphql";
 import { NullableDecision } from "~/utils/assessmentResults";
 import { ResultDecisionCounts } from "~/utils/poolCandidate";
 
-import { getDecisionInfo, decisionOrder } from "./utils";
+import { getDecisionInfo, decisionOrder, ResultFilters } from "./utils";
 
 interface StatusCountProps {
   counter: number;
@@ -70,10 +70,15 @@ const StatusCount = ({
 interface ResultsDetailsProps {
   step: AssessmentStep;
   resultCounts?: ResultDecisionCounts;
+  filters?: ResultFilters;
 }
 
-const ResultsDetails = ({ step, resultCounts }: ResultsDetailsProps) => {
-  const [isOpen, setIsOpen] = React.useState<boolean>(true);
+const ResultsDetails = ({
+  step,
+  resultCounts,
+  filters,
+}: ResultsDetailsProps) => {
+  const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const intl = useIntl();
   const stepTitle = getLocalizedName(step.title, intl);
   const isApplicationStep =
@@ -84,6 +89,8 @@ const ResultsDetails = ({ step, resultCounts }: ResultsDetailsProps) => {
     },
     0,
   );
+
+  const decisions = decisionOrder.filter((decision) => !!filters?.[decision]);
 
   return (
     <Board.Info
@@ -115,14 +122,26 @@ const ResultsDetails = ({ step, resultCounts }: ResultsDetailsProps) => {
       }
     >
       <div data-h2-display="base(flex)" data-h2-flex-direction="base(column)">
-        {decisionOrder.map((decision) => (
-          <StatusCount
-            key={decision}
-            decision={decision}
-            counter={resultCounts ? resultCounts[decision] : 0}
-            isApplicationStep={isApplicationStep}
-          />
-        ))}
+        {decisions.length ? (
+          decisions.map((decision) => (
+            <StatusCount
+              key={decision}
+              decision={decision}
+              counter={resultCounts ? resultCounts[decision] : 0}
+              isApplicationStep={isApplicationStep}
+            />
+          ))
+        ) : (
+          <Well fontSize="caption">
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "There are no selected statuses.",
+                id: "NJUJl0",
+                description: "Message displayed when no statuses are shown",
+              })}
+            </p>
+          </Well>
+        )}
       </div>
     </Board.Info>
   );

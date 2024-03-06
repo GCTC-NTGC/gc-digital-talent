@@ -10,9 +10,6 @@ const mockDepartments = fakeDepartments();
 export default {
   component: DepartmentTable,
   title: "Tables/Department Table",
-  parameters: {
-    themeKey: "admin",
-  },
 } as ComponentMeta<typeof DepartmentTable>;
 
 const Template: ComponentStory<typeof DepartmentTable> = (args) => {

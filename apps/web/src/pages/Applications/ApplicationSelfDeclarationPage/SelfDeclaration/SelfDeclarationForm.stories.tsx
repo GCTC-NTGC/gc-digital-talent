@@ -13,9 +13,6 @@ const mockApplication = fakePoolCandidates(1)[0];
 export default {
   component: ApplicationSelfDeclaration,
   title: "Application/Self-Declaration",
-  parameters: {
-    themeKey: "iap",
-  },
 } as ComponentMeta<typeof ApplicationSelfDeclaration>;
 
 const Template: ComponentStory<typeof ApplicationSelfDeclaration> = () => (
