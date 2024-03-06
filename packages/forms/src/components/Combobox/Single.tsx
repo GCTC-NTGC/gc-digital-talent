@@ -1,5 +1,6 @@
 import React from "react";
 import { useCombobox } from "downshift";
+import isEqual from "lodash/isEqual";
 
 import Field from "../Field";
 import Menu from "./Menu";
@@ -30,6 +31,9 @@ const Single = ({
 }: SingleProps) => {
   const [available, setAvailable] = React.useState<Option[]>(options);
   const inputRef = React.useRef<HTMLInputElement | null>(null);
+  if (!isEqual(options, available)) {
+    setAvailable(options);
+  }
   const items = React.useMemo(
     () => (isExternalSearch ? options : available),
     [available, isExternalSearch, options],
@@ -78,10 +82,6 @@ const Single = ({
     selectItem(null);
     inputRef?.current?.focus();
   };
-
-  React.useEffect(() => {
-    setAvailable(options);
-  }, [options]);
 
   return (
     <>

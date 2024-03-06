@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useCombobox, useMultipleSelection } from "downshift";
+import isEqual from "lodash/isEqual";
 
 import { formMessages } from "@gc-digital-talent/i18n";
 import { Button } from "@gc-digital-talent/ui";
@@ -37,6 +38,9 @@ const Multi = ({
   const [inputValue, setInputValue] = React.useState<string>("");
   const [available, setAvailable] = React.useState<Option[]>(options);
   const inputRef = React.useRef<HTMLInputElement | null>(null);
+  if (!isEqual(options, available)) {
+    setAvailable(options);
+  }
   const items = React.useMemo(
     () => (isExternalSearch ? options : available),
     [available, isExternalSearch, options],
@@ -190,10 +194,6 @@ const Multi = ({
       }
     },
   });
-
-  React.useEffect(() => {
-    setAvailable(options);
-  }, [options]);
 
   const handleClear = () => {
     handleInputChanged("");
