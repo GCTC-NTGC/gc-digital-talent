@@ -29,10 +29,14 @@ const Single = ({
   fetching = false,
   isRequired = false,
 }: SingleProps) => {
+  const [previousOptions, setPreviousOptions] =
+    React.useState<Option[]>(options);
   const [available, setAvailable] = React.useState<Option[]>(options);
   const inputRef = React.useRef<HTMLInputElement | null>(null);
-  if (!isEqual(options, available)) {
+  // Note: Pattern comes from https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
+  if (!isEqual(options, previousOptions)) {
     setAvailable(options);
+    setPreviousOptions(options);
   }
   const items = React.useMemo(
     () => (isExternalSearch ? options : available),

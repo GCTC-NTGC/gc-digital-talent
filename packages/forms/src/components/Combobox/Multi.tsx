@@ -36,9 +36,13 @@ const Multi = ({
 }: MultiProps) => {
   const intl = useIntl();
   const [inputValue, setInputValue] = React.useState<string>("");
+  const [previousOptions, setPreviousOptions] =
+    React.useState<Option[]>(options);
   const [available, setAvailable] = React.useState<Option[]>(options);
   const inputRef = React.useRef<HTMLInputElement | null>(null);
-  if (!isEqual(options, available)) {
+  // NOTE: Pattern comes from https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
+  if (!isEqual(options, previousOptions)) {
+    setPreviousOptions(options);
     setAvailable(options);
   }
   const items = React.useMemo(
