@@ -41,9 +41,11 @@ class AssessmentResultTestSeeder extends Seeder
         $pool = Pool::select('id')->where('name->en', 'CMO Digital Careers')->sole();
 
         // specific pool
-        $poolCandidate = PoolCandidate::factory()->create([
-            'pool_id' => $pool->id,
-        ]);
+        $poolCandidate =
+            PoolCandidate::where('pool_id', $pool->id)->first() ??
+            PoolCandidate::factory()->create([
+                'pool_id' => $pool->id,
+            ]);
         $dcmPoolSkills = $pool->poolSkills()->pluck('id')->toArray();
         $dcmAssessment1 = AssessmentStep::factory()->create([
             'pool_id' => $pool->id,

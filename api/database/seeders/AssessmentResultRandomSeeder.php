@@ -37,14 +37,15 @@ class AssessmentResultRandomSeeder extends Seeder
      */
     public function run()
     {
-        // regular random
         $assessmentSteps = AssessmentStep::inRandomOrder()->with('pool')->limit(10)->get();
 
         foreach ($assessmentSteps as $assessmentStep) {
             $poolSkillIds = $assessmentStep->pool->poolSkills()->pluck('id')->toArray();
-            $poolCandidate = PoolCandidate::factory()->create([
-                'pool_id' => $assessmentStep->pool_id,
-            ]);
+            $poolCandidate =
+                PoolCandidate::where('pool_id', $assessmentStep->pool_id)->first() ??
+                PoolCandidate::factory()->create([
+                    'pool_id' => $assessmentStep->pool_id,
+                ]);
 
             AssessmentResult::factory()->withResultType(AssessmentResultType::EDUCATION)->create([
                 'assessment_step_id' => $assessmentStep->id,

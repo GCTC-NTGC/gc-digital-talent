@@ -16,7 +16,7 @@ use Faker\Generator;
 use Illuminate\Container\Container;
 use Illuminate\Database\Seeder;
 
-class UserSeederRandom extends Seeder
+class UserRandomSeeder extends Seeder
 {
     /**
      * The current Faker instance.
@@ -69,8 +69,7 @@ class UserSeederRandom extends Seeder
 
         // applicant@test.com bespoke seeding
         $applicant = User::where('sub', 'applicant@test.com')->sole();
-        $pool = Pool::whereNotNull('published_at')->inRandomOrder()->first();
-        $this->seedPoolCandidate($applicant, $pool);
+        $this->seedPoolCandidate($applicant, $publishedPools->random());
         $this->seedAwardExperienceForPool($applicant, $digitalTalentPool);
         $applicantUserSkills = $applicant->userSkills;
         foreach ($applicantUserSkills as $applicantUserSkill) {

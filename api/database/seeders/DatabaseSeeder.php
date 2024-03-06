@@ -2,20 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\AwardExperience;
-use App\Models\CommunityExperience;
-use App\Models\EducationExperience;
-use App\Models\PersonalExperience;
-use App\Models\Pool;
-use App\Models\PoolCandidateFilter;
-use App\Models\PoolCandidateSearchRequest;
-use App\Models\Skill;
-use App\Models\SkillFamily;
-use App\Models\Team;
-use App\Models\User;
-use App\Models\WorkExperience;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,8 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-
-        $this->truncateTables();
+        // to reset the database before running this, run `php artisan migrate:fresh`
 
         $this->call([
             // standard platform data
@@ -35,9 +21,9 @@ class DatabaseSeeder extends Seeder
             GenericJobTitleSeeder::class,
             SkillFamilySeeder::class,
             SkillSeeder::class,
+            TeamSeeder::class,
 
             // convenient test data
-            TeamSeeder::class,
             UserTestSeeder::class,
             PoolTestSeeder::class,
             AssessmentResultTestSeeder::class,
@@ -45,29 +31,11 @@ class DatabaseSeeder extends Seeder
             // random data to fill it out
             TeamRandomSeeder::class,
             PoolRandomSeeder::class,
-            UserSeederRandom::class,
+            UserRandomSeeder::class,
             AssessmentResultRandomSeeder::class,
             SearchRequestRandomSeeder::class,
             DigitalContractingQuestionnaireRandomSeeder::class,
             DepartmentSpecificRecruitmentProcessFormRandomSeeder::class,
         ]);
-    }
-
-    // drop all rows from some tables so that the seeder can fill them fresh
-    private function truncateTables()
-    {
-        AwardExperience::truncate();
-        CommunityExperience::truncate();
-        EducationExperience::truncate();
-        PersonalExperience::truncate();
-        WorkExperience::truncate();
-        SkillFamily::truncate();
-        Skill::truncate();
-        DB::table('skill_skill_family')->truncate();
-        PoolCandidateFilter::truncate();
-        PoolCandidateSearchRequest::truncate();
-        User::truncate();
-        Pool::truncate();
-        Team::truncate();
     }
 }
