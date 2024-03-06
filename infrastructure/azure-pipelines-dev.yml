@@ -57,6 +57,11 @@ stages:
         clean: true
         fetchDepth: 1
 
+      - task: DownloadBuildArtifacts@0
+        inputs:
+          artifactName: gcDigitalTalent
+          downloadPath: $(System.DefaultWorkingDirectory)/artifacts
+
       - script: npm install
         displayName: "Install Node.js dependencies"
 
