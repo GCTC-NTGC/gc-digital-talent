@@ -9,7 +9,10 @@ resources:
 variables:
   phpVersion: "8.2"
 
-jobs:
+stages:
+- stage: Build
+  displayName: Build stage
+  jobs:
   - job: build_artifact
     displayName: Build artifact
     pool:
@@ -22,14 +25,11 @@ jobs:
       - script: infrastructure/bin/set_php_versions.sh ${{ variables.phpVersion }}
         displayName: "PHP version"
 
-        # -d option to install dev dependencies and -r option to specify the root directory
       - script: infrastructure/bin/deploy.sh -d -r $(System.DefaultWorkingDirectory)
         displayName: Dependencies
         env:
           API_URI: /graphql
           ADMIN_APP_DIR: /admin
-          # We don't need Cypress in this environment, and so this avoid permission errors of installing it.
-          # See: https://docs.cypress.io/guides/getting-started/installing-cypress#Skipping-installation
           CYPRESS_INSTALL_BINARY: 0
 
       - task: ArchiveFiles@2
@@ -43,6 +43,11 @@ jobs:
         displayName: "Publish Artifact: gcDigitalTalent"
         inputs:
           ArtifactName: gcDigitalTalent
+
+- stage: Test
+  displayName: Test stage
+  dependsOn: Build
+  jobs:
   - job: run_playwright_tests
     displayName: Run Playwright tests
     pool:
