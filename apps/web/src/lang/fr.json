@@ -1975,6 +1975,10 @@
     "defaultMessage": "(Ordre croissant)",
     "description": "Message added to indicate a table column is sorted in ascending order"
   },
+  "91b+W0": {
+    "defaultMessage": "Niveau exigé",
+    "description": "Required skill level column header for tables"
+  },
   "92hwzj": {
     "defaultMessage": "Statut de citoyenneté :",
     "description": "Citizenship status label"
@@ -4899,6 +4903,10 @@
     "defaultMessage": "Modifier le plan d’évaluation",
     "description": "Link text to edit a specific pool assessment"
   },
+  "Q6jULV": {
+    "defaultMessage": "Sélectionnez votre niveau actuel de compétences",
+    "description": "Label for required skill level select"
+  },
   "Q6ws0E": {
     "defaultMessage": "Il semblerait que vous soyez sur une page qui n'existe pas ou qui a été déplacée.",
     "description": "Body text for the 404 page not found page."
@@ -6001,6 +6009,10 @@
   "VsV4Vu": {
     "defaultMessage": "L’utilisateur perdra le rôle suivant :",
     "description": "Text notifying user which role will be removed from the user"
+  },
+  "Vw7bLe": {
+    "defaultMessage": "Maintenant que vous avez sélectionné une compétence, veuillez indiquer le niveau auquel les candidats devront se trouver.",
+    "description": "Help text for setting required skill levels"
   },
   "VwVXYb": {
     "defaultMessage": "Les compétences suivantes ont été évaluées par {departments}",
@@ -7813,6 +7825,10 @@
   "fpdcE/": {
     "defaultMessage": "<strong>Établissement de rapports obligatoires</strong>. Désormais nécessaires lorsque vous souhaitez lancer un processus d’acquisition de talents numériques, en particulier si vous envisagez d’établir un contrat parce que vous avez du mal à trouver les bons talents à embaucher. Pas d’approbation supplémentaire – il suffit de nous faire part de vos projets!",
     "description": "Description for the digital Services contracting form"
+  },
+  "fqa45V": {
+    "defaultMessage": "Définition du niveau",
+    "description": "Label for the definition of a specific skill level"
   },
   "ftg8sT": {
     "defaultMessage": "L’identification de votre demande {title} a été copiée ",
