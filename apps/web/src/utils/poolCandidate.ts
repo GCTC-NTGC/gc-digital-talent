@@ -263,14 +263,13 @@ export const getDecisionCountForEachStep = (
     const poolCandidateIds = Array.from(candidateToCurrentStep.keys());
     const decisionsForCurrentStep = poolCandidateIds
       .filter((candidateId) => {
-        // A candidate's result should be counted for its previous steps, current step and any later steps in which they are already successful
+        // A candidate's result should be counted for its previous steps, current step and any later steps in which they are already assessed
         // A null step indicates the candidate has successfully passed all assessment steps and should be counted in all of them
         const candidateStep = candidateToCurrentStep.get(candidateId) ?? null;
         return (
           candidateStep === null ||
           candidateStep >= index ||
-          candidateToResults.get(candidateId)?.get(stepId) ===
-            AssessmentDecision.Successful
+          candidateToResults.get(candidateId)?.get(stepId) !== NO_DECISION
         );
       })
       // For all the filtered-in candidates, get their result for this step and put them together in an array.

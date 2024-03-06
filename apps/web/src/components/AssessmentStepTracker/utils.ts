@@ -196,8 +196,7 @@ export const groupPoolCandidatesByStep = (
           return (
             currentStep === null ||
             currentStep >= index ||
-            candidateResults.get(candidateId)?.get(step.id) ===
-              AssessmentDecision.Successful
+            candidateResults.get(candidateId)?.get(step.id) !== NO_DECISION
           );
         },
       );
