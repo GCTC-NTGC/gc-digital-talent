@@ -6474,10 +6474,6 @@
     "defaultMessage": "Apprendre comment décrire le mieux possible votre expérience d’une compétence",
     "description": "Button text to open accordion describing skill experience"
   },
-  "YGE5XN": {
-    "defaultMessage": "Examiner et consigner les résultats de {candidateName} concernant \"{skillName} au \"{skillLevel}\" niveau.",
-    "description": "Subtitle for education requirement screening decision dialog."
-  },
   "YGM/D5": {
     "defaultMessage": "Le programme dure 24 mois et les apprentis ont accès à un soutien pendant leur période de participation au programme.",
     "description": "Learn more dialog question two paragraph one"
@@ -7521,6 +7517,10 @@
   "e1JW62": {
     "defaultMessage": "Les renseignements personnels recueillis par l’entremise de Talents numériques du GC sont utilisés aux fins des activités de dotation, de recrutement et la mobilité interne des talents au sein des institutions fédérales, conformément au <justiceLaws7Link>paragraphe 7(1)</justiceLaws7Link> de la Loi sur la gestion des finances publiques, aux paragraphes <justiceLaws15Link>15(1)</justiceLaws15Link>, <justiceLaws29Link>29</justiceLaws29Link> et <justiceLaws30Link>30 (1), (2), and (3)</justiceLaws30Link> de la Loi sur l’emploi dans la fonction publique et de l’article 5 de la Loi sur l’équité en matière d’emploi.",
     "description": "Paragraph for privacy policy page"
+  },
+  "e1mxkv": {
+    "defaultMessage": "Examiner et consigner les résultats de {candidateName} concernant \"{skillName}\" au \"{skillLevel}\" niveau.",
+    "description": "Subtitle for education requirement screening decision dialog."
   },
   "e2qUId": {
     "defaultMessage": "Processus exécuté par {team} à {departments}",
