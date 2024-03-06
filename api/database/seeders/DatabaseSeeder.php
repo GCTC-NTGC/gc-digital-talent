@@ -21,31 +21,35 @@ class DatabaseSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
 
         $this->truncateTables();
 
         $this->call([
+            // standard platform data
             RolePermissionSeeder::class,
             ClassificationSeeder::class,
             DepartmentSeeder::class,
             GenericJobTitleSeeder::class,
             SkillFamilySeeder::class,
             SkillSeeder::class,
-            TeamTestSeeder::class,
-            TeamRandomSeeder::class,
+
+            // convenient test data
+            TeamSeeder::class,
             UserTestSeeder::class,
             PoolTestSeeder::class,
-            PoolTestSeeder::class,
+            AssessmentResultTestSeeder::class,
+
+            // random data to fill it out
+            TeamRandomSeeder::class,
+            PoolRandomSeeder::class,
+            UserSeederRandom::class,
+            AssessmentResultRandomSeeder::class,
+            SearchRequestRandomSeeder::class,
             DigitalContractingQuestionnaireRandomSeeder::class,
             DepartmentSpecificRecruitmentProcessFormRandomSeeder::class,
-            UserSeederRandom::class,
-            SearchRequestRandomSeeder::class,
-            AssessmentResultRandomSeeder::class,
         ]);
     }
 

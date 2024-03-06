@@ -11,13 +11,18 @@ class CiSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(RolePermissionSeeder::class);
-        $this->call(ClassificationSeeder::class);
-        $this->call(DepartmentSeeder::class);
-        $this->call(GenericJobTitleSeeder::class);
-        $this->call(SkillFamilySeeder::class);
-        $this->call(SkillSeeder::class);
-        $this->call(TeamSeeder::class);
-        $this->call(UserSeederLocal::class);
+        $this->call([
+            // standard platform data
+            RolePermissionSeeder::class,
+            ClassificationSeeder::class,
+            DepartmentSeeder::class,
+            GenericJobTitleSeeder::class,
+            SkillFamilySeeder::class,
+            SkillSeeder::class,
+            TeamSeeder::class,
+
+            // convenient test data
+            UserTestSeeder::class,
+        ]);
     }
 }

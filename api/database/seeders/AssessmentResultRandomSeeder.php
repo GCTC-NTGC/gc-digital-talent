@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Enums\AssessmentResultType;
 use App\Models\AssessmentResult;
 use App\Models\AssessmentStep;
-use App\Models\Pool;
 use App\Models\PoolCandidate;
 use Faker\Generator;
 use Illuminate\Container\Container;
@@ -38,8 +37,6 @@ class AssessmentResultRandomSeeder extends Seeder
      */
     public function run()
     {
-        $pool = Pool::select('id')->where('name->en', 'CMO Digital Careers')->sole();
-
         // regular random
         $assessmentSteps = AssessmentStep::inRandomOrder()->with('pool')->limit(10)->get();
 
@@ -64,31 +61,5 @@ class AssessmentResultRandomSeeder extends Seeder
                 'pool_skill_id' => count($poolSkillIds) > 0 ? $poolSkillIds[1] : null,
             ]);
         }
-
-        // specific pool
-        $poolCandidate = PoolCandidate::factory()->create([
-            'pool_id' => $pool->id,
-        ]);
-        $dcmPoolSkills = $pool->poolSkills()->pluck('id')->toArray();
-        $dcmAssessment1 = AssessmentStep::factory()->create([
-            'pool_id' => $pool->id,
-        ]);
-        $dcmAssessment2 = AssessmentStep::factory()->create([
-            'pool_id' => $pool->id,
-        ]);
-        AssessmentResult::factory()->withResultType(AssessmentResultType::EDUCATION)->create([
-            'assessment_step_id' => $dcmAssessment1->id,
-            'pool_candidate_id' => $poolCandidate->id,
-        ]);
-        AssessmentResult::factory()->withResultType(AssessmentResultType::SKILL)->create([
-            'assessment_step_id' => $dcmAssessment2->id,
-            'pool_candidate_id' => $poolCandidate->id,
-            'pool_skill_id' => $dcmPoolSkills[0],
-        ]);
-        AssessmentResult::factory()->withResultType(AssessmentResultType::SKILL)->create([
-            'assessment_step_id' => $dcmAssessment2->id,
-            'pool_candidate_id' => $poolCandidate->id,
-            'pool_skill_id' => $dcmPoolSkills[1],
-        ]);
     }
 }
