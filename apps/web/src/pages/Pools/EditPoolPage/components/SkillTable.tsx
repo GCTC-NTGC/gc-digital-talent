@@ -31,7 +31,7 @@ const ActionCell = (
 ) => {
   const intl = useIntl();
   const [isOpen] = React.useState<boolean>(false);
-  const { poolSkillId, name } = skill;
+  const { id, poolSkillId, requiredLevel, name } = skill;
   const localizedName = getLocalizedName(name, intl);
 
   return (
@@ -62,6 +62,11 @@ const ActionCell = (
           />
         }
         skills={[skill]}
+        initialState={{
+          family: "all",
+          skill: id,
+          skillLevel: requiredLevel ?? undefined,
+        }}
         onSave={async (value) => {
           if (value.skill && value.skillLevel) {
             onUpdate(poolSkillId, value.skillLevel);
