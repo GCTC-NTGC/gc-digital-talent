@@ -44,19 +44,19 @@ class UserSeederRandom extends Seeder
     public function run()
     {
         $digitalTalentPool = Pool::select('id')->where('name->en', 'CMO Digital Careers')->sole();
+        $publishedPools = Pool::select('id')->whereNotNull('published_at')->get();
 
         // Government employees (see asGovEmployee function in UserFactory for fields that are related to a user being a current Government of Canada employee).
         User::factory()
-            ->count(75)
-            ->withExperiences()
+            ->count(2)
+            ->withSkillsAndExperiences()
             ->asGovEmployee()
-            ->afterCreating(function (User $user) use ($digitalTalentPool) {
+            ->afterCreating(function (User $user) use ($digitalTalentPool, $publishedPools) {
 
                 // pick a published pool in which to place this user
                 // temporarily rig seeding to be biased towards slotting pool candidates into Digital Talent
                 // digital careers is always published and strictly defined in PoolSeeder
-                $randomPool = Pool::whereNotNull('published_at')->inRandomOrder()->first();
-                $pool = $this->faker->boolean(25) ? $digitalTalentPool : $randomPool;
+                $pool = $this->faker->boolean(25) ? $digitalTalentPool : $publishedPools->random();
 
                 // create a pool candidate in the pool - are they suspended?
                 if (rand(0, 4) == 4) {
@@ -120,17 +120,15 @@ class UserSeederRandom extends Seeder
 
         // Not government employees (see asGovEmployee function in UserFactory for fields that are related to a user being a current Government of Canada employee).
         User::factory()
-            ->count(75)
-            ->withExperiences()
+            ->count(10)
+            ->withSkillsAndExperiences()
             ->asGovEmployee(false)
-            ->afterCreating(function (User $user) use ($digitalTalentPool) {
+            ->afterCreating(function (User $user) use ($digitalTalentPool, $publishedPools) {
 
                 // pick a published pool in which to place this user
                 // temporarily rig seeding to be biased towards slotting pool candidates into Digital Talent
                 // digital careers is always published and strictly defined in PoolSeeder
-                $randomPool = Pool::whereNotNull('published_at')->inRandomOrder()->first();
-                $pool = $this->faker->boolean(25) ? $digitalTalentPool : $randomPool;
-
+                $pool = $this->faker->boolean(25) ? $digitalTalentPool : $publishedPools->random();
                 // create a pool candidate in the pool - are they suspended?
                 if (rand(0, 4) == 4) {
                     $this->seedSuspendedCandidate($user, $pool);

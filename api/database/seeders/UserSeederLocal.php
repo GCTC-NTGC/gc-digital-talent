@@ -24,8 +24,7 @@ class UserSeederLocal extends Seeder
             ->asCommunityManager()
             ->asAdmin()
             ->asPoolOperator(['digital-community-management', 'office-of-indigenous-initiatives'])
-            ->withExperiences()
-            ->withSkills()
+            ->withSkillsAndExperiences()
             ->asGovEmployee()
             ->create([
                 'first_name' => 'Admin',
@@ -37,7 +36,7 @@ class UserSeederLocal extends Seeder
         User::factory()
             ->asApplicant()
             ->asAdmin()
-            ->withExperiences()
+            ->withSkillsAndExperiences()
             ->asGovEmployee()
             ->create([
                 'first_name' => 'Platform',
@@ -49,7 +48,7 @@ class UserSeederLocal extends Seeder
         User::factory()
             ->asApplicant()
             ->asCommunityManager()
-            ->withExperiences()
+            ->withSkillsAndExperiences()
             ->asGovEmployee()
             ->create([
                 'first_name' => 'Community',
@@ -61,7 +60,7 @@ class UserSeederLocal extends Seeder
         User::factory()
             ->asApplicant()
             ->asRequestResponder()
-            ->withExperiences()
+            ->withSkillsAndExperiences()
             ->asGovEmployee()
             ->create([
                 'first_name' => 'Request',
@@ -73,7 +72,7 @@ class UserSeederLocal extends Seeder
         User::factory()
             ->asApplicant()
             ->asPoolOperator(['digital-community-management', 'office-of-indigenous-initiatives'])
-            ->withExperiences()
+            ->withSkillsAndExperiences()
             ->asGovEmployee()
             ->create([
                 'first_name' => 'Pool',
@@ -84,8 +83,7 @@ class UserSeederLocal extends Seeder
 
         User::factory()
             ->asApplicant()
-            ->withExperiences()
-            ->withSkills()
+            ->withSkillsAndExperiences()
             ->create([
                 'first_name' => 'Applicant',
                 'last_name' => 'Test',

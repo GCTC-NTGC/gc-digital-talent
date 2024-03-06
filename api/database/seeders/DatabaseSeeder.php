@@ -14,21 +14,11 @@ use App\Models\SkillFamily;
 use App\Models\Team;
 use App\Models\User;
 use App\Models\WorkExperience;
-use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
-    public Carbon $intervalStart;
-
-    public function logEvent(string $event)
-    {
-        $diff = Carbon::now()->diffInMilliseconds($this->intervalStart);
-        echo "$event ($diff)".PHP_EOL;
-        $this->intervalStart = Carbon::now();
-    }
-
     /**
      * Run the database seeds.
      *
@@ -36,11 +26,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->intervalStart = Carbon::now();
 
         $this->truncateTables();
-
-        $this->logEvent('truncate tables');
 
         $this->call([
             RolePermissionSeeder::class,
@@ -60,9 +47,6 @@ class DatabaseSeeder extends Seeder
             SearchRequestSeederRandom::class,
             AssessmentResultSeederRandom::class,
         ]);
-
-        $this->logEvent('seeder calls');
-
     }
 
     // drop all rows from some tables so that the seeder can fill them fresh
