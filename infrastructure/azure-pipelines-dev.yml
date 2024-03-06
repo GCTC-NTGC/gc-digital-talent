@@ -27,6 +27,7 @@ jobs:
         displayName: Dependencies
         env:
           API_URI: /graphql
+          ADMIN_APP_DIR: /admin
           # We don't need Cypress in this environment, and so this avoid permission errors of installing it.
           # See: https://docs.cypress.io/guides/getting-started/installing-cypress#Skipping-installation
           CYPRESS_INSTALL_BINARY: 0
@@ -57,11 +58,5 @@ jobs:
       - script: npx playwright install
         displayName: "Install Playwright browsers"
 
-      - script: npm run e2e:playwright:chromium
-        displayName: "Run Chromium tests"
-
-      - script: npm run e2e:playwright:firefox
-        displayName: "Run Firefox tests"
-
-      - script: npm run e2e:playwright:webkit
-        displayName: "Run WebKit tests"
+      - script: npx playwright test
+        displayName: "Run playwright tests"
