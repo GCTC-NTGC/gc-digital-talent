@@ -2,7 +2,6 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
-import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
 import { useMutation } from "urql";
 
 import {
@@ -64,7 +63,6 @@ export const getPageInfo: GetPageNavInfo = ({
       id: "4ii2WZ",
       description: "Subtitle for the application review page.",
     }),
-    icon: RocketLaunchIcon,
     crumbs: [
       {
         url: path,

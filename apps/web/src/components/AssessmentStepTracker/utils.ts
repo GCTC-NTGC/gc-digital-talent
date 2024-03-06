@@ -237,9 +237,9 @@ export type ResultFilters = {
 export const defaultFilters: ResultFilters = {
   query: "",
   [NO_DECISION]: true,
-  [AssessmentDecision.Successful]: true,
-  [AssessmentDecision.Hold]: true,
-  [AssessmentDecision.Unsuccessful]: true,
+  [AssessmentDecision.Successful]: false,
+  [AssessmentDecision.Hold]: false,
+  [AssessmentDecision.Unsuccessful]: false,
 };
 
 export const filterResults = (
