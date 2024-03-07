@@ -7,6 +7,10 @@
     "defaultMessage": "Nettement supérieur au niveau requis",
     "description": "Option for skill assessment decision level."
   },
+  "+6/qCF": {
+    "defaultMessage": "Supprimer",
+    "description": "Button text for a dismissible chip"
+  },
   "+6TuVe": {
     "defaultMessage": "Désélectionner {label}",
     "description": "Text to uncheck checkbox button"
@@ -1758,10 +1762,6 @@
   "rnZULP": {
     "defaultMessage": "Lire moins <hidden> {context}</hidden>",
     "description": "Button text to truncate text to view fewer characters"
-  },
-  "rsxrMs": {
-    "defaultMessage": "Retirer {label}",
-    "description": "Button text for a dismissible chip"
   },
   "rt4mVU": {
     "defaultMessage": "Intermédiaire",
