@@ -142,6 +142,9 @@ type Mutation {
   deleteTeam(id: UUID!): Team
   updateUserTeamRoles(teamRoleAssignments: UpdateUserTeamRolesInput!): Team
   markNotificationAsRead(id: UUID!): Notification
+  markNotificationAsUnread(id: UUID!): Notification
+  deleteNotification(id: UUID!): Notification
+  markAllNotificationsAsRead: [Notification]
   createUserSkill(userId: UUID!, skillId: UUID!, userSkill: CreateUserSkillInput): UserSkill
   updateUserSkill(id: UUID!, userSkill: UpdateUserSkillInput): UserSkill
   updateUserSkillRankings(userId: UUID!, userSkillRanking: UpdateUserSkillRankingsInput!): User

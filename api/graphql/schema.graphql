@@ -1853,6 +1853,9 @@ type Mutation {
 
   # Notifications
   markNotificationAsRead(id: UUID!): Notification @guard # can only affect notifications belonging to the logged-in user
+  markNotificationAsUnread(id: UUID!): Notification @guard
+  deleteNotification(id: UUID!): Notification @guard
+  markAllNotificationsAsRead: [Notification] @guard
   # UserSkill mutations
   createUserSkill(
     userId: UUID! @rename(attribute: "user_id")
