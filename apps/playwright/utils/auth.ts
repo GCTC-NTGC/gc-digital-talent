@@ -19,7 +19,23 @@ export async function loginBySub(page: Page, sub: string) {
     .click();
   await page.getByPlaceholder("Enter any user/subject").fill(sub);
   await page.getByRole("button", { name: /sign-in/i }).click();
-  await page.waitForURL("**/applicant/profile-and-applications");
+  /**
+   * Note: Fixes an issue where the URL was redirecting some of the time
+   * We should probably improve this to not reply on a specific operation name.
+   */
+  await page.waitForResponse(
+    async (resp) => {
+      if (await resp.url()?.includes("/graphql")) {
+        const reqJson = await resp.request()?.postDataJSON();
+        return reqJson.operationName === "ProfileAndApplicationsApplicant";
+      }
+
+      return false;
+    },
+    {
+      timeout: 120 * 1000,
+    },
+  );
 }
 
 export type AuthCookies = {
