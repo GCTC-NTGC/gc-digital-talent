@@ -65,6 +65,9 @@ stages:
       - script: npx npm install --include=dev
         displayName: "Install Node.js dependencies"
 
+      - script: npm run build:packages
+        displayName: "Build dependencies"
+
       - script: npx playwright install --with-deps
         displayName: "Install Playwright browsers"
 
