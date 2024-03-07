@@ -1,4 +1,5 @@
-import groupBy from "lodash/groupBy";
+import groupBy from "lodash/groupBy"; // provides sorted output
+import stringify from "json-stable-stringify";
 
 import * as rawWebEnMessages from "@gc-digital-talent/web/src/lang/en.json";
 import * as rawWebFrMessages from "@gc-digital-talent/web/src/lang/fr.json";
@@ -35,7 +36,7 @@ describe("message files", () => {
       .filter((g) => g.fr.length > 1);
 
     expect(
-      JSON.stringify(messagesWithMultipleFrStrings, null, 4), // should use stable-stringify
+      stringify(messagesWithMultipleFrStrings, { space: "  " }),
     ).toMatchSnapshot();
   });
 });
