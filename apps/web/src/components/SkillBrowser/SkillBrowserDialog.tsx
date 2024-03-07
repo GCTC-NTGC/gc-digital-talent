@@ -16,6 +16,7 @@ import {
   showDetails,
 } from "./utils";
 import { SkillBrowserDialogContext, FormValues } from "./types";
+import SkillDetailsPool from "./SkillDetailsPool";
 
 interface SkillBrowserDialogProps {
   // All available skills
@@ -35,6 +36,7 @@ interface SkillBrowserDialogProps {
     icon?: IconType | null;
     mode?: ButtonProps["mode"];
     disabled?: boolean;
+    block?: boolean;
   };
   // initial state (like when editing)
   initialState?: FormValues;
@@ -121,6 +123,7 @@ const SkillBrowserDialog = ({
     icon: derivedIcon,
     mode: trigger?.mode,
     disabled: trigger?.disabled,
+    block: trigger?.block,
   };
 
   React.useEffect(() => {
@@ -156,6 +159,13 @@ const SkillBrowserDialog = ({
                     selectedSkill.category === SkillCategory.Technical
                   }
                   context={context}
+                />
+              )}
+              {selectedSkill && context === "pool" && (
+                <SkillDetailsPool
+                  isTechnical={
+                    selectedSkill.category === SkillCategory.Technical
+                  }
                 />
               )}
               <Dialog.Footer data-h2-justify-content="base(flex-start)">

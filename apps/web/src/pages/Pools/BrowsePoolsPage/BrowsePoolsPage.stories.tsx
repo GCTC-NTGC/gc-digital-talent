@@ -30,8 +30,6 @@ const Template: Story = () => <BrowsePools />;
 export const Default = Template.bind({});
 Default.parameters = {
   chromatic: { viewports: CHROMATIC_VIEWPORTS },
-  hasDarkMode: true,
-  themeKey: "default",
   apiResponsesConfig: {
     latency: {
       min: 0,

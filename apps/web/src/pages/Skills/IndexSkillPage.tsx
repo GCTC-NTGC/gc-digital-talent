@@ -49,7 +49,7 @@ export const IndexSkillPage = () => {
         nav={{ mode: "crumbs", items: navigationCrumbs }}
       />
       <AdminContentWrapper>
-        <SkillTableApi title={formattedPageTitle} />
+        <SkillTableApi title={formattedPageTitle} addButton />
       </AdminContentWrapper>
     </>
   );

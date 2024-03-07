@@ -35,4 +35,15 @@ return [
     */
 
     'record_of_decision' => (bool) env('FEATURE_RECORD_OF_DECISION', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Notifications
+    |--------------------------------------------------------------------------
+    |
+    | A feature to introduce notifications (application and email)
+    |
+    */
+
+    'notifications' => (bool) env('FEATURE_NOTIFICATIONS', false),
 ];

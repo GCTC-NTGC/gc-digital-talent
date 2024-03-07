@@ -209,7 +209,7 @@ class Pool extends Model
     }
 
     // Sync the APPLICATION_SCREENING assessment step with the pools technical skills
-    private function syncApplicationScreeningStepPoolSkills()
+    public function syncApplicationScreeningStepPoolSkills()
     {
         $screeningStep = $this->assessmentSteps()->firstOrCreate([
             'type' => AssessmentStepType::APPLICATION_SCREENING->name,
@@ -259,7 +259,7 @@ class Pool extends Model
     // is the pool considered "complete", filled out entirely by the pool operator
     public function getIsCompleteAttribute()
     {
-        $pool = $this->load(['classifications', 'essentialSkills']);
+        $pool = $this->load(['classifications', 'essentialSkills', 'nonessentialSkills', 'poolSkills']);
 
         $poolCompleteValidation = new PoolIsCompleteValidator;
         $validator = Validator::make($pool->toArray(),

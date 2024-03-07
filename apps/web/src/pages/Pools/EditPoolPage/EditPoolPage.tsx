@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
 import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
-import { useQuery } from "urql";
+import { OperationContext, useQuery } from "urql";
 
 import {
   NotFound,
@@ -35,6 +35,7 @@ import { hasEmptyRequiredFields as yourImpactError } from "~/validators/process/
 import { hasEmptyRequiredFields as keyTasksError } from "~/validators/process/keyTasks";
 import { hasEmptyRequiredFields as coreRequirementsError } from "~/validators/process/coreRequirements";
 import { hasEmptyRequiredFields as essentialSkillsError } from "~/validators/process/essentialSkills";
+import { hasEmptyRequiredFields as nonessentialSkillsError } from "~/validators/process/nonEssentialSkills";
 import usePoolMutations from "~/hooks/usePoolMutations";
 import { hasAllEmptyFields as specialNoteIsNull } from "~/validators/process/specialNote";
 
@@ -53,12 +54,8 @@ import WorkTasksSection, {
 import CoreRequirementsSection, {
   type CoreRequirementsSubmitData,
 } from "./components/CoreRequirementsSection/CoreRequirementsSection";
-import EssentialSkillsSection, {
-  type EssentialSkillsSubmitData,
-} from "./components/EssentialSkillsSection";
-import AssetSkillsSection, {
-  type AssetSkillsSubmitData,
-} from "./components/AssetSkillsSection";
+import EssentialSkillsSection from "./components/EssentialSkillsSection";
+import AssetSkillsSection from "./components/AssetSkillsSection";
 import EducationRequirementsSection from "./components/EducationRequirementsSection";
 import GeneralQuestionsSection, {
   type GeneralQuestionsSubmitData,
@@ -70,12 +67,10 @@ import WhatToExpectSection, {
   type WhatToExpectSubmitData,
 } from "./components/WhatToExpectSection/WhatToExpectSection";
 import EditPoolContext from "./components/EditPoolContext";
-import { SectionKey } from "./types";
+import { PoolSkillMutationsType, SectionKey } from "./types";
 
 export type PoolSubmitData =
-  | AssetSkillsSubmitData
   | ClosingDateSubmitData
-  | EssentialSkillsSubmitData
   | CoreRequirementsSubmitData
   | PoolNameSubmitData
   | WorkTasksSubmitData
@@ -89,6 +84,7 @@ export interface EditPoolFormProps {
   classifications: Array<Classification>;
   skills: Array<Skill>;
   onSave: (submitData: PoolSubmitData) => Promise<void>;
+  poolSkillMutations: PoolSkillMutationsType;
 }
 
 export const EditPoolForm = ({
@@ -96,6 +92,7 @@ export const EditPoolForm = ({
   classifications,
   skills,
   onSave,
+  poolSkillMutations,
 }: EditPoolFormProps): JSX.Element => {
   const intl = useIntl();
 
@@ -113,7 +110,8 @@ export const EditPoolForm = ({
   });
 
   const basicInfoHasError = poolNameError(pool) || closingDateError(pool);
-  const skillRequirementsHasError = essentialSkillsError(pool);
+  const skillRequirementsHasError =
+    essentialSkillsError(pool) || nonessentialSkillsError(pool);
   const aboutRoleHasError = yourImpactError(pool) || keyTasksError(pool);
   const sectionMetadata: Record<SectionKey, EditPoolSectionMetadata> = {
     basicInfo: {
@@ -210,7 +208,7 @@ export const EditPoolForm = ({
     },
     assetSkills: {
       id: "asset-skills",
-      hasError: false, // Optional section
+      hasError: nonessentialSkillsError(pool),
       title: intl.formatMessage({
         defaultMessage: "Asset skill criteria",
         id: "TE2Nwv",
@@ -412,13 +410,13 @@ export const EditPoolForm = ({
                       pool={pool}
                       skills={skills}
                       sectionMetadata={sectionMetadata.essentialSkills}
-                      onSave={onSave}
+                      poolSkillMutations={poolSkillMutations}
                     />
                     <AssetSkillsSection
                       pool={pool}
                       skills={skills}
                       sectionMetadata={sectionMetadata.assetSkills}
-                      onSave={onSave}
+                      poolSkillMutations={poolSkillMutations}
                     />
                   </div>
                 </TableOfContents.Section>
@@ -560,45 +558,29 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
         en
         fr
       }
-      essentialSkills {
+      poolSkills {
         id
-        key
-        name {
-          en
-          fr
-        }
-        category
-        families {
+        type
+        requiredLevel
+        skill {
           id
           key
-          description {
-            en
-            fr
-          }
           name {
             en
             fr
           }
-        }
-      }
-      nonessentialSkills {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        category
-        families {
-          id
-          key
-          description {
-            en
-            fr
-          }
-          name {
-            en
-            fr
+          category
+          families {
+            id
+            key
+            description {
+              en
+              fr
+            }
+            name {
+              en
+              fr
+            }
           }
         }
       }
@@ -673,6 +655,11 @@ type RouteParams = {
   poolId: Scalars["ID"]["output"];
 };
 
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["PoolSkill"],
+  requestPolicy: "cache-first",
+};
+
 export const EditPoolPage = () => {
   const intl = useIntl();
   const { poolId } = useRequiredParams<RouteParams>("poolId");
@@ -695,6 +682,7 @@ export const EditPoolPage = () => {
 
   const [{ data, fetching, error }] = useQuery({
     query: EditPoolPage_Query,
+    context,
     variables: { poolId },
   });
 
@@ -703,6 +691,12 @@ export const EditPoolPage = () => {
   const ctx = React.useMemo(() => {
     return { isSubmitting: isFetching };
   }, [isFetching]);
+
+  const poolSkillMutations = {
+    create: mutations.createPoolSkill,
+    update: mutations.updatePoolSkill,
+    delete: mutations.deletePoolSkill,
+  };
 
   return (
     <Pending fetching={fetching} error={error}>
@@ -713,6 +707,7 @@ export const EditPoolPage = () => {
             classifications={data.classifications.filter(notEmpty)}
             skills={data.skills.filter(notEmpty)}
             onSave={(saveData) => mutations.update(poolId, saveData)}
+            poolSkillMutations={poolSkillMutations}
           />
         </EditPoolContext.Provider>
       ) : (

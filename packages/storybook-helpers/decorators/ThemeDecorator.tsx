@@ -1,131 +1,86 @@
+import { DecoratorHelpers } from "@storybook/addon-themes";
+import type { DecoratorFunction, Renderer } from "@storybook/types";
+import {
+  Theme,
+  ThemeKey,
+  ThemeProvider,
+  useTheme,
+} from "@gc-digital-talent/theme";
 import React from "react";
-import type { StoryContext, StoryFn } from "@storybook/react";
-import isChromatic from "chromatic/isChromatic";
-import { ThemeProvider } from "@gc-digital-talent/theme";
 
-export const themeKey = {
-  description: "Global theme for components",
-  defaultValue: "fallback",
-  toolbar: {
-    title: "Theme",
-    icon: "circlehollow",
-    // Array of plain string values or MenuItem shape (see below)
-    items: [
-      {
-        value: "fallback",
-        title: "Default",
-      },
-      {
-        value: "default",
-        title: "Digital Talent",
-      },
-      {
-        value: "admin",
-        title: "Admin",
-      },
-      {
-        value: "iap",
-        title: "IAP",
-      },
-    ],
-    dynamicTitle: true,
+const { useThemeParameters, initializeThemeState, pluckThemeFromContext } =
+  DecoratorHelpers;
+
+type ThemeMode = "light" | "dark";
+export const THEMES: Record<ThemeKey, Record<ThemeMode, string>> = {
+  default: {
+    light: "GCDT Light",
+    dark: "GCDT Dark",
+  },
+  iap: {
+    light: "IAP Light",
+    dark: "IAP Dark",
   },
 };
 
-export const themeMode = {
-  description: "Global theme mode for components",
-  defaultValue: "pref",
-  toolbar: {
-    title: "Theme Mode",
-    icon: "circlehollow",
-    // Array of plain string values or MenuItem shape (see below)
-    items: [
-      {
-        value: "pref",
-        right: "🖥️",
-        title: "Preference",
-      },
-      {
-        value: "light",
-        right: "☀️",
-        title: "Light",
-      },
-      {
-        value: "dark",
-        right: "🌙",
-        title: "Dark",
-      },
-    ],
-    dynamicTitle: true,
+export interface WithThemeFromHydrogenConfig {
+  themes: Record<string, string>;
+  defaultTheme: string;
+}
+
+type ThemeSetterProps = {
+  theme: Theme;
+};
+const ThemeSetter = ({ theme }: ThemeSetterProps) => {
+  const { setTheme } = useTheme();
+
+  React.useEffect(() => {
+    setTheme({
+      key: theme.key,
+      mode: theme.mode,
+    });
+  }, [theme.key, theme.mode]);
+
+  return null;
+};
+
+const withThemeFromHydrogen = <TRenderer extends Renderer = any>({
+  themes,
+  defaultTheme,
+}: WithThemeFromHydrogenConfig): DecoratorFunction<TRenderer> => {
+  initializeThemeState(Object.keys(themes), defaultTheme);
+  return (storyFn, context) => {
+    const selectedTheme = pluckThemeFromContext(context);
+    const { themeOverride } = useThemeParameters();
+    const selected = themeOverride || selectedTheme || defaultTheme;
+
+    const themeArr = themes[selected].split(" ") as [
+      ThemeKey | undefined,
+      ThemeMode | undefined,
+    ];
+
+    return (
+      <ThemeProvider>
+        {storyFn() as React.ReactNode}
+        <ThemeSetter
+          theme={{
+            key: themeArr[0] ?? "default",
+            mode: themeArr[1] ?? "light",
+          }}
+        />
+      </ThemeProvider>
+    );
+  };
+};
+
+const withHydrogenTheme = withThemeFromHydrogen({
+  themes: {
+    [THEMES.default.light]: "default light",
+    [THEMES.default.dark]: "default dark",
+    [THEMES.iap.light]: "iap light",
+    [THEMES.iap.dark]: "iap dark",
   },
-};
+  defaultTheme: THEMES.default.light,
+});
 
-const FontWrapper = ({ children }: { children: React.ReactNode }) => (
-  <div data-h2-color="base(black) base:dark(white)">{children}</div>
-);
-
-const ThemeDecorator = (
-  Story: StoryFn,
-  { globals, parameters }: StoryContext,
-) => {
-  let key = globals.themeKey || parameters.themeKey || "default";
-  const mode = globals.themeMode || parameters.themeMode || "pref";
-
-  /**
-   * HACK: Since we have only one dark mode story
-   * We need to set the parameter for it. Once we
-   * have more dark mode stories, we should remove
-   * The parameter from usage
-   */
-  const { hasDarkMode } = parameters;
-  const showDark = hasDarkMode && isChromatic();
-  const StoryWrapper = hasDarkMode ? FontWrapper : React.Fragment;
-
-  if (key === "fallback") {
-    key = parameters.themeKey || "default";
-  }
-
-  return showDark ? (
-    <>
-      <div id="override-theme-light" data-h2>
-        <ThemeProvider
-          override={{
-            key,
-            mode: "light",
-          }}
-          themeSelector="#override-theme-light[data-h2]"
-        >
-          <FontWrapper>
-            <Story />
-          </FontWrapper>
-        </ThemeProvider>
-      </div>
-      <div id="override-theme-dark" data-h2>
-        <ThemeProvider
-          override={{
-            key,
-            mode: "dark",
-          }}
-          themeSelector="#override-theme-dark[data-h2]"
-        >
-          <FontWrapper>
-            <Story />
-          </FontWrapper>
-        </ThemeProvider>
-      </div>
-    </>
-  ) : (
-    <ThemeProvider
-      override={{
-        key,
-        mode,
-      }}
-    >
-      <StoryWrapper>
-        <Story />
-      </StoryWrapper>
-    </ThemeProvider>
-  );
-};
-
-export default ThemeDecorator;
+export default withHydrogenTheme;
