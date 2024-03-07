@@ -135,6 +135,14 @@ interface Notification {
   updatedAt: DateTime @rename(attribute: "updated_at")
 }
 
+type TestNotification implements Notification {
+  id: ID!
+  readAt: DateTime @rename(attribute: "read_at")
+  createdAt: DateTime @rename(attribute: "created_at")
+  updatedAt: DateTime @rename(attribute: "updated_at")
+  data: String @rename(attribute: "data")
+}
+
 type PoolCandidateStatusChangedNotification implements Notification {
   id: ID!
   readAt: DateTime @rename(attribute: "read_at")
