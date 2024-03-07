@@ -16,7 +16,7 @@ import { emptyToNull } from "@gc-digital-talent/helpers";
 import {
   User,
   PoolCandidate,
-  UpdatePoolCandidateAsAdminInput,
+  UpdatePoolCandidateStatusAndExpiryInput,
 } from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
@@ -47,11 +47,11 @@ const ChangeDateDialog = ({
 
   const requestMutation = async (
     id: string,
-    values: UpdatePoolCandidateAsAdminInput,
+    values: UpdatePoolCandidateStatusAndExpiryInput,
   ) => {
     const result = await executeMutation({ id, poolCandidate: values });
-    if (result.data?.updatePoolCandidateAsAdmin) {
-      return result.data.updatePoolCandidateAsAdmin;
+    if (result.data?.updatePoolCandidateStatusAndExpiry) {
+      return result.data.updatePoolCandidateStatusAndExpiry;
     }
     return Promise.reject(result.error);
   };

@@ -23,7 +23,7 @@ import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { emptyToNull } from "@gc-digital-talent/helpers";
 import {
   PoolCandidateStatus,
-  UpdatePoolCandidateAsAdminInput,
+  UpdatePoolCandidateStatusAndExpiryInput,
   type PoolCandidate,
   FragmentType,
   getFragment,
@@ -43,7 +43,10 @@ type FormValues = {
 export interface ApplicationStatusFormProps {
   isSubmitting: boolean;
   application: ApplicationStatusForm_PoolCandidateFragmentFragment;
-  onSubmit: (values: UpdatePoolCandidateAsAdminInput, notes: string) => void;
+  onSubmit: (
+    values: UpdatePoolCandidateStatusAndExpiryInput,
+    notes: string,
+  ) => void;
 }
 
 export const ApplicationStatusForm = ({
@@ -300,13 +303,13 @@ const ApplicationStatusFormApi = ({
   };
 
   const handleUpdate = (
-    input: UpdatePoolCandidateAsAdminInput,
+    input: UpdatePoolCandidateStatusAndExpiryInput,
     notes: string,
   ) => {
     executeMutation({ id: poolCandidate.id, input, notes })
       .then((result) => {
         if (
-          result.data?.updatePoolCandidateAsAdmin &&
+          result.data?.updatePoolCandidateStatusAndExpiry &&
           result.data.updatePoolCandidateNotes
         ) {
           toast.success(

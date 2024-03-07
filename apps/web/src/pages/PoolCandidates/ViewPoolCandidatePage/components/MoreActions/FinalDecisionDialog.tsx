@@ -115,7 +115,7 @@ const FinalDecisionDialog = ({
 
     await executeMutation({ id: poolCandidateId, input: massagedValues })
       .then((result) => {
-        if (result.data?.updatePoolCandidateAsAdmin) {
+        if (result.data?.updatePoolCandidateStatusAndExpiry) {
           toast.success(
             intl.formatMessage({
               defaultMessage: "Pool candidate status updated successfully",
