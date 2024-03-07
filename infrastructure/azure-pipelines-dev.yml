@@ -62,7 +62,7 @@ stages:
           artifactName: gcDigitalTalent
           downloadPath: $(System.DefaultWorkingDirectory)/artifacts
 
-      - script: npm install
+      - script: npx npm install --include=dev
         displayName: "Install Node.js dependencies"
 
       - script: npx playwright install --with-deps
