@@ -92,26 +92,17 @@ const SkillAccordion = ({ poolSkill, required }: SkillAccordionProps) => {
         });
 
   const accordionSubtitle = (
-    <ul
+    <span
       data-h2-color="base(black.light)"
       data-h2-font-size="base(caption)"
-      data-h2-padding-left="base(0)"
       data-h2-margin-top="base(x.5)"
+      data-h2-display="base(flex)"
+      data-h2-gap="base(x.5)"
     >
-      (
-      <React.Fragment key={poolSkill.skill.name.en}>
-        <li data-h2-padding-left="base(0)" data-h2-display="base(inline)">
-          {skillLevelItem}
-        </li>
-        <span data-h2-margin="base(0 x.5)" aria-hidden>
-          •
-        </span>
-        <li data-h2-padding-left="base(0)" data-h2-display="base(inline)">
-          {screeningTime}
-        </li>
-      </React.Fragment>
-      )
-    </ul>
+      <span>{skillLevelItem}</span>
+      <span>&bull;</span>
+      <span>{screeningTime}</span>
+    </span>
   );
 
   return (
