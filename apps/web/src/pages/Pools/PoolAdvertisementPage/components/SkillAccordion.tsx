@@ -93,14 +93,16 @@ const SkillAccordion = ({ poolSkill, required }: SkillAccordionProps) => {
 
   const accordionSubtitle = (
     <span
+      data-h2-align-items="base(flex-start) p-tablet(center)"
       data-h2-color="base(black.light)"
       data-h2-font-size="base(caption)"
       data-h2-margin-top="base(x.5)"
       data-h2-display="base(flex)"
+      data-h2-flex-direction="base(column) p-tablet(row)"
       data-h2-gap="base(x.5)"
     >
       <span>{skillLevelItem}</span>
-      <span>&bull;</span>
+      <span data-h2-display="base(none) p-tablet(inline)">&bull;</span>
       <span>{screeningTime}</span>
     </span>
   );
