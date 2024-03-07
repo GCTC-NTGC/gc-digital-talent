@@ -7,8 +7,14 @@ import { uiMessages } from "@gc-digital-talent/i18n";
 import { Color, IconType } from "../../types";
 import colorMap from "./styles";
 
+/**
+ * List of acceptable key presses
+ * to fire the `onDismiss` event
+ */
+const deleteKeys = ["Backspace", "Delete", "Space", "Enter"];
+
 const isDeleteEvent = (event: React.KeyboardEvent<HTMLSpanElement>) => {
-  return event.key === "Backspace" || event.key === "Delete";
+  return deleteKeys.includes(event.code);
 };
 
 export type ChipProps = React.DetailedHTMLProps<
