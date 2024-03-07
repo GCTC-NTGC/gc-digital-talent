@@ -22,7 +22,7 @@ import {
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { getFullNameHtml } from "~/utils/nameUtils";
 
-import AdminUpdatePoolCandidate_Mutation from "./mutation";
+import UpdatePoolCandidateStatusAndExpiry_Mutation from "./mutation";
 
 type FormValues = {
   expiryDate: PoolCandidate["expiryDate"];
@@ -42,7 +42,7 @@ const ChangeDateDialog = ({
   const methods = useForm<FormValues>();
 
   const [{ fetching }, executeMutation] = useMutation(
-    AdminUpdatePoolCandidate_Mutation,
+    UpdatePoolCandidateStatusAndExpiry_Mutation,
   );
 
   const requestMutation = async (

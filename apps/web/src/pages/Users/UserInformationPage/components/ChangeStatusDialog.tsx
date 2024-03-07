@@ -29,7 +29,7 @@ import {
   getShortPoolTitleLabel,
 } from "~/utils/poolUtils";
 
-import AdminUpdatePoolCandidate_Mutation from "./mutation";
+import UpdatePoolCandidateStatusAndExpiry_Mutation from "./mutation";
 
 type FormValues = {
   status: PoolCandidate["status"];
@@ -52,7 +52,7 @@ const ChangeStatusDialog = ({
   const methods = useForm<FormValues>();
 
   const [{ fetching }, executeMutation] = useMutation(
-    AdminUpdatePoolCandidate_Mutation,
+    UpdatePoolCandidateStatusAndExpiry_Mutation,
   );
 
   // an array of the user's pool candidates and filter out all the nulls and maybes

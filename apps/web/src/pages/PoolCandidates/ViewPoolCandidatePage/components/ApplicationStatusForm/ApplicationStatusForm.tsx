@@ -230,10 +230,10 @@ export const ApplicationStatusForm = ({
 const ApplicationStatusForm_Mutation = graphql(/* GraphQL */ `
   mutation ApplicationStatusForm_Mutation(
     $id: UUID!
-    $input: UpdatePoolCandidateAsAdminInput!
+    $input: UpdatePoolCandidateStatusAndExpiryInput!
     $notes: String
   ) {
-    updatePoolCandidateAsAdmin(id: $id, poolCandidate: $input) {
+    updatePoolCandidateStatusAndExpiry(id: $id, poolCandidate: $input) {
       id
       expiryDate
       status

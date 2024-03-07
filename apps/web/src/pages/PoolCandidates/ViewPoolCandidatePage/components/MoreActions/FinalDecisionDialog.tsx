@@ -25,9 +25,9 @@ import AssessmentSummary from "./components/AssessmentSummary";
 const PoolCandidate_UpdateStatusAndExpiryMutation = graphql(/* GraphQL */ `
   mutation PoolCandidate_UpdateStatusAndExpiryMutation(
     $id: UUID!
-    $input: UpdatePoolCandidateAsAdminInput!
+    $input: UpdatePoolCandidateStatusAndExpiryInput!
   ) {
-    updatePoolCandidateAsAdmin(id: $id, poolCandidate: $input) {
+    updatePoolCandidateStatusAndExpiry(id: $id, poolCandidate: $input) {
       id
       status
       expiryDate
