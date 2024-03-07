@@ -338,7 +338,7 @@ export const determineCurrentStepPerCandidate = (
   return candidateToCurrentStep;
 };
 
-const getFinalDecisionPillColor = (
+const getFinalDecisionChipColor = (
   status?: Maybe<PoolCandidateStatus>,
 ): Color => {
   if (isToAssessStatus(status)) {
@@ -375,7 +375,7 @@ export const statusToJobPlacement = (status?: Maybe<PoolCandidateStatus>) => {
 };
 
 // Note: By setting the explicit Record<PoolCandidateStatus, x> type, Typescript will actually error if we forget a status!
-const statusToPillMessageMapping: Record<
+const statusToChipMessageMapping: Record<
   PoolCandidateStatus,
   MessageDescriptor | MessageDescriptor[]
 > = {
@@ -426,14 +426,14 @@ const statusToPillMessageMapping: Record<
 };
 
 /**
- * The inAssessment statuses have extra business logic for deciding how to present the status pill,
+ * The inAssessment statuses have extra business logic for deciding how to present the status chip,
  * since the candidate may or may not be ready for a final decision.
  */
-const computeInAssessmentStatusPill = (
+const computeInAssessmentStatusChip = (
   candidate: PoolCandidate,
   steps: AssessmentStep[],
   intl: IntlShape,
-): StatusPill => {
+): StatusChip => {
   if (steps.length === 0) {
     // This escape hatch mostly applies to Pools created before Record of Decision.
     return {
@@ -497,17 +497,17 @@ const computeInAssessmentStatusPill = (
   };
 };
 
-type StatusPill = {
+type StatusChip = {
   color: Color;
   label: React.ReactNode;
 };
 
-export const getCandidateStatusPill = (
+export const getCandidateStatusChip = (
   candidate: PoolCandidate,
   steps: AssessmentStep[],
   intl: IntlShape,
   recordOfDecisionFlag: boolean, // TODO: remove with #8415
-): StatusPill => {
+): StatusChip => {
   if (isToAssessStatus(candidate.status)) {
     if (!recordOfDecisionFlag) {
       return {
@@ -515,10 +515,10 @@ export const getCandidateStatusPill = (
         color: "warning",
       };
     }
-    return computeInAssessmentStatusPill(candidate, steps, intl);
+    return computeInAssessmentStatusChip(candidate, steps, intl);
   }
   const messages =
-    statusToPillMessageMapping[
+    statusToChipMessageMapping[
       candidate.status ?? PoolCandidateStatus.NewApplication
     ];
   const label = Array.isArray(messages)
@@ -529,6 +529,6 @@ export const getCandidateStatusPill = (
     : intl.formatMessage(messages);
   return {
     label,
-    color: getFinalDecisionPillColor(candidate.status),
+    color: getFinalDecisionChipColor(candidate.status),
   };
 };

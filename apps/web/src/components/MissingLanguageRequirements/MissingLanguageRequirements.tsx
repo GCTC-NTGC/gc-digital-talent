@@ -17,7 +17,7 @@ import {
 } from "~/utils/languageUtils";
 
 interface MissingLanguageRequirementsBlockProps {
-  pillType: { color: Color };
+  chipType: { color: Color };
   /** Title for the block */
   title: React.ReactNode;
   /** Message displayed before language requirements that are missing from application */
@@ -31,7 +31,7 @@ interface MissingLanguageRequirementsBlockProps {
 }
 
 const MissingLanguageRequirementsBlock = ({
-  pillType,
+  chipType,
   title,
   languageRequirementsBlurb,
   icon,
@@ -62,7 +62,7 @@ const MissingLanguageRequirementsBlock = ({
             </p>
             <Chips>
               {missingLanguageRequirements.map((requirementName: string) => (
-                <Chip key={requirementName} color={pillType.color}>
+                <Chip key={requirementName} color={chipType.color}>
                   {requirementName}
                 </Chip>
               ))}
@@ -97,7 +97,7 @@ const MissingLanguageRequirements = ({
       data-h2-background-color="base(foreground)"
       data-h2-shadow="base(medium)"
       data-h2-margin="base(0, 0, x.5, 0)"
-      pillType={{ color: "error" }}
+      chipType={{ color: "error" }}
       headingLevel={headingLevel}
       title={intl.formatMessage({
         defaultMessage: "There is a missing language requirement",

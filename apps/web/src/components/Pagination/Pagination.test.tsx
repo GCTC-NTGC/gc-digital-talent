@@ -57,7 +57,7 @@ const assertDotCount = (count: number) => {
 describe("Pagination tests", () => {
   const user = userEvent.setup();
 
-  it("If the total page count is less then page pills show range from 1 to totalPageCount", async () => {
+  it("If the total page count is less then page chips show range from 1 to totalPageCount", async () => {
     const props: PaginationProps = {
       ...defaultProps,
       totalCount: 50,
@@ -80,7 +80,7 @@ describe("Pagination tests", () => {
     expect(screen.getByRole("button", { name: /5/ })).toBeInTheDocument();
   });
 
-  it("Should show DOTS on right side when total page count is greater then page pills", () => {
+  it("Should show DOTS on right side when total page count is greater then page chips", () => {
     renderPagination({});
     const { result } = renderHook(() => usePagination(defaultProps)); // should return an ordered array of the pagination pages (including the DOTS).
     const paginationRange = [1, 2, 3, 4, 5, DOTS, 10];
@@ -92,7 +92,7 @@ describe("Pagination tests", () => {
     assertDotCount(1);
   });
 
-  it("Should show DOTS on left side when total page count is greater then page pills", () => {
+  it("Should show DOTS on left side when total page count is greater then page chips", () => {
     const props = { ...defaultProps, currentPage: 9 };
     renderPagination(props);
     const { result } = renderHook(() => usePagination(props)); // should return an ordered array of the pagination pages (including the DOTS).
@@ -107,7 +107,7 @@ describe("Pagination tests", () => {
     assertDotCount(1);
   });
 
-  it("Should show DOTS on left and right side when total page count is greater then page pills", () => {
+  it("Should show DOTS on left and right side when total page count is greater then page chips", () => {
     const props = {
       ...defaultProps,
       currentPage: 5,

@@ -49,11 +49,6 @@ import Loading, { type LoadingProps } from "./components/Loading";
 import NavTabs from "./components/Tabs/NavTabs";
 import NotFound, { ThrowNotFound } from "./components/NotFound";
 import Pending, { type PendingProps } from "./components/Pending";
-import Pill, {
-  type PillProps,
-  type PillMode,
-  type PillSize,
-} from "./components/Pill";
 import ScrollArea from "./components/ScrollArea";
 import Separator from "./components/Separator";
 import SideMenu, {
@@ -96,7 +91,6 @@ export type {
   CardProps,
   CardBasicProps,
   CardLinkProps,
-  ChipProps,
   HeadingProps,
   HeadingLevel,
   HeadingRef,
@@ -109,9 +103,7 @@ export type {
   MenuLinkProps,
   LoadingProps,
   PendingProps,
-  PillProps,
-  PillMode,
-  PillSize,
+  ChipProps,
   SidebarProps,
   SideMenuProps,
   SideMenuItemProps,
@@ -159,7 +151,6 @@ export {
   Pending,
   NotFound,
   ThrowNotFound,
-  Pill,
   ScrollArea,
   Separator,
   SideMenu,

@@ -21,7 +21,7 @@ import {
 } from "~/utils/skillUtils";
 
 interface MissingSkillsBlockProps {
-  pillType: { color: Color };
+  chipType: { color: Color };
   /** Title for the block */
   title: React.ReactNode;
   /** Message displayed before skills that are missing from application */
@@ -39,7 +39,7 @@ interface MissingSkillsBlockProps {
 }
 
 const MissingSkillsBlock = ({
-  pillType,
+  chipType,
   title,
   skillsBlurb,
   detailsBlurb,
@@ -78,7 +78,7 @@ const MissingSkillsBlock = ({
             <p data-h2-margin="base(x.5, 0, x.25, 0)">{skillsBlurb}</p>
             <Chips>
               {skills.map((skill: Skill) => (
-                <Chip key={skill.id} color={pillType.color}>
+                <Chip key={skill.id} color={chipType.color}>
                   {getLocalizedName(skill.name, intl)}
                 </Chip>
               ))}
@@ -90,7 +90,7 @@ const MissingSkillsBlock = ({
             <p data-h2-margin="base(x.5, 0, x.25, 0)">{detailsBlurb}</p>
             <Chips>
               {details.map((skill: Skill) => (
-                <Chip key={skill.id} color={pillType.color}>
+                <Chip key={skill.id} color={chipType.color}>
                   {getLocalizedName(skill.name, intl)}
                 </Chip>
               ))}
@@ -155,7 +155,7 @@ const MissingSkills = ({
           data-h2-shadow="base(medium)"
           data-h2-background-color="base(foreground)"
           data-h2-margin="base(0, 0, x.5, 0)"
-          pillType={{ color: "error" }}
+          chipType={{ color: "error" }}
           headingLevel={headingLevel}
           title={intl.formatMessage({
             defaultMessage: "Required application skills",
@@ -191,7 +191,7 @@ const MissingSkills = ({
           data-h2-shadow="base(medium)"
           data-h2-background-color="base(foreground)"
           data-h2-margin="base(0, 0, x.5, 0)"
-          pillType={{ color: "primary" }}
+          chipType={{ color: "primary" }}
           headingLevel={headingLevel}
           title={intl.formatMessage({
             defaultMessage: "Required transferable skills",
@@ -221,7 +221,7 @@ const MissingSkills = ({
           data-h2-shadow="base(medium)"
           data-h2-background-color="base(foreground)"
           data-h2-margin="base(0, 0, x.5, 0)"
-          pillType={{ color: "secondary" }}
+          chipType={{ color: "secondary" }}
           headingLevel={headingLevel}
           title={intl.formatMessage({
             defaultMessage: "Nice to have skills",
