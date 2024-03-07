@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`apps:web language should have no changes to duplicate strings 1`] = `
+exports[`message files should have no changes to duplicate strings 1`] = `
 "[
     {
         "en": "Education requirement",

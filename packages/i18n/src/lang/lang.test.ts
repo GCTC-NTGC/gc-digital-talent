@@ -1,12 +1,12 @@
 import groupBy from "lodash/groupBy";
 
-import * as rawI18nEnMessages from "@gc-digital-talent/i18n/src/lang/en.json";
-import * as rawI18nFrMessages from "@gc-digital-talent/i18n/src/lang/fr.json";
+import * as rawWebEnMessages from "@gc-digital-talent/web/src/lang/en.json";
+import * as rawWebFrMessages from "@gc-digital-talent/web/src/lang/fr.json";
 
-import * as rawWebEnMessages from "~/lang/en.json";
-import * as rawWebFrMessages from "~/lang/fr.json";
+import * as rawI18nEnMessages from "./en.json";
+import * as rawI18nFrMessages from "./fr.json";
 
-describe("apps:web language", () => {
+describe("message files", () => {
   /*
     To update expected changes to the snapshot:
     `npx jest ./src/lang/lang.test.ts --testNamePattern="should have no changes to duplicate strings" --updateSnapshot`
