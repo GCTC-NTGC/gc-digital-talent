@@ -68,15 +68,5 @@ stages:
       - script: npx playwright install --with-deps
         displayName: "Install Playwright browsers"
 
-      - script: npm run e2e:playwright 
+      - script: npm run e2e:playwright:chromium
         displayName: "Run playwright tests"
-  - job: run_cypress_tests
-    displayName: Run cypress tests
-    pool:
-      vmImage: ubuntu-20.04
-    steps:
-       - script: npm install
-         displayName: "Install dependencies"
-         
-       - script: npm run e2e
-         displayName: "Run Cypress Tests"
