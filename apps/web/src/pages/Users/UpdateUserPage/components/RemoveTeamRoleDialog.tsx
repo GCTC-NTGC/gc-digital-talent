@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
 
-import { Dialog, Button, Pill } from "@gc-digital-talent/ui";
+import { Dialog, Button, Chip, Chips } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   formMessages,
@@ -133,13 +133,13 @@ const RemoveTeamRoleDialog = ({
                 "Text notifying user which role will be removed from the user",
             })}
           </p>
-          <p data-h2-margin="base(x1, 0)">
+          <Chips>
             {roles.map((r) => (
-              <Pill mode="solid" color="secondary" key={r.id}>
+              <Chip color="secondary" key={r.id}>
                 {roleDisplayName(r)}
-              </Pill>
+              </Chip>
             ))}
-          </p>
+          </Chips>
           <p data-h2-margin="base(x1, 0)">
             {intl.formatMessage(uiMessages.confirmContinue)}
           </p>

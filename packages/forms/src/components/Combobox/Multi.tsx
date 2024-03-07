@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useCombobox, useMultipleSelection } from "downshift";
+import isEqual from "lodash/isEqual";
 
 import { formMessages } from "@gc-digital-talent/i18n";
 import { Button } from "@gc-digital-talent/ui";
@@ -35,9 +36,19 @@ const Multi = ({
 }: MultiProps) => {
   const intl = useIntl();
   const [inputValue, setInputValue] = React.useState<string>("");
-  const [available, setAvailable] = React.useState<Option[]>([]);
+  const [previousOptions, setPreviousOptions] =
+    React.useState<Option[]>(options);
+  const [available, setAvailable] = React.useState<Option[]>(options);
   const inputRef = React.useRef<HTMLInputElement | null>(null);
-  const items = isExternalSearch ? options : available;
+  // NOTE: Pattern comes from https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
+  if (!isEqual(options, previousOptions)) {
+    setPreviousOptions(options);
+    setAvailable(options);
+  }
+  const items = React.useMemo(
+    () => (isExternalSearch ? options : available),
+    [available, isExternalSearch, options],
+  );
 
   const handleInputChanged = (newQuery?: string) => {
     const query = newQuery ?? "";
@@ -187,10 +198,6 @@ const Multi = ({
       }
     },
   });
-
-  React.useEffect(() => {
-    setAvailable(options);
-  }, [options]);
 
   const handleClear = () => {
     handleInputChanged("");

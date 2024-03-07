@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Class General Question
@@ -20,6 +22,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class GeneralQuestion extends Model
 {
     use HasFactory;
+    use LogsActivity;
 
     protected $keyType = 'string';
 
@@ -41,6 +44,14 @@ class GeneralQuestion extends Model
         'question',
         'sort_order',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly((['*']))
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
+    }
 
     public function pool(): BelongsTo
     {

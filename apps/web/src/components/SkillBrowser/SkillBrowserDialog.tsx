@@ -16,6 +16,7 @@ import {
   showDetails,
 } from "./utils";
 import { SkillBrowserDialogContext, FormValues } from "./types";
+import SkillDetailsPool from "./SkillDetailsPool";
 
 interface SkillBrowserDialogProps {
   // All available skills
@@ -158,6 +159,13 @@ const SkillBrowserDialog = ({
                     selectedSkill.category === SkillCategory.Technical
                   }
                   context={context}
+                />
+              )}
+              {selectedSkill && context === "pool" && (
+                <SkillDetailsPool
+                  isTechnical={
+                    selectedSkill.category === SkillCategory.Technical
+                  }
                 />
               )}
               <Dialog.Footer data-h2-justify-content="base(flex-start)">

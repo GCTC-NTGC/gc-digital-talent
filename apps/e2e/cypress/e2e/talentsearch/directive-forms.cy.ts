@@ -320,7 +320,9 @@ describe("Directive Forms Tests", () => {
         cy.wrap(dropdown).select(1); // All families
       });
       cy.findByRole("combobox", { name: "Skill*" }).then((combobox) => {
-        cy.wrap(combobox).type("Ability to Learn Quickly{downArrow}{enter}");
+        cy.wrap(combobox)
+          .focus()
+          .type("Ability to Learn Quickly{downArrow}{enter}");
       });
       cy.findByRole("group", {
         name: /Current experience in skill/i,

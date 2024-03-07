@@ -26,8 +26,8 @@ class UserSkillFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => User::factory(),
-            'skill_id' => Skill::factory(),
+            'user_id' => User::select('id')->inRandomOrder()->first() ?? User::factory(),
+            'skill_id' => Skill::select('id')->inRandomOrder()->first() ?? Skill::factory(),
             'skill_level' => $this->faker->randomElement(SkillLevel::cases())->name,
             'when_skill_used' => $this->faker->randomElement(WhenSkillUsed::cases())->name,
             'top_skills_rank' => $this->faker->boolean(25) ? $this->faker->randomDigitNotZero() : null,

@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
 
-import { Dialog, Button, Pill } from "@gc-digital-talent/ui";
+import { Dialog, Button, Chip } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   formMessages,
@@ -101,9 +101,7 @@ const RemoveIndividualRoleDialog = ({
             })}
           </p>
           <p data-h2-margin="base(x1, 0)">
-            <Pill mode="solid" color="secondary">
-              {roleDisplayName}
-            </Pill>
+            <Chip color="secondary">{roleDisplayName}</Chip>
           </p>
           <p data-h2-margin="base(x1, 0)">
             {intl.formatMessage(uiMessages.confirmContinue)}

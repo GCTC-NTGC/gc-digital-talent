@@ -7,6 +7,8 @@ import {
   PublishingGroup,
   SecurityStatus,
   PoolOpportunityLength,
+  PoolSkillType,
+  SkillLevel,
 } from "@gc-digital-talent/graphql";
 
 type CreateAndPublishPoolArgs = {
@@ -41,9 +43,6 @@ export function createAndPublishPool({
             fr: "test impact FR",
           },
           keyTasks: { en: "key task EN", fr: "key task FR" },
-          essentialSkills: {
-            sync: [skill.id],
-          },
           language: PoolLanguage.Various,
           securityClearance: SecurityStatus.Secret,
           location: {
@@ -53,9 +52,12 @@ export function createAndPublishPool({
           isRemote: true,
           publishingGroup: PublishingGroup.ItJobs,
           opportunityLength: PoolOpportunityLength.Various,
-        }).then((updatedPool) => {
-          cy.publishPool(updatedPool.id).as(poolAlias);
         });
+        cy.createPoolSkill(createdPool.id, skill.id, {
+          type: PoolSkillType.Essential,
+          requiredLevel: SkillLevel.Beginner,
+        });
+        cy.publishPool(createdPool.id).as(poolAlias);
       });
     },
   );

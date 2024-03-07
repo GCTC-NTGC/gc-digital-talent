@@ -1,9 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Pill } from "@gc-digital-talent/ui";
+import { Chip, Chips } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Team } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import adminMessages from "~/messages/adminMessages";
 
@@ -13,17 +14,7 @@ interface ViewTeamProps {
 
 const ViewTeam = ({ team }: ViewTeamProps) => {
   const intl = useIntl();
-
-  const departmentsPillsArray =
-    team?.departments && team.departments.length > 0
-      ? team.departments.map((department) => {
-          return (
-            <Pill color="primary" mode="outline" key={department?.id}>
-              {getLocalizedName(department?.name, intl)}
-            </Pill>
-          );
-        })
-      : null;
+  const departments = unpackMaybes(team.departments);
 
   return (
     <>
@@ -77,7 +68,15 @@ const ViewTeam = ({ team }: ViewTeamProps) => {
           <p data-h2-margin-bottom="base(x.25)">
             {intl.formatMessage(adminMessages.departments)}
           </p>
-          {departmentsPillsArray}
+          {departments.length > 0 ? (
+            <Chips>
+              {departments.map((department) => (
+                <Chip color="primary" key={department.id}>
+                  {getLocalizedName(department.name, intl)}
+                </Chip>
+              ))}
+            </Chips>
+          ) : null}
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
           <p data-h2-margin-top="base(x1)">

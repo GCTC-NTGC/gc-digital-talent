@@ -3,7 +3,7 @@ import orderBy from "lodash/orderBy";
 import { IntlShape } from "react-intl";
 
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { Link, Pill } from "@gc-digital-talent/ui";
+import { Link, Chip, Chips } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Maybe, Role, Team } from "@gc-digital-talent/graphql";
 
@@ -61,19 +61,15 @@ export function emailLinkCell(
 
 export function roleCell(roles: Maybe<Maybe<Role>[]>, intl: IntlShape) {
   const nonEmptyRoles = roles?.filter(notEmpty);
-  const rolePills = nonEmptyRoles
+  const roleChips = nonEmptyRoles
     ? orderRoles(nonEmptyRoles, intl).map((role) => (
-        <Pill color="blackFixed" mode="solid" key={role.id}>
+        <Chip color="black" key={role.id}>
           {getLocalizedName(role.displayName, intl)}
-        </Pill>
+        </Chip>
       ))
     : null;
 
-  return rolePills ? (
-    <span data-h2-display="base(flex)" data-h2-gap="base(x.25)">
-      {rolePills}
-    </span>
-  ) : null;
+  return roleChips ? <Chips>{roleChips}</Chips> : null;
 }
 
 export function roleAccessor(roles: Maybe<Maybe<Role>[]>, intl: IntlShape) {

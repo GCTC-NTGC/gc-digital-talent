@@ -18,11 +18,11 @@
     "@gc-digital-talent/env": "*"
   },
   "devDependencies": {
-    "@swc/core": "^1.4.2",
+    "@swc/core": "^1.4.5",
     "eslint": "^8.57.0",
     "eslint-config-custom": "*",
     "tsconfig": "*",
     "tsup": "^8.0.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.4.2"
   }
 }

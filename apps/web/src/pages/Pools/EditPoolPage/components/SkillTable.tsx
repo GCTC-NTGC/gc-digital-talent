@@ -1,67 +1,129 @@
 import React from "react";
-import { IntlShape, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
+import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Button } from "@gc-digital-talent/ui";
-import { Scalars, Skill } from "@gc-digital-talent/graphql";
+import { SkillCategory, SkillLevel, Skill } from "@gc-digital-talent/graphql";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
 import { normalizedText } from "~/components/Table/sortingFns";
 import { NullMessageProps } from "~/components/Table/ResponsiveTable/NullMessage";
+import { getUserSkillLevelAndDefinition } from "~/utils/skillUtils";
 
-const columnHelper = createColumnHelper<Skill>();
+const columnHelper = createColumnHelper<
+  Skill & {
+    poolSkillId: string;
+    requiredLevel?: SkillLevel;
+  }
+>();
 
-const removeCell = (
-  skill: Skill,
-  onClick: (id: string) => void,
-  intl: IntlShape,
-) => (
-  <Button
-    type="button"
-    mode="inline"
-    color="black"
-    onClick={() => onClick(skill.id)}
-  >
-    {intl.formatMessage(
-      {
-        defaultMessage: "Remove skill<hidden>, {skillName}</hidden>",
-        id: "InH7pD",
-        description: "Button text to remove a skill from a process",
-      },
-      {
-        skillName: getLocalizedName(skill.name, intl),
-      },
-    )}
-  </Button>
-);
+const ActionCell = (
+  skill: Skill & {
+    poolSkillId: string;
+    requiredLevel?: SkillLevel;
+  },
+  onUpdate: (id: string, skillLevel: SkillLevel) => Promise<void>,
+  onRemove: (poolSkillSelected: string) => Promise<void>,
+) => {
+  const intl = useIntl();
+  const [isOpen] = React.useState<boolean>(false);
+  const { id, poolSkillId, requiredLevel, name } = skill;
+  const localizedName = getLocalizedName(name, intl);
+
+  return (
+    <div
+      data-h2-display="base(flex)"
+      data-h2-flex-wrap="base(wrap)"
+      data-h2-gap="base(x.25)"
+    >
+      <SkillBrowserDialog
+        context="pool"
+        defaultOpen={isOpen}
+        showCategory={false}
+        customTrigger={
+          <Button
+            icon={PencilSquareIcon}
+            color="success"
+            mode="inline"
+            aria-label={intl.formatMessage(
+              {
+                defaultMessage: "Edit {skillName}",
+                id: "F6L/Rv",
+                description: "Edit a skill",
+              },
+              {
+                skillName: localizedName,
+              },
+            )}
+          />
+        }
+        skills={[skill]}
+        initialState={{
+          family: "all",
+          skill: id,
+          skillLevel: requiredLevel ?? undefined,
+        }}
+        onSave={async (value) => {
+          if (value.skill && value.skillLevel) {
+            onUpdate(poolSkillId, value.skillLevel);
+          }
+        }}
+      />
+      <Button
+        color="error"
+        mode="inline"
+        icon={TrashIcon}
+        onClick={() => onRemove(poolSkillId)}
+        aria-label={intl.formatMessage(
+          {
+            defaultMessage: "Remove {skillName}",
+            id: "eqX3mk",
+            description: "Remove a skill",
+          },
+          {
+            skillName: localizedName,
+          },
+        )}
+      />
+    </div>
+  );
+};
 
 interface SkillTableProps {
   caption: string;
-  data: Skill[];
+  data: (Skill & {
+    poolSkillId: string;
+    requiredLevel?: SkillLevel;
+  })[];
   allSkills: Skill[];
-  onSave: (submitData: Scalars["ID"]["output"][]) => Promise<void>;
   disableAdd?: boolean;
   nullMessage?: NullMessageProps;
+  onCreate: (skillSelected: string, skillLevel: SkillLevel) => Promise<void>;
+  onUpdate: (
+    poolSkillSelected: string,
+    skillLevel: SkillLevel,
+  ) => Promise<void>;
+  onRemove: (poolSkillSelected: string) => Promise<void>;
 }
 
 const SkillTable = ({
   caption,
   data,
   allSkills,
-  onSave,
   disableAdd,
   nullMessage,
+  onCreate,
+  onUpdate,
+  onRemove,
 }: SkillTableProps) => {
   const intl = useIntl();
   const availableSkills = allSkills.filter(
     (skill) => !data.find((value) => value.id === skill.id),
   );
-
-  const handleRemove = (id: string) => {
-    onSave(data.filter((skill) => skill.id !== id).map((skill) => skill.id));
-  };
 
   let columns = [
     columnHelper.accessor((skill) => getLocalizedName(skill.name, intl), {
@@ -78,26 +140,60 @@ const SkillTable = ({
         isRowTitle: true,
       },
     }),
-  ] as ColumnDef<Skill>[];
+    columnHelper.accessor(
+      (skill) =>
+        skill.requiredLevel
+          ? getUserSkillLevelAndDefinition(
+              skill.requiredLevel,
+              skill.category === SkillCategory.Technical,
+              intl,
+            ).level
+          : intl.formatMessage(commonMessages.notFound),
+      {
+        id: "level",
+        header: intl.formatMessage({
+          defaultMessage: "Level required",
+          id: "91b+W0",
+          description: "Required skill level column header for tables",
+        }),
+        enableHiding: false,
+        enableColumnFilter: false,
+        sortingFn: normalizedText,
+        meta: {
+          isRowTitle: true,
+        },
+      },
+    ),
+  ] as ColumnDef<
+    Skill & {
+      poolSkillId: string;
+      requiredLevel?: SkillLevel;
+    }
+  >[];
 
   if (!disableAdd) {
     columns = [
-      ...columns,
       columnHelper.display({
-        id: "edit",
-        enableHiding: false,
-        header: intl.formatMessage(commonMessages.remove),
-        meta: {
-          hideMobileHeader: true,
-        },
-        cell: ({ row: { original: department } }) =>
-          removeCell(department, handleRemove, intl),
+        id: "actions",
+        header: intl.formatMessage({
+          defaultMessage: "Actions",
+          id: "OxeGLu",
+          description: "Title displayed for the team table actions column",
+        }),
+        cell: ({ row: { original: skill } }) =>
+          ActionCell(skill, onUpdate, onRemove),
       }),
+      ...columns,
     ];
   }
 
   return (
-    <Table<Skill>
+    <Table<
+      Skill & {
+        poolSkillId: string;
+        requiredLevel?: SkillLevel;
+      }
+    >
       caption={caption}
       data={data}
       columns={columns}
@@ -111,8 +207,8 @@ const SkillTable = ({
                   showCategory={false}
                   skills={availableSkills}
                   onSave={async (value) => {
-                    if (value.skill) {
-                      onSave([...data.map((skill) => skill.id), value.skill]);
+                    if (value.skill && value.skillLevel) {
+                      onCreate(value.skill, value.skillLevel);
                     }
                   }}
                 />

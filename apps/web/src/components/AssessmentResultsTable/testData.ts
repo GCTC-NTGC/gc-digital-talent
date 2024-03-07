@@ -19,6 +19,7 @@ import {
   PoolSkill,
   PoolSkillType,
   Skill,
+  SkillLevel,
 } from "@gc-digital-talent/graphql";
 
 faker.seed(0);
@@ -31,6 +32,7 @@ const essentialPoolSkills: PoolSkill[] =
     return {
       id: faker.string.uuid(),
       type: PoolSkillType.Essential,
+      requiredLevel: SkillLevel.Beginner,
       skill: {
         ...fakeSkills(1)[0],
         id: faker.string.uuid(),
@@ -47,6 +49,7 @@ const nonEssentialPoolSkills: PoolSkill[] =
     return {
       id: faker.string.uuid(),
       type: PoolSkillType.Nonessential,
+      requiredLevel: SkillLevel.Beginner,
       skill: {
         ...fakeSkills(1)[0],
         id: faker.string.uuid(),
