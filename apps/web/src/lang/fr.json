@@ -3,10 +3,6 @@
     "defaultMessage": "Veuillez partager comment d’autres événements de vie vous ont aidé à grandir et à perfectionner vos compétences, y compris votre famille, vos passe-temps, de même que vos activités hors-horaire. ",
     "description": "Description for personal experience section"
   },
-  "+5da+V": {
-    "defaultMessage": "<heavyPrimary>Archivé</heavyPrimary>",
-    "description": "Status name of a pool in ARCHIVED status"
-  },
   "+6tF6S": {
     "defaultMessage": "Remarque spéciale",
     "description": "Sub title for the special note section"
@@ -147,10 +143,6 @@
     "defaultMessage": "Nom d'utilisateur :",
     "description": "Label for the user name input in the delete user dialog"
   },
-  "+svnC6": {
-    "defaultMessage": "Publier",
-    "description": "Heading for the publish pool dialog"
-  },
   "+t5Z7B": {
     "defaultMessage": "Exigences en matière d'éducation",
     "description": "Title for application education"
@@ -190,10 +182,6 @@
   "/2Vhvl": {
     "defaultMessage": "Sécurité de la TI",
     "description": "Label for the 'security' IT work stream"
-  },
-  "/42EqQ": {
-    "defaultMessage": "Vous êtes sur le point de désarchiver ce bassin :",
-    "description": "First paragraph for un-archive pool dialog"
   },
   "/5tYua": {
     "defaultMessage": "Fournissez vos renseignements",
@@ -258,10 +246,6 @@
   "/Oq5UR": {
     "defaultMessage": "Date prévue de début du contrat",
     "description": "Label for _contract start date_ field in the _digital services contracting questionnaire_"
-  },
-  "/QUq6L": {
-    "defaultMessage": "Vous êtes certain de vouloir continuer?",
-    "description": "Second paragraph for Delete pool dialog"
   },
   "/R/S8P": {
     "defaultMessage": "Ce volet comprend la fourniture de conseils spécialisés en matière de planification de la <abbreviation>TI</abbreviation> et la création collaborative de produits livrables, notamment des plans stratégiques, des politiques et normes de la <abbreviation>TI</abbreviation> et des processus de gouvernance.",
@@ -539,10 +523,6 @@
     "defaultMessage": "Imprimer la demande",
     "description": "Print application"
   },
-  "0qKFaP": {
-    "defaultMessage": "Ce bassin est actuellement en cours de publication et ouvert à la réception de nouvelles candidatures.",
-    "description": "Status description of a pool in PUBLISHED status"
-  },
   "0w59dG": {
     "defaultMessage": "Votre parcours professionnel",
     "description": "Heading for career timeline section of the application review page."
@@ -743,10 +723,6 @@
     "defaultMessage": "Vous êtes sur le point de supprimer cette évaluation.",
     "description": "First paragraph for delete assessment step dialog"
   },
-  "2++hVA": {
-    "defaultMessage": "Vous êtes certain de vouloir continuer?",
-    "description": "Third paragraph for Close pool dialog"
-  },
   "21QCEK": {
     "defaultMessage": "« J’atteste que les renseignements que j’ai fournis sont vrais »",
     "description": "Signature list item on sign and submit page."
@@ -935,10 +911,6 @@
     "defaultMessage": "Embaucher un·e apprenti·e en TI",
     "description": "Page title for IAP manager homepage"
   },
-  "3AmNSJ": {
-    "defaultMessage": "Ce bassin est annoncé, mais n'accepte plus de candidatures.",
-    "description": "Status description of a pool in CLOSED status"
-  },
   "3AwFyW": {
     "defaultMessage": "Si vous avez accepté un emploi récemment ou que vous ne souhaitez tout simplement plus que votre candidature soit prise en compte pour les possibilités, vous pouvez désactiver votre disponibilité dans le cadre de ce processus de recrutement. <strong>Ainsi, votre nom <emphasize>ne sera pas</emphasize> retiré du recrutement</strong> en soi, et vous pourrez toujours réactiver votre disponibilité si vous changez d’avis.",
     "description": "Text describing what it means to disable your availability and that you can reverse the decision"
@@ -1031,10 +1003,6 @@
     "defaultMessage": "Arrangement en matière d'approvisionnement",
     "description": "Supply arrangement contract instrument"
   },
-  "3mrTn5": {
-    "defaultMessage": "Prolonger la date de clôture",
-    "description": "Heading for the extend pool closing date dialog"
-  },
   "3owqTQ": {
     "defaultMessage": "Veuillez utiliser uniquement des lettres minuscules et des traits de soulignement.",
     "description": "Description for rule pattern on key field"
@@ -1082,10 +1050,6 @@
   "450itb": {
     "defaultMessage": "{count, plural, =0 {0 éléments sélectionnés} =1 {1 élément sélectionné} other {# éléments sélectionnés}}",
     "description": "Message displayed for the number of rows selected in a table"
-  },
-  "45BhQw": {
-    "defaultMessage": "Vous êtes sur le point de PUBLIER ce bassin.",
-    "description": "First paragraph for publish pool dialog"
   },
   "46pgKa": {
     "defaultMessage": "PM-04 : Analyste",
@@ -1266,10 +1230,6 @@
   "4xXPIe": {
     "defaultMessage": "Exigences pédagogiques",
     "description": "Education requirement row header."
-  },
-  "4yBTfg": {
-    "defaultMessage": "<heavyPrimary>Ébauche</heavyPrimary>",
-    "description": "Status name of a pool in DRAFT status"
   },
   "5+jnam": {
     "defaultMessage": "Information détaillée sur l'emploi",
@@ -1707,14 +1667,6 @@
     "defaultMessage": "Le retrait du membre de l’équipe a échoué",
     "description": "Alert displayed to user when an error occurs while removing a team member"
   },
-  "7NbXj1": {
-    "defaultMessage": "Ceci créera un nouveau basin et copiera toute information qui existe déjà.",
-    "description": "Text explaining what will happen when duplicating a pool"
-  },
-  "7OQHcx": {
-    "defaultMessage": "Date de clôture",
-    "description": "Closing Date field label for close pool dialog"
-  },
   "7Rllrl": {
     "defaultMessage": "Activer tout",
     "description": "Label for checkbox to toggle visibility of all columns"
@@ -1754,10 +1706,6 @@
   "7i+qEB": {
     "defaultMessage": "En apposant votre signature (en tapant votre nom au complet), vous contribuez à la création d'un espace honnête et sûr où les personnes autochtones peuvent accéder à ces possibilités.",
     "description": "Disclaimer before signing Indigenous self-declaration form"
-  },
-  "7k27sT": {
-    "defaultMessage": "Clôture manuellement",
-    "description": "Heading for the close pool dialog"
   },
   "7lCUIL": {
     "defaultMessage": "Quel est le titre du poste?",
@@ -2447,10 +2395,6 @@
     "defaultMessage": "Proposez-vous pour passer quelques heures à participer à une équipe interministérielle qui évaluera des candidats et exécutera des processus d’emploi sur la plateforme Talents numériques du GC.",
     "description": "Paragraph two, summary on getting hiring experience"
   },
-  "BhtXXY": {
-    "defaultMessage": "Fermer",
-    "description": "Text on a button to close the pool"
-  },
   "BkJbK1": {
     "defaultMessage": "L’initiative sur le numérique fait avancer le plan pour les talents",
     "description": "Title for digital initiative signpost in the _digital services contracting questionnaire_"
@@ -2879,10 +2823,6 @@
     "defaultMessage": "Masquer plus de renseignements sur les types d’expériences que vous pouvez ajouter à votre chronologie de carrière",
     "description": "Button text to close accordion describing skill experience"
   },
-  "DxvIPq": {
-    "defaultMessage": "Dupliquer l’affiche d’emploi",
-    "description": "Title to duplicate a job poster"
-  },
   "DyHeaZ": {
     "defaultMessage": "Retirer le membre",
     "description": "Label for the dialog to remove a users team membership"
@@ -3095,10 +3035,6 @@
     "defaultMessage": "Groupe et niveau",
     "description": "Title displayed for the Pool table Group and Level column."
   },
-  "FGedDI": {
-    "defaultMessage": "Cela va masquer ce bassin dans tous les tableaux concernés et dans les informations relatives au bassin d'un utilisateur.",
-    "description": "Second paragraph for archive pool dialog"
-  },
   "FMJiDY": {
     "defaultMessage": "Sélectionnez la valeur totale du contrat",
     "description": "Label for _contract value_ fieldset in the _digital services contracting questionnaire_"
@@ -3158,10 +3094,6 @@
   "FZ5qdE": {
     "defaultMessage": "Domaines de travail dans le secteur des technologies de l'information (TI)",
     "description": "Link text to more information about information technology work streams"
-  },
-  "FboyrB": {
-    "defaultMessage": "Vous êtes sur le point d'archiver ce bassin :",
-    "description": "First paragraph for archive pool dialog"
   },
   "FdXLKJ": {
     "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les gestionnaires (PDF)",
@@ -4499,17 +4431,9 @@
     "defaultMessage": "Talents numériques du GC s'associe au service de justificatifs du gouvernement du Canada, CléGC, pour vous donner accès à votre compte à l'aide d'une seule combinaison de nom d'utilisateur et de mot de passe. Vous pouvez gérer les données connexes sur le site Web de CléGC, et elles s'afficheront automatiquement ici lorsque vous accéderez à votre compte.",
     "description": "Description of how we use GCKey for authentication."
   },
-  "NljjDf": {
-    "defaultMessage": "Vous pouvez choisir de le fermer manuellement maintenant, cela empêchera les utilisateurs de soumettre des candidatures.",
-    "description": "Second paragraph for the close pool dialog"
-  },
   "NuT+Rx": {
     "defaultMessage": "Procéder à la mise à jour du sujet",
     "description": "Heading label for update a user's subject form"
-  },
-  "NwpZNj": {
-    "defaultMessage": "<heavyPrimary>Publiée</heavyPrimary>",
-    "description": "Status name of a pool in PUBLISHED status"
   },
   "NxrKpM": {
     "defaultMessage": "Statut de la candidature",
@@ -4570,10 +4494,6 @@
   "OI7Bc7": {
     "defaultMessage": "Titre du poste",
     "description": "Label for an opportunity's job title."
-  },
-  "OIk63O": {
-    "defaultMessage": "Prolonger la date de clôture",
-    "description": "Button to extend the pool closing date in the extend pool closing date dialog"
   },
   "OM75j3": {
     "defaultMessage": "La démonstration des compétences permet à un candidat de fournir une série conserve de listes qui mettent en évidence leurs forces, lacunes particulières, de même que leurs occasions de croissances. Ces listes peuvent vous donner un aperçu de l’ensemble plus vaste de compétences d’un candidat, et préciser où ils pourraient être intéressés à apprendre de nouvelles compétences. ",
@@ -4727,10 +4647,6 @@
     "defaultMessage": "Ces informations permettent aux candidats de savoir à quel type de travail et dans quel environnement ils postulent. Utilisez cet espace pour parler de la zone du gouvernement que ce processus visera à améliorer, et la valeur que produira ce type de travail.",
     "description": "Describes the 'your impact' section of a process' advertisement."
   },
-  "P8NuMo": {
-    "defaultMessage": "Archiver",
-    "description": "Text on a button to archive the pool"
-  },
   "P9SZBZ": {
     "defaultMessage": "Sélectionnez les filtres",
     "description": "Candidate search filter dialog: title"
@@ -4798,10 +4714,6 @@
   "PbLJnr": {
     "defaultMessage": "Grade en économie, en sociologie ou en statistique",
     "description": "Heading for the `just education` option for EC education requirements"
-  },
-  "PdE7yp": {
-    "defaultMessage": "Archiver ce bassin",
-    "description": "Archive this pool action"
   },
   "Pe1kas": {
     "defaultMessage": "Notes sur les demandes",
@@ -5018,10 +4930,6 @@
   "QkZ7Oy": {
     "defaultMessage": "Comment une personne peut-elle présenter une demande pour devenir apprentie?",
     "description": "Learn more dialog question eleven heading"
-  },
-  "QmMm7V": {
-    "defaultMessage": "Dupliquer et consulter la nouvelle affiche d’emploi",
-    "description": "Button text to duplicate a job poster"
   },
   "QnfjbI": {
     "defaultMessage": "constituent de l’usurpation d’identité, de la publicité ou un pourriel",
@@ -5266,10 +5174,6 @@
   "Rq14QK": {
     "defaultMessage": "Il manque des données requises par le gouvernement",
     "description": "Error message displayed when a users government information is incomplete"
-  },
-  "Rs50V0": {
-    "defaultMessage": "Désarchiver ce bassin",
-    "description": "Button to un-archive the pool in the un-archive pool dialog"
   },
   "RvB1GT": {
     "defaultMessage": "Relations de travail",
@@ -5595,10 +5499,6 @@
     "defaultMessage": "Si vous n’avez pas eu de nos nouvelles ou avez des questions, vous pouvez nous joindre, à : <mailLink>recruitmentimit-recrutementgiti@tbs-sct.gc.ca</mailLink>",
     "description": "Description of how a user can contact someone for answers/information on their existing request"
   },
-  "TtX+o7": {
-    "defaultMessage": "Ce bassin n'est plus annoncé ni visible par le public.",
-    "description": "Status description of a pool in ARCHIVED status"
-  },
   "TvUVa0": {
     "defaultMessage": "Vous êtes sur le point d’ajouter un nouveau rôle à l’utilisateur suivant : <strong>{userName}</strong>",
     "description": "Lead in text for the add role to user form."
@@ -5630,10 +5530,6 @@
   "U/ji+A": {
     "defaultMessage": "Candidature créée",
     "description": "Application created successfully"
-  },
-  "U/zhJQ": {
-    "defaultMessage": "Désarchiver",
-    "description": "Text on a button to un-archive the pool"
   },
   "U0MY+6": {
     "defaultMessage": "À quoi vous attendre après avoir soumis votre demande",
@@ -5833,10 +5729,6 @@
   "VBsMcq": {
     "defaultMessage": "En savoir plus<hidden> sur la Gestion de la collectivité numérique</hidden>",
     "description": "Link text for Digital Community Management"
-  },
-  "VCl+IZ": {
-    "defaultMessage": "<heavyPrimary>Fermée</heavyPrimary>",
-    "description": "Status name of a pool in CLOSED status"
   },
   "VD/o5X": {
     "defaultMessage": "Aucune compétence trouvée.",
@@ -7622,10 +7514,6 @@
     "defaultMessage": "Renseignements sur les accords commerciaux",
     "description": "Title for _trade agreement_ fieldset in the _digital services contracting questionnaire_"
   },
-  "ekGCv2": {
-    "defaultMessage": "Cela mettra votre bassin à la disposition des candidats pour qu'ils puissent soumettre des candidatures",
-    "description": "Second paragraph for publish pool dialog"
-  },
   "elFbzT": {
     "defaultMessage": "Type d’études",
     "description": "Label displayed on Education form for education type input"
@@ -7914,10 +7802,6 @@
     "defaultMessage": "Oups, on dirait que vous avez atterri sur une page que vous n'êtes pas autorisé(e) à consulter.",
     "description": "Detailed message saying the page to view is not authorized."
   },
-  "gLHr9Y": {
-    "defaultMessage": "La clôture automatique de ce bassin est programmés pour le :",
-    "description": "Third paragraph for publish pool dialog"
-  },
   "gLNQYB": {
     "defaultMessage": "Évaluées lors de la demande initiale",
     "description": "Message displayed for technical skills telling users at what point it will be assessed"
@@ -8009,10 +7893,6 @@
   "gpcHeU": {
     "defaultMessage": "Canada.ca",
     "description": "Alt text for the Canada logo link in the Header."
-  },
-  "grrIC7": {
-    "defaultMessage": "Vous êtes sur le point de supprimer ce bassin.",
-    "description": "First paragraph for delete pool dialog"
   },
   "gsaza3": {
     "defaultMessage": "Prévoyez-vous un effet de report ou d’entraînement immédiat sur d’autres services en termes de niveaux de personnel ou de compétences requises?",
@@ -8610,10 +8490,6 @@
     "defaultMessage": "{stream} demande",
     "description": "Link text to view an application to a specific pool stream"
   },
-  "jdD/iA": {
-    "defaultMessage": "Désarchiver ce bassin",
-    "description": "Heading for the un-archive pool dialog"
-  },
   "je6zFF": {
     "defaultMessage": "Présenter sa candidature pour les opportunités d’analystes<hidden> {name}</hidden>",
     "description": "Invitation to apply for the 'IT-02 Analyst' classification"
@@ -8633,10 +8509,6 @@
   "jiJ8qo": {
     "defaultMessage": "Poursuivre l’ébauche",
     "description": "Link text to continue a specific application that is in draft state."
-  },
-  "jiUwae": {
-    "defaultMessage": "Prolonger la date",
-    "description": "Text on a button to extend the expiry date the pool"
   },
   "joXPYW": {
     "defaultMessage": "Composantes clés",
@@ -8697,10 +8569,6 @@
   "k8lEf0": {
     "defaultMessage": "Niveaux de compétence technique",
     "description": "Heading for the skills level definitions of technical skills"
-  },
-  "kHKFAH": {
-    "defaultMessage": "Ce bassin n'a pas encore été annoncé.",
-    "description": "Status description of a pool in DRAFT status"
   },
   "kHypfJ": {
     "defaultMessage": "Du concept au code",
@@ -9434,10 +9302,6 @@
     "defaultMessage": "Autre expérience dans un domaine connexe",
     "description": "Experience requirement, other."
   },
-  "oJri9k": {
-    "defaultMessage": "Vous êtes sur le point de dupliquer le bassin suivant : {poolName}",
-    "description": "Text to confirm the pool to be duplicated"
-  },
   "oOPwam": {
     "defaultMessage": "6 à 12 mois",
     "description": "Contract start timeframe of six to twelve months"
@@ -9930,10 +9794,6 @@
     "defaultMessage": "Gérez votre carrière",
     "description": "Heading for featured items on the manager homepage"
   },
-  "rkPb6M": {
-    "defaultMessage": "La clôture automatique de ce bassin est programmés pour le :",
-    "description": "First paragraph for the close pool dialog"
-  },
   "rlWajt": {
     "defaultMessage": "Les définitions de chaque possibilité de lieu de travail sont présentées ici",
     "description": "Lead-in text to definitions of different work location terminology"
@@ -10162,10 +10022,6 @@
     "defaultMessage": "Retourner au Français",
     "description": "Button text for returning to default language from Indigenous language"
   },
-  "t4WPUU": {
-    "defaultMessage": "Publier",
-    "description": "Text on a button to publish the pool"
-  },
   "t5G3Fz": {
     "defaultMessage": "Intermédiaire <gray>– J'ai des compétences robustes en lecture, écriture et communication verbale.</gray>",
     "description": "Message for the intermediate language ability option"
@@ -10321,10 +10177,6 @@
   "uD7QTb": {
     "defaultMessage": "Il appartient aux gestionnaires de gérer l’élaboration et la prestation de services et (ou) d’opérations de <abbreviation>TI</abbreviation> par l’entremise de chefs d’équipe subalternes, de conseillers techniques et d’équipes de projet.",
     "description": "Description for the 'IT-04 Manager' classification, paragraph 1"
-  },
-  "uDuEu0": {
-    "defaultMessage": "Publier le bassin",
-    "description": "Button to publish the pool in the publish pool dialog"
   },
   "uEqA50": {
     "defaultMessage": "Ajouter une nouvelle question",
@@ -10874,10 +10726,6 @@
     "defaultMessage": "Sélectionnez un ministère",
     "description": "Null selection for department select input in the request form."
   },
-  "y9tCKP": {
-    "defaultMessage": "Utilisez ces options pour publier ou clore votre annonce. Une annonce en direct permettra aux candidats de soumettre leur candidature pour ce bassin",
-    "description": "Helper message for changing the pool advertisement status"
-  },
   "yBXGo6": {
     "defaultMessage": "Cette liste permet au candidat de mettre en évidence <strong>jusqu’à 5 compétences comportementales ou relationnelles</strong> dans lesquelles ils excellent le plus.",
     "description": "Description of a users top behavioural skills"
@@ -10957,10 +10805,6 @@
   "yXwlJw": {
     "defaultMessage": "Chercher les familles de compétences",
     "description": "Label for the skill families table search input"
-  },
-  "yYDzYE": {
-    "defaultMessage": "Fermez le bassin maintenant",
-    "description": "Button to close the pool in the close pool dialog"
   },
   "yZMQ6j": {
     "defaultMessage": "Nous voulons en apprendre davantage sur vous et sur votre intérêt ou votre passion dans le domaine de la TI!",

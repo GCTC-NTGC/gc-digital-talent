@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import { useQuery } from "urql";
 
-import { Pending, NotFound, Link, Heading, Pill } from "@gc-digital-talent/ui";
+import { Pending, NotFound, Link, Heading, Chip } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   DATE_FORMAT_STRING,
@@ -139,14 +139,12 @@ export const ViewPool = ({
                     "Title for advertisement information of a process",
                 })}
               </Heading>
-              <Pill
-                bold
-                mode="outline"
+              <Chip
                 color={advertisementBadge.color}
                 data-h2-flex-shrink="base(0)"
               >
                 {intl.formatMessage(advertisementBadge.label)}
-              </Pill>
+              </Chip>
             </ProcessCard.Header>
             <p data-h2-margin="base(x1 0)">
               {intl.formatMessage({
@@ -200,14 +198,12 @@ export const ViewPool = ({
                 {intl.formatMessage(messages.assessmentPlan)}
               </Heading>
               {recordOfDecisionFlag && (
-                <Pill
-                  bold
-                  mode="outline"
+                <Chip
                   color={assessmentBadge.color}
                   data-h2-flex-shrink="base(0)"
                 >
                   {intl.formatMessage(assessmentBadge.label)}
-                </Pill>
+                </Chip>
               )}
             </ProcessCard.Header>
             <p data-h2-margin="base(x1 0)">
@@ -260,15 +256,13 @@ export const ViewPool = ({
                     "Title for card for actions related to changing the status of a process",
                 })}
               </Heading>
-              <Pill
-                bold
-                mode="outline"
+              <Chip
                 color={processBadge.color}
                 icon={processBadge.icon}
                 data-h2-flex-shrink="base(0)"
               >
                 {intl.formatMessage(processBadge.label)}
-              </Pill>
+              </Chip>
             </ProcessCard.Header>
             {pool.status === PoolStatus.Published && (
               <p data-h2-margin="base(x1 0)">
