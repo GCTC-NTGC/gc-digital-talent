@@ -89,7 +89,9 @@ const Chip = ({
         <XCircleIcon
           aria-label={intl.formatMessage(uiMessages.removeChip)}
           aria-hidden="false"
-          data-h2-order="base(3)" // DOM order different from reading order
+          // DOM order is first for readability "Remove X"
+          // Move to end in visual order for design
+          data-h2-order="base(3)"
           {...iconProps}
         />
       )}
