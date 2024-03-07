@@ -3,6 +3,8 @@ import { StoryFn, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import AcademicCapIcon from "@heroicons/react/20/solid/AcademicCapIcon";
 
+import { allModes } from "@gc-digital-talent/storybook-helpers";
+
 import { Color } from "../../types";
 import Chip from "./Chip";
 import Chips from "./Chips";
@@ -22,6 +24,14 @@ const colors: Color[] = [
 export default {
   component: Chip,
   title: "Components/Chip",
+  parameters: {
+    chromatic: {
+      modes: {
+        light: allModes.light,
+        dark: allModes.dark,
+      },
+    },
+  },
 } as Meta<typeof Chip>;
 
 const Template: StoryFn<typeof Chip> = (args) => {
