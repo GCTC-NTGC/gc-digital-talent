@@ -6,7 +6,6 @@ import {
   Chip,
   Chips,
   Color,
-  PillMode,
   Heading,
   HeadingRank,
 } from "@gc-digital-talent/ui";
@@ -18,7 +17,7 @@ import {
 } from "~/utils/languageUtils";
 
 interface MissingLanguageRequirementsBlockProps {
-  pillType: { color: Color; mode: PillMode };
+  pillType: { color: Color };
   /** Title for the block */
   title: React.ReactNode;
   /** Message displayed before language requirements that are missing from application */
@@ -63,12 +62,9 @@ const MissingLanguageRequirementsBlock = ({
             </p>
             <Chips>
               {missingLanguageRequirements.map((requirementName: string) => (
-                <Chip
-                  key={requirementName}
-                  color={pillType.color}
-                  mode={pillType.mode}
-                  label={requirementName}
-                />
+                <Chip key={requirementName} color={pillType.color}>
+                  {requirementName}
+                </Chip>
               ))}
             </Chips>
           </>
@@ -101,7 +97,7 @@ const MissingLanguageRequirements = ({
       data-h2-background-color="base(foreground)"
       data-h2-shadow="base(medium)"
       data-h2-margin="base(0, 0, x.5, 0)"
-      pillType={{ color: "error", mode: "outline" }}
+      pillType={{ color: "error" }}
       headingLevel={headingLevel}
       title={intl.formatMessage({
         defaultMessage: "There is a missing language requirement",
