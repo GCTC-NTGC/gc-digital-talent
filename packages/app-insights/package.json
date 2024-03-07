@@ -23,13 +23,13 @@
     "@microsoft/applicationinsights-web": "^3.1.0"
   },
   "devDependencies": {
-    "@swc/core": "^1.4.2",
-    "@types/react": "^18.2.61",
+    "@swc/core": "^1.4.5",
+    "@types/react": "^18.2.64",
     "eslint": "^8.57.0",
     "eslint-config-custom": "workspace:*",
     "react": "^18.2.0",
     "tsconfig": "workspace:*",
     "tsup": "^8.0.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.4.2"
   }
 }

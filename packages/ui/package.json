@@ -39,7 +39,7 @@
     "@radix-ui/react-tabs": "^1.0.3",
     "@radix-ui/react-toggle": "^1.0.2",
     "@radix-ui/react-toggle-group": "^1.0.3",
-    "chromatic": "^11.0.0",
+    "chromatic": "^11.0.4",
     "framer-motion": "^11.0.8",
     "lodash": "4.17.21",
     "react-csv-downloader": "^3.1.0",
@@ -56,15 +56,15 @@
     "@gc-digital-talent/storybook-helpers": "workspace:*",
     "@storybook/addon-actions": "^7.6.17",
     "@storybook/react": "^7.6.17",
-    "@swc/core": "^1.4.2",
+    "@swc/core": "^1.4.5",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.1",
     "@testing-library/user-event": "^14.5.2",
     "@types/jest": "^29.5.12",
     "@types/lodash": "4.14.202",
-    "@types/react": "^18.2.61",
+    "@types/react": "^18.2.64",
     "@types/react-csv": "^1.1.10",
-    "@types/react-dom": "^18.2.19",
+    "@types/react-dom": "^18.2.21",
     "eslint": "^8.57.0",
     "eslint-config-custom": "workspace:*",
     "jest": "^29.7.0",
@@ -73,6 +73,6 @@
     "react-router-dom": "^6.22.2",
     "tsconfig": "workspace:*",
     "tsup": "^8.0.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.4.2"
   }
 }

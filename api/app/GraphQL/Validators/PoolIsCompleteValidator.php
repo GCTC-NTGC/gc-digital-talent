@@ -53,6 +53,10 @@ final class PoolIsCompleteValidator extends Validator
                 'exists:skills,id',
                 new SkillNotDeleted,
             ],
+            'pool_skills.*.required_skill_level' => [
+                'required',
+                'string',
+            ],
             // Other requirements
             'advertisement_language' => ['required', Rule::in(array_column(PoolLanguage::cases(), 'name'))],
             'security_clearance' => ['required', Rule::in(array_column(SecurityStatus::cases(), 'name'))],

@@ -3,7 +3,13 @@ import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
 import { toast } from "@gc-digital-talent/toast";
-import { graphql, UpdatePoolInput, Scalars } from "@gc-digital-talent/graphql";
+import {
+  graphql,
+  UpdatePoolInput,
+  Scalars,
+  CreatePoolSkillInput,
+  UpdatePoolSkillInput,
+} from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -71,6 +77,34 @@ const ArchivePool_Mutation = graphql(/* GraphQL */ `
 const UnarchivePool_Mutation = graphql(/* GraphQL */ `
   mutation UnarchivePool($id: ID!) {
     unarchivePool(id: $id) {
+      id
+    }
+  }
+`);
+
+const CreatePoolSkill_Mutation = graphql(/* GraphQL */ `
+  mutation CreatePoolSkill(
+    $poolId: ID!
+    $skillId: ID!
+    $poolSkill: CreatePoolSkillInput!
+  ) {
+    createPoolSkill(poolId: $poolId, skillId: $skillId, poolSkill: $poolSkill) {
+      id
+    }
+  }
+`);
+
+const UpdatePoolSkill_Mutation = graphql(/* GraphQL */ `
+  mutation UpdatePoolSkill($id: ID!, $poolSkill: UpdatePoolSkillInput!) {
+    updatePoolSkill(id: $id, poolSkill: $poolSkill) {
+      id
+    }
+  }
+`);
+
+const DeletePoolSkill_Mutation = graphql(/* GraphQL */ `
+  mutation DeletePoolSkill($id: ID!) {
+    deletePoolSkill(id: $id) {
       id
     }
   }
@@ -342,6 +376,85 @@ const usePoolMutations = (returnPath?: string) => {
       .catch(handleUnarchiveError);
   };
 
+  const [
+    { fetching: createPoolSkillFetching },
+    executeCreatePoolSkillMutation,
+  ] = useMutation(CreatePoolSkill_Mutation);
+
+  const createPoolSkill = async (
+    poolId: string,
+    skillId: string,
+    poolSkill: CreatePoolSkillInput,
+  ) => {
+    return executeCreatePoolSkillMutation({ poolId, skillId, poolSkill })
+      .then((result) => {
+        if (result.data?.createPoolSkill) {
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Pool updated successfully!",
+              id: "nPUAz5",
+              description: "Message displayed to user after pool is updated",
+            }),
+          );
+
+          return Promise.resolve();
+        }
+        return handleUpdateError();
+      })
+      .catch(handleUpdateError);
+  };
+
+  const [
+    { fetching: updatePoolSkillFetching },
+    executeUpdatePoolSkillMutation,
+  ] = useMutation(UpdatePoolSkill_Mutation);
+
+  const updatePoolSkill = async (
+    id: string,
+    poolSkill: UpdatePoolSkillInput,
+  ) => {
+    return executeUpdatePoolSkillMutation({ id, poolSkill })
+      .then((result) => {
+        if (result.data?.updatePoolSkill) {
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Pool updated successfully!",
+              id: "nPUAz5",
+              description: "Message displayed to user after pool is updated",
+            }),
+          );
+
+          return Promise.resolve();
+        }
+        return handleUpdateError();
+      })
+      .catch(handleUpdateError);
+  };
+
+  const [
+    { fetching: deletePoolSkillFetching },
+    executeDeletePoolSkillMutation,
+  ] = useMutation(DeletePoolSkill_Mutation);
+
+  const deletePoolSkill = async (id: string) => {
+    return executeDeletePoolSkillMutation({ id })
+      .then((result) => {
+        if (result.data?.deletePoolSkill) {
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Pool updated successfully!",
+              id: "nPUAz5",
+              description: "Message displayed to user after pool is updated",
+            }),
+          );
+
+          return Promise.resolve();
+        }
+        return handleUpdateError();
+      })
+      .catch(handleUpdateError);
+  };
+
   return {
     isFetching:
       updateFetching ||
@@ -351,7 +464,10 @@ const usePoolMutations = (returnPath?: string) => {
       deleteFetching ||
       duplicateFetching ||
       archiveFetching ||
-      unarchiveFetching,
+      unarchiveFetching ||
+      createPoolSkillFetching ||
+      updatePoolSkillFetching ||
+      deletePoolSkillFetching,
     mutations: {
       update,
       extend,
@@ -361,6 +477,9 @@ const usePoolMutations = (returnPath?: string) => {
       duplicate: duplicatePool,
       archive: archivePool,
       unarchive: unarchivePool,
+      createPoolSkill,
+      updatePoolSkill,
+      deletePoolSkill,
     },
   };
 };

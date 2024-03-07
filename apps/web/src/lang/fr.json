@@ -1975,6 +1975,10 @@
     "defaultMessage": "(Ordre croissant)",
     "description": "Message added to indicate a table column is sorted in ascending order"
   },
+  "91b+W0": {
+    "defaultMessage": "Niveau exigé",
+    "description": "Required skill level column header for tables"
+  },
   "92hwzj": {
     "defaultMessage": "Statut de citoyenneté :",
     "description": "Citizenship status label"
@@ -3063,6 +3067,10 @@
     "defaultMessage": "Il manque des renseignements obligatoires sur la langue",
     "description": "Error message displayed when a users language information is incomplete"
   },
+  "F6L/Rv": {
+    "defaultMessage": "Modifier {skillName}",
+    "description": "Edit a skill"
+  },
   "F7RkOA": {
     "defaultMessage": "<strong>Pour commencer, nous vous demanderons de vérifier les renseignements de base de votre profil</strong>. Si vous n’avez pas encore créé votre profil, pas de problème! Vous pouvez ajouter tous les renseignements pertinents à l’étape suivante.",
     "description": "Description of the application process and the next step"
@@ -3579,10 +3587,6 @@
     "defaultMessage": "Impossible de créer de nouveaux postes à durée déterminée dans les délais requis",
     "description": "Unable to create new term positions operations consideration"
   },
-  "I7rxxQ": {
-    "defaultMessage": "Mots-clés",
-    "description": "Title displayed for the skill table Keywords column."
-  },
   "I8jlr2": {
     "defaultMessage": "Date de clôture",
     "description": "Sub title for pool closing date"
@@ -3706,10 +3710,6 @@
   "ImwOeT": {
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience professionnelle} =1 {1 expérience professionnelle} other {# expériences professionnelles}}",
     "description": "list a number of work experiences"
-  },
-  "InH7pD": {
-    "defaultMessage": "Supprimer la compétence<hidden>, {skillName}</hidden>",
-    "description": "Button text to remove a skill from a process"
   },
   "Iodi0/": {
     "defaultMessage": "Nos concepteurs prêtent une attention particulière aux éléments suivants : ",
@@ -4903,6 +4903,10 @@
     "defaultMessage": "Modifier le plan d’évaluation",
     "description": "Link text to edit a specific pool assessment"
   },
+  "Q6jULV": {
+    "defaultMessage": "Sélectionnez votre niveau actuel de compétences",
+    "description": "Label for required skill level select"
+  },
   "Q6ws0E": {
     "defaultMessage": "Il semblerait que vous soyez sur une page qui n'existe pas ou qui a été déplacée.",
     "description": "Body text for the 404 page not found page."
@@ -6005,6 +6009,10 @@
   "VsV4Vu": {
     "defaultMessage": "L’utilisateur perdra le rôle suivant :",
     "description": "Text notifying user which role will be removed from the user"
+  },
+  "Vw7bLe": {
+    "defaultMessage": "Maintenant que vous avez sélectionné une compétence, veuillez indiquer le niveau auquel les candidats devront se trouver.",
+    "description": "Help text for setting required skill levels"
   },
   "VwVXYb": {
     "defaultMessage": "Les compétences suivantes ont été évaluées par {departments}",
@@ -7590,6 +7598,10 @@
     "defaultMessage": "Afficher l’utilisateur",
     "description": "Title for the user information page"
   },
+  "eTOg2E": {
+    "defaultMessage": "Exploitez toutes les compétences sur notre site",
+    "description": "Subtitle for explore skills page"
+  },
   "eTTlR0": {
     "defaultMessage": "Soumettre la demande",
     "description": "Submit button text on request form."
@@ -7665,6 +7677,10 @@
   "epzs/N": {
     "defaultMessage": "Instruction",
     "description": "Heading for the Instructions section on the digital services contracting questionnaire"
+  },
+  "eqX3mk": {
+    "defaultMessage": "Retirer {skillName}",
+    "description": "Remove a skill"
   },
   "evxvnW": {
     "defaultMessage": "L'utilisateur a été mis à jour avec succès!",
@@ -7809,6 +7825,10 @@
   "fpdcE/": {
     "defaultMessage": "<strong>Établissement de rapports obligatoires</strong>. Désormais nécessaires lorsque vous souhaitez lancer un processus d’acquisition de talents numériques, en particulier si vous envisagez d’établir un contrat parce que vous avez du mal à trouver les bons talents à embaucher. Pas d’approbation supplémentaire – il suffit de nous faire part de vos projets!",
     "description": "Description for the digital Services contracting form"
+  },
+  "fqa45V": {
+    "defaultMessage": "Définition du niveau",
+    "description": "Label for the definition of a specific skill level"
   },
   "ftg8sT": {
     "defaultMessage": "L’identification de votre demande {title} a été copiée ",

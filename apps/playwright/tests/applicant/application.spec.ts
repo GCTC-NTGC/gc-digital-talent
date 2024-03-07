@@ -5,12 +5,14 @@ import {
   Pool,
   PoolLanguage,
   PoolOpportunityLength,
+  PoolSkillType,
   PoolStream,
   PositionDuration,
   ProvinceOrTerritory,
   PublishingGroup,
   SecurityStatus,
   SkillCategory,
+  SkillLevel,
   User,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
@@ -82,11 +84,6 @@ test.describe("Application", () => {
         fr: "test impact FR",
       },
       keyTasks: { en: "key task EN", fr: "key task FR" },
-      essentialSkills: {
-        sync: [
-          skills.find((skill) => skill.category === SkillCategory.Technical).id,
-        ],
-      },
       language: PoolLanguage.Various,
       securityClearance: SecurityStatus.Secret,
       location: {
@@ -105,6 +102,16 @@ test.describe("Application", () => {
         ],
       },
     });
+
+    await poolPage.createPoolSkill(
+      createdPool.id,
+      skills.find((skill) => skill.category === SkillCategory.Technical).id,
+      {
+        type: PoolSkillType.Essential,
+        requiredLevel: SkillLevel.Beginner,
+      },
+    );
+
     await poolPage.publishPool(createdPool.id);
 
     user = createdUser;
