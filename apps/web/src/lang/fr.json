@@ -379,10 +379,6 @@
     "defaultMessage": "Exigence d’études",
     "description": "Education requirement section header."
   },
-  "00lloL": {
-    "defaultMessage": "Les compétences qui ne sont pas liées à cette demande seront dissimulées dans le cadre de l’évaluation initiale de votre demande, mais elles seront toujours visibles dans votre profil.",
-    "description": "Text that appears during an application to explain skills appearing missing from their profile."
-  },
   "00tmhW": {
     "defaultMessage": "Niveau de compétence",
     "description": "Skill level column header for the skill library table"
@@ -2275,10 +2271,6 @@
     "defaultMessage": "Quel est le titre de votre poste?",
     "description": "Input label asking for the user's job title."
   },
-  "AhQ6xv": {
-    "defaultMessage": "Ces compétences requises sont absentes de votre profil :",
-    "description": "Text that appears when a user is missing required skills on their profile."
-  },
   "AhZlU1": {
     "defaultMessage": "Prévisualiser l’annonce",
     "description": "Link text to preview a specific pool advertisement"
@@ -2370,10 +2362,6 @@
   "B75J3Q": {
     "defaultMessage": "Chef opérationnel",
     "description": "Label for _business owner_ fieldset in the _digital services contracting questionnaire_"
-  },
-  "B89Ihf": {
-    "defaultMessage": "Compétences requises pour la demande",
-    "description": "Title that appears when a user is missing required skills on their profile."
   },
   "B9dbbl": {
     "defaultMessage": "Lorsque vous liez une expérience, essayez de répondre à au moins l’une de ces questions :",
@@ -2570,10 +2558,6 @@
   "CH6FQA": {
     "defaultMessage": "Supprimer la demande<hidden> ({name})</hidden>",
     "description": "Link text to delete a specific application"
-  },
-  "CJy0kS": {
-    "defaultMessage": "Compétences constituant un atout",
-    "description": "Title that appears when a user is missing optional skills on their profile."
   },
   "CKsQyK": {
     "defaultMessage": "Accessibilité et mesures d’adaptation",
@@ -3178,10 +3162,6 @@
   "FboyrB": {
     "defaultMessage": "Vous êtes sur le point d'archiver ce bassin :",
     "description": "First paragraph for archive pool dialog"
-  },
-  "FckGRB": {
-    "defaultMessage": "Songez à ajouter des renseignements à ces compétences représentant un atout :",
-    "description": "Text that appears when a user is missing optional skills on their profile"
   },
   "FdXLKJ": {
     "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les gestionnaires (PDF)",
@@ -4194,10 +4174,6 @@
   "LYCaEd": {
     "defaultMessage": "Expiré",
     "description": "Simplified status label for expired recruitments"
-  },
-  "LZ0Poh": {
-    "defaultMessage": "Ces compétences seront évaluées une fois que vous aurez soumis votre demande :",
-    "description": "Text that appears in transferable skills section on their profile."
   },
   "Lb3ppn": {
     "defaultMessage": "Aidez les gestionnaires à comprendre pour quelles compétences techniques vous souhaiteriez suivre une formation. Vous pouvez modifier cette vitrine à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez à la vitrine qui ne sont pas déjà dans votre bibliothèque seront ajoutées automatiquement.",
@@ -5821,10 +5797,6 @@
   "V2vBbu": {
     "defaultMessage": "Ceci est le profil soumis le <strong>{submittedAt}</strong> pour le bassin : <strong>{poolName}</strong>",
     "description": "Snapshot details displayed above the pool candidate application page."
-  },
-  "V3ReC1": {
-    "defaultMessage": "Envisagez d’ajouter ces compétences constituant un atout à votre profil :",
-    "description": "Text that appears when a user is missing optional skills on their profile"
   },
   "V4+lDw": {
     "defaultMessage": "Afficher les résultats",
@@ -9506,10 +9478,6 @@
     "defaultMessage": "3. Saisissez votre <strong>code unique à six chiffres</strong> à partir de votre <strong>application d'authentification</strong> dans la barre de vérification.",
     "description": "Text for third sign in step."
   },
-  "obD2sw": {
-    "defaultMessage": "Compétences transférables requises",
-    "description": "Title that appears in transferable skills section on their profile."
-  },
   "og5vUB": {
     "defaultMessage": "Demande de candidats pour le bassin : <primary>{candidateCountNumber, plural, =0 {aucun candidat} =1 {1 candidat estimé} other {{candidateCountNumber} candidats estimés}}</primary>",
     "description": "Total estimated candidates message in summary of filters"
@@ -10594,10 +10562,6 @@
     "defaultMessage": "Modification des préférences en matière de travail",
     "description": "Button text to start editing work preferences"
   },
-  "w6jDaJ": {
-    "defaultMessage": "Il manque des renseignements à ces compétences nécessaires :",
-    "description": "Text that appears when a user is missing required skills on their profile."
-  },
   "w7E0He": {
     "defaultMessage": "Compétences essentielles",
     "description": "Title for the required skills snapshot section"
@@ -11073,10 +11037,6 @@
   "z/J4uL": {
     "defaultMessage": "Statut de l’employé :",
     "description": "Label for applicant's employee status"
-  },
-  "z3QvIv": {
-    "defaultMessage": "Outres compétences",
-    "description": "Title that appears for skills not in one of the other categories on the users profile."
   },
   "z4wfGZ": {
     "defaultMessage": "Vous pouvez ajouter des points en vous servant du bouton \"Ajouter une nouvelle question \" ayant été fourni à cet effet.",
