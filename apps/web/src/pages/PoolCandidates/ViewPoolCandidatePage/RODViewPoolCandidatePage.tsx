@@ -328,6 +328,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
         poolSkills {
           id
           type
+          requiredLevel
           skill {
             name {
               en
@@ -398,6 +399,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
         poolSkill {
           id
           type
+          requiredLevel
           skill {
             id
             key
