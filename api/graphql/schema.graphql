@@ -1096,11 +1096,10 @@ input UpdateClassificationInput {
   maxSalary: Int @rename(attribute: "max_salary")
 }
 
-input UpdatePoolCandidateAsAdminInput {
+input UpdatePoolCandidateStatusAndExpiryInput {
   cmoIdentifier: ID @rename(attribute: "cmo_identifier")
   expiryDate: Date @rename(attribute: "expiry_date")
   status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
-  isBookmarked: Boolean
 }
 
 input CreateDepartmentInput {
@@ -1609,9 +1608,9 @@ type Mutation {
     @guard
     @canModel(ability: "create")
     @injectNow(name: "submitted_at")
-  updatePoolCandidateAsAdmin(
+  updatePoolCandidateStatusAndExpiry(
     id: UUID!
-    poolCandidate: UpdatePoolCandidateAsAdminInput! @spread
+    poolCandidate: UpdatePoolCandidateStatusAndExpiryInput! @spread
   ): PoolCandidate
     @update
     @guard
