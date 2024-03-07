@@ -204,12 +204,9 @@ const ApplicantFilters = ({
               {skills && skills.length > 0 ? (
                 skills.map((skillName) => {
                   return (
-                    <Chip
-                      key={skillName}
-                      label={skillName}
-                      color="primary"
-                      mode="outline"
-                    />
+                    <Chip key={skillName} color="primary">
+                      {skillName}
+                    </Chip>
                   );
                 })
               ) : (

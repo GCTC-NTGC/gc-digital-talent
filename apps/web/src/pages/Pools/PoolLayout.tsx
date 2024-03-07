@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { Outlet } from "react-router-dom";
 import { useQuery } from "urql";
 
-import { Pending, Pill, ThrowNotFound } from "@gc-digital-talent/ui";
+import { Pending, Chip, ThrowNotFound } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { graphql, Pool } from "@gc-digital-talent/graphql";
 
@@ -61,14 +61,9 @@ const PoolHeader = ({ pool }: PoolHeaderProps) => {
               }
         }
         contentRight={
-          <Pill
-            bold
-            mode="outline"
-            color={advertisementBadge.color}
-            data-h2-flex-shrink="base(0)"
-          >
+          <Chip color={advertisementBadge.color} data-h2-flex-shrink="base(0)">
             {intl.formatMessage(advertisementBadge.label)}
-          </Pill>
+          </Chip>
         }
       />
     </>

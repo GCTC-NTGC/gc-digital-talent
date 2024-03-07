@@ -8,11 +8,10 @@ import {
   Chip,
   Chips,
   Color,
-  PillMode,
   Heading,
   HeadingRank,
 } from "@gc-digital-talent/ui";
-import { getLocale } from "@gc-digital-talent/i18n";
+import { getLocale, getLocalizedName } from "@gc-digital-talent/i18n";
 import type { Skill } from "@gc-digital-talent/graphql";
 
 import {
@@ -22,7 +21,7 @@ import {
 } from "~/utils/skillUtils";
 
 interface MissingSkillsBlockProps {
-  pillType: { color: Color; mode: PillMode };
+  chipType: { color: Color };
   /** Title for the block */
   title: React.ReactNode;
   /** Message displayed before skills that are missing from application */
@@ -40,7 +39,7 @@ interface MissingSkillsBlockProps {
 }
 
 const MissingSkillsBlock = ({
-  pillType,
+  chipType,
   title,
   skillsBlurb,
   detailsBlurb,
@@ -51,7 +50,6 @@ const MissingSkillsBlock = ({
   ...rest
 }: MissingSkillsBlockProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
 
   /** Determine which skills are missing vs present but missing details */
   const [skills, details] = differentiateMissingSkills(
@@ -80,12 +78,9 @@ const MissingSkillsBlock = ({
             <p data-h2-margin="base(x.5, 0, x.25, 0)">{skillsBlurb}</p>
             <Chips>
               {skills.map((skill: Skill) => (
-                <Chip
-                  key={skill.id}
-                  color={pillType.color}
-                  mode={pillType.mode}
-                  label={skill.name[locale] ?? ""}
-                />
+                <Chip key={skill.id} color={chipType.color}>
+                  {getLocalizedName(skill.name, intl)}
+                </Chip>
               ))}
             </Chips>
           </>
@@ -95,12 +90,9 @@ const MissingSkillsBlock = ({
             <p data-h2-margin="base(x.5, 0, x.25, 0)">{detailsBlurb}</p>
             <Chips>
               {details.map((skill: Skill) => (
-                <Chip
-                  key={skill.id}
-                  color={pillType.color}
-                  mode={pillType.mode}
-                  label={skill.name[locale] ?? ""}
-                />
+                <Chip key={skill.id} color={chipType.color}>
+                  {getLocalizedName(skill.name, intl)}
+                </Chip>
               ))}
             </Chips>
           </>
@@ -163,7 +155,7 @@ const MissingSkills = ({
           data-h2-shadow="base(medium)"
           data-h2-background-color="base(foreground)"
           data-h2-margin="base(0, 0, x.5, 0)"
-          pillType={{ color: "error", mode: "outline" }}
+          chipType={{ color: "error" }}
           headingLevel={headingLevel}
           title={intl.formatMessage({
             defaultMessage: "Required application skills",
@@ -199,7 +191,7 @@ const MissingSkills = ({
           data-h2-shadow="base(medium)"
           data-h2-background-color="base(foreground)"
           data-h2-margin="base(0, 0, x.5, 0)"
-          pillType={{ color: "primary", mode: "outline" }}
+          chipType={{ color: "primary" }}
           headingLevel={headingLevel}
           title={intl.formatMessage({
             defaultMessage: "Required transferable skills",
@@ -229,7 +221,7 @@ const MissingSkills = ({
           data-h2-shadow="base(medium)"
           data-h2-background-color="base(foreground)"
           data-h2-margin="base(0, 0, x.5, 0)"
-          pillType={{ color: "secondary", mode: "outline" }}
+          chipType={{ color: "secondary" }}
           headingLevel={headingLevel}
           title={intl.formatMessage({
             defaultMessage: "Nice to have skills",
