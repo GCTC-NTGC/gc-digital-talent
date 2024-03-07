@@ -1614,12 +1614,12 @@ type Mutation {
   ): PoolCandidate
     @update
     @guard
-    @canFind(ability: "updateAsAdmin", find: "id", injectArgs: true)
+    @canFind(ability: "updateStatus", find: "id", injectArgs: true)
   # Return a boolean to prevent automatically updating the client's cache
   togglePoolCandidateBookmark(id: ID!): Boolean
     @guard
     @canFind(
-      ability: "updateAsAdmin"
+      ability: "updateStatus"
       find: "id"
       model: "PoolCandidate"
       injectArgs: true

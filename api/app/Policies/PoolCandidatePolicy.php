@@ -78,31 +78,6 @@ class PoolCandidatePolicy
     }
 
     /**
-     * Determine whether an admin user can update the model.
-     *
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function updateAsAdmin(User $user, PoolCandidate $poolCandidate, $request = null)
-    {
-        $poolCandidate->loadMissing('pool.team');
-        $candidatePoolTeam = $poolCandidate->pool->team;
-        $isDraft = $poolCandidate->isDraft();
-        if (! $isDraft && ($user->isAbleTo('update-any-applicationStatus')
-                    || $user->isAbleTo('update-team-applicationStatus', $candidatePoolTeam))
-        ) {
-            if ($request && array_key_exists('notes', $request)
-                && ! $user->isAbleTo('update-any-applicationNotes')
-                && ! $user->isAbleTo('update-team-applicationNotes', $candidatePoolTeam)) {
-                return false;
-            }
-
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
      * Determine whether a user can update the model.
      *
      * @return \Illuminate\Auth\Access\Response|bool
@@ -205,6 +180,12 @@ class PoolCandidatePolicy
         return $user->isAbleTo('view-team-applicationStatus', $poolCandidate->pool->team);
     }
 
+    /**
+     * Determine whether the user can update status fields for a pool candidate
+     * Note: this refers to a pool candidate's status, expiry, and bookmarked fields together
+     *
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
     public function updateStatus(User $user, PoolCandidate $poolCandidate)
     {
         if ($user->isAbleTo('update-any-applicationStatus')) {
