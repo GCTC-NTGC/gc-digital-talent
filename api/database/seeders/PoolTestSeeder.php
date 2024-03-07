@@ -11,7 +11,7 @@ use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
-class PoolSeeder extends Seeder
+class PoolTestSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -26,8 +26,8 @@ class PoolSeeder extends Seeder
                     'en' => 'CMO Digital Careers',
                     'fr' => 'CMO Carrières Numériques',
                 ],
-                'user_id' => User::where('email', 'admin@test.com')->first()->id,
-                'team_id' => Team::where('name', 'digital-community-management')->first()->id,
+                'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
+                'team_id' => Team::select('id')->where('name', 'digital-community-management')->sole()->id,
                 'published_at' => config('constants.past_date'),
                 'closing_date' => config('constants.far_future_date'),
                 'publishing_group' => PublishingGroup::IT_JOBS->name,
@@ -37,8 +37,8 @@ class PoolSeeder extends Seeder
                     'en' => 'IT Apprenticeship Program for Indigenous Peoples',
                     'fr' => 'Programme d’apprentissage en TI pour les personnes autochtones',
                 ],
-                'user_id' => User::where('email', 'admin@test.com')->first()->id,
-                'team_id' => Team::where('name', 'digital-community-management')->first()->id,
+                'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
+                'team_id' => Team::select('id')->where('name', 'digital-community-management')->sole()->id,
                 'published_at' => config('constants.past_date'),
                 'closing_date' => config('constants.far_future_date'),
                 'publishing_group' => PublishingGroup::IAP->name,
@@ -56,7 +56,7 @@ class PoolSeeder extends Seeder
                     ->create($poolData);
                 // constrain CMO Digital Careers pool to predictable values
                 if ($identifier['name->en'] == 'CMO Digital Careers') {
-                    $classificationIT01Id = Classification::where('group', 'ilike', 'IT')->where('level', 1)->first()['id'];
+                    $classificationIT01Id = Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 1)->sole()->id;
                     $createdPool->classifications()->sync([$classificationIT01Id]);
                     $createdPool->stream = PoolStream::BUSINESS_ADVISORY_SERVICES->name;
                     $createdPool->advertisement_language = PoolLanguage::VARIOUS->name;
