@@ -46,7 +46,7 @@ In order to compile and render UI for development, you have two options.
 
 ### Running Storybook
 
-- Navigate to the app you'd like to work on (e.g. `cd app/web`)
+- Navigate to the app you'd like to work on (e.g. `cd apps/web`)
 - Run `npm run storybook`
 - Allow the first compile to happen
 - Make some changes, watch it recompile, and your Storybook page should automatically refresh
