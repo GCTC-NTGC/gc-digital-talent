@@ -3,8 +3,8 @@ import {
   Command_CreateApplicationMutation,
   Command_SubmitApplicationMutation,
   Command_UpdateApplicationMutation,
-  Command_UpdatePoolCandidateAsAdminMutation,
   graphql,
+  UpdatePoolCandidateStatusAndExpiry_MutationMutation,
 } from "@gc-digital-talent/graphql";
 
 const commandCreateApplicationDoc = /* GraphQL */ `
@@ -93,12 +93,12 @@ Cypress.Commands.add("submitApplication", (applicationId, signature) => {
   });
 });
 
-const commandUpdatePoolCandidateAsAdminDoc = /* GraphQL */ `
-  mutation Command_UpdatePoolCandidateAsAdmin(
+const commandUpdatePoolCandidateStatusAndExpiryDoc = /* GraphQL */ `
+  mutation Command_UpdatePoolCandidateStatusAndExpiry(
     $id: UUID!
-    $input: UpdatePoolCandidateAsAdminInput!
+    $input: UpdatePoolCandidateStatusAndExpiryInput!
   ) {
-    updatePoolCandidateAsAdmin(id: $id, poolCandidate: $input) {
+    updatePoolCandidateStatusAndExpiry(id: $id, poolCandidate: $input) {
       id
       expiryDate
       status
@@ -106,22 +106,18 @@ const commandUpdatePoolCandidateAsAdminDoc = /* GraphQL */ `
   }
 `;
 
-const Command_UpdatePoolCandidateAsAdminMutation = graphql(
-  commandUpdatePoolCandidateAsAdminDoc,
-);
-
 Cypress.Commands.add(
-  "updatePoolCandidateAsAdmin",
-  (applicationId, updatePoolCandidateAsAdminInput) => {
-    cy.graphqlRequest<Command_UpdatePoolCandidateAsAdminMutation>({
-      operationName: "Command_UpdatePoolCandidateAsAdmin",
-      query: commandUpdatePoolCandidateAsAdminDoc,
+  "updatePoolCandidateStatusAndExpiry",
+  (applicationId, updatePoolCandidateStatusAndExpiryInput) => {
+    cy.graphqlRequest<UpdatePoolCandidateStatusAndExpiry_MutationMutation>({
+      operationName: "Command_UpdatePoolCandidateStatusAndExpiry",
+      query: commandUpdatePoolCandidateStatusAndExpiryDoc,
       variables: {
         id: applicationId,
-        input: updatePoolCandidateAsAdminInput,
+        input: updatePoolCandidateStatusAndExpiryInput,
       },
     }).then((data) => {
-      cy.wrap(data.updatePoolCandidateAsAdmin);
+      cy.wrap(data.updatePoolCandidateStatusAndExpiry);
     });
   },
 );

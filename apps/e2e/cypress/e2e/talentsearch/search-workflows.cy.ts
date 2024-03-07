@@ -145,7 +145,7 @@ describe("Talent Search Workflow Tests", () => {
     // admin approve the application
     cy.loginByRole("admin");
     cy.get<string>("@poolCandidateId").then((poolCandidateId) => {
-      cy.updatePoolCandidateAsAdmin(poolCandidateId, {
+      cy.updatePoolCandidateStatusAndExpiry(poolCandidateId, {
         status: PoolCandidateStatus.QualifiedAvailable,
       });
     });

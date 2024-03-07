@@ -14,7 +14,7 @@ import {
   Skill,
   Team,
   UpdateApplicationInput,
-  UpdatePoolCandidateAsAdminInput,
+  UpdatePoolCandidateStatusAndExpiryInput,
   UpdatePoolCandidateSearchRequestInput,
   UpdatePoolInput,
   UpdateUserAsAdminInput,
@@ -128,7 +128,7 @@ declare global {
       /**
        * Custom command to submit an existing application.
        * @param {string} applicationId - ID of the application being submitted
-       * @param {UpdatePoolCandidateAsAdminInput} application - New application data
+       * @param {UpdateApplicationInput} application - New application data
        * @example cy.updateApplication('applicationUUID', {...})
        */
       updateApplication(
@@ -148,12 +148,12 @@ declare global {
       /**
        * Custom command to update an existing application as a user with the admin role.
        * @param {string} applicationId - ID of the application being submitted
-       * @param {UpdatePoolCandidateAsAdminInput} input - Input for the graphql request
-       * @example cy.updatePoolCandidateAsAdmin('applicationUUID', 'John Doe')
+       * @param {UpdatePoolCandidateStatusAndExpiryInput} input - Input for the graphql request
+       * @example cy.updatePoolCandidateStatusAndExpiry('applicationUUID', 'John Doe')
        */
-      updatePoolCandidateAsAdmin(
+      updatePoolCandidateStatusAndExpiry(
         applicationId: string,
-        input: UpdatePoolCandidateAsAdminInput,
+        input: UpdatePoolCandidateStatusAndExpiryInput,
       ): Chainable<PoolCandidate>;
 
       /**
