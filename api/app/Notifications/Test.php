@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notification;
 /**
  * Test Notification
  *
- * Used for PPH unit testing graphql operations
+ * Used for PHPUnit testing graphql operations
  */
 class Test extends Notification
 {
