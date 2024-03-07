@@ -15,7 +15,7 @@ To set up a local development environment, run these commands from anywhere in r
      3. Navigate to http://localhost:8000/admin/dashboard
    - For testing applicant accounts:
      1. Navigate to http://localhost:8000/en/login-info
-     2. Click on "Continue to GCKey and Login"
+     2. Click on "Continue to GCKey and sign in"
      3. Enter `applicant@test.com` as the "User/subject" (the "Claims" input can be left blank, and there is no password)
      4. Navigate to http://localhost:8000/en/talent/profile
 
@@ -32,7 +32,7 @@ Or refresh all of them in order:
 
 ## Working on UI
 
-In order to compile and render UI for development, you have two options.
+In order to compile and render UI for development, you have two options:
 
 - log into the local UI using the steps above
 - run Storybook to view individual components
