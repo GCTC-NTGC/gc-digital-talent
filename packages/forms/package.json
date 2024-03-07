@@ -63,7 +63,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "jest-presets": "*",
     "react": "^18.2.0",
-    "react-hook-form": "^7.50.1",
+    "react-hook-form": "^7.51.0",
     "react-intl": "^6.6.2",
     "tsconfig": "*",
     "tsup": "^8.0.2",
