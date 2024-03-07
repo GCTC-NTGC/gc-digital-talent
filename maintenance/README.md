@@ -8,17 +8,6 @@ To set up a local development environment, run these commands from anywhere in r
 
 1. Build and run the containers: `docker-compose up --detach --build`
 2. To setup the apps: `docker-compose run --rm maintenance bash setup.sh`
-   - <details>
-        <summary>If you encounter unexpected hangs without error during <code>npm install</code>...</summary>
-        ...try stopping `mock-auth` container temporarily. (It runs a Java app,
-        and these can be memory hogs.) You can do this via Docker UI or this CLI
-        command:
-        ```
-        docker-compose stop mock-auth
-        # Finish building app.
-        docker-compose start mock-auth
-        ```
-     </details>
 3. Next you can log in:
    - For testing admin accounts:
      1. Navigate to http://localhost:8000/login
