@@ -48,7 +48,6 @@ import { PAGE_SECTION_ID as CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID } f
 import experienceMessages from "~/messages/experienceMessages";
 
 import { PartialUser } from "../types";
-import { categorizeUserSkill } from "../../../utils/skillUtils";
 
 function buildLink(
   href: string,
