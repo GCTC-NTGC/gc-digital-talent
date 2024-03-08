@@ -123,6 +123,12 @@ class User extends Model implements Authenticatable, LaratrustUser
         'preferred_language_for_interview',
         'preferred_language_for_exam',
         'deleted_at',
+        'created_at',
+        'updated_at',
+    ];
+
+    protected static $nonNullableColumns = [
+        'id',
     ];
 
     protected $keyType = 'string';
@@ -715,15 +721,14 @@ class User extends Model implements Authenticatable, LaratrustUser
     {
         if ($searchTerms && is_array($searchTerms)) {
             $combinedSearchTerm = implode('&', array_map('trim', $searchTerms));
-            $resultIds = self::search($combinedSearchTerm)->usingWebSearchQuery()
-                ->get(['id'])
-                ->pluck('id')
-                ->unique()
-                ->take(32766)
-                ->toArray();
 
-            // Use Eloquent builder to filter results based on unique IDs
-            $query->whereIn('id', $resultIds);
+            $query
+                ->crossJoin(DB::raw('websearch_to_tsquery(coalesce(?, get_current_ts_config()), ?)'.' AS "tsquery"'))
+                ->setBindings(['english', $combinedSearchTerm])
+                ->whereColumn('searchable', '@@', 'tsquery')
+                ->addSelect(DB::raw('ts_rank(searchable, "tsquery") AS rank'))
+                ->addSelect(self::$selectableColumns);
+            // ->orderByDesc('rank');
         }
 
         return $query;
