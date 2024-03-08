@@ -125,7 +125,7 @@ type User {
   # Notifications
   unreadNotifications: [Notification!]
     @rename(attribute: "unread_enriched_notifications")
-  notifications: [Notification!] @rename(attribute: "enriched_notifications")
+  notifications: [Notification!] @paginate(defaultCount: 10)
 }
 
 interface Notification {

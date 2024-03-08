@@ -256,7 +256,13 @@ type User {
   priorityWeight: Int
   authInfo: UserAuthInfo
   unreadNotifications: [Notification!]
-  notifications: [Notification!]
+  notifications(
+    "Limits number of fetched items."
+    first: Int! = 10
+
+    "The offset from which items are returned."
+    page: Int
+  ): NotificationPaginator!
 }
 
 interface Notification {
@@ -1651,6 +1657,15 @@ type PaginatorInfo {
 
   "Number of total available items."
   total: Int!
+}
+
+"A paginated list of Notification items."
+type NotificationPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of Notification items."
+  data: [Notification!]!
 }
 
 "A paginated list of User items."

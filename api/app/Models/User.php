@@ -6,6 +6,7 @@ use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\LanguageAbility;
 use App\Enums\PoolCandidateStatus;
+use App\Traits\EnrichedNotifiable;
 use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -16,7 +17,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laratrust\Contracts\LaratrustUser;
@@ -76,11 +76,11 @@ class User extends Model implements Authenticatable, LaratrustUser
     use AuthenticatableTrait;
     use Authorizable;
     use CausesActivity;
+    use EnrichedNotifiable;
     use HasFactory;
     use HasRelationships;
     use HasRolesAndPermissions;
     use LogsActivity;
-    use Notifiable;
     use Searchable;
     use SoftDeletes;
 
