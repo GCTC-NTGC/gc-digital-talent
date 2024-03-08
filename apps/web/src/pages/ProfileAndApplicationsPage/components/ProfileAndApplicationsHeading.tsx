@@ -436,14 +436,14 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
         <HeroCard
           color="quaternary"
           title={intl.formatMessage(navigationMessages.skillLibrary)}
-          href={skillLibraryUrl}
+          href={`${skillLibraryUrl}#manage`}
         >
           <StatusItem
             layout="hero"
             title={intl.formatMessage(navigationMessages.skillLibrary)}
             itemCount={skillLibraryCount}
             status={skillLibraryStatus}
-            href={skillLibraryUrl}
+            href={`${skillLibraryUrl}#manage`}
           />
           <StatusItem
             layout="hero"
