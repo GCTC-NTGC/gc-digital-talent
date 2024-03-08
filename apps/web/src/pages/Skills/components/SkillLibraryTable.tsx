@@ -171,8 +171,8 @@ const SkillLibraryTable = ({
       }}
       search={{
         label: intl.formatMessage({
-          defaultMessage: "Search for a skill",
-          id: "RjYGPw",
+          defaultMessage: "Search your skills",
+          id: "bBIZ3a",
           description: "Label for the skill library table search input",
         }),
         internal: true,
