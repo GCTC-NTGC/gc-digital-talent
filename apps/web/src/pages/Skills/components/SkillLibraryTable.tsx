@@ -15,7 +15,12 @@ import {
 } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
 import { useAuthorization } from "@gc-digital-talent/auth";
-import { Skill, SkillLevel, UserSkill } from "@gc-digital-talent/graphql";
+import {
+  Skill,
+  SkillCategory,
+  SkillLevel,
+  UserSkill,
+} from "@gc-digital-talent/graphql";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
@@ -63,23 +68,17 @@ interface SkillLibraryTableProps {
   caption: string;
   data: UserSkill[];
   allSkills: Skill[];
-  isTechnical?: boolean;
 }
 
 const SkillLibraryTable = ({
   caption,
   data,
   allSkills,
-  isTechnical = false,
 }: SkillLibraryTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const { userAuthInfo } = useAuthorization();
   const [, executeCreateMutation] = useMutation(CreateUserSkill_Mutation);
-
-  const levelGetter = isTechnical
-    ? getTechnicalSkillLevel
-    : getBehaviouralSkillLevel;
 
   const userSkillSkillIds = data.map((usrSkill) => usrSkill.skill.id);
   const unclaimedSkills = allSkills.filter(
@@ -134,10 +133,19 @@ const SkillLibraryTable = ({
       }),
       cell: ({
         row: {
-          original: { skillLevel },
+          original: {
+            skillLevel,
+            skill: { category },
+          },
         },
       }: UserSkillCell) =>
-        skillLevel ? intl.formatMessage(levelGetter(skillLevel)) : null,
+        skillLevel
+          ? intl.formatMessage(
+              category === SkillCategory.Technical
+                ? getTechnicalSkillLevel(skillLevel)
+                : getBehaviouralSkillLevel(skillLevel),
+            )
+          : null,
       enableHiding: false,
       enableColumnFilter: false,
       sortingFn: skillLevelSort,
