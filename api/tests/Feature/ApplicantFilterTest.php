@@ -13,7 +13,7 @@ use App\Models\User;
 use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\GenericJobTitleSeeder;
-use Database\Seeders\PoolSeeder;
+use Database\Seeders\PoolTestSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
@@ -173,7 +173,7 @@ class ApplicantFilterTest extends TestCase
         $this->seed(ClassificationSeeder::class);
         $this->seed(SkillFamilySeeder::class);
         $this->seed(SkillSeeder::class);
-        $this->seed(PoolSeeder::class);
+        $this->seed(PoolTestSeeder::class);
 
         $filters = ApplicantFilter::factory()->withRelationships()->count(10)->create();
         $this->assertEquals(10, $filters->count());
@@ -194,7 +194,7 @@ class ApplicantFilterTest extends TestCase
         $this->seed(ClassificationSeeder::class);
         $this->seed(SkillFamilySeeder::class);
         $this->seed(SkillSeeder::class);
-        $this->seed(PoolSeeder::class);
+        $this->seed(PoolTestSeeder::class);
 
         $filter = ApplicantFilter::factory()->withRelationships()->create();
         $request = PoolCandidateSearchRequest::factory()->create([
@@ -344,7 +344,7 @@ class ApplicantFilterTest extends TestCase
         $this->seed(GenericJobTitleSeeder::class);
         $this->seed(SkillFamilySeeder::class);
         $this->seed(SkillSeeder::class);
-        $this->seed(PoolSeeder::class);
+        $this->seed(PoolTestSeeder::class);
 
         $pool = Pool::factory()
             ->published()
@@ -359,7 +359,7 @@ class ApplicantFilterTest extends TestCase
         // Create candidates who may show up in searches
         $candidates = PoolCandidate::factory()->count(100)->availableInSearch()->create([
             'pool_id' => $pool->id,
-            'user_id' => User::factory()->withSkills(10),
+            'user_id' => User::factory()->withSkillsAndExperiences(10),
         ]);
 
         // Generate a filter that matches at least one candidate

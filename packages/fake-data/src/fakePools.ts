@@ -22,6 +22,7 @@ import {
   AssessmentStepType,
   PoolSkillType,
   PoolSkill,
+  SkillLevel,
 } from "@gc-digital-talent/graphql";
 
 import fakeScreeningQuestions from "./fakeScreeningQuestions";
@@ -61,6 +62,9 @@ const generatePool = (
       return {
         id: faker.string.uuid(),
         skill,
+        requiredLevel: faker.helpers.arrayElement<SkillLevel>(
+          Object.values(SkillLevel),
+        ),
         type: PoolSkillType.Essential,
       };
     }),
@@ -68,6 +72,9 @@ const generatePool = (
       return {
         id: faker.string.uuid(),
         skill,
+        requiredLevel: faker.helpers.arrayElement<SkillLevel>(
+          Object.values(SkillLevel),
+        ),
         type: PoolSkillType.Nonessential,
       };
     }),

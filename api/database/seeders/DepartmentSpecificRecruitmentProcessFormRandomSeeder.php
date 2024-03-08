@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\DepartmentSpecificRecruitmentProcessForm;
 use Illuminate\Database\Seeder;
 
-class DepartmentSpecificRecruitmentProcessFormSeeder extends Seeder
+class DepartmentSpecificRecruitmentProcessFormRandomSeeder extends Seeder
 {
     /**
      * Run the database seeds.

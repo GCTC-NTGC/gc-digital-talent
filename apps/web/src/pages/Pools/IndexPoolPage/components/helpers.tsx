@@ -2,7 +2,7 @@ import React from "react";
 import { IntlShape } from "react-intl";
 
 import { getLocalizedName, getPoolStream } from "@gc-digital-talent/i18n";
-import { Link, Pill } from "@gc-digital-talent/ui";
+import { Link, Chip, Chips } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
   Classification,
@@ -127,18 +127,17 @@ export function classificationsCell(
   const filteredClassifications = classifications
     ? classifications.filter(notEmpty)
     : [];
-  const pillsArray = filteredClassifications.map((classification) => {
+  const chipsArray = filteredClassifications.map((classification) => {
     return (
-      <Pill
+      <Chip
         key={`${classification.group}-0${classification.level}`}
         color="primary"
-        mode="outline"
       >
         {`${classification.group}-0${classification.level}`}
-      </Pill>
+      </Chip>
     );
   });
-  return pillsArray.length > 0 ? <span>{pillsArray}</span> : null;
+  return chipsArray.length > 0 ? <Chips>{chipsArray}</Chips> : null;
 }
 
 export function emailLinkAccessor(pool: Pool, intl: IntlShape) {

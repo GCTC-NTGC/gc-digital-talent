@@ -14,7 +14,7 @@ import {
   Link,
   NotFound,
   Pending,
-  Pill,
+  Chip,
   Separator,
   Sidebar,
 } from "@gc-digital-talent/ui";
@@ -78,14 +78,9 @@ export const AssessmentPlanBuilder = ({
         <Heading level="h2" Icon={ClipboardDocumentListIcon} color="primary">
           {intl.formatMessage(pageTitle)}
           <div data-h2-flex-grow="base(2)" />
-          <Pill
-            bold
-            mode="outline"
-            color={assessmentBadge.color}
-            data-h2-flex-shrink="base(0)"
-          >
+          <Chip color={assessmentBadge.color} data-h2-flex-shrink="base(0)">
             {intl.formatMessage(assessmentBadge.label)}
-          </Pill>
+          </Chip>
         </Heading>
         <p data-h2-margin="base(x1 0)">{intl.formatMessage(pageSubtitle)}</p>
         <Separator data-h2-margin="base(x2, 0, x1, 0)" />

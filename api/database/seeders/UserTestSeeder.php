@@ -2,11 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
-class UserSeederLocal extends Seeder
+class UserTestSeeder extends Seeder
 {
     /**
      * Seeds initial user records into that database.
@@ -18,18 +17,14 @@ class UserSeederLocal extends Seeder
     {
         // Note: to manually promote a Sign In Canada user to admin, refer to instructions in documentation/sign-in-canada.md.
 
-        // collect roles and teams for assignment
-        $roles = Role::all();
-
         // shared auth users for testing
         User::factory()
             ->asApplicant()
             ->asRequestResponder()
             ->asCommunityManager()
             ->asAdmin()
-            ->asPoolOperator(['digital-community-management', 'test-team'])
-            ->withExperiences()
-            ->withSkills()
+            ->asPoolOperator(['digital-community-management', 'office-of-indigenous-initiatives'])
+            ->withSkillsAndExperiences()
             ->asGovEmployee()
             ->create([
                 'first_name' => 'Admin',
@@ -41,7 +36,7 @@ class UserSeederLocal extends Seeder
         User::factory()
             ->asApplicant()
             ->asAdmin()
-            ->withExperiences()
+            ->withSkillsAndExperiences()
             ->asGovEmployee()
             ->create([
                 'first_name' => 'Platform',
@@ -53,7 +48,7 @@ class UserSeederLocal extends Seeder
         User::factory()
             ->asApplicant()
             ->asCommunityManager()
-            ->withExperiences()
+            ->withSkillsAndExperiences()
             ->asGovEmployee()
             ->create([
                 'first_name' => 'Community',
@@ -65,7 +60,7 @@ class UserSeederLocal extends Seeder
         User::factory()
             ->asApplicant()
             ->asRequestResponder()
-            ->withExperiences()
+            ->withSkillsAndExperiences()
             ->asGovEmployee()
             ->create([
                 'first_name' => 'Request',
@@ -76,8 +71,8 @@ class UserSeederLocal extends Seeder
 
         User::factory()
             ->asApplicant()
-            ->asPoolOperator(['digital-community-management', 'test-team'])
-            ->withExperiences()
+            ->asPoolOperator(['digital-community-management', 'office-of-indigenous-initiatives'])
+            ->withSkillsAndExperiences()
             ->asGovEmployee()
             ->create([
                 'first_name' => 'Pool',
@@ -88,8 +83,7 @@ class UserSeederLocal extends Seeder
 
         User::factory()
             ->asApplicant()
-            ->withExperiences()
-            ->withSkills()
+            ->withSkillsAndExperiences()
             ->create([
                 'first_name' => 'Applicant',
                 'last_name' => 'Test',

@@ -19,8 +19,8 @@ const getHeaders = (intl: IntlShape, args: Args) => {
     args;
   const reviewAndRecord = intl.formatMessage(
     {
-      defaultMessage: `Review and record {candidateName}'s results on "{skillName} at the "{skillLevel}" level.`,
-      id: "YGE5XN",
+      defaultMessage: `Review and record {candidateName}'s results on "{skillName}" at the "{skillLevel}" level.`,
+      id: "e1mxkv",
       description:
         "Subtitle for education requirement screening decision dialog.",
     },
