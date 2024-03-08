@@ -272,14 +272,6 @@ interface Notification {
   updatedAt: DateTime
 }
 
-type TestNotification implements Notification {
-  id: ID!
-  readAt: DateTime
-  createdAt: DateTime
-  updatedAt: DateTime
-  data: String
-}
-
 type PoolCandidateStatusChangedNotification implements Notification {
   id: ID!
   readAt: DateTime

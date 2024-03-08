@@ -1,7 +1,9 @@
 <?php
 
+use App\Enums\PoolCandidateStatus;
+use App\Models\Pool;
 use App\Models\User;
-use App\Notifications\Test as TestNotification;
+use App\Notifications\PoolCandidateStatusChanged;
 use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\GenericJobTitleSeeder;
 use Database\Seeders\RolePermissionSeeder;
@@ -22,15 +24,24 @@ class NotificationTest extends TestCase
 
     protected $notification;
 
+    protected $originalStatus;
+
+    protected $newStatus;
+
+    protected $pool;
+
     protected $queryNotifications = /** GraphQL */ '
         query Notifications {
             me {
                 id
                 notifications {
-                    id
-                    readAt
-                    ... on TestNotification {
-                        data
+                    data {
+                        id
+                        readAt
+                        ... on PoolCandidateStatusChangedNotification {
+                            oldStatus
+                            newStatus
+                        }
                     }
                 }
             }
@@ -52,7 +63,21 @@ class NotificationTest extends TestCase
             ->asApplicant()
             ->create();
 
-        $this->user->notify(new TestNotification('test'));
+        $this->pool = Pool::factory()
+            ->published()
+            ->create();
+
+        $this->originalStatus = PoolCandidateStatus::NEW_APPLICATION->name;
+        $this->newStatus = PoolCandidateStatus::PLACED_TERM->name;
+        $this->user->notify(
+            new PoolCandidateStatusChanged(
+                $this->originalStatus,
+                $this->newStatus,
+                $this->pool->id,
+                $this->pool->name
+            )
+        );
+
         $this->notification = $this->user->unreadNotifications()->first();
     }
 
@@ -64,10 +89,11 @@ class NotificationTest extends TestCase
                 'data' => [
                     'me' => [
                         'notifications' => [
-                            [
-                                'id' => $this->notification->id,
-                                'readAt' => null,
-                                'data' => 'test',
+                            'data' => [
+                                [
+                                    'id' => $this->notification->id,
+                                    'readAt' => null,
+                                ],
                             ],
                         ],
                     ],
@@ -79,7 +105,7 @@ class NotificationTest extends TestCase
     {
         $response = $this->actingAs($this->user, 'api')
             ->graphQL(/** @lang GraphQL */ '
-                mutation unRadNotification($id: UUID!) {
+                mutation unReadNotification($id: UUID!) {
                     markNotificationAsUnread(id: $id) {
                         id
                         readAt
@@ -114,15 +140,36 @@ class NotificationTest extends TestCase
 
     public function testReadAllNotifications(): void
     {
-        $this->user->notify(new TestNotification('one'));
-        $this->user->notify(new TestNotification('two'));
+
+        $this->user->notify(
+            new PoolCandidateStatusChanged(
+                PoolCandidateStatus::SCREENED_IN->name,
+                PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+                $this->pool->id,
+                $this->pool->name
+            )
+        );
+        $this->user->notify(
+            new PoolCandidateStatusChanged(
+                PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+                PoolCandidateStatus::QUALIFIED_WITHDREW->name,
+                $this->pool->id,
+                $this->pool->name
+            )
+        );
 
         $response = $this->actingAs($this->user, 'api')
             ->graphQL($this->queryNotifications);
 
         // Confirm they exist as unread first
-        $response->assertJsonFragment(['data' => 'one', 'readAt' => null]);
-        $response->assertJsonFragment(['data' => 'two', 'readAt' => null]);
+        $response->assertJsonFragment([
+            'oldStatus' => PoolCandidateStatus::SCREENED_IN->name,
+            'readAt' => null,
+        ]);
+        $response->assertJsonFragment([
+            'oldStatus' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'readAt' => null,
+        ]);
 
         $response = $this->actingAs($this->user, 'api')
             ->graphQL(/** @lang GraphQL */ '
@@ -130,9 +177,6 @@ class NotificationTest extends TestCase
                     markAllNotificationsAsRead {
                         id
                         readAt
-                        ... on TestNotification {
-                            data
-                        }
                     }
                 }
                 ');
