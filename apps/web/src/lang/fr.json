@@ -491,10 +491,6 @@
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience en matière d’éducation et de certificats} =1 {1 expérience en matière d’éducation et de certificats} other {# expériences en matière d’éducation et de certificats}}",
     "description": "list a number of education experiences"
   },
-  "0i34ZZ": {
-    "defaultMessage": "Vise à lancer le programme au début de 2023.",
-    "description": "Talent portal strategy item 4 content"
-  },
   "0jV7Rn": {
     "defaultMessage": "Complet",
     "description": "Simplified status label for a complete process advertisement or assessment"
@@ -10273,6 +10269,10 @@
   "usb0gM": {
     "defaultMessage": "Bien que le libellé de ces catégories ait besoin d'être mis à jour, le gouvernement du Canada utilisera parfois ces catégories lors de l'embauche afin de s'assurer qu'il respecte les objectifs de l'équité en matière d'emploi.",
     "description": "Description of how the Government of Canada uses employment equity categories in hiring."
+  },
+  "utLdbN": {
+    "defaultMessage": "Vise à lancer le programme au début de 2024.",
+    "description": "Talent portal strategy item 4 content"
   },
   "utl6O/": {
     "defaultMessage": "Gérer le recrutement {title}",
