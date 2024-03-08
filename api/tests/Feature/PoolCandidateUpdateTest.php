@@ -312,20 +312,22 @@ class PoolCandidateUpdateTest extends TestCase
                 query myNotifications {
                     me {
                         notifications {
-                            id
-                            readAt
-                            createdAt
-                            updatedAt
-                            ... on PoolCandidateStatusChangedNotification {
-                                oldStatus
-                                newStatus
-                                poolId
-                                poolName {
-                                    en
-                                    fr
+                            data {
+                                id
+                                readAt
+                                createdAt
+                                updatedAt
+                                ... on PoolCandidateStatusChangedNotification {
+                                    oldStatus
+                                    newStatus
+                                    poolId
+                                    poolName {
+                                        en
+                                        fr
+                                    }
                                 }
-                            }
                         }
+                    }
                     }
                 }
             '
@@ -334,17 +336,19 @@ class PoolCandidateUpdateTest extends TestCase
                 'data' => [
                     'me' => [
                         'notifications' => [
-                            [
-                                'id' => $notificationId,
-                                'readAt' => null,
-                                'createdAt' => $screenInTime,
-                                'updatedAt' => $screenInTime,
-                                'oldStatus' => PoolCandidateStatus::NEW_APPLICATION->name,
-                                'newStatus' => $this->poolCandidate->pool_candidate_status,
-                                'poolId' => $this->poolCandidate->pool->id,
-                                'poolName' => [
-                                    'en' => $this->poolCandidate->pool->name['en'],
-                                    'fr' => $this->poolCandidate->pool->name['fr'],
+                            'data' => [
+                                [
+                                    'id' => $notificationId,
+                                    'readAt' => null,
+                                    'createdAt' => $screenInTime,
+                                    'updatedAt' => $screenInTime,
+                                    'oldStatus' => PoolCandidateStatus::NEW_APPLICATION->name,
+                                    'newStatus' => $this->poolCandidate->pool_candidate_status,
+                                    'poolId' => $this->poolCandidate->pool->id,
+                                    'poolName' => [
+                                        'en' => $this->poolCandidate->pool->name['en'],
+                                        'fr' => $this->poolCandidate->pool->name['fr'],
+                                    ],
                                 ],
                             ],
                         ],
@@ -397,24 +401,22 @@ class PoolCandidateUpdateTest extends TestCase
 
         // check for notifications
         $this->actingAs($this->candidateUser, 'api')
-            ->graphQL(
-                /** @lang GraphQL */
-                '
+            ->graphQL(/** @lang GraphQL */ '
                 query myNotifications {
                     me {
-                        notifications { id, readAt }
+                        notifications { data { id, readAt } }
                         unreadNotifications { id, readAt }
                     }
                 }
-            '
-            )
-            ->assertJson([
+            ')->assertJson([
                 'data' => [
                     'me' => [
                         'notifications' => [
-                            [
-                                'id' => $notificationId,
-                                'readAt' => $dismissNotificationTime,
+                            'data' => [
+                                [
+                                    'id' => $notificationId,
+                                    'readAt' => $dismissNotificationTime,
+                                ],
                             ],
                         ],
                         'unreadNotifications' => [],
