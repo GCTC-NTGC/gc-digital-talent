@@ -105,10 +105,6 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
   const skillShowcaseUrl = paths.skillShowcase();
   const skillLibraryUrl = paths.skillLibrary();
 
-  const categorizedSkills = categorizeUserSkill(
-    user?.userSkills?.filter(notEmpty) ?? [],
-  );
-
   const hasTopSkills =
     user.topBehaviouralSkillsRanking?.length &&
     user.topTechnicalSkillsRanking?.length;
@@ -116,18 +112,12 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
     user.improveBehaviouralSkillsRanking?.length &&
     user.improveTechnicalSkillsRanking?.length;
 
-  const behaviouralSkillLibraryCount =
-    categorizedSkills.BEHAVIOURAL?.length ?? 0;
-  const technicalSkillLibraryCount = categorizedSkills.TECHNICAL?.length ?? 0;
+  const skillLibraryCount = user.userSkills?.length ?? 0;
+
   // The completion states are determined by the following rules:
   //   The skill library items need to have at least 1 skill
   //   The showcase items need to have at least 1 skill added to each of the 4 showcases
-  const behaviouralSkillLibraryStatus = behaviouralSkillLibraryCount
-    ? "success"
-    : "error";
-  const technicalSkillLibraryStatus = technicalSkillLibraryCount
-    ? "success"
-    : "error";
+  const skillLibraryStatus = skillLibraryCount ? "success" : "error";
   const topSkillsStatus = hasTopSkills ? "success" : "error";
   const skillsToImproveStatus = hasSkillsToImprove ? "success" : "error";
 
@@ -451,25 +441,10 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
         >
           <StatusItem
             layout="hero"
-            title={intl.formatMessage({
-              defaultMessage: "Behavioural skill library",
-              id: "yzqnvb",
-              description: "Title for behavioural skill library section",
-            })}
-            itemCount={behaviouralSkillLibraryCount}
-            status={behaviouralSkillLibraryStatus}
-            href={`${skillLibraryUrl}#behavioural`}
-          />
-          <StatusItem
-            layout="hero"
-            title={intl.formatMessage({
-              defaultMessage: "Technical skill library",
-              id: "FEK54g",
-              description: "Title for technical skill library section",
-            })}
-            itemCount={technicalSkillLibraryCount}
-            status={technicalSkillLibraryStatus}
-            href={`${skillLibraryUrl}#technical`}
+            title={intl.formatMessage(navigationMessages.skillLibrary)}
+            itemCount={skillLibraryCount}
+            status={skillLibraryStatus}
+            href={skillLibraryUrl}
           />
           <StatusItem
             layout="hero"
