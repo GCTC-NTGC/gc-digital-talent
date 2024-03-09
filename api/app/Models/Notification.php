@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class Notification
@@ -20,5 +22,20 @@ class Notification extends DatabaseNotification
         }
 
         return parent::getAttribute($key);
+    }
+
+    public function scopeAuthorizedToView(Builder $query)
+    {
+
+        /** @var \App\Models\User */
+        $user = Auth::user();
+
+        if (! $user) {
+            return $query->where('notifiable_id', null);
+        }
+
+        $query->where('notifiable_id', $user->id);
+
+        return $query;
     }
 }

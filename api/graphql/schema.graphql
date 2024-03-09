@@ -124,8 +124,8 @@ type User {
 
   # Notifications
   unreadNotifications: [Notification!]
-    @rename(attribute: "unread_enriched_notifications")
-  notifications: [Notification!] @paginate(defaultCount: 10)
+    @paginate(type: PAGINATOR, defaultCount: 10)
+  notifications: [Notification!] @hasMany(type: PAGINATOR, defaultCount: 10)
 }
 
 interface Notification {
@@ -815,6 +815,9 @@ type Query {
   team(id: UUID! @eq): Team @find @canQuery(ability: "view")
   teams: [Team]! @all @canModel(ability: "viewAny")
   roles: [Role]! @all @canModel(ability: "viewAny")
+
+  notifications: [Notification!]
+    @paginate(defaultCount: 10, scopes: ["authorizedToView"])
 
   sitewideAnnouncement: SitewideAnnouncement
 }

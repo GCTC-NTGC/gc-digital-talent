@@ -14,7 +14,6 @@ trait EnrichedNotifiable
      */
     public function notifications()
     {
-        return $this->morphMany(Notification::class, 'notifiable')
-            ->latest();
+        return $this->morphMany(Notification::class, 'notifiable')->latest();
     }
 }

@@ -76,6 +76,13 @@ type Query {
     "The offset from which items are returned."
     page: Int
   ): PoolCandidateSearchRequestPaginator!
+  notifications(
+    "Limits number of fetched items."
+    first: Int! = 10
+
+    "The offset from which items are returned."
+    page: Int
+  ): NotificationPaginator!
 }
 
 type Mutation {
@@ -255,7 +262,13 @@ type User {
   isProfileComplete: Boolean
   priorityWeight: Int
   authInfo: UserAuthInfo
-  unreadNotifications: [Notification!]
+  unreadNotifications(
+    "Limits number of fetched items."
+    first: Int! = 10
+
+    "The offset from which items are returned."
+    page: Int
+  ): NotificationPaginator!
   notifications(
     "Limits number of fetched items."
     first: Int! = 10
