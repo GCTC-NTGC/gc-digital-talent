@@ -19,6 +19,7 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import { getStaticSkills } from "./fakeSkills";
+import { emptyPaginator } from "./fakePaginatorInfo";
 
 type WithTypename<T extends { __typename?: string }> = T & {
   __typename: NonNullable<T["__typename"]>;
@@ -42,6 +43,8 @@ export type AnyGeneratedExperience =
 const sampleApp: User = {
   email: faker.internet.email(),
   id: faker.string.uuid(),
+  notifications: emptyPaginator,
+  unreadNotifications: emptyPaginator,
 };
 
 // skills in detail comes from `skills.experienceSkillRecords.details`

@@ -29,6 +29,7 @@ import {
 import fakeClassifications from "./fakeClassifications";
 import fakeDepartments from "./fakeDepartments";
 import { GeneratedPoolCandidate } from "./fakePoolCandidateTypes";
+import { emptyPaginator } from "./fakePaginatorInfo";
 
 type GeneratedUser = User & {
   __typename: "User";
@@ -163,6 +164,9 @@ const generateUser = (
     educationExperiences,
     personalExperiences,
     workExperiences,
+
+    notifications: emptyPaginator,
+    unreadNotifications: emptyPaginator,
 
     userSkills: [],
   };
