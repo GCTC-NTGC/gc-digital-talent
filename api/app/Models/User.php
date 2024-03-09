@@ -833,43 +833,6 @@ class User extends Model implements Authenticatable, LaratrustUser
         }
     }
 
-    // reattach all the extra fields from the JSON data column
-    public static function enrichNotification(object $notification)
-    {
-        $dataFields = $notification->data;
-        foreach ($dataFields as $key => $value) {
-            $notification->$key = $value;
-        }
-    }
-
-    // rename accessor to avoid hiding parent's notification function
-    public function getEnrichedNotificationsAttribute()
-    {
-        $user = Auth::user();
-        $notifications = $this->notifications()
-            ->where('notifiable_id', $user->id)
-            ->get();
-        $notifications->each(function ($n) {
-            self::enrichNotification($n);
-        });
-
-        return $notifications;
-    }
-
-    // rename accessor to avoid hiding parent's notification function
-    public function getUnreadEnrichedNotificationsAttribute()
-    {
-        $user = Auth::user();
-        $notifications = $this->unreadNotifications()
-            ->where('notifiable_id', $user->id)
-            ->get();
-        $notifications->each(function ($n) {
-            self::enrichNotification($n);
-        });
-
-        return $notifications;
-    }
-
     public function getTopTechnicalSkillsRankingAttribute()
     {
         $this->userSkills->loadMissing('skill');
