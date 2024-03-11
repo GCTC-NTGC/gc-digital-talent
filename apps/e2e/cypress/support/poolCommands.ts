@@ -78,9 +78,9 @@ Cypress.Commands.add("createPoolSkill", (poolId, skillId, poolSkill) => {
     operationName: "Command_CreatePoolSkill",
     query: commandCreatePoolSkillDoc,
     variables: {
-      poolId: poolId,
-      skillId: skillId,
-      poolSkill: poolSkill,
+      poolId,
+      skillId,
+      poolSkill,
     },
   }).then((data) => {
     cy.wrap(data.createPoolSkill);
