@@ -4,7 +4,7 @@ module.exports = {
     "@gc-digital-talent/eslint-config",
     "plugin:playwright/recommended"
   ],
-  ignorePatterns: ["tsconfig.json"],
+  ignorePatterns: ["tsconfig.json", "test-results/**", "playwright-report/**", ".auth/**"],
   rules: {
     "playwright/expect-expect": [
       "error",

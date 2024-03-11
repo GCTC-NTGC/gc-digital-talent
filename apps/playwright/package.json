@@ -10,7 +10,7 @@
     "e2e:playwright:firefox": "npx playwright test --project=firefox",
     "e2e:playwright:webkit": "npx playwright test --project=webkit",
     "e2e:playwright:report": "npx playwright show-report",
-    "lint": "eslint ./ --ext .js,.ts,.jsx,.tsx",
+    "lint": "eslint \"contants/**\" \"fixtures/**\" \"tests/**\" \"utils/**\" --ext .js,.ts,.jsx,.tsx",
     "lint:fix": "eslint ./ --fix --ext .js,.ts,.jsx,.tsx"
   },
   "devDependencies": {
