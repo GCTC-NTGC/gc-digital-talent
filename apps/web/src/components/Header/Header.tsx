@@ -8,7 +8,6 @@ import {
   oppositeLocale,
   useLocale,
 } from "@gc-digital-talent/i18n";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import { GocLogoEn, GocLogoFr, GocLogoWhiteEn, GocLogoWhiteFr } from "../Svg";
 import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
@@ -20,7 +19,6 @@ interface HeaderProps {
 const Header = ({ width }: HeaderProps) => {
   const intl = useIntl();
   const { locale } = useLocale();
-  const { darkMode } = useFeatureFlags();
 
   const location = useLocation();
   const changeToLang = oppositeLocale(locale);
@@ -93,11 +91,9 @@ const Header = ({ width }: HeaderProps) => {
             data-h2-justify-content="base(center) p-tablet(flex-end)"
             data-h2-text-align="base(center) p-tablet(left)"
           >
-            {darkMode && (
-              <div>
-                <ThemeSwitcher />
-              </div>
-            )}
+            <div>
+              <ThemeSwitcher />
+            </div>
             <div>
               <a
                 data-h2-background-color="base:focus-visible(focus)"

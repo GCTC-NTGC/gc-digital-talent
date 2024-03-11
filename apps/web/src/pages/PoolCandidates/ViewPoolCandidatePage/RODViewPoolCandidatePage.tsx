@@ -3,7 +3,7 @@ import { defineMessage, useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import HandRaisedIcon from "@heroicons/react/24/outline/HandRaisedIcon";
 import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTriangleIcon";
-import { useQuery } from "urql";
+import { OperationContext, useQuery } from "urql";
 
 import {
   NotFound,
@@ -15,7 +15,8 @@ import {
   CardBasic,
   Button,
   Link,
-  Pill,
+  Chip,
+  Chips,
 } from "@gc-digital-talent/ui";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -35,7 +36,7 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
 import AdminHero from "~/components/Hero/AdminHero";
-import { getCandidateStatusPill } from "~/utils/poolCandidate";
+import { getCandidateStatusChip } from "~/utils/poolCandidate";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -328,6 +329,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
         poolSkills {
           id
           type
+          requiredLevel
           skill {
             name {
               en
@@ -398,6 +400,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
         poolSkill {
           id
           type
+          requiredLevel
           skill {
             id
             key
@@ -463,7 +466,7 @@ export const ViewPoolCandidate = ({
   const parsedSnapshot: Maybe<User> = JSON.parse(poolCandidate.profileSnapshot);
   const snapshotUserPropertyExists = !!parsedSnapshot;
   const showRichSnapshot = snapshotUserPropertyExists && preferRichView;
-  const statusPill = getCandidateStatusPill(
+  const statusChip = getCandidateStatusChip(
     poolCandidate,
     unpackMaybes(poolCandidate.pool.assessmentSteps),
     intl,
@@ -691,41 +694,32 @@ export const ViewPoolCandidate = ({
     );
   }
 
-  const pills = (
-    <div
-      data-h2-display="base(flex)"
-      data-h2-justify-content="base(flex-end)"
-      data-h2-align-items="base(center)"
-      data-h2-gap="base(x.5)"
-    >
-      <Pill
-        mode="outline"
-        color={statusPill.color}
-        data-h2-font-weight="base(700)"
-      >
-        {statusPill.label}
-      </Pill>
+  const chips = (
+    <Chips>
+      <Chip color={statusChip.color} data-h2-font-weight="base(700)">
+        {statusChip.label}
+      </Chip>
       {poolCandidate.user.hasPriorityEntitlement ||
       poolCandidate.user.priorityWeight === 10 ? (
-        <Pill color="black" mode="outline">
+        <Chip color="black">
           {intl.formatMessage({
             defaultMessage: "Priority",
             id: "xGMcBO",
             description: "Label for priority chip on view candidate page",
           })}
-        </Pill>
+        </Chip>
       ) : null}
       {poolCandidate.user.armedForcesStatus === ArmedForcesStatus.Veteran ||
       poolCandidate.user.priorityWeight === 20 ? (
-        <Pill color="black" mode="outline">
+        <Chip color="black">
           {intl.formatMessage({
             defaultMessage: "Veteran",
             id: "16iCWc",
             description: "Label for veteran chip on view candidate page",
           })}
-        </Pill>
+        </Chip>
       ) : null}
-    </div>
+    </Chips>
   );
 
   const candidateName = getFullNameLabel(
@@ -765,7 +759,7 @@ export const ViewPoolCandidate = ({
     <>
       <AdminHero
         title={candidateName}
-        contentRight={pills}
+        contentRight={chips}
         nav={{ mode: "crumbs", items: navigationCrumbs }}
       >
         <ProfileDetails user={poolCandidate.user} />
@@ -923,6 +917,10 @@ export const ViewPoolCandidate = ({
   );
 };
 
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["AssessmentResult"],
+};
+
 type RouteParams = {
   poolId: Scalars["ID"]["output"];
   poolCandidateId: Scalars["ID"]["output"];
@@ -933,6 +931,7 @@ export const RODViewPoolCandidatePage = () => {
   const { poolCandidateId } = useRequiredParams<RouteParams>("poolCandidateId");
   const [{ data, fetching, error }] = useQuery({
     query: PoolCandidate_SnapshotQuery,
+    context,
     variables: { poolCandidateId },
   });
 

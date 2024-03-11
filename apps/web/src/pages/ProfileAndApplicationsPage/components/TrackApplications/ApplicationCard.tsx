@@ -4,7 +4,7 @@ import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
 import { useMutation } from "urql";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Heading, HeadingProps, Pill, Separator } from "@gc-digital-talent/ui";
+import { Heading, HeadingProps, Chip, Separator } from "@gc-digital-talent/ui";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -15,7 +15,7 @@ import {
 
 import { isDraft, isExpired, isQualifiedStatus } from "~/utils/poolCandidate";
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
-import { getStatusPillInfo } from "~/components/QualifiedRecruitmentCard/utils";
+import { getStatusChipInfo } from "~/components/QualifiedRecruitmentCard/utils";
 import ApplicationLink from "~/pages/Pools/PoolAdvertisementPage/components/ApplicationLink";
 
 import ApplicationActions, { DeleteActionProps } from "./ApplicationActions";
@@ -26,17 +26,17 @@ type Application = Omit<
   "user" | "educationRequirementExperiences"
 >;
 
-export interface TrackApplicationsCardProps {
+export interface ApplicationCardProps {
   application: Application;
   headingLevel?: HeadingProps["level"];
   onDelete: DeleteActionProps["onDelete"];
 }
 
-const TrackApplicationsCard = ({
+const ApplicationCard = ({
   application,
   headingLevel = "h2",
   onDelete,
-}: TrackApplicationsCardProps) => {
+}: ApplicationCardProps) => {
   const intl = useIntl();
 
   // Conditionals for card actions
@@ -49,13 +49,13 @@ const TrackApplicationsCard = ({
   const isApplicantQualified = isQualifiedStatus(application.status);
 
   // We don't get DraftExpired status from the API, so we need to check if the draft is expired ourselves
-  const statusPill = isDraftExpired
-    ? getStatusPillInfo(
+  const statusChip = isDraftExpired
+    ? getStatusChipInfo(
         PoolCandidateStatus.DraftExpired,
         application.suspendedAt,
         intl,
       )
-    : getStatusPillInfo(application.status, application.suspendedAt, intl);
+    : getStatusChipInfo(application.status, application.suspendedAt, intl);
 
   const applicationDeadlineMessage = getApplicationDeadlineMessage(
     application,
@@ -118,30 +118,16 @@ const TrackApplicationsCard = ({
               )}
             />
           ) : (
-            <Pill bold mode="outline" color={statusPill.color}>
-              {isApplicantQualified ? (
-                <span
-                  data-h2-display="base(flex)"
-                  data-h2-align-items="base(center)"
-                  data-h2-gap="base(0 x.25)"
-                >
-                  <ShieldCheckIcon
-                    data-h2-width="base(1rem)"
-                    data-h2-height="base(auto)"
-                  />
-                  <span>{statusPill.text}</span>
-                </span>
-              ) : (
-                statusPill.text
-              )}
-            </Pill>
+            <Chip
+              color={statusChip.color}
+              {...(isApplicantQualified && { icon: ShieldCheckIcon })}
+            >
+              {statusChip.text}
+            </Chip>
           )}
         </div>
       </div>
       <Separator
-        orientation="horizontal"
-        decorative
-        data-h2-background-color="base(gray)"
         data-h2-width="base(calc(100% + x2))"
         data-h2-margin="base(x1 -x1 x.5 -x1)"
       />
@@ -182,24 +168,20 @@ const TrackApplicationsCard = ({
   );
 };
 
-const TrackApplicationsCardDelete_Mutation = graphql(/* GraphQL */ `
-  mutation TrackApplicationsCardDelete($id: ID!) {
+const ApplicationCardDelete_Mutation = graphql(/* GraphQL */ `
+  mutation ApplicationCardDelete($id: ID!) {
     deleteApplication(id: $id) {
       id
     }
   }
 `);
 
-interface TrackApplicationsCardApiProps {
+interface ApplicationCardApiProps {
   application: Application;
 }
 
-const TrackApplicationsCardApi = ({
-  application,
-}: TrackApplicationsCardApiProps) => {
-  const [, executeDeleteMutation] = useMutation(
-    TrackApplicationsCardDelete_Mutation,
-  );
+const ApplicationCardApi = ({ application }: ApplicationCardApiProps) => {
+  const [, executeDeleteMutation] = useMutation(ApplicationCardDelete_Mutation);
   const intl = useIntl();
 
   const deleteApplication = () => {
@@ -220,11 +202,8 @@ const TrackApplicationsCardApi = ({
   };
 
   return (
-    <TrackApplicationsCard
-      application={application}
-      onDelete={deleteApplication}
-    />
+    <ApplicationCard application={application} onDelete={deleteApplication} />
   );
 };
 
-export default TrackApplicationsCardApi;
+export default ApplicationCardApi;

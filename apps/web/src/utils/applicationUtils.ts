@@ -153,7 +153,6 @@ export function applicationStepsToStepperArgs(
     .map((step) => {
       return {
         href: step.mainPage.link.url,
-        icon: step.mainPage.icon,
         label: step.mainPage.link.label || step.mainPage.title,
         completed:
           step.applicationStep &&

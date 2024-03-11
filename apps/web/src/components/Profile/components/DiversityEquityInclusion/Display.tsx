@@ -77,12 +77,7 @@ const Display = ({
           </li>
         )}
       </ul>
-      <Separator
-        orientation="horizontal"
-        data-h2-background-color="base:all(gray.lighter)"
-        data-h2-margin="base(x1, 0)"
-        decorative
-      />
+      <Separator space="sm" />
       <p>
         {intl.formatMessage({
           defaultMessage:

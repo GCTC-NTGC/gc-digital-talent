@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import HeartIcon from "@heroicons/react/24/solid/HeartIcon";
 import { useNavigate } from "react-router-dom";
 
 import { Button, Heading, Link, Separator } from "@gc-digital-talent/ui";
@@ -41,7 +40,6 @@ export const getPageInfo: GetPageNavInfo = ({
       id: "Zd02bf",
       description: "Subtitle for the application welcome page",
     }),
-    icon: HeartIcon,
     crumbs: [
       {
         url: paths.applicationWelcome(application.id),
@@ -151,12 +149,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
             "Description of the application process and the next step",
         })}
       </p>
-      <Separator
-        orientation="horizontal"
-        data-h2-background-color="base(gray)"
-        data-h2-margin="base(x2, 0)"
-        decorative
-      />
+      <Separator />
       <div
         data-h2-display="base(flex)"
         data-h2-gap="base(x1)"

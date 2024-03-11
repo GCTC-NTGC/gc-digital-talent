@@ -1,6 +1,7 @@
 import {
   Classification,
   CreatePoolCandidateSearchRequestInput,
+  CreatePoolSkillInput,
   CreateTeamInput,
   CreateUserInput,
   Department,
@@ -8,6 +9,7 @@ import {
   Pool,
   PoolCandidate,
   PoolCandidateSearchRequest,
+  PoolSkill,
   Role,
   Skill,
   Team,
@@ -94,6 +96,18 @@ declare global {
        * @example cy.publishPool('poolUUID')
        */
       publishPool(id: string): Chainable<Pool>;
+      /**
+       * Custom command to create a PoolSkill model
+       * @param {string} poolId - ID of the pool to attach to
+       * @param {string} skillId - ID of the skill to attach to
+       * @param {CreatePoolSkillInput} poolSkill - Input object
+       * @example cy.createPoolSkill(id, id, object)
+       */
+      createPoolSkill(
+        poolId: string,
+        skillId: string,
+        poolSkill: CreatePoolSkillInput,
+      ): Chainable<PoolSkill>;
 
       /**
        * ======================================

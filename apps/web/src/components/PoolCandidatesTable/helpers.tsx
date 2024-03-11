@@ -13,7 +13,7 @@ import {
   getProvinceOrTerritory,
 } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { Link, Pill, Spoiler } from "@gc-digital-talent/ui";
+import { Link, Chip, Spoiler } from "@gc-digital-talent/ui";
 import {
   graphql,
   CandidateExpiryFilter,
@@ -39,7 +39,7 @@ import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import {
-  getCandidateStatusPill,
+  getCandidateStatusChip,
   statusToJobPlacement,
 } from "~/utils/poolCandidate";
 import {
@@ -232,17 +232,13 @@ export const finalDecisionCell = (
   poolAssessmentSteps: AssessmentStep[],
   recordOfDecisionFlag: boolean, // TODO: remove with #8415
 ) => {
-  const { color, label } = getCandidateStatusPill(
+  const { color, label } = getCandidateStatusChip(
     poolCandidate,
     unpackMaybes(poolAssessmentSteps),
     intl,
     recordOfDecisionFlag,
   );
-  return (
-    <Pill mode="outline" color={color}>
-      {label}
-    </Pill>
-  );
+  return <Chip color={color}>{label}</Chip>;
 };
 
 export const jobPlacementCell = (
@@ -308,8 +304,6 @@ export function transformSortStateToOrderByClause(
     ["candidateName", "FIRST_NAME"],
     ["email", "EMAIL"],
     ["preferredLang", "PREFERRED_LANG"],
-    ["preferredLang", "PREFERRED_LANGUAGE_FOR_INTERVIEW"],
-    ["preferredLang", "PREFERRED_LANGUAGE_FOR_EXAM"],
     ["currentLocation", "CURRENT_CITY"],
     ["skillCount", "skill_count"],
     ["priority", "PRIORITY_WEIGHT"],

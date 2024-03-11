@@ -1,33 +1,14 @@
 import React, { useMemo } from "react";
 import { FieldError, useFormContext } from "react-hook-form";
 import get from "lodash/get";
-import orderBy from "lodash/orderBy";
-import isString from "lodash/isString";
 
 import Field from "../Field";
-import type { CommonInputProps } from "../../types";
+import type { CommonInputProps, OptGroupOrOption } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
 import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import useInputStyles from "../../hooks/useInputStyles";
-
-export type Option = {
-  label: React.ReactNode;
-  value: string | number;
-  disabled?: boolean;
-  options?: Option[];
-  /** Aria labels for alternate text that will be read by assistive technologies. */
-  ariaLabel?: string;
-};
-export type OptGroup = {
-  label: React.ReactNode;
-  options: Option[];
-  disabled?: boolean;
-  value?: string | number;
-  /** Aria labels for alternate text that will be read by assistive technologies. */
-  ariaLabel?: string;
-};
-type OptGroupOrOption = OptGroup | Option;
+import { alphaSortOptions } from "../../utils";
 
 export type SelectProps = CommonInputProps &
   React.DetailedHTMLProps<
@@ -48,32 +29,13 @@ function sortOptions(options: OptGroupOrOption[]) {
   const tempOptions = options.map((option: OptGroupOrOption) =>
     Object.prototype.hasOwnProperty.call(option, "options")
       ? {
+          ...option,
           label: option.label,
-          options: orderBy(
-            option.options,
-            ({ label }) =>
-              isString(label)
-                ? label
-                    .normalize("NFD")
-                    .replace(/[\u0300-\u036f]/g, "")
-                    .toLocaleLowerCase()
-                : label,
-            "asc",
-          ),
+          options: alphaSortOptions(option.options),
         }
       : option,
   );
-  return orderBy(
-    tempOptions,
-    ({ label }) =>
-      isString(label)
-        ? label
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "")
-            .toLocaleLowerCase()
-        : label,
-    "asc",
-  );
+  return alphaSortOptions(tempOptions);
 }
 
 const Select = ({

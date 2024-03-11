@@ -16,7 +16,7 @@ const deriveStepState = (
   error?: boolean | null,
 ): StepState => {
   if (currentIndex === stepIndex) {
-    return "active";
+    return error ? "active-error" : "active";
   }
 
   if (disabled) {
@@ -82,13 +82,12 @@ const Stepper = ({
       >
         {steps?.map(
           (
-            { icon, href, label: stepLabel, completed, disabled, error },
+            { href, label: stepLabel, completed, disabled, error },
             stepIndex,
           ) => (
             <Step
               key={href}
               href={href}
-              icon={icon}
               label={stepLabel}
               state={deriveStepState(
                 stepIndex,

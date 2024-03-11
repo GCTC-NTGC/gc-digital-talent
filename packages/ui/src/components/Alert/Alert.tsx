@@ -183,11 +183,7 @@ interface AlertFooterProps {
 
 const Footer = ({ children }: AlertFooterProps) => (
   <>
-    <Separator
-      orientation="horizontal"
-      data-h2-margin="base(x1, 0)"
-      data-h2-background-color="base(gray)"
-    />
+    <Separator space="sm" />
     {children}
   </>
 );

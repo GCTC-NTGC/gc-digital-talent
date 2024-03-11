@@ -27,7 +27,10 @@ const Spoiler = ({ linkSuffix, text, characterCount = 32 }: SpoilerProps) => {
         data-h2-align-items="base(center)"
         data-h2-gap="base(0 x.25)"
       >
-        <div>{truncated}&hellip;</div>
+        <div>
+          {!isOpen && <>{truncated}&hellip;</>}
+          <Collapsible.Content>{text}</Collapsible.Content>
+        </div>
         <Collapsible.Trigger asChild>
           <Button mode="inline" color="black" data-h2-flex-shrink="base(0)">
             {!isOpen
@@ -40,7 +43,6 @@ const Spoiler = ({ linkSuffix, text, characterCount = 32 }: SpoilerProps) => {
           </Button>
         </Collapsible.Trigger>
       </div>
-      <Collapsible.Content>{text}</Collapsible.Content>
     </Collapsible.Root>
   );
 };

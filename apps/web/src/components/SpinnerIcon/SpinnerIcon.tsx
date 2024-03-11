@@ -1,5 +1,5 @@
 import React from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import ArrowPathIcon from "@heroicons/react/20/solid/ArrowPathIcon";
 
 import { IconProps } from "@gc-digital-talent/ui";
@@ -8,7 +8,7 @@ const SpinnerIcon = (props: IconProps) => {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <motion.span
+    <m.span
       data-h2-display="base(inline-flex)"
       data-h2-margin-right="base(x.25)"
       {...(!shouldReduceMotion && {
@@ -24,7 +24,7 @@ const SpinnerIcon = (props: IconProps) => {
       })}
     >
       <ArrowPathIcon {...props} data-h2-margin-right="base(0)" />
-    </motion.span>
+    </m.span>
   );
 };
 

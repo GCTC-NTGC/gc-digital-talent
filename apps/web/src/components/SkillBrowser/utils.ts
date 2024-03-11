@@ -363,6 +363,14 @@ export const getFamilyOptions = (
   category?: SkillCategory | "all",
   inLibrary?: Skill[],
 ): Option[] => {
+  const filteredSkills =
+    category !== "all"
+      ? skills.filter((skill) => skill.category === category)
+      : skills;
+  const filteredLibrary = inLibrary?.filter((librarySkill) =>
+    skills.some((skill) => skill.id === librarySkill.id),
+  );
+
   let familyOptions = [
     {
       value: "all",
@@ -375,14 +383,14 @@ export const getFamilyOptions = (
         {
           count:
             category && category !== "all"
-              ? getSkillCategorySkillCount(skills, category)
+              ? filteredSkills.length
               : skills.length,
         },
       ),
     },
   ];
 
-  if (inLibrary) {
+  if (filteredLibrary) {
     familyOptions = [
       ...familyOptions,
       {
@@ -395,7 +403,7 @@ export const getFamilyOptions = (
               "Label for filtering skills by ones already added to the users library",
           },
           {
-            count: inLibrary.length,
+            count: filteredLibrary.length,
           },
         ),
       },

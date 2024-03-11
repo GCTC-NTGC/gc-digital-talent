@@ -21,6 +21,7 @@ use App\Models\EducationExperience;
 use App\Models\PersonalExperience;
 use App\Models\Skill;
 use App\Models\User;
+use App\Models\UserSkill;
 use App\Models\WorkExperience;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -120,42 +121,28 @@ class UserFactory extends Factory
         ];
     }
 
-    public function withExperiences($count = 10)
+    public function withSkillsAndExperiences($count = 10)
     {
-        $types = [
+        $experienceFactories = [
             AwardExperience::factory(),
             CommunityExperience::factory(),
             EducationExperience::factory(),
             PersonalExperience::factory(),
             WorkExperience::factory(),
         ];
+        $allSkills = Skill::select('id')->inRandomOrder()->take($count)->get();
 
-        return $this->withSkills()->afterCreating(function (User $user) use ($types, $count) {
-            for ($i = 0; $i < $count; $i++) {
-                $type = $this->faker->randomElement($types);
-                $type->create([
-                    'user_id' => $user->id,
-                ]);
-            }
-        });
-    }
+        return $this->afterCreating(function (User $user) use ($count, $experienceFactories, $allSkills) {
+            $skillSequence = $allSkills->shuffle()->map(fn ($skill) => ['skill_id' => $skill['id']])->toArray();
 
-    /**
-     * Skills must have already been generated.
-     */
-    public function withSkills($count = 10)
-    {
-        return $this->afterCreating(function (User $user) use ($count) {
-            // If user has no experiences yet, create one.
-            if (! $user->experiences->count()) {
-                WorkExperience::factory()->create(['user_id' => $user->id]);
-                $user->refresh();
-            }
-
-            // Take $count random skills and assign each to a random experience of this user.
-            $skills = Skill::inRandomOrder()->take($count)->get();
-            $experience = $this->faker->randomElement($user->experiences);
-            $experience->syncSkills($skills);
+            $userSkills = UserSkill::factory($count)->for($user)
+                ->sequence(...$skillSequence)
+                ->create();
+            $skills = $userSkills->map(fn ($us) => $us->skill);
+            $experienceFactory = $this->faker->randomElement($experienceFactories);
+            $experienceFactory->count($count)->for($user)->afterCreating(function ($experience) use ($skills) {
+                $experience->skills()->sync($this->faker->randomElements($skills, $this->faker->numberBetween(1, $skills->count())));
+            });
         });
     }
 

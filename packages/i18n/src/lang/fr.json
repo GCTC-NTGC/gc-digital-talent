@@ -7,6 +7,10 @@
     "defaultMessage": "Nettement supérieur au niveau requis",
     "description": "Option for skill assessment decision level."
   },
+  "+6/qCF": {
+    "defaultMessage": "Supprimer",
+    "description": "Button text for a dismissible chip"
+  },
   "+6TuVe": {
     "defaultMessage": "Désélectionner {label}",
     "description": "Text to uncheck checkbox button"
@@ -787,6 +791,10 @@
     "defaultMessage": "Niveau 3 : Chef d'équipe",
     "description": "The name of the Team leader Analyst role."
   },
+  "NAKad/": {
+    "defaultMessage": "Supprimer",
+    "description": "Remove action"
+  },
   "NQhU3F": {
     "defaultMessage": "Un champ obligatoire est vide : Français - Note spéciale pour ce processus",
     "description": "Error message that Special note for this process in French must be filled"
@@ -1046,6 +1054,10 @@
   "V3+fXY": {
     "defaultMessage": "L’exigence relative à l’éducation est incomplete",
     "description": "Message displayed when user attempts to apply to a pool with incomplete education requirement"
+  },
+  "VV8TA5": {
+    "defaultMessage": "Retour",
+    "description": "An action to go back to a previous location"
   },
   "VXC0uU": {
     "defaultMessage": "N’est pas démontré suffisamment que le niveau requis est atteint",
@@ -1751,10 +1763,6 @@
     "defaultMessage": "Lire moins <hidden> {context}</hidden>",
     "description": "Button text to truncate text to view fewer characters"
   },
-  "rsxrMs": {
-    "defaultMessage": "Retirer {label}",
-    "description": "Button text for a dismissible chip"
-  },
   "rt4mVU": {
     "defaultMessage": "Intermédiaire",
     "description": "The technical skill level for intermediate"
@@ -1774,6 +1782,10 @@
   "sVsZmT": {
     "defaultMessage": "<a>Veuillez communiquer avec notre équipe de soutien</a> si vous avez des questions.",
     "description": "Telling users to email support team with any questions about errors"
+  },
+  "sbmUVq": {
+    "defaultMessage": "Selon la définition fournie, je m'identifie en tant que :",
+    "description": "Prompt text for a user selecting an employment equity group for their profile"
   },
   "sfQN9S": {
     "defaultMessage": "<hidden>Erreur au niveau de l’étape, </hidden>{label}",

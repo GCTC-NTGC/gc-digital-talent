@@ -5,6 +5,7 @@ import {
   Skill,
   PoolCandidateStatus,
   User,
+  SkillCategory,
 } from "@gc-digital-talent/graphql";
 
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
@@ -21,7 +22,10 @@ describe("Talent Search Workflow Tests", () => {
 
     // select some dimensions to use for testing
     cy.getSkills().then((allSkills) => {
-      cy.wrap(allSkills[0]).as("testSkill"); // take the first skill for testing
+      const technicalSkill = allSkills.find(
+        (skill) => skill.category === SkillCategory.Technical,
+      );
+      cy.wrap(technicalSkill).as("testSkill"); // take the first skill for testing
     });
     cy.getGenericJobTitles().then((allGenericJobTitles) => {
       const testGenericJobTitle1 = allGenericJobTitles[0]; // take the first ID for testing matching
@@ -240,7 +244,7 @@ describe("Talent Search Workflow Tests", () => {
       });
 
       cy.findByRole("combobox", { name: /skill$/i }).then((combobox) => {
-        cy.wrap(combobox).type(`${skill.name.en}{DownArrow}{Enter}`);
+        cy.wrap(combobox).focus().type(`${skill.name.en}{DownArrow}{Enter}`);
       });
       // skill selection does not trigger an api request
       searchFindsMySingleCandidate();

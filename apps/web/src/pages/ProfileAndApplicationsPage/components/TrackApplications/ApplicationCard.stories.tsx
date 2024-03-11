@@ -7,10 +7,10 @@ import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
 
 import { isExpired } from "~/utils/poolCandidate";
 
-import TrackApplicationsCard from "./TrackApplicationsCard";
+import ApplicationCard from "./ApplicationCard";
 
-type Story = ComponentStory<typeof TrackApplicationsCard>;
-type Meta = ComponentMeta<typeof TrackApplicationsCard>;
+type Story = ComponentStory<typeof ApplicationCard>;
+type Meta = ComponentMeta<typeof ApplicationCard>;
 
 const mockApplications = fakePoolCandidates(20);
 
@@ -32,8 +32,8 @@ const expiredApplications = fakePoolCandidates(5).map((application) => ({
 const applications = [...activeApplications, ...expiredApplications];
 
 export default {
-  component: TrackApplicationsCard,
-  title: "Components/Track Applications Card",
+  component: ApplicationCard,
+  title: "Components/Application Card",
 } as Meta;
 
 const Template: Story = () => {
@@ -53,7 +53,7 @@ const Template: Story = () => {
                 "(EXPIRED)"}
               {application.status}
             </h2>
-            <TrackApplicationsCard application={application} />
+            <ApplicationCard application={application} />
           </div>
         ))}
       </div>

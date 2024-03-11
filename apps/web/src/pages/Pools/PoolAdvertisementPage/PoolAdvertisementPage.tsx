@@ -45,6 +45,7 @@ import {
   Pool,
   PublishingGroup,
   Maybe,
+  PoolSkillType,
 } from "@gc-digital-talent/graphql";
 
 import {
@@ -61,18 +62,21 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import { sortSkillsByCategory } from "~/utils/skillUtils";
+import { sortPoolSkillsBySkillCategory } from "~/utils/skillUtils";
 
 import ApplicationLink, {
   ApplicationLinkProps,
 } from "./components/ApplicationLink";
 import Text from "./components/Text";
-import SkillAccordion from "./components/SkillAccordion";
+import SkillAccordion, {
+  PoolSkillWithSkill,
+  isPoolWithSkill as isPoolSkillWithSkill,
+} from "./components/SkillAccordion";
 import DataRow from "./components/DataRow";
 import GenericJobTitleAccordion from "./components/GenericJobTitleAccordion";
 import DeadlineDialog from "./components/DeadlineDialog";
 import WorkLocationDialog from "./components/WorkLocationDialog";
-// import SkillLevelDialog from "./components/SkillLevelDialog";
+import SkillLevelDialog from "./components/SkillLevelDialog";
 
 type SectionContent = {
   id: string;
@@ -170,12 +174,20 @@ export const PoolPoster = ({
     ? intl.formatMessage(getSecurityClearance(pool.securityClearance))
     : "";
 
-  const essentialSkills = sortSkillsByCategory(
-    unpackMaybes(pool.essentialSkills),
-  );
-  const nonEssentialSkills = sortSkillsByCategory(
-    unpackMaybes(pool.nonessentialSkills),
-  );
+  // Separate essential and asset skills, sort them by category, and confirm they include skill data
+  const poolSkills = unpackMaybes(pool.poolSkills);
+  const essentialPoolSkills: PoolSkillWithSkill[] =
+    sortPoolSkillsBySkillCategory(
+      poolSkills.filter(
+        (poolSkill) => poolSkill.type === PoolSkillType.Essential,
+      ),
+    ).filter(isPoolSkillWithSkill);
+  const nonessentialPoolSkills: PoolSkillWithSkill[] =
+    sortPoolSkillsBySkillCategory(
+      poolSkills.filter(
+        (poolSkill) => poolSkill.type === PoolSkillType.Nonessential,
+      ),
+    ).filter(isPoolSkillWithSkill);
 
   const contactEmail = pool.team?.contactEmail;
 
@@ -203,8 +215,12 @@ export const PoolPoster = ({
     if (skillsValue.length > 0) {
       setSkillsValue([]);
     } else {
-      const essentialIds = essentialSkills.map((skill) => skill.id);
-      const nonEssentialIds = nonEssentialSkills.map((skill) => skill.id);
+      const essentialIds = essentialPoolSkills.map(
+        (poolSkill) => poolSkill.skill.id,
+      );
+      const nonEssentialIds = nonessentialPoolSkills.map(
+        (poolSkill) => poolSkill.skill.id,
+      );
 
       setSkillsValue([...essentialIds, ...nonEssentialIds]);
     }
@@ -754,8 +770,7 @@ export const PoolPoster = ({
                     "Descriptive text about how skills are used during the application process",
                 })}
               </Text>
-              {/** Uncomment in #8828 */}
-              {/** <SkillLevelDialog /> */}
+              <SkillLevelDialog />
               <Accordion.Root
                 type="multiple"
                 mode="card"
@@ -764,11 +779,15 @@ export const PoolPoster = ({
                 value={skillsValue}
                 onValueChange={setSkillsValue}
               >
-                {essentialSkills.map((skill) => (
-                  <SkillAccordion key={skill.id} skill={skill} required />
+                {essentialPoolSkills.map((poolSkill) => (
+                  <SkillAccordion
+                    key={poolSkill.id}
+                    poolSkill={poolSkill}
+                    required
+                  />
                 ))}
-                {nonEssentialSkills.map((skill) => (
-                  <SkillAccordion key={skill.id} skill={skill} />
+                {nonessentialPoolSkills.map((poolSkill) => (
+                  <SkillAccordion key={poolSkill.id} poolSkill={poolSkill} />
                 ))}
               </Accordion.Root>
             </TableOfContents.Section>
@@ -924,28 +943,33 @@ export const PoolPoster = ({
                     ))}
                   </>
                 ) : null}
-                <Accordion.Item value={moreInfoAccordions.dei}>
-                  <Accordion.Trigger as="h3">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        '"How are equity and inclusion considered in this recruitment process?"',
-                      id: "WPJAiw",
-                      description:
-                        "Button text to toggle the accordion for diversity, equity, and inclusion",
-                    })}
-                  </Accordion.Trigger>
-                  <Accordion.Content>
-                    <Text data-h2-margin="base(0)">
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "You can learn more about our commitment to equity and inclusion by reading our Inclusivity statement. We also provide an Accessibility statement that outlines how the platform considers and implements accessible best practices.",
-                        id: "UOHEw1",
-                        description:
-                          "Information on commitment to diversity, equity, and inclusion",
-                      })}
-                    </Text>
-                  </Accordion.Content>
-                </Accordion.Item>
+                {
+                  // TODO: restore this accordion when Equity Statement page exists https://github.com/GCTC-NTGC/design-gc-digital-talent/issues/45
+                  false && (
+                    <Accordion.Item value={moreInfoAccordions.dei}>
+                      <Accordion.Trigger as="h3">
+                        {intl.formatMessage({
+                          defaultMessage:
+                            '"How are equity and inclusion considered in this recruitment process?"',
+                          id: "WPJAiw",
+                          description:
+                            "Button text to toggle the accordion for diversity, equity, and inclusion",
+                        })}
+                      </Accordion.Trigger>
+                      <Accordion.Content>
+                        <Text data-h2-margin="base(0)">
+                          {intl.formatMessage({
+                            defaultMessage:
+                              "You can learn more about our commitment to equity and inclusion by reading our Inclusivity statement. We also provide an Accessibility statement that outlines how the platform considers and implements accessible best practices.",
+                            id: "UOHEw1",
+                            description:
+                              "Information on commitment to diversity, equity, and inclusion",
+                          })}
+                        </Text>
+                      </Accordion.Content>
+                    </Accordion.Item>
+                  )
+                }
                 <Accordion.Item value={moreInfoAccordions.accommodations}>
                   <Accordion.Trigger as="h3">
                     {intl.formatMessage({
@@ -1121,53 +1145,33 @@ const PoolAdvertisementPage_Query = graphql(/* GraphQL */ `
         en
         fr
       }
-      essentialSkills {
+      poolSkills {
         id
-        key
-        name {
-          en
-          fr
-        }
-        description {
-          en
-          fr
-        }
-        category
-        families {
+        type
+        requiredLevel
+        skill {
           id
           key
-          description {
-            en
-            fr
-          }
           name {
             en
             fr
           }
-        }
-      }
-      nonessentialSkills {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        description {
-          en
-          fr
-        }
-        category
-        families {
-          id
-          key
           description {
             en
             fr
           }
-          name {
-            en
-            fr
+          category
+          families {
+            id
+            key
+            name {
+              en
+              fr
+            }
+            description {
+              en
+              fr
+            }
           }
         }
       }

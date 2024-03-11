@@ -126,6 +126,17 @@ const messages = defineMessages({
     id: "PnWNZn",
     description: "Title of general questions",
   },
+  noAssessmentPlan: {
+    defaultMessage: "This process does not have an assessment plan.",
+    id: "mYnQH4",
+    description: "A process has no assessment plan",
+  },
+  viewTalentPlacement: {
+    defaultMessage:
+      "You can view your candidates on the <a>Talent placement</a> page.",
+    id: "tgtpgb",
+    description: "Message to direct users to the talent placement page",
+  },
 });
 
 export default messages;

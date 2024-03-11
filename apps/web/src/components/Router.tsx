@@ -760,6 +760,12 @@ const DigitalServicesContractingQuestionnaire = React.lazy(() =>
       ),
   ),
 );
+const SkillPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(/* webpackChunkName: "tsSkillPage" */ "../pages/Skills/SkillPage"),
+  ),
+);
 
 const createRoute = (
   locale: Locales,
@@ -849,6 +855,10 @@ const createRoute = (
                   ],
                 },
               ],
+            },
+            {
+              path: "skills",
+              element: <SkillPage />,
             },
             {
               path: "register-info",

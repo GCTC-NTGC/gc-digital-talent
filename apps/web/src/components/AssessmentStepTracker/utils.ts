@@ -190,10 +190,14 @@ export const groupPoolCandidatesByStep = (
       const resultCounts = stepCounts.get(step.id);
 
       const stepCandidates = Array.from(candidateResults.keys()).filter(
-        (id) => {
-          const currentStep = candidateCurrentSteps.get(id);
+        (candidateId) => {
+          const currentStep = candidateCurrentSteps.get(candidateId);
           if (typeof currentStep === "undefined") return false;
-          return currentStep === null || currentStep >= index;
+          return (
+            currentStep === null ||
+            currentStep >= index ||
+            candidateResults.get(candidateId)?.get(step.id) !== NO_DECISION
+          );
         },
       );
 
@@ -233,9 +237,9 @@ export type ResultFilters = {
 export const defaultFilters: ResultFilters = {
   query: "",
   [NO_DECISION]: true,
-  [AssessmentDecision.Successful]: true,
-  [AssessmentDecision.Hold]: true,
-  [AssessmentDecision.Unsuccessful]: true,
+  [AssessmentDecision.Successful]: false,
+  [AssessmentDecision.Hold]: false,
+  [AssessmentDecision.Unsuccessful]: false,
 };
 
 export const filterResults = (

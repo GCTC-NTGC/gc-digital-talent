@@ -8,7 +8,7 @@ import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
 import {
   Accordion,
   Link,
-  Pill,
+  Chip,
   Heading,
   DropdownMenu,
   Button,
@@ -1127,7 +1127,7 @@ const OngoingRecruitmentSection = ({
                 as="h3"
                 context={
                   streamIsRecommended(stream, mySkillIds) ? (
-                    <Pill color="success" mode="outline">
+                    <Chip color="success">
                       <span data-h2-color="base(black)">
                         {intl.formatMessage({
                           defaultMessage: "Recommended based on your skills",
@@ -1136,7 +1136,7 @@ const OngoingRecruitmentSection = ({
                             "Tip that your skills match this section well and so it is recommended",
                         })}
                       </span>
-                    </Pill>
+                    </Chip>
                   ) : undefined
                 }
               >

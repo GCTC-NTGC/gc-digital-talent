@@ -164,6 +164,7 @@ const CoreRequirementsSection = ({
                           "Label for a pool advertisements specific English Location",
                       })}
                       disabled={formDisabled}
+                      maxLength={1023}
                     />
                     <Input
                       id="specificLocationFr"
@@ -176,6 +177,7 @@ const CoreRequirementsSection = ({
                           "Label for a pool advertisements specific French Location",
                       })}
                       disabled={formDisabled}
+                      maxLength={1023}
                     />
                   </>
                 ) : undefined}

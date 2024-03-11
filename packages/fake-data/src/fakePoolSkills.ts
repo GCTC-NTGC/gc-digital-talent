@@ -1,6 +1,11 @@
 import { faker } from "@faker-js/faker";
 
-import { PoolSkillType, PoolSkill, Skill } from "@gc-digital-talent/graphql";
+import {
+  PoolSkillType,
+  PoolSkill,
+  Skill,
+  SkillLevel,
+} from "@gc-digital-talent/graphql";
 
 import fakeSkills from "./fakeSkills";
 
@@ -9,6 +14,9 @@ const generatePoolSkill = (): PoolSkill => {
     id: faker.string.uuid(),
     type: faker.helpers.arrayElement<PoolSkillType>(
       Object.values(PoolSkillType),
+    ),
+    requiredLevel: faker.helpers.arrayElement<SkillLevel>(
+      Object.values(SkillLevel),
     ),
     skill: faker.helpers.arrayElement<Skill>(fakeSkills(1)),
   };
