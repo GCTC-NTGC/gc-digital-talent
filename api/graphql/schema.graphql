@@ -185,6 +185,9 @@ type Pool {
   yourImpact: LocalizedString @rename(attribute: "your_impact")
   whatToExpect: LocalizedString @rename(attribute: "what_to_expect")
   specialNote: LocalizedString @rename(attribute: "special_note")
+  whatToExpectAdmission: LocalizedString
+    @rename(attribute: "what_to_expect_admission")
+  aboutUs: LocalizedString @rename(attribute: "about_us")
   isRemote: Boolean @rename(attribute: "is_remote")
   location: LocalizedString @rename(attribute: "advertisement_location")
   securityClearance: SecurityStatus @rename(attribute: "security_clearance")
@@ -1399,6 +1402,11 @@ input UpdatePoolInput {
   whatToExpect: LocalizedStringInput @rename(attribute: "what_to_expect")
   # Special note
   specialNote: LocalizedStringInput @rename(attribute: "special_note")
+  # What to expect after admission
+  whatToExpectAdmission: LocalizedStringInput
+    @rename(attribute: "what_to_expect_admission")
+  # About us (team, department, etc.)
+  aboutUs: LocalizedStringInput @rename(attribute: "about_us")
   # Other requirements
   language: PoolLanguage @rename(attribute: "advertisement_language")
   securityClearance: SecurityStatus @rename(attribute: "security_clearance")

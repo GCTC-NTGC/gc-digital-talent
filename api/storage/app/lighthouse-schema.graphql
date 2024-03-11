@@ -307,6 +307,8 @@ type Pool {
   yourImpact: LocalizedString
   whatToExpect: LocalizedString
   specialNote: LocalizedString
+  whatToExpectAdmission: LocalizedString
+  aboutUs: LocalizedString
   isRemote: Boolean
   location: LocalizedString
   securityClearance: SecurityStatus
@@ -1212,6 +1214,8 @@ input UpdatePoolInput {
   keyTasks: LocalizedStringInput
   whatToExpect: LocalizedStringInput
   specialNote: LocalizedStringInput
+  whatToExpectAdmission: LocalizedStringInput
+  aboutUs: LocalizedStringInput
   language: PoolLanguage
   securityClearance: SecurityStatus
   location: LocalizedStringInput
