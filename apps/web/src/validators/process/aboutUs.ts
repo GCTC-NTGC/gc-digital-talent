@@ -1,0 +1,9 @@
+import { Pool } from "@gc-digital-talent/graphql";
+
+export function hasAllEmptyFields({ aboutUs }: Pool): boolean {
+  return !!(!aboutUs?.en && !aboutUs?.fr);
+}
+
+export function hasEmptyRequiredFields({ aboutUs }: Pool): boolean {
+  return !!(!aboutUs?.en || !aboutUs?.fr);
+}

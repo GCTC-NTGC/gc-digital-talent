@@ -32,8 +32,10 @@ export type SectionKey =
   | "aboutRole"
   | "yourImpact"
   | "workTasks"
+  | "aboutUs"
   | "commonQuestions"
   | "whatToExpect"
+  | "whatToExpectAdmission"
   | "generalQuestions";
 
 export type PoolSkillMutationsType = {

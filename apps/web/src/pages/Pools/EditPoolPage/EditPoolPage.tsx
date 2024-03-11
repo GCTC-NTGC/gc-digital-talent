@@ -68,6 +68,9 @@ import WhatToExpectSection, {
 } from "./components/WhatToExpectSection/WhatToExpectSection";
 import EditPoolContext from "./components/EditPoolContext";
 import { PoolSkillMutationsType, SectionKey } from "./types";
+import AboutUsSection, {
+  AboutUsSubmitData,
+} from "./components/AboutUsSection/AboutUsSection";
 
 export type PoolSubmitData =
   | ClosingDateSubmitData
@@ -77,6 +80,7 @@ export type PoolSubmitData =
   | YourImpactSubmitData
   | WhatToExpectSubmitData
   | SpecialNoteSubmitData
+  | AboutUsSubmitData
   | GeneralQuestionsSubmitData;
 
 export interface EditPoolFormProps {
@@ -253,6 +257,16 @@ export const EditPoolForm = ({
       }),
       inList: false,
     },
+    aboutUs: {
+      id: "about-us",
+      hasError: false, // Optional section
+      title: intl.formatMessage({
+        defaultMessage: "About us",
+        id: "Wy6aeg",
+        description: "Sub title for the pool about us section",
+      }),
+      inList: false,
+    },
     commonQuestions: {
       id: "common-questions",
       hasError: false, // Add understanding classification (#8831) validation here
@@ -278,6 +292,16 @@ export const EditPoolForm = ({
         defaultMessage: "What to expect post-application",
         id: "U0MY+6",
         description: "Title for the what to expect section",
+      }),
+      inList: false,
+    },
+    whatToExpectAdmission: {
+      id: "what-to-expect-admission",
+      hasError: false,
+      title: intl.formatMessage({
+        defaultMessage: "What to expect post-admission",
+        id: "Uwtkv6",
+        description: "Title for the what to expect post admission section",
       }),
       inList: false,
     },
@@ -455,6 +479,11 @@ export const EditPoolForm = ({
                         sectionMetadata={sectionMetadata.workTasks}
                         onSave={onSave}
                       />
+                      <AboutUsSection
+                        pool={pool}
+                        sectionMetadata={sectionMetadata.aboutUs}
+                        onSave={onSave}
+                      />
                     </div>
                   </TableOfContents.Section>
                 </div>
@@ -555,6 +584,14 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
         fr
       }
       specialNote {
+        en
+        fr
+      }
+      aboutUs {
+        en
+        fr
+      }
+      whatToExpectAdmission {
         en
         fr
       }
