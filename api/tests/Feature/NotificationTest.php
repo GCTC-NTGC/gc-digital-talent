@@ -96,6 +96,23 @@ class NotificationTest extends TestCase
             ]);
     }
 
+    public function testReadNotificationMutation(): void
+    {
+        $response = $this->actingAs($this->user, 'api')
+            ->graphQL(/** @lang GraphQL */ '
+                mutation readNotification($id: UUID!) {
+                    markNotificationAsRead(id: $id) {
+                        id
+                        readAt
+                    }
+                }
+            ', ['id' => $this->notification->id]);
+
+        $readAt = $response->json('data.markNotificationAsRead.readAt');
+
+        $this->assertNotNull($readAt);
+    }
+
     public function testUnreadNotificationMutation(): void
     {
         $response = $this->actingAs($this->user, 'api')
@@ -108,7 +125,7 @@ class NotificationTest extends TestCase
                 }
             ', ['id' => $this->notification->id]);
 
-        $readAt = $response->json('data.markNotificationAsRead.readAt');
+        $readAt = $response->json('data.markNotificationAsUnread.readAt');
 
         $this->assertNull($readAt);
     }
