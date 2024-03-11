@@ -127,10 +127,6 @@ class User extends Model implements Authenticatable, LaratrustUser
         'updated_at',
     ];
 
-    protected static $nonNullableColumns = [
-        'id',
-    ];
-
     protected $keyType = 'string';
 
     protected $casts = [
