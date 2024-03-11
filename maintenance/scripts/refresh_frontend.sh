@@ -7,4 +7,4 @@ source ${parent_path}/lib/common.sh
 git config --global --add safe.directory /var/www/html
 cd /var/www/html
 pnpm install
-pnpm dev
+pnpm run dev

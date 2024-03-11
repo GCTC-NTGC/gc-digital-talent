@@ -55,9 +55,9 @@ git config --global --add safe.directory /var/www/html
 cd /var/www/html
 pnpm install
 if [ "$GCDT_CI" = true ]; then
-  pnpm build:fresh
+  pnpm run build:fresh
 else
-  pnpm dev:fresh
+  pnpm run dev:fresh
 fi
 chmod -R a+r,a+w \
   node_modules \

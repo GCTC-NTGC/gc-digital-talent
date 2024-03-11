@@ -18,7 +18,7 @@
     "lint": "eslint ./src --ext .js,.ts,.jsx,.tsx",
     "lint:fix": "eslint ./src --fix --ext .js,.ts,.jsx,.tsx",
     "prettier": "prettier --write ./src/js",
-    "production": "pnpm build",
+    "production": "pnpm run build",
     "build-storybook": "storybook build",
     "storybook": "storybook dev -p 6006",
     "storybook:design-system": "SB_APP=design storybook dev -p 6006",
