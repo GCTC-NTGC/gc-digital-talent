@@ -96,7 +96,7 @@ class NotificationTest extends TestCase
             ]);
     }
 
-    public function testUnreadNotification(): void
+    public function testUnreadNotificationMutation(): void
     {
         $response = $this->actingAs($this->user, 'api')
             ->graphQL(/** @lang GraphQL */ '
