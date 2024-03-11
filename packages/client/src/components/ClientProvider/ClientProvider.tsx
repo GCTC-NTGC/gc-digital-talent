@@ -151,8 +151,6 @@ const ClientProvider = ({
 export default ClientProvider;
 
 // https://stackoverflow.com/questions/54116070/how-can-i-unit-test-non-exported-functions
-export const exportedForTesting: {
-  isTokenKnownToBeExpired: (accessToken: string | null) => boolean;
-} = {
+export const exportedForTesting = {
   isTokenKnownToBeExpired,
 };
