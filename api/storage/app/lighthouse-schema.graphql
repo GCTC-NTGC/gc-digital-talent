@@ -77,6 +77,8 @@ type Query {
     page: Int
   ): PoolCandidateSearchRequestPaginator!
   notifications(
+    where: NotificationFilterInput
+
     "Limits number of fetched items."
     first: Int! = 10
 
@@ -262,20 +264,6 @@ type User {
   isProfileComplete: Boolean
   priorityWeight: Int
   authInfo: UserAuthInfo
-  unreadNotifications(
-    "Limits number of fetched items."
-    first: Int! = 10
-
-    "The offset from which items are returned."
-    page: Int
-  ): NotificationPaginator!
-  notifications(
-    "Limits number of fetched items."
-    first: Int! = 10
-
-    "The offset from which items are returned."
-    page: Int
-  ): NotificationPaginator!
 }
 
 interface Notification {
@@ -1375,6 +1363,17 @@ input UpdateApplicationInput {
   applicationId: ID
 }
 
+input DateRange {
+  from: DateTime!
+  to: DateTime!
+}
+
+input NotificationFilterInput {
+  onlyUnread: Boolean
+  readAt: DateRange
+  createdAt: DateRange
+}
+
 type DigitalContractingPersonnelSkill {
   id: UUID!
   skill: Skill
@@ -1664,15 +1663,6 @@ type PaginatorInfo {
   total: Int!
 }
 
-"A paginated list of Notification items."
-type NotificationPaginator {
-  "Pagination information about the list of items."
-  paginatorInfo: PaginatorInfo!
-
-  "A list of Notification items."
-  data: [Notification!]!
-}
-
 "A paginated list of User items."
 type UserPaginator {
   "Pagination information about the list of items."
@@ -1707,6 +1697,15 @@ type PoolCandidateSearchRequestPaginator {
 
   "A list of PoolCandidateSearchRequest items."
   data: [PoolCandidateSearchRequest!]!
+}
+
+"A paginated list of Notification items."
+type NotificationPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of Notification items."
+  data: [Notification!]!
 }
 
 "Allowed column names for Query.poolCandidatesPaginated.orderBy."

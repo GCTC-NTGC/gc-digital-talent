@@ -22,7 +22,6 @@ final class MarkNotificationAsUnread
 
         if (! is_null($notification)) {
             $notification->markAsUnread();
-            User::enrichNotification($notification);
 
             return $notification;
         }

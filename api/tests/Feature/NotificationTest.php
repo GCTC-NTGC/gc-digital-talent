@@ -32,16 +32,13 @@ class NotificationTest extends TestCase
 
     protected $queryNotifications = /** GraphQL */ '
         query Notifications {
-            me {
-                id
-                notifications {
-                    data {
-                        id
-                        readAt
-                        ... on PoolCandidateStatusChangedNotification {
-                            oldStatus
-                            newStatus
-                        }
+            notifications {
+                data {
+                    id
+                    readAt
+                    ... on PoolCandidateStatusChangedNotification {
+                        oldStatus
+                        newStatus
                     }
                 }
             }
@@ -87,13 +84,11 @@ class NotificationTest extends TestCase
         $this->actingAs($this->user, 'api')
             ->graphQL($this->queryNotifications)->assertJson([
                 'data' => [
-                    'me' => [
-                        'notifications' => [
-                            'data' => [
-                                [
-                                    'id' => $this->notification->id,
-                                    'readAt' => null,
-                                ],
+                    'notifications' => [
+                        'data' => [
+                            [
+                                'id' => $this->notification->id,
+                                'readAt' => null,
                             ],
                         ],
                     ],

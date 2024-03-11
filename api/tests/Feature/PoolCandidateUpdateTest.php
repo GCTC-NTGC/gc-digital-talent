@@ -310,7 +310,6 @@ class PoolCandidateUpdateTest extends TestCase
                 /** @lang GraphQL */
                 '
                 query myNotifications {
-                    me {
                         notifications {
                             data {
                                 id
@@ -328,27 +327,24 @@ class PoolCandidateUpdateTest extends TestCase
                                 }
                         }
                     }
-                    }
                 }
             '
             )
             ->assertJson([
                 'data' => [
-                    'me' => [
-                        'notifications' => [
-                            'data' => [
-                                [
-                                    'id' => $notificationId,
-                                    'readAt' => null,
-                                    'createdAt' => $screenInTime,
-                                    'updatedAt' => $screenInTime,
-                                    'oldStatus' => PoolCandidateStatus::NEW_APPLICATION->name,
-                                    'newStatus' => $this->poolCandidate->pool_candidate_status,
-                                    'poolId' => $this->poolCandidate->pool->id,
-                                    'poolName' => [
-                                        'en' => $this->poolCandidate->pool->name['en'],
-                                        'fr' => $this->poolCandidate->pool->name['fr'],
-                                    ],
+                    'notifications' => [
+                        'data' => [
+                            [
+                                'id' => $notificationId,
+                                'readAt' => null,
+                                'createdAt' => $screenInTime,
+                                'updatedAt' => $screenInTime,
+                                'oldStatus' => PoolCandidateStatus::NEW_APPLICATION->name,
+                                'newStatus' => $this->poolCandidate->pool_candidate_status,
+                                'poolId' => $this->poolCandidate->pool->id,
+                                'poolName' => [
+                                    'en' => $this->poolCandidate->pool->name['en'],
+                                    'fr' => $this->poolCandidate->pool->name['fr'],
                                 ],
                             ],
                         ],
@@ -403,24 +399,20 @@ class PoolCandidateUpdateTest extends TestCase
         $this->actingAs($this->candidateUser, 'api')
             ->graphQL(/** @lang GraphQL */ '
                 query myNotifications {
-                    me {
-                        notifications { data { id, readAt } }
-                        unreadNotifications { id, readAt }
-                    }
+                    notifications { data { id, readAt } }
+                    unreadNotifications: notifications(where: { onlyUnread: true }) { data { id, readAt } }
                 }
             ')->assertJson([
                 'data' => [
-                    'me' => [
-                        'notifications' => [
-                            'data' => [
-                                [
-                                    'id' => $notificationId,
-                                    'readAt' => $dismissNotificationTime,
-                                ],
+                    'notifications' => [
+                        'data' => [
+                            [
+                                'id' => $notificationId,
+                                'readAt' => $dismissNotificationTime,
                             ],
                         ],
-                        'unreadNotifications' => [],
                     ],
+                    'unreadNotifications' => ['data' => []],
                 ],
             ]);
     }

@@ -121,11 +121,6 @@ type User {
   priorityWeight: Int @rename(attribute: "priority_weight")
   # authorization and roles
   authInfo: UserAuthInfo @self
-
-  # Notifications
-  unreadNotifications: [Notification!]
-    @hasMany(type: PAGINATOR, defaultCount: 10)
-  notifications: [Notification!] @hasMany(type: PAGINATOR, defaultCount: 10)
 }
 
 interface Notification {
@@ -816,7 +811,7 @@ type Query {
   teams: [Team]! @all @canModel(ability: "viewAny")
   roles: [Role]! @all @canModel(ability: "viewAny")
 
-  notifications: [Notification!]
+  notifications(where: NotificationFilterInput): [Notification!]
     @paginate(defaultCount: 10, scopes: ["authorizedToView"])
 
   sitewideAnnouncement: SitewideAnnouncement
@@ -1571,6 +1566,17 @@ input UpdateApplicationInput {
   applicationId: ID
     @rename(attribute: "id")
     @rules(apply: ["App\\Rules\\HasEssentialSkills"])
+}
+
+input DateRange {
+  from: DateTime!
+  to: DateTime!
+}
+
+input NotificationFilterInput {
+  onlyUnread: Boolean @scope
+  readAt: DateRange @whereBetween(key: "read_at")
+  createdAt: DateRange @whereBetween(key: "created_at")
 }
 
 type Mutation {

@@ -24,6 +24,15 @@ class Notification extends DatabaseNotification
         return parent::getAttribute($key);
     }
 
+    public function scopeOnlyUnread(Builder $query, ?bool $onlyUnread)
+    {
+        if (! $onlyUnread) {
+            return $query;
+        }
+
+        return $query->whereNull('read_at');
+    }
+
     public function scopeAuthorizedToView(Builder $query)
     {
 
