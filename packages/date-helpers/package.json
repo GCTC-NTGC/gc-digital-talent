@@ -10,8 +10,10 @@
   "scripts": {
     "build": "tsup src/index.ts --silent --dts --external react --minify",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "watch": "tsup src/index.ts --watch --dts --external react --minify",
-    "lint": "eslint \"src/**/*.ts*\""
+    "dev": "tsup src/index.ys --silent --dts --extern react",
+    "lint": "eslint \"src/**/*.ts*\"",
+    "test": "jest --detectOpenHandles --forceExit --passWithNoTests",
+    "watch": "tsup src/index.ts --watch --dts --external react --minify"
   },
   "jest": {
     "preset": "@gc-digital-talent/jest-presets/jest/node"
