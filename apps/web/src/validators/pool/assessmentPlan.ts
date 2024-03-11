@@ -26,16 +26,13 @@ export function getAssessmentPlanStatus(pool: Pool): PoolCompleteness {
     (poolSkillId) => !assessedPoolSkillIds.includes(poolSkillId),
   );
 
-  // disregard screening questions and application screening step for step validation
-  const assessmentStepsWithoutScreeningQuestion = pool.assessmentSteps.filter(
-    (step) =>
-      ![
-        AssessmentStepType.ApplicationScreening,
-        AssessmentStepType.ScreeningQuestionsAtApplication,
-      ].includes(step?.type ?? AssessmentStepType.ApplicationScreening),
-  );
+  // disregard application screening step for step validation
+  const assessmentStepsWithoutApplicationScreening =
+    pool.assessmentSteps.filter(
+      (step) => step?.type !== AssessmentStepType.ApplicationScreening,
+    );
   const thereAreAssessmentStepsWithNoSkills =
-    assessmentStepsWithoutScreeningQuestion.some(
+    assessmentStepsWithoutApplicationScreening.some(
       (assessmentStep) => !assessmentStep?.poolSkills?.length,
     );
 
