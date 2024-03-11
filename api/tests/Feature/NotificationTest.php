@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\PoolCandidateStatus;
+use App\Models\Notification;
 use App\Models\Pool;
 use App\Models\User;
 use App\Notifications\PoolCandidateStatusChanged;
@@ -147,7 +148,11 @@ class NotificationTest extends TestCase
                 ],
             ]);
 
-        $this->assertDatabaseMissing('notifications', ['id' => $this->notification->id]);
+        $notification = Notification::select('deleted_at')
+            ->withTrashed()
+            ->firstWhere('id', $this->notification->id);
+
+        $this->assertNotNull($notification->deleted_at);
     }
 
     public function testReadAllNotifications(): void

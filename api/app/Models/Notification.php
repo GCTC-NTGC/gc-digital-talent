@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,12 +14,18 @@ use Illuminate\Support\Facades\Auth;
  */
 class Notification extends DatabaseNotification
 {
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
+
     public function getAttribute($key)
     {
 
-        $data = json_decode($this->attributes['data'], true);
-        if (array_key_exists($key, $data)) {
-            return $data[$key];
+        if (isset($this->attributes['data'])) {
+            $data = json_decode($this->attributes['data'], true);
+            if (array_key_exists($key, $data)) {
+                return $data[$key];
+            }
         }
 
         return parent::getAttribute($key);
