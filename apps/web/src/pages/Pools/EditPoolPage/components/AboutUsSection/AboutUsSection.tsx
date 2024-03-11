@@ -98,6 +98,7 @@ const AboutUsSection = ({
         color={icon.color}
         level="h3"
         size="h4"
+        data-h2-font-weight="base(700)"
         toggle={
           <ToggleForm.LabelledTrigger
             disabled={formDisabled}
