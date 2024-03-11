@@ -10,7 +10,7 @@
   "scripts": {
     "build": "tsup src/index.ts --silent --dts --external react --minify",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "dev": "tsup src/index.ys --silent --dts --extern react",
+    "dev": "tsup src/index.ts --silent --dts --extern react",
     "lint": "eslint \"src/**/*.ts*\"",
     "test": "jest --detectOpenHandles --forceExit --passWithNoTests",
     "watch": "tsup src/index.ts --watch --dts --external react --minify"
