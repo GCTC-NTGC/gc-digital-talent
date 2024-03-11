@@ -1047,8 +1047,8 @@ importers:
   packages/storage:
     devDependencies:
       '@swc/core':
-        specifier: ^1.4.2
-        version: 1.4.2
+        specifier: ^1.4.5
+        version: 1.4.5
       '@types/react':
         specifier: ^18.2.45
         version: 18.2.58
@@ -1066,7 +1066,7 @@ importers:
         version: link:../tsconfig
       tsup:
         specifier: ^8.0.2
-        version: 8.0.2(@swc/core@1.4.2)(postcss@8.4.35)(typescript@5.4.2)
+        version: 8.0.2(@swc/core@1.4.5)(postcss@8.4.35)(typescript@5.4.2)
       typescript:
         specifier: ^5.4.2
         version: 5.4.2
