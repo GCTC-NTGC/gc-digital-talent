@@ -54,8 +54,8 @@ const WhatToExpectAdmissionSection = ({
   });
 
   const dataToFormValues = (initialData: Pool): FormValues => ({
-    whatToExpectAdmissionEn: initialData.whatToExpect?.en ?? "",
-    whatToExpectAdmissionFr: initialData.whatToExpect?.fr ?? "",
+    whatToExpectAdmissionEn: initialData.whatToExpectAdmission?.en ?? "",
+    whatToExpectAdmissionFr: initialData.whatToExpectAdmission?.fr ?? "",
   });
 
   const methods = useForm<FormValues>({
@@ -84,10 +84,10 @@ const WhatToExpectAdmissionSection = ({
 
   const subtitle = intl.formatMessage({
     defaultMessage:
-      "This information lets applicants know what they can expect after they apply, such as further exams, meeting with managers directly and possible timelines.",
-    id: "ww+trY",
+      "This question helps applicants understand what it means to be in a recruitment “pool” and what they should expect as qualified candidates.",
+    id: "e+nzX5",
     description:
-      "Describes the 'what to expect after applying' section of a process' advertisement.",
+      "Describes the 'what to expect after admission' section of a process' advertisement.",
   });
 
   return (

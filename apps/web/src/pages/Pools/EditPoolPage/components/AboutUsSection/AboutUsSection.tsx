@@ -51,8 +51,8 @@ const AboutUsSection = ({
   });
 
   const dataToFormValues = (initialData: Pool): FormValues => ({
-    aboutUsEn: initialData.specialNote?.en ?? "",
-    aboutUsFr: initialData.specialNote?.fr ?? "",
+    aboutUsEn: initialData.aboutUs?.en ?? "",
+    aboutUsFr: initialData.aboutUs?.fr ?? "",
   });
 
   const methods = useForm<FormValues>({

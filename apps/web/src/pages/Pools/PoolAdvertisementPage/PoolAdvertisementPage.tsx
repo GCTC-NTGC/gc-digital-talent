@@ -113,7 +113,7 @@ const moreInfoAccordions = {
   dei: "diversity-equity-inclusion",
   accommodations: "accommodations",
   whatToExpectApply: "what-to-expect-apply",
-  whatToExpectIfSuccessful: "what-to-expect-success",
+  whatToExpectAdmission: "what-to-expect-admission",
 };
 
 interface PoolAdvertisementProps {
@@ -161,6 +161,9 @@ export const PoolPoster = ({
 
   const showSpecialNote = !!(pool.specialNote && pool.specialNote[locale]);
   const showWhatToExpect = !!(pool.whatToExpect && pool.whatToExpect[locale]);
+  const showWhatToExpectAdmission = !!(
+    pool.whatToExpectAdmission && pool.whatToExpectAdmission[locale]
+  );
 
   const opportunityLength = pool.opportunityLength
     ? intl.formatMessage(getPoolOpportunityLength(pool.opportunityLength))
@@ -822,6 +825,28 @@ export const PoolPoster = ({
                   />
                 </>
               )}
+              {pool.aboutUs && (
+                <>
+                  <Heading
+                    level="h3"
+                    size="h4"
+                    data-h2-font-weight="base(700)"
+                    data-h2-margin-bottom="base(x1)"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "About us",
+                      id: "LTpCFL",
+                      description:
+                        "Title for about us section on a pool advertisement.",
+                    })}
+                  </Heading>
+                  <RichTextRenderer
+                    node={htmlToRichTextJSON(
+                      getLocalizedName(pool.aboutUs, intl),
+                    )}
+                  />
+                </>
+              )}
               {pool.keyTasks && (
                 <>
                   <Heading
@@ -1018,6 +1043,28 @@ export const PoolPoster = ({
                     </Accordion.Content>
                   </Accordion.Item>
                 )}
+                {showWhatToExpectAdmission && (
+                  <Accordion.Item
+                    value={moreInfoAccordions.whatToExpectAdmission}
+                  >
+                    <Accordion.Trigger as="h3">
+                      {intl.formatMessage({
+                        defaultMessage:
+                          '"What should I expect if I\'m successful in the process?"',
+                        id: "hwVlzN",
+                        description:
+                          "Button text to toggle the accordion for what to expect after admission",
+                      })}
+                    </Accordion.Trigger>
+                    <Accordion.Content>
+                      <RichTextRenderer
+                        node={htmlToRichTextJSON(
+                          getLocalizedName(pool.whatToExpectAdmission, intl),
+                        )}
+                      />
+                    </Accordion.Content>
+                  </Accordion.Item>
+                )}
               </Accordion.Root>
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.startAnApplication.id}>
@@ -1142,6 +1189,14 @@ const PoolAdvertisementPage_Query = graphql(/* GraphQL */ `
         fr
       }
       specialNote {
+        en
+        fr
+      }
+      whatToExpectAdmission {
+        en
+        fr
+      }
+      aboutUs {
         en
         fr
       }
