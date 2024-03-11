@@ -3007,10 +3007,6 @@
     "defaultMessage": "Vous êtes sur le point de publier l'annonce de ce processus : {poolName}",
     "description": "Text to confirm the process to be published"
   },
-  "FEK54g": {
-    "defaultMessage": "Bibliothèque des compétences techniques",
-    "description": "Title for technical skill library section"
-  },
   "FFD16/": {
     "defaultMessage": "Supprimer la candidature",
     "description": "Title for the modal that appears when a user attempts to delete an application"
@@ -10865,10 +10861,6 @@
   "yzgwjd": {
     "defaultMessage": "Province ou territoire",
     "description": "Label for current province or territory field"
-  },
-  "yzqnvb": {
-    "defaultMessage": "Bibliothèque des compétences comportementales",
-    "description": "Title for behavioural skill library section"
   },
   "z/J4uL": {
     "defaultMessage": "Statut de l’employé :",
