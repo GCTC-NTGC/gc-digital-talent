@@ -245,7 +245,7 @@ describe("Talent Search Workflow Tests", () => {
       });
 
       cy.findByRole("combobox", { name: /skill$/i }).then((combobox) => {
-        cy.wrap(combobox).type(`${skill.name.en}{DownArrow}{Enter}`);
+        cy.wrap(combobox).focus().type(`${skill.name.en}{DownArrow}{Enter}`);
       });
       // skill selection does not trigger an api request
       searchFindsMySingleCandidate();

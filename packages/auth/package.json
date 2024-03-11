@@ -34,13 +34,13 @@
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "*",
-    "@swc/core": "^1.4.2",
+    "@swc/core": "^1.4.5",
     "@types/path-browserify": "^1.0.2",
-    "@types/react": "^18.2.61",
+    "@types/react": "^18.2.64",
     "eslint": "^8.57.0",
     "react": "^18.2.0",
     "tsconfig": "*",
     "tsup": "^8.0.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.4.2"
   }
 }

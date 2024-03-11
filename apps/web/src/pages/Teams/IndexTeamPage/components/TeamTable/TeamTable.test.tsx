@@ -110,7 +110,7 @@ describe("TeamTable", () => {
       `/en/admin/teams/${teamId}`,
     );
 
-    // role 1 pill should appear twice, role 2 pill appear once
+    // role 1 chip should appear twice, role 2 chip appear once
     expect(screen.queryAllByText("Role 1")).toHaveLength(2);
     expect(screen.queryAllByText("Role 2")).toHaveLength(1);
   });

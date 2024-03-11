@@ -23,7 +23,8 @@ import CardLink, { type CardLinkProps } from "./components/CardLink";
 import CardRepeater, {
   useCardRepeaterContext,
 } from "./components/CardRepeater/CardRepeater";
-import Chip, { Chips, type ChipProps } from "./components/Chip";
+import Chip, { type ChipProps } from "./components/Chip/Chip";
+import Chips from "./components/Chip/Chips";
 import Collapsible from "./components/Collapsible";
 import DefinitionList from "./components/DefinitionList/DefinitionList";
 import Dialog from "./components/Dialog";
@@ -48,11 +49,6 @@ import Loading, { type LoadingProps } from "./components/Loading";
 import NavTabs from "./components/Tabs/NavTabs";
 import NotFound, { ThrowNotFound } from "./components/NotFound";
 import Pending, { type PendingProps } from "./components/Pending";
-import Pill, {
-  type PillProps,
-  type PillMode,
-  type PillSize,
-} from "./components/Pill";
 import ScrollArea from "./components/ScrollArea";
 import Separator from "./components/Separator";
 import SideMenu, {
@@ -95,7 +91,6 @@ export type {
   CardProps,
   CardBasicProps,
   CardLinkProps,
-  ChipProps,
   HeadingProps,
   HeadingLevel,
   HeadingRef,
@@ -108,9 +103,7 @@ export type {
   MenuLinkProps,
   LoadingProps,
   PendingProps,
-  PillProps,
-  PillMode,
-  PillSize,
+  ChipProps,
   SidebarProps,
   SideMenuProps,
   SideMenuItemProps,
@@ -158,7 +151,6 @@ export {
   Pending,
   NotFound,
   ThrowNotFound,
-  Pill,
   ScrollArea,
   Separator,
   SideMenu,

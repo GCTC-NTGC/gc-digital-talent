@@ -11,6 +11,8 @@ import {
   WorkRegion,
   SkillCategory,
   User,
+  PoolSkillType,
+  SkillLevel,
 } from "@gc-digital-talent/graphql";
 import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 
@@ -88,9 +90,6 @@ describe("Submit Application for IAP Workflow Tests", () => {
                         fr: "test impact FR",
                       },
                       keyTasks: { en: "key task EN", fr: "key task FR" },
-                      essentialSkills: {
-                        sync: testSkillIds,
-                      },
                       language: PoolLanguage.Various,
                       securityClearance: SecurityStatus.Secret,
                       location: {
@@ -101,6 +100,12 @@ describe("Submit Application for IAP Workflow Tests", () => {
                       opportunityLength: PoolOpportunityLength.Various,
                       publishingGroup: PublishingGroup.Iap,
                     });
+                    testSkillIds.forEach((skillId) =>
+                      cy.createPoolSkill(testPoolId, skillId, {
+                        type: PoolSkillType.Essential,
+                        requiredLevel: SkillLevel.Beginner,
+                      }),
+                    );
                     cy.publishPool(testPoolId);
                   });
                 });
@@ -308,7 +313,7 @@ describe("Submit Application for IAP Workflow Tests", () => {
       "Thank you for your interest in becoming an IT apprentice with the Government of Canada.",
     ); // customized copy for IAP
     cy.findByRole("link", {
-      name: /Visit your Profile and applications page/i,
+      name: /return to your dashboard/i,
     }).click();
 
     // Back on dashboard

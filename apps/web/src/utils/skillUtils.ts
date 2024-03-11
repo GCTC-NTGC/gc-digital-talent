@@ -11,7 +11,11 @@ import {
   getTechnicalSkillLevelDefinition,
 } from "@gc-digital-talent/i18n";
 import { matchStringCaseDiacriticInsensitive } from "@gc-digital-talent/forms";
-import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
+import {
+  notEmpty,
+  uniqueItems,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
 import {
   UserSkill,
   SkillLevel,
@@ -20,6 +24,8 @@ import {
   Skill,
   SkillCategory,
   SkillFamily,
+  PoolSkill,
+  PoolSkillType,
 } from "@gc-digital-talent/graphql";
 
 /**
@@ -333,4 +339,43 @@ export const sortSkillsByCategory = (skills: Skill[]): Skill[] => {
       categoryOrder.indexOf(skillB.category)
     );
   });
+};
+
+/**
+ * Sort poolSkills collection by category of attached skill
+ *
+ * Technical first, behavioural second
+ *
+ * @param poolSkills PoolSkill[]
+ * @returns PoolSkill[]
+ */
+export const sortPoolSkillsBySkillCategory = (
+  poolSkills: PoolSkill[],
+): PoolSkill[] => {
+  return poolSkills.sort((poolSkillA, poolSkillB) => {
+    if (poolSkillA?.skill?.category && poolSkillB?.skill?.category) {
+      return (
+        categoryOrder.indexOf(poolSkillA.skill.category) -
+        categoryOrder.indexOf(poolSkillB.skill.category)
+      );
+    }
+    return 0;
+  });
+};
+
+/**
+ * Filter poolSkills to get an array of essential or nonessential skills
+ *
+ * @param poolSkills PoolSkill[]
+ * @param poolSkillType PoolSkillType
+ * @returns Skill[]
+ */
+export const filterPoolSkillsByType = (
+  poolSkills: PoolSkill[],
+  poolSkillType: PoolSkillType,
+): Skill[] => {
+  const skills = poolSkills
+    .filter((poolSkill) => poolSkill.type === poolSkillType)
+    .map((poolSkill) => poolSkill.skill);
+  return unpackMaybes(skills);
 };

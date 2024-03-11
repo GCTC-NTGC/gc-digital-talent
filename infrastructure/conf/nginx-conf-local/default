@@ -243,6 +243,11 @@ server {
         rewrite "^(?:/[a-z]{2})?/directive-on-digital-talent(/.*|$)" /apps/web/dist/index.html break;
     }
 
+    # rewrite possible lang prefix then "skills" to apps/web index.html
+    location ~ "^(?:/[a-z]{2})?/skills(/.*|$)" {
+        rewrite "^(?:/[a-z]{2})?/skills(/.*|$)" /apps/web/dist/index.html break;
+    }
+
     # Redirect old "applications" to new profile and applications
     location = /en/applications {
       absolute_redirect off;

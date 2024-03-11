@@ -1,19 +1,24 @@
 import {
   Classification,
   CreatePoolInput,
+  CreatePoolSkillInput,
   Pool,
   PoolLanguage,
   PoolOpportunityLength,
+  PoolSkill,
+  PoolSkillType,
   PoolStream,
   PublishingGroup,
   SecurityStatus,
   Skill,
+  SkillLevel,
   UpdatePoolInput,
 } from "@gc-digital-talent/graphql";
 import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 
 import {
   Test_CreatePoolMutationDocument,
+  Test_CreatePoolSkillMutationDocument,
   Test_PublishPoolMutationDocument,
   Test_UpdatePoolMutationDocument,
 } from "~/utils/pools";
@@ -60,6 +65,20 @@ class PoolPage extends AppPage {
     });
   }
 
+  async createPoolSkill(
+    poolId: string,
+    skillId: string,
+    poolSkill: CreatePoolSkillInput,
+  ): Promise<PoolSkill> {
+    return this.graphqlRequest(Test_CreatePoolSkillMutationDocument, {
+      poolId,
+      skillId,
+      poolSkill,
+    }).then((res: GraphQLResponse<"createPoolSkill", PoolSkill>) => {
+      return res.createPoolSkill;
+    });
+  }
+
   async publishPool(poolId: string): Promise<Pool> {
     return this.graphqlRequest(Test_PublishPoolMutationDocument, {
       id: poolId,
@@ -89,9 +108,6 @@ class PoolPage extends AppPage {
         fr: "test impact FR",
       },
       keyTasks: { en: "key task EN", fr: "key task FR" },
-      essentialSkills: {
-        sync: [skill.id],
-      },
       language: PoolLanguage.Various,
       securityClearance: SecurityStatus.Secret,
       opportunityLength: PoolOpportunityLength.Various,
@@ -101,6 +117,11 @@ class PoolPage extends AppPage {
       },
       isRemote: true,
       publishingGroup: PublishingGroup.ItJobs,
+    });
+
+    await this.createPoolSkill(pool.id, skill.id, {
+      type: PoolSkillType.Essential,
+      requiredLevel: SkillLevel.Beginner,
     });
 
     pool = await this.publishPool(pool.id);

@@ -24,6 +24,6 @@
     "@gc-digital-talent/eslint-config": "*",
     "eslint": "^8.57.0",
     "tsconfig": "*",
-    "typescript": "^5.3.3"
+    "typescript": "^5.4.2"
   }
 }

@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\DigitalContractingQuestionnaire;
 use Illuminate\Database\Seeder;
 
-class DigitalContractingQuestionnaireSeeder extends Seeder
+class DigitalContractingQuestionnaireRandomSeeder extends Seeder
 {
     /**
      * Run the database seeds.

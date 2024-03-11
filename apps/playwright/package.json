@@ -18,12 +18,12 @@
     "@gc-digital-talent/env": "*",
     "@gc-digital-talent/eslint-config": "*",
     "@gc-digital-talent/graphql": "*",
-    "@playwright/test": "^1.42.0",
-    "@types/node": "^20.11.23",
+    "@playwright/test": "^1.42.1",
+    "@types/node": "^20.11.25",
     "axe-core": "^4.8.4",
     "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
-    "eslint-plugin-playwright": "^1.5.1"
+    "eslint-plugin-playwright": "^1.5.2"
   },
   "dependencies": {
     "@axe-core/playwright": "^4.8.5"
