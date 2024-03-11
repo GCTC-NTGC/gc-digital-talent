@@ -1343,10 +1343,6 @@
     "defaultMessage": "Mes renseignements sur l'équité en matière d'emploi :",
     "description": "Label preceding what groups the user identifies as part of, followed by a colon"
   },
-  "5Z/SAX": {
-    "defaultMessage": "Les compétences techniques désignent les connaissances et les capacités techniques associées à des postes ou des rôles précis au sein de l’organisation. Les compétences techniques sont habituellement acquises dans le cadre d’une formation ou d’une expérience de travail particulières où la personne met en application ses connaissances et compétences.",
-    "description": "Definition of technical skills"
-  },
   "5bdLGy": {
     "defaultMessage": "Ce que nous pouvons faire pour vous",
     "description": "Heading for the executive opportunities"
@@ -1530,10 +1526,6 @@
   "6cEYtp": {
     "defaultMessage": "la cybersécurité;",
     "description": "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_"
-  },
-  "6cFJ2w": {
-    "defaultMessage": "Cette section vous permet de gérer toutes les compétences techniques associées à votre profil, vos expériences et vos réalisations. Cliquez sur le nom d’une compétence pour obtenir une description détaillée.",
-    "description": "Description on how to use technical skills"
   },
   "6eCvv1": {
     "defaultMessage": "Postes bilingues (français et anglais)",
@@ -2451,10 +2443,6 @@
     "defaultMessage": "Établissement d’un bassin de talents numériques",
     "description": "Heading for the directives digital talent and sourcing component"
   },
-  "C1wuXs": {
-    "defaultMessage": "Cette section vous permet de gérer toutes les compétences comportementales associées à votre profil, vos expériences et vos réalisations. Cliquez sur le nom d’une compétence pour obtenir une description détaillée.",
-    "description": "Description on how to use behavioural skills"
-  },
   "C3fUwm": {
     "defaultMessage": "Version",
     "description": "Label for the specific version number of the site"
@@ -2763,6 +2751,10 @@
     "defaultMessage": "Plus élevé que 100",
     "description": "Contract FTE range greater than one-hundred"
   },
+  "Di1aEV": {
+    "defaultMessage": "Cette section vous permet de gérer toutes les compétences qui sont liées à votre profil, et votre démonstration des compétences. Sélectionnez le titre d’une compétences pour gérer de plus amples détails, y compris les détails ayant trait à votre niveau et à vos expériences de carrière connexes.",
+    "description": "Description on how to use behavioural skills"
+  },
   "DlBusi": {
     "defaultMessage": "Nom de famille",
     "description": "CSV Header, Last Name column"
@@ -2882,10 +2874,6 @@
   "EPF4Ac": {
     "defaultMessage": "Le processus de demande repose sur la collecte et l’examen des renseignements de manière linéaire. Par conséquent, il n’est pas encore possible de passer à cette étape. La dernière étape sur laquelle vous travailliez est mise en surbrillance dans la zone des étapes de la page, ou vous pouvez utiliser le bouton fourni pour y accéder directement.",
     "description": "Application step skipped page details"
-  },
-  "ERDq0Q": {
-    "defaultMessage": "Ajouter, modifier ou gérer des compétences comportementales et techniques dans votre profil.",
-    "description": "Page description for the skill library page"
   },
   "ETrCOq": {
     "defaultMessage": "Statut du candidat",
@@ -4311,6 +4299,10 @@
     "defaultMessage": "Chercher un nouveau membre à partir de la liste des gestionnaires approuvés.",
     "description": "Help text for user field on the add member to team form"
   },
+  "Mz7sON": {
+    "defaultMessage": "Gérez vos compétences",
+    "description": "Title for editing a users skills"
+  },
   "N/Vcp3": {
     "defaultMessage": "Ce à quoi vous pouvez vous attendre",
     "description": "Heading for the section about user expectations for their request"
@@ -4430,6 +4422,10 @@
   "NkZeS1": {
     "defaultMessage": "Talents numériques du GC s'associe au service de justificatifs du gouvernement du Canada, CléGC, pour vous donner accès à votre compte à l'aide d'une seule combinaison de nom d'utilisateur et de mot de passe. Vous pouvez gérer les données connexes sur le site Web de CléGC, et elles s'afficheront automatiquement ici lorsque vous accéderez à votre compte.",
     "description": "Description of how we use GCKey for authentication."
+  },
+  "NlYIHM": {
+    "defaultMessage": "Ajoutez, modifiez, et gérez les compétences de votre profil.",
+    "description": "Page description for the skill library page"
   },
   "NuT+Rx": {
     "defaultMessage": "Procéder à la mise à jour du sujet",
@@ -4999,10 +4995,6 @@
     "defaultMessage": "Révisé",
     "description": "Title displayed for the User table Date Updated column"
   },
-  "R4Z9FQ": {
-    "defaultMessage": "Les compétences comportementales désignent les principales qualités interpersonnelles et personnelles nécessaires pour occuper des emplois précis au sein de l’organisation. Ces compétences se rapportent généralement à la façon dont une personne agit, communique et interagit avec les autres.",
-    "description": "Definition of behavioural skills"
-  },
   "R5eNu/": {
     "defaultMessage": "Y aura-t-il un besoin continu pour les connaissances dans l’unité de travail pour laquelle l’entrepreneur est engagé?",
     "description": "Label for _ongoing need for knowledge_ fieldset in the _digital services contracting questionnaire_"
@@ -5138,10 +5130,6 @@
   "RiGj9w": {
     "defaultMessage": "Étape {currentStep}",
     "description": "Label for the candidates current assessment step"
-  },
-  "RjYGPw": {
-    "defaultMessage": "Chercher une compétence",
-    "description": "Label for the skill library table search input"
   },
   "Rk1i9Q": {
     "defaultMessage": "Ce programme élimine l’un des principaux obstacles à l’emploi en valorisant le potentiel d’une personne plutôt que son niveau de scolarité. Ce faisant, cette initiative contribue à combler les écarts en matière d’éducation, d’emploi et d’économie auxquelles sont confrontées les personnes autochtones du Canada.",
@@ -6841,6 +6829,10 @@
   "b8mC0r": {
     "defaultMessage": "La Directive n'introduit pas d'étapes de la procédure supplémentaires pour les responsables de l'approvisionnement, mais il existe des exigences en matière d'établissement de rapports liés à l'approvisionnement qui incombent aux responsables de l'initiative sur le numérique. Ces ressources sont conçues pour aider les responsables de l'approvisionnement à soutenir leurs clients lorsqu'ils achètent des services numériques (p. ex., des talents numériques, produits liés à la TI, à la gestion de l'information, etc.)",
     "description": "Body message for digital initiative procurement section."
+  },
+  "bBIZ3a": {
+    "defaultMessage": "Recherchez vos compétences",
+    "description": "Label for the skill library table search input"
   },
   "bBz/OJ": {
     "defaultMessage": "les résultats d’évaluation d’acceptation par les utilisateurs",
