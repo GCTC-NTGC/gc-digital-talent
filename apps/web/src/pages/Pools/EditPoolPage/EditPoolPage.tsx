@@ -71,6 +71,9 @@ import { PoolSkillMutationsType, SectionKey } from "./types";
 import AboutUsSection, {
   AboutUsSubmitData,
 } from "./components/AboutUsSection/AboutUsSection";
+import WhatToExpectAdmissionSection, {
+  WhatToExpectAdmissionSubmitData,
+} from "./components/WhatToExpectAdmissionSection/WhatToExpectAdmissionSection";
 
 export type PoolSubmitData =
   | ClosingDateSubmitData
@@ -79,6 +82,7 @@ export type PoolSubmitData =
   | WorkTasksSubmitData
   | YourImpactSubmitData
   | WhatToExpectSubmitData
+  | WhatToExpectAdmissionSubmitData
   | SpecialNoteSubmitData
   | AboutUsSubmitData
   | GeneralQuestionsSubmitData;
@@ -517,6 +521,11 @@ export const EditPoolForm = ({
                       <WhatToExpectSection
                         pool={pool}
                         sectionMetadata={sectionMetadata.whatToExpect}
+                        onSave={onSave}
+                      />
+                      <WhatToExpectAdmissionSection
+                        pool={pool}
+                        sectionMetadata={sectionMetadata.whatToExpectAdmission}
                         onSave={onSave}
                       />
                     </div>
