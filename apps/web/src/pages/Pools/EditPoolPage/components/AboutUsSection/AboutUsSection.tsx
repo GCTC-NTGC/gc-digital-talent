@@ -16,6 +16,7 @@ import {
 import { hasAllEmptyFields } from "~/validators/process/aboutUs";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
+import processMessages from "~/messages/processMessages";
 
 import { useEditPoolContext } from "../EditPoolContext";
 import { SectionProps } from "../../types";
@@ -80,8 +81,8 @@ const AboutUsSection = ({
 
   const subtitle = intl.formatMessage({
     defaultMessage:
-      "Most job advertisements will not require a about us. This section is for special circumstances only. Examples of this special note include identifying if a process may be used to hire in multiple classifications or if the process is limited to application from a specific equity group.",
-    id: "9Us5Hy",
+      "This <strong>optional</strong> section allows you to provide further context for the department, branch, or team that will be hiring from this process.",
+    id: "cweZUH",
     description:
       "Describes the 'about us' section of a process' advertisement.",
   });
@@ -95,8 +96,8 @@ const AboutUsSection = ({
       <ToggleSection.Header
         Icon={icon.icon}
         color={icon.color}
-        level="h2"
-        size="h3"
+        level="h3"
+        size="h4"
         toggle={
           <ToggleForm.LabelledTrigger
             disabled={formDisabled}
@@ -125,13 +126,8 @@ const AboutUsSection = ({
                 data-h2-margin="base(x1, 0)"
               >
                 <RichTextInput
-                  id="whatToExpectEn"
-                  label={intl.formatMessage({
-                    defaultMessage: "English - about us for this process",
-                    id: "1gtR6U",
-                    description:
-                      "Label for the English - about us for this process textarea on edit pool page.",
-                  })}
+                  id="aboutUsEn"
+                  label={intl.formatMessage(processMessages.aboutUsEn)}
                   name="aboutUsEn"
                   {...(!formDisabled && {
                     wordLimit: TEXT_AREA_MAX_WORDS_EN,
@@ -139,13 +135,8 @@ const AboutUsSection = ({
                   readOnly={formDisabled}
                 />
                 <RichTextInput
-                  id="whatToExpectFr"
-                  label={intl.formatMessage({
-                    defaultMessage: "French - about us for this process",
-                    id: "Ll7GHg",
-                    description:
-                      "Label for the French - about us for this process textarea in the edit pool page.",
-                  })}
+                  id="aboutUsFr"
+                  label={intl.formatMessage(processMessages.aboutUsFr)}
                   name="aboutUsFr"
                   {...(!formDisabled && {
                     wordLimit: TEXT_AREA_MAX_WORDS_FR,
