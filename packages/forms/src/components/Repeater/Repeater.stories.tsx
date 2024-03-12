@@ -25,7 +25,6 @@ type StoryProps = RepeaterProps &
     maxItems?: number;
     editDisabledIndexes?: Array<number>;
     removeDisabledIndexes?: Array<number>;
-    customEditButton?: RepeaterFieldsetProps["customEditButton"];
     customRemoveButton?: RepeaterFieldsetProps["customRemoveButton"];
   };
 
@@ -226,26 +225,6 @@ const FieldsWithDialogs = (props: Omit<StoryProps, "defaultValues">) => {
           moveDisabledIndexes={moveDisabledIndexes}
           editDisabled={!!editDisabledIndexes?.includes(index)}
           removeDisabled={!!removeDisabledIndexes?.includes(index)}
-          customEditButton={
-            <Dialog.Root>
-              <Dialog.Trigger>
-                <ActionButton aria-label="Custom edit button">
-                  <FaceSmileIcon data-h2-width="base(x.75)" />
-                </ActionButton>
-              </Dialog.Trigger>
-              <Dialog.Content>
-                <Dialog.Header>Custom edit button</Dialog.Header>
-                <Dialog.Body>
-                  <p>This is a custom edit dialog</p>
-                  <Dialog.Footer>
-                    <Dialog.Close>
-                      <Button color="primary">Close</Button>
-                    </Dialog.Close>
-                  </Dialog.Footer>
-                </Dialog.Body>
-              </Dialog.Content>
-            </Dialog.Root>
-          }
           customRemoveButton={
             <Dialog.Root>
               <Dialog.Trigger>

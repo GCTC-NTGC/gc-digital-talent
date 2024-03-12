@@ -40,8 +40,6 @@ export interface RepeaterFieldsetProps {
   onRemove?: (index: number) => void;
   /** Callback function when edit button is clicked */
   onEdit?: (index: number) => void;
-  /** Add a custom edit button */
-  customEditButton?: React.ReactElement<ActionButtonProps>;
   /** Add a custom remove button */
   customRemoveButton?: React.ReactElement<ActionButtonProps>;
   /** All indexes that should be prevented from moving */
@@ -66,7 +64,6 @@ const Fieldset = ({
   children,
   disabled: fieldSetDisabled,
   onEdit,
-  customEditButton,
   customRemoveButton,
   moveDisabledIndexes = [],
   editDisabled = false,
@@ -154,23 +151,7 @@ const Fieldset = ({
   // edit button might be custom or default or null
   const showDisabledEditButton = fieldSetDisabled || editDisabled;
   let editButton: React.ReactNode = null;
-  if (customEditButton) {
-    // if a custom button was provided, use that and maybe disable it
-    if (!showDisabledEditButton) {
-      editButton = customEditButton;
-    } else {
-      editButton = (
-        <ActionButton
-          disabled
-          aria-label={intl.formatMessage(formMessages.repeaterEdit, {
-            index: position,
-          })}
-        >
-          {disabledIcon}
-        </ActionButton>
-      );
-    }
-  } else if (onEdit) {
+  if (onEdit) {
     // no custom button, but we have a handler so show the default button
     editButton = (
       <ActionButton
