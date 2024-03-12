@@ -16,7 +16,7 @@ import { defaultLogger } from "@gc-digital-talent/logger";
 
 import Field from "../Field";
 import { flattenErrors } from "../../utils";
-import ActionButton, { ActionButtonProps } from "./ActionButton";
+import ActionButton from "./ActionButton";
 
 export interface RepeaterFieldsetProps {
   /** Field array index of this item */
@@ -40,8 +40,6 @@ export interface RepeaterFieldsetProps {
   onRemove?: (index: number) => void;
   /** Callback function when edit button is clicked */
   onEdit?: (index: number) => void;
-  /** Add a custom remove button */
-  customRemoveButton?: React.ReactElement<ActionButtonProps>;
   /** All indexes that should be prevented from moving */
   moveDisabledIndexes?: Array<number>;
   /** Disables editing the item */
@@ -64,7 +62,6 @@ const Fieldset = ({
   children,
   disabled: fieldSetDisabled,
   onEdit,
-  customRemoveButton,
   moveDisabledIndexes = [],
   editDisabled = false,
   removeDisabled = false,
@@ -169,23 +166,7 @@ const Fieldset = ({
   // remove button might be custom or default or null
   const showDisabledRemoveButton = fieldSetDisabled || removeDisabled;
   let removeButton: React.ReactNode = null;
-  if (customRemoveButton) {
-    // if a custom button was provided, use that and maybe disable it
-    if (!showDisabledRemoveButton) {
-      removeButton = customRemoveButton;
-    } else {
-      removeButton = (
-        <ActionButton
-          disabled
-          aria-label={intl.formatMessage(formMessages.repeaterRemove, {
-            index: position,
-          })}
-        >
-          {disabledIcon}
-        </ActionButton>
-      );
-    }
-  } else if (onRemove) {
+  if (onRemove) {
     // no custom button, but we have a handler so show the default button
     removeButton = (
       <ActionButton

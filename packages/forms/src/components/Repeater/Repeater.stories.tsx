@@ -3,17 +3,15 @@ import type { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
-import FaceSmileIcon from "@heroicons/react/24/solid/FaceSmileIcon";
 
 import { LocalizedString } from "@gc-digital-talent/graphql";
-import { Announcer, Button, Dialog } from "@gc-digital-talent/ui";
+import { Announcer } from "@gc-digital-talent/ui";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
 import BasicForm from "../BasicForm";
 import Submit from "../Submit";
 import TextArea from "../TextArea";
 import Repeater, { RepeaterFieldsetProps, RepeaterProps } from "./Repeater";
-import ActionButton from "./ActionButton";
 
 type StoryProps = RepeaterProps &
   Pick<
@@ -25,7 +23,6 @@ type StoryProps = RepeaterProps &
     maxItems?: number;
     editDisabledIndexes?: Array<number>;
     removeDisabledIndexes?: Array<number>;
-    customRemoveButton?: RepeaterFieldsetProps["customRemoveButton"];
   };
 
 export default {
@@ -225,26 +222,6 @@ const FieldsWithDialogs = (props: Omit<StoryProps, "defaultValues">) => {
           moveDisabledIndexes={moveDisabledIndexes}
           editDisabled={!!editDisabledIndexes?.includes(index)}
           removeDisabled={!!removeDisabledIndexes?.includes(index)}
-          customRemoveButton={
-            <Dialog.Root>
-              <Dialog.Trigger>
-                <ActionButton aria-label="Custom remove button">
-                  <FaceSmileIcon data-h2-width="base(x.75)" />
-                </ActionButton>
-              </Dialog.Trigger>
-              <Dialog.Content>
-                <Dialog.Header>Custom remove button</Dialog.Header>
-                <Dialog.Body>
-                  <p>This is a custom remove dialog</p>
-                  <Dialog.Footer>
-                    <Dialog.Close>
-                      <Button color="primary">Close</Button>
-                    </Dialog.Close>
-                  </Dialog.Footer>
-                </Dialog.Body>
-              </Dialog.Content>
-            </Dialog.Root>
-          }
         >
           data here
         </Repeater.Fieldset>
