@@ -7,9 +7,8 @@ import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 import LockClosedIcon from "@heroicons/react/24/solid/LockClosedIcon";
 import { useFormContext } from "react-hook-form";
-import isEqual from "lodash/isEqual";
 
-import { Button, Link, Well, useAnnouncer } from "@gc-digital-talent/ui";
+import { Button, Link, useAnnouncer } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
 import { defaultLogger } from "@gc-digital-talent/logger";
 
