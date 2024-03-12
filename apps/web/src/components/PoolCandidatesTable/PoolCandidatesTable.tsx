@@ -189,7 +189,9 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
             lookingForEnglish
             lookingForFrench
             lookingForBilingual
-            bilingualEvaluation
+            firstOfficialLanguage
+            secondLanguageExamCompleted
+            secondLanguageExamValidity
             comprehensionLevel
             writtenLevel
             verbalLevel

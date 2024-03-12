@@ -29,7 +29,6 @@ const LanguageInformationSection = ({
     lookingForEnglish,
     lookingForFrench,
     lookingForBilingual,
-    bilingualEvaluation,
     estimatedLanguageAbility,
     writtenLevel,
     comprehensionLevel,
@@ -119,79 +118,6 @@ const LanguageInformationSection = ({
             </p>
           </div>
         )}
-        {bilingualEvaluation && (
-          <div data-h2-flex-item="base(1of1)">
-            <p>
-              <span data-h2-display="base(block)">
-                {intl.formatMessage(
-                  {
-                    defaultMessage:
-                      "Completed an official <abbreviation>GC</abbreviation> evaluation:",
-                    id: "3E5Xx0",
-                    description:
-                      "Completed a government of canada abbreviation evaluation label and colon",
-                  },
-                  {
-                    abbreviation: (text: React.ReactNode) =>
-                      wrapAbbr(text, intl),
-                  },
-                )}
-              </span>
-              <span data-h2-font-weight="base(700)">
-                {intl.formatMessage(
-                  getBilingualEvaluation(bilingualEvaluation),
-                )}
-              </span>
-            </p>
-          </div>
-        )}
-        {(bilingualEvaluation === BilingualEvaluation.CompletedEnglish ||
-          bilingualEvaluation === BilingualEvaluation.CompletedFrench) && (
-          <div data-h2-flex-item="base(1of1)">
-            <p>
-              <span data-h2-display="base(block)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Second language level (reading, writing, oral interaction)",
-                  id: "qOi2J0",
-                  description:
-                    "Second language level (reading, writing, oral interaction) label",
-                })}
-                {intl.formatMessage(commonMessages.dividingColon)}
-              </span>
-              <span data-h2-font-weight="base(700)">
-                {getEvaluatedLanguageLevels(
-                  intl,
-                  comprehensionLevel,
-                  writtenLevel,
-                  verbalLevel,
-                )}
-              </span>
-            </p>
-          </div>
-        )}
-        {bilingualEvaluation === BilingualEvaluation.NotCompleted &&
-          !!estimatedLanguageAbility && (
-            <div data-h2-flex-item="base(1of1)">
-              <p>
-                <span data-h2-display="base(block)">
-                  {intl.formatMessage({
-                    defaultMessage: "Second language level:",
-                    id: "q3Gl23",
-                    description:
-                      "Estimated skill in second language, followed by a colon",
-                  })}
-                </span>
-                <span data-h2-font-weight="base(700)">
-                  {estimatedLanguageAbility
-                    ? intl.formatMessage(
-                        getLanguageProficiency(estimatedLanguageAbility),
-                      )
-                    : ""}
-                </span>
-              </p>
-            </div>
-          )}
         {hasAllEmptyFields(user) && editPath && (
           <div data-h2-flex-item="base(1of1)">
             <p>
