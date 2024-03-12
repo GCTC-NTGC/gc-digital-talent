@@ -145,17 +145,6 @@ const formMessages = defineMessages({
     description:
       "Message announced to assistive technology when a repeatable field has been removed",
   },
-  approachingLimit: {
-    defaultMessage: "You're approaching the limit!",
-    id: "Nhi8rT",
-    description: "Message displayed when one away from repeater limit.",
-  },
-  approachingLimitDetails: {
-    defaultMessage: `There is a limit on how many items you can add to this list. When the limit is reached, you will have to remove an item to add another.`,
-    id: "DPYoOj",
-    description:
-      "Additional details displayed when one away from repeater limit.",
-  },
   repeaterNull: {
     defaultMessage: "You haven't added any items yet.",
     id: "rWovPZ",

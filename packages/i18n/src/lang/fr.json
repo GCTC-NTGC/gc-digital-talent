@@ -487,10 +487,6 @@
     "defaultMessage": "Bourse postdoctorale",
     "description": "Postdoctoral Fellowship selection for education type input"
   },
-  "DPYoOj": {
-    "defaultMessage": "Il y a une limite au nombre d’éléments que vous pouvez ajouter sur cette liste. Lorsque cette limite est atteinte, vous devrez supprimer un élément si vous voulez en ajouter un autre.",
-    "description": "Additional details displayed when one away from repeater limit."
-  },
   "DUuisY": {
     "defaultMessage": "Oui, évaluation en français terminée",
     "description": "Completed a French language evaluation"
@@ -810,10 +806,6 @@
   "NhJY9U": {
     "defaultMessage": "Supérieur au niveau requis",
     "description": "Option for skill assessment decision level."
-  },
-  "Nhi8rT": {
-    "defaultMessage": "Vous avez presque atteint la limite!",
-    "description": "Message displayed when one away from repeater limit."
   },
   "NtxfWk": {
     "defaultMessage": "Garde 24/7",
