@@ -1183,10 +1183,6 @@
     "defaultMessage": "Ajouter le lien",
     "description": "Button text for adding a link in the rich text editor"
   },
-  "ZSA4lO": {
-    "defaultMessage": "Vous pouvez ajouter des éléments à l’aide du bouton \"Ajouter un nouvel élément\".",
-    "description": "Secondary message displayed when no items have been added to repeater."
-  },
   "ZWR/F3": {
     "defaultMessage": "Français seulement",
     "description": "The language requirement is French only."
@@ -1730,10 +1726,6 @@
   "rGTGvl": {
     "defaultMessage": "Soumis",
     "description": "Default text for submitted button."
-  },
-  "rWovPZ": {
-    "defaultMessage": "Vous n’avez pas encore ajouté d’éléments.",
-    "description": "Message displayed when no items have been added to repeater."
   },
   "rYodJu": {
     "defaultMessage": "Durée indéterminée (permanente)",

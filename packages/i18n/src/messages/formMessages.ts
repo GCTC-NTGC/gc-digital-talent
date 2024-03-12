@@ -145,17 +145,6 @@ const formMessages = defineMessages({
     description:
       "Message announced to assistive technology when a repeatable field has been removed",
   },
-  repeaterNull: {
-    defaultMessage: "You haven't added any items yet.",
-    id: "rWovPZ",
-    description: "Message displayed when no items have been added to repeater.",
-  },
-  repeaterNullDetails: {
-    defaultMessage: `You can add items using the "Add a new item" button provided.`,
-    id: "ZSA4lO",
-    description:
-      "Secondary message displayed when no items have been added to repeater.",
-  },
   repeaterDefaultError: {
     defaultMessage: "It looks like this list has an error.",
     id: "exPBiQ",
