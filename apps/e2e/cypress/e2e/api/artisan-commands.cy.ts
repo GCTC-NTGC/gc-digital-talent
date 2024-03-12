@@ -135,6 +135,8 @@ const poolQueryDoc = /* GraphQL */ `
     }
   }
 `;
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const PoolTest_Query = graphql(poolQueryDoc);
 
 describe("Artisan command tests", () => {

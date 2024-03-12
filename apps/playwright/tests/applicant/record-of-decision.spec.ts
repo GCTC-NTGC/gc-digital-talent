@@ -36,7 +36,7 @@ test.describe("Record of decision", () => {
         adminPage.page.getByRole("columnheader", {
           name: /^status/i,
         }),
-      ).not.toBeVisible();
+      ).toBeHidden();
     });
   });
 });

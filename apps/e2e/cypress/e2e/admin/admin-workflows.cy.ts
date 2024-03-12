@@ -13,6 +13,7 @@ describe("Admin Workflow Tests", () => {
   };
 
   const searchForUser = (name, expectedEmail) => {
+    // eslint-disable-next-line cypress/unsafe-to-chain-command
     cy.findByRole("textbox", { name: /search/i })
       .clear()
       .type(name);
@@ -77,6 +78,7 @@ describe("Admin Workflow Tests", () => {
     cy.wait("@gqlUpdateUserDataQuery");
 
     // edit the user in a small way
+    // eslint-disable-next-line cypress/unsafe-to-chain-command
     cy.findByRole("textbox", { name: /Telephone/i })
       .clear()
       .type("+10123456789");

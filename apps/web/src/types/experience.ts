@@ -2,7 +2,6 @@
 /* eslint-disable no-underscore-dangle */
 import { OperationResult } from "urql";
 
-import { notEmpty } from "@gc-digital-talent/helpers";
 import { FieldLabels } from "@gc-digital-talent/forms";
 import {
   AwardExperience,
@@ -27,7 +26,6 @@ import {
   PersonalExperienceInput,
   Scalars,
   WorkExperienceInput,
-  Skill,
   WorkExperience,
 } from "@gc-digital-talent/graphql";
 
@@ -51,26 +49,6 @@ export type ExperienceForDate =
   | EducationExperience
   | PersonalExperience
   | WorkExperience;
-
-type MergedExperiences = Array<
-  | AwardExperience
-  | CommunityExperience
-  | EducationExperience
-  | PersonalExperience
-  | WorkExperience
->;
-
-export const flattenExperienceSkills = (
-  experiences: MergedExperiences,
-): Skill[] => {
-  return experiences
-    .map((experience) => {
-      const { skills } = experience;
-      return skills?.filter(notEmpty);
-    })
-    .filter(notEmpty)
-    .flatMap((skill) => skill);
-};
 
 type FormValueDateRange = {
   startDate: Scalars["Date"]["input"];

@@ -1,6 +1,8 @@
+/* eslint-disable camelcase */
 import {
   aliasQuery,
   hasOperationName,
+  // eslint-disable-next-line import/no-unresolved
 } from "cypress/support/graphql-test-utils";
 import { JwtPayload, jwtDecode } from "jwt-decode";
 
@@ -66,7 +68,7 @@ describe("Login and logout", () => {
 
         cy.get("@accessToken").then((accessToken) => {
           // make sure it uses the access token
-          expect(interception.request.headers["authorization"]).to.eq(
+          expect(interception.request.headers.authorization).to.eq(
             `Bearer ${accessToken}`,
           );
         });
@@ -131,10 +133,10 @@ describe("Login and logout", () => {
       // expect an immediate refresh
       cy.wait("@refresh1")
         .then((interception) => {
-          cy.get("@firstTokenSet").then((firstTokenSet) => {
+          cy.get<TokenSet>("@firstTokenSet").then((firstTokenSet) => {
             // make sure it uses the first refresh token
-            expect(interception.request.query["refresh_token"]).to.eq(
-              firstTokenSet["refresh_token"],
+            expect(interception.request.query.refresh_token).to.eq(
+              firstTokenSet.refresh_token,
             );
             cy.wrap(interception.response.body).as("secondTokenSet");
           });
@@ -149,10 +151,10 @@ describe("Login and logout", () => {
 
       // the second access token is used
       cy.wait("@anyGraphql1").then((interception) => {
-        cy.get("@secondTokenSet").then((secondTokenSet) => {
+        cy.get<TokenSet>("@secondTokenSet").then((secondTokenSet) => {
           // make sure it uses the second access token
-          expect(interception.request.headers["authorization"]).to.eq(
-            `Bearer ${secondTokenSet["access_token"]}`,
+          expect(interception.request.headers.authorization).to.eq(
+            `Bearer ${secondTokenSet.access_token}`,
           );
         });
       });
@@ -194,7 +196,7 @@ describe("Login and logout", () => {
       cy.wait("@anyGraphql").then((interception) => {
         // make sure it uses the second access token
         cy.get("@secondTabAccessToken").then((secondTabAccessToken) => {
-          expect(interception.request.headers["authorization"]).to.eq(
+          expect(interception.request.headers.authorization).to.eq(
             `Bearer ${secondTabAccessToken}`,
           );
         });
@@ -220,9 +222,9 @@ describe("Login and logout", () => {
       // expect a first refresh to get second tokens
       cy.wait("@refresh1")
         .then((interception) => {
-          cy.get("@firstTokenSet").then((firstTokenSet) => {
-            expect(interception.request.query["refresh_token"]).to.eq(
-              firstTokenSet["refresh_token"],
+          cy.get<TokenSet>("@firstTokenSet").then((firstTokenSet) => {
+            expect(interception.request.query.refresh_token).to.eq(
+              firstTokenSet.refresh_token,
             );
           });
           cy.wrap(interception.response.body).as("secondTokenSet");
@@ -237,10 +239,10 @@ describe("Login and logout", () => {
 
       // the second access token is used
       cy.wait("@anyGraphql1").then((interception) => {
-        cy.get("@secondTokenSet").then((secondTokenSet) => {
+        cy.get<TokenSet>("@secondTokenSet").then((secondTokenSet) => {
           // make sure it uses the second access token
-          expect(interception.request.headers["authorization"]).to.eq(
-            `Bearer ${secondTokenSet["access_token"]}`,
+          expect(interception.request.headers.authorization).to.eq(
+            `Bearer ${secondTokenSet.access_token}`,
           );
         });
       });
@@ -268,10 +270,10 @@ describe("Login and logout", () => {
       // expect a second refresh to get third tokens
       cy.wait("@refresh2")
         .then((interception) => {
-          cy.get("@secondTokenSet").then((secondTokenSet) => {
+          cy.get<TokenSet>("@secondTokenSet").then((secondTokenSet) => {
             // make sure it uses the second refresh token
-            expect(interception.request.query["refresh_token"]).to.eq(
-              secondTokenSet["refresh_token"],
+            expect(interception.request.query.refresh_token).to.eq(
+              secondTokenSet.refresh_token,
             );
             cy.wrap(interception.response.body).as("thirdTokenSet");
           });
@@ -288,10 +290,10 @@ describe("Login and logout", () => {
 
       // the third access token is used
       cy.wait("@anyGraphql2").then((interception) => {
-        cy.get("@thirdTokenSet").then((thirdTokenSet) => {
+        cy.get<TokenSet>("@thirdTokenSet").then((thirdTokenSet) => {
           // make sure it uses the third access token
-          expect(interception.request.headers["authorization"]).to.eq(
-            `Bearer ${thirdTokenSet["access_token"]}`,
+          expect(interception.request.headers.authorization).to.eq(
+            `Bearer ${thirdTokenSet.access_token}`,
           );
         });
       });
@@ -314,9 +316,10 @@ describe("Login and logout", () => {
       cy.findByRole("button", { name: "Sign out" }).click();
 
       cy.wait("@endsession").then((interception) => {
-        expect(interception.request.query["post_logout_redirect_uri"]).to.exist;
+        // eslint-disable-next-line no-unused-expressions
+        expect(interception.request.query.post_logout_redirect_uri).to.exist;
         cy.get("@idToken").then((idToken) => {
-          expect(interception.request.query["id_token_hint"]).to.eq(idToken);
+          expect(interception.request.query.id_token_hint).to.eq(idToken);
         });
       });
 

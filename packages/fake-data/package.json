@@ -21,7 +21,8 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "eslint-config-custom": "*",
+    "@gc-digital-talent/eslint-config": "*",
+    "eslint": "^8.57.0",
     "tsconfig": "*",
     "typescript": "^5.4.2"
   }

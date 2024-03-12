@@ -10,14 +10,11 @@ import {
   CommunityExperience,
   EducationExperience,
   PersonalExperience,
-  Skill,
   WorkExperience,
 } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
-import MissingSkills from "~/components/MissingSkills";
-import { flattenExperienceSkills } from "~/types/experience";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
 import { Application } from "~/utils/applicationUtils";
@@ -45,21 +42,15 @@ interface CareerTimelineAndRecruitmentProps {
   userId: string;
   experiences?: MergedExperiences;
   applications: Application[];
-  missingSkills?: {
-    requiredSkills: Skill[];
-    optionalSkills: Skill[];
-  };
 }
 
 const CareerTimelineAndRecruitment = ({
   experiences,
   applications,
-  missingSkills,
   userId,
 }: CareerTimelineAndRecruitmentProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const hasCareerTimelineItems = !!experiences?.length;
 
   const crumbs = [
     {
@@ -143,19 +134,6 @@ const CareerTimelineAndRecruitment = ({
                     "Descriptive paragraph for the Manage your career timeline section of the career timeline and recruitment page.",
                 })}
               </p>
-              {missingSkills && (
-                <div data-h2-margin="base(x1, 0)">
-                  <MissingSkills
-                    addedSkills={
-                      hasCareerTimelineItems
-                        ? flattenExperienceSkills(experiences)
-                        : []
-                    }
-                    requiredSkills={missingSkills.requiredSkills}
-                    optionalSkills={missingSkills.optionalSkills}
-                  />
-                </div>
-              )}
               <div data-h2-margin-top="base(x1)">
                 <CareerTimelineSection
                   experiences={experiences}

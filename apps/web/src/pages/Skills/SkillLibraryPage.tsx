@@ -1,19 +1,17 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import GlobeAmericasIcon from "@heroicons/react/24/outline/GlobeAmericasIcon";
-import CpuChipIcon from "@heroicons/react/24/outline/CpuChipIcon";
 import { OperationContext, useQuery } from "urql";
 import ChartPieIcon from "@heroicons/react/24/outline/ChartPieIcon";
+import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 
 import { TableOfContents, Pending, Link } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers/src/utils/util";
+import { unpackMaybes } from "@gc-digital-talent/helpers/src/utils/util";
 import { navigationMessages } from "@gc-digital-talent/i18n";
-import { Skill, SkillCategory, UserSkill } from "@gc-digital-talent/graphql";
+import { Skill, UserSkill } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
-import { categorizeSkill, categorizeUserSkill } from "~/utils/skillUtils";
 
 import SkillLibraryTable from "./components/SkillLibraryTable";
 import { UserSkills_Query } from "./operations";
@@ -33,24 +31,13 @@ const SkillLibrary = ({ userSkills, skills }: SkillLibraryProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 
-  const categorizedUserSkills = categorizeUserSkill(userSkills);
-  const categorizedSkills = categorizeSkill(skills);
-
   const sections: PageSections = {
-    behavioural: {
-      id: "behavioural",
+    manage: {
+      id: "manage",
       title: intl.formatMessage({
-        defaultMessage: "Behavioural skill library",
-        id: "yzqnvb",
-        description: "Title for behavioural skill library section",
-      }),
-    },
-    technical: {
-      id: "technical",
-      title: intl.formatMessage({
-        defaultMessage: "Technical skill library",
-        id: "FEK54g",
-        description: "Title for technical skill library section",
+        defaultMessage: "Manage your skills",
+        id: "Mz7sON",
+        description: "Title for editing a users skills",
       }),
     },
     showcase: {
@@ -81,10 +68,9 @@ const SkillLibrary = ({ userSkills, skills }: SkillLibraryProps) => {
   const pageTitle = intl.formatMessage(navigationMessages.skillLibrary);
 
   const pageDescription = intl.formatMessage({
-    defaultMessage:
-      "Add, edit, and manage behavioural and technical skills on your profile.",
+    defaultMessage: "Add, edit, and manage the skills on your profile.",
     description: "Page description for the skill library page",
-    id: "ERDq0Q",
+    id: "NlYIHM",
   });
 
   return (
@@ -96,13 +82,8 @@ const SkillLibrary = ({ userSkills, skills }: SkillLibraryProps) => {
           <TableOfContents.Navigation>
             <TableOfContents.List>
               <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink id={sections.behavioural.id}>
-                  {sections.behavioural.title}
-                </TableOfContents.AnchorLink>
-              </TableOfContents.ListItem>
-              <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink id={sections.technical.id}>
-                  {sections.technical.title}
+                <TableOfContents.AnchorLink id={sections.manage.id}>
+                  {sections.manage.title}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
               <TableOfContents.ListItem>
@@ -113,65 +94,26 @@ const SkillLibrary = ({ userSkills, skills }: SkillLibraryProps) => {
             </TableOfContents.List>
           </TableOfContents.Navigation>
           <TableOfContents.Content>
-            <TableOfContents.Section id={sections.behavioural.id}>
+            <TableOfContents.Section id={sections.manage.id}>
               <TableOfContents.Heading
-                icon={GlobeAmericasIcon}
+                icon={BoltIcon}
                 color="primary"
                 data-h2-margin="base(0, 0, x1, 0)"
               >
-                {sections.behavioural.title}
+                {sections.manage.title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x.5, 0)">
+              <p data-h2-margin="base(x1, 0)">
                 {intl.formatMessage({
                   defaultMessage:
-                    "This section allows you to manage all the behavioural skills linked to your profile, experiences, and showcase. Click on a skill's name to view further details.",
-                  id: "C1wuXs",
+                    "This section allows you to manage all the skills linked to your profile, experiences, and showcase. Select a skill's name to manage further details including your level and related career experiences.",
+                  id: "Di1aEV",
                   description: "Description on how to use behavioural skills",
                 })}
               </p>
-              <p data-h2-margin="base(x.5, 0, x1, 0)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Behavioural skills refer to the key interpersonal and personal attributes that are necessary for specific jobs across the organization. These competencies generally refer to the way a person acts, communicates and interacts with others.",
-                  id: "R4Z9FQ",
-                  description: "Definition of behavioural skills",
-                })}
-              </p>
               <SkillLibraryTable
-                caption={sections.behavioural.title}
-                data={categorizedUserSkills[SkillCategory.Behavioural] ?? []}
-                allSkills={categorizedSkills[SkillCategory.Behavioural] ?? []}
-              />
-            </TableOfContents.Section>
-            <TableOfContents.Section id={sections.technical.id}>
-              <TableOfContents.Heading
-                icon={CpuChipIcon}
-                color="secondary"
-                data-h2-margin-top="base(x3)"
-              >
-                {sections.technical.title}
-              </TableOfContents.Heading>
-              <p data-h2-margin="base(x.5, 0)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "This section allows you to manage all the technical skills linked to your profile, experiences, and showcase. Click on a skill's name to view further details.",
-                  id: "6cFJ2w",
-                  description: "Description on how to use technical skills",
-                })}
-              </p>
-              <p data-h2-margin="base(x.5, 0, x1, 0)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Technical skills refer to the technical knowledge and abilities that are relevant to specific jobs or roles across the organization. Technical skills are usually acquired through specific learning or work experience in applying the knowledge and skill.",
-                  id: "5Z/SAX",
-                  description: "Definition of technical skills",
-                })}
-              </p>
-              <SkillLibraryTable
-                isTechnical
-                caption={sections.technical.title}
-                data={categorizedUserSkills[SkillCategory.Technical] ?? []}
-                allSkills={categorizedSkills[SkillCategory.Technical] ?? []}
+                caption={sections.manage.title}
+                data={userSkills}
+                allSkills={skills}
               />
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.showcase.id}>
@@ -215,12 +157,12 @@ const SkillLibraryPage = () => {
     context,
   });
 
-  const userSkills = data?.me?.userSkills?.filter(notEmpty);
-  const skills = data?.skills.filter(notEmpty);
+  const userSkills = unpackMaybes(data?.me?.userSkills);
+  const skills = unpackMaybes(data?.skills);
 
   return (
     <Pending fetching={fetching} error={error}>
-      <SkillLibrary userSkills={userSkills ?? []} skills={skills ?? []} />
+      <SkillLibrary userSkills={userSkills} skills={skills} />
     </Pending>
   );
 };

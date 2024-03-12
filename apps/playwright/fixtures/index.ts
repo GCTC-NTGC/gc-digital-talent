@@ -1,11 +1,11 @@
 import { test as base } from "@playwright/test";
+import AxeBuilder from "@axe-core/playwright";
 
 import auth from "~/constants/auth";
 
-import { AppPage } from "./AppPage";
-import { AdminPage } from "./AdminPage";
-import { ApplicantPage } from "./ApplicantPage";
-import AxeBuilder from "@axe-core/playwright";
+import AppPage from "./AppPage";
+import AdminPage from "./AdminPage";
+import ApplicantPage from "./ApplicantPage";
 
 type AppFixtures = {
   // Base unauthenticated page

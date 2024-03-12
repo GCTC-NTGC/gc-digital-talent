@@ -14,7 +14,8 @@
     "lint": "eslint \"src/**/*.ts*\""
   },
   "devDependencies": {
-    "eslint-config-custom": "*",
+    "@gc-digital-talent/eslint-config": "*",
+    "eslint": "^8.57.0",
     "react": "^18.2.0",
     "tsconfig": "*",
     "typescript": "^5.4.2"

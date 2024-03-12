@@ -87,6 +87,30 @@ class CountPoolCandidatesByPoolTest extends TestCase
         $user = User::factory()->create([]);
         PoolCandidate::factory()->create($this->poolCandidateData($pool, $user));
 
+        // no input
+        $this->graphQL(
+            /** @lang GraphQL */
+            '
+            query ($where: ApplicantFilterInput) {
+                countPoolCandidatesByPool(where: $where) {
+                  pool { id }
+                  candidateCount
+                }
+              }
+            ',
+            []
+        )->assertSimilarJson([
+            'data' => [
+                'countPoolCandidatesByPool' => [
+                    [
+                        'pool' => ['id' => $pool->id],
+                        'candidateCount' => 1,
+                    ],
+                ],
+            ],
+        ]);
+
+        // empty array input for where
         $this->graphQL(
             /** @lang GraphQL */
             '
