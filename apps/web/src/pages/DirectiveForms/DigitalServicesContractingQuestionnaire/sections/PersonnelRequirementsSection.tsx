@@ -46,7 +46,6 @@ const PersonnelRequirementsSection = ({
       <Repeater.Root
         data-h2-margin-bottom="base(1rem)"
         name="personnelRequirements"
-        total={fields.length}
         onAdd={() => {
           append({});
         }}
