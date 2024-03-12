@@ -6,7 +6,6 @@ import ArrowDownIcon from "@heroicons/react/24/solid/ArrowDownIcon";
 import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 import LockClosedIcon from "@heroicons/react/24/solid/LockClosedIcon";
-import PencilSquareIcon from "@heroicons/react/24/solid/PencilSquareIcon";
 import { useFormContext } from "react-hook-form";
 import isEqual from "lodash/isEqual";
 
@@ -32,8 +31,6 @@ export interface RepeaterFieldsetProps {
   onMove: (from: number, to: number) => void;
   /** Callback when the item is removed from the array */
   onRemove?: (index: number) => void;
-  /** Callback function when edit button is clicked */
-  onEdit?: (index: number) => void;
   /** All indexes that should be prevented from moving */
   moveDisabledIndexes?: Array<number>;
   /** Whether or not field is last item */
@@ -50,7 +47,6 @@ const Fieldset = ({
   onMove,
   onRemove,
   children,
-  onEdit,
   moveDisabledIndexes = [],
   isLast,
 }: RepeaterFieldsetProps) => {
@@ -110,10 +106,6 @@ const Fieldset = ({
     } else {
       defaultLogger.debug("No onRemove for handler to call.");
     }
-  };
-
-  const handleEdit = () => {
-    if (onEdit) onEdit(index);
   };
 
   const decrement = () => {
@@ -249,16 +241,6 @@ const Fieldset = ({
                 data-h2-align-items="base(center)"
                 data-h2-margin-right="base(-x.5)"
               >
-                {onEdit && (
-                  <ActionButton
-                    onClick={handleEdit}
-                    aria-label={intl.formatMessage(formMessages.repeaterEdit, {
-                      index: position,
-                    })}
-                  >
-                    <PencilSquareIcon data-h2-width="base(x.75)" />
-                  </ActionButton>
-                )}
                 {onRemove && (
                   <ActionButton
                     onClick={handleRemove}

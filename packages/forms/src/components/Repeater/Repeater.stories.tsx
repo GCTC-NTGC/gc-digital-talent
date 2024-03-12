@@ -75,9 +75,6 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
                   onRemove={remove}
                   legend={`Screening Question ${index + 1}`}
                   hideLegend={hideLegend}
-                  onEdit={() => {
-                    action("edit")("Opens edit form dialog.");
-                  }}
                   moveDisabledIndexes={moveDisabledIndexes}
                   isLast={index === fields.length - 1}
                 >
