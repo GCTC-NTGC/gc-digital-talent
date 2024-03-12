@@ -334,11 +334,6 @@ export interface RepeaterProps extends React.HTMLProps<HTMLDivElement> {
   children: React.ReactNode;
   /** Contextual text for the button to add items */
   addText?: React.ReactNode;
-  /** Additional props to style the add button */
-  addButtonProps?: Omit<
-    React.ComponentPropsWithoutRef<typeof Button>,
-    "children" | "type"
-  >;
   /** Current total number of fields (eg: fields.length) */
   total: number;
   /* Maximum number of items */
@@ -365,7 +360,6 @@ const Root = ({
   name,
   onAdd,
   addText,
-  addButtonProps,
   children,
   showAdd = true,
   maxItems,
@@ -499,7 +493,6 @@ const Root = ({
           block
           color="secondary"
           onClick={onAdd}
-          {...addButtonProps}
         >
           {maxItems && total === maxItems ? (
             <>{intl.formatMessage(formMessages.repeaterDeleteItem)}</>

@@ -54,7 +54,6 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
       required: "Please add at least 1 item.",
     },
   });
-  const canAdd = maxItems ? fields.length < maxItems : true;
 
   return (
     <div
@@ -68,9 +67,6 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
               {...rootProps}
               name={name}
               trackUnsaved
-              addButtonProps={{
-                disabled: !canAdd,
-              }}
               onAdd={() => {
                 const newValues = {
                   en: "",
