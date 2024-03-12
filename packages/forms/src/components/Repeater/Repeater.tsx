@@ -329,8 +329,6 @@ const Fieldset = ({
 export interface RepeaterProps extends React.HTMLProps<HTMLDivElement> {
   /** A string specifying a name for the input control. */
   name: string;
-  /** Determine if it should track unsaved changes and render it */
-  trackUnsaved?: boolean;
   children: React.ReactNode;
   /** Contextual text for the button to add items */
   addText?: React.ReactNode;

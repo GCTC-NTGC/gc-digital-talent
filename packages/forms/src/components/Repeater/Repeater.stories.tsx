@@ -66,7 +66,6 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
             <Repeater.Root
               {...rootProps}
               name={name}
-              trackUnsaved
               onAdd={() => {
                 const newValues = {
                   en: "",
