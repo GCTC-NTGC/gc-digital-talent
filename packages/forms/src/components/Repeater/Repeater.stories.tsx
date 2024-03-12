@@ -138,10 +138,10 @@ const Template: StoryFn<StoryProps> = (args) => {
 export const Default = Template.bind({});
 Default.args = defaultArgs;
 
-export const WithLegend = Template.bind({});
-WithLegend.args = {
+export const WithoutLegend = Template.bind({});
+WithoutLegend.args = {
   ...defaultArgs,
-  hideLegend: false,
+  hideLegend: true,
 };
 
 export const WithDefaultValues = Template.bind({});
