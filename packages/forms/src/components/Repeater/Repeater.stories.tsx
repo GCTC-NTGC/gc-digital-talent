@@ -72,7 +72,6 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
                 append(newValues);
                 action("add")(newValues);
               }}
-              total={fields.length}
               showUnsavedChanges
             >
               {fields.map((item, index) => (
@@ -80,7 +79,6 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
                   key={item.id}
                   index={index}
                   name={name}
-                  total={fields.length}
                   onMove={move}
                   onRemove={remove}
                   legend={`Screening Question ${index + 1}`}

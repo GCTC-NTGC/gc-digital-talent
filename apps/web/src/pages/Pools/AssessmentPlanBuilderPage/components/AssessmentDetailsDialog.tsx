@@ -497,7 +497,6 @@ const AssessmentDetailsDialog = ({
                     <Repeater.Root
                       data-h2-margin-bottom="base(1rem)"
                       name="screeningQuestionFieldArray"
-                      total={fields.length}
                       showAdd={canAddScreeningQuestions}
                       showUnsavedChanges={false}
                       onAdd={() => {
@@ -529,7 +528,6 @@ const AssessmentDetailsDialog = ({
                             name="screeningQuestionFieldArray"
                             key={id}
                             index={index}
-                            total={fields.length}
                             onMove={move}
                             onRemove={remove}
                             legend={intl.formatMessage(

@@ -23,8 +23,6 @@ export interface RepeaterFieldsetProps {
   index: number;
   /** A string specifying a name for the input control. */
   name: string;
-  /** Current total number of fields (eg: fields.length) */
-  total: number;
   /** The legend for the fieldset (required but hidden by default) */
   legend: React.ReactNode;
   /** Set if the legend should be visually hidden (default: false) */
@@ -51,7 +49,6 @@ const MotionFieldset = motion(Field.Fieldset);
 const Fieldset = ({
   index,
   name,
-  total,
   legend,
   hideLegend = false,
   onMove,
@@ -89,7 +86,6 @@ const Fieldset = ({
 
   const disableIncrement =
     fieldSetDisabled || // the whole fieldset is disabled
-    index === total - 1 || // is the last item
     moveDisabledIndexes.some(
       (disabledIndex) =>
         index === disabledIndex || // is move disabled item
@@ -332,8 +328,6 @@ export interface RepeaterProps extends React.HTMLProps<HTMLDivElement> {
   children: React.ReactNode;
   /** Contextual text for the button to add items */
   addText?: React.ReactNode;
-  /** Current total number of fields (eg: fields.length) */
-  total: number;
   /** Callback function when the add button is clicked */
   onAdd?: () => void;
   /** Determine if we want to show the add button or not */
@@ -347,7 +341,6 @@ const Root = ({
   addText,
   children,
   showAdd = true,
-  total,
   showUnsavedChanges,
   ...rest
 }: RepeaterProps) => {

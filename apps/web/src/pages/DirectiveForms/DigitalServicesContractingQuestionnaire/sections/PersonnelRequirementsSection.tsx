@@ -62,7 +62,6 @@ const PersonnelRequirementsSection = ({
               key={item.id}
               name="personnelRequirements"
               index={index}
-              total={fields.length}
               onMove={move}
               onRemove={remove}
               legend={intl.formatMessage(
