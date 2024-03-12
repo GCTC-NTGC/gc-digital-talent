@@ -938,15 +938,6 @@ const GenericJobTitlesWithClassification = defineMessages({
   },
 });
 
-export const getGenericJobTitlesWithClassification = (
-  GenericJobTitleWithClassificationId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    GenericJobTitlesWithClassification,
-    GenericJobTitleWithClassificationId,
-    `Invalid role '${GenericJobTitleWithClassificationId}'`,
-  );
-
 const awardedToMessages = defineMessages({
   [AwardedTo.Me]: {
     defaultMessage: "Me",
