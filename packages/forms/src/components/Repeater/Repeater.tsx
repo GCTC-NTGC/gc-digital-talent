@@ -126,37 +126,6 @@ const Fieldset = ({
     </span>
   );
 
-  // edit button might be default or null
-  let editButton: React.ReactNode = null;
-  if (onEdit) {
-    // we have a handler so show the default button
-    editButton = (
-      <ActionButton
-        onClick={handleEdit}
-        aria-label={intl.formatMessage(formMessages.repeaterEdit, {
-          index: position,
-        })}
-      >
-        <PencilSquareIcon data-h2-width="base(x.75)" />
-      </ActionButton>
-    );
-  }
-
-  // remove button might be default or null
-  let removeButton: React.ReactNode = null;
-  if (onRemove) {
-    // we have a handler so show the default button
-    removeButton = (
-      <ActionButton
-        onClick={handleRemove}
-        aria-label={intl.formatMessage(formMessages.repeaterRemove, {
-          index: position,
-        })}
-      >
-        <TrashIcon data-h2-width="base(x.75)" />
-      </ActionButton>
-    );
-  }
   return (
     <MotionFieldset
       layout
@@ -275,8 +244,29 @@ const Fieldset = ({
                 data-h2-align-items="base(center)"
                 data-h2-margin-right="base(-x.5)"
               >
-                {editButton}
-                {removeButton}
+                {onEdit && (
+                  <ActionButton
+                    onClick={handleEdit}
+                    aria-label={intl.formatMessage(formMessages.repeaterEdit, {
+                      index: position,
+                    })}
+                  >
+                    <PencilSquareIcon data-h2-width="base(x.75)" />
+                  </ActionButton>
+                )}
+                {onRemove && (
+                  <ActionButton
+                    onClick={handleRemove}
+                    aria-label={intl.formatMessage(
+                      formMessages.repeaterRemove,
+                      {
+                        index: position,
+                      },
+                    )}
+                  >
+                    <TrashIcon data-h2-width="base(x.75)" />
+                  </ActionButton>
+                )}
               </div>
             </div>
             <div data-h2-width="base(100%)">
