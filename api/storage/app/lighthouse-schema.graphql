@@ -380,7 +380,7 @@ type PoolCandidate {
   id: ID!
   pool: Pool!
   user: User!
-  cmoIdentifier: ID
+  cmoIdentifier: ID @deprecated(reason: "Field no longer used")
   expiryDate: Date
   status: PoolCandidateStatus
   statusWeight: Int
@@ -926,7 +926,6 @@ input ClassificationBelongsToMany {
 input CreatePoolCandidateAsAdminInput {
   pool: PoolBelongsTo!
   user: UserBelongsTo!
-  cmoIdentifier: ID
   expiryDate: Date
   status: PoolCandidateStatus = NEW_APPLICATION
   notes: String
@@ -941,7 +940,6 @@ input UpdateClassificationInput {
 }
 
 input UpdatePoolCandidateStatusAndExpiryInput {
-  cmoIdentifier: ID
   expiryDate: Date
   status: PoolCandidateStatus
 }

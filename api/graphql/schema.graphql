@@ -282,7 +282,9 @@ type PoolCandidate {
   pool: Pool! @belongsTo @canResolved(ability: "view")
   user: User! @belongsTo(relation: "user") @canResolved(ability: "view")
   # cmoIdentifier can be an arbitrary string used to relate this candidate to an external database.
-  cmoIdentifier: ID @rename(attribute: "cmo_identifier")
+  cmoIdentifier: ID
+    @rename(attribute: "cmo_identifier")
+    @deprecated(reason: "Field no longer used")
   # Expiry date for this candidate being in the pool.
   expiryDate: Date @rename(attribute: "expiry_date")
 
@@ -1081,7 +1083,6 @@ input ClassificationBelongsToMany {
 input CreatePoolCandidateAsAdminInput {
   pool: PoolBelongsTo!
   user: UserBelongsTo!
-  cmoIdentifier: ID @rename(attribute: "cmo_identifier")
   expiryDate: Date @rename(attribute: "expiry_date")
   status: PoolCandidateStatus = NEW_APPLICATION
     @rename(attribute: "pool_candidate_status")
@@ -1097,7 +1098,6 @@ input UpdateClassificationInput {
 }
 
 input UpdatePoolCandidateStatusAndExpiryInput {
-  cmoIdentifier: ID @rename(attribute: "cmo_identifier")
   expiryDate: Date @rename(attribute: "expiry_date")
   status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
 }
