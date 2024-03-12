@@ -50,8 +50,8 @@ export NVM_DIR="$HOME/.nvm"
 
 source ~/.bash_profile
 nvm install v20.11.0
-#nvm install-latest-npm
-npm install -g npm@9.9.2
+#nvm install-latest-pnpm
+npm install -g pnpm@8.15.0
 
 ### API
 
@@ -68,11 +68,15 @@ php artisan lighthouse:print-schema --write
 
 ### Install all npm dependencies
 cd $ROOT_DIR
-npm ci --include=dev
+pnpm install --frozen-lockfile --include=dev
 
 ### Build frontend
-npm run build
+pnpm run build
 chmod -R a+r,a+w node_modules
 
 ### Cleanup frontend npm dependencies
-npm prune --production
+### Note: Need to delete node_mobules and reinstall with --prod flag
+### Ref: https://pnpm.io/cli/prune#:~:text=in%20optionalDependencies.-,WARNING,-The%20prune%20command
+find . -name "node_modules" -type d -exec rm -rf {} \;
+chmod -R a+r,a+w node_modules
+pnpm install --prod
