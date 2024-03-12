@@ -542,6 +542,7 @@ const AssessmentDetailsDialog = ({
                               },
                             )}
                             hideLegend
+                            isLast={index === fields.length - 1}
                           >
                             <input
                               type="hidden"

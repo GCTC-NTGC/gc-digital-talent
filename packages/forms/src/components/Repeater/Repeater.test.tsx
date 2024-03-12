@@ -72,6 +72,7 @@ const RepeaterWrapper = ({
           legend={`Test Repeater ${index + 1}`}
           onRemove={handleRemove}
           onMove={handleMove}
+          isLast={index === fields.length - 1}
         >
           <Input
             {...inputProps}

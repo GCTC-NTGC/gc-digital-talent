@@ -79,6 +79,7 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
                     action("edit")("Opens edit form dialog.");
                   }}
                   moveDisabledIndexes={moveDisabledIndexes}
+                  isLast={index === fields.length - 1}
                 >
                   <div
                     data-h2-display="base(grid)"

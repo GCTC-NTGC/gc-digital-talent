@@ -36,6 +36,8 @@ export interface RepeaterFieldsetProps {
   onEdit?: (index: number) => void;
   /** All indexes that should be prevented from moving */
   moveDisabledIndexes?: Array<number>;
+  /** Whether or not field is last item */
+  isLast?: boolean;
 }
 
 const MotionFieldset = motion(Field.Fieldset);
@@ -50,6 +52,7 @@ const Fieldset = ({
   children,
   onEdit,
   moveDisabledIndexes = [],
+  isLast,
 }: RepeaterFieldsetProps) => {
   const intl = useIntl();
   const shouldReduceMotion = useReducedMotion();
@@ -74,11 +77,13 @@ const Fieldset = ({
         index - 1 === disabledIndex, // has a move-disabled item previous
     );
 
-  const disableIncrement = moveDisabledIndexes.some(
-    (disabledIndex) =>
-      index === disabledIndex || // is move disabled item
-      index + 1 === disabledIndex, // has a move-disabled item following
-  );
+  const disableIncrement =
+    isLast || // is last item
+    moveDisabledIndexes.some(
+      (disabledIndex) =>
+        index === disabledIndex || // is move disabled item
+        index + 1 === disabledIndex, // has a move-disabled item following
+    );
   const isMoveDisabled = moveDisabledIndexes.includes(index);
   const handleMove = (from: number, to: number) => {
     onMove(from, to);

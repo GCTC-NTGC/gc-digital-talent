@@ -62,6 +62,7 @@ const NestedFieldArray = ({ parentIndex }: { parentIndex: number }) => {
             onMove={move}
             onRemove={remove}
             legend={`Nested field ${index + 1}`}
+            isLast={index === fields.length - 1}
           >
             <FieldWrapper>
               <Input
@@ -111,6 +112,7 @@ const FieldArray = () => {
             onMove={move}
             onRemove={remove}
             legend={`Field ${index + 1}`}
+            isLast={index === fields.length - 1}
           >
             <FieldWrapper>
               <Input

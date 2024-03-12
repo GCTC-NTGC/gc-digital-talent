@@ -73,6 +73,7 @@ const PersonnelRequirementsSection = ({
                   index: index + 1,
                 },
               )}
+              isLast={index === fields.length - 1}
             >
               <PersonnelRequirementFieldset
                 fieldsetName={`personnelRequirements.${index}`}
