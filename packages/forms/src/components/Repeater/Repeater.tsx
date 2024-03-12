@@ -290,7 +290,6 @@ export interface RepeaterProps extends React.HTMLProps<HTMLDivElement> {
   onAdd?: () => void;
   /** Determine if we want to show the add button or not */
   showAdd?: boolean;
-  showUnsavedChanges?: boolean;
 }
 
 const Root = ({
@@ -299,32 +298,14 @@ const Root = ({
   addText,
   children,
   showAdd = true,
-  showUnsavedChanges,
   ...rest
 }: RepeaterProps) => {
   const intl = useIntl();
   const addId = React.useId();
 
   const {
-    formState: { errors, defaultValues, isDirty },
-    watch,
+    formState: { errors },
   } = useFormContext();
-
-  // Check if any changes have been made to repeater length or repeater items.
-  const originalItems = defaultValues?.[name];
-  const currentItems = watch(name);
-
-  const changedItems = originalItems?.filter(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (original: any, index: string | number) => {
-      const current = currentItems[index];
-      return !current || !isEqual(original, current);
-    },
-  );
-  const hasUnsavedChanges =
-    showUnsavedChanges &&
-    (isDirty ||
-      (changedItems?.length && currentItems.length !== originalItems?.length));
 
   // Grab root error message from field errors list
   const hasError = errors?.[name] ? true : undefined;
@@ -367,15 +348,6 @@ const Root = ({
           {errorMessage && <p data-h2-margin-top="base(x.5)">{errorMessage}</p>}
         </Field.Error>
       )}
-      {hasUnsavedChanges ? (
-        <Well
-          data-h2-margin-bottom="base(x.5)"
-          data-h2-text-align="base(center)"
-          data-h2-color="base(black)"
-        >
-          {intl.formatMessage(formMessages.repeaterUnsavedChanges)}
-        </Well>
-      ) : null}
       {showAdd && (
         <Button
           id={addId}

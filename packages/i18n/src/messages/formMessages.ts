@@ -150,11 +150,6 @@ const formMessages = defineMessages({
     id: "exPBiQ",
     description: "Error message title for repeater component.",
   },
-  repeaterUnsavedChanges: {
-    defaultMessage: "You have unsaved changes. Remember to save!",
-    id: "cAXj6F",
-    description: "Message displayed when items have been moved and not saved",
-  },
   repeaterDeleteItem: {
     defaultMessage: "Delete an item to add another",
     id: "lFLEy2",

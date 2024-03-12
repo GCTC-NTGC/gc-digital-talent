@@ -498,7 +498,6 @@ const AssessmentDetailsDialog = ({
                       data-h2-margin-bottom="base(1rem)"
                       name="screeningQuestionFieldArray"
                       showAdd={canAddScreeningQuestions}
-                      showUnsavedChanges={false}
                       onAdd={() => {
                         append({
                           id: null,

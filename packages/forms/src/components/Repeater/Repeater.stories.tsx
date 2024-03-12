@@ -64,7 +64,6 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
                 append(newValues);
                 action("add")(newValues);
               }}
-              showUnsavedChanges
             >
               {fields.map((item, index) => (
                 <Repeater.Fieldset
