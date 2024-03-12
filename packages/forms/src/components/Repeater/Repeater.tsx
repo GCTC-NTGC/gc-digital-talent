@@ -339,8 +339,6 @@ export interface RepeaterProps extends React.HTMLProps<HTMLDivElement> {
   /** Determine if we want to show the add button or not */
   showAdd?: boolean;
   showUnsavedChanges?: boolean;
-  /** Custom null message when no items have been added */
-  customNullMessage?: React.ReactNode;
 }
 
 const Root = ({
@@ -351,7 +349,6 @@ const Root = ({
   showAdd = true,
   total,
   showUnsavedChanges,
-  customNullMessage,
   ...rest
 }: RepeaterProps) => {
   const intl = useIntl();
@@ -402,25 +399,6 @@ const Root = ({
         {intl.formatMessage(formMessages.repeaterSkipTo)}
       </Link>
       {children && <div data-h2-margin-bottom="base(x.5)">{children}</div>}
-      {total === 0 && (
-        <Well
-          data-h2-margin-bottom="base(x.5)"
-          data-h2-text-align="base(center)"
-          data-h2-color="base(black)"
-        >
-          {customNullMessage ?? (
-            <>
-              <p
-                data-h2-font-weight="base(700)"
-                data-h2-margin-bottom="base(x.5)"
-              >
-                {intl.formatMessage(formMessages.repeaterNull)}
-              </p>
-              <p>{intl.formatMessage(formMessages.repeaterNullDetails)}</p>
-            </>
-          )}
-        </Well>
-      )}
       {hasError && (
         <Field.Error
           id={name}
