@@ -60,6 +60,12 @@ type User {
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
   bilingualEvaluation: BilingualEvaluation
     @rename(attribute: "bilingual_evaluation")
+    @deprecated(reason: "This has been replaced. See issue #8031 for details.")
+  firstOfficialLanguage: Language @rename(attribute: "first_official_language")
+  secondLanguageExamCompleted: Boolean
+    @rename(attribute: "second_language_exam_completed")
+  secondLanguageExamValidity: Boolean
+    @rename(attribute: "second_language_exam_validity")
   comprehensionLevel: EvaluatedLanguageAbility
     @rename(attribute: "comprehension_level")
   writtenLevel: EvaluatedLanguageAbility @rename(attribute: "written_level")
@@ -862,6 +868,12 @@ input CreateUserInput {
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
   bilingualEvaluation: BilingualEvaluation
     @rename(attribute: "bilingual_evaluation")
+    @deprecated(reason: "This has been replaced. See issue #8031 for details.")
+  firstOfficialLanguage: Language @rename(attribute: "first_official_language")
+  secondLanguageExamCompleted: Boolean
+    @rename(attribute: "second_language_exam_completed")
+  secondLanguageExamValidity: Boolean
+    @rename(attribute: "second_language_exam_validity")
   comprehensionLevel: EvaluatedLanguageAbility
     @rename(attribute: "comprehension_level")
   writtenLevel: EvaluatedLanguageAbility @rename(attribute: "written_level")
@@ -931,6 +943,12 @@ input UpdateUserAsAdminInput
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
   bilingualEvaluation: BilingualEvaluation
     @rename(attribute: "bilingual_evaluation")
+    @deprecated(reason: "This has been replaced. See issue #8031 for details.")
+  firstOfficialLanguage: Language @rename(attribute: "first_official_language")
+  secondLanguageExamCompleted: Boolean
+    @rename(attribute: "second_language_exam_completed")
+  secondLanguageExamValidity: Boolean
+    @rename(attribute: "second_language_exam_validity")
   comprehensionLevel: EvaluatedLanguageAbility
     @rename(attribute: "comprehension_level")
   writtenLevel: EvaluatedLanguageAbility @rename(attribute: "written_level")
@@ -1007,6 +1025,12 @@ input UpdateUserAsUserInput
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
   bilingualEvaluation: BilingualEvaluation
     @rename(attribute: "bilingual_evaluation")
+    @deprecated(reason: "This has been replaced. See issue #8031 for details.")
+  firstOfficialLanguage: Language @rename(attribute: "first_official_language")
+  secondLanguageExamCompleted: Boolean
+    @rename(attribute: "second_language_exam_completed")
+  secondLanguageExamValidity: Boolean
+    @rename(attribute: "second_language_exam_validity")
   comprehensionLevel: EvaluatedLanguageAbility
     @rename(attribute: "comprehension_level")
   writtenLevel: EvaluatedLanguageAbility @rename(attribute: "written_level")

@@ -217,6 +217,9 @@ type User {
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
   bilingualEvaluation: BilingualEvaluation
+  firstOfficialLanguage: Language
+  secondLanguageExamCompleted: Boolean
+  secondLanguageExamValidity: Boolean
   comprehensionLevel: EvaluatedLanguageAbility
   writtenLevel: EvaluatedLanguageAbility
   verbalLevel: EvaluatedLanguageAbility
@@ -768,6 +771,9 @@ input CreateUserInput {
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
   bilingualEvaluation: BilingualEvaluation
+  firstOfficialLanguage: Language
+  secondLanguageExamCompleted: Boolean
+  secondLanguageExamValidity: Boolean
   comprehensionLevel: EvaluatedLanguageAbility
   writtenLevel: EvaluatedLanguageAbility
   verbalLevel: EvaluatedLanguageAbility
@@ -813,6 +819,9 @@ input UpdateUserAsAdminInput {
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
   bilingualEvaluation: BilingualEvaluation
+  firstOfficialLanguage: Language
+  secondLanguageExamCompleted: Boolean
+  secondLanguageExamValidity: Boolean
   comprehensionLevel: EvaluatedLanguageAbility
   writtenLevel: EvaluatedLanguageAbility
   verbalLevel: EvaluatedLanguageAbility
@@ -867,6 +876,9 @@ input UpdateUserAsUserInput {
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
   bilingualEvaluation: BilingualEvaluation
+  firstOfficialLanguage: Language
+  secondLanguageExamCompleted: Boolean
+  secondLanguageExamValidity: Boolean
   comprehensionLevel: EvaluatedLanguageAbility
   writtenLevel: EvaluatedLanguageAbility
   verbalLevel: EvaluatedLanguageAbility
