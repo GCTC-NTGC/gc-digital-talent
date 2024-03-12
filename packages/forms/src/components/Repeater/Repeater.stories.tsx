@@ -36,13 +36,7 @@ const themes = ["light", "dark"];
 
 const Fields = (props: Omit<StoryProps, "defaultValues">) => {
   const intl = useIntl();
-  const {
-    name,
-    hideLegend,
-    moveDisabledIndexes,
-    removeDisabledIndexes,
-    ...rootProps
-  } = props;
+  const { name, hideLegend, moveDisabledIndexes, ...rootProps } = props;
   const { control } = useFormContext();
   const { remove, move, append, fields } = useFieldArray({
     control,
@@ -86,7 +80,6 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
                     action("edit")("Opens edit form dialog.");
                   }}
                   moveDisabledIndexes={moveDisabledIndexes}
-                  removeDisabled={!!removeDisabledIndexes?.includes(index)}
                 >
                   <div
                     data-h2-display="base(grid)"
@@ -169,7 +162,6 @@ export const WithLockedItems = Template.bind({});
 WithLockedItems.args = {
   ...defaultArgs,
   moveDisabledIndexes: [1],
-  removeDisabledIndexes: [3],
   defaultValues: [
     {
       en: "Question 1 (EN)",

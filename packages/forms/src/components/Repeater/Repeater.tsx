@@ -38,8 +38,6 @@ export interface RepeaterFieldsetProps {
   onEdit?: (index: number) => void;
   /** All indexes that should be prevented from moving */
   moveDisabledIndexes?: Array<number>;
-  /** Disables removing the item */
-  removeDisabled?: boolean;
 }
 
 const MotionFieldset = motion(Field.Fieldset);
@@ -55,7 +53,6 @@ const Fieldset = ({
   disabled: fieldSetDisabled,
   onEdit,
   moveDisabledIndexes = [],
-  removeDisabled = false,
 }: RepeaterFieldsetProps) => {
   const intl = useIntl();
   const shouldReduceMotion = useReducedMotion();
@@ -154,7 +151,7 @@ const Fieldset = ({
   }
 
   // remove button might be custom or default or null
-  const showDisabledRemoveButton = fieldSetDisabled || removeDisabled;
+  const showDisabledRemoveButton = fieldSetDisabled;
   let removeButton: React.ReactNode = null;
   if (onRemove) {
     // no custom button, but we have a handler so show the default button
