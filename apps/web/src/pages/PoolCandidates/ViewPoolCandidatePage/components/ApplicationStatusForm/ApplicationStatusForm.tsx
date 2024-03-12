@@ -23,7 +23,7 @@ import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { emptyToNull } from "@gc-digital-talent/helpers";
 import {
   PoolCandidateStatus,
-  UpdatePoolCandidateStatusAndExpiryInput,
+  UpdatePoolCandidateStatusInput,
   type PoolCandidate,
   FragmentType,
   getFragment,
@@ -43,10 +43,7 @@ type FormValues = {
 export interface ApplicationStatusFormProps {
   isSubmitting: boolean;
   application: ApplicationStatusForm_PoolCandidateFragmentFragment;
-  onSubmit: (
-    values: UpdatePoolCandidateStatusAndExpiryInput,
-    notes: string,
-  ) => void;
+  onSubmit: (values: UpdatePoolCandidateStatusInput, notes: string) => void;
 }
 
 export const ApplicationStatusForm = ({
@@ -233,10 +230,10 @@ export const ApplicationStatusForm = ({
 const ApplicationStatusForm_Mutation = graphql(/* GraphQL */ `
   mutation ApplicationStatusForm_Mutation(
     $id: UUID!
-    $input: UpdatePoolCandidateStatusAndExpiryInput!
+    $input: UpdatePoolCandidateStatusInput!
     $notes: String
   ) {
-    updatePoolCandidateStatusAndExpiry(id: $id, poolCandidate: $input) {
+    updatePoolCandidateStatus(id: $id, poolCandidate: $input) {
       id
       expiryDate
       status
@@ -303,13 +300,13 @@ const ApplicationStatusFormApi = ({
   };
 
   const handleUpdate = (
-    input: UpdatePoolCandidateStatusAndExpiryInput,
+    input: UpdatePoolCandidateStatusInput,
     notes: string,
   ) => {
     executeMutation({ id: poolCandidate.id, input, notes })
       .then((result) => {
         if (
-          result.data?.updatePoolCandidateStatusAndExpiry &&
+          result.data?.updatePoolCandidateStatus &&
           result.data.updatePoolCandidateNotes
         ) {
           toast.success(

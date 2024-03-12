@@ -3,7 +3,7 @@ import type { Meta, StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
-import { UpdatePoolCandidateStatusAndExpiryInput } from "@gc-digital-talent/graphql";
+import { UpdatePoolCandidateStatusInput } from "@gc-digital-talent/graphql";
 
 import { ApplicationStatusForm } from "./ApplicationStatusForm";
 
@@ -21,7 +21,7 @@ const Template: Story = (args) => {
   const [isSubmitting, setSubmitting] = React.useState<boolean>(false);
   const { application } = args;
 
-  const handleSubmit = (values: UpdatePoolCandidateStatusAndExpiryInput) => {
+  const handleSubmit = (values: UpdatePoolCandidateStatusInput) => {
     action(JSON.stringify({ values }));
     setSubmitting(true);
     setTimeout(() => {

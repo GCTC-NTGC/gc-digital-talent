@@ -87,7 +87,7 @@ type Mutation {
   deleteUser(id: ID!): User
   restoreUser(id: ID!): User
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
-  updatePoolCandidateStatusAndExpiry(id: UUID!, poolCandidate: UpdatePoolCandidateStatusAndExpiryInput!): PoolCandidate
+  updatePoolCandidateStatus(id: UUID!, poolCandidate: UpdatePoolCandidateStatusInput!): PoolCandidate
   togglePoolCandidateBookmark(id: ID!): Boolean
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
   deletePoolCandidate(id: ID!): PoolCandidate
@@ -939,7 +939,7 @@ input UpdateClassificationInput {
   maxSalary: Int
 }
 
-input UpdatePoolCandidateStatusAndExpiryInput {
+input UpdatePoolCandidateStatusInput {
   expiryDate: Date
   status: PoolCandidateStatus
 }

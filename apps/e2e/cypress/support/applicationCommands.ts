@@ -4,7 +4,7 @@ import {
   Command_SubmitApplicationMutation,
   Command_UpdateApplicationMutation,
   graphql,
-  UpdatePoolCandidateStatusAndExpiry_MutationMutation,
+  UpdatePoolCandidateStatus_MutationMutation,
 } from "@gc-digital-talent/graphql";
 
 const commandCreateApplicationDoc = /* GraphQL */ `
@@ -93,12 +93,12 @@ Cypress.Commands.add("submitApplication", (applicationId, signature) => {
   });
 });
 
-const commandUpdatePoolCandidateStatusAndExpiryDoc = /* GraphQL */ `
-  mutation Command_UpdatePoolCandidateStatusAndExpiry(
+const commandUpdatePoolCandidateStatusDoc = /* GraphQL */ `
+  mutation Command_UpdatePoolCandidateStatus(
     $id: UUID!
-    $input: UpdatePoolCandidateStatusAndExpiryInput!
+    $input: UpdatePoolCandidateStatusInput!
   ) {
-    updatePoolCandidateStatusAndExpiry(id: $id, poolCandidate: $input) {
+    updatePoolCandidateStatus(id: $id, poolCandidate: $input) {
       id
       expiryDate
       status
@@ -107,17 +107,17 @@ const commandUpdatePoolCandidateStatusAndExpiryDoc = /* GraphQL */ `
 `;
 
 Cypress.Commands.add(
-  "updatePoolCandidateStatusAndExpiry",
-  (applicationId, updatePoolCandidateStatusAndExpiryInput) => {
-    cy.graphqlRequest<UpdatePoolCandidateStatusAndExpiry_MutationMutation>({
-      operationName: "Command_UpdatePoolCandidateStatusAndExpiry",
-      query: commandUpdatePoolCandidateStatusAndExpiryDoc,
+  "updatePoolCandidateStatus",
+  (applicationId, updatePoolCandidateStatusInput) => {
+    cy.graphqlRequest<UpdatePoolCandidateStatus_MutationMutation>({
+      operationName: "Command_UpdatePoolCandidateStatus",
+      query: commandUpdatePoolCandidateStatusDoc,
       variables: {
         id: applicationId,
-        input: updatePoolCandidateStatusAndExpiryInput,
+        input: updatePoolCandidateStatusInput,
       },
     }).then((data) => {
-      cy.wrap(data.updatePoolCandidateStatusAndExpiry);
+      cy.wrap(data.updatePoolCandidateStatus);
     });
   },
 );

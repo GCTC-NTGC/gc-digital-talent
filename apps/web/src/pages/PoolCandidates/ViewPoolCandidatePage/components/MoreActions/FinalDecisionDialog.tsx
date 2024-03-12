@@ -22,12 +22,12 @@ import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
 import AssessmentSummary from "./components/AssessmentSummary";
 
-const PoolCandidate_UpdateStatusAndExpiryMutation = graphql(/* GraphQL */ `
-  mutation PoolCandidate_UpdateStatusAndExpiryMutation(
+const PoolCandidate_UpdateStatusMutation = graphql(/* GraphQL */ `
+  mutation PoolCandidate_UpdateStatusMutation(
     $id: UUID!
-    $input: UpdatePoolCandidateStatusAndExpiryInput!
+    $input: UpdatePoolCandidateStatusInput!
   ) {
-    updatePoolCandidateStatusAndExpiry(id: $id, poolCandidate: $input) {
+    updatePoolCandidateStatus(id: $id, poolCandidate: $input) {
       id
       status
       expiryDate
@@ -63,9 +63,7 @@ const FinalDecisionDialog = ({
   const intl = useIntl();
   const todayDate = new Date();
   const [isOpen, setIsOpen] = React.useState<boolean>(defaultOpen);
-  const [, executeMutation] = useMutation(
-    PoolCandidate_UpdateStatusAndExpiryMutation,
-  );
+  const [, executeMutation] = useMutation(PoolCandidate_UpdateStatusMutation);
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -115,7 +113,7 @@ const FinalDecisionDialog = ({
 
     await executeMutation({ id: poolCandidateId, input: massagedValues })
       .then((result) => {
-        if (result.data?.updatePoolCandidateStatusAndExpiry) {
+        if (result.data?.updatePoolCandidateStatus) {
           toast.success(
             intl.formatMessage({
               defaultMessage: "Pool candidate status updated successfully",

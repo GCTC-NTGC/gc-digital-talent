@@ -20,7 +20,7 @@ import {
   Pool,
   PoolCandidate,
   PoolCandidateStatus,
-  UpdatePoolCandidateStatusAndExpiryInput,
+  UpdatePoolCandidateStatusInput,
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
@@ -29,7 +29,7 @@ import {
   getShortPoolTitleLabel,
 } from "~/utils/poolUtils";
 
-import UpdatePoolCandidateStatusAndExpiry_Mutation from "./mutation";
+import UpdatePoolCandidateStatus_Mutation from "./mutation";
 
 type FormValues = {
   status: PoolCandidate["status"];
@@ -52,7 +52,7 @@ const ChangeStatusDialog = ({
   const methods = useForm<FormValues>();
 
   const [{ fetching }, executeMutation] = useMutation(
-    UpdatePoolCandidateStatusAndExpiry_Mutation,
+    UpdatePoolCandidateStatus_Mutation,
   );
 
   // an array of the user's pool candidates and filter out all the nulls and maybes
@@ -80,11 +80,11 @@ const ChangeStatusDialog = ({
 
   const requestMutation = async (
     id: string,
-    values: UpdatePoolCandidateStatusAndExpiryInput,
+    values: UpdatePoolCandidateStatusInput,
   ) => {
     const result = await executeMutation({ id, poolCandidate: values });
-    if (result.data?.updatePoolCandidateStatusAndExpiry) {
-      return result.data.updatePoolCandidateStatusAndExpiry;
+    if (result.data?.updatePoolCandidateStatus) {
+      return result.data.updatePoolCandidateStatus;
     }
     return Promise.reject(result.error);
   };

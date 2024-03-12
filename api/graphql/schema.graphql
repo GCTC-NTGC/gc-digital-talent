@@ -1097,7 +1097,7 @@ input UpdateClassificationInput {
   maxSalary: Int @rename(attribute: "max_salary")
 }
 
-input UpdatePoolCandidateStatusAndExpiryInput {
+input UpdatePoolCandidateStatusInput {
   expiryDate: Date @rename(attribute: "expiry_date")
   status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
 }
@@ -1608,9 +1608,9 @@ type Mutation {
     @guard
     @canModel(ability: "create")
     @injectNow(name: "submitted_at")
-  updatePoolCandidateStatusAndExpiry(
+  updatePoolCandidateStatus(
     id: UUID!
-    poolCandidate: UpdatePoolCandidateStatusAndExpiryInput! @spread
+    poolCandidate: UpdatePoolCandidateStatusInput! @spread
   ): PoolCandidate
     @update
     @guard
