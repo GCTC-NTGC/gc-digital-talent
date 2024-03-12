@@ -135,6 +135,7 @@ class NotificationTest extends TestCase
 
     public function testUnreadNotificationMutation(): void
     {
+        $this->notification->markAsRead();
         $response = $this->actingAs($this->user, 'api')
             ->graphQL(/** @lang GraphQL */ '
                 mutation unReadNotification($id: UUID!) {
