@@ -339,7 +339,6 @@ export interface RepeaterProps extends React.HTMLProps<HTMLDivElement> {
   /** Determine if we want to show the add button or not */
   showAdd?: boolean;
   showUnsavedChanges?: boolean;
-  showApproachingLimit?: boolean;
   /** Custom error message that overrides default root error message */
   customErrorMessage?: React.ReactNode;
   /** Custom null message when no items have been added */
@@ -354,7 +353,6 @@ const Root = ({
   showAdd = true,
   total,
   showUnsavedChanges,
-  showApproachingLimit,
   customErrorMessage,
   customNullMessage,
   ...rest

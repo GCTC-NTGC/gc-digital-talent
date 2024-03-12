@@ -73,7 +73,6 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
                 action("add")(newValues);
               }}
               total={fields.length}
-              showApproachingLimit
               showUnsavedChanges
             >
               {fields.map((item, index) => (
