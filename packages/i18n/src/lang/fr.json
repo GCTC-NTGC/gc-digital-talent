@@ -255,10 +255,6 @@
     "defaultMessage": "Avancé",
     "description": "The technical skill level for expert"
   },
-  "55rtyE": {
-    "defaultMessage": "IT-03 (Conseiller technique)",
-    "description": "The name of the Technical advisor classification with group and level."
-  },
   "5LQuV9": {
     "defaultMessage": "Île-du-Prince-Édouard",
     "description": "Prince Edward Island selection for province or territory input"
@@ -350,10 +346,6 @@
   "8WC+Ty": {
     "defaultMessage": "La date limite de soumission est passée.",
     "description": "Message displayed when a closing date has passed."
-  },
-  "8sfFGc": {
-    "defaultMessage": "IT-02 (analyste)",
-    "description": "The name of the Technician Analyst classification with group and level."
   },
   "8stxoN": {
     "defaultMessage": "Télétravail",
@@ -1259,10 +1251,6 @@
     "defaultMessage": "Oui",
     "description": "Affirmative answer"
   },
-  "b02Azd": {
-    "defaultMessage": "IT-04 (gestionnaire)",
-    "description": "The name of the Senior advisor classification with group and level."
-  },
   "bAaDat": {
     "defaultMessage": "Je <strong>ne suis pas</strong> des Forces armées canadiennes.",
     "description": "declare self to not be in the CAF"
@@ -1635,10 +1623,6 @@
     "defaultMessage": "Qualifié disponible",
     "description": "The pool candidate's status is Qualified Available"
   },
-  "o5J75O": {
-    "defaultMessage": "IT-04 (conseiller principal)",
-    "description": "The name of the Senior advisor classification with group and level."
-  },
   "o7GBkR": {
     "defaultMessage": "Archivé",
     "description": "Archived pool advertisement status"
@@ -1931,10 +1915,6 @@
     "defaultMessage": "National",
     "description": "The scope of the award was national."
   },
-  "wFZLxf": {
-    "defaultMessage": "IT-03 (chef d'équipe)",
-    "description": "The name of the Team leader Analyst classification with group and level."
-  },
   "wT3L9C": {
     "defaultMessage": "Français seulement",
     "description": "The language ability is French only."
@@ -2026,10 +2006,6 @@
   "zKjtAa": {
     "defaultMessage": "Territoires du Nord-Ouest",
     "description": "Northwest Territories selection for province or territory input"
-  },
-  "zVm0jL": {
-    "defaultMessage": "IT-01 (technicien)",
-    "description": "The name of the Technician classification with group and level."
   },
   "zXHYAs": {
     "defaultMessage": "Mon projet",
