@@ -68,15 +68,12 @@ php artisan lighthouse:print-schema --write
 
 ### Install all npm dependencies
 cd $ROOT_DIR
-pnpm install --frozen-lockfile --include=dev
+if [ "$GCDT_DEV" = true ]; then
+ pnpm install --frozen-lockfile
+else
+  pnpm install --frozen-lockfile --prod
+fi
 
 ### Build frontend
 pnpm run build
 chmod -R a+r,a+w node_modules
-
-### Cleanup frontend npm dependencies
-### Note: Need to delete node_mobules and reinstall with --prod flag
-### Ref: https://pnpm.io/cli/prune#:~:text=in%20optionalDependencies.-,WARNING,-The%20prune%20command
-find . -name "node_modules" -type d -exec rm -rf {} \;
-chmod -R a+r,a+w node_modules
-pnpm install --prod --frozen-lockfile
