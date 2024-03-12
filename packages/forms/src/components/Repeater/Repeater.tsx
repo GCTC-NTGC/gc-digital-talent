@@ -339,8 +339,6 @@ export interface RepeaterProps extends React.HTMLProps<HTMLDivElement> {
   /** Determine if we want to show the add button or not */
   showAdd?: boolean;
   showUnsavedChanges?: boolean;
-  /** Custom error message that overrides default root error message */
-  customErrorMessage?: React.ReactNode;
   /** Custom null message when no items have been added */
   customNullMessage?: React.ReactNode;
 }
@@ -353,7 +351,6 @@ const Root = ({
   showAdd = true,
   total,
   showUnsavedChanges,
-  customErrorMessage,
   customNullMessage,
   ...rest
 }: RepeaterProps) => {
@@ -438,11 +435,7 @@ const Root = ({
           <p data-h2-font-weight="base(700)">
             {intl.formatMessage(formMessages.repeaterDefaultError)}
           </p>
-          {errorMessage && (
-            <p data-h2-margin-top="base(x.5)">
-              {customErrorMessage ?? errorMessage}
-            </p>
-          )}
+          {errorMessage && <p data-h2-margin-top="base(x.5)">{errorMessage}</p>}
         </Field.Error>
       )}
       {hasUnsavedChanges ? (
