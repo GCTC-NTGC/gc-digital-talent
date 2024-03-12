@@ -29,8 +29,6 @@ export interface RepeaterFieldsetProps {
   legend: React.ReactNode;
   /** Set if the legend should be visually hidden (default: false) */
   hideLegend?: boolean;
-  /** Set if the fieldset index is displayed to the user (default: false) */
-  hideIndex?: boolean;
   /** Disables removing, moving and editing fields */
   disabled?: boolean;
   children: React.ReactNode;
@@ -56,7 +54,6 @@ const Fieldset = ({
   total,
   legend,
   hideLegend = false,
-  hideIndex = false,
   onMove,
   onRemove,
   children,
@@ -251,15 +248,13 @@ const Fieldset = ({
                       )}
                     </ActionButton>
                     {/* INDEX */}
-                    {!hideIndex && (
-                      <span
-                        aria-hidden="true"
-                        data-h2-text-align="base(center)"
-                        data-h2-font-weight="base(700)"
-                      >
-                        {index + 1}
-                      </span>
-                    )}
+                    <span
+                      aria-hidden="true"
+                      data-h2-text-align="base(center)"
+                      data-h2-font-weight="base(700)"
+                    >
+                      {index + 1}
+                    </span>
                     {/* DOWN ARROW */}
                     <ActionButton
                       disabled={disableIncrement}
@@ -288,15 +283,13 @@ const Fieldset = ({
                       data-h2-margin-left="base(x.5)"
                       data-h2-width="base(x.75)"
                     />
-                    {!hideIndex && (
-                      <span
-                        aria-hidden="true"
-                        data-h2-text-align="base(center)"
-                        data-h2-font-weight="base(700)"
-                      >
-                        {index + 1}
-                      </span>
-                    )}
+                    <span
+                      aria-hidden="true"
+                      data-h2-text-align="base(center)"
+                      data-h2-font-weight="base(700)"
+                    >
+                      {index + 1}
+                    </span>
                   </>
                 )}
               </div>

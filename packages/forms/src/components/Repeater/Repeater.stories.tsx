@@ -14,10 +14,7 @@ import TextArea from "../TextArea";
 import Repeater, { RepeaterFieldsetProps, RepeaterProps } from "./Repeater";
 
 type StoryProps = RepeaterProps &
-  Pick<
-    RepeaterFieldsetProps,
-    "hideLegend" | "hideIndex" | "moveDisabledIndexes"
-  > & {
+  Pick<RepeaterFieldsetProps, "hideLegend" | "moveDisabledIndexes"> & {
     defaultValues: Array<LocalizedString>;
     name: string;
     maxItems?: number;
@@ -43,7 +40,6 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
   const {
     name,
     hideLegend,
-    hideIndex,
     maxItems,
     moveDisabledIndexes,
     editDisabledIndexes,
@@ -98,7 +94,6 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
                   onRemove={remove}
                   legend={`Screening Question ${index + 1}`}
                   hideLegend={hideLegend}
-                  hideIndex={hideIndex}
                   onEdit={() => {
                     action("edit")("Opens edit form dialog.");
                   }}
@@ -167,7 +162,6 @@ const FieldsWithDialogs = (props: Omit<StoryProps, "defaultValues">) => {
   const {
     name,
     hideLegend,
-    hideIndex,
     maxItems,
     moveDisabledIndexes,
     editDisabledIndexes,
@@ -215,7 +209,6 @@ const FieldsWithDialogs = (props: Omit<StoryProps, "defaultValues">) => {
           onRemove={remove}
           legend={`Screening Question ${index + 1}`}
           hideLegend={hideLegend}
-          hideIndex={hideIndex}
           onEdit={() => {
             action("edit")("Opens edit form dialog.");
           }}
@@ -320,15 +313,3 @@ WithLockedItems.args = {
 
 export const WithCustomEditAndRemoveButtons = TemplateWithDialogs.bind({});
 WithCustomEditAndRemoveButtons.args = WithLockedItems.args;
-
-export const HiddenIndex = Template.bind({});
-HiddenIndex.args = {
-  ...defaultArgs,
-  hideIndex: true,
-  defaultValues: [
-    {
-      en: "Question 1 (EN)",
-      fr: "Question 1 (FR)",
-    },
-  ],
-};
