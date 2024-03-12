@@ -38,8 +38,6 @@ export interface RepeaterFieldsetProps {
   onEdit?: (index: number) => void;
   /** All indexes that should be prevented from moving */
   moveDisabledIndexes?: Array<number>;
-  /** Disables editing the item */
-  editDisabled?: boolean;
   /** Disables removing the item */
   removeDisabled?: boolean;
 }
@@ -57,7 +55,6 @@ const Fieldset = ({
   disabled: fieldSetDisabled,
   onEdit,
   moveDisabledIndexes = [],
-  editDisabled = false,
   removeDisabled = false,
 }: RepeaterFieldsetProps) => {
   const intl = useIntl();
@@ -139,7 +136,7 @@ const Fieldset = ({
   );
 
   // edit button might be custom or default or null
-  const showDisabledEditButton = fieldSetDisabled || editDisabled;
+  const showDisabledEditButton = fieldSetDisabled;
   let editButton: React.ReactNode = null;
   if (onEdit) {
     // no custom button, but we have a handler so show the default button

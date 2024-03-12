@@ -40,7 +40,6 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
     name,
     hideLegend,
     moveDisabledIndexes,
-    editDisabledIndexes,
     removeDisabledIndexes,
     ...rootProps
   } = props;
@@ -87,7 +86,6 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
                     action("edit")("Opens edit form dialog.");
                   }}
                   moveDisabledIndexes={moveDisabledIndexes}
-                  editDisabled={!!editDisabledIndexes?.includes(index)}
                   removeDisabled={!!removeDisabledIndexes?.includes(index)}
                 >
                   <div
@@ -171,7 +169,6 @@ export const WithLockedItems = Template.bind({});
 WithLockedItems.args = {
   ...defaultArgs,
   moveDisabledIndexes: [1],
-  editDisabledIndexes: [2],
   removeDisabledIndexes: [3],
   defaultValues: [
     {
