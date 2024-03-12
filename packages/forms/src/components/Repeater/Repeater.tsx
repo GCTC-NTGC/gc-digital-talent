@@ -338,10 +338,6 @@ export interface RepeaterProps extends React.HTMLProps<HTMLDivElement> {
   onAdd?: () => void;
   /** Determine if we want to show the add button or not */
   showAdd?: boolean;
-  customButton?: {
-    button: React.ReactNode;
-    id: string;
-  };
   showUnsavedChanges?: boolean;
   showApproachingLimit?: boolean;
   /** Custom error message that overrides default root error message */
@@ -357,7 +353,6 @@ const Root = ({
   children,
   showAdd = true,
   total,
-  customButton,
   showUnsavedChanges,
   showApproachingLimit,
   customErrorMessage,
@@ -402,7 +397,7 @@ const Root = ({
     >
       <Link
         external
-        href={`#${customButton?.id ?? addId}`}
+        href={`#${addId}`}
         data-h2-visually-hidden="base(invisible)"
         data-h2-position="base:focus-visible(static)"
         data-h2-location="base:focus-visible(auto)"
@@ -461,7 +456,7 @@ const Root = ({
           {intl.formatMessage(formMessages.repeaterUnsavedChanges)}
         </Well>
       ) : null}
-      {showAdd && !customButton ? (
+      {showAdd && (
         <Button
           id={addId}
           icon={PlusCircleIcon}
@@ -473,8 +468,6 @@ const Root = ({
         >
           {addText || intl.formatMessage(formMessages.repeaterAddItem)}
         </Button>
-      ) : (
-        customButton?.button
       )}
     </div>
   );
