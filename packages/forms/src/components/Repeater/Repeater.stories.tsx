@@ -310,6 +310,3 @@ WithLockedItems.args = {
     },
   ],
 };
-
-export const WithCustomEditAndRemoveButtons = TemplateWithDialogs.bind({});
-WithCustomEditAndRemoveButtons.args = WithLockedItems.args;
