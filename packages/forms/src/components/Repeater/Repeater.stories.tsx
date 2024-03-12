@@ -17,7 +17,6 @@ type StoryProps = RepeaterProps &
   Pick<RepeaterFieldsetProps, "hideLegend" | "moveDisabledIndexes"> & {
     defaultValues: Array<LocalizedString>;
     name: string;
-    maxItems?: number;
     editDisabledIndexes?: Array<number>;
     removeDisabledIndexes?: Array<number>;
   };
@@ -40,7 +39,6 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
   const {
     name,
     hideLegend,
-    maxItems,
     moveDisabledIndexes,
     editDisabledIndexes,
     removeDisabledIndexes,
@@ -74,7 +72,6 @@ const Fields = (props: Omit<StoryProps, "defaultValues">) => {
                 append(newValues);
                 action("add")(newValues);
               }}
-              maxItems={maxItems}
               total={fields.length}
               showApproachingLimit
               showUnsavedChanges
@@ -169,22 +166,6 @@ WithDefaultValues.args = {
     {
       en: "Question 1 (EN)",
       fr: "Question 1 (FR)",
-    },
-  ],
-};
-
-export const WithMaxItems = Template.bind({});
-WithMaxItems.args = {
-  ...defaultArgs,
-  maxItems: 2,
-  defaultValues: [
-    {
-      en: "Question 1 (EN)",
-      fr: "Question 1 (FR)",
-    },
-    {
-      en: "Question 2 (EN)",
-      fr: "Question 2 (FR)",
     },
   ],
 };

@@ -334,8 +334,6 @@ export interface RepeaterProps extends React.HTMLProps<HTMLDivElement> {
   addText?: React.ReactNode;
   /** Current total number of fields (eg: fields.length) */
   total: number;
-  /* Maximum number of items */
-  maxItems?: number;
   /** Callback function when the add button is clicked */
   onAdd?: () => void;
   /** Determine if we want to show the add button or not */
@@ -350,8 +348,6 @@ export interface RepeaterProps extends React.HTMLProps<HTMLDivElement> {
   customErrorMessage?: React.ReactNode;
   /** Custom null message when no items have been added */
   customNullMessage?: React.ReactNode;
-  /** Max items message when maximum amount of items have been added */
-  maxItemsMessage?: React.ReactNode;
 }
 
 const Root = ({
@@ -360,14 +356,12 @@ const Root = ({
   addText,
   children,
   showAdd = true,
-  maxItems,
   total,
   customButton,
   showUnsavedChanges,
   showApproachingLimit,
   customErrorMessage,
   customNullMessage,
-  maxItemsMessage,
   ...rest
 }: RepeaterProps) => {
   const intl = useIntl();
@@ -398,9 +392,6 @@ const Root = ({
   const hasError = errors?.[name] ? true : undefined;
   const errorMessage = errors?.[name]?.root?.message as string;
 
-  const approachingLimit =
-    showApproachingLimit && maxItems ? total + 1 === maxItems : false;
-
   return (
     <div
       id={`${name}.root`}
@@ -421,17 +412,6 @@ const Root = ({
         {intl.formatMessage(formMessages.repeaterSkipTo)}
       </Link>
       {children && <div data-h2-margin-bottom="base(x.5)">{children}</div>}
-      {approachingLimit && (
-        <Well
-          data-h2-margin-bottom="base(x.5)"
-          data-h2-text-align="base(center)"
-        >
-          <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.5)">
-            {intl.formatMessage(formMessages.approachingLimit)}
-          </p>
-          <p>{intl.formatMessage(formMessages.approachingLimitDetails)}</p>
-        </Well>
-      )}
       {total === 0 && (
         <Well
           data-h2-margin-bottom="base(x.5)"
@@ -472,7 +452,6 @@ const Root = ({
           )}
         </Field.Error>
       )}
-      {total === maxItems && maxItemsMessage && <Well>{maxItemsMessage}</Well>}
       {hasUnsavedChanges ? (
         <Well
           data-h2-margin-bottom="base(x.5)"
@@ -492,12 +471,7 @@ const Root = ({
           color="secondary"
           onClick={onAdd}
         >
-          {maxItems && total === maxItems ? (
-            <>{intl.formatMessage(formMessages.repeaterDeleteItem)}</>
-          ) : (
-            addText || intl.formatMessage(formMessages.repeaterAddItem)
-          )}{" "}
-          {maxItems && `(${total}/${maxItems})`}
+          {addText || intl.formatMessage(formMessages.repeaterAddItem)}
         </Button>
       ) : (
         customButton?.button
