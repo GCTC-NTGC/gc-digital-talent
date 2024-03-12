@@ -132,14 +132,13 @@ const Fieldset = ({
     </span>
   );
 
-  // edit button might be custom or default or null
-  const showDisabledEditButton = fieldSetDisabled;
+  // edit button might be default or null
   let editButton: React.ReactNode = null;
   if (onEdit) {
-    // no custom button, but we have a handler so show the default button
+    // we have a handler so show the default button
     editButton = (
       <ActionButton
-        disabled={showDisabledEditButton}
+        disabled={fieldSetDisabled}
         onClick={handleEdit}
         aria-label={intl.formatMessage(formMessages.repeaterEdit, {
           index: position,
@@ -150,14 +149,13 @@ const Fieldset = ({
     );
   }
 
-  // remove button might be custom or default or null
-  const showDisabledRemoveButton = fieldSetDisabled;
+  // remove button might be default or null
   let removeButton: React.ReactNode = null;
   if (onRemove) {
-    // no custom button, but we have a handler so show the default button
+    // we have a handler so show the default button
     removeButton = (
       <ActionButton
-        disabled={showDisabledRemoveButton}
+        disabled={fieldSetDisabled}
         onClick={handleRemove}
         aria-label={intl.formatMessage(formMessages.repeaterRemove, {
           index: position,
@@ -215,7 +213,6 @@ const Fieldset = ({
               >
                 {!isMoveDisabled ? (
                   <>
-                    {/* UP ARROW */}
                     <ActionButton
                       disabled={disableDecrement}
                       onClick={decrement}
@@ -237,7 +234,6 @@ const Fieldset = ({
                         disabledIcon
                       )}
                     </ActionButton>
-                    {/* INDEX */}
                     <span
                       aria-hidden="true"
                       data-h2-text-align="base(center)"
@@ -245,7 +241,6 @@ const Fieldset = ({
                     >
                       {index + 1}
                     </span>
-                    {/* DOWN ARROW */}
                     <ActionButton
                       disabled={disableIncrement}
                       onClick={increment}

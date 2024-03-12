@@ -17,7 +17,6 @@ type StoryProps = RepeaterProps &
   Pick<RepeaterFieldsetProps, "hideLegend" | "moveDisabledIndexes"> & {
     defaultValues: Array<LocalizedString>;
     name: string;
-    editDisabledIndexes?: Array<number>;
     removeDisabledIndexes?: Array<number>;
   };
 
