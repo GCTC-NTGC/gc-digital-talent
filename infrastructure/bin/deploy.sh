@@ -68,11 +68,7 @@ php artisan lighthouse:print-schema --write
 
 ### Install all npm dependencies
 cd $ROOT_DIR
-if [ "$GCDT_DEV" = true ]; then
- pnpm install --frozen-lockfile
-else
-  pnpm install --frozen-lockfile --prod
-fi
+pnpm install --frozen-lockfile
 
 ### Build frontend
 pnpm run build
