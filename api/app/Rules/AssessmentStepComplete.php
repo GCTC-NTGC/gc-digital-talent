@@ -2,6 +2,7 @@
 
 namespace App\Rules;
 
+use App\Enums\AssessmentStepType;
 use App\Models\AssessmentStep;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -19,7 +20,7 @@ class AssessmentStepComplete implements ValidationRule
             $assessmentStep = AssessmentStep::find($value)->load('poolSkills');
 
             // check step has at least one pool skill
-            if (count($assessmentStep->poolSkills) === 0) {
+            if (count($assessmentStep->poolSkills) === 0 && $assessmentStep->type !== AssessmentStepType::APPLICATION_SCREENING->name) {
                 $fail('AssessmentStepMissingSkills');
             }
         }

@@ -359,10 +359,6 @@
     "defaultMessage": "Collectivité des cadres",
     "description": "Heading for executive jobs in government"
   },
-  "/zx1kX": {
-    "defaultMessage": "Exigence d’études",
-    "description": "Education requirement section header."
-  },
   "00tmhW": {
     "defaultMessage": "Niveau de compétence",
     "description": "Skill level column header for the skill library table"
@@ -1222,10 +1218,6 @@
   "4v9y7U": {
     "defaultMessage": "Statut de citoyenneté",
     "description": "Citizenship status label"
-  },
-  "4xXPIe": {
-    "defaultMessage": "Exigences pédagogiques",
-    "description": "Education requirement row header."
   },
   "5+jnam": {
     "defaultMessage": "Information détaillée sur l'emploi",
@@ -4142,6 +4134,10 @@
   "Ly2bBb": {
     "defaultMessage": "La mise à jour du rôle du membre a échoué",
     "description": "Alert displayed to user when an error occurs while editing a team member's roles"
+  },
+  "LyUTqa": {
+    "defaultMessage": "Exigence d’études",
+    "description": "Education requirement title"
   },
   "LzJpQo": {
     "defaultMessage": "Une fois l’apprentissage terminé avec succès, les diplômés reçoivent un certificat numérique ainsi qu’un certificat vérifiable portable. Il est approuvé par le, la dirigeant·e principal·e de l’information du Canada et officiellement reconnu comme répondant à <link>l‘alternative aux exigences d’études de la norme de qualification minimale du GC pour le groupe professionnel IT</link>.",
