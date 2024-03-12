@@ -1619,7 +1619,7 @@ type Mutation {
   togglePoolCandidateBookmark(id: ID!): Boolean
     @guard
     @canFind(
-      ability: "updateStatus"
+      ability: "updateBookmark"
       find: "id"
       model: "PoolCandidate"
       injectArgs: true

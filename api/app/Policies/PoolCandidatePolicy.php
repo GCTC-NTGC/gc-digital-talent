@@ -182,7 +182,7 @@ class PoolCandidatePolicy
 
     /**
      * Determine whether the user can update status fields for a pool candidate
-     * Note: this refers to a pool candidate's status, expiry, and bookmarked fields together
+     * Note: this refers to a pool candidate's status and expiry fields together
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
@@ -194,6 +194,17 @@ class PoolCandidatePolicy
         $poolCandidate->loadMissing('pool.team');
 
         return $user->isAbleTo('update-team-applicationStatus', $poolCandidate->pool->team);
+    }
+
+    // bookmarking and notes share permissions
+    public function updateBookmark(User $user, PoolCandidate $poolCandidate)
+    {
+        if ($user->isAbleTo('update-any-applicationNotes')) {
+            return true;
+        }
+        $poolCandidate->loadMissing('pool.team');
+
+        return $user->isAbleTo('update-team-applicationNotes', $poolCandidate->pool->team);
     }
 
     public function viewNotes(User $user, PoolCandidate $poolCandidate)
