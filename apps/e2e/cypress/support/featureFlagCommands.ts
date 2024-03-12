@@ -2,7 +2,7 @@ import * as dotenv from "dotenv";
 
 dotenv.config({ path: "../web/.env" });
 
-const overrideFeatureFlags = (flags: Object) => {
+const overrideFeatureFlags = (flags: Record<string, boolean | null>) => {
   const env = {
     ...process.env,
     ...flags,

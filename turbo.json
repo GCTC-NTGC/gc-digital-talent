@@ -101,7 +101,12 @@
     },
     "e2e:run:inspect": {},
     "lint": {
-      "inputs": ["../../packages/eslint-config-custom/index.js"]
+      "inputs": [
+        "../../packages/eslint-config-custom/index.js",
+        "../../packages/eslint-config-custom/react.js",
+        "**/*.{ts,tsx}",
+        "!node_modules"
+      ]
     },
     "tsc": {}
   }

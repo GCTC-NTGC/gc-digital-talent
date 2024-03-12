@@ -1,5 +1,7 @@
 import { chromium } from "@playwright/test";
+
 import auth from "~/constants/auth";
+
 import { getAuthTokens } from "./auth";
 
 export type GraphQLResponse<K extends string, T> = {

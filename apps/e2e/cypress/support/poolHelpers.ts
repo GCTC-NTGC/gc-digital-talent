@@ -19,6 +19,7 @@ type CreateAndPublishPoolArgs = {
   poolAlias: string;
 };
 
+// eslint-disable-next-line import/prefer-default-export
 export function createAndPublishPool({
   adminUserId,
   teamId,
@@ -31,9 +32,7 @@ export function createAndPublishPool({
       cy.get<Skill>("@testSkill").then((skill) => {
         cy.updatePool(createdPool.id, {
           name: {
-            en: englishName
-              ? englishName
-              : `Cypress Test Pool EN ${Date.now().valueOf()}`,
+            en: englishName || `Cypress Test Pool EN ${Date.now().valueOf()}`,
             fr: `Cypress Test Pool FR ${Date.now().valueOf()}`,
           },
           stream: PoolStream.BusinessAdvisoryServices,
