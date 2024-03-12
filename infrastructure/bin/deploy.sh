@@ -79,4 +79,4 @@ chmod -R a+r,a+w node_modules
 ### Ref: https://pnpm.io/cli/prune#:~:text=in%20optionalDependencies.-,WARNING,-The%20prune%20command
 find . -name "node_modules" -type d -exec rm -rf {} \;
 chmod -R a+r,a+w node_modules
-pnpm install --prod
+pnpm install --prod --frozen-lockfile
