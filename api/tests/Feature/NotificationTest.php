@@ -13,7 +13,6 @@ use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Notification as NotificationFacade;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
@@ -47,6 +46,11 @@ class NotificationTest extends TestCase
                     ... on PoolCandidateStatusChangedNotification {
                         oldStatus
                         newStatus
+                        poolId
+                        poolName {
+                            en
+                            fr
+                        }
                     }
                 }
             }
@@ -109,6 +113,13 @@ class NotificationTest extends TestCase
                             [
                                 'id' => $this->notification->id,
                                 'readAt' => null,
+                                'oldStatus' => $this->originalStatus,
+                                'newStatus' => $this->newStatus,
+                                'poolId' => $this->pool->id,
+                                'poolName' => [
+                                    'en' => $this->pool->name['en'],
+                                    'fr' => $this->pool->name['fr'],
+                                ],
                             ],
                         ],
                     ],
@@ -299,169 +310,5 @@ class NotificationTest extends TestCase
             $this->assertTrue($date->gt($from));
 
         }
-    }
-
-    /**
-     * Test that notifications are generated for status changes
-     *
-     * @return void
-     */
-    public function testStatusChangeCausesNotifications()
-    {
-        if (! config('feature.status_notifications')) {
-            $this->markTestSkipped('This test uses features behind the FEATURE_STATUS_NOTIFICATIONS flag.');
-        }
-
-        NotificationFacade::fake(); // initialize notification facade
-
-        // set up submitted candidate
-        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
-        $this->poolCandidate->saveQuietly(); // don't generate events during set up
-
-        // simulate screening in
-        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::SCREENED_IN->name;
-        $this->poolCandidate->save();
-
-        // check that notification was fired
-        NotificationFacade::assertSentTo([$this->candidateUser], PoolCandidateStatusChanged::class);
-    }
-
-    /**
-     * Test that use can query for notifications
-     *
-     * @return void
-     */
-    public function testCanQueryForNotifications()
-    {
-        if (! config('feature.status_notifications')) {
-            $this->markTestSkipped('This test uses features behind the FEATURE_STATUS_NOTIFICATIONS flag.');
-        }
-
-        $screenInTime = config('constants.far_past_datetime');
-
-        // set up submitted candidate
-        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
-        $this->poolCandidate->saveQuietly(); // don't generate events during set up
-
-        Carbon::setTestNow($screenInTime);
-
-        // simulate screening in
-        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::SCREENED_IN->name;
-        $this->poolCandidate->save();
-
-        // gather expected notification ID
-        $notificationId = $this->candidateUser->notifications()->sole()->id;
-
-        // check for a notification
-        $this->actingAs($this->candidateUser, 'api')
-            ->graphQL(
-                /** @lang GraphQL */
-                '
-                query myNotifications {
-                        notifications {
-                            data {
-                                id
-                                readAt
-                                createdAt
-                                updatedAt
-                                ... on PoolCandidateStatusChangedNotification {
-                                    oldStatus
-                                    newStatus
-                                    poolId
-                                    poolName {
-                                        en
-                                        fr
-                                    }
-                                }
-                        }
-                    }
-                }
-            '
-            )
-            ->assertJson([
-                'data' => [
-                    'notifications' => [
-                        'data' => [
-                            [
-                                'id' => $notificationId,
-                                'readAt' => null,
-                                'createdAt' => $screenInTime,
-                                'updatedAt' => $screenInTime,
-                                'oldStatus' => PoolCandidateStatus::NEW_APPLICATION->name,
-                                'newStatus' => $this->poolCandidate->pool_candidate_status,
-                                'poolId' => $this->poolCandidate->pool->id,
-                                'poolName' => [
-                                    'en' => $this->poolCandidate->pool->name['en'],
-                                    'fr' => $this->poolCandidate->pool->name['fr'],
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-            ]);
-    }
-
-    /**
-     * Test that use can dismiss notifications
-     *
-     * @return void
-     */
-    public function testCanDismissNotifications()
-    {
-        if (! config('feature.status_notifications')) {
-            $this->markTestSkipped('This test uses features behind the FEATURE_STATUS_NOTIFICATIONS flag.');
-        }
-
-        $screenInTime = config('constants.far_past_datetime');
-        $dismissNotificationTime = config('constants.past_datetime');
-
-        // set up submitted candidate
-        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
-        $this->poolCandidate->saveQuietly(); // don't generate events during set up
-
-        Carbon::setTestNow($screenInTime);
-
-        // simulate screening in
-        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::SCREENED_IN->name;
-        $this->poolCandidate->save();
-
-        $notificationId = $this->candidateUser->notifications()->sole()->id;
-
-        Carbon::setTestNow($dismissNotificationTime);
-
-        // dismiss notification
-        $this->actingAs($this->candidateUser, 'api')
-            ->graphQL(
-                /** @lang GraphQL */
-                '
-                mutation readNotifications($id: UUID!) {
-                    markNotificationAsRead(id: $id) { id }
-                  }
-                ',
-                [
-                    'id' => $notificationId,
-                ]
-            );
-
-        // check for notifications
-        $this->actingAs($this->candidateUser, 'api')
-            ->graphQL(/** @lang GraphQL */ '
-                query myNotifications {
-                    notifications { data { id, readAt } }
-                    unreadNotifications: notifications(where: { onlyUnread: true }) { data { id, readAt } }
-                }
-            ')->assertJson([
-                'data' => [
-                    'notifications' => [
-                        'data' => [
-                            [
-                                'id' => $notificationId,
-                                'readAt' => $dismissNotificationTime,
-                            ],
-                        ],
-                    ],
-                    'unreadNotifications' => ['data' => []],
-                ],
-            ]);
     }
 }
