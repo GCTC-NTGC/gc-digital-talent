@@ -27,8 +27,6 @@ export interface RepeaterFieldsetProps {
   legend: React.ReactNode;
   /** Set if the legend should be visually hidden (default: false) */
   hideLegend?: boolean;
-  /** Disables removing, moving and editing fields */
-  disabled?: boolean;
   children: React.ReactNode;
   /** Callback function when this item's index is changed' */
   onMove: (from: number, to: number) => void;
@@ -50,7 +48,6 @@ const Fieldset = ({
   onMove,
   onRemove,
   children,
-  disabled: fieldSetDisabled,
   onEdit,
   moveDisabledIndexes = [],
 }: RepeaterFieldsetProps) => {
@@ -70,7 +67,6 @@ const Fieldset = ({
   // Non-zero index position of the fieldset for humans
   const position = index + 1;
   const disableDecrement =
-    fieldSetDisabled || // the whole fieldset is disabled
     index <= 0 || // is the first item
     moveDisabledIndexes.some(
       (disabledIndex) =>
@@ -78,13 +74,11 @@ const Fieldset = ({
         index - 1 === disabledIndex, // has a move-disabled item previous
     );
 
-  const disableIncrement =
-    fieldSetDisabled || // the whole fieldset is disabled
-    moveDisabledIndexes.some(
-      (disabledIndex) =>
-        index === disabledIndex || // is move disabled item
-        index + 1 === disabledIndex, // has a move-disabled item following
-    );
+  const disableIncrement = moveDisabledIndexes.some(
+    (disabledIndex) =>
+      index === disabledIndex || // is move disabled item
+      index + 1 === disabledIndex, // has a move-disabled item following
+  );
   const isMoveDisabled = moveDisabledIndexes.includes(index);
   const handleMove = (from: number, to: number) => {
     onMove(from, to);
@@ -138,7 +132,6 @@ const Fieldset = ({
     // we have a handler so show the default button
     editButton = (
       <ActionButton
-        disabled={fieldSetDisabled}
         onClick={handleEdit}
         aria-label={intl.formatMessage(formMessages.repeaterEdit, {
           index: position,
@@ -155,7 +148,6 @@ const Fieldset = ({
     // we have a handler so show the default button
     removeButton = (
       <ActionButton
-        disabled={fieldSetDisabled}
         onClick={handleRemove}
         aria-label={intl.formatMessage(formMessages.repeaterRemove, {
           index: position,
