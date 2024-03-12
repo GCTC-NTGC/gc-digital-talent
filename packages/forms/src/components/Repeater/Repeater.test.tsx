@@ -23,7 +23,7 @@ interface RenderRepeaterProps {
   repeaterProps: Omit<RepeaterProps, "children">;
   repeaterFieldsetProps: Omit<
     RepeaterFieldsetProps,
-    "legend" | "hideLegend" | "index" | "total" | "children"
+    "legend" | "hideLegend" | "index" | "children"
   >;
   inputProps: InputProps;
 }
@@ -69,7 +69,6 @@ const RepeaterWrapper = ({
           key={item.id}
           index={index}
           name="repeater"
-          total={fields.length}
           legend={`Test Repeater ${index + 1}`}
           onRemove={handleRemove}
           onMove={handleMove}
@@ -128,7 +127,6 @@ const defaultProps: RenderRepeaterProps = {
   repeaterProps: {
     name: "value",
     max: 5,
-    total: 1,
     onAdd: mockFn,
     addText: "Add item",
   },

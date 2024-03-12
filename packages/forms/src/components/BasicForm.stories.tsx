@@ -49,7 +49,6 @@ const NestedFieldArray = ({ parentIndex }: { parentIndex: number }) => {
     <Repeater.Root
       name={`fieldArray.${parentIndex}.nestedFieldArray`}
       addText="Add nested item"
-      total={fields.length}
       onAdd={() => {
         append({});
       }}
@@ -60,7 +59,6 @@ const NestedFieldArray = ({ parentIndex }: { parentIndex: number }) => {
             key={item.id}
             name={`fieldArray.${parentIndex}.nestedFieldArray`}
             index={index}
-            total={fields.length}
             onMove={move}
             onRemove={remove}
             legend={`Nested field ${index + 1}`}
@@ -99,7 +97,6 @@ const FieldArray = () => {
   return (
     <Repeater.Root
       name="fieldArray"
-      total={fields.length}
       addText="Add"
       onAdd={() => {
         append({});
@@ -111,7 +108,6 @@ const FieldArray = () => {
             key={item.id}
             index={index}
             name="fieldArray"
-            total={fields.length}
             onMove={move}
             onRemove={remove}
             legend={`Field ${index + 1}`}
