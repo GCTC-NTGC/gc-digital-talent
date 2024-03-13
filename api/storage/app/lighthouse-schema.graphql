@@ -76,6 +76,15 @@ type Query {
     "The offset from which items are returned."
     page: Int
   ): PoolCandidateSearchRequestPaginator!
+  notifications(
+    where: NotificationFilterInput
+
+    "Limits number of fetched items."
+    first: Int! = 10
+
+    "The offset from which items are returned."
+    page: Int
+  ): NotificationPaginator!
 }
 
 type Mutation {
@@ -87,7 +96,7 @@ type Mutation {
   deleteUser(id: ID!): User
   restoreUser(id: ID!): User
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
-  updatePoolCandidateAsAdmin(id: UUID!, poolCandidate: UpdatePoolCandidateAsAdminInput!): PoolCandidate
+  updatePoolCandidateStatus(id: UUID!, poolCandidate: UpdatePoolCandidateStatusInput!): PoolCandidate
   togglePoolCandidateBookmark(id: ID!): Boolean
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
   deletePoolCandidate(id: ID!): PoolCandidate
@@ -142,6 +151,9 @@ type Mutation {
   deleteTeam(id: UUID!): Team
   updateUserTeamRoles(teamRoleAssignments: UpdateUserTeamRolesInput!): Team
   markNotificationAsRead(id: UUID!): Notification
+  markNotificationAsUnread(id: UUID!): Notification
+  deleteNotification(id: UUID!): Notification
+  markAllNotificationsAsRead: [Notification]
   createUserSkill(userId: UUID!, skillId: UUID!, userSkill: CreateUserSkillInput): UserSkill
   updateUserSkill(id: UUID!, userSkill: UpdateUserSkillInput): UserSkill
   updateUserSkillRankings(userId: UUID!, userSkillRanking: UpdateUserSkillRankingsInput!): User
@@ -252,8 +264,6 @@ type User {
   isProfileComplete: Boolean
   priorityWeight: Int
   authInfo: UserAuthInfo
-  unreadNotifications: [Notification!]
-  notifications: [Notification!]
 }
 
 interface Notification {
@@ -380,7 +390,7 @@ type PoolCandidate {
   id: ID!
   pool: Pool!
   user: User!
-  cmoIdentifier: ID
+  cmoIdentifier: ID @deprecated(reason: "Field no longer used")
   expiryDate: Date
   status: PoolCandidateStatus
   statusWeight: Int
@@ -926,7 +936,6 @@ input ClassificationBelongsToMany {
 input CreatePoolCandidateAsAdminInput {
   pool: PoolBelongsTo!
   user: UserBelongsTo!
-  cmoIdentifier: ID
   expiryDate: Date
   status: PoolCandidateStatus = NEW_APPLICATION
   notes: String
@@ -940,11 +949,9 @@ input UpdateClassificationInput {
   maxSalary: Int
 }
 
-input UpdatePoolCandidateAsAdminInput {
-  cmoIdentifier: ID
+input UpdatePoolCandidateStatusInput {
   expiryDate: Date
   status: PoolCandidateStatus
-  isBookmarked: Boolean
 }
 
 input CreateDepartmentInput {
@@ -1353,6 +1360,17 @@ input UpdateApplicationInput {
   applicationId: ID
 }
 
+input DateRange {
+  from: DateTime!
+  to: DateTime!
+}
+
+input NotificationFilterInput {
+  onlyUnread: Boolean
+  readAt: DateRange
+  createdAt: DateRange
+}
+
 type DigitalContractingPersonnelSkill {
   id: UUID!
   skill: Skill
@@ -1676,6 +1694,15 @@ type PoolCandidateSearchRequestPaginator {
 
   "A list of PoolCandidateSearchRequest items."
   data: [PoolCandidateSearchRequest!]!
+}
+
+"A paginated list of Notification items."
+type NotificationPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of Notification items."
+  data: [Notification!]!
 }
 
 "Allowed column names for Query.poolCandidatesPaginated.orderBy."
