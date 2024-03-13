@@ -13,7 +13,10 @@ import {
   UpdatePoolInput,
 } from "@gc-digital-talent/graphql";
 
-import { hasAllEmptyFields } from "~/validators/process/aboutUs";
+import {
+  hasAllEmptyFields,
+  hasOneEmptyField,
+} from "~/validators/process/aboutUs";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import processMessages from "~/messages/processMessages";
@@ -45,7 +48,7 @@ const AboutUsSection = ({
   const { isSubmitting } = useEditPoolContext();
   const { isEditing, setIsEditing, icon } = useToggleSectionInfo({
     isNull,
-    emptyRequired: false, // Not a required field
+    emptyRequired: hasOneEmptyField(pool), // Not a required field
     fallbackIcon: NewspaperIcon,
     optional: true,
   });
