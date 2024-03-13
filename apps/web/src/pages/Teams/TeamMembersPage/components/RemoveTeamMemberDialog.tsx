@@ -11,7 +11,7 @@ import {
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { Team } from "@gc-digital-talent/graphql";
+import { TeamMembersPage_TeamFragment } from "@gc-digital-talent/graphql";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { TeamMember } from "~/utils/teamUtils";
@@ -20,7 +20,7 @@ import { UpdateUserTeamRoles_Mutation } from "./operations";
 
 interface RemoveTeamMemberDialogProps {
   user: TeamMember;
-  team: Team;
+  team: TeamMembersPage_TeamFragment;
 }
 
 const RemoveTeamMemberDialog = ({
