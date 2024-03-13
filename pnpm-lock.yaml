@@ -381,6 +381,9 @@ importers:
       '@gc-digital-talent/i18n':
         specifier: workspace:*
         version: link:../i18n
+      '@gc-digital-talent/jest-presets':
+        specifier: workspace:*
+        version: link:../jest-presets
       '@gc-digital-talent/logger':
         specifier: workspace:*
         version: link:../logger
