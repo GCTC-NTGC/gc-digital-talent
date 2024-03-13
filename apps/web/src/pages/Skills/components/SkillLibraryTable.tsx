@@ -11,12 +11,7 @@ import { useMutation } from "urql";
 import { getLocalizedName, getSkillLevelName } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
 import { useAuthorization } from "@gc-digital-talent/auth";
-import {
-  Skill,
-  SkillCategory,
-  SkillLevel,
-  UserSkill,
-} from "@gc-digital-talent/graphql";
+import { Skill, SkillLevel, UserSkill } from "@gc-digital-talent/graphql";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
