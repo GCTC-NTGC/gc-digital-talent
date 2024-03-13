@@ -159,6 +159,7 @@ export const PoolPoster = ({
       })
     : getLocalizedName(pool.location, intl);
 
+  const showAboutUs = !!(pool.aboutUs && pool.aboutUs[locale]);
   const showSpecialNote = !!(pool.specialNote && pool.specialNote[locale]);
   const showWhatToExpect = !!(pool.whatToExpect && pool.whatToExpect[locale]);
   const showWhatToExpectAdmission = !!(
@@ -825,28 +826,6 @@ export const PoolPoster = ({
                   />
                 </>
               )}
-              {pool.aboutUs && (
-                <>
-                  <Heading
-                    level="h3"
-                    size="h4"
-                    data-h2-font-weight="base(700)"
-                    data-h2-margin-bottom="base(x1)"
-                  >
-                    {intl.formatMessage({
-                      defaultMessage: "About us",
-                      id: "LTpCFL",
-                      description:
-                        "Title for about us section on a pool advertisement.",
-                    })}
-                  </Heading>
-                  <RichTextRenderer
-                    node={htmlToRichTextJSON(
-                      getLocalizedName(pool.aboutUs, intl),
-                    )}
-                  />
-                </>
-              )}
               {pool.keyTasks && (
                 <>
                   <Heading
@@ -865,6 +844,28 @@ export const PoolPoster = ({
                   <RichTextRenderer
                     node={htmlToRichTextJSON(
                       getLocalizedName(pool.keyTasks, intl),
+                    )}
+                  />
+                </>
+              )}
+              {showAboutUs && (
+                <>
+                  <Heading
+                    level="h3"
+                    size="h4"
+                    data-h2-font-weight="base(700)"
+                    data-h2-margin-bottom="base(x1)"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "About us",
+                      id: "LTpCFL",
+                      description:
+                        "Title for about us section on a pool advertisement.",
+                    })}
+                  </Heading>
+                  <RichTextRenderer
+                    node={htmlToRichTextJSON(
+                      getLocalizedName(pool.aboutUs, intl),
                     )}
                   />
                 </>
