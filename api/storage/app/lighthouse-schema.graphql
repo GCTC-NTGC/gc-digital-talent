@@ -87,7 +87,7 @@ type Mutation {
   deleteUser(id: ID!): User
   restoreUser(id: ID!): User
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
-  updatePoolCandidateAsAdmin(id: UUID!, poolCandidate: UpdatePoolCandidateAsAdminInput!): PoolCandidate
+  updatePoolCandidateStatus(id: UUID!, poolCandidate: UpdatePoolCandidateStatusInput!): PoolCandidate
   togglePoolCandidateBookmark(id: ID!): Boolean
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
   deletePoolCandidate(id: ID!): PoolCandidate
@@ -380,7 +380,7 @@ type PoolCandidate {
   id: ID!
   pool: Pool!
   user: User!
-  cmoIdentifier: ID
+  cmoIdentifier: ID @deprecated(reason: "Field no longer used")
   expiryDate: Date
   status: PoolCandidateStatus
   statusWeight: Int
@@ -926,7 +926,6 @@ input ClassificationBelongsToMany {
 input CreatePoolCandidateAsAdminInput {
   pool: PoolBelongsTo!
   user: UserBelongsTo!
-  cmoIdentifier: ID
   expiryDate: Date
   status: PoolCandidateStatus = NEW_APPLICATION
   notes: String
@@ -940,11 +939,9 @@ input UpdateClassificationInput {
   maxSalary: Int
 }
 
-input UpdatePoolCandidateAsAdminInput {
-  cmoIdentifier: ID
+input UpdatePoolCandidateStatusInput {
   expiryDate: Date
   status: PoolCandidateStatus
-  isBookmarked: Boolean
 }
 
 input CreateDepartmentInput {
