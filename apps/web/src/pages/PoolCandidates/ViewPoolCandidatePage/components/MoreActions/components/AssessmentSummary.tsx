@@ -12,6 +12,8 @@ import {
 } from "@gc-digital-talent/graphql";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
+import processMessages from "~/messages/processMessages";
+
 interface AssessmentSummaryProps {
   essentialSkills: Skill[];
   nonessentialSkills: Skill[];
@@ -168,11 +170,7 @@ const AssessmentSummary = ({
     educationAssessmentResultDecision = AssessmentDecision.Unsuccessful;
   }
   const educationAssessmentRowObject: TableRow = {
-    name: intl.formatMessage({
-      defaultMessage: "Education requirement",
-      id: "/zx1kX",
-      description: "Education requirement section header.",
-    }),
+    name: intl.formatMessage(processMessages.educationRequirement),
     results: {
       successful:
         educationAssessmentResultDecision === AssessmentDecision.Successful

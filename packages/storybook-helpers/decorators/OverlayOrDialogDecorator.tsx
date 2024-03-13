@@ -1,3 +1,4 @@
+import React from "react";
 import type { StoryFn } from "@storybook/react";
 
 // Helps Chromatic detect width for snapshots, as otherwise it just captures

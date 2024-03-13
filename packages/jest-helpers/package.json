@@ -24,6 +24,7 @@
     "react-router-dom": "^6.22.2"
   },
   "devDependencies": {
+    "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/jest-presets": "workspace:*",
     "@swc/core": "^1.4.5",
     "@testing-library/react": "14.2.1",
@@ -31,7 +32,6 @@
     "@types/jest-axe": "3.5.9",
     "@types/react": "^18.2.64",
     "eslint": "^8.57.0",
-    "eslint-config-custom": "workspace:*",
     "jest-axe": "^8.0.0",
     "react": "^18.2.0",
     "tsconfig": "workspace:*",

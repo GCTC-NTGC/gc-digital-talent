@@ -1,8 +1,9 @@
+import React from "react";
 import { Provider as GraphqlProvider } from "urql";
 import { Client } from "@urql/core";
 import { fromValue, pipe, delay } from "wonka";
 import { useParameter } from "@storybook/addons";
-import { StoryContext, StoryFn } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 import random from "lodash/random";
 import merge from "lodash/merge";
 import { DocumentNode } from "graphql";
@@ -46,7 +47,7 @@ const mockRequest = (
   }
   const response = operationName && responseData[operationName];
 
-  const operationResult = !!response
+  const operationResult = response
     ? pipe(
         fromValue(response),
         // Simulate latency in returning response.
@@ -72,14 +73,12 @@ const mockRequest = (
  * For examples of our usage, see:
  * /apps/web/src/pages/ProfilePage/ProfilePage/ProfilePage.stories.tsx
  */
-export default function MockGraphqlDecorator(
-  Story: StoryFn,
-  context: StoryContext,
-) {
+export default function MockGraphqlDecorator(Story: StoryFn) {
   // Allow response to be set in story via parameters.
   // Source: https://johnclarke73.medium.com/mocking-react-context-in-storybook-bb57304f2f6c
   // See: https://storybook.js.org/docs/react/addons/addons-api#useparameter
-  const responseData: any = useParameter("apiResponses", {});
+  const responseData =
+    useParameter<Record<string, unknown>>("apiResponses", {}) ?? {};
   const config = useParameter("apiResponsesConfig", defaultConfig);
   const mergedConfig = merge(defaultConfig, config);
 

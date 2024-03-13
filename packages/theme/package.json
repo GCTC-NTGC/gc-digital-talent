@@ -25,11 +25,11 @@
     "@gc-digital-talent/storage": "workspace:*"
   },
   "devDependencies": {
+    "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/jest-presets": "workspace:*",
     "@swc/core": "^1.4.5",
     "@types/react": "^18.2.64",
     "eslint": "^8.57.0",
-    "eslint-config-custom": "workspace:*",
     "jest": "^29.7.0",
     "react": "^18.2.0",
     "tsconfig": "workspace:*",

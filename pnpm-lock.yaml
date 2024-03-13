@@ -8,15 +8,15 @@ importers:
 
   .:
     devDependencies:
+      '@gc-digital-talent/eslint-config':
+        specifier: workspace:*
+        version: link:packages/eslint-config-custom
       '@graphql-codegen/cli':
         specifier: 5.0.2
         version: 5.0.2(@parcel/watcher@2.4.1)(graphql@16.8.1)(typescript@5.4.2)
       '@hydrogen-css/hydrogen':
         specifier: 2.0.3
         version: 2.0.3
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:packages/eslint-config-custom
       jest-fail-on-console:
         specifier: ^3.1.2
         version: 3.1.2
@@ -32,6 +32,9 @@ importers:
       '@gc-digital-talent/date-helpers':
         specifier: workspace:*
         version: link:../../packages/date-helpers
+      '@gc-digital-talent/eslint-config':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config-custom
       '@gc-digital-talent/graphql':
         specifier: workspace:*
         version: link:../../packages/graphql
@@ -60,6 +63,9 @@ importers:
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
+      eslint:
+        specifier: ^8.57.0
+        version: 8.57.0
       eslint-plugin-cypress:
         specifier: ^2.15.1
         version: 2.15.1(eslint@8.57.0)
@@ -88,6 +94,9 @@ importers:
       '@gc-digital-talent/env':
         specifier: '*'
         version: link:../../packages/env
+      '@gc-digital-talent/eslint-config':
+        specifier: '*'
+        version: link:../../packages/eslint-config-custom
       '@gc-digital-talent/graphql':
         specifier: '*'
         version: link:../../packages/graphql
@@ -103,6 +112,9 @@ importers:
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
+      eslint:
+        specifier: ^8.57.0
+        version: 8.57.0
       eslint-plugin-playwright:
         specifier: ^1.5.2
         version: 1.5.2(eslint@8.57.0)
@@ -218,6 +230,9 @@ importers:
       '@formatjs/cli':
         specifier: ^6.2.7
         version: 6.2.7
+      '@gc-digital-talent/eslint-config':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config-custom
       '@gc-digital-talent/fake-data':
         specifier: workspace:*
         version: link:../../packages/fake-data
@@ -284,9 +299,6 @@ importers:
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../../packages/eslint-config-custom
       hydrogen-webpack-plugin:
         specifier: workspace:*
         version: link:../../packages/hydrogen-webpack-plugin
@@ -330,6 +342,9 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0(tslib@2.6.2)
     devDependencies:
+      '@gc-digital-talent/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config-custom
       '@swc/core':
         specifier: ^1.4.5
         version: 1.4.5
@@ -339,9 +354,6 @@ importers:
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -388,9 +400,9 @@ importers:
         specifier: ^4.0.6
         version: 4.0.6(graphql@16.8.1)(react@18.2.0)
     devDependencies:
-      '@gc-digital-talent/jest-presets':
+      '@gc-digital-talent/eslint-config':
         specifier: workspace:*
-        version: link:../jest-presets
+        version: link:../eslint-config-custom
       '@swc/core':
         specifier: ^1.4.5
         version: 1.4.5
@@ -403,9 +415,6 @@ importers:
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -458,6 +467,9 @@ importers:
         specifier: ^4.0.6
         version: 4.0.6(graphql@16.8.1)(react@18.2.0)
     devDependencies:
+      '@gc-digital-talent/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config-custom
       '@gc-digital-talent/jest-presets':
         specifier: workspace:*
         version: link:../jest-presets
@@ -479,9 +491,6 @@ importers:
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@20.11.19)
@@ -516,6 +525,9 @@ importers:
         specifier: ^6.6.2
         version: 6.6.2(react@18.2.0)(typescript@5.4.2)
     devDependencies:
+      '@gc-digital-talent/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config-custom
       '@gc-digital-talent/jest-presets':
         specifier: workspace:*
         version: link:../jest-presets
@@ -526,11 +538,8 @@ importers:
         specifier: 29.5.11
         version: 29.5.11
       eslint:
-        specifier: ^8.56.0
+        specifier: ^8.57.0
         version: 8.57.0
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@20.11.19)
@@ -546,6 +555,9 @@ importers:
 
   packages/env:
     devDependencies:
+      '@gc-digital-talent/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config-custom
       '@swc/core':
         specifier: ^1.4.5
         version: 1.4.5
@@ -555,9 +567,6 @@ importers:
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -579,9 +588,6 @@ importers:
       '@typescript-eslint/parser':
         specifier: ^7.1.1
         version: 7.1.1(eslint@8.57.0)(typescript@5.4.2)
-      eslint:
-        specifier: ^8.57.0
-        version: 8.57.0
       eslint-config-airbnb:
         specifier: ^19.0.4
         version: 19.0.4(eslint-plugin-import@2.29.1)(eslint-plugin-jsx-a11y@6.8.0)(eslint-plugin-react-hooks@4.6.0)(eslint-plugin-react@7.34.0)(eslint@8.57.0)
@@ -646,6 +652,9 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
     devDependencies:
+      '@gc-digital-talent/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config-custom
       '@swc/core':
         specifier: ^1.4.2
         version: 1.4.2
@@ -653,11 +662,8 @@ importers:
         specifier: 4.14.202
         version: 4.14.202
       eslint:
-        specifier: ^8.56.0
+        specifier: ^8.57.0
         version: 8.57.0
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -728,6 +734,9 @@ importers:
       '@faker-js/faker':
         specifier: ^8.4.1
         version: 8.4.1
+      '@gc-digital-talent/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config-custom
       '@gc-digital-talent/fake-data':
         specifier: workspace:*
         version: link:../fake-data
@@ -773,9 +782,6 @@ importers:
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@20.11.19)
@@ -855,6 +861,9 @@ importers:
         specifier: ^4.0.6
         version: 4.0.6(graphql@16.8.1)(react@18.2.0)
     devDependencies:
+      '@gc-digital-talent/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config-custom
       '@swc/core':
         specifier: ^1.4.5
         version: 1.4.5
@@ -864,9 +873,9 @@ importers:
       '@types/react':
         specifier: 18.2.45
         version: 18.2.45
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
+      eslint:
+        specifier: ^8.57.0
+        version: 8.57.0
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -893,6 +902,9 @@ importers:
       '@formatjs/cli':
         specifier: ^6.2.7
         version: 6.2.7
+      '@gc-digital-talent/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config-custom
       '@gc-digital-talent/jest-presets':
         specifier: workspace:*
         version: link:../jest-presets
@@ -908,9 +920,6 @@ importers:
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       history:
         specifier: ^5.3.0
         version: 5.3.0
@@ -963,6 +972,9 @@ importers:
         specifier: ^6.22.2
         version: 6.22.2(react-dom@18.2.0)(react@18.2.0)
     devDependencies:
+      '@gc-digital-talent/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config-custom
       '@gc-digital-talent/jest-presets':
         specifier: workspace:*
         version: link:../jest-presets
@@ -984,9 +996,6 @@ importers:
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       jest-axe:
         specifier: ^8.0.0
         version: 8.0.0
@@ -1025,15 +1034,15 @@ importers:
         specifier: workspace:*
         version: link:../env
     devDependencies:
+      '@gc-digital-talent/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config-custom
       '@swc/core':
         specifier: ^1.4.5
         version: 1.4.5
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -1046,6 +1055,9 @@ importers:
 
   packages/storage:
     devDependencies:
+      '@gc-digital-talent/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config-custom
       '@swc/core':
         specifier: ^1.4.5
         version: 1.4.5
@@ -1053,11 +1065,8 @@ importers:
         specifier: ^18.2.45
         version: 18.2.58
       eslint:
-        specifier: ^8.56.0
+        specifier: ^8.57.0
         version: 8.57.0
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -1113,6 +1122,9 @@ importers:
       '@formatjs/ts-transformer':
         specifier: ^3.13.12
         version: 3.13.12(ts-jest@29.1.2)
+      '@gc-digital-talent/eslint-config':
+        specifier: '*'
+        version: link:../eslint-config-custom
       '@storybook/addon-a11y':
         specifier: ^7.6.17
         version: 7.6.17
@@ -1137,6 +1149,9 @@ importers:
       '@storybook/types':
         specifier: ^7.6.17
         version: 7.6.17
+      eslint:
+        specifier: ^8.57.0
+        version: 8.57.0
       hydrogen-webpack-plugin:
         specifier: workspace:*
         version: link:../hydrogen-webpack-plugin
@@ -1165,6 +1180,9 @@ importers:
         specifier: workspace:*
         version: link:../storage
     devDependencies:
+      '@gc-digital-talent/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config-custom
       '@gc-digital-talent/jest-presets':
         specifier: workspace:*
         version: link:../jest-presets
@@ -1177,9 +1195,6 @@ importers:
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@20.11.19)
@@ -1208,8 +1223,11 @@ importers:
       '@faker-js/faker':
         specifier: ^8.4.1
         version: 8.4.1
+      '@gc-digital-talent/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config-custom
       '@gc-digital-talent/storybook-helpers':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../storybook-helpers
       '@storybook/react':
         specifier: ^7.6.17
@@ -1223,9 +1241,6 @@ importers:
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -1241,15 +1256,15 @@ importers:
 
   packages/tooling:
     devDependencies:
+      '@gc-digital-talent/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config-custom
       '@swc/core':
         specifier: ^1.4.5
         version: 1.4.5
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -1352,6 +1367,9 @@ importers:
       '@faker-js/faker':
         specifier: ^8.4.1
         version: 8.4.1
+      '@gc-digital-talent/eslint-config':
+        specifier: workspace*
+        version: link:../eslint-config-custom
       '@gc-digital-talent/jest-presets':
         specifier: workspace:*
         version: link:../jest-presets
@@ -1394,9 +1412,6 @@ importers:
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../eslint-config-custom
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@20.11.19)

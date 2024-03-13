@@ -9,16 +9,20 @@
     "e2e:playwright:chromium": "pnpm exec playwright test --project=chromium",
     "e2e:playwright:firefox": "pnpm exec playwright test --project=firefox",
     "e2e:playwright:webkit": "pnpm exec playwright test --project=webkit",
-    "e2e:playwright:report": "pnpm exec playwright show-report"
+    "e2e:playwright:report": "pnpm exec playwright show-report",
+    "lint": "eslint \"constants/**\" \"fixtures/**\" \"tests/**\" \"utils/**\" --ext .js,.ts,.jsx,.tsx",
+    "lint:fix": "eslint ./ --fix --ext .js,.ts,.jsx,.tsx"
   },
   "devDependencies": {
     "@gc-digital-talent/date-helpers": "*",
     "@gc-digital-talent/env": "*",
+    "@gc-digital-talent/eslint-config": "*",
     "@gc-digital-talent/graphql": "*",
     "@playwright/test": "^1.42.1",
     "@types/node": "^20.11.25",
     "axe-core": "^4.8.4",
     "dotenv": "^16.4.5",
+    "eslint": "^8.57.0",
     "eslint-plugin-playwright": "^1.5.2"
   },
   "dependencies": {

@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
+    "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/fake-data": "workspace:*",
     "@gc-digital-talent/jest-helpers": "workspace:*",
     "@gc-digital-talent/jest-presets": "workspace:*",
@@ -60,7 +61,6 @@
     "@types/node": "20.11.19",
     "@types/react": "^18.2.64",
     "eslint": "^8.57.0",
-    "eslint-config-custom": "workspace:*",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "react": "^18.2.0",

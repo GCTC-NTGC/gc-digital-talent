@@ -137,6 +137,11 @@ const messages = defineMessages({
     id: "tgtpgb",
     description: "Message to direct users to the talent placement page",
   },
+  educationRequirement: {
+    defaultMessage: "Education requirement",
+    id: "LyUTqa",
+    description: "Education requirement title",
+  },
 });
 
 export default messages;
