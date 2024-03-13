@@ -9,7 +9,7 @@ import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import processMessages from "~/messages/processMessages";
 
 import { DisplayProps } from "../../types";
-import { hasAllEmptyFields } from "../../../../../validators/process/aboutUs";
+import { hasAllEmptyFields } from "~/validators/process/aboutUs";
 
 const Display = ({ pool, subtitle }: DisplayProps) => {
   const intl = useIntl();
