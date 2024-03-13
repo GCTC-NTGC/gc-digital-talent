@@ -121,11 +121,6 @@ type User {
   priorityWeight: Int @rename(attribute: "priority_weight")
   # authorization and roles
   authInfo: UserAuthInfo @self
-
-  # Notifications
-  unreadNotifications: [Notification!]
-    @rename(attribute: "unread_enriched_notifications")
-  notifications: [Notification!] @rename(attribute: "enriched_notifications")
 }
 
 interface Notification {
@@ -817,6 +812,9 @@ type Query {
   team(id: UUID! @eq): Team @find @canQuery(ability: "view")
   teams: [Team]! @all @canModel(ability: "viewAny")
   roles: [Role]! @all @canModel(ability: "viewAny")
+
+  notifications(where: NotificationFilterInput): [Notification!]
+    @paginate(defaultCount: 10, scopes: ["authorizedToView"])
 
   sitewideAnnouncement: SitewideAnnouncement
 }
@@ -1569,6 +1567,17 @@ input UpdateApplicationInput {
     @rules(apply: ["App\\Rules\\HasEssentialSkills"])
 }
 
+input DateRange {
+  from: DateTime!
+  to: DateTime! @rules(apply: ["after:from"])
+}
+
+input NotificationFilterInput {
+  onlyUnread: Boolean @scope
+  readAt: DateRange @whereBetween(key: "read_at")
+  createdAt: DateRange @whereBetween(key: "created_at")
+}
+
 type Mutation {
   # User mutations
   createUser(user: CreateUserInput! @spread): User
@@ -1852,6 +1861,9 @@ type Mutation {
 
   # Notifications
   markNotificationAsRead(id: UUID!): Notification @guard # can only affect notifications belonging to the logged-in user
+  markNotificationAsUnread(id: UUID!): Notification @guard
+  deleteNotification(id: UUID!): Notification @guard
+  markAllNotificationsAsRead: [Notification] @guard
   # UserSkill mutations
   createUserSkill(
     userId: UUID! @rename(attribute: "user_id")
