@@ -1570,7 +1570,7 @@ input UpdateApplicationInput {
 
 input DateRange {
   from: DateTime!
-  to: DateTime!
+  to: DateTime! @rules(apply: ["after:from"])
 }
 
 input NotificationFilterInput {
