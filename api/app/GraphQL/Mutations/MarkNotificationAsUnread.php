@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 final class MarkNotificationAsUnread
 {
     /**
-     * Mark a specific notification as read
+     * Mark a specific notification as unread
      *
      * @param  array{}  $args
      */
