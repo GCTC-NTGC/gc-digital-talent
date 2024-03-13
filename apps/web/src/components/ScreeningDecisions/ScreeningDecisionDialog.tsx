@@ -16,7 +16,6 @@ import {
   PoolSkill,
   PoolSkillType,
   Skill,
-  SkillCategory,
   UpdateAssessmentResultInput,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -34,17 +33,14 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   getAssessmentStepType,
-  getBehaviouralSkillLevelDefinition,
   getLocale,
   getLocalizedName,
-  getTechnicalSkillLevelDefinition,
+  getSkillLevelDefinition,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import {
   getAssessmentDecisionLevel,
-  getBehaviouralSkillLevel,
   getTableAssessmentDecision,
-  getTechnicalSkillLevel,
 } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
 
 import { getExperienceSkills } from "~/utils/skillUtils";
@@ -69,10 +65,12 @@ const getSkillLevelMessage = (
 ): string => {
   let skillLevel = "";
   if (poolSkill?.requiredLevel && poolSkill.skill) {
-    skillLevel =
-      poolSkill.skill.category === SkillCategory.Technical
-        ? intl.formatMessage(getTechnicalSkillLevel(poolSkill.requiredLevel))
-        : intl.formatMessage(getBehaviouralSkillLevel(poolSkill.requiredLevel));
+    skillLevel = intl.formatMessage(
+      getSkillLevelDefinition(
+        poolSkill.requiredLevel,
+        poolSkill.skill.category,
+      ),
+    );
   } else skillLevel = intl.formatMessage(commonMessages.notFound);
 
   return skillLevel;
@@ -156,13 +154,10 @@ const AssessmentStepTypeSection = ({
                         </p>
                         <p>
                           {intl.formatMessage(
-                            poolSkill.skill.category === SkillCategory.Technical
-                              ? getTechnicalSkillLevelDefinition(
-                                  poolSkill.requiredLevel,
-                                )
-                              : getBehaviouralSkillLevelDefinition(
-                                  poolSkill.requiredLevel,
-                                ),
+                            getSkillLevelDefinition(
+                              poolSkill.requiredLevel,
+                              poolSkill.skill.category,
+                            ),
                           )}
                         </p>
                       </>

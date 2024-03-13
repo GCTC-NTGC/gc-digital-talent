@@ -8,11 +8,7 @@ import {
 } from "@tanstack/react-table";
 import { useMutation } from "urql";
 
-import {
-  getLocalizedName,
-  getBehaviouralSkillLevel,
-  getTechnicalSkillLevel,
-} from "@gc-digital-talent/i18n";
+import { getLocalizedName, getSkillLevelName } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import {
@@ -140,11 +136,7 @@ const SkillLibraryTable = ({
         },
       }: UserSkillCell) =>
         skillLevel
-          ? intl.formatMessage(
-              category === SkillCategory.Technical
-                ? getTechnicalSkillLevel(skillLevel)
-                : getBehaviouralSkillLevel(skillLevel),
-            )
+          ? intl.formatMessage(getSkillLevelName(skillLevel, category))
           : null,
       enableHiding: false,
       enableColumnFilter: false,

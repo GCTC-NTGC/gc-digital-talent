@@ -1,15 +1,8 @@
 import flatMap from "lodash/flatMap";
 import uniqBy from "lodash/uniqBy";
 import { IntlShape } from "react-intl";
-import React from "react";
 
-import {
-  getLocale,
-  getBehaviouralSkillLevel,
-  getBehaviouralSkillLevelDefinition,
-  getTechnicalSkillLevel,
-  getTechnicalSkillLevelDefinition,
-} from "@gc-digital-talent/i18n";
+import { getLocale } from "@gc-digital-talent/i18n";
 import { matchStringCaseDiacriticInsensitive } from "@gc-digital-talent/forms";
 import {
   notEmpty,
@@ -286,40 +279,6 @@ export const parseKeywords = (
         .map((word) => word.trim())
         .filter((word) => word !== "")
     : null;
-};
-
-type GetUserSkillLevelAndDefinitionReturn = {
-  level: React.ReactNode;
-  definition: React.ReactNode;
-};
-
-/**
- * Get both name and definition
- * for skill levels based on if it is
- * technical or not
- *
- * @param skillLevel SkillLevel
- * @param isTechnical boolean
- * @param intl IntlShape
- * @returns GetUserSkillLevelAndDefinitionReturn
- */
-export const getUserSkillLevelAndDefinition = (
-  skillLevel: SkillLevel,
-  isTechnical: boolean,
-  intl: IntlShape,
-): GetUserSkillLevelAndDefinitionReturn => {
-  return {
-    level: intl.formatMessage(
-      isTechnical
-        ? getTechnicalSkillLevel(skillLevel)
-        : getBehaviouralSkillLevel(skillLevel),
-    ),
-    definition: intl.formatMessage(
-      isTechnical
-        ? getTechnicalSkillLevelDefinition(skillLevel)
-        : getBehaviouralSkillLevelDefinition(skillLevel),
-    ),
-  };
 };
 
 const categoryOrder = [SkillCategory.Technical, SkillCategory.Behavioural];
