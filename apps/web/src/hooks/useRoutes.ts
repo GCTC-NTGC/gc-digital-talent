@@ -293,6 +293,9 @@ const getRoutes = (lang: Locales) => {
     improveTechnicalSkills: () =>
       path.join(showcase, "5-technical-skills-to-train"),
 
+    // Notifications
+    notifications: () => path.join(applicantUrl, "notifications"),
+
     // Directive on digital talent
     directive: () => path.join(baseUrl, "directive-on-digital-talent"),
     digitalServicesContractingQuestionnaire: () =>
