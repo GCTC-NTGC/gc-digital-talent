@@ -76,6 +76,11 @@ class NotificationTest extends TestCase
             ->published()
             ->create();
 
+        $this->poolCandidate = PoolCandidate::factory()->create([
+            'user_id' => $this->user->id,
+            'pool_id' => $this->pool->id,
+        ]);
+
         $this->originalStatus = PoolCandidateStatus::NEW_APPLICATION->name;
         $this->newStatus = PoolCandidateStatus::PLACED_TERM->name;
         $this->user->notify(
