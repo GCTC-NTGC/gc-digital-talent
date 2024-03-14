@@ -212,36 +212,24 @@ class PoolCandidatePolicyTest extends TestCase
     }
 
     /**
-     * Assert that only pool operator can update a published pool candidate
+     * Assert that a pool operator or request responder can update a pool candidate's status, expiry, and bookmark fields
      *
      * @return void
      */
-    public function testUpdateAsAdmin()
+    public function testUpdateStatus()
     {
         // Ensure candidate is not draft
         $this->poolCandidate->submitted_at = config('constants.past_date');
         $this->poolCandidate->save();
 
-        $this->assertTrue($this->poolOperatorUser->can('updateAsAdmin', $this->poolCandidate));
-        $this->assertTrue($this->requestResponderUser->can('updateAsAdmin', $this->poolCandidate));
+        $this->assertTrue($this->poolOperatorUser->can('updateStatus', $this->poolCandidate));
+        $this->assertTrue($this->requestResponderUser->can('updateStatus', $this->poolCandidate));
 
-        $this->assertFalse($this->guestUser->can('updateAsAdmin', $this->poolCandidate));
-        $this->assertFalse($this->candidateUser->can('updateAsAdmin', $this->poolCandidate));
-        $this->assertFalse($this->applicantUser->can('updateAsAdmin', $this->poolCandidate));
-        $this->assertFalse($this->communityManagerUser->can('updateAsAdmin', $this->poolCandidate));
-        $this->assertFalse($this->adminUser->can('updateAsAdmin', $this->poolCandidate));
-
-        // make candidate draft
-        $this->poolCandidate->submitted_at = null;
-        $this->poolCandidate->save();
-
-        $this->assertFalse($this->poolOperatorUser->can('updateAsAdmin', $this->poolCandidate));
-        $this->assertFalse($this->guestUser->can('updateAsAdmin', $this->poolCandidate));
-        $this->assertFalse($this->candidateUser->can('updateAsAdmin', $this->poolCandidate));
-        $this->assertFalse($this->applicantUser->can('updateAsAdmin', $this->poolCandidate));
-        $this->assertFalse($this->requestResponderUser->can('updateAsAdmin', $this->poolCandidate));
-        $this->assertFalse($this->communityManagerUser->can('updateAsAdmin', $this->poolCandidate));
-        $this->assertFalse($this->adminUser->can('updateAsAdmin', $this->poolCandidate));
+        $this->assertFalse($this->guestUser->can('updateStatus', $this->poolCandidate));
+        $this->assertFalse($this->candidateUser->can('updateStatus', $this->poolCandidate));
+        $this->assertFalse($this->applicantUser->can('updateStatus', $this->poolCandidate));
+        $this->assertFalse($this->communityManagerUser->can('updateStatus', $this->poolCandidate));
+        $this->assertFalse($this->adminUser->can('updateStatus', $this->poolCandidate));
     }
 
     /**

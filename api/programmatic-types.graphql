@@ -54,6 +54,15 @@ type PaginatorInfo {
   total: Int!
 }
 
+"A paginated list of Notification items."
+type NotificationPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of Notification items."
+  data: [Notification!]!
+}
+
 "A paginated list of User items."
 type UserPaginator {
   "Pagination information about the list of items."

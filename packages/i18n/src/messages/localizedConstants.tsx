@@ -899,54 +899,6 @@ export const getGenericJobTitles = (
     `Invalid role '${GenericJobTitleId}'`,
   );
 
-const GenericJobTitlesWithClassification = defineMessages({
-  [GenericJobTitleKey.TechnicianIt01]: {
-    defaultMessage: "IT-01 (Technician)",
-    id: "zVm0jL",
-    description:
-      "The name of the Technician classification with group and level.",
-  },
-  [GenericJobTitleKey.AnalystIt02]: {
-    defaultMessage: "IT-02 (Analyst)",
-    id: "8sfFGc",
-    description:
-      "The name of the Technician Analyst classification with group and level.",
-  },
-  [GenericJobTitleKey.TeamLeaderIt03]: {
-    defaultMessage: "IT-03 (Team leader)",
-    id: "wFZLxf",
-    description:
-      "The name of the Team leader Analyst classification with group and level.",
-  },
-  [GenericJobTitleKey.TechnicalAdvisorIt03]: {
-    defaultMessage: "IT-03 (Technical advisor)",
-    id: "55rtyE",
-    description:
-      "The name of the Technical advisor classification with group and level.",
-  },
-  [GenericJobTitleKey.SeniorAdvisorIt04]: {
-    defaultMessage: "IT-04 (Senior advisor)",
-    id: "o5J75O",
-    description:
-      "The name of the Senior advisor classification with group and level.",
-  },
-  [GenericJobTitleKey.ManagerIt04]: {
-    defaultMessage: "IT-04 (Manager)",
-    id: "b02Azd",
-    description:
-      "The name of the Senior advisor classification with group and level.",
-  },
-});
-
-export const getGenericJobTitlesWithClassification = (
-  GenericJobTitleWithClassificationId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    GenericJobTitlesWithClassification,
-    GenericJobTitleWithClassificationId,
-    `Invalid role '${GenericJobTitleWithClassificationId}'`,
-  );
-
 const awardedToMessages = defineMessages({
   [AwardedTo.Me]: {
     defaultMessage: "Me",

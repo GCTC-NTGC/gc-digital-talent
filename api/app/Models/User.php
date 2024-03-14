@@ -6,6 +6,7 @@ use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\LanguageAbility;
 use App\Enums\PoolCandidateStatus;
+use App\Traits\EnrichedNotifiable;
 use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -16,7 +17,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laratrust\Contracts\LaratrustUser;
@@ -76,11 +76,11 @@ class User extends Model implements Authenticatable, LaratrustUser
     use AuthenticatableTrait;
     use Authorizable;
     use CausesActivity;
+    use EnrichedNotifiable;
     use HasFactory;
     use HasRelationships;
     use HasRolesAndPermissions;
     use LogsActivity;
-    use Notifiable;
     use Searchable;
     use SoftDeletes;
 
@@ -831,43 +831,6 @@ class User extends Model implements Authenticatable, LaratrustUser
         if (array_key_exists('sync', $roleAssignmentHasMany)) {
             $this->callRolesFunction($roleAssignmentHasMany['sync'], 'syncRoles');
         }
-    }
-
-    // reattach all the extra fields from the JSON data column
-    public static function enrichNotification(object $notification)
-    {
-        $dataFields = $notification->data;
-        foreach ($dataFields as $key => $value) {
-            $notification->$key = $value;
-        }
-    }
-
-    // rename accessor to avoid hiding parent's notification function
-    public function getEnrichedNotificationsAttribute()
-    {
-        $user = Auth::user();
-        $notifications = $this->notifications()
-            ->where('notifiable_id', $user->id)
-            ->get();
-        $notifications->each(function ($n) {
-            self::enrichNotification($n);
-        });
-
-        return $notifications;
-    }
-
-    // rename accessor to avoid hiding parent's notification function
-    public function getUnreadEnrichedNotificationsAttribute()
-    {
-        $user = Auth::user();
-        $notifications = $this->unreadNotifications()
-            ->where('notifiable_id', $user->id)
-            ->get();
-        $notifications->each(function ($n) {
-            self::enrichNotification($n);
-        });
-
-        return $notifications;
     }
 
     public function getTopTechnicalSkillsRankingAttribute()
