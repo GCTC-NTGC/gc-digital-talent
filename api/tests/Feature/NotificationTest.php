@@ -46,7 +46,7 @@ class NotificationTest extends TestCase
                     ... on PoolCandidateStatusChangedNotification {
                         oldStatus
                         newStatus
-                        poolId
+                        poolCandidateId
                         poolName {
                             en
                             fr
@@ -82,7 +82,7 @@ class NotificationTest extends TestCase
             new PoolCandidateStatusChanged(
                 $this->originalStatus,
                 $this->newStatus,
-                $this->pool->id,
+                $this->poolCandidate->id,
                 $this->pool->name
             )
         );
@@ -98,7 +98,7 @@ class NotificationTest extends TestCase
 
         $this->poolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->candidateUser->id,
-            'pool_id' => $this->pool->id,
+            'pool_id' => $this->poolCandidate->id,
         ]);
     }
 
@@ -115,7 +115,7 @@ class NotificationTest extends TestCase
                                 'readAt' => null,
                                 'oldStatus' => $this->originalStatus,
                                 'newStatus' => $this->newStatus,
-                                'poolId' => $this->pool->id,
+                                'poolCandidateId' => $this->poolCandidate->id,
                                 'poolName' => [
                                     'en' => $this->pool->name['en'],
                                     'fr' => $this->pool->name['fr'],
@@ -193,7 +193,7 @@ class NotificationTest extends TestCase
             new PoolCandidateStatusChanged(
                 PoolCandidateStatus::SCREENED_IN->name,
                 PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-                $this->pool->id,
+                $this->poolCandidate->id,
                 $this->pool->name
             )
         );
@@ -201,7 +201,7 @@ class NotificationTest extends TestCase
             new PoolCandidateStatusChanged(
                 PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
                 PoolCandidateStatus::QUALIFIED_WITHDREW->name,
-                $this->pool->id,
+                $this->poolCandidate->id,
                 $this->pool->name
             )
         );
@@ -239,7 +239,7 @@ class NotificationTest extends TestCase
             new PoolCandidateStatusChanged(
                 PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name,
                 PoolCandidateStatus::QUALIFIED_WITHDREW->name,
-                $this->pool->id,
+                $this->poolCandidate->id,
                 $this->pool->name
             )
         );
@@ -248,7 +248,7 @@ class NotificationTest extends TestCase
             new PoolCandidateStatusChanged(
                 PoolCandidateStatus::NEW_APPLICATION->name,
                 PoolCandidateStatus::PLACED_CASUAL->name,
-                $this->pool->id,
+                $this->poolCandidate->id,
                 $this->pool->name
             )
         );
@@ -277,7 +277,7 @@ class NotificationTest extends TestCase
             new PoolCandidateStatusChanged(
                 PoolCandidateStatus::PLACED_INDETERMINATE->name,
                 PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-                $this->pool->id,
+                $this->poolCandidate->id,
                 $this->pool->name
             )
         );

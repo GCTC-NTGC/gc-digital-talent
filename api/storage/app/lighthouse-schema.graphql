@@ -268,7 +268,7 @@ type User {
 
 interface Notification {
   id: ID!
-  type: NotificationType
+  type: NotificationType!
   readAt: DateTime
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -276,13 +276,13 @@ interface Notification {
 
 type PoolCandidateStatusChangedNotification implements Notification {
   id: ID!
-  type: NotificationType
+  type: NotificationType!
   readAt: DateTime!
   createdAt: DateTime!
   updatedAt: DateTime!
   oldStatus: PoolCandidateStatus
   newStatus: PoolCandidateStatus
-  poolId: ID
+  poolCandidateId: ID
   poolName: LocalizedString
 }
 

@@ -140,7 +140,7 @@ type PoolCandidateStatusChangedNotification implements Notification {
 
   oldStatus: PoolCandidateStatus @rename(attribute: "old_status")
   newStatus: PoolCandidateStatus @rename(attribute: "new_status")
-  poolId: ID @rename(attribute: "pool_id")
+  poolCandidateId: ID @rename(attribute: "pool_candidate_id")
   poolName: LocalizedString @rename(attribute: "pool_name")
 }
 
