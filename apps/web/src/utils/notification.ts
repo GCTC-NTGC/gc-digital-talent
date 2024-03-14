@@ -13,6 +13,7 @@ import {
   getLocalizedName,
   getPoolCandidateStatus,
 } from "@gc-digital-talent/i18n";
+
 import useRoutes from "../hooks/useRoutes";
 
 type NotificationInfo = {
@@ -50,7 +51,9 @@ const usePoolCandidateStatusChangedInfo: NotificationInfoGetterFunc<
     message: intl.formatMessage(
       {
         defaultMessage:
-          "Your status has changed from <strong>{oldStatus}</strong> to <strong>{newStatus}</strong> in {poolName}.",
+          "Your status has changed from <heavyPrimary>{oldStatus}</heavyPrimary> to <heavyPrimary>{newStatus}</heavyPrimary> in {poolName}.",
+        id: "EUukwf",
+        description: "Notification message for pool candidate status changed",
       },
       {
         oldStatus,
@@ -62,6 +65,7 @@ const usePoolCandidateStatusChangedInfo: NotificationInfoGetterFunc<
     label: intl.formatMessage(
       {
         defaultMessage: "Status change for {poolName}",
+        id: "OvGt/x",
         description: "Label for the pool status changed notification",
       },
       { poolName },
