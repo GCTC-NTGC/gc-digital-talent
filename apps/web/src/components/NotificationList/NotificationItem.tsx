@@ -1,7 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { Link as BaseLink } from "react-router-dom";
+import { Link as BaseLink, useNavigate } from "react-router-dom";
 import EllipsisVerticalIcon from "@heroicons/react/20/solid/EllipsisVerticalIcon";
+import { useMutation } from "urql";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Button, CardBasic, DropdownMenu } from "@gc-digital-talent/ui";
@@ -14,6 +15,10 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 
 import RemoveDialog from "./RemoveDialog";
 import { useNotificationInfo } from "../../utils/notification";
+import {
+  MarkNotificationAsRead_Mutation,
+  MarkNotificationAsUnread_Mutation,
+} from "./mutations";
 
 const NotificationItem_Fragment = graphql(/* GraphQL */ `
   fragment NotificationItem on Notification {
@@ -43,6 +48,7 @@ const NotificationItem = ({
   notification: notificationQuery,
 }: NotificationItemProps) => {
   const intl = useIntl();
+  const navigate = useNavigate();
   const notification = getFragment(
     NotificationItem_Fragment,
     notificationQuery,
@@ -50,7 +56,32 @@ const NotificationItem = ({
   const info = useNotificationInfo(notification);
   const isUnread = notification.readAt === null;
 
+  const [{ fetching: markingAsRead }, executeMarkAsReadMutation] = useMutation(
+    MarkNotificationAsRead_Mutation,
+  );
+  const [{ fetching: markingAsUnread }, executeMarkAsUnreadMutation] =
+    useMutation(MarkNotificationAsUnread_Mutation);
+
   if (!info) return null;
+
+  const isTogglingReadStatus = markingAsRead || markingAsUnread;
+
+  const toggleReadStatus = () => {
+    const mutation = isUnread
+      ? executeMarkAsReadMutation
+      : executeMarkAsUnreadMutation;
+    mutation({ id: notification.id });
+  };
+
+  const handleLinkClicked = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+
+    executeMarkAsReadMutation({ id: notification.id }).then((res) => {
+      if (res.data?.markNotificationAsRead) {
+        navigate(info.href);
+      }
+    });
+  };
 
   return (
     <li>
@@ -86,6 +117,7 @@ const NotificationItem = ({
         >
           <BaseLink
             to={info.href}
+            onClick={handleLinkClicked}
             data-h2-text-decoration="base(none)"
             data-h2-color="base:hover(secondary.darker)"
             data-h2-outline="base(none)"
@@ -120,6 +152,7 @@ const NotificationItem = ({
                 aria-label={intl.formatMessage(
                   {
                     defaultMessage: "Manage {notificationName}",
+                    id: "lSSz6L",
                     description: "Button text for managing a notification",
                   },
                   { notificationName: info.label },
@@ -127,19 +160,24 @@ const NotificationItem = ({
               />
             </DropdownMenu.Trigger>
             <DropdownMenu.Content align="end">
-              <DropdownMenu.Item
-                asChild
-                onSelect={() => console.log(`Mark ${notification.id} as read`)}
-              >
-                <Button mode="inline" block>
-                  {intl.formatMessage({
-                    defaultMessage: "Mark as read",
-                    id: "vi7jVU",
-                    description: "Button text to mark a notification as read",
-                  })}
+              <DropdownMenu.Item asChild onSelect={toggleReadStatus}>
+                <Button mode="inline" block disabled={isTogglingReadStatus}>
+                  {isUnread
+                    ? intl.formatMessage({
+                        defaultMessage: "Mark as read",
+                        id: "vi7jVU",
+                        description:
+                          "Button text to mark a notification as read",
+                      })
+                    : intl.formatMessage({
+                        defaultMessage: "Mark as unread",
+                        id: "2SnhXV",
+                        description:
+                          "Button text to mark a notification as unread",
+                      })}
                 </Button>
               </DropdownMenu.Item>
-              <RemoveDialog />
+              <RemoveDialog id={notification.id} message={info.message} />
             </DropdownMenu.Content>
           </DropdownMenu.Root>
         </div>
