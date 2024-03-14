@@ -50,7 +50,7 @@
     "@tanstack/react-table": "^8.13.2",
     "dataloader": "^2.2.2",
     "date-fns": "^2.30.0",
-    "framer-motion": "^11.0.8",
+    "framer-motion": "^11.0.13",
     "graphql": "^16.8.1",
     "lodash": "^4.17.21",
     "path-browserify": "^1.0.1",
