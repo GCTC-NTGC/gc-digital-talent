@@ -21,7 +21,6 @@ import {
   SecurityStatus,
   CitizenshipStatus,
   ArmedForcesStatus,
-  BilingualEvaluation,
   PoolStream,
   PublishingGroup,
   IndigenousCommunity,
@@ -1645,29 +1644,6 @@ export const getSecurityClearance = (
     `Invalid Security Clearance '${securityClearanceId}'`,
   );
 
-const bilingualEvaluations = defineMessages({
-  [BilingualEvaluation.CompletedEnglish]: {
-    defaultMessage: "Yes, completed English evaluation",
-    id: "2ohWuK",
-    description: "Completed an English language evaluation",
-  },
-  [BilingualEvaluation.CompletedFrench]: {
-    defaultMessage: "Yes, completed French evaluation",
-    id: "DUuisY",
-    description: "Completed a French language evaluation",
-  },
-  [BilingualEvaluation.NotCompleted]: commonMessages.no,
-});
-
-export const getBilingualEvaluation = (
-  bilingualEvaluationId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    bilingualEvaluations,
-    bilingualEvaluationId,
-    `Invalid Language Ability '${bilingualEvaluationId}'`,
-  );
-
 export const poolCandidatePriorities = defineMessages({
   10: {
     defaultMessage: "Priority Entitlement",
@@ -1954,38 +1930,38 @@ export const getBehaviouralSkillLevelDefinition = (
 
 const evaluatedLanguageMessages = defineMessages({
   [EvaluatedLanguageAbility.X]: {
-    defaultMessage: "X",
-    id: "R6XtnR",
+    defaultMessage: "X (No proficiency)",
+    id: "LB3MCB",
     description: "The evaluated language ability level of X",
   },
   [EvaluatedLanguageAbility.A]: {
-    defaultMessage: "A",
-    id: "7TuiE1",
+    defaultMessage: "A (Beginner)",
+    id: "KJsYdJ",
     description: "The evaluated language ability level of A",
   },
   [EvaluatedLanguageAbility.B]: {
-    defaultMessage: "B",
-    id: "MUjjf9",
+    defaultMessage: "B (Intermediate)",
+    id: "sehQx5",
     description: "The evaluated language ability level of B",
   },
   [EvaluatedLanguageAbility.C]: {
-    defaultMessage: "C",
-    id: "s16Ns7",
+    defaultMessage: "C (Advanced)",
+    id: "893wrD",
     description: "The evaluated language ability level of C",
   },
   [EvaluatedLanguageAbility.E]: {
-    defaultMessage: "E",
-    id: "lOFpV2",
+    defaultMessage: "E (Fluent)",
+    id: "YtwHjm",
     description: "The evaluated language ability level of E",
   },
   [EvaluatedLanguageAbility.P]: {
-    defaultMessage: "P",
-    id: "eC8w2e",
+    defaultMessage: "P (Expert)",
+    id: "5YM3H5",
     description: "The evaluated language ability level of P",
   },
   [EvaluatedLanguageAbility.NotAssessed]: {
-    defaultMessage: "Not assessed",
-    id: "L8TMtk",
+    defaultMessage: "Unsure",
+    id: "a2/Bcb",
     description: "The evaluated language ability level for un-assessed",
   },
 });

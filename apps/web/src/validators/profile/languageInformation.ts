@@ -1,4 +1,6 @@
-import { User, BilingualEvaluation, Pool } from "@gc-digital-talent/graphql";
+import isEmpty from "lodash/isEmpty";
+
+import { User, Pool } from "@gc-digital-talent/graphql";
 
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 
@@ -7,8 +9,10 @@ export type PartialUser = Pick<
   | "lookingForEnglish"
   | "lookingForFrench"
   | "lookingForBilingual"
-  | "bilingualEvaluation"
   | "estimatedLanguageAbility"
+  | "firstOfficialLanguage"
+  | "secondLanguageExamCompleted"
+  | "secondLanguageExamValidity"
   | "writtenLevel"
   | "comprehensionLevel"
   | "verbalLevel"
@@ -18,21 +22,18 @@ export function hasAllEmptyFields({
   lookingForEnglish,
   lookingForFrench,
   lookingForBilingual,
-  bilingualEvaluation,
 }: PartialUser): boolean {
-  return (
-    !lookingForEnglish &&
-    !lookingForFrench &&
-    !lookingForBilingual &&
-    !bilingualEvaluation
-  );
+  return !lookingForEnglish && !lookingForFrench && !lookingForBilingual;
 }
 
 export function hasEmptyRequiredFields({
   lookingForEnglish,
   lookingForFrench,
   lookingForBilingual,
-  bilingualEvaluation,
+  firstOfficialLanguage,
+  estimatedLanguageAbility,
+  secondLanguageExamCompleted,
+  secondLanguageExamValidity,
   writtenLevel,
   comprehensionLevel,
   verbalLevel,
@@ -40,10 +41,13 @@ export function hasEmptyRequiredFields({
   return !!(
     (!lookingForEnglish && !lookingForFrench && !lookingForBilingual) ||
     (lookingForBilingual &&
-      (!bilingualEvaluation ||
-        ((bilingualEvaluation === BilingualEvaluation.CompletedEnglish ||
-          bilingualEvaluation === BilingualEvaluation.CompletedFrench) &&
-          (!comprehensionLevel || !writtenLevel || !verbalLevel))))
+      (isEmpty(firstOfficialLanguage) || isEmpty(estimatedLanguageAbility))) ||
+    (secondLanguageExamCompleted &&
+      (secondLanguageExamValidity === null ||
+        secondLanguageExamValidity === undefined ||
+        isEmpty(writtenLevel) ||
+        isEmpty(comprehensionLevel) ||
+        isEmpty(verbalLevel)))
   );
 }
 
