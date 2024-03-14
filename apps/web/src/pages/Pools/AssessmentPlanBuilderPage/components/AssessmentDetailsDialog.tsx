@@ -641,8 +641,8 @@ const AssessmentDetailsDialog = ({
                   <div data-h2-margin-top="base(x.25)">
                     {intl.formatMessage({
                       defaultMessage:
-                        "Using the list of skills from the pool advertisement, select the skills you are planning to assess using this evaluation method. ",
-                      id: "ARL2Tz",
+                        "Using the list of skills from the recruitment process, select the skills you are planning to assess using this evaluation method. ",
+                      id: "ylpxzO",
                       description:
                         "description of 'skill selection' section of the 'assessment details' dialog",
                     })}

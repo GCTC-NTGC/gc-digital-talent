@@ -33,8 +33,8 @@ const SkillSummarySection = ({ pool }: SkillSummarySectionProps) => {
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
-            "Overview of all skills and assessments planned for this pool.",
-          id: "t0OrQA",
+            "Overview of all skills and assessments planned for this process.",
+          id: "S/R0ne",
           description:
             "introduction to the skill summary section in the assessment plan builder",
         })}

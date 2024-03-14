@@ -263,8 +263,8 @@ const usePoolMutations = (returnPath?: string) => {
           navigateBack();
           toast.success(
             intl.formatMessage({
-              defaultMessage: "Pool deleted successfully!",
-              id: "93AuFS",
+              defaultMessage: "Process deleted successfully!",
+              id: "LVQu1R",
               description: "Message displayed to user after pool is deleted",
             }),
           );
@@ -296,8 +296,8 @@ const usePoolMutations = (returnPath?: string) => {
           navigateBack();
           toast.success(
             intl.formatMessage({
-              defaultMessage: "Pool archived successfully!",
-              id: "jft3KM",
+              defaultMessage: "Process archived successfully!",
+              id: "s3JBjM",
               description: "Message displayed to user after pool is archived",
             }),
           );
@@ -330,8 +330,8 @@ const usePoolMutations = (returnPath?: string) => {
           toast.success(
             intl.formatMessage({
               defaultMessage:
-                "Success: This pool has been duplicated successfully.",
-              id: "vlyq02",
+                "Success: This process has been duplicated successfully.",
+              id: "MwWYDJ",
               description: "Message displayed to user after pool is deleted",
             }),
           );

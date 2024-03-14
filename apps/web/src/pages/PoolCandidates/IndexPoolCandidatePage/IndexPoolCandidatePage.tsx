@@ -176,8 +176,8 @@ export const IndexPoolCandidatePage = () => {
         <p data-h2-margin="base(x1, 0)">
           {intl.formatMessage({
             defaultMessage:
-              "This table shows a list of all applicants to this pool.",
-            id: "0a8nPa",
+              "This table shows a list of all applicants to this process.",
+            id: "Evn5Mo",
             description:
               "Descriptive text about the list of pool candidates in the admin portal.",
           })}

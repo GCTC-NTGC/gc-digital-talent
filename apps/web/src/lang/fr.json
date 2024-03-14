@@ -267,9 +267,9 @@
     "defaultMessage": "Vous aurez besoin d’une application d’authentification.",
     "description": "Subtitle for a section explaining mfa apps"
   },
-  "/Y7x+s": {
-    "defaultMessage": "Créer un bassin",
-    "description": "Heading displayed above the Create Pool form."
+  "wP9+aN": {
+    "defaultMessage": "Créer un processus",
+    "description": "Heading displayed above the Create process form."
   },
   "/YaoWc": {
     "defaultMessage": "Vos principales compétences",
@@ -475,8 +475,8 @@
     "defaultMessage": "Placement de talents",
     "description": "Title for candidates tab for a process"
   },
-  "0a8nPa": {
-    "defaultMessage": "Ce tableau présente une liste de tous les candidats à ce bassin.",
+  "Evn5Mo": {
+    "defaultMessage": "Ce tableau présente une liste de tous les candidats à ce processus.",
     "description": "Descriptive text about the list of pool candidates in the admin portal."
   },
   "0aU6BD": {
@@ -1915,8 +1915,8 @@
     "defaultMessage": "Statut de citoyenneté :",
     "description": "Citizenship status label"
   },
-  "93AuFS": {
-    "defaultMessage": "Bassin supprimé!",
+  "LVQu1R": {
+    "defaultMessage": "Processus supprimé!",
     "description": "Message displayed to user after pool is deleted"
   },
   "93zCaS": {
@@ -2151,8 +2151,8 @@
     "defaultMessage": "Ajouter une nouvelle expérience",
     "description": "A link to add a new experience to your career timeline"
   },
-  "ARL2Tz": {
-    "defaultMessage": "Au moyen de la liste des compétences fournie dans l’annonce du bassin de candidats, sélectionnez les compétences que vous prévoyez évaluer au moyen de cette méthode d’évaluation.",
+  "ylpxzO": {
+    "defaultMessage": "Au moyen de la liste des compétences du processus de recrutement, sélectionnez les compétences que vous prévoyez évaluer au moyen de cette méthode d’évaluation.",
     "description": "description of 'skill selection' section of the 'assessment details' dialog"
   },
   "ASYJlr": {
@@ -2967,8 +2967,8 @@
     "defaultMessage": "Prolonger la date de clôture",
     "description": "Title to extend a process"
   },
-  "F46Sel": {
-    "defaultMessage": "Cette section sert à définir les évaluations qui seront utilisées dans le cadre de votre processus d’évaluation. Vous pouvez également changer l’ordre dans lequel vous prévoyez effectuer ces évaluations. Les seules exceptions sont les évaluations de “présélection des candidatures” et de “questions de présélection (au moment de la candidature)” qui constitueront toujours la première et la deuxième étape pour toute annonce du bassin de candidats.",
+  "0Arzgj": {
+    "defaultMessage": "Cette section sert à définir les évaluations qui seront utilisées dans le cadre de votre processus d’évaluation. Vous pouvez également changer l’ordre dans lequel vous prévoyez effectuer ces évaluations. Les seules exceptions sont les évaluations de “présélection des candidatures” et de “questions de présélection (au moment de la candidature)” qui constitueront toujours la première et la deuxième étape pour tout processus d’évaluation.",
     "description": "introduction to the organize section in the assessment plan builder"
   },
   "F4RHJu": {
@@ -5387,8 +5387,8 @@
     "defaultMessage": "Étant donné que les plateformes de médias sociaux sont gérées par des tiers fournisseurs de services, elles n’ont pas à être conformes aux normes du gouvernement du Canada en matière d’accessibilité du Web.",
     "description": "Paragraph for comments and interaction section"
   },
-  "TLl20s": {
-    "defaultMessage": "Créer un nouveau bassin",
+  "Odhwqn": {
+    "defaultMessage": "Créer un nouveau processus",
     "description": "Label displayed on submit button for new pool form."
   },
   "TN9ndX": {
@@ -5886,8 +5886,8 @@
     "defaultMessage": "Étape de l’évaluation sauvegardée avec succès!",
     "description": "Success message displayed after unlinking an experience to a skill"
   },
-  "W2qRX5": {
-    "defaultMessage": "Erreur : Échec de la création du bassin",
+  "ruHk5N": {
+    "defaultMessage": "Erreur : Échec de la création du processus de recrutement",
     "description": "Message displayed to pool after pool fails to get created."
   },
   "W3KFtQ": {
@@ -8486,8 +8486,8 @@
     "defaultMessage": "Vous êtes sur le point de procéder à la mise à jour des rôles de l’utilisateur suivant : <strong>{userDisplayName}</strong>",
     "description": "Lead in text for the add role to user form."
   },
-  "jft3KM": {
-    "defaultMessage": "Le bassin a été archivé avec succès!",
+  "s3JBjM": {
+    "defaultMessage": "Le processus a été archivé avec succès!",
     "description": "Message affiché à l'utilisateur après l'archivage du bassin"
   },
   "jiJ8qo": {
@@ -9994,8 +9994,8 @@
     "defaultMessage": "<strong>Cheminement en gestion</strong> : Chefs d'équipe de la <abbreviation>TI</abbreviation> (<abbreviation>TI-03</abbreviation>) sont chargés de superviser le travail et les équipes de projet pour les services et les opérations de la <abbreviation>TI</abbreviation> dans leur domaine d'expertise afin de soutenir la prestation de services aux clients et aux intervenants. Les chefs d'équipe de la <abbreviation>TI</abbreviation> se trouvent dans tous les volets de travail.",
     "description": "IT-03 team lead path description"
   },
-  "t0OrQA": {
-    "defaultMessage": "Survol de l’ensemble des compétences et des évaluations prévues pour ce bassin de candidats.",
+  "S/R0ne": {
+    "defaultMessage": "Survol de l’ensemble des compétences et des évaluations prévues pour ce processus.",
     "description": "introduction to the skill summary section in the assessment plan builder"
   },
   "t28EG0": {
@@ -10350,8 +10350,8 @@
     "defaultMessage": "Se connecter à l’aide de CléGC",
     "description": "Page title for the sign in page for applicant profiles"
   },
-  "vlyq02": {
-    "defaultMessage": "Réussite : Vous avez réussi à dupliquer ce bassin.",
+  "MwWYDJ": {
+    "defaultMessage": "Réussite : Vous avez réussi à dupliquer ce processus.",
     "description": "Message displayed to user after pool is deleted"
   },
   "vyyfX6": {
@@ -10470,8 +10470,8 @@
     "defaultMessage": "1 à 5",
     "description": "Contract FTE range between one and five"
   },
-  "wZ91g+": {
-    "defaultMessage": "Création du bassin réussie!",
+  "/UxJBZ": {
+    "defaultMessage": "Création du processus de recrutement réussie!",
     "description": "Message displayed to user after pool is created successfully."
   },
   "weLwJA": {
@@ -11026,8 +11026,8 @@
     "defaultMessage": "Téléchargez la trousse du gestionnaire pour plus de renseignements et contactez l’équipe pour lancer le processus.",
     "description": "Paragraph 1 for the 'How to begin hiring an apprentice' section"
   },
-  "zwYuly": {
-    "defaultMessage": "Créer un bassin",
+  "AsxUp5": {
+    "defaultMessage": "Créer un processus",
     "description": "Page title for the pool creation page"
   },
   "zxLL3N": {
