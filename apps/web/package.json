@@ -49,7 +49,7 @@
     "@microsoft/applicationinsights-web": "^3.1.0",
     "@tanstack/react-table": "^8.13.2",
     "dataloader": "^2.2.2",
-    "date-fns": "^2.30.0",
+    "date-fns": "^3.4.0",
     "framer-motion": "^11.0.8",
     "graphql": "^16.8.1",
     "lodash": "^4.17.21",

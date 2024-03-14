@@ -20,7 +20,7 @@
   "dependencies": {
     "@gc-digital-talent/graphql": "*",
     "@gc-digital-talent/i18n": "*",
-    "date-fns": "^2.30.0",
+    "date-fns": "^3.4.0",
     "date-fns-tz": "^2.0.0"
   },
   "devDependencies": {
