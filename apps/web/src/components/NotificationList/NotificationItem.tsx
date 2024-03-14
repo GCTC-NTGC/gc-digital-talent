@@ -12,16 +12,20 @@ import {
 } from "@gc-digital-talent/date-helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
+import RemoveDialog from "./RemoveDialog";
+import { useNotificationInfo } from "../../utils/notification";
+
 const NotificationItem_Fragment = graphql(/* GraphQL */ `
   fragment NotificationItem on Notification {
     id
+    type
     readAt
     createdAt
     updatedAt
     ... on PoolCandidateStatusChangedNotification {
       oldStatus
       newStatus
-      poolId
+      poolCandidateId
       poolName {
         en
         fr
@@ -43,7 +47,10 @@ const NotificationItem = ({
     NotificationItem_Fragment,
     notificationQuery,
   );
+  const info = useNotificationInfo(notification);
   const isUnread = notification.readAt === null;
+
+  if (!info) return null;
 
   return (
     <li>
@@ -78,7 +85,7 @@ const NotificationItem = ({
           data-h2-flex-grow="base(1)"
         >
           <BaseLink
-            to="#some-href-getter"
+            to={info.href}
             data-h2-text-decoration="base(none)"
             data-h2-color="base:hover(secondary.darker)"
             data-h2-outline="base(none)"
@@ -86,8 +93,7 @@ const NotificationItem = ({
               "data-h2-font-weight": "base(700)",
             })}
           >
-            {/* Note: Write in notification text getter */}
-            {intl.formatMessage(commonMessages.nameNotLoaded)}
+            {info.message}
           </BaseLink>
           <p
             className="Notification__Date"
@@ -111,7 +117,13 @@ const NotificationItem = ({
                 color="secondary"
                 data-h2-color="base(black) base:all:hover(secondary.darkest) base:all:focus-visible(black)"
                 icon={EllipsisVerticalIcon}
-                aria-label="Write some helpful label getter"
+                aria-label={intl.formatMessage(
+                  {
+                    defaultMessage: "Manage {notificationName}",
+                    description: "Button text for managing a notification",
+                  },
+                  { notificationName: info.label },
+                )}
               />
             </DropdownMenu.Trigger>
             <DropdownMenu.Content align="end">
@@ -127,6 +139,7 @@ const NotificationItem = ({
                   })}
                 </Button>
               </DropdownMenu.Item>
+              <RemoveDialog />
             </DropdownMenu.Content>
           </DropdownMenu.Root>
         </div>

@@ -1,90 +1,89 @@
 import React from "react";
+import { useSearchParams } from "react-router-dom";
+import { useQuery } from "urql";
 import { useIntl } from "react-intl";
 
-import { Button, Link } from "@gc-digital-talent/ui";
+import { graphql } from "@gc-digital-talent/graphql";
+import { Pending, Well } from "@gc-digital-talent/ui";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import useRoutes from "~/hooks/useRoutes";
-
+import NotificationActions from "./NotificationActions";
 import NotificationItem from "./NotificationItem";
 
-interface NotificationListProps {
-  children: React.ReactNode;
-  onlyUnread?: boolean;
-}
+const Notifications_Query = graphql(/* GraphQL */ `
+  query Notifications(
+    $where: NotificationFilterInput
+    $first: Int
+    $page: Int
+  ) {
+    notifications(where: $where, first: $first, page: $page) {
+      data {
+        id
+        ...NotificationItem
+      }
+    }
+  }
+`);
 
-const NotificationList = ({ children, onlyUnread }: NotificationListProps) => {
+const NotificationList = () => {
   const intl = useIntl();
-  const paths = useRoutes();
+  const [searchParams] = useSearchParams();
+  const onlyUnread =
+    searchParams.has("unread") && searchParams.get("unread") !== null;
+  const [{ data, fetching, error }] = useQuery({
+    query: Notifications_Query,
+    variables: {
+      where: {
+        onlyUnread,
+      },
+    },
+  });
+
+  const notifications = unpackMaybes(data?.notifications.data);
 
   return (
     <>
-      <div data-h2-display="base(flex)" data-h2-gap="base(x1)">
-        <Link
-          color="black"
-          href={paths.notifications()}
-          {...(!onlyUnread && {
-            "aria-current": "page",
-            "data-h2-font-weight": "base(700)",
-          })}
-          aria-label={intl.formatMessage({
-            defaultMessage: "All notifications",
-            id: "pFowOu",
-            description: "Link text to show all notifications",
-          })}
-        >
-          {intl.formatMessage({
-            defaultMessage: "All",
-            id: "Pn0zAn",
-            description: "Link text for all items in a list",
-          })}
-        </Link>
-        <Link
-          color="black"
-          href={`${paths.notifications()}?unread`}
-          {...(onlyUnread && {
-            "aria-current": "page",
-            "data-h2-font-weight": "base(700)",
-          })}
-          aria-label={intl.formatMessage({
-            defaultMessage: "Unread notifications",
-            id: "cL3OoZ",
-            description: "Link text to show unread notifications",
-          })}
-        >
-          {intl.formatMessage({
-            defaultMessage: "Unread",
-            id: "uD105N",
-            description: "Link text to show all unread items in a list",
-          })}
-        </Link>
-        <Button
-          mode="inline"
-          color="secondary"
-          data-h2-margin-left="base(auto)"
-          onClick={() => console.log("Mark all as read mutation")}
-        >
-          {intl.formatMessage({
-            defaultMessage: "Mark all as read",
-            id: "1FwczA",
-            description: "Button text to mark all notifications as read",
-          })}
-        </Button>
-      </div>
-      <ul
-        data-h2-list-style="base(none)"
-        data-h2-padding="base(0)"
-        data-h2-margin="base(x1 0)"
-        data-h2-display="base(flex)"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x.25 0)"
-      >
-        {children}
-      </ul>
+      <NotificationActions onlyUnread={onlyUnread} />
+      <Pending inline fetching={fetching} error={error}>
+        {notifications.length > 0 ? (
+          <ul
+            data-h2-list-style="base(none)"
+            data-h2-padding="base(0)"
+            data-h2-margin="base(x1 0)"
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
+            data-h2-gap="base(x.25 0)"
+          >
+            {notifications.map((notification) => (
+              <NotificationItem
+                key={notification.id}
+                notification={notification}
+              />
+            ))}
+          </ul>
+        ) : (
+          <Well>
+            <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x1)">
+              {intl.formatMessage({
+                defaultMessage: "There aren't any notification here yet.",
+                id: "5BRZs6",
+                description: "Title for the no notifications message",
+              })}
+            </p>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "As you receive notifications, they'll appear here and automatically be categorized on whether you've actioned or pinned them.",
+                id: "91KsMq",
+                description:
+                  "Explanation of how the list of notifications work",
+              })}
+            </p>
+          </Well>
+        )}
+      </Pending>
     </>
   );
 };
 
-export default {
-  Root: NotificationList,
-  Item: NotificationItem,
-};
+export default NotificationList;

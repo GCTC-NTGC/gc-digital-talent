@@ -2,19 +2,8 @@ import React from "react";
 import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
 import { defineMessages, useIntl } from "react-intl";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
-import { useQuery } from "urql";
-import { useSearchParams } from "react-router-dom";
 
-import { graphql } from "@gc-digital-talent/graphql";
-import {
-  CardBasic,
-  Heading,
-  Link,
-  Pending,
-  Sidebar,
-  Well,
-} from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { CardBasic, Heading, Link, Sidebar } from "@gc-digital-talent/ui";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
@@ -35,37 +24,9 @@ const meta = defineMessages({
   },
 });
 
-const Notifications_Query = graphql(/* GraphQL */ `
-  query Notifications(
-    $where: NotificationFilterInput
-    $first: Int
-    $page: Int
-  ) {
-    notifications(where: $where, first: $first, page: $page) {
-      data {
-        id
-        ...NotificationItem
-      }
-    }
-  }
-`);
-
 const NotificationsPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
-  const [searchParams] = useSearchParams();
-  const onlyUnread =
-    searchParams.has("unread") && searchParams.get("unread") !== null;
-  const [{ data, fetching, error }] = useQuery({
-    query: Notifications_Query,
-    variables: {
-      where: {
-        onlyUnread,
-      },
-    },
-  });
-
-  const notifications = unpackMaybes(data?.notifications.data);
 
   const breadcrumbs = useBreadcrumbs([
     {
@@ -85,7 +46,6 @@ const NotificationsPage = () => {
         subtitle={intl.formatMessage(meta.description)}
         crumbs={breadcrumbs}
       />
-
       <section data-h2-margin="base(x3, 0)">
         <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
           <Sidebar.Wrapper>
@@ -147,41 +107,7 @@ const NotificationsPage = () => {
                     "Description of the list of a users notifications",
                 })}
               </p>
-              <Pending inline fetching={fetching} error={error}>
-                {notifications.length > 0 ? (
-                  <NotificationList.Root onlyUnread={onlyUnread}>
-                    {notifications.map((notification) => (
-                      <NotificationList.Item
-                        key={notification.id}
-                        notification={notification}
-                      />
-                    ))}
-                  </NotificationList.Root>
-                ) : (
-                  <Well>
-                    <p
-                      data-h2-font-weight="base(700)"
-                      data-h2-margin-bottom="base(x1)"
-                    >
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "There aren't any notification here yet.",
-                        id: "5BRZs6",
-                        description: "Title for the no notifications message",
-                      })}
-                    </p>
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "As you receive notifications, they'll appear here and automatically be categorized on whether you've actioned or pinned them.",
-                        id: "91KsMq",
-                        description:
-                          "Explanation of how the list of notifications work",
-                      })}
-                    </p>
-                  </Well>
-                )}
-              </Pending>
+              <NotificationList />
             </Sidebar.Content>
           </Sidebar.Wrapper>
         </div>

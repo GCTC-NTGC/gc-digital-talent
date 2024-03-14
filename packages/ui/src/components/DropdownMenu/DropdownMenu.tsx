@@ -95,6 +95,7 @@ const itemStyleProps = {
   "data-h2-padding": "base(x.25 x1)",
   "data-h2-position": "base(relative)",
   "data-h2-radius": "base(s)",
+  "data-h2-text-decoration": "base(none) base:children[>span](none)",
 };
 
 type ItemProps = React.ComponentPropsWithoutRef<
