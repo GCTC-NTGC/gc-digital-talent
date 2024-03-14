@@ -298,7 +298,6 @@ export function transformSortStateToOrderByClause(
   const columnMap = new Map<string, string>([
     ["dateReceived", "submitted_at"],
     ["candidacyStatus", "suspended_at"],
-    ["candidacyStatus", "suspended_at"],
     ["finalDecision", "status"],
     ["jobPlacement", "status"],
     ["candidateName", "FIRST_NAME"],
