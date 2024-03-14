@@ -720,14 +720,17 @@ class User extends Model implements Authenticatable, LaratrustUser
 
             $query
                 // attach the tsquery to every row to use for filtering
-                ->crossJoin(DB::raw('websearch_to_tsquery(coalesce(?, get_current_ts_config()), ?)'.' AS "tsquery"'))
-                // add to_tsquery function parameters
-                ->setBindings(['english', $combinedSearchTerm])
+                ->crossJoinSub(function ($query) use ($combinedSearchTerm) {
+                    $query->selectRaw(
+                        'websearch_to_tsquery(coalesce(?, get_current_ts_config()), ?)'.' AS tsquery',
+                        ['english', $combinedSearchTerm]
+                    );
+                }, 'calculations')
                 // filter rows against the tsquery
-                ->whereColumn('searchable', '@@', 'tsquery')
+                ->whereColumn('searchable', '@@', 'calculations.tsquery')
                 // add the calculated rank column to allow for ordering by text search rank
-                ->addSelect(DB::raw('ts_rank(searchable, "tsquery") AS rank'))
-                // now that we have added a column, query builder no longer will add a "*" to the select
+                ->addSelect(DB::raw('ts_rank(searchable, calculations.tsquery) AS rank'))
+                // Now that we have added a column, query builder no longer will add a * to the select.  Add all possible columns manually.
                 ->addSelect(self::$selectableColumns);
 
         }
