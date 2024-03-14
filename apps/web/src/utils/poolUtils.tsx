@@ -296,8 +296,8 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
               {
                 url: paths.poolTable(),
                 label: intl.formatMessage({
-                  defaultMessage: "Recruitments",
-                  id: "KLEaLQ",
+                  defaultMessage: "Processes",
+                  id: "aAIZbC",
                   description: "Link to the Pools page in the nav menu.",
                 }),
               },
@@ -336,8 +336,8 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
               {
                 url: paths.poolTable(),
                 label: intl.formatMessage({
-                  defaultMessage: "Recruitments",
-                  id: "KLEaLQ",
+                  defaultMessage: "Processes",
+                  id: "aAIZbC",
                   description: "Link to the Pools page in the nav menu.",
                 }),
               },
@@ -425,8 +425,8 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
               {
                 url: paths.poolTable(),
                 label: intl.formatMessage({
-                  defaultMessage: "Recruitments",
-                  id: "KLEaLQ",
+                  defaultMessage: "Processes",
+                  id: "aAIZbC",
                   description: "Link to the Pools page in the nav menu.",
                 }),
               },

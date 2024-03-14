@@ -650,8 +650,8 @@ export const ViewPoolCandidate = ({
             <Accordion.Item value="otherRecruitments">
               <Accordion.Trigger>
                 {intl.formatMessage({
-                  defaultMessage: "Other recruitments",
-                  id: "kZs3Nk",
+                  defaultMessage: "Other processes",
+                  id: "n+/HPL",
                   description:
                     "Heading for table of a users other applications and recruitments",
                 })}

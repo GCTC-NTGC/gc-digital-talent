@@ -111,8 +111,8 @@
     "defaultMessage": "Modifier ces renseignements<hidden> pour {title}</hidden>",
     "description": "Text label for button to edit employment equity category in profile."
   },
-  "+h7iQH": {
-    "defaultMessage": "Masquer les évaluations des compétences de ce recrutement",
+  "JeAzDb": {
+    "defaultMessage": "Masquer les évaluations des compétences de ce processus",
     "description": "Button text to hide a miscellaneous qualified recruitment's skill assessments"
   },
   "+hRCVl": {
@@ -1303,8 +1303,8 @@
     "defaultMessage": "Les ressources contractuelles devraient commencer à travailler en",
     "description": "Label for _contract start timeframe_ fieldset in the _digital services contracting questionnaire_"
   },
-  "5HJIwt": {
-    "defaultMessage": "Identifiant de recrutement copié",
+  "QNmxIN": {
+    "defaultMessage": "Identifiant de processus copié",
     "description": "Button text to indicate that a specific qualified recruitment's ID has been copied"
   },
   "5LWxHq": {
@@ -2315,8 +2315,8 @@
     "defaultMessage": "« Minorité visible réfère au fait qu'une personne est ou non une minorité visible, tel que défini dans la Loi sur l'équité en matière d'emploi. Dans le cadre de la Loi sur l'équité en matière d'emploi, les minorités visibles sont définies comme « les personnes, autres que les Autochtones, qui ne sont pas de race blanche ou qui n'ont pas la peau blanche ». La population des minorités visibles est principalement composée des groupes suivants : Sud-Asiatique, Chinois, Noir, Philippin, Arabe, Latino-Américain, Asiatique du Sud-Est, Asiatique occidental, Coréen et Japonais. »",
     "description": "Definition of Visible minority from the StatsCan 'Visible minority of person' page."
   },
-  "BFewIk": {
-    "defaultMessage": "Afficher les évaluations des compétences de ce recrutement",
+  "7Iv/YA": {
+    "defaultMessage": "Afficher les évaluations des compétences de ce processus",
     "description": "Button text to show a miscellaneous qualified recruitment's skill assessments"
   },
   "BFvwdM": {
@@ -3863,8 +3863,8 @@
     "defaultMessage": "Fiabilité",
     "description": "Reliability screening level"
   },
-  "KLEaLQ": {
-    "defaultMessage": "Recrutements",
+  "aAIZbC": {
+    "defaultMessage": "Processus",
     "description": "Link to the Pools page in the nav menu."
   },
   "KS1jGw": {
@@ -8222,8 +8222,8 @@
     "defaultMessage": "Facultatives",
     "description": "Label for an optional skill"
   },
-  "iO72f+": {
-    "defaultMessage": "Copier l’identifiant de recrutement",
+  "IW+wmC": {
+    "defaultMessage": "Copier l’identifiant du processus",
     "description": "Button text to copy a specific qualified recruitment's ID"
   },
   "iPuAKE": {
@@ -8594,8 +8594,8 @@
     "defaultMessage": "Échec de la mise à jour des notes pour le candidat dans le {poolName}",
     "description": "Toast notification for failed update of candidates notes in specified pool"
   },
-  "kZs3Nk": {
-    "defaultMessage": "Autres recrutements",
+  "n+/HPL": {
+    "defaultMessage": "Autres processus",
     "description": "Heading for table of a users other applications and recruitments"
   },
   "kbMB6R": {
