@@ -277,7 +277,7 @@ interface Notification {
 type PoolCandidateStatusChangedNotification implements Notification {
   id: ID!
   type: NotificationType!
-  readAt: DateTime!
+  readAt: DateTime
   createdAt: DateTime!
   updatedAt: DateTime!
   oldStatus: PoolCandidateStatus
