@@ -30,7 +30,7 @@
   "devDependencies": {
     "@formatjs/cli": "^6.2.7",
     "@gc-digital-talent/eslint-config": "*",
-    "@swc/core": "^1.4.5",
+    "@swc/core": "^1.4.7",
     "@types/react": "^18.2.64",
     "cpy-cli": "^5.0.0",
     "eslint": "^8.57.0",
