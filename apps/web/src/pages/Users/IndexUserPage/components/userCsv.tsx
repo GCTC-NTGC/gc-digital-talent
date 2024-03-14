@@ -3,12 +3,12 @@ import { IntlShape } from "react-intl";
 import type { DownloadCsvProps } from "@gc-digital-talent/ui";
 import {
   getArmedForcesStatusesAdmin,
-  getBilingualEvaluation,
   getCitizenshipStatusesAdmin,
   getLanguageProficiency,
   getLocale,
   getEvaluatedLanguageAbility,
   commonMessages,
+  getLanguage,
 } from "@gc-digital-talent/i18n";
 import { User, PositionDuration } from "@gc-digital-talent/graphql";
 
@@ -36,7 +36,9 @@ export const getUserCsvData = (users: User[], intl: IntlShape) => {
       lookingForEnglish,
       lookingForFrench,
       lookingForBilingual,
-      bilingualEvaluation,
+      firstOfficialLanguage,
+      secondLanguageExamCompleted,
+      secondLanguageExamValidity,
       comprehensionLevel,
       writtenLevel,
       verbalLevel,
@@ -71,9 +73,11 @@ export const getUserCsvData = (users: User[], intl: IntlShape) => {
         lookingForBilingual,
         intl,
       ),
-      bilingualEvaluation: bilingualEvaluation
-        ? intl.formatMessage(getBilingualEvaluation(bilingualEvaluation))
+      firstOfficialLanguage: firstOfficialLanguage
+        ? intl.formatMessage(getLanguage(firstOfficialLanguage))
         : "",
+      secondLanguageExamCompleted: yesOrNo(secondLanguageExamCompleted, intl),
+      secondLanguageExamValidity: yesOrNo(secondLanguageExamValidity, intl),
       comprehensionLevel: comprehensionLevel
         ? intl.formatMessage(getEvaluatedLanguageAbility(comprehensionLevel))
         : "",
@@ -162,11 +166,27 @@ export const getUserCsvHeaders = (intl: IntlShape) => [
     }),
   },
   {
-    id: "bilingualEvaluation",
+    id: "firstOfficialLanguage",
     displayName: intl.formatMessage({
-      defaultMessage: "Bilingual Evaluation",
-      id: "M9ij/0",
-      description: "CSV Header, Bilingual Evaluation column",
+      defaultMessage: "First official language",
+      id: "tK7cGP",
+      description: "CSV Header, first official language column",
+    }),
+  },
+  {
+    id: "secondLanguageExamCompleted",
+    displayName: intl.formatMessage({
+      defaultMessage: "Second language proficiency level",
+      id: "XlhePi",
+      description: "CSV Header, second language proficiency level column",
+    }),
+  },
+  {
+    id: "secondLanguageExamValidity",
+    displayName: intl.formatMessage({
+      defaultMessage: "Exam validity",
+      id: "i9bs/h",
+      description: "CSV Header, second language exam validity column",
     }),
   },
   {
