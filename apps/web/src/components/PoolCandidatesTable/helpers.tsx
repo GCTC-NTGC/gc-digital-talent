@@ -308,6 +308,7 @@ export function transformSortStateToOrderByClause(
     ["skillCount", "skill_count"],
     ["priority", "PRIORITY_WEIGHT"],
     ["status", "status_weight"],
+    ["notes", "notes"],
   ]);
 
   const sortingRule = sortingRules?.find((rule) => {
@@ -317,7 +318,9 @@ export function transformSortStateToOrderByClause(
 
   if (
     sortingRule &&
-    ["dateReceived", "candidacyStatus", "status"].includes(sortingRule.id)
+    ["dateReceived", "candidacyStatus", "status", "notes"].includes(
+      sortingRule.id,
+    )
   ) {
     const columnName = columnMap.get(sortingRule.id);
     return {
