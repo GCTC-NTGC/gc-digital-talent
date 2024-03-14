@@ -8,7 +8,10 @@ import React from "react";
 import { renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { fakeTeams } from "@gc-digital-talent/fake-data";
 
-import UpdateTeamForm, { UpdateTeamFormProps } from "./UpdateTeamForm";
+import UpdateTeamForm, {
+  UpdateTeamFormProps,
+  UpdateTeamPageFragment,
+} from "./UpdateTeamForm";
 
 // adjust mockTeam to enable testing expected values
 // must ensure name is kebab-ed and that roleAssignments are not passed into the mutation
@@ -27,7 +30,7 @@ describe("UpdateTeamForm", () => {
     const mockSave = jest.fn(() => Promise.resolve(mockTeam));
 
     renderUpdateTeamForm({
-      team: mockTeam,
+      teamQuery: mockTeam as UpdateTeamPageFragment,
       onSubmit: mockSave,
     });
 
