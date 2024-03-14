@@ -268,7 +268,7 @@ type User {
 
 interface Notification {
   id: ID!
-  type: NotificationType!
+  type: NotificationType
   readAt: DateTime
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -276,7 +276,7 @@ interface Notification {
 
 type PoolCandidateStatusChangedNotification implements Notification {
   id: ID!
-  type: String!
+  type: NotificationType
   readAt: DateTime!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -2386,5 +2386,5 @@ enum AssessmentDecisionLevel {
 }
 
 enum NotificationType {
-  POOL_CANDIDATE_STATUS_CHANGED
+  PoolCandidateStatusChanged
 }

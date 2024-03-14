@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Enums\NotificationType;
-use App\Notifications\PoolCandidateStatusChanged;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -36,12 +35,9 @@ class Notification extends DatabaseNotification
 
     public function type(): Attribute
     {
-        $typeMap = [
-            PoolCandidateStatusChanged::class => NotificationType::POOL_CANDIDATE_STATUS_CHANGED->name,
-        ];
 
         return Attribute::make(
-            get: fn (string $value) => $typeMap[$value] ?? null
+            get: fn (string $value) => NotificationType::fromClassName($value)->name
         );
     }
 
