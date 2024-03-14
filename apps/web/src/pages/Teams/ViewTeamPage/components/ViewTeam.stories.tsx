@@ -1,9 +1,9 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 
 import { fakeTeams } from "@gc-digital-talent/fake-data";
 
-import ViewTeam from "./ViewTeam";
+import ViewTeam, { ViewTeamPageFragment } from "./ViewTeam";
 
 const mockTeams = fakeTeams();
 const mockTeam = mockTeams[0];
@@ -11,14 +11,14 @@ const mockTeam = mockTeams[0];
 export default {
   component: ViewTeam,
   title: "Components/View Team",
-} as ComponentMeta<typeof ViewTeam>;
+} as Meta<typeof ViewTeam>;
 
-const Template: ComponentStory<typeof ViewTeam> = (args) => {
-  const { team } = args;
-  return <ViewTeam team={team} />;
+const Template: StoryFn<typeof ViewTeam> = (args) => {
+  const { teamQuery } = args;
+  return <ViewTeam teamQuery={teamQuery} />;
 };
 
 export const Default = Template.bind({});
 Default.args = {
-  team: mockTeam,
+  teamQuery: mockTeam as ViewTeamPageFragment,
 };

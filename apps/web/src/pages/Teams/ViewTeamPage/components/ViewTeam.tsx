@@ -3,17 +3,47 @@ import { useIntl } from "react-intl";
 
 import { Chip, Chips } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { Team } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import adminMessages from "~/messages/adminMessages";
 
+const ViewTeamPage_TeamFragment = graphql(/* GraphQL */ `
+  fragment ViewTeamPage_Team on Team {
+    id
+    name
+    contactEmail
+    displayName {
+      en
+      fr
+    }
+    departments {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+    description {
+      en
+      fr
+    }
+  }
+`);
+
+export type ViewTeamPageFragment = FragmentType<
+  typeof ViewTeamPage_TeamFragment
+>;
+
 interface ViewTeamProps {
-  team: Team;
+  teamQuery: ViewTeamPageFragment;
 }
 
-const ViewTeam = ({ team }: ViewTeamProps) => {
+const ViewTeam = ({ teamQuery }: ViewTeamProps) => {
   const intl = useIntl();
+  const team = getFragment(ViewTeamPage_TeamFragment, teamQuery);
+
   const departments = unpackMaybes(team.departments);
 
   return (
