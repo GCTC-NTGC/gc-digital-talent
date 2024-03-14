@@ -13,8 +13,9 @@ import {
 } from "@gc-digital-talent/date-helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
+import useNotificationInfo from "~/hooks/useNotificationInfo";
+
 import RemoveDialog from "./RemoveDialog";
-import { useNotificationInfo } from "../../utils/notification";
 import {
   MarkNotificationAsRead_Mutation,
   MarkNotificationAsUnread_Mutation,

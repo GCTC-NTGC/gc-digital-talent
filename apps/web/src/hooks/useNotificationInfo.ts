@@ -4,8 +4,6 @@ import React from "react";
 import {
   Notification,
   NotificationType,
-  PoolCandidate,
-  PoolCandidateStatus,
   PoolCandidateStatusChangedNotification,
 } from "@gc-digital-talent/graphql";
 import {
@@ -14,7 +12,7 @@ import {
   getPoolCandidateStatus,
 } from "@gc-digital-talent/i18n";
 
-import useRoutes from "../hooks/useRoutes";
+import useRoutes from "./useRoutes";
 
 type NotificationInfo = {
   message: React.ReactNode;
@@ -83,13 +81,15 @@ const notificationInfoGetters = new Map<
   ],
 ]);
 
-export const useNotificationInfo = (
+const useNotificationInfo = (
   notification: NotificationUnion,
 ): NotificationInfo | null => {
-  if (!notification.type) return null;
   const intl = useIntl();
   const paths = useRoutes();
+  if (!notification.type) return null;
   const getter = notificationInfoGetters.get(notification.type);
 
   return getter?.(notification, paths, intl) ?? null;
 };
+
+export default useNotificationInfo;
