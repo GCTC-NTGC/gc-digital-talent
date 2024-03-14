@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Enums\ArmedForcesStatus;
-use App\Enums\BilingualEvaluation;
 use App\Enums\CitizenshipStatus;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\EvaluatedLanguageAbility;
@@ -45,7 +44,6 @@ class UserFactory extends Factory
         $randomClassification = Classification::inRandomOrder()->first();
         $isGovEmployee = $this->faker->boolean();
         $hasPriorityEntitlement = $this->faker->boolean(10);
-        $hasBeenEvaluated = $this->faker->boolean();
         $isDeclared = $this->faker->boolean();
 
         $lookingEnglish = $this->faker->boolean();
@@ -53,6 +51,13 @@ class UserFactory extends Factory
         $lookingBilingual = $this->faker->boolean();
         if (! $lookingEnglish && ! $lookingFrench && ! $lookingBilingual) {
             $lookingEnglish = true;
+        }
+
+        $examCompleted = $this->faker->boolean();
+        $examValid = $this->faker->boolean();
+        $examLevels = null;
+        if ($examCompleted && $examValid) {
+            $examLevels = true;
         }
 
         return [
@@ -69,23 +74,24 @@ class UserFactory extends Factory
             'looking_for_english' => $lookingEnglish,
             'looking_for_french' => $lookingFrench,
             'looking_for_bilingual' => $lookingBilingual,
-            'bilingual_evaluation' => $hasBeenEvaluated ? $this->faker->randomElement([
-                BilingualEvaluation::COMPLETED_ENGLISH->name,
-                BilingualEvaluation::COMPLETED_FRENCH->name,
-            ]) : BilingualEvaluation::NOT_COMPLETED->name,
-
-            'comprehension_level' => $hasBeenEvaluated ?
+            'first_official_language' => $lookingBilingual ? $this->faker->randomElement([
+                Language::EN->name,
+                Language::FR->name,
+            ]) : null,
+            'estimated_language_ability' => $lookingBilingual ?
+                $this->faker->randomElement(EstimatedLanguageAbility::cases())->name
+                : null,
+            'second_language_exam_completed' => $examCompleted,
+            'second_language_exam_validity' => $examValid,
+            'comprehension_level' => $examLevels ?
                 $this->faker->randomElement(EvaluatedLanguageAbility::cases())->name
                 : null,
-            'written_level' => $hasBeenEvaluated ?
+            'written_level' => $examLevels ?
                 $this->faker->randomElement(EvaluatedLanguageAbility::cases())->name
                 : null,
-            'verbal_level' => $hasBeenEvaluated ?
+            'verbal_level' => $examLevels ?
                 $this->faker->randomElement(EvaluatedLanguageAbility::cases())->name
                 : null,
-            'estimated_language_ability' => $hasBeenEvaluated ?
-                null
-                : $this->faker->randomElement(EstimatedLanguageAbility::cases())->name,
             'is_gov_employee' => $isGovEmployee,
             'department' => $isGovEmployee && $randomDepartment ? $randomDepartment->id : null,
             'current_classification' => $isGovEmployee && $randomClassification ? $randomClassification->id : null,

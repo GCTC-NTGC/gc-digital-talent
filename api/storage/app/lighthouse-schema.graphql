@@ -216,7 +216,7 @@ type User {
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
-  bilingualEvaluation: BilingualEvaluation
+  bilingualEvaluation: BilingualEvaluation @deprecated(reason: "This has been replaced. See issue #8031 for details.")
   firstOfficialLanguage: Language
   secondLanguageExamCompleted: Boolean
   secondLanguageExamValidity: Boolean

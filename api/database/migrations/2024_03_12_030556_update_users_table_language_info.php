@@ -12,7 +12,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Iterate through users.bilingualEvaluation column
         Schema::table('users', function (Blueprint $table) {
             $table->string('first_official_language')->nullable()->default(null);
             $table->boolean('second_language_exam_completed')->nullable()->default(null);
