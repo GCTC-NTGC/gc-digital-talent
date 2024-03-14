@@ -816,6 +816,7 @@ type Query {
   roles: [Role]! @all @canModel(ability: "viewAny")
 
   notifications(where: NotificationFilterInput): [Notification!]
+    @orderBy(column: "created_at", direction: DESC)
     @paginate(defaultCount: 10, scopes: ["authorizedToView"])
 
   sitewideAnnouncement: SitewideAnnouncement
