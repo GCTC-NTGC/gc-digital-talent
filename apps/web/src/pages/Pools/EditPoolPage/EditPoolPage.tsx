@@ -36,6 +36,8 @@ import { hasEmptyRequiredFields as keyTasksError } from "~/validators/process/ke
 import { hasEmptyRequiredFields as coreRequirementsError } from "~/validators/process/coreRequirements";
 import { hasEmptyRequiredFields as essentialSkillsError } from "~/validators/process/essentialSkills";
 import { hasEmptyRequiredFields as nonessentialSkillsError } from "~/validators/process/nonEssentialSkills";
+import { hasOneEmptyField as aboutUsError } from "~/validators/process/aboutUs";
+import { hasOneEmptyField as whatToExpectAdmissionError } from "~/validators/process/whatToExpectAdmission";
 import usePoolMutations from "~/hooks/usePoolMutations";
 import { hasAllEmptyFields as specialNoteIsNull } from "~/validators/process/specialNote";
 
@@ -120,7 +122,8 @@ export const EditPoolForm = ({
   const basicInfoHasError = poolNameError(pool) || closingDateError(pool);
   const skillRequirementsHasError =
     essentialSkillsError(pool) || nonessentialSkillsError(pool);
-  const aboutRoleHasError = yourImpactError(pool) || keyTasksError(pool);
+  const aboutRoleHasError =
+    yourImpactError(pool) || keyTasksError(pool) || aboutUsError(pool);
   const sectionMetadata: Record<SectionKey, EditPoolSectionMetadata> = {
     basicInfo: {
       id: "basic-info",
@@ -273,7 +276,7 @@ export const EditPoolForm = ({
     },
     commonQuestions: {
       id: "common-questions",
-      hasError: false, // Add understanding classification (#8831) validation here
+      hasError: whatToExpectAdmissionError(pool), // Add understanding classification (#8831) validation here
       title: intl.formatMessage({
         defaultMessage: "Common questions",
         id: "RahVQS",

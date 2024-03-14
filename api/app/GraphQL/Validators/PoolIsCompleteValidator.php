@@ -65,6 +65,10 @@ final class PoolIsCompleteValidator extends Validator
             'advertisement_location.fr' => ['string', 'nullable', 'required_if:is_remote,false', 'required_with:advertisement_location.en'],
             'special_note.en' => ['required_with:special_note.fr', 'string'],
             'special_note.fr' => ['required_with:special_note.en', 'string'],
+            'about_us.en' => ['required_with:about_us.fr', 'string'],
+            'about_us.fr' => ['required_with:about_us.en', 'string'],
+            'what_to_expect_admission.en' => ['required_with:what_to_expect_admission.fr', 'string'],
+            'what_to_expect_admission.fr' => ['required_with:what_to_expect_admission.en', 'string'],
             'publishing_group' => ['required', Rule::in(array_column(PublishingGroup::cases(), 'name'))],
         ];
     }

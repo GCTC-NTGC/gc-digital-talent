@@ -5,3 +5,10 @@ import { Pool } from "@gc-digital-talent/graphql";
 export function hasAllEmptyFields({ whatToExpectAdmission }: Pool): boolean {
   return !!(!whatToExpectAdmission?.en && !whatToExpectAdmission?.fr);
 }
+
+export function hasOneEmptyField({ whatToExpectAdmission }: Pool): boolean {
+  return (
+    !!(whatToExpectAdmission?.en && !whatToExpectAdmission?.fr) ||
+    !!(whatToExpectAdmission?.fr && !whatToExpectAdmission.en)
+  );
+}

@@ -13,7 +13,10 @@ import {
   UpdatePoolInput,
 } from "@gc-digital-talent/graphql";
 
-import { hasAllEmptyFields } from "~/validators/process/whatToExpectAdmission";
+import {
+  hasAllEmptyFields,
+  hasOneEmptyField,
+} from "~/validators/process/whatToExpectAdmission";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 
@@ -48,7 +51,7 @@ const WhatToExpectAdmissionSection = ({
   const { isSubmitting } = useEditPoolContext();
   const { isEditing, setIsEditing, icon } = useToggleSectionInfo({
     isNull,
-    emptyRequired: false,
+    emptyRequired: hasOneEmptyField(pool),
     fallbackIcon: QuestionMarkCircleIcon,
     optional: true,
   });
