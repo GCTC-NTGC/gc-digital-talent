@@ -125,16 +125,18 @@ type User {
 
 interface Notification {
   id: ID!
+  type: NotificationType!
   readAt: DateTime @rename(attribute: "read_at")
-  createdAt: DateTime @rename(attribute: "created_at")
-  updatedAt: DateTime @rename(attribute: "updated_at")
+  createdAt: DateTime! @rename(attribute: "created_at")
+  updatedAt: DateTime! @rename(attribute: "updated_at")
 }
 
 type PoolCandidateStatusChangedNotification implements Notification {
   id: ID!
-  readAt: DateTime @rename(attribute: "read_at")
-  createdAt: DateTime @rename(attribute: "created_at")
-  updatedAt: DateTime @rename(attribute: "updated_at")
+  type: String!
+  readAt: DateTime! @rename(attribute: "read_at")
+  createdAt: DateTime! @rename(attribute: "created_at")
+  updatedAt: DateTime! @rename(attribute: "updated_at")
 
   oldStatus: PoolCandidateStatus @rename(attribute: "old_status")
   newStatus: PoolCandidateStatus @rename(attribute: "new_status")

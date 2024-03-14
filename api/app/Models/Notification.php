@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use App\Enums\NotificationType;
+use App\Notifications\PoolCandidateStatusChanged;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Support\Facades\Auth;
@@ -29,6 +32,17 @@ class Notification extends DatabaseNotification
         }
 
         return parent::getAttribute($key);
+    }
+
+    public function type(): Attribute
+    {
+        $typeMap = [
+            PoolCandidateStatusChanged::class => NotificationType::POOL_CANDIDATE_STATUS_CHANGED->name,
+        ];
+
+        return Attribute::make(
+            get: fn (string $value) => $typeMap[$value] ?? null
+        );
     }
 
     public function scopeOnlyUnread(Builder $query, ?bool $onlyUnread)
