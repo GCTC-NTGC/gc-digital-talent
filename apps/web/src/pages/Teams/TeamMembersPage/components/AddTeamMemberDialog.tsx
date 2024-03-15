@@ -15,7 +15,7 @@ import {
   getLocalizedName,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import { TeamMembersPage_TeamFragment } from "@gc-digital-talent/graphql";
+import { TeamMembersPage_TeamFragment as TeamMembersPageTeamFragmentType } from "@gc-digital-talent/graphql";
 
 import { getFullNameAndEmailLabel } from "~/utils/nameUtils";
 import { TeamMember } from "~/utils/teamUtils";
@@ -28,7 +28,7 @@ import useAvailableRoles from "./useAvailableRoles";
 import { UpdateUserTeamRoles_Mutation } from "./operations";
 
 interface AddTeamMemberDialogProps {
-  team: TeamMembersPage_TeamFragment;
+  team: TeamMembersPageTeamFragmentType;
   members: Array<TeamMember>;
 }
 

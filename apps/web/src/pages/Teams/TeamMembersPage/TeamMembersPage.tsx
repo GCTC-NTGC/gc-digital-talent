@@ -22,10 +22,8 @@ import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 
 import AddTeamMemberDialog from "./components/AddTeamMemberDialog";
 import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
-import {
-  TeamMembersPage_TeamFragment,
-  TeamMembersPageFragment,
-} from "./components/types";
+import { TeamMembersPageFragment } from "./components/types";
+import { TeamMembersPage_TeamFragment } from "./components/operations";
 
 const columnHelper = createColumnHelper<TeamMember>();
 
