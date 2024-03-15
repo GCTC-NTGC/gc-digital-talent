@@ -5,9 +5,10 @@ import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 
+import usePollingQuery from "~/hooks/usePollingQuery";
+
 import NotificationActions from "./NotificationActions";
 import NotificationListPage from "./NotificationListPage";
-import usePollingQuery from "../../hooks/usePollingQuery";
 import NotificationItem from "./NotificationItem";
 import NotificationPortal from "./NotificationPortal";
 
