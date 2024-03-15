@@ -70,6 +70,8 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property array $indigenous_communities
  * @property string $preferred_language_for_interview
  * @property string $preferred_language_for_exam
+ * @property array $ignored_email_notifications
+ * @property array $ignored_in_app_notifications
  */
 class User extends Model implements Authenticatable, LaratrustUser
 {
@@ -123,6 +125,8 @@ class User extends Model implements Authenticatable, LaratrustUser
         'preferred_language_for_interview',
         'preferred_language_for_exam',
         'deleted_at',
+        'ignored_email_notifications',
+        'ignored_in_app_notifications',
     ];
 
     protected $keyType = 'string';
@@ -132,6 +136,8 @@ class User extends Model implements Authenticatable, LaratrustUser
         'accepted_operational_requirements' => 'array',
         'position_duration' => 'array',
         'indigenous_communities' => 'array',
+        'ignored_email_notifications' => 'array',
+        'ignored_in_app_notifications' => 'array',
     ];
 
     protected $fillable = [
