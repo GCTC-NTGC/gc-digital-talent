@@ -925,15 +925,17 @@ const createRoute = (
                   ),
                 },
                 {
-                  path: "notifications",
-                  element: (
-                    <RequireAuth
-                      roles={[ROLE_NAME.Applicant]}
-                      loginPath={loginPath}
-                    >
-                      <NotificationsPage />
-                    </RequireAuth>
-                  ),
+                  ...(featureFlags.notifications && {
+                    path: "notifications",
+                    element: (
+                      <RequireAuth
+                        roles={[ROLE_NAME.Applicant]}
+                        loginPath={loginPath}
+                      >
+                        <NotificationsPage />
+                      </RequireAuth>
+                    ),
+                  }),
                 },
                 {
                   path: "profile-and-applications",
