@@ -44,7 +44,7 @@
     "watch:project": "turbo run watch",
     "e2e": "pnpm --filter @gc-digital-talent/e2e run e2e",
     "e2e:playwright": "pnpm --filter @gc-digital-talent/playwright run e2e:playwright",
-    "e2e:playwright:chromium": "pnpm --filter @gc-digital-talent/playwright run e2e:playwright:chromium ",
+    "e2e:playwright:chromium": "pnpm --filter @gc-digital-talent/playwright run e2e:playwright:chromium",
     "e2e:playwright:firefox": "pnpm --filter @gc-digital-talent/playwright run e2e:playwright:firefox",
     "e2e:playwright:webkit": "pnpm --filter @gc-digital-talent/playwright run e2e:playwright:webkit",
     "e2e:playwright:report": "pnpm --filter @gc-digital-talent/playwright run e2e:playwright:report",
