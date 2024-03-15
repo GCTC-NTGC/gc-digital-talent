@@ -2,11 +2,16 @@ import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 
 import { fakeTeams } from "@gc-digital-talent/fake-data";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
-import { TeamTable, TeamTableFragment } from "./TeamTable";
+import { TeamTable, TeamTable_TeamFragment } from "./TeamTable";
 import { MyRoleTeam } from "./types";
 
 const mockTeams = fakeTeams();
+
+const mockTeamFragments = mockTeams.map((mockTeam) =>
+  makeFragmentData(mockTeam, TeamTable_TeamFragment),
+);
 
 const mockRolesAndTeams: MyRoleTeam[] = [
   {
@@ -43,7 +48,7 @@ const Template: StoryFn<typeof TeamTable> = (args) => {
 
 export const Default = Template.bind({});
 Default.args = {
-  teamsQuery: mockTeams as TeamTableFragment,
+  teamsQuery: mockTeamFragments,
   myRolesAndTeams: mockRolesAndTeams,
   title: "Teams",
 };

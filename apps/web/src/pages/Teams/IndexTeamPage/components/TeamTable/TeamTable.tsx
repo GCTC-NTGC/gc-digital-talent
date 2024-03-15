@@ -32,7 +32,7 @@ import {
 
 const columnHelper = createColumnHelper<TeamTableTeamFragmentType>();
 
-const TeamTable_TeamFragment = graphql(/* GraphQL */ `
+export const TeamTable_TeamFragment = graphql(/* GraphQL */ `
   fragment TeamTable_Team on Team {
     id
     contactEmail

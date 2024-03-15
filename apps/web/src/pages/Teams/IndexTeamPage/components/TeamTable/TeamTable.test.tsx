@@ -7,12 +7,16 @@ import React from "react";
 
 import { renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { fakeTeams } from "@gc-digital-talent/fake-data";
-import { RoleAssignment } from "@gc-digital-talent/graphql";
+import { RoleAssignment, makeFragmentData } from "@gc-digital-talent/graphql";
 
-import { TeamTable, TeamTableFragment, TeamTableProps } from "./TeamTable";
+import { TeamTable, TeamTableProps, TeamTable_TeamFragment } from "./TeamTable";
 import { roleAssignmentsToRoleTeamArray } from "./helpers";
 
 const mockTeams = fakeTeams(5);
+const mockTeamFragments = mockTeams.map((mockTeam) =>
+  makeFragmentData(mockTeam, TeamTable_TeamFragment),
+);
+
 const mockRoleAssignments: RoleAssignment[] = [
   {
     id: "roleAssign1",
@@ -92,7 +96,7 @@ describe("TeamTable", () => {
     });
 
     renderTeamsTable({
-      teamsQuery: mockTeams as TeamTableFragment,
+      teamsQuery: mockTeamFragments,
       myRolesAndTeams: transformedRoleAssignment,
       title: "Teams",
     });

@@ -25,7 +25,7 @@ import useRoutes from "~/hooks/useRoutes";
 
 import CreateTeamFormFields from "../../CreateTeamPage/components/CreateTeamFormFields";
 
-const UpdateTeamPage_TeamFragment = graphql(/* GraphQL */ `
+export const UpdateTeamPage_TeamFragment = graphql(/* GraphQL */ `
   fragment UpdateTeamPage_Team on Team {
     id
     name

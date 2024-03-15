@@ -2,11 +2,13 @@ import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 
 import { fakeTeams } from "@gc-digital-talent/fake-data";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
-import ViewTeam, { ViewTeamPageFragment } from "./ViewTeam";
+import ViewTeam, { ViewTeamPage_TeamFragment } from "./ViewTeam";
 
 const mockTeams = fakeTeams();
 const mockTeam = mockTeams[0];
+const mockTeamFragment = makeFragmentData(mockTeam, ViewTeamPage_TeamFragment);
 
 export default {
   component: ViewTeam,
@@ -20,5 +22,5 @@ const Template: StoryFn<typeof ViewTeam> = (args) => {
 
 export const Default = Template.bind({});
 Default.args = {
-  teamQuery: mockTeam as ViewTeamPageFragment,
+  teamQuery: mockTeamFragment,
 };
