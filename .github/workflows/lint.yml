@@ -66,7 +66,7 @@ jobs:
         # Allow tsc linting to happen even if js linting step raises errors.
         if: always()
         working-directory: ./
-        run: npm run tsc
+        run: pnpm run tsc
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
