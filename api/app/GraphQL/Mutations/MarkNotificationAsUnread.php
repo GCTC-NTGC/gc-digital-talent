@@ -5,10 +5,10 @@ namespace App\GraphQL\Mutations;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
-final class MarkNotificationAsRead
+final class MarkNotificationAsUnread
 {
     /**
-     * Duplicates a pool
+     * Mark a specific notification as unread
      *
      * @param  array{}  $args
      */
@@ -21,7 +21,7 @@ final class MarkNotificationAsRead
             ->firstWhere('id', $notificationId);
 
         if (! is_null($notification)) {
-            $notification->markAsRead();
+            $notification->markAsUnread();
 
             return $notification;
         }
