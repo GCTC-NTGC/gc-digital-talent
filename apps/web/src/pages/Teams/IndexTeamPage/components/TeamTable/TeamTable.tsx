@@ -7,7 +7,12 @@ import { useQuery } from "urql";
 import { Pending } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { Team, graphql } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  getFragment,
+  graphql,
+  TeamTable_TeamFragment as TeamTableTeamFragmentType,
+} from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
@@ -25,16 +30,37 @@ import {
   viewCell,
 } from "./helpers";
 
-const columnHelper = createColumnHelper<Team>();
+const columnHelper = createColumnHelper<TeamTableTeamFragmentType>();
+
+const TeamTable_TeamFragment = graphql(/* GraphQL */ `
+  fragment TeamTable_Team on Team {
+    id
+    contactEmail
+    name
+    displayName {
+      en
+      fr
+    }
+    departments {
+      id
+      name {
+        en
+        fr
+      }
+    }
+  }
+`);
+
+export type TeamTableFragment = FragmentType<typeof TeamTable_TeamFragment>[];
 
 export interface TeamTableProps {
-  teams: Array<Team>;
+  teamsQuery: TeamTableFragment;
   myRolesAndTeams: Array<MyRoleTeam>;
   title: string;
 }
 
 export const TeamTable = ({
-  teams,
+  teamsQuery,
   myRolesAndTeams,
   title,
 }: TeamTableProps) => {
@@ -94,12 +120,14 @@ export const TeamTable = ({
       header: intl.formatMessage(commonMessages.email),
       cell: ({ getValue }) => emailCell(getValue() ?? "", intl),
     }),
-  ] as ColumnDef<Team>[];
+  ] as ColumnDef<TeamTableTeamFragmentType>[];
 
-  const data = teams.filter(notEmpty);
+  const data = teamsQuery
+    .map((abc) => getFragment(TeamTable_TeamFragment, abc))
+    .filter(notEmpty);
 
   return (
-    <Table<Team>
+    <Table<TeamTableTeamFragmentType>
       caption={title}
       data={data}
       columns={columns}
@@ -138,25 +166,7 @@ export const TeamTable = ({
 const TeamTableData_Query = graphql(/* GraphQL */ `
   query TeamTableData {
     teams {
-      id
-      name
-      contactEmail
-      displayName {
-        en
-        fr
-      }
-      departments {
-        id
-        departmentNumber
-        name {
-          en
-          fr
-        }
-      }
-      description {
-        en
-        fr
-      }
+      ...TeamTable_Team
     }
 
     me {
@@ -186,7 +196,7 @@ const TeamTableData_Query = graphql(/* GraphQL */ `
 const TeamTableApi = ({ title }: { title: string }) => {
   const [{ data, fetching, error }] = useQuery({ query: TeamTableData_Query });
 
-  const teams = unpackMaybes(data?.teams);
+  const teamsQuery = unpackMaybes(data?.teams);
 
   let myRolesAndTeams: MyRoleTeam[] = [];
   const roleAssignments = unpackMaybes(data?.me?.authInfo?.roleAssignments);
@@ -195,7 +205,7 @@ const TeamTableApi = ({ title }: { title: string }) => {
   return (
     <Pending fetching={fetching} error={error}>
       <TeamTable
-        teams={teams}
+        teamsQuery={teamsQuery}
         myRolesAndTeams={myRolesAndTeams}
         title={title}
       />

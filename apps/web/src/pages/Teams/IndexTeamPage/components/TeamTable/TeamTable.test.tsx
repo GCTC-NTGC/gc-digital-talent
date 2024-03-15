@@ -9,7 +9,7 @@ import { renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { fakeTeams } from "@gc-digital-talent/fake-data";
 import { RoleAssignment } from "@gc-digital-talent/graphql";
 
-import { TeamTable, TeamTableProps } from "./TeamTable";
+import { TeamTable, TeamTableFragment, TeamTableProps } from "./TeamTable";
 import { roleAssignmentsToRoleTeamArray } from "./helpers";
 
 const mockTeams = fakeTeams(5);
@@ -92,7 +92,7 @@ describe("TeamTable", () => {
     });
 
     renderTeamsTable({
-      teams: mockTeams,
+      teamsQuery: mockTeams as TeamTableFragment,
       myRolesAndTeams: transformedRoleAssignment,
       title: "Teams",
     });
