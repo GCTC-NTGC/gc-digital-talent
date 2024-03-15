@@ -39,7 +39,7 @@ export const SkillPage = () => {
         id: "EBmWyo",
         description: "Link text for the home link in breadcrumbs.",
       }),
-      url: routes.adminDashboard(),
+      url: routes.home(),
     },
     {
       label: formattedPageTitle,
