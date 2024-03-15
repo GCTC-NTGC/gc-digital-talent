@@ -208,7 +208,7 @@ const ApplicationInformation = ({
         onValueChange={setOpenSections}
       >
         <Accordion.Item value={SECTION_KEY.CONTACT}>
-          <Accordion.Trigger>
+          <Accordion.Trigger as="h3">
             {intl.formatMessage({
               defaultMessage: "Personal and contact information",
               id: "BWh6S1",
@@ -222,7 +222,7 @@ const ApplicationInformation = ({
         </Accordion.Item>
         {screeningQuestionResponses.length > 0 ? (
           <Accordion.Item value={SECTION_KEY.SCREENING}>
-            <Accordion.Trigger>
+            <Accordion.Trigger as="h3">
               {intl.formatMessage(processMessages.screeningQuestions)}
             </Accordion.Trigger>
             <Accordion.Content>
@@ -249,7 +249,7 @@ const ApplicationInformation = ({
         ) : null}
         {generalQuestionResponses.length > 0 ? (
           <Accordion.Item value={SECTION_KEY.GENERAL}>
-            <Accordion.Trigger>
+            <Accordion.Trigger as="h3">
               {intl.formatMessage(processMessages.generalQuestions)}
             </Accordion.Trigger>
             <Accordion.Content>
@@ -272,7 +272,7 @@ const ApplicationInformation = ({
           </Accordion.Item>
         ) : null}
         <Accordion.Item value={SECTION_KEY.EDUCATION}>
-          <Accordion.Trigger>
+          <Accordion.Trigger as="h3">
             {intl.formatMessage({
               defaultMessage: "Minimum experience or equivalent education",
               id: "LvYEdh",
@@ -285,7 +285,7 @@ const ApplicationInformation = ({
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value={SECTION_KEY.ESSENTIAL}>
-          <Accordion.Trigger>
+          <Accordion.Trigger as="h3">
             {intl.formatMessage({
               defaultMessage: "Essential skills",
               id: "w7E0He",
@@ -304,7 +304,7 @@ const ApplicationInformation = ({
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value={SECTION_KEY.ASSET}>
-          <Accordion.Trigger>
+          <Accordion.Trigger as="h3">
             {intl.formatMessage({
               defaultMessage: "Asset skills",
               id: "K0Zkdw",
@@ -323,7 +323,7 @@ const ApplicationInformation = ({
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value={SECTION_KEY.LANGUAGE}>
-          <Accordion.Trigger>
+          <Accordion.Trigger as="h3">
             {intl.formatMessage({
               defaultMessage: "Language profile",
               id: "KsS1Py",
@@ -335,7 +335,7 @@ const ApplicationInformation = ({
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value={SECTION_KEY.WORK_PREF}>
-          <Accordion.Trigger>
+          <Accordion.Trigger as="h3">
             {intl.formatMessage(navigationMessages.workPreferences)}
           </Accordion.Trigger>
           <Accordion.Content>
@@ -343,7 +343,7 @@ const ApplicationInformation = ({
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value={SECTION_KEY.GOV_INFO}>
-          <Accordion.Trigger>
+          <Accordion.Trigger as="h3">
             {intl.formatMessage({
               defaultMessage: "Government employee information",
               id: "Jf3vT5",
@@ -356,7 +356,7 @@ const ApplicationInformation = ({
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value={SECTION_KEY.DEI}>
-          <Accordion.Trigger>
+          <Accordion.Trigger as="h3">
             {intl.formatMessage(navigationMessages.diversityEquityInclusion)}
           </Accordion.Trigger>
           <Accordion.Content>
@@ -364,7 +364,7 @@ const ApplicationInformation = ({
           </Accordion.Content>
         </Accordion.Item>
         <Accordion.Item value={SECTION_KEY.SIGNATURE}>
-          <Accordion.Trigger>
+          <Accordion.Trigger as="h3">
             {intl.formatMessage({
               defaultMessage: "Signature",
               id: "1ZZgbi",

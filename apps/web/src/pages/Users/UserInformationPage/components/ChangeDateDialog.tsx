@@ -16,13 +16,13 @@ import { emptyToNull } from "@gc-digital-talent/helpers";
 import {
   User,
   PoolCandidate,
-  UpdatePoolCandidateAsAdminInput,
+  UpdatePoolCandidateStatusInput,
 } from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { getFullNameHtml } from "~/utils/nameUtils";
 
-import AdminUpdatePoolCandidate_Mutation from "./mutation";
+import UpdatePoolCandidateStatus_Mutation from "./mutation";
 
 type FormValues = {
   expiryDate: PoolCandidate["expiryDate"];
@@ -42,16 +42,16 @@ const ChangeDateDialog = ({
   const methods = useForm<FormValues>();
 
   const [{ fetching }, executeMutation] = useMutation(
-    AdminUpdatePoolCandidate_Mutation,
+    UpdatePoolCandidateStatus_Mutation,
   );
 
   const requestMutation = async (
     id: string,
-    values: UpdatePoolCandidateAsAdminInput,
+    values: UpdatePoolCandidateStatusInput,
   ) => {
     const result = await executeMutation({ id, poolCandidate: values });
-    if (result.data?.updatePoolCandidateAsAdmin) {
-      return result.data.updatePoolCandidateAsAdmin;
+    if (result.data?.updatePoolCandidateStatus) {
+      return result.data.updatePoolCandidateStatus;
     }
     return Promise.reject(result.error);
   };
