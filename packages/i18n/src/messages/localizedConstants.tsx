@@ -1940,7 +1940,7 @@ export const getSkillLevelDefinition = (
   skillCategory: SkillCategory,
 ): MessageDescriptor => {
   if (skillCategory === SkillCategory.Technical) {
-    getOrThrowError(
+    return getOrThrowError(
       technicalSkillLevelDefinitions,
       skillLevel,
       `Invalid technical skill level '${skillLevel}'`,
