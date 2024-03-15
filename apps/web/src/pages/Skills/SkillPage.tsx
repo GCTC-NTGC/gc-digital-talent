@@ -9,6 +9,7 @@ import Hero from "~/components/Hero";
 import { INITIAL_STATE } from "~/components/Table/ResponsiveTable/constants";
 import adminMessages from "~/messages/adminMessages";
 import skillBrowserMessages from "~/components/SkillBrowser/messages";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import SkillTableApi from "./components/SkillTable";
 
@@ -32,20 +33,12 @@ export const SkillPage = () => {
   const formattedPageTitle = intl.formatMessage(pageTitle);
   const formattedPageSubtitle = intl.formatMessage(pageSubtitle);
 
-  const crumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.home(),
-    },
+  const crumbs = useBreadcrumbs([
     {
       label: formattedPageTitle,
       url: routes.skills(),
     },
-  ];
+  ]);
 
   return (
     <>
