@@ -13,12 +13,13 @@ type RemoveDialogProps = React.ComponentPropsWithoutRef<
 > & {
   id: Scalars["UUID"]["output"];
   message: React.ReactNode;
+  date: string;
 };
 
 const RemoveDialog = React.forwardRef<
   React.ElementRef<typeof DropdownMenu.Item>,
   RemoveDialogProps
->(({ id, message, onSelect, ...rest }, forwardedRef) => {
+>(({ id, message, date, onSelect, ...rest }, forwardedRef) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
@@ -59,7 +60,16 @@ const RemoveDialog = React.forwardRef<
               "Heading for confirmation alert to delete a notification",
           })}
         </AlertDialog.Title>
-        <AlertDialog.Description>{message}</AlertDialog.Description>
+        <AlertDialog.Description>
+          <p
+            data-h2-font-size="base(caption)"
+            data-h2-color="base(black.light)"
+            data-h2-margin-bottom="base(x.5)"
+          >
+            {date}
+          </p>
+          <div>{message}</div>
+        </AlertDialog.Description>
         <AlertDialog.Footer>
           <AlertDialog.Action>
             <Button color="error" disabled={deleting} onClick={handleDelete}>

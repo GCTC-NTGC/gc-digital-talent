@@ -84,6 +84,14 @@ const NotificationItem = ({
     });
   };
 
+  const createdAt = notification.createdAt
+    ? formatDate({
+        date: parseDateTimeUtc(notification.createdAt),
+        formatString: DATE_FORMAT_STRING,
+        intl,
+      })
+    : intl.formatMessage(commonMessages.notAvailable);
+
   return (
     <li>
       <CardBasic
@@ -133,13 +141,7 @@ const NotificationItem = ({
             data-h2-font-size="base(caption)"
             data-h2-color="base(black.light)"
           >
-            {notification.createdAt
-              ? formatDate({
-                  date: parseDateTimeUtc(notification.createdAt),
-                  formatString: DATE_FORMAT_STRING,
-                  intl,
-                })
-              : intl.formatMessage(commonMessages.notAvailable)}
+            {createdAt}
           </p>
         </div>
         <div data-h2-align-self="base(center)">
@@ -178,7 +180,11 @@ const NotificationItem = ({
                       })}
                 </Button>
               </DropdownMenu.Item>
-              <RemoveDialog id={notification.id} message={info.message} />
+              <RemoveDialog
+                id={notification.id}
+                message={info.message}
+                date={createdAt}
+              />
             </DropdownMenu.Content>
           </DropdownMenu.Root>
         </div>
