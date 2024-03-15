@@ -1,3 +1,5 @@
+import * as DialogPrimitive from "@radix-ui/react-dialog";
+
 import {
   Color,
   HeadingRank,
@@ -139,6 +141,8 @@ export {
   Collapsible,
   DefinitionList,
   Dialog,
+  /* Re-exporting primitive for custom solutions */
+  DialogPrimitive,
   DropdownMenu,
   Flourish,
   Heading,

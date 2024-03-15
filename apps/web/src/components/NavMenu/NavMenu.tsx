@@ -1,6 +1,8 @@
 import React, { ReactElement } from "react";
 import { useIntl } from "react-intl";
 
+import NotificationDialog from "../NotificationDialog/NotificationDialog";
+
 interface NavMenuProps {
   mainItems: ReactElement[];
   utilityItems?: ReactElement[];
@@ -70,6 +72,9 @@ const NavMenu = ({ mainItems, utilityItems }: NavMenuProps) => {
                     {utilityItems.map((item) => (
                       <ListItem key={item.key}>{item}</ListItem>
                     ))}
+                    <ListItem>
+                      <NotificationDialog />
+                    </ListItem>
                   </ul>
                 </nav>
               </div>
