@@ -815,7 +815,10 @@ type Query {
   teams: [Team]! @all @canModel(ability: "viewAny")
   roles: [Role]! @all @canModel(ability: "viewAny")
 
-  notifications(where: NotificationFilterInput): [Notification!]
+  notifications(
+    where: NotificationFilterInput
+    excludeIds: [UUID!] @notIn(key: "id")
+  ): [Notification!]
     @orderBy(column: "created_at", direction: DESC)
     @paginate(defaultCount: 10, scopes: ["authorizedToView"])
 
@@ -1572,7 +1575,7 @@ input UpdateApplicationInput {
 
 input DateRange {
   from: DateTime!
-  to: DateTime! @rules(apply: ["after:from"])
+  to: DateTime! @rules(apply: ["after_or_equal:from"])
 }
 
 input NotificationFilterInput {

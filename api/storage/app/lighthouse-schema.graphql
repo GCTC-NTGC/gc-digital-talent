@@ -78,6 +78,7 @@ type Query {
   ): PoolCandidateSearchRequestPaginator!
   notifications(
     where: NotificationFilterInput
+    excludeIds: [UUID!]
 
     "Limits number of fetched items."
     first: Int! = 10
