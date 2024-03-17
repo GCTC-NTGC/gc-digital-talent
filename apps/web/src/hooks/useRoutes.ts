@@ -53,8 +53,7 @@ const getRoutes = (lang: Locales) => {
     skills: () => path.join(baseUrl, "skills"),
 
     // Admin
-    admin: () => adminUrl,
-    adminDashboard: () => path.join(adminUrl, "dashboard"),
+    adminDashboard: () => adminUrl,
 
     // Admin - Pools
     poolTable: () => path.join(adminUrl, "pools"),
