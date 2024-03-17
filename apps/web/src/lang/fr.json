@@ -1451,10 +1451,6 @@
     "defaultMessage": "Découvrez un talent en vous servant d’un jeu de filtres détaillés, y compris la classification, les langues et les compétences.",
     "description": "Subtitle for the search page"
   },
-  "6EOrWk": {
-    "defaultMessage": "Accueil",
-    "description": "Title for homepage on the talent cloud admin portal."
-  },
   "6G1ESr": {
     "defaultMessage": "Opérations d’infrastructure de la <abbreviation>TI</abbreviation>",
     "description": "Title for the 'infrastructure operations' IT work stream"
@@ -3374,10 +3370,6 @@
   "HMm2S4": {
     "defaultMessage": "1 million de dollars à 2,5 millions de dollars",
     "description": "Contract value range between one-million and two-point-five-million"
-  },
-  "HNe+Yh": {
-    "defaultMessage": "Bienvenue sur le site du <abbreviation>Talent numérique</abbreviation> du GC, veuillez vous connecter pour continuer",
-    "description": "Instructional text for the talent cloud pool manager portal home page."
   },
   "HPDqDV": {
     "defaultMessage": "Je suis bilingue (anglais et français) et <strong>j'ai</strong> complété une <languageEvaluationPageLink></languageEvaluationPageLink> officielle en <strong>ANGLAIS</strong>.",
@@ -10137,10 +10129,6 @@
   "u5z9bK": {
     "defaultMessage": "Vos 10 principales compétences techniques",
     "description": "Page title for the top technical skills page"
-  },
-  "u6GmEz": {
-    "defaultMessage": "Portail du gestionnaire de portail",
-    "description": "Title for the pool manager login link."
   },
   "u7IbDO": {
     "defaultMessage": "Comment le programme fonctionne",
