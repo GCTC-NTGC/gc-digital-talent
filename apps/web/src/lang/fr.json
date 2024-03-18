@@ -5027,6 +5027,10 @@
     "defaultMessage": "IT-03 : Conseiller technique ou Chef d'équipe",
     "description": "IT-03 classification label including titles"
   },
+  "RHwGy2": {
+    "defaultMessage": "Erreur: la publication du processus a échoué",
+    "description": "Message displayed to user after pool fails to get publish."
+  },
   "RIi/3q": {
     "defaultMessage": "Pour nous joindre",
     "description": "Title for Contact us action"
@@ -5426,10 +5430,6 @@
   "Tdr8r5": {
     "defaultMessage": "Quelques questions sur le sujet",
     "description": "Page title for the application screening questions introduction page"
-  },
-  "RHwGy2": {
-    "defaultMessage": "Error: process publishing failed",
-    "description": "Message displayed to user after pool fails to get publish."
   },
   "TiIkSF": {
     "defaultMessage": "Études postsecondaires de deux ans",
