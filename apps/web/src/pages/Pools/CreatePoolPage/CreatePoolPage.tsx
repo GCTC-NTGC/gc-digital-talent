@@ -159,10 +159,10 @@ export const CreatePoolForm = ({
               <Submit
                 color="secondary"
                 text={intl.formatMessage({
-                  defaultMessage: "Create new process",
-                  id: "Odhwqn",
+                  defaultMessage: "Create process",
+                  id: "rRREuF",
                   description:
-                    "Label displayed on submit button for new pool form.",
+                    "Label/title for creating a recruitment process.",
                 })}
               />
               <Link href={paths.poolTable()} mode="inline" color="quaternary">
@@ -265,8 +265,8 @@ const CreatePoolPage = () => {
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Create process",
-    id: "AsxUp5",
-    description: "Page title for the pool creation page",
+    id: "rRREuF",
+    description: "Label/title for creating a recruitment process.",
   });
 
   const navigationCrumbs = [

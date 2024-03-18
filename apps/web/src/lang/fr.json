@@ -2147,7 +2147,7 @@
     "defaultMessage": "Ajouter une nouvelle expérience",
     "description": "A link to add a new experience to your career timeline"
   },
-  "ylpxzO": {
+  "II4+N3": {
     "defaultMessage": "Au moyen de la liste des compétences du processus de recrutement, sélectionnez les compétences que vous prévoyez évaluer au moyen de cette méthode d’évaluation.",
     "description": "description of 'skill selection' section of the 'assessment details' dialog"
   },
@@ -5406,10 +5406,6 @@
   "TKONR6": {
     "defaultMessage": "Étant donné que les plateformes de médias sociaux sont gérées par des tiers fournisseurs de services, elles n’ont pas à être conformes aux normes du gouvernement du Canada en matière d’accessibilité du Web.",
     "description": "Paragraph for comments and interaction section"
-  },
-  "Odhwqn": {
-    "defaultMessage": "Créer un nouveau processus",
-    "description": "Label displayed on submit button for new pool form."
   },
   "TN9ndX": {
     "defaultMessage": "Tentez d’utiliser un autre terme ou une autre recherche pour la compétence, en vous servant du bouton \"Ajouter une nouvelle compétence\" fourni à cet effet.",
@@ -11062,9 +11058,9 @@
     "defaultMessage": "Téléchargez la trousse du gestionnaire pour plus de renseignements et contactez l’équipe pour lancer le processus.",
     "description": "Paragraph 1 for the 'How to begin hiring an apprentice' section"
   },
-  "AsxUp5": {
+  "rRREuF": {
     "defaultMessage": "Créer un processus",
-    "description": "Page title for the pool creation page"
+    "description": "Label/title for creating a recruitment process."
   },
   "zxLL3N": {
     "defaultMessage": "Afficher les détails de cette expérience",
