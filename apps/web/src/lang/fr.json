@@ -7171,7 +7171,7 @@
     "description": "Paragraph for comments and interaction section"
   },
   "cnoxKB": {
-    "defaultMessage": "Examiner et consigner les résultats de {candidateName} concernant \"{skillName}\".",
+    "defaultMessage": "Examiner et consigner les résultats de {candidateName} concernant « {skillName} ».",
     "description": "Subtitle for education requirement screening decision dialog."
   },
   "cqJw3g": {
