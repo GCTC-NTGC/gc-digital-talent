@@ -26,7 +26,6 @@
     "check-intl:web": "turbo run check-intl --filter=@gc-digital-talent/i18n -- --dir $INIT_CWD --en ./apps/web/src/lang/en.json --fr ./apps/web/src/lang/fr.json --rm-orphaned --output-untranslated ./apps/web/src/lang/untranslated.json --whitelist ./apps/web/src/lang/whitelist.yml",
     "check-intl-merge:i18n": "turbo run check-intl --filter=@gc-digital-talent/i18n -- --dir $INIT_CWD --en ./packages/i18n/src/lang/en.json --fr ./packages/i18n/src/lang/fr.json --rm-orphaned --output-untranslated ./packages/i18n/src/lang/untranslated.json --whitelist ./packages/i18n/src/lang/whitelist.yml --merge-fr ./packages/i18n/src/lang/newTranslations.json",
     "check-intl-merge:web": "turbo run check-intl --filter=@gc-digital-talent/i18n -- --dir $INIT_CWD --en ./apps/web/src/lang/en.json --fr ./apps/web/src/lang/fr.json --rm-orphaned --output-untranslated ./apps/web/src/lang/untranslated.json --whitelist ./apps/web/src/lang/whitelist.yml --merge-fr ./apps/web/src/lang/newTranslations.json",
-    "check-integrity": "turbo run check-integrity --filter=@gc-digital-talent/tooling -- --dir $INIT_CWD --lock-file=\"package-lock.json\"",
     "clean": "turbo run clean",
     "intl-extract": "turbo run intl-extract",
     "intl-compile": "turbo run intl-compile",
