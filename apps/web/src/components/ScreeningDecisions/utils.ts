@@ -6,15 +6,10 @@ import {
   AssessmentResultType,
   CreateAssessmentResultInput,
   Maybe,
-  SkillCategory,
   UpdateAssessmentResultInput,
   UserSkill,
 } from "@gc-digital-talent/graphql";
-import {
-  commonMessages,
-  getBehaviouralSkillLevel,
-  getTechnicalSkillLevel,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, getSkillLevelName } from "@gc-digital-talent/i18n";
 
 import { NO_DECISION } from "~/utils/assessmentResults";
 
@@ -118,11 +113,9 @@ export function getLocalizedSkillLevel(
     return intl.formatMessage(commonMessages.notFound);
   }
 
-  if (userSkill.skill.category === SkillCategory.Technical) {
-    return intl.formatMessage(getTechnicalSkillLevel(userSkill.skillLevel));
-  }
-
-  return intl.formatMessage(getBehaviouralSkillLevel(userSkill.skillLevel));
+  return intl.formatMessage(
+    getSkillLevelName(userSkill.skillLevel, userSkill.skill.category),
+  );
 }
 
 export const educationJustificationContext = (

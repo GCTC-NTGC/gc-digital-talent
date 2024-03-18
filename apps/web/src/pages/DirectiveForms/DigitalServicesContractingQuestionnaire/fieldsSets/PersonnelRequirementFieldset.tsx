@@ -4,11 +4,11 @@ import { useFormContext } from "react-hook-form";
 
 import { Input, Select } from "@gc-digital-talent/forms";
 import {
+  commonMessages,
   errorMessages,
   formMessages,
   getLocalizedName,
-  getBehaviouralSkillLevel,
-  getTechnicalSkillLevel,
+  getSkillLevelName,
 } from "@gc-digital-talent/i18n";
 import { Button, Separator } from "@gc-digital-talent/ui";
 import {
@@ -16,7 +16,6 @@ import {
   PersonnelScreeningLevel,
   PersonnelTeleworkOption,
   Skill,
-  SkillCategory,
   SkillLevel,
 } from "@gc-digital-talent/graphql";
 
@@ -169,10 +168,9 @@ const PersonnelRequirementFieldset = ({
         const selectedSkillFamilyModel = selectedSkillModel?.families?.length
           ? selectedSkillModel?.families[0]
           : null;
-        const skillLevel =
-          selectedSkillModel?.category === SkillCategory.Technical
-            ? getTechnicalSkillLevel(requirement.level)
-            : getBehaviouralSkillLevel(requirement.level);
+        const skillLevel = selectedSkillModel
+          ? getSkillLevelName(requirement.level, selectedSkillModel.category)
+          : commonMessages.notFound;
         const skillName = getLocalizedName(selectedSkillModel?.name, intl);
         return (
           <div
