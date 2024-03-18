@@ -1,4 +1,5 @@
 import { IntlShape, useIntl } from "react-intl";
+import { isEmpty } from "lodash";
 
 import { FieldLabels } from "@gc-digital-talent/forms";
 import { Maybe } from "@gc-digital-talent/graphql";
@@ -17,16 +18,28 @@ type Args = {
 const getHeaders = (intl: IntlShape, args: Args) => {
   const { type, title, candidateName, skillName, skillLevel, customTitle } =
     args;
-  const reviewAndRecord = intl.formatMessage(
-    {
-      defaultMessage: `Review and record {candidateName}'s results on "{skillName}" at the "{skillLevel}" level.`,
-      id: "e1mxkv",
-      description:
-        "Subtitle for education requirement screening decision dialog.",
-    },
-    { candidateName, skillName, skillLevel },
-  );
-
+  let reviewAndRecord: string;
+  if (!isEmpty(skillLevel)) {
+    reviewAndRecord = intl.formatMessage(
+      {
+        defaultMessage: `Review and record {candidateName}'s results on "{skillName}" at the "{skillLevel}" level.`,
+        id: "e1mxkv",
+        description:
+          "Subtitle for education requirement screening decision dialog.",
+      },
+      { candidateName, skillName, skillLevel },
+    );
+  } else {
+    reviewAndRecord = intl.formatMessage(
+      {
+        defaultMessage: `Review and record {candidateName}'s results on "{skillName}"`,
+        id: "cnoxKB",
+        description:
+          "Subtitle for education requirement screening decision dialog.",
+      },
+      { candidateName, skillName },
+    );
+  }
   const genericTitle = customTitle
     ? intl.formatMessage(
         {
