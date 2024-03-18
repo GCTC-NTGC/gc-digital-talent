@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\MatchExperienceType;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -25,13 +27,19 @@ class WorkExperience extends Experience
     use SoftDeletes;
 
     /**
-     * The attributes that should be cast.
+     * The table associated with the model.
      *
-     * @var array
+     * @var string
      */
-    protected $casts = [
-        'start_date' => 'date',
-        'end_date' => 'date',
+    protected $table = 'experiences';
+
+    /**
+     * Default values for attributes
+     *
+     * @var array an array with attribute as key and default as value
+     */
+    protected $attributes = [
+        'experience_type' => WorkExperience::class,
     ];
 
     public function getTitle(): string
@@ -39,8 +47,66 @@ class WorkExperience extends Experience
         return sprintf('%s at %s', $this->role, $this->organization);
     }
 
-    public function getExperienceType(): string
+    /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
     {
-        return 'work';
+        static::addGlobalScope(new MatchExperienceType);
+    }
+
+    /**
+     * Interact with the experience's role
+     */
+    protected function role(): Attribute
+    {
+        return Attribute::make(
+            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyString($attributes, 'role'),
+            set: fn (mixed $value, array $attributes) => $this::setJsonPropertyString($value, $attributes, 'role')
+        );
+    }
+
+    /**
+     * Interact with the experience's organization
+     */
+    protected function organization(): Attribute
+    {
+        return Attribute::make(
+            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyString($attributes, 'organization'),
+            set: fn (mixed $value, array $attributes) => $this::setJsonPropertyString($value, $attributes, 'organization')
+        );
+    }
+
+    /**
+     * Interact with the experience's division
+     */
+    protected function division(): Attribute
+    {
+        return Attribute::make(
+            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyString($attributes, 'division'),
+            set: fn (mixed $value, array $attributes) => $this::setJsonPropertyString($value, $attributes, 'division')
+        );
+    }
+
+    /**
+     * Interact with the experience's start date
+     */
+    protected function startDate(): Attribute
+    {
+        return Attribute::make(
+            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyDate($attributes, 'start_date'),
+            set: fn (mixed $value, array $attributes) => $this::setJsonPropertyDate($value, $attributes, 'start_date')
+        );
+    }
+
+    /**
+     * Interact with the experience's end date
+     */
+    protected function endDate(): Attribute
+    {
+        return Attribute::make(
+            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyDate($attributes, 'end_date'),
+            set: fn (mixed $value, array $attributes) => $this::setJsonPropertyDate($value, $attributes, 'end_date')
+        );
     }
 }
