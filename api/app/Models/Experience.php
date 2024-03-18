@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
@@ -166,5 +167,45 @@ abstract class Experience extends Model
                 $user->searchable();
             }
         });
+    }
+
+    protected static function getJsonPropertyDate(array $attributes, string $propertyName)
+    {
+        $properties = json_decode($attributes['properties'] ?? '{}');
+        if (isset($properties->$propertyName) && ! empty($properties->$propertyName)) {
+            return Carbon::parse($properties->$propertyName);
+        }
+
+        return null;
+    }
+
+    protected static function setJsonPropertyDate(mixed $value, array $attributes, string $propertyName)
+    {
+        $properties = json_decode($attributes['properties'] ?? '{}');
+        if (! empty($value)) {
+            $properties->$propertyName = Carbon::parse($value)->toDateString();
+        } else {
+            $properties->$propertyName = null;
+        }
+
+        return ['properties' => json_encode($properties)];
+    }
+
+    protected static function getJsonPropertyString(array $attributes, string $propertyName)
+    {
+        $properties = json_decode($attributes['properties'] ?? '{}');
+        if (isset($properties->$propertyName)) {
+            return strval($properties->$propertyName);
+        }
+
+        return null;
+    }
+
+    protected static function setJsonPropertyString(mixed $value, array $attributes, string $propertyName)
+    {
+        $properties = json_decode($attributes['properties'] ?? '{}');
+        $properties->$propertyName = ! is_null($value) ? strval($value) : $value;
+
+        return ['properties' => json_encode($properties)];
     }
 }
