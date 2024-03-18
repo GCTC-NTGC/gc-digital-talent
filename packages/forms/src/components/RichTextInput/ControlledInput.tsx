@@ -86,7 +86,7 @@ const ControlledInput = ({
       <div data-h2-color="base(black)">
         <EditorContent {...{ content, editor }} />
       </div>
-      <Footer {...{ editor, wordLimit, name }} />
+      <Footer {...{ wordLimit, name }} />
     </div>
   );
 };
