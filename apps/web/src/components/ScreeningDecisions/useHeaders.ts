@@ -1,5 +1,5 @@
 import { IntlShape, useIntl } from "react-intl";
-import { isEmpty } from "lodash";
+import isEmpty from "lodash/isEmpty";
 
 import { FieldLabels } from "@gc-digital-talent/forms";
 import { Maybe } from "@gc-digital-talent/graphql";
