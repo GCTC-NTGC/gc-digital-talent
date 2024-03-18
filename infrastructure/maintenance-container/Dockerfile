@@ -26,7 +26,7 @@ RUN cd /usr/local/bin \
 RUN git config --global --add safe.directory /var/www/html
 
 # bump npm version
-RUN npm install --location=global pnpm@8.15.0
+RUN npm install --location=global pnpm@8.15
 
 # install composer from official image
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
