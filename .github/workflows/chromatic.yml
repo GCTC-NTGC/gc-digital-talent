@@ -67,3 +67,4 @@ jobs:
           # moment, and want the GitHub status check in PRs (for "UI Tests") to
           # display immediately as "passing".
           autoAcceptChanges: true
+          workingDir: apps/web
