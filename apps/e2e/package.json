@@ -2,17 +2,17 @@
   "name": "@gc-digital-talent/e2e",
   "version": "0.0.1",
   "scripts": {
-    "e2e": "npm run e2e:open",
+    "e2e": "pnpm run e2e:open",
     "e2e:open": "cypress open --e2e",
-    "e2e:run": "npm run e2e:run:all",
+    "e2e:run": "pnpm run e2e:run:all",
     "e2e:run:all": "cypress run --browser=electron --spec \"cypress/e2e/**/*${TEST_FILTER:-}*.cy.ts\"",
     "e2e:run:inspect": "cypress run --browser=electron --spec \"cypress/e2e/**/*${TEST_FILTER:-language-selection}*.cy.ts\" --no-exit --headed",
     "lint": "eslint ./cypress --ext .js,.ts"
   },
   "dependencies": {
-    "@gc-digital-talent/date-helpers": "*",
-    "@gc-digital-talent/eslint-config": "*",
-    "@gc-digital-talent/graphql": "*"
+    "@gc-digital-talent/date-helpers": "workspace:*",
+    "@gc-digital-talent/eslint-config": "workspace:*",
+    "@gc-digital-talent/graphql": "workspace:*"
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "*",
@@ -28,7 +28,7 @@
     "eslint-plugin-cypress": "^2.15.1",
     "jwt-decode": "4.0.0",
     "prettier": "^3.2.5",
-    "tsconfig": "*",
+    "tsconfig": "workspace:*",
     "typescript": "5.4.2"
   }
 }
