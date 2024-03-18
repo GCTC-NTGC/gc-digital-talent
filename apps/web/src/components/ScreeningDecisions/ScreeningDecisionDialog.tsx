@@ -296,7 +296,9 @@ export const ScreeningDecisionDialog = ({
         ? getAssessmentStepType(assessmentStep?.type)
         : commonMessages.notApplicable,
     ),
-    customTitle: getLocalizedName(assessmentStep?.title, intl),
+    customTitle: assessmentStep.title
+      ? getLocalizedName(assessmentStep?.title, intl)
+      : "",
     candidateName: poolCandidate.user.firstName,
     skillName: getLocalizedName(skill?.name, intl),
     skillLevel,
