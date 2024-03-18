@@ -148,7 +148,7 @@ describe("Pools", () => {
     });
 
     // Submit form
-    cy.findByRole("button", { name: /create new process/i }).click();
+    cy.findByRole("button", { name: /create process/i }).click();
     cy.wait("@gqlCreatePoolMutation");
     cy.expectToast(/process created successfully/i);
 
