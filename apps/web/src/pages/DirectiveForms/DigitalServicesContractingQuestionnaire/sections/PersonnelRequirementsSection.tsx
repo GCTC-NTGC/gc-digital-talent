@@ -46,7 +46,6 @@ const PersonnelRequirementsSection = ({
       <Repeater.Root
         data-h2-margin-bottom="base(1rem)"
         name="personnelRequirements"
-        total={fields.length}
         onAdd={() => {
           append({});
         }}
@@ -62,7 +61,6 @@ const PersonnelRequirementsSection = ({
               key={item.id}
               name="personnelRequirements"
               index={index}
-              total={fields.length}
               onMove={move}
               onRemove={remove}
               legend={intl.formatMessage(
@@ -75,6 +73,7 @@ const PersonnelRequirementsSection = ({
                   index: index + 1,
                 },
               )}
+              isLast={index === fields.length - 1}
             >
               <PersonnelRequirementFieldset
                 fieldsetName={`personnelRequirements.${index}`}

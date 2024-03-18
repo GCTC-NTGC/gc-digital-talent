@@ -27,8 +27,8 @@ Cypress.Commands.add("createPool", (userId, teamId, classificationIds) => {
     operationName: "Command_CreatePool",
     query: commandCreatePoolDoc,
     variables: {
-      userId: userId,
-      teamId: teamId,
+      userId,
+      teamId,
       pool: {
         classifications: {
           sync: classificationIds,
@@ -53,8 +53,8 @@ Cypress.Commands.add("updatePool", (id, pool) => {
     operationName: "Command_UpdatePool",
     query: commandUpdatePoolDoc,
     variables: {
-      id: id,
-      pool: pool,
+      id,
+      pool,
     },
   }).then((data) => {
     cy.wrap(data.updatePool);
@@ -78,9 +78,9 @@ Cypress.Commands.add("createPoolSkill", (poolId, skillId, poolSkill) => {
     operationName: "Command_CreatePoolSkill",
     query: commandCreatePoolSkillDoc,
     variables: {
-      poolId: poolId,
-      skillId: skillId,
-      poolSkill: poolSkill,
+      poolId,
+      skillId,
+      poolSkill,
     },
   }).then((data) => {
     cy.wrap(data.createPoolSkill);
@@ -101,7 +101,7 @@ Cypress.Commands.add("publishPool", (id) => {
     operationName: "Command_PublishPool",
     query: commandPublishPoolDoc,
     variables: {
-      id: id,
+      id,
     },
   }).then((data) => {
     cy.wrap(data.publishPool);

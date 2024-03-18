@@ -255,10 +255,6 @@
     "defaultMessage": "Avancé",
     "description": "The technical skill level for expert"
   },
-  "55rtyE": {
-    "defaultMessage": "IT-03 (Conseiller technique)",
-    "description": "The name of the Technical advisor classification with group and level."
-  },
   "5LQuV9": {
     "defaultMessage": "Île-du-Prince-Édouard",
     "description": "Prince Edward Island selection for province or territory input"
@@ -350,10 +346,6 @@
   "8WC+Ty": {
     "defaultMessage": "La date limite de soumission est passée.",
     "description": "Message displayed when a closing date has passed."
-  },
-  "8sfFGc": {
-    "defaultMessage": "IT-02 (analyste)",
-    "description": "The name of the Technician Analyst classification with group and level."
   },
   "8stxoN": {
     "defaultMessage": "Télétravail",
@@ -486,10 +478,6 @@
   "CtgfAw": {
     "defaultMessage": "Bourse postdoctorale",
     "description": "Postdoctoral Fellowship selection for education type input"
-  },
-  "DPYoOj": {
-    "defaultMessage": "Il y a une limite au nombre d’éléments que vous pouvez ajouter sur cette liste. Lorsque cette limite est atteinte, vous devrez supprimer un élément si vous voulez en ajouter un autre.",
-    "description": "Additional details displayed when one away from repeater limit."
   },
   "DUuisY": {
     "defaultMessage": "Oui, évaluation en français terminée",
@@ -810,10 +798,6 @@
   "NhJY9U": {
     "defaultMessage": "Supérieur au niveau requis",
     "description": "Option for skill assessment decision level."
-  },
-  "Nhi8rT": {
-    "defaultMessage": "Vous avez presque atteint la limite!",
-    "description": "Message displayed when one away from repeater limit."
   },
   "NtxfWk": {
     "defaultMessage": "Garde 24/7",
@@ -1191,10 +1175,6 @@
     "defaultMessage": "Ajouter le lien",
     "description": "Button text for adding a link in the rich text editor"
   },
-  "ZSA4lO": {
-    "defaultMessage": "Vous pouvez ajouter des éléments à l’aide du bouton \"Ajouter un nouvel élément\".",
-    "description": "Secondary message displayed when no items have been added to repeater."
-  },
   "ZWR/F3": {
     "defaultMessage": "Français seulement",
     "description": "The language requirement is French only."
@@ -1259,10 +1239,6 @@
     "defaultMessage": "Oui",
     "description": "Affirmative answer"
   },
-  "b02Azd": {
-    "defaultMessage": "IT-04 (gestionnaire)",
-    "description": "The name of the Senior advisor classification with group and level."
-  },
   "bAaDat": {
     "defaultMessage": "Je <strong>ne suis pas</strong> des Forces armées canadiennes.",
     "description": "declare self to not be in the CAF"
@@ -1274,10 +1250,6 @@
   "c/o/E4": {
     "defaultMessage": "Région de la capitale nationale (Ottawa/Gatineau)",
     "description": "The work region of Canada described as National Capital."
-  },
-  "cAXj6F": {
-    "defaultMessage": "Vous avez des changements non sauvegardés. N’oubliez pas de les sauvegarder!",
-    "description": "Message displayed when items have been moved and not saved"
   },
   "cCWdDX": {
     "defaultMessage": "Lire davantage <hidden> {context}</hidden>",
@@ -1635,10 +1607,6 @@
     "defaultMessage": "Qualifié disponible",
     "description": "The pool candidate's status is Qualified Available"
   },
-  "o5J75O": {
-    "defaultMessage": "IT-04 (conseiller principal)",
-    "description": "The name of the Senior advisor classification with group and level."
-  },
   "o7GBkR": {
     "defaultMessage": "Archivé",
     "description": "Archived pool advertisement status"
@@ -1738,10 +1706,6 @@
   "rGTGvl": {
     "defaultMessage": "Soumis",
     "description": "Default text for submitted button."
-  },
-  "rWovPZ": {
-    "defaultMessage": "Vous n’avez pas encore ajouté d’éléments.",
-    "description": "Message displayed when no items have been added to repeater."
   },
   "rYodJu": {
     "defaultMessage": "Durée indéterminée (permanente)",
@@ -1931,10 +1895,6 @@
     "defaultMessage": "National",
     "description": "The scope of the award was national."
   },
-  "wFZLxf": {
-    "defaultMessage": "IT-03 (chef d'équipe)",
-    "description": "The name of the Team leader Analyst classification with group and level."
-  },
   "wT3L9C": {
     "defaultMessage": "Français seulement",
     "description": "The language ability is French only."
@@ -2026,10 +1986,6 @@
   "zKjtAa": {
     "defaultMessage": "Territoires du Nord-Ouest",
     "description": "Northwest Territories selection for province or territory input"
-  },
-  "zVm0jL": {
-    "defaultMessage": "IT-01 (technicien)",
-    "description": "The name of the Technician classification with group and level."
   },
   "zXHYAs": {
     "defaultMessage": "Mon projet",

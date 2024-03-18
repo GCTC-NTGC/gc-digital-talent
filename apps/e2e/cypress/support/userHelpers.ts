@@ -22,7 +22,6 @@ export function createApplicant({
   email,
   sub,
   skill,
-  genericJobTitle,
   userAlias,
 }: CreateApplicationArgs) {
   cy.createUser({
@@ -64,21 +63,17 @@ export function createApplicant({
   }).as(userAlias);
 }
 
-export function addRolesToUser(
-  userId: string,
-  roles: string[] = [],
-  team?: string,
-) {
+export function addRolesToUser(userId: string, roles: string[], team?: string) {
   cy.getRoles().then(($roles) => {
     const roleIds = $roles
       .filter((role) => roles.includes(role.name))
       .map((role) => role.id);
     cy.updateUserRoles({
-      userId: userId,
+      userId,
       roleAssignmentsInput: {
         attach: {
           roles: roleIds,
-          team: team,
+          team,
         },
       },
     });

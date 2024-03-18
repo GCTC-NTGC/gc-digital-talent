@@ -15,7 +15,7 @@
 
 - Comment out block of variables 'Mock auth endpoint'
 - Uncomment block of variables 'SiC endpoint (will break e2e tests)'
-- Run `npm run dev` to update config values
+- Run `pnpm run dev` to update config values
 
 ### Account creation
 

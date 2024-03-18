@@ -1,5 +1,3 @@
-import { Page } from "@playwright/test";
-
 import { test, expect } from "~/fixtures";
 import auth from "~/constants/auth";
 import { getAuthCookies, getAuthTokens, AuthCookies } from "~/utils/auth";
@@ -40,7 +38,7 @@ test.describe("Anonymous user", () => {
   test("Redirects app login page to auth login page", async ({ page }) => {
     await page.goto("/login");
     await page.waitForURL(`**${auth.SERVER_ROOT}/authorize*`);
-    await expect(page.url()).toContain(auth.SERVER_ROOT + "/authorize");
+    await expect(page.url()).toContain(`${auth.SERVER_ROOT}/authorize`);
   });
 
   test("Does not have tokens", async ({ appPage }) => {
@@ -60,7 +58,7 @@ test.describe("Anonymous user", () => {
     expect(xsrf).toBeUndefined();
   });
 
-  test("Sets cookies on login redirect", async ({ request, page }) => {
+  test("Sets cookies on login redirect", async ({ page }) => {
     let cookies = await getAuthCookies(page);
 
     expect(cookies.apiSession).toBeUndefined();
@@ -90,18 +88,18 @@ test.describe("Authenticated", () => {
     await applicantPage.gotoHome();
     const cookies = await getAuthCookies(applicantPage.page);
 
+    expect(cookies).toBeDefined();
     expectAuthCookies(cookies);
   });
 
   test("Can logout", async ({ applicantPage }) => {
     await applicantPage.gotoHome();
     await applicantPage.page.getByRole("button", { name: /sign out/i }).click();
-    const logoutDialog = await applicantPage.page.getByRole("alertdialog", {
+    const logoutDialog = applicantPage.page.getByRole("alertdialog", {
       name: /sign out/i,
     });
 
     await logoutDialog.getByRole("button", { name: /sign out/i }).click();
-    await applicantPage.page.waitForLoadState("networkidle");
 
     await expect(
       applicantPage.page.getByRole("link", { name: /sign in/i }),
@@ -126,7 +124,7 @@ test.describe("Authenticated", () => {
             page.getByRole("heading", {
               name: "Sorry, you are not authorized to view this page.",
             }),
-          ).not.toBeVisible();
+          ).toBeHidden();
         }),
       );
     });

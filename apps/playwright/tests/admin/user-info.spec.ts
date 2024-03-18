@@ -1,3 +1,5 @@
+import { Page } from "@playwright/test";
+
 import { Skill, SkillCategory, User } from "@gc-digital-talent/graphql";
 import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 
@@ -6,10 +8,10 @@ import { loginBySub } from "~/utils/auth";
 import { getSkills } from "~/utils/skills";
 import { getDCM } from "~/utils/teams";
 import { getClassifications } from "~/utils/classification";
-import { PoolPage } from "~/fixtures/PoolPage";
-import { ApplicationPage } from "~/fixtures/ApplicationPage";
-import { Page } from "@playwright/test";
-import { AppPage } from "../../fixtures/AppPage";
+import PoolPage from "~/fixtures/PoolPage";
+import ApplicationPage from "~/fixtures/ApplicationPage";
+
+import AppPage from "../../fixtures/AppPage";
 
 test.describe("User information", () => {
   let uniqueTestId: string;
@@ -19,15 +21,15 @@ test.describe("User information", () => {
 
   const loginAndVisitUser = async (
     appPage: AppPage,
-    sub: string,
-    user: User,
+    visitingUserSub: string,
+    userToVisit: User,
   ) => {
-    await loginBySub(appPage.page, sub);
-    await appPage.page.goto(`/en/admin/users/${user.id}`);
+    await loginBySub(appPage.page, visitingUserSub);
+    await appPage.page.goto(`/en/admin/users/${userToVisit.id}`);
     await appPage.waitForGraphqlResponse("UserName");
   };
 
-  const expectSuccess = async (page: Page) => {
+  const assertSuccess = async (page: Page) => {
     await expect(
       page.getByRole("heading", {
         name: /view user/i,
@@ -38,7 +40,7 @@ test.describe("User information", () => {
     ).toBeVisible();
   };
 
-  const expectError = async (page: Page) => {
+  const assertError = async (page: Page) => {
     await expect(
       page.getByText(/\[GraphQL\] This action is unauthorized/i).first(),
     ).toBeVisible();
@@ -100,7 +102,7 @@ test.describe("User information", () => {
   test("Pool operator access", async ({ adminPage, appPage, browser }) => {
     // User is not in a pool for this manager so should error
     await loginAndVisitUser(appPage, "pool@test.com", user);
-    await expectError(appPage.page);
+    await assertError(appPage.page);
 
     const adminUser: User = await adminPage.getMe();
 
@@ -132,16 +134,16 @@ test.describe("User information", () => {
 
     // Pool operator can view now that user has application in their pool
     await loginAndVisitUser(appPage, "pool@test.com", user);
-    await expectSuccess(appPage.page);
+    await assertSuccess(appPage.page);
   });
 
   test("Request responder can access", async ({ appPage }) => {
     await loginAndVisitUser(appPage, "request@test.com", user);
-    await expectSuccess(appPage.page);
+    await assertSuccess(appPage.page);
   });
 
   test("Platform admin can access", async ({ adminPage }) => {
     await loginAndVisitUser(adminPage, "admin@test.com", user);
-    await expectSuccess(adminPage.page);
+    await assertSuccess(adminPage.page);
   });
 });

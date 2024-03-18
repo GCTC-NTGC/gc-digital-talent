@@ -359,10 +359,6 @@
     "defaultMessage": "Collectivité des cadres",
     "description": "Heading for executive jobs in government"
   },
-  "/zx1kX": {
-    "defaultMessage": "Exigence d’études",
-    "description": "Education requirement section header."
-  },
   "00tmhW": {
     "defaultMessage": "Niveau de compétence",
     "description": "Skill level column header for the skill library table"
@@ -867,6 +863,10 @@
     "defaultMessage": "Numéro de processus",
     "description": "Label for a process number"
   },
+  "2quQuW": {
+    "defaultMessage": "À propos de nous (français)",
+    "description": "Label for a process' French about us"
+  },
   "2wzOfY": {
     "defaultMessage": "Exécuter un processus de recrutement",
     "description": "Heading for the contact section to run a recruitment process"
@@ -1222,10 +1222,6 @@
   "4v9y7U": {
     "defaultMessage": "Statut de citoyenneté",
     "description": "Citizenship status label"
-  },
-  "4xXPIe": {
-    "defaultMessage": "Exigences pédagogiques",
-    "description": "Education requirement row header."
   },
   "5+jnam": {
     "defaultMessage": "Information détaillée sur l'emploi",
@@ -3779,6 +3775,10 @@
     "defaultMessage": "Familles",
     "description": "Label displayed on the skill form families field."
   },
+  "Jz0oC2": {
+    "defaultMessage": "À propos de nous (anglais)",
+    "description": "Label for a process' English about us"
+  },
   "Jz7jAF": {
     "defaultMessage": "Les hyperliens menant à des sites Web qui ne sont pas gérés par le gouvernement du Canada, y compris ceux qui mènent à nos comptes de médias sociaux, sont offerts uniquement par commodité aux visiteurs de notre site Web. Nous n’assumons aucune responsabilité quant à la précision, l’actualité ou la fiabilité du contenu de ces sites. Le gouvernement du Canada n’offre aucune garantie à cet égard, n’assume aucune responsabilité concernant l’information obtenue au moyen de ces liens et n’approuve ni ces sites, ni leur contenu.",
     "description": "Paragraph describing linking to gov section"
@@ -4075,6 +4075,10 @@
     "defaultMessage": "Citoyenneté :",
     "description": "label for citizenship status"
   },
+  "LTpCFL": {
+    "defaultMessage": "À propos de nous",
+    "description": "Title for about us section on a pool advertisement."
+  },
   "LWtWs1": {
     "defaultMessage": "Scolarité",
     "description": "Experience requirement, formal education."
@@ -4143,6 +4147,10 @@
     "defaultMessage": "La mise à jour du rôle du membre a échoué",
     "description": "Alert displayed to user when an error occurs while editing a team member's roles"
   },
+  "LyUTqa": {
+    "defaultMessage": "Exigence d’études",
+    "description": "Education requirement title"
+  },
   "LzJpQo": {
     "defaultMessage": "Une fois l’apprentissage terminé avec succès, les diplômés reçoivent un certificat numérique ainsi qu’un certificat vérifiable portable. Il est approuvé par le, la dirigeant·e principal·e de l’information du Canada et officiellement reconnu comme répondant à <link>l‘alternative aux exigences d’études de la norme de qualification minimale du GC pour le groupe professionnel IT</link>.",
     "description": "Paragraph 1 of the 'Digital certificate credential' subsection"
@@ -4170,6 +4178,10 @@
   "MCFcrj": {
     "defaultMessage": "Un groupe diversifié de personnes, représentant toutes les races, tous les genres et toutes les origines, réunies dans l'unité. Tout le monde est le bienvenu ici!",
     "description": "Hero image alt text."
+  },
+  "ME4sNt": {
+    "defaultMessage": "Sauvegarder « À propos de nous »",
+    "description": "Text on a button to save the pool about us"
   },
   "MHZ1CD": {
     "defaultMessage": "Titre (Anglais)",
@@ -4775,6 +4787,10 @@
     "defaultMessage": "Description (français)",
     "description": "Label displayed on the create a skill family form description (French) field."
   },
+  "Q2uL2b": {
+    "defaultMessage": "Cette question aide les candidats à comprendre ce que signifie le fait dans un bassin \"pool\" de recrutement, et ce à quoi ils pourraient s’attendre en tant que candidats qui se qualifient.",
+    "description": "Describes the 'what to expect after admission' section of a process' advertisement."
+  },
   "Q3adCp": {
     "defaultMessage": "Modifier le plan d’évaluation",
     "description": "Link text to edit a specific pool assessment"
@@ -4974,6 +4990,10 @@
   "QzU2SL": {
     "defaultMessage": "Veuillez remplir toute l’information relative à l'annonce avant de la publier.",
     "description": "Error message displayed when user attempts to publish an incomplete advertisement"
+  },
+  "R+6vfG": {
+    "defaultMessage": "Cette annonce n’exige pas d’une section « À propos de nous ».",
+    "description": "Message displayed when there is no about us for a process advertisement."
   },
   "R/z71a": {
     "defaultMessage": "Information sur la demande",
@@ -5638,6 +5658,10 @@
     "defaultMessage": "Voici une liste des utilisateurs actifs ainsi que certains de leurs renseignements.",
     "description": "Descriptive text about the list of users in the admin portal."
   },
+  "Uwtkv6": {
+    "defaultMessage": "Ce à quoi s’attendre après l’admission",
+    "description": "Title for the what to expect post admission section"
+  },
   "UxF291": {
     "defaultMessage": "Nom de famille",
     "description": "Label displayed for the last name field in create account form."
@@ -6069,6 +6093,10 @@
   "Wwb8Lb": {
     "defaultMessage": "Sélecteur de mode de couleur du thème",
     "description": "Label for the group of buttons to change the current colour mode"
+  },
+  "Wy6aeg": {
+    "defaultMessage": "À propos de nous",
+    "description": "Sub title for the pool about us section"
   },
   "WyKJsK": {
     "defaultMessage": "Erreur : échec de la mise à jour de l'expérience",
@@ -7146,6 +7174,10 @@
     "defaultMessage": "Ouvrir le menu",
     "description": "Text label for header button that opens side menu."
   },
+  "cweZUH": {
+    "defaultMessage": "Cette section <strong>facultative</strong> vous permet de fournir un context additionnel pour le ministère, la direction ou l’équipe qui embauchera grâce à ce processus.",
+    "description": "Describes the 'about us' section of a process' advertisement."
+  },
   "cx7pV4": {
     "defaultMessage": "Bon nombre de plateformes de médias sociaux offrent plusieurs choix de langues et donnent des instructions pour définir des préférences. Le gouvernement du Canada respecte la <langActLink>Loi sur les langues officielles</langActLink> et est déterminé à prendre les moyens nécessaires pour que son information soit disponible en français et en anglais et pour que la qualité soit égale dans les deux versions.",
     "description": "Paragraph for comments and interaction section"
@@ -8101,6 +8133,10 @@
   "hvG6bH": {
     "defaultMessage": "Exécuter des processus de recrutement pangouvernementaux pour les talents numériques",
     "description": "An OCIO role in the _supporting the community_ section of the _digital services contracting questionnaire_"
+  },
+  "hwVlzN": {
+    "defaultMessage": "\"À quoi devrais-je m’attendre si je réussis ce processus?\"",
+    "description": "Button text to toggle the accordion for what to expect after admission"
   },
   "hxaIWa": {
     "defaultMessage": "Ministères et organismes",

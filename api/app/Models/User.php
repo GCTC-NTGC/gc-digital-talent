@@ -6,6 +6,7 @@ use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\LanguageAbility;
 use App\Enums\PoolCandidateStatus;
+use App\Traits\EnrichedNotifiable;
 use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -16,7 +17,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laratrust\Contracts\LaratrustUser;
@@ -76,11 +76,11 @@ class User extends Model implements Authenticatable, LaratrustUser
     use AuthenticatableTrait;
     use Authorizable;
     use CausesActivity;
+    use EnrichedNotifiable;
     use HasFactory;
     use HasRelationships;
     use HasRolesAndPermissions;
     use LogsActivity;
-    use Notifiable;
     use Searchable;
     use SoftDeletes;
 
@@ -123,6 +123,8 @@ class User extends Model implements Authenticatable, LaratrustUser
         'preferred_language_for_interview',
         'preferred_language_for_exam',
         'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     protected $keyType = 'string';
@@ -715,15 +717,22 @@ class User extends Model implements Authenticatable, LaratrustUser
     {
         if ($searchTerms && is_array($searchTerms)) {
             $combinedSearchTerm = implode('&', array_map('trim', $searchTerms));
-            $resultIds = self::search($combinedSearchTerm)->usingWebSearchQuery()
-                ->get(['id'])
-                ->pluck('id')
-                ->unique()
-                ->take(32766)
-                ->toArray();
 
-            // Use Eloquent builder to filter results based on unique IDs
-            $query->whereIn('id', $resultIds);
+            $query
+                // attach the tsquery to every row to use for filtering
+                ->crossJoinSub(function ($query) use ($combinedSearchTerm) {
+                    $query->selectRaw(
+                        'websearch_to_tsquery(coalesce(?, get_current_ts_config()), ?)'.' AS tsquery',
+                        ['english', $combinedSearchTerm]
+                    );
+                }, 'calculations')
+                // filter rows against the tsquery
+                ->whereColumn('searchable', '@@', 'calculations.tsquery')
+                // add the calculated rank column to allow for ordering by text search rank
+                ->addSelect(DB::raw('ts_rank(searchable, calculations.tsquery) AS rank'))
+                // Now that we have added a column, query builder no longer will add a * to the select.  Add all possible columns manually.
+                ->addSelect(self::$selectableColumns);
+
         }
 
         return $query;
@@ -831,43 +840,6 @@ class User extends Model implements Authenticatable, LaratrustUser
         if (array_key_exists('sync', $roleAssignmentHasMany)) {
             $this->callRolesFunction($roleAssignmentHasMany['sync'], 'syncRoles');
         }
-    }
-
-    // reattach all the extra fields from the JSON data column
-    public static function enrichNotification(object $notification)
-    {
-        $dataFields = $notification->data;
-        foreach ($dataFields as $key => $value) {
-            $notification->$key = $value;
-        }
-    }
-
-    // rename accessor to avoid hiding parent's notification function
-    public function getEnrichedNotificationsAttribute()
-    {
-        $user = Auth::user();
-        $notifications = $this->notifications()
-            ->where('notifiable_id', $user->id)
-            ->get();
-        $notifications->each(function ($n) {
-            self::enrichNotification($n);
-        });
-
-        return $notifications;
-    }
-
-    // rename accessor to avoid hiding parent's notification function
-    public function getUnreadEnrichedNotificationsAttribute()
-    {
-        $user = Auth::user();
-        $notifications = $this->unreadNotifications()
-            ->where('notifiable_id', $user->id)
-            ->get();
-        $notifications->each(function ($n) {
-            self::enrichNotification($n);
-        });
-
-        return $notifications;
     }
 
     public function getTopTechnicalSkillsRankingAttribute()
