@@ -6607,7 +6607,7 @@
     "description": "Button text to open the skill dialog and add a skill"
   },
   "ZZpC8s": {
-    "defaultMessage": "Voir les définitions pour \"{skillName}\"",
+    "defaultMessage": "Voir les définitions pour « {skillName} »",
     "description": "Accordion title for skill header on screening decision dialog."
   },
   "ZaCyXP": {
