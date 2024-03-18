@@ -7,6 +7,7 @@ import HomeSolidIcon from "@heroicons/react/24/solid/HomeIcon";
 import { Heading, Pending, IconType } from "@gc-digital-talent/ui";
 import { useAuthorization, hasRole } from "@gc-digital-talent/auth";
 import { User, graphql } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import { getFullNameHtml } from "~/utils/nameUtils";
@@ -84,11 +85,7 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                   currentUser.lastName,
                   intl,
                 )
-              : intl.formatMessage({
-                  defaultMessage: "N/A",
-                  id: "AauSuA",
-                  description: "Not available message.",
-                }),
+              : intl.formatMessage(commonMessages.notAvailable),
           },
         )}
         subtitle={intl.formatMessage({

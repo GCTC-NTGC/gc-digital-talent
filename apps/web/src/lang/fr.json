@@ -2171,10 +2171,6 @@
     "defaultMessage": "L’heure de clôture sera automatiquement fixée à 23 h 59 dans le fuseau horaire du Pacifique.",
     "description": "Helper message for changing the pool closing date"
   },
-  "AauSuA": {
-    "defaultMessage": "S.O.",
-    "description": "Not available message."
-  },
   "AbU5rL": {
     "defaultMessage": "Travail posté",
     "description": "Shift work personnel other requirement"
@@ -8193,10 +8189,6 @@
   "i8DgUB": {
     "defaultMessage": "Opérations d’infrastructure de la TI",
     "description": "Label for the 'infrastructure operations' IT work stream"
-  },
-  "i9AjuX": {
-    "defaultMessage": "S.O.",
-    "description": "Text shown when the filter was not selected"
   },
   "i9E0ka": {
     "defaultMessage": "Aller à la page d'accueil",
