@@ -47,6 +47,9 @@ const Template: StoryFn<typeof Chip> = (args) => {
 };
 
 export const NoDismiss = Template.bind({});
+NoDismiss.args = {
+  onDismiss: undefined,
+};
 
 export const Dismissible = Template.bind({});
 Dismissible.args = {
