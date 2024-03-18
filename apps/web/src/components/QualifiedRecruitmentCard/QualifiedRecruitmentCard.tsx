@@ -138,14 +138,16 @@ const QualifiedRecruitmentCard = ({
               <span>
                 {isOpen
                   ? intl.formatMessage({
-                      defaultMessage: "Hide this process's skill assessments",
-                      id: "JeAzDb",
+                      defaultMessage:
+                        "Hide the skill assessments of this process",
+                      id: "vMcen8",
                       description:
                         "Button text to hide a miscellaneous qualified recruitment's skill assessments",
                     })
                   : intl.formatMessage({
-                      defaultMessage: "Show this process's skill assessments",
-                      id: "7Iv/YA",
+                      defaultMessage:
+                        "Show the skill assessments of this process",
+                      id: "nSwruS",
                       description:
                         "Button text to show a miscellaneous qualified recruitment's skill assessments",
                     })}
