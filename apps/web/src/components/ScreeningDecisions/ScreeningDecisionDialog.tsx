@@ -36,6 +36,7 @@ import {
   getLocale,
   getLocalizedName,
   getSkillLevelDefinition,
+  getSkillLevelName,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -66,10 +67,7 @@ const getSkillLevelMessage = (
   let skillLevel = "";
   if (poolSkill?.requiredLevel && poolSkill.skill) {
     skillLevel = intl.formatMessage(
-      getSkillLevelDefinition(
-        poolSkill.requiredLevel,
-        poolSkill.skill.category,
-      ),
+      getSkillLevelName(poolSkill.requiredLevel, poolSkill.skill.category),
     );
   } else skillLevel = intl.formatMessage(commonMessages.notFound);
 
