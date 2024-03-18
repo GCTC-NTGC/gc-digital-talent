@@ -16,10 +16,10 @@
     "lint": "eslint \"src/**/*.ts*\""
   },
   "devDependencies": {
-    "@gc-digital-talent/eslint-config": "*",
-    "@swc/core": "^1.4.5",
+    "@gc-digital-talent/eslint-config": "workspace:*",
+    "@swc/core": "^1.4.8",
     "eslint": "^8.57.0",
-    "tsconfig": "*",
+    "tsconfig": "workspace:*",
     "tsup": "^8.0.2",
     "typescript": "^5.4.2",
     "yargs": "^17.7.2"

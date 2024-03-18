@@ -19,3 +19,45 @@ export const UpdateUserTeamRoles_Mutation = graphql(/* GraphQL */ `
     }
   }
 `);
+
+export const TeamMembersPage_TeamFragment = graphql(/* GraphQL */ `
+  fragment TeamMembersPage_Team on Team {
+    id
+    name
+    contactEmail
+    displayName {
+      en
+      fr
+    }
+    departments {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+    description {
+      en
+      fr
+    }
+    roleAssignments {
+      id
+      role {
+        id
+        name
+        isTeamBased
+        displayName {
+          en
+          fr
+        }
+      }
+      user {
+        id
+        email
+        firstName
+        lastName
+      }
+    }
+  }
+`);

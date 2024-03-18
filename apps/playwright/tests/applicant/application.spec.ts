@@ -233,7 +233,7 @@ test.describe("Application", () => {
     await application.saveAndContinue();
     await expect(
       application.page.getByText(/this field is required/i),
-    ).toBeVisible();
+    ).toHaveCount(2);
     await application.answerQuestion(1);
     await application.saveAndContinue();
 
