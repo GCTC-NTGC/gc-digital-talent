@@ -151,7 +151,7 @@ const RecruitmentAvailabilityDialog = ({
                 {intl.formatMessage({
                   defaultMessage:
                     "If you've recently taken a job or simply no longer want to be considered for opportunities, you can disable your availability in this recruitment process. <strong>This will <emphasize>not</emphasize> remove you from the process</strong> itself and you can always re-enable your availability if you change your mind.",
-                  id: "3AwFyW",
+                  id: "rR252Q",
                   description:
                     "Text describing what it means to disable your availability and that you can reverse the decision",
                 })}

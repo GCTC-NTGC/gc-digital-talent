@@ -775,8 +775,8 @@
     "defaultMessage": "Les possibilités d'emploi sur cette plateforme sont assorties de diverses exigences concernant le lieu de travail. Une seule annonce d'emploi peut comprendre plusieurs emplois disponibles. Vous verrez donc souvent des combinaisons d'exigences concernant le lieu de travail. Dans un tel cas, vous obtiendrez de l'information précise sur le lieu de travail à mesure qu'une possibilité d'emploi se présente.",
     "description": "Paragraph describing how work locations are used on pool advertisements"
   },
-  "2TrYLI": {
-    "defaultMessage": "Erreur : la mise à jour du bassin a échoué",
+  "xnlBSd": {
+    "defaultMessage": "Erreur : la mise à jour du processus a échoué",
     "description": "Message displayed to user after pool fails to get updated."
   },
   "2UDONd": {
@@ -907,8 +907,8 @@
     "defaultMessage": "Embaucher un·e apprenti·e en TI",
     "description": "Page title for IAP manager homepage"
   },
-  "3AwFyW": {
-    "defaultMessage": "Si vous avez accepté un emploi récemment ou que vous ne souhaitez tout simplement plus que votre candidature soit prise en compte pour les possibilités, vous pouvez désactiver votre disponibilité dans le cadre de ce processus de recrutement. <strong>Ainsi, votre nom <emphasize>ne sera pas</emphasize> retiré du recrutement</strong> en soi, et vous pourrez toujours réactiver votre disponibilité si vous changez d’avis.",
+  "rR252Q": {
+    "defaultMessage": "Si vous avez accepté un emploi récemment ou que vous ne souhaitez tout simplement plus que votre candidature soit prise en compte pour les possibilités, vous pouvez désactiver votre disponibilité dans le cadre de ce processus de recrutement. <strong>Ainsi, votre nom <emphasize>ne sera pas</emphasize> retiré du processus</strong> en soi, et vous pourrez toujours réactiver votre disponibilité si vous changez d’avis.",
     "description": "Text describing what it means to disable your availability and that you can reverse the decision"
   },
   "3BLgOa": {
@@ -1367,8 +1367,8 @@
     "defaultMessage": "Candidature",
     "description": "Title displayed for the Pool Candidates table View Application link."
   },
-  "5it7iX": {
-    "defaultMessage": "Bassin désarchivé avec succès!",
+  "pR/Xr2": {
+    "defaultMessage": "Processus désarchivé avec succès!",
     "description": "Message displayed to user after pool is un-archived"
   },
   "5j409K": {
@@ -1912,7 +1912,7 @@
     "description": "Citizenship status label"
   },
   "LVQu1R": {
-    "defaultMessage": "Processus supprimé!",
+    "defaultMessage": "Processus supprimé avec succès!",
     "description": "Message displayed to user after pool is deleted"
   },
   "93zCaS": {
@@ -3351,8 +3351,8 @@
     "defaultMessage": "Services consultatifs auprès des secteurs d’activité de la <abbreviation>TI</abbreviation>",
     "description": "Title for the 'business line advisory services' IT work stream"
   },
-  "H9fzdi": {
-    "defaultMessage": "Erreur : Le désarchivage du bassin a échoué",
+  "DqM+mu": {
+    "defaultMessage": "Erreur : Le désarchivage du proccesus a échoué",
     "description": "Message displayed to user after pool fails to get un-archived."
   },
   "HBljcn": {
@@ -3683,8 +3683,8 @@
     "defaultMessage": "Instantané de profil non trouvé.",
     "description": "Message displayed for profile snapshot not found."
   },
-  "JJB5Yd": {
-    "defaultMessage": "Bassin fermé avec succès!",
+  "bSFeLf": {
+    "defaultMessage": "Processus fermé avec succès!",
     "description": "Message displayed to user after pool is closed"
   },
   "JRlnNk": {
@@ -5099,8 +5099,8 @@
     "defaultMessage": "La date de clôture doit être postérieure à aujourd’hui.",
     "description": "Error message for closing date on a process advertisement."
   },
-  "RXoZOS": {
-    "defaultMessage": "Erreur : la fermeture du bassin a échoué",
+  "idv7rY": {
+    "defaultMessage": "Erreur : la fermeture du processus a échoué",
     "description": "Message displayed to user after pool fails to get deleted."
   },
   "RZIivj": {
@@ -5467,8 +5467,8 @@
     "defaultMessage": "Solutions logicielles de la <abbreviation>TI</abbreviation>",
     "description": "Title for the 'software solutions' IT work stream"
   },
-  "TkTpzk": {
-    "defaultMessage": "Erreur : le bassin de publication a échoué",
+  "RauOed": {
+    "defaultMessage": "Erreur : le publication du processus a échoué",
     "description": "Message displayed to user after pool fails to get publish."
   },
   "TmCffZ": {
@@ -7274,8 +7274,8 @@
     "defaultMessage": "Femme autochtone portant un chandail rouge et travaillant sur un portable.",
     "description": "Indigenous Apprenticeship woman on laptop image text alternative"
   },
-  "dYBwCh": {
-    "defaultMessage": "Erreur : la fermeture du bassin a échoué",
+  "Et46bc": {
+    "defaultMessage": "Erreur : la fermeture du processus a échoué",
     "description": "Message displayed to user after pool fails to get closed."
   },
   "db3ZDX": {
@@ -9150,8 +9150,8 @@
     "defaultMessage": "Pour l'instant, notre site n'est accessible qu'au moyen d'une appli d'authentification.",
     "description": "GCKey answer for whether there is an alternative to an authenticator app"
   },
-  "nPUAz5": {
-    "defaultMessage": "Bassin mis à jour!",
+  "/ZlzNi": {
+    "defaultMessage": "Processus mis à jour!",
     "description": "Message displayed to user after pool is updated"
   },
   "nQbfnB": {
@@ -10386,9 +10386,9 @@
     "defaultMessage": "Se connecter à l’aide de CléGC",
     "description": "Page title for the sign in page for applicant profiles"
   },
-  "MwWYDJ": {
-    "defaultMessage": "Réussite : Vous avez réussi à dupliquer ce processus.",
-    "description": "Message displayed to user after pool is deleted"
+  "qXnXKH": {
+    "defaultMessage": "Processus dupliqué avec succès!",
+    "description": "Message displayed to user after pool is duplicated"
   },
   "vyyfX6": {
     "defaultMessage": "Créer une nouvelle équipe",
@@ -11022,8 +11022,8 @@
     "defaultMessage": "Sélectionner des compétences dans votre bibliothèque ou en ajouter de toutes nouvelles.",
     "description": "Subtitle for the find a skill dialog within the skill showcase"
   },
-  "zotZ6j": {
-    "defaultMessage": "Erreur : l'archivage du bassin a échoué",
+  "qhws/V": {
+    "defaultMessage": "Erreur : l'archivage du processus a échoué",
     "description": "Message displayed to user after pool fails to get archived."
   },
   "zp8FqH": {
