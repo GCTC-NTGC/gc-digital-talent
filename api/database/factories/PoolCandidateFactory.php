@@ -111,8 +111,9 @@ class PoolCandidateFactory extends Factory
                 ]);
             }
 
-            if ($poolCandidate->education_requirement_option ===
-            EducationRequirementOption::EDUCATION->name || EducationRequirementOption::PROFESSIONAL_DESIGNATION->name) {
+            // attach either a work or education experience to a pool candidate to meet minimum criteria
+            if ($poolCandidate->education_requirement_option === EducationRequirementOption::EDUCATION->name ||
+            $poolCandidate->education_requirement_option === EducationRequirementOption::PROFESSIONAL_DESIGNATION->name) {
                 //Ensure user has at least one education experience
                 $experience = EducationExperience::factory()->create([
                     'user_id' => $poolCandidate->user_id,
