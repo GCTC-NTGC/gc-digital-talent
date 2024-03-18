@@ -440,7 +440,7 @@
     "description": "The pool candidate's status is Screened In."
   },
   "C/mdCs": {
-    "defaultMessage": "Ne s’applique pas",
+    "defaultMessage": "Sans objet",
     "description": "Not applicable, context or state does apply."
   },
   "C/tnCE": {
