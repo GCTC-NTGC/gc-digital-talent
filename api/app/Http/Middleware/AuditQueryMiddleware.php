@@ -30,7 +30,7 @@ class AuditQueryMiddleware
         $user = $request->user();
         $referer = request()->headers->get('referer');
         if (! is_null($user) && $user->hasRole('platform_admin')) {
-            $message = 'Request from platform admin, '.$user['email'].', referer: '.$referer.',';
+            $message = 'Request from platform admin, '.$user['email'].', '.$referer.',';
             $this->logger->info(
                 $message.' '.json_encode($request->json()->all())
             );
