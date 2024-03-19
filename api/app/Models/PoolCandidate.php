@@ -81,6 +81,7 @@ class PoolCandidate extends Model
         'profile_snapshot',
         'expiry_date',
         'pool_candidate_status',
+        'submitted_steps',
     ];
 
     protected $touches = ['user'];
