@@ -32,7 +32,7 @@ class AuditQueryMiddleware
         if (! is_null($user) && $user->hasRole('platform_admin')) {
             $message = 'Request from platform admin, '.$user['email'].', '.$referer.',';
             $this->logger->info(
-                $message.' '.json_encode($request->json()->all())
+                $message.' '.$request->getContent()
             );
         }
 
