@@ -47,6 +47,7 @@ import {
   formValuesToSubmitData,
   queryResultToDefaultValues,
 } from "~/utils/experienceUtils";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import ExperienceSkills from "./components/ExperienceSkills";
 
@@ -208,15 +209,7 @@ export const ExperienceForm = ({
     }
   }, [isSubmitSuccessful, reset, action, setFocus, setValue]);
 
-  const crumbs: { label: string | React.ReactNode; url: string }[] = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: paths.home(),
-    },
+  const crumbs = useBreadcrumbs([
     {
       label: intl.formatMessage(navigationMessages.profileAndApplications),
       url: paths.profileAndApplications(),
@@ -243,7 +236,7 @@ export const ExperienceForm = ({
         ? paths.editExperience(userId, experienceType, experience.id)
         : "#",
     },
-  ];
+  ]);
 
   const pageTitle: string = experience
     ? intl.formatMessage({

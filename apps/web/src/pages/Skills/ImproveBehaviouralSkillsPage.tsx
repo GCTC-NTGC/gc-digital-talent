@@ -10,6 +10,7 @@ import { navigationMessages } from "@gc-digital-talent/i18n";
 import { Skill, SkillCategory, UserSkill } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import UpdateSkillShowcase, {
   FormValues,
@@ -50,15 +51,7 @@ const ImproveBehaviouralSkills = ({
     id: "6+TjHb",
   });
 
-  const crumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: paths.home(),
-    },
+  const crumbs = useBreadcrumbs([
     {
       label: intl.formatMessage(navigationMessages.profileAndApplications),
       url: paths.profileAndApplications(),
@@ -71,7 +64,7 @@ const ImproveBehaviouralSkills = ({
       label: pageTitle,
       url: paths.improveBehaviouralSkills(),
     },
-  ];
+  ]);
 
   const pageDescription = intl.formatMessage({
     defaultMessage:

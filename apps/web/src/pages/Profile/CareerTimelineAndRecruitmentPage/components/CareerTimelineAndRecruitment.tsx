@@ -18,6 +18,7 @@ import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
 import { Application } from "~/utils/applicationUtils";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import { PAGE_SECTION_ID, titles } from "../constants";
 import CareerTimelineSection from "./CareerTimelineSection";
@@ -52,15 +53,7 @@ const CareerTimelineAndRecruitment = ({
   const intl = useIntl();
   const paths = useRoutes();
 
-  const crumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: paths.home(),
-    },
+  const crumbs = useBreadcrumbs([
     {
       label: intl.formatMessage(navigationMessages.profileAndApplications),
       url: paths.profileAndApplications(),
@@ -69,7 +62,7 @@ const CareerTimelineAndRecruitment = ({
       label: intl.formatMessage(titles.careerTimelineAndRecruitment),
       url: paths.careerTimelineAndRecruitment(userId),
     },
-  ];
+  ]);
 
   const pageTitle = intl.formatMessage(titles.careerTimelineAndRecruitment);
 

@@ -41,6 +41,7 @@ import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSkillFormDialog from "~/components/ExperienceSkillFormDialog/ExperienceSkillFormDialog";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import {
   CreateUserSkill_Mutation,
@@ -221,15 +222,7 @@ export const UpdateUserSkillForm = ({
       );
   };
 
-  const crumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: paths.home(),
-    },
+  const crumbs = useBreadcrumbs([
     {
       label: intl.formatMessage(navigationMessages.profileAndApplications),
       url: paths.profileAndApplications(),
@@ -251,7 +244,7 @@ export const UpdateUserSkillForm = ({
       label: skillName,
       url: paths.editUserSkill(skill.id),
     },
-  ];
+  ]);
 
   const sections: PageSections = {
     skillLevel: {
