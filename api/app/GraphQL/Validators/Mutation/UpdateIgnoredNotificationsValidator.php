@@ -28,7 +28,7 @@ final class UpdateIgnoredNotificationsValidator extends Validator
     public function messages(): array
     {
         return [
-            'in' => ':attribute InvalidValueDeletion',
+            'in' => 'NotIgnorableNotificationFamily',
         ];
     }
 }
