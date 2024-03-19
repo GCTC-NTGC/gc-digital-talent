@@ -25,14 +25,14 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
-    "@gc-digital-talent/eslint-config": "*",
-    "@gc-digital-talent/storybook-helpers": "*",
+    "@gc-digital-talent/eslint-config": "workspace:*",
+    "@gc-digital-talent/storybook-helpers": "workspace:*",
     "@storybook/react": "^7.6.17",
     "@swc/core": "^1.4.8",
     "@types/react": "^18.2.65",
     "eslint": "^8.57.0",
     "react": "^18.2.0",
-    "tsconfig": "*",
+    "tsconfig": "workspace:*",
     "tsup": "^8.0.2",
     "typescript": "^5.4.2"
   }

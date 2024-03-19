@@ -40,14 +40,14 @@ In order to compile and render UI for development, you have two options:
 ### Logging into the UI
 
 - Navigate to the app you'd like to work on (e.g. `cd apps/web`)
-- Run `npm run watch`
+- Run `pnpm run watch`
 - Allow the first compile to happen
 - Make some changes, watch it recompile, and refresh your page
 
 ### Running Storybook
 
 - Navigate to the app you'd like to work on (e.g. `cd apps/web`)
-- Run `npm run storybook`
+- Run `pnpm run storybook`
 - Allow the first compile to happen
 - Make some changes, watch it recompile, and your Storybook page should automatically refresh
 

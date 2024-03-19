@@ -8,16 +8,20 @@
     "dist/**"
   ],
   "scripts": {
-    "build": "tsc --declaration",
+    "build": "tsup src/index.ts --silent --dts --external react --minify",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "dev": "tsc --declaration",
+    "dev": "tsup src/index.ts --silent --dts --extern react",
+    "watch": "tsup src/index.ts  --watch --dts --external react --minify",
     "lint": "eslint \"src/**/*.ts*\""
   },
   "devDependencies": {
-    "@gc-digital-talent/eslint-config": "*",
+    "@gc-digital-talent/eslint-config": "workspace:*",
+    "@swc/core": "^1.4.5",
+    "@types/react": "^18.2.45",
     "eslint": "^8.57.0",
     "react": "^18.2.0",
-    "tsconfig": "*",
+    "tsconfig": "workspace:*",
+    "tsup": "^8.0.2",
     "typescript": "^5.4.2"
   }
 }

@@ -37,6 +37,7 @@ import {
   sanitizeCSVString,
 } from "~/utils/csvUtils";
 import adminMessages from "~/messages/adminMessages";
+import processMessages from "~/messages/processMessages";
 
 export const getPoolCandidateCsvData = (
   candidates: PoolCandidate[],
@@ -493,11 +494,7 @@ export const getPoolCandidateCsvHeaders = (
     },
     {
       id: "educationRequirementOption",
-      displayName: intl.formatMessage({
-        defaultMessage: "Education Requirement",
-        id: "eVuqmU",
-        description: "CSV Header, Education Requirement column",
-      }),
+      displayName: intl.formatMessage(processMessages.educationRequirement),
     },
     {
       id: "educationRequirementExperiences",

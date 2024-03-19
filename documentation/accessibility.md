@@ -10,7 +10,7 @@ There are plans to introduce multiple levels of automated a11y testing however, 
 
 `eslint-plugin-jsx-ally` works with eslint to catch common problems related the markup of our application. If your IDE supports it, [setting up eslint](http://wiki.openbravo.com/wiki/How_To_Setup_ESLint_And_Prettier_In_Your_IDE) can be very beneficial to highlight these errors without the need to the the `lint` script.
 
-If you are unable to setup eslint in your IDE, we recommend running `npm run lint --workspaces` before pushing your code to catch any markup related a11y warnings/errors early.
+If you are unable to setup eslint in your IDE, we recommend running `pnpm run lint` before pushing your code to catch any markup related a11y warnings/errors early.
 
 #### Ignoring Rules
 
