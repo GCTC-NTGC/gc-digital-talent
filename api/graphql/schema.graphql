@@ -58,9 +58,6 @@ type User {
   lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
   lookingForFrench: Boolean @rename(attribute: "looking_for_french")
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
-  bilingualEvaluation: BilingualEvaluation
-    @rename(attribute: "bilingual_evaluation")
-    @deprecated(reason: "This has been replaced. See issue #8031 for details.")
   firstOfficialLanguage: Language @rename(attribute: "first_official_language")
   secondLanguageExamCompleted: Boolean
     @rename(attribute: "second_language_exam_completed")
@@ -869,9 +866,6 @@ input CreateUserInput {
   lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
   lookingForFrench: Boolean @rename(attribute: "looking_for_french")
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
-  bilingualEvaluation: BilingualEvaluation
-    @rename(attribute: "bilingual_evaluation")
-    @deprecated(reason: "This has been replaced. See issue #8031 for details.")
   firstOfficialLanguage: Language @rename(attribute: "first_official_language")
   secondLanguageExamCompleted: Boolean
     @rename(attribute: "second_language_exam_completed")
@@ -944,9 +938,6 @@ input UpdateUserAsAdminInput
   lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
   lookingForFrench: Boolean @rename(attribute: "looking_for_french")
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
-  bilingualEvaluation: BilingualEvaluation
-    @rename(attribute: "bilingual_evaluation")
-    @deprecated(reason: "This has been replaced. See issue #8031 for details.")
   firstOfficialLanguage: Language @rename(attribute: "first_official_language")
   secondLanguageExamCompleted: Boolean
     @rename(attribute: "second_language_exam_completed")
@@ -1026,9 +1017,6 @@ input UpdateUserAsUserInput
   lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
   lookingForFrench: Boolean @rename(attribute: "looking_for_french")
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
-  bilingualEvaluation: BilingualEvaluation
-    @rename(attribute: "bilingual_evaluation")
-    @deprecated(reason: "This has been replaced. See issue #8031 for details.")
   firstOfficialLanguage: Language @rename(attribute: "first_official_language")
   secondLanguageExamCompleted: Boolean
     @rename(attribute: "second_language_exam_completed")
