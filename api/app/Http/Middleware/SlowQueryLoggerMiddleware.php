@@ -36,7 +36,7 @@ class SlowQueryLoggerMiddleware
             $requestData = $request->json()->all();
             $referer = request()->headers->get('referer');
             $operationName = $requestData['operationName'] ?? 'Unnamed Operation';
-            $query = $requestData['query'] ?? 'No query found'; 
+            $query = $requestData['query'] ?? 'No query found';
             $logMessage = 'Slow Query, '.$elapsedSeconds.', '.$operationName.', '.$referer.', '.json_encode($query);
             $this->logger->info($logMessage);
         }
