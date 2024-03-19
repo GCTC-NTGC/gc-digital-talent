@@ -4,7 +4,6 @@ global-components:
   AlertDialog.Content: div[role="alertdialog"]
   Dialog.Content: div[role="dialog"]
   Link: a
-  CardLink: a
   ExternalLink: a
   IconLink: a
   MenuLink: a

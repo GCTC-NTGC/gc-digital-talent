@@ -49,9 +49,8 @@ class PoolCandidateFactory extends Factory
             'submitted_steps' => array_slice(
                 array_column(ApplicationStep::cases(), 'name'),
                 0,
-                $this->faker->numberBetween(0, count(ApplicationStep::cases()) - 1)
+                $this->faker->numberBetween(0, count(ApplicationStep::cases()) - 2)
             ),
-            'education_requirement_option' => $this->faker->randomElement(EducationRequirementOption::cases())->name,
             'is_bookmarked' => $this->faker->boolean(10),
         ];
     }
@@ -71,6 +70,7 @@ class PoolCandidateFactory extends Factory
                 $poolCandidate->update([
                     'submitted_at' => $submittedDate,
                     'signature' => $fakeSignature,
+                    'submitted_steps' => array_column(ApplicationStep::cases(), 'name'),
                 ]);
             }
 
@@ -98,7 +98,24 @@ class PoolCandidateFactory extends Factory
                 }
             }
 
-            if ($poolCandidate->education_requirement_option === EducationRequirementOption::EDUCATION->name) {
+            // set education requirement option, influenced by classification of pool
+            $classificationOne = $poolCandidate->pool->classifications()->first();
+            if ($classificationOne) {
+                if ($classificationOne->group === 'EX') {
+                    $poolCandidate->update([
+                        'education_requirement_option' => EducationRequirementOption::PROFESSIONAL_DESIGNATION->name,
+                    ]);
+                } else {
+                    $requirementOption = $this->faker->boolean() ? EducationRequirementOption::APPLIED_WORK->name : EducationRequirementOption::EDUCATION->name;
+                    $poolCandidate->update([
+                        'education_requirement_option' => $requirementOption,
+                    ]);
+                }
+            }
+
+            // attach either a work or education experience to a pool candidate to meet minimum criteria
+            if ($poolCandidate->education_requirement_option === EducationRequirementOption::EDUCATION->name ||
+            $poolCandidate->education_requirement_option === EducationRequirementOption::PROFESSIONAL_DESIGNATION->name) {
                 //Ensure user has at least one education experience
                 $experience = EducationExperience::factory()->create([
                     'user_id' => $poolCandidate->user_id,

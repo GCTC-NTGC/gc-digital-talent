@@ -163,10 +163,6 @@
     "defaultMessage": "Vue {name} <hidden>{hiddenLabel}</hidden>",
     "description": "Title displayed for the View Item column."
   },
-  "/+cTZi": {
-    "defaultMessage": "Anglais – Titre de l’évaluation facultative",
-    "description": "Label for 'English assessment title' input on the assessment details dialog"
-  },
   "/+naWC": {
     "defaultMessage": "À évaluer",
     "description": "Message displayed when candidate has yet to be assessed at a specific assessment step"
@@ -1454,10 +1450,6 @@
   "69BfF3": {
     "defaultMessage": "Découvrez un talent en vous servant d’un jeu de filtres détaillés, y compris la classification, les langues et les compétences.",
     "description": "Subtitle for the search page"
-  },
-  "6EOrWk": {
-    "defaultMessage": "Accueil",
-    "description": "Title for homepage on the talent cloud admin portal."
   },
   "6G1ESr": {
     "defaultMessage": "Opérations d’infrastructure de la <abbreviation>TI</abbreviation>",
@@ -3379,10 +3371,6 @@
     "defaultMessage": "1 million de dollars à 2,5 millions de dollars",
     "description": "Contract value range between one-million and two-point-five-million"
   },
-  "HNe+Yh": {
-    "defaultMessage": "Bienvenue sur le site du <abbreviation>Talent numérique</abbreviation> du GC, veuillez vous connecter pour continuer",
-    "description": "Instructional text for the talent cloud pool manager portal home page."
-  },
   "HPDqDV": {
     "defaultMessage": "Je suis bilingue (anglais et français) et <strong>j'ai</strong> complété une <languageEvaluationPageLink></languageEvaluationPageLink> officielle en <strong>ANGLAIS</strong>.",
     "description": "Message for the completed english bilingual evaluation option"
@@ -4582,10 +4570,6 @@
   "OoZdlh": {
     "defaultMessage": "Réduire toutes les sections<hidden> de l’information sur la demande</hidden>",
     "description": "Button text to close all application information accordions"
-  },
-  "OoZjap": {
-    "defaultMessage": "Français – Titre de l’évaluation facultative",
-    "description": "Label for 'French assessment title' input on the assessment details dialog"
   },
   "OpKC2i": {
     "defaultMessage": "Exceptions relatives au lieu de travail",
@@ -7494,10 +7478,6 @@
     "defaultMessage": "Soumettre la demande",
     "description": "Submit button text on request form."
   },
-  "eVuqmU": {
-    "defaultMessage": "Exigences pédagogiques",
-    "description": "CSV Header, Education Requirement column"
-  },
   "eWLKRt": {
     "defaultMessage": "Masquer les évaluations des compétences de {title}",
     "description": "Button text to hide a specific qualified recruitment cards's skill assessments"
@@ -8230,6 +8210,10 @@
     "defaultMessage": "La présente section vous permet, <strong>de façon facultative,</strong> d’ajouter jusqu’à 3 questions d’ordre général qui seront posées aux candidats dans le cadre du processus de demande. Veuillez prendre note que celles-ci ne <strong>sont pas des questions de filtrage</strong>. Des questions de filtrage seront ajoutées une fois que vous aurez façonné votre plan d’évaluation.",
     "description": "Helper message indicating what general questions are and how they differ from screening questions"
   },
+  "iFbBSU": {
+    "defaultMessage": "Titre de l’évaluation (Anglais)",
+    "description": "Label for 'English assessment title' input on the assessment details dialog"
+  },
   "iGXXjP": {
     "defaultMessage": "Téléchargez la trousse du gestionnaire",
     "description": "Call to action to download the manager's package"
@@ -8777,6 +8761,10 @@
   "lPuC3S": {
     "defaultMessage": "Commentaires et échanges",
     "description": "Heading for comments and interaction section"
+  },
+  "lSHDBh": {
+    "defaultMessage": "Titre de l’évaluation (Français)",
+    "description": "Label for 'French assessment title' input on the assessment details dialog"
   },
   "lVb1hs": {
     "defaultMessage": "Au moins une question est requise dans le cadre de cette évaluation. Veuillez l’ajouter ici.",
@@ -10185,10 +10173,6 @@
   "u5z9bK": {
     "defaultMessage": "Vos 10 principales compétences techniques",
     "description": "Page title for the top technical skills page"
-  },
-  "u6GmEz": {
-    "defaultMessage": "Portail du gestionnaire de portail",
-    "description": "Title for the pool manager login link."
   },
   "u7IbDO": {
     "defaultMessage": "Comment le programme fonctionne",
