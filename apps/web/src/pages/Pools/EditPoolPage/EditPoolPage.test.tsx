@@ -63,12 +63,40 @@ describe("EditPoolPage", () => {
     );
 
     await user.click(
-      screen.getByRole("button", { name: /edit what to expect/i }),
+      screen.getByRole("button", {
+        name: /edit what to expect post-application/i,
+      }),
     );
     await user.click(
-      screen.getByRole("button", { name: /save what to expect/i }),
+      screen.getByRole("button", {
+        name: /save what to expect/i,
+      }),
     );
 
-    expect(handleSave).toHaveBeenCalledTimes(7);
+    await user.click(
+      screen.getByRole("button", {
+        name: /edit what to expect post-admission/i,
+      }),
+    );
+
+    await user.click(
+      screen.getByRole("button", {
+        name: /save what to expect/i,
+      }),
+    );
+
+    await user.click(
+      screen.getByRole("button", {
+        name: /edit about us/i,
+      }),
+    );
+
+    await user.click(
+      screen.getByRole("button", {
+        name: /save about us/i,
+      }),
+    );
+
+    expect(handleSave).toHaveBeenCalledTimes(9);
   });
 });

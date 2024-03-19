@@ -1,8 +1,6 @@
-const path = require('path');
-
 module.exports = {
   root: true,
-  extends: ["custom"],
+  extends: ["@gc-digital-talent/eslint-config/react"],
   settings: {
     "import/resolver": {
       typescript: {

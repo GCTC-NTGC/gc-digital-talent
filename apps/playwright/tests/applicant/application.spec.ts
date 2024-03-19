@@ -1,4 +1,5 @@
 import { Page } from "@playwright/test";
+
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
@@ -13,7 +14,6 @@ import {
   SecurityStatus,
   SkillCategory,
   SkillLevel,
-  User,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
@@ -23,24 +23,22 @@ import { getSkills } from "~/utils/skills";
 import { getDCM } from "~/utils/teams";
 import { getClassifications } from "~/utils/classification";
 import { loginBySub } from "~/utils/auth";
-import { PoolPage } from "~/fixtures/PoolPage";
-import { ApplicationPage } from "~/fixtures/ApplicationPage";
+import PoolPage from "~/fixtures/PoolPage";
+import ApplicationPage from "~/fixtures/ApplicationPage";
 
 test.describe("Application", () => {
   const uniqueTestId = Date.now().valueOf();
   const sub = `playwright.sub.${uniqueTestId}`;
   let pool: Pool;
-  let user: User;
 
   async function expectOnStep(page: Page, step: number) {
-    await page.waitForLoadState("networkidle");
     await expect(
       page.getByRole("heading", { name: new RegExp(`step ${step} of 7`, "i") }),
     ).toBeVisible();
 
     await expect(
       page.getByText(/uh oh, it looks like you jumped ahead!/i),
-    ).not.toBeVisible();
+    ).toBeHidden();
   }
 
   test.beforeAll(async ({ adminPage }) => {
@@ -114,7 +112,6 @@ test.describe("Application", () => {
 
     await poolPage.publishPool(createdPool.id);
 
-    user = createdUser;
     pool = createdPool;
   });
 
@@ -127,7 +124,7 @@ test.describe("Application", () => {
     // Welcome page - step one
     await expectOnStep(application.page, 1);
     await application.page.getByRole("button", { name: /let's go/i }).click();
-    //await application.waitForGraphqlResponse("Application");
+    // await application.waitForGraphqlResponse("Application");
 
     // Review profile page - step two
     await expectOnStep(application.page, 2);
@@ -138,7 +135,7 @@ test.describe("Application", () => {
     await expectOnStep(application.page, 3);
 
     // Attempt skipping to review
-    const currentUrl = await application.page.url();
+    const currentUrl = application.page.url();
     const hackedUrl = currentUrl.replace(
       "career-timeline/introduction",
       "review",
@@ -227,7 +224,7 @@ test.describe("Application", () => {
       application.page.getByText(
         /please connect at least one career timeline experience to each required technical skill and ensure each skill has details about how you used it/i,
       ),
-    ).not.toBeVisible();
+    ).toBeHidden();
     await application.saveAndContinue();
 
     // Screening questions page - step six
@@ -236,7 +233,7 @@ test.describe("Application", () => {
     await application.saveAndContinue();
     await expect(
       application.page.getByText(/this field is required/i),
-    ).toBeVisible();
+    ).toHaveCount(2);
     await application.answerQuestion(1);
     await application.saveAndContinue();
 
@@ -257,17 +254,17 @@ test.describe("Application", () => {
       application.page.getByText(
         /it looks like you haven't added any experiences/i,
       ),
-    ).not.toBeVisible();
+    ).toBeHidden();
     await expect(
       application.page.getByText(
         /it looks like you haven't selected an education requirement/i,
       ),
-    ).not.toBeVisible();
+    ).toBeHidden();
     await expect(
       application.page.getByText(
         /it looks like you haven't answered any screening questions/i,
       ),
-    ).not.toBeVisible();
+    ).toBeHidden();
 
     await application.submit();
     await application.waitForGraphqlResponse("Application");

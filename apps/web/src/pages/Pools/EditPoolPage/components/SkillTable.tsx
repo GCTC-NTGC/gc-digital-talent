@@ -4,15 +4,18 @@ import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getLocalizedName,
+  getSkillLevelName,
+} from "@gc-digital-talent/i18n";
 import { Button } from "@gc-digital-talent/ui";
-import { SkillCategory, SkillLevel, Skill } from "@gc-digital-talent/graphql";
+import { SkillLevel, Skill } from "@gc-digital-talent/graphql";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
 import { normalizedText } from "~/components/Table/sortingFns";
 import { NullMessageProps } from "~/components/Table/ResponsiveTable/NullMessage";
-import { getUserSkillLevelAndDefinition } from "~/utils/skillUtils";
 
 const columnHelper = createColumnHelper<
   Skill & {
@@ -143,11 +146,9 @@ const SkillTable = ({
     columnHelper.accessor(
       (skill) =>
         skill.requiredLevel
-          ? getUserSkillLevelAndDefinition(
-              skill.requiredLevel,
-              skill.category === SkillCategory.Technical,
-              intl,
-            ).level
+          ? intl.formatMessage(
+              getSkillLevelName(skill.requiredLevel, skill.category),
+            )
           : intl.formatMessage(commonMessages.notFound),
       {
         id: "level",

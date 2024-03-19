@@ -127,11 +127,6 @@ type User {
   priorityWeight: Int @rename(attribute: "priority_weight")
   # authorization and roles
   authInfo: UserAuthInfo @self
-
-  # Notifications
-  unreadNotifications: [Notification!]
-    @rename(attribute: "unread_enriched_notifications")
-  notifications: [Notification!] @rename(attribute: "enriched_notifications")
 }
 
 interface Notification {
@@ -191,6 +186,9 @@ type Pool {
   yourImpact: LocalizedString @rename(attribute: "your_impact")
   whatToExpect: LocalizedString @rename(attribute: "what_to_expect")
   specialNote: LocalizedString @rename(attribute: "special_note")
+  whatToExpectAdmission: LocalizedString
+    @rename(attribute: "what_to_expect_admission")
+  aboutUs: LocalizedString @rename(attribute: "about_us")
   isRemote: Boolean @rename(attribute: "is_remote")
   location: LocalizedString @rename(attribute: "advertisement_location")
   securityClearance: SecurityStatus @rename(attribute: "security_clearance")
@@ -288,7 +286,9 @@ type PoolCandidate {
   pool: Pool! @belongsTo @canResolved(ability: "view")
   user: User! @belongsTo(relation: "user") @canResolved(ability: "view")
   # cmoIdentifier can be an arbitrary string used to relate this candidate to an external database.
-  cmoIdentifier: ID @rename(attribute: "cmo_identifier")
+  cmoIdentifier: ID
+    @rename(attribute: "cmo_identifier")
+    @deprecated(reason: "Field no longer used")
   # Expiry date for this candidate being in the pool.
   expiryDate: Date @rename(attribute: "expiry_date")
 
@@ -822,6 +822,9 @@ type Query {
   teams: [Team]! @all @canModel(ability: "viewAny")
   roles: [Role]! @all @canModel(ability: "viewAny")
 
+  notifications(where: NotificationFilterInput): [Notification!]
+    @paginate(defaultCount: 10, scopes: ["authorizedToView"])
+
   sitewideAnnouncement: SitewideAnnouncement
 }
 
@@ -1105,7 +1108,6 @@ input ClassificationBelongsToMany {
 input CreatePoolCandidateAsAdminInput {
   pool: PoolBelongsTo!
   user: UserBelongsTo!
-  cmoIdentifier: ID @rename(attribute: "cmo_identifier")
   expiryDate: Date @rename(attribute: "expiry_date")
   status: PoolCandidateStatus = NEW_APPLICATION
     @rename(attribute: "pool_candidate_status")
@@ -1120,11 +1122,9 @@ input UpdateClassificationInput {
   maxSalary: Int @rename(attribute: "max_salary")
 }
 
-input UpdatePoolCandidateAsAdminInput {
-  cmoIdentifier: ID @rename(attribute: "cmo_identifier")
+input UpdatePoolCandidateStatusInput {
   expiryDate: Date @rename(attribute: "expiry_date")
   status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
-  isBookmarked: Boolean
 }
 
 input CreateDepartmentInput {
@@ -1423,6 +1423,11 @@ input UpdatePoolInput {
   whatToExpect: LocalizedStringInput @rename(attribute: "what_to_expect")
   # Special note
   specialNote: LocalizedStringInput @rename(attribute: "special_note")
+  # What to expect after admission
+  whatToExpectAdmission: LocalizedStringInput
+    @rename(attribute: "what_to_expect_admission")
+  # About us (team, department, etc.)
+  aboutUs: LocalizedStringInput @rename(attribute: "about_us")
   # Other requirements
   language: PoolLanguage @rename(attribute: "advertisement_language")
   securityClearance: SecurityStatus @rename(attribute: "security_clearance")
@@ -1594,6 +1599,17 @@ input UpdateApplicationInput {
     @rules(apply: ["App\\Rules\\HasEssentialSkills"])
 }
 
+input DateRange {
+  from: DateTime!
+  to: DateTime! @rules(apply: ["after:from"])
+}
+
+input NotificationFilterInput {
+  onlyUnread: Boolean @scope
+  readAt: DateRange @whereBetween(key: "read_at")
+  createdAt: DateRange @whereBetween(key: "created_at")
+}
+
 type Mutation {
   # User mutations
   createUser(user: CreateUserInput! @spread): User
@@ -1633,18 +1649,18 @@ type Mutation {
     @guard
     @canModel(ability: "create")
     @injectNow(name: "submitted_at")
-  updatePoolCandidateAsAdmin(
+  updatePoolCandidateStatus(
     id: UUID!
-    poolCandidate: UpdatePoolCandidateAsAdminInput! @spread
+    poolCandidate: UpdatePoolCandidateStatusInput! @spread
   ): PoolCandidate
     @update
     @guard
-    @canFind(ability: "updateAsAdmin", find: "id", injectArgs: true)
+    @canFind(ability: "updateStatus", find: "id", injectArgs: true)
   # Return a boolean to prevent automatically updating the client's cache
   togglePoolCandidateBookmark(id: ID!): Boolean
     @guard
     @canFind(
-      ability: "updateAsAdmin"
+      ability: "updateBookmark"
       find: "id"
       model: "PoolCandidate"
       injectArgs: true
@@ -1877,6 +1893,9 @@ type Mutation {
 
   # Notifications
   markNotificationAsRead(id: UUID!): Notification @guard # can only affect notifications belonging to the logged-in user
+  markNotificationAsUnread(id: UUID!): Notification @guard
+  deleteNotification(id: UUID!): Notification @guard
+  markAllNotificationsAsRead: [Notification] @guard
   # UserSkill mutations
   createUserSkill(
     userId: UUID! @rename(attribute: "user_id")

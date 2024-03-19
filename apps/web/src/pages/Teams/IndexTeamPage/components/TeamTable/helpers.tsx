@@ -4,7 +4,11 @@ import { IntlShape } from "react-intl";
 import { Link, Chip } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Maybe, RoleAssignment, Team } from "@gc-digital-talent/graphql";
+import {
+  Maybe,
+  RoleAssignment,
+  TeamTable_TeamFragment as TeamTableTeamFragmentType,
+} from "@gc-digital-talent/graphql";
 
 import { MyRoleTeam } from "./types";
 
@@ -102,7 +106,10 @@ export function roleAssignmentsToRoleTeamArray(
   return collection;
 }
 
-export function departmentAccessor(team: Team, intl: IntlShape) {
+export function departmentAccessor(
+  team: TeamTableTeamFragmentType,
+  intl: IntlShape,
+) {
   return team.departments
     ?.filter(notEmpty)
     .map((department) => getLocalizedName(department?.name, intl, true))

@@ -2,11 +2,13 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Accordion } from "@gc-digital-talent/ui";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getLocalizedName,
+  getSkillLevelMessages,
+} from "@gc-digital-talent/i18n";
 import { PoolSkill, SkillCategory } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
-
-import { getUserSkillLevelAndDefinition } from "~/utils/skillUtils";
 
 interface ContextProps {
   required?: boolean;
@@ -57,15 +59,11 @@ const SkillAccordion = ({ poolSkill, required }: SkillAccordionProps) => {
   const intl = useIntl();
 
   const definitionAndLevel = poolSkill.requiredLevel
-    ? getUserSkillLevelAndDefinition(
-        poolSkill.requiredLevel,
-        poolSkill.skill.category === SkillCategory.Technical,
-        intl,
-      )
+    ? getSkillLevelMessages(poolSkill.requiredLevel, poolSkill.skill.category)
     : null;
 
   const skillLevel = definitionAndLevel
-    ? definitionAndLevel.level
+    ? intl.formatMessage(definitionAndLevel.name)
     : intl.formatMessage(commonMessages.notFound);
 
   const skillLevelItem = `${`${
@@ -138,7 +136,7 @@ const SkillAccordion = ({ poolSkill, required }: SkillAccordionProps) => {
             }) + intl.formatMessage(commonMessages.dividingColon)}
           </span>
           {definitionAndLevel
-            ? definitionAndLevel.definition
+            ? intl.formatMessage(definitionAndLevel.definition)
             : intl.formatMessage(commonMessages.notFound)}
         </p>
       </Accordion.Content>

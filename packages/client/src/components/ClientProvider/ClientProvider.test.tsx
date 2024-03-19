@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import { CombinedError } from "urql";
 import isEqual from "lodash/isEqual";
 

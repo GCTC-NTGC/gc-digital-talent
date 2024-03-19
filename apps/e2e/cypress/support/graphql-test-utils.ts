@@ -1,5 +1,6 @@
 // Source: https://docs.cypress.io/guides/testing-strategies/working-with-graphql
 
+// eslint-disable-next-line import/no-unresolved
 import { CyHttpMessages } from "cypress/types/net-stubbing";
 
 type GraphqlRequest = CyHttpMessages.IncomingHttpRequest & {
@@ -16,6 +17,7 @@ export const hasOperationName = (
 ) => {
   const { body } = req;
   return (
+    // eslint-disable-next-line no-prototype-builtins
     body.hasOwnProperty("operationName") && body.operationName === operationName
   );
 };

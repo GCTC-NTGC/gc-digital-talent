@@ -114,9 +114,19 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
       });
   };
 
+  const errorLabels = {
+    "generalAnswers.*.answer": intl.formatMessage(
+      processMessages.generalQuestions,
+    ),
+    "screeningAnswers.*.answer": intl.formatMessage(
+      processMessages.screeningQuestions,
+    ),
+  };
+
   return (
     <BasicForm
       onSubmit={handleSubmit}
+      labels={errorLabels}
       options={{
         defaultValues: dataToFormValues(
           screeningQuestions,

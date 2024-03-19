@@ -18,14 +18,15 @@
     "test": "NODE_OPTIONS=--experimental-vm-modules jest --detectOpenHandles --forceExit --passWithNoTests"
   },
   "jest": {
-    "preset": "jest-presets/jest/node"
+    "preset": "@gc-digital-talent/jest-presets/jest/browser"
   },
   "dependencies": {
-    "@gc-digital-talent/auth": "*",
-    "@gc-digital-talent/helpers": "*",
-    "@gc-digital-talent/i18n": "*",
-    "@gc-digital-talent/logger": "*",
-    "@gc-digital-talent/toast": "*",
+    "@gc-digital-talent/auth": "workspace:*",
+    "@gc-digital-talent/helpers": "workspace:*",
+    "@gc-digital-talent/i18n": "workspace:*",
+    "@gc-digital-talent/logger": "workspace:*",
+    "@gc-digital-talent/toast": "workspace:*",
+    "@urql/core": "4.2.3",
     "@urql/exchange-auth": "^2.1.6",
     "graphql": "^16.8.1",
     "jwt-decode": "4.0.0",
@@ -34,16 +35,17 @@
     "urql": "^4.0.6"
   },
   "devDependencies": {
-    "@swc/core": "^1.4.5",
+    "@gc-digital-talent/eslint-config": "workspace:*",
+    "@gc-digital-talent/jest-presets": "workspace:*",
+    "@swc/core": "^1.4.8",
     "@types/jest": "^29.5.12",
-    "@types/lodash": "4.14.202",
-    "@types/react": "^18.2.64",
+    "@types/lodash": "4.17.0",
+    "@types/node": "20.11.19",
+    "@types/react": "^18.2.65",
     "eslint": "^8.57.0",
-    "eslint-config-custom": "*",
     "jest": "^29.7.0",
-    "jest-presets": "*",
     "react": "^18.2.0",
-    "tsconfig": "*",
+    "tsconfig": "workspace:*",
     "tsup": "^8.0.2",
     "typescript": "^5.4.2"
   }

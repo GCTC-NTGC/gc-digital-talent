@@ -216,11 +216,7 @@ const ApplicationPrintDocument = React.forwardRef<
               <>
                 <PageSection>
                   <Heading level="h3" data-h2-font-weight="base(700)">
-                    {intl.formatMessage({
-                      defaultMessage: "Education requirement",
-                      id: "/zx1kX",
-                      description: "Education requirement section header.",
-                    })}
+                    {intl.formatMessage(processMessages.educationRequirement)}
                   </Heading>
                   <p>
                     {intl.formatMessage({

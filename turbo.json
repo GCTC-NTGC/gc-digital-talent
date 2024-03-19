@@ -1,6 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": ["package.json", "**/.env"],
+  "globalDependencies": ["package.json", "**/.env", "pnpm-workspace.yaml"],
   "pipeline": {
     "build": {
       "dependsOn": ["^build", "build:css", "intl-compile", "codegen"],
@@ -89,9 +89,6 @@
     "clean": {
       "cache": false
     },
-    "check-integrity": {
-      "cache": false
-    },
     "e2e": {},
     "e2e:open": {},
     "e2e:playwright": {},
@@ -101,7 +98,12 @@
     },
     "e2e:run:inspect": {},
     "lint": {
-      "inputs": ["../../packages/eslint-config-custom/index.js"]
+      "inputs": [
+        "../../packages/eslint-config-custom/index.js",
+        "../../packages/eslint-config-custom/react.js",
+        "**/*.{ts,tsx}",
+        "!node_modules"
+      ]
     },
     "tsc": {}
   }
