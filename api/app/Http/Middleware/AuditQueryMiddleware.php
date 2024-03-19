@@ -28,8 +28,8 @@ class AuditQueryMiddleware
     public function handle(Request $request, Closure $next)
     {
         $user = $request->user();
-        $referer = request()->headers->get('referer');
         if (! is_null($user) && $user->hasRole('platform_admin')) {
+            $referer = request()->headers->get('referer');
             $message = 'Request from platform admin, '.$user['email'].', '.$referer.',';
             $this->logger->info(
                 $message.' '.$request->getContent()
