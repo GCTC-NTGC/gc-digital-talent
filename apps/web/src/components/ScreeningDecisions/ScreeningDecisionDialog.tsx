@@ -70,8 +70,7 @@ const getSkillLevelMessage = (
     skillLevel = intl.formatMessage(
       getSkillLevelName(poolSkill.requiredLevel, poolSkill.skill.category),
     );
-  } else skillLevel = intl.formatMessage(commonMessages.notFound);
-
+  }
   return skillLevel;
 };
 
