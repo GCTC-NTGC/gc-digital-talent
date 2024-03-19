@@ -82,6 +82,7 @@ class PoolCandidate extends Model
         'expiry_date',
         'pool_candidate_status',
         'submitted_steps',
+        'education_requirement_option',
     ];
 
     protected $touches = ['user'];
