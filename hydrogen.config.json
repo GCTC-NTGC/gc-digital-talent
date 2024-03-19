@@ -6,7 +6,9 @@
     "roadmap": "https://github.com/orgs/hydrogen-css/projects/3/views/3",
     "settings": "https://hydrogen.design/en/docs/configuration/"
   },
-  "temp": ["../*/src/views/*.html"],
+  "temp": [
+    "../*/src/views/*.html"
+  ],
   "input": [
     "apps/web/public",
     "apps/web/src/components",
