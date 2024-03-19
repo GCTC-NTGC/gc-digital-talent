@@ -24,7 +24,7 @@ describe("Pools", () => {
     cy.wait("@gqlUpdatePoolMutation")
       .its("response.body.data.updatePool")
       .should("have.property", "id");
-    cy.expectToast(/pool updated successfully/i);
+    cy.expectToast(/process updated successfully/i);
   };
 
   /** Add a question */
