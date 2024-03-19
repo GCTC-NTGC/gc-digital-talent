@@ -7,16 +7,17 @@ import useRoutes from "./useRoutes";
 
 type Crumbs = BreadcrumbsProps["crumbs"];
 
-const useBreadcrumbs = (crumbs: Crumbs) => {
+const useBreadcrumbs = (crumbs: Crumbs, isAdmin?: boolean) => {
   const intl = useIntl();
   const paths = useRoutes();
   const [searchParams] = useSearchParams();
 
   const iapPersonality = searchParams.get("personality") === "iap";
+  const homePath = isAdmin ? paths.adminDashboard : paths.home();
 
   return [
     {
-      url: !iapPersonality ? paths.home() : paths.iap(),
+      url: !iapPersonality ? homePath : paths.iap(),
       label: intl.formatMessage({
         defaultMessage: "Home",
         id: "EBmWyo",
