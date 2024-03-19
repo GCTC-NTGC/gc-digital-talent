@@ -1,6 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": ["package.json", "**/.env"],
+  "globalDependencies": ["package.json", "**/.env", "pnpm-workspace.yaml"],
   "pipeline": {
     "build": {
       "dependsOn": ["^build", "build:css", "intl-compile", "codegen"],
@@ -87,9 +87,6 @@
       "outputMode": "new-only"
     },
     "clean": {
-      "cache": false
-    },
-    "check-integrity": {
       "cache": false
     },
     "e2e": {},

@@ -29,7 +29,6 @@ import {
   Scalars,
   Skill,
   SkillLevel,
-  SkillCategory,
   UserSkill,
   WhenSkillUsed,
   graphql,
@@ -128,7 +127,6 @@ export const UpdateUserSkillForm = ({
   const skillName = getLocalizedName(skill.name, intl);
   const skillDescription = getLocalizedName(skill.description, intl);
   const hasUserSkill = notEmpty(userSkill);
-  const isTechnical = skill.category === SkillCategory.Technical;
   const linkedExperiences = userSkill?.experiences?.filter(notEmpty);
   const from = searchParams.get("from");
   const fromShowcase = from && from === "showcase";
@@ -367,7 +365,7 @@ export const UpdateUserSkillForm = ({
                   data-h2-gap="base(x1 0)"
                   data-h2-margin="base(x1, 0, x2, 0)"
                 >
-                  <UserSkillFormFields isTechnical={isTechnical} />
+                  <UserSkillFormFields category={skill.category} />
                   <div
                     data-h2-display="base(flex)"
                     data-h2-flex-wrap="base(wrap)"

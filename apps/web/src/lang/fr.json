@@ -163,10 +163,6 @@
     "defaultMessage": "Vue {name} <hidden>{hiddenLabel}</hidden>",
     "description": "Title displayed for the View Item column."
   },
-  "/+cTZi": {
-    "defaultMessage": "Anglais – Titre de l’évaluation facultative",
-    "description": "Label for 'English assessment title' input on the assessment details dialog"
-  },
   "/+naWC": {
     "defaultMessage": "À évaluer",
     "description": "Message displayed when candidate has yet to be assessed at a specific assessment step"
@@ -862,6 +858,10 @@
   "2pY3lT": {
     "defaultMessage": "Numéro de processus",
     "description": "Label for a process number"
+  },
+  "2quQuW": {
+    "defaultMessage": "À propos de nous (français)",
+    "description": "Label for a process' French about us"
   },
   "2wzOfY": {
     "defaultMessage": "Exécuter un processus de recrutement",
@@ -3763,6 +3763,10 @@
     "defaultMessage": "Familles",
     "description": "Label displayed on the skill form families field."
   },
+  "Jz0oC2": {
+    "defaultMessage": "À propos de nous (anglais)",
+    "description": "Label for a process' English about us"
+  },
   "Jz7jAF": {
     "defaultMessage": "Les hyperliens menant à des sites Web qui ne sont pas gérés par le gouvernement du Canada, y compris ceux qui mènent à nos comptes de médias sociaux, sont offerts uniquement par commodité aux visiteurs de notre site Web. Nous n’assumons aucune responsabilité quant à la précision, l’actualité ou la fiabilité du contenu de ces sites. Le gouvernement du Canada n’offre aucune garantie à cet égard, n’assume aucune responsabilité concernant l’information obtenue au moyen de ces liens et n’approuve ni ces sites, ni leur contenu.",
     "description": "Paragraph describing linking to gov section"
@@ -4059,6 +4063,10 @@
     "defaultMessage": "Citoyenneté :",
     "description": "label for citizenship status"
   },
+  "LTpCFL": {
+    "defaultMessage": "À propos de nous",
+    "description": "Title for about us section on a pool advertisement."
+  },
   "LWtWs1": {
     "defaultMessage": "Scolarité",
     "description": "Experience requirement, formal education."
@@ -4158,6 +4166,10 @@
   "MCFcrj": {
     "defaultMessage": "Un groupe diversifié de personnes, représentant toutes les races, tous les genres et toutes les origines, réunies dans l'unité. Tout le monde est le bienvenu ici!",
     "description": "Hero image alt text."
+  },
+  "ME4sNt": {
+    "defaultMessage": "Sauvegarder « À propos de nous »",
+    "description": "Text on a button to save the pool about us"
   },
   "MHZ1CD": {
     "defaultMessage": "Titre (Anglais)",
@@ -4559,10 +4571,6 @@
     "defaultMessage": "Réduire toutes les sections<hidden> de l’information sur la demande</hidden>",
     "description": "Button text to close all application information accordions"
   },
-  "OoZjap": {
-    "defaultMessage": "Français – Titre de l’évaluation facultative",
-    "description": "Label for 'French assessment title' input on the assessment details dialog"
-  },
   "OpKC2i": {
     "defaultMessage": "Exceptions relatives au lieu de travail",
     "description": "Work location exceptions label"
@@ -4763,6 +4771,10 @@
     "defaultMessage": "Description (français)",
     "description": "Label displayed on the create a skill family form description (French) field."
   },
+  "Q2uL2b": {
+    "defaultMessage": "Cette question aide les candidats à comprendre ce que signifie le fait dans un bassin \"pool\" de recrutement, et ce à quoi ils pourraient s’attendre en tant que candidats qui se qualifient.",
+    "description": "Describes the 'what to expect after admission' section of a process' advertisement."
+  },
   "Q3adCp": {
     "defaultMessage": "Modifier le plan d’évaluation",
     "description": "Link text to edit a specific pool assessment"
@@ -4962,6 +4974,10 @@
   "QzU2SL": {
     "defaultMessage": "Veuillez remplir toute l’information relative à l'annonce avant de la publier.",
     "description": "Error message displayed when user attempts to publish an incomplete advertisement"
+  },
+  "R+6vfG": {
+    "defaultMessage": "Cette annonce n’exige pas d’une section « À propos de nous ».",
+    "description": "Message displayed when there is no about us for a process advertisement."
   },
   "R/z71a": {
     "defaultMessage": "Information sur la demande",
@@ -5626,6 +5642,10 @@
     "defaultMessage": "Voici une liste des utilisateurs actifs ainsi que certains de leurs renseignements.",
     "description": "Descriptive text about the list of users in the admin portal."
   },
+  "Uwtkv6": {
+    "defaultMessage": "Ce à quoi s’attendre après l’admission",
+    "description": "Title for the what to expect post admission section"
+  },
   "UxF291": {
     "defaultMessage": "Nom de famille",
     "description": "Label displayed for the last name field in create account form."
@@ -6057,6 +6077,10 @@
   "Wwb8Lb": {
     "defaultMessage": "Sélecteur de mode de couleur du thème",
     "description": "Label for the group of buttons to change the current colour mode"
+  },
+  "Wy6aeg": {
+    "defaultMessage": "À propos de nous",
+    "description": "Sub title for the pool about us section"
   },
   "WyKJsK": {
     "defaultMessage": "Erreur : échec de la mise à jour de l'expérience",
@@ -7134,6 +7158,10 @@
     "defaultMessage": "Ouvrir le menu",
     "description": "Text label for header button that opens side menu."
   },
+  "cweZUH": {
+    "defaultMessage": "Cette section <strong>facultative</strong> vous permet de fournir un context additionnel pour le ministère, la direction ou l’équipe qui embauchera grâce à ce processus.",
+    "description": "Describes the 'about us' section of a process' advertisement."
+  },
   "cx7pV4": {
     "defaultMessage": "Bon nombre de plateformes de médias sociaux offrent plusieurs choix de langues et donnent des instructions pour définir des préférences. Le gouvernement du Canada respecte la <langActLink>Loi sur les langues officielles</langActLink> et est déterminé à prendre les moyens nécessaires pour que son information soit disponible en français et en anglais et pour que la qualité soit égale dans les deux versions.",
     "description": "Paragraph for comments and interaction section"
@@ -8090,6 +8118,10 @@
     "defaultMessage": "Exécuter des processus de recrutement pangouvernementaux pour les talents numériques",
     "description": "An OCIO role in the _supporting the community_ section of the _digital services contracting questionnaire_"
   },
+  "hwVlzN": {
+    "defaultMessage": "\"À quoi devrais-je m’attendre si je réussis ce processus?\"",
+    "description": "Button text to toggle the accordion for what to expect after admission"
+  },
   "hxaIWa": {
     "defaultMessage": "Ministères et organismes",
     "description": "Link text for all departments page"
@@ -8173,6 +8205,10 @@
   "iAG/IN": {
     "defaultMessage": "La présente section vous permet, <strong>de façon facultative,</strong> d’ajouter jusqu’à 3 questions d’ordre général qui seront posées aux candidats dans le cadre du processus de demande. Veuillez prendre note que celles-ci ne <strong>sont pas des questions de filtrage</strong>. Des questions de filtrage seront ajoutées une fois que vous aurez façonné votre plan d’évaluation.",
     "description": "Helper message indicating what general questions are and how they differ from screening questions"
+  },
+  "iFbBSU": {
+    "defaultMessage": "Titre de l’évaluation (Anglais)",
+    "description": "Label for 'English assessment title' input on the assessment details dialog"
   },
   "iGXXjP": {
     "defaultMessage": "Téléchargez la trousse du gestionnaire",
@@ -8721,6 +8757,10 @@
   "lPuC3S": {
     "defaultMessage": "Commentaires et échanges",
     "description": "Heading for comments and interaction section"
+  },
+  "lSHDBh": {
+    "defaultMessage": "Titre de l’évaluation (Français)",
+    "description": "Label for 'French assessment title' input on the assessment details dialog"
   },
   "lVb1hs": {
     "defaultMessage": "Au moins une question est requise dans le cadre de cette évaluation. Veuillez l’ajouter ici.",

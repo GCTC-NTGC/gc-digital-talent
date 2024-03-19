@@ -6,7 +6,7 @@ import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 import { Button, ButtonProps, Dialog, IconType } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { Skill, SkillCategory } from "@gc-digital-talent/graphql";
+import { Skill } from "@gc-digital-talent/graphql";
 
 import SkillDetails from "./SkillDetails";
 import SkillSelection from "./SkillSelection";
@@ -155,18 +155,12 @@ const SkillBrowserDialog = ({
               />
               {selectedSkill && shouldShowDetails && (
                 <SkillDetails
-                  isTechnical={
-                    selectedSkill.category === SkillCategory.Technical
-                  }
+                  category={selectedSkill.category}
                   context={context}
                 />
               )}
               {selectedSkill && context === "pool" && (
-                <SkillDetailsPool
-                  isTechnical={
-                    selectedSkill.category === SkillCategory.Technical
-                  }
-                />
+                <SkillDetailsPool category={selectedSkill.category} />
               )}
               <Dialog.Footer data-h2-justify-content="base(flex-start)">
                 <Button

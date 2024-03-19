@@ -30,6 +30,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property array $key_tasks
  * @property array $your_impact
  * @property array $what_to_expect
+ * @property array $what_to_expect_admission
+ * @property array $about_us
  * @property array $advertisement_location
  * @property array $special_note
  * @property string $security_clearance
@@ -66,6 +68,8 @@ class Pool extends Model
         'your_impact' => 'array',
         'what_to_expect' => 'array',
         'special_note' => 'array',
+        'what_to_expect_admission' => 'array',
+        'about_us' => 'array',
         'closing_date' => 'datetime',
         'published_at' => 'datetime',
         'is_remote' => 'boolean',
