@@ -107,7 +107,7 @@ const NotificationsPage = () => {
                     "Description of the list of a users notifications",
                 })}
               </p>
-              <NotificationList />
+              <NotificationList paginate />
             </Sidebar.Content>
           </Sidebar.Wrapper>
         </div>
