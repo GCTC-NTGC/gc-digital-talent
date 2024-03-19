@@ -13,7 +13,7 @@ const useBreadcrumbs = (crumbs: Crumbs, isAdmin?: boolean) => {
   const [searchParams] = useSearchParams();
 
   const iapPersonality = searchParams.get("personality") === "iap";
-  const homePath = isAdmin ? paths.adminDashboard : paths.home();
+  const homePath = isAdmin ? paths.adminDashboard() : paths.home();
 
   return [
     {
