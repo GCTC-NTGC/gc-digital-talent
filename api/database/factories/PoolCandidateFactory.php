@@ -99,16 +99,18 @@ class PoolCandidateFactory extends Factory
             }
 
             // set education requirement option, influenced by classification of pool
-            $classificationOne = $poolCandidate->pool->classifications()->first()->group;
-            if ($classificationOne === 'EX') {
-                $poolCandidate->update([
-                    'education_requirement_option' => EducationRequirementOption::PROFESSIONAL_DESIGNATION->name,
-                ]);
-            } else {
-                $requirementOption = $this->faker->boolean() ? EducationRequirementOption::APPLIED_WORK->name : EducationRequirementOption::EDUCATION->name;
-                $poolCandidate->update([
-                    'education_requirement_option' => $requirementOption,
-                ]);
+            $classificationOne = $poolCandidate->pool->classifications()->first();
+            if ($classificationOne) {
+                if ($classificationOne->group === 'EX') {
+                    $poolCandidate->update([
+                        'education_requirement_option' => EducationRequirementOption::PROFESSIONAL_DESIGNATION->name,
+                    ]);
+                } else {
+                    $requirementOption = $this->faker->boolean() ? EducationRequirementOption::APPLIED_WORK->name : EducationRequirementOption::EDUCATION->name;
+                    $poolCandidate->update([
+                        'education_requirement_option' => $requirementOption,
+                    ]);
+                }
             }
 
             // attach either a work or education experience to a pool candidate to meet minimum criteria
