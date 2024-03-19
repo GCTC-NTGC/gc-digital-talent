@@ -339,7 +339,7 @@ class NotificationTest extends TestCase
                 }
             ', [
                 'id' => $this->candidateUser->id,
-                'ignoredEmailNotifications' => [NotificationFamily::APPLICATION_UPDATE->name, NotificationFamily::JOB_ALERT->name]
+                'ignoredEmailNotifications' => [NotificationFamily::APPLICATION_UPDATE->name, NotificationFamily::JOB_ALERT->name],
             ]);
 
         $updatedIgnoreList = $response->json('data.updateIgnoredNotifications.ignoredEmailNotifications');

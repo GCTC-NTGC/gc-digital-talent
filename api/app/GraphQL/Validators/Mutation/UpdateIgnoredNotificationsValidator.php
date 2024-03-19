@@ -17,6 +17,7 @@ final class UpdateIgnoredNotificationsValidator extends Validator
     {
         // only some notification families can be ignored
         $validFamilies = [NotificationFamily::APPLICATION_UPDATE->name, NotificationFamily::JOB_ALERT->name];
+
         return [
             'ignoredEmailNotifications' => ['nullable', 'array'],
             'ignoredEmailNotifications.*' => ['distinct', Rule::in($validFamilies)],
