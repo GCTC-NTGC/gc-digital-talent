@@ -51,20 +51,22 @@ const ImproveBehaviouralSkills = ({
     id: "6+TjHb",
   });
 
-  const crumbs = useBreadcrumbs([
-    {
-      label: intl.formatMessage(navigationMessages.profileAndApplications),
-      url: paths.profileAndApplications(),
-    },
-    {
-      label: intl.formatMessage(navigationMessages.skillShowcase),
-      url: paths.skillShowcase(),
-    },
-    {
-      label: pageTitle,
-      url: paths.improveBehaviouralSkills(),
-    },
-  ]);
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(navigationMessages.profileAndApplications),
+        url: paths.profileAndApplications(),
+      },
+      {
+        label: intl.formatMessage(navigationMessages.skillShowcase),
+        url: paths.skillShowcase(),
+      },
+      {
+        label: pageTitle,
+        url: paths.improveBehaviouralSkills(),
+      },
+    ],
+  });
 
   const pageDescription = intl.formatMessage({
     defaultMessage:

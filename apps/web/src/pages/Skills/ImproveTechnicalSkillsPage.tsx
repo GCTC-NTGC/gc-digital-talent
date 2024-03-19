@@ -49,20 +49,22 @@ const ImproveTechnicalSkills = ({
     id: "aIMh6f",
   });
 
-  const crumbs = useBreadcrumbs([
-    {
-      label: intl.formatMessage(navigationMessages.profileAndApplications),
-      url: paths.profileAndApplications(),
-    },
-    {
-      label: intl.formatMessage(navigationMessages.skillShowcase),
-      url: paths.skillShowcase(),
-    },
-    {
-      label: pageTitle,
-      url: paths.improveTechnicalSkills(),
-    },
-  ]);
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(navigationMessages.profileAndApplications),
+        url: paths.profileAndApplications(),
+      },
+      {
+        label: intl.formatMessage(navigationMessages.skillShowcase),
+        url: paths.skillShowcase(),
+      },
+      {
+        label: pageTitle,
+        url: paths.improveTechnicalSkills(),
+      },
+    ],
+  });
 
   const pageDescription = intl.formatMessage({
     defaultMessage:

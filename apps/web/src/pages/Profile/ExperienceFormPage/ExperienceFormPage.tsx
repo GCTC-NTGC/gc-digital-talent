@@ -209,34 +209,37 @@ export const ExperienceForm = ({
     }
   }, [isSubmitSuccessful, reset, action, setFocus, setValue]);
 
-  const crumbs = useBreadcrumbs([
-    {
-      label: intl.formatMessage(navigationMessages.profileAndApplications),
-      url: paths.profileAndApplications(),
-    },
-    {
-      label: intl.formatMessage(
-        navigationMessages.careerTimelineAndRecruitment,
-      ),
-      url: returnPath,
-    },
-    {
-      label: experience
-        ? intl.formatMessage({
-            defaultMessage: "Edit experience",
-            id: "zsUuN9",
-            description: "Title for edit experience page",
-          })
-        : intl.formatMessage({
-            defaultMessage: "Add Experience",
-            id: "mJ1HE4",
-            description: "Display text for add experience form in breadcrumbs",
-          }),
-      url: experience
-        ? paths.editExperience(userId, experienceType, experience.id)
-        : "#",
-    },
-  ]);
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(navigationMessages.profileAndApplications),
+        url: paths.profileAndApplications(),
+      },
+      {
+        label: intl.formatMessage(
+          navigationMessages.careerTimelineAndRecruitment,
+        ),
+        url: returnPath,
+      },
+      {
+        label: experience
+          ? intl.formatMessage({
+              defaultMessage: "Edit experience",
+              id: "zsUuN9",
+              description: "Title for edit experience page",
+            })
+          : intl.formatMessage({
+              defaultMessage: "Add Experience",
+              id: "mJ1HE4",
+              description:
+                "Display text for add experience form in breadcrumbs",
+            }),
+        url: experience
+          ? paths.editExperience(userId, experienceType, experience.id)
+          : "#",
+      },
+    ],
+  });
 
   const pageTitle: string = experience
     ? intl.formatMessage({

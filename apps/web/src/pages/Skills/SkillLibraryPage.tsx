@@ -47,16 +47,18 @@ const SkillLibrary = ({ userSkills, skills }: SkillLibraryProps) => {
     },
   };
 
-  const crumbs = useBreadcrumbs([
-    {
-      label: intl.formatMessage(navigationMessages.profileAndApplications),
-      url: paths.profileAndApplications(),
-    },
-    {
-      label: intl.formatMessage(navigationMessages.skillLibrary),
-      url: paths.skillLibrary(),
-    },
-  ]);
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(navigationMessages.profileAndApplications),
+        url: paths.profileAndApplications(),
+      },
+      {
+        label: intl.formatMessage(navigationMessages.skillLibrary),
+        url: paths.skillLibrary(),
+      },
+    ],
+  });
 
   const pageTitle = intl.formatMessage(navigationMessages.skillLibrary);
 

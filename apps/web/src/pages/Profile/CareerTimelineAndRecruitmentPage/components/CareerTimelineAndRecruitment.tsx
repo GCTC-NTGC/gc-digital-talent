@@ -53,16 +53,18 @@ const CareerTimelineAndRecruitment = ({
   const intl = useIntl();
   const paths = useRoutes();
 
-  const crumbs = useBreadcrumbs([
-    {
-      label: intl.formatMessage(navigationMessages.profileAndApplications),
-      url: paths.profileAndApplications(),
-    },
-    {
-      label: intl.formatMessage(titles.careerTimelineAndRecruitment),
-      url: paths.careerTimelineAndRecruitment(userId),
-    },
-  ]);
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(navigationMessages.profileAndApplications),
+        url: paths.profileAndApplications(),
+      },
+      {
+        label: intl.formatMessage(titles.careerTimelineAndRecruitment),
+        url: paths.careerTimelineAndRecruitment(userId),
+      },
+    ],
+  });
 
   const pageTitle = intl.formatMessage(titles.careerTimelineAndRecruitment);
 

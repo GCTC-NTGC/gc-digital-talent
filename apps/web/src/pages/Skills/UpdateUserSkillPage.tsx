@@ -222,29 +222,31 @@ export const UpdateUserSkillForm = ({
       );
   };
 
-  const crumbs = useBreadcrumbs([
-    {
-      label: intl.formatMessage(navigationMessages.profileAndApplications),
-      url: paths.profileAndApplications(),
-    },
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(navigationMessages.profileAndApplications),
+        url: paths.profileAndApplications(),
+      },
 
-    {
-      label: intl.formatMessage(navigationMessages.skillLibrary),
-      url: paths.skillLibrary(),
-    },
-    ...(fromShowcase
-      ? [
-          {
-            label: intl.formatMessage(navigationMessages.skillShowcase),
-            url: paths.skillShowcase(),
-          },
-        ]
-      : []),
-    {
-      label: skillName,
-      url: paths.editUserSkill(skill.id),
-    },
-  ]);
+      {
+        label: intl.formatMessage(navigationMessages.skillLibrary),
+        url: paths.skillLibrary(),
+      },
+      ...(fromShowcase
+        ? [
+            {
+              label: intl.formatMessage(navigationMessages.skillShowcase),
+              url: paths.skillShowcase(),
+            },
+          ]
+        : []),
+      {
+        label: skillName,
+        url: paths.editUserSkill(skill.id),
+      },
+    ],
+  });
 
   const sections: PageSections = {
     skillLevel: {

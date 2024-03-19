@@ -7,7 +7,12 @@ import useRoutes from "./useRoutes";
 
 type Crumbs = BreadcrumbsProps["crumbs"];
 
-const useBreadcrumbs = (crumbs: Crumbs, isAdmin?: boolean) => {
+type useBreadcrumbsProps = {
+  crumbs: Crumbs;
+  isAdmin?: boolean;
+};
+
+const useBreadcrumbs = ({ crumbs, isAdmin }: useBreadcrumbsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const [searchParams] = useSearchParams();

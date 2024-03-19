@@ -43,24 +43,26 @@ const TopTechnicalSkills = ({
 
   const pageId = "top-technical-skills";
 
-  const crumbs = useBreadcrumbs([
-    {
-      label: intl.formatMessage(navigationMessages.profileAndApplications),
-      url: paths.profileAndApplications(),
-    },
-    {
-      label: intl.formatMessage(navigationMessages.skillShowcase),
-      url: paths.skillShowcase(),
-    },
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Top 10 technical skills",
-        id: "Aymigb",
-        description: "Title for the top 10 technical skills page",
-      }),
-      url: paths.topTechnicalSkills(),
-    },
-  ]);
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(navigationMessages.profileAndApplications),
+        url: paths.profileAndApplications(),
+      },
+      {
+        label: intl.formatMessage(navigationMessages.skillShowcase),
+        url: paths.skillShowcase(),
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Top 10 technical skills",
+          id: "Aymigb",
+          description: "Title for the top 10 technical skills page",
+        }),
+        url: paths.topTechnicalSkills(),
+      },
+    ],
+  });
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Your top 10 technical skills",
