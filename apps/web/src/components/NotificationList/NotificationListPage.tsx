@@ -44,10 +44,12 @@ interface NotificationPageProps {
   onlyUnread?: boolean;
   isLastPage?: boolean;
   exclude?: Scalars["UUID"]["input"][];
+  first?: number;
 }
 
 const NotificationListPage = ({
   page,
+  first,
   onlyUnread,
   isLastPage,
   exclude = [],
@@ -59,7 +61,7 @@ const NotificationListPage = ({
     query: Notifications_Query,
     variables: {
       excludeIds: exclude,
-      first: PER_PAGE,
+      first: first ?? PER_PAGE,
       page,
       where: {
         onlyUnread,

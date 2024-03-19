@@ -27,9 +27,11 @@ const pageLoadedAt = nowUTCDateTime();
 
 interface NotificationListProps {
   live?: boolean;
+  paginate?: boolean;
+  limit?: number;
 }
 
-const NotificationList = ({ live }: NotificationListProps) => {
+const NotificationList = ({ live, paginate, limit }: NotificationListProps) => {
   const now = nowUTCDateTime();
   const [searchParams] = useSearchParams();
   const [{ data }] = usePollingQuery(
@@ -47,9 +49,8 @@ const NotificationList = ({ live }: NotificationListProps) => {
     },
     120, // 2 mins
   );
-  const pagesToLoad = searchParams.has("page")
-    ? Number(searchParams.get("page"))
-    : 1;
+  const pagesToLoad =
+    paginate && searchParams.has("page") ? Number(searchParams.get("page")) : 1;
   const onlyUnread =
     searchParams.has("unread") && searchParams.get("unread") !== null;
 
@@ -87,6 +88,9 @@ const NotificationList = ({ live }: NotificationListProps) => {
               exclude={liveIds}
               isLastPage={currentPage === pagesToLoad}
               onlyUnread={onlyUnread}
+              {...((!paginate || limit) && {
+                first: limit ?? 100,
+              })}
             />
           );
         })}
