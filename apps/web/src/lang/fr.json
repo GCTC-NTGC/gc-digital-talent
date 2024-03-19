@@ -7478,10 +7478,6 @@
     "defaultMessage": "Soumettre la demande",
     "description": "Submit button text on request form."
   },
-  "eVuqmU": {
-    "defaultMessage": "Exigences pédagogiques",
-    "description": "CSV Header, Education Requirement column"
-  },
   "eWLKRt": {
     "defaultMessage": "Masquer les évaluations des compétences de {title}",
     "description": "Button text to hide a specific qualified recruitment cards's skill assessments"
