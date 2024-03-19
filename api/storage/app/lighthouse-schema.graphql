@@ -154,6 +154,7 @@ type Mutation {
   markNotificationAsUnread(id: UUID!): Notification
   deleteNotification(id: UUID!): Notification
   markAllNotificationsAsRead: [Notification]
+  updateIgnoredNotifications(id: UUID!, ignoredEmailNotifications: [NotificationFamily], ignoredInAppNotifications: [NotificationFamily]): User
   createUserSkill(userId: UUID!, skillId: UUID!, userSkill: CreateUserSkillInput): UserSkill
   updateUserSkill(id: UUID!, userSkill: UpdateUserSkillInput): UserSkill
   updateUserSkillRankings(userId: UUID!, userSkillRanking: UpdateUserSkillRankingsInput!): User
@@ -264,6 +265,8 @@ type User {
   isProfileComplete: Boolean
   priorityWeight: Int
   authInfo: UserAuthInfo
+  ignoredEmailNotifications: [NotificationFamily]
+  ignoredInAppNotifications: [NotificationFamily]
 }
 
 interface Notification {
@@ -2381,4 +2384,10 @@ enum AssessmentDecisionLevel {
   AT_REQUIRED
   ABOVE_REQUIRED
   ABOVE_AND_BEYOND_REQUIRED
+}
+
+enum NotificationFamily {
+  SYSTEM_MESSAGE
+  APPLICATION_UPDATE
+  JOB_ALERT
 }
