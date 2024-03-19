@@ -354,14 +354,6 @@ const IAPManagerHomePage = React.lazy(() =>
 );
 
 /** Admin */
-const AdminHomePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminAdminHomePage" */ "../pages/Home/AdminHomePage/AdminHomePage"
-      ),
-  ),
-);
 const AdminErrorPage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -1269,11 +1261,7 @@ const createRoute = (
           errorElement: <AdminErrorPage />,
           children: [
             {
-              path: "",
-              element: <AdminHomePage />,
-            },
-            {
-              path: "dashboard",
+              index: true,
               element: (
                 <RequireAuth
                   roles={[
