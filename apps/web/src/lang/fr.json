@@ -4603,6 +4603,10 @@
     "defaultMessage": "Questions en français",
     "description": "Description for a list of questions in the French language"
   },
+  "OyV6MH": {
+    "defaultMessage": "Gérer vos renseignements personnels, votre parcours professionnel, vos compétences, et faire le suivi de vos candidatures.",
+    "description": "SEO description for profile and applications hero"
+  },
   "P/tHlt": {
     "defaultMessage": "Par type",
     "description": "Tab title for experiences sorted by type in applicant profile."
@@ -10057,6 +10061,10 @@
   "tJLZYs": {
     "defaultMessage": "Obtention d’un diplôme d’un programme de deux ans ou plus offert par <link>une institution postsecondaire reconnue</link>. Le programme doit compter une spécialisation en sciences informatiques, en technologie de l’information, en gestion de l’information ou dans un autre domaine spécialisé pertinent à la présente publication.",
     "description": "Descriptive text explaining a valid post secondary education."
+  },
+  "tJnBx1": {
+    "defaultMessage": "Que vous envisagiez de travailler pour le gouvernement ou que vous soyez déjà employé, que vous souhaitiez embaucher ou que vous envisagiez un nouveau rôle, vous êtes au bon endroit pour faire partie de la collectivité numérique du GC.",
+    "description": "SEO description of the application on the homepage"
   },
   "tKtdVT": {
     "defaultMessage": "Apprenez-en davantage<hidden> sur les emplois de cadre supérieur</hidden>",
