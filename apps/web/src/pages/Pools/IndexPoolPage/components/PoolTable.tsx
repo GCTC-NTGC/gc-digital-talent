@@ -213,8 +213,8 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
       search={{
         internal: true,
         label: intl.formatMessage({
-          defaultMessage: "Search pools",
-          id: "qb6pT2",
+          defaultMessage: "Search processes",
+          id: "6yn+iJ",
           description: "Label for the pools table search input",
         }),
       }}
