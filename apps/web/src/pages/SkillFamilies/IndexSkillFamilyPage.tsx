@@ -30,14 +30,6 @@ const IndexSkillFamilyPage = () => {
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
       {
-        label: intl.formatMessage({
-          defaultMessage: "Home",
-          id: "EBmWyo",
-          description: "Link text for the home link in breadcrumbs.",
-        }),
-        url: routes.adminDashboard(),
-      },
-      {
         label: formattedPageTitle,
         url: routes.skillFamilyTable(),
       },
