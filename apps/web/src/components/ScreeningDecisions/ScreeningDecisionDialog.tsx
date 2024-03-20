@@ -206,13 +206,14 @@ const AssessmentStepTypeSection = ({
 const ScreeningQuestions = ({
   poolCandidate,
 }: {
-  poolCandidate: PoolCandidate;
+  poolCandidate: PoolCandidate | undefined;
 }) => {
   const intl = useIntl();
-  const screeningQuestions =
-    poolCandidate.pool.screeningQuestions?.filter(notEmpty) || [];
   const screeningQuestionResponses =
-    poolCandidate.screeningQuestionResponses?.filter(notEmpty) || [];
+    poolCandidate?.screeningQuestionResponses?.filter(notEmpty) || [];
+  const screeningQuestions = screeningQuestionResponses
+    .map((response) => response.screeningQuestion)
+    .filter(notEmpty);
 
   if (screeningQuestions.length === 0)
     return (
@@ -443,7 +444,7 @@ export const ScreeningDecisionDialog = ({
               type={dialogType}
             />
             {dialogType === "SCREENING_QUESTIONS" ? (
-              <ScreeningQuestions poolCandidate={poolCandidate} />
+              <ScreeningQuestions poolCandidate={snapshotCandidate} />
             ) : (
               <SupportingEvidence experiences={experiences} skill={skill} />
             )}
