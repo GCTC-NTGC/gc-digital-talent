@@ -125,20 +125,22 @@ type User {
 
 interface Notification {
   id: ID!
+  type: NotificationType!
   readAt: DateTime @rename(attribute: "read_at")
-  createdAt: DateTime @rename(attribute: "created_at")
-  updatedAt: DateTime @rename(attribute: "updated_at")
+  createdAt: DateTime! @rename(attribute: "created_at")
+  updatedAt: DateTime! @rename(attribute: "updated_at")
 }
 
 type PoolCandidateStatusChangedNotification implements Notification {
   id: ID!
+  type: NotificationType!
   readAt: DateTime @rename(attribute: "read_at")
-  createdAt: DateTime @rename(attribute: "created_at")
-  updatedAt: DateTime @rename(attribute: "updated_at")
+  createdAt: DateTime! @rename(attribute: "created_at")
+  updatedAt: DateTime! @rename(attribute: "updated_at")
 
   oldStatus: PoolCandidateStatus @rename(attribute: "old_status")
   newStatus: PoolCandidateStatus @rename(attribute: "new_status")
-  poolId: ID @rename(attribute: "pool_id")
+  poolCandidateId: ID @rename(attribute: "pool_candidate_id")
   poolName: LocalizedString @rename(attribute: "pool_name")
 }
 
@@ -816,7 +818,11 @@ type Query {
   teams: [Team]! @all @canModel(ability: "viewAny")
   roles: [Role]! @all @canModel(ability: "viewAny")
 
-  notifications(where: NotificationFilterInput): [Notification!]
+  notifications(
+    where: NotificationFilterInput
+    excludeIds: [UUID!] @notIn(key: "id")
+  ): [Notification!]
+    @orderBy(column: "created_at", direction: DESC)
     @paginate(defaultCount: 10, scopes: ["authorizedToView"])
 
   sitewideAnnouncement: SitewideAnnouncement
@@ -1577,7 +1583,7 @@ input UpdateApplicationInput {
 
 input DateRange {
   from: DateTime!
-  to: DateTime! @rules(apply: ["after:from"])
+  to: DateTime! @rules(apply: ["after_or_equal:from"])
 }
 
 input NotificationFilterInput {
