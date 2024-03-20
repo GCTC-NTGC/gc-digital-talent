@@ -311,6 +311,10 @@
     "defaultMessage": "Avez-vous un droit de priorité?",
     "description": "Priority Entitlement Status in Government Info Form"
   },
+  "/lVSP/": {
+    "defaultMessage": "Consulter toutes les notifications",
+    "description": "Link text for the notifications page"
+  },
   "/ldR5A": {
     "defaultMessage": "{count, plural, =0 {0 expériences} =1 {1 expérience} other {# expériences}}",
     "description": "Number of experiences linked to a skill"
@@ -3654,6 +3658,10 @@
   "J/oofb": {
     "defaultMessage": "À mesure que votre niveau de compétence augmente, vous pouvez utiliser ce formulaire pour effectuer une mise à jour de votre niveau de compétence, qui a été évalué par vous-même. Vous trouverez la définition de la compétence donnée par le gouvernement, ainsi que des explications pour chaque niveau de compétence afin de vous aider à faire votre choix.",
     "description": "Help text for updating a skill level"
+  },
+  "J1n6QO": {
+    "defaultMessage": "Fermer les notifications",
+    "description": "Button text to close the notifications dialog"
   },
   "J2uivT": {
     "defaultMessage": "Nous reconnaissons l’importance de la voix des autochtones au sein du gouvernement fédéral. L’objectif du programme d’apprentissage en TI destiné aux peuples autochtones est de faire entendre la voix des autochtones en créant des occasions pour les membres des Premières Nations, les Inuits et les Métis de faire partie de la fonction publique fédérale.",
@@ -8702,6 +8710,10 @@
     "defaultMessage": "Il ne faut pas oublier que cette possibilité requiert ce qui suit",
     "description": "First paragraph for the pool work location dialog"
   },
+  "koUnRG": {
+    "defaultMessage": "Bienvenue à votre panneau des notifications. Cliquez ou tapez sur une notification pour consulter la page pertinente. Servez-vous de l’icône <icon></icon> pour marquer une notification en particulier comme étant lue, pour l’épingler ou la supprimer.",
+    "description": "Instructions on how to manage notifications"
+  },
   "ksMybU": {
     "defaultMessage": "Erreur : échec de la création de la compétence",
     "description": "Message displayed to user after skill fails to get created."
@@ -11117,6 +11129,10 @@
   "ztQSF+": {
     "defaultMessage": "L’accessibilité, un choix et un élément clé de conception",
     "description": "Title for the accessible by design section"
+  },
+  "ztx8xL": {
+    "defaultMessage": "Consulter les notifications",
+    "description": "Button text to open the notifications dialog"
   },
   "zv4Vyd": {
     "defaultMessage": "Compétences comportementales requises",
