@@ -25,6 +25,7 @@ return new class extends Migration
             $table->jsonb('properties')->nullable();
         });
 
+        // roll back table insertions and if any fail before starting to drop old tables
         DB::transaction(function () {
 
             DB::table('experiences')
@@ -34,7 +35,7 @@ return new class extends Migration
                         ->select(DB::raw(<<<'SQL'
                             id, created_at, updated_at, deleted_at, user_id, details, 'App\Models\AwardExperience',
                             (concat('{',
-                            '"awarded_date": "', awarded_date, '",',
+                            '"awarded_date": ', coalesce('"' || (awarded_date) || '"' , 'null'), ',',
                             '"title": "', title, '",',
                             '"issued_by": "', issued_by, '",',
                             '"awarded_to": "', awarded_to, '",',
@@ -50,8 +51,8 @@ return new class extends Migration
                         ->select(DB::raw(<<<'SQL'
                             id, created_at, updated_at, deleted_at, user_id, details, 'App\Models\CommunityExperience',
                             (concat('{',
-                            '"start_date": "', start_date, '",',
-                            '"end_date": "', end_date, '",',
+                            '"start_date": ', coalesce('"' || (start_date) || '"' , 'null'), ',',
+                            '"end_date": ', coalesce('"' || (end_date) || '"' , 'null'), ',',
                             '"title": "', title, '",',
                             '"organization": "', organization, '",',
                             '"project": "', project, '"',
@@ -66,8 +67,8 @@ return new class extends Migration
                         ->select(DB::raw(<<<'SQL'
                             id, created_at, updated_at, deleted_at, user_id, details, 'App\Models\EducationExperience',
                             (concat('{',
-                            '"start_date": "', start_date, '",',
-                            '"end_date": "', end_date, '",',
+                            '"start_date": ', coalesce('"' || (start_date) || '"' , 'null'), ',',
+                            '"end_date": ', coalesce('"' || (end_date) || '"' , 'null'), ',',
                             '"institution": "', institution, '",',
                             '"area_of_study": "', area_of_study, '",',
                             '"thesis_title": "', thesis_title, '",',
@@ -84,8 +85,8 @@ return new class extends Migration
                         ->select(DB::raw(<<<'SQL'
                             id, created_at, updated_at, deleted_at, user_id, details,'App\Models\PersonalExperience',
                             (concat('{',
-                            '"start_date": "', start_date, '",',
-                            '"end_date": "', end_date, '",',
+                            '"start_date": ', coalesce('"' || (start_date) || '"' , 'null'), ',',
+                            '"end_date": ', coalesce('"' || (end_date) || '"' , 'null'), ',',
                             '"title": "', title, '",',
                             '"description": "', description, '"',
                             '}'))::jsonb
@@ -99,8 +100,8 @@ return new class extends Migration
                         ->select(DB::raw(<<<'SQL'
                             id, created_at, updated_at, deleted_at, user_id, details,'App\Models\WorkExperience',
                             (concat('{',
-                            '"start_date": "', start_date, '",',
-                            '"end_date": "', end_date, '",',
+                            '"start_date": ', coalesce('"' || (start_date) || '"' , 'null'), ',',
+                            '"end_date": ', coalesce('"' || (end_date) || '"' , 'null'), ',',
                             '"role": "', role, '",',
                             '"organization": "', organization, '",',
                             '"division": "', division, '"',
@@ -122,8 +123,182 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('experiences');
+        Schema::create('award_experiences', function (Blueprint $table) {
+            $table->uuid('id')->primary('id')->default(new Expression('gen_random_uuid()'));
+            $table->uuid('user_id')->nullable(false);
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete(true);
+            $table->string('title')->nullable();
+            $table->string('issued_by')->nullable();
+            $table->date('awarded_date')->nullable();
+            $table->string('awarded_to')->nullable();
+            $table->string('awarded_scope')->nullable();
+            $table->text('details')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+        });
 
-        // TODO: parse out data
+        Schema::create('community_experiences', function (Blueprint $table) {
+            $table->uuid('id')->primary('id')->default(new Expression('gen_random_uuid()'));
+            $table->uuid('user_id')->nullable(false);
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete(true);
+            $table->string('title')->nullable();
+            $table->string('organization')->nullable();
+            $table->string('project')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->text('details')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
+        Schema::create('education_experiences', function (Blueprint $table) {
+            $table->uuid('id')->primary('id')->default(new Expression('gen_random_uuid()'));
+            $table->uuid('user_id')->nullable(false);
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete(true);
+            $table->string('institution')->nullable();
+            $table->string('area_of_study')->nullable();
+            $table->string('thesis_title')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->string('type')->nullable();
+            $table->string('status')->nullable();
+            $table->text('details')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
+        Schema::create('personal_experiences', function (Blueprint $table) {
+            $table->uuid('id')->primary('id')->default(new Expression('gen_random_uuid()'));
+            $table->uuid('user_id')->nullable(false);
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete(true);
+            $table->string('title')->nullable();
+            $table->text('description')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->text('details')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
+        Schema::create('work_experiences', function (Blueprint $table) {
+            $table->uuid('id')->primary('id')->default(new Expression('gen_random_uuid()'));
+            $table->uuid('user_id')->nullable(false);
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete(true);
+            $table->string('role')->nullable();
+            $table->string('organization')->nullable();
+            $table->string('division')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->text('details')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
+        // roll back table insertions and if any fail before starting to the old table
+        DB::transaction(function () {
+
+            DB::table('award_experiences')
+                ->insertUsing(
+                    ['id', 'user_id', 'title', 'issued_by',  'awarded_date', 'awarded_to', 'awarded_scope', 'details', 'created_at', 'updated_at', 'deleted_at'],
+                    DB::table('experiences')
+                        ->select([
+                            'id',
+                            'user_id',
+                            new Expression("properties->>'title'"),
+                            new Expression("properties->>'issued_by'"),
+                            new Expression("to_date(properties->>'awarded_date', 'YYYY-MM-DD')"),
+                            new Expression("properties->>'awarded_to'"),
+                            new Expression("properties->>'awarded_scope'"),
+                            'details',
+                            'created_at',
+                            'updated_at',
+                            'deleted_at',
+                        ])
+                        ->where('experience_type', 'App\Models\AwardExperience')
+                );
+
+            DB::table('community_experiences')
+                ->insertUsing(
+                    ['id', 'user_id', 'title', 'organization', 'project', 'start_date', 'end_date', 'details', 'created_at', 'updated_at', 'deleted_at'],
+                    DB::table('experiences')
+                        ->select([
+                            'id',
+                            'user_id',
+                            new Expression("properties->>'title'"),
+                            new Expression("properties->>'organization'"),
+                            new Expression("properties->>'project'"),
+                            new Expression("to_date(properties->>'start_date', 'YYYY-MM-DD')"),
+                            new Expression("to_date(properties->>'end_date', 'YYYY-MM-DD')"),
+                            'details',
+                            'created_at',
+                            'updated_at',
+                            'deleted_at',
+                        ])
+                        ->where('experience_type', 'App\Models\CommunityExperience')
+                );
+
+            DB::table('education_experiences')
+                ->insertUsing(
+                    ['id', 'user_id', 'institution', 'area_of_study', 'thesis_title', 'start_date', 'end_date', 'type', 'status', 'details', 'created_at', 'updated_at', 'deleted_at'],
+                    DB::table('experiences')
+                        ->select([
+                            'id',
+                            'user_id',
+                            new Expression("properties->>'institution'"),
+                            new Expression("properties->>'area_of_study'"),
+                            new Expression("properties->>'thesis_title'"),
+                            new Expression("to_date(properties->>'start_date', 'YYYY-MM-DD')"),
+                            new Expression("to_date(properties->>'end_date', 'YYYY-MM-DD')"),
+                            new Expression("properties->>'type'"),
+                            new Expression("properties->>'status'"),
+                            'details',
+                            'created_at',
+                            'updated_at',
+                            'deleted_at',
+                        ])
+                        ->where('experience_type', 'App\Models\EducationExperience')
+                );
+
+            DB::table('personal_experiences')
+                ->insertUsing(
+                    ['id', 'user_id', 'title', 'description', 'start_date', 'end_date', 'details', 'created_at', 'updated_at', 'deleted_at'],
+                    DB::table('experiences')
+                        ->select([
+                            'id',
+                            'user_id',
+                            new Expression("properties->>'title'"),
+                            new Expression("properties->>'description'"),
+                            new Expression("to_date(properties->>'start_date', 'YYYY-MM-DD')"),
+                            new Expression("to_date(properties->>'end_date', 'YYYY-MM-DD')"),
+                            'details',
+                            'created_at',
+                            'updated_at',
+                            'deleted_at',
+                        ])
+                        ->where('experience_type', 'App\Models\PersonalExperience')
+                );
+
+            DB::table('work_experiences')
+                ->insertUsing(
+                    ['id', 'user_id', 'role', 'organization', 'division', 'start_date', 'end_date', 'details', 'created_at', 'updated_at', 'deleted_at'],
+                    DB::table('experiences')
+                        ->select([
+                            'id',
+                            'user_id',
+                            new Expression("properties->>'role'"),
+                            new Expression("properties->>'organization'"),
+                            new Expression("properties->>'division'"),
+                            new Expression("to_date(properties->>'start_date', 'YYYY-MM-DD')"),
+                            new Expression("to_date(properties->>'end_date', 'YYYY-MM-DD')"),
+                            'details',
+                            'created_at',
+                            'updated_at',
+                            'deleted_at',
+                        ])
+                        ->where('experience_type', 'App\Models\WorkExperience')
+                );
+
+            Schema::dropIfExists('experiences');
+        });
     }
 };
