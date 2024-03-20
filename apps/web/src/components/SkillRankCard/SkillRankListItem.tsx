@@ -4,11 +4,10 @@ import { useIntl } from "react-intl";
 import { Link } from "@gc-digital-talent/ui";
 import {
   commonMessages,
-  getBehaviouralSkillLevel,
   getLocalizedName,
-  getTechnicalSkillLevel,
+  getSkillLevelName,
 } from "@gc-digital-talent/i18n";
-import { Scalars, SkillCategory, UserSkill } from "@gc-digital-talent/graphql";
+import { Scalars, UserSkill } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -46,11 +45,6 @@ const SkillRankListItem = ({
 }: SkillRankListItemProps) => {
   const intl = useIntl();
 
-  const levelGetter =
-    skill.category === SkillCategory.Technical
-      ? getTechnicalSkillLevel
-      : getBehaviouralSkillLevel;
-
   const NameWrapper = editable ? SkillLink : React.Fragment;
 
   return (
@@ -70,7 +64,7 @@ const SkillRankListItem = ({
             data-h2-color="base(black.light)"
             data-h2-flex-shrink="base(0)"
           >
-            {intl.formatMessage(levelGetter(skillLevel))}
+            {intl.formatMessage(getSkillLevelName(skillLevel, skill.category))}
           </span>
         ) : (
           <span

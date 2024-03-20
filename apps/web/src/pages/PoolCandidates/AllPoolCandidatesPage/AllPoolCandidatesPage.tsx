@@ -14,6 +14,7 @@ import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidates
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import AdminHero from "~/components/Hero/AdminHero";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 export const pageTitle: MessageDescriptor = defineMessage({
   defaultMessage: "Candidate search",
@@ -29,24 +30,19 @@ export const AllPoolCandidatesPage = () => {
 
   const formattedPageTitle = intl.formatMessage(pageTitle);
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Candidates",
-        id: "zzf16k",
-        description: "Breadcrumb for the All Candidates page",
-      }),
-      url: routes.poolCandidates(),
-    },
-  ];
+  const navigationCrumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Candidates",
+          id: "zzf16k",
+          description: "Breadcrumb for the All Candidates page",
+        }),
+        url: routes.poolCandidates(),
+      },
+    ],
+    isAdmin: true,
+  });
 
   return (
     <>

@@ -85,17 +85,19 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
   const followingStep =
     currentStepIndex < steps.length - 1 ? steps[currentStepIndex + 1] : null;
 
-  const crumbs = useBreadcrumbs([
-    {
-      url: paths.browsePools(),
-      label: intl.formatMessage(navigationMessages.browseJobs),
-    },
-    {
-      url: paths.pool(application.pool.id),
-      label: title.html,
-    },
-    ...currentCrumbs,
-  ]);
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        url: paths.browsePools(),
+        label: intl.formatMessage(navigationMessages.browseJobs),
+      },
+      {
+        url: paths.pool(application.pool.id),
+        label: title.html,
+      },
+      ...currentCrumbs,
+    ],
+  });
 
   const userIsOnDisabledPage = isOnDisabledPage(
     currentPage?.link.url,

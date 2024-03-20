@@ -12,6 +12,7 @@ import { Skill, UserSkill } from "@gc-digital-talent/graphql";
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import SkillLibraryTable from "./components/SkillLibraryTable";
 import { UserSkills_Query } from "./operations";
@@ -46,24 +47,18 @@ const SkillLibrary = ({ userSkills, skills }: SkillLibraryProps) => {
     },
   };
 
-  const crumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: paths.home(),
-    },
-    {
-      label: intl.formatMessage(navigationMessages.profileAndApplications),
-      url: paths.profileAndApplications(),
-    },
-    {
-      label: intl.formatMessage(navigationMessages.skillLibrary),
-      url: paths.skillLibrary(),
-    },
-  ];
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(navigationMessages.profileAndApplications),
+        url: paths.profileAndApplications(),
+      },
+      {
+        label: intl.formatMessage(navigationMessages.skillLibrary),
+        url: paths.skillLibrary(),
+      },
+    ],
+  });
 
   const pageTitle = intl.formatMessage(navigationMessages.skillLibrary);
 

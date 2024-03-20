@@ -46,6 +46,7 @@ use App\Enums\GovEmployeeType;
 use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
 use App\Enums\LanguageAbility;
+use App\Enums\NotificationType;
 use App\Enums\OperationalRequirement;
 use App\Enums\PoolCandidateSearchPositionType;
 use App\Enums\PoolCandidateSearchRequestReason;
@@ -636,6 +637,16 @@ class GraphQLServiceProvider extends ServiceProvider
                 return new EnumType([
                     'name' => 'AssessmentDecisionLevel',
                     'values' => array_column(AssessmentDecisionLevel::cases(), 'name'),
+                ]);
+            }
+        );
+
+        $typeRegistry->registerLazy(
+            'NotificationType',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'NotificationType',
+                    'values' => array_column(NotificationType::cases(), 'name'),
                 ]);
             }
         );

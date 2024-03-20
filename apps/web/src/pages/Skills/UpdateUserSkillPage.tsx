@@ -29,7 +29,6 @@ import {
   Scalars,
   Skill,
   SkillLevel,
-  SkillCategory,
   UserSkill,
   WhenSkillUsed,
   graphql,
@@ -42,6 +41,7 @@ import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSkillFormDialog from "~/components/ExperienceSkillFormDialog/ExperienceSkillFormDialog";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import {
   CreateUserSkill_Mutation,
@@ -128,7 +128,6 @@ export const UpdateUserSkillForm = ({
   const skillName = getLocalizedName(skill.name, intl);
   const skillDescription = getLocalizedName(skill.description, intl);
   const hasUserSkill = notEmpty(userSkill);
-  const isTechnical = skill.category === SkillCategory.Technical;
   const linkedExperiences = userSkill?.experiences?.filter(notEmpty);
   const from = searchParams.get("from");
   const fromShowcase = from && from === "showcase";
@@ -223,37 +222,31 @@ export const UpdateUserSkillForm = ({
       );
   };
 
-  const crumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: paths.home(),
-    },
-    {
-      label: intl.formatMessage(navigationMessages.profileAndApplications),
-      url: paths.profileAndApplications(),
-    },
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(navigationMessages.profileAndApplications),
+        url: paths.profileAndApplications(),
+      },
 
-    {
-      label: intl.formatMessage(navigationMessages.skillLibrary),
-      url: paths.skillLibrary(),
-    },
-    ...(fromShowcase
-      ? [
-          {
-            label: intl.formatMessage(navigationMessages.skillShowcase),
-            url: paths.skillShowcase(),
-          },
-        ]
-      : []),
-    {
-      label: skillName,
-      url: paths.editUserSkill(skill.id),
-    },
-  ];
+      {
+        label: intl.formatMessage(navigationMessages.skillLibrary),
+        url: paths.skillLibrary(),
+      },
+      ...(fromShowcase
+        ? [
+            {
+              label: intl.formatMessage(navigationMessages.skillShowcase),
+              url: paths.skillShowcase(),
+            },
+          ]
+        : []),
+      {
+        label: skillName,
+        url: paths.editUserSkill(skill.id),
+      },
+    ],
+  });
 
   const sections: PageSections = {
     skillLevel: {
@@ -367,7 +360,7 @@ export const UpdateUserSkillForm = ({
                   data-h2-gap="base(x1 0)"
                   data-h2-margin="base(x1, 0, x2, 0)"
                 >
-                  <UserSkillFormFields isTechnical={isTechnical} />
+                  <UserSkillFormFields category={skill.category} />
                   <div
                     data-h2-display="base(flex)"
                     data-h2-flex-wrap="base(wrap)"

@@ -19,37 +19,36 @@ jobs:
     name: Translations
     runs-on: ubuntu-22.04
     env:
-      NPM_VERSION: "9.9.2"
+      PNPM_VERSION: "8.15.0"
 
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3
+        with:
+          version: ${{ env.PNPM_VERSION }}
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
           node-version-file: "./.nvmrc"
-          cache: "npm"
-          cache-dependency-path: "./package-lock.json"
-
-      - name: Upgrade npm
-        run: npm install --location=global npm@${{ env.NPM_VERSION }}
+          cache: pnpm
 
       - name: "Install dependencies: workspace"
         working-directory: ./
-        run: npm install
+        run: pnpm install
 
       - name: "Setup cli"
         working-directory: ./
-        run: npm run build:intl-cli
+        run: pnpm run build:intl-cli
 
       - name: "Extract English files: all workspaces"
         working-directory: ./
-        run: npm run intl-extract
+        run: pnpm run intl-extract
 
       - name: "Generate untranslated files: all workspaces"
         working-directory: ./
         run: |
-          npm run check-intl:i18n
-          npm run check-intl:web
+          pnpm run check-intl:i18n
+          pnpm run check-intl:web
 
       - name: "Verify no untranslated file: i18n"
         if: always()

@@ -28,6 +28,7 @@ import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
 import AdminHero from "~/components/Hero/AdminHero";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 type FormValues = {
   classification: string[];
@@ -263,28 +264,23 @@ const CreatePoolPage = () => {
       return Promise.reject(result.error);
     });
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(indexPoolPageTitle),
-      url: routes.poolTable(),
-    },
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Create new pool",
-        id: "OgeWgx",
-        description: "Breadcrumb title for the create new pool page link.",
-      }),
-      url: routes.poolCreate(),
-    },
-  ];
+  const navigationCrumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(indexPoolPageTitle),
+        url: routes.poolTable(),
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Create new pool",
+          id: "OgeWgx",
+          description: "Breadcrumb title for the create new pool page link.",
+        }),
+        url: routes.poolCreate(),
+      },
+    ],
+    isAdmin: true,
+  });
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Create pool",

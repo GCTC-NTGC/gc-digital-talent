@@ -78,6 +78,7 @@ type Query {
   ): PoolCandidateSearchRequestPaginator!
   notifications(
     where: NotificationFilterInput
+    excludeIds: [UUID!]
 
     "Limits number of fetched items."
     first: Int! = 10
@@ -268,19 +269,21 @@ type User {
 
 interface Notification {
   id: ID!
+  type: NotificationType!
   readAt: DateTime
-  createdAt: DateTime
-  updatedAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type PoolCandidateStatusChangedNotification implements Notification {
   id: ID!
+  type: NotificationType!
   readAt: DateTime
-  createdAt: DateTime
-  updatedAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
   oldStatus: PoolCandidateStatus
   newStatus: PoolCandidateStatus
-  poolId: ID
+  poolCandidateId: ID
   poolName: LocalizedString
 }
 
@@ -317,6 +320,8 @@ type Pool {
   yourImpact: LocalizedString
   whatToExpect: LocalizedString
   specialNote: LocalizedString
+  whatToExpectAdmission: LocalizedString
+  aboutUs: LocalizedString
   isRemote: Boolean
   location: LocalizedString
   securityClearance: SecurityStatus
@@ -1219,6 +1224,8 @@ input UpdatePoolInput {
   keyTasks: LocalizedStringInput
   whatToExpect: LocalizedStringInput
   specialNote: LocalizedStringInput
+  whatToExpectAdmission: LocalizedStringInput
+  aboutUs: LocalizedStringInput
   language: PoolLanguage
   securityClearance: SecurityStatus
   location: LocalizedStringInput
@@ -2381,4 +2388,8 @@ enum AssessmentDecisionLevel {
   AT_REQUIRED
   ABOVE_REQUIRED
   ABOVE_AND_BEYOND_REQUIRED
+}
+
+enum NotificationType {
+  PoolCandidateStatusChanged
 }

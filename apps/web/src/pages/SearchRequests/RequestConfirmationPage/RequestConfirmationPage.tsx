@@ -36,24 +36,26 @@ const RequestConfirmationPage = () => {
   const { requestId } =
     useRequiredParams<RequestConfirmationParams>("requestId");
 
-  const crumbs = useBreadcrumbs([
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Search for talent",
-        id: "weLwJA",
-        description: "Link text for the search page breadcrumb",
-      }),
-      url: paths.search(),
-    },
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Request submitted",
-        id: "0zo274",
-        description: "Link text for request confirmation breadcrumb",
-      }),
-      url: paths.requestConfirmation(requestId),
-    },
-  ]);
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Search for talent",
+          id: "weLwJA",
+          description: "Link text for the search page breadcrumb",
+        }),
+        url: paths.search(),
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Request submitted",
+          id: "0zo274",
+          description: "Link text for request confirmation breadcrumb",
+        }),
+        url: paths.requestConfirmation(requestId),
+      },
+    ],
+  });
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Successful request",

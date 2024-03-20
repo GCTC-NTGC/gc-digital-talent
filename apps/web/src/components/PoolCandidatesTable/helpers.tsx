@@ -298,7 +298,6 @@ export function transformSortStateToOrderByClause(
   const columnMap = new Map<string, string>([
     ["dateReceived", "submitted_at"],
     ["candidacyStatus", "suspended_at"],
-    ["candidacyStatus", "suspended_at"],
     ["finalDecision", "status"],
     ["jobPlacement", "status"],
     ["candidateName", "FIRST_NAME"],
@@ -308,6 +307,7 @@ export function transformSortStateToOrderByClause(
     ["skillCount", "skill_count"],
     ["priority", "PRIORITY_WEIGHT"],
     ["status", "status_weight"],
+    ["notes", "notes"],
   ]);
 
   const sortingRule = sortingRules?.find((rule) => {
@@ -317,7 +317,9 @@ export function transformSortStateToOrderByClause(
 
   if (
     sortingRule &&
-    ["dateReceived", "candidacyStatus", "status"].includes(sortingRule.id)
+    ["dateReceived", "candidacyStatus", "status", "notes"].includes(
+      sortingRule.id,
+    )
   ) {
     const columnName = columnMap.get(sortingRule.id);
     return {

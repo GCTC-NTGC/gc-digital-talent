@@ -21,7 +21,6 @@ import Card, {
   type CardFlatProps,
   type CardProps,
 } from "./components/Card";
-import CardLink, { type CardLinkProps } from "./components/CardLink";
 import CardRepeater, {
   useCardRepeaterContext,
 } from "./components/CardRepeater/CardRepeater";
@@ -92,7 +91,6 @@ export type {
   CardFlatProps,
   CardProps,
   CardBasicProps,
-  CardLinkProps,
   HeadingProps,
   HeadingLevel,
   HeadingRef,
@@ -134,7 +132,6 @@ export {
   Card,
   CardBasic,
   CardFlat,
-  CardLink,
   CardRepeater,
   Chips,
   Chip,

@@ -123,6 +123,8 @@ class User extends Model implements Authenticatable, LaratrustUser
         'preferred_language_for_interview',
         'preferred_language_for_exam',
         'deleted_at',
+        'created_at',
+        'updated_at',
     ];
 
     protected $keyType = 'string';
@@ -715,15 +717,22 @@ class User extends Model implements Authenticatable, LaratrustUser
     {
         if ($searchTerms && is_array($searchTerms)) {
             $combinedSearchTerm = implode('&', array_map('trim', $searchTerms));
-            $resultIds = self::search($combinedSearchTerm)->usingWebSearchQuery()
-                ->get(['id'])
-                ->pluck('id')
-                ->unique()
-                ->take(32766)
-                ->toArray();
 
-            // Use Eloquent builder to filter results based on unique IDs
-            $query->whereIn('id', $resultIds);
+            $query
+                // attach the tsquery to every row to use for filtering
+                ->crossJoinSub(function ($query) use ($combinedSearchTerm) {
+                    $query->selectRaw(
+                        'websearch_to_tsquery(coalesce(?, get_current_ts_config()), ?)'.' AS tsquery',
+                        ['english', $combinedSearchTerm]
+                    );
+                }, 'calculations')
+                // filter rows against the tsquery
+                ->whereColumn('searchable', '@@', 'calculations.tsquery')
+                // add the calculated rank column to allow for ordering by text search rank
+                ->addSelect(DB::raw('ts_rank(searchable, calculations.tsquery) AS rank'))
+                // Now that we have added a column, query builder no longer will add a * to the select.  Add all possible columns manually.
+                ->addSelect(self::$selectableColumns);
+
         }
 
         return $query;
