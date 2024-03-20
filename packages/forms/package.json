@@ -68,6 +68,6 @@
     "react-intl": "^6.6.2",
     "tsconfig": "workspace:*",
     "tsup": "^8.0.2",
-    "typescript": "^5.4.2"
+    "typescript": "^5.4.3"
   }
 }
