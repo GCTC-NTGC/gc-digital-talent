@@ -86,6 +86,7 @@ const NotificationDialog = () => {
                 data-h2-font-family="base(sans)"
                 data-h2-max-width="base(95vw)"
                 data-h2-width="base(x18)"
+                data-h2-overflow-y="base(auto)"
                 data-h2-position="base(fixed)"
                 data-h2-top="base(0)"
                 data-h2-right="base(0)"
@@ -151,7 +152,7 @@ const NotificationDialog = () => {
                     )}
                   </p>
                 </div>
-                <NotificationList live limit={30} />
+                <NotificationList live flat limit={30} />
               </m.div>
             </DialogPrimitive.Content>
           </Dialog.Portal>
