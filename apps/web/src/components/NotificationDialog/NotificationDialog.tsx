@@ -18,6 +18,7 @@ import {
 
 import usePollingQuery from "~/hooks/usePollingQuery";
 import useRoutes from "~/hooks/useRoutes";
+import notificationMessages from "~/messages/notificationMessages";
 
 import UnreadAlertBellIcon from "./UnreadAlertBellIcon";
 import NotificationList from "../NotificationList/NotificationList";
@@ -119,11 +120,7 @@ const NotificationDialog = () => {
                       data-h2-margin="base(0)"
                       data-h2-line-height="base(1)"
                     >
-                      {intl.formatMessage({
-                        defaultMessage: "Notifications",
-                        id: "OQ1hHo",
-                        description: "Title for notifications",
-                      })}
+                      {intl.formatMessage(notificationMessages.title)}
                     </Heading>
                     <div
                       data-h2-display="base(flex)"
