@@ -56,7 +56,6 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
     classificationAbbr = wrapAbbr(`${group}-0${level}`, intl);
   }
   const salaryRanges = getSalaryRanges(pool, locale);
-  const nullMessage = intl.formatMessage(commonMessages.notAvailable);
 
   return (
     <div
@@ -92,7 +91,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
           data-h2-transform="base(translate(-50%, 0px))"
           data-h2-white-space="base:children[*](nowrap)"
         >
-          {classificationAbbr || nullMessage}
+          {classificationAbbr}
         </span>
       </div>
       <div>
@@ -169,7 +168,9 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
               }) + intl.formatMessage(commonMessages.dividingColon)
             }
           >
-            {salaryRanges ? salaryRanges[0] : nullMessage}
+            {salaryRanges
+              ? salaryRanges[0]
+              : intl.formatMessage(commonMessages.notAvailable)}
           </IconLabel>
         </div>
         <div data-h2-margin-top="base(x1)">
