@@ -43,6 +43,7 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import AssessmentResultsTable from "~/components/AssessmentResultsTable/AssessmentResultsTable";
 import ChangeDateDialog from "~/pages/Users/UserInformationPage/components/ChangeDateDialog";
 import ChangeStatusDialog from "~/pages/Users/UserInformationPage/components/ChangeStatusDialog";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
 import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
@@ -650,8 +651,8 @@ export const ViewPoolCandidate = ({
             <Accordion.Item value="otherRecruitments">
               <Accordion.Trigger>
                 {intl.formatMessage({
-                  defaultMessage: "Other recruitments",
-                  id: "kZs3Nk",
+                  defaultMessage: "Other processes",
+                  id: "n+/HPL",
                   description:
                     "Heading for table of a users other applications and recruitments",
                 })}
@@ -728,32 +729,27 @@ export const ViewPoolCandidate = ({
     intl,
   );
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: paths.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(indexPoolPageTitle),
-      url: paths.poolTable(),
-    },
-    {
-      label: getFullPoolTitleLabel(intl, poolCandidate.pool),
-      url: paths.poolView(poolCandidate.pool.id),
-    },
-    {
-      label: intl.formatMessage(screeningAndAssessmentTitle),
-      url: paths.screeningAndEvaluation(poolCandidate.pool.id),
-    },
-    {
-      label: candidateName,
-      url: paths.poolCandidateApplication(poolCandidate.id),
-    },
-  ];
+  const navigationCrumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(indexPoolPageTitle),
+        url: paths.poolTable(),
+      },
+      {
+        label: getFullPoolTitleLabel(intl, poolCandidate.pool),
+        url: paths.poolView(poolCandidate.pool.id),
+      },
+      {
+        label: intl.formatMessage(screeningAndAssessmentTitle),
+        url: paths.screeningAndEvaluation(poolCandidate.pool.id),
+      },
+      {
+        label: candidateName,
+        url: paths.poolCandidateApplication(poolCandidate.id),
+      },
+    ],
+    isAdmin: true,
+  });
 
   return (
     <>

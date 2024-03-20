@@ -96,16 +96,18 @@ export const ProfileForm = ({ user }: ProfilePageProps) => {
     description: "applicant dashboard card title for profile card",
   });
 
-  const crumbs = useBreadcrumbs([
-    {
-      label: intl.formatMessage(navigationMessages.profileAndApplications),
-      url: paths.profileAndApplications(),
-    },
-    {
-      label: pageTitle,
-      url: paths.profile(user.id),
-    },
-  ]);
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(navigationMessages.profileAndApplications),
+        url: paths.profileAndApplications(),
+      },
+      {
+        label: pageTitle,
+        url: paths.profile(user.id),
+      },
+    ],
+  });
 
   const [{ fetching: isUpdating }, executeUpdateMutation] = useMutation(
     ProfileUpdateUser_Mutation,

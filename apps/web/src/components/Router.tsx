@@ -188,6 +188,14 @@ const CareerTimelineAndRecruitmentPage = React.lazy(() =>
       ),
   ),
 );
+const NotificationsPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsNotificationsPage" */ "../pages/Notifications/NotificationsPage/NotificationsPage"
+      ),
+  ),
+);
 
 /** Direct Intake */
 const BrowsePoolsPage = React.lazy(() =>
@@ -354,14 +362,6 @@ const IAPManagerHomePage = React.lazy(() =>
 );
 
 /** Admin */
-const AdminHomePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminAdminHomePage" */ "../pages/Home/AdminHomePage/AdminHomePage"
-      ),
-  ),
-);
 const AdminErrorPage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -917,6 +917,19 @@ const createRoute = (
                   ),
                 },
                 {
+                  ...(featureFlags.notifications && {
+                    path: "notifications",
+                    element: (
+                      <RequireAuth
+                        roles={[ROLE_NAME.Applicant]}
+                        loginPath={loginPath}
+                      >
+                        <NotificationsPage />
+                      </RequireAuth>
+                    ),
+                  }),
+                },
+                {
                   path: "profile-and-applications",
                   children: [
                     {
@@ -1269,11 +1282,7 @@ const createRoute = (
           errorElement: <AdminErrorPage />,
           children: [
             {
-              path: "",
-              element: <AdminHomePage />,
-            },
-            {
-              path: "dashboard",
+              index: true,
               element: (
                 <RequireAuth
                   roles={[

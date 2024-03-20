@@ -16,6 +16,7 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import { pageTitle as indexClassificationPageTitle } from "~/pages/Classifications/IndexClassificationPage";
 import AdminHero from "~/components/Hero/AdminHero";
 import adminMessages from "~/messages/adminMessages";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 type FormValues = CreateClassificationInput;
 interface CreateClassificationFormProps {
@@ -210,29 +211,24 @@ const CreateClassification = () => {
       return Promise.reject(result.error);
     });
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(indexClassificationPageTitle),
-      url: routes.classificationTable(),
-    },
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Create<hidden> classification</hidden>",
-        id: "E8BMJW",
-        description:
-          "Breadcrumb title for the create classification page link.",
-      }),
-      url: routes.classificationCreate(),
-    },
-  ];
+  const navigationCrumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(indexClassificationPageTitle),
+        url: routes.classificationTable(),
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Create<hidden> classification</hidden>",
+          id: "E8BMJW",
+          description:
+            "Breadcrumb title for the create classification page link.",
+        }),
+        url: routes.classificationCreate(),
+      },
+    ],
+    isAdmin: true,
+  });
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Create classification",

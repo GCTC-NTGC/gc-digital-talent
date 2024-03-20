@@ -59,16 +59,18 @@ export const DigitalServicesContractingQuestionnaire = ({
   const localeState = useLocale();
   const paths = useRoutes();
 
-  const crumbs = useBreadcrumbs([
-    {
-      label: intl.formatMessage(directiveHomePageTitle),
-      url: paths.directive(),
-    },
-    {
-      label: intl.formatMessage(pageTitle),
-      url: paths.digitalServicesContractingQuestionnaire(),
-    },
-  ]);
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(directiveHomePageTitle),
+        url: paths.directive(),
+      },
+      {
+        label: intl.formatMessage(pageTitle),
+        url: paths.digitalServicesContractingQuestionnaire(),
+      },
+    ],
+  });
 
   const labels = useLabels();
 

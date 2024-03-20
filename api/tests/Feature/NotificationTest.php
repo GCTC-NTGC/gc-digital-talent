@@ -23,8 +23,6 @@ class NotificationTest extends TestCase
     use RefreshDatabase;
     use RefreshesSchemaCache;
 
-    protected $user;
-
     protected $notification;
 
     protected $originalStatus;
@@ -46,7 +44,7 @@ class NotificationTest extends TestCase
                     ... on PoolCandidateStatusChangedNotification {
                         oldStatus
                         newStatus
-                        poolId
+                        poolCandidateId
                         poolName {
                             en
                             fr
@@ -68,26 +66,9 @@ class NotificationTest extends TestCase
         $this->seed(SkillSeeder::class);
         $this->seed(RolePermissionSeeder::class);
 
-        $this->user = User::factory()
-            ->asApplicant()
-            ->create();
-
         $this->pool = Pool::factory()
             ->published()
             ->create();
-
-        $this->originalStatus = PoolCandidateStatus::NEW_APPLICATION->name;
-        $this->newStatus = PoolCandidateStatus::PLACED_TERM->name;
-        $this->user->notify(
-            new PoolCandidateStatusChanged(
-                $this->originalStatus,
-                $this->newStatus,
-                $this->pool->id,
-                $this->pool->name
-            )
-        );
-
-        $this->notification = $this->user->unreadNotifications()->first();
 
         $this->candidateUser = User::factory()
             ->asApplicant()
@@ -100,12 +81,25 @@ class NotificationTest extends TestCase
             'user_id' => $this->candidateUser->id,
             'pool_id' => $this->pool->id,
         ]);
+
+        $this->originalStatus = PoolCandidateStatus::NEW_APPLICATION->name;
+        $this->newStatus = PoolCandidateStatus::PLACED_TERM->name;
+        $this->candidateUser->notify(
+            new PoolCandidateStatusChanged(
+                $this->originalStatus,
+                $this->newStatus,
+                $this->poolCandidate->id,
+                $this->pool->name
+            )
+        );
+
+        $this->notification = $this->candidateUser->unreadNotifications()->first();
     }
 
     public function testQueryNotification(): void
     {
 
-        $this->actingAs($this->user, 'api')
+        $this->actingAs($this->candidateUser, 'api')
             ->graphQL($this->queryNotifications)->assertJson([
                 'data' => [
                     'notifications' => [
@@ -115,7 +109,7 @@ class NotificationTest extends TestCase
                                 'readAt' => null,
                                 'oldStatus' => $this->originalStatus,
                                 'newStatus' => $this->newStatus,
-                                'poolId' => $this->pool->id,
+                                'poolCandidateId' => $this->poolCandidate->id,
                                 'poolName' => [
                                     'en' => $this->pool->name['en'],
                                     'fr' => $this->pool->name['fr'],
@@ -129,7 +123,7 @@ class NotificationTest extends TestCase
 
     public function testReadNotificationMutation(): void
     {
-        $response = $this->actingAs($this->user, 'api')
+        $response = $this->actingAs($this->candidateUser, 'api')
             ->graphQL(/** @lang GraphQL */ '
                 mutation readNotification($id: UUID!) {
                     markNotificationAsRead(id: $id) {
@@ -147,7 +141,7 @@ class NotificationTest extends TestCase
     public function testUnreadNotificationMutation(): void
     {
         $this->notification->markAsRead();
-        $response = $this->actingAs($this->user, 'api')
+        $response = $this->actingAs($this->candidateUser, 'api')
             ->graphQL(/** @lang GraphQL */ '
                 mutation unReadNotification($id: UUID!) {
                     markNotificationAsUnread(id: $id) {
@@ -164,7 +158,7 @@ class NotificationTest extends TestCase
 
     public function testDeleteNotification(): void
     {
-        $this->actingAs($this->user, 'api')
+        $this->actingAs($this->candidateUser, 'api')
             ->graphQL(/** @lang GraphQL */ '
                 mutation DeleteNotification($id: UUID!) {
                     deleteNotification(id: $id) {
@@ -189,24 +183,24 @@ class NotificationTest extends TestCase
     public function testReadAllNotifications(): void
     {
 
-        $this->user->notify(
+        $this->candidateUser->notify(
             new PoolCandidateStatusChanged(
                 PoolCandidateStatus::SCREENED_IN->name,
                 PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-                $this->pool->id,
+                $this->poolCandidate->id,
                 $this->pool->name
             )
         );
-        $this->user->notify(
+        $this->candidateUser->notify(
             new PoolCandidateStatusChanged(
                 PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
                 PoolCandidateStatus::QUALIFIED_WITHDREW->name,
-                $this->pool->id,
+                $this->poolCandidate->id,
                 $this->pool->name
             )
         );
 
-        $response = $this->actingAs($this->user, 'api')
+        $response = $this->actingAs($this->candidateUser, 'api')
             ->graphQL($this->queryNotifications);
 
         // Confirm they exist as unread first
@@ -219,7 +213,7 @@ class NotificationTest extends TestCase
             'readAt' => null,
         ]);
 
-        $response = $this->actingAs($this->user, 'api')
+        $response = $this->actingAs($this->candidateUser, 'api')
             ->graphQL(/** @lang GraphQL */ '
                 mutation ReadAll {
                     markAllNotificationsAsRead {
@@ -235,28 +229,28 @@ class NotificationTest extends TestCase
 
     public function testOnlyUnreadQuery()
     {
-        $this->user->notify(
+        $this->candidateUser->notify(
             new PoolCandidateStatusChanged(
                 PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name,
                 PoolCandidateStatus::QUALIFIED_WITHDREW->name,
-                $this->pool->id,
+                $this->poolCandidate->id,
                 $this->pool->name
             )
         );
 
-        $this->user->notify(
+        $this->candidateUser->notify(
             new PoolCandidateStatusChanged(
                 PoolCandidateStatus::NEW_APPLICATION->name,
                 PoolCandidateStatus::PLACED_CASUAL->name,
-                $this->pool->id,
+                $this->poolCandidate->id,
                 $this->pool->name
             )
         );
 
-        $this->user->notifications()->first()->markAsRead();
+        $this->candidateUser->notifications()->first()->markAsRead();
 
-        $unreadNotifications = $this->user->unreadNotifications()->get()->toArray();
-        $response = $this->actingAs($this->user, 'api')
+        $unreadNotifications = $this->candidateUser->unreadNotifications()->get()->toArray();
+        $response = $this->actingAs($this->candidateUser, 'api')
             ->graphQL($this->queryNotifications, [
                 'where' => [
                     'onlyUnread' => true,
@@ -273,23 +267,23 @@ class NotificationTest extends TestCase
 
     public function testDateRangeFilter()
     {
-        $this->user->notify(
+        $this->candidateUser->notify(
             new PoolCandidateStatusChanged(
                 PoolCandidateStatus::PLACED_INDETERMINATE->name,
                 PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-                $this->pool->id,
+                $this->poolCandidate->id,
                 $this->pool->name
             )
         );
 
         $pastDate = new Carbon(config('constants.past_date'));
-        $this->user->notifications()->first()->update([
+        $this->candidateUser->notifications()->first()->update([
             'read_at' => $pastDate,
         ]);
-        $this->user->unreadNotifications->markAsRead();
+        $this->candidateUser->unreadNotifications->markAsRead();
 
         $from = $pastDate->addDay();
-        $response = $this->actingAs($this->user, 'api')
+        $response = $this->actingAs($this->candidateUser, 'api')
             ->graphQL($this->queryNotifications, [
                 'where' => [
                     'readAt' => [
@@ -298,7 +292,7 @@ class NotificationTest extends TestCase
                     ],
                 ]]);
 
-        $notifications = $this->user->notifications()->get()->toArray();
+        $notifications = $this->candidateUser->notifications()->get()->toArray();
 
         $rangeResponse = $response->json('data.notifications.data');
 

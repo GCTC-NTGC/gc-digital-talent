@@ -1001,8 +1001,10 @@ class PoolApplicationTest extends TestCase
             'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
             'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
-            'education_requirement_option' => null,
         ]);
+        $newPoolCandidate->update(['education_requirement_option' => null]);
+        $newPoolCandidate->educationRequirementEducationExperiences()->sync([]);
+        $newPoolCandidate->educationRequirementWorkExperiences()->sync([]);
         $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
 
         // assert can't submit with incomplete education requirement
