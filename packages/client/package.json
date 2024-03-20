@@ -26,7 +26,7 @@
     "@gc-digital-talent/i18n": "workspace:*",
     "@gc-digital-talent/logger": "workspace:*",
     "@gc-digital-talent/toast": "workspace:*",
-    "@urql/core": "4.2.3",
+    "@urql/core": "4.3.0",
     "@urql/exchange-auth": "^2.1.6",
     "graphql": "^16.8.1",
     "jwt-decode": "4.0.0",
