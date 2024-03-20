@@ -230,26 +230,6 @@ export const AssessmentPlanBuilderPage = () => {
       variables: { poolId },
     });
 
-  // Note: Should technically be in subNav of layout?
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const navigationCrumbs = useBreadcrumbs({
-    crumbs: [
-      {
-        label: intl.formatMessage(indexPoolPageTitle),
-        url: routes.poolTable(),
-      },
-      {
-        label: getLocalizedName(queryData?.pool?.name, intl),
-        url: routes.poolView(poolId),
-      },
-      {
-        label: intl.formatMessage(pageTitle),
-        url: routes.assessmentPlanBuilder(poolId),
-      },
-    ],
-    isAdmin: true,
-  });
-
   // RequireAuth in router can't check team roles
   const authorizedToSeeThePage: boolean =
     authorization.roleAssignments?.some(
