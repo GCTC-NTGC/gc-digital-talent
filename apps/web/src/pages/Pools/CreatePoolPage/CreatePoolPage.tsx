@@ -71,8 +71,8 @@ export const CreatePoolForm = ({
           navigate(paths.poolUpdate(result.id));
           toast.success(
             intl.formatMessage({
-              defaultMessage: "Pool created successfully!",
-              id: "wZ91g+",
+              defaultMessage: "Recruitment process created successfully!",
+              id: "/UxJBZ",
               description:
                 "Message displayed to user after pool is created successfully.",
             }),
@@ -82,8 +82,8 @@ export const CreatePoolForm = ({
       .catch(() => {
         toast.error(
           intl.formatMessage({
-            defaultMessage: "Error: creating pool failed",
-            id: "W2qRX5",
+            defaultMessage: "Error: creating recruitment process failed",
+            id: "ruHk5N",
             description:
               "Message displayed to pool after pool fails to get created.",
           }),
@@ -160,10 +160,10 @@ export const CreatePoolForm = ({
               <Submit
                 color="secondary"
                 text={intl.formatMessage({
-                  defaultMessage: "Create new pool",
-                  id: "TLl20s",
+                  defaultMessage: "Create process",
+                  id: "rRREuF",
                   description:
-                    "Label displayed on submit button for new pool form.",
+                    "Label/title for creating a recruitment process.",
                 })}
               />
               <Link href={paths.poolTable()} mode="inline" color="quaternary">
@@ -264,6 +264,11 @@ const CreatePoolPage = () => {
       return Promise.reject(result.error);
     });
 
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "Create process",
+    id: "rRREuF",
+    description: "Label/title for creating a recruitment process.",
+  });
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
       {
@@ -271,21 +276,11 @@ const CreatePoolPage = () => {
         url: routes.poolTable(),
       },
       {
-        label: intl.formatMessage({
-          defaultMessage: "Create new pool",
-          id: "OgeWgx",
-          description: "Breadcrumb title for the create new pool page link.",
-        }),
+        label: pageTitle,
         url: routes.poolCreate(),
       },
     ],
     isAdmin: true,
-  });
-
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Create pool",
-    id: "zwYuly",
-    description: "Page title for the pool creation page",
   });
 
   return (
