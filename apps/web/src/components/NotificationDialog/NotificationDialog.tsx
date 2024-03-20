@@ -17,6 +17,7 @@ import {
 } from "@gc-digital-talent/ui";
 
 import UnreadAlertBellIcon from "./UnreadAlertBellIcon";
+import NotificationList from "../NotificationList/NotificationList";
 
 const Overlay = m(DialogPrimitive.Overlay);
 
@@ -150,6 +151,7 @@ const NotificationDialog = () => {
                     )}
                   </p>
                 </div>
+                <NotificationList live limit={30} />
               </m.div>
             </DialogPrimitive.Content>
           </Dialog.Portal>
