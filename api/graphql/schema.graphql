@@ -1878,12 +1878,9 @@ type Mutation {
   deleteNotification(id: UUID!): Notification @guard
   markAllNotificationsAsRead: [Notification] @guard
   updateIgnoredNotifications(
-    id: UUID!
     ignoredEmailNotifications: [NotificationFamily]
-      @rename(attribute: "ignored_email_notifications")
     ignoredInAppNotifications: [NotificationFamily]
-      @rename(attribute: "ignored_in_app_notifications")
-  ): User @update @guard @validator
+  ): User @guard @validator
   # UserSkill mutations
   createUserSkill(
     userId: UUID! @rename(attribute: "user_id")
