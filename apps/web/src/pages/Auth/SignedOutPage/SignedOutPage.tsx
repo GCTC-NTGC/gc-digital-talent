@@ -29,12 +29,14 @@ const SignedOutPage = () => {
     description: "Title for the page users land on after successful logout.",
   });
 
-  const crumbs = useBreadcrumbs([
-    {
-      label: pageTitle,
-      url: paths.loggedOut(),
-    },
-  ]);
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: pageTitle,
+        url: paths.loggedOut(),
+      },
+    ],
+  });
 
   return (
     <>

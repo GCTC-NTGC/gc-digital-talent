@@ -13,6 +13,7 @@ import {
   getLocalizedName,
   getPoolStatus,
   getPoolStream,
+  navigationMessages,
 } from "@gc-digital-talent/i18n";
 import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -287,11 +288,7 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
             crumbs: [
               {
                 url: paths.adminDashboard(),
-                label: intl.formatMessage({
-                  defaultMessage: "Home",
-                  id: "G1RNXj",
-                  description: "Link to the Homepage in the nav menu.",
-                }),
+                label: intl.formatMessage(navigationMessages.home),
               },
               {
                 url: paths.poolTable(),
@@ -327,11 +324,7 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
             crumbs: [
               {
                 url: paths.adminDashboard(),
-                label: intl.formatMessage({
-                  defaultMessage: "Home",
-                  id: "G1RNXj",
-                  description: "Link to the Homepage in the nav menu.",
-                }),
+                label: intl.formatMessage(navigationMessages.home),
               },
               {
                 url: paths.poolTable(),
@@ -416,11 +409,7 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
             crumbs: [
               {
                 url: paths.adminDashboard(),
-                label: intl.formatMessage({
-                  defaultMessage: "Home",
-                  id: "G1RNXj",
-                  description: "Link to the Homepage in the nav menu.",
-                }),
+                label: intl.formatMessage(navigationMessages.home),
               },
               {
                 url: paths.poolTable(),

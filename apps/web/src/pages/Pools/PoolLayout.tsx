@@ -3,7 +3,12 @@ import { useIntl } from "react-intl";
 import { Outlet } from "react-router-dom";
 import { useQuery } from "urql";
 
-import { Pending, Chip, ThrowNotFound } from "@gc-digital-talent/ui";
+import {
+  Pending,
+  Chip,
+  ThrowNotFound,
+  useAnnouncer,
+} from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { graphql, Pool } from "@gc-digital-talent/graphql";
 
@@ -25,6 +30,7 @@ interface PoolHeaderProps {
 
 const PoolHeader = ({ pool }: PoolHeaderProps) => {
   const intl = useIntl();
+  const { announce } = useAnnouncer();
 
   const pages = useAdminPoolPages(intl, pool);
 
@@ -36,6 +42,12 @@ const PoolHeader = ({ pool }: PoolHeaderProps) => {
 
   const advertisementStatus = getAdvertisementStatus(pool);
   const advertisementBadge = getPoolCompletenessBadge(advertisementStatus);
+
+  React.useEffect(() => {
+    if (currentPage?.title) {
+      announce(currentPage?.title);
+    }
+  }, [announce, currentPage?.title, intl]);
 
   return (
     <>

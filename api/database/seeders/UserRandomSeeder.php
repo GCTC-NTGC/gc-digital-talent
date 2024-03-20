@@ -2,16 +2,13 @@
 
 namespace Database\Seeders;
 
-use App\Enums\EducationRequirementOption;
 use App\Enums\SkillLevel;
 use App\Enums\WhenSkillUsed;
 use App\Models\AwardExperience;
-use App\Models\EducationExperience;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
 use App\Models\UserSkill;
-use App\Models\WorkExperience;
 use Faker\Generator;
 use Illuminate\Container\Container;
 use Illuminate\Database\Seeder;
@@ -136,26 +133,6 @@ class UserRandomSeeder extends Seeder
                 }
             })
             ->create();
-
-        // attach either a work or education experience to a pool candidate to meet minimum criteria
-        PoolCandidate::all()->load('user')->each(function ($poolCandidate) {
-            $educationRequirementOption = $poolCandidate->education_requirement_option;
-            $user = $poolCandidate->user;
-
-            if ($educationRequirementOption === EducationRequirementOption::EDUCATION->name) {
-                //Ensure user has at least one education experience
-                $experience = EducationExperience::factory()->create([
-                    'user_id' => $user->id,
-                ]);
-                $poolCandidate->educationRequirementEducationExperiences()->sync([$experience->id]);
-            } elseif ($educationRequirementOption === EducationRequirementOption::APPLIED_WORK->name) {
-                //Ensure user has at least one work experience
-                $experience = WorkExperience::factory()->create([
-                    'user_id' => $user->id,
-                ]);
-                $poolCandidate->educationRequirementWorkExperiences()->sync([$experience->id]);
-            }
-        });
     }
 
     private function seedPoolCandidate(User $user, Pool $pool)

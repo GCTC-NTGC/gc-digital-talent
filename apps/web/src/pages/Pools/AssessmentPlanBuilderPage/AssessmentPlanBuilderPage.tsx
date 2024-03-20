@@ -28,7 +28,6 @@ import {
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import SEO from "~/components/SEO/SEO";
 import { routeErrorMessages } from "~/hooks/useErrorMessages";
@@ -204,7 +203,6 @@ const AssessmentPlanBuilderPage_Query = graphql(/* GraphQL */ `
 export const AssessmentPlanBuilderPage = () => {
   const intl = useIntl();
   const { poolId } = useRequiredParams<RouteParams>("poolId");
-  const routes = useRoutes();
   const authorization = useAuthorization();
 
   const notFoundMessage = intl.formatMessage(
@@ -228,31 +226,6 @@ export const AssessmentPlanBuilderPage = () => {
       query: AssessmentPlanBuilderPage_Query,
       variables: { poolId },
     });
-
-  // Note: Should technically be in subNav of layout?
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(indexPoolPageTitle),
-      url: routes.poolTable(),
-    },
-    {
-      label: getLocalizedName(queryData?.pool?.name, intl),
-      url: routes.poolView(poolId),
-    },
-    {
-      label: intl.formatMessage(pageTitle),
-      url: routes.assessmentPlanBuilder(poolId),
-    },
-  ];
 
   // RequireAuth in router can't check team roles
   const authorizedToSeeThePage: boolean =

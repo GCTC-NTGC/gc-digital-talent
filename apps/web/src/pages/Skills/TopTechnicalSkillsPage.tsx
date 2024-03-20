@@ -10,6 +10,7 @@ import { navigationMessages } from "@gc-digital-talent/i18n";
 import { Skill, SkillCategory, UserSkill } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import UpdateSkillShowcase, {
   FormValues,
@@ -42,32 +43,26 @@ const TopTechnicalSkills = ({
 
   const pageId = "top-technical-skills";
 
-  const crumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: paths.home(),
-    },
-    {
-      label: intl.formatMessage(navigationMessages.profileAndApplications),
-      url: paths.profileAndApplications(),
-    },
-    {
-      label: intl.formatMessage(navigationMessages.skillShowcase),
-      url: paths.skillShowcase(),
-    },
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Top 10 technical skills",
-        id: "Aymigb",
-        description: "Title for the top 10 technical skills page",
-      }),
-      url: paths.topTechnicalSkills(),
-    },
-  ];
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(navigationMessages.profileAndApplications),
+        url: paths.profileAndApplications(),
+      },
+      {
+        label: intl.formatMessage(navigationMessages.skillShowcase),
+        url: paths.skillShowcase(),
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Top 10 technical skills",
+          id: "Aymigb",
+          description: "Title for the top 10 technical skills page",
+        }),
+        url: paths.topTechnicalSkills(),
+      },
+    ],
+  });
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Your top 10 technical skills",

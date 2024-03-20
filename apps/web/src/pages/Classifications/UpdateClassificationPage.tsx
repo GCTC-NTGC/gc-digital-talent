@@ -28,6 +28,7 @@ import { pageTitle as indexClassificationPageTitle } from "~/pages/Classificatio
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminHero from "~/components/Hero/AdminHero";
 import adminMessages from "~/messages/adminMessages";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 type FormValues = UpdateClassificationInput;
 interface UpdateClassificationFormProps {
@@ -263,33 +264,28 @@ const UpdateClassification = () => {
       return Promise.reject(result.error);
     });
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(indexClassificationPageTitle),
-      url: routes.classificationTable(),
-    },
-    ...(classificationId
-      ? [
-          {
-            label: intl.formatMessage({
-              defaultMessage: "Edit<hidden> classification</hidden>",
-              id: "ow4z7W",
-              description:
-                "Breadcrumb title for the edit classification page link.",
-            }),
-            url: routes.classificationUpdate(classificationId),
-          },
-        ]
-      : []),
-  ];
+  const navigationCrumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(indexClassificationPageTitle),
+        url: routes.classificationTable(),
+      },
+      ...(classificationId
+        ? [
+            {
+              label: intl.formatMessage({
+                defaultMessage: "Edit<hidden> classification</hidden>",
+                id: "ow4z7W",
+                description:
+                  "Breadcrumb title for the edit classification page link.",
+              }),
+              url: routes.classificationUpdate(classificationId),
+            },
+          ]
+        : []),
+    ],
+    isAdmin: true,
+  });
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Update classification",

@@ -20,12 +20,14 @@ const SearchPage = () => {
     description: "Title displayed on hero for Search and Request pages.",
   });
 
-  const crumbs = useBreadcrumbs([
-    {
-      label: title,
-      url: paths.search(),
-    },
-  ]);
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: title,
+        url: paths.search(),
+      },
+    ],
+  });
 
   return (
     <>

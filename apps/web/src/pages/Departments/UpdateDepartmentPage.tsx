@@ -23,6 +23,7 @@ import { pageTitle as indexDepartmentPageTitle } from "~/pages/Departments/Index
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminHero from "~/components/Hero/AdminHero";
 import adminMessages from "~/messages/adminMessages";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 type FormValues = UpdateDepartmentInput;
 
@@ -186,33 +187,28 @@ const UpdateDepartmentPage = () => {
       return Promise.reject(result.error);
     });
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(indexDepartmentPageTitle),
-      url: routes.departmentTable(),
-    },
-    ...(departmentId
-      ? [
-          {
-            label: intl.formatMessage({
-              defaultMessage: "Edit<hidden> department</hidden>",
-              id: "FYIbdJ",
-              description:
-                "Breadcrumb title for the edit department page link.",
-            }),
-            url: routes.departmentUpdate(departmentId),
-          },
-        ]
-      : []),
-  ];
+  const navigationCrumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(indexDepartmentPageTitle),
+        url: routes.departmentTable(),
+      },
+      ...(departmentId
+        ? [
+            {
+              label: intl.formatMessage({
+                defaultMessage: "Edit<hidden> department</hidden>",
+                id: "FYIbdJ",
+                description:
+                  "Breadcrumb title for the edit department page link.",
+              }),
+              url: routes.departmentUpdate(departmentId),
+            },
+          ]
+        : []),
+    ],
+    isAdmin: true,
+  });
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Edit department",
