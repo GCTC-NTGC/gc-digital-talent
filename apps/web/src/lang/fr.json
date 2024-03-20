@@ -6610,6 +6610,10 @@
     "defaultMessage": "Ajouter une nouvelle compétence",
     "description": "Button text to open the skill dialog and add a skill"
   },
+  "ZZpC8s": {
+    "defaultMessage": "Voir les définitions pour « {skillName} »",
+    "description": "Accordion title for skill header on screening decision dialog."
+  },
   "ZaCyXP": {
     "defaultMessage": "À qui s’adresse le recrutement pour les cadres?",
     "description": "Heading for EXposition services"
@@ -7181,6 +7185,10 @@
   "clzYpT": {
     "defaultMessage": "Le gouvernement du Canada se réserve le droit de supprimer des commentaires et des contributions, et de bloquer des utilisateurs en fonction des critères ci-dessous:",
     "description": "Paragraph for comments and interaction section"
+  },
+  "cnoxKB": {
+    "defaultMessage": "Examiner et consigner les résultats de {candidateName} concernant « {skillName} ».",
+    "description": "Subtitle for education requirement screening decision dialog."
   },
   "cqJw3g": {
     "defaultMessage": "Vous êtes sur le point de supprimer cette compétence de la démonstration de vos compétences.",
