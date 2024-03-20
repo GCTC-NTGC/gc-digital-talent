@@ -1,5 +1,5 @@
 import React from "react";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
 import PuzzlePieceIcon from "@heroicons/react/24/outline/PuzzlePieceIcon";
 import UserPlusIcon from "@heroicons/react/24/outline/UserPlusIcon";
@@ -33,6 +33,18 @@ import executiveHeroTablet from "~/assets/img/exec-hero-tablet-portrait.webp";
 import executiveHeroLandscape from "~/assets/img/exec-hero-landscape.webp";
 import executiveProfileHero from "~/assets/img/person-with-hand-to-chin-looking-at-laptop.webp";
 
+export const pageTitle = defineMessage({
+  defaultMessage: "Welcome executives",
+  id: "gtU+9w",
+  description: "Page title for the executives homepage",
+});
+export const subTitle = defineMessage({
+  defaultMessage:
+    "Find and apply to digital executive opportunities in the Government of Canada.",
+  id: "AzCfxE",
+  description: "Subtitle for the executive homepage",
+});
+
 interface HomePageProps {
   pools: ExecutiveHomePageQuery["publishedPools"];
 }
@@ -41,15 +53,12 @@ export const HomePage = ({ pools }: HomePageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Welcome executives",
-    id: "gtU+9w",
-    description: "Page title for the executives homepage",
-  });
-
   return (
     <>
-      <SEO title={pageTitle} />
+      <SEO
+        title={intl.formatMessage(pageTitle)}
+        description={intl.formatMessage(subTitle)}
+      />
       <HomeHero
         img={{
           srcset: `${executiveHeroPortrait} 600w, ${executiveHeroTablet} 900w, ${executiveHeroLandscape} 1200w`,
@@ -58,7 +67,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
         }}
       >
         <Heading level="h1" size="h2" data-h2-margin="base(0, 0, x0.5, 0)">
-          {pageTitle}
+          {intl.formatMessage(pageTitle)}
         </Heading>
         <p
           data-h2-font-size="base(h6, 1.4)"
@@ -66,12 +75,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
           data-h2-margin="base(x1, 0, 0, 0)"
           data-h2-max-width="p-tablet(65%) l-tablet(50%)"
         >
-          {intl.formatMessage({
-            defaultMessage:
-              "Find and apply to digital executive opportunities in the Government of Canada.",
-            id: "AzCfxE",
-            description: "Subtitle for the executive homepage",
-          })}
+          {intl.formatMessage(subTitle)}
         </p>
       </HomeHero>
       <SkewedContainer>

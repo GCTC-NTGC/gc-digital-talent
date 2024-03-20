@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
@@ -106,6 +106,13 @@ const NullExperienceMessage = ({
     </Well>
   );
 };
+
+const subTitle = defineMessage({
+  defaultMessage:
+    "Update your skill level and manage career experiences linked to this skill.",
+  id: "xJfPRe",
+  description: "Subtitle for the self skill evaluation page",
+});
 
 interface UpdateUserSkillFormProps {
   userId: Scalars["UUID"]["output"];
@@ -281,19 +288,12 @@ export const UpdateUserSkillForm = ({
     { skillName },
   );
 
+  const formattedSubTitle = intl.formatMessage(subTitle);
+
   return (
     <>
-      <SEO title={pageTitle} />
-      <Hero
-        title={pageTitle}
-        crumbs={crumbs}
-        subtitle={intl.formatMessage({
-          defaultMessage:
-            "Update your skill level and manage career experiences linked to this skill.",
-          id: "xJfPRe",
-          description: "Subtitle for the self skill evaluation page",
-        })}
-      />
+      <SEO title={pageTitle} description={formattedSubTitle} />
+      <Hero title={pageTitle} crumbs={crumbs} subtitle={formattedSubTitle} />
       <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
         <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
           <TableOfContents.Navigation>

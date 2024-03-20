@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import {
@@ -334,6 +334,12 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
   }
 `);
 
+const pageTitle = defineMessage({
+  defaultMessage: "Request",
+  id: "WYJnLs",
+  description: "Heading displayed above the single search request component.",
+});
+
 interface SingleSearchRequestProps {
   searchRequestQuery: FragmentType<
     typeof ViewSearchRequest_SearchRequestFragment
@@ -382,32 +388,29 @@ export const ViewSearchRequest = ({
     },
   ];
 
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Request",
-    id: "WYJnLs",
-    description: "Heading displayed above the single search request component.",
-  });
+  const formattedPageTitle = intl.formatMessage(pageTitle);
+  const subTitle = intl.formatMessage(
+    {
+      defaultMessage:
+        "<strong>{jobTitle}</strong> at <strong>{department}</strong>",
+      id: "ZLDt/c",
+      description:
+        "Subtitle displayed above the single search request component.",
+    },
+    {
+      jobTitle: searchRequest.jobTitle,
+      department: searchRequest.department?.name[locale],
+    },
+  );
 
   const abstractFilter = applicantFilter ?? poolCandidateFilter;
 
   return (
     <>
-      <SEO title={pageTitle} />
+      <SEO title={formattedPageTitle} description={subTitle} />
       <AdminHero
-        title={pageTitle}
-        subtitle={intl.formatMessage(
-          {
-            defaultMessage:
-              "<strong>{jobTitle}</strong> at <strong>{department}</strong>",
-            id: "ZLDt/c",
-            description:
-              "Subtitle displayed above the single search request component.",
-          },
-          {
-            jobTitle: searchRequest.jobTitle,
-            department: searchRequest.department?.name[locale],
-          },
-        )}
+        title={formattedPageTitle}
+        subtitle={subTitle}
         nav={{ mode: "crumbs", items: navigationCrumbs }}
       />
       <AdminContentWrapper>

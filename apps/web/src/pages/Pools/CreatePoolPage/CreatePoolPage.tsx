@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 
 import { toast } from "@gc-digital-talent/toast";
@@ -235,6 +235,18 @@ const CreatePoolPage_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
+const pageTitle = defineMessage({
+  defaultMessage: "Create pool",
+  id: "zwYuly",
+  description: "Page title for the pool creation page",
+});
+
+const subTitle = defineMessage({
+  defaultMessage: "Create a new job poster from scratch",
+  id: "QodYZE",
+  description: "Form blurb describing create pool form",
+});
+
 const CreatePoolPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
@@ -286,22 +298,15 @@ const CreatePoolPage = () => {
     },
   ];
 
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Create pool",
-    id: "zwYuly",
-    description: "Page title for the pool creation page",
-  });
+  const formattedPageTitle = intl.formatMessage(pageTitle);
+  const formattedSubTitle = intl.formatMessage(subTitle);
 
   return (
     <>
-      <SEO title={pageTitle} />
+      <SEO title={formattedPageTitle} description={formattedSubTitle} />
       <AdminHero
-        title={pageTitle}
-        subtitle={intl.formatMessage({
-          defaultMessage: "Create a new job poster from scratch",
-          id: "QodYZE",
-          description: "Form blurb describing create pool form",
-        })}
+        title={formattedPageTitle}
+        subtitle={formattedSubTitle}
         nav={{ mode: "crumbs", items: navigationCrumbs }}
       />
       <AdminContentWrapper>

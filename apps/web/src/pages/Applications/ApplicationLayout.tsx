@@ -122,7 +122,10 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
       }
       currentStepOrdinal={currentStepIndex + 1}
     >
-      <SEO title={intl.formatMessage(pageTitle, { poolName: title.label })} />
+      <SEO
+        title={intl.formatMessage(pageTitle, { poolName: title.label })}
+        description={currentPage?.subtitle}
+      />
       <Hero
         title={intl.formatMessage(pageTitle, { poolName: title.html })}
         crumbs={crumbs}

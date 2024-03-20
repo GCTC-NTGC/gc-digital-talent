@@ -95,7 +95,7 @@ const TeamHeader = ({ teamQuery }: TeamHeaderProps) => {
 
   return (
     <>
-      <SEO title={currentPage?.title} />
+      <SEO title={currentPage?.title} description={teamName} />
       <AdminHero
         title={currentPage?.title}
         subtitle={teamName}

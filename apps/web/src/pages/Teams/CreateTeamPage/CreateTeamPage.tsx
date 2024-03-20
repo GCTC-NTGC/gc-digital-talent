@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 
 import { Pending } from "@gc-digital-talent/ui";
@@ -35,6 +35,18 @@ const CreateTeam_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
+const pageTitle = defineMessage({
+  defaultMessage: "Create a new team",
+  id: "vyyfX6",
+  description: "Page title for the create team page",
+});
+
+const subtitle = defineMessage({
+  defaultMessage: "Create a new team from scratch",
+  id: "XaYhX3",
+  description: "Descriptive text for the create team page in the admin portal.",
+});
+
 const CreateTeamPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
@@ -52,11 +64,8 @@ const CreateTeamPage = () => {
 
   const departments = unpackMaybes(departmentsData?.departments);
 
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Create a new team",
-    id: "vyyfX6",
-    description: "Page title for the create team page",
-  });
+  const formattedPageTitle = intl.formatMessage(pageTitle);
+  const formattedSubTitle = intl.formatMessage(subtitle);
 
   const handleSubmit = async (data: CreateTeamInput) => {
     return executeMutation({
@@ -94,15 +103,10 @@ const CreateTeamPage = () => {
 
   return (
     <>
-      <SEO title={pageTitle} />
+      <SEO title={formattedPageTitle} description={formattedSubTitle} />
       <AdminHero
-        title={pageTitle}
-        subtitle={intl.formatMessage({
-          defaultMessage: "Create a new team from scratch",
-          id: "XaYhX3",
-          description:
-            "Descriptive text for the create team page in the admin portal.",
-        })}
+        title={formattedPageTitle}
+        subtitle={formattedSubTitle}
         nav={{ mode: "crumbs", items: navigationCrumbs }}
       />
       <AdminContentWrapper>
