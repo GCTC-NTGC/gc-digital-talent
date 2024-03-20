@@ -29,9 +29,15 @@ interface NotificationListProps {
   live?: boolean;
   paginate?: boolean;
   limit?: number;
+  flat?: boolean;
 }
 
-const NotificationList = ({ live, paginate, limit }: NotificationListProps) => {
+const NotificationList = ({
+  live,
+  paginate,
+  limit,
+  flat,
+}: NotificationListProps) => {
   const now = nowUTCDateTime();
   const [searchParams] = useSearchParams();
   const [{ data }] = usePollingQuery(
@@ -60,14 +66,16 @@ const NotificationList = ({ live, paginate, limit }: NotificationListProps) => {
 
   return (
     <>
-      <NotificationActions onlyUnread={onlyUnread} />
+      <NotificationActions onlyUnread={onlyUnread} flat={flat} />
       <ul
         data-h2-list-style="base(none)"
         data-h2-padding="base(0)"
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x.25 0)"
         data-h2-margin="base(x1 0)"
+        {...(!flat && {
+          "data-h2-gap": "base(x.25 0)",
+        })}
       >
         {liveNotifications.length > 0 ? (
           <>
@@ -75,6 +83,7 @@ const NotificationList = ({ live, paginate, limit }: NotificationListProps) => {
               <NotificationItem
                 key={notification.id}
                 notification={notification}
+                flat={flat}
               />
             ))}
           </>
@@ -88,6 +97,7 @@ const NotificationList = ({ live, paginate, limit }: NotificationListProps) => {
               exclude={liveIds}
               isLastPage={currentPage === pagesToLoad}
               onlyUnread={onlyUnread}
+              flat={flat}
               {...((!paginate || limit) && {
                 first: limit ?? 100,
               })}

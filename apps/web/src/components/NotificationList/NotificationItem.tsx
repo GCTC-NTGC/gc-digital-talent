@@ -5,7 +5,12 @@ import EllipsisVerticalIcon from "@heroicons/react/20/solid/EllipsisVerticalIcon
 import { useMutation } from "urql";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { Button, CardBasic, DropdownMenu } from "@gc-digital-talent/ui";
+import {
+  Button,
+  CardBasic,
+  DropdownMenu,
+  Separator,
+} from "@gc-digital-talent/ui";
 import {
   DATE_FORMAT_STRING,
   formatDate,
@@ -43,10 +48,12 @@ const NotificationItem_Fragment = graphql(/* GraphQL */ `
 interface NotificationItemProps {
   /** The actual notification type */
   notification: FragmentType<typeof NotificationItem_Fragment>;
+  flat?: boolean;
 }
 
 const NotificationItem = ({
   notification: notificationQuery,
+  flat,
 }: NotificationItemProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
@@ -96,9 +103,19 @@ const NotificationItem = ({
     <li>
       <CardBasic
         data-h2-display="base(flex)"
-        data-h2-outline-width="base(3px)"
-        data-h2-outline-style="base(solid)"
-        data-h2-outline-color="base(transparent) base:selectors[:has(a:focus-visible)](focus)"
+        {...(flat
+          ? {
+              "data-h2-padding": "base(x.5)",
+              "data-h2-shadow":
+                "base:selectors[:has(a:focus-visible)](inset x.25 0 0 0 rgb(var(--h2-color-focus)))",
+              "data-h2-radius": "base(0)",
+            }
+          : {
+              "data-h2-outline-width": "base(3px)",
+              "data-h2-outline-style": "base(solid)",
+              "data-h2-outline-color":
+                "base(transparent) base:selectors[:has(a:focus-visible)](focus)",
+            })}
       >
         <div
           data-h2-padding="base(0 x.5)"
@@ -189,6 +206,7 @@ const NotificationItem = ({
           </DropdownMenu.Root>
         </div>
       </CardBasic>
+      {flat && <Separator orientation="horizontal" data-h2-margin="base(0)" />}
     </li>
   );
 };

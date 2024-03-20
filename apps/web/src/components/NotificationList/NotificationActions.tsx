@@ -10,9 +10,13 @@ import { MarkAllNotificationsAsRead_Mutation } from "./mutations";
 
 interface NotificationActionsProps {
   onlyUnread?: boolean;
+  flat?: boolean;
 }
 
-const NotificationActions = ({ onlyUnread }: NotificationActionsProps) => {
+const NotificationActions = ({
+  onlyUnread,
+  flat,
+}: NotificationActionsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 
@@ -28,6 +32,9 @@ const NotificationActions = ({ onlyUnread }: NotificationActionsProps) => {
       data-h2-display="base(flex)"
       data-h2-gap="base(x1)"
       data-h2-margin-bottom="base(x1)"
+      {...(flat && {
+        "data-h2-padding": "base(0 x1)",
+      })}
     >
       <Link
         color="black"
