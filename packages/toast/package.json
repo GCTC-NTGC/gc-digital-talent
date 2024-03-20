@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.1.1",
-    "react-toastify": "^10.0.4"
+    "react-toastify": "^10.0.5"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
