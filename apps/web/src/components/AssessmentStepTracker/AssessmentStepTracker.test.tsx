@@ -10,7 +10,10 @@ import userEvent from "@testing-library/user-event";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { AssessmentDecision } from "@gc-digital-talent/graphql";
+import {
+  AssessmentDecision,
+  PoolCandidateStatus,
+} from "@gc-digital-talent/graphql";
 
 import { NO_DECISION } from "~/utils/assessmentResults";
 
@@ -22,10 +25,12 @@ import {
   sortResultsAndAddOrdinal,
   filterResults,
   ResultFilters,
+  filterAlreadyDisqualified,
 } from "./utils";
 import {
   armedForcesCandidate,
   bookmarkedCandidate,
+  filterDisqualifiedTestData,
   firstByName,
   lastByFirstName,
   lastByStatus,
@@ -368,5 +373,18 @@ describe("AssessmentStepTracker", () => {
         }),
       ]),
     );
+  });
+
+  it("should filter out candidates disqualified before RoD", () => {
+    // test array with a length of three, of which one should be filtered out the first with ScreenedOutApplication
+    const candidates = filterDisqualifiedTestData;
+    expect(candidates.length).toEqual(3);
+    const filteredCandidates = filterAlreadyDisqualified(candidates);
+    expect(filteredCandidates.length).toEqual(2);
+    const attemptToFindFilteredCandidate = filteredCandidates.filter(
+      (candidate) =>
+        candidate.status === PoolCandidateStatus.ScreenedOutApplication,
+    );
+    expect(attemptToFindFilteredCandidate.length).toEqual(0);
   });
 });
