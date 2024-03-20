@@ -19,6 +19,7 @@ const ScreeningAndEvaluation_AssessmentResultFragment = graphql(/* GraphQL */ `
     poolCandidates {
       id
       isBookmarked
+      status
       pool {
         id
       }
