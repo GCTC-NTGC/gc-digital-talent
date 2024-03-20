@@ -1299,10 +1299,6 @@
     "defaultMessage": "Paramètres des notifications",
     "description": "Title for managing notification settings"
   },
-  "5HJIwt": {
-    "defaultMessage": "Identifiant de recrutement copié",
-    "description": "Button text to indicate that a specific qualified recruitment's ID has been copied"
-  },
   "5LWxHq": {
     "defaultMessage": "Détails",
     "description": "Title for additional comments shorthand"
@@ -1562,6 +1558,10 @@
   "6wCHq2": {
     "defaultMessage": "Activez le mode sombre",
     "description": "Button text to set theme mode to dark"
+  },
+  "6yn+iJ": {
+    "defaultMessage": "Chercher les processus",
+    "description": "Label for the pools table search input"
   },
   "6yxxP6": {
     "defaultMessage": "Le gouvernement du Canada se réserve le droit de signaler les utilisateurs et/ou leurs commentaires et contributions à des tiers fournisseurs de services de médias sociaux, afin de prévenir ou de supprimer l’affichage de contenu qui ne respecte pas cet avis ou les modalités de service ou d’utilisation des tiers fournisseurs de plateformes de médias sociaux.",
@@ -9705,10 +9705,6 @@
   "qXnXKH": {
     "defaultMessage": "Processus dupliqué avec succès!",
     "description": "Message displayed to user after pool is duplicated"
-  },
-  "6yn+iJ": {
-    "defaultMessage": "Chercher les processus",
-    "description": "Label for the pools table search input"
   },
   "qeD2p/": {
     "defaultMessage": "Titre du prix",
