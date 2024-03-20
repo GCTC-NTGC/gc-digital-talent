@@ -931,6 +931,10 @@
     "defaultMessage": "Fiabilité ou plus élevée",
     "description": "Reliability security clearance"
   },
+  "Ro+gP0": {
+    "defaultMessage": "Accueil",
+    "description": "Name of Home page"
+  },
   "Rwh/Ld": {
     "defaultMessage": "Indéterminé",
     "description": "Simple indeterminate selection for government employee type."

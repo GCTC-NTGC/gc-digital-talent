@@ -2839,10 +2839,6 @@
     "defaultMessage": "Aidez les gestionnaires à comprendre vos occasions potentielles d’apprentissage de compétences comportementales.",
     "description": "Page description for the improve behavioural skills page"
   },
-  "EBmWyo": {
-    "defaultMessage": "Accueil",
-    "description": "Link text for the home link in breadcrumbs."
-  },
   "EGNLD7": {
     "defaultMessage": "Durée de l’emploi",
     "description": "Label for pool advertisement employment length"
@@ -3142,10 +3138,6 @@
   "G1OWMo": {
     "defaultMessage": "Vous pouvez ajouter des expériences lorsque vous <link>créez une nouvelle expérience de parcours professionnel à l’étape précédente.</link>",
     "description": "Secondary alert message informing user to add experience in application education page."
-  },
-  "G1RNXj": {
-    "defaultMessage": "Accueil",
-    "description": "Link to the Homepage in the nav menu."
   },
   "G1jegJ": {
     "defaultMessage": "Veuillez remplir toutes les zones obligatoires avant de continuer",
