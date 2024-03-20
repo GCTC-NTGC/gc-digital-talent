@@ -1,7 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { AnimatePresence, m } from "framer-motion";
-import { useQuery } from "urql";
 import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
 import BellAlertIconSm from "@heroicons/react/20/solid/BellAlertIcon";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
@@ -18,6 +17,7 @@ import {
 
 import UnreadAlertBellIcon from "./UnreadAlertBellIcon";
 import NotificationList from "../NotificationList/NotificationList";
+import usePollingQuery from "../../hooks/usePollingQuery";
 
 const Overlay = m(DialogPrimitive.Overlay);
 
@@ -43,7 +43,7 @@ const NotificationDialog = () => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
-  const [{ data }] = useQuery({ query: NotificationCount_Query });
+  const [{ data }] = usePollingQuery({ query: NotificationCount_Query }, 60);
   const notificationCount = unpackMaybes(data?.notifications?.data).length;
 
   return (
