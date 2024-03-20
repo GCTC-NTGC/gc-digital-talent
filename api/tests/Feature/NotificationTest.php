@@ -313,26 +313,25 @@ class NotificationTest extends TestCase
         // Ignoring the SYSTEM_MESSAGE family is not allowed
         $response = $this->actingAs($this->candidateUser, 'api')
             ->graphQL(/** @lang GraphQL */ '
-                mutation updateIgnoredNotifications($id: UUID!, $ignoredEmailNotifications: [NotificationFamily]) {
-                    updateIgnoredNotifications(id: $id, ignoredEmailNotifications: $ignoredEmailNotifications) {
+                mutation updateIgnoredNotifications($ignoredEmailNotifications: [NotificationFamily]) {
+                    updateIgnoredNotifications(ignoredEmailNotifications: $ignoredEmailNotifications) {
                         id
                         ignoredEmailNotifications
                     }
                 }
-            ', ['id' => $this->candidateUser->id, 'ignoredEmailNotifications' => [NotificationFamily::SYSTEM_MESSAGE->name]])
+            ', ['ignoredEmailNotifications' => [NotificationFamily::SYSTEM_MESSAGE->name]])
             ->assertGraphQLValidationError('ignoredEmailNotifications.0', 'NotIgnorableNotificationFamily');
 
         // Other families can be ignored
         $response = $this->actingAs($this->candidateUser, 'api')
             ->graphQL(/** @lang GraphQL */ '
-                mutation ignoreNotifications($id: UUID!, $ignoredEmailNotifications: [NotificationFamily]) {
-                    updateIgnoredNotifications(id: $id, ignoredEmailNotifications: $ignoredEmailNotifications) {
+                mutation ignoreNotifications($ignoredEmailNotifications: [NotificationFamily]) {
+                    updateIgnoredNotifications(ignoredEmailNotifications: $ignoredEmailNotifications) {
                         id
                         ignoredEmailNotifications
                     }
                 }
             ', [
-                'id' => $this->candidateUser->id,
                 'ignoredEmailNotifications' => [NotificationFamily::APPLICATION_UPDATE->name, NotificationFamily::JOB_ALERT->name],
             ]);
 
