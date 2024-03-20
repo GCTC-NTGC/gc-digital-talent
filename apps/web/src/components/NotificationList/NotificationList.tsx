@@ -30,6 +30,7 @@ interface NotificationListProps {
   paginate?: boolean;
   limit?: number;
   inDialog?: boolean;
+  onRead?: () => void;
 }
 
 const NotificationList = ({
@@ -37,6 +38,7 @@ const NotificationList = ({
   paginate,
   limit,
   inDialog,
+  onRead,
 }: NotificationListProps) => {
   const now = nowUTCDateTime();
   const [searchParams] = useSearchParams();
@@ -66,7 +68,11 @@ const NotificationList = ({
 
   return (
     <>
-      <NotificationActions onlyUnread={onlyUnread} inDialog={inDialog} />
+      <NotificationActions
+        onRead={onRead}
+        onlyUnread={onlyUnread}
+        inDialog={inDialog}
+      />
       <ul
         data-h2-list-style="base(none)"
         data-h2-padding="base(0)"
@@ -84,6 +90,7 @@ const NotificationList = ({
                 key={notification.id}
                 notification={notification}
                 inDialog={inDialog}
+                onRead={onRead}
               />
             ))}
           </>
@@ -98,6 +105,7 @@ const NotificationList = ({
               isLastPage={currentPage === pagesToLoad}
               onlyUnread={onlyUnread}
               inDialog={inDialog}
+              onRead={onRead}
               {...((!paginate || limit) && {
                 first: limit ?? 100,
               })}

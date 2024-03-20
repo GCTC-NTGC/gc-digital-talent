@@ -47,7 +47,10 @@ const NotificationDialog = () => {
   const paths = useRoutes();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
-  const [{ data }] = usePollingQuery({ query: NotificationCount_Query }, 60);
+  const [{ data }, executeQuery] = usePollingQuery(
+    { query: NotificationCount_Query },
+    60,
+  );
   const notificationCount = unpackMaybes(data?.notifications?.data).length;
 
   return (
@@ -77,7 +80,7 @@ const NotificationDialog = () => {
               data-h2-background-color="base:all(black)"
               data-h2-position="base(fixed)"
               data-h2-location="base(0)"
-              data-h2-z-index="base(9998)"
+              data-h2-z-index="base(8)"
             />
             <DialogPrimitive.Content forceMount asChild>
               <m.div
@@ -98,7 +101,7 @@ const NotificationDialog = () => {
                 data-h2-margin="base(x.5 x.5 x.5 auto)"
                 data-h2-radius="base(s)"
                 data-h2-shadow="base(0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .5))"
-                data-h2-z-index="base(9999)"
+                data-h2-z-index="base(9)"
               >
                 <div data-h2-padding="base(x1)">
                   <div
@@ -156,7 +159,12 @@ const NotificationDialog = () => {
                     )}
                   </p>
                 </div>
-                <NotificationList live inDialog limit={30} />
+                <NotificationList
+                  live
+                  inDialog
+                  limit={30}
+                  onRead={executeQuery}
+                />
                 <p data-h2-margin="base(x.5 x1)">
                   <DialogPrimitive.Close asChild>
                     <Link

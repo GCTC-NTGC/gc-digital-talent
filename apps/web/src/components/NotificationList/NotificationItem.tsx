@@ -62,11 +62,13 @@ interface NotificationItemProps {
   /** The actual notification type */
   notification: FragmentType<typeof NotificationItem_Fragment>;
   inDialog?: boolean;
+  onRead?: () => void;
 }
 
 const NotificationItem = ({
   notification: notificationQuery,
   inDialog,
+  onRead,
 }: NotificationItemProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
@@ -99,9 +101,10 @@ const NotificationItem = ({
 
     executeMarkAsReadMutation({ id: notification.id }).then((res) => {
       if (res.data?.markNotificationAsRead) {
+        onRead?.();
         navigate(info.href);
-        return false;
       }
+      return false;
     });
   };
 

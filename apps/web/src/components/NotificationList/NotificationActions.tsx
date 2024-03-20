@@ -11,11 +11,13 @@ import { MarkAllNotificationsAsRead_Mutation } from "./mutations";
 interface NotificationActionsProps {
   onlyUnread?: boolean;
   inDialog?: boolean;
+  onRead?: () => void;
 }
 
 const NotificationActions = ({
   onlyUnread,
   inDialog,
+  onRead,
 }: NotificationActionsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -24,7 +26,9 @@ const NotificationActions = ({
     useMutation(MarkAllNotificationsAsRead_Mutation);
 
   const handleMarkAllNotificationsAsRead = () => {
-    executeMarkAllAsReadMutation({});
+    executeMarkAllAsReadMutation({}).then(() => {
+      onRead?.();
+    });
   };
 
   return (
@@ -36,44 +40,48 @@ const NotificationActions = ({
         "data-h2-padding": "base(0 x1)",
       })}
     >
-      <Link
-        color="black"
-        href={paths.notifications()}
-        {...(!onlyUnread && {
-          "aria-current": "page",
-          "data-h2-font-weight": "base(700)",
-        })}
-        aria-label={intl.formatMessage({
-          defaultMessage: "All notifications",
-          id: "pFowOu",
-          description: "Link text to show all notifications",
-        })}
-      >
-        {intl.formatMessage({
-          defaultMessage: "All",
-          id: "Pn0zAn",
-          description: "Link text for all items in a list",
-        })}
-      </Link>
-      <Link
-        color="black"
-        href={`${paths.notifications()}?unread`}
-        {...(onlyUnread && {
-          "aria-current": "page",
-          "data-h2-font-weight": "base(700)",
-        })}
-        aria-label={intl.formatMessage({
-          defaultMessage: "Unread notifications",
-          id: "cL3OoZ",
-          description: "Link text to show unread notifications",
-        })}
-      >
-        {intl.formatMessage({
-          defaultMessage: "Unread",
-          id: "uD105N",
-          description: "Link text to show all unread items in a list",
-        })}
-      </Link>
+      {!inDialog && (
+        <>
+          <Link
+            color="black"
+            href={paths.notifications()}
+            {...(!onlyUnread && {
+              "aria-current": "page",
+              "data-h2-font-weight": "base(700)",
+            })}
+            aria-label={intl.formatMessage({
+              defaultMessage: "All notifications",
+              id: "pFowOu",
+              description: "Link text to show all notifications",
+            })}
+          >
+            {intl.formatMessage({
+              defaultMessage: "All",
+              id: "Pn0zAn",
+              description: "Link text for all items in a list",
+            })}
+          </Link>
+          <Link
+            color="black"
+            href={`${paths.notifications()}?unread`}
+            {...(onlyUnread && {
+              "aria-current": "page",
+              "data-h2-font-weight": "base(700)",
+            })}
+            aria-label={intl.formatMessage({
+              defaultMessage: "Unread notifications",
+              id: "cL3OoZ",
+              description: "Link text to show unread notifications",
+            })}
+          >
+            {intl.formatMessage({
+              defaultMessage: "Unread",
+              id: "uD105N",
+              description: "Link text to show all unread items in a list",
+            })}
+          </Link>
+        </>
+      )}
       <Button
         mode="inline"
         color="secondary"
