@@ -67,7 +67,7 @@
   "devDependencies": {
     "@babel/core": "^7.24.0",
     "@babel/preset-env": "^7.24.0",
-    "@babel/preset-react": "^7.23.3",
+    "@babel/preset-react": "^7.24.1",
     "@faker-js/faker": "^8.4.1",
     "@formatjs/cli": "^6.2.7",
     "@gc-digital-talent/eslint-config": "workspace:*",
