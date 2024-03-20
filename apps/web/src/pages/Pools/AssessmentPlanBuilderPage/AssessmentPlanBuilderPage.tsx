@@ -28,14 +28,12 @@ import {
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import SEO from "~/components/SEO/SEO";
 import { routeErrorMessages } from "~/hooks/useErrorMessages";
 import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
 import { getPoolCompletenessBadge } from "~/utils/poolUtils";
 import messages from "~/messages/adminMessages";
-import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import OrganizeSection from "./components/OrganizeSection";
 import SkillSummarySection from "./components/SkillSummarySection";
@@ -205,7 +203,6 @@ const AssessmentPlanBuilderPage_Query = graphql(/* GraphQL */ `
 export const AssessmentPlanBuilderPage = () => {
   const intl = useIntl();
   const { poolId } = useRequiredParams<RouteParams>("poolId");
-  const routes = useRoutes();
   const authorization = useAuthorization();
 
   const notFoundMessage = intl.formatMessage(
