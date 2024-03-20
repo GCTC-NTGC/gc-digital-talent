@@ -583,6 +583,10 @@
     "defaultMessage": "Numéro du processus",
     "description": "Label for a pools process number"
   },
+  "1FwczA": {
+    "defaultMessage": "Marquer comme lue",
+    "description": "Button text to mark all notifications as read"
+  },
   "1G1iMu": {
     "defaultMessage": "Supprimer cette expérience",
     "description": "Button to remove the link between experience and skill"
@@ -770,6 +774,10 @@
   "2QDT5C": {
     "defaultMessage": "Y a-t-il d’autres autorités qui participent à ce contrat?",
     "description": "Label for _ is authorities involved_ fieldset in the _digital services contracting questionnaire_"
+  },
+  "2SnhXV": {
+    "defaultMessage": "Marquer comme non lue",
+    "description": "Button text to mark a notification as unread"
   },
   "2SqgvZ": {
     "defaultMessage": "Les possibilités d'emploi sur cette plateforme sont assorties de diverses exigences concernant le lieu de travail. Une seule annonce d'emploi peut comprendre plusieurs emplois disponibles. Vous verrez donc souvent des combinaisons d'exigences concernant le lieu de travail. Dans un tel cas, vous obtiendrez de l'information précise sur le lieu de travail à mesure qu'une possibilité d'emploi se présente.",
@@ -1299,6 +1307,10 @@
     "defaultMessage": "Les ressources contractuelles devraient commencer à travailler en",
     "description": "Label for _contract start timeframe_ fieldset in the _digital services contracting questionnaire_"
   },
+  "5H61KV": {
+    "defaultMessage": "Paramètres des notifications",
+    "description": "Title for managing notification settings"
+  },
   "5HJIwt": {
     "defaultMessage": "Identifiant de recrutement copié",
     "description": "Button text to indicate that a specific qualified recruitment's ID has been copied"
@@ -1530,6 +1542,10 @@
   "6f2bWo": {
     "defaultMessage": "Contenu et fréquence",
     "description": "Heading for content and frequency section"
+  },
+  "6ft0/o": {
+    "defaultMessage": "Consultez et gérez l'historique de vos notifications.",
+    "description": "Subtitle for the notifications page"
   },
   "6l9YH+": {
     "defaultMessage": "Les demandeurs doivent répondre aux exigences suivantes :",
@@ -1803,6 +1819,10 @@
     "defaultMessage": "<strong>Je possède un diplôme d’études secondaires ou l’équivalent (p. ex., formation Générale). </strong>",
     "description": "Radio group option for education requirement filter in IAP application education form."
   },
+  "8JYRed": {
+    "defaultMessage": "Il n'y a pas encore de notifications ici.",
+    "description": "Title for the no notifications message"
+  },
   "8L9eJ3": {
     "defaultMessage": "Le gouvernement du Canada ne se prononcera pas sur des questions de partisanerie ou de politique, et il ne répondra pas aux questions qui contreviennent aux règles énoncées dans cet avis.",
     "description": "Paragraph for comments and interaction section"
@@ -1902,6 +1922,10 @@
   "90E1fF": {
     "defaultMessage": "(Ordre croissant)",
     "description": "Message added to indicate a table column is sorted in ascending order"
+  },
+  "91KsMq": {
+    "defaultMessage": "Au fur et à mesure que vous recevrez des notifications, elles apparaîtront ici et seront automatiquement classées pour indiquer si vous y avez donné suite, ou si vous les avez épinglées.",
+    "description": "Explanation of how the list of notifications work"
   },
   "91b+W0": {
     "defaultMessage": "Niveau exigé",
@@ -2190,6 +2214,10 @@
   "AdRTuc": {
     "defaultMessage": "Sélectionnez les compétences qui amélioreront les chances de mise en correspondance de qualité avec les gestionnaires. Il s’agit généralement de compétences pouvant être acquises sur le tas et qui ne sont pas nécessaires pour être accepté dans le bassin.",
     "description": "Describes selecting asset skills for a process."
+  },
+  "Af4zOR": {
+    "defaultMessage": "Vous pouvez gérer les types de notifications et la façon dont elles vous sont envoyées sur la page des paramètres de votre compte. ",
+    "description": "Describing where to go to manage notification settings"
   },
   "AfSlkm": {
     "defaultMessage": "« ... désigne les personnes s'identifiant aux peuples autochtones du Canada. Cela comprend les personnes qui s'identifient à titre de membres des Premières Nations (Indiens de l'Amérique du Nord), Métis et/ou Inuits, et/ou les personnes qui déclarent être des Indiens inscrits ou des Indiens des traités (aux termes de la Loi sur les Indiens du Canada), et/ou les personnes qui sont membres d'une Première Nation ou d'une bande indienne. Le paragraphe 35(2) de la Loi constitutionnelle de 1982 précise que l'expression « peuples autochtones du Canada » s'entend notamment des Indiens, des Inuits et des Métis du Canada. »",
@@ -2874,6 +2902,10 @@
   "EUDRhe": {
     "defaultMessage": "Entrevues de vive voix",
     "description": "Label for preferred lang for interviews in profile details box."
+  },
+  "EUukwf": {
+    "defaultMessage": "Votre statut a été changé de <heavyPrimary>{oldStatus}</heavyPrimary> à <heavyPrimary>{newStatus}</heavyPrimary> dans {poolName}.",
+    "description": "Notification message for pool candidate status changed"
   },
   "EVkmeA": {
     "defaultMessage": "Modifier les principales compétences comportementales",
@@ -4279,6 +4311,10 @@
     "defaultMessage": "Cette opération supprimera ce processus de toutes les recherches et de tous les tableaux de bord. <strong>Cette opération ne peut pas être annulée</strong>.",
     "description": "Text explaining what will happen when deleting a process"
   },
+  "MuE3Gy": {
+    "defaultMessage": "Charger davantage",
+    "description": "Button text to load more notifications"
+  },
   "MuWdei": {
     "defaultMessage": "Abréviation non trouvée.",
     "description": "Message shown to user when the abbreviation text is not found."
@@ -4603,6 +4639,10 @@
     "defaultMessage": "Renseignements généraux",
     "description": "Title for general information section"
   },
+  "OvGt/x": {
+    "defaultMessage": "Changement de statut de {poolName}",
+    "description": "Label for the pool status changed notification"
+  },
   "OvL68O": {
     "defaultMessage": "Conçu par la communauté autochtone, avec elle et pour elle, le programme recrute des candidats des Premières Nations, inuits et métis qui se passionnent pour les TI, pour des emplois de niveau débutant, ainsi que pour des possibilités d’apprentissage et de perfectionnement.",
     "description": "Summary for Indigenous community job opportunities on Browse IT jobs page"
@@ -4738,6 +4778,10 @@
   "PmDeul": {
     "defaultMessage": "Utilisez-vous actuellement cette compétence?",
     "description": "Label for field asking if a skill is currently being used"
+  },
+  "Pn0zAn": {
+    "defaultMessage": "Tous",
+    "description": "Link text for all items in a list"
   },
   "PnWNZn": {
     "defaultMessage": "Questions générales",
@@ -6214,6 +6258,10 @@
     "defaultMessage": "Ce volet comprend la gestion de l’infrastructure des réseaux, des ordinateurs centraux, des serveurs et du stockage, la fourniture d’un soutien de la <abbreviation>TI</abbreviation> et les relations avec les clients et fournisseurs.",
     "description": "Title for the 'infrastructure operations' IT work stream"
   },
+  "XdynkW": {
+    "defaultMessage": "Voulez-vous vraiment supprimer cette notification?",
+    "description": "Heading for confirmation alert to delete a notification"
+  },
   "Xe39xZ": {
     "defaultMessage": "ne respectent pas les lois fédérales, provinciales ou territoriales du Canada",
     "description": "Comments or contributions list item"
@@ -6413,6 +6461,10 @@
   "YZMi8D": {
     "defaultMessage": "Avant de conclure qu’une pénurie de talents numériques disponibles ou qualifiés est la principale raison de l’approvisionnement, le chef opérationnel doit confirmer avec le BDPI qu’il n’y a pas de talents préqualifiés disponibles dans une <link>bassin de talents coordonnée par le BDPI</link> qui pourrait répondre au besoin dans le délai imparti.",
     "description": "Paragraph two of the _requirements_ section of the _digital services contracting questionnaire_"
+  },
+  "YaDJN+": {
+    "defaultMessage": "Supprimer la notification",
+    "description": "Button text to confirm deleting a notification"
   },
   "YbkM7u": {
     "defaultMessage": "Architecture intégrée de la TI",
@@ -7053,6 +7105,10 @@
   "cK/hoN": {
     "defaultMessage": "<primary>{title}</primary> délivré par {issuedBy}",
     "description": "The award title is issued by some group"
+  },
+  "cL3OoZ": {
+    "defaultMessage": "Notification non lue",
+    "description": "Link text to show unread notifications"
   },
   "cLwQgK": {
     "defaultMessage": "Développer un <link>ensemble de produits génériques en matière de RH</link> (accessibles uniquement sur le réseau du GC), tels que des descriptions d’emploi normalisées, pour la collectivité du numérique",
@@ -8082,6 +8138,10 @@
     "defaultMessage": "Services professionnels en informatique centrés sur les tâches (SPICT)",
     "description": "Task based informatics professional services contract supply method"
   },
+  "hbcdJm": {
+    "defaultMessage": "Notifications",
+    "description": "Page title for the notifications page"
+  },
   "hdBTPI": {
     "defaultMessage": "Tout l’équipement informatique requis (ordinateur portable, souris, écran, téléphone) et le matériel de formation seront fournis gratuitement. Si une personne choisit de travailler à la maison, le coût de l’accès à Internet relèvera de l’apprenti.",
     "description": "Learn more dialog question ten paragraph one"
@@ -8333,6 +8393,10 @@
   "inyUex": {
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience en matière de prix et de reconnaissance} =1 {1 expérience en matière de prix et de reconnaissance} other {# expériences en matière de prix et de reconnaissance}}",
     "description": "list a number of award experiences"
+  },
+  "ipDTrs": {
+    "defaultMessage": "Historique des notifications",
+    "description": "Title for list of a users notifications"
   },
   "ipKAvI": {
     "defaultMessage": "1. si vous êtes intéressé(e) à embaucher un apprentis et aimeriez en apprendre davantage sur le Programme d'apprentissage en TI pour les peuples autochtones",
@@ -8769,6 +8833,10 @@
   "lPuC3S": {
     "defaultMessage": "Commentaires et échanges",
     "description": "Heading for comments and interaction section"
+  },
+  "lSSz6L": {
+    "defaultMessage": "Gérer {notificationName}",
+    "description": "Button text for managing a notification"
   },
   "lVb1hs": {
     "defaultMessage": "Au moins une question est requise dans le cadre de cette évaluation. Veuillez l’ajouter ici.",
@@ -9457,6 +9525,10 @@
   "pFYfVv": {
     "defaultMessage": "Sélection de la rangée",
     "description": "Label for the row-selection column in the tables column-selection modal."
+  },
+  "pFowOu": {
+    "defaultMessage": "Toutes les notifications",
+    "description": "Link text to show all notifications"
   },
   "pH8wF2": {
     "defaultMessage": "Bravo, c’est réussi! En signant, vous confirmez ce qui suit :",
@@ -10194,6 +10266,10 @@
     "defaultMessage": "Rôle",
     "description": "Title displayed for the role table display name column"
   },
+  "uD105N": {
+    "defaultMessage": "Non lus",
+    "description": "Link text to show all unread items in a list"
+  },
   "uD7QTb": {
     "defaultMessage": "Il appartient aux gestionnaires de gérer l’élaboration et la prestation de services et (ou) d’opérations de <abbreviation>TI</abbreviation> par l’entremise de chefs d’équipe subalternes, de conseillers techniques et d’équipes de projet.",
     "description": "Description for the 'IT-04 Manager' classification, paragraph 1"
@@ -10314,6 +10390,10 @@
     "defaultMessage": "Maintenir des bassins de talents numériques accessibles à tous les ministères",
     "description": "An OCIO role in the _supporting the community_ section of the _digital services contracting questionnaire_"
   },
+  "uzqiPj": {
+    "defaultMessage": "Actualiser les paramètres",
+    "description": "Link text for the account settings page"
+  },
   "v0EVPQ": {
     "defaultMessage": "Ce programme s’adresse aux membres de Premières nations, aux Inuits et aux Métis du Canada.",
     "description": "Disclaimer displayed when a user has indicated they are not Indigenous on the self-declaration form."
@@ -10374,6 +10454,10 @@
     "defaultMessage": "{title} à {organization}",
     "description": "Title at organization"
   },
+  "vW/JGo": {
+    "defaultMessage": " Cette page offre un aperçu complet de l’historique de vos notifications. À partir de cette page, vous pouvez consulter, épingler et supprimer des notifications de votre compte. Si vous souhaitez gérer les notifications que vous recevez et leur format, vous pouvez le faire à partir de la page des paramètres de votre compte.",
+    "description": "Description of the list of a users notifications"
+  },
   "vbEXnp": {
     "defaultMessage": "Gestion de bases de données de la <abbreviation>TI</abbreviation>",
     "description": "Title for the 'database management' IT work stream"
@@ -10381,6 +10465,10 @@
   "vgrRuU": {
     "defaultMessage": "Exigence en matière de sécurité",
     "description": "Label for a process' security clearance requirement"
+  },
+  "vi7jVU": {
+    "defaultMessage": "Indiquer comme lue",
+    "description": "Button text to mark a notification as read"
   },
   "vkAhEM": {
     "defaultMessage": "Se connecter à l’aide de CléGC",

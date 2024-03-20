@@ -95,8 +95,8 @@ const NotificationListPage = ({
           <Well>
             <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x1)">
               {intl.formatMessage({
-                defaultMessage: "There aren't any notifications here yet.",
-                id: "0x2Ncn",
+                defaultMessage: "There aren't any notifications here.",
+                id: "8JYRed",
                 description: "Title for the no notifications message",
               })}
             </p>
