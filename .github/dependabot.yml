@@ -7,7 +7,7 @@ version: 2
 updates:
   # JAVASCRIPT package.json updates
 
-  - package-ecosystem: "npm"
+  - package-ecosystem: "pnpm"
     directory: "/"
     schedule:
       interval: "weekly"
