@@ -28,12 +28,14 @@ const NotificationsPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
 
-  const breadcrumbs = useBreadcrumbs([
-    {
-      label: intl.formatMessage(meta.title),
-      url: paths.notifications(),
-    },
-  ]);
+  const breadcrumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(meta.title),
+        url: paths.notifications(),
+      },
+    ],
+  });
 
   return (
     <>
