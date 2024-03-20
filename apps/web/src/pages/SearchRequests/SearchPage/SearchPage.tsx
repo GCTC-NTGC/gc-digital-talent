@@ -29,12 +29,14 @@ const SearchPage = () => {
   const formattedPageTitle = intl.formatMessage(pageTitle);
   const formattedSubTitle = intl.formatMessage(subTitle);
 
-  const crumbs = useBreadcrumbs([
-    {
-      label: formattedPageTitle,
-      url: paths.search(),
-    },
-  ]);
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: formattedPageTitle,
+        url: paths.search(),
+      },
+    ],
+  });
 
   return (
     <>

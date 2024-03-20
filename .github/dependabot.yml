@@ -13,6 +13,7 @@ updates:
       interval: "weekly"
       day: "thursday"
     open-pull-requests-limit: 50
+    versioning-strategy: increase
     groups:
       storybook:
         patterns:
@@ -36,7 +37,7 @@ updates:
           - "patch"
       types:
         patterns:
-          - "@types*"
+          - "@types/*"
         update-types:
           - "minor"
           - "patch"

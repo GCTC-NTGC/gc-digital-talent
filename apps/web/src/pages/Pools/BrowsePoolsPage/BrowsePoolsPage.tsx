@@ -160,12 +160,14 @@ export const BrowsePools = () => {
   const title = intl.formatMessage(navigationMessages.browseJobs);
   const formattedSubTitle = intl.formatMessage(subTitle);
 
-  const crumbs = useBreadcrumbs([
-    {
-      label: title,
-      url: paths.browsePools(),
-    },
-  ]);
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: title,
+        url: paths.browsePools(),
+      },
+    ],
+  });
 
   const activeRecruitmentPools = pools.filter(
     (p) =>

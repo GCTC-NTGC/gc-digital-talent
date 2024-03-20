@@ -188,6 +188,14 @@ const CareerTimelineAndRecruitmentPage = React.lazy(() =>
       ),
   ),
 );
+const NotificationsPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsNotificationsPage" */ "../pages/Notifications/NotificationsPage/NotificationsPage"
+      ),
+  ),
+);
 
 /** Direct Intake */
 const BrowsePoolsPage = React.lazy(() =>
@@ -907,6 +915,19 @@ const createRoute = (
                       <Outlet />
                     </RequireAuth>
                   ),
+                },
+                {
+                  ...(featureFlags.notifications && {
+                    path: "notifications",
+                    element: (
+                      <RequireAuth
+                        roles={[ROLE_NAME.Applicant]}
+                        loginPath={loginPath}
+                      >
+                        <NotificationsPage />
+                      </RequireAuth>
+                    ),
+                  }),
                 },
                 {
                   path: "profile-and-applications",

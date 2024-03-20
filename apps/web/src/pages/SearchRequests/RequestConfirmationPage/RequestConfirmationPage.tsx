@@ -50,24 +50,26 @@ const RequestConfirmationPage = () => {
   const formattedPageTitle = intl.formatMessage(pageTitle);
   const formattedSubTitle = intl.formatMessage(subTitle);
 
-  const crumbs = useBreadcrumbs([
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Search for talent",
-        id: "weLwJA",
-        description: "Link text for the search page breadcrumb",
-      }),
-      url: paths.search(),
-    },
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Request submitted",
-        id: "0zo274",
-        description: "Link text for request confirmation breadcrumb",
-      }),
-      url: paths.requestConfirmation(requestId),
-    },
-  ]);
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Search for talent",
+          id: "weLwJA",
+          description: "Link text for the search page breadcrumb",
+        }),
+        url: paths.search(),
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Request submitted",
+          id: "0zo274",
+          description: "Link text for request confirmation breadcrumb",
+        }),
+        url: paths.requestConfirmation(requestId),
+      },
+    ],
+  });
 
   const componentRef = useRef(null);
   const handlePrint = useReactToPrint({

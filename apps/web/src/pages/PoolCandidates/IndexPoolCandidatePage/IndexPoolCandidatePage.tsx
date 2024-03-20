@@ -157,8 +157,8 @@ const IndexPoolCandidatePage_Query = graphql(/* GraphQL */ `
 `);
 
 export const subTitle = defineMessage({
-  defaultMessage: "This table shows a list of all applicants to this pool.",
-  id: "0a8nPa",
+  defaultMessage: "This table shows a list of all applicants to this process.",
+  id: "Evn5Mo",
   description:
     "Descriptive text about the list of pool candidates in the admin portal.",
 });

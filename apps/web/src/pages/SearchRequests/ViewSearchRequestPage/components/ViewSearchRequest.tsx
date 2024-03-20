@@ -33,6 +33,7 @@ import FilterBlock from "~/components/SearchRequestFilters/FilterBlock";
 import AdminHero from "~/components/Hero/AdminHero";
 import SEO from "~/components/SEO/SEO";
 import { pageTitle as indexSearchRequestPageTitle } from "~/pages/SearchRequests/IndexSearchRequestPage/IndexSearchRequestPage";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import SingleSearchRequestTableApi from "./SearchRequestCandidatesTable";
 import UpdateSearchRequest from "./UpdateSearchRequest";
@@ -369,24 +370,19 @@ export const ViewSearchRequest = ({
     reason,
   } = searchRequest;
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(indexSearchRequestPageTitle),
-      url: routes.searchRequestTable(),
-    },
-    {
-      label: `${fullName} - ${getLocalizedName(department?.name, intl)}`,
-      url: routes.searchRequestView(id),
-    },
-  ];
+  const navigationCrumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(indexSearchRequestPageTitle),
+        url: routes.searchRequestTable(),
+      },
+      {
+        label: `${fullName} - ${getLocalizedName(department?.name, intl)}`,
+        url: routes.searchRequestView(id),
+      },
+    ],
+    isAdmin: true,
+  });
 
   const formattedPageTitle = intl.formatMessage(pageTitle);
   const subTitle = intl.formatMessage(

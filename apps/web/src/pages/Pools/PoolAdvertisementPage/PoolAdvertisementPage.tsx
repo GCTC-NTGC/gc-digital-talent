@@ -244,16 +244,18 @@ export const PoolPoster = ({
     canApply,
   };
 
-  const links = useBreadcrumbs([
-    {
-      label: intl.formatMessage(navigationMessages.browseJobs),
-      url: paths.browsePools(),
-    },
-    {
-      label: poolTitle,
-      url: paths.pool(pool.id),
-    },
-  ]);
+  const links = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(navigationMessages.browseJobs),
+        url: paths.browsePools(),
+      },
+      {
+        label: poolTitle,
+        url: paths.pool(pool.id),
+      },
+    ],
+  });
 
   const sections: Record<string, SectionContent> = {
     employmentDetails: {

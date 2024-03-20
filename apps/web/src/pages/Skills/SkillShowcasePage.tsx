@@ -98,20 +98,22 @@ export const SkillShowcase = ({
   const pageTitle = intl.formatMessage(navigationMessages.skillShowcase);
   const formattedSubTitle = intl.formatMessage(subTitle);
 
-  const crumbs = useBreadcrumbs([
-    {
-      label: intl.formatMessage(navigationMessages.profileAndApplications),
-      url: paths.profileAndApplications(),
-    },
-    {
-      label: intl.formatMessage(navigationMessages.skillLibrary),
-      url: paths.skillLibrary(),
-    },
-    {
-      label: pageTitle,
-      url: paths.skillShowcase(),
-    },
-  ]);
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(navigationMessages.profileAndApplications),
+        url: paths.profileAndApplications(),
+      },
+      {
+        label: intl.formatMessage(navigationMessages.skillLibrary),
+        url: paths.skillLibrary(),
+      },
+      {
+        label: pageTitle,
+        url: paths.skillShowcase(),
+      },
+    ],
+  });
 
   const sections: PageSections = {
     topSkills: {
