@@ -18,6 +18,7 @@ import {
   PoolSkillType,
   Skill,
   UpdateAssessmentResultInput,
+  User,
   graphql,
 } from "@gc-digital-talent/graphql";
 import {
@@ -314,6 +315,11 @@ export const ScreeningDecisionDialog = ({
   const skill = poolSkill?.skill ? poolSkill.skill : undefined;
   const skillLevel = getSkillLevelMessage(poolSkill, intl);
 
+  const parsedSnapshot: Maybe<User> = JSON.parse(poolCandidate.profileSnapshot);
+  const snapshotCandidate = parsedSnapshot?.poolCandidates
+    ?.filter(notEmpty)
+    .find(({ id }) => id === poolCandidate.id);
+
   const headers = useHeaders({
     type: dialogType,
     title: intl.formatMessage(
@@ -322,7 +328,7 @@ export const ScreeningDecisionDialog = ({
         : commonMessages.notApplicable,
     ),
     customTitle: getLocalizedName(assessmentStep?.title, intl, true),
-    candidateName: poolCandidate.user.firstName,
+    candidateName: parsedSnapshot?.firstName,
     skillName: getLocalizedName(skill?.name, intl),
     skillLevel,
   });
@@ -330,9 +336,10 @@ export const ScreeningDecisionDialog = ({
 
   const experiences =
     dialogType === "EDUCATION"
-      ? poolCandidate.educationRequirementExperiences?.filter(notEmpty) || []
+      ? snapshotCandidate?.educationRequirementExperiences?.filter(notEmpty) ||
+        []
       : getExperienceSkills(
-          poolCandidate.user.experiences?.filter(notEmpty) || [],
+          parsedSnapshot?.experiences?.filter(notEmpty) || [],
           skill,
         );
 
@@ -346,7 +353,7 @@ export const ScreeningDecisionDialog = ({
     classificationGroup,
     isIAPPool(poolCandidate.pool),
   ).find(
-    (option) => option.value === poolCandidate.educationRequirementOption,
+    (option) => option.value === snapshotCandidate?.educationRequirementOption,
   )?.label;
 
   const defaultValues: FormValues = {
