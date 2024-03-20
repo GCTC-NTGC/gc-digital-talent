@@ -223,12 +223,14 @@ const TermsAndConditions = () => {
     },
   };
 
-  const crumbs = useBreadcrumbs([
-    {
-      label: pageTitle,
-      url: paths.accessibility(),
-    },
-  ]);
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: pageTitle,
+        url: paths.accessibility(),
+      },
+    ],
+  });
 
   const comments = [
     intl.formatMessage({

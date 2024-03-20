@@ -108,12 +108,14 @@ const PrivacyPolicy = () => {
     description: "Sub title for the websites privacy policy",
   });
 
-  const crumbs = useBreadcrumbs([
-    {
-      label: pageTitle,
-      url: paths.privacyPolicy(),
-    },
-  ]);
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: pageTitle,
+        url: paths.privacyPolicy(),
+      },
+    ],
+  });
 
   return (
     <>

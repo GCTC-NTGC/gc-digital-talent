@@ -61,12 +61,14 @@ const DirectivePage = () => {
   const paths = useRoutes();
   const { directiveForms: directiveFormsFlag } = useFeatureFlags();
 
-  const crumbs = useBreadcrumbs([
-    {
-      label: intl.formatMessage(pageTitle),
-      url: paths.directive(),
-    },
-  ]);
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(pageTitle),
+        url: paths.directive(),
+      },
+    ],
+  });
 
   const directiveUrl =
     locale === "en"

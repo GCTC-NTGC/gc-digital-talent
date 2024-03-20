@@ -41,6 +41,7 @@ import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSkillFormDialog from "~/components/ExperienceSkillFormDialog/ExperienceSkillFormDialog";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import {
   CreateUserSkill_Mutation,
@@ -221,37 +222,31 @@ export const UpdateUserSkillForm = ({
       );
   };
 
-  const crumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: paths.home(),
-    },
-    {
-      label: intl.formatMessage(navigationMessages.profileAndApplications),
-      url: paths.profileAndApplications(),
-    },
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(navigationMessages.profileAndApplications),
+        url: paths.profileAndApplications(),
+      },
 
-    {
-      label: intl.formatMessage(navigationMessages.skillLibrary),
-      url: paths.skillLibrary(),
-    },
-    ...(fromShowcase
-      ? [
-          {
-            label: intl.formatMessage(navigationMessages.skillShowcase),
-            url: paths.skillShowcase(),
-          },
-        ]
-      : []),
-    {
-      label: skillName,
-      url: paths.editUserSkill(skill.id),
-    },
-  ];
+      {
+        label: intl.formatMessage(navigationMessages.skillLibrary),
+        url: paths.skillLibrary(),
+      },
+      ...(fromShowcase
+        ? [
+            {
+              label: intl.formatMessage(navigationMessages.skillShowcase),
+              url: paths.skillShowcase(),
+            },
+          ]
+        : []),
+      {
+        label: skillName,
+        url: paths.editUserSkill(skill.id),
+      },
+    ],
+  });
 
   const sections: PageSections = {
     skillLevel: {

@@ -97,20 +97,22 @@ export const SkillShowcase = ({
     description: "Subtitle for the skill showcase page",
   });
 
-  const crumbs = useBreadcrumbs([
-    {
-      label: intl.formatMessage(navigationMessages.profileAndApplications),
-      url: paths.profileAndApplications(),
-    },
-    {
-      label: intl.formatMessage(navigationMessages.skillLibrary),
-      url: paths.skillLibrary(),
-    },
-    {
-      label: pageTitle,
-      url: paths.skillShowcase(),
-    },
-  ]);
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(navigationMessages.profileAndApplications),
+        url: paths.profileAndApplications(),
+      },
+      {
+        label: intl.formatMessage(navigationMessages.skillLibrary),
+        url: paths.skillLibrary(),
+      },
+      {
+        label: pageTitle,
+        url: paths.skillShowcase(),
+      },
+    ],
+  });
 
   const sections: PageSections = {
     topSkills: {

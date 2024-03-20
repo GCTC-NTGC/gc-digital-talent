@@ -33,12 +33,14 @@ export const SkillPage = () => {
   const formattedPageTitle = intl.formatMessage(pageTitle);
   const formattedPageSubtitle = intl.formatMessage(pageSubtitle);
 
-  const crumbs = useBreadcrumbs([
-    {
-      label: formattedPageTitle,
-      url: routes.skills(),
-    },
-  ]);
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: formattedPageTitle,
+        url: routes.skills(),
+      },
+    ],
+  });
 
   return (
     <>
