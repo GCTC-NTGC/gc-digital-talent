@@ -2,6 +2,7 @@ import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
 
 import type { BreadcrumbsProps } from "@gc-digital-talent/ui";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "./useRoutes";
 
@@ -23,11 +24,7 @@ const useBreadcrumbs = ({ crumbs, isAdmin }: useBreadcrumbsProps) => {
   return [
     {
       url: !iapPersonality ? homePath : paths.iap(),
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
+      label: intl.formatMessage(navigationMessages.home),
     },
     ...crumbs,
   ];
