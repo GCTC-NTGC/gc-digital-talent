@@ -139,15 +139,15 @@ const QualifiedRecruitmentCard = ({
                 {isOpen
                   ? intl.formatMessage({
                       defaultMessage:
-                        "Hide this recruitment's skill assessments",
-                      id: "+h7iQH",
+                        "Hide the skill assessments of this process",
+                      id: "vMcen8",
                       description:
                         "Button text to hide a miscellaneous qualified recruitment's skill assessments",
                     })
                   : intl.formatMessage({
                       defaultMessage:
-                        "Show this recruitment's skill assessments",
-                      id: "BFewIk",
+                        "Show the skill assessments of this process",
+                      id: "nSwruS",
                       description:
                         "Button text to show a miscellaneous qualified recruitment's skill assessments",
                     })}
@@ -289,14 +289,14 @@ const QualifiedRecruitmentCard = ({
           >
             {linkCopied
               ? intl.formatMessage({
-                  defaultMessage: "Recruitment ID copied",
-                  id: "5HJIwt",
+                  defaultMessage: "Process ID copied",
+                  id: "QNmxIN",
                   description:
                     "Button text to indicate that a specific qualified recruitment's ID has been copied",
                 })
               : intl.formatMessage({
-                  defaultMessage: "Copy recruitment ID",
-                  id: "iO72f+",
+                  defaultMessage: "Copy process ID",
+                  id: "IW+wmC",
                   description:
                     "Button text to copy a specific qualified recruitment's ID",
                 })}

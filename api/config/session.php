@@ -195,8 +195,10 @@ return [
     |
     | Supported: "lax", "strict", "none", null
     |
+    | GC Talent Note: strict cookies will break login session state from a provider in a different origin.
+    |
     */
 
-    'same_site' => env('SESSION_SAME_SITE_COOKIE', 'strict'),
+    'same_site' => env('SESSION_SAME_SITE_COOKIE', 'lax'),
 
 ];

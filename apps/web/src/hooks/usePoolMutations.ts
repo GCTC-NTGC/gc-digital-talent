@@ -123,8 +123,8 @@ const usePoolMutations = (returnPath?: string) => {
   const handleUpdateError = () => {
     toast.error(
       intl.formatMessage({
-        defaultMessage: "Error: updating pool failed",
-        id: "2TrYLI",
+        defaultMessage: "Error: process update failed",
+        id: "xnlBSd",
         description:
           "Message displayed to user after pool fails to get updated.",
       }),
@@ -139,8 +139,8 @@ const usePoolMutations = (returnPath?: string) => {
         if (result.data?.updatePool) {
           toast.success(
             intl.formatMessage({
-              defaultMessage: "Pool updated successfully!",
-              id: "nPUAz5",
+              defaultMessage: "Process updated successfully!",
+              id: "/ZlzNi",
               description: "Message displayed to user after pool is updated",
             }),
           );
@@ -164,8 +164,8 @@ const usePoolMutations = (returnPath?: string) => {
         if (result.data?.changePoolClosingDate) {
           toast.success(
             intl.formatMessage({
-              defaultMessage: "Pool updated successfully!",
-              id: "nPUAz5",
+              defaultMessage: "Process updated successfully!",
+              id: "/ZlzNi",
               description: "Message displayed to user after pool is updated",
             }),
           );
@@ -182,8 +182,8 @@ const usePoolMutations = (returnPath?: string) => {
   const handlePublishError = () => {
     toast.error(
       intl.formatMessage({
-        defaultMessage: "Error: publishing pool failed",
-        id: "TkTpzk",
+        defaultMessage: "Error: process publishing failed",
+        id: "RHwGy2",
         description:
           "Message displayed to user after pool fails to get publish.",
       }),
@@ -197,8 +197,8 @@ const usePoolMutations = (returnPath?: string) => {
           navigateBack();
           toast.success(
             intl.formatMessage({
-              defaultMessage: "Pool published successfully!",
-              id: "P5+9Wy",
+              defaultMessage: "Process published successfully!",
+              id: "RauOed",
               description: "Message displayed to user after pool is published",
             }),
           );
@@ -215,8 +215,8 @@ const usePoolMutations = (returnPath?: string) => {
   const handleCloseError = () => {
     toast.error(
       intl.formatMessage({
-        defaultMessage: "Error: closing pool failed",
-        id: "dYBwCh",
+        defaultMessage: "Error: closing process failed",
+        id: "Et46bc",
         description:
           "Message displayed to user after pool fails to get closed.",
       }),
@@ -230,8 +230,8 @@ const usePoolMutations = (returnPath?: string) => {
           navigateBack();
           toast.success(
             intl.formatMessage({
-              defaultMessage: "Pool closed successfully!",
-              id: "JJB5Yd",
+              defaultMessage: "Process closed successfully!",
+              id: "bSFeLf",
               description: "Message displayed to user after pool is closed",
             }),
           );
@@ -248,8 +248,8 @@ const usePoolMutations = (returnPath?: string) => {
   const handleDeleteError = () => {
     toast.error(
       intl.formatMessage({
-        defaultMessage: "Error: closing pool failed",
-        id: "RXoZOS",
+        defaultMessage: "Error: deleting process failed",
+        id: "idv7rY",
         description:
           "Message displayed to user after pool fails to get deleted.",
       }),
@@ -263,8 +263,8 @@ const usePoolMutations = (returnPath?: string) => {
           navigateBack();
           toast.success(
             intl.formatMessage({
-              defaultMessage: "Pool deleted successfully!",
-              id: "93AuFS",
+              defaultMessage: "Process deleted successfully!",
+              id: "LVQu1R",
               description: "Message displayed to user after pool is deleted",
             }),
           );
@@ -281,8 +281,8 @@ const usePoolMutations = (returnPath?: string) => {
   const handleArchiveError = () => {
     toast.error(
       intl.formatMessage({
-        defaultMessage: "Error: archiving pool failed",
-        id: "zotZ6j",
+        defaultMessage: "Error: archiving process failed",
+        id: "qhws/V",
         description:
           "Message displayed to user after pool fails to get archived.",
       }),
@@ -296,8 +296,8 @@ const usePoolMutations = (returnPath?: string) => {
           navigateBack();
           toast.success(
             intl.formatMessage({
-              defaultMessage: "Pool archived successfully!",
-              id: "jft3KM",
+              defaultMessage: "Process archived successfully!",
+              id: "s3JBjM",
               description: "Message displayed to user after pool is archived",
             }),
           );
@@ -329,10 +329,9 @@ const usePoolMutations = (returnPath?: string) => {
         if (result.data?.duplicatePool?.id) {
           toast.success(
             intl.formatMessage({
-              defaultMessage:
-                "Success: This pool has been duplicated successfully.",
-              id: "vlyq02",
-              description: "Message displayed to user after pool is deleted",
+              defaultMessage: "Process duplicated successfully!",
+              id: "qXnXKH",
+              description: "Message displayed to user after pool is duplicated",
             }),
           );
           navigate(paths.poolUpdate(result.data.duplicatePool.id));
@@ -349,8 +348,8 @@ const usePoolMutations = (returnPath?: string) => {
   const handleUnarchiveError = () => {
     toast.error(
       intl.formatMessage({
-        defaultMessage: "Error: un-archiving pool failed",
-        id: "H9fzdi",
+        defaultMessage: "Error: un-archiving process failed",
+        id: "DqM+mu",
         description:
           "Message displayed to user after pool fails to get un-archived.",
       }),
@@ -363,8 +362,8 @@ const usePoolMutations = (returnPath?: string) => {
         if (result.data?.unarchivePool) {
           toast.success(
             intl.formatMessage({
-              defaultMessage: "Pool un-archived successfully!",
-              id: "5it7iX",
+              defaultMessage: "Process un-archived successfully!",
+              id: "pR/Xr2",
               description:
                 "Message displayed to user after pool is un-archived",
             }),
@@ -391,8 +390,8 @@ const usePoolMutations = (returnPath?: string) => {
         if (result.data?.createPoolSkill) {
           toast.success(
             intl.formatMessage({
-              defaultMessage: "Pool updated successfully!",
-              id: "nPUAz5",
+              defaultMessage: "Process updated successfully!",
+              id: "/ZlzNi",
               description: "Message displayed to user after pool is updated",
             }),
           );
@@ -418,8 +417,8 @@ const usePoolMutations = (returnPath?: string) => {
         if (result.data?.updatePoolSkill) {
           toast.success(
             intl.formatMessage({
-              defaultMessage: "Pool updated successfully!",
-              id: "nPUAz5",
+              defaultMessage: "Process updated successfully!",
+              id: "/ZlzNi",
               description: "Message displayed to user after pool is updated",
             }),
           );
@@ -442,8 +441,8 @@ const usePoolMutations = (returnPath?: string) => {
         if (result.data?.deletePoolSkill) {
           toast.success(
             intl.formatMessage({
-              defaultMessage: "Pool updated successfully!",
-              id: "nPUAz5",
+              defaultMessage: "Process updated successfully!",
+              id: "/ZlzNi",
               description: "Message displayed to user after pool is updated",
             }),
           );

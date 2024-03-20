@@ -11,6 +11,7 @@ import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import { pageTitle as indexTeamPageTitle } from "~/pages/Teams/IndexTeamPage/IndexTeamPage";
 import AdminHero from "~/components/Hero/AdminHero";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import CreateTeamForm from "./components/CreateTeamForm";
 
@@ -69,28 +70,23 @@ const CreateTeamPage = () => {
     });
   };
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(indexTeamPageTitle),
-      url: routes.teamTable(),
-    },
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Create<hidden> team</hidden>",
-        id: "o7SM7j",
-        description: "Breadcrumb title for the create team page link.",
-      }),
-      url: routes.teamCreate(),
-    },
-  ];
+  const navigationCrumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(indexTeamPageTitle),
+        url: routes.teamTable(),
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Create<hidden> team</hidden>",
+          id: "o7SM7j",
+          description: "Breadcrumb title for the create team page link.",
+        }),
+        url: routes.teamCreate(),
+      },
+    ],
+    isAdmin: true,
+  });
 
   return (
     <>
