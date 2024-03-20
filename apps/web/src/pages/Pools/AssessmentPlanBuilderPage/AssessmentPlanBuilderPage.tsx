@@ -35,6 +35,7 @@ import { routeErrorMessages } from "~/hooks/useErrorMessages";
 import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
 import { getPoolCompletenessBadge } from "~/utils/poolUtils";
 import messages from "~/messages/adminMessages";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import OrganizeSection from "./components/OrganizeSection";
 import SkillSummarySection from "./components/SkillSummarySection";
@@ -231,28 +232,23 @@ export const AssessmentPlanBuilderPage = () => {
 
   // Note: Should technically be in subNav of layout?
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(indexPoolPageTitle),
-      url: routes.poolTable(),
-    },
-    {
-      label: getLocalizedName(queryData?.pool?.name, intl),
-      url: routes.poolView(poolId),
-    },
-    {
-      label: intl.formatMessage(pageTitle),
-      url: routes.assessmentPlanBuilder(poolId),
-    },
-  ];
+  const navigationCrumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(indexPoolPageTitle),
+        url: routes.poolTable(),
+      },
+      {
+        label: getLocalizedName(queryData?.pool?.name, intl),
+        url: routes.poolView(poolId),
+      },
+      {
+        label: intl.formatMessage(pageTitle),
+        url: routes.assessmentPlanBuilder(poolId),
+      },
+    ],
+    isAdmin: true,
+  });
 
   // RequireAuth in router can't check team roles
   const authorizedToSeeThePage: boolean =

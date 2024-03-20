@@ -36,6 +36,7 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
 import AdminHero from "~/components/Hero/AdminHero";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 type Option<V> = { value: V; label: string };
 
@@ -295,33 +296,28 @@ const UpdateSkillFamilyPage = () => {
       return Promise.reject(result.error);
     });
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(adminMessages.skillFamilies),
-      url: routes.skillFamilyTable(),
-    },
-    ...(skillFamilyId
-      ? [
-          {
-            label: intl.formatMessage({
-              defaultMessage: "Edit<hidden> skill family</hidden>",
-              id: "5SKmte",
-              description:
-                "Breadcrumb title for the edit skill family page link.",
-            }),
-            url: routes.skillFamilyUpdate(skillFamilyId),
-          },
-        ]
-      : []),
-  ];
+  const navigationCrumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(adminMessages.skillFamilies),
+        url: routes.skillFamilyTable(),
+      },
+      ...(skillFamilyId
+        ? [
+            {
+              label: intl.formatMessage({
+                defaultMessage: "Edit<hidden> skill family</hidden>",
+                id: "5SKmte",
+                description:
+                  "Breadcrumb title for the edit skill family page link.",
+              }),
+              url: routes.skillFamilyUpdate(skillFamilyId),
+            },
+          ]
+        : []),
+    ],
+    isAdmin: true,
+  });
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Edit skill family",
