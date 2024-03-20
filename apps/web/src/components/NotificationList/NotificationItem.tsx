@@ -8,6 +8,7 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Button,
   CardBasic,
+  DialogPrimitive,
   DropdownMenu,
   Separator,
 } from "@gc-digital-talent/ui";
@@ -25,6 +26,18 @@ import {
   MarkNotificationAsRead_Mutation,
   MarkNotificationAsUnread_Mutation,
 } from "./mutations";
+
+type LinkWrapperProps = {
+  inDialog?: boolean;
+  children: React.ReactNode;
+};
+
+const LinkWrapper = ({ inDialog = false, children }: LinkWrapperProps) => {
+  // eslint-disable-next-line react/jsx-no-useless-fragment
+  if (!inDialog) return <>{children}</>;
+
+  return <DialogPrimitive.Close asChild>{children}</DialogPrimitive.Close>;
+};
 
 const NotificationItem_Fragment = graphql(/* GraphQL */ `
   fragment NotificationItem on Notification {
@@ -48,12 +61,12 @@ const NotificationItem_Fragment = graphql(/* GraphQL */ `
 interface NotificationItemProps {
   /** The actual notification type */
   notification: FragmentType<typeof NotificationItem_Fragment>;
-  flat?: boolean;
+  inDialog?: boolean;
 }
 
 const NotificationItem = ({
   notification: notificationQuery,
-  flat,
+  inDialog,
 }: NotificationItemProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
@@ -82,11 +95,12 @@ const NotificationItem = ({
   };
 
   const handleLinkClicked = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault();
+    event.stopPropagation();
 
     executeMarkAsReadMutation({ id: notification.id }).then((res) => {
       if (res.data?.markNotificationAsRead) {
         navigate(info.href);
+        return false;
       }
     });
   };
@@ -103,7 +117,7 @@ const NotificationItem = ({
     <li>
       <CardBasic
         data-h2-display="base(flex)"
-        {...(flat
+        {...(inDialog
           ? {
               "data-h2-padding": "base(x.5)",
               "data-h2-shadow":
@@ -141,18 +155,20 @@ const NotificationItem = ({
           data-h2-gap="base(x.5 0)"
           data-h2-flex-grow="base(1)"
         >
-          <BaseLink
-            to={info.href}
-            onClick={handleLinkClicked}
-            data-h2-text-decoration="base(none)"
-            data-h2-color="base:hover(secondary.darker)"
-            data-h2-outline="base(none)"
-            {...(isUnread && {
-              "data-h2-font-weight": "base(700)",
-            })}
-          >
-            {info.message}
-          </BaseLink>
+          <LinkWrapper inDialog={inDialog}>
+            <BaseLink
+              to={info.href}
+              onClick={handleLinkClicked}
+              data-h2-text-decoration="base(none)"
+              data-h2-color="base:hover(secondary.darker)"
+              data-h2-outline="base(none)"
+              {...(isUnread && {
+                "data-h2-font-weight": "base(700)",
+              })}
+            >
+              {info.message}
+            </BaseLink>
+          </LinkWrapper>
           <p
             className="Notification__Date"
             data-h2-font-size="base(caption)"
@@ -206,7 +222,9 @@ const NotificationItem = ({
           </DropdownMenu.Root>
         </div>
       </CardBasic>
-      {flat && <Separator orientation="horizontal" data-h2-margin="base(0)" />}
+      {inDialog && (
+        <Separator orientation="horizontal" data-h2-margin="base(0)" />
+      )}
     </li>
   );
 };

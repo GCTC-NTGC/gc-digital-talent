@@ -29,14 +29,14 @@ interface NotificationListProps {
   live?: boolean;
   paginate?: boolean;
   limit?: number;
-  flat?: boolean;
+  inDialog?: boolean;
 }
 
 const NotificationList = ({
   live,
   paginate,
   limit,
-  flat,
+  inDialog,
 }: NotificationListProps) => {
   const now = nowUTCDateTime();
   const [searchParams] = useSearchParams();
@@ -66,14 +66,14 @@ const NotificationList = ({
 
   return (
     <>
-      <NotificationActions onlyUnread={onlyUnread} flat={flat} />
+      <NotificationActions onlyUnread={onlyUnread} inDialog={inDialog} />
       <ul
         data-h2-list-style="base(none)"
         data-h2-padding="base(0)"
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column)"
         data-h2-margin="base(x1 0)"
-        {...(!flat && {
+        {...(!inDialog && {
           "data-h2-gap": "base(x.25 0)",
         })}
       >
@@ -83,7 +83,7 @@ const NotificationList = ({
               <NotificationItem
                 key={notification.id}
                 notification={notification}
-                flat={flat}
+                inDialog={inDialog}
               />
             ))}
           </>
@@ -97,7 +97,7 @@ const NotificationList = ({
               exclude={liveIds}
               isLastPage={currentPage === pagesToLoad}
               onlyUnread={onlyUnread}
-              flat={flat}
+              inDialog={inDialog}
               {...((!paginate || limit) && {
                 first: limit ?? 100,
               })}

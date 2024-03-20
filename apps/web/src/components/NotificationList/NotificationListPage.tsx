@@ -45,7 +45,7 @@ interface NotificationPageProps {
   isLastPage?: boolean;
   exclude?: Scalars["UUID"]["input"][];
   first?: number;
-  flat?: boolean;
+  inDialog?: boolean;
 }
 
 const NotificationListPage = ({
@@ -53,7 +53,7 @@ const NotificationListPage = ({
   first,
   onlyUnread,
   isLastPage,
-  flat,
+  inDialog,
   exclude = [],
 }: NotificationPageProps) => {
   const intl = useIntl();
@@ -87,7 +87,7 @@ const NotificationListPage = ({
             <NotificationItem
               key={notification.id}
               notification={notification}
-              flat={flat}
+              inDialog={inDialog}
             />
           ))}
         </>

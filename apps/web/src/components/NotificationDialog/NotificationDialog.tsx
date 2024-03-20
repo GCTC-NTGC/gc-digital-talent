@@ -13,11 +13,14 @@ import {
   Button,
   Heading,
   Dialog,
+  Link,
 } from "@gc-digital-talent/ui";
+
+import usePollingQuery from "~/hooks/usePollingQuery";
+import useRoutes from "~/hooks/useRoutes";
 
 import UnreadAlertBellIcon from "./UnreadAlertBellIcon";
 import NotificationList from "../NotificationList/NotificationList";
-import usePollingQuery from "../../hooks/usePollingQuery";
 
 const Overlay = m(DialogPrimitive.Overlay);
 
@@ -41,6 +44,7 @@ const ellipsis = () => (
 
 const NotificationDialog = () => {
   const intl = useIntl();
+  const paths = useRoutes();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   const [{ data }] = usePollingQuery({ query: NotificationCount_Query }, 60);
@@ -152,7 +156,22 @@ const NotificationDialog = () => {
                     )}
                   </p>
                 </div>
-                <NotificationList live flat limit={30} />
+                <NotificationList live inDialog limit={30} />
+                <p data-h2-margin="base(x.5 x1)">
+                  <DialogPrimitive.Close asChild>
+                    <Link
+                      href={paths.notifications()}
+                      mode="solid"
+                      color="secondary"
+                    >
+                      {intl.formatMessage({
+                        defaultMessage: "View all notifications",
+                        id: "/lVSP/",
+                        description: "Link text for the notifications page",
+                      })}
+                    </Link>
+                  </DialogPrimitive.Close>
+                </p>
               </m.div>
             </DialogPrimitive.Content>
           </Dialog.Portal>
