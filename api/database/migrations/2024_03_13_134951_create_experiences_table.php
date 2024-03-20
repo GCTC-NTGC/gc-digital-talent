@@ -19,9 +19,9 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->uuid('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete(true);
             $table->text('details');
-            $table->string('experience_type')->nullable(false);
+            $table->string('experience_type')->index();
             $table->jsonb('properties')->nullable();
         });
 
@@ -109,13 +109,19 @@ return new class extends Migration
                         SQL))
                 );
 
+            Schema::table('experience_skill', function (Blueprint $table) {
+                $table->foreign('experience_id')->references('id')->on('experiences')->cascadeOnDelete(true);
+            });
+            Schema::table('pool_candidate_education_requirement_experience', function (Blueprint $table) {
+                $table->foreign('experience_id')->references('id')->on('experiences')->cascadeOnDelete(true);
+            });
+
             Schema::drop('award_experiences');
             Schema::drop('community_experiences');
             Schema::drop('education_experiences');
             Schema::drop('personal_experiences');
             Schema::drop('work_experiences');
         });
-
     }
 
     /**
@@ -297,6 +303,13 @@ return new class extends Migration
                         ])
                         ->where('experience_type', 'App\Models\WorkExperience')
                 );
+
+            Schema::table('experience_skill', function (Blueprint $table) {
+                $table->dropForeign('experience_skill_experience_id_foreign');
+            });
+            Schema::table('pool_candidate_education_requirement_experience', function (Blueprint $table) {
+                $table->dropForeign('pool_candidate_education_requirement_experience_experience_id_f');
+            });
 
             Schema::dropIfExists('experiences');
         });
