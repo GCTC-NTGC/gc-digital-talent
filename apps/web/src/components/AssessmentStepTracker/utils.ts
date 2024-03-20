@@ -23,6 +23,7 @@ import {
   determineCandidateStatusPerStep,
   determineCurrentStepPerCandidate,
   getDecisionCountForEachStep,
+  isDisqualifiedStatus,
 } from "~/utils/poolCandidate";
 
 export type CandidateAssessmentResult = {
@@ -268,4 +269,19 @@ export const filterResults = (
       results: filteredResults,
     };
   });
+};
+
+// filter out candidates who are disqualified AND have an empty assessment results collection
+export const filterAlreadyDisqualified = (
+  candidates: PoolCandidate[],
+): PoolCandidate[] => {
+  const filteredResult = candidates.filter(
+    (candidate) =>
+      !(
+        isDisqualifiedStatus(candidate.status) &&
+        (candidate.assessmentResults ? candidate.assessmentResults : [])
+          .length === 0
+      ),
+  );
+  return filteredResult;
 };
