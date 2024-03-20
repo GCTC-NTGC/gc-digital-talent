@@ -15,7 +15,7 @@
     "@storybook/react": "^7.6.17",
     "@urql/core": "4.2.3",
     "chromatic": "^11.0.8",
-    "framer-motion": "^11.0.13",
+    "framer-motion": "^11.0.18",
     "graphql": "^16.8.1",
     "lodash": "^4.17.21",
     "react-helmet-async": "^2.0.4",
