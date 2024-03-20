@@ -1257,30 +1257,6 @@ importers:
         specifier: ^5.4.2
         version: 5.4.2
 
-  packages/tooling:
-    devDependencies:
-      '@gc-digital-talent/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config-custom
-      '@swc/core':
-        specifier: ^1.4.8
-        version: 1.4.8
-      eslint:
-        specifier: ^8.57.0
-        version: 8.57.0
-      tsconfig:
-        specifier: workspace:*
-        version: link:../tsconfig
-      tsup:
-        specifier: ^8.0.2
-        version: 8.0.2(@swc/core@1.4.8)(postcss@8.4.35)(typescript@5.4.2)
-      typescript:
-        specifier: ^5.4.2
-        version: 5.4.2
-      yargs:
-        specifier: ^17.7.2
-        version: 17.7.2
-
   packages/tsconfig: {}
 
   packages/ui:

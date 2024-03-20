@@ -12,7 +12,7 @@ function expectAuthCookies(cookies: AuthCookies) {
 }
 
 const restrictedPaths = [
-  "/en/admin/dashboard",
+  "/en/admin",
   "/en/admin/talent-requests",
   "/en/admin/users",
   "/en/admin/settings/classifications",

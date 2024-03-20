@@ -36,6 +36,7 @@ import {
   getLocale,
   getLocalizedName,
   getSkillLevelDefinition,
+  getSkillLevelName,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -66,10 +67,7 @@ const getSkillLevelMessage = (
   let skillLevel = "";
   if (poolSkill?.requiredLevel && poolSkill.skill) {
     skillLevel = intl.formatMessage(
-      getSkillLevelDefinition(
-        poolSkill.requiredLevel,
-        poolSkill.skill.category,
-      ),
+      getSkillLevelName(poolSkill.requiredLevel, poolSkill.skill.category),
     );
   } else skillLevel = intl.formatMessage(commonMessages.notFound);
 
@@ -100,12 +98,21 @@ const AssessmentStepTypeSection = ({
                 "Header for selected requirement option in education requirement screening decision dialog.",
             })}
           </p>
-          <Well
-            data-h2-margin-bottom="base(x1)"
-            data-h2-text-align="base(left)"
-          >
-            {educationRequirementOption}
-          </Well>
+          {educationRequirementOption ? (
+            <Well
+              data-h2-margin-bottom="base(x1)"
+              data-h2-text-align="base(left)"
+            >
+              {educationRequirementOption}
+            </Well>
+          ) : (
+            <p
+              data-h2-margin-bottom="base(x.5)"
+              data-h2-margin-left="base(x.25)"
+            >
+              {intl.formatMessage(commonMessages.notFound)}
+            </p>
+          )}
         </div>
       );
     default:
@@ -237,18 +244,22 @@ const SupportingEvidence = ({
             "Header for supporting evidence section in screening decision dialog.",
         })}
       </p>
-      {experiences.length
-        ? experiences.map((experience) => (
-            <div data-h2-margin-bottom="base(x.5)" key={experience.id}>
-              <ExperienceCard
-                experience={experience}
-                headingLevel={contentHeadingLevel}
-                showEdit={false}
-                showSkills={skill}
-              />
-            </div>
-          ))
-        : null}
+      {experiences.length ? (
+        experiences.map((experience) => (
+          <div data-h2-margin-bottom="base(x.5)" key={experience.id}>
+            <ExperienceCard
+              experience={experience}
+              headingLevel={contentHeadingLevel}
+              showEdit={false}
+              showSkills={skill}
+            />
+          </div>
+        ))
+      ) : (
+        <p data-h2-margin-bottom="base(x.5)" data-h2-margin-left="base(x.25)">
+          {intl.formatMessage(commonMessages.notFound)}
+        </p>
+      )}
     </div>
   );
 };
@@ -291,7 +302,7 @@ export const ScreeningDecisionDialog = ({
         ? getAssessmentStepType(assessmentStep?.type)
         : commonMessages.notApplicable,
     ),
-    customTitle: getLocalizedName(assessmentStep?.title, intl),
+    customTitle: getLocalizedName(assessmentStep?.title, intl, true),
     candidateName: poolCandidate.user.firstName,
     skillName: getLocalizedName(skill?.name, intl),
     skillLevel,
