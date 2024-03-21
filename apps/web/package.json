@@ -2,12 +2,13 @@
   "name": "@gc-digital-talent/web",
   "private": true,
   "version": "1.0.0",
+  "type": "module",
   "license": "AGPL-3.0",
   "description": "",
   "scripts": {
-    "build": "webpack --config webpack.prod.js",
+    "build": "vite build",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "dev": "webpack --config webpack.dev.js",
+    "dev": "vite build --watch --sourcemap --mode=development",
     "intl-extract": "formatjs extract './src/**/*.{ts,tsx}' --ignore './**/*.d.ts' --out-file src/lang/en.json --id-interpolation-pattern [sha512:contenthash:base64:6]",
     "intl-compile": "formatjs compile ./src/lang/fr.json --ast --out-file ./src/lang/frCompiled.json && formatjs compile ./src/lang/crg.json --ast --out-file ./src/lang/crgCompiled.json && formatjs compile ./src/lang/crk.json --ast --out-file ./src/lang/crkCompiled.json && formatjs compile ./src/lang/ojw.json --ast --out-file ./src/lang/ojwCompiled.json && formatjs compile ./src/lang/mic.json --ast --out-file ./src/lang/micCompiled.json",
     "intl-compile-fr": "formatjs compile ./src/lang/fr.json --ast --out-file ./src/lang/frCompiled.json",
@@ -26,7 +27,7 @@
     "test": "jest --detectOpenHandles --forceExit",
     "test:watch": "jest --watch",
     "tsc": "tsc --project tsconfig.json --noEmit",
-    "watch": "webpack watch --config webpack.dev.js"
+    "watch": "vite"
   },
   "sideEffects": [
     "**/*.css"
@@ -90,6 +91,7 @@
     "@types/lodash": "^4.17.0",
     "@types/react": "^18.2.65",
     "@types/react-dom": "^18.2.22",
+    "@vitejs/plugin-react": "^4.2.1",
     "babel-plugin-formatjs": "^10.5.13",
     "core-js": "^3.36.0",
     "dotenv": "^16.4.5",
@@ -101,6 +103,8 @@
     "ts-jest": "^29.1.2",
     "tsconfig": "workspace:*",
     "typescript": "^5.4.2",
+    "vite": "^5.1.6",
+    "vite-plugin-html": "^3.2.2",
     "webpack": "^5.90.3",
     "webpack-cli": "^5.1.4",
     "webpack-merge": "^5.10.0"

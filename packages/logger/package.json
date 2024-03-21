@@ -1,6 +1,7 @@
 {
   "name": "@gc-digital-talent/logger",
   "license": "AGPL-3.0",
+  "type": "module",
   "version": "1.0.0",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -8,9 +9,10 @@
     "dist/**"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --silent --dts --external react --minify",
+    "build": "env NODE_ENV=production tsup",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "watch": "tsup src/index.ts  --watch --dts --external react --minify",
+    "dev": "tsup",
+    "watch": "tsup --watch",
     "lint": "eslint \"src/**/*.ts*\""
   },
   "dependencies": {

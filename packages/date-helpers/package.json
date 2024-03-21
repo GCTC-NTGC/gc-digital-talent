@@ -2,18 +2,19 @@
   "name": "@gc-digital-talent/date-helpers",
   "license": "AGPL-3.0",
   "version": "1.0.0",
+  "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist/**"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --silent --dts --external react --minify",
+    "build": "env NODE_ENV=production tsup",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "dev": "tsup src/index.ts --silent --dts --extern react",
+    "dev": "tsup",
     "lint": "eslint \"src/**/*.ts*\"",
     "test": "jest --detectOpenHandles --forceExit --passWithNoTests",
-    "watch": "tsup src/index.ts --watch --dts --external react --minify"
+    "watch": "tsup --watch"
   },
   "jest": {
     "preset": "@gc-digital-talent/jest-presets/jest/node"

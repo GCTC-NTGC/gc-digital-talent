@@ -1,3 +1,8 @@
+@import "./hydrogen.css";
+@import "@gc-digital-talent/forms/dist/index.css";
+@import "@gc-digital-talent/ui/dist/index.css";
+@import "@gc-digital-talent/toast/dist/index.css";
+
 button,
 input,
 optgroup,
