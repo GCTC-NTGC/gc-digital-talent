@@ -36,6 +36,10 @@ jobs:
         working-directory: ./
         run: pnpm install
 
+      - name: "Extract English files: all workspaces"
+        working-directory: ./
+        run: pnpm run intl-extract
+
       - name: "Generate untranslated files: all workspaces"
         working-directory: ./
         run: |
