@@ -40,8 +40,3 @@ abbr:hover {
   bottom: 0px;
   width: 100%;
 }
-
-[data-h2] .container {
-  display: flex;
-  flex-direction: column;
-}
