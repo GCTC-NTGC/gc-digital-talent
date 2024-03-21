@@ -3,7 +3,7 @@
   "globalDependencies": ["package.json", "**/.env", "pnpm-workspace.yaml"],
   "pipeline": {
     "build": {
-      "dependsOn": ["^build", "build:css", "intl-compile", "codegen"],
+      "dependsOn": ["build:css", "intl-compile", "codegen"],
       "inputs": ["src/**", "package.json"],
       "outputs": ["dist/**"],
       "outputMode": "new-only"
@@ -33,7 +33,7 @@
       "outputMode": "new-only"
     },
     "watch": {
-      "dependsOn": ["build:css", "intl-compile", "codegen"],
+      "dependsOn": ["build:css", "intl-compile"],
       "cache": false,
       "persistent": true
     },

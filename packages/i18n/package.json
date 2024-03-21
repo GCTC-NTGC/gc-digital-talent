@@ -5,6 +5,8 @@
   "types": "./src/index.tsx",
   "exports": {
     ".": "./src/index.tsx",
+    "./en.json": "./src/lang/en.json",
+    "./fr.json": "./src/lang/fr.json",
     "./frCompiled.json": "./src/lang/frCompiled.json"
   },
   "scripts": {
