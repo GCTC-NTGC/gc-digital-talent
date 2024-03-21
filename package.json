@@ -40,6 +40,7 @@
     "build-storybook": "pnpm --filter @gc-digital-talent/web run build-storybook",
     "test": "turbo run test",
     "watch": "turbo run watch --concurrency=30",
+    "watch:web": "turbo run watch --concurrency=6 --filter='./apps/web' --filter='./packages/graphql'",
     "watch:project": "turbo run watch",
     "e2e": "pnpm --filter @gc-digital-talent/e2e run e2e",
     "e2e:playwright": "pnpm --filter @gc-digital-talent/playwright run e2e:playwright",

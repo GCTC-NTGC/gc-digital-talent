@@ -37,6 +37,11 @@
       "cache": false,
       "persistent": true
     },
+    "watch:web": {
+      "dependsOn": ["^build"],
+      "cache": false,
+      "persistent": true
+    },
     "build:intl-cli": {
       "inputs": ["src/cli.ts"],
       "outputs": ["dist/cli.js"],
