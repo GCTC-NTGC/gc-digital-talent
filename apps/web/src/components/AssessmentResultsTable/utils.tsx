@@ -15,7 +15,7 @@ import {
 import {
   getAssessmentDecision,
   getAssessmentStepType,
-} from "@gc-digital-talent/i18n/src/messages/localizedConstants";
+} from "@gc-digital-talent/i18n";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
