@@ -53,10 +53,10 @@ class UserFactory extends Factory
             $lookingEnglish = true;
         }
 
-        $examCompleted = $this->faker->boolean();
-        $examValid = $this->faker->boolean();
+        $examCompleted = $lookingBilingual ? $this->faker->boolean() : null;
+        $examValid = $examCompleted ? $this->faker->boolean() : null;
         $examLevels = null;
-        if ($examCompleted && $examValid) {
+        if ($examCompleted) {
             $examLevels = true;
         }
 
