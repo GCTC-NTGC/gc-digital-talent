@@ -3,9 +3,9 @@
   "license": "AGPL-3.0",
   "main": "index.ts",
   "version": "0.0.0",
-  "files": [
-    "main.ts"
-  ],
+  "exports": {
+    ".": "./main.ts"
+  },
   "scripts": {
     "lint": "eslint \"./**/*.ts*\""
   },

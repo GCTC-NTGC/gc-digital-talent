@@ -2,16 +2,11 @@
   "name": "@gc-digital-talent/fake-data",
   "license": "AGPL-3.0",
   "version": "1.0.0",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist/**"
-  ],
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "scripts": {
-    "build": "tsup src/index.ts --silent --dts --external react --minify",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "dev": "tsup src/index.ts --silent --dts --extern react",
-    "watch": "tsup src/index.ts --watch --dts --external react --minify",
     "lint": "eslint \"src/**/*.ts*\""
   },
   "dependencies": {
@@ -23,11 +18,9 @@
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
-    "@swc/core": "^1.4.2",
     "@types/lodash": "4.14.202",
     "eslint": "^8.57.0",
     "tsconfig": "workspace:*",
-    "tsup": "^8.0.2",
     "typescript": "^5.4.2"
   }
 }

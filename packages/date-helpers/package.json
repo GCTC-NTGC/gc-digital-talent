@@ -2,18 +2,13 @@
   "name": "@gc-digital-talent/date-helpers",
   "license": "AGPL-3.0",
   "version": "1.0.0",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist/**"
-  ],
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "scripts": {
-    "build": "tsup src/index.ts --silent --dts --external react --minify",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "dev": "tsup src/index.ts --silent --dts --extern react",
     "lint": "eslint \"src/**/*.ts*\"",
-    "test": "jest --detectOpenHandles --forceExit --passWithNoTests",
-    "watch": "tsup src/index.ts --watch --dts --external react --minify"
+    "test": "jest --detectOpenHandles --forceExit --passWithNoTests"
   },
   "jest": {
     "preset": "@gc-digital-talent/jest-presets/jest/node"
@@ -28,12 +23,10 @@
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/jest-presets": "workspace:*",
-    "@swc/core": "^1.4.2",
     "@types/jest": "29.5.11",
     "eslint": "^8.57.0",
     "jest": "^29.7.0",
     "tsconfig": "workspace:*",
-    "tsup": "^8.0.2",
     "typescript": "^5.4.2"
   }
 }
