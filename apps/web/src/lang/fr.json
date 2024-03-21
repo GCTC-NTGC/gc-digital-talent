@@ -2756,7 +2756,7 @@
     "description": "Text to confirm the process to be extend"
   },
   "DqM+mu": {
-    "defaultMessage": "Erreur : Le désarchivage du proccesus a échoué",
+    "defaultMessage": "Erreur : Le désarchivage du processus a échoué",
     "description": "Message displayed to user after pool fails to get un-archived."
   },
   "Dqsq+M": {
