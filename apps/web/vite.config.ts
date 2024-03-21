@@ -32,6 +32,9 @@ const gitCommand = (command: string) => {
     // eslint-disable-next-line no-console
     console.error(err);
   }
+  if (result) {
+    result = result.toString().trim();
+  }
 
   return result;
 };
@@ -61,6 +64,7 @@ export default defineConfig({
     outDir: "./dist",
   },
   resolve: {
+    extensions: [".ts", ".tsx", ".json", ".js"],
     alias: {
       "~": path.resolve(__dirname, "src"),
     },
