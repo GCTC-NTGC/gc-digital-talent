@@ -229,7 +229,6 @@ type User {
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
-  bilingualEvaluation: BilingualEvaluation @deprecated(reason: "This has been replaced. See issue #8031 for details.")
   firstOfficialLanguage: Language
   secondLanguageExamCompleted: Boolean
   secondLanguageExamValidity: Boolean
@@ -785,7 +784,6 @@ input CreateUserInput {
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
-  bilingualEvaluation: BilingualEvaluation
   firstOfficialLanguage: Language
   secondLanguageExamCompleted: Boolean
   secondLanguageExamValidity: Boolean
@@ -833,7 +831,6 @@ input UpdateUserAsAdminInput {
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
-  bilingualEvaluation: BilingualEvaluation
   firstOfficialLanguage: Language
   secondLanguageExamCompleted: Boolean
   secondLanguageExamValidity: Boolean
@@ -890,7 +887,6 @@ input UpdateUserAsUserInput {
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
-  bilingualEvaluation: BilingualEvaluation
   firstOfficialLanguage: Language
   secondLanguageExamCompleted: Boolean
   secondLanguageExamValidity: Boolean
@@ -1927,12 +1923,6 @@ enum GovEmployeeType {
   CASUAL
   TERM
   INDETERMINATE
-}
-
-enum BilingualEvaluation {
-  COMPLETED_ENGLISH
-  COMPLETED_FRENCH
-  NOT_COMPLETED
 }
 
 enum EvaluatedLanguageAbility {
