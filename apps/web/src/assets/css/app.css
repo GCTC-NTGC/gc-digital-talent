@@ -45,11 +45,3 @@ abbr:hover {
   display: flex;
   flex-direction: column;
 }
-
-[data-h2] .content-inner {
-  height: 100%;
-}
-
-[data-h2] .dashboard {
-  flex-grow: 1;
-}
