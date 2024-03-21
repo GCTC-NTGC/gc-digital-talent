@@ -32,6 +32,7 @@ const gitCommand = (command: string) => {
     // eslint-disable-next-line no-console
     console.error(err);
   }
+
   if (result) {
     result = result.toString().trim();
   }
@@ -83,6 +84,19 @@ export default defineConfig({
       include: "**/*.{tsx}",
     }),
     gitVersionPlugin(),
+    {
+      name: "hydrogen",
+      config: () => ({
+        build: {
+          watch: {
+            exclude: ["src/assets/css/**"],
+          },
+        },
+      }),
+      async buildStart() {
+        childProcess.execSync(`h2-build`);
+      },
+    },
     createHtmlPlugin({
       entry: "src/main.tsx",
       inject: {
