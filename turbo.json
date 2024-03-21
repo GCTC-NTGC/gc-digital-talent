@@ -3,7 +3,7 @@
   "globalDependencies": ["package.json", "**/.env", "pnpm-workspace.yaml"],
   "pipeline": {
     "build": {
-      "dependsOn": ["build:css", "^intl-compile", "^codegen"],
+      "dependsOn": ["build:css", "^intl-compile", "intl-compile", "^codegen"],
       "inputs": ["src/**", "package.json"],
       "outputs": ["dist/**"],
       "outputMode": "new-only"
@@ -72,12 +72,12 @@
         "src/lang/ojw.json",
         "src/lang/mic.json"
       ],
-      "dependsOn": ["build:intl-cli", "intl-compile"],
+      "dependsOn": ["intl-extract", "intl-compile"],
       "cache": false,
       "outputMode": "new-only"
     },
     "storybook": {
-      "dependsOn": ["codegen", "intl-compile"],
+      "dependsOn": ["^codegen", "^intl-extract", "^intl-compile"],
       "outputs": []
     },
     "build-storybook": {
