@@ -1,4 +1,4 @@
-import { PoolTestQuery, graphql } from "@gc-digital-talent/graphql";
+import { PoolTestQuery } from "@gc-digital-talent/graphql";
 
 const poolQueryDoc = /* GraphQL */ `
   query PoolTest($id: UUID!) {
