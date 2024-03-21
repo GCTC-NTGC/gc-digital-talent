@@ -98,6 +98,7 @@ export default {
     poolCandidate,
     poolSkill,
     onSubmit: action("Submit Form"),
+    isOpen: true,
   },
 } satisfies Meta<typeof ScreeningDecisionDialog>;
 
@@ -110,6 +111,7 @@ EducationRequirement.args = {
   assessmentStep: undefined,
   poolCandidate,
   poolSkill,
+  isOpen: true,
 };
 export const ApplicationScreening = Template.bind({});
 ApplicationScreening.args = {
@@ -119,6 +121,7 @@ ApplicationScreening.args = {
   )[0],
   poolCandidate,
   poolSkill,
+  isOpen: true,
 };
 export const ScreeningQuestions = Template.bind({});
 ScreeningQuestions.args = {
@@ -128,6 +131,7 @@ ScreeningQuestions.args = {
   )[0],
   poolCandidate,
   poolSkill,
+  isOpen: true,
 };
 export const Generic = Template.bind({});
 Generic.args = {
@@ -137,6 +141,7 @@ Generic.args = {
   )[0],
   poolCandidate,
   poolSkill,
+  isOpen: true,
 };
 export const WithInitialValues = Template.bind({});
 WithInitialValues.args = {
@@ -155,4 +160,5 @@ WithInitialValues.args = {
     assessmentNotes: undefined,
     otherJustificationNotes: undefined,
   },
+  isOpen: true,
 };
