@@ -2,7 +2,7 @@
 // Note: Disable camelcase since variables are being used by API
 import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { MessageDescriptor, useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
 import { useQuery } from "urql";
 
@@ -292,23 +292,23 @@ const SupportFormApi = () => {
     logger.error(`Failed to submit ticket: ${JSON.stringify(responseBody)}`);
 
     // default error message if we don't recognize the error
-    let errorMessage: MessageDescriptor = {
+    let errorMessage = defineMessage({
       defaultMessage:
         "Sorry, something went wrong. Please email <anchorTag>{emailAddress}</anchorTag> and mention this error code: {errorCode}.",
       id: "rNVDaA",
       description: "Support form toast message error",
-    };
+    });
 
     if (
       responseBody?.serviceResponse === "error" &&
       responseBody?.errorDetail === "invalid_email"
     ) {
-      errorMessage = {
+      errorMessage = defineMessage({
         defaultMessage:
           "Invalid email address. Try again or send an email to <anchorTag>{emailAddress}</anchorTag>.",
-        id: "rNVDaA",
+        id: "DOn3Hm",
         description: "Support form toast message error",
-      };
+      });
     }
 
     toast.error(
