@@ -13,7 +13,6 @@ updates:
       interval: "weekly"
       day: "thursday"
     open-pull-requests-limit: 50
-    versioning-strategy: lockfile-only
     groups:
       storybook:
         patterns:
