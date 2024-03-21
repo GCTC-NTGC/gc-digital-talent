@@ -74,10 +74,9 @@ class UserFactory extends Factory
             'looking_for_english' => $lookingEnglish,
             'looking_for_french' => $lookingFrench,
             'looking_for_bilingual' => $lookingBilingual,
-            'first_official_language' => $lookingBilingual ? $this->faker->randomElement([
-                Language::EN->name,
-                Language::FR->name,
-            ]) : null,
+            'first_official_language' => $lookingBilingual ?
+                $this->faker->randomElement(Language::cases())->value
+                : null,
             'estimated_language_ability' => $lookingBilingual ?
                 $this->faker->randomElement(EstimatedLanguageAbility::cases())->name
                 : null,
