@@ -15,8 +15,8 @@ import {
 import {
   getAssessmentDecision,
   getAssessmentStepType,
+  commonMessages,
 } from "@gc-digital-talent/i18n";
-import { commonMessages } from "@gc-digital-talent/i18n";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import { getResultsDecision } from "~/utils/poolCandidate";

@@ -1,9 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Board, Well } from "@gc-digital-talent/ui";
+import { Board, Well, Counter } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { Counter } from "@gc-digital-talent/ui";
 import { AssessmentStep, AssessmentStepType } from "@gc-digital-talent/graphql";
 
 import { NullableDecision } from "~/utils/assessmentResults";

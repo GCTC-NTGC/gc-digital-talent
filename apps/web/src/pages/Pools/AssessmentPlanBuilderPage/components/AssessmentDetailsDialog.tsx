@@ -9,6 +9,7 @@ import {
   errorMessages,
   getLocalizedName,
   uiMessages,
+  getAssessmentStepType,
 } from "@gc-digital-talent/i18n";
 import {
   Select,
@@ -21,7 +22,6 @@ import {
   Field,
   alphaSortOptions,
 } from "@gc-digital-talent/forms";
-import { getAssessmentStepType } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import {
   graphql,
