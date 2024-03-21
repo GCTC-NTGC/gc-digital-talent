@@ -15,6 +15,8 @@ import {
   AssessmentDecision,
   AssessmentDecisionLevel,
   AssessmentStepType,
+  EducationRequirementOption,
+  User,
 } from "@gc-digital-talent/graphql";
 
 import { ScreeningDecisionDialog } from "./ScreeningDecisionDialog";
@@ -28,78 +30,18 @@ experience.skills?.push(skill);
 poolCandidate.user.experiences?.push(experience);
 poolCandidate.user.userSkills?.push(fakeUserSkills(1, skill)[0]);
 
-const profileSnapshot = {
+const profileSnapshot: User = {
   id: poolCandidate.user.id,
   firstName: poolCandidate.user.firstName,
-  experiences: [
-    {
-      id: "11e06444-19f3-41bc-a8c0-557f2391791a",
-      role: "Residential Defender",
-      skills: [
-        {
-          id: "b9d2f8c5-c24e-4993-8e6d-10dd046fd387",
-          key: "cobol",
-          name: { en: "COBOL", fr: "COBOL" },
-          keywords: { en: null, fr: null },
-          description: {
-            en: "Demonstrated ability to apply concrete knowledge of this language to develop a variety of projects.",
-            fr: "Capacité démontrée à appliquer des connaissances concrètes de cette langue pour développer une variété de projets.",
-          },
-          experienceSkillRecord: { details: "application justification" },
-        },
-        {
-          id: "759ec8e0-6a4e-45e8-9862-98db5a275d78",
-          key: "it_software_and_hardware_security_requirements",
-          name: {
-            en: "IT Software and Hardware Security Requirements",
-            fr: "Exigences en matière de sécurité des logiciels et du matériel informatique",
-          },
-          keywords: { en: [], fr: [] },
-          description: { en: "", fr: "" },
-          experienceSkillRecord: { details: "application justification" },
-        },
-        {
-          id: "4dae9e8c-aea8-4829-b5a3-0e75d83614ae",
-          key: "web_development",
-          name: { en: "Web Development", fr: "Développement Web" },
-          keywords: { en: null, fr: null },
-          description: {
-            en: "Demonstrated ability to build web applications using JavaScript and a server-side language such as, but not limited to, PHP or Python.",
-            fr: "Capacité démontrée à créer des applications Web à l'aide de JavaScript et d'un langage côté serveur tel que, sans toutefois s'y limiter, PHP ou Python.",
-          },
-          experienceSkillRecord: { details: "application justification" },
-        },
-        {
-          id: "5828011e-8f66-4606-8cc1-fcbcfe1838e2",
-          key: "cloud_architecture",
-          name: { en: "Cloud Architecture", fr: "Architecture infonuagique" },
-          keywords: { en: null, fr: null },
-          description: {
-            en: "Demonstrated ability to describe and document how different components and capabilities connect to build an online platform.",
-            fr: "Capacité démontrée à décrire et à documenter la façon dont différents composants et capacités se connectent pour créer une plateforme en ligne.",
-          },
-          experienceSkillRecord: { details: "application justification" },
-        },
-      ],
-      details: "additional details",
-      endDate: null,
-      division: null,
-      startDate: "2020-01-01",
-      __typename: "WorkExperience",
-      organization: "Company",
-    },
-  ],
+  experiences: [experience],
   poolCandidates: [
     {
-      id: poolCandidate.id,
-      pool: {
-        id: poolCandidate.pool.id,
-        name: poolCandidate.pool.name,
-        stream: poolCandidate.pool.stream,
-        classifications: poolCandidate.pool.classifications,
-      },
-      status: "PLACED_CASUAL",
-      educationRequirementOption: "EDUCATION",
+      ...poolCandidate,
+      educationRequirementOption:
+        // eslint-disable-next-line no-underscore-dangle
+        experience.__typename === "EducationExperience"
+          ? EducationRequirementOption.Education
+          : EducationRequirementOption.AppliedWork,
       screeningQuestionResponses: [
         {
           id: "494effde-1168-44e1-8130-9775af800975",
@@ -141,22 +83,7 @@ const profileSnapshot = {
           },
         },
       ],
-      educationRequirementExperiences: [
-        {
-          id: "00c3860d-5a8a-49df-aee9-3d9a8ba65d59",
-          type: "OTHER",
-          skills: [],
-          status: "IN_PROGRESS",
-          details:
-            "Inventore aut autem eligendi aliquam optio culpa. Molestiae velit nostrum impedit sunt enim nisi sapiente. Iste tenetur saepe aut cum dolores non est.",
-          endDate: "2022-10-30",
-          startDate: "2021-08-28",
-          __typename: "EducationExperience",
-          areaOfStudy: "Professional Photographer",
-          institution: "Collier, Cummings and Ankunding",
-          thesisTitle: "incubate leading-edge mindshare",
-        },
-      ],
+      educationRequirementExperiences: [experience],
     },
   ],
 };
