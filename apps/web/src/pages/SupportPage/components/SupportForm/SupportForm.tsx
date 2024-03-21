@@ -2,7 +2,7 @@
 // Note: Disable camelcase since variables are being used by API
 import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { useIntl } from "react-intl";
+import { MessageDescriptor, useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
 import { useQuery } from "urql";
 
@@ -110,7 +110,6 @@ const SupportForm = ({
 }: SupportFormProps) => {
   const intl = useIntl();
   const location = useLocation();
-  const logger = useLogger();
   const previousUrl = location?.state?.referrer ?? document?.referrer ?? "";
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -125,41 +124,8 @@ const SupportForm = ({
   const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    try {
-      await handleCreateTicket(data);
-      toast.success(
-        intl.formatMessage({
-          defaultMessage: "Ticket created successfully!",
-          id: "jHuiRm",
-          description: "Support form toast message success",
-        }),
-      );
-      onFormToggle(false);
-    } catch (error) {
-      const errorMessage =
-        error instanceof Error
-          ? error.message
-          : intl.formatMessage(errorMessages.unknown);
-      logger.error(`Exception during ticket submission: ${errorMessage}`);
-      toast.error(
-        <>
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "Sorry, something went wrong. Please email <anchorTag>{emailAddress}</anchorTag> and mention this error code: {errorCode}.",
-              id: "rNVDaA",
-              description: "Support form toast message error",
-            },
-            {
-              anchorTag,
-              emailAddress: TALENTSEARCH_SUPPORT_EMAIL,
-              errorCode: errorMessage,
-            },
-          )}
-        </>,
-        { autoClose: 20000 },
-      );
-    }
+    await handleCreateTicket(data);
+    onFormToggle(false);
   };
   return showSupportForm ? (
     <section>
@@ -298,6 +264,7 @@ const SupportFormUser_Query = graphql(/* GraphQL */ `
 `);
 
 const SupportFormApi = () => {
+  const intl = useIntl();
   const logger = useLogger();
   const handleCreateTicket = async (data: FormValues) => {
     const response = await fetch(API_SUPPORT_ENDPOINT, {
@@ -309,13 +276,52 @@ const SupportFormApi = () => {
     });
     if (response.ok) {
       logger.info("Ticket successfully submitted");
+      toast.success(
+        intl.formatMessage({
+          defaultMessage: "Ticket created successfully!",
+          id: "jHuiRm",
+          description: "Support form toast message success",
+        }),
+      );
       return;
     }
 
-    logger.error(
-      `Failed to submit ticket: ${response.status} - ${response.statusText}`,
+    // we didn't get an OK so let's take a closer look at the response
+    const responseBody = await response.json();
+    const errorCode = `${response.status} - ${response.statusText}`;
+    logger.error(`Failed to submit ticket: ${JSON.stringify(responseBody)}`);
+
+    // default error message if we don't recognize the error
+    let errorMessage: MessageDescriptor = {
+      defaultMessage:
+        "Sorry, something went wrong. Please email <anchorTag>{emailAddress}</anchorTag> and mention this error code: {errorCode}.",
+      id: "rNVDaA",
+      description: "Support form toast message error",
+    };
+
+    if (
+      responseBody?.serviceResponse === "error" &&
+      responseBody?.errorDetail === "invalid_email"
+    ) {
+      errorMessage = {
+        defaultMessage:
+          "Invalid email address. Try again or send an email to <anchorTag>{emailAddress}</anchorTag>.",
+        id: "rNVDaA",
+        description: "Support form toast message error",
+      };
+    }
+
+    toast.error(
+      <>
+        {intl.formatMessage(errorMessage, {
+          anchorTag,
+          emailAddress: TALENTSEARCH_SUPPORT_EMAIL,
+          errorCode,
+        })}
+      </>,
+      { autoClose: 20000 },
     );
-    throw new Error(`${response.status} - ${response.statusText}`);
+    throw new Error(errorCode);
   };
 
   const [{ data, fetching, error }] = useQuery({
