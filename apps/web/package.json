@@ -8,7 +8,7 @@
   "scripts": {
     "build": "vite build",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "dev": "vite build --watch --sourcemap --mode=development",
+    "dev": "vite build --sourcemap --mode=development",
     "intl-extract": "formatjs extract './src/**/*.{ts,tsx}' --ignore './**/*.d.ts' --out-file src/lang/en.json --id-interpolation-pattern [sha512:contenthash:base64:6]",
     "intl-compile": "formatjs compile ./src/lang/fr.json --ast --out-file ./src/lang/frCompiled.json && formatjs compile ./src/lang/crg.json --ast --out-file ./src/lang/crgCompiled.json && formatjs compile ./src/lang/crk.json --ast --out-file ./src/lang/crkCompiled.json && formatjs compile ./src/lang/ojw.json --ast --out-file ./src/lang/ojwCompiled.json && formatjs compile ./src/lang/mic.json --ast --out-file ./src/lang/micCompiled.json",
     "intl-compile-fr": "formatjs compile ./src/lang/fr.json --ast --out-file ./src/lang/frCompiled.json",
@@ -27,7 +27,7 @@
     "test": "jest --detectOpenHandles --forceExit",
     "test:watch": "jest --watch",
     "tsc": "tsc --project tsconfig.json --noEmit",
-    "watch": "vite"
+    "watch": "vite build --sourcemap --watch --mode=development"
   },
   "sideEffects": [
     "**/*.css"
