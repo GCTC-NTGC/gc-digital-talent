@@ -64,6 +64,9 @@ export default defineConfig({
   build: {
     outDir: "./dist",
   },
+  server: {
+    port: 3000,
+  },
   resolve: {
     extensions: [".ts", ".tsx", ".json", ".js"],
     alias: {
@@ -86,13 +89,19 @@ export default defineConfig({
     gitVersionPlugin(),
     {
       name: "hydrogen",
-      config: () => ({
-        build: {
-          watch: {
-            exclude: ["src/assets/css/**"],
-          },
-        },
-      }),
+      config: () => {
+        const isWatch = process.argv.includes("--watch");
+        console.log(isWatch);
+        return isWatch
+          ? {
+              build: {
+                watch: {
+                  exclude: ["src/assets/css/**"],
+                },
+              },
+            }
+          : {};
+      },
       async buildStart() {
         childProcess.execSync(`h2-build`);
       },

@@ -29,8 +29,6 @@ import {
 } from "../../utils/errors";
 import specialErrorExchange from "../../exchanges/specialErrorExchange";
 
-const apiUri = process.env.API_URI ?? "http://localhost:8000/graphql";
-
 const isTokenKnownToBeExpired = (accessToken: string | null): boolean => {
   let tokenIsKnownToBeExpired = false;
   if (accessToken) {
@@ -46,9 +44,11 @@ const isTokenKnownToBeExpired = (accessToken: string | null): boolean => {
 const ClientProvider = ({
   client,
   children,
+  url,
 }: {
   client?: Client;
   children?: React.ReactNode;
+  url: string;
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -65,7 +65,7 @@ const ClientProvider = ({
     return (
       client ??
       createClient({
-        url: apiUri,
+        url,
         requestPolicy: "cache-and-network",
         exchanges: [
           cacheExchange,

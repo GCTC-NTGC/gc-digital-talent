@@ -6,7 +6,7 @@
   "license": "AGPL-3.0",
   "description": "",
   "scripts": {
-    "build": "vite build",
+    "build": "vite build --mode production --minify --debug",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "dev": "vite build --sourcemap --mode=development",
     "intl-extract": "formatjs extract './src/**/*.{ts,tsx}' --ignore './**/*.d.ts' --out-file src/lang/en.json --id-interpolation-pattern [sha512:contenthash:base64:6]",
@@ -27,7 +27,7 @@
     "test": "jest --detectOpenHandles --forceExit",
     "test:watch": "jest --watch",
     "tsc": "tsc --project tsconfig.json --noEmit",
-    "watch": "vite build --sourcemap --watch --mode=development"
+    "watch": "vite"
   },
   "sideEffects": [
     "**/*.css"
