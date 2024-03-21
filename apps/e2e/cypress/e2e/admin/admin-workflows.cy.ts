@@ -9,7 +9,7 @@ describe("Admin Workflow Tests", () => {
     cy.findByRole("heading", { name: /welcome back/i })
       .should("exist")
       .and("be.visible");
-    cy.url().should("contain", "/dashboard");
+    cy.url().should("contain", "/admin");
   };
 
   const searchForUser = (name, expectedEmail) => {

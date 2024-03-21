@@ -13,6 +13,7 @@ import {
   getLocalizedName,
   getPoolStatus,
   getPoolStream,
+  navigationMessages,
 } from "@gc-digital-talent/i18n";
 import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -287,17 +288,13 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
             crumbs: [
               {
                 url: paths.adminDashboard(),
-                label: intl.formatMessage({
-                  defaultMessage: "Home",
-                  id: "G1RNXj",
-                  description: "Link to the Homepage in the nav menu.",
-                }),
+                label: intl.formatMessage(navigationMessages.home),
               },
               {
                 url: paths.poolTable(),
                 label: intl.formatMessage({
-                  defaultMessage: "Recruitments",
-                  id: "KLEaLQ",
+                  defaultMessage: "Processes",
+                  id: "aAIZbC",
                   description: "Link to the Pools page in the nav menu.",
                 }),
               },
@@ -327,17 +324,13 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
             crumbs: [
               {
                 url: paths.adminDashboard(),
-                label: intl.formatMessage({
-                  defaultMessage: "Home",
-                  id: "G1RNXj",
-                  description: "Link to the Homepage in the nav menu.",
-                }),
+                label: intl.formatMessage(navigationMessages.home),
               },
               {
                 url: paths.poolTable(),
                 label: intl.formatMessage({
-                  defaultMessage: "Recruitments",
-                  id: "KLEaLQ",
+                  defaultMessage: "Processes",
+                  id: "aAIZbC",
                   description: "Link to the Pools page in the nav menu.",
                 }),
               },
@@ -416,17 +409,13 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
             crumbs: [
               {
                 url: paths.adminDashboard(),
-                label: intl.formatMessage({
-                  defaultMessage: "Home",
-                  id: "G1RNXj",
-                  description: "Link to the Homepage in the nav menu.",
-                }),
+                label: intl.formatMessage(navigationMessages.home),
               },
               {
                 url: paths.poolTable(),
                 label: intl.formatMessage({
-                  defaultMessage: "Recruitments",
-                  id: "KLEaLQ",
+                  defaultMessage: "Processes",
+                  id: "aAIZbC",
                   description: "Link to the Pools page in the nav menu.",
                 }),
               },

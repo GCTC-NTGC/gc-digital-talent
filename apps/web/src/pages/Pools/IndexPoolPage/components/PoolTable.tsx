@@ -213,8 +213,8 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
       search={{
         internal: true,
         label: intl.formatMessage({
-          defaultMessage: "Search pools",
-          id: "qb6pT2",
+          defaultMessage: "Search processes",
+          id: "6yn+iJ",
           description: "Label for the pools table search input",
         }),
       }}
@@ -231,9 +231,9 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
         linkProps: {
           href: paths.poolCreate(),
           label: intl.formatMessage({
-            defaultMessage: "Create Pool",
-            id: "/Y7x+s",
-            description: "Heading displayed above the Create Pool form.",
+            defaultMessage: "Create process",
+            id: "wP9+aN",
+            description: "Heading displayed above the Create process form.",
           }),
         },
       }}

@@ -30,12 +30,14 @@ export const SupportPage = () => {
     description: "Page title for the Support page",
   });
 
-  const crumbs = useBreadcrumbs([
-    {
-      label: title,
-      url: paths.support(),
-    },
-  ]);
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: title,
+        url: paths.support(),
+      },
+    ],
+  });
 
   return (
     <>
