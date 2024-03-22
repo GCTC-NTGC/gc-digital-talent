@@ -2668,7 +2668,7 @@
     "description": "Note for when an assessment was unsuccessful but put on hold"
   },
   "DOn3Hm": {
-    "defaultMessage": "Adresse courriel non valide. Essayez de nouveau ou envoyez un courriel, o <anchorTag>{emailAddress}</anchorTag>.",
+    "defaultMessage": "Adresse courriel non valide. Essayez de nouveau ou envoyez un courriel à <anchorTag>{emailAddress}</anchorTag>.",
     "description": "Support form toast message error"
   },
   "DPfJ30": {
