@@ -30,12 +30,11 @@ export const ProfileAndApplications = ({
   const intl = useIntl();
   const applications = user.poolCandidates?.filter(notEmpty) ?? [];
 
-  const formattedDescription = intl.formatMessage(description);
   return (
     <>
       <SEO
         title={intl.formatMessage(navigationMessages.profileAndApplications)}
-        description={formattedDescription}
+        description={intl.formatMessage(description)}
       />
       <ProfileAndApplicationsHeading user={user} />
       <section data-h2-margin="base(x3, 0)">
