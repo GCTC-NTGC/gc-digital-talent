@@ -67,7 +67,8 @@ class UserResource extends JsonResource
             'lookingForEnglish' => $this->looking_for_english,
             'lookingForFrench' => $this->looking_for_french,
             'lookingForBilingual' => $this->looking_for_bilingual,
-            'firstOfficialLanguage' => $this->first_official_language,
+            'firstOfficialLanguage' => $this->first_official_language ?
+                strtoupper($this->first_official_language) : null,
             'secondLanguageExamCompleted' => $this->second_language_exam_completed,
             'secondLanguageExamValidity' => $this->second_language_exam_validity,
             'comprehensionLevel' => $this->comprehension_level,
