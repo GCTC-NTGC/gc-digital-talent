@@ -57,6 +57,12 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
   }
   const salaryRanges = getSalaryRanges(pool, locale);
 
+  const notAvailableAbbr = intl.formatMessage({
+    defaultMessage: "N/A",
+    id: "S4eHnR",
+    description: "An abbreviation for not available",
+  });
+
   return (
     <div
       data-h2-background-color="base(foreground)"
@@ -91,7 +97,15 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
           data-h2-transform="base(translate(-50%, 0px))"
           data-h2-white-space="base:children[*](nowrap)"
         >
-          {classificationAbbr}
+          {classificationAbbr || (
+            <abbr title={intl.formatMessage(commonMessages.notAvailable)}>
+              <span
+                aria-label={intl.formatMessage(commonMessages.notAvailable)}
+              >
+                {notAvailableAbbr}
+              </span>
+            </abbr>
+          )}
         </span>
       </div>
       <div>

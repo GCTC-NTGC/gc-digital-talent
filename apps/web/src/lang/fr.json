@@ -5211,6 +5211,10 @@
     "defaultMessage": "Questionnaire sauvegardé avec succès.",
     "description": "Message displayed to user if the questionnaire was saved successfully."
   },
+  "S4eHnR": {
+    "defaultMessage": "N/D",
+    "description": "An abbreviation for not available"
+  },
   "S6x9Sg": {
     "defaultMessage": "Catégorie",
     "description": "Title for category"
