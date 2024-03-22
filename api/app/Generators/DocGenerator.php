@@ -5,10 +5,12 @@ namespace App\Generators;
 use Illuminate\Support\Facades\Storage;
 use \PhpOffice\PhpWord\PhpWord;
 use \PhpOffice\PhpWord\IOFactory;
+use \PhpOffice\PhpWord\Element;
 
 abstract class DocGenerator {
 
     protected PhpWord $doc;
+    protected array $strong;
 
     public function __construct()
     {
@@ -18,6 +20,8 @@ abstract class DocGenerator {
         $this->doc->addTitleStyle(2, ['size' => 18, 'bold' => true]);
         $this->doc->addTitleStyle(3, ['size' => 15, 'bold' => true]);
         $this->doc->addTitleStyle(4, ['size' => 13, 'bold' => true]);
+
+        $this->strong = ['bold' => true];
     }
 
     abstract function generate();
@@ -33,4 +37,18 @@ abstract class DocGenerator {
 
         return $writer->save($path);
     }
+
+    protected function addSubTitle(Element\Section $section, string $text, ?int $rank = 3)
+    {
+        $section->addTextBreak(2);
+        $section->addTitle($text, $rank);
+    }
+
+    protected function addLabelText(Element\Section $section, string $label, string $text)
+    {
+        $run = $section->addTextRun();
+        $run->addText($label.': ', $this->strong);
+        $run->addText($text);
+    }
+
 }
