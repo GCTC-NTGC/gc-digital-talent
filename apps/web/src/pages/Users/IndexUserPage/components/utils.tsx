@@ -32,13 +32,15 @@ export function rolesAccessor(
 
   const roles = roleAssignments.map((roleAssignment) => roleAssignment.role);
   const rolesFiltered = roles.filter(notEmpty);
-  // custom selection of roles of note for table viewing, most likely kept in sync with options in the filter dialog
+  // custom selection of roles to not use for table view
   const rolesToDisplay = rolesFiltered
     .filter(
       (role) =>
-        role.name === ROLE_NAME.PlatformAdmin ||
-        role.name === ROLE_NAME.PoolOperator ||
-        role.name === ROLE_NAME.RequestResponder,
+        !(
+          role.name === ROLE_NAME.Guest ||
+          role.name === ROLE_NAME.BaseUser ||
+          role.name === ROLE_NAME.Applicant
+        ),
     )
     .map((role) => getLocalizedName(role.displayName, intl));
   const uniqueRolesToDisplay = uniqueItems(rolesToDisplay);
