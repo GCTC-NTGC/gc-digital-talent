@@ -227,7 +227,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
           <div
             data-h2-display="base(grid)"
             data-h2-grid-template-columns="l-tablet(1fr 1fr 1fr)"
-            data-h2-gap="l-tablet(0, x1)"
+            data-h2-gap="base(x1, 0) l-tablet(0, x1)"
           >
             <RadioGroup
               idPrefix="comprehensionLevel"
