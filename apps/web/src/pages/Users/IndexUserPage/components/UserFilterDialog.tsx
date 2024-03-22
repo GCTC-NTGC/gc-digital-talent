@@ -196,9 +196,11 @@ const UserFilterDialog = ({
             items={roles
               .filter(
                 (role) =>
-                  role?.name === ROLE_NAME.PlatformAdmin ||
-                  role?.name === ROLE_NAME.PoolOperator ||
-                  role?.name === ROLE_NAME.RequestResponder,
+                  !(
+                    role.name === ROLE_NAME.Guest ||
+                    role.name === ROLE_NAME.BaseUser ||
+                    role.name === ROLE_NAME.Applicant
+                  ),
               )
               .map((role) => ({
                 value: role.id,
