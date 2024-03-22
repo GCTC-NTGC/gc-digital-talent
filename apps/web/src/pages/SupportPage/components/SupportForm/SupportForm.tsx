@@ -263,6 +263,19 @@ const SupportFormUser_Query = graphql(/* GraphQL */ `
   }
 `);
 
+const defaultErrorMessage = defineMessage({
+  defaultMessage:
+    "Sorry, something went wrong. Please email <anchorTag>{emailAddress}</anchorTag> and mention this error code: {errorCode}.",
+  id: "rNVDaA",
+  description: "Support form toast message error",
+});
+const emailErrorMessage = defineMessage({
+  defaultMessage:
+    "Invalid email address. Try again or send an email to <anchorTag>{emailAddress}</anchorTag>.",
+  id: "DOn3Hm",
+  description: "Support form toast message error",
+});
+
 const SupportFormApi = () => {
   const intl = useIntl();
   const logger = useLogger();
@@ -292,23 +305,13 @@ const SupportFormApi = () => {
     logger.error(`Failed to submit ticket: ${JSON.stringify(responseBody)}`);
 
     // default error message if we don't recognize the error
-    let errorMessage = defineMessage({
-      defaultMessage:
-        "Sorry, something went wrong. Please email <anchorTag>{emailAddress}</anchorTag> and mention this error code: {errorCode}.",
-      id: "rNVDaA",
-      description: "Support form toast message error",
-    });
+    let errorMessage = defaultErrorMessage;
 
     if (
       responseBody?.serviceResponse === "error" &&
       responseBody?.errorDetail === "invalid_email"
     ) {
-      errorMessage = defineMessage({
-        defaultMessage:
-          "Invalid email address. Try again or send an email to <anchorTag>{emailAddress}</anchorTag>.",
-        id: "DOn3Hm",
-        description: "Support form toast message error",
-      });
+      errorMessage = emailErrorMessage;
     }
 
     toast.error(
