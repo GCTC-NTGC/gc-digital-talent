@@ -1,68 +1,449 @@
 import * as React from "react";
-import { useIntl } from "react-intl";
-import { useQuery } from "urql";
+import { defineMessage, useIntl } from "react-intl";
+import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
+import HandRaisedIcon from "@heroicons/react/24/outline/HandRaisedIcon";
+import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTriangleIcon";
+import { OperationContext, useQuery } from "urql";
 
 import {
   NotFound,
   Pending,
   ToggleGroup,
-  TableOfContents,
-  Separator,
-  TreeView,
-  Heading,
-  CardBasic,
-  Sidebar,
   Accordion,
+  Heading,
+  Sidebar,
+  CardBasic,
+  Button,
+  Link,
+  Chip,
+  Chips,
 } from "@gc-digital-talent/ui";
-import {
-  commonMessages,
-  getEducationRequirementOption,
-  getLocalizedName,
-  navigationMessages,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 import {
-  ViewPoolCandidatesPageQuery,
-  graphql,
   User,
-  Maybe,
-  SkillCategory,
   Scalars,
-  GeneralQuestionResponse,
-  LocalizedString,
+  Maybe,
   Pool,
+  graphql,
+  ArmedForcesStatus,
+  PoolCandidateSnapshotQuery,
 } from "@gc-digital-talent/graphql";
 
-import {
-  getShortPoolTitleHtml,
-  getShortPoolTitleLabel,
-  useAdminPoolPages,
-} from "~/utils/poolUtils";
+import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import { categorizeSkill } from "~/utils/skillUtils";
-import applicationMessages from "~/messages/applicationMessages";
-import processMessages from "~/messages/processMessages";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import ExperienceTreeItems from "~/components/ExperienceTreeItems/ExperienceTreeItems";
 import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
-import SkillTree from "~/components/SkillTree/SkillTree";
 import AdminHero from "~/components/Hero/AdminHero";
+import { getCandidateStatusChip } from "~/utils/poolCandidate";
+import { getFullPoolTitleLabel } from "~/utils/poolUtils";
+import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
+import { getFullNameLabel } from "~/utils/nameUtils";
+import AssessmentResultsTable from "~/components/AssessmentResultsTable/AssessmentResultsTable";
+import ChangeDateDialog from "~/pages/Users/UserInformationPage/components/ChangeDateDialog";
+import ChangeStatusDialog from "~/pages/Users/UserInformationPage/components/ChangeStatusDialog";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
-import PersonalInformationDisplay from "../../../components/Profile/components/PersonalInformation/Display";
-import DiversityEquityInclusionDisplay from "../../../components/Profile/components/DiversityEquityInclusion/Display";
-import GovernmentInformationDisplay from "../../../components/Profile/components/GovernmentInformation/Display";
-import LanguageProfileDisplay from "../../../components/Profile/components/LanguageProfile/Display";
-import WorkPreferencesDisplay from "../../../components/Profile/components/WorkPreferences/Display";
 import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
-import ApplicationStatusForm from "./components/ApplicationStatusForm";
-import AssetSkillsFiltered from "./components/ApplicationStatusForm/AssetSkillsFiltered";
-import ApplicationPrintButton from "./components/ApplicationPrintButton/ApplicationPrintButton";
 import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
+import ProfileDetails from "./components/ProfileDetails/ProfileDetails";
+import NotesDialog from "./components/MoreActions/NotesDialog";
+import FinalDecisionDialog from "./components/MoreActions/FinalDecisionDialog";
+import CandidateNavigation from "./components/CandidateNavigation/CandidateNavigation";
+
+const screeningAndAssessmentTitle = defineMessage({
+  defaultMessage: "Screening and assessment",
+  id: "R8Naqm",
+  description: "Heading for the information of an application",
+});
+
+const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
+  query PoolCandidateSnapshot($poolCandidateId: UUID!) {
+    poolCandidate(id: $poolCandidateId) {
+      id
+      status
+      user {
+        id
+        firstName
+        lastName
+        currentCity
+        currentProvince
+        telephone
+        email
+        citizenship
+        preferredLang
+        preferredLanguageForInterview
+        preferredLanguageForExam
+        hasPriorityEntitlement
+        armedForcesStatus
+        priorityWeight
+        poolCandidates {
+          id
+          status
+          expiryDate
+          notes
+          suspendedAt
+          user {
+            id
+          }
+          pool {
+            id
+            name {
+              en
+              fr
+            }
+            classifications {
+              id
+              group
+              level
+            }
+            stream
+            publishingGroup
+            team {
+              id
+              name
+              displayName {
+                en
+                fr
+              }
+            }
+          }
+        }
+        userSkills {
+          id
+          user {
+            id
+          }
+          skill {
+            id
+            key
+            name {
+              en
+              fr
+            }
+            description {
+              en
+              fr
+            }
+            category
+          }
+          skillLevel
+        }
+        experiences {
+          id
+          __typename
+          details
+          user {
+            id
+            email
+          }
+          skills {
+            id
+            key
+            name {
+              en
+              fr
+            }
+            description {
+              en
+              fr
+            }
+            category
+            experienceSkillRecord {
+              details
+            }
+          }
+          ... on AwardExperience {
+            title
+            issuedBy
+            awardedDate
+            awardedTo
+            awardedScope
+            details
+          }
+          ... on CommunityExperience {
+            title
+            organization
+            project
+            startDate
+            endDate
+            details
+          }
+          ... on EducationExperience {
+            institution
+            areaOfStudy
+            thesisTitle
+            startDate
+            endDate
+            type
+            status
+            details
+          }
+          ... on PersonalExperience {
+            title
+            description
+            startDate
+            endDate
+            details
+          }
+          ... on WorkExperience {
+            role
+            organization
+            division
+            startDate
+            endDate
+            details
+          }
+        }
+      }
+      educationRequirementExperiences {
+        id
+        __typename
+        details
+        user {
+          id
+          email
+        }
+        ... on AwardExperience {
+          title
+          issuedBy
+          awardedDate
+          awardedTo
+          awardedScope
+          details
+        }
+        ... on CommunityExperience {
+          title
+          organization
+          project
+          startDate
+          endDate
+          details
+        }
+        ... on EducationExperience {
+          institution
+          areaOfStudy
+          thesisTitle
+          startDate
+          endDate
+          type
+          status
+          details
+        }
+        ... on PersonalExperience {
+          title
+          description
+          startDate
+          endDate
+          details
+        }
+        ... on WorkExperience {
+          role
+          organization
+          division
+          startDate
+          endDate
+          details
+        }
+      }
+      educationRequirementOption
+      profileSnapshot
+      notes
+      signature
+      submittedAt
+      expiryDate
+      pool {
+        id
+        name {
+          en
+          fr
+        }
+        stream
+        classifications {
+          id
+          group
+          level
+        }
+        essentialSkills {
+          id
+          key
+          name {
+            en
+            fr
+          }
+          description {
+            en
+            fr
+          }
+          category
+          families {
+            id
+            key
+            name {
+              en
+              fr
+            }
+          }
+        }
+        nonessentialSkills {
+          id
+          key
+          name {
+            en
+            fr
+          }
+          description {
+            en
+            fr
+          }
+          category
+          families {
+            id
+            key
+            name {
+              en
+              fr
+            }
+          }
+        }
+        generalQuestions {
+          id
+          question {
+            en
+            fr
+          }
+        }
+        assessmentSteps {
+          id
+          title {
+            en
+            fr
+          }
+          type
+          sortOrder
+          poolSkills {
+            id
+            type
+          }
+        }
+        poolSkills {
+          id
+          type
+          requiredLevel
+          skill {
+            name {
+              en
+              fr
+            }
+            description {
+              en
+              fr
+            }
+            id
+            category
+            key
+          }
+        }
+        screeningQuestions {
+          id
+          question {
+            en
+            fr
+          }
+        }
+        ...ApplicationInformation_PoolFragment
+      }
+      assessmentResults {
+        id
+        poolCandidate {
+          id
+          pool {
+            id
+          }
+          user {
+            id
+            userSkills {
+              id
+              user {
+                id
+              }
+              skill {
+                id
+                key
+                name {
+                  en
+                  fr
+                }
+                category
+              }
+              skillLevel
+            }
+          }
+        }
+        assessmentDecision
+        assessmentDecisionLevel
+        assessmentNotes
+        assessmentResultType
+        assessmentStep {
+          id
+          type
+          title {
+            en
+            fr
+          }
+        }
+        justifications
+        otherJustificationNotes
+        assessmentDecisionLevel
+        skillDecisionNotes
+        assessmentNotes
+        poolSkill {
+          id
+          type
+          requiredLevel
+          skill {
+            id
+            key
+            category
+            name {
+              en
+              fr
+            }
+            description {
+              en
+              fr
+            }
+          }
+        }
+      }
+      screeningQuestionResponses {
+        id
+        answer
+        screeningQuestion {
+          id
+        }
+      }
+    }
+    pools {
+      id
+      name {
+        en
+        fr
+      }
+      stream
+      classifications {
+        id
+        group
+        level
+      }
+      status
+    }
+  }
+`);
 
 export interface ViewPoolCandidateProps {
-  poolCandidate: NonNullable<ViewPoolCandidatesPageQuery["poolCandidate"]>;
-  poolData: ViewPoolCandidatesPageQuery["pools"];
+  poolCandidate: NonNullable<PoolCandidateSnapshotQuery["poolCandidate"]>;
+  pools: Pool[];
 }
 
 type SectionContent = {
@@ -71,45 +452,24 @@ type SectionContent = {
   title: string;
 };
 
-// stopgap as screening questions become general questions while a new screening questions backend is set up
-// preserve snapshot functionality
-type ScreeningQuestion = {
-  id: Scalars["ID"]["output"];
-  pool?: Maybe<Pool>;
-  question?: Maybe<LocalizedString>;
-  sortOrder?: Maybe<Scalars["Int"]["output"]>;
-};
-
-type ScreeningQuestionResponse = {
-  answer?: Maybe<Scalars["String"]["output"]>;
-  screeningQuestion?: Maybe<ScreeningQuestion>;
-  id: Scalars["ID"]["output"];
-};
-
-function isScreeningQuestionResponse(
-  response: ScreeningQuestionResponse | GeneralQuestionResponse,
-): response is ScreeningQuestionResponse {
-  return (
-    (response as ScreeningQuestionResponse).screeningQuestion !== undefined
-  );
-}
-
 export const ViewPoolCandidate = ({
   poolCandidate,
-  poolData,
+  pools,
 }: ViewPoolCandidateProps): JSX.Element => {
   const intl = useIntl();
-  const features = useFeatureFlags();
-
-  const pools = poolData.filter(notEmpty);
+  const paths = useRoutes();
 
   // prefer the rich view if available
   const [preferRichView, setPreferRichView] = React.useState(true);
 
   const parsedSnapshot: Maybe<User> = JSON.parse(poolCandidate.profileSnapshot);
   const snapshotUserPropertyExists = !!parsedSnapshot;
-  const pages = useAdminPoolPages(intl, poolCandidate.pool);
   const showRichSnapshot = snapshotUserPropertyExists && preferRichView;
+  const statusChip = getCandidateStatusChip(
+    poolCandidate,
+    unpackMaybes(poolCandidate.pool.assessmentSteps),
+    intl,
+  );
 
   const sections: Record<string, SectionContent> = {
     statusForm: {
@@ -124,8 +484,8 @@ export const ViewPoolCandidate = ({
       id: "pool-information",
       title: intl.formatMessage({
         defaultMessage: "Pool information",
-        id: "ptOxLJ",
-        description: "Title for pool information",
+        id: "Cjp2F6",
+        description: "Title for the pool info page",
       }),
     },
     snapshot: {
@@ -157,13 +517,17 @@ export const ViewPoolCandidate = ({
       id: "asset-skills",
       title: intl.formatMessage({
         defaultMessage: "Asset skills",
-        id: "K0Zkdw",
-        description: "Title for optional skills",
+        id: "Xpo+u6",
+        description: "Title for the optional skills snapshot section",
       }),
     },
     questions: {
       id: "questions",
-      title: intl.formatMessage(processMessages.screeningQuestions),
+      title: intl.formatMessage({
+        defaultMessage: "Screening questions",
+        id: "mqWvWR",
+        description: "Title for the screening questions snapshot section",
+      }),
     },
     careerTimeline: {
       id: "career-timeline",
@@ -177,13 +541,18 @@ export const ViewPoolCandidate = ({
       id: "personal",
       title: intl.formatMessage({
         defaultMessage: "Personal and contact information",
-        id: "BWh6S1",
-        description: "Title for the personal and contact information section",
+        id: "0lUoqK",
+        description:
+          "Title for the personal and contact information snapshot section",
       }),
     },
     work: {
       id: "work",
-      title: intl.formatMessage(navigationMessages.workPreferences),
+      title: intl.formatMessage({
+        defaultMessage: "Work preferences",
+        id: "s7F24X",
+        description: "Title for the work preferences snapshot section",
+      }),
     },
     dei: {
       id: "dei",
@@ -193,8 +562,9 @@ export const ViewPoolCandidate = ({
       id: "government",
       title: intl.formatMessage({
         defaultMessage: "Government employee information",
-        id: "Jf3vT5",
-        description: "Title for the government employee information section",
+        id: "nEVNHp",
+        description:
+          "Title for the government employee information snapshot section",
       }),
     },
     language: {
@@ -216,49 +586,47 @@ export const ViewPoolCandidate = ({
   };
 
   const subTitle = (
-    <TableOfContents.Section id={sections.snapshot.id}>
-      <div
-        data-h2-display="l-tablet(flex)"
-        data-h2-align-items="base(center)"
-        data-h2-justify-content="base(space-between)"
-        data-h2-margin="base(x1, 0)"
-      >
-        {snapshotUserPropertyExists && (
-          <>
-            <TableOfContents.Heading
-              as="h3"
-              data-h2-margin="base(0)"
-              data-h2-font-weight="base(800)"
-            >
-              {sections.snapshot.title}
-            </TableOfContents.Heading>
-            <ToggleGroup.Root
-              type="single"
-              color="primary.dark"
-              value={preferRichView ? "text" : "code"}
-              onValueChange={(value) => {
-                if (value) setPreferRichView(value === "text");
-              }}
-            >
-              <ToggleGroup.Item value="text">
-                {intl.formatMessage({
-                  defaultMessage: "Text",
-                  id: "Ude1JQ",
-                  description: "Title for the application's profile snapshot.",
-                })}
-              </ToggleGroup.Item>
-              <ToggleGroup.Item value="code">
-                {intl.formatMessage({
-                  defaultMessage: "Code",
-                  id: "m0JFE/",
-                  description: "Title for the application's profile snapshot.",
-                })}
-              </ToggleGroup.Item>
-            </ToggleGroup.Root>
-          </>
-        )}
-      </div>
-    </TableOfContents.Section>
+    <div
+      data-h2-display="l-tablet(flex)"
+      data-h2-align-items="base(center)"
+      data-h2-justify-content="base(space-between)"
+      data-h2-margin="base(x1, 0)"
+    >
+      {snapshotUserPropertyExists && (
+        <>
+          <Heading
+            level="h3"
+            data-h2-margin="base(0)"
+            data-h2-font-weight="base(800)"
+          >
+            {sections.snapshot.title}
+          </Heading>
+          <ToggleGroup.Root
+            type="single"
+            color="primary.dark"
+            value={preferRichView ? "text" : "code"}
+            onValueChange={(value) => {
+              if (value) setPreferRichView(value === "text");
+            }}
+          >
+            <ToggleGroup.Item value="text">
+              {intl.formatMessage({
+                defaultMessage: "Text",
+                id: "Ude1JQ",
+                description: "Title for the application's profile snapshot.",
+              })}
+            </ToggleGroup.Item>
+            <ToggleGroup.Item value="code">
+              {intl.formatMessage({
+                defaultMessage: "Code",
+                id: "m0JFE/",
+                description: "Title for the application's profile snapshot.",
+              })}
+            </ToggleGroup.Item>
+          </ToggleGroup.Root>
+        </>
+      )}
+    </div>
   );
 
   let mainContent: React.ReactNode;
@@ -266,330 +634,35 @@ export const ViewPoolCandidate = ({
     const snapshotCandidate = parsedSnapshot?.poolCandidates
       ?.filter(notEmpty)
       .find(({ id }) => id === poolCandidate.id);
-    const categorizedEssentialSkills = categorizeSkill(
-      poolCandidate.pool.essentialSkills,
-    );
-    const categorizedAssetSkills = categorizeSkill(
-      poolCandidate.pool.nonessentialSkills,
-    );
     const nonEmptyExperiences = parsedSnapshot.experiences?.filter(notEmpty);
 
-    const classificationGroup = snapshotCandidate?.pool.classifications
-      ? snapshotCandidate.pool.classifications[0]?.group
-      : "";
-
-    const generalQuestionResponses = unpackMaybes(
-      snapshotCandidate?.generalQuestionResponses ?? [],
-    );
-
-    const screeningQuestionResponses = unpackMaybes(
-      snapshotCandidate?.screeningQuestionResponses ?? [],
-    );
-
-    const mergedQuestionResponses: (
-      | GeneralQuestionResponse
-      | ScreeningQuestionResponse
-    )[] = [...generalQuestionResponses, ...screeningQuestionResponses];
-
-    if (features.recordOfDecision) {
-      mainContent = (
-        <>
-          <ApplicationInformation
-            poolQuery={poolCandidate.pool}
-            snapshot={parsedSnapshot}
-            application={snapshotCandidate}
-          />
-          <div data-h2-margin="base(x2 0)">
-            <Accordion.Root type="single" mode="card" collapsible>
-              <Accordion.Item value="otherRecruitments">
-                <Accordion.Trigger>
-                  {intl.formatMessage({
-                    defaultMessage: "Other processes",
-                    id: "n+/HPL",
-                    description:
-                      "Heading for table of a users other applications and recruitments",
-                  })}
-                </Accordion.Trigger>
-                <Accordion.Content>
-                  <PoolStatusTable user={poolCandidate.user} pools={pools} />
-                </Accordion.Content>
-              </Accordion.Item>
-            </Accordion.Root>
-          </div>
-          <CareerTimelineSection experiences={nonEmptyExperiences ?? []} />
-        </>
-      );
-    } else {
-      mainContent = (
-        <>
-          {subTitle}
-          <TableOfContents.Section id={sections.minExperience.id}>
-            <TableOfContents.Heading
-              as="h4"
-              size="h5"
-              data-h2-margin="base(x2 0 x.5 0)"
-            >
-              {sections.minExperience.title}
-            </TableOfContents.Heading>
-            <p data-h2-margin="base(x1, 0)">
-              {intl.formatMessage(
-                {
-                  defaultMessage:
-                    "Requirement selection: <strong>{educationRequirementOption}</strong>.",
-                  id: "J3Ud6R",
+    mainContent = (
+      <div data-h2-margin-top="base(x2)">
+        <ApplicationInformation
+          poolQuery={poolCandidate.pool}
+          snapshot={parsedSnapshot}
+          application={snapshotCandidate}
+        />
+        <div data-h2-margin="base(x2 0)">
+          <Accordion.Root type="single" mode="card" collapsible>
+            <Accordion.Item value="otherRecruitments">
+              <Accordion.Trigger>
+                {intl.formatMessage({
+                  defaultMessage: "Other processes",
+                  id: "n+/HPL",
                   description:
-                    "Application snapshot minimum experience section description",
-                },
-                {
-                  educationRequirementOption: intl.formatMessage(
-                    snapshotCandidate?.educationRequirementOption
-                      ? getEducationRequirementOption(
-                          snapshotCandidate.educationRequirementOption,
-                          classificationGroup,
-                        )
-                      : commonMessages.notAvailable,
-                  ),
-                },
-              )}
-            </p>
-            {snapshotCandidate?.educationRequirementExperiences?.length ? (
-              <>
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Demonstrated with the following experiences:",
-                    id: "tpTntk",
-                    description:
-                      "Lead in text for experiences that demonstrate minimum education experience",
-                  })}
-                </p>
-                <TreeView.Root>
-                  <ExperienceTreeItems
-                    experiences={snapshotCandidate?.educationRequirementExperiences.filter(
-                      notEmpty,
-                    )}
-                  />
-                </TreeView.Root>
-              </>
-            ) : null}
-          </TableOfContents.Section>
-          <TableOfContents.Section id={sections.essentialSkills.id}>
-            <TableOfContents.Heading
-              as="h4"
-              size="h5"
-              data-h2-margin="base(x2 0 x.5 0)"
-            >
-              {sections.essentialSkills.title}
-            </TableOfContents.Heading>
-            {categorizedEssentialSkills[SkillCategory.Technical]?.length ? (
-              <>
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage: "Represented by the following experiences:",
-                    id: "mDowK/",
-                    description:
-                      "Lead in text for experiences that represent the users skills",
-                  })}
-                </p>
-                {categorizedEssentialSkills[SkillCategory.Technical]?.map(
-                  (requiredTechnicalSkill) => (
-                    <SkillTree
-                      key={requiredTechnicalSkill.id}
-                      skill={requiredTechnicalSkill}
-                      experiences={
-                        parsedSnapshot.experiences?.filter(notEmpty) || []
-                      }
-                      showDisclaimer
-                      hideConnectButton
-                      hideEdit
-                      disclaimerMessage={
-                        <p>
-                          {intl.formatMessage({
-                            defaultMessage:
-                              "There are no experiences attached to this skill.",
-                            id: "XrfkBm",
-                            description:
-                              "Message displayed when no experiences have been attached to a skill",
-                          })}
-                        </p>
-                      }
-                    />
-                  ),
-                )}
-              </>
-            ) : null}
-          </TableOfContents.Section>
-          <TableOfContents.Section id={sections.assetSkills.id}>
-            <TableOfContents.Heading
-              as="h4"
-              size="h5"
-              data-h2-margin="base(x2 0 x.5 0)"
-            >
-              {sections.assetSkills.title}
-            </TableOfContents.Heading>
-            {categorizedAssetSkills[SkillCategory.Technical]?.length ? (
-              <AssetSkillsFiltered
-                poolAssetSkills={
-                  categorizedAssetSkills[SkillCategory.Technical]
-                }
-                experiences={parsedSnapshot.experiences?.filter(notEmpty) || []}
-              />
-            ) : null}
-          </TableOfContents.Section>
-          <TableOfContents.Section id={sections.questions.id}>
-            <TableOfContents.Heading
-              as="h4"
-              size="h5"
-              data-h2-margin="base(x2 0 x.5 0)"
-            >
-              {sections.questions.title}
-            </TableOfContents.Heading>
-            {mergedQuestionResponses.map((response) => (
-              <React.Fragment key={response.id}>
-                <Heading level="h5" size="h6" data-h2-margin-bottom="base(x.5)">
-                  {getLocalizedName(
-                    isScreeningQuestionResponse(response)
-                      ? response.screeningQuestion?.question
-                      : response.generalQuestion?.question,
-                    intl,
-                  )}
-                </Heading>
-                <div
-                  data-h2-background-color="base(foreground)"
-                  data-h2-color="base(black)"
-                  data-h2-padding="base(x1)"
-                  data-h2-border-left="base(x.5 solid primary)"
-                  data-h2-radius="base(0 rounded rounded 0)"
-                  data-h2-shadow="base(medium)"
-                >
-                  <p>{response.answer}</p>
-                </div>
-              </React.Fragment>
-            ))}
-          </TableOfContents.Section>
-          <TableOfContents.Section id={sections.careerTimeline.id}>
-            <TableOfContents.Heading
-              as="h4"
-              size="h5"
-              data-h2-margin="base(x2 0 x.5 0)"
-            >
-              {sections.careerTimeline.title}
-            </TableOfContents.Heading>
-            <p data-h2-margin="base(x1, 0)">
-              {intl.formatMessage({
-                defaultMessage:
-                  "The following is the applicant's career timeline:",
-                id: "ghcC8V",
-                description:
-                  "Lead-in text for the snapshot career timeline section",
-              })}
-            </p>
-            <CareerTimelineSection experiences={nonEmptyExperiences ?? []} />
-          </TableOfContents.Section>
-          <TableOfContents.Section id={sections.personal.id}>
-            <TableOfContents.Heading
-              as="h4"
-              size="h5"
-              data-h2-margin="base(x2 0 x.5 0)"
-            >
-              {sections.personal.title}
-            </TableOfContents.Heading>
-            <CardBasic>
-              <PersonalInformationDisplay user={parsedSnapshot as User} />
-            </CardBasic>
-          </TableOfContents.Section>
-          <TableOfContents.Section id={sections.work.id}>
-            <TableOfContents.Heading
-              as="h4"
-              size="h5"
-              data-h2-margin="base(x2 0 x.5 0)"
-            >
-              {sections.work.title}
-            </TableOfContents.Heading>
-            <CardBasic>
-              <WorkPreferencesDisplay user={parsedSnapshot as User} />
-            </CardBasic>
-          </TableOfContents.Section>
-          <TableOfContents.Section id={sections.dei.id}>
-            <TableOfContents.Heading
-              as="h4"
-              size="h5"
-              data-h2-margin="base(x2 0 x.5 0)"
-            >
-              {sections.dei.title}
-            </TableOfContents.Heading>
-            <CardBasic>
-              <DiversityEquityInclusionDisplay user={parsedSnapshot as User} />
-            </CardBasic>
-          </TableOfContents.Section>
-          <TableOfContents.Section id={sections.government.id}>
-            <TableOfContents.Heading
-              as="h4"
-              size="h5"
-              data-h2-margin="base(x2 0 x.5 0)"
-            >
-              {sections.government.title}
-            </TableOfContents.Heading>
-            <CardBasic>
-              <GovernmentInformationDisplay user={parsedSnapshot as User} />
-            </CardBasic>
-          </TableOfContents.Section>
-          <TableOfContents.Section id={sections.language.id}>
-            <TableOfContents.Heading
-              as="h4"
-              size="h5"
-              data-h2-margin="base(x2 0 x.5 0)"
-            >
-              {sections.language.title}
-            </TableOfContents.Heading>
-            <CardBasic>
-              <LanguageProfileDisplay user={parsedSnapshot as User} />
-            </CardBasic>
-          </TableOfContents.Section>
-          <TableOfContents.Section id={sections.signature.id}>
-            <TableOfContents.Heading
-              as="h4"
-              size="h5"
-              data-h2-margin="base(x2 0 x.5 0)"
-            >
-              {sections.signature.title}
-            </TableOfContents.Heading>
-            <p data-h2-margin="base(0, 0, x1, 0)">
-              {intl.formatMessage(applicationMessages.confirmationLead)}
-            </p>
-            <ul>
-              <li>
-                {intl.formatMessage(applicationMessages.confirmationReview)}
-              </li>
-              <li>
-                {intl.formatMessage(applicationMessages.confirmationCommunity)}
-              </li>
-              <li>
-                {intl.formatMessage(applicationMessages.confirmationTrue)}
-              </li>
-            </ul>
-            <Heading
-              level="h6"
-              data-h2-font-size="base(copy)"
-              data-h2-font-weight="base(400)"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Signed",
-                id: "fEcEv3",
-                description:
-                  "Heading for the application snapshot users signature",
-              })}
-            </Heading>
-            <CardBasic data-h2-shadow="base(none)">
-              <p data-h2-font-weight="base(700)">
-                {snapshotCandidate?.signature ||
-                  intl.formatMessage(commonMessages.notProvided)}
-              </p>
-            </CardBasic>
-          </TableOfContents.Section>
-        </>
-      );
-    }
+                    "Heading for table of a users other applications and recruitments",
+                })}
+              </Accordion.Trigger>
+              <Accordion.Content>
+                <PoolStatusTable user={poolCandidate.user} pools={pools} />
+              </Accordion.Content>
+            </Accordion.Item>
+          </Accordion.Root>
+        </div>
+        <CareerTimelineSection experiences={nonEmptyExperiences ?? []} />
+      </div>
+    );
   } else if (snapshotUserPropertyExists && !preferRichView) {
     mainContent = (
       <>
@@ -619,305 +692,227 @@ export const ViewPoolCandidate = ({
     );
   }
 
+  const chips = (
+    <Chips>
+      <Chip color={statusChip.color} data-h2-font-weight="base(700)">
+        {statusChip.label}
+      </Chip>
+      {poolCandidate.user.hasPriorityEntitlement ||
+      poolCandidate.user.priorityWeight === 10 ? (
+        <Chip color="black">
+          {intl.formatMessage({
+            defaultMessage: "Priority",
+            id: "xGMcBO",
+            description: "Label for priority chip on view candidate page",
+          })}
+        </Chip>
+      ) : null}
+      {poolCandidate.user.armedForcesStatus === ArmedForcesStatus.Veteran ||
+      poolCandidate.user.priorityWeight === 20 ? (
+        <Chip color="black">
+          {intl.formatMessage({
+            defaultMessage: "Veteran",
+            id: "16iCWc",
+            description: "Label for veteran chip on view candidate page",
+          })}
+        </Chip>
+      ) : null}
+    </Chips>
+  );
+
+  const candidateName = getFullNameLabel(
+    poolCandidate.user.firstName,
+    poolCandidate.user.lastName,
+    intl,
+  );
+
+  const navigationCrumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(indexPoolPageTitle),
+        url: paths.poolTable(),
+      },
+      {
+        label: getFullPoolTitleLabel(intl, poolCandidate.pool),
+        url: paths.poolView(poolCandidate.pool.id),
+      },
+      {
+        label: intl.formatMessage(screeningAndAssessmentTitle),
+        url: paths.screeningAndEvaluation(poolCandidate.pool.id),
+      },
+      {
+        label: candidateName,
+        url: paths.poolCandidateApplication(poolCandidate.id),
+      },
+    ],
+    isAdmin: true,
+  });
+
   return (
     <>
       <AdminHero
-        title={intl.formatMessage({
-          defaultMessage: "Candidate information",
-          id: "69/cNW",
-          description:
-            "Heading displayed above the pool candidate application page.",
-        })}
-        subtitle={`${poolCandidate.user.firstName} ${
-          poolCandidate.user.lastName
-        } / ${getShortPoolTitleLabel(intl, poolCandidate.pool)}`}
-        nav={{
-          mode: "subNav",
-          items: Array.from(pages.values()).map((page) => ({
-            label: page.link.label ?? page.title,
-            url: page.link.url,
-          })),
-        }}
-      />
+        title={candidateName}
+        contentRight={chips}
+        nav={{ mode: "crumbs", items: navigationCrumbs }}
+      >
+        <ProfileDetails user={poolCandidate.user} />
+      </AdminHero>
       <AdminContentWrapper>
-        {!features.recordOfDecision ? (
-          <>
-            <p data-h2-margin="base(-x1, 0, x1, 0)">
-              {intl.formatMessage(
-                {
-                  defaultMessage:
-                    "This is the profile submitted on <strong>{submittedAt}</strong> for the pool: <strong>{poolName}</strong>",
-                  id: "V2vBbu",
-                  description:
-                    "Snapshot details displayed above the pool candidate application page.",
-                },
-                {
-                  submittedAt: poolCandidate.submittedAt,
-                  poolName: getShortPoolTitleHtml(intl, poolCandidate.pool),
-                },
-              )}
+        <Sidebar.Wrapper>
+          <Sidebar.Sidebar>
+            <Heading size="h3">
+              {intl.formatMessage({
+                defaultMessage: "More actions",
+                id: "QaMkP7",
+                description:
+                  "Title for more actions sidebar on view pool candidate page",
+              })}
+            </Heading>
+            <p data-h2-margin="base(x1, 0)">
+              {intl.formatMessage({
+                defaultMessage:
+                  "Additional information, relevant to this candidate’s application.",
+                id: "5cW3Ns",
+                description:
+                  "Description for more actions sidebar on view pool candidate page",
+              })}
             </p>
-            <Separator space="sm" />
-            {parsedSnapshot && (
-              <div
-                data-h2-container="base(center, large, 0)"
-                data-h2-text-align="base(right)"
-                data-h2-margin-right="base(0)"
-              >
-                <ApplicationPrintButton
-                  user={parsedSnapshot}
-                  pool={poolCandidate.pool}
+            <CardBasic
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column)"
+              data-h2-align-items="base(flex-start)"
+              data-h2-gap="base(x.5)"
+              data-h2-margin-bottom="base(x1)"
+            >
+              <FinalDecisionDialog
+                poolCandidateId={poolCandidate.id}
+                poolCandidateStatus={poolCandidate.status}
+                expiryDate={poolCandidate.expiryDate}
+                essentialSkills={poolCandidate.pool.essentialSkills ?? []}
+                nonessentialSkills={poolCandidate.pool.nonessentialSkills ?? []}
+                assessmentResults={
+                  poolCandidate?.assessmentResults?.filter(notEmpty) ?? []
+                }
+              />
+              {/* TODO: Add "Remove" and "Re-instate" dialogs to Pool Candidate
+              page (#9198) */}
+              {false && (
+                <Button
+                  icon={HandRaisedIcon}
+                  type="button"
                   color="primary"
-                  mode="solid"
+                  mode="inline"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Remove candidate",
+                    id: "Aixzmb",
+                    description:
+                      "Button label for remove candidate on view pool candidate page",
+                  })}
+                </Button>
+              )}
+              <NotesDialog
+                poolCandidateId={poolCandidate.id}
+                notes={poolCandidate.notes}
+              />
+              <Link
+                href={paths.userProfile(poolCandidate.user.id)}
+                icon={UserCircleIcon}
+                type="button"
+                color="primary"
+                mode="inline"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "View up-to-date profile",
+                  id: "mh7ndf",
+                  description:
+                    "Link label for view profile on view pool candidate page",
+                })}
+              </Link>
+            </CardBasic>
+            <div
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column)"
+              data-h2-align-items="base(flex-start)"
+              data-h2-gap="base(x.5)"
+              data-h2-margin-bottom="base(x1)"
+              data-h2-padding="base(x1)"
+              data-h2-background-color="base(error.lightest.3)"
+            >
+              <Heading level="h3" size="h6" data-h2-margin-top="base(0)">
+                {intl.formatMessage({
+                  defaultMessage: "Candidate status",
+                  id: "ETrCOq",
+                  description:
+                    "Title for admin editing a pool candidates status",
+                })}
+              </Heading>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "These fields will only be available for migration purposes during a limited time.",
+                  id: "FXpcgW",
+                  description:
+                    "Sentence to explain that status and expiry date fields are available for a specific purpose and for a limited amount of time",
+                })}
+              </p>
+              <p>
+                {intl.formatMessage(commonMessages.status)}
+                {intl.formatMessage(commonMessages.dividingColon)}
+                <ChangeStatusDialog
+                  selectedCandidate={poolCandidate}
+                  user={poolCandidate.user}
+                  pools={pools}
                 />
-              </div>
-            )}
-
-            <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
-              <TableOfContents.Navigation>
-                <TableOfContents.List>
-                  <TableOfContents.ListItem>
-                    <TableOfContents.AnchorLink id={sections.statusForm.id}>
-                      {sections.statusForm.title}
-                    </TableOfContents.AnchorLink>
-                  </TableOfContents.ListItem>
-                  <TableOfContents.ListItem>
-                    <TableOfContents.AnchorLink
-                      id={sections.poolInformation.id}
-                    >
-                      {sections.poolInformation.title}
-                    </TableOfContents.AnchorLink>
-                  </TableOfContents.ListItem>
-                  <TableOfContents.ListItem>
-                    <TableOfContents.AnchorLink id={sections.snapshot.id}>
-                      {sections.snapshot.title}
-                    </TableOfContents.AnchorLink>
-                  </TableOfContents.ListItem>
-                  {showRichSnapshot && (
-                    <>
-                      <TableOfContents.ListItem>
-                        <TableOfContents.AnchorLink
-                          id={sections.minExperience.id}
-                        >
-                          {sections.minExperience.title}
-                        </TableOfContents.AnchorLink>
-                      </TableOfContents.ListItem>
-                      <TableOfContents.ListItem>
-                        <TableOfContents.AnchorLink
-                          id={sections.essentialSkills.id}
-                        >
-                          {sections.essentialSkills.title}
-                        </TableOfContents.AnchorLink>
-                      </TableOfContents.ListItem>
-                      <TableOfContents.ListItem>
-                        <TableOfContents.AnchorLink
-                          id={sections.assetSkills.id}
-                        >
-                          {sections.assetSkills.title}
-                        </TableOfContents.AnchorLink>
-                      </TableOfContents.ListItem>
-                      <TableOfContents.ListItem>
-                        <TableOfContents.AnchorLink id={sections.questions.id}>
-                          {sections.questions.title}
-                        </TableOfContents.AnchorLink>
-                      </TableOfContents.ListItem>
-                      <TableOfContents.ListItem>
-                        <TableOfContents.AnchorLink
-                          id={sections.careerTimeline.id}
-                        >
-                          {sections.careerTimeline.title}
-                        </TableOfContents.AnchorLink>
-                      </TableOfContents.ListItem>
-                      <TableOfContents.ListItem>
-                        <TableOfContents.AnchorLink id={sections.personal.id}>
-                          {sections.personal.title}
-                        </TableOfContents.AnchorLink>
-                      </TableOfContents.ListItem>
-                      <TableOfContents.ListItem>
-                        <TableOfContents.AnchorLink id={sections.work.id}>
-                          {sections.work.title}
-                        </TableOfContents.AnchorLink>
-                      </TableOfContents.ListItem>
-                      <TableOfContents.ListItem>
-                        <TableOfContents.AnchorLink id={sections.dei.id}>
-                          {sections.dei.title}
-                        </TableOfContents.AnchorLink>
-                      </TableOfContents.ListItem>
-                      <TableOfContents.ListItem>
-                        <TableOfContents.AnchorLink id={sections.government.id}>
-                          {sections.government.title}
-                        </TableOfContents.AnchorLink>
-                      </TableOfContents.ListItem>
-                      <TableOfContents.ListItem>
-                        <TableOfContents.AnchorLink id={sections.language.id}>
-                          {sections.language.title}
-                        </TableOfContents.AnchorLink>
-                      </TableOfContents.ListItem>
-                      <TableOfContents.ListItem>
-                        <TableOfContents.AnchorLink id={sections.signature.id}>
-                          {sections.signature.title}
-                        </TableOfContents.AnchorLink>
-                      </TableOfContents.ListItem>
-                    </>
-                  )}
-                </TableOfContents.List>
-              </TableOfContents.Navigation>
-              <TableOfContents.Content>
-                <TableOfContents.Section id={sections.statusForm.id}>
-                  <TableOfContents.Heading
-                    data-h2-margin="base(0, 0, x1, 0)"
-                    data-h2-font-weight="base(800)"
-                    as="h3"
-                  >
-                    {sections.statusForm.title}
-                  </TableOfContents.Heading>
-                  <ApplicationStatusForm candidateQuery={poolCandidate} />
-                  <Separator space="sm" />
-                </TableOfContents.Section>
-                <TableOfContents.Section id={sections.poolInformation.id}>
-                  <TableOfContents.Heading
-                    data-h2-margin="base(x1, 0, x1, 0)"
-                    data-h2-font-weight="base(800)"
-                    as="h3"
-                  >
-                    {sections.poolInformation.title}
-                  </TableOfContents.Heading>
-                  <PoolStatusTable user={poolCandidate.user} pools={pools} />
-                  <Separator data-h2-margin="base(x1, 0, 0, 0)" />
-                </TableOfContents.Section>
-                {mainContent}
-              </TableOfContents.Content>
-            </TableOfContents.Wrapper>
-          </>
-        ) : (
-          <Sidebar.Wrapper>
-            <Sidebar.Content>
-              {/**
-               * TODO: Remove `ApplicationStatusForm` with record of decision flag (#8415)
-               *
-               * This is here to keep tests passing
-               */}
-              <ApplicationStatusForm candidateQuery={poolCandidate} />
-              {mainContent}
-            </Sidebar.Content>
-          </Sidebar.Wrapper>
-        )}
+              </p>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage: "Expiry date",
+                  id: "WAO4vD",
+                  description:
+                    "Label displayed on the date field of the change candidate expiry date dialog",
+                })}
+                {intl.formatMessage(commonMessages.dividingColon)}
+                <ChangeDateDialog
+                  selectedCandidate={poolCandidate}
+                  user={poolCandidate.user}
+                />
+              </p>
+            </div>
+            <div
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column)"
+              data-h2-align-items="base(flex-start)"
+              data-h2-gap="base(x.5)"
+            >
+              <CandidateNavigation
+                candidateId={poolCandidate.id}
+                poolId={poolCandidate.pool.id}
+              />
+            </div>
+          </Sidebar.Sidebar>
+          <Sidebar.Content>
+            <div data-h2-margin-bottom="base(x1)">
+              <Heading
+                Icon={ExclamationTriangleIcon}
+                color="quaternary"
+                data-h2-margin="base(x.75, 0, x1, 0)"
+              >
+                {intl.formatMessage(screeningAndAssessmentTitle)}
+              </Heading>
+              <AssessmentResultsTable poolCandidate={poolCandidate} />
+            </div>
+            {mainContent}
+          </Sidebar.Content>
+        </Sidebar.Wrapper>
       </AdminContentWrapper>
     </>
   );
 };
 
-const ViewPoolCandidatesPage_Query = graphql(/* GraphQL */ `
-  query ViewPoolCandidatesPage($poolCandidateId: UUID!) {
-    poolCandidate(id: $poolCandidateId) {
-      id
-      profileSnapshot
-      submittedAt
-      user {
-        id
-        firstName
-        lastName
-        currentCity
-        currentProvince
-        telephone
-        email
-        citizenship
-        preferredLang
-        preferredLanguageForInterview
-        preferredLanguageForExam
-        poolCandidates {
-          id
-          status
-          suspendedAt
-          expiryDate
-          pool {
-            id
-            name {
-              en
-              fr
-            }
-            publishingGroup
-            stream
-            classifications {
-              id
-              group
-              level
-            }
-            team {
-              id
-              name
-              displayName {
-                en
-                fr
-              }
-            }
-          }
-          user {
-            id
-          }
-        }
-      }
-      pool {
-        id
-        name {
-          en
-          fr
-        }
-        publishingGroup
-        stream
-        classifications {
-          id
-          group
-          level
-        }
-        essentialSkills {
-          id
-          key
-          category
-          name {
-            en
-            fr
-          }
-          description {
-            en
-            fr
-          }
-        }
-        nonessentialSkills {
-          id
-          key
-          category
-          name {
-            en
-            fr
-          }
-          description {
-            en
-            fr
-          }
-        }
-        ...ApplicationInformation_PoolFragment
-        ...ApplicationPrintDocument_PoolFragment
-      }
-      ...ApplicationStatusForm_PoolCandidateFragment
-    }
-    pools {
-      id
-      name {
-        en
-        fr
-      }
-      status
-      stream
-      publishingGroup
-      classifications {
-        id
-        group
-        level
-      }
-    }
-  }
-`);
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["AssessmentResult"],
+};
 
 type RouteParams = {
   poolId: Scalars["ID"]["output"];
@@ -928,7 +923,8 @@ export const ViewPoolCandidatePage = () => {
   const intl = useIntl();
   const { poolCandidateId } = useRequiredParams<RouteParams>("poolCandidateId");
   const [{ data, fetching, error }] = useQuery({
-    query: ViewPoolCandidatesPage_Query,
+    query: PoolCandidate_SnapshotQuery,
+    context,
     variables: { poolCandidateId },
   });
 
@@ -937,26 +933,21 @@ export const ViewPoolCandidatePage = () => {
       {data?.poolCandidate && data?.pools ? (
         <ViewPoolCandidate
           poolCandidate={data.poolCandidate}
-          poolData={data.pools}
+          pools={data.pools.filter(notEmpty)}
         />
       ) : (
-        <AdminContentWrapper>
-          <NotFound
-            headingMessage={intl.formatMessage(commonMessages.notFound)}
-          >
-            <p>
-              {intl.formatMessage(
-                {
-                  defaultMessage: "Candidate {poolCandidateId} not found.",
-                  id: "GrfidX",
-                  description:
-                    "Message displayed for pool candidate not found.",
-                },
-                { poolCandidateId },
-              )}
-            </p>
-          </NotFound>
-        </AdminContentWrapper>
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+          <p>
+            {intl.formatMessage(
+              {
+                defaultMessage: "Candidate {poolCandidateId} not found.",
+                id: "GrfidX",
+                description: "Message displayed for pool candidate not found.",
+              },
+              { poolCandidateId },
+            )}
+          </p>
+        </NotFound>
       )}
     </Pending>
   );

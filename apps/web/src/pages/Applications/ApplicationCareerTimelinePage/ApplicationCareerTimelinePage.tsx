@@ -16,7 +16,6 @@ import { toast } from "@gc-digital-talent/toast";
 import { Input } from "@gc-digital-talent/forms";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Experience, ApplicationStep } from "@gc-digital-talent/graphql";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -165,7 +164,6 @@ export const ApplicationCareerTimeline = ({
 }: ApplicationCareerTimelineProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const features = useFeatureFlags();
   const navigate = useNavigate();
   const { followingPageUrl, currentStepOrdinal, isIAP } =
     useApplicationContext();
@@ -174,7 +172,6 @@ export const ApplicationCareerTimeline = ({
     paths,
     application,
     stepOrdinal: currentStepOrdinal,
-    RoDFlag: features.recordOfDecision,
   });
   const instructionsPath = paths.applicationCareerTimelineIntro(application.id);
   const nextStep =

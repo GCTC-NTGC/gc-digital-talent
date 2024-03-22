@@ -19,7 +19,6 @@ import {
   Experience,
   SkillCategory,
 } from "@gc-digital-talent/graphql";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import applicationMessages from "~/messages/applicationMessages";
@@ -86,7 +85,6 @@ export const ApplicationSkills = ({
 }: ApplicationSkillsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const features = useFeatureFlags();
   const navigate = useNavigate();
   const { currentStepOrdinal } = useApplicationContext();
   const pageInfo = getPageInfo({
@@ -94,7 +92,6 @@ export const ApplicationSkills = ({
     paths,
     application,
     stepOrdinal: currentStepOrdinal,
-    RoDFlag: features.recordOfDecision,
   });
   const instructionsPath = paths.applicationSkillsIntro(application.id);
   const categorizedEssentialSkills = categorizeSkill(

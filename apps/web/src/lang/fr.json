@@ -207,10 +207,6 @@
     "defaultMessage": "Lier des compétences en vedette",
     "description": "Title for skills on Experience form"
   },
-  "/IMv2G": {
-    "defaultMessage": "À venir",
-    "description": "Message displayed when a feature is in development and not ready yet"
-  },
   "/JQ6DD": {
     "defaultMessage": "Filtre des exigences en matière d'études",
     "description": "Legend for the Education Requirement filter radio group"
@@ -1279,10 +1275,6 @@
     "defaultMessage": "Erreur : échec de la mise à jour de l'utilisateur",
     "description": "Message displayed to user after user fails to get updated."
   },
-  "5FK/4R": {
-    "defaultMessage": "Échéancier de carrière",
-    "description": "Heading for the users experiences"
-  },
   "5FXFyB": {
     "defaultMessage": "En savoir plus sur la façon dont les lieux de travail sont décrits dans les possibilités d'emploi.",
     "description": "Subtitle for the pool work location dialog"
@@ -1438,10 +1430,6 @@
   "66qMwD": {
     "defaultMessage": "« ... réfère à une personne dont les activités quotidiennes sont limitées en raison d'un trouble ou d'une difficulté à accomplir certaines tâches. La seule exception à cet égard concerne les troubles du développement, le répondant qui a reçu un tel diagnostic étant considéré comme ayant une incapacité. »",
     "description": "Definition of Person with a disability from the StatsCan 'Classification of Status of Disability' page."
-  },
-  "69/cNW": {
-    "defaultMessage": "Renseignements sur le candidat",
-    "description": "Heading displayed above the pool candidate application page."
   },
   "69BfF3": {
     "defaultMessage": "Découvrez un talent en vous servant d’un jeu de filtres détaillés, y compris la classification, les langues et les compétences.",
@@ -3983,10 +3971,6 @@
     "defaultMessage": "La Directive sur les talents numériques apporte des précisions supplémentaires sur les exigences et la prise de décisions en matière d’établissement d’un bassin de talents pour soutenir l’élaboration et la prestation d’initiatives, de produits et de services numériques. Elle vise à fournir des étapes pratiques aux personnes qui participent aux décisions d’établissement d’un bassin de talents et à collecter des données qui seront ensuite utilisées pour améliorer en permanence la qualité, la rapidité et la disponibilité de la recherche de talents numériques.",
     "description": "The directives digital talent and sourcing component"
   },
-  "L5duFP": {
-    "defaultMessage": "Dans la dernière étape de la candidature, nous aimerions vous poser quelques questions relatives à l’occasion qui nous aideront à comprendre votre profil unique.",
-    "description": "Application step for screening questions, introduction description, paragraph one"
-  },
   "L6MgeM": {
     "defaultMessage": "Afin d’offrir une possibilité équitable afin que tous les Canadiens et toutes les Canadiennes puissant postuler ce poste, la date limite aura lieu à <strong>23:59 heure du Pacifique</strong>, à la date précisée.",
     "description": "First paragraph for the pool deadlines dialog"
@@ -4518,10 +4502,6 @@
   "OTuMuQ": {
     "defaultMessage": "Veuillez utiliser le bouton prévu à cet effet pour trouver et sélectionner toutes les compétences requises pour ce poste.",
     "description": "Introduction for _skills_ fieldset in the _digital services contracting questionnaire_"
-  },
-  "OUXmYd": {
-    "defaultMessage": "Vos réponses seront évaluées dans le cadre de votre candidature, alors assurez-vous de donner à chaque question le temps et la réflexion nécessaires pour une réponse qui vous représente vraiment, vous et votre expérience.",
-    "description": "Application step for screening questions, introduction description, paragraph two"
   },
   "OVWo88": {
     "defaultMessage": "Statut d'ancien combattant",
@@ -5155,10 +5135,6 @@
     "defaultMessage": "Ce programme élimine l’un des principaux obstacles à l’emploi en valorisant le potentiel d’une personne plutôt que son niveau de scolarité. Ce faisant, cette initiative contribue à combler les écarts en matière d’éducation, d’emploi et d’économie auxquelles sont confrontées les personnes autochtones du Canada.",
     "description": "Paragraph 3 of the 'About the program' section"
   },
-  "Rl+0Er": {
-    "defaultMessage": "Afficher les candidats",
-    "description": "Title for the edit pool page"
-  },
   "Rm4SuQ": {
     "defaultMessage": "Sélectionnez un bassin",
     "description": "Placeholder displayed on the pool field of the add user to pool dialog."
@@ -5455,10 +5431,6 @@
     "defaultMessage": "Exigences",
     "description": "Heading for the contract requirements section on the digital services contracting questionnaire"
   },
-  "Tdr8r5": {
-    "defaultMessage": "Quelques questions sur le sujet",
-    "description": "Page title for the application screening questions introduction page"
-  },
   "TiIkSF": {
     "defaultMessage": "Études postsecondaires de deux ans",
     "description": "Option for education requirement, 2-year post-secondary"
@@ -5697,10 +5669,6 @@
   "V1DqDX": {
     "defaultMessage": "Compétences requises :",
     "description": "Label for the skills required for a pool"
-  },
-  "V2vBbu": {
-    "defaultMessage": "Ceci est le profil soumis le <strong>{submittedAt}</strong> pour le bassin : <strong>{poolName}</strong>",
-    "description": "Snapshot details displayed above the pool candidate application page."
   },
   "V4+lDw": {
     "defaultMessage": "Afficher les résultats",
@@ -7885,10 +7853,6 @@
   "ge40rv": {
     "defaultMessage": "Afficher les détails de {experienceName}",
     "description": "Button text to show a specific experience's details"
-  },
-  "ghcC8V": {
-    "defaultMessage": "Voici le parcours professionnel du candidat :",
-    "description": "Lead-in text for the snapshot career timeline section"
   },
   "ghg7uN": {
     "defaultMessage": "J'accepterais un emploi d'une durée de...",

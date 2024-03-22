@@ -3,13 +3,6 @@
 exports[`message files should have no changes to duplicate strings 1`] = `
 "[
   {
-    "en": "Career timeline",
-    "fr": [
-      "Parcours professionnel",
-      "Échéancier de carrière"
-    ]
-  },
-  {
     "en": "Screened in",
     "fr": [
       "Sélectionné(e)",
