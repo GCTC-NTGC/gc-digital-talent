@@ -21,6 +21,7 @@ import {
   filterResults,
   groupPoolCandidatesByStep,
   defaultFilters,
+  filterAlreadyDisqualified,
 } from "./utils";
 import Filters from "./Filters";
 
@@ -49,7 +50,9 @@ const AssessmentStepTracker = ({ pool }: AssessmentStepTrackerProps) => {
   const [filters, setFilters] = React.useState<ResultFilters>(defaultFilters);
   const steps = unpackMaybes(pool.assessmentSteps);
   const candidates = unpackMaybes(pool.poolCandidates);
-  const groupedSteps = groupPoolCandidatesByStep(steps, candidates);
+  // to handle partially completed processes, filter out candidates assessed and disqualified pre-RoD
+  const filteredCandidates = filterAlreadyDisqualified(candidates);
+  const groupedSteps = groupPoolCandidatesByStep(steps, filteredCandidates);
   const filteredSteps = filterResults(filters, groupedSteps);
 
   return (
