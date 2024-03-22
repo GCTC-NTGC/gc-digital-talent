@@ -144,7 +144,6 @@ const DiversityEquityInclusionSection = ({
                       case IndigenousCommunity.NonStatusFirstNations:
                         return (
                           <img
-                            className="indigenous-community-image"
                             data-h2-height="base(4em)"
                             alt=""
                             key="first-nations-true"
@@ -154,7 +153,6 @@ const DiversityEquityInclusionSection = ({
                       case IndigenousCommunity.Inuit:
                         return (
                           <img
-                            className="indigenous-community-image"
                             data-h2-height="base(4em)"
                             alt=""
                             key="inuit-true"
@@ -164,7 +162,6 @@ const DiversityEquityInclusionSection = ({
                       case IndigenousCommunity.Metis:
                         return (
                           <img
-                            className="indigenous-community-image"
                             data-h2-height="base(4em)"
                             alt=""
                             key="metis-true"
@@ -174,7 +171,6 @@ const DiversityEquityInclusionSection = ({
                       case IndigenousCommunity.Other:
                         return (
                           <img
-                            className="indigenous-community-image"
                             data-h2-height="base(4em)"
                             alt=""
                             key="other-true"

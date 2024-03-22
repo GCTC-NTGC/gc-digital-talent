@@ -1,4 +1,4 @@
-import { PoolTestQuery, graphql } from "@gc-digital-talent/graphql";
+import { PoolTestQuery } from "@gc-digital-talent/graphql";
 
 const poolQueryDoc = /* GraphQL */ `
   query PoolTest($id: UUID!) {
@@ -135,9 +135,6 @@ const poolQueryDoc = /* GraphQL */ `
     }
   }
 `;
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const PoolTest_Query = graphql(poolQueryDoc);
 
 describe("Artisan command tests", () => {
   it("Can create a new custom pool using an Artisan command", () => {

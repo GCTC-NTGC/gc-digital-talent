@@ -33,6 +33,12 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       description:
         "Error message that the user has selected both status and non-status first nations.",
     },
+    NotIgnorableNotificationFamily: {
+      defaultMessage: "Given notification group cannot be ignored.",
+      id: "bXECaV",
+      description:
+        "Error message that the user has attempted to set an invalid notification family as ignored.",
+    },
 
     // skill validation
     SkillFamilyKeyStringInUse: {

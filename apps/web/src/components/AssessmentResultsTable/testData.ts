@@ -209,4 +209,5 @@ export const testPoolCandidate: PoolCandidate = {
     ...referenceCheckResults,
     ...interviewGroupResults,
   ],
+  profileSnapshot: null,
 };

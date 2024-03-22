@@ -13,7 +13,6 @@ updates:
       interval: "weekly"
       day: "thursday"
     open-pull-requests-limit: 50
-    versioning-strategy: increase
     groups:
       storybook:
         patterns:
@@ -75,13 +74,6 @@ updates:
   # DOCKER image updates
 
   - directory: "/api"
-    package-ecosystem: "docker"
-    schedule:
-      interval: "weekly"
-      day: "thursday"
-    open-pull-requests-limit: 0
-
-  - directory: "/infrastructure/php-container"
     package-ecosystem: "docker"
     schedule:
       interval: "weekly"
