@@ -12,7 +12,6 @@ import {
   AssessmentDecision,
   Maybe,
   AssessmentStep,
-  PoolCandidateStatus,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -24,6 +23,8 @@ import {
   determineCandidateStatusPerStep,
   determineCurrentStepPerCandidate,
   getDecisionCountForEachStep,
+  isDisqualifiedStatus,
+  isRemovedStatus,
 } from "~/utils/poolCandidate";
 
 export type CandidateAssessmentResult = {
@@ -271,18 +272,6 @@ export const filterResults = (
   });
 };
 
-const consideredDisqualifiedStatuses = [
-  PoolCandidateStatus.ScreenedOutApplication,
-  PoolCandidateStatus.ScreenedOutAssessment,
-  PoolCandidateStatus.ScreenedOutNotInterested,
-  PoolCandidateStatus.ScreenedOutNotResponsive,
-];
-
-const isConsideredDisqualifiedStatus = (
-  status: Maybe<PoolCandidateStatus> | undefined,
-): boolean =>
-  status ? consideredDisqualifiedStatuses.includes(status) : false;
-
 // filter out candidates who are disqualified AND have an empty assessment results collection
 export const filterAlreadyDisqualified = (
   candidates: PoolCandidate[],
@@ -290,7 +279,8 @@ export const filterAlreadyDisqualified = (
   const filteredResult = candidates.filter(
     (candidate) =>
       !(
-        isConsideredDisqualifiedStatus(candidate.status) &&
+        (isDisqualifiedStatus(candidate.status) ||
+          isRemovedStatus(candidate.status)) &&
         (candidate.assessmentResults ? candidate.assessmentResults : [])
           .length === 0
       ),
