@@ -129,6 +129,7 @@ module.exports = (basePath, appMeta) => {
                       // formatjs transformer for intl strings
                       TsTransformer.transform({
                         overrideIdFn: "[sha512:contenthash:base64:6]",
+                        preserveWhitespace: true
                       }),
                     ],
                   };

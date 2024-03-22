@@ -10,6 +10,7 @@ use App\Enums\EvaluatedLanguageAbility;
 use App\Enums\GovEmployeeType;
 use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
+use App\Enums\NotificationFamily;
 use App\Enums\OperationalRequirement;
 use App\Enums\PositionDuration;
 use App\Enums\ProvinceOrTerritory;
@@ -118,6 +119,8 @@ class UserFactory extends Factory
             'priority_number' => $hasPriorityEntitlement ? $this->faker->word() : null,
             'indigenous_declaration_signature' => $isDeclared ? $this->faker->firstName() : null,
             'indigenous_communities' => $isDeclared ? [$this->faker->randomElement(IndigenousCommunity::cases())->name] : [],
+            'ignored_email_notifications' => $this->faker->optional->randomElements(array_column(NotificationFamily::cases(), 'name'), null),
+            'ignored_in_app_notifications' => $this->faker->optional->randomElements(array_column(NotificationFamily::cases(), 'name'), null),
         ];
     }
 
