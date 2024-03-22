@@ -32,7 +32,6 @@ export function rolesAccessor(
 
   const roles = roleAssignments.map((roleAssignment) => roleAssignment.role);
   const rolesFiltered = roles.filter(notEmpty);
-  // custom selection of roles to not use for table view
   const rolesToDisplay = rolesFiltered
     .filter((role) => !ROLES_TO_HIDE_USERS_TABLE.includes(role.name))
     .map((role) => getLocalizedName(role.displayName, intl));
