@@ -1,7 +1,6 @@
 import { IntlShape } from "react-intl";
 import { SortingState } from "@tanstack/react-table";
 
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import {
@@ -23,6 +22,7 @@ import {
 } from "~/utils/userUtils";
 
 import { FormValues } from "./UserFilterDialog";
+import ROLES_TO_HIDE_USERS_TABLE from "./constants";
 
 export function rolesAccessor(
   roleAssignments: RoleAssignment[],
@@ -34,14 +34,7 @@ export function rolesAccessor(
   const rolesFiltered = roles.filter(notEmpty);
   // custom selection of roles to not use for table view
   const rolesToDisplay = rolesFiltered
-    .filter(
-      (role) =>
-        !(
-          role.name === ROLE_NAME.Guest ||
-          role.name === ROLE_NAME.BaseUser ||
-          role.name === ROLE_NAME.Applicant
-        ),
-    )
+    .filter((role) => !ROLES_TO_HIDE_USERS_TABLE.includes(role.name))
     .map((role) => getLocalizedName(role.displayName, intl));
   const uniqueRolesToDisplay = uniqueItems(rolesToDisplay);
 

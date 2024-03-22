@@ -22,7 +22,6 @@ import {
   enumToOptionsWorkRegionSorted,
 } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
   LanguageAbility,
   WorkRegion,
@@ -34,6 +33,8 @@ import FilterDialog, {
 } from "~/components/FilterDialog/FilterDialog";
 import adminMessages from "~/messages/adminMessages";
 import { getShortPoolTitleLabel } from "~/utils/poolUtils";
+
+import ROLES_TO_HIDE_USERS_TABLE from "./constants";
 
 export type FormValues = {
   pools: string[];
@@ -194,14 +195,7 @@ const UserFilterDialog = ({
             name="roles"
             legend={intl.formatMessage(adminMessages.rolesAndPermissions)}
             items={roles
-              .filter(
-                (role) =>
-                  !(
-                    role.name === ROLE_NAME.Guest ||
-                    role.name === ROLE_NAME.BaseUser ||
-                    role.name === ROLE_NAME.Applicant
-                  ),
-              )
+              .filter((role) => !ROLES_TO_HIDE_USERS_TABLE.includes(role.name))
               .map((role) => ({
                 value: role.id,
                 label: getLocalizedName(role.displayName, intl),
