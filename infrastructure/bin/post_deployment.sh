@@ -60,7 +60,7 @@ CLEANED_STDOUT=${MIGRATION_STDOUT//[^a-zA-Z0-9_ $'\n']/}
 BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\":\"$TRIPLE_BACK_TICK $CLEANED_STDOUT $TRIPLE_BACK_TICK\" } }"
 
 # Load Laravel Scheduler cron
-if echo "  *  *  *  *  * root    cd /home/site/wwwroot/api && php artisan schedule:run > /tmp/laravel-scheduler.log" >> /etc/crontab ; then
+if echo "  *  *  *  *  * root    cd /home/site/wwwroot/api && php artisan schedule:run" >> /etc/crontab ; then
     BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Laravel Scheduler cron setup *successful*.\" } }"
 else
     BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Laravel Scheduler cron setup *failed*. $MENTION\" } }"

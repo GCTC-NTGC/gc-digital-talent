@@ -27,6 +27,7 @@ class PruneUserGeneratedFiles extends Command
      */
     public function handle()
     {
+        $this->info("Pruning old user generated files");
         $now = Carbon::now();
         $disk = Storage::disk('userGenerated');
         $allDirectories = $disk->allDirectories();

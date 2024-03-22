@@ -24,7 +24,8 @@ class Kernel extends ConsoleKernel
         $schedule->command(PruneUserGeneratedFiles::class)
             ->timezone('America/Toronto')
             ->dailyAt('2:00')
-            ->withoutOverlapping();
+            ->withoutOverlapping()
+            ->sendOutputTo('/proc/1/fd/1', true); // docker logs
     }
 
     /**
