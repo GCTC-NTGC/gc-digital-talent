@@ -11,7 +11,8 @@ import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 import { createAndPublishPool } from "../../support/poolHelpers";
 import { createApplicant, addRolesToUser } from "../../support/userHelpers";
 
-describe("Pool Candidates", () => {
+// This test was for the legacy ViewPoolCandidatePage.
+describe.skip("Pool Candidates", () => {
   const loginAndGoToPoolsPage = () => {
     cy.loginByRole("admin");
     cy.visit("/en/admin/pools");
