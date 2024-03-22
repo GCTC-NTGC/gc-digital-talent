@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "types": ["cypress", "node"],
+    "module": "ES2020",
     "moduleResolution": "Bundler"
   },
   "include": ["**/*.ts"]
