@@ -308,6 +308,19 @@ class User extends Model implements Authenticatable, LaratrustUser
         $this->searchable();
     }
 
+    public function getFullName()
+    {
+        if($this->first_name && $this->last_name) {
+            return $this->first_name . " " . $this->last_name;
+        } else if($this->first_name) {
+            return $this->first_name;
+        } else if ($this->last_name) {
+            return $this->last_name;
+        }
+
+        return "";
+    }
+
     // getIsProfileCompleteAttribute function is correspondent to isProfileComplete attribute in graphql schema
     public function getIsProfileCompleteAttribute(): bool
     {
