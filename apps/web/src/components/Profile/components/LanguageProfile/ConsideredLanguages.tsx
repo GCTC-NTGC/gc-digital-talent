@@ -125,7 +125,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
     // Reset all bilingual fields
     if (!isLookingForBilingual) {
       resetFirstOfficialLanguage();
-      resetEstimation(); // Second Language proficiency
+      resetEstimation();
       resetSecondLanguageExamCompleted();
       resetSecondLanguageExamValidity();
       resetEvaluations();

@@ -46,6 +46,7 @@ export const formValuesToSubmitData = (
   // IE, picks looking for bilingual, then picks completed english evaluation before submitting, the conditionally rendered stuff still exists and can get submitted
   if (!data.lookingForBilingual) {
     data.firstOfficialLanguage = null;
+    data.estimatedLanguageAbility = null;
     data.secondLanguageExamCompleted = null;
     data.secondLanguageExamValidity = null;
     data.comprehensionLevel = null;
