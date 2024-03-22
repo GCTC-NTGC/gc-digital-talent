@@ -110,7 +110,7 @@ describe("Submit Application for IAP Workflow Tests", () => {
                   });
                 });
             },
-          );>
+          );
         });
     });
 
