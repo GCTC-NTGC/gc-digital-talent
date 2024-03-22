@@ -68,10 +68,10 @@ export const dataToFormValues = (data: PartialUser): FormValues => {
   let secondLanguageExamValidity: FormValues["secondLanguageExamValidity"] =
     null;
   switch (data?.secondLanguageExamValidity) {
-    case data?.secondLanguageExamValidity === true:
+    case true:
       secondLanguageExamValidity = "currently_valid";
       break;
-    case data?.secondLanguageExamValidity === false:
+    case false:
       secondLanguageExamValidity = "expired";
       break;
     default:

@@ -36,6 +36,22 @@ const Display = ({
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   const labels = getLabels(intl);
 
+  let examValidity = null;
+  switch (secondLanguageExamValidity) {
+    case true:
+      examValidity = getExamValidityOptions(intl).find(
+        (option) => option.value === "currently_valid",
+      )?.label;
+      break;
+    case false:
+      examValidity = getExamValidityOptions(intl).find(
+        (option) => option.value === "expired",
+      )?.label;
+      break;
+    default:
+      examValidity = null;
+  }
+
   return (
     <div
       data-h2-display="base(grid)"
@@ -116,11 +132,7 @@ const Display = ({
                 label={labels.secondLanguageExamValidityLabel}
                 context={context}
               >
-                {secondLanguageExamValidity
-                  ? getExamValidityOptions(intl).find(
-                      (option) => option.value === "currently_valid",
-                    )?.label
-                  : notProvided}
+                {examValidity}
               </FieldDisplay>
               <div
                 data-h2-display="base(grid)"
