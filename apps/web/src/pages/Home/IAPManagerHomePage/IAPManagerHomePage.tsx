@@ -5,8 +5,7 @@ import EnvelopeSolid from "@heroicons/react/24/solid/EnvelopeIcon";
 import ArrowDownTrayIcon from "@heroicons/react/24/outline/ArrowDownTrayIcon";
 
 import { getLocale } from "@gc-digital-talent/i18n";
-import { Heading, Link, Well } from "@gc-digital-talent/ui";
-import { headingStyles } from "@gc-digital-talent/ui/src/components/Heading/styles";
+import { Heading, Link, Well, headingStyles } from "@gc-digital-talent/ui";
 
 import logoImg from "~/assets/img/iap-logo.svg";
 import heroImg from "~/assets/img/IAPManager-Hero.webp";

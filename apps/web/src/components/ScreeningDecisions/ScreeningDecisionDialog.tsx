@@ -39,12 +39,10 @@ import {
   getLocalizedName,
   getSkillLevelDefinition,
   getSkillLevelName,
-} from "@gc-digital-talent/i18n";
-import { toast } from "@gc-digital-talent/toast";
-import {
   getAssessmentDecisionLevel,
   getTableAssessmentDecision,
-} from "@gc-digital-talent/i18n/src/messages/localizedConstants";
+} from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
 
 import { getExperienceSkills } from "~/utils/skillUtils";
 import { getEducationRequirementOptions } from "~/pages/Applications/ApplicationEducationPage/utils";

@@ -1,11 +1,11 @@
 {
   "name": "@gc-digital-talent/storybook-helpers",
   "license": "AGPL-3.0",
-  "main": "index.ts",
   "version": "0.0.0",
-  "files": [
-    "main.ts"
-  ],
+  "exports": {
+    ".": "./index.ts",
+    "./main": "./main.ts"
+  },
   "scripts": {
     "lint": "eslint \"./**/*.ts*\""
   },

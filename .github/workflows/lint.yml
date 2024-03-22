@@ -55,7 +55,7 @@ jobs:
 
       - name: "Setup: all workspaces"
         working-directory: ./
-        run: pnpm run build
+        run: pnpm run build:fresh
 
       - name: "Run ESlint: all workspaces"
         working-directory: ./
