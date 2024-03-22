@@ -71,7 +71,6 @@ const Footer = ({ width }: FooterProps) => {
   }
   return (
     <footer
-      className="footer"
       data-h2-background-color="base(foreground) base:dark(white)"
       data-h2-border-top="base(1px solid black.20)"
       data-h2-padding="base(x2, 0)"

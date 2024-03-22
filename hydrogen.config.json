@@ -6,7 +6,9 @@
     "roadmap": "https://github.com/orgs/hydrogen-css/projects/3/views/3",
     "settings": "https://hydrogen.design/en/docs/configuration/"
   },
-  "temp": ["../*/src/views/*.html"],
+  "temp": [
+    "../*/src/views/*.html"
+  ],
   "input": [
     "apps/web/public",
     "apps/web/src/components",
@@ -312,6 +314,62 @@
           "key": "mono",
           "default": {
             "family": "monospace"
+          }
+        }
+      ],
+      "font_weights": [
+        {
+          "key": "thin",
+          "default": {
+            "weight": "100"
+          }
+        },
+        {
+          "key": "extralight",
+          "default": {
+            "weight": "200"
+          }
+        },
+        {
+          "key": "light",
+          "default": {
+            "weight": "300"
+          }
+        },
+        {
+          "key": "normal",
+          "default": {
+            "weight": "400"
+          }
+        },
+        {
+          "key": "medium",
+          "default": {
+            "weight": "500"
+          }
+        },
+        {
+          "key": "semibold",
+          "default": {
+            "weight": "600"
+          }
+        },
+        {
+          "key": "bold",
+          "default": {
+            "weight": "700"
+          }
+        },
+        {
+          "key": "extrabold",
+          "default": {
+            "weight": "800"
+          }
+        },
+        {
+          "key": "black",
+          "default": {
+            "weight": "900"
           }
         }
       ],

@@ -71,7 +71,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
         data-h2-position="base(absolute) base:selectors[::before](absolute) base:selectors[::after](absolute)"
         data-h2-location="base(-x.25, auto, auto, x1) p-tablet(-x.25, auto, auto, x1.5) base:selectors[::before](auto, auto, 0px, 0px) base:selectors[::after](auto, 0px, 0px, auto)"
         data-h2-radius="base(rounded, rounded, 0px, 0px)"
-        data-h2-height="base(x4.5) base:selectors[::before](0px) base:selectors[:::after](0px)"
+        data-h2-height="base(x4.5) base:selectors[::before](0px) base:selectors[::after](0px)"
         data-h2-width="base(x3.5) base:selectors[::before](0px) base:selectors[::after](0px)"
         data-h2-content="base:selectors[::before](' ') base:selectors[::after](' ')"
         data-h2-display="base:selectors[::before](block) base:selectors[::after](block)"
