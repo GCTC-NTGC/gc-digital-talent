@@ -80,13 +80,6 @@ updates:
       day: "thursday"
     open-pull-requests-limit: 0
 
-  - directory: "/infrastructure/php-container"
-    package-ecosystem: "docker"
-    schedule:
-      interval: "weekly"
-      day: "thursday"
-    open-pull-requests-limit: 0
-
   - directory: "/infrastructure/maintenance-container"
     package-ecosystem: "docker"
     schedule:

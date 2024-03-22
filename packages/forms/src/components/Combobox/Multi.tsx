@@ -216,11 +216,7 @@ const Multi = ({
       <Field.Label {...getLabelProps()} required={isRequired}>
         {label}
       </Field.Label>
-      <div
-        className="combo"
-        data-h2-position="base(relative)"
-        data-h2-width="base(100%)"
-      >
+      <div data-h2-position="base(relative)" data-h2-width="base(100%)">
         <Input.Wrapper>
           <Input.Search />
           <input

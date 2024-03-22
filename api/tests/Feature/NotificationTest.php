@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\NotificationFamily;
 use App\Enums\PoolCandidateStatus;
 use App\Models\Notification;
 use App\Models\Pool;
@@ -75,6 +76,7 @@ class NotificationTest extends TestCase
             ->create([
                 'email' => 'candidate-user@test.com',
                 'sub' => 'candidate-user@test.com',
+                'ignored_email_notifications' => null,
             ]);
 
         $this->poolCandidate = PoolCandidate::factory()->create([
@@ -304,5 +306,37 @@ class NotificationTest extends TestCase
             $this->assertTrue($date->gt($from));
 
         }
+    }
+
+    public function testIgnoredNotificationsMutation(): void
+    {
+        // Ignoring the SYSTEM_MESSAGE family is not allowed
+        $response = $this->actingAs($this->candidateUser, 'api')
+            ->graphQL(/** @lang GraphQL */ '
+                mutation updateIgnoredNotifications($ignoredEmailNotifications: [NotificationFamily]) {
+                    updateIgnoredNotifications(ignoredEmailNotifications: $ignoredEmailNotifications) {
+                        id
+                        ignoredEmailNotifications
+                    }
+                }
+            ', ['ignoredEmailNotifications' => [NotificationFamily::SYSTEM_MESSAGE->name]])
+            ->assertGraphQLValidationError('ignoredEmailNotifications.0', 'NotIgnorableNotificationFamily');
+
+        // Other families can be ignored
+        $response = $this->actingAs($this->candidateUser, 'api')
+            ->graphQL(/** @lang GraphQL */ '
+                mutation ignoreNotifications($ignoredEmailNotifications: [NotificationFamily]) {
+                    updateIgnoredNotifications(ignoredEmailNotifications: $ignoredEmailNotifications) {
+                        id
+                        ignoredEmailNotifications
+                    }
+                }
+            ', [
+                'ignoredEmailNotifications' => [NotificationFamily::APPLICATION_UPDATE->name, NotificationFamily::JOB_ALERT->name],
+            ]);
+
+        $updatedIgnoreList = $response->json('data.updateIgnoredNotifications.ignoredEmailNotifications');
+
+        $this->assertNotNull($updatedIgnoreList);
     }
 }
