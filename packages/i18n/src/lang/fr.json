@@ -1247,6 +1247,10 @@
     "defaultMessage": "Je <strong>ne suis pas</strong> des Forces armées canadiennes.",
     "description": "declare self to not be in the CAF"
   },
+  "bXECaV": {
+    "defaultMessage": "Il est impossible d'ignorer le groupe de notifications en question.",
+    "description": "Error message that the user has attempted to set an invalid notification family as ignored."
+  },
   "baPSLH": {
     "defaultMessage": "Terminé avec succès (aucun titre de compétence)",
     "description": "Successful Completion with no credentials for education status input"

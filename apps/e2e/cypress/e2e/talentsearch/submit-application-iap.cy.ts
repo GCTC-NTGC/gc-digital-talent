@@ -14,7 +14,7 @@ import {
   PoolSkillType,
   SkillLevel,
 } from "@gc-digital-talent/graphql";
-import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
+import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers/const";
 
 import { addRolesToUser } from "../../support/userHelpers";
 import { aliasQuery } from "../../support/graphql-test-utils";

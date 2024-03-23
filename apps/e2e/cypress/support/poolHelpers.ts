@@ -1,4 +1,4 @@
-import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
+import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers/const";
 import {
   Classification,
   Skill,

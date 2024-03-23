@@ -24,14 +24,7 @@ const CommunityIcon = ({ community }: CommunityIconProps) => {
 
   if (!icon) return null;
 
-  return (
-    <img
-      className="indigenous-community-image"
-      data-h2-height="base(3rem)"
-      alt=""
-      src={icon}
-    />
-  );
+  return <img data-h2-height="base(3rem)" alt="" src={icon} />;
 };
 
 export default CommunityIcon;

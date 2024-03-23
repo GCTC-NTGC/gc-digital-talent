@@ -1,13 +1,14 @@
 import React from "react";
 import { IntlShape } from "react-intl";
 
-import { getLocalizedName, getSkillCategory } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
-import { Chip, Chips } from "@gc-digital-talent/ui";
 import {
+  getLocalizedName,
+  getSkillCategory,
   LocalizedArray,
   getLocalizedArray,
-} from "@gc-digital-talent/i18n/src/utils/localize";
+} from "@gc-digital-talent/i18n";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { Chip, Chips } from "@gc-digital-talent/ui";
 import {
   Maybe,
   Skill,

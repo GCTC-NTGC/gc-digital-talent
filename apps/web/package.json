@@ -78,7 +78,7 @@
     "@gc-digital-talent/jest-presets": "workspace:*",
     "@gc-digital-talent/storybook-helpers": "workspace:*",
     "@gc-digital-talent/webpack-config": "workspace:*",
-    "@hydrogen-css/hydrogen": "2.0.3",
+    "@hydrogen-css/hydrogen": "2.0.5",
     "@parcel/watcher": "^2.4.1",
     "@storybook/addon-actions": "^7.6.17",
     "@storybook/addon-viewport": "^7.6.17",

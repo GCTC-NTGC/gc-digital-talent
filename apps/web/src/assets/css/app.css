@@ -44,16 +44,3 @@ abbr:hover {
   bottom: 0px;
   width: 100%;
 }
-
-[data-h2] .container {
-  display: flex;
-  flex-direction: column;
-}
-
-[data-h2] .content-inner {
-  height: 100%;
-}
-
-[data-h2] .dashboard {
-  flex-grow: 1;
-}
