@@ -77,35 +77,18 @@ export default defineConfig({
   define: {
     API_URI: JSON.stringify(process.env.API_URI),
     BUILD_DATE: JSON.stringify(new Date()),
-    API_SUPPORT_ENDPOINT: JSON.stringify(process.env.API_SUPPORT_ENDPOINT),
-    TALENTSEARCH_SUPPORT_EMAIL: JSON.stringify(
-      process.env.TALENTSEARCH_SUPPORT_EMAIL,
-    ),
+    API_SUPPORT_ENDPOINT: process.env.API_SUPPORT_ENDPOINT
+      ? JSON.stringify(process.env.API_SUPPORT_ENDPOINT)
+      : `"/api/support/tickets"`,
+    TALENTSEARCH_SUPPORT_EMAIL: process.env.TALENTSEARCH_SUPPORT_EMAIL
+      ? JSON.stringify(process.env.TALENTSEARCH_SUPPORT_EMAIL)
+      : `"support-soutien@talent.canada.ca"`,
   },
   plugins: [
     react({
       include: "**/*.{tsx}",
     }),
     gitVersionPlugin(),
-    {
-      name: "hydrogen",
-      config: () => {
-        const isWatch = process.argv.includes("--watch");
-        console.log(isWatch);
-        return isWatch
-          ? {
-              build: {
-                watch: {
-                  exclude: ["src/assets/css/**"],
-                },
-              },
-            }
-          : {};
-      },
-      async buildStart() {
-        childProcess.execSync(`h2-build`);
-      },
-    },
     createHtmlPlugin({
       entry: "src/main.tsx",
       inject: {

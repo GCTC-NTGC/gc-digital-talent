@@ -5,7 +5,6 @@ import * as messages from "~/lang/frCompiled.json";
 import ContextContainer from "~/components/Context/ContextProvider";
 import Router from "~/components/Router";
 import "~/assets/css/app.css";
-import "~/assets/css/hydrogen.css";
 
 const container = document.getElementById("root");
 if (container) {

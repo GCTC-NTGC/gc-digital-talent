@@ -27,7 +27,6 @@ import FlourishContainer from "~/components/FlourishContainer/FlourishContainer"
 import DirectiveBlock from "~/components/DirectiveBlock/DirectiveBlock";
 import PoolCard from "~/components/PoolCard/PoolCard";
 import { isExecPool } from "~/utils/poolUtils";
-import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
 import executiveHeroPortrait from "~/assets/img/exec-hero-portrait.webp";
 import executiveHeroTablet from "~/assets/img/exec-hero-tablet-portrait.webp";
 import executiveHeroLandscape from "~/assets/img/exec-hero-landscape.webp";

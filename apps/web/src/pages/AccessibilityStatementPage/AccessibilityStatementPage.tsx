@@ -9,7 +9,6 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
 import heroImg from "~/assets/img/accessibility-statement-header.webp";
-import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
 
 const digitalStandardsLink = (locale: Locales, chunks: React.ReactNode) => (
   <Link
@@ -274,7 +273,7 @@ const AccessibilityStatementPage = () => {
         })}
         crumbs={crumbs}
       />
-      <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+      <div data-h2-container="base(center, large, x1) p-tablet(center, large, x14)">
         <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
           <TableOfContents.Navigation>
             <TableOfContents.List>
