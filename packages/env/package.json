@@ -12,7 +12,7 @@
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
-    "@types/react": "^18.2.65",
+    "@types/react": "^18.2.69",
     "eslint": "^8.57.0",
     "react": "^18.2.0",
     "tsconfig": "workspace:*",
