@@ -25,7 +25,8 @@ import NotificationList from "../NotificationList/NotificationList";
 
 const Overlay = m(DialogPrimitive.Overlay);
 
-// Note: Get only the first 9999 unread items (we should hopefully not care past this)
+// For the sake of the bell icon, we only care if the user has at least 1 unread notification
+// This is to query to minimal amount of data to display the badge
 const NotificationCount_Query = graphql(/* GraphQL */ `
   query NotificationCount {
     notifications(where: { onlyUnread: true }, first: 1) {

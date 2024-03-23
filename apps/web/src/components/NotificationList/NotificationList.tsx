@@ -55,7 +55,7 @@ const NotificationList = ({
         },
       },
     },
-    120, // 2 mins
+    60,
   );
   const pagesToLoad =
     paginate && searchParams.has("page") ? Number(searchParams.get("page")) : 1;
