@@ -33,4 +33,14 @@ class CommunityExperience extends Experience
         'start_date' => 'date',
         'end_date' => 'date',
     ];
+
+    public function getTitle(): string
+    {
+        return sprintf("%s at %s", $this->title, $this->organization);
+    }
+
+    public function getExperienceType(): string
+    {
+        return 'community';
+    }
 }

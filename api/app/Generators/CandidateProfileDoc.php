@@ -27,13 +27,18 @@ class CandidateProfileDoc extends DocGenerator
         $candidates = PoolCandidate::with([
             'user' => [
                 'department',
-                'currentClassification'
+                'currentClassification',
+                'awardExperiences' => ['userSkills' => ['skill']],
+                'communityExperiences' => ['userSkills' => ['skill']],
+                'educationExperiences' => ['userSkills' => ['skill']],
+                'personalExperiences' => ['userSkills' => ['skill']],
+                'workExperiences' => ['userSkills' => ['skill']],
             ]
         ])
             ->whereIn('id', $this->ids)
             ->get();
 
-        if(empty($candidates)){
+        if (empty($candidates)) {
             throw new Exception("No candidates found.");
         }
 
@@ -63,7 +68,7 @@ class CandidateProfileDoc extends DocGenerator
 
             $this->addSubTitle($section, 'Government information');
             $this->addLabelText($section, 'Government of Canada employee', $candidate->user->is_gov_employee ? "Yes" : "No");
-            if($candidate->user->is_gov_employee) {
+            if ($candidate->user->is_gov_employee) {
                 $department = $candidate->user->department()->first();
                 $this->addLabelText($section, 'Department', $department->name[$this->lang] ?? "");
                 $this->addLabelText($section, 'Employee type', $candidate->user->getGovEmployeeType());
@@ -72,26 +77,64 @@ class CandidateProfileDoc extends DocGenerator
             $this->addLabelText($section, 'Priority entitlement', $candidate->user->has_priority_entitlement ? "Yes" : "No");
 
             $this->addSubTitle($section, 'Work location');
-            $this->addLabelText($section, 'Work location',
-                $candidate->user->location_preferences ? implode(', ', $candidate->user->location_preferences) : "");
+            $this->addLabelText(
+                $section,
+                'Work location',
+                $candidate->user->location_preferences ? implode(', ', $candidate->user->location_preferences) : ""
+            );
             $this->addLabelText($section, 'Location exemptions', $candidate->user->location_exemptions);
 
             $this->addSubTitle($section, 'Diversity, equity, inclusion');
 
             $indigenousCommunities = $candidate->user->getIndigenousCommunities();
-            if($indigenousCommunities) {
-                foreach($indigenousCommunities as $community) {
+            if ($indigenousCommunities) {
+                foreach ($indigenousCommunities as $community) {
                     $section->addListItem($community);
                 }
             }
-            if($candidate->user->is_woman) {
+            if ($candidate->user->is_woman) {
                 $section->addListItem("Woman");
             }
-            if($candidate->user->is_visible_minority) {
+            if ($candidate->user->is_visible_minority) {
                 $section->addListItem("Visible minority");
             }
-            if($candidate->user->has_disability) {
+            if ($candidate->user->has_disability) {
                 $section->addListItem("Person with a disability");
+            }
+
+            if ($candidate->user->experiences->count() > 0) {
+                $section->addTitle('My skills and experience', 2);
+                $experiences = [];
+
+                $candidate->user->experiences->each(function ($experience) use (&$experiences) {
+                    $type = $experience->getExperienceType();
+                    if (!isset($experiences[$type])) {
+                        $experiences[$type] = collect();
+                    }
+                    $experiences[$type]->push($experience);
+                });
+
+                foreach ($experiences as $type => $group) {
+                    $this->addSubTitle($section, ucwords($type) . " experiences", 3);
+                    $group->each(function ($experience) use ($section) {
+                        $this->addSubTitle($section, $experience->getTitle(), 4);
+                        $section->addText($experience->getDateRange());
+                        $section->addTextBreak(1);
+                        $section->addText($experience->details);
+
+                        if ($experience->userSkills->count() > 0) {
+                            $section->addTextBreak(1);
+                        }
+
+                        $experience->userSkills->each(function ($skill) use ($section) {
+                            $skillRun = $section->addListItemRun();
+                            $skillRun->addText($skill->skill->name[$this->lang], $this->strong);
+                            if($skill->details) {
+                                $skillRun->addText(" - " . $skill->details);
+                            }
+                        });
+                    });
+                }
             }
 
             $section->addPageBreak();

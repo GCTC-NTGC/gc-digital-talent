@@ -16,10 +16,10 @@ abstract class DocGenerator {
     {
         $this->doc = new PhpWord();
 
-        $this->doc->addTitleStyle(1, ['size' => 22, 'bold' => true]);
-        $this->doc->addTitleStyle(2, ['size' => 18, 'bold' => true]);
-        $this->doc->addTitleStyle(3, ['size' => 15, 'bold' => true]);
-        $this->doc->addTitleStyle(4, ['size' => 13, 'bold' => true]);
+        $this->doc->addTitleStyle(1, ['size' => 22, 'bold' => true], ['spaceBefore' => 240, 'spaceAfter' => 120]);
+        $this->doc->addTitleStyle(2, ['size' => 18, 'bold' => true], ['spaceBefore' => 240, 'spaceAfter' => 120]);
+        $this->doc->addTitleStyle(3, ['size' => 15, 'bold' => true], ['spaceBefore' => 240, 'spaceAfter' => 120]);
+        $this->doc->addTitleStyle(4, ['size' => 13, 'bold' => true],    ['spaceBefore' => 240, 'spaceAfter' => 120]);
 
         $this->strong = ['bold' => true];
     }
@@ -40,7 +40,6 @@ abstract class DocGenerator {
 
     protected function addSubTitle(Element\Section $section, string $text, ?int $rank = 3)
     {
-        $section->addTextBreak(2);
         $section->addTitle($text, $rank);
     }
 

@@ -234,7 +234,7 @@ class User extends Model implements Authenticatable, LaratrustUser
     public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class, 'department')
-            ->select(['id', 'name']);
+            ->select(['id', 'name', 'department_number']);
     }
 
     public function currentClassification(): BelongsTo
@@ -462,7 +462,8 @@ class User extends Model implements Authenticatable, LaratrustUser
                 IndigenousCommunity::STATUS_FIRST_NATIONS->name => "Status First Nations",
                 IndigenousCommunity::INUIT->name => "Inuk (Inuit)",
                 IndigenousCommunity::METIS->name => "Métis",
-                IndigenousCommunity::OTHER->name => "Other"
+                IndigenousCommunity::OTHER->name => "Other",
+                default => "Unknown"
             };
         }, $this->indigenous_communities);
     }
