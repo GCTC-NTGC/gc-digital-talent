@@ -522,14 +522,6 @@ const ViewPoolCandidatePage = React.lazy(() =>
       ),
   ),
 );
-const RODViewPoolCandidatePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminRODViewPoolCandidate" */ "../pages/PoolCandidates/ViewPoolCandidatePage/RODViewPoolCandidatePage"
-      ),
-  ),
-);
 
 /** Pools */
 const IndexPoolPage = React.lazy(() =>
@@ -1563,27 +1555,11 @@ const createRoute = (
                             </RequireAuth>
                           ),
                         },
-                        {
-                          path: ":poolCandidateId",
-                          children: [
-                            {
-                              index: true,
-                              element: (
-                                <RequireAuth
-                                  roles={[ROLE_NAME.PoolOperator]}
-                                  loginPath={loginPath}
-                                >
-                                  <ViewPoolCandidatePage />
-                                </RequireAuth>
-                              ),
-                            },
-                          ],
-                        },
                       ],
                     },
                     {
                       path: "screening",
-                      element: featureFlags.recordOfDecision ? (
+                      element: (
                         <RequireAuth
                           roles={[
                             ROLE_NAME.PoolOperator,
@@ -1593,13 +1569,11 @@ const createRoute = (
                         >
                           <ScreeningAndEvaluationPage />
                         </RequireAuth>
-                      ) : (
-                        <AdminErrorPage />
                       ),
                     },
                     {
                       path: "plan",
-                      element: featureFlags.recordOfDecision ? (
+                      element: (
                         <RequireAuth
                           roles={[
                             ROLE_NAME.PoolOperator,
@@ -1610,8 +1584,6 @@ const createRoute = (
                         >
                           <AssessmentPlanBuilderPage />
                         </RequireAuth>
-                      ) : (
-                        <AdminErrorPage />
                       ),
                     },
                   ],
@@ -1644,11 +1616,7 @@ const createRoute = (
                   ]}
                   loginPath={loginPath}
                 >
-                  {featureFlags.recordOfDecision ? (
-                    <RODViewPoolCandidatePage />
-                  ) : (
-                    <ViewPoolCandidatePage />
-                  )}
+                  <ViewPoolCandidatePage />
                 </RequireAuth>
               ),
             },

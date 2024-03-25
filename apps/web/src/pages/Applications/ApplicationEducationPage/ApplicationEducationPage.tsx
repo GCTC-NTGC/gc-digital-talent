@@ -18,7 +18,6 @@ import {
   EducationRequirementOption,
   Experience,
 } from "@gc-digital-talent/graphql";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import applicationMessages from "~/messages/applicationMessages";
 import {
@@ -104,7 +103,6 @@ const ApplicationEducation = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
-  const features = useFeatureFlags();
   const navigate = useNavigate();
   const { followingPageUrl, currentStepOrdinal, isIAP, classificationGroup } =
     useApplicationContext();
@@ -113,7 +111,6 @@ const ApplicationEducation = ({
     paths,
     application,
     stepOrdinal: currentStepOrdinal,
-    RoDFlag: features.recordOfDecision,
   });
   const nextStep =
     followingPageUrl ?? paths.applicationSkillsIntro(application.id);

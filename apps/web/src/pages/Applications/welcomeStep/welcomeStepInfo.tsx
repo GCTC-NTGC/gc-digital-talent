@@ -12,7 +12,6 @@ const getStepInfo: GetApplicationStepInfo = ({
   paths,
   intl,
   stepOrdinal,
-  RoDFlag,
 }): ApplicationStepInfo => {
   return {
     applicationStep: ApplicationStep.Welcome,
@@ -21,7 +20,6 @@ const getStepInfo: GetApplicationStepInfo = ({
       intl,
       application,
       stepOrdinal,
-      RoDFlag,
     }),
     showInStepper: true,
     prerequisites: [],
