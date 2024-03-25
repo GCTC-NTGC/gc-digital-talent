@@ -29,9 +29,17 @@ interface NotificationListProps {
   live?: boolean;
   paginate?: boolean;
   limit?: number;
+  inDialog?: boolean;
+  onRead?: () => void;
 }
 
-const NotificationList = ({ live, paginate, limit }: NotificationListProps) => {
+const NotificationList = ({
+  live,
+  paginate,
+  limit,
+  inDialog,
+  onRead,
+}: NotificationListProps) => {
   const now = nowUTCDateTime();
   const [searchParams] = useSearchParams();
   const [{ data }] = usePollingQuery(
@@ -47,7 +55,7 @@ const NotificationList = ({ live, paginate, limit }: NotificationListProps) => {
         },
       },
     },
-    120, // 2 mins
+    60,
   );
   const pagesToLoad =
     paginate && searchParams.has("page") ? Number(searchParams.get("page")) : 1;
@@ -60,14 +68,20 @@ const NotificationList = ({ live, paginate, limit }: NotificationListProps) => {
 
   return (
     <>
-      <NotificationActions onlyUnread={onlyUnread} />
+      <NotificationActions
+        onRead={onRead}
+        onlyUnread={onlyUnread}
+        inDialog={inDialog}
+      />
       <ul
         data-h2-list-style="base(none)"
         data-h2-padding="base(0)"
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x.25 0)"
         data-h2-margin="base(x1 0)"
+        {...(!inDialog && {
+          "data-h2-gap": "base(x.25 0)",
+        })}
       >
         {liveNotifications.length > 0 ? (
           <>
@@ -75,6 +89,8 @@ const NotificationList = ({ live, paginate, limit }: NotificationListProps) => {
               <NotificationItem
                 key={notification.id}
                 notification={notification}
+                inDialog={inDialog}
+                onRead={onRead}
               />
             ))}
           </>
@@ -88,6 +104,8 @@ const NotificationList = ({ live, paginate, limit }: NotificationListProps) => {
               exclude={liveIds}
               isLastPage={currentPage === pagesToLoad}
               onlyUnread={onlyUnread}
+              inDialog={inDialog}
+              onRead={onRead}
               {...((!paginate || limit) && {
                 first: limit ?? 100,
               })}

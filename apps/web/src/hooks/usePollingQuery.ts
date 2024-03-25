@@ -9,7 +9,7 @@ type QueryArgs<TData, TVariables extends AnyVariables> = UseQueryArgs<
 const usePollingQuery = <TData, TVariables extends AnyVariables>(
   queryArgs: QueryArgs<TData, TVariables>,
   delay: number,
-) => {
+): ReturnType<typeof useQuery<TData, TVariables>> => {
   const [result, executeQuery] = useQuery<TData, TVariables>(queryArgs);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const usePollingQuery = <TData, TVariables extends AnyVariables>(
     return undefined;
   }, [result.fetching, executeQuery, queryArgs.variables, delay]);
 
-  return [result];
+  return [result, executeQuery];
 };
 
 export default usePollingQuery;
