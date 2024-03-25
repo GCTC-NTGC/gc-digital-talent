@@ -463,6 +463,7 @@ class User extends Model implements Authenticatable, LaratrustUser
                 IndigenousCommunity::INUIT->name => 'Inuk (Inuit)',
                 IndigenousCommunity::METIS->name => 'Métis',
                 IndigenousCommunity::OTHER->name => 'Other',
+                IndigenousCommunity::LEGACY_IS_INDIGENOUS->name => 'Indigenous',
                 default => 'Unknown'
             };
         }, $this->indigenous_communities);
