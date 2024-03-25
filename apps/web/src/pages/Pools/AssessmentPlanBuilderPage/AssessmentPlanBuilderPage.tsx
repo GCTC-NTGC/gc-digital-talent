@@ -16,9 +16,8 @@ import {
   Pending,
   Chip,
   Separator,
-  Sidebar,
+  TableOfContents,
 } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import {
   AssessmentPlanBuilderPageQuery,
@@ -35,9 +34,13 @@ import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
 import { getPoolCompletenessBadge } from "~/utils/poolUtils";
 import messages from "~/messages/adminMessages";
 
-import OrganizeSection from "./components/OrganizeSection";
-import SkillSummarySection from "./components/SkillSummarySection";
-import SkillsQuickSummary from "./components/SkillsQuickSummary";
+import OrganizeSection, {
+  sectionTitle as organizeSectionTitle,
+} from "./components/OrganizeSection";
+import SkillSummarySection, {
+  sectionTitle as skillSummarySectionTitle,
+} from "./components/SkillSummarySection";
+import { PAGE_SECTION_ID } from "./navigation";
 
 const pageTitle = defineMessage(messages.assessmentPlan);
 
@@ -82,17 +85,26 @@ export const AssessmentPlanBuilder = ({
           </Chip>
         </Heading>
         <p data-h2-margin="base(x1 0)">{intl.formatMessage(pageSubtitle)}</p>
-        <Separator data-h2-margin="base(x2, 0, x1, 0)" />
-        <Sidebar.Wrapper>
-          <Sidebar.Sidebar>
-            <div data-h2-margin-top="base(x1.5)">
-              <SkillsQuickSummary
-                poolSkills={pool.poolSkills?.filter(notEmpty) ?? []}
-                assessmentSteps={pool.assessmentSteps?.filter(notEmpty) ?? []}
-              />
-            </div>
-          </Sidebar.Sidebar>
-          <Sidebar.Content>
+        <Separator />
+        <TableOfContents.Wrapper>
+          <TableOfContents.Navigation>
+            <TableOfContents.List>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink
+                  id={PAGE_SECTION_ID.ORGANIZE_ASSESSMENT_APPROACH}
+                >
+                  {intl.formatMessage(organizeSectionTitle)}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={PAGE_SECTION_ID.SKILL_SUMMARY}>
+                  {intl.formatMessage(skillSummarySectionTitle)}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+            </TableOfContents.List>
+          </TableOfContents.Navigation>
+
+          <TableOfContents.Content>
             <OrganizeSection pool={pool} pageIsLoading={pageIsLoading} />
             <SkillSummarySection pool={pool} />
             <Separator space="lg" />
@@ -125,8 +137,8 @@ export const AssessmentPlanBuilder = ({
                 {intl.formatMessage(formMessages.cancelGoBack)}
               </Link>
             </div>
-          </Sidebar.Content>
-        </Sidebar.Wrapper>
+          </TableOfContents.Content>
+        </TableOfContents.Wrapper>
       </div>
     </>
   );

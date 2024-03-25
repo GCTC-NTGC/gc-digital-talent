@@ -23,7 +23,7 @@ import {
 } from "../constants";
 import AssessmentStepCard from "./AssessmentStepCard";
 
-const sectionTitle = defineMessage({
+export const sectionTitle = defineMessage({
   defaultMessage: "Organize assessment approach",
   id: "qFY+K4",
   description: "Title for the organize section in the assessment plan builder",
@@ -173,7 +173,11 @@ const OrganizeSection = ({
 
   return (
     <>
-      <Heading level="h3" id={PAGE_SECTION_ID.ORGANIZE_ASSESSMENT_APPROACH}>
+      <Heading
+        level="h3"
+        id={PAGE_SECTION_ID.ORGANIZE_ASSESSMENT_APPROACH}
+        data-h2-margin-top="base(0)"
+      >
         {intl.formatMessage(sectionTitle)}
       </Heading>
       <p data-h2-margin="base(x1, 0)">
