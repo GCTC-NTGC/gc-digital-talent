@@ -76,70 +76,47 @@ export const AssessmentPlanBuilder = ({
         title={intl.formatMessage(pageTitle)}
         description={intl.formatMessage(pageSubtitle)}
       />
-      <div data-h2-container="base(center, full, 0)">
-        <Heading level="h2" Icon={ClipboardDocumentListIcon} color="primary">
-          {intl.formatMessage(pageTitle)}
-          <div data-h2-flex-grow="base(2)" />
-          <Chip color={assessmentBadge.color} data-h2-flex-shrink="base(0)">
-            {intl.formatMessage(assessmentBadge.label)}
-          </Chip>
-        </Heading>
-        <p data-h2-margin="base(x1 0)">{intl.formatMessage(pageSubtitle)}</p>
-        <Separator />
-        <TableOfContents.Wrapper>
-          <TableOfContents.Navigation>
-            <TableOfContents.List>
-              <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink
-                  id={PAGE_SECTION_ID.ORGANIZE_ASSESSMENT_APPROACH}
-                >
-                  {intl.formatMessage(organizeSectionTitle)}
-                </TableOfContents.AnchorLink>
-              </TableOfContents.ListItem>
-              <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink id={PAGE_SECTION_ID.SKILL_SUMMARY}>
-                  {intl.formatMessage(skillSummarySectionTitle)}
-                </TableOfContents.AnchorLink>
-              </TableOfContents.ListItem>
-            </TableOfContents.List>
-          </TableOfContents.Navigation>
+      <Heading level="h2" Icon={ClipboardDocumentListIcon} color="primary">
+        {intl.formatMessage(pageTitle)}
+        <div data-h2-flex-grow="base(2)" />
+        <Chip color={assessmentBadge.color} data-h2-flex-shrink="base(0)">
+          {intl.formatMessage(assessmentBadge.label)}
+        </Chip>
+      </Heading>
+      <p data-h2-margin="base(x1 0)">{intl.formatMessage(pageSubtitle)}</p>
+      <Separator />
+      <TableOfContents.Wrapper>
+        <TableOfContents.Navigation>
+          <TableOfContents.List>
+            <TableOfContents.ListItem>
+              <TableOfContents.AnchorLink
+                id={PAGE_SECTION_ID.ORGANIZE_ASSESSMENT_APPROACH}
+              >
+                {intl.formatMessage(organizeSectionTitle)}
+              </TableOfContents.AnchorLink>
+            </TableOfContents.ListItem>
+            <TableOfContents.ListItem>
+              <TableOfContents.AnchorLink id={PAGE_SECTION_ID.SKILL_SUMMARY}>
+                {intl.formatMessage(skillSummarySectionTitle)}
+              </TableOfContents.AnchorLink>
+            </TableOfContents.ListItem>
+          </TableOfContents.List>
+          <Link mode="solid" color="secondary" href={routes.poolView(pool.id)}>
+            {intl.formatMessage({
+              defaultMessage: "Back to process details",
+              id: "1eos19",
+              description:
+                "Text on a button to save the assessment plan and return to the pool page",
+            })}
+          </Link>
+        </TableOfContents.Navigation>
 
-          <TableOfContents.Content>
-            <OrganizeSection pool={pool} pageIsLoading={pageIsLoading} />
-            <SkillSummarySection pool={pool} />
-            <Separator space="lg" />
-            <div
-              data-h2-display="base(flex)"
-              data-h2-gap="base(x.5, x1)"
-              data-h2-flex-wrap="base(wrap)"
-              data-h2-flex-direction="base(column) l-tablet(row)"
-              data-h2-align-items="base(flex-start) l-tablet(center)"
-            >
-              <Link
-                mode="solid"
-                color="secondary"
-                href={routes.poolView(pool.id)}
-              >
-                {/* Doesn't actually save anything */}
-                {intl.formatMessage({
-                  defaultMessage: "Save plan and go back",
-                  id: "Rbp02p",
-                  description:
-                    "Text on a button to save the assessment plan and return to the pool page",
-                })}
-              </Link>
-              <Link
-                type="button"
-                mode="inline"
-                color="primary"
-                href={routes.poolView(pool.id)}
-              >
-                {intl.formatMessage(formMessages.cancelGoBack)}
-              </Link>
-            </div>
-          </TableOfContents.Content>
-        </TableOfContents.Wrapper>
-      </div>
+        <TableOfContents.Content>
+          <OrganizeSection pool={pool} pageIsLoading={pageIsLoading} />
+          <SkillSummarySection pool={pool} />
+          <Separator space="lg" />
+        </TableOfContents.Content>
+      </TableOfContents.Wrapper>
     </>
   );
 };
