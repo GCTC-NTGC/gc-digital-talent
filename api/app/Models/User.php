@@ -10,6 +10,7 @@ use App\Enums\CitizenshipStatus;
 use App\Enums\IndigenousCommunity;
 use App\Enums\LanguageAbility;
 use App\Enums\PoolCandidateStatus;
+use App\Enums\PositionDuration;
 use App\Traits\EnrichedNotifiable;
 use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
@@ -465,6 +466,15 @@ class User extends Model implements Authenticatable, LaratrustUser
                 default => 'Unknown'
             };
         }, $this->indigenous_communities);
+    }
+
+    public function getPositionDuration()
+    {
+        if (in_array(PositionDuration::PERMANENT->name, $this->position_duration)) {
+            return 'Permanent duration';
+        }
+
+        return null;
     }
 
     // getIsProfileCompleteAttribute function is correspondent to isProfileComplete attribute in graphql schema

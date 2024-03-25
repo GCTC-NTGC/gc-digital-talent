@@ -21,6 +21,7 @@ abstract class DocGenerator
         $this->doc->addTitleStyle(2, ['size' => 18, 'bold' => true], ['spaceBefore' => 240, 'spaceAfter' => 120]);
         $this->doc->addTitleStyle(3, ['size' => 15, 'bold' => true], ['spaceBefore' => 240, 'spaceAfter' => 120]);
         $this->doc->addTitleStyle(4, ['size' => 13, 'bold' => true], ['spaceBefore' => 240, 'spaceAfter' => 120]);
+        $this->doc->addTitleStyle(4, ['size' => 12, 'bold' => true], ['spaceBefore' => 240, 'spaceAfter' => 120]);
 
         $this->strong = ['bold' => true];
     }
@@ -37,11 +38,6 @@ abstract class DocGenerator
         $writer = IOFactory::createWriter($this->doc);
 
         return $writer->save($path);
-    }
-
-    protected function addSubTitle(Element\Section $section, string $text, ?int $rank = 3)
-    {
-        $section->addTitle($text, $rank);
     }
 
     protected function addLabelText(Element\Section $section, string $label, string $text)
