@@ -168,12 +168,7 @@ const ManagerInfo = ({
                         {hrAdvisorEmail}
                       </Link>
                     ) : (
-                      intl.formatMessage({
-                        defaultMessage: "N/A",
-                        id: "i9AjuX",
-                        description:
-                          "Text shown when the filter was not selected",
-                      })
+                      intl.formatMessage(commonMessages.notApplicable)
                     )
                   }
                 />
@@ -189,12 +184,7 @@ const ManagerInfo = ({
                   content={
                     status
                       ? intl.formatMessage(getPoolCandidateSearchStatus(status))
-                      : intl.formatMessage({
-                          defaultMessage: "N/A",
-                          id: "i9AjuX",
-                          description:
-                            "Text shown when the filter was not selected",
-                        })
+                      : intl.formatMessage(commonMessages.notApplicable)
                   }
                 />
                 <FilterBlock

@@ -440,7 +440,7 @@
     "description": "The pool candidate's status is Screened In."
   },
   "C/mdCs": {
-    "defaultMessage": "Ne s’applique pas",
+    "defaultMessage": "Sans objet",
     "description": "Not applicable, context or state does apply."
   },
   "C/tnCE": {
@@ -498,6 +498,10 @@
   "EPEKU2": {
     "defaultMessage": "Capacité démontrée à définir, entreprendre et exécuter des tâches de complexité modérée à élevée sous des niveaux de supervision minimaux. Capacité démontrée à encadrer d’autres personnes à des niveaux inférieurs de développement de compétences, soit par le biais d’une supervision directe, soit en donnant l’exemple et en fournissant des explications. Généralement associée à des postes de conseiller technique principal ou de supervision de niveau d’entrée.",
     "description": "The technical skill level definition for expert"
+  },
+  "EZgD5d": {
+    "defaultMessage": "Non disponible",
+    "description": "Message displayed when specific information is not available"
   },
   "EdAaI7": {
     "defaultMessage": "Il manque des champs <red>obligatoires</red>.",
@@ -1030,10 +1034,6 @@
   "U67zv6": {
     "defaultMessage": "Examen des candidatures",
     "description": "The pool candidate's status is Application Review."
-  },
-  "UCGAzS": {
-    "defaultMessage": "S.O.",
-    "description": "displayed when localized string not available"
   },
   "Uk0WG0": {
     "defaultMessage": "Organisationnel",
@@ -1702,10 +1702,6 @@
   "quLfED": {
     "defaultMessage": "Nous avons relevé une erreur d’origine inconnue pendant le traitement de votre demande.",
     "description": "Body text for the unexpected error page."
-  },
-  "r7x5H3": {
-    "defaultMessage": "S. O.",
-    "description": "Message displayed when specific information is not applicable"
   },
   "rCXko4": {
     "defaultMessage": "Novembre",
