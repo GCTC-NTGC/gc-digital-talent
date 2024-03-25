@@ -43,7 +43,7 @@ return [
 
         'userGenerated' => [
             'driver' => 'local',
-            'root' => env('STORAGE_USER_GENERATED_FILES_PATH', storage_path('app').'/user_generated'),
+            'root' => env('STORAGE_USER_GENERATED_FILES_PATH', storage_path('app').DIRECTORY_SEPARATOR.'user_generated'),
         ],
 
         'public' => [
