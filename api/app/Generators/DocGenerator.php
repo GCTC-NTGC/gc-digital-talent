@@ -31,7 +31,7 @@ abstract class DocGenerator
     public function write(string $fileName)
     {
         /** @var \Illuminate\Filesystem\FilesystemManager */
-        $disk = Storage::disk('generated');
+        $disk = Storage::disk('user_generated');
 
         $path = $disk->path($fileName);
 
