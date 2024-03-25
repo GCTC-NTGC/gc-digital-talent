@@ -1,5 +1,5 @@
 import React from "react";
-import { defineMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
@@ -14,12 +14,6 @@ import ProfileAndApplicationsHeading from "./components/ProfileAndApplicationsHe
 import TrackApplications from "./components/TrackApplications/TrackApplications";
 import { PartialUser } from "./types";
 
-const description = defineMessage({
-  defaultMessage:
-    "Manage your personal information, career timeline, skills, and track applications.",
-  id: "OyV6MH",
-  description: "SEO description for profile and applications hero",
-});
 interface ProfileAndApplicationsProps {
   user: PartialUser;
 }
@@ -34,7 +28,12 @@ export const ProfileAndApplications = ({
     <>
       <SEO
         title={intl.formatMessage(navigationMessages.profileAndApplications)}
-        description={intl.formatMessage(description)}
+        description={intl.formatMessage({
+          defaultMessage:
+            "Manage your personal information, career timeline, skills, and track applications.",
+          id: "OyV6MH",
+          description: "SEO description for profile and applications hero",
+        })}
       />
       <ProfileAndApplicationsHeading user={user} />
       <section data-h2-margin="base(x3, 0)">
