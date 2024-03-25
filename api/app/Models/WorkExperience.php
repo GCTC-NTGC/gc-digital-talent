@@ -36,7 +36,7 @@ class WorkExperience extends Experience
 
     public function getTitle(): string
     {
-        return sprintf("%s at %s", $this->role, $this->organization);
+        return sprintf('%s at %s', $this->role, $this->organization);
     }
 
     public function getExperienceType(): string

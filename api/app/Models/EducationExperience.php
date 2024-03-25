@@ -38,7 +38,7 @@ class EducationExperience extends Experience
 
     public function getTitle(): string
     {
-        return sprintf("%s at %s", $this->area_of_study, $this->institution);
+        return sprintf('%s at %s', $this->area_of_study, $this->institution);
     }
 
     public function getExperienceType(): string

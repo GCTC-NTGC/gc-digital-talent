@@ -37,7 +37,7 @@ return [
 
         'generated' => [
             'driver' => 'local',
-            'root' => storage_path('app').DIRECTORY_SEPARATOR.'generated'
+            'root' => storage_path('app').DIRECTORY_SEPARATOR.'generated',
         ],
 
         // A somewhat hacky solution to enable deploying the app in a read-only directory

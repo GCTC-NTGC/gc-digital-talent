@@ -316,47 +316,47 @@ class User extends Model implements Authenticatable, LaratrustUser
     public function getFullName(?bool $anonymous = false)
     {
         $lastName = $this->last_name;
-        if($anonymous && $lastName) {
+        if ($anonymous && $lastName) {
             $lastName = substr($lastName, 0, 1);
         }
 
-        if($this->first_name && $lastName) {
-            return $this->first_name . " " . $lastName;
-        } else if($this->first_name) {
+        if ($this->first_name && $lastName) {
+            return $this->first_name.' '.$lastName;
+        } elseif ($this->first_name) {
             return $this->first_name;
-        } else if ($lastName) {
+        } elseif ($lastName) {
             return $lastName;
         }
 
-        return "";
+        return '';
     }
 
     public function getLocation()
     {
-        if($this->current_city && $this->current_province) {
-            return $this->current_city.", ".$this->current_province;
-        } else if($this->current_city) {
+        if ($this->current_city && $this->current_province) {
+            return $this->current_city.', '.$this->current_province;
+        } elseif ($this->current_city) {
             return $this->current_city;
-        } else if ($this->current_province) {
+        } elseif ($this->current_province) {
             return $this->current_province;
         }
 
-        return "";
+        return '';
     }
 
     public function getLanguage(string $key)
     {
         $code = $this->$key;
-        if($code !== 'en' && $code !== 'fr') {
-            return "";
+        if ($code !== 'en' && $code !== 'fr') {
+            return '';
         }
 
-        return $code === "en" ? "English" : "French";
+        return $code === 'en' ? 'English' : 'French';
     }
 
     public function getArmedForcesStatus()
     {
-        switch($this->armed_forces_status) {
+        switch ($this->armed_forces_status) {
             case ArmedForcesStatus::MEMBER->name:
                 return 'Member';
             case ArmedForcesStatus::VETERAN->name:
@@ -368,7 +368,7 @@ class User extends Model implements Authenticatable, LaratrustUser
 
     public function getCitizenship()
     {
-        switch($this->citizenship) {
+        switch ($this->citizenship) {
             case CitizenshipStatus::CITIZEN:
                 return 'Canadian citizen';
             case CitizenshipStatus::PERMANENT_RESIDENT:
@@ -380,13 +380,13 @@ class User extends Model implements Authenticatable, LaratrustUser
 
     public function getLookingForLanguage()
     {
-        if($this->looking_for_bilingual) {
+        if ($this->looking_for_bilingual) {
             return 'Bilingual positions (English and French)';
-        } else if($this->looking_for_english && $this->looking_for_french) {
+        } elseif ($this->looking_for_english && $this->looking_for_french) {
             return 'English or French positions';
-        } else if($this->looking_for_english) {
+        } elseif ($this->looking_for_english) {
             return 'English positions';
-        } else if($this->looking_for_french) {
+        } elseif ($this->looking_for_french) {
             return 'French positions';
         }
 
@@ -395,7 +395,7 @@ class User extends Model implements Authenticatable, LaratrustUser
 
     public function getBilingualEvaluation()
     {
-        switch($this->bilingual_evaluation) {
+        switch ($this->bilingual_evaluation) {
             case BilingualEvaluation::NOT_COMPLETED->name:
                 return 'No';
             case BilingualEvaluation::COMPLETED_ENGLISH->name:
@@ -409,21 +409,21 @@ class User extends Model implements Authenticatable, LaratrustUser
 
     public function getSecondLanguageEvaluation()
     {
-        if($this->comprehension_level || $this->written_level || $this->verbal_level) {
+        if ($this->comprehension_level || $this->written_level || $this->verbal_level) {
             return sprintf('%s, %s, %s',
-                $this->comprehension_level ?? "",
-                $this->written_level ?? "",
-                $this->verbal_level ?? ""
+                $this->comprehension_level ?? '',
+                $this->written_level ?? '',
+                $this->verbal_level ?? ''
             );
         }
 
-        return "";
+        return '';
     }
 
     public function getGovEmployeeType()
     {
-        if(!$this->gov_employee_type){
-            return "";
+        if (! $this->gov_employee_type) {
+            return '';
         }
 
         return ucwords(strtolower($this->gov_employee_type));
@@ -431,8 +431,8 @@ class User extends Model implements Authenticatable, LaratrustUser
 
     public function getClassification()
     {
-        if(!$this->current_classification) {
-            return "";
+        if (! $this->current_classification) {
+            return '';
         }
 
         $classification = $this->currentClassification()->first();
@@ -442,8 +442,8 @@ class User extends Model implements Authenticatable, LaratrustUser
 
     public function getDepartment()
     {
-        if(!$this->department) {
-            return "";
+        if (! $this->department) {
+            return '';
         }
 
         return $this->department()->get('name');
@@ -451,18 +451,18 @@ class User extends Model implements Authenticatable, LaratrustUser
 
     public function getIndigenousCommunities()
     {
-        if(empty($this->indigenous_communities)) {
+        if (empty($this->indigenous_communities)) {
             return null;
         }
 
-        return array_map(function($community) {
-            return match($community) {
-                IndigenousCommunity::NON_STATUS_FIRST_NATIONS->name => "Non-status First Nations",
-                IndigenousCommunity::STATUS_FIRST_NATIONS->name => "Status First Nations",
-                IndigenousCommunity::INUIT->name => "Inuk (Inuit)",
-                IndigenousCommunity::METIS->name => "Métis",
-                IndigenousCommunity::OTHER->name => "Other",
-                default => "Unknown"
+        return array_map(function ($community) {
+            return match ($community) {
+                IndigenousCommunity::NON_STATUS_FIRST_NATIONS->name => 'Non-status First Nations',
+                IndigenousCommunity::STATUS_FIRST_NATIONS->name => 'Status First Nations',
+                IndigenousCommunity::INUIT->name => 'Inuk (Inuit)',
+                IndigenousCommunity::METIS->name => 'Métis',
+                IndigenousCommunity::OTHER->name => 'Other',
+                default => 'Unknown'
             };
         }, $this->indigenous_communities);
     }

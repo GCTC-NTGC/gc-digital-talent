@@ -3,13 +3,14 @@
 namespace App\Generators;
 
 use Illuminate\Support\Facades\Storage;
-use \PhpOffice\PhpWord\PhpWord;
-use \PhpOffice\PhpWord\IOFactory;
-use \PhpOffice\PhpWord\Element;
+use PhpOffice\PhpWord\Element;
+use PhpOffice\PhpWord\IOFactory;
+use PhpOffice\PhpWord\PhpWord;
 
-abstract class DocGenerator {
-
+abstract class DocGenerator
+{
     protected PhpWord $doc;
+
     protected array $strong;
 
     public function __construct()
@@ -19,16 +20,16 @@ abstract class DocGenerator {
         $this->doc->addTitleStyle(1, ['size' => 22, 'bold' => true], ['spaceBefore' => 240, 'spaceAfter' => 120]);
         $this->doc->addTitleStyle(2, ['size' => 18, 'bold' => true], ['spaceBefore' => 240, 'spaceAfter' => 120]);
         $this->doc->addTitleStyle(3, ['size' => 15, 'bold' => true], ['spaceBefore' => 240, 'spaceAfter' => 120]);
-        $this->doc->addTitleStyle(4, ['size' => 13, 'bold' => true],    ['spaceBefore' => 240, 'spaceAfter' => 120]);
+        $this->doc->addTitleStyle(4, ['size' => 13, 'bold' => true], ['spaceBefore' => 240, 'spaceAfter' => 120]);
 
         $this->strong = ['bold' => true];
     }
 
-    abstract function generate();
+    abstract public function generate();
 
     public function write(string $fileName)
     {
-       /** @var \Illuminate\Filesystem\FilesystemManager */
+        /** @var \Illuminate\Filesystem\FilesystemManager */
         $disk = Storage::disk('generated');
 
         $path = $disk->path($fileName);
@@ -49,5 +50,4 @@ abstract class DocGenerator {
         $run->addText($label.': ', $this->strong);
         $run->addText($text);
     }
-
 }

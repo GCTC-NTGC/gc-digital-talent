@@ -36,7 +36,7 @@ class CommunityExperience extends Experience
 
     public function getTitle(): string
     {
-        return sprintf("%s at %s", $this->title, $this->organization);
+        return sprintf('%s at %s', $this->title, $this->organization);
     }
 
     public function getExperienceType(): string
