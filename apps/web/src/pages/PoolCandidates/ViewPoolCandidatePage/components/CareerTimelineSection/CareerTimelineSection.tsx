@@ -1,9 +1,11 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
+import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Well } from "@gc-digital-talent/ui";
+import { Heading, Well } from "@gc-digital-talent/ui";
 import { Experience } from "@gc-digital-talent/graphql";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSortAndFilter, {
@@ -33,6 +35,9 @@ const CareerTimelineSection = ({ experiences }: CareerTimelineSectionProps) => {
 
   return (
     <>
+      <Heading Icon={UserCircleIcon} color="tertiary">
+        {intl.formatMessage(navigationMessages.careerTimelineAndRecruitment)}
+      </Heading>
       <div
         data-h2-flex-grid="base(center, x1, x1)"
         data-h2-margin-bottom="base(x.5)"
