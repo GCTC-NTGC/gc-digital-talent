@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
             ->timezone('America/Toronto')
             ->dailyAt('2:00')
             ->withoutOverlapping()
-            ->sendOutputTo('/proc/1/fd/1', true); // docker logs
+            ->appendOutputTo('/tmp/laravel-prune-user-generated-files.log');
     }
 
     /**
