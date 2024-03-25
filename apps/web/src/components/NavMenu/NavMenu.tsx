@@ -2,6 +2,7 @@ import React, { ReactElement } from "react";
 import { useIntl } from "react-intl";
 
 import { useAuthentication } from "@gc-digital-talent/auth";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import NotificationDialog from "../NotificationDialog/NotificationDialog";
 
@@ -24,6 +25,7 @@ const ListItem = ({ children }: { children?: React.ReactNode }) => (
 const NavMenu = ({ mainItems, utilityItems }: NavMenuProps) => {
   const intl = useIntl();
   const { loggedIn } = useAuthentication();
+  const { notifications } = useFeatureFlags();
   return (
     <div
       data-h2-background-color="base(foreground) base:dark(white)"
@@ -75,7 +77,7 @@ const NavMenu = ({ mainItems, utilityItems }: NavMenuProps) => {
                     {utilityItems.map((item) => (
                       <ListItem key={item.key}>{item}</ListItem>
                     ))}
-                    {loggedIn && (
+                    {notifications && loggedIn && (
                       <ListItem>
                         <NotificationDialog />
                       </ListItem>
