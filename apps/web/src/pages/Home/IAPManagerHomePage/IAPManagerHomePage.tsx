@@ -792,8 +792,8 @@ export const IAPManagerHomePage = () => {
                 {intl.formatMessage(
                   {
                     defaultMessage:
-                      "The <link>Digital Ambition</link>, released in 2022, provides direction on how to increase representation of under-represented groups by leveraging programs like the IT Apprenticeship Program for Indigenous peoples.",
-                    id: "PvYso4",
+                      "The <link>Digital Ambition</link>, released in 2022, provides direction on how to increase representation of under-represented groups by leveraging programs like the IT Apprenticeship Program for Indigenous Peoples.",
+                    id: "c4R8FH",
                     description:
                       "Paragraph 1 of the 'A commitment to diverse digital talent' section",
                   },
