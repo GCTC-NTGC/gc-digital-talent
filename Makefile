@@ -10,7 +10,7 @@ down:
 	docker-compose down
 
 setup:
-	$(DOCKER_RUN) bash setup.sh
+	$(DOCKER_RUN) setup.sh
 
 refresh:
 	$(DOCKER_RUN) refresh_all.sh
