@@ -80,7 +80,7 @@ class CandidateProfileDoc extends DocGenerator
                 $this->addLabelText($section, 'Classification', $candidate->user->getClassification());
             }
             $this->addLabelText($section, 'Priority entitlement', $candidate->user->has_priority_entitlement ? 'Yes' : 'No');
-            if($candidate->user->has_priority_entitlement) {
+            if ($candidate->user->has_priority_entitlement) {
                 $this->addLabelText($section, 'Priority number', $candidate->user->priority_number);
             }
 
@@ -113,7 +113,7 @@ class CandidateProfileDoc extends DocGenerator
             }
 
             if (count($preferences['accepted']) > 0) {
-                $section->addText("Would consider accepting a job that requires:");
+                $section->addText('Would consider accepting a job that requires:');
 
                 foreach ($preferences['accepted'] as $preference) {
                     $section->addListItem($this->santizeEnum($preference));
@@ -155,17 +155,43 @@ class CandidateProfileDoc extends DocGenerator
 
                 $candidate->user->experiences->each(function ($experience) use (&$experiences) {
                     $type = $experience->getExperienceType();
-                    if (!isset($experiences[$type])) {
+                    if (! isset($experiences[$type])) {
                         $experiences[$type] = collect();
                     }
                     $experiences[$type]->push($experience);
                 });
 
                 foreach ($experiences as $type => $group) {
-                    $section->addTitle(ucwords($type) . ' experiences', 3);
-                    $group->each(function ($experience) use ($section) {
+                    $section->addTitle(ucwords($type).' experiences', 3);
+                    $group->each(function ($experience) use ($section, $type) {
                         $section->addTitle($experience->getTitle(), 4);
                         $section->addText($experience->getDateRange());
+                        $section->addTextBreak(1);
+
+                        if ($type === 'award') {
+                            $this->addLabelText($section, 'Awarded to', $experience->awarded_to);
+                            $this->addLabelText($section, 'Issuing organization', $experience->issued_by);
+                            $this->addLabelText($section, 'Award scope', $experience->awarded_scope);
+                        }
+
+                        if ($type === 'community') {
+                            $this->addLabelText($section, 'Project / Product', $experience->project);
+                        }
+
+                        if ($type === 'education') {
+                            $this->addLabelText($section, 'Area of study', $experience->area_of_study);
+                            $this->addLabelText($section, 'Status', $experience->status);
+                            $this->addLabelText($section, 'Thesis title', $experience->thesis_title);
+                        }
+
+                        if ($type === 'personal') {
+                            $this->addLabelText($section, 'Learning description', $experience->description);
+                        }
+
+                        if ($type === 'work') {
+                            $this->addLabelText($section, 'Team, group or division', $experience->division);
+                        }
+
                         $section->addTextBreak(1);
                         $this->addLabelText($section, 'Additional details', $experience->details);
 
@@ -177,7 +203,7 @@ class CandidateProfileDoc extends DocGenerator
                             $skillRun = $section->addListItemRun();
                             $skillRun->addText($skill->skill->name[$this->lang], $this->strong);
                             if (isset($skill->experience_skill->details)) {
-                                $skillRun->addText(': ' . $skill->experience_skill->details);
+                                $skillRun->addText(': '.$skill->experience_skill->details);
                             }
                         });
                     });
@@ -222,7 +248,7 @@ class CandidateProfileDoc extends DocGenerator
                 $listRun = $section->addListItemRun();
                 $listRun->addText($userSkill->skill->name[$this->lang], $this->strong);
                 if ($userSkill->skill_level) {
-                    $listRun->addText(': ' . $this->santizeEnum($userSkill->skill_level));
+                    $listRun->addText(': '.$this->santizeEnum($userSkill->skill_level));
                 }
             });
         }

@@ -174,6 +174,10 @@ abstract class Experience extends Model
 
     public function getDateRange(): string
     {
+        if ($this->getExperienceType() === 'award') {
+            return $this->awarded_date->format('M Y');
+        }
+
         $start = $this->start_date->format('M Y');
         $end = $this->end_date ? $this->end_date->format('M Y') : 'Present';
 
