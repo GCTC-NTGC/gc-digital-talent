@@ -46,4 +46,9 @@ abstract class DocGenerator
         $run->addText($label.': ', $this->strong);
         $run->addText($text);
     }
+
+    protected function santizeEnum(string $enum): string
+    {
+        return ucwords(strtolower(str_replace('_', ' ', $enum)));
+    }
 }
