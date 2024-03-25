@@ -33,7 +33,9 @@ class CandidateProfileDoc extends DocGenerator
                 'educationExperiences' => ['userSkills' => ['skill']],
                 'personalExperiences' => ['userSkills' => ['skill']],
                 'workExperiences' => ['userSkills' => ['skill']],
-            ]
+                'userSkills' => ['skill'],
+            ],
+            'screeningQuestionResponses' => ['screeningQuestion'],
         ])
             ->whereIn('id', $this->ids)
             ->get();
@@ -129,15 +131,56 @@ class CandidateProfileDoc extends DocGenerator
                         $experience->userSkills->each(function ($skill) use ($section) {
                             $skillRun = $section->addListItemRun();
                             $skillRun->addText($skill->skill->name[$this->lang], $this->strong);
-                            if($skill->details) {
-                                $skillRun->addText(" - " . $skill->details);
+                            if (isset($skill->experience_skill->details)) {
+                                $skillRun->addText(": " . $skill->experience_skill->details);
                             }
                         });
                     });
                 }
             }
 
+            if ($candidate->screeningQuestionResponses->count() > 0) {
+                $section->addTitle('Screening questions', 2);
+                $candidate->screeningQuestionResponses->each(function ($response) use ($section) {
+                    $this->addSubTitle($section, $response->screeningQuestion->question[$this->lang], 3);
+                    $section->addText($response->answer);
+                });
+            }
+
+            $section->addTitle('Skills showcase', 2);
+            $section->addText("The skill showcase allows a candidate to provide a curated series of lists that highlight their specific strengths, weaknesses, and skill growth opportunities. These lists can provide you with insight into a candidate’s broader skillset and where they might be interested in learning new skills.");
+
+            if($candidate->user->topBehaviouralSkillsRanking->count() > 0 || $candidate->user->topTechnicalSkillsRanking->count() > 0) {
+
+                $this->addSubTitle($section, 'Top skills', 3);
+
+                $this->skillRanks($section, $candidate->user->topBehaviouralSkillsRanking, 'Behaioural skills');
+                $this->skillRanks($section, $candidate->user->topTechnicalSkillsRanking, 'Technical skills');
+
+            }
+
+            if($candidate->user->improveBehaviouralSkillsRanking->count() > 0 || $candidate->user->improveTechnicalSkillsRanking->count() > 0) {
+                $this->addSubTitle($section, 'Skills to improve', 3);
+
+                $this->skillRanks($section, $candidate->user->improveBehaviouralSkillsRanking, 'Behaioural skills');
+                $this->skillRanks($section, $candidate->user->improveTechnicalSkillsRanking, 'Technical skills');
+            }
+
             $section->addPageBreak();
         });
+    }
+
+    private function skillRanks($section, $skills, $title)
+    {
+        if ($skills->count() > 0) {
+            $this->addSubTitle($section, $title, 3);
+            $skills->each(function ($userSkill) use ($section) {
+                $listRun = $section->addListItemRun();
+                $listRun->addText($userSkill->skill->name[$this->lang], $this->strong);
+                if($userSkill->skill_level) {
+                    $listRun->addText(": " . ucwords(strtolower($userSkill->skill_level)));
+                }
+            });
+        }
     }
 }
