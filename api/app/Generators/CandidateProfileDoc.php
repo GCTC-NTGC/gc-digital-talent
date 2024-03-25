@@ -154,7 +154,7 @@ class CandidateProfileDoc extends DocGenerator
 
                 $this->addSubTitle($section, 'Top skills', 3);
 
-                $this->skillRanks($section, $candidate->user->topBehaviouralSkillsRanking, 'Behaioural skills');
+                $this->skillRanks($section, $candidate->user->topBehaviouralSkillsRanking, 'Behavioural skills');
                 $this->skillRanks($section, $candidate->user->topTechnicalSkillsRanking, 'Technical skills');
 
             }
@@ -162,7 +162,7 @@ class CandidateProfileDoc extends DocGenerator
             if ($candidate->user->improveBehaviouralSkillsRanking->count() > 0 || $candidate->user->improveTechnicalSkillsRanking->count() > 0) {
                 $this->addSubTitle($section, 'Skills to improve', 3);
 
-                $this->skillRanks($section, $candidate->user->improveBehaviouralSkillsRanking, 'Behaioural skills');
+                $this->skillRanks($section, $candidate->user->improveBehaviouralSkillsRanking, 'Behavioural skills');
                 $this->skillRanks($section, $candidate->user->improveTechnicalSkillsRanking, 'Technical skills');
             }
 
