@@ -370,9 +370,9 @@ class User extends Model implements Authenticatable, LaratrustUser
     public function getCitizenship()
     {
         switch ($this->citizenship) {
-            case CitizenshipStatus::CITIZEN:
+            case CitizenshipStatus::CITIZEN->name:
                 return 'Canadian citizen';
-            case CitizenshipStatus::PERMANENT_RESIDENT:
+            case CitizenshipStatus::PERMANENT_RESIDENT->name:
                 return 'Permanent resident';
             default:
                 return 'Other';
