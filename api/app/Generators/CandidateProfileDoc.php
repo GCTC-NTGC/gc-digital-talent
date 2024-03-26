@@ -88,7 +88,7 @@ class CandidateProfileDoc extends DocGenerator
             $this->addLabelText(
                 $section,
                 'Work location',
-                $candidate->user->location_preferences ? $this->santizeEnum(implode(', ', $candidate->user->location_preferences)) : ''
+                $candidate->user->location_preferences ? $this->sanitizeEnum(implode(', ', $candidate->user->location_preferences)) : ''
             );
             $this->addLabelText($section, 'Location exemptions', $candidate->user->location_exemptions);
 
@@ -116,7 +116,7 @@ class CandidateProfileDoc extends DocGenerator
                 $section->addText('Would consider accepting a job that requires:');
 
                 foreach ($preferences['accepted'] as $preference) {
-                    $section->addListItem($this->santizeEnum($preference));
+                    $section->addListItem($this->sanitizeEnum($preference));
                 }
             }
 
@@ -127,7 +127,7 @@ class CandidateProfileDoc extends DocGenerator
                 $notConsiderRun->addText(' a job that requires:');
 
                 foreach ($preferences['not_accepted'] as $preference) {
-                    $section->addListItem($this->santizeEnum($preference));
+                    $section->addListItem($this->sanitizeEnum($preference));
                 }
             }
 
@@ -248,7 +248,7 @@ class CandidateProfileDoc extends DocGenerator
                 $listRun = $section->addListItemRun();
                 $listRun->addText($userSkill->skill->name[$this->lang], $this->strong);
                 if ($userSkill->skill_level) {
-                    $listRun->addText(': '.$this->santizeEnum($userSkill->skill_level));
+                    $listRun->addText(': '.$this->sanitizeEnum($userSkill->skill_level));
                 }
             });
         }

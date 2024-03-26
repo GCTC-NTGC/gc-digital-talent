@@ -47,7 +47,7 @@ abstract class DocGenerator
         $run->addText($text);
     }
 
-    protected function santizeEnum(string $enum): string
+    protected function sanitizeEnum(string $enum): string
     {
         return ucwords(strtolower(str_replace('_', ' ', $enum)));
     }
