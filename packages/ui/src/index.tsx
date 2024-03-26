@@ -1,3 +1,5 @@
+import * as DialogPrimitive from "@radix-ui/react-dialog";
+
 import {
   Color,
   HeadingRank,
@@ -10,6 +12,7 @@ import Alert, { type AlertProps } from "./components/Alert";
 import AlertDialog from "./components/AlertDialog";
 import Announcer, { useAnnouncer } from "./components/Announcer/Announcer";
 import Button, { type ButtonProps } from "./components/Button";
+import Counter from "./components/Button/Counter";
 import Breadcrumbs, { type BreadcrumbsProps } from "./components/Breadcrumbs";
 import Board from "./components/Board/Board";
 import Card, {
@@ -34,6 +37,7 @@ import Heading, {
   HeadingLevel,
   HeadingRef,
 } from "./components/Heading";
+import { headingStyles } from "./components/Heading/styles";
 import Link, {
   DownloadCsv,
   ScrollToLink,
@@ -78,6 +82,7 @@ import ToggleSection from "./components/ToggleSection/ToggleSection";
 import TreeView from "./components/TreeView";
 import Well, { WellProps } from "./components/Well";
 import { incrementHeadingRank, decrementHeadingRank } from "./utils";
+import useControllableState from "./hooks/useControllableState";
 
 export type {
   Color,
@@ -134,8 +139,11 @@ export {
   Chips,
   Chip,
   Collapsible,
+  Counter,
   DefinitionList,
   Dialog,
+  /* Re-exporting primitive for custom solutions */
+  DialogPrimitive,
   DropdownMenu,
   Flourish,
   Heading,
@@ -168,4 +176,10 @@ export {
   Well,
 };
 
-export { incrementHeadingRank, decrementHeadingRank, useCardRepeaterContext };
+export {
+  incrementHeadingRank,
+  decrementHeadingRank,
+  headingStyles,
+  useCardRepeaterContext,
+  useControllableState,
+};

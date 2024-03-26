@@ -18,7 +18,7 @@ import {
 import GeneralQuestionCard from "./GeneralQuestionCard";
 import GeneralQuestionDialog from "./GeneralQuestionDialog";
 
-const MAX_GENERAL_QUESTIONS = 3;
+const MAX_GENERAL_QUESTIONS = 10;
 
 interface GeneralQuestionsProps {
   pool: Pool;
@@ -74,8 +74,8 @@ const GeneralQuestionsSection = ({
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
-            "This section allows you to <strong>optionally</strong> add up to 3 general questions that will be asked to applicants during the application process. Please note that these are <strong>not screening questions</strong>. Screening questions will be added when you craft your assessment plan.",
-          id: "iAG/IN",
+            "This section allows you to <strong>optionally</strong> add up to 10 general questions that will be asked to applicants during the application process. Please note that these are <strong>not screening questions</strong>. Screening questions will be added when you craft your assessment plan.",
+          id: "4W8uc/",
           description:
             "Helper message indicating what general questions are and how they differ from screening questions",
         })}

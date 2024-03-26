@@ -67,5 +67,4 @@ chmod -R a+r,a+w \
   apps/*/src/lang \
   apps/*/dist \
   packages/*/.turbo \
-  packages/*/dist \
   packages/*/src/lang

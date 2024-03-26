@@ -9,8 +9,5 @@
   },
   "devDependencies": {
     "jest-environment-jsdom": "^29.7.0"
-  },
-  "scripts": {
-    "clean": "rm -rf node_modules"
   }
 }

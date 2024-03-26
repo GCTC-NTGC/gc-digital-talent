@@ -28,6 +28,12 @@ export const ProfileAndApplications = ({
     <>
       <SEO
         title={intl.formatMessage(navigationMessages.profileAndApplications)}
+        description={intl.formatMessage({
+          defaultMessage:
+            "Manage your personal information, career timeline, skills, and track applications.",
+          id: "OyV6MH",
+          description: "SEO description for profile and applications hero",
+        })}
       />
       <ProfileAndApplicationsHeading user={user} />
       <section data-h2-margin="base(x3, 0)">

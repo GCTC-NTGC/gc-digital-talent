@@ -1,8 +1,7 @@
 import { defineMessage, defineMessages, MessageDescriptor } from "react-intl";
 
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import getOrThrowError from "@gc-digital-talent/i18n/src/utils/error";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, getOrThrowError } from "@gc-digital-talent/i18n";
 import {
   PoolCandidateStatus,
   Maybe,

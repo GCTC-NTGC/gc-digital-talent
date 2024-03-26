@@ -5,7 +5,7 @@ import ChartPieIcon from "@heroicons/react/24/outline/ChartPieIcon";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 
 import { TableOfContents, Pending, Link } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers/src/utils/util";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { Skill, UserSkill } from "@gc-digital-talent/graphql";
 

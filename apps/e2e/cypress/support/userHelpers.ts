@@ -8,7 +8,7 @@ import {
   Skill,
   GenericJobTitle,
 } from "@gc-digital-talent/graphql";
-import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
+import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers/const";
 
 type CreateApplicationArgs = {
   email: string;

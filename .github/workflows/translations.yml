@@ -36,10 +36,6 @@ jobs:
         working-directory: ./
         run: pnpm install
 
-      - name: "Setup cli"
-        working-directory: ./
-        run: pnpm run build:intl-cli
-
       - name: "Extract English files: all workspaces"
         working-directory: ./
         run: pnpm run intl-extract
@@ -47,8 +43,7 @@ jobs:
       - name: "Generate untranslated files: all workspaces"
         working-directory: ./
         run: |
-          pnpm run check-intl:i18n
-          pnpm run check-intl:web
+          pnpm run check-intl --force
 
       - name: "Verify no untranslated file: i18n"
         if: always()

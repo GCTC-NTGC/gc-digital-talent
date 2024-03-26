@@ -1,6 +1,6 @@
 import React from "react";
 import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
-import { defineMessages, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 
 import { CardBasic, Heading, Link, Sidebar } from "@gc-digital-talent/ui";
@@ -10,19 +10,7 @@ import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import NotificationList from "~/components/NotificationList/NotificationList";
-
-const meta = defineMessages({
-  title: {
-    defaultMessage: "Notifications",
-    id: "hbcdJm",
-    description: "Page title for the notifications page",
-  },
-  description: {
-    defaultMessage: "View and manage your notification history.",
-    id: "6ft0/o",
-    description: "Subtitle for the notifications page",
-  },
-});
+import notificationMessages from "~/messages/notificationMessages";
 
 const NotificationsPage = () => {
   const intl = useIntl();
@@ -31,7 +19,7 @@ const NotificationsPage = () => {
   const breadcrumbs = useBreadcrumbs({
     crumbs: [
       {
-        label: intl.formatMessage(meta.title),
+        label: intl.formatMessage(notificationMessages.title),
         url: paths.notifications(),
       },
     ],
@@ -40,12 +28,12 @@ const NotificationsPage = () => {
   return (
     <>
       <SEO
-        title={intl.formatMessage(meta.title)}
-        description={intl.formatMessage(meta.description)}
+        title={intl.formatMessage(notificationMessages.title)}
+        description={intl.formatMessage(notificationMessages.description)}
       />
       <Hero
-        title={intl.formatMessage(meta.title)}
-        subtitle={intl.formatMessage(meta.description)}
+        title={intl.formatMessage(notificationMessages.title)}
+        subtitle={intl.formatMessage(notificationMessages.description)}
         crumbs={breadcrumbs}
       />
       <section data-h2-margin="base(x3, 0)">

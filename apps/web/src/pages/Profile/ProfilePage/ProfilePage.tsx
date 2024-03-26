@@ -1,5 +1,5 @@
 import React from "react";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 
 import { TableOfContents, ThrowNotFound, Pending } from "@gc-digital-talent/ui";
@@ -82,6 +82,18 @@ const ProfileUpdateUser_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
+const pageTitle = defineMessage({
+  defaultMessage: "Personal information",
+  id: "g8Ur9z",
+  description: "applicant dashboard card title for profile card",
+});
+const subTitle = defineMessage({
+  defaultMessage:
+    "View and update account information including contact and work preferences.",
+  id: "NflJW7",
+  description: "subtitle for the profile page",
+});
+
 export interface ProfilePageProps {
   user: User;
 }
@@ -90,11 +102,8 @@ export const ProfileForm = ({ user }: ProfilePageProps) => {
   const paths = useRoutes();
   const intl = useIntl();
 
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Personal information",
-    id: "g8Ur9z",
-    description: "applicant dashboard card title for profile card",
-  });
+  const formattedPageTitle = intl.formatMessage(pageTitle);
+  const formattedSubTitle = intl.formatMessage(subTitle);
 
   const crumbs = useBreadcrumbs({
     crumbs: [
@@ -103,7 +112,7 @@ export const ProfileForm = ({ user }: ProfilePageProps) => {
         url: paths.profileAndApplications(),
       },
       {
-        label: pageTitle,
+        label: formattedPageTitle,
         url: paths.profile(user.id),
       },
     ],
@@ -129,15 +138,10 @@ export const ProfileForm = ({ user }: ProfilePageProps) => {
 
   return (
     <>
-      <SEO title={pageTitle} />
+      <SEO title={formattedPageTitle} description={formattedSubTitle} />
       <Hero
-        title={pageTitle}
-        subtitle={intl.formatMessage({
-          defaultMessage:
-            "View and update account information including contact and work preferences.",
-          id: "NflJW7",
-          description: "subtitle for the profile page",
-        })}
+        title={formattedPageTitle}
+        subtitle={formattedSubTitle}
         crumbs={crumbs}
       />
       <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">

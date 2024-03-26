@@ -22,8 +22,8 @@ import {
   getAssessmentDecision,
   getAssessmentDecisionLevel,
   getAssessmentJustification,
-} from "@gc-digital-talent/i18n/src/messages/localizedConstants";
-import { commonMessages } from "@gc-digital-talent/i18n";
+  commonMessages,
+} from "@gc-digital-talent/i18n";
 
 import { NO_DECISION } from "~/utils/assessmentResults";
 
