@@ -34,12 +34,6 @@ import {
   GovernmentInfoFormFields,
 } from "./components/GovernmentInfoForm";
 
-export const pageTitle = defineMessage({
-  defaultMessage: "Create account",
-  id: "lPWUoO",
-  description: "Page title for the account creation page",
-});
-
 export const subTitle = defineMessage({
   defaultMessage: "Let's begin with some basic account information.",
   id: "f9UKuz",
@@ -141,7 +135,11 @@ export const CreateAccountForm = ({
   return (
     <>
       <SEO
-        title={intl.formatMessage(pageTitle)}
+        title={intl.formatMessage({
+          defaultMessage: "Create account",
+          id: "lPWUoO",
+          description: "Page title for the account creation page",
+        })}
         description={intl.formatMessage(subTitle)}
       />
       <Hero
