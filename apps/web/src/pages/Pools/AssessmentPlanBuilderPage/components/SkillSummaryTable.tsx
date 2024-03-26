@@ -1,6 +1,6 @@
 import React from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
-import { useIntl } from "react-intl";
+import { IntlShape, useIntl } from "react-intl";
 import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
@@ -21,6 +21,7 @@ import {
   Skill,
   SkillCategory,
 } from "@gc-digital-talent/graphql";
+import { Chip } from "@gc-digital-talent/ui";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
@@ -34,66 +35,6 @@ export interface SkillSummaryTableProps {
   assessmentSteps: Array<AssessmentStep>;
   title: string;
 }
-
-const CheckCircleIconElement = (
-  skill: Skill | null | undefined,
-): JSX.Element | null => {
-  const intl = useIntl();
-  if (!skill) {
-    return null;
-  }
-  const { name } = skill;
-  const localizedName = getLocalizedName(name, intl);
-
-  return (
-    <CheckCircleIcon
-      data-h2-width="base(x1)"
-      data-h2-display="base(inline-block)"
-      data-h2-vertical-align="base(bottom)"
-      data-h2-margin="base(0, x.25, 0, 0) p-tablet(0, x0.5, 0, 0)"
-      data-h2-color="base(success) base:dark(success.light)"
-      aria-label={intl.formatMessage(
-        {
-          defaultMessage: "{localizedName} has assessments",
-          description:
-            "Aria text for icon confirming a skill is connected to assessments.",
-          id: "1WVTN6",
-        },
-        { localizedName },
-      )}
-    />
-  );
-};
-
-const XCircleIconElement = (
-  skill: Skill | null | undefined,
-): JSX.Element | null => {
-  const intl = useIntl();
-  if (!skill) {
-    return null;
-  }
-  const { name } = skill;
-  const localizedName = getLocalizedName(name, intl);
-
-  return (
-    <XCircleIcon
-      data-h2-width="base(x1)"
-      data-h2-display="base(inline-block)"
-      data-h2-vertical-align="base(bottom)"
-      data-h2-margin="base(0, x.25, 0, 0) p-tablet(0, x0.5, 0, 0)"
-      data-h2-color="base(error) base:dark(error.light)"
-      aria-label={intl.formatMessage(
-        {
-          defaultMessage: "{localizedName} missing assessments",
-          description:
-            "Aria text for icon indicating a skill is not connected to assessments.",
-          id: "guN1wV",
-        },
-        { localizedName },
-      )}
-    />
-  );
-};
 
 const CheckIconElement = (
   skill: Skill | null | undefined,
@@ -134,14 +75,34 @@ const CheckIconElement = (
 const plannedAssessmentCell = (
   poolSkill: PoolSkill,
   assessmentSteps: AssessmentStep[],
+  intl: IntlShape,
 ): JSX.Element | null => {
-  return assessmentSteps.some((assessmentStep) =>
+  const assessmentCount = assessmentSteps.filter((assessmentStep) =>
     assessmentStep.poolSkills?.some(
       (assessmentStepPoolSkill) => assessmentStepPoolSkill?.id === poolSkill.id,
     ),
-  )
-    ? CheckCircleIconElement(poolSkill.skill)
-    : XCircleIconElement(poolSkill.skill);
+  );
+  return (
+    <Chip color={assessmentCount.length > 0 ? "success" : "error"}>
+      {assessmentCount.length > 0
+        ? intl.formatMessage(
+            {
+              defaultMessage:
+                "{count, plural, =1 {# assessment} other {# assessments}}",
+              id: "XOFVsC",
+              description: "Number of assessments for a skill",
+            },
+            {
+              count: assessmentCount.length,
+            },
+          )
+        : intl.formatMessage({
+            defaultMessage: "Missing assessments",
+            id: "O2QLD8",
+            description: "No assessments for a skill",
+          })}
+    </Chip>
+  );
 };
 
 const SkillSummaryTable = ({
@@ -200,7 +161,7 @@ const SkillSummaryTable = ({
           "Title for a column that displays a complete or not state.",
       }),
       cell: ({ row: { original: poolSkill } }) =>
-        cells.jsx(plannedAssessmentCell(poolSkill, assessmentSteps)),
+        cells.jsx(plannedAssessmentCell(poolSkill, assessmentSteps, intl)),
       enableHiding: false,
     }),
     columnHelper.accessor((row) => getLocalizedName(row.skill?.name, intl), {
