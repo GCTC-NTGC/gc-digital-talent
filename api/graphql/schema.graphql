@@ -176,7 +176,7 @@ type Pool {
   owner: UserPublicProfile @belongsTo(relation: "user")
   team: Team @belongsTo @canModel(ability: "viewAny")
   name: LocalizedString
-  classifications: [Classification] @belongsToMany
+  classification: Classification @belongsTo
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   poolCandidates: [PoolCandidate]

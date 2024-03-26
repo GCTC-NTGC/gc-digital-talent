@@ -316,7 +316,7 @@ type Pool {
   owner: UserPublicProfile
   team: Team
   name: LocalizedString
-  classifications: [Classification]
+  classification: Classification
   operationalRequirements: [OperationalRequirement]
   poolCandidates: [PoolCandidate]
   keyTasks: LocalizedString

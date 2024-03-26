@@ -57,7 +57,7 @@ class PoolTestSeeder extends Seeder
                 // constrain CMO Digital Careers pool to predictable values
                 if ($identifier['name->en'] == 'CMO Digital Careers') {
                     $classificationIT01Id = Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 1)->sole()->id;
-                    $createdPool->classifications()->sync([$classificationIT01Id]);
+                    $createdPool->classification_id = $classificationIT01Id;
                     $createdPool->stream = PoolStream::BUSINESS_ADVISORY_SERVICES->name;
                     $createdPool->advertisement_language = PoolLanguage::VARIOUS->name;
                     $createdPool->save();

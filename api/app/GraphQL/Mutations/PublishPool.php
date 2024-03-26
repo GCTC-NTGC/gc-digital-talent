@@ -19,7 +19,7 @@ final class PublishPool
     {
         $pool = Pool::find($args['id'])
             ->load([
-                'classifications',
+                'classification',
                 'essentialSkills' => function ($query) {
                     $query->withTrashed(); // eager load soft deleted skills too
                 },
