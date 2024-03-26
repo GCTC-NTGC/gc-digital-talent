@@ -1,8 +1,6 @@
 import React from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { IntlShape, useIntl } from "react-intl";
-import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
-import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 
 import {
