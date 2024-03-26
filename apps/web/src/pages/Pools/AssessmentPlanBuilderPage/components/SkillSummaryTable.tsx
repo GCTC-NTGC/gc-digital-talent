@@ -162,8 +162,8 @@ const SkillSummaryTable = ({
     columnHelper.display({
       id: "plannedAssessment",
       header: intl.formatMessage({
-        defaultMessage: "No. of assessments",
-        id: "ofU598",
+        defaultMessage: "Number of assessments",
+        id: "7nuHuz",
         description:
           "Title for a column that displays the numer of assessments planned for a skill.",
       }),
