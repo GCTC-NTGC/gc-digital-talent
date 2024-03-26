@@ -19,14 +19,46 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
-abstract class Experience extends Model
+class Experience extends Model
 {
     use HasRelationships;
     use SoftDeletes;
 
     protected $keyType = 'string';
 
-    abstract public function getTitle(): string;
+    /**
+     * Create a new concrete model instance that is existing, based on the type field.
+     *
+     * @param  object  $attributes
+     * @param  string|null  $connection
+     * @return static
+     */
+    public function newFromBuilder($attributes = [], $connection = null)
+    {
+        $model = $this->newInstanceFromType($attributes->experience_type);
+
+        $model->exists = true;
+
+        $model->setRawAttributes((array) $attributes, true);
+
+        $model->setConnection($connection ?: $this->getConnectionName());
+
+        $model->fireModelEvent('retrieved', false);
+
+        return $model;
+    }
+
+    /**
+     * Determine our model instance based on the type field.
+     *
+     *
+     * @return mixed
+     */
+    private function newInstanceFromType(string $type)
+    {
+        // we're storing the actual class name in the type field so no adjustments are needed
+        return new $type;
+    }
 
     public function user(): BelongsTo
     {
@@ -173,7 +205,7 @@ abstract class Experience extends Model
 
     public function getDateRange(): string
     {
-        if ($this->attributes->experience_type === AwardExperience::class) {
+        if ($this->attributes['experience_type'] === AwardExperience::class) {
             return $this->awarded_date->format('M Y');
         }
 
