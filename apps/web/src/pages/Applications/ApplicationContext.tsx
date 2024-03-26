@@ -3,17 +3,13 @@ import React from "react";
 import { useTheme } from "@gc-digital-talent/theme";
 import { Application_PoolCandidateFragment } from "@gc-digital-talent/graphql";
 
-import {
-  isIAPPool,
-  getClassificationGroup,
-  ClassificationGroup,
-} from "~/utils/poolUtils";
+import { isIAPPool } from "~/utils/poolUtils";
 
 interface ApplicationContextState {
   isIAP: boolean;
   followingPageUrl?: string;
   currentStepOrdinal?: number;
-  classificationGroup?: ClassificationGroup;
+  classificationGroup?: string;
 }
 
 const defaultContext: ApplicationContextState = {
@@ -51,7 +47,7 @@ const ApplicationContextProvider = ({
       isIAP: isIAPPool(application.pool),
       followingPageUrl,
       currentStepOrdinal,
-      classificationGroup: getClassificationGroup(application.pool),
+      classificationGroup: application.pool.classification?.group,
     }),
     [application.pool, followingPageUrl, currentStepOrdinal],
   );

@@ -6,6 +6,7 @@ import { Checklist, CheckboxOption } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { Heading, Link, Well } from "@gc-digital-talent/ui";
 import {
+  Classification,
   EducationRequirementOption,
   Experience,
 } from "@gc-digital-talent/graphql";
@@ -17,7 +18,6 @@ import {
   isPersonalExperience,
   isWorkExperience,
 } from "~/utils/experienceUtils";
-import { ClassificationGroup } from "~/utils/poolUtils";
 
 const essentialExperienceMessages = defineMessages({
   computerScience: {
@@ -71,7 +71,7 @@ interface LinkCareerTimelineProps {
   experiences: Experience[];
   watchEducationRequirement: EducationRequirementOption;
   previousStepPath: string;
-  classificationGroup?: ClassificationGroup;
+  classificationGroup?: string;
 }
 
 const LinkCareerTimeline = ({

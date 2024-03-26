@@ -430,7 +430,7 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
             fr
           }
           stream
-          classifications {
+          classification {
             id
             name {
               en

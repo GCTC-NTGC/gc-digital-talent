@@ -46,7 +46,7 @@ import { toast } from "@gc-digital-talent/toast";
 
 import { getExperienceSkills } from "~/utils/skillUtils";
 import { getEducationRequirementOptions } from "~/pages/Applications/ApplicationEducationPage/utils";
-import { ClassificationGroup, isIAPPool } from "~/utils/poolUtils";
+import { isIAPPool } from "~/utils/poolUtils";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import useLabels from "./useLabels";
@@ -342,9 +342,7 @@ export const ScreeningDecisionDialog = ({
           skill,
         );
 
-  const classificationGroup = poolCandidate.pool.classifications
-    ? (poolCandidate.pool.classifications[0]?.group as ClassificationGroup)
-    : undefined;
+  const classificationGroup = poolCandidate.pool.classification?.group;
 
   const educationRequirementOption = getEducationRequirementOptions(
     intl,

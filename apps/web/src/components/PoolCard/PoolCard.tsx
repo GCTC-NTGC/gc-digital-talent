@@ -22,19 +22,13 @@ import useRoutes from "~/hooks/useRoutes";
 import IconLabel from "./IconLabel";
 
 const getSalaryRanges = (pool: Pool, locale: string) => {
-  if (!pool.classifications) return null;
+  if (!pool.classification) return null;
 
-  return pool.classifications
-    .map((classification) => {
-      if (!classification) return undefined;
-
-      return localizeSalaryRange(
-        classification.minSalary,
-        classification.maxSalary,
-        locale,
-      );
-    })
-    .filter(notEmpty);
+  return localizeSalaryRange(
+    pool.classification.minSalary,
+    pool.classification.maxSalary,
+    locale,
+  );
 };
 
 export interface PoolCardProps {
@@ -47,14 +41,12 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
   const locale = getLocale(intl);
   const paths = useRoutes();
 
-  const { classifications } = pool;
-  const classification = classifications ? classifications[0] : null;
-
-  let classificationAbbr; // type wrangling the complex type into a string
-  if (classification) {
-    const { group, level } = classification;
-    classificationAbbr = wrapAbbr(`${group}-0${level}`, intl);
-  }
+  const classificationAbbr = pool.classification
+    ? wrapAbbr(
+        `${pool.classification.group}-0${pool.classification.level}`,
+        intl,
+      )
+    : "";
   const salaryRanges = getSalaryRanges(pool, locale);
 
   const notAvailableAbbr = intl.formatMessage({

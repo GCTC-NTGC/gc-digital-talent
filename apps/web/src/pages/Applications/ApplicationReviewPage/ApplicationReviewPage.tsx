@@ -168,9 +168,7 @@ const ApplicationReview = ({
   const generalQuestionResponses =
     application.generalQuestionResponses?.filter(notEmpty) || [];
 
-  const classificationGroup = application.pool.classifications
-    ? application.pool.classifications[0]?.group
-    : undefined;
+  const classificationGroup = application.pool.classification?.group;
   return (
     <section>
       <Heading

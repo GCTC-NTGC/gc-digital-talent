@@ -264,7 +264,7 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
           en
           fr
         }
-        classifications {
+        classification {
           id
           group
           level
@@ -305,7 +305,7 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
           fr
         }
         stream
-        classifications {
+        classification {
           id
           group
           level

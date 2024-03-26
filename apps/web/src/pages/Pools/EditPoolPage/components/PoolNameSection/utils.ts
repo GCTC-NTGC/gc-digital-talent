@@ -42,7 +42,7 @@ export type FormValues = {
 };
 
 export const dataToFormValues = (initialData: Pool): FormValues => ({
-  classification: firstId(initialData.classifications), // behavior is undefined when there is more than one
+  classification: initialData.classification?.id ?? "",
   stream: initialData.stream ?? undefined,
   specificTitleEn: initialData.name?.en ?? "",
   specificTitleFr: initialData.name?.fr ?? "",
@@ -53,7 +53,7 @@ export const dataToFormValues = (initialData: Pool): FormValues => ({
 
 export type PoolNameSubmitData = Pick<
   UpdatePoolInput,
-  | "classifications"
+  | "classification"
   | "name"
   | "stream"
   | "processNumber"
@@ -64,9 +64,11 @@ export type PoolNameSubmitData = Pick<
 export const formValuesToSubmitData = (
   formValues: FormValues,
 ): PoolNameSubmitData => ({
-  classifications: {
-    sync: formValues.classification ? [formValues.classification] : [],
-  },
+  classification: formValues.classification
+    ? {
+        connect: formValues.classification,
+      }
+    : undefined,
   stream: formValues.stream ? formValues.stream : undefined,
   name: {
     en: formValues.specificTitleEn,

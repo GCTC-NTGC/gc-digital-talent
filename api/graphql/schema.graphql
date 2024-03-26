@@ -1363,7 +1363,7 @@ input GenericJobTitleBelongsToMany {
 }
 
 input CreatePoolInput {
-  classifications: ClassificationBelongsToMany
+  classification: ClassificationBelongsTo
 }
 
 input CreateGeneralQuestionInput {
@@ -1392,7 +1392,7 @@ input SyncScreeningQuestionsInput {
 input UpdatePoolInput {
   # Pool name and classification
   name: LocalizedStringInput
-  classifications: ClassificationBelongsToMany
+  classification: ClassificationBelongsTo
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
   # Closing date
