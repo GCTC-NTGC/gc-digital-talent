@@ -6,7 +6,6 @@ import { useQuery } from "urql";
 import {
   commonMessages,
   errorMessages,
-  formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import {
