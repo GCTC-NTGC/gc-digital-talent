@@ -286,10 +286,11 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
     filter?.initialState,
   ]);
 
-  // Go to first page when filters change
   React.useEffect(() => {
-    table.resetPageIndex(true);
-  }, [filter?.state, table]);
+    if (pagination?.internal) {
+      table.resetPageIndex(true);
+    }
+  }, [filter?.state, pagination?.internal, table]);
 
   React.useEffect(() => {
     if (sort?.onSortChange) {
