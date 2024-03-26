@@ -6,7 +6,6 @@ import { Checklist, CheckboxOption } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { Heading, Link, Well } from "@gc-digital-talent/ui";
 import {
-  Classification,
   EducationRequirementOption,
   Experience,
 } from "@gc-digital-talent/graphql";

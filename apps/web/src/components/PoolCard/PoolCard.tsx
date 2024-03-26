@@ -12,7 +12,6 @@ import {
   localizeSalaryRange,
   commonMessages,
 } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
 import { Pool } from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
@@ -21,7 +20,7 @@ import useRoutes from "~/hooks/useRoutes";
 
 import IconLabel from "./IconLabel";
 
-const getSalaryRanges = (pool: Pool, locale: string) => {
+const getSalaryRange = (pool: Pool, locale: string) => {
   if (!pool.classification) return null;
 
   return localizeSalaryRange(
@@ -47,7 +46,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
         intl,
       )
     : "";
-  const salaryRanges = getSalaryRanges(pool, locale);
+  const salaryRange = getSalaryRange(pool, locale);
 
   const notAvailableAbbr = intl.formatMessage({
     defaultMessage: "N/A",
@@ -174,9 +173,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
               }) + intl.formatMessage(commonMessages.dividingColon)
             }
           >
-            {salaryRanges
-              ? salaryRanges[0]
-              : intl.formatMessage(commonMessages.notAvailable)}
+            {salaryRange ?? intl.formatMessage(commonMessages.notAvailable)}
           </IconLabel>
         </div>
         <div data-h2-margin-top="base(x1)">

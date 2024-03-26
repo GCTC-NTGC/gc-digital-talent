@@ -5,7 +5,6 @@ import {
   PoolStream,
   UserPoolFilterInput,
   Classification,
-  Pool,
 } from "@gc-digital-talent/graphql";
 
 export const NullSelection = "NULL_SELECTION";
@@ -23,7 +22,6 @@ export type FormValues = Pick<
   employmentEquity: string[] | undefined;
   educationRequirement: "has_diploma" | "no_diploma";
   poolCandidates?: UserPoolFilterInput;
-  pools?: Pool[];
   pool?: Scalars["ID"]["output"];
   selectedClassifications?: Classification[];
   count?: number;

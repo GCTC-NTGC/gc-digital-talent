@@ -15,21 +15,10 @@ import {
   Pool,
   PoolStream,
   PublishingGroup,
-  Scalars,
   UpdatePoolInput,
 } from "@gc-digital-talent/graphql";
 
 import { sortedOpportunityLengths } from "~/utils/poolUtils";
-
-const firstId = (
-  collection: Maybe<Maybe<Classification>[]> | undefined,
-): Scalars["ID"]["output"] | undefined => {
-  if (!collection) return undefined;
-
-  if (collection.length < 1) return undefined;
-
-  return collection[0]?.id;
-};
 
 export type FormValues = {
   classification?: Classification["id"];
