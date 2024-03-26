@@ -1,5 +1,5 @@
 import React from "react";
-import { useIntl } from "react-intl";
+import { MessageDescriptor, defineMessages, useIntl } from "react-intl";
 
 import {
   commonMessages,
@@ -7,13 +7,47 @@ import {
   getLanguage,
   getLanguageProficiency,
 } from "@gc-digital-talent/i18n";
+import getOrThrowError from "@gc-digital-talent/i18n/src/utils/error";
+
+import { getEvaluatedLanguageLevels } from "~/utils/userUtils";
 
 import FieldDisplay from "../FieldDisplay";
 import { PartialUser } from "./types";
 import { getExamValidityOptions, getLabels } from "./utils";
 
+// A workaround is required to show the deprecated bilingual evaluation in the profile snapshot.
+// These changes will be removed a year from now. (Remove snapshot workaround for the bilingual evaluation field #9905)
+enum BilingualEvaluation {
+  CompletedEnglish = "COMPLETED_ENGLISH",
+  CompletedFrench = "COMPLETED_FRENCH",
+  NotCompleted = "NOT_COMPLETED",
+}
+
+const bilingualEvaluations = defineMessages({
+  [BilingualEvaluation.CompletedEnglish]: {
+    defaultMessage: "Yes, completed English evaluation",
+    id: "2ohWuK",
+    description: "Completed an English language evaluation",
+  },
+  [BilingualEvaluation.CompletedFrench]: {
+    defaultMessage: "Yes, completed French evaluation",
+    id: "DUuisY",
+    description: "Completed a French language evaluation",
+  },
+  [BilingualEvaluation.NotCompleted]: commonMessages.no,
+});
+
+export const getBilingualEvaluation = (
+  bilingualEvaluationId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    bilingualEvaluations,
+    bilingualEvaluationId,
+    `Invalid Language Ability '${bilingualEvaluationId}'`,
+  );
+
 interface DisplayProps {
-  user: PartialUser;
+  user: PartialUser & { bilingual_evaluation?: BilingualEvaluation };
   context?: "admin" | "default" | "print";
 }
 
@@ -29,6 +63,7 @@ const Display = ({
     writtenLevel,
     comprehensionLevel,
     verbalLevel,
+    bilingual_evaluation: bilingualEvaluation,
   },
   context = "default",
 }: DisplayProps) => {
@@ -101,73 +136,146 @@ const Display = ({
           notProvided
         )}
       </FieldDisplay>
-      {lookingForBilingual && (
+      {/* If bilingual evaluation exists then show the old language profile snapshot, otherwise show new view */}
+      {bilingualEvaluation ? (
         <>
-          <FieldDisplay label={labels.firstOfficialLanguage} context={context}>
-            {firstOfficialLanguage
-              ? intl.formatMessage(getLanguage(firstOfficialLanguage))
-              : notProvided}
-          </FieldDisplay>
           <FieldDisplay
-            label={labels.estimatedLanguageAbility}
+            hasError={
+              lookingForBilingual &&
+              (!bilingualEvaluation ||
+                ((bilingualEvaluation ===
+                  BilingualEvaluation.CompletedEnglish ||
+                  bilingualEvaluation ===
+                    BilingualEvaluation.CompletedFrench) &&
+                  (!comprehensionLevel || !writtenLevel || !verbalLevel)))
+            }
+            label={intl.formatMessage({
+              defaultMessage: "Language evaluation",
+              id: "43xNhn",
+              description: "Language evaluation label",
+            })}
             context={context}
           >
-            {estimatedLanguageAbility
-              ? intl.formatMessage(
-                  getLanguageProficiency(estimatedLanguageAbility),
-                )
+            {bilingualEvaluation
+              ? intl.formatMessage(getBilingualEvaluation(bilingualEvaluation))
               : notProvided}
           </FieldDisplay>
-          {secondLanguageExamCompleted ? (
-            <>
+          {(bilingualEvaluation === BilingualEvaluation.CompletedEnglish ||
+            bilingualEvaluation === BilingualEvaluation.CompletedFrench) && (
+            <FieldDisplay
+              label={intl.formatMessage({
+                defaultMessage:
+                  "Second language level (reading, writing, oral interaction)",
+                id: "qOi2J0",
+                description:
+                  "Second language level (reading, writing, oral interaction) label",
+              })}
+              context={context}
+            >
+              {comprehensionLevel || writtenLevel || verbalLevel
+                ? getEvaluatedLanguageLevels(
+                    intl,
+                    comprehensionLevel,
+                    writtenLevel,
+                    verbalLevel,
+                  )
+                : notProvided}
+            </FieldDisplay>
+          )}
+          {bilingualEvaluation === BilingualEvaluation.NotCompleted &&
+            !!estimatedLanguageAbility && (
               <FieldDisplay
-                label={labels.secondLanguageExamCompletedBoundingBoxLabel}
+                label={intl.formatMessage({
+                  defaultMessage: "Second language proficiency",
+                  id: "IexFo4",
+                  description: "Second language proficiency label",
+                })}
                 context={context}
               >
-                {secondLanguageExamCompleted
-                  ? labels.secondLanguageExamCompletedLabel
+                {estimatedLanguageAbility
+                  ? intl.formatMessage(
+                      getLanguageProficiency(estimatedLanguageAbility),
+                    )
+                  : notProvided}
+              </FieldDisplay>
+            )}
+        </>
+      ) : (
+        <div data-h2-display="base(grid)" data-h2-gap="base(x1)">
+          {lookingForBilingual && (
+            <>
+              <FieldDisplay
+                label={labels.firstOfficialLanguage}
+                context={context}
+              >
+                {firstOfficialLanguage
+                  ? intl.formatMessage(getLanguage(firstOfficialLanguage))
                   : notProvided}
               </FieldDisplay>
               <FieldDisplay
-                label={labels.secondLanguageExamValidityLabel}
+                label={labels.estimatedLanguageAbility}
                 context={context}
               >
-                {examValidity}
+                {estimatedLanguageAbility
+                  ? intl.formatMessage(
+                      getLanguageProficiency(estimatedLanguageAbility),
+                    )
+                  : notProvided}
               </FieldDisplay>
-              <div
-                data-h2-display="base(grid)"
-                data-h2-grid-template-columns="l-tablet(1fr 1fr 1fr)"
-                data-h2-gap="base(x1, 0) l-tablet(0, x1)"
-                {...(context === "print" && { "data-h2-gap": "base(0, 0)" })}
-              >
-                <FieldDisplay
-                  label={labels.comprehensionLevel}
-                  context={context}
-                >
-                  {comprehensionLevel
-                    ? intl.formatMessage(
-                        getEvaluatedLanguageAbility(comprehensionLevel),
-                      )
-                    : notProvided}
-                </FieldDisplay>
-                <FieldDisplay label={labels.writtenLevel} context={context}>
-                  {writtenLevel
-                    ? intl.formatMessage(
-                        getEvaluatedLanguageAbility(writtenLevel),
-                      )
-                    : notProvided}
-                </FieldDisplay>
-                <FieldDisplay label={labels.verbalLevel} context={context}>
-                  {verbalLevel
-                    ? intl.formatMessage(
-                        getEvaluatedLanguageAbility(verbalLevel),
-                      )
-                    : notProvided}
-                </FieldDisplay>
-              </div>
+              {secondLanguageExamCompleted ? (
+                <>
+                  <FieldDisplay
+                    label={labels.secondLanguageExamCompletedBoundingBoxLabel}
+                    context={context}
+                  >
+                    {secondLanguageExamCompleted
+                      ? labels.secondLanguageExamCompletedLabel
+                      : notProvided}
+                  </FieldDisplay>
+                  <FieldDisplay
+                    label={labels.secondLanguageExamValidityLabel}
+                    context={context}
+                  >
+                    {examValidity}
+                  </FieldDisplay>
+                  <div
+                    data-h2-display="base(grid)"
+                    data-h2-grid-template-columns="l-tablet(1fr 1fr 1fr)"
+                    data-h2-gap="base(x1, 0) l-tablet(0, x1)"
+                    {...(context === "print" && {
+                      "data-h2-gap": "base(0, 0)",
+                    })}
+                  >
+                    <FieldDisplay
+                      label={labels.comprehensionLevel}
+                      context={context}
+                    >
+                      {comprehensionLevel
+                        ? intl.formatMessage(
+                            getEvaluatedLanguageAbility(comprehensionLevel),
+                          )
+                        : notProvided}
+                    </FieldDisplay>
+                    <FieldDisplay label={labels.writtenLevel} context={context}>
+                      {writtenLevel
+                        ? intl.formatMessage(
+                            getEvaluatedLanguageAbility(writtenLevel),
+                          )
+                        : notProvided}
+                    </FieldDisplay>
+                    <FieldDisplay label={labels.verbalLevel} context={context}>
+                      {verbalLevel
+                        ? intl.formatMessage(
+                            getEvaluatedLanguageAbility(verbalLevel),
+                          )
+                        : notProvided}
+                    </FieldDisplay>
+                  </div>
+                </>
+              ) : null}
             </>
-          ) : null}
-        </>
+          )}
+        </div>
       )}
     </div>
   );
