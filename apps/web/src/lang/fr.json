@@ -631,10 +631,6 @@
     "defaultMessage": "Date du début",
     "description": "Label displayed on an Experience form for start date input"
   },
-  "1WVTN6": {
-    "defaultMessage": "{localizedName} a des évaluations",
-    "description": "Aria text for icon confirming a skill is connected to assessments."
-  },
   "1Wbu+6": {
     "defaultMessage": "Premières Nations inscrites",
     "description": "The indigenous community for status First Nations"
@@ -1687,6 +1683,10 @@
     "defaultMessage": "<strong>Nota :</strong> Les résultats tiendront compte de tout candidat qui correspond à <strong>l’une ou plusieurs</strong> des régions sélectionnées",
     "description": "Context for the work region/location preferences filter in the search form."
   },
+  "7nuHuz": {
+    "defaultMessage": "Nombre d’évaluations",
+    "description": "Title for a column that displays the numer of assessments planned for a skill."
+  },
   "7nxtBm": {
     "defaultMessage": "Il s’agit du carrefour de l’administrateur de la plateforme des talents numériques du GC à partir d’où il est possible de gérer, trier et recruter le talent pour le GC.",
     "description": "Subtitle for the admin dashboard page"
@@ -2238,10 +2238,6 @@
   "Awtr05": {
     "defaultMessage": "Veuillez prendre note qu’en supprimant une compétence de votre profil :",
     "description": "Lead-in text to points of concern when deleting a skill and what will happen"
-  },
-  "AxKi2s": {
-    "defaultMessage": "Évaluation planifiée",
-    "description": "Title for a column that displays a complete or not state."
   },
   "AxRGK2": {
     "defaultMessage": "Cacher les renseignements sur les choses à faire si vous ne trouvez pas une compétence",
@@ -4443,6 +4439,10 @@
     "defaultMessage": "À qui ce programme est-il destiné?",
     "description": "Heading for section about who the program is for"
   },
+  "O2QLD8": {
+    "defaultMessage": "Évaluations manquantes",
+    "description": "No assessments for a skill"
+  },
   "O5dDCM": {
     "defaultMessage": "Aller à la page suivante ",
     "description": "Aria label for next page button in pagination nav"
@@ -6137,6 +6137,10 @@
   "XKjVO0": {
     "defaultMessage": "Prénom",
     "description": "Label displayed on the user form first name field."
+  },
+  "XOFVsC": {
+    "defaultMessage": "{count, plural, =1 {# évaluation} other {# évaluations}}",
+    "description": "Number of assessments for a skill"
   },
   "XOeFdu": {
     "defaultMessage": "À quoi s’attendre (français)",
@@ -7925,10 +7929,6 @@
   "guIFRq": {
     "defaultMessage": "Veuillez préciser les autres exigences",
     "description": "Label for _other other requirements_ fieldset in the _digital services contracting questionnaire_"
-  },
-  "guN1wV": {
-    "defaultMessage": "{localizedName} évaluations manquantes",
-    "description": "Aria text for icon indicating a skill is not connected to assessments."
   },
   "guzGyX": {
     "defaultMessage": "Le membre a été retiré de l’équipe avec succès",
