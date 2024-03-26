@@ -1863,10 +1863,6 @@
     "defaultMessage": "Durée permanente",
     "description": "Permanent duration only"
   },
-  "8di/ke": {
-    "defaultMessage": "Consulter le résumé intégral",
-    "description": "Link title to view the full skill summary section"
-  },
   "8ea9ne": {
     "defaultMessage": "Niveau d’écriture",
     "description": "CSV Header, Writing Level column"
@@ -5087,10 +5083,6 @@
     "defaultMessage": "Brève description de l'équipe (en français)",
     "description": "Label for team description in French language"
   },
-  "RSx3Ni": {
-    "defaultMessage": "Bref résumé des compétences",
-    "description": "Title for skills quick summary sidebar"
-  },
   "RTR3mh": {
     "defaultMessage": "Bêta",
     "description": "Label to indicate a feature is in beta"
@@ -5134,10 +5126,6 @@
   "RbHGhj": {
     "defaultMessage": "Autres exigences",
     "description": "Title for _other requirements_ section in the _digital services contracting questionnaire_"
-  },
-  "Rbp02p": {
-    "defaultMessage": "Sauvegarder le plan et revenir en arrière",
-    "description": "Text on a button to save the assessment plan and return to the pool page"
   },
   "RdmeZV": {
     "defaultMessage": "En savoir davantage sur les niveaux de compétence",
@@ -10597,10 +10585,6 @@
   "wf3e6C": {
     "defaultMessage": "Partie 2 : Configuration de l’authentification à deux facteurs",
     "description": "Heading for section of the sign up page showing the mfa steps"
-  },
-  "wfnbFR": {
-    "defaultMessage": "Nombre total d’évaluations",
-    "description": "Grand total for skills quick summary sidebar"
   },
   "wgIThY": {
     "defaultMessage": "Avoir un diplôme d’études secondaires ou l’équivalent (formation générale)",
