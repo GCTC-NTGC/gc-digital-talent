@@ -152,18 +152,6 @@ const SkillSummaryTable = ({
   };
 
   const initialColumns = [
-    columnHelper.display({
-      id: "plannedAssessment",
-      header: intl.formatMessage({
-        defaultMessage: "Planned assessment",
-        id: "AxKi2s",
-        description:
-          "Title for a column that displays a complete or not state.",
-      }),
-      cell: ({ row: { original: poolSkill } }) =>
-        cells.jsx(plannedAssessmentCell(poolSkill, assessmentSteps, intl)),
-      enableHiding: false,
-    }),
     columnHelper.accessor((row) => getLocalizedName(row.skill?.name, intl), {
       id: "skillName",
       header: intl.formatMessage({
@@ -171,6 +159,18 @@ const SkillSummaryTable = ({
         id: "hjxxaQ",
         description: "Skill name column header for the skill library table",
       }),
+      enableHiding: false,
+    }),
+    columnHelper.display({
+      id: "plannedAssessment",
+      header: intl.formatMessage({
+        defaultMessage: "No. of assessments",
+        id: "ofU598",
+        description:
+          "Title for a column that displays the numer of assessments planned for a skill.",
+      }),
+      cell: ({ row: { original: poolSkill } }) =>
+        cells.jsx(plannedAssessmentCell(poolSkill, assessmentSteps, intl)),
       enableHiding: false,
     }),
     columnHelper.display({
