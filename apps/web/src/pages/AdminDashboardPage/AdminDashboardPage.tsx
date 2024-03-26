@@ -50,7 +50,7 @@ import {
 
 import LinkWell from "./components/LinkWell";
 
-const pageTitle = defineMessage({
+export const pageTitle = defineMessage({
   defaultMessage: "Dashboard",
   id: "ArwIQV",
   description: "Title for dashboard",
