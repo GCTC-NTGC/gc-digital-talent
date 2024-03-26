@@ -9182,6 +9182,10 @@
     "defaultMessage": "Pour l'instant, notre site n'est accessible qu'au moyen d'une appli d'authentification.",
     "description": "GCKey answer for whether there is an alternative to an authenticator app"
   },
+  "nPPUMW": {
+    "defaultMessage": "De retour au traitement des détails",
+    "description": "Link text to go back to the process details page"
+  },
   "nQbfnB": {
     "defaultMessage": "Veuillez sélectionner un type d’expérience pour continuer.",
     "description": "Test displayed on the experience form when a user has not selected an experience type."
