@@ -7,6 +7,10 @@
     "defaultMessage": "Remarque spéciale",
     "description": "Sub title for the special note section"
   },
+  "+7/Z+U": {
+    "defaultMessage": "Directeur(trice) ou Stratège principal(e) I T 5",
+    "description": "IT-05 classification aria label including titles"
+  },
   "+7v9Dq": {
     "defaultMessage": "Sauvegarder et ajouter un autre",
     "description": "Text for save button and add another button on experience form."
@@ -7430,6 +7434,10 @@
     "defaultMessage": "Inscrivez-vous en utilisant CléGC",
     "description": "Page title for the registration page for applicant profiles"
   },
+  "e8tJXk": {
+    "defaultMessage": "IT-05 : Directeur(trice) ou Stratège principal(e)",
+    "description": "IT-05 classification label including titles"
+  },
   "eCK3Ng": {
     "defaultMessage": "Accepter les temporaires",
     "description": "CSV Header, Accept Temporary column"
@@ -9726,10 +9734,6 @@
     "defaultMessage": "Déterminer et coordonner les occasions de formation et d’amélioration des compétences à l’échelle du gouvernement",
     "description": "An OCIO role in the _supporting the community_ section of the _digital services contracting questionnaire_"
   },
-  "qt8lB2": {
-    "defaultMessage": "IT-05 : Directeur",
-    "description": "IT-05 classification label including titles"
-  },
   "qtCt+G": {
     "defaultMessage": "Aller à la dernière page ",
     "description": "Label for last page button in pagination nav"
@@ -11029,10 +11033,6 @@
   "zXzQhc": {
     "defaultMessage": "Si vous ne savez pas si ce questionnaire est nécessaire pour un type de contrat spécifique, veuillez communiquer avec nous, à <link>GCTalentGC@tbs-sct.gc.ca</link>, pour obtenir de plus amples renseignements.",
     "description": "Paragraph three of the _examples of contracts_ section of the _digital services contracting questionnaire_"
-  },
-  "zbiumT": {
-    "defaultMessage": "Directeur I T 5",
-    "description": "IT-05 classification aria label including titles"
   },
   "zbmWLG": {
     "defaultMessage": "Le gouvernement du Canada lira les commentaires et participera aux discussions, au besoin. Vos commentaires et vos contributions doivent être pertinents et respectueux.",
