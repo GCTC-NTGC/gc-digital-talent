@@ -55,7 +55,7 @@ export const pageTitle = defineMessage({
   id: "ArwIQV",
   description: "Title for dashboard",
 });
-export const subTitle = defineMessage({
+const subTitle = defineMessage({
   defaultMessage:
     "This is the administrator hub of the GC Digital Talent platform, manage, sort and recruit talent to the GoC.",
   id: "7nxtBm",

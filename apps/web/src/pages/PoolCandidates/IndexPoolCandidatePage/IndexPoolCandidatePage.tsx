@@ -156,7 +156,7 @@ const IndexPoolCandidatePage_Query = graphql(/* GraphQL */ `
   }
 `);
 
-export const subTitle = defineMessage({
+const subTitle = defineMessage({
   defaultMessage: "This table shows a list of all applicants to this process.",
   id: "Evn5Mo",
   description:

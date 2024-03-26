@@ -34,7 +34,7 @@ import {
   GovernmentInfoFormFields,
 } from "./components/GovernmentInfoForm";
 
-export const subTitle = defineMessage({
+const subTitle = defineMessage({
   defaultMessage: "Let's begin with some basic account information.",
   id: "f9UKuz",
   description: "Subtitle for the create account page for applicant profiles.",

@@ -33,12 +33,12 @@ import executiveHeroTablet from "~/assets/img/exec-hero-tablet-portrait.webp";
 import executiveHeroLandscape from "~/assets/img/exec-hero-landscape.webp";
 import executiveProfileHero from "~/assets/img/person-with-hand-to-chin-looking-at-laptop.webp";
 
-export const pageTitle = defineMessage({
+const pageTitle = defineMessage({
   defaultMessage: "Welcome executives",
   id: "gtU+9w",
   description: "Page title for the executives homepage",
 });
-export const subTitle = defineMessage({
+const subTitle = defineMessage({
   defaultMessage:
     "Find and apply to digital executive opportunities in the Government of Canada.",
   id: "AzCfxE",
