@@ -105,10 +105,13 @@ class CandidateProfileDoc extends DocGenerator
                 'not_accepted' => [],
             ];
             foreach ($operationalRequirements as $requirement) {
-                if (in_array($requirement, $candidate->user->accepted_operational_requirements)) {
-                    $preferences['accepted'][] = $requirement;
-                } else {
-                    $preferences['not_accepted'][] = $requirement;
+                // Note: Scheduled overtime is legacy
+                if ($requirement !== OperationalRequirement::OVERTIME_SCHEDULED->name) {
+                    if (in_array($requirement, $candidate->user->accepted_operational_requirements)) {
+                        $preferences['accepted'][] = $requirement;
+                    } else {
+                        $preferences['not_accepted'][] = $requirement;
+                    }
                 }
             }
 
