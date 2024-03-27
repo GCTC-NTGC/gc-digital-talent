@@ -106,7 +106,7 @@ class CandidateProfileDoc extends DocGenerator
             ];
             foreach ($operationalRequirements as $requirement) {
                 // Note: Scheduled overtime is legacy
-                if ($requirement !== OperationalRequirement::OVERTIME_SCHEDULED->name) {
+                if ($requirement !== OperationalRequirement::OVERTIME_SCHEDULED->name && $requirement !== OperationalRequirement::OVERTIME_SHORT_NOTICE->name) {
                     if (in_array($requirement, $candidate->user->accepted_operational_requirements)) {
                         $preferences['accepted'][] = $requirement;
                     } else {
