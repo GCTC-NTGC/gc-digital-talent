@@ -21,7 +21,7 @@ const commandCreatePoolDoc = /* GraphQL */ `
   }
 `;
 
-Cypress.Commands.add("createPool", (userId, teamId, classificationIds) => {
+Cypress.Commands.add("createPool", (userId, teamId, classificationId) => {
   // there are no optional fields on the variables for this mutation
   cy.graphqlRequest<CreatePoolMutation>({
     operationName: "Command_CreatePool",
@@ -30,8 +30,8 @@ Cypress.Commands.add("createPool", (userId, teamId, classificationIds) => {
       userId,
       teamId,
       pool: {
-        classifications: {
-          sync: classificationIds,
+        classification: {
+          connect: classificationId,
         },
       },
     },
