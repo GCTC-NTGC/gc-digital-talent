@@ -230,13 +230,11 @@ export const finalDecisionCell = (
   intl: IntlShape,
   poolCandidate: PoolCandidate,
   poolAssessmentSteps: AssessmentStep[],
-  recordOfDecisionFlag: boolean, // TODO: remove with #8415
 ) => {
   const { color, label } = getCandidateStatusChip(
     poolCandidate,
     unpackMaybes(poolAssessmentSteps),
     intl,
-    recordOfDecisionFlag,
   );
   return <Chip color={color}>{label}</Chip>;
 };

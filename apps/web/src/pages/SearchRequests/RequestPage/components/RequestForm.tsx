@@ -328,10 +328,10 @@ export const RequestForm = ({
                 type="email"
                 name="email"
                 label={intl.formatMessage({
-                  defaultMessage: "Government e-mail",
-                  id: "mRNmrR",
+                  defaultMessage: "Government of Canada email",
+                  id: "CxZGd2",
                   description:
-                    "Label for government email input in the request form",
+                    "Label for government of canada email input in the request form",
                 })}
                 rules={{
                   required: intl.formatMessage(errorMessages.required),

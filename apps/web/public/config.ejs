@@ -15,7 +15,6 @@ const data = new Map([
 
     // Feature flags
     ["FEATURE_DIRECTIVE_FORMS", filterUnusable("$FEATURE_DIRECTIVE_FORMS") ?? "<%= htmlWebpackPlugin.options.environment.FEATURE_DIRECTIVE_FORMS %>"],
-    ["FEATURE_RECORD_OF_DECISION", filterUnusable("$FEATURE_RECORD_OF_DECISION") ?? "<%= htmlWebpackPlugin.options.environment.FEATURE_RECORD_OF_DECISION %>"],
     ["FEATURE_NOTIFICATIONS", filterUnusable("$FEATURE_NOTIFICATIONS") ?? "<%= htmlWebpackPlugin.options.environment.FEATURE_NOTIFICATIONS %>"],
 
     // Azure application insights not used in dev

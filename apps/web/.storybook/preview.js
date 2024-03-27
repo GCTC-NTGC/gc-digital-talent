@@ -8,10 +8,7 @@ import {
   VIEWPORTS
 } from "@gc-digital-talent/storybook-helpers";
 import { richTextElements as defaultRichTextElements } from "@gc-digital-talent/i18n";
-import "@gc-digital-talent/forms/dist/index.css";
-import "@gc-digital-talent/ui/dist/index.css";
-import "@gc-digital-talent/toast/dist/index.css";
-import frCommonCompiled from "@gc-digital-talent/i18n/src/lang/frCompiled.json";
+import frCommonCompiled from "@gc-digital-talent/i18n/frCompiled.json";
 
 import frCompiled from "../src/lang/frCompiled.json";
 

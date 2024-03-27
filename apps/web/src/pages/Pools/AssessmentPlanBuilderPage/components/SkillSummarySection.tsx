@@ -8,7 +8,7 @@ import { Pool } from "@gc-digital-talent/graphql";
 import { PAGE_SECTION_ID } from "../navigation";
 import SkillSummaryTable from "./SkillSummaryTable";
 
-const sectionTitle = defineMessage({
+export const sectionTitle = defineMessage({
   defaultMessage: "Skill summary",
   id: "iNIXQ9",
   description:

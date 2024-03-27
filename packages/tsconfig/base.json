@@ -9,7 +9,7 @@
     "inlineSourceMap": false,
     "strict": true,
     "strictNullChecks": true,
-    "moduleResolution": "Node",
+    "moduleResolution": "Bundler",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,

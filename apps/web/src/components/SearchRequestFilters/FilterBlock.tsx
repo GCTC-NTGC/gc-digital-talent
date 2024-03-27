@@ -4,6 +4,7 @@ import uniqueId from "lodash/uniqueId";
 import isEmpty from "lodash/isEmpty";
 
 import { Maybe } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 interface FilterBlockProps {
   title: string;
@@ -54,12 +55,7 @@ const FilterBlock = ({ title, content, children }: FilterBlockProps) => {
               <p data-h2-display="base(inline)" data-h2-color="base(black)">
                 {content && !isEmpty(content)
                   ? content
-                  : intl.formatMessage({
-                      defaultMessage: "N/A",
-                      id: "i9AjuX",
-                      description:
-                        "Text shown when the filter was not selected",
-                    })}
+                  : intl.formatMessage(commonMessages.notApplicable)}
               </p>
             )}
           </span>

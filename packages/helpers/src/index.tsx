@@ -7,6 +7,7 @@ import normalizeString from "./utils/normalizeString";
 import sanitizeUrl from "./utils/sanitizeUrl";
 import isUuidError from "./utils/uuid";
 import {
+  assertUnreachable,
   identity,
   notEmpty,
   empty,
@@ -26,6 +27,7 @@ import {
 import useIsSmallScreen from "./hooks/useIsSmallScreen";
 
 export {
+  assertUnreachable,
   keyStringRegex,
   phoneNumberRegex,
   identity,
