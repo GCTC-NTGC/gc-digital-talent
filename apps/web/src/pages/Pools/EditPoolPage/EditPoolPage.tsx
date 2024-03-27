@@ -738,8 +738,8 @@ export const EditPoolPage = () => {
   const { isFetching, mutations } = usePoolMutations();
 
   const ctx = React.useMemo(() => {
-    return { isSubmitting: isFetching };
-  }, [isFetching]);
+    return { isSubmitting: isFetching || fetching };
+  }, [fetching, isFetching]);
 
   const poolSkillMutations = {
     create: mutations.createPoolSkill,

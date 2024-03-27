@@ -45,10 +45,6 @@ const GeneralQuestionsSection = ({
   );
   const { isSubmitting } = useEditPoolContext();
 
-  // disabled unless status is draft
-  const formDisabled =
-    pool.status !== PoolStatus.Draft || isUpdating || isSubmitting;
-
   const handleUpdate = (newQuestions: GeneralQuestion[]) => {
     setIsUpdating(true);
     const generalQuestions = repeaterQuestionsToSubmitData(
@@ -59,6 +55,10 @@ const GeneralQuestionsSection = ({
       setIsUpdating(false);
     });
   };
+
+  // disabled unless status is draft
+  const formDisabled =
+    pool.status !== PoolStatus.Draft || isUpdating || isSubmitting;
 
   return (
     <>
