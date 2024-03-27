@@ -2,10 +2,15 @@
 
 namespace App\Models;
 
+use App\Enums\ArmedForcesStatus;
+use App\Enums\BilingualEvaluation;
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
+use App\Enums\CitizenshipStatus;
+use App\Enums\IndigenousCommunity;
 use App\Enums\LanguageAbility;
 use App\Enums\PoolCandidateStatus;
+use App\Enums\PositionDuration;
 use App\Traits\EnrichedNotifiable;
 use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
@@ -228,7 +233,8 @@ class User extends Model implements Authenticatable, LaratrustUser
 
     public function department(): BelongsTo
     {
-        return $this->belongsTo(Department::class, 'department');
+        return $this->belongsTo(Department::class, 'department')
+            ->select(['id', 'name', 'department_number']);
     }
 
     public function currentClassification(): BelongsTo
@@ -306,6 +312,170 @@ class User extends Model implements Authenticatable, LaratrustUser
         // If this User instance continues to be used, ensure the in-memory instance has the updated skills.
         $this->refresh();
         $this->searchable();
+    }
+
+    public function getFullName(?bool $anonymous = false)
+    {
+        $lastName = $this->last_name;
+        if ($anonymous && $lastName) {
+            $lastName = substr($lastName, 0, 1);
+        }
+
+        if ($this->first_name && $lastName) {
+            return $this->first_name.' '.$lastName;
+        } elseif ($this->first_name) {
+            return $this->first_name;
+        } elseif ($lastName) {
+            return $lastName;
+        }
+
+        return '';
+    }
+
+    public function getLocation()
+    {
+        if ($this->current_city && $this->current_province) {
+            return $this->current_city.', '.$this->current_province;
+        } elseif ($this->current_city) {
+            return $this->current_city;
+        } elseif ($this->current_province) {
+            return $this->current_province;
+        }
+
+        return '';
+    }
+
+    public function getLanguage(string $key)
+    {
+        $code = $this->$key;
+        if ($code !== 'en' && $code !== 'fr') {
+            return '';
+        }
+
+        return $code === 'en' ? 'English' : 'French';
+    }
+
+    public function getArmedForcesStatus()
+    {
+        switch ($this->armed_forces_status) {
+            case ArmedForcesStatus::MEMBER->name:
+                return 'Member';
+            case ArmedForcesStatus::VETERAN->name:
+                return 'Veteran';
+            default:
+                return 'Not in the CAF';
+        }
+    }
+
+    public function getCitizenship()
+    {
+        switch ($this->citizenship) {
+            case CitizenshipStatus::CITIZEN->name:
+                return 'Canadian citizen';
+            case CitizenshipStatus::PERMANENT_RESIDENT->name:
+                return 'Permanent resident';
+            default:
+                return 'Other';
+        }
+    }
+
+    public function getLookingForLanguage()
+    {
+        if ($this->looking_for_bilingual) {
+            return 'Bilingual positions (English and French)';
+        } elseif ($this->looking_for_english && $this->looking_for_french) {
+            return 'English or French positions';
+        } elseif ($this->looking_for_english) {
+            return 'English positions';
+        } elseif ($this->looking_for_french) {
+            return 'French positions';
+        }
+
+        return '';
+    }
+
+    public function getBilingualEvaluation()
+    {
+        switch ($this->bilingual_evaluation) {
+            case BilingualEvaluation::NOT_COMPLETED->name:
+                return 'No';
+            case BilingualEvaluation::COMPLETED_ENGLISH->name:
+                return 'Yes, completed English evaluation';
+            case BilingualEvaluation::COMPLETED_FRENCH->name:
+                return 'Yes, completed French evaluation';
+            default:
+                return '';
+        }
+    }
+
+    public function getSecondLanguageEvaluation()
+    {
+        if ($this->comprehension_level || $this->written_level || $this->verbal_level) {
+            return sprintf('%s, %s, %s',
+                $this->comprehension_level ?? '',
+                $this->written_level ?? '',
+                $this->verbal_level ?? ''
+            );
+        }
+
+        return '';
+    }
+
+    public function getGovEmployeeType()
+    {
+        if (! $this->gov_employee_type) {
+            return '';
+        }
+
+        return ucwords(strtolower($this->gov_employee_type));
+    }
+
+    public function getClassification()
+    {
+        if (! $this->current_classification) {
+            return '';
+        }
+
+        $classification = $this->currentClassification()->first();
+
+        return $classification->group.'-0'.$classification->level;
+    }
+
+    public function getDepartment()
+    {
+        if (! $this->department) {
+            return '';
+        }
+
+        return $this->department()->get('name');
+    }
+
+    public function getIndigenousCommunities()
+    {
+        if (empty($this->indigenous_communities)) {
+            return null;
+        }
+
+        return array_map(function ($community) {
+            return match ($community) {
+                IndigenousCommunity::NON_STATUS_FIRST_NATIONS->name => 'Non-status First Nations',
+                IndigenousCommunity::STATUS_FIRST_NATIONS->name => 'Status First Nations',
+                IndigenousCommunity::INUIT->name => 'Inuk (Inuit)',
+                IndigenousCommunity::METIS->name => 'Métis',
+                IndigenousCommunity::OTHER->name => 'Other',
+                IndigenousCommunity::LEGACY_IS_INDIGENOUS->name => 'Indigenous',
+                default => 'Unknown'
+            };
+        }, $this->indigenous_communities);
+    }
+
+    public function getPositionDuration()
+    {
+        if (in_array(PositionDuration::PERMANENT->name, $this->position_duration)) {
+            return 'Permanent duration';
+        }
+
+        return null;
     }
 
     // getIsProfileCompleteAttribute function is correspondent to isProfileComplete attribute in graphql schema
