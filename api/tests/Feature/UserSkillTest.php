@@ -432,7 +432,6 @@ class UserSkillTest extends TestCase
         ]);
         DB::table('experience_skill')->insert([
             'experience_id' => $workExperienceModel->id,
-            'experience_type' => 'workExperience',
             'user_skill_id' => $userSkillModel->id,
         ]);
         $experienceSkillModel = ExperienceSkill::first();

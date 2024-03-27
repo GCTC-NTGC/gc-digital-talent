@@ -156,50 +156,55 @@ class PoolCandidate extends Model
     // education_requirement_option fulfilled by what experience models
     public function educationRequirementAwardExperiences(): BelongsToMany
     {
-        return $this->morphedByMany(
+        return $this->belongsToMany(
             AwardExperience::class,
-            'experience',
-            'pool_candidate_education_requirement_experience'
+            'pool_candidate_education_requirement_experience',
+            'pool_candidate_id',
+            'experience_id'
         )
             ->withTimestamps();
     }
 
     public function educationRequirementCommunityExperiences(): BelongsToMany
     {
-        return $this->morphedByMany(
+        return $this->belongsToMany(
             CommunityExperience::class,
-            'experience',
-            'pool_candidate_education_requirement_experience'
+            'pool_candidate_education_requirement_experience',
+            'pool_candidate_id',
+            'experience_id'
         )
             ->withTimestamps();
     }
 
     public function educationRequirementEducationExperiences(): BelongsToMany
     {
-        return $this->morphedByMany(
+        return $this->belongsToMany(
             EducationExperience::class,
-            'experience',
-            'pool_candidate_education_requirement_experience'
+            'pool_candidate_education_requirement_experience',
+            'pool_candidate_id',
+            'experience_id'
         )
             ->withTimestamps();
     }
 
     public function educationRequirementPersonalExperiences(): BelongsToMany
     {
-        return $this->morphedByMany(
+        return $this->belongsToMany(
             PersonalExperience::class,
-            'experience',
-            'pool_candidate_education_requirement_experience'
+            'pool_candidate_education_requirement_experience',
+            'pool_candidate_id',
+            'experience_id'
         )
             ->withTimestamps();
     }
 
     public function educationRequirementWorkExperiences(): BelongsToMany
     {
-        return $this->morphedByMany(
+        return $this->belongsToMany(
             WorkExperience::class,
-            'experience',
-            'pool_candidate_education_requirement_experience'
+            'pool_candidate_education_requirement_experience',
+            'pool_candidate_id',
+            'experience_id'
         )
             ->withTimestamps();
     }
@@ -209,16 +214,15 @@ class PoolCandidate extends Model
         return $this->hasMany(AssessmentResult::class);
     }
 
-    public function getEducationRequirementExperiencesAttribute()
+    public function educationRequirementExperiences(): BelongsToMany
     {
-        $collection = collect();
-        $collection = $collection->merge($this->educationRequirementAwardExperiences);
-        $collection = $collection->merge($this->educationRequirementCommunityExperiences);
-        $collection = $collection->merge($this->educationRequirementEducationExperiences);
-        $collection = $collection->merge($this->educationRequirementPersonalExperiences);
-        $collection = $collection->merge($this->educationRequirementWorkExperiences);
-
-        return $collection;
+        return $this->belongsToMany(
+            Experience::class,
+            'pool_candidate_education_requirement_experience',
+            'pool_candidate_id',
+            'experience_id'
+        )
+            ->withTimestamps();
     }
 
     public static function scopeQualifiedStreams(Builder $query, ?array $streams): Builder

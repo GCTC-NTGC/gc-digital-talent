@@ -31,7 +31,7 @@ class HasEducationRequirement implements Rule
         if (! $poolCandidate->education_requirement_option) {
             return false;
         }
-        $experiences = $poolCandidate->getEducationRequirementExperiencesAttribute();
+        $experiences = $poolCandidate->educationRequirementExperiences;
 
         return isset($experiences) && (count($experiences) >= 1);
     }
