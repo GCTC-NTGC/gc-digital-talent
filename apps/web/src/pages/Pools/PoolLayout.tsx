@@ -36,7 +36,7 @@ const PoolHeader = ({ pool }: PoolHeaderProps) => {
 
   const poolTitle = getShortPoolTitleLabel(intl, pool);
   const currentPage = useCurrentPage<PageNavKeys>(pages);
-  const subtitle = pool.team
+  const subTitle = pool.team
     ? getLocalizedName(pool.team?.displayName, intl)
     : currentPage?.subtitle;
 
@@ -51,10 +51,10 @@ const PoolHeader = ({ pool }: PoolHeaderProps) => {
 
   return (
     <>
-      <SEO title={currentPage?.title} />
+      <SEO title={currentPage?.title} description={subTitle} />
       <AdminHero
         title={poolTitle}
-        subtitle={subtitle}
+        subtitle={subTitle}
         nav={
           // Pages with crumbs are sub-pages and don't show up as tabs
           currentPage?.crumbs

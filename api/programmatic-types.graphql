@@ -54,15 +54,6 @@ type PaginatorInfo {
   total: Int!
 }
 
-"A paginated list of Notification items."
-type NotificationPaginator {
-  "Pagination information about the list of items."
-  paginatorInfo: PaginatorInfo!
-
-  "A list of Notification items."
-  data: [Notification!]!
-}
-
 "A paginated list of User items."
 type UserPaginator {
   "Pagination information about the list of items."
@@ -97,6 +88,15 @@ type PoolCandidateSearchRequestPaginator {
 
   "A list of PoolCandidateSearchRequest items."
   data: [PoolCandidateSearchRequest!]!
+}
+
+"A paginated list of Notification items."
+type NotificationPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of Notification items."
+  data: [Notification!]!
 }
 
 "Allowed column names for Query.poolCandidatesPaginated.orderBy."
@@ -775,6 +775,16 @@ enum AssessmentDecisionLevel {
   AT_REQUIRED
   ABOVE_REQUIRED
   ABOVE_AND_BEYOND_REQUIRED
+}
+
+enum NotificationFamily {
+  SYSTEM_MESSAGE
+  APPLICATION_UPDATE
+  JOB_ALERT
+}
+
+enum NotificationType {
+  PoolCandidateStatusChanged
 }
 
 "A GraphQL Schema defines the capabilities of a GraphQL server. It exposes all available types and directives on the server, as well as the entry points for query, mutation, and subscription operations."

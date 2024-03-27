@@ -276,6 +276,7 @@ const Dialog = {
   Header,
   Body,
   Footer,
+  BaseContent: StyledContent,
   Portal: DialogPrimitive.Portal,
 };
 

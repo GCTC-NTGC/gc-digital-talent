@@ -1,5 +1,5 @@
 import React from "react";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import MagnifyingGlassCircleIcon from "@heroicons/react/24/outline/MagnifyingGlassCircleIcon";
 import MagnifyingGlassIcon from "@heroicons/react/24/outline/MagnifyingGlassIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
@@ -25,19 +25,28 @@ import peopleGatheredAroundLaptop from "~/assets/img/people-gathered-around-lapt
 import peopleSittingOnCouch from "~/assets/img/people-sitting-on-couch-discussing-something.webp";
 import peopleSittingInLine from "~/assets/img/people-sitting-in-a-line-smiling-at-another-person.webp";
 
+const pageTitle = defineMessage({
+  defaultMessage: "Managers community",
+  id: "l75mNg",
+  description: "Title for Managers community",
+});
+
+const pageSubtitle = defineMessage({
+  defaultMessage: "Grow your career and find talent for your team.",
+  id: "37mBAU",
+  description: "Subtitle for the manager homepage",
+});
+
 const HomePage = () => {
   const intl = useIntl();
   const paths = useRoutes();
 
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Managers community",
-    id: "l75mNg",
-    description: "Title for Managers community",
-  });
-
   return (
     <>
-      <SEO title={pageTitle} />
+      <SEO
+        title={intl.formatMessage(pageTitle)}
+        description={intl.formatMessage(pageSubtitle)}
+      />
       <HomeHero
         img={{
           srcset: `${managerHeroPortrait} 600w, ${managerHeroTablet} 900w, ${managerHeroLandscape} 1200w`,
@@ -70,7 +79,7 @@ const HomePage = () => {
         }
       >
         <Heading level="h1" size="h2" data-h2-margin="base(0, 0, x0.5, 0)">
-          {pageTitle}
+          {intl.formatMessage(pageTitle)}
         </Heading>
         <p
           data-h2-font-size="base(h6, 1.4)"
@@ -78,11 +87,7 @@ const HomePage = () => {
           data-h2-margin="base(x1, 0, x2, 0)"
           data-h2-max-width="p-tablet(65%) l-tablet(50%)"
         >
-          {intl.formatMessage({
-            defaultMessage: "Grow your career and find talent for your team.",
-            id: "37mBAU",
-            description: "Subtitle for the manager homepage",
-          })}
+          {intl.formatMessage(pageSubtitle)}
         </p>
       </HomeHero>
       <SkewedContainer>

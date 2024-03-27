@@ -1,5 +1,5 @@
 import React from "react";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 import MapIcon from "@heroicons/react/24/outline/MapIcon";
 import InformationCircleIcon from "@heroicons/react/20/solid/InformationCircleIcon";
@@ -116,6 +116,12 @@ const moreInfoAccordions = {
   whatToExpectAdmission: "what-to-expect-admission",
 };
 
+const subTitle = defineMessage({
+  defaultMessage: "Learn more about this opportunity and begin an application.",
+  id: "H5EXEi",
+  description: "Subtitle for a pool advertisement page",
+});
+
 interface PoolAdvertisementProps {
   pool: Pool;
   applicationId?: Scalars["ID"]["output"];
@@ -147,6 +153,7 @@ export const PoolPoster = ({
   }
   const poolTitle = getShortPoolTitleLabel(intl, pool);
   const fullPoolTitle = getFullPoolTitleHtml(intl, pool);
+  const formattedSubTitle = intl.formatMessage(subTitle);
   const salaryRangeUrl = getClassificationSalaryRangeUrl(
     locale,
     classification,
@@ -305,17 +312,8 @@ export const PoolPoster = ({
 
   return (
     <>
-      <SEO title={poolTitle} />
-      <Hero
-        title={poolTitle}
-        subtitle={intl.formatMessage({
-          defaultMessage:
-            "Learn more about this opportunity and begin an application.",
-          id: "H5EXEi",
-          description: "Subtitle for a pool advertisement page",
-        })}
-        crumbs={links}
-      />
+      <SEO title={poolTitle} description={formattedSubTitle} />
+      <Hero title={poolTitle} subtitle={formattedSubTitle} crumbs={links} />
       <div
         data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
         data-h2-margin-top="base(x3)"

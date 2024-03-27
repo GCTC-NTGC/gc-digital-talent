@@ -8,7 +8,6 @@ import { TableOfContents, Stepper, Loading } from "@gc-digital-talent/ui";
 import { empty, isUuidError, notEmpty } from "@gc-digital-talent/helpers";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
@@ -41,7 +40,6 @@ interface ApplicationPageWrapperProps {
 const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const features = useFeatureFlags();
   const navigate = useNavigate();
   const { experienceId } = useParams<RouteParams>();
   const application = getFragment(Application_PoolCandidateFragment, query);
@@ -50,7 +48,6 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
     paths,
     application,
     experienceId,
-    RoDFlag: features.recordOfDecision,
   });
   const title = poolTitle(intl, application.pool);
   const isIAP = isIAPPool(application.pool);
@@ -124,7 +121,10 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
       }
       currentStepOrdinal={currentStepIndex + 1}
     >
-      <SEO title={intl.formatMessage(pageTitle, { poolName: title.label })} />
+      <SEO
+        title={intl.formatMessage(pageTitle, { poolName: title.label })}
+        description={currentPage?.subtitle}
+      />
       <Hero
         title={intl.formatMessage(pageTitle, { poolName: title.html })}
         crumbs={crumbs}
@@ -143,11 +143,7 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
                 description: "Label for the application stepper navigation",
               })}
               currentIndex={currentStepIndex}
-              steps={applicationStepsToStepperArgs(
-                steps,
-                application,
-                features.recordOfDecision,
-              )}
+              steps={applicationStepsToStepperArgs(steps, application)}
             />
             {isIAP && (
               <div data-h2-margin="base(x1 0)">

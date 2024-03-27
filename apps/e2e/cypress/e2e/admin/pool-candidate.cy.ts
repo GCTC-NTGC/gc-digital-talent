@@ -11,7 +11,8 @@ import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 import { createAndPublishPool } from "../../support/poolHelpers";
 import { createApplicant, addRolesToUser } from "../../support/userHelpers";
 
-describe("Pool Candidates", () => {
+// This test was for the legacy ViewPoolCandidatePage.
+describe.skip("Pool Candidates", () => {
   const loginAndGoToPoolsPage = () => {
     cy.loginByRole("admin");
     cy.visit("/en/admin/pools");
@@ -24,7 +25,6 @@ describe("Pool Candidates", () => {
   };
 
   beforeEach(() => {
-    cy.overrideFeatureFlags({ FEATURE_RECORD_OF_DECISION: false });
     cy.intercept("POST", "/graphql", (req) => {
       aliasQuery(req, "ViewPoolCandidatesPage");
       aliasQuery(req, "PoolTable");
