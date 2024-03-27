@@ -16,7 +16,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -272,8 +271,6 @@ class Pool extends Model
             $poolCompleteValidation->rules(),
             $poolCompleteValidation->messages()
         );
-
-        Log::debug($validator->errors()->toArray());
 
         if ($validator->fails()) {
             return false;
