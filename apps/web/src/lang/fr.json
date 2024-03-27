@@ -2591,6 +2591,10 @@
     "defaultMessage": "Le rôle de gestionnaire est nouveau pour vous? Vous souhaitez acquérir de l’expérience de recrutement et en savoir davantage sur les processus de ressources humaines?",
     "description": "Paragraph one, summary on getting hiring experience"
   },
+  "CxZGd2": {
+    "defaultMessage": "Courriel du gouvernement du Canada",
+    "description": "Label for government of canada email input in the request form"
+  },
   "CzK1qY": {
     "defaultMessage": "Supprimé",
     "description": "Label for the trashed field"
@@ -8953,10 +8957,6 @@
   "mR9A3a": {
     "defaultMessage": "Contrat",
     "description": "Contract contract instrument"
-  },
-  "mRNmrR": {
-    "defaultMessage": "Courriel du gouvernement",
-    "description": "Label for government email input in the request form"
   },
   "mS15HC": {
     "defaultMessage": "Ajouter une compétence",
