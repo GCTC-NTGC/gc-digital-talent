@@ -52,8 +52,8 @@ class PoolApplicationTest extends TestCase
     protected $unauthorizedMessage = 'This action is unauthorized.';
 
     protected $queryDocument =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         query poolCandidate($id: UUID!) {
             poolCandidate(id: $id) {
                 status
@@ -62,8 +62,8 @@ class PoolApplicationTest extends TestCase
     ';
 
     protected $createMutationDocument =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         mutation createApplication($userId: ID!, $poolId: ID!){
             createApplication(userId: $userId, poolId: $poolId) {
                 user {
@@ -78,8 +78,8 @@ class PoolApplicationTest extends TestCase
     ';
 
     protected $deleteMutationDocument =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         mutation deleteApplication($id: ID!) {
             deleteApplication(id: $id) {
                 id
@@ -88,8 +88,8 @@ class PoolApplicationTest extends TestCase
     ';
 
     protected $suspendMutationDocument =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         mutation suspendApplication($id: ID!, $isSuspended: Boolean!) {
             changeApplicationSuspendedAt(id: $id, isSuspended: $isSuspended) {
                 suspendedAt
@@ -98,8 +98,8 @@ class PoolApplicationTest extends TestCase
     ';
 
     protected $submitMutationDocument =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         mutation submitTest($id: ID!, $sig: String!) {
             submitApplication(id: $id, signature: $sig) {
                 submittedAt
