@@ -1,5 +1,5 @@
 import React from "react";
-import { MessageDescriptor, defineMessage, useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import UserCircleOutlineIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import UserCircleSolidIcon from "@heroicons/react/24/solid/UserCircleIcon";
 
@@ -13,11 +13,18 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import UserTable from "./components/UserTable";
 
-export const pageTitle: MessageDescriptor = defineMessage({
+export const pageTitle = defineMessage({
   defaultMessage: "All users",
   id: "bVQ/rm",
   description: "Title for the index user page",
 });
+export const subTitle = defineMessage({
+  defaultMessage:
+    "The following is a list of active users along with some of their details.",
+  id: "UvKDXK",
+  description: "Descriptive text about the list of users in the admin portal.",
+});
+
 export const pageOutlineIcon: IconType = UserCircleOutlineIcon;
 export const pageSolidIcon: IconType = UserCircleSolidIcon;
 
@@ -26,6 +33,7 @@ export const IndexUserPage = () => {
   const routes = useRoutes();
 
   const formattedPageTitle = intl.formatMessage(pageTitle);
+  const formattedSubTitle = intl.formatMessage(subTitle);
 
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
@@ -39,16 +47,10 @@ export const IndexUserPage = () => {
 
   return (
     <>
-      <SEO title={formattedPageTitle} />
+      <SEO title={formattedPageTitle} description={formattedSubTitle} />
       <AdminHero
         title={formattedPageTitle}
-        subtitle={intl.formatMessage({
-          defaultMessage:
-            "The following is a list of active users along with some of their details.",
-          id: "UvKDXK",
-          description:
-            "Descriptive text about the list of users in the admin portal.",
-        })}
+        subtitle={formattedSubTitle}
         nav={{ mode: "crumbs", items: navigationCrumbs }}
       />
       <AdminContentWrapper>

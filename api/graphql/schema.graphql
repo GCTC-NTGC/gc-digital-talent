@@ -124,6 +124,11 @@ type User {
   priorityWeight: Int @rename(attribute: "priority_weight")
   # authorization and roles
   authInfo: UserAuthInfo @self
+  # site options
+  ignoredEmailNotifications: [NotificationFamily]
+    @rename(attribute: "ignored_email_notifications")
+  ignoredInAppNotifications: [NotificationFamily]
+    @rename(attribute: "ignored_in_app_notifications")
 }
 
 interface Notification {
@@ -1890,6 +1895,10 @@ type Mutation {
   markNotificationAsUnread(id: UUID!): Notification @guard
   deleteNotification(id: UUID!): Notification @guard
   markAllNotificationsAsRead: [Notification] @guard
+  updateIgnoredNotifications(
+    ignoredEmailNotifications: [NotificationFamily]
+    ignoredInAppNotifications: [NotificationFamily]
+  ): User @guard @validator
   # UserSkill mutations
   createUserSkill(
     userId: UUID! @rename(attribute: "user_id")

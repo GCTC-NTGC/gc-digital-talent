@@ -18,7 +18,6 @@ type GetApplicationStepInfoArgs = {
   resourceId?: Scalars["ID"]["output"];
   intl: IntlShape;
   stepOrdinal?: number;
-  RoDFlag: boolean;
 };
 
 export type ApplicationStepInfo = {
@@ -39,7 +38,6 @@ export type ApplicationStepInfo = {
     user: User,
     pool: Pool,
     application: Omit<PoolCandidate, "pool">,
-    RoDFlag: boolean,
   ) => boolean;
 };
 

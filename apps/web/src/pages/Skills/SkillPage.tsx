@@ -1,5 +1,5 @@
 import React from "react";
-import { MessageDescriptor, defineMessage, useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 
 import { Heading, Link, Well } from "@gc-digital-talent/ui";
 
@@ -19,8 +19,8 @@ const suggestionLink = (chunks: React.ReactNode, href: string) => (
   </Link>
 );
 
-export const pageTitle: MessageDescriptor = defineMessage(adminMessages.skills);
-export const pageSubtitle: MessageDescriptor = defineMessage({
+const pageTitle = defineMessage(adminMessages.skills);
+const pageSubtitle = defineMessage({
   defaultMessage: "Explore all the skills on our site.",
   id: "eTOg2E",
   description: "Subtitle for explore skills page",
@@ -44,7 +44,7 @@ export const SkillPage = () => {
 
   return (
     <>
-      <SEO title={formattedPageTitle} />
+      <SEO title={formattedPageTitle} description={formattedPageSubtitle} />
       <Hero
         title={formattedPageTitle}
         subtitle={formattedPageSubtitle}

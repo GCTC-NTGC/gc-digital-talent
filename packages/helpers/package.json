@@ -2,16 +2,11 @@
   "name": "@gc-digital-talent/helpers",
   "license": "AGPL-3.0",
   "version": "0.0.0",
-  "sideEffects": false,
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist/**"
-  ],
+  "types": "./src/index.tsx",
+  "exports": {
+    ".": "./src/index.tsx"
+  },
   "scripts": {
-    "build": "tsup src/index.tsx --silent --dts --external react --minify",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "watch": "tsup src/index.tsx  --watch --dts --external react --minify",
     "lint": "eslint \"src/**/*.ts*\"",
     "test": "jest --detectOpenHandles --forceExit --passWithNoTests"
   },
@@ -25,11 +20,9 @@
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
-    "@swc/core": "^1.4.8",
     "@types/lodash": "4.17.0",
     "@types/react": "18.2.45",
     "eslint": "^8.57.0",
-    "tsconfig": "workspace:*",
-    "tsup": "^8.0.2"
+    "tsconfig": "workspace:*"
   }
 }

@@ -242,7 +242,7 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
             data-h2-pointer-events="base(none)"
             data-h2-z-index="base(2)"
             data-h2-inset="base(0)"
-            data-h2-shadow="base(inset)"
+            data-h2-shadow="base(inside)"
             data-h2-radius="base(s)"
           />
         </div>
@@ -379,7 +379,7 @@ const Info = ({
       <Collapsible.Content
         data-h2-background="base(background)"
         data-h2-padding="base(x.5)"
-        data-h2-shadow="base(inset)"
+        data-h2-shadow="base(inside)"
       >
         {children}
       </Collapsible.Content>

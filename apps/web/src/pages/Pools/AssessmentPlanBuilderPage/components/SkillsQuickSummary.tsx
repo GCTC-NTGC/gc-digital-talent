@@ -8,7 +8,7 @@ import {
   Separator,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import { assertUnreachable } from "@gc-digital-talent/helpers/src/utils/util";
+import { assertUnreachable } from "@gc-digital-talent/helpers";
 import { AssessmentStep, PoolSkill } from "@gc-digital-talent/graphql";
 
 import StatusItem, { Status } from "~/components/StatusItem/StatusItem";

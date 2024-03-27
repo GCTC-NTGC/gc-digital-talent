@@ -12,7 +12,6 @@ import isEqual from "lodash/isEqual";
 import DataLoader from "dataloader";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 import {
   commonMessages,
   errorMessages,
@@ -302,7 +301,6 @@ const PoolCandidatesTable = ({
   const [selectedCandidates, setSelectedCandidates] = React.useState<
     PoolCandidate[]
   >([]);
-  const { recordOfDecision } = useFeatureFlags();
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
   const initialFilters: PoolCandidateSearchInput = React.useMemo(
@@ -421,12 +419,7 @@ const PoolCandidatesTable = ({
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
       poolNameSortingInput: getPoolNameSort(sortState, locale),
-      sortingInput: getSortOrder(
-        sortState,
-        filterState,
-        doNotUseBookmark,
-        recordOfDecision,
-      ),
+      sortingInput: getSortOrder(sortState, filterState, doNotUseBookmark),
     },
   });
 
@@ -571,14 +564,12 @@ const PoolCandidatesTable = ({
       {
         id: "status",
         header: intl.formatMessage(commonMessages.status),
-        enableHiding: recordOfDecision, // After record of decision is turned on, we can remove this property entirely (it defaults to true)
         cell: ({
           row: {
             original: { poolCandidate },
           },
         }) => statusCell(poolCandidate.status, intl),
         meta: {
-          sortingLocked: !recordOfDecision,
           hideMobileHeader: true,
         },
       },
@@ -600,9 +591,6 @@ const PoolCandidatesTable = ({
             },
           },
         }) => priorityCell(user.priorityWeight, intl),
-        meta: {
-          sortingLocked: !recordOfDecision,
-        },
       },
     ),
     columnHelper.accessor(
@@ -622,7 +610,6 @@ const PoolCandidatesTable = ({
             intl,
             poolCandidate,
             unpackMaybes(poolCandidate?.pool?.assessmentSteps),
-            recordOfDecision,
           ),
         enableSorting: false,
       },
@@ -734,10 +721,7 @@ const PoolCandidatesTable = ({
     ),
   ] as ColumnDef<PoolCandidateWithSkillCount>[];
 
-  let hiddenColumnIds = ["candidacyStatus", "notes"];
-  if (recordOfDecision) {
-    hiddenColumnIds = [...hiddenColumnIds, "status"];
-  }
+  const hiddenColumnIds = ["candidacyStatus", "notes", "status"];
 
   return (
     <Table<PoolCandidateWithSkillCount>

@@ -97,7 +97,7 @@ const Row = (props: RowProps) => (
   <tr
     role="row"
     data-h2-display="base(flex) l-tablet(table-row)"
-    data-h2-background-color="base:selectors[*:nth-child(even)](background.dark.50) base:dark:selectors[*:nth-child(even)](white.3) base:selectors[*:nth-child(odd)](foreground)"
+    data-h2-background-color="base:selectors[:nth-child(even)](background.dark.50) base:dark:selectors[:nth-child(even)](white.3) base:selectors[:nth-child(odd)](foreground)"
     data-h2-border-bottom="base:selectors[:not(:last-child)](1px solid gray.dark)"
     data-h2-flex-direction="base(row)"
     data-h2-flex-wrap="base(wrap)"
