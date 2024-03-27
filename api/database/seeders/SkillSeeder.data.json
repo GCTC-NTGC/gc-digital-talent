@@ -14,8 +14,14 @@
         ],
         "key": "ability_to_learn_quickly",
         "keywords": {
-          "en": ["Fast Learner", "Quick Learner"],
-          "fr": ["Apprend rapide", "Apprentissage rapide"]
+          "en": [
+            "Fast Learner",
+            "Quick Learner"
+          ],
+          "fr": [
+            "Apprend rapide",
+            "Apprentissage rapide"
+          ]
         },
         "name": {
           "en": "Ability to Learn Quickly",
@@ -35,8 +41,16 @@
         ],
         "key": "accountability",
         "keywords": {
-          "en": ["Ownership", "Responsibility", "Transparency"],
-          "fr": ["Appropriation", "Responsabilité", "Transparence"]
+          "en": [
+            "Ownership",
+            "Responsibility",
+            "Transparency"
+          ],
+          "fr": [
+            "Appropriation",
+            "Responsabilité",
+            "Transparence"
+          ]
         },
         "name": {
           "en": "Accountability",
@@ -77,8 +91,16 @@
         ],
         "key": "adaptability",
         "keywords": {
-          "en": ["Flexibility", "Resilience", "Versatility"],
-          "fr": ["Flexibilité", "Polyvalence", "Résilience"]
+          "en": [
+            "Flexibility",
+            "Resilience",
+            "Versatility"
+          ],
+          "fr": [
+            "Flexibilité",
+            "Polyvalence",
+            "Résilience"
+          ]
         },
         "name": {
           "en": "Adaptability",
@@ -140,8 +162,16 @@
         ],
         "key": "advice_to_senior_management",
         "keywords": {
-          "en": ["Advising", "Counselling", "Guiding"],
-          "fr": ["Conseil", "Guide", "Orientation"]
+          "en": [
+            "Advising",
+            "Counselling",
+            "Guiding"
+          ],
+          "fr": [
+            "Conseil",
+            "Guide",
+            "Orientation"
+          ]
         },
         "name": {
           "en": "Advice to Management",
@@ -164,8 +194,14 @@
         ],
         "key": "advise_and_negotiate",
         "keywords": {
-          "en": ["Advise", "negotiate."],
-          "fr": ["Conseiller", "négocier."]
+          "en": [
+            "Advise",
+            "negotiate."
+          ],
+          "fr": [
+            "Conseiller",
+            "négocier."
+          ]
         },
         "name": {
           "en": "Advise and Negotiate",
@@ -254,8 +290,16 @@
         ],
         "key": "analytical_thinking",
         "keywords": {
-          "en": ["Analysis of Facts", "Critical Thinking", "Logical Thinking"],
-          "fr": ["Analyse des faits", "Pensée critique", "Pensée logique"]
+          "en": [
+            "Analysis of Facts",
+            "Critical Thinking",
+            "Logical Thinking"
+          ],
+          "fr": [
+            "Analyse des faits",
+            "Pensée critique",
+            "Pensée logique"
+          ]
         },
         "name": {
           "en": "Analytical Thinking",
@@ -822,8 +866,16 @@
         ],
         "key": "azure_policy",
         "keywords": {
-          "en": ["Azure", "ecosystem.", "policy"],
-          "fr": ["Azure", "politique", "écosystème."]
+          "en": [
+            "Azure",
+            "ecosystem.",
+            "policy"
+          ],
+          "fr": [
+            "Azure",
+            "politique",
+            "écosystème."
+          ]
         },
         "name": {
           "en": "Azure Policy",
@@ -1216,8 +1268,16 @@
         ],
         "key": "collaboration",
         "keywords": {
-          "en": ["Cooperation", "Teamwork", "Working Together"],
-          "fr": ["Coopération", "Travail d’équipe", "Travail en commun"]
+          "en": [
+            "Cooperation",
+            "Teamwork",
+            "Working Together"
+          ],
+          "fr": [
+            "Coopération",
+            "Travail d’équipe",
+            "Travail en commun"
+          ]
         },
         "name": {
           "en": "Collaboration",
@@ -1258,8 +1318,16 @@
         ],
         "key": "complex_problem_solving",
         "keywords": {
-          "en": ["Problem Analysis", "Problem Resolution", "Troubleshooting"],
-          "fr": ["Analyse de problèmes", "Dépannage", "Résolution de problèmes"]
+          "en": [
+            "Problem Analysis",
+            "Problem Resolution",
+            "Troubleshooting"
+          ],
+          "fr": [
+            "Analyse de problèmes",
+            "Dépannage",
+            "Résolution de problèmes"
+          ]
         },
         "name": {
           "en": "Complex Problem Solving",
@@ -1342,8 +1410,20 @@
         ],
         "key": "courage",
         "keywords": {
-          "en": ["Boldness", "Bravery", "Determination", "Grit", "Resolution"],
-          "fr": ["Audace", "Bravoure", "Courage", "Détermination", "Résolution"]
+          "en": [
+            "Boldness",
+            "Bravery",
+            "Determination",
+            "Grit",
+            "Resolution"
+          ],
+          "fr": [
+            "Audace",
+            "Bravoure",
+            "Courage",
+            "Détermination",
+            "Résolution"
+          ]
         },
         "name": {
           "en": "Courage",
@@ -1543,8 +1623,16 @@
         ],
         "key": "curiosity",
         "keywords": {
-          "en": ["Eagerness to Learn", "Inquisitive", "Thirst for Knowledge"],
-          "fr": ["Curieux", "Désir d’apprendre", "Soif de connaissances"]
+          "en": [
+            "Eagerness to Learn",
+            "Inquisitive",
+            "Thirst for Knowledge"
+          ],
+          "fr": [
+            "Curieux",
+            "Désir d’apprendre",
+            "Soif de connaissances"
+          ]
         },
         "name": {
           "en": "Curiosity",
@@ -1723,8 +1811,14 @@
         ],
         "key": "database_design___management",
         "keywords": {
-          "en": ["database", "design."],
-          "fr": ["bases de données.", "conception"]
+          "en": [
+            "database",
+            "design."
+          ],
+          "fr": [
+            "bases de données.",
+            "conception"
+          ]
         },
         "name": {
           "en": "Database Design",
@@ -1837,8 +1931,16 @@
         ],
         "key": "decision_making",
         "keywords": {
-          "en": ["Decisiveness", "Judgement", "Judgment"],
-          "fr": ["Décisiff", "Jugement", "Jugement"]
+          "en": [
+            "Decisiveness",
+            "Judgement",
+            "Judgment"
+          ],
+          "fr": [
+            "Décisiff",
+            "Jugement",
+            "Jugement"
+          ]
         },
         "name": {
           "en": "Decision-Making",
@@ -1864,7 +1966,12 @@
             "Reliability",
             "Trustworthiness"
           ],
-          "fr": ["Cohérence", "Confiance", "Crédibilité", "Fiabilité"]
+          "fr": [
+            "Cohérence",
+            "Confiance",
+            "Crédibilité",
+            "Fiabilité"
+          ]
         },
         "name": {
           "en": "Dependability",
@@ -1913,8 +2020,16 @@
         ],
         "key": "developing_others",
         "keywords": {
-          "en": ["Coaching", "Guidance", "Mentorship"],
-          "fr": ["Accompagnement", "Guide", "Mentorat"]
+          "en": [
+            "Coaching",
+            "Guidance",
+            "Mentorship"
+          ],
+          "fr": [
+            "Accompagnement",
+            "Guide",
+            "Mentorat"
+          ]
         },
         "name": {
           "en": "Developing Others",
@@ -1991,8 +2106,18 @@
         ],
         "key": "digital_and_it_project_management",
         "keywords": {
-          "en": ["digital", "IT", "management.", "project"],
-          "fr": ["gestion", "numériques", "projets", "TI."]
+          "en": [
+            "digital",
+            "IT",
+            "management.",
+            "project"
+          ],
+          "fr": [
+            "gestion",
+            "numériques",
+            "projets",
+            "TI."
+          ]
         },
         "name": {
           "en": "Digital and IT Project Management",
@@ -2045,8 +2170,13 @@
         ],
         "key": "digital_identity",
         "keywords": {
-          "en": ["digital credentials", "digital identity"],
-          "fr": ["identité numérique"]
+          "en": [
+            "digital credentials",
+            "digital identity"
+          ],
+          "fr": [
+            "identité numérique"
+          ]
         },
         "name": {
           "en": "Digital Identity",
@@ -2066,8 +2196,14 @@
         ],
         "key": "digital_literacy",
         "keywords": {
-          "en": ["Computer Skills", "Digital Competence"],
-          "fr": ["Compétences informatiques", "Compétences numériques"]
+          "en": [
+            "Computer Skills",
+            "Digital Competence"
+          ],
+          "fr": [
+            "Compétences informatiques",
+            "Compétences numériques"
+          ]
         },
         "name": {
           "en": "Digital Literacy",
@@ -2123,8 +2259,16 @@
         ],
         "key": "digital_product_management",
         "keywords": {
-          "en": ["digital", "management.", "product"],
-          "fr": ["gestion", "numérique.", "produit"]
+          "en": [
+            "digital",
+            "management.",
+            "product"
+          ],
+          "fr": [
+            "gestion",
+            "numérique.",
+            "produit"
+          ]
         },
         "name": {
           "en": "Digital Product Management",
@@ -2165,8 +2309,16 @@
         ],
         "key": "digital_product_user_experience_design",
         "keywords": {
-          "en": ["design", "UI", "UX"],
-          "fr": ["conception", "UI", "UX"]
+          "en": [
+            "design",
+            "UI",
+            "UX"
+          ],
+          "fr": [
+            "conception",
+            "UI",
+            "UX"
+          ]
         },
         "name": {
           "en": "User Experience Design for Digital Product",
@@ -2393,8 +2545,16 @@
         ],
         "key": "entrepreneurial_thinking",
         "keywords": {
-          "en": ["Enterprising", "Entrepreneurial Spirit", "Pioneering"],
-          "fr": ["Entreprenant", "Esprit d’entreprise", "Pionnier"]
+          "en": [
+            "Enterprising",
+            "Entrepreneurial Spirit",
+            "Pioneering"
+          ],
+          "fr": [
+            "Entreprenant",
+            "Esprit d’entreprise",
+            "Pionnier"
+          ]
         },
         "name": {
           "en": "Entrepreneurial Thinking",
@@ -2417,8 +2577,18 @@
         ],
         "key": "ethical_decision_making",
         "keywords": {
-          "en": ["Decisiveness", "Ethical Leadership", "Integrity", "Judgment"],
-          "fr": ["Décisif", "Intégrité", "Jugement", "Leadership éthique"]
+          "en": [
+            "Decisiveness",
+            "Ethical Leadership",
+            "Integrity",
+            "Judgment"
+          ],
+          "fr": [
+            "Décisif",
+            "Intégrité",
+            "Jugement",
+            "Leadership éthique"
+          ]
         },
         "name": {
           "en": "Ethical Decision-Making",
@@ -2690,8 +2860,16 @@
         ],
         "key": "flexibility",
         "keywords": {
-          "en": ["Adaptability", "Resilience", "Versatility"],
-          "fr": ["Adaptabilité", "Polyvalence", "Résilience"]
+          "en": [
+            "Adaptability",
+            "Resilience",
+            "Versatility"
+          ],
+          "fr": [
+            "Adaptabilité",
+            "Polyvalence",
+            "Résilience"
+          ]
         },
         "name": {
           "en": "Flexibility",
@@ -2783,8 +2961,14 @@
         ],
         "key": "gbaplus",
         "keywords": {
-          "en": ["Gender Analysis", "Gender Equality"],
-          "fr": ["Analyse de genre", "Égalité des sexes"]
+          "en": [
+            "Gender Analysis",
+            "Gender Equality"
+          ],
+          "fr": [
+            "Analyse de genre",
+            "Égalité des sexes"
+          ]
         },
         "name": {
           "en": "GBA+",
@@ -2915,8 +3099,16 @@
         ],
         "key": "government_of_canada_reporting_cycles",
         "keywords": {
-          "en": ["cycle.", "government", "reporting"],
-          "fr": ["cycle", "gouvernement.", "rapport"]
+          "en": [
+            "cycle.",
+            "government",
+            "reporting"
+          ],
+          "fr": [
+            "cycle",
+            "gouvernement.",
+            "rapport"
+          ]
         },
         "name": {
           "en": "Government of Canada Reporting Cycles",
@@ -2936,8 +3128,14 @@
         ],
         "key": "graph_ql",
         "keywords": {
-          "en": ["GraphQL.", "Programming language"],
-          "fr": ["GraphQL.", "Langage de programmation"]
+          "en": [
+            "GraphQL.",
+            "Programming language"
+          ],
+          "fr": [
+            "GraphQL.",
+            "Langage de programmation"
+          ]
         },
         "name": {
           "en": "GraphQL",
@@ -3083,8 +3281,16 @@
         ],
         "key": "humility",
         "keywords": {
-          "en": ["Humbleness", "Modesty", "Unpretentious"],
-          "fr": ["Humilité", "Modestie", "Sans prétention"]
+          "en": [
+            "Humbleness",
+            "Modesty",
+            "Unpretentious"
+          ],
+          "fr": [
+            "Humilité",
+            "Modestie",
+            "Sans prétention"
+          ]
         },
         "name": {
           "en": "Humility",
@@ -3280,8 +3486,14 @@
         ],
         "key": "indigenous_cultural_competency",
         "keywords": {
-          "en": ["Cultural Sensitivity", "Diversity"],
-          "fr": ["Diversité", "Sensibilité culturelle"]
+          "en": [
+            "Cultural Sensitivity",
+            "Diversity"
+          ],
+          "fr": [
+            "Diversité",
+            "Sensibilité culturelle"
+          ]
         },
         "name": {
           "en": "Indigenous Cultural Competency",
@@ -3427,8 +3639,18 @@
         ],
         "key": "initiative",
         "keywords": {
-          "en": ["Ambition", "Drive", "Leadership", "Resourcefulness"],
-          "fr": ["Ambition", "Dynamisme", "Débrouillardise", "Leadership"]
+          "en": [
+            "Ambition",
+            "Drive",
+            "Leadership",
+            "Resourcefulness"
+          ],
+          "fr": [
+            "Ambition",
+            "Dynamisme",
+            "Débrouillardise",
+            "Leadership"
+          ]
         },
         "name": {
           "en": "Initiative",
@@ -3481,8 +3703,16 @@
         ],
         "key": "insight",
         "keywords": {
-          "en": ["Awareness", "Perception", "Understanding"],
-          "fr": ["Compréhension", "Conscience", "Perception"]
+          "en": [
+            "Awareness",
+            "Perception",
+            "Understanding"
+          ],
+          "fr": [
+            "Compréhension",
+            "Conscience",
+            "Perception"
+          ]
         },
         "name": {
           "en": "Insight",
@@ -3544,8 +3774,20 @@
         ],
         "key": "integrity",
         "keywords": {
-          "en": ["Ethical", "Honesty", "Morality", "Trustworthiness", "Virtue"],
-          "fr": ["Fiabilité", "Honnêteté", "Moralité", "Vertu", "Éthique"]
+          "en": [
+            "Ethical",
+            "Honesty",
+            "Morality",
+            "Trustworthiness",
+            "Virtue"
+          ],
+          "fr": [
+            "Fiabilité",
+            "Honnêteté",
+            "Moralité",
+            "Vertu",
+            "Éthique"
+          ]
         },
         "name": {
           "en": "Integrity",
@@ -3610,8 +3852,17 @@
         ],
         "key": "it_business_line_advisory",
         "keywords": {
-          "en": ["advisory.", "business", "it", "line"],
-          "fr": ["activité", "consultatif", "TI."]
+          "en": [
+            "advisory.",
+            "business",
+            "it",
+            "line"
+          ],
+          "fr": [
+            "activité",
+            "consultatif",
+            "TI."
+          ]
         },
         "name": {
           "en": "IT Business Line Advisory",
@@ -3652,8 +3903,14 @@
         ],
         "key": "it_database_management",
         "keywords": {
-          "en": ["database", "management."],
-          "fr": ["bases de données.", "gestion"]
+          "en": [
+            "database",
+            "management."
+          ],
+          "fr": [
+            "bases de données.",
+            "gestion"
+          ]
         },
         "name": {
           "en": "IT Database Management",
@@ -3757,8 +4014,14 @@
         ],
         "key": "it_infrastructure_operations",
         "keywords": {
-          "en": ["infrastructure", "operations."],
-          "fr": ["infrastructure.", "opérations"]
+          "en": [
+            "infrastructure",
+            "operations."
+          ],
+          "fr": [
+            "infrastructure.",
+            "opérations"
+          ]
         },
         "name": {
           "en": "IT Infrastructure Operations",
@@ -3877,8 +4140,18 @@
         ],
         "key": "it_security",
         "keywords": {
-          "en": ["assets.", "digital", "IT", "security"],
-          "fr": ["actifs", "numériques.", "sécurité", "TI"]
+          "en": [
+            "assets.",
+            "digital",
+            "IT",
+            "security"
+          ],
+          "fr": [
+            "actifs",
+            "numériques.",
+            "sécurité",
+            "TI"
+          ]
         },
         "name": {
           "en": "IT Security",
@@ -3940,8 +4213,14 @@
         ],
         "key": "it_software_solutions",
         "keywords": {
-          "en": ["software", "solutions."],
-          "fr": ["logicielles.", "solutions"]
+          "en": [
+            "software",
+            "solutions."
+          ],
+          "fr": [
+            "logicielles.",
+            "solutions"
+          ]
         },
         "name": {
           "en": "IT Software Solutions",
@@ -4051,8 +4330,14 @@
         ],
         "key": "javascript",
         "keywords": {
-          "en": ["JavaScript", "language."],
-          "fr": ["JavaScript", "langage."]
+          "en": [
+            "JavaScript",
+            "language."
+          ],
+          "fr": [
+            "JavaScript",
+            "langage."
+          ]
         },
         "name": {
           "en": "JavaScript",
@@ -4072,8 +4357,14 @@
         ],
         "key": "jquery",
         "keywords": {
-          "en": ["jQuery", "language."],
-          "fr": ["jQuery", "langage."]
+          "en": [
+            "jQuery",
+            "language."
+          ],
+          "fr": [
+            "jQuery",
+            "langage."
+          ]
         },
         "name": {
           "en": "jQuery",
@@ -4114,8 +4405,18 @@
         ],
         "key": "judgement",
         "keywords": {
-          "en": ["Assessment", "Decision", "Discretion", "Evaluation"],
-          "fr": ["Appréciation", "Discernement", "Décision", "Évaluation"]
+          "en": [
+            "Assessment",
+            "Decision",
+            "Discretion",
+            "Evaluation"
+          ],
+          "fr": [
+            "Appréciation",
+            "Discernement",
+            "Décision",
+            "Évaluation"
+          ]
         },
         "name": {
           "en": "Judgement",
@@ -4135,8 +4436,18 @@
         ],
         "key": "klc_collab",
         "keywords": {
-          "en": ["collaboration", "klc", "partner", "stakeholders"],
-          "fr": ["ccl", "collaboration", "intervenants", "partenaires"]
+          "en": [
+            "collaboration",
+            "klc",
+            "partner",
+            "stakeholders"
+          ],
+          "fr": [
+            "ccl",
+            "collaboration",
+            "intervenants",
+            "partenaires"
+          ]
         },
         "name": {
           "en": "Collaborate with Partners and Stakeholders",
@@ -4156,7 +4467,12 @@
         ],
         "key": "klc_innovation",
         "keywords": {
-          "en": ["change", "guide", "innovation", "klc"],
+          "en": [
+            "change",
+            "guide",
+            "innovation",
+            "klc"
+          ],
           "fr": [
             "ccl",
             "changement",
@@ -4184,8 +4500,14 @@
         ],
         "key": "klc_mobilize",
         "keywords": {
-          "en": ["klc", "mobilize"],
-          "fr": ["ccl", "mobiliser les personnes"]
+          "en": [
+            "klc",
+            "mobilize"
+          ],
+          "fr": [
+            "ccl",
+            "mobiliser les personnes"
+          ]
         },
         "name": {
           "en": "Mobilize People",
@@ -4205,8 +4527,18 @@
         ],
         "key": "klc_respect",
         "keywords": {
-          "en": ["integrity", "KLC", "respect", "uphold"],
-          "fr": ["ccl", "intégrité", "préserver", "respect"]
+          "en": [
+            "integrity",
+            "KLC",
+            "respect",
+            "uphold"
+          ],
+          "fr": [
+            "ccl",
+            "intégrité",
+            "préserver",
+            "respect"
+          ]
         },
         "name": {
           "en": "Uphold Integrity and Respect",
@@ -4226,8 +4558,14 @@
         ],
         "key": "klc_results",
         "keywords": {
-          "en": ["klc", "results"],
-          "fr": ["ccl", "résultats"]
+          "en": [
+            "klc",
+            "results"
+          ],
+          "fr": [
+            "ccl",
+            "résultats"
+          ]
         },
         "name": {
           "en": "Achieve Results",
@@ -4247,8 +4585,14 @@
         ],
         "key": "klc_vision",
         "keywords": {
-          "en": ["KLC", "Vision"],
-          "fr": ["CCL", "Vision"]
+          "en": [
+            "KLC",
+            "Vision"
+          ],
+          "fr": [
+            "CCL",
+            "Vision"
+          ]
         },
         "name": {
           "en": "Create Vision and Strategy",
@@ -4622,8 +4966,14 @@
         ],
         "key": "organizational_acumen",
         "keywords": {
-          "en": ["Business Savvy", "Business Sense"],
-          "fr": ["Connaissance des affaires", "Sens des affaires"]
+          "en": [
+            "Business Savvy",
+            "Business Sense"
+          ],
+          "fr": [
+            "Connaissance des affaires",
+            "Sens des affaires"
+          ]
         },
         "name": {
           "en": "Organizational Acumen",
@@ -4676,8 +5026,18 @@
         ],
         "key": "passion",
         "keywords": {
-          "en": ["Eagerness", "Energy", "Enthusiasm", "Fervor"],
-          "fr": ["Ardeur", "Enthousiasme", "Ferveur", "Énergie"]
+          "en": [
+            "Eagerness",
+            "Energy",
+            "Enthusiasm",
+            "Fervor"
+          ],
+          "fr": [
+            "Ardeur",
+            "Enthousiasme",
+            "Ferveur",
+            "Énergie"
+          ]
         },
         "name": {
           "en": "Passion",
@@ -4756,7 +5116,13 @@
         ],
         "key": "planning_and_reporting_for_digital_products_and_services",
         "keywords": {
-          "en": ["digital", "planning", "products", "reporting", "services."],
+          "en": [
+            "digital",
+            "planning",
+            "products",
+            "reporting",
+            "services."
+          ],
           "fr": [
             "numériques.",
             "planification",
@@ -4856,8 +5222,12 @@
         ],
         "key": "power_builder",
         "keywords": {
-          "en": ["SAP"],
-          "fr": ["SAP"]
+          "en": [
+            "SAP"
+          ],
+          "fr": [
+            "SAP"
+          ]
         },
         "name": {
           "en": "PowerBuilder",
@@ -4877,8 +5247,14 @@
         ],
         "key": "power_platform",
         "keywords": {
-          "en": ["Low Code", "Microsoft"],
-          "fr": ["Low Code", "Microsoft"]
+          "en": [
+            "Low Code",
+            "Microsoft"
+          ],
+          "fr": [
+            "Low Code",
+            "Microsoft"
+          ]
         },
         "name": {
           "en": "Power Platform",
@@ -5180,8 +5556,14 @@
         ],
         "key": "research_and_analysis",
         "keywords": {
-          "en": ["Analysis.", "Research"],
-          "fr": ["analyse.", "Recherche"]
+          "en": [
+            "Analysis.",
+            "Research"
+          ],
+          "fr": [
+            "analyse.",
+            "Recherche"
+          ]
         },
         "name": {
           "en": "Research and Analysis",
@@ -5201,8 +5583,16 @@
         ],
         "key": "resilience",
         "keywords": {
-          "en": ["Adaptability", "Adjustability", "Flexibility"],
-          "fr": ["Adaptabilité", "Ajustement", "Flexibilité"]
+          "en": [
+            "Adaptability",
+            "Adjustability",
+            "Flexibility"
+          ],
+          "fr": [
+            "Adaptabilité",
+            "Ajustement",
+            "Flexibilité"
+          ]
         },
         "name": {
           "en": "Resilience",
@@ -5251,7 +5641,12 @@
         ],
         "key": "respect",
         "keywords": {
-          "en": ["Appreciation", "Consideration", "Courteous", "Professional"],
+          "en": [
+            "Appreciation",
+            "Consideration",
+            "Courteous",
+            "Professional"
+          ],
           "fr": [
             "Appréciation",
             "Considération",
@@ -5306,7 +5701,11 @@
         ],
         "key": "results_mindset",
         "keywords": {
-          "en": ["Goal-Driven", "Outcome-Oriented", "Results-Oriented"],
+          "en": [
+            "Goal-Driven",
+            "Outcome-Oriented",
+            "Results-Oriented"
+          ],
           "fr": [
             "Axé sur les objectifs",
             "Axé sur les résultats",
@@ -5343,8 +5742,16 @@
         ],
         "key": "risk_assessment",
         "keywords": {
-          "en": ["assessment.", "hazard", "risk"],
-          "fr": ["danger.", "risque", "Évaluation"]
+          "en": [
+            "assessment.",
+            "hazard",
+            "risk"
+          ],
+          "fr": [
+            "danger.",
+            "risque",
+            "Évaluation"
+          ]
         },
         "name": {
           "en": "Risk Assessment",
@@ -5364,8 +5771,16 @@
         ],
         "key": "risk_mindset",
         "keywords": {
-          "en": ["Calculated Risk", "Comfort with Risk", "Risk Taking"],
-          "fr": ["Confort avec le risque", "Prise de risque", "Risque calculé"]
+          "en": [
+            "Calculated Risk",
+            "Comfort with Risk",
+            "Risk Taking"
+          ],
+          "fr": [
+            "Confort avec le risque",
+            "Prise de risque",
+            "Risque calculé"
+          ]
         },
         "name": {
           "en": "Risk Mindset",
@@ -5521,8 +5936,16 @@
         ],
         "key": "service_design",
         "keywords": {
-          "en": ["design", "service"],
-          "fr": ["concept", "création", "design", "service"]
+          "en": [
+            "design",
+            "service"
+          ],
+          "fr": [
+            "concept",
+            "création",
+            "design",
+            "service"
+          ]
         },
         "name": {
           "en": "Service Design",
@@ -5605,7 +6028,11 @@
         ],
         "key": "stakeholder_relations",
         "keywords": {
-          "en": ["Client Service", "Negotiation", "Relationship Management"],
+          "en": [
+            "Client Service",
+            "Negotiation",
+            "Relationship Management"
+          ],
           "fr": [
             "Gestion des relations",
             "Négociation",
@@ -5630,8 +6057,16 @@
         ],
         "key": "storytelling",
         "keywords": {
-          "en": ["Communication", "Creating narratives", "Engagement"],
-          "fr": ["Communication", "Création de récits", "Mobilisation"]
+          "en": [
+            "Communication",
+            "Creating narratives",
+            "Engagement"
+          ],
+          "fr": [
+            "Communication",
+            "Création de récits",
+            "Mobilisation"
+          ]
         },
         "name": {
           "en": "Storytelling",
@@ -5651,7 +6086,11 @@
         ],
         "key": "strategic_thinking",
         "keywords": {
-          "en": ["Strategic Planning", "Strategy Analysis", "Visionary"],
+          "en": [
+            "Strategic Planning",
+            "Strategy Analysis",
+            "Visionary"
+          ],
           "fr": [
             "Analyse de la stratégie",
             "Planification stratégique",
@@ -5676,8 +6115,14 @@
         ],
         "key": "strategy_development",
         "keywords": {
-          "en": ["Establishing Strategies", "Formulating Strategies"],
-          "fr": ["Formuler des stratégies", "Établir des stratégies"]
+          "en": [
+            "Establishing Strategies",
+            "Formulating Strategies"
+          ],
+          "fr": [
+            "Formuler des stratégies",
+            "Établir des stratégies"
+          ]
         },
         "name": {
           "en": "Strategy Development",
@@ -5697,8 +6142,14 @@
         ],
         "key": "stress_management",
         "keywords": {
-          "en": ["management.", "stress"],
-          "fr": ["gestion", "stress."]
+          "en": [
+            "management.",
+            "stress"
+          ],
+          "fr": [
+            "gestion",
+            "stress."
+          ]
         },
         "name": {
           "en": "Stress Management",
@@ -5739,8 +6190,14 @@
         ],
         "key": "systems_thinking",
         "keywords": {
-          "en": ["Planning", "Service Integration"],
-          "fr": ["Intégration des services", "Planification"]
+          "en": [
+            "Planning",
+            "Service Integration"
+          ],
+          "fr": [
+            "Intégration des services",
+            "Planification"
+          ]
         },
         "name": {
           "en": "Systems Thinking",
@@ -5760,8 +6217,14 @@
         ],
         "key": "team_leadership",
         "keywords": {
-          "en": ["Guiding Teams", "Managing Teams"],
-          "fr": ["Guider des équipes", "Gérer des équipes"]
+          "en": [
+            "Guiding Teams",
+            "Managing Teams"
+          ],
+          "fr": [
+            "Guider des équipes",
+            "Gérer des équipes"
+          ]
         },
         "name": {
           "en": "Team Leadership",
@@ -5781,8 +6244,16 @@
         ],
         "key": "teamwork",
         "keywords": {
-          "en": ["Collaboration", "Cooperation", "Integrity"],
-          "fr": ["Collaboration", "Coopération", "Intégrité"]
+          "en": [
+            "Collaboration",
+            "Cooperation",
+            "Integrity"
+          ],
+          "fr": [
+            "Collaboration",
+            "Coopération",
+            "Intégrité"
+          ]
         },
         "name": {
           "en": "Teamwork",
@@ -5925,8 +6396,16 @@
         ],
         "key": "user_interface_and_interaction_design",
         "keywords": {
-          "en": ["design", "UI", "UX"],
-          "fr": ["conception", "UI", "UX"]
+          "en": [
+            "design",
+            "UI",
+            "UX"
+          ],
+          "fr": [
+            "conception",
+            "UI",
+            "UX"
+          ]
         },
         "name": {
           "en": "User Interface and Interaction Design",
@@ -6045,8 +6524,16 @@
         ],
         "key": "visual_communication",
         "keywords": {
-          "en": ["Graphics", "Video Communication", "Visual Media"],
-          "fr": ["Communication vidéo", "Graphisme", "Médias visuels"]
+          "en": [
+            "Graphics",
+            "Video Communication",
+            "Visual Media"
+          ],
+          "fr": [
+            "Communication vidéo",
+            "Graphisme",
+            "Médias visuels"
+          ]
         },
         "name": {
           "en": "Visual Communication",
@@ -6237,8 +6724,14 @@
         ],
         "key": "working_on_a_distributed_team",
         "keywords": {
-          "en": ["Remote Work", "Work From Home"],
-          "fr": ["Travail à distance", "Travail à domicile"]
+          "en": [
+            "Remote Work",
+            "Work From Home"
+          ],
+          "fr": [
+            "Travail à distance",
+            "Travail à domicile"
+          ]
         },
         "name": {
           "en": "Working on a Distributed Team",
@@ -6258,8 +6751,15 @@
         ],
         "key": "workload_management",
         "keywords": {
-          "en": ["management.", "workload"],
-          "fr": ["charge", "gestion", "travail."]
+          "en": [
+            "management.",
+            "workload"
+          ],
+          "fr": [
+            "charge",
+            "gestion",
+            "travail."
+          ]
         },
         "name": {
           "en": "Workload Management",
@@ -6279,8 +6779,14 @@
         ],
         "key": "written_communication",
         "keywords": {
-          "en": ["Writing", "Written Information"],
-          "fr": ["Information écrite", "Rédaction"]
+          "en": [
+            "Writing",
+            "Written Information"
+          ],
+          "fr": [
+            "Information écrite",
+            "Rédaction"
+          ]
         },
         "name": {
           "en": "Written Communication",
