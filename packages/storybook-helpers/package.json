@@ -28,7 +28,7 @@
     "@gc-digital-talent/eslint-config": "*",
     "@storybook/addon-a11y": "^7.6.17",
     "@storybook/addon-essentials": "^7.6.17",
-    "@storybook/addon-links": "^7.6.17",
+    "@storybook/addon-links": "^8.0.4",
     "@storybook/addon-themes": "^7.6.17",
     "@storybook/addon-viewport": "^7.6.17",
     "@storybook/addons": "^7.6.17",
