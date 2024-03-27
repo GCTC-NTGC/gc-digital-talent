@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Query\Expression;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -13,17 +14,21 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('pools', function (Blueprint $table) {
-            $table->uuid('classification_id');
+            $table->uuid('classification_id')->nullable();
             $table->foreign('classification_id')->references('id')->on('classifications');
         });
 
-        DB::table('classification_pool')->lazyById()->each(
-            function ($row) {
-                DB::table('pools')
-                    ->where('id', $row->pool_id)
-                    ->update(['classification_id' => $row->classification_id]);
-            }
-        );
+        DB::statement('
+            UPDATE pools
+            SET classification_id = (
+                SELECT classification_id
+                FROM classification_pool
+                WHERE pool_id = pools.id
+        );');
+
+        Schema::table('pools', function (Blueprint $table) {
+            $table->uuid('classification_id')->nullable(false)->change();
+        });
 
         Schema::dropIfExists('classification_pool');
     }
@@ -34,23 +39,21 @@ return new class extends Migration
     public function down(): void
     {
         Schema::create('classification_pool', function (Blueprint $table) {
+            $table->uuid('id')->primary('id')->default(new Expression('gen_random_uuid()'));
             $table->uuid('classification_id');
             $table->foreign('classification_id')->references('id')->on('classifications');
             $table->uuid('pool_id');
             $table->foreign('pool_id')->references('id')->on('pools');
         });
 
-        DB::table('pools')
-            ->whereNotNull('classification_id')
-            ->lazyById()
-            ->each(function ($row) {
-                DB::table('classification_pool')->insert([
-                    'classification_id' => $row->classification_id,
-                    'pool_id' => $row->id,
-                ]);
-            });
+        DB::statement('
+            INSERT INTO classification_pool (classification_id, pool_id)
+            SELECT classification_id, id
+            FROM pools
+            WHERE classification_id IS NOT NULL;
+        ');
 
-        Schema::table('pool', function (Blueprint $table) {
+        Schema::table('pools', function (Blueprint $table) {
             $table->dropForeign(['classification_id']);
             $table->dropColumn('classification_id');
         });
