@@ -34,6 +34,7 @@ const GeneralQuestionsSection = ({
   onSave,
 }: GeneralQuestionsProps) => {
   const intl = useIntl();
+  const [isUpdating, setIsUpdating] = React.useState<boolean>(false);
   const initialQuestions = React.useMemo(
     () =>
       sortBy(
@@ -55,15 +56,20 @@ const GeneralQuestionsSection = ({
   };
 
   // disabled unless status is draft
-  const formDisabled = pool.status !== PoolStatus.Draft;
+  const formDisabled = pool.status !== PoolStatus.Draft || isUpdating;
 
   const handleUpdate = (newQuestions: GeneralQuestion[]) => {
+    setIsUpdating(true);
     const generalQuestions = repeaterQuestionsToSubmitData(
       newQuestions,
       questions,
     );
     setQuestions(newQuestions);
-    onSave({ generalQuestions }).catch(resetQuestions);
+    onSave({ generalQuestions })
+      .then(() => {
+        setIsUpdating(false);
+      })
+      .catch(resetQuestions);
   };
 
   return (
@@ -86,7 +92,7 @@ const GeneralQuestionsSection = ({
           disabled={isSubmitting || formDisabled}
           max={MAX_GENERAL_QUESTIONS}
           onUpdate={handleUpdate}
-          add={<GeneralQuestionDialog />}
+          add={<GeneralQuestionDialog disabled={formDisabled} />}
         >
           {questions.map((generalQuestion, index) => (
             <GeneralQuestionCard
