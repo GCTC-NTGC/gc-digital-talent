@@ -34,7 +34,8 @@ const GeneralQuestionsSection = ({
   onSave,
 }: GeneralQuestionsProps) => {
   const intl = useIntl();
-  const initialQuestions = React.useMemo(
+  const [isUpdating, setIsUpdating] = React.useState<boolean>(false);
+  const questions = React.useMemo(
     () =>
       sortBy(
         unpackMaybes(pool.generalQuestions),
@@ -42,29 +43,22 @@ const GeneralQuestionsSection = ({
       ),
     [pool.generalQuestions],
   );
-  const [questions, setQuestions] =
-    React.useState<GeneralQuestion[]>(initialQuestions);
   const { isSubmitting } = useEditPoolContext();
 
-  React.useEffect(() => {
-    setQuestions(initialQuestions);
-  }, [initialQuestions]);
-
-  const resetQuestions = () => {
-    setQuestions(initialQuestions);
-  };
-
-  // disabled unless status is draft
-  const formDisabled = pool.status !== PoolStatus.Draft;
-
   const handleUpdate = (newQuestions: GeneralQuestion[]) => {
+    setIsUpdating(true);
     const generalQuestions = repeaterQuestionsToSubmitData(
       newQuestions,
       questions,
     );
-    setQuestions(newQuestions);
-    onSave({ generalQuestions }).catch(resetQuestions);
+    onSave({ generalQuestions }).then(() => {
+      setIsUpdating(false);
+    });
   };
+
+  // disabled unless status is draft
+  const formDisabled =
+    pool.status !== PoolStatus.Draft || isUpdating || isSubmitting;
 
   return (
     <>
@@ -83,16 +77,17 @@ const GeneralQuestionsSection = ({
       <div data-h2-margin="base(x1 0)">
         <CardRepeater.Root<GeneralQuestion>
           items={questions}
-          disabled={isSubmitting || formDisabled}
+          disabled={formDisabled}
           max={MAX_GENERAL_QUESTIONS}
           onUpdate={handleUpdate}
-          add={<GeneralQuestionDialog />}
+          add={<GeneralQuestionDialog disabled={formDisabled} />}
         >
           {questions.map((generalQuestion, index) => (
             <GeneralQuestionCard
               key={generalQuestion.id}
               index={index}
               generalQuestion={generalQuestion}
+              disabled={formDisabled}
             />
           ))}
         </CardRepeater.Root>
