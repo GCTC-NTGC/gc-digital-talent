@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
@@ -18,12 +19,46 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
-abstract class Experience extends Model
+class Experience extends Model
 {
     use HasRelationships;
     use SoftDeletes;
 
     protected $keyType = 'string';
+
+    /**
+     * Create a new concrete model instance that is existing, based on the type field.
+     *
+     * @param  object  $attributes
+     * @param  string|null  $connection
+     * @return static
+     */
+    public function newFromBuilder($attributes = [], $connection = null)
+    {
+        $model = $this->newInstanceFromType($attributes->experience_type);
+
+        $model->exists = true;
+
+        $model->setRawAttributes((array) $attributes, true);
+
+        $model->setConnection($connection ?: $this->getConnectionName());
+
+        $model->fireModelEvent('retrieved', false);
+
+        return $model;
+    }
+
+    /**
+     * Determine our model instance based on the type field.
+     *
+     *
+     * @return mixed
+     */
+    private function newInstanceFromType(string $type)
+    {
+        // we're storing the actual class name in the type field so no adjustments are needed
+        return new $type;
+    }
 
     public function user(): BelongsTo
     {
@@ -166,5 +201,45 @@ abstract class Experience extends Model
                 $user->searchable();
             }
         });
+    }
+
+    protected static function getJsonPropertyDate(array $attributes, string $propertyName)
+    {
+        $properties = json_decode($attributes['properties'] ?? '{}');
+        if (isset($properties->$propertyName) && ! empty($properties->$propertyName)) {
+            return Carbon::parse($properties->$propertyName);
+        }
+
+        return null;
+    }
+
+    protected static function setJsonPropertyDate(mixed $value, array $attributes, string $propertyName)
+    {
+        $properties = json_decode($attributes['properties'] ?? '{}');
+        if (! empty($value)) {
+            $properties->$propertyName = Carbon::parse($value)->toDateString();
+        } else {
+            $properties->$propertyName = null;
+        }
+
+        return ['properties' => json_encode($properties)];
+    }
+
+    protected static function getJsonPropertyString(array $attributes, string $propertyName)
+    {
+        $properties = json_decode($attributes['properties'] ?? '{}');
+        if (isset($properties->$propertyName)) {
+            return strval($properties->$propertyName);
+        }
+
+        return null;
+    }
+
+    protected static function setJsonPropertyString(mixed $value, array $attributes, string $propertyName)
+    {
+        $properties = json_decode($attributes['properties'] ?? '{}');
+        $properties->$propertyName = ! is_null($value) ? strval($value) : $value;
+
+        return ['properties' => json_encode($properties)];
     }
 }
