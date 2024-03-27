@@ -51,6 +51,10 @@ describe("ApplicationCard", () => {
       application: {
         ...mockApplication,
         status: PoolCandidateStatus.Draft,
+        pool: {
+          ...mockApplication.pool,
+          closingDate: FAR_FUTURE_DATE,
+        },
       },
     });
     const links = screen.queryAllByRole("link");
