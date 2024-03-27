@@ -35,7 +35,7 @@ const GeneralQuestionsSection = ({
 }: GeneralQuestionsProps) => {
   const intl = useIntl();
   const [isUpdating, setIsUpdating] = React.useState<boolean>(false);
-  const initialQuestions = React.useMemo(
+  const questions = React.useMemo(
     () =>
       sortBy(
         unpackMaybes(pool.generalQuestions),
@@ -43,20 +43,11 @@ const GeneralQuestionsSection = ({
       ),
     [pool.generalQuestions],
   );
-  const [questions, setQuestions] =
-    React.useState<GeneralQuestion[]>(initialQuestions);
   const { isSubmitting } = useEditPoolContext();
 
-  React.useEffect(() => {
-    setQuestions(initialQuestions);
-  }, [initialQuestions]);
-
-  const resetQuestions = () => {
-    setQuestions(initialQuestions);
-  };
-
   // disabled unless status is draft
-  const formDisabled = pool.status !== PoolStatus.Draft || isUpdating;
+  const formDisabled =
+    pool.status !== PoolStatus.Draft || isUpdating || isSubmitting;
 
   const handleUpdate = (newQuestions: GeneralQuestion[]) => {
     setIsUpdating(true);
@@ -64,12 +55,9 @@ const GeneralQuestionsSection = ({
       newQuestions,
       questions,
     );
-    setQuestions(newQuestions);
-    onSave({ generalQuestions })
-      .then(() => {
-        setIsUpdating(false);
-      })
-      .catch(resetQuestions);
+    onSave({ generalQuestions }).then(() => {
+      setIsUpdating(false);
+    });
   };
 
   return (
@@ -89,7 +77,7 @@ const GeneralQuestionsSection = ({
       <div data-h2-margin="base(x1 0)">
         <CardRepeater.Root<GeneralQuestion>
           items={questions}
-          disabled={isSubmitting || formDisabled}
+          disabled={formDisabled}
           max={MAX_GENERAL_QUESTIONS}
           onUpdate={handleUpdate}
           add={<GeneralQuestionDialog disabled={formDisabled} />}
