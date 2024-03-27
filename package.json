@@ -4,8 +4,8 @@
   "author": "",
   "license": "AGPL-3.0",
   "engines": {
-    "node": "20.11.0",
-    "pnpm": ">=8.0.0"
+    "node": ">=20.11.0",
+    "pnpm": ">=8.15.0"
   },
   "packageManager": "^pnpm@8.15.0",
   "workspaces": [
