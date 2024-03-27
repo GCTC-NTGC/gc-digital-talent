@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
@@ -66,9 +66,9 @@ class Experience extends Model
             ->select(User::getSelectableColumns());
     }
 
-    public function userSkills(): MorphToMany
+    public function userSkills(): BelongsToMany
     {
-        return $this->morphToMany(UserSkill::class, 'experience', 'experience_skill')
+        return $this->belongsToMany(UserSkill::class, 'experience_skill', 'experience_id')
             ->withTimestamps()
             ->withPivot(['details', 'deleted_at'])
             ->wherePivotNull('deleted_at')
@@ -83,9 +83,9 @@ class Experience extends Model
             ->withTrashed(); // from the deep relation $this->userSkills->skills fetch soft deleted skills but not userSkills
     }
 
-    public function experienceSkills(): MorphMany
+    public function experienceSkills(): HasMany
     {
-        return $this->morphMany(ExperienceSkill::class, 'experience');
+        return $this->hasMany(ExperienceSkill::class);
     }
 
     /**
