@@ -87,6 +87,7 @@ const GeneralQuestionsSection = ({
               key={generalQuestion.id}
               index={index}
               generalQuestion={generalQuestion}
+              disabled={formDisabled}
             />
           ))}
         </CardRepeater.Root>
