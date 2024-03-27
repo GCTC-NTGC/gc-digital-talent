@@ -7,7 +7,7 @@ import {
   getLanguage,
   getLanguageProficiency,
 } from "@gc-digital-talent/i18n";
-import getOrThrowError from "@gc-digital-talent/i18n/src/utils/error";
+import { getOrThrowError } from "@gc-digital-talent/helpers";
 
 import { getEvaluatedLanguageLevels } from "~/utils/userUtils";
 
