@@ -7,6 +7,10 @@
     "defaultMessage": "Remarque spéciale",
     "description": "Sub title for the special note section"
   },
+  "+7/Z+U": {
+    "defaultMessage": "Directeur(trice) ou Stratège principal(e) I T 5",
+    "description": "IT-05 classification aria label including titles"
+  },
   "+7v9Dq": {
     "defaultMessage": "Sauvegarder et ajouter un autre",
     "description": "Text for save button and add another button on experience form."
@@ -206,10 +210,6 @@
   "/I7wrY": {
     "defaultMessage": "Lier des compétences en vedette",
     "description": "Title for skills on Experience form"
-  },
-  "/IMv2G": {
-    "defaultMessage": "À venir",
-    "description": "Message displayed when a feature is in development and not ready yet"
   },
   "/JQ6DD": {
     "defaultMessage": "Filtre des exigences en matière d'études",
@@ -1135,6 +1135,10 @@
     "defaultMessage": "En savoir plus<hidden> à propos de la collectivité des gestionnaires</hidden>",
     "description": "Link text to the managers community"
   },
+  "4W8uc/": {
+    "defaultMessage": "La présente section vous permet, <strong>de façon facultative,</strong> d’ajouter jusqu’à 10 questions d’ordre général qui seront posées aux candidats dans le cadre du processus de demande. Veuillez prendre note que celles-ci ne <strong>sont pas des questions de filtrage</strong>. Des questions de filtrage seront ajoutées une fois que vous aurez façonné votre plan d’évaluation.",
+    "description": "Helper message indicating what general questions are and how they differ from screening questions"
+  },
   "4Washm": {
     "defaultMessage": "Rôles des membres",
     "description": "Title displayed for the team members table roles column."
@@ -1282,10 +1286,6 @@
   "5FFRV2": {
     "defaultMessage": "Erreur : échec de la mise à jour de l'utilisateur",
     "description": "Message displayed to user after user fails to get updated."
-  },
-  "5FK/4R": {
-    "defaultMessage": "Échéancier de carrière",
-    "description": "Heading for the users experiences"
   },
   "5FXFyB": {
     "defaultMessage": "En savoir plus sur la façon dont les lieux de travail sont décrits dans les possibilités d'emploi.",
@@ -1442,10 +1442,6 @@
   "66qMwD": {
     "defaultMessage": "« ... réfère à une personne dont les activités quotidiennes sont limitées en raison d'un trouble ou d'une difficulté à accomplir certaines tâches. La seule exception à cet égard concerne les troubles du développement, le répondant qui a reçu un tel diagnostic étant considéré comme ayant une incapacité. »",
     "description": "Definition of Person with a disability from the StatsCan 'Classification of Status of Disability' page."
-  },
-  "69/cNW": {
-    "defaultMessage": "Renseignements sur le candidat",
-    "description": "Heading displayed above the pool candidate application page."
   },
   "69BfF3": {
     "defaultMessage": "Découvrez un talent en vous servant d’un jeu de filtres détaillés, y compris la classification, les langues et les compétences.",
@@ -3983,10 +3979,6 @@
     "defaultMessage": "La Directive sur les talents numériques apporte des précisions supplémentaires sur les exigences et la prise de décisions en matière d’établissement d’un bassin de talents pour soutenir l’élaboration et la prestation d’initiatives, de produits et de services numériques. Elle vise à fournir des étapes pratiques aux personnes qui participent aux décisions d’établissement d’un bassin de talents et à collecter des données qui seront ensuite utilisées pour améliorer en permanence la qualité, la rapidité et la disponibilité de la recherche de talents numériques.",
     "description": "The directives digital talent and sourcing component"
   },
-  "L5duFP": {
-    "defaultMessage": "Dans la dernière étape de la candidature, nous aimerions vous poser quelques questions relatives à l’occasion qui nous aideront à comprendre votre profil unique.",
-    "description": "Application step for screening questions, introduction description, paragraph one"
-  },
   "L6MgeM": {
     "defaultMessage": "Afin d’offrir une possibilité équitable afin que tous les Canadiens et toutes les Canadiennes puissant postuler ce poste, la date limite aura lieu à <strong>23:59 heure du Pacifique</strong>, à la date précisée.",
     "description": "First paragraph for the pool deadlines dialog"
@@ -4519,10 +4511,6 @@
     "defaultMessage": "Veuillez utiliser le bouton prévu à cet effet pour trouver et sélectionner toutes les compétences requises pour ce poste.",
     "description": "Introduction for _skills_ fieldset in the _digital services contracting questionnaire_"
   },
-  "OUXmYd": {
-    "defaultMessage": "Vos réponses seront évaluées dans le cadre de votre candidature, alors assurez-vous de donner à chaque question le temps et la réflexion nécessaires pour une réponse qui vous représente vraiment, vous et votre expérience.",
-    "description": "Application step for screening questions, introduction description, paragraph two"
-  },
   "OVWo88": {
     "defaultMessage": "Statut d'ancien combattant",
     "description": "Title for Veteran status"
@@ -4618,6 +4606,10 @@
   "OyMDr3": {
     "defaultMessage": "Questions en français",
     "description": "Description for a list of questions in the French language"
+  },
+  "OyV6MH": {
+    "defaultMessage": "Gérer vos renseignements personnels, votre parcours professionnel, vos compétences, et faire le suivi de vos candidatures.",
+    "description": "SEO description for profile and applications hero"
   },
   "P/tHlt": {
     "defaultMessage": "Par type",
@@ -4758,10 +4750,6 @@
   "PvH5lJ": {
     "defaultMessage": "Ce que nous entendons",
     "description": "Heading for the quotes sections"
-  },
-  "PvYso4": {
-    "defaultMessage": "<link>L'Ambition numérique</link>, publiée en 2022, donne des directives sur la façon d'accroître la représentation des groupes sous-resprésentés en ayant recours à des programmes tels le Programme d'apprrentissage en TI pour les peuples autochtones.",
-    "description": "Paragraph 1 of the 'A commitment to diverse digital talent' section"
   },
   "PymrxL": {
     "defaultMessage": "Sélectionner une classification pour afficher les exigences en matière de formation.",
@@ -5147,10 +5135,6 @@
     "defaultMessage": "Ce programme élimine l’un des principaux obstacles à l’emploi en valorisant le potentiel d’une personne plutôt que son niveau de scolarité. Ce faisant, cette initiative contribue à combler les écarts en matière d’éducation, d’emploi et d’économie auxquelles sont confrontées les personnes autochtones du Canada.",
     "description": "Paragraph 3 of the 'About the program' section"
   },
-  "Rl+0Er": {
-    "defaultMessage": "Afficher les candidats",
-    "description": "Title for the edit pool page"
-  },
   "Rm4SuQ": {
     "defaultMessage": "Sélectionnez un bassin",
     "description": "Placeholder displayed on the pool field of the add user to pool dialog."
@@ -5451,10 +5435,6 @@
     "defaultMessage": "Exigences",
     "description": "Heading for the contract requirements section on the digital services contracting questionnaire"
   },
-  "Tdr8r5": {
-    "defaultMessage": "Quelques questions sur le sujet",
-    "description": "Page title for the application screening questions introduction page"
-  },
   "TiIkSF": {
     "defaultMessage": "Études postsecondaires de deux ans",
     "description": "Option for education requirement, 2-year post-secondary"
@@ -5693,10 +5673,6 @@
   "V1DqDX": {
     "defaultMessage": "Compétences requises :",
     "description": "Label for the skills required for a pool"
-  },
-  "V2vBbu": {
-    "defaultMessage": "Ceci est le profil soumis le <strong>{submittedAt}</strong> pour le bassin : <strong>{poolName}</strong>",
-    "description": "Snapshot details displayed above the pool candidate application page."
   },
   "V4+lDw": {
     "defaultMessage": "Afficher les résultats",
@@ -7034,6 +7010,10 @@
     "defaultMessage": "Modifier les options de votre expérience.",
     "description": "Link text to edit experience information on profile."
   },
+  "c4R8FH": {
+    "defaultMessage": "<link>L'Ambition numérique</link>, publiée en 2022, donne des directives sur la façon d'accroître la représentation des groupes sous-représentés en ayant recours à des programmes tels le Programme d'apprentissage en TI pour les personnes autochtones.",
+    "description": "Paragraph 1 of the 'A commitment to diverse digital talent' section"
+  },
   "c70xDW": {
     "defaultMessage": "Requises",
     "description": "Label for a required skill"
@@ -7449,6 +7429,10 @@
   "e8SFXx": {
     "defaultMessage": "Inscrivez-vous en utilisant CléGC",
     "description": "Page title for the registration page for applicant profiles"
+  },
+  "e8tJXk": {
+    "defaultMessage": "IT-05 : Directeur(trice) ou Stratège principal(e)",
+    "description": "IT-05 classification label including titles"
   },
   "eCK3Ng": {
     "defaultMessage": "Accepter les temporaires",
@@ -7882,10 +7866,6 @@
     "defaultMessage": "Afficher les détails de {experienceName}",
     "description": "Button text to show a specific experience's details"
   },
-  "ghcC8V": {
-    "defaultMessage": "Voici le parcours professionnel du candidat :",
-    "description": "Lead-in text for the snapshot career timeline section"
-  },
   "ghg7uN": {
     "defaultMessage": "J'accepterais un emploi d'une durée de...",
     "description": "Start of sentence describing a users accepted working term"
@@ -8233,10 +8213,6 @@
   "iA1Q8d": {
     "defaultMessage": "Ainsi, ce processus n'apparaîtra plus automatiquement dans les recherches de requêtes et les tableaux de bord partout.",
     "description": "Text explaining what will happen when archiving a process"
-  },
-  "iAG/IN": {
-    "defaultMessage": "La présente section vous permet, <strong>de façon facultative,</strong> d’ajouter jusqu’à 3 questions d’ordre général qui seront posées aux candidats dans le cadre du processus de demande. Veuillez prendre note que celles-ci ne <strong>sont pas des questions de filtrage</strong>. Des questions de filtrage seront ajoutées une fois que vous aurez façonné votre plan d’évaluation.",
-    "description": "Helper message indicating what general questions are and how they differ from screening questions"
   },
   "iFbBSU": {
     "defaultMessage": "Titre de l’évaluation (Anglais)",
@@ -9754,10 +9730,6 @@
     "defaultMessage": "Déterminer et coordonner les occasions de formation et d’amélioration des compétences à l’échelle du gouvernement",
     "description": "An OCIO role in the _supporting the community_ section of the _digital services contracting questionnaire_"
   },
-  "qt8lB2": {
-    "defaultMessage": "IT-05 : Directeur",
-    "description": "IT-05 classification label including titles"
-  },
   "qtCt+G": {
     "defaultMessage": "Aller à la dernière page ",
     "description": "Label for last page button in pagination nav"
@@ -10129,6 +10101,10 @@
   "tJLZYs": {
     "defaultMessage": "Obtention d’un diplôme d’un programme de deux ans ou plus offert par <link>une institution postsecondaire reconnue</link>. Le programme doit compter une spécialisation en sciences informatiques, en technologie de l’information, en gestion de l’information ou dans un autre domaine spécialisé pertinent à la présente publication.",
     "description": "Descriptive text explaining a valid post secondary education."
+  },
+  "tJnBx1": {
+    "defaultMessage": "Que vous envisagiez de travailler pour le gouvernement ou que vous soyez déjà employé, que vous souhaitiez embaucher ou que vous envisagiez un nouveau rôle, vous êtes au bon endroit pour faire partie de la collectivité numérique du GC.",
+    "description": "SEO description of the application on the homepage"
   },
   "tKtdVT": {
     "defaultMessage": "Apprenez-en davantage<hidden> sur les emplois de cadre supérieur</hidden>",
@@ -11053,10 +11029,6 @@
   "zXzQhc": {
     "defaultMessage": "Si vous ne savez pas si ce questionnaire est nécessaire pour un type de contrat spécifique, veuillez communiquer avec nous, à <link>GCTalentGC@tbs-sct.gc.ca</link>, pour obtenir de plus amples renseignements.",
     "description": "Paragraph three of the _examples of contracts_ section of the _digital services contracting questionnaire_"
-  },
-  "zbiumT": {
-    "defaultMessage": "Directeur I T 5",
-    "description": "IT-05 classification aria label including titles"
   },
   "zbmWLG": {
     "defaultMessage": "Le gouvernement du Canada lira les commentaires et participera aux discussions, au besoin. Vos commentaires et vos contributions doivent être pertinents et respectueux.",

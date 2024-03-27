@@ -510,15 +510,8 @@ export const getCandidateStatusChip = (
   candidate: PoolCandidate,
   steps: AssessmentStep[],
   intl: IntlShape,
-  recordOfDecisionFlag: boolean, // TODO: remove with #8415
 ): StatusChip => {
   if (isToAssessStatus(candidate.status)) {
-    if (!recordOfDecisionFlag) {
-      return {
-        label: intl.formatMessage(poolCandidateMessages.toAssess),
-        color: "warning",
-      };
-    }
     return computeInAssessmentStatusChip(candidate, steps, intl);
   }
   const messages =

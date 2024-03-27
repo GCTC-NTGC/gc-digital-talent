@@ -23,6 +23,7 @@ class CiSeeder extends Seeder
 
             // convenient test data
             UserTestSeeder::class,
+            PoolTestSeeder::class,
         ]);
     }
 }
