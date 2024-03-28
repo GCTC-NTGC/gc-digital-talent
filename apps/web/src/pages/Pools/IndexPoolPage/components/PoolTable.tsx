@@ -31,7 +31,6 @@ import {
   fullNameCell,
   ownerEmailAccessor,
   ownerNameAccessor,
-  poolCandidatesViewCell,
   poolNameAccessor,
   viewCell,
   viewTeamLinkCell,
@@ -104,16 +103,6 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
         header: intl.formatMessage(processMessages.publishingGroup),
       },
     ),
-    columnHelper.display({
-      id: "candidates",
-      header: intl.formatMessage({
-        defaultMessage: "Candidates",
-        id: "EdUZaX",
-        description: "Header for the View Candidates column of the Pools table",
-      }),
-      cell: ({ row: { original: pool } }) =>
-        poolCandidatesViewCell(paths.poolCandidateTable(pool.id), intl, pool),
-    }),
     columnHelper.accessor(
       (row) =>
         intl.formatMessage(
