@@ -99,9 +99,9 @@ class PoolCandidateFactory extends Factory
             }
 
             // set education requirement option, influenced by classification of pool
-            $classificationOne = $poolCandidate->pool->classifications()->first();
-            if ($classificationOne) {
-                if ($classificationOne->group === 'EX') {
+            $classification = $poolCandidate->pool->classification;
+            if ($classification) {
+                if ($classification->group === 'EX') {
                     $poolCandidate->update([
                         'education_requirement_option' => EducationRequirementOption::PROFESSIONAL_DESIGNATION->name,
                     ]);

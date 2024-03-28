@@ -27,14 +27,12 @@ import processMessages from "~/messages/processMessages";
 
 import FilterBlock from "./FilterBlock";
 
-type SimpleClassification = Pick<Classification, "group" | "level">;
-
 const ApplicantFilters = ({
   applicantFilter,
   selectedClassifications,
 }: {
   applicantFilter?: Maybe<ApplicantFilter>;
-  selectedClassifications?: Maybe<SimpleClassification>[];
+  selectedClassifications?: Maybe<Classification>[];
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -286,7 +284,7 @@ const ApplicantFilters = ({
 
 interface SearchRequestFiltersProps {
   filters?: Maybe<ApplicantFilter | PoolCandidateFilter>;
-  selectedClassifications?: Maybe<SimpleClassification>[];
+  selectedClassifications?: Maybe<Classification>[];
 }
 
 const SearchRequestFilters = ({

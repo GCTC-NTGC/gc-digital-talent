@@ -43,7 +43,7 @@ const IndexPoolCandidatePage_Query = graphql(/* GraphQL */ `
       status
       language
       securityClearance
-      classifications {
+      classification {
         id
         group
         level

@@ -44,7 +44,6 @@ import {
 import SEO from "~/components/SEO/SEO";
 import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
 import useRoutes from "~/hooks/useRoutes";
-import { SimpleClassification } from "~/types/pool";
 import {
   BrowserHistoryState,
   FormValues as SearchFormValues,
@@ -94,7 +93,7 @@ export interface RequestFormProps {
   applicantFilter: Maybe<ApplicantFilterInput>;
   candidateCount: Maybe<number>;
   searchFormInitialValues?: SearchFormValues;
-  selectedClassifications?: Maybe<SimpleClassification>[];
+  selectedClassifications?: Maybe<Classification>[];
   handleCreatePoolCandidateSearchRequest: (
     data: CreatePoolCandidateSearchRequestInput,
   ) => Promise<CreateRequestMutation["createPoolCandidateSearchRequest"]>;
@@ -622,7 +621,7 @@ const RequestForm_SearchRequestDataQuery = graphql(/* GraphQL */ `
         en
         fr
       }
-      classifications {
+      classification {
         id
         group
         level
@@ -641,7 +640,7 @@ const RequestFormApi = ({
   applicantFilter: Maybe<ApplicantFilterInput>;
   candidateCount: Maybe<number>;
   searchFormInitialValues?: SearchFormValues;
-  selectedClassifications?: Maybe<SimpleClassification>[];
+  selectedClassifications?: Maybe<Classification>[];
 }) => {
   const intl = useIntl();
   const [{ data: lookupData, fetching, error }] = useQuery({

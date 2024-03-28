@@ -37,12 +37,7 @@ import { PageNavInfo } from "~/types/pages";
 import useRoutes from "~/hooks/useRoutes";
 import poolMessages from "~/messages/poolMessages";
 import { ONGOING_PUBLISHING_GROUPS } from "~/constants/pool";
-import {
-  PageNavKeys,
-  PoolCompleteness,
-  SimpleClassification,
-  SimplePool,
-} from "~/types/pool";
+import { PageNavKeys, PoolCompleteness } from "~/types/pool";
 import messages from "~/messages/adminMessages";
 
 import { wrapAbbr } from "./nameUtils";
@@ -56,15 +51,12 @@ import { wrapAbbr } from "./nameUtils";
  * @returns boolean
  */
 export const poolMatchesClassification = (
-  pool: SimplePool,
-  classification: SimpleClassification,
+  pool: Pool,
+  classification: Classification,
 ): boolean => {
   return (
-    pool.classifications?.some(
-      (poolClassification) =>
-        poolClassification?.group === classification?.group &&
-        poolClassification?.level === classification?.level,
-    ) ?? false
+    pool.classification?.group === classification?.group &&
+    pool.classification?.level === classification?.level
   );
 };
 
@@ -207,7 +199,7 @@ export const poolTitle = (
 
   const formattedTitle = formattedPoolPosterTitle({
     title: specificTitle,
-    classification: pool?.classifications?.[0],
+    classification: pool?.classification,
     stream: pool?.stream,
     short: options?.short,
     intl,
@@ -381,17 +373,6 @@ export const isOngoingPublishingGroup = (
 ): boolean =>
   publishingGroup ? ONGOING_PUBLISHING_GROUPS.includes(publishingGroup) : false;
 
-export type ClassificationGroup = "AS" | "EX" | "PM" | "IT" | "EC";
-
-export function getClassificationGroup(
-  pool: Maybe<Pool>,
-): ClassificationGroup | undefined {
-  const classification = pool?.classifications ? pool.classifications[0] : null;
-  return classification?.group
-    ? (classification.group as ClassificationGroup)
-    : undefined;
-}
-
 export const getAdvertisementStatus = (pool?: Pool): PoolCompleteness => {
   if (!pool) return "incomplete";
 
@@ -506,7 +487,7 @@ export const formatClosingDate = (
 
 export const getClassificationSalaryRangeUrl = (
   locale: Locales,
-  classification: Maybe<Classification>,
+  classification?: Maybe<Classification>,
 ): string | null => {
   let localizedUrl: Record<Locales, string> | null = null;
   switch (classification?.group) {

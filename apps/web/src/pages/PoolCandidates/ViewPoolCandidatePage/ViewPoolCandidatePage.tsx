@@ -92,7 +92,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
               en
               fr
             }
-            classifications {
+            classification {
               id
               group
               level
@@ -259,7 +259,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
           fr
         }
         stream
-        classifications {
+        classification {
           id
           group
           level
@@ -431,7 +431,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
         fr
       }
       stream
-      classifications {
+      classification {
         id
         group
         level

@@ -26,7 +26,7 @@ import processMessages from "~/messages/processMessages";
 import {
   classificationAccessor,
   classificationSortFn,
-  classificationsCell,
+  classificationCell,
   emailLinkAccessor,
   fullNameCell,
   ownerEmailAccessor,
@@ -63,22 +63,19 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
       cell: ({ row: { original: pool } }) =>
         viewCell(paths.poolView(pool.id), pool, intl),
     }),
-    columnHelper.accessor(
-      (row) => classificationAccessor(row.classifications),
-      {
-        id: "classifications",
-        header: intl.formatMessage({
-          defaultMessage: "Group and Level",
-          id: "FGUGtr",
-          description:
-            "Title displayed for the Pool table Group and Level column.",
-        }),
-        sortingFn: (rowA: Row<Pool>, rowB: Row<Pool>) =>
-          classificationSortFn(rowA.original, rowB.original),
-        cell: ({ row: { original: pool } }) =>
-          classificationsCell(pool.classifications),
-      },
-    ),
+    columnHelper.accessor((row) => classificationAccessor(row.classification), {
+      id: "classification",
+      header: intl.formatMessage({
+        defaultMessage: "Group and Level",
+        id: "FGUGtr",
+        description:
+          "Title displayed for the Pool table Group and Level column.",
+      }),
+      sortingFn: (rowA: Row<Pool>, rowB: Row<Pool>) =>
+        classificationSortFn(rowA.original, rowB.original),
+      cell: ({ row: { original: pool } }) =>
+        classificationCell(pool.classification),
+    }),
     columnHelper.accessor(
       (row) =>
         intl.formatMessage(
@@ -263,7 +260,7 @@ const PoolTable_Query = graphql(/* GraphQL */ `
         en
         fr
       }
-      classifications {
+      classification {
         id
         group
         level

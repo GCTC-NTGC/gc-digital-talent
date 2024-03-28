@@ -66,8 +66,8 @@ test.describe("Application", () => {
     const team = await getDCM();
     const classifications = await getClassifications();
     const createdPool = await poolPage.createPool(createdUser.id, team.id, {
-      classifications: {
-        sync: [classifications[0].id],
+      classification: {
+        connect: classifications[0].id,
       },
     });
     await poolPage.updatePool(createdPool.id, {

@@ -56,6 +56,11 @@ class PoolFactory extends Factory
             $teamId = Team::factory()->create()->id;
         }
 
+        $classification = Classification::inRandomOrder()->first();
+        if (! $classification) {
+            $classification = Classification::factory()->create();
+        }
+
         $name = $this->faker->unique()->company();
 
         // this is essentially the draft state
@@ -63,15 +68,14 @@ class PoolFactory extends Factory
             'name' => ['en' => $name, 'fr' => $name],
             'user_id' => $adminUserId,
             'team_id' => $teamId,
+            'classification_id' => $classification->id,
         ];
     }
 
     public function configure()
     {
         return $this->afterCreating(function (Pool $pool) {
-            $classifications = Classification::inRandomOrder()->limit(1)->get();
             $skills = Skill::inRandomOrder()->limit(10)->get();
-            $pool->classifications()->saveMany($classifications);
 
             foreach ($skills->slice(0, 5) as $skill) {
                 $poolSkill = new PoolSkill();

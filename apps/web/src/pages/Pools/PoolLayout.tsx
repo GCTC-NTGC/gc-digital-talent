@@ -25,7 +25,7 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminHero from "~/components/Hero/AdminHero";
 
 interface PoolHeaderProps {
-  pool: Pick<Pool, "id" | "classifications" | "stream" | "name" | "team">;
+  pool: Pick<Pool, "id" | "classification" | "stream" | "name" | "team">;
 }
 
 const PoolHeader = ({ pool }: PoolHeaderProps) => {
@@ -91,7 +91,7 @@ const PoolLayout_Query = graphql(/* GraphQL */ `
         fr
       }
       stream
-      classifications {
+      classification {
         id
         group
         level
