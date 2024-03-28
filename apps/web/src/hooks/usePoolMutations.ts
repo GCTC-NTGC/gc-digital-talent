@@ -42,8 +42,8 @@ const PublishPool_Mutation = graphql(/* GraphQL */ `
 `);
 
 const ClosePool_Mutation = graphql(/* GraphQL */ `
-  mutation ClosePool($id: ID!) {
-    closePool(id: $id) {
+  mutation ClosePool($id: ID!, $reason: String) {
+    closePool(id: $id, reason: $reason) {
       id
       closingDate
     }
@@ -223,8 +223,8 @@ const usePoolMutations = (returnPath?: string) => {
     );
   };
 
-  const close = (id: string) => {
-    executeCloseMutation({ id })
+  const close = (id: string, reason?: string) => {
+    executeCloseMutation({ id, reason })
       .then((result) => {
         if (result.data?.closePool) {
           navigateBack();
