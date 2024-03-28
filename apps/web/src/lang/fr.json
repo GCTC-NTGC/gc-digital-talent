@@ -2159,10 +2159,6 @@
     "defaultMessage": "Nom du propriétaire",
     "description": "Title displayed for the Pool table Owner Name column"
   },
-  "Aaas0w": {
-    "defaultMessage": "L’heure de clôture sera automatiquement fixée à 23 h 59 dans le fuseau horaire du Pacifique.",
-    "description": "Helper message for changing the pool closing date"
-  },
   "AbU5rL": {
     "defaultMessage": "Travail posté",
     "description": "Shift work personnel other requirement"
@@ -2318,10 +2314,6 @@
   "BNEY8G": {
     "defaultMessage": "Date d'expiration",
     "description": "CSV Header, Expiry Date column"
-  },
-  "BQsJSG": {
-    "defaultMessage": "Saisissez une nouvelle date de clôture :",
-    "description": "First paragraph for extend pool closing date dialog"
   },
   "BRpssM": {
     "defaultMessage": "Ces ressources fournissent un aperçu des exigences de la Directive sur les talents numériques. La présentation de la séance de formation et l'arbre décisionnel sur les exigences en matière d'établissement de rapports contiennent des renseignements applicables à tous les groupes d’utilisateurs.",
@@ -2751,10 +2743,6 @@
     "defaultMessage": "Erreur : l’étape de la sauvegarde de l’évaluation a échoué.",
     "description": "Message displayed to user after assessment step fails to be saved."
   },
-  "DpzAPD": {
-    "defaultMessage": "Vous êtes sur le point de prolonger la date de clôture de ce processus : {poolName}",
-    "description": "Text to confirm the process to be extend"
-  },
   "DqM+mu": {
     "defaultMessage": "Erreur : Le désarchivage du processus a échoué",
     "description": "Message displayed to user after pool fails to get un-archived."
@@ -2966,10 +2954,6 @@
   "F3/88e": {
     "defaultMessage": "Modifier les options de votre lieu de travail.",
     "description": "Link text to edit work location on profile"
-  },
-  "F3Ma0i": {
-    "defaultMessage": "Prolonger la date de clôture",
-    "description": "Title to extend a process"
   },
   "F4RHJu": {
     "defaultMessage": "Il manque des renseignements obligatoires sur la langue",
