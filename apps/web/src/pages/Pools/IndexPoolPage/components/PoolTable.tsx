@@ -157,16 +157,6 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
       }),
       cell: ({ row: { original: pool } }) => emailLinkAccessor(pool, intl),
     }),
-    columnHelper.display({
-      id: "edit",
-      header: intl.formatMessage(commonMessages.edit),
-      cell: ({ row: { original: pool } }) =>
-        cells.edit(
-          pool.id,
-          paths.poolTable(),
-          getLocalizedName(pool.name, intl),
-        ),
-    }),
     columnHelper.accessor(({ createdDate }) => accessors.date(createdDate), {
       id: "createdDate",
       enableColumnFilter: false,
