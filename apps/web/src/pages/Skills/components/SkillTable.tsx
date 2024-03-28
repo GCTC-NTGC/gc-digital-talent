@@ -151,10 +151,10 @@ export const SkillTable = ({
   ] as ColumnDef<Skill>[];
 
   useEffect(() => {
-    let filteredData;
+    let filteredData = skills;
     // filter by skill family
     if (filterState?.skillFamilies)
-      filteredData = skills.filter((skill) =>
+      filteredData = filteredData.filter((skill) =>
         skill.families?.find((skillFamily) =>
           filterState.skillFamilies?.includes(skillFamily.key),
         ),
@@ -170,7 +170,7 @@ export const SkillTable = ({
           ),
       );
 
-    setDataState(filteredData ?? skills);
+    setDataState(filteredData);
   }, [filterState, skills]);
 
   const { pathname, search, hash } = useLocation();
