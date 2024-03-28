@@ -566,7 +566,7 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
       language
       securityClearance
       isComplete
-      classifications {
+      classification {
         id
         group
         level

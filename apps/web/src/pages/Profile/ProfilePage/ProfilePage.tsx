@@ -385,7 +385,7 @@ const ProfileUser_Query = graphql(/* GraphQL */ `
             fr
           }
           stream
-          classifications {
+          classification {
             id
             group
             level

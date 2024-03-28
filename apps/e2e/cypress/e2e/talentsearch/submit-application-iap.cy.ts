@@ -73,7 +73,7 @@ describe("Submit Application for IAP Workflow Tests", () => {
         .then((adminUserId) => {
           cy.get<string>("@testClassificationId").then(
             (testClassificationId) => {
-              cy.createPool(adminUserId, dcmId, [testClassificationId])
+              cy.createPool(adminUserId, dcmId, testClassificationId)
                 .its("id")
                 .as("testPoolId")
                 .then((testPoolId) => {

@@ -23,7 +23,7 @@ const poolQueryDoc = /* GraphQL */ `
       status
       language
       securityClearance
-      classifications {
+      classification {
         id
         group
         level

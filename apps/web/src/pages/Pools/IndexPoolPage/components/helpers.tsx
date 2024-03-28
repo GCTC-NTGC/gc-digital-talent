@@ -2,8 +2,7 @@ import React from "react";
 import { IntlShape } from "react-intl";
 
 import { getLocalizedName, getPoolStream } from "@gc-digital-talent/i18n";
-import { Link, Chip, Chips } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { Link, Chip } from "@gc-digital-talent/ui";
 import {
   Classification,
   LocalizedString,
@@ -78,32 +77,23 @@ export function fullNameCell(pool: Pool, intl: IntlShape) {
 }
 
 export function classificationAccessor(
-  classifications: Maybe<Maybe<Classification>[]> | undefined,
+  classification: Maybe<Classification> | undefined,
 ) {
-  return classifications
-    ?.filter(notEmpty)
-    ?.map((c) => `${c.group}-0${c.level}`)
-    ?.join(", ");
+  return classification
+    ? `${classification.group}-0${classification.level}`
+    : "";
 }
 
 export function classificationSortFn(rowA: Pool, rowB: Pool) {
   // passing in sortType to override default sort
   const rowAGroup =
-    rowA.classifications && rowA.classifications[0]
-      ? rowA.classifications[0].group
-      : "";
+    rowA.classification && rowA.classification ? rowA.classification.group : "";
   const rowBGroup =
-    rowB.classifications && rowB.classifications[0]
-      ? rowB.classifications[0].group
-      : "";
+    rowB.classification && rowB.classification ? rowB.classification.group : "";
   const rowALevel =
-    rowA.classifications && rowA.classifications[0]
-      ? rowA.classifications[0].level
-      : 0;
+    rowA.classification && rowA.classification ? rowA.classification.level : 0;
   const rowBLevel =
-    rowB.classifications && rowB.classifications[0]
-      ? rowB.classifications[0].level
-      : 0;
+    rowB.classification && rowB.classification ? rowB.classification.level : 0;
 
   if (rowAGroup.toLowerCase() > rowBGroup.toLowerCase()) {
     return 1;
@@ -121,23 +111,16 @@ export function classificationSortFn(rowA: Pool, rowB: Pool) {
   return 0;
 }
 
-export function classificationsCell(
-  classifications: Maybe<Maybe<Classification>[] | undefined> | undefined,
+export function classificationCell(
+  classification: Maybe<Classification> | undefined,
 ) {
-  const filteredClassifications = classifications
-    ? classifications.filter(notEmpty)
-    : [];
-  const chipsArray = filteredClassifications.map((classification) => {
-    return (
-      <Chip
-        key={`${classification.group}-0${classification.level}`}
-        color="primary"
-      >
-        {`${classification.group}-0${classification.level}`}
-      </Chip>
-    );
-  });
-  return chipsArray.length > 0 ? <Chips>{chipsArray}</Chips> : null;
+  if (!classification) return null;
+
+  return (
+    <Chip color="primary">
+      {`${classification.group}-0${classification.level}`}
+    </Chip>
+  );
 }
 
 export function emailLinkAccessor(pool: Pool, intl: IntlShape) {
