@@ -4,34 +4,28 @@ import { useIntl } from "react-intl";
 
 import {
   RadioGroup,
-  Select,
   FieldLabels,
   enumToOptions,
+  Checkbox,
 } from "@gc-digital-talent/forms";
 import {
   errorMessages,
   getEvaluatedLanguageAbility,
-  uiMessages,
+  getLanguage,
   useLocale,
 } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
-import {
-  BilingualEvaluation,
-  EvaluatedLanguageAbility,
-} from "@gc-digital-talent/graphql";
+import { EvaluatedLanguageAbility, Language } from "@gc-digital-talent/graphql";
 
-import {
-  getBilingualEvaluationItems,
-  getEstimatedAbilityOptions,
-} from "./utils";
+import { getEstimatedAbilityOptions, getExamValidityOptions } from "./utils";
 
 const EvaluatedAbilityItemsSortOrder = [
-  EvaluatedLanguageAbility.X,
-  EvaluatedLanguageAbility.A,
-  EvaluatedLanguageAbility.B,
-  EvaluatedLanguageAbility.C,
-  EvaluatedLanguageAbility.E,
   EvaluatedLanguageAbility.P,
+  EvaluatedLanguageAbility.E,
+  EvaluatedLanguageAbility.C,
+  EvaluatedLanguageAbility.B,
+  EvaluatedLanguageAbility.A,
+  EvaluatedLanguageAbility.X,
   EvaluatedLanguageAbility.NotAssessed,
 ];
 
@@ -44,7 +38,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
   const { locale } = useLocale();
   const { watch, resetField } = useFormContext();
 
-  const languageEvaluationPageLink = () => {
+  const languageEvaluationPageLink = (msg: React.ReactNode) => {
     return (
       <Link
         newTab
@@ -55,11 +49,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
             : "https://www.canada.ca/fr/commission-fonction-publique/services/evaluation-langue-seconde.html"
         }
       >
-        {intl.formatMessage({
-          defaultMessage: "Government of Canada language evaluation",
-          id: "3vjhOA",
-          description: "Message on links to the language evaluation tests",
-        })}
+        {msg}
       </Link>
     );
   };
@@ -81,15 +71,10 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
   };
 
   // hooks to watch, needed for conditional rendering
-  const [consideredLanguages, bilingualEvaluation] = watch([
+  const [consideredLanguages, secondLanguageExamCompleted] = watch([
     "consideredPositionLanguages",
-    "bilingualEvaluation",
+    "secondLanguageExamCompleted",
   ]);
-
-  const BilingualEvaluationItems = getBilingualEvaluationItems(
-    intl,
-    languageEvaluationPageLink,
-  );
 
   const evaluatedAbilityItems = enumToOptions(
     EvaluatedLanguageAbility,
@@ -99,15 +84,13 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
     label: intl.formatMessage(getEvaluatedLanguageAbility(value)),
   }));
 
-  // const evaluatedAbilityItems = getEvaluatedAbilityOptions(intl);
-
   const estimatedAbilityItems = getEstimatedAbilityOptions(intl);
 
   const isLookingForBilingual = consideredLanguages.includes(
     "lookingForBilingual",
   );
-  const hasCompletedEvaluation =
-    bilingualEvaluation !== BilingualEvaluation.NotCompleted;
+
+  const hasCompletedSecondLanguageExam = secondLanguageExamCompleted;
 
   /**
    * Reset un-rendered fields
@@ -127,41 +110,116 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
       resetDirtyField("estimatedLanguageAbility");
     };
 
+    const resetFirstOfficialLanguage = () => {
+      resetDirtyField("firstOfficialLanguage");
+    };
+
+    const resetSecondLanguageExamCompleted = () => {
+      resetDirtyField("secondLanguageExamCompleted");
+    };
+
+    const resetSecondLanguageExamValidity = () => {
+      resetDirtyField("secondLanguageExamValidity");
+    };
+
     // Reset all bilingual fields
     if (!isLookingForBilingual) {
-      resetDirtyField("bilingualEvaluation");
+      resetFirstOfficialLanguage();
       resetEstimation();
+      resetSecondLanguageExamCompleted();
+      resetSecondLanguageExamValidity();
       resetEvaluations();
     }
 
     // Reset either evaluation or estimation
-    // fields depending on the users evaluation status
-    if (!hasCompletedEvaluation) {
+    if (!hasCompletedSecondLanguageExam) {
+      resetSecondLanguageExamValidity();
       resetEvaluations();
-    } else {
-      resetEstimation();
     }
-  }, [resetField, isLookingForBilingual, hasCompletedEvaluation]);
+  }, [resetField, isLookingForBilingual, hasCompletedSecondLanguageExam]);
 
   return isLookingForBilingual ? (
     <>
       <RadioGroup
-        idPrefix="bilingualEvaluation"
-        legend={labels.bilingualEvaluation}
-        name="bilingualEvaluation"
-        id="bilingualEvaluation"
+        idPrefix="firstOfficialLanguage"
+        legend={labels.firstOfficialLanguage}
+        name="firstOfficialLanguage"
+        id="firstOfficialLanguage"
         rules={{
           required: intl.formatMessage(errorMessages.required),
         }}
-        items={BilingualEvaluationItems}
+        items={enumToOptions(Language).map(({ value }) => ({
+          value,
+          label: intl.formatMessage(getLanguage(value)),
+        }))}
       />
-      {hasCompletedEvaluation ? (
+      <p>
+        {intl.formatMessage({
+          defaultMessage:
+            "<strong>Please select an appropriate second language proficiency level based on the definitions provided.</strong>",
+          id: "buZsS/",
+          description:
+            "Text requesting language levels given from bilingual evaluation in language information form",
+        })}
+      </p>
+      <RadioGroup
+        idPrefix="estimatedLanguageAbility"
+        legend={labels.estimatedLanguageAbility}
+        name="estimatedLanguageAbility"
+        id="estimatedLanguageAbility"
+        rules={{
+          required: intl.formatMessage(errorMessages.required),
+        }}
+        items={estimatedAbilityItems}
+        context={intl.formatMessage(
+          {
+            defaultMessage:
+              "<languageEvaluationPageLink>Learn more about choosing a second language proficiency.</languageEvaluationPageLink>",
+            id: "Le97Ow",
+            description:
+              "Context message for estimated language ability in language information form.",
+          },
+          {
+            languageEvaluationPageLink,
+          },
+        )}
+      />
+      <Checkbox
+        boundingBox
+        boundingBoxLabel={labels.secondLanguageExamCompletedBoundingBoxLabel}
+        id="secondLanguageExamCompleted"
+        name="secondLanguageExamCompleted"
+        label={labels.secondLanguageExamCompletedLabel}
+      />
+      {hasCompletedSecondLanguageExam ? (
         <>
+          <RadioGroup
+            idPrefix="secondLanguageExamValidity"
+            legend={labels.secondLanguageExamValidityLabel}
+            name="secondLanguageExamValidity"
+            id="secondLanguageExamValidity"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+            items={getExamValidityOptions(intl)}
+            context={intl.formatMessage(
+              {
+                defaultMessage:
+                  "The Public Service Commission’s official evaluation provides you with 3 letter grades that indicate your proficiency in your second language. You can <selfAssessmentLink>learn more about this evaluation on their website.</selfAssessmentLink>",
+                id: "J/kDDk",
+                description:
+                  "Context message for exam validity in language information form.",
+              },
+              {
+                selfAssessmentLink,
+              },
+            )}
+          />
           <p>
             {intl.formatMessage({
               defaultMessage:
-                "Please indicate the language levels you acquired from your Government of Canada language evaluation.",
-              id: "Y7l4/n",
+                "<strong>Please provide your most recent levels obtained from the Public Service Commission.</strong>",
+              id: "aO23nW",
               description:
                 "Text requesting language levels given from bilingual evaluation in language information form",
             })}
@@ -169,74 +227,41 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
           <div
             data-h2-display="base(grid)"
             data-h2-grid-template-columns="l-tablet(1fr 1fr 1fr)"
-            data-h2-gap="l-tablet(0, x1)"
+            data-h2-gap="base(x1, 0) l-tablet(0, x1)"
           >
-            <Select
+            <RadioGroup
+              idPrefix="comprehensionLevel"
+              legend={labels.comprehensionLevel}
               id="comprehensionLevel"
               name="comprehensionLevel"
-              label={labels.comprehensionLevel}
-              nullSelection={intl.formatMessage(
-                uiMessages.nullSelectionOptionLevel,
-              )}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
-              options={evaluatedAbilityItems}
-              doNotSort
+              items={evaluatedAbilityItems}
             />
-            <Select
+            <RadioGroup
+              idPrefix="writtenLevel"
+              legend={labels.writtenLevel}
               id="writtenLevel"
               name="writtenLevel"
-              label={labels.writtenLevel}
-              nullSelection={intl.formatMessage(
-                uiMessages.nullSelectionOptionLevel,
-              )}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
-              options={evaluatedAbilityItems}
-              doNotSort
+              items={evaluatedAbilityItems}
             />
-            <Select
+            <RadioGroup
+              idPrefix="verbalLevel"
+              legend={labels.verbalLevel}
               id="verbalLevel"
               name="verbalLevel"
-              label={labels.verbalLevel}
-              nullSelection={intl.formatMessage(
-                uiMessages.nullSelectionOptionLevel,
-              )}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
-              options={evaluatedAbilityItems}
-              doNotSort
+              items={evaluatedAbilityItems}
             />
           </div>
         </>
-      ) : (
-        <>
-          <p>
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "You can find out your levels with a <selfAssessmentLink>language proficiency self-assessment</selfAssessmentLink>.",
-                id: "4faEVw",
-                description:
-                  "Text including link to language proficiency evaluation in language information form",
-              },
-              {
-                selfAssessmentLink,
-              },
-            )}
-          </p>
-          <RadioGroup
-            idPrefix="estimatedLanguageAbility"
-            legend={labels.estimatedLanguageAbility}
-            name="estimatedLanguageAbility"
-            id="estimatedLanguageAbility"
-            items={estimatedAbilityItems}
-          />
-        </>
-      )}
+      ) : null}
     </>
   ) : null;
 };

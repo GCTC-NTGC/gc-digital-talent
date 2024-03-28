@@ -3,7 +3,6 @@ import { IntlShape } from "react-intl";
 import { DownloadCsvProps } from "@gc-digital-talent/ui";
 import {
   getArmedForcesStatusesAdmin,
-  getBilingualEvaluation,
   getCitizenshipStatusesAdmin,
   getLanguage,
   getLanguageProficiency,
@@ -102,14 +101,22 @@ export const getPoolCandidateCsvData = (
         citizenship: user.citizenship
           ? intl.formatMessage(getCitizenshipStatusesAdmin(user.citizenship))
           : "",
-        bilingualEvaluation: user.bilingualEvaluation
-          ? intl.formatMessage(getBilingualEvaluation(user.bilingualEvaluation))
-          : "",
         comprehensionLevel: user.comprehensionLevel
           ? intl.formatMessage(
               getEvaluatedLanguageAbility(user.comprehensionLevel),
             )
           : "",
+        firstOfficialLanguage: user.firstOfficialLanguage
+          ? intl.formatMessage(getLanguage(user.firstOfficialLanguage))
+          : "",
+        secondLanguageExamCompleted: yesOrNo(
+          user.secondLanguageExamCompleted,
+          intl,
+        ),
+        secondLanguageExamValidity: yesOrNo(
+          user.secondLanguageExamValidity,
+          intl,
+        ),
         writtenLevel: user.writtenLevel
           ? intl.formatMessage(getEvaluatedLanguageAbility(user.writtenLevel))
           : "",
@@ -345,11 +352,27 @@ export const getPoolCandidateCsvHeaders = (
       }),
     },
     {
-      id: "bilingualEvaluation",
+      id: "firstOfficialLanguage",
       displayName: intl.formatMessage({
-        defaultMessage: "Bilingual Evaluation",
-        id: "M9ij/0",
-        description: "CSV Header, Bilingual Evaluation column",
+        defaultMessage: "First official language",
+        id: "tK7cGP",
+        description: "CSV Header, first official language column",
+      }),
+    },
+    {
+      id: "secondLanguageExamCompleted",
+      displayName: intl.formatMessage({
+        defaultMessage: "Second language proficiency level",
+        id: "XlhePi",
+        description: "CSV Header, second language proficiency level column",
+      }),
+    },
+    {
+      id: "secondLanguageExamValidity",
+      displayName: intl.formatMessage({
+        defaultMessage: "Exam validity",
+        id: "i9bs/h",
+        description: "CSV Header, second language exam validity column",
       }),
     },
     {

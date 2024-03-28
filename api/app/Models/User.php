@@ -47,7 +47,9 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property bool $looking_for_english
  * @property bool $looking_for_french
  * @property bool $looking_for_bilingual
- * @property string $bilingual_evaluation
+ * @property string $first_official_language
+ * @property bool $second_language_exam_completed
+ * @property bool $second_language_exam_validity
  * @property string $comprehension_level
  * @property string $written_level
  * @property string $verbal_level
@@ -103,7 +105,9 @@ class User extends Model implements Authenticatable, LaratrustUser
         'looking_for_english',
         'looking_for_french',
         'looking_for_bilingual',
-        'bilingual_evaluation',
+        'first_official_language',
+        'second_language_exam_completed',
+        'second_language_exam_validity',
         'comprehension_level',
         'written_level',
         'verbal_level',

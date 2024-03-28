@@ -11,13 +11,11 @@ import {
 import {
   commonMessages,
   getArmedForcesStatusesAdmin,
-  getBilingualEvaluation,
   getCitizenshipStatusesAdmin,
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
   getIndigenousCommunity,
   getLanguage,
-  getLanguageProficiency,
   getLocale,
   getOperationalRequirement,
   getProvinceOrTerritory,
@@ -31,7 +29,6 @@ import {
   OperationalRequirement,
   PositionDuration,
   User,
-  BilingualEvaluation,
   IndigenousCommunity,
   PoolCandidate,
 } from "@gc-digital-talent/graphql";
@@ -39,9 +36,9 @@ import {
 import { getFullNameLabel } from "~/utils/nameUtils";
 import PrintExperienceByType from "~/components/UserProfile/PrintExperienceByType/PrintExperienceByType";
 import { anyCriteriaSelected as anyCriteriaSelectedDiversityEquityInclusion } from "~/validators/profile/diversityEquityInclusion";
-import { getEvaluatedLanguageLevels } from "~/utils/userUtils";
 
 import UserSkillList from "./UserSkillList";
+import Display from "../Profile/components/LanguageProfile/Display";
 
 interface ProfileDocumentProps {
   results: User[] | PoolCandidate[];
@@ -331,130 +328,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                             navigationMessages.languageInformation,
                           )}
                         </Heading>
-                        {result.lookingForEnglish &&
-                          !result.lookingForFrench &&
-                          !result.lookingForBilingual && (
-                            <p>
-                              {intl.formatMessage({
-                                defaultMessage: "Interested in",
-                                id: "/oqWA0",
-                                description: "Interested in label",
-                              })}
-                              {intl.formatMessage(commonMessages.dividingColon)}
-                              {intl.formatMessage({
-                                defaultMessage: "English positions",
-                                id: "vFMPHW",
-                                description: "English Positions message",
-                              })}
-                            </p>
-                          )}
-                        {!result.lookingForEnglish &&
-                          result.lookingForFrench &&
-                          !result.lookingForBilingual && (
-                            <p>
-                              {intl.formatMessage({
-                                defaultMessage: "Interested in",
-                                id: "/oqWA0",
-                                description: "Interested in label",
-                              })}
-                              {intl.formatMessage(commonMessages.dividingColon)}
-                              {intl.formatMessage({
-                                defaultMessage: "French positions",
-                                id: "qT9sS0",
-                                description: "French Positions message",
-                              })}
-                            </p>
-                          )}
-                        {result.lookingForEnglish &&
-                          result.lookingForFrench &&
-                          !result.lookingForBilingual && (
-                            <p>
-                              {intl.formatMessage({
-                                defaultMessage: "Interested in",
-                                id: "/oqWA0",
-                                description: "Interested in label",
-                              })}
-                              {intl.formatMessage(commonMessages.dividingColon)}
-                              {intl.formatMessage({
-                                defaultMessage: "English or French positions",
-                                id: "fFznH0",
-                                description:
-                                  "English or French Positions message",
-                              })}
-                            </p>
-                          )}
-                        {result.lookingForBilingual && (
-                          <p>
-                            {intl.formatMessage({
-                              defaultMessage: "Interested in",
-                              id: "/oqWA0",
-                              description: "Interested in label",
-                            })}
-                            {intl.formatMessage(commonMessages.dividingColon)}
-                            {intl.formatMessage({
-                              defaultMessage:
-                                "Bilingual positions (English and French)",
-                              id: "6eCvv1",
-                              description: "Bilingual Positions message",
-                            })}
-                          </p>
-                        )}
-                        {result.bilingualEvaluation && (
-                          <p>
-                            {intl.formatMessage({
-                              defaultMessage:
-                                "Completed an official Government of Canada evaluation",
-                              id: "o4PND7",
-                              description:
-                                "Completed a Government of Canada evaluation label",
-                            })}
-                            {intl.formatMessage(commonMessages.dividingColon)}
-                            {intl.formatMessage(
-                              getBilingualEvaluation(
-                                result.bilingualEvaluation,
-                              ),
-                            )}
-                          </p>
-                        )}
-                        {(result.bilingualEvaluation ===
-                          BilingualEvaluation.CompletedEnglish ||
-                          result.bilingualEvaluation ===
-                            BilingualEvaluation.CompletedFrench) && (
-                          <p>
-                            {intl.formatMessage({
-                              defaultMessage:
-                                "Second language level (reading, writing, oral interaction)",
-                              id: "qOi2J0",
-                              description:
-                                "Second language level (reading, writing, oral interaction) label",
-                            })}
-                            {intl.formatMessage(commonMessages.dividingColon)}
-                            {getEvaluatedLanguageLevels(
-                              intl,
-                              result.comprehensionLevel,
-                              result.writtenLevel,
-                              result.verbalLevel,
-                            )}
-                          </p>
-                        )}
-                        {result.bilingualEvaluation ===
-                          BilingualEvaluation.NotCompleted &&
-                          !!result.estimatedLanguageAbility && (
-                            <p>
-                              {intl.formatMessage({
-                                defaultMessage: "Second language level",
-                                id: "VTHGET",
-                                description:
-                                  "Estimated skill in second language",
-                              })}
-                              {intl.formatMessage(commonMessages.dividingColon)}
-                              {intl.formatMessage(
-                                getLanguageProficiency(
-                                  result.estimatedLanguageAbility,
-                                ),
-                              )}
-                            </p>
-                          )}
+                        <Display user={result} context="print" />
                       </PageSection>
                       <PageSection>
                         <Heading level="h4" data-h2-font-weight="base(700)">

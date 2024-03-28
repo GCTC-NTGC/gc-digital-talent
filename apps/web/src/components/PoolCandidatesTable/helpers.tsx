@@ -473,7 +473,9 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
           lookingForEnglish
           lookingForFrench
           lookingForBilingual
-          bilingualEvaluation
+          firstOfficialLanguage
+          secondLanguageExamCompleted
+          secondLanguageExamValidity
           comprehensionLevel
           writtenLevel
           verbalLevel

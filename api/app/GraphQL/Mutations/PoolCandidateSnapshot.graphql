@@ -21,7 +21,9 @@ query getProfile($userId: UUID!) {
     lookingForEnglish
     lookingForFrench
     lookingForBilingual
-    bilingualEvaluation
+    firstOfficialLanguage
+    secondLanguageExamCompleted
+    secondLanguageExamValidity
     comprehensionLevel
     writtenLevel
     verbalLevel

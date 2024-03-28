@@ -230,7 +230,9 @@ type User {
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
-  bilingualEvaluation: BilingualEvaluation
+  firstOfficialLanguage: Language
+  secondLanguageExamCompleted: Boolean
+  secondLanguageExamValidity: Boolean
   comprehensionLevel: EvaluatedLanguageAbility
   writtenLevel: EvaluatedLanguageAbility
   verbalLevel: EvaluatedLanguageAbility
@@ -785,7 +787,9 @@ input CreateUserInput {
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
-  bilingualEvaluation: BilingualEvaluation
+  firstOfficialLanguage: Language
+  secondLanguageExamCompleted: Boolean
+  secondLanguageExamValidity: Boolean
   comprehensionLevel: EvaluatedLanguageAbility
   writtenLevel: EvaluatedLanguageAbility
   verbalLevel: EvaluatedLanguageAbility
@@ -830,7 +834,9 @@ input UpdateUserAsAdminInput {
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
-  bilingualEvaluation: BilingualEvaluation
+  firstOfficialLanguage: Language
+  secondLanguageExamCompleted: Boolean
+  secondLanguageExamValidity: Boolean
   comprehensionLevel: EvaluatedLanguageAbility
   writtenLevel: EvaluatedLanguageAbility
   verbalLevel: EvaluatedLanguageAbility
@@ -884,7 +890,9 @@ input UpdateUserAsUserInput {
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
-  bilingualEvaluation: BilingualEvaluation
+  firstOfficialLanguage: Language
+  secondLanguageExamCompleted: Boolean
+  secondLanguageExamValidity: Boolean
   comprehensionLevel: EvaluatedLanguageAbility
   writtenLevel: EvaluatedLanguageAbility
   verbalLevel: EvaluatedLanguageAbility
@@ -1918,12 +1926,6 @@ enum GovEmployeeType {
   CASUAL
   TERM
   INDETERMINATE
-}
-
-enum BilingualEvaluation {
-  COMPLETED_ENGLISH
-  COMPLETED_FRENCH
-  NOT_COMPLETED
 }
 
 enum EvaluatedLanguageAbility {
