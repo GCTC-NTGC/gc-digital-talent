@@ -269,6 +269,8 @@ describe("Pools", () => {
       .first()
       .click();
 
+    cy.findByRole("link", { name: /edit advertisement/i }).click();
+
     cy.wait("@gqlEditPoolPageQuery");
 
     cy.findByRole("button", { name: /edit advertisement details/i }).click();
