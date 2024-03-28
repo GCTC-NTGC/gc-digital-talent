@@ -131,16 +131,16 @@ const ChangeDateDialog = ({
                 items={[
                   {
                     label: intl.formatMessage({
-                      defaultMessage: "Extend",
-                      id: "7K/WMz",
+                      defaultMessage: "Extend closing date",
+                      id: "NTwwfL",
                       description: "Option to extend the pool closing date",
                     }),
                     value: "extend",
                   },
                   {
                     label: intl.formatMessage({
-                      defaultMessage: "Close",
-                      id: "2Vmc3V",
+                      defaultMessage: "Close immediately",
+                      id: "pXiwEH",
                       description: "Option to close the pool",
                     }),
                     value: "close",
