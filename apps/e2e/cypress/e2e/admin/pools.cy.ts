@@ -265,7 +265,7 @@ describe("Pools", () => {
     cy.findByRole("button", { name: /show 10/i }).click();
     cy.get("[role=menuitemradio]").contains(/50/i).click();
 
-    cy.findAllByRole("link", { name: /edit test pool en/i })
+    cy.findAllByRole("link", { name: /test pool en/i })
       .first()
       .click();
 
