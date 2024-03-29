@@ -143,111 +143,6 @@ server {
         fastcgi_index index.php;
     }
 
-    # rewrite root-level possible lang prefix to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/?$" {
-        rewrite "^(?:/[a-z]{2})?/?$" /apps/web/dist/index.html break;
-    }
-
-    # run time variables
-    location = /config.js {
-        alias /home/site/wwwroot/apps/web/dist/config.js;
-    }
-
-    # rewrite tc-report static files to "tc-report/_site"
-    location ~ "^/tc-report/(.*\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|doc|docx|map|webmanifest|webp))$" {
-        rewrite "^/tc-report/(.*\.(:?png|ico|gif|jpg|jpeg|svg|css|js|pdf|doc|docx|map|webmanifest|webp))$" /tc-report/_site/$1 break;
-    }
-
-    # rewrite talent static contenthashed files to "apps/web/dist"
-    location ~ "^(/(?:.*\.)?[a-z0-9]{20}\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx))$" {
-        rewrite "^(/(?:.*\.)?[a-z0-9]{20}\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx))$" /apps/web/dist/$1 break;
-    }
-
-     # rewrite talent static unhashed files to "apps/web/dist"
-    location ~ "^(/.*\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx))$" {
-        rewrite "^(/.*\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx))$" /apps/web/dist/$1 break;
-    }
-
-    # rewrite possible lang prefix then "talent" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/talent(/.*|$)" {
-        rewrite "^(?:/[a-z]{2})?/talent(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "admin" to admin index.html
-    location ~ "^(?:/[a-z]{2})?/admin(/?.*|$)" {
-        rewrite "^(?:/[a-z]{2})?/admin(/?.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "executive" to executive index.html
-    location ~ "^(?:/[a-z]{2})?/executive(/?.*|$)" {
-        rewrite "^(?:/[a-z]{2})?/executive(/?.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "manager" to manager index.html
-    location ~ "^(?:/[a-z]{2})?/manager(/?.*|$)" {
-        rewrite "^(?:/[a-z]{2})?/manager(/?.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "users" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/users(/.*|$)" {
-        rewrite "^(?:/[a-z]{2})?/users(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "search" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/search(/.*|$)" {
-        rewrite "^(?:/[a-z]{2})?/search(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "logged-out" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/logged-out(/.*|$)" {
-        rewrite "^(?:/[a-z]{2})?/logged-out(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "user-deleted" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/user-deleted(/.*|$)" {
-        rewrite "^(?:/[a-z]{2})?/user-deleted(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "browse" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/browse(/.*|$)" {
-        rewrite "^(?:/[a-z]{2})?/browse(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "404" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/404(/.*|$)" {
-        rewrite "^(?:/[a-z]{2})?/404(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "support" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/support(/.*|$)" {
-        rewrite "^(?:/[a-z]{2})?/support(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "terms-and-conditions" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/terms-and-conditions(/.*|$)" {
-        rewrite "^(?:/[a-z]{2})?/terms-and-conditions(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "privacy-policy" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/privacy-policy(/.*|$)" {
-        rewrite "^(?:/[a-z]{2})?/privacy-policy(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "accessibility-statement" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/accessibility-statement(/.*|$)" {
-        rewrite "^(?:/[a-z]{2})?/accessibility-statement(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "directive-on-digital-talent" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/directive-on-digital-talent(/.*|$)" {
-        rewrite "^(?:/[a-z]{2})?/directive-on-digital-talent(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "skills" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/skills(/.*|$)" {
-        rewrite "^(?:/[a-z]{2})?/skills(/.*|$)" /apps/web/dist/index.html break;
-    }
-
     # Redirect old "applications" to new profile and applications
     location = /en/applications {
       absolute_redirect off;
@@ -269,11 +164,6 @@ server {
         return 301 /fr/applicant/profile-and-applications$is_args$args;
     }
 
-    # rewrite possible lang prefix then "applications" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/applications(/.*)" {
-      rewrite "^(?:/[a-z]{2})?/applications(/.*)" /apps/web/dist/index.html break;
-    }
-
     # Redirect old dashboard to new profile and applications
     location = /en/applicant/dashboard {
       absolute_redirect off;
@@ -285,40 +175,23 @@ server {
         return 301 /fr/applicant/profile-and-applications$is_args$args;
     }
 
-    # rewrite possible lang prefix then "applicant" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/applicant(/.*|$)" {
-      rewrite "^(?:/[a-z]{2})?/applicant(/.*|$)" /apps/web/dist/index.html break;
+    # ensure tc-report asset files are handled properly
+    location ~ "^/tc-report/(.+)$" {
+        try_files /tc-report/_site/$1 /tc-report/_site/$1/index.html =404;
     }
 
-    # rewrite possible lang prefix then "create-account" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/create-account(/.*|$)" {
-        rewrite "^(?:/[a-z]{2})?/create-account(/.*|$)" /apps/web/dist/index.html break;
+    # skip tc-report files for terms-and-conditions and privacy-notice
+    location ~ "/(en|fr)/(terms-and-conditions|privacy-notice)" {
+        rewrite .* /apps/web/dist/index.html break;
     }
 
-    # rewrite possible lang prefix then "register-info" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/register-info(/.*|$)" {
-        rewrite "^(?:/[a-z]{2})?/register-info(/.*|$)" /apps/web/dist/index.html break;
+    # check if uri referes to a tc-report page
+    location / {
+        try_files /tc-report/_site/$uri /tc-report/_site/$uri/index.html @apps-web;
     }
 
-    # rewrite possible lang prefix then "login-info" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/login-info(/.*|$)" {
-        rewrite "^(?:/[a-z]{2})?/login-info(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "indigenous-it-apprentice" to web index.html
-    location ~ "^(?:/[a-z]{2})?/indigenous-it-apprentice(/.*|$)" {
-        rewrite "^(?:/[a-z]{2})?/indigenous-it-apprentice(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # fallback any other files to "tc-report/_site"
-    ## Must be second to last of the file!
-    location ~ "^/(.*\.(\w+))$" {
-        rewrite "^/(.*\.(\w+))$" /tc-report/_site/$1 break;
-    }
-
-    # fallback any other path to "tc-report/_site" index.html
-    ## Must be last of the file!
-    location ~ ^/(.*)$ {
-        rewrite ^/(.*)$ /tc-report/_site/$1/index.html break;
+    # serve the web app endpoint for all other uris
+    location @apps-web {
+        try_files /apps/web/dist/$uri /apps/web/dist/index.html =404;
     }
 }
