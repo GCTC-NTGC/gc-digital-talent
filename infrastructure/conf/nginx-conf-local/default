@@ -20,46 +20,37 @@ server {
     root /home/site/wwwroot;
     index  index.php index.html index.htm;
     #server_name localhost;
+    gzip_static on;
+    absolute_redirect off;
 
     # redirect server error pages
     error_page   404  /404;
 
-    # Disable .git directory
-    location ~ /\.git {
-        deny all;
-        access_log off;
-        log_not_found off;
-    }
-
     # The following are only added if they do not already exist.  Avoid overwriting headers from PHP.
     add_header Cache-Control $hdr_cache_control;
 
-    location = /robots.txt {
-        alias /home/site/wwwroot/infrastructure/conf/dev.robots.txt;
-    }
-
-    location = /restricted.html {
-        alias /home/site/wwwroot/apps/web/dist/restricted.html;
-    }
-
     # Permanent redirects to avoid dead links
-    location = /en/communities/digital-talent { return 301 https://www.canada.ca/en/government/system/digital-government/gcdigital-community.html; }
-    location = /fr/communities/digital-talent { return 301 https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/collectivite-gcnumerique.html; }
-
-    # Permanent redirect within the same domain with relative path
-    location = /en/talent/search {
-        absolute_redirect off;
-        return 301 /en/search;
+    location = /en/communities/digital-talent {
+        absolute_redirect on;
+        return 301 https://www.canada.ca/en/government/system/digital-government/gcdigital-community.html;
     }
-    location = /fr/talent/search {
-        absolute_redirect off;
-        return 301 /fr/search;
+    location = /fr/communities/digital-talent {
+        absolute_redirect on;
+        return 301 https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/collectivite-gcnumerique.html;
     }
+    location = /en/talent/search { return 301 /en/search$is_args$args; }
+    location = /fr/talent/search { return 301 /fr/search$is_args$args; }
+    location = /en/applications { return 301 /en/applicant/profile-and-applications$is_args$args; }
+    location = /fr/applications/ { return 301 /fr/applicant/profile-and-applications$is_args$args; }
+    location = /en/applications/ { return 301 /en/applicant/profile-and-applications$is_args$args; }
+    location = /fr/applications { return 301 /fr/applicant/profile-and-applications$is_args$args; }
+    location = /en/applicant/dashboard { return 301 /en/applicant/profile-and-applications$is_args$args; }
+    location = /fr/applicant/dashboard { return 301 /fr/applicant/profile-and-applications$is_args$args; }
 
     # Permanent redirect for IAP french vanity url
     location = /apprentis-autochtone-ti {
         absolute_redirect off;
-        return 301 /fr/indigenous-it-apprentice;
+        return 301 /fr/indigenous-it-apprentice$is_args$args;
     }
 
     # local auth
@@ -74,59 +65,29 @@ server {
         break;
     }
 
-    # enable serving gzip-ed files
-    gzip_static on;
+    # Disable .git directory
+    location ~ /\.git {
+        deny all;
+        access_log off;
+        log_not_found off;
+    }
 
-    # api
+    # handle special cases
+    location = /robots.txt {
+        alias /home/site/wwwroot/infrastructure/conf/dev.robots.txt;
+    }
+    location = /restricted.html {
+        alias /home/site/wwwroot/apps/web/dist/restricted.html;
+    }
     location = /phpinfo.php {
         fastcgi_pass 127.0.0.1:9000;
         include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/phpinfo.php;
+        fastcgi_param SCRIPT_FILENAME $document_root/api/phpinfo.php;
     }
     location = /xdebuginfo.php {
         fastcgi_pass 127.0.0.1:9000;
         include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/xdebuginfo.php;
-    }
-    location = /graphql {
-        access_log off;
-        fastcgi_pass 127.0.0.1:9000;
-        include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
-    }
-    location = /graphiql {
-        fastcgi_pass 127.0.0.1:9000;
-        include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
-    }
-    location = /login {
-        fastcgi_pass 127.0.0.1:9000;
-        include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
-    }
-    location = /register {
-        fastcgi_pass 127.0.0.1:9000;
-        include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
-    }
-    location = /auth-callback {
-        fastcgi_pass 127.0.0.1:9000;
-        include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
-        ## TUNE buffers to avoid "upstream sent too big headers" error ##
-        fastcgi_buffers 16 32k;
-        fastcgi_buffer_size 64k;
-        fastcgi_busy_buffers_size 64k;
-    }
-    location = /refresh {
-        fastcgi_pass 127.0.0.1:9000;
-        include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
-    }
-    location ~ "^/api(/(.*))?$" {
-        fastcgi_pass 127.0.0.1:9000;
-        include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root/api/xdebuginfo.php;
     }
     # For debugging FPM.
     location ~ ^/(fpm-status)$ {
@@ -143,36 +104,46 @@ server {
         fastcgi_index index.php;
     }
 
-    # Redirect old "applications" to new profile and applications
-    location = /en/applications {
-      absolute_redirect off;
-      return 301 /en/applicant/profile-and-applications$is_args$args;
+    # api
+    location = /graphql {
+        access_log off;
+        fastcgi_pass 127.0.0.1:9000;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root/api/public/index.php;
     }
-
-    location = /fr/applications/ {
-        absolute_redirect off;
-        return 301 /fr/applicant/profile-and-applications$is_args$args;
+    location = /graphiql {
+        fastcgi_pass 127.0.0.1:9000;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root/api/public/index.php;
     }
-
-    location = /en/applications/ {
-      absolute_redirect off;
-      return 301 /en/applicant/profile-and-applications$is_args$args;
+    location = /login {
+        fastcgi_pass 127.0.0.1:9000;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root/api/public/index.php;
     }
-
-    location = /fr/applications {
-        absolute_redirect off;
-        return 301 /fr/applicant/profile-and-applications$is_args$args;
+    location = /register {
+        fastcgi_pass 127.0.0.1:9000;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root/api/public/index.php;
     }
-
-    # Redirect old dashboard to new profile and applications
-    location = /en/applicant/dashboard {
-      absolute_redirect off;
-      return 301 /en/applicant/profile-and-applications$is_args$args;
+    location = /auth-callback {
+        fastcgi_pass 127.0.0.1:9000;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root/api/public/index.php;
+        ## TUNE buffers to avoid "upstream sent too big headers" error ##
+        fastcgi_buffers 16 32k;
+        fastcgi_buffer_size 64k;
+        fastcgi_busy_buffers_size 64k;
     }
-
-    location = /fr/applicant/dashboard {
-        absolute_redirect off;
-        return 301 /fr/applicant/profile-and-applications$is_args$args;
+    location = /refresh {
+        fastcgi_pass 127.0.0.1:9000;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root/api/public/index.php;
+    }
+    location /api/ {
+        fastcgi_pass 127.0.0.1:9000;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root/api/public/index.php;
     }
 
     # ensure tc-report asset files are handled properly
