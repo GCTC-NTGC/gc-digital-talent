@@ -1826,7 +1826,12 @@ type Mutation {
   changePoolClosingDate(
     id: ID!
     newClosingDate: DateTime! @rename(attribute: "new_closing_date")
-  ): Pool @guard @canFind(ability: "changePoolClosingDate", find: "id")
+  ): Pool
+    @guard
+    @canFind(ability: "changePoolClosingDate", find: "id")
+    @validator(
+      class: "App\\GraphQL\\Validators\\ChangePoolClosingDateValidator"
+    )
   closePool(
     id: ID!
     reason: String!
