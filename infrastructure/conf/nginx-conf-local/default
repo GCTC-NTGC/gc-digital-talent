@@ -146,7 +146,7 @@ server {
         fastcgi_param SCRIPT_FILENAME $document_root/api/public/index.php;
     }
 
-    # ensure tc-report asset files are handled properly
+    # serve tc-report asset files
     location ~ "^/tc-report/(.+)$" {
         # add_header Cache-Control "public, max-age=604800"; # 1 week
         try_files /tc-report/_site/$1 /tc-report/_site/$1/index.html =404;
@@ -166,20 +166,14 @@ server {
         try_files /apps/web/dist/$uri =404;
     }
 
-    # skip tc-report files for terms-and-conditions and privacy-notice
-    location ~ "/(en|fr)/(terms-and-conditions|privacy-notice)" {
-        # add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        alias /apps/web/dist/index.html;
-    }
-
-    # check if uri refers to a tc-report page, or fall back to web app
-    location / {
+    # for known tc-report paths, serve tc-report files, and fall back to main SPA.
+    location ~ ^/(en|fr)/(2000|diversity|hiring|projects|talent-cloud|vision)(/|$) {
         # add_header Cache-Control "public, max-age=604800"; # 1 week
-        try_files /tc-report/_site/$uri /tc-report/_site/$uri/index.html @app-index;
+        try_files /tc-report/_site/$uri /tc-report/_site/$uri/index.html /;
     }
 
-    # serve SPA index with no caching
-    location @app-index {
+    # for all other uris, serve SPA index with no caching
+    location / {
         # add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
         try_files /apps/web/dist/index.html =404;
     }
