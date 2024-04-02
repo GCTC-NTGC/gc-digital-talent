@@ -116,7 +116,7 @@ server {
     }
 
     # serve tc-report asset files
-    location ~ "^/tc-report/(.+)$" {
+    location ~ ^/tc-report/(.+)$ {
         add_header Cache-Control "public, max-age=604800"; # 1 week
         try_files /tc-report/_site/$1 /tc-report/_site/$1/index.html =404;
     }
