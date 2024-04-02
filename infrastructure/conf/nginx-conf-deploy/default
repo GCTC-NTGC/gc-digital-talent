@@ -11,6 +11,7 @@ server {
     index  index.php index.html index.htm;
     #server_name talent.canada.ca www.talent.canada.ca;
     absolute_redirect off;
+    gzip_static on;
 
     # redirect server error pages
     error_page   404  /404;
@@ -33,9 +34,6 @@ server {
 
     # Permanent redirect for IAP french vanity url
     location = /apprentis-autochtone-ti { return 301 /fr/indigenous-it-apprentice; }
-
-    # enable serving gzip-ed files
-    gzip_static on;
 
     # api
     location = /graphql {
