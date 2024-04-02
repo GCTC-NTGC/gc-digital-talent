@@ -111,142 +111,14 @@ server {
         fastcgi_index index.php;
     }
 
-    # rewrite root-level possible lang prefix to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/?$" {
-        add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/?$" /apps/web/dist/index.html break;
-    }
-
     # find the web config in the writable home root - run time variables
     location = /config.js {
         add_header Cache-Control "public, max-age=60"; # 1 minute - to distrubute variable changes
         alias /home/site/config-web.js;
     }
 
-    # rewrite tc-report static files to "tc-report/_site"
-    location ~ "^/tc-report/(.*\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|doc|docx|map|webmanifest|webp))$" {
-        add_header Cache-Control "public, max-age=604800"; # 1 week
-        rewrite "^/tc-report/(.*\.(:?png|ico|gif|jpg|jpeg|svg|css|js|pdf|doc|docx|map|webmanifest|webp))$" /tc-report/_site/$1 break;
-    }
-
-    # rewrite talent static contenthashed files to "apps/web/dist"
-    location ~ "^(/(?:.*\.)?[a-z0-9]{20}\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx))$" {
-        add_header Cache-Control "public, max-age=31536000"; # 1 year
-        rewrite "^(/(?:.*\.)?[a-z0-9]{20}\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx))$" /apps/web/dist/$1 break;
-    }
-
-     # rewrite talent static unhashed files to "apps/web/dist"
-    location ~ "^(/.*\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx))$" {
-        add_header Cache-Control "public, max-age=3600"; # 1 hour
-        rewrite "^(/.*\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx))$" /apps/web/dist/$1 break;
-    }
-
-    # rewrite possible lang prefix then "talent" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/talent(/.*|$)" {
-        add_header Cache-Control "public, max-age=0"; # 1 hour
-        rewrite "^(?:/[a-z]{2})?/talent(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "admin" to admin index.html
-    location ~ "^(?:/[a-z]{2})?/admin(/?.*|$)" {
-        add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/admin(/?.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "executive" to executive index.html
-    location ~ "^(?:/[a-z]{2})?/executive(/?.*|$)" {
-        add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/executive(/?.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "manager" to manager index.html
-    location ~ "^(?:/[a-z]{2})?/manager(/?.*|$)" {
-        add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/manager(/?.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "users" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/users(/.*|$)" {
-          add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/users(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "search" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/search(/.*|$)" {
-          add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/search(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "logged-out" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/logged-out(/.*|$)" {
-          add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/logged-out(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "user-deleted" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/user-deleted(/.*|$)" {
-          add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/user-deleted(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "browse" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/browse(/.*|$)" {
-      add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/browse(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "404" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/404(/.*|$)" {
-          add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/404(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "support" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/support(/.*|$)" {
-          add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/support(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "terms-and-conditions" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/terms-and-conditions(/.*|$)" {
-        rewrite "^(?:/[a-z]{2})?/terms-and-conditions(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "privacy-policy" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/privacy-policy(/.*|$)" {
-        rewrite "^(?:/[a-z]{2})?/privacy-policy(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "accessibility-statement" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/accessibility-statement(/.*|$)" {
-          add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/accessibility-statement(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "directive-on-digital-talent" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/directive-on-digital-talent(/.*|$)" {
-          add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/directive-on-digital-talent(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "skills" to apps/web index.hstml
-    location ~ "^(?:/[a-z]{2})?/skills(/.*|$)" {
-          add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/skills(/.*|$)" /apps/web/dist/index.html break;
-    }
-
     # Redirect old "applications" to new profile and applications
     location = /en/applications {
-      absolute_redirect off;
-      return 301 /en/applicant/profile-and-applications$is_args$args;
-    }
-
-    location = /fr/applications/ {
-        absolute_redirect off;
-        return 301 /fr/applicant/profile-and-applications$is_args$args;
-    }
-
-    location = /en/applications/ {
       absolute_redirect off;
       return 301 /en/applicant/profile-and-applications$is_args$args;
     }
@@ -256,9 +128,14 @@ server {
         return 301 /fr/applicant/profile-and-applications$is_args$args;
     }
 
-    # rewrite possible lang prefix then "applications" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/applications(/.*)" {
-      rewrite "^(?:/[a-z]{2})?/applications(/.*)" /apps/web/dist/index.html break;
+    location = /en/applications/ {
+      absolute_redirect off;
+      return 301 /en/applicant/profile-and-applications$is_args$args;
+    }
+
+    location = /fr/applications/ {
+        absolute_redirect off;
+        return 301 /fr/applicant/profile-and-applications$is_args$args;
     }
 
     # Redirect old dashboard to new profile and applications
@@ -272,47 +149,40 @@ server {
         return 301 /fr/applicant/profile-and-applications$is_args$args;
     }
 
-    # rewrite possible lang prefix then "applicant" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/applicant(/.*|$)" {
+    # ensure tc-report asset files are handled separately from other assets
+    location ~ "^/tc-report/(.+)$" {
+        add_header Cache-Control "public, max-age=604800"; # 1 week
+        try_files /tc-report/_site/$1 /tc-report/_site/$1/index.html =404;
+    }
+
+    # skip tc-report files for terms-and-conditions and privacy-notice
+    location ~ "/(en|fr)/(terms-and-conditions|privacy-notice)" {
         add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-      rewrite "^(?:/[a-z]{2})?/applicant(/.*|$)" /apps/web/dist/index.html break;
+        rewrite .* /apps/web/dist/index.html break;
     }
 
-    # rewrite possible lang prefix then "create-account" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/create-account(/.*|$)" {
-          add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/create-account(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "register-info" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/register-info(/.*|$)" {
-      add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/register-info(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "login-info" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/login-info(/.*|$)" {
-          add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/login-info(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "indigenous-it-apprentice" to web index.html
-    location ~ "^(?:/[a-z]{2})?/indigenous-it-apprentice(/.*|$)" {
-          add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/indigenous-it-apprentice(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # fallback any other files to "tc-report/_site"
-    ## Must be second to last of the file!
-    location ~ "^/(.*\.(\w+))$" {
+    # check if uri refers to a tc-report page, or fall back to web app
+    location / {
         add_header Cache-Control "public, max-age=604800"; # 1 week
-        rewrite "^/(.*\.(\w+))$" /tc-report/_site/$1 break;
+        try_files /tc-report/_site/$uri /tc-report/_site/$uri/index.html @apps-assets;
     }
 
-    # fallback any other path to "tc-report/_site" index.html
-    ## Must be last of the file!
-    location ~ ^/(.*)$ {
-        add_header Cache-Control "public, max-age=604800"; # 1 week
-        rewrite ^/(.*)$ /tc-report/_site/$1/index.html break;
+    # check if uri refers to an asset file, or fall back to SPA index
+    location @app-assets {
+        # contenthashed asset files get cached for a year
+        location ~ "^/(.*\.)?[a-z0-9]{20}\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx)$" {
+            add_header Cache-Control "public, max-age=31536000"; # 1 year
+            try_files /apps/web/dist/$uri @app-index;
+        }
+
+        # unhashed assets get cached for an hour
+        add_header Cache-Control "public, max-age=3600"; # 1 hour
+        try_files /apps/web/dist/$uri @app-index;
+    }
+
+    # serve SPA index with no caching
+    location @app-index {
+        add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
+        try_files /apps/web/dist/index.html =404;
     }
 }
