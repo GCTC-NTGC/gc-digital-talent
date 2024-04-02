@@ -26,7 +26,7 @@ type FormValues = {
 type ChangeDateDialogProps = ProcessDialogProps & {
   closingDate?: Pool["closingDate"];
   onExtend: (closingDate: Scalars["DateTime"]["input"]) => Promise<void>;
-  onClose: (reason?: string) => Promise<void>;
+  onClose: (reason: string) => Promise<void>;
 };
 
 const ChangeDateDialog = ({
@@ -59,7 +59,7 @@ const ChangeDateDialog = ({
   const handleChangeDate = React.useCallback(
     async (formValues: FormValues) => {
       if (formValues.type === "close") {
-        await onClose(formValues.reason).then(() => setIsOpen(false));
+        await onClose(formValues.reason ?? "").then(() => setIsOpen(false));
       } else {
         const closingDateInUtc = formValues.expiryEndDate
           ? convertDateTimeZone(

@@ -44,7 +44,7 @@ export interface ViewPoolProps {
   onPublish: () => Promise<void>;
   onDelete: () => Promise<void>;
   onExtend: (closingDate: Scalars["DateTime"]["output"]) => Promise<void>;
-  onClose: (reason?: string) => Promise<void>;
+  onClose: (reason: string) => Promise<void>;
   onArchive: () => Promise<void>;
   onDuplicate: () => Promise<void>;
   onUnarchive: () => Promise<void>;
@@ -451,7 +451,7 @@ const ViewPoolPage = () => {
             onExtend={async (newClosingDate: string) => {
               return mutations.extend(poolId, newClosingDate);
             }}
-            onClose={async (reason?: string) => {
+            onClose={async (reason: string) => {
               return mutations.close(poolId, reason);
             }}
             onDuplicate={async () => {

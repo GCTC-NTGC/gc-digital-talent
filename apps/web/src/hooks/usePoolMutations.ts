@@ -223,7 +223,7 @@ const usePoolMutations = (returnPath?: string) => {
     );
   };
 
-  const close = (id: string, reason?: string) => {
+  const close = (id: string, reason: string) => {
     executeCloseMutation({ id, reason })
       .then((result) => {
         if (result.data?.closePool) {
