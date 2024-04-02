@@ -47,7 +47,7 @@ export const getBilingualEvaluation = (
   );
 
 interface DisplayProps {
-  user: PartialUser & { bilingual_evaluation?: BilingualEvaluation };
+  user: PartialUser & { bilingualEvaluation?: BilingualEvaluation };
   context?: "admin" | "default" | "print";
 }
 
@@ -63,7 +63,7 @@ const Display = ({
     writtenLevel,
     comprehensionLevel,
     verbalLevel,
-    bilingual_evaluation: bilingualEvaluation,
+    bilingualEvaluation,
   },
   context = "default",
 }: DisplayProps) => {
@@ -86,6 +86,8 @@ const Display = ({
     default:
       examValidity = null;
   }
+
+  console.log(bilingualEvaluation);
 
   return (
     <div
