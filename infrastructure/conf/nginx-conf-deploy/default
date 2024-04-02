@@ -14,21 +14,6 @@ server {
     # redirect server error pages
     error_page   404  /404;
 
-    # Disable .git directory
-    location ~ /\.git {
-        deny all;
-        access_log off;
-        log_not_found off;
-    }
-
-    location = /robots.txt {
-        alias /home/site/wwwroot/infrastructure/conf/$ROBOTS_FILENAME;
-    }
-
-    location = /restricted.html {
-        alias /home/site/wwwroot/apps/web/dist/restricted.html;
-    }
-
     # Permanent redirects to avoid dead links
     location = /en/communities/digital-talent { return 301 https://www.canada.ca/en/government/system/digital-government/gcdigital-community.html; }
     location = /fr/communities/digital-talent { return 301 https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/collectivite-gcnumerique.html; }
@@ -41,6 +26,38 @@ server {
     location = /fr/talent/search {
         absolute_redirect off;
         return 301 /fr/search;
+    }
+
+    # Redirect old "applications" to new profile and applications
+    location = /en/applications {
+      absolute_redirect off;
+      return 301 /en/applicant/profile-and-applications$is_args$args;
+    }
+
+    location = /fr/applications {
+        absolute_redirect off;
+        return 301 /fr/applicant/profile-and-applications$is_args$args;
+    }
+
+    location = /en/applications/ {
+      absolute_redirect off;
+      return 301 /en/applicant/profile-and-applications$is_args$args;
+    }
+
+    location = /fr/applications/ {
+        absolute_redirect off;
+        return 301 /fr/applicant/profile-and-applications$is_args$args;
+    }
+
+    # Redirect old dashboard to new profile and applications
+    location = /en/applicant/dashboard {
+      absolute_redirect off;
+      return 301 /en/applicant/profile-and-applications$is_args$args;
+    }
+
+    location = /fr/applicant/dashboard {
+        absolute_redirect off;
+        return 301 /fr/applicant/profile-and-applications$is_args$args;
     }
 
     # Permanent redirect for IAP french vanity url
@@ -92,6 +109,19 @@ server {
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
     }
+
+    # Disable .git directory
+    location ~ /\.git {
+        deny all;
+        access_log off;
+        log_not_found off;
+    }
+    location = /robots.txt {
+        alias /home/site/wwwroot/infrastructure/conf/$ROBOTS_FILENAME;
+    }
+    location = /restricted.html {
+        alias /home/site/wwwroot/apps/web/dist/restricted.html;
+    }
     # For debugging FPM.  Only accessible locally.
     location ~ ^/(fpm-status)$ {
         allow 127.0.0.1;
@@ -115,38 +145,6 @@ server {
     location = /config.js {
         add_header Cache-Control "public, max-age=60"; # 1 minute - to distrubute variable changes
         alias /home/site/config-web.js;
-    }
-
-    # Redirect old "applications" to new profile and applications
-    location = /en/applications {
-      absolute_redirect off;
-      return 301 /en/applicant/profile-and-applications$is_args$args;
-    }
-
-    location = /fr/applications {
-        absolute_redirect off;
-        return 301 /fr/applicant/profile-and-applications$is_args$args;
-    }
-
-    location = /en/applications/ {
-      absolute_redirect off;
-      return 301 /en/applicant/profile-and-applications$is_args$args;
-    }
-
-    location = /fr/applications/ {
-        absolute_redirect off;
-        return 301 /fr/applicant/profile-and-applications$is_args$args;
-    }
-
-    # Redirect old dashboard to new profile and applications
-    location = /en/applicant/dashboard {
-      absolute_redirect off;
-      return 301 /en/applicant/profile-and-applications$is_args$args;
-    }
-
-    location = /fr/applicant/dashboard {
-        absolute_redirect off;
-        return 301 /fr/applicant/profile-and-applications$is_args$args;
     }
 
     # ensure tc-report asset files are handled separately from other assets
