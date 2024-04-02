@@ -122,7 +122,7 @@ server {
     # skip tc-report files for terms-and-conditions and privacy-notice
     location ~ "/(en|fr)/(terms-and-conditions|privacy-notice)" {
         add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite .* /apps/web/dist/index.html break;
+        alias /apps/web/dist/index.html;
     }
 
     # check if uri refers to a tc-report page, or fall back to web app
@@ -144,9 +144,4 @@ server {
         try_files /apps/web/dist/$uri @app-index;
     }
 
-    # serve SPA index with no caching
-    location @app-index {
-        add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        try_files /apps/web/dist/index.html =404;
-    }
 }
