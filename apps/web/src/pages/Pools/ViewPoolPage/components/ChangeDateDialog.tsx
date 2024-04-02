@@ -185,6 +185,7 @@ const ChangeDateDialog = ({
                       description: "Label for the reason for closing the pool",
                     })}
                     name="reason"
+                    wordLimit={200}
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
                     }}
