@@ -48,4 +48,10 @@ jobs:
         working-directory: api
         env:
           DB_HOST: localhost
-        run: php artisan test
+        run: php artisan test --coverage-clover=coverage.xml
+
+      - name: Upload coverage report to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: coverage.xml
