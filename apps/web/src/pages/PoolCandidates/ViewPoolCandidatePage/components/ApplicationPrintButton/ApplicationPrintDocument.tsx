@@ -178,9 +178,7 @@ const ApplicationPrintDocument = React.forwardRef<
       (c) => c !== IndigenousCommunity.LegacyIsIndigenous,
     ) || [];
 
-  const classificationGroup = relevantPoolCandidate?.pool.classifications
-    ? relevantPoolCandidate.pool.classifications[0]?.group
-    : "";
+  const classificationGroup = relevantPoolCandidate?.pool.classification?.group;
 
   return (
     <div style={{ display: "none" }}>

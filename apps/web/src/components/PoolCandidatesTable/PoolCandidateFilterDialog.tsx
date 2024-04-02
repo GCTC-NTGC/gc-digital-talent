@@ -65,7 +65,7 @@ const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
         fr
       }
       publishingGroup
-      classifications {
+      classification {
         id
         group
         level

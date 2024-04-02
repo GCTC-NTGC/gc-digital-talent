@@ -301,7 +301,7 @@ describe("Talent Search Workflow Tests", () => {
 
     cy.findByRole("textbox", { name: /Full name/i }).type("Test Full Name");
 
-    cy.findByRole("textbox", { name: /Government e-mail/i }).type(
+    cy.findByRole("textbox", { name: /Government of Canada email/i }).type(
       "test@tbs-sct.gc.ca",
     );
 

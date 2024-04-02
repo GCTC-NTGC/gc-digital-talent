@@ -393,7 +393,7 @@ const ViewPoolPage_Query = graphql(/* GraphQL */ `
       status
       stream
       closingDate
-      classifications {
+      classification {
         id
         name {
           en

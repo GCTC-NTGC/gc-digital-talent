@@ -32,4 +32,14 @@ class PersonalExperience extends Experience
         'start_date' => 'date',
         'end_date' => 'date',
     ];
+
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    public function getExperienceType(): string
+    {
+        return 'personal';
+    }
 }

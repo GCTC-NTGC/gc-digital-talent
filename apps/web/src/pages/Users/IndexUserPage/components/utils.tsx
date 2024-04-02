@@ -297,7 +297,7 @@ export const UsersTable_SelectUsersQuery = graphql(/* GraphQL */ `
             fr
           }
           stream
-          classifications {
+          classification {
             id
             group
             level

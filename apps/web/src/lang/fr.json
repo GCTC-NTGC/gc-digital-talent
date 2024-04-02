@@ -635,10 +635,6 @@
     "defaultMessage": "Date du début",
     "description": "Label displayed on an Experience form for start date input"
   },
-  "1WVTN6": {
-    "defaultMessage": "{localizedName} a des évaluations",
-    "description": "Aria text for icon confirming a skill is connected to assessments."
-  },
   "1Wbu+6": {
     "defaultMessage": "Premières Nations inscrites",
     "description": "The indigenous community for status First Nations"
@@ -1695,6 +1691,10 @@
     "defaultMessage": "<strong>Nota :</strong> Les résultats tiendront compte de tout candidat qui correspond à <strong>l’une ou plusieurs</strong> des régions sélectionnées",
     "description": "Context for the work region/location preferences filter in the search form."
   },
+  "7nuHuz": {
+    "defaultMessage": "Nombre d’évaluations",
+    "description": "Title for a column that displays the numer of assessments planned for a skill."
+  },
   "7nxtBm": {
     "defaultMessage": "Il s’agit du carrefour de l’administrateur de la plateforme des talents numériques du GC à partir d’où il est possible de gérer, trier et recruter le talent pour le GC.",
     "description": "Subtitle for the admin dashboard page"
@@ -1858,10 +1858,6 @@
   "8cRL8r": {
     "defaultMessage": "Durée permanente",
     "description": "Permanent duration only"
-  },
-  "8di/ke": {
-    "defaultMessage": "Consulter le résumé intégral",
-    "description": "Link title to view the full skill summary section"
   },
   "8ea9ne": {
     "defaultMessage": "Niveau d’écriture",
@@ -2247,10 +2243,6 @@
     "defaultMessage": "Veuillez prendre note qu’en supprimant une compétence de votre profil :",
     "description": "Lead-in text to points of concern when deleting a skill and what will happen"
   },
-  "AxKi2s": {
-    "defaultMessage": "Évaluation planifiée",
-    "description": "Title for a column that displays a complete or not state."
-  },
   "AxRGK2": {
     "defaultMessage": "Cacher les renseignements sur les choses à faire si vous ne trouvez pas une compétence",
     "description": "Button text to hide help information about skills"
@@ -2594,6 +2586,10 @@
   "CwjLDi": {
     "defaultMessage": "Le rôle de gestionnaire est nouveau pour vous? Vous souhaitez acquérir de l’expérience de recrutement et en savoir davantage sur les processus de ressources humaines?",
     "description": "Paragraph one, summary on getting hiring experience"
+  },
+  "CxZGd2": {
+    "defaultMessage": "Courriel du gouvernement du Canada",
+    "description": "Label for government of canada email input in the request form"
   },
   "CzK1qY": {
     "defaultMessage": "Supprimé",
@@ -4451,6 +4447,10 @@
     "defaultMessage": "À qui ce programme est-il destiné?",
     "description": "Heading for section about who the program is for"
   },
+  "O2QLD8": {
+    "defaultMessage": "Évaluations manquantes",
+    "description": "No assessments for a skill"
+  },
   "O5dDCM": {
     "defaultMessage": "Aller à la page suivante ",
     "description": "Aria label for next page button in pagination nav"
@@ -5075,10 +5075,6 @@
     "defaultMessage": "Brève description de l'équipe (en français)",
     "description": "Label for team description in French language"
   },
-  "RSx3Ni": {
-    "defaultMessage": "Bref résumé des compétences",
-    "description": "Title for skills quick summary sidebar"
-  },
   "RTR3mh": {
     "defaultMessage": "Bêta",
     "description": "Label to indicate a feature is in beta"
@@ -5122,10 +5118,6 @@
   "RbHGhj": {
     "defaultMessage": "Autres exigences",
     "description": "Title for _other requirements_ section in the _digital services contracting questionnaire_"
-  },
-  "Rbp02p": {
-    "defaultMessage": "Sauvegarder le plan et revenir en arrière",
-    "description": "Text on a button to save the assessment plan and return to the pool page"
   },
   "RdmeZV": {
     "defaultMessage": "En savoir davantage sur les niveaux de compétence",
@@ -6149,6 +6141,10 @@
   "XKjVO0": {
     "defaultMessage": "Prénom",
     "description": "Label displayed on the user form first name field."
+  },
+  "XOFVsC": {
+    "defaultMessage": "{count, plural, =1 {# évaluation} other {# évaluations}}",
+    "description": "Number of assessments for a skill"
   },
   "XOeFdu": {
     "defaultMessage": "À quoi s’attendre (français)",
@@ -7942,10 +7938,6 @@
     "defaultMessage": "Veuillez préciser les autres exigences",
     "description": "Label for _other other requirements_ fieldset in the _digital services contracting questionnaire_"
   },
-  "guN1wV": {
-    "defaultMessage": "{localizedName} évaluations manquantes",
-    "description": "Aria text for icon indicating a skill is not connected to assessments."
-  },
   "guzGyX": {
     "defaultMessage": "Le membre a été retiré de l’équipe avec succès",
     "description": "Alert displayed to user when a team member is removed"
@@ -8966,10 +8958,6 @@
     "defaultMessage": "Contrat",
     "description": "Contract contract instrument"
   },
-  "mRNmrR": {
-    "defaultMessage": "Courriel du gouvernement",
-    "description": "Label for government email input in the request form"
-  },
   "mS15HC": {
     "defaultMessage": "Ajouter une compétence",
     "description": "Button text to open the skill dialog and add a skill"
@@ -9169,6 +9157,10 @@
   "nKExgi": {
     "defaultMessage": "Pour l'instant, notre site n'est accessible qu'au moyen d'une appli d'authentification.",
     "description": "GCKey answer for whether there is an alternative to an authenticator app"
+  },
+  "nPPUMW": {
+    "defaultMessage": "De retour au traitement des détails",
+    "description": "Link text to go back to the process details page"
   },
   "nQbfnB": {
     "defaultMessage": "Veuillez sélectionner un type d’expérience pour continuer.",
@@ -10573,10 +10565,6 @@
   "wf3e6C": {
     "defaultMessage": "Partie 2 : Configuration de l’authentification à deux facteurs",
     "description": "Heading for section of the sign up page showing the mfa steps"
-  },
-  "wfnbFR": {
-    "defaultMessage": "Nombre total d’évaluations",
-    "description": "Grand total for skills quick summary sidebar"
   },
   "wgIThY": {
     "defaultMessage": "Avoir un diplôme d’études secondaires ou l’équivalent (formation générale)",

@@ -1,4 +1,3 @@
-import { empty } from "@gc-digital-talent/helpers";
 import { Pool } from "@gc-digital-talent/graphql";
 
 /*
@@ -22,7 +21,7 @@ export function isInNullState({
 }
 
 export function hasEmptyRequiredFields({
-  classifications,
+  classification,
   stream,
   name,
   processNumber,
@@ -30,7 +29,7 @@ export function hasEmptyRequiredFields({
   opportunityLength,
 }: Pool): boolean {
   return !!(
-    empty(classifications) ||
+    !classification ||
     !stream ||
     !name?.en ||
     !name?.fr ||

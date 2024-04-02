@@ -259,7 +259,7 @@ const ApplicationStatusForm_PoolCandidateFragment = graphql(/* GraphQL */ `
       }
       stream
       publishingGroup
-      classifications {
+      classification {
         id
         group
         level

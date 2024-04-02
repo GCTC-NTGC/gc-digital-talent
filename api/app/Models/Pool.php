@@ -115,6 +115,7 @@ class Pool extends Model
         'key_tasks',
         'special_note',
         'advertisement_language',
+        'classification_id',
     ];
 
     public function getActivitylogOptions(): LogOptions
@@ -137,9 +138,9 @@ class Pool extends Model
         return $this->belongsTo(Team::class);
     }
 
-    public function classifications(): BelongsToMany
+    public function classification(): BelongsTo
     {
-        return $this->belongsToMany(Classification::class);
+        return $this->belongsTo(Classification::class);
     }
 
     public function poolCandidates(): HasMany
@@ -263,7 +264,7 @@ class Pool extends Model
     // is the pool considered "complete", filled out entirely by the pool operator
     public function getIsCompleteAttribute()
     {
-        $pool = $this->load(['classifications', 'essentialSkills', 'nonessentialSkills', 'poolSkills']);
+        $pool = $this->load(['classification', 'essentialSkills', 'nonessentialSkills', 'poolSkills']);
 
         $poolCompleteValidation = new PoolIsCompleteValidator;
         $validator = Validator::make($pool->toArray(),

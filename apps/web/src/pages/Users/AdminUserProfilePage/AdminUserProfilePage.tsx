@@ -104,7 +104,7 @@ const AdminUserProfile_Query = graphql(/* GraphQL */ `
             en
             fr
           }
-          classifications {
+          classification {
             id
             group
             level
@@ -283,7 +283,7 @@ const AdminUserProfile_Query = graphql(/* GraphQL */ `
         fr
       }
       stream
-      classifications {
+      classification {
         id
         group
         level

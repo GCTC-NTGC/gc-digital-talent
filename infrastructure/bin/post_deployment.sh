@@ -23,7 +23,7 @@ fi
 BLOCKS="{ \"type\": \"header\", \"text\": { \"type\": \"plain_text\", \"text\": \"Post-deployment script was run\" } }"
 
 # Install packages from repository
-if apt-get install -y supervisor ; then
+if apt-get update && apt-get install -y supervisor cron; then
     BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Install packages from repository *successful*.\" } }"
 else
     BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Install packages from repository *failed*. $MENTION\" } }"
@@ -58,6 +58,13 @@ fi
 # Include the stdout from the migration as its own block, cleaned to make Slack happy
 CLEANED_STDOUT=${MIGRATION_STDOUT//[^a-zA-Z0-9_ $'\n']/}
 BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\":\"$TRIPLE_BACK_TICK $CLEANED_STDOUT $TRIPLE_BACK_TICK\" } }"
+
+# Load Laravel Scheduler cron
+if echo "  *  *  *  *  * root    cd /home/site/wwwroot/api && php artisan schedule:run" >> /etc/crontab ; then
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Laravel Scheduler cron setup *successful*.\" } }"
+else
+    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Laravel Scheduler cron setup *failed*. $MENTION\" } }"
+fi
 
 # Setup supervisor
 if /home/site/wwwroot/infrastructure/bin/setup_supervisor.sh ; then

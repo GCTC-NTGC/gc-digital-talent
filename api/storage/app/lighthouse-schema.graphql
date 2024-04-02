@@ -318,7 +318,7 @@ type Pool {
   owner: UserPublicProfile
   team: Team
   name: LocalizedString
-  classifications: [Classification]
+  classification: Classification
   operationalRequirements: [OperationalRequirement]
   poolCandidates: [PoolCandidate]
   keyTasks: LocalizedString
@@ -1199,7 +1199,7 @@ input GenericJobTitleBelongsToMany {
 }
 
 input CreatePoolInput {
-  classifications: ClassificationBelongsToMany
+  classification: ClassificationBelongsTo
 }
 
 input CreateGeneralQuestionInput {
@@ -1227,7 +1227,7 @@ input SyncScreeningQuestionsInput {
 
 input UpdatePoolInput {
   name: LocalizedStringInput
-  classifications: ClassificationBelongsToMany
+  classification: ClassificationBelongsTo
   stream: PoolStream
   processNumber: String
   closingDate: DateTime

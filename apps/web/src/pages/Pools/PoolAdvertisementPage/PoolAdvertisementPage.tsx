@@ -50,7 +50,6 @@ import {
 
 import {
   formatClassificationString,
-  getClassificationGroup,
   getClassificationSalaryRangeUrl,
   getFullPoolTitleHtml,
   getShortPoolTitleLabel,
@@ -141,7 +140,7 @@ export const PoolPoster = ({
   const [skillsValue, setSkillsValue] = React.useState<string[]>([]);
   const [linkCopied, setLinkCopied] = React.useState<boolean>(false);
 
-  const classification = pool.classifications ? pool.classifications[0] : null;
+  const { classification } = pool;
   const genericJobTitles =
     classification?.genericJobTitles?.filter(notEmpty) || [];
   let classificationString = ""; // type wrangling the complex type into a string
@@ -308,7 +307,7 @@ export const PoolPoster = ({
     },
   };
 
-  const classificationGroup = getClassificationGroup(pool);
+  const classificationGroup = pool.classification?.group;
 
   return (
     <>
@@ -1158,7 +1157,7 @@ const PoolAdvertisementPage_Query = graphql(/* GraphQL */ `
       language
       securityClearance
       opportunityLength
-      classifications {
+      classification {
         id
         group
         level

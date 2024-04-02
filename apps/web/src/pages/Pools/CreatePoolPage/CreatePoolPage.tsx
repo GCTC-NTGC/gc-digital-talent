@@ -31,7 +31,7 @@ import AdminHero from "~/components/Hero/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 type FormValues = {
-  classification: string[];
+  classification: string;
   team: string;
 };
 
@@ -60,8 +60,8 @@ export const CreatePoolForm = ({
 
   // submission section, and navigate to edit the created pool
   const formValuesToSubmitData = (values: FormValues): CreatePoolInput => ({
-    classifications: {
-      sync: values.classification,
+    classification: {
+      connect: values.classification,
     },
   });
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {

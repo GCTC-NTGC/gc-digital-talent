@@ -91,21 +91,13 @@ query getProfile($userId: UUID!) {
           fr
         }
         stream
-        classifications {
+        classification {
           id
           group
           level
           name {
             en
             fr
-          }
-          genericJobTitles {
-            id
-            key
-            name {
-              en
-              fr
-            }
           }
           minSalary
           maxSalary

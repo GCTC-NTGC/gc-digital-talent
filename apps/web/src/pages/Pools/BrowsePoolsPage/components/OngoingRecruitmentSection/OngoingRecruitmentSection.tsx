@@ -66,8 +66,9 @@ const selectPoolForSection = (
           // must match section stream
           p.stream === stream &&
           // must include section classification group and level
-          !!p.classifications?.find(
-            (c) => c?.group === group && c.level === level,
+          !!(
+            p.classification?.group === group &&
+            p.classification.level === level
           ),
       )
   );

@@ -186,7 +186,7 @@ const ProfileAndApplicationsApplicant_Query = graphql(/* GraphQL */ `
           }
           publishingGroup
           stream
-          classifications {
+          classification {
             id
             group
             level

@@ -71,7 +71,7 @@ const UserFilterData_Query = graphql(/* GraphQL */ `
         en
         fr
       }
-      classifications {
+      classification {
         id
         name {
           en

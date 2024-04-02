@@ -12,7 +12,6 @@ import {
   foreignDegreeLink,
   postSecondaryLink,
 } from "~/pages/Applications/ApplicationEducationPage/utils";
-import { ClassificationGroup } from "~/utils/poolUtils";
 
 type TextProps = React.HTMLProps<HTMLParagraphElement>;
 
@@ -77,7 +76,7 @@ const Or = (props: React.HTMLProps<HTMLDivElement>) => {
 
 interface EducationRequirementsProps {
   isIAP: boolean;
-  classificationGroup?: ClassificationGroup;
+  classificationGroup?: string;
   headingAs?: HeadingLevel;
 }
 

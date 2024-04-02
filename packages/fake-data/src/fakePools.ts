@@ -91,8 +91,7 @@ const generatePool = (
       en: englishName || `${faker.company.catchPhrase()} EN`,
       fr: frenchName || `${faker.company.catchPhrase()} FR`,
     },
-    classifications:
-      faker.helpers.arrayElements<Classification>(classifications),
+    classification: faker.helpers.arrayElement<Classification>(classifications),
     keyTasks: toLocalizedString(faker.lorem.paragraphs()),
     stream: faker.helpers.arrayElement<PoolStream>(Object.values(PoolStream)),
     processNumber: faker.helpers.maybe(() => faker.lorem.word()),

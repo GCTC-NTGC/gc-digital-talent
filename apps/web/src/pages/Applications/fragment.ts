@@ -146,7 +146,7 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
       closingDate
       publishingGroup
       language
-      classifications {
+      classification {
         id
         group
         level
