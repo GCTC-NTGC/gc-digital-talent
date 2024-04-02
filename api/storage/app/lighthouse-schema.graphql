@@ -138,7 +138,7 @@ type Mutation {
   deletePoolSkill(id: ID!): PoolSkill
   publishPool(id: ID!): Pool
   changePoolClosingDate(id: ID!, newClosingDate: DateTime!): Pool
-  closePool(id: ID!, reason: String): Pool
+  closePool(id: ID!, reason: String!): Pool
   deletePool(id: ID!): Pool
   archivePool(id: ID!): Pool
   unarchivePool(id: ID!): Pool

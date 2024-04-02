@@ -1827,9 +1827,12 @@ type Mutation {
     id: ID!
     newClosingDate: DateTime! @rename(attribute: "new_closing_date")
   ): Pool @guard @canFind(ability: "changePoolClosingDate", find: "id")
-  closePool(id: ID!, reason: String @rename(attribute: "closing_reason")): Pool
-    @guard
-    @canFind(ability: "closePool", find: "id")
+  closePool(
+    id: ID!
+    reason: String!
+      @rename(attribute: "closing_reason")
+      @rules(apply: ["required"])
+  ): Pool @guard @canFind(ability: "closePool", find: "id")
   deletePool(id: ID! @whereKey): Pool
     @forceDelete(model: "Pool")
     @guard
