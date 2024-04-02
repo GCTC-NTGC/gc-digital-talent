@@ -31,6 +31,8 @@ server {
     location = /fr/applications { return 301 /fr/applicant/profile-and-applications$is_args$args; }
     location = /en/applicant/dashboard { return 301 /en/applicant/profile-and-applications$is_args$args; }
     location = /fr/applicant/dashboard { return 301 /fr/applicant/profile-and-applications$is_args$args; }
+    location = /en/privacy-notice { return 301 /en/privacy-policy$is_args$args; }
+    location = /fr/privacy-notice { return 301 /fr/privacy-policy$is_args$args; }
 
     # Permanent redirect for IAP french vanity url
     location = /apprentis-autochtone-ti { return 301 /fr/indigenous-it-apprentice; }
