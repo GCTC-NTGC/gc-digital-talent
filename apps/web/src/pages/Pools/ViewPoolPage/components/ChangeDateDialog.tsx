@@ -176,20 +176,22 @@ const ChangeDateDialog = ({
                         "Helper message for closing the process early",
                     })}
                   </p>
-                  <TextArea
-                    id="reason"
-                    data-h2-margin-bottom="base(x.5)"
-                    label={intl.formatMessage({
-                      defaultMessage: "Reason for closing",
-                      id: "SQRzSl",
-                      description: "Label for the reason for closing the pool",
-                    })}
-                    name="reason"
-                    wordLimit={200}
-                    rules={{
-                      required: intl.formatMessage(errorMessages.required),
-                    }}
-                  />
+                  <div data-h2-margin-bottom="base(x1)">
+                    <TextArea
+                      id="reason"
+                      label={intl.formatMessage({
+                        defaultMessage: "Reason for closing",
+                        id: "SQRzSl",
+                        description:
+                          "Label for the reason for closing the pool",
+                      })}
+                      name="reason"
+                      wordLimit={200}
+                      rules={{
+                        required: intl.formatMessage(errorMessages.required),
+                      }}
+                    />
+                  </div>
                   <Well color="warning">
                     <p
                       data-h2-font-weight="base(700)"
