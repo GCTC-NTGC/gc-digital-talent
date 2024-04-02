@@ -13,6 +13,7 @@ camelcase
 Canonicalizing
 chra
 chrc
+codecov
 codegen
 colour
 colours
