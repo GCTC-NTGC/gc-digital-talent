@@ -11,11 +11,9 @@ import { Skill } from "@gc-digital-talent/graphql";
 import skillBrowserMessages from "./messages";
 import SkillDescription from "./SkillDescription";
 import {
-  formatOption,
   getFamilyOptions,
   getFilteredFamilies,
   getFilteredSkills,
-  getSkillFamilySkillCount,
 } from "./utils";
 
 interface SkillSelectionProps {
@@ -101,11 +99,7 @@ const SkillSelection = ({
             ...familyOptions,
             ...filteredFamilies.map((skillFamily) => ({
               value: skillFamily.id,
-              label: formatOption(
-                getLocalizedName(skillFamily.name, intl),
-                getSkillFamilySkillCount(skills, skillFamily),
-                intl,
-              ),
+              label: getLocalizedName(skillFamily.name, intl),
             })),
           ]}
         />

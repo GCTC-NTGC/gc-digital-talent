@@ -10,11 +10,9 @@ import { BaseSkillBrowserProps } from "./types";
 import skillBrowserMessages from "./messages";
 import {
   INPUT_NAME,
-  formatOption,
   getFamilyOptions,
   getFilteredFamilies,
   getFilteredSkills,
-  getSkillFamilySkillCount,
 } from "./utils";
 
 type SkillBrowserProps = BaseSkillBrowserProps & {
@@ -96,11 +94,7 @@ const SkillBrowser = ({
           ...familyOptions,
           ...filteredFamilies.map((skillFamily) => ({
             value: skillFamily.id,
-            label: formatOption(
-              getLocalizedName(skillFamily.name, intl),
-              getSkillFamilySkillCount(skills, skillFamily),
-              intl,
-            ),
+            label: getLocalizedName(skillFamily.name, intl),
           })),
         ]}
       />

@@ -79,10 +79,6 @@
     "defaultMessage": "Mes rôles",
     "description": "Label displayed for the table's My Roles column header."
   },
-  "+ayqFd": {
-    "defaultMessage": "Compétences comportementales ({count} compétences)",
-    "description": "Tab name for a list of behavioural skills"
-  },
   "+cBKDC": {
     "defaultMessage": "Emplois dans le gouvernement numérique",
     "description": "Heading for the digital government job opportunities"
@@ -1090,10 +1086,6 @@
   "4L9rHO": {
     "defaultMessage": "Actif",
     "description": "Status message if the application is not suspended"
-  },
-  "4LQLyh": {
-    "defaultMessage": "Compétences techniques ({count} compétences)",
-    "description": "Tab name for a list of technical skills"
   },
   "4LVc9T": {
     "defaultMessage": "{localizedName} évalué par {assessmentStepTypeLocalized}",
@@ -3551,10 +3543,6 @@
     "defaultMessage": "Ajouter une nouvelle adhésion",
     "description": "Label for the form to add a team membership to a user"
   },
-  "Id9nfM": {
-    "defaultMessage": "Toutes les compétences ({count} compétences)",
-    "description": "Label for removing the skill family filter"
-  },
   "IexFo4": {
     "defaultMessage": "Connaissance de l’autre langue officielle",
     "description": "Second language proficiency label"
@@ -4251,10 +4239,6 @@
     "defaultMessage": "Processus",
     "description": "Title for the index pool page"
   },
-  "MmDHBS": {
-    "defaultMessage": "{label} ({count} compétences)",
-    "description": "Label for options when selecting skill filters where {count} is the number of skills associated with the filter"
-  },
   "MotQKq": {
     "defaultMessage": "Tâches de travail (français)",
     "description": "Label for a process' French work tasks"
@@ -4578,10 +4562,6 @@
   "OpKC2i": {
     "defaultMessage": "Exceptions relatives au lieu de travail",
     "description": "Work location exceptions label"
-  },
-  "OqKTJQ": {
-    "defaultMessage": "Toutes les catégories ({count} compétences)",
-    "description": "Label for removing the skill category filter"
   },
   "OqglGZ": {
     "defaultMessage": "Ce volet comprend le travail avec la direction de l’architecture <abbreviation>TI</abbreviation> du ministère, la collaboration avec d’autres volets de <abbreviation>TI</abbreviation> et la recherche sur les technologies émergentes.",
@@ -8153,10 +8133,6 @@
   "hyJz3G": {
     "defaultMessage": "À propos du programme",
     "description": "Program information section title"
-  },
-  "hzZc5Y": {
-    "defaultMessage": "Ma bibliothèque ({count} compétences)",
-    "description": "Label for filtering skills by ones already added to the users library"
   },
   "i+C29d": {
     "defaultMessage": "Cacher les options d'équité offertes ({optionCount})",

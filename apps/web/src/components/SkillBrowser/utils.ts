@@ -280,74 +280,6 @@ export const getFilteredSkills: GetFilteredSkills = ({
   return skills;
 };
 
-export const getSkillFamilySkillCount = (
-  skills: Skill[],
-  family: SkillFamily,
-): number => {
-  const skillsByFamily = skills.filter((skill) => {
-    return skill.families?.some((skillFamily) => skillFamily.id === family.id);
-  });
-
-  return skillsByFamily.length;
-};
-
-export const getSkillCategorySkillCount = (
-  skills: Skill[],
-  category: SkillCategory | "all",
-): number => {
-  const skillsByCategory = skills.filter(
-    (skill) => skill.category === category,
-  );
-  return skillsByCategory.length;
-};
-
-export const getCategoryOptions = (
-  skills: Skill[],
-  intl: IntlShape,
-): Option[] => {
-  return [
-    {
-      value: "all",
-      label: intl.formatMessage(
-        {
-          defaultMessage: "All categories ({count} skills)",
-          id: "OqKTJQ",
-          description: "Label for removing the skill category filter",
-        },
-        {
-          count: skills.length,
-        },
-      ),
-    },
-    {
-      value: SkillCategory.Behavioural,
-      label: intl.formatMessage(
-        {
-          defaultMessage: "Behavioural skills ({count} skills)",
-          id: "+ayqFd",
-          description: "Tab name for a list of behavioural skills",
-        },
-        {
-          count: getSkillCategorySkillCount(skills, SkillCategory.Behavioural),
-        },
-      ),
-    },
-    {
-      value: SkillCategory.Technical,
-      label: intl.formatMessage(
-        {
-          defaultMessage: "Technical skills ({count} skills)",
-          id: "4LQLyh",
-          description: "Tab name for a list of technical skills",
-        },
-        {
-          count: getSkillCategorySkillCount(skills, SkillCategory.Technical),
-        },
-      ),
-    },
-  ];
-};
-
 export const getFamilyOptions = (
   skills: Skill[],
   intl: IntlShape,
@@ -360,16 +292,11 @@ export const getFamilyOptions = (
   let familyOptions = [
     {
       value: "all",
-      label: intl.formatMessage(
-        {
-          defaultMessage: "All skills ({count} skills)",
-          id: "Id9nfM",
-          description: "Label for removing the skill family filter",
-        },
-        {
-          count: skills.length,
-        },
-      ),
+      label: intl.formatMessage({
+        defaultMessage: "All skills",
+        id: "EIM5Jw",
+        description: "Label for removing the skill family filter",
+      }),
     },
   ];
 
@@ -378,31 +305,15 @@ export const getFamilyOptions = (
       ...familyOptions,
       {
         value: "library",
-        label: intl.formatMessage(
-          {
-            defaultMessage: "My library ({count} skills)",
-            id: "hzZc5Y",
-            description:
-              "Label for filtering skills by ones already added to the users library",
-          },
-          {
-            count: filteredLibrary.length,
-          },
-        ),
+        label: intl.formatMessage({
+          defaultMessage: "My library",
+          id: "Kki7mk",
+          description:
+            "Label for filtering skills by ones already added to the users library",
+        }),
       },
     ];
   }
 
   return familyOptions;
 };
-
-export const formatOption = (label: string, count: number, intl: IntlShape) =>
-  intl.formatMessage(
-    {
-      defaultMessage: "{label} ({count} skills)",
-      id: "MmDHBS",
-      description:
-        "Label for options when selecting skill filters where {count} is the number of skills associated with the filter",
-    },
-    { label, count },
-  );
