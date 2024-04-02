@@ -1523,10 +1523,6 @@
     "defaultMessage": "Nom de l’initiative en matière numérique",
     "description": "Label for _name of digital initiative_ field in _authorities involved_ fieldset in the _digital services contracting questionnaire_"
   },
-  "6ofORn": {
-    "defaultMessage": "Famille de compétences",
-    "description": "Label for the skill family filter field"
-  },
   "6rb9mg": {
     "defaultMessage": "Membres de l’équipe",
     "description": "Page title for the view team members page"
