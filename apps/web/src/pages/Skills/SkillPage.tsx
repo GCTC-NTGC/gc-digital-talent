@@ -62,6 +62,7 @@ export const SkillPage = () => {
           <Heading
             level="h2"
             size="h6"
+            id="cant-find-a-skill"
             data-h2-font-weight="base(bold)"
             data-h2-margin-top="base(0)"
             data-h2-margin-bottom="base(x1)"

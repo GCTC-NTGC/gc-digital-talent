@@ -13,8 +13,7 @@ export const INPUT_NAME = {
 };
 
 export const defaultFormValues: FormValues = {
-  category: "",
-  family: "",
+  family: "all",
   skill: "",
 };
 
@@ -232,22 +231,14 @@ export const showDetails = (
 
 type GetFilteredFamiliesArgs = {
   skills: Skill[];
-  category: SkillCategory | "all" | "";
 };
 
 type GetFilteredFamilies = (args: GetFilteredFamiliesArgs) => SkillFamily[];
 
-export const getFilteredFamilies: GetFilteredFamilies = ({
-  skills,
-  category,
-}) => {
+export const getFilteredFamilies: GetFilteredFamilies = ({ skills }) => {
   const invertedTree = invertSkillSkillFamilyTree(skills);
 
-  return category && category !== "all"
-    ? invertedTree.filter((currentFamily) => {
-        return currentFamily.skills?.filter((s) => s.category === category);
-      })
-    : invertedTree;
+  return invertedTree;
 };
 
 type GetFilteredSkillsArgs = {
@@ -360,13 +351,8 @@ export const getCategoryOptions = (
 export const getFamilyOptions = (
   skills: Skill[],
   intl: IntlShape,
-  category?: SkillCategory | "all",
   inLibrary?: Skill[],
 ): Option[] => {
-  const filteredSkills =
-    category !== "all"
-      ? skills.filter((skill) => skill.category === category)
-      : skills;
   const filteredLibrary = inLibrary?.filter((librarySkill) =>
     skills.some((skill) => skill.id === librarySkill.id),
   );
@@ -381,10 +367,7 @@ export const getFamilyOptions = (
           description: "Label for removing the skill family filter",
         },
         {
-          count:
-            category && category !== "all"
-              ? filteredSkills.length
-              : skills.length,
+          count: skills.length,
         },
       ),
     },
