@@ -5303,6 +5303,10 @@
     "defaultMessage": "Voyez comment vos données sont consultées et gérez la disponibilité et les communications.",
     "description": "Introductory text displayed in recruitment availability accordion."
   },
+  "SkV4+/": {
+    "defaultMessage": "Numéro de suivi",
+    "description": "Alternate name for ID column header"
+  },
   "Sm9Ml5": {
     "defaultMessage": "Cette compétence   <strong>sera supprimée de toutes les expériences associées</strong>",
     "description": "Notice that deleting a skill removes it from any linked experiences"
