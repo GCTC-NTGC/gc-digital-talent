@@ -10,61 +10,29 @@ server {
     root /home/site/wwwroot;
     index  index.php index.html index.htm;
     #server_name talent.canada.ca www.talent.canada.ca;
+    absolute_redirect off;
 
     # redirect server error pages
     error_page   404  /404;
 
     # Permanent redirects to avoid dead links
-    location = /en/communities/digital-talent { return 301 https://www.canada.ca/en/government/system/digital-government/gcdigital-community.html; }
-    location = /fr/communities/digital-talent { return 301 https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/collectivite-gcnumerique.html; }
-
-    # Permanent redirect within the same domain with relative path
-    location = /en/talent/search {
-        absolute_redirect off;
-        return 301 /en/search;
+    location = /en/communities/digital-talent {
+        absolute_redirect on;
+        return 301 https://www.canada.ca/en/government/system/digital-government/gcdigital-community.html;
     }
-    location = /fr/talent/search {
-        absolute_redirect off;
-        return 301 /fr/search;
+    location = /fr/communities/digital-talent {
+        absolute_redirect on;
+        return 301 https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/collectivite-gcnumerique.html;
     }
-
-    # Redirect old "applications" to new profile and applications
-    location = /en/applications {
-      absolute_redirect off;
-      return 301 /en/applicant/profile-and-applications$is_args$args;
-    }
-
-    location = /fr/applications {
-        absolute_redirect off;
-        return 301 /fr/applicant/profile-and-applications$is_args$args;
-    }
-
-    location = /en/applications/ {
-      absolute_redirect off;
-      return 301 /en/applicant/profile-and-applications$is_args$args;
-    }
-
-    location = /fr/applications/ {
-        absolute_redirect off;
-        return 301 /fr/applicant/profile-and-applications$is_args$args;
-    }
-
-    # Redirect old dashboard to new profile and applications
-    location = /en/applicant/dashboard {
-      absolute_redirect off;
-      return 301 /en/applicant/profile-and-applications$is_args$args;
-    }
-
-    location = /fr/applicant/dashboard {
-        absolute_redirect off;
-        return 301 /fr/applicant/profile-and-applications$is_args$args;
-    }
+    location = /en/talent/search { return 301 /en/search$is_args$args; }
+    location = /fr/talent/search { return 301 /fr/search$is_args$args; }
+    location = /en/applications { return 301 /en/applicant/profile-and-applications$is_args$args; }
+    location = /fr/applications { return 301 /fr/applicant/profile-and-applications$is_args$args; }
+    location = /en/applicant/dashboard { return 301 /en/applicant/profile-and-applications$is_args$args; }
+    location = /fr/applicant/dashboard { return 301 /fr/applicant/profile-and-applications$is_args$args; }
 
     # Permanent redirect for IAP french vanity url
-    location = /apprentis-autochtone-ti {
-        absolute_redirect off;
-        return 301 /fr/indigenous-it-apprentice;
-    }
+    location = /apprentis-autochtone-ti { return 301 /fr/indigenous-it-apprentice; }
 
     # enable serving gzip-ed files
     gzip_static on;
