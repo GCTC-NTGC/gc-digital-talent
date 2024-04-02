@@ -45,6 +45,11 @@ jobs:
         run: |
           pnpm run build:fresh
 
-      - name: "Run Unit Tests: all workspaces"
+      - name: "Run Unit Tests: all workspaces with coverage"
         working-directory: ./
-        run: pnpm run test
+        run: pnpm run test -- --coverage
+
+      - name: "Upload coverage report to Codecov"
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
