@@ -37,7 +37,10 @@ const ChangeDateDialog = ({
 }: ChangeDateDialogProps) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const intl = useIntl();
-  const todayDate = new Date();
+  let minDate = new Date();
+  if (closingDate) {
+    minDate = new Date(closingDate);
+  }
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -160,8 +163,16 @@ const ChangeDateDialog = ({
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                     min: {
-                      value: strToFormDate(todayDate.toISOString()),
-                      message: intl.formatMessage(errorMessages.futureDate),
+                      value: strToFormDate(minDate.toISOString()),
+                      message: closingDate
+                        ? intl.formatMessage({
+                            defaultMessage:
+                              "End date must be after the current closing date.",
+                            id: "Vws4Ju",
+                            description:
+                              "Error message for end date before current closing date",
+                          })
+                        : intl.formatMessage(errorMessages.futureDate),
                     },
                   }}
                 />
