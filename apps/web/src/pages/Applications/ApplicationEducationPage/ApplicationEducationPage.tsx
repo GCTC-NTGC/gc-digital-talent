@@ -151,14 +151,16 @@ const ApplicationEducation = ({
           ).length > 0));
 
     if (isValid) {
-      const educationExperiences = experiences.filter(isEducationExperience);
+      const selectedExperiences = experiences.filter((experience) =>
+        includesExperience(experience.id),
+      );
 
       // Only save education experiences IF the applicant selects "I meet the post-secondary option".
       // Otherwise, save all experiences.
       const educationRequirementExperiences =
         formValues.educationRequirement === EducationRequirementOption.Education
-          ? educationExperiences
-          : experiences;
+          ? selectedExperiences.filter(isEducationExperience)
+          : selectedExperiences;
 
       executeMutation({
         id: application.id,
