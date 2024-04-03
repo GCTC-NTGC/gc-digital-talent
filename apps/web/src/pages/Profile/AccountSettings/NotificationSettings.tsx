@@ -25,18 +25,39 @@ export type UpdateNotificationInput = {
 interface NotificationChecklistProps {
   id: string;
   name: string;
-  options: CheckboxOption[];
   legend: string;
   subtitle: string;
+  disabled?: boolean;
 }
 
 const NotificationChecklist = ({
   id,
   name,
-  options,
   legend,
   subtitle,
+  disabled,
 }: NotificationChecklistProps) => {
+  const intl = useIntl();
+
+  const notificationOptions: CheckboxOption[] = [
+    {
+      value: "email",
+      label: (
+        <span data-h2-visually-hidden="base(invisible)">
+          {intl.formatMessage(commonMessages.email)}
+        </span>
+      ),
+    },
+    {
+      value: "inApp",
+      label: (
+        <span data-h2-visually-hidden="base(invisible)">
+          {intl.formatMessage(commonMessages.inApp)}
+        </span>
+      ),
+    },
+  ];
+
   return (
     <Field.Wrapper data-h2-margin-bottom="base(x1)">
       <Field.Fieldset id="systemMessages">
@@ -64,7 +85,7 @@ const NotificationChecklist = ({
             data-h2-display="base(flex)"
             data-h2-justify-content="base(space-between)"
           >
-            {options.map(({ value, label, disabled }) => {
+            {notificationOptions.map(({ value, label }) => {
               const checkboxId = `${id}-${value}`;
               return (
                 <Checkbox
@@ -120,27 +141,6 @@ const NotificationSettings = ({
     }),
   });
 
-  const notificationOptions = (id: string): CheckboxOption[] => [
-    {
-      value: "email",
-      label: (
-        <span data-h2-visually-hidden="base(invisible)">
-          {intl.formatMessage(commonMessages.email)}
-        </span>
-      ),
-      disabled: id === "systemMessages",
-    },
-    {
-      value: "inApp",
-      label: (
-        <span data-h2-visually-hidden="base(invisible)">
-          {intl.formatMessage(commonMessages.inApp)}
-        </span>
-      ),
-      disabled: id === "systemMessages",
-    },
-  ];
-
   const { handleSubmit } = methods;
 
   const handleError = () => {
@@ -193,7 +193,7 @@ const NotificationSettings = ({
         id: "blvpQr",
         description: "Subtitle for system messages checklist",
       }),
-      options: notificationOptions("systemMessages"),
+      disabled: true,
     },
     {
       id: "applicationUpdates",
@@ -209,7 +209,6 @@ const NotificationSettings = ({
         id: "XzyFuo",
         description: "Subtitle for application updates checklist",
       }),
-      options: notificationOptions("applicationUpdates"),
     },
     {
       id: "jobAlerts",
@@ -225,7 +224,6 @@ const NotificationSettings = ({
         id: "u3CPra",
         description: "Subtitle for job alerts checklist",
       }),
-      options: notificationOptions("jobAlerts"),
     },
   ];
 
