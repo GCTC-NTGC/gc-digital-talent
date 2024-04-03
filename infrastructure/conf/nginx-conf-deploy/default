@@ -35,7 +35,45 @@ server {
     location = /fr/privacy-notice { return 301 /fr/privacy-policy$is_args$args; }
 
     # Permanent redirect for IAP french vanity url
-    location = /apprentis-autochtone-ti { return 301 /fr/indigenous-it-apprentice; }
+    location = /apprentis-autochtone-ti { return 301 /fr/indigenous-it-apprentice$is_args$args; }
+
+    # Disable .git directory
+    location ~ /\.git {
+        deny all;
+        access_log off;
+        log_not_found off;
+    }
+
+    # handle special cases
+    location = /robots.txt {
+        alias /home/site/wwwroot/infrastructure/conf/$ROBOTS_FILENAME;
+    }
+    location = /restricted.html {
+        alias /home/site/wwwroot/apps/web/dist/restricted.html;
+    }
+    # For debugging FPM.  Only accessible locally.
+    location ~ ^/(fpm-status)$ {
+        allow 127.0.0.1;
+        deny all;
+        fastcgi_pass 127.0.0.1:9001;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_index index.php;
+    }
+    # For checking FPM status.  Enabled in prod locally to test post_deply script.
+    location ~ ^/(fpm-ping)$ {
+        allow 127.0.0.1;
+        deny all;
+        fastcgi_pass 127.0.0.1:9000;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_index index.php;
+    }
+    # find the web config in the writable home root - run time variables
+    location = /config.js {
+        add_header Cache-Control "public, max-age=60"; # 1 minute - to distrubute variable changes
+        alias /home/site/config-web.js;
+    }
 
     # api
     location = /graphql {
@@ -76,43 +114,6 @@ server {
         fastcgi_pass 127.0.0.1:9000;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
-    }
-
-    # Disable .git directory
-    location ~ /\.git {
-        deny all;
-        access_log off;
-        log_not_found off;
-    }
-    location = /robots.txt {
-        alias /home/site/wwwroot/infrastructure/conf/$ROBOTS_FILENAME;
-    }
-    location = /restricted.html {
-        alias /home/site/wwwroot/apps/web/dist/restricted.html;
-    }
-    # For debugging FPM.  Only accessible locally.
-    location ~ ^/(fpm-status)$ {
-        allow 127.0.0.1;
-        deny all;
-        fastcgi_pass 127.0.0.1:9001;
-        include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        fastcgi_index index.php;
-    }
-    # For checking FPM status.  Enabled in prod locally to test post_deply script.
-    location ~ ^/(fpm-ping)$ {
-        allow 127.0.0.1;
-        deny all;
-        fastcgi_pass 127.0.0.1:9000;
-        include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        fastcgi_index index.php;
-    }
-
-    # find the web config in the writable home root - run time variables
-    location = /config.js {
-        add_header Cache-Control "public, max-age=60"; # 1 minute - to distrubute variable changes
-        alias /home/site/config-web.js;
     }
 
     # serve tc-report asset files

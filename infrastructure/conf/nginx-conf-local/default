@@ -41,8 +41,6 @@ server {
     location = /en/talent/search { return 301 /en/search$is_args$args; }
     location = /fr/talent/search { return 301 /fr/search$is_args$args; }
     location = /en/applications { return 301 /en/applicant/profile-and-applications$is_args$args; }
-    location = /fr/applications/ { return 301 /fr/applicant/profile-and-applications$is_args$args; }
-    location = /en/applications/ { return 301 /en/applicant/profile-and-applications$is_args$args; }
     location = /fr/applications { return 301 /fr/applicant/profile-and-applications$is_args$args; }
     location = /en/applicant/dashboard { return 301 /en/applicant/profile-and-applications$is_args$args; }
     location = /fr/applicant/dashboard { return 301 /fr/applicant/profile-and-applications$is_args$args; }
@@ -101,6 +99,11 @@ server {
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         fastcgi_index index.php;
+    }
+    # for sharing runtime env variables with client code
+    location = /config.js {
+        # add_header Cache-Control "public, max-age=60"; # 1 minute - to distrubute variable changes
+        alias /apps/web/dist/config.js; # technically this would get caught the main assets block, but this mirrors prod conf
     }
 
     # api
