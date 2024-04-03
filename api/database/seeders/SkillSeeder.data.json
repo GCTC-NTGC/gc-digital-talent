@@ -525,6 +525,133 @@
       {
         "category": "TECHNICAL",
         "description": {
+          "en": "Demonstrated ability to apply designated quantitative techniques such as time series analysis, optimization and simulation to create and embed appropriate models for analysis, prediction and machine learning.",
+          "fr": "Capacité démontrée à appliquer les techniques quantitatives désignées telles que l'analyse des séries chronologiques, l'optimisation et la simulation pour créer et intégrer des modèles appropriés pour l'analyse, la prédiction et l'apprentissage automatique."
+        },
+        "families": [
+          {
+            "key": "data_services_data_science"
+          }
+        ],
+        "key": "applied_mathematics_and_statistics",
+        "keywords": {
+          "en": [
+            "Applied",
+            "Mathematics",
+            "Statistics."
+          ],
+          "fr": [
+            "appliquées",
+            "Mathématiques",
+            "statistiques."
+          ]
+        },
+        "name": {
+          "en": "Applied Mathematics and Statistics",
+          "fr": "Mathématiques appliquées et statistiques"
+        }
+      },
+      {
+        "category": "TECHNICAL",
+        "description": {
+          "en": "Demonstrated ability to design, write and iterate code and scripts in lanugages such as Python, R, Julia, C++, Java along the model lifecycle from concept, to development, to prototype, to production, through to deployment.",
+          "fr": "Capacité démontrée à concevoir, écrire et modifier du code et des scripts dans des langages tels que Python, R, Julia, C++, Java tout au long du cycle de vie du modèle, du concept au développement, au prototype, à la production, jusqu'au déploiement."
+        },
+        "families": [
+          {
+            "key": "data_services_data_science"
+          },
+          {
+            "key": "programming_languages_and_tools"
+          }
+        ],
+        "key": "artificial_intelligence_programming_languages",
+        "keywords": {
+          "en": [
+            "Artificial",
+            "Intelligence",
+            "Languages.",
+            "Programming"
+          ],
+          "fr": [
+            "artificielle.",
+            "intelligence",
+            "Langages",
+            "programmation"
+          ]
+        },
+        "name": {
+          "en": "Artificial Intelligence Programming Languages",
+          "fr": "Langages de programmation d’intelligence artificielle"
+        }
+      },
+      {
+        "category": "TECHNICAL",
+        "description": {
+          "en": "Demonstrated ability to develop and maintain monitoring systems for AI systems, addressing health, bias, and data drift to ensure ethical and reliable performance.",
+          "fr": "Capacité démontrée à développer et à maintenir des systèmes de surveillance pour les systèmes d'IA, en tenant compte de la santé, de la partialité et de la dérive des données afin d'assurer des performances éthiques et fiables."
+        },
+        "families": [
+          {
+            "key": "data_services_data_science"
+          }
+        ],
+        "key": "artificial_intelligence_system_monitoring_and_governance",
+        "keywords": {
+          "en": [
+            "Artificial",
+            "Governance.",
+            "Intelligence",
+            "Monitoring",
+            "System"
+          ],
+          "fr": [
+            "artificielle.",
+            "gouvernance",
+            "intelligence",
+            "Surveillance",
+            "systèmes"
+          ]
+        },
+        "name": {
+          "en": "Artificial Intelligence System Monitoring and Governance",
+          "fr": "Surveillance et gouvernance des systèmes d’intelligence artificielle"
+        }
+      },
+      {
+        "category": "TECHNICAL",
+        "description": {
+          "en": "Demonstrated ability to manage the operational aspects of AI systems, including automation software development, system availability, and effective deployment processes.",
+          "fr": "Capacité démontrée à gérer les aspects opérationnels des systèmes d'intelligence artificielle, y compris le développement de logiciels d'automatisation, la disponibilité des systèmes et des processus de déploiement efficaces."
+        },
+        "families": [
+          {
+            "key": "data_services_data_science"
+          }
+        ],
+        "key": "artificial_intelligence_system_operations",
+        "keywords": {
+          "en": [
+            "Artificial",
+            "Intelligence",
+            "Operations.",
+            "System"
+          ],
+          "fr": [
+            "artificielle.",
+            "intelligence",
+            "Opérations",
+            "système"
+          ]
+        },
+        "name": {
+          "en": "Artificial Intelligence System Operations",
+          "fr": "Opérations du système d’intelligence artificielle"
+        }
+      },
+      {
+        "category": "TECHNICAL",
+        "description": {
           "en": "Demonstrated ability to apply concrete knowledge of this framework to develop a variety of applications.",
           "fr": "Capacité démontrée à appliquer des connaissances concrètes de ce cadre pour développer une variété d’applications."
         },
@@ -546,7 +673,7 @@
       {
         "category": "TECHNICAL",
         "description": {
-          "en": "Demonstrated ability to use Access to Information and Privacy software (portals, databases, query programs).",
+          "en": "Demonstrated ability to use Access to Information and Privacy software (portals, databases, query programs)",
           "fr": "Capacité manifeste à utiliser des logiciels d’accès à l’information et de protection de la vie privée (portails, bases de données, programmes de requêtes)."
         },
         "families": [
@@ -593,6 +720,34 @@
         "name": {
           "en": "Attention to Detail",
           "fr": "Souci du détail"
+        }
+      },
+      {
+        "category": "TECHNICAL",
+        "description": {
+          "en": "Demonstrated ability to apply the Directive on Automated Decision-Making, including completing an Algorithmic Impact Assessment, to identify, evaluate and mitigate risks associated with deploying an automated decision-making system.",
+          "fr": "Capacité démontrée à appliquer la directive sur la prise de décision automatisée, notamment en réalisant une évaluation de l'impact algorithmique, afin d'identifier, d'évaluer et d'atténuer les risques liés au déploiement d'un système de prise de décision automatisée."
+        },
+        "families": [
+          {
+            "key": "data_services_data_science"
+          }
+        ],
+        "key": "automated_decision_making",
+        "keywords": {
+          "en": [
+            "Automated",
+            "Decision",
+            "Making."
+          ],
+          "fr": [
+            "automatisée.",
+            "décision"
+          ]
+        },
+        "name": {
+          "en": "Automated Decision-Making",
+          "fr": "Prise de décision automatisée"
         }
       },
       {
@@ -937,6 +1092,35 @@
         "name": {
           "en": "Azure SQL Database",
           "fr": "Azure SQL Database"
+        }
+      },
+      {
+        "category": "TECHNICAL",
+        "description": {
+          "en": "Demonstrated ability to use big data tools such as SparkSQL, Apache Flink, Cloud platforms, to query, manipulate and analyze large data sets, to extract meaningful insights.",
+          "fr": "Capacité démontrée à utiliser des outils de big data tels que SparkSQL, Apache Flink, des plateformes Cloud, pour interroger, manipuler et analyser de grands ensembles de données, afin d'en extraire des informations significatives."
+        },
+        "families": [
+          {
+            "key": "data_services_data_science"
+          }
+        ],
+        "key": "big_data_analytics",
+        "keywords": {
+          "en": [
+            "Analytics.",
+            "Big",
+            "Data"
+          ],
+          "fr": [
+            "Analyse",
+            "données",
+            "massives."
+          ]
+        },
+        "name": {
+          "en": "Big Data Analytics",
+          "fr": "Analyse des données massives"
         }
       },
       {
@@ -1656,8 +1840,8 @@
           "fr": null
         },
         "name": {
-          "en": "Cybersecurity Principles",
-          "fr": "Principes de cybersécurité"
+          "en": "Application of Cybersecurity Principles, Methods, and Policies",
+          "fr": "Application des principes, méthodes et politiques de cybersécurité"
         }
       },
       {
@@ -1682,6 +1866,38 @@
         "name": {
           "en": "Data Analysis",
           "fr": "Analyse des données"
+        }
+      },
+      {
+        "category": "TECHNICAL",
+        "description": {
+          "en": "Demonstrated ability to prepare data for usage using basic techniques for analyzing data and synthesizing findings to enable informed decision-making as well as evaluate decisions based on data and present clear takeaways that colleagues can readily understand and utilize.",
+          "fr": "Capacité démontrée à préparer des données en vue de leur utilisation en appliquant des techniques de base pour l’analyse des données et la synthèse des résultats afin de permettre une prise de décisions éclairée, ainsi qu’à évaluer les décisions fondées sur les données et à présenter des conclusions claires que les collègues peuvent facilement comprendre et utiliser."
+        },
+        "families": [
+          {
+            "key": "data_services_data_analytics"
+          },
+          {
+            "key": "data_services_data_systems"
+          }
+        ],
+        "key": "data_analysis_and_synthesis",
+        "keywords": {
+          "en": [
+            "Analysis",
+            "Data",
+            "Synthesis."
+          ],
+          "fr": [
+            "Analyse",
+            "données.",
+            "synthèse"
+          ]
+        },
+        "name": {
+          "en": "Data Analysis and Synthesis",
+          "fr": "Analyse et synthèse des données"
         }
       },
       {
@@ -1717,6 +1933,36 @@
       {
         "category": "TECHNICAL",
         "description": {
+          "en": "Demonstrated ability to communicate technical information in a clear and concise manner to both technical and non-technical stakeholders as well as support and host discussions within a multidisciplinary team, incorporate stakeholder feedback and encourage interaction to enhance the data communication process.",
+          "fr": "Capacité démontrée à communiquer des informations techniques de manière claire et concise aux parties prenantes techniques et non techniques, ainsi qu’à appuyer et à animer des discussions au sein d’une équipe pluridisciplinaire, à intégrer la rétroaction des parties prenantes et à encourager une interaction avec ceux-ci et les membres de l’équipe afin d’améliorer le processus de communication des données."
+        },
+        "families": [
+          {
+            "key": "data_services_data_analytics"
+          },
+          {
+            "key": "data_services_data_systems"
+          }
+        ],
+        "key": "data_communication",
+        "keywords": {
+          "en": [
+            "Communication.",
+            "Data"
+          ],
+          "fr": [
+            "Communication",
+            "données."
+          ]
+        },
+        "name": {
+          "en": "Data Communication",
+          "fr": "Communication de données"
+        }
+      },
+      {
+        "category": "TECHNICAL",
+        "description": {
           "en": "",
           "fr": ""
         },
@@ -1733,6 +1979,124 @@
         "name": {
           "en": "Data Discovery and Profiling",
           "fr": "Découverte et profilage de données"
+        }
+      },
+      {
+        "category": "TECHNICAL",
+        "description": {
+          "en": "Demonstrated ability to construct the infrastructure to ensure uninterrupted data flows between servers and applications and develop and maintain the architecture used in machine learning modelling.",
+          "fr": "Capacité démontrée à construire l'infrastructure nécessaire pour garantir des flux de données ininterrompus entre les serveurs et les applications, et à développer et maintenir l'architecture utilisée dans la modélisation de l'apprentissage automatique."
+        },
+        "families": [
+          {
+            "key": "data_services_data_science"
+          }
+        ],
+        "key": "data_engineering_and_manipulation",
+        "keywords": {
+          "en": [
+            "Data",
+            "Engineering",
+            "Manipulation."
+          ],
+          "fr": [
+            "données.",
+            "Ingénierie",
+            "manipulation"
+          ]
+        },
+        "name": {
+          "en": "Data Engineering and Manipulation",
+          "fr": "Ingénierie et manipulation des données"
+        }
+      },
+      {
+        "category": "TECHNICAL",
+        "description": {
+          "en": "Demonstrated ability to ensure ethical practices in acquiring, using, interpreting and sharing data across the data lifecycle as well as proactively identify ethical issues, privacy implications and barriers to data accessibility and identify indicators of bias to prevent the reinforcement of unintended biases within policies, programs, products, or services.",
+          "fr": "Capacité démontrée à garantir des pratiques éthiques dans l’acquisition, l’utilisation, l’interprétation et le partage des données tout au long de leur cycle de vie, ainsi qu’à identifier de manière proactive les questions éthiques, les implications en matière de respect de la vie privée et les obstacles à l’accessibilité des données, et à identifier les indicateurs de partialité afin d’éviter le renforcement de préjugés involontaires dans les politiques, les programmes, les produits ou les services."
+        },
+        "families": [
+          {
+            "key": "data_services_data_analytics"
+          },
+          {
+            "key": "data_services_data_systems"
+          }
+        ],
+        "key": "data_ethics_and_privacy",
+        "keywords": {
+          "en": [
+            "Data",
+            "Ethics",
+            "Privacy."
+          ],
+          "fr": [
+            "données",
+            "personnels.",
+            "protection",
+            "renseignements",
+            "Éthique"
+          ]
+        },
+        "name": {
+          "en": "Data Ethics and Privacy",
+          "fr": "Éthique des données et protection des renseignements personnels"
+        }
+      },
+      {
+        "category": "TECHNICAL",
+        "description": {
+          "en": "Demonstrated ability to acknowledge emerging trends in data tools, analysis, data usage and understands the impact on the organization as well as implements new tools and processes when they will improve usability of data and organizational outcomes.",
+          "fr": "Capacité démontrée à reconnaître les nouvelles tendances en matière d’outils de données, d’analyse et d’utilisation des données, à comprendre leur impact sur l’organisation et à mettre en œuvre de nouveaux outils et processus lorsqu’ils permettent d’améliorer l’utilisation des données et les résultats de l’organisation."
+        },
+        "families": [
+          {
+            "key": "data_services_data_systems"
+          }
+        ],
+        "key": "data_innovation",
+        "keywords": {
+          "en": [
+            "Data",
+            "Innovation."
+          ],
+          "fr": [
+            "données.",
+            "Innovation",
+            "matière"
+          ]
+        },
+        "name": {
+          "en": "Data Innovation",
+          "fr": "Innovation en matière de données"
+        }
+      },
+      {
+        "category": "TECHNICAL",
+        "description": {
+          "en": "Demonstrated ability to select and implement the appropriate technologies to deliver resilient, scalable and future-proofed data solutions as well as ensure that solutions are designed for usability and interoperability and provide value to users.",
+          "fr": "Capacité démontrée à sélectionner et à mettre en œuvre les technologies appropriées pour fournir des solutions de données résilientes, évolutives et à l’épreuve du temps, et à veiller à ce que les solutions soient conçues pour être utilisables et interopérables, et qu’elles apportent une valeur ajoutée aux utilisateurs."
+        },
+        "families": [
+          {
+            "key": "data_services_data_systems"
+          }
+        ],
+        "key": "data_integration",
+        "keywords": {
+          "en": [
+            "Data",
+            "Integration."
+          ],
+          "fr": [
+            "données.",
+            "Intégration"
+          ]
+        },
+        "name": {
+          "en": "Data Integration",
+          "fr": "Intégration des données"
         }
       },
       {
@@ -1759,6 +2123,70 @@
       {
         "category": "TECHNICAL",
         "description": {
+          "en": "Demonstrated ability to navigate internal and external systems to access, organize, curate, protect and store data in relation to the organization's data governance structure and data needs.",
+          "fr": "Capacité démontrée à naviguer dans les systèmes internes et externes pour accéder aux données, les organiser, les conserver, les protéger et les stocker en fonction de la structure de gouvernance des données de l’organisation et de ses besoins en la matière."
+        },
+        "families": [
+          {
+            "key": "data_services_data_analytics"
+          },
+          {
+            "key": "data_services_data_systems"
+          }
+        ],
+        "key": "data_management",
+        "keywords": {
+          "en": [
+            "Data",
+            "Management."
+          ],
+          "fr": [
+            "données.",
+            "Gestion"
+          ]
+        },
+        "name": {
+          "en": "Data Management",
+          "fr": "Gestion des données"
+        }
+      },
+      {
+        "category": "TECHNICAL",
+        "description": {
+          "en": "Demonstrated ability to explain the concepts and principles of data modelling as well as produce, maintain, and update relevant data models for an organisation’s specific needs and reverse-engineer data models from a live system.",
+          "fr": "Capacité démontrée à expliquer les concepts et les principes de la modélisation des données ainsi qu’à produire, maintenir et mettre à jour des modèles de données pertinents pour les besoins spécifiques d’une organisation et à faire de la rétro-ingénierie de modèles de données à partir d’un système réel."
+        },
+        "families": [
+          {
+            "key": "data_services_data_analytics"
+          },
+          {
+            "key": "data_services_data_systems"
+          }
+        ],
+        "key": "data_modelling_cleaning_and_enrichment",
+        "keywords": {
+          "en": [
+            "Cleaning",
+            "Data",
+            "Enrichment.",
+            "Modelling"
+          ],
+          "fr": [
+            "données.",
+            "enrichissement",
+            "Modélisation",
+            "nettoyage"
+          ]
+        },
+        "name": {
+          "en": "Data Modelling, Cleaning and Enrichment",
+          "fr": "Modélisation, nettoyage et enrichissement des données"
+        }
+      },
+      {
+        "category": "TECHNICAL",
+        "description": {
           "en": "",
           "fr": ""
         },
@@ -1780,6 +2208,99 @@
       {
         "category": "TECHNICAL",
         "description": {
+          "en": "Demonstrated ability to design, build and test data systems and products using project management principles and practices as well as contribute to well-rounded teams to complete projects, ensuring the effective management of resources throughout.",
+          "fr": "Capacité démontrée à concevoir, construire et tester des systèmes de données et des produits en utilisant des principes et des pratiques de gestion de projets, ainsi qu’à contribuer à des équipes bien rodées pour mener à bien des projets, en veillant à une gestion efficace des ressources tout au long du processus."
+        },
+        "families": [
+          {
+            "key": "data_services_data_systems"
+          }
+        ],
+        "key": "data_product_and_service_development",
+        "keywords": {
+          "en": [
+            "Data",
+            "Development.",
+            "Product",
+            "Service"
+          ],
+          "fr": [
+            "données.",
+            "produits",
+            "services",
+            "Élaboration"
+          ]
+        },
+        "name": {
+          "en": "Data Product and Service Development",
+          "fr": "Élaboration de produits et de services de données"
+        }
+      },
+      {
+        "category": "TECHNICAL",
+        "description": {
+          "en": "Demonstrated ability to apply knowledge and experience of project management methodologies, including tools and techniques and adopt those most appropriate for the environment as well as support the delivery of digital projects within the data analysis domain.",
+          "fr": "Capacité démontrée à appliquer les connaissances et l’expérience des méthodologies de gestion de projet, y compris les outils et les techniques, et à adopter celles qui conviennent le mieux à l’environnement, ainsi qu’à appuyer la réalisation de projets numériques dans le domaine de l’analyse des données."
+        },
+        "families": [
+          {
+            "key": "data_services_data_analytics"
+          }
+        ],
+        "key": "data_project_management",
+        "keywords": {
+          "en": [
+            "Data",
+            "Management.",
+            "Project"
+          ],
+          "fr": [
+            "données.",
+            "Gestion",
+            "projets"
+          ]
+        },
+        "name": {
+          "en": "Data Project Management",
+          "fr": "Gestion de projets de données"
+        }
+      },
+      {
+        "category": "TECHNICAL",
+        "description": {
+          "en": "Demonstrated ability to identify appropriate methods for collecting, collating, and preparing data, ensuring they are fit for purpose, assess data sources to determine their accuracy and suitability in meeting organizational needs, while identifying and rectifying errors, and adhere to organizational policies, procedures, and standards to ensure the acquisition of high-quality data.",
+          "fr": "Capacité démontrée à identifier les méthodes appropriées pour collecter, rassembler et préparer les données, en s’assurant qu’elles sont adaptées à l’objectif visé, à évaluer les sources de données pour déterminer leur exactitude et leur adéquation aux besoins de l’organisation, tout en identifiant et en rectifiant les erreurs, et à respecter les politiques, procédures et normes de l’organisation pour garantir l’acquisition de données de haute qualité."
+        },
+        "families": [
+          {
+            "key": "data_services_data_analytics"
+          }
+        ],
+        "key": "data_quality_assurance_validation_and_linkage",
+        "keywords": {
+          "en": [
+            "Assurance",
+            "Data",
+            "Linkage.",
+            "Quality",
+            "Validation"
+          ],
+          "fr": [
+            "assurance",
+            "couplage",
+            "données.",
+            "qualité",
+            "Validation"
+          ]
+        },
+        "name": {
+          "en": "Data Quality Assurance, Validation and Linkage",
+          "fr": "Validation, couplage et assurance de la qualité des données"
+        }
+      },
+      {
+        "category": "TECHNICAL",
+        "description": {
           "en": "Demonstrated ability to protect databases from damage and intrusion while ensuring they are able to recovery quickly in the event of a failure.",
           "fr": "Capacité démontrée à protéger les bases de données contre les dommages et les intrusions tout en veillant à ce qu’elles puissent être récupérées rapidement en cas de défaillance."
         },
@@ -1796,6 +2317,97 @@
         "name": {
           "en": "Data Security and Recovery",
           "fr": "Sécurité et récupération des données"
+        }
+      },
+      {
+        "category": "TECHNICAL",
+        "description": {
+          "en": "Demonstrated ability to use tools, software, platforms, and processes to design and deliver data systems into the organisation effectively and in alignment with organizational needs.",
+          "fr": "Capacité démontrée à utiliser des outils, des logiciels, des plateformes et des processus pour concevoir et mettre en place des systèmes de données au sein de l’organisation de manière efficace et en conformité avec les besoins de l’organisation."
+        },
+        "families": [
+          {
+            "key": "data_services_data_systems"
+          }
+        ],
+        "key": "data_systems",
+        "keywords": {
+          "en": [
+            "Data",
+            "Systems."
+          ],
+          "fr": [
+            "données.",
+            "Systèmes"
+          ]
+        },
+        "name": {
+          "en": "Data Systems",
+          "fr": "Systèmes de données"
+        }
+      },
+      {
+        "category": "TECHNICAL",
+        "description": {
+          "en": "Demonstrated ability to choose the most relevant tool in line with the core technical concepts related to the data job and practically apply tools in line with industry best practices.",
+          "fr": "Capacité démontrée à choisir l’outil le plus approprié en fonction des concepts techniques fondamentaux liés au travail sur les données et à appliquer concrètement les outils conformément aux pratiques exemplaires du secteur."
+        },
+        "families": [
+          {
+            "key": "data_services_data_analytics"
+          },
+          {
+            "key": "data_services_data_systems"
+          }
+        ],
+        "key": "data_tools",
+        "keywords": {
+          "en": [
+            "Data",
+            "Tools."
+          ],
+          "fr": [
+            "données.",
+            "Outils"
+          ]
+        },
+        "name": {
+          "en": "Data Tools",
+          "fr": "Outils de données"
+        }
+      },
+      {
+        "category": "TECHNICAL",
+        "description": {
+          "en": "Demonstrated ability to troubleshoot and identify solutions to respond to problems in databases, data processes and data products as well as leverage diagnostic and monitoring tools to resolve problems and implement preventative measures to mitigate future problems.",
+          "fr": "Capacité démontrée à dépanner et à identifier des solutions pour répondre aux problèmes dans les bases de données, les processus de données et les produits de données, ainsi qu’à utiliser des outils de diagnostic et de suivi pour résoudre les problèmes et mettre en œuvre des mesures préventives afin d’atténuer les problèmes futurs."
+        },
+        "families": [
+          {
+            "key": "data_services_data_analytics"
+          },
+          {
+            "key": "data_services_data_systems"
+          }
+        ],
+        "key": "data_troubleshooting_and_problem_resolution",
+        "keywords": {
+          "en": [
+            "Data",
+            "Problem",
+            "Resolution.",
+            "Troubleshooting"
+          ],
+          "fr": [
+            "données.",
+            "Dépannage",
+            "problèmes",
+            "résolution"
+          ]
+        },
+        "name": {
+          "en": "Data Troubleshooting and Problem Resolution",
+          "fr": "Dépannage et résolution des problèmes de données"
         }
       },
       {
@@ -1945,6 +2557,37 @@
         "name": {
           "en": "Decision-Making",
           "fr": "Prise de décision"
+        }
+      },
+      {
+        "category": "TECHNICAL",
+        "description": {
+          "en": "Demonstrated ability to develop and program interconnected nodes (neurons) in a layered structure to recognize data patterns of pictures, images, texts and sounds to produce accurate insights and predictions to feed and train models, make predictions and render judgments to propose recommendations and make decisions.",
+          "fr": "Capacité démontrée à développer et à programmer des nœuds interconnectés (neurones) dans une structure en couches pour reconnaître des modèles de données d'images, de textes et de sons afin de produire des informations et des prédictions précises pour alimenter et former des modèles, faire des prédictions et rendre des jugements afin de proposer des recommandations et de prendre des décisions."
+        },
+        "families": [
+          {
+            "key": "data_services_data_science"
+          }
+        ],
+        "key": "deep_learning_and_neural_networks",
+        "keywords": {
+          "en": [
+            "Deep",
+            "Learning",
+            "Networks.",
+            "Neural"
+          ],
+          "fr": [
+            "Apprentissage",
+            "neuronaux.",
+            "profond",
+            "réseaux"
+          ]
+        },
+        "name": {
+          "en": "Deep Learning and Neural Networks",
+          "fr": "Apprentissage profond et réseaux neuronaux"
         }
       },
       {
@@ -2154,8 +2797,8 @@
       {
         "category": "TECHNICAL",
         "description": {
-          "en": "Demonstrated knowledge of key digital identity standards and experience working with identity, access, and privileged account management solutions",
-          "fr": "Connaissance avérée des principales normes en matière d'identité numérique et expérience de travail avec des solutions de gestion des identités, des accès et des comptes privilégiés."
+          "en": "Demonstrated ability to apply key digital identity standards and work with identity, access, and privileged account management solutions.",
+          "fr": "Capacité démontrée à appliquer les principales normes d'identité numérique et à travailler avec des solutions de gestion des identités, des accès et des comptes privilégiés."
         },
         "families": [
           {
@@ -3089,8 +3732,8 @@
       {
         "category": "TECHNICAL",
         "description": {
-          "en": "Demonstrated knowledge and experience with events, documents and processes related to Government of Canada reporting cycles.",
-          "fr": "Connaissance et expérience démontrées des événements, des documents et des processus liés aux cycles de production de rapports du gouvernement du Canada."
+          "en": "Demonstrated ability to support or lead activities and process related to Government of Canada reporting cycles, including reporting, tracking, and measurement of results.",
+          "fr": "Capacité démontrée à soutenir ou à diriger des activités et des processus liés aux cycles de reporting du gouvernement du Canada, y compris la production de rapports, le suivi et la mesure des résultats."
         },
         "families": [
           {
@@ -3111,8 +3754,8 @@
           ]
         },
         "name": {
-          "en": "Government of Canada Reporting Cycles",
-          "fr": "Cycles de rapports du gouvernement du Canada"
+          "en": "Supporting Government of Canada Reporting Cycles",
+          "fr": "Soutenir les cycles de reporting du gouvernement du Canada"
         }
       },
       {
@@ -3498,6 +4141,179 @@
         "name": {
           "en": "Indigenous Cultural Competency",
           "fr": "Compétence culturelle autochtone"
+        }
+      },
+      {
+        "category": "TECHNICAL",
+        "description": {
+          "en": "Demonstrated ability to provide guidance on the development and maintenance of information architecture artefacts.",
+          "fr": "Capacité démontrée à fournir des orientations sur le développement et la maintenance des artefacts de l'architecture de l'information."
+        },
+        "families": [
+          {
+            "key": "im_data_governance_information_architecture"
+          }
+        ],
+        "key": "information_architecture_advice",
+        "keywords": {
+          "en": [
+            "Advice.",
+            "Architecture",
+            "Information"
+          ],
+          "fr": [
+            "architecture",
+            "Conseil",
+            "information."
+          ]
+        },
+        "name": {
+          "en": "Information Architecture Advice",
+          "fr": "Conseil en architecture de l'information"
+        }
+      },
+      {
+        "category": "TECHNICAL",
+        "description": {
+          "en": "Demonstrated ability to drive a culture that values information and data sharing and advocates good information architecture practices to enable seamless sharing and reuse of information.",
+          "fr": "Capacité démontrée à promouvoir une culture qui valorise le partage de l'information et des données et qui préconise de bonnes pratiques en matière d'architecture de l'information afin de permettre un partage et une réutilisation transparents de l'information."
+        },
+        "families": [
+          {
+            "key": "im_data_governance_information_architecture"
+          }
+        ],
+        "key": "information_architecture_advocacy",
+        "keywords": {
+          "en": [
+            "Advocacy.",
+            "Architecture",
+            "Information"
+          ],
+          "fr": [
+            "Appui",
+            "architecture",
+            "information."
+          ]
+        },
+        "name": {
+          "en": "Information Architecture Advocacy",
+          "fr": "Appui à l'architecture de l'information"
+        }
+      },
+      {
+        "category": "TECHNICAL",
+        "description": {
+          "en": "Demonstrated ability to design and model information architecture artefacts including enterprise taxonomies, vocabularies, classification schemes, namespaces and ontologies.",
+          "fr": "Capacité démontrée à concevoir et à modéliser des artefacts d'architecture de l'information, y compris des taxonomies, des vocabulaires, des systèmes de classification, des espaces de noms et des ontologies d'entreprise."
+        },
+        "families": [
+          {
+            "key": "im_data_governance_information_architecture"
+          }
+        ],
+        "key": "information_architecture_design",
+        "keywords": {
+          "en": [
+            "Architecture",
+            "Design.",
+            "Information"
+          ],
+          "fr": [
+            "architecture",
+            "Conception",
+            "information."
+          ]
+        },
+        "name": {
+          "en": "Information Architecture Design",
+          "fr": "Conception de l'architecture de l'information"
+        }
+      },
+      {
+        "category": "TECHNICAL",
+        "description": {
+          "en": "Demonstrated ability to apply information architecture conventions and best practices.",
+          "fr": "Habilité démontrée en matière d’application des conventions et des pratiques exemplaires en matière d’architecture de l’information."
+        },
+        "families": [
+          {
+            "key": "im_data_governance_information_architecture"
+          }
+        ],
+        "key": "information_architecture_implementation",
+        "keywords": {
+          "en": [
+            "Architecture",
+            "Implementation.",
+            "Information"
+          ],
+          "fr": [
+            "architecture",
+            "information."
+          ]
+        },
+        "name": {
+          "en": "Information Architecture Implementation",
+          "fr": "Mise en œuvre de l'architecture de l'information"
+        }
+      },
+      {
+        "category": "TECHNICAL",
+        "description": {
+          "en": "Demonstrated ability to lead information architecture initiatives, and understands how they relate to other enterprise architectural domains.",
+          "fr": "Capacité démontrée à diriger des initiatives en matière d'architecture de l'information et à comprendre leurs liens avec d'autres domaines architecturaux de l'entreprise."
+        },
+        "families": [
+          {
+            "key": "im_data_governance_information_architecture"
+          }
+        ],
+        "key": "information_architecture_leadership",
+        "keywords": {
+          "en": [
+            "Architecture",
+            "Information",
+            "Leadership."
+          ],
+          "fr": [
+            "architecture",
+            "information.",
+            "Leadership"
+          ]
+        },
+        "name": {
+          "en": "Information Architecture Leadership",
+          "fr": "Leadership en matière d'architecture de l'information"
+        }
+      },
+      {
+        "category": "TECHNICAL",
+        "description": {
+          "en": "Demonstrated ability to use and maintain information architecture artefacts including enterprise taxonomies, vocabularies, classification schemes, namespaces and ontologies.",
+          "fr": "Capacité démontrée à utiliser et à maintenir des artefacts d'architecture de l'information, notamment des taxonomies, des vocabulaires, des systèmes de classification, des espaces de noms et des ontologies d'entreprise."
+        },
+        "families": [
+          {
+            "key": "im_data_governance_information_architecture"
+          }
+        ],
+        "key": "information_architecture_maintenance",
+        "keywords": {
+          "en": [
+            "Architecture",
+            "Information",
+            "Maintenance."
+          ],
+          "fr": [
+            "architecture",
+            "information.",
+            "Maintenance"
+          ]
+        },
+        "name": {
+          "en": "Information Architecture Maintenance",
+          "fr": "Maintenance de l'architecture de l'information"
         }
       },
       {
@@ -4130,8 +4946,8 @@
       {
         "category": "TECHNICAL",
         "description": {
-          "en": "Demonstrated ability to undertake the development, implementation, integration, support, and maintenance of IT security solutions to protect the integrity of digital assets.",
-          "fr": "Capacité démontrée à entreprendre le développement, la mise en œuvre, l’intégration, le support et la maintenance de solutions de sécurité informatique pour protéger l’intégrité des actifs numériques."
+          "en": "Demonstrated ability to undertake the development, implementation, integration, support, and maintenance of IT security solutions to protect the confidentiality, availability and integrity of digital assets.",
+          "fr": "Capacité démontrée à entreprendre le développement, la mise en œuvre, l'intégration, le soutien et la maintenance de solutions de sécurité informatique afin de protéger la confidentialité, la disponibilité et l'intégrité des ressources numériques."
         },
         "families": [
           {
@@ -4637,6 +5453,64 @@
       {
         "category": "TECHNICAL",
         "description": {
+          "en": "Demonstrated ability to develop and program algorithms capable of receiving and analyzing input data to predict output values within an acceptable range and in turn are capable of learning and optimizing their operations to improve performance, and developing intelligence through experience.",
+          "fr": "Capacité démontrée à développer et à programmer des algorithmes capables de recevoir et d'analyser des données d'entrée pour prédire des valeurs de sortie dans une fourchette acceptable et, à leur tour, capables d'apprendre et d'optimiser leurs opérations pour améliorer les performances, et de développer l'intelligence par l'expérience."
+        },
+        "families": [
+          {
+            "key": "data_services_data_science"
+          }
+        ],
+        "key": "machine_learning_algorithms",
+        "keywords": {
+          "en": [
+            "Algorithms.",
+            "Learning",
+            "Machine"
+          ],
+          "fr": [
+            "Algorithmes",
+            "apprentissage",
+            "automatique."
+          ]
+        },
+        "name": {
+          "en": "Machine Learning Algorithms",
+          "fr": "Algorithmes d'apprentissage automatique"
+        }
+      },
+      {
+        "category": "TECHNICAL",
+        "description": {
+          "en": "Demonstrated ability to use algorithm models, data models and learning models to build machine learning models that can spot patterns, anticipate outcomes, make decisions, and gain knowledge from experience.",
+          "fr": "Capacité démontrée à utiliser des modèles algorithmiques, des modèles de données et des modèles d'apprentissage pour construire des modèles d'apprentissage automatique capables de repérer des schémas, d'anticiper des résultats, de prendre des décisions et d'acquérir des connaissances à partir de l'expérience."
+        },
+        "families": [
+          {
+            "key": "data_services_data_science"
+          }
+        ],
+        "key": "machine_learning_modeling",
+        "keywords": {
+          "en": [
+            "Learning",
+            "Machine",
+            "Modeling."
+          ],
+          "fr": [
+            "apprentissage",
+            "automatique.",
+            "Modélisation"
+          ]
+        },
+        "name": {
+          "en": "Machine Learning Modeling",
+          "fr": "Modélisation de l'apprentissage automatique"
+        }
+      },
+      {
+        "category": "TECHNICAL",
+        "description": {
           "en": "",
           "fr": ""
         },
@@ -4674,6 +5548,35 @@
         "name": {
           "en": "Managing Privacy Breaches",
           "fr": "Gestion des atteintes à la vie privée"
+        }
+      },
+      {
+        "category": "TECHNICAL",
+        "description": {
+          "en": "Demonstrated ability to recognize patterns and trends within data to identify relationships and generate insight as well as accessing, manipulating, querying and analyzing data using a variety of methods, tools, and processes.",
+          "fr": "Capacité démontrée à reconnaître les schémas et les tendances au sein des données afin d’identifier les relations et d’obtenir des informations, ainsi qu’à accéder aux données, à les manipuler, à les interroger et à les analyser à l’aide d’une variété de méthodes, d’outils et de processus."
+        },
+        "families": [
+          {
+            "key": "data_services_data_analytics"
+          }
+        ],
+        "key": "mathematical_and_statistical_methods",
+        "keywords": {
+          "en": [
+            "Mathematical",
+            "Methods.",
+            "Statistical"
+          ],
+          "fr": [
+            "mathématiques",
+            "Méthodes",
+            "statistiques."
+          ]
+        },
+        "name": {
+          "en": "Mathematical and Statistical Methods",
+          "fr": "Méthodes mathématiques et statistiques"
         }
       },
       {
@@ -4981,6 +5884,33 @@
         }
       },
       {
+        "category": "TECHNICAL",
+        "description": {
+          "en": "Demonstrated ability to support or lead the preparation, analysis, and communication of financial and non-financial information reporting as required by organizational policy and timelines.",
+          "fr": "Capacité démontrée à soutenir ou à diriger la préparation, l'analyse et la communication d'informations financières et non financières conformément à la politique et aux délais de l'organisation."
+        },
+        "families": [
+          {
+            "key": "im_data_governance_information_architecture"
+          },
+          {
+            "key": "im_data_governance_strategy_direction"
+          },
+          {
+            "key": "technical_advising"
+          }
+        ],
+        "key": "organizational_reporting",
+        "keywords": {
+          "en": null,
+          "fr": null
+        },
+        "name": {
+          "en": "Organizational Reporting",
+          "fr": "Rapports organisationnels"
+        }
+      },
+      {
         "category": "BEHAVIOURAL",
         "description": {
           "en": "Demonstrated ability to come up with new ideas about a given topic.",
@@ -5155,6 +6085,33 @@
         "name": {
           "en": "Policies, Procedures, or Guidelines development",
           "fr": "Élaboration de politiques, de procédures ou de lignes directrices."
+        }
+      },
+      {
+        "category": "TECHNICAL",
+        "description": {
+          "en": "Demonstrated ability to develop government or departmental policies, procedures, or guidelines.",
+          "fr": "Capacité démontrée à élaborer des politiques, des procédures ou des lignes directrices gouvernementales ou ministérielles."
+        },
+        "families": [
+          {
+            "key": "atip"
+          },
+          {
+            "key": "im_data_governance_strategy_direction"
+          },
+          {
+            "key": "working_in_government"
+          }
+        ],
+        "key": "policy_development",
+        "keywords": {
+          "en": null,
+          "fr": null
+        },
+        "name": {
+          "en": "Policy Development",
+          "fr": "Élaboration de politiques"
         }
       },
       {
@@ -6207,8 +7164,8 @@
       {
         "category": "BEHAVIOURAL",
         "description": {
-          "en": "Support and motivate team members so they may collectively deliver on agreed-upon outcomes.",
-          "fr": "Soutenir et motiver les membres de l’équipe afin qu’ils puissent collectivement atteindre les résultats convenus."
+          "en": "Demonstrated ability to support and motivate team members so they may collectively deliver on agreed-upon outcomes.",
+          "fr": "Capacité démontrée à soutenir et à motiver les membres de l'équipe afin qu'ils puissent collectivement atteindre les résultats convenus."
         },
         "families": [
           {
