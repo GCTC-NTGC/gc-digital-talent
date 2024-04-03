@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Validators;
 
+use App\Enums\PoolSkillType;
 use App\Models\Pool;
+use App\Rules\PoolSkillsNotDeleted;
+use Carbon\Carbon;
 use Database\Helpers\ApiErrorEnums;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -20,13 +24,30 @@ final class ChangePoolClosingDateValidator extends Validator
     {
 
         $id = $this->arg('id');
-        $pool = Pool::find($id);
+        $now = Carbon::now();
+        $pool = Pool::with(['poolSkills'])->find($id);
+        $hasClosingDate = ! is_null($pool) && $pool->closing_date;
+        $essentialSkills = [];
+        $nonessentialSkills = [];
+
+        if ($pool) {
+            $essentialSkills = $pool->poolSkills->filter(fn ($skill) => $skill->type === PoolSkillType::ESSENTIAL->name)
+                ->pluck('skill.id')->toArray();
+            $nonessentialSkills = $pool->poolSkills->filter(fn ($skill) => $skill->type === PoolSkillType::NONESSENTIAL->name)
+                ->pluck('skill.id')->toArray();
+
+            Log::debug('Essential Skills: '.json_encode($essentialSkills));
+        }
 
         return [
-            'id' => ['uuid', 'required'],
+            // Merge rules since ID represents the pool so we validate extra info here
+            'id' => ['uuid', 'required', Rule::when($hasClosingDate && $pool->closing_date <= $now, [
+                new PoolSkillsNotDeleted($essentialSkills),
+                new PoolSkillsNotDeleted($nonessentialSkills),
+            ])],
             'newClosingDate' => [
                 'after:today',
-                Rule::when(! is_null($pool) && $pool->closing_date, ['after_or_equal:'.$pool?->closing_date]),
+                Rule::when($hasClosingDate, ['after_or_equal:'.$pool?->closing_date]),
             ],
         ];
     }
