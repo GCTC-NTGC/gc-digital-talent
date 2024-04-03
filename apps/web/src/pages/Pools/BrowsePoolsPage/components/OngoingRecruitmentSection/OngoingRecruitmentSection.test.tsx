@@ -24,7 +24,7 @@ const publishedPool: Pool = {
   publishingGroup: PublishingGroup.ItJobsOngoing,
   status: PoolStatus.Published,
   stream: PoolStream.BusinessAdvisoryServices,
-  classifications: [{ id: "it-01", group: "IT", level: 1 }],
+  classification: { id: "it-01", group: "IT", level: 1 },
 };
 
 const renderBrowsePoolsPage = ({ pools }: OngoingRecruitmentSectionProps) => {

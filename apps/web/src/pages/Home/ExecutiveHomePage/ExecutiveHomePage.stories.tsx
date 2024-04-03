@@ -31,12 +31,10 @@ WithPools.parameters = defaultParameters;
 WithPools.args = {
   pools: mockPools.map((pool) => ({
     ...pool,
-    classifications: [
-      {
-        ...classification,
-        group: "EX",
-      },
-    ],
+    classification: {
+      ...classification,
+      group: "EX",
+    },
   })),
 };
 

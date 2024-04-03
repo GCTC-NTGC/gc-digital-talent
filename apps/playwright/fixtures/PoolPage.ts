@@ -93,7 +93,7 @@ class PoolPage extends AppPage {
     skill,
   }: CreateAndPublishPoolArgs): Promise<Pool> {
     let pool = await this.createPool(userId, teamId, {
-      classifications: { sync: [classification.id] },
+      classification: { connect: classification.id },
     });
 
     pool = await this.updatePool(pool.id, {

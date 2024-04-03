@@ -560,14 +560,12 @@ class PoolTest extends TestCase
     public function testCannotPublishWithDeletedSkill(): void
     {
         // create complete but unpublished pool with a deleted skill
-        $classification = Classification::factory()->create();
         $pool = Pool::factory()
             ->published()
             ->create([
                 'published_at' => null,
                 'closing_date' => config('constants.far_future_datetime'),
             ]);
-        $pool->classifications()->sync([$classification->id]);
         $skill1 = Skill::factory()->create();
         $skill2 = Skill::factory()->create(['deleted_at' => config('constants.past_datetime')]);
         $pool->setEssentialPoolSkills([$skill1->id, $skill2->id]);
@@ -699,7 +697,6 @@ class PoolTest extends TestCase
         ]);
         $clearedRelationsPool = Pool::factory()->create();
         $clearedRelationsPool->essentialSkills()->sync([]);
-        $clearedRelationsPool->classifications()->sync([]);
 
         // test complete pool is marked as true, the others marked as false
         $this->actingAs($this->adminUser, 'api')
@@ -739,7 +736,6 @@ class PoolTest extends TestCase
                 }
             }
         ';
-        Classification::factory()->create();
         Skill::factory()->create();
 
         $completePool = Pool::factory()

@@ -17,7 +17,6 @@ import {
   PositionDuration,
 } from "@gc-digital-talent/graphql";
 
-import { SimpleClassification } from "~/types/pool";
 import { FormValues, NullSelection } from "~/types/searchRequest";
 import {
   formatClassificationString,
@@ -30,7 +29,7 @@ export const getAvailableClassifications = (
   pools: Pool[],
 ): Classification[] => {
   const classifications = pools
-    ?.flatMap((pool) => pool?.classifications)
+    ?.flatMap((pool) => pool?.classification)
     .filter(notEmpty)
     .reduce((currentClassifications, classification) => {
       let newClassifications = [...currentClassifications];
@@ -71,11 +70,11 @@ export const getClassificationLabel = (
  * As well as transforming it to a useable string.
  *
  * @param {ApplicantFilterInput} data
- * @param {Maybe<SimpleClassification[]>} selectedClassifications
+ * @param {Maybe<Classification[]>} selectedClassifications
  * @returns {string}
  */
 const getCurrentClassification = (
-  selectedClassifications?: Maybe<SimpleClassification[]>,
+  selectedClassifications?: Maybe<Classification[]>,
 ): string => {
   return selectedClassifications && selectedClassifications?.length > 0
     ? formatClassificationString(selectedClassifications[0])
@@ -139,7 +138,7 @@ export const applicantFilterToQueryArgs = (
  */
 export const dataToFormValues = (
   data: ApplicantFilterInput,
-  selectedClassifications?: Maybe<SimpleClassification[]>,
+  selectedClassifications?: Maybe<Classification[]>,
   pools?: Pool[],
 ): FormValues => {
   const safePools = data.pools?.filter(notEmpty) ?? [];

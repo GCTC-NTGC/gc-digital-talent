@@ -635,10 +635,6 @@
     "defaultMessage": "Date du début",
     "description": "Label displayed on an Experience form for start date input"
   },
-  "1WVTN6": {
-    "defaultMessage": "{localizedName} a des évaluations",
-    "description": "Aria text for icon confirming a skill is connected to assessments."
-  },
   "1Wbu+6": {
     "defaultMessage": "Premières Nations inscrites",
     "description": "The indigenous community for status First Nations"
@@ -1471,10 +1467,6 @@
     "defaultMessage": "Masquer les candidatures en cours ({applicationCount})",
     "description": "Heading for applications in progress accordion on profile and applications."
   },
-  "6R9N+h": {
-    "defaultMessage": "Voir les candidats<hidden> pour {label}</hidden>",
-    "description": "Text for a link to the Pool Candidates table"
-  },
   "6Ru0Ha": {
     "defaultMessage": "Si vous avez des questions au sujet de CléGC, veuillez contacter l'équipe de CléGC à l'adresse",
     "description": "GCKey answer for who to contact about GCKey, introduction sentence"
@@ -1694,6 +1686,10 @@
   "7mb9oA": {
     "defaultMessage": "<strong>Nota :</strong> Les résultats tiendront compte de tout candidat qui correspond à <strong>l’une ou plusieurs</strong> des régions sélectionnées",
     "description": "Context for the work region/location preferences filter in the search form."
+  },
+  "7nuHuz": {
+    "defaultMessage": "Nombre d’évaluations",
+    "description": "Title for a column that displays the numer of assessments planned for a skill."
   },
   "7nxtBm": {
     "defaultMessage": "Il s’agit du carrefour de l’administrateur de la plateforme des talents numériques du GC à partir d’où il est possible de gérer, trier et recruter le talent pour le GC.",
@@ -2242,10 +2238,6 @@
   "Awtr05": {
     "defaultMessage": "Veuillez prendre note qu’en supprimant une compétence de votre profil :",
     "description": "Lead-in text to points of concern when deleting a skill and what will happen"
-  },
-  "AxKi2s": {
-    "defaultMessage": "Évaluation planifiée",
-    "description": "Title for a column that displays a complete or not state."
   },
   "AxRGK2": {
     "defaultMessage": "Cacher les renseignements sur les choses à faire si vous ne trouvez pas une compétence",
@@ -2886,10 +2878,6 @@
   "Ed+xy1": {
     "defaultMessage": "Décision disqualifiée",
     "description": "Disqualified decision input"
-  },
-  "EdUZaX": {
-    "defaultMessage": "Candidats",
-    "description": "Header for the View Candidates column of the Pools table"
   },
   "EdybCb": {
     "defaultMessage": "<strong>informatique</strong>",
@@ -4451,6 +4439,10 @@
     "defaultMessage": "À qui ce programme est-il destiné?",
     "description": "Heading for section about who the program is for"
   },
+  "O2QLD8": {
+    "defaultMessage": "Évaluations manquantes",
+    "description": "No assessments for a skill"
+  },
   "O5dDCM": {
     "defaultMessage": "Aller à la page suivante ",
     "description": "Aria label for next page button in pagination nav"
@@ -5303,6 +5295,10 @@
     "defaultMessage": "Voyez comment vos données sont consultées et gérez la disponibilité et les communications.",
     "description": "Introductory text displayed in recruitment availability accordion."
   },
+  "SkV4+/": {
+    "defaultMessage": "Numéro de suivi",
+    "description": "Alternate name for ID column header"
+  },
   "Sm9Ml5": {
     "defaultMessage": "Cette compétence   <strong>sera supprimée de toutes les expériences associées</strong>",
     "description": "Notice that deleting a skill removes it from any linked experiences"
@@ -6141,6 +6137,10 @@
   "XKjVO0": {
     "defaultMessage": "Prénom",
     "description": "Label displayed on the user form first name field."
+  },
+  "XOFVsC": {
+    "defaultMessage": "{count, plural, =1 {# évaluation} other {# évaluations}}",
+    "description": "Number of assessments for a skill"
   },
   "XOeFdu": {
     "defaultMessage": "À quoi s’attendre (français)",
@@ -7933,10 +7933,6 @@
   "guIFRq": {
     "defaultMessage": "Veuillez préciser les autres exigences",
     "description": "Label for _other other requirements_ fieldset in the _digital services contracting questionnaire_"
-  },
-  "guN1wV": {
-    "defaultMessage": "{localizedName} évaluations manquantes",
-    "description": "Aria text for icon indicating a skill is not connected to assessments."
   },
   "guzGyX": {
     "defaultMessage": "Le membre a été retiré de l’équipe avec succès",

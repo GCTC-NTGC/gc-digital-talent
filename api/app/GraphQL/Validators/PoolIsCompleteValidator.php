@@ -26,8 +26,7 @@ final class PoolIsCompleteValidator extends Validator
             // Pool name and classification
             'name.en' => ['string'],
             'name.fr' => ['string'],
-            'classifications' => ['required', 'array', 'size:1'],
-            'classifications.*.id' => ['required', 'uuid', 'exists:classifications,id'],
+            'classification_id' => ['required', 'uuid', 'exists:classifications,id'],
             'stream' => ['required', 'string'],
             'opportunity_length' => ['required', 'string'],
 
