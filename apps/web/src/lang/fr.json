@@ -160,7 +160,7 @@
     "description": "Subtitle for the application skills page"
   },
   "+wG2Ap": {
-    "defaultMessage": "Vue {name} <hidden>{hiddenLabel}</hidden>",
+    "defaultMessage": "Voir {name} <hidden>{hiddenLabel}</hidden>",
     "description": "Title displayed for the View Item column."
   },
   "/+naWC": {
@@ -312,7 +312,7 @@
     "description": "Priority Entitlement Status in Government Info Form"
   },
   "/lVSP/": {
-    "defaultMessage": "Consulter toutes les notifications",
+    "defaultMessage": "Voir toutes les notifications",
     "description": "Link text for the notifications page"
   },
   "/ldR5A": {
@@ -640,7 +640,7 @@
     "description": "The indigenous community for status First Nations"
   },
   "1X7JVN": {
-    "defaultMessage": "Consulter le plan d’évaluation",
+    "defaultMessage": "Voir le plan d’évaluation",
     "description": "Link text to view a specific pool assessment"
   },
   "1XRfYd": {
@@ -756,7 +756,7 @@
     "description": "Title for the career timeline snapshot section"
   },
   "2Ljgvn": {
-    "defaultMessage": "Consulter l’affiche d’emploi pour ce processus de recrutement",
+    "defaultMessage": "Voir l’affiche d’emploi pour ce processus de recrutement",
     "description": "Link message that shows the job poster for the recruitment process."
   },
   "2OTKDd": {
@@ -1512,7 +1512,7 @@
     "description": "Heading for content and frequency section"
   },
   "6ft0/o": {
-    "defaultMessage": "Consultez et gérez l'historique de vos notifications.",
+    "defaultMessage": "Voir et gérer l'historique de vos notifications",
     "description": "Subtitle for the notifications page"
   },
   "6l9YH+": {
@@ -2632,7 +2632,7 @@
     "description": "Button text to open all application information accordions"
   },
   "DHQasU": {
-    "defaultMessage": "Consulter les notes",
+    "defaultMessage": "Voir les notes",
     "description": "Button label for view notes on view pool candidate page"
   },
   "DHfumB": {
@@ -3112,7 +3112,7 @@
     "description": "Message displayed when a user has no skills in their library"
   },
   "FtlwFY": {
-    "defaultMessage": "Afficher les bassins ouverts",
+    "defaultMessage": "Voir les bassins ouverts",
     "description": "Link text to view all open pools"
   },
   "FtxUlB": {
@@ -4252,7 +4252,7 @@
     "description": "Label for a process' French work tasks"
   },
   "MsLKAj": {
-    "defaultMessage": "Consulter l’expérience pour {experienceName}",
+    "defaultMessage": "Voir l’expérience pour {experienceName}",
     "description": "Assistive technology link text to view a specific experience"
   },
   "MtONBT": {
@@ -6611,7 +6611,7 @@
     "description": "Subtitle for the application welcome page"
   },
   "ZfCeq/": {
-    "defaultMessage": "Afficher les membres de l’équipe",
+    "defaultMessage": "Voir les membres de l’équipe",
     "description": "Link text the list of team members page"
   },
   "ZgeBBn": {
@@ -7479,7 +7479,7 @@
     "description": "Text for final sign in step."
   },
   "eP8dfW": {
-    "defaultMessage": "Afficher l’utilisateur",
+    "defaultMessage": "Voir l’utilisateur",
     "description": "Title for the user information page"
   },
   "eTOg2E": {
@@ -8019,7 +8019,7 @@
     "description": "Subtitle for the skill level definitions dialog"
   },
   "hKofhr": {
-    "defaultMessage": "Consulter l’expérience",
+    "defaultMessage": "Voir l’expérience",
     "description": "Link text to view a specific experience"
   },
   "hL3EY7": {
@@ -9027,7 +9027,7 @@
     "description": "Learn more dialog question eight heading"
   },
   "mh7ndf": {
-    "defaultMessage": "Consulter le profil à jour",
+    "defaultMessage": "Voir le profil à jour",
     "description": "Link label for view profile on view pool candidate page"
   },
   "mhtcMd": {
@@ -11087,7 +11087,7 @@
     "description": "Title for the accessible by design section"
   },
   "ztx8xL": {
-    "defaultMessage": "Consulter les notifications",
+    "defaultMessage": "Voir les notifications",
     "description": "Button text to open the notifications dialog"
   },
   "zv4Vyd": {
