@@ -138,7 +138,7 @@ server {
     # for known tc-report paths, serve tc-report files, and fall back to main SPA.
     location ~ ^/(en|fr)/(2000|diversity|hiring|projects|talent-cloud|vision)(/|$) {
         add_header Cache-Control "public, max-age=604800"; # 1 week
-        try_files /tc-report/_site/$uri /tc-report/_site/$uri/index.html @app-index;
+        try_files /tc-report/_site/$uri /tc-report/_site/$uri/index.html /;
     }
 
     # for all other uris, serve SPA index with no caching
