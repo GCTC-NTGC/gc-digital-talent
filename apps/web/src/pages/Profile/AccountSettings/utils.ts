@@ -76,7 +76,7 @@ export const dataValuesToFormValues = ({
       case NotificationFamily.JobAlert:
         return {
           ...acc,
-          applicationUpdates: ["email"],
+          jobAlerts: ["email"],
         };
       default: {
         return acc;
