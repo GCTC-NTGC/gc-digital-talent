@@ -29,6 +29,7 @@ datas
 datetime
 DCMO
 dedup
+dont
 fieldset
 freshdesk
 Freshdesk
@@ -38,6 +39,7 @@ gctalent
 headlessui
 Helpdesk
 heroicons
+ilike
 Inclusivity
 INDIGENOUSAPPRENTICESHIP
 Inuk
@@ -71,6 +73,7 @@ Sitewide
 skillset
 Spatie
 spinbutton
+Staudenmeir
 subcomponents
 subquery
 TALENTSEARCH
@@ -81,6 +84,7 @@ textbox
 Timeframe
 tiptap
 toastify
+tsquery
 Typenames
 Unencrypted
 unlocalized
@@ -89,3 +93,4 @@ Uturn
 viewports
 WCAG
 webp
+websearch
