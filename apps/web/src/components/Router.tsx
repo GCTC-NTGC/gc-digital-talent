@@ -188,6 +188,14 @@ const CareerTimelineAndRecruitmentPage = React.lazy(() =>
       ),
   ),
 );
+const AccountSettingsPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsAccountSettingsPage" */ "../pages/Profile/AccountSettings/AccountSettingsPage"
+      ),
+  ),
+);
 const NotificationsPage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -905,6 +913,17 @@ const createRoute = (
                       loginPath={loginPath}
                     >
                       <Outlet />
+                    </RequireAuth>
+                  ),
+                },
+                {
+                  path: "settings",
+                  element: (
+                    <RequireAuth
+                      roles={[ROLE_NAME.Applicant]}
+                      loginPath={loginPath}
+                    >
+                      <AccountSettingsPage />
                     </RequireAuth>
                   ),
                 },
