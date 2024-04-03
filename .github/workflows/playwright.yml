@@ -99,3 +99,13 @@ jobs:
       - name: "Check logs: web server container"
         if: failure()
         run: docker-compose logs webserver
+
+      - name: Upload coverage report to codecov
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: apps/playwright/playwright-report/coverage/lcov.info
+          flags: E2E
+          name: codecov-report
+          fail_ci_if_error: false
+

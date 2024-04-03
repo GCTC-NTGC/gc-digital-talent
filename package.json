@@ -33,7 +33,7 @@
     "storybook:design-system": "pnpm --filter @gc-digital-talent/web run storybook:design-system",
     "storybook:web": "pnpm --filter @gc-digital-talent/web run storybook:web",
     "build-storybook": "pnpm --filter @gc-digital-talent/web run build-storybook",
-    "test": "turbo run test",
+    "test": "turbo run test --coverage",
     "watch": "turbo run watch --filter @gc-digital-talent/web --filter @gc-digital-talent/graphql",
     "e2e": "pnpm --filter @gc-digital-talent/e2e run e2e",
     "e2e:playwright": "pnpm --filter @gc-digital-talent/playwright run e2e:playwright",

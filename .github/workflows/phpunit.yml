@@ -55,3 +55,7 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: coverage.xml
+          flags: integration
+          name: codecov-umbrella
+          fail_ci_if_error: false
+
