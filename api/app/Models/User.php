@@ -894,11 +894,22 @@ class User extends Model implements Authenticatable, LaratrustUser
         if ($searchTerms && is_array($searchTerms)) {
             $combinedSearchTerm = implode('&', array_map('trim', $searchTerms));
 
+            // solution 1
+            // partial match everything using prefix matching solution
+
+            // comma separation to be removed in https://github.com/GCTC-NTGC/gc-digital-talent/issues/9963
+            $firstTerm = array_map('trim', $searchTerms)[0];
+
+            // format from text boolean to appropriate syntax for user convenience
+            $formatted = str_ireplace('and', '&', $firstTerm);
+            $formatted = str_ireplace('or', '|', $formatted);
+            $combinedSearchTerm = $formatted.':*';
+
             $query
                 // attach the tsquery to every row to use for filtering
                 ->crossJoinSub(function ($query) use ($combinedSearchTerm) {
                     $query->selectRaw(
-                        'websearch_to_tsquery(coalesce(?, get_current_ts_config()), ?)'.' AS tsquery',
+                        'to_tsquery(coalesce(?, get_current_ts_config()), ?)'.' AS tsquery',
                         ['english', $combinedSearchTerm]
                     );
                 }, 'calculations')
@@ -908,8 +919,24 @@ class User extends Model implements Authenticatable, LaratrustUser
                 ->addSelect(DB::raw('ts_rank(searchable, calculations.tsquery) AS rank'))
                 // Now that we have added a column, query builder no longer will add a * to the select.  Add all possible columns manually.
                 ->addSelect(self::$selectableColumns);
-
         }
+
+        // solution 2
+        // utilize scopes outside of text search to simulate partial matching, comment out changes above and undo change in query->selectRaw() then uncomment below
+
+        // clear characters or search operators out, then create array for existing scopes
+        // $filterArray = ['"', '"', ' AND', ' OR', ' and', ' or'];
+        // $filtered = str_replace($filterArray, '', $combinedSearchTerm);
+        // $arrayed = explode(' ', $filtered);
+
+        // foreach ($arrayed as $index => $value) {
+        //     $query->orWhere(function ($query) use ($value) {
+        //         self::scopeName($query, $value);
+        //     });
+        //     $query->orWhere(function ($query) use ($value) {
+        //         self::scopeEmail($query, $value);
+        //     });
+        // }
 
         return $query;
     }
