@@ -9,6 +9,7 @@ import {
 } from "@gc-digital-talent/date-helpers";
 import { DateInput, RadioGroup, TextArea } from "@gc-digital-talent/forms";
 import {
+  apiMessages,
   commonMessages,
   errorMessages,
   formMessages,
@@ -165,13 +166,9 @@ const ChangeDateDialog = ({
                     min: {
                       value: strToFormDate(minDate.toISOString()),
                       message: closingDate
-                        ? intl.formatMessage({
-                            defaultMessage:
-                              "End date must be after the current closing date.",
-                            id: "Vws4Ju",
-                            description:
-                              "Error message for end date before current closing date",
-                          })
+                        ? intl.formatMessage(
+                            apiMessages.UpdatePoolClosingDateExtend,
+                          )
                         : intl.formatMessage(errorMessages.futureDate),
                     },
                   }}

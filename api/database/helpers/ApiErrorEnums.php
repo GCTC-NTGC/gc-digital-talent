@@ -21,5 +21,7 @@ class ApiErrorEnums
     const APPLICATION_DELETE_FAILED = 'ApplicationDeleteFailed';
 
     // process messages
-    const PROCESS_CLOSING_DATE = 'UpdatePoolClosingDate';
+    const PROCESS_CLOSING_DATE_FUTURE = 'UpdatePoolClosingDateFuture';
+
+    const PROCESS_CLOSING_DATE_EXTEND = 'UpdatePoolClosingDateExtend';
 }
