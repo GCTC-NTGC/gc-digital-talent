@@ -1467,10 +1467,6 @@
     "defaultMessage": "Masquer les candidatures en cours ({applicationCount})",
     "description": "Heading for applications in progress accordion on profile and applications."
   },
-  "6R9N+h": {
-    "defaultMessage": "Voir les candidats<hidden> pour {label}</hidden>",
-    "description": "Text for a link to the Pool Candidates table"
-  },
   "6Ru0Ha": {
     "defaultMessage": "Si vous avez des questions au sujet de CléGC, veuillez contacter l'équipe de CléGC à l'adresse",
     "description": "GCKey answer for who to contact about GCKey, introduction sentence"
@@ -2882,10 +2878,6 @@
   "Ed+xy1": {
     "defaultMessage": "Décision disqualifiée",
     "description": "Disqualified decision input"
-  },
-  "EdUZaX": {
-    "defaultMessage": "Candidats",
-    "description": "Header for the View Candidates column of the Pools table"
   },
   "EdybCb": {
     "defaultMessage": "<strong>informatique</strong>",
