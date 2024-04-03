@@ -103,7 +103,7 @@ server {
     # for sharing runtime env variables with client code
     location = /config.js {
         # add_header Cache-Control "public, max-age=60"; # 1 minute - to distrubute variable changes
-        alias /apps/web/dist/config.js; # technically this would get caught the main assets block, but this mirrors prod conf
+        alias /home/site/wwwroot/apps/web/dist/config.js; # technically this would get caught the main assets block, but this mirrors prod conf
     }
 
     # api
