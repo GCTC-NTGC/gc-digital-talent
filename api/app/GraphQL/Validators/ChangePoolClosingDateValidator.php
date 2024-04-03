@@ -9,7 +9,6 @@ use App\Models\Pool;
 use App\Rules\PoolSkillsNotDeleted;
 use Carbon\Carbon;
 use Database\Helpers\ApiErrorEnums;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -25,7 +24,7 @@ final class ChangePoolClosingDateValidator extends Validator
 
         $id = $this->arg('id');
         $now = Carbon::now();
-        $pool = Pool::with(['poolSkills'])->find($id);
+        $pool = Pool::with(['poolSkills.skill'])->find($id);
         $hasClosingDate = ! is_null($pool) && $pool->closing_date;
         $essentialSkills = [];
         $nonessentialSkills = [];
@@ -36,7 +35,6 @@ final class ChangePoolClosingDateValidator extends Validator
             $nonessentialSkills = $pool->poolSkills->filter(fn ($skill) => $skill->type === PoolSkillType::NONESSENTIAL->name)
                 ->pluck('skill.id')->toArray();
 
-            Log::debug('Essential Skills: '.json_encode($essentialSkills));
         }
 
         return [
@@ -45,7 +43,7 @@ final class ChangePoolClosingDateValidator extends Validator
                 new PoolSkillsNotDeleted($essentialSkills),
                 new PoolSkillsNotDeleted($nonessentialSkills),
             ])],
-            'newClosingDate' => [
+            'closingDate' => [
                 'after:today',
                 Rule::when($hasClosingDate, ['after_or_equal:'.$pool?->closing_date]),
             ],
@@ -57,6 +55,7 @@ final class ChangePoolClosingDateValidator extends Validator
         return [
             'closingDate.after' => ApiErrorEnums::PROCESS_CLOSING_DATE,
             'closingDate.after_or_equal' => ApiErrorEnums::PROCESS_CLOSING_DATE,
+            'id.App\\Rules\\PoolSkillsNotDeleted' => ApiErrorEnums::CANNOT_REOPEN_DELETED_SKILL,
         ];
     }
 }

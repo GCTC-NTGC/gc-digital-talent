@@ -14,7 +14,7 @@ final class ChangePoolClosingDate
     public function __invoke($_, array $args)
     {
         $pool = Pool::find($args['id']);
-        $newClosingDate = $args['new_closing_date'];
+        $newClosingDate = $args['closingDate'];
 
         $pool->update([
             'closing_date' => $newClosingDate,

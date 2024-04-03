@@ -26,7 +26,7 @@ const UpdatePool_Mutation = graphql(/* GraphQL */ `
 
 const ExtendPool_Mutation = graphql(/* GraphQL */ `
   mutation ExtendPool($id: ID!, $closingDate: DateTime!) {
-    changePoolClosingDate(id: $id, newClosingDate: $closingDate) {
+    changePoolClosingDate(id: $id, closingDate: $closingDate) {
       id
     }
   }

@@ -1823,10 +1823,7 @@ type Mutation {
     @guard
     @canFind(ability: "delete", find: "id", model: "PoolSkill")
   publishPool(id: ID!): Pool @guard @canFind(ability: "publish", find: "id")
-  changePoolClosingDate(
-    id: ID!
-    newClosingDate: DateTime! @rename(attribute: "new_closing_date")
-  ): Pool
+  changePoolClosingDate(id: ID!, closingDate: DateTime!): Pool
     @guard
     @canFind(ability: "changePoolClosingDate", find: "id")
     @validator(

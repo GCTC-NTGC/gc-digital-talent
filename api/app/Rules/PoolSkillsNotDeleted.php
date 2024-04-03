@@ -6,7 +6,6 @@ use App\Models\Skill;
 use Closure;
 use Database\Helpers\ApiErrorEnums;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Support\Facades\Log;
 
 class PoolSkillsNotDeleted implements ValidationRule
 {
@@ -24,11 +23,8 @@ class PoolSkillsNotDeleted implements ValidationRule
             ->whereIn('id', $this->skillsIds)
             ->get();
 
-        Log::debug('Deleted Skills: '.json_encode($deletedSkillsIds));
-        Log::debug('Input Skill ID: '.json_encode($this->skillsIds));
-
         if ($deletedSkillsIds->count() > 0) {
-            $fail(ApiErrorEnums::FAILED_DUE_SKILL_DELETED);
+            $fail(ApiErrorEnums::CANNOT_REOPEN_DELETED_SKILL);
         }
 
     }
