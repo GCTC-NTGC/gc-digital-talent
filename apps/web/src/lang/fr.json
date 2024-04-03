@@ -5810,10 +5810,6 @@
     "defaultMessage": "Compétence mise à jour avec succès! ",
     "description": "Message displayed when a user updates a skill"
   },
-  "VhBuJ/": {
-    "defaultMessage": "Affichage",
-    "description": "Title displayed for the Pool Candidates table View column."
-  },
   "VhqbdZ": {
     "defaultMessage": "Vous êtes certain de vouloir continuer?",
     "description": "Question to continue in a confirmation dialog"
