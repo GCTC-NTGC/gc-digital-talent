@@ -4100,7 +4100,7 @@
     "description": "Message to apply to the pool before deadline"
   },
   "LocjmN": {
-    "defaultMessage": "De retour aux équipes",
+    "defaultMessage": "Retourner aux équipes",
     "description": "Button text to return to the table of teams page"
   },
   "LphzpW": {
@@ -4452,7 +4452,7 @@
     "description": "Toast for successful add user to pool on view-user page"
   },
   "O8nHiQ": {
-    "defaultMessage": "Retour à demandes",
+    "defaultMessage": "Retourner aux demandes",
     "description": "Button label displayed on the search request form which returns the user back to requests."
   },
   "O98p6J": {
@@ -9155,7 +9155,7 @@
     "description": "GCKey answer for whether there is an alternative to an authenticator app"
   },
   "nPPUMW": {
-    "defaultMessage": "De retour au traitement des détails",
+    "defaultMessage": "Retourner au traitement des détails",
     "description": "Link text to go back to the process details page"
   },
   "nQbfnB": {
