@@ -732,6 +732,7 @@ const AssessmentDetailsDialog = ({
                           description:
                             "Warning message for skills with missing assessment on the 'assessment details' dialog",
                         })}
+                        {intl.formatMessage(commonMessages.dividingColon)}
                       </p>
                       <Chips>
                         {missingSkills.map(({ skill }) => (
