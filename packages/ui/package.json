@@ -41,7 +41,7 @@
     "react-focus-lock": "^2.11.2",
     "react-remove-scroll": "^2.5.7",
     "react-router-dom": "^6.22.3",
-    "urql": "^4.0.6"
+    "urql": "^4.0.7"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",

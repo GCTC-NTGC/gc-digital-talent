@@ -2,13 +2,7 @@ import React, { useMemo } from "react";
 import { authExchange } from "@urql/exchange-auth";
 import { cacheExchange } from "@urql/exchange-graphcache";
 import { JwtPayload, jwtDecode } from "jwt-decode";
-import {
-  Client,
-  createClient,
-  fetchExchange,
-  Provider,
-  mapExchange,
-} from "urql";
+import { Client, fetchExchange, Provider, mapExchange } from "urql";
 import { useIntl } from "react-intl";
 
 import {
@@ -20,7 +14,7 @@ import { useLogger } from "@gc-digital-talent/logger";
 import { toast } from "@gc-digital-talent/toast";
 import { uniqueItems } from "@gc-digital-talent/helpers";
 import { getLocale } from "@gc-digital-talent/i18n";
-import { introspectedSchema } from "@gc-digital-talent/graphql";
+import * as introspectedSchema from "@gc-digital-talent/graphql/introspection.json";
 
 import {
   buildValidationErrorMessageNode,
@@ -65,7 +59,7 @@ const ClientProvider = ({
   const internalClient = useMemo(() => {
     return (
       client ??
-      createClient({
+      new Client({
         url: apiUri,
         exchanges: [
           cacheExchange({
@@ -79,6 +73,8 @@ const ClientProvider = ({
               LocalizedString: () => null,
               CandidateSearchPoolResult: () => null,
               SkillKeywords: () => null,
+              NotificationPaginator: () => null,
+              PaginatorInfo: () => null,
             },
             logger(sev, msg) {
               logger.info(`Severity: ${sev}: ${msg}`);

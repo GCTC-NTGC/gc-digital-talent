@@ -212,8 +212,8 @@ importers:
         specifier: ^2.15.1
         version: 2.15.1(react-dom@18.2.0)(react@18.2.0)
       urql:
-        specifier: ^4.0.6
-        version: 4.0.6(graphql@16.8.1)(react@18.2.0)
+        specifier: ^4.0.7
+        version: 4.0.7(graphql@16.8.1)(react@18.2.0)
     devDependencies:
       '@babel/core':
         specifier: ^7.24.0
@@ -394,8 +394,8 @@ importers:
         specifier: ^6.22.3
         version: 6.22.3(react-dom@18.2.0)(react@18.2.0)
       urql:
-        specifier: ^4.0.6
-        version: 4.0.6(graphql@16.8.1)(react@18.2.0)
+        specifier: ^4.0.7
+        version: 4.0.7(graphql@16.8.1)(react@18.2.0)
     devDependencies:
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
@@ -424,6 +424,9 @@ importers:
       '@gc-digital-talent/auth':
         specifier: workspace:*
         version: link:../auth
+      '@gc-digital-talent/graphql':
+        specifier: workspace:*
+        version: link:../graphql
       '@gc-digital-talent/helpers':
         specifier: workspace:*
         version: link:../helpers
@@ -437,11 +440,14 @@ importers:
         specifier: workspace:*
         version: link:../toast
       '@urql/core':
-        specifier: 4.2.3
-        version: 4.2.3(graphql@16.8.1)
+        specifier: ^5.0.0
+        version: 5.0.0(graphql@16.8.1)
       '@urql/exchange-auth':
         specifier: ^2.1.6
         version: 2.1.6(graphql@16.8.1)
+      '@urql/exchange-graphcache':
+        specifier: ^6.4.0
+        version: 6.5.1(graphql@16.8.1)
       graphql:
         specifier: ^16.8.1
         version: 16.8.1
@@ -449,14 +455,14 @@ importers:
         specifier: 4.0.0
         version: 4.0.0
       lodash:
-        specifier: 4.17.21
+        specifier: ^4.17.21
         version: 4.17.21
       react-intl:
         specifier: ^6.6.2
         version: 6.6.2(react@18.2.0)(typescript@5.4.3)
       urql:
-        specifier: ^4.0.6
-        version: 4.0.6(graphql@16.8.1)(react@18.2.0)
+        specifier: ^4.0.7
+        version: 4.0.7(graphql@16.8.1)(react@18.2.0)
     devDependencies:
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
@@ -779,6 +785,9 @@ importers:
       '@graphql-codegen/client-preset-swc-plugin':
         specifier: ^0.2.0
         version: 0.2.0
+      '@graphql-codegen/introspection':
+        specifier: ^4.0.0
+        version: 4.0.3(graphql@16.8.1)
       '@parcel/watcher':
         specifier: ^2.4.1
         version: 2.4.1
@@ -792,8 +801,8 @@ importers:
         specifier: ^5.4.3
         version: 5.4.3
       urql:
-        specifier: ^4.0.6
-        version: 4.0.6(graphql@16.8.1)(react@18.2.0)
+        specifier: ^4.0.7
+        version: 4.0.7(graphql@16.8.1)(react@18.2.0)
 
   packages/helpers:
     dependencies:
@@ -813,8 +822,8 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
       urql:
-        specifier: ^4.0.6
-        version: 4.0.6(graphql@16.8.1)(react@18.2.0)
+        specifier: ^4.0.7
+        version: 4.0.7(graphql@16.8.1)(react@18.2.0)
     devDependencies:
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
@@ -1020,8 +1029,8 @@ importers:
         specifier: ^7.6.17
         version: 7.6.17(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.3)
       '@urql/core':
-        specifier: 4.2.3
-        version: 4.2.3(graphql@16.8.1)
+        specifier: ^5.0.0
+        version: 5.0.0(graphql@16.8.1)
       chromatic:
         specifier: ^11.0.8
         version: 11.0.8
@@ -1041,8 +1050,8 @@ importers:
         specifier: ^6.22.3
         version: 6.22.3(react-dom@18.2.0)(react@18.2.0)
       urql:
-        specifier: ^4.0.6
-        version: 4.0.6(graphql@16.8.1)(react@18.2.0)
+        specifier: ^4.0.7
+        version: 4.0.7(graphql@16.8.1)(react@18.2.0)
       wonka:
         specifier: ^6.3.4
         version: 6.3.4
@@ -1253,8 +1262,8 @@ importers:
         specifier: ^6.22.3
         version: 6.22.3(react-dom@18.2.0)(react@18.2.0)
       urql:
-        specifier: ^4.0.6
-        version: 4.0.6(graphql@16.8.1)(react@18.2.0)
+        specifier: ^4.0.7
+        version: 4.0.7(graphql@16.8.1)(react@18.2.0)
     devDependencies:
       '@faker-js/faker':
         specifier: ^8.4.1
@@ -1363,6 +1372,17 @@ packages:
 
   /@0no-co/graphql.web@1.0.4(graphql@16.8.1):
     resolution: {integrity: sha512-W3ezhHGfO0MS1PtGloaTpg0PbaT8aZSmmaerL7idtU5F7oCI+uu25k+MsMS31BVFlp4aMkHSrNRxiD72IlK8TA==}
+    peerDependencies:
+      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
+    peerDependenciesMeta:
+      graphql:
+        optional: true
+    dependencies:
+      graphql: 16.8.1
+    dev: false
+
+  /@0no-co/graphql.web@1.0.6(graphql@16.8.1):
+    resolution: {integrity: sha512-KZ7TnwMcQJcFgzjoY623AVxtlDQonkqp3rSz0wb15/jHPyU1v5gynUibEpuutDeoyGJ5Tp+FwxjGyDGDwq3vIw==}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
     peerDependenciesMeta:
@@ -3721,6 +3741,20 @@ packages:
       '@graphql-codegen/visitor-plugin-common': 5.1.0(graphql@16.8.1)
       '@graphql-tools/utils': 10.1.0(graphql@16.8.1)
       auto-bind: 4.0.0
+      graphql: 16.8.1
+      tslib: 2.6.2
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+    dev: true
+
+  /@graphql-codegen/introspection@4.0.3(graphql@16.8.1):
+    resolution: {integrity: sha512-4cHRG15Zu4MXMF4wTQmywNf4+fkDYv5lTbzraVfliDnB8rJKcaurQpRBi11KVuQUe24YTq/Cfk4uwewfNikWoA==}
+    peerDependencies:
+      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+    dependencies:
+      '@graphql-codegen/plugin-helpers': 5.0.3(graphql@16.8.1)
+      '@graphql-codegen/visitor-plugin-common': 5.1.0(graphql@16.8.1)
       graphql: 16.8.1
       tslib: 2.6.2
     transitivePeerDependencies:
@@ -7825,10 +7859,10 @@ packages:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
     dev: true
 
-  /@urql/core@4.2.3(graphql@16.8.1):
-    resolution: {integrity: sha512-DJ9q9+lcs5JL8DcU2J3NqsgeXYJva+1+Qt8HU94kzTPqVOIRRA7ouvy4ksUfPY+B5G2PQ+vLh+JJGyZCNXv0cg==}
+  /@urql/core@5.0.0(graphql@16.8.1):
+    resolution: {integrity: sha512-kFkZxusq/VBQKEUcQFtf7AilMotLO+oGpE4WFhCiminZm8ZU2aulXSDWla50TaD0pj704FnWlXts6lRm0uHdDg==}
     dependencies:
-      '@0no-co/graphql.web': 1.0.4(graphql@16.8.1)
+      '@0no-co/graphql.web': 1.0.6(graphql@16.8.1)
       wonka: 6.3.4
     transitivePeerDependencies:
       - graphql
@@ -7836,7 +7870,17 @@ packages:
   /@urql/exchange-auth@2.1.6(graphql@16.8.1):
     resolution: {integrity: sha512-snOlt7p5kYq0KnPDuXkKe2qW3/BucQZOElvTeo3svLQuk9JiNJVnm6ffQ6QGiGO+G3AtMrctnno1+X44fLtDuQ==}
     dependencies:
-      '@urql/core': 4.2.3(graphql@16.8.1)
+      '@urql/core': 5.0.0(graphql@16.8.1)
+      wonka: 6.3.4
+    transitivePeerDependencies:
+      - graphql
+    dev: false
+
+  /@urql/exchange-graphcache@6.5.1(graphql@16.8.1):
+    resolution: {integrity: sha512-Ky77kuaTuo1H+VKZatXyNDqTMw+z03KV3Ep/6TQjktlc+0RDhEZq3rI4F/ViwqLaDUtGqPCYjmnHdoupXqdK0g==}
+    dependencies:
+      '@0no-co/graphql.web': 1.0.4(graphql@16.8.1)
+      '@urql/core': 5.0.0(graphql@16.8.1)
       wonka: 6.3.4
     transitivePeerDependencies:
       - graphql
@@ -17067,12 +17111,12 @@ packages:
     resolution: {integrity: sha512-Qp95D4TPJl1kC9SKigDcqgyM2VDVO4RiJc2d4qe5GrYm+zbIQCWWKAFaJNQ4BhdFeDGwBmAxqJBwWSJDb9T3BQ==}
     dev: true
 
-  /urql@4.0.6(graphql@16.8.1)(react@18.2.0):
-    resolution: {integrity: sha512-meXJ2puOd64uCGKh7Fse2R7gPa8+ZpBOoA62jN7CPXXUt7SVZSdeXWSpB3HvlfzLUkEqsWbvshwrgeWRYNNGaQ==}
+  /urql@4.0.7(graphql@16.8.1)(react@18.2.0):
+    resolution: {integrity: sha512-wnOONtZoYEobmamM5ushUBGil6UCUPd7SH5uEAqsz5Y/qBV88/2QG6jq7v6xP+413x5Lqy0h0hCGRB0KIeG6Kg==}
     peerDependencies:
       react: '>= 16.8.0'
     dependencies:
-      '@urql/core': 4.2.3(graphql@16.8.1)
+      '@urql/core': 5.0.0(graphql@16.8.1)
       react: 18.2.0
       wonka: 6.3.4
     transitivePeerDependencies:
