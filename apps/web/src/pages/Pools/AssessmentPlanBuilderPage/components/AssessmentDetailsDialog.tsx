@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
-import { Button, Dialog, Well } from "@gc-digital-talent/ui";
+import { Button, Chip, Chips, Dialog, Well } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   errorMessages,
@@ -31,6 +31,7 @@ import {
   ScreeningQuestion,
   Scalars,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import processMessages from "~/messages/processMessages";
 
@@ -392,6 +393,27 @@ const AssessmentDetailsDialog = ({
     createAssessmentStepFetching ||
     createOrUpdateScreeningQuestionAssessmentStepMutationFetching;
 
+  const missingSkills = allPoolSkills.filter(({ assessmentSteps }) => {
+    const steps = unpackMaybes(assessmentSteps);
+
+    // Behavioral skill attached to no assessment steps
+    if (steps.length === 0) {
+      return true;
+    }
+
+    // Skill is only attached to Application screening. All technical skills are attached by default.
+    if (
+      steps.length === 1 &&
+      steps?.find(
+        (step) => step?.type === AssessmentStepType.ApplicationScreening,
+      )
+    ) {
+      return true;
+    }
+
+    return false;
+  });
+
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
       <Dialog.Trigger>{trigger}</Dialog.Trigger>
@@ -627,7 +649,7 @@ const AssessmentDetailsDialog = ({
                   </>
                 ) : null}
 
-                <div>
+                <div data-h2-display="base(grid)" data-h2-gap="base(x.25)">
                   <div data-h2-font-weight="base(700)">
                     {intl.formatMessage({
                       defaultMessage: "Skill selection",
@@ -636,7 +658,7 @@ const AssessmentDetailsDialog = ({
                         "title of 'skill selection' section of the 'assessment details' dialog",
                     })}
                   </div>
-                  <div data-h2-margin-top="base(x.25)">
+                  <div>
                     {intl.formatMessage({
                       defaultMessage:
                         "Using the list of skills from the recruitment process, select the skills you are planning to assess using this evaluation method.",
@@ -645,6 +667,33 @@ const AssessmentDetailsDialog = ({
                         "description of 'skill selection' section of the 'assessment details' dialog",
                     })}
                   </div>
+                  {missingSkills.length ? (
+                    <Well
+                      color="warning"
+                      data-h2-margin-top="base(x.25)"
+                      data-h2-padding="base(x.5)"
+                    >
+                      <p
+                        data-h2-margin-bottom="base(x.5)"
+                        data-h2-font-size="base(caption)"
+                      >
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "The following skills are missing at least 1 assessment",
+                          id: "EY7YQM",
+                          description:
+                            "Warning message for skills with missing assessment on the 'assessment details' dialog",
+                        })}
+                      </p>
+                      <Chips>
+                        {missingSkills.map(({ skill }) => (
+                          <Chip key={skill?.id} color="warning">
+                            {getLocalizedName(skill?.name, intl)}
+                          </Chip>
+                        ))}
+                      </Chips>
+                    </Well>
+                  ) : null}
                 </div>
                 <Checklist
                   idPrefix="assessedSkills"
