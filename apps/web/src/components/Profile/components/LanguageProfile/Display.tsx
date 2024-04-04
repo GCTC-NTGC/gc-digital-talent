@@ -87,8 +87,6 @@ const Display = ({
       examValidity = null;
   }
 
-  console.log(bilingualEvaluation);
-
   return (
     <div
       data-h2-display="base(grid)"
