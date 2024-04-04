@@ -2,7 +2,6 @@
 
 namespace App\Generators;
 
-use App\Enums\OperationalRequirement;
 use App\Models\PoolCandidate;
 use Exception;
 
@@ -99,22 +98,7 @@ class CandidateProfileDoc extends DocGenerator
                 $section->addListItem($duration);
             }
 
-            $operationalRequirements = array_column(OperationalRequirement::cases(), 'name');
-            $preferences = [
-                'accepted' => [],
-                'not_accepted' => [],
-            ];
-            foreach ($operationalRequirements as $requirement) {
-                // Note: Scheduled overtime is legacy
-                if ($requirement !== OperationalRequirement::OVERTIME_SCHEDULED->name && $requirement !== OperationalRequirement::OVERTIME_SHORT_NOTICE->name) {
-                    if (in_array($requirement, $candidate->user->accepted_operational_requirements)) {
-                        $preferences['accepted'][] = $requirement;
-                    } else {
-                        $preferences['not_accepted'][] = $requirement;
-                    }
-                }
-            }
-
+            $preferences = $candidate->user->getOperationalRequirements();
             if (count($preferences['accepted']) > 0) {
                 $section->addText('Would consider accepting a job that requires:');
 

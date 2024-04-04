@@ -9,6 +9,7 @@ use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
 use App\Enums\IndigenousCommunity;
 use App\Enums\LanguageAbility;
+use App\Enums\OperationalRequirement;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PositionDuration;
 use App\Traits\EnrichedNotifiable;
@@ -476,6 +477,45 @@ class User extends Model implements Authenticatable, LaratrustUser
         }
 
         return null;
+    }
+
+    public function getPriority()
+    {
+        switch ($this->priority_weight) {
+            case 10:
+                return 'Priority entitlement';
+            case 20:
+                return 'Veteran';
+            case 30:
+                return 'Citizen or resident';
+            case 40:
+                return 'Other';
+            default:
+        }
+
+        return '';
+    }
+
+    public function getOperationalRequirements()
+    {
+
+        $operationalRequirements = array_column(OperationalRequirement::cases(), 'name');
+        $preferences = [
+            'accepted' => [],
+            'not_accepted' => [],
+        ];
+        foreach ($operationalRequirements as $requirement) {
+            // Note: Scheduled overtime is legacy
+            if ($requirement !== OperationalRequirement::OVERTIME_SCHEDULED->name && $requirement !== OperationalRequirement::OVERTIME_SHORT_NOTICE->name) {
+                if (in_array($requirement, $this->accepted_operational_requirements ?? [])) {
+                    $preferences['accepted'][] = $requirement;
+                } else {
+                    $preferences['not_accepted'][] = $requirement;
+                }
+            }
+        }
+
+        return $preferences;
     }
 
     // getIsProfileCompleteAttribute function is correspondent to isProfileComplete attribute in graphql schema
