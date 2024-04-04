@@ -30,6 +30,7 @@ import {
   PoolSkill,
   ScreeningQuestion,
   Scalars,
+  PoolSkillType,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -170,7 +171,14 @@ const AssessmentDetailsDialog = ({
       ),
     },
   });
-  const { handleSubmit, control, watch, setValue, reset } = methods;
+  const {
+    handleSubmit,
+    control,
+    watch,
+    setValue,
+    reset,
+    formState: { errors },
+  } = methods;
 
   const [selectedTypeOfAssessment] = watch(["typeOfAssessment"]);
   const dialogMode: DialogMode =
@@ -356,13 +364,53 @@ const AssessmentDetailsDialog = ({
   const canAddScreeningQuestions =
     fields.length < SCREENING_QUESTIONS_MAX_QUESTIONS;
 
-  const assessedSkillsItems: CheckboxOption[] = alphaSortOptions(
-    allPoolSkills.map((poolSkill) => ({
-      value: poolSkill.id,
-      label: poolSkill?.skill?.name
-        ? getLocalizedName(poolSkill.skill.name, intl)
-        : intl.formatMessage(commonMessages.nameNotLoaded),
-    })),
+  const assessedSkillsItems: {
+    essentialSkillItems: CheckboxOption[];
+    assetSkills: CheckboxOption[];
+  } = allPoolSkills.reduce(
+    (
+      assessedSkills: {
+        essentialSkillItems: CheckboxOption[];
+        assetSkills: CheckboxOption[];
+      },
+      poolSkill,
+    ) => {
+      if (poolSkill.type === PoolSkillType.Essential) {
+        return {
+          essentialSkillItems: [
+            ...assessedSkills.essentialSkillItems,
+            {
+              value: poolSkill.id,
+              label: poolSkill?.skill?.name
+                ? getLocalizedName(poolSkill.skill.name, intl)
+                : intl.formatMessage(commonMessages.nameNotLoaded),
+            },
+          ],
+          assetSkills: assessedSkills.assetSkills,
+        };
+      }
+
+      if (poolSkill.type === PoolSkillType.Nonessential) {
+        return {
+          assetSkills: [
+            ...assessedSkills.assetSkills,
+            {
+              value: poolSkill.id,
+              label: poolSkill?.skill?.name
+                ? getLocalizedName(poolSkill.skill.name, intl)
+                : intl.formatMessage(commonMessages.nameNotLoaded),
+            },
+          ],
+          essentialSkillItems: assessedSkills.essentialSkillItems,
+        };
+      }
+
+      return assessedSkills;
+    },
+    {
+      essentialSkillItems: [],
+      assetSkills: [],
+    },
   );
 
   const assessmentStepTypeOptions = [
@@ -696,16 +744,38 @@ const AssessmentDetailsDialog = ({
                   ) : null}
                 </div>
                 <Checklist
-                  idPrefix="assessedSkills"
-                  id="assessedSkills"
+                  idPrefix="essentialSkills"
+                  id="essentialSkills"
                   name="assessedSkills"
-                  legend={intl.formatMessage(labels.assessedSkills)}
-                  items={assessedSkillsItems}
+                  legend={intl.formatMessage(labels.essentialSkills)}
+                  items={alphaSortOptions(
+                    assessedSkillsItems.essentialSkillItems,
+                  )}
                   rules={{
-                    required: intl.formatMessage(errorMessages.required),
+                    validate: (selectedAssessedSkills: string[]) => {
+                      return selectedAssessedSkills.length > 0;
+                    },
                   }}
                 />
-                {!assessedSkillsItems.length ? (
+                <Checklist
+                  idPrefix="assetSkills"
+                  id="assetSkills"
+                  name="assessedSkills"
+                  legend={intl.formatMessage(labels.assetSkills)}
+                  items={alphaSortOptions(assessedSkillsItems.assetSkills)}
+                  rules={{
+                    validate: (selectedAssessedSkills: string[]) => {
+                      return selectedAssessedSkills.length > 0;
+                    },
+                  }}
+                />
+                {errors.assessedSkills ? (
+                  <Field.Error>
+                    {intl.formatMessage(errorMessages.required)}
+                  </Field.Error>
+                ) : null}
+                {!assessedSkillsItems.essentialSkillItems.length &&
+                !assessedSkillsItems.assetSkills.length ? (
                   <Field.Error>
                     {intl.formatMessage({
                       defaultMessage:
