@@ -2,7 +2,7 @@ FROM php:8.2.9-apache-bullseye as base
 
 # Install pdo_pgsql extension.
 RUN apt-get update \
-    && apt-get install -y libpq-dev php-gd \
+    && apt-get install -y libpq-dev \
     && docker-php-ext-install pdo_pgsql
 
 WORKDIR /var/www/html/api
@@ -13,7 +13,7 @@ COPY tests/ tests/
 FROM base as builder
 # Install zip ext required for composer install from dist.
 RUN apt-get update \
-    && apt-get install -y libzip-dev \
+    && apt-get install -y libzip-dev php-gd \
     && docker-php-ext-install zip
 # Copy composer binary from official image.
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
