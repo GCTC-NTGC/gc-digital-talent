@@ -419,6 +419,8 @@ type PoolCandidate {
   educationRequirementOption: EducationRequirementOption
   educationRequirementExperiences: [Experience]
   assessmentResults: [AssessmentResult]
+  placedAt: DateTime
+  placedDepartment: Department
 }
 
 type PoolCandidateWithSkillCount {

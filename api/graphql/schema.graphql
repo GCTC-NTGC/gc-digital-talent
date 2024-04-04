@@ -329,6 +329,10 @@ type PoolCandidate {
   assessmentResults: [AssessmentResult]
     @hasMany
     @canRoot(ability: "viewAssessmentResults")
+  placedAt: DateTime
+    @rename(attribute: "placed_at")
+    @canRoot(ability: "viewStatus")
+  placedDepartment: Department @belongsTo @canRoot(ability: "viewStatus")
 }
 
 type PoolCandidateWithSkillCount {
