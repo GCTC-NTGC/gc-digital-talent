@@ -827,6 +827,10 @@
     "defaultMessage": "Trouver des talents",
     "description": "Name of Find talent (search) page"
   },
+  "Ork8sR": {
+    "defaultMessage": "La nouvelle date de clôture doit être ultérieure à la date de clôture actuelle.",
+    "description": "Error message that the pool closing date isn't after the existing one"
+  },
   "Ot5z0u": {
     "defaultMessage": "Menu des options de bascule",
     "description": "Button text to toggle the combobox menu"
