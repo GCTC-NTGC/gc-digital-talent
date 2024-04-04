@@ -60,7 +60,7 @@ const NotificationChecklist = ({
 
   return (
     <Field.Wrapper data-h2-margin-bottom="base(x1)">
-      <Field.Fieldset id="systemMessages">
+      <Field.Fieldset id={id}>
         <Field.Legend
           required={false}
           data-h2-visually-hidden="base(invisible)"
