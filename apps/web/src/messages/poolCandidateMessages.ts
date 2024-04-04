@@ -86,6 +86,12 @@ const messages = defineMessages({
     description:
       "Message displayed when candidate was unsuccessful but put on hold",
   },
+  unclaimed: {
+    defaultMessage: "Unclaimed",
+    id: "N2/Y9w",
+    description:
+      "Message displayed when candidate has yet to be assessed at a specific assessment step for a skill that is non-essential",
+  },
 });
 
 export default messages;
