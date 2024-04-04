@@ -77,8 +77,8 @@ const pageTitle = defineMessage({
 
 const subTitle = defineMessage({
   defaultMessage:
-    "Learn about GC Key, manage notifications, and update your availability.",
-  id: "Sj4ZhS",
+    "Learn about GCKey, manage notifications, and update your availability.",
+  id: "WwuIcM",
   description: "Subtitle for the account settings page.",
 });
 
@@ -110,8 +110,8 @@ const AccountSettingsPage = () => {
     accountManagement: {
       id: "account-management",
       title: intl.formatMessage({
-        defaultMessage: "Account Management",
-        id: "AMcJqM",
+        defaultMessage: "Account management",
+        id: "efBMD2",
         description: "Title for the account management.",
       }),
     },
@@ -181,8 +181,8 @@ const AccountSettingsPage = () => {
                   <p data-h2-margin="base(0, 0, x1, 0)">
                     {intl.formatMessage({
                       defaultMessage:
-                        "This section focuses on general account management and information related to how we link to your GC Key.",
-                      id: "FmfkY6",
+                        "This section focuses on general account management and information related to how we link to your GCKey.",
+                      id: "G6PxDn",
                       description:
                         "Subtitle for account management section on account settings page.",
                     })}

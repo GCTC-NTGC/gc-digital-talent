@@ -28,33 +28,33 @@ const AccountManagement = () => {
           as="h3"
           subtitle={intl.formatMessage({
             defaultMessage:
-              "Find out about GC Key and find links to account information.",
-            id: "nEOzEg",
+              "Find out about GCKey and find links to account information.",
+            id: "d3HIMV",
             description:
               "Introductory text displayed in login and authentication accordion.",
           })}
         >
           {intl.formatMessage({
-            defaultMessage: "Your GC Key account",
-            id: "zyYdOd",
-            description: "Accordion trigger for your GC Key account info.",
+            defaultMessage: "Your GCKey account",
+            id: "i4EMJm",
+            description: "Accordion trigger for your GCKey account info.",
           })}
         </Accordion.Trigger>
         <Accordion.Content>
           <p data-h2-margin-bottom="base(x1)">
             {intl.formatMessage({
               defaultMessage:
-                "GC Digital Talent partners with the Government of Canada's credential service, GC Key, to provide you with account access using a single username and password. You can manage related data on the GC Key website and it will automatically reflect here when you access your account.",
-              id: "izDsim",
+                "GC Digital Talent partners with the Government of Canada's credential service, GCKey, to provide you with account access using a single username and password. You can manage related data on the GCKey website and it will automatically reflect here when you access your account.",
+              id: "NkZeS1",
               description:
-                "Description of how we use GC Key for authentication.",
+                "Description of how we use GCKey for authentication.",
             })}
           </p>
           <Link newTab external href={gcKeyURL} mode="solid" color="secondary">
             {intl.formatMessage({
-              defaultMessage: "Visit GC Key",
-              id: "XOUxAJ",
-              description: "Link text for visiting the GC Key website",
+              defaultMessage: "Visit GCKey",
+              id: "aVp6q7",
+              description: "Link text for visiting the GCKey website",
             })}
           </Link>
         </Accordion.Content>

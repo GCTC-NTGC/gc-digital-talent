@@ -183,8 +183,8 @@ const NotificationSettings = ({
       id: "systemMessages",
       name: "systemMessages",
       legend: intl.formatMessage({
-        defaultMessage: "System Messages",
-        id: "KzpzIE",
+        defaultMessage: "System messages",
+        id: "HBmwNb",
         description: "Title for system messages checklist",
       }),
       subtitle: intl.formatMessage({
