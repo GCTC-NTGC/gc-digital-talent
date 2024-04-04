@@ -25,7 +25,7 @@ return new class extends Migration
             $table->jsonb('properties')->nullable();
         });
 
-        // roll back table insertions and if any fail before starting to drop old tables
+        // roll back table insertions if any fail before starting to drop old tables
         DB::transaction(function () {
 
             DB::table('experiences')
