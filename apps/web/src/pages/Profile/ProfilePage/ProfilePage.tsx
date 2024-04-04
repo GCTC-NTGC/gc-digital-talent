@@ -1,8 +1,15 @@
 import React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
+import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
 
-import { TableOfContents, ThrowNotFound, Pending } from "@gc-digital-talent/ui";
+import {
+  TableOfContents,
+  ThrowNotFound,
+  Pending,
+  Link,
+  Heading,
+} from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { User, graphql } from "@gc-digital-talent/graphql";
 
@@ -19,7 +26,6 @@ import WorkPreferences from "~/components/Profile/components/WorkPreferences/Wor
 import LanguageProfile from "~/components/Profile/components/LanguageProfile/LanguageProfile";
 import GovernmentInformation from "~/components/Profile/components/GovernmentInformation/GovernmentInformation";
 import DiversityEquityInclusion from "~/components/Profile/components/DiversityEquityInclusion/DiversityEquityInclusion";
-import AccountAndPrivacy from "~/components/Profile/components/AccountAndPrivacy/AccountAndPrivacy";
 
 const ProfileUpdateUser_Mutation = graphql(/* GraphQL */ `
   mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
@@ -218,7 +224,28 @@ export const ProfileForm = ({ user }: ProfilePageProps) => {
               id={PAGE_SECTION_ID.ACCOUNT_AND_PRIVACY}
               data-h2-padding-top="base(x3)"
             >
-              <AccountAndPrivacy {...sectionProps} />
+              <Heading
+                data-h2-margin="base(0)"
+                data-h2-padding-bottom="base(x1)"
+                Icon={LockClosedIcon}
+                color="secondary"
+                level={sectionProps.pool ? "h3" : "h2"}
+                size={sectionProps.pool ? "h4" : "h3"}
+              >
+                {intl.formatMessage(getSectionTitle("account"))}
+              </Heading>
+              <Link
+                href={paths.applicantSettings()}
+                mode="solid"
+                color="secondary"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Applicant settings",
+                  id: "N+KoUX",
+                  description:
+                    "Link text for visiting the applicant settings page",
+                })}
+              </Link>
             </TableOfContents.Section>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
