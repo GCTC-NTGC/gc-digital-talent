@@ -1115,20 +1115,6 @@ export const PoolPoster = ({
   );
 };
 
-const PoolNotFound = () => {
-  const intl = useIntl();
-
-  return (
-    <ThrowNotFound
-      message={intl.formatMessage({
-        defaultMessage: "Error, pool unable to be loaded",
-        id: "DcEinN",
-        description: "Error message, placeholder",
-      })}
-    />
-  );
-};
-
 type RouteParams = {
   poolId: Scalars["ID"]["output"];
 };
@@ -1262,7 +1248,7 @@ const PoolAdvertisementPage = () => {
   const { poolId } = useRequiredParams<RouteParams>("poolId", true);
   const auth = useAuthorization();
 
-  const [{ data, fetching, error }] = useQuery({
+  const [{ data, fetching, error, stale }] = useQuery({
     query: PoolAdvertisementPage_Query,
     variables: { id: poolId },
   });
@@ -1278,15 +1264,13 @@ const PoolAdvertisementPage = () => {
   );
 
   return (
-    <Pending fetching={fetching} error={error}>
-      {data?.pool && isVisible ? (
+    <Pending fetching={fetching || stale} error={error}>
+      {data?.pool && isVisible && (
         <PoolPoster
-          pool={data?.pool}
+          pool={data.pool}
           applicationId={application?.id}
           hasApplied={notEmpty(application?.submittedAt)}
         />
-      ) : (
-        <PoolNotFound />
       )}
     </Pending>
   );

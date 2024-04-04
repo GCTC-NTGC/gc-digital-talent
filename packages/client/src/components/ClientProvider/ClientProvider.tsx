@@ -61,6 +61,7 @@ const ClientProvider = ({
       client ??
       new Client({
         url: apiUri,
+        requestPolicy: "cache-and-network",
         exchanges: [
           cacheExchange({
             schema: introspectedSchema,

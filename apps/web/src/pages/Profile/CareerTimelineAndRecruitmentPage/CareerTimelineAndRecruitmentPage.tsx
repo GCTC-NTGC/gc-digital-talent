@@ -17,6 +17,7 @@ const CareerTimelineExperiences_Query = graphql(/* GraphQL */ `
       id
       experiences {
         id
+        __typename
         details
         user {
           id
