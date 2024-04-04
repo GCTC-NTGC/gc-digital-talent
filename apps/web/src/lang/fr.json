@@ -1195,6 +1195,10 @@
     "defaultMessage": "Contextes professionnels",
     "description": "Work details label"
   },
+  "4qdoau": {
+    "defaultMessage": "Compétence introuvable",
+    "description": "Link to suggestions on what to do if you can't find a skill in the skill browser."
+  },
   "4r+taV": {
     "defaultMessage": "Par compétences comportementales, on entend les attributs interpersonnels et personnels clés qui sont nécessaires pour certains emplois au sein de l'organisation. Ces compétences ont habituellement trait à la manière dont une personne agit, communique et interagit avec les autres. Elles comprennent les niveaux suivants :",
     "description": "Lead-in text for the skills level definitions of behavioural skills"
@@ -2839,6 +2843,10 @@
     "defaultMessage": "Groupe et classification actuels",
     "description": "Current group and classification label"
   },
+  "EIM5Jw": {
+    "defaultMessage": "Toutes les compétences",
+    "description": "Label for removing the skill family filter"
+  },
   "EK+25s": {
     "defaultMessage": "Notes",
     "description": "Title for admin notes shorthand"
@@ -3803,6 +3811,10 @@
     "defaultMessage": "Changer votre disponibilité pour {title}.",
     "description": "Button text to open form to change availability in a specific recruitment"
   },
+  "K91fwT": {
+    "defaultMessage": "Filtrer par groupe de compétences",
+    "description": "Label for the skill family filter field"
+  },
   "K9YLac": {
     "defaultMessage": "En savoir plus<hidden> sur la collectivité des cadres</hidden>",
     "description": "Link text to the executive community"
@@ -3910,6 +3922,10 @@
   "KjbjQU": {
     "defaultMessage": "Voir",
     "description": "Title displayed for a tables View column."
+  },
+  "Kki7mk": {
+    "defaultMessage": "Ma bibliothèque",
+    "description": "Label for filtering skills by ones already added to the users library"
   },
   "KoKXUw": {
     "defaultMessage": "Outils avancés",
