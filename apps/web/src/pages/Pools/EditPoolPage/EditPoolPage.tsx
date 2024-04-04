@@ -30,7 +30,7 @@ import {
   hasEmptyRequiredFields as poolNameError,
   isInNullState as educationRequirementIsNull,
 } from "~/validators/process/classification";
-import { hasEmptyRequiredFields as closingDateError } from "~/validators/process/closingDate";
+import { hasInvalidRequiredFields as closingDateError } from "~/validators/process/closingDate";
 import { hasEmptyRequiredFields as yourImpactError } from "~/validators/process/yourImpact";
 import { hasEmptyRequiredFields as keyTasksError } from "~/validators/process/keyTasks";
 import { hasEmptyRequiredFields as coreRequirementsError } from "~/validators/process/coreRequirements";
