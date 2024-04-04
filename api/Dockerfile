@@ -13,8 +13,15 @@ COPY tests/ tests/
 FROM base as builder
 # Install zip ext required for composer install from dist.
 RUN apt-get update \
-    && apt-get install -y libzip-dev php-gd \
+    && apt-get install -y libzip-dev \
     && docker-php-ext-install zip
+# Install gd ext required for document generation.
+# REF: https://hub.docker.com/_/php#:~:text=php%2Dsource%20delete-,PHP%20Core%20Extensions,-For%20example%2C%20if
+RUN apt-get update \
+    && apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd
+
 # Copy composer binary from official image.
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 RUN composer install --prefer-dist
