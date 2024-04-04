@@ -1,5 +1,5 @@
 import React from "react";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import { CardFlat, Flourish, Pending } from "@gc-digital-talent/ui";
@@ -49,7 +49,7 @@ const BrowsePoolsPage_Query = graphql(/* GraphQL */ `
       status
       language
       securityClearance
-      classifications {
+      classification {
         id
         group
         level
@@ -134,6 +134,13 @@ const BrowsePoolsPage_Query = graphql(/* GraphQL */ `
 
 const now = nowUTCDateTime();
 
+const subTitle = defineMessage({
+  defaultMessage:
+    "Find and apply to digital talent opportunities in the Government of Canada.",
+  id: "2UDONd",
+  description: "Subtitle for the browse IT jobs page",
+});
+
 export const BrowsePools = () => {
   const { mode } = useTheme();
   const intl = useIntl();
@@ -151,13 +158,16 @@ export const BrowsePools = () => {
     ) ?? [];
 
   const title = intl.formatMessage(navigationMessages.browseJobs);
+  const formattedSubTitle = intl.formatMessage(subTitle);
 
-  const crumbs = useBreadcrumbs([
-    {
-      label: title,
-      url: paths.browsePools(),
-    },
-  ]);
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: title,
+        url: paths.browsePools(),
+      },
+    ],
+  });
 
   const activeRecruitmentPools = pools.filter(
     (p) =>
@@ -195,16 +205,11 @@ export const BrowsePools = () => {
 
   return (
     <Pending fetching={fetching} error={error}>
-      <SEO title={intl.formatMessage(navigationMessages.browseJobs)} />
+      <SEO title={title} description={formattedSubTitle} />
       <Hero
         imgPath={browseHeroImg}
         title={title}
-        subtitle={intl.formatMessage({
-          defaultMessage:
-            "Find and apply to digital talent opportunities in the Government of Canada.",
-          id: "2UDONd",
-          description: "Subtitle for the browse IT jobs page",
-        })}
+        subtitle={formattedSubTitle}
         crumbs={crumbs}
       />
 

@@ -9,6 +9,7 @@ import { AxeResults } from "axe-core";
  * @param results
  * @param testInfo
  */
+// eslint-disable-next-line import/prefer-default-export
 export const attachResults = async (
   results: AxeResults,
   testInfo: TestInfo,

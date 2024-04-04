@@ -11,7 +11,6 @@ use App\Enums\AssessmentResultType;
 use App\Enums\AssessmentStepType;
 use App\Enums\AwardedScope;
 use App\Enums\AwardedTo;
-use App\Enums\BilingualEvaluation;
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
@@ -46,6 +45,8 @@ use App\Enums\GovEmployeeType;
 use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
 use App\Enums\LanguageAbility;
+use App\Enums\NotificationFamily;
+use App\Enums\NotificationType;
 use App\Enums\OperationalRequirement;
 use App\Enums\PoolCandidateSearchPositionType;
 use App\Enums\PoolCandidateSearchRequestReason;
@@ -101,15 +102,6 @@ class GraphQLServiceProvider extends ServiceProvider
                 return new EnumType([
                     'name' => 'GovEmployeeType',
                     'values' => array_column(GovEmployeeType::cases(), 'name'),
-                ]);
-            }
-        );
-        $typeRegistry->registerLazy(
-            'BilingualEvaluation',
-            static function (): EnumType {
-                return new EnumType([
-                    'name' => 'BilingualEvaluation',
-                    'values' => array_column(BilingualEvaluation::cases(), 'name'),
                 ]);
             }
         );
@@ -636,6 +628,25 @@ class GraphQLServiceProvider extends ServiceProvider
                 return new EnumType([
                     'name' => 'AssessmentDecisionLevel',
                     'values' => array_column(AssessmentDecisionLevel::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'NotificationFamily',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'NotificationFamily',
+                    'values' => array_column(NotificationFamily::cases(), 'name'),
+                ]);
+            }
+        );
+
+        $typeRegistry->registerLazy(
+            'NotificationType',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'NotificationType',
+                    'values' => array_column(NotificationType::cases(), 'name'),
                 ]);
             }
         );

@@ -8,7 +8,7 @@ import { Pool } from "@gc-digital-talent/graphql";
 import { PAGE_SECTION_ID } from "../navigation";
 import SkillSummaryTable from "./SkillSummaryTable";
 
-const sectionTitle = defineMessage({
+export const sectionTitle = defineMessage({
   defaultMessage: "Skill summary",
   id: "iNIXQ9",
   description:
@@ -33,8 +33,8 @@ const SkillSummarySection = ({ pool }: SkillSummarySectionProps) => {
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
-            "Overview of all skills and assessments planned for this pool.",
-          id: "t0OrQA",
+            "Overview of all skills and assessments planned for this process.",
+          id: "S/R0ne",
           description:
             "introduction to the skill summary section in the assessment plan builder",
         })}

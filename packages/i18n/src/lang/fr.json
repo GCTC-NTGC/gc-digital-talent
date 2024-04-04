@@ -179,10 +179,6 @@
     "defaultMessage": "Atout",
     "description": "The skill is considered nonessential."
   },
-  "2ohWuK": {
-    "defaultMessage": "Oui, évaluation en anglais terminée",
-    "description": "Completed an English language evaluation"
-  },
   "2wKf2U": {
     "defaultMessage": "Modifier",
     "description": "Text to trigger edit action"
@@ -255,13 +251,13 @@
     "defaultMessage": "Avancé",
     "description": "The technical skill level for expert"
   },
-  "55rtyE": {
-    "defaultMessage": "IT-03 (Conseiller technique)",
-    "description": "The name of the Technical advisor classification with group and level."
-  },
   "5LQuV9": {
     "defaultMessage": "Île-du-Prince-Édouard",
     "description": "Prince Edward Island selection for province or territory input"
+  },
+  "5YM3H5": {
+    "defaultMessage": "P (expert)",
+    "description": "The evaluated language ability level of P"
   },
   "5gS1sZ": {
     "defaultMessage": "La valeur doit être supérieure à {value}",
@@ -327,13 +323,13 @@
     "defaultMessage": "Chaque évaluation doit inclure une ou plusieurs compétences à des fins d’évaluation",
     "description": "Error message that the pool advertisement assessments are lacking a skill"
   },
-  "7TuiE1": {
-    "defaultMessage": "A",
-    "description": "The evaluated language ability level of A"
-  },
   "7p6mDv": {
     "defaultMessage": "Désolé, mais nous n’êtes pas autorisé(e) à effectuer cette opération. S’il s’agit d’une erreur, veuillez communiquer avec votre administrateur au sujet de cette erreur.",
     "description": "Message displayed when user attempts an action they are not allowed to do."
+  },
+  "893wrD": {
+    "defaultMessage": "C (avancé)",
+    "description": "The evaluated language ability level of C"
   },
   "8JCCPM": {
     "defaultMessage": "En cours",
@@ -350,10 +346,6 @@
   "8WC+Ty": {
     "defaultMessage": "La date limite de soumission est passée.",
     "description": "Message displayed when a closing date has passed."
-  },
-  "8sfFGc": {
-    "defaultMessage": "IT-02 (analyste)",
-    "description": "The name of the Technician Analyst classification with group and level."
   },
   "8stxoN": {
     "defaultMessage": "Télétravail",
@@ -448,7 +440,7 @@
     "description": "The pool candidate's status is Screened In."
   },
   "C/mdCs": {
-    "defaultMessage": "Ne s’applique pas",
+    "defaultMessage": "Sans objet",
     "description": "Not applicable, context or state does apply."
   },
   "C/tnCE": {
@@ -487,14 +479,6 @@
     "defaultMessage": "Bourse postdoctorale",
     "description": "Postdoctoral Fellowship selection for education type input"
   },
-  "DPYoOj": {
-    "defaultMessage": "Il y a une limite au nombre d’éléments que vous pouvez ajouter sur cette liste. Lorsque cette limite est atteinte, vous devrez supprimer un élément si vous voulez en ajouter un autre.",
-    "description": "Additional details displayed when one away from repeater limit."
-  },
-  "DUuisY": {
-    "defaultMessage": "Oui, évaluation en français terminée",
-    "description": "Completed a French language evaluation"
-  },
   "DdOEWx": {
     "defaultMessage": "Erreur : nom pas chargé",
     "description": "Message when name value not found"
@@ -510,6 +494,10 @@
   "EPEKU2": {
     "defaultMessage": "Capacité démontrée à définir, entreprendre et exécuter des tâches de complexité modérée à élevée sous des niveaux de supervision minimaux. Capacité démontrée à encadrer d’autres personnes à des niveaux inférieurs de développement de compétences, soit par le biais d’une supervision directe, soit en donnant l’exemple et en fournissant des explications. Généralement associée à des postes de conseiller technique principal ou de supervision de niveau d’entrée.",
     "description": "The technical skill level definition for expert"
+  },
+  "EZgD5d": {
+    "defaultMessage": "Non disponible",
+    "description": "Message displayed when specific information is not available"
   },
   "EdAaI7": {
     "defaultMessage": "Il manque des champs <red>obligatoires</red>.",
@@ -679,6 +667,10 @@
     "defaultMessage": "{count, plural, =0 { <strong>0</strong> résultats équivalents} =1 {<strong>1</strong> résultats équivalents} other {<strong>#</strong> résultats équivalents}} de {total, plural, =0 {<strong>0</strong> options disponibles} =1 {<strong>1</strong> option disponible} other {<strong>#</strong> options disponibles}}",
     "description": "Message showing number of matching items from all available options in combobox menu"
   },
+  "KJsYdJ": {
+    "defaultMessage": "A (débutant)",
+    "description": "The evaluated language ability level of A"
+  },
   "KMSWLW": {
     "defaultMessage": "Ouvrir le menu",
     "description": "Text label for button that opens side menu."
@@ -707,9 +699,9 @@
     "defaultMessage": "Mois",
     "description": "Label for a month input field"
   },
-  "L8TMtk": {
-    "defaultMessage": "Non évalué",
-    "description": "The evaluated language ability level for un-assessed"
+  "LB3MCB": {
+    "defaultMessage": "X (pas de compétence)",
+    "description": "The evaluated language ability level of X"
   },
   "LBqw5w": {
     "defaultMessage": "Vous devez répondre à toutes les questions filtres",
@@ -754,10 +746,6 @@
   "MMtY88": {
     "defaultMessage": "Non démontrée (en attente d’une évaluation plus poussée)",
     "description": "Option for assessment decision when candidate has unsuccessful assessment but on hold."
-  },
-  "MUjjf9": {
-    "defaultMessage": "B",
-    "description": "The evaluated language ability level of B"
   },
   "Mau9e6": {
     "defaultMessage": "Fait - aucun candidat trouvé",
@@ -810,10 +798,6 @@
   "NhJY9U": {
     "defaultMessage": "Supérieur au niveau requis",
     "description": "Option for skill assessment decision level."
-  },
-  "Nhi8rT": {
-    "defaultMessage": "Vous avez presque atteint la limite!",
-    "description": "Message displayed when one away from repeater limit."
   },
   "NtxfWk": {
     "defaultMessage": "Garde 24/7",
@@ -915,10 +899,6 @@
     "defaultMessage": "Chef d'équipe",
     "description": "The position type is a team lead."
   },
-  "R6XtnR": {
-    "defaultMessage": "X",
-    "description": "The evaluated language ability level of X"
-  },
   "RQGy+0": {
     "defaultMessage": "Publiée",
     "description": "Published pool advertisement status"
@@ -946,6 +926,10 @@
   "RnSbKI": {
     "defaultMessage": "Fiabilité ou plus élevée",
     "description": "Reliability security clearance"
+  },
+  "Ro+gP0": {
+    "defaultMessage": "Accueil",
+    "description": "Name of Home page"
   },
   "Rwh/Ld": {
     "defaultMessage": "Indéterminé",
@@ -1042,10 +1026,6 @@
   "U67zv6": {
     "defaultMessage": "Examen des candidatures",
     "description": "The pool candidate's status is Application Review."
-  },
-  "UCGAzS": {
-    "defaultMessage": "S.O.",
-    "description": "displayed when localized string not available"
   },
   "Uk0WG0": {
     "defaultMessage": "Organisationnel",
@@ -1183,6 +1163,10 @@
     "defaultMessage": "{wordCount} / {wordLimit} mots",
     "description": "Message for words remaining before hitting the limit"
   },
+  "YtwHjm": {
+    "defaultMessage": "E (courant)",
+    "description": "The evaluated language ability level of E"
+  },
   "Z+6NCp": {
     "defaultMessage": "Sous-organisationnel (direction)",
     "description": "The scope of the award was sub-organizational (branch)."
@@ -1190,10 +1174,6 @@
   "Z0bYQD": {
     "defaultMessage": "Ajouter le lien",
     "description": "Button text for adding a link in the rich text editor"
-  },
-  "ZSA4lO": {
-    "defaultMessage": "Vous pouvez ajouter des éléments à l’aide du bouton \"Ajouter un nouvel élément\".",
-    "description": "Secondary message displayed when no items have been added to repeater."
   },
   "ZWR/F3": {
     "defaultMessage": "Français seulement",
@@ -1222,6 +1202,10 @@
   "ZpTNbt": {
     "defaultMessage": "Je suis un <strong>ancien combattant</strong> des Forces armées canadiennes.",
     "description": "declare self to be a CAF veteran"
+  },
+  "a2/Bcb": {
+    "defaultMessage": "Incertain",
+    "description": "The evaluated language ability level for un-assessed"
   },
   "a5edSg": {
     "defaultMessage": "Jour",
@@ -1259,13 +1243,13 @@
     "defaultMessage": "Oui",
     "description": "Affirmative answer"
   },
-  "b02Azd": {
-    "defaultMessage": "IT-04 (gestionnaire)",
-    "description": "The name of the Senior advisor classification with group and level."
-  },
   "bAaDat": {
     "defaultMessage": "Je <strong>ne suis pas</strong> des Forces armées canadiennes.",
     "description": "declare self to not be in the CAF"
+  },
+  "bXECaV": {
+    "defaultMessage": "Il est impossible d'ignorer le groupe de notifications en question.",
+    "description": "Error message that the user has attempted to set an invalid notification family as ignored."
   },
   "baPSLH": {
     "defaultMessage": "Terminé avec succès (aucun titre de compétence)",
@@ -1274,10 +1258,6 @@
   "c/o/E4": {
     "defaultMessage": "Région de la capitale nationale (Ottawa/Gatineau)",
     "description": "The work region of Canada described as National Capital."
-  },
-  "cAXj6F": {
-    "defaultMessage": "Vous avez des changements non sauvegardés. N’oubliez pas de les sauvegarder!",
-    "description": "Message displayed when items have been moved and not saved"
   },
   "cCWdDX": {
     "defaultMessage": "Lire davantage <hidden> {context}</hidden>",
@@ -1342,10 +1322,6 @@
   "eBNZxB": {
     "defaultMessage": "{count, plural, =0 {0 d'options sélectionnées} =1 {1 option sélectionnée} other {# d’options sélectionnées}}",
     "description": "Message displayed telling user how many items they have selected in a multi-select combobox"
-  },
-  "eC8w2e": {
-    "defaultMessage": "P",
-    "description": "The evaluated language ability level of P"
   },
   "eNUS2A": {
     "defaultMessage": "Je suis autochtone, mais je ne trouve pas ma communauté ici",
@@ -1567,10 +1543,6 @@
     "defaultMessage": "Vous devez supprimer un élément si vous voulez en ajouter un autre",
     "description": "Message displayed when max items have been reached on repeater component."
   },
-  "lOFpV2": {
-    "defaultMessage": "E",
-    "description": "The evaluated language ability level of E"
-  },
   "lXgeJr": {
     "defaultMessage": "Veuillez relier au moins une expérience du calendrier de carrière à chacune des exigences techniques requises, et veillez à ce que chaque compétence possède des détails sur la façon de s’en servir.",
     "description": "Message displayed when user attempts to apply to a pool without connecting all essential skills."
@@ -1634,10 +1606,6 @@
   "o0wsIT": {
     "defaultMessage": "Qualifié disponible",
     "description": "The pool candidate's status is Qualified Available"
-  },
-  "o5J75O": {
-    "defaultMessage": "IT-04 (conseiller principal)",
-    "description": "The name of the Senior advisor classification with group and level."
   },
   "o7GBkR": {
     "defaultMessage": "Archivé",
@@ -1727,10 +1695,6 @@
     "defaultMessage": "Nous avons relevé une erreur d’origine inconnue pendant le traitement de votre demande.",
     "description": "Body text for the unexpected error page."
   },
-  "r7x5H3": {
-    "defaultMessage": "S. O.",
-    "description": "Message displayed when specific information is not applicable"
-  },
   "rCXko4": {
     "defaultMessage": "Novembre",
     "description": "Name of the eleventh month"
@@ -1738,10 +1702,6 @@
   "rGTGvl": {
     "defaultMessage": "Soumis",
     "description": "Default text for submitted button."
-  },
-  "rWovPZ": {
-    "defaultMessage": "Vous n’avez pas encore ajouté d’éléments.",
-    "description": "Message displayed when no items have been added to repeater."
   },
   "rYodJu": {
     "defaultMessage": "Durée indéterminée (permanente)",
@@ -1767,10 +1727,6 @@
     "defaultMessage": "Intermédiaire",
     "description": "The technical skill level for intermediate"
   },
-  "s16Ns7": {
-    "defaultMessage": "C",
-    "description": "The evaluated language ability level of C"
-  },
   "sJ+F9z": {
     "defaultMessage": "Sauter pour ajouter un élément",
     "description": "Link text to skip to the add button in a repeater"
@@ -1786,6 +1742,10 @@
   "sbmUVq": {
     "defaultMessage": "Selon la définition fournie, je m'identifie en tant que :",
     "description": "Prompt text for a user selecting an employment equity group for their profile"
+  },
+  "sehQx5": {
+    "defaultMessage": "B (Intermédiaire)",
+    "description": "The evaluated language ability level of B"
   },
   "sfQN9S": {
     "defaultMessage": "<hidden>Erreur au niveau de l’étape, </hidden>{label}",
@@ -1931,10 +1891,6 @@
     "defaultMessage": "National",
     "description": "The scope of the award was national."
   },
-  "wFZLxf": {
-    "defaultMessage": "IT-03 (chef d'équipe)",
-    "description": "The name of the Team leader Analyst classification with group and level."
-  },
   "wT3L9C": {
     "defaultMessage": "Français seulement",
     "description": "The language ability is French only."
@@ -2026,10 +1982,6 @@
   "zKjtAa": {
     "defaultMessage": "Territoires du Nord-Ouest",
     "description": "Northwest Territories selection for province or territory input"
-  },
-  "zVm0jL": {
-    "defaultMessage": "IT-01 (technicien)",
-    "description": "The name of the Technician classification with group and level."
   },
   "zXHYAs": {
     "defaultMessage": "Mon projet",

@@ -1,5 +1,5 @@
 import React from "react";
-import { MessageDescriptor, defineMessage, useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 
 import { Heading, Link, Well } from "@gc-digital-talent/ui";
 
@@ -9,6 +9,7 @@ import Hero from "~/components/Hero";
 import { INITIAL_STATE } from "~/components/Table/ResponsiveTable/constants";
 import adminMessages from "~/messages/adminMessages";
 import skillBrowserMessages from "~/components/SkillBrowser/messages";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import SkillTableApi from "./components/SkillTable";
 
@@ -18,8 +19,8 @@ const suggestionLink = (chunks: React.ReactNode, href: string) => (
   </Link>
 );
 
-export const pageTitle: MessageDescriptor = defineMessage(adminMessages.skills);
-export const pageSubtitle: MessageDescriptor = defineMessage({
+const pageTitle = defineMessage(adminMessages.skills);
+const pageSubtitle = defineMessage({
   defaultMessage: "Explore all the skills on our site.",
   id: "eTOg2E",
   description: "Subtitle for explore skills page",
@@ -32,24 +33,18 @@ export const SkillPage = () => {
   const formattedPageTitle = intl.formatMessage(pageTitle);
   const formattedPageSubtitle = intl.formatMessage(pageSubtitle);
 
-  const crumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: formattedPageTitle,
-      url: routes.skills(),
-    },
-  ];
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: formattedPageTitle,
+        url: routes.skills(),
+      },
+    ],
+  });
 
   return (
     <>
-      <SEO title={formattedPageTitle} />
+      <SEO title={formattedPageTitle} description={formattedPageSubtitle} />
       <Hero
         title={formattedPageTitle}
         subtitle={formattedPageSubtitle}

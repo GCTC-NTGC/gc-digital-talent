@@ -12,7 +12,6 @@ import {
   localizeSalaryRange,
   commonMessages,
 } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
 import { Pool } from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
@@ -21,20 +20,14 @@ import useRoutes from "~/hooks/useRoutes";
 
 import IconLabel from "./IconLabel";
 
-const getSalaryRanges = (pool: Pool, locale: string) => {
-  if (!pool.classifications) return null;
+const getSalaryRange = (pool: Pool, locale: string) => {
+  if (!pool.classification) return null;
 
-  return pool.classifications
-    .map((classification) => {
-      if (!classification) return undefined;
-
-      return localizeSalaryRange(
-        classification.minSalary,
-        classification.maxSalary,
-        locale,
-      );
-    })
-    .filter(notEmpty);
+  return localizeSalaryRange(
+    pool.classification.minSalary,
+    pool.classification.maxSalary,
+    locale,
+  );
 };
 
 export interface PoolCardProps {
@@ -47,16 +40,19 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
   const locale = getLocale(intl);
   const paths = useRoutes();
 
-  const { classifications } = pool;
-  const classification = classifications ? classifications[0] : null;
+  const classificationAbbr = pool.classification
+    ? wrapAbbr(
+        `${pool.classification.group}-0${pool.classification.level}`,
+        intl,
+      )
+    : "";
+  const salaryRange = getSalaryRange(pool, locale);
 
-  let classificationAbbr; // type wrangling the complex type into a string
-  if (classification) {
-    const { group, level } = classification;
-    classificationAbbr = wrapAbbr(`${group}-0${level}`, intl);
-  }
-  const salaryRanges = getSalaryRanges(pool, locale);
-  const nullMessage = intl.formatMessage(commonMessages.notAvailable);
+  const notAvailableAbbr = intl.formatMessage({
+    defaultMessage: "N/A",
+    id: "S4eHnR",
+    description: "An abbreviation for not available",
+  });
 
   return (
     <div
@@ -72,7 +68,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
         data-h2-position="base(absolute) base:selectors[::before](absolute) base:selectors[::after](absolute)"
         data-h2-location="base(-x.25, auto, auto, x1) p-tablet(-x.25, auto, auto, x1.5) base:selectors[::before](auto, auto, 0px, 0px) base:selectors[::after](auto, 0px, 0px, auto)"
         data-h2-radius="base(rounded, rounded, 0px, 0px)"
-        data-h2-height="base(x4.5) base:selectors[::before](0px) base:selectors[:::after](0px)"
+        data-h2-height="base(x4.5) base:selectors[::before](0px) base:selectors[::after](0px)"
         data-h2-width="base(x3.5) base:selectors[::before](0px) base:selectors[::after](0px)"
         data-h2-content="base:selectors[::before](' ') base:selectors[::after](' ')"
         data-h2-display="base:selectors[::before](block) base:selectors[::after](block)"
@@ -92,7 +88,15 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
           data-h2-transform="base(translate(-50%, 0px))"
           data-h2-white-space="base:children[*](nowrap)"
         >
-          {classificationAbbr || nullMessage}
+          {classificationAbbr || (
+            <abbr title={intl.formatMessage(commonMessages.notAvailable)}>
+              <span
+                aria-label={intl.formatMessage(commonMessages.notAvailable)}
+              >
+                {notAvailableAbbr}
+              </span>
+            </abbr>
+          )}
         </span>
       </div>
       <div>
@@ -169,7 +173,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
               }) + intl.formatMessage(commonMessages.dividingColon)
             }
           >
-            {salaryRanges ? salaryRanges[0] : nullMessage}
+            {salaryRange ?? intl.formatMessage(commonMessages.notAvailable)}
           </IconLabel>
         </div>
         <div data-h2-margin-top="base(x1)">

@@ -12,7 +12,6 @@ import {
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 import { graphql, Pool, PoolStatus, Scalars } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
@@ -30,6 +29,7 @@ import { checkRole } from "~/utils/teamUtils";
 import usePoolMutations from "~/hooks/usePoolMutations";
 import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
 import messages from "~/messages/adminMessages";
+import processMessages from "~/messages/processMessages";
 
 import SubmitForPublishingDialog from "./components/SubmitForPublishingDialog";
 import DuplicateProcessDialog from "./components/DuplicateProcessDialog";
@@ -73,7 +73,6 @@ export const ViewPool = ({
     [ROLE_NAME.CommunityManager, ROLE_NAME.PlatformAdmin],
     roleAssignments,
   );
-  const { recordOfDecision: recordOfDecisionFlag } = useFeatureFlags();
 
   let closingDate = "";
   if (pool.closingDate) {
@@ -103,10 +102,9 @@ export const ViewPool = ({
     description: "Subtitle for the individual pool page",
   });
 
-  const isReadyToPublish = recordOfDecisionFlag
-    ? getAdvertisementStatus(pool) === "complete" &&
-      getAssessmentPlanStatus(pool) === "complete"
-    : getAdvertisementStatus(pool) === "complete";
+  const isReadyToPublish =
+    getAdvertisementStatus(pool) === "complete" &&
+    getAssessmentPlanStatus(pool) === "complete";
 
   return (
     <>
@@ -155,6 +153,15 @@ export const ViewPool = ({
                   "Information about what an advertisement represents",
               })}
             </p>
+            <p data-h2-margin="base(x1 0)">
+              {intl.formatMessage(processMessages.processNumber)}
+              {intl.formatMessage(commonMessages.dividingColon)}
+              {pool.processNumber || (
+                <span data-h2-color="base(error.darkest)">
+                  {intl.formatMessage(commonMessages.notProvided)}
+                </span>
+              )}
+            </p>
             <ProcessCard.Footer>
               {advertisementStatus !== "submitted" && (
                 <Link
@@ -197,14 +204,9 @@ export const ViewPool = ({
               <Heading level="h3" size="h6" data-h2-margin="base(0)">
                 {intl.formatMessage(messages.assessmentPlan)}
               </Heading>
-              {recordOfDecisionFlag && (
-                <Chip
-                  color={assessmentBadge.color}
-                  data-h2-flex-shrink="base(0)"
-                >
-                  {intl.formatMessage(assessmentBadge.label)}
-                </Chip>
-              )}
+              <Chip color={assessmentBadge.color} data-h2-flex-shrink="base(0)">
+                {intl.formatMessage(assessmentBadge.label)}
+              </Chip>
             </ProcessCard.Header>
             <p data-h2-margin="base(x1 0)">
               {intl.formatMessage({
@@ -216,34 +218,25 @@ export const ViewPool = ({
               })}
             </p>
             <ProcessCard.Footer>
-              {recordOfDecisionFlag ? (
-                <Link
-                  mode="inline"
-                  color="secondary"
-                  href={paths.assessmentPlanBuilder(pool.id)}
-                >
-                  {assessmentStatus === "submitted"
-                    ? intl.formatMessage({
-                        defaultMessage: "View assessment plan",
-                        id: "1X7JVN",
-                        description:
-                          "Link text to view a specific pool assessment",
-                      })
-                    : intl.formatMessage({
-                        defaultMessage: "Edit assessment plan",
-                        id: "Q3adCp",
-                        description:
-                          "Link text to edit a specific pool assessment",
-                      })}
-                </Link>
-              ) : (
-                intl.formatMessage({
-                  defaultMessage: "Coming soon",
-                  id: "/IMv2G",
-                  description:
-                    "Message displayed when a feature is in development and not ready yet",
-                })
-              )}
+              <Link
+                mode="inline"
+                color="secondary"
+                href={paths.assessmentPlanBuilder(pool.id)}
+              >
+                {assessmentStatus === "submitted"
+                  ? intl.formatMessage({
+                      defaultMessage: "View assessment plan",
+                      id: "1X7JVN",
+                      description:
+                        "Link text to view a specific pool assessment",
+                    })
+                  : intl.formatMessage({
+                      defaultMessage: "Edit assessment plan",
+                      id: "Q3adCp",
+                      description:
+                        "Link text to edit a specific pool assessment",
+                    })}
+              </Link>
             </ProcessCard.Footer>
           </ProcessCard.Root>
           <ProcessCard.Root data-h2-grid-column="l-tablet(span 2)">
@@ -409,8 +402,9 @@ const ViewPoolPage_Query = graphql(/* GraphQL */ `
       isComplete
       status
       stream
+      processNumber
       closingDate
-      classifications {
+      classification {
         id
         name {
           en

@@ -2,27 +2,21 @@
   "name": "@gc-digital-talent/logger",
   "license": "AGPL-3.0",
   "version": "1.0.0",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist/**"
-  ],
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "scripts": {
-    "build": "tsup src/index.ts  --dts --external react --minify",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "watch": "tsup src/index.ts  --watch --dts --external react --minify",
     "lint": "eslint \"src/**/*.ts*\""
   },
   "dependencies": {
-    "@gc-digital-talent/app-insights": "*",
-    "@gc-digital-talent/env": "*"
+    "@gc-digital-talent/app-insights": "workspace:*",
+    "@gc-digital-talent/env": "workspace:*"
   },
   "devDependencies": {
-    "@swc/core": "^1.4.5",
+    "@gc-digital-talent/eslint-config": "workspace:*",
     "eslint": "^8.57.0",
-    "eslint-config-custom": "*",
-    "tsconfig": "*",
-    "tsup": "^8.0.2",
-    "typescript": "^5.4.2"
+    "tsconfig": "workspace:*",
+    "typescript": "^5.4.3"
   }
 }

@@ -3,10 +3,12 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
 
-import { ApplicantFilterInput } from "@gc-digital-talent/graphql";
+import {
+  ApplicantFilterInput,
+  Classification,
+} from "@gc-digital-talent/graphql";
 
 import Hero from "~/components/Hero/Hero";
-import { SimpleClassification } from "~/types/pool";
 import { FormValues as SearchFormValues } from "~/types/searchRequest";
 
 import CreateRequest from "./components/RequestForm";
@@ -15,7 +17,7 @@ type LocationState = {
   applicantFilter: ApplicantFilterInput;
   initialValues: SearchFormValues;
   candidateCount: number;
-  selectedClassifications: SimpleClassification[];
+  selectedClassifications: Classification[];
 };
 
 const RequestPage = () => {

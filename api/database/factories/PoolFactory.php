@@ -56,6 +56,11 @@ class PoolFactory extends Factory
             $teamId = Team::factory()->create()->id;
         }
 
+        $classification = Classification::inRandomOrder()->first();
+        if (! $classification) {
+            $classification = Classification::factory()->create();
+        }
+
         $name = $this->faker->unique()->company();
 
         // this is essentially the draft state
@@ -63,15 +68,14 @@ class PoolFactory extends Factory
             'name' => ['en' => $name, 'fr' => $name],
             'user_id' => $adminUserId,
             'team_id' => $teamId,
+            'classification_id' => $classification->id,
         ];
     }
 
     public function configure()
     {
         return $this->afterCreating(function (Pool $pool) {
-            $classifications = Classification::inRandomOrder()->limit(1)->get();
             $skills = Skill::inRandomOrder()->limit(10)->get();
-            $pool->classifications()->saveMany($classifications);
 
             foreach ($skills->slice(0, 5) as $skill) {
                 $poolSkill = new PoolSkill();
@@ -147,6 +151,8 @@ class PoolFactory extends Factory
                 'key_tasks' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
                 'your_impact' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
                 'what_to_expect' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
+                'what_to_expect_admission' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
+                'about_us' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
                 'security_clearance' => $this->faker->randomElement(array_column(SecurityStatus::cases(), 'name')),
                 'advertisement_language' => $this->faker->randomElement(array_column(PoolLanguage::cases(), 'name')),
                 'advertisement_location' => ! $isRemote ? ['en' => $this->faker->country(), 'fr' => $this->faker->country()] : null,

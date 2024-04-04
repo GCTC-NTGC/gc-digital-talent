@@ -47,12 +47,28 @@ class SupportController extends Controller
             return response([
                 'serviceResponse' => 'success',
             ], 200);
-        } else {
-            Log::error('Error when trying to create a ticket: '.$response->getBody(true));
+        }
 
+        // we didn't get a 201 so let's see if we recognize an error
+        $responseBody = $response->json();
+        $errors = $responseBody['errors'] ?? [];
+        $invalidEmailErrors = array_filter($errors, function ($error) {
+            return $error['code'] === 'invalid_value' && $error['field'] === 'email';
+        });
+        if (! empty($invalidEmailErrors)) {
+            // some invalid values were sent
             return response([
                 'serviceResponse' => 'error',
-            ], 500);
+                'errorDetail' => 'invalid_email',
+            ], 400);
         }
+
+        // we don't recognize an error so send a generic 500
+        Log::error('Error when trying to create a ticket: '.$response->getBody(true));
+
+        return response([
+            'serviceResponse' => 'error',
+        ], 500);
+
     }
 }

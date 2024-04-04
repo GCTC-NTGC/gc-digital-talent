@@ -1,4 +1,4 @@
 module.exports = {
   root: true,
-  extends: ["custom"],
+  extends: ["@gc-digital-talent/eslint-config/react"],
 };

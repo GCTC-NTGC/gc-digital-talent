@@ -1,5 +1,3 @@
-import { type Page } from "@playwright/test";
-
 import {
   Classification,
   CreatePoolInput,
@@ -26,7 +24,7 @@ import {
 } from "~/utils/pools";
 import { GraphQLResponse } from "~/utils/graphql";
 
-import { AppPage } from "./AppPage";
+import AppPage from "./AppPage";
 
 type CreateAndPublishPoolArgs = {
   userId: string;
@@ -41,11 +39,7 @@ type CreateAndPublishPoolArgs = {
  *
  * Page containing utilities for interacting with pools
  */
-export class PoolPage extends AppPage {
-  constructor(page: Page) {
-    super(page);
-  }
-
+class PoolPage extends AppPage {
   async gotoIndex() {
     await this.page.goto("/admin/pools");
   }
@@ -99,12 +93,12 @@ export class PoolPage extends AppPage {
     skill,
   }: CreateAndPublishPoolArgs): Promise<Pool> {
     let pool = await this.createPool(userId, teamId, {
-      classifications: { sync: [classification.id] },
+      classification: { connect: classification.id },
     });
 
     pool = await this.updatePool(pool.id, {
       name: {
-        en: name ? name : `Playwright Test Pool EN ${Date.now().valueOf()}`,
+        en: name || `Playwright Test Pool EN ${Date.now().valueOf()}`,
         fr: `Playwright Test Pool FR ${Date.now().valueOf()}`,
       },
       stream: PoolStream.BusinessAdvisoryServices,
@@ -135,3 +129,5 @@ export class PoolPage extends AppPage {
     return pool;
   }
 }
+
+export default PoolPage;

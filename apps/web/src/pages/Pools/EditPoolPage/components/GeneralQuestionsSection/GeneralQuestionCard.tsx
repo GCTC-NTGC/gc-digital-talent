@@ -11,11 +11,13 @@ import GeneralQuestionDialog from "./GeneralQuestionDialog";
 type GeneralQuestionCardProps = {
   index: number;
   generalQuestion: GeneralQuestion;
+  disabled?: boolean;
 };
 
 const GeneralQuestionCard = ({
   index,
   generalQuestion,
+  disabled,
 }: GeneralQuestionCardProps) => {
   const intl = useIntl();
   const { remove } = useCardRepeaterContext();
@@ -26,6 +28,7 @@ const GeneralQuestionCard = ({
       edit={<GeneralQuestionDialog question={generalQuestion} index={index} />}
       remove={
         <CardRepeater.Remove
+          disabled={disabled}
           onClick={() => remove(index)}
           aria-label={intl.formatMessage(formMessages.repeaterRemove, {
             index,

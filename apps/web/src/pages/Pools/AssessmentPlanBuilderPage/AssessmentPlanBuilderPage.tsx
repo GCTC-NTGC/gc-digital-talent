@@ -6,7 +6,6 @@ import { useQuery } from "urql";
 import {
   commonMessages,
   errorMessages,
-  formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import {
@@ -16,9 +15,8 @@ import {
   Pending,
   Chip,
   Separator,
-  Sidebar,
+  TableOfContents,
 } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import {
   AssessmentPlanBuilderPageQuery,
@@ -28,7 +26,6 @@ import {
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import SEO from "~/components/SEO/SEO";
 import { routeErrorMessages } from "~/hooks/useErrorMessages";
@@ -36,9 +33,13 @@ import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
 import { getPoolCompletenessBadge } from "~/utils/poolUtils";
 import messages from "~/messages/adminMessages";
 
-import OrganizeSection from "./components/OrganizeSection";
-import SkillSummarySection from "./components/SkillSummarySection";
-import SkillsQuickSummary from "./components/SkillsQuickSummary";
+import OrganizeSection, {
+  sectionTitle as organizeSectionTitle,
+} from "./components/OrganizeSection";
+import SkillSummarySection, {
+  sectionTitle as skillSummarySectionTitle,
+} from "./components/SkillSummarySection";
+import { PAGE_SECTION_ID } from "./navigation";
 
 const pageTitle = defineMessage(messages.assessmentPlan);
 
@@ -74,61 +75,46 @@ export const AssessmentPlanBuilder = ({
         title={intl.formatMessage(pageTitle)}
         description={intl.formatMessage(pageSubtitle)}
       />
-      <div data-h2-container="base(center, full, 0)">
-        <Heading level="h2" Icon={ClipboardDocumentListIcon} color="primary">
-          {intl.formatMessage(pageTitle)}
-          <div data-h2-flex-grow="base(2)" />
-          <Chip color={assessmentBadge.color} data-h2-flex-shrink="base(0)">
-            {intl.formatMessage(assessmentBadge.label)}
-          </Chip>
-        </Heading>
-        <p data-h2-margin="base(x1 0)">{intl.formatMessage(pageSubtitle)}</p>
-        <Separator data-h2-margin="base(x2, 0, x1, 0)" />
-        <Sidebar.Wrapper>
-          <Sidebar.Sidebar>
-            <div data-h2-margin-top="base(x1.5)">
-              <SkillsQuickSummary
-                poolSkills={pool.poolSkills?.filter(notEmpty) ?? []}
-                assessmentSteps={pool.assessmentSteps?.filter(notEmpty) ?? []}
-              />
-            </div>
-          </Sidebar.Sidebar>
-          <Sidebar.Content>
-            <OrganizeSection pool={pool} pageIsLoading={pageIsLoading} />
-            <SkillSummarySection pool={pool} />
-            <Separator space="lg" />
-            <div
-              data-h2-display="base(flex)"
-              data-h2-gap="base(x.5, x1)"
-              data-h2-flex-wrap="base(wrap)"
-              data-h2-flex-direction="base(column) l-tablet(row)"
-              data-h2-align-items="base(flex-start) l-tablet(center)"
-            >
-              <Link
-                mode="solid"
-                color="secondary"
-                href={routes.poolView(pool.id)}
+      <Heading level="h2" Icon={ClipboardDocumentListIcon} color="primary">
+        {intl.formatMessage(pageTitle)}
+        <div data-h2-flex-grow="base(2)" />
+        <Chip color={assessmentBadge.color} data-h2-flex-shrink="base(0)">
+          {intl.formatMessage(assessmentBadge.label)}
+        </Chip>
+      </Heading>
+      <p data-h2-margin="base(x1 0)">{intl.formatMessage(pageSubtitle)}</p>
+      <Separator />
+      <TableOfContents.Wrapper>
+        <TableOfContents.Navigation>
+          <TableOfContents.List>
+            <TableOfContents.ListItem>
+              <TableOfContents.AnchorLink
+                id={PAGE_SECTION_ID.ORGANIZE_ASSESSMENT_APPROACH}
               >
-                {/* Doesn't actually save anything */}
-                {intl.formatMessage({
-                  defaultMessage: "Save plan and go back",
-                  id: "Rbp02p",
-                  description:
-                    "Text on a button to save the assessment plan and return to the pool page",
-                })}
-              </Link>
-              <Link
-                type="button"
-                mode="inline"
-                color="primary"
-                href={routes.poolView(pool.id)}
-              >
-                {intl.formatMessage(formMessages.cancelGoBack)}
-              </Link>
-            </div>
-          </Sidebar.Content>
-        </Sidebar.Wrapper>
-      </div>
+                {intl.formatMessage(organizeSectionTitle)}
+              </TableOfContents.AnchorLink>
+            </TableOfContents.ListItem>
+            <TableOfContents.ListItem>
+              <TableOfContents.AnchorLink id={PAGE_SECTION_ID.SKILL_SUMMARY}>
+                {intl.formatMessage(skillSummarySectionTitle)}
+              </TableOfContents.AnchorLink>
+            </TableOfContents.ListItem>
+          </TableOfContents.List>
+          <Link mode="solid" color="secondary" href={routes.poolView(pool.id)}>
+            {intl.formatMessage({
+              defaultMessage: "Back to process details",
+              id: "nPPUMW",
+              description: "Link text to go back to the process details page",
+            })}
+          </Link>
+        </TableOfContents.Navigation>
+
+        <TableOfContents.Content>
+          <OrganizeSection pool={pool} pageIsLoading={pageIsLoading} />
+          <SkillSummarySection pool={pool} />
+          <Separator space="lg" />
+        </TableOfContents.Content>
+      </TableOfContents.Wrapper>
     </>
   );
 };
@@ -204,7 +190,6 @@ const AssessmentPlanBuilderPage_Query = graphql(/* GraphQL */ `
 export const AssessmentPlanBuilderPage = () => {
   const intl = useIntl();
   const { poolId } = useRequiredParams<RouteParams>("poolId");
-  const routes = useRoutes();
   const authorization = useAuthorization();
 
   const notFoundMessage = intl.formatMessage(
@@ -228,31 +213,6 @@ export const AssessmentPlanBuilderPage = () => {
       query: AssessmentPlanBuilderPage_Query,
       variables: { poolId },
     });
-
-  // Note: Should technically be in subNav of layout?
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(indexPoolPageTitle),
-      url: routes.poolTable(),
-    },
-    {
-      label: getLocalizedName(queryData?.pool?.name, intl),
-      url: routes.poolView(poolId),
-    },
-    {
-      label: intl.formatMessage(pageTitle),
-      url: routes.assessmentPlanBuilder(poolId),
-    },
-  ];
 
   // RequireAuth in router can't check team roles
   const authorizedToSeeThePage: boolean =

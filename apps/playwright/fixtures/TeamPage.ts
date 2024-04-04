@@ -1,22 +1,16 @@
-import { type Page } from "@playwright/test";
-
 import { CreateTeamInput, Team } from "@gc-digital-talent/graphql";
 
 import { Test_CreateTeamMutationDocument } from "~/utils/teams";
 import { GraphQLResponse } from "~/utils/graphql";
 
-import { AppPage } from "./AppPage";
+import AppPage from "./AppPage";
 
 /**
  * Team Page
  *
  * Page containing utilities for interacting with pools
  */
-export class TeamPage extends AppPage {
-  constructor(page: Page) {
-    super(page);
-  }
-
+class TeamPage extends AppPage {
   async gotoIndex() {
     await this.page.goto("/admin/teams");
   }
@@ -27,3 +21,5 @@ export class TeamPage extends AppPage {
     }).then((res: GraphQLResponse<"createTeam", Team>) => res.createTeam);
   }
 }
+
+export default TeamPage;

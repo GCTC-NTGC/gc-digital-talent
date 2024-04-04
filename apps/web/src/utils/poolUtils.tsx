@@ -13,6 +13,7 @@ import {
   getLocalizedName,
   getPoolStatus,
   getPoolStream,
+  navigationMessages,
 } from "@gc-digital-talent/i18n";
 import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -21,7 +22,6 @@ import {
   relativeClosingDate,
 } from "@gc-digital-talent/date-helpers";
 import { Color, IconType } from "@gc-digital-talent/ui";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 import {
   PublishingGroup,
   RoleAssignment,
@@ -37,12 +37,7 @@ import { PageNavInfo } from "~/types/pages";
 import useRoutes from "~/hooks/useRoutes";
 import poolMessages from "~/messages/poolMessages";
 import { ONGOING_PUBLISHING_GROUPS } from "~/constants/pool";
-import {
-  PageNavKeys,
-  PoolCompleteness,
-  SimpleClassification,
-  SimplePool,
-} from "~/types/pool";
+import { PageNavKeys, PoolCompleteness } from "~/types/pool";
 import messages from "~/messages/adminMessages";
 
 import { wrapAbbr } from "./nameUtils";
@@ -56,15 +51,12 @@ import { wrapAbbr } from "./nameUtils";
  * @returns boolean
  */
 export const poolMatchesClassification = (
-  pool: SimplePool,
-  classification: SimpleClassification,
+  pool: Pool,
+  classification: Classification,
 ): boolean => {
   return (
-    pool.classifications?.some(
-      (poolClassification) =>
-        poolClassification?.group === classification?.group &&
-        poolClassification?.level === classification?.level,
-    ) ?? false
+    pool.classification?.group === classification?.group &&
+    pool.classification?.level === classification?.level
   );
 };
 
@@ -207,7 +199,7 @@ export const poolTitle = (
 
   const formattedTitle = formattedPoolPosterTitle({
     title: specificTitle,
-    classification: pool?.classifications?.[0],
+    classification: pool?.classification,
     stream: pool?.stream,
     short: options?.short,
     intl,
@@ -253,237 +245,133 @@ export const getShortPoolTitleLabel = (
 
 export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
   const paths = useRoutes();
-  const { recordOfDecision: recordOfDecisionFlag } = useFeatureFlags();
   const poolName = getFullPoolTitleLabel(intl, pool);
 
-  return recordOfDecisionFlag
-    ? new Map<PageNavKeys, PageNavInfo>([
-        [
-          "view",
+  return new Map<PageNavKeys, PageNavInfo>([
+    [
+      "view",
+      {
+        icon: ClipboardDocumentIcon,
+        title: intl.formatMessage({
+          defaultMessage: "Process information",
+          id: "R5sGKY",
+          description: "Title for the pool info page",
+        }),
+        link: {
+          url: paths.poolView(pool.id),
+        },
+      },
+    ],
+    [
+      "edit",
+      {
+        icon: Cog8ToothIcon,
+        title: intl.formatMessage({
+          defaultMessage: "Advertisement information",
+          id: "yM04jy",
+          description: "Title for advertisement information of a process",
+        }),
+        link: {
+          url: paths.poolUpdate(pool.id),
+        },
+        crumbs: [
           {
-            icon: ClipboardDocumentIcon,
-            title: intl.formatMessage({
-              defaultMessage: "Process information",
-              id: "R5sGKY",
-              description: "Title for the pool info page",
-            }),
-            link: {
-              url: paths.poolView(pool.id),
-            },
+            url: paths.adminDashboard(),
+            label: intl.formatMessage(navigationMessages.home),
           },
-        ],
-        [
-          "edit",
           {
-            icon: Cog8ToothIcon,
-            title: intl.formatMessage({
+            url: paths.poolTable(),
+            label: intl.formatMessage({
+              defaultMessage: "Processes",
+              id: "aAIZbC",
+              description: "Link to the Pools page in the nav menu.",
+            }),
+          },
+          {
+            url: paths.poolView(pool.id),
+            label: poolName,
+          },
+          {
+            url: paths.poolUpdate(pool.id),
+            label: intl.formatMessage({
               defaultMessage: "Advertisement information",
               id: "yM04jy",
               description: "Title for advertisement information of a process",
             }),
-            link: {
-              url: paths.poolUpdate(pool.id),
-            },
-            crumbs: [
-              {
-                url: paths.adminDashboard(),
-                label: intl.formatMessage({
-                  defaultMessage: "Home",
-                  id: "G1RNXj",
-                  description: "Link to the Homepage in the nav menu.",
-                }),
-              },
-              {
-                url: paths.poolTable(),
-                label: intl.formatMessage({
-                  defaultMessage: "Recruitments",
-                  id: "KLEaLQ",
-                  description: "Link to the Pools page in the nav menu.",
-                }),
-              },
-              {
-                url: paths.poolView(pool.id),
-                label: poolName,
-              },
-              {
-                url: paths.poolUpdate(pool.id),
-                label: intl.formatMessage({
-                  defaultMessage: "Advertisement information",
-                  id: "yM04jy",
-                  description:
-                    "Title for advertisement information of a process",
-                }),
-              },
-            ],
           },
         ],
-        [
-          "plan",
+      },
+    ],
+    [
+      "plan",
+      {
+        title: intl.formatMessage(messages.assessmentPlan),
+        link: {
+          url: paths.assessmentPlanBuilder(pool.id),
+        },
+        crumbs: [
           {
-            title: intl.formatMessage(messages.assessmentPlan),
-            link: {
-              url: paths.assessmentPlanBuilder(pool.id),
-            },
-            crumbs: [
-              {
-                url: paths.adminDashboard(),
-                label: intl.formatMessage({
-                  defaultMessage: "Home",
-                  id: "G1RNXj",
-                  description: "Link to the Homepage in the nav menu.",
-                }),
-              },
-              {
-                url: paths.poolTable(),
-                label: intl.formatMessage({
-                  defaultMessage: "Recruitments",
-                  id: "KLEaLQ",
-                  description: "Link to the Pools page in the nav menu.",
-                }),
-              },
-              {
-                url: paths.poolView(pool.id),
-                label: poolName,
-              },
-              {
-                url: paths.assessmentPlanBuilder(pool.id),
-                label: intl.formatMessage(messages.assessmentPlan),
-              },
-            ],
+            url: paths.adminDashboard(),
+            label: intl.formatMessage(navigationMessages.home),
           },
-        ],
-        [
-          "screening",
           {
-            title: intl.formatMessage({
-              defaultMessage: "Screening and assessment",
-              id: "R8Naqm",
-              description: "Heading for the information of an application",
+            url: paths.poolTable(),
+            label: intl.formatMessage({
+              defaultMessage: "Processes",
+              id: "aAIZbC",
+              description: "Link to the Pools page in the nav menu.",
             }),
-            link: {
-              url: paths.screeningAndEvaluation(pool.id),
-            },
           },
-        ],
-        [
-          "candidates",
           {
-            icon: UserGroupIcon,
-            title: intl.formatMessage({
-              defaultMessage: "Candidates",
-              id: "X4TOhW",
-              description:
-                "Page title for the admin pool candidates index page",
-            }),
-            link: {
-              url: paths.poolCandidateTable(pool.id),
-              label: intl.formatMessage({
-                defaultMessage: "Talent placement",
-                id: "0YpfAG",
-                description: "Title for candidates tab for a process",
-              }),
-            },
+            url: paths.poolView(pool.id),
+            label: poolName,
           },
-        ],
-      ])
-    : new Map<PageNavKeys, PageNavInfo>([
-        [
-          "view",
           {
-            icon: ClipboardDocumentIcon,
-            title: intl.formatMessage({
-              defaultMessage: "Process information",
-              id: "R5sGKY",
-              description: "Title for the pool info page",
-            }),
-            link: {
-              url: paths.poolView(pool.id),
-            },
+            url: paths.assessmentPlanBuilder(pool.id),
+            label: intl.formatMessage(messages.assessmentPlan),
           },
         ],
-        [
-          "edit",
-          {
-            icon: Cog8ToothIcon,
-            title: intl.formatMessage({
-              defaultMessage: "Advertisement information",
-              id: "yM04jy",
-              description: "Title for advertisement information of a process",
-            }),
-            link: {
-              url: paths.poolUpdate(pool.id),
-            },
-            crumbs: [
-              {
-                url: paths.adminDashboard(),
-                label: intl.formatMessage({
-                  defaultMessage: "Home",
-                  id: "G1RNXj",
-                  description: "Link to the Homepage in the nav menu.",
-                }),
-              },
-              {
-                url: paths.poolTable(),
-                label: intl.formatMessage({
-                  defaultMessage: "Recruitments",
-                  id: "KLEaLQ",
-                  description: "Link to the Pools page in the nav menu.",
-                }),
-              },
-              {
-                url: paths.poolView(pool.id),
-                label: poolName,
-              },
-              {
-                url: paths.poolUpdate(pool.id),
-                label: intl.formatMessage({
-                  defaultMessage: "Advertisement information",
-                  id: "yM04jy",
-                  description:
-                    "Title for advertisement information of a process",
-                }),
-              },
-            ],
-          },
-        ],
-        [
-          "candidates",
-          {
-            icon: UserGroupIcon,
-            title: intl.formatMessage({
-              defaultMessage: "Candidates",
-              id: "X4TOhW",
-              description:
-                "Page title for the admin pool candidates index page",
-            }),
-            link: {
-              url: paths.poolCandidateTable(pool.id),
-              label: intl.formatMessage({
-                defaultMessage: "View Candidates",
-                id: "Rl+0Er",
-                description: "Title for the edit pool page",
-              }),
-            },
-          },
-        ],
-      ]);
+      },
+    ],
+    [
+      "screening",
+      {
+        title: intl.formatMessage({
+          defaultMessage: "Screening and assessment",
+          id: "R8Naqm",
+          description: "Heading for the information of an application",
+        }),
+        link: {
+          url: paths.screeningAndEvaluation(pool.id),
+        },
+      },
+    ],
+    [
+      "candidates",
+      {
+        icon: UserGroupIcon,
+        title: intl.formatMessage({
+          defaultMessage: "Candidates",
+          id: "X4TOhW",
+          description: "Page title for the admin pool candidates index page",
+        }),
+        link: {
+          url: paths.poolCandidateTable(pool.id),
+          label: intl.formatMessage({
+            defaultMessage: "Talent placement",
+            id: "0YpfAG",
+            description: "Title for candidates tab for a process",
+          }),
+        },
+      },
+    ],
+  ]);
 };
 
 export const isOngoingPublishingGroup = (
   publishingGroup: Maybe<PublishingGroup> | undefined,
 ): boolean =>
   publishingGroup ? ONGOING_PUBLISHING_GROUPS.includes(publishingGroup) : false;
-
-export type ClassificationGroup = "AS" | "EX" | "PM" | "IT" | "EC";
-
-export function getClassificationGroup(
-  pool: Maybe<Pool>,
-): ClassificationGroup | undefined {
-  const classification = pool?.classifications ? pool.classifications[0] : null;
-  return classification?.group
-    ? (classification.group as ClassificationGroup)
-    : undefined;
-}
 
 export const getAdvertisementStatus = (pool?: Pool): PoolCompleteness => {
   if (!pool) return "incomplete";
@@ -599,7 +487,7 @@ export const formatClosingDate = (
 
 export const getClassificationSalaryRangeUrl = (
   locale: Locales,
-  classification: Maybe<Classification>,
+  classification?: Maybe<Classification>,
 ): string | null => {
   let localizedUrl: Record<Locales, string> | null = null;
   switch (classification?.group) {

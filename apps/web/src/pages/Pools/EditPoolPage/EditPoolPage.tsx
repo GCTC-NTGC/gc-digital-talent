@@ -36,6 +36,8 @@ import { hasEmptyRequiredFields as keyTasksError } from "~/validators/process/ke
 import { hasEmptyRequiredFields as coreRequirementsError } from "~/validators/process/coreRequirements";
 import { hasEmptyRequiredFields as essentialSkillsError } from "~/validators/process/essentialSkills";
 import { hasEmptyRequiredFields as nonessentialSkillsError } from "~/validators/process/nonEssentialSkills";
+import { hasOneEmptyField as aboutUsError } from "~/validators/process/aboutUs";
+import { hasOneEmptyField as whatToExpectAdmissionError } from "~/validators/process/whatToExpectAdmission";
 import usePoolMutations from "~/hooks/usePoolMutations";
 import { hasAllEmptyFields as specialNoteIsNull } from "~/validators/process/specialNote";
 
@@ -68,6 +70,12 @@ import WhatToExpectSection, {
 } from "./components/WhatToExpectSection/WhatToExpectSection";
 import EditPoolContext from "./components/EditPoolContext";
 import { PoolSkillMutationsType, SectionKey } from "./types";
+import AboutUsSection, {
+  AboutUsSubmitData,
+} from "./components/AboutUsSection/AboutUsSection";
+import WhatToExpectAdmissionSection, {
+  WhatToExpectAdmissionSubmitData,
+} from "./components/WhatToExpectAdmissionSection/WhatToExpectAdmissionSection";
 
 export type PoolSubmitData =
   | ClosingDateSubmitData
@@ -76,7 +84,9 @@ export type PoolSubmitData =
   | WorkTasksSubmitData
   | YourImpactSubmitData
   | WhatToExpectSubmitData
+  | WhatToExpectAdmissionSubmitData
   | SpecialNoteSubmitData
+  | AboutUsSubmitData
   | GeneralQuestionsSubmitData;
 
 export interface EditPoolFormProps {
@@ -112,7 +122,8 @@ export const EditPoolForm = ({
   const basicInfoHasError = poolNameError(pool) || closingDateError(pool);
   const skillRequirementsHasError =
     essentialSkillsError(pool) || nonessentialSkillsError(pool);
-  const aboutRoleHasError = yourImpactError(pool) || keyTasksError(pool);
+  const aboutRoleHasError =
+    yourImpactError(pool) || keyTasksError(pool) || aboutUsError(pool);
   const sectionMetadata: Record<SectionKey, EditPoolSectionMetadata> = {
     basicInfo: {
       id: "basic-info",
@@ -253,9 +264,19 @@ export const EditPoolForm = ({
       }),
       inList: false,
     },
+    aboutUs: {
+      id: "about-us",
+      hasError: false, // Optional section
+      title: intl.formatMessage({
+        defaultMessage: "About us",
+        id: "Wy6aeg",
+        description: "Sub title for the pool about us section",
+      }),
+      inList: false,
+    },
     commonQuestions: {
       id: "common-questions",
-      hasError: false, // Add understanding classification (#8831) validation here
+      hasError: whatToExpectAdmissionError(pool), // Add understanding classification (#8831) validation here
       title: intl.formatMessage({
         defaultMessage: "Common questions",
         id: "RahVQS",
@@ -278,6 +299,16 @@ export const EditPoolForm = ({
         defaultMessage: "What to expect post-application",
         id: "U0MY+6",
         description: "Title for the what to expect section",
+      }),
+      inList: false,
+    },
+    whatToExpectAdmission: {
+      id: "what-to-expect-admission",
+      hasError: false,
+      title: intl.formatMessage({
+        defaultMessage: "What to expect post-admission",
+        id: "Uwtkv6",
+        description: "Title for the what to expect post admission section",
       }),
       inList: false,
     },
@@ -455,6 +486,11 @@ export const EditPoolForm = ({
                         sectionMetadata={sectionMetadata.workTasks}
                         onSave={onSave}
                       />
+                      <AboutUsSection
+                        pool={pool}
+                        sectionMetadata={sectionMetadata.aboutUs}
+                        onSave={onSave}
+                      />
                     </div>
                   </TableOfContents.Section>
                 </div>
@@ -488,6 +524,11 @@ export const EditPoolForm = ({
                       <WhatToExpectSection
                         pool={pool}
                         sectionMetadata={sectionMetadata.whatToExpect}
+                        onSave={onSave}
+                      />
+                      <WhatToExpectAdmissionSection
+                        pool={pool}
+                        sectionMetadata={sectionMetadata.whatToExpectAdmission}
                         onSave={onSave}
                       />
                     </div>
@@ -525,7 +566,7 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
       language
       securityClearance
       isComplete
-      classifications {
+      classification {
         id
         group
         level
@@ -555,6 +596,14 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
         fr
       }
       specialNote {
+        en
+        fr
+      }
+      aboutUs {
+        en
+        fr
+      }
+      whatToExpectAdmission {
         en
         fr
       }
@@ -689,8 +738,8 @@ export const EditPoolPage = () => {
   const { isFetching, mutations } = usePoolMutations();
 
   const ctx = React.useMemo(() => {
-    return { isSubmitting: isFetching };
-  }, [isFetching]);
+    return { isSubmitting: isFetching || fetching };
+  }, [fetching, isFetching]);
 
   const poolSkillMutations = {
     create: mutations.createPoolSkill,

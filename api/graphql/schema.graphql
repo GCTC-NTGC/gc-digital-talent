@@ -58,8 +58,11 @@ type User {
   lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
   lookingForFrench: Boolean @rename(attribute: "looking_for_french")
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
-  bilingualEvaluation: BilingualEvaluation
-    @rename(attribute: "bilingual_evaluation")
+  firstOfficialLanguage: Language @rename(attribute: "first_official_language")
+  secondLanguageExamCompleted: Boolean
+    @rename(attribute: "second_language_exam_completed")
+  secondLanguageExamValidity: Boolean
+    @rename(attribute: "second_language_exam_validity")
   comprehensionLevel: EvaluatedLanguageAbility
     @rename(attribute: "comprehension_level")
   writtenLevel: EvaluatedLanguageAbility @rename(attribute: "written_level")
@@ -121,29 +124,31 @@ type User {
   priorityWeight: Int @rename(attribute: "priority_weight")
   # authorization and roles
   authInfo: UserAuthInfo @self
-
-  # Notifications
-  unreadNotifications: [Notification!]
-    @rename(attribute: "unread_enriched_notifications")
-  notifications: [Notification!] @rename(attribute: "enriched_notifications")
+  # site options
+  ignoredEmailNotifications: [NotificationFamily]
+    @rename(attribute: "ignored_email_notifications")
+  ignoredInAppNotifications: [NotificationFamily]
+    @rename(attribute: "ignored_in_app_notifications")
 }
 
 interface Notification {
   id: ID!
+  type: NotificationType!
   readAt: DateTime @rename(attribute: "read_at")
-  createdAt: DateTime @rename(attribute: "created_at")
-  updatedAt: DateTime @rename(attribute: "updated_at")
+  createdAt: DateTime! @rename(attribute: "created_at")
+  updatedAt: DateTime! @rename(attribute: "updated_at")
 }
 
 type PoolCandidateStatusChangedNotification implements Notification {
   id: ID!
+  type: NotificationType!
   readAt: DateTime @rename(attribute: "read_at")
-  createdAt: DateTime @rename(attribute: "created_at")
-  updatedAt: DateTime @rename(attribute: "updated_at")
+  createdAt: DateTime! @rename(attribute: "created_at")
+  updatedAt: DateTime! @rename(attribute: "updated_at")
 
   oldStatus: PoolCandidateStatus @rename(attribute: "old_status")
   newStatus: PoolCandidateStatus @rename(attribute: "new_status")
-  poolId: ID @rename(attribute: "pool_id")
+  poolCandidateId: ID @rename(attribute: "pool_candidate_id")
   poolName: LocalizedString @rename(attribute: "pool_name")
 }
 
@@ -174,7 +179,7 @@ type Pool {
   owner: UserPublicProfile @belongsTo(relation: "user")
   team: Team @belongsTo @canModel(ability: "viewAny")
   name: LocalizedString
-  classifications: [Classification] @belongsToMany
+  classification: Classification @belongsTo
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   poolCandidates: [PoolCandidate]
@@ -185,6 +190,9 @@ type Pool {
   yourImpact: LocalizedString @rename(attribute: "your_impact")
   whatToExpect: LocalizedString @rename(attribute: "what_to_expect")
   specialNote: LocalizedString @rename(attribute: "special_note")
+  whatToExpectAdmission: LocalizedString
+    @rename(attribute: "what_to_expect_admission")
+  aboutUs: LocalizedString @rename(attribute: "about_us")
   isRemote: Boolean @rename(attribute: "is_remote")
   location: LocalizedString @rename(attribute: "advertisement_location")
   securityClearance: SecurityStatus @rename(attribute: "security_clearance")
@@ -282,7 +290,9 @@ type PoolCandidate {
   pool: Pool! @belongsTo @canResolved(ability: "view")
   user: User! @belongsTo(relation: "user") @canResolved(ability: "view")
   # cmoIdentifier can be an arbitrary string used to relate this candidate to an external database.
-  cmoIdentifier: ID @rename(attribute: "cmo_identifier")
+  cmoIdentifier: ID
+    @rename(attribute: "cmo_identifier")
+    @deprecated(reason: "Field no longer used")
   # Expiry date for this candidate being in the pool.
   expiryDate: Date @rename(attribute: "expiry_date")
 
@@ -816,6 +826,13 @@ type Query {
   teams: [Team]! @all @canModel(ability: "viewAny")
   roles: [Role]! @all @canModel(ability: "viewAny")
 
+  notifications(
+    where: NotificationFilterInput
+    excludeIds: [UUID!] @notIn(key: "id")
+  ): [Notification!]
+    @orderBy(column: "created_at", direction: DESC)
+    @paginate(defaultCount: 10, scopes: ["authorizedToView"])
+
   sitewideAnnouncement: SitewideAnnouncement
 }
 
@@ -860,8 +877,11 @@ input CreateUserInput {
   lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
   lookingForFrench: Boolean @rename(attribute: "looking_for_french")
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
-  bilingualEvaluation: BilingualEvaluation
-    @rename(attribute: "bilingual_evaluation")
+  firstOfficialLanguage: Language @rename(attribute: "first_official_language")
+  secondLanguageExamCompleted: Boolean
+    @rename(attribute: "second_language_exam_completed")
+  secondLanguageExamValidity: Boolean
+    @rename(attribute: "second_language_exam_validity")
   comprehensionLevel: EvaluatedLanguageAbility
     @rename(attribute: "comprehension_level")
   writtenLevel: EvaluatedLanguageAbility @rename(attribute: "written_level")
@@ -929,8 +949,11 @@ input UpdateUserAsAdminInput
   lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
   lookingForFrench: Boolean @rename(attribute: "looking_for_french")
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
-  bilingualEvaluation: BilingualEvaluation
-    @rename(attribute: "bilingual_evaluation")
+  firstOfficialLanguage: Language @rename(attribute: "first_official_language")
+  secondLanguageExamCompleted: Boolean
+    @rename(attribute: "second_language_exam_completed")
+  secondLanguageExamValidity: Boolean
+    @rename(attribute: "second_language_exam_validity")
   comprehensionLevel: EvaluatedLanguageAbility
     @rename(attribute: "comprehension_level")
   writtenLevel: EvaluatedLanguageAbility @rename(attribute: "written_level")
@@ -1005,8 +1028,11 @@ input UpdateUserAsUserInput
   lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
   lookingForFrench: Boolean @rename(attribute: "looking_for_french")
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
-  bilingualEvaluation: BilingualEvaluation
-    @rename(attribute: "bilingual_evaluation")
+  firstOfficialLanguage: Language @rename(attribute: "first_official_language")
+  secondLanguageExamCompleted: Boolean
+    @rename(attribute: "second_language_exam_completed")
+  secondLanguageExamValidity: Boolean
+    @rename(attribute: "second_language_exam_validity")
   comprehensionLevel: EvaluatedLanguageAbility
     @rename(attribute: "comprehension_level")
   writtenLevel: EvaluatedLanguageAbility @rename(attribute: "written_level")
@@ -1081,7 +1107,6 @@ input ClassificationBelongsToMany {
 input CreatePoolCandidateAsAdminInput {
   pool: PoolBelongsTo!
   user: UserBelongsTo!
-  cmoIdentifier: ID @rename(attribute: "cmo_identifier")
   expiryDate: Date @rename(attribute: "expiry_date")
   status: PoolCandidateStatus = NEW_APPLICATION
     @rename(attribute: "pool_candidate_status")
@@ -1096,11 +1121,9 @@ input UpdateClassificationInput {
   maxSalary: Int @rename(attribute: "max_salary")
 }
 
-input UpdatePoolCandidateAsAdminInput {
-  cmoIdentifier: ID @rename(attribute: "cmo_identifier")
+input UpdatePoolCandidateStatusInput {
   expiryDate: Date @rename(attribute: "expiry_date")
   status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
-  isBookmarked: Boolean
 }
 
 input CreateDepartmentInput {
@@ -1352,7 +1375,7 @@ input GenericJobTitleBelongsToMany {
 }
 
 input CreatePoolInput {
-  classifications: ClassificationBelongsToMany
+  classification: ClassificationBelongsTo
 }
 
 input CreateGeneralQuestionInput {
@@ -1381,7 +1404,7 @@ input SyncScreeningQuestionsInput {
 input UpdatePoolInput {
   # Pool name and classification
   name: LocalizedStringInput
-  classifications: ClassificationBelongsToMany
+  classification: ClassificationBelongsTo
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
   # Closing date
@@ -1399,6 +1422,11 @@ input UpdatePoolInput {
   whatToExpect: LocalizedStringInput @rename(attribute: "what_to_expect")
   # Special note
   specialNote: LocalizedStringInput @rename(attribute: "special_note")
+  # What to expect after admission
+  whatToExpectAdmission: LocalizedStringInput
+    @rename(attribute: "what_to_expect_admission")
+  # About us (team, department, etc.)
+  aboutUs: LocalizedStringInput @rename(attribute: "about_us")
   # Other requirements
   language: PoolLanguage @rename(attribute: "advertisement_language")
   securityClearance: SecurityStatus @rename(attribute: "security_clearance")
@@ -1570,6 +1598,17 @@ input UpdateApplicationInput {
     @rules(apply: ["App\\Rules\\HasEssentialSkills"])
 }
 
+input DateRange {
+  from: DateTime!
+  to: DateTime! @rules(apply: ["after_or_equal:from"])
+}
+
+input NotificationFilterInput {
+  onlyUnread: Boolean @scope
+  readAt: DateRange @whereBetween(key: "read_at")
+  createdAt: DateRange @whereBetween(key: "created_at")
+}
+
 type Mutation {
   # User mutations
   createUser(user: CreateUserInput! @spread): User
@@ -1609,18 +1648,18 @@ type Mutation {
     @guard
     @canModel(ability: "create")
     @injectNow(name: "submitted_at")
-  updatePoolCandidateAsAdmin(
+  updatePoolCandidateStatus(
     id: UUID!
-    poolCandidate: UpdatePoolCandidateAsAdminInput! @spread
+    poolCandidate: UpdatePoolCandidateStatusInput! @spread
   ): PoolCandidate
     @update
     @guard
-    @canFind(ability: "updateAsAdmin", find: "id", injectArgs: true)
+    @canFind(ability: "updateStatus", find: "id", injectArgs: true)
   # Return a boolean to prevent automatically updating the client's cache
   togglePoolCandidateBookmark(id: ID!): Boolean
     @guard
     @canFind(
-      ability: "updateAsAdmin"
+      ability: "updateBookmark"
       find: "id"
       model: "PoolCandidate"
       injectArgs: true
@@ -1853,6 +1892,13 @@ type Mutation {
 
   # Notifications
   markNotificationAsRead(id: UUID!): Notification @guard # can only affect notifications belonging to the logged-in user
+  markNotificationAsUnread(id: UUID!): Notification @guard
+  deleteNotification(id: UUID!): Notification @guard
+  markAllNotificationsAsRead: [Notification] @guard
+  updateIgnoredNotifications(
+    ignoredEmailNotifications: [NotificationFamily]
+    ignoredInAppNotifications: [NotificationFamily]
+  ): User @guard @validator
   # UserSkill mutations
   createUserSkill(
     userId: UUID! @rename(attribute: "user_id")

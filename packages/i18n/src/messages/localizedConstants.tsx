@@ -21,7 +21,6 @@ import {
   SecurityStatus,
   CitizenshipStatus,
   ArmedForcesStatus,
-  BilingualEvaluation,
   PoolStream,
   PublishingGroup,
   IndigenousCommunity,
@@ -899,54 +898,6 @@ export const getGenericJobTitles = (
     `Invalid role '${GenericJobTitleId}'`,
   );
 
-const GenericJobTitlesWithClassification = defineMessages({
-  [GenericJobTitleKey.TechnicianIt01]: {
-    defaultMessage: "IT-01 (Technician)",
-    id: "zVm0jL",
-    description:
-      "The name of the Technician classification with group and level.",
-  },
-  [GenericJobTitleKey.AnalystIt02]: {
-    defaultMessage: "IT-02 (Analyst)",
-    id: "8sfFGc",
-    description:
-      "The name of the Technician Analyst classification with group and level.",
-  },
-  [GenericJobTitleKey.TeamLeaderIt03]: {
-    defaultMessage: "IT-03 (Team leader)",
-    id: "wFZLxf",
-    description:
-      "The name of the Team leader Analyst classification with group and level.",
-  },
-  [GenericJobTitleKey.TechnicalAdvisorIt03]: {
-    defaultMessage: "IT-03 (Technical advisor)",
-    id: "55rtyE",
-    description:
-      "The name of the Technical advisor classification with group and level.",
-  },
-  [GenericJobTitleKey.SeniorAdvisorIt04]: {
-    defaultMessage: "IT-04 (Senior advisor)",
-    id: "o5J75O",
-    description:
-      "The name of the Senior advisor classification with group and level.",
-  },
-  [GenericJobTitleKey.ManagerIt04]: {
-    defaultMessage: "IT-04 (Manager)",
-    id: "b02Azd",
-    description:
-      "The name of the Senior advisor classification with group and level.",
-  },
-});
-
-export const getGenericJobTitlesWithClassification = (
-  GenericJobTitleWithClassificationId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    GenericJobTitlesWithClassification,
-    GenericJobTitleWithClassificationId,
-    `Invalid role '${GenericJobTitleWithClassificationId}'`,
-  );
-
 const awardedToMessages = defineMessages({
   [AwardedTo.Me]: {
     defaultMessage: "Me",
@@ -1645,29 +1596,6 @@ export const getSecurityClearance = (
     `Invalid Security Clearance '${securityClearanceId}'`,
   );
 
-const bilingualEvaluations = defineMessages({
-  [BilingualEvaluation.CompletedEnglish]: {
-    defaultMessage: "Yes, completed English evaluation",
-    id: "2ohWuK",
-    description: "Completed an English language evaluation",
-  },
-  [BilingualEvaluation.CompletedFrench]: {
-    defaultMessage: "Yes, completed French evaluation",
-    id: "DUuisY",
-    description: "Completed a French language evaluation",
-  },
-  [BilingualEvaluation.NotCompleted]: commonMessages.no,
-});
-
-export const getBilingualEvaluation = (
-  bilingualEvaluationId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    bilingualEvaluations,
-    bilingualEvaluationId,
-    `Invalid Language Ability '${bilingualEvaluationId}'`,
-  );
-
 export const poolCandidatePriorities = defineMessages({
   10: {
     defaultMessage: "Priority Entitlement",
@@ -1816,7 +1744,7 @@ export const getIndigenousCommunity = (
     `Invalid indigenous community '${indigenousCommunity}'`,
   );
 
-const technicalSkillLevels = defineMessages({
+const technicalSkillLevelNames = defineMessages({
   [SkillLevel.Beginner]: {
     defaultMessage: "Entry-level",
     id: "AOJjMk",
@@ -1838,15 +1766,6 @@ const technicalSkillLevels = defineMessages({
     description: "The technical skill level for lead",
   },
 });
-
-export const getTechnicalSkillLevel = (
-  skillLevel: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    technicalSkillLevels,
-    skillLevel,
-    `Invalid technical skill level '${skillLevel}'`,
-  );
 
 const technicalSkillLevelDefinitions = defineMessages({
   [SkillLevel.Beginner]: {
@@ -1875,16 +1794,7 @@ const technicalSkillLevelDefinitions = defineMessages({
   },
 });
 
-export const getTechnicalSkillLevelDefinition = (
-  skillLevel: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    technicalSkillLevelDefinitions,
-    skillLevel,
-    `Invalid technical skill level '${skillLevel}'`,
-  );
-
-const behaviouralSkillLevels = defineMessages({
+const behaviouralSkillLevelNames = defineMessages({
   [SkillLevel.Beginner]: {
     defaultMessage: "In early development",
     id: "K9SPL+",
@@ -1906,15 +1816,6 @@ const behaviouralSkillLevels = defineMessages({
     description: "The behavioural skill level for lead",
   },
 });
-
-export const getBehaviouralSkillLevel = (
-  skillLevel: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    behaviouralSkillLevels,
-    skillLevel,
-    `Invalid behavioural skill level '${skillLevel}'`,
-  );
 
 const behaviouralSkillLevelDefinitions = defineMessages({
   [SkillLevel.Beginner]: {
@@ -1943,49 +1844,88 @@ const behaviouralSkillLevelDefinitions = defineMessages({
   },
 });
 
-export const getBehaviouralSkillLevelDefinition = (
-  skillLevel: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
+export const getSkillLevelName = (
+  skillLevel: string | SkillLevel,
+  skillCategory: SkillCategory,
+): MessageDescriptor => {
+  if (skillCategory === SkillCategory.Technical) {
+    return getOrThrowError(
+      technicalSkillLevelNames,
+      skillLevel,
+      `Invalid technical skill level '${skillLevel}'`,
+    );
+  }
+
+  return getOrThrowError(
+    behaviouralSkillLevelNames,
+    skillLevel,
+    `Invalid behavioural skill level '${skillLevel}'`,
+  );
+};
+
+export const getSkillLevelDefinition = (
+  skillLevel: string | SkillLevel,
+  skillCategory: SkillCategory,
+): MessageDescriptor => {
+  if (skillCategory === SkillCategory.Technical) {
+    return getOrThrowError(
+      technicalSkillLevelDefinitions,
+      skillLevel,
+      `Invalid technical skill level '${skillLevel}'`,
+    );
+  }
+
+  return getOrThrowError(
     behaviouralSkillLevelDefinitions,
     skillLevel,
     `Invalid behavioural skill level '${skillLevel}'`,
   );
+};
+
+export const getSkillLevelMessages = (
+  skillLevel: string | SkillLevel,
+  skillCategory: SkillCategory,
+): { name: MessageDescriptor; definition: MessageDescriptor } => {
+  return {
+    name: getSkillLevelName(skillLevel, skillCategory),
+    definition: getSkillLevelDefinition(skillLevel, skillCategory),
+  };
+};
 
 const evaluatedLanguageMessages = defineMessages({
   [EvaluatedLanguageAbility.X]: {
-    defaultMessage: "X",
-    id: "R6XtnR",
+    defaultMessage: "X (No proficiency)",
+    id: "LB3MCB",
     description: "The evaluated language ability level of X",
   },
   [EvaluatedLanguageAbility.A]: {
-    defaultMessage: "A",
-    id: "7TuiE1",
+    defaultMessage: "A (Beginner)",
+    id: "KJsYdJ",
     description: "The evaluated language ability level of A",
   },
   [EvaluatedLanguageAbility.B]: {
-    defaultMessage: "B",
-    id: "MUjjf9",
+    defaultMessage: "B (Intermediate)",
+    id: "sehQx5",
     description: "The evaluated language ability level of B",
   },
   [EvaluatedLanguageAbility.C]: {
-    defaultMessage: "C",
-    id: "s16Ns7",
+    defaultMessage: "C (Advanced)",
+    id: "893wrD",
     description: "The evaluated language ability level of C",
   },
   [EvaluatedLanguageAbility.E]: {
-    defaultMessage: "E",
-    id: "lOFpV2",
+    defaultMessage: "E (Fluent)",
+    id: "YtwHjm",
     description: "The evaluated language ability level of E",
   },
   [EvaluatedLanguageAbility.P]: {
-    defaultMessage: "P",
-    id: "eC8w2e",
+    defaultMessage: "P (Expert)",
+    id: "5YM3H5",
     description: "The evaluated language ability level of P",
   },
   [EvaluatedLanguageAbility.NotAssessed]: {
-    defaultMessage: "Not assessed",
-    id: "L8TMtk",
+    defaultMessage: "Unsure",
+    id: "a2/Bcb",
     description: "The evaluated language ability level for un-assessed",
   },
 });

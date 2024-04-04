@@ -1,5 +1,5 @@
 import React from "react";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import { Pending } from "@gc-digital-talent/ui";
@@ -43,7 +43,7 @@ const IndexPoolCandidatePage_Query = graphql(/* GraphQL */ `
       status
       language
       securityClearance
-      classifications {
+      classification {
         id
         group
         level
@@ -156,11 +156,19 @@ const IndexPoolCandidatePage_Query = graphql(/* GraphQL */ `
   }
 `);
 
+const subTitle = defineMessage({
+  defaultMessage: "This table shows a list of all applicants to this process.",
+  id: "Evn5Mo",
+  description:
+    "Descriptive text about the list of pool candidates in the admin portal.",
+});
+
 export const IndexPoolCandidatePage = () => {
   const intl = useIntl();
   const { poolId } = useRequiredParams<RouteParams>("poolId");
 
   const pageTitle = intl.formatMessage(adminMessages.poolsCandidates);
+  const formattedSubTitle = intl.formatMessage(subTitle);
 
   const [{ data, fetching, error }] = useQuery({
     query: IndexPoolCandidatePage_Query,
@@ -171,17 +179,9 @@ export const IndexPoolCandidatePage = () => {
 
   return (
     <AdminContentWrapper>
-      <SEO title={pageTitle} />
+      <SEO title={pageTitle} description={formattedSubTitle} />
       <Pending fetching={fetching} error={error}>
-        <p data-h2-margin="base(x1, 0)">
-          {intl.formatMessage({
-            defaultMessage:
-              "This table shows a list of all applicants to this pool.",
-            id: "0a8nPa",
-            description:
-              "Descriptive text about the list of pool candidates in the admin portal.",
-          })}
-        </p>
+        <p data-h2-margin="base(x1, 0)">{formattedSubTitle}</p>
         <PoolCandidatesTable
           hidePoolFilter
           initialFilterInput={{

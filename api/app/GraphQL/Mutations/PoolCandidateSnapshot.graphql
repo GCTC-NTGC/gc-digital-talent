@@ -21,7 +21,9 @@ query getProfile($userId: UUID!) {
     lookingForEnglish
     lookingForFrench
     lookingForBilingual
-    bilingualEvaluation
+    firstOfficialLanguage
+    secondLanguageExamCompleted
+    secondLanguageExamValidity
     comprehensionLevel
     writtenLevel
     verbalLevel
@@ -89,21 +91,13 @@ query getProfile($userId: UUID!) {
           fr
         }
         stream
-        classifications {
+        classification {
           id
           group
           level
           name {
             en
             fr
-          }
-          genericJobTitles {
-            id
-            key
-            name {
-              en
-              fr
-            }
           }
           minSalary
           maxSalary

@@ -3,15 +3,33 @@ import omit from "lodash/omit";
 import compact from "lodash/compact";
 
 import {
-  BilingualEvaluation,
   EstimatedLanguageAbility,
+  Maybe,
+  UpdateUserAsUserInput,
 } from "@gc-digital-talent/graphql";
 
 import { FormValues, PartialUser } from "./types";
 
-export const formValuesToSubmitData = (formValues: FormValues) => {
-  const data = {
-    ...omit(formValues, ["consideredPositionLanguages"]),
+export const formValuesToSubmitData = (
+  formValues: FormValues,
+): UpdateUserAsUserInput => {
+  let secondLanguageExamValidity: Maybe<boolean> | undefined = null;
+  switch (formValues?.secondLanguageExamValidity) {
+    case "currently_valid":
+      secondLanguageExamValidity = true;
+      break;
+    case "expired":
+      secondLanguageExamValidity = false;
+      break;
+    default:
+      secondLanguageExamValidity = null;
+  }
+  const data: UpdateUserAsUserInput = {
+    ...omit(formValues, [
+      "consideredPositionLanguages",
+      "secondLanguageExamCompleted",
+      "secondLanguageExamValidity",
+    ]),
     lookingForEnglish:
       formValues.consideredPositionLanguages.includes("lookingForEnglish"),
     lookingForFrench:
@@ -19,81 +37,115 @@ export const formValuesToSubmitData = (formValues: FormValues) => {
     lookingForBilingual: formValues.consideredPositionLanguages.includes(
       "lookingForBilingual",
     ),
+    firstOfficialLanguage: formValues.firstOfficialLanguage ?? undefined,
+    secondLanguageExamCompleted: formValues.secondLanguageExamCompleted,
+    secondLanguageExamValidity,
   };
 
   // various IF statements are to clean up cases where user toggles the conditionally rendered stuff before submitting
   // IE, picks looking for bilingual, then picks completed english evaluation before submitting, the conditionally rendered stuff still exists and can get submitted
   if (!data.lookingForBilingual) {
-    data.bilingualEvaluation = null;
-  }
-  if (
-    data.bilingualEvaluation !== BilingualEvaluation.CompletedEnglish &&
-    data.bilingualEvaluation !== BilingualEvaluation.CompletedFrench
-  ) {
+    data.firstOfficialLanguage = null;
+    data.estimatedLanguageAbility = null;
+    data.secondLanguageExamCompleted = null;
+    data.secondLanguageExamValidity = null;
     data.comprehensionLevel = null;
     data.writtenLevel = null;
     data.verbalLevel = null;
   }
-  if (data.bilingualEvaluation !== BilingualEvaluation.NotCompleted) {
-    data.estimatedLanguageAbility = null;
+
+  if (!data.secondLanguageExamCompleted) {
+    data.secondLanguageExamValidity = null;
+    data.comprehensionLevel = null;
+    data.writtenLevel = null;
+    data.verbalLevel = null;
   }
 
   return data;
 };
 
 export const dataToFormValues = (data: PartialUser): FormValues => {
+  let secondLanguageExamValidity: FormValues["secondLanguageExamValidity"] =
+    null;
+  switch (data?.secondLanguageExamValidity) {
+    case true:
+      secondLanguageExamValidity = "currently_valid";
+      break;
+    case false:
+      secondLanguageExamValidity = "expired";
+      break;
+    default:
+      secondLanguageExamValidity = null;
+  }
   return {
     consideredPositionLanguages: compact([
       data?.lookingForEnglish ? "lookingForEnglish" : "",
       data?.lookingForFrench ? "lookingForFrench" : "",
       data?.lookingForBilingual ? "lookingForBilingual" : "",
     ]),
-    bilingualEvaluation: data?.bilingualEvaluation
-      ? data.bilingualEvaluation
-      : BilingualEvaluation.CompletedEnglish,
     comprehensionLevel: data?.comprehensionLevel,
     writtenLevel: data?.writtenLevel,
     verbalLevel: data?.verbalLevel,
     estimatedLanguageAbility: data?.estimatedLanguageAbility,
+    firstOfficialLanguage: data?.firstOfficialLanguage,
+    secondLanguageExamCompleted: data?.secondLanguageExamCompleted,
+    secondLanguageExamValidity,
   };
 };
 
 export const getLabels = (intl: IntlShape) => ({
   consideredPositionLanguages: intl.formatMessage({
-    defaultMessage: "I would like to be considered for",
-    id: "TiVKPr",
+    defaultMessage: "Language of positions you would like to be considered for",
+    id: "D1ZXOz",
     description:
       "Legend for considered position languages check list in language information form",
   }),
-  bilingualEvaluation: intl.formatMessage({
-    defaultMessage: "Bilingual evaluation",
-    id: "X354at",
+  firstOfficialLanguage: intl.formatMessage({
+    defaultMessage: "Your first official language",
+    id: "CwGljY",
     description:
-      "Legend bilingual evaluation status in language information form",
+      "Legend first official language status in language information form",
   }),
   comprehensionLevel: intl.formatMessage({
-    defaultMessage: "Reading",
-    id: "g8Xd4a",
+    defaultMessage: "Comprehension level",
+    id: "kqOTFT",
     description:
       "Label displayed on the language information form reading comprehension field.",
   }),
   writtenLevel: intl.formatMessage({
-    defaultMessage: "Writing",
-    id: "mBnz9m",
+    defaultMessage: "Writing level",
+    id: "0EuaJv",
     description:
       "Label displayed on the language information form written field.",
   }),
   verbalLevel: intl.formatMessage({
-    defaultMessage: "Oral interaction",
-    id: "mvYSmp",
+    defaultMessage: "Oral communication level",
+    id: "CMtxbk",
     description:
-      "Label displayed on the language information form oral interaction field.",
+      "Label displayed on the language information form oral communication field.",
   }),
   estimatedLanguageAbility: intl.formatMessage({
     defaultMessage: "Second language proficiency level",
     id: "T1TKNL",
     description:
       "Legend for second language proficiency level in language information form",
+  }),
+  secondLanguageExamCompletedBoundingBoxLabel: intl.formatMessage({
+    defaultMessage: "Official exam status",
+    id: "FGzaie",
+    description:
+      "Bounding box label for official exam status in language information form",
+  }),
+  secondLanguageExamCompletedLabel: intl.formatMessage({
+    defaultMessage:
+      "I have completed a Public Service Commission evaluation of my <strong>second official language</strong>.",
+    id: "rjfQMg",
+    description: "Label for official exam status in language information form",
+  }),
+  secondLanguageExamValidityLabel: intl.formatMessage({
+    defaultMessage: "Exam validity",
+    id: "/tRBrf",
+    description: "Label for exam validity in language information form",
   }),
 });
 
@@ -153,53 +205,25 @@ export const getEstimatedAbilityOptions = (intl: IntlShape) => [
   },
 ];
 
-export const getBilingualEvaluationItems = (
-  intl: IntlShape,
-  languageEvaluationPageLink: () => JSX.Element,
-) => [
+export const getExamValidityOptions = (intl: IntlShape) => [
   {
-    value: BilingualEvaluation.CompletedEnglish,
-    label: intl.formatMessage(
-      {
-        defaultMessage:
-          "I am bilingual (En/Fr) and <strong>have</strong> completed an official <strong>ENGLISH</strong> <languageEvaluationPageLink></languageEvaluationPageLink>.",
-        id: "HPDqDV",
-        description:
-          "Message for the completed english bilingual evaluation option",
-      },
-      {
-        languageEvaluationPageLink,
-      },
-    ),
+    label: intl.formatMessage({
+      defaultMessage:
+        "“All three of my language level exams are <strong>currently valid</strong>.”",
+      id: "gS9T4G",
+      description:
+        "Radio option for exam validity input on language information form.",
+    }),
+    value: "currently_valid",
   },
   {
-    value: BilingualEvaluation.CompletedFrench,
-    label: intl.formatMessage(
-      {
-        defaultMessage:
-          "I am bilingual (En/Fr) and <strong>have</strong> completed an official <strong>FRENCH</strong> <languageEvaluationPageLink></languageEvaluationPageLink>.",
-        id: "shwFSK",
-        description:
-          "Message for the completed french bilingual evaluation option",
-      },
-      {
-        languageEvaluationPageLink,
-      },
-    ),
-  },
-  {
-    value: BilingualEvaluation.NotCompleted,
-    label: intl.formatMessage(
-      {
-        defaultMessage:
-          "I am bilingual (En/Fr) and <strong>have NOT</strong> completed an official <languageEvaluationPageLink></languageEvaluationPageLink>.",
-        id: "5g49WB",
-        description:
-          "Message for the haven't completed bilingual evaluation option",
-      },
-      {
-        languageEvaluationPageLink,
-      },
-    ),
+    label: intl.formatMessage({
+      defaultMessage:
+        "“One or more of my language levels are <strong>expired</strong>.”",
+      id: "KehmPp",
+      description:
+        "Radio option for exam validity input on language information form.",
+    }),
+    value: "expired",
   },
 ];

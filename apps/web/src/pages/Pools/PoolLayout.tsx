@@ -3,7 +3,12 @@ import { useIntl } from "react-intl";
 import { Outlet } from "react-router-dom";
 import { useQuery } from "urql";
 
-import { Pending, Chip, ThrowNotFound } from "@gc-digital-talent/ui";
+import {
+  Pending,
+  Chip,
+  ThrowNotFound,
+  useAnnouncer,
+} from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { graphql, Pool } from "@gc-digital-talent/graphql";
 
@@ -20,29 +25,36 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminHero from "~/components/Hero/AdminHero";
 
 interface PoolHeaderProps {
-  pool: Pick<Pool, "id" | "classifications" | "stream" | "name" | "team">;
+  pool: Pick<Pool, "id" | "classification" | "stream" | "name" | "team">;
 }
 
 const PoolHeader = ({ pool }: PoolHeaderProps) => {
   const intl = useIntl();
+  const { announce } = useAnnouncer();
 
   const pages = useAdminPoolPages(intl, pool);
 
   const poolTitle = getShortPoolTitleLabel(intl, pool);
   const currentPage = useCurrentPage<PageNavKeys>(pages);
-  const subtitle = pool.team
+  const subTitle = pool.team
     ? getLocalizedName(pool.team?.displayName, intl)
     : currentPage?.subtitle;
 
   const advertisementStatus = getAdvertisementStatus(pool);
   const advertisementBadge = getPoolCompletenessBadge(advertisementStatus);
 
+  React.useEffect(() => {
+    if (currentPage?.title) {
+      announce(currentPage?.title);
+    }
+  }, [announce, currentPage?.title, intl]);
+
   return (
     <>
-      <SEO title={currentPage?.title} />
+      <SEO title={currentPage?.title} description={subTitle} />
       <AdminHero
         title={poolTitle}
-        subtitle={subtitle}
+        subtitle={subTitle}
         nav={
           // Pages with crumbs are sub-pages and don't show up as tabs
           currentPage?.crumbs
@@ -79,7 +91,7 @@ const PoolLayout_Query = graphql(/* GraphQL */ `
         fr
       }
       stream
-      classifications {
+      classification {
         id
         group
         level

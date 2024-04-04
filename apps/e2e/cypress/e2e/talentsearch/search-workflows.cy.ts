@@ -131,9 +131,10 @@ describe("Talent Search Workflow Tests", () => {
     // use new test user to submit an application
     cy.get<User>("@testUser").then((testUser) => {
       cy.loginBySubject(testUser.authInfo.sub);
-      cy.getMe().then((testUser) => {
+      cy.getMe().then((myUser) => {
         cy.get<Pool>("@publishedTestPool1").then((pool) => {
-          cy.createApplication(testUser.id, pool.id).then((poolCandidate) => {
+          cy.createApplication(myUser.id, pool.id).then((poolCandidate) => {
+            // eslint-disable-next-line cypress/unsafe-to-chain-command
             cy.submitApplication(poolCandidate.id, uniqueTestId.toString())
               .its("id")
               .as("poolCandidateId");
@@ -145,7 +146,7 @@ describe("Talent Search Workflow Tests", () => {
     // admin approve the application
     cy.loginByRole("admin");
     cy.get<string>("@poolCandidateId").then((poolCandidateId) => {
-      cy.updatePoolCandidateAsAdmin(poolCandidateId, {
+      cy.updatePoolCandidateStatus(poolCandidateId, {
         status: PoolCandidateStatus.QualifiedAvailable,
       });
     });
@@ -244,7 +245,8 @@ describe("Talent Search Workflow Tests", () => {
       });
 
       cy.findByRole("combobox", { name: /skill$/i }).then((combobox) => {
-        cy.wrap(combobox).focus().type(`${skill.name.en}{DownArrow}{Enter}`);
+        cy.wrap(combobox).focus();
+        cy.wrap(combobox).type(`${skill.name.en}{DownArrow}{Enter}`);
       });
       // skill selection does not trigger an api request
       searchFindsMySingleCandidate();
@@ -299,7 +301,7 @@ describe("Talent Search Workflow Tests", () => {
 
     cy.findByRole("textbox", { name: /Full name/i }).type("Test Full Name");
 
-    cy.findByRole("textbox", { name: /Government e-mail/i }).type(
+    cy.findByRole("textbox", { name: /Government of Canada email/i }).type(
       "test@tbs-sct.gc.ca",
     );
 

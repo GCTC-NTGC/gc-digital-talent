@@ -9,6 +9,7 @@ import {
   errorMessages,
   getLocalizedName,
   uiMessages,
+  getAssessmentStepType,
 } from "@gc-digital-talent/i18n";
 import {
   Select,
@@ -21,7 +22,6 @@ import {
   Field,
   alphaSortOptions,
 } from "@gc-digital-talent/forms";
-import { getAssessmentStepType } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
 import { toast } from "@gc-digital-talent/toast";
 import {
   graphql,
@@ -497,9 +497,7 @@ const AssessmentDetailsDialog = ({
                     <Repeater.Root
                       data-h2-margin-bottom="base(1rem)"
                       name="screeningQuestionFieldArray"
-                      total={fields.length}
                       showAdd={canAddScreeningQuestions}
-                      showUnsavedChanges={false}
                       onAdd={() => {
                         append({
                           id: null,
@@ -529,7 +527,6 @@ const AssessmentDetailsDialog = ({
                             name="screeningQuestionFieldArray"
                             key={id}
                             index={index}
-                            total={fields.length}
                             onMove={move}
                             onRemove={remove}
                             legend={intl.formatMessage(
@@ -544,6 +541,7 @@ const AssessmentDetailsDialog = ({
                               },
                             )}
                             hideLegend
+                            isLast={index === fields.length - 1}
                           >
                             <input
                               type="hidden"
@@ -641,8 +639,8 @@ const AssessmentDetailsDialog = ({
                   <div data-h2-margin-top="base(x.25)">
                     {intl.formatMessage({
                       defaultMessage:
-                        "Using the list of skills from the pool advertisement, select the skills you are planning to assess using this evaluation method. ",
-                      id: "ARL2Tz",
+                        "Using the list of skills from the recruitment process, select the skills you are planning to assess using this evaluation method.",
+                      id: "II4+N3",
                       description:
                         "description of 'skill selection' section of the 'assessment details' dialog",
                     })}

@@ -385,9 +385,7 @@ class ApplicantFilterTest extends TestCase
                 'operational_requirements' => $candidate->user->accepted_operational_requirements,
             ]
         );
-        $filter->qualifiedClassifications()->saveMany(
-            $pool->classifications->unique()
-        );
+        $filter->qualifiedClassifications()->saveMany([$pool->classification]);
         $candidateUser = User::with([
             'awardExperiences',
             'awardExperiences.skills',

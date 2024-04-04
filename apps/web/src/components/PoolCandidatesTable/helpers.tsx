@@ -230,13 +230,11 @@ export const finalDecisionCell = (
   intl: IntlShape,
   poolCandidate: PoolCandidate,
   poolAssessmentSteps: AssessmentStep[],
-  recordOfDecisionFlag: boolean, // TODO: remove with #8415
 ) => {
   const { color, label } = getCandidateStatusChip(
     poolCandidate,
     unpackMaybes(poolAssessmentSteps),
     intl,
-    recordOfDecisionFlag,
   );
   return <Chip color={color}>{label}</Chip>;
 };
@@ -298,7 +296,6 @@ export function transformSortStateToOrderByClause(
   const columnMap = new Map<string, string>([
     ["dateReceived", "submitted_at"],
     ["candidacyStatus", "suspended_at"],
-    ["candidacyStatus", "suspended_at"],
     ["finalDecision", "status"],
     ["jobPlacement", "status"],
     ["candidateName", "FIRST_NAME"],
@@ -308,6 +305,7 @@ export function transformSortStateToOrderByClause(
     ["skillCount", "skill_count"],
     ["priority", "PRIORITY_WEIGHT"],
     ["status", "status_weight"],
+    ["notes", "notes"],
   ]);
 
   const sortingRule = sortingRules?.find((rule) => {
@@ -317,7 +315,9 @@ export function transformSortStateToOrderByClause(
 
   if (
     sortingRule &&
-    ["dateReceived", "candidacyStatus", "status"].includes(sortingRule.id)
+    ["dateReceived", "candidacyStatus", "status", "notes"].includes(
+      sortingRule.id,
+    )
   ) {
     const columnName = columnMap.get(sortingRule.id);
     return {
@@ -430,7 +430,7 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
             fr
           }
           stream
-          classifications {
+          classification {
             id
             name {
               en
@@ -473,7 +473,9 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
           lookingForEnglish
           lookingForFrench
           lookingForBilingual
-          bilingualEvaluation
+          firstOfficialLanguage
+          secondLanguageExamCompleted
+          secondLanguageExamValidity
           comprehensionLevel
           writtenLevel
           verbalLevel

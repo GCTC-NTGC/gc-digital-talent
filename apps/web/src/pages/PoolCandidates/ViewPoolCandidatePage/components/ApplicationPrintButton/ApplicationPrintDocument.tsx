@@ -11,14 +11,12 @@ import {
 import {
   commonMessages,
   getArmedForcesStatusesAdmin,
-  getBilingualEvaluation,
   getCitizenshipStatusesAdmin,
   getEducationRequirementOption,
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
   getIndigenousCommunity,
   getLanguage,
-  getLanguageProficiency,
   getLocale,
   getLocalizedName,
   getOperationalRequirement,
@@ -34,7 +32,6 @@ import {
   OperationalRequirement,
   PositionDuration,
   User,
-  BilingualEvaluation,
   IndigenousCommunity,
   SkillCategory,
   FragmentType,
@@ -44,10 +41,10 @@ import {
 import { getFullNameLabel } from "~/utils/nameUtils";
 import PrintExperienceByType from "~/components/UserProfile/PrintExperienceByType/PrintExperienceByType";
 import { anyCriteriaSelected as anyCriteriaSelectedDiversityEquityInclusion } from "~/validators/profile/diversityEquityInclusion";
-import { getEvaluatedLanguageLevels } from "~/utils/userUtils";
 import applicationMessages from "~/messages/applicationMessages";
 import { getExperiencesSkillIds } from "~/utils/skillUtils";
 import processMessages from "~/messages/processMessages";
+import Display from "~/components/Profile/components/LanguageProfile/Display";
 
 import SkillWithExperiences from "./SkillWithExperiences";
 import EducationRequirementExperience from "./EducationRequirementExperience";
@@ -181,9 +178,7 @@ const ApplicationPrintDocument = React.forwardRef<
       (c) => c !== IndigenousCommunity.LegacyIsIndigenous,
     ) || [];
 
-  const classificationGroup = relevantPoolCandidate?.pool.classifications
-    ? relevantPoolCandidate.pool.classifications[0]?.group
-    : "";
+  const classificationGroup = relevantPoolCandidate?.pool.classification?.group;
 
   return (
     <div style={{ display: "none" }}>
@@ -219,11 +214,7 @@ const ApplicationPrintDocument = React.forwardRef<
               <>
                 <PageSection>
                   <Heading level="h3" data-h2-font-weight="base(700)">
-                    {intl.formatMessage({
-                      defaultMessage: "Education requirement",
-                      id: "/zx1kX",
-                      description: "Education requirement section header.",
-                    })}
+                    {intl.formatMessage(processMessages.educationRequirement)}
                   </Heading>
                   <p>
                     {intl.formatMessage({
@@ -477,122 +468,7 @@ const ApplicationPrintDocument = React.forwardRef<
               <Heading level="h4" data-h2-font-weight="base(700)">
                 {intl.formatMessage(navigationMessages.languageInformation)}
               </Heading>
-              {user.lookingForEnglish &&
-                !user.lookingForFrench &&
-                !user.lookingForBilingual && (
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage: "Interested in",
-                      id: "/oqWA0",
-                      description: "Interested in label",
-                    })}
-                    {intl.formatMessage(commonMessages.dividingColon)}
-                    {intl.formatMessage({
-                      defaultMessage: "English positions",
-                      id: "vFMPHW",
-                      description: "English Positions message",
-                    })}
-                  </p>
-                )}
-              {!user.lookingForEnglish &&
-                user.lookingForFrench &&
-                !user.lookingForBilingual && (
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage: "Interested in",
-                      id: "/oqWA0",
-                      description: "Interested in label",
-                    })}
-                    {intl.formatMessage(commonMessages.dividingColon)}
-                    {intl.formatMessage({
-                      defaultMessage: "French positions",
-                      id: "qT9sS0",
-                      description: "French Positions message",
-                    })}
-                  </p>
-                )}
-              {user.lookingForEnglish &&
-                user.lookingForFrench &&
-                !user.lookingForBilingual && (
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage: "Interested in",
-                      id: "/oqWA0",
-                      description: "Interested in label",
-                    })}
-                    {intl.formatMessage(commonMessages.dividingColon)}
-                    {intl.formatMessage({
-                      defaultMessage: "English or French positions",
-                      id: "fFznH0",
-                      description: "English or French Positions message",
-                    })}
-                  </p>
-                )}
-              {user.lookingForBilingual && (
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage: "Interested in",
-                    id: "/oqWA0",
-                    description: "Interested in label",
-                  })}
-                  {intl.formatMessage(commonMessages.dividingColon)}
-                  {intl.formatMessage({
-                    defaultMessage: "Bilingual positions (English and French)",
-                    id: "6eCvv1",
-                    description: "Bilingual Positions message",
-                  })}
-                </p>
-              )}
-              {user.bilingualEvaluation && (
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Completed an official Government of Canada evaluation",
-                    id: "o4PND7",
-                    description:
-                      "Completed a Government of Canada evaluation label",
-                  })}
-                  {intl.formatMessage(commonMessages.dividingColon)}
-                  {intl.formatMessage(
-                    getBilingualEvaluation(user.bilingualEvaluation),
-                  )}
-                </p>
-              )}
-              {(user.bilingualEvaluation ===
-                BilingualEvaluation.CompletedEnglish ||
-                user.bilingualEvaluation ===
-                  BilingualEvaluation.CompletedFrench) && (
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Second language level (reading, writing, oral interaction)",
-                    id: "qOi2J0",
-                    description:
-                      "Second language level (reading, writing, oral interaction) label",
-                  })}
-                  {intl.formatMessage(commonMessages.dividingColon)}
-                  {getEvaluatedLanguageLevels(
-                    intl,
-                    user.comprehensionLevel,
-                    user.writtenLevel,
-                    user.verbalLevel,
-                  )}
-                </p>
-              )}
-              {user.bilingualEvaluation === BilingualEvaluation.NotCompleted &&
-                !!user.estimatedLanguageAbility && (
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage: "Second language level",
-                      id: "VTHGET",
-                      description: "Estimated skill in second language",
-                    })}
-                    {intl.formatMessage(commonMessages.dividingColon)}
-                    {intl.formatMessage(
-                      getLanguageProficiency(user.estimatedLanguageAbility),
-                    )}
-                  </p>
-                )}
+              <Display user={user} context="print" />
             </PageSection>
             <PageSection>
               <Heading level="h4" data-h2-font-weight="base(700)">

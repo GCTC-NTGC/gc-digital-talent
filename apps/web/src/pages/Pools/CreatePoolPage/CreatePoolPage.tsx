@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 
 import { toast } from "@gc-digital-talent/toast";
@@ -28,9 +28,10 @@ import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
 import AdminHero from "~/components/Hero/AdminHero";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 type FormValues = {
-  classification: string[];
+  classification: string;
   team: string;
 };
 
@@ -59,8 +60,8 @@ export const CreatePoolForm = ({
 
   // submission section, and navigate to edit the created pool
   const formValuesToSubmitData = (values: FormValues): CreatePoolInput => ({
-    classifications: {
-      sync: values.classification,
+    classification: {
+      connect: values.classification,
     },
   });
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
@@ -70,8 +71,8 @@ export const CreatePoolForm = ({
           navigate(paths.poolUpdate(result.id));
           toast.success(
             intl.formatMessage({
-              defaultMessage: "Pool created successfully!",
-              id: "wZ91g+",
+              defaultMessage: "Recruitment process created successfully!",
+              id: "/UxJBZ",
               description:
                 "Message displayed to user after pool is created successfully.",
             }),
@@ -81,8 +82,8 @@ export const CreatePoolForm = ({
       .catch(() => {
         toast.error(
           intl.formatMessage({
-            defaultMessage: "Error: creating pool failed",
-            id: "W2qRX5",
+            defaultMessage: "Error: creating recruitment process failed",
+            id: "ruHk5N",
             description:
               "Message displayed to pool after pool fails to get created.",
           }),
@@ -159,10 +160,10 @@ export const CreatePoolForm = ({
               <Submit
                 color="secondary"
                 text={intl.formatMessage({
-                  defaultMessage: "Create new pool",
-                  id: "TLl20s",
+                  defaultMessage: "Create process",
+                  id: "rRREuF",
                   description:
-                    "Label displayed on submit button for new pool form.",
+                    "Label/title for creating a recruitment process.",
                 })}
               />
               <Link href={paths.poolTable()} mode="inline" color="quaternary">
@@ -235,6 +236,18 @@ const CreatePoolPage_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
+const pageTitle = defineMessage({
+  defaultMessage: "Create process",
+  id: "rRREuF",
+  description: "Label/title for creating a recruitment process.",
+});
+
+const subTitle = defineMessage({
+  defaultMessage: "Create a new job poster from scratch",
+  id: "QodYZE",
+  description: "Form blurb describing create pool form",
+});
+
 const CreatePoolPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
@@ -263,45 +276,29 @@ const CreatePoolPage = () => {
       return Promise.reject(result.error);
     });
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(indexPoolPageTitle),
-      url: routes.poolTable(),
-    },
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Create new pool",
-        id: "OgeWgx",
-        description: "Breadcrumb title for the create new pool page link.",
-      }),
-      url: routes.poolCreate(),
-    },
-  ];
+  const formattedPageTitle = intl.formatMessage(pageTitle);
+  const formattedSubTitle = intl.formatMessage(subTitle);
 
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Create pool",
-    id: "zwYuly",
-    description: "Page title for the pool creation page",
+  const navigationCrumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(indexPoolPageTitle),
+        url: routes.poolTable(),
+      },
+      {
+        label: formattedPageTitle,
+        url: routes.poolCreate(),
+      },
+    ],
+    isAdmin: true,
   });
 
   return (
     <>
-      <SEO title={pageTitle} />
+      <SEO title={formattedPageTitle} description={formattedSubTitle} />
       <AdminHero
-        title={pageTitle}
-        subtitle={intl.formatMessage({
-          defaultMessage: "Create a new job poster from scratch",
-          id: "QodYZE",
-          description: "Form blurb describing create pool form",
-        })}
+        title={formattedPageTitle}
+        subtitle={formattedSubTitle}
         nav={{ mode: "crumbs", items: navigationCrumbs }}
       />
       <AdminContentWrapper>

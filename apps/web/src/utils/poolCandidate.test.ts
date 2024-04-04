@@ -28,7 +28,6 @@ describe("PoolCandidate utils", () => {
     },
     intlCache,
   );
-  const recordOfDecisionFlag = true;
 
   describe("Candidate Status chip", () => {
     const candidate = fakePoolCandidates(1)[0];
@@ -43,12 +42,7 @@ describe("PoolCandidate utils", () => {
       ];
       statuses.forEach((status) => {
         candidate.status = status;
-        const { label, color } = getCandidateStatusChip(
-          candidate,
-          [],
-          intl,
-          recordOfDecisionFlag,
-        );
+        const { label, color } = getCandidateStatusChip(candidate, [], intl);
         expect(label).toBe("Qualified");
         expect(color).toBe("success");
       });
@@ -61,12 +55,7 @@ describe("PoolCandidate utils", () => {
       ];
       statuses.forEach((status) => {
         candidate.status = status;
-        const { label, color } = getCandidateStatusChip(
-          candidate,
-          [],
-          intl,
-          recordOfDecisionFlag,
-        );
+        const { label, color } = getCandidateStatusChip(candidate, [], intl);
         expect(label).toBe("Disqualified");
         expect(color).toBe("error");
       });
@@ -74,33 +63,28 @@ describe("PoolCandidate utils", () => {
 
     it('should return "Removed" in black color for removed statuses, along with reason for removal', () => {
       candidate.status = PoolCandidateStatus.ScreenedOutNotInterested;
-      let chip = getCandidateStatusChip(
-        candidate,
-        [],
-        intl,
-        recordOfDecisionFlag,
-      );
+      let chip = getCandidateStatusChip(candidate, [], intl);
       expect(chip.label).toBe("Removed: To assess");
       expect(chip.color).toBe("black");
 
       candidate.status = PoolCandidateStatus.ScreenedOutNotResponsive;
-      chip = getCandidateStatusChip(candidate, [], intl, recordOfDecisionFlag);
+      chip = getCandidateStatusChip(candidate, [], intl);
       expect(chip.label).toBe("Removed: To assess");
       expect(chip.color).toBe("black");
 
       candidate.status = PoolCandidateStatus.QualifiedUnavailable;
-      chip = getCandidateStatusChip(candidate, [], intl, recordOfDecisionFlag);
+      chip = getCandidateStatusChip(candidate, [], intl);
       expect(chip.label).toBe("Removed: Qualified");
       expect(chip.color).toBe("black");
       expect(chip.color).toBe("black");
 
       candidate.status = PoolCandidateStatus.Removed;
-      chip = getCandidateStatusChip(candidate, [], intl, recordOfDecisionFlag);
+      chip = getCandidateStatusChip(candidate, [], intl);
       expect(chip.label).toBe("Removed"); // This status was only for legacy candidates, and its hard to interpret exact reason
       expect(chip.color).toBe("black");
 
       candidate.status = PoolCandidateStatus.Expired;
-      chip = getCandidateStatusChip(candidate, [], intl, recordOfDecisionFlag);
+      chip = getCandidateStatusChip(candidate, [], intl);
       expect(chip.label).toBe("Expired: Qualified"); // Okay technically this one doesn't say Removed
       expect(chip.color).toBe("black");
     });
@@ -110,7 +94,6 @@ describe("PoolCandidate utils", () => {
           candidateFullyQualified,
           poolWithAssessmentSteps.assessmentSteps,
           intl,
-          recordOfDecisionFlag,
         );
         expect(chip.label).toBe("Qualified: Pending decision");
         expect(chip.color).toBe("success");
@@ -120,7 +103,6 @@ describe("PoolCandidate utils", () => {
           candidateQualifiedExceptHoldOnMiddleAssessment,
           poolWithAssessmentSteps.assessmentSteps,
           intl,
-          recordOfDecisionFlag,
         );
         expect(chip.label).toBe("Qualified: Pending decision");
         expect(chip.color).toBe("success");
@@ -130,7 +112,6 @@ describe("PoolCandidate utils", () => {
           candidateFullyQualifiedExceptMissingEducation,
           poolWithAssessmentSteps.assessmentSteps,
           intl,
-          recordOfDecisionFlag,
         );
         expect(chip.label).toBe("To assess: Step 1");
         expect(chip.color).toBe("warning");
@@ -140,7 +121,6 @@ describe("PoolCandidate utils", () => {
           candidateNoAssessments,
           poolWithAssessmentSteps.assessmentSteps,
           intl,
-          recordOfDecisionFlag,
         );
         expect(chip.label).toBe("To assess: Step 1");
         expect(chip.color).toBe("warning");
@@ -150,7 +130,6 @@ describe("PoolCandidate utils", () => {
           candidateQualifiedExceptHoldOnFinalAssessment,
           poolWithAssessmentSteps.assessmentSteps,
           intl,
-          recordOfDecisionFlag,
         );
         expect(chip.label).toBe("To assess: Step 3");
         expect(chip.color).toBe("warning");
@@ -160,7 +139,6 @@ describe("PoolCandidate utils", () => {
           candidateHoldOnMiddleStepAndNoResultsOnFinalStep,
           poolWithAssessmentSteps.assessmentSteps,
           intl,
-          recordOfDecisionFlag,
         );
         expect(chip.label).toBe("To assess: Step 3");
         expect(chip.color).toBe("warning");
@@ -169,7 +147,6 @@ describe("PoolCandidate utils", () => {
           candidateUnfinishedFinalAssessment,
           poolWithAssessmentSteps.assessmentSteps,
           intl,
-          recordOfDecisionFlag,
         );
         expect(chip.label).toBe("To assess: Step 3");
         expect(chip.color).toBe("warning");
@@ -179,7 +156,6 @@ describe("PoolCandidate utils", () => {
           candidateOneFailingAssessment,
           poolWithAssessmentSteps.assessmentSteps,
           intl,
-          recordOfDecisionFlag,
         );
         expect(chip.label).toBe("Disqualified: Pending decision");
         expect(chip.color).toBe("error");

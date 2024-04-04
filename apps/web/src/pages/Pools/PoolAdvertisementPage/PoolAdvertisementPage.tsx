@@ -1,5 +1,5 @@
 import React from "react";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 import MapIcon from "@heroicons/react/24/outline/MapIcon";
 import InformationCircleIcon from "@heroicons/react/20/solid/InformationCircleIcon";
@@ -50,7 +50,6 @@ import {
 
 import {
   formatClassificationString,
-  getClassificationGroup,
   getClassificationSalaryRangeUrl,
   getFullPoolTitleHtml,
   getShortPoolTitleLabel,
@@ -113,8 +112,14 @@ const moreInfoAccordions = {
   dei: "diversity-equity-inclusion",
   accommodations: "accommodations",
   whatToExpectApply: "what-to-expect-apply",
-  whatToExpectIfSuccessful: "what-to-expect-success",
+  whatToExpectAdmission: "what-to-expect-admission",
 };
+
+const subTitle = defineMessage({
+  defaultMessage: "Learn more about this opportunity and begin an application.",
+  id: "H5EXEi",
+  description: "Subtitle for a pool advertisement page",
+});
 
 interface PoolAdvertisementProps {
   pool: Pool;
@@ -135,7 +140,7 @@ export const PoolPoster = ({
   const [skillsValue, setSkillsValue] = React.useState<string[]>([]);
   const [linkCopied, setLinkCopied] = React.useState<boolean>(false);
 
-  const classification = pool.classifications ? pool.classifications[0] : null;
+  const { classification } = pool;
   const genericJobTitles =
     classification?.genericJobTitles?.filter(notEmpty) || [];
   let classificationString = ""; // type wrangling the complex type into a string
@@ -147,6 +152,7 @@ export const PoolPoster = ({
   }
   const poolTitle = getShortPoolTitleLabel(intl, pool);
   const fullPoolTitle = getFullPoolTitleHtml(intl, pool);
+  const formattedSubTitle = intl.formatMessage(subTitle);
   const salaryRangeUrl = getClassificationSalaryRangeUrl(
     locale,
     classification,
@@ -159,8 +165,12 @@ export const PoolPoster = ({
       })
     : getLocalizedName(pool.location, intl);
 
+  const showAboutUs = !!(pool.aboutUs && pool.aboutUs[locale]);
   const showSpecialNote = !!(pool.specialNote && pool.specialNote[locale]);
   const showWhatToExpect = !!(pool.whatToExpect && pool.whatToExpect[locale]);
+  const showWhatToExpectAdmission = !!(
+    pool.whatToExpectAdmission && pool.whatToExpectAdmission[locale]
+  );
 
   const opportunityLength = pool.opportunityLength
     ? intl.formatMessage(getPoolOpportunityLength(pool.opportunityLength))
@@ -233,16 +243,18 @@ export const PoolPoster = ({
     canApply,
   };
 
-  const links = useBreadcrumbs([
-    {
-      label: intl.formatMessage(navigationMessages.browseJobs),
-      url: paths.browsePools(),
-    },
-    {
-      label: poolTitle,
-      url: paths.pool(pool.id),
-    },
-  ]);
+  const links = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(navigationMessages.browseJobs),
+        url: paths.browsePools(),
+      },
+      {
+        label: poolTitle,
+        url: paths.pool(pool.id),
+      },
+    ],
+  });
 
   const sections: Record<string, SectionContent> = {
     employmentDetails: {
@@ -295,21 +307,12 @@ export const PoolPoster = ({
     },
   };
 
-  const classificationGroup = getClassificationGroup(pool);
+  const classificationGroup = pool.classification?.group;
 
   return (
     <>
-      <SEO title={poolTitle} />
-      <Hero
-        title={poolTitle}
-        subtitle={intl.formatMessage({
-          defaultMessage:
-            "Learn more about this opportunity and begin an application.",
-          id: "H5EXEi",
-          description: "Subtitle for a pool advertisement page",
-        })}
-        crumbs={links}
-      />
+      <SEO title={poolTitle} description={formattedSubTitle} />
+      <Hero title={poolTitle} subtitle={formattedSubTitle} crumbs={links} />
       <div
         data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
         data-h2-margin-top="base(x3)"
@@ -844,6 +847,28 @@ export const PoolPoster = ({
                   />
                 </>
               )}
+              {showAboutUs && (
+                <>
+                  <Heading
+                    level="h3"
+                    size="h4"
+                    data-h2-font-weight="base(700)"
+                    data-h2-margin-bottom="base(x1)"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "About us",
+                      id: "LTpCFL",
+                      description:
+                        "Title for about us section on a pool advertisement.",
+                    })}
+                  </Heading>
+                  <RichTextRenderer
+                    node={htmlToRichTextJSON(
+                      getLocalizedName(pool.aboutUs, intl),
+                    )}
+                  />
+                </>
+              )}
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.moreInfo.id}>
               <div
@@ -1018,6 +1043,28 @@ export const PoolPoster = ({
                     </Accordion.Content>
                   </Accordion.Item>
                 )}
+                {showWhatToExpectAdmission && (
+                  <Accordion.Item
+                    value={moreInfoAccordions.whatToExpectAdmission}
+                  >
+                    <Accordion.Trigger as="h3">
+                      {intl.formatMessage({
+                        defaultMessage:
+                          '"What should I expect if I\'m successful in the process?"',
+                        id: "hwVlzN",
+                        description:
+                          "Button text to toggle the accordion for what to expect after admission",
+                      })}
+                    </Accordion.Trigger>
+                    <Accordion.Content>
+                      <RichTextRenderer
+                        node={htmlToRichTextJSON(
+                          getLocalizedName(pool.whatToExpectAdmission, intl),
+                        )}
+                      />
+                    </Accordion.Content>
+                  </Accordion.Item>
+                )}
               </Accordion.Root>
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.startAnApplication.id}>
@@ -1110,7 +1157,7 @@ const PoolAdvertisementPage_Query = graphql(/* GraphQL */ `
       language
       securityClearance
       opportunityLength
-      classifications {
+      classification {
         id
         group
         level
@@ -1142,6 +1189,14 @@ const PoolAdvertisementPage_Query = graphql(/* GraphQL */ `
         fr
       }
       specialNote {
+        en
+        fr
+      }
+      whatToExpectAdmission {
+        en
+        fr
+      }
+      aboutUs {
         en
         fr
       }
