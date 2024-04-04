@@ -51,7 +51,7 @@ stages:
   - job: run_playwright_tests
     displayName: Run Playwright tests
     pool:
-      vmImage: ubuntu-20.04
+      name: 'TBS Linux Self Hosted'
     steps:
       - checkout: self
         clean: true
