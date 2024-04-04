@@ -12,4 +12,9 @@ abstract class FileGenerator
     {
         return ucwords(strtolower(str_replace('_', ' ', $enum)));
     }
+
+    public function yesOrNo(bool $value): string
+    {
+        return $value ? 'Yes' : 'No';
+    }
 }

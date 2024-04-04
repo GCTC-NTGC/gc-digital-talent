@@ -2,6 +2,7 @@
 
 namespace App\Generators;
 
+use App\Enums\PositionDuration;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use Exception;
@@ -53,6 +54,10 @@ class CandidateProfileCsv extends CsvGenerator
         'Education requirement experiences',
     ];
 
+    protected array $questionIds = [];
+
+    protected array $skillIds = [];
+
     public function __construct(array $ids, ?string $lang = 'en')
     {
         $this->ids = $ids;
@@ -64,9 +69,16 @@ class CandidateProfileCsv extends CsvGenerator
     public function generate()
     {
         $candidates = PoolCandidate::with([
+            'educationRequirementAwardExperiences',
+            'educationRequirementCommunityExperiences',
+            'educationRequirementEducationExperiences',
+            'educationRequirementPersonalExperiences',
+            'educationRequirementWorkExperiences',
+            'generalQuestionResponses' => ['generalQuestion'],
             'user' => [
                 'department',
                 'currentClassification',
+                'userSkills' => ['skill'],
                 'awardExperiences' => ['userSkills' => ['skill']],
                 'communityExperiences' => ['userSkills' => ['skill']],
                 'educationExperiences' => ['userSkills' => ['skill']],
@@ -96,6 +108,7 @@ class CandidateProfileCsv extends CsvGenerator
             foreach ($pools as $pool) {
                 if ($pool->generalQuestions->count() > 0) {
                     foreach ($pool->generalQuestions as $question) {
+                        $this->questionIds[] = $question->id;
                         $this->headers[] = $question->question[$this->lang];
                     }
                 }
@@ -113,18 +126,94 @@ class CandidateProfileCsv extends CsvGenerator
 
                     foreach ($skillsByGroup as $group => $skills) {
                         foreach ($skills as $skill) {
+                            $this->skillIds[] = $skill->skill_id;
                             $this->headers[] = sprintf('%s (%s)',
                                 $skill->skill->name[$this->lang],
                                 $this->sanitizeEnum($group)
                             );
                         }
                     }
-
                 }
             }
         }
 
         $sheet->fromArray($this->headers, null, 'A1');
+
+        $candidates->each(function ($candidate, $key) use ($sheet) {
+            $department = $candidate->user->department()->first();
+            $preferences = $candidate->user->getOperationalRequirements();
+            $educationRequirementExperiences = $candidate->education_requirement_experiences->map(function ($experience) {
+                return $experience->getTitle();
+            })->flatten()->unique()->toArray();
+            $locationPreferences = '';
+            if ($candidate->user->location_preferences) {
+                $locationPreferences = implode(', ', $candidate->user->location_preferences);
+            }
+
+            $values = [
+                $this->sanitizeEnum($candidate->pool_candidate_status), // Status
+                $candidate->user->getPriority(), // Category
+                '', // Availability
+                $this->sanitizeString($candidate->notes ?? ''), // Notes
+                $this->sanitizeEnum($candidate->user->current_province), // Current province
+                $candidate->submitted_at ? $candidate->submitted_at->format('Y-m-d') : '', // Date received
+                $candidate->expiry_date ? $candidate->expiry_date->format('Y-m-d') : '', // Expiry date
+                $candidate->archived_at ? $candidate->archival_at->format('Y-m-d') : '', // Archival date
+                $candidate->user->first_name, // First name
+                $candidate->user->last_name, // Last name
+                $candidate->user->email, // Email
+                $candidate->user->getLanguage('preferred_lang'), // Preferred communication language
+                $candidate->user->getLanguage('preferred_language_for_interview'), // Preferred spoken interview language
+                $candidate->user->getLanguage('preferred_language_for_exam'), // Preferred written exam language
+                $candidate->user->current_city, // Current city
+                $candidate->user->getArmedForcesStatus(), // Armed forces status
+                $candidate->user->getCitizenship(), // Citizenship
+                $candidate->user->getBilingualEvaluation(), // Bilingual evaluation
+                $candidate->user->comprehension_level, // Reading level
+                $candidate->user->written_level, // Writing level
+                $candidate->user->verbal_level, // Oral interaction level
+                $this->sanitizeEnum($candidate->user->estimated_language_ability ?? ''), // Estimated language ability
+                $this->yesOrNo($candidate->user->is_gov_employee), // Government employee
+                $department->name[$this->lang] ?? '', // Department
+                $candidate->user->getGovEmployeeType(), // Employee type
+                $candidate->user->getClassification(), // Current classification
+                $this->yesOrNo($candidate->user->has_priority_entitlement), // Priority entitlement
+                $candidate->user->priority_number ?? '', // Priority number
+                $locationPreferences ? $this->sanitizeEnum($locationPreferences) : '', // Location preferences
+                $candidate->user->location_exemptions, // Location exemptions
+                $candidate->user->position_duration ? $this->yesOrNo(in_array(PositionDuration::TEMPORARY->name, $candidate->user->position_duration)) : '', // Accept temporary
+                $this->sanitizeEnum(implode(', ', $preferences['accepted'] ?? []) ?? ''), // Accepted operational requirements
+                $this->yesOrNo($candidate->user->is_woman), // Woman
+                implode(', ', $candidate->user->getIndigenousCommunities() ?? []), // Indigenous
+                $this->yesOrNo($candidate->user->is_visible_minority), // Visible minority
+                $this->yesOrNo($candidate->user->has_disability), // Disability
+                $this->sanitizeEnum($candidate->education_requirement_option), // Education requirement
+                implode(', ', $educationRequirementExperiences ?? []), // Education requirement experiences
+            ];
+
+            $candidateQuestionIds = $candidate->generalQuestionResponses->pluck('general_question_id')->toArray();
+            foreach ($this->questionIds as $questionId) {
+                if (in_array($questionId, $candidateQuestionIds)) {
+                    $response = $candidate->generalQuestionResponses->where('general_question_id', $questionId)->first();
+                    $values[] = $this->sanitizeString($response->answer);
+                } else {
+                    $values[] = '';
+                }
+            }
+
+            $candidateSkillIds = $candidate->user->userSkills->pluck('skill_id')->toArray();
+            foreach ($this->skillIds as $skillId) {
+                if (in_array($skillId, $candidateSkillIds)) {
+                    $userSkill = $candidate->user->userSkills->where('skill_id', $skillId)->first();
+                    $values[] = $userSkill->skill->details;
+                } else {
+                    $values[] = '';
+                }
+            }
+
+            // 2 is added to the key to account for the header row and 0 index
+            $sheet->fromArray($values, null, 'A'.$key + 2);
+        });
 
     }
 }

@@ -30,4 +30,9 @@ abstract class CsvGenerator extends FileGenerator
 
         return $writer->save($path);
     }
+
+    public function sanitizeString(string $string): string
+    {
+        return str_replace(["\r", "\n"], ' ', $string);
+    }
 }
