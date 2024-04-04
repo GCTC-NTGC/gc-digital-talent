@@ -12,6 +12,7 @@ import {
 } from "@gc-digital-talent/ui";
 import { User, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
@@ -91,6 +92,7 @@ const inlineLink = (href: string, chunks: React.ReactNode) => (
 const AccountSettingsPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
+  const featureFlags = useFeatureFlags();
 
   const [{ data, fetching, error }] = useQuery({
     query: AccountSettings_Query,
@@ -156,13 +158,23 @@ const AccountSettingsPage = () => {
             <TableOfContents.Wrapper>
               <TableOfContents.Navigation data-h2-padding-top="base(x3)">
                 <TableOfContents.List>
-                  {Object.values(sections).map((section) => (
-                    <TableOfContents.ListItem key={section.id}>
-                      <TableOfContents.AnchorLink id={section.id}>
-                        {section.title}
-                      </TableOfContents.AnchorLink>
-                    </TableOfContents.ListItem>
-                  ))}
+                  {Object.values(sections).map((section) => {
+                    // Remove notifications section if feature flag is turned off.
+                    // Remove the if statement when notifications feature flag is turned on.
+                    if (
+                      !featureFlags.notifications &&
+                      section.id === "notification-settings"
+                    )
+                      return null;
+
+                    return (
+                      <TableOfContents.ListItem key={section.id}>
+                        <TableOfContents.AnchorLink id={section.id}>
+                          {section.title}
+                        </TableOfContents.AnchorLink>
+                      </TableOfContents.ListItem>
+                    );
+                  })}
                 </TableOfContents.List>
               </TableOfContents.Navigation>
               <TableOfContents.Content>
@@ -189,32 +201,34 @@ const AccountSettingsPage = () => {
                   </p>
                   <AccountManagement />
                 </TableOfContents.Section>
-                <TableOfContents.Section
-                  id={sections.notificationSettings.id}
-                  data-h2-padding-top="base(x3)"
-                >
-                  <TableOfContents.Heading
-                    size="h3"
-                    icon={Cog8ToothIcon}
-                    color="primary"
-                    data-h2-margin="base(0, 0, x1, 0)"
+                {featureFlags.notifications && (
+                  <TableOfContents.Section
+                    id={sections.notificationSettings.id}
+                    data-h2-padding-top="base(x3)"
                   >
-                    {sections.notificationSettings.title}
-                  </TableOfContents.Heading>
-                  <p data-h2-margin="base(0, 0, x1, 0)">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "The settings provided in this section allow you to control when you receive notifications and how they are delivered. Email notifications are delivered to the email provided on your profile, while in-app notifications are delivered to the notification pane found in the main menu next to your name.",
-                      id: "hnyf1f",
-                      description:
-                        "Subtitle for notification settings section on account settings page.",
-                    })}
-                  </p>
-                  <NotificationSettings
-                    ignoredEmailNotifications={ignoredEmailNotifications}
-                    ignoredInAppNotifications={ignoredInAppNotifications}
-                  />
-                </TableOfContents.Section>
+                    <TableOfContents.Heading
+                      size="h3"
+                      icon={Cog8ToothIcon}
+                      color="primary"
+                      data-h2-margin="base(0, 0, x1, 0)"
+                    >
+                      {sections.notificationSettings.title}
+                    </TableOfContents.Heading>
+                    <p data-h2-margin="base(0, 0, x1, 0)">
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "The settings provided in this section allow you to control when you receive notifications and how they are delivered. Email notifications are delivered to the email provided on your profile, while in-app notifications are delivered to the notification pane found in the main menu next to your name.",
+                        id: "hnyf1f",
+                        description:
+                          "Subtitle for notification settings section on account settings page.",
+                      })}
+                    </p>
+                    <NotificationSettings
+                      ignoredEmailNotifications={ignoredEmailNotifications}
+                      ignoredInAppNotifications={ignoredInAppNotifications}
+                    />
+                  </TableOfContents.Section>
+                )}
                 <TableOfContents.Section
                   id={sections.recruitmentAvailability.id}
                   data-h2-padding-top="base(x3)"
