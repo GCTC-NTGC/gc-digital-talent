@@ -21,12 +21,7 @@ return new class extends Migration
             $table->foreign('placed_department_id')->references('id')->on('departments');
         });
 
-        $placedStatuses = [
-            PoolCandidateStatus::PLACED_CASUAL->name,
-            PoolCandidateStatus::PLACED_INDETERMINATE->name,
-            PoolCandidateStatus::PLACED_TENTATIVE->name,
-            PoolCandidateStatus::PLACED_TERM->name,
-        ];
+        $placedStatuses = PoolCandidateStatus::placedGroup();
         $timeNow = Carbon::now();
 
         DB::table('pool_candidates')
