@@ -21,12 +21,14 @@ const UserDeletedPage = () => {
       "Title for the page users land on if their account was deleted.",
   });
 
-  const crumbs = useBreadcrumbs([
-    {
-      label: pageTitle,
-      url: paths.userDeleted(),
-    },
-  ]);
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: pageTitle,
+        url: paths.userDeleted(),
+      },
+    ],
+  });
 
   const inlineLink = (chunks: React.ReactNode) => (
     <Link

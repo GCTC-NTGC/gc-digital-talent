@@ -2,44 +2,33 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { RadioGroup } from "@gc-digital-talent/forms";
-import {
-  errorMessages,
-  getBehaviouralSkillLevel,
-  getBehaviouralSkillLevelDefinition,
-  getTechnicalSkillLevel,
-  getTechnicalSkillLevelDefinition,
-} from "@gc-digital-talent/i18n";
-import { WhenSkillUsed } from "@gc-digital-talent/graphql";
+import { errorMessages, getSkillLevelMessages } from "@gc-digital-talent/i18n";
+import { SkillCategory, WhenSkillUsed } from "@gc-digital-talent/graphql";
 
 import { getSortedSkillLevels } from "~/utils/skillUtils";
 
 import { SkillBrowserDialogContext } from "../SkillBrowser/types";
 
 interface UserSkillFormFieldsProps {
-  isTechnical?: boolean;
+  category: SkillCategory;
   context?: SkillBrowserDialogContext;
 }
 
 const UserSkillFormFields = ({
-  isTechnical = false,
+  category,
   context,
 }: UserSkillFormFieldsProps) => {
   const intl = useIntl();
   const shouldShowWhenUsedQuestion = context !== "directive_forms";
 
-  const levelGetter = isTechnical
-    ? getTechnicalSkillLevel
-    : getBehaviouralSkillLevel;
-  const levelDefinitionGetter = isTechnical
-    ? getTechnicalSkillLevelDefinition
-    : getBehaviouralSkillLevelDefinition;
-  const levelOptions = getSortedSkillLevels().map((skillLevel) => ({
-    value: skillLevel,
-    label: <strong>{intl.formatMessage(levelGetter(skillLevel))}</strong>,
-    contentBelow: (
-      <p>{intl.formatMessage(levelDefinitionGetter(skillLevel))}</p>
-    ),
-  }));
+  const levelOptions = getSortedSkillLevels().map((skillLevel) => {
+    const messages = getSkillLevelMessages(skillLevel, category);
+    return {
+      value: skillLevel,
+      label: <strong>{intl.formatMessage(messages.name)}</strong>,
+      contentBelow: <p>{intl.formatMessage(messages.definition)}</p>,
+    };
+  });
 
   return (
     <>

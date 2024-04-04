@@ -13,20 +13,12 @@ const fakedPool3 = fakedPools[2];
 const fakedPool4 = fakedPools[3];
 const fakedPoolNull = fakedPools[0];
 
-if (
-  fakedPool3.classifications &&
-  fakedPool3.classifications[0] &&
-  fakedPool3.classifications[0].minSalary
-) {
-  fakedPool3.classifications[0].minSalary = null;
+if (fakedPool3.classification?.minSalary) {
+  fakedPool3.classification.minSalary = null;
 }
 
-if (
-  fakedPool4.classifications &&
-  fakedPool4.classifications[0] &&
-  fakedPool4.classifications[0].maxSalary
-) {
-  fakedPool4.classifications[0].maxSalary = null;
+if (fakedPool4.classification?.maxSalary) {
+  fakedPool4.classification.maxSalary = null;
 }
 
 // idea stolen from ProfilePage.stories.tsx

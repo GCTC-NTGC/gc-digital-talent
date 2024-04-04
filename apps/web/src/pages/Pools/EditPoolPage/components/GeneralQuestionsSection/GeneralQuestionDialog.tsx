@@ -21,11 +21,13 @@ const TEXT_AREA_MAX_WORDS = 200;
 interface GeneralQuestionDialogProps {
   question?: GeneralQuestion;
   index?: number;
+  disabled?: boolean;
 }
 
 const GeneralQuestionDialog = ({
   question,
   index,
+  disabled,
 }: GeneralQuestionDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
@@ -65,12 +67,13 @@ const GeneralQuestionDialog = ({
       <Dialog.Trigger>
         {isUpdate ? (
           <CardRepeater.Edit
+            disabled={disabled}
             aria-label={intl.formatMessage(formMessages.repeaterEdit, {
               index,
             })}
           />
         ) : (
-          <CardRepeater.Add>
+          <CardRepeater.Add disabled={disabled}>
             {intl.formatMessage({
               defaultMessage: "Add a new question",
               id: "uEqA50",

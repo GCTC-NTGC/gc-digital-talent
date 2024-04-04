@@ -45,6 +45,7 @@ export const DraftPool = TemplateEditPoolForm.bind({});
 DraftPool.args = {
   pool: {
     ...pool,
+    closingDate: FAR_FUTURE_DATE,
     publishedAt: null,
     status: PoolStatus.Draft,
   },

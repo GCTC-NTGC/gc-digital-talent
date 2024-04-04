@@ -25,7 +25,6 @@ final class DuplicatePool
         ]);
         $newPool->save();
 
-        $newPool->classifications()->sync($pool->classifications->pluck('id'));
         $newPool->setEssentialPoolSkills($pool->essentialSkills->pluck('id'));
         $newPool->setNonessentialPoolSkills($pool->nonessentialSkills->pluck('id'));
 

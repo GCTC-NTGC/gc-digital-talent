@@ -15,7 +15,7 @@
 /**
  * @type {Cypress.PluginConfig}
  */
-module.exports = (on, config) => {
+module.exports = (on) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
 
@@ -25,6 +25,7 @@ module.exports = (on, config) => {
     // Options: onFail, always, never
     printLogsToConsole: "onFail",
   };
+  // eslint-disable-next-line global-require, @typescript-eslint/no-var-requires
   require("cypress-terminal-report/src/installLogsPrinter")(
     on,
     reporterOptions,

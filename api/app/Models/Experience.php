@@ -25,6 +25,10 @@ abstract class Experience extends Model
 
     protected $keyType = 'string';
 
+    abstract public function getTitle(): string;
+
+    abstract public function getExperienceType(): string;
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)
@@ -166,5 +170,17 @@ abstract class Experience extends Model
                 $user->searchable();
             }
         });
+    }
+
+    public function getDateRange(): string
+    {
+        if ($this->getExperienceType() === 'award') {
+            return $this->awarded_date->format('M Y');
+        }
+
+        $start = $this->start_date->format('M Y');
+        $end = $this->end_date ? $this->end_date->format('M Y') : 'Present';
+
+        return "$start - $end";
     }
 }

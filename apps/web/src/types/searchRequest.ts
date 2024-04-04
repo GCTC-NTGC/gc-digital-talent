@@ -7,8 +7,6 @@ import {
   Classification,
 } from "@gc-digital-talent/graphql";
 
-import { SimpleClassification, SimplePool } from "~/types/pool";
-
 export const NullSelection = "NULL_SELECTION";
 
 export type Option<V> = { value: V; label: string };
@@ -24,7 +22,6 @@ export type FormValues = Pick<
   employmentEquity: string[] | undefined;
   educationRequirement: "has_diploma" | "no_diploma";
   poolCandidates?: UserPoolFilterInput;
-  pools?: SimplePool[];
   pool?: Scalars["ID"]["output"];
   selectedClassifications?: Classification[];
   count?: number;
@@ -37,6 +34,6 @@ export type BrowserHistoryState = {
   applicantFilter?: ApplicantFilterInput;
   candidateCount: number;
   initialValues?: FormValues;
-  selectedClassifications?: SimpleClassification[];
+  selectedClassifications?: Classification[];
   allPools?: boolean;
 };

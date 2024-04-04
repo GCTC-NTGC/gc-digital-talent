@@ -1,25 +1,19 @@
-import { type Page } from "@playwright/test";
-
 import { CreateUserInput, User } from "@gc-digital-talent/graphql";
 
 import { Test_CreateUserMutationDocument, defaultUser } from "~/utils/user";
 import {
   Test_RolesQueryDocument,
   Test_UpdateUserRolesMutationDocument,
-} from "~/utils/auth";
+} from "~/utils/roles";
 import { GraphQLResponse } from "~/utils/graphql";
 
-import { AppPage } from "./AppPage";
+import AppPage from "./AppPage";
 /**
  * Admin Page
  *
  * Page containing an admin user context from global setup
  */
-export class AdminPage extends AppPage {
-  constructor(page: Page) {
-    super(page);
-  }
-
+class AdminPage extends AppPage {
   async createUser(user?: Partial<CreateUserInput>): Promise<User> {
     return this.graphqlRequest(Test_CreateUserMutationDocument, {
       user: {
@@ -48,3 +42,5 @@ export class AdminPage extends AppPage {
     });
   }
 }
+
+export default AdminPage;

@@ -1,7 +1,7 @@
 import React from "react";
 import { IntlShape } from "react-intl";
 
-import { Link, Pill } from "@gc-digital-talent/ui";
+import { Link, Chip, Chips } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Role, User } from "@gc-digital-talent/graphql";
@@ -12,24 +12,20 @@ import EditTeamRoleDialog from "./EditTeamRoleDialog";
 import RemoveTeamRoleDialog from "./RemoveTeamRoleDialog";
 
 export function roleCell(displayName: string) {
-  return (
-    <Pill color="blackFixed" mode="solid">
-      {displayName}
-    </Pill>
-  );
+  return <Chip color="black">{displayName}</Chip>;
 }
 
 export function teamRolesCell(displayNames: string[]) {
   return (
-    <div data-h2-display="base(flex)" data-h2-gap="base(0, x.25)">
+    <Chips>
       {displayNames.map((displayName) => {
         return (
-          <Pill color="blackFixed" mode="solid" key={displayName}>
+          <Chip color="black" key={displayName}>
             {displayName}
-          </Pill>
+          </Chip>
         );
       })}
-    </div>
+    </Chips>
   );
 }
 

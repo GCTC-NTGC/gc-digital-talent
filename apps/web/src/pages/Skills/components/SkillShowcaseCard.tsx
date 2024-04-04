@@ -2,11 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
-import {
-  getLocalizedName,
-  getBehaviouralSkillLevel,
-  getTechnicalSkillLevel,
-} from "@gc-digital-talent/i18n";
+import { getLocalizedName, getSkillLevelName } from "@gc-digital-talent/i18n";
 import { CardRepeater, useCardRepeaterContext } from "@gc-digital-talent/ui";
 import {
   UpdateUserSkillRankingsInput,
@@ -88,9 +84,12 @@ const SkillShowcaseCard = ({
           >
             {item.skillLevel
               ? intl.formatMessage(
-                  item.category === SkillCategory.Behavioural
-                    ? getBehaviouralSkillLevel(item.skillLevel)
-                    : getTechnicalSkillLevel(item.skillLevel),
+                  getSkillLevelName(
+                    item.skillLevel,
+                    item.category === SkillCategory.Behavioural
+                      ? SkillCategory.Behavioural
+                      : SkillCategory.Technical,
+                  ),
                 )
               : getLocalizedName(null, intl)}
           </span>

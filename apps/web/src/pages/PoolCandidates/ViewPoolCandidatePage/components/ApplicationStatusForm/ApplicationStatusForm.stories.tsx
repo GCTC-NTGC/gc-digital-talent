@@ -1,14 +1,13 @@
 import React from "react";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
-import { UpdatePoolCandidateAsAdminInput } from "@gc-digital-talent/graphql";
+import { UpdatePoolCandidateStatusInput } from "@gc-digital-talent/graphql";
 
 import { ApplicationStatusForm } from "./ApplicationStatusForm";
 
-type Meta = ComponentMeta<typeof ApplicationStatusForm>;
-type Story = ComponentStory<typeof ApplicationStatusForm>;
+type Story = StoryFn<typeof ApplicationStatusForm>;
 
 const mockApplications = fakePoolCandidates(1);
 const mockApplication = mockApplications[0];
@@ -22,7 +21,7 @@ const Template: Story = (args) => {
   const [isSubmitting, setSubmitting] = React.useState<boolean>(false);
   const { application } = args;
 
-  const handleSubmit = (values: UpdatePoolCandidateAsAdminInput) => {
+  const handleSubmit = (values: UpdatePoolCandidateStatusInput) => {
     action(JSON.stringify({ values }));
     setSubmitting(true);
     setTimeout(() => {

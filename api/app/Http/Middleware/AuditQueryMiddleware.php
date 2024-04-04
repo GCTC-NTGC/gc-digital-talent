@@ -29,10 +29,10 @@ class AuditQueryMiddleware
     {
         $user = $request->user();
         if (! is_null($user) && $user->hasRole('platform_admin')) {
-            $message = 'GraphQL request from platform admin user ['.$user['email'].']';
+            $referer = request()->headers->get('referer');
+            $message = 'Request from platform admin, '.$user['email'].', '.$referer.',';
             $this->logger->info(
-                $message,
-                $request->json()->all()
+                $message.' '.$request->getContent()
             );
         }
 

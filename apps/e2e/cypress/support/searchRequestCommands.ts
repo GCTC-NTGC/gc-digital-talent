@@ -24,7 +24,7 @@ Cypress.Commands.add(
       operationName: "Command_CreatePoolCandidateSearchRequest",
       query: commandCreatePoolCandidateSearchRequestDoc,
       variables: {
-        poolCandidateSearchRequest: poolCandidateSearchRequest,
+        poolCandidateSearchRequest,
       },
     }).then((data) => {
       cy.wrap(data.createPoolCandidateSearchRequest);
@@ -55,8 +55,8 @@ Cypress.Commands.add(
       operationName: "Command_UpdatePoolCandidateSearchRequest",
       query: commandUpdatePoolCandidateSearchRequestDoc,
       variables: {
-        id: id,
-        poolCandidateSearchRequest: poolCandidateSearchRequest,
+        id,
+        poolCandidateSearchRequest,
       },
     }).then((data) => {
       cy.wrap(data.updatePoolCandidateSearchRequest);

@@ -10,7 +10,7 @@ There are plans to introduce multiple levels of automated a11y testing however, 
 
 `eslint-plugin-jsx-ally` works with eslint to catch common problems related the markup of our application. If your IDE supports it, [setting up eslint](http://wiki.openbravo.com/wiki/How_To_Setup_ESLint_And_Prettier_In_Your_IDE) can be very beneficial to highlight these errors without the need to the the `lint` script.
 
-If you are unable to setup eslint in your IDE, we recommend running `npm run lint --workspaces` before pushing your code to catch any markup related a11y warnings/errors early.
+If you are unable to setup eslint in your IDE, we recommend running `pnpm run lint` before pushing your code to catch any markup related a11y warnings/errors early.
 
 #### Ignoring Rules
 
@@ -103,24 +103,24 @@ When manually testing the application, it is good for you to ask yourself some q
 - [ ] Check for consistent use of white space so pages are easy to scan.
 - [ ] Review non-text elements for information or functional value, proper labelling and/or alternative text for non-text elements with value.
 - [ ] Confirm that objects with informative or functional value have meaningful alternative or ARIA labels.
-- [ ] Review colour contrast for a contrast ratio of 4:5:1 between foreground and background. 
-- [ ] Review colour contrast for perceived colour contrast in addition to computed values. 
+- [ ] Review colour contrast for a contrast ratio of 4:5:1 between foreground and background.
+- [ ] Review colour contrast for perceived colour contrast in addition to computed values.
 - [ ] Confirm link texts are descriptive and that their "underline" signifier is present. The link color must have a contrast ratio of 3:1 with adjacent text.
-- [ ] Confirm that key pages do not rely solely on colour to convey meaning or instruction. 
+- [ ] Confirm that key pages do not rely solely on colour to convey meaning or instruction.
 
 #### Technical checks
 
 - [ ] Test for the presence of proper landmarks roles and labels (e.g., Main, Nav, aside, section , header, footer)
 - [ ] Confirm that all components/widgets have appropriate ARIA roles.
 - [ ] Review page titles and headings for descriptive titles and proper structure.
-- [ ] Review reading order and focus management (focus order, component triggers, modals, etc.). 
+- [ ] Review reading order and focus management (focus order, component triggers, modals, etc.).
 - [ ] Confirm that meaningful graphical elements (those with informational value) have a contrast value of 3:1.
-- [ ] Confirm that touch targets are usable (pointer input  is at least 44 by 44 pixels)
-- [ ] Create a page example with text size enlarged to 200% to test text resizing and reflow. 
+- [ ] Confirm that touch targets are usable (pointer input is at least 44 by 44 pixels)
+- [ ] Create a page example with text size enlarged to 200% to test text resizing and reflow.
 - [ ] Test any new selectable components (toggle buttons, radio buttons, checkboxes, list boxes, text boxes, etc.) to see if it triggers an expected change in context.
-- [ ] Confirm if users have multiple ways to navigate to each page in the pattern. 
-- [ ] Check French-language pages for proper default language. 
-- [ ] Confirm that the platform does not require users to re-enter information they have already provided (e.g., in a previous step of the RoD process).
+- [ ] Confirm if users have multiple ways to navigate to each page in the pattern.
+- [ ] Check French-language pages for proper default language.
+- [ ] Confirm that the platform does not require users to re-enter information they have already provided (e.g., in a previous step of the Record of Decision process).
 
 #### Plain Language confirmations
 
@@ -128,7 +128,7 @@ When manually testing the application, it is good for you to ask yourself some q
 - [ ] Check that short lists and bullets are used to organize information when appropriate.
 - [ ] Flag if information on each page is presented in more than two semantic heading levels.
 - [ ] Check that page titles and copy are crafted with key words that our readers would use when doing a web search for our product.
-- [ ] Verify that readers who do not have knowledge of our platform can read related pages on the site. 
+- [ ] Verify that readers who do not have knowledge of our platform can read related pages on the site.
 - [ ] Check that copy explains things succinctly so each page can stand on its own.
 - [ ] Check that link language should describe what your reader will get if they click the link (e.g., Never use "click here" or "Learn more" as links).
 - [ ] Verify that unnecessary or redundant words have been eliminated.

@@ -9,6 +9,7 @@ import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRoutes from "~/hooks/useRoutes";
 import AdminHero from "~/components/Hero/AdminHero";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import ClassificationTableApi from "./components/ClassificationTable";
 
@@ -26,20 +27,15 @@ export const IndexClassificationPage = () => {
 
   const formattedPageTitle = intl.formatMessage(pageTitle);
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: formattedPageTitle,
-      url: routes.classificationTable(),
-    },
-  ];
+  const navigationCrumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: formattedPageTitle,
+        url: routes.classificationTable(),
+      },
+    ],
+    isAdmin: true,
+  });
 
   return (
     <>

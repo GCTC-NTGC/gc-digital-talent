@@ -1,5 +1,6 @@
 module.exports = {
   roots: ["src"],
+  preset: "@gc-digital-talent/jest-presets/jest/browser",
   // https://alexjover.com/blog/enhance-jest-configuration-with-module-aliases/
   moduleNameMapper: {
     "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga|pdf|doc|docx)$":
@@ -21,6 +22,7 @@ module.exports = {
                 // options
                 overrideIdFn: "[sha512:contenthash:base64:6]",
                 ast: true,
+                preserveWhitespace: true,
               },
             },
           ],

@@ -8,38 +8,6 @@ Will be replaced by a generated type during schema manipulation.
 """
 scalar _
 
-# Directive class: App\GraphQL\Directives\CanOnParentDirective
-"""
-Check a Laravel Policy to ensure the current user is authorized to access a field.
-
-When `injectArgs` and `args` are used together, the client given
-arguments will be passed before the static args.
-"""
-directive @canOnParent(
-  """
-  The ability to check permissions for.
-  """
-  ability: String!
-
-  """
-  Pass along the client given input data as arguments to `Gate::check`.
-  """
-  injectArgs: Boolean! = false
-
-  """
-  Statically defined arguments that are passed to `Gate::check`.
-
-  You may pass arbitrary GraphQL literals,
-  e.g.: [1, 2, 3] or { foo: "bar" }
-  """
-  args: CanArgs
-) repeatable on FIELD_DEFINITION
-
-    """
-Any constant literal value: https://graphql.github.io/graphql-spec/draft/#sec-Input-Values
-"""
-scalar CanOnParentArgs
-
 # Directive class: App\GraphQL\Directives\InjectNowDirective
 """
 Inject the current DateTime into the arguments.

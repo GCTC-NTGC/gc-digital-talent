@@ -14,7 +14,6 @@ const getStepInfo: GetApplicationStepInfo = ({
   paths,
   intl,
   stepOrdinal,
-  RoDFlag,
 }): ApplicationStepInfo => {
   return {
     applicationStep: ApplicationStep.SkillRequirements,
@@ -23,14 +22,12 @@ const getStepInfo: GetApplicationStepInfo = ({
       intl,
       application,
       stepOrdinal,
-      RoDFlag,
     }),
     introductionPage: skillsIntroductionPageInfo({
       paths,
       intl,
       application,
       stepOrdinal,
-      RoDFlag,
     }),
     showInStepper: true,
     prerequisites: [

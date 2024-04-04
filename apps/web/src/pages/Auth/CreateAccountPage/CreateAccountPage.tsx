@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 
 import { Alert, Heading, Pending } from "@gc-digital-talent/ui";
@@ -33,6 +33,12 @@ import {
   getGovernmentInfoLabels,
   GovernmentInfoFormFields,
 } from "./components/GovernmentInfoForm";
+
+const subTitle = defineMessage({
+  defaultMessage: "Let's begin with some basic account information.",
+  id: "f9UKuz",
+  description: "Subtitle for the create account page for applicant profiles.",
+});
 
 type FormValues = Pick<
   UpdateUserAsUserInput,
@@ -134,6 +140,7 @@ export const CreateAccountForm = ({
           id: "lPWUoO",
           description: "Page title for the account creation page",
         })}
+        description={intl.formatMessage(subTitle)}
       />
       <Hero
         centered
@@ -143,12 +150,7 @@ export const CreateAccountForm = ({
           description:
             "Title for the create account page for applicant profiles.",
         })}
-        subtitle={intl.formatMessage({
-          defaultMessage: "Let's begin with some basic account information.",
-          id: "f9UKuz",
-          description:
-            "Subtitle for the create account page for applicant profiles.",
-        })}
+        subtitle={intl.formatMessage(subTitle)}
       >
         <section data-h2-padding="base(0, 0, x3, 0)">
           <Alert.Root type="success" live={false}>

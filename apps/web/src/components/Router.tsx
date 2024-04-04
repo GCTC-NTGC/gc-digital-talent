@@ -188,6 +188,14 @@ const CareerTimelineAndRecruitmentPage = React.lazy(() =>
       ),
   ),
 );
+const NotificationsPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsNotificationsPage" */ "../pages/Notifications/NotificationsPage/NotificationsPage"
+      ),
+  ),
+);
 
 /** Direct Intake */
 const BrowsePoolsPage = React.lazy(() =>
@@ -354,14 +362,6 @@ const IAPManagerHomePage = React.lazy(() =>
 );
 
 /** Admin */
-const AdminHomePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminAdminHomePage" */ "../pages/Home/AdminHomePage/AdminHomePage"
-      ),
-  ),
-);
 const AdminErrorPage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -519,14 +519,6 @@ const ViewPoolCandidatePage = React.lazy(() =>
     () =>
       import(
         /* webpackChunkName: "adminViewPoolCandidate" */ "../pages/PoolCandidates/ViewPoolCandidatePage/ViewPoolCandidatePage"
-      ),
-  ),
-);
-const RODViewPoolCandidatePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminRODViewPoolCandidate" */ "../pages/PoolCandidates/ViewPoolCandidatePage/RODViewPoolCandidatePage"
       ),
   ),
 );
@@ -760,6 +752,12 @@ const DigitalServicesContractingQuestionnaire = React.lazy(() =>
       ),
   ),
 );
+const SkillPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(/* webpackChunkName: "tsSkillPage" */ "../pages/Skills/SkillPage"),
+  ),
+);
 
 const createRoute = (
   locale: Locales,
@@ -851,6 +849,10 @@ const createRoute = (
               ],
             },
             {
+              path: "skills",
+              element: <SkillPage />,
+            },
+            {
               path: "register-info",
               element: <SignUpPage />,
             },
@@ -905,6 +907,19 @@ const createRoute = (
                       <Outlet />
                     </RequireAuth>
                   ),
+                },
+                {
+                  ...(featureFlags.notifications && {
+                    path: "notifications",
+                    element: (
+                      <RequireAuth
+                        roles={[ROLE_NAME.Applicant]}
+                        loginPath={loginPath}
+                      >
+                        <NotificationsPage />
+                      </RequireAuth>
+                    ),
+                  }),
                 },
                 {
                   path: "profile-and-applications",
@@ -1259,11 +1274,7 @@ const createRoute = (
           errorElement: <AdminErrorPage />,
           children: [
             {
-              path: "",
-              element: <AdminHomePage />,
-            },
-            {
-              path: "dashboard",
+              index: true,
               element: (
                 <RequireAuth
                   roles={[
@@ -1544,27 +1555,11 @@ const createRoute = (
                             </RequireAuth>
                           ),
                         },
-                        {
-                          path: ":poolCandidateId",
-                          children: [
-                            {
-                              index: true,
-                              element: (
-                                <RequireAuth
-                                  roles={[ROLE_NAME.PoolOperator]}
-                                  loginPath={loginPath}
-                                >
-                                  <ViewPoolCandidatePage />
-                                </RequireAuth>
-                              ),
-                            },
-                          ],
-                        },
                       ],
                     },
                     {
                       path: "screening",
-                      element: featureFlags.recordOfDecision ? (
+                      element: (
                         <RequireAuth
                           roles={[
                             ROLE_NAME.PoolOperator,
@@ -1574,13 +1569,11 @@ const createRoute = (
                         >
                           <ScreeningAndEvaluationPage />
                         </RequireAuth>
-                      ) : (
-                        <AdminErrorPage />
                       ),
                     },
                     {
                       path: "plan",
-                      element: featureFlags.recordOfDecision ? (
+                      element: (
                         <RequireAuth
                           roles={[
                             ROLE_NAME.PoolOperator,
@@ -1591,8 +1584,6 @@ const createRoute = (
                         >
                           <AssessmentPlanBuilderPage />
                         </RequireAuth>
-                      ) : (
-                        <AdminErrorPage />
                       ),
                     },
                   ],
@@ -1625,11 +1616,7 @@ const createRoute = (
                   ]}
                   loginPath={loginPath}
                 >
-                  {featureFlags.recordOfDecision ? (
-                    <RODViewPoolCandidatePage />
-                  ) : (
-                    <ViewPoolCandidatePage />
-                  )}
+                  <ViewPoolCandidatePage />
                 </RequireAuth>
               ),
             },

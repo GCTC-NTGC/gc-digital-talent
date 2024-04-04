@@ -1,11 +1,6 @@
 import { defineMessages } from "react-intl";
 
 const messages = defineMessages({
-  view: {
-    defaultMessage: "View",
-    id: "VhBuJ/",
-    description: "Title displayed for the Pool Candidates table View column.",
-  },
   candidacyStatus: {
     defaultMessage: "Candidacy Status",
     description: "Candidacy status label",

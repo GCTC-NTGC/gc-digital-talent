@@ -25,11 +25,11 @@ Cypress.Commands.add("getDCM", () => {
     query: commandAllTeamsDoc,
     variables: {},
   }).then((data) => {
-    const teams = data.teams;
+    const { teams } = data;
     const dcm = teams.filter(
       (team) => team.name === "digital-community-management",
     );
-    const dcmId = dcm[0]["id"];
+    const dcmId = dcm[0].id;
     cy.wrap(dcmId);
   });
 });

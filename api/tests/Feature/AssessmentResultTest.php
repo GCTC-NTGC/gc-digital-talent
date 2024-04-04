@@ -52,8 +52,8 @@ class AssessmentResultTest extends TestCase
     }
 
     protected $createAssessmentResult =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         mutation createAssessmentResult($createAssessmentResult: CreateAssessmentResultInput!){
             createAssessmentResult(createAssessmentResult: $createAssessmentResult) {
                 id
@@ -72,8 +72,8 @@ class AssessmentResultTest extends TestCase
     ';
 
     protected $updateAssessmentResult =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         mutation updateAssessmentResult($updateAssessmentResult: UpdateAssessmentResultInput!){
             updateAssessmentResult(updateAssessmentResult: $updateAssessmentResult) {
                 id
@@ -85,8 +85,8 @@ class AssessmentResultTest extends TestCase
     ';
 
     protected $deleteAssessmentResult =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         mutation deleteAssessmentResult($id: UUID!){
             deleteAssessmentResult(id: $id) {
                 id

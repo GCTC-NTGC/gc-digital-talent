@@ -1,77 +1,109 @@
 import React from "react";
-import XCircleIcon from "@heroicons/react/24/outline/XCircleIcon";
+import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import { useIntl } from "react-intl";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
-import Pill from "../Pill";
-import { Color } from "../../types";
-import type { PillMode, PillProps } from "../Pill";
+import { Color, IconType } from "../../types";
+import colorMap from "./styles";
 
-import "./chip.css";
+/**
+ * List of acceptable key presses
+ * to fire the `onDismiss` event
+ */
+const deleteKeys = ["Backspace", "Delete", "Space", "Enter"];
 
-export interface ChipProps extends PillProps {
-  /** The style type of the element. */
-  color: Color;
-  /** The style mode of the element. */
-  mode: PillMode;
-  /** Handler for clicking the dismiss button in the chip */
-  onDismiss?: React.MouseEventHandler<Element>;
-  /** Text for inside the chip */
-  label: string;
-}
+const isDeleteEvent = (event: React.KeyboardEvent<HTMLSpanElement>) => {
+  return deleteKeys.includes(event.code);
+};
 
-const ChipDismiss = (props: React.ComponentProps<"button">) => (
-  <button
-    type="button"
-    data-h2-background-color="base(transparent)"
-    data-h2-border="base(none)"
-    data-h2-cursor="base(pointer)"
-    data-h2-padding="base(0)"
-    data-h2-radius="base(m)"
-    data-h2-shadow="base(none) base:hover(s)"
-    {...props}
-  />
-);
+export type ChipProps = React.DetailedHTMLProps<
+  React.HTMLAttributes<HTMLSpanElement>,
+  HTMLSpanElement
+> & {
+  color?: Color;
+  icon?: IconType;
+  onDismiss?: () => void;
+};
 
 const Chip = ({
-  color,
-  mode,
+  color = "primary",
   onDismiss,
-  label,
+  icon,
+  children,
   ...rest
-}: ChipProps): React.ReactElement => {
+}: ChipProps) => {
   const intl = useIntl();
-  const wrapperProps = onDismiss
-    ? {
-        className: `Chip__Dismiss Chip__Dismiss--${color}`,
-        onClick: onDismiss,
-        "aria-label": intl.formatMessage(uiMessages.removeChip, {
-          label,
-        }),
-      }
-    : {};
+  const Icon = icon;
+  const chipRef = React.useRef<HTMLSpanElement | null>(null);
+  const styles = colorMap.get(color);
 
-  const Wrapper = onDismiss ? ChipDismiss : React.Fragment;
+  const iconProps = {
+    "data-h2-width": "base(x.5)",
+    "data-h2-height": "base(x.5)",
+  };
+
+  const handleClick: React.MouseEventHandler<HTMLSpanElement> = (event) => {
+    event.stopPropagation();
+    onDismiss?.();
+  };
+
+  const handleKeyDown: React.KeyboardEventHandler<HTMLSpanElement> = (
+    event,
+  ) => {
+    // Don't do anything, we want this event to fire on key up
+    if (event.currentTarget === event.target && isDeleteEvent(event)) {
+      event.preventDefault();
+    }
+  };
+
+  const handleKeyUp: React.KeyboardEventHandler<HTMLSpanElement> = (event) => {
+    // Only handle key events on the chip, not children
+    if (event.currentTarget === event.target) {
+      if (onDismiss && isDeleteEvent(event)) {
+        onDismiss();
+      } else if (event.key === "Escape" && chipRef.current) {
+        chipRef.current.blur();
+      }
+    }
+  };
 
   return (
-    <Wrapper {...wrapperProps}>
-      <Pill
-        color={color}
-        mode={mode}
-        data-h2-padding="base(x.25, x.5)"
-        {...rest}
-      >
-        {label}
-        {onDismiss && (
-          <XCircleIcon
-            data-h2-width="base(1rem)"
-            data-h2-margin="base(0, 0, 0, x.25)"
-            data-h2-vertical-align="base(middle)"
-          />
-        )}
-      </Pill>
-    </Wrapper>
+    <span
+      ref={chipRef}
+      data-h2-align-items="base(center)"
+      data-h2-gap="base(x.25)"
+      data-h2-display="base(inline-flex)"
+      data-h2-font-size="base(caption)"
+      data-h2-font-weight="base(700)"
+      data-h2-padding="base(x.15 x.5)"
+      data-h2-radius="base(m)"
+      {...(onDismiss && {
+        className: "Chip Chip--dismissible",
+        role: "button",
+        tabIndex: 0,
+        onClick: handleClick,
+        onKeyDown: handleKeyDown,
+        onKeyUp: handleKeyUp,
+        "data-h2-cursor": "base(pointer)",
+        "data-h2-outline": "base(none)",
+      })}
+      {...styles}
+      {...rest}
+    >
+      {onDismiss && (
+        <XCircleIcon
+          aria-label={intl.formatMessage(uiMessages.removeChip)}
+          aria-hidden="false"
+          // DOM order is first for readability "Remove X"
+          // Move to end in visual order for design
+          data-h2-order="base(3)"
+          {...iconProps}
+        />
+      )}
+      {Icon && <Icon {...iconProps} />}
+      <span>{children}</span>
+    </span>
   );
 };
 

@@ -1,12 +1,13 @@
 import { DecoratorHelpers } from "@storybook/addon-themes";
 import type { DecoratorFunction, Renderer } from "@storybook/types";
+import React from "react";
+
 import {
   Theme,
   ThemeKey,
   ThemeProvider,
   useTheme,
 } from "@gc-digital-talent/theme";
-import React from "react";
 
 const { useThemeParameters, initializeThemeState, pluckThemeFromContext } =
   DecoratorHelpers;
@@ -39,11 +40,13 @@ const ThemeSetter = ({ theme }: ThemeSetterProps) => {
       key: theme.key,
       mode: theme.mode,
     });
-  }, [theme.key, theme.mode]);
+  }, [setTheme, theme.key, theme.mode]);
 
   return null;
 };
 
+// Note: Type matches documentation
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const withThemeFromHydrogen = <TRenderer extends Renderer = any>({
   themes,
   defaultTheme,

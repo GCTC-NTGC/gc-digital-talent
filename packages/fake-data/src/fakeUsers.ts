@@ -4,7 +4,6 @@ import {
   User,
   Language,
   ProvinceOrTerritory,
-  BilingualEvaluation,
   EvaluatedLanguageAbility,
   EstimatedLanguageAbility,
   Classification,
@@ -93,9 +92,6 @@ const generateUser = (
     lookingForEnglish: faker.datatype.boolean(),
     lookingForFrench: faker.datatype.boolean(),
     lookingForBilingual: faker.datatype.boolean(),
-    bilingualEvaluation: faker.helpers.arrayElement<BilingualEvaluation>(
-      Object.values(BilingualEvaluation),
-    ),
     comprehensionLevel: faker.helpers.arrayElement<EvaluatedLanguageAbility>(
       Object.values(EvaluatedLanguageAbility),
     ),

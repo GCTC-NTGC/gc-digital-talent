@@ -3,7 +3,7 @@ import { IntlShape } from "react-intl";
 
 import { Link } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
-import { assertUnreachable } from "@gc-digital-talent/helpers/src/utils/util";
+import { assertUnreachable } from "@gc-digital-talent/helpers";
 
 // build an external link to use with a formatjs message
 export function buildExternalLink(

@@ -1,3 +1,4 @@
 *
 !public/
+!user_generated/
 !.gitignore

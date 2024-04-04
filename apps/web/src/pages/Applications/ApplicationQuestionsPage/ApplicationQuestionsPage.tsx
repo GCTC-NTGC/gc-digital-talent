@@ -1,14 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
-import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
 import { Heading, Link } from "@gc-digital-talent/ui";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import { ApplicationStep } from "@gc-digital-talent/graphql";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -28,19 +26,15 @@ export const getPageInfo: GetPageNavInfo = ({
   paths,
   intl,
   stepOrdinal,
-  RoDFlag,
 }) => {
   const path = paths.applicationQuestions(application.id);
   return {
-    title: RoDFlag
-      ? intl.formatMessage(processMessages.additionalQuestions)
-      : intl.formatMessage(processMessages.screeningQuestions),
+    title: intl.formatMessage(processMessages.additionalQuestions),
     subtitle: intl.formatMessage({
       defaultMessage: "Answer key questions about your fit in this role.",
       id: "GTHuSJ",
       description: "Subtitle for the application screening questions page",
     }),
-    icon: PencilSquareIcon,
     crumbs: [
       {
         url: path,
@@ -58,16 +52,14 @@ export const getPageInfo: GetPageNavInfo = ({
 const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const features = useFeatureFlags();
   const navigate = useNavigate();
   const { isIAP } = useApplicationContext();
   const [{ fetching: mutating }, executeMutation] =
     useUpdateApplicationMutation();
   const cancelPath = paths.profileAndApplications({ fromIapDraft: isIAP });
 
-  const screeningQuestions = features.recordOfDecision
-    ? application.pool.screeningQuestions?.filter(notEmpty) || []
-    : [];
+  const screeningQuestions =
+    application.pool.screeningQuestions?.filter(notEmpty) || [];
   const screeningQuestionResponses =
     application.screeningQuestionResponses?.filter(notEmpty) || [];
   const generalQuestions =
@@ -116,9 +108,19 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
       });
   };
 
+  const errorLabels = {
+    "generalAnswers.*.answer": intl.formatMessage(
+      processMessages.generalQuestions,
+    ),
+    "screeningAnswers.*.answer": intl.formatMessage(
+      processMessages.screeningQuestions,
+    ),
+  };
+
   return (
     <BasicForm
       onSubmit={handleSubmit}
+      labels={errorLabels}
       options={{
         defaultValues: dataToFormValues(
           screeningQuestions,
@@ -129,7 +131,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
       }}
     >
       {/* Screening Questions */}
-      {screeningQuestions.length > 0 && features.recordOfDecision && (
+      {screeningQuestions.length > 0 && (
         <div data-h2-margin-bottom="base(x4)">
           <div
             data-h2-display="p-tablet(flex)"
@@ -191,7 +193,6 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
           ))}
         </div>
       )}
-
       {/* General Questions */}
       {generalQuestions.length > 0 && (
         <>
@@ -208,8 +209,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
             >
               {intl.formatMessage(processMessages.generalQuestions)}
             </Heading>
-            {(!features.recordOfDecision ||
-              screeningQuestions.length === 0) && (
+            {screeningQuestions.length === 0 && (
               <Link
                 color="secondary"
                 mode="inline"

@@ -64,10 +64,9 @@ const commonMessages = defineMessages({
     description: "Title displayed when an item cannot be found.",
   },
   notAvailable: {
-    defaultMessage: "N/A",
-    id: "r7x5H3",
-    description:
-      "Message displayed when specific information is not applicable",
+    defaultMessage: "Not available",
+    id: "EZgD5d",
+    description: "Message displayed when specific information is not available",
   },
   notProvided: {
     defaultMessage: "Not provided",

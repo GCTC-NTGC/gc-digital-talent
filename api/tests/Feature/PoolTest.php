@@ -4,6 +4,7 @@ use App\Enums\PoolStatus;
 use App\Enums\SkillCategory;
 use App\Models\Classification;
 use App\Models\Pool;
+use App\Models\PoolSkill;
 use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
@@ -559,12 +560,12 @@ class PoolTest extends TestCase
     public function testCannotPublishWithDeletedSkill(): void
     {
         // create complete but unpublished pool with a deleted skill
-        $classification = Classification::factory()->create();
-        $pool = Pool::factory()->published()->create([
-            'published_at' => null,
-            'closing_date' => config('constants.far_future_datetime'),
-        ]);
-        $pool->classifications()->sync([$classification->id]);
+        $pool = Pool::factory()
+            ->published()
+            ->create([
+                'published_at' => null,
+                'closing_date' => config('constants.far_future_datetime'),
+            ]);
         $skill1 = Skill::factory()->create();
         $skill2 = Skill::factory()->create(['deleted_at' => config('constants.past_datetime')]);
         $pool->setEssentialPoolSkills([$skill1->id, $skill2->id]);
@@ -686,15 +687,16 @@ class PoolTest extends TestCase
         Classification::factory()->create();
         Skill::factory()->create();
 
-        $completePool = Pool::factory()->published()->create([
-            'closing_date' => config('constants.far_future_date'),
-        ]);
+        $completePool = Pool::factory()
+            ->published()
+            ->create([
+                'closing_date' => config('constants.far_future_date'),
+            ]);
         $incompletePool = Pool::factory()->create([
             'closing_date' => null,
         ]);
         $clearedRelationsPool = Pool::factory()->create();
         $clearedRelationsPool->essentialSkills()->sync([]);
-        $clearedRelationsPool->classifications()->sync([]);
 
         // test complete pool is marked as true, the others marked as false
         $this->actingAs($this->adminUser, 'api')
@@ -723,6 +725,50 @@ class PoolTest extends TestCase
             ->assertJsonFragment(['isComplete' => false]);
     }
 
+    public function testPoolIsCompleteAccessorSkillLevel(): void
+    {
+        $queryPool =
+        /** @lang GraphQL */
+        '
+            query pool($id: UUID!){
+                pool(id :$id) {
+                    isComplete
+                }
+            }
+        ';
+        Skill::factory()->create();
+
+        $completePool = Pool::factory()
+            ->published()
+            ->create([
+                'closing_date' => config('constants.far_future_date'),
+            ]);
+
+        // test complete pool is marked as true, pool skills have required levels
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL(
+                $queryPool,
+                [
+                    'id' => $completePool->id,
+                ]
+            )
+            ->assertJsonFragment(['isComplete' => true]);
+
+        // a pool skill level was nulled out, now it should be incomplete
+        $poolSkill = PoolSkill::first();
+        $poolSkill->required_skill_level = null;
+        $poolSkill->save();
+
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL(
+                $queryPool,
+                [
+                    'id' => $completePool->id,
+                ]
+            )
+            ->assertJsonFragment(['isComplete' => false]);
+    }
+
     public function testAssessmentStepValidation(): void
     {
         if (! config('feature.record_of_decision')) {
@@ -733,10 +779,12 @@ class PoolTest extends TestCase
         Skill::factory()->count(5)->create([
             'category' => SkillCategory::TECHNICAL->name,
         ]);
-        $completePool = Pool::factory()->published()->create([
-            'closing_date' => config('constants.far_future_date'),
-            'published_at' => null,
-        ]);
+        $completePool = Pool::factory()
+            ->published()
+            ->create([
+                'closing_date' => config('constants.far_future_date'),
+                'published_at' => null,
+            ]);
 
         // Note: Default factory has no pool skills attached to Screening question step
         $this->actingAs($this->adminUser, 'api')->graphQL(
@@ -789,10 +837,12 @@ class PoolTest extends TestCase
         Skill::factory()->create([
             'category' => SkillCategory::BEHAVIOURAL->name,
         ]);
-        $completePool = Pool::factory()->published()->create([
-            'closing_date' => config('constants.far_future_date'),
-            'published_at' => null,
-        ]);
+        $completePool = Pool::factory()
+            ->published()
+            ->create([
+                'closing_date' => config('constants.far_future_date'),
+                'published_at' => null,
+            ]);
 
         $poolStepSkills = $completePool->assessmentSteps()->first()->poolSkills()->get()->toArray();
 

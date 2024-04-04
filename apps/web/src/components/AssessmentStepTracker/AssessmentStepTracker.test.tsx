@@ -6,10 +6,14 @@ import React from "react";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
 import { screen, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { AssessmentDecision } from "@gc-digital-talent/graphql";
+import {
+  AssessmentDecision,
+  PoolCandidateStatus,
+} from "@gc-digital-talent/graphql";
 
 import { NO_DECISION } from "~/utils/assessmentResults";
 
@@ -20,11 +24,13 @@ import {
   groupPoolCandidatesByStep,
   sortResultsAndAddOrdinal,
   filterResults,
-  defaultFilters,
+  ResultFilters,
+  filterAlreadyDisqualified,
 } from "./utils";
 import {
   armedForcesCandidate,
   bookmarkedCandidate,
+  filterDisqualifiedTestData,
   firstByName,
   lastByFirstName,
   lastByStatus,
@@ -34,6 +40,14 @@ import {
   testCandidates,
   unassessedCandidate,
 } from "./testData";
+
+const defaultFilters: ResultFilters = {
+  query: "",
+  [NO_DECISION]: true,
+  [AssessmentDecision.Successful]: true,
+  [AssessmentDecision.Hold]: true,
+  [AssessmentDecision.Unsuccessful]: true,
+};
 
 // This should always make the component visible
 const defaultProps: AssessmentStepTrackerProps = {
@@ -60,13 +74,23 @@ const renderAssessmentStepTracker = (
 };
 
 describe("AssessmentStepTracker", () => {
+  const user = userEvent.setup();
+
+  const enableFilters = async () => {
+    await user.click(screen.getByRole("switch", { name: /^successful/i }));
+    await user.click(screen.getByRole("switch", { name: /on hold/i }));
+    await user.click(screen.getByRole("switch", { name: /unsuccessful/i }));
+  };
+
   it("should have no accessibility errors", async () => {
     const { container } = renderAssessmentStepTracker();
     await axeTest(container);
   });
 
-  it("should display candidates with the correct ordinals", () => {
+  it("should display candidates with the correct ordinals", async () => {
     renderAssessmentStepTracker();
+
+    await enableFilters();
 
     expect(
       screen.getByRole("link", {
@@ -124,8 +148,10 @@ describe("AssessmentStepTracker", () => {
     ).toHaveLength(1);
   });
 
-  it("should display candidates in the correct order", () => {
+  it("should display candidates in the correct order", async () => {
     renderAssessmentStepTracker();
+
+    await enableFilters();
 
     const firstColumn = screen.getByRole("list", {
       name: /step 1/i,
@@ -347,5 +373,18 @@ describe("AssessmentStepTracker", () => {
         }),
       ]),
     );
+  });
+
+  it("should filter out candidates disqualified before RoD", () => {
+    // test array with a length of three, of which one should be filtered out the first with ScreenedOutApplication
+    const candidates = filterDisqualifiedTestData;
+    expect(candidates.length).toEqual(3);
+    const filteredCandidates = filterAlreadyDisqualified(candidates);
+    expect(filteredCandidates.length).toEqual(2);
+    const attemptToFindFilteredCandidate = filteredCandidates.filter(
+      (candidate) =>
+        candidate.status === PoolCandidateStatus.ScreenedOutApplication,
+    );
+    expect(attemptToFindFilteredCandidate.length).toEqual(0);
   });
 });

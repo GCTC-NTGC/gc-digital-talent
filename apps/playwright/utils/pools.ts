@@ -22,6 +22,18 @@ export const Test_UpdatePoolMutationDocument = /* GraphQL */ `
   }
 `;
 
+export const Test_CreatePoolSkillMutationDocument = /* GraphQL */ `
+  mutation Test_CreatePoolSkill(
+    $poolId: ID!
+    $skillId: ID!
+    $poolSkill: CreatePoolSkillInput!
+  ) {
+    createPoolSkill(poolId: $poolId, skillId: $skillId, poolSkill: $poolSkill) {
+      id
+    }
+  }
+`;
+
 export const Test_PublishPoolMutationDocument = /* GraphQL */ `
   mutation Test_PublishPool($id: ID!) {
     publishPool(id: $id) {

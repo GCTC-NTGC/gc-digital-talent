@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
 import { Heading, Link, Separator } from "@gc-digital-talent/ui";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -18,18 +17,10 @@ export const getPageInfo: GetPageNavInfo = ({
   paths,
   intl,
   stepOrdinal,
-  RoDFlag,
 }) => {
   const path = paths.applicationQuestionsIntro(application.id);
   return {
-    title: RoDFlag
-      ? intl.formatMessage(processMessages.additionalQuestions)
-      : intl.formatMessage({
-          defaultMessage: "A few related questions",
-          id: "Tdr8r5",
-          description:
-            "Page title for the application screening questions introduction page",
-        }),
+    title: intl.formatMessage(processMessages.additionalQuestions),
     subtitle: intl.formatMessage({
       defaultMessage: "Answer key questions about your fit in this role.",
       id: "GTHuSJ",
@@ -55,14 +46,12 @@ const ApplicationQuestionsIntroduction = ({
 }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const features = useFeatureFlags();
   const { currentStepOrdinal, isIAP } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
     paths,
     application,
     stepOrdinal: currentStepOrdinal,
-    RoDFlag: features.recordOfDecision,
   });
 
   return (
@@ -74,50 +63,26 @@ const ApplicationQuestionsIntroduction = ({
       >
         {pageInfo.title}
       </Heading>
-      {features.recordOfDecision ? (
-        <>
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "This step allows hiring managers to ask two different types of questions: screening questions and general questions. Each question will be labelled so that you have a clear understanding of how your answer will be reviewed.",
-              id: "80KL2S",
-              description:
-                "Application step for additional questions, introduction description, paragraph one",
-            })}
-          </p>
-          <p data-h2-padding-top="base(x.5)">
-            {intl.formatMessage({
-              defaultMessage:
-                "Your answers to <strong>screening questions will be evaluated</strong> as a part of your application, so be sure to give each question the time and thought required for an answer that really represents you and your experience.",
-              id: "zp8FqH",
-              description:
-                "Application step for additional questions, introduction description, paragraph two",
-            })}
-          </p>
-        </>
-      ) : (
-        <>
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "In the final step of the application, we'd like to ask you a handful of opportunity-specific questions that help us understand your unique fit.",
-              id: "L5duFP",
-              description:
-                "Application step for screening questions, introduction description, paragraph one",
-            })}
-          </p>
-          <p data-h2-padding-top="base(x.5)">
-            {intl.formatMessage({
-              defaultMessage:
-                "Your answers will be assessed as a part of your application, so be sure to give each question the time and thought required for an answer that really represents you and your experience.",
-              id: "OUXmYd",
-              description:
-                "Application step for screening questions, introduction description, paragraph two",
-            })}
-          </p>
-        </>
-      )}
-
+      <>
+        <p>
+          {intl.formatMessage({
+            defaultMessage:
+              "This step allows hiring managers to ask two different types of questions: screening questions and general questions. Each question will be labelled so that you have a clear understanding of how your answer will be reviewed.",
+            id: "80KL2S",
+            description:
+              "Application step for additional questions, introduction description, paragraph one",
+          })}
+        </p>
+        <p data-h2-padding-top="base(x.5)">
+          {intl.formatMessage({
+            defaultMessage:
+              "Your answers to <strong>screening questions will be evaluated</strong> as a part of your application, so be sure to give each question the time and thought required for an answer that really represents you and your experience.",
+            id: "zp8FqH",
+            description:
+              "Application step for additional questions, introduction description, paragraph two",
+          })}
+        </p>
+      </>
       <Separator />
       <div
         data-h2-display="base(flex)"

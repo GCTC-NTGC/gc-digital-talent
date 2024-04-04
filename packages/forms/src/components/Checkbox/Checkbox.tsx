@@ -77,7 +77,6 @@ const Checkbox = ({
             <input
               id={id}
               type="checkbox"
-              className="Input--Checkbox"
               aria-describedby={ariaDescribedBy}
               aria-required={!!rules.required && !inCheckList}
               aria-invalid={!!error}

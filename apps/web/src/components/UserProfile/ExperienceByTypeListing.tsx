@@ -34,7 +34,7 @@ const ExperienceByType = ({
   editParam?: string;
 }) => {
   return (
-    <div className="experience-category">
+    <div>
       <div
         data-h2-display="base(flex)"
         data-h2-align-items="base(center)"

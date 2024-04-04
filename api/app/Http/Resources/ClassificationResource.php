@@ -19,10 +19,8 @@ class ClassificationResource extends JsonResource
             'group' => $this->group,
             'level' => $this->level,
             'name' => $this->name,
-            'salary' => [
-                'min' => $this->min_salary,
-                'max' => $this->max_salary,
-            ],
+            'minSalary' => $this->min_salary,
+            'maxSalary' => $this->max_salary,
         ];
     }
 }

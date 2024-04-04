@@ -15,21 +15,10 @@ import {
   Pool,
   PoolStream,
   PublishingGroup,
-  Scalars,
   UpdatePoolInput,
 } from "@gc-digital-talent/graphql";
 
 import { sortedOpportunityLengths } from "~/utils/poolUtils";
-
-const firstId = (
-  collection: Maybe<Maybe<Classification>[]> | undefined,
-): Scalars["ID"]["output"] | undefined => {
-  if (!collection) return undefined;
-
-  if (collection.length < 1) return undefined;
-
-  return collection[0]?.id;
-};
 
 export type FormValues = {
   classification?: Classification["id"];
@@ -42,7 +31,7 @@ export type FormValues = {
 };
 
 export const dataToFormValues = (initialData: Pool): FormValues => ({
-  classification: firstId(initialData.classifications), // behavior is undefined when there is more than one
+  classification: initialData.classification?.id ?? "",
   stream: initialData.stream ?? undefined,
   specificTitleEn: initialData.name?.en ?? "",
   specificTitleFr: initialData.name?.fr ?? "",
@@ -53,7 +42,7 @@ export const dataToFormValues = (initialData: Pool): FormValues => ({
 
 export type PoolNameSubmitData = Pick<
   UpdatePoolInput,
-  | "classifications"
+  | "classification"
   | "name"
   | "stream"
   | "processNumber"
@@ -64,9 +53,11 @@ export type PoolNameSubmitData = Pick<
 export const formValuesToSubmitData = (
   formValues: FormValues,
 ): PoolNameSubmitData => ({
-  classifications: {
-    sync: formValues.classification ? [formValues.classification] : [],
-  },
+  classification: formValues.classification
+    ? {
+        connect: formValues.classification,
+      }
+    : undefined,
   stream: formValues.stream ? formValues.stream : undefined,
   name: {
     en: formValues.specificTitleEn,

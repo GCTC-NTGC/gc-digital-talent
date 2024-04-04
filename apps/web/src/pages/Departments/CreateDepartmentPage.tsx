@@ -15,6 +15,7 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import { pageTitle as indexDepartmentPageTitle } from "~/pages/Departments/IndexDepartmentPage";
 import AdminHero from "~/components/Hero/AdminHero";
 import adminMessages from "~/messages/adminMessages";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 type FormValues = CreateDepartmentInput;
 
@@ -138,28 +139,23 @@ const CreateDepartmentPage = () => {
       return Promise.reject(result.error);
     });
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(indexDepartmentPageTitle),
-      url: routes.departmentTable(),
-    },
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Create<hidden> department</hidden>",
-        id: "1XaX86",
-        description: "Breadcrumb title for the create department page link.",
-      }),
-      url: routes.departmentCreate(),
-    },
-  ];
+  const navigationCrumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(indexDepartmentPageTitle),
+        url: routes.departmentTable(),
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Create<hidden> department</hidden>",
+          id: "1XaX86",
+          description: "Breadcrumb title for the create department page link.",
+        }),
+        url: routes.departmentCreate(),
+      },
+    ],
+    isAdmin: true,
+  });
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Create department",

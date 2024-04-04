@@ -8,7 +8,7 @@ import { useQuery } from "urql";
 
 import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { Team, graphql } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import AdminHero from "~/components/Hero/AdminHero";
@@ -17,14 +17,27 @@ import useCurrentPage from "~/hooks/useCurrentPage";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import { PageNavInfo } from "~/types/pages";
 
+const TeamLayout_TeamFragment = graphql(/* GraphQL */ `
+  fragment TeamLayout_Team on Team {
+    id
+    displayName {
+      en
+      fr
+    }
+  }
+`);
+
+type TeamLayoutFragment = FragmentType<typeof TeamLayout_TeamFragment>;
+
 type PageNavKeys = "members" | "view" | "edit";
 
 interface TeamHeaderProps {
-  team: Pick<Team, "id" | "displayName">;
+  teamQuery: TeamLayoutFragment;
 }
 
-const TeamHeader = ({ team }: TeamHeaderProps) => {
+const TeamHeader = ({ teamQuery }: TeamHeaderProps) => {
   const intl = useIntl();
+  const team = getFragment(TeamLayout_TeamFragment, teamQuery);
   const paths = useRoutes();
 
   const pages = new Map<PageNavKeys, PageNavInfo>([
@@ -82,7 +95,7 @@ const TeamHeader = ({ team }: TeamHeaderProps) => {
 
   return (
     <>
-      <SEO title={currentPage?.title} />
+      <SEO title={currentPage?.title} description={teamName} />
       <AdminHero
         title={currentPage?.title}
         subtitle={teamName}
@@ -101,11 +114,7 @@ const TeamHeader = ({ team }: TeamHeaderProps) => {
 const TeamLayoutTeamName_Query = graphql(/* GraphQL */ `
   query TeamName($id: UUID!) {
     team(id: $id) {
-      id
-      displayName {
-        en
-        fr
-      }
+      ...TeamLayout_Team
     }
   }
 `);
@@ -126,7 +135,7 @@ const TeamLayout = () => {
   return (
     <>
       <Pending fetching={fetching} error={error}>
-        {data?.team ? <TeamHeader team={data.team} /> : <ThrowNotFound />}
+        {data?.team ? <TeamHeader teamQuery={data.team} /> : <ThrowNotFound />}
       </Pending>
       <Outlet />
     </>

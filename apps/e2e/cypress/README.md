@@ -27,7 +27,7 @@ version of the website running in the browser. (Electron, Chrome, Firefox, or Ed
       logs of the webserver container).
       [config](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/.github/workflows/cypress.yml#L85-L91)
 - When you need to debug locally, these tips can help:
-  - Run `npm run e2e:open` to start the Cypress UI, which has an **implicit
+  - Run `pnpm run e2e:open` to start the Cypress UI, which has an **implicit
     watch mode**. (Saving test files will restart the active test.)
   - **Append `.skip` or `.only`** to any `it()` test or even a whole
     `context()`.
@@ -43,7 +43,7 @@ version of the website running in the browser. (Electron, Chrome, Firefox, or Ed
   - Prepend your cypress launch command with `CYPRESS_EXTEND_TIMEOUTS=1`
   - This will extend all timeouts to 60 seconds, to give plenty of time, even
     if your local workstation or just Docker is running slowly.
-  - e.g., `CYPRESS_EXTEND_TIMEOUTS=1 npm run e2e:run`
+  - e.g., `CYPRESS_EXTEND_TIMEOUTS=1 pnpm run e2e:run`
 
 ## Plugins and Helpers
 
@@ -73,13 +73,13 @@ See official documentation linked above for examples.
 
 These commands exist via NPM scripts:
 
-(Type `npm run` in `/` to list all commands.)
+(Type `pnpm run` in `/` to list all commands.)
 
-### `npm run e2e:open`
+### `pnpm run e2e:open`
 
 Opens a visual console with the option to run any test on any installed browser that is supported.
 
-### `npm run e2e:run:*`
+### `pnpm run e2e:run:*`
 
 These commands will run tests directly, without going through the visual console.
 
@@ -92,25 +92,25 @@ Examples:
 # Equivalent to matching specs with `apps/e2e/cypress/e2e/**/*secrets*.cy.ts`
 #   - apps/e2e/talentsearch/foo.secrets.cy.ts
 #   - apps/e2e/admin/bar.secrets.cy.ts
-TEST_FILTER=secrets npm run e2e:run:all
+TEST_FILTER=secrets pnpm run e2e:run:all
 
 # Equivalent to matching spec with `apps/e2e/cypress/e2e/**/*static-pages*.cy.ts`
 #   - apps/e2e/talentsearch/static-pages.cy.ts
-TEST_FILTER=static-pages npm run e2e:run:all
+TEST_FILTER=static-pages pnpm run e2e:run:all
 ```
 
-### `npm run e2e:run:all`
+### `pnpm run e2e:run:all`
 
 Runs all E2E tests on Electron. Can be used with `TEST_FILTER` envvar.
 
 Examples:
 
 ```
-npm run e2e:run:all
-TEST_FILTER=foo npm run e2e:run:all
+pnpm run e2e:run:all
+TEST_FILTER=foo pnpm run e2e:run:all
 ```
 
-### `npm run e2e:run:inspect`
+### `pnpm run e2e:run:inspect`
 
 This is intended to run a single test for inspection in a "headed" browser
 (non-headless). Unlike other commands, it will not close the browser after the

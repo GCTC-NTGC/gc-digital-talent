@@ -7,7 +7,7 @@ describe("Redirects", () => {
   const expectToBeOnProfile = () => {
     cy.url().should(
       "match",
-      new RegExp("users" + uuidRegEx + "personal-information", "gi"),
+      new RegExp(`users${uuidRegEx}personal-information`, "gi"),
     );
   };
 

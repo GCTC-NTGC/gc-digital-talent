@@ -90,7 +90,7 @@ class ApplicantFilterFactory extends Factory
                 $this->faker->numberBetween($minCount, 1)
             )->get();
             $filter->pools()->saveMany($pools);
-            $filter->qualifiedClassifications()->saveMany($pools->flatMap(fn ($pool) => $pool->classifications));
+            $filter->qualifiedClassifications()->saveMany($pools->flatMap(fn ($pool) => $pool->classification));
             $stream = (empty($pools) || count($pools) === 0) ? $this->faker->randomElements(
                 array_column(PoolStream::cases(), 'name'),
             ) : [$pools[0]->stream];

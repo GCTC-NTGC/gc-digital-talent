@@ -1,10 +1,14 @@
 import React from "react";
 import { IntlShape } from "react-intl";
 
-import { Link, Pill } from "@gc-digital-talent/ui";
+import { Link, Chip } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Maybe, RoleAssignment, Team } from "@gc-digital-talent/graphql";
+import {
+  Maybe,
+  RoleAssignment,
+  TeamTable_TeamFragment as TeamTableTeamFragmentType,
+} from "@gc-digital-talent/graphql";
 
 import { MyRoleTeam } from "./types";
 
@@ -66,17 +70,13 @@ export function myRolesCell(
     (roleTeam) => roleTeam.teamId && roleTeam.teamId === teamId,
   );
 
-  const rolesPillsArray = teamFiltered.map((roleTeam) => (
-    <Pill
-      color="primary"
-      mode="outline"
-      key={`${teamId}-${roleTeam.roleName.en}`}
-    >
+  const rolesChipsArray = teamFiltered.map((roleTeam) => (
+    <Chip color="primary" key={`${teamId}-${roleTeam.roleName.en}`}>
       {getLocalizedName(roleTeam.roleName, intl)}
-    </Pill>
+    </Chip>
   ));
 
-  return rolesPillsArray.length > 0 ? <span>{rolesPillsArray}</span> : null;
+  return rolesChipsArray.length > 0 ? <span>{rolesChipsArray}</span> : null;
 }
 
 // given an array of RoleAssignments
@@ -106,7 +106,10 @@ export function roleAssignmentsToRoleTeamArray(
   return collection;
 }
 
-export function departmentAccessor(team: Team, intl: IntlShape) {
+export function departmentAccessor(
+  team: TeamTableTeamFragmentType,
+  intl: IntlShape,
+) {
   return team.departments
     ?.filter(notEmpty)
     .map((department) => getLocalizedName(department?.name, intl, true))

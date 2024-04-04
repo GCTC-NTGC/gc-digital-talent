@@ -28,8 +28,8 @@ class GeneralQuestionResponsesTest extends TestCase
     protected $questionId;
 
     protected $updateApplication =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         mutation updateApplication($id: ID!, $application: UpdateApplicationInput!) {
             updateApplication(id: $id, application: $application) {
                 generalQuestionResponses {

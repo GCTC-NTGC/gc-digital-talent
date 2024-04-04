@@ -49,12 +49,14 @@ const SignInPage = () => {
     description: "Page title for the sign in page for applicant profiles",
   });
 
-  const crumbs = useBreadcrumbs([
-    {
-      label: pageTitle,
-      url: paths.login(),
-    },
-  ]);
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: pageTitle,
+        url: paths.login(),
+      },
+    ],
+  });
 
   useEffect(() => {
     if (iapMode && themeKey !== "iap") {

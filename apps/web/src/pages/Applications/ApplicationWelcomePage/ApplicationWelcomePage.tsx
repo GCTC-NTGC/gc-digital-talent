@@ -1,13 +1,11 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import HeartIcon from "@heroicons/react/24/solid/HeartIcon";
 import { useNavigate } from "react-router-dom";
 
 import { Button, Heading, Link, Separator } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { ApplicationStep } from "@gc-digital-talent/graphql";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -41,7 +39,6 @@ export const getPageInfo: GetPageNavInfo = ({
       id: "Zd02bf",
       description: "Subtitle for the application welcome page",
     }),
-    icon: HeartIcon,
     crumbs: [
       {
         url: paths.applicationWelcome(application.id),
@@ -64,7 +61,6 @@ export const getPageInfo: GetPageNavInfo = ({
 const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const features = useFeatureFlags();
   const navigate = useNavigate();
   const { followingPageUrl, currentStepOrdinal, isIAP } =
     useApplicationContext();
@@ -73,7 +69,6 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
     paths,
     application,
     stepOrdinal: currentStepOrdinal,
-    RoDFlag: features.recordOfDecision,
   });
   const poolName = getShortPoolTitleHtml(intl, application.pool);
   const [{ fetching }, executeMutation] = useUpdateApplicationMutation();

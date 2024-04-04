@@ -1,6 +1,5 @@
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
-import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 import { MessageDescriptor } from "react-intl";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
@@ -8,12 +7,9 @@ import { uiMessages } from "@gc-digital-talent/i18n";
 import { IconType } from "../../types";
 import { StepState } from "./types";
 
-export const getIconFromState = (state: StepState, defaultIcon?: IconType) => {
+export const getIconFromState = (state: StepState) => {
   const iconMap = new Map<StepState, IconType | undefined>([
-    ["active", PencilSquareIcon],
     ["completed", CheckIcon],
-    ["disabled", defaultIcon],
-    ["default", defaultIcon],
     ["error", XMarkIcon],
   ]);
 
@@ -25,10 +21,24 @@ export const messageMap = new Map<
   MessageDescriptor
 >([
   ["active", uiMessages.stepActive],
+  ["active-error", uiMessages.stepActive],
   ["completed", uiMessages.stepCompleted],
   ["error", uiMessages.stepError],
 ]);
 
+/**
+ * Map for the different state styles
+ *
+ * Note:
+ *
+ * This consists of hardcoded colour values.
+ * The figma design used overlapping transparency to create the colour
+ * however, this resulted in exposing elements underneath. So, we used the
+ * computed value of the semi-transparent foreground and background mixing.
+ *
+ * Light: #C5C6C7
+ * Dark: #7C89A3
+ */
 export const linkStyleMap = new Map<StepState, Record<string, string>>([
   [
     "active",
@@ -36,13 +46,36 @@ export const linkStyleMap = new Map<StepState, Record<string, string>>([
       "data-h2-background-color": `
         base:all:children[.Step__Icon](primary.light)
         base:iap:children[.Step__Icon](primary)
-        base:all:children[.Step__Tail](gray.light)
+        base:children[.Step__Tail](#C5C6C7)
+        base:dark:children[.Step__Tail](#7C89A3)
         base:all:focus-visible:children[.Step__Icon](focus)
       `,
       "data-h2-color": `
         base(black)
         base:hover:children[.Step__Text](primary)
         base:dark:hover:children[.Step__Text](primary.lighter)
+        base:all:children[.Step__Icon](black)
+        base:iap:all:children[.Step__Icon](white)
+        base:all:focus-visible:children[.Step__Icon](black)
+      `,
+      "data-h2-font-weight": "base(700)",
+      "data-h2-text-decoration": "base(none) base:focus-visible(underline)",
+    },
+  ],
+  [
+    "active-error",
+    {
+      "data-h2-background-color": `
+        base:all:children[.Step__Icon](error.light)
+        base:iap:children[.Step__Icon](error)
+        base:all:children[.Step__Tail](#C5C6C7)
+        base:dark:children[.Step__Tail](#7C89A3)
+        base:all:focus-visible:children[.Step__Icon](focus)
+      `,
+      "data-h2-color": `
+        base(black)
+        base:hover:children[.Step__Text](error)
+        base:dark:hover:children[.Step__Text](error.lighter)
         base:all:children[.Step__Icon](black)
         base:iap:all:children[.Step__Icon](white)
         base:all:focus-visible:children[.Step__Icon](black)
@@ -72,9 +105,11 @@ export const linkStyleMap = new Map<StepState, Record<string, string>>([
     "disabled",
     {
       "data-h2-background-color": `
-        base:all:children[.Step__Flair](gray.light)
+        base:children[.Step__Flair](#C5C6C7)
+        base:dark:children[.Step__Flair](#7C89A3)
         base:all:focus-visible:children[.Step__Flair](focus)
-        base:all:children[.Step__Tail](gray.light)
+        base:children[.Step__Tail](#C5C6C7)
+        base:dark:children[.Step__Tail](#7C89A3)
       `,
       "data-h2-color": `
         base(black)
@@ -87,9 +122,11 @@ export const linkStyleMap = new Map<StepState, Record<string, string>>([
     "default",
     {
       "data-h2-background-color": `
-        base:all:children[.Step__Flair](gray.light)
+        base:children[.Step__Flair](#C5C6C7)
+        base:dark:children[.Step__Flair](#7C89A3)
         base:all:focus-visible:children[.Step__Flair](focus)
-        base:all:children[.Step__Tail](gray.light)
+        base:children[.Step__Tail](#C5C6C7)
+        base:dark:children[.Step__Tail](#7C89A3)
       `,
       "data-h2-color": `
         base(black)
@@ -106,7 +143,8 @@ export const linkStyleMap = new Map<StepState, Record<string, string>>([
       "data-h2-background-color": `
         base:all:children[.Step__Flair](error.light)
         base:all:focus-visible:children[.Step__Flair](focus)
-        base:all:children[.Step__Tail](gray.light)
+        base:children[.Step__Tail](#C5C6C7)
+        base:dark:children[.Step__Tail](#7C89A3)
       `,
       "data-h2-color": `
         base(black)

@@ -36,6 +36,7 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import adminMessages from "~/messages/adminMessages";
 import { parseKeywords } from "~/utils/skillUtils";
 import AdminHero from "~/components/Hero/AdminHero";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 type Option<V> = { value: V; label: string };
 
@@ -348,28 +349,23 @@ const CreateSkillPage = () => {
       return Promise.reject(result.error);
     });
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(adminMessages.skills),
-      url: routes.skillTable(),
-    },
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Create<hidden> skill</hidden>",
-        id: "9QxHnD",
-        description: "Breadcrumb title for the create skill page link.",
-      }),
-      url: routes.skillCreate(),
-    },
-  ];
+  const navigationCrumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(adminMessages.skills),
+        url: routes.skillTable(),
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Create<hidden> skill</hidden>",
+          id: "9QxHnD",
+          description: "Breadcrumb title for the create skill page link.",
+        }),
+        url: routes.skillCreate(),
+      },
+    ],
+    isAdmin: true,
+  });
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Create skill",

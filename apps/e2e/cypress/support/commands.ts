@@ -26,8 +26,9 @@
 
 // See: https://testing-library.com/docs/cypress-testing-library/intro/
 import "@testing-library/cypress/add-commands";
-import * as verifyDownloads from "cy-verify-downloads";
 import * as url from "url";
+
+import * as verifyDownloads from "cy-verify-downloads";
 
 before(() => {
   cy.log(
@@ -42,67 +43,6 @@ before(() => {
    *   - Example: https://docs.cypress.io/api/cypress-api/custom-commands#Log-in-command-using-request
    */
 });
-
-verifyDownloads.addCustomCommand();
-
-Cypress.Commands.add("setLocale", (locale) => {
-  window.localStorage.setItem("stored_locale", locale);
-});
-
-Cypress.Commands.add("loginByRole", (role) => {
-  loginByRole(role);
-});
-
-Cypress.Commands.add("loginBySubject", (sub) => {
-  loginBySubject(sub);
-});
-
-// Logs in with no user specified, assuming no login page.
-// Works only when mock-oauth2-server.json has set interactiveLogin:FALSE
-const loginNonInteractive = () => _login();
-
-// Logs in by role, using email from `fixtures/users.json`.
-// Works only when mock-oauth2-server.json has set interactiveLogin:TRUE
-// Current options: admin
-const loginByRole = (userRole = "admin") => {
-  cy.fixture("users.json").then((users) => {
-    const user = users[userRole];
-    loginBySubject(user.subject);
-  });
-};
-
-// Logs in by subject
-// Works only when mock-oauth2-server.json has set interactiveLogin:TRUE
-const loginBySubject = (subject: string) => {
-  const authorizeReqOptions = {
-    method: "POST",
-    form: true,
-    body: {
-      username: subject,
-    },
-  };
-  _login(authorizeReqOptions);
-};
-
-const _login = (authorizeReqOptions = {}) => {
-  cy.request({ url: "/login", followRedirect: false }).then((resp) => {
-    cy.wrap(resp.redirectedToUrl).as("oauth2AuthorizeUrl");
-  });
-  cy.get<string>("@oauth2AuthorizeUrl").then((url) => {
-    cy.request({
-      url,
-      followRedirect: false,
-      ...authorizeReqOptions,
-    }).then((resp) => {
-      cy.wrap(resp.redirectedToUrl).as("appCallbackUrl");
-    });
-  });
-  cy.get<string>("@appCallbackUrl").then((url) => {
-    cy.request({ url, followRedirect: false }).then(
-      setLocalStorageTokensFromResponse,
-    );
-  });
-};
 
 /**
  * Assuming "cy.request" was called with `{followRedirect: false}` grabs the
@@ -131,12 +71,62 @@ const setLocalStorageTokensFromResponse = (resp) => {
   });
 };
 
-// No-op placeholder function to document how our mock-oauth2-server works.
-const loginByPassword = (email, password) => {
-  throw new Error(
-    "Our mock server does not require login via email and password",
-  );
+const login = (authorizeReqOptions = {}) => {
+  cy.request({ url: "/login", followRedirect: false }).then((resp) => {
+    cy.wrap(resp.redirectedToUrl).as("oauth2AuthorizeUrl");
+  });
+  cy.get<string>("@oauth2AuthorizeUrl").then((reqUrl) => {
+    cy.request({
+      url: reqUrl,
+      followRedirect: false,
+      ...authorizeReqOptions,
+    }).then((resp) => {
+      cy.wrap(resp.redirectedToUrl).as("appCallbackUrl");
+    });
+  });
+  cy.get<string>("@appCallbackUrl").then((reqUrl) => {
+    cy.request({ url: reqUrl, followRedirect: false }).then(
+      setLocalStorageTokensFromResponse,
+    );
+  });
 };
+
+// Logs in by subject
+// Works only when mock-oauth2-server.json has set interactiveLogin:TRUE
+const loginBySubject = (subject: string) => {
+  const authorizeReqOptions = {
+    method: "POST",
+    form: true,
+    body: {
+      username: subject,
+    },
+  };
+  login(authorizeReqOptions);
+};
+
+// Logs in by role, using email from `fixtures/users.json`.
+// Works only when mock-oauth2-server.json has set interactiveLogin:TRUE
+// Current options: admin
+const loginByRole = (userRole = "admin") => {
+  cy.fixture("users.json").then((users) => {
+    const user = users[userRole];
+    loginBySubject(user.subject);
+  });
+};
+
+verifyDownloads.addCustomCommand();
+
+Cypress.Commands.add("setLocale", (locale) => {
+  window.localStorage.setItem("stored_locale", locale);
+});
+
+Cypress.Commands.add("loginByRole", (role) => {
+  loginByRole(role);
+});
+
+Cypress.Commands.add("loginBySubject", (sub) => {
+  loginBySubject(sub);
+});
 
 // Performs logout actions that the app would normally perform on its own.
 Cypress.Commands.add("logout", () => {

@@ -15,6 +15,7 @@ import {
   getLocalizedName,
   localizeCurrency,
   localizeSalaryRange,
+  getLocalizedArray,
 } from "./utils/localize";
 import {
   apiMessages,
@@ -48,7 +49,6 @@ import {
   getPoolCandidateSearchPositionType,
   getSkillCategory,
   getGenericJobTitles,
-  getGenericJobTitlesWithClassification,
   getAwardedTo,
   getAwardedScope,
   getEducationStatus,
@@ -60,7 +60,6 @@ import {
   getSimpleGovEmployeeType,
   getPoolStatus,
   getSecurityClearance,
-  getBilingualEvaluation,
   getPoolCandidatePriorities,
   getPublishingGroup,
   getAbbreviations,
@@ -71,23 +70,29 @@ import {
   poolCandidatePriorities,
   getCandidateExpiryFilterStatus,
   getCandidateSuspendedFilterStatus,
-  getTechnicalSkillLevel,
-  getTechnicalSkillLevelDefinition,
-  getBehaviouralSkillLevel,
-  getBehaviouralSkillLevelDefinition,
+  getSkillLevelName,
+  getSkillLevelDefinition,
+  getSkillLevelMessages,
   getEvaluatedLanguageAbility,
   getPoolSkillType,
   getAssessmentStepType,
+  getAssessmentDecision,
+  getAssessmentDecisionLevel,
+  getAssessmentJustification,
+  getTableAssessmentDecision,
   getSearchRequestReason,
   getPoolOpportunityLength,
 } from "./messages/localizedConstants";
+import getOrThrowError from "./utils/error";
 import { STORED_LOCALE } from "./const";
+import type { LocalizedArray } from "./utils/localize";
 import type { Locales, Messages } from "./types";
 
 export {
   richTextElements,
   isLocale,
   getLocale,
+  getLocalizedArray,
   oppositeLocale,
   changeLocale,
   localizePath,
@@ -110,6 +115,7 @@ export {
   NestedLanguageProvider,
   useIntlLanguages,
   useLocale,
+  getOrThrowError,
 };
 
 export {
@@ -133,7 +139,6 @@ export {
   getPoolCandidateSearchPositionType,
   getSkillCategory,
   getGenericJobTitles,
-  getGenericJobTitlesWithClassification,
   getAwardedTo,
   getAwardedScope,
   getEducationStatus,
@@ -145,7 +150,6 @@ export {
   getSimpleGovEmployeeType,
   getPoolStatus,
   getSecurityClearance,
-  getBilingualEvaluation,
   getPoolCandidatePriorities,
   getPublishingGroup,
   getIndigenousCommunity,
@@ -156,16 +160,19 @@ export {
   getAbbreviations,
   getCandidateExpiryFilterStatus,
   getCandidateSuspendedFilterStatus,
-  getTechnicalSkillLevel,
-  getTechnicalSkillLevelDefinition,
-  getBehaviouralSkillLevel,
-  getBehaviouralSkillLevelDefinition,
+  getSkillLevelName,
+  getSkillLevelDefinition,
+  getSkillLevelMessages,
   getEvaluatedLanguageAbility,
   getPoolSkillType,
   getAssessmentStepType,
+  getAssessmentDecision,
   getSearchRequestReason,
   getPoolOpportunityLength,
+  getAssessmentDecisionLevel,
+  getAssessmentJustification,
+  getTableAssessmentDecision,
 };
 
-export type { Locales, Messages };
+export type { Locales, Messages, LocalizedArray };
 export { fr };

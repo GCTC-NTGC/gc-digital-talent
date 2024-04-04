@@ -1,23 +1,6 @@
 import { IconType } from "@gc-digital-talent/ui";
-import {
-  Pool,
-  Classification,
-  Maybe,
-  UserPublicProfile,
-} from "@gc-digital-talent/graphql";
 
 import { Status, StatusColor } from "~/components/StatusItem/StatusItem";
-
-export type SimpleClassification = Pick<Classification, "group" | "level">;
-type SimpleOwner = Pick<UserPublicProfile, "email" | "firstName" | "lastName">;
-
-export type SimplePool = Pick<
-  Pool,
-  "id" | "name" | "classifications" | "stream"
-> & {
-  classifications?: Maybe<Array<Maybe<SimpleClassification>>>;
-  owner?: Maybe<SimpleOwner>;
-};
 
 export interface EditPoolSectionMetadata {
   id: string;

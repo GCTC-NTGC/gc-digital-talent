@@ -2,7 +2,6 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
-import PresentationChartBarIcon from "@heroicons/react/20/solid/PresentationChartBarIcon";
 
 import {
   Button,
@@ -19,7 +18,6 @@ import {
   EducationRequirementOption,
   Experience,
 } from "@gc-digital-talent/graphql";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import applicationMessages from "~/messages/applicationMessages";
 import {
@@ -75,7 +73,6 @@ export const getPageInfo: GetPageNavInfo = ({
       id: "gtns9R",
       description: "Subtitle for the application education  page",
     }),
-    icon: PresentationChartBarIcon,
     crumbs: [
       {
         url: path,
@@ -106,7 +103,6 @@ const ApplicationEducation = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
-  const features = useFeatureFlags();
   const navigate = useNavigate();
   const { followingPageUrl, currentStepOrdinal, isIAP, classificationGroup } =
     useApplicationContext();
@@ -115,7 +111,6 @@ const ApplicationEducation = ({
     paths,
     application,
     stepOrdinal: currentStepOrdinal,
-    RoDFlag: features.recordOfDecision,
   });
   const nextStep =
     followingPageUrl ?? paths.applicationSkillsIntro(application.id);

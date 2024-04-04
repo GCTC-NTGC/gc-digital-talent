@@ -2,8 +2,7 @@ import React from "react";
 import { IntlShape } from "react-intl";
 
 import { getLocalizedName, getPoolStream } from "@gc-digital-talent/i18n";
-import { Link, Pill } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { Link, Chip } from "@gc-digital-talent/ui";
 import {
   Classification,
   LocalizedString,
@@ -11,7 +10,6 @@ import {
   Pool,
 } from "@gc-digital-talent/graphql";
 
-import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { getFullNameHtml } from "~/utils/nameUtils";
 
 export function poolNameAccessor(pool: Pool, intl: IntlShape) {
@@ -19,25 +17,6 @@ export function poolNameAccessor(pool: Pool, intl: IntlShape) {
   return `${name.toLowerCase()} ${
     pool.stream ? intl.formatMessage(getPoolStream(pool.stream)) : ""
   }`;
-}
-
-export function poolCandidatesViewCell(
-  poolCandidatesTableUrl: string,
-  intl: IntlShape,
-  pool: Maybe<Pool>,
-) {
-  return (
-    <Link href={poolCandidatesTableUrl} color="black" data-h2-padding="base(0)">
-      {intl.formatMessage(
-        {
-          defaultMessage: "View Candidates<hidden> for {label}</hidden>",
-          id: "6R9N+h",
-          description: "Text for a link to the Pool Candidates table",
-        },
-        { label: getShortPoolTitleHtml(intl, pool) },
-      )}
-    </Link>
-  );
 }
 
 export function viewCell(url: string, pool: Pool, intl: IntlShape) {
@@ -78,32 +57,23 @@ export function fullNameCell(pool: Pool, intl: IntlShape) {
 }
 
 export function classificationAccessor(
-  classifications: Maybe<Maybe<Classification>[]> | undefined,
+  classification: Maybe<Classification> | undefined,
 ) {
-  return classifications
-    ?.filter(notEmpty)
-    ?.map((c) => `${c.group}-0${c.level}`)
-    ?.join(", ");
+  return classification
+    ? `${classification.group}-0${classification.level}`
+    : "";
 }
 
 export function classificationSortFn(rowA: Pool, rowB: Pool) {
   // passing in sortType to override default sort
   const rowAGroup =
-    rowA.classifications && rowA.classifications[0]
-      ? rowA.classifications[0].group
-      : "";
+    rowA.classification && rowA.classification ? rowA.classification.group : "";
   const rowBGroup =
-    rowB.classifications && rowB.classifications[0]
-      ? rowB.classifications[0].group
-      : "";
+    rowB.classification && rowB.classification ? rowB.classification.group : "";
   const rowALevel =
-    rowA.classifications && rowA.classifications[0]
-      ? rowA.classifications[0].level
-      : 0;
+    rowA.classification && rowA.classification ? rowA.classification.level : 0;
   const rowBLevel =
-    rowB.classifications && rowB.classifications[0]
-      ? rowB.classifications[0].level
-      : 0;
+    rowB.classification && rowB.classification ? rowB.classification.level : 0;
 
   if (rowAGroup.toLowerCase() > rowBGroup.toLowerCase()) {
     return 1;
@@ -121,24 +91,16 @@ export function classificationSortFn(rowA: Pool, rowB: Pool) {
   return 0;
 }
 
-export function classificationsCell(
-  classifications: Maybe<Maybe<Classification>[] | undefined> | undefined,
+export function classificationCell(
+  classification: Maybe<Classification> | undefined,
 ) {
-  const filteredClassifications = classifications
-    ? classifications.filter(notEmpty)
-    : [];
-  const pillsArray = filteredClassifications.map((classification) => {
-    return (
-      <Pill
-        key={`${classification.group}-0${classification.level}`}
-        color="primary"
-        mode="outline"
-      >
-        {`${classification.group}-0${classification.level}`}
-      </Pill>
-    );
-  });
-  return pillsArray.length > 0 ? <span>{pillsArray}</span> : null;
+  if (!classification) return null;
+
+  return (
+    <Chip color="primary">
+      {`${classification.group}-0${classification.level}`}
+    </Chip>
+  );
 }
 
 export function emailLinkAccessor(pool: Pool, intl: IntlShape) {

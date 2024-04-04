@@ -5,8 +5,7 @@ import EnvelopeSolid from "@heroicons/react/24/solid/EnvelopeIcon";
 import ArrowDownTrayIcon from "@heroicons/react/24/outline/ArrowDownTrayIcon";
 
 import { getLocale } from "@gc-digital-talent/i18n";
-import { Heading, Link, Well } from "@gc-digital-talent/ui";
-import { headingStyles } from "@gc-digital-talent/ui/src/components/Heading/styles";
+import { Heading, Link, Well, headingStyles } from "@gc-digital-talent/ui";
 
 import logoImg from "~/assets/img/iap-logo.svg";
 import heroImg from "~/assets/img/IAPManager-Hero.webp";
@@ -793,8 +792,8 @@ export const IAPManagerHomePage = () => {
                 {intl.formatMessage(
                   {
                     defaultMessage:
-                      "The <link>Digital Ambition</link>, released in 2022, provides direction on how to increase representation of under-represented groups by leveraging programs like the IT Apprenticeship Program for Indigenous peoples.",
-                    id: "PvYso4",
+                      "The <link>Digital Ambition</link>, released in 2022, provides direction on how to increase representation of under-represented groups by leveraging programs like the IT Apprenticeship Program for Indigenous Peoples.",
+                    id: "c4R8FH",
                     description:
                       "Paragraph 1 of the 'A commitment to diverse digital talent' section",
                   },

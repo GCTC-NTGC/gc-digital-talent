@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { OperationContext, useQuery } from "urql";
 
@@ -47,8 +47,32 @@ import {
   formValuesToSubmitData,
   queryResultToDefaultValues,
 } from "~/utils/experienceUtils";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import ExperienceSkills from "./components/ExperienceSkills";
+
+const editPageTitle = defineMessage({
+  defaultMessage: "Edit a career timeline experience",
+  id: "1T+YAC",
+  description: "Display text for edit experience form in breadcrumbs",
+});
+const addPageTitle = defineMessage({
+  defaultMessage: "Add an experience to your career timeline",
+  id: "gU/nxf",
+  description: "Title for application career timeline add experience",
+});
+
+const editSubTitle = defineMessage({
+  defaultMessage: "Update or delete an experience on your career timeline",
+  id: "A+4huJ",
+  description: "Display text for edit experience form in breadcrumbs",
+});
+const addSubTitle = defineMessage({
+  defaultMessage:
+    "Describe work, education, community, personal, or award experiences.",
+  id: "YwO4XP",
+  description: "Display text for add experience form in breadcrumbs",
+});
 
 type FormAction = "return" | "add-another";
 type FormValues = ExperienceFormValues<AllExperienceFormValues> & {
@@ -208,72 +232,49 @@ export const ExperienceForm = ({
     }
   }, [isSubmitSuccessful, reset, action, setFocus, setValue]);
 
-  const crumbs: { label: string | React.ReactNode; url: string }[] = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: paths.home(),
-    },
-    {
-      label: intl.formatMessage(navigationMessages.profileAndApplications),
-      url: paths.profileAndApplications(),
-    },
-    {
-      label: intl.formatMessage(
-        navigationMessages.careerTimelineAndRecruitment,
-      ),
-      url: returnPath,
-    },
-    {
-      label: experience
-        ? intl.formatMessage({
-            defaultMessage: "Edit experience",
-            id: "zsUuN9",
-            description: "Title for edit experience page",
-          })
-        : intl.formatMessage({
-            defaultMessage: "Add Experience",
-            id: "mJ1HE4",
-            description: "Display text for add experience form in breadcrumbs",
-          }),
-      url: experience
-        ? paths.editExperience(userId, experienceType, experience.id)
-        : "#",
-    },
-  ];
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(navigationMessages.profileAndApplications),
+        url: paths.profileAndApplications(),
+      },
+      {
+        label: intl.formatMessage(
+          navigationMessages.careerTimelineAndRecruitment,
+        ),
+        url: returnPath,
+      },
+      {
+        label: experience
+          ? intl.formatMessage({
+              defaultMessage: "Edit experience",
+              id: "zsUuN9",
+              description: "Title for edit experience page",
+            })
+          : intl.formatMessage({
+              defaultMessage: "Add Experience",
+              id: "mJ1HE4",
+              description:
+                "Display text for add experience form in breadcrumbs",
+            }),
+        url: experience
+          ? paths.editExperience(userId, experienceType, experience.id)
+          : "#",
+      },
+    ],
+  });
 
   const pageTitle: string = experience
-    ? intl.formatMessage({
-        defaultMessage: "Edit a career timeline experience",
-        id: "1T+YAC",
-        description: "Display text for edit experience form in breadcrumbs",
-      })
-    : intl.formatMessage({
-        defaultMessage: "Add an experience to your career timeline",
-        id: "gU/nxf",
-        description: "Title for application career timeline add experience",
-      });
+    ? intl.formatMessage(editPageTitle)
+    : intl.formatMessage(addPageTitle);
 
   const pageSubtitle: string = experience
-    ? intl.formatMessage({
-        defaultMessage:
-          "Update or delete an experience on your career timeline",
-        id: "A+4huJ",
-        description: "Display text for edit experience form in breadcrumbs",
-      })
-    : intl.formatMessage({
-        defaultMessage:
-          "Describe work, education, community, personal, or award experiences.",
-        id: "YwO4XP",
-        description: "Display text for add experience form in breadcrumbs",
-      });
+    ? intl.formatMessage(editSubTitle)
+    : intl.formatMessage(addSubTitle);
 
   return (
     <>
-      <SEO title={pageTitle} />
+      <SEO title={pageTitle} description={pageSubtitle} />
       <Hero title={pageTitle} subtitle={pageSubtitle} crumbs={crumbs} />
       <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
         <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
@@ -466,8 +467,16 @@ export const ExperienceForm = ({
 };
 
 const context: Partial<OperationContext> = {
-  additionalTypenames: ["Skill", "SkillFamily"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
-  requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
+  additionalTypenames: [
+    "Skill",
+    "SkillFamily",
+    "AwardExperience",
+    "CommunityExperience",
+    "EducationExperience",
+    "PersonalExperience",
+    "WorkExperience",
+  ], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
+  requestPolicy: "cache-first", // The list of skills and experiences will rarely change, so we override default request policy to avoid unnecessary cache updates.
 };
 
 const ExperienceFormData_Query = graphql(/* GraphQL */ `

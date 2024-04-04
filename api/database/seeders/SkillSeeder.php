@@ -56,7 +56,12 @@ class SkillSeeder extends Seeder
 
         // Iterate the provided data to load it
         foreach ($models as $model) {
-            $skill = Skill::updateOrCreate(
+            // turn family keys into an array of IDs to sync
+            $skillFamilyIds = array_map(function ($family) use ($allSkillFamilies) {
+                return $allSkillFamilies->sole('key', $family->key)->id;
+            }, $model->families);
+
+            Skill::updateOrCreate(
                 ['key' => $model->key],
                 [
                     'name' => [
@@ -73,13 +78,8 @@ class SkillSeeder extends Seeder
                         'fr' => $model->keywords->fr,
                     ],
                 ]
-            );
-
-            // turn family keys into an array of IDs to sync
-            $skillFamilyIds = array_map(function ($family) use ($allSkillFamilies) {
-                return $allSkillFamilies->sole('key', $family->key)->id;
-            }, $model->families);
-            $skill->families()->sync($skillFamilyIds);
+            )
+                ->families()->sync($skillFamilyIds);
         }
     }
 }

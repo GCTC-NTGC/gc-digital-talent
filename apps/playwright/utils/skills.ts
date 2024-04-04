@@ -1,4 +1,5 @@
 import { Skill } from "@gc-digital-talent/graphql";
+
 import { graphqlRequest } from "./graphql";
 
 /**
@@ -7,6 +8,7 @@ import { graphqlRequest } from "./graphql";
  * Get all the skills directly from
  * the API.
  */
+// eslint-disable-next-line import/prefer-default-export
 export const getSkills = async (): Promise<Skill[]> => {
   const res = await graphqlRequest(/* GraphQL */ `
     query Skills {

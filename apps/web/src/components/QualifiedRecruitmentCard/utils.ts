@@ -38,17 +38,17 @@ export const joinDepartments = (
   );
 };
 
-type StatusPillInfo = {
+type StatusChipInfo = {
   color: Color;
   text: React.ReactNode;
   icon?: IconType;
 };
 
-export const getStatusPillInfo = (
+export const getStatusChipInfo = (
   status: Maybe<PoolCandidateStatus> | undefined,
   suspendedAt: PoolCandidate["suspendedAt"],
   intl: IntlShape,
-): StatusPillInfo => {
+): StatusChipInfo => {
   const combinedStatus = deriveCombinedStatus(status, suspendedAt);
   const combinedStatusLabel = combinedStatus
     ? getCombinedStatusLabel(combinedStatus)
@@ -156,7 +156,7 @@ const getAvailabilityInfo = (
 };
 
 type QualifiedRecruitmentInfo = {
-  statusPill: StatusPillInfo;
+  statusChip: StatusChipInfo;
   availability: AvailabilityInfo;
   title: {
     html: React.ReactNode;
@@ -169,7 +169,7 @@ export const getQualifiedRecruitmentInfo = (
   intl: IntlShape,
 ): QualifiedRecruitmentInfo => {
   return {
-    statusPill: getStatusPillInfo(
+    statusChip: getStatusChipInfo(
       candidate.status,
       candidate.suspendedAt,
       intl,

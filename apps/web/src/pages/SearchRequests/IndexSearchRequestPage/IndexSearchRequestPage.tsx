@@ -10,6 +10,7 @@ import SearchRequestTable from "~/components/SearchRequestTable/SearchRequestTab
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import AdminHero from "~/components/Hero/AdminHero";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 export const pageTitle: MessageDescriptor = defineMessage({
   defaultMessage: "Talent requests",
@@ -25,20 +26,15 @@ export const IndexSearchRequestPage = () => {
 
   const formattedPageTitle = intl.formatMessage(pageTitle);
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: formattedPageTitle,
-      url: routes.searchRequestTable(),
-    },
-  ];
+  const navigationCrumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: formattedPageTitle,
+        url: routes.searchRequestTable(),
+      },
+    ],
+    isAdmin: true,
+  });
 
   return (
     <>

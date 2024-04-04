@@ -4,11 +4,10 @@ import { useIntl } from "react-intl";
 import { Button, Dialog, Heading } from "@gc-digital-talent/ui";
 import {
   commonMessages,
-  getBehaviouralSkillLevel,
-  getBehaviouralSkillLevelDefinition,
-  getTechnicalSkillLevel,
-  getTechnicalSkillLevelDefinition,
+  getSkillLevelDefinition,
+  getSkillLevelName,
 } from "@gc-digital-talent/i18n";
+import { SkillCategory } from "@gc-digital-talent/graphql";
 
 import { getSortedSkillLevels } from "~/utils/skillUtils";
 
@@ -64,11 +63,15 @@ const SkillLevelDialog = () => {
             {skillLevels.map((skillLevel) => (
               <li key={`behavioural${skillLevel}`}>
                 <strong>
-                  {intl.formatMessage(getBehaviouralSkillLevel(skillLevel)) +
-                    intl.formatMessage(commonMessages.dividingColon)}
+                  {intl.formatMessage(
+                    getSkillLevelName(skillLevel, SkillCategory.Behavioural),
+                  ) + intl.formatMessage(commonMessages.dividingColon)}
                 </strong>
                 {intl.formatMessage(
-                  getBehaviouralSkillLevelDefinition(skillLevel),
+                  getSkillLevelDefinition(
+                    skillLevel,
+                    SkillCategory.Behavioural,
+                  ),
                 )}
               </li>
             ))}
@@ -94,11 +97,12 @@ const SkillLevelDialog = () => {
             {skillLevels.map((skillLevel) => (
               <li key={`technical${skillLevel}`}>
                 <strong>
-                  {intl.formatMessage(getTechnicalSkillLevel(skillLevel)) +
-                    intl.formatMessage(commonMessages.dividingColon)}
+                  {intl.formatMessage(
+                    getSkillLevelName(skillLevel, SkillCategory.Technical),
+                  ) + intl.formatMessage(commonMessages.dividingColon)}
                 </strong>
                 {intl.formatMessage(
-                  getTechnicalSkillLevelDefinition(skillLevel),
+                  getSkillLevelDefinition(skillLevel, SkillCategory.Technical),
                 )}
               </li>
             ))}

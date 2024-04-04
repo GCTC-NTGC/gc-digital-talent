@@ -27,12 +27,12 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Record of decision
+    | Notifications
     |--------------------------------------------------------------------------
     |
-    | A feature to introduce a multiple step assessment builder for evaluating candidates
+    | A feature to introduce notifications (application and email)
     |
     */
 
-    'record_of_decision' => (bool) env('FEATURE_RECORD_OF_DECISION', false),
+    'notifications' => (bool) env('FEATURE_NOTIFICATIONS', false),
 ];

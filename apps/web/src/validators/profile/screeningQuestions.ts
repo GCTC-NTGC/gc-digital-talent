@@ -7,12 +7,7 @@ type PartialPoolCandidate = Pick<PoolCandidate, "screeningQuestionResponses">;
 export function hasMissingResponses(
   poolCandidate: PartialPoolCandidate,
   pool: Pool | null,
-  RoDFlag: boolean,
 ): boolean {
-  if (!RoDFlag) {
-    return false;
-  }
-
   const poolQuestionIds =
     pool?.screeningQuestions
       ?.map((q) => {

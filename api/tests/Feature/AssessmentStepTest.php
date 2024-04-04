@@ -49,8 +49,8 @@ class AssessmentStepTest extends TestCase
     }
 
     protected $createAssessmentStep =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         mutation createAssessmentStep($poolId: UUID!, $assessmentStep: AssessmentStepInput!){
             createAssessmentStep(poolId: $poolId, assessmentStep: $assessmentStep) {
                 id
@@ -68,8 +68,8 @@ class AssessmentStepTest extends TestCase
     ';
 
     protected $updateAssessmentStep =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         mutation updateAssessmentStep($id: UUID!, $assessmentStep: AssessmentStepInput!){
             updateAssessmentStep(id: $id, assessmentStep: $assessmentStep) {
                 id
@@ -87,8 +87,8 @@ class AssessmentStepTest extends TestCase
     ';
 
     protected $deleteAssessmentStep =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         mutation deleteAssessmentStep($id: UUID!){
             deleteAssessmentStep(id: $id) {
                 id
@@ -97,8 +97,8 @@ class AssessmentStepTest extends TestCase
     ';
 
     protected $createOrUpdateScreeningQuestionAssessmentStep =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         mutation createOrUpdateScreeningQuestionAssessmentStep(
             $poolId: UUID!,
             $screeningQuestions: [SyncScreeningQuestionsInput],

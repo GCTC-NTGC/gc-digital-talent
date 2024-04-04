@@ -93,10 +93,10 @@ class GenericJobTitleSeeder extends Seeder
             $identifier = [
                 'key' => $genericJobTitle['key'],
             ];
-            $classificationId = Classification::where([
+            $classificationId = Classification::select(['id'])->where([
                 'group' => $genericJobTitle['classification']['group'],
                 'level' => $genericJobTitle['classification']['level'],
-            ])->first()->id;
+            ])->sole()->id;
 
             $finalValue = array_merge($genericJobTitle, ['classification_id' => $classificationId]);
             unset($finalValue['classification']);

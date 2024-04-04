@@ -91,11 +91,17 @@ export const SearchForm = ({
         },
         allPools: values.allPools,
         candidateCount: values.count,
-        selectedClassifications: selectedPool
-          ? selectedPool.classifications?.filter(notEmpty)
+        selectedClassifications: selectedPool?.classification
+          ? [selectedPool.classification]
           : applicantFilter?.qualifiedClassifications?.filter(notEmpty),
       },
     });
+  };
+
+  const handleSubmitAllPools = () => {
+    setValue("allPools", true);
+    setValue("pool", "");
+    setValue("count", candidateCount);
   };
 
   return (
@@ -187,11 +193,7 @@ export const SearchForm = ({
                   type="submit"
                   {...poolSubmitProps}
                   value=""
-                  onClick={() => {
-                    setValue("allPools", true);
-                    setValue("pool", "");
-                    setValue("count", candidateCount);
-                  }}
+                  onClick={handleSubmitAllPools}
                 >
                   {intl.formatMessage({
                     defaultMessage: "Request candidates from all pools",
@@ -249,7 +251,7 @@ const SearchForm_Query = graphql(/* GraphQL */ `
         en
         fr
       }
-      classifications {
+      classification {
         id
         group
         level

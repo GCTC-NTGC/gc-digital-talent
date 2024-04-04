@@ -13,6 +13,7 @@ import {
   AssessmentStepType,
   Pool,
   PoolCandidate,
+  PoolCandidateStatus,
   PoolSkillType,
 } from "@gc-digital-talent/graphql";
 
@@ -178,3 +179,24 @@ export const poolWithAssessmentSteps: Pool = {
   ],
   poolCandidates: testCandidates,
 };
+
+export const filterDisqualifiedTestData: PoolCandidate[] = [
+  {
+    ...fakeCandidates[0],
+    user: fakeCandidates[0].user,
+    status: PoolCandidateStatus.ScreenedOutApplication,
+    assessmentResults: [],
+  },
+  {
+    ...fakeCandidates[1],
+    user: fakeCandidates[1].user,
+    status: PoolCandidateStatus.NewApplication,
+    assessmentResults: [],
+  },
+  {
+    ...fakeCandidates[2],
+    user: fakeCandidates[2].user,
+    status: PoolCandidateStatus.ScreenedOutAssessment,
+    assessmentResults: [{ id: "123" }],
+  },
+];

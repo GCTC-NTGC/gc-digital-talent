@@ -42,8 +42,8 @@ class ScreeningQuestionsTest extends TestCase
     protected $unauthorizedMessage = 'This action is unauthorized.';
 
     protected $createOrUpdateScreeningQuestionAssessmentStep =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         mutation createOrUpdateScreeningQuestionAssessmentStep(
             $poolId: UUID!,
             $screeningQuestions: [SyncScreeningQuestionsInput],
@@ -60,8 +60,8 @@ class ScreeningQuestionsTest extends TestCase
     ';
 
     protected $updateApplication =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         mutation updateApplication($id: ID!, $application: UpdateApplicationInput!) {
             updateApplication(id: $id, application: $application) {
                 screeningQuestionResponses {
@@ -76,8 +76,8 @@ class ScreeningQuestionsTest extends TestCase
     ';
 
     protected $queryScreeningQuestionAssessmentStep =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         query pool($id: UUID!) {
             pool(id: $id) {
                 id

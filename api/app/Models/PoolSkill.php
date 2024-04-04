@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $pool_id
  * @property string $skill_id
  * @property string $type
+ * @property string $required_skill_level
  */
 class PoolSkill extends Model
 {
@@ -25,6 +26,19 @@ class PoolSkill extends Model
     protected $table = 'pool_skill';
 
     protected $keyType = 'string';
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function (PoolSkill $poolSkill) {
+            $poolSkill->pool->syncApplicationScreeningStepPoolSkills();
+        });
+
+        static::deleted(function (PoolSkill $poolSkill) {
+            $poolSkill->pool->syncApplicationScreeningStepPoolSkills();
+        });
+    }
 
     public function skill(): BelongsTo
     {

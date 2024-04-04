@@ -37,7 +37,7 @@ const CreateApplicationApplications_Query = graphql(/* GraphQL */ `
             fr
           }
           stream
-          classifications {
+          classification {
             id
             group
             level

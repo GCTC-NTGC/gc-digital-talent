@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
@@ -29,7 +29,6 @@ import {
   Scalars,
   Skill,
   SkillLevel,
-  SkillCategory,
   UserSkill,
   WhenSkillUsed,
   graphql,
@@ -42,6 +41,7 @@ import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSkillFormDialog from "~/components/ExperienceSkillFormDialog/ExperienceSkillFormDialog";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import {
   CreateUserSkill_Mutation,
@@ -108,6 +108,13 @@ const NullExperienceMessage = ({
   );
 };
 
+const subTitle = defineMessage({
+  defaultMessage:
+    "Update your skill level and manage career experiences linked to this skill.",
+  id: "xJfPRe",
+  description: "Subtitle for the self skill evaluation page",
+});
+
 interface UpdateUserSkillFormProps {
   userId: Scalars["UUID"]["output"];
   skill: Skill;
@@ -128,7 +135,6 @@ export const UpdateUserSkillForm = ({
   const skillName = getLocalizedName(skill.name, intl);
   const skillDescription = getLocalizedName(skill.description, intl);
   const hasUserSkill = notEmpty(userSkill);
-  const isTechnical = skill.category === SkillCategory.Technical;
   const linkedExperiences = userSkill?.experiences?.filter(notEmpty);
   const from = searchParams.get("from");
   const fromShowcase = from && from === "showcase";
@@ -223,37 +229,31 @@ export const UpdateUserSkillForm = ({
       );
   };
 
-  const crumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: paths.home(),
-    },
-    {
-      label: intl.formatMessage(navigationMessages.profileAndApplications),
-      url: paths.profileAndApplications(),
-    },
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(navigationMessages.profileAndApplications),
+        url: paths.profileAndApplications(),
+      },
 
-    {
-      label: intl.formatMessage(navigationMessages.skillLibrary),
-      url: paths.skillLibrary(),
-    },
-    ...(fromShowcase
-      ? [
-          {
-            label: intl.formatMessage(navigationMessages.skillShowcase),
-            url: paths.skillShowcase(),
-          },
-        ]
-      : []),
-    {
-      label: skillName,
-      url: paths.editUserSkill(skill.id),
-    },
-  ];
+      {
+        label: intl.formatMessage(navigationMessages.skillLibrary),
+        url: paths.skillLibrary(),
+      },
+      ...(fromShowcase
+        ? [
+            {
+              label: intl.formatMessage(navigationMessages.skillShowcase),
+              url: paths.skillShowcase(),
+            },
+          ]
+        : []),
+      {
+        label: skillName,
+        url: paths.editUserSkill(skill.id),
+      },
+    ],
+  });
 
   const sections: PageSections = {
     skillLevel: {
@@ -283,19 +283,12 @@ export const UpdateUserSkillForm = ({
     { skillName },
   );
 
+  const formattedSubTitle = intl.formatMessage(subTitle);
+
   return (
     <>
-      <SEO title={pageTitle} />
-      <Hero
-        title={pageTitle}
-        crumbs={crumbs}
-        subtitle={intl.formatMessage({
-          defaultMessage:
-            "Update your skill level and manage career experiences linked to this skill.",
-          id: "xJfPRe",
-          description: "Subtitle for the self skill evaluation page",
-        })}
-      />
+      <SEO title={pageTitle} description={formattedSubTitle} />
+      <Hero title={pageTitle} crumbs={crumbs} subtitle={formattedSubTitle} />
       <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
         <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
           <TableOfContents.Navigation>
@@ -367,7 +360,7 @@ export const UpdateUserSkillForm = ({
                   data-h2-gap="base(x1 0)"
                   data-h2-margin="base(x1, 0, x2, 0)"
                 >
-                  <UserSkillFormFields isTechnical={isTechnical} />
+                  <UserSkillFormFields category={skill.category} />
                   <div
                     data-h2-display="base(flex)"
                     data-h2-flex-wrap="base(wrap)"

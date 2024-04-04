@@ -36,7 +36,7 @@ updates:
           - "patch"
       types:
         patterns:
-          - "@types*"
+          - "@types/*"
         update-types:
           - "minor"
           - "patch"
@@ -74,13 +74,6 @@ updates:
   # DOCKER image updates
 
   - directory: "/api"
-    package-ecosystem: "docker"
-    schedule:
-      interval: "weekly"
-      day: "thursday"
-    open-pull-requests-limit: 0
-
-  - directory: "/infrastructure/php-container"
     package-ecosystem: "docker"
     schedule:
       interval: "weekly"

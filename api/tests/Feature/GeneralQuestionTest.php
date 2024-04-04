@@ -26,8 +26,8 @@ class GeneralQuestionTest extends TestCase
     protected $pool;
 
     protected $updatePoolMutation =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         mutation updatePool($id: ID! ,$pool: UpdatePoolInput!) {
             updatePool(id: $id, pool: $pool) {
                 generalQuestions {

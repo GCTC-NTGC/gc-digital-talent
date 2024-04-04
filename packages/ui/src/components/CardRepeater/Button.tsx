@@ -50,7 +50,7 @@ export const Action = React.forwardRef<HTMLButtonElement, ActionButtonProps>(
 export const Add = React.forwardRef<
   HTMLButtonElement,
   React.ComponentPropsWithoutRef<typeof Button>
->(({ children, ...rest }, forwardedRef) => {
+>(({ children, disabled, ...rest }, forwardedRef) => {
   const intl = useIntl();
   const { max, total } = useCardRepeaterContext();
   const reachedMax = Boolean(max && total >= max);
@@ -59,7 +59,7 @@ export const Add = React.forwardRef<
     <Button
       ref={forwardedRef}
       icon={PlusCircleIcon}
-      disabled={reachedMax}
+      disabled={reachedMax || disabled}
       type="button"
       mode="placeholder"
       block

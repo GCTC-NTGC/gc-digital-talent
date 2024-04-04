@@ -10,17 +10,48 @@ import { toast } from "@gc-digital-talent/toast";
 import { Link } from "@gc-digital-talent/ui";
 import {
   Scalars,
-  Team,
   UpdateTeamInput,
   UpdateTeamMutation,
   LocalizedStringInput,
   Maybe,
   Department,
+  graphql,
+  FragmentType,
+  getFragment,
+  UpdateTeamPage_TeamFragment as UpdateTeamPageFragmentType,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 
 import CreateTeamFormFields from "../../CreateTeamPage/components/CreateTeamFormFields";
+
+export const UpdateTeamPage_TeamFragment = graphql(/* GraphQL */ `
+  fragment UpdateTeamPage_Team on Team {
+    id
+    name
+    contactEmail
+    displayName {
+      en
+      fr
+    }
+    departments {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+    description {
+      en
+      fr
+    }
+  }
+`);
+
+export type UpdateTeamPageFragment = FragmentType<
+  typeof UpdateTeamPage_TeamFragment
+>;
 
 type FormValues = {
   displayName?: Maybe<LocalizedStringInput>;
@@ -29,7 +60,7 @@ type FormValues = {
   departments?: Array<Scalars["UUID"]["output"]>;
 };
 
-const dataToFormValues = (data: Team): FormValues => {
+const dataToFormValues = (data: UpdateTeamPageFragmentType): FormValues => {
   const { departments, displayName, description, ...rest } = data;
   return {
     ...omit(rest, ["id", "__typename", "roleAssignments"]),
@@ -50,7 +81,7 @@ const formValuesToSubmitData = (data: FormValues): UpdateTeamInput => {
 };
 
 export interface UpdateTeamFormProps {
-  team: Team;
+  teamQuery: UpdateTeamPageFragment;
   departments?: Maybe<Array<Maybe<Omit<Department, "teams">>>>;
   onSubmit: (
     teamId: Scalars["UUID"]["output"],
@@ -59,11 +90,12 @@ export interface UpdateTeamFormProps {
 }
 
 const UpdateTeamForm = ({
-  team,
+  teamQuery,
   departments,
   onSubmit,
 }: UpdateTeamFormProps) => {
   const intl = useIntl();
+  const team = getFragment(UpdateTeamPage_TeamFragment, teamQuery);
   const paths = useRoutes();
   const navigate = useNavigate();
 

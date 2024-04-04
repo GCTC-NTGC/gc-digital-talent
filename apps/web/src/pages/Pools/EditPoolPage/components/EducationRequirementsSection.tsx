@@ -7,7 +7,6 @@ import { getLocale } from "@gc-digital-talent/i18n";
 import { PublishingGroup } from "@gc-digital-talent/graphql";
 
 import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
-import { getClassificationGroup } from "~/utils/poolUtils";
 import { isInNullState } from "~/validators/process/classification";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import { wrapAbbr } from "~/utils/nameUtils";
@@ -31,15 +30,10 @@ const EducationRequirementsSection = ({
     emptyRequired: isNull, // Not a required field
     fallbackIcon: TagIcon,
   });
-  const classificationGroup = getClassificationGroup(pool);
-  const { classifications } = pool;
-  const classification = classifications ? classifications[0] : null;
-
-  let classificationAbbr; // type wrangling the complex type into a string
-  if (classification) {
-    const { group, level } = classification;
-    classificationAbbr = wrapAbbr(`${group}-0${level}`, intl);
-  }
+  const classificationGroup = pool.classification?.group;
+  const classificationAbbr = pool.classification
+    ? wrapAbbr(`${classificationGroup}-0${pool.classification.level}`, intl)
+    : "";
 
   const qualityStandardsLink = (chunks: React.ReactNode) => {
     const href =

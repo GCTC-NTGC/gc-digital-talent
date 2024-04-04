@@ -37,6 +37,8 @@ export type AnyGeneratedExperience =
   | GeneratedPersonalExperience
   | GeneratedWorkExperience;
 
+faker.seed(0);
+
 // lots of X requires Y filling things out and adding connecting Types/Components to one another
 // defining the skills here
 const sampleApp: User = {

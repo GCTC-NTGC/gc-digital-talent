@@ -50,10 +50,10 @@ const getRoutes = (lang: Locales) => {
     accessibility: () => path.join(baseUrl, "accessibility-statement"),
     manager: () => path.join(baseUrl, "manager"),
     executive: () => path.join(baseUrl, "executive"),
+    skills: () => path.join(baseUrl, "skills"),
 
     // Admin
-    admin: () => adminUrl,
-    adminDashboard: () => path.join(adminUrl, "dashboard"),
+    adminDashboard: () => adminUrl,
 
     // Admin - Pools
     poolTable: () => path.join(adminUrl, "pools"),
@@ -291,6 +291,9 @@ const getRoutes = (lang: Locales) => {
       path.join(showcase, "3-behavioural-skills-to-improve"),
     improveTechnicalSkills: () =>
       path.join(showcase, "5-technical-skills-to-train"),
+
+    // Notifications
+    notifications: () => path.join(applicantUrl, "notifications"),
 
     // Directive on digital talent
     directive: () => path.join(baseUrl, "directive-on-digital-talent"),

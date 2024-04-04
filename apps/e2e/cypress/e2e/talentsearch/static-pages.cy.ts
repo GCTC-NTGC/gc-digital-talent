@@ -1,15 +1,15 @@
 describe("Static pages", () => {
   context("Privacy Policy page", () => {
     it("should exist", () => {
-      cy.visit("/en/privacy-notice");
-      cy.findByRole("heading", { name: "Privacy notice", level: 1 }).should(
+      cy.visit("/en/privacy-policy");
+      cy.findByRole("heading", { name: "Privacy policy", level: 1 }).should(
         "exist",
       );
     });
 
     it("should have no accessibility errors", () => {
-      cy.visit("/en/privacy-notice");
-      cy.findByRole("heading", { name: "Privacy notice", level: 1 }).should(
+      cy.visit("/en/privacy-policy");
+      cy.findByRole("heading", { name: "Privacy policy", level: 1 }).should(
         "exist",
       );
       cy.injectAxe();

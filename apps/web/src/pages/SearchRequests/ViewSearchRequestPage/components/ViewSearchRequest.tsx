@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import {
@@ -33,6 +33,7 @@ import FilterBlock from "~/components/SearchRequestFilters/FilterBlock";
 import AdminHero from "~/components/Hero/AdminHero";
 import SEO from "~/components/SEO/SEO";
 import { pageTitle as indexSearchRequestPageTitle } from "~/pages/SearchRequests/IndexSearchRequestPage/IndexSearchRequestPage";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import SingleSearchRequestTableApi from "./SearchRequestCandidatesTable";
 import UpdateSearchRequest from "./UpdateSearchRequest";
@@ -167,12 +168,7 @@ const ManagerInfo = ({
                         {hrAdvisorEmail}
                       </Link>
                     ) : (
-                      intl.formatMessage({
-                        defaultMessage: "N/A",
-                        id: "i9AjuX",
-                        description:
-                          "Text shown when the filter was not selected",
-                      })
+                      intl.formatMessage(commonMessages.notApplicable)
                     )
                   }
                 />
@@ -188,12 +184,7 @@ const ManagerInfo = ({
                   content={
                     status
                       ? intl.formatMessage(getPoolCandidateSearchStatus(status))
-                      : intl.formatMessage({
-                          defaultMessage: "N/A",
-                          id: "i9AjuX",
-                          description:
-                            "Text shown when the filter was not selected",
-                        })
+                      : intl.formatMessage(commonMessages.notApplicable)
                   }
                 />
                 <FilterBlock
@@ -273,7 +264,7 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
           en
           fr
         }
-        classifications {
+        classification {
           id
           group
           level
@@ -314,7 +305,7 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
           fr
         }
         stream
-        classifications {
+        classification {
           id
           group
           level
@@ -333,6 +324,12 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
     }
   }
 `);
+
+const pageTitle = defineMessage({
+  defaultMessage: "Request",
+  id: "WYJnLs",
+  description: "Heading displayed above the single search request component.",
+});
 
 interface SingleSearchRequestProps {
   searchRequestQuery: FragmentType<
@@ -363,51 +360,43 @@ export const ViewSearchRequest = ({
     reason,
   } = searchRequest;
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(indexSearchRequestPageTitle),
-      url: routes.searchRequestTable(),
-    },
-    {
-      label: `${fullName} - ${getLocalizedName(department?.name, intl)}`,
-      url: routes.searchRequestView(id),
-    },
-  ];
-
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Request",
-    id: "WYJnLs",
-    description: "Heading displayed above the single search request component.",
+  const navigationCrumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(indexSearchRequestPageTitle),
+        url: routes.searchRequestTable(),
+      },
+      {
+        label: `${fullName} - ${getLocalizedName(department?.name, intl)}`,
+        url: routes.searchRequestView(id),
+      },
+    ],
+    isAdmin: true,
   });
+
+  const formattedPageTitle = intl.formatMessage(pageTitle);
+  const subTitle = intl.formatMessage(
+    {
+      defaultMessage:
+        "<strong>{jobTitle}</strong> at <strong>{department}</strong>",
+      id: "ZLDt/c",
+      description:
+        "Subtitle displayed above the single search request component.",
+    },
+    {
+      jobTitle: searchRequest.jobTitle,
+      department: searchRequest.department?.name[locale],
+    },
+  );
 
   const abstractFilter = applicantFilter ?? poolCandidateFilter;
 
   return (
     <>
-      <SEO title={pageTitle} />
+      <SEO title={formattedPageTitle} description={subTitle} />
       <AdminHero
-        title={pageTitle}
-        subtitle={intl.formatMessage(
-          {
-            defaultMessage:
-              "<strong>{jobTitle}</strong> at <strong>{department}</strong>",
-            id: "ZLDt/c",
-            description:
-              "Subtitle displayed above the single search request component.",
-          },
-          {
-            jobTitle: searchRequest.jobTitle,
-            department: searchRequest.department?.name[locale],
-          },
-        )}
+        title={formattedPageTitle}
+        subtitle={subTitle}
         nav={{ mode: "crumbs", items: navigationCrumbs }}
       />
       <AdminContentWrapper>

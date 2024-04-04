@@ -3,12 +3,11 @@ import { useIntl } from "react-intl";
 
 import {
   commonMessages,
-  getBehaviouralSkillLevel,
   getLocalizedName,
-  getTechnicalSkillLevel,
+  getSkillLevelName,
 } from "@gc-digital-talent/i18n";
 import { Heading } from "@gc-digital-talent/ui";
-import { UserSkill } from "@gc-digital-talent/graphql";
+import { SkillCategory, UserSkill } from "@gc-digital-talent/graphql";
 
 interface UserSkillListProps {
   technical: UserSkill[];
@@ -35,7 +34,10 @@ const UserSkillList = ({ technical, behavioural }: UserSkillListProps) => {
               {intl.formatMessage(commonMessages.dividingColon)}
               {intl.formatMessage(
                 userSkill.skillLevel
-                  ? getBehaviouralSkillLevel(userSkill.skillLevel)
+                  ? getSkillLevelName(
+                      userSkill.skillLevel,
+                      SkillCategory.Behavioural,
+                    )
                   : commonMessages.unspecified,
               )}
             </li>
@@ -61,7 +63,10 @@ const UserSkillList = ({ technical, behavioural }: UserSkillListProps) => {
               {intl.formatMessage(commonMessages.dividingColon)}
               {intl.formatMessage(
                 userSkill.skillLevel
-                  ? getTechnicalSkillLevel(userSkill.skillLevel)
+                  ? getSkillLevelName(
+                      userSkill.skillLevel,
+                      SkillCategory.Technical,
+                    )
                   : commonMessages.unspecified,
               )}
             </li>

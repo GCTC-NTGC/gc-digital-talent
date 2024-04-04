@@ -81,6 +81,8 @@ class PoolCandidate extends Model
         'profile_snapshot',
         'expiry_date',
         'pool_candidate_status',
+        'submitted_steps',
+        'education_requirement_option',
     ];
 
     protected $touches = ['user'];
@@ -263,7 +265,7 @@ class PoolCandidate extends Model
             })
             // Now ensure the PoolCandidate is in a pool with the right classification
             ->whereHas('pool', function ($query) use ($classifications) {
-                $query->whereHas('classifications', function ($query) use ($classifications) {
+                $query->whereHas('classification', function ($query) use ($classifications) {
                     $query->where(function ($query) use ($classifications) {
                         foreach ($classifications as $classification) {
                             $query->orWhere(function ($query) use ($classification) {
@@ -575,7 +577,6 @@ class PoolCandidate extends Model
             'workExperiences.skills',
             'poolCandidates',
             'poolCandidates.pool',
-            'poolCandidates.pool.classifications',
             'poolCandidates.educationRequirementAwardExperiences.skills',
             'poolCandidates.educationRequirementCommunityExperiences.skills',
             'poolCandidates.educationRequirementEducationExperiences.skills',
@@ -592,6 +593,7 @@ class PoolCandidate extends Model
         $pool = Pool::with([
             'essentialSkills',
             'nonessentialSkills',
+            'classification',
         ])->findOrFail($this->pool_id);
         $essentialSkillIds = $pool->essentialSkills()->pluck('skills.id')->toArray();
         $nonessentialSkillIds = $pool->nonessentialSkills()->pluck('skills.id')->toArray();
@@ -807,7 +809,7 @@ class PoolCandidate extends Model
             'workExperiences.skills',
             'poolCandidates',
             'poolCandidates.pool',
-            'poolCandidates.pool.classifications',
+            'poolCandidates.pool.classification',
             'poolCandidates.educationRequirementAwardExperiences.skills',
             'poolCandidates.educationRequirementCommunityExperiences.skills',
             'poolCandidates.educationRequirementEducationExperiences.skills',

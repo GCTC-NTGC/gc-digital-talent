@@ -1,9 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Board, Well } from "@gc-digital-talent/ui";
+import { Board, Well, Counter } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import Counter from "@gc-digital-talent/ui/src/components/Button/Counter";
 import { AssessmentStep, AssessmentStepType } from "@gc-digital-talent/graphql";
 
 import { NullableDecision } from "~/utils/assessmentResults";
@@ -78,7 +77,7 @@ const ResultsDetails = ({
   resultCounts,
   filters,
 }: ResultsDetailsProps) => {
-  const [isOpen, setIsOpen] = React.useState<boolean>(true);
+  const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const intl = useIntl();
   const stepTitle = getLocalizedName(step.title, intl);
   const isApplicationStep =

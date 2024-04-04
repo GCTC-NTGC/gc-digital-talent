@@ -111,6 +111,16 @@ const messages = defineMessages({
     id: "g7RC9u",
     description: "Label for a process' French special note",
   },
+  aboutUsEn: {
+    defaultMessage: "About us (English)",
+    id: "Jz0oC2",
+    description: "Label for a process' English about us",
+  },
+  aboutUsFr: {
+    defaultMessage: "About us (French)",
+    id: "2quQuW",
+    description: "Label for a process' French about us",
+  },
   screeningQuestions: {
     defaultMessage: "Screening questions",
     id: "p8+wKq",
@@ -136,6 +146,11 @@ const messages = defineMessages({
       "You can view your candidates on the <a>Talent placement</a> page.",
     id: "tgtpgb",
     description: "Message to direct users to the talent placement page",
+  },
+  educationRequirement: {
+    defaultMessage: "Education requirement",
+    id: "LyUTqa",
+    description: "Education requirement title",
   },
 });
 

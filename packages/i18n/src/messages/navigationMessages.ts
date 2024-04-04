@@ -76,6 +76,11 @@ const navigationMessages = defineMessages({
     id: "gBoG9M",
     description: "Name of Profile and applications page",
   },
+  home: {
+    defaultMessage: "Home",
+    id: "Ro+gP0",
+    description: "Name of Home page",
+  },
 });
 
 export default navigationMessages;

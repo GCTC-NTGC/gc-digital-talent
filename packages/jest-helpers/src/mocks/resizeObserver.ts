@@ -1,17 +1,5 @@
-/* eslint-disable class-methods-use-this */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-class ResizeObserverMock {
-  observe() {
-    // Pass
-  }
-
-  unobserve() {
-    // Pass
-  }
-
-  disconnect() {
-    // Pass
-  }
-}
-
-(globalThis as any).ResizeObserver = ResizeObserverMock;
+global.ResizeObserver = jest.fn().mockImplementation(() => ({
+  observe: jest.fn(),
+  unobserve: jest.fn(),
+  disconnect: jest.fn(),
+}));

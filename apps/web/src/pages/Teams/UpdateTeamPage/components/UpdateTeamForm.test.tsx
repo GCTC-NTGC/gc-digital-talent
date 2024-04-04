@@ -7,8 +7,12 @@ import React from "react";
 
 import { renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { fakeTeams } from "@gc-digital-talent/fake-data";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
-import UpdateTeamForm, { UpdateTeamFormProps } from "./UpdateTeamForm";
+import UpdateTeamForm, {
+  UpdateTeamFormProps,
+  UpdateTeamPage_TeamFragment,
+} from "./UpdateTeamForm";
 
 // adjust mockTeam to enable testing expected values
 // must ensure name is kebab-ed and that roleAssignments are not passed into the mutation
@@ -17,6 +21,10 @@ if (mockTeam.displayName) {
   mockTeam.displayName.en = "Uppercase No Kebab";
 }
 mockTeam.roleAssignments = [{ id: "fake assignment" }];
+const mockTeamFragment = makeFragmentData(
+  mockTeam,
+  UpdateTeamPage_TeamFragment,
+);
 
 const renderUpdateTeamForm = (props: UpdateTeamFormProps) => {
   return renderWithProviders(<UpdateTeamForm {...props} />);
@@ -27,7 +35,7 @@ describe("UpdateTeamForm", () => {
     const mockSave = jest.fn(() => Promise.resolve(mockTeam));
 
     renderUpdateTeamForm({
-      team: mockTeam,
+      teamQuery: mockTeamFragment,
       onSubmit: mockSave,
     });
 

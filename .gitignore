@@ -2,6 +2,9 @@
 node_modules
 dist
 
+# Hydrogen logging
+hydrogen-logs
+
 # Cypress artifacts
 apps/e2e/cypress/screenshots
 apps/e2e/cypress/videos

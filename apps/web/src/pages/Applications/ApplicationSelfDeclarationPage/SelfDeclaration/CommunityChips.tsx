@@ -41,11 +41,11 @@ const CommunityChips = ({
         return (
           <Chip
             key={community}
-            mode="outline"
             color={otherAlert && community === "other" ? "warning" : "primary"}
             onDismiss={() => onDismiss(community)}
-            label={label}
-          />
+          >
+            {label}
+          </Chip>
         );
       })}
     </Chips>

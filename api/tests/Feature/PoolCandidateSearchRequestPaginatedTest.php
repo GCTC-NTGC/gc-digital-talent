@@ -56,8 +56,8 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
     }
 
     protected $searchRequestQuery =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         query poolCandidateSearchRequestsPaginated($where: PoolCandidateSearchRequestInput){
             poolCandidateSearchRequestsPaginated(where: $where) {
                 data

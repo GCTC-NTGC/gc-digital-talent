@@ -2,10 +2,16 @@
 
 namespace App\Models;
 
+use App\Enums\ArmedForcesStatus;
+use App\Enums\BilingualEvaluation;
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
+use App\Enums\CitizenshipStatus;
+use App\Enums\IndigenousCommunity;
 use App\Enums\LanguageAbility;
 use App\Enums\PoolCandidateStatus;
+use App\Enums\PositionDuration;
+use App\Traits\EnrichedNotifiable;
 use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -16,7 +22,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Laratrust\Contracts\LaratrustUser;
@@ -42,7 +47,9 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property bool $looking_for_english
  * @property bool $looking_for_french
  * @property bool $looking_for_bilingual
- * @property string $bilingual_evaluation
+ * @property string $first_official_language
+ * @property bool $second_language_exam_completed
+ * @property bool $second_language_exam_validity
  * @property string $comprehension_level
  * @property string $written_level
  * @property string $verbal_level
@@ -70,17 +77,19 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property array $indigenous_communities
  * @property string $preferred_language_for_interview
  * @property string $preferred_language_for_exam
+ * @property array $ignored_email_notifications
+ * @property array $ignored_in_app_notifications
  */
 class User extends Model implements Authenticatable, LaratrustUser
 {
     use AuthenticatableTrait;
     use Authorizable;
     use CausesActivity;
+    use EnrichedNotifiable;
     use HasFactory;
     use HasRelationships;
     use HasRolesAndPermissions;
     use LogsActivity;
-    use Notifiable;
     use Searchable;
     use SoftDeletes;
 
@@ -96,7 +105,9 @@ class User extends Model implements Authenticatable, LaratrustUser
         'looking_for_english',
         'looking_for_french',
         'looking_for_bilingual',
-        'bilingual_evaluation',
+        'first_official_language',
+        'second_language_exam_completed',
+        'second_language_exam_validity',
         'comprehension_level',
         'written_level',
         'verbal_level',
@@ -123,6 +134,10 @@ class User extends Model implements Authenticatable, LaratrustUser
         'preferred_language_for_interview',
         'preferred_language_for_exam',
         'deleted_at',
+        'ignored_email_notifications',
+        'ignored_in_app_notifications',
+        'created_at',
+        'updated_at',
     ];
 
     protected $keyType = 'string';
@@ -132,6 +147,8 @@ class User extends Model implements Authenticatable, LaratrustUser
         'accepted_operational_requirements' => 'array',
         'position_duration' => 'array',
         'indigenous_communities' => 'array',
+        'ignored_email_notifications' => 'array',
+        'ignored_in_app_notifications' => 'array',
     ];
 
     protected $fillable = [
@@ -220,7 +237,8 @@ class User extends Model implements Authenticatable, LaratrustUser
 
     public function department(): BelongsTo
     {
-        return $this->belongsTo(Department::class, 'department');
+        return $this->belongsTo(Department::class, 'department')
+            ->select(['id', 'name', 'department_number']);
     }
 
     public function currentClassification(): BelongsTo
@@ -298,6 +316,170 @@ class User extends Model implements Authenticatable, LaratrustUser
         // If this User instance continues to be used, ensure the in-memory instance has the updated skills.
         $this->refresh();
         $this->searchable();
+    }
+
+    public function getFullName(?bool $anonymous = false)
+    {
+        $lastName = $this->last_name;
+        if ($anonymous && $lastName) {
+            $lastName = substr($lastName, 0, 1);
+        }
+
+        if ($this->first_name && $lastName) {
+            return $this->first_name.' '.$lastName;
+        } elseif ($this->first_name) {
+            return $this->first_name;
+        } elseif ($lastName) {
+            return $lastName;
+        }
+
+        return '';
+    }
+
+    public function getLocation()
+    {
+        if ($this->current_city && $this->current_province) {
+            return $this->current_city.', '.$this->current_province;
+        } elseif ($this->current_city) {
+            return $this->current_city;
+        } elseif ($this->current_province) {
+            return $this->current_province;
+        }
+
+        return '';
+    }
+
+    public function getLanguage(string $key)
+    {
+        $code = $this->$key;
+        if ($code !== 'en' && $code !== 'fr') {
+            return '';
+        }
+
+        return $code === 'en' ? 'English' : 'French';
+    }
+
+    public function getArmedForcesStatus()
+    {
+        switch ($this->armed_forces_status) {
+            case ArmedForcesStatus::MEMBER->name:
+                return 'Member';
+            case ArmedForcesStatus::VETERAN->name:
+                return 'Veteran';
+            default:
+                return 'Not in the CAF';
+        }
+    }
+
+    public function getCitizenship()
+    {
+        switch ($this->citizenship) {
+            case CitizenshipStatus::CITIZEN->name:
+                return 'Canadian citizen';
+            case CitizenshipStatus::PERMANENT_RESIDENT->name:
+                return 'Permanent resident';
+            default:
+                return 'Other';
+        }
+    }
+
+    public function getLookingForLanguage()
+    {
+        if ($this->looking_for_bilingual) {
+            return 'Bilingual positions (English and French)';
+        } elseif ($this->looking_for_english && $this->looking_for_french) {
+            return 'English or French positions';
+        } elseif ($this->looking_for_english) {
+            return 'English positions';
+        } elseif ($this->looking_for_french) {
+            return 'French positions';
+        }
+
+        return '';
+    }
+
+    public function getBilingualEvaluation()
+    {
+        switch ($this->bilingual_evaluation) {
+            case BilingualEvaluation::NOT_COMPLETED->name:
+                return 'No';
+            case BilingualEvaluation::COMPLETED_ENGLISH->name:
+                return 'Yes, completed English evaluation';
+            case BilingualEvaluation::COMPLETED_FRENCH->name:
+                return 'Yes, completed French evaluation';
+            default:
+                return '';
+        }
+    }
+
+    public function getSecondLanguageEvaluation()
+    {
+        if ($this->comprehension_level || $this->written_level || $this->verbal_level) {
+            return sprintf('%s, %s, %s',
+                $this->comprehension_level ?? '',
+                $this->written_level ?? '',
+                $this->verbal_level ?? ''
+            );
+        }
+
+        return '';
+    }
+
+    public function getGovEmployeeType()
+    {
+        if (! $this->gov_employee_type) {
+            return '';
+        }
+
+        return ucwords(strtolower($this->gov_employee_type));
+    }
+
+    public function getClassification()
+    {
+        if (! $this->current_classification) {
+            return '';
+        }
+
+        $classification = $this->currentClassification()->first();
+
+        return $classification->group.'-0'.$classification->level;
+    }
+
+    public function getDepartment()
+    {
+        if (! $this->department) {
+            return '';
+        }
+
+        return $this->department()->get('name');
+    }
+
+    public function getIndigenousCommunities()
+    {
+        if (empty($this->indigenous_communities)) {
+            return null;
+        }
+
+        return array_map(function ($community) {
+            return match ($community) {
+                IndigenousCommunity::NON_STATUS_FIRST_NATIONS->name => 'Non-status First Nations',
+                IndigenousCommunity::STATUS_FIRST_NATIONS->name => 'Status First Nations',
+                IndigenousCommunity::INUIT->name => 'Inuk (Inuit)',
+                IndigenousCommunity::METIS->name => 'Métis',
+                IndigenousCommunity::OTHER->name => 'Other',
+                IndigenousCommunity::LEGACY_IS_INDIGENOUS->name => 'Indigenous',
+                default => 'Unknown'
+            };
+        }, $this->indigenous_communities);
+    }
+
+    public function getPositionDuration()
+    {
+        if (in_array(PositionDuration::PERMANENT->name, $this->position_duration)) {
+            return 'Permanent duration';
+        }
+
+        return null;
     }
 
     // getIsProfileCompleteAttribute function is correspondent to isProfileComplete attribute in graphql schema
@@ -715,15 +897,22 @@ class User extends Model implements Authenticatable, LaratrustUser
     {
         if ($searchTerms && is_array($searchTerms)) {
             $combinedSearchTerm = implode('&', array_map('trim', $searchTerms));
-            $resultIds = self::search($combinedSearchTerm)->usingWebSearchQuery()
-                ->get(['id'])
-                ->pluck('id')
-                ->unique()
-                ->take(32766)
-                ->toArray();
 
-            // Use Eloquent builder to filter results based on unique IDs
-            $query->whereIn('id', $resultIds);
+            $query
+                // attach the tsquery to every row to use for filtering
+                ->crossJoinSub(function ($query) use ($combinedSearchTerm) {
+                    $query->selectRaw(
+                        'websearch_to_tsquery(coalesce(?, get_current_ts_config()), ?)'.' AS tsquery',
+                        ['english', $combinedSearchTerm]
+                    );
+                }, 'calculations')
+                // filter rows against the tsquery
+                ->whereColumn('searchable', '@@', 'calculations.tsquery')
+                // add the calculated rank column to allow for ordering by text search rank
+                ->addSelect(DB::raw('ts_rank(searchable, calculations.tsquery) AS rank'))
+                // Now that we have added a column, query builder no longer will add a * to the select.  Add all possible columns manually.
+                ->addSelect(self::$selectableColumns);
+
         }
 
         return $query;
@@ -831,43 +1020,6 @@ class User extends Model implements Authenticatable, LaratrustUser
         if (array_key_exists('sync', $roleAssignmentHasMany)) {
             $this->callRolesFunction($roleAssignmentHasMany['sync'], 'syncRoles');
         }
-    }
-
-    // reattach all the extra fields from the JSON data column
-    public static function enrichNotification(object $notification)
-    {
-        $dataFields = $notification->data;
-        foreach ($dataFields as $key => $value) {
-            $notification->$key = $value;
-        }
-    }
-
-    // rename accessor to avoid hiding parent's notification function
-    public function getEnrichedNotificationsAttribute()
-    {
-        $user = Auth::user();
-        $notifications = $this->notifications()
-            ->where('notifiable_id', $user->id)
-            ->get();
-        $notifications->each(function ($n) {
-            self::enrichNotification($n);
-        });
-
-        return $notifications;
-    }
-
-    // rename accessor to avoid hiding parent's notification function
-    public function getUnreadEnrichedNotificationsAttribute()
-    {
-        $user = Auth::user();
-        $notifications = $this->unreadNotifications()
-            ->where('notifiable_id', $user->id)
-            ->get();
-        $notifications->each(function ($n) {
-            self::enrichNotification($n);
-        });
-
-        return $notifications;
     }
 
     public function getTopTechnicalSkillsRankingAttribute()

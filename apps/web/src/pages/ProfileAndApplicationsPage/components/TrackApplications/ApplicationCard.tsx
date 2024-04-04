@@ -4,7 +4,7 @@ import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
 import { useMutation } from "urql";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Heading, HeadingProps, Pill, Separator } from "@gc-digital-talent/ui";
+import { Heading, HeadingProps, Chip, Separator } from "@gc-digital-talent/ui";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -15,7 +15,7 @@ import {
 
 import { isDraft, isExpired, isQualifiedStatus } from "~/utils/poolCandidate";
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
-import { getStatusPillInfo } from "~/components/QualifiedRecruitmentCard/utils";
+import { getStatusChipInfo } from "~/components/QualifiedRecruitmentCard/utils";
 import ApplicationLink from "~/pages/Pools/PoolAdvertisementPage/components/ApplicationLink";
 
 import ApplicationActions, { DeleteActionProps } from "./ApplicationActions";
@@ -49,13 +49,13 @@ const ApplicationCard = ({
   const isApplicantQualified = isQualifiedStatus(application.status);
 
   // We don't get DraftExpired status from the API, so we need to check if the draft is expired ourselves
-  const statusPill = isDraftExpired
-    ? getStatusPillInfo(
+  const statusChip = isDraftExpired
+    ? getStatusChipInfo(
         PoolCandidateStatus.DraftExpired,
         application.suspendedAt,
         intl,
       )
-    : getStatusPillInfo(application.status, application.suspendedAt, intl);
+    : getStatusChipInfo(application.status, application.suspendedAt, intl);
 
   const applicationDeadlineMessage = getApplicationDeadlineMessage(
     application,
@@ -118,23 +118,12 @@ const ApplicationCard = ({
               )}
             />
           ) : (
-            <Pill bold mode="outline" color={statusPill.color}>
-              {isApplicantQualified ? (
-                <span
-                  data-h2-display="base(flex)"
-                  data-h2-align-items="base(center)"
-                  data-h2-gap="base(0 x.25)"
-                >
-                  <ShieldCheckIcon
-                    data-h2-width="base(1rem)"
-                    data-h2-height="base(auto)"
-                  />
-                  <span>{statusPill.text}</span>
-                </span>
-              ) : (
-                statusPill.text
-              )}
-            </Pill>
+            <Chip
+              color={statusChip.color}
+              {...(isApplicantQualified && { icon: ShieldCheckIcon })}
+            >
+              {statusChip.text}
+            </Chip>
           )}
         </div>
       </div>

@@ -1,23 +1,24 @@
 import { type Page } from "@playwright/test";
 
-import { AppPage } from "./AppPage";
+import {
+  EducationRequirementOption,
+  PoolCandidate,
+} from "@gc-digital-talent/graphql";
+
+import AppPage from "./AppPage";
 import {
   Test_CreateApplicationMutationDocument,
   Test_SubmitApplicationMutationDocument,
   Test_UpdateApplicationMutationDocument,
 } from "../utils/applications";
 import { GraphQLResponse } from "../utils/graphql";
-import {
-  EducationRequirementOption,
-  PoolCandidate,
-} from "@gc-digital-talent/graphql";
 
 /**
  * Application Page
  *
  * Page containing a utilities to interact with applications
  */
-export class ApplicationPage extends AppPage {
+class ApplicationPage extends AppPage {
   public readonly poolId: string;
 
   constructor(page: Page, poolId: string) {
@@ -61,7 +62,7 @@ export class ApplicationPage extends AppPage {
       .getByRole("textbox", { name: /institution/i })
       .fill("Playwright University");
 
-    const startDate = await this.page.getByRole("group", {
+    const startDate = this.page.getByRole("group", {
       name: /start date/i,
     });
 
@@ -70,7 +71,7 @@ export class ApplicationPage extends AppPage {
       .getByRole("combobox", { name: /month/i })
       .selectOption("01");
 
-    const endDate = await this.page.getByRole("group", {
+    const endDate = this.page.getByRole("group", {
       name: /end date/i,
     });
 
@@ -135,19 +136,15 @@ export class ApplicationPage extends AppPage {
           res.createApplication,
       )
       .then(async (application) => {
-        return await this.graphqlRequest(
-          Test_UpdateApplicationMutationDocument,
-          {
-            id: application.id,
-            application: {
-              educationRequirementOption:
-                EducationRequirementOption.AppliedWork,
-              educationRequirementPersonalExperiences: {
-                sync: [experienceId],
-              },
+        return this.graphqlRequest(Test_UpdateApplicationMutationDocument, {
+          id: application.id,
+          application: {
+            educationRequirementOption: EducationRequirementOption.AppliedWork,
+            educationRequirementPersonalExperiences: {
+              sync: [experienceId],
             },
           },
-        ).then(
+        }).then(
           (res: GraphQLResponse<"updateApplication", PoolCandidate>) =>
             res.updateApplication,
         );
@@ -167,3 +164,4 @@ export class ApplicationPage extends AppPage {
     );
   }
 }
+export default ApplicationPage;

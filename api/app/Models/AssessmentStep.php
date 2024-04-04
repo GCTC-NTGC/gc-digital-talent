@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Class AssessmentStep
@@ -23,6 +25,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class AssessmentStep extends Model
 {
     use HasFactory;
+    use LogsActivity;
 
     protected $keyType = 'string';
 
@@ -46,6 +49,14 @@ class AssessmentStep extends Model
         'sort_order',
         'title',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly((['*']))
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
+    }
 
     public function pool(): BelongsTo
     {

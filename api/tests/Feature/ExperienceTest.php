@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Models\UserSkill;
 use App\Models\WorkExperience;
 use Carbon\Carbon;
+use Database\Seeders\ClassificationSeeder;
+use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\Concerns\InteractsWithExceptionHandling;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
@@ -46,7 +48,10 @@ class ExperienceTest extends TestCase
     public function testSkillRelationshipsWorkWithPivot(): void
     {
         $userSkills = UserSkill::factory()->count(3)
-            ->create(['user_id' => $this->platformAdmin->id]);
+            ->create([
+                'user_id' => $this->platformAdmin->id,
+                'skill_id' => Skill::factory(),
+            ]);
         $experience = WorkExperience::factory()->create([
             'user_id' => $this->platformAdmin->id,
         ]);
@@ -137,6 +142,7 @@ class ExperienceTest extends TestCase
     {
         $userSkills = UserSkill::factory(2)->create([
             'user_id' => $this->platformAdmin->id,
+            'skill_id' => Skill::factory(),
         ]);
         $experience = WorkExperience::factory()->create([
             'user_id' => $this->platformAdmin->id,
@@ -279,6 +285,7 @@ class ExperienceTest extends TestCase
     {
         $userSkills = UserSkill::factory(2)->create([
             'user_id' => $this->platformAdmin->id,
+            'skill_id' => Skill::factory(),
         ]);
         $experience = WorkExperience::factory()->create([
             'user_id' => $this->platformAdmin->id,
@@ -322,6 +329,7 @@ class ExperienceTest extends TestCase
     {
         $userSkills = UserSkill::factory(2)->create([
             'user_id' => $this->platformAdmin->id,
+            'skill_id' => Skill::factory(),
         ]);
         $experience = WorkExperience::factory()->create([
             'user_id' => $this->platformAdmin->id,
@@ -399,6 +407,7 @@ class ExperienceTest extends TestCase
     {
         $userSkills = UserSkill::factory(2)->create([
             'user_id' => $this->platformAdmin->id,
+            'skill_id' => Skill::factory(),
         ]);
         $experience = WorkExperience::factory()->create([
             'user_id' => $this->platformAdmin->id,

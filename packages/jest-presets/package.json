@@ -1,5 +1,5 @@
 {
-  "name": "jest-presets",
+  "name": "@gc-digital-talent/jest-presets",
   "version": "0.0.0",
   "private": true,
   "license": "MIT",
@@ -7,7 +7,7 @@
     "jest-axe": "^8.0.0",
     "ts-jest": "^29.1.2"
   },
-  "scripts": {
-    "clean": "rm -rf node_modules"
+  "devDependencies": {
+    "jest-environment-jsdom": "^29.7.0"
   }
 }

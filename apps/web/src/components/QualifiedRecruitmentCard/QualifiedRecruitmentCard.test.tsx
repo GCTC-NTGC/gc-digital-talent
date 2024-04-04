@@ -71,7 +71,7 @@ describe("QualifiedRecruitmentCard", () => {
       screen.queryByText(/change your availability/i),
     ).not.toBeInTheDocument();
     expect(
-      screen.getByText(/show this recruitment's skill assessments/i),
+      screen.getByText(/show the skill assessments of this process/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
     expect(buttons).toHaveLength(2);
@@ -102,7 +102,7 @@ describe("QualifiedRecruitmentCard", () => {
       screen.queryByText(/change your availability/i),
     ).not.toBeInTheDocument();
     expect(
-      screen.getByText(/show this recruitment's skill assessments/i),
+      screen.getByText(/show the skill assessments of this process/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
     expect(buttons).toHaveLength(2);
@@ -133,7 +133,7 @@ describe("QualifiedRecruitmentCard", () => {
       screen.queryByText(/change your availability/i),
     ).not.toBeInTheDocument();
     expect(
-      screen.getByText(/show this recruitment's skill assessments/i),
+      screen.getByText(/show the skill assessments of this process/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
     expect(buttons).toHaveLength(2);
@@ -164,7 +164,7 @@ describe("QualifiedRecruitmentCard", () => {
       screen.queryByText(/change your availability/i),
     ).not.toBeInTheDocument();
     expect(
-      screen.getByText(/show this recruitment's skill assessments/i),
+      screen.getByText(/show the skill assessments of this process/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
     expect(buttons).toHaveLength(2);
@@ -195,7 +195,7 @@ describe("QualifiedRecruitmentCard", () => {
       screen.queryByText(/change your availability/i),
     ).not.toBeInTheDocument();
     expect(
-      screen.getByText(/show this recruitment's skill assessments/i),
+      screen.getByText(/show the skill assessments of this process/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
     expect(buttons).toHaveLength(2);
@@ -226,7 +226,7 @@ describe("QualifiedRecruitmentCard", () => {
       screen.queryByText(/change your availability/i),
     ).not.toBeInTheDocument();
     expect(
-      screen.getByText(/show this recruitment's skill assessments/i),
+      screen.getByText(/show the skill assessments of this process/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
     expect(buttons).toHaveLength(2);
@@ -248,7 +248,7 @@ describe("QualifiedRecruitmentCard", () => {
     ).toBeInTheDocument();
     expect(screen.getByText(/change your availability/i)).toBeInTheDocument();
     expect(
-      screen.getByText(/show this recruitment's skill assessments/i),
+      screen.getByText(/show the skill assessments of this process/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
     expect(buttons).toHaveLength(3);
@@ -272,7 +272,7 @@ describe("QualifiedRecruitmentCard", () => {
     ).toBeInTheDocument();
     expect(screen.getByText(/change your availability/i)).toBeInTheDocument();
     expect(
-      screen.getByText(/show this recruitment's skill assessments/i),
+      screen.getByText(/show the skill assessments of this process/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
     expect(buttons).toHaveLength(3);
@@ -303,7 +303,7 @@ describe("QualifiedRecruitmentCard", () => {
       screen.queryByText(/change your availability/i),
     ).not.toBeInTheDocument();
     expect(
-      screen.getByText(/show this recruitment's skill assessments/i),
+      screen.getByText(/show the skill assessments of this process/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
     expect(buttons).toHaveLength(2);
@@ -334,7 +334,7 @@ describe("QualifiedRecruitmentCard", () => {
       screen.queryByText(/change your availability/i),
     ).not.toBeInTheDocument();
     expect(
-      screen.getByText(/show this recruitment's skill assessments/i),
+      screen.getByText(/show the skill assessments of this process/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
     expect(buttons).toHaveLength(2);
@@ -365,7 +365,7 @@ describe("QualifiedRecruitmentCard", () => {
       screen.queryByText(/change your availability/i),
     ).not.toBeInTheDocument();
     expect(
-      screen.getByText(/show this recruitment's skill assessments/i),
+      screen.getByText(/show the skill assessments of this process/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
     expect(buttons).toHaveLength(2);
@@ -396,7 +396,7 @@ describe("QualifiedRecruitmentCard", () => {
       screen.queryByText(/change your availability/i),
     ).not.toBeInTheDocument();
     expect(
-      screen.getByText(/show this recruitment's skill assessments/i),
+      screen.getByText(/show the skill assessments of this process/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
     expect(buttons).toHaveLength(2);
@@ -427,7 +427,7 @@ describe("QualifiedRecruitmentCard", () => {
       screen.queryByText(/change your availability/i),
     ).not.toBeInTheDocument();
     expect(
-      screen.getByText(/show this recruitment's skill assessments/i),
+      screen.getByText(/show the skill assessments of this process/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
     expect(buttons).toHaveLength(2);
@@ -458,7 +458,7 @@ describe("QualifiedRecruitmentCard", () => {
       screen.queryByText(/change your availability/i),
     ).not.toBeInTheDocument();
     expect(
-      screen.getByText(/show this recruitment's skill assessments/i),
+      screen.getByText(/show the skill assessments of this process/i),
     ).toBeInTheDocument();
     const buttons = screen.queryAllByRole("button");
     expect(buttons).toHaveLength(2);

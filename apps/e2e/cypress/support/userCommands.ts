@@ -23,7 +23,9 @@ const defaultUser = {
   lookingForEnglish: undefined,
   lookingForFrench: undefined,
   lookingForBilingual: undefined,
-  bilingualEvaluation: undefined,
+  firstOfficialLanguage: undefined,
+  secondLanguageExamCompleted: undefined,
+  secondLanguageExamValidity: undefined,
   comprehensionLevel: undefined,
   writtenLevel: undefined,
   verbalLevel: undefined,
@@ -88,7 +90,7 @@ Cypress.Commands.add("updateUser", (id, user) => {
     operationName: "Command_UpdateUser",
     query: commandUpdateUserMutationDoc,
     variables: {
-      id: id,
+      id,
       user: {
         ...defaultUser,
         ...user,
@@ -137,8 +139,8 @@ Cypress.Commands.add("updateUserRoles", ({ userId, roleAssignmentsInput }) => {
     query: commandUpdateUserRolesMutationDoc,
     variables: {
       updateUserRolesInput: {
-        userId: userId,
-        roleAssignmentsInput: roleAssignmentsInput,
+        userId,
+        roleAssignmentsInput,
       },
     },
   }).then((data) => cy.wrap(data.updateUserRoles));

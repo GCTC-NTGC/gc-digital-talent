@@ -20,9 +20,7 @@ const EducationRequirementsDisplay = ({
 }: EducationRequirementsDisplayProps) => {
   const intl = useIntl();
 
-  const classificationGroup = application?.pool.classifications
-    ? application.pool.classifications[0]?.group
-    : "";
+  const classificationGroup = application?.pool.classification?.group ?? "";
 
   return (
     <>

@@ -18,7 +18,7 @@ const Display = ({ pool }: DisplayProps) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   const {
-    classifications,
+    classification,
     stream,
     name,
     processNumber,
@@ -33,11 +33,11 @@ const Display = ({ pool }: DisplayProps) => {
       data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
     >
       <ToggleForm.FieldDisplay
-        hasError={!classifications?.length}
+        hasError={!classification}
         label={intl.formatMessage(processMessages.classification)}
       >
-        {classifications && classifications[0]
-          ? getClassificationName(classifications[0], intl)
+        {classification
+          ? getClassificationName(classification, intl)
           : notProvided}
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay

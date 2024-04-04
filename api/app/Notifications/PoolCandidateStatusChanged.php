@@ -15,7 +15,7 @@ class PoolCandidateStatusChanged extends Notification
     public function __construct(
         public ?string $old_status,
         public ?string $new_status,
-        public string $pool_id,
+        public string $pool_candidate_id,
         public array $pool_name,
     ) {
     }
@@ -40,7 +40,7 @@ class PoolCandidateStatusChanged extends Notification
         return [
             'old_status' => $this->old_status,
             'new_status' => $this->new_status,
-            'pool_id' => $this->pool_id,
+            'pool_candidate_id' => $this->pool_candidate_id,
             'pool_name' => $this->pool_name,
         ];
     }

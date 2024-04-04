@@ -176,11 +176,7 @@ const AssessmentResultsTable = ({
               </>
             ) : (
               <span data-h2-font-weight="base(bold)">
-                {intl.formatMessage({
-                  defaultMessage: "Education requirement",
-                  id: "4xXPIe",
-                  description: "Education requirement row header.",
-                })}
+                {intl.formatMessage(processMessages.educationRequirement)}
               </span>
             )}
           </span>,

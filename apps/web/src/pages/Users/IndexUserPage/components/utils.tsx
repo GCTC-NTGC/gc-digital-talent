@@ -1,7 +1,6 @@
 import { IntlShape } from "react-intl";
 import { SortingState } from "@tanstack/react-table";
 
-import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import {
@@ -23,6 +22,7 @@ import {
 } from "~/utils/userUtils";
 
 import { FormValues } from "./UserFilterDialog";
+import ROLES_TO_HIDE_USERS_TABLE from "./constants";
 
 export function rolesAccessor(
   roleAssignments: RoleAssignment[],
@@ -32,14 +32,8 @@ export function rolesAccessor(
 
   const roles = roleAssignments.map((roleAssignment) => roleAssignment.role);
   const rolesFiltered = roles.filter(notEmpty);
-  // custom selection of roles of note for table viewing, most likely kept in sync with options in the filter dialog
   const rolesToDisplay = rolesFiltered
-    .filter(
-      (role) =>
-        role.name === ROLE_NAME.PlatformAdmin ||
-        role.name === ROLE_NAME.PoolOperator ||
-        role.name === ROLE_NAME.RequestResponder,
-    )
+    .filter((role) => !ROLES_TO_HIDE_USERS_TABLE.includes(role.name))
     .map((role) => getLocalizedName(role.displayName, intl));
   const uniqueRolesToDisplay = uniqueItems(rolesToDisplay);
 
@@ -186,7 +180,9 @@ export const UsersTable_SelectUsersQuery = graphql(/* GraphQL */ `
       lookingForEnglish
       lookingForFrench
       lookingForBilingual
-      bilingualEvaluation
+      firstOfficialLanguage
+      secondLanguageExamCompleted
+      secondLanguageExamValidity
       comprehensionLevel
       writtenLevel
       verbalLevel
@@ -301,7 +297,7 @@ export const UsersTable_SelectUsersQuery = graphql(/* GraphQL */ `
             fr
           }
           stream
-          classifications {
+          classification {
             id
             group
             level

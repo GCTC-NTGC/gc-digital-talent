@@ -6,8 +6,7 @@ import {
   allModes,
   MockGraphqlDecorator,
 } from "@gc-digital-talent/storybook-helpers";
-import NestedLanguageProvider from "@gc-digital-talent/i18n/src/components/NestedLanguageProvider";
-import { Messages } from "@gc-digital-talent/i18n";
+import { NestedLanguageProvider, Messages } from "@gc-digital-talent/i18n";
 import { fakePools } from "@gc-digital-talent/fake-data";
 import { PublishingGroup } from "@gc-digital-talent/graphql";
 

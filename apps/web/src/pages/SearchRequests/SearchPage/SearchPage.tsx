@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 
 import { navigationMessages } from "@gc-digital-talent/i18n";
 
@@ -10,34 +10,43 @@ import SEO from "~/components/SEO/SEO";
 
 import SearchFormApi from "./components/SearchForm";
 
+const pageTitle = defineMessage({
+  defaultMessage: "Find digital talent",
+  id: "9Jkoms",
+  description: "Title displayed on hero for Search and Request pages.",
+});
+const subTitle = defineMessage({
+  defaultMessage:
+    "Discover talent using a set of comprehensive filters, including classification, languages, and skills.",
+  id: "69BfF3",
+  description: "Subtitle for the search page",
+});
+
 const SearchPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
 
-  const title = intl.formatMessage({
-    defaultMessage: "Find digital talent",
-    id: "9Jkoms",
-    description: "Title displayed on hero for Search and Request pages.",
-  });
+  const formattedPageTitle = intl.formatMessage(pageTitle);
+  const formattedSubTitle = intl.formatMessage(subTitle);
 
-  const crumbs = useBreadcrumbs([
-    {
-      label: title,
-      url: paths.search(),
-    },
-  ]);
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: formattedPageTitle,
+        url: paths.search(),
+      },
+    ],
+  });
 
   return (
     <>
-      <SEO title={intl.formatMessage(navigationMessages.findTalent)} />
+      <SEO
+        title={intl.formatMessage(navigationMessages.findTalent)}
+        description={formattedSubTitle}
+      />
       <Hero
-        title={title}
-        subtitle={intl.formatMessage({
-          defaultMessage:
-            "Discover talent using a set of comprehensive filters, including classification, languages, and skills.",
-          id: "69BfF3",
-          description: "Subtitle for the search page",
-        })}
+        title={formattedPageTitle}
+        subtitle={formattedSubTitle}
         crumbs={crumbs}
       />
       <SearchFormApi />

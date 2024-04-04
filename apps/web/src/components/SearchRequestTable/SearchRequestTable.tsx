@@ -200,7 +200,11 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
   const columns = [
     columnHelper.accessor("id", {
       id: "id",
-      header: intl.formatMessage(adminMessages.id),
+      header: intl.formatMessage({
+        defaultMessage: "Tracking number",
+        id: "SkV4+/",
+        description: "Alternate name for ID column header",
+      }),
     }),
     columnHelper.accessor("jobTitle", {
       id: "jobTitle",

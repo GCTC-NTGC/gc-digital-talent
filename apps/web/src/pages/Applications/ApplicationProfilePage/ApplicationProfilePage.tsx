@@ -1,11 +1,9 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import UserCircleIcon from "@heroicons/react/20/solid/UserCircleIcon";
 import { useMutation } from "urql";
 
 import { Heading, Separator, ThrowNotFound } from "@gc-digital-talent/ui";
 import { graphql, User } from "@gc-digital-talent/graphql";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -51,7 +49,6 @@ export const getPageInfo: GetPageNavInfo = ({
       id: "ImTMRk",
       description: "Subtitle for the application profile  page",
     }),
-    icon: UserCircleIcon,
     crumbs: [
       {
         url: path,
@@ -76,14 +73,12 @@ export const ApplicationProfile = ({
 }: ApplicationProfileProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const features = useFeatureFlags();
   const { currentStepOrdinal } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
     paths,
     application,
     stepOrdinal: currentStepOrdinal,
-    RoDFlag: features.recordOfDecision,
   });
   const [{ fetching: isUpdating }, executeUpdateMutation] = useMutation(
     Application_UpdateProfileMutation,

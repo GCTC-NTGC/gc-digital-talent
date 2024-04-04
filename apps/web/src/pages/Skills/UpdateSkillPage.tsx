@@ -41,6 +41,7 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import adminMessages from "~/messages/adminMessages";
 import { parseKeywords } from "~/utils/skillUtils";
 import AdminHero from "~/components/Hero/AdminHero";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 type Option<V> = { value: V; label: string };
 
@@ -377,32 +378,27 @@ export const UpdateSkill = () => {
       return Promise.reject(result.error);
     });
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(adminMessages.skills),
-      url: routes.skillTable(),
-    },
-    ...(skillId
-      ? [
-          {
-            label: intl.formatMessage({
-              defaultMessage: "Edit<hidden> skill</hidden>",
-              id: "M2LfhH",
-              description: "Breadcrumb title for the edit skill page link.",
-            }),
-            url: routes.skillUpdate(skillId),
-          },
-        ]
-      : []),
-  ];
+  const navigationCrumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(adminMessages.skills),
+        url: routes.skillTable(),
+      },
+      ...(skillId
+        ? [
+            {
+              label: intl.formatMessage({
+                defaultMessage: "Edit<hidden> skill</hidden>",
+                id: "M2LfhH",
+                description: "Breadcrumb title for the edit skill page link.",
+              }),
+              url: routes.skillUpdate(skillId),
+            },
+          ]
+        : []),
+    ],
+    isAdmin: true,
+  });
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Edit skill",

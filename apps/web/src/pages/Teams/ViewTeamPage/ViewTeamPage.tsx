@@ -5,24 +5,24 @@ import { useQuery } from "urql";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Pending, NotFound, Link, Separator } from "@gc-digital-talent/ui";
-import { Scalars, Team, graphql } from "@gc-digital-talent/graphql";
+import { Scalars, graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 
-import ViewTeam from "./components/ViewTeam";
+import ViewTeam, { ViewTeamPageFragment } from "./components/ViewTeam";
 
 type RouteParams = {
   teamId: Scalars["ID"]["output"];
 };
 
 interface ViewTeamContentProps {
-  team: Team;
+  teamQuery: ViewTeamPageFragment;
 }
 
-export const ViewTeamContent = ({ team }: ViewTeamContentProps) => {
+export const ViewTeamContent = ({ teamQuery }: ViewTeamContentProps) => {
   const intl = useIntl();
   const pageTitle = intl.formatMessage({
     defaultMessage: "Team information",
@@ -33,7 +33,7 @@ export const ViewTeamContent = ({ team }: ViewTeamContentProps) => {
   return (
     <>
       <SEO title={pageTitle} />
-      <ViewTeam team={team} />
+      <ViewTeam teamQuery={teamQuery} />
       <Separator data-h2-margin="base(x2, 0, 0, 0)" />
     </>
   );
@@ -42,25 +42,7 @@ export const ViewTeamContent = ({ team }: ViewTeamContentProps) => {
 const ViewTeam_Query = graphql(/* GraphQL */ `
   query ViewTeam($id: UUID!) {
     team(id: $id) {
-      id
-      name
-      contactEmail
-      displayName {
-        en
-        fr
-      }
-      description {
-        en
-        fr
-      }
-      departments {
-        id
-        departmentNumber
-        name {
-          en
-          fr
-        }
-      }
+      ...ViewTeamPage_Team
     }
   }
 `);
@@ -82,7 +64,7 @@ const ViewTeamPage = () => {
     <AdminContentWrapper>
       <Pending fetching={fetching} error={error}>
         {data?.team ? (
-          <ViewTeamContent team={data.team} />
+          <ViewTeamContent teamQuery={data.team} />
         ) : (
           <NotFound
             headingMessage={intl.formatMessage(commonMessages.notFound)}

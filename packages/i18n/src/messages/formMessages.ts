@@ -145,37 +145,10 @@ const formMessages = defineMessages({
     description:
       "Message announced to assistive technology when a repeatable field has been removed",
   },
-  approachingLimit: {
-    defaultMessage: "You're approaching the limit!",
-    id: "Nhi8rT",
-    description: "Message displayed when one away from repeater limit.",
-  },
-  approachingLimitDetails: {
-    defaultMessage: `There is a limit on how many items you can add to this list. When the limit is reached, you will have to remove an item to add another.`,
-    id: "DPYoOj",
-    description:
-      "Additional details displayed when one away from repeater limit.",
-  },
-  repeaterNull: {
-    defaultMessage: "You haven't added any items yet.",
-    id: "rWovPZ",
-    description: "Message displayed when no items have been added to repeater.",
-  },
-  repeaterNullDetails: {
-    defaultMessage: `You can add items using the "Add a new item" button provided.`,
-    id: "ZSA4lO",
-    description:
-      "Secondary message displayed when no items have been added to repeater.",
-  },
   repeaterDefaultError: {
     defaultMessage: "It looks like this list has an error.",
     id: "exPBiQ",
     description: "Error message title for repeater component.",
-  },
-  repeaterUnsavedChanges: {
-    defaultMessage: "You have unsaved changes. Remember to save!",
-    id: "cAXj6F",
-    description: "Message displayed when items have been moved and not saved",
   },
   repeaterDeleteItem: {
     defaultMessage: "Delete an item to add another",

@@ -24,43 +24,7 @@ const UpdateTeam_Mutation = graphql(/* GraphQL */ `
 const UpdateTeamData_Query = graphql(/* GraphQL */ `
   query UpdateTeamData($teamId: UUID!) {
     team(id: $teamId) {
-      id
-      name
-      contactEmail
-      displayName {
-        en
-        fr
-      }
-      departments {
-        id
-        departmentNumber
-        name {
-          en
-          fr
-        }
-      }
-      description {
-        en
-        fr
-      }
-      roleAssignments {
-        id
-        role {
-          id
-          name
-          isTeamBased
-          displayName {
-            en
-            fr
-          }
-        }
-        user {
-          id
-          email
-          firstName
-          lastName
-        }
-      }
+      ...UpdateTeamPage_Team
     }
 
     departments {
@@ -90,7 +54,7 @@ const EditTeamPage = () => {
   const [, executeMutation] = useMutation(UpdateTeam_Mutation);
 
   const departments = unpackMaybes(data?.departments);
-  const team = data?.team;
+  const teamQuery = data?.team;
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Edit team information",
@@ -116,11 +80,11 @@ const EditTeamPage = () => {
   return (
     <AdminContentWrapper>
       <Pending fetching={fetching} error={error}>
-        {team ? (
+        {teamQuery ? (
           <>
             <SEO title={pageTitle} />
             <UpdateTeamForm
-              team={team}
+              teamQuery={teamQuery}
               departments={departments}
               onSubmit={handleSubmit}
             />

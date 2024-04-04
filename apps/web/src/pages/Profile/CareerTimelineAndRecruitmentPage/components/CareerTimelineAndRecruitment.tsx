@@ -1,5 +1,5 @@
 import React from "react";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
@@ -10,21 +10,25 @@ import {
   CommunityExperience,
   EducationExperience,
   PersonalExperience,
-  Skill,
   WorkExperience,
 } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
-import MissingSkills from "~/components/MissingSkills";
-import { flattenExperienceSkills } from "~/types/experience";
 import useRoutes from "~/hooks/useRoutes";
-import { wrapAbbr } from "~/utils/nameUtils";
 import { Application } from "~/utils/applicationUtils";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import { PAGE_SECTION_ID, titles } from "../constants";
 import CareerTimelineSection from "./CareerTimelineSection";
 import QualifiedRecruitmentsSection from "./QualifiedRecruitmentsSection";
+
+const subTitle = defineMessage({
+  defaultMessage: "Manage your experience and qualified recruitment processes.",
+  id: "zJKngJ",
+  description:
+    "Description for the Career timeline and recruitment page in applicant profile.",
+});
 
 type MergedExperiences = Array<
   | AwardExperience
@@ -45,62 +49,36 @@ interface CareerTimelineAndRecruitmentProps {
   userId: string;
   experiences?: MergedExperiences;
   applications: Application[];
-  missingSkills?: {
-    requiredSkills: Skill[];
-    optionalSkills: Skill[];
-  };
 }
 
 const CareerTimelineAndRecruitment = ({
   experiences,
   applications,
-  missingSkills,
   userId,
 }: CareerTimelineAndRecruitmentProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const hasCareerTimelineItems = !!experiences?.length;
 
-  const crumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: paths.home(),
-    },
-    {
-      label: intl.formatMessage(navigationMessages.profileAndApplications),
-      url: paths.profileAndApplications(),
-    },
-    {
-      label: intl.formatMessage(titles.careerTimelineAndRecruitment),
-      url: paths.careerTimelineAndRecruitment(userId),
-    },
-  ];
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(navigationMessages.profileAndApplications),
+        url: paths.profileAndApplications(),
+      },
+      {
+        label: intl.formatMessage(titles.careerTimelineAndRecruitment),
+        url: paths.careerTimelineAndRecruitment(userId),
+      },
+    ],
+  });
 
   const pageTitle = intl.formatMessage(titles.careerTimelineAndRecruitment);
+  const formattedSubtitle = intl.formatMessage(subTitle);
 
   return (
     <>
-      <SEO title={pageTitle} />
-      <Hero
-        title={pageTitle}
-        subtitle={intl.formatMessage(
-          {
-            defaultMessage:
-              "Manage your experience and qualified recruitment processes.",
-            id: "zJKngJ",
-            description:
-              "Description for the Career timeline and recruitment page in applicant profile.",
-          },
-          {
-            abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
-          },
-        )}
-        crumbs={crumbs}
-      />
+      <SEO title={pageTitle} description={formattedSubtitle} />
+      <Hero title={pageTitle} subtitle={formattedSubtitle} crumbs={crumbs} />
       <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
         <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
           <TableOfContents.Navigation>
@@ -143,19 +121,6 @@ const CareerTimelineAndRecruitment = ({
                     "Descriptive paragraph for the Manage your career timeline section of the career timeline and recruitment page.",
                 })}
               </p>
-              {missingSkills && (
-                <div data-h2-margin="base(x1, 0)">
-                  <MissingSkills
-                    addedSkills={
-                      hasCareerTimelineItems
-                        ? flattenExperienceSkills(experiences)
-                        : []
-                    }
-                    requiredSkills={missingSkills.requiredSkills}
-                    optionalSkills={missingSkills.optionalSkills}
-                  />
-                </div>
-              )}
               <div data-h2-margin-top="base(x1)">
                 <CareerTimelineSection
                   experiences={experiences}

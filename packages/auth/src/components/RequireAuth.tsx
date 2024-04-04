@@ -3,6 +3,7 @@ import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 import { useLogger } from "@gc-digital-talent/logger";
 import { Loading } from "@gc-digital-talent/ui";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import useAuthentication from "../hooks/useAuthentication";
 import useAuthorization from "../hooks/useAuthorization";
@@ -26,7 +27,9 @@ const RequireAuth = ({
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  const userRoleNames = roleAssignments?.map((a) => a.role?.name);
+  const userRoleNames = roleAssignments
+    ?.map((a) => a.role?.name)
+    .filter(notEmpty);
 
   const isAuthorized =
     isLoaded &&

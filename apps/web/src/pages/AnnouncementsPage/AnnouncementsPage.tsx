@@ -13,6 +13,7 @@ import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import AdminHero from "~/components/Hero/AdminHero";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import SitewideAnnouncementSection from "./SitewideAnnouncementSection";
 
@@ -95,20 +96,15 @@ const AnnouncementsPage = () => {
     );
   };
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: formattedPageTitle,
-      url: routes.announcements(),
-    },
-  ];
+  const navigationCrumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: formattedPageTitle,
+        url: routes.announcements(),
+      },
+    ],
+    isAdmin: true,
+  });
 
   return (
     <>

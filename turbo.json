@@ -1,9 +1,9 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": ["package.json", "**/.env"],
+  "globalDependencies": ["package.json", "**/.env", "pnpm-workspace.yaml"],
   "pipeline": {
     "build": {
-      "dependsOn": ["^build", "build:css", "intl-compile", "codegen"],
+      "dependsOn": ["^intl-compile", "intl-compile", "^codegen"],
       "inputs": ["src/**", "package.json"],
       "outputs": ["dist/**"],
       "outputMode": "new-only"
@@ -27,13 +27,13 @@
       "cache": false
     },
     "dev": {
-      "dependsOn": ["^build", "build:css", "intl-compile", "codegen"],
+      "dependsOn": ["intl-compile", "^intl-compile", "^codegen"],
       "inputs": ["src/**/*.ts", "src/**/*.tsx", "package.json"],
       "outputs": ["dist/**"],
       "outputMode": "new-only"
     },
     "watch": {
-      "dependsOn": ["build:css", "intl-compile", "codegen"],
+      "dependsOn": ["intl-compile", "^intl-compile"],
       "cache": false,
       "persistent": true
     },
@@ -56,7 +56,7 @@
         "src/lang/ojw.json",
         "src/lang/mic.json"
       ],
-      "dependsOn": ["intl-extract"],
+      "dependsOn": ["intl-extract", "^intl-extract"],
       "outputs": ["src/lang/*{Compiled}.json"],
       "cache": false,
       "outputMode": "new-only"
@@ -72,12 +72,12 @@
         "src/lang/ojw.json",
         "src/lang/mic.json"
       ],
-      "dependsOn": ["build:intl-cli", "intl-compile"],
+      "dependsOn": ["intl-compile", "^intl-compile"],
       "cache": false,
       "outputMode": "new-only"
     },
     "storybook": {
-      "dependsOn": ["codegen", "intl-compile"],
+      "dependsOn": ["^codegen", "^intl-compile", "intl-compile"],
       "outputs": []
     },
     "build-storybook": {
@@ -89,9 +89,6 @@
     "clean": {
       "cache": false
     },
-    "check-integrity": {
-      "cache": false
-    },
     "e2e": {},
     "e2e:open": {},
     "e2e:playwright": {},
@@ -101,7 +98,12 @@
     },
     "e2e:run:inspect": {},
     "lint": {
-      "inputs": ["../../packages/eslint-config-custom/index.js"]
+      "inputs": [
+        "../../packages/eslint-config-custom/index.js",
+        "../../packages/eslint-config-custom/react.js",
+        "**/*.{ts,tsx}",
+        "!node_modules"
+      ]
     },
     "tsc": {}
   }

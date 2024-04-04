@@ -47,6 +47,8 @@ const AssessmentStepCard = ({
     unpackMaybes(pool.screeningQuestions),
     (question) => question.sortOrder,
   );
+  const isApplicationScreening =
+    assessmentStep.type === AssessmentStepType.ApplicationScreening;
 
   const handleMove = (from: number, to: number) => {
     move(from, to);
@@ -99,16 +101,21 @@ const AssessmentStepCard = ({
         {assessmentStepDisplayName(assessmentStep, intl)}
       </Heading>
 
-      {skillNames.length ? (
+      {skillNames.length || isApplicationScreening ? (
         <ul
           data-h2-color="base(black.light)"
           data-h2-font-size="base(caption)"
           data-h2-padding-left="base(0)"
           data-h2-margin-top="base(x.5)"
         >
+          {isApplicationScreening && (
+            <li data-h2-padding-left="base(0)" data-h2-display="base(inline)">
+              {intl.formatMessage(processMessages.educationRequirement)}
+            </li>
+          )}
           {skillNames.map((skillName, skillIndex) => (
             <React.Fragment key={skillName}>
-              {skillIndex !== 0 ? (
+              {skillIndex !== 0 || isApplicationScreening ? (
                 <span data-h2-margin="base(0 x.5)" aria-hidden>
                   •
                 </span>

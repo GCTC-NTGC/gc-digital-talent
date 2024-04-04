@@ -8,7 +8,6 @@ import { Radio } from "@gc-digital-talent/forms";
 import { EducationRequirementOption } from "@gc-digital-talent/graphql";
 
 import applicationMessages from "~/messages/applicationMessages";
-import { ClassificationGroup } from "~/utils/poolUtils";
 
 export const qualityStandardsLink = (
   chunks: React.ReactNode,
@@ -97,7 +96,7 @@ const appliedWorkListMessages = (isIAP = false) => [
 export const getEducationRequirementOptions = (
   intl: IntlShape,
   locale: Locales,
-  classificationGroup?: ClassificationGroup,
+  classificationGroup?: string,
   isIAP = false,
 ): Radio[] => {
   switch (classificationGroup) {

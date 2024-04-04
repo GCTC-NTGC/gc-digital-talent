@@ -8,16 +8,18 @@ class ProdSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
-        $this->call(RolePermissionSeeder::class);
-        $this->call(ClassificationSeeder::class);
-        $this->call(DepartmentSeeder::class);
-        $this->call(SkillFamilySeeder::class);
-        $this->call(SkillSeeder::class);
-        $this->call(TeamSeeder::class);
+        $this->call([
+            // standard platform data
+            RolePermissionSeeder::class,
+            ClassificationSeeder::class,
+            DepartmentSeeder::class,
+            GenericJobTitleSeeder::class,
+            SkillFamilySeeder::class,
+            SkillSeeder::class,
+            TeamSeeder::class,
+        ]);
     }
 }

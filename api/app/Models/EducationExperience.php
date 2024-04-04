@@ -35,4 +35,14 @@ class EducationExperience extends Experience
         'start_date' => 'date',
         'end_date' => 'date',
     ];
+
+    public function getTitle(): string
+    {
+        return sprintf('%s at %s', $this->area_of_study, $this->institution);
+    }
+
+    public function getExperienceType(): string
+    {
+        return 'education';
+    }
 }

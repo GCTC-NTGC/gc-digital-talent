@@ -7,7 +7,7 @@ import { Heading, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { graphql, Scalars, Team } from "@gc-digital-talent/graphql";
+import { getFragment, graphql, Scalars } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -22,20 +22,27 @@ import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 
 import AddTeamMemberDialog from "./components/AddTeamMemberDialog";
 import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
+import { TeamMembersPageFragment } from "./components/types";
+import { TeamMembersPage_TeamFragment } from "./components/operations";
 
 const columnHelper = createColumnHelper<TeamMember>();
 
 interface TeamMembersProps {
-  members: Array<TeamMember>;
-  team: Team;
+  teamQuery: TeamMembersPageFragment;
 }
 
-const TeamMembers = ({ members, team }: TeamMembersProps) => {
+const TeamMembers = ({ teamQuery }: TeamMembersProps) => {
   const intl = useIntl();
+  const team = getFragment(TeamMembersPage_TeamFragment, teamQuery);
   const { roleAssignments } = useAuthorization();
   const canModifyMembers = checkRole(
     [ROLE_NAME.CommunityManager, ROLE_NAME.PlatformAdmin],
     roleAssignments,
+  );
+
+  const members: TeamMember[] = React.useMemo(
+    () => groupRoleAssignmentsByUser(team.roleAssignments || []),
+    [team.roleAssignments],
   );
 
   const pageTitle = intl.formatMessage({
@@ -126,43 +133,7 @@ const TeamMembers = ({ members, team }: TeamMembersProps) => {
 const TeamMembersTeam_Query = graphql(/* GraphQL */ `
   query TeamMembersTeam($teamId: UUID!) {
     team(id: $teamId) {
-      id
-      name
-      contactEmail
-      displayName {
-        en
-        fr
-      }
-      departments {
-        id
-        departmentNumber
-        name {
-          en
-          fr
-        }
-      }
-      description {
-        en
-        fr
-      }
-      roleAssignments {
-        id
-        role {
-          id
-          name
-          isTeamBased
-          displayName {
-            en
-            fr
-          }
-        }
-        user {
-          id
-          email
-          firstName
-          lastName
-        }
-      }
+      ...TeamMembersPage_Team
     }
   }
 `);
@@ -179,19 +150,11 @@ const TeamMembersPage = () => {
   });
 
   const team = data?.team;
-  const users = React.useMemo(
-    () => groupRoleAssignmentsByUser(data?.team?.roleAssignments || []),
-    [data?.team?.roleAssignments],
-  );
 
   return (
     <AdminContentWrapper>
       <Pending fetching={fetching} error={error}>
-        {team && users ? (
-          <TeamMembers members={users} team={team} />
-        ) : (
-          <ThrowNotFound />
-        )}
+        {team ? <TeamMembers teamQuery={team} /> : <ThrowNotFound />}
       </Pending>
     </AdminContentWrapper>
   );

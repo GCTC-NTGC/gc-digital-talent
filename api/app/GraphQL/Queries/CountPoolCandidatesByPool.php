@@ -13,7 +13,7 @@ final class CountPoolCandidatesByPool
      */
     public function __invoke($_, array $args)
     {
-        $filters = $args['where'];
+        $filters = ! empty($args['where']) ? $args['where'] : [];
 
         // query counts pool candidate rows, so start on that model
         $queryBuilder = PoolCandidate::query();

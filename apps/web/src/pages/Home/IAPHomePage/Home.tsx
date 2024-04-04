@@ -891,8 +891,8 @@ export const Home = ({ query }: HomeProps) => {
                   <p>
                     {intl.formatMessage({
                       defaultMessage:
-                        "Aim to launch the program in the early half of 2023.",
-                      id: "0i34ZZ",
+                        "Aim to launch the program in the early half of 2024.",
+                      id: "utLdbN",
                       description: "Talent portal strategy item 4 content",
                     })}
                   </p>

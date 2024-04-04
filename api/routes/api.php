@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\SupportController;
+use App\Http\Controllers\UserGeneratedFilesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('support')->controller(SupportController::class)->group(function () {
     Route::post('/tickets', 'createTicket');
 });
+
+Route::prefix('user-generated-files')
+    ->controller(UserGeneratedFilesController::class)->group(function () {
+        Route::get('/{fileName}', 'getFile')
+        // api/config/auth.php
+            ->middleware('auth:api');
+    });

@@ -1,8 +1,14 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable prefer-destructuring */
 import type { StorybookConfig } from "@storybook/react-webpack5";
+
 const path = require("path");
+
 const HydrogenPlugin = require("hydrogen-webpack-plugin");
 const TsTransformer = require("@formatjs/ts-transformer");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
+
 const transform = TsTransformer.transform;
 
 // This uses ts-loader to inject generated ids into react-intl messages.
@@ -45,7 +51,7 @@ if (sbApp) {
   }
 }
 
-const config: StorybookConfig = {
+const main: StorybookConfig = {
   stories,
   addons: [
     "@storybook/addon-a11y",
@@ -62,7 +68,7 @@ const config: StorybookConfig = {
   docs: {
     autodocs: true,
   },
-  webpackFinal: async (config, { configType }) => {
+  webpackFinal: async (config) => {
     // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
     // You can change the configuration based on that.
     // 'PRODUCTION' is used when building the static version of storybook.
@@ -95,4 +101,4 @@ const config: StorybookConfig = {
   },
 };
 
-export default config;
+export default main;

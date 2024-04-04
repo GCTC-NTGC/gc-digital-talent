@@ -64,7 +64,6 @@ const Card = ({
 }: CardProps & React.HTMLProps<HTMLDivElement>) => {
   return (
     <div
-      className="card"
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
       data-h2-radius="base(rounded)"
@@ -74,7 +73,6 @@ const Card = ({
     >
       {title && (
         <div
-          className="card__header"
           data-h2-display="base(block) base:children[>span](block)"
           data-h2-padding="base(x1)"
           {...colorMap[color]}
@@ -89,7 +87,6 @@ const Card = ({
         </div>
       )}
       <div
-        className="card__body"
         data-h2-background-color="base(foreground)"
         data-h2-color="base(black)"
         data-h2-flex-grow="base(1)"

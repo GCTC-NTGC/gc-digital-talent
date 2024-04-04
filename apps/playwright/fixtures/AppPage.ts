@@ -2,6 +2,7 @@ import { type Page } from "@playwright/test";
 
 import { Test_MeQueryDocument } from "~/utils/user";
 import { FeatureFlags, getFeatureFlagConfig } from "~/utils/featureFlags";
+
 import { getAuthTokens } from "../utils/auth";
 
 /**
@@ -9,8 +10,12 @@ import { getAuthTokens } from "../utils/auth";
  *
  * Common functionality, extended by other pages
  */
-export class AppPage {
-  constructor(public readonly page: Page) {}
+class AppPage {
+  public readonly page: Page;
+
+  constructor(public readonly appPage: Page) {
+    this.page = appPage;
+  }
 
   async gotoHome(locale: "en" | "fr" = "en") {
     // Timeout is for Firefox having issues with this navigation
@@ -84,3 +89,5 @@ export class AppPage {
     return res.me;
   }
 }
+
+export default AppPage;

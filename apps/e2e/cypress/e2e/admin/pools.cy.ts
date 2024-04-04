@@ -24,7 +24,7 @@ describe("Pools", () => {
     cy.wait("@gqlUpdatePoolMutation")
       .its("response.body.data.updatePool")
       .should("have.property", "id");
-    cy.expectToast(/pool updated successfully/i);
+    cy.expectToast(/process updated successfully/i);
   };
 
   /** Add a question */
@@ -114,12 +114,12 @@ describe("Pools", () => {
 
     cy.wait("@gqlPoolTableQuery");
 
-    cy.findByRole("link", { name: /create pool/i }).click();
+    cy.findByRole("link", { name: /create process/i }).click();
 
     cy.wait("@gqlCreatePoolPageQuery");
 
     // Ensure we got to the correct page
-    cy.findByRole("heading", { name: /create pool/i })
+    cy.findByRole("heading", { name: /create process/i })
       .should("exist")
       .and("be.visible");
 
@@ -148,9 +148,9 @@ describe("Pools", () => {
     });
 
     // Submit form
-    cy.findByRole("button", { name: /create new pool/i }).click();
+    cy.findByRole("button", { name: /create process/i }).click();
     cy.wait("@gqlCreatePoolMutation");
-    cy.expectToast(/pool created successfully/i);
+    cy.expectToast(/process created successfully/i);
 
     // Ensure we got to the correct page
     cy.findByText("Digital Community Management")
@@ -265,9 +265,11 @@ describe("Pools", () => {
     cy.findByRole("button", { name: /show 10/i }).click();
     cy.get("[role=menuitemradio]").contains(/50/i).click();
 
-    cy.findAllByRole("link", { name: /edit test pool en/i })
+    cy.findAllByRole("link", { name: /test pool en/i })
       .first()
       .click();
+
+    cy.findByRole("link", { name: /edit advertisement/i }).click();
 
     cy.wait("@gqlEditPoolPageQuery");
 
@@ -328,6 +330,6 @@ describe("Pools", () => {
 
     cy.wait("@gqlDeletePoolMutation");
 
-    cy.expectToast(/pool deleted successfully/i);
+    cy.expectToast(/process deleted successfully/i);
   });
 });

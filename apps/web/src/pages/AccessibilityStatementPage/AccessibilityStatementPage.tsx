@@ -252,12 +252,14 @@ const AccessibilityStatementPage = () => {
     },
   ];
 
-  const crumbs = useBreadcrumbs([
-    {
-      label: pageTitle,
-      url: paths.accessibility(),
-    },
-  ]);
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: pageTitle,
+        url: paths.accessibility(),
+      },
+    ],
+  });
 
   return (
     <>

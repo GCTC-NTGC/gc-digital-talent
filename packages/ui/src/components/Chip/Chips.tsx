@@ -1,10 +1,15 @@
 import React, { ReactElement } from "react";
 import isArray from "lodash/isArray";
 
+import { notEmpty } from "@gc-digital-talent/helpers";
+
 import { ChipProps } from "./Chip";
 
 type ChipsProps = Omit<React.HTMLProps<HTMLUListElement>, "children"> & {
-  children: ReactElement<ChipProps> | Array<ReactElement<ChipProps>>;
+  children:
+    | ReactElement<ChipProps>
+    | Array<ReactElement<ChipProps> | null>
+    | null;
 };
 
 const Chips = ({ children, ...rest }: ChipsProps) => (
@@ -17,7 +22,7 @@ const Chips = ({ children, ...rest }: ChipsProps) => (
     {...rest}
   >
     {isArray(children) ? (
-      children.map((child) => <li key={child.key}>{child}</li>)
+      children.filter(notEmpty).map((child) => <li key={child.key}>{child}</li>)
     ) : (
       <li>{children}</li>
     )}

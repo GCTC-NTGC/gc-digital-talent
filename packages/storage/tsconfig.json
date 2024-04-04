@@ -1,9 +1,5 @@
 {
-  "extends": "tsconfig/lib.json",
-  "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": "./src"
-  },
-  "include": ["src"],
-  "exclude": ["node_modules"]
+  "extends": "tsconfig/react-lib.json",
+  "include": ["."],
+  "exclude": ["dist", "build", "node_modules"]
 }

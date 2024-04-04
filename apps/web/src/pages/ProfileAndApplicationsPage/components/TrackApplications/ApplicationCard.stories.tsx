@@ -2,7 +2,10 @@ import React from "react";
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
 
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
-import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
+import {
+  FAR_FUTURE_DATE,
+  FAR_PAST_DATE,
+} from "@gc-digital-talent/date-helpers";
 import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
 
 import { isExpired } from "~/utils/poolCandidate";
@@ -20,6 +23,10 @@ const activeApplications = Object.values(PoolCandidateStatus).map(
       ...mockApplications[index],
       status,
       archivedAt: null,
+      pool: {
+        ...mockApplications[index].pool,
+        closingDate: FAR_FUTURE_DATE,
+      },
     };
   },
 );

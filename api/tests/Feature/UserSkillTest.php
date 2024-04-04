@@ -49,8 +49,8 @@ class UserSkillTest extends TestCase
     }
 
     protected $createUserSkill =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         mutation createUserSkill($userId: UUID!, $skillId: UUID!, $userSkill: CreateUserSkillInput){
             createUserSkill(userId: $userId, skillId: $skillId, userSkill: $userSkill) {
                 id
@@ -67,8 +67,8 @@ class UserSkillTest extends TestCase
     ';
 
     protected $updateUserSkill =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         mutation updateUserSkill($id: UUID!, $userSkill: UpdateUserSkillInput){
             updateUserSkill(id :$id, userSkill: $userSkill) {
                 id
@@ -79,8 +79,8 @@ class UserSkillTest extends TestCase
     ';
 
     protected $deleteUserSkill =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         mutation deleteUserSkill($id: UUID!){
             deleteUserSkill(id :$id) {
                 id
@@ -89,8 +89,8 @@ class UserSkillTest extends TestCase
     ';
 
     protected $updateUserSkillRankings =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         mutation updateUserSkillRankings($userId: UUID!, $userSkillRanking: UpdateUserSkillRankingsInput!){
             updateUserSkillRankings(userId :$userId, userSkillRanking:$userSkillRanking) {
                 id

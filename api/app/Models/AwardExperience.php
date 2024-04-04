@@ -32,4 +32,14 @@ class AwardExperience extends Experience
     protected $casts = [
         'awarded_date' => 'date',
     ];
+
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    public function getExperienceType(): string
+    {
+        return 'award';
+    }
 }
