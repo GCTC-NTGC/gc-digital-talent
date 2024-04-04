@@ -227,10 +227,6 @@
     "defaultMessage": "Statut de la candidature ",
     "description": "Candidacy status label"
   },
-  "/MMizV": {
-    "defaultMessage": "Langues de travail",
-    "description": "Opportunity languages label"
-  },
   "/N8Owk": {
     "defaultMessage": "Le gouvernement du Canada ne peut vous recommander un fournisseur tiers ou une appli en particulier. Des fournisseurs numériques connus, comme Google et Microsoft, offrent des applis d'authentification. Quelle que soit l'appli que vous choisissez, assurez-vous qu'elle vient d'un fournisseur de bonne réputation.",
     "description": "GCKey answer for which authenticator app to use"
@@ -323,10 +319,6 @@
     "defaultMessage": "Diplôme d’études postsecondaires exigé",
     "description": "Education level message when candidate has a diploma found on the request page."
   },
-  "/oqWA0": {
-    "defaultMessage": "Intéressé par",
-    "description": "Interested in label"
-  },
   "/pHz5L": {
     "defaultMessage": "Statut du bassin de candidats",
     "description": "Label for the current applications pool status"
@@ -346,6 +338,10 @@
   "/sBGov": {
     "defaultMessage": "Question {number}",
     "description": "Heading for a specific screening question"
+  },
+  "/tRBrf": {
+    "defaultMessage": "Validité de l’examen",
+    "description": "Label for exam validity in language information form"
   },
   "/uOExm": {
     "defaultMessage": "Votre numéro de confirmation est le suivant : <strong>{id}</strong>",
@@ -402,6 +398,10 @@
   "0E9hiS": {
     "defaultMessage": "Familles de compétences",
     "description": "Title for skill families"
+  },
+  "0EuaJv": {
+    "defaultMessage": "Niveau d’écriture",
+    "description": "Label displayed on the language information form written field."
   },
   "0H0CLx": {
     "defaultMessage": "Accordé à",
@@ -855,6 +855,10 @@
     "defaultMessage": "La mise à jour de l’équipe a été réussie!",
     "description": "Message displayed after a team is updated"
   },
+  "2ohWuK": {
+    "defaultMessage": "Oui, l’évaluation de l’anglais a été effectuée",
+    "description": "Completed an English language evaluation"
+  },
   "2op8I5": {
     "defaultMessage": "Anglais - Question {questionNumber}",
     "description": "Label for 'English screening question' input on the assessment details dialog"
@@ -926,10 +930,6 @@
   "3D/wxC": {
     "defaultMessage": "Création de la classification réussie!",
     "description": "Message displayed to user after classification is created successfully."
-  },
-  "3E5Xx0": {
-    "defaultMessage": "A achevé une évaluation officielle du <abbreviation>GC</abbreviation> :",
-    "description": "Completed a government of canada abbreviation evaluation label and colon"
   },
   "3GOVZI": {
     "defaultMessage": "Développez des connaissances sur les données",
@@ -1010,10 +1010,6 @@
   "3sbLPV": {
     "defaultMessage": "Nous publions constamment de nouvelles offres. En créant votre profil dès maintenant, vous pourrez soumettre des demandes à la vitesse de l’éclair le moment venu.",
     "description": "Text describing upcoming opportunities instructing users to create a profile when anonymous"
-  },
-  "3vjhOA": {
-    "defaultMessage": "Évaluation linguistique du gouvernement du Canada",
-    "description": "Message on links to the language evaluation tests"
   },
   "3wbcnZ": {
     "defaultMessage": "Voir les résultats",
@@ -1166,10 +1162,6 @@
   "4f9Xsc": {
     "defaultMessage": "Les renseignements que vous fournissez peuvent également être utilisés à des fins statistiques et de recherche, et ils peuvent être communiqués à la<publicServiceLink>Direction des enquêtes de la Commission de la fonction publique</publicServiceLink> au besoin.",
     "description": "Paragraph for privacy policy page"
-  },
-  "4faEVw": {
-    "defaultMessage": "Vous pouvez découvrir vos niveaux à l’aide d’une <selfAssessmentLink>auto-évaluation des aptitudes linguistiques</selfAssessmentLink>.",
-    "description": "Text including link to language proficiency evaluation in language information form"
   },
   "4ii2WZ": {
     "defaultMessage": "Révisez votre candidature et envoyez-la!",
@@ -1355,10 +1347,6 @@
     "defaultMessage": "Rappelez-vous que, {skillName} est défini comme",
     "description": "Lead-in text to a skill description"
   },
-  "5g49WB": {
-    "defaultMessage": "Je suis bilingue (anglais et français) et <strong>je n'ai PAS</strong> complété une <languageEvaluationPageLink></languageEvaluationPageLink> officielle.",
-    "description": "Message for the haven't completed bilingual evaluation option"
-  },
   "5iNcHS": {
     "defaultMessage": "Candidature",
     "description": "Title displayed for the Pool Candidates table View Application link."
@@ -1390,10 +1378,6 @@
   "5nlauT": {
     "defaultMessage": "Question filtre {index} : {question}",
     "description": "CSV Header, Screening question column. "
-  },
-  "5nrkKw": {
-    "defaultMessage": "Niveau d’expression orale",
-    "description": "CSV Header, Oral interaction Level column"
   },
   "5pQfyv": {
     "defaultMessage": "Postes en français",
@@ -1854,10 +1838,6 @@
   "8cRL8r": {
     "defaultMessage": "Durée permanente",
     "description": "Permanent duration only"
-  },
-  "8ea9ne": {
-    "defaultMessage": "Niveau d’écriture",
-    "description": "CSV Header, Writing Level column"
   },
   "8fQWTc": {
     "defaultMessage": "Toute durée (court terme, long terme ou indéterminée) (recommandé)",
@@ -2455,10 +2435,6 @@
     "defaultMessage": "Modifier {experienceName}",
     "description": "Link text to edit a specific experience"
   },
-  "CEFnPm": {
-    "defaultMessage": "Niveau de lecture",
-    "description": "CSV Header, Reading (comprehension) Level column"
-  },
   "CH6FQA": {
     "defaultMessage": "Supprimer la demande<hidden> ({name})</hidden>",
     "description": "Link text to delete a specific application"
@@ -2474,6 +2450,10 @@
   "CM70i0": {
     "defaultMessage": "<strong>Les postes à distance</strong> vous offre la possibilité de travailler à temps plein depuis le lieu de votre choix (p. ex., bureau à domicile) au Canada.",
     "description": "Definition for 'remote positions'"
+  },
+  "CMtxbk": {
+    "defaultMessage": "Niveau de communication orale",
+    "description": "Label displayed on the language information form oral communication field."
   },
   "CMxMEW": {
     "defaultMessage": "Apprenez-en davantage<hidden> sur la Directive sur les talents numériques</hidden>",
@@ -2579,6 +2559,10 @@
     "defaultMessage": "Clé",
     "description": "Label for an entity 'key' field"
   },
+  "CwGljY": {
+    "defaultMessage": "Votre première langue officielle",
+    "description": "Legend first official language status in language information form"
+  },
   "CwjLDi": {
     "defaultMessage": "Le rôle de gestionnaire est nouveau pour vous? Vous souhaitez acquérir de l’expérience de recrutement et en savoir davantage sur les processus de ressources humaines?",
     "description": "Paragraph one, summary on getting hiring experience"
@@ -2590,6 +2574,10 @@
   "CzK1qY": {
     "defaultMessage": "Supprimé",
     "description": "Label for the trashed field"
+  },
+  "D1ZXOz": {
+    "defaultMessage": "Langue des postes pour lesquels vous souhaitez être pris en considération",
+    "description": "Legend for considered position languages check list in language information form"
   },
   "D3UXq2": {
     "defaultMessage": "Liste des tâches que l’entrepreneur doit accomplir dans le cadre du contrat.",
@@ -2678,6 +2666,10 @@
   "DUlWNu": {
     "defaultMessage": "31 à 50",
     "description": "Contract FTE range between thirty-one and fifty"
+  },
+  "DUuisY": {
+    "defaultMessage": "Oui, l’évaluation du français a été effectuée",
+    "description": "Completed a French language evaluation"
   },
   "DXjJyD": {
     "defaultMessage": "Ceci est la durée de temps pour laquelle ce candidat/cette candidate sera considéré(e) pour un placement selon les résultats de ce processus. La durée de temps habituelle est de deux ans.",
@@ -3002,6 +2994,10 @@
   "FGUGtr": {
     "defaultMessage": "Groupe et niveau",
     "description": "Title displayed for the Pool table Group and Level column."
+  },
+  "FGzaie": {
+    "defaultMessage": "Statut officiel de l’examen",
+    "description": "Bounding box label for official exam status in language information form"
   },
   "FMJiDY": {
     "defaultMessage": "Sélectionnez la valeur totale du contrat",
@@ -3363,10 +3359,6 @@
     "defaultMessage": "1 million de dollars à 2,5 millions de dollars",
     "description": "Contract value range between one-million and two-point-five-million"
   },
-  "HPDqDV": {
-    "defaultMessage": "Je suis bilingue (anglais et français) et <strong>j'ai</strong> complété une <languageEvaluationPageLink></languageEvaluationPageLink> officielle en <strong>ANGLAIS</strong>.",
-    "description": "Message for the completed english bilingual evaluation option"
-  },
   "HUy0EA": {
     "defaultMessage": "Langue de l'entrevue de vive voix",
     "description": "Label for spoken interview language"
@@ -3374,10 +3366,6 @@
   "HX/Tj+": {
     "defaultMessage": "Secret",
     "description": "Secret screening level"
-  },
-  "HYSPug": {
-    "defaultMessage": "J'aimerais que ma candidature soit prise en compte pour des postes en anglais.",
-    "description": "English Positions message"
   },
   "HYeViW": {
     "defaultMessage": "Comprendre les dates limites pour présenter une demande",
@@ -3626,6 +3614,10 @@
   "J/JdxQ": {
     "defaultMessage": "Vous pouvez ajouter jusqu’à {maxSteps} méthodes d’évaluation, mais ce n’est pas nécessaire. Si toutes les compétences ont été prises en compte, vous n’avez pas à en ajouter d’autres. Choisir un trop grand nombre de méthodes d’évaluation peut retarder le processus de dotation et réduire les chances que le processus d’embauche soit couronné de succès.",
     "description": "Description for warning message when the user has added many assessments to the assessment plan"
+  },
+  "J/kDDk": {
+    "defaultMessage": "L’évaluation officielle de la Commission de la fonction publique vous donne trois lettres qui indiquent vos compétences dans votre deuxième langue. Vous pouvez <selfAssessmentLink> en savoir plus sur cette évaluation en consultant leur site Web.</selfAssessmentLink>",
+    "description": "Context message for exam validity in language information form."
   },
   "J/oofb": {
     "defaultMessage": "À mesure que votre niveau de compétence augmente, vous pouvez utiliser ce formulaire pour effectuer une mise à jour de votre niveau de compétence, qui a été évalué par vous-même. Vous trouverez la définition de la compétence donnée par le gouvernement, ainsi que des explications pour chaque niveau de compétence afin de vous aider à faire votre choix.",
@@ -3899,6 +3891,10 @@
     "defaultMessage": "Bilingue (avancé – CBC/CBC)",
     "description": "Bilingual advanced personnel language"
   },
+  "KehmPp": {
+    "defaultMessage": "“Un ou plusieurs de mes niveaux de langue ne sont <strong>plus valides</strong>.”",
+    "description": "Radio option for exam validity input on language information form."
+  },
   "Kf7cYc": {
     "defaultMessage": "PM-03 : Agent(e)",
     "description": "PM-03 classification label including titles"
@@ -4087,6 +4083,10 @@
     "defaultMessage": "Critères constituent un atout",
     "description": "Asset criteria heading"
   },
+  "Le97Ow": {
+    "defaultMessage": "<languageEvaluationPageLink>Apprenez-en plus sur le choix d’une deuxième langue.</languageEvaluationPageLink>",
+    "description": "Context message for estimated language ability in language information form."
+  },
   "LghLU9": {
     "defaultMessage": "Date à laquelle le recrutement cessera d'accepter les candidatures. <dialog>En apprendre davantage sur le fonctionnement des heures de clôture.</dialog>",
     "description": "Describes what the selecting a closing date for a process."
@@ -4150,10 +4150,6 @@
   "M2LfhH": {
     "defaultMessage": "Modifier<hidden> une compétence</hidden>",
     "description": "Breadcrumb title for the edit skill page link."
-  },
-  "M9ij/0": {
-    "defaultMessage": "Évaluation bilingue",
-    "description": "CSV Header, Bilingual Evaluation column"
   },
   "MCBdYy": {
     "defaultMessage": "Analyste T I 2",
@@ -5439,10 +5435,6 @@
     "defaultMessage": "Études postsecondaires de deux ans",
     "description": "Option for education requirement, 2-year post-secondary"
   },
-  "TiVKPr": {
-    "defaultMessage": "J'aimerais que ma candidature soit prise en compte pour",
-    "description": "Legend for considered position languages check list in language information form"
-  },
   "TiutAx": {
     "defaultMessage": "Raison de l’octroi de contrats",
     "description": "Label for _rationale for contracting_ section in the _digital services contracting questionnaire_"
@@ -5450,10 +5442,6 @@
   "Tjd942": {
     "defaultMessage": "Solutions logicielles de la <abbreviation>TI</abbreviation>",
     "description": "Title for the 'software solutions' IT work stream"
-  },
-  "TmCffZ": {
-    "defaultMessage": "Intéressé par :",
-    "description": "Interested in label and colon"
   },
   "TmDejD": {
     "defaultMessage": "Vous souhaitez coordonner une présentation pour votre ministère? <contactLink>Contactez-nous</contactLink>.",
@@ -5745,10 +5733,6 @@
   "VOheZB": {
     "defaultMessage": "<primary>{role}</primary> à {organization}",
     "description": "Role at organization in work experience block of skill accordion."
-  },
-  "VTHGET": {
-    "defaultMessage": "Niveau de la langue seconde",
-    "description": "Estimated skill in second language"
   },
   "VUPlmN": {
     "defaultMessage": "Premières Nations (inscrites ou non)",
@@ -6082,10 +6066,6 @@
     "defaultMessage": "Cote de fiabilité approfondie",
     "description": "Enhanced reliability screening level"
   },
-  "X354at": {
-    "defaultMessage": "Évaluation bilingue",
-    "description": "Legend bilingual evaluation status in language information form"
-  },
   "X3bPom": {
     "defaultMessage": "Octroi de contrat pour des services numériques",
     "description": "Short name for Digital Services Contracting Form"
@@ -6301,10 +6281,6 @@
   "Y6X4Ok": {
     "defaultMessage": "Communication générale",
     "description": "Label for preferred language in profile details box."
-  },
-  "Y7l4/n": {
-    "defaultMessage": "Veuillez indiquer les niveaux linguistiques obtenus lors de votre évaluation linguistique du Gouvernement du Canada.",
-    "description": "Text requesting language levels given from bilingual evaluation in language information form"
   },
   "Y96JXz": {
     "defaultMessage": "La compétence que vous avez choisie sera aussi ajoutée à votre présentation de compétences, si elle ne s’y trouve pas déjà.",
@@ -6722,6 +6698,10 @@
     "defaultMessage": "Le programme d’apprentissage fait partie d’une initiative élargie sur les talents du numérique au sein du gouvernement du Canada dont le but consiste à recruter d’incroyables talents du numérique comme vous. Ce profil donne accès à d’autres possibilités et recrutements dans le secteur numérique autres que le programme d’apprentissage, si vous souhaitez y présenter votre candidature. Vous pouvez aussi vous en tenir au programme d’apprentissage si vous préférez!",
     "description": "Second paragraph for profile and applications notification welcoming an IAP user"
   },
+  "aO23nW": {
+    "defaultMessage": "<strong>Veuillez indiquer vos niveaux les plus récents obtenus auprès de la Commission de la fonction publique.</strong>",
+    "description": "Text requesting language levels given from bilingual evaluation in language information form"
+  },
   "aPLL9Z": {
     "defaultMessage": "Des gants avec du perlage floral de style Métis.",
     "description": "Indigenous Apprenticeship gloves image text alternative"
@@ -6777,10 +6757,6 @@
   "aiYTNf": {
     "defaultMessage": "Cet utilisateur a été supprimé.",
     "description": "Message displayed when admin views a deleted user."
-  },
-  "ak4twG": {
-    "defaultMessage": "J'aimerais que ma candidature soit prise en compte pour des postes bilingues (français et anglais).",
-    "description": "Bilingual Positions message"
   },
   "amxWPg": {
     "defaultMessage": "Votre numéro de suivi pour cette demande est : <strong>{requestId}</strong>",
@@ -6977,6 +6953,10 @@
   "bu0Hi1": {
     "defaultMessage": "Auto-évaluation du niveau de compétence",
     "description": "Title for the skill level self-evaluation form"
+  },
+  "buZsS/": {
+    "defaultMessage": "<strong>Veuillez sélectionner un niveau approprié de maîtrise de la deuxième langue sur la base des définitions fournies.</strong>",
+    "description": "Text requesting language levels given from bilingual evaluation in language information form"
   },
   "by9soK": {
     "defaultMessage": "S’agit-il d’un contrat pluriannuel?",
@@ -7770,10 +7750,6 @@
     "defaultMessage": "Renseignements personnels",
     "description": "applicant dashboard card title for profile card"
   },
-  "g8Xd4a": {
-    "defaultMessage": "Lecture",
-    "description": "Label displayed on the language information form reading comprehension field."
-  },
   "gBAz/G": {
     "defaultMessage": "Identification de la demande copiée",
     "description": "Button text to indicate that a specific application’s ID has been copied"
@@ -7833,6 +7809,10 @@
   "gQl1LT": {
     "defaultMessage": "Aidez-nous à comprendre votre collectivité.",
     "description": "Subtitle for the self-declaration page"
+  },
+  "gS9T4G": {
+    "defaultMessage": "“Mes trois examens de niveau linguistique sont <strong>actuellement valides</strong>.”",
+    "description": "Radio option for exam validity input on language information form."
   },
   "gU/nxf": {
     "defaultMessage": "Ajoutez une expérience à votre parcours professionnel",
@@ -8546,6 +8526,10 @@
     "defaultMessage": "Veuillez sélectionner un type d’expérience",
     "description": "Heading for the experience type section fo the experience form"
   },
+  "jx7Sf1": {
+    "defaultMessage": "J’aimerais être pris en considération pour des postes bilingues (anglais et français)",
+    "description": "Bilingual Positions message"
+  },
   "jyQi0m": {
     "defaultMessage": "Si vous êtes membre d’une Première Nation, Inuk ou Métis, et que vous vivez au Canada, vous pouvez demander à devenir un apprentis dans le cadre de ce programme.",
     "description": "Learn more dialog question on paragraph one"
@@ -8653,6 +8637,10 @@
   "koUnRG": {
     "defaultMessage": "Bienvenue à votre panneau des notifications. Cliquez ou tapez sur une notification pour consulter la page pertinente. Servez-vous de l’icône <icon></icon> pour marquer une notification en particulier comme étant lue, pour l’épingler ou la supprimer.",
     "description": "Instructions on how to manage notifications"
+  },
+  "kqOTFT": {
+    "defaultMessage": "Niveau de compréhension",
+    "description": "Label displayed on the language information form reading comprehension field."
   },
   "ksMybU": {
     "defaultMessage": "Erreur : échec de la création de la compétence",
@@ -8870,10 +8858,6 @@
     "defaultMessage": "Apprendre quoi faire si vous ne trouvez pas une compétence",
     "description": "Button text to show help information about skills"
   },
-  "mBnz9m": {
-    "defaultMessage": "Écriture",
-    "description": "Label displayed on the language information form written field."
-  },
   "mDowK/": {
     "defaultMessage": "Représentée par les expériences suivantes :",
     "description": "Lead in text for experiences that represent the users skills"
@@ -9082,10 +9066,6 @@
     "defaultMessage": "Courriel :",
     "description": "Email label and colon"
   },
-  "mvYSmp": {
-    "defaultMessage": "Expression orale",
-    "description": "Label displayed on the language information form oral interaction field."
-  },
   "mxOuYK": {
     "defaultMessage": "Télécharger CSV",
     "description": "Text label for button to download a csv file of items in a table."
@@ -9157,10 +9137,6 @@
   "nQbfnB": {
     "defaultMessage": "Veuillez sélectionner un type d’expérience pour continuer.",
     "description": "Test displayed on the experience form when a user has not selected an experience type."
-  },
-  "nRtrPx": {
-    "defaultMessage": "Compétence linguistique estimée",
-    "description": "CSV Header, Estimated Language Ability column"
   },
   "nSwruS": {
     "defaultMessage": "Afficher les évaluations des compétences de ce processus",
@@ -9289,10 +9265,6 @@
   "o4EnIo": {
     "defaultMessage": "Ce processus est programmé pour se clôturer automatiquement le : ",
     "description": "Third paragraph for publish process dialog"
-  },
-  "o4PND7": {
-    "defaultMessage": "A achevé une évaluation officielle du gouvernement du Canada",
-    "description": "Completed a Government of Canada evaluation label"
   },
   "o5g1d/": {
     "defaultMessage": "Type d’exigence",
@@ -9606,10 +9578,6 @@
     "defaultMessage": "Fait l’objet d’une évaluation complète en fonction de l’énoncé des critères de mérite du programme d’apprentissage en TI pour les personnes autochtones et avoir été jugé qualifié pour le rôle d’apprenti IT-01 (ou équivalent)",
     "description": "Item 2 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section"
   },
-  "q3Gl23": {
-    "defaultMessage": "Niveau de la langue seconde :",
-    "description": "Estimated skill in second language, followed by a colon"
-  },
   "q3xbiI": {
     "defaultMessage": "Envisagerait d'accepter un emploi qui :",
     "description": "Label for what conditions a user will accept, followed by a colon"
@@ -9834,6 +9802,10 @@
     "defaultMessage": "Gérez votre carrière",
     "description": "Heading for featured items on the manager homepage"
   },
+  "rjfQMg": {
+    "defaultMessage": "J’ai fait l’objet d’une évaluation par la Commission de la fonction publique dans ma <strong>deuxième langue officielle</strong>.",
+    "description": "Label for official exam status in language information form"
+  },
   "rlWajt": {
     "defaultMessage": "Les définitions de chaque possibilité de lieu de travail sont présentées ici",
     "description": "Lead-in text to definitions of different work location terminology"
@@ -9966,6 +9938,10 @@
     "defaultMessage": "J'accepterais un emploi qui",
     "description": "Start of sentence describing a users accepted working condition"
   },
+  "sWBbdX": {
+    "defaultMessage": "Je souhaite être pris en considération pour des postes en français",
+    "description": "French Positions message"
+  },
   "sYdl0V": {
     "defaultMessage": "Examens écrits",
     "description": "Label for preferred lang for exams in profile details box."
@@ -9997,10 +9973,6 @@
   "sgaZcd": {
     "defaultMessage": "Compétences que vous souhaitez améliorer",
     "description": "Title for the skills to improve section of a users skill showcase"
-  },
-  "shwFSK": {
-    "defaultMessage": "Je suis bilingue (anglais et français) et <strong>j'ai</strong> complété une <languageEvaluationPageLink></languageEvaluationPageLink> officielle en <strong>FRANÇAIS</strong>.",
-    "description": "Message for the completed french bilingual evaluation option"
   },
   "siF4qC": {
     "defaultMessage": "Le plan a-t-il été mis à jour lors de l’entrée en vigueur du contrat?",
@@ -10097,6 +10069,10 @@
   "tJnBx1": {
     "defaultMessage": "Que vous envisagiez de travailler pour le gouvernement ou que vous soyez déjà employé, que vous souhaitiez embaucher ou que vous envisagiez un nouveau rôle, vous êtes au bon endroit pour faire partie de la collectivité numérique du GC.",
     "description": "SEO description of the application on the homepage"
+  },
+  "tK7cGP": {
+    "defaultMessage": "Première langue officielle",
+    "description": "CSV Header, first official language column"
   },
   "tKtdVT": {
     "defaultMessage": "Apprenez-en davantage<hidden> sur les emplois de cadre supérieur</hidden>",
@@ -10430,6 +10406,10 @@
     "defaultMessage": "Se connecter à l’aide de CléGC",
     "description": "Page title for the sign in page for applicant profiles"
   },
+  "vmj/E4": {
+    "defaultMessage": "Je souhaite être pris en considération pour des postes en anglais",
+    "description": "English Positions message"
+  },
   "vyyfX6": {
     "defaultMessage": "Créer une nouvelle équipe",
     "description": "Page title for the create team page"
@@ -10705,10 +10685,6 @@
   "xdojyj": {
     "defaultMessage": "Politique et rétroaction",
     "description": "Label for the policy, conditions and feedback navigation"
-  },
-  "xff04x": {
-    "defaultMessage": "J'aimerais que ma candidature soit prise en compte pour des postes en français.",
-    "description": "French Positions message"
   },
   "xggOcb": {
     "defaultMessage": "Votre profil est au cœur de la plateforme. Racontez votre histoire, montrez comment vous avez développé vos compétences et utilisez votre profil pour postuler à des emplois. Que vous soyez à la recherche d’un emploi maintenant ou que vous pensiez simplement à l’avenir, votre profil est votre outil pour être découvert par les responsables du recrutement.",

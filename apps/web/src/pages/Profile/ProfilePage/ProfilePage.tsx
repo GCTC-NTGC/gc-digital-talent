@@ -38,7 +38,9 @@ const ProfileUpdateUser_Mutation = graphql(/* GraphQL */ `
       lookingForEnglish
       lookingForFrench
       lookingForBilingual
-      bilingualEvaluation
+      firstOfficialLanguage
+      secondLanguageExamCompleted
+      secondLanguageExamValidity
       comprehensionLevel
       writtenLevel
       verbalLevel
@@ -247,7 +249,9 @@ const ProfileUser_Query = graphql(/* GraphQL */ `
       lookingForEnglish
       lookingForFrench
       lookingForBilingual
-      bilingualEvaluation
+      firstOfficialLanguage
+      secondLanguageExamCompleted
+      secondLanguageExamValidity
       comprehensionLevel
       writtenLevel
       verbalLevel

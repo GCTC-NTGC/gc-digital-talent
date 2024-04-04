@@ -3,12 +3,12 @@ import { IntlShape } from "react-intl";
 import type { DownloadCsvProps } from "@gc-digital-talent/ui";
 import {
   getArmedForcesStatusesAdmin,
-  getBilingualEvaluation,
   getCitizenshipStatusesAdmin,
   getLanguageProficiency,
   getLocale,
   getEvaluatedLanguageAbility,
   commonMessages,
+  getLanguage,
 } from "@gc-digital-talent/i18n";
 import { User, PositionDuration } from "@gc-digital-talent/graphql";
 
@@ -23,6 +23,7 @@ import {
   yesOrNo,
 } from "~/utils/csvUtils";
 import adminMessages from "~/messages/adminMessages";
+import { getLabels } from "~/components/Profile/components/LanguageProfile/utils";
 
 export const getUserCsvData = (users: User[], intl: IntlShape) => {
   const locale = getLocale(intl);
@@ -36,7 +37,9 @@ export const getUserCsvData = (users: User[], intl: IntlShape) => {
       lookingForEnglish,
       lookingForFrench,
       lookingForBilingual,
-      bilingualEvaluation,
+      firstOfficialLanguage,
+      secondLanguageExamCompleted,
+      secondLanguageExamValidity,
       comprehensionLevel,
       writtenLevel,
       verbalLevel,
@@ -71,9 +74,11 @@ export const getUserCsvData = (users: User[], intl: IntlShape) => {
         lookingForBilingual,
         intl,
       ),
-      bilingualEvaluation: bilingualEvaluation
-        ? intl.formatMessage(getBilingualEvaluation(bilingualEvaluation))
+      firstOfficialLanguage: firstOfficialLanguage
+        ? intl.formatMessage(getLanguage(firstOfficialLanguage))
         : "",
+      secondLanguageExamCompleted: yesOrNo(secondLanguageExamCompleted, intl),
+      secondLanguageExamValidity: yesOrNo(secondLanguageExamValidity, intl),
       comprehensionLevel: comprehensionLevel
         ? intl.formatMessage(getEvaluatedLanguageAbility(comprehensionLevel))
         : "",
@@ -162,44 +167,36 @@ export const getUserCsvHeaders = (intl: IntlShape) => [
     }),
   },
   {
-    id: "bilingualEvaluation",
+    id: "firstOfficialLanguage",
     displayName: intl.formatMessage({
-      defaultMessage: "Bilingual Evaluation",
-      id: "M9ij/0",
-      description: "CSV Header, Bilingual Evaluation column",
+      defaultMessage: "First official language",
+      id: "tK7cGP",
+      description: "CSV Header, first official language column",
     }),
+  },
+  {
+    id: "secondLanguageExamCompleted",
+    displayName: getLabels(intl).secondLanguageExamCompletedLabel,
+  },
+  {
+    id: "secondLanguageExamValidity",
+    displayName: getLabels(intl).secondLanguageExamValidityLabel,
   },
   {
     id: "comprehensionLevel",
-    displayName: intl.formatMessage({
-      defaultMessage: "Reading level",
-      id: "CEFnPm",
-      description: "CSV Header, Reading (comprehension) Level column",
-    }),
+    displayName: getLabels(intl).comprehensionLevel,
   },
   {
     id: "writtenLevel",
-    displayName: intl.formatMessage({
-      defaultMessage: "Writing level",
-      id: "8ea9ne",
-      description: "CSV Header, Writing Level column",
-    }),
+    displayName: getLabels(intl).writtenLevel,
   },
   {
     id: "verbalLevel",
-    displayName: intl.formatMessage({
-      defaultMessage: "Oral interaction level",
-      id: "5nrkKw",
-      description: "CSV Header, Oral interaction Level column",
-    }),
+    displayName: getLabels(intl).verbalLevel,
   },
   {
     id: "estimatedLanguageAbility",
-    displayName: intl.formatMessage({
-      defaultMessage: "Estimated Language Ability",
-      id: "nRtrPx",
-      description: "CSV Header, Estimated Language Ability column",
-    }),
+    displayName: getLabels(intl).estimatedLanguageAbility,
   },
   {
     id: "isGovEmployee",
