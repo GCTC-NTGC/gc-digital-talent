@@ -209,7 +209,7 @@ const AccountSettingsPage = () => {
                     <TableOfContents.Heading
                       size="h3"
                       icon={Cog8ToothIcon}
-                      color="primary"
+                      color="secondary"
                       data-h2-margin="base(0, 0, x1, 0)"
                     >
                       {sections.notificationSettings.title}
@@ -236,7 +236,7 @@ const AccountSettingsPage = () => {
                   <TableOfContents.Heading
                     size="h3"
                     icon={IdentificationIcon}
-                    color="primary"
+                    color="tertiary"
                     data-h2-margin="base(0, 0, x1, 0)"
                   >
                     {sections.recruitmentAvailability.title}
