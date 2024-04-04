@@ -10,7 +10,6 @@ import {
   Pool,
 } from "@gc-digital-talent/graphql";
 
-import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { getFullNameHtml } from "~/utils/nameUtils";
 
 export function poolNameAccessor(pool: Pool, intl: IntlShape) {
@@ -18,25 +17,6 @@ export function poolNameAccessor(pool: Pool, intl: IntlShape) {
   return `${name.toLowerCase()} ${
     pool.stream ? intl.formatMessage(getPoolStream(pool.stream)) : ""
   }`;
-}
-
-export function poolCandidatesViewCell(
-  poolCandidatesTableUrl: string,
-  intl: IntlShape,
-  pool: Maybe<Pool>,
-) {
-  return (
-    <Link href={poolCandidatesTableUrl} color="black" data-h2-padding="base(0)">
-      {intl.formatMessage(
-        {
-          defaultMessage: "View Candidates<hidden> for {label}</hidden>",
-          id: "6R9N+h",
-          description: "Text for a link to the Pool Candidates table",
-        },
-        { label: getShortPoolTitleHtml(intl, pool) },
-      )}
-    </Link>
-  );
 }
 
 export function viewCell(url: string, pool: Pool, intl: IntlShape) {

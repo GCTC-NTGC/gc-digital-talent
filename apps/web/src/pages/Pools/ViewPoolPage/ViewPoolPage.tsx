@@ -29,6 +29,7 @@ import { checkRole } from "~/utils/teamUtils";
 import usePoolMutations from "~/hooks/usePoolMutations";
 import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
 import messages from "~/messages/adminMessages";
+import processMessages from "~/messages/processMessages";
 
 import SubmitForPublishingDialog from "./components/SubmitForPublishingDialog";
 import DuplicateProcessDialog from "./components/DuplicateProcessDialog";
@@ -151,6 +152,15 @@ export const ViewPool = ({
                 description:
                   "Information about what an advertisement represents",
               })}
+            </p>
+            <p data-h2-margin="base(x1 0)">
+              {intl.formatMessage(processMessages.processNumber)}
+              {intl.formatMessage(commonMessages.dividingColon)}
+              {pool.processNumber || (
+                <span data-h2-color="base(error.darkest)">
+                  {intl.formatMessage(commonMessages.notProvided)}
+                </span>
+              )}
             </p>
             <ProcessCard.Footer>
               {advertisementStatus !== "submitted" && (
@@ -392,6 +402,7 @@ const ViewPoolPage_Query = graphql(/* GraphQL */ `
       isComplete
       status
       stream
+      processNumber
       closingDate
       classification {
         id
