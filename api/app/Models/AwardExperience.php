@@ -67,7 +67,7 @@ class AwardExperience extends Experience
     }
 
     /**
-     * Interact with the experience's title
+     * Interact with the experience's issued by
      */
     protected function issuedBy(): Attribute
     {
@@ -89,7 +89,7 @@ class AwardExperience extends Experience
     }
 
     /**
-     * Interact with the experience's title
+     * Interact with the experience's awarded to
      */
     protected function awardedTo(): Attribute
     {
@@ -100,7 +100,7 @@ class AwardExperience extends Experience
     }
 
     /**
-     * Interact with the experience's title
+     * Interact with the experience's awarded scope
      */
     protected function awardedScope(): Attribute
     {
