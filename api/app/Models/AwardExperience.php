@@ -60,10 +60,7 @@ class AwardExperience extends Experience
      */
     protected function title(): Attribute
     {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyString($attributes, 'title'),
-            set: fn (mixed $value, array $attributes) => $this::setJsonPropertyString($value, $attributes, 'title')
-        );
+        return $this->makeJsonPropertyStringAttribute('title');
     }
 
     /**
@@ -71,10 +68,7 @@ class AwardExperience extends Experience
      */
     protected function issuedBy(): Attribute
     {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyString($attributes, 'issued_by'),
-            set: fn (mixed $value, array $attributes) => $this::setJsonPropertyString($value, $attributes, 'issued_by')
-        );
+        return $this->makeJsonPropertyStringAttribute('issued_by');
     }
 
     /**
@@ -82,10 +76,7 @@ class AwardExperience extends Experience
      */
     protected function awardedDate(): Attribute
     {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyDate($attributes, 'awarded_date'),
-            set: fn (mixed $value, array $attributes) => $this::setJsonPropertyDate($value, $attributes, 'awarded_date')
-        );
+        return $this->makeJsonPropertyDateAttribute('awarded_date');
     }
 
     /**
@@ -93,10 +84,7 @@ class AwardExperience extends Experience
      */
     protected function awardedTo(): Attribute
     {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyString($attributes, 'awarded_to'),
-            set: fn (mixed $value, array $attributes) => $this::setJsonPropertyString($value, $attributes, 'awarded_to')
-        );
+        return $this->makeJsonPropertyStringAttribute('awarded_to');
     }
 
     /**
@@ -104,9 +92,6 @@ class AwardExperience extends Experience
      */
     protected function awardedScope(): Attribute
     {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyString($attributes, 'awarded_scope'),
-            set: fn (mixed $value, array $attributes) => $this::setJsonPropertyString($value, $attributes, 'awarded_scope')
-        );
+        return $this->makeJsonPropertyStringAttribute('awarded_scope');
     }
 }

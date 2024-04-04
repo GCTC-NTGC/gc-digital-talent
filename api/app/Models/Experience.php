@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -237,6 +238,14 @@ class Experience extends Model
         return ['properties' => json_encode($properties)];
     }
 
+    protected function makeJsonPropertyDateAttribute(string $propertyName): Attribute
+    {
+        return Attribute::make(
+            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyDate($attributes, $propertyName),
+            set: fn (mixed $value, array $attributes) => $this::setJsonPropertyDate($value, $attributes, $propertyName)
+        );
+    }
+
     protected static function getJsonPropertyString(array $attributes, string $propertyName)
     {
         $properties = json_decode($attributes['properties'] ?? '{}');
@@ -253,5 +262,13 @@ class Experience extends Model
         $properties->$propertyName = ! is_null($value) ? strval($value) : $value;
 
         return ['properties' => json_encode($properties)];
+    }
+
+    protected function makeJsonPropertyStringAttribute(string $propertyName): Attribute
+    {
+        return Attribute::make(
+            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyString($attributes, $propertyName),
+            set: fn (mixed $value, array $attributes) => $this::setJsonPropertyString($value, $attributes, $propertyName)
+        );
     }
 }

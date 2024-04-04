@@ -60,10 +60,7 @@ class WorkExperience extends Experience
      */
     protected function role(): Attribute
     {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyString($attributes, 'role'),
-            set: fn (mixed $value, array $attributes) => $this::setJsonPropertyString($value, $attributes, 'role')
-        );
+        return $this->makeJsonPropertyStringAttribute('role');
     }
 
     /**
@@ -71,10 +68,7 @@ class WorkExperience extends Experience
      */
     protected function organization(): Attribute
     {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyString($attributes, 'organization'),
-            set: fn (mixed $value, array $attributes) => $this::setJsonPropertyString($value, $attributes, 'organization')
-        );
+        return $this->makeJsonPropertyStringAttribute('organization');
     }
 
     /**
@@ -82,10 +76,7 @@ class WorkExperience extends Experience
      */
     protected function division(): Attribute
     {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyString($attributes, 'division'),
-            set: fn (mixed $value, array $attributes) => $this::setJsonPropertyString($value, $attributes, 'division')
-        );
+        return $this->makeJsonPropertyStringAttribute('division');
     }
 
     /**
@@ -93,10 +84,7 @@ class WorkExperience extends Experience
      */
     protected function startDate(): Attribute
     {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyDate($attributes, 'start_date'),
-            set: fn (mixed $value, array $attributes) => $this::setJsonPropertyDate($value, $attributes, 'start_date')
-        );
+        return $this->makeJsonPropertyDateAttribute('start_date');
     }
 
     /**
@@ -104,9 +92,6 @@ class WorkExperience extends Experience
      */
     protected function endDate(): Attribute
     {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyDate($attributes, 'end_date'),
-            set: fn (mixed $value, array $attributes) => $this::setJsonPropertyDate($value, $attributes, 'end_date')
-        );
+        return $this->makeJsonPropertyDateAttribute('end_date');
     }
 }

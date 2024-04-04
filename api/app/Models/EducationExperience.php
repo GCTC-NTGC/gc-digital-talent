@@ -62,10 +62,7 @@ class EducationExperience extends Experience
      */
     protected function institution(): Attribute
     {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyString($attributes, 'institution'),
-            set: fn (mixed $value, array $attributes) => $this::setJsonPropertyString($value, $attributes, 'institution')
-        );
+        return $this->makeJsonPropertyStringAttribute('institution');
     }
 
     /**
@@ -73,10 +70,7 @@ class EducationExperience extends Experience
      */
     protected function areaOfStudy(): Attribute
     {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyString($attributes, 'area_of_study'),
-            set: fn (mixed $value, array $attributes) => $this::setJsonPropertyString($value, $attributes, 'area_of_study')
-        );
+        return $this->makeJsonPropertyStringAttribute('area_of_study');
     }
 
     /**
@@ -84,10 +78,7 @@ class EducationExperience extends Experience
      */
     protected function thesisTitle(): Attribute
     {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyString($attributes, 'thesis_title'),
-            set: fn (mixed $value, array $attributes) => $this::setJsonPropertyString($value, $attributes, 'thesis_title')
-        );
+        return $this->makeJsonPropertyStringAttribute('thesis_title');
     }
 
     /**
@@ -95,10 +86,7 @@ class EducationExperience extends Experience
      */
     protected function startDate(): Attribute
     {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyDate($attributes, 'start_date'),
-            set: fn (mixed $value, array $attributes) => $this::setJsonPropertyDate($value, $attributes, 'start_date')
-        );
+        return $this->makeJsonPropertyDateAttribute('start_date');
     }
 
     /**
@@ -106,10 +94,7 @@ class EducationExperience extends Experience
      */
     protected function endDate(): Attribute
     {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyDate($attributes, 'end_date'),
-            set: fn (mixed $value, array $attributes) => $this::setJsonPropertyDate($value, $attributes, 'end_date')
-        );
+        return $this->makeJsonPropertyDateAttribute('end_date');
     }
 
     /**
@@ -117,10 +102,7 @@ class EducationExperience extends Experience
      */
     protected function type(): Attribute
     {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyString($attributes, 'type'),
-            set: fn (mixed $value, array $attributes) => $this::setJsonPropertyString($value, $attributes, 'type')
-        );
+        return $this->makeJsonPropertyStringAttribute('type');
     }
 
     /**
@@ -128,9 +110,6 @@ class EducationExperience extends Experience
      */
     protected function status(): Attribute
     {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyString($attributes, 'status'),
-            set: fn (mixed $value, array $attributes) => $this::setJsonPropertyString($value, $attributes, 'status')
-        );
+        return $this->makeJsonPropertyStringAttribute('status');
     }
 }

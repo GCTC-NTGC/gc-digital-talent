@@ -60,10 +60,7 @@ class CommunityExperience extends Experience
      */
     protected function title(): Attribute
     {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyString($attributes, 'title'),
-            set: fn (mixed $value, array $attributes) => $this::setJsonPropertyString($value, $attributes, 'title')
-        );
+        return $this->makeJsonPropertyStringAttribute('title');
     }
 
     /**
@@ -71,10 +68,7 @@ class CommunityExperience extends Experience
      */
     protected function organization(): Attribute
     {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyString($attributes, 'organization'),
-            set: fn (mixed $value, array $attributes) => $this::setJsonPropertyString($value, $attributes, 'organization')
-        );
+        return $this->makeJsonPropertyStringAttribute('organization');
     }
 
     /**
@@ -82,10 +76,7 @@ class CommunityExperience extends Experience
      */
     protected function project(): Attribute
     {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyString($attributes, 'project'),
-            set: fn (mixed $value, array $attributes) => $this::setJsonPropertyString($value, $attributes, 'project')
-        );
+        return $this->makeJsonPropertyStringAttribute('project');
     }
 
     /**
@@ -93,10 +84,7 @@ class CommunityExperience extends Experience
      */
     protected function startDate(): Attribute
     {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyDate($attributes, 'start_date'),
-            set: fn (mixed $value, array $attributes) => $this::setJsonPropertyDate($value, $attributes, 'start_date')
-        );
+        return $this->makeJsonPropertyDateAttribute('start_date');
     }
 
     /**
@@ -104,9 +92,6 @@ class CommunityExperience extends Experience
      */
     protected function endDate(): Attribute
     {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $this::getJsonPropertyDate($attributes, 'end_date'),
-            set: fn (mixed $value, array $attributes) => $this::setJsonPropertyDate($value, $attributes, 'end_date')
-        );
+        return $this->makeJsonPropertyDateAttribute('end_date');
     }
 }
