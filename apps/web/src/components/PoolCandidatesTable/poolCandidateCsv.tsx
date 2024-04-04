@@ -38,6 +38,8 @@ import {
 import adminMessages from "~/messages/adminMessages";
 import processMessages from "~/messages/processMessages";
 
+import { getLabels } from "../Profile/components/LanguageProfile/utils";
+
 export const getPoolCandidateCsvData = (
   candidates: PoolCandidate[],
   intl: IntlShape,
@@ -361,51 +363,27 @@ export const getPoolCandidateCsvHeaders = (
     },
     {
       id: "secondLanguageExamCompleted",
-      displayName: intl.formatMessage({
-        defaultMessage: "Second language proficiency level",
-        id: "XlhePi",
-        description: "CSV Header, second language proficiency level column",
-      }),
+      displayName: getLabels(intl).secondLanguageExamCompletedLabel,
     },
     {
       id: "secondLanguageExamValidity",
-      displayName: intl.formatMessage({
-        defaultMessage: "Exam validity",
-        id: "i9bs/h",
-        description: "CSV Header, second language exam validity column",
-      }),
+      displayName: getLabels(intl).secondLanguageExamValidityLabel,
     },
     {
       id: "comprehensionLevel",
-      displayName: intl.formatMessage({
-        defaultMessage: "Reading level",
-        id: "CEFnPm",
-        description: "CSV Header, Reading (comprehension) Level column",
-      }),
+      displayName: getLabels(intl).comprehensionLevel,
     },
     {
       id: "writtenLevel",
-      displayName: intl.formatMessage({
-        defaultMessage: "Writing level",
-        id: "8ea9ne",
-        description: "CSV Header, Writing Level column",
-      }),
+      displayName: getLabels(intl).writtenLevel,
     },
     {
       id: "verbalLevel",
-      displayName: intl.formatMessage({
-        defaultMessage: "Oral interaction level",
-        id: "5nrkKw",
-        description: "CSV Header, Oral interaction Level column",
-      }),
+      displayName: getLabels(intl).verbalLevel,
     },
     {
       id: "estimatedLanguageAbility",
-      displayName: intl.formatMessage({
-        defaultMessage: "Estimated Language Ability",
-        id: "nRtrPx",
-        description: "CSV Header, Estimated Language Ability column",
-      }),
+      displayName: getLabels(intl).estimatedLanguageAbility,
     },
     {
       id: "isGovEmployee",

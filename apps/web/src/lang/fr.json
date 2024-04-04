@@ -1379,10 +1379,6 @@
     "defaultMessage": "Question filtre {index} : {question}",
     "description": "CSV Header, Screening question column. "
   },
-  "5nrkKw": {
-    "defaultMessage": "Niveau d’expression orale",
-    "description": "CSV Header, Oral interaction Level column"
-  },
   "5pQfyv": {
     "defaultMessage": "Postes en français",
     "description": "Message for the french positions option"
@@ -1842,10 +1838,6 @@
   "8cRL8r": {
     "defaultMessage": "Durée permanente",
     "description": "Permanent duration only"
-  },
-  "8ea9ne": {
-    "defaultMessage": "Niveau d’écriture",
-    "description": "CSV Header, Writing Level column"
   },
   "8fQWTc": {
     "defaultMessage": "Toute durée (court terme, long terme ou indéterminée) (recommandé)",
@@ -2442,10 +2434,6 @@
   "CDV1Cw": {
     "defaultMessage": "Modifier {experienceName}",
     "description": "Link text to edit a specific experience"
-  },
-  "CEFnPm": {
-    "defaultMessage": "Niveau de lecture",
-    "description": "CSV Header, Reading (comprehension) Level column"
   },
   "CH6FQA": {
     "defaultMessage": "Supprimer la demande<hidden> ({name})</hidden>",
@@ -6222,10 +6210,6 @@
     "defaultMessage": "CléGC est un justificatif du gouvernement du Canada qui vous permet d’effectuer de façon sécurisée des transactions en ligne avec divers programmes et services gouvernementaux.",
     "description": "A _what to expect_ point on the sign up page"
   },
-  "XlhePi": {
-    "defaultMessage": "Niveau de compétence en langue seconde ",
-    "description": "CSV Header, second language proficiency level column"
-  },
   "XlmRZH": {
     "defaultMessage": "S'enregistrer",
     "description": "Message displayed to users to sign up for an account"
@@ -8194,10 +8178,6 @@
     "defaultMessage": "Éditer<hidden> {label}</hidden>",
     "description": "Title displayed for the Edit column."
   },
-  "i9bs/h": {
-    "defaultMessage": "Validité de l’examen",
-    "description": "CSV Header, second language exam validity column"
-  },
   "i9cA5V": {
     "defaultMessage": "Bureau de la dirigeante principale de l’information",
     "description": "Title for the Office of the Chief Information Officer"
@@ -9157,10 +9137,6 @@
   "nQbfnB": {
     "defaultMessage": "Veuillez sélectionner un type d’expérience pour continuer.",
     "description": "Test displayed on the experience form when a user has not selected an experience type."
-  },
-  "nRtrPx": {
-    "defaultMessage": "Compétence linguistique estimée",
-    "description": "CSV Header, Estimated Language Ability column"
   },
   "nSwruS": {
     "defaultMessage": "Afficher les évaluations des compétences de ce processus",
