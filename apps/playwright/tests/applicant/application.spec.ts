@@ -120,7 +120,7 @@ test.describe("Application", () => {
   });
 
   test.beforeEach(async ({ page }) => {
-    // start JSCoverage
+    await page.waitForLoadState("domcontentloaded");
     await page.coverage.startJSCoverage();
   });
 
