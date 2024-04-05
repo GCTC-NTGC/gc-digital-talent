@@ -87,6 +87,12 @@ const Single = ({
     inputRef?.current?.focus();
   };
 
+  React.useEffect(() => {
+    if (!value?.value) {
+      selectItem(null);
+    }
+  }, [selectItem, value?.value]);
+
   return (
     <>
       <Field.Label {...getLabelProps()} required={isRequired}>
