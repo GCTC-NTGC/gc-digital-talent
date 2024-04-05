@@ -1855,6 +1855,10 @@
     "defaultMessage": "Voir l’annonce",
     "description": "Link text to view a specific pool advertisement"
   },
+  "8ioBIZ": {
+    "defaultMessage": "Éditeur de compétence",
+    "description": "Title for skills editor"
+  },
   "8kMPLB": {
     "defaultMessage": "Décrire la façon dont cette compétence a été mise en valeur dans ce rôle",
     "description": "Label for the textarea in the skills in detail section."
@@ -3634,6 +3638,10 @@
   "J3Ud6R": {
     "defaultMessage": "Exigence de sélection : <strong>{educationRequirementOption}</strong>.",
     "description": "Application snapshot minimum experience section description"
+  },
+  "J6atIv": {
+    "defaultMessage": "Liste de compétences",
+    "description": "Link text for explore skills page"
   },
   "J8Nltm": {
     "defaultMessage": "Comment vous avez pu mettre en œuvre la compétence \"{skillName}\" dans le cadre de cette expérience",
