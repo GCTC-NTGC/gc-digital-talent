@@ -6294,6 +6294,10 @@
     "defaultMessage": "Sélectionnez un groupe des publications",
     "description": "Placeholder for publishing group field"
   },
+  "Y1zzqe": {
+    "defaultMessage": "Cette liste de compétences est en cours d’élaboration. De nouvelles compétences sont ajoutées de façon continue.",
+    "description": "Message for skills page"
+  },
   "Y2PPGY": {
     "defaultMessage": "Imprimer le profil sans les coordonnées",
     "description": "Button label for print user anonymous profile"
