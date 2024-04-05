@@ -102,7 +102,7 @@
       },
       {
         "description": {
-          "en": "IM- Information Architecture develops, manages and communicates information architectures that establish, shape information systems and products, to support usability, findability, and the understanding of structured and unstructured data, along with guides the development and maintenance of information architecture artefacts on how they contribute to the achievement of a business’ strategy and delivery of the expected business outcomes.",
+          "en": "IM-Information Architecture develops, manages and communicates information architectures that establish, shape information systems and products, to support usability, findability, and the understanding of structured and unstructured data, along with guides the development and maintenance of information architecture artefacts on how they contribute to the achievement of a business’ strategy and delivery of the expected business outcomes.",
           "fr": "IM-Information Architecture développe, gère et communique des architectures d'information qui établissent, façonnent des systèmes et des produits d'information, pour soutenir la facilité d'utilisation, la trouvabilité et la compréhension des données structurées et non structurées, et guide le développement et la maintenance des artefacts d'architecture d'information sur la manière dont ils contribuent. à la réalisation de la stratégie d’une entreprise et à l’obtention des résultats commerciaux attendus."
         },
         "key": "im_data_governance_information_architecture",
