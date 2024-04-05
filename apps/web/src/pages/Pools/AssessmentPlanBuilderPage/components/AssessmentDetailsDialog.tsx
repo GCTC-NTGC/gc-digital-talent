@@ -731,6 +731,7 @@ const AssessmentDetailsDialog = ({
                     </Well>
                   ) : null}
                 </div>
+                {assessedSkillsItems.essentialSkillItems.length > 0 && (
                 <Checklist
                   idPrefix="essentialSkills"
                   id="essentialSkills"
@@ -745,6 +746,8 @@ const AssessmentDetailsDialog = ({
                     },
                   }}
                 />
+                )}
+                {assessedSkillsItems.assetSkills.length > 0 && (
                 <Checklist
                   idPrefix="assetSkills"
                   id="assetSkills"
@@ -757,6 +760,7 @@ const AssessmentDetailsDialog = ({
                     },
                   }}
                 />
+                )}
                 {errors.assessedSkills ? (
                   <Field.Error>
                     {intl.formatMessage(errorMessages.required)}
