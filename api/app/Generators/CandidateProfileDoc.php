@@ -2,7 +2,12 @@
 
 namespace App\Generators;
 
+use App\Models\AwardExperience;
+use App\Models\CommunityExperience;
+use App\Models\EducationExperience;
+use App\Models\PersonalExperience;
 use App\Models\PoolCandidate;
+use App\Models\WorkExperience;
 use Exception;
 
 class CandidateProfileDoc extends DocGenerator
@@ -28,11 +33,7 @@ class CandidateProfileDoc extends DocGenerator
             'user' => [
                 'department',
                 'currentClassification',
-                'awardExperiences' => ['userSkills' => ['skill']],
-                'communityExperiences' => ['userSkills' => ['skill']],
-                'educationExperiences' => ['userSkills' => ['skill']],
-                'personalExperiences' => ['userSkills' => ['skill']],
-                'workExperiences' => ['userSkills' => ['skill']],
+                'experiences' => ['userSkills' => ['skill']],
                 'userSkills' => ['skill'],
             ],
             'screeningQuestionResponses' => ['screeningQuestion'],
@@ -89,7 +90,7 @@ class CandidateProfileDoc extends DocGenerator
                 'Work location',
                 $candidate->user->location_preferences ? $this->sanitizeEnum(implode(', ', $candidate->user->location_preferences)) : ''
             );
-            $this->addLabelText($section, 'Location exemptions', $candidate->user->location_exemptions);
+            $this->addLabelText($section, 'Location exemptions', $candidate->user->location_exemptions ?? '');
 
             $section->addTitle('Work preferences', 4);
 
@@ -141,7 +142,7 @@ class CandidateProfileDoc extends DocGenerator
                 $experiences = [];
 
                 $candidate->user->experiences->each(function ($experience) use (&$experiences) {
-                    $type = $experience->getExperienceType();
+                    $type = $experience::class;
                     if (! isset($experiences[$type])) {
                         $experiences[$type] = collect();
                     }
@@ -149,33 +150,48 @@ class CandidateProfileDoc extends DocGenerator
                 });
 
                 foreach ($experiences as $type => $group) {
-                    $section->addTitle(ucwords($type).' experiences', 3);
                     $group->each(function ($experience) use ($section, $type) {
-                        $section->addTitle($experience->getTitle(), 4);
-                        $section->addText($experience->getDateRange());
-                        $section->addTextBreak(1);
-
-                        if ($type === 'award') {
+                        if ($type === AwardExperience::class) {
+                            $section->addTitle('Award experiences', 3);
+                            $section->addTitle($experience->getTitle(), 4);
+                            $section->addText($experience->getDateRange());
+                            $section->addTextBreak(1);
                             $this->addLabelText($section, 'Awarded to', $experience->awarded_to);
                             $this->addLabelText($section, 'Issuing organization', $experience->issued_by);
                             $this->addLabelText($section, 'Award scope', $experience->awarded_scope);
                         }
 
-                        if ($type === 'community') {
+                        if ($type === CommunityExperience::class) {
+                            $section->addTitle('Community experiences', 3);
+                            $section->addTitle($experience->getTitle(), 4);
+                            $section->addText($experience->getDateRange());
+                            $section->addTextBreak(1);
                             $this->addLabelText($section, 'Project / Product', $experience->project);
                         }
 
-                        if ($type === 'education') {
+                        if ($type === EducationExperience::class) {
+                            $section->addTitle('Education experiences', 3);
+                            $section->addTitle($experience->getTitle(), 4);
+                            $section->addText($experience->getDateRange());
+                            $section->addTextBreak(1);
                             $this->addLabelText($section, 'Area of study', $experience->area_of_study);
                             $this->addLabelText($section, 'Status', $experience->status);
                             $this->addLabelText($section, 'Thesis title', $experience->thesis_title);
                         }
 
-                        if ($type === 'personal') {
+                        if ($type === PersonalExperience::class) {
+                            $section->addTitle('Personal experiences', 3);
+                            $section->addTitle($experience->getTitle(), 4);
+                            $section->addText($experience->getDateRange());
+                            $section->addTextBreak(1);
                             $this->addLabelText($section, 'Learning description', $experience->description);
                         }
 
-                        if ($type === 'work') {
+                        if ($type === WorkExperience::class) {
+                            $section->addTitle('Work experiences', 3);
+                            $section->addTitle($experience->getTitle(), 4);
+                            $section->addText($experience->getDateRange());
+                            $section->addTextBreak(1);
                             $this->addLabelText($section, 'Team, group or division', $experience->division);
                         }
 

@@ -2,7 +2,6 @@ import { User } from "@gc-digital-talent/graphql";
 
 export type PartialUser = Pick<
   User,
-  | "bilingualEvaluation"
   | "comprehensionLevel"
   | "writtenLevel"
   | "verbalLevel"
@@ -10,15 +9,20 @@ export type PartialUser = Pick<
   | "lookingForEnglish"
   | "lookingForFrench"
   | "lookingForBilingual"
+  | "firstOfficialLanguage"
+  | "secondLanguageExamCompleted"
+  | "secondLanguageExamValidity"
 >;
 
 export type FormValues = Pick<
   User,
-  | "bilingualEvaluation"
   | "comprehensionLevel"
   | "writtenLevel"
   | "verbalLevel"
   | "estimatedLanguageAbility"
+  | "firstOfficialLanguage"
+  | "secondLanguageExamCompleted"
 > & {
   consideredPositionLanguages: string[];
+  secondLanguageExamValidity?: "currently_valid" | "expired" | null;
 };
