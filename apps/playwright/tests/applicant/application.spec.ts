@@ -334,7 +334,7 @@ test.afterAll(() => {
   codecov.handleInput.upload({
     options: {
       file: "coverage/lcov.info",
-      token: "your-codecov-token",
+      token: process.env.CODECOV_TOKEN,
     },
   });
 });
