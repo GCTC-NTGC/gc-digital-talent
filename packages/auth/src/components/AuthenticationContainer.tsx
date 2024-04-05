@@ -10,6 +10,8 @@ import {
   REFRESH_TOKEN,
   ID_TOKEN,
   POST_LOGOUT_OVERRIDE_PATH_KEY,
+  LogoutReason,
+  LOGOUT_REASON_KEY,
 } from "../const";
 import useLogoutChannel from "../hooks/useLogoutChannel";
 
@@ -36,16 +38,26 @@ interface TokenSet {
 export const AuthenticationContext =
   React.createContext<AuthenticationState>(defaultAuthState);
 
-const logoutAndRefreshPage = (
+type logoutAndRefreshPageParameters = {
   // the "end session" URI of the auth provider
-  logoutUri: string,
+  logoutUri: string;
   // the logout landing page of our app (whitelisted)
-  postLogoutRedirectUri: string,
+  postLogoutRedirectUri: string;
   // if we want to go to another path else after logout
-  postLogoutOverridePath?: string,
+  postLogoutOverridePath?: string;
   // a function to broadcast the logout event to other tabs
-  broadcastLogoutMessage?: () => void,
-): void => {
+  broadcastLogoutMessage?: () => void;
+  // the reason for the logout
+  logoutReason: LogoutReason;
+};
+
+const logoutAndRefreshPage = ({
+  logoutUri,
+  postLogoutRedirectUri,
+  postLogoutOverridePath,
+  broadcastLogoutMessage,
+  logoutReason,
+}: logoutAndRefreshPageParameters): void => {
   defaultLogger.notice("Logging out and refreshing the page");
   // capture tokens before they are removed
   const accessToken = localStorage.getItem(ACCESS_TOKEN);
@@ -70,6 +82,12 @@ const logoutAndRefreshPage = (
     }
   }
 
+  if (logoutReason) {
+    localStorage.setItem(LOGOUT_REASON_KEY, logoutReason);
+  } else {
+    localStorage.removeItem(LOGOUT_REASON_KEY);
+  }
+
   let authSessionIsCurrentlyActive = false; // assume false unless we can prove it below
 
   if (accessToken) {
@@ -83,7 +101,7 @@ const logoutAndRefreshPage = (
   broadcastLogoutMessage?.();
   if (idToken && authSessionIsCurrentlyActive) {
     // SiC logout will error out unless there is actually an active session
-    window.location.href = `${logoutUri}?post_logout_redirect_uri=${postLogoutRedirectUri}&id_token_hint=${idToken}`;
+    window.location.href = `${logoutUri}?post_logout_redirect_uri=${encodeURIComponent(postLogoutRedirectUri)}&id_token_hint=${idToken}`;
   } else {
     // at least a hard refresh to URI to restart react app
     window.location.href = postLogoutRedirectUri;
@@ -140,6 +158,8 @@ const AuthenticationContainer = ({
     if (newTokens?.idToken) {
       localStorage.setItem(ID_TOKEN, newTokens.idToken);
     }
+    // also clear the last logout reason
+    localStorage.removeItem(LOGOUT_REASON_KEY);
   }
 
   // Logout if the access token is removed in another way other than
@@ -170,13 +190,14 @@ const AuthenticationContainer = ({
     return {
       loggedIn: !!localStorage.getItem(ACCESS_TOKEN),
       logout: localStorage.getItem(ACCESS_TOKEN)
-        ? (postPostLogoutRedirectPath) =>
-            logoutAndRefreshPage(
+        ? (postLogoutOverridePath) =>
+            logoutAndRefreshPage({
               logoutUri,
               postLogoutRedirectUri,
-              postPostLogoutRedirectPath,
+              postLogoutOverridePath,
               broadcastLogoutMessage,
-            )
+              logoutReason: "user-action",
+            })
         : () => {
             /* If not logged in, logout does nothing. */
           },
@@ -216,7 +237,11 @@ const AuthenticationContainer = ({
           }
         } else {
           logger.notice("Failed to refresh auth state.");
-          logoutAndRefreshPage(logoutUri, postLogoutRedirectUri);
+          logoutAndRefreshPage({
+            logoutUri,
+            postLogoutRedirectUri,
+            logoutReason: "session-expired",
+          });
         }
       },
     };

@@ -13,6 +13,7 @@ import { useIntl } from "react-intl";
 
 import {
   ACCESS_TOKEN,
+  LOGOUT_REASON_KEY,
   REFRESH_TOKEN,
   useAuthentication,
 } from "@gc-digital-talent/auth";
@@ -20,6 +21,7 @@ import { useLogger } from "@gc-digital-talent/logger";
 import { toast } from "@gc-digital-talent/toast";
 import { uniqueItems } from "@gc-digital-talent/helpers";
 import { getLocale } from "@gc-digital-talent/i18n";
+import type { LogoutReason } from "@gc-digital-talent/auth";
 
 import {
   buildValidationErrorMessageNode,
@@ -83,6 +85,8 @@ const ClientProvider = ({
 
               const isAuthError = containsAuthenticationError(error);
               if (isAuthError) {
+                const logoutReason: LogoutReason = "session-expired";
+                localStorage.setItem(LOGOUT_REASON_KEY, logoutReason);
                 authRef.current.logout(`/${locale}/logged-out`);
               }
 
