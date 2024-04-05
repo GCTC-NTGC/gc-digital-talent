@@ -1,15 +1,8 @@
 import React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
-import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
 
-import {
-  TableOfContents,
-  ThrowNotFound,
-  Pending,
-  Link,
-  Heading,
-} from "@gc-digital-talent/ui";
+import { TableOfContents, ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { User, graphql } from "@gc-digital-talent/graphql";
 
@@ -183,13 +176,6 @@ export const ProfileForm = ({ user }: ProfilePageProps) => {
                   {intl.formatMessage(getSectionTitle("language"))}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
-              <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink
-                  id={PAGE_SECTION_ID.ACCOUNT_AND_PRIVACY}
-                >
-                  {intl.formatMessage(getSectionTitle("account"))}
-                </TableOfContents.AnchorLink>
-              </TableOfContents.ListItem>
             </TableOfContents.List>
           </TableOfContents.Navigation>
           <TableOfContents.Content data-h2-padding-top="base(x3)">
@@ -219,33 +205,6 @@ export const ProfileForm = ({ user }: ProfilePageProps) => {
               data-h2-padding-top="base(x3)"
             >
               <LanguageProfile {...sectionProps} />
-            </TableOfContents.Section>
-            <TableOfContents.Section
-              id={PAGE_SECTION_ID.ACCOUNT_AND_PRIVACY}
-              data-h2-padding-top="base(x3)"
-            >
-              <Heading
-                data-h2-margin="base(0)"
-                data-h2-padding-bottom="base(x1)"
-                Icon={LockClosedIcon}
-                color="secondary"
-                level={sectionProps.pool ? "h3" : "h2"}
-                size={sectionProps.pool ? "h4" : "h3"}
-              >
-                {intl.formatMessage(getSectionTitle("account"))}
-              </Heading>
-              <Link
-                href={paths.accountSettings()}
-                mode="solid"
-                color="secondary"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Applicant settings",
-                  id: "N+KoUX",
-                  description:
-                    "Link text for visiting the applicant settings page",
-                })}
-              </Link>
             </TableOfContents.Section>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
