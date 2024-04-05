@@ -101,6 +101,7 @@ type Mutation {
   togglePoolCandidateBookmark(id: ID!): Boolean
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
   deletePoolCandidate(id: ID!): PoolCandidate
+  placeCandidate(id: UUID!, placeCandidate: PlaceCandidateInput!): PoolCandidate
   createClassification(classification: CreateClassificationInput!): Classification
   updateClassification(id: ID!, classification: UpdateClassificationInput!): Classification
   deleteClassification(id: ID!): Classification
@@ -971,6 +972,11 @@ input UpdateClassificationInput {
 input UpdatePoolCandidateStatusInput {
   expiryDate: Date
   status: PoolCandidateStatus
+}
+
+input PlaceCandidateInput {
+  placementType: PlacementType!
+  departmentId: UUID!
 }
 
 input CreateDepartmentInput {
