@@ -2485,8 +2485,8 @@
       {
         "category": "TECHNICAL",
         "description": {
-          "en": "Demonstrated ability to work with database systems such as Oracle, MySQL, MariaDB or PostgreSQL.",
-          "fr": "Capacité démontrée à travailler avec des systèmes de base de données tels qu’Oracle, MySQL, MariaDB ou PostgreSQL."
+          "en": "Demonstrated ability to work with database systems such as Oracle, MySQL, MariaDB or PstgreSQL.",
+          "fr": "Capacité démontrée à travailler avec des systèmes de base de données tels qu’Oracle, MySQL, MariaDB ou PstgreSQL."
         },
         "families": [
           {
@@ -6134,7 +6134,7 @@
             "Positivity"
           ],
           "fr": [
-            "Attitude gagnante",
+            "Attitude gagnate",
             "Bonne attitude",
             "Optimiste",
             "Positivité"
