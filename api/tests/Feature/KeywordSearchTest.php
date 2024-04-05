@@ -483,4 +483,73 @@ class KeywordSearchTest extends TestCase
                     ],
                 ]]);
     }
+
+    // Test user can be partial matched by name or email by scopes added into generalSearch function
+    public function testUserSearchPartialMatchingNameEmail()
+    {
+        $user1 = User::factory()->create([
+            'first_name' => 'john',
+            'last_name' => 'smith',
+            'email' => 'john@test.com',
+            'current_city' => 'abc',
+        ]);
+        $user2 = User::factory()->create([
+            'first_name' => 'bob',
+            'last_name' => 'johnson',
+            'email' => 'bob@test.com',
+            'current_city' => 'efg',
+        ]);
+        $user3 = User::factory()->create([
+            'first_name' => 'jones',
+            'last_name' => 'hall',
+            'email' => 'johnson@test.com',
+            'current_city' => 'hij',
+        ]);
+
+        // "john" matches three users due to names and emails
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+            query getUsersPaginated($where: UserFilterInput) {
+                usersPaginated(where: $where) {
+                    data {
+                        id
+                    }
+                }
+            }
+        ', [
+                'where' => [
+                    'generalSearch' => ['john'],
+                ],
+            ])->assertJsonCount(
+                3, 'data.usersPaginated.data'
+            )->assertJsonFragment([
+                'id' => $user1->id,
+            ])->assertJsonFragment([
+                'id' => $user2->id,
+            ])->assertJsonFragment([
+                'id' => $user3->id,
+            ]);
+
+        // city "abc" OR "hal" matches two
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+            query getUsersPaginated($where: UserFilterInput) {
+                usersPaginated(where: $where) {
+                    data {
+                        id
+                    }
+                }
+            }
+        ', [
+                'where' => [
+                    'generalSearch' => ['abc OR hal'],
+                ],
+            ])->assertJsonFragment([
+                'id' => $user1->id,
+            ])->assertJsonFragment([
+                'id' => $user3->id,
+            ])->assertJsonCount(2, 'data.usersPaginated.data');
+    }
 }
