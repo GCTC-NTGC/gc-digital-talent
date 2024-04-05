@@ -43,6 +43,12 @@ import {
   SCREENING_QUESTIONS_TEXT_AREA_FR_MAX_WORDS,
   SCREENING_QUESTIONS_TEXT_AREA_ROWS,
 } from "../constants";
+import { poolSkillToOption } from "../utils";
+
+type AssessedSkillsItems = {
+  essentialSkillItems: CheckboxOption[];
+  assetSkills: CheckboxOption[];
+};
 
 const AssessmentDetailsDialog_CreateMutation = graphql(/* GraphQL */ `
   mutation createAssessmentStep(
@@ -364,27 +370,13 @@ const AssessmentDetailsDialog = ({
   const canAddScreeningQuestions =
     fields.length < SCREENING_QUESTIONS_MAX_QUESTIONS;
 
-  const assessedSkillsItems: {
-    essentialSkillItems: CheckboxOption[];
-    assetSkills: CheckboxOption[];
-  } = allPoolSkills.reduce(
-    (
-      assessedSkills: {
-        essentialSkillItems: CheckboxOption[];
-        assetSkills: CheckboxOption[];
-      },
-      poolSkill,
-    ) => {
+  const assessedSkillsItems: AssessedSkillsItems = allPoolSkills.reduce(
+    (assessedSkills: AssessedSkillsItems, poolSkill: PoolSkill) => {
       if (poolSkill.type === PoolSkillType.Essential) {
         return {
           essentialSkillItems: [
             ...assessedSkills.essentialSkillItems,
-            {
-              value: poolSkill.id,
-              label: poolSkill?.skill?.name
-                ? getLocalizedName(poolSkill.skill.name, intl)
-                : intl.formatMessage(commonMessages.nameNotLoaded),
-            },
+            poolSkillToOption(poolSkill, intl),
           ],
           assetSkills: assessedSkills.assetSkills,
         };
@@ -394,12 +386,7 @@ const AssessmentDetailsDialog = ({
         return {
           assetSkills: [
             ...assessedSkills.assetSkills,
-            {
-              value: poolSkill.id,
-              label: poolSkill?.skill?.name
-                ? getLocalizedName(poolSkill.skill.name, intl)
-                : intl.formatMessage(commonMessages.nameNotLoaded),
-            },
+            poolSkillToOption(poolSkill, intl),
           ],
           essentialSkillItems: assessedSkills.essentialSkillItems,
         };
