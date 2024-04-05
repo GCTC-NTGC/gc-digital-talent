@@ -125,8 +125,13 @@ const CheckboxItem = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.CheckboxItem>
 >((props, forwardedRef) => (
   <DropdownMenuPrimitive.CheckboxItem
-    {...itemStyleProps}
     ref={forwardedRef}
+    {...{
+      ...getBaseStyle({ mode: "inline" }),
+      ...getFontColor({ mode: "inline", color: "secondary" }),
+      ...getBackgroundColor({ mode: "inline", color: "secondary" }),
+    }}
+    {...itemStyleProps}
     {...props}
   />
 ));
@@ -136,8 +141,13 @@ const RadioItem = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.RadioItem>
 >((props, forwardedRef) => (
   <DropdownMenuPrimitive.RadioItem
-    {...itemStyleProps}
     ref={forwardedRef}
+    {...{
+      ...getBaseStyle({ mode: "inline" }),
+      ...getFontColor({ mode: "inline", color: "secondary" }),
+      ...getBackgroundColor({ mode: "inline", color: "secondary" }),
+    }}
+    {...itemStyleProps}
     {...props}
   />
 ));
