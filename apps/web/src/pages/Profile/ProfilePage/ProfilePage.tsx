@@ -235,7 +235,7 @@ export const ProfileForm = ({ user }: ProfilePageProps) => {
                 {intl.formatMessage(getSectionTitle("account"))}
               </Heading>
               <Link
-                href={paths.applicantSettings()}
+                href={paths.accountSettings()}
                 mode="solid"
                 color="secondary"
               >
