@@ -2022,6 +2022,13 @@ enum PoolCandidateStatus {
   REMOVED
 }
 
+enum PlacementType {
+  PLACED_TENTATIVE
+  PLACED_CASUAL
+  PLACED_TERM
+  PLACED_INDETERMINATE
+}
+
 enum SecurityStatus {
   RELIABILITY
   SECRET
