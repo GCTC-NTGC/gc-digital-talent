@@ -1691,6 +1691,10 @@ type Mutation {
     @guard
     @canFind(ability: "updateStatus", find: "id", injectArgs: true)
     @validator(class: "App\\GraphQL\\Validators\\PlaceCandidateValidator")
+  revertPlaceCandidate(id: UUID!): PoolCandidate
+    @guard
+    @canFind(ability: "updateStatus", find: "id", injectArgs: true)
+    @validator(class: "App\\GraphQL\\Validators\\RevertPlaceCandidateValidator")
 
   createClassification(
     classification: CreateClassificationInput! @spread

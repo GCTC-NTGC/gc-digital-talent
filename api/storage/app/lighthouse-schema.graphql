@@ -102,6 +102,7 @@ type Mutation {
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
   deletePoolCandidate(id: ID!): PoolCandidate
   placeCandidate(id: UUID!, placeCandidate: PlaceCandidateInput!): PoolCandidate
+  revertPlaceCandidate(id: UUID!): PoolCandidate
   createClassification(classification: CreateClassificationInput!): Classification
   updateClassification(id: ID!, classification: UpdateClassificationInput!): Classification
   deleteClassification(id: ID!): Classification
