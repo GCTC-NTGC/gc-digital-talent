@@ -4,7 +4,7 @@ import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { Locales, useLocale } from "@gc-digital-talent/i18n";
 import {
   RequireAuth,
-  POST_LOGOUT_URI_KEY,
+  POST_LOGOUT_OVERRIDE_PATH_KEY,
   ROLE_NAME,
 } from "@gc-digital-talent/auth";
 import { Loading } from "@gc-digital-talent/ui";
@@ -859,15 +859,17 @@ const createRoute = (
             {
               path: "logged-out",
               loader: async () => {
-                const redirectUri = sessionStorage.getItem(POST_LOGOUT_URI_KEY);
-                if (redirectUri) {
-                  sessionStorage.removeItem(POST_LOGOUT_URI_KEY);
-                  if (redirectUri.startsWith("/")) {
-                    window.location.href = redirectUri; // do a hard redirect here because redirectUri may exist in another router entrypoint (eg admin)
+                const overridePath = sessionStorage.getItem(
+                  POST_LOGOUT_OVERRIDE_PATH_KEY,
+                );
+                if (overridePath) {
+                  sessionStorage.removeItem(POST_LOGOUT_OVERRIDE_PATH_KEY);
+                  if (overridePath.startsWith("/")) {
+                    window.location.href = overridePath; // do a hard redirect here because redirectUri may exist in another router entrypoint (eg admin)
                     return null;
                   }
                   defaultLogger.warning(
-                    `Retrieved an unsafe uri from POST_LOGOUT_URI: ${redirectUri}`,
+                    `Retrieved an unsafe uri from POST_LOGOUT_URI: ${overridePath}`,
                   );
                 }
                 return null;

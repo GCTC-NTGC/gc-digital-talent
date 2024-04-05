@@ -9,7 +9,7 @@ import {
   ACCESS_TOKEN,
   REFRESH_TOKEN,
   ID_TOKEN,
-  POST_LOGOUT_URI_KEY,
+  POST_LOGOUT_OVERRIDE_PATH_KEY,
 } from "../const";
 import useLogoutChannel from "../hooks/useLogoutChannel";
 
@@ -37,9 +37,13 @@ export const AuthenticationContext =
   React.createContext<AuthenticationState>(defaultAuthState);
 
 const logoutAndRefreshPage = (
+  // the "end session" URI of the auth provider
   logoutUri: string,
-  logoutRedirectUri: string,
-  postLogoutUri?: string,
+  // the logout landing page of our app (whitelisted)
+  postLogoutRedirectUri: string,
+  // if we want to go to another path else after logout
+  postLogoutOverridePath?: string,
+  // a function to broadcast the logout event to other tabs
   broadcastLogoutMessage?: () => void,
 ): void => {
   defaultLogger.notice("Logging out and refreshing the page");
@@ -52,13 +56,17 @@ const logoutAndRefreshPage = (
   localStorage.removeItem(REFRESH_TOKEN);
   localStorage.removeItem(ID_TOKEN);
 
-  if (postLogoutUri) {
-    if (!postLogoutUri.startsWith("/")) {
+  if (postLogoutOverridePath) {
+    if (!postLogoutOverridePath.startsWith("/")) {
       defaultLogger.warning(
-        `Tried to set an unsafe uri as postLogoutUri: ${postLogoutUri}`,
+        `Tried to set an unsafe uri as postLogoutOverridePath: ${postLogoutOverridePath}`,
       );
     } else {
-      sessionStorage.setItem(POST_LOGOUT_URI_KEY, postLogoutUri);
+      // this gets pulled out out in the router before loading the logout landing page
+      sessionStorage.setItem(
+        POST_LOGOUT_OVERRIDE_PATH_KEY,
+        postLogoutOverridePath,
+      );
     }
   }
 
@@ -75,10 +83,10 @@ const logoutAndRefreshPage = (
   broadcastLogoutMessage?.();
   if (idToken && authSessionIsCurrentlyActive) {
     // SiC logout will error out unless there is actually an active session
-    window.location.href = `${logoutUri}?post_logout_redirect_uri=${logoutRedirectUri}&id_token_hint=${idToken}`;
+    window.location.href = `${logoutUri}?post_logout_redirect_uri=${postLogoutRedirectUri}&id_token_hint=${idToken}`;
   } else {
     // at least a hard refresh to URI to restart react app
-    window.location.href = logoutRedirectUri;
+    window.location.href = postLogoutRedirectUri;
   }
 };
 
@@ -104,20 +112,20 @@ function clearQueryParams() {
 interface AuthenticationContainerProps {
   tokenRefreshPath: string;
   logoutUri: string;
-  logoutRedirectUri: string;
+  postLogoutRedirectUri: string;
   children?: React.ReactNode;
 }
 
 const AuthenticationContainer = ({
   tokenRefreshPath,
   logoutUri,
-  logoutRedirectUri,
+  postLogoutRedirectUri,
   children,
 }: AuthenticationContainerProps) => {
   const logger = useLogger();
   const { broadcastLogoutMessage } = useLogoutChannel(() => {
     if (!localStorage.getItem(ACCESS_TOKEN)) {
-      window.location.href = logoutRedirectUri;
+      window.location.href = postLogoutRedirectUri;
     }
   });
 
@@ -139,7 +147,7 @@ const AuthenticationContainer = ({
   useEffect(() => {
     const logoutOnAccessTokenRemoved = (event: StorageEvent) => {
       if (event.key === ACCESS_TOKEN && event.newValue === null) {
-        window.location.href = logoutRedirectUri;
+        window.location.href = postLogoutRedirectUri;
       }
     };
 
@@ -162,11 +170,11 @@ const AuthenticationContainer = ({
     return {
       loggedIn: !!localStorage.getItem(ACCESS_TOKEN),
       logout: localStorage.getItem(ACCESS_TOKEN)
-        ? (postLogoutUri) =>
+        ? (postPostLogoutRedirectPath) =>
             logoutAndRefreshPage(
               logoutUri,
-              logoutRedirectUri,
-              postLogoutUri,
+              postLogoutRedirectUri,
+              postPostLogoutRedirectPath,
               broadcastLogoutMessage,
             )
         : () => {
@@ -208,13 +216,13 @@ const AuthenticationContainer = ({
           }
         } else {
           logger.notice("Failed to refresh auth state.");
-          logoutAndRefreshPage(logoutUri, logoutRedirectUri);
+          logoutAndRefreshPage(logoutUri, postLogoutRedirectUri);
         }
       },
     };
   }, [
     logoutUri,
-    logoutRedirectUri,
+    postLogoutRedirectUri,
     broadcastLogoutMessage,
     tokenRefreshPath,
     logger,
