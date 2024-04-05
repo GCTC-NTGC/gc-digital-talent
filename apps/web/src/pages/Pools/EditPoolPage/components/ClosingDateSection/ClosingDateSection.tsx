@@ -16,7 +16,10 @@ import { PoolStatus, Pool, UpdatePoolInput } from "@gc-digital-talent/graphql";
 
 import useDeepCompareEffect from "~/hooks/useDeepCompareEffect";
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
-import { hasEmptyRequiredFields } from "~/validators/process/closingDate";
+import {
+  hasEmptyRequiredFields,
+  hasInvalidRequiredFields,
+} from "~/validators/process/closingDate";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 
@@ -45,10 +48,11 @@ const ClosingDateSection = ({
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
   const emptyRequired = hasEmptyRequiredFields(pool);
+  const invalidRequired = hasInvalidRequiredFields(pool);
   const { isSubmitting } = useEditPoolContext();
   const { isEditing, setIsEditing, icon } = useToggleSectionInfo({
     isNull: emptyRequired, // Only one field
-    emptyRequired,
+    emptyRequired: invalidRequired,
     fallbackIcon: CalendarIcon,
   });
 

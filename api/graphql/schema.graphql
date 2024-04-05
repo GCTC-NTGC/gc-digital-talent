@@ -222,6 +222,7 @@ type Pool {
     @hasMany
     @orderBy(column: "sort_order", direction: ASC)
   closingDate: DateTime @rename(attribute: "closing_date")
+  closingReason: String @rename(attribute: "closing_reason")
   publishedAt: DateTime @rename(attribute: "published_at")
   archivedAt: DateTime @rename(attribute: "archived_at")
   isComplete: Boolean
@@ -1414,6 +1415,7 @@ input UpdatePoolInput {
       apply: ["after:today"]
       messages: [{ rule: "after", message: "UpdatePoolClosingDate" }]
     )
+  closingReason: String @rename(attribute: "closing_reason")
   # Your impact
   yourImpact: LocalizedStringInput @rename(attribute: "your_impact")
   # Work Tasks
@@ -1833,16 +1835,18 @@ type Mutation {
     @guard
     @canFind(ability: "delete", find: "id", model: "PoolSkill")
   publishPool(id: ID!): Pool @guard @canFind(ability: "publish", find: "id")
-  changePoolClosingDate(
+  changePoolClosingDate(id: ID!, closingDate: DateTime!): Pool
+    @guard
+    @canFind(ability: "changePoolClosingDate", find: "id")
+    @validator(
+      class: "App\\GraphQL\\Validators\\ChangePoolClosingDateValidator"
+    )
+  closePool(
     id: ID!
-    newClosingDate: DateTime!
-      @rename(attribute: "new_closing_date")
-      @rules(
-        apply: ["after:today"]
-        messages: [{ rule: "after", message: "UpdatePoolClosingDate" }]
-      )
-  ): Pool @guard @canFind(ability: "changePoolClosingDate", find: "id")
-  closePool(id: ID!): Pool @guard @canFind(ability: "closePool", find: "id")
+    reason: String!
+      @rename(attribute: "closing_reason")
+      @rules(apply: ["required"])
+  ): Pool @guard @canFind(ability: "closePool", find: "id")
   deletePool(id: ID! @whereKey): Pool
     @forceDelete(model: "Pool")
     @guard

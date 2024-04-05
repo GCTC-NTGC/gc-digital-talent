@@ -931,6 +931,10 @@
     "defaultMessage": "Création de la classification réussie!",
     "description": "Message displayed to user after classification is created successfully."
   },
+  "3GLqD1": {
+    "defaultMessage": "Fermer le processus immédiatement",
+    "description": "Submit button text to close a process"
+  },
   "3GOVZI": {
     "defaultMessage": "Développez des connaissances sur les données",
     "description": "Heading for the direct on digital talent section"
@@ -1771,6 +1775,10 @@
     "defaultMessage": "Nous vous encourageons à tenir votre profil à jour, car c’est sa version actualisée qui servira lors des étapes à venir du processus d’embauche.",
     "description": "List item note 3 for the application review page."
   },
+  "8EPVUp": {
+    "defaultMessage": "N’oubliez pas d’informer tout candidat qui a déjà postulé pour un poste dans le cadre de ce processus.",
+    "description": "Warning message for closing the process early"
+  },
   "8EbhWx": {
     "defaultMessage": "Raison pour la recherche de talent",
     "description": "Form header for filling in the reason why the user is submitting the request."
@@ -2135,10 +2143,6 @@
     "defaultMessage": "Nom du propriétaire",
     "description": "Title displayed for the Pool table Owner Name column"
   },
-  "Aaas0w": {
-    "defaultMessage": "L’heure de clôture sera automatiquement fixée à 23 h 59 dans le fuseau horaire du Pacifique.",
-    "description": "Helper message for changing the pool closing date"
-  },
   "AbU5rL": {
     "defaultMessage": "Travail posté",
     "description": "Shift work personnel other requirement"
@@ -2290,10 +2294,6 @@
   "BNEY8G": {
     "defaultMessage": "Date d'expiration",
     "description": "CSV Header, Expiry Date column"
-  },
-  "BQsJSG": {
-    "defaultMessage": "Saisissez une nouvelle date de clôture :",
-    "description": "First paragraph for extend pool closing date dialog"
   },
   "BRpssM": {
     "defaultMessage": "Ces ressources fournissent un aperçu des exigences de la Directive sur les talents numériques. La présentation de la séance de formation et l'arbre décisionnel sur les exigences en matière d'établissement de rapports contiennent des renseignements applicables à tous les groupes d’utilisateurs.",
@@ -2735,10 +2735,6 @@
     "defaultMessage": "Erreur : l’étape de la sauvegarde de l’évaluation a échoué.",
     "description": "Message displayed to user after assessment step fails to be saved."
   },
-  "DpzAPD": {
-    "defaultMessage": "Vous êtes sur le point de prolonger la date de clôture de ce processus : {poolName}",
-    "description": "Text to confirm the process to be extend"
-  },
   "DqM+mu": {
     "defaultMessage": "Erreur : Le désarchivage du processus a échoué",
     "description": "Message displayed to user after pool fails to get un-archived."
@@ -2947,10 +2943,6 @@
     "defaultMessage": "Modifier les options de votre lieu de travail.",
     "description": "Link text to edit work location on profile"
   },
-  "F3Ma0i": {
-    "defaultMessage": "Prolonger la date de clôture",
-    "description": "Title to extend a process"
-  },
   "F4RHJu": {
     "defaultMessage": "Il manque des renseignements obligatoires sur la langue",
     "description": "Error message displayed when a users language information is incomplete"
@@ -3158,6 +3150,10 @@
   "G65IrS": {
     "defaultMessage": "Recrutement",
     "description": "The menu category for recruitment items"
+  },
+  "G6V8wJ": {
+    "defaultMessage": "Type de changement de date",
+    "description": "Legend for the radio group to select whether to extend a date or set to now"
   },
   "G7ICNn": {
     "defaultMessage": "Vous êtes sur le point de reproduire ce processus : {poolName}",
@@ -3498,6 +3494,10 @@
   "ISSs88": {
     "defaultMessage": "Supprimer le signet de {candidateName} du haut de la colonne.",
     "description": "Un-bookmark button label for applicant assessment tracking."
+  },
+  "ISuyAo": {
+    "defaultMessage": "Avertissement!",
+    "description": "Title for a warning message"
   },
   "IT6Djp": {
     "defaultMessage": "Les conditions d’emploi sélectionnées seront comparées à celles choisies par les candidats dans leur demande.",
@@ -4358,6 +4358,10 @@
   "NT3jrI": {
     "defaultMessage": "Ce champ accepte une liste de virgules séparées par des mots-clés séparés associés à la compétence.",
     "description": "Additional context describing the purpose of the skills 'keyword' field."
+  },
+  "NTwwfL": {
+    "defaultMessage": "Prolonger la date de clôture",
+    "description": "Option to extend the pool closing date"
   },
   "NUjAy0": {
     "defaultMessage": "Dupliquer le processus",
@@ -5238,6 +5242,10 @@
   "SQJgGP": {
     "defaultMessage": "Votre information sur l’annonce et votre plan d'évaluation sont complets.",
     "description": "Lead-in text on a complete process, ready for publishing"
+  },
+  "SQRzSl": {
+    "defaultMessage": "Raison de la clôture",
+    "description": "Label for the reason for closing the pool"
   },
   "SSZY5w": {
     "defaultMessage": "Sélectionner, organiser et définir les évaluations ayant été utilisées pour évaluer chaque compétence de l’offre d’emploi. Veillez à ce que chaque compétence soit évaluée au moins une fois pour compléter votre plan d’évaluation.",
@@ -6261,6 +6269,10 @@
   "Y0WLp5": {
     "defaultMessage": "Sélectionnez un groupe des publications",
     "description": "Placeholder for publishing group field"
+  },
+  "Y1zzqe": {
+    "defaultMessage": "Cette liste de compétences est en cours d’élaboration. De nouvelles compétences sont ajoutées de façon continue.",
+    "description": "Message for skills page"
   },
   "Y2PPGY": {
     "defaultMessage": "Imprimer le profil sans les coordonnées",
@@ -7313,6 +7325,10 @@
   "dkYHTv": {
     "defaultMessage": "Choisissez l’expérience que vous souhaitez ajouter",
     "description": "Heading for the experience selection"
+  },
+  "dkiKpU": {
+    "defaultMessage": "Modifier la date de clôture",
+    "description": "Title to change the closing date of a process"
   },
   "dlRmxI": {
     "defaultMessage": "Les gestionnaires peuvent demander à consulter des candidats selon leur groupe d’équité en matière d’emploi afin de traiter de certaines lacunes actuelles ou futures par rapport à leur représentation dans le cadre des effectifs. Les catégories reflètent les données sur l’équité en matière d’emploi telles qu’elles sont définies par la Loi sur l’emploi dans la fonction publique, et qui sont recueillies par l’entremise du processus de dotation de la Commission de la fonction publique (CFP). À des fins d’uniformité, la présente plateforme reflète la terminologie de la CFP par rapport aux catégories.",
@@ -9214,6 +9230,10 @@
     "defaultMessage": "Nom :",
     "description": "Display text for the name field on users"
   },
+  "nqNCB/": {
+    "defaultMessage": "Veuillez indiquer la raison de la clôture hâtive de ce processus.",
+    "description": "Helper message for closing the process early"
+  },
   "nrJ4qt": {
     "defaultMessage": " Télécharger l’arbre de décision sur les exigences en matière de rapport (PDF)",
     "description": "Button text to download reporting requirements decision tree pdf."
@@ -9497,6 +9517,10 @@
   "pWoAv0": {
     "defaultMessage": "Le Programme d’apprentissage en TI pour les personnes autochtones est une initiative du gouvernement du Canada visant particulièrement les Premières Nations, les Inuits et les Métis. C’est un chemin vers un emploi dans la fonction publique fédérale pour les personnes autochtones qui ont une passion pour la technologie de l’information (TI).",
     "description": "First paragraph about the program"
+  },
+  "pXiwEH": {
+    "defaultMessage": "Fermer immédiatement",
+    "description": "Option to close the pool"
   },
   "pYXeXV": {
     "defaultMessage": "Avant de supprimer la compétence, veuillez lire attentivement ce qui suit.",
@@ -10037,6 +10061,10 @@
   "t2Q+IG": {
     "defaultMessage": "Retourner au Français",
     "description": "Button text for returning to default language from Indigenous language"
+  },
+  "t4+h/N": {
+    "defaultMessage": "Vous êtes sur le point de modifier la date de clôture de ce processus : <strong>{poolName}</strong>",
+    "description": "Text to confirm the process to be extend"
   },
   "t5G3Fz": {
     "defaultMessage": "Intermédiaire <gray>– J'ai des compétences robustes en lecture, écriture et communication verbale.</gray>",
