@@ -215,7 +215,7 @@ class PoolCandidateUpdateTest extends TestCase
             'id' => $this->poolCandidate->id,
             'application' => [
                 'educationRequirementOption' => EducationRequirementOption::EDUCATION->name,
-                'educationRequirementEducationExperiences' => [
+                'educationRequirementExperiences' => [
                     'sync' => [$educationExperienceIds[0]],
                 ],
             ],
@@ -230,13 +230,9 @@ class PoolCandidateUpdateTest extends TestCase
             'id' => $this->poolCandidate->id,
             'application' => [
                 'educationRequirementOption' => EducationRequirementOption::APPLIED_WORK->name,
-                'educationRequirementCommunityExperiences' => [
+                'educationRequirementExperiences' => [
                     'sync' => $communityExperienceIds,
                 ],
-                'educationRequirementAwardExperiences' => ['sync' => []],
-                'educationRequirementEducationExperiences' => ['sync' => []],
-                'educationRequirementPersonalExperiences' => ['sync' => []],
-                'educationRequirementWorkExperiences' => ['sync' => []],
             ],
         ]);
         $response->assertJsonFragment(['educationRequirementOption' => EducationRequirementOption::APPLIED_WORK->name]);

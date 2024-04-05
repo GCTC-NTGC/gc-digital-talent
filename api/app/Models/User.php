@@ -272,16 +272,9 @@ class User extends Model implements Authenticatable, LaratrustUser
         return $this->hasMany(WorkExperience::class);
     }
 
-    public function getExperiencesAttribute()
+    public function experiences(): HasMany
     {
-        $collection = collect();
-        $collection = $collection->merge($this->awardExperiences);
-        $collection = $collection->merge($this->communityExperiences);
-        $collection = $collection->merge($this->educationExperiences);
-        $collection = $collection->merge($this->personalExperiences);
-        $collection = $collection->merge($this->workExperiences);
-
-        return $collection;
+        return $this->hasMany(Experience::class);
     }
 
     // A relationship to the custom roleAssignments pivot model
