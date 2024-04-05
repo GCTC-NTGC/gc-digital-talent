@@ -431,18 +431,7 @@ const AssessmentDetailsDialog = ({
   const missingSkills = allPoolSkills.filter(({ assessmentSteps }) => {
     const steps = unpackMaybes(assessmentSteps);
 
-    // Behavioral skill attached to no assessment steps
     if (steps.length === 0) {
-      return true;
-    }
-
-    // Skill is only attached to Application screening. All technical skills are attached by default.
-    if (
-      steps.length === 1 &&
-      steps?.find(
-        (step) => step?.type === AssessmentStepType.ApplicationScreening,
-      )
-    ) {
       return true;
     }
 
@@ -732,34 +721,34 @@ const AssessmentDetailsDialog = ({
                   ) : null}
                 </div>
                 {assessedSkillsItems.essentialSkillItems.length > 0 && (
-                <Checklist
-                  idPrefix="essentialSkills"
-                  id="essentialSkills"
-                  name="assessedSkills"
-                  legend={intl.formatMessage(labels.essentialSkills)}
-                  items={alphaSortOptions(
-                    assessedSkillsItems.essentialSkillItems,
-                  )}
-                  rules={{
-                    validate: (selectedAssessedSkills: string[]) => {
-                      return selectedAssessedSkills.length > 0;
-                    },
-                  }}
-                />
+                  <Checklist
+                    idPrefix="essentialSkills"
+                    id="essentialSkills"
+                    name="assessedSkills"
+                    legend={intl.formatMessage(labels.essentialSkills)}
+                    items={alphaSortOptions(
+                      assessedSkillsItems.essentialSkillItems,
+                    )}
+                    rules={{
+                      validate: (selectedAssessedSkills: string[]) => {
+                        return selectedAssessedSkills.length > 0;
+                      },
+                    }}
+                  />
                 )}
                 {assessedSkillsItems.assetSkills.length > 0 && (
-                <Checklist
-                  idPrefix="assetSkills"
-                  id="assetSkills"
-                  name="assessedSkills"
-                  legend={intl.formatMessage(labels.assetSkills)}
-                  items={alphaSortOptions(assessedSkillsItems.assetSkills)}
-                  rules={{
-                    validate: (selectedAssessedSkills: string[]) => {
-                      return selectedAssessedSkills.length > 0;
-                    },
-                  }}
-                />
+                  <Checklist
+                    idPrefix="assetSkills"
+                    id="assetSkills"
+                    name="assessedSkills"
+                    legend={intl.formatMessage(labels.assetSkills)}
+                    items={alphaSortOptions(assessedSkillsItems.assetSkills)}
+                    rules={{
+                      validate: (selectedAssessedSkills: string[]) => {
+                        return selectedAssessedSkills.length > 0;
+                      },
+                    }}
+                  />
                 )}
                 {errors.assessedSkills ? (
                   <Field.Error>
