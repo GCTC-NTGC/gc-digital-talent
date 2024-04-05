@@ -146,10 +146,10 @@ const NotificationSettings = ({
   const handleError = () => {
     toast.error(
       intl.formatMessage({
-        defaultMessage: "Error: could not update applicant settings",
-        id: "J1YiBm",
+        defaultMessage: "Error: could not update settings",
+        id: "EG5WpQ",
         description:
-          "Message displayed when an error occurs while updating applicant settings.",
+          "Message displayed when an error occurs while updating notification settings.",
       }),
     );
   };
@@ -163,10 +163,10 @@ const NotificationSettings = ({
         if (result.data?.updateIgnoredNotifications) {
           toast.success(
             intl.formatMessage({
-              defaultMessage: "Updated applicant settings",
-              id: "zV8YQ1",
+              defaultMessage: "Successfully updated settings",
+              id: "ennrdC",
               description:
-                "Message displayed when applicant updated their settings.",
+                "Message displayed when applicant updated their notification settings.",
             }),
           );
         } else {
