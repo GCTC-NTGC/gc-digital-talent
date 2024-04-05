@@ -120,35 +120,47 @@ const Item = React.forwardRef<
   />
 ));
 
+type CheckboxItemProps = React.ComponentPropsWithoutRef<
+  typeof DropdownMenuPrimitive.CheckboxItem
+> & {
+  color?: ButtonProps["color"];
+};
+
 const CheckboxItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.CheckboxItem>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.CheckboxItem>
->((props, forwardedRef) => (
+  CheckboxItemProps
+>(({ color = "primary", ...rest }, forwardedRef) => (
   <DropdownMenuPrimitive.CheckboxItem
     ref={forwardedRef}
     {...{
       ...getBaseStyle({ mode: "inline" }),
-      ...getFontColor({ mode: "inline", color: "secondary" }),
-      ...getBackgroundColor({ mode: "inline", color: "secondary" }),
+      ...getFontColor({ mode: "inline", color }),
+      ...getBackgroundColor({ mode: "inline", color }),
     }}
     {...itemStyleProps}
-    {...props}
+    {...rest}
   />
 ));
 
+type RadioItemProps = React.ComponentPropsWithoutRef<
+  typeof DropdownMenuPrimitive.RadioItem
+> & {
+  color?: ButtonProps["color"];
+};
+
 const RadioItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.RadioItem>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.RadioItem>
->((props, forwardedRef) => (
+  RadioItemProps
+>(({ color = "primary", ...rest }, forwardedRef) => (
   <DropdownMenuPrimitive.RadioItem
     ref={forwardedRef}
     {...{
       ...getBaseStyle({ mode: "inline" }),
-      ...getFontColor({ mode: "inline", color: "secondary" }),
-      ...getBackgroundColor({ mode: "inline", color: "secondary" }),
+      ...getFontColor({ mode: "inline", color }),
+      ...getBackgroundColor({ mode: "inline", color }),
     }}
     {...itemStyleProps}
-    {...props}
+    {...rest}
   />
 ));
 
