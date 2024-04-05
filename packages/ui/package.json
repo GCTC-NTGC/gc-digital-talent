@@ -19,7 +19,7 @@
     "@gc-digital-talent/helpers": "workspace:*",
     "@gc-digital-talent/i18n": "workspace:*",
     "@gc-digital-talent/jest-helpers": "workspace:*",
-    "@heroicons/react": "^2.1.1",
+    "@heroicons/react": "^2.1.3",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-collapsible": "^1.0.3",
@@ -56,7 +56,7 @@
     "@testing-library/user-event": "^14.5.2",
     "@types/jest": "^29.5.12",
     "@types/lodash": "4.17.0",
-    "@types/react": "^18.2.73",
+    "@types/react": "^18.2.74",
     "@types/react-csv": "^1.1.10",
     "@types/react-dom": "^18.2.22",
     "eslint": "^8.57.0",
@@ -65,6 +65,6 @@
     "react-intl": "^6.6.2",
     "react-router-dom": "^6.22.3",
     "tsconfig": "workspace:*",
-    "typescript": "^5.4.2"
+    "typescript": "^5.4.4"
   }
 }

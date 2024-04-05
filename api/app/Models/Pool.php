@@ -40,6 +40,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $process_number
  * @property string $publishing_group
  * @property string $opportunity_length
+ * @property string $closing_reason
  * @property string $team_id
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
@@ -97,6 +98,7 @@ class Pool extends Model
         'publishing_group',
         'process_number',
         'operational_requirements',
+        'closing_reason',
         'archived_at',
     ];
 
@@ -116,6 +118,7 @@ class Pool extends Model
         'special_note',
         'advertisement_language',
         'classification_id',
+        'closing_reason',
     ];
 
     public function getActivitylogOptions(): LogOptions
