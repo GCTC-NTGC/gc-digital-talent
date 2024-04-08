@@ -4295,6 +4295,10 @@
     "defaultMessage": "Ce à quoi vous pouvez vous attendre",
     "description": "Heading for the section about user expectations for their request"
   },
+  "N2/Y9w": {
+    "defaultMessage": "Non réclamé",
+    "description": "Message displayed when candidate has yet to be assessed at a specific assessment step for a skill that is non-essential"
+  },
   "N3uD4m": {
     "defaultMessage": "Mes équipes",
     "description": "Link text for current users teams page"
