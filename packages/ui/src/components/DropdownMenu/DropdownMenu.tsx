@@ -107,7 +107,7 @@ type ItemProps = React.ComponentPropsWithoutRef<
 const Item = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Item>,
   ItemProps
->(({ color = "primary", ...rest }, forwardedRef) => (
+>(({ color = "secondary", ...rest }, forwardedRef) => (
   <DropdownMenuPrimitive.Item
     ref={forwardedRef}
     {...{
@@ -129,7 +129,7 @@ type CheckboxItemProps = React.ComponentPropsWithoutRef<
 const CheckboxItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.CheckboxItem>,
   CheckboxItemProps
->(({ color = "primary", ...rest }, forwardedRef) => (
+>(({ color = "secondary", ...rest }, forwardedRef) => (
   <DropdownMenuPrimitive.CheckboxItem
     ref={forwardedRef}
     {...{
@@ -151,7 +151,7 @@ type RadioItemProps = React.ComponentPropsWithoutRef<
 const RadioItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.RadioItem>,
   RadioItemProps
->(({ color = "primary", ...rest }, forwardedRef) => (
+>(({ color = "secondary", ...rest }, forwardedRef) => (
   <DropdownMenuPrimitive.RadioItem
     ref={forwardedRef}
     {...{
