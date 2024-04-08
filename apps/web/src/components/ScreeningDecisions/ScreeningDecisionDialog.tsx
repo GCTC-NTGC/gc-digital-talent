@@ -396,10 +396,10 @@ export const ScreeningDecisionDialog = ({
           {hasBeenAssessed ? (
             <span>
               {initialValues?.assessmentDecision === "noDecision" ? (
-                <p>{intl.formatMessage(commonMessages.notSure)}</p>
+                <span>{intl.formatMessage(commonMessages.notSure)}</span>
               ) : (
                 <>
-                  <p>
+                  <span>
                     {intl.formatMessage(
                       initialValues?.assessmentDecision
                         ? getTableAssessmentDecision(
@@ -407,10 +407,10 @@ export const ScreeningDecisionDialog = ({
                           )
                         : commonMessages.notFound,
                     )}
-                  </p>
+                  </span>
                   {initialValues?.assessmentDecision ===
                     AssessmentDecision.Successful && !educationRequirement ? (
-                    <p
+                    <span
                       data-h2-color="base(gray.darker)"
                       data-h2-text-decoration="base(none)"
                     >
@@ -421,7 +421,7 @@ export const ScreeningDecisionDialog = ({
                             )
                           : commonMessages.notFound,
                       )}
-                    </p>
+                    </span>
                   ) : null}
                 </>
               )}
