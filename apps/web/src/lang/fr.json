@@ -707,6 +707,10 @@
     "defaultMessage": "Lieu actuel",
     "description": "Title displayed on the Pool Candidates table Current Location column."
   },
+  "1sutYh": {
+    "defaultMessage": "Familles de compétences (anglais)",
+    "description": "Title for skill families in English"
+  },
   "1vVbe3": {
     "defaultMessage": "Minorité visible",
     "description": "CSV Header, Visible Minority column"
@@ -1218,6 +1222,10 @@
   "4sLCWZ": {
     "defaultMessage": "Continuez vers CléGC et connectez-vous",
     "description": "GCKey sign in link text on the sign in page"
+  },
+  "4tIdsX": {
+    "defaultMessage": "Talents numériques du GC - Toutes compétences.csv",
+    "description": "Filename for skills CSV file download"
   },
   "4v9y7U": {
     "defaultMessage": "Statut de citoyenneté",
@@ -2643,6 +2651,10 @@
     "defaultMessage": "Vous n'avez pas encore ajouté de compétences constituant un atout.",
     "description": "Null message title for asset skills table."
   },
+  "DK2tnK": {
+    "defaultMessage": "Description (français)",
+    "description": "Title for description in French."
+  },
   "DK870a": {
     "defaultMessage": "Compte créé avec succès.",
     "description": "Message displayed to user if account is created successfully."
@@ -3002,6 +3014,10 @@
   "FGUGtr": {
     "defaultMessage": "Groupe et niveau",
     "description": "Title displayed for the Pool table Group and Level column."
+  },
+  "FKF8lG": {
+    "defaultMessage": "Catégorie (français)",
+    "description": "Title for category in French"
   },
   "FMJiDY": {
     "defaultMessage": "Sélectionnez la valeur totale du contrat",
@@ -4635,6 +4651,10 @@
     "defaultMessage": "Sélectionnez les filtres",
     "description": "Candidate search filter dialog: title"
   },
+  "PAySDr": {
+    "defaultMessage": "Familles de compétences (français)",
+    "description": "Title for skill families in French"
+  },
   "PB2VIT": {
     "defaultMessage": "Une exigence de la Directive sur les talents numériques.",
     "description": "Subtitle for the _digital services contracting questionnaire_ page"
@@ -6254,6 +6274,10 @@
     "defaultMessage": "À qui s’adresse le recrutement pour les cadres?",
     "description": "Heading for EXposition eligibility"
   },
+  "XovI8x": {
+    "defaultMessage": "Téléchargez toutes compétences (CSV)",
+    "description": "Text label for button to download a csv file of all skills."
+  },
   "XpiMeF": {
     "defaultMessage": "Chercher dans notre base de données de compétences et les associer à votre profil.",
     "description": "Subtitle for the find a skill dialog within the skill library"
@@ -7670,6 +7694,10 @@
     "defaultMessage": "Vous avez déjà une demande dans ce bassin.",
     "description": "Notification when a user attempts to apply to a pool when they already have an application there."
   },
+  "fYe7jv": {
+    "defaultMessage": "Catégorie (anglais)",
+    "description": "Title for category in English"
+  },
   "fYyK2p": {
     "defaultMessage": "Créer une classification",
     "description": "Page title for the classification creation page"
@@ -7777,6 +7805,10 @@
   "g8Xd4a": {
     "defaultMessage": "Lecture",
     "description": "Label displayed on the language information form reading comprehension field."
+  },
+  "gASASB": {
+    "defaultMessage": "Description (anglais)",
+    "description": "Title for description in English."
   },
   "gBAz/G": {
     "defaultMessage": "Identification de la demande copiée",

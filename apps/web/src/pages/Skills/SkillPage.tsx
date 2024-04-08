@@ -57,6 +57,7 @@ export const SkillPage = () => {
         <SkillTableApi
           title={formattedPageTitle}
           paginationState={{ ...INITIAL_STATE.paginationState, pageSize: 20 }}
+          csvDownload
         />
         <Well id="cant-find-a-skill" data-h2-margin-top="base(x3)">
           <Heading

@@ -4,6 +4,7 @@ import {
   Locales,
   commonMessages,
   getIndigenousCommunity,
+  getLocalizedName,
   getOperationalRequirement,
   getSimpleGovEmployeeType,
   getWorkRegion,
@@ -420,4 +421,23 @@ export const getIndigenousCommunities = (
     .map((community) => intl.formatMessage(getIndigenousCommunity(community)));
 
   return communityNames?.join(", ") || "";
+};
+
+/**
+ * Converts possible array of skill families
+ * to a comma separated list or empty string
+ *
+ * @param families  User["acceptedOperationalRequirements"]
+ * @param intl react-intl object
+ * @returns string
+ */
+export const getSkillFamilies = (
+  families: Skill["families"],
+  intl: IntlShape,
+) => {
+  const familyNames = families
+    ?.filter(notEmpty)
+    .map((family) => getLocalizedName(family.name, intl));
+
+  return listOrEmptyString(familyNames);
 };
