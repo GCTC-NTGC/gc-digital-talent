@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\MatchExperienceType;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -24,13 +26,19 @@ class PersonalExperience extends Experience
     use SoftDeletes;
 
     /**
-     * The attributes that should be cast.
+     * The table associated with the model.
      *
-     * @var array
+     * @var string
      */
-    protected $casts = [
-        'start_date' => 'date',
-        'end_date' => 'date',
+    protected $table = 'experiences';
+
+    /**
+     * Default values for attributes
+     *
+     * @var array an array with attribute as key and default as value
+     */
+    protected $attributes = [
+        'experience_type' => PersonalExperience::class,
     ];
 
     public function getTitle(): string
@@ -38,8 +46,43 @@ class PersonalExperience extends Experience
         return $this->title;
     }
 
-    public function getExperienceType(): string
+    /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
     {
-        return 'personal';
+        static::addGlobalScope(new MatchExperienceType);
+    }
+
+    /**
+     * Interact with the experience's title
+     */
+    protected function title(): Attribute
+    {
+        return $this->makeJsonPropertyStringAttribute('title');
+    }
+
+    /**
+     * Interact with the experience's description
+     */
+    protected function description(): Attribute
+    {
+        return $this->makeJsonPropertyStringAttribute('description');
+    }
+
+    /**
+     * Interact with the experience's start date
+     */
+    protected function startDate(): Attribute
+    {
+        return $this->makeJsonPropertyDateAttribute('start_date');
+    }
+
+    /**
+     * Interact with the experience's end date
+     */
+    protected function endDate(): Attribute
+    {
+        return $this->makeJsonPropertyDateAttribute('end_date');
     }
 }

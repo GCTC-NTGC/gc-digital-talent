@@ -368,7 +368,10 @@ export const ScreeningDecisionDialog = ({
       poolSkill?.type === PoolSkillType.Nonessential
     )
       return "black";
-    if (!hasBeenAssessed) return "warning";
+    if (!hasBeenAssessed)
+      return poolSkill?.type === PoolSkillType.Nonessential
+        ? "black"
+        : "warning";
     switch (initialValues?.assessmentDecision) {
       case AssessmentDecision.Successful:
         return "success";
@@ -424,7 +427,11 @@ export const ScreeningDecisionDialog = ({
               )}
             </span>
           ) : (
-            <p>{intl.formatMessage(poolCandidateMessages.toAssess)}</p>
+            <p>
+              {poolSkill?.type === PoolSkillType.Nonessential
+                ? intl.formatMessage(poolCandidateMessages.unclaimed)
+                : intl.formatMessage(poolCandidateMessages.toAssess)}
+            </p>
           )}
         </Button>
       </Dialog.Trigger>

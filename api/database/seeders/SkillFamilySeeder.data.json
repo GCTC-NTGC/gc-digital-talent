@@ -36,6 +36,39 @@
       },
       {
         "description": {
+          "en": "Data analytics consists collecting, organizing and studying data to provide business insights, identify and solve business problems.",
+          "fr": "L'analyse des données consiste à collecter, organiser et étudier des données pour fournir des informations commerciales, identifier et résoudre des problèmes commerciaux."
+        },
+        "key": "data_services_data_analytics",
+        "name": {
+          "en": "Data Services - Data Analytics",
+          "fr": "Services de données - Analyse de données"
+        }
+      },
+      {
+        "description": {
+          "en": "Data science encompasses various techniques, including data cleaning, exploratory data analysis, machine learning, and data visualization, to derive meaningful and actionable insights from large and diverse data sources.",
+          "fr": "La science des données englobe diverses techniques, notamment le nettoyage des données, l'analyse exploratoire des données, l'apprentissage automatique et la visualisation des données, pour obtenir des informations significatives et exploitables à partir de sources de données vastes et diverses."
+        },
+        "key": "data_services_data_science",
+        "name": {
+          "en": "Data Services - Data Science",
+          "fr": "Services de données - Science des données"
+        }
+      },
+      {
+        "description": {
+          "en": "Data Systems operations consists of developing and constructing data products and services and integrates them into systems and business processes.",
+          "fr": "Les opérations de systèmes de données consistent à développer et à construire des produits et services de données et à les intégrer dans des systèmes et des processus commerciaux."
+        },
+        "key": "data_services_data_systems",
+        "name": {
+          "en": "Data Services - Data Systems Operations",
+          "fr": "Services de données - Opérations des systèmes de données"
+        }
+      },
+      {
+        "description": {
           "en": "IT generic work stream - Database Management",
           "fr": "Flux de travail générique de TI - Gestion des bases de données"
         },
@@ -69,13 +102,35 @@
       },
       {
         "description": {
-          "en": "IM work stream - Information Management",
-          "fr": "IM - Gestion de l’information"
+          "en": "IM-Information Architecture develops, manages and communicates information architectures that establish, shape information systems and products, to support usability, findability, and the understanding of structured and unstructured data, along with guides the development and maintenance of information architecture artefacts on how they contribute to the achievement of a business’ strategy and delivery of the expected business outcomes.",
+          "fr": "IM-Information Architecture développe, gère et communique des architectures d'information qui établissent, façonnent des systèmes et des produits d'information, pour soutenir la facilité d'utilisation, la trouvabilité et la compréhension des données structurées et non structurées, et guide le développement et la maintenance des artefacts d'architecture d'information sur la manière dont ils contribuent. à la réalisation de la stratégie d’une entreprise et à l’obtention des résultats commerciaux attendus."
+        },
+        "key": "im_data_governance_information_architecture",
+        "name": {
+          "en": "Information and Data Governance - Information Architecture",
+          "fr": "Gouvernance de l'information et des données - Architecture de l'information"
+        }
+      },
+      {
+        "description": {
+          "en": "IM-Strategy and Direction develops, manages and communicates directions (e.g. policies and strategies) for the governance and life-cycle management of information and data assets; establishes, supports and participates in governance bodies and anticipates future needs aimed at the transformation of delivery of services",
+          "fr": "La stratégie et la direction de la GI élabore, gère et communique des orientations (par exemple, des politiques et des stratégies) pour la gouvernance et la gestion du cycle de vie des actifs d'information et de données ; établit, soutient et participe aux instances de gouvernance et anticipe les besoins futurs visant la transformation de la prestation de services"
+        },
+        "key": "im_data_governance_strategy_direction",
+        "name": {
+          "en": "Information and Data Governance - Strategy and Direction",
+          "fr": "Gouvernance de l'information et des données - Stratégie et orientation"
+        }
+      },
+      {
+        "description": {
+          "en": "IM-Operations involves overseeing the efficient and effective application of life-cycle management practices for records and documents within information management systems, serving business and legal purposes.",
+          "fr": "Les opérations de GI consistent à superviser l'application efficiente et efficace des pratiques de gestion du cycle de vie des dossiers et des documents au sein des systèmes de gestion de l'information, à des fins commerciales et juridiques."
         },
         "key": "information_management",
         "name": {
-          "en": "Information Management",
-          "fr": "Gestion de l’information"
+          "en": "Information and Data Governance - Operations",
+          "fr": "Gouvernance de l'information et des données - Opérations"
         }
       },
       {

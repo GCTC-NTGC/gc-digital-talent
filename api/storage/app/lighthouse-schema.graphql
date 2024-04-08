@@ -137,8 +137,8 @@ type Mutation {
   updatePoolSkill(id: ID!, poolSkill: UpdatePoolSkillInput!): PoolSkill
   deletePoolSkill(id: ID!): PoolSkill
   publishPool(id: ID!): Pool
-  changePoolClosingDate(id: ID!, newClosingDate: DateTime!): Pool
-  closePool(id: ID!): Pool
+  changePoolClosingDate(id: ID!, closingDate: DateTime!): Pool
+  closePool(id: ID!, reason: String!): Pool
   deletePool(id: ID!): Pool
   archivePool(id: ID!): Pool
   unarchivePool(id: ID!): Pool
@@ -230,7 +230,9 @@ type User {
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
-  bilingualEvaluation: BilingualEvaluation
+  firstOfficialLanguage: Language
+  secondLanguageExamCompleted: Boolean
+  secondLanguageExamValidity: Boolean
   comprehensionLevel: EvaluatedLanguageAbility
   writtenLevel: EvaluatedLanguageAbility
   verbalLevel: EvaluatedLanguageAbility
@@ -341,6 +343,7 @@ type Pool {
   generalQuestions: [GeneralQuestion]
   screeningQuestions: [ScreeningQuestion]
   closingDate: DateTime
+  closingReason: String
   publishedAt: DateTime
   archivedAt: DateTime
   isComplete: Boolean
@@ -785,7 +788,9 @@ input CreateUserInput {
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
-  bilingualEvaluation: BilingualEvaluation
+  firstOfficialLanguage: Language
+  secondLanguageExamCompleted: Boolean
+  secondLanguageExamValidity: Boolean
   comprehensionLevel: EvaluatedLanguageAbility
   writtenLevel: EvaluatedLanguageAbility
   verbalLevel: EvaluatedLanguageAbility
@@ -830,7 +835,9 @@ input UpdateUserAsAdminInput {
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
-  bilingualEvaluation: BilingualEvaluation
+  firstOfficialLanguage: Language
+  secondLanguageExamCompleted: Boolean
+  secondLanguageExamValidity: Boolean
   comprehensionLevel: EvaluatedLanguageAbility
   writtenLevel: EvaluatedLanguageAbility
   verbalLevel: EvaluatedLanguageAbility
@@ -884,7 +891,9 @@ input UpdateUserAsUserInput {
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
-  bilingualEvaluation: BilingualEvaluation
+  firstOfficialLanguage: Language
+  secondLanguageExamCompleted: Boolean
+  secondLanguageExamValidity: Boolean
   comprehensionLevel: EvaluatedLanguageAbility
   writtenLevel: EvaluatedLanguageAbility
   verbalLevel: EvaluatedLanguageAbility
@@ -1223,6 +1232,7 @@ input UpdatePoolInput {
   stream: PoolStream
   processNumber: String
   closingDate: DateTime
+  closingReason: String
   yourImpact: LocalizedStringInput
   keyTasks: LocalizedStringInput
   whatToExpect: LocalizedStringInput
@@ -1362,11 +1372,7 @@ input UpdateApplicationInput {
   generalQuestionResponses: UpdateGeneralQuestionResponsesHasMany
   screeningQuestionResponses: UpdateScreeningQuestionResponsesHasMany
   educationRequirementOption: EducationRequirementOption
-  educationRequirementAwardExperiences: UpdateEducationExperiencesRequirementBelongsToMany
-  educationRequirementCommunityExperiences: UpdateEducationExperiencesRequirementBelongsToMany
-  educationRequirementEducationExperiences: UpdateEducationExperiencesRequirementBelongsToMany
-  educationRequirementPersonalExperiences: UpdateEducationExperiencesRequirementBelongsToMany
-  educationRequirementWorkExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementExperiences: UpdateEducationExperiencesRequirementBelongsToMany
   applicationId: ID
 }
 
@@ -1918,12 +1924,6 @@ enum GovEmployeeType {
   CASUAL
   TERM
   INDETERMINATE
-}
-
-enum BilingualEvaluation {
-  COMPLETED_ENGLISH
-  COMPLETED_FRENCH
-  NOT_COMPLETED
 }
 
 enum EvaluatedLanguageAbility {
