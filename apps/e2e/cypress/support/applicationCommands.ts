@@ -32,7 +32,7 @@ Cypress.Commands.add("createApplication", (userId, poolId) => {
       const experienceId = me.experiences[0].id;
       cy.updateApplication(data.createApplication.id, {
         educationRequirementOption: EducationRequirementOption.AppliedWork,
-        educationRequirementPersonalExperiences: {
+        educationRequirementExperiences: {
           sync: [experienceId],
         },
       })

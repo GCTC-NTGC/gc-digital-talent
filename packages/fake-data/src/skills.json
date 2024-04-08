@@ -2147,8 +2147,8 @@
           "fr": "Outils de programmation de bases de données"
         },
         "description": {
-          "en": "Use and work in data programming tools such as, but not limited to, SQL, NSQL, Excel, or other ETL (extract, transform, load) tools.",
-          "fr": "Utiliser et travailler avec des outils de programmation de données tels que, mais sans s’y limiter, SQL, NSQL, Excel, ou d’autres outils ETL (extraction, transformation, chargement)."
+          "en": "Use and work in data programming tools such as, but not limited to, SQL, NoSQL, Excel, or other ETL (extract, transform, load) tools.",
+          "fr": "Utiliser et travailler avec des outils de programmation de données tels que, mais sans s’y limiter, SQL, NoSQL, Excel, ou d’autres outils ETL (extraction, transformation, chargement)."
         },
         "keywords": {
           "en": [],
@@ -2211,8 +2211,8 @@
           "fr": "Systèmes de bases de données"
         },
         "description": {
-          "en": "Ability to work with database systems such as Oracle, MySQL, MariaDB or PstgreSQL.",
-          "fr": "Être en mesure à travailler avec des systèmes de bases de données tels que Oracle, MySQL, MariaDB ou PstgreSQL."
+          "en": "Ability to work with database systems such as Oracle, MySQL, MariaDB or PostgreSQL.",
+          "fr": "Être en mesure à travailler avec des systèmes de bases de données tels que Oracle, MySQL, MariaDB ou PostgreSQL."
         },
         "keywords": {
           "en": [],
@@ -4013,7 +4013,7 @@
         },
         "description": {
           "en": "Support others as they learn and grow in their own careers.",
-          "fr": "Soutener les autres pendant qu’ils apprennent et se développent dans leur propre carrière."
+          "fr": "Soutenir les autres pendant qu’ils apprennent et se développent dans leur propre carrière."
         },
         "keywords": {
           "en": ["Coaching", "Mentorship", "Guidance"],
@@ -4555,7 +4555,7 @@
           ],
           "fr": [
             "Optimiste",
-            "Attitude gagnate",
+            "Attitude gagnante",
             "Positivité",
             "Bonne attitude"
           ]

@@ -36,7 +36,7 @@ import DuplicateProcessDialog from "./components/DuplicateProcessDialog";
 import ArchiveProcessDialog from "./components/ArchiveProcessDialog";
 import UnarchiveProcessDialog from "./components/UnArchiveProcessDialog";
 import DeleteProcessDialog from "./components/DeleteProcessDialog";
-import ExtendProcessDialog from "./components/ExtendProcessDialog";
+import ChangeDateDialog from "./components/ChangeDateDialog";
 import PublishProcessDialog from "./components/PublishProcessDialog";
 
 export interface ViewPoolProps {
@@ -45,6 +45,7 @@ export interface ViewPoolProps {
   onPublish: () => Promise<void>;
   onDelete: () => Promise<void>;
   onExtend: (closingDate: Scalars["DateTime"]["output"]) => Promise<void>;
+  onClose: (reason: string) => Promise<void>;
   onArchive: () => Promise<void>;
   onDuplicate: () => Promise<void>;
   onUnarchive: () => Promise<void>;
@@ -56,6 +57,7 @@ export const ViewPool = ({
   onPublish,
   onDelete,
   onExtend,
+  onClose,
   onArchive,
   onDuplicate,
   onUnarchive,
@@ -340,10 +342,11 @@ export const ViewPool = ({
               {[PoolStatus.Closed, PoolStatus.Published].includes(
                 pool.status ?? PoolStatus.Draft,
               ) && (
-                <ExtendProcessDialog
+                <ChangeDateDialog
                   {...commonDialogProps}
                   closingDate={pool.closingDate}
                   onExtend={onExtend}
+                  onClose={onClose}
                 />
               )}
               {checkRole([ROLE_NAME.PoolOperator], roleAssignments) && (
@@ -458,6 +461,9 @@ const ViewPoolPage = () => {
             isFetching={isFetching}
             onExtend={async (newClosingDate: string) => {
               return mutations.extend(poolId, newClosingDate);
+            }}
+            onClose={async (reason: string) => {
+              return mutations.close(poolId, reason);
             }}
             onDuplicate={async () => {
               return mutations.duplicate(poolId, data?.pool?.team?.id || "");
