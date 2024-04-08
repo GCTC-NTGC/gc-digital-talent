@@ -45,8 +45,13 @@ stages:
           ArtifactName: gcDigitalTalent
 
 - stage: Test
+  pool:
+    name: 'TBS Linux Self Hosted'
   displayName: Test stage
   dependsOn: Build
+  variables:
+    name: npm_config_user_config
+    value: '$(System.DefaultWorkingDirectory)/infrastructure/.npmrc'
   jobs:
   - job: run_playwright_tests
     displayName: Run Playwright tests
@@ -61,6 +66,14 @@ stages:
         inputs:
           artifactName: gcDigitalTalent
           downloadPath: $(System.DefaultWorkingDirectory)/artifacts
+      - task: npmAuthenticate@0
+        displayName: '00 - NPM Authenticate'
+        name: 'NPM_Authenticate'
+        inputs:
+          workingFile: $(npm_config_user_config)
+
+      - script: echo ##vso[task.setvariable variable=NPM_CONFIG_USERCONFIG]$(npm_config_user_config)
+        displayName: 'Set Custom .npmrc Location'
 
       - script: npx npm install --include=dev
         displayName: "Install Node.js dependencies"
