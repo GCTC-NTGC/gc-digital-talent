@@ -1,7 +1,10 @@
 <?php
 
 use App\Enums\EducationRequirementOption;
+use App\Enums\PlacementType;
+use App\Enums\PoolCandidateStatus;
 use App\Models\CommunityExperience;
+use App\Models\Department;
 use App\Models\EducationExperience;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
@@ -15,6 +18,9 @@ use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertNotNull;
+use function PHPUnit\Framework\assertNull;
+use function PHPUnit\Framework\assertSame;
 
 class PoolCandidateUpdateTest extends TestCase
 {
@@ -39,6 +45,10 @@ class PoolCandidateUpdateTest extends TestCase
     protected $teamPool;
 
     protected $poolCandidate;
+
+    protected $placeCandidateMutation;
+
+    protected $revertPlaceCandidateMutation;
 
     protected function setUp(): void
     {
@@ -100,6 +110,36 @@ class PoolCandidateUpdateTest extends TestCase
             'user_id' => $this->candidateUser->id,
             'pool_id' => $this->teamPool->id,
         ]);
+
+        $this->placeCandidateMutation =
+        /** @lang GraphQL */
+        '
+        mutation placeCandidate($id: UUID!, $placeCandidate: PlaceCandidateInput!) {
+            placeCandidate(id: $id, placeCandidate: $placeCandidate) {
+                id
+                status
+                placedAt
+                placedDepartment {
+                    id
+                }
+            }
+        }
+    ';
+
+        $this->revertPlaceCandidateMutation =
+        /** @lang GraphQL */
+        '
+        mutation revertPlaceCandidate($id: UUID!) {
+            revertPlaceCandidate(id: $id) {
+                id
+                status
+                placedAt
+                placedDepartment {
+                    id
+                }
+            }
+        }
+    ';
     }
 
     /**
@@ -244,5 +284,112 @@ class PoolCandidateUpdateTest extends TestCase
         $response->assertJsonFragment(['id' => $communityExperienceIds[2]]);
         $experiencesAttached = $response->json('data.updateApplication.educationRequirementExperiences');
         assertEquals(3, count($experiencesAttached));
+    }
+
+    public function testRecordDecisionCandidateMutationPermissions(): void
+    {
+        $department = Department::factory()->create();
+        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::PLACED_CASUAL->name;
+        $this->poolCandidate->save();
+
+        // candidate may not update own status with the ROD status mutations
+        $this->actingAs($this->candidateUser, 'api')
+            ->graphQL(
+                $this->placeCandidateMutation,
+                [
+                    'id' => $this->poolCandidate->id,
+                    'placeCandidate' => [
+                        'placementType' => PlacementType::PLACED_CASUAL->name,
+                        'departmentId' => $department->id,
+                    ],
+                ]
+            )
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        $this->actingAs($this->candidateUser, 'api')
+            ->graphQL(
+                $this->revertPlaceCandidateMutation,
+                [
+                    'id' => $this->poolCandidate->id,
+                ]
+            )
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+    }
+
+    public function testPlaceCandidateMutation(): void
+    {
+        $department = Department::factory()->create();
+        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
+        $this->poolCandidate->placed_at = null;
+        $this->poolCandidate->save();
+
+        // cannot place candidate due to status
+        $this->actingAs($this->poolOperatorUser, 'api')
+            ->graphQL(
+                $this->placeCandidateMutation,
+                [
+                    'id' => $this->poolCandidate->id,
+                    'placeCandidate' => [
+                        'placementType' => PlacementType::PLACED_CASUAL->name,
+                        'departmentId' => $department->id,
+                    ],
+                ]
+            )
+            ->assertGraphQLErrorMessage('InvalidStatusForPlacing');
+
+        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
+        $this->poolCandidate->save();
+
+        // candidate was placed successfully
+        $response = $this->actingAs($this->poolOperatorUser, 'api')
+            ->graphQL(
+                $this->placeCandidateMutation,
+                [
+                    'id' => $this->poolCandidate->id,
+                    'placeCandidate' => [
+                        'placementType' => PlacementType::PLACED_CASUAL->name,
+                        'departmentId' => $department->id,
+                    ],
+                ]
+            )->json('data.placeCandidate');
+
+        assertSame($response['status'], PoolCandidateStatus::PLACED_CASUAL->name);
+        assertNotNull($response['placedAt']);
+        assertSame($response['placedDepartment']['id'], $department->id);
+    }
+
+    public function testRevertPlaceCandidateMutation(): void
+    {
+        $department = Department::factory()->create();
+        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
+        $this->poolCandidate->placed_department_id = $department->id;
+        $this->poolCandidate->placed_at = config('constants.far_past_date');
+        $this->poolCandidate->save();
+
+        // cannot execute mutation due to candidate not being placed
+        $this->actingAs($this->poolOperatorUser, 'api')
+            ->graphQL(
+                $this->revertPlaceCandidateMutation,
+                [
+                    'id' => $this->poolCandidate->id,
+                ]
+            )
+            ->assertGraphQLErrorMessage('CandidateNotPlaced');
+
+        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::PLACED_CASUAL->name;
+        $this->poolCandidate->save();
+
+        // mutation was successful
+        $response = $this->actingAs($this->poolOperatorUser, 'api')
+            ->graphQL(
+                $this->revertPlaceCandidateMutation,
+                [
+                    'id' => $this->poolCandidate->id,
+                ]
+            )->json('data.revertPlaceCandidate');
+
+        assertSame($response['status'], PoolCandidateStatus::QUALIFIED_AVAILABLE->name);
+        assertNull($response['placedAt']);
+        assertNull($response['placedDepartment']);
     }
 }
