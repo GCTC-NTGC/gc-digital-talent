@@ -7,7 +7,12 @@ import { useQuery } from "urql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Pending } from "@gc-digital-talent/ui";
-import { graphql, Department } from "@gc-digital-talent/graphql";
+import {
+  graphql,
+  Department,
+  FragmentType,
+  getFragment,
+} from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
@@ -16,17 +21,32 @@ import { normalizedText } from "~/components/Table/sortingFns";
 
 const columnHelper = createColumnHelper<Department>();
 
+export const DepartmentTableRow_Fragment = graphql(/* GraphQL */ `
+  fragment DepartmentTableRow on Department {
+    id
+    departmentNumber
+    name {
+      en
+      fr
+    }
+  }
+`);
+
 interface DepartmentTableProps {
-  departments: Array<Department>;
+  departmentsQuery: FragmentType<typeof DepartmentTableRow_Fragment>[];
   title: string;
 }
 
 export const DepartmentTable = ({
-  departments,
+  departmentsQuery,
   title,
 }: DepartmentTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const departments = getFragment(
+    DepartmentTableRow_Fragment,
+    departmentsQuery,
+  );
   const columns = [
     columnHelper.accessor("departmentNumber", {
       id: "departmentNumber",
@@ -99,12 +119,7 @@ export const DepartmentTable = ({
 const Departments_Query = graphql(/* GraphQL */ `
   query Departments {
     departments {
-      id
-      departmentNumber
-      name {
-        en
-        fr
-      }
+      ...DepartmentTableRow
     }
   }
 `);
@@ -115,7 +130,7 @@ const DepartmentTableApi = ({ title }: { title: string }) => {
   return (
     <Pending fetching={fetching} error={error}>
       <DepartmentTable
-        departments={unpackMaybes(data?.departments)}
+        departmentsQuery={unpackMaybes(data?.departments)}
         title={title}
       />
     </Pending>
