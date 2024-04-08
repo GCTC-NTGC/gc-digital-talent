@@ -21,7 +21,7 @@
     "@gc-digital-talent/storybook-helpers": "workspace:*",
     "@storybook/react": "^7.6.17",
     "@types/react": "^18.2.74",
-    "eslint": "^8.57.0",
+    "eslint": "^9.0.0",
     "react": "^18.2.0",
     "tsconfig": "workspace:*",
     "typescript": "^5.4.4"

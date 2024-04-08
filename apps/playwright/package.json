@@ -22,7 +22,7 @@
     "@types/node": "^20.12.4",
     "axe-core": "^4.8.4",
     "dotenv": "^16.4.5",
-    "eslint": "^8.57.0",
+    "eslint": "^9.0.0",
     "eslint-plugin-playwright": "^1.5.2"
   },
   "dependencies": {
