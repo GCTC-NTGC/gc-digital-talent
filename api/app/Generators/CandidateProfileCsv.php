@@ -69,11 +69,7 @@ class CandidateProfileCsv extends CsvGenerator
     public function generate()
     {
         $candidates = PoolCandidate::with([
-            'educationRequirementAwardExperiences',
-            'educationRequirementCommunityExperiences',
-            'educationRequirementEducationExperiences',
-            'educationRequirementPersonalExperiences',
-            'educationRequirementWorkExperiences',
+            'educationRequirementExperiences',
             'generalQuestionResponses' => ['generalQuestion'],
             'user' => [
                 'department',
@@ -142,7 +138,7 @@ class CandidateProfileCsv extends CsvGenerator
         $candidates->each(function ($candidate, $key) use ($sheet) {
             $department = $candidate->user->department()->first();
             $preferences = $candidate->user->getOperationalRequirements();
-            $educationRequirementExperiences = $candidate->education_requirement_experiences->map(function ($experience) {
+            $educationRequirementExperiences = $candidate->educationRequirementExperiences->map(function ($experience) {
                 return $experience->getTitle();
             })->flatten()->unique()->toArray();
             $locationPreferences = '';
@@ -168,7 +164,7 @@ class CandidateProfileCsv extends CsvGenerator
                 $candidate->user->current_city, // Current city
                 $candidate->user->getArmedForcesStatus(), // Armed forces status
                 $candidate->user->getCitizenship(), // Citizenship
-                $candidate->user->getBilingualEvaluation(), // Bilingual evaluation
+                is_null($candidate->user->second_language_exam_completed) ? '' : $this->yesOrNo($candidate->user->second_language_exam_completed), // Bilingual evaluation
                 $candidate->user->comprehension_level, // Reading level
                 $candidate->user->written_level, // Writing level
                 $candidate->user->verbal_level, // Oral interaction level

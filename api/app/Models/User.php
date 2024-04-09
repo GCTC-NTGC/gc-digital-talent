@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Enums\ArmedForcesStatus;
-use App\Enums\BilingualEvaluation;
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
@@ -390,20 +389,6 @@ class User extends Model implements Authenticatable, LaratrustUser
         }
 
         return '';
-    }
-
-    public function getBilingualEvaluation()
-    {
-        switch ($this->bilingual_evaluation) {
-            case BilingualEvaluation::NOT_COMPLETED->name:
-                return 'No';
-            case BilingualEvaluation::COMPLETED_ENGLISH->name:
-                return 'Yes, completed English evaluation';
-            case BilingualEvaluation::COMPLETED_FRENCH->name:
-                return 'Yes, completed French evaluation';
-            default:
-                return '';
-        }
     }
 
     public function getSecondLanguageEvaluation()
