@@ -930,9 +930,9 @@ class User extends Model implements Authenticatable, LaratrustUser
                 // Now that we have added a column, query builder no longer will add a * to the select.  Add all possible columns manually.
                 ->addSelect(self::$selectableColumns);
 
-            // clear characters or search operators out, then create array for existing scopes by splitting into words
+            // clear characters or search operators out
             $filterToEmptySpace = ['"', '"', '-', ':', '!'];
-            $filterToSingleSpace = [' AND ', ' OR '];
+            $filterToSingleSpace = [' AND ', ' OR ', ' & '];
             $filtered = str_ireplace($filterToEmptySpace, '', $combinedSearchTerm);
             $filtered = str_ireplace($filterToSingleSpace, ' ', $filtered);
 
