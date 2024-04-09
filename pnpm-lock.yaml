@@ -1089,9 +1089,9 @@ importers:
       storybook:
         specifier: ^7.6.17
         version: 7.6.17
-      storybook-addon-intl:
-        specifier: ^3.2.0
-        version: 3.2.0(react-dom@18.2.0)(react-intl@6.6.2)(react@18.2.0)
+      storybook-react-intl:
+        specifier: ~2.0.10
+        version: 2.0.10(@storybook/components@7.6.17)(@storybook/manager-api@7.6.17)(@storybook/preview-api@7.6.17)(@storybook/types@7.6.17)(react-dom@18.2.0)(react-intl@6.6.2)(react@18.2.0)
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -16118,17 +16118,50 @@ packages:
     resolution: {integrity: sha512-4QcZ+yx7nzEFiV4BMLnr/pRa5HYzNITX2ri0Zh6sT9EyQHbBHacC6YigllUPU9X3D0f/22QCgfokpKs52YRrUg==}
     dev: true
 
-  /storybook-addon-intl@3.2.0(react-dom@18.2.0)(react-intl@6.6.2)(react@18.2.0):
-    resolution: {integrity: sha512-EdfKjR6rnmzP5GKYjoAB+tluNc/ffpF1qmvv8kIgF4UvyxOVHS1yx7WfiqLsx0yK1BftZ1Lp66d/plEjpOUpIA==}
+  /storybook-i18n@2.0.13(@storybook/components@7.6.17)(@storybook/manager-api@7.6.17)(@storybook/preview-api@7.6.17)(@storybook/types@7.6.17)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-p0VPL5QiHdeS3W9BvV7UnuTKw7Mj1HWLW67LK0EOoh5fpSQIchu7byfrUUe1RbCF1gT0gOOhdNuTSXMoVVoTDw==}
     peerDependencies:
+      '@storybook/components': ^7.0.0
+      '@storybook/manager-api': ^7.0.0
+      '@storybook/preview-api': ^7.0.0
+      '@storybook/types': ^7.0.0
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
-      react-intl: ^6.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
     dependencies:
-      '@storybook/theming': 7.6.17(react-dom@18.2.0)(react@18.2.0)
+      '@storybook/components': 7.6.17(react-dom@18.2.0)(react@18.2.0)
+      '@storybook/manager-api': 7.6.17(react-dom@18.2.0)(react@18.2.0)
+      '@storybook/preview-api': 7.6.17
+      '@storybook/types': 7.6.17
       react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: true
+
+  /storybook-react-intl@2.0.10(@storybook/components@7.6.17)(@storybook/manager-api@7.6.17)(@storybook/preview-api@7.6.17)(@storybook/types@7.6.17)(react-dom@18.2.0)(react-intl@6.6.2)(react@18.2.0):
+    resolution: {integrity: sha512-FtZnZaRoSmrq9Ma7ZAK3EkZUlqmDlSZj1CAyQVo0jRKKYOi2LcucnW8XcaTglN3VBv3n0p/ZiU6WrW7AvB+UZQ==}
+    peerDependencies:
+      react: '*'
+      react-dom: '*'
+      react-intl: ^5.24.0 || ^6.0.0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
       react-intl: 6.6.2(react@18.2.0)(typescript@5.4.4)
+      storybook-i18n: 2.0.13(@storybook/components@7.6.17)(@storybook/manager-api@7.6.17)(@storybook/preview-api@7.6.17)(@storybook/types@7.6.17)(react-dom@18.2.0)(react@18.2.0)
     transitivePeerDependencies:
-      - react-dom
+      - '@storybook/components'
+      - '@storybook/manager-api'
+      - '@storybook/preview-api'
+      - '@storybook/types'
     dev: true
 
   /storybook@7.6.17:
