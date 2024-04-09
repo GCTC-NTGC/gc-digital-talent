@@ -463,19 +463,18 @@ class User extends Model implements Authenticatable, LaratrustUser
 
     public function getPriority()
     {
-        switch ($this->priority_weight) {
-            case 10:
-                return 'Priority entitlement';
-            case 20:
-                return 'Veteran';
-            case 30:
-                return 'Citizen or resident';
-            case 40:
-                return 'Other';
-            default:
+        $priority = [];
+        if ($this->has_priority_entitlement) {
+            $priority[] = 'Priority entitlement';
+        }
+        if ($this->armed_forces_status === ArmedForcesStatus::VETERAN->name) {
+            $priority[] = 'Veteran';
+        }
+        if ($this->citizenship === CitizenshipStatus::PERMANENT_RESIDENT->name || $this->citizenship === CitizenshipStatus::CITIZEN->name) {
+            $priority[] = 'Permanent resident';
         }
 
-        return '';
+        return implode(', ', $priority);
     }
 
     public function getOperationalRequirements()
