@@ -176,8 +176,8 @@ importers:
         specifier: ^2.2.2
         version: 2.2.2
       date-fns:
-        specifier: ^2.30.0
-        version: 2.30.0
+        specifier: ^3.6.0
+        version: 3.6.0
       framer-motion:
         specifier: ^11.0.13
         version: 11.0.13(react-dom@18.2.0)(react@18.2.0)
@@ -501,11 +501,11 @@ importers:
         specifier: workspace:*
         version: link:../i18n
       date-fns:
-        specifier: ^2.30.0
-        version: 2.30.0
+        specifier: ^3.6.0
+        version: 3.6.0
       date-fns-tz:
-        specifier: ^2.0.1
-        version: 2.0.1(date-fns@2.30.0)
+        specifier: ^3.0.0
+        version: 3.0.0(date-fns@3.6.0)
       react-intl:
         specifier: ^6.6.2
         version: 6.6.2(react@18.2.0)(typescript@5.4.4)
@@ -683,8 +683,8 @@ importers:
         specifier: ^2.2.4
         version: 2.2.4(@tiptap/pm@2.2.4)
       date-fns:
-        specifier: ^2.30.0
-        version: 2.30.0
+        specifier: ^3.6.0
+        version: 3.6.0
       downshift:
         specifier: ^9.0.4
         version: 9.0.4(react@18.2.0)
@@ -9822,19 +9822,17 @@ packages:
   /dataloader@2.2.2:
     resolution: {integrity: sha512-8YnDaaf7N3k/q5HnTJVuzSyLETjoZjVmHc4AeKAzOvKHEFQKcn64OKBfzHYtE9zGjctNM7V9I0MfnUVLpi7M5g==}
 
-  /date-fns-tz@2.0.1(date-fns@2.30.0):
-    resolution: {integrity: sha512-fJCG3Pwx8HUoLhkepdsP7Z5RsucUi+ZBOxyM5d0ZZ6c4SdYustq0VMmOu6Wf7bli+yS/Jwp91TOCqn9jMcVrUA==}
+  /date-fns-tz@3.0.0(date-fns@3.6.0):
+    resolution: {integrity: sha512-YgRowJwvCAAjN1A5F2l1ZjnYKThX7YDq399qo+ThXFpeOqinN1u8SUqfM5IdRQSpai18Iy3EBMb6/CXTSnDstg==}
     peerDependencies:
-      date-fns: 2.x
+      date-fns: ^3.0.0
     dependencies:
-      date-fns: 2.30.0
+      date-fns: 3.6.0
+      lodash.clonedeep: 4.5.0
     dev: false
 
-  /date-fns@2.30.0:
-    resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}
-    engines: {node: '>=0.11'}
-    dependencies:
-      '@babel/runtime': 7.23.9
+  /date-fns@3.6.0:
+    resolution: {integrity: sha512-fRHTG8g/Gif+kSh50gaGEdToemgfj74aRX3swtiouboip5JDLAyDE9F11nHMIcvOaXeOC6D7SpNhi7uFyB7Uww==}
     dev: false
 
   /dayjs@1.11.10:
