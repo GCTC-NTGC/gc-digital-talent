@@ -18,7 +18,7 @@ class ProtectedRequest
     {
         $path = $request->path();
         if (str_starts_with($path, 'admin')) {
-            $request->merge(['isSecureRequest' => true]);
+            $request->merge(['isProtectedRequest' => true]);
         }
 
         return $next($request);
