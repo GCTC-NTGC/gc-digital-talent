@@ -24,4 +24,9 @@ class ApiErrorEnums
     const PROCESS_CLOSING_DATE_FUTURE = 'UpdatePoolClosingDateFuture';
 
     const PROCESS_CLOSING_DATE_EXTEND = 'UpdatePoolClosingDateExtend';
+
+    // ROD status mutation messages
+    const INVALID_STATUS_PLACING = 'InvalidStatusForPlacing';
+
+    const CANDIDATE_NOT_PLACED = 'CandidateNotPlaced';
 }

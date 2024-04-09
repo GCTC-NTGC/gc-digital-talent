@@ -7,6 +7,7 @@ namespace App\GraphQL\Validators;
 use App\Enums\PlacementType;
 use App\Enums\PoolCandidateStatus;
 use App\Models\PoolCandidate;
+use Database\Helpers\ApiErrorEnums;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 use Nuwave\Lighthouse\Validation\Validator;
@@ -26,7 +27,7 @@ final class PlaceCandidateValidator extends Validator
         $statusesArray = [...$placedStatuses, PoolCandidateStatus::QUALIFIED_AVAILABLE->name];
 
         if (! (in_array($candidate->pool_candidate_status, $statusesArray))) {
-            throw ValidationException::withMessages(['InvalidStatusForPlacing']);
+            throw ValidationException::withMessages([ApiErrorEnums::INVALID_STATUS_PLACING]);
         }
 
         return [

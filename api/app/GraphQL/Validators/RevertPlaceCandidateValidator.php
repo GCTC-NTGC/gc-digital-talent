@@ -6,6 +6,7 @@ namespace App\GraphQL\Validators;
 
 use App\Enums\PlacementType;
 use App\Models\PoolCandidate;
+use Database\Helpers\ApiErrorEnums;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -23,7 +24,7 @@ final class RevertPlaceCandidateValidator extends Validator
         $placedStatuses = array_column(PlacementType::cases(), 'name');
 
         if (! (in_array($candidate->pool_candidate_status, $placedStatuses))) {
-            throw ValidationException::withMessages(['CandidateNotPlaced']);
+            throw ValidationException::withMessages([ApiErrorEnums::CANDIDATE_NOT_PLACED]);
         }
 
         return [];
