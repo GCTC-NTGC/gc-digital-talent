@@ -1,4 +1,4 @@
-import isPast from "date-fns/isPast";
+import { isPast } from "date-fns/isPast";
 
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { Pool, PoolStatus } from "@gc-digital-talent/graphql";
