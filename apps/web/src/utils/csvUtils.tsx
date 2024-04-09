@@ -427,7 +427,7 @@ export const getIndigenousCommunities = (
  * Converts possible array of skill families
  * to a comma separated list or empty string
  *
- * @param families  User["acceptedOperationalRequirements"]
+ * @param families  Skill["families"]
  * @param intl react-intl object
  * @returns string
  */
