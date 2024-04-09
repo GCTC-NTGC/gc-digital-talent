@@ -73,7 +73,7 @@ export const formValuesToSubmitData = (
 });
 
 export const getClassificationOptions = (
-  classifications: Maybe<Classification>[],
+  classifications: readonly Classification[],
   intl: IntlShape,
 ): Option[] => {
   return classifications.filter(notEmpty).map(({ id, group, level, name }) => ({

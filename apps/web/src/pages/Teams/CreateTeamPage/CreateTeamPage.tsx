@@ -18,12 +18,7 @@ import CreateTeamForm from "./components/CreateTeamForm";
 const CreateTeamDepartments_Query = graphql(/* GraphQL */ `
   query CreateTeamDepartments {
     departments {
-      id
-      departmentNumber
-      name {
-        en
-        fr
-      }
+      ...TeamDepartmentOption
     }
   }
 `);
@@ -52,25 +47,17 @@ const CreateTeamPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
 
-  const [
-    {
-      data: departmentsData,
-      fetching: departmentsFetching,
-      error: departmentsError,
-    },
-  ] = useQuery({
+  const [{ data, fetching, error }] = useQuery({
     query: CreateTeamDepartments_Query,
   });
   const [, executeMutation] = useMutation(CreateTeam_Mutation);
 
-  const departments = unpackMaybes(departmentsData?.departments);
-
   const formattedPageTitle = intl.formatMessage(pageTitle);
   const formattedSubTitle = intl.formatMessage(subtitle);
 
-  const handleSubmit = async (data: CreateTeamInput) => {
+  const handleSubmit = async (values: CreateTeamInput) => {
     return executeMutation({
-      team: data,
+      team: values,
     }).then((result) => {
       if (result.data?.createTeam) {
         return Promise.resolve(result.data?.createTeam);
@@ -106,8 +93,11 @@ const CreateTeamPage = () => {
         nav={{ mode: "crumbs", items: navigationCrumbs }}
       />
       <AdminContentWrapper>
-        <Pending fetching={departmentsFetching} error={departmentsError}>
-          <CreateTeamForm departments={departments} onSubmit={handleSubmit} />
+        <Pending fetching={fetching} error={error}>
+          <CreateTeamForm
+            departmentsQuery={unpackMaybes(data?.departments)}
+            onSubmit={handleSubmit}
+          />
         </Pending>
       </AdminContentWrapper>
     </>

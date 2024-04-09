@@ -10,15 +10,17 @@ import { toast } from "@gc-digital-talent/toast";
 import {
   CreateTeamInput,
   CreateTeamMutation,
-  Department,
+  FragmentType,
   LocalizedStringInput,
   Maybe,
   Scalars,
+  getFragment,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 
 import CreateTeamFormFields from "./CreateTeamFormFields";
+import { TeamDepartmentOption_Fragment } from "../../operations";
 
 type FormValues = {
   displayName?: Maybe<LocalizedStringInput>;
@@ -39,16 +41,23 @@ const formValuesToSubmitData = (data: FormValues): CreateTeamInput => {
 };
 
 interface CreateTeamFormProps {
-  departments?: Maybe<Array<Maybe<Omit<Department, "teams">>>>;
+  departmentsQuery: FragmentType<typeof TeamDepartmentOption_Fragment>[];
   onSubmit: (
     data: CreateTeamInput,
   ) => Promise<CreateTeamMutation["createTeam"]>;
 }
 
-const CreateTeamForm = ({ departments, onSubmit }: CreateTeamFormProps) => {
+const CreateTeamForm = ({
+  departmentsQuery,
+  onSubmit,
+}: CreateTeamFormProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
+  const departments = getFragment(
+    TeamDepartmentOption_Fragment,
+    departmentsQuery,
+  );
 
   const { state } = useLocation();
   const navigateTo = state?.from ?? paths.teamTable();
@@ -78,7 +87,7 @@ const CreateTeamForm = ({ departments, onSubmit }: CreateTeamFormProps) => {
 
   return (
     <BasicForm onSubmit={handleSubmit}>
-      <CreateTeamFormFields departments={departments} />
+      <CreateTeamFormFields departments={[...departments]} />
       <div
         data-h2-display="base(flex)"
         data-h2-gap="base(x1)"
