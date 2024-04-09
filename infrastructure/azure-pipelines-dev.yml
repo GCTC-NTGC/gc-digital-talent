@@ -50,8 +50,8 @@ stages:
   displayName: Test stage
   dependsOn: Build
   variables:
-    name: npm_config_user_config
-    value: '$(System.DefaultWorkingDirectory)/infrastructure/.npmrc'
+    - name: npm_config_user_config
+      value: '$(System.DefaultWorkingDirectory)/infrastructure/.npmrc'
   jobs:
   - job: run_playwright_tests
     displayName: Run Playwright tests
