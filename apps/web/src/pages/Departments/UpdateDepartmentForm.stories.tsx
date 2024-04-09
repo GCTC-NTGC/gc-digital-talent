@@ -1,24 +1,32 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
 import { fakeDepartments } from "@gc-digital-talent/fake-data";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
-import { UpdateDepartmentForm } from "./UpdateDepartmentPage";
+import {
+  DepartmentForm_Fragment,
+  UpdateDepartmentForm,
+} from "./UpdateDepartmentPage";
 
 const mockDepartments = fakeDepartments();
+const department = makeFragmentData(
+  mockDepartments[0],
+  DepartmentForm_Fragment,
+);
 
 export default {
   component: UpdateDepartmentForm,
   title: "Forms/Update Department Form",
-} as ComponentMeta<typeof UpdateDepartmentForm>;
+} as Meta<typeof UpdateDepartmentForm>;
 
-const Template: ComponentStory<typeof UpdateDepartmentForm> = (args) => {
-  const { initialDepartment } = args;
+const Template: StoryFn<typeof UpdateDepartmentForm> = (args) => {
+  const { query } = args;
 
   return (
     <UpdateDepartmentForm
-      initialDepartment={initialDepartment}
+      query={query}
       handleUpdateDepartment={async (id, data) => {
         return new Promise((resolve) => {
           setTimeout(() => {
@@ -26,7 +34,7 @@ const Template: ComponentStory<typeof UpdateDepartmentForm> = (args) => {
               id,
               data,
             });
-            resolve(mockDepartments[0]);
+            resolve(department);
           }, 1000);
         });
       }}
@@ -36,5 +44,5 @@ const Template: ComponentStory<typeof UpdateDepartmentForm> = (args) => {
 
 export const Default = Template.bind({});
 Default.args = {
-  initialDepartment: mockDepartments[0],
+  query: department,
 };

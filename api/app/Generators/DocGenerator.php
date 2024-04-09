@@ -7,7 +7,7 @@ use PhpOffice\PhpWord\Element;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
 
-abstract class DocGenerator
+abstract class DocGenerator extends FileGenerator
 {
     protected PhpWord $doc;
 
@@ -26,8 +26,6 @@ abstract class DocGenerator
         $this->strong = ['bold' => true];
     }
 
-    abstract public function generate();
-
     public function write(string $fileName)
     {
         /** @var \Illuminate\Filesystem\FilesystemManager */
@@ -45,10 +43,5 @@ abstract class DocGenerator
         $run = $section->addTextRun();
         $run->addText($label.': ', $this->strong);
         $run->addText($text);
-    }
-
-    protected function sanitizeEnum(string $enum): string
-    {
-        return ucwords(strtolower(str_replace('_', ' ', $enum)));
     }
 }

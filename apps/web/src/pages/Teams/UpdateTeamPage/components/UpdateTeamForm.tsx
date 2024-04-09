@@ -14,7 +14,6 @@ import {
   UpdateTeamMutation,
   LocalizedStringInput,
   Maybe,
-  Department,
   graphql,
   FragmentType,
   getFragment,
@@ -24,6 +23,7 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 
 import CreateTeamFormFields from "../../CreateTeamPage/components/CreateTeamFormFields";
+import { TeamDepartmentOption_Fragment } from "../../operations";
 
 export const UpdateTeamPage_TeamFragment = graphql(/* GraphQL */ `
   fragment UpdateTeamPage_Team on Team {
@@ -82,7 +82,7 @@ const formValuesToSubmitData = (data: FormValues): UpdateTeamInput => {
 
 export interface UpdateTeamFormProps {
   teamQuery: UpdateTeamPageFragment;
-  departments?: Maybe<Array<Maybe<Omit<Department, "teams">>>>;
+  departmentsQuery: FragmentType<typeof TeamDepartmentOption_Fragment>[];
   onSubmit: (
     teamId: Scalars["UUID"]["output"],
     data: UpdateTeamInput,
@@ -91,11 +91,15 @@ export interface UpdateTeamFormProps {
 
 const UpdateTeamForm = ({
   teamQuery,
-  departments,
+  departmentsQuery,
   onSubmit,
 }: UpdateTeamFormProps) => {
   const intl = useIntl();
   const team = getFragment(UpdateTeamPage_TeamFragment, teamQuery);
+  const departments = getFragment(
+    TeamDepartmentOption_Fragment,
+    departmentsQuery,
+  );
   const paths = useRoutes();
   const navigate = useNavigate();
 
@@ -132,7 +136,7 @@ const UpdateTeamForm = ({
         defaultValues: dataToFormValues(team),
       }}
     >
-      <CreateTeamFormFields departments={departments} />
+      <CreateTeamFormFields departments={[...departments]} />
 
       <div
         data-h2-display="base(flex)"
