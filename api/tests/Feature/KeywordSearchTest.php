@@ -551,5 +551,24 @@ class KeywordSearchTest extends TestCase
             ])->assertJsonFragment([
                 'id' => $user3->id,
             ])->assertJsonCount(2, 'data.usersPaginated.data');
+
+        // city "xyz" OR "john@" matches one
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+            query getUsersPaginated($where: UserFilterInput) {
+                usersPaginated(where: $where) {
+                    data {
+                        id
+                    }
+                }
+            }
+        ', [
+                'where' => [
+                    'generalSearch' => ['xyz OR john@'],
+                ],
+            ])->assertJsonFragment([
+                'id' => $user1->id,
+            ])->assertJsonCount(1, 'data.usersPaginated.data');
     }
 }

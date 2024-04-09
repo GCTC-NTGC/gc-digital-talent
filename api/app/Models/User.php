@@ -935,16 +935,14 @@ class User extends Model implements Authenticatable, LaratrustUser
             $filterToSingleSpace = [' AND ', ' OR '];
             $filtered = str_ireplace($filterToEmptySpace, '', $combinedSearchTerm);
             $filtered = str_ireplace($filterToSingleSpace, ' ', $filtered);
-            $arrayed = explode(' ', $filtered);
 
-            foreach ($arrayed as $index => $value) {
-                $query->orWhere(function ($query) use ($value) {
-                    self::scopeName($query, $value);
-                });
-                $query->orWhere(function ($query) use ($value) {
-                    self::scopeEmail($query, $value);
-                });
-            }
+            $query->orWhere(function ($query) use ($filtered) {
+                self::scopeName($query, $filtered);
+            });
+
+            $query->orWhere(function ($query) use ($filtered) {
+                self::scopeEmail($query, $filtered);
+            });
         }
 
         return $query;
