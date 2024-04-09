@@ -427,11 +427,11 @@ export const ScreeningDecisionDialog = ({
               )}
             </span>
           ) : (
-            <p>
+            <span>
               {poolSkill?.type === PoolSkillType.Nonessential
                 ? intl.formatMessage(poolCandidateMessages.unclaimed)
                 : intl.formatMessage(poolCandidateMessages.toAssess)}
-            </p>
+            </span>
           )}
         </Button>
       </Dialog.Trigger>
