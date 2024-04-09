@@ -69,7 +69,6 @@ class CandidateProfileCsv extends CsvGenerator
     public function generate()
     {
         $candidates = PoolCandidate::with([
-            'educationRequirementExperiences',
             'generalQuestionResponses' => ['generalQuestion'],
             'user' => [
                 'department',
@@ -80,7 +79,6 @@ class CandidateProfileCsv extends CsvGenerator
                 'educationExperiences' => ['userSkills' => ['skill']],
                 'personalExperiences' => ['userSkills' => ['skill']],
                 'workExperiences' => ['userSkills' => ['skill']],
-                'userSkills' => ['skill'],
             ],
         ])
             ->whereIn('id', $this->ids)
