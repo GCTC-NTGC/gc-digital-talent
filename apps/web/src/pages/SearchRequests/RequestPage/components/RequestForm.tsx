@@ -86,7 +86,7 @@ type FormValues = {
   department?: DepartmentBelongsTo["connect"];
 };
 
-const RequestFormClassification_Fragment = graphql(/* GraphQL */ `
+export const RequestFormClassification_Fragment = graphql(/* GraphQL */ `
   fragment RequestFormClassification on Classification {
     id
     group
@@ -94,7 +94,7 @@ const RequestFormClassification_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-const RequestFormDepartment_Fragment = graphql(/* GraphQL */ `
+export const RequestFormDepartment_Fragment = graphql(/* GraphQL */ `
   fragment RequestFormDepartment on Department {
     id
     departmentNumber
