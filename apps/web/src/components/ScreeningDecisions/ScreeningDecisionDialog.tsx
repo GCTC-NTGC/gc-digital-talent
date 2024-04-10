@@ -342,10 +342,9 @@ export const ScreeningDecisionDialog = ({
           skill,
         );
 
-  const experienceAttachedToSkill = getExperienceSkills(
-    unpackMaybes(parsedSnapshot?.experiences),
-    skill,
-  ).length > 0;
+  const experienceAttachedToSkill =
+    getExperienceSkills(unpackMaybes(parsedSnapshot?.experiences), skill)
+      .length > 0;
 
   const classificationGroup = poolCandidate.pool.classification?.group;
 
