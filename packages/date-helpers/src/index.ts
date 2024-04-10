@@ -1,14 +1,12 @@
-/* eslint-disable import/no-duplicates */
-// known issue with date-fns and eslint https://github.com/date-fns/date-fns/issues/1756#issuecomment-624803874
 import type { IntlShape } from "react-intl";
-import add from "date-fns/add";
-import format from "date-fns/format";
-import parse from "date-fns/parse";
-import parseISO from "date-fns/parseISO";
-import en from "date-fns/locale/en-CA";
-import fr from "date-fns/locale/fr";
-import formatInTimeZone from "date-fns-tz/formatInTimeZone";
-import toDate from "date-fns-tz/toDate";
+import { add } from "date-fns/add";
+import { format } from "date-fns/format";
+import { parse } from "date-fns/parse";
+import { parseISO } from "date-fns/parseISO";
+import { enCA as en } from "date-fns/locale/en-CA";
+import { fr } from "date-fns/locale/fr";
+import { formatInTimeZone, toDate } from "date-fns-tz";
+import { Locale } from "date-fns/locale";
 
 import { getLocale, dateMessages } from "@gc-digital-talent/i18n";
 import { Scalars } from "@gc-digital-talent/graphql";

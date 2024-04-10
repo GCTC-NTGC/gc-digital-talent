@@ -4,8 +4,8 @@ import { useMutation, useQuery } from "urql";
 
 import { Pending, NotFound } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { graphql, Scalars, UpdateTeamInput } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -28,12 +28,7 @@ const UpdateTeamData_Query = graphql(/* GraphQL */ `
     }
 
     departments {
-      id
-      departmentNumber
-      name {
-        en
-        fr
-      }
+      ...TeamDepartmentOption
     }
   }
 `);
@@ -53,7 +48,6 @@ const EditTeamPage = () => {
   });
   const [, executeMutation] = useMutation(UpdateTeam_Mutation);
 
-  const departments = unpackMaybes(data?.departments);
   const teamQuery = data?.team;
 
   const pageTitle = intl.formatMessage({
@@ -85,7 +79,7 @@ const EditTeamPage = () => {
             <SEO title={pageTitle} />
             <UpdateTeamForm
               teamQuery={teamQuery}
-              departments={departments}
+              departmentsQuery={unpackMaybes(data?.departments)}
               onSubmit={handleSubmit}
             />
           </>

@@ -12,13 +12,13 @@ import {
   Heading,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   graphql,
   Pool,
   Scalars,
-  Classification,
   Skill,
+  FragmentType,
 } from "@gc-digital-talent/graphql";
 
 import { EditPoolSectionMetadata } from "~/types/pool";
@@ -30,7 +30,7 @@ import {
   hasEmptyRequiredFields as poolNameError,
   isInNullState as educationRequirementIsNull,
 } from "~/validators/process/classification";
-import { hasEmptyRequiredFields as closingDateError } from "~/validators/process/closingDate";
+import { hasInvalidRequiredFields as closingDateError } from "~/validators/process/closingDate";
 import { hasEmptyRequiredFields as yourImpactError } from "~/validators/process/yourImpact";
 import { hasEmptyRequiredFields as keyTasksError } from "~/validators/process/keyTasks";
 import { hasEmptyRequiredFields as coreRequirementsError } from "~/validators/process/coreRequirements";
@@ -42,6 +42,7 @@ import usePoolMutations from "~/hooks/usePoolMutations";
 import { hasAllEmptyFields as specialNoteIsNull } from "~/validators/process/specialNote";
 
 import PoolNameSection, {
+  PoolClassification_Fragment,
   type PoolNameSubmitData,
 } from "./components/PoolNameSection/PoolNameSection";
 import ClosingDateSection, {
@@ -91,7 +92,7 @@ export type PoolSubmitData =
 
 export interface EditPoolFormProps {
   pool: Pool;
-  classifications: Array<Classification>;
+  classifications: FragmentType<typeof PoolClassification_Fragment>[];
   skills: Array<Skill>;
   onSave: (submitData: PoolSubmitData) => Promise<void>;
   poolSkillMutations: PoolSkillMutationsType;
@@ -379,7 +380,7 @@ export const EditPoolForm = ({
                     </div>
                     <PoolNameSection
                       pool={pool}
-                      classifications={classifications}
+                      classificationsQuery={classifications}
                       sectionMetadata={sectionMetadata.poolName}
                       onSave={onSave}
                     />
@@ -658,13 +659,7 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
 
     # all classifications to populate form dropdown
     classifications {
-      id
-      group
-      level
-      name {
-        en
-        fr
-      }
+      ...PoolClassification
     }
 
     # all skills to populate skill pickers
@@ -753,7 +748,7 @@ export const EditPoolPage = () => {
         <EditPoolContext.Provider value={ctx}>
           <EditPoolForm
             pool={data.pool}
-            classifications={data.classifications.filter(notEmpty)}
+            classifications={unpackMaybes(data.classifications)}
             skills={data.skills.filter(notEmpty)}
             onSave={(saveData) => mutations.update(poolId, saveData)}
             poolSkillMutations={poolSkillMutations}

@@ -18,6 +18,9 @@ use App\Models\Team;
 use App\Models\User;
 use Carbon\Carbon;
 use Database\Helpers\ApiEnums;
+use Database\Seeders\ClassificationSeeder;
+use Database\Seeders\GenericJobTitleSeeder;
+use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -548,10 +551,6 @@ class PoolApplicationTest extends TestCase
 
     public function testApplicationSubmitScreeningQuestions(): void
     {
-        if (! config('feature.record_of_decision')) {
-            $this->markTestSkipped('record_of_decision is off');
-        }
-
         $newPool = Pool::factory()->published()->create([
             'closing_date' => Carbon::now()->addDays(1),
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements

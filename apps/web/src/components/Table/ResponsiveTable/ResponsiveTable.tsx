@@ -368,9 +368,10 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
                 ))}
               </Table.Body>
             </Table.Table>
-            {rowSelect && (
+            {(rowSelect || download?.all) && (
               <RowSelection.Actions
                 {...{
+                  rowSelect: !!rowSelect,
                   download,
                   print,
                   isLoading,

@@ -7,7 +7,12 @@ import { useLocation } from "react-router-dom";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Pending } from "@gc-digital-talent/ui";
-import { graphql, Classification } from "@gc-digital-talent/graphql";
+import {
+  graphql,
+  Classification,
+  FragmentType,
+  getFragment,
+} from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
@@ -15,19 +20,37 @@ import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
 import { normalizedText } from "~/components/Table/sortingFns";
 
+export const ClassificationTableRow_Fragment = graphql(/* GraphQL */ `
+  fragment ClassificationTableRow on Classification {
+    id
+    name {
+      en
+      fr
+    }
+    group
+    level
+    minSalary
+    maxSalary
+  }
+`);
+
 const columnHelper = createColumnHelper<Classification>();
 
 interface ClassificationTableProps {
-  classifications: Classification[];
+  classificationsQuery: FragmentType<typeof ClassificationTableRow_Fragment>[];
   title: string;
 }
 
 export const ClassificationTable = ({
-  classifications,
+  classificationsQuery,
   title,
 }: ClassificationTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const classifications = getFragment(
+    ClassificationTableRow_Fragment,
+    classificationsQuery,
+  );
   const columns = [
     columnHelper.accessor("id", {
       id: "id",
@@ -142,15 +165,7 @@ export const ClassificationTable = ({
 const ClassificationTable_Query = graphql(/* GraphQL */ `
   query Classifications {
     classifications {
-      id
-      name {
-        en
-        fr
-      }
-      group
-      level
-      minSalary
-      maxSalary
+      ...ClassificationTableRow
     }
   }
 `);
@@ -169,7 +184,7 @@ const ClassificationTableApi = ({ title }: { title: string }) => {
   return (
     <Pending fetching={fetching} error={error}>
       <ClassificationTable
-        classifications={unpackMaybes(data?.classifications)}
+        classificationsQuery={unpackMaybes(data?.classifications)}
         title={title}
       />
     </Pending>

@@ -237,7 +237,6 @@ class ExperienceTest extends TestCase
         ]);
         $experienceSkill = new ExperienceSkill();
         $experienceSkill->experience_id = $experience->id;
-        $experienceSkill->experience_type = 'workExperience';
         $experienceSkill->user_skill_id = $userSkill->id;
         $experienceSkill->details = 'some details';
         $experienceSkill->save();
