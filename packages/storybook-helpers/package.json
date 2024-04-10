@@ -38,7 +38,7 @@
     "hydrogen-webpack-plugin": "workspace:*",
     "react": "^18.2.0",
     "storybook": "^7.6.17",
-    "storybook-addon-intl": "^3.2.0",
+    "storybook-react-intl": "~2.0.10",
     "tsconfig": "workspace:*",
     "tsconfig-paths-webpack-plugin": "^4.1.0"
   }
