@@ -384,6 +384,42 @@ export const ScreeningDecisionDialog = ({
     }
   };
 
+  const triggerLabel = (): React.ReactNode => {
+    if (!hasBeenAssessed) {
+      return poolSkill?.type === PoolSkillType.Nonessential
+        ? intl.formatMessage(poolCandidateMessages.unclaimed)
+        : intl.formatMessage(poolCandidateMessages.toAssess);
+    }
+
+    return initialValues?.assessmentDecision === "noDecision" ? (
+      <>{intl.formatMessage(commonMessages.notSure)}</>
+    ) : (
+      <>
+        {intl.formatMessage(
+          initialValues?.assessmentDecision
+            ? getTableAssessmentDecision(initialValues.assessmentDecision)
+            : commonMessages.notFound,
+        )}
+        {initialValues?.assessmentDecision === AssessmentDecision.Successful &&
+        !educationRequirement ? (
+          <span
+            data-h2-color="base(gray.darker)"
+            data-h2-text-decoration="base(none)"
+            data-h2-display="base(block)"
+          >
+            {intl.formatMessage(
+              initialValues?.assessmentDecisionLevel
+                ? getAssessmentDecisionLevel(
+                    initialValues.assessmentDecisionLevel,
+                  )
+                : commonMessages.notFound,
+            )}
+          </span>
+        ) : null}
+      </>
+    );
+  };
+
   return (
     <Dialog.Root open={isOpen} onOpenChange={onOpenChanged}>
       <Dialog.Trigger>
@@ -392,47 +428,9 @@ export const ScreeningDecisionDialog = ({
           mode="inline"
           color={triggerColor()}
           data-h2-text-align="base(left)"
+          data-h2-vertical-align="base(middle)"
         >
-          {hasBeenAssessed ? (
-            <>
-              {initialValues?.assessmentDecision === "noDecision" ? (
-                <>{intl.formatMessage(commonMessages.notSure)}</>
-              ) : (
-                <>
-                  <>
-                    {intl.formatMessage(
-                      initialValues?.assessmentDecision
-                        ? getTableAssessmentDecision(
-                            initialValues.assessmentDecision,
-                          )
-                        : commonMessages.notFound,
-                    )}
-                  </>
-                  {initialValues?.assessmentDecision ===
-                    AssessmentDecision.Successful && !educationRequirement ? (
-                    <span
-                      data-h2-color="base(gray.darker)"
-                      data-h2-text-decoration="base(none)"
-                    >
-                      {intl.formatMessage(
-                        initialValues?.assessmentDecisionLevel
-                          ? getAssessmentDecisionLevel(
-                              initialValues.assessmentDecisionLevel,
-                            )
-                          : commonMessages.notFound,
-                      )}
-                    </span>
-                  ) : null}
-                </>
-              )}
-            </>
-          ) : (
-            <>
-              {poolSkill?.type === PoolSkillType.Nonessential
-                ? intl.formatMessage(poolCandidateMessages.unclaimed)
-                : intl.formatMessage(poolCandidateMessages.toAssess)}
-            </>
-          )}
+          {triggerLabel()}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
