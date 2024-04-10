@@ -1,12 +1,12 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 
 import { CHROMATIC_VIEWPORTS } from "@gc-digital-talent/storybook-helpers";
 
 import DirectivePage from "./DirectivePage";
 
-type Meta = ComponentMeta<typeof DirectivePage>;
-type Story = ComponentStory<typeof DirectivePage>;
+type Meta = Meta<typeof DirectivePage>;
+type Story = StoryFn<typeof DirectivePage>;
 
 export default {
   component: DirectivePage,

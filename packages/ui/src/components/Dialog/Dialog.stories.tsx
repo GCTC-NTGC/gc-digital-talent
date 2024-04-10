@@ -1,5 +1,5 @@
 import React from "react";
-import type { StoryFn, ComponentMeta } from "@storybook/react";
+import type { StoryFn, Meta } from "@storybook/react";
 import { faker } from "@faker-js/faker";
 
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
@@ -17,7 +17,7 @@ export default {
       page: DialogDocs,
     },
   },
-} as ComponentMeta<typeof Dialog.Header>;
+} as Meta<typeof Dialog.Header>;
 
 type Args = React.ComponentProps<typeof Dialog.Header> & {
   theme: "dark" | "light";

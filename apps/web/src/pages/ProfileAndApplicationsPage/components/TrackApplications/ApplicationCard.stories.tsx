@@ -1,5 +1,5 @@
 import React from "react";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
 import {
@@ -12,8 +12,8 @@ import { isExpired } from "~/utils/poolCandidate";
 
 import ApplicationCard from "./ApplicationCard";
 
-type Story = ComponentStory<typeof ApplicationCard>;
-type Meta = ComponentMeta<typeof ApplicationCard>;
+type Story = StoryFn<typeof ApplicationCard>;
+type Meta = Meta<typeof ApplicationCard>;
 
 const mockApplications = fakePoolCandidates(20);
 

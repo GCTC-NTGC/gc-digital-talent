@@ -1,5 +1,5 @@
 import React from "react";
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { StoryFn, Meta } from "@storybook/react";
 
 import ScrollAreaDocs from "./ScrollArea.docs.mdx";
 import ScrollArea from "./ScrollArea";
@@ -12,13 +12,13 @@ export default {
       page: ScrollAreaDocs,
     },
   },
-} as ComponentMeta<typeof ScrollArea.Root>;
+} as Meta<typeof ScrollArea.Root>;
 
 const ITEMS = Array.from({ length: 50 }).map(
   (_, i, a) => `List item ${a.length - i}`,
 );
 
-const Template: ComponentStory<typeof ScrollArea.Root> = (args) => {
+const Template: StoryFn<typeof ScrollArea.Root> = (args) => {
   return (
     <ScrollArea.Root
       style={{

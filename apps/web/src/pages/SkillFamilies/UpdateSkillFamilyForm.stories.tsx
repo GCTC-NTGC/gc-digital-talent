@@ -1,5 +1,5 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
 import { fakeSkills, fakeSkillFamilies } from "@gc-digital-talent/fake-data";
@@ -12,9 +12,9 @@ const mockSkillFamilies = fakeSkillFamilies();
 export default {
   component: UpdateSkillFamilyForm,
   title: "Forms/Update Skill Family Form",
-} as ComponentMeta<typeof UpdateSkillFamilyForm>;
+} as Meta<typeof UpdateSkillFamilyForm>;
 
-const Template: ComponentStory<typeof UpdateSkillFamilyForm> = (args) => {
+const Template: StoryFn<typeof UpdateSkillFamilyForm> = (args) => {
   const { initialSkillFamily, skills } = args;
 
   return (

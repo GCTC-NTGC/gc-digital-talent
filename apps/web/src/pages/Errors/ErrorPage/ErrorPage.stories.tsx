@@ -1,12 +1,12 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 
 import { CHROMATIC_VIEWPORTS } from "@gc-digital-talent/storybook-helpers";
 
 import Error404 from "./ErrorPage";
 
-type Meta = ComponentMeta<typeof Error404>;
-type Story = ComponentStory<typeof Error404>;
+type Meta = Meta<typeof Error404>;
+type Story = StoryFn<typeof Error404>;
 
 export default {
   component: Error404,

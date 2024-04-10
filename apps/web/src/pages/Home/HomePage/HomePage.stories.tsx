@@ -1,12 +1,12 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Home from "./HomePage";
 
-type Meta = ComponentMeta<typeof Home>;
-type Story = ComponentStory<typeof Home>;
+type Meta = Meta<typeof Home>;
+type Story = StoryFn<typeof Home>;
 
 export default {
   component: Home,

@@ -1,12 +1,12 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 
 import { CHROMATIC_VIEWPORTS } from "@gc-digital-talent/storybook-helpers";
 
 import AccessibilityStatement from "./AccessibilityStatementPage";
 
-type Meta = ComponentMeta<typeof AccessibilityStatement>;
-type Story = ComponentStory<typeof AccessibilityStatement>;
+type Meta = Meta<typeof AccessibilityStatement>;
+type Story = StoryFn<typeof AccessibilityStatement>;
 
 export default {
   component: AccessibilityStatement,

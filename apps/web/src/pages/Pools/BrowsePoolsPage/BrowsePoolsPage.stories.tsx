@@ -1,5 +1,5 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 
 import {
   CHROMATIC_VIEWPORTS,
@@ -16,8 +16,8 @@ const mockPools = fakePools(3).map((advert) => ({
   status: PoolStatus.Published,
 }));
 
-type Meta = ComponentMeta<typeof BrowsePools>;
-type Story = ComponentStory<typeof BrowsePools>;
+type Meta = Meta<typeof BrowsePools>;
+type Story = StoryFn<typeof BrowsePools>;
 
 export default {
   component: BrowsePools,

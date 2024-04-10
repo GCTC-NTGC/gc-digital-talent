@@ -1,13 +1,13 @@
 import React from "react";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 
 import ThemeSwitcher from "./ThemeSwitcher";
 
 type ComponentType = typeof ThemeSwitcher;
-type Meta = ComponentMeta<ComponentType>;
-type Story = ComponentStory<ComponentType>;
+type Meta = Meta<ComponentType>;
+type Story = StoryFn<ComponentType>;
 
 export default {
   component: ThemeSwitcher,
