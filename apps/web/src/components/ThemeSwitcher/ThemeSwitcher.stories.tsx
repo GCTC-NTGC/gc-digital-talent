@@ -13,9 +13,6 @@ export default {
   component: ThemeSwitcher,
   title: "Components/ThemeSwitcher",
   decorators: [OverlayOrDialogDecorator],
-  parameters: {
-    chromatic: { delay: 300 },
-  },
 } as Meta;
 
 const Template: Story = () => (
