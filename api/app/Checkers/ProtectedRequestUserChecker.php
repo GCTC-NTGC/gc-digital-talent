@@ -10,10 +10,10 @@ use Illuminate\Support\Facades\Request;
 use Laratrust\Checkers\User\UserDefaultChecker;
 use Laratrust\Helper;
 
-// This class extends the default user checker to add additional checks for protected requests
+// This class extends the default user checker to add additional checks for privileged permissions on unprotected requests
 class ProtectedRequestUserChecker extends UserDefaultChecker
 {
-    // these are the role names with limited permissions that can safely be used on unsecure requests
+    // these are the role names with limited permissions that can safely be used on unprotected requests
     const LIMITED_ROLES = [
         'guest',
         'base_user',

@@ -48,8 +48,9 @@ class ProtectedRequestTest extends TestCase
             '
         )->assertJsonStructure([
             'data' => [
-                'skills',
-
+                'skills' => [
+                    '*' => ['id'],
+                ],
             ],
         ]);
     }
