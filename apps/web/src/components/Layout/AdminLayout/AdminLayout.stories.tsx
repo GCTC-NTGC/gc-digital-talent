@@ -33,6 +33,9 @@ export default {
       options: availableRoles,
     },
   },
+  parameters: {
+    chromatic: { delay: 300 },
+  },
 } as Meta<AdminLayoutArgs>;
 
 const Template: StoryFn<AdminLayoutArgs> = (args) => {

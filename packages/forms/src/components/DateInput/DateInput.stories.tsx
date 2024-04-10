@@ -288,3 +288,6 @@ AsyncDefaultValue.args = {
     });
   },
 };
+AsyncDefaultValue.parameters = {
+  chromatic: { delay: 1500 },
+};
