@@ -394,12 +394,12 @@ export const ScreeningDecisionDialog = ({
           data-h2-text-align="base(left)"
         >
           {hasBeenAssessed ? (
-            <span>
+            <>
               {initialValues?.assessmentDecision === "noDecision" ? (
-                <span>{intl.formatMessage(commonMessages.notSure)}</span>
+                <>{intl.formatMessage(commonMessages.notSure)}</>
               ) : (
                 <>
-                  <span>
+                  <>
                     {intl.formatMessage(
                       initialValues?.assessmentDecision
                         ? getTableAssessmentDecision(
@@ -407,7 +407,7 @@ export const ScreeningDecisionDialog = ({
                           )
                         : commonMessages.notFound,
                     )}
-                  </span>
+                  </>
                   {initialValues?.assessmentDecision ===
                     AssessmentDecision.Successful && !educationRequirement ? (
                     <span
@@ -425,13 +425,13 @@ export const ScreeningDecisionDialog = ({
                   ) : null}
                 </>
               )}
-            </span>
+            </>
           ) : (
-            <span>
+            <>
               {poolSkill?.type === PoolSkillType.Nonessential
                 ? intl.formatMessage(poolCandidateMessages.unclaimed)
                 : intl.formatMessage(poolCandidateMessages.toAssess)}
-            </span>
+            </>
           )}
         </Button>
       </Dialog.Trigger>
