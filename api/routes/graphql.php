@@ -42,7 +42,7 @@ Route::middleware([
     Route::post('/graphql', Nuwave\Lighthouse\Http\GraphQLController::class)
         ->name('graphql');
 
-    // "privileged" access to the graphql controller through the VPN
+    // "privileged" access to the graphql controller through a protected path
     Route::post('/admin/graphql', Nuwave\Lighthouse\Http\GraphQLController::class)
-        ->name('graphql-secure');
+        ->name('graphql-protected');
 });
