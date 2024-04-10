@@ -53,6 +53,7 @@ if (sbApp) {
 
 const main: StorybookConfig = {
   stories,
+  staticDirs: ["../src/assets"],
   addons: [
     "@storybook/addon-a11y",
     "@storybook/addon-essentials",
