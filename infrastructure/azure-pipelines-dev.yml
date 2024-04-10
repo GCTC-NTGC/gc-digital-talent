@@ -84,7 +84,7 @@ stages:
       - script: npm run build:packages
         displayName: "Build dependencies"
 
-      - script: export npm_config_unsafe_perm=true && npx playwright install --with-deps
+      - script: npx playwright install --with-deps
         displayName: "Install Playwright browsers"
 
       - script: npm run e2e:playwright:chromium
