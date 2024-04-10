@@ -83,8 +83,8 @@ stages:
 
       - script: npm run build:packages
         displayName: "Build dependencies"
-
-      - script: npx playwright install --with-deps
+      
+      - script: npx playwright install
         displayName: "Install Playwright browsers"
 
       - script: npm run e2e:playwright:chromium
