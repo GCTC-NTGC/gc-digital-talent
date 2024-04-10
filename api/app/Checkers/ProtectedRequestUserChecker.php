@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Request;
 use Laratrust\Checkers\User\UserDefaultChecker;
+use Laratrust\Helper;
 
 // This class extends the default user checker to add additional checks for protected requests
 class ProtectedRequestUserChecker extends UserDefaultChecker
@@ -20,18 +21,20 @@ class ProtectedRequestUserChecker extends UserDefaultChecker
     ];
 
     // decide if it is safe for the current user to use the given role
-    protected function isSafeToUseRole(string $role): bool
+    protected function isSafeToUseRole(string|array|BackedEnum $name): bool
     {
+        $name = Helper::standardize($name);
         $isProtectedRequest = Request::get('isProtectedRequest');
 
         // if it's a protected request then any role is safe to use
         // if it's a limited (unprivileged) role then it's always safe to use
-        return $isProtectedRequest || in_array($role, $this::LIMITED_ROLES);
+        return $isProtectedRequest || in_array($name, $this::LIMITED_ROLES);
     }
 
     // decide if it is safe for the current user to use the given permission
-    protected function isSafeToUsePermission(string $permission): bool
+    protected function isSafeToUsePermission(string|array|BackedEnum $permission): bool
     {
+        $permission = Helper::standardize($permission);
         $isProtectedRequest = Request::get('isProtectedRequest');
 
         $limitedPermissions =

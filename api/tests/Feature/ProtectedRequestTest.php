@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Feature;
 
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
@@ -137,9 +137,7 @@ class ProtectedRequestTest extends TestCase
                     ],
                 ],
             ]
-        )->assertJsonFragment([
-            'message' => 'This action is unauthorized.',
-        ]);
+        )->assertGraphQLErrorMessage('This action is unauthorized.');
 
     }
 }

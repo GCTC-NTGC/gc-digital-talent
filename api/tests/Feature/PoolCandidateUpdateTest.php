@@ -13,6 +13,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
+use Tests\UsesProtectedGraphqlEndpoint;
 
 use function PHPUnit\Framework\assertEquals;
 
@@ -20,6 +21,7 @@ class PoolCandidateUpdateTest extends TestCase
 {
     use MakesGraphQLRequests;
     use RefreshDatabase;
+    use UsesProtectedGraphqlEndpoint;
     use WithFaker;
 
     protected $guestUser;
