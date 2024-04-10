@@ -393,10 +393,8 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
           }
         }
         justifications
-        otherJustificationNotes
         assessmentDecisionLevel
         skillDecisionNotes
-        assessmentNotes
         poolSkill {
           id
           type
