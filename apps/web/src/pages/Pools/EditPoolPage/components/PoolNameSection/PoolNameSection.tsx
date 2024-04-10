@@ -14,8 +14,9 @@ import { Input, Select, Submit, enumToOptions } from "@gc-digital-talent/forms";
 import {
   PublishingGroup,
   PoolStatus,
-  Classification,
-  Maybe,
+  FragmentType,
+  getFragment,
+  graphql,
 } from "@gc-digital-talent/graphql";
 
 import {
@@ -40,13 +41,25 @@ import {
 import { SectionProps } from "../../types";
 import ActionWrapper from "../ActionWrapper";
 
+export const PoolClassification_Fragment = graphql(/* GraphQL */ `
+  fragment PoolClassification on Classification {
+    id
+    group
+    level
+    name {
+      en
+      fr
+    }
+  }
+`);
+
 type PoolNameSectionProps = SectionProps<PoolNameSubmitData> & {
-  classifications: Array<Maybe<Classification>>;
+  classificationsQuery: FragmentType<typeof PoolClassification_Fragment>[];
 };
 
 const PoolNameSection = ({
   pool,
-  classifications,
+  classificationsQuery,
   sectionMetadata,
   onSave,
 }: PoolNameSectionProps): JSX.Element => {
@@ -59,6 +72,10 @@ const PoolNameSection = ({
     emptyRequired,
     fallbackIcon: TagIcon,
   });
+  const classifications = getFragment(
+    PoolClassification_Fragment,
+    classificationsQuery,
+  );
 
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(pool),

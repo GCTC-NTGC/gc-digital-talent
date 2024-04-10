@@ -79,10 +79,6 @@
     "defaultMessage": "Mes rôles",
     "description": "Label displayed for the table's My Roles column header."
   },
-  "+ayqFd": {
-    "defaultMessage": "Compétences comportementales ({count} compétences)",
-    "description": "Tab name for a list of behavioural skills"
-  },
   "+cBKDC": {
     "defaultMessage": "Emplois dans le gouvernement numérique",
     "description": "Heading for the digital government job opportunities"
@@ -1095,10 +1091,6 @@
     "defaultMessage": "Actif",
     "description": "Status message if the application is not suspended"
   },
-  "4LQLyh": {
-    "defaultMessage": "Compétences techniques ({count} compétences)",
-    "description": "Tab name for a list of technical skills"
-  },
   "4LVc9T": {
     "defaultMessage": "{localizedName} évalué par {assessmentStepTypeLocalized}",
     "description": "Aria text for icon indicating a skill to assessment step connection."
@@ -1202,6 +1194,10 @@
   "4pJgUJ": {
     "defaultMessage": "Contextes professionnels",
     "description": "Work details label"
+  },
+  "4qdoau": {
+    "defaultMessage": "Compétence introuvable",
+    "description": "Link to suggestions on what to do if you can't find a skill in the skill browser."
   },
   "4r+taV": {
     "defaultMessage": "Par compétences comportementales, on entend les attributs interpersonnels et personnels clés qui sont nécessaires pour certains emplois au sein de l'organisation. Ces compétences ont habituellement trait à la manière dont une personne agit, communique et interagit avec les autres. Elles comprennent les niveaux suivants :",
@@ -1522,10 +1518,6 @@
   "6ntAxU": {
     "defaultMessage": "Nom de l’initiative en matière numérique",
     "description": "Label for _name of digital initiative_ field in _authorities involved_ fieldset in the _digital services contracting questionnaire_"
-  },
-  "6ofORn": {
-    "defaultMessage": "Famille de compétences",
-    "description": "Label for the skill family filter field"
   },
   "6rb9mg": {
     "defaultMessage": "Membres de l’équipe",
@@ -2851,6 +2843,10 @@
     "defaultMessage": "Groupe et classification actuels",
     "description": "Current group and classification label"
   },
+  "EIM5Jw": {
+    "defaultMessage": "Toutes les compétences",
+    "description": "Label for removing the skill family filter"
+  },
   "EK+25s": {
     "defaultMessage": "Notes",
     "description": "Title for admin notes shorthand"
@@ -3551,10 +3547,6 @@
     "defaultMessage": "Ajouter une nouvelle adhésion",
     "description": "Label for the form to add a team membership to a user"
   },
-  "Id9nfM": {
-    "defaultMessage": "Toutes les compétences ({count} compétences)",
-    "description": "Label for removing the skill family filter"
-  },
   "IexFo4": {
     "defaultMessage": "Connaissance de l’autre langue officielle",
     "description": "Second language proficiency label"
@@ -3827,6 +3819,10 @@
     "defaultMessage": "Changer votre disponibilité pour {title}.",
     "description": "Button text to open form to change availability in a specific recruitment"
   },
+  "K91fwT": {
+    "defaultMessage": "Filtrer par groupe de compétences",
+    "description": "Label for the skill family filter field"
+  },
   "K9YLac": {
     "defaultMessage": "En savoir plus<hidden> sur la collectivité des cadres</hidden>",
     "description": "Link text to the executive community"
@@ -3938,6 +3934,10 @@
   "KjbjQU": {
     "defaultMessage": "Voir",
     "description": "Title displayed for a tables View column."
+  },
+  "Kki7mk": {
+    "defaultMessage": "Ma bibliothèque",
+    "description": "Label for filtering skills by ones already added to the users library"
   },
   "KoKXUw": {
     "defaultMessage": "Outils avancés",
@@ -4262,10 +4262,6 @@
   "Mi+AuD": {
     "defaultMessage": "Processus",
     "description": "Title for the index pool page"
-  },
-  "MmDHBS": {
-    "defaultMessage": "{label} ({count} compétences)",
-    "description": "Label for options when selecting skill filters where {count} is the number of skills associated with the filter"
   },
   "MotQKq": {
     "defaultMessage": "Tâches de travail (français)",
@@ -4598,10 +4594,6 @@
   "OpKC2i": {
     "defaultMessage": "Exceptions relatives au lieu de travail",
     "description": "Work location exceptions label"
-  },
-  "OqKTJQ": {
-    "defaultMessage": "Toutes les catégories ({count} compétences)",
-    "description": "Label for removing the skill category filter"
   },
   "OqglGZ": {
     "defaultMessage": "Ce volet comprend le travail avec la direction de l’architecture <abbreviation>TI</abbreviation> du ministère, la collaboration avec d’autres volets de <abbreviation>TI</abbreviation> et la recherche sur les technologies émergentes.",
@@ -8185,10 +8177,6 @@
   "hyJz3G": {
     "defaultMessage": "À propos du programme",
     "description": "Program information section title"
-  },
-  "hzZc5Y": {
-    "defaultMessage": "Ma bibliothèque ({count} compétences)",
-    "description": "Label for filtering skills by ones already added to the users library"
   },
   "i+C29d": {
     "defaultMessage": "Cacher les options d'équité offertes ({optionCount})",

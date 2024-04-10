@@ -17,8 +17,8 @@ const skillBrowserMessages = defineMessages({
     description: "Label for the skill category filter field",
   },
   skillFamily: {
-    defaultMessage: "Skill family",
-    id: "6ofORn",
+    defaultMessage: "Filter by skill family",
+    id: "K91fwT",
     description: "Label for the skill family filter field",
   },
   skill: {
