@@ -33,15 +33,13 @@ type ThemeSetterProps = {
   theme: Theme;
 };
 const ThemeSetter = ({ theme }: ThemeSetterProps) => {
-  const { setTheme } = useTheme();
-
-  React.useEffect(() => {
+  const { setTheme, key, mode } = useTheme();
+  if (theme.key !== key || theme.mode !== mode) {
     setTheme({
       key: theme.key,
       mode: theme.mode,
     });
-  }, [setTheme, theme.key, theme.mode]);
-
+  }
   return null;
 };
 
