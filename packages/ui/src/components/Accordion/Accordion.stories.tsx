@@ -5,7 +5,6 @@ import Cog8ToothIcon from "@heroicons/react/24/solid/Cog8ToothIcon";
 import { faker } from "@faker-js/faker";
 import { action } from "@storybook/addon-actions";
 
-import AccordionDocs from "./Accordion.docs.mdx";
 import Accordion from "./Accordion";
 import Button from "../Button";
 
@@ -42,11 +41,6 @@ export default {
     type: {
       control: { type: "radio" },
       options: ["single", "multiple"],
-    },
-  },
-  parameters: {
-    docs: {
-      page: AccordionDocs,
     },
   },
 } as Meta<typeof Accordion.Root>;

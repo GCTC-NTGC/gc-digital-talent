@@ -1,17 +1,11 @@
 import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 
-import SeparatorDocs from "./Separator.docs.mdx";
 import Separator from "./Separator";
 
 export default {
   component: Separator,
   title: "Components/Separator",
-  parameters: {
-    docs: {
-      page: SeparatorDocs,
-    },
-  },
 } as Meta<typeof Separator>;
 
 const Template: StoryFn<typeof Separator> = () => (

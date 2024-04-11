@@ -5,18 +5,12 @@ import { faker } from "@faker-js/faker";
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 
 import Button from "../Button";
-import DialogDocs from "./Dialog.docs.mdx";
 import Dialog from "./Dialog";
 
 export default {
   component: Dialog.Root,
   title: "Components/Dialog",
   decorators: [OverlayOrDialogDecorator],
-  parameters: {
-    docs: {
-      page: DialogDocs,
-    },
-  },
 } as Meta<typeof Dialog.Header>;
 
 type Args = React.ComponentProps<typeof Dialog.Header> & {

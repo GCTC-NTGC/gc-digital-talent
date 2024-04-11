@@ -1,17 +1,11 @@
 import React from "react";
 import type { StoryFn, Meta } from "@storybook/react";
 
-import ScrollAreaDocs from "./ScrollArea.docs.mdx";
 import ScrollArea from "./ScrollArea";
 
 export default {
   component: ScrollArea.Root,
   title: "Components/ScrollArea",
-  parameters: {
-    docs: {
-      page: ScrollAreaDocs,
-    },
-  },
 } as Meta<typeof ScrollArea.Root>;
 
 const ITEMS = Array.from({ length: 50 }).map(
