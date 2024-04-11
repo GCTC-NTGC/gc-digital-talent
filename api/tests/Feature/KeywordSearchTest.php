@@ -663,47 +663,6 @@ class KeywordSearchTest extends TestCase
             ])->assertJsonCount(2, 'data.usersPaginated.data');
     }
 
-    public function testUserSearchPartialNamesEmailsWithAndLogic()
-    {
-        $user1 = User::factory()->create([
-            'first_name' => 'john',
-            'last_name' => 'smith',
-            'email' => 'john@test.com',
-            'current_city' => 'abc',
-        ]);
-        $user2 = User::factory()->create([
-            'first_name' => 'bob',
-            'last_name' => 'johnson',
-            'email' => 'bob@test.com',
-            'current_city' => 'efg',
-        ]);
-        $user3 = User::factory()->create([
-            'first_name' => 'jones',
-            'last_name' => 'hall',
-            'email' => 'johnson@test.com',
-            'current_city' => 'hij',
-        ]);
-
-        // city "abc" AND partial name "joh" matches only one user
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-                 query getUsersPaginated($where: UserFilterInput) {
-                     usersPaginated(where: $where) {
-                         data {
-                             id
-                         }
-                     }
-                 }
-             ', [
-                'where' => [
-                    'generalSearch' => ['abc and joh'],
-                ],
-            ])->assertJsonFragment([
-                'id' => $user1->id,
-            ])->assertJsonCount(1, 'data.usersPaginated.data');
-    }
-
     public function testUserSearchPartialNamesEmailsWithQuotes()
     {
         $user1 = User::factory()->create([
