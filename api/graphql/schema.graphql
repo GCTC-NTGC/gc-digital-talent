@@ -306,6 +306,15 @@ type PoolCandidate {
   isBookmarked: Boolean
     @rename(attribute: "is_bookmarked")
     @canRoot(ability: "viewNotes")
+  removedAt: DateTime
+    @rename(attribute: "removed_at")
+    @canRoot(ability: "viewStatus")
+  removalReason: CandidateRemovalReason
+    @rename(attribute: "removal_reason")
+    @canRoot(ability: "viewStatus")
+  removalReasonOther: String
+    @rename(attribute: "removal_reason_other")
+    @canRoot(ability: "viewStatus")
 
   profileSnapshot: JSON @rename(attribute: "profile_snapshot")
   signature: String

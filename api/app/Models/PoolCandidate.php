@@ -42,6 +42,9 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property array $submitted_steps
  * @property string $education_requirement_option
  * @property bool $is_bookmarked
+ * @property Illuminate\Support\Carbon $removed_at
+ * @property string $removal_reason
+ * @property string $removal_reason_other
  */
 class PoolCandidate extends Model
 {
@@ -64,6 +67,7 @@ class PoolCandidate extends Model
         'profile_snapshot' => 'json',
         'submitted_steps' => 'array',
         'is_bookmarked' => 'boolean',
+        'removed_at' => 'datetime',
     ];
 
     /**

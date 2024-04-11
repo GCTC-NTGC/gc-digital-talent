@@ -411,6 +411,9 @@ type PoolCandidate {
   suspendedAt: DateTime
   deletedDate: DateTime
   isBookmarked: Boolean
+  removedAt: DateTime
+  removalReason: CandidateRemovalReason
+  removalReasonOther: String
   profileSnapshot: JSON
   signature: String
   submittedSteps: [ApplicationStep!]
@@ -2401,4 +2404,10 @@ enum NotificationFamily {
 
 enum NotificationType {
   PoolCandidateStatusChanged
+}
+
+enum CandidateRemovalReason {
+  REQUESTED_TO_BE_WITHDRAWN
+  NOT_RESPONSIVE
+  OTHER
 }
