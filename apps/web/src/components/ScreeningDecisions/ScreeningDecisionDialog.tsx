@@ -34,17 +34,20 @@ import { BasicForm, Submit } from "@gc-digital-talent/forms";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
+  getAssessmentDecisionLevel,
   getAssessmentStepType,
   getLocale,
   getLocalizedName,
   getSkillLevelDefinition,
   getSkillLevelName,
+  getTableAssessmentDecision,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
 import { getExperienceSkills } from "~/utils/skillUtils";
 import { getEducationRequirementOptions } from "~/pages/Applications/ApplicationEducationPage/utils";
 import { isIAPPool } from "~/utils/poolUtils";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import useLabels from "./useLabels";
 import ExperienceCard from "../ExperienceCard/ExperienceCard";
@@ -56,7 +59,6 @@ import {
   convertFormValuesToApiUpdateInput,
   FormValues,
 } from "./utils";
-import TriggerLabel from "./TriggerLabel";
 
 const getSkillLevelMessage = (
   poolSkill: PoolSkill | undefined,
@@ -397,12 +399,41 @@ export const ScreeningDecisionDialog = ({
           data-h2-text-align="base(left)"
           data-h2-vertical-align="base(middle)"
         >
-          <TriggerLabel
-            poolSkill={poolSkill}
-            educationRequirement={educationRequirement}
-            hasBeenAssessed={hasBeenAssessed}
-            values={initialValues}
-          />
+          <>
+            {!hasBeenAssessed && poolSkill?.type === PoolSkillType.Nonessential
+              ? intl.formatMessage(poolCandidateMessages.unclaimed)
+              : intl.formatMessage(poolCandidateMessages.toAssess)}
+
+            {initialValues?.assessmentDecision === "noDecision" ? (
+              <>{intl.formatMessage(commonMessages.notSure)}</>
+            ) : (
+              <>
+                {intl.formatMessage(
+                  initialValues?.assessmentDecision
+                    ? getTableAssessmentDecision(
+                        initialValues.assessmentDecision,
+                      )
+                    : commonMessages.notFound,
+                )}
+                {initialValues?.assessmentDecision ===
+                  AssessmentDecision.Successful && !educationRequirement ? (
+                  <span
+                    data-h2-color="base(gray.darker)"
+                    data-h2-text-decoration="base(none)"
+                    data-h2-display="base(block)"
+                  >
+                    {intl.formatMessage(
+                      initialValues?.assessmentDecisionLevel
+                        ? getAssessmentDecisionLevel(
+                            initialValues.assessmentDecisionLevel,
+                          )
+                        : commonMessages.notFound,
+                    )}
+                  </span>
+                ) : null}
+              </>
+            )}
+          </>
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
