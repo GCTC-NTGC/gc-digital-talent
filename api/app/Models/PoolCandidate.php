@@ -581,6 +581,7 @@ class PoolCandidate extends Model
             'workExperiences.skills',
             'poolCandidates',
             'poolCandidates.pool',
+            'poolCandidates.pool.classification',
             'poolCandidates.educationRequirementAwardExperiences.skills',
             'poolCandidates.educationRequirementCommunityExperiences.skills',
             'poolCandidates.educationRequirementEducationExperiences.skills',
