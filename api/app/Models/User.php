@@ -910,6 +910,19 @@ class User extends Model implements Authenticatable, LaratrustUser
         return $query;
     }
 
+    public static function scopeNegationNameAndEmail(Builder $query, ?array $negationArray): Builder
+    {
+        if (isset($negationArray) && count($negationArray) > 0) {
+            foreach ($negationArray as $index => $value) {
+                $query->whereNot('first_name', 'ilike', "%{$value}%");
+                $query->whereNot('last_name', 'ilike', "%{$value}%");
+                $query->whereNot('email', 'ilike', "%{$value}%");
+            }
+        }
+
+        return $query;
+    }
+
     public static function scopeGeneralSearch(Builder $query, ?array $searchTerms): Builder
     {
         if ($searchTerms && is_array($searchTerms)) {
@@ -930,19 +943,35 @@ class User extends Model implements Authenticatable, LaratrustUser
                 // Now that we have added a column, query builder no longer will add a * to the select.  Add all possible columns manually.
                 ->addSelect(self::$selectableColumns);
 
-            // clear characters or search operators out
+            // negation setup
+            preg_match('/\-[a-zA-Z]+\b/', $combinedSearchTerm, $negationMatches);
+            $matchesWithoutOperator = array_map(fn ($string) => ltrim($string, '/\-/'), $negationMatches);
+            $query->where(function ($query) use ($matchesWithoutOperator) {
+                self::scopeNegationNameAndEmail($query, $matchesWithoutOperator);
+            });
+            $negationRemovedSearchTerm = preg_replace('/\-[a-zA-Z]+\b/', '', $combinedSearchTerm);
+
+            // clear characters or search operators out, then array split for easy OR matching
             $filterToEmptySpace = ['"', '"', '-', ':', '!'];
             $filterToSingleSpace = [' AND ', ' OR ', ' & '];
-            $filtered = str_ireplace($filterToEmptySpace, '', $combinedSearchTerm);
+            $filtered = str_ireplace($filterToEmptySpace, '', $negationRemovedSearchTerm);
             $filtered = str_ireplace($filterToSingleSpace, ' ', $filtered);
+            $whiteSpacingRemoved = trim($filtered);
+            $arrayed = explode(' ', $whiteSpacingRemoved);
 
-            $query->orWhere(function ($query) use ($filtered) {
-                self::scopeName($query, $filtered);
-            });
-
-            $query->orWhere(function ($query) use ($filtered) {
-                self::scopeEmail($query, $filtered);
-            });
+            foreach ($arrayed as $index => $value) {
+                $query->orWhere(function ($query) use ($value, $matchesWithoutOperator) {
+                    $query->whereAny([
+                        'first_name',
+                        'last_name',
+                        'email',
+                    ], 'ilike', "%{$value}%"
+                    );
+                    $query->where(function ($query) use ($matchesWithoutOperator) {
+                        self::scopeNegationNameAndEmail($query, $matchesWithoutOperator);
+                    });
+                });
+            }
         }
 
         return $query;
