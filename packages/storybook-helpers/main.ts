@@ -56,8 +56,11 @@ const main: StorybookConfig = {
   staticDirs: ["../src/assets"],
   addons: [
     "@storybook/addon-a11y",
+    "@storybook/addon-actions",
+    "@storybook/addon-controls",
     "@storybook/addon-links",
     "@storybook/addon-themes",
+    "@storybook/addon-toolbars",
     "@storybook/addon-viewport",
     "@storybook/addon-webpack5-compiler-swc",
     "storybook-react-intl",
