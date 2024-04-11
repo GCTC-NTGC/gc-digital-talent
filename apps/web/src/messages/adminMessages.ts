@@ -31,6 +31,16 @@ const messages = defineMessages({
     id: "S6x9Sg",
     description: "Title for category",
   },
+  categoryEn: {
+    defaultMessage: "Category (English)",
+    id: "fYe7jv",
+    description: "Title for category in English",
+  },
+  categoryFr: {
+    defaultMessage: "Category (French)",
+    id: "FKF8lG",
+    description: "Title for category in French",
+  },
   team: {
     defaultMessage: "Team",
     id: "kKSGje",
@@ -55,6 +65,16 @@ const messages = defineMessages({
     defaultMessage: "Skill families",
     id: "0E9hiS",
     description: "Title for skill families",
+  },
+  skillFamiliesEn: {
+    defaultMessage: "Skill families (English)",
+    id: "1sutYh",
+    description: "Title for skill families in English",
+  },
+  skillFamiliesFr: {
+    defaultMessage: "Skill families (French)",
+    id: "PAySDr",
+    description: "Title for skill families in French",
   },
   skills: {
     defaultMessage: "Skills",
@@ -95,6 +115,16 @@ const messages = defineMessages({
     defaultMessage: "Name (French)",
     id: "Jt4kG1",
     description: "Title for name in French",
+  },
+  descriptionEn: {
+    defaultMessage: "Description (English)",
+    id: "gASASB",
+    description: "Title for description in English.",
+  },
+  descriptionFr: {
+    defaultMessage: "Description (French)",
+    id: "DK2tnK",
+    description: "Title for description in French.",
   },
   noneProvided: {
     defaultMessage: "(None provided)",
