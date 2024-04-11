@@ -764,7 +764,7 @@ class KeywordSearchTest extends TestCase
             ])->assertJsonCount(1, 'data.usersPaginated.data');
     }
 
-    public function testUserSearchPartialNamesEmailsWithNegativeSearch()
+    public function testUserSearchNamesEmailsWithNegativeSearch()
     {
         $user1 = User::factory()->create([
             'first_name' => 'john',
@@ -798,7 +798,7 @@ class KeywordSearchTest extends TestCase
                  }
              ', [
                 'where' => [
-                    'generalSearch' => ['john -smit'],
+                    'generalSearch' => ['john -smith'],
                 ],
             ])->assertJsonFragment([
                 'id' => $user2->id,
@@ -806,7 +806,7 @@ class KeywordSearchTest extends TestCase
                 'id' => $user3->id,
             ])->assertJsonCount(2, 'data.usersPaginated.data');
 
-        // negative search term works for email
+        // negative search term works for full email
         $this->actingAs($this->platformAdmin, 'api')->graphQL(
             /** @lang GraphQL */
             '
@@ -819,12 +819,35 @@ class KeywordSearchTest extends TestCase
                  }
              ', [
                 'where' => [
-                    'generalSearch' => ['john -bob@test'],
+                    'generalSearch' => ['john -bob@test.com'],
                 ],
             ])->assertJsonFragment([
                 'id' => $user1->id,
             ])->assertJsonFragment([
                 'id' => $user3->id,
             ])->assertJsonCount(2, 'data.usersPaginated.data');
+
+        // negative search should NOT work for partial names or emails, as that may lead to unexpected negatives matches
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+                    query getUsersPaginated($where: UserFilterInput) {
+                        usersPaginated(where: $where) {
+                            data {
+                                id
+                            }
+                        }
+                    }
+                ', [
+                'where' => [
+                    'generalSearch' => ['john -smit -bob@t'],
+                ],
+            ])->assertJsonFragment([
+                'id' => $user1->id,
+            ])->assertJsonFragment([
+                'id' => $user2->id,
+            ])->assertJsonFragment([
+                'id' => $user3->id,
+            ])->assertJsonCount(3, 'data.usersPaginated.data');
     }
 }

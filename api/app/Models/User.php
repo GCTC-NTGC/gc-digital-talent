@@ -914,9 +914,9 @@ class User extends Model implements Authenticatable, LaratrustUser
     {
         if (isset($negationArray) && count($negationArray) > 0) {
             foreach ($negationArray as $index => $value) {
-                $query->whereNot('first_name', 'ilike', "%{$value}%");
-                $query->whereNot('last_name', 'ilike', "%{$value}%");
-                $query->whereNot('email', 'ilike', "%{$value}%");
+                $query->whereNot('first_name', 'ilike', $value);
+                $query->whereNot('last_name', 'ilike', $value);
+                $query->whereNot('email', 'ilike', $value);
             }
         }
 
