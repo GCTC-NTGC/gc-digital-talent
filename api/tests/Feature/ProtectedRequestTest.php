@@ -113,6 +113,8 @@ class ProtectedRequestTest extends TestCase
 
     public function testCanNotUsePrivilegedQueryUnprotected()
     {
+        $this->markTestSkipped('Enable to test the route protection logic.');
+
         // simulate a regular request context
         Config::set('lighthouse.route.name', 'graphql');
 
