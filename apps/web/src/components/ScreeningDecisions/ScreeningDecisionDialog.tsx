@@ -34,12 +34,12 @@ import { BasicForm, Submit } from "@gc-digital-talent/forms";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
-  getAssessmentDecisionLevel,
   getAssessmentStepType,
   getLocale,
   getLocalizedName,
   getSkillLevelDefinition,
   getSkillLevelName,
+  getAssessmentDecisionLevel,
   getTableAssessmentDecision,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
@@ -397,7 +397,6 @@ export const ScreeningDecisionDialog = ({
           mode="inline"
           color={triggerColor()}
           data-h2-text-align="base(left)"
-          data-h2-vertical-align="base(middle)"
         >
           {hasBeenAssessed ? (
             <span>
@@ -405,18 +404,21 @@ export const ScreeningDecisionDialog = ({
                 <>{intl.formatMessage(commonMessages.notSure)}</>
               ) : (
                 <>
-                  {intl.formatMessage(
-                    initialValues?.assessmentDecision
-                      ? getTableAssessmentDecision(
-                          initialValues.assessmentDecision,
-                        )
-                      : commonMessages.notFound,
-                  )}
+                  <>
+                    {intl.formatMessage(
+                      initialValues?.assessmentDecision
+                        ? getTableAssessmentDecision(
+                            initialValues.assessmentDecision,
+                          )
+                        : commonMessages.notFound,
+                    )}
+                  </>
                   {initialValues?.assessmentDecision ===
                     AssessmentDecision.Successful && !educationRequirement ? (
                     <span
                       data-h2-color="base(gray.darker)"
                       data-h2-text-decoration="base(none)"
+                      data-h2-display="base(block)"
                     >
                       {intl.formatMessage(
                         initialValues?.assessmentDecisionLevel
@@ -433,7 +435,8 @@ export const ScreeningDecisionDialog = ({
           ) : (
             <>
               {intl.formatMessage(
-                poolSkill?.type === PoolSkillType.Nonessential
+                poolSkill?.type === PoolSkillType.Nonessential &&
+                  !experienceAttachedToSkill
                   ? poolCandidateMessages.unclaimed
                   : poolCandidateMessages.toAssess,
               )}
