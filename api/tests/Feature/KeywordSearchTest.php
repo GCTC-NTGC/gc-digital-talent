@@ -703,7 +703,7 @@ class KeywordSearchTest extends TestCase
                 'id' => $user1->id,
             ])->assertJsonCount(1, 'data.usersPaginated.data');
 
-        // A partial email surrounded by quotes continues to match
+        // partial match terms outside quotes - so exact match "johnson" OR partial match "john@"
         $this->actingAs($this->platformAdmin, 'api')->graphQL(
             /** @lang GraphQL */
             '
@@ -716,11 +716,13 @@ class KeywordSearchTest extends TestCase
                  }
              ', [
                 'where' => [
-                    'generalSearch' => ['"bob@test"'],
+                    'generalSearch' => ['"johnson" OR john@'],
                 ],
             ])->assertJsonFragment([
+                'id' => $user1->id,
+            ])->assertJsonFragment([
                 'id' => $user2->id,
-            ])->assertJsonCount(1, 'data.usersPaginated.data');
+            ])->assertJsonCount(2, 'data.usersPaginated.data');
     }
 
     public function testUserSearchNamesEmailsWithNegativeSearch()
