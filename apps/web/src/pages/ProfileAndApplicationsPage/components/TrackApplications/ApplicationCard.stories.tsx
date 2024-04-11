@@ -12,9 +12,6 @@ import { isExpired } from "~/utils/poolCandidate";
 
 import ApplicationCard from "./ApplicationCard";
 
-type Story = StoryFn<typeof ApplicationCard>;
-type Meta = Meta<typeof ApplicationCard>;
-
 const mockApplications = fakePoolCandidates(20);
 
 const activeApplications = Object.values(PoolCandidateStatus).map(
@@ -43,7 +40,7 @@ export default {
   title: "Components/Application Card",
 } as Meta;
 
-const Template: Story = () => {
+const Template: StoryFn<typeof ApplicationCard> = () => {
   return (
     <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
       <div

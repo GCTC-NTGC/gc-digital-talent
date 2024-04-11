@@ -1,13 +1,9 @@
 import React from "react";
-import type { Meta, StoryFn } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 
 import ThemeSwitcher from "./ThemeSwitcher";
-
-type ComponentType = typeof ThemeSwitcher;
-type Meta = Meta<ComponentType>;
-type Story = StoryFn<ComponentType>;
 
 export default {
   component: ThemeSwitcher,
@@ -15,7 +11,7 @@ export default {
   decorators: [OverlayOrDialogDecorator],
 } as Meta;
 
-const Template: Story = () => (
+const Template: StoryFn<typeof ThemeSwitcher> = () => (
   <div
     data-h2-background-color="base(white) base:dark(black)"
     data-h2-padding="base(x1)"

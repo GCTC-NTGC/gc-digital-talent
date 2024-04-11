@@ -5,15 +5,12 @@ import { CHROMATIC_VIEWPORTS } from "@gc-digital-talent/storybook-helpers";
 
 import DirectivePage from "./DirectivePage";
 
-type Meta = Meta<typeof DirectivePage>;
-type Story = StoryFn<typeof DirectivePage>;
-
 export default {
   component: DirectivePage,
   title: "Pages/Directive on Digital Talent",
 } as Meta;
 
-const Template: Story = () => <DirectivePage />;
+const Template: StoryFn<typeof DirectivePage> = () => <DirectivePage />;
 
 export const Default = Template.bind({});
 Default.parameters = {

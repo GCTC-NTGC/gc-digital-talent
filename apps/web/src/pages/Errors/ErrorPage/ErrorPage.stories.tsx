@@ -5,15 +5,12 @@ import { CHROMATIC_VIEWPORTS } from "@gc-digital-talent/storybook-helpers";
 
 import Error404 from "./ErrorPage";
 
-type Meta = Meta<typeof Error404>;
-type Story = StoryFn<typeof Error404>;
-
 export default {
   component: Error404,
   title: "Pages/404 Page",
 } as Meta;
 
-const Template: Story = () => <Error404 />;
+const Template: StoryFn<typeof Error404> = () => <Error404 />;
 
 export const Default = Template.bind({});
 Default.parameters = {

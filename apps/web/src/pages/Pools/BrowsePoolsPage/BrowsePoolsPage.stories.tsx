@@ -16,16 +16,13 @@ const mockPools = fakePools(3).map((advert) => ({
   status: PoolStatus.Published,
 }));
 
-type Meta = Meta<typeof BrowsePools>;
-type Story = StoryFn<typeof BrowsePools>;
-
 export default {
   component: BrowsePools,
   title: "Pages/Browse Pools Page",
   decorators: [MockGraphqlDecorator],
 } as Meta;
 
-const Template: Story = () => <BrowsePools />;
+const Template: StoryFn<typeof BrowsePools> = () => <BrowsePools />;
 
 export const Default = Template.bind({});
 Default.parameters = {

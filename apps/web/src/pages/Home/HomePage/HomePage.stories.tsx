@@ -5,15 +5,12 @@ import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Home from "./HomePage";
 
-type Meta = Meta<typeof Home>;
-type Story = StoryFn<typeof Home>;
-
 export default {
   component: Home,
   title: "Pages/Home Page/Digital Talent",
 } as Meta;
 
-const Template: Story = () => <Home defaultImage={0} />;
+const Template: StoryFn<typeof Home> = () => <Home defaultImage={0} />;
 
 export const Default = Template.bind({});
 Default.parameters = {

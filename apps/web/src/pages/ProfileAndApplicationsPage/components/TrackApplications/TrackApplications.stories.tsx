@@ -10,9 +10,6 @@ import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
 
 import TrackApplications, { Application } from "./TrackApplications";
 
-type Story = StoryFn<typeof TrackApplications>;
-type Meta = Meta<typeof TrackApplications>;
-
 const mockApplications = fakePoolCandidates(20);
 
 const activeRecruitments: Application[] = Object.values(PoolCandidateStatus)
@@ -42,7 +39,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story = (args) => {
+const Template: StoryFn<typeof TrackApplications> = (args) => {
   return <TrackApplications {...args} />;
 };
 

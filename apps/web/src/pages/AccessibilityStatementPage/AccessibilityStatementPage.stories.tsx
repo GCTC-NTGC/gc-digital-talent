@@ -5,15 +5,14 @@ import { CHROMATIC_VIEWPORTS } from "@gc-digital-talent/storybook-helpers";
 
 import AccessibilityStatement from "./AccessibilityStatementPage";
 
-type Meta = Meta<typeof AccessibilityStatement>;
-type Story = StoryFn<typeof AccessibilityStatement>;
-
 export default {
   component: AccessibilityStatement,
   title: "Pages/Accessibility Statement",
 } as Meta;
 
-const Template: Story = () => <AccessibilityStatement />;
+const Template: StoryFn<typeof AccessibilityStatement> = () => (
+  <AccessibilityStatement />
+);
 
 export const Default = Template.bind({});
 Default.parameters = {
