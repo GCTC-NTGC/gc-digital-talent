@@ -7,7 +7,6 @@ const path = require("path");
 
 const HydrogenPlugin = require("hydrogen-webpack-plugin");
 const TsTransformer = require("@formatjs/ts-transformer");
-const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
 const transform = TsTransformer.transform;
 
@@ -58,11 +57,12 @@ const main: StorybookConfig = {
     "@storybook/addon-links",
     "@storybook/addon-themes",
     "@storybook/addon-viewport",
+    "@storybook/addon-webpack5-compiler-swc",
     "storybook-react-intl",
   ],
   framework: {
     name: "@storybook/react-webpack5",
-    options: {},
+    options: { builder: { useSWC: true } },
   },
   docs: {
     autodocs: false,
@@ -80,12 +80,6 @@ const main: StorybookConfig = {
         "~": path.resolve(__dirname, "../../apps/web/src/"),
       };
     }
-
-    config.resolve?.plugins?.push(
-      new TsconfigPathsPlugin({
-        extensions: config.resolve.extensions,
-      }),
-    );
 
     config.plugins?.push(
       new HydrogenPlugin({
