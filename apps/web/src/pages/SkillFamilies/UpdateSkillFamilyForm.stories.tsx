@@ -1,26 +1,40 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
 import { fakeSkills, fakeSkillFamilies } from "@gc-digital-talent/fake-data";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
-import { UpdateSkillFamilyForm } from "./UpdateSkillFamilyPage";
+import {
+  UpdateSkillFamilyForm,
+  UpdateSkillFamilySkill_Fragment,
+  UpdateSkillFamily_Fragment,
+} from "./UpdateSkillFamilyPage";
 
 const mockSkills = fakeSkills();
 const mockSkillFamilies = fakeSkillFamilies();
 
+const skillFragments = mockSkills.map((skill) =>
+  makeFragmentData(skill, UpdateSkillFamilySkill_Fragment),
+);
+
+const skillFamilyFragment = makeFragmentData(
+  mockSkillFamilies[0],
+  UpdateSkillFamily_Fragment,
+);
+
 export default {
   component: UpdateSkillFamilyForm,
   title: "Forms/Update Skill Family Form",
-} as ComponentMeta<typeof UpdateSkillFamilyForm>;
+} as Meta<typeof UpdateSkillFamilyForm>;
 
-const Template: ComponentStory<typeof UpdateSkillFamilyForm> = (args) => {
-  const { initialSkillFamily, skills } = args;
+const Template: StoryFn<typeof UpdateSkillFamilyForm> = (args) => {
+  const { skillFamilyQuery, skillsQuery } = args;
 
   return (
     <UpdateSkillFamilyForm
-      skills={skills}
-      initialSkillFamily={initialSkillFamily}
+      skillFamilyQuery={skillFamilyQuery}
+      skillsQuery={skillsQuery}
       handleUpdateSkillFamily={async (id, data) => {
         return new Promise((resolve) => {
           setTimeout(() => {
@@ -38,6 +52,6 @@ const Template: ComponentStory<typeof UpdateSkillFamilyForm> = (args) => {
 
 export const Default = Template.bind({});
 Default.args = {
-  skills: mockSkills,
-  initialSkillFamily: mockSkillFamilies[0],
+  skillFamilyQuery: skillFamilyFragment,
+  skillsQuery: skillFragments,
 };
