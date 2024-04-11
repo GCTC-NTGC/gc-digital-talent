@@ -6,6 +6,7 @@ use App\Enums\PoolStatus;
 use App\Models\Pool;
 use App\Models\Team;
 use App\Models\User;
+use App\Services\PermissionCheckService;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Carbon;
@@ -13,6 +14,14 @@ use Illuminate\Support\Carbon;
 class PoolPolicy
 {
     use HandlesAuthorization;
+
+    protected $permissionCheckService;
+
+    // Put PermissionCheckService into a variable in the constructor
+    public function __construct(PermissionCheckService $permissionCheckService)
+    {
+        $this->permissionCheckService = $permissionCheckService;
+    }
 
     /**
      * Determine whether the user can view any models.
@@ -35,22 +44,7 @@ class PoolPolicy
         if ($pool->getStatusAttribute() !== PoolStatus::DRAFT->name) {
             return true;
         }
-
-        // Otherwise, unauthenticated users shouldn't have access (draft).
-        if (! is_null($user)) {
-            // If user has elevated admin, can view all pools.
-            if ($user->isAbleTo('view-any-pool')) {
-                return true;
-            }
-
-            // Load team only when needed to check if team owns draft.
-            $pool->loadMissing('team');
-            if ($user->isAbleTo('view-team-pool', $pool->team)) {
-                return true;
-            }
-        }
-
-        return false;
+        return (new PermissionCheckService($user))->userCan('view', $pool);
     }
 
     /**
@@ -117,10 +111,8 @@ class PoolPolicy
      */
     public function updateDraft(User $user, Pool $pool)
     {
-        $pool->loadMissing('team');
-
         return $pool->getStatusAttribute() === PoolStatus::DRAFT->name
-            && $user->isAbleTo('update-team-draftPool', $pool->team);
+            && (new PermissionCheckService($user))->userCan('update', $pool, 'draftPool');;
     }
 
     /**
@@ -134,9 +126,7 @@ class PoolPolicy
         if ($pool->getStatusAttribute() === PoolStatus::DRAFT->name) {
             // The closing date must be greater than today's date at the end of day.
             if ($pool->closing_date && $pool->closing_date > Carbon::now()->endOfDay()) {
-                if ($user->isAbleTo('publish-any-pool')) {
-                    return true;
-                }
+                return (new PermissionCheckService($user))->userCan('publish', $pool);
             } else {
                 return Response::deny('Expiry date must be a future date.');
             }
@@ -154,9 +144,7 @@ class PoolPolicy
      */
     public function changePoolClosingDate(User $user, Pool $pool)
     {
-        $pool->loadMissing('team');
-
-        return $user->isAbleTo('update-team-poolClosingDate', $pool->team);
+        return (new PermissionCheckService($user))->userCan('update', $pool, 'poolClosingDate');
     }
 
     /**
@@ -168,7 +156,7 @@ class PoolPolicy
     {
         $pool->loadMissing('team');
 
-        return $user->isAbleTo('update-team-poolClosingDate', $pool->team);
+        return (new PermissionCheckService($user))->userCan('update', $pool, 'poolClosingDate');
     }
 
     /**
@@ -179,11 +167,7 @@ class PoolPolicy
     public function deleteDraft(User $user, Pool $pool)
     {
         if ($pool->getStatusAttribute() === PoolStatus::DRAFT->name) {
-            $pool->loadMissing('team');
-
-            if ($user->isAbleTo('delete-team-draftPool', $pool->team)) {
-                return true;
-            }
+            return (new PermissionCheckService($user))->userCan('delete', $pool, 'draftPool');
         } else {
             return Response::deny("You cannot delete a Pool once it's been published.");
         }
@@ -198,9 +182,7 @@ class PoolPolicy
      */
     public function archiveAndUnarchive(User $user, Pool $pool)
     {
-        $pool->loadMissing('team');
-
-        return $user->isAbleTo('archive-team-pool', $pool->team);
+        return (new PermissionCheckService($user))->userCan('archive', $pool);
     }
 
     /**
@@ -214,8 +196,6 @@ class PoolPolicy
             return true;
         }
 
-        $pool->loadMissing('team');
-
-        return $user->isAbleTo('view-team-assessmentPlan', $pool->team);
+        return (new PermissionCheckService($user))->userCan('view', $pool, 'assessmentPlan');
     }
 }

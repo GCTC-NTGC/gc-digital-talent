@@ -7,6 +7,7 @@ use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
 use App\Enums\SkillCategory;
 use App\GraphQL\Validators\PoolIsCompleteValidator;
+use App\Interfaces\PermissionResourceInterface;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -48,7 +49,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property Illuminate\Support\Carbon $published_at
  * @property Illuminate\Support\Carbon $archived_at
  */
-class Pool extends Model
+class Pool extends Model implements PermissionResourceInterface
 {
     use HasFactory;
     use LogsActivity;
@@ -128,6 +129,22 @@ class Pool extends Model
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();
     }
+
+    public function ownerId()
+    {
+        return $this->user_id;
+    }
+    // Posters can be considered to be teams themselves, as well as belonging to a community.
+    public function teams()
+    {
+        return [$this->id, $this->team_id];
+    }
+    public function resourceName(): string
+    {
+        return 'pool';
+    }
+
+
 
     public function user(): BelongsTo
     {
