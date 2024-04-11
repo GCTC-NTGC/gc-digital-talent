@@ -257,9 +257,6 @@ importers:
       '@storybook/addon-actions':
         specifier: ^8.0.6
         version: 8.0.6
-      '@storybook/addon-viewport':
-        specifier: ^8.0.6
-        version: 8.0.6
       '@storybook/react':
         specifier: ^8.0.6
         version: 8.0.6(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.4)
@@ -1066,9 +1063,6 @@ importers:
         specifier: ^8.0.6
         version: 8.0.6(react@18.2.0)
       '@storybook/addon-themes':
-        specifier: ^8.0.6
-        version: 8.0.6
-      '@storybook/addon-viewport':
         specifier: ^8.0.6
         version: 8.0.6
       '@storybook/react-webpack5':

@@ -30,7 +30,6 @@
     "@storybook/addon-essentials": "^8.0.6",
     "@storybook/addon-links": "^8.0.6",
     "@storybook/addon-themes": "^8.0.6",
-    "@storybook/addon-viewport": "^8.0.6",
     "@storybook/react-webpack5": "^8.0.6",
     "@storybook/types": "^8.0.6",
     "eslint": "^8.57.0",
