@@ -22,6 +22,63 @@ export async function loginBySub(page: Page, sub: string) {
   await page.waitForURL("**/applicant/profile-and-applications");
 }
 
+/**
+ * Login by gckey sign in using username and password
+ *
+ * Logs a user into the application
+ *
+ *  @param {Page} page
+ * @param {String} username
+ * @param {String} password
+ * @param {String} sub  // optional
+ *
+ */
+export async function loginByGCKeySignIn(
+  page: Page, // page object
+  username: string,
+  password: string,
+  sub?: string,
+) {
+  await page.goto("/login-info");
+  await page
+    .getByRole("link", { name: /continue to gckey and sign in/i })
+    .first()
+    .click();
+  await page.getByPlaceholder("Username").fill(username);
+  await page.getByPlaceholder("Password").fill(password);
+  await page
+    .getByRole("button", { name: /Connect to the GCKey Service/i })
+    .click();
+  await page.waitForURL("**/applicant/profile-and-applications");
+}
+
+
+
+/**
+ * Attempt to login by sub and fallback to loginByGckeySignIn if it fails
+ *
+ * @param {Page} page
+ * @param {String} sub
+ * @param {String} username
+ * @param {String} password
+ */
+export async function login(
+  page: Page,
+  sub: string,
+  username: string,
+  password: string,
+) {
+  // check process.env.baseURL to determine if it is a local or remote environment
+  // if it is a local environment, use loginBySub
+  // if it is a remote environment, use loginByGckeySignIn
+  if (process.env.baseURL === "http://localhost:8000") {
+    await loginBySub(page, sub);
+  } else {
+    await loginByGCKeySignIn(page, username, password, sub);
+  }
+
+}
+
 export type AuthCookies = {
   apiSession?: Cookie;
   xsrf?: Cookie;
