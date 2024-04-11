@@ -66,7 +66,7 @@ const main: StorybookConfig = {
     options: {},
   },
   docs: {
-    autodocs: true,
+    autodocs: false,
   },
   webpackFinal: async (config) => {
     // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
