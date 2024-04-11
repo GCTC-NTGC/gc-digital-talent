@@ -401,10 +401,10 @@ export const ScreeningDecisionDialog = ({
           {hasBeenAssessed ? (
             <span>
               {initialValues?.assessmentDecision === "noDecision" ? (
-                <p>{intl.formatMessage(commonMessages.notSure)}</p>
+                <>{intl.formatMessage(commonMessages.notSure)}</>
               ) : (
                 <>
-                  <p>
+                  <>
                     {intl.formatMessage(
                       initialValues?.assessmentDecision
                         ? getTableAssessmentDecision(
@@ -412,12 +412,13 @@ export const ScreeningDecisionDialog = ({
                           )
                         : commonMessages.notFound,
                     )}
-                  </p>
+                  </>
                   {initialValues?.assessmentDecision ===
                     AssessmentDecision.Successful && !educationRequirement ? (
-                    <p
+                    <span
                       data-h2-color="base(gray.darker)"
                       data-h2-text-decoration="base(none)"
+                      data-h2-display="base(block)"
                     >
                       {intl.formatMessage(
                         initialValues?.assessmentDecisionLevel
@@ -426,18 +427,20 @@ export const ScreeningDecisionDialog = ({
                             )
                           : commonMessages.notFound,
                       )}
-                    </p>
+                    </span>
                   ) : null}
                 </>
               )}
             </span>
           ) : (
-            <p>
-              {poolSkill?.type === PoolSkillType.Nonessential &&
-              !experienceAttachedToSkill
-                ? intl.formatMessage(poolCandidateMessages.unclaimed)
-                : intl.formatMessage(poolCandidateMessages.toAssess)}
-            </p>
+            <>
+              {intl.formatMessage(
+                poolSkill?.type === PoolSkillType.Nonessential &&
+                  !experienceAttachedToSkill
+                  ? poolCandidateMessages.unclaimed
+                  : poolCandidateMessages.toAssess,
+              )}
+            </>
           )}
         </Button>
       </Dialog.Trigger>
