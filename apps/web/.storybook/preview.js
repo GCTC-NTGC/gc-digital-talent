@@ -1,3 +1,4 @@
+import React from "react";
 import {
   FeatureFlagDecorator,
   HelmetDecorator,
@@ -5,11 +6,11 @@ import {
   ReducedMotionDecorator,
   RouterDecorator,
   ThemeDecorator,
-  VIEWPORTS
+  VIEWPORTS,
 } from "@gc-digital-talent/storybook-helpers";
 import { richTextElements as defaultRichTextElements } from "@gc-digital-talent/i18n";
-import frCommonCompiled from "@gc-digital-talent/i18n/frCompiled.json";
 
+import frCommonCompiled from "@gc-digital-talent/i18n/frCompiled.json";
 import frCompiled from "../src/lang/frCompiled.json";
 
 import "../src/assets/css/hydrogen.css";
@@ -23,12 +24,18 @@ const messages = {
   },
 };
 
-const getMessages = (locale) => messages[locale];
+export const globals = {
+  locale: "en",
+  locales: {
+    en: "English",
+    fr: "Français",
+  },
+};
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   backgrounds: {
-    disable: true
+    disable: true,
   },
   controls: {
     matchers: {
@@ -36,10 +43,10 @@ export const parameters = {
       date: /Date$/,
     },
   },
-  intl: {
-    locales: ["en", "fr"],
+  reactIntl: {
     defaultLocale: "en",
-    getMessages,
+    locales: ["en", "fr"],
+    messages,
     defaultRichTextElements,
   },
   viewport: {
