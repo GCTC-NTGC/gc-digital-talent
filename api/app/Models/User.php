@@ -944,15 +944,15 @@ class User extends Model implements Authenticatable, LaratrustUser
                 ->addSelect(self::$selectableColumns);
 
             // negation setup
-            preg_match('/\-[a-zA-Z]+\b/', $combinedSearchTerm, $negationMatches);
-            $matchesWithoutOperator = array_map(fn ($string) => ltrim($string, '/\-/'), $negationMatches);
-            $query->where(function ($query) use ($matchesWithoutOperator) {
-                self::scopeNegationNameAndEmail($query, $matchesWithoutOperator);
+            preg_match_all('/(^|\s)[-!][^\s]+\b/', $combinedSearchTerm, $negationMatches);
+            $matchesWithoutOperatorOrStartingSpace = array_map(fn ($string) => ltrim($string, " \-"), $negationMatches[0]); // 0th item is full matched
+            $query->where(function ($query) use ($matchesWithoutOperatorOrStartingSpace) {
+                self::scopeNegationNameAndEmail($query, $matchesWithoutOperatorOrStartingSpace);
             });
-            $negationRemovedSearchTerm = preg_replace('/\-[a-zA-Z]+\b/', '', $combinedSearchTerm);
+            $negationRemovedSearchTerm = preg_replace('/(^|\s)[-!][^\s]+\b/', '', $combinedSearchTerm);
 
             // clear characters or search operators out, then array split for easy OR matching
-            $filterToEmptySpace = ['"', '"', '-', ':', '!'];
+            $filterToEmptySpace = ['"', '"', ':', '!'];
             $filterToSingleSpace = [' AND ', ' OR ', ' & '];
             $filtered = str_ireplace($filterToEmptySpace, '', $negationRemovedSearchTerm);
             $filtered = str_ireplace($filterToSingleSpace, ' ', $filtered);
@@ -960,15 +960,15 @@ class User extends Model implements Authenticatable, LaratrustUser
             $arrayed = explode(' ', $whiteSpacingRemoved);
 
             foreach ($arrayed as $index => $value) {
-                $query->orWhere(function ($query) use ($value, $matchesWithoutOperator) {
+                $query->orWhere(function ($query) use ($value, $matchesWithoutOperatorOrStartingSpace) {
                     $query->whereAny([
                         'first_name',
                         'last_name',
                         'email',
                     ], 'ilike', "%{$value}%"
                     );
-                    $query->where(function ($query) use ($matchesWithoutOperator) {
-                        self::scopeNegationNameAndEmail($query, $matchesWithoutOperator);
+                    $query->where(function ($query) use ($matchesWithoutOperatorOrStartingSpace) {
+                        self::scopeNegationNameAndEmail($query, $matchesWithoutOperatorOrStartingSpace);
                     });
                 });
             }
