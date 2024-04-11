@@ -31,7 +31,7 @@ import {
   incrementHeadingRank,
 } from "@gc-digital-talent/ui";
 import { BasicForm, Submit } from "@gc-digital-talent/forms";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   getAssessmentStepType,
@@ -342,6 +342,10 @@ export const ScreeningDecisionDialog = ({
           skill,
         );
 
+  const experienceAttachedToSkill =
+    getExperienceSkills(unpackMaybes(parsedSnapshot?.experiences), skill)
+      .length > 0;
+
   const classificationGroup = poolCandidate.pool.classification?.group;
 
   const educationRequirementOption = getEducationRequirementOptions(
@@ -369,7 +373,8 @@ export const ScreeningDecisionDialog = ({
     )
       return "black";
     if (!hasBeenAssessed)
-      return poolSkill?.type === PoolSkillType.Nonessential
+      return poolSkill?.type === PoolSkillType.Nonessential &&
+        !experienceAttachedToSkill
         ? "black"
         : "warning";
     switch (initialValues?.assessmentDecision) {
@@ -428,7 +433,8 @@ export const ScreeningDecisionDialog = ({
             </span>
           ) : (
             <p>
-              {poolSkill?.type === PoolSkillType.Nonessential
+              {poolSkill?.type === PoolSkillType.Nonessential &&
+              !experienceAttachedToSkill
                 ? intl.formatMessage(poolCandidateMessages.unclaimed)
                 : intl.formatMessage(poolCandidateMessages.toAssess)}
             </p>
