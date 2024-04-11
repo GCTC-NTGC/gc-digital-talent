@@ -3678,16 +3678,16 @@
         },
         {
             "name": "paragonie/sodium_compat",
-            "version": "v1.20.0",
+            "version": "v1.20.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/sodium_compat.git",
-                "reference": "e592a3e06d1fa0d43988c7c7d9948ca836f644b6"
+                "reference": "1840b98d228bdad83869b191d7e51f9bb6624d8d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/sodium_compat/zipball/e592a3e06d1fa0d43988c7c7d9948ca836f644b6",
-                "reference": "e592a3e06d1fa0d43988c7c7d9948ca836f644b6",
+                "url": "https://api.github.com/repos/paragonie/sodium_compat/zipball/1840b98d228bdad83869b191d7e51f9bb6624d8d",
+                "reference": "1840b98d228bdad83869b191d7e51f9bb6624d8d",
                 "shasum": ""
             },
             "require": {
@@ -3758,9 +3758,9 @@
             ],
             "support": {
                 "issues": "https://github.com/paragonie/sodium_compat/issues",
-                "source": "https://github.com/paragonie/sodium_compat/tree/v1.20.0"
+                "source": "https://github.com/paragonie/sodium_compat/tree/v1.20.1"
             },
-            "time": "2023-04-30T00:54:53+00:00"
+            "time": "2024-04-05T21:00:10+00:00"
         },
         {
             "name": "phpoffice/math",
@@ -8397,16 +8397,16 @@
         },
         {
             "name": "web-token/jwt-library",
-            "version": "3.3.5",
+            "version": "3.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/web-token/jwt-library.git",
-                "reference": "5ddb8f1064039cff2d81d0d9f668a4bbff4b62cb"
+                "reference": "638ec0eeeb3650391e173c735f94df7911696304"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/web-token/jwt-library/zipball/5ddb8f1064039cff2d81d0d9f668a4bbff4b62cb",
-                "reference": "5ddb8f1064039cff2d81d0d9f668a4bbff4b62cb",
+                "url": "https://api.github.com/repos/web-token/jwt-library/zipball/638ec0eeeb3650391e173c735f94df7911696304",
+                "reference": "638ec0eeeb3650391e173c735f94df7911696304",
                 "shasum": ""
             },
             "require": {
@@ -8416,6 +8416,7 @@
                 "paragonie/constant_time_encoding": "^2.6",
                 "paragonie/sodium_compat": "^1.20",
                 "php": ">=8.1",
+                "psr/cache": "^3.0",
                 "psr/clock": "^1.0",
                 "psr/http-client": "^1.0",
                 "psr/http-factory": "^1.0",
@@ -8478,7 +8479,7 @@
             ],
             "support": {
                 "issues": "https://github.com/web-token/jwt-library/issues",
-                "source": "https://github.com/web-token/jwt-library/tree/3.3.5"
+                "source": "https://github.com/web-token/jwt-library/tree/3.4.1"
             },
             "funding": [
                 {
@@ -8490,7 +8491,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2024-04-03T07:57:45+00:00"
+            "time": "2024-04-10T15:46:26+00:00"
         },
         {
             "name": "webmozart/assert",
