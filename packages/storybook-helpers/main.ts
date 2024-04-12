@@ -98,18 +98,6 @@ const main: StorybookConfig = {
       }),
     );
 
-    config.plugins?.push(
-      new PreloadWebpackPlugin({
-        rel: "preload",
-        include: "allAssets",
-        as(entry: string) {
-          if (/\.css$/.test(entry)) return "style";
-          if (/\.webp$/.test(entry)) return "image";
-          return "script";
-        },
-      }),
-    );
-
     return config;
   },
 };
