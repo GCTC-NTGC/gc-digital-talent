@@ -1,12 +1,12 @@
 import React from "react";
-import { Story, ComponentMeta } from "@storybook/react";
+import { StoryFn, Meta } from "@storybook/react";
 
 import Breadcrumbs from "./Breadcrumbs";
 
 export default {
   component: Breadcrumbs,
   title: "Components/Breadcrumbs",
-} as ComponentMeta<typeof Breadcrumbs>;
+} as Meta<typeof Breadcrumbs>;
 
 const CrumbData = [
   {
@@ -27,7 +27,7 @@ const CrumbData = [
   },
 ];
 
-const Standard: Story = () => (
+const Standard: StoryFn = () => (
   <>
     <div data-h2="light">
       <div

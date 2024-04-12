@@ -6,8 +6,6 @@ import { ButtonLinkMode, Color } from "../../types";
 import Button from "./Button";
 import type { ButtonProps } from "./Button";
 
-type Story = StoryFn<Omit<ButtonProps, "color" | "ref"> & { label: string }>;
-
 export default {
   component: Button,
   title: "Components/Button",
@@ -54,7 +52,9 @@ const modes: Array<ButtonLinkMode> = [
 
 const themes: Array<string> = ["light", "dark", "light iap", "dark iap"];
 
-const Template: Story = () => {
+const Template: StoryFn<
+  Omit<ButtonProps, "color" | "ref"> & { label: string }
+> = () => {
   return (
     <div>
       <div

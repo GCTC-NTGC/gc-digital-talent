@@ -1,5 +1,5 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
 import { CreateClassificationForm } from "./CreateClassificationPage";
@@ -7,9 +7,9 @@ import { CreateClassificationForm } from "./CreateClassificationPage";
 export default {
   component: CreateClassificationForm,
   title: "Forms/Create Classification Form",
-} as ComponentMeta<typeof CreateClassificationForm>;
+} as Meta<typeof CreateClassificationForm>;
 
-const Template: ComponentStory<typeof CreateClassificationForm> = () => (
+const Template: StoryFn<typeof CreateClassificationForm> = () => (
   <CreateClassificationForm
     handleCreateClassification={async (data) => {
       await new Promise((resolve) => {

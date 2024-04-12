@@ -1,12 +1,8 @@
 import React from "react";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import { StoryFn, Meta } from "@storybook/react";
 import { faker } from "@faker-js/faker";
 
 import Well from "./Well";
-
-type ComponentType = typeof Well;
-type Meta = ComponentMeta<ComponentType>;
-type Story = ComponentStory<ComponentType>;
 
 faker.seed(0);
 
@@ -20,7 +16,7 @@ export default {
 
 const themes = ["light", "dark"];
 
-const Template: Story = (args) => {
+const Template: StoryFn = (args) => {
   const { content } = args;
   return (
     <div

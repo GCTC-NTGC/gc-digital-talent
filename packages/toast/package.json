@@ -19,7 +19,7 @@
     "@faker-js/faker": "^8.4.1",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/storybook-helpers": "workspace:*",
-    "@storybook/react": "^7.6.17",
+    "@storybook/react": "^8.0.6",
     "@types/react": "^18.2.75",
     "eslint": "^8.57.0",
     "react": "^18.2.0",

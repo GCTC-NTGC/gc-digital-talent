@@ -7,7 +7,6 @@ const path = require("path");
 
 const HydrogenPlugin = require("hydrogen-webpack-plugin");
 const TsTransformer = require("@formatjs/ts-transformer");
-const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 const PreloadWebpackPlugin = require("@vue/preload-webpack-plugin");
 
 const transform = TsTransformer.transform;
@@ -57,18 +56,30 @@ const main: StorybookConfig = {
   staticDirs: ["../src/assets"],
   addons: [
     "@storybook/addon-a11y",
-    "@storybook/addon-essentials",
+    "@storybook/addon-actions",
+    "@storybook/addon-controls",
     "@storybook/addon-links",
     "@storybook/addon-themes",
+    "@storybook/addon-toolbars",
     "@storybook/addon-viewport",
+    "@storybook/addon-webpack5-compiler-swc",
     "storybook-react-intl",
   ],
   framework: {
     name: "@storybook/react-webpack5",
-    options: {},
+    options: { builder: { useSWC: true } },
   },
   docs: {
-    autodocs: true,
+    autodocs: false,
+  },
+  typescript: {
+    reactDocgen: "react-docgen-typescript",
+    reactDocgenTypescriptOptions: {
+      compilerOptions: {
+        allowSyntheticDefaultImports: false,
+        esModuleInterop: false,
+      },
+    },
   },
   webpackFinal: async (config) => {
     // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
@@ -83,12 +94,6 @@ const main: StorybookConfig = {
         "~": path.resolve(__dirname, "../../apps/web/src/"),
       };
     }
-
-    config.resolve?.plugins?.push(
-      new TsconfigPathsPlugin({
-        extensions: config.resolve.extensions,
-      }),
-    );
 
     config.plugins?.push(
       new HydrogenPlugin({
