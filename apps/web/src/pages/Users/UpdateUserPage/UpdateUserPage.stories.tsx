@@ -1,5 +1,5 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 
 import { fakeUsers, fakeTeams, fakeRoles } from "@gc-digital-talent/fake-data";
 
@@ -39,11 +39,9 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof UpdateUserPage>;
+} as Meta<typeof UpdateUserPage>;
 
-const Template: ComponentStory<typeof UpdateUserPage> = () => (
-  <UpdateUserPage />
-);
+const Template: StoryFn<typeof UpdateUserPage> = () => <UpdateUserPage />;
 
 export const Default = Template.bind({});
 Default.parameters = {

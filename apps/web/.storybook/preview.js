@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  ContainerDecorator,
   FeatureFlagDecorator,
   HelmetDecorator,
   MockGraphqlDecorator,
@@ -61,13 +62,5 @@ export const decorators = [
   MockGraphqlDecorator,
   ThemeDecorator,
   RouterDecorator,
-  (Story) => (
-    <div
-      data-h2-color="base(black)"
-      data-h2-background="base(background)"
-      data-h2-font-family="base(sans)"
-    >
-      <Story />
-    </div>
-  ),
+  ContainerDecorator,
 ];

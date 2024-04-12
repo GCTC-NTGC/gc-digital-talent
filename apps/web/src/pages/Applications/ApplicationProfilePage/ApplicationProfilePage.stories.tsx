@@ -1,5 +1,5 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
 
@@ -14,9 +14,9 @@ export default {
     application: fakeApplication,
     user: fakeApplication.user,
   },
-} as ComponentMeta<typeof ApplicationProfile>;
+} as Meta<typeof ApplicationProfile>;
 
-const Template: ComponentStory<typeof ApplicationProfile> = (args) => {
+const Template: StoryFn<typeof ApplicationProfile> = (args) => {
   return <ApplicationProfile {...args} />;
 };
 
