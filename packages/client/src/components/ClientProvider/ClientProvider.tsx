@@ -91,7 +91,7 @@ const ClientProvider = ({
                 );
                 const logoutReason: LogoutReason = "user-deleted";
                 localStorage.setItem(LOGOUT_REASON_KEY, logoutReason);
-                authRef.current.logout(`/${locale}/logged-out`);
+                authRef.current.logout();
                 return;
               }
 
@@ -102,7 +102,8 @@ const ClientProvider = ({
                 );
                 const logoutReason: LogoutReason = "session-expired";
                 localStorage.setItem(LOGOUT_REASON_KEY, logoutReason);
-                authRef.current.logout(`/${locale}/logged-out`);
+                authRef.current.logout();
+                return;
               }
 
               let errorMessages = extractErrorMessages(error);
