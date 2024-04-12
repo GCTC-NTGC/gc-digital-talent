@@ -163,7 +163,7 @@ const ClientProvider = ({
         ],
       })
     );
-  }, [client, intl, locale, logger]);
+  }, [client, intl, logger]);
 
   return <Provider value={internalClient}>{children}</Provider>;
 };
