@@ -20,7 +20,6 @@ import {
 import { useLogger } from "@gc-digital-talent/logger";
 import { toast } from "@gc-digital-talent/toast";
 import { uniqueItems } from "@gc-digital-talent/helpers";
-import { getLocale } from "@gc-digital-talent/i18n";
 import type { LogoutReason } from "@gc-digital-talent/auth";
 
 import {
