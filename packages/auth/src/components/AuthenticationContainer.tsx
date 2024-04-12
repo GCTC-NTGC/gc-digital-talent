@@ -48,7 +48,7 @@ type logoutAndRefreshPageParameters = {
   // a function to broadcast the logout event to other tabs
   broadcastLogoutMessage?: () => void;
   // the reason for the logout
-  logoutReason: LogoutReason;
+  logoutReason?: LogoutReason;
 };
 
 const logoutAndRefreshPage = ({
@@ -84,8 +84,6 @@ const logoutAndRefreshPage = ({
 
   if (logoutReason) {
     localStorage.setItem(LOGOUT_REASON_KEY, logoutReason);
-  } else {
-    localStorage.removeItem(LOGOUT_REASON_KEY);
   }
 
   let authSessionIsCurrentlyActive = false; // assume false unless we can prove it below
@@ -196,7 +194,6 @@ const AuthenticationContainer = ({
               postLogoutRedirectUri,
               postLogoutOverridePath,
               broadcastLogoutMessage,
-              logoutReason: "user-action",
             })
         : () => {
             /* If not logged in, logout does nothing. */

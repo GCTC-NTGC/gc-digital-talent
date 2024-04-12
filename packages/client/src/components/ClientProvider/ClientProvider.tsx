@@ -28,6 +28,7 @@ import {
   containsAuthenticationError,
   extractErrorMessages,
   extractValidationMessageKeys,
+  containsUserDeletedError,
 } from "../../utils/errors";
 import specialErrorExchange from "../../exchanges/specialErrorExchange";
 
@@ -83,8 +84,22 @@ const ClientProvider = ({
                 );
               }
 
+              const isDeleteUserError = containsUserDeletedError(error);
+              if (isDeleteUserError) {
+                logger.info(
+                  "detected a 'user deleted' error in the graphql client",
+                );
+                const logoutReason: LogoutReason = "user-deleted";
+                localStorage.setItem(LOGOUT_REASON_KEY, logoutReason);
+                authRef.current.logout(`/${locale}/logged-out`);
+                return;
+              }
+
               const isAuthError = containsAuthenticationError(error);
               if (isAuthError) {
+                logger.info(
+                  "detected a authentication error in the graphql client",
+                );
                 const logoutReason: LogoutReason = "session-expired";
                 localStorage.setItem(LOGOUT_REASON_KEY, logoutReason);
                 authRef.current.logout(`/${locale}/logged-out`);

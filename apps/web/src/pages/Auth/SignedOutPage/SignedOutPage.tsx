@@ -93,7 +93,6 @@ const SignedOutPage = () => {
         </Alert.Root>
       );
       break;
-    case "user-action":
     default:
       alert = (
         <Alert.Root type="success" live={false}>
