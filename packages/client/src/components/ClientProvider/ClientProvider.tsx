@@ -54,7 +54,6 @@ const ClientProvider = ({
   children?: React.ReactNode;
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const authContext = useAuthentication();
   const logger = useLogger();
   // Create a mutable object to hold the auth state
