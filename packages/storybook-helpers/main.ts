@@ -8,7 +8,6 @@ const path = require("path");
 const HydrogenPlugin = require("hydrogen-webpack-plugin");
 const TsTransformer = require("@formatjs/ts-transformer");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
-const PreloadWebpackPlugin = require("@vue/preload-webpack-plugin");
 
 const transform = TsTransformer.transform;
 
