@@ -4,14 +4,17 @@ interface HomeHeroProps {
   children: React.ReactNode;
   callToAction?: React.ReactNode;
   img: {
-    srcset: string;
+    sources: {
+      srcset: string;
+      media: string;
+    }[];
     src: string;
     alt: string;
   };
 }
 
 const HomeHero = ({
-  img: { srcset, src, alt },
+  img: { sources, src, alt },
   callToAction,
   children,
 }: HomeHeroProps) => (
@@ -46,19 +49,22 @@ const HomeHero = ({
       ) : null}
     </div>
     <div data-h2-padding-top="base(x3) p-tablet(0)">
-      <img
-        srcSet={srcset}
-        sizes="(min-width: 67.5em) 1200px, (min-width: 48em) 900px, (min-width: 1px) 600px, 1200px"
-        src={src}
-        alt={alt}
-        data-h2-height="p-tablet(100%)"
-        data-h2-margin-bottom="base(-x2) p-tablet(0)"
-        data-h2-position="base(relative) p-tablet(absolute)"
-        data-h2-top="p-tablet(0)"
-        data-h2-left="p-tablet(auto) l-tablet(50%)"
-        data-h2-right="p-tablet(0px) l-tablet(auto)"
-        data-h2-width="base(100%) p-tablet(auto)"
-      />
+      <picture>
+        {sources.map(({ srcset, media }) => (
+          <source key={srcset} srcSet={srcset} media={media} />
+        ))}
+        <img
+          src={src}
+          alt={alt}
+          data-h2-height="p-tablet(100%)"
+          data-h2-margin-bottom="base(-x2) p-tablet(0)"
+          data-h2-position="base(relative) p-tablet(absolute)"
+          data-h2-top="p-tablet(0)"
+          data-h2-left="p-tablet(auto) l-tablet(50%)"
+          data-h2-right="p-tablet(0px) l-tablet(auto)"
+          data-h2-width="base(100%) p-tablet(auto)"
+        />
+      </picture>
     </div>
   </div>
 );
