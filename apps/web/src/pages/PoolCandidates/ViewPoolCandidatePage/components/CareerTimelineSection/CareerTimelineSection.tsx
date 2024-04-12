@@ -13,6 +13,7 @@ import ExperienceSortAndFilter, {
 } from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
 import { sortAndFilterExperiences } from "~/components/ExperienceSortAndFilter/sortAndFilterUtil";
 import useControlledCollapsibleGroup from "~/hooks/useControlledCollapsibleGroup";
+import experienceMessages from "~/messages/experienceMessages";
 
 interface CareerTimelineSectionProps {
   experiences: Experience[];
@@ -61,19 +62,11 @@ const CareerTimelineSection = ({ experiences }: CareerTimelineSectionProps) => {
           />
         </div>
         <Button mode="inline" color="secondary" onClick={toggleAllExpanded}>
-          {hasExpanded
-            ? intl.formatMessage({
-                defaultMessage:
-                  "Collapse all<hidden> experience details</hidden>",
-                id: "pp+b1H",
-                description: "Button label to collapse all experiences",
-              })
-            : intl.formatMessage({
-                defaultMessage:
-                  "Expand all<hidden> experience details</hidden>",
-                id: "M1en14",
-                description: "Button label to expand all experiences",
-              })}
+          {intl.formatMessage(
+            hasExpanded
+              ? experienceMessages.collapseDetails
+              : experienceMessages.expandDetails,
+          )}
         </Button>
       </div>
       {hasSomeExperience ? (
