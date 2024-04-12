@@ -946,9 +946,6 @@ class User extends Model implements Authenticatable, LaratrustUser
             // negation setup
             preg_match_all('/(^|\s)[-!][^\s]+\b/', $combinedSearchTerm, $negationMatches);
             $matchesWithoutOperatorOrStartingSpace = array_map(fn ($string) => ltrim($string, " \-"), $negationMatches[0]); // 0th item is full matched
-            $query->where(function ($query) use ($matchesWithoutOperatorOrStartingSpace) {
-                self::scopeNegationNameAndEmail($query, $matchesWithoutOperatorOrStartingSpace);
-            });
             $negationRemovedSearchTerm = preg_replace('/(^|\s)[-!][^\s]+\b/', '', $combinedSearchTerm);
 
             // remove text in quotation marks for partial matching
