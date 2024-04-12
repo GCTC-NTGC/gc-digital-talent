@@ -1383,10 +1383,6 @@
     "defaultMessage": "Quelle application d'authentification devrais-je installer?",
     "description": "GCKey question for which authenticator app to use"
   },
-  "5nlauT": {
-    "defaultMessage": "Question filtre {index} : {question}",
-    "description": "CSV Header, Screening question column. "
-  },
   "5pQfyv": {
     "defaultMessage": "Postes en français",
     "description": "Message for the french positions option"
