@@ -30,7 +30,7 @@
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@types/path-browserify": "^1.0.2",
-    "@types/react": "^18.2.75",
+    "@types/react": "^18.2.77",
     "eslint": "^8.57.0",
     "react": "^18.2.0",
     "tsconfig": "workspace:*",
