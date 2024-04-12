@@ -17,7 +17,7 @@ class ProtectedRequest
     public function handle(Request $request, Closure $next)
     {
         $path = $request->path();
-        if (str_starts_with($path, 'admin')) {
+        if (str_starts_with($path, 'admin/')) {
             $request->merge(['isProtectedRequest' => true]);
         }
 
