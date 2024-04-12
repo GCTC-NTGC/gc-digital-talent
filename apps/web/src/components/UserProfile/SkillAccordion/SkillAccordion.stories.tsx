@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 
 import { Accordion } from "@gc-digital-talent/ui";
 import { fakeSkills, experienceGenerators } from "@gc-digital-talent/fake-data";
@@ -15,7 +15,7 @@ export default {
   },
 } as Meta;
 
-const TemplateSkillAccordion: Story<SkillAccordionProps> = (args) => {
+const TemplateSkillAccordion: StoryFn<SkillAccordionProps> = (args) => {
   return (
     <Accordion.Root type="single">
       <SkillAccordion {...args} />

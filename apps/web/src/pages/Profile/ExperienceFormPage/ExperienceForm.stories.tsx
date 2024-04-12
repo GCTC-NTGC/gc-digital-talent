@@ -1,5 +1,5 @@
 import React from "react";
-import type { Meta, Story } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 
 import { getStaticSkills } from "@gc-digital-talent/fake-data";
 import type { Skill } from "@gc-digital-talent/graphql";
@@ -26,7 +26,7 @@ interface ExperienceFormStoryArgs {
   userId: string;
 }
 
-const TemplateExperienceFormForm: Story<ExperienceFormStoryArgs> = ({
+const TemplateExperienceFormForm: StoryFn<ExperienceFormStoryArgs> = ({
   experienceType,
   skills,
   userId,

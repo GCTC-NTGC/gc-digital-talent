@@ -1,23 +1,17 @@
 import React from "react";
-import type { StoryFn, ComponentMeta } from "@storybook/react";
+import type { StoryFn, Meta } from "@storybook/react";
 import { faker } from "@faker-js/faker";
 
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 
 import Button from "../Button";
-import DialogDocs from "./Dialog.docs.mdx";
 import Dialog from "./Dialog";
 
 export default {
   component: Dialog.Root,
   title: "Components/Dialog",
   decorators: [OverlayOrDialogDecorator],
-  parameters: {
-    docs: {
-      page: DialogDocs,
-    },
-  },
-} as ComponentMeta<typeof Dialog.Header>;
+} as Meta<typeof Dialog.Header>;
 
 type Args = React.ComponentProps<typeof Dialog.Header> & {
   theme: "dark" | "light";

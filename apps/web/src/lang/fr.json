@@ -79,10 +79,6 @@
     "defaultMessage": "Mes rôles",
     "description": "Label displayed for the table's My Roles column header."
   },
-  "+ayqFd": {
-    "defaultMessage": "Compétences comportementales ({count} compétences)",
-    "description": "Tab name for a list of behavioural skills"
-  },
   "+cBKDC": {
     "defaultMessage": "Emplois dans le gouvernement numérique",
     "description": "Heading for the digital government job opportunities"
@@ -711,6 +707,10 @@
     "defaultMessage": "Lieu actuel",
     "description": "Title displayed on the Pool Candidates table Current Location column."
   },
+  "1sutYh": {
+    "defaultMessage": "Familles de compétences (anglais)",
+    "description": "Title for skill families in English"
+  },
   "1vVbe3": {
     "defaultMessage": "Minorité visible",
     "description": "CSV Header, Visible Minority column"
@@ -935,6 +935,10 @@
     "defaultMessage": "Création de la classification réussie!",
     "description": "Message displayed to user after classification is created successfully."
   },
+  "3GLqD1": {
+    "defaultMessage": "Fermer le processus immédiatement",
+    "description": "Submit button text to close a process"
+  },
   "3GOVZI": {
     "defaultMessage": "Développez des connaissances sur les données",
     "description": "Heading for the direct on digital talent section"
@@ -1091,10 +1095,6 @@
     "defaultMessage": "Actif",
     "description": "Status message if the application is not suspended"
   },
-  "4LQLyh": {
-    "defaultMessage": "Compétences techniques ({count} compétences)",
-    "description": "Tab name for a list of technical skills"
-  },
   "4LVc9T": {
     "defaultMessage": "{localizedName} évalué par {assessmentStepTypeLocalized}",
     "description": "Aria text for icon indicating a skill to assessment step connection."
@@ -1199,6 +1199,10 @@
     "defaultMessage": "Contextes professionnels",
     "description": "Work details label"
   },
+  "4qdoau": {
+    "defaultMessage": "Compétence introuvable",
+    "description": "Link to suggestions on what to do if you can't find a skill in the skill browser."
+  },
   "4r+taV": {
     "defaultMessage": "Par compétences comportementales, on entend les attributs interpersonnels et personnels clés qui sont nécessaires pour certains emplois au sein de l'organisation. Ces compétences ont habituellement trait à la manière dont une personne agit, communique et interagit avec les autres. Elles comprennent les niveaux suivants :",
     "description": "Lead-in text for the skills level definitions of behavioural skills"
@@ -1214,6 +1218,10 @@
   "4sLCWZ": {
     "defaultMessage": "Continuez vers CléGC et connectez-vous",
     "description": "GCKey sign in link text on the sign in page"
+  },
+  "4tIdsX": {
+    "defaultMessage": "Talents numériques du GC - Toutes compétences.csv",
+    "description": "Filename for skills CSV file download"
   },
   "4v9y7U": {
     "defaultMessage": "Statut de citoyenneté",
@@ -1515,10 +1523,6 @@
     "defaultMessage": "Nom de l’initiative en matière numérique",
     "description": "Label for _name of digital initiative_ field in _authorities involved_ fieldset in the _digital services contracting questionnaire_"
   },
-  "6ofORn": {
-    "defaultMessage": "Famille de compétences",
-    "description": "Label for the skill family filter field"
-  },
   "6rb9mg": {
     "defaultMessage": "Membres de l’équipe",
     "description": "Page title for the view team members page"
@@ -1775,6 +1779,10 @@
     "defaultMessage": "Nous vous encourageons à tenir votre profil à jour, car c’est sa version actualisée qui servira lors des étapes à venir du processus d’embauche.",
     "description": "List item note 3 for the application review page."
   },
+  "8EPVUp": {
+    "defaultMessage": "N’oubliez pas d’informer tout candidat qui a déjà postulé pour un poste dans le cadre de ce processus.",
+    "description": "Warning message for closing the process early"
+  },
   "8EbhWx": {
     "defaultMessage": "Raison pour la recherche de talent",
     "description": "Form header for filling in the reason why the user is submitting the request."
@@ -1850,6 +1858,10 @@
   "8gyWTT": {
     "defaultMessage": "Voir l’annonce",
     "description": "Link text to view a specific pool advertisement"
+  },
+  "8ioBIZ": {
+    "defaultMessage": "Éditeur de compétence",
+    "description": "Title for skills editor"
   },
   "8kMPLB": {
     "defaultMessage": "Décrire la façon dont cette compétence a été mise en valeur dans ce rôle",
@@ -2139,10 +2151,6 @@
     "defaultMessage": "Nom du propriétaire",
     "description": "Title displayed for the Pool table Owner Name column"
   },
-  "Aaas0w": {
-    "defaultMessage": "L’heure de clôture sera automatiquement fixée à 23 h 59 dans le fuseau horaire du Pacifique.",
-    "description": "Helper message for changing the pool closing date"
-  },
   "AbU5rL": {
     "defaultMessage": "Travail posté",
     "description": "Shift work personnel other requirement"
@@ -2294,10 +2302,6 @@
   "BNEY8G": {
     "defaultMessage": "Date d'expiration",
     "description": "CSV Header, Expiry Date column"
-  },
-  "BQsJSG": {
-    "defaultMessage": "Saisissez une nouvelle date de clôture :",
-    "description": "First paragraph for extend pool closing date dialog"
   },
   "BRpssM": {
     "defaultMessage": "Ces ressources fournissent un aperçu des exigences de la Directive sur les talents numériques. La présentation de la séance de formation et l'arbre décisionnel sur les exigences en matière d'établissement de rapports contiennent des renseignements applicables à tous les groupes d’utilisateurs.",
@@ -2635,6 +2639,10 @@
     "defaultMessage": "Vous n'avez pas encore ajouté de compétences constituant un atout.",
     "description": "Null message title for asset skills table."
   },
+  "DK2tnK": {
+    "defaultMessage": "Description (français)",
+    "description": "Title for description in French."
+  },
   "DK870a": {
     "defaultMessage": "Compte créé avec succès.",
     "description": "Message displayed to user if account is created successfully."
@@ -2739,10 +2747,6 @@
     "defaultMessage": "Erreur : l’étape de la sauvegarde de l’évaluation a échoué.",
     "description": "Message displayed to user after assessment step fails to be saved."
   },
-  "DpzAPD": {
-    "defaultMessage": "Vous êtes sur le point de prolonger la date de clôture de ce processus : {poolName}",
-    "description": "Text to confirm the process to be extend"
-  },
   "DqM+mu": {
     "defaultMessage": "Erreur : Le désarchivage du processus a échoué",
     "description": "Message displayed to user after pool fails to get un-archived."
@@ -2842,6 +2846,10 @@
   "EHh5pb": {
     "defaultMessage": "Groupe et classification actuels",
     "description": "Current group and classification label"
+  },
+  "EIM5Jw": {
+    "defaultMessage": "Toutes les compétences",
+    "description": "Label for removing the skill family filter"
   },
   "EK+25s": {
     "defaultMessage": "Notes",
@@ -2951,10 +2959,6 @@
     "defaultMessage": "Modifier les options de votre lieu de travail.",
     "description": "Link text to edit work location on profile"
   },
-  "F3Ma0i": {
-    "defaultMessage": "Prolonger la date de clôture",
-    "description": "Title to extend a process"
-  },
   "F4RHJu": {
     "defaultMessage": "Il manque des renseignements obligatoires sur la langue",
     "description": "Error message displayed when a users language information is incomplete"
@@ -3002,6 +3006,10 @@
   "FGzaie": {
     "defaultMessage": "Statut officiel de l’examen",
     "description": "Bounding box label for official exam status in language information form"
+  },
+  "FKF8lG": {
+    "defaultMessage": "Catégorie (français)",
+    "description": "Title for category in French"
   },
   "FMJiDY": {
     "defaultMessage": "Sélectionnez la valeur totale du contrat",
@@ -3162,6 +3170,10 @@
   "G65IrS": {
     "defaultMessage": "Recrutement",
     "description": "The menu category for recruitment items"
+  },
+  "G6V8wJ": {
+    "defaultMessage": "Type de changement de date",
+    "description": "Legend for the radio group to select whether to extend a date or set to now"
   },
   "G7ICNn": {
     "defaultMessage": "Vous êtes sur le point de reproduire ce processus : {poolName}",
@@ -3503,6 +3515,10 @@
     "defaultMessage": "Supprimer le signet de {candidateName} du haut de la colonne.",
     "description": "Un-bookmark button label for applicant assessment tracking."
   },
+  "ISuyAo": {
+    "defaultMessage": "Avertissement!",
+    "description": "Title for a warning message"
+  },
   "IT6Djp": {
     "defaultMessage": "Les conditions d’emploi sélectionnées seront comparées à celles choisies par les candidats dans leur demande.",
     "description": "Message describing the operational requirements filter in the search form."
@@ -3534,10 +3550,6 @@
   "Ibt1fL": {
     "defaultMessage": "Ajouter une nouvelle adhésion",
     "description": "Label for the form to add a team membership to a user"
-  },
-  "Id9nfM": {
-    "defaultMessage": "Toutes les compétences ({count} compétences)",
-    "description": "Label for removing the skill family filter"
   },
   "IexFo4": {
     "defaultMessage": "Connaissance de l’autre langue officielle",
@@ -3638,6 +3650,10 @@
   "J3Ud6R": {
     "defaultMessage": "Exigence de sélection : <strong>{educationRequirementOption}</strong>.",
     "description": "Application snapshot minimum experience section description"
+  },
+  "J6atIv": {
+    "defaultMessage": "Liste de compétences",
+    "description": "Link text for explore skills page"
   },
   "J8Nltm": {
     "defaultMessage": "Comment vous avez pu mettre en œuvre la compétence \"{skillName}\" dans le cadre de cette expérience",
@@ -3807,6 +3823,10 @@
     "defaultMessage": "Changer votre disponibilité pour {title}.",
     "description": "Button text to open form to change availability in a specific recruitment"
   },
+  "K91fwT": {
+    "defaultMessage": "Filtrer par groupe de compétences",
+    "description": "Label for the skill family filter field"
+  },
   "K9YLac": {
     "defaultMessage": "En savoir plus<hidden> sur la collectivité des cadres</hidden>",
     "description": "Link text to the executive community"
@@ -3918,6 +3938,10 @@
   "KjbjQU": {
     "defaultMessage": "Voir",
     "description": "Title displayed for a tables View column."
+  },
+  "Kki7mk": {
+    "defaultMessage": "Ma bibliothèque",
+    "description": "Label for filtering skills by ones already added to the users library"
   },
   "KoKXUw": {
     "defaultMessage": "Outils avancés",
@@ -4243,10 +4267,6 @@
     "defaultMessage": "Processus",
     "description": "Title for the index pool page"
   },
-  "MmDHBS": {
-    "defaultMessage": "{label} ({count} compétences)",
-    "description": "Label for options when selecting skill filters where {count} is the number of skills associated with the filter"
-  },
   "MotQKq": {
     "defaultMessage": "Tâches de travail (français)",
     "description": "Label for a process' French work tasks"
@@ -4298,6 +4318,10 @@
   "N/Vcp3": {
     "defaultMessage": "Ce à quoi vous pouvez vous attendre",
     "description": "Heading for the section about user expectations for their request"
+  },
+  "N2/Y9w": {
+    "defaultMessage": "Non réclamé",
+    "description": "Message displayed when candidate has yet to be assessed at a specific assessment step for a skill that is non-essential"
   },
   "N3uD4m": {
     "defaultMessage": "Mes équipes",
@@ -4362,6 +4386,10 @@
   "NT3jrI": {
     "defaultMessage": "Ce champ accepte une liste de virgules séparées par des mots-clés séparés associés à la compétence.",
     "description": "Additional context describing the purpose of the skills 'keyword' field."
+  },
+  "NTwwfL": {
+    "defaultMessage": "Prolonger la date de clôture",
+    "description": "Option to extend the pool closing date"
   },
   "NUjAy0": {
     "defaultMessage": "Dupliquer le processus",
@@ -4571,10 +4599,6 @@
     "defaultMessage": "Exceptions relatives au lieu de travail",
     "description": "Work location exceptions label"
   },
-  "OqKTJQ": {
-    "defaultMessage": "Toutes les catégories ({count} compétences)",
-    "description": "Label for removing the skill category filter"
-  },
   "OqglGZ": {
     "defaultMessage": "Ce volet comprend le travail avec la direction de l’architecture <abbreviation>TI</abbreviation> du ministère, la collaboration avec d’autres volets de <abbreviation>TI</abbreviation> et la recherche sur les technologies émergentes.",
     "description": "Title for the 'enterprise architecture' IT work stream"
@@ -4634,6 +4658,10 @@
   "P9SZBZ": {
     "defaultMessage": "Sélectionnez les filtres",
     "description": "Candidate search filter dialog: title"
+  },
+  "PAySDr": {
+    "defaultMessage": "Familles de compétences (français)",
+    "description": "Title for skill families in French"
   },
   "PB2VIT": {
     "defaultMessage": "Une exigence de la Directive sur les talents numériques.",
@@ -5242,6 +5270,10 @@
   "SQJgGP": {
     "defaultMessage": "Votre information sur l’annonce et votre plan d'évaluation sont complets.",
     "description": "Lead-in text on a complete process, ready for publishing"
+  },
+  "SQRzSl": {
+    "defaultMessage": "Raison de la clôture",
+    "description": "Label for the reason for closing the pool"
   },
   "SSZY5w": {
     "defaultMessage": "Sélectionner, organiser et définir les évaluations ayant été utilisées pour évaluer chaque compétence de l’offre d’emploi. Veillez à ce que chaque compétence soit évaluée au moins une fois pour compléter votre plan d’évaluation.",
@@ -6234,6 +6266,10 @@
     "defaultMessage": "À qui s’adresse le recrutement pour les cadres?",
     "description": "Heading for EXposition eligibility"
   },
+  "XovI8x": {
+    "defaultMessage": "Téléchargez toutes compétences (CSV)",
+    "description": "Text label for button to download a csv file of all skills."
+  },
   "XpiMeF": {
     "defaultMessage": "Chercher dans notre base de données de compétences et les associer à votre profil.",
     "description": "Subtitle for the find a skill dialog within the skill library"
@@ -6265,6 +6301,10 @@
   "Y0WLp5": {
     "defaultMessage": "Sélectionnez un groupe des publications",
     "description": "Placeholder for publishing group field"
+  },
+  "Y1zzqe": {
+    "defaultMessage": "Cette liste de compétences est en cours d’élaboration. De nouvelles compétences sont ajoutées de façon continue.",
+    "description": "Message for skills page"
   },
   "Y2PPGY": {
     "defaultMessage": "Imprimer le profil sans les coordonnées",
@@ -7318,6 +7358,10 @@
     "defaultMessage": "Choisissez l’expérience que vous souhaitez ajouter",
     "description": "Heading for the experience selection"
   },
+  "dkiKpU": {
+    "defaultMessage": "Modifier la date de clôture",
+    "description": "Title to change the closing date of a process"
+  },
   "dlRmxI": {
     "defaultMessage": "Les gestionnaires peuvent demander à consulter des candidats selon leur groupe d’équité en matière d’emploi afin de traiter de certaines lacunes actuelles ou futures par rapport à leur représentation dans le cadre des effectifs. Les catégories reflètent les données sur l’équité en matière d’emploi telles qu’elles sont définies par la Loi sur l’emploi dans la fonction publique, et qui sont recueillies par l’entremise du processus de dotation de la Commission de la fonction publique (CFP). À des fins d’uniformité, la présente plateforme reflète la terminologie de la CFP par rapport aux catégories.",
     "description": "Message describing the employment equity filter in the search form."
@@ -7650,6 +7694,10 @@
     "defaultMessage": "Vous avez déjà une demande dans ce bassin.",
     "description": "Notification when a user attempts to apply to a pool when they already have an application there."
   },
+  "fYe7jv": {
+    "defaultMessage": "Catégorie (anglais)",
+    "description": "Title for category in English"
+  },
   "fYyK2p": {
     "defaultMessage": "Créer une classification",
     "description": "Page title for the classification creation page"
@@ -7753,6 +7801,10 @@
   "g8Ur9z": {
     "defaultMessage": "Renseignements personnels",
     "description": "applicant dashboard card title for profile card"
+  },
+  "gASASB": {
+    "defaultMessage": "Description (anglais)",
+    "description": "Title for description in English."
   },
   "gBAz/G": {
     "defaultMessage": "Identification de la demande copiée",
@@ -8129,10 +8181,6 @@
   "hyJz3G": {
     "defaultMessage": "À propos du programme",
     "description": "Program information section title"
-  },
-  "hzZc5Y": {
-    "defaultMessage": "Ma bibliothèque ({count} compétences)",
-    "description": "Label for filtering skills by ones already added to the users library"
   },
   "i+C29d": {
     "defaultMessage": "Cacher les options d'équité offertes ({optionCount})",
@@ -9218,6 +9266,10 @@
     "defaultMessage": "Nom :",
     "description": "Display text for the name field on users"
   },
+  "nqNCB/": {
+    "defaultMessage": "Veuillez indiquer la raison de la clôture hâtive de ce processus.",
+    "description": "Helper message for closing the process early"
+  },
   "nrJ4qt": {
     "defaultMessage": " Télécharger l’arbre de décision sur les exigences en matière de rapport (PDF)",
     "description": "Button text to download reporting requirements decision tree pdf."
@@ -9501,6 +9553,10 @@
   "pWoAv0": {
     "defaultMessage": "Le Programme d’apprentissage en TI pour les personnes autochtones est une initiative du gouvernement du Canada visant particulièrement les Premières Nations, les Inuits et les Métis. C’est un chemin vers un emploi dans la fonction publique fédérale pour les personnes autochtones qui ont une passion pour la technologie de l’information (TI).",
     "description": "First paragraph about the program"
+  },
+  "pXiwEH": {
+    "defaultMessage": "Fermer immédiatement",
+    "description": "Option to close the pool"
   },
   "pYXeXV": {
     "defaultMessage": "Avant de supprimer la compétence, veuillez lire attentivement ce qui suit.",
@@ -10041,6 +10097,10 @@
   "t2Q+IG": {
     "defaultMessage": "Retourner au Français",
     "description": "Button text for returning to default language from Indigenous language"
+  },
+  "t4+h/N": {
+    "defaultMessage": "Vous êtes sur le point de modifier la date de clôture de ce processus : <strong>{poolName}</strong>",
+    "description": "Text to confirm the process to be extend"
   },
   "t5G3Fz": {
     "defaultMessage": "Intermédiaire <gray>– J'ai des compétences robustes en lecture, écriture et communication verbale.</gray>",

@@ -1,7 +1,19 @@
-import { Pool } from "@gc-digital-talent/graphql";
+import { isPast } from "date-fns/isPast";
 
-// Only one field to check here
-// eslint-disable-next-line import/prefer-default-export
+import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { Pool, PoolStatus } from "@gc-digital-talent/graphql";
+
 export function hasEmptyRequiredFields({ closingDate }: Pool): boolean {
+  return !closingDate;
+}
+
+export function hasInvalidRequiredFields({
+  closingDate,
+  status,
+}: Pool): boolean {
+  if (status === PoolStatus.Draft && closingDate) {
+    return isPast(parseDateTimeUtc(closingDate));
+  }
+
   return !closingDate;
 }

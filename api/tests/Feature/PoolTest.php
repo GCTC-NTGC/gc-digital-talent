@@ -9,6 +9,8 @@ use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
 use Carbon\Carbon;
+use Database\Helpers\ApiErrorEnums;
+use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
@@ -616,18 +618,22 @@ class PoolTest extends TestCase
         $this->actingAs($this->poolOperator, 'api')->graphQL(
             /** @lang GraphQL */
             '
-                mutation changePoolClosingDate($id: ID!, $newClosingDate: DateTime!) {
-                    changePoolClosingDate(id: $id, newClosingDate: $newClosingDate) {
+                mutation changePoolClosingDate($id: ID!, $closingDate: DateTime!) {
+                    changePoolClosingDate(id: $id, closingDate: $closingDate) {
                         id
                     }
                 }
         ',
             [
                 'id' => $pool->id,
-                'newClosingDate' => config('constants.far_future_datetime'),
+                'closingDate' => config('constants.far_future_datetime'),
             ]
         )
-            ->assertGraphQLErrorMessage('CannotReopenUsingDeletedSkill');
+            ->assertJsonFragment([
+                'validation' => [
+                    'id' => [ApiErrorEnums::CANNOT_REOPEN_DELETED_SKILL],
+                ],
+            ]);
 
         $pool->setEssentialPoolSkills([$skill1->id]);
 
@@ -635,15 +641,15 @@ class PoolTest extends TestCase
         $this->actingAs($this->poolOperator, 'api')->graphQL(
             /** @lang GraphQL */
             '
-                        mutation changePoolClosingDate($id: ID!, $newClosingDate: DateTime!) {
-                            changePoolClosingDate(id: $id, newClosingDate: $newClosingDate) {
+                        mutation changePoolClosingDate($id: ID!, $closingDate: DateTime!) {
+                            changePoolClosingDate(id: $id, closingDate: $closingDate) {
                                 id
                             }
                         }
                 ',
             [
                 'id' => $pool->id,
-                'newClosingDate' => config('constants.far_future_datetime'),
+                'closingDate' => config('constants.far_future_datetime'),
             ]
         )
             ->assertSuccessful();
@@ -771,9 +777,6 @@ class PoolTest extends TestCase
 
     public function testAssessmentStepValidation(): void
     {
-        if (! config('feature.record_of_decision')) {
-            $this->markTestSkipped('record_of_decision is off');
-        }
 
         Classification::factory()->create();
         Skill::factory()->count(5)->create([
@@ -826,9 +829,6 @@ class PoolTest extends TestCase
 
     public function testPoolSkillValidation(): void
     {
-        if (! config('feature.record_of_decision')) {
-            $this->markTestSkipped('record_of_decision is off');
-        }
 
         Classification::factory()->create();
         Skill::factory()->create([
