@@ -110,7 +110,7 @@ const ExperienceByTypeListing = ({
 
   return (
     <>
-      <p data-h2-margin-bottom="base(x.5)" data-h2-text-align="base(right)">
+      <p data-h2-text-align="base(right)">
         <Button mode="inline" onClick={toggleAllExpanded}>
           {intl.formatMessage(
             hasExpanded
