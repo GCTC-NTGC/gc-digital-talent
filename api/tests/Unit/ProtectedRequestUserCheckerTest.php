@@ -73,7 +73,7 @@ class ProtectedRequestUserCheckerTest extends TestCase
     {
         $this->markTestSkipped('Enable to test the route protection logic.');
 
-        // simulate a protected request context
+        // simulate an unprotected request context
         Request::merge(['isProtectedRequest' => null]);
         $checker = new ProtectedRequestUserChecker($this->adminUser);
 
@@ -85,7 +85,7 @@ class ProtectedRequestUserCheckerTest extends TestCase
 
     public function testCanNotUseUnknownPermissionUnprotected()
     {
-        // simulate a protected request context
+        // simulate an unprotected request context
         Request::merge(['isProtectedRequest' => null]);
         $checker = new ProtectedRequestUserChecker($this->adminUser);
 
