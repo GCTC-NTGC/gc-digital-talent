@@ -51,7 +51,7 @@ const HomeHero = ({
     <div data-h2-padding-top="base(x3) p-tablet(0)">
       <picture>
         {sources.map(({ srcset, media }) => (
-          <source key={srcset} srcSet={srcset} media={media} />
+          <source key={`${srcset}${media}`} srcSet={srcset} media={media} />
         ))}
         <img
           src={src}
