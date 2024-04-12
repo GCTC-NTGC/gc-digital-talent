@@ -23,3 +23,9 @@ Default.parameters = {
     },
   },
 };
+
+export const French = Template.bind({});
+French.parameters = {
+  layout: "fullscreen",
+  locale: "fr",
+};

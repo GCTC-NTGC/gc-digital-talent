@@ -70,6 +70,14 @@ Default.parameters = {
   },
 };
 
+export const French = Template.bind({});
+French.parameters = {
+  themes: {
+    themeOverride: THEMES.iap.light,
+  },
+  locale: "fr",
+};
+
 export const Dark = Template.bind({});
 Dark.parameters = {
   themes: {
