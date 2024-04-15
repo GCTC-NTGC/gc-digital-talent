@@ -1,5 +1,5 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { StoryFn, Meta } from "@storybook/react";
 
 import { fakeExperiences } from "@gc-digital-talent/fake-data";
 
@@ -10,9 +10,9 @@ export default {
   args: {
     userId: "test",
   },
-} as ComponentMeta<typeof CareerTimelineAndRecruitment>;
+} as Meta<typeof CareerTimelineAndRecruitment>;
 
-const CareerTimelineAndRecruitmentTemplate: ComponentStory<
+const CareerTimelineAndRecruitmentTemplate: StoryFn<
   typeof CareerTimelineAndRecruitment
 > = (args) => {
   return <CareerTimelineAndRecruitment {...args} />;

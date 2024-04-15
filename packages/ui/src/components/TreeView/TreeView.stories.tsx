@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { faker } from "@faker-js/faker";
 
 import Button from "../Button";
@@ -15,7 +15,7 @@ export default {
   title: "Components/TreeView",
 } as Meta;
 
-const DefaultView: ComponentStory<typeof TreeView.Root> = () => {
+const DefaultView: StoryFn<typeof TreeView.Root> = () => {
   return (
     <TreeView.Root>
       <TreeView.Head>

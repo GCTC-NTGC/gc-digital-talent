@@ -5,18 +5,12 @@ import CheckIcon from "@heroicons/react/24/solid/CheckIcon";
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 
 import Button from "../Button";
-import DropdownMenuDocs from "./DropdownMenu.docs.mdx";
 import DropdownMenu from "./DropdownMenu";
 
 export default {
   component: DropdownMenu.Root,
   title: "Components/Dropdown Menu",
   decorators: [OverlayOrDialogDecorator],
-  parameters: {
-    docs: {
-      page: DropdownMenuDocs,
-    },
-  },
 } as Meta;
 
 const Check = () => (

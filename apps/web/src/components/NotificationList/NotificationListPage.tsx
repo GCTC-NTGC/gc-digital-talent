@@ -98,7 +98,11 @@ const NotificationListPage = ({
       {fetching && exclude.length === 0 && <Loading inline />}
       {showNullMessage && (
         <NotificationPortal.Portal containerId={NULL_MESSAGE_ROOT_ID}>
-          <Well>
+          <Well
+            {...(inDialog && {
+              "data-h2-margin": "base(0 x1)",
+            })}
+          >
             <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x1)">
               {intl.formatMessage({
                 defaultMessage: "There aren't any notifications here.",
