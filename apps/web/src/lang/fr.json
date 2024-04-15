@@ -4171,6 +4171,10 @@
     "defaultMessage": "Supprimez  « {skillName} » de votre profil",
     "description": "Title for the confirmation alert to delete a skill"
   },
+  "M1en14": {
+    "defaultMessage": "Afficher tous<hidden> les renseignements liés à l’expérience</hidden>",
+    "description": "Button label to expand all experiences"
+  },
   "M2LfhH": {
     "defaultMessage": "Modifier<hidden> une compétence</hidden>",
     "description": "Breadcrumb title for the edit skill page link."
@@ -9605,6 +9609,10 @@
   "pnjDCS": {
     "defaultMessage": "Chercher les demandes",
     "description": "Label for the search request table search input"
+  },
+  "pp+b1H": {
+    "defaultMessage": "Réduire tous<hidden> les renseignements liés à l’expérience</hidden>",
+    "description": "Button label to collapse all experiences"
   },
   "ppJF9L": {
     "defaultMessage": "Autorité financière déléguée (sec. 32) du contrat",

@@ -6,8 +6,9 @@ import StarIcon from "@heroicons/react/24/solid/StarIcon";
 import UserGroupIcon from "@heroicons/react/24/solid/UserGroupIcon";
 import { useIntl } from "react-intl";
 
-import { HeadingRank } from "@gc-digital-talent/ui";
+import { Button, HeadingRank } from "@gc-digital-talent/ui";
 import { AwardExperience, Experience } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import {
   compareByDate,
@@ -17,6 +18,8 @@ import {
   isPersonalExperience,
   isWorkExperience,
 } from "~/utils/experienceUtils";
+import useControlledCollapsibleGroup from "~/hooks/useControlledCollapsibleGroup";
+import experienceMessages from "~/messages/experienceMessages";
 
 import ExperienceCard from "../ExperienceCard/ExperienceCard";
 
@@ -26,12 +29,16 @@ const ExperienceByType = ({
   icon,
   experiences,
   editParam,
+  isExperienceOpen,
+  onExperienceOpenChange,
 }: {
   title: string;
   headingLevel?: HeadingRank;
   icon: React.ReactNode;
   experiences: Experience[];
   editParam?: string;
+  isExperienceOpen: (id: string) => boolean;
+  onExperienceOpenChange: (id: string) => void;
 }) => {
   return (
     <div>
@@ -52,6 +59,8 @@ const ExperienceByType = ({
           {experiences.map((experience) => (
             <ExperienceCard
               key={experience.id}
+              isOpen={isExperienceOpen(experience.id)}
+              onOpenChange={() => onExperienceOpenChange(experience.id)}
               experience={experience}
               headingLevel={headingLevel}
               editParam={editParam}
@@ -74,6 +83,9 @@ const ExperienceByTypeListing = ({
   headingLevel = "h2",
 }: ExperienceSectionProps) => {
   const intl = useIntl();
+  const nonEmptyExperiences = unpackMaybes(experiences);
+  const { isExpanded, hasExpanded, toggleAllExpanded, toggleExpandedItem } =
+    useControlledCollapsibleGroup(nonEmptyExperiences?.map(({ id }) => id));
 
   const awardExperiences =
     experiences
@@ -98,6 +110,15 @@ const ExperienceByTypeListing = ({
 
   return (
     <>
+      <p data-h2-text-align="base(right)">
+        <Button mode="inline" onClick={toggleAllExpanded}>
+          {intl.formatMessage(
+            hasExpanded
+              ? experienceMessages.collapseDetails
+              : experienceMessages.expandDetails,
+          )}
+        </Button>
+      </p>
       {personalExperiences.length > 0 ? (
         <ExperienceByType
           title={intl.formatMessage({
@@ -110,6 +131,8 @@ const ExperienceByTypeListing = ({
           headingLevel={headingLevel}
           editParam={editParam}
           experiences={personalExperiences}
+          isExperienceOpen={isExpanded}
+          onExperienceOpenChange={toggleExpandedItem}
         />
       ) : null}
       {communityExperiences.length > 0 ? (
@@ -125,6 +148,8 @@ const ExperienceByTypeListing = ({
             icon={<UserGroupIcon style={{ width: "1.5rem" }} />}
             editParam={editParam}
             experiences={communityExperiences}
+            isExperienceOpen={isExpanded}
+            onExperienceOpenChange={toggleExpandedItem}
           />
         </div>
       ) : null}
@@ -140,6 +165,8 @@ const ExperienceByTypeListing = ({
             icon={<BriefcaseIcon style={{ width: "1.5rem" }} />}
             editParam={editParam}
             experiences={workExperiences}
+            isExperienceOpen={isExpanded}
+            onExperienceOpenChange={toggleExpandedItem}
           />
         </div>
       ) : null}
@@ -156,6 +183,8 @@ const ExperienceByTypeListing = ({
             icon={<BookOpenIcon style={{ width: "1.5rem" }} />}
             editParam={editParam}
             experiences={educationExperiences}
+            isExperienceOpen={isExpanded}
+            onExperienceOpenChange={toggleExpandedItem}
           />
         </div>
       ) : null}
@@ -172,6 +201,8 @@ const ExperienceByTypeListing = ({
             icon={<StarIcon style={{ width: "1.5rem" }} />}
             editParam={editParam}
             experiences={awardExperiences}
+            isExperienceOpen={isExpanded}
+            onExperienceOpenChange={toggleExpandedItem}
           />
         </div>
       ) : null}

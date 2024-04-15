@@ -12,6 +12,7 @@ import {
   incrementHeadingRank,
   Separator,
   Well,
+  useControllableState,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Skill } from "@gc-digital-talent/graphql";
@@ -54,6 +55,8 @@ interface ExperienceCardProps {
   onSave?: () => void;
   linkTo?: Skill;
   editTrigger?: React.ReactNode;
+  onOpenChange?: (isOpen: boolean) => void;
+  isOpen?: boolean;
 }
 
 const ExperienceCard = ({
@@ -67,13 +70,19 @@ const ExperienceCard = ({
   onSave,
   linkTo,
   editTrigger,
+  isOpen: isOpenProp,
+  onOpenChange,
   headingLevel = "h2",
   showSkills = true,
   showEdit = true,
 }: ExperienceCardProps) => {
   const intl = useIntl();
+  const [isOpen, setIsOpen] = useControllableState({
+    controlledProp: isOpenProp,
+    defaultValue: false,
+    onChange: onOpenChange,
+  });
   const experienceLabels = getExperienceFormLabels(intl);
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const { title, titleHtml, editPath, icon, typeMessage, date } =
     useExperienceInfo(experience);
   const contentHeadingLevel = incrementHeadingRank(headingLevel);
