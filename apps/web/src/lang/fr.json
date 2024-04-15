@@ -2867,6 +2867,10 @@
     "defaultMessage": "Modifier les principales compétences comportementales",
     "description": "Link text for editing a users top behavioural skills"
   },
+  "EWvBgF": {
+    "defaultMessage": "Questions générales {index}",
+    "description": "CSV Header, general question column. "
+  },
   "EYPaLh": {
     "defaultMessage": "Vous avez obtenu un diplôme à l’extérieur du Canada? <foreignDegreeLink>Apprenez-en davantage sur les équivalences pour les diplômes étrangers.</foreignDegreeLink>",
     "description": "External link message for the EX graduation with degree requirement."
