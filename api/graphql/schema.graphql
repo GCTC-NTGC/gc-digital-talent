@@ -319,6 +319,9 @@ type PoolCandidate {
   assessmentResults: [AssessmentResult]
     @hasMany
     @canRoot(ability: "viewAssessmentResults")
+  finalDecisionAt: DateTime
+    @rename(attribute: "final_decision_at")
+    @canRoot(ability: "viewStatus")
   placedAt: DateTime
     @rename(attribute: "placed_at")
     @canRoot(ability: "viewStatus")

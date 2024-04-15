@@ -421,6 +421,7 @@ type PoolCandidate {
   educationRequirementOption: EducationRequirementOption
   educationRequirementExperiences: [Experience]
   assessmentResults: [AssessmentResult]
+  finalDecisionAt: DateTime
   placedAt: DateTime
   placedDepartment: Department
 }

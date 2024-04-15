@@ -75,6 +75,23 @@ class PoolCandidateFactory extends Factory
                 ]);
             }
 
+            // set value for final decision at field if applicable
+            $relevantStatusesForFinalDecision = [
+                PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+                PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
+                PoolCandidateStatus::QUALIFIED_WITHDREW->name,
+                PoolCandidateStatus::PLACED_CASUAL->name,
+                PoolCandidateStatus::PLACED_TERM->name,
+                PoolCandidateStatus::PLACED_INDETERMINATE->name,
+                PoolCandidateStatus::EXPIRED->name,
+                PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
+                PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
+            ];
+            if (in_array($candidateStatus, $relevantStatusesForFinalDecision)) {
+                $poolCandidate->final_decision_at = $this->faker->dateTimeBetween('-4 weeks', '-2 weeks');
+                $poolCandidate->save();
+            }
+
             // placed status sets placed at and placed department fields
             $placedStatuses = PoolCandidateStatus::placedGroup();
             if (in_array($candidateStatus, $placedStatuses)) {
