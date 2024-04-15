@@ -72,6 +72,9 @@ Default.parameters = {
 
 export const French = Template.bind({});
 French.parameters = {
+  themes: {
+    themeOverride: THEMES.iap.light,
+  },
   locale: "fr",
 };
 
