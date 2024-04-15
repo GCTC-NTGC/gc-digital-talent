@@ -35,6 +35,8 @@ class ApiErrorEnums
 
     const INVALID_STATUS_DISQUALIFICATION = 'InvalidStatusForDisqualification';
 
+    const INVALID_STATUS_REVERT_FINAL_DECISION = 'InvalidStatusForRevertFinalDecision';
+
     const INVALID_STATUS_PLACING = 'InvalidStatusForPlacing';
 
     const CANDIDATE_NOT_PLACED = 'CandidateNotPlaced';

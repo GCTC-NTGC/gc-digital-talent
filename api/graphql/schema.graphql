@@ -1679,6 +1679,10 @@ type Mutation {
     @guard
     @canFind(ability: "updateStatus", find: "id", injectArgs: true)
     @validator(class: "App\\GraphQL\\Validators\\DisqualifyCandidateValidator")
+  revertFinalDecision(id: UUID!): PoolCandidate
+    @guard
+    @canFind(ability: "updateStatus", find: "id", injectArgs: true)
+    @validator(class: "App\\GraphQL\\Validators\\RevertFinalDecisionValidator")
   placeCandidate(
     id: UUID!
     placeCandidate: PlaceCandidateInput! @spread
