@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { ComponentStory, ComponentMeta, DecoratorFn } from "@storybook/react";
+import type { Args, Decorator } from "@storybook/react";
+import { StoryFn, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { faker } from "@faker-js/faker";
 
@@ -19,7 +20,7 @@ const longLabelSteps = defaultSteps.map((step, index) => {
     : step;
 });
 
-const ReactRouterDecorator: DecoratorFn = (Story, options) => {
+const ReactRouterDecorator: Decorator<Args> = (Story, options) => {
   const { args } = options;
   const location = useLocation();
   useEffect(() => {
@@ -44,9 +45,9 @@ export default {
   component: Stepper,
   title: "Components/Stepper",
   decorators: [ReactRouterDecorator],
-} as ComponentMeta<typeof Stepper>;
+} as Meta<typeof Stepper>;
 
-const Template: ComponentStory<typeof Stepper> = (args) => {
+const Template: StoryFn<typeof Stepper> = (args) => {
   const { label, steps, currentIndex } = args;
 
   return (

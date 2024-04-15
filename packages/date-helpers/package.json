@@ -17,8 +17,8 @@
   "dependencies": {
     "@gc-digital-talent/graphql": "workspace:*",
     "@gc-digital-talent/i18n": "workspace:*",
-    "date-fns": "^2.30.0",
-    "date-fns-tz": "^2.0.1",
+    "date-fns": "^3.6.0",
+    "date-fns-tz": "^3.0.0",
     "react-intl": "^6.6.2"
   },
   "devDependencies": {
@@ -28,6 +28,6 @@
     "eslint": "^8.57.0",
     "jest": "^29.7.0",
     "tsconfig": "workspace:*",
-    "typescript": "^5.4.4"
+    "typescript": "^5.4.5"
   }
 }

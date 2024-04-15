@@ -1,5 +1,5 @@
 import { action } from "@storybook/addon-actions";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import React from "react";
 
 import { fakeSkills } from "@gc-digital-talent/fake-data";
@@ -22,7 +22,7 @@ export default {
   },
 } as Meta;
 
-const TemplatePagination: Story<PaginationProps> = (args) => {
+const TemplatePagination: StoryFn<PaginationProps> = (args) => {
   return <Pagination {...args} />;
 };
 
@@ -62,7 +62,7 @@ BothDots.args = {
   currentPage: 5,
 };
 
-const TemplatePaginationWithData: Story<PaginationProps> = () => {
+const TemplatePaginationWithData: StoryFn<PaginationProps> = () => {
   const skills = fakeSkills(50);
   const pageSize = 5;
   const pagination = usePaginationVars<Skill>(pageSize, skills);

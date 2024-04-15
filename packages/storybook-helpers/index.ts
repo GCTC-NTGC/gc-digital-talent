@@ -1,3 +1,4 @@
+import ContainerDecorator from "./decorators/ContainerDecorator";
 import FeatureFlagDecorator from "./decorators/FeatureFlagDecorator";
 import HelmetDecorator from "./decorators/HelmetDecorator";
 import MockGraphqlDecorator from "./decorators/MockGraphqlDecorator";
@@ -9,6 +10,7 @@ import allModes from "./modes";
 import { CHROMATIC_VIEWPORTS, VIEWPORTS, VIEWPORT } from "./viewports";
 
 export {
+  ContainerDecorator,
   FeatureFlagDecorator,
   HelmetDecorator,
   MockGraphqlDecorator,

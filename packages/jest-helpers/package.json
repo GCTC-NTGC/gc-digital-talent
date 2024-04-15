@@ -22,14 +22,14 @@
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/jest-presets": "workspace:*",
-    "@testing-library/react": "14.2.1",
+    "@testing-library/react": "14.3.0",
     "@testing-library/user-event": "^14.5.2",
     "@types/jest-axe": "3.5.9",
-    "@types/react": "^18.2.74",
+    "@types/react": "^18.2.78",
     "eslint": "^8.57.0",
     "jest-axe": "^8.0.0",
     "react": "^18.2.0",
     "tsconfig": "workspace:*",
-    "typescript": "^5.4.4"
+    "typescript": "^5.4.5"
   }
 }

@@ -1,17 +1,11 @@
 import React from "react";
 import type { StoryFn } from "@storybook/react";
 
-import TabsDocs from "./Tabs.docs.mdx";
 import Tabs from "./Tabs";
 
 export default {
   component: Tabs.Root,
   title: "Components/Tabs",
-  parameters: {
-    docs: {
-      page: TabsDocs,
-    },
-  },
 };
 
 const themes: Array<string> = ["light", "dark"];

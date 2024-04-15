@@ -694,12 +694,16 @@ export const ViewPoolCandidate = ({
 
   const chips = (
     <Chips>
-      <Chip color={statusChip.color} data-h2-font-weight="base(700)">
+      <Chip
+        key="status"
+        color={statusChip.color}
+        data-h2-font-weight="base(700)"
+      >
         {statusChip.label}
       </Chip>
       {poolCandidate.user.hasPriorityEntitlement ||
       poolCandidate.user.priorityWeight === 10 ? (
-        <Chip color="black">
+        <Chip key="priority" color="black">
           {intl.formatMessage({
             defaultMessage: "Priority",
             id: "xGMcBO",
@@ -709,7 +713,7 @@ export const ViewPoolCandidate = ({
       ) : null}
       {poolCandidate.user.armedForcesStatus === ArmedForcesStatus.Veteran ||
       poolCandidate.user.priorityWeight === 20 ? (
-        <Chip color="black">
+        <Chip key="veteran" color="black">
           {intl.formatMessage({
             defaultMessage: "Veteran",
             id: "16iCWc",

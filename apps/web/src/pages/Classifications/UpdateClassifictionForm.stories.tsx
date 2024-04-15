@@ -1,24 +1,32 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
 import { fakeClassifications } from "@gc-digital-talent/fake-data";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
-import { UpdateClassificationForm } from "./UpdateClassificationPage";
+import {
+  ClassificationForm_Fragment,
+  UpdateClassificationForm,
+} from "./UpdateClassificationPage";
 
 const mockClassifications = fakeClassifications();
+const classification = makeFragmentData(
+  mockClassifications[0],
+  ClassificationForm_Fragment,
+);
 
 export default {
   component: UpdateClassificationForm,
   title: "Forms/Update Classification Form",
-} as ComponentMeta<typeof UpdateClassificationForm>;
+} as Meta<typeof UpdateClassificationForm>;
 
-const Template: ComponentStory<typeof UpdateClassificationForm> = (args) => {
-  const { initialClassification } = args;
+const Template: StoryFn<typeof UpdateClassificationForm> = (args) => {
+  const { query } = args;
 
   return (
     <UpdateClassificationForm
-      initialClassification={initialClassification}
+      query={query}
       onUpdateClassification={async (id, data) => {
         return new Promise((resolve) => {
           setTimeout(() => {
@@ -36,5 +44,5 @@ const Template: ComponentStory<typeof UpdateClassificationForm> = (args) => {
 
 export const Default = Template.bind({});
 Default.args = {
-  initialClassification: mockClassifications[0],
+  query: classification,
 };

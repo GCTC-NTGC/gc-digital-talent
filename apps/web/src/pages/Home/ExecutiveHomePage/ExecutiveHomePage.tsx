@@ -61,7 +61,16 @@ export const HomePage = ({ pools }: HomePageProps) => {
       />
       <HomeHero
         img={{
-          srcset: `${executiveHeroPortrait} 600w, ${executiveHeroTablet} 900w, ${executiveHeroLandscape} 1200w`,
+          sources: [
+            {
+              srcset: `${executiveHeroPortrait}`,
+              media: "(max-width: 48rem)",
+            },
+            {
+              srcset: `${executiveHeroTablet}`,
+              media: "(max-width: 67.5rem)",
+            },
+          ],
           src: executiveHeroLandscape,
           alt: "",
         }}

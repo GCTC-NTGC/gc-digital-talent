@@ -8,6 +8,7 @@ use App\Enums\EducationRequirementOption;
 use App\Enums\PoolCandidateStatus;
 use App\Models\AssessmentResult;
 use App\Models\AssessmentStep;
+use App\Models\Department;
 use App\Models\EducationExperience;
 use App\Models\GeneralQuestionResponse;
 use App\Models\Pool;
@@ -72,6 +73,17 @@ class PoolCandidateFactory extends Factory
                     'signature' => $fakeSignature,
                     'submitted_steps' => array_column(ApplicationStep::cases(), 'name'),
                 ]);
+            }
+
+            // placed status sets placed at and placed department fields
+            $placedStatuses = PoolCandidateStatus::placedGroup();
+            if (in_array($candidateStatus, $placedStatuses)) {
+                $poolCandidate->placed_at = $this->faker->dateTimeBetween('-2 weeks', 'now');
+                $poolCandidate->placed_department_id = Department::inRandomOrder()
+                    ->limit(1)
+                    ->pluck('id')
+                    ->first();
+                $poolCandidate->save();
             }
 
             // if the attached pool has general questions, generate responses

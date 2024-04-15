@@ -4,12 +4,16 @@ import {
   PaginationState,
   createColumnHelper,
 } from "@tanstack/react-table";
-import { useIntl } from "react-intl";
+import { createIntl, createIntlCache, useIntl } from "react-intl";
 import { OperationContext, useQuery } from "urql";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { SubmitHandler } from "react-hook-form";
 
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getLocalizedName,
+  useIntlLanguages,
+} from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Pending } from "@gc-digital-talent/ui";
 import {
@@ -28,6 +32,7 @@ import {
   INITIAL_STATE,
   SEARCH_PARAM_KEY,
 } from "~/components/Table/ResponsiveTable/constants";
+import * as messages from "~/lang/frCompiled.json";
 
 import {
   categoryAccessor,
@@ -35,6 +40,7 @@ import {
   skillFamiliesCell,
 } from "./tableHelpers";
 import SkillFilterDialog, { FormValues } from "./SkillFilterDialog";
+import { getSkillCsvData, getSkillCsvHeaders } from "./skillCsv";
 
 export type SkillFilterInput = FormValues;
 
@@ -76,6 +82,7 @@ interface SkillTableProps {
   paginationState?: PaginationState;
   addButton?: boolean;
   fetching?: boolean;
+  csvDownload?: boolean;
 }
 
 export const SkillTable = ({
@@ -85,8 +92,27 @@ export const SkillTable = ({
   addButton,
   skillFamilies,
   fetching,
+  csvDownload,
 }: SkillTableProps) => {
   const intl = useIntl();
+  const cache = createIntlCache();
+  const englishMessages = useIntlLanguages("en", messages);
+  const frenchMessages = useIntlLanguages("fr", messages);
+  const intlEn = createIntl(
+    {
+      locale: "en",
+      messages: englishMessages,
+    },
+    cache,
+  );
+  const intlFr = createIntl(
+    {
+      locale: "fr",
+      messages: frenchMessages,
+    },
+    cache,
+  );
+
   const paths = useRoutes();
   const [searchParams] = useSearchParams();
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
@@ -229,6 +255,31 @@ export const SkillTable = ({
           />
         ),
       }}
+      download={
+        csvDownload
+          ? {
+              all: {
+                csv: {
+                  headers: getSkillCsvHeaders(intl),
+                  data: () => {
+                    return getSkillCsvData(skills, intlEn, intlFr);
+                  },
+                  fileName: intl.formatMessage({
+                    defaultMessage: "GC Digital Talent - All skills.csv",
+                    id: "4tIdsX",
+                    description: "Filename for skills CSV file download",
+                  }),
+                },
+                label: intl.formatMessage({
+                  defaultMessage: "Download all skills (CSV)",
+                  id: "XovI8x",
+                  description:
+                    "Text label for button to download a csv file of all skills.",
+                }),
+              },
+            }
+          : undefined
+      }
     />
   );
 };
@@ -284,10 +335,12 @@ const SkillTableApi = ({
   title,
   paginationState,
   addButton,
+  csvDownload,
 }: {
   title: string;
   paginationState?: PaginationState;
   addButton?: boolean;
+  csvDownload?: boolean;
 }) => {
   const [{ data, fetching, error }] = useQuery({
     query: SkillTableSkills_Query,
@@ -305,6 +358,7 @@ const SkillTableApi = ({
         paginationState={paginationState}
         fetching={fetching}
         skillFamilies={skillFamilies}
+        csvDownload={csvDownload}
       />
     </Pending>
   );
