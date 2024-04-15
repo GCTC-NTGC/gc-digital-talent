@@ -50,6 +50,7 @@ import ProfileDetails from "./components/ProfileDetails/ProfileDetails";
 import NotesDialog from "./components/MoreActions/NotesDialog";
 import FinalDecisionDialog from "./components/MoreActions/FinalDecisionDialog";
 import CandidateNavigation from "./components/CandidateNavigation/CandidateNavigation";
+import ChangeExpiryDateDialog from "./components/ChangeExpiryDateDialog/ChangeExpiryDateDialog";
 
 const screeningAndAssessmentTitle = defineMessage({
   defaultMessage: "Screening and assessment",
@@ -60,6 +61,7 @@ const screeningAndAssessmentTitle = defineMessage({
 const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
   query PoolCandidateSnapshot($poolCandidateId: UUID!) {
     poolCandidate(id: $poolCandidateId) {
+      ...CandidateExpiryDateDialog
       id
       status
       user {
@@ -798,6 +800,7 @@ export const ViewPoolCandidate = ({
                   poolCandidate?.assessmentResults?.filter(notEmpty) ?? []
                 }
               />
+              <ChangeExpiryDateDialog expiryDateQuery={poolCandidate} />
               {/* TODO: Add "Remove" and "Re-instate" dialogs to Pool Candidate
               page (#9198) */}
               {false && (
