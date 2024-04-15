@@ -347,6 +347,10 @@
     "defaultMessage": "Votre numéro de confirmation est le suivant : <strong>{id}</strong>",
     "description": "An application confirmation number"
   },
+  "/voRGj": {
+    "defaultMessage": "Afficher tous<hidden> les filtres avancés </hidden>",
+    "description": "Button text to show all advanced filters"
+  },
   "/yOfhq": {
     "defaultMessage": "Durée de l’emploi ",
     "description": "Job duration label "
@@ -9609,6 +9613,10 @@
   "q5FQbu": {
     "defaultMessage": "À venir!",
     "description": "Heading for a coming soon section"
+  },
+  "q5V/+5": {
+    "defaultMessage": "Réduire tous <hidden> les filtres avancés </hidden>",
+    "description": "Button text to hide all advanced filters"
   },
   "q5rd9x": {
     "defaultMessage": " Description de l’expérience",
