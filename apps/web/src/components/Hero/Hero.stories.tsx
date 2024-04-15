@@ -1,5 +1,5 @@
 import React from "react";
-import { Story, ComponentMeta } from "@storybook/react";
+import { StoryFn, Meta } from "@storybook/react";
 
 import Hero from "./Hero";
 
@@ -28,7 +28,7 @@ export default {
       },
     ],
   },
-} as ComponentMeta<typeof Hero>;
+} as Meta<typeof Hero>;
 
 const heroContent = {
   title: "Hero",
@@ -53,7 +53,7 @@ const heroContent = {
   ],
 };
 
-const StandardStory: Story = (args) => (
+const StandardStory: StoryFn = (args) => (
   <>
     <div data-h2="light">
       <div

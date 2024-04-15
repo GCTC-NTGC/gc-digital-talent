@@ -1,5 +1,5 @@
 import React from "react";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
 import {
@@ -9,9 +9,6 @@ import {
 import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
 
 import TrackApplications, { Application } from "./TrackApplications";
-
-type Story = ComponentStory<typeof TrackApplications>;
-type Meta = ComponentMeta<typeof TrackApplications>;
 
 const mockApplications = fakePoolCandidates(20);
 
@@ -42,7 +39,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story = (args) => {
+const Template: StoryFn<typeof TrackApplications> = (args) => {
   return <TrackApplications {...args} />;
 };
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Story, Meta } from "@storybook/react";
+import { StoryFn, Meta } from "@storybook/react";
 
 import { fakePools } from "@gc-digital-talent/fake-data";
 import { Pool } from "@gc-digital-talent/graphql";
@@ -36,7 +36,7 @@ export default {
   },
 } as Meta;
 
-const TemplatePoolCard: Story<{ pool: Pool }> = () => (
+const TemplatePoolCard: StoryFn<{ pool: Pool }> = () => (
   <div>
     <p data-h2-padding="base(x0.5, 0, x0.5, 0)">First</p>
     <PoolCard pool={fakedPool} />

@@ -7,8 +7,6 @@ import { UpdatePoolCandidateStatusInput } from "@gc-digital-talent/graphql";
 
 import { ApplicationStatusForm } from "./ApplicationStatusForm";
 
-type Story = StoryFn<typeof ApplicationStatusForm>;
-
 const mockApplications = fakePoolCandidates(1);
 const mockApplication = mockApplications[0];
 
@@ -17,7 +15,7 @@ export default {
   title: "Forms/Application Status Form",
 } as Meta;
 
-const Template: Story = (args) => {
+const Template: StoryFn<typeof ApplicationStatusForm> = (args) => {
   const [isSubmitting, setSubmitting] = React.useState<boolean>(false);
   const { application } = args;
 

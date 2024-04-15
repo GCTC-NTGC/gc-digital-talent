@@ -26,7 +26,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 /**
  * Class PoolCandidate
  *
- * @property int $id
+ * @property string $id
  * @property string $cmo_identifier
  * @property Illuminate\Support\Carbon $expiry_date
  * @property Illuminate\Support\Carbon $archived_at
@@ -34,14 +34,16 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $signature
  * @property string $pool_candidate_status
  * @property int $status_weight
- * @property int $pool_id
- * @property int $user_id
+ * @property string $pool_id
+ * @property string $user_id
  * @property Illuminate\Support\Carbon $suspended_at
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  * @property array $submitted_steps
  * @property string $education_requirement_option
  * @property bool $is_bookmarked
+ * @property Illuminate\Support\Carbon $placed_at
+ * @property string $placed_department_id
  */
 class PoolCandidate extends Model
 {
@@ -64,6 +66,7 @@ class PoolCandidate extends Model
         'profile_snapshot' => 'json',
         'submitted_steps' => 'array',
         'is_bookmarked' => 'boolean',
+        'placed_at' => 'datetime',
     ];
 
     /**
@@ -137,6 +140,11 @@ class PoolCandidate extends Model
     public function pool(): BelongsTo
     {
         return $this->belongsTo(Pool::class)->select(Pool::getSelectableColumns())->withTrashed();
+    }
+
+    public function placedDepartment(): BelongsTo
+    {
+        return $this->belongsTo(Department::class);
     }
 
     public function generalQuestionResponses(): HasMany

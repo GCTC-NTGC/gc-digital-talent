@@ -59,4 +59,5 @@ Dismissible.args = {
 export const WithIcon = Template.bind({});
 WithIcon.args = {
   icon: AcademicCapIcon,
+  onDismiss: () => action("dismiss")({}),
 };

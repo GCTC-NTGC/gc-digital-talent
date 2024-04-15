@@ -1,5 +1,5 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
 import { fakeSearchRequests } from "@gc-digital-talent/fake-data";
@@ -11,9 +11,9 @@ const mockSearchRequests = fakeSearchRequests();
 export default {
   component: UpdateSearchRequestForm,
   title: "Forms/Update Search Request Form",
-} as ComponentMeta<typeof UpdateSearchRequestForm>;
+} as Meta<typeof UpdateSearchRequestForm>;
 
-const Template: ComponentStory<typeof UpdateSearchRequestForm> = (args) => {
+const Template: StoryFn<typeof UpdateSearchRequestForm> = (args) => {
   const { initialSearchRequest } = args;
 
   return (
