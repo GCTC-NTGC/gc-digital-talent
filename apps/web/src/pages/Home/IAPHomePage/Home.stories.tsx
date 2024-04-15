@@ -53,7 +53,7 @@ export default {
       modes: {
         light: allModes["light iap desktop"],
         "light mobile": allModes["light mobile"],
-        dark: allModes["dark iap mobile"],
+        dark: allModes["dark iap desktop"],
         french: allModes["iap french"],
       },
     },
