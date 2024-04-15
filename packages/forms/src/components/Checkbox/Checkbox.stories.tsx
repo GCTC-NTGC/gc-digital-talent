@@ -1,5 +1,5 @@
 import React from "react";
-import { Story, Meta } from "@storybook/react";
+import { StoryFn, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
 import { VIEWPORT } from "@gc-digital-talent/storybook-helpers";
@@ -17,7 +17,7 @@ export default {
 
 const themes = ["light", "dark"];
 
-const TemplateCheckbox: Story<CheckboxProps> = (args) => {
+const TemplateCheckbox: StoryFn<CheckboxProps> = (args) => {
   return (
     <div
       data-h2-display="base(grid)"

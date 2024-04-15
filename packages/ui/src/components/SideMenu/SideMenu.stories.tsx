@@ -1,5 +1,5 @@
 import React from "react";
-import { Story, Meta } from "@storybook/react";
+import { StoryFn, Meta } from "@storybook/react";
 import HomeIcon from "@heroicons/react/24/outline/HomeIcon";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
@@ -36,7 +36,7 @@ export default {
   },
 } as Meta;
 
-const TemplateSideMenu: Story = (args) => {
+const TemplateSideMenu: StoryFn = (args) => {
   const intl = useIntl();
   const { isOpen: defaultOpen } = args;
   const [isOpen, setOpen] = React.useState<boolean>(defaultOpen);

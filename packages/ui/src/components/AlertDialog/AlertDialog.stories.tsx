@@ -1,21 +1,15 @@
 import React from "react";
-import type { StoryFn, ComponentMeta } from "@storybook/react";
+import type { StoryFn, Meta } from "@storybook/react";
 
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 
 import Button from "../Button";
-import AlertDialogDocs from "./AlertDialog.docs.mdx";
 import AlertDialog from "./AlertDialog";
 
 export default {
   component: AlertDialog.Root,
   title: "Components/Alert Dialog",
-  parameters: {
-    docs: {
-      page: AlertDialogDocs,
-    },
-  },
-} as ComponentMeta<typeof AlertDialog.Root>;
+} as Meta<typeof AlertDialog.Root>;
 
 type Args = React.ComponentProps<typeof AlertDialog.Root> & {
   theme: "dark" | "light";

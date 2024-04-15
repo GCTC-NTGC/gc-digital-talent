@@ -1,6 +1,6 @@
 import { DecoratorHelpers } from "@storybook/addon-themes";
 import type { DecoratorFunction, Renderer } from "@storybook/types";
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 
 import {
   Theme,
@@ -33,15 +33,16 @@ type ThemeSetterProps = {
   theme: Theme;
 };
 const ThemeSetter = ({ theme }: ThemeSetterProps) => {
-  const { setTheme } = useTheme();
+  const { setTheme, key, mode } = useTheme();
 
-  React.useEffect(() => {
-    setTheme({
-      key: theme.key,
-      mode: theme.mode,
-    });
-  }, [setTheme, theme.key, theme.mode]);
-
+  useEffect(() => {
+    if (theme.key !== key || theme.mode !== mode) {
+      setTheme({
+        key: theme.key,
+        mode: theme.mode,
+      });
+    }
+  }, [key, mode, setTheme, theme.key, theme.mode]);
   return null;
 };
 
@@ -57,10 +58,14 @@ const withThemeFromHydrogen = <TRenderer extends Renderer = any>({
     const { themeOverride } = useThemeParameters();
     const selected = themeOverride || selectedTheme || defaultTheme;
 
-    const themeArr = themes[selected].split(" ") as [
-      ThemeKey | undefined,
-      ThemeMode | undefined,
-    ];
+    const themeArr = useMemo(
+      () =>
+        themes[selected].split(" ") as [
+          ThemeKey | undefined,
+          ThemeMode | undefined,
+        ],
+      [selected],
+    );
 
     return (
       <ThemeProvider>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Story, Meta } from "@storybook/react";
+import { StoryFn, Meta } from "@storybook/react";
 import { faker } from "@faker-js/faker";
 
 import CardFlat from "./CardFlat";
@@ -9,7 +9,7 @@ export default {
   title: "Components/Card Flat",
 } as Meta;
 
-const Template: Story = () => {
+const Template: StoryFn = () => {
   faker.seed(0);
 
   const Cards = (

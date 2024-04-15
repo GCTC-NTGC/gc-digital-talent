@@ -1,5 +1,5 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 
 import { fakePools, fakeTeams } from "@gc-digital-talent/fake-data";
 
@@ -22,9 +22,9 @@ const mockPoolsWithTeam = mockPools.flatMap((pool) => {
 export default {
   component: PoolTable,
   title: "Tables/Pool Table",
-} as ComponentMeta<typeof PoolTable>;
+} as Meta<typeof PoolTable>;
 
-const Template: ComponentStory<typeof PoolTable> = (args) => {
+const Template: StoryFn<typeof PoolTable> = (args) => {
   const { pools, title } = args;
   return <PoolTable pools={pools} title={title} />;
 };
