@@ -2871,6 +2871,10 @@
     "defaultMessage": "Modifier les principales compétences comportementales",
     "description": "Link text for editing a users top behavioural skills"
   },
+  "EY7YQM": {
+    "defaultMessage": "Il manque au moins 1 évaluation pour les compétences suivantes",
+    "description": "Warning message for skills with missing assessment on the 'assessment details' dialog"
+  },
   "EYPaLh": {
     "defaultMessage": "Vous avez obtenu un diplôme à l’extérieur du Canada? <foreignDegreeLink>Apprenez-en davantage sur les équivalences pour les diplômes étrangers.</foreignDegreeLink>",
     "description": "External link message for the EX graduation with degree requirement."
