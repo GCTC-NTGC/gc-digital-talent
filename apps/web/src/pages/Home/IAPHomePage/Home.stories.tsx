@@ -50,7 +50,7 @@ export default {
     },
     layout: "fullscreen",
     chromatic: {
-      mode: {
+      modes: {
         mobile: allModes.mobile,
       },
     },
