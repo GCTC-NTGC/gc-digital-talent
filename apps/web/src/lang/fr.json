@@ -344,7 +344,7 @@
     "description": "An application confirmation number"
   },
   "/voRGj": {
-    "defaultMessage": "Afficher tous<hidden> les filtres avancés </hidden>",
+    "defaultMessage": "Afficher tous<hidden> les filtres avancés</hidden>",
     "description": "Button text to show all advanced filters"
   },
   "/yOfhq": {
@@ -9643,7 +9643,7 @@
     "description": "Heading for a coming soon section"
   },
   "q5V/+5": {
-    "defaultMessage": "Réduire tous <hidden> les filtres avancés </hidden>",
+    "defaultMessage": "Réduire tous <hidden> les filtres avancés</hidden>",
     "description": "Button text to hide all advanced filters"
   },
   "q5rd9x": {
