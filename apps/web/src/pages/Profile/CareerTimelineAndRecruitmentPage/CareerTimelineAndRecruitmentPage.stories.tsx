@@ -12,6 +12,8 @@ export default {
   title: "Pages/Career timeline and recruitment",
   args: {
     userId: "test",
+    experiencesQuery: [],
+    applicationsQuery: [],
   },
 } as Meta<typeof CareerTimelineAndRecruitment>;
 
