@@ -51,7 +51,9 @@ export default {
     layout: "fullscreen",
     chromatic: {
       modes: {
-        mobile: allModes.mobile,
+        light: allModes["light iap desktop"],
+        "light mobile": allModes["light mobile"],
+        dark: allModes["dark iap mobile"],
       },
     },
   },
@@ -76,11 +78,4 @@ French.parameters = {
     themeOverride: THEMES.iap.light,
   },
   locale: "fr",
-};
-
-export const Dark = Template.bind({});
-Dark.parameters = {
-  themes: {
-    themeOverride: THEMES.iap.dark,
-  },
 };
