@@ -99,6 +99,7 @@ class User extends Model implements Authenticatable, LaratrustUser
         'first_name',
         'last_name',
         'telephone',
+        'sub',
         'preferred_lang',
         'current_province',
         'current_city',

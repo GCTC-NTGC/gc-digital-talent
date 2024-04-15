@@ -6382,10 +6382,6 @@
     "defaultMessage": "Ayant eu le privilège de travailler en étroite collaboration avec les apprenti·es autochtones et de constater l’immense talent et le potentiel qu’ils possèdent, notre équipe à IRCC est convaincue que cet investissement apportera une valeur considérable à la fois à notre ministère et à nos apprenti·es eux·elles-mêmes.",
     "description": "Quote from Darcy Pierlot about working with apprentices"
   },
-  "YUx5ti": {
-    "defaultMessage": "Compte supprimé",
-    "description": "Title for the page users land on if their account was deleted."
-  },
   "YV3EoS": {
     "defaultMessage": "Modifier les compétences comportementales pour les améliorer",
     "description": "Link text for editing a users behavioural skills to be improved"
@@ -10625,6 +10621,10 @@
   "wl8GI6": {
     "defaultMessage": "Mon rôle",
     "description": "Label displayed on an Experience form for role input"
+  },
+  "wm8WXC": {
+    "defaultMessage": "Votre session a expiré, veuillez vous reconnecter.",
+    "description": "Title for the alert displayed after a user signs out"
   },
   "wnaTtx": {
     "defaultMessage": "En apprendre davantage sur l'équité en matière d'emploi",
