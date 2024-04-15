@@ -54,6 +54,13 @@ const allModes = {
     theme: THEMES.iap.light,
     viewport: DIMENSIONS.phone.width,
   },
+  french: {
+    locale: "fr",
+  },
+  "iap french": {
+    locale: "fr",
+    theme: THEMES.iap.light,
+  },
 };
 
 export default allModes;
