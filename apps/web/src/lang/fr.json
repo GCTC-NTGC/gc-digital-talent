@@ -2839,6 +2839,10 @@
     "defaultMessage": "Aidez les gestionnaires à comprendre vos occasions potentielles d’apprentissage de compétences comportementales.",
     "description": "Page description for the improve behavioural skills page"
   },
+  "EG5WpQ": {
+    "defaultMessage": "Erreur : impossible de mettre à jour les paramètres",
+    "description": "Message displayed when an error occurs while updating notification settings."
+  },
   "EGNLD7": {
     "defaultMessage": "Durée de l’emploi",
     "description": "Label for pool advertisement employment length"
@@ -3647,10 +3651,6 @@
     "defaultMessage": "À mesure que votre niveau de compétence augmente, vous pouvez utiliser ce formulaire pour effectuer une mise à jour de votre niveau de compétence, qui a été évalué par vous-même. Vous trouverez la définition de la compétence donnée par le gouvernement, ainsi que des explications pour chaque niveau de compétence afin de vous aider à faire votre choix.",
     "description": "Help text for updating a skill level"
   },
-  "J1YiBm": {
-    "defaultMessage": "Erreur : impossible de mettre à jour les paramètres du candidat",
-    "description": "Message displayed when an error occurs while updating applicant settings."
-  },
   "J1n6QO": {
     "defaultMessage": "Fermer les notifications",
     "description": "Button text to close the notifications dialog"
@@ -4322,10 +4322,6 @@
   "Mz7sON": {
     "defaultMessage": "Gérez vos compétences",
     "description": "Title for editing a users skills"
-  },
-  "N+KoUX": {
-    "defaultMessage": "Paramètres du candidat",
-    "description": "Link text for visiting the applicant settings page"
   },
   "N/Vcp3": {
     "defaultMessage": "Ce à quoi vous pouvez vous attendre",
@@ -5266,10 +5262,6 @@
   "SLedtO": {
     "defaultMessage": "Profil de l’utilisateur",
     "description": "Title for the user profile page"
-  },
-  "SMWsMk": {
-    "defaultMessage": "Paramètres du compte et de confidentialité",
-    "description": "Heading for the account and privacy settings section on the profile"
   },
   "SNwPLZ": {
     "defaultMessage": "<strong>Ma situation concorde avec l’option d’expérience de travail appliquée</strong>",
@@ -7589,6 +7581,10 @@
   "enffKD": {
     "defaultMessage": "Raison pour la demande de talent",
     "description": "Label for the reason for submitting the request."
+  },
+  "ennrdC": {
+    "defaultMessage": "Paramètres mis à jour avec succès",
+    "description": "Message displayed when applicant updated their notification settings."
   },
   "eozWFc": {
     "defaultMessage": "Filtres avancés",
@@ -11093,10 +11089,6 @@
   "zMa59V": {
     "defaultMessage": "Veuillez ne pas fournir des renseignements personnels supplémentaires qui ne sont pas requis à cette fin.",
     "description": "Paragraph for privacy policy page"
-  },
-  "zV8YQ1": {
-    "defaultMessage": "Mise à jour des paramètres du candidat",
-    "description": "Message displayed when applicant updated their settings."
   },
   "zXkLL2": {
     "defaultMessage": "Non démontrée (supprimée du processus)",
