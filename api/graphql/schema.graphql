@@ -1668,6 +1668,13 @@ type Mutation {
     @delete
     @guard
     @canFind(ability: "delete", find: "id")
+  disqualifyCandidate(
+    id: UUID!
+    reason: DisqualificationReason!
+  ): PoolCandidate
+    @guard
+    @canFind(ability: "updateStatus", find: "id", injectArgs: true)
+    @validator(class: "App\\GraphQL\\Validators\\DisqualifyCandidateValidator")
   placeCandidate(
     id: UUID!
     placeCandidate: PlaceCandidateInput! @spread

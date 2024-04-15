@@ -101,6 +101,7 @@ type Mutation {
   togglePoolCandidateBookmark(id: ID!): Boolean
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
   deletePoolCandidate(id: ID!): PoolCandidate
+  disqualifyCandidate(id: UUID!, reason: DisqualificationReason!): PoolCandidate
   placeCandidate(id: UUID!, placeCandidate: PlaceCandidateInput!): PoolCandidate
   revertPlaceCandidate(id: UUID!): PoolCandidate
   createClassification(classification: CreateClassificationInput!): Classification
@@ -2002,6 +2003,11 @@ enum PoolStatus {
   PUBLISHED
   CLOSED
   ARCHIVED
+}
+
+enum DisqualificationReason {
+  SCREENED_OUT_APPLICATION
+  SCREENED_OUT_ASSESSMENT
 }
 
 enum PoolCandidateStatus {
