@@ -1,5 +1,5 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 
 import { fakeSearchRequests } from "@gc-digital-talent/fake-data";
 
@@ -13,9 +13,9 @@ export default {
   args: {
     searchRequestQuery: mockSearchRequests[0],
   },
-} as ComponentMeta<typeof ViewSearchRequest>;
+} as Meta<typeof ViewSearchRequest>;
 
-const Template: ComponentStory<typeof ViewSearchRequest> = (args) => {
+const Template: StoryFn<typeof ViewSearchRequest> = (args) => {
   const { searchRequestQuery } = args;
 
   return <ViewSearchRequest searchRequestQuery={searchRequestQuery} />;

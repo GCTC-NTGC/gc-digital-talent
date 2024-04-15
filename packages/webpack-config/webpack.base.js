@@ -78,7 +78,7 @@ module.exports = (basePath, appMeta) => {
         title: meta.title,
         template: "./public/index.html",
         meta: {
-          description: meta.description,
+          description: { content: meta.description, "data-rh": "true", },
           "og:url": { property: "og:url", content: meta.url, "data-rh": "true" },
           "og:type": { property: "og:type", content: meta.type, "data-rh": "true" },
           "og:title": { property: "og:title", content: meta.title, "data-rh": "true" },

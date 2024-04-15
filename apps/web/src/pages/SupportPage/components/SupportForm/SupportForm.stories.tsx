@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
 import { fakeUsers } from "@gc-digital-talent/fake-data";
@@ -9,9 +9,9 @@ import { FormValues, SupportFormComponent } from "./SupportForm";
 export default {
   component: SupportFormComponent,
   title: "Forms/Support Form",
-} as ComponentMeta<typeof SupportFormComponent>;
+} as Meta<typeof SupportFormComponent>;
 
-const Template: ComponentStory<typeof SupportFormComponent> = (args) => {
+const Template: StoryFn<typeof SupportFormComponent> = (args) => {
   const [showSupportForm, setShowSupportForm] = useState(true);
   return (
     <SupportFormComponent

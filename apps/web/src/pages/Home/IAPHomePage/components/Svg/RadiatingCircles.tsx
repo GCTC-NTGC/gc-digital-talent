@@ -1,6 +1,6 @@
 import React from "react";
 
-const RadiatingCircle = (props: React.HTMLProps<SVGSVGElement>) => (
+const RadiatingCircles = (props: React.HTMLProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -22,4 +22,4 @@ const RadiatingCircle = (props: React.HTMLProps<SVGSVGElement>) => (
   </svg>
 );
 
-export default RadiatingCircle;
+export default RadiatingCircles;

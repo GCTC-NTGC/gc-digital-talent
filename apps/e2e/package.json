@@ -17,7 +17,7 @@
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "*",
     "@testing-library/cypress": "^10.0.1",
-    "@types/node": "^20.12.4",
+    "@types/node": "^20.12.7",
     "axe-core": "^4.8.4",
     "cy-verify-downloads": "^0.2.3",
     "cypress": "^13.7.0",
@@ -29,6 +29,6 @@
     "jwt-decode": "4.0.0",
     "prettier": "^3.2.5",
     "tsconfig": "workspace:*",
-    "typescript": "5.4.4"
+    "typescript": "5.4.5"
   }
 }

@@ -101,6 +101,8 @@ type Mutation {
   togglePoolCandidateBookmark(id: ID!): Boolean
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
   deletePoolCandidate(id: ID!): PoolCandidate
+  placeCandidate(id: UUID!, placeCandidate: PlaceCandidateInput!): PoolCandidate
+  revertPlaceCandidate(id: UUID!): PoolCandidate
   createClassification(classification: CreateClassificationInput!): Classification
   updateClassification(id: ID!, classification: UpdateClassificationInput!): Classification
   deleteClassification(id: ID!): Classification
@@ -419,6 +421,8 @@ type PoolCandidate {
   educationRequirementOption: EducationRequirementOption
   educationRequirementExperiences: [Experience]
   assessmentResults: [AssessmentResult]
+  placedAt: DateTime
+  placedDepartment: Department
 }
 
 type PoolCandidateWithSkillCount {
@@ -971,6 +975,11 @@ input UpdatePoolCandidateStatusInput {
   status: PoolCandidateStatus
 }
 
+input PlaceCandidateInput {
+  placementType: PlacementType!
+  departmentId: UUID!
+}
+
 input CreateDepartmentInput {
   departmentNumber: Int!
   name: LocalizedStringInput
@@ -1372,11 +1381,7 @@ input UpdateApplicationInput {
   generalQuestionResponses: UpdateGeneralQuestionResponsesHasMany
   screeningQuestionResponses: UpdateScreeningQuestionResponsesHasMany
   educationRequirementOption: EducationRequirementOption
-  educationRequirementAwardExperiences: UpdateEducationExperiencesRequirementBelongsToMany
-  educationRequirementCommunityExperiences: UpdateEducationExperiencesRequirementBelongsToMany
-  educationRequirementEducationExperiences: UpdateEducationExperiencesRequirementBelongsToMany
-  educationRequirementPersonalExperiences: UpdateEducationExperiencesRequirementBelongsToMany
-  educationRequirementWorkExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementExperiences: UpdateEducationExperiencesRequirementBelongsToMany
   applicationId: ID
 }
 
@@ -2018,6 +2023,13 @@ enum PoolCandidateStatus {
   PLACED_INDETERMINATE
   EXPIRED
   REMOVED
+}
+
+enum PlacementType {
+  PLACED_TENTATIVE
+  PLACED_CASUAL
+  PLACED_TERM
+  PLACED_INDETERMINATE
 }
 
 enum SecurityStatus {

@@ -14,7 +14,7 @@ import {
   TextArea,
   unpackIds,
 } from "@gc-digital-talent/forms";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   getLocale,
   errorMessages,
@@ -22,12 +22,13 @@ import {
 } from "@gc-digital-talent/i18n";
 import { Pending, NotFound, Heading } from "@gc-digital-talent/ui";
 import {
-  Skill,
   SkillFamily,
   UpdateSkillFamilyInput,
   UpdateSkillFamilyMutation,
   Scalars,
   graphql,
+  FragmentType,
+  getFragment,
 } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
@@ -44,9 +45,45 @@ type FormValues = Pick<SkillFamily, "name" | "description"> & {
   skills: string[];
 };
 
+export const UpdateSkillFamilySkill_Fragment = graphql(/* GraphQL */ `
+  fragment UpdateSkillFamilySkill on Skill {
+    id
+    key
+    name {
+      en
+      fr
+    }
+    category
+  }
+`);
+
+export const UpdateSkillFamily_Fragment = graphql(/* GraphQL */ `
+  fragment UpdateSkillFamily on SkillFamily {
+    id
+    key
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    skills {
+      id
+      key
+      category
+      name {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 interface UpdateSkillFamilyFormProps {
-  initialSkillFamily: SkillFamily;
-  skills: Skill[];
+  skillFamilyQuery: FragmentType<typeof UpdateSkillFamily_Fragment>;
+  skillsQuery: FragmentType<typeof UpdateSkillFamilySkill_Fragment>[];
   handleUpdateSkillFamily: (
     id: string,
     data: UpdateSkillFamilyInput,
@@ -54,15 +91,20 @@ interface UpdateSkillFamilyFormProps {
 }
 
 export const UpdateSkillFamilyForm = ({
-  initialSkillFamily,
-  skills,
+  skillFamilyQuery,
+  skillsQuery,
   handleUpdateSkillFamily,
 }: UpdateSkillFamilyFormProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const navigate = useNavigate();
   const paths = useRoutes();
-  const sortedSkills = sortBy(skills, (skill) => {
+  const initialSkillFamily = getFragment(
+    UpdateSkillFamily_Fragment,
+    skillFamilyQuery,
+  );
+  const skills = getFragment(UpdateSkillFamilySkill_Fragment, skillsQuery);
+  const sortedSkills = sortBy([...skills], (skill) => {
     return skill.name?.[locale]?.toLocaleUpperCase();
   });
 
@@ -222,35 +264,11 @@ type RouteParams = {
 const UpdateSkillFamilyData_Query = graphql(/* GraphQL */ `
   query SkillFamilySkillsData($id: UUID!) {
     skills {
-      id
-      key
-      name {
-        en
-        fr
-      }
-      category
+      ...UpdateSkillFamilySkill
     }
 
     skillFamily(id: $id) {
-      id
-      key
-      name {
-        en
-        fr
-      }
-      description {
-        en
-        fr
-      }
-      skills {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        category
-      }
+      ...UpdateSkillFamily
     }
   }
 `);
@@ -272,11 +290,10 @@ const UpdateSkillFamilyPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
   const { skillFamilyId } = useRequiredParams<RouteParams>("skillFamilyId");
-  const [{ data: lookupData, fetching, error }] = useQuery({
+  const [{ data, fetching, error }] = useQuery({
     query: UpdateSkillFamilyData_Query,
     variables: { id: skillFamilyId || "" },
   });
-  const skills: Skill[] | [] = lookupData?.skills.filter(notEmpty) ?? [];
 
   const [, executeMutation] = useMutation(UpdateSkillFamily_Mutation);
   const handleUpdateSkillFamily = (
@@ -334,10 +351,10 @@ const UpdateSkillFamilyPage = () => {
       />
       <AdminContentWrapper>
         <Pending fetching={fetching} error={error}>
-          {lookupData?.skillFamily ? (
+          {data?.skillFamily ? (
             <UpdateSkillFamilyForm
-              initialSkillFamily={lookupData?.skillFamily}
-              skills={skills}
+              skillFamilyQuery={data.skillFamily}
+              skillsQuery={unpackMaybes(data.skills)}
               handleUpdateSkillFamily={handleUpdateSkillFamily}
             />
           ) : (

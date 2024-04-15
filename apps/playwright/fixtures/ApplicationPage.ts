@@ -140,7 +140,7 @@ class ApplicationPage extends AppPage {
           id: application.id,
           application: {
             educationRequirementOption: EducationRequirementOption.AppliedWork,
-            educationRequirementPersonalExperiences: {
+            educationRequirementExperiences: {
               sync: [experienceId],
             },
           },

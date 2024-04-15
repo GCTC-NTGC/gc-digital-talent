@@ -60,7 +60,16 @@ const Hero = ({ defaultImage }: HeroProps) => {
   return (
     <HomeHero
       img={{
-        srcset: `${getHeroImage.mobile} 600w, ${getHeroImage.tablet} 900w, ${getHeroImage.desktop} 1200w`,
+        sources: [
+          {
+            media: "(max-width: 48rem)",
+            srcset: getHeroImage.mobile,
+          },
+          {
+            media: "(max-width: 67.5rem)",
+            srcset: getHeroImage.tablet,
+          },
+        ],
         src: getHeroImage.desktop,
         alt: intl.formatMessage({
           defaultMessage:

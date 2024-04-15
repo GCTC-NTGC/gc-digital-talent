@@ -1,5 +1,5 @@
 import React from "react";
-import { Story, Meta } from "@storybook/react";
+import { StoryFn, Meta } from "@storybook/react";
 
 import HeaderComponent from "./Header";
 
@@ -8,7 +8,7 @@ export default {
   title: "Components/Header",
 } as Meta;
 
-const TemplateHeader: Story = () => {
+const TemplateHeader: StoryFn = () => {
   return <HeaderComponent />;
 };
 
