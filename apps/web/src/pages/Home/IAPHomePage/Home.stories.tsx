@@ -76,7 +76,7 @@ French.parameters = {
     themeOverride: THEMES.iap.light,
   },
   locale: "fr",
-  chromatic: { delay: 2000 },
+  chromatic: { delay: 10000 },
 };
 
 export const Dark = Template.bind({});
