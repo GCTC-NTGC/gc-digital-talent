@@ -20,12 +20,7 @@ Default.parameters = {
       light: allModes.light,
       "light mobile": allModes["light mobile"],
       dark: allModes.dark,
+      french: allModes.french,
     },
   },
-};
-
-export const French = Template.bind({});
-French.parameters = {
-  layout: "fullscreen",
-  locale: "fr",
 };

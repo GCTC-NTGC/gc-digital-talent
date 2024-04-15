@@ -54,6 +54,7 @@ export default {
         light: allModes["light iap desktop"],
         "light mobile": allModes["light mobile"],
         dark: allModes["dark iap mobile"],
+        french: allModes["iap french"],
       },
     },
   },
@@ -70,12 +71,4 @@ Default.parameters = {
   themes: {
     themeOverride: THEMES.iap.light,
   },
-};
-
-export const French = Template.bind({});
-French.parameters = {
-  themes: {
-    themeOverride: THEMES.iap.light,
-  },
-  locale: "fr",
 };
