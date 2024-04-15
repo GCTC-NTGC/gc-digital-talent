@@ -48,12 +48,12 @@ jobs:
             apps/web/dist/**
             infrastructure/**
             tc-report/**
-          TargetFolder: "$(Build.ArtifactStagingDirectory)/Release"
+          TargetFolder: "$(Build.ArtifactStagingDirectory)/Stage"
 
       - task: ArchiveFiles@2
         displayName: "Archive Files"
         inputs:
-          rootFolderOrFile: "$(Build.ArtifactStagingDirectory)/Release"
+          rootFolderOrFile: "$(Build.ArtifactStagingDirectory)/Stage"
           includeRootFolder: false
           archiveFile: "$(Build.ArtifactStagingDirectory)/Release/Application_$(Build.BuildId).zip"
 
