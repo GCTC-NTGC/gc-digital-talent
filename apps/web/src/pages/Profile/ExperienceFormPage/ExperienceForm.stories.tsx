@@ -2,39 +2,37 @@ import React from "react";
 import type { Meta, StoryFn } from "@storybook/react";
 
 import { getStaticSkills } from "@gc-digital-talent/fake-data";
-import type { Skill } from "@gc-digital-talent/graphql";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
-import type { ExperienceType } from "~/types/experience";
-
-import { ExperienceForm } from "./ExperienceFormPage";
+import {
+  ExperienceForm,
+  ExperienceFormSkill_Fragment,
+} from "./ExperienceFormPage";
 
 const skillData = getStaticSkills();
+const skillFragments = skillData.map((skill) =>
+  makeFragmentData(skill, ExperienceFormSkill_Fragment),
+);
 
 export default {
   component: ExperienceForm,
   title: "Forms/Experience Form",
   args: {
     experienceType: "award",
-    skills: skillData,
+    skillsQuery: skillFragments,
     userId: "user-id",
   },
 } as Meta;
 
-interface ExperienceFormStoryArgs {
-  experienceType: ExperienceType;
-  skills: Skill[];
-  userId: string;
-}
-
-const TemplateExperienceFormForm: StoryFn<ExperienceFormStoryArgs> = ({
+const TemplateExperienceFormForm: StoryFn<typeof ExperienceForm> = ({
   experienceType,
-  skills,
+  skillsQuery,
   userId,
 }) => (
   <ExperienceForm
     userId={userId}
     experienceType={experienceType}
-    skills={skills}
+    skillsQuery={skillsQuery}
   />
 );
 

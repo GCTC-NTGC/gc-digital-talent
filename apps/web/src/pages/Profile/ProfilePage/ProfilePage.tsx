@@ -4,7 +4,7 @@ import { useMutation, useQuery } from "urql";
 
 import { TableOfContents, ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
-import { User, graphql } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
@@ -89,6 +89,7 @@ const pageTitle = defineMessage({
   id: "g8Ur9z",
   description: "applicant dashboard card title for profile card",
 });
+
 const subTitle = defineMessage({
   defaultMessage:
     "View and update account information including contact and work preferences.",
@@ -96,13 +97,289 @@ const subTitle = defineMessage({
   description: "subtitle for the profile page",
 });
 
+export const UserProfile_Fragment = graphql(/* GraphQL */ `
+  fragment UserProfile on User {
+    id
+    authInfo {
+      id
+      sub
+    }
+    firstName
+    lastName
+    email
+    telephone
+    preferredLang
+    preferredLanguageForInterview
+    preferredLanguageForExam
+    currentProvince
+    currentCity
+    citizenship
+    armedForcesStatus
+    lookingForEnglish
+    lookingForFrench
+    lookingForBilingual
+    firstOfficialLanguage
+    secondLanguageExamCompleted
+    secondLanguageExamValidity
+    comprehensionLevel
+    writtenLevel
+    verbalLevel
+    estimatedLanguageAbility
+    isGovEmployee
+    hasPriorityEntitlement
+    priorityNumber
+    govEmployeeType
+    department {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+    currentClassification {
+      id
+      group
+      level
+      name {
+        en
+        fr
+      }
+    }
+    isWoman
+    hasDisability
+    indigenousCommunities
+    indigenousDeclarationSignature
+    isVisibleMinority
+    hasDiploma
+    locationPreferences
+    locationExemptions
+    acceptedOperationalRequirements
+    positionDuration
+    userSkills {
+      id
+      user {
+        id
+        email
+      }
+      skill {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        category
+      }
+    }
+    experiences {
+      id
+      __typename
+      user {
+        id
+        email
+      }
+      details
+      skills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+        keywords {
+          en
+          fr
+        }
+        category
+        experienceSkillRecord {
+          details
+        }
+      }
+      ... on AwardExperience {
+        title
+        issuedBy
+        awardedDate
+        awardedTo
+        awardedScope
+      }
+      ... on CommunityExperience {
+        title
+        organization
+        project
+        startDate
+        endDate
+      }
+      ... on EducationExperience {
+        institution
+        areaOfStudy
+        thesisTitle
+        startDate
+        endDate
+        type
+        status
+      }
+      ... on PersonalExperience {
+        title
+        description
+        startDate
+        endDate
+      }
+      ... on WorkExperience {
+        role
+        organization
+        division
+        startDate
+        endDate
+      }
+    }
+    isProfileComplete
+    poolCandidates {
+      id
+      user {
+        id
+        email
+      }
+      status
+      expiryDate
+      signature
+      archivedAt
+      submittedAt
+      suspendedAt
+      pool {
+        id
+        closingDate
+        name {
+          en
+          fr
+        }
+        stream
+        classification {
+          id
+          group
+          level
+          name {
+            en
+            fr
+          }
+          genericJobTitles {
+            id
+            key
+            name {
+              en
+              fr
+            }
+          }
+          minSalary
+          maxSalary
+        }
+      }
+      educationRequirementOption
+      educationRequirementExperiences {
+        id
+        __typename
+        details
+        user {
+          id
+          email
+        }
+        skills {
+          id
+          key
+          name {
+            en
+            fr
+          }
+          description {
+            en
+            fr
+          }
+          keywords {
+            en
+            fr
+          }
+          category
+          experienceSkillRecord {
+            details
+          }
+        }
+        ... on AwardExperience {
+          title
+          issuedBy
+          awardedDate
+          awardedTo
+          awardedScope
+        }
+        ... on CommunityExperience {
+          title
+          organization
+          project
+          startDate
+          endDate
+        }
+        ... on EducationExperience {
+          institution
+          areaOfStudy
+          thesisTitle
+          startDate
+          endDate
+          type
+          status
+        }
+        ... on PersonalExperience {
+          title
+          description
+          startDate
+          endDate
+        }
+        ... on WorkExperience {
+          role
+          organization
+          division
+          startDate
+          endDate
+        }
+      }
+      screeningQuestionResponses {
+        id
+        answer
+        screeningQuestion {
+          id
+          sortOrder
+          question {
+            en
+            fr
+          }
+        }
+      }
+      generalQuestionResponses {
+        id
+        answer
+        generalQuestion {
+          id
+          sortOrder
+          question {
+            en
+            fr
+          }
+        }
+      }
+    }
+  }
+`);
+
 export interface ProfilePageProps {
-  user: User;
+  userQuery: FragmentType<typeof UserProfile_Fragment>;
 }
 
-export const ProfileForm = ({ user }: ProfilePageProps) => {
+export const ProfileForm = ({ userQuery }: ProfilePageProps) => {
   const paths = useRoutes();
   const intl = useIntl();
+  const user = getFragment(UserProfile_Fragment, userQuery);
 
   const formattedPageTitle = intl.formatMessage(pageTitle);
   const formattedSubTitle = intl.formatMessage(subTitle);
@@ -230,276 +507,7 @@ export const ProfileForm = ({ user }: ProfilePageProps) => {
 const ProfileUser_Query = graphql(/* GraphQL */ `
   query ProfileUser {
     me {
-      id
-      authInfo {
-        id
-        sub
-      }
-      firstName
-      lastName
-      email
-      telephone
-      preferredLang
-      preferredLanguageForInterview
-      preferredLanguageForExam
-      currentProvince
-      currentCity
-      citizenship
-      armedForcesStatus
-      lookingForEnglish
-      lookingForFrench
-      lookingForBilingual
-      firstOfficialLanguage
-      secondLanguageExamCompleted
-      secondLanguageExamValidity
-      comprehensionLevel
-      writtenLevel
-      verbalLevel
-      estimatedLanguageAbility
-      isGovEmployee
-      hasPriorityEntitlement
-      priorityNumber
-      govEmployeeType
-      department {
-        id
-        departmentNumber
-        name {
-          en
-          fr
-        }
-      }
-      currentClassification {
-        id
-        group
-        level
-        name {
-          en
-          fr
-        }
-      }
-      isWoman
-      hasDisability
-      indigenousCommunities
-      indigenousDeclarationSignature
-      isVisibleMinority
-      hasDiploma
-      locationPreferences
-      locationExemptions
-      acceptedOperationalRequirements
-      positionDuration
-      userSkills {
-        id
-        user {
-          id
-          email
-        }
-        skill {
-          id
-          key
-          name {
-            en
-            fr
-          }
-          category
-        }
-      }
-      experiences {
-        id
-        __typename
-        user {
-          id
-          email
-        }
-        details
-        skills {
-          id
-          key
-          name {
-            en
-            fr
-          }
-          description {
-            en
-            fr
-          }
-          keywords {
-            en
-            fr
-          }
-          category
-          experienceSkillRecord {
-            details
-          }
-        }
-        ... on AwardExperience {
-          title
-          issuedBy
-          awardedDate
-          awardedTo
-          awardedScope
-        }
-        ... on CommunityExperience {
-          title
-          organization
-          project
-          startDate
-          endDate
-        }
-        ... on EducationExperience {
-          institution
-          areaOfStudy
-          thesisTitle
-          startDate
-          endDate
-          type
-          status
-        }
-        ... on PersonalExperience {
-          title
-          description
-          startDate
-          endDate
-        }
-        ... on WorkExperience {
-          role
-          organization
-          division
-          startDate
-          endDate
-        }
-      }
-      isProfileComplete
-      poolCandidates {
-        id
-        user {
-          id
-          email
-        }
-        status
-        expiryDate
-        signature
-        archivedAt
-        submittedAt
-        suspendedAt
-        pool {
-          id
-          closingDate
-          name {
-            en
-            fr
-          }
-          stream
-          classification {
-            id
-            group
-            level
-            name {
-              en
-              fr
-            }
-            genericJobTitles {
-              id
-              key
-              name {
-                en
-                fr
-              }
-            }
-            minSalary
-            maxSalary
-          }
-        }
-        educationRequirementOption
-        educationRequirementExperiences {
-          id
-          __typename
-          details
-          user {
-            id
-            email
-          }
-          skills {
-            id
-            key
-            name {
-              en
-              fr
-            }
-            description {
-              en
-              fr
-            }
-            keywords {
-              en
-              fr
-            }
-            category
-            experienceSkillRecord {
-              details
-            }
-          }
-          ... on AwardExperience {
-            title
-            issuedBy
-            awardedDate
-            awardedTo
-            awardedScope
-          }
-          ... on CommunityExperience {
-            title
-            organization
-            project
-            startDate
-            endDate
-          }
-          ... on EducationExperience {
-            institution
-            areaOfStudy
-            thesisTitle
-            startDate
-            endDate
-            type
-            status
-          }
-          ... on PersonalExperience {
-            title
-            description
-            startDate
-            endDate
-          }
-          ... on WorkExperience {
-            role
-            organization
-            division
-            startDate
-            endDate
-          }
-        }
-        screeningQuestionResponses {
-          id
-          answer
-          screeningQuestion {
-            id
-            sortOrder
-            question {
-              en
-              fr
-            }
-          }
-        }
-        generalQuestionResponses {
-          id
-          answer
-          generalQuestion {
-            id
-            sortOrder
-            question {
-              en
-              fr
-            }
-          }
-        }
-      }
+      ...UserProfile
     }
   }
 `);
@@ -511,7 +519,7 @@ const ProfilePage = () => {
   return (
     <Pending fetching={fetching} error={error}>
       {data?.me ? (
-        <ProfileForm user={data?.me} />
+        <ProfileForm userQuery={data?.me} />
       ) : (
         <ThrowNotFound
           message={intl.formatMessage(profileMessages.userNotFound)}
