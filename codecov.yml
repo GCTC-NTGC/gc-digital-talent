@@ -32,7 +32,6 @@ codecov:
       branches: {}
       flags: ""
       paths: []
-      flags: ""
       commit: false
       pr: true
       status: true
