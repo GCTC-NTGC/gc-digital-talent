@@ -1,5 +1,5 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { StoryFn, Meta } from "@storybook/react";
 
 import { fakePools, fakeUsers } from "@gc-digital-talent/fake-data";
 import { User, Pool, PoolLanguage } from "@gc-digital-talent/graphql";
@@ -22,11 +22,9 @@ const bilingualPool: Pool = {
 export default {
   title: "Components/Missing Language Requirements",
   component: MissingLanguageRequirements,
-} as ComponentMeta<MissingLanguageRequirementsComponent>;
+} as Meta<MissingLanguageRequirementsComponent>;
 
-const Template: ComponentStory<MissingLanguageRequirementsComponent> = (
-  args,
-) => {
+const Template: StoryFn<MissingLanguageRequirementsComponent> = (args) => {
   const { user, pool } = args;
   return <MissingLanguageRequirements user={user} pool={pool} />;
 };

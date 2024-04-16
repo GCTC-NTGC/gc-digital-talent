@@ -1,7 +1,7 @@
 import React from "react";
 import { MessageDescriptor, defineMessage, useIntl } from "react-intl";
-import BoltOutlineIcon from "@heroicons/react/24/outline/BoltIcon";
-import BoltSolidIcon from "@heroicons/react/24/solid/BoltIcon";
+import LightBulbOutlineIcon from "@heroicons/react/24/outline/LightBulbIcon";
+import LightBulbSolidIcon from "@heroicons/react/24/solid/LightBulbIcon";
 
 import { IconType } from "@gc-digital-talent/ui";
 
@@ -14,12 +14,12 @@ import SkillTableApi from "./components/SkillTable";
 import AdminHero from "../../components/Hero/AdminHero";
 
 export const pageTitle: MessageDescriptor = defineMessage({
-  defaultMessage: "Skills",
-  id: "/UKT+/",
-  description: "Title for skills",
+  defaultMessage: "Skills editor",
+  id: "8ioBIZ",
+  description: "Title for skills editor",
 });
-export const pageSolidIcon: IconType = BoltSolidIcon;
-export const pageOutlineIcon: IconType = BoltOutlineIcon;
+export const pageSolidIcon: IconType = LightBulbSolidIcon;
+export const pageOutlineIcon: IconType = LightBulbOutlineIcon;
 
 export const IndexSkillPage = () => {
   const intl = useIntl();

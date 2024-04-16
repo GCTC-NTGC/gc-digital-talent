@@ -31,7 +31,7 @@ import {
   incrementHeadingRank,
 } from "@gc-digital-talent/ui";
 import { BasicForm, Submit } from "@gc-digital-talent/forms";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   getAssessmentStepType,
@@ -46,7 +46,7 @@ import { toast } from "@gc-digital-talent/toast";
 
 import { getExperienceSkills } from "~/utils/skillUtils";
 import { getEducationRequirementOptions } from "~/pages/Applications/ApplicationEducationPage/utils";
-import { ClassificationGroup, isIAPPool } from "~/utils/poolUtils";
+import { isIAPPool } from "~/utils/poolUtils";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import useLabels from "./useLabels";
@@ -342,9 +342,11 @@ export const ScreeningDecisionDialog = ({
           skill,
         );
 
-  const classificationGroup = poolCandidate.pool.classifications
-    ? (poolCandidate.pool.classifications[0]?.group as ClassificationGroup)
-    : undefined;
+  const experienceAttachedToSkill =
+    getExperienceSkills(unpackMaybes(parsedSnapshot?.experiences), skill)
+      .length > 0;
+
+  const classificationGroup = poolCandidate.pool.classification?.group;
 
   const educationRequirementOption = getEducationRequirementOptions(
     intl,
@@ -370,7 +372,11 @@ export const ScreeningDecisionDialog = ({
       poolSkill?.type === PoolSkillType.Nonessential
     )
       return "black";
-    if (!hasBeenAssessed) return "warning";
+    if (!hasBeenAssessed)
+      return poolSkill?.type === PoolSkillType.Nonessential &&
+        !experienceAttachedToSkill
+        ? "black"
+        : "warning";
     switch (initialValues?.assessmentDecision) {
       case AssessmentDecision.Successful:
         return "success";
@@ -395,10 +401,10 @@ export const ScreeningDecisionDialog = ({
           {hasBeenAssessed ? (
             <span>
               {initialValues?.assessmentDecision === "noDecision" ? (
-                <p>{intl.formatMessage(commonMessages.notSure)}</p>
+                <>{intl.formatMessage(commonMessages.notSure)}</>
               ) : (
                 <>
-                  <p>
+                  <>
                     {intl.formatMessage(
                       initialValues?.assessmentDecision
                         ? getTableAssessmentDecision(
@@ -406,12 +412,13 @@ export const ScreeningDecisionDialog = ({
                           )
                         : commonMessages.notFound,
                     )}
-                  </p>
+                  </>
                   {initialValues?.assessmentDecision ===
                     AssessmentDecision.Successful && !educationRequirement ? (
-                    <p
+                    <span
                       data-h2-color="base(gray.darker)"
                       data-h2-text-decoration="base(none)"
+                      data-h2-display="base(block)"
                     >
                       {intl.formatMessage(
                         initialValues?.assessmentDecisionLevel
@@ -420,13 +427,20 @@ export const ScreeningDecisionDialog = ({
                             )
                           : commonMessages.notFound,
                       )}
-                    </p>
+                    </span>
                   ) : null}
                 </>
               )}
             </span>
           ) : (
-            <p>{intl.formatMessage(poolCandidateMessages.toAssess)}</p>
+            <>
+              {intl.formatMessage(
+                poolSkill?.type === PoolSkillType.Nonessential &&
+                  !experienceAttachedToSkill
+                  ? poolCandidateMessages.unclaimed
+                  : poolCandidateMessages.toAssess,
+              )}
+            </>
           )}
         </Button>
       </Dialog.Trigger>

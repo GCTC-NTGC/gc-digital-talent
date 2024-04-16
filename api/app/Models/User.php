@@ -3,12 +3,12 @@
 namespace App\Models;
 
 use App\Enums\ArmedForcesStatus;
-use App\Enums\BilingualEvaluation;
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
 use App\Enums\IndigenousCommunity;
 use App\Enums\LanguageAbility;
+use App\Enums\OperationalRequirement;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PositionDuration;
 use App\Traits\EnrichedNotifiable;
@@ -47,7 +47,9 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property bool $looking_for_english
  * @property bool $looking_for_french
  * @property bool $looking_for_bilingual
- * @property string $bilingual_evaluation
+ * @property string $first_official_language
+ * @property bool $second_language_exam_completed
+ * @property bool $second_language_exam_validity
  * @property string $comprehension_level
  * @property string $written_level
  * @property string $verbal_level
@@ -97,13 +99,16 @@ class User extends Model implements Authenticatable, LaratrustUser
         'first_name',
         'last_name',
         'telephone',
+        'sub',
         'preferred_lang',
         'current_province',
         'current_city',
         'looking_for_english',
         'looking_for_french',
         'looking_for_bilingual',
-        'bilingual_evaluation',
+        'first_official_language',
+        'second_language_exam_completed',
+        'second_language_exam_validity',
         'comprehension_level',
         'written_level',
         'verbal_level',
@@ -268,16 +273,9 @@ class User extends Model implements Authenticatable, LaratrustUser
         return $this->hasMany(WorkExperience::class);
     }
 
-    public function getExperiencesAttribute()
+    public function experiences(): HasMany
     {
-        $collection = collect();
-        $collection = $collection->merge($this->awardExperiences);
-        $collection = $collection->merge($this->communityExperiences);
-        $collection = $collection->merge($this->educationExperiences);
-        $collection = $collection->merge($this->personalExperiences);
-        $collection = $collection->merge($this->workExperiences);
-
-        return $collection;
+        return $this->hasMany(Experience::class);
     }
 
     // A relationship to the custom roleAssignments pivot model
@@ -394,20 +392,6 @@ class User extends Model implements Authenticatable, LaratrustUser
         return '';
     }
 
-    public function getBilingualEvaluation()
-    {
-        switch ($this->bilingual_evaluation) {
-            case BilingualEvaluation::NOT_COMPLETED->name:
-                return 'No';
-            case BilingualEvaluation::COMPLETED_ENGLISH->name:
-                return 'Yes, completed English evaluation';
-            case BilingualEvaluation::COMPLETED_FRENCH->name:
-                return 'Yes, completed French evaluation';
-            default:
-                return '';
-        }
-    }
-
     public function getSecondLanguageEvaluation()
     {
         if ($this->comprehension_level || $this->written_level || $this->verbal_level) {
@@ -476,6 +460,44 @@ class User extends Model implements Authenticatable, LaratrustUser
         }
 
         return null;
+    }
+
+    public function getPriority()
+    {
+        $priority = [];
+        if ($this->has_priority_entitlement) {
+            $priority[] = 'Priority entitlement';
+        }
+        if ($this->armed_forces_status === ArmedForcesStatus::VETERAN->name) {
+            $priority[] = 'Veteran';
+        }
+        if ($this->citizenship === CitizenshipStatus::PERMANENT_RESIDENT->name || $this->citizenship === CitizenshipStatus::CITIZEN->name) {
+            $priority[] = 'Permanent resident';
+        }
+
+        return implode(', ', $priority);
+    }
+
+    public function getOperationalRequirements()
+    {
+
+        $operationalRequirements = array_column(OperationalRequirement::cases(), 'name');
+        $preferences = [
+            'accepted' => [],
+            'not_accepted' => [],
+        ];
+        foreach ($operationalRequirements as $requirement) {
+            // Note: Scheduled overtime is legacy
+            if ($requirement !== OperationalRequirement::OVERTIME_SCHEDULED->name && $requirement !== OperationalRequirement::OVERTIME_SHORT_NOTICE->name) {
+                if (in_array($requirement, $this->accepted_operational_requirements ?? [])) {
+                    $preferences['accepted'][] = $requirement;
+                } else {
+                    $preferences['not_accepted'][] = $requirement;
+                }
+            }
+        }
+
+        return $preferences;
     }
 
     // getIsProfileCompleteAttribute function is correspondent to isProfileComplete attribute in graphql schema
@@ -889,6 +911,19 @@ class User extends Model implements Authenticatable, LaratrustUser
         return $query;
     }
 
+    public static function scopeNegationNameAndEmail(Builder $query, ?array $negationArray): Builder
+    {
+        if (isset($negationArray) && count($negationArray) > 0) {
+            foreach ($negationArray as $index => $value) {
+                $query->whereNot('first_name', 'ilike', $value);
+                $query->whereNot('last_name', 'ilike', $value);
+                $query->whereNot('email', 'ilike', $value);
+            }
+        }
+
+        return $query;
+    }
+
     public static function scopeGeneralSearch(Builder $query, ?array $searchTerms): Builder
     {
         if ($searchTerms && is_array($searchTerms)) {
@@ -909,6 +944,39 @@ class User extends Model implements Authenticatable, LaratrustUser
                 // Now that we have added a column, query builder no longer will add a * to the select.  Add all possible columns manually.
                 ->addSelect(self::$selectableColumns);
 
+            // negation setup
+            preg_match_all('/(^|\s)[-!][^\s]+\b/', $combinedSearchTerm, $negationMatches);
+            $matchesWithoutOperatorOrStartingSpace = array_map(fn ($string) => ltrim($string, " \-"), $negationMatches[0]); // 0th item is full matched
+            $negationRemovedSearchTerm = preg_replace('/(^|\s)[-!][^\s]+\b/', '', $combinedSearchTerm);
+
+            // remove text in quotation marks for partial matching
+            $negationQuotedRemovedSearchTerm = preg_replace('/\"([^\"]*)\"/', '', $negationRemovedSearchTerm);
+
+            // clear characters or search operators out, then array split for easy OR matching
+            $filterToEmptySpace = ['"', '"', ':', '!'];
+            $filterToSingleSpace = [' AND ', ' OR ', ' & '];
+            $filtered = str_ireplace($filterToEmptySpace, '', $negationQuotedRemovedSearchTerm);
+            $filtered = str_ireplace($filterToSingleSpace, ' ', $filtered);
+            $whiteSpacingRemoved = trim($filtered);
+
+            // if the remaining string is empty, don't turn into an array to avoid matching to ""
+            $arrayed = $whiteSpacingRemoved === '' ? null : explode(' ', $whiteSpacingRemoved);
+
+            if ($arrayed) {
+                foreach ($arrayed as $index => $value) {
+                    $query->orWhere(function ($query) use ($value, $matchesWithoutOperatorOrStartingSpace) {
+                        $query->whereAny([
+                            'first_name',
+                            'last_name',
+                            'email',
+                        ], 'ilike', "%{$value}%"
+                        );
+                        $query->where(function ($query) use ($matchesWithoutOperatorOrStartingSpace) {
+                            self::scopeNegationNameAndEmail($query, $matchesWithoutOperatorOrStartingSpace);
+                        });
+                    });
+                }
+            }
         }
 
         return $query;

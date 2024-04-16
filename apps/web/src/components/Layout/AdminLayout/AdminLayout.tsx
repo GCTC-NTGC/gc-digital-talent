@@ -67,6 +67,10 @@ import {
   pageTitle as announcementsPageTitle,
   pageOutlineIcon as announcementsPageIcon,
 } from "~/pages/AnnouncementsPage/AnnouncementsPage";
+import {
+  adminPageTitle as skillPageTitle,
+  pageOutlineIcon as skillPageIcon,
+} from "~/pages/Skills/SkillPage";
 
 import SitewideBanner from "../SitewideBanner";
 import SkipLink from "../SkipLink";
@@ -217,6 +221,19 @@ const AdminLayout = () => {
             ) && (
               <SideMenuItem href={paths.teamTable()} icon={indexTeamPageIcon}>
                 {intl.formatMessage(indexTeamPageTitle)}
+              </SideMenuItem>
+            )}
+            {checkRole(
+              [
+                ROLE_NAME.PoolOperator,
+                ROLE_NAME.RequestResponder,
+                ROLE_NAME.CommunityManager,
+                ROLE_NAME.PlatformAdmin,
+              ],
+              roleAssignments,
+            ) && (
+              <SideMenuItem href={paths.skills()} icon={skillPageIcon}>
+                {intl.formatMessage(skillPageTitle)}
               </SideMenuItem>
             )}
           </SideMenuCategory>

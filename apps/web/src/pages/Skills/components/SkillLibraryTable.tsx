@@ -149,7 +149,6 @@ const SkillLibraryTable = ({
         component: (
           <SkillBrowserDialog
             context="library"
-            showCategory={false}
             skills={unclaimedSkills}
             onSave={async (value) => {
               executeCreateMutation({

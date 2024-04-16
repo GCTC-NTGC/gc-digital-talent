@@ -3,4 +3,5 @@
 
 cp /home/site/wwwroot/infrastructure/conf/supervisord.conf /etc/supervisor/
 cp /home/site/wwwroot/infrastructure/conf/laravel-worker.conf /etc/supervisor/conf.d/
+cp /home/site/wwwroot/infrastructure/conf/cron.conf /etc/supervisor/conf.d/
 supervisord -c /etc/supervisor/supervisord.conf

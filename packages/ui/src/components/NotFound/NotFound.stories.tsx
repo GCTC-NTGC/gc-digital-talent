@@ -1,5 +1,5 @@
 import React from "react";
-import { Story, Meta } from "@storybook/react";
+import { StoryFn, Meta } from "@storybook/react";
 
 import NotFound from "./NotFound";
 
@@ -8,7 +8,7 @@ export default {
   title: "Components/Not Found",
 } as Meta;
 
-const Template: Story = (args) => {
+const Template: StoryFn = (args) => {
   const { headingMessage, children } = args;
   return <NotFound headingMessage={headingMessage}>{children}</NotFound>;
 };

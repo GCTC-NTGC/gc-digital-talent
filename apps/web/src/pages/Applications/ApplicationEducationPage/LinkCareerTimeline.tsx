@@ -17,7 +17,6 @@ import {
   isPersonalExperience,
   isWorkExperience,
 } from "~/utils/experienceUtils";
-import { ClassificationGroup } from "~/utils/poolUtils";
 
 const essentialExperienceMessages = defineMessages({
   computerScience: {
@@ -71,7 +70,7 @@ interface LinkCareerTimelineProps {
   experiences: Experience[];
   watchEducationRequirement: EducationRequirementOption;
   previousStepPath: string;
-  classificationGroup?: ClassificationGroup;
+  classificationGroup?: string;
 }
 
 const LinkCareerTimeline = ({

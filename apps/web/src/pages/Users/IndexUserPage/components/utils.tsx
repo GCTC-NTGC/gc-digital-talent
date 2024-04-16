@@ -180,7 +180,9 @@ export const UsersTable_SelectUsersQuery = graphql(/* GraphQL */ `
       lookingForEnglish
       lookingForFrench
       lookingForBilingual
-      bilingualEvaluation
+      firstOfficialLanguage
+      secondLanguageExamCompleted
+      secondLanguageExamValidity
       comprehensionLevel
       writtenLevel
       verbalLevel
@@ -295,7 +297,7 @@ export const UsersTable_SelectUsersQuery = graphql(/* GraphQL */ `
             fr
           }
           stream
-          classifications {
+          classification {
             id
             group
             level

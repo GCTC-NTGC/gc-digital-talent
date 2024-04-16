@@ -26,12 +26,11 @@ import processMessages from "~/messages/processMessages";
 import {
   classificationAccessor,
   classificationSortFn,
-  classificationsCell,
+  classificationCell,
   emailLinkAccessor,
   fullNameCell,
   ownerEmailAccessor,
   ownerNameAccessor,
-  poolCandidatesViewCell,
   poolNameAccessor,
   viewCell,
   viewTeamLinkCell,
@@ -63,22 +62,19 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
       cell: ({ row: { original: pool } }) =>
         viewCell(paths.poolView(pool.id), pool, intl),
     }),
-    columnHelper.accessor(
-      (row) => classificationAccessor(row.classifications),
-      {
-        id: "classifications",
-        header: intl.formatMessage({
-          defaultMessage: "Group and Level",
-          id: "FGUGtr",
-          description:
-            "Title displayed for the Pool table Group and Level column.",
-        }),
-        sortingFn: (rowA: Row<Pool>, rowB: Row<Pool>) =>
-          classificationSortFn(rowA.original, rowB.original),
-        cell: ({ row: { original: pool } }) =>
-          classificationsCell(pool.classifications),
-      },
-    ),
+    columnHelper.accessor((row) => classificationAccessor(row.classification), {
+      id: "classification",
+      header: intl.formatMessage({
+        defaultMessage: "Group and Level",
+        id: "FGUGtr",
+        description:
+          "Title displayed for the Pool table Group and Level column.",
+      }),
+      sortingFn: (rowA: Row<Pool>, rowB: Row<Pool>) =>
+        classificationSortFn(rowA.original, rowB.original),
+      cell: ({ row: { original: pool } }) =>
+        classificationCell(pool.classification),
+    }),
     columnHelper.accessor(
       (row) =>
         intl.formatMessage(
@@ -107,16 +103,6 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
         header: intl.formatMessage(processMessages.publishingGroup),
       },
     ),
-    columnHelper.display({
-      id: "candidates",
-      header: intl.formatMessage({
-        defaultMessage: "Candidates",
-        id: "EdUZaX",
-        description: "Header for the View Candidates column of the Pools table",
-      }),
-      cell: ({ row: { original: pool } }) =>
-        poolCandidatesViewCell(paths.poolCandidateTable(pool.id), intl, pool),
-    }),
     columnHelper.accessor(
       (row) =>
         intl.formatMessage(
@@ -159,16 +145,6 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
         description: "Title displayed for the Pool table Owner Email column",
       }),
       cell: ({ row: { original: pool } }) => emailLinkAccessor(pool, intl),
-    }),
-    columnHelper.display({
-      id: "edit",
-      header: intl.formatMessage(commonMessages.edit),
-      cell: ({ row: { original: pool } }) =>
-        cells.edit(
-          pool.id,
-          paths.poolTable(),
-          getLocalizedName(pool.name, intl),
-        ),
     }),
     columnHelper.accessor(({ createdDate }) => accessors.date(createdDate), {
       id: "createdDate",
@@ -263,7 +239,7 @@ const PoolTable_Query = graphql(/* GraphQL */ `
         en
         fr
       }
-      classifications {
+      classification {
         id
         group
         level

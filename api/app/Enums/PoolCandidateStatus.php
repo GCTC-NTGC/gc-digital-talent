@@ -32,4 +32,14 @@ enum PoolCandidateStatus
             PoolCandidateStatus::PLACED_CASUAL->name,
         ];
     }
+
+    public static function placedGroup(): array
+    {
+        return [
+            PoolCandidateStatus::PLACED_CASUAL->name,
+            PoolCandidateStatus::PLACED_INDETERMINATE->name,
+            PoolCandidateStatus::PLACED_TENTATIVE->name,
+            PoolCandidateStatus::PLACED_TERM->name,
+        ];
+    }
 }

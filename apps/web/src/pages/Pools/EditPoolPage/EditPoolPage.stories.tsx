@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
 import {
@@ -35,7 +35,7 @@ export default {
   },
 } as Meta;
 
-const TemplateEditPoolForm: Story<EditPoolFormProps> = (
+const TemplateEditPoolForm: StoryFn<EditPoolFormProps> = (
   args: JSX.IntrinsicAttributes & EditPoolFormProps,
 ) => {
   return <EditPoolForm {...args} />;
@@ -45,6 +45,7 @@ export const DraftPool = TemplateEditPoolForm.bind({});
 DraftPool.args = {
   pool: {
     ...pool,
+    closingDate: FAR_FUTURE_DATE,
     publishedAt: null,
     status: PoolStatus.Draft,
   },

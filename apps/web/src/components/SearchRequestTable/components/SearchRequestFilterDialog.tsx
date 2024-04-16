@@ -13,6 +13,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   PoolCandidateSearchStatus,
   PoolStream,
+  getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
 
@@ -23,24 +24,36 @@ import FilterDialog, {
 
 import { FormValues } from "./utils";
 
+const RequestFilterDepartment_Fragment = graphql(/* GraphQL */ `
+  fragment RequestFilterDepartment on Department {
+    id
+    departmentNumber
+    name {
+      en
+      fr
+    }
+  }
+`);
+
+const RequestFilterClassification_Fragment = graphql(/* GraphQL */ `
+  fragment RequestFilterClassification on Classification {
+    id
+    name {
+      en
+      fr
+    }
+    group
+    level
+  }
+`);
+
 const SearchRequestFilterData_Query = graphql(/* GraphQL */ `
   query SearchRequestFilterData {
     departments {
-      id
-      departmentNumber
-      name {
-        en
-        fr
-      }
+      ...RequestFilterDepartment
     }
     classifications {
-      id
-      name {
-        en
-        fr
-      }
-      group
-      level
+      ...RequestFilterClassification
     }
   }
 `);
@@ -64,8 +77,14 @@ const SearchRequestFilterDialog = ({
     context,
   });
 
-  const departments = unpackMaybes(data?.departments);
-  const classifications = unpackMaybes(data?.classifications);
+  const departments = getFragment(
+    RequestFilterDepartment_Fragment,
+    unpackMaybes(data?.departments),
+  );
+  const classifications = getFragment(
+    RequestFilterClassification_Fragment,
+    unpackMaybes(data?.classifications),
+  );
 
   return (
     <FilterDialog<FormValues>

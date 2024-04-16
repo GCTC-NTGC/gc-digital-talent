@@ -3,7 +3,6 @@ import { IntlShape } from "react-intl";
 import { DownloadCsvProps } from "@gc-digital-talent/ui";
 import {
   getArmedForcesStatusesAdmin,
-  getBilingualEvaluation,
   getCitizenshipStatusesAdmin,
   getLanguage,
   getLanguageProficiency,
@@ -38,6 +37,8 @@ import {
 } from "~/utils/csvUtils";
 import adminMessages from "~/messages/adminMessages";
 import processMessages from "~/messages/processMessages";
+
+import { getLabels } from "../Profile/components/LanguageProfile/utils";
 
 export const getPoolCandidateCsvData = (
   candidates: PoolCandidate[],
@@ -102,14 +103,22 @@ export const getPoolCandidateCsvData = (
         citizenship: user.citizenship
           ? intl.formatMessage(getCitizenshipStatusesAdmin(user.citizenship))
           : "",
-        bilingualEvaluation: user.bilingualEvaluation
-          ? intl.formatMessage(getBilingualEvaluation(user.bilingualEvaluation))
-          : "",
         comprehensionLevel: user.comprehensionLevel
           ? intl.formatMessage(
               getEvaluatedLanguageAbility(user.comprehensionLevel),
             )
           : "",
+        firstOfficialLanguage: user.firstOfficialLanguage
+          ? intl.formatMessage(getLanguage(user.firstOfficialLanguage))
+          : "",
+        secondLanguageExamCompleted: yesOrNo(
+          user.secondLanguageExamCompleted,
+          intl,
+        ),
+        secondLanguageExamValidity: yesOrNo(
+          user.secondLanguageExamValidity,
+          intl,
+        ),
         writtenLevel: user.writtenLevel
           ? intl.formatMessage(getEvaluatedLanguageAbility(user.writtenLevel))
           : "",
@@ -211,17 +220,16 @@ export const getPoolCandidateCsvHeaders = (
   const generalQuestionHeaders = pool?.generalQuestions
     ? pool.generalQuestions.filter(notEmpty).map((generalQuestion, index) => ({
         id: generalQuestion.id,
-        displayName: intl.formatMessage(
+        displayName: `${intl.formatMessage(
           {
-            defaultMessage: "Screening question {index}: {question}",
-            id: "5nlauT",
-            description: "CSV Header, Screening question column. ",
+            defaultMessage: "General question {index}",
+            id: "EWvBgF",
+            description: "CSV Header, general question column. ",
           },
           {
             index: generalQuestion.sortOrder || index + 1,
-            question: getLocalizedName(generalQuestion.question, intl),
           },
-        ),
+        )}${intl.formatMessage(commonMessages.dividingColon)}${getLocalizedName(generalQuestion.question, intl)}`,
       }))
     : [];
 
@@ -345,44 +353,36 @@ export const getPoolCandidateCsvHeaders = (
       }),
     },
     {
-      id: "bilingualEvaluation",
+      id: "firstOfficialLanguage",
       displayName: intl.formatMessage({
-        defaultMessage: "Bilingual Evaluation",
-        id: "M9ij/0",
-        description: "CSV Header, Bilingual Evaluation column",
+        defaultMessage: "First official language",
+        id: "tK7cGP",
+        description: "CSV Header, first official language column",
       }),
+    },
+    {
+      id: "secondLanguageExamCompleted",
+      displayName: getLabels(intl).secondLanguageExamCompletedLabel,
+    },
+    {
+      id: "secondLanguageExamValidity",
+      displayName: getLabels(intl).secondLanguageExamValidityLabel,
     },
     {
       id: "comprehensionLevel",
-      displayName: intl.formatMessage({
-        defaultMessage: "Reading level",
-        id: "CEFnPm",
-        description: "CSV Header, Reading (comprehension) Level column",
-      }),
+      displayName: getLabels(intl).comprehensionLevel,
     },
     {
       id: "writtenLevel",
-      displayName: intl.formatMessage({
-        defaultMessage: "Writing level",
-        id: "8ea9ne",
-        description: "CSV Header, Writing Level column",
-      }),
+      displayName: getLabels(intl).writtenLevel,
     },
     {
       id: "verbalLevel",
-      displayName: intl.formatMessage({
-        defaultMessage: "Oral interaction level",
-        id: "5nrkKw",
-        description: "CSV Header, Oral interaction Level column",
-      }),
+      displayName: getLabels(intl).verbalLevel,
     },
     {
       id: "estimatedLanguageAbility",
-      displayName: intl.formatMessage({
-        defaultMessage: "Estimated Language Ability",
-        id: "nRtrPx",
-        description: "CSV Header, Estimated Language Ability column",
-      }),
+      displayName: getLabels(intl).estimatedLanguageAbility,
     },
     {
       id: "isGovEmployee",

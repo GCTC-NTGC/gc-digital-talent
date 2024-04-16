@@ -65,7 +65,9 @@ const ProfileAndApplicationsApplicant_Query = graphql(/* GraphQL */ `
       lookingForEnglish
       lookingForFrench
       lookingForBilingual
-      bilingualEvaluation
+      firstOfficialLanguage
+      secondLanguageExamCompleted
+      secondLanguageExamValidity
       comprehensionLevel
       writtenLevel
       verbalLevel
@@ -184,7 +186,7 @@ const ProfileAndApplicationsApplicant_Query = graphql(/* GraphQL */ `
           }
           publishingGroup
           stream
-          classifications {
+          classification {
             id
             group
             level

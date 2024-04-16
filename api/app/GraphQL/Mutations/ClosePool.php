@@ -15,7 +15,10 @@ final class ClosePool
     public function __invoke($_, array $args)
     {
         $pool = Pool::find($args['id']);
-        $pool->update(['closing_date' => Carbon::now()]);
+        $pool->update([
+            'closing_date' => Carbon::now(),
+            'closing_reason' => isset($args['closing_reason']) ? $args['closing_reason'] : null,
+        ]);
 
         return $pool;
     }

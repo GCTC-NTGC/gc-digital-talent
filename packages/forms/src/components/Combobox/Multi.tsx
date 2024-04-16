@@ -74,7 +74,6 @@ const Multi = ({
     selectedItems,
     reset,
   } = useMultipleSelection<Option>({
-    itemToString,
     initialSelectedItems: value,
     // Reverse the keyboard navigation (we place our chips after the input, not before)
     keyNavigationPrevious: "ArrowRight",

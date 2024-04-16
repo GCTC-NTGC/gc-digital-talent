@@ -29,13 +29,14 @@ import { checkRole } from "~/utils/teamUtils";
 import usePoolMutations from "~/hooks/usePoolMutations";
 import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
 import messages from "~/messages/adminMessages";
+import processMessages from "~/messages/processMessages";
 
 import SubmitForPublishingDialog from "./components/SubmitForPublishingDialog";
 import DuplicateProcessDialog from "./components/DuplicateProcessDialog";
 import ArchiveProcessDialog from "./components/ArchiveProcessDialog";
 import UnarchiveProcessDialog from "./components/UnArchiveProcessDialog";
 import DeleteProcessDialog from "./components/DeleteProcessDialog";
-import ExtendProcessDialog from "./components/ExtendProcessDialog";
+import ChangeDateDialog from "./components/ChangeDateDialog";
 import PublishProcessDialog from "./components/PublishProcessDialog";
 
 export interface ViewPoolProps {
@@ -44,6 +45,7 @@ export interface ViewPoolProps {
   onPublish: () => Promise<void>;
   onDelete: () => Promise<void>;
   onExtend: (closingDate: Scalars["DateTime"]["output"]) => Promise<void>;
+  onClose: (reason: string) => Promise<void>;
   onArchive: () => Promise<void>;
   onDuplicate: () => Promise<void>;
   onUnarchive: () => Promise<void>;
@@ -55,6 +57,7 @@ export const ViewPool = ({
   onPublish,
   onDelete,
   onExtend,
+  onClose,
   onArchive,
   onDuplicate,
   onUnarchive,
@@ -151,6 +154,15 @@ export const ViewPool = ({
                 description:
                   "Information about what an advertisement represents",
               })}
+            </p>
+            <p data-h2-margin="base(x1 0)">
+              {intl.formatMessage(processMessages.processNumber)}
+              {intl.formatMessage(commonMessages.dividingColon)}
+              {pool.processNumber || (
+                <span data-h2-color="base(error.darkest)">
+                  {intl.formatMessage(commonMessages.notProvided)}
+                </span>
+              )}
             </p>
             <ProcessCard.Footer>
               {advertisementStatus !== "submitted" && (
@@ -330,10 +342,11 @@ export const ViewPool = ({
               {[PoolStatus.Closed, PoolStatus.Published].includes(
                 pool.status ?? PoolStatus.Draft,
               ) && (
-                <ExtendProcessDialog
+                <ChangeDateDialog
                   {...commonDialogProps}
                   closingDate={pool.closingDate}
                   onExtend={onExtend}
+                  onClose={onClose}
                 />
               )}
               {checkRole([ROLE_NAME.PoolOperator], roleAssignments) && (
@@ -392,8 +405,9 @@ const ViewPoolPage_Query = graphql(/* GraphQL */ `
       isComplete
       status
       stream
+      processNumber
       closingDate
-      classifications {
+      classification {
         id
         name {
           en
@@ -447,6 +461,9 @@ const ViewPoolPage = () => {
             isFetching={isFetching}
             onExtend={async (newClosingDate: string) => {
               return mutations.extend(poolId, newClosingDate);
+            }}
+            onClose={async (reason: string) => {
+              return mutations.close(poolId, reason);
             }}
             onDuplicate={async () => {
               return mutations.duplicate(poolId, data?.pool?.team?.id || "");

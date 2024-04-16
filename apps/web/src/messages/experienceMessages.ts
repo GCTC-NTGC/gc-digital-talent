@@ -76,6 +76,16 @@ const messages = defineMessages({
     id: "lhV7kM",
     description: "Role at organization, HTML",
   },
+  collapseDetails: {
+    defaultMessage: "Collapse all<hidden> experience details</hidden>",
+    id: "pp+b1H",
+    description: "Button label to collapse all experiences",
+  },
+  expandDetails: {
+    defaultMessage: "Expand all<hidden> experience details</hidden>",
+    id: "M1en14",
+    description: "Button label to expand all experiences",
+  },
 });
 
 export default messages;

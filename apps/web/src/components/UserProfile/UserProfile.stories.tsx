@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 
 import { fakeExperiences, fakeApplicants } from "@gc-digital-talent/fake-data";
 import { User, IndigenousCommunity } from "@gc-digital-talent/graphql";
@@ -14,7 +14,7 @@ export default {
   args: {},
 } as Meta;
 
-const TemplateUserProfile: Story<User> = (args) => {
+const TemplateUserProfile: StoryFn<User> = (args) => {
   return (
     <UserProfile
       user={args}
@@ -66,7 +66,9 @@ UserProfileNull.args = {
   lookingForEnglish: null,
   lookingForFrench: null,
   lookingForBilingual: null,
-  bilingualEvaluation: null,
+  firstOfficialLanguage: null,
+  secondLanguageExamCompleted: null,
+  secondLanguageExamValidity: null,
   comprehensionLevel: null,
   writtenLevel: null,
   verbalLevel: null,

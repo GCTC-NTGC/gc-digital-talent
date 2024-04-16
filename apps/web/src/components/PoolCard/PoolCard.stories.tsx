@@ -1,5 +1,5 @@
 import React from "react";
-import { Story, Meta } from "@storybook/react";
+import { StoryFn, Meta } from "@storybook/react";
 
 import { fakePools } from "@gc-digital-talent/fake-data";
 import { Pool } from "@gc-digital-talent/graphql";
@@ -13,20 +13,12 @@ const fakedPool3 = fakedPools[2];
 const fakedPool4 = fakedPools[3];
 const fakedPoolNull = fakedPools[0];
 
-if (
-  fakedPool3.classifications &&
-  fakedPool3.classifications[0] &&
-  fakedPool3.classifications[0].minSalary
-) {
-  fakedPool3.classifications[0].minSalary = null;
+if (fakedPool3.classification?.minSalary) {
+  fakedPool3.classification.minSalary = null;
 }
 
-if (
-  fakedPool4.classifications &&
-  fakedPool4.classifications[0] &&
-  fakedPool4.classifications[0].maxSalary
-) {
-  fakedPool4.classifications[0].maxSalary = null;
+if (fakedPool4.classification?.maxSalary) {
+  fakedPool4.classification.maxSalary = null;
 }
 
 // idea stolen from ProfilePage.stories.tsx
@@ -44,7 +36,7 @@ export default {
   },
 } as Meta;
 
-const TemplatePoolCard: Story<{ pool: Pool }> = () => (
+const TemplatePoolCard: StoryFn<{ pool: Pool }> = () => (
   <div>
     <p data-h2-padding="base(x0.5, 0, x0.5, 0)">First</p>
     <PoolCard pool={fakedPool} />

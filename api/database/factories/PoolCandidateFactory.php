@@ -8,6 +8,7 @@ use App\Enums\EducationRequirementOption;
 use App\Enums\PoolCandidateStatus;
 use App\Models\AssessmentResult;
 use App\Models\AssessmentStep;
+use App\Models\Department;
 use App\Models\EducationExperience;
 use App\Models\GeneralQuestionResponse;
 use App\Models\Pool;
@@ -74,6 +75,17 @@ class PoolCandidateFactory extends Factory
                 ]);
             }
 
+            // placed status sets placed at and placed department fields
+            $placedStatuses = PoolCandidateStatus::placedGroup();
+            if (in_array($candidateStatus, $placedStatuses)) {
+                $poolCandidate->placed_at = $this->faker->dateTimeBetween('-2 weeks', 'now');
+                $poolCandidate->placed_department_id = Department::inRandomOrder()
+                    ->limit(1)
+                    ->pluck('id')
+                    ->first();
+                $poolCandidate->save();
+            }
+
             // if the attached pool has general questions, generate responses
             $generalQuestionsIdArray = $poolCandidate->pool->generalQuestions()->pluck('id')->toArray();
             if (isset($generalQuestionsIdArray) && count($generalQuestionsIdArray) > 0) {
@@ -99,9 +111,9 @@ class PoolCandidateFactory extends Factory
             }
 
             // set education requirement option, influenced by classification of pool
-            $classificationOne = $poolCandidate->pool->classifications()->first();
-            if ($classificationOne) {
-                if ($classificationOne->group === 'EX') {
+            $classification = $poolCandidate->pool->classification;
+            if ($classification) {
+                if ($classification->group === 'EX') {
                     $poolCandidate->update([
                         'education_requirement_option' => EducationRequirementOption::PROFESSIONAL_DESIGNATION->name,
                     ]);

@@ -16,7 +16,7 @@ import {
 } from "@gc-digital-talent/forms";
 import { Heading, Link, Pending, Separator } from "@gc-digital-talent/ui";
 import { errorMessages, getSearchRequestReason } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import {
   getFromSessionStorage,
@@ -25,7 +25,6 @@ import {
 } from "@gc-digital-talent/storage";
 import {
   EquitySelections,
-  Department,
   CreatePoolCandidateSearchRequestInput,
   Maybe,
   DepartmentBelongsTo,
@@ -39,12 +38,13 @@ import {
   PoolCandidateSearchRequestReason,
   type RequestForm_CreateRequestMutation as CreateRequestMutation,
   graphql,
+  FragmentType,
+  getFragment,
 } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
 import useRoutes from "~/hooks/useRoutes";
-import { SimpleClassification } from "~/types/pool";
 import {
   BrowserHistoryState,
   FormValues as SearchFormValues,
@@ -86,24 +86,45 @@ type FormValues = {
   department?: DepartmentBelongsTo["connect"];
 };
 
+export const RequestFormClassification_Fragment = graphql(/* GraphQL */ `
+  fragment RequestFormClassification on Classification {
+    id
+    group
+    level
+  }
+`);
+
+export const RequestFormDepartment_Fragment = graphql(/* GraphQL */ `
+  fragment RequestFormDepartment on Department {
+    id
+    departmentNumber
+    name {
+      en
+      fr
+    }
+  }
+`);
+
 export interface RequestFormProps {
-  departments: Department[];
+  departmentsQuery: FragmentType<typeof RequestFormDepartment_Fragment>[];
   skills: Skill[];
-  classifications: Classification[];
+  classificationsQuery: FragmentType<
+    typeof RequestFormClassification_Fragment
+  >[];
   pools: Pool[];
   applicantFilter: Maybe<ApplicantFilterInput>;
   candidateCount: Maybe<number>;
   searchFormInitialValues?: SearchFormValues;
-  selectedClassifications?: Maybe<SimpleClassification>[];
+  selectedClassifications?: Maybe<Classification>[];
   handleCreatePoolCandidateSearchRequest: (
     data: CreatePoolCandidateSearchRequestInput,
   ) => Promise<CreateRequestMutation["createPoolCandidateSearchRequest"]>;
 }
 
 export const RequestForm = ({
-  departments,
+  departmentsQuery,
   skills,
-  classifications,
+  classificationsQuery,
   pools,
   applicantFilter,
   candidateCount,
@@ -116,6 +137,14 @@ export const RequestForm = ({
   const cacheKey = "ts-createRequest";
   const location = useLocation();
   const state = location.state as BrowserHistoryState;
+  const classifications = getFragment(
+    RequestFormClassification_Fragment,
+    classificationsQuery,
+  );
+  const departments = getFragment(
+    RequestFormDepartment_Fragment,
+    departmentsQuery,
+  );
 
   const formMethods = useForm<FormValues>({
     defaultValues: getFromSessionStorage(cacheKey, {}),
@@ -316,7 +345,7 @@ export const RequestForm = ({
                   description:
                     "Null selection for department select input in the request form.",
                 })}
-                options={objectsToSortedOptions(departments, intl)}
+                options={objectsToSortedOptions([...departments], intl)}
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
@@ -595,12 +624,7 @@ const RequestForm_CreateRequestMutation = graphql(/* GraphQL */ `
 const RequestForm_SearchRequestDataQuery = graphql(/* GraphQL */ `
   query RequestForm_SearchRequestData {
     departments {
-      id
-      departmentNumber
-      name {
-        en
-        fr
-      }
+      ...RequestFormDepartment
     }
     skills {
       id
@@ -612,9 +636,7 @@ const RequestForm_SearchRequestDataQuery = graphql(/* GraphQL */ `
       category
     }
     classifications {
-      id
-      group
-      level
+      ...RequestFormClassification
     }
     pools {
       id
@@ -622,7 +644,7 @@ const RequestForm_SearchRequestDataQuery = graphql(/* GraphQL */ `
         en
         fr
       }
-      classifications {
+      classification {
         id
         group
         level
@@ -641,16 +663,13 @@ const RequestFormApi = ({
   applicantFilter: Maybe<ApplicantFilterInput>;
   candidateCount: Maybe<number>;
   searchFormInitialValues?: SearchFormValues;
-  selectedClassifications?: Maybe<SimpleClassification>[];
+  selectedClassifications?: Maybe<Classification>[];
 }) => {
   const intl = useIntl();
   const [{ data: lookupData, fetching, error }] = useQuery({
     query: RequestForm_SearchRequestDataQuery,
   });
-  const classifications: Classification[] =
-    lookupData?.classifications.filter(notEmpty) ?? [];
-  const departments: Department[] =
-    lookupData?.departments.filter(notEmpty) ?? [];
+
   const skills: Skill[] = lookupData?.skills.filter(notEmpty) ?? [];
   const pools: Pool[] = lookupData?.pools.filter(notEmpty) ?? [];
 
@@ -676,8 +695,8 @@ const RequestFormApi = ({
       />
       <Pending fetching={fetching} error={error}>
         <RequestForm
-          classifications={classifications}
-          departments={departments}
+          classificationsQuery={unpackMaybes(lookupData?.classifications)}
+          departmentsQuery={unpackMaybes(lookupData?.departments)}
           skills={skills}
           pools={pools}
           applicantFilter={applicantFilter}

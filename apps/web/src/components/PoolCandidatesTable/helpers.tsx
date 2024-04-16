@@ -430,7 +430,7 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
             fr
           }
           stream
-          classifications {
+          classification {
             id
             name {
               en
@@ -473,7 +473,9 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
           lookingForEnglish
           lookingForFrench
           lookingForBilingual
-          bilingualEvaluation
+          firstOfficialLanguage
+          secondLanguageExamCompleted
+          secondLanguageExamValidity
           comprehensionLevel
           writtenLevel
           verbalLevel

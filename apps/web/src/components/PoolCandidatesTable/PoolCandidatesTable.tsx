@@ -140,7 +140,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               en
               fr
             }
-            classifications {
+            classification {
               id
               group
               level
@@ -188,7 +188,9 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
             lookingForEnglish
             lookingForFrench
             lookingForBilingual
-            bilingualEvaluation
+            firstOfficialLanguage
+            secondLanguageExamCompleted
+            secondLanguageExamValidity
             comprehensionLevel
             writtenLevel
             verbalLevel

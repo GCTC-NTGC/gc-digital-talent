@@ -58,8 +58,11 @@ type User {
   lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
   lookingForFrench: Boolean @rename(attribute: "looking_for_french")
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
-  bilingualEvaluation: BilingualEvaluation
-    @rename(attribute: "bilingual_evaluation")
+  firstOfficialLanguage: Language @rename(attribute: "first_official_language")
+  secondLanguageExamCompleted: Boolean
+    @rename(attribute: "second_language_exam_completed")
+  secondLanguageExamValidity: Boolean
+    @rename(attribute: "second_language_exam_validity")
   comprehensionLevel: EvaluatedLanguageAbility
     @rename(attribute: "comprehension_level")
   writtenLevel: EvaluatedLanguageAbility @rename(attribute: "written_level")
@@ -99,17 +102,12 @@ type User {
     @hasMany(scopes: ["authorizedToView"])
     @canResolved(ability: "view") # PoolsCandidate objects associate the user with a pool
   # Experiences
-  experiences: [Experience]
-    @with(relation: "awardExperiences")
-    @with(relation: "communityExperiences")
-    @with(relation: "educationExperiences")
-    @with(relation: "personalExperiences")
-    @with(relation: "workExperiences") # All experiences that a user owns
-  awardExperiences: [AwardExperience] @hasMany # Award experiences that a user owns
-  communityExperiences: [CommunityExperience] @hasMany # Community experiences that a user owns
-  educationExperiences: [EducationExperience] @hasMany # Education experiences that a user owns
-  personalExperiences: [PersonalExperience] @hasMany # Personal experiences that a user owns
-  workExperiences: [WorkExperience] @hasMany # Work experiences that a user owns
+  experiences: [Experience] @belongsToMany # All experiences that a user owns
+  awardExperiences: [AwardExperience] @belongsToMany # Award experiences that a user owns
+  communityExperiences: [CommunityExperience] @belongsToMany # Community experiences that a user owns
+  educationExperiences: [EducationExperience] @belongsToMany # Education experiences that a user owns
+  personalExperiences: [PersonalExperience] @belongsToMany # Personal experiences that a user owns
+  workExperiences: [WorkExperience] @belongsToMany # Work experiences that a user owns
   # Skill Library
   userSkills(includeSkillIds: [UUID] @in(key: "skill_id")): [UserSkill] @hasMany
   topTechnicalSkillsRanking: [UserSkill] @with(relation: "userSkills")
@@ -176,7 +174,7 @@ type Pool {
   owner: UserPublicProfile @belongsTo(relation: "user")
   team: Team @belongsTo @canModel(ability: "viewAny")
   name: LocalizedString
-  classifications: [Classification] @belongsToMany
+  classification: Classification @belongsTo
   operationalRequirements: [OperationalRequirement]
     @rename(attribute: "operational_requirements")
   poolCandidates: [PoolCandidate]
@@ -219,6 +217,7 @@ type Pool {
     @hasMany
     @orderBy(column: "sort_order", direction: ASC)
   closingDate: DateTime @rename(attribute: "closing_date")
+  closingReason: String @rename(attribute: "closing_reason")
   publishedAt: DateTime @rename(attribute: "published_at")
   archivedAt: DateTime @rename(attribute: "archived_at")
   isComplete: Boolean
@@ -315,16 +314,15 @@ type PoolCandidate {
   screeningQuestionResponses: [ScreeningQuestionResponse] @hasMany
   educationRequirementOption: EducationRequirementOption
     @rename(attribute: "education_requirement_option") # associated experiences to fulfill this called educationRequirementExperiences
-  educationRequirementExperiences: [Experience]  # collection of experiences associated with educationRequirementOption
-    @with(relation: "educationRequirementAwardExperiences")
-    @with(relation: "educationRequirementCommunityExperiences")
-    @with(relation: "educationRequirementEducationExperiences")
-    @with(relation: "educationRequirementPersonalExperiences")
-    @with(relation: "educationRequirementWorkExperiences")
+  educationRequirementExperiences: [Experience] @belongsToMany
   # record of decision
   assessmentResults: [AssessmentResult]
     @hasMany
     @canRoot(ability: "viewAssessmentResults")
+  placedAt: DateTime
+    @rename(attribute: "placed_at")
+    @canRoot(ability: "viewStatus")
+  placedDepartment: Department @belongsTo @canRoot(ability: "viewStatus")
 }
 
 type PoolCandidateWithSkillCount {
@@ -489,12 +487,7 @@ type UserSkill {
   topSkillsRank: Int @rename(attribute: "top_skills_rank")
   improveSkillsRank: Int @rename(attribute: "improve_skills_rank")
   # Experiences
-  experiences: [Experience!]
-    @with(relation: "awardExperiences")
-    @with(relation: "communityExperiences")
-    @with(relation: "educationExperiences")
-    @with(relation: "personalExperiences")
-    @with(relation: "workExperiences") # All experiences that a user owns
+  experiences: [Experience!] @belongsToMany
 }
 
 type SkillKeywords {
@@ -506,7 +499,7 @@ interface Experience {
   id: ID!
   user: User! @belongsTo(relation: "user") @canResolved(ability: "view")
   details: String
-  skills: [Skill!] @morphToMany
+  skills: [Skill!] @hasMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
@@ -522,7 +515,7 @@ type WorkExperience implements Experience {
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
   details: String
-  skills: [Skill!] @morphToMany
+  skills: [Skill!] @hasMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
@@ -536,7 +529,7 @@ type PersonalExperience implements Experience {
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
   details: String
-  skills: [Skill!] @morphToMany
+  skills: [Skill!] @hasMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
@@ -551,7 +544,7 @@ type CommunityExperience implements Experience {
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
   details: String
-  skills: [Skill!] @morphToMany
+  skills: [Skill!] @hasMany
   # ExperienceSkillRecord is the pivot data and must be queried through a nested mutation (eg. experience->skill->experienceSkillRecord) querying for it directly will just return null
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
@@ -568,7 +561,7 @@ type EducationExperience implements Experience {
   type: EducationType
   status: EducationStatus
   details: String
-  skills: [Skill!] @morphToMany
+  skills: [Skill!] @hasMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
@@ -583,7 +576,7 @@ type AwardExperience implements Experience {
   awardedTo: AwardedTo @rename(attribute: "awarded_to")
   awardedScope: AwardedScope @rename(attribute: "awarded_scope")
   details: String
-  skills: [Skill!] @morphToMany
+  skills: [Skill!] @hasMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
@@ -874,8 +867,11 @@ input CreateUserInput {
   lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
   lookingForFrench: Boolean @rename(attribute: "looking_for_french")
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
-  bilingualEvaluation: BilingualEvaluation
-    @rename(attribute: "bilingual_evaluation")
+  firstOfficialLanguage: Language @rename(attribute: "first_official_language")
+  secondLanguageExamCompleted: Boolean
+    @rename(attribute: "second_language_exam_completed")
+  secondLanguageExamValidity: Boolean
+    @rename(attribute: "second_language_exam_validity")
   comprehensionLevel: EvaluatedLanguageAbility
     @rename(attribute: "comprehension_level")
   writtenLevel: EvaluatedLanguageAbility @rename(attribute: "written_level")
@@ -943,8 +939,11 @@ input UpdateUserAsAdminInput
   lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
   lookingForFrench: Boolean @rename(attribute: "looking_for_french")
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
-  bilingualEvaluation: BilingualEvaluation
-    @rename(attribute: "bilingual_evaluation")
+  firstOfficialLanguage: Language @rename(attribute: "first_official_language")
+  secondLanguageExamCompleted: Boolean
+    @rename(attribute: "second_language_exam_completed")
+  secondLanguageExamValidity: Boolean
+    @rename(attribute: "second_language_exam_validity")
   comprehensionLevel: EvaluatedLanguageAbility
     @rename(attribute: "comprehension_level")
   writtenLevel: EvaluatedLanguageAbility @rename(attribute: "written_level")
@@ -1019,8 +1018,11 @@ input UpdateUserAsUserInput
   lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
   lookingForFrench: Boolean @rename(attribute: "looking_for_french")
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
-  bilingualEvaluation: BilingualEvaluation
-    @rename(attribute: "bilingual_evaluation")
+  firstOfficialLanguage: Language @rename(attribute: "first_official_language")
+  secondLanguageExamCompleted: Boolean
+    @rename(attribute: "second_language_exam_completed")
+  secondLanguageExamValidity: Boolean
+    @rename(attribute: "second_language_exam_validity")
   comprehensionLevel: EvaluatedLanguageAbility
     @rename(attribute: "comprehension_level")
   writtenLevel: EvaluatedLanguageAbility @rename(attribute: "written_level")
@@ -1112,6 +1114,11 @@ input UpdateClassificationInput {
 input UpdatePoolCandidateStatusInput {
   expiryDate: Date @rename(attribute: "expiry_date")
   status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
+}
+
+input PlaceCandidateInput {
+  placementType: PlacementType!
+  departmentId: UUID!
 }
 
 input CreateDepartmentInput {
@@ -1363,7 +1370,7 @@ input GenericJobTitleBelongsToMany {
 }
 
 input CreatePoolInput {
-  classifications: ClassificationBelongsToMany
+  classification: ClassificationBelongsTo
 }
 
 input CreateGeneralQuestionInput {
@@ -1392,7 +1399,7 @@ input SyncScreeningQuestionsInput {
 input UpdatePoolInput {
   # Pool name and classification
   name: LocalizedStringInput
-  classifications: ClassificationBelongsToMany
+  classification: ClassificationBelongsTo
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
   # Closing date
@@ -1402,6 +1409,7 @@ input UpdatePoolInput {
       apply: ["after:today"]
       messages: [{ rule: "after", message: "UpdatePoolClosingDate" }]
     )
+  closingReason: String @rename(attribute: "closing_reason")
   # Your impact
   yourImpact: LocalizedStringInput @rename(attribute: "your_impact")
   # Work Tasks
@@ -1574,11 +1582,7 @@ input UpdateApplicationInput {
   educationRequirementOption: EducationRequirementOption
     @rename(attribute: "education_requirement_option")
   # experiences for meeting minimum criteria
-  educationRequirementAwardExperiences: UpdateEducationExperiencesRequirementBelongsToMany
-  educationRequirementCommunityExperiences: UpdateEducationExperiencesRequirementBelongsToMany
-  educationRequirementEducationExperiences: UpdateEducationExperiencesRequirementBelongsToMany
-  educationRequirementPersonalExperiences: UpdateEducationExperiencesRequirementBelongsToMany
-  educationRequirementWorkExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementExperiences: UpdateEducationExperiencesRequirementBelongsToMany
 
   # Used to validate essential skills
   applicationId: ID
@@ -1629,6 +1633,7 @@ type Mutation {
     @guard
     @canFind(ability: "restore", find: "id")
 
+  # poolCandidate mutations
   createPoolCandidateAsAdmin(
     poolCandidate: CreatePoolCandidateAsAdminInput! @spread
   ): PoolCandidate
@@ -1660,6 +1665,18 @@ type Mutation {
     @delete
     @guard
     @canFind(ability: "delete", find: "id")
+  placeCandidate(
+    id: UUID!
+    placeCandidate: PlaceCandidateInput! @spread
+  ): PoolCandidate
+    @guard
+    @canFind(ability: "updateStatus", find: "id", injectArgs: true)
+    @validator(class: "App\\GraphQL\\Validators\\PlaceCandidateValidator")
+  revertPlaceCandidate(id: UUID!): PoolCandidate
+    @guard
+    @canFind(ability: "updateStatus", find: "id", injectArgs: true)
+    @validator(class: "App\\GraphQL\\Validators\\RevertPlaceCandidateValidator")
+
   createClassification(
     classification: CreateClassificationInput! @spread
   ): Classification @create @guard @canModel(ability: "create")
@@ -1821,16 +1838,18 @@ type Mutation {
     @guard
     @canFind(ability: "delete", find: "id", model: "PoolSkill")
   publishPool(id: ID!): Pool @guard @canFind(ability: "publish", find: "id")
-  changePoolClosingDate(
+  changePoolClosingDate(id: ID!, closingDate: DateTime!): Pool
+    @guard
+    @canFind(ability: "changePoolClosingDate", find: "id")
+    @validator(
+      class: "App\\GraphQL\\Validators\\ChangePoolClosingDateValidator"
+    )
+  closePool(
     id: ID!
-    newClosingDate: DateTime!
-      @rename(attribute: "new_closing_date")
-      @rules(
-        apply: ["after:today"]
-        messages: [{ rule: "after", message: "UpdatePoolClosingDate" }]
-      )
-  ): Pool @guard @canFind(ability: "changePoolClosingDate", find: "id")
-  closePool(id: ID!): Pool @guard @canFind(ability: "closePool", find: "id")
+    reason: String!
+      @rename(attribute: "closing_reason")
+      @rules(apply: ["required"])
+  ): Pool @guard @canFind(ability: "closePool", find: "id")
   deletePool(id: ID! @whereKey): Pool
     @forceDelete(model: "Pool")
     @guard

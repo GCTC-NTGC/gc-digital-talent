@@ -46,6 +46,11 @@ return [
             'root' => '/tmp/api/storage/app',
         ],
 
+        'userGenerated' => [
+            'driver' => 'local',
+            'root' => env('STORAGE_USER_GENERATED_FILES_PATH', storage_path('app').DIRECTORY_SEPARATOR.'user_generated'),
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

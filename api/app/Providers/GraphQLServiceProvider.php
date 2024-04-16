@@ -11,7 +11,6 @@ use App\Enums\AssessmentResultType;
 use App\Enums\AssessmentStepType;
 use App\Enums\AwardedScope;
 use App\Enums\AwardedTo;
-use App\Enums\BilingualEvaluation;
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
@@ -49,6 +48,7 @@ use App\Enums\LanguageAbility;
 use App\Enums\NotificationFamily;
 use App\Enums\NotificationType;
 use App\Enums\OperationalRequirement;
+use App\Enums\PlacementType;
 use App\Enums\PoolCandidateSearchPositionType;
 use App\Enums\PoolCandidateSearchRequestReason;
 use App\Enums\PoolCandidateSearchStatus;
@@ -103,15 +103,6 @@ class GraphQLServiceProvider extends ServiceProvider
                 return new EnumType([
                     'name' => 'GovEmployeeType',
                     'values' => array_column(GovEmployeeType::cases(), 'name'),
-                ]);
-            }
-        );
-        $typeRegistry->registerLazy(
-            'BilingualEvaluation',
-            static function (): EnumType {
-                return new EnumType([
-                    'name' => 'BilingualEvaluation',
-                    'values' => array_column(BilingualEvaluation::cases(), 'name'),
                 ]);
             }
         );
@@ -202,6 +193,15 @@ class GraphQLServiceProvider extends ServiceProvider
                 return new EnumType([
                     'name' => 'PoolCandidateStatus',
                     'values' => array_column(PoolCandidateStatus::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'PlacementType',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'PlacementType',
+                    'values' => array_column(PlacementType::cases(), 'name'),
                 ]);
             }
         );

@@ -49,19 +49,16 @@ ExperienceContext.args = {
 export const LibraryContext = Template.bind({});
 LibraryContext.args = {
   context: "library",
-  showCategory: false,
 };
 
 export const ShowcaseContext = Template.bind({});
 ShowcaseContext.args = {
   context: "showcase",
-  showCategory: false,
 };
 
 export const ShowcaseShowMyLibraryContext = Template.bind({});
 ShowcaseShowMyLibraryContext.args = {
   context: "showcase",
-  showCategory: false,
   inLibrary: faker.helpers.arrayElements<Skill>(mockSkills, 15),
 };
 
