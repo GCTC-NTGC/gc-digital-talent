@@ -14,7 +14,7 @@ final class DisqualifyCandidate
      */
     public function __invoke($_, array $args)
     {
-        $candidate = PoolCandidate::find($args['id']);
+        $candidate = PoolCandidate::findOrFail($args['id']);
         $reason = $args['reason'];
         $now = Carbon::now();
 

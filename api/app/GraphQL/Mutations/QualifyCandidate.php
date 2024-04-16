@@ -15,7 +15,7 @@ final class QualifyCandidate
      */
     public function __invoke($_, array $args)
     {
-        $candidate = PoolCandidate::find($args['id']);
+        $candidate = PoolCandidate::findOrFail($args['id']);
         $expiryDate = $args['expiryDate'];
         $now = Carbon::now();
 

@@ -14,7 +14,7 @@ final class RevertFinalDecision
      */
     public function __invoke($_, array $args)
     {
-        $candidate = PoolCandidate::find($args['id']);
+        $candidate = PoolCandidate::findOrFail($args['id']);
 
         $candidate->pool_candidate_status = PoolCandidateStatus::UNDER_ASSESSMENT->name;
         $candidate->expiry_date = null;
