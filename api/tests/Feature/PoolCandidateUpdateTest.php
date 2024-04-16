@@ -502,7 +502,7 @@ class PoolCandidateUpdateTest extends TestCase
                     'expiryDate' => config('constants.past_date'),
                 ]
             )
-            ->assertJsonFragment(['message' => 'Validation failed for the field [qualifyCandidate].']);
+            ->assertGraphQLErrorMessage('Validation failed for the field [qualifyCandidate].');
 
         // candidate was qualified successfully
         $response = $this->actingAs($this->poolOperatorUser, 'api')
