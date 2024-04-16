@@ -30,7 +30,7 @@ module.exports = {
       },
     ],
   },
-  collectCoverage: true,
+  collectCoverage: false,
   coverageReporters: ["json", "html"],
   collectCoverageFrom: ["src/**/*.{js,jsx,ts,tsx}", "!<rootDir>/node_modules/"],
   coverageDirectory: "src/tests/coverage",

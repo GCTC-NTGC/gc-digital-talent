@@ -1,8 +1,4 @@
 import { Page } from "@playwright/test";
-import { createCoverageMap, createFileCoverage } from "istanbul-lib-coverage";
-import { createContext } from "istanbul-lib-report";
-import { create as createReport } from "istanbul-reports";
-import * as codecov from "codecov";
 
 import {
   ArmedForcesStatus,
@@ -117,11 +113,6 @@ test.describe("Application", () => {
     await poolPage.publishPool(createdPool.id);
 
     pool = createdPool;
-  });
-
-  test.beforeEach(async ({ page }) => {
-    await page.waitForLoadState("domcontentloaded");
-    await page.coverage.startJSCoverage();
   });
 
   test("Can submit application", async ({ appPage }) => {
@@ -287,54 +278,5 @@ test.describe("Application", () => {
         name: /return to your dashboard/i,
       }),
     ).toBeVisible();
-  });
-
-  test.afterEach(async ({ page }) => {
-    const coverage = await page.coverage.stopJSCoverage();
-    const coverageMap = createCoverageMap({});
-
-    coverage.forEach(async (entry) => {
-      const { url: entryUrl } = entry;
-
-      const functionRanges = entry.functions.map(({ ranges }) => ({
-        start: ranges[0].startOffset,
-        end: ranges[0].endOffset,
-      }));
-
-      const fileCoverage = createFileCoverage(entryUrl);
-
-      functionRanges.forEach(() => {
-        const rangeCoverage = createFileCoverage(entryUrl);
-        rangeCoverage.merge({
-          path: entryUrl,
-
-          statementMap: {}, // Add appropriate statementMap, fnMap, branchMap
-          fnMap: {},
-          b: {},
-          f: {},
-          s: {},
-          branchMap: {},
-          // Add any other required properties
-        });
-        fileCoverage.merge(rangeCoverage);
-      });
-
-      coverageMap.addFileCoverage(fileCoverage);
-      // generate coverage report from coverageMap and upload to codecov
-      const context = createContext({
-        dir: "coverage",
-        coverageMap,
-      });
-
-      createReport("lcov", {}).execute(context);
-    });
-  });
-});
-test.afterAll(() => {
-  codecov.handleInput.upload({
-    options: {
-      file: "coverage/lcov.info",
-      token: process.env.CODECOV_TOKEN,
-    },
   });
 });
