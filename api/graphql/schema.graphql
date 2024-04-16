@@ -1660,6 +1660,16 @@ type Mutation {
     @update
     @guard
     @canFind(ability: "updateNotes", find: "id")
+  removeCandidate(
+    id: UUID!
+    removalReason: CandidateRemovalReason!
+    removalReasonOther: String
+  ): PoolCandidate
+    @guard
+    @canFind(ability: "updateStatus", find: "id", injectArgs: true)
+  reinstateCandidate(id: UUID!): PoolCandidate
+    @guard
+    @canFind(ability: "updateStatus", find: "id", injectArgs: true)
   deletePoolCandidate(id: ID! @whereKey): PoolCandidate
     @delete
     @guard
