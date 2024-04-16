@@ -105,7 +105,7 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: apps/playwright/playwright-report/coverage/lcov.info
-          flags: E2E --disable=gcov
+          flags: E2E
           name: codecov-report
           fail_ci_if_error: false
 
