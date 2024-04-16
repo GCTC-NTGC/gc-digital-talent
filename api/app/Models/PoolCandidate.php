@@ -328,6 +328,7 @@ class PoolCandidate extends Model
         $query = self::scopePublishingGroups($query, [
             PublishingGroup::IT_JOBS_ONGOING->name,
             PublishingGroup::IT_JOBS->name,
+            PublishingGroup::OTHER->name,
         ]);
 
         return $query;
