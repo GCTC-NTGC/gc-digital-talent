@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
-    "@gc-digital-talent/eslint-config": "workspace*",
+    "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/jest-helpers": "workspace:*",
     "@gc-digital-talent/jest-presets": "workspace:*",
     "@gc-digital-talent/storybook-helpers": "workspace:*",

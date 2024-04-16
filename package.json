@@ -47,11 +47,7 @@
     "tsc": "turbo run tsc"
   },
   "devDependencies": {
-    "@gc-digital-talent/eslint-config": "workspace:*",
-    "@graphql-codegen/cli": "5.0.2",
     "@hydrogen-css/hydrogen": "2.0.5",
-    "jest-fail-on-console": "^3.1.2",
-    "prettier": "^3.2.5",
     "turbo": "^1.13.2"
   }
 }
