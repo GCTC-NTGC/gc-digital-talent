@@ -51,8 +51,15 @@ const allModes = {
     viewport: DIMENSIONS.phone.width,
   },
   "dark iap mobile": {
-    theme: THEMES.iap.light,
+    theme: THEMES.iap.dark,
     viewport: DIMENSIONS.phone.width,
+  },
+  french: {
+    locale: "fr",
+  },
+  "iap french": {
+    locale: "fr",
+    theme: THEMES.iap.light,
   },
 };
 

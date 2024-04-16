@@ -1,6 +1,6 @@
 import React from "react";
 import BellIcon from "@heroicons/react/24/outline/BellIcon";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { faker } from "@faker-js/faker";
 
@@ -19,12 +19,9 @@ export default {
     children: faker.lorem.sentences(3),
     icon: BellIcon,
   },
-} as ComponentMeta<typeof Alert.Root>;
+} as Meta<typeof Alert.Root>;
 
-const TemplateAlert: ComponentStory<typeof Alert.Root> = ({
-  children,
-  ...args
-}) => {
+const TemplateAlert: StoryFn<typeof Alert.Root> = ({ children, ...args }) => {
   const Alerts = types.map((type) => (
     <div key={type}>
       <React.Fragment key={type}>

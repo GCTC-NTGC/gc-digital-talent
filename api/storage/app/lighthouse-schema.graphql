@@ -102,6 +102,11 @@ type Mutation {
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
   removeCandidate(id: UUID!, removalReason: CandidateRemovalReason!, removalReasonOther: String): PoolCandidate
   deletePoolCandidate(id: ID!): PoolCandidate
+  qualifyCandidate(id: UUID!, expiryDate: Date!): PoolCandidate
+  disqualifyCandidate(id: UUID!, reason: DisqualificationReason!): PoolCandidate
+  revertFinalDecision(id: UUID!): PoolCandidate
+  placeCandidate(id: UUID!, placeCandidate: PlaceCandidateInput!): PoolCandidate
+  revertPlaceCandidate(id: UUID!): PoolCandidate
   createClassification(classification: CreateClassificationInput!): Classification
   updateClassification(id: ID!, classification: UpdateClassificationInput!): Classification
   deleteClassification(id: ID!): Classification
@@ -423,6 +428,9 @@ type PoolCandidate {
   educationRequirementOption: EducationRequirementOption
   educationRequirementExperiences: [Experience]
   assessmentResults: [AssessmentResult]
+  finalDecisionAt: DateTime
+  placedAt: DateTime
+  placedDepartment: Department
 }
 
 type PoolCandidateWithSkillCount {
@@ -973,6 +981,11 @@ input UpdateClassificationInput {
 input UpdatePoolCandidateStatusInput {
   expiryDate: Date
   status: PoolCandidateStatus
+}
+
+input PlaceCandidateInput {
+  placementType: PlacementType!
+  departmentId: UUID!
 }
 
 input CreateDepartmentInput {
@@ -1998,6 +2011,11 @@ enum PoolStatus {
   ARCHIVED
 }
 
+enum DisqualificationReason {
+  SCREENED_OUT_APPLICATION
+  SCREENED_OUT_ASSESSMENT
+}
+
 enum PoolCandidateStatus {
   DRAFT
   DRAFT_EXPIRED
@@ -2018,6 +2036,13 @@ enum PoolCandidateStatus {
   PLACED_INDETERMINATE
   EXPIRED
   REMOVED
+}
+
+enum PlacementType {
+  PLACED_TENTATIVE
+  PLACED_CASUAL
+  PLACED_TERM
+  PLACED_INDETERMINATE
 }
 
 enum SecurityStatus {

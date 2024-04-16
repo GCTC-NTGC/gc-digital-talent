@@ -146,6 +146,9 @@ const AssessmentPlanBuilderPage_Query = graphql(/* GraphQL */ `
           category
           key
         }
+        assessmentSteps {
+          id
+        }
       }
       assessmentSteps {
         id

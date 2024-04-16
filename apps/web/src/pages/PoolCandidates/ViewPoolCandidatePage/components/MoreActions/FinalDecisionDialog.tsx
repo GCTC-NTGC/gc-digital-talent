@@ -7,6 +7,7 @@ import { Button, Dialog, Heading, Well } from "@gc-digital-talent/ui";
 import { DateInput, RadioGroup, Submit } from "@gc-digital-talent/forms";
 import {
   AssessmentResult,
+  DisqualificationReason,
   Maybe,
   PoolCandidateStatus,
   Skill,
@@ -22,12 +23,25 @@ import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
 import AssessmentSummary from "./components/AssessmentSummary";
 
-const PoolCandidate_UpdateStatusMutation = graphql(/* GraphQL */ `
-  mutation PoolCandidate_UpdateStatusMutation(
+const PoolCandidate_QualifyCandidateMutation = graphql(/* GraphQL */ `
+  mutation PoolCandidate_QualifyCandidateMutation(
     $id: UUID!
-    $input: UpdatePoolCandidateStatusInput!
+    $expiryDate: Date!
   ) {
-    updatePoolCandidateStatus(id: $id, poolCandidate: $input) {
+    qualifyCandidate(id: $id, expiryDate: $expiryDate) {
+      id
+      status
+      expiryDate
+    }
+  }
+`);
+
+const PoolCandidate_DisqualifyCandidateMutation = graphql(/* GraphQL */ `
+  mutation PoolCandidate_DisqualifyCandidateMutation(
+    $id: UUID!
+    $reason: DisqualificationReason!
+  ) {
+    disqualifyCandidate(id: $id, reason: $reason) {
       id
       status
       expiryDate
@@ -53,7 +67,6 @@ interface FinalDecisionDialogProps {
 
 const FinalDecisionDialog = ({
   poolCandidateId,
-  poolCandidateStatus,
   expiryDate,
   essentialSkills,
   nonessentialSkills,
@@ -63,7 +76,12 @@ const FinalDecisionDialog = ({
   const intl = useIntl();
   const todayDate = new Date();
   const [isOpen, setIsOpen] = React.useState<boolean>(defaultOpen);
-  const [, executeMutation] = useMutation(PoolCandidate_UpdateStatusMutation);
+  const [, executeQualifyMutation] = useMutation(
+    PoolCandidate_QualifyCandidateMutation,
+  );
+  const [, executeDisqualifyMutation] = useMutation(
+    PoolCandidate_DisqualifyCandidateMutation,
+  );
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -89,47 +107,61 @@ const FinalDecisionDialog = ({
   const handleFormSubmit: SubmitHandler<FormValues> = async (
     values: FormValues,
   ) => {
-    let computedStatus = poolCandidateStatus;
-    if (values.finalAssessmentDecision === "qualified") {
-      computedStatus = PoolCandidateStatus.QualifiedAvailable;
-    }
-    if (
-      values.finalAssessmentDecision === "disqualified" &&
-      values.disqualifiedDecision === "assessment"
-    ) {
-      computedStatus = PoolCandidateStatus.ScreenedOutAssessment;
-    }
-    if (
-      values.finalAssessmentDecision === "disqualified" &&
-      values.disqualifiedDecision === "application"
-    ) {
-      computedStatus = PoolCandidateStatus.ScreenedOutApplication;
-    }
-
-    const statusObject = { status: computedStatus };
-    const massagedValues = values.expiryDate
-      ? { ...statusObject, expiryDate: values.expiryDate }
-      : statusObject;
-
-    await executeMutation({ id: poolCandidateId, input: massagedValues })
-      .then((result) => {
-        if (result.data?.updatePoolCandidateStatus) {
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Pool candidate status updated successfully",
-              id: "uSdcX4",
-              description:
-                "Message displayed when a pool candidate has been updated by and admin",
-            }),
-          );
-          setIsOpen(false);
-        } else {
-          handleError();
-        }
+    if (values.finalAssessmentDecision === "qualified" && values.expiryDate) {
+      await executeQualifyMutation({
+        id: poolCandidateId,
+        expiryDate: values.expiryDate,
       })
-      .catch(() => {
-        handleError();
-      });
+        .then((result) => {
+          if (result.data?.qualifyCandidate) {
+            toast.success(
+              intl.formatMessage({
+                defaultMessage: "Pool candidate status updated successfully",
+                id: "uSdcX4",
+                description:
+                  "Message displayed when a pool candidate has been updated by and admin",
+              }),
+            );
+            setIsOpen(false);
+          } else {
+            handleError();
+          }
+        })
+        .catch(() => {
+          handleError();
+        });
+    } else if (
+      values.finalAssessmentDecision === "disqualified" &&
+      values.disqualifiedDecision
+    ) {
+      await executeDisqualifyMutation({
+        id: poolCandidateId,
+        reason:
+          values.disqualifiedDecision === "application"
+            ? DisqualificationReason.ScreenedOutApplication
+            : DisqualificationReason.ScreenedOutAssessment,
+      })
+        .then((result) => {
+          if (result.data?.disqualifyCandidate) {
+            toast.success(
+              intl.formatMessage({
+                defaultMessage: "Pool candidate status updated successfully",
+                id: "uSdcX4",
+                description:
+                  "Message displayed when a pool candidate has been updated by and admin",
+              }),
+            );
+            setIsOpen(false);
+          } else {
+            handleError();
+          }
+        })
+        .catch(() => {
+          handleError();
+        });
+    } else {
+      handleError();
+    }
   };
 
   return (

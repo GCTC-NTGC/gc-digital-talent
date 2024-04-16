@@ -1,5 +1,5 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { StoryFn, Meta } from "@storybook/react";
 
 import { fakePools } from "@gc-digital-talent/fake-data";
 
@@ -16,9 +16,9 @@ nullPool.id = fakePool.id; // pool will never have a null id
 export default {
   component: PoolPoster,
   title: "Pages/Pool Poster",
-} as ComponentMeta<typeof PoolPoster>;
+} as Meta<typeof PoolPoster>;
 
-const Template: ComponentStory<typeof PoolPoster> = (args) => {
+const Template: StoryFn<typeof PoolPoster> = (args) => {
   const { pool } = args;
   return <PoolPoster pool={pool} />;
 };

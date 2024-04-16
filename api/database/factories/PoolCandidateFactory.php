@@ -9,6 +9,7 @@ use App\Enums\EducationRequirementOption;
 use App\Enums\PoolCandidateStatus;
 use App\Models\AssessmentResult;
 use App\Models\AssessmentStep;
+use App\Models\Department;
 use App\Models\EducationExperience;
 use App\Models\GeneralQuestionResponse;
 use App\Models\Pool;
@@ -35,6 +36,23 @@ class PoolCandidateFactory extends Factory
      */
     public function definition()
     {
+        $relevantStatusesForFinalDecision = [
+            PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
+            PoolCandidateStatus::QUALIFIED_WITHDREW->name,
+            PoolCandidateStatus::PLACED_CASUAL->name,
+            PoolCandidateStatus::PLACED_TERM->name,
+            PoolCandidateStatus::PLACED_INDETERMINATE->name,
+            PoolCandidateStatus::EXPIRED->name,
+            PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
+            PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
+        ];
+        $placedStatuses = PoolCandidateStatus::placedGroup();
+        $placedDepartmentId = Department::inRandomOrder()
+            ->limit(1)
+            ->pluck('id')
+            ->first();
+
         return [
             'cmo_identifier' => $this->faker->word(),
             'expiry_date' => $this->faker->dateTimeBetween('-1 years', '3 years'),
@@ -53,6 +71,18 @@ class PoolCandidateFactory extends Factory
                 $this->faker->numberBetween(0, count(ApplicationStep::cases()) - 2)
             ),
             'is_bookmarked' => $this->faker->boolean(10),
+            'final_decision_at' => function (array $attributes) use ($relevantStatusesForFinalDecision) {
+                return in_array($attributes['pool_candidate_status'], $relevantStatusesForFinalDecision) ?
+                $this->faker->dateTimeBetween('-4 weeks', '-2 weeks') : null;
+            },
+            'placed_at' => function (array $attributes) use ($placedStatuses) {
+                return in_array($attributes['pool_candidate_status'], $placedStatuses) ?
+                $this->faker->dateTimeBetween('-2 weeks', 'now') : null;
+            },
+            'placed_department_id' => function (array $attributes) use ($placedStatuses, $placedDepartmentId) {
+                return in_array($attributes['pool_candidate_status'], $placedStatuses) ?
+                $placedDepartmentId : null;
+            },
         ];
     }
 

@@ -1,5 +1,5 @@
 import React from "react";
-import type { Meta, Story } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 
 import {
   THEMES,
@@ -50,14 +50,17 @@ export default {
     },
     layout: "fullscreen",
     chromatic: {
-      mode: {
-        mobile: allModes.mobile,
+      modes: {
+        light: allModes["light iap desktop"],
+        "light mobile": allModes["light mobile"],
+        dark: allModes["dark iap desktop"],
+        french: allModes["iap french"],
       },
     },
   },
 } as Meta;
 
-const Template: Story = () => (
+const Template: StoryFn = () => (
   <NestedLanguageProvider messages={messages}>
     <Home />
   </NestedLanguageProvider>
@@ -67,12 +70,5 @@ export const Default = Template.bind({});
 Default.parameters = {
   themes: {
     themeOverride: THEMES.iap.light,
-  },
-};
-
-export const Dark = Template.bind({});
-Dark.parameters = {
-  themes: {
-    themeOverride: THEMES.iap.dark,
   },
 };

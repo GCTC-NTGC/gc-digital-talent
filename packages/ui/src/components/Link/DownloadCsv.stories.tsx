@@ -24,8 +24,6 @@ export default {
   },
 };
 
-type Story = StoryFn<Omit<LinkProps, "ref"> & { label: string }>;
-
 const colors: Array<Color> = [
   "primary",
   "secondary",
@@ -49,7 +47,7 @@ const modes: Array<ButtonLinkMode> = [
 
 const themes: Array<string> = ["light", "dark", "light iap", "dark iap"];
 
-const Template: Story = () => {
+const Template: StoryFn<Omit<LinkProps, "ref"> & { label: string }> = () => {
   return (
     <div>
       <div

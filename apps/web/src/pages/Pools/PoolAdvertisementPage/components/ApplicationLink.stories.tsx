@@ -1,14 +1,14 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { StoryFn, Meta } from "@storybook/react";
 
 import ApplicationLink from "./ApplicationLink";
 
 export default {
   component: ApplicationLink,
   title: "Pages/Pool Advertisement Poster/Components/ApplicationLink",
-} as ComponentMeta<typeof ApplicationLink>;
+} as Meta<typeof ApplicationLink>;
 
-const Template: ComponentStory<typeof ApplicationLink> = (args) => {
+const Template: StoryFn<typeof ApplicationLink> = (args) => {
   return <ApplicationLink {...args} />;
 };
 

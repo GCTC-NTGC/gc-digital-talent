@@ -301,7 +301,7 @@ const ApplicationPrintDocument = React.forwardRef<
                 </BreakingPageSection>
                 <PageSection>
                   <Heading level="h3" data-h2-font-weight="base(700)">
-                    {intl.formatMessage(processMessages.screeningQuestions)}
+                    {intl.formatMessage(processMessages.generalQuestions)}
                   </Heading>
                   <ul>
                     {relevantPoolCandidate.generalQuestionResponses?.map(
