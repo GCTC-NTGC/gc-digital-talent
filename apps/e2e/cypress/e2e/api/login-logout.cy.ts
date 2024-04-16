@@ -106,8 +106,8 @@ describe("Login and logout", () => {
 
       // eventually, we should get to the "user deleted page"
       cy.findByRole("heading", {
-        name: "Account deleted",
-        level: 1,
+        name: "Warning alert: User account deleted",
+        level: 2,
       }).should("exist");
     });
   });

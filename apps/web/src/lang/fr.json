@@ -343,6 +343,10 @@
     "defaultMessage": "Votre numéro de confirmation est le suivant : <strong>{id}</strong>",
     "description": "An application confirmation number"
   },
+  "/voRGj": {
+    "defaultMessage": "Afficher tous<hidden> les filtres avancés</hidden>",
+    "description": "Button text to show all advanced filters"
+  },
   "/yOfhq": {
     "defaultMessage": "Durée de l’emploi ",
     "description": "Job duration label "
@@ -1386,10 +1390,6 @@
   "5mrOBM": {
     "defaultMessage": "Quelle application d'authentification devrais-je installer?",
     "description": "GCKey question for which authenticator app to use"
-  },
-  "5nlauT": {
-    "defaultMessage": "Question filtre {index} : {question}",
-    "description": "CSV Header, Screening question column. "
   },
   "5pQfyv": {
     "defaultMessage": "Postes en français",
@@ -2871,6 +2871,10 @@
     "defaultMessage": "Modifier les principales compétences comportementales",
     "description": "Link text for editing a users top behavioural skills"
   },
+  "EWvBgF": {
+    "defaultMessage": "Questions générales {index}",
+    "description": "CSV Header, general question column. "
+  },
   "EY7YQM": {
     "defaultMessage": "Il manque au moins 1 évaluation pour les compétences suivantes",
     "description": "Warning message for skills with missing assessment on the 'assessment details' dialog"
@@ -4178,6 +4182,10 @@
   "M1Q9CE": {
     "defaultMessage": "Supprimez  « {skillName} » de votre profil",
     "description": "Title for the confirmation alert to delete a skill"
+  },
+  "M1en14": {
+    "defaultMessage": "Afficher tous<hidden> les renseignements liés à l’expérience</hidden>",
+    "description": "Button label to expand all experiences"
   },
   "M2LfhH": {
     "defaultMessage": "Modifier<hidden> une compétence</hidden>",
@@ -6385,10 +6393,6 @@
   "YSnedz": {
     "defaultMessage": "Ayant eu le privilège de travailler en étroite collaboration avec les apprenti·es autochtones et de constater l’immense talent et le potentiel qu’ils possèdent, notre équipe à IRCC est convaincue que cet investissement apportera une valeur considérable à la fois à notre ministère et à nos apprenti·es eux·elles-mêmes.",
     "description": "Quote from Darcy Pierlot about working with apprentices"
-  },
-  "YUx5ti": {
-    "defaultMessage": "Compte supprimé",
-    "description": "Title for the page users land on if their account was deleted."
   },
   "YV3EoS": {
     "defaultMessage": "Modifier les compétences comportementales pour les améliorer",
@@ -9618,6 +9622,10 @@
     "defaultMessage": "Chercher les demandes",
     "description": "Label for the search request table search input"
   },
+  "pp+b1H": {
+    "defaultMessage": "Réduire tous<hidden> les renseignements liés à l’expérience</hidden>",
+    "description": "Button label to collapse all experiences"
+  },
   "ppJF9L": {
     "defaultMessage": "Autorité financière déléguée (sec. 32) du contrat",
     "description": "Label for _financial authority_ fieldset in the _digital services contracting questionnaire_"
@@ -9649,6 +9657,10 @@
   "q5FQbu": {
     "defaultMessage": "À venir!",
     "description": "Heading for a coming soon section"
+  },
+  "q5V/+5": {
+    "defaultMessage": "Réduire tous <hidden> les filtres avancés</hidden>",
+    "description": "Button text to hide all advanced filters"
   },
   "q5rd9x": {
     "defaultMessage": " Description de l’expérience",
@@ -10625,6 +10637,10 @@
   "wl8GI6": {
     "defaultMessage": "Mon rôle",
     "description": "Label displayed on an Experience form for role input"
+  },
+  "wm8WXC": {
+    "defaultMessage": "Votre session a expiré, veuillez vous reconnecter.",
+    "description": "Title for the alert displayed after a user signs out"
   },
   "wnaTtx": {
     "defaultMessage": "En apprendre davantage sur l'équité en matière d'emploi",
