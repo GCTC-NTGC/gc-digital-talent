@@ -6,7 +6,7 @@ import {
   getAssessmentStepType,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import { AssessmentStep } from "@gc-digital-talent/graphql";
+import { AssessmentStep, PoolSkill } from "@gc-digital-talent/graphql";
 
 export const assessmentStepDisplayName = (
   assessmentStep: AssessmentStep,
@@ -29,3 +29,10 @@ export const assessmentStepDisplayName = (
 
   return intl.formatMessage(commonMessages.notAvailable);
 };
+
+export const poolSkillToOption = (poolSkill: PoolSkill, intl: IntlShape) => ({
+  value: poolSkill.id,
+  label: poolSkill?.skill?.name
+    ? getLocalizedName(poolSkill.skill.name, intl)
+    : intl.formatMessage(commonMessages.nameNotLoaded),
+});

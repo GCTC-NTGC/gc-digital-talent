@@ -23,7 +23,7 @@ fi
 BLOCKS="{ \"type\": \"header\", \"text\": { \"type\": \"plain_text\", \"text\": \"Post-deployment script was run\" } }"
 
 # Install packages from repository
-if apt-get update && apt-get install -y supervisor cron php-gd; then
+if apt-get update && apt-get install -y supervisor cron; then
     BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Install packages from repository *successful*.\" } }"
 else
     BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Install packages from repository *failed*. $MENTION\" } }"
