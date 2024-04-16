@@ -1,0 +1,62 @@
+codecov:
+  branch: main
+  coverage:
+    status:
+      project:
+        default:
+          target: auto
+          threshold: 100%
+        jest:
+          target: auto
+          threshold: 100%
+        phpunit:
+          target: auto
+          threshold: 100%
+    after_n_builds: 1
+    require_ci_to_pass: false
+    changes: false
+    patch: false
+    diff: true
+    base: auto
+    paths:
+      - "**"
+    if_changed: false
+    flags: ""
+    root: ""
+    comment:
+      layout: "header, diff, folders, files"
+      behavior: default
+      require_changes: true
+      require_base: false
+      require_head: false
+      branches: {}
+      flags: ""
+      paths: []
+      flags: ""
+      commit: false
+      pr: true
+      status: true
+      changes: true
+      diff: true
+      base: false
+      head: true
+      body: true
+      footer: true
+      root: ""
+      gcov:
+        branch: false
+        gcov: false
+        branch_coverage: false
+    checks:
+      after_n_builds: 1
+      changes: false
+      patch: false
+      diff: false
+      base: auto
+      paths:
+        - "**"
+      if_changed: false
+      flags: ""
+      root: ""
+
+
