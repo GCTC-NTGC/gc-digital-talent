@@ -1107,6 +1107,10 @@
     "defaultMessage": "Veuillez préciser la méthode",
     "description": "Label for _other method of supply_ fieldset in the _digital services contracting questionnaire_"
   },
+  "4RE3DP": {
+    "defaultMessage": "Compétences constituant un atout",
+    "description": "Label for 'asset skills' input on the assessment details dialog"
+  },
   "4RK/oW": {
     "defaultMessage": "Minorité visible",
     "description": "Message for visible minority option in the employment equity section of the request page."
@@ -1606,10 +1610,6 @@
   "7FtbwK": {
     "defaultMessage": "Gestionnaire",
     "description": "Title displayed on the search request table manager column."
-  },
-  "7Jc8aA": {
-    "defaultMessage": "Compétences évaluées",
-    "description": "Label for 'assessed skills' input on the assessment details dialog"
   },
   "7KEfBI": {
     "defaultMessage": "Ces données sont agrégées et utilisées pour cibler les tendances dans les différents ministères. Elles ne sont pas utilisées pour l’analyse d’une décision individuelle d’établissement des contrats.",
@@ -2875,6 +2875,10 @@
     "defaultMessage": "Questions générales {index}",
     "description": "CSV Header, general question column. "
   },
+  "EY7YQM": {
+    "defaultMessage": "Il manque au moins 1 évaluation pour les compétences suivantes",
+    "description": "Warning message for skills with missing assessment on the 'assessment details' dialog"
+  },
   "EYPaLh": {
     "defaultMessage": "Vous avez obtenu un diplôme à l’extérieur du Canada? <foreignDegreeLink>Apprenez-en davantage sur les équivalences pour les diplômes étrangers.</foreignDegreeLink>",
     "description": "External link message for the EX graduation with degree requirement."
@@ -3010,6 +3014,10 @@
   "FKF8lG": {
     "defaultMessage": "Catégorie (français)",
     "description": "Title for category in French"
+  },
+  "FKfj8D": {
+    "defaultMessage": "Compétences essentielles",
+    "description": "Label for 'essential skills' input on the assessment details dialog"
   },
   "FMJiDY": {
     "defaultMessage": "Sélectionnez la valeur totale du contrat",
