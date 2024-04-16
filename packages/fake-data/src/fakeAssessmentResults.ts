@@ -26,7 +26,6 @@ const generateAssessmentResult = (
       faker.helpers.arrayElement<AssessmentDecisionLevel>(
         Object.values(AssessmentDecisionLevel),
       ),
-    assessmentNotes: "notes",
     assessmentResultType: faker.helpers.arrayElement<AssessmentResultType>(
       Object.values(AssessmentResultType),
     ),
