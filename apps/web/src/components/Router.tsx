@@ -22,210 +22,114 @@ import ScreeningAndEvaluationPage from "~/pages/Pools/ScreeningAndEvaluationPage
 
 /** Home */
 const HomePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsHomePage" */ "../pages/Home/HomePage/HomePage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Home/HomePage/HomePage")),
 );
 const ExecutiveHomePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsExecutiveHomePage" */ "../pages/Home/ExecutiveHomePage/ExecutiveHomePage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Home/ExecutiveHomePage/ExecutiveHomePage")),
 );
 const ManagerHomePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsManagerHomePage" */ "../pages/Home/ManagerHomePage/ManagerHomePage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Home/ManagerHomePage/ManagerHomePage")),
 );
 const ErrorPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsErrorPage" */ "../pages/Errors/ErrorPage/ErrorPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Errors/ErrorPage/ErrorPage")),
 );
 const SupportPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsSupportPage" */ "../pages/SupportPage/SupportPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/SupportPage/SupportPage")),
 );
 const TermsAndConditions = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsSupportPage" */ "../pages/TermsAndConditions/TermsAndConditions"
-      ),
-  ),
+  lazyRetry(() => import("../pages/TermsAndConditions/TermsAndConditions")),
 );
 const PrivacyPolicy = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsSupportPage" */ "../pages/PrivacyPolicy/PrivacyPolicy"
-      ),
-  ),
+  lazyRetry(() => import("../pages/PrivacyPolicy/PrivacyPolicy")),
 );
 const AccessibilityPage = React.lazy(() =>
   lazyRetry(
     () =>
-      import(
-        /* webpackChunkName: "tsAccessibilityPage" */ "../pages/AccessibilityStatementPage/AccessibilityStatementPage"
-      ),
+      import("../pages/AccessibilityStatementPage/AccessibilityStatementPage"),
   ),
 );
 
 /** Search */
 const SearchPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsSearchPage" */ "../pages/SearchRequests/SearchPage/SearchPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/SearchRequests/SearchPage/SearchPage")),
 );
 const RequestPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsRequestPage" */ "../pages/SearchRequests/RequestPage/RequestPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/SearchRequests/RequestPage/RequestPage")),
 );
 const RequestConfirmationPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsRequestConfirmationPage" */ "../pages/SearchRequests/RequestConfirmationPage/RequestConfirmationPage"
+        "../pages/SearchRequests/RequestConfirmationPage/RequestConfirmationPage"
       ),
   ),
 );
 
 /** Auth */
 const SignUpPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsSignUpPage" */ "../pages/Auth/SignUpPage/SignUpPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Auth/SignUpPage/SignUpPage")),
 );
 const SignedOutPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsSignedOutPage" */ "../pages/Auth/SignedOutPage/SignedOutPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Auth/SignedOutPage/SignedOutPage")),
 );
 const SignInPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsSignInPage" */ "../pages/Auth/SignInPage/SignInPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Auth/SignInPage/SignInPage")),
 );
 
 /** Profile */
 const CreateAccountPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsCreateAccountPage" */ "../pages/Auth/CreateAccountPage/CreateAccountPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Auth/CreateAccountPage/CreateAccountPage")),
 );
 const ProfileAndApplicationsPage = React.lazy(() =>
   lazyRetry(
     () =>
-      import(
-        /* webpackChunkName: "tsProfileAndApplicationsPage" */ "../pages/ProfileAndApplicationsPage/ProfileAndApplicationsPage"
-      ),
+      import("../pages/ProfileAndApplicationsPage/ProfileAndApplicationsPage"),
   ),
 );
 const ProfilePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsProfilePage" */ "../pages/Profile/ProfilePage/ProfilePage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Profile/ProfilePage/ProfilePage")),
 );
 const ExperienceFormPage = React.lazy(() =>
   lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsEditExperiencePage" */ "../pages/Profile/ExperienceFormPage/ExperienceFormPage"
-      ),
+    () => import("../pages/Profile/ExperienceFormPage/ExperienceFormPage"),
   ),
 );
 const CareerTimelineAndRecruitmentPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsCareerTimelineAndRecruitmentPage" */ "../pages/Profile/CareerTimelineAndRecruitmentPage/CareerTimelineAndRecruitmentPage"
+        "../pages/Profile/CareerTimelineAndRecruitmentPage/CareerTimelineAndRecruitmentPage"
       ),
   ),
 );
 const NotificationsPage = React.lazy(() =>
   lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsNotificationsPage" */ "../pages/Notifications/NotificationsPage/NotificationsPage"
-      ),
+    () => import("../pages/Notifications/NotificationsPage/NotificationsPage"),
   ),
 );
 
 /** Direct Intake */
 const BrowsePoolsPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsBrowsePoolsPage" */ "../pages/Pools/BrowsePoolsPage/BrowsePoolsPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Pools/BrowsePoolsPage/BrowsePoolsPage")),
 );
 const PoolAdvertisementPage = React.lazy(() =>
   lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsPoolAdvertPage" */ "../pages/Pools/PoolAdvertisementPage/PoolAdvertisementPage"
-      ),
+    () => import("../pages/Pools/PoolAdvertisementPage/PoolAdvertisementPage"),
   ),
 );
 const CreateApplicationPage = React.lazy(() =>
   lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsCreateApplicationPage" */ "../pages/CreateApplicationPage/CreateApplicationPage"
-      ),
+    () => import("../pages/CreateApplicationPage/CreateApplicationPage"),
   ),
 );
 const ApplicationLayout = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsApplicationLayout" */ "../pages/Applications/ApplicationLayout"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Applications/ApplicationLayout")),
 );
 const ApplicationWelcomePage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsApplicationWelcomePage" */ "../pages/Applications/ApplicationWelcomePage/ApplicationWelcomePage"
+        "../pages/Applications/ApplicationWelcomePage/ApplicationWelcomePage"
       ),
   ),
 );
@@ -233,7 +137,7 @@ const ApplicationSelfDeclarationPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsApplicationSelfDeclarationPage" */ "../pages/Applications/ApplicationSelfDeclarationPage/ApplicationSelfDeclarationPage"
+        "../pages/Applications/ApplicationSelfDeclarationPage/ApplicationSelfDeclarationPage"
       ),
   ),
 );
@@ -241,7 +145,7 @@ const ApplicationProfilePage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsApplicationProfilePage" */ "../pages/Applications/ApplicationProfilePage/ApplicationProfilePage"
+        "../pages/Applications/ApplicationProfilePage/ApplicationProfilePage"
       ),
   ),
 );
@@ -249,7 +153,7 @@ const ApplicationCareerTimelineIntroductionPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsApplicationCareerTimelineIntroductionPage" */ "../pages/Applications/ApplicationCareerTimelineIntroductionPage/ApplicationCareerTimelineIntroductionPage"
+        "../pages/Applications/ApplicationCareerTimelineIntroductionPage/ApplicationCareerTimelineIntroductionPage"
       ),
   ),
 );
@@ -257,7 +161,7 @@ const ApplicationCareerTimelinePage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsApplicationCareerTimelinePage" */ "../pages/Applications/ApplicationCareerTimelinePage/ApplicationCareerTimelinePage"
+        "../pages/Applications/ApplicationCareerTimelinePage/ApplicationCareerTimelinePage"
       ),
   ),
 );
@@ -265,7 +169,7 @@ const ApplicationCareerTimelineAddPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsApplicationCareerTimelineAddPage" */ "../pages/Applications/ApplicationCareerTimelineAddPage/ApplicationCareerTimelineAddPage"
+        "../pages/Applications/ApplicationCareerTimelineAddPage/ApplicationCareerTimelineAddPage"
       ),
   ),
 );
@@ -273,7 +177,7 @@ const ApplicationCareerTimelineEditPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsApplicationCareerTimelineEditPage" */ "../pages/Applications/ApplicationCareerTimelineEditPage/ApplicationCareerTimelineEditPage"
+        "../pages/Applications/ApplicationCareerTimelineEditPage/ApplicationCareerTimelineEditPage"
       ),
   ),
 );
@@ -281,7 +185,7 @@ const ApplicationEducationPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsApplicationEducationPage" */ "../pages/Applications/ApplicationEducationPage/ApplicationEducationPage"
+        "../pages/Applications/ApplicationEducationPage/ApplicationEducationPage"
       ),
   ),
 );
@@ -289,7 +193,7 @@ const ApplicationSkillsIntroductionPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsApplicationSkillsIntroductionPage" */ "../pages/Applications/ApplicationSkillsIntroductionPage/ApplicationSkillsIntroductionPage"
+        "../pages/Applications/ApplicationSkillsIntroductionPage/ApplicationSkillsIntroductionPage"
       ),
   ),
 );
@@ -297,7 +201,7 @@ const ApplicationSkillsPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsApplicationSkillsPage" */ "../pages/Applications/ApplicationSkillsPage/ApplicationSkillsPage"
+        "../pages/Applications/ApplicationSkillsPage/ApplicationSkillsPage"
       ),
   ),
 );
@@ -305,7 +209,7 @@ const ApplicationQuestionsIntroductionPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsApplicationQuestionsIntroductionPage" */ "../pages/Applications/ApplicationQuestionsIntroductionPage/ApplicationQuestionsIntroductionPage"
+        "../pages/Applications/ApplicationQuestionsIntroductionPage/ApplicationQuestionsIntroductionPage"
       ),
   ),
 );
@@ -313,7 +217,7 @@ const ApplicationQuestionsPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsApplicationQuestionsPage" */ "../pages/Applications/ApplicationQuestionsPage/ApplicationQuestionsPage"
+        "../pages/Applications/ApplicationQuestionsPage/ApplicationQuestionsPage"
       ),
   ),
 );
@@ -321,7 +225,7 @@ const ApplicationReviewPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsApplicationReviewPage" */ "../pages/Applications/ApplicationReviewPage/ApplicationReviewPage"
+        "../pages/Applications/ApplicationReviewPage/ApplicationReviewPage"
       ),
   ),
 );
@@ -329,163 +233,79 @@ const ApplicationSuccessPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsApplicationSuccessPage" */ "../pages/Applications/ApplicationSuccessPage/ApplicationSuccessPage"
+        "../pages/Applications/ApplicationSuccessPage/ApplicationSuccessPage"
       ),
   ),
 );
 
 /** IAP Home Page */
 const IAPHomePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "iapHomePage" */ "../pages/Home/IAPHomePage/Home"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Home/IAPHomePage/Home")),
 );
 const IAPManagerHomePage = React.lazy(() =>
   lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "iapHomePage" */ "../pages/Home/IAPManagerHomePage/IAPManagerHomePage"
-      ),
+    () => import("../pages/Home/IAPManagerHomePage/IAPManagerHomePage"),
   ),
 );
 
 /** Admin */
 const AdminErrorPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminAdminErrorPage" */ "../pages/Errors/AdminErrorPage/AdminErrorPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Errors/AdminErrorPage/AdminErrorPage")),
 );
 const AdminDashboardPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminAdminDashboardPage" */ "../pages/AdminDashboardPage/AdminDashboardPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/AdminDashboardPage/AdminDashboardPage")),
 );
 
 /** Users */
 const IndexUserPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminIndexUserPage" */ "../pages/Users/IndexUserPage/IndexUserPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Users/IndexUserPage/IndexUserPage")),
 );
 const UserLayout = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminUserLayout" */ "../pages/Users/UserLayout"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Users/UserLayout")),
 );
 const UpdateUserPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminUpdateUserPage" */ "../pages/Users/UpdateUserPage/UpdateUserPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Users/UpdateUserPage/UpdateUserPage")),
 );
 const AdminUserProfilePage = React.lazy(() =>
   lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminAdminUserProfilePage" */ "../pages/Users/AdminUserProfilePage/AdminUserProfilePage"
-      ),
+    () => import("../pages/Users/AdminUserProfilePage/AdminUserProfilePage"),
   ),
 );
 const UserInformationPage = React.lazy(() =>
   lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminUserInformationPage" */ "../pages/Users/UserInformationPage/UserInformationPage"
-      ),
+    () => import("../pages/Users/UserInformationPage/UserInformationPage"),
   ),
 );
 
 /** Teams */
 const IndexTeamPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminIndexTeamPage" */ "../pages/Teams/IndexTeamPage/IndexTeamPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Teams/IndexTeamPage/IndexTeamPage")),
 );
 const CreateTeamPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminCreateTeamPage" */ "../pages/Teams/CreateTeamPage/CreateTeamPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Teams/CreateTeamPage/CreateTeamPage")),
 );
 const TeamLayout = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminTeamLayout" */ "../pages/Teams/TeamLayout"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Teams/TeamLayout")),
 );
 const ViewTeamPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminViewTeamPage" */ "../pages/Teams/ViewTeamPage/ViewTeamPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Teams/ViewTeamPage/ViewTeamPage")),
 );
 const UpdateTeamPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminUpdateTeamPage" */ "../pages/Teams/UpdateTeamPage/UpdateTeamPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Teams/UpdateTeamPage/UpdateTeamPage")),
 );
 const TeamMembersPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminTeamMembersPage" */ "../pages/Teams/TeamMembersPage/TeamMembersPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Teams/TeamMembersPage/TeamMembersPage")),
 );
 
 /** Classifications */
 const IndexClassificationPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminIndexClassificationPage" */ "../pages/Classifications/IndexClassificationPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Classifications/IndexClassificationPage")),
 );
 const CreateClassificationPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminCreateClassificationPage" */ "../pages/Classifications/CreateClassificationPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Classifications/CreateClassificationPage")),
 );
 const UpdateClassificationPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminUpdateClassificationPage" */ "../pages/Classifications/UpdateClassificationPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Classifications/UpdateClassificationPage")),
 );
 
 /** Pool Candidates */
@@ -493,7 +313,7 @@ const AllPoolCandidatesPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "adminAllPoolCandidatesPage" */ "../pages/PoolCandidates/AllPoolCandidatesPage/AllPoolCandidatesPage"
+        "../pages/PoolCandidates/AllPoolCandidatesPage/AllPoolCandidatesPage"
       ),
   ),
 );
@@ -501,7 +321,7 @@ const IndexPoolCandidatePage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "adminIndexPoolCandidatePage" */ "../pages/PoolCandidates/IndexPoolCandidatePage/IndexPoolCandidatePage"
+        "../pages/PoolCandidates/IndexPoolCandidatePage/IndexPoolCandidatePage"
       ),
   ),
 );
@@ -509,193 +329,88 @@ const ViewPoolCandidatePage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "adminViewPoolCandidate" */ "../pages/PoolCandidates/ViewPoolCandidatePage/ViewPoolCandidatePage"
+        "../pages/PoolCandidates/ViewPoolCandidatePage/ViewPoolCandidatePage"
       ),
   ),
 );
 
 /** Pools */
 const IndexPoolPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminIndexPoolPage" */ "../pages/Pools/IndexPoolPage/IndexPoolPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Pools/IndexPoolPage/IndexPoolPage")),
 );
 const CreatePoolPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminCreatePoolPage" */ "../pages/Pools/CreatePoolPage/CreatePoolPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Pools/CreatePoolPage/CreatePoolPage")),
 );
 const EditPoolPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminEditPoolPage" */ "../pages/Pools/EditPoolPage/EditPoolPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Pools/EditPoolPage/EditPoolPage")),
 );
 const AssessmentPlanBuilderPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "adminAssessmentPlanBuilderPage" */ "../pages/Pools/AssessmentPlanBuilderPage/AssessmentPlanBuilderPage"
+        "../pages/Pools/AssessmentPlanBuilderPage/AssessmentPlanBuilderPage"
       ),
   ),
 );
 const PoolLayout = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminPoolLayout" */ "../pages/Pools/PoolLayout"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Pools/PoolLayout")),
 );
 const ViewPoolPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminViewPoolPage" */ "../pages/Pools/ViewPoolPage/ViewPoolPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Pools/ViewPoolPage/ViewPoolPage")),
 );
 
 /** Departments */
 const IndexDepartmentPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminIndexDepartmentPage" */ "../pages/Departments/IndexDepartmentPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Departments/IndexDepartmentPage")),
 );
 const CreateDepartmentPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminCreateDepartmentPage" */ "../pages/Departments/CreateDepartmentPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Departments/CreateDepartmentPage")),
 );
 const UpdateDepartmentPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminUpdateDepartmentPage" */ "../pages/Departments/UpdateDepartmentPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Departments/UpdateDepartmentPage")),
 );
 
 /** Skill Families */
 const IndexSkillFamilyPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminIndexSkillFamilyPage" */ "../pages/SkillFamilies/IndexSkillFamilyPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/SkillFamilies/IndexSkillFamilyPage")),
 );
 const CreateSkillFamilyPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminCreateSkillFamilyPage" */ "../pages/SkillFamilies/CreateSkillFamilyPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/SkillFamilies/CreateSkillFamilyPage")),
 );
 const UpdateSkillFamilyPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminUpdateSkillFamilyPage" */ "../pages/SkillFamilies/UpdateSkillFamilyPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/SkillFamilies/UpdateSkillFamilyPage")),
 );
 
 /** Skills */
 const IndexSkillPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminIndexSkillPage" */ "../pages/Skills/IndexSkillPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Skills/IndexSkillPage")),
 );
 const CreateSkillPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminCreateSkillPage" */ "../pages/Skills/CreateSkillPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Skills/CreateSkillPage")),
 );
 const UpdateSkillPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminUpdateSkillPage" */ "../pages/Skills/UpdateSkillPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Skills/UpdateSkillPage")),
 );
 const SkillLibraryPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsSkillLibraryPage" */ "../pages/Skills/SkillLibraryPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Skills/SkillLibraryPage")),
 );
 const UpdateUserSkillPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsUpdateUserSkillPage" */ "../pages/Skills/UpdateUserSkillPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Skills/UpdateUserSkillPage")),
 );
 const SkillShowcasePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsSkillShowcasePage" */ "../pages/Skills/SkillShowcasePage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Skills/SkillShowcasePage")),
 );
 const TopBehaviouralSkillsPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsTopBehaviouralSkillsPage" */ "../pages/Skills/TopBehaviouralSkillsPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Skills/TopBehaviouralSkillsPage")),
 );
 const TopTechnicalSkillsPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsTopTechnicalSkillsPage" */ "../pages/Skills/TopTechnicalSkillsPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Skills/TopTechnicalSkillsPage")),
 );
 const ImproveBehaviouralSkillsPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsImproveBehaviouralSkillsPage" */ "../pages/Skills/ImproveBehaviouralSkillsPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Skills/ImproveBehaviouralSkillsPage")),
 );
 const ImproveTechnicalSkillsPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsImproveTechnicalSkillsPage" */ "../pages/Skills/ImproveTechnicalSkillsPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/Skills/ImproveTechnicalSkillsPage")),
 );
 
 /** Search Requests */
@@ -703,7 +418,7 @@ const IndexSearchRequestPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "adminIndexSearchRequestPage" */ "../pages/SearchRequests/IndexSearchRequestPage/IndexSearchRequestPage"
+        "../pages/SearchRequests/IndexSearchRequestPage/IndexSearchRequestPage"
       ),
   ),
 );
@@ -711,43 +426,30 @@ const ViewSearchRequestPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "adminViewSearchRequestPage" */ "../pages/SearchRequests/ViewSearchRequestPage/ViewSearchRequestPage"
+        "../pages/SearchRequests/ViewSearchRequestPage/ViewSearchRequestPage"
       ),
   ),
 );
 
 /** Announcements */
 const AnnouncementsPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminAnnouncementsPage" */ "../pages/AnnouncementsPage/AnnouncementsPage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/AnnouncementsPage/AnnouncementsPage")),
 );
 
 /** Directive on Digital Talent */
 const DirectivePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsDirectivePage" */ "../pages/DirectivePage/DirectivePage"
-      ),
-  ),
+  lazyRetry(() => import("../pages/DirectivePage/DirectivePage")),
 );
 const DigitalServicesContractingQuestionnaire = React.lazy(() =>
   lazyRetry(
     () =>
       import(
-        /* webpackChunkName: "tsDirectiveDigitalServicesContractingQuestionnaire" */ "../pages/DirectiveForms/DigitalServicesContractingQuestionnaire/DigitalServicesContractingQuestionnairePage"
+        "../pages/DirectiveForms/DigitalServicesContractingQuestionnaire/DigitalServicesContractingQuestionnairePage"
       ),
   ),
 );
 const SkillPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(/* webpackChunkName: "tsSkillPage" */ "../pages/Skills/SkillPage"),
-  ),
+  lazyRetry(() => import("../pages/Skills/SkillPage")),
 );
 
 const createRoute = (
