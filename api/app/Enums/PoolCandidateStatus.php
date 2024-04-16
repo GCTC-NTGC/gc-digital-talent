@@ -32,4 +32,15 @@ enum PoolCandidateStatus
             PoolCandidateStatus::PLACED_CASUAL->name,
         ];
     }
+
+    public static function removedGroup(): array
+    {
+        return [
+            PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name,
+            PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name,
+            PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
+            PoolCandidateStatus::QUALIFIED_WITHDREW->name,
+            PoolCandidateStatus::REMOVED->name,
+        ];
+    }
 }

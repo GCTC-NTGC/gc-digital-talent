@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Enums\ApplicationStep;
 use App\Enums\AssessmentResultType;
+use App\Enums\CandidateRemovalReason;
 use App\Enums\EducationRequirementOption;
 use App\Enums\PoolCandidateStatus;
 use App\Models\AssessmentResult;
@@ -72,6 +73,19 @@ class PoolCandidateFactory extends Factory
                     'signature' => $fakeSignature,
                     'submitted_steps' => array_column(ApplicationStep::cases(), 'name'),
                 ]);
+            }
+
+            // removed status sets removed at, removal reason, and removal reason other fields
+            $removedStatuses = PoolCandidateStatus::removedGroup();
+            if (in_array($candidateStatus, $removedStatuses)) {
+                $removalReason = $this->faker->randomElement(CandidateRemovalReason::cases());
+
+                $poolCandidate->removed_at = $this->faker->dateTimeBetween('-2 weeks', 'now');
+                $poolCandidate->removal_reason = $removalReason->name;
+                if ($removalReason->name === CandidateRemovalReason::OTHER->name) {
+                    $poolCandidate->removal_reason_other = $this->faker->sentence();
+                }
+                $poolCandidate->save();
             }
 
             // if the attached pool has general questions, generate responses
