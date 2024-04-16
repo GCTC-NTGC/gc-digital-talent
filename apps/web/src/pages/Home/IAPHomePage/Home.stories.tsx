@@ -1,5 +1,5 @@
 import React from "react";
-import type { Meta, Story } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 
 import {
   THEMES,
@@ -57,7 +57,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story = () => (
+const Template: StoryFn = () => (
   <NestedLanguageProvider messages={messages}>
     <Home />
   </NestedLanguageProvider>

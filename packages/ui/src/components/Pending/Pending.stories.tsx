@@ -36,6 +36,9 @@ export default {
       type: { name: "string", required: false },
     },
   },
+  parameters: {
+    chromatic: { delay: 1500 },
+  },
 } as Meta;
 
 const TemplatePending: StoryFn<PendingArgs> = (args) => {

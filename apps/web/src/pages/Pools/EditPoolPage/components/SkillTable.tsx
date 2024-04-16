@@ -46,7 +46,6 @@ const ActionCell = (
       <SkillBrowserDialog
         context="pool"
         defaultOpen={isOpen}
-        showCategory={false}
         customTrigger={
           <Button
             icon={PencilSquareIcon}
@@ -205,7 +204,6 @@ const SkillTable = ({
               component: (
                 <SkillBrowserDialog
                   context="pool"
-                  showCategory={false}
                   skills={availableSkills}
                   onSave={async (value) => {
                     if (value.skill && value.skillLevel) {

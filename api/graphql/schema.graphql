@@ -319,6 +319,10 @@ type PoolCandidate {
   assessmentResults: [AssessmentResult]
     @hasMany
     @canRoot(ability: "viewAssessmentResults")
+  placedAt: DateTime
+    @rename(attribute: "placed_at")
+    @canRoot(ability: "viewStatus")
+  placedDepartment: Department @belongsTo @canRoot(ability: "viewStatus")
 }
 
 type PoolCandidateWithSkillCount {
@@ -1112,6 +1116,11 @@ input UpdatePoolCandidateStatusInput {
   status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
 }
 
+input PlaceCandidateInput {
+  placementType: PlacementType!
+  departmentId: UUID!
+}
+
 input CreateDepartmentInput {
   departmentNumber: Int!
     @rename(attribute: "department_number")
@@ -1624,6 +1633,7 @@ type Mutation {
     @guard
     @canFind(ability: "restore", find: "id")
 
+  # poolCandidate mutations
   createPoolCandidateAsAdmin(
     poolCandidate: CreatePoolCandidateAsAdminInput! @spread
   ): PoolCandidate
@@ -1655,6 +1665,18 @@ type Mutation {
     @delete
     @guard
     @canFind(ability: "delete", find: "id")
+  placeCandidate(
+    id: UUID!
+    placeCandidate: PlaceCandidateInput! @spread
+  ): PoolCandidate
+    @guard
+    @canFind(ability: "updateStatus", find: "id", injectArgs: true)
+    @validator(class: "App\\GraphQL\\Validators\\PlaceCandidateValidator")
+  revertPlaceCandidate(id: UUID!): PoolCandidate
+    @guard
+    @canFind(ability: "updateStatus", find: "id", injectArgs: true)
+    @validator(class: "App\\GraphQL\\Validators\\RevertPlaceCandidateValidator")
+
   createClassification(
     classification: CreateClassificationInput! @spread
   ): Classification @create @guard @canModel(ability: "create")

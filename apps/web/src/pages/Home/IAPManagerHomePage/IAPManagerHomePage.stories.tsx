@@ -1,5 +1,5 @@
 import React from "react";
-import type { Meta, Story } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 
 import {
   CHROMATIC_VIEWPORTS,
@@ -19,7 +19,7 @@ export default {
   },
 } as Meta;
 
-const Template: Story = () => <IAPManagerHomePage />;
+const Template: StoryFn = () => <IAPManagerHomePage />;
 
 export const Default = Template.bind({});
 Default.parameters = {

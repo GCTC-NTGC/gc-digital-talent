@@ -1,7 +1,9 @@
 import React from "react";
 import { defineMessage, useIntl } from "react-intl";
+import BoltOutlineIcon from "@heroicons/react/24/outline/BoltIcon";
+import BoltSolidIcon from "@heroicons/react/24/solid/BoltIcon";
 
-import { Alert, Heading, Link, Well } from "@gc-digital-talent/ui";
+import { Alert, Heading, IconType, Link, Well } from "@gc-digital-talent/ui";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -13,12 +15,20 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import SkillTableApi from "./components/SkillTable";
 
+export const pageSolidIcon: IconType = BoltSolidIcon;
+export const pageOutlineIcon: IconType = BoltOutlineIcon;
+
 const suggestionLink = (chunks: React.ReactNode, href: string) => (
   <Link href={href} state={{ referrer: window.location.href }}>
     {chunks}
   </Link>
 );
 
+export const adminPageTitle = defineMessage({
+  defaultMessage: "Skills list",
+  id: "J6atIv",
+  description: "Link text for explore skills page",
+});
 const pageTitle = defineMessage(adminMessages.skills);
 const pageSubtitle = defineMessage({
   defaultMessage: "Explore all the skills on our site.",
@@ -72,11 +82,13 @@ export const SkillPage = () => {
         <SkillTableApi
           title={formattedPageTitle}
           paginationState={{ ...INITIAL_STATE.paginationState, pageSize: 20 }}
+          csvDownload
         />
         <Well id="cant-find-a-skill" data-h2-margin-top="base(x3)">
           <Heading
             level="h2"
             size="h6"
+            id="cant-find-a-skill"
             data-h2-font-weight="base(bold)"
             data-h2-margin-top="base(0)"
             data-h2-margin-bottom="base(x1)"

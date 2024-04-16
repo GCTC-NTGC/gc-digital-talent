@@ -19,7 +19,7 @@
     "@gc-digital-talent/eslint-config": "*",
     "@gc-digital-talent/graphql": "*",
     "@playwright/test": "^1.42.1",
-    "@types/node": "^20.12.4",
+    "@types/node": "^20.12.7",
     "axe-core": "^4.8.4",
     "codecov": "^3.8.3",
     "dotenv": "^16.4.5",

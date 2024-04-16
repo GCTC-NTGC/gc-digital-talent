@@ -9,7 +9,7 @@ import { BasicForm } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { graphql } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import profileMessages from "~/messages/profileMessages";
 import {
@@ -23,30 +23,19 @@ import FormActions from "../FormActions";
 import useSectionInfo from "../../hooks/useSectionInfo";
 import { dataToFormValues, formValuesToSubmitData } from "./utils";
 import { FormValues } from "./types";
-import FormFields from "./FormFields";
+import FormFields, {
+  GovernmentInfoClassification_Fragment,
+} from "./FormFields";
 import NullDisplay from "./NullDisplay";
 import Display from "./Display";
 
 const GovernmentInformationFormData_Query = graphql(/* GraphQL */ `
   query GetProfileFormOptions {
     departments {
-      id
-      departmentNumber
-      name {
-        en
-        fr
-      }
+      ...GovernmentInfoDepartment
     }
     classifications {
-      id
-      name {
-        en
-        fr
-      }
-      group
-      level
-      minSalary
-      maxSalary
+      ...GovernmentInfoClassification
     }
   }
 `);
@@ -68,13 +57,15 @@ const GovernmentInformation = ({
   });
 
   const [{ data }] = useQuery({ query: GovernmentInformationFormData_Query });
-  const classifications = unpackMaybes(data?.classifications);
-  const departments = unpackMaybes(data?.departments);
+  const classifications = getFragment(
+    GovernmentInfoClassification_Fragment,
+    unpackMaybes(data?.classifications),
+  );
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     return onUpdate(
       user.id,
-      formValuesToSubmitData(formValues, classifications),
+      formValuesToSubmitData(formValues, [...classifications]),
     )
       .then((response) => {
         if (response) {
@@ -150,8 +141,8 @@ const GovernmentInformation = ({
           >
             <FormFields
               labels={labels}
-              departments={departments}
-              classifications={classifications}
+              departmentsQuery={unpackMaybes(data?.departments)}
+              classificationsQuery={unpackMaybes(data?.classifications)}
             />
             <FormActions isUpdating={isUpdating} />
           </BasicForm>

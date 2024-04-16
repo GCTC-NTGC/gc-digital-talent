@@ -1,5 +1,5 @@
 import React from "react";
-import { Story, Meta } from "@storybook/react";
+import { StoryFn, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
 import CheckButton from "./CheckButton";
@@ -14,7 +14,7 @@ export default {
 
 const themes = ["light", "dark"];
 
-const Template: Story<{ label: string }> = (args) => {
+const Template: StoryFn<{ label: string }> = (args) => {
   const [isChecked, setChecked] = React.useState<boolean>(false);
   const { label } = args;
 

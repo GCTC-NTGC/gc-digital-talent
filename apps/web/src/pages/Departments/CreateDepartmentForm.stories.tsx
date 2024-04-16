@@ -1,5 +1,5 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
 import { fakeDepartments } from "@gc-digital-talent/fake-data";
@@ -11,9 +11,9 @@ const mockDepartments = fakeDepartments();
 export default {
   component: CreateDepartmentForm,
   title: "Forms/Create Department Form",
-} as ComponentMeta<typeof CreateDepartmentForm>;
+} as Meta<typeof CreateDepartmentForm>;
 
-const Template: ComponentStory<typeof CreateDepartmentForm> = () => (
+const Template: StoryFn<typeof CreateDepartmentForm> = () => (
   <CreateDepartmentForm
     handleCreateDepartment={async (data) => {
       return new Promise((resolve) => {

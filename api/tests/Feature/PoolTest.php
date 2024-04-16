@@ -777,9 +777,6 @@ class PoolTest extends TestCase
 
     public function testAssessmentStepValidation(): void
     {
-        if (! config('feature.record_of_decision')) {
-            $this->markTestSkipped('record_of_decision is off');
-        }
 
         Classification::factory()->create();
         Skill::factory()->count(5)->create([
@@ -832,9 +829,6 @@ class PoolTest extends TestCase
 
     public function testPoolSkillValidation(): void
     {
-        if (! config('feature.record_of_decision')) {
-            $this->markTestSkipped('record_of_decision is off');
-        }
 
         Classification::factory()->create();
         Skill::factory()->create([

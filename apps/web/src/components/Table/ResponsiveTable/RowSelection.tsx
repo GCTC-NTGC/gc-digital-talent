@@ -138,6 +138,8 @@ const actionButtonStyles: Pick<ButtonProps, "mode" | "color" | "fontSize"> = {
 };
 
 interface ActionsProps {
+  /** Indicates whether the table actually have selection enabled */
+  rowSelect: boolean;
   /** Indicates that the selection is loading (server side) */
   isLoading?: boolean;
   /** Number of rows that are currently selected */
@@ -157,6 +159,7 @@ interface ActionsProps {
  * @returns JSX.Element
  */
 const Actions = ({
+  rowSelect,
   isLoading,
   count,
   onClear,
@@ -178,121 +181,124 @@ const Actions = ({
       data-h2-justify-content="base(space-between)"
       data-h2-left="base(0)"
     >
-      <Column>
-        {isLoading ? (
-          <Loading
-            inline
-            data-h2-margin="base(0)"
-            data-h2-location="base(auto, auto, auto, auto)"
-          />
-        ) : (
-          <Section
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column) l-tablet(row)"
-            data-h2-align-items="base(center)"
-            data-h2-justify-content="base(space-between)"
-            data-h2-gap="base(x.5 0) l-tablet(0 x.5)"
-            data-h2-font-size="base(caption)"
-          >
-            <Section>
-              <CheckCircleIcon
-                data-h2-width="base(1em)"
-                data-h2-height="base(1em)"
-              />
-              <span>
-                {intl.formatMessage(
-                  {
-                    defaultMessage:
-                      "{count, plural, =0 {0 items selected} =1 {1 item selected} other {# items selected}}",
-                    id: "450itb",
-                    description:
-                      "Message displayed for the number of rows selected in a table",
-                  },
-                  {
-                    count,
-                  },
-                )}
-              </span>
-            </Section>
-            <span data-h2-display="base(none) l-tablet(block)">
-              <Bullet data-h2-display="base(none) l-tablet(block)" />
-            </span>
-            <span
-              data-h2-position="base(relative)"
+      {rowSelect && (
+        <Column>
+          {isLoading ? (
+            <Loading
+              inline
+              data-h2-margin="base(0)"
+              data-h2-location="base(auto, auto, auto, auto)"
+            />
+          ) : (
+            <Section
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column) l-tablet(row)"
               data-h2-align-items="base(center)"
+              data-h2-justify-content="base(space-between)"
+              data-h2-gap="base(x.5 0) l-tablet(0 x.5)"
+              data-h2-font-size="base(caption)"
             >
-              <Button
-                data-h2-font-weight="base(400)"
-                data-h2-position="base(relative)"
-                data-h2-display="base(flex)"
-                data-h2-align-items="base(center)"
-                onClick={onClear}
-                color="whiteFixed"
-                fontSize="caption"
-                mode="inline"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Clear<hidden> row selection</hidden>",
-                  id: "VHG9Gm",
-                  description: "Button text to deselect all table rows",
-                })}
-              </Button>
-            </span>
-
-            {download?.selection && (
-              <span
-                data-h2-align-items="base(center)"
-                data-h2-display="base(flex)"
-                data-h2-gap="base(0 x.25) l-tablet(0 x.5)"
-              >
-                <span data-h2-display="base(none) l-tablet(block)">
-                  <Bullet data-h2-display="base(none) l-tablet(block)" />
-                </span>
-                <DownloadCsv
-                  data-h2-font-weight="base(400)"
-                  disabled={download.disableBtn}
-                  {...(download.fetching && {
-                    icon: SpinnerIcon,
-                  })}
-                  {...download.selection.csv}
-                  {...actionButtonStyles}
-                >
-                  {download.selection.label ||
-                    intl.formatMessage({
-                      defaultMessage: "Download CSV",
-                      id: "mxOuYK",
+              <Section>
+                <CheckCircleIcon
+                  data-h2-width="base(1em)"
+                  data-h2-height="base(1em)"
+                />
+                <span>
+                  {intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "{count, plural, =0 {0 items selected} =1 {1 item selected} other {# items selected}}",
+                      id: "450itb",
                       description:
-                        "Text label for button to download a csv file of items in a table.",
-                    })}
-                </DownloadCsv>
-              </span>
-            )}
-
-            {(print?.onPrint || print?.component) && (
-              <span
-                data-h2-align-items="base(center)"
-                data-h2-display="base(flex)"
-                data-h2-gap="base(0 x.5)"
-              >
-                <span data-h2-display="base(none) l-tablet(block)">
-                  <Bullet data-h2-display="base(none) l-tablet(block)" />
+                        "Message displayed for the number of rows selected in a table",
+                    },
+                    {
+                      count,
+                    },
+                  )}
                 </span>
-                {print.component ?? (
-                  <Button onClick={print.onPrint} {...actionButtonStyles}>
-                    {print.label ||
-                      intl.formatMessage({
-                        defaultMessage: "Print selection",
-                        id: "KrrW7D",
-                        description:
-                          "Text label for button to print items in a table.",
-                      })}
-                  </Button>
-                )}
+              </Section>
+              <span data-h2-display="base(none) l-tablet(block)">
+                <Bullet data-h2-display="base(none) l-tablet(block)" />
               </span>
-            )}
-          </Section>
-        )}
-      </Column>
+              <span
+                data-h2-position="base(relative)"
+                data-h2-align-items="base(center)"
+              >
+                <Button
+                  data-h2-font-weight="base(400)"
+                  data-h2-position="base(relative)"
+                  data-h2-display="base(flex)"
+                  data-h2-align-items="base(center)"
+                  onClick={onClear}
+                  color="whiteFixed"
+                  fontSize="caption"
+                  mode="inline"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Clear<hidden> row selection</hidden>",
+                    id: "VHG9Gm",
+                    description: "Button text to deselect all table rows",
+                  })}
+                </Button>
+              </span>
+
+              {download?.selection && (
+                <span
+                  data-h2-align-items="base(center)"
+                  data-h2-display="base(flex)"
+                  data-h2-gap="base(0 x.25) l-tablet(0 x.5)"
+                >
+                  <span data-h2-display="base(none) l-tablet(block)">
+                    <Bullet data-h2-display="base(none) l-tablet(block)" />
+                  </span>
+                  <DownloadCsv
+                    data-h2-font-weight="base(400)"
+                    disabled={download.disableBtn}
+                    {...(download.fetching && {
+                      icon: SpinnerIcon,
+                    })}
+                    {...download.selection.csv}
+                    {...actionButtonStyles}
+                  >
+                    {download.selection.label ||
+                      intl.formatMessage({
+                        defaultMessage: "Download CSV",
+                        id: "mxOuYK",
+                        description:
+                          "Text label for button to download a csv file of items in a table.",
+                      })}
+                  </DownloadCsv>
+                </span>
+              )}
+
+              {(print?.onPrint || print?.component) && (
+                <span
+                  data-h2-align-items="base(center)"
+                  data-h2-display="base(flex)"
+                  data-h2-gap="base(0 x.5)"
+                >
+                  <span data-h2-display="base(none) l-tablet(block)">
+                    <Bullet data-h2-display="base(none) l-tablet(block)" />
+                  </span>
+                  {print.component ?? (
+                    <Button onClick={print.onPrint} {...actionButtonStyles}>
+                      {print.label ||
+                        intl.formatMessage({
+                          defaultMessage: "Print selection",
+                          id: "KrrW7D",
+                          description:
+                            "Text label for button to print items in a table.",
+                        })}
+                    </Button>
+                  )}
+                </span>
+              )}
+            </Section>
+          )}
+        </Column>
+      )}
+
       {download?.all && (
         <Column>
           {!isLoading && (

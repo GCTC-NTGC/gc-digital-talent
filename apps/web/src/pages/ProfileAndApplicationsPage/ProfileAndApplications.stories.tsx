@@ -1,5 +1,5 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 
 import { fakePoolCandidates, fakeUsers } from "@gc-digital-talent/fake-data";
 import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
@@ -30,9 +30,9 @@ mockApplications[0].status = PoolCandidateStatus.Draft;
 export default {
   component: ProfileAndApplications,
   title: "Pages/Profile and Applications",
-} as ComponentMeta<typeof ProfileAndApplications>;
+} as Meta<typeof ProfileAndApplications>;
 
-const Template: ComponentStory<typeof ProfileAndApplications> = (args) => (
+const Template: StoryFn<typeof ProfileAndApplications> = (args) => (
   <ProfileAndApplications {...args} />
 );
 

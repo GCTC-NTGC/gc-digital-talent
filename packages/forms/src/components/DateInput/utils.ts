@@ -1,4 +1,4 @@
-import format from "date-fns/format";
+import { format } from "date-fns/format";
 import { IntlShape } from "react-intl";
 
 import { dateMessages } from "@gc-digital-talent/i18n";
