@@ -63,12 +63,6 @@ jobs:
           node-version-file: ".nvmrc"
           cache: pnpm
 
-      - name: Set up Cypress binary cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-cypress-${{ hashFiles('pnpm-lock.yaml') }}
-
       - name: "Install dependencies: workspace"
         working-directory: ./
         run: pnpm install
@@ -76,6 +70,7 @@ jobs:
       - name: "Run Cypress tests: all"
         uses: cypress-io/github-action@v6.6.1
         with:
+          install: true
           spec: "**/*.cy.ts"
           browser: electron
           config-file: cypress.config.ts
