@@ -19,7 +19,14 @@ export async function graphqlRequest(
   variables?: Record<string, unknown>,
   storageState?: string,
 ) {
-  const browser = await chromium.launch();
+  const browser = await chromium.launch({
+    // Enable code coverage
+    args: [
+      "--remote-debugging-port=9222",
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+    ],
+  });
   const apiContext = await browser.newContext({
     storageState: storageState ?? auth.STATE.ADMIN,
   });
