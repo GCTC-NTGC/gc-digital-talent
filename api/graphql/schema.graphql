@@ -319,6 +319,9 @@ type PoolCandidate {
   assessmentResults: [AssessmentResult]
     @hasMany
     @canRoot(ability: "viewAssessmentResults")
+  finalDecisionAt: DateTime
+    @rename(attribute: "final_decision_at")
+    @canRoot(ability: "viewStatus")
   placedAt: DateTime
     @rename(attribute: "placed_at")
     @canRoot(ability: "viewStatus")
@@ -1665,6 +1668,21 @@ type Mutation {
     @delete
     @guard
     @canFind(ability: "delete", find: "id")
+  qualifyCandidate(id: UUID!, expiryDate: Date!): PoolCandidate
+    @guard
+    @canFind(ability: "updateStatus", find: "id", injectArgs: true)
+    @validator(class: "App\\GraphQL\\Validators\\QualifyCandidateValidator")
+  disqualifyCandidate(
+    id: UUID!
+    reason: DisqualificationReason!
+  ): PoolCandidate
+    @guard
+    @canFind(ability: "updateStatus", find: "id", injectArgs: true)
+    @validator(class: "App\\GraphQL\\Validators\\DisqualifyCandidateValidator")
+  revertFinalDecision(id: UUID!): PoolCandidate
+    @guard
+    @canFind(ability: "updateStatus", find: "id", injectArgs: true)
+    @validator(class: "App\\GraphQL\\Validators\\RevertFinalDecisionValidator")
   placeCandidate(
     id: UUID!
     placeCandidate: PlaceCandidateInput! @spread

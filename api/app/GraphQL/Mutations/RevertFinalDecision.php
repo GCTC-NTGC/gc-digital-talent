@@ -5,10 +5,10 @@ namespace App\GraphQL\Mutations;
 use App\Enums\PoolCandidateStatus;
 use App\Models\PoolCandidate;
 
-final class RevertPlaceCandidate
+final class RevertFinalDecision
 {
     /**
-     * Revert the placing operation for a candidate
+     * Reverting the qualify or disqualify candidate operations
      *
      * @param  array{}  $args
      */
@@ -16,9 +16,9 @@ final class RevertPlaceCandidate
     {
         $candidate = PoolCandidate::findOrFail($args['id']);
 
-        $candidate->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
-        $candidate->placed_at = null;
-        $candidate->placed_department_id = null;
+        $candidate->pool_candidate_status = PoolCandidateStatus::UNDER_ASSESSMENT->name;
+        $candidate->expiry_date = null;
+        $candidate->final_decision_at = null;
         $candidate->save();
 
         return $candidate;

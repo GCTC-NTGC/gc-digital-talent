@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Validators;
 
-use App\Enums\PlacementType;
+use App\Enums\PoolCandidateStatus;
 use App\Models\PoolCandidate;
 use Database\Helpers\ApiErrorEnums;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 use Nuwave\Lighthouse\Validation\Validator;
 
-final class RevertPlaceCandidateValidator extends Validator
+final class DisqualifyCandidateValidator extends Validator
 {
     /**
      * Return the validation rules.
@@ -21,10 +21,15 @@ final class RevertPlaceCandidateValidator extends Validator
     {
         $id = $this->arg('id');
         $candidate = PoolCandidate::findOrFail($id);
-        $placedStatuses = array_column(PlacementType::cases(), 'name');
+        $statusesArray = [
+            PoolCandidateStatus::NEW_APPLICATION->name,
+            PoolCandidateStatus::APPLICATION_REVIEW->name,
+            PoolCandidateStatus::SCREENED_IN->name,
+            PoolCandidateStatus::UNDER_ASSESSMENT->name,
+        ];
 
-        if (! (in_array($candidate->pool_candidate_status, $placedStatuses))) {
-            throw ValidationException::withMessages([ApiErrorEnums::CANDIDATE_NOT_PLACED]);
+        if (! (in_array($candidate->pool_candidate_status, $statusesArray))) {
+            throw ValidationException::withMessages([ApiErrorEnums::INVALID_STATUS_DISQUALIFICATION]);
         }
 
         return [];

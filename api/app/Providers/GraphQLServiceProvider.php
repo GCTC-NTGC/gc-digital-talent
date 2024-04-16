@@ -35,6 +35,7 @@ use App\Enums\DirectiveForms\PersonnelWorkLocation;
 use App\Enums\DirectiveForms\PositionEmploymentType;
 use App\Enums\DirectiveForms\YesNo;
 use App\Enums\DirectiveForms\YesNoUnsure;
+use App\Enums\DisqualificationReason;
 use App\Enums\EducationRequirementOption;
 use App\Enums\EducationStatus;
 use App\Enums\EducationType;
@@ -184,6 +185,15 @@ class GraphQLServiceProvider extends ServiceProvider
                 return new EnumType([
                     'name' => 'PoolStatus',
                     'values' => array_column(PoolStatus::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'DisqualificationReason',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'DisqualificationReason',
+                    'values' => array_column(DisqualificationReason::cases(), 'name'),
                 ]);
             }
         );

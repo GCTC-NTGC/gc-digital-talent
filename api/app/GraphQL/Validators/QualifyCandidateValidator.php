@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Validators;
 
-use App\Enums\PlacementType;
 use App\Enums\PoolCandidateStatus;
 use App\Models\PoolCandidate;
+use Carbon\Carbon;
 use Database\Helpers\ApiErrorEnums;
-use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 use Nuwave\Lighthouse\Validation\Validator;
 
-final class PlaceCandidateValidator extends Validator
+final class QualifyCandidateValidator extends Validator
 {
     /**
      * Return the validation rules.
@@ -23,22 +22,29 @@ final class PlaceCandidateValidator extends Validator
     {
         $id = $this->arg('id');
         $candidate = PoolCandidate::findOrFail($id);
-        $placedStatuses = array_column(PlacementType::cases(), 'name');
-        $statusesArray = [...$placedStatuses, PoolCandidateStatus::QUALIFIED_AVAILABLE->name];
+        $endOfDay = Carbon::now()->endOfDay();
+
+        $statusesArray = [
+            PoolCandidateStatus::NEW_APPLICATION->name,
+            PoolCandidateStatus::APPLICATION_REVIEW->name,
+            PoolCandidateStatus::SCREENED_IN->name,
+            PoolCandidateStatus::UNDER_ASSESSMENT->name,
+        ];
 
         if (! (in_array($candidate->pool_candidate_status, $statusesArray))) {
-            throw ValidationException::withMessages([ApiErrorEnums::INVALID_STATUS_PLACING]);
+            throw ValidationException::withMessages([ApiErrorEnums::INVALID_STATUS_QUALIFICATION]);
         }
 
         return [
-            'placeCandidate.departmentId' => ['uuid', 'required', Rule::exists('departments', 'id')],
+            'expiryDate' => ['required', 'after:'.$endOfDay],
         ];
     }
 
     public function messages(): array
     {
         return [
-            'exists' => ':attribute does not exist.',
+            'expiryDate.required' => ApiErrorEnums::EXPIRY_DATE_REQUIRED,
+            'expiryDate.after' => ApiErrorEnums::EXPIRY_DATE_AFTER_TODAY,
         ];
     }
 }

@@ -44,6 +44,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property bool $is_bookmarked
  * @property Illuminate\Support\Carbon $placed_at
  * @property string $placed_department_id
+ * @property Illuminate\Support\Carbon $final_decision_at
  */
 class PoolCandidate extends Model
 {
@@ -67,6 +68,7 @@ class PoolCandidate extends Model
         'submitted_steps' => 'array',
         'is_bookmarked' => 'boolean',
         'placed_at' => 'datetime',
+        'final_decision_at' => 'datetime',
     ];
 
     /**

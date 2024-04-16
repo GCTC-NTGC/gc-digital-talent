@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\DisqualificationReason;
 use App\Enums\EducationRequirementOption;
 use App\Enums\PlacementType;
 use App\Enums\PoolCandidateStatus;
@@ -51,6 +52,12 @@ class PoolCandidateUpdateTest extends TestCase
     protected $placeCandidateMutation;
 
     protected $revertPlaceCandidateMutation;
+
+    protected $qualifyCandidateMutation;
+
+    protected $disqualifyCandidateMutation;
+
+    protected $revertFinalDecisionMutation;
 
     protected function setUp(): void
     {
@@ -141,6 +148,44 @@ class PoolCandidateUpdateTest extends TestCase
                 }
             }
         }
+    ';
+
+        $this->qualifyCandidateMutation =
+        /** @lang GraphQL */
+        '
+        mutation qualifyCandidate($id: UUID!, $expiryDate: Date!) {
+            qualifyCandidate(id: $id, expiryDate: $expiryDate) {
+              id
+              status
+              expiryDate
+              finalDecisionAt
+            }
+          }
+    ';
+
+        $this->disqualifyCandidateMutation =
+        /** @lang GraphQL */
+        '
+        mutation disqualifyCandidate($id: UUID!, $reason: DisqualificationReason!) {
+            disqualifyCandidate(id: $id, reason: $reason) {
+              id
+              status
+              finalDecisionAt
+            }
+          }
+    ';
+
+        $this->revertFinalDecisionMutation =
+        /** @lang GraphQL */
+        '
+        mutation revertFinalDecision($id: UUID!) {
+            revertFinalDecision(id: $id) {
+              id
+              status
+              expiryDate
+              finalDecisionAt
+            }
+          }
     ';
     }
 
@@ -316,6 +361,40 @@ class PoolCandidateUpdateTest extends TestCase
                 ]
             )
             ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
+        $this->poolCandidate->save();
+
+        $this->actingAs($this->candidateUser, 'api')
+            ->graphQL(
+                $this->qualifyCandidateMutation,
+                [
+                    'id' => $this->poolCandidate->id,
+                    'expiryDate' => config('constants.far_future_date'),
+                ]
+            )
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+        $this->actingAs($this->candidateUser, 'api')
+            ->graphQL(
+                $this->disqualifyCandidateMutation,
+                [
+                    'id' => $this->poolCandidate->id,
+                    'reason' => DisqualificationReason::SCREENED_OUT_APPLICATION->name,
+                ]
+            )
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
+        $this->poolCandidate->save();
+
+        $this->actingAs($this->candidateUser, 'api')
+            ->graphQL(
+                $this->revertFinalDecisionMutation,
+                [
+                    'id' => $this->poolCandidate->id,
+                ]
+            )
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
     public function testPlaceCandidateMutation(): void
@@ -393,5 +472,132 @@ class PoolCandidateUpdateTest extends TestCase
         assertSame($response['status'], PoolCandidateStatus::QUALIFIED_AVAILABLE->name);
         assertNull($response['placedAt']);
         assertNull($response['placedDepartment']);
+    }
+
+    public function testQualifyCandidateMutation(): void
+    {
+        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
+        $this->poolCandidate->expiry_date = null;
+        $this->poolCandidate->final_decision_at = null;
+        $this->poolCandidate->save();
+
+        // cannot qualify candidate due to status
+        $this->actingAs($this->poolOperatorUser, 'api')
+            ->graphQL(
+                $this->qualifyCandidateMutation,
+                [
+                    'id' => $this->poolCandidate->id,
+                    'expiryDate' => config('constants.far_future_date'),
+                ]
+            )
+            ->assertGraphQLErrorMessage('InvalidStatusForQualification');
+
+        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
+        $this->poolCandidate->save();
+
+        // cannot qualify candidate due to expiry date validation
+        $this->actingAs($this->poolOperatorUser, 'api')
+            ->graphQL(
+                $this->qualifyCandidateMutation,
+                [
+                    'id' => $this->poolCandidate->id,
+                    'expiryDate' => config('constants.past_date'),
+                ]
+            )
+            ->assertGraphQLErrorMessage('Validation failed for the field [qualifyCandidate].');
+
+        // candidate was qualified successfully
+        $response = $this->actingAs($this->poolOperatorUser, 'api')
+            ->graphQL(
+                $this->qualifyCandidateMutation,
+                [
+                    'id' => $this->poolCandidate->id,
+                    'expiryDate' => config('constants.far_future_date'),
+                ]
+            )->json('data.qualifyCandidate');
+
+        assertSame($response['status'], PoolCandidateStatus::QUALIFIED_AVAILABLE->name);
+        assertSame($response['expiryDate'], config('constants.far_future_date'));
+        assertNotNull($response['finalDecisionAt']);
+    }
+
+    public function testDisqualifyCandidateMutation(): void
+    {
+        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
+        $this->poolCandidate->expiry_date = null;
+        $this->poolCandidate->final_decision_at = null;
+        $this->poolCandidate->save();
+
+        // cannot disqualify candidate due to status
+        $this->actingAs($this->poolOperatorUser, 'api')
+            ->graphQL(
+                $this->disqualifyCandidateMutation,
+                [
+                    'id' => $this->poolCandidate->id,
+                    'reason' => DisqualificationReason::SCREENED_OUT_APPLICATION->name,
+                ]
+            )
+            ->assertGraphQLErrorMessage('InvalidStatusForDisqualification');
+
+        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
+        $this->poolCandidate->save();
+
+        // candidate was disqualified successfully
+        $response = $this->actingAs($this->poolOperatorUser, 'api')
+            ->graphQL(
+                $this->disqualifyCandidateMutation,
+                [
+                    'id' => $this->poolCandidate->id,
+                    'reason' => DisqualificationReason::SCREENED_OUT_APPLICATION->name,
+                ]
+            )->json('data.disqualifyCandidate');
+
+        assertSame($response['status'], PoolCandidateStatus::SCREENED_OUT_APPLICATION->name);
+        assertNotNull($response['finalDecisionAt']);
+    }
+
+    public function testRevertFinalDecisionMutation(): void
+    {
+        $this->poolCandidate->pool_candidate_status = PoolCandidateStatus::UNDER_ASSESSMENT->name;
+        $this->poolCandidate->expiry_date = null;
+        $this->poolCandidate->final_decision_at = null;
+        $this->poolCandidate->save();
+
+        // candidate was qualified successfully
+        $response = $this->actingAs($this->poolOperatorUser, 'api')
+            ->graphQL(
+                $this->qualifyCandidateMutation,
+                [
+                    'id' => $this->poolCandidate->id,
+                    'expiryDate' => config('constants.far_future_date'),
+                ]
+            )->json('data.qualifyCandidate');
+
+        assertSame($response['status'], PoolCandidateStatus::QUALIFIED_AVAILABLE->name);
+        assertSame($response['expiryDate'], config('constants.far_future_date'));
+        assertNotNull($response['finalDecisionAt']);
+
+        // candidate reverted successfully
+        $response = $this->actingAs($this->poolOperatorUser, 'api')
+            ->graphQL(
+                $this->revertFinalDecisionMutation,
+                [
+                    'id' => $this->poolCandidate->id,
+                ]
+            )->json('data.revertFinalDecision');
+
+        assertSame($response['status'], PoolCandidateStatus::UNDER_ASSESSMENT->name);
+        assertNull($response['expiryDate']);
+        assertNull($response['finalDecisionAt']);
+
+        // cannot revert again due to status changes
+        $this->actingAs($this->poolOperatorUser, 'api')
+            ->graphQL(
+                $this->revertFinalDecisionMutation,
+                [
+                    'id' => $this->poolCandidate->id,
+                ]
+            )
+            ->assertGraphQLErrorMessage('InvalidStatusForRevertFinalDecision');
     }
 }
