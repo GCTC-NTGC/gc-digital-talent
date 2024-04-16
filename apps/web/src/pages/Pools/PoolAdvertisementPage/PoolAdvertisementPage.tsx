@@ -758,8 +758,8 @@ export const PoolPoster = ({
               <Text>
                 {intl.formatMessage({
                   defaultMessage:
-                    'In order to apply for this job you will need to be able to demonstrate that you have <strong>all the skills</strong> marked <heavyPrimary>"Required"</heavyPrimary>. If you have any of the <heavySecondary>"Optional"</heavySecondary> skills you are encouraged to include them because it will increase your chances of a job placement.',
-                  id: "eihm6A",
+                    "In order to apply for this job you will need to be able to demonstrate that you have <strong>all the skills</strong> marked <heavyPrimary>Required</heavyPrimary>. If you have any of the <heavySecondary>Optional</heavySecondary> skills you are encouraged to include them because it will increase your chances of a job placement.",
+                  id: "3HIQl/",
                   description:
                     "Descriptive text about how skills are defined and used for pool advertisements and applications",
                 })}
