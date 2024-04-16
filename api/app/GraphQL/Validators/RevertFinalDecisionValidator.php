@@ -20,7 +20,7 @@ final class RevertFinalDecisionValidator extends Validator
     public function rules(): array
     {
         $id = $this->arg('id');
-        $candidate = PoolCandidate::find($id);
+        $candidate = PoolCandidate::findOrFail($id);
 
         $statusesArray = [
             PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,

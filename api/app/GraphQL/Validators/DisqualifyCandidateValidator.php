@@ -20,7 +20,7 @@ final class DisqualifyCandidateValidator extends Validator
     public function rules(): array
     {
         $id = $this->arg('id');
-        $candidate = PoolCandidate::find($id);
+        $candidate = PoolCandidate::findOrFail($id);
         $statusesArray = [
             PoolCandidateStatus::NEW_APPLICATION->name,
             PoolCandidateStatus::APPLICATION_REVIEW->name,

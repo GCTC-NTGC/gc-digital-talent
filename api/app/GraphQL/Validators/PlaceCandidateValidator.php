@@ -22,7 +22,7 @@ final class PlaceCandidateValidator extends Validator
     public function rules(): array
     {
         $id = $this->arg('id');
-        $candidate = PoolCandidate::find($id);
+        $candidate = PoolCandidate::findOrFail($id);
         $placedStatuses = array_column(PlacementType::cases(), 'name');
         $statusesArray = [...$placedStatuses, PoolCandidateStatus::QUALIFIED_AVAILABLE->name];
 

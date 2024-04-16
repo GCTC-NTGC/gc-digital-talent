@@ -21,7 +21,7 @@ final class QualifyCandidateValidator extends Validator
     public function rules(): array
     {
         $id = $this->arg('id');
-        $candidate = PoolCandidate::find($id);
+        $candidate = PoolCandidate::findOrFail($id);
         $endOfDay = Carbon::now()->endOfDay();
 
         $statusesArray = [
