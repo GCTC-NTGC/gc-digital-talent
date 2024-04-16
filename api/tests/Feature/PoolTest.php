@@ -891,4 +891,29 @@ class PoolTest extends TestCase
         )
             ->assertJsonFragment(['id' => $completePool->id]);
     }
+
+    // a pool operator can successfully delete a pool that they created but is still in draft
+    public function testCanDeleteDraftPool(): void
+    {
+        $pool = Pool::factory()
+            ->for($this->poolOperator)
+            ->withAssessments()
+            ->draft()
+            ->create([
+                'team_id' => $this->team,
+            ]);
+
+        $this->actingAs($this->poolOperator, 'api')->graphQL(
+            /** @lang GraphQL */
+            '   mutation DeletePool($id: ID!) {
+                    deletePool(id: $id) { id }
+                } ',
+            ['id' => $pool->id]
+        )
+            ->assertExactJson([
+                'data' => [
+                    'deletePool' => ['id' => $pool->id],
+                ],
+            ]);
+    }
 }
