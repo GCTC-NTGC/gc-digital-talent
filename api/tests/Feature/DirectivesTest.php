@@ -9,6 +9,7 @@ use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\MocksResolvers;
 use Nuwave\Lighthouse\Testing\UsesTestSchema;
 use Tests\TestCase;
+use Tests\UsesProtectedGraphqlEndpoint;
 
 use function PHPUnit\Framework\assertNotNull;
 use function PHPUnit\Framework\assertSame;
@@ -18,6 +19,7 @@ class DirectivesTest extends TestCase
     use MakesGraphQLRequests;
     use MocksResolvers;
     use RefreshDatabase;
+    use UsesProtectedGraphqlEndpoint;
     use UsesTestSchema;
 
     protected function setUp(): void
