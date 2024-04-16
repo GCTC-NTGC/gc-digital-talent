@@ -11,6 +11,7 @@ import { toast } from "@gc-digital-talent/toast";
 import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
 
 import applicationMessages from "~/messages/applicationMessages";
+import { isQualifiedStatus } from "~/utils/poolCandidate";
 
 type FormValues = {
   expiryDate: string;
@@ -32,6 +33,7 @@ const CandidateExpiryDateDialog_Fragment = graphql(/* GraphQL */ `
   fragment CandidateExpiryDateDialog on PoolCandidate {
     id
     expiryDate
+    status
   }
 `);
 
@@ -61,7 +63,7 @@ const ChangeExpiryDateDialog = ({
 
   const { handleSubmit } = methods;
 
-  if (!application.expiryDate) {
+  if (!application.expiryDate || !isQualifiedStatus(application.status)) {
     return null;
   }
 
