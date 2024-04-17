@@ -23,7 +23,7 @@
     "eslint-plugin-react": "^7.34.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-testing-library": "^6.2.0",
-    "eslint-plugin-turbo": "^1.12.5",
+    "eslint-plugin-turbo": "^1.13.2",
     "prettier": "^3.2.5"
   }
 }
