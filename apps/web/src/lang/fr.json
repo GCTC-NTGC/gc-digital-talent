@@ -947,10 +947,6 @@
     "defaultMessage": "3. Remplissez vos <strong>questions de récupération</strong>. Vous devez utiliser une <strong>personne</strong> et <strong>une date mémorables</strong>.",
     "description": "Text for third sign up -> create step."
   },
-  "3HIQl/": {
-    "defaultMessage": "Pour postuler à cet emploi, vous devrez être en mesure de démontrer que vous possédez <strong>toutes les compétences</strong> marquées <heavyPrimary>Requises</heavyPrimary>. Si vous possédez l'une des compétences <heavySecondary>Facultatives</heavySecondary> nous vous recommandons de l'inclure, car elle augmentera vos chances de trouver un emploi.",
-    "description": "Descriptive text about how skills are defined and used for pool advertisements and applications"
-  },
   "3HJ51b": {
     "defaultMessage": "Femme",
     "description": "Text on view-user page that the user is a woman"
@@ -7561,6 +7557,10 @@
   "eickbr": {
     "defaultMessage": "Minorité visible",
     "description": "Text on view-user page that the user is part of a visible minority"
+  },
+  "eihm6A": {
+    "defaultMessage": "Pour postuler à cet emploi, vous devrez être en mesure de démontrer que vous possédez <strong>toutes les compétences</strong> marquées <heavyPrimary>« Requises »</heavyPrimary>. Si vous possédez l'une des compétences <heavySecondary>« Facultatives »</heavySecondary> nous vous recommandons de l'inclure, car elle augmentera vos chances de trouver un emploi.",
+    "description": "Descriptive text about how skills are defined and used for pool advertisements and applications"
   },
   "ekDavD": {
     "defaultMessage": "Renseignements sur les accords commerciaux",
