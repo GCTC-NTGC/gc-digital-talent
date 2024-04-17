@@ -14,10 +14,10 @@
     "lint:fix": "eslint ./ --fix --ext .js,.ts,.jsx,.tsx"
   },
   "devDependencies": {
-    "@gc-digital-talent/date-helpers": "*",
-    "@gc-digital-talent/env": "*",
-    "@gc-digital-talent/eslint-config": "*",
-    "@gc-digital-talent/graphql": "*",
+    "@gc-digital-talent/date-helpers": "workspace:*",
+    "@gc-digital-talent/env": "workspace:*",
+    "@gc-digital-talent/eslint-config": "workspace:*",
+    "@gc-digital-talent/graphql": "workspace:*",
     "@playwright/test": "^1.42.1",
     "@types/node": "^20.12.7",
     "axe-core": "^4.8.4",

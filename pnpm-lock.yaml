@@ -8,21 +8,9 @@ importers:
 
   .:
     devDependencies:
-      '@gc-digital-talent/eslint-config':
-        specifier: workspace:*
-        version: link:packages/eslint-config-custom
-      '@graphql-codegen/cli':
-        specifier: 5.0.2
-        version: 5.0.2(@parcel/watcher@2.4.1)(graphql@16.8.1)(typescript@5.4.5)
       '@hydrogen-css/hydrogen':
         specifier: 2.0.5
         version: 2.0.5
-      jest-fail-on-console:
-        specifier: ^3.1.2
-        version: 3.1.2
-      prettier:
-        specifier: ^3.2.5
-        version: 3.2.5
       turbo:
         specifier: ^1.13.2
         version: 1.13.2
@@ -89,16 +77,16 @@ importers:
         version: 4.8.5(playwright-core@1.42.1)
     devDependencies:
       '@gc-digital-talent/date-helpers':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../packages/date-helpers
       '@gc-digital-talent/env':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../packages/env
       '@gc-digital-talent/eslint-config':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../packages/eslint-config-custom
       '@gc-digital-talent/graphql':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../packages/graphql
       '@playwright/test':
         specifier: ^1.42.1
@@ -212,8 +200,8 @@ importers:
         specifier: ^2.15.1
         version: 2.15.1(react-dom@18.2.0)(react@18.2.0)
       urql:
-        specifier: ^4.0.6
-        version: 4.0.6(graphql@16.8.1)(react@18.2.0)
+        specifier: ^4.0.7
+        version: 4.0.7(graphql@16.8.1)(react@18.2.0)
     devDependencies:
       '@babel/core':
         specifier: ^7.24.0
@@ -305,6 +293,9 @@ importers:
       jest-axe:
         specifier: ^8.0.0
         version: 8.0.0
+      jest-fail-on-console:
+        specifier: ^3.2.0
+        version: 3.2.0
       prettier:
         specifier: ^3.2.5
         version: 3.2.5
@@ -382,7 +373,7 @@ importers:
         specifier: workspace:*
         version: link:../ui
       jwt-decode:
-        specifier: 4.0.0
+        specifier: ^4.0.0
         version: 4.0.0
       path-browserify:
         specifier: ^1.0.1
@@ -391,8 +382,8 @@ importers:
         specifier: ^6.22.3
         version: 6.22.3(react-dom@18.2.0)(react@18.2.0)
       urql:
-        specifier: ^4.0.6
-        version: 4.0.6(graphql@16.8.1)(react@18.2.0)
+        specifier: ^4.0.7
+        version: 4.0.7(graphql@16.8.1)(react@18.2.0)
     devDependencies:
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
@@ -434,8 +425,8 @@ importers:
         specifier: workspace:*
         version: link:../toast
       '@urql/core':
-        specifier: 4.2.3
-        version: 4.2.3(graphql@16.8.1)
+        specifier: ^5.0.0
+        version: 5.0.0(graphql@16.8.1)
       '@urql/exchange-auth':
         specifier: ^2.1.6
         version: 2.1.6(graphql@16.8.1)
@@ -443,17 +434,17 @@ importers:
         specifier: ^16.8.1
         version: 16.8.1
       jwt-decode:
-        specifier: 4.0.0
+        specifier: ^4.0.0
         version: 4.0.0
       lodash:
-        specifier: 4.17.21
+        specifier: ^4.17.21
         version: 4.17.21
       react-intl:
         specifier: ^6.6.2
         version: 6.6.2(react@18.2.0)(typescript@5.4.5)
       urql:
-        specifier: ^4.0.6
-        version: 4.0.6(graphql@16.8.1)(react@18.2.0)
+        specifier: ^4.0.7
+        version: 4.0.7(graphql@16.8.1)(react@18.2.0)
     devDependencies:
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
@@ -465,10 +456,10 @@ importers:
         specifier: ^29.5.12
         version: 29.5.12
       '@types/lodash':
-        specifier: 4.17.0
+        specifier: ^4.17.0
         version: 4.17.0
       '@types/node':
-        specifier: 20.12.7
+        specifier: ^20.12.7
         version: 20.12.7
       '@types/react':
         specifier: ^18.2.78
@@ -501,7 +492,7 @@ importers:
         specifier: ^3.6.0
         version: 3.6.0
       date-fns-tz:
-        specifier: ^3.0.0
+        specifier: 3.0.0
         version: 3.0.0(date-fns@3.6.0)
       react-intl:
         specifier: ^6.6.2
@@ -514,7 +505,7 @@ importers:
         specifier: workspace:*
         version: link:../jest-presets
       '@types/jest':
-        specifier: 29.5.12
+        specifier: ^29.5.12
         version: 29.5.12
       eslint:
         specifier: ^8.57.0
@@ -629,7 +620,7 @@ importers:
         specifier: workspace:*
         version: link:../eslint-config-custom
       '@types/lodash':
-        specifier: 4.17.0
+        specifier: ^4.17.0
         version: 4.17.0
       eslint:
         specifier: ^8.57.0
@@ -665,7 +656,7 @@ importers:
         specifier: workspace:*
         version: link:../ui
       '@heroicons/react':
-        specifier: 2.1.3
+        specifier: ^2.1.3
         version: 2.1.3(react@18.2.0)
       '@hookform/error-message':
         specifier: ^2.0.1
@@ -692,7 +683,7 @@ importers:
         specifier: ^11.0.13
         version: 11.0.13(react-dom@18.2.0)(react@18.2.0)
       lodash:
-        specifier: 4.17.21
+        specifier: ^4.17.21
         version: 4.17.21
       react-dom:
         specifier: ^18.2.0
@@ -735,10 +726,10 @@ importers:
         specifier: ^29.5.12
         version: 29.5.12
       '@types/lodash':
-        specifier: 4.17.0
+        specifier: ^4.17.0
         version: 4.17.0
       '@types/node':
-        specifier: 20.12.7
+        specifier: ^20.12.7
         version: 20.12.7
       '@types/react':
         specifier: ^18.2.78
@@ -780,7 +771,7 @@ importers:
         specifier: ^2.4.1
         version: 2.4.1
       graphql:
-        specifier: 16.8.1
+        specifier: ^16.8.1
         version: 16.8.1
       tsconfig:
         specifier: workspace:*
@@ -789,8 +780,8 @@ importers:
         specifier: ^5.4.5
         version: 5.4.5
       urql:
-        specifier: ^4.0.6
-        version: 4.0.6(graphql@16.8.1)(react@18.2.0)
+        specifier: ^4.0.7
+        version: 4.0.7(graphql@16.8.1)(react@18.2.0)
 
   packages/helpers:
     dependencies:
@@ -804,23 +795,23 @@ importers:
         specifier: ^16.8.1
         version: 16.8.1
       lodash:
-        specifier: 4.17.21
+        specifier: ^4.17.21
         version: 4.17.21
       react:
         specifier: ^18.2.0
         version: 18.2.0
       urql:
-        specifier: ^4.0.6
-        version: 4.0.6(graphql@16.8.1)(react@18.2.0)
+        specifier: ^4.0.7
+        version: 4.0.7(graphql@16.8.1)(react@18.2.0)
     devDependencies:
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config-custom
       '@types/lodash':
-        specifier: 4.17.0
+        specifier: ^4.17.0
         version: 4.17.0
       '@types/react':
-        specifier: 18.2.78
+        specifier: ^18.2.78
         version: 18.2.78
       eslint:
         specifier: ^8.57.0
@@ -903,7 +894,7 @@ importers:
         specifier: workspace:*
         version: link:../i18n
       jest:
-        specifier: 29.7.0
+        specifier: ^29.7.0
         version: 29.7.0(@types/node@20.12.7)
       react-helmet-async:
         specifier: ^2.0.4
@@ -922,13 +913,13 @@ importers:
         specifier: workspace:*
         version: link:../jest-presets
       '@testing-library/react':
-        specifier: 14.3.0
+        specifier: ^14.3.0
         version: 14.3.0(react-dom@18.2.0)(react@18.2.0)
       '@testing-library/user-event':
         specifier: ^14.5.2
         version: 14.5.2(@testing-library/dom@9.3.4)
       '@types/jest-axe':
-        specifier: 3.5.9
+        specifier: ^3.5.9
         version: 3.5.9
       '@types/react':
         specifier: ^18.2.78
@@ -956,7 +947,7 @@ importers:
         version: 8.0.0
       ts-jest:
         specifier: ^29.1.2
-        version: 29.1.2(@babel/core@7.24.1)(jest@29.7.0)(typescript@5.4.5)
+        version: 29.1.2(@babel/core@7.24.0)(esbuild@0.19.12)(jest@29.7.0)(typescript@5.4.5)
     devDependencies:
       jest-environment-jsdom:
         specifier: ^29.7.0
@@ -1017,8 +1008,8 @@ importers:
         specifier: ^8.0.6
         version: 8.0.6(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.5)
       '@urql/core':
-        specifier: 4.2.3
-        version: 4.2.3(graphql@16.8.1)
+        specifier: ^5.0.0
+        version: 5.0.0(graphql@16.8.1)
       chromatic:
         specifier: ^11.0.8
         version: 11.0.8
@@ -1038,8 +1029,8 @@ importers:
         specifier: ^6.22.3
         version: 6.22.3(react-dom@18.2.0)(react@18.2.0)
       urql:
-        specifier: ^4.0.6
-        version: 4.0.6(graphql@16.8.1)(react@18.2.0)
+        specifier: ^4.0.7
+        version: 4.0.7(graphql@16.8.1)(react@18.2.0)
       wonka:
         specifier: ^6.3.4
         version: 6.3.4
@@ -1048,7 +1039,7 @@ importers:
         specifier: ^3.13.12
         version: 3.13.12(ts-jest@29.1.2)
       '@gc-digital-talent/eslint-config':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../eslint-config-custom
       '@storybook/addon-a11y':
         specifier: ^8.0.6
@@ -1226,7 +1217,7 @@ importers:
         specifier: ^11.0.13
         version: 11.0.13(react-dom@18.2.0)(react@18.2.0)
       lodash:
-        specifier: 4.17.21
+        specifier: ^4.17.21
         version: 4.17.21
       react-csv-downloader:
         specifier: ^3.1.0
@@ -1244,14 +1235,14 @@ importers:
         specifier: ^6.22.3
         version: 6.22.3(react-dom@18.2.0)(react@18.2.0)
       urql:
-        specifier: ^4.0.6
-        version: 4.0.6(graphql@16.8.1)(react@18.2.0)
+        specifier: ^4.0.7
+        version: 4.0.7(graphql@16.8.1)(react@18.2.0)
     devDependencies:
       '@faker-js/faker':
         specifier: ^8.4.1
         version: 8.4.1
       '@gc-digital-talent/eslint-config':
-        specifier: workspace*
+        specifier: workspace:*
         version: link:../eslint-config-custom
       '@gc-digital-talent/jest-presets':
         specifier: workspace:*
@@ -1278,7 +1269,7 @@ importers:
         specifier: ^29.5.12
         version: 29.5.12
       '@types/lodash':
-        specifier: 4.17.0
+        specifier: ^4.17.0
         version: 4.17.0
       '@types/react':
         specifier: ^18.2.78
@@ -1352,8 +1343,8 @@ importers:
 
 packages:
 
-  /@0no-co/graphql.web@1.0.4(graphql@16.8.1):
-    resolution: {integrity: sha512-W3ezhHGfO0MS1PtGloaTpg0PbaT8aZSmmaerL7idtU5F7oCI+uu25k+MsMS31BVFlp4aMkHSrNRxiD72IlK8TA==}
+  /@0no-co/graphql.web@1.0.6(graphql@16.8.1):
+    resolution: {integrity: sha512-KZ7TnwMcQJcFgzjoY623AVxtlDQonkqp3rSz0wb15/jHPyU1v5gynUibEpuutDeoyGJ5Tp+FwxjGyDGDwq3vIw==}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
     peerDependenciesMeta:
@@ -8265,10 +8256,10 @@ packages:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
     dev: true
 
-  /@urql/core@4.2.3(graphql@16.8.1):
-    resolution: {integrity: sha512-DJ9q9+lcs5JL8DcU2J3NqsgeXYJva+1+Qt8HU94kzTPqVOIRRA7ouvy4ksUfPY+B5G2PQ+vLh+JJGyZCNXv0cg==}
+  /@urql/core@5.0.0(graphql@16.8.1):
+    resolution: {integrity: sha512-kFkZxusq/VBQKEUcQFtf7AilMotLO+oGpE4WFhCiminZm8ZU2aulXSDWla50TaD0pj704FnWlXts6lRm0uHdDg==}
     dependencies:
-      '@0no-co/graphql.web': 1.0.4(graphql@16.8.1)
+      '@0no-co/graphql.web': 1.0.6(graphql@16.8.1)
       wonka: 6.3.4
     transitivePeerDependencies:
       - graphql
@@ -8276,7 +8267,7 @@ packages:
   /@urql/exchange-auth@2.1.6(graphql@16.8.1):
     resolution: {integrity: sha512-snOlt7p5kYq0KnPDuXkKe2qW3/BucQZOElvTeo3svLQuk9JiNJVnm6ffQ6QGiGO+G3AtMrctnno1+X44fLtDuQ==}
     dependencies:
-      '@urql/core': 4.2.3(graphql@16.8.1)
+      '@urql/core': 5.0.0(graphql@16.8.1)
       wonka: 6.3.4
     transitivePeerDependencies:
       - graphql
@@ -13141,8 +13132,8 @@ packages:
       jest-mock: 29.7.0
       jest-util: 29.7.0
 
-  /jest-fail-on-console@3.1.2:
-    resolution: {integrity: sha512-Z4TDJn/QvhlGflxyh8JyqRU3ovEvR2OD8rIsZU8zHJxjC9rto9XeLdqH+RPHY65Tc6riSXq1HK93uLMABaRpbg==}
+  /jest-fail-on-console@3.2.0:
+    resolution: {integrity: sha512-GSqvjURdT/U+yu9JEr3EUTEB4kZi9feXMWS/jXGXB/lsnXXHcdU9Xsm2tEupSdqSEtrhTjOCqEJseFMrQ1ryvg==}
     dev: true
 
   /jest-get-type@29.6.3:
@@ -16942,40 +16933,6 @@ packages:
       typescript: 5.4.5
       yargs-parser: 21.1.1
 
-  /ts-jest@29.1.2(@babel/core@7.24.1)(jest@29.7.0)(typescript@5.4.5):
-    resolution: {integrity: sha512-br6GJoH/WUX4pu7FbZXuWGKGNDuU7b8Uj77g/Sp7puZV6EXzuByl6JrECvm0MzVzSTkSHWTihsXt+5XYER5b+g==}
-    engines: {node: ^16.10.0 || ^18.0.0 || >=20.0.0}
-    hasBin: true
-    peerDependencies:
-      '@babel/core': '>=7.0.0-beta.0 <8'
-      '@jest/types': ^29.0.0
-      babel-jest: ^29.0.0
-      esbuild: '*'
-      jest: ^29.0.0
-      typescript: '>=4.3 <6'
-    peerDependenciesMeta:
-      '@babel/core':
-        optional: true
-      '@jest/types':
-        optional: true
-      babel-jest:
-        optional: true
-      esbuild:
-        optional: true
-    dependencies:
-      '@babel/core': 7.24.1
-      bs-logger: 0.2.6
-      fast-json-stable-stringify: 2.1.0
-      jest: 29.7.0(@types/node@20.12.7)
-      jest-util: 29.7.0
-      json5: 2.2.3
-      lodash.memoize: 4.1.2
-      make-error: 1.3.6
-      semver: 7.6.0
-      typescript: 5.4.5
-      yargs-parser: 21.1.1
-    dev: false
-
   /ts-loader@9.5.1(typescript@5.4.5)(webpack@5.90.3):
     resolution: {integrity: sha512-rNH3sK9kGZcH9dYzC7CewQm4NtxJTjSEVRJ2DyBZR7f8/wcta+iV44UPCXc5+nzDzivKtlzV6c9P4e+oFhDLYg==}
     engines: {node: '>=12.0.0'}
@@ -17392,12 +17349,12 @@ packages:
     resolution: {integrity: sha512-Qp95D4TPJl1kC9SKigDcqgyM2VDVO4RiJc2d4qe5GrYm+zbIQCWWKAFaJNQ4BhdFeDGwBmAxqJBwWSJDb9T3BQ==}
     dev: true
 
-  /urql@4.0.6(graphql@16.8.1)(react@18.2.0):
-    resolution: {integrity: sha512-meXJ2puOd64uCGKh7Fse2R7gPa8+ZpBOoA62jN7CPXXUt7SVZSdeXWSpB3HvlfzLUkEqsWbvshwrgeWRYNNGaQ==}
+  /urql@4.0.7(graphql@16.8.1)(react@18.2.0):
+    resolution: {integrity: sha512-wnOONtZoYEobmamM5ushUBGil6UCUPd7SH5uEAqsz5Y/qBV88/2QG6jq7v6xP+413x5Lqy0h0hCGRB0KIeG6Kg==}
     peerDependencies:
       react: '>= 16.8.0'
     dependencies:
-      '@urql/core': 4.2.3(graphql@16.8.1)
+      '@urql/core': 5.0.0(graphql@16.8.1)
       react: 18.2.0
       wonka: 6.3.4
     transitivePeerDependencies:
