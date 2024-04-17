@@ -725,11 +725,7 @@ class PoolCandidateUpdateTest extends TestCase
 
             $this->actingAs($this->requestResponderUser, 'api')
                 ->graphQL($this->removeMutationDocument, $variables)
-                ->assertJson([
-                    'errors' => [[
-                        'message' => $error,
-                    ]],
-                ]);
+                ->assertGraphQLErrorMessage($error);
         }
     }
 
@@ -809,11 +805,7 @@ class PoolCandidateUpdateTest extends TestCase
 
             $this->actingAs($this->requestResponderUser, 'api')
                 ->graphQL($this->reinstateMutationDocument, ['id' => $candidate->id])
-                ->assertJson([
-                    'errors' => [[
-                        'message' => 'CandidateUnexpectedStatus',
-                    ]],
-                ]);
+                ->assertGraphQLErrorMessage('CandidateUnexpectedStatus');
         }
     }
 }
