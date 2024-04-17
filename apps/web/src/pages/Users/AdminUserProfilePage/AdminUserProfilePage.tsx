@@ -3,7 +3,12 @@ import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
-import { User, Scalars, graphql } from "@gc-digital-talent/graphql";
+import {
+  Scalars,
+  graphql,
+  FragmentType,
+  getFragment,
+} from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import UserProfile from "~/components/UserProfile";
@@ -13,11 +18,238 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 
 import SingleUserProfilePrintButton from "./components/SingleUserProfilePrintButton";
 
+const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
+  fragment AdminUserProfileUser on User {
+    id
+    email
+    firstName
+    lastName
+    telephone
+    citizenship
+    armedForcesStatus
+    preferredLang
+    preferredLanguageForInterview
+    preferredLanguageForExam
+    currentProvince
+    currentCity
+    lookingForEnglish
+    lookingForFrench
+    lookingForBilingual
+    firstOfficialLanguage
+    secondLanguageExamCompleted
+    secondLanguageExamValidity
+    comprehensionLevel
+    writtenLevel
+    verbalLevel
+    estimatedLanguageAbility
+    isGovEmployee
+    govEmployeeType
+    hasPriorityEntitlement
+    priorityNumber
+    locationPreferences
+    locationExemptions
+    positionDuration
+    acceptedOperationalRequirements
+    indigenousCommunities
+    indigenousDeclarationSignature
+    hasDisability
+    isVisibleMinority
+    isWoman
+    poolCandidates {
+      id
+      status
+      expiryDate
+      notes
+      suspendedAt
+      user {
+        id
+      }
+      pool {
+        id
+        name {
+          en
+          fr
+        }
+        classification {
+          id
+          group
+          level
+        }
+        stream
+        publishingGroup
+        team {
+          id
+          name
+          displayName {
+            en
+            fr
+          }
+        }
+      }
+    }
+    department {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+    currentClassification {
+      id
+      group
+      level
+      name {
+        en
+        fr
+      }
+    }
+    experiences {
+      id
+      __typename
+      user {
+        id
+        email
+      }
+      details
+      skills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+        keywords {
+          en
+          fr
+        }
+        category
+        experienceSkillRecord {
+          details
+        }
+      }
+      ... on AwardExperience {
+        title
+        issuedBy
+        awardedDate
+        awardedTo
+        awardedScope
+      }
+      ... on CommunityExperience {
+        title
+        organization
+        project
+        startDate
+        endDate
+      }
+      ... on EducationExperience {
+        institution
+        areaOfStudy
+        thesisTitle
+        startDate
+        endDate
+        type
+        status
+      }
+      ... on PersonalExperience {
+        title
+        description
+        startDate
+        endDate
+      }
+      ... on WorkExperience {
+        role
+        organization
+        division
+        startDate
+        endDate
+      }
+    }
+    topTechnicalSkillsRanking {
+      id
+      user {
+        id
+      }
+      skill {
+        id
+        key
+        category
+        name {
+          en
+          fr
+        }
+      }
+      skillLevel
+      topSkillsRank
+      improveSkillsRank
+    }
+    topBehaviouralSkillsRanking {
+      id
+      user {
+        id
+      }
+      skill {
+        id
+        key
+        category
+        name {
+          en
+          fr
+        }
+      }
+      skillLevel
+      topSkillsRank
+      improveSkillsRank
+    }
+    improveTechnicalSkillsRanking {
+      id
+      user {
+        id
+      }
+      skill {
+        id
+        key
+        category
+        name {
+          en
+          fr
+        }
+      }
+      skillLevel
+      topSkillsRank
+      improveSkillsRank
+    }
+    improveBehaviouralSkillsRanking {
+      id
+      user {
+        id
+      }
+      skill {
+        id
+        key
+        category
+        name {
+          en
+          fr
+        }
+      }
+      skillLevel
+      topSkillsRank
+      improveSkillsRank
+    }
+  }
+`);
+
 interface AdminUserProfileProps {
-  user: User;
+  userQuery: FragmentType<typeof AdminUserProfileUser_Fragment>;
 }
 
-export const AdminUserProfile = ({ user }: AdminUserProfileProps) => {
+export const AdminUserProfile = ({ userQuery }: AdminUserProfileProps) => {
+  const user = getFragment(AdminUserProfileUser_Fragment, userQuery);
   return (
     <>
       <div
@@ -54,227 +286,7 @@ export const AdminUserProfile = ({ user }: AdminUserProfileProps) => {
 const AdminUserProfile_Query = graphql(/* GraphQL */ `
   query AdminUserProfile($id: UUID!) {
     user(id: $id, trashed: WITH) {
-      id
-      email
-      firstName
-      lastName
-      telephone
-      citizenship
-      armedForcesStatus
-      preferredLang
-      preferredLanguageForInterview
-      preferredLanguageForExam
-      currentProvince
-      currentCity
-      lookingForEnglish
-      lookingForFrench
-      lookingForBilingual
-      firstOfficialLanguage
-      secondLanguageExamCompleted
-      secondLanguageExamValidity
-      comprehensionLevel
-      writtenLevel
-      verbalLevel
-      estimatedLanguageAbility
-      isGovEmployee
-      govEmployeeType
-      hasPriorityEntitlement
-      priorityNumber
-      locationPreferences
-      locationExemptions
-      positionDuration
-      acceptedOperationalRequirements
-      indigenousCommunities
-      indigenousDeclarationSignature
-      hasDisability
-      isVisibleMinority
-      isWoman
-      poolCandidates {
-        id
-        status
-        expiryDate
-        notes
-        suspendedAt
-        user {
-          id
-        }
-        pool {
-          id
-          name {
-            en
-            fr
-          }
-          classification {
-            id
-            group
-            level
-          }
-          stream
-          publishingGroup
-          team {
-            id
-            name
-            displayName {
-              en
-              fr
-            }
-          }
-        }
-      }
-      department {
-        id
-        departmentNumber
-        name {
-          en
-          fr
-        }
-      }
-      currentClassification {
-        id
-        group
-        level
-        name {
-          en
-          fr
-        }
-      }
-      experiences {
-        id
-        __typename
-        user {
-          id
-          email
-        }
-        details
-        skills {
-          id
-          key
-          name {
-            en
-            fr
-          }
-          description {
-            en
-            fr
-          }
-          keywords {
-            en
-            fr
-          }
-          category
-          experienceSkillRecord {
-            details
-          }
-        }
-        ... on AwardExperience {
-          title
-          issuedBy
-          awardedDate
-          awardedTo
-          awardedScope
-        }
-        ... on CommunityExperience {
-          title
-          organization
-          project
-          startDate
-          endDate
-        }
-        ... on EducationExperience {
-          institution
-          areaOfStudy
-          thesisTitle
-          startDate
-          endDate
-          type
-          status
-        }
-        ... on PersonalExperience {
-          title
-          description
-          startDate
-          endDate
-        }
-        ... on WorkExperience {
-          role
-          organization
-          division
-          startDate
-          endDate
-        }
-      }
-      topTechnicalSkillsRanking {
-        id
-        user {
-          id
-        }
-        skill {
-          id
-          key
-          category
-          name {
-            en
-            fr
-          }
-        }
-        skillLevel
-        topSkillsRank
-        improveSkillsRank
-      }
-      topBehaviouralSkillsRanking {
-        id
-        user {
-          id
-        }
-        skill {
-          id
-          key
-          category
-          name {
-            en
-            fr
-          }
-        }
-        skillLevel
-        topSkillsRank
-        improveSkillsRank
-      }
-      improveTechnicalSkillsRanking {
-        id
-        user {
-          id
-        }
-        skill {
-          id
-          key
-          category
-          name {
-            en
-            fr
-          }
-        }
-        skillLevel
-        topSkillsRank
-        improveSkillsRank
-      }
-      improveBehaviouralSkillsRanking {
-        id
-        user {
-          id
-        }
-        skill {
-          id
-          key
-          category
-          name {
-            en
-            fr
-          }
-        }
-        skillLevel
-        topSkillsRank
-        improveSkillsRank
-      }
+      ...AdminUserProfileUser
     }
     pools {
       id
@@ -316,7 +328,7 @@ const AdminUserProfilePage = () => {
       />
       <Pending fetching={fetching} error={error}>
         {data?.user ? (
-          <AdminUserProfile user={data?.user} />
+          <AdminUserProfile userQuery={data?.user} />
         ) : (
           <ThrowNotFound />
         )}
