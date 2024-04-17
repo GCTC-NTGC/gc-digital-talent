@@ -6,10 +6,10 @@ codecov:
         default:
           target: auto
           threshold: 100% # coverage decrease shouldn't fail the build
-        unit_tests:
+        unittests:
           target: auto
           threshold: 100%
-        integration_tests:
+        integrationtests:
           target: auto
           threshold: 100%
     after_n_builds: 1
