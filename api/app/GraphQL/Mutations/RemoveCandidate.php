@@ -17,7 +17,7 @@ final class RemoveCandidate
      */
     public function __invoke($_, array $args)
     {
-        $candidate = PoolCandidate::find($args['id']);
+        $candidate = PoolCandidate::findOrFail($args['id']);
 
         $candidate->removed_at = Carbon::now();
         $candidate->removal_reason = $args['removalReason'];

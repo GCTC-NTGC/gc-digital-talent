@@ -15,7 +15,7 @@ final class ReinstateCandidate
      */
     public function __invoke($_, array $args)
     {
-        $candidate = PoolCandidate::find($args['id']);
+        $candidate = PoolCandidate::findOrFail($args['id']);
 
         // Update the candidates status based on the current status
         // or throw an error if the candidate has an invalid status
