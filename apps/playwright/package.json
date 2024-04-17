@@ -26,6 +26,6 @@
     "eslint-plugin-playwright": "^1.5.2"
   },
   "dependencies": {
-    "@axe-core/playwright": "^4.8.5"
+    "@axe-core/playwright": "^4.9.0"
   }
 }
