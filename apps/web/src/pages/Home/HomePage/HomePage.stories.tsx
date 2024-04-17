@@ -20,6 +20,7 @@ Default.parameters = {
       light: allModes.light,
       "light mobile": allModes["light mobile"],
       dark: allModes.dark,
+      french: allModes.french,
     },
   },
 };

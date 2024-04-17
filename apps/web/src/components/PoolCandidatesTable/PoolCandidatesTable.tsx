@@ -721,7 +721,7 @@ const PoolCandidatesTable = ({
     ),
   ] as ColumnDef<PoolCandidateWithSkillCount>[];
 
-  const hiddenColumnIds = ["candidacyStatus", "notes", "status"];
+  const hiddenColumnIds = ["candidacyStatus", "notes"];
 
   return (
     <Table<PoolCandidateWithSkillCount>

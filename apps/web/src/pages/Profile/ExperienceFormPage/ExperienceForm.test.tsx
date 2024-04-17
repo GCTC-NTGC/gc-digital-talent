@@ -14,10 +14,15 @@ import {
   renderWithProviders,
   updateDate,
 } from "@gc-digital-talent/jest-helpers";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
 import type { ExperienceType } from "~/types/experience";
 
-import { ExperienceForm, ExperienceFormProps } from "./ExperienceFormPage";
+import {
+  ExperienceForm,
+  ExperienceFormProps,
+  ExperienceFormSkill_Fragment,
+} from "./ExperienceFormPage";
 
 const mockUserId = "user-id";
 const mockSkills = fakeSkills(50);
@@ -26,6 +31,10 @@ const mockClient = {
   // See: https://github.com/FormidableLabs/urql/discussions/2057#discussioncomment-1568874
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 } as any;
+
+const skillFragments = mockSkills.map((skill) =>
+  makeFragmentData(skill, ExperienceFormSkill_Fragment),
+);
 
 const renderExperienceForm = (props: ExperienceFormProps) =>
   renderWithProviders(
@@ -41,7 +50,7 @@ describe("ExperienceForm", () => {
     const { container } = renderExperienceForm({
       userId: mockUserId,
       experienceType: "award",
-      skills: mockSkills,
+      skillsQuery: skillFragments,
     });
     await axeTest(container);
   });
@@ -50,7 +59,7 @@ describe("ExperienceForm", () => {
     const { container } = renderExperienceForm({
       userId: mockUserId,
       experienceType: "community",
-      skills: mockSkills,
+      skillsQuery: skillFragments,
     });
     await axeTest(container);
   });
@@ -59,7 +68,7 @@ describe("ExperienceForm", () => {
     const { container } = renderExperienceForm({
       userId: mockUserId,
       experienceType: "education",
-      skills: mockSkills,
+      skillsQuery: skillFragments,
     });
     await axeTest(container);
   });
@@ -68,7 +77,7 @@ describe("ExperienceForm", () => {
     const { container } = renderExperienceForm({
       userId: mockUserId,
       experienceType: "personal",
-      skills: mockSkills,
+      skillsQuery: skillFragments,
     });
     await axeTest(container);
   });
@@ -77,7 +86,7 @@ describe("ExperienceForm", () => {
     const { container } = renderExperienceForm({
       userId: mockUserId,
       experienceType: "work",
-      skills: mockSkills,
+      skillsQuery: skillFragments,
     });
     await axeTest(container);
   });
@@ -86,7 +95,7 @@ describe("ExperienceForm", () => {
     renderExperienceForm({
       userId: mockUserId,
       experienceType: "award",
-      skills: mockSkills,
+      skillsQuery: skillFragments,
     });
 
     expect(
@@ -115,7 +124,7 @@ describe("ExperienceForm", () => {
     renderExperienceForm({
       userId: mockUserId,
       experienceType: "community",
-      skills: mockSkills,
+      skillsQuery: skillFragments,
     });
 
     expect(
@@ -141,7 +150,7 @@ describe("ExperienceForm", () => {
     renderExperienceForm({
       userId: mockUserId,
       experienceType: "education",
-      skills: mockSkills,
+      skillsQuery: skillFragments,
     });
 
     expect(
@@ -177,7 +186,7 @@ describe("ExperienceForm", () => {
     renderExperienceForm({
       userId: mockUserId,
       experienceType: "personal",
-      skills: mockSkills,
+      skillsQuery: skillFragments,
     });
 
     expect(
@@ -209,7 +218,7 @@ describe("ExperienceForm", () => {
     renderExperienceForm({
       userId: mockUserId,
       experienceType: "work",
-      skills: mockSkills,
+      skillsQuery: skillFragments,
     });
 
     expect(
@@ -239,7 +248,7 @@ describe("ExperienceForm", () => {
     renderExperienceForm({
       userId: mockUserId,
       experienceType: "work", // Type of form shouldn't matter here
-      skills: mockSkills,
+      skillsQuery: skillFragments,
     });
 
     expect(
@@ -251,7 +260,7 @@ describe("ExperienceForm", () => {
     renderExperienceForm({
       userId: mockUserId,
       experienceType: "work", // Type of form shouldn't matter here
-      skills: mockSkills,
+      skillsQuery: skillFragments,
     });
 
     expect(
@@ -263,7 +272,7 @@ describe("ExperienceForm", () => {
     renderExperienceForm({
       userId: mockUserId,
       experienceType: "award",
-      skills: mockSkills,
+      skillsQuery: skillFragments,
     });
 
     expect(await screen.findByText(/save and return/i)).toBeInTheDocument();
@@ -278,7 +287,7 @@ describe("ExperienceForm", () => {
     renderExperienceForm({
       userId: mockUserId,
       experienceType,
-      skills: mockSkills,
+      skillsQuery: skillFragments,
     });
 
     expect(await screen.findByText(/save and return/i)).toBeInTheDocument();
@@ -328,7 +337,7 @@ describe("ExperienceForm", () => {
   //   renderExperienceForm({
   //     userId: mockUserId,
   //     experienceType: "award",
-  //     skills: mockSkills,
+  //     skillsQuery: skillFragments,
   //   });
 
   //   await act(() => {
@@ -344,7 +353,7 @@ describe("ExperienceForm", () => {
     renderExperienceForm({
       userId: mockUserId,
       experienceType: "award",
-      skills: mockSkills,
+      skillsQuery: skillFragments,
       edit: false,
     });
     expect(screen.queryByText("Delete this experience")).toBeFalsy();
@@ -354,7 +363,7 @@ describe("ExperienceForm", () => {
     renderExperienceForm({
       userId: mockUserId,
       experienceType: "award",
-      skills: mockSkills,
+      skillsQuery: skillFragments,
       edit: true,
     });
     // get and open Dialog Component

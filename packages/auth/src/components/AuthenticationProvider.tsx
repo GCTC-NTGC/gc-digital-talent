@@ -16,17 +16,17 @@ const AuthenticationProvider = ({ children }: AuthenticationContainerProps) => {
   const refreshTokenSetPath = apiPaths.refreshAccessToken();
 
   const logoutUri = getRuntimeVariableNotNull("OAUTH_LOGOUT_URI");
-  const redirectPaths = {
+  const postLogoutRedirectUris = {
     en: getRuntimeVariableNotNull("OAUTH_POST_LOGOUT_REDIRECT_EN"),
     fr: getRuntimeVariableNotNull("OAUTH_POST_LOGOUT_REDIRECT_FR"),
   } as const;
-  const postLogoutRedirect = redirectPaths[locale];
+  const postLogoutRedirectUri = postLogoutRedirectUris[locale];
 
   return (
     <AuthenticationContainer
       tokenRefreshPath={refreshTokenSetPath}
       logoutUri={logoutUri}
-      logoutRedirectUri={postLogoutRedirect}
+      postLogoutRedirectUri={postLogoutRedirectUri}
     >
       {children}
     </AuthenticationContainer>

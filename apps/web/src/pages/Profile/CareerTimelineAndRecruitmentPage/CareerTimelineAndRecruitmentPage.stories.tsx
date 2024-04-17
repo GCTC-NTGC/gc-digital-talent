@@ -2,13 +2,18 @@ import React from "react";
 import { StoryFn, Meta } from "@storybook/react";
 
 import { fakeExperiences } from "@gc-digital-talent/fake-data";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
-import CareerTimelineAndRecruitment from "./components/CareerTimelineAndRecruitment";
+import CareerTimelineAndRecruitment, {
+  CareerTimelineExperience_Fragment,
+} from "./components/CareerTimelineAndRecruitment";
 
 export default {
   title: "Pages/Career timeline and recruitment",
   args: {
     userId: "test",
+    experiencesQuery: [],
+    applicationsQuery: [],
   },
 } as Meta<typeof CareerTimelineAndRecruitment>;
 
@@ -28,9 +33,11 @@ export const WithExperiencesMissingSkills =
 const mockExperiences = fakeExperiences(10);
 
 NoExperiences.args = {
-  experiences: [],
+  experiencesQuery: [],
 };
 
 WithExperiences.args = {
-  experiences: mockExperiences,
+  experiencesQuery: mockExperiences.map((experience) =>
+    makeFragmentData(experience, CareerTimelineExperience_Fragment),
+  ),
 };
