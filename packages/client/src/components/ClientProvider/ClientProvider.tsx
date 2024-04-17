@@ -30,6 +30,7 @@ import {
   containsUserDeletedError,
 } from "../../utils/errors";
 import specialErrorExchange from "../../exchanges/specialErrorExchange";
+import protectedEndpointExchange from "../../exchanges/protectedEndpointExchange";
 
 const apiUri = process.env.API_URI ?? "http://localhost:8000/graphql";
 
@@ -70,6 +71,7 @@ const ClientProvider = ({
         requestPolicy: "cache-and-network",
         exchanges: [
           cacheExchange,
+          protectedEndpointExchange,
           mapExchange({
             onError(error, operation) {
               if (error.graphQLErrors || error.networkError) {
