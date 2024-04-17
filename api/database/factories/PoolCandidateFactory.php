@@ -52,6 +52,7 @@ class PoolCandidateFactory extends Factory
             ->limit(1)
             ->pluck('id')
             ->first();
+        $removedStatuses = PoolCandidateStatus::removedGroup();
 
         return [
             'cmo_identifier' => $this->faker->word(),
@@ -83,6 +84,18 @@ class PoolCandidateFactory extends Factory
                 return in_array($attributes['pool_candidate_status'], $placedStatuses) ?
                 $placedDepartmentId : null;
             },
+            'removed_at' => function (array $attributes) use ($removedStatuses) {
+                return in_array($attributes['pool_candidate_status'], $removedStatuses) ?
+                $this->faker->dateTimeBetween('-2 weeks', 'now') : null;
+            },
+            'removal_reason' => function (array $attributes) use ($removedStatuses) {
+                return in_array($attributes['pool_candidate_status'], $removedStatuses) ?
+                $this->faker->randomElement(CandidateRemovalReason::cases())->name : null;
+            },
+            'removal_reason_other' => function (array $attributes) {
+                return $attributes['removal_reason'] === CandidateRemovalReason::OTHER->name ?
+                $this->faker->sentence() : null;
+            },
         ];
     }
 
@@ -103,19 +116,6 @@ class PoolCandidateFactory extends Factory
                     'signature' => $fakeSignature,
                     'submitted_steps' => array_column(ApplicationStep::cases(), 'name'),
                 ]);
-            }
-
-            // removed status sets removed at, removal reason, and removal reason other fields
-            $removedStatuses = PoolCandidateStatus::removedGroup();
-            if (in_array($candidateStatus, $removedStatuses)) {
-                $removalReason = $this->faker->randomElement(CandidateRemovalReason::cases());
-
-                $poolCandidate->removed_at = $this->faker->dateTimeBetween('-2 weeks', 'now');
-                $poolCandidate->removal_reason = $removalReason->name;
-                if ($removalReason->name === CandidateRemovalReason::OTHER->name) {
-                    $poolCandidate->removal_reason_other = $this->faker->sentence();
-                }
-                $poolCandidate->save();
             }
 
             // if the attached pool has general questions, generate responses

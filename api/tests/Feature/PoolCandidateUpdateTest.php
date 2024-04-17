@@ -736,15 +736,15 @@ class PoolCandidateUpdateTest extends TestCase
     public function testPoolCandidateReinstatement(): void
     {
         // Create a removed candidate with all removed fields set
-        $candidate = PoolCandidate::factory()->afterCreating(function (PoolCandidate $candidate) {
-            $candidate->removed_at = now();
-            $candidate->removal_reason = CandidateRemovalReason::OTHER->name;
-            $candidate->removal_reason_other = 'test reason';
-            $candidate->save();
-        })->create([
+        $candidate = PoolCandidate::factory()->create([
             'pool_candidate_status' => PoolCandidateStatus::REMOVED->name,
+            'removal_reason' => CandidateRemovalReason::OTHER->name,
             'user_id' => $this->applicantUser->id,
         ]);
+
+        $this->assertNotNull($candidate->removed_at);
+        $this->assertNotNull($candidate->removal_reason);
+        $this->assertNotNull($candidate->removal_reason_other);
 
         // Applicant can't reinstate their own application
         $this->actingAs($this->applicantUser, 'api')
