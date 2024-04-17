@@ -5,19 +5,19 @@ codecov:
       project:
         default:
           target: auto
-          threshold: 100%
-        jest:
+          threshold: 100% # coverage decrease shouldn't fail the build
+        unit_tests:
           target: auto
           threshold: 100%
-        phpunit:
+        integration_tests:
           target: auto
           threshold: 100%
     after_n_builds: 1
     require_ci_to_pass: false
-    changes: false
+    changes: true # Codecov will show the status check for every commit
     diff: false
     base: auto
-    if_changed: false
+    if_changed: false # means that the status check will not be based on whether there was a coverage change.
     comment:
       layout: "header, diff, folders, files"
       behavior: default

@@ -55,6 +55,6 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: coverage.xml
-          flags: IntegrationTests
+          flags: integration_tests
           fail_ci_if_error: false
 
