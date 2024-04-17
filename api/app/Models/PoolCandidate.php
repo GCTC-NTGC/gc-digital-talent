@@ -45,6 +45,9 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property Illuminate\Support\Carbon $placed_at
  * @property string $placed_department_id
  * @property Illuminate\Support\Carbon $final_decision_at
+ * @property Illuminate\Support\Carbon $removed_at
+ * @property string $removal_reason
+ * @property string $removal_reason_other
  */
 class PoolCandidate extends Model
 {
@@ -69,6 +72,7 @@ class PoolCandidate extends Model
         'is_bookmarked' => 'boolean',
         'placed_at' => 'datetime',
         'final_decision_at' => 'datetime',
+        'removed_at' => 'datetime',
     ];
 
     /**
