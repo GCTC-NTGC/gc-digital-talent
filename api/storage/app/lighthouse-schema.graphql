@@ -101,6 +101,7 @@ type Mutation {
   togglePoolCandidateBookmark(id: ID!): Boolean
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
   removeCandidate(id: UUID!, removalReason: CandidateRemovalReason!, removalReasonOther: String): PoolCandidate
+  reinstateCandidate(id: UUID!): PoolCandidate
   deletePoolCandidate(id: ID!): PoolCandidate
   qualifyCandidate(id: UUID!, expiryDate: Date!): PoolCandidate
   disqualifyCandidate(id: UUID!, reason: DisqualificationReason!): PoolCandidate
