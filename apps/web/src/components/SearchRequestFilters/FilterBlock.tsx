@@ -10,7 +10,6 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 interface FilterBlockProps {
   title: string;
   content?: Maybe<string | React.ReactNode> | Maybe<string[]>;
-  children?: React.ReactNode;
 }
 
 const FilterBlockContent = ({
@@ -43,15 +42,15 @@ const FilterBlockContent = ({
           ))}
         </ul>
       ) : (
-        <span data-h2-display="base(inline)" data-h2-color="base(black)">
+        <div data-h2-display="base(inline)" data-h2-color="base(black)">
           {content}
-        </span>
+        </div>
       )}
     </div>
   );
 };
 
-const FilterBlock = ({ title, content, children }: FilterBlockProps) => {
+const FilterBlock = ({ title, content }: FilterBlockProps) => {
   const intl = useIntl();
 
   return (
@@ -67,7 +66,6 @@ const FilterBlock = ({ title, content, children }: FilterBlockProps) => {
         </span>
       </p>
       <FilterBlockContent content={content} />
-      {children}
     </div>
   );
 };
