@@ -2,6 +2,7 @@ import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
+import CheckIcon from "@heroicons/react/24/solid/CheckIcon";
 
 import {
   Checkbox,
@@ -58,6 +59,56 @@ const NotificationChecklist = ({
     },
   ];
 
+  if (disabled) {
+    return (
+      <div
+        data-h2-display="base(grid)"
+        data-h2-grid-template-columns="base(4fr 1fr)"
+        data-h2-align-items="base(center)"
+        data-h2-margin-bottom="base(x1)"
+      >
+        <div>
+          <p
+            data-h2-font-weight="base(bold)"
+            data-h2-padding-bottom="base(x.5)"
+          >
+            {legend}
+          </p>
+          <p data-h2-font-size="base(caption)">{subtitle}</p>
+        </div>
+        <div
+          data-h2-display="base(flex)"
+          data-h2-justify-content="base(space-between)"
+        >
+          {notificationOptions.map(({ value }) => {
+            const key = `${id}-${value}`;
+            return (
+              <span
+                key={key}
+                data-h2-padding="base(x.25 x.75 x.25 x.5)"
+                data-h2-color="base(gray)"
+              >
+                <CheckIcon
+                  aria-label={
+                    value === "email"
+                      ? intl.formatMessage(commonMessages.email)
+                      : intl.formatMessage(commonMessages.inApp)
+                  }
+                  aria-hidden="false"
+                  data-h2-height="base(x1)"
+                  data-h2-width="base(x1)"
+                  data-h2-border="base(thin solid black.light)"
+                  data-h2-radius="base(input)"
+                  data-h2-vertical-align="base(middle)"
+                />
+              </span>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <Field.Wrapper data-h2-margin-bottom="base(x1)">
       <Field.Fieldset id={id}>
@@ -93,7 +144,6 @@ const NotificationChecklist = ({
                   id={checkboxId}
                   name={name}
                   label={label}
-                  disabled={disabled}
                   value={value}
                   inCheckList
                 />
@@ -238,7 +288,7 @@ const NotificationSettings = ({
           >
             <div
               data-h2-display="base(flex)"
-              data-h2-gap="base(x2.5)"
+              data-h2-gap="base(x1) p-tablet(x2) laptop(x2.5)"
               data-h2-align-self="base(flex-end)"
             >
               <p>{intl.formatMessage(commonMessages.email)}</p>
