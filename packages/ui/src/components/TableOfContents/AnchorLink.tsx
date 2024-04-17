@@ -14,7 +14,15 @@ const AnchorLink = ({ id, children }: AnchorLinkProps) => {
   };
 
   return (
-    <ScrollToLink to={id} color="black" mode="text" onScrollTo={handleScrollTo}>
+    <ScrollToLink
+      data-is-toc-link // Used to find Table of Contents link elements in the Navigation component
+      id={`toc-link-for-${id}`}
+      data-h2-font-weight="base:selectors[.active](bold)"
+      to={id}
+      color="black"
+      mode="text"
+      onScrollTo={handleScrollTo}
+    >
       {children}
     </ScrollToLink>
   );
