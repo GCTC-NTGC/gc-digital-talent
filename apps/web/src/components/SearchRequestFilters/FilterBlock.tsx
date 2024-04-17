@@ -42,9 +42,7 @@ const FilterBlockContent = ({
           ))}
         </ul>
       ) : (
-        <div data-h2-display="base(inline)" data-h2-color="base(black)">
-          {content}
-        </div>
+        content
       )}
     </div>
   );
