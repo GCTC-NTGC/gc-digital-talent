@@ -841,11 +841,11 @@ class User extends Model implements Authenticatable, LaratrustUser
     /**
      * Return users who have an available PoolCandidate in at least one IT pool.
      */
-    public static function scopeAvailableInITPublishingGroup(Builder $query): Builder
+    public static function scopeTalentSearchablePublishingGroup(Builder $query): Builder
     {
         return $query->whereHas('poolCandidates', function ($innerQueryBuilder) {
             PoolCandidate::scopeAvailable($innerQueryBuilder);
-            PoolCandidate::scopeInITPublishingGroup($innerQueryBuilder);
+            PoolCandidate::scopeInTalentSearchablePublishingGroup($innerQueryBuilder);
 
             return $innerQueryBuilder;
         });

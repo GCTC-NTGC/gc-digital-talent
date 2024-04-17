@@ -317,19 +317,20 @@ class PoolCandidate extends Model
     }
 
     /**
-     * Scope is IT
+     * Scope is IT & OTHER Publishing Groups
      *
      * Restrict a query by pool candidates that are for pools
-     * containing IT specific publishing groups
+     * containing IT and OTHER publishing groups
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query  The existing query being built
      * @return \Illuminate\Database\Eloquent\Builder The resulting query
      */
-    public static function scopeInITPublishingGroup(Builder $query)
+    public static function scopeInTalentSearchablePublishingGroup(Builder $query)
     {
         $query = self::scopePublishingGroups($query, [
             PublishingGroup::IT_JOBS_ONGOING->name,
             PublishingGroup::IT_JOBS->name,
+            PublishingGroup::OTHER->name,
         ]);
 
         return $query;
