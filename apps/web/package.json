@@ -90,7 +90,7 @@
     "@types/react": "^18.2.78",
     "@types/react-dom": "^18.2.22",
     "babel-plugin-formatjs": "^10.5.13",
-    "core-js": "^3.36.0",
+    "core-js": "^3.37.0",
     "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
     "hydrogen-webpack-plugin": "workspace:*",
