@@ -13,17 +13,15 @@ interface FilterBlockProps {
   children?: React.ReactNode;
 }
 
-const FilterBlock = ({ title, content, children }: FilterBlockProps) => {
+const FilterBlockContent = ({
+  content,
+}: {
+  content: FilterBlockProps["content"];
+}) => {
   const intl = useIntl();
 
-  const emptyArrayOutput = (
-    input: string | React.ReactNode | string[] | null | undefined,
-  ) => {
-    return input && !isEmpty(input) ? (
-      <span data-h2-display="base(inline)" data-h2-color="base(black)">
-        {input}
-      </span>
-    ) : (
+  if (isEmpty(content)) {
+    return (
       <ul data-h2-color="base(black)">
         <li>
           {intl.formatMessage({
@@ -34,7 +32,27 @@ const FilterBlock = ({ title, content, children }: FilterBlockProps) => {
         </li>
       </ul>
     );
-  };
+  }
+
+  return (
+    <div>
+      {isArray(content) && content.length > 0 ? (
+        <ul data-h2-color="base(black)">
+          {content.map((text) => (
+            <li key={uniqueId()}>{text}</li>
+          ))}
+        </ul>
+      ) : (
+        <span data-h2-display="base(inline)" data-h2-color="base(black)">
+          {content}
+        </span>
+      )}
+    </div>
+  );
+};
+
+const FilterBlock = ({ title, content, children }: FilterBlockProps) => {
+  const intl = useIntl();
 
   return (
     <div data-h2-padding="base(0, 0, x1, 0)">
@@ -48,20 +66,8 @@ const FilterBlock = ({ title, content, children }: FilterBlockProps) => {
           {intl.formatMessage(commonMessages.dividingColon)}
         </span>
       </p>
-      {content !== undefined && (
-        <div>
-          {isArray(content) && content.length > 0 ? (
-            <ul data-h2-color="base(black)">
-              {content.map((text) => (
-                <li key={uniqueId()}>{text}</li>
-              ))}
-            </ul>
-          ) : (
-            emptyArrayOutput(content)
-          )}
-        </div>
-      )}
-      {children && children}
+      <FilterBlockContent content={content} />
+      {children}
     </div>
   );
 };
