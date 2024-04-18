@@ -9,14 +9,14 @@ const backgroundMap = new Map<Color, StyleRecord>([
     "primary",
     {
       "data-h2-background":
-        "base(primary.light) base:dark(primary.dark) base:admin(primary) base:iap(primary)",
+        "base(primary.light) base:dark(primary.dark) base:iap(primary)",
     },
   ],
   [
     "secondary",
     {
       "data-h2-background":
-        "base(secondary.light) base:dark(secondary.dark) base:admin(secondary) base:admin:dark(secondary.lighter) base:iap:dark(secondary.light)",
+        "base(secondary.light) base:dark(secondary.dark) base:iap:dark(secondary.light)",
     },
   ],
 ]);
@@ -29,13 +29,6 @@ type ExampleProps = {
 
 const Example = ({ subtitle, color, showBorder }: ExampleProps) => {
   const intl = useIntl();
-  // useLocale doesn't work in Storybook #8005
-
-  const title = intl.formatMessage({
-    defaultMessage: "Example",
-    id: "+jIT2i",
-    description: "Title for the example component",
-  });
 
   const borderStyles = showBorder
     ? {
@@ -53,7 +46,11 @@ const Example = ({ subtitle, color, showBorder }: ExampleProps) => {
     <div {...containerStyles}>
       <p>
         {flags[intl.locale]}
-        {title}
+        {intl.formatMessage({
+          defaultMessage: "Example",
+          id: "+jIT2i",
+          description: "Title for the example component",
+        })}
       </p>
       {subtitle ? <span>{subtitle}</span> : null}
     </div>
