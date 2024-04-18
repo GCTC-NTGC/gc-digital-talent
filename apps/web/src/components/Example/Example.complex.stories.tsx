@@ -29,7 +29,7 @@ const meta = {
 } satisfies Meta<PagePropsAndCustomArgs>;
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<PagePropsAndCustomArgs>;
 
 export const CustomFooter: Story = {
   args: {
