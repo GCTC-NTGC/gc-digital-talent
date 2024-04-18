@@ -25,17 +25,17 @@ type Story = StoryObj<typeof Example>;
 // Use the named exports of a CSF file to define your component’s stories. We recommend you use UpperCamelCase for your story exports.
 export const WithDefaultArgs: Story = {
   args: {
-    subtitle: "Example with default args",
+    subtitle: "WithDefaultArgs",
     color: "primary",
   },
 };
 
-// A story can use a custom render function
+// A story can use a custom render function.
 export const WithRenderFunction = {
   name: "With render function",
   render: (args: { showBorder: boolean }) => (
     <Example
-      subtitle="Example with render function"
+      subtitle="WithRenderFunction"
       color="primary"
       showBorder={args.showBorder}
     />

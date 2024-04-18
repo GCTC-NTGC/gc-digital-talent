@@ -33,7 +33,7 @@ type Story = StoryObj<PagePropsAndCustomArgs>;
 
 export const CustomFooter: Story = {
   args: {
-    footer: "Some custom footer text.",
+    footer: "CustomFooterText",
     color: "primary",
     showBorder: false,
   },
