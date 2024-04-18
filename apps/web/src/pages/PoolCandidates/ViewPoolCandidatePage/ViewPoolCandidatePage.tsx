@@ -4,7 +4,6 @@ import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import HandRaisedIcon from "@heroicons/react/24/outline/HandRaisedIcon";
 import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTriangleIcon";
 import { OperationContext, useQuery } from "urql";
-import { ArrowUturnLeftIcon } from "@heroicons/react/20/solid";
 
 import {
   NotFound,
@@ -44,6 +43,10 @@ import AssessmentResultsTable from "~/components/AssessmentResultsTable/Assessme
 import ChangeDateDialog from "~/pages/Users/UserInformationPage/components/ChangeDateDialog";
 import ChangeStatusDialog from "~/pages/Users/UserInformationPage/components/ChangeStatusDialog";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import {
+  RECORD_DECISION_STATUSES,
+  REVERT_DECISION_STATUSES,
+} from "~/constants/poolCandidate";
 
 import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
 import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
@@ -51,10 +54,6 @@ import ProfileDetails from "./components/ProfileDetails/ProfileDetails";
 import NotesDialog from "./components/MoreActions/NotesDialog";
 import FinalDecisionDialog from "./components/MoreActions/FinalDecisionDialog";
 import CandidateNavigation from "./components/CandidateNavigation/CandidateNavigation";
-import {
-  RECORD_DECISION_STATUSES,
-  REVERT_DECISION_STATUSES,
-} from "../../../constants/poolCandidate";
 
 const screeningAndAssessmentTitle = defineMessage({
   defaultMessage: "Screening and assessment",
