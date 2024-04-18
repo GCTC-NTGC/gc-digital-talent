@@ -9,6 +9,10 @@ const meta = {
   // You can also define args at the component level. They will apply to all the component's stories unless you overwrite them. To do so, use the args key on the default CSF export.
   argTypes: {
     showBorder: { control: "boolean" },
+    color: {
+      options: ["primary", "secondary"],
+      control: { type: "radio" },
+    },
   },
   args: {
     showBorder: true,

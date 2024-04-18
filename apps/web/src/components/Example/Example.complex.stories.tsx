@@ -17,6 +17,12 @@ const meta = {
       {footer && <span>{footer}</span>}
     </>
   ),
+  argTypes: {
+    color: {
+      options: ["primary", "secondary"],
+      control: { type: "radio" },
+    },
+  },
   parameters: {
     chromatic: { viewports: CHROMATIC_VIEWPORTS },
   },
