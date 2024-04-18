@@ -3,12 +3,8 @@ import { useIntl } from "react-intl";
 
 import { Accordion, Link } from "@gc-digital-talent/ui";
 
-type AccordionItems = Array<"your_gc_key" | "">;
-
 const AccountManagement = () => {
   const intl = useIntl();
-  const [currentAccordionItems, setCurrentAccordionItems] =
-    React.useState<AccordionItems>([]); // Start with accordion closed
 
   const gcKeyURL =
     intl.locale === "en"
@@ -16,13 +12,7 @@ const AccountManagement = () => {
       : "https://www.canada.ca/fr/gouvernement/ouvrir-session-dossier-compte-en-ligne/clegc.html";
 
   return (
-    <Accordion.Root
-      mode="card"
-      type="multiple"
-      size="sm"
-      value={currentAccordionItems}
-      onValueChange={(value: AccordionItems) => setCurrentAccordionItems(value)}
-    >
+    <Accordion.Root mode="card" type="multiple" size="sm">
       <Accordion.Item value="your_gc_key">
         <Accordion.Trigger
           as="h3"
