@@ -12,7 +12,7 @@ read -r -d '' TRIPLE_BACK_TICK << "EndOfMessage"
 EndOfMessage
 
 # Switch to another token for quieter testing
-MENTION="@channel"
+MENTION="@Peter"
 
 if [ -z "$ROOT_DIR" ]; then
     echo "Must past abs path as first argument."
