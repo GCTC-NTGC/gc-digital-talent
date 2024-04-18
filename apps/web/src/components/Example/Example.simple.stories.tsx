@@ -20,7 +20,7 @@ const meta = {
 } satisfies Meta<typeof Example>;
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Example>;
 
 // Use the named exports of a CSF file to define your component’s stories. We recommend you use UpperCamelCase for your story exports.
 export const WithDefaultArgs: Story = {
