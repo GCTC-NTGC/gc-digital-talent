@@ -61,7 +61,7 @@ stages:
     - name: storageAccountName
       value: 'sttalclddevcacstdl'
     - name: storageContainer
-      value: 'playwright-results'  
+      value: 'playwright-results'
   jobs:
   - job: run_playwright_tests
     displayName: Run Playwright tests
