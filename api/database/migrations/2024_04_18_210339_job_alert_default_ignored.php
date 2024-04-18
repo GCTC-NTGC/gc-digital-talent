@@ -17,6 +17,10 @@ return new class extends Migration
             SET DEFAULT '["JOB_ALERT"]'::jsonb
             SQL, []
         );
+
+        DB::table('users')->update([
+            'ignored_email_notifications' => ['JOB_ALERT'],
+        ]);
     }
 
     /**
