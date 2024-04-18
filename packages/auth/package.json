@@ -22,10 +22,10 @@
     "@gc-digital-talent/logger": "workspace:*",
     "@gc-digital-talent/ui": "workspace:*",
     "@gc-digital-talent/i18n": "workspace:*",
-    "jwt-decode": "4.0.0",
+    "jwt-decode": "^4.0.0",
     "path-browserify": "^1.0.1",
     "react-router-dom": "^6.22.3",
-    "urql": "^4.0.6"
+    "urql": "^4.0.7"
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",

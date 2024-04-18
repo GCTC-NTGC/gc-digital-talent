@@ -307,6 +307,10 @@
     "defaultMessage": "Groupe de la direction",
     "description": "Pool Stream described as Executive Group."
   },
+  "72usGv": {
+    "defaultMessage": "Il est impossible de supprimer un candidat qui a déjà été placé.",
+    "description": "Message displayed to user after attempting to remove an already placed candidate."
+  },
   "76QTNv": {
     "defaultMessage": "La demande a déjà été soumise.",
     "description": "Error message that the given application is already submitted."
@@ -410,6 +414,10 @@
   "AOJjMk": {
     "defaultMessage": "Niveau d’entrée",
     "description": "The technical skill level for beginner"
+  },
+  "AlECuf": {
+    "defaultMessage": "Le statut du candidat est irrégulier.",
+    "description": "Message displayed to user after attempting to update a candidate with an unexpected status."
   },
   "ArBddb": {
     "defaultMessage": "Essentiel",
@@ -1874,6 +1882,10 @@
   "vwszQC": {
     "defaultMessage": "Entretien de groupe",
     "description": "Group interview assessment."
+  },
+  "vy6A5+": {
+    "defaultMessage": "Le candidat a déjà été supprimé.",
+    "description": "Message displayed to user after attempting to remove an already removed candidate."
   },
   "w2Jpt8": {
     "defaultMessage": "Étudiant",
