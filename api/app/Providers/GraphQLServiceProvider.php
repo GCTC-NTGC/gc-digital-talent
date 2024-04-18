@@ -12,6 +12,7 @@ use App\Enums\AssessmentStepType;
 use App\Enums\AwardedScope;
 use App\Enums\AwardedTo;
 use App\Enums\CandidateExpiryFilter;
+use App\Enums\CandidateRemovalReason;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
 use App\Enums\DirectiveForms\AdvertisementType;
@@ -35,6 +36,7 @@ use App\Enums\DirectiveForms\PersonnelWorkLocation;
 use App\Enums\DirectiveForms\PositionEmploymentType;
 use App\Enums\DirectiveForms\YesNo;
 use App\Enums\DirectiveForms\YesNoUnsure;
+use App\Enums\DisqualificationReason;
 use App\Enums\EducationRequirementOption;
 use App\Enums\EducationStatus;
 use App\Enums\EducationType;
@@ -48,6 +50,7 @@ use App\Enums\LanguageAbility;
 use App\Enums\NotificationFamily;
 use App\Enums\NotificationType;
 use App\Enums\OperationalRequirement;
+use App\Enums\PlacementType;
 use App\Enums\PoolCandidateSearchPositionType;
 use App\Enums\PoolCandidateSearchRequestReason;
 use App\Enums\PoolCandidateSearchStatus;
@@ -187,11 +190,29 @@ class GraphQLServiceProvider extends ServiceProvider
             }
         );
         $typeRegistry->registerLazy(
+            'DisqualificationReason',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'DisqualificationReason',
+                    'values' => array_column(DisqualificationReason::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
             'PoolCandidateStatus',
             static function (): EnumType {
                 return new EnumType([
                     'name' => 'PoolCandidateStatus',
                     'values' => array_column(PoolCandidateStatus::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'PlacementType',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'PlacementType',
+                    'values' => array_column(PlacementType::cases(), 'name'),
                 ]);
             }
         );
@@ -647,6 +668,15 @@ class GraphQLServiceProvider extends ServiceProvider
                 return new EnumType([
                     'name' => 'NotificationType',
                     'values' => array_column(NotificationType::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'CandidateRemovalReason',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'CandidateRemovalReason',
+                    'values' => array_column(CandidateRemovalReason::cases(), 'name'),
                 ]);
             }
         );

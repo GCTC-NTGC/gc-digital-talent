@@ -7,7 +7,7 @@ namespace App\GraphQL\Mutations;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\UnauthorizedException;
+use Nuwave\Lighthouse\Exceptions\AuthorizationException;
 
 final readonly class UpdateSitewideAnnouncement
 {
@@ -16,7 +16,7 @@ final readonly class UpdateSitewideAnnouncement
     {
         /** @var \App\Models\User */
         $user = Auth::user();
-        throw_unless($user->isAbleTo('update-any-announcement'), UnauthorizedException::class);
+        throw_unless($user->isAbleTo('update-any-announcement'), AuthorizationException::class);
 
         // parse and save the input
         $parsedObj = [

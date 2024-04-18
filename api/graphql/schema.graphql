@@ -306,6 +306,15 @@ type PoolCandidate {
   isBookmarked: Boolean
     @rename(attribute: "is_bookmarked")
     @canRoot(ability: "viewNotes")
+  removedAt: DateTime
+    @rename(attribute: "removed_at")
+    @canRoot(ability: "viewStatus")
+  removalReason: CandidateRemovalReason
+    @rename(attribute: "removal_reason")
+    @canRoot(ability: "viewStatus")
+  removalReasonOther: String
+    @rename(attribute: "removal_reason_other")
+    @canRoot(ability: "viewStatus")
 
   profileSnapshot: JSON @rename(attribute: "profile_snapshot")
   signature: String
@@ -319,6 +328,13 @@ type PoolCandidate {
   assessmentResults: [AssessmentResult]
     @hasMany
     @canRoot(ability: "viewAssessmentResults")
+  finalDecisionAt: DateTime
+    @rename(attribute: "final_decision_at")
+    @canRoot(ability: "viewStatus")
+  placedAt: DateTime
+    @rename(attribute: "placed_at")
+    @canRoot(ability: "viewStatus")
+  placedDepartment: Department @belongsTo @canRoot(ability: "viewStatus")
 }
 
 type PoolCandidateWithSkillCount {
@@ -727,7 +743,7 @@ type Query {
     @canModel(ability: "viewBasicInfo", model: "User")
   # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
   countApplicants(where: ApplicantFilterInput): Int!
-    @count(model: "User", scopes: ["availableInITPublishingGroup"])
+    @count(model: "User", scopes: ["talentSearchablePublishingGroup"])
   pool(id: UUID! @eq): Pool @find @canQuery(ability: "view")
   publishedPools(
     closingAfter: DateTime @where(key: "closing_date", operator: ">")
@@ -1110,6 +1126,11 @@ input UpdateClassificationInput {
 input UpdatePoolCandidateStatusInput {
   expiryDate: Date @rename(attribute: "expiry_date")
   status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
+}
+
+input PlaceCandidateInput {
+  placementType: PlacementType!
+  departmentId: UUID!
 }
 
 input CreateDepartmentInput {
@@ -1624,6 +1645,7 @@ type Mutation {
     @guard
     @canFind(ability: "restore", find: "id")
 
+  # poolCandidate mutations
   createPoolCandidateAsAdmin(
     poolCandidate: CreatePoolCandidateAsAdminInput! @spread
   ): PoolCandidate
@@ -1651,10 +1673,47 @@ type Mutation {
     @update
     @guard
     @canFind(ability: "updateNotes", find: "id")
+  removeCandidate(
+    id: UUID!
+    removalReason: CandidateRemovalReason!
+    removalReasonOther: String
+  ): PoolCandidate
+    @guard
+    @canFind(ability: "updateStatus", find: "id", injectArgs: true)
+  reinstateCandidate(id: UUID!): PoolCandidate
+    @guard
+    @canFind(ability: "updateStatus", find: "id", injectArgs: true)
   deletePoolCandidate(id: ID! @whereKey): PoolCandidate
     @delete
     @guard
     @canFind(ability: "delete", find: "id")
+  qualifyCandidate(id: UUID!, expiryDate: Date!): PoolCandidate
+    @guard
+    @canFind(ability: "updateStatus", find: "id", injectArgs: true)
+    @validator(class: "App\\GraphQL\\Validators\\QualifyCandidateValidator")
+  disqualifyCandidate(
+    id: UUID!
+    reason: DisqualificationReason!
+  ): PoolCandidate
+    @guard
+    @canFind(ability: "updateStatus", find: "id", injectArgs: true)
+    @validator(class: "App\\GraphQL\\Validators\\DisqualifyCandidateValidator")
+  revertFinalDecision(id: UUID!): PoolCandidate
+    @guard
+    @canFind(ability: "updateStatus", find: "id", injectArgs: true)
+    @validator(class: "App\\GraphQL\\Validators\\RevertFinalDecisionValidator")
+  placeCandidate(
+    id: UUID!
+    placeCandidate: PlaceCandidateInput! @spread
+  ): PoolCandidate
+    @guard
+    @canFind(ability: "updateStatus", find: "id", injectArgs: true)
+    @validator(class: "App\\GraphQL\\Validators\\PlaceCandidateValidator")
+  revertPlaceCandidate(id: UUID!): PoolCandidate
+    @guard
+    @canFind(ability: "updateStatus", find: "id", injectArgs: true)
+    @validator(class: "App\\GraphQL\\Validators\\RevertPlaceCandidateValidator")
+
   createClassification(
     classification: CreateClassificationInput! @spread
   ): Classification @create @guard @canModel(ability: "create")

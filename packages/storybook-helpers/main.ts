@@ -7,7 +7,6 @@ const path = require("path");
 
 const HydrogenPlugin = require("hydrogen-webpack-plugin");
 const TsTransformer = require("@formatjs/ts-transformer");
-const PreloadWebpackPlugin = require("@vue/preload-webpack-plugin");
 
 const transform = TsTransformer.transform;
 
@@ -101,18 +100,6 @@ const main: StorybookConfig = {
           __dirname,
           "../../apps/web/src/assets/css/hydrogen.css",
         ),
-      }),
-    );
-
-    config.plugins?.push(
-      new PreloadWebpackPlugin({
-        rel: "preload",
-        include: "allAssets",
-        as(entry: string) {
-          if (/\.css$/.test(entry)) return "style";
-          if (/\.webp$/.test(entry)) return "image";
-          return "script";
-        },
       }),
     );
 
