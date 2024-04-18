@@ -8,13 +8,22 @@ import Sidebar from "../Sidebar/Sidebar";
 
 type NavigationProps = React.HTMLProps<HTMLDivElement>;
 
-const isInView = (element: HTMLElement) => {
+// Returns true if the element is at all visible, in whole or in part, on the screen
+const isPartlyInView = (element: HTMLElement) => {
   const rect = element.getBoundingClientRect();
   // top edge is in view, or bottom edge is in view, or both edges are out of view but element is partially in view
   return (
     (rect.top >= 0 && rect.top <= window.innerHeight) ||
     (rect.bottom >= 0 && rect.bottom <= window.innerHeight) ||
     (rect.top < 0 && rect.bottom > window.innerHeight)
+  );
+};
+
+// Returns true if the element is visible on the screen and covers the halfway point (vertically)
+const isCentrallyInView = (element: HTMLElement) => {
+  const rect = element.getBoundingClientRect();
+  return (
+    rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2
   );
 };
 
@@ -36,7 +45,10 @@ const resetNavLinks = (): void => {
 
 const highlightCurrentNavLink = (): void => {
   resetNavLinks();
-  const currentSection = getNavSections().find(isInView);
+  const sections = getNavSections();
+  // Try to find the section that is in the center of the screen, and failing that, the first partly visible section on the screen.
+  const currentSection =
+    sections.find(isCentrallyInView) ?? sections.find(isPartlyInView);
   if (currentSection) {
     const currentLink = getNavLinkForSection(currentSection);
     if (currentLink) {
