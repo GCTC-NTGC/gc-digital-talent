@@ -273,8 +273,8 @@ importers:
         specifier: ^18.2.22
         version: 18.2.22
       babel-plugin-formatjs:
-        specifier: ^10.5.13
-        version: 10.5.13(ts-jest@29.1.2)
+        specifier: ^10.5.14
+        version: 10.5.14(ts-jest@29.1.2)
       core-js:
         specifier: ^3.37.0
         version: 3.37.0
@@ -2766,24 +2766,6 @@ packages:
       '@babel/code-frame': 7.24.2
       '@babel/parser': 7.24.4
       '@babel/types': 7.24.0
-
-  /@babel/traverse@7.23.9:
-    resolution: {integrity: sha512-I/4UJ9vs90OkBtY6iiiTORVMyIhJ4kAVmsKo9KFc8UOxMeUfi2hvtIBsET5u9GizXE6/GFSuKCTNfgCswuEjRg==}
-    engines: {node: '>=6.9.0'}
-    dependencies:
-      '@babel/code-frame': 7.24.2
-      '@babel/generator': 7.24.4
-      '@babel/helper-environment-visitor': 7.22.20
-      '@babel/helper-function-name': 7.23.0
-      '@babel/helper-hoist-variables': 7.22.5
-      '@babel/helper-split-export-declaration': 7.22.6
-      '@babel/parser': 7.24.4
-      '@babel/types': 7.24.0
-      debug: 4.3.4(supports-color@8.1.1)
-      globals: 11.12.0
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
 
   /@babel/traverse@7.24.1:
     resolution: {integrity: sha512-xuU6o9m68KeqZbQuDt2TcKSxUw/mrsvavlEqQ1leZ/B+C9tk6E4sRWy97WaXgvq5E+nU3cXMxv3WKOCanVMCmQ==}
@@ -7987,14 +7969,14 @@ packages:
       webpack: 5.90.3
     dev: false
 
-  /babel-plugin-formatjs@10.5.13(ts-jest@29.1.2):
-    resolution: {integrity: sha512-0dtMhoa6q0P5lUHBphLd8/y+CRlh5IG3Rq+Wk64kOEDwUVZF8xq1qMSjC3iw1wH4tmP2qTzBL+Bz1xEjyBd/ew==}
+  /babel-plugin-formatjs@10.5.14(ts-jest@29.1.2):
+    resolution: {integrity: sha512-F++4Txa2bxrjbvspLxIXBDwcbKOftUvGgBDlz0hGe/fp7eXSPBJcu49xWj0/5VyMgSad4gKmBzWE5bfC27x19Q==}
     dependencies:
       '@babel/core': 7.24.4
-      '@babel/helper-plugin-utils': 7.22.5
+      '@babel/helper-plugin-utils': 7.24.0
       '@babel/plugin-syntax-jsx': 7.23.3(@babel/core@7.24.4)
-      '@babel/traverse': 7.23.9
-      '@babel/types': 7.23.9
+      '@babel/traverse': 7.24.1
+      '@babel/types': 7.24.0
       '@formatjs/icu-messageformat-parser': 2.7.6
       '@formatjs/ts-transformer': 3.13.12(ts-jest@29.1.2)
       '@types/babel__core': 7.20.5
