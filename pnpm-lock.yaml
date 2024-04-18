@@ -167,8 +167,8 @@ importers:
         specifier: ^3.6.0
         version: 3.6.0
       framer-motion:
-        specifier: ^11.0.13
-        version: 11.0.13(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^11.1.3
+        version: 11.1.3(react-dom@18.2.0)(react@18.2.0)
       graphql:
         specifier: ^16.8.1
         version: 16.8.1
@@ -680,8 +680,8 @@ importers:
         specifier: ^9.0.4
         version: 9.0.4(react@18.2.0)
       framer-motion:
-        specifier: ^11.0.13
-        version: 11.0.13(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^11.1.3
+        version: 11.1.3(react-dom@18.2.0)(react@18.2.0)
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -1014,8 +1014,8 @@ importers:
         specifier: ^11.3.0
         version: 11.3.0
       framer-motion:
-        specifier: ^11.0.13
-        version: 11.0.13(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^11.1.3
+        version: 11.1.3(react-dom@18.2.0)(react@18.2.0)
       graphql:
         specifier: ^16.8.1
         version: 16.8.1
@@ -1214,8 +1214,8 @@ importers:
         specifier: ^11.3.0
         version: 11.3.0
       framer-motion:
-        specifier: ^11.0.13
-        version: 11.0.13(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^11.1.3
+        version: 11.1.3(react-dom@18.2.0)(react@18.2.0)
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -10768,8 +10768,8 @@ packages:
     engines: {node: '>= 0.6'}
     dev: true
 
-  /framer-motion@11.0.13(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-zDjUj7dBiB6WklCvklKH06mwbYO0hzWrq5Rdz/DgeBFsCVQRmb9Zv7I9dPM7lX5c8eMxxba5D6sEVIv1kj/Ttg==}
+  /framer-motion@11.1.3(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-/t74b1WQu+mpZtra6xFSfsRfdTymJjNYgFudVIsUmoOWjznr3x5o9HbrX7Jt9655OCA2Js0W79bMZEKE7owp9w==}
     peerDependencies:
       '@emotion/is-prop-valid': '*'
       react: ^18.0.0
