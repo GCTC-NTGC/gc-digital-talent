@@ -38,7 +38,6 @@ const getNavLinkForSection = (section: HTMLElement): HTMLAnchorElement | null =>
 
 const resetNavLinks = (): void => {
   getNavLinks().forEach((link) => {
-    link.removeAttribute("aria-current");
     link.classList.remove("active");
   });
 };
@@ -52,7 +51,6 @@ const highlightCurrentNavLink = (): void => {
   if (currentSection) {
     const currentLink = getNavLinkForSection(currentSection);
     if (currentLink) {
-      currentLink.setAttribute("aria-current", "location");
       currentLink.classList.add("active");
     }
   }
