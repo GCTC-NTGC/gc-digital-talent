@@ -7559,7 +7559,7 @@
     "description": "Text on view-user page that the user is part of a visible minority"
   },
   "eihm6A": {
-    "defaultMessage": "Pour postuler à cet emploi, vous devrez être en mesure de démontrer que vous possédez <strong>toutes les compétences</strong> marquées <heavyPrimary>\"Requises\"</heavyPrimary>. Si vous possédez l'une des compétences<heavySecondary>\"Facultatives,\"</heavySecondary> nous vous recommandons de l'inclure, car elle augmentera vos chances de trouver un emploi.",
+    "defaultMessage": "Pour postuler à cet emploi, vous devrez être en mesure de démontrer que vous possédez <strong>toutes les compétences</strong> marquées <heavyPrimary>« Requises »</heavyPrimary>. Si vous possédez l'une des compétences <heavySecondary>« Facultatives »</heavySecondary> nous vous recommandons de l'inclure, car elle augmentera vos chances de trouver un emploi.",
     "description": "Descriptive text about how skills are defined and used for pool advertisements and applications"
   },
   "ekDavD": {

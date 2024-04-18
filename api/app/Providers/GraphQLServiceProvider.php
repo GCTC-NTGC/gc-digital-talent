@@ -12,6 +12,7 @@ use App\Enums\AssessmentStepType;
 use App\Enums\AwardedScope;
 use App\Enums\AwardedTo;
 use App\Enums\CandidateExpiryFilter;
+use App\Enums\CandidateRemovalReason;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
 use App\Enums\DirectiveForms\AdvertisementType;
@@ -667,6 +668,15 @@ class GraphQLServiceProvider extends ServiceProvider
                 return new EnumType([
                     'name' => 'NotificationType',
                     'values' => array_column(NotificationType::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'CandidateRemovalReason',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'CandidateRemovalReason',
+                    'values' => array_column(CandidateRemovalReason::cases(), 'name'),
                 ]);
             }
         );

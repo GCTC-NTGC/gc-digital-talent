@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Enums\ApplicationStep;
 use App\Enums\AssessmentResultType;
+use App\Enums\CandidateRemovalReason;
 use App\Enums\EducationRequirementOption;
 use App\Enums\PoolCandidateStatus;
 use App\Models\AssessmentResult;
@@ -51,6 +52,7 @@ class PoolCandidateFactory extends Factory
             ->limit(1)
             ->pluck('id')
             ->first();
+        $removedStatuses = PoolCandidateStatus::removedGroup();
 
         return [
             'cmo_identifier' => $this->faker->word(),
@@ -81,6 +83,18 @@ class PoolCandidateFactory extends Factory
             'placed_department_id' => function (array $attributes) use ($placedStatuses, $placedDepartmentId) {
                 return in_array($attributes['pool_candidate_status'], $placedStatuses) ?
                 $placedDepartmentId : null;
+            },
+            'removed_at' => function (array $attributes) use ($removedStatuses) {
+                return in_array($attributes['pool_candidate_status'], $removedStatuses) ?
+                $this->faker->dateTimeBetween('-2 weeks', 'now') : null;
+            },
+            'removal_reason' => function (array $attributes) use ($removedStatuses) {
+                return in_array($attributes['pool_candidate_status'], $removedStatuses) ?
+                $this->faker->randomElement(CandidateRemovalReason::cases())->name : null;
+            },
+            'removal_reason_other' => function (array $attributes) {
+                return $attributes['removal_reason'] === CandidateRemovalReason::OTHER->name ?
+                $this->faker->sentence() : null;
             },
         ];
     }
