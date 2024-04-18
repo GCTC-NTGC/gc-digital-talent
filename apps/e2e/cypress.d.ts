@@ -54,9 +54,13 @@ declare global {
       /**
        * Custom command to make a graphql request directly.
        * @param {Object} body - Body of the GraphQL request
+       * @param {boolean} isPrivileged - Make the request on the protected endpoint
        * @example cy.logout()
        */
-      graphqlRequest<T extends Object>(body: Object): Promise<T>;
+      graphqlRequest<T extends Object>(
+        body: Object,
+        isPrivileged?: boolean,
+      ): Promise<T>;
       /**
        * Override specific feature flags.
        * Note: Should be used in `before*`
