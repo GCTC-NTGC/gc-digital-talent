@@ -30,20 +30,6 @@ export const WithDefaultArgs: Story = {
     subtitle: "WithDefaultArgs",
     color: "primary",
   },
-  parameters: {
-    /*
-    Chromatic modes allow for testing themes, viewports, and locales via snapshots in Chromatic.
-    These should be used instead of creating multiple stories for variations of themes, viewports, or locales.
-    REF: https://www.chromatic.com/docs/modes/.
-    */
-    chromatic: {
-      modes: {
-        light: allModes.light,
-        "light mobile": allModes["light mobile"],
-        dark: allModes.dark,
-      },
-    },
-  },
 };
 
 // A story can use a custom render function.
