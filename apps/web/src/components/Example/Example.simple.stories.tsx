@@ -41,17 +41,3 @@ export const WithRenderFunction = {
     />
   ),
 };
-
-export const WithArgCompositionAndParameters: Story = {
-  args: {
-    // combine args for multiple stories of the same component.
-    ...WithDefaultArgs.args,
-  },
-  parameters: {
-    // Parameters are a set of static, named metadata about a story, typically used to control the behavior of Storybook features and addons.
-    backgrounds: {
-      default: "white",
-      values: [{ name: "white", value: "#fff" }],
-    },
-  },
-};
