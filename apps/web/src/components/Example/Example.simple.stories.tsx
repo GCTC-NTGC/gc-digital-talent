@@ -45,6 +45,5 @@ export const WithArgCompositionAndParameters: Story = {
       default: "white",
       values: [{ name: "white", value: "#fff" }],
     },
-    themeKey: "iap",
   },
 };
