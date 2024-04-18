@@ -1314,8 +1314,8 @@ importers:
         specifier: ^12.0.2
         version: 12.0.2(webpack@5.90.3)
       css-loader:
-        specifier: ^7.0.0
-        version: 7.0.0(webpack@5.90.3)
+        specifier: ^7.1.1
+        version: 7.1.1(webpack@5.90.3)
       css-minimizer-webpack-plugin:
         specifier: ^6.0.0
         version: 6.0.0(webpack@5.90.3)
@@ -8870,8 +8870,8 @@ packages:
       webpack: 5.90.3(@swc/core@1.4.13)(esbuild@0.19.12)
     dev: true
 
-  /css-loader@7.0.0(webpack@5.90.3):
-    resolution: {integrity: sha512-WrO4FVoamxt5zY9CauZjoJgXRi/LZKIk+Ta7YvpSGr5r/eMYPNp5/T9ODlMe4/1rF5DYlycG1avhV4g3A/tiAw==}
+  /css-loader@7.1.1(webpack@5.90.3):
+    resolution: {integrity: sha512-OxIR5P2mjO1PSXk44bWuQ8XtMK4dpEqpIyERCx3ewOo3I8EmbcxMPUc5ScLtQfgXtOojoMv57So4V/C02HQLsw==}
     engines: {node: '>= 18.12.0'}
     peerDependencies:
       '@rspack/core': 0.x || 1.x
