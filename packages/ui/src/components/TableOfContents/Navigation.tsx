@@ -1,6 +1,8 @@
 import React from "react";
 import uniqueId from "lodash/uniqueId";
 import { useIntl } from "react-intl";
+import sortBy from "lodash/sortBy";
+import head from "lodash/head";
 
 import { commonMessages, uiMessages } from "@gc-digital-talent/i18n";
 
@@ -8,23 +10,15 @@ import Sidebar from "../Sidebar/Sidebar";
 
 type NavigationProps = React.HTMLProps<HTMLDivElement>;
 
-// Returns true if the element is at all visible, in whole or in part, on the screen
-const isPartlyInView = (element: HTMLElement) => {
+const distanceFromCenter = (element: HTMLElement) => {
   const rect = element.getBoundingClientRect();
-  // top edge is in view, or bottom edge is in view, or both edges are out of view but element is partially in view
-  return (
-    (rect.top >= 0 && rect.top <= window.innerHeight) ||
-    (rect.bottom >= 0 && rect.bottom <= window.innerHeight) ||
-    (rect.top < 0 && rect.bottom > window.innerHeight)
-  );
-};
-
-// Returns true if the element is visible on the screen and covers the halfway point (vertically)
-const isCentrallyInView = (element: HTMLElement) => {
-  const rect = element.getBoundingClientRect();
-  return (
-    rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2
-  );
+  const center = window.innerHeight / 2;
+  // If the top and bottom are on either side of the center, this element covers the center of the screen
+  if (rect.top <= center && rect.bottom >= center) {
+    return 0;
+  }
+  // Otherwise, return the minimum of the distance from the center to the top or bottom of the element
+  return Math.min(Math.abs(rect.top - center), Math.abs(rect.bottom - center));
 };
 
 const getNavSections = (): HTMLElement[] =>
@@ -45,9 +39,8 @@ const resetNavLinks = (): void => {
 const highlightCurrentNavLink = (): void => {
   resetNavLinks();
   const sections = getNavSections();
-  // Try to find the section that is in the center of the screen, and failing that, the first partly visible section on the screen.
-  const currentSection =
-    sections.find(isCentrallyInView) ?? sections.find(isPartlyInView);
+  // Try to find the section that is in the center of the screen, and failing that, the one whose edge is closest to the center
+  const currentSection = head(sortBy(sections, distanceFromCenter)); // sort by distance from the center (ascending) and take the lowest
   if (currentSection) {
     const currentLink = getNavLinkForSection(currentSection);
     if (currentLink) {
