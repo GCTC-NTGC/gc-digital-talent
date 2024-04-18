@@ -291,8 +291,8 @@ const NotificationSettings = ({
               data-h2-gap="base(x1) p-tablet(x2) laptop(x2.5)"
               data-h2-align-self="base(flex-end)"
             >
-              <p>{intl.formatMessage(commonMessages.email)}</p>
-              <p>{intl.formatMessage(commonMessages.inApp)}</p>
+              <p aria-hidden>{intl.formatMessage(commonMessages.email)}</p>
+              <p aria-hidden>{intl.formatMessage(commonMessages.inApp)}</p>
             </div>
             {formFields.map((props) => (
               <NotificationChecklist key={props.id} {...props} />
