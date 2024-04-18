@@ -5,7 +5,7 @@ import { PoolCandidateStatus, User } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Link, Well } from "@gc-digital-talent/ui";
 
-import ApplicationCard from "~/pages/ProfileAndApplicationsPage/components/TrackApplications/ApplicationCard";
+import ApplicationCard from "~/components/ApplicationCard/ApplicationCard";
 import useRoutes from "~/hooks/useRoutes";
 
 const inlineLink = (href: string, chunks: React.ReactNode) => (

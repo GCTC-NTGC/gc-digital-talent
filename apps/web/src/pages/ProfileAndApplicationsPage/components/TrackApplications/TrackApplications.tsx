@@ -10,8 +10,7 @@ import { PoolCandidate, Scalars } from "@gc-digital-talent/graphql";
 import useRoutes from "~/hooks/useRoutes";
 import { isApplicationInProgress, notRemoved } from "~/utils/applicationUtils";
 import { PAGE_SECTION_ID as CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
-
-import ApplicationCard from "./ApplicationCard";
+import ApplicationCard from "~/components/ApplicationCard/ApplicationCard";
 
 function buildLink(href: string, chunks: React.ReactNode): React.ReactElement {
   return <Link href={href}>{chunks}</Link>;
