@@ -8397,16 +8397,16 @@
         },
         {
             "name": "web-token/jwt-library",
-            "version": "3.4.1",
+            "version": "3.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/web-token/jwt-library.git",
-                "reference": "638ec0eeeb3650391e173c735f94df7911696304"
+                "reference": "4b09510eec25c328525048cbdf6042a39a7c28d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/web-token/jwt-library/zipball/638ec0eeeb3650391e173c735f94df7911696304",
-                "reference": "638ec0eeeb3650391e173c735f94df7911696304",
+                "url": "https://api.github.com/repos/web-token/jwt-library/zipball/4b09510eec25c328525048cbdf6042a39a7c28d8",
+                "reference": "4b09510eec25c328525048cbdf6042a39a7c28d8",
                 "shasum": ""
             },
             "require": {
@@ -8479,7 +8479,7 @@
             ],
             "support": {
                 "issues": "https://github.com/web-token/jwt-library/issues",
-                "source": "https://github.com/web-token/jwt-library/tree/3.4.1"
+                "source": "https://github.com/web-token/jwt-library/tree/3.4.3"
             },
             "funding": [
                 {
@@ -8491,7 +8491,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2024-04-10T15:46:26+00:00"
+            "time": "2024-04-17T17:41:33+00:00"
         },
         {
             "name": "webmozart/assert",
