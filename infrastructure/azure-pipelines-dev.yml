@@ -52,6 +52,16 @@ stages:
   variables:
     - name: npm_config_user_config
       value: '$(System.DefaultWorkingDirectory)/infrastructure/.npmrc'
+    - name: dirResults
+      value: '$(System.DefaultWorkingDirectory)/apps/playwright/test-results'
+    - name: resourceGroupName
+      value: 'rg_tbs_talent_2_PaaS'
+    - name: vertical
+      value: 'dev'
+    - name: storageAccountName
+      value: 'sttalclddevcacstdl'
+    - name: storageContainer
+      value: 'playwright-results'  
   jobs:
   - job: run_playwright_tests
     displayName: Run Playwright tests
