@@ -44,15 +44,15 @@ const Example = ({ subtitle, color, showBorder }: ExampleProps) => {
 
   return (
     <div {...containerStyles}>
-      <p>
-        {flags[intl.locale]}
+      <h1>
         {intl.formatMessage({
           defaultMessage: "Example",
           id: "+jIT2i",
           description: "Title for the example component",
         })}
-      </p>
-      {subtitle ? <span>{subtitle}</span> : null}
+      </h1>
+      {subtitle && <h2>{subtitle}</h2>}
+      <p>{flags[intl.locale]}</p>
     </div>
   );
 };
