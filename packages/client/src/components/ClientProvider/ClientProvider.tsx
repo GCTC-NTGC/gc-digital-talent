@@ -21,6 +21,7 @@ import { useLogger } from "@gc-digital-talent/logger";
 import { toast } from "@gc-digital-talent/toast";
 import { uniqueItems } from "@gc-digital-talent/helpers";
 import type { LogoutReason } from "@gc-digital-talent/auth";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import {
   buildValidationErrorMessageNode,
@@ -56,6 +57,7 @@ const ClientProvider = ({
   const intl = useIntl();
   const authContext = useAuthentication();
   const logger = useLogger();
+  const { protectedApi: protectedApiFlag } = useFeatureFlags();
   // Create a mutable object to hold the auth state
   const authRef = React.useRef(authContext);
   // Keep the contents of that mutable object up to date
@@ -71,7 +73,7 @@ const ClientProvider = ({
         requestPolicy: "cache-and-network",
         exchanges: [
           cacheExchange,
-          protectedEndpointExchange,
+          ...(protectedApiFlag ? [protectedEndpointExchange] : []),
           mapExchange({
             onError(error, operation) {
               if (error.graphQLErrors || error.networkError) {
@@ -163,7 +165,7 @@ const ClientProvider = ({
         ],
       })
     );
-  }, [client, intl, logger]);
+  }, [client, intl, logger, protectedApiFlag]);
 
   return <Provider value={internalClient}>{children}</Provider>;
 };

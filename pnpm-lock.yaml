@@ -412,6 +412,9 @@ importers:
       '@gc-digital-talent/auth':
         specifier: workspace:*
         version: link:../auth
+      '@gc-digital-talent/env':
+        specifier: workspace:*
+        version: link:../env
       '@gc-digital-talent/helpers':
         specifier: workspace:*
         version: link:../helpers
