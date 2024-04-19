@@ -48,8 +48,8 @@ const SignedOutPage = () => {
         <Alert.Root type="warning" live={false}>
           <Alert.Title>
             {intl.formatMessage({
-              defaultMessage: "Your session has expired, please sign in again.",
-              id: "wm8WXC",
+              defaultMessage: "Your session has expired. Please sign in again.",
+              id: "qFIyZv",
               description:
                 "Title for the alert displayed after a user signs out",
             })}
@@ -57,8 +57,8 @@ const SignedOutPage = () => {
           <p>
             {intl.formatMessage({
               defaultMessage:
-                "Remember, to sign back in, you'll need to use your GCKey username and password. We hope to see you soon!",
-              id: "8M/lmC",
+                "To sign back in, you'll need to use your GCKey username and password. We hope to see you soon!",
+              id: "NZ3laJ",
               description: "Message displayed to a user after signing out",
             })}
           </p>
@@ -107,8 +107,8 @@ const SignedOutPage = () => {
           <p>
             {intl.formatMessage({
               defaultMessage:
-                "Remember, to sign back in, you'll need to use your GCKey username and password. We hope to see you soon!",
-              id: "8M/lmC",
+                "To sign back in, you'll need to use your GCKey username and password. We hope to see you soon!",
+              id: "NZ3laJ",
               description: "Message displayed to a user after signing out",
             })}
           </p>
