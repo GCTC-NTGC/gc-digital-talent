@@ -142,7 +142,7 @@ module.exports = (basePath, appMeta) => {
         {
           // load css files
           test: /\.css$/i,
-          use: [MiniCssExtractPlugin.loader, "css-loader"],
+          use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
         },
         {
           test: /\.(png|svg|jpg|jpeg|gif|webp)$/i,
