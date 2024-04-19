@@ -17,7 +17,8 @@ const AnchorLink = ({ id, children }: AnchorLinkProps) => {
     <ScrollToLink
       data-is-toc-link // Used to find Table of Contents link elements in the Navigation component
       id={`toc-link-for-${id}`}
-      data-h2-font-weight="base:selectors[.active](bold)"
+      data-h2-font-weight="base:selectors[.active](bold) base:selectors[::after](bold)" // The Navigation component can apply the active class to bold the link to the current section.
+      data-h2-visibility="base:selectors[::after](hidden)" // Stops the bolding from causing a layout shift; see https://css-tricks.com/bold-on-hover-without-the-layout-shift/
       to={id}
       color="black"
       mode="text"
