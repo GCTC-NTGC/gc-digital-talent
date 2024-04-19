@@ -4,5 +4,7 @@
   "singleQuote": false,
   "printWidth": 80,
   "tabWidth": 2,
-  "endOfLine": "auto"
+  "endOfLine": "auto",
+  "plugins": ["prettier-plugin-tailwindcss"],
+  "tailwindConfig": "./apps/web/tailwind.config.ts"
 }
