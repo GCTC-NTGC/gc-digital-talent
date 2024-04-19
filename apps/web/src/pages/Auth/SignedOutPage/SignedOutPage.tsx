@@ -57,8 +57,8 @@ const SignedOutPage = () => {
           <p>
             {intl.formatMessage({
               defaultMessage:
-                "Remember, to sign back in, you'll need to use your GCKey username and password. We hope to see you soon!",
-              id: "8M/lmC",
+                "To sign back in, you'll need to use your GCKey username and password. We hope to see you soon!",
+              id: "NZ3laJ",
               description: "Message displayed to a user after signing out",
             })}
           </p>
@@ -107,8 +107,8 @@ const SignedOutPage = () => {
           <p>
             {intl.formatMessage({
               defaultMessage:
-                "Remember, to sign back in, you'll need to use your GCKey username and password. We hope to see you soon!",
-              id: "8M/lmC",
+                "To sign back in, you'll need to use your GCKey username and password. We hope to see you soon!",
+              id: "NZ3laJ",
               description: "Message displayed to a user after signing out",
             })}
           </p>
