@@ -62,6 +62,8 @@ stages:
       value: 'sttalclddevcacstdl'
     - name: storageContainer
       value: 'playwright-results'
+    - name: serviceConnectionName
+      value: 'Talent Cloud Service Connection'
   jobs:
   - job: run_playwright_tests
     displayName: Run Playwright tests
