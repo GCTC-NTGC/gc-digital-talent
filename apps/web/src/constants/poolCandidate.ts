@@ -52,8 +52,8 @@ export const RECORD_DECISION_STATUSES = [
 ];
 
 export const REVERT_DECISION_STATUSES = [
+  PoolCandidateStatus.ScreenedOutApplication,
+  PoolCandidateStatus.ScreenedOutAssessment,
   PoolCandidateStatus.QualifiedAvailable,
-  PoolCandidateStatus.QualifiedUnavailable,
-  PoolCandidateStatus.QualifiedWithdrew,
   PoolCandidateStatus.Expired,
 ];
