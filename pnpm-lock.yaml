@@ -258,8 +258,8 @@ importers:
         specifier: ^6.4.2
         version: 6.4.2(@types/jest@29.5.12)(jest@29.7.0)
       '@testing-library/react':
-        specifier: ^15.0.2
-        version: 15.0.2(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^14.3.0
+        version: 14.3.1(react-dom@18.2.0)(react@18.2.0)
       '@testing-library/user-event':
         specifier: ^14.5.2
         version: 14.5.2(@testing-library/dom@10.0.0)
@@ -677,16 +677,16 @@ importers:
         specifier: ^2.0.1
         version: 2.0.1(react-dom@18.2.0)(react-hook-form@7.51.3)(react@18.2.0)
       '@tiptap/extension-character-count':
-        specifier: ^2.3.0
+        specifier: ^2.2.4
         version: 2.3.0(@tiptap/core@2.3.0)(@tiptap/pm@2.3.0)
       '@tiptap/extension-link':
-        specifier: ^2.3.0
+        specifier: ^2.2.4
         version: 2.3.0(@tiptap/core@2.3.0)(@tiptap/pm@2.3.0)
       '@tiptap/react':
-        specifier: ^2.3.0
+        specifier: ^2.2.4
         version: 2.3.0(@tiptap/core@2.3.0)(@tiptap/pm@2.3.0)(react-dom@18.2.0)(react@18.2.0)
       '@tiptap/starter-kit':
-        specifier: ^2.3.0
+        specifier: ^2.2.4
         version: 2.3.0(@tiptap/pm@2.3.0)
       date-fns:
         specifier: ^3.6.0
@@ -732,8 +732,8 @@ importers:
         specifier: ^6.4.2
         version: 6.4.2(@types/jest@29.5.12)(jest@29.7.0)
       '@testing-library/react':
-        specifier: ^15.0.1
-        version: 15.0.2(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^14.3.0
+        version: 14.3.1(react-dom@18.2.0)(react@18.2.0)
       '@testing-library/user-event':
         specifier: ^14.5.2
         version: 14.5.2(@testing-library/dom@10.0.0)
@@ -928,8 +928,8 @@ importers:
         specifier: workspace:*
         version: link:../jest-presets
       '@testing-library/react':
-        specifier: ^15.0.2
-        version: 15.0.2(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^14.3.0
+        version: 14.3.1(react-dom@18.2.0)(react@18.2.0)
       '@testing-library/user-event':
         specifier: ^14.5.2
         version: 14.5.2(@testing-library/dom@10.0.0)
@@ -1275,8 +1275,8 @@ importers:
         specifier: ^6.4.2
         version: 6.4.2(@types/jest@29.5.12)(jest@29.7.0)
       '@testing-library/react':
-        specifier: ^15.0.2
-        version: 15.0.2(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^14.3.0
+        version: 14.3.1(react-dom@18.2.0)(react@18.2.0)
       '@testing-library/user-event':
         specifier: ^14.5.2
         version: 14.5.2(@testing-library/dom@10.0.0)
@@ -6508,15 +6508,15 @@ packages:
       redent: 3.0.0
     dev: true
 
-  /@testing-library/react@15.0.2(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-5mzIpuytB1ctpyywvyaY2TAAUQVCZIGqwiqFQf6u9lvj/SJQepGUzNV18Xpk+NLCaCE2j7CWrZE0tEf9xLZYiQ==}
-    engines: {node: '>=18'}
+  /@testing-library/react@14.3.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-H99XjUhWQw0lTgyMN05W3xQG1Nh4lq574D8keFf1dDoNTJgp66VbJozRaczoF+wsiaPJNt/TcnfpLGufGxSrZQ==}
+    engines: {node: '>=14'}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
     dependencies:
       '@babel/runtime': 7.24.4
-      '@testing-library/dom': 10.0.0
+      '@testing-library/dom': 9.3.4
       '@types/react-dom': 18.2.25
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
