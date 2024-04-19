@@ -2,21 +2,26 @@
 # This script is run after the deployment is complete to help set up the environment in the app service.
 # It sends a message to a slack webook URI.
 
-ROOT_DIR=$1
-SLACK_WEBHOOK_URI=$2
-SOURCE_NAME=$3
+SLACK_WEBHOOK_URI=$1
+
+# Can review this file even if the slack delivery fails
+PAYLOAD_FILE=/tmp/post_deploy_log_payload.json
+
+# Reusable function to add a section block with a markdown string
+add_section_block () {
+  BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \"$1\" } }"
+}
 
 # https://stackoverflow.com/a/13122217
 read -r -d '' TRIPLE_BACK_TICK << "EndOfMessage"
 ```
 EndOfMessage
 
-# Switch to another token for quieter testing
-MENTION="@Peter"
-
-if [ -z "$ROOT_DIR" ]; then
-    echo "Must past abs path as first argument."
-    exit 1
+if [ $WEBSITE_SITE_NAME == "localhost" ]; then
+    # No need to mention anyone if you're testing from localhost
+    MENTION=""
+else
+    MENTION="@channel"
 fi
 
 # First block is the header
@@ -24,25 +29,25 @@ BLOCKS="{ \"type\": \"header\", \"text\": { \"type\": \"plain_text\", \"text\": 
 
 # Install packages from repository
 if apt-get update && apt-get install -y supervisor cron; then
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Install packages from repository *successful*.\" } }"
+    add_section_block ":white_check_mark: Install packages from repository *successful*."
 else
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Install packages from repository *failed*. $MENTION\" } }"
+    add_section_block ":X: Install packages from repository *failed*. $MENTION"
 fi
 
-cd $ROOT_DIR/api
+cd /home/site/wwwroot/api
 
 # Create cache directory
 if mkdir --parents /tmp/bootstrap/cache ; then
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Cache directory creation *successful*.\" } }"
+    add_section_block ":white_check_mark: Cache directory creation *successful*."
 else
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Cache directory creation *failed*. $MENTION\" } }"
+    add_section_block ":X: Cache directory creation *failed*. $MENTION"
 fi
 
 # Chown cache directory
 if chown www-data:www-data /tmp/bootstrap/cache ; then
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Cache directory chown *successful*.\" } }"
+    add_section_block ":white_check_mark: Cache directory chown *successful*."
 else
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Cache directory chown *failed*. $MENTION\" } }"
+    add_section_block ":X: Cache directory chown *failed*. $MENTION"
 fi
 
 # Laravel database migrations
@@ -50,78 +55,82 @@ MIGRATION_STDOUT=$(php artisan migrate --no-interaction --force --no-ansi)
 MIGRATION_STATUS=$?
 
 if [ $MIGRATION_STATUS -eq 0 ]; then
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Database migration *successful*.\" } }"
+    add_section_block ":white_check_mark: Database migration *successful*."
 else
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Database migration *failed*. $MENTION\" } }"
+    add_section_block ":X: Database migration *failed*. $MENTION"
 fi
 
 # Include the stdout from the migration as its own block, cleaned to make Slack happy
 CLEANED_STDOUT=${MIGRATION_STDOUT//[^a-zA-Z0-9_ $'\n']/}
-BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\":\"$TRIPLE_BACK_TICK $CLEANED_STDOUT $TRIPLE_BACK_TICK\" } }"
+add_section_block "$TRIPLE_BACK_TICK $CLEANED_STDOUT $TRIPLE_BACK_TICK"
 
 # Load Laravel Scheduler cron
 if echo "  *  *  *  *  * root    cd /home/site/wwwroot/api && php artisan schedule:run" >> /etc/crontab ; then
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Laravel Scheduler cron setup *successful*.\" } }"
+    add_section_block ":white_check_mark: Laravel Scheduler cron setup *successful*."
 else
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Laravel Scheduler cron setup *failed*. $MENTION\" } }"
+    add_section_block ":X: Laravel Scheduler cron setup *failed*. $MENTION"
 fi
 
 # Setup supervisor
 if /home/site/wwwroot/infrastructure/bin/setup_supervisor.sh ; then
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Setup supervisor *successful*.\" } }"
+    add_section_block ":white_check_mark: Setup supervisor *successful*."
 else
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Setup supervisor *failed*. $MENTION\" } }"
+    add_section_block ":X: Setup supervisor *failed*. $MENTION"
 fi
 
 # Copy nginx config and reload
 if /home/site/wwwroot/infrastructure/bin/substitute_file.sh /home/site/wwwroot/infrastructure/conf/nginx-conf-deploy/default /etc/nginx/sites-available/default '$NGINX_PORT $ROBOTS_FILENAME' && nginx -s reload ; then
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Config copy for Nginx *successful*.\" } }"
+    add_section_block ":white_check_mark: Config copy for Nginx *successful*."
 else
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Config copy for Nginx *failed*. $MENTION\" } }"
+    add_section_block ":X: Config copy for Nginx *failed*. $MENTION"
 fi
 
 # Copy custom PHP-FPM config
 # FPM is not yet started when this script is run so no need to restart it.
 if cp /home/site/wwwroot/infrastructure/conf/php-fpm-www.conf /usr/local/etc/php-fpm.d/www.conf ; then
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Config (www) copy for PHP-FPM *successful*.\" } }"
+    add_section_block ":white_check_mark: Config (www) copy for PHP-FPM *successful*."
 else
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Config (www) copy for PHP-FPM *failed*. $MENTION\" } }"
+    add_section_block ":X: Config (www) copy for PHP-FPM *failed*. $MENTION"
 fi
 if cp /home/site/wwwroot/infrastructure/conf/php-fpm-docker.conf /usr/local/etc/php-fpm.d/docker.conf ; then
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Config (docker) copy for PHP-FPM *successful*.\" } }"
+    add_section_block ":white_check_mark: Config (docker) copy for PHP-FPM *successful*."
 else
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Config (docker) copy for PHP-FPM *failed*. $MENTION\" } }"
+    add_section_block ":X: Config (docker) copy for PHP-FPM *failed*. $MENTION"
 fi
 
 # Environment config variable substitutions
 if /home/site/wwwroot/infrastructure/bin/substitute_file.sh /home/site/wwwroot/apps/web/dist/config.js /home/site/config-web.js; then
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":white_check_mark: Copy config for web *successful*.\" } }"
+    add_section_block ":white_check_mark: Copy config for web *successful*."
 else
-    BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \":X: Copy config for web *failed*. $MENTION\" } }"
+    add_section_block ":X: Copy config for web *failed*. $MENTION"
 fi
 
 # Add a source context block
-read -r -d '' BLOCKS << EndOfMessage
-$BLOCKS,
-{
-    "type": "divider"
-},
-{
-  "type": "context",
-  "elements": [
-    {
-      "type": "mrkdwn",
-      "text": "Source: $SOURCE_NAME"
-    }
-  ]
-}
-EndOfMessage
+BLOCKS="$BLOCKS, { \"type\": \"divider\" }"
+BLOCKS="$BLOCKS, { \"type\": \"context\", \"elements\": [ { \"type\": \"mrkdwn\", \"text\": \"Source: $WEBSITE_SITE_NAME\" } ] }"
 
+# Write finished payload to file
 PAYLOAD="{\"blocks\": [$BLOCKS]}"
+echo $PAYLOAD > $PAYLOAD_FILE
 
+# Send payload to Slack
 if [ -z "$SLACK_WEBHOOK_URI" ]; then
-    echo "No Slack webhook URI provided.  Dumping payload."
-    echo "$PAYLOAD"
+    echo "No Slack webhook URI provided.  You can review the $PAYLOAD_FILE file."
 else
-    echo "$PAYLOAD"  | curl -H "Content-Type: application/json" -X POST --data-binary @- "$SLACK_WEBHOOK_URI"
+    # Switch to "--fail-with-body" when we get curl 7.76.0 so we can see a slack error message.  For now, remove the "--fail" option to see the web response.
+    curl \
+        --fail \
+        --header "Content-Type: application/json" \
+        --data @$PAYLOAD_FILE \
+        "$SLACK_WEBHOOK_URI"
+    if [ $? -eq 0 ]; then
+        echo "Slack log sent successfully"
+    else
+        echo "Slack log failed to send"
+        # try to send a last-ditch notification to slack
+        curl \
+            --header "Content-Type: application/json" \
+            --data "{\"text\":\"Failed to send a log from a deployment! You can review the $PAYLOAD_FILE file.\"}" \
+            "$SLACK_WEBHOOK_URI"
+    fi
 fi
