@@ -999,6 +999,10 @@
     "defaultMessage": "Arrangement en matière d'approvisionnement",
     "description": "Supply arrangement contract instrument"
   },
+  "3lZIlA": {
+    "defaultMessage": "Le candidat sera informé de toute modification apportée à ce formulaire.",
+    "description": "Important information about notifying the candidate of changes"
+  },
   "3owqTQ": {
     "defaultMessage": "Veuillez utiliser uniquement des lettres minuscules et des traits de soulignement.",
     "description": "Description for rule pattern on key field"
@@ -3563,6 +3567,10 @@
     "defaultMessage": "Compétences comportementales",
     "description": "Heading for a list of users behavioural skills"
   },
+  "IhPS6D": {
+    "defaultMessage": "Important",
+    "description": "Heading for a section of important information"
+  },
   "IhXvCe": {
     "defaultMessage": "Êtes-vous certain de vouloir supprimer cette expérience de votre profil? Cette action ne peut être annulée.",
     "description": "Question displayed when a user attempts to delete an experience from their profile"
@@ -5307,6 +5315,10 @@
     "defaultMessage": "Vous avez répondu aux questions suivantes :",
     "description": "Message in screening questions section of the application review page."
   },
+  "Se2I7I": {
+    "defaultMessage": "Échec de la mise à jour de la date d’expiration",
+    "description": "Error message for updating expiry date"
+  },
   "SeJ1eB": {
     "defaultMessage": "Vous recevrez des candidats qui ont :",
     "description": "Title for the candidate list in the 'Indigenous talent ready for IT apprenticeships' section"
@@ -5402,6 +5414,10 @@
   "TE2Nwv": {
     "defaultMessage": "Critères de compétences constituant un atout",
     "description": "Sub title for the pool essential skills"
+  },
+  "THBjEx": {
+    "defaultMessage": "Date d’expiration",
+    "description": "Label for the expiry date input"
   },
   "TIAla1": {
     "defaultMessage": "Non réussi",
@@ -5721,6 +5737,10 @@
   "V9lxDE": {
     "defaultMessage": "Il semble que vous n’ayez pas encore répondu aux questions de sélection.",
     "description": "Null state message in screening questions section of the application review page."
+  },
+  "V9uhhO": {
+    "defaultMessage": "Modification de la date d’expiration",
+    "description": "Title for the change expiry date dialog"
   },
   "VAI+TU": {
     "defaultMessage": "Il n’est pas nécessaire d’évaluer chaque critère essentiel au moyen de chaque méthode d’évaluation. À titre d’exemple, un examen ou des questions d’entrevue techniques permettent mieux d’évaluer les allégations de compétences techniques faites par les candidats, alors que les entrevues ou les vérifications des références sont davantage adaptées pour vérifier les compétences comportementales.",
@@ -6278,6 +6298,10 @@
     "defaultMessage": "Coordonnées",
     "description": "Profile section title for contact information"
   },
+  "XrRt6V": {
+    "defaultMessage": "Date d’expiration mise à jour avec succès",
+    "description": "Success message for updating expiry date"
+  },
   "XrfkBm": {
     "defaultMessage": "Aucune expérience n’est liée à cette compétence.",
     "description": "Message displayed when no experiences have been attached to a skill"
@@ -6337,6 +6361,10 @@
   "YCqTbH": {
     "defaultMessage": "Apprendre comment décrire le mieux possible votre expérience d’une compétence",
     "description": "Button text to open accordion describing skill experience"
+  },
+  "YCv/4v": {
+    "defaultMessage": "Durée pendant laquelle le candidat sera pris en considération pour une affectation à la suite de cette procédure. La durée habituelle est de 2 ans.",
+    "description": "Help text for setting a candidate expiry date"
   },
   "YGM/D5": {
     "defaultMessage": "Le programme dure 24 mois et les apprentis ont accès à un soutien pendant leur période de participation au programme.",
