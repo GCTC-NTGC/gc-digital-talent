@@ -2,6 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    --color-background: 245 248 253;
+    --color-primary: 155 71 255;
+  }
+
+  :root .dark {
+    --color-background: 47 49 61;
+  }
+
+  :root .iap {
+    --color-primary: 192 30 90;
+  }
+
+  /* :root .iap.dark {} */
+}
+
 button,
 input,
 optgroup,
