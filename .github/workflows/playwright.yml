@@ -65,7 +65,7 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Chromium Tests
-        run: npm run e2e:playwright:chromium
+        run: npm run e2e:playwright:chromium --reporter dot
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -74,7 +74,7 @@ jobs:
           retention-days: 30
 
       - name: Run Firefox Tests
-        run: npm run e2e:playwright:firefox
+        run: npm run e2e:playwright:firefox --reporter dot
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -83,7 +83,7 @@ jobs:
           retention-days: 30
 
       - name: Run Webkit Tests
-        run: npm run e2e:playwright:webkit
+        run: npm run e2e:playwright:webkit --reporter dot
       - uses: actions/upload-artifact@v4
         if: always()
         with:
