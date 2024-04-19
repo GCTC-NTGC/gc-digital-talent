@@ -19,6 +19,8 @@ on:
 jobs:
   chromatic:
     name: Chromatic
+    # Only run if not dependabot,
+    if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-22.04
     env:
       PNPM_VERSION: "8.15.0"

@@ -1,11 +1,16 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 
-import { Accordion, Tabs, HeadingRank, Link } from "@gc-digital-talent/ui";
+import {
+  Accordion,
+  Tabs,
+  HeadingRank,
+  Link,
+  Button,
+} from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { AwardExperience, Experience } from "@gc-digital-talent/graphql";
 
-import { invertSkillExperienceTree } from "~/utils/skillUtils";
 import {
   compareByDate,
   isAwardExperience,
@@ -14,6 +19,9 @@ import {
   isPersonalExperience,
   isWorkExperience,
 } from "~/utils/experienceUtils";
+import useControlledCollapsibleGroup from "~/hooks/useControlledCollapsibleGroup";
+import experienceMessages from "~/messages/experienceMessages";
+import { invertSkillExperienceTree } from "~/utils/skillUtils";
 
 import ExperienceCard from "../ExperienceCard/ExperienceCard";
 import SkillAccordion from "./SkillAccordion/SkillAccordion";
@@ -89,6 +97,8 @@ const ExperienceSection = ({
   );
 
   const sortedByDate = allExperiences.sort(compareByDate);
+  const { isExpanded, hasExpanded, toggleAllExpanded, toggleExpandedItem } =
+    useControlledCollapsibleGroup(sortedByDate.map(({ id }) => id));
 
   const allSkills = React.useMemo(
     () => invertSkillExperienceTree(allExperiences),
@@ -139,6 +149,15 @@ const ExperienceSection = ({
         ))}
       </Tabs.List>
       <Tabs.Content value="0">
+        <p data-h2-margin-bottom="base(x.5)" data-h2-text-align="base(right)">
+          <Button mode="inline" onClick={toggleAllExpanded}>
+            {intl.formatMessage(
+              hasExpanded
+                ? experienceMessages.collapseDetails
+                : experienceMessages.expandDetails,
+            )}
+          </Button>
+        </p>
         <div
           data-h2-display="base(flex)"
           data-h2-flex-direction="base(column)"
@@ -148,6 +167,8 @@ const ExperienceSection = ({
             <ExperienceCard
               headingLevel={headingLevel}
               key={experience.id}
+              onOpenChange={() => toggleExpandedItem(experience.id)}
+              isOpen={isExpanded(experience.id)}
               experience={experience}
               editParam={editParam}
             />
