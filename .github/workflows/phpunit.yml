@@ -48,13 +48,17 @@ jobs:
         working-directory: api
         env:
           DB_HOST: localhost
-        run: php artisan test --coverage-clover=coverage.xml
-
+        run: |
+          if [ github.actor != 'dependabot[bot]' ]; then
+            php artisan test --coverage-clover=coverage.xml
+          else
+            php artisan test
+          fi
       - name: Upload coverage report to Codecov
+        if: github.actor != 'dependabot[bot]'
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: coverage.xml
           flags: integrationtests
           fail_ci_if_error: false
-
