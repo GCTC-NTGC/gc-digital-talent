@@ -1003,10 +1003,6 @@
     "defaultMessage": "Arrangement en matière d'approvisionnement",
     "description": "Supply arrangement contract instrument"
   },
-  "3lZIlA": {
-    "defaultMessage": "Le candidat sera informé de toute modification apportée à ce formulaire.",
-    "description": "Important information about notifying the candidate of changes"
-  },
   "3owqTQ": {
     "defaultMessage": "Veuillez utiliser uniquement des lettres minuscules et des traits de soulignement.",
     "description": "Description for rule pattern on key field"
@@ -5432,7 +5428,7 @@
     "description": "Sub title for the pool essential skills"
   },
   "THBjEx": {
-    "defaultMessage": "Date d’expiration",
+    "defaultMessage": "Date d'expiration",
     "description": "Label for the expiry date input"
   },
   "TIAla1": {
@@ -5755,7 +5751,7 @@
     "description": "Null state message in screening questions section of the application review page."
   },
   "V9uhhO": {
-    "defaultMessage": "Modification de la date d’expiration",
+    "defaultMessage": "Modification de la date d'expiration",
     "description": "Title for the change expiry date dialog"
   },
   "VAI+TU": {
@@ -6315,7 +6311,7 @@
     "description": "Profile section title for contact information"
   },
   "XrRt6V": {
-    "defaultMessage": "Date d’expiration mise à jour avec succès",
+    "defaultMessage": "Date d'expiration mise à jour avec succès",
     "description": "Success message for updating expiry date"
   },
   "XrfkBm": {

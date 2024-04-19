@@ -152,9 +152,9 @@ const ChangeExpiryDateDialog = ({
                   {intl.formatMessage({
                     defaultMessage:
                       "The candidate will be notified of any changes made in this form.",
-                    id: "3lZIlA",
+                    id: "17dZD4",
                     description:
-                      "Important information about notifying the candidate of changes",
+                      "Caption notifying the user about who can know about the results of form changes",
                   })}
                 </p>
               </Well>
