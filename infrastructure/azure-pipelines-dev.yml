@@ -101,7 +101,7 @@ stages:
       - script: npm run e2e:playwright:chromium
         displayName: "Run playwright tests"
       - task: AzureCLI@2
-        displayName: "Copy Playwright Results to Storage"
+        displayName: 'Copy Playwright Results to Storage'
         condition: succeededOrFailed()
         inputs:
           azureSubscription: $(serviceConnectionName)
