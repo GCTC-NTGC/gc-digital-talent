@@ -13,6 +13,7 @@ import {
   CreatePoolCandidateSearchRequestInput,
   makeFragmentData,
 } from "@gc-digital-talent/graphql";
+import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import {
   RequestForm,
@@ -58,6 +59,14 @@ export default {
       });
       action("Create Pool Candidate Search Request")(data);
       return null;
+    },
+  },
+  parameters: {
+    chromatic: {
+      modes: {
+        light: allModes.light,
+        "light mobile": allModes["light mobile"],
+      },
     },
   },
 } as Meta;

@@ -1799,10 +1799,6 @@
     "defaultMessage": "Le gouvernement du Canada ne se prononcera pas sur des questions de partisanerie ou de politique, et il ne répondra pas aux questions qui contreviennent aux règles énoncées dans cet avis.",
     "description": "Paragraph for comments and interaction section"
   },
-  "8M/lmC": {
-    "defaultMessage": "N'oubliez pas que pour vous reconnecter, vous devrez utiliser votre nom d’utilisateur et votre mot de passe CléGC. Nous espérons vous voir bientôt!",
-    "description": "Message displayed to a user after signing out"
-  },
   "8M2Tbu": {
     "defaultMessage": "<strong>Service de relais vidéo :</strong>La CCDP accepte les appels utilisant le service de relais vidéo effectués par l’intermédiaire de <relayServiceLink>SRV Canada</relayServiceLink>.",
     "description": "VRS contact info"
@@ -4414,6 +4410,10 @@
   "NV+5pq": {
     "defaultMessage": "Vous voulez en faire plus? Acquérez de l’expérience en matière de gestion au sein d’un comité d’embauche ou essayez de diriger votre propre processus de recrutement.",
     "description": "Paragraph two, description of the managers community"
+  },
+  "NZ3laJ": {
+    "defaultMessage": "Pour vous reconnecter, vous devrez utiliser votre nom d’utilisateur et votre mot de passe CléGC. Nous espérons vous voir bientôt!",
+    "description": "Message displayed to a user after signing out"
   },
   "NaF4Iu": {
     "defaultMessage": "Inscrivez-vous dès aujourd’hui!",
@@ -9682,6 +9682,10 @@
     "defaultMessage": "Afin de garantir que le programme reste accessible aux peuples autochtones du Canada, vous devez remplir le formulaire d’auto-déclaration des peuples autochtones et confirmer que vous êtes membre d’une ou plusieurs des communautés autochtones du Canada.",
     "description": "Paragraph three for the self-declaration explanation dialog"
   },
+  "qFIyZv": {
+    "defaultMessage": "Votre session a expiré. Veuillez vous reconnecter.",
+    "description": "Title for the alert displayed after a user signs out"
+  },
   "qFY+K4": {
     "defaultMessage": "Organiser l’approche d’évaluation",
     "description": "Title for the organize section in the assessment plan builder"
@@ -10641,10 +10645,6 @@
   "wl8GI6": {
     "defaultMessage": "Mon rôle",
     "description": "Label displayed on an Experience form for role input"
-  },
-  "wm8WXC": {
-    "defaultMessage": "Votre session a expiré, veuillez vous reconnecter.",
-    "description": "Title for the alert displayed after a user signs out"
   },
   "wnaTtx": {
     "defaultMessage": "En apprendre davantage sur l'équité en matière d'emploi",
