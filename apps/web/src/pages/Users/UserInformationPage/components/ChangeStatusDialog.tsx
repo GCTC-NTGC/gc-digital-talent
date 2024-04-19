@@ -208,7 +208,7 @@ const ChangeStatusDialog = ({
                 "First section of text on the change candidate status dialog",
             })}
           </p>
-          <p data-h2-font-weight="base(700)">
+          <p className="font-bold">
             - {getFullNameHtml(user.firstName, user.lastName, intl)}
           </p>
           <p data-h2-margin="base(x1, 0, 0, 0)">
@@ -219,7 +219,7 @@ const ChangeStatusDialog = ({
                 "Second section of text on the change candidate status dialog",
             })}
           </p>
-          <p data-h2-font-weight="base(700)">
+          <p className="font-bold">
             - {getShortPoolTitleHtml(intl, selectedCandidate?.pool)}
           </p>
           <FormProvider {...methods}>

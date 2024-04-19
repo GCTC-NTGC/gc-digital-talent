@@ -33,7 +33,7 @@ const RequestConfirmationPrintDocument = React.forwardRef<
           data-h2-border-bottom="base(2px dashed black) base:print(2px dashed black)"
         >
           <PageSection>
-            <Heading level="h2" data-h2-font-weight="base(700)">
+            <Heading level="h2" className="font-bold">
               {intl.formatMessage({
                 defaultMessage: "We have received your request",
                 id: "7DYnwq",
@@ -55,7 +55,7 @@ const RequestConfirmationPrintDocument = React.forwardRef<
             </p>
           </PageSection>
           <PageSection>
-            <Heading level="h2" data-h2-font-weight="base(700)">
+            <Heading level="h2" className="font-bold">
               {intl.formatMessage({
                 defaultMessage: "What you can expect",
                 id: "N/Vcp3",

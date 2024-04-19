@@ -23,7 +23,7 @@ const SkillDescription = ({ skill }: SkillDescriptionProps) => {
         level="h3"
         size="h6"
         data-h2-font-size="base(copy)"
-        data-h2-font-weight="base(700)"
+        className="font-bold"
         data-h2-margin-top="base(0)"
       >
         {intl.formatMessage(

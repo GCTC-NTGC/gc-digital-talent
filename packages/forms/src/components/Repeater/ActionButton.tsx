@@ -34,12 +34,11 @@ const ActionButton = React.forwardRef<HTMLButtonElement, ActionButtonProps>(
         data-h2-border="base(none)"
         data-h2-radius="base(50%)"
         data-h2-cursor="base(pointer)"
-        className="flex"
+        className="flex font-bold"
         data-h2-align-items="base(center)"
         data-h2-padding="base(x.5)"
         data-h2-background-color="base(foreground) base:hover(gray.lightest) base:focus(focus)"
         data-h2-transition="base:children[svg](transform 200ms ease)"
-        data-h2-font-weight="base(700)"
         {...(disabled
           ? {
               disabled: true,

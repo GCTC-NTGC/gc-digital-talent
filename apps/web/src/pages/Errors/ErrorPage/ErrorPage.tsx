@@ -51,7 +51,7 @@ const ErrorPage = () => {
             level="h1"
             size="h2"
             data-h2-font-size="base(h4, 1.1)"
-            data-h2-font-weight="base(700)"
+            className="font-bold"
             data-h2-margin="base(0)"
           >
             {error.messages.title}

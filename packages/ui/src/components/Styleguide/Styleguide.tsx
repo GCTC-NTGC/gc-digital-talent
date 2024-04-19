@@ -163,9 +163,7 @@ const Styleguide = ({ children, ...rest }: StyleguideProps) => {
               data-h2-color="base(background.darkest)"
               data-h2-radius="base(5px)"
             >
-              <p data-h2-font-weight="base(bold)">
-                This is a sample well title.
-              </p>
+              <p className="font-bold">This is a sample well title.</p>
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Accusamus laudantium, ipsum esse voluptas voluptate sequi facere
@@ -182,9 +180,7 @@ const Styleguide = ({ children, ...rest }: StyleguideProps) => {
               data-h2-color="base(background.darkest)"
               data-h2-radius="base(5px)"
             >
-              <p data-h2-font-weight="base(bold)">
-                This is a sample well title.
-              </p>
+              <p className="font-bold">This is a sample well title.</p>
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Accusamus laudantium, ipsum esse voluptas voluptate sequi facere

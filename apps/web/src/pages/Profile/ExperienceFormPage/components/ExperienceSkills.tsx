@@ -70,7 +70,7 @@ const ExperienceSkills = ({
       <Heading
         level="h3"
         size="h4"
-        data-h2-font-weight="base(700)"
+        className="font-bold"
         data-h2-margin="base(x3, 0, x1, 0)"
       >
         {intl.formatMessage({
@@ -192,7 +192,7 @@ const ExperienceSkills = ({
               <p
                 data-h2-margin-bottom="base(x.5)"
                 data-h2-text-align="base(center)"
-                data-h2-font-weight="base(bold)"
+                className="font-bold"
               >
                 {intl.formatMessage({
                   defaultMessage:

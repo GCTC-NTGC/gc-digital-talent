@@ -74,7 +74,7 @@ const EquityOption = ({
       data-h2-radius="base(rounded)"
       data-h2-shadow="base(m)"
     >
-      <p data-h2-font-weight="base(700)" data-h2-padding-bottom="base(x1)">
+      <p className="font-bold" data-h2-padding-bottom="base(x1)">
         {title}
       </p>
       {description && <p data-h2-padding-bottom="base(x1)">{description}</p>}

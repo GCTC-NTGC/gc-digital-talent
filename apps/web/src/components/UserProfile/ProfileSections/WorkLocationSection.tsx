@@ -41,7 +41,7 @@ const WorkLocationSection = ({
                   description: "Work Location label, followed by colon",
                 })}
               </span>
-              <span data-h2-font-weight="base(700)">{regionPreferences}</span>
+              <span className="font-bold">{regionPreferences}</span>
             </p>
           </div>
         )}
@@ -56,9 +56,7 @@ const WorkLocationSection = ({
                 })}
                 {intl.formatMessage(commonMessages.dividingColon)}
               </span>
-              <span data-h2-font-weight="base(700)">
-                {user.locationExemptions}
-              </span>
+              <span className="font-bold">{user.locationExemptions}</span>
             </p>
           </div>
         )}

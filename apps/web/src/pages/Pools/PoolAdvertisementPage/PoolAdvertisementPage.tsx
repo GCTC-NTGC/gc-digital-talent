@@ -357,7 +357,7 @@ export const PoolPoster = ({
               data-h2-gap="base(x.25)"
               data-h2-flex-wrap="base(wrap)"
             >
-              <span data-h2-font-weight="base(700)">
+              <span className="font-bold">
                 {intl.formatMessage({
                   defaultMessage: "Share",
                   id: "E2nMR3",
@@ -808,7 +808,7 @@ export const PoolPoster = ({
                   <Heading
                     level="h3"
                     size="h4"
-                    data-h2-font-weight="base(700)"
+                    className="font-bold"
                     data-h2-margin-bottom="base(x1)"
                   >
                     {intl.formatMessage({
@@ -830,7 +830,7 @@ export const PoolPoster = ({
                   <Heading
                     level="h3"
                     size="h4"
-                    data-h2-font-weight="base(700)"
+                    className="font-bold"
                     data-h2-margin-bottom="base(x1)"
                   >
                     {intl.formatMessage({
@@ -852,7 +852,7 @@ export const PoolPoster = ({
                   <Heading
                     level="h3"
                     size="h4"
-                    data-h2-font-weight="base(700)"
+                    className="font-bold"
                     data-h2-margin-bottom="base(x1)"
                   >
                     {intl.formatMessage({

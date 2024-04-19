@@ -90,7 +90,7 @@ const DeleteUserDialog = ({ user, onDeleteUser }: AddTeamRoleDialogProps) => {
             })}
           </p>
           <ul data-h2-margin="base(x0.5, 0)">
-            <li data-h2-font-weight="base(700)">{userNameHtml}</li>
+            <li className="font-bold">{userNameHtml}</li>
           </ul>
           <p data-h2-margin="base(0, 0, x1, 0)">
             {intl.formatMessage({

@@ -19,7 +19,7 @@ const Context = ({ required }: ContextProps) => {
 
   return (
     <span
-      data-h2-font-weight="base(700)"
+      className="font-bold"
       {...(required
         ? {
             "data-h2-color": "base(primary.darker)",
@@ -117,7 +117,7 @@ const SkillAccordion = ({ poolSkill, required }: SkillAccordionProps) => {
       <Accordion.Content>
         {poolSkill.skill.description && (
           <p data-h2-margin-bottom="base(x1)">
-            <span data-h2-font-weight="base(700)">
+            <span className="font-bold">
               {intl.formatMessage({
                 defaultMessage: "Skill definition",
                 id: "N44sQc",
@@ -128,7 +128,7 @@ const SkillAccordion = ({ poolSkill, required }: SkillAccordionProps) => {
           </p>
         )}
         <p>
-          <span data-h2-font-weight="base(700)">
+          <span className="font-bold">
             {intl.formatMessage({
               defaultMessage: "Level definition",
               id: "fqa45V",

@@ -13,7 +13,7 @@ const Beta = () => {
   return (
     <span
       data-h2-font-size="base(caption)"
-      data-h2-font-weight="base(700)"
+      className="font-bold"
       data-h2-text-transform="base(uppercase)"
     >
       {intl.formatMessage({

@@ -115,7 +115,7 @@ const RequestConfirmationPage = () => {
           <Heading
             level="h3"
             data-h2-font-size="base(body)"
-            data-h2-font-weight="base(700)"
+            className="font-bold"
             data-h2-margin="base(x1, 0, x.5, 0)"
           >
             {intl.formatMessage({

@@ -45,7 +45,7 @@ const PreambleSection = () => {
           data-h2-margin="base(x3, 0, x1, 0)"
           level="h3"
           size="h4"
-          data-h2-font-weight="base(700)"
+          className="font-bold"
         >
           {intl.formatMessage(
             getSectionTitle(PAGE_SECTION_ID.SUPPORTING_THE_COMMUNITY),
@@ -130,7 +130,7 @@ const PreambleSection = () => {
           data-h2-margin="base(x3, 0, x1, 0)"
           level="h3"
           size="h4"
-          data-h2-font-weight="base(700)"
+          className="font-bold"
         >
           {intl.formatMessage(getSectionTitle(PAGE_SECTION_ID.WHY_COLLECT))}
         </Heading>
@@ -196,7 +196,7 @@ const PreambleSection = () => {
           data-h2-margin="base(x3, 0, x1, 0)"
           level="h3"
           size="h4"
-          data-h2-font-weight="base(700)"
+          className="font-bold"
         >
           {intl.formatMessage(getSectionTitle(PAGE_SECTION_ID.REQUIREMENTS))}
         </Heading>

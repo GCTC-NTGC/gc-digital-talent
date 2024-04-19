@@ -307,7 +307,7 @@ const OrganizeSection = ({
       >
         {steps.length >= ASSESSMENT_STEPS_MANY_STEPS ? (
           <Well color="warning">
-            <p data-h2-font-weight="base(700)">
+            <p className="font-bold">
               {steps.length === ASSESSMENT_STEPS_MAX_STEPS
                 ? intl.formatMessage({
                     defaultMessage: "You are at the limit!",
@@ -340,7 +340,7 @@ const OrganizeSection = ({
         ) : null}
         {steps.length <= ASSESSMENT_STEPS_FEW_STEPS ? (
           <Well color="warning">
-            <p data-h2-font-weight="base(700)">
+            <p className="font-bold">
               {intl.formatMessage({
                 defaultMessage: "You have too few assessments",
                 id: "ypxaI2",

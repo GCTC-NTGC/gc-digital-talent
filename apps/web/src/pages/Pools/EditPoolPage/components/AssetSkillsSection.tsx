@@ -104,7 +104,7 @@ const AssetSkillsSection = ({
         color={icon.color}
         level="h3"
         size="h4"
-        data-h2-font-weight="base(bold)"
+        className="font-bold"
       >
         {sectionMetadata.title}
       </ToggleSection.Header>

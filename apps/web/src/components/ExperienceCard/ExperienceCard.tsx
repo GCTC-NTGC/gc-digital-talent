@@ -325,7 +325,7 @@ const ExperienceCard = ({
                       {skills.map((skill) => (
                         <li key={skill.id} data-h2-margin-bottom="base(x.25)">
                           <span
-                            data-h2-font-weight="base(700)"
+                            className="font-bold"
                             data-h2-display="base(block)"
                           >
                             {getLocalizedName(skill.name, intl)}

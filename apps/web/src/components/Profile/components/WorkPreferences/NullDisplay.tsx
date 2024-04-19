@@ -7,7 +7,7 @@ const NullDisplay = () => {
   const intl = useIntl();
   return (
     <div data-h2-text-align="base(center)">
-      <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x1)">
+      <p className="font-bold" data-h2-margin-bottom="base(x1)">
         {intl.formatMessage({
           defaultMessage:
             "This section asks about your preferences when it comes to job opportunities and work locations.",

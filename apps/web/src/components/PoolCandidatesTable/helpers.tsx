@@ -65,10 +65,7 @@ export const statusCell = (
 
   if (status === PoolCandidateStatus.NewApplication) {
     return (
-      <span
-        data-h2-color="base(tertiary.darker)"
-        data-h2-font-weight="base(700)"
-      >
+      <span data-h2-color="base(tertiary.darker)" className="font-bold">
         {intl.formatMessage(getPoolCandidateStatus(status as string))}
       </span>
     );
@@ -83,7 +80,7 @@ export const statusCell = (
     status === PoolCandidateStatus.ScreenedOutAssessment
   ) {
     return (
-      <span data-h2-font-weight="base(700)">
+      <span className="font-bold">
         {intl.formatMessage(getPoolCandidateStatus(status as string))}
       </span>
     );
@@ -101,10 +98,7 @@ export const priorityCell = (
 
   if (priority === 10 || priority === 20) {
     return (
-      <span
-        data-h2-color="base(primary.darker)"
-        data-h2-font-weight="base(700)"
-      >
+      <span data-h2-color="base(primary.darker)" className="font-bold">
         {intl.formatMessage(getPoolCandidatePriorities(priority))}
       </span>
     );

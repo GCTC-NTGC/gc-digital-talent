@@ -22,11 +22,7 @@ const AnswerInput = ({ index, question }: AnswerInputProps) => {
 
   return (
     <>
-      <p
-        data-h2-margin="base(x1, 0)"
-        data-h2-font-weight="base(700)"
-        id={questionId}
-      >
+      <p data-h2-margin="base(x1, 0)" className="font-bold" id={questionId}>
         {getLocalizedName(question.question, intl)}
       </p>
       <TextArea

@@ -19,7 +19,7 @@ const ContentSection = ({
   return (
     <div {...rest}>
       <Heading
-        data-h2-font-weight="base(700)"
+        className="font-bold"
         data-h2-margin-bottom="base(x.5)"
         data-h2-font-size="base(normal)"
       >

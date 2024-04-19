@@ -60,7 +60,7 @@ const SideMenuCategory = ({ title, children }: SideMenuCategoryProps) => {
         >
           <span
             data-h2-white-space="base(nowrap)" // don't wrap while shrinking width to zero
-            data-h2-font-weight="base(700)"
+            className="font-bold"
             data-h2-font-size="base(caption)"
             data-h2-color="base:all(white)"
           >

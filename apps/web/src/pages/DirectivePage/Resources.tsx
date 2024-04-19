@@ -198,7 +198,7 @@ const Resources = () => {
                 </p>
               </div>
               <div data-h2-margin="base(0, x1, x2, x1)">
-                <p data-h2-font-weight="base(bold)">
+                <p className="font-bold">
                   {intl.formatMessage({
                     defaultMessage: "Implementation guidance for managers",
                     id: "wJ9hiY",
@@ -288,7 +288,7 @@ const Resources = () => {
                 </p>
               </div>
               <div data-h2-margin="base(0, x1, x2, x1)">
-                <p data-h2-font-weight="base(bold)">
+                <p className="font-bold">
                   {intl.formatMessage({
                     defaultMessage: "Implementation guidance for HR advisors",
                     id: "2etyqD",
@@ -370,7 +370,7 @@ const Resources = () => {
                 </p>
               </div>
               <div data-h2-margin="base(0, x1, x2, x1)">
-                <p data-h2-font-weight="base(bold)">
+                <p className="font-bold">
                   {intl.formatMessage({
                     defaultMessage:
                       "Implementation guidance for procurement officers",

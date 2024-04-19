@@ -28,13 +28,12 @@ const Priority = ({ type }: PriorityProps) => {
 
   return (
     <span
-      className="inline-flex"
+      className="inline-flex font-bold"
       data-h2-align-items="base(center)"
       data-h2-background-color="base(black) base:dark(white)"
       data-h2-color="base(white) base:dark(black)"
       data-h2-padding="base(0 x.125)"
       data-h2-radius="base(rounded)"
-      data-h2-font-weight="base(700)"
       data-h2-transition="base(all .2s ease)"
     >
       <span data-h2-line-height="base(1)" data-h2-font-size="base(0.6rem)">

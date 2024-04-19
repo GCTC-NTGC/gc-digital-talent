@@ -137,10 +137,7 @@ export const Home = ({ query }: HomeProps) => {
                 data-h2-text-align="base(center) p-tablet(left)"
                 data-h2-color="base:all(white)"
               >
-                <h1
-                  data-h2-font-size="base(h3, 1.2)"
-                  data-h2-font-weight="base(bold)"
-                >
+                <h1 data-h2-font-size="base(h3, 1.2)" className="font-bold">
                   {intl.formatMessage({
                     defaultMessage:
                       "IT Apprenticeship Program for Indigenous Peoples",
@@ -151,7 +148,7 @@ export const Home = ({ query }: HomeProps) => {
                 </h1>
                 <p
                   data-h2-font-size="base(caption)"
-                  data-h2-font-weight="base(bold)"
+                  className="font-bold"
                   data-h2-margin-top="base(x.5)"
                 >
                   {intl.formatMessage({

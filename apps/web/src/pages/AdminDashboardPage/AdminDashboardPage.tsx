@@ -107,7 +107,7 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       <AdminContentWrapper>
         <Heading
           size="h4"
-          data-h2-font-weight="base(bold)"
+          className="font-bold"
           data-h2-margin="base(0, 0, x1, 0)"
         >
           {intl.formatMessage({

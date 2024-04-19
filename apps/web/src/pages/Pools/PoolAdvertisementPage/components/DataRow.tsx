@@ -24,7 +24,7 @@ const DataRow = ({
       data-h2-gap="base(x.25)"
     >
       <div data-h2-flex-shrink="base(0)">
-        <span data-h2-font-weight="base(700)">{label}</span>
+        <span className="font-bold">{label}</span>
       </div>
       <span
         className="flex"

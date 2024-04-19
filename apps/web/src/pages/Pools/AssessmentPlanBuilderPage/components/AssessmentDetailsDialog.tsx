@@ -467,7 +467,7 @@ const AssessmentDetailsDialog = ({
                 data-h2-margin="base(x1, 0, x2, 0)"
               >
                 <div>
-                  <div data-h2-font-weight="base(700)">
+                  <div className="font-bold">
                     {intl.formatMessage({
                       defaultMessage: "Basic details",
                       id: "i131l/",
@@ -527,7 +527,7 @@ const AssessmentDetailsDialog = ({
                 {dialogMode === "screening_question" ? (
                   <>
                     <div>
-                      <div data-h2-font-weight="base(700)">
+                      <div className="font-bold">
                         {intl.formatMessage(processMessages.screeningQuestions)}
                       </div>
                       <div data-h2-margin-top="base(x.25)">
@@ -646,7 +646,7 @@ const AssessmentDetailsDialog = ({
                         {!canAddScreeningQuestions && (
                           <Well>
                             <p
-                              data-h2-font-weight="base(700)"
+                              className="font-bold"
                               data-h2-margin-bottom="base(x.5)"
                             >
                               {intl.formatMessage({
@@ -674,7 +674,7 @@ const AssessmentDetailsDialog = ({
                 ) : null}
 
                 <div data-h2-display="base(grid)" data-h2-gap="base(x.25)">
-                  <div data-h2-font-weight="base(700)">
+                  <div className="font-bold">
                     {intl.formatMessage({
                       defaultMessage: "Skill selection",
                       id: "lmD1ef",

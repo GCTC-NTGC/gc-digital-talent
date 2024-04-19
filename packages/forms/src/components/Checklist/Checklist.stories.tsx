@@ -88,7 +88,7 @@ ChecklistOfLabelElements.args = {
     },
     {
       value: "three",
-      label: <span data-h2-font-weight="base(700)">Bold Selection</span>,
+      label: <span className="font-bold">Bold Selection</span>,
     },
   ],
 };

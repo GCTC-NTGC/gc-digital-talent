@@ -332,7 +332,7 @@ export const ApplicationSelfDeclaration = ({
           </div>
           <Separator />
           <HelpLink />
-          <p data-h2-font-weight="base(700)" data-h2-margin="base(x1, 0)">
+          <p className="font-bold" data-h2-margin="base(x1, 0)">
             {intl.formatMessage(
               {
                 defaultMessage:

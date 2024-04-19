@@ -94,7 +94,7 @@ const DiversityEquityInclusionSection = ({
               >
                 <ul data-h2-padding="base(0, 0, 0, x1)">
                   <li>
-                    <span data-h2-font-weight="base(700)">
+                    <span className="font-bold">
                       {intl.formatMessage(
                         getEmploymentEquityStatement("indigenous"),
                       )}
@@ -113,7 +113,7 @@ const DiversityEquityInclusionSection = ({
                       ) : (
                         <li>
                           <span
-                            data-h2-font-weight="base(700)"
+                            className="font-bold"
                             data-h2-color="base(primary.dark)"
                           >
                             {intl.formatMessage(
@@ -185,10 +185,7 @@ const DiversityEquityInclusionSection = ({
               </div>
             )}
             {(isWoman || isVisibleMinority || hasDisability) && (
-              <ul
-                data-h2-font-weight="base(700)"
-                data-h2-padding="base(x1, 0, 0, x1)"
-              >
+              <ul className="font-bold" data-h2-padding="base(x1, 0, 0, x1)">
                 {isWoman && (
                   <li>
                     {intl.formatMessage(getEmploymentEquityStatement("woman"))}

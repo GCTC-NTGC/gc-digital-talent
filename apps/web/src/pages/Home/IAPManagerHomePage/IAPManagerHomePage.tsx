@@ -124,7 +124,7 @@ export const IAPManagerHomePage = () => {
               data-h2-display="base(block)"
               data-h2-width="base(172px) p-tablet(235px)"
             />
-            <h1 data-h2-font-size="base(h1)" data-h2-font-weight="base(bold)">
+            <h1 data-h2-font-size="base(h1)" className="font-bold">
               {intl.formatMessage({
                 defaultMessage: "Hire an IT apprentice",
                 id: "39RER8",
@@ -516,7 +516,7 @@ export const IAPManagerHomePage = () => {
             >
               <div data-h2-grid-column="base(2)" data-h2-grid-row="base(1)">
                 <p
-                  data-h2-font-weight="base(bold)"
+                  className="font-bold"
                   data-h2-font-size="base(h3) p-tablet(h2)"
                   data-h2-text-align="base(center) p-tablet(left)"
                 >
@@ -530,7 +530,7 @@ export const IAPManagerHomePage = () => {
                 </p>
               </div>
               <div data-h2-grid-column="base(2)" data-h2-grid-row="base(2)">
-                <cite data-h2-font-weight="base(bold)">
+                <cite className="font-bold">
                   {intl.formatMessage({
                     defaultMessage:
                       "– Darcy Pierlot, Chief Information Officer and Assistant Deputy Minister, Immigration, Refugees and Citizenship Canada",
@@ -776,7 +776,7 @@ export const IAPManagerHomePage = () => {
             >
               <Heading
                 size="h3"
-                data-h2-font-weight="base(700)"
+                className="font-bold"
                 data-h2-margin="base(x5, 0, x2, 0) p-tablet(0, 0, 0, 0)"
                 data-h2-color="base(primary.darker)"
                 data-h2-text-align="base(center) p-tablet(left)"
@@ -822,7 +822,7 @@ export const IAPManagerHomePage = () => {
               </Well>
               <Heading
                 size="h3"
-                data-h2-font-weight="base(700)"
+                className="font-bold"
                 data-h2-color="base(primary.darker)"
                 data-h2-text-align="base(center) p-tablet(left)"
                 data-h2-margin={headingStyles.h2["data-h2-margin"]}

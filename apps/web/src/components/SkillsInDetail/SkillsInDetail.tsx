@@ -31,7 +31,7 @@ const SkillsInDetail = ({ skills, onDelete }: SkillsInDetailProps) => {
         skills.map(({ id, name, skillId }, index) => (
           <Card key={id} title="" color="white" bold>
             <div className="flex" data-h2-justify-content="base(space-between)">
-              <p data-h2-font-weight="base(700)">
+              <p className="font-bold">
                 {index + 1}. {name[locale]}
               </p>
               <Button

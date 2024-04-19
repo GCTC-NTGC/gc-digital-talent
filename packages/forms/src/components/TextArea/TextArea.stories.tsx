@@ -55,7 +55,7 @@ Default.args = {
 
 export const CustomLabel = TemplateTextArea.bind({});
 CustomLabel.args = {
-  label: <span data-h2-font-weight="base(700)">Bolded question</span>,
+  label: <span className="font-bold">Bolded question</span>,
 };
 
 export const WordLimit = TemplateTextArea.bind({});

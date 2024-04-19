@@ -149,7 +149,7 @@ const ButtonLinkContent = ({
         >
           <span
             {...textSize}
-            data-h2-font-weight="base(700)"
+            className="font-bold"
             data-h2-text-decoration="base(underline)"
           >
             {children}

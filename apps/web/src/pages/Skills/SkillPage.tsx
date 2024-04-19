@@ -89,7 +89,7 @@ export const SkillPage = () => {
             level="h2"
             size="h6"
             id="cant-find-a-skill"
-            data-h2-font-weight="base(bold)"
+            className="font-bold"
             data-h2-margin-top="base(0)"
             data-h2-margin-bottom="base(x1)"
           >

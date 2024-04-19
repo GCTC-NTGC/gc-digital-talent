@@ -345,7 +345,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
         <Heading
           level="h3"
           size="h6"
-          data-h2-font-weight="base(700)"
+          className="font-bold"
           data-h2-margin="base(x2, 0, x.5, 0)"
         >
           {intl.formatMessage({
@@ -373,7 +373,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
         <Heading
           level="h3"
           size="h6"
-          data-h2-font-weight="base(700)"
+          className="font-bold"
           data-h2-margin="base(x2, 0, x.5, 0)"
         >
           {intl.formatMessage({

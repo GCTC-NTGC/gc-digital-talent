@@ -50,10 +50,9 @@ const Item = ({
   return (
     <>
       <dt
-        className="flex"
+        className="flex font-bold"
         data-h2-align-items="base(center)"
         data-h2-gap="base(0, x.5)"
-        data-h2-font-weight="base(700)"
         {...colorMap[color]}
         {...titleProps}
       >

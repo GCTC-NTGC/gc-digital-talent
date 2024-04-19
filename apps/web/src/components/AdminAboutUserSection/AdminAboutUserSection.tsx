@@ -33,7 +33,7 @@ const AdminAboutUserSection = ({
               id: "DAmLhV",
               description: "Name label and colon",
             })}{" "}
-            <span data-h2-font-weight="base(700)">
+            <span className="font-bold">
               {getFullNameHtml(firstName, lastName, intl)}
             </span>
           </p>
@@ -51,7 +51,7 @@ const AdminAboutUserSection = ({
               id: "Md/cQS",
               description: "Veteran/member label",
             })}{" "}
-            <span data-h2-font-weight="base(700)">
+            <span className="font-bold">
               {intl.formatMessage(
                 getArmedForcesStatusesAdmin(armedForcesStatus),
               )}
@@ -65,7 +65,7 @@ const AdminAboutUserSection = ({
               id: "GiODgs",
               description: "Citizenship label",
             })}{" "}
-            <span data-h2-font-weight="base(700)">
+            <span className="font-bold">
               {intl.formatMessage(getCitizenshipStatusesAdmin(citizenship))}
             </span>
           </p>

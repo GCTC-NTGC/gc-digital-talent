@@ -217,7 +217,7 @@ export const ApplicationSkills = ({
             level="h3"
             size="h4"
             data-h2-margin="base(x3, 0, x1, 0)"
-            data-h2-font-weight="base(700)"
+            className="font-bold"
           >
             {intl.formatMessage({
               defaultMessage: "Required technical skills",
@@ -251,7 +251,7 @@ export const ApplicationSkills = ({
             level="h3"
             size="h4"
             data-h2-margin="base(x3, 0, x1, 0)"
-            data-h2-font-weight="base(700)"
+            className="font-bold"
           >
             {intl.formatMessage({
               defaultMessage: "Optional technical skills",
@@ -277,7 +277,7 @@ export const ApplicationSkills = ({
             level="h3"
             size="h4"
             data-h2-margin="base(x3, 0, x1, 0)"
-            data-h2-font-weight="base(700)"
+            className="font-bold"
           >
             {intl.formatMessage({
               defaultMessage: "Required behavioural skills",
@@ -304,7 +304,7 @@ export const ApplicationSkills = ({
             level="h3"
             size="h4"
             data-h2-margin="base(x3, 0, x1, 0)"
-            data-h2-font-weight="base(700)"
+            className="font-bold"
           >
             {intl.formatMessage({
               defaultMessage: "Optional behavioural skills",

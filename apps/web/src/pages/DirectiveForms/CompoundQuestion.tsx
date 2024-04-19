@@ -27,7 +27,7 @@ const CompoundQuestion = ({
   return (
     <div>
       <div data-h2-margin-top="base(x.5)" id={descriptionId}>
-        {title ? <div data-h2-font-weight="base(700)">{title}</div> : null}
+        {title ? <div className="font-bold">{title}</div> : null}
         {introduction ? (
           <div data-h2-margin-top="base(x.5)">{introduction}</div>
         ) : null}

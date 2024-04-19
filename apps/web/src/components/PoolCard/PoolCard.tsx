@@ -80,7 +80,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
       >
         <span
           data-h2-color="base:all(black) base:iap(white)"
-          data-h2-font-weight="base(700)"
+          className="font-bold"
           data-h2-font-size="base(h5, 1)"
           data-h2-layer="base(2)"
           data-h2-position="base(absolute)"
@@ -107,7 +107,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
           <Heading
             level={headingLevel}
             size="h5"
-            data-h2-font-weight="base(700)"
+            className="font-bold"
             data-h2-margin="base(0, 0, x1, 0) p-tablet(0)"
             data-h2-padding-left="base(x4.5) p-tablet(0)"
             data-h2-hyphens="base(auto)"

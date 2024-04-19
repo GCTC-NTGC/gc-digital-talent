@@ -248,9 +248,7 @@ const SkillWithExperiences = ({
 
   return (
     <PageSection>
-      <p data-h2-font-weight="base(700)">
-        {getLocalizedName(skill.name, intl)}
-      </p>
+      <p className="font-bold">{getLocalizedName(skill.name, intl)}</p>
       {description && <p>{description}</p>}
       <ul>
         {skillExperiences.map((experience) => {

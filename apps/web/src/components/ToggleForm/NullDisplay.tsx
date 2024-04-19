@@ -20,9 +20,9 @@ const NullDisplay = ({ title, content, optional }: NullDisplayProps) => {
       data-h2-padding="base(x1)"
     >
       {title ? (
-        <p data-h2-font-weight="base(700)">{title}</p>
+        <p className="font-bold">{title}</p>
       ) : (
-        <p data-h2-font-weight="base(700)">
+        <p className="font-bold">
           {optional
             ? intl.formatMessage({
                 defaultMessage: "This information is optional.",

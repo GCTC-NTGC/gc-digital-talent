@@ -45,7 +45,7 @@ const CandidateNavigation = ({
     >
       {stepName && (
         <div>
-          <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.25)">
+          <p className="font-bold" data-h2-margin-bottom="base(x.25)">
             {intl.formatMessage({
               defaultMessage: "Currently screening",
               id: "mNYw+h",

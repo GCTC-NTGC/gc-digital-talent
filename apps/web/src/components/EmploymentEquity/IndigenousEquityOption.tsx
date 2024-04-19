@@ -80,7 +80,7 @@ const EquityOption = ({
       data-h2-radius="base(rounded)"
       data-h2-shadow="base(m)"
     >
-      <p data-h2-font-weight="base(700)">{title}</p>
+      <p className="font-bold">{title}</p>
       <ul data-h2-padding-left="base(x.25)" data-h2-padding-bottom="base(x1)">
         {isAdded
           ? nonLegacyIndigenousCommunities.map((community) => {

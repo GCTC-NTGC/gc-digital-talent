@@ -63,7 +63,7 @@ const Stepper = ({
           level={headingLevel}
           size="h6"
           data-h2-margin="base(0, 0, x1, 0)"
-          data-h2-font-weight="base(700)"
+          className="font-bold"
         >
           {intl.formatMessage(uiMessages.stepTitle, {
             current: index + 1,

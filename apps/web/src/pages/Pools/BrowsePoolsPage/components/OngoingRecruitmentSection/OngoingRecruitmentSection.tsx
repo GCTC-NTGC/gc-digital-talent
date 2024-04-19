@@ -1011,7 +1011,7 @@ const OngoingRecruitmentSection = ({
           description: "title for section with ongoing pool advertisements",
         })}
       </Heading>
-      <p data-h2-margin="base(x.5, 0)" data-h2-font-weight="base(700)">
+      <p data-h2-margin="base(x.5, 0)" className="font-bold">
         {intl.formatMessage({
           id: "Uzx5dR",
           defaultMessage:
@@ -1158,7 +1158,7 @@ const OngoingRecruitmentSection = ({
                       <div key={classification.key}>
                         <h4
                           data-h2-font-size="base(copy)"
-                          data-h2-font-weight="base(700)"
+                          className="font-bold"
                           data-h2-margin="base(x1, 0)"
                         >
                           {classification.title}

@@ -171,6 +171,6 @@ SelectRequiredWithErrorAndContext.args = {
 export const SelectLabelElement = Template.bind({});
 SelectLabelElement.args = {
   ...SelectDefault.args,
-  label: <span data-h2-font-weight="base(700)">Bold Label</span>,
+  label: <span className="font-bold">Bold Label</span>,
   name: "LabelElement",
 };

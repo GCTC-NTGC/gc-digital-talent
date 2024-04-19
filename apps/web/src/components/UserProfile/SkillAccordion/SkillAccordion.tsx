@@ -192,7 +192,7 @@ const SkillAccordion = ({
         <p>{justification}</p>
         <p
           data-h2-color="base(primary.darker)"
-          data-h2-font-weight="base(700)"
+          className="font-bold"
           data-h2-margin="base(x1, 0, x.25, 0)"
         >
           {intl.formatMessage({
@@ -248,7 +248,7 @@ const SkillAccordion = ({
         <p>{justification}</p>
         <p
           data-h2-color="base(primary.darker)"
-          data-h2-font-weight="base(700)"
+          className="font-bold"
           data-h2-margin="base(x1, 0, x.25, 0)"
         >
           {intl.formatMessage({
@@ -295,7 +295,7 @@ const SkillAccordion = ({
         <p>{justification}</p>
         <p
           data-h2-color="base(primary.darker)"
-          data-h2-font-weight="base(700)"
+          className="font-bold"
           data-h2-margin="base(x1, 0, x.25, 0)"
         >
           {intl.formatMessage({
@@ -348,7 +348,7 @@ const SkillAccordion = ({
     if (experiences != null && experiences.length > 0) {
       return (
         <>
-          <p data-h2-margin-top="base(x1)" data-h2-font-weight="base(700)">
+          <p data-h2-margin-top="base(x1)" className="font-bold">
             {intl.formatMessage({
               defaultMessage:
                 "This skill has the following related experiences:",

@@ -27,7 +27,7 @@ const IconLabel = ({ label, icon, children }: IconLabelProps) => {
       </span>
       <span>
         <span
-          data-h2-font-weight="base(700)"
+          className="font-bold"
           data-h2-display="base(inline-block)"
           data-h2-margin-right="base(x.15)"
         >

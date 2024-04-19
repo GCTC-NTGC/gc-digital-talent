@@ -74,7 +74,7 @@ const DeadlineDialog = ({ deadline }: DeadlineDialogProps): JSX.Element => {
               })}
               <span
                 data-h2-display="base(block)"
-                data-h2-font-weight="base(700)"
+                className="font-bold"
                 data-h2-margin="base(x.5 0 0 x.75)"
               >
                 {`${intl.formatMessage(
@@ -110,7 +110,7 @@ const DeadlineDialog = ({ deadline }: DeadlineDialogProps): JSX.Element => {
               })}
               <span
                 data-h2-display="base(block)"
-                data-h2-font-weight="base(700)"
+                className="font-bold"
                 data-h2-margin="base(x.5 0 0 x.75)"
               >
                 {`${intl.formatMessage(

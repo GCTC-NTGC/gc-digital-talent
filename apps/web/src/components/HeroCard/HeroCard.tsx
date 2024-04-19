@@ -51,7 +51,7 @@ const HeroCard = ({ color, title, href, children, asNav }: HeroCardProps) => {
       <div
         data-h2-display="base(block)"
         data-h2-font-size="base(h6, 1)"
-        data-h2-font-weight="base(700)"
+        className="font-bold"
         data-h2-padding="base(x1)"
         data-h2-radius="base(s, s, 0px, 0px)"
         {...{ ...colorMap[color] }}

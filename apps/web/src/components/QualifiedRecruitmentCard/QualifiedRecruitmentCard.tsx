@@ -182,7 +182,7 @@ const QualifiedRecruitmentCard = ({
                 Icon={GlobeAmericasIcon}
                 data-h2-margin="base(x1, 0, x.5, 0)"
                 data-h2-font-size="base(copy)"
-                data-h2-font-weight="base(700)"
+                className="font-bold"
                 color="secondary"
               >
                 {intl.formatMessage(
@@ -207,7 +207,7 @@ const QualifiedRecruitmentCard = ({
                 Icon={CpuChipIcon}
                 data-h2-margin="base(x1, 0, x.5, 0)"
                 data-h2-font-size="base(copy)"
-                data-h2-font-weight="base(700)"
+                className="font-bold"
                 color="secondary"
               >
                 {intl.formatMessage(getSkillCategory(SkillCategory.Technical))}

@@ -42,7 +42,7 @@ const GovernmentInformationSection = ({
                   description: "Label for applicant's employee status",
                 })}
               </span>
-              <span data-h2-font-weight="base(700)">
+              <span className="font-bold">
                 {intl.formatMessage({
                   defaultMessage:
                     "<strong>Yes</strong>, I am a Government of Canada employee.",
@@ -64,7 +64,7 @@ const GovernmentInformationSection = ({
                       "Label for applicant's Government of Canada department",
                   })}
                 </span>
-                <span data-h2-font-weight="base(700)">
+                <span className="font-bold">
                   {user.department.name[locale]}
                 </span>
               </p>
@@ -80,7 +80,7 @@ const GovernmentInformationSection = ({
                     description: "Label for applicant's employment type",
                   })}
                 </span>
-                <span data-h2-font-weight="base(700)">
+                <span className="font-bold">
                   {intl.formatMessage(getGovEmployeeType(govEmployeeTypeId))}
                 </span>
               </p>
@@ -98,7 +98,7 @@ const GovernmentInformationSection = ({
                         "Field label before government employment group and level, followed by colon",
                     })}
                   </span>
-                  <span data-h2-font-weight="base(700)">
+                  <span className="font-bold">
                     {wrapAbbr(
                       `${user.currentClassification?.group}-${user.currentClassification?.level}`,
                       intl,
@@ -155,7 +155,7 @@ const GovernmentInformationSection = ({
                     "Label for applicant's priority entitlement status",
                 })}
               </span>
-              <span data-h2-font-weight="base(700)">
+              <span className="font-bold">
                 {user.hasPriorityEntitlement
                   ? intl.formatMessage({
                       defaultMessage: "I do have a priority entitlement",
@@ -180,7 +180,7 @@ const GovernmentInformationSection = ({
                     description: "Label for applicant's priority number value",
                   })}
                 </span>
-                <span data-h2-font-weight="base(700)">
+                <span className="font-bold">
                   {user.priorityNumber
                     ? user.priorityNumber
                     : intl.formatMessage(commonMessages.notProvided)}

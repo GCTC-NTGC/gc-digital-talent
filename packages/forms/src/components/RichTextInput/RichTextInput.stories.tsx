@@ -72,7 +72,7 @@ const Template: StoryFn<DefaultValueRichTextInputArgs> = (args) => {
             <Heading
               size="h6"
               data-h2-color="base(black)"
-              data-h2-font-weight="base(700)"
+              className="font-bold"
             >
               Preview
             </Heading>

@@ -189,7 +189,7 @@ const ApplicationPrintDocument = React.forwardRef<
           data-h2-border-bottom="base(2px dashed black) base:print(2px dashed black)"
         >
           <div>
-            <Heading level="h1" data-h2-font-weight="base(700)">
+            <Heading level="h1" className="font-bold">
               {intl.formatMessage({
                 defaultMessage: "Application snapshot",
                 id: "ipsXat",
@@ -197,7 +197,7 @@ const ApplicationPrintDocument = React.forwardRef<
                   "Document title for printing a user's application snapshot.",
               })}
             </Heading>
-            <Heading level="h2" data-h2-font-weight="base(700)">
+            <Heading level="h2" className="font-bold">
               {anonymous ? (
                 <>
                   {getFullNameLabel(
@@ -213,7 +213,7 @@ const ApplicationPrintDocument = React.forwardRef<
             {relevantPoolCandidate && (
               <>
                 <PageSection>
-                  <Heading level="h3" data-h2-font-weight="base(700)">
+                  <Heading level="h3" className="font-bold">
                     {intl.formatMessage(processMessages.educationRequirement)}
                   </Heading>
                   <p>
@@ -259,7 +259,7 @@ const ApplicationPrintDocument = React.forwardRef<
                   )}
                 </PageSection>
                 <BreakingPageSection>
-                  <Heading level="h3" data-h2-font-weight="base(700)">
+                  <Heading level="h3" className="font-bold">
                     {intl.formatMessage({
                       defaultMessage: "Essential skills",
                       id: "w7E0He",
@@ -280,7 +280,7 @@ const ApplicationPrintDocument = React.forwardRef<
                   )}
                 </BreakingPageSection>
                 <BreakingPageSection>
-                  <Heading level="h3" data-h2-font-weight="base(700)">
+                  <Heading level="h3" className="font-bold">
                     {intl.formatMessage({
                       defaultMessage: "Asset skills",
                       id: "K0Zkdw",
@@ -300,7 +300,7 @@ const ApplicationPrintDocument = React.forwardRef<
                   )}
                 </BreakingPageSection>
                 <PageSection>
-                  <Heading level="h3" data-h2-font-weight="base(700)">
+                  <Heading level="h3" className="font-bold">
                     {intl.formatMessage(processMessages.generalQuestions)}
                   </Heading>
                   <ul>
@@ -308,7 +308,7 @@ const ApplicationPrintDocument = React.forwardRef<
                       (instance) => {
                         return (
                           <li key={instance?.id}>
-                            <p data-h2-font-weight="base(700)">
+                            <p className="font-bold">
                               {getLocalizedName(
                                 instance?.generalQuestion?.question,
                                 intl,
@@ -325,7 +325,7 @@ const ApplicationPrintDocument = React.forwardRef<
             )}
             {!relevantPoolCandidate && (
               <PageSection>
-                <Heading level="h3" data-h2-font-weight="base(700)">
+                <Heading level="h3" className="font-bold">
                   {intl.formatMessage({
                     defaultMessage: "Error, snapshot information missing",
                     id: "FxqP5P",
@@ -336,7 +336,7 @@ const ApplicationPrintDocument = React.forwardRef<
               </PageSection>
             )}
             <BreakingPageSection>
-              <Heading level="h3" data-h2-font-weight="base(700)">
+              <Heading level="h3" className="font-bold">
                 {intl.formatMessage(
                   navigationMessages.careerTimelineAndRecruitment,
                 )}
@@ -345,7 +345,7 @@ const ApplicationPrintDocument = React.forwardRef<
                 experiences={user.experiences?.filter(notEmpty)}
               />
             </BreakingPageSection>
-            <Heading level="h2" data-h2-font-weight="base(700)">
+            <Heading level="h2" className="font-bold">
               {intl.formatMessage({
                 defaultMessage: "Personal information",
                 id: "cA0iH+",
@@ -355,7 +355,7 @@ const ApplicationPrintDocument = React.forwardRef<
             </Heading>
             {!anonymous && (
               <PageSection>
-                <Heading level="h3" data-h2-font-weight="base(700)">
+                <Heading level="h3" className="font-bold">
                   {intl.formatMessage({
                     defaultMessage: "Contact information",
                     id: "XqF3wS",
@@ -431,7 +431,7 @@ const ApplicationPrintDocument = React.forwardRef<
               </PageSection>
             )}
             <PageSection>
-              <Heading level="h4" data-h2-font-weight="base(700)">
+              <Heading level="h4" className="font-bold">
                 {intl.formatMessage(commonMessages.status)}
               </Heading>
               {user.armedForcesStatus !== null &&
@@ -465,13 +465,13 @@ const ApplicationPrintDocument = React.forwardRef<
               )}
             </PageSection>
             <PageSection>
-              <Heading level="h4" data-h2-font-weight="base(700)">
+              <Heading level="h4" className="font-bold">
                 {intl.formatMessage(navigationMessages.languageInformation)}
               </Heading>
               <Display user={user} context="print" />
             </PageSection>
             <PageSection>
-              <Heading level="h4" data-h2-font-weight="base(700)">
+              <Heading level="h4" className="font-bold">
                 {intl.formatMessage(navigationMessages.governmentInformation)}
               </Heading>
               <p>
@@ -548,7 +548,7 @@ const ApplicationPrintDocument = React.forwardRef<
               )}
             </PageSection>
             <PageSection>
-              <Heading level="h4" data-h2-font-weight="base(700)">
+              <Heading level="h4" className="font-bold">
                 {intl.formatMessage(navigationMessages.workLocation)}
               </Heading>
               {!isEmpty(user.locationPreferences) && (
@@ -575,7 +575,7 @@ const ApplicationPrintDocument = React.forwardRef<
               )}
             </PageSection>
             <PageSection>
-              <Heading level="h4" data-h2-font-weight="base(700)">
+              <Heading level="h4" className="font-bold">
                 {intl.formatMessage(navigationMessages.workPreferences)}
               </Heading>
               {user.positionDuration &&
@@ -680,7 +680,7 @@ const ApplicationPrintDocument = React.forwardRef<
               )}
             </PageSection>
             <PageSection>
-              <Heading level="h4" data-h2-font-weight="base(700)">
+              <Heading level="h4" className="font-bold">
                 {intl.formatMessage(
                   navigationMessages.diversityEquityInclusion,
                 )}
@@ -754,7 +754,7 @@ const ApplicationPrintDocument = React.forwardRef<
             </PageSection>
             {relevantPoolCandidate && (
               <PageSection>
-                <Heading level="h2" data-h2-font-weight="base(700)">
+                <Heading level="h2" className="font-bold">
                   {intl.formatMessage({
                     defaultMessage: "Signature",
                     id: "1ZZgbi",
@@ -786,9 +786,7 @@ const ApplicationPrintDocument = React.forwardRef<
                       "Heading for the application snapshot users signature",
                   })}
                 </p>
-                <p data-h2-font-weight="base(700)">
-                  {relevantPoolCandidate.signature}
-                </p>
+                <p className="font-bold">{relevantPoolCandidate.signature}</p>
               </PageSection>
             )}
           </div>

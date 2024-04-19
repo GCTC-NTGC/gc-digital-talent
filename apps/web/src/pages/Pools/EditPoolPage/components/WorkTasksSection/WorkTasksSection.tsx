@@ -105,7 +105,7 @@ const WorkTasksSection = ({
             sectionTitle={sectionMetadata.title}
           />
         }
-        data-h2-font-weight="base(bold)"
+        className="font-bold"
       >
         {sectionMetadata.title}
       </ToggleSection.Header>

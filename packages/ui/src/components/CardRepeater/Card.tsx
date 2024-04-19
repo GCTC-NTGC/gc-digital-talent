@@ -171,7 +171,7 @@ const Card = ({ index, edit, remove, error, onMove, children }: CardProps) => {
             <span
               aria-hidden="true"
               data-h2-text-align="base(center)"
-              data-h2-font-weight="base(700)"
+              className="font-bold"
             >
               {position}
             </span>

@@ -125,10 +125,7 @@ const DiversityEquityInclusion = ({
                   "Third paragraph for employment equity information.",
               })}
             </p>
-            <p
-              data-h2-margin-bottom="base(x0.5)"
-              data-h2-font-weight="base(700)"
-            >
+            <p data-h2-margin-bottom="base(x0.5)" className="font-bold">
               {intl.formatMessage({
                 defaultMessage: "How will this data be used?",
                 id: "ttRVSp",

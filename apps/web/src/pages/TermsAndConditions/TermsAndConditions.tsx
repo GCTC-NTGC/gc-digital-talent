@@ -415,7 +415,7 @@ const TermsAndConditions = () => {
               </p>
               <ul>
                 <li>
-                  <p data-h2-font-weight="base(bold)">
+                  <p className="font-bold">
                     {intl.formatMessage({
                       defaultMessage: "Non-commercial reproduction",
                       id: "PerY/b",
@@ -463,10 +463,7 @@ const TermsAndConditions = () => {
                   </ul>
                 </li>
                 <li>
-                  <p
-                    data-h2-margin="base(x.5, 0)"
-                    data-h2-font-weight="base(bold)"
-                  >
+                  <p data-h2-margin="base(x.5, 0)" className="font-bold">
                     {intl.formatMessage({
                       defaultMessage: "Commercial reproduction",
                       id: "gMaDG/",
@@ -605,7 +602,7 @@ const TermsAndConditions = () => {
                     level="h3"
                     size="h4"
                     color="black"
-                    data-h2-font-weight="base(bold)"
+                    className="font-bold"
                     data-h2-margin-bottom="base(x1)"
                   >
                     {intl.formatMessage({
@@ -638,7 +635,7 @@ const TermsAndConditions = () => {
                     level="h3"
                     size="h4"
                     color="black"
-                    data-h2-font-weight="base(bold)"
+                    className="font-bold"
                     data-h2-margin-bottom="base(x1)"
                   >
                     {intl.formatMessage({
@@ -661,7 +658,7 @@ const TermsAndConditions = () => {
                     level="h3"
                     size="h4"
                     color="black"
-                    data-h2-font-weight="base(bold)"
+                    className="font-bold"
                     data-h2-margin-bottom="base(x1)"
                   >
                     {intl.formatMessage({
@@ -684,7 +681,7 @@ const TermsAndConditions = () => {
                     level="h3"
                     size="h4"
                     color="black"
-                    data-h2-font-weight="base(bold)"
+                    className="font-bold"
                     data-h2-margin-bottom="base(x1)"
                   >
                     {intl.formatMessage({
@@ -750,7 +747,7 @@ const TermsAndConditions = () => {
                     level="h3"
                     size="h4"
                     color="black"
-                    data-h2-font-weight="base(bold)"
+                    className="font-bold"
                     data-h2-margin-bottom="base(x1)"
                   >
                     {intl.formatMessage({
@@ -775,7 +772,7 @@ const TermsAndConditions = () => {
                     level="h3"
                     size="h4"
                     color="black"
-                    data-h2-font-weight="base(bold)"
+                    className="font-bold"
                     data-h2-margin-bottom="base(x1)"
                   >
                     {intl.formatMessage({
@@ -806,7 +803,7 @@ const TermsAndConditions = () => {
                     level="h3"
                     size="h4"
                     color="black"
-                    data-h2-font-weight="base(bold)"
+                    className="font-bold"
                     data-h2-margin-bottom="base(x1)"
                   >
                     {intl.formatMessage({
@@ -831,7 +828,7 @@ const TermsAndConditions = () => {
                     level="h3"
                     size="h4"
                     color="black"
-                    data-h2-font-weight="base(bold)"
+                    className="font-bold"
                     data-h2-margin-bottom="base(x1)"
                   >
                     {intl.formatMessage({

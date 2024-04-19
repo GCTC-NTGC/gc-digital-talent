@@ -75,7 +75,7 @@ const Chip = ({
       data-h2-gap="base(x.25)"
       data-h2-display="base(inline-flex)"
       data-h2-font-size="base(caption)"
-      data-h2-font-weight="base(700)"
+      className="font-bold"
       data-h2-padding="base(x.15 x.5)"
       data-h2-radius="base(m)"
       {...(onDismiss && {

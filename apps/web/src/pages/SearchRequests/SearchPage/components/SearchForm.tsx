@@ -31,7 +31,7 @@ const testId = (chunks: React.ReactNode) => (
 );
 
 const styledCount = (chunks: React.ReactNode) => (
-  <span data-h2-font-weight="base(700)" data-h2-color="base(secondary.dark)">
+  <span className="font-bold" data-h2-color="base(secondary.dark)">
     {chunks}
   </span>
 );

@@ -194,7 +194,7 @@ const Fieldset = ({
                     <span
                       aria-hidden="true"
                       data-h2-text-align="base(center)"
-                      data-h2-font-weight="base(700)"
+                      className="font-bold"
                     >
                       {index + 1}
                     </span>
@@ -228,7 +228,7 @@ const Fieldset = ({
                     <span
                       aria-hidden="true"
                       data-h2-text-align="base(center)"
-                      data-h2-font-weight="base(700)"
+                      className="font-bold"
                     >
                       {index + 1}
                     </span>
@@ -264,7 +264,7 @@ const Fieldset = ({
                     role="presentation"
                     data-h2-margin="base(0, 0, x.5, 0)"
                     data-h2-color="base(inherit)"
-                    data-h2-font-weight="base(700)"
+                    className="font-bold"
                   >
                     {legend}
                   </p>
@@ -341,7 +341,7 @@ const Root = ({
           data-h2-text-align="base(center)"
           data-h2-margin-bottom="base(x.5)"
         >
-          <p data-h2-font-weight="base(700)">
+          <p className="font-bold">
             {intl.formatMessage(formMessages.repeaterDefaultError)}
           </p>
           {errorMessage && <p data-h2-margin-top="base(x.5)">{errorMessage}</p>}

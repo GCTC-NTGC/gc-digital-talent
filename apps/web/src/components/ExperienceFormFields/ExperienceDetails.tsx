@@ -29,7 +29,7 @@ const ExperienceDetails = ({ experienceType }: ExperienceDetailsProps) => {
       <Heading
         level="h3"
         size="h4"
-        data-h2-font-weight="base(700)"
+        className="font-bold"
         data-h2-margin="base(x3, 0, x1, 0)"
       >
         {intl.formatMessage({

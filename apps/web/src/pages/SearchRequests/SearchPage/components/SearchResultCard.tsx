@@ -40,7 +40,7 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
     >
       <p
         data-h2-font-size="base(h6)"
-        data-h2-font-weight="base(700)"
+        className="font-bold"
         id={`search_pool_${pool.id}`}
       >
         {getShortPoolTitleHtml(intl, pool)}
@@ -76,10 +76,7 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
           )}
         </span>
         <span aria-hidden>&bull;</span>
-        <span
-          data-h2-font-weight="base(700)"
-          data-h2-color="base(secondary.darker)"
-        >
+        <span className="font-bold" data-h2-color="base(secondary.darker)">
           {intl.formatMessage(
             {
               defaultMessage: `{candidateCount, plural,

@@ -78,7 +78,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
           >
             {results && (
               <div>
-                <Heading level="h1" data-h2-font-weight="base(700)">
+                <Heading level="h1" className="font-bold">
                   {intl.formatMessage(
                     {
                       defaultMessage: `{resultCount, plural,
@@ -171,7 +171,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                   <React.Fragment key={result.id}>
                     <div>
                       <PageSection>
-                        <Heading level="h2" data-h2-font-weight="base(700)">
+                        <Heading level="h2" className="font-bold">
                           {anonymous ? (
                             <>
                               {getFullNameLabel(
@@ -195,7 +195,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                       </PageSection>
                       {!anonymous && (
                         <PageSection>
-                          <Heading level="h3" data-h2-font-weight="base(700)">
+                          <Heading level="h3" className="font-bold">
                             {intl.formatMessage({
                               defaultMessage: "Contact information",
                               id: "XqF3wS",
@@ -277,7 +277,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                         </PageSection>
                       )}
                       <PageSection>
-                        <Heading level="h3" data-h2-font-weight="base(700)">
+                        <Heading level="h3" className="font-bold">
                           {intl.formatMessage({
                             defaultMessage: "General information",
                             id: "Ot2eBH",
@@ -287,7 +287,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                         </Heading>
                       </PageSection>
                       <PageSection>
-                        <Heading level="h4" data-h2-font-weight="base(700)">
+                        <Heading level="h4" className="font-bold">
                           {intl.formatMessage(commonMessages.status)}
                         </Heading>
                         {result.armedForcesStatus !== null &&
@@ -323,7 +323,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                         )}
                       </PageSection>
                       <PageSection>
-                        <Heading level="h4" data-h2-font-weight="base(700)">
+                        <Heading level="h4" className="font-bold">
                           {intl.formatMessage(
                             navigationMessages.languageInformation,
                           )}
@@ -331,7 +331,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                         <Display user={result} context="print" />
                       </PageSection>
                       <PageSection>
-                        <Heading level="h4" data-h2-font-weight="base(700)">
+                        <Heading level="h4" className="font-bold">
                           {intl.formatMessage(
                             navigationMessages.governmentInformation,
                           )}
@@ -413,7 +413,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                         )}
                       </PageSection>
                       <PageSection>
-                        <Heading level="h4" data-h2-font-weight="base(700)">
+                        <Heading level="h4" className="font-bold">
                           {intl.formatMessage(navigationMessages.workLocation)}
                         </Heading>
                         {!isEmpty(result.locationPreferences) && (
@@ -440,7 +440,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                         )}
                       </PageSection>
                       <PageSection>
-                        <Heading level="h4" data-h2-font-weight="base(700)">
+                        <Heading level="h4" className="font-bold">
                           {intl.formatMessage(
                             navigationMessages.workPreferences,
                           )}
@@ -558,7 +558,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                         )}
                       </PageSection>
                       <PageSection>
-                        <Heading level="h4" data-h2-font-weight="base(700)">
+                        <Heading level="h4" className="font-bold">
                           {intl.formatMessage(
                             navigationMessages.diversityEquityInclusion,
                           )}
@@ -638,7 +638,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                         )}
                       </PageSection>
                       <BreakingPageSection>
-                        <Heading level="h3" data-h2-font-weight="base(700)">
+                        <Heading level="h3" className="font-bold">
                           {intl.formatMessage(
                             navigationMessages.careerTimelineAndRecruitment,
                           )}
@@ -648,7 +648,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                         />
                       </BreakingPageSection>
                       <PageSection>
-                        <Heading level="h4" data-h2-font-weight="base(700)">
+                        <Heading level="h4" className="font-bold">
                           {intl.formatMessage(navigationMessages.skillShowcase)}
                         </Heading>
                         <p data-h2-margin="base(x1 0)">
@@ -660,7 +660,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                             id: "0M5Wtb",
                           })}
                         </p>
-                        <Heading level="h5" data-h2-font-weight="base(700)">
+                        <Heading level="h5" className="font-bold">
                           {intl.formatMessage({
                             defaultMessage: "Top skills",
                             id: "SxPilM",
@@ -679,7 +679,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                             ) ?? []
                           }
                         />
-                        <Heading level="h5" data-h2-font-weight="base(700)">
+                        <Heading level="h5" className="font-bold">
                           {intl.formatMessage({
                             defaultMessage: "Skills to improve",
                             id: "ZAeStR",

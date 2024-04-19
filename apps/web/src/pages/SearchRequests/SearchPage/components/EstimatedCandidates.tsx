@@ -43,7 +43,7 @@ const CandidateMessage = ({ candidateCount }: CandidateMessageProps) => {
             "Text telling users that their search produced no candidates",
         })}
       </p>
-      <p data-h2-font-weight="base(700)" data-h2-margin="base(x.5 0)">
+      <p className="font-bold" data-h2-margin="base(x.5 0)">
         {intl.formatMessage({
           defaultMessage: "We may be able to help!",
           id: "xAfVa9",
@@ -88,7 +88,7 @@ const EstimatedCandidates = ({
               data-h2-text-align="base(center)"
               data-h2-color="base:all(black)"
               data-h2-font-size="base(h6, 1.3)"
-              data-h2-font-weight="base(700)"
+              className="font-bold"
             >
               {intl.formatMessage({
                 defaultMessage: "Estimated candidates",

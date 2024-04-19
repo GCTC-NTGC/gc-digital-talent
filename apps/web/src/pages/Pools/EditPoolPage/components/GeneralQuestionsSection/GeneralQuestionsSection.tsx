@@ -94,7 +94,7 @@ const GeneralQuestionsSection = ({
       </div>
       {questions.length === 0 ? (
         <Well data-h2-margin="base(x1 0)" data-h2-text-align="base(center)">
-          <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.5)">
+          <p className="font-bold" data-h2-margin-bottom="base(x.5)">
             {intl.formatMessage({
               defaultMessage: "You haven't added any questions yet.",
               id: "jXUnrt",

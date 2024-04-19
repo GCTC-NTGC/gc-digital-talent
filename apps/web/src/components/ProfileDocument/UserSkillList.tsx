@@ -19,7 +19,7 @@ const UserSkillList = ({ technical, behavioural }: UserSkillListProps) => {
 
   return (
     <>
-      <Heading level="h6" data-h2-font-weight="base(700)">
+      <Heading level="h6" className="font-bold">
         {intl.formatMessage({
           defaultMessage: "Behavioural skills",
           id: "Ih9aGC",
@@ -47,7 +47,7 @@ const UserSkillList = ({ technical, behavioural }: UserSkillListProps) => {
         <p>{intl.formatMessage(commonMessages.notProvided)}</p>
       )}
 
-      <Heading level="h6" data-h2-font-weight="base(700)">
+      <Heading level="h6" className="font-bold">
         {intl.formatMessage({
           defaultMessage: "Technical skills",
           id: "5DsB2D",

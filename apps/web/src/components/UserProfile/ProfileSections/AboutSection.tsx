@@ -47,7 +47,7 @@ const AboutSection = ({ editPath, user }: AboutSectionProps) => {
                   description: "Name label and colon",
                 })}
               </span>
-              <span data-h2-font-weight="base(700)">
+              <span className="font-bold">
                 {getFullNameHtml(firstName, lastName, intl)}
               </span>
             </p>
@@ -63,7 +63,7 @@ const AboutSection = ({ editPath, user }: AboutSectionProps) => {
                   description: "Email label and colon",
                 })}
               </span>
-              <span data-h2-font-weight="base(700)">{email}</span>
+              <span className="font-bold">{email}</span>
             </p>
           </div>
         )}
@@ -84,7 +84,7 @@ const AboutSection = ({ editPath, user }: AboutSectionProps) => {
                   href={`tel:${telephone}`}
                   aria-label={telephone.replace(/.{1}/g, "$& ")}
                 >
-                  <span data-h2-font-weight="base(700)">{telephone}</span>
+                  <span className="font-bold">{telephone}</span>
                 </Link>
               ) : (
                 ""
@@ -103,7 +103,7 @@ const AboutSection = ({ editPath, user }: AboutSectionProps) => {
                     "Preferred Language for communication purposes label and colon",
                 })}
               </span>
-              <span data-h2-font-weight="base(700)">
+              <span className="font-bold">
                 {preferredLang
                   ? intl.formatMessage(getLanguage(preferredLang))
                   : ""}
@@ -122,7 +122,7 @@ const AboutSection = ({ editPath, user }: AboutSectionProps) => {
               })}
               {intl.formatMessage(commonMessages.dividingColon)}
               <br />
-              <span data-h2-font-weight="base(700)">
+              <span className="font-bold">
                 {preferredLanguageForInterview
                   ? intl.formatMessage(
                       getLanguage(preferredLanguageForInterview),
@@ -143,7 +143,7 @@ const AboutSection = ({ editPath, user }: AboutSectionProps) => {
               })}
               {intl.formatMessage(commonMessages.dividingColon)}
               <br />
-              <span data-h2-font-weight="base(700)">
+              <span className="font-bold">
                 {preferredLanguageForExam
                   ? intl.formatMessage(getLanguage(preferredLanguageForExam))
                   : ""}
@@ -162,7 +162,7 @@ const AboutSection = ({ editPath, user }: AboutSectionProps) => {
                   description: "Current Location label and colon",
                 })}
               </span>
-              <span data-h2-font-weight="base(700)">
+              <span className="font-bold">
                 {currentCity},{" "}
                 {currentProvince
                   ? intl.formatMessage(getProvinceOrTerritory(currentProvince))
@@ -181,7 +181,7 @@ const AboutSection = ({ editPath, user }: AboutSectionProps) => {
                   description: "Veteran/member label",
                 })}
               </span>
-              <span data-h2-font-weight="base(700)">
+              <span className="font-bold">
                 {intl.formatMessage(
                   getArmedForcesStatusesProfile(armedForcesStatus),
                 )}
@@ -199,7 +199,7 @@ const AboutSection = ({ editPath, user }: AboutSectionProps) => {
                   description: "Citizenship status label",
                 })}
               </span>
-              <span data-h2-font-weight="base(700)">
+              <span className="font-bold">
                 {intl.formatMessage(getCitizenshipStatusesProfile(citizenship))}
               </span>
             </p>

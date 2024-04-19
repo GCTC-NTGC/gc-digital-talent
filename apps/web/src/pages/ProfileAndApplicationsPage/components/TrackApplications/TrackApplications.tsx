@@ -149,10 +149,7 @@ const TrackApplications = ({
                 ))
               ) : (
                 <Well data-h2-text-align="base(center)">
-                  <p
-                    data-h2-font-weight="base(700)"
-                    data-h2-margin="base(0, 0, x.25, 0)"
-                  >
+                  <p className="font-bold" data-h2-margin="base(0, 0, x.25, 0)">
                     {intl.formatMessage({
                       defaultMessage:
                         "Applications that are in progress will appear here.",
@@ -222,10 +219,7 @@ const TrackApplications = ({
                 ))
               ) : (
                 <Well data-h2-text-align="base(center)">
-                  <p
-                    data-h2-font-weight="base(700)"
-                    data-h2-margin="base(0, 0, x.25, 0)"
-                  >
+                  <p className="font-bold" data-h2-margin="base(0, 0, x.25, 0)">
                     {intl.formatMessage({
                       defaultMessage:
                         "Applications that are no longer active appear here.",

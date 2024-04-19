@@ -426,10 +426,7 @@ const ApplicationReview = ({
               <ul data-h2-padding="base(0, 0, 0, x1)">
                 {screeningQuestionResponses.map((response) => (
                   <li key={response.id} data-h2-margin-bottom="base(x.5)">
-                    <p
-                      data-h2-font-weight="base(700)"
-                      data-h2-margin-bottom="base(x.25)"
-                    >
+                    <p className="font-bold" data-h2-margin-bottom="base(x.25)">
                       {response.screeningQuestion?.question
                         ? response.screeningQuestion.question[locale]
                         : ""}
@@ -479,10 +476,7 @@ const ApplicationReview = ({
               <ul data-h2-padding="base(0, 0, 0, x1)">
                 {generalQuestionResponses.map((response) => (
                   <li key={response.id} data-h2-margin-bottom="base(x.5)">
-                    <p
-                      data-h2-font-weight="base(700)"
-                      data-h2-margin-bottom="base(x.25)"
-                    >
+                    <p className="font-bold" data-h2-margin-bottom="base(x.25)">
                       {response.generalQuestion?.question
                         ? response.generalQuestion.question[locale]
                         : ""}
@@ -512,7 +506,7 @@ const ApplicationReview = ({
         <Heading
           level="h3"
           size="h4"
-          data-h2-font-weight="base(700)"
+          className="font-bold"
           data-h2-margin="base(0, 0, x1, 0)"
         >
           {intl.formatMessage({

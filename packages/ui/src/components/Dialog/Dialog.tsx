@@ -161,7 +161,7 @@ const StyledTitle = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
 >((props, forwardedRef) => (
   <DialogPrimitive.Title
-    data-h2-font-weight="base(700)"
+    className="font-bold"
     data-h2-font-size="base(h4, 1.1)"
     data-h2-margin="base(0)"
     data-h2-padding="base(0 x3 0 0)"

@@ -113,10 +113,7 @@ const SkillSummaryTable = ({
   const requirementTypeCell = (poolSkill: PoolSkill): JSX.Element | null => {
     if (poolSkill?.type) {
       return poolSkill.type === PoolSkillType.Essential ? (
-        <span
-          data-h2-color="base(primary.darker)"
-          data-h2-font-weight="base(700)"
-        >
+        <span data-h2-color="base(primary.darker)" className="font-bold">
           {intl.formatMessage(getPoolSkillType(poolSkill.type))}
         </span>
       ) : (

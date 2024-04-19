@@ -694,11 +694,7 @@ export const ViewPoolCandidate = ({
 
   const chips = (
     <Chips>
-      <Chip
-        key="status"
-        color={statusChip.color}
-        data-h2-font-weight="base(700)"
-      >
+      <Chip key="status" color={statusChip.color} className="font-bold">
         {statusChip.label}
       </Chip>
       {poolCandidate.user.hasPriorityEntitlement ||

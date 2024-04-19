@@ -24,7 +24,7 @@ const FilterBlock = ({
         <Heading
           id={id}
           data-h2-font-size="base(h6, 1)"
-          data-h2-font-weight="base(700)"
+          className="font-bold"
           data-h2-margin="base(x2, 0, x.5, 0)"
         >
           {title}

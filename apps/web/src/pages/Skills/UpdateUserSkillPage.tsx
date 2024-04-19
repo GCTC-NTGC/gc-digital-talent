@@ -68,7 +68,7 @@ const NullExperienceMessage = ({
   const intl = useIntl();
   return (
     <Well data-h2-text-align="base(center)">
-      <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x.5)">
+      <p className="font-bold" data-h2-margin-bottom="base(x.5)">
         {hasExperiences
           ? intl.formatMessage({
               defaultMessage:
@@ -471,10 +471,7 @@ export const UpdateUserSkillForm = ({
               </p>
               {skillDescription && (
                 <Well data-h2-margin="base(x1 0)">
-                  <p
-                    data-h2-font-weight="base(700)"
-                    data-h2-margin-bottom="base(x.5)"
-                  >
+                  <p className="font-bold" data-h2-margin-bottom="base(x.5)">
                     {intl.formatMessage(
                       {
                         defaultMessage: "Remember, {skillName} is defined as",

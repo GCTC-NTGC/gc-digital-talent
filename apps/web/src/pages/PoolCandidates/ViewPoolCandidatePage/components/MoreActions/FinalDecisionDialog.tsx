@@ -306,10 +306,7 @@ const FinalDecisionDialog = ({
                 fontSize="caption"
                 data-h2-margin-top="base(x1)"
               >
-                <p
-                  data-h2-margin-bottom="base(x.5)"
-                  data-h2-font-weight="base(700)"
-                >
+                <p data-h2-margin-bottom="base(x.5)" className="font-bold">
                   {intl.formatMessage({
                     defaultMessage: "Important",
                     id: "IKGhHj",

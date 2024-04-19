@@ -84,7 +84,7 @@ const Title = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Title>
 >((props, forwardedRef) => (
   <AlertDialogPrimitive.Title
-    data-h2-font-weight="base(700)"
+    className="font-bold"
     data-h2-font-size="base(h4)"
     data-h2-margin="base(0, 0, x1, 0)"
     ref={forwardedRef}

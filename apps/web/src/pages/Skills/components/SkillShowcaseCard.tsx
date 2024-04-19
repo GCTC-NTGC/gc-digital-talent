@@ -75,7 +75,7 @@ const SkillShowcaseCard = ({
           data-h2-justify-content="base(space-between)"
           role="presentation"
         >
-          <span data-h2-font-weight="base(700)">
+          <span className="font-bold">
             {getLocalizedName(getSkill(item.skill)?.name ?? undefined, intl)}
           </span>
           <span

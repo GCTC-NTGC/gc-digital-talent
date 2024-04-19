@@ -160,10 +160,7 @@ const AssessmentStepTypeSection = ({
                 </Accordion.Trigger>
                 <Accordion.Content data-h2-text-align="base(left)">
                   <div data-h2-margin="base(x1, 0)">
-                    <p
-                      data-h2-margin-bottom="base(x1)"
-                      data-h2-font-weight="base(bold)"
-                    >
+                    <p data-h2-margin-bottom="base(x1)" className="font-bold">
                       {getLocalizedName(poolSkill?.skill?.name, intl)}
                     </p>
                     <p>
@@ -175,7 +172,7 @@ const AssessmentStepTypeSection = ({
                       <>
                         <p
                           data-h2-margin-bottom="base(x1)"
-                          data-h2-font-weight="base(bold)"
+                          className="font-bold"
                         >
                           {skillLevel}
                         </p>

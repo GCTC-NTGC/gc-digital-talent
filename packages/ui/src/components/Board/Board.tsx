@@ -299,7 +299,7 @@ const ColumnHeader = React.forwardRef<HTMLDivElement, ColumnHeaderProps>(
             {prefix}
           </span>
         )}
-        <span data-h2-font-size="base(h6)" data-h2-font-weight="base(700)">
+        <span data-h2-font-size="base(h6)" className="font-bold">
           {children}
         </span>
       </div>

@@ -153,7 +153,7 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
         data-h2-margin="base(x3, 0, x1, 0)"
         level="h3"
         size="h4"
-        data-h2-font-weight="base(700)"
+        className="font-bold"
       >
         {intl.formatMessage(
           getSectionTitle(PAGE_SECTION_ID.CONTRACT_REQUIREMENTS),

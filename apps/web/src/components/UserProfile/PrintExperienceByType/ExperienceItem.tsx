@@ -197,7 +197,7 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
     <div data-h2-break-inside="base(avoid) base:print(avoid)">
       <div data-h2-margin-bottom="base(x1)">
         {title && (
-          <Heading level="h5" data-h2-font-weight="base(700)">
+          <Heading level="h5" className="font-bold">
             {title}
           </Heading>
         )}

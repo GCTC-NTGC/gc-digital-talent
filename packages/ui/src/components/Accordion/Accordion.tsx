@@ -204,9 +204,8 @@ const Trigger = React.forwardRef<
                 data-h2-gap="base(x.25 0)"
               >
                 <Heading
-                  className="Accordion__Heading"
+                  className="Accordion__Heading font-bold"
                   data-h2-margin="base(0)"
-                  data-h2-font-weight="base(700)"
                 >
                   {children}
                 </Heading>

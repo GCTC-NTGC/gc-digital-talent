@@ -33,7 +33,7 @@ const Quote = ({ content, author }: QuoteProps) => (
       <figcaption
         data-h2-margin="base(x2, x2, 0, x2) p-tablet(x2, x6, 0, x6)"
         data-h2-font-size="base(h5, 1) l-tablet(h4, 1)"
-        data-h2-font-weight="base(700)"
+        className="font-bold"
       >
         —{author}
       </figcaption>

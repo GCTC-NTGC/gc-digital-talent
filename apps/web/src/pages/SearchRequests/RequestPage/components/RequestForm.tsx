@@ -293,7 +293,7 @@ export const RequestForm = ({
       <Heading
         level="h2"
         size="h6"
-        data-h2-font-weight="base(700)"
+        className="font-bold"
         data-h2-margin="base(0, 0, x.5, 0)"
       >
         {intl.formatMessage({
@@ -399,7 +399,7 @@ export const RequestForm = ({
           <Heading
             level="h2"
             size="h6"
-            data-h2-font-weight="base(700)"
+            className="font-bold"
             data-h2-margin="base(x2, 0, x1, 0)"
           >
             {intl.formatMessage({
@@ -449,7 +449,7 @@ export const RequestForm = ({
             <Heading
               level="h2"
               size="h6"
-              data-h2-font-weight="base(700)"
+              className="font-bold"
               data-h2-margin="base(x2, 0, x1, 0)"
             >
               {intl.formatMessage({
@@ -532,7 +532,7 @@ export const RequestForm = ({
           <Heading
             level="h2"
             size="h6"
-            data-h2-font-weight="base(700)"
+            className="font-bold"
             data-h2-margin="base(x2, 0, x1, 0)"
           >
             {intl.formatMessage({
@@ -546,7 +546,7 @@ export const RequestForm = ({
             selectedClassifications={selectedClassifications}
           />
           <Separator />
-          <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x1)">
+          <p className="font-bold" data-h2-margin-bottom="base(x1)">
             {intl.formatMessage(
               {
                 defaultMessage:

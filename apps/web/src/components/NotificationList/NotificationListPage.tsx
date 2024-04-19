@@ -103,7 +103,7 @@ const NotificationListPage = ({
               "data-h2-margin": "base(0 x1)",
             })}
           >
-            <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x1)">
+            <p className="font-bold" data-h2-margin-bottom="base(x1)">
               {intl.formatMessage({
                 defaultMessage: "There aren't any notifications here.",
                 id: "8JYRed",
