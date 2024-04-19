@@ -6,10 +6,12 @@
   :root {
     --color-background: 245 248 253;
     --color-primary: 155 71 255;
+    --shadow-opacity: 0.2;
   }
 
   :root .dark {
     --color-background: 47 49 61;
+    --shadow-opacity: 0.5;
   }
 
   :root .iap {
