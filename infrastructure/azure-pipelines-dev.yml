@@ -101,6 +101,7 @@ stages:
         displayName: "Run playwright tests"
       - task: AzureCLI@2
         displayName: ‘Copy Playwright Results to Storage’
+        timeoutInMinutes: 10
         condition: succeededOrFailed()
         inputs:
           azureSubscription: $(serviceConnectionName)
