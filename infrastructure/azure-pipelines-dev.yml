@@ -109,14 +109,14 @@ stages:
           scriptLocation: inlineScript
           inlineScript: |
             if [ ! $(which az 2> /dev/null) ]; then echo “ERROR: az cli not found” && exit 1; fi
-            DIR_SRC=“${{ variables.dirResults }}”
+            DIR_SRC="${{ variables.dirResults }}"
             echo "dirResults: ${{ variables.dirResults }}"
             TIMESTAMP="$(date +'%Y-%m-%d %H:%M:%S')"
             echo "Timestamp: ${TIMESTAMP}"
             if [ -d "${DIR_SRC}" ]; then
               SA_RG="${{ variables.resourceGroupName }}"
               SA_NAME="${{ variables.storageAccountName }}"
-              SA_CONTAINER_NAME="${{ variables.storageContainer }}""
+              SA_CONTAINER_NAME="${{ variables.storageContainer }}"
               SA_CONTAINER_PATH_PREFIX="${{ variables.vertical }}/${TIMESTAMP}"
               AZURE_STORAGE_KEY=$(az storage account keys list --resource-group "$SA_RG" --account-name "$SA_NAME" --query "[0].value" --output tsv)
               az storage blob upload-batch --destination "${SA_CONTAINER_NAME}" --account-name "${SA_NAME}" --destination-path "${SA_CONTAINER_PATH_PREFIX}" --source "${DIR_SRC}"
