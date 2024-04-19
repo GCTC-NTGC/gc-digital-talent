@@ -123,10 +123,7 @@ const SearchForm = <T,>({
       >
         {label}
       </Field.Label>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-width="base(100%) l-tablet(auto)"
-      >
+      <div className="flex" data-h2-width="base(100%) l-tablet(auto)">
         {showDropdown ? (
           <DropdownMenu.Root>
             <DropdownMenu.Trigger>
@@ -171,14 +168,14 @@ const SearchForm = <T,>({
         ) : null}
         <div
           data-h2-position="base(relative)"
-          data-h2-display="base(flex)"
+          className="flex"
           data-h2-flex-grow="base(1)"
         >
           <div
             aria-hidden
             data-h2-position="base(absolute)"
             data-h2-location="base(x.25, auto, x.25, x.25)"
-            data-h2-display="base(flex)"
+            className="flex"
             data-h2-align-items="base(center)"
           />
           <input
@@ -208,7 +205,7 @@ const SearchForm = <T,>({
             <div
               data-h2-position="base(absolute)"
               data-h2-location="base(x.25, x.25, x.25, auto)"
-              data-h2-display="base(flex)"
+              className="flex"
               data-h2-align-items="base(stretch)"
             >
               <ResetButton onClick={handleReset} />

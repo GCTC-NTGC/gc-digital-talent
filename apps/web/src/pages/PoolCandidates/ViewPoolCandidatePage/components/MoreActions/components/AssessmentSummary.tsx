@@ -34,17 +34,13 @@ const TableHeader = ({ tableTitle }: { tableTitle: string }): JSX.Element => {
       data-h2-border-bottom="base(3px solid black.20)"
       data-h2-margin-bottom="base(x.5)"
     >
-      <th
-        scope="col"
-        data-h2-padding="base(x.25 0 x.25 x1)"
-        data-h2-display="base(flex)"
-      >
+      <th scope="col" data-h2-padding="base(x.25 0 x.25 x1)" className="flex">
         {tableTitle}
       </th>
       <th scope="col">
         <CheckIcon
           data-h2-width="base(x1)"
-          data-h2-display="base(flex)"
+          className="flex"
           data-h2-vertical-align="base(bottom)"
           data-h2-margin="base(0, x.5, 0, 0)"
           data-h2-padding="base(x.25 0)"
@@ -61,7 +57,7 @@ const TableHeader = ({ tableTitle }: { tableTitle: string }): JSX.Element => {
       <th scope="col">
         <XCircleIcon
           data-h2-width="base(x1)"
-          data-h2-display="base(flex)"
+          className="flex"
           data-h2-vertical-align="base(bottom)"
           data-h2-margin="base(0, x.5, 0, 0)"
           data-h2-padding="base(x.25 0)"
@@ -78,7 +74,7 @@ const TableHeader = ({ tableTitle }: { tableTitle: string }): JSX.Element => {
       <th scope="col">
         <PauseIcon
           data-h2-width="base(x1)"
-          data-h2-display="base(flex)"
+          className="flex"
           data-h2-vertical-align="base(bottom)"
           data-h2-margin="base(0, x.5, 0, 0)"
           data-h2-padding="base(x.25 0)"

@@ -41,7 +41,7 @@ const Wrapper = React.forwardRef<HTMLDivElement, DivHTMLProps>(
   (props, forwardedRef) => (
     <div
       ref={forwardedRef}
-      data-h2-display="base(flex)"
+      className="flex"
       data-h2-flex-grow="base(1)"
       data-h2-width="base(100%)"
       data-h2-position="base(relative)"
@@ -55,7 +55,7 @@ const Actions = React.forwardRef<HTMLDivElement, DivHTMLProps>(
   (props, forwardedRef) => (
     <div
       ref={forwardedRef}
-      data-h2-display="base(flex)"
+      className="flex"
       data-h2-gap="base(0, x.1)"
       data-h2-position="base(absolute)"
       data-h2-location="base(x.25, x.25, x.25, auto)"
@@ -68,7 +68,7 @@ const Search = React.forwardRef<HTMLDivElement, HTMLSpanProps>(
   (props, forwardedRef) => (
     <span
       ref={forwardedRef}
-      data-h2-display="base(flex)"
+      className="flex"
       data-h2-position="base(absolute)"
       data-h2-location="base(x.25, auto, x.25, x.25)"
       {...props}

@@ -111,7 +111,7 @@ const SideMenu = ({
                   data-h2-border-right="l-tablet(1px solid black.2)"
                   data-h2-overflow-y="base(auto)"
                   data-h2-overflow-x="base(hidden)"
-                  data-h2-display="base(flex)"
+                  className="flex"
                   data-h2-flex-direction="base(column)"
                   data-h2-height="base(100%)"
                 >
@@ -122,20 +122,20 @@ const SideMenu = ({
                      */
                     onKeyDown={handleKeyDown}
                     aria-label={label}
-                    data-h2-display="base(flex)"
+                    className="flex"
                     data-h2-flex-direction="base(column)"
                     data-h2-flex-grow="base(1)"
                     data-state={open ? "open" : "closed"}
                   >
                     <div
-                      data-h2-display="base(flex)"
+                      className="flex"
                       data-h2-padding="base(x1.5)"
                       data-h2-flex-direction="base(column)"
                       data-h2-align-items="base(flex-start)"
                       data-h2-gap="base(x2)"
                     >
                       <div
-                        data-h2-display="base(flex)"
+                        className="flex"
                         data-h2-flex-direction="base(column)"
                         data-h2-align-items="base(flex-start)"
                         data-h2-gap="base(x1.5)"

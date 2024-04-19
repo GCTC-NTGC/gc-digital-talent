@@ -90,7 +90,7 @@ type DivHTMLProps = React.DetailedHTMLProps<
  */
 const Column = (props: DivHTMLProps) => (
   <div
-    data-h2-display="base(flex)"
+    className="flex"
     data-h2-flex-direction="base(column) l-tablet(row)"
     data-h2-align-items="base(flex-start) l-tablet(center)"
     data-h2-gap="base(x.5 0) l-tablet(0 x.5)"
@@ -106,7 +106,7 @@ const Column = (props: DivHTMLProps) => (
  */
 const Section = (props: DivHTMLProps) => (
   <div
-    data-h2-display="base(flex)"
+    className="flex"
     data-h2-align-items="base(center)"
     data-h2-gap="base(0 x.25)"
     {...props}
@@ -170,7 +170,7 @@ const Actions = ({
 
   return (
     <div
-      data-h2-display="base(flex)"
+      className="flex"
       data-h2-flex-direction="base(column) l-tablet(row)"
       data-h2-align-items="base(center) l-tablet(flex-start)"
       data-h2-gap="base(x.5 0) l-tablet(0 x.5)"
@@ -191,7 +191,7 @@ const Actions = ({
             />
           ) : (
             <Section
-              data-h2-display="base(flex)"
+              className="flex"
               data-h2-flex-direction="base(column) l-tablet(row)"
               data-h2-align-items="base(center)"
               data-h2-justify-content="base(space-between)"
@@ -228,7 +228,7 @@ const Actions = ({
                 <Button
                   data-h2-font-weight="base(400)"
                   data-h2-position="base(relative)"
-                  data-h2-display="base(flex)"
+                  className="flex"
                   data-h2-align-items="base(center)"
                   onClick={onClear}
                   color="whiteFixed"
@@ -246,7 +246,7 @@ const Actions = ({
               {download?.selection && (
                 <span
                   data-h2-align-items="base(center)"
-                  data-h2-display="base(flex)"
+                  className="flex"
                   data-h2-gap="base(0 x.25) l-tablet(0 x.5)"
                 >
                   <span data-h2-display="base(none) l-tablet(block)">
@@ -275,7 +275,7 @@ const Actions = ({
               {(print?.onPrint || print?.component) && (
                 <span
                   data-h2-align-items="base(center)"
-                  data-h2-display="base(flex)"
+                  className="flex"
                   data-h2-gap="base(0 x.5)"
                 >
                   <span data-h2-display="base(none) l-tablet(block)">

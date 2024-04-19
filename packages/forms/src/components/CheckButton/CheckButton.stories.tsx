@@ -33,13 +33,13 @@ const Template: StoryFn<{ label: string }> = (args) => {
         <div data-h2={theme} key={theme}>
           <div data-h2-background="base(background)" data-h2-padding="base(x2)">
             <div
-              data-h2-display="base(flex)"
+              className="flex"
               data-h2-justify-content="base(space-around)"
               data-h2-margin="base(-x1)"
               data-h2-color="base(black)"
             >
               <div
-                data-h2-display="base(flex)"
+                className="flex"
                 data-h2-flex-direction="base(column)"
                 data-h2-align-items="base(center)"
                 data-h2-padding="base(x1)"
@@ -52,7 +52,7 @@ const Template: StoryFn<{ label: string }> = (args) => {
                 />
               </div>
               <div
-                data-h2-display="base(flex)"
+                className="flex"
                 data-h2-flex-direction="base(column)"
                 data-h2-align-items="base(center)"
                 data-h2-padding="base(x1)"
@@ -65,7 +65,7 @@ const Template: StoryFn<{ label: string }> = (args) => {
                 />
               </div>
               <div
-                data-h2-display="base(flex)"
+                className="flex"
                 data-h2-flex-direction="base(column)"
                 data-h2-align-items="base(center)"
                 data-h2-padding="base(x1)"
@@ -79,7 +79,7 @@ const Template: StoryFn<{ label: string }> = (args) => {
                 />
               </div>
               <div
-                data-h2-display="base(flex)"
+                className="flex"
                 data-h2-flex-direction="base(column)"
                 data-h2-align-items="base(center)"
                 data-h2-padding="base(x1)"

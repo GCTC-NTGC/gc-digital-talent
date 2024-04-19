@@ -67,7 +67,7 @@ const Checkbox = ({
         <BoundingBox {...(asFieldset ? stateStyles : {})}>
           <Field.Label
             data-h2-cursor="base(pointer)"
-            data-h2-display="base(flex)"
+            className="flex"
             data-h2-align-items="base(flex-start)"
             data-h2-gap="base(x.25)"
             {...(inCheckList && {

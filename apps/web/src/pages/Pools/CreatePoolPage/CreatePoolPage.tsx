@@ -128,7 +128,7 @@ export const CreatePoolForm = ({
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div
-            data-h2-display="base(flex)"
+            className="flex"
             data-h2-flex-direction="base(column)"
             data-h2-gap="base(x1 0)"
           >
@@ -172,7 +172,7 @@ export const CreatePoolForm = ({
               }}
             />
             <div
-              data-h2-display="base(flex)"
+              className="flex"
               data-h2-gap="base(x1)"
               data-h2-align-items="base(center)"
             >

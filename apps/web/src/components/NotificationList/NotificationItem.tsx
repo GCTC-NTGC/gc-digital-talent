@@ -119,7 +119,7 @@ const NotificationItem = ({
   return (
     <li>
       <CardBasic
-        data-h2-display="base(flex)"
+        className="flex"
         {...(inDialog
           ? {
               "data-h2-padding": "base(x.5)",
@@ -153,7 +153,7 @@ const NotificationItem = ({
           )}
         </div>
         <div
-          data-h2-display="base(flex)"
+          className="flex"
           data-h2-flex-direction="base(column-reverse)"
           data-h2-gap="base(x.5 0)"
           data-h2-flex-grow="base(1)"

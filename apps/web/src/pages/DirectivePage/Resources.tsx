@@ -71,7 +71,7 @@ const Resources = () => {
           data-h2-margin="base(x1, 0, 0, 0) p-tablet(x2, 0, 0, 0)"
         >
           <CardBasic
-            data-h2-display="base(flex)"
+            className="flex"
             data-h2-flex-direction="base(column)"
             data-h2-justify-content="base(space-evenly)"
           >
@@ -91,7 +91,7 @@ const Resources = () => {
             </p>
           </CardBasic>
           <CardBasic
-            data-h2-display="base(flex)"
+            className="flex"
             data-h2-flex-direction="base(column)"
             data-h2-justify-content="base(space-evenly)"
           >
@@ -175,7 +175,7 @@ const Resources = () => {
             noPadding
           >
             <div
-              data-h2-display="base(flex)"
+              className="flex"
               data-h2-flex-direction="base(column)"
               data-h2-justify-content="base(space-between)"
               data-h2-height="base(100%)"
@@ -266,7 +266,7 @@ const Resources = () => {
             noPadding
           >
             <div
-              data-h2-display="base(flex)"
+              className="flex"
               data-h2-flex-direction="base(column)"
               data-h2-justify-content="base(space-between)"
               data-h2-height="base(100%)"
@@ -348,7 +348,7 @@ const Resources = () => {
             noPadding
           >
             <div
-              data-h2-display="base(flex)"
+              className="flex"
               data-h2-flex-direction="base(column)"
               data-h2-justify-content="base(space-between)"
               data-h2-height="base(100%)"

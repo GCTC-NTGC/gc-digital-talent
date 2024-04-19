@@ -125,7 +125,7 @@ const EditTeamMemberDialog = ({ user, team }: EditTeamMemberDialogProps) => {
               {/** Note: Only one option since we are editing this user */}
               <input type="hidden" name="userId" value={user.id} />
               <div
-                data-h2-display="base(flex)"
+                className="flex"
                 data-h2-flex-direction="base(column)"
                 data-h2-gap="base(x1 0)"
               >

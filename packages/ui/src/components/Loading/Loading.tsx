@@ -60,7 +60,7 @@ const Loading = ({
       {...(live && {
         "aria-live": live,
       })}
-      data-h2-display="base(flex)"
+      className="flex"
       data-h2-align-items="base(center)"
       data-h2-justify-content="base(center)"
       {...rest}

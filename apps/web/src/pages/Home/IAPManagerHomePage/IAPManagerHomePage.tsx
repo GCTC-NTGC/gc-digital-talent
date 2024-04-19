@@ -101,7 +101,7 @@ export const IAPManagerHomePage = () => {
       >
         <div
           // content wrapper
-          data-h2-display="base(flex)"
+          className="flex"
           data-h2-flex-direction="base(column)"
           // x4 bottom padding + overlap
           data-h2-padding="base(x4, 0, x4, 0) p-tablet(x4, 0, x7, 0) l-tablet(x4, 0, x8, 0)"
@@ -111,7 +111,7 @@ export const IAPManagerHomePage = () => {
         >
           <div
             // title wrapper
-            data-h2-display="base(flex)"
+            className="flex"
             data-h2-flex-direction="base(column)"
             data-h2-align-items="base(center)"
             data-h2-gap="base(x1)"
@@ -145,7 +145,7 @@ export const IAPManagerHomePage = () => {
             data-h2-align-items="base(center)"
             data-h2-min-width="base(x12)"
             data-h2-padding="base(0 x1) p-tablet(0)"
-            data-h2-display="base(flex)"
+            className="flex"
             data-h2-flex-direction="base(column) p-tablet(row)"
             data-h2-gap="base(x1)"
           >
@@ -640,7 +640,7 @@ export const IAPManagerHomePage = () => {
               data-h2-order="p-tablet(2)"
             >
               <div
-                data-h2-display="base(flex)"
+                className="flex"
                 data-h2-flex-direction="base(column)"
                 data-h2-justify-content="base(center)"
                 data-h2-height="base(100%)"
@@ -680,7 +680,7 @@ export const IAPManagerHomePage = () => {
                 </div>
                 <div
                   data-h2-margin-top="base(x1)"
-                  data-h2-display="base(flex)"
+                  className="flex"
                   data-h2-flex-direction="base(column) p-tablet(row)"
                   data-h2-gap="base(x1)"
                   data-h2-align-items="base(center)"

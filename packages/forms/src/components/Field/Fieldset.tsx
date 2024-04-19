@@ -7,7 +7,7 @@ const Fieldset = React.forwardRef<HTMLFieldSetElement, HTMLFieldsetProps>(
     <fieldset
       ref={forwardedRef}
       data-h2-border="base(none)"
-      data-h2-display="base(flex)"
+      className="flex"
       data-h2-flex-direction="base(column)"
       data-h2-gap="base(x.25 0)"
       data-h2-padding="base(0)"

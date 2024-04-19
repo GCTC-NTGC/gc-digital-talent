@@ -314,7 +314,7 @@ const AdminLayout = () => {
         <SideMenuContentWrapper>
           <div
             data-h2-min-height="base(100%)"
-            data-h2-display="base(flex)"
+            className="flex"
             data-h2-flex-direction="base(column)"
           >
             <Header width="full" />

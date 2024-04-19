@@ -133,7 +133,7 @@ const DiversityEquityInclusionSection = ({
                   </li>
                 </ul>
                 <div
-                  data-h2-display="base(flex)"
+                  className="flex"
                   data-h2-justify-content="base(center)"
                   data-h2-flex-wrap="base(nowrap)"
                   data-h2-flex-shrink="base(0)"

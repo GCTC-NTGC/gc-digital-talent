@@ -8,7 +8,7 @@ const List = ({
   HTMLUListElement
 >) => (
   <ul
-    data-h2-display="base(flex)"
+    className="flex"
     data-h2-flex-direction="base(column)"
     data-h2-gap="base(x.5 0)"
     data-h2-list-style="base(none)"

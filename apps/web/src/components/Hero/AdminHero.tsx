@@ -36,7 +36,7 @@ const AdminHero = ({
       <div data-h2-container="base(center, full, x1) base(center, full, x2)">
         <div data-h2-color="base(black)" data-h2-padding="base(x2 0)">
           <div
-            data-h2-display="base(flex)"
+            className="flex"
             data-h2-justify-content="base(space-between)"
             data-h2-align-items="base(baseline)"
           >

@@ -28,8 +28,8 @@ const Priority = ({ type }: PriorityProps) => {
 
   return (
     <span
+      className="inline-flex"
       data-h2-align-items="base(center)"
-      data-h2-display="base(inline-flex)"
       data-h2-background-color="base(black) base:dark(white)"
       data-h2-color="base(white) base:dark(black)"
       data-h2-padding="base(0 x.125)"
@@ -93,7 +93,7 @@ const AssessmentResult = ({
   return (
     <Board.ListItem>
       <div
-        data-h2-display="base(flex)"
+        className="flex"
         data-h2-align-items="base(center)"
         data-h2-gap="base(0 x.25)"
         data-h2-padding="base(x.125 0)"
@@ -125,7 +125,7 @@ const AssessmentResult = ({
         </span>
         <span
           data-h2-flex-shrink="base(0)"
-          data-h2-display="base(flex)"
+          className="flex"
           data-h2-align-items="base(center)"
           data-h2-gap="base(0 x.125)"
         >

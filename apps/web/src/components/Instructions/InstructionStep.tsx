@@ -22,11 +22,11 @@ export const InstructionStep = ({
 
   return (
     <li
-      data-h2-display="base(flex)"
+      className="flex"
       data-h2-flex-direction="base(column)"
       data-h2-flex-item="base(1of1) p-tablet(1of4)"
     >
-      <div data-h2-display="base(flex)" data-h2-flex-direction="base(row)">
+      <div className="flex" data-h2-flex-direction="base(row)">
         <img src={imgSrc} alt="" />
         {includeArrow && (
           <ArrowRightCircleIcon

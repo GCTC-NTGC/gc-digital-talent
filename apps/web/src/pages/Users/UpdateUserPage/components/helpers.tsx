@@ -50,7 +50,7 @@ export function teamActionCell(
   availableRoles: Role[],
 ) {
   return (
-    <div data-h2-display="base(flex)" data-h2-gap="base(0, x.25)">
+    <div className="flex" data-h2-gap="base(0, x.25)">
       <EditTeamRoleDialog
         initialRoles={teamAssignment.roles}
         user={user}

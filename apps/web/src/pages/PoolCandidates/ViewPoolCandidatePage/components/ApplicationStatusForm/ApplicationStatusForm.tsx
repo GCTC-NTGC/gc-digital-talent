@@ -114,7 +114,7 @@ export const ApplicationStatusForm = ({
                   size="h5"
                   data-h2-font-weight="base(400)"
                   data-h2-margin="base(0, 0, x0.5, 0)"
-                  data-h2-display="base(flex)"
+                  className="flex"
                   data-h2-align-items="base(center)"
                   data-h2-gap="base(x0.25, 0)"
                 >
@@ -133,7 +133,7 @@ export const ApplicationStatusForm = ({
                   </span>
                 </Heading>
                 <div
-                  data-h2-display="base(flex)"
+                  className="flex"
                   data-h2-flex-direction="base(column)"
                   data-h2-gap="base(x.5 0)"
                 >
@@ -176,7 +176,7 @@ export const ApplicationStatusForm = ({
                   size="h5"
                   data-h2-font-weight="base(400)"
                   data-h2-margin="base(0, 0, x0.25, 0)"
-                  data-h2-display="base(flex)"
+                  className="flex"
                   data-h2-align-items="base(center)"
                   data-h2-gap="base(x0.25, 0)"
                 >

@@ -32,7 +32,7 @@ const SkillExperiences = ({ skill, experiences }: SkillExperiencesProps) => {
       <Separator data-h2-background-color="base(tertiary)" space="sm" />
       {skillExperiences.length ? (
         <div
-          data-h2-display="base(flex)"
+          className="flex"
           data-h2-flex-direction="base(column)"
           data-h2-gap="base(x.5 0)"
         >

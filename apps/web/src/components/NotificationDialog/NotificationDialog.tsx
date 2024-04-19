@@ -107,7 +107,7 @@ const NotificationDialog = () => {
               >
                 <div data-h2-padding="base(x1)">
                   <div
-                    data-h2-display="base(flex)"
+                    className="flex"
                     data-h2-align-items="base(center)"
                     data-h2-justify-content="base(space-between)"
                     data-h2-gap="base(x.25 0)"
@@ -123,10 +123,7 @@ const NotificationDialog = () => {
                     >
                       {intl.formatMessage(notificationMessages.title)}
                     </Heading>
-                    <div
-                      data-h2-display="base(flex)"
-                      data-h2-gap="base(x.25 0)"
-                    >
+                    <div className="flex" data-h2-gap="base(x.25 0)">
                       <Dialog.Close asChild>
                         <Button
                           mode="icon_only"

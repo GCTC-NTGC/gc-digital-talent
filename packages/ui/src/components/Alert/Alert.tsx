@@ -68,8 +68,7 @@ const Alert = React.forwardRef<React.ElementRef<"div">, AlertProps>(
         {isOpen ? (
           <div
             ref={forwardedRef}
-            className={`Alert Alert--${type}`}
-            data-h2-display="base(flex)"
+            className={`Alert Alert--${type} flex`}
             data-h2-flex-direction="base(column) p-tablet(row)"
             data-h2-background-color="base(foreground)"
             data-h2-color="base(black)"
@@ -83,8 +82,7 @@ const Alert = React.forwardRef<React.ElementRef<"div">, AlertProps>(
             {...rest}
           >
             <div
-              className="Alert__Icon"
-              data-h2-display="base(flex)"
+              className="Alert__Icon flex"
               data-h2-align-items="base(flex-start)"
               data-h2-justify-content="base(flex-start)"
               data-h2-position="base(relative)"
@@ -116,7 +114,7 @@ const Alert = React.forwardRef<React.ElementRef<"div">, AlertProps>(
                 data-h2-outline="base(none)"
                 data-h2-radius="base(9999px)"
                 data-h2-position="base(absolute)"
-                data-h2-display="base(flex)"
+                className="flex"
                 data-h2-align-items="base(center)"
                 data-h2-location="base(x1.15, x.5, auto, auto) p-tablet(x.5, x.5, auto, auto)"
                 data-h2-cursor="base(pointer)"

@@ -41,7 +41,7 @@ const MissingLanguageRequirementsBlock = ({
 }: MissingLanguageRequirementsBlockProps) => {
   return (
     <div
-      data-h2-display="base(flex)"
+      className="flex"
       data-h2-padding="base(x1)"
       data-h2-radius="base(rounded)"
       {...rest}

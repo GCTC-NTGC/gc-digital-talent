@@ -58,7 +58,7 @@ const CardFlat = ({ color, links, title, children }: CardFlatProps) => {
   return (
     <div
       {...colorMap[color]}
-      data-h2-display="base(flex)"
+      className="flex"
       data-h2-flex-direction="base(column)"
       data-h2-padding="base(0, 0, 0, x1)"
     >
@@ -84,7 +84,7 @@ const CardFlat = ({ color, links, title, children }: CardFlatProps) => {
         <div
           data-h2-margin-top="base(x1)"
           data-h2-align-items="base(center)"
-          data-h2-display="base(flex)"
+          className="flex"
           data-h2-flex-wrap="base(wrap)"
           data-h2-gap="base(x.25)"
         >

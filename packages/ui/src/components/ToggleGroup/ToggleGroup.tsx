@@ -11,7 +11,7 @@ const Item = React.forwardRef<
   <ToggleGroupPrimitive.Item
     data-h2-align-items="base(center)"
     data-h2-cursor="base:hover(pointer)"
-    data-h2-display="base(flex)"
+    className="flex"
     data-h2-line-height="base(1)"
     data-h2-outline="base(none)"
     data-h2-padding="base(x.25)"

@@ -258,7 +258,7 @@ const ExperienceSkillForm = ({
         <Dialog.Footer>
           <div
             data-h2-width="base(100%)"
-            data-h2-display="base(flex)"
+            className="flex"
             data-h2-flex-wrap="base(wrap)"
             data-h2-flex-direction="base(row)"
             data-h2-gap="base(x1)"

@@ -238,7 +238,7 @@ export const ApplicationSelfDeclaration = ({
                   />
                 </div>
                 <div
-                  data-h2-display="base(flex)"
+                  className="flex"
                   data-h2-gap="base(x1)"
                   data-h2-flex-wrap="base(wrap)"
                   data-h2-flex-direction="base(column) l-tablet(row)"

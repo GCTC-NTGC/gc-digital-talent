@@ -38,7 +38,7 @@ const Message = React.forwardRef<HTMLSpanElement, HTMLSpanProps>(
   (props, forwardedRef) => (
     <span
       ref={forwardedRef}
-      data-h2-display="base(flex)"
+      className="flex"
       data-h2-align-items="base(center)"
       data-h2-color="base(black.light) base:dark(gray.light)"
       data-h2-gap="base(0 x.25)"
@@ -116,7 +116,7 @@ const Item = React.forwardRef<HTMLLIElement, ItemProps>(
     <li
       ref={forwardedRef}
       role="option"
-      data-h2-display="base(flex)"
+      className="flex"
       data-h2-align-items="base(center)"
       data-h2-gap="base(0 x.25)"
       data-h2-padding="base(x.25, x.5)"
@@ -177,7 +177,7 @@ const Empty = ({ fetching }: EmptyProps) => {
       data-h2-cursor="base(pointer)"
       data-h2-radius="base(input)"
       data-h2-padding="base(x.25, x.5)"
-      data-h2-display="base(flex)"
+      className="flex"
       data-h2-align-items="base(center)"
       data-h2-gap="base(0, x.25)"
     >

@@ -468,7 +468,7 @@ export const ScreeningDecisionDialog = ({
               >
                 <ScreeningDecisionDialogForm dialogType={dialogType} />
                 <Dialog.Footer
-                  data-h2-display="base(flex)"
+                  className="flex"
                   data-h2-justify-content="base(flex-start)"
                   data-h2-align-items="base(baseline)"
                   data-h2-gap="base(x1)"

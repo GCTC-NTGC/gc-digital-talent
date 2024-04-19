@@ -44,7 +44,7 @@ const Template: StoryFn<typeof ApplicationCard> = () => {
   return (
     <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
       <div
-        data-h2-display="base(flex)"
+        className="flex"
         data-h2-flex-direction="base(column)"
         data-h2-gap="base(x0.5, 0)"
       >

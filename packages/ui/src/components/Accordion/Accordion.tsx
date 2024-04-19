@@ -117,7 +117,7 @@ const Root = React.forwardRef<
   return (
     <AccordionPrimitive.Root
       ref={forwardedRef}
-      data-h2-display="base(flex)"
+      className="flex"
       data-h2-flex-direction="base(column)"
       {...baseStyles}
       {...paddingStyles}
@@ -163,12 +163,11 @@ const Trigger = React.forwardRef<
         <div className="Accordion__Header">
           <AccordionPrimitive.Trigger
             ref={forwardedRef}
-            className="Accordion__Trigger"
+            className="Accordion__Trigger flex"
             data-h2-align-items="base(center)"
             data-h2-background-color="base(transparent) base:focus-visible(focus)"
             data-h2-color="base(black) base:focus-visible(black)  base:children[.Accordion__Subtitle](black.light) base:focus-visible:children[.Accordion__Subtitle](black) base:children[.Accordion__Chevron](black.light) base:focus-visible:children[.Accordion__Chevron](black)"
             data-h2-cursor="base(pointer)"
-            data-h2-display="base(flex)"
             data-h2-flex-wrap="base(wrap) p-tablet(nowrap)"
             data-h2-gap="base(0, x.5)"
             data-h2-outline="base(none)"
@@ -183,13 +182,12 @@ const Trigger = React.forwardRef<
           >
             <span
               data-h2-align-items="base(flex-start)"
-              data-h2-display="base(flex)"
+              className="flex"
               data-h2-gap="base(0, x.5)"
               data-h2-flex-grow="base(1)"
             >
               <span
-                className="Accordion__Chevron"
-                data-h2-display="base(flex)"
+                className="Accordion__Chevron flex"
                 data-h2-align-items="base(center)"
                 data-h2-flex-shrink="base(0)"
               >
@@ -201,7 +199,7 @@ const Trigger = React.forwardRef<
 
               <span
                 data-h2-flex-grow="base(1)"
-                data-h2-display="base(flex)"
+                className="flex"
                 data-h2-flex-direction="base(column)"
                 data-h2-gap="base(x.25 0)"
               >
@@ -226,7 +224,7 @@ const Trigger = React.forwardRef<
             {(Icon || context) && (
               <span
                 data-h2-align-items="base(center)"
-                data-h2-display="base(flex)"
+                className="flex"
                 data-h2-gap="base(0 x.25)"
               >
                 {context && (

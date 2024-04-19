@@ -782,7 +782,7 @@ export const ViewPoolCandidate = ({
               })}
             </p>
             <CardBasic
-              data-h2-display="base(flex)"
+              className="flex"
               data-h2-flex-direction="base(column)"
               data-h2-align-items="base(flex-start)"
               data-h2-gap="base(x.5)"
@@ -835,7 +835,7 @@ export const ViewPoolCandidate = ({
               </Link>
             </CardBasic>
             <div
-              data-h2-display="base(flex)"
+              className="flex"
               data-h2-flex-direction="base(column)"
               data-h2-align-items="base(flex-start)"
               data-h2-gap="base(x.5)"
@@ -884,7 +884,7 @@ export const ViewPoolCandidate = ({
               </p>
             </div>
             <div
-              data-h2-display="base(flex)"
+              className="flex"
               data-h2-flex-direction="base(column)"
               data-h2-align-items="base(flex-start)"
               data-h2-gap="base(x.5)"

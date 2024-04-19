@@ -128,7 +128,7 @@ const PersonnelRequirementFieldset = ({
 
   return (
     <div
-      data-h2-display="base(flex)"
+      className="flex"
       data-h2-flex-direction="base(column)"
       data-h2-gap="base(x1)"
     >
@@ -175,13 +175,13 @@ const PersonnelRequirementFieldset = ({
         return (
           <div
             key={requirement.skillId}
-            data-h2-display="base(flex)"
+            className="flex"
             data-h2-flex-direction="base(column)"
           >
             <div>
               <div
                 key={requirement.skillId}
-                data-h2-display="base(flex)"
+                className="flex"
                 data-h2-justify-content="base(flex-end)"
                 data-h2-gap="base(x.75)"
               >

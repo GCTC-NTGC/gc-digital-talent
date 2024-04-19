@@ -21,7 +21,7 @@ const ReviewSection = ({
   return (
     <section data-h2-margin="base(x3, 0, 0, 0)">
       <div
-        data-h2-display="base(flex)"
+        className="flex"
         data-h2-justify-content="base(space-between)"
         data-h2-align-items="base(center)"
       >

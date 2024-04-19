@@ -76,7 +76,7 @@ const NotificationList = ({
       <ul
         data-h2-list-style="base(none)"
         data-h2-padding="base(0)"
-        data-h2-display="base(flex)"
+        className="flex"
         data-h2-flex-direction="base(column)"
         data-h2-margin="base(x1 0)"
         {...(!inDialog && {

@@ -23,7 +23,7 @@ const Spoiler = ({ linkSuffix, text, characterCount = 32 }: SpoilerProps) => {
   return (
     <Collapsible.Root open={isOpen} onOpenChange={setIsOpen}>
       <div
-        data-h2-display="base(flex)"
+        className="flex"
         data-h2-align-items="base(center)"
         data-h2-gap="base(0 x.25)"
       >

@@ -21,7 +21,7 @@ interface FeatureBlockProps {
 const FeatureBlock = ({ content }: FeatureBlockProps) => {
   return (
     <div
-      data-h2-display="base(flex)"
+      className="flex"
       data-h2-flex-direction="base(column)"
       data-h2-background-color="base(foreground)"
       data-h2-radius="base(rounded)"

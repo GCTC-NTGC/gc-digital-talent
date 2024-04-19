@@ -48,7 +48,7 @@ const Filters = ({
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onFiltersChange)}>
         <div
-          data-h2-display="base(flex)"
+          className="flex"
           data-h2-align-items="base(flex-end)"
           data-h2-gap="base(x.5)"
           data-h2-margin-bottom="base(x.5)"

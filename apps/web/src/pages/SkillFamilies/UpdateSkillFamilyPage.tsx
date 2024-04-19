@@ -184,7 +184,7 @@ export const UpdateSkillFamilyForm = ({
         <FormProvider {...methods}>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            data-h2-display="base(flex)"
+            className="flex"
             data-h2-flex-direction="base(column)"
             data-h2-gap="base(x1 0)"
           >

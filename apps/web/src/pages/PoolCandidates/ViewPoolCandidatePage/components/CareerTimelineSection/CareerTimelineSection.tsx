@@ -43,7 +43,7 @@ const CareerTimelineSection = ({ experiences }: CareerTimelineSectionProps) => {
         {intl.formatMessage(navigationMessages.careerTimelineAndRecruitment)}
       </Heading>
       <div
-        data-h2-display="base(flex)"
+        className="flex"
         data-h2-flex-direction="base(row)"
         data-h2-gap="base(x.5)"
         data-h2-align-items="base(flex-end)"
@@ -51,7 +51,7 @@ const CareerTimelineSection = ({ experiences }: CareerTimelineSectionProps) => {
         data-h2-margin-bottom="base(x.5)"
       >
         <div
-          data-h2-display="base(flex)"
+          className="flex"
           data-h2-flex-direction="base(row)"
           data-h2-gap="base(x.5)"
           data-h2-justify-content="base(space-between)"
@@ -71,7 +71,7 @@ const CareerTimelineSection = ({ experiences }: CareerTimelineSectionProps) => {
       </div>
       {hasSomeExperience ? (
         <div
-          data-h2-display="base(flex)"
+          className="flex"
           data-h2-flex-direction="base(column)"
           data-h2-gap="base(x.5 0)"
         >

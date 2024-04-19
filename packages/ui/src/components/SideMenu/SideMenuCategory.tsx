@@ -39,7 +39,7 @@ const SideMenuCategory = ({ title, children }: SideMenuCategoryProps) => {
   if (!subitemCount) return null; // hide empty categories
   return (
     <div
-      data-h2-display="base(flex)"
+      className="flex"
       data-h2-flex-direction="base(column)"
       data-h2-align-items="base(flex-start)"
       data-h2-gap="base(x0.5)"
@@ -52,7 +52,7 @@ const SideMenuCategory = ({ title, children }: SideMenuCategoryProps) => {
         data-h2-height="base(x1)"
       >
         <m.span
-          data-h2-display="base(flex)"
+          className="flex"
           transition={transitionConfig}
           animate={
             ctx?.open ? { opacity: 1, width: "auto" } : { opacity: 0, width: 0 }

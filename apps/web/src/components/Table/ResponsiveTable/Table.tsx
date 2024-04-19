@@ -238,7 +238,7 @@ interface ControlsProps {
 
 const Controls = ({ children, add }: ControlsProps) => (
   <div
-    data-h2-display="base(flex)"
+    className="flex"
     data-h2-align-items="base(flex-end)"
     data-h2-flex-direction="base(column) l-tablet(row)"
     data-h2-gap="base(x.25 0) l-tablet(0 x.25)"
@@ -248,7 +248,7 @@ const Controls = ({ children, add }: ControlsProps) => (
   >
     {add && <AddAction add={add} />}
     <div
-      data-h2-display="base(flex)"
+      className="flex"
       data-h2-align-items="base(flex-end)"
       data-h2-flex-direction="base(column) l-tablet(row)"
       data-h2-gap="base(x.25 0) l-tablet(0 x.25)"

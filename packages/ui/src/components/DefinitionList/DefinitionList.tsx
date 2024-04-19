@@ -50,7 +50,7 @@ const Item = ({
   return (
     <>
       <dt
-        data-h2-display="base(flex)"
+        className="flex"
         data-h2-align-items="base(center)"
         data-h2-gap="base(0, x.5)"
         data-h2-font-weight="base(700)"

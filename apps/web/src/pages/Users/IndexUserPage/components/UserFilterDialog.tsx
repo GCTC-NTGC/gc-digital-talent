@@ -135,7 +135,7 @@ const UserFilterDialog = ({
           />
         </div>
         <div
-          data-h2-display="base(flex)"
+          className="flex"
           data-h2-flex-direction="base(column)"
           data-h2-gap="base(x1 0)"
         >
@@ -186,7 +186,7 @@ const UserFilterDialog = ({
           />
         </div>
         <div
-          data-h2-display="base(flex)"
+          className="flex"
           data-h2-flex-direction="base(column)"
           data-h2-gap="base(x1 0)"
         >
@@ -202,7 +202,7 @@ const UserFilterDialog = ({
               }))}
           />
           <div
-            data-h2-display="base(flex)"
+            className="flex"
             data-h2-flex-direction="base(row)"
             data-h2-flex-wrap="base(wrap)"
             data-h2-gap="base(x.5)"

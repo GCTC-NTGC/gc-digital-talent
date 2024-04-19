@@ -73,7 +73,7 @@ const ApplicationCard = ({
       data-h2-radius="base(0px rounded rounded 0px)"
     >
       <div
-        data-h2-display="base(flex)"
+        className="flex"
         data-h2-flex-direction="base(column) l-tablet(row)"
         data-h2-gap="base(x1)"
       >
@@ -132,7 +132,7 @@ const ApplicationCard = ({
         data-h2-margin="base(x1 -x1 x.5 -x1)"
       />
       <div
-        data-h2-display="base(flex)"
+        className="flex"
         data-h2-flex-direction="base(column) p-tablet(row)"
         data-h2-justify-content="base(flex-start)"
         data-h2-gap="base(x.5 0) p-tablet(0 x1)"

@@ -353,7 +353,7 @@ export const PoolPoster = ({
             </TableOfContents.List>
             <ApplicationLink {...applicationLinkProps} />
             <Text
-              data-h2-display="base(flex)"
+              className="flex"
               data-h2-gap="base(x.25)"
               data-h2-flex-wrap="base(wrap)"
             >
@@ -416,7 +416,7 @@ export const PoolPoster = ({
             <TableOfContents.Section id={sections.employmentDetails.id}>
               <div
                 data-h2-align-items="base(baseline)"
-                data-h2-display="base(flex)"
+                className="flex"
                 data-h2-gap="base(x.5 x1)"
                 data-h2-flex-wrap="base(wrap)"
                 data-h2-margin-bottom="base(x1)"
@@ -711,7 +711,7 @@ export const PoolPoster = ({
             <TableOfContents.Section id={sections.skillRequirements.id}>
               <div
                 data-h2-align-items="base(baseline)"
-                data-h2-display="base(flex)"
+                className="flex"
                 data-h2-gap="base(x.5 x1)"
                 data-h2-flex-wrap="base(wrap)"
                 data-h2-margin-bottom="base(x1)"
@@ -873,7 +873,7 @@ export const PoolPoster = ({
             <TableOfContents.Section id={sections.moreInfo.id}>
               <div
                 data-h2-align-items="base(baseline)"
-                data-h2-display="base(flex)"
+                className="flex"
                 data-h2-gap="base(x.5 x1)"
                 data-h2-flex-wrap="base(wrap)"
                 data-h2-margin-bottom="base(x1)"

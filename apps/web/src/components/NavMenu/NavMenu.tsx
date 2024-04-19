@@ -34,7 +34,7 @@ const NavMenu = ({ mainItems, utilityItems }: NavMenuProps) => {
     >
       <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
         <div
-          data-h2-display="base(flex)"
+          className="flex"
           data-h2-flex-direction="base(column) p-tablet(row)"
         >
           <div data-h2-flex-grow="base(1)">

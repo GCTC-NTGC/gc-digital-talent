@@ -84,7 +84,7 @@ const Header = ({ width }: HeaderProps) => {
             </a>
           </div>
           <div
-            data-h2-display="base(flex)"
+            className="flex"
             data-h2-flex-direction="base(column) p-tablet(row)"
             data-h2-gap="base(x.5) p-tablet(x1)"
             data-h2-align-items="base(center)"

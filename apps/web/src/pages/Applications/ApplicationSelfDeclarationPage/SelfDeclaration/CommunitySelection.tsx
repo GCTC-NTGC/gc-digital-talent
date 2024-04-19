@@ -97,7 +97,7 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
   return (
     <>
       <div
-        data-h2-display="base(flex)"
+        className="flex"
         data-h2-gap="base(x1 0)"
         data-h2-flex-direction="base(column)"
       >

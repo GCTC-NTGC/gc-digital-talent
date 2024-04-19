@@ -36,7 +36,7 @@ const Profile = () => {
         })}
       </p>
       <div
-        data-h2-display="base(flex)"
+        className="flex"
         data-h2-gap="base(x1)"
         data-h2-justify-content="base(center) p-tablet(flex-start)"
       >

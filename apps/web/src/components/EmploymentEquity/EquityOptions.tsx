@@ -130,7 +130,7 @@ const EquityOptions = ({
         <div
           data-h2-position="base(absolute)"
           data-h2-background-color="base(background)"
-          data-h2-display="base(flex)"
+          className="flex"
           data-h2-align-items="base(center)"
           data-h2-justify-content="base(center)"
           data-h2-location="base(x2, -x1, -x1, -x1)"

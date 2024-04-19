@@ -148,7 +148,7 @@ const Fieldset = ({
         >
           <div
             data-h2-padding="base(x.5, x1, x1, x1)"
-            data-h2-display="base(flex)"
+            className="flex"
             data-h2-flex-direction="base(column)"
             data-h2-align-items="base(flex-start)"
             data-h2-gap="base(x.5)"
@@ -156,13 +156,13 @@ const Fieldset = ({
           >
             <div
               data-h2-background-color="base(foreground)"
-              data-h2-display="base(flex)"
+              className="flex"
               data-h2-justify-content="base(space-between)"
               data-h2-align-items="base(center)"
               data-h2-width="base(100%)"
             >
               <div
-                data-h2-display="base(flex)"
+                className="flex"
                 data-h2-align-items="base(center)"
                 data-h2-margin-left="base(-x.5)"
                 data-h2-justify-content="base(center)"
@@ -236,7 +236,7 @@ const Fieldset = ({
                 )}
               </div>
               <div
-                data-h2-display="base(flex)"
+                className="flex"
                 data-h2-align-items="base(center)"
                 data-h2-margin-right="base(-x.5)"
               >
@@ -313,7 +313,7 @@ const Root = ({
   return (
     <div
       id={`${name}.root`}
-      data-h2-display="base(flex)"
+      className="flex"
       data-h2-flex-direction="base(column)"
       data-h2-gap="base(x.25, 0)"
       {...rest}

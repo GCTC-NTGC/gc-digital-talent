@@ -26,11 +26,7 @@ export function orderRoles(roles: Array<Role>, intl: IntlShape) {
 }
 
 export const actionCell = (user: TeamMember, team: Team) => (
-  <div
-    data-h2-display="base(flex)"
-    data-h2-flex-wrap="base(wrap)"
-    data-h2-gap="base(x.25)"
-  >
+  <div className="flex" data-h2-flex-wrap="base(wrap)" data-h2-gap="base(x.25)">
     <EditTeamMemberDialog user={user} team={team} />
     <RemoveTeamMemberDialog user={user} team={team} />
   </div>

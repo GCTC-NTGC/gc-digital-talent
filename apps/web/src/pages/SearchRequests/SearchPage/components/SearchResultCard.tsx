@@ -47,7 +47,7 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
       </p>
       <p
         data-h2-margin="base(x.5, 0, x1, 0)"
-        data-h2-display="base(flex)"
+        className="flex"
         data-h2-gap="base(0, x.5)"
       >
         <span>
@@ -107,7 +107,7 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
         })}
       </p>
       <p
-        data-h2-display="base(flex)"
+        className="flex"
         data-h2-flex-wrap="base(wrap)"
         data-h2-gap="base(0, x.5)"
         data-h2-font-size="base(caption)"
@@ -125,7 +125,7 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
       </p>
       <Separator space="sm" />
       <div
-        data-h2-display="base(flex)"
+        className="flex"
         data-h2-flex-direction="base(row)"
         data-h2-flex-wrap="base(wrap)"
         data-h2-align-items="base(center)"

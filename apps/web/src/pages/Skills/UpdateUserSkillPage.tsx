@@ -500,14 +500,14 @@ export const UpdateUserSkillForm = ({
                 }}
               >
                 <div
-                  data-h2-display="base(flex)"
+                  className="flex"
                   data-h2-flex-direction="base(column)"
                   data-h2-gap="base(x1 0)"
                   data-h2-margin="base(x1, 0, x2, 0)"
                 >
                   <UserSkillFormFields category={skill.category} />
                   <div
-                    data-h2-display="base(flex)"
+                    className="flex"
                     data-h2-flex-wrap="base(wrap)"
                     data-h2-gap="base(x1)"
                   >
@@ -667,7 +667,7 @@ export const UpdateUserSkillForm = ({
               </p>
               {availableExperiences.length ? (
                 <div
-                  data-h2-display="base(flex)"
+                  className="flex"
                   data-h2-justify-content="base(flex-end)"
                   data-h2-margin="base(x.5 0)"
                 >
@@ -689,7 +689,7 @@ export const UpdateUserSkillForm = ({
               ) : null}
               {linkedExperiences?.length ? (
                 <div
-                  data-h2-display="base(flex)"
+                  className="flex"
                   data-h2-flex-direction="base(column)"
                   data-h2-gap="base(x.5 0)"
                 >

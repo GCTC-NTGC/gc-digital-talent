@@ -40,7 +40,7 @@ export default {
 
 const Template: StoryFn<typeof QualifiedRecruitmentCard> = () => {
   return (
-    <div data-h2-display="base(flex)">
+    <div className="flex">
       <div data-h2-padding="base(x1)" data-h2-background="base(white)">
         {poolCandidateStatuses.map((poolCandidateStatus) =>
           availabilities.map((availability) => (

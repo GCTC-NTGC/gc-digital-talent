@@ -205,10 +205,7 @@ export const CreateAccountForm = ({
                 })}
               </p>
               <div>
-                <div
-                  data-h2-display="base(flex)"
-                  data-h2-margin="base(0, 0, x1, 0)"
-                >
+                <div className="flex" data-h2-margin="base(0, 0, x1, 0)">
                   <div style={{ flex: 1 }} data-h2-padding="base(0, x1, 0, 0)">
                     <Input
                       id="firstName"
@@ -284,7 +281,7 @@ export const CreateAccountForm = ({
                   data-h2-margin="base(x2, 0, 0, 0)"
                   data-h2-padding="base(x2, 0, 0, 0)"
                   data-h2-border-top="base(1px solid gray)"
-                  data-h2-display="base(flex)"
+                  className="flex"
                   data-h2-justify-content="base(flex-start)"
                 >
                   <Submit

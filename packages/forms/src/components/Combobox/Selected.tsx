@@ -25,7 +25,7 @@ const Wrapper = (props: HTMLDivProps) => {
 
 const Items = (props: HTMLDivProps) => (
   <div
-    data-h2-display="base(flex)"
+    className="flex"
     data-h2-flex-wrap="base(wrap)"
     data-h2-gap="base(x.125)"
     data-h2-margin-top="base(x.5)"
@@ -49,7 +49,7 @@ const Item = React.forwardRef<HTMLSpanElement, ItemProps>(
       data-h2-background-color="base(primary.lightest) base:hover(primary.light) base:focus-visible(focus)"
       data-h2-color="base(primary.darker) base:hover(primary.darkest) base:focus-visible(black)"
       data-h2-cursor="base(pointer)"
-      data-h2-display="base(flex)"
+      className="flex"
       data-h2-font-size="base(caption)"
       data-h2-max-width="base(100%)"
       data-h2-padding="base(x.125 x.25)"

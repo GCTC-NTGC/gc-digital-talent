@@ -227,7 +227,7 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
             id={rootId}
             ref={rootRef}
             data-h2-align-items="base(flex-start)"
-            data-h2-display="base(flex)"
+            className="flex"
             data-h2-gap="base(0 x.5)"
             data-h2-justify-content="base(flex-start)"
             data-h2-overflow-x="base(scroll)"
@@ -258,9 +258,8 @@ const Column = React.forwardRef<
   return (
     <div
       ref={forwardedRef}
-      className="Board__Column"
+      className="Board__Column flex"
       data-h2-background="base(foreground)"
-      data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
       data-h2-radius="base(s)"
       data-h2-shadow="base(l)"
@@ -285,8 +284,7 @@ const ColumnHeader = React.forwardRef<HTMLDivElement, ColumnHeaderProps>(
     return (
       <div
         ref={forwardedRef}
-        className="Board__ColumnHeader"
-        data-h2-display="base(flex)"
+        className="Board__ColumnHeader flex"
         data-h2-flex-direction="base(column)"
         data-h2-gap="base(0 x.5)"
         data-h2-padding="base(x.5)"
@@ -344,7 +342,7 @@ const Info = ({
         data-h2-text-decoration="base:children[.Info__Trigger__Title](underline) base:hover:children[.Info__Trigger__Title](none)"
         data-h2-background="base(transparent)"
         data-h2-align-items="base(center)"
-        data-h2-display="base(flex)"
+        className="flex"
         data-h2-gap="base(0 x.25)"
         data-h2-width="base(100%)"
         data-h2-justify-content="base(space-between)"
@@ -354,7 +352,7 @@ const Info = ({
           base:selectors[[data-state='open']]:children[.Info__Chevron](rotate(90deg))"
       >
         <span
-          data-h2-display="base(flex)"
+          className="flex"
           data-h2-gap="base(0 x.25)"
           data-h2-align-items="base(center)"
         >
@@ -394,12 +392,11 @@ const List = React.forwardRef<
   return (
     <ul
       ref={forwardedRef}
-      className="Board__List"
+      className="Board__List flex"
       // Note: Scrollable regions should be tabbable
       // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
       tabIndex={0}
       data-h2-outline="base:focus-visible(primary.30 solid x.125)"
-      data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
       data-h2-list-style="base(none)"
       data-h2-flex-grow="base(1)"

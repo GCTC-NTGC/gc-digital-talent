@@ -38,7 +38,7 @@ const HomeHero = ({
       </div>
       {callToAction ? (
         <div
-          data-h2-display="base(flex)"
+          className="flex"
           data-h2-align-items="base(flex-start)"
           data-h2-gap="base(x1)"
           data-h2-justify-content="base(center) p-tablet(flex-start)"

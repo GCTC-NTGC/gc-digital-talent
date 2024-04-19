@@ -17,7 +17,7 @@ const Root = (props: DivProps) => (
 const Header = (props: DivProps) => (
   <div
     data-h2-align-items="base(flex-start)"
-    data-h2-display="base(flex)"
+    className="flex"
     data-h2-flex-direction="base(column) l-tablet(row)"
     data-h2-justify-content="base(space-between)"
     data-h2-gap="base(x1 0) l-tablet(0 x1)"
@@ -30,7 +30,7 @@ const Footer = (props: DivProps) => (
   <>
     <Separator space="sm" />
     <div
-      data-h2-display="base(flex)"
+      className="flex"
       data-h2-flex-direction="base(column) p-tablet(row)"
       data-h2-justify-content="base(flex-start)"
       data-h2-gap="base(x.5 0) p-tablet(0 x1)"

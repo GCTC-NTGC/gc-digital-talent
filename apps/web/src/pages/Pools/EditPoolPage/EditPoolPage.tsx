@@ -354,13 +354,13 @@ export const EditPoolForm = ({
             </TableOfContents.Navigation>
             <TableOfContents.Content>
               <div
-                data-h2-display="base(flex)"
+                className="flex"
                 data-h2-flex-direction="base(column)"
                 data-h2-gap="base(x3 0)"
               >
                 <TableOfContents.Section id={sectionMetadata.basicInfo.id}>
                   <div
-                    data-h2-display="base(flex)"
+                    className="flex"
                     data-h2-flex-direction="base(column)"
                     data-h2-gap="base(x3 0)"
                   >
@@ -420,7 +420,7 @@ export const EditPoolForm = ({
                   id={sectionMetadata.skillRequirements.id}
                 >
                   <div
-                    data-h2-display="base(flex)"
+                    className="flex"
                     data-h2-flex-direction="base(column)"
                     data-h2-gap="base(x3 0)"
                   >
@@ -453,13 +453,13 @@ export const EditPoolForm = ({
                   </div>
                 </TableOfContents.Section>
                 <div
-                  data-h2-display="base(flex)"
+                  className="flex"
                   data-h2-flex-direction="base(column)"
                   data-h2-gap="base(x3 0)"
                 >
                   <TableOfContents.Section id={sectionMetadata.aboutRole.id}>
                     <div
-                      data-h2-display="base(flex)"
+                      className="flex"
                       data-h2-flex-direction="base(column)"
                       data-h2-gap="base(x3 0)"
                     >
@@ -496,7 +496,7 @@ export const EditPoolForm = ({
                   </TableOfContents.Section>
                 </div>
                 <div
-                  data-h2-display="base(flex)"
+                  className="flex"
                   data-h2-flex-direction="base(column)"
                   data-h2-gap="base(x3 0)"
                 >
@@ -504,7 +504,7 @@ export const EditPoolForm = ({
                     id={sectionMetadata.commonQuestions.id}
                   >
                     <div
-                      data-h2-display="base(flex)"
+                      className="flex"
                       data-h2-flex-direction="base(column)"
                       data-h2-gap="base(x3 0)"
                     >

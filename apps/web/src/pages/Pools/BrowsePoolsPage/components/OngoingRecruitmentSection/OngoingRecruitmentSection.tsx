@@ -1036,7 +1036,7 @@ const OngoingRecruitmentSection = ({
             "Placeholder for stream filter in browse opportunities form.",
         })}
       </p>
-      <div data-h2-display="base(flex)">
+      <div className="flex">
         <DropdownMenu.Root>
           <DropdownMenu.Trigger>
             <Button color="primary" utilityIcon={ChevronDownIcon}>

@@ -215,10 +215,7 @@ export const SearchForm = ({
                 })}
                 {intl.formatMessage(commonMessages.dividingColon)}
               </p>
-              <div
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(column)"
-              >
+              <div className="flex" data-h2-flex-direction="base(column)">
                 {results.map(({ pool, candidateCount: resultsCount }) => (
                   <SearchResultCard
                     key={pool.id}

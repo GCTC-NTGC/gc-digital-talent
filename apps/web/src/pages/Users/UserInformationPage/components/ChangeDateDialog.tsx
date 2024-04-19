@@ -177,7 +177,7 @@ const ChangeDateDialog = ({
                   type="submit"
                   mode="solid"
                   color="secondary"
-                  data-h2-display="base(flex)"
+                  className="flex"
                   data-h2-align-items="base(center)"
                 >
                   {fetching ? (

@@ -172,7 +172,7 @@ export const ApplicationSkills = ({
   return (
     <>
       <div
-        data-h2-display="base(flex)"
+        className="flex"
         data-h2-flex-direction="base(column) p-tablet(row)"
         data-h2-justify-content="base(space-between)"
         data-h2-align-items="base(flex-start) p-tablet(center)"
@@ -340,7 +340,7 @@ export const ApplicationSkills = ({
             />
           </div>
           <div
-            data-h2-display="base(flex)"
+            className="flex"
             data-h2-gap="base(x1)"
             data-h2-flex-wrap="base(wrap)"
             data-h2-flex-direction="base(column) l-tablet(row)"

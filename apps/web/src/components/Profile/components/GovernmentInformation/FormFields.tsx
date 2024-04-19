@@ -142,7 +142,7 @@ const FormFields = ({
 
   return (
     <div
-      data-h2-display="base(flex)"
+      className="flex"
       data-h2-flex-direction="base(column)"
       data-h2-gap="base(x1 0)"
     >
@@ -221,7 +221,7 @@ const FormFields = ({
             })}
           </p>
           <div
-            data-h2-display="base(flex)"
+            className="flex"
             data-h2-flex-direction="base(column) p-tablet(row)"
           >
             <div

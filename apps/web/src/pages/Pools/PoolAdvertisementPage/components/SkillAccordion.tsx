@@ -95,7 +95,7 @@ const SkillAccordion = ({ poolSkill, required }: SkillAccordionProps) => {
       data-h2-color="base(black.light)"
       data-h2-font-size="base(caption)"
       data-h2-margin-top="base(x.5)"
-      data-h2-display="base(flex)"
+      className="flex"
       data-h2-flex-direction="base(column) p-tablet(row)"
       data-h2-gap="base(x.5)"
     >

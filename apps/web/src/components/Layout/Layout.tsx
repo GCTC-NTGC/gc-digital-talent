@@ -122,7 +122,7 @@ const Layout = () => {
       />
       <SkipLink />
       <div
-        data-h2-display="base(flex)"
+        className="flex"
         data-h2-flex-direction="base(column)"
         data-h2-min-height="base(100vh)"
         data-h2-margin="base(0)"

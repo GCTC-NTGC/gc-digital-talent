@@ -35,7 +35,7 @@ const Scrollbar = React.forwardRef<
 >((props, forwardedRef) => (
   <ScrollAreaPrimitive.Scrollbar
     data-h2-background-color="base(gray.lighter) base:hover(gray.light)"
-    data-h2-display="base(flex)"
+    className="flex"
     data-h2-padding="base(x.1)"
     data-h2-flex-direction="base:selectors[[data-orientation='horizontal']](column)"
     data-h2-height="base:selectors[[data-orientation='horizontal']](10px)"

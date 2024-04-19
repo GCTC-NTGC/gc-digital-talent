@@ -144,7 +144,7 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
       </ul>
       <p
         data-h2-margin="base(x.5, 0)"
-        data-h2-display="base(flex)"
+        className="flex"
         data-h2-flex-wrap="base(wrap)"
         data-h2-gap="base(x1)"
         data-h2-align-items="base(center)"

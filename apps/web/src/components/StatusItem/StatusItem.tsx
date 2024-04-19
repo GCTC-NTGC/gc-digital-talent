@@ -144,13 +144,13 @@ const StatusItem = ({
 
   return (
     <Wrapper
-      data-h2-display="base(flex)"
+      className="flex"
       data-h2-justify-content="base(space-between)"
       data-h2-gap="base(x.15)"
       {...layoutStyleMap[layout]}
     >
       <span
-        data-h2-display="base(flex)"
+        className="flex"
         data-h2-flex-direction="base(row)"
         data-h2-gap="base(x0.5)"
       >

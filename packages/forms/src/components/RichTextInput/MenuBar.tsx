@@ -22,14 +22,14 @@ const MenuBar = ({ editor }: MenuBarProps) => {
     <div
       data-h2-background="base:all(black)"
       data-h2-padding="base(x.25, x.5, x.5, x.5)"
-      data-h2-display="base(flex)"
+      className="flex"
       data-h2-gap="base(x.5)"
       data-h2-radius="base(rounded rounded 0 0)"
       data-h2-justify-content="base(space-between)"
       data-h2-border="base(1px solid gray)"
       data-h2-border-bottom="base(none)"
     >
-      <div data-h2-display="base(flex)" data-h2-gap="base(x.5)">
+      <div className="flex" data-h2-gap="base(x.5)">
         <MenuButton
           active={editor?.isActive("bulletList") ?? false}
           onClick={() => editor?.chain().focus().toggleBulletList().run()}
@@ -40,7 +40,7 @@ const MenuBar = ({ editor }: MenuBarProps) => {
         </MenuButton>
         <LinkDialog editor={editor} />
       </div>
-      <div data-h2-display="base(flex)" data-h2-gap="base(x.5)">
+      <div className="flex" data-h2-gap="base(x.5)">
         <MenuButton
           onClick={() => editor?.chain().focus().undo().run()}
           disabled={readOnly || !editor?.can().undo()}

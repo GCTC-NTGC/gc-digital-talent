@@ -126,7 +126,7 @@ const RadioGroup = ({
               const id = `${idPrefix}-${value}`;
               return (
                 <div
-                  data-h2-display="base(flex)"
+                  className="flex"
                   data-h2-flex-direction="base(column)"
                   key={value}
                 >
@@ -134,7 +134,7 @@ const RadioGroup = ({
                     key={value}
                     data-h2-cursor="base(pointer)"
                     data-h2-font-size="base(copy)"
-                    data-h2-display="base(flex)"
+                    className="flex"
                     data-h2-align-items="base(flex-start)"
                     data-h2-padding="base(x.25 x.5)"
                     data-h2-gap="base(x.25)"

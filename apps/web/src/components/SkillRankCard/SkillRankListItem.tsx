@@ -50,7 +50,7 @@ const SkillRankListItem = ({
   return (
     <li data-h2-margin-bottom="base(x.25)">
       <span
-        data-h2-display="base(flex)"
+        className="flex"
         data-h2-align-items="base(flex-start)"
         data-h2-gap="base(x.5 x.25)"
         data-h2-justify-content="base(space-between)"

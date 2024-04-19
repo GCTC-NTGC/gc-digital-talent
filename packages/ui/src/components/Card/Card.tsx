@@ -64,7 +64,7 @@ const Card = ({
 }: CardProps & React.HTMLProps<HTMLDivElement>) => {
   return (
     <div
-      data-h2-display="base(flex)"
+      className="flex"
       data-h2-flex-direction="base(column)"
       data-h2-radius="base(rounded)"
       data-h2-overflow="base(hidden)"

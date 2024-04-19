@@ -140,7 +140,7 @@ const LinkDialog = ({ editor }: LinkDialogProps) => {
             <FormProvider {...methods}>
               <form onSubmit={methods.handleSubmit(handleSubmit)}>
                 <div
-                  data-h2-display="base(flex)"
+                  className="flex"
                   data-h2-flex-direction="base(column)"
                   data-h2-gap="base(x1 0)"
                 >

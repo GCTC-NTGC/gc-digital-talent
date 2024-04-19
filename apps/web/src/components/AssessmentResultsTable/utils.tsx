@@ -85,9 +85,9 @@ export const columnHeader = (
   }
 
   return (
-    <span data-h2-display="base(inline)">
+    <span className="inline">
       <span
-        data-h2-display="base(flex)"
+        className="flex"
         data-h2-align-content="base(center)"
         data-h2-gap="base(x.25)"
       >
@@ -96,7 +96,7 @@ export const columnHeader = (
             aria-label={ariaLabel}
             aria-hidden="false"
             {...iconColorMap[status.color]}
-            data-h2-display="p-tablet(inline-block)"
+            className="sm:inline-block"
             data-h2-vertical-align="base(middle)"
             data-h2-height="base(auto)"
             data-h2-flex-shrink="base(0)"

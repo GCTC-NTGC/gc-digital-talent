@@ -123,7 +123,7 @@ const ScreeningDecisionDialogForm = ({
         <span
           key={`${key}-${index + 1}`}
           data-h2-margin-bottom="base(x.5)"
-          data-h2-display="base(flex)"
+          className="flex"
           data-h2-justify-content="base(flex-start)"
           data-h2-gap="base(x.5)"
         >

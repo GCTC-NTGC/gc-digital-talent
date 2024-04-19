@@ -135,7 +135,7 @@ const ApplicationInformation = ({
   return (
     <>
       <div
-        data-h2-display="base(flex)"
+        className="flex"
         data-h2-align-items="l-tablet(flex-end)"
         data-h2-flex-direction="base(column) l-tablet(row)"
         data-h2-justify-content="base(space-between)"
@@ -151,7 +151,7 @@ const ApplicationInformation = ({
           })}
         </Heading>
         <div
-          data-h2-display="base(flex)"
+          className="flex"
           data-h2-align-items="base(flex-end)"
           data-h2-gap="base(0 x.5)"
         >

@@ -32,7 +32,7 @@ const StatusCount = ({
   return (
     <span
       data-h2-align-items="base(center)"
-      data-h2-display="base(flex)"
+      className="flex"
       data-h2-gap="base(0 x.25)"
       data-h2-width="base(100%)"
       data-h2-justify-content="base(space-between)"
@@ -40,7 +40,7 @@ const StatusCount = ({
       data-h2-font-size="base(caption)"
     >
       <span
-        data-h2-display="base(flex)"
+        className="flex"
         data-h2-gap="base(0 x.25)"
         data-h2-align-items="base(center)"
       >
@@ -120,7 +120,7 @@ const ResultsDetails = ({
             )
       }
     >
-      <div data-h2-display="base(flex)" data-h2-flex-direction="base(column)">
+      <div className="flex" data-h2-flex-direction="base(column)">
         {decisions.length ? (
           decisions.map((decision) => (
             <StatusCount

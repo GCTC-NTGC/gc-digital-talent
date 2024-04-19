@@ -61,7 +61,7 @@ const Template: StoryFn<SwitchInputArgs> = (args) => {
               data-h2-padding="base(x2)"
             >
               <div
-                data-h2-display="base(flex)"
+                className="flex"
                 data-h2-flex-direction="base(column)"
                 data-h2-align-items="base(center)"
                 data-h2-gap="base(x.5)"
@@ -69,7 +69,7 @@ const Template: StoryFn<SwitchInputArgs> = (args) => {
                 {colors.map((color) => (
                   <div
                     key={`${theme}-${color}`}
-                    data-h2-display="base(flex)"
+                    className="flex"
                     data-h2-align-items="base(center)"
                     data-h2-gap="base(x1)"
                   >

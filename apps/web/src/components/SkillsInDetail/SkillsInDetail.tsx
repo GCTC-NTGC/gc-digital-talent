@@ -23,17 +23,14 @@ const SkillsInDetail = ({ skills, onDelete }: SkillsInDetailProps) => {
 
   return (
     <div
-      data-h2-display="base(flex)"
+      className="flex"
       data-h2-flex-direction="base(column)"
       data-h2-gap="base(x.5 0)"
     >
       {skills.length > 0 &&
         skills.map(({ id, name, skillId }, index) => (
           <Card key={id} title="" color="white" bold>
-            <div
-              data-h2-display="base(flex)"
-              data-h2-justify-content="base(space-between)"
-            >
+            <div className="flex" data-h2-justify-content="base(space-between)">
               <p data-h2-font-weight="base(700)">
                 {index + 1}. {name[locale]}
               </p>

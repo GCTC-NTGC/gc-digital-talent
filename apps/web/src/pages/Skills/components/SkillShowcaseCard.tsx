@@ -65,13 +65,13 @@ const SkillShowcaseCard = ({
       remove={<RemoveDialog index={index} onRemove={handleRemove} />}
     >
       <div
-        data-h2-display="base(flex)"
+        className="flex"
         data-h2-flex-direction="base(column)"
         data-h2-gap="base(x.5)"
         data-h2-margin-top="base(x.5)"
       >
         <span
-          data-h2-display="base(flex)"
+          className="flex"
           data-h2-justify-content="base(space-between)"
           role="presentation"
         >
