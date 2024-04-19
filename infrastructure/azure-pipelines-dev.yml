@@ -8,7 +8,7 @@ resources:
       ref: refs/heads/main
 variables:
   phpVersion: "8.2"
-
+  serviceConnectionName: 'Talent Cloud Service Connection'
 stages:
 - stage: Build
   displayName: Build stage
@@ -62,8 +62,6 @@ stages:
       value: 'sttalclddevcacstdl'
     - name: storageContainer
       value: 'playwright-results'
-    - name: serviceConnectionName
-      value: 'Talent Cloud Service Connection'
   jobs:
   - job: run_playwright_tests
     displayName: Run Playwright tests
