@@ -40,7 +40,6 @@ import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import AssessmentResultsTable from "~/components/AssessmentResultsTable/AssessmentResultsTable";
-import ChangeDateDialog from "~/pages/Users/UserInformationPage/components/ChangeDateDialog";
 import ChangeStatusDialog from "~/pages/Users/UserInformationPage/components/ChangeStatusDialog";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import {
@@ -54,6 +53,7 @@ import ProfileDetails from "./components/ProfileDetails/ProfileDetails";
 import NotesDialog from "./components/MoreActions/NotesDialog";
 import FinalDecisionDialog from "./components/MoreActions/FinalDecisionDialog";
 import CandidateNavigation from "./components/CandidateNavigation/CandidateNavigation";
+import ChangeExpiryDateDialog from "./components/ChangeExpiryDateDialog/ChangeExpiryDateDialog";
 
 const screeningAndAssessmentTitle = defineMessage({
   defaultMessage: "Screening and assessment",
@@ -64,6 +64,7 @@ const screeningAndAssessmentTitle = defineMessage({
 const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
   query PoolCandidateSnapshot($poolCandidateId: UUID!) {
     poolCandidate(id: $poolCandidateId) {
+      ...CandidateExpiryDateDialog
       id
       status
       user {
@@ -813,6 +814,7 @@ export const ViewPoolCandidate = ({
                   // eslint-disable-next-line react/jsx-no-useless-fragment
                   <></>
                 )}
+              <ChangeExpiryDateDialog expiryDateQuery={poolCandidate} />
               {/* TODO: Add "Remove" and "Re-instate" dialogs to Pool Candidate
               page (#9198) */}
               {false && (
@@ -882,19 +884,6 @@ export const ViewPoolCandidate = ({
                   selectedCandidate={poolCandidate}
                   user={poolCandidate.user}
                   pools={pools}
-                />
-              </p>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage: "Expiry date",
-                  id: "WAO4vD",
-                  description:
-                    "Label displayed on the date field of the change candidate expiry date dialog",
-                })}
-                {intl.formatMessage(commonMessages.dividingColon)}
-                <ChangeDateDialog
-                  selectedCandidate={poolCandidate}
-                  user={poolCandidate.user}
                 />
               </p>
             </div>
