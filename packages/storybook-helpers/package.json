@@ -12,7 +12,7 @@
   "dependencies": {
     "@gc-digital-talent/env": "workspace:*",
     "@gc-digital-talent/theme": "workspace:*",
-    "@storybook/react": "^8.0.6",
+    "@storybook/react": "8.0.6",
     "@urql/core": "^5.0.0",
     "chromatic": "^11.3.0",
     "framer-motion": "^11.1.4",
@@ -26,17 +26,17 @@
   "devDependencies": {
     "@formatjs/ts-transformer": "^3.13.12",
     "@gc-digital-talent/eslint-config": "workspace:*",
-    "@storybook/addon-a11y": "^8.0.6",
-    "@storybook/addon-essentials": "^8.0.6",
-    "@storybook/addon-links": "^8.0.6",
-    "@storybook/addon-themes": "^8.0.6",
-    "@storybook/react-webpack5": "^8.0.6",
+    "@storybook/addon-a11y": "8.0.6",
+    "@storybook/addon-essentials": "8.0.6",
+    "@storybook/addon-links": "8.0.6",
+    "@storybook/addon-themes": "8.0.6",
+    "@storybook/react-webpack5": "8.0.6",
     "@storybook/addon-webpack5-compiler-swc": "^1.0.2",
-    "@storybook/types": "^8.0.6",
+    "@storybook/types": "8.0.6",
     "eslint": "^8.57.0",
     "hydrogen-webpack-plugin": "workspace:*",
     "react": "^18.2.0",
-    "storybook": "^8.0.6",
+    "storybook": "8.0.6",
     "storybook-react-intl": "^3.0.1",
     "tsconfig": "workspace:*"
   }
