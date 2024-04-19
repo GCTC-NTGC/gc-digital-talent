@@ -48,8 +48,8 @@ const SignedOutPage = () => {
         <Alert.Root type="warning" live={false}>
           <Alert.Title>
             {intl.formatMessage({
-              defaultMessage: "Your session has expired, please sign in again.",
-              id: "wm8WXC",
+              defaultMessage: "Your session has expired. Please sign in again.",
+              id: "qFIyZv",
               description:
                 "Title for the alert displayed after a user signs out",
             })}
