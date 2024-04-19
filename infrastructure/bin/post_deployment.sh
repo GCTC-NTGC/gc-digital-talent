@@ -130,7 +130,7 @@ else
         # try to send a last-ditch notification to slack
         curl \
             --header "Content-Type: application/json" \
-            --data "{\"text\":\"Failed to send a log from a deployment! You can review the $PAYLOAD_FILE file.\"}" \
+            --data "{\"text\":\"Failed to send a log from a deployment! You can review the payload file on the server.\"}" \
             "$SLACK_WEBHOOK_URI"
     fi
 fi
