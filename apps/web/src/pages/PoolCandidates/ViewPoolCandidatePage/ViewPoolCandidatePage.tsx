@@ -40,7 +40,6 @@ import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import AssessmentResultsTable from "~/components/AssessmentResultsTable/AssessmentResultsTable";
-import ChangeDateDialog from "~/pages/Users/UserInformationPage/components/ChangeDateDialog";
 import ChangeStatusDialog from "~/pages/Users/UserInformationPage/components/ChangeStatusDialog";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
@@ -870,19 +869,6 @@ export const ViewPoolCandidate = ({
                   selectedCandidate={poolCandidate}
                   user={poolCandidate.user}
                   pools={pools}
-                />
-              </p>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage: "Expiry date",
-                  id: "WAO4vD",
-                  description:
-                    "Label displayed on the date field of the change candidate expiry date dialog",
-                })}
-                {intl.formatMessage(commonMessages.dividingColon)}
-                <ChangeDateDialog
-                  selectedCandidate={poolCandidate}
-                  user={poolCandidate.user}
                 />
               </p>
             </div>
