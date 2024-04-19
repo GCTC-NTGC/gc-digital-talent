@@ -42,6 +42,10 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import AssessmentResultsTable from "~/components/AssessmentResultsTable/AssessmentResultsTable";
 import ChangeStatusDialog from "~/pages/Users/UserInformationPage/components/ChangeStatusDialog";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import {
+  RECORD_DECISION_STATUSES,
+  REVERT_DECISION_STATUSES,
+} from "~/constants/poolCandidate";
 
 import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
 import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
@@ -789,16 +793,27 @@ export const ViewPoolCandidate = ({
               data-h2-gap="base(x.5)"
               data-h2-margin-bottom="base(x1)"
             >
-              <FinalDecisionDialog
-                poolCandidateId={poolCandidate.id}
-                poolCandidateStatus={poolCandidate.status}
-                expiryDate={poolCandidate.expiryDate}
-                essentialSkills={poolCandidate.pool.essentialSkills ?? []}
-                nonessentialSkills={poolCandidate.pool.nonessentialSkills ?? []}
-                assessmentResults={
-                  poolCandidate?.assessmentResults?.filter(notEmpty) ?? []
-                }
-              />
+              {poolCandidate.status &&
+                RECORD_DECISION_STATUSES.includes(poolCandidate.status) && (
+                  <FinalDecisionDialog
+                    poolCandidateId={poolCandidate.id}
+                    poolCandidateStatus={poolCandidate.status}
+                    expiryDate={poolCandidate.expiryDate}
+                    essentialSkills={poolCandidate.pool.essentialSkills ?? []}
+                    nonessentialSkills={
+                      poolCandidate.pool.nonessentialSkills ?? []
+                    }
+                    assessmentResults={
+                      poolCandidate?.assessmentResults?.filter(notEmpty) ?? []
+                    }
+                  />
+                )}
+              {poolCandidate.status &&
+                REVERT_DECISION_STATUSES.includes(poolCandidate.status) && (
+                  // TODO: Add "Revert final decision" dialog in here (#9197)
+                  // eslint-disable-next-line react/jsx-no-useless-fragment
+                  <></>
+                )}
               <ChangeExpiryDateDialog expiryDateQuery={poolCandidate} />
               {/* TODO: Add "Remove" and "Re-instate" dialogs to Pool Candidate
               page (#9198) */}
