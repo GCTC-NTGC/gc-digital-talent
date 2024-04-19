@@ -65,6 +65,7 @@ stages:
   jobs:
   - job: run_playwright_tests
     displayName: Run Playwright tests
+    timeoutInMinutes: 10
     pool:
       name: 'TBS Linux Self Hosted'
     steps:
@@ -101,7 +102,6 @@ stages:
         displayName: "Run playwright tests"
       - task: AzureCLI@2
         displayName: ‘Copy Playwright Results to Storage’
-        timeoutInMinutes: 10
         condition: succeededOrFailed()
         inputs:
           azureSubscription: $(serviceConnectionName)
