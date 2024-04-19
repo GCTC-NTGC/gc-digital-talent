@@ -81,7 +81,7 @@ const ControlledInput = ({
     >
       {show.includes(DATE_SEGMENT.Year) && (
         <div>
-          <label data-h2-display="base(block)" htmlFor={ID.YEAR}>
+          <label className="block" htmlFor={ID.YEAR}>
             {intl.formatMessage(dateMessages.year)}
           </label>
           <input
@@ -100,7 +100,7 @@ const ControlledInput = ({
       )}
       {show.includes(DATE_SEGMENT.Month) && (
         <div {...getMonthSpan(show)}>
-          <label data-h2-display="base(block)" htmlFor={ID.MONTH}>
+          <label className="block" htmlFor={ID.MONTH}>
             {intl.formatMessage(dateMessages.month)}
           </label>
           <select
@@ -125,7 +125,7 @@ const ControlledInput = ({
       )}
       {show.includes(DATE_SEGMENT.Day) && (
         <div>
-          <label data-h2-display="base(block)" htmlFor={ID.DAY}>
+          <label className="block" htmlFor={ID.DAY}>
             {intl.formatMessage(dateMessages.day)}
           </label>
           <input

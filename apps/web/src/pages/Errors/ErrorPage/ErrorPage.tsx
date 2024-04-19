@@ -35,7 +35,7 @@ const ErrorPage = () => {
     <>
       <div
         data-h2-background="base(main-linear)"
-        data-h2-display="base(block)"
+        className="block"
         data-h2-height="base(x1)"
       />
       <div
@@ -113,7 +113,7 @@ const ErrorPage = () => {
       </div>
       <div
         data-h2-background="base(main-linear)"
-        data-h2-display="base(block)"
+        className="block"
         data-h2-height="base(x1)"
       />
     </>

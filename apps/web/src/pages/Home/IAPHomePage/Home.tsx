@@ -96,7 +96,7 @@ export const Home = ({ query }: HomeProps) => {
           data-h2-flex-direction="base(column)"
         >
           <img
-            data-h2-display="base(block)"
+            className="block"
             data-h2-layer="base(1, relative)"
             data-h2-width="base(100%)"
             data-h2-order="base(2)"
@@ -129,7 +129,7 @@ export const Home = ({ query }: HomeProps) => {
               <img
                 src={logoImg}
                 alt=""
-                data-h2-display="base(block)"
+                className="block"
                 data-h2-margin="base(0, auto, x.5, auto)"
                 data-h2-width="base(x4) laptop(x7)"
               />
@@ -594,7 +594,7 @@ export const Home = ({ query }: HomeProps) => {
                       data-h2-color="base:all(white)"
                       data-h2-font-size="base(h3, 1)"
                     >
-                      <span data-h2-display="base(block)">
+                      <span className="block">
                         {intl.formatMessage({
                           defaultMessage:
                             "Is the IT Apprenticeship Program right for you?",
@@ -970,7 +970,7 @@ export const Home = ({ query }: HomeProps) => {
                       data-h2-position="base(relative)"
                     >
                       <img
-                        data-h2-display="base(block)"
+                        className="block"
                         data-h2-position="p-tablet(absolute)"
                         data-h2-location="p-tablet(auto, -x2, -x3, auto) l-tablet(auto, -x3, -x5, auto)"
                         src={indigenousWoman}

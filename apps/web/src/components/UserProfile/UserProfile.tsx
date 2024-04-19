@@ -83,7 +83,7 @@ const EditUrlLink = ({ link, text }: { link: string; text: string }) => (
       href={link}
       mode="inline"
       data-h2-margin="p-tablet(x1.5, 0, x.25, 0)"
-      data-h2-display="base(block)"
+      className="block"
     >
       {text}
     </Link>

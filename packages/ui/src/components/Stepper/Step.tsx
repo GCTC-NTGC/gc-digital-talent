@@ -4,12 +4,14 @@ import { useIntl } from "react-intl";
 import { StepState } from "./types";
 import { linkStyleMap, getIconFromState, messageMap } from "./utils";
 import Link from "../Link";
+import { Color } from "../../types";
 
-interface StepLinkProps {
+interface StepLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   children: React.ReactNode;
   href: string;
   state: StepState;
   preventDisable?: boolean;
+  color?: Color;
 }
 
 const StepLink = ({
@@ -72,7 +74,7 @@ const Step = ({
         href={href}
         state={state}
         preventDisable={preventDisable}
-        data-h2-display="base(block)"
+        className="block"
         data-h2-width="base(100%)"
         data-h2-padding-left="base(x1.5)"
         data-h2-position="base(relative)"

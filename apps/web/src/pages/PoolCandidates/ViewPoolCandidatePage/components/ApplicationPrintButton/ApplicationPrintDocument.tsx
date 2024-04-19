@@ -58,7 +58,7 @@ interface ApplicationPrintDocumentProps {
 const PageSection = ({ children }: { children: React.ReactNode }) => (
   <div
     data-h2-margin-bottom="base(2rem)"
-    data-h2-display="base(block)"
+    className="block"
     data-h2-break-inside="base(avoid) base:print(avoid)"
     data-h2-break-after="base(avoid) base:print(avoid)"
   >
@@ -68,7 +68,7 @@ const PageSection = ({ children }: { children: React.ReactNode }) => (
 
 // If a section is too big, use this instead of PageSection to allow it to break
 const BreakingPageSection = ({ children }: { children: React.ReactNode }) => (
-  <div data-h2-margin-bottom="base(2rem)" data-h2-display="base(block)">
+  <div data-h2-margin-bottom="base(2rem)" className="block">
     {children}
   </div>
 );

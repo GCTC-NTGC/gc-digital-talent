@@ -13,10 +13,7 @@ interface NavMenuProps {
 
 const ListItem = ({ children }: { children?: React.ReactNode }) => (
   <li data-h2-flex-item="base(content)">
-    <span
-      data-h2-display="base(block)"
-      data-h2-margin="base(0, 0, x.5, 0) p-tablet(0)"
-    >
+    <span className="block" data-h2-margin="base(0, 0, x.5, 0) p-tablet(0)">
       {children}
     </span>
   </li>

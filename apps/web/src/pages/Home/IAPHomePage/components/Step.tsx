@@ -24,7 +24,7 @@ const Step = ({ position, title, children }: StepProps) => (
       >
         {position}
       </span>
-      <span data-h2-display="base(block)">{title}</span>
+      <span className="block">{title}</span>
     </Heading>
     <div data-h2-color="base:all(white)" data-h2-margin="base(x1, 0, 0, 0)">
       {children}

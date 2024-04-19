@@ -415,7 +415,7 @@ export const ScreeningDecisionDialog = ({
                     <span
                       data-h2-color="base(gray.darker)"
                       data-h2-text-decoration="base(none)"
-                      data-h2-display="base(block)"
+                      className="block"
                     >
                       {intl.formatMessage(
                         initialValues?.assessmentDecisionLevel

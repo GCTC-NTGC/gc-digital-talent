@@ -18,9 +18,7 @@ const FieldDisplay = ({
     })}
     {...rest}
   >
-    <span data-h2-display="base(block)" className="font-bold">
-      {label}
-    </span>
+    <span className="block font-bold">{label}</span>
     {children && <span>{children}</span>}
   </div>
 );

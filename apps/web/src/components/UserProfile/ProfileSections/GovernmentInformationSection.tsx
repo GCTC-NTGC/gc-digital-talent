@@ -35,7 +35,7 @@ const GovernmentInformationSection = ({
         <div data-h2-flex-grid="base(flex-start, x2, x1)">
           <div data-h2-flex-item="base(1of1)">
             <p>
-              <span data-h2-display="base(block)">
+              <span className="block">
                 {intl.formatMessage({
                   defaultMessage: "Employee status:",
                   id: "z/J4uL",
@@ -56,7 +56,7 @@ const GovernmentInformationSection = ({
           {user.department && (
             <div data-h2-flex-item="base(1of1)">
               <p>
-                <span data-h2-display="base(block)">
+                <span className="block">
                   {intl.formatMessage({
                     defaultMessage: "Department:",
                     id: "ny/ddo",
@@ -73,7 +73,7 @@ const GovernmentInformationSection = ({
           {user.govEmployeeType && (
             <div data-h2-flex-item="base(1of1)">
               <p>
-                <span data-h2-display="base(block)">
+                <span className="block">
                   {intl.formatMessage({
                     defaultMessage: "Employment type:",
                     id: "T49QiO",
@@ -90,7 +90,7 @@ const GovernmentInformationSection = ({
             !!user.currentClassification?.level && (
               <div data-h2-flex-item="base(1of1)">
                 <p>
-                  <span data-h2-display="base(block)">
+                  <span className="block">
                     {intl.formatMessage({
                       defaultMessage: "Current group and classification:",
                       id: "MuyuAu",
@@ -147,7 +147,7 @@ const GovernmentInformationSection = ({
         >
           <div data-h2-flex-item="base(1of1)">
             <p>
-              <span data-h2-display="base(block)">
+              <span className="block">
                 {intl.formatMessage({
                   defaultMessage: "Priority entitlement:",
                   id: "swugkW",
@@ -173,7 +173,7 @@ const GovernmentInformationSection = ({
           {user.hasPriorityEntitlement && (
             <div data-h2-flex-item="base(1of1)">
               <p>
-                <span data-h2-display="base(block)">
+                <span className="block">
                   {intl.formatMessage({
                     defaultMessage: "Priority number:",
                     id: "ZUO1OX",

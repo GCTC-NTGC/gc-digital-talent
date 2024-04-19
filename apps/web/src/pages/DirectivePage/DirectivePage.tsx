@@ -471,7 +471,7 @@ const DirectivePage = () => {
       </div>
       <div
         data-h2-background-image="base(main-linear)"
-        data-h2-display="base(block)"
+        className="block"
         data-h2-height="base(x1)"
       />
     </>

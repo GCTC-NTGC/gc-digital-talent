@@ -73,8 +73,7 @@ const DeadlineDialog = ({ deadline }: DeadlineDialogProps): JSX.Element => {
                 description: "Second paragraph for pool deadlines dialog",
               })}
               <span
-                data-h2-display="base(block)"
-                className="font-bold"
+                className="block font-bold"
                 data-h2-margin="base(x.5 0 0 x.75)"
               >
                 {`${intl.formatMessage(
@@ -109,8 +108,7 @@ const DeadlineDialog = ({ deadline }: DeadlineDialogProps): JSX.Element => {
                 description: "Third paragraph for pool deadlines dialog",
               })}
               <span
-                data-h2-display="base(block)"
-                className="font-bold"
+                className="block font-bold"
                 data-h2-margin="base(x.5 0 0 x.75)"
               >
                 {`${intl.formatMessage(

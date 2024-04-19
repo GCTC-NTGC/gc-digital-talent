@@ -79,8 +79,7 @@ const CheckButton = ({
         {...borderMap[color]}
       >
         <Icon
-          className="check-button__icon"
-          data-h2-display="base(block)"
+          className="check-button__icon block"
           data-h2-stroke-width="base(3)"
         />
       </span>

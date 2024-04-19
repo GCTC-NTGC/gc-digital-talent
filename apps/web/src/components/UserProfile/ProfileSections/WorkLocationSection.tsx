@@ -34,7 +34,7 @@ const WorkLocationSection = ({
         {anyCriteriaSelected(user) && (
           <div data-h2-flex-item="base(1of1)">
             <p>
-              <span data-h2-display="base(block)">
+              <span className="block">
                 {intl.formatMessage({
                   defaultMessage: "Work location:",
                   id: "b5bUa0",
@@ -48,7 +48,7 @@ const WorkLocationSection = ({
         {!!user.locationExemptions && (
           <div data-h2-flex-item="base(1of1)">
             <p>
-              <span data-h2-display="base(block)">
+              <span className="block">
                 {intl.formatMessage({
                   defaultMessage: "Work location exceptions",
                   id: "OpKC2i",

@@ -30,7 +30,7 @@ const LockedIcon = () => <LockClosedIcon data-h2-width="base(x.75)" />;
 const DisabledAction = () => (
   <span
     aria-hidden
-    data-h2-display="base(block)"
+    className="block"
     data-h2-color="base(gray)"
     data-h2-height="base(x.975)"
     data-h2-radius="base(100%)"

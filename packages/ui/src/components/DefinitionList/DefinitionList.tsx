@@ -62,7 +62,7 @@ const Item = ({
         <span>{title}</span>
       </dt>
       <dd
-        data-h2-display="base(block)"
+        className="block"
         {...(Icon
           ? {
               "data-h2-margin": "base(0, 0, x.5, calc(x.75 + x.5))",

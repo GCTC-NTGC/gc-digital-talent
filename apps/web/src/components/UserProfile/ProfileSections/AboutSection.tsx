@@ -40,7 +40,7 @@ const AboutSection = ({ editPath, user }: AboutSectionProps) => {
         {(!!firstName || !!lastName) && (
           <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
             <p>
-              <span data-h2-display="base(block)">
+              <span className="block">
                 {intl.formatMessage({
                   defaultMessage: "Name:",
                   id: "DAmLhV",
@@ -56,7 +56,7 @@ const AboutSection = ({ editPath, user }: AboutSectionProps) => {
         {!!email && (
           <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
             <p>
-              <span data-h2-display="base(block)">
+              <span className="block">
                 {intl.formatMessage({
                   defaultMessage: "Email:",
                   id: "mtFK6A",
@@ -70,7 +70,7 @@ const AboutSection = ({ editPath, user }: AboutSectionProps) => {
         {!!telephone && (
           <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
             <p>
-              <span data-h2-display="base(block)">
+              <span className="block">
                 {intl.formatMessage({
                   defaultMessage: "Phone:",
                   id: "azOv8A",
@@ -95,7 +95,7 @@ const AboutSection = ({ editPath, user }: AboutSectionProps) => {
         {!!preferredLang && (
           <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
             <p>
-              <span data-h2-display="base(block)">
+              <span className="block">
                 {intl.formatMessage({
                   defaultMessage: "Preferred Communication Language:",
                   id: "bEwwY/",
@@ -155,7 +155,7 @@ const AboutSection = ({ editPath, user }: AboutSectionProps) => {
         {!!currentCity && !!currentProvince && (
           <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
             <p>
-              <span data-h2-display="base(block)">
+              <span className="block">
                 {intl.formatMessage({
                   defaultMessage: "Current Location:",
                   id: "s1h7Mc",
@@ -174,7 +174,7 @@ const AboutSection = ({ editPath, user }: AboutSectionProps) => {
         {armedForcesStatus !== null && armedForcesStatus !== undefined && (
           <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
             <p>
-              <span data-h2-display="base(block)">
+              <span className="block">
                 {intl.formatMessage({
                   defaultMessage: "Member of CAF:",
                   id: "Md/cQS",
@@ -192,7 +192,7 @@ const AboutSection = ({ editPath, user }: AboutSectionProps) => {
         {citizenship ? (
           <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
             <p>
-              <span data-h2-display="base(block)">
+              <span className="block">
                 {intl.formatMessage({
                   defaultMessage: "Citizenship Status:",
                   id: "92hwzj",

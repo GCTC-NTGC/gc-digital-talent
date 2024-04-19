@@ -69,7 +69,7 @@ const Loading = ({
         <span data-h2-display="base(inline-block)">
           <span data-h2-visually-hidden="base(invisible)">{children}</span>
           <m.span
-            data-h2-display="base(block)"
+            className="block"
             data-h2-height="base(x1)"
             data-h2-width="base(x1)"
             data-h2-radius="base(50%)"

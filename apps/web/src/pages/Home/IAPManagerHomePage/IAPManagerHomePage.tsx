@@ -121,7 +121,7 @@ export const IAPManagerHomePage = () => {
             <img
               src={logoImg}
               alt=""
-              data-h2-display="base(block)"
+              className="block"
               data-h2-width="base(172px) p-tablet(235px)"
             />
             <h1 data-h2-font-size="base(h1)" className="font-bold">
@@ -219,7 +219,7 @@ export const IAPManagerHomePage = () => {
                         description:
                           "Description of a decorative image of a woman and a laptop",
                       })}
-                      data-h2-display="base(block)"
+                      className="block"
                       data-h2-min-height="base(60vh) p-tablet(initial)"
                       data-h2-height="base(100%)"
                       data-h2-width="base(100%)"
@@ -451,7 +451,7 @@ export const IAPManagerHomePage = () => {
                           description:
                             "Description of a decorative image of a man and a laptop",
                         })}
-                        data-h2-display="base(block)"
+                        className="block"
                         data-h2-margin="base(0 auto)"
                         data-h2-position="base(relative)"
                         style={{
@@ -747,7 +747,7 @@ export const IAPManagerHomePage = () => {
                   data-h2-min-height="base(32rem) p-tablet(initial)"
                   data-h2-height="base(100%)"
                   data-h2-width="base(100%)"
-                  data-h2-display="base(block)"
+                  className="block"
                   data-h2-position="base(relative)"
                   data-h2-margin="base(0 auto)"
                   style={{
