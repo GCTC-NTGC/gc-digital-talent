@@ -81,7 +81,7 @@ import ToggleGroup from "./components/ToggleGroup";
 import ToggleSection from "./components/ToggleSection/ToggleSection";
 import TreeView from "./components/TreeView";
 import Well, { WellProps } from "./components/Well";
-import { incrementHeadingRank, decrementHeadingRank } from "./utils";
+import { incrementHeadingRank, decrementHeadingRank, cn } from "./utils";
 import useControllableState from "./hooks/useControllableState";
 
 export type {
@@ -179,6 +179,7 @@ export {
 export {
   incrementHeadingRank,
   decrementHeadingRank,
+  cn,
   headingStyles,
   useCardRepeaterContext,
   useControllableState,

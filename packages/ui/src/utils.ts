@@ -1,4 +1,18 @@
+import { clsx, ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
 import { HeadingRank } from "./types";
+
+/**
+ * Compute a class name and merge
+ * similar tailwind classes
+ *
+ * @param inputs
+ * @returns
+ */
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 
 /**
  * Increment a heading rank to a higher rank (h1 ➡️ h2 for example)
