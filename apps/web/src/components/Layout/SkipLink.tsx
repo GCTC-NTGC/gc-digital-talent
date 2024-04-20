@@ -14,15 +14,9 @@ const SkipLink = ({ href = "#main", children }: SkipLinkProps) => {
     // eslint-disable-next-line react/forbid-elements
     <a
       href={href}
-      data-h2-visually-hidden="base(invisible) base:focus-visible(visible)"
+      className="z-90 sr-only focus-visible:not-sr-only focus-visible:fixed focus-visible:inline-block focus-visible:px-4 focus-visible:py-2"
       data-h2-background-color="base:focus-visible(white)"
       data-h2-border="base:focus-visible(medium, dashed, black)"
-      data-h2-display="base:focus-visible(inline-block)"
-      data-h2-location="base:focus-visible(0, auto, auto, x1)"
-      data-h2-padding="base:focus-visible(x.25, x.5)"
-      data-h2-position="base:focus-visible(fixed!important)"
-      data-h2-width="base:focus-visible(auto)"
-      data-h2-z-index="base:focus-visible(9999)"
     >
       {children ||
         intl.formatMessage({

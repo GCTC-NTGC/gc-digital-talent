@@ -91,14 +91,7 @@ const OpenMenuButton = React.forwardRef<
       onClick={onClick}
       type="button"
       color="blackFixed"
-      data-h2-text-align="base(left)"
-      data-h2-radius="base(0)"
-      data-h2-align-self="base(flex-start)"
-      data-h2-align-items="base(flex-start)"
-      data-h2-position="base(sticky)"
-      data-h2-top="base(0)"
-      data-h2-width="base(100%)"
-      data-h2-z-index="base(1)"
+      className="sticky top-0 z-10 w-full items-start self-start !rounded-none text-left"
     >
       {children}
     </Button>
@@ -141,7 +134,7 @@ const AdminLayout = () => {
         })}
       />
       <SkipLink />
-      <div data-h2-flex-grid="base(stretch, 0)">
+      <div className="flex">
         <SideMenu
           label={intl.formatMessage({
             defaultMessage: "Main Menu",
@@ -312,11 +305,7 @@ const AdminLayout = () => {
           </SideMenuCategory>
         </SideMenu>
         <SideMenuContentWrapper>
-          <div
-            data-h2-min-height="base(100%)"
-            className="flex"
-            data-h2-flex-direction="base(column)"
-          >
+          <div className="flex min-h-full flex-col">
             <Header width="full" />
             <SitewideBanner />
             <OpenMenuButton
@@ -332,10 +321,10 @@ const AdminLayout = () => {
             </OpenMenuButton>
             <main
               id="main"
-              data-h2-flex-grow="base(1)"
+              className="flex-grow"
               data-h2-background-color="base(background)"
             >
-              <div data-h2-min-height="base(100%)">
+              <div className="min-h-full">
                 <Outlet />
               </div>
             </main>

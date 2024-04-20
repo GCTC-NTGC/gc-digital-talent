@@ -77,12 +77,7 @@ const Layout = () => {
           <Favicon locale={locale} project="iap" />
           <IAPSeo />
           <SkipLink />
-          <div
-            className="flex"
-            data-h2-flex-direction="base(column)"
-            data-h2-min-height="base(100vh)"
-            data-h2-margin="base(0)"
-          >
+          <div className="m-0 flex min-h-screen flex-col">
             <div>
               <Header />
               <SitewideBanner />
@@ -91,9 +86,7 @@ const Layout = () => {
             <main id="main">
               <Outlet />
             </main>
-            <div style={{ marginTop: "auto" }}>
-              <Footer />
-            </div>
+            <Footer />
           </div>
           <ScrollRestoration />
         </React.Fragment>

@@ -122,10 +122,7 @@ const Layout = () => {
       />
       <SkipLink />
       <div
-        className="flex"
-        data-h2-flex-direction="base(column)"
-        data-h2-min-height="base(100vh)"
-        data-h2-margin="base(0)"
+        className="m-0 flex min-h-screen flex-col"
         data-h2-color="base(black)"
       >
         <div>
@@ -140,9 +137,7 @@ const Layout = () => {
         <main id="main">
           <Outlet />
         </main>
-        <div style={{ marginTop: "auto" }}>
-          <Footer />
-        </div>
+        <Footer />
       </div>
       <ScrollRestoration
         getKey={(location) => {
