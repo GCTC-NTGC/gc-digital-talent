@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import { Link, Heading, HeadingLevel } from "@gc-digital-talent/ui";
+import { Link, Heading, HeadingLevel, cn } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
 
 import applicationMessages from "~/messages/applicationMessages";
@@ -20,22 +20,13 @@ const Text = (props: TextProps) => (
 );
 
 const Wrapper = (props: React.HTMLProps<HTMLDivElement>) => (
-  <div
-    data-h2-display="base(grid)"
-    data-h2-grid-template-columns="base(1fr) l-tablet(1fr 1fr)"
-    data-h2-gap="base(x.5)"
-    data-h2-position="base(relative)"
-    {...props}
-  />
+  <div className="relative grid gap-3 md:grid-cols-2 " {...props} />
 );
+
 const Card = (props: React.HTMLProps<HTMLDivElement>) => (
   <div
     data-h2-background-color="base(foreground)"
-    data-h2-radius="base(rounded)"
-    data-h2-padding="base(x1.25)"
-    data-h2-shadow="base(s)"
-    data-h2-position="base(relative)"
-    data-h2-z-index="base(1)"
+    className="relative z-10 rounded p-8 shadow-sm"
     {...props}
   />
 );
@@ -46,21 +37,13 @@ const Or = (props: React.HTMLProps<HTMLDivElement>) => {
     <span
       data-h2-background-color="base(secondary)"
       data-h2-color="base:all(black)"
-      className="flex font-bold"
-      data-h2-align-items="base(center)"
-      data-h2-justify-content="base(center)"
-      data-h2-height="base(x2)"
-      data-h2-width="base(x2)"
-      data-h2-radius="base(x2)"
-      data-h2-shadow="base(s)"
-      data-h2-align-self="base(center)"
-      data-h2-text-transform="base(uppercase)"
-      data-h2-position="l-tablet(absolute)"
-      data-h2-top="l-tablet(50%)"
-      data-h2-left="l-tablet(50%)"
-      data-h2-transform="l-tablet(translate(-50%, -50%))"
-      data-h2-margin="base(-x1.25 auto) l-tablet(0)"
-      data-h2-z-index="base(2)"
+      className={cn(
+        "z-20 flex  h-12 w-12 rounded-full shadow-sm",
+        "items-center justify-center self-center",
+        "font-bold uppercase",
+        "md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2",
+        "-my-8 mx-auto md:m-0",
+      )}
       {...props}
     >
       {intl.formatMessage({
@@ -122,7 +105,7 @@ const EducationRequirements = ({
               })}
             </Text>
           </Card>
-          <Or data-h2-left="l-tablet(33%)" />
+          <Or />
           <Card>
             <Heading
               level={headingAs}

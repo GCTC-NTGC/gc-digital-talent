@@ -70,26 +70,17 @@ const EquityOption = ({
     <div
       data-h2-background="base(foreground)"
       data-h2-color="base(black)"
-      data-h2-padding="base(x1)"
-      data-h2-radius="base(rounded)"
-      data-h2-shadow="base(m)"
+      className="rounded p-6 shadow-md"
     >
-      <p className="font-bold" data-h2-padding-bottom="base(x1)">
-        {title}
-      </p>
-      {description && <p data-h2-padding-bottom="base(x1)">{description}</p>}
+      <p className="mb-6 font-bold">{title}</p>
+      {description && <p className="mb-6">{description}</p>}
       <Dialog isAdded={isAdded} onSave={onSave} disabled={disabled}>
         <Button type="button" mode="inline" color="secondary">
           {isAdded ? (
             removeText
           ) : (
             <>
-              <PlusCircleIcon
-                data-h2-width="base(x1)"
-                data-h2-display="base(inline-block)"
-                data-h2-vertical-align="base(bottom)"
-                data-h2-margin="base(0, x.25, 0, 0) p-tablet(0, x0.5, 0, 0)"
-              />
+              <PlusCircleIcon className="mr-1.5 inline-block w-6 align-bottom md:mr-3" />
               {addText}
             </>
           )}

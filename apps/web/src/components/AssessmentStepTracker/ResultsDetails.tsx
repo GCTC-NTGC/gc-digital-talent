@@ -31,35 +31,21 @@ const StatusCount = ({
 
   return (
     <span
-      data-h2-align-items="base(center)"
-      className="flex"
-      data-h2-gap="base(0 x.25)"
-      data-h2-width="base(100%)"
-      data-h2-justify-content="base(space-between)"
-      data-h2-padding="base(x.25 0)"
+      className="flex w-full items-center justify-between gap-x-1.5 py-1.5"
       data-h2-font-size="base(caption)"
     >
-      <span
-        className="flex"
-        data-h2-gap="base(0 x.25)"
-        data-h2-align-items="base(center)"
-      >
+      <span className="flex items-center gap-x-1.5">
         <Icon
           {...colorStyle}
-          data-h2-height="base(x.65)"
-          data-h2-width="base(x.65)"
-          data-h2-transition="base(transform 150ms ease)"
+          className="h-4 w-4 transition-transform duration-150 ease-in-out"
         />
         <span>{name}</span>
       </span>
       {counter >= 0 ? (
         <Counter
           count={counter}
-          data-h2-radius="base(x.5)"
+          className="min-w-8 rounded-xl px-3 py-0.5"
           data-h2-background="base(foreground)"
-          data-h2-padding="base(x.125 x.5)"
-          data-h2-min-width="base(x2)"
-          data-h2-text-align="base(center)"
         />
       ) : null}
     </span>

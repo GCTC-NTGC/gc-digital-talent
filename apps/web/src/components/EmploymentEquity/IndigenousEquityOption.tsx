@@ -76,12 +76,10 @@ const EquityOption = ({
     <div
       data-h2-background="base(foreground)"
       data-h2-color="base(black)"
-      data-h2-padding="base(x1)"
-      data-h2-radius="base(rounded)"
-      data-h2-shadow="base(m)"
+      className="rounded p-6 shadow-md"
     >
       <p className="font-bold">{title}</p>
-      <ul data-h2-padding-left="base(x.25)" data-h2-padding-bottom="base(x1)">
+      <ul className="mb-6 pl-1.5">
         {isAdded
           ? nonLegacyIndigenousCommunities.map((community) => {
               return (
@@ -100,7 +98,7 @@ const EquityOption = ({
             })
           : null}
       </ul>
-      {description && <p data-h2-padding-bottom="base(x1)">{description}</p>}
+      {description && <p className="mb-6">{description}</p>}
       <Dialog
         indigenousCommunities={indigenousCommunities}
         signature={signature}
@@ -112,12 +110,7 @@ const EquityOption = ({
             removeText
           ) : (
             <>
-              <PlusCircleIcon
-                data-h2-width="base(x1)"
-                data-h2-display="base(inline-block)"
-                data-h2-vertical-align="base(bottom)"
-                data-h2-margin="base(0, x.25, 0, 0) p-tablet(0, x0.5, 0, 0)"
-              />
+              <PlusCircleIcon className="mr-1.5 inline-block w-6 align-bottom sm:mr-3" />
               {addText}
             </>
           )}

@@ -19,7 +19,7 @@ const Definition = ({ url, quotedDefinition }: DefinitionProps) => {
 
   return (
     <Well>
-      <p data-h2-margin-bottom="base(x1)" className="font-bold">
+      <p className="mb-6 font-bold">
         {intl.formatMessage(
           {
             defaultMessage:

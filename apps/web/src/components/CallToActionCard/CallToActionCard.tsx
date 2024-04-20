@@ -24,19 +24,12 @@ const CallToActionCard = ({
   ...rest
 }: CallToActionCardProps) => (
   <div
+    className="rounded p-6 shadow-lg"
     data-h2-background-color="base(foreground)"
     data-h2-color="base(black)"
-    data-h2-shadow="base(large)"
-    data-h2-padding="base(x1)"
-    data-h2-radius="base(rounded)"
     {...rest}
   >
-    <div
-      data-h2-display="p-tablet(flex)"
-      data-h2-gap="base(x3)"
-      data-h2-align-items="base(center)"
-      data-h2-justify-content="base(space-between)"
-    >
+    <div className="items-center justify-between gap-20 sm:flex">
       <div>
         <Heading
           level={headingAs}

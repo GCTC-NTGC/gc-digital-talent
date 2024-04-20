@@ -32,7 +32,7 @@ const UnderReview = () => {
   const locale = getLocale(intl);
 
   return (
-    <p data-h2-margin="base(0, 0, x1, 0)" className="font-bold">
+    <p className="mb-6 font-bold">
       {intl.formatMessage(
         {
           defaultMessage:

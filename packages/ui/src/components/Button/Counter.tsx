@@ -1,5 +1,7 @@
 import React from "react";
 
+import { cn } from "../../utils";
+
 type CounterProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLSpanElement>,
   HTMLSpanElement
@@ -8,15 +10,14 @@ type CounterProps = React.DetailedHTMLProps<
 };
 
 const Counter = React.forwardRef<HTMLSpanElement, CounterProps>(
-  ({ count, ...rest }, forwardedRef) => (
+  ({ count, className, ...rest }, forwardedRef) => (
     <span
       ref={forwardedRef}
-      className="counter font-bold"
-      data-h2-padding="base(x.15)"
-      data-h2-radius="base(rounded)"
-      data-h2-margin-left="base(x.35)"
+      className={cn(
+        "counter ml-2 rounded-md font-bold transition-all duration-200 ease-in-out",
+        className,
+      )}
       data-h2-font-size="base(caption, 1)"
-      data-h2-transition="base(all .2s ease)"
       {...rest}
     >
       {count}

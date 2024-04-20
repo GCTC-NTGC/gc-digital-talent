@@ -86,21 +86,13 @@ export const columnHeader = (
 
   return (
     <span className="inline">
-      <span
-        className="flex"
-        data-h2-align-content="base(center)"
-        data-h2-gap="base(x.25)"
-      >
+      <span className="flex content-center gap-1.5">
         {Icon && (
           <Icon
             aria-label={ariaLabel}
             aria-hidden="false"
             {...iconColorMap[status.color]}
-            className="sm:inline-block"
-            data-h2-vertical-align="base(middle)"
-            data-h2-height="base(auto)"
-            data-h2-flex-shrink="base(0)"
-            data-h2-width="base(x.85)"
+            className="width h-auto w-6 shrink-0 align-middle sm:inline-block"
           />
         )}
         {header}

@@ -47,12 +47,7 @@ const Filters = ({
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onFiltersChange)}>
-        <div
-          className="flex"
-          data-h2-align-items="base(flex-end)"
-          data-h2-gap="base(x.5)"
-          data-h2-margin-bottom="base(x.5)"
-        >
+        <div className="mb-5 flex items-end gap-3">
           <Input
             name="query"
             id="query"
@@ -73,11 +68,10 @@ const Filters = ({
               })}
             </Field.Legend>
             <Field.BoundingBox
-              data-h2-border-color="base(gray) base:focus-visible(focus)"
-              data-h2-flex-direction="base(row)"
-              data-h2-gap="base(x.25)"
+              className="flex flex-row gap-1.5"
               // To match input off by 0.01px
               data-h2-padding="base(x.4)"
+              data-h2-border-color="base(gray) base:focus-visible(focus)"
             >
               <SwitchInput
                 name={NO_DECISION}

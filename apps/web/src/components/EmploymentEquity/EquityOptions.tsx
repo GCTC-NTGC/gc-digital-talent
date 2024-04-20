@@ -128,13 +128,8 @@ const EquityOptions = ({
       </Heading>
       {isDisabled && (
         <div
-          data-h2-position="base(absolute)"
           data-h2-background-color="base(background)"
-          className="flex"
-          data-h2-align-items="base(center)"
-          data-h2-justify-content="base(center)"
-          data-h2-location="base(x2, -x1, -x1, -x1)"
-          data-h2-z-index="base(2)"
+          className="absolute -inset-6 top-12 z-20 flex items-center justify-center"
         >
           <Loading inline>
             {intl.formatMessage(commonMessages.searching)}
@@ -142,7 +137,7 @@ const EquityOptions = ({
         </div>
       )}
       {hasItems ? (
-        <div data-h2-display="base(grid)" data-h2-gap="base(x.5)">
+        <div className="grid gap-3">
           {isIndigenous && (
             <IndigenousEquityOption
               disabled={isDisabled}
@@ -197,7 +192,7 @@ const EquityOptions = ({
         </div>
       ) : (
         <Well>
-          <p data-h2-text-align="base(center)">
+          <p className="text-center">
             {intl.formatMessage({
               defaultMessage:
                 "You haven't added any equity options to your profile.",
@@ -214,10 +209,7 @@ const EquityOptions = ({
         onValueChange={(value: AccordionItems) => setAccordionOpen(value)}
         collapsible
       >
-        <Accordion.Item
-          value="available_options"
-          data-h2-padding-top="base(x1)"
-        >
+        <Accordion.Item value="available_options" className="pt-6">
           <Accordion.Trigger as="h4">
             {accordionOpen
               ? intl.formatMessage(
@@ -247,7 +239,7 @@ const EquityOptions = ({
           </Accordion.Trigger>
           <Accordion.Content>
             {itemsAvailable || !hasItems ? (
-              <div data-h2-display="base(grid)" data-h2-gap="base(x.5)">
+              <div className="grid gap-3">
                 {!isIndigenous ? (
                   <IndigenousEquityOption
                     disabled={isDisabled}
@@ -332,7 +324,7 @@ const EquityOptions = ({
               </div>
             ) : (
               <Well>
-                <p data-h2-margin="base(0)">
+                <p className="m-0">
                   {intl.formatMessage({
                     defaultMessage:
                       "There are no available employment equity options.",

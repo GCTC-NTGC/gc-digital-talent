@@ -93,7 +93,7 @@ const IndigenousDialog = ({
           />
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(submitHandler)}>
-              <p data-h2-margin="base(x1, 0, x.5, 0)">
+              <p className="mb-3 mt-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "You can self-declare with one or more of the communities listed alphabetically below.",
@@ -102,13 +102,13 @@ const IndigenousDialog = ({
                     "Text that appears before employment equity form options.",
                 })}
               </p>
-              <div data-h2-margin="base(x1, 0, x1.5, 0)">
+              <div className="mb-9 mt-6">
                 <CommunityList labels={labels} />
               </div>
 
               {hasCommunitiesSelected && (
                 <>
-                  <p data-h2-padding-bottom="base(x1)">
+                  <p className="pb-6">
                     {intl.formatMessage({
                       defaultMessage:
                         "By submitting your signature (typing your full name), you are contributing to an honest and safe space for Indigenous Peoples to access these opportunities.",

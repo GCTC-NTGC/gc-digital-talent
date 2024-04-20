@@ -25,7 +25,7 @@ const DirectiveBlock = () => {
           description: "Title for the digital talent directive page",
         })}
       </Heading>
-      <p data-h2-margin="base(x1 0)">
+      <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
             "The GC Digital Talent platform offers a handful of helpful resources to make completing your responsibilities under the Directive on Digital Talent as easy as possible. This includes online forms, implementation guidance, and links to the Directive.",

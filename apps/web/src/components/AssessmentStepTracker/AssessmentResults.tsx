@@ -28,15 +28,11 @@ const Priority = ({ type }: PriorityProps) => {
 
   return (
     <span
-      className="inline-flex font-bold"
-      data-h2-align-items="base(center)"
+      className="inline-flex items-center rounded px-1 font-bold transition-all duration-200 ease-in-out"
       data-h2-background-color="base(black) base:dark(white)"
       data-h2-color="base(white) base:dark(black)"
-      data-h2-padding="base(0 x.125)"
-      data-h2-radius="base(rounded)"
-      data-h2-transition="base(all .2s ease)"
     >
-      <span data-h2-line-height="base(1)" data-h2-font-size="base(0.6rem)">
+      <span className="text-[0.6rem] leading-none">
         {type === "veteran"
           ? intl.formatMessage({
               defaultMessage: "VA",
@@ -92,11 +88,7 @@ const AssessmentResult = ({
   return (
     <Board.ListItem>
       <div
-        className="flex"
-        data-h2-align-items="base(center)"
-        data-h2-gap="base(0 x.25)"
-        data-h2-padding="base(x.125 0)"
-        data-h2-width="base(100%)"
+        className="padding-1 flex w-full items-center gap-1.5"
         {...(isBookmarked && {
           "data-h2-radius": "base(5px)",
           "data-h2-background-color": "base(primary.lightest)",
@@ -106,6 +98,7 @@ const AssessmentResult = ({
           candidate={result.poolCandidate}
           bookmarked={isBookmarked}
           onBookmarkChange={setIsBookmarked}
+          size="md"
         />
         <span data-h2-flex-grow="base(1)">
           <Link
@@ -122,12 +115,7 @@ const AssessmentResult = ({
             )}
           </Link>
         </span>
-        <span
-          data-h2-flex-shrink="base(0)"
-          className="flex"
-          data-h2-align-items="base(center)"
-          data-h2-gap="base(0 x.125)"
-        >
+        <span className="flex shrink-0 items-center gap-x-1">
           {result.poolCandidate.user.hasPriorityEntitlement && (
             <Priority type="entitlement" />
           )}
@@ -170,7 +158,7 @@ const AssessmentResults = ({
       ))}
     </Board.List>
   ) : (
-    <Well fontSize="caption" data-h2-margin="base(x.25)">
+    <Well fontSize="caption" className="m-1.5">
       <p>
         {intl.formatMessage({
           defaultMessage: "There are no candidate results in this step.",

@@ -1,5 +1,7 @@
 import React from "react";
 
+import { cn } from "@gc-digital-talent/ui";
+
 import useInputStyles from "../../hooks/useInputStyles";
 
 type BoundingBoxProps = React.DetailedHTMLProps<
@@ -9,15 +11,12 @@ type BoundingBoxProps = React.DetailedHTMLProps<
   flat?: boolean;
 };
 
-const BoundingBox = ({ flat, ...rest }: BoundingBoxProps) => {
+const BoundingBox = ({ flat, className, ...rest }: BoundingBoxProps) => {
   const styles = useInputStyles();
 
   return (
     <div
-      className="flex"
-      data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x.25 0)"
-      data-h2-margin-top="base(x.25)"
+      className={cn("mt-1.5 flex flex-col gap-y-1.5", className)}
       {...styles}
       {...(flat
         ? {

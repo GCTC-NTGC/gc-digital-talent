@@ -4,7 +4,7 @@ import { useMutation } from "urql";
 import BookmarkIconOutline from "@heroicons/react/24/outline/BookmarkIcon";
 import BookmarkIconSolid from "@heroicons/react/24/solid/BookmarkIcon";
 
-import { Button, useControllableState } from "@gc-digital-talent/ui";
+import { Button, cn, useControllableState } from "@gc-digital-talent/ui";
 import { PoolCandidate, graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 
@@ -99,23 +99,6 @@ const CandidateBookmark = ({
     }
   };
 
-  let iconSize = {
-    "data-h2-height": "base(x.9)",
-    "data-h2-width": "base(x.9)",
-  };
-  if (size === "sm") {
-    iconSize = {
-      "data-h2-height": "base(x.8)",
-      "data-h2-width": "base(x.8)",
-    };
-  }
-  if (size === "lg") {
-    iconSize = {
-      "data-h2-height": "base(x1)",
-      "data-h2-width": "base(x1)",
-    };
-  }
-
   return (
     <Button
       mode="icon_only"
@@ -123,7 +106,11 @@ const CandidateBookmark = ({
       onClick={toggleBookmark}
       disabled={isUpdatingBookmark}
       icon={isBookmarked ? BookmarkIconSolid : BookmarkIconOutline}
-      {...iconSize}
+      className={cn({
+        "h-5 w-5": size === "sm",
+        "h-6 w-6": size === "md",
+        "h-7 w-7": size === "lg",
+      })}
       aria-label={
         isBookmarked
           ? intl.formatMessage(
