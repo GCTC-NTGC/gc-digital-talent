@@ -30,132 +30,116 @@ const EducationFields = ({ labels }: SubExperienceFormProps) => {
   const watchStartDate = useWatch({ name: "startDate" });
 
   return (
-    <div data-h2-margin="base(x.5, 0, 0, 0)" data-h2-max-width="base(50rem)">
-      <div data-h2-flex-grid="base(flex-start, x2, x1)">
-        <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-          <Select
-            id="educationType"
-            label={labels.educationType}
-            name="educationType"
-            nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-            options={enumToOptions(EducationType, [
-              EducationType.Diploma,
-              EducationType.BachelorsDegree,
-              EducationType.MastersDegree,
-              EducationType.Phd,
-              EducationType.PostDoctoralFellowship,
-              EducationType.OnlineCourse,
-              EducationType.Certification,
-              EducationType.Other,
-            ]).map(({ value }) => ({
-              value,
-              label: intl.formatMessage(getEducationType(value)),
-            }))}
-          />
-        </div>
-        <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-          <Checkbox
-            id="currentRole"
-            boundingBox
-            boundingBoxLabel={labels.currentRole}
-            label={intl.formatMessage({
-              defaultMessage: "I am currently active in this education",
-              id: "491LrZ",
-              description:
-                "Label displayed on Education Experience form for current education input",
-            })}
-            name="currentRole"
-          />
-        </div>
-        <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-          <Input
-            id="areaOfStudy"
-            label={labels.areaOfStudy}
-            name="areaOfStudy"
-            type="text"
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
-          />
-        </div>
-        <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-          <Input
-            id="institution"
-            label={labels.institution}
-            name="institution"
-            type="text"
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
-          />
-        </div>
-        <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-          <Select
-            id="educationStatus"
-            label={labels.educationStatus}
-            name="educationStatus"
-            nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-            options={enumToOptions(EducationStatus, [
-              EducationStatus.SuccessCredential,
-              EducationStatus.SuccessNoCredential,
-              EducationStatus.InProgress,
-              EducationStatus.Audited,
-              EducationStatus.DidNotComplete,
-            ]).map(({ value }) => ({
-              value,
-              label: intl.formatMessage(getEducationStatus(value)),
-            }))}
-          />
-        </div>
-        <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-          <Input
-            id="thesisTitle"
-            label={labels.thesisTitle}
-            name="thesisTitle"
-            type="text"
-          />
-        </div>
-        <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+    <div className="mt-3 max-w-[50rem]">
+      <div className="grid gap-6 sm:grid-cols-2">
+        <Select
+          id="educationType"
+          label={labels.educationType}
+          name="educationType"
+          nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+          options={enumToOptions(EducationType, [
+            EducationType.Diploma,
+            EducationType.BachelorsDegree,
+            EducationType.MastersDegree,
+            EducationType.Phd,
+            EducationType.PostDoctoralFellowship,
+            EducationType.OnlineCourse,
+            EducationType.Certification,
+            EducationType.Other,
+          ]).map(({ value }) => ({
+            value,
+            label: intl.formatMessage(getEducationType(value)),
+          }))}
+        />
+        <Checkbox
+          id="currentRole"
+          boundingBox
+          boundingBoxLabel={labels.currentRole}
+          label={intl.formatMessage({
+            defaultMessage: "I am currently active in this education",
+            id: "491LrZ",
+            description:
+              "Label displayed on Education Experience form for current education input",
+          })}
+          name="currentRole"
+        />
+        <Input
+          id="areaOfStudy"
+          label={labels.areaOfStudy}
+          name="areaOfStudy"
+          type="text"
+          rules={{ required: intl.formatMessage(errorMessages.required) }}
+        />
+        <Input
+          id="institution"
+          label={labels.institution}
+          name="institution"
+          type="text"
+          rules={{ required: intl.formatMessage(errorMessages.required) }}
+        />
+        <Select
+          id="educationStatus"
+          label={labels.educationStatus}
+          name="educationStatus"
+          nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+          options={enumToOptions(EducationStatus, [
+            EducationStatus.SuccessCredential,
+            EducationStatus.SuccessNoCredential,
+            EducationStatus.InProgress,
+            EducationStatus.Audited,
+            EducationStatus.DidNotComplete,
+          ]).map(({ value }) => ({
+            value,
+            label: intl.formatMessage(getEducationStatus(value)),
+          }))}
+        />
+        <Input
+          id="thesisTitle"
+          label={labels.thesisTitle}
+          name="thesisTitle"
+          type="text"
+        />
+        <DateInput
+          id="startDate"
+          legend={labels.startDate}
+          name="startDate"
+          show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+            max: {
+              value: strToFormDate(todayDate.toISOString()),
+              message: intl.formatMessage(errorMessages.mustNotBeFuture),
+            },
+          }}
+        />
+        {!isCurrent && (
           <DateInput
-            id="startDate"
-            legend={labels.startDate}
-            name="startDate"
+            id="endDate"
+            legend={labels.endDate}
+            name="endDate"
             show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-              max: {
-                value: strToFormDate(todayDate.toISOString()),
-                message: intl.formatMessage(errorMessages.mustNotBeFuture),
-              },
-            }}
+            rules={
+              isCurrent
+                ? {}
+                : {
+                    required: intl.formatMessage(errorMessages.required),
+                    min: {
+                      value: watchStartDate,
+                      message: intl.formatMessage(
+                        errorMessages.dateMustFollow,
+                        { value: watchStartDate },
+                      ),
+                    },
+                  }
+            }
           />
-        </div>
-        <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-          {!isCurrent && (
-            <DateInput
-              id="endDate"
-              legend={labels.endDate}
-              name="endDate"
-              show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
-              rules={
-                isCurrent
-                  ? {}
-                  : {
-                      required: intl.formatMessage(errorMessages.required),
-                      min: {
-                        value: watchStartDate,
-                        message: intl.formatMessage(
-                          errorMessages.dateMustFollow,
-                          { value: watchStartDate },
-                        ),
-                      },
-                    }
-              }
-            />
-          )}
-        </div>
+        )}
       </div>
     </div>
   );

@@ -20,11 +20,7 @@ const AwardContent = ({
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
   return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-gap="base(x1)"
-      data-h2-grid-template-columns="l-tablet(repeat(3, 1fr))"
-    >
+    <div className="grid gap-6 md:grid-cols-3">
       <ContentSection
         title={experienceFormLabels.awardedTo}
         headingLevel={headingLevel}

@@ -34,12 +34,7 @@ const PersonalFields = ({ labels }: SubExperienceFormProps) => {
   }, [defaultValues?.experienceDescription, setValue, watchDescription]);
 
   return (
-    <div
-      data-h2-margin-top="base(x1)"
-      className="flex"
-      data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x1 0)"
-    >
+    <div className="mt-3 flex flex-col gap-y-6">
       <Input
         id="experienceTitle"
         label={labels.experienceTitle}
@@ -79,46 +74,42 @@ const PersonalFields = ({ labels }: SubExperienceFormProps) => {
         })}
         name="currentRole"
       />
-      <div data-h2-flex-grid="base(flex-start, x2, x1)">
-        <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
+      <div className="grid gap-6 sm:grid-cols-2">
+        <DateInput
+          id="startDate"
+          legend={labels.startDate}
+          name="startDate"
+          show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+            max: {
+              value: strToFormDate(todayDate.toISOString()),
+              message: intl.formatMessage(errorMessages.mustNotBeFuture),
+            },
+          }}
+        />
+        {!isCurrent && (
           <DateInput
-            id="startDate"
-            legend={labels.startDate}
-            name="startDate"
+            id="endDate"
+            legend={labels.endDate}
+            name="endDate"
             show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-              max: {
-                value: strToFormDate(todayDate.toISOString()),
-                message: intl.formatMessage(errorMessages.mustNotBeFuture),
-              },
-            }}
+            rules={
+              isCurrent
+                ? {}
+                : {
+                    required: intl.formatMessage(errorMessages.required),
+                    min: {
+                      value: watchStartDate,
+                      message: intl.formatMessage(
+                        errorMessages.dateMustFollow,
+                        { value: watchStartDate },
+                      ),
+                    },
+                  }
+            }
           />
-        </div>
-        <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-          {!isCurrent && (
-            <DateInput
-              id="endDate"
-              legend={labels.endDate}
-              name="endDate"
-              show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
-              rules={
-                isCurrent
-                  ? {}
-                  : {
-                      required: intl.formatMessage(errorMessages.required),
-                      min: {
-                        value: watchStartDate,
-                        message: intl.formatMessage(
-                          errorMessages.dateMustFollow,
-                          { value: watchStartDate },
-                        ),
-                      },
-                    }
-              }
-            />
-          )}
-        </div>
+        )}
       </div>
     </div>
   );

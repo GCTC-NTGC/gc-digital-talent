@@ -100,35 +100,30 @@ const ExperienceSortAndFilter = ({
 
   return (
     <FormProvider {...methods}>
-      <div data-h2-flex-item="base(1of1) p-tablet(content)">
-        <Select
-          id="sortBy"
-          label={intl.formatMessage({
-            defaultMessage: "Sort experience by",
-            id: "2n0e2i",
-            description: "Label for selector to choose experience sort options",
-          })}
-          name="sortBy"
-          nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
-          options={sortOptions}
-          trackUnsaved={false}
-        />
-      </div>
-      <div data-h2-flex-item="base(1of1) p-tablet(content)">
-        <Select
-          id="filterBy"
-          label={intl.formatMessage({
-            defaultMessage: "Filter experience by type",
-            id: "PE7mMC",
-            description:
-              "Label for selector to choose experience filter options",
-          })}
-          name="filterBy"
-          nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
-          options={filterOptions}
-          trackUnsaved={false}
-        />
-      </div>
+      <Select
+        id="sortBy"
+        label={intl.formatMessage({
+          defaultMessage: "Sort experience by",
+          id: "2n0e2i",
+          description: "Label for selector to choose experience sort options",
+        })}
+        name="sortBy"
+        nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
+        options={sortOptions}
+        trackUnsaved={false}
+      />
+      <Select
+        id="filterBy"
+        label={intl.formatMessage({
+          defaultMessage: "Filter experience by type",
+          id: "PE7mMC",
+          description: "Label for selector to choose experience filter options",
+        })}
+        name="filterBy"
+        nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
+        options={filterOptions}
+        trackUnsaved={false}
+      />
     </FormProvider>
   );
 };

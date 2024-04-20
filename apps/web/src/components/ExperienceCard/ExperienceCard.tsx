@@ -132,18 +132,10 @@ const ExperienceCard = ({
     <div
       id={id || `experience-${experience.id}`}
       data-h2-border-left="base(x.5 solid tertiary) base:iap(x.5 solid secondary) base:iap:dark(x.5 solid secondary.lighter)"
-      data-h2-padding="base(x1)"
-      data-h2-shadow="base(larger)"
-      data-h2-radius="base(0 rounded rounded 0)"
+      className="rounded-r p-6 shadow-xl"
       data-h2-background-color="base(foreground)"
     >
-      <div
-        className="flex"
-        data-h2-align-items="base(center)"
-        data-h2-justify-content="base(space-between)"
-        data-h2-gap="base(0 x1)"
-        data-h2-margin-bottom="base(x.5)"
-      >
+      <div className="mb-3 flex items-center justify-between gap-y-6">
         <Heading
           Icon={Icon}
           level={headingLevel}
@@ -158,10 +150,7 @@ const ExperienceCard = ({
         {view}
       </div>
       <p
-        className="flex"
-        data-h2-align-items="base(center)"
-        data-h2-gap="base(0 x.5)"
-        data-h2-margin="base(x.25, 0, x1, 0)"
+        className="mb-6 mt-1.5 flex items-center gap-y-3"
         data-h2-color="base(black.light)"
       >
         <span>{typeMessage}</span>
@@ -206,7 +195,7 @@ const ExperienceCard = ({
               type="button"
               mode="inline"
               color="black"
-              data-h2-transform="base:children[.ExperienceCard__Chevron](rotate(0deg)) base:selectors[[data-state='open']]:children[.ExperienceCard__Chevron](rotate(90deg))"
+              className="group"
               aria-label={
                 isOpen
                   ? intl
@@ -233,16 +222,8 @@ const ExperienceCard = ({
                       .toString()
               }
             >
-              <span
-                className="flex"
-                data-h2-align-items="base(center)"
-                data-h2-gap="base(0 x.25)"
-              >
-                <ChevronRightIcon
-                  data-h2-height="base(x1.25)"
-                  data-h2-width="base(x1.25)"
-                  className="ExperienceCard__Chevron"
-                />
+              <span className="flex items-center gap-x-3">
+                <ChevronRightIcon className="h-8 w-8 rotate-0 group-data-[state=open]:rotate-90" />
                 <span>
                   {isOpen
                     ? intl.formatMessage({
@@ -261,7 +242,7 @@ const ExperienceCard = ({
               </span>
             </Button>
           </Collapsible.Trigger>
-          <Collapsible.Content data-h2-padding-left="base(x1.5)">
+          <Collapsible.Content className="pl-10">
             <Separator space="sm" />
             {isAwardExperience(experience) && (
               <AwardContent
@@ -316,14 +297,11 @@ const ExperienceCard = ({
                       "Lead in text for list of skills linked to a specific experience",
                   })}
                 </ContentSection>
-                <div data-h2-margin-top="base(x1)">
+                <div className="mt-6">
                   {skills && skillCount ? (
-                    <ul
-                      data-h2-list-style-position="base(outside)"
-                      data-h2-padding-left="base(x.75)"
-                    >
+                    <ul className="list-outside list-disc pl-4.5">
                       {skills.map((skill) => (
-                        <li key={skill.id} data-h2-margin-bottom="base(x.25)">
+                        <li key={skill.id} className="mb-1.5">
                           <span className="block font-bold">
                             {getLocalizedName(skill.name, intl)}
                           </span>
@@ -335,8 +313,8 @@ const ExperienceCard = ({
                       ))}
                     </ul>
                   ) : (
-                    <Well data-h2-margin-top>
-                      <p data-h2-text-align="base(center)">
+                    <Well>
+                      <p className="text-center">
                         {intl.formatMessage({
                           defaultMessage:
                             "No skills have been linked to this experience.",

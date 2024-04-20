@@ -42,7 +42,7 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
                 "Button to open modal to add a new experience to the profile",
             })}
           </Heading>
-          <p data-h2-margin="base(x1, 0)">
+          <p className="my-6">
             {intl.formatMessage({
               defaultMessage:
                 "This form allows you to edit a specific experience, its details, and linked skills. Don’t forget, work experiences should focus on describing your part-time, full-time, self-employment, fellowship, non-profit, or internship experiences.",
@@ -64,7 +64,7 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
           >
             {intl.formatMessage(experienceMessages.addNewExperience)}
           </Heading>
-          <p data-h2-margin="base(x1, 0)">
+          <p className="my-6">
             {intl.formatMessage({
               defaultMessage:
                 "This form allows you to add a new experience to your career timeline. Get started by selecting the type of experience you’d like to add. If you need more information about what a certain type can include, expand the information below to see examples.",

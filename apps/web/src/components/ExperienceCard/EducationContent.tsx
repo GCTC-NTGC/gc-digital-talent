@@ -17,11 +17,7 @@ const EducationContent = ({
   const experienceFormLabels = getExperienceFormLabels(intl);
 
   return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-gap="base(x1)"
-      data-h2-grid-template-columns="l-tablet(repeat(2, 1fr))"
-    >
+    <div className="grid grid-cols-2 gap-6">
       <ContentSection
         title={experienceFormLabels.areaOfStudy}
         headingLevel={headingLevel}

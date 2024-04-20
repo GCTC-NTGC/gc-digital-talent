@@ -179,7 +179,7 @@ const ExperienceSkillForm = ({
             description: "Instructions on how to describe a skill",
           })}
         </p>
-        <div data-h2-margin="base(x.5, 0)">
+        <div className="my-3">
           <Accordion.Root type="single" size="sm" collapsible>
             <Accordion.Item value="skillQuestions">
               <Accordion.Trigger as="h3">
@@ -191,7 +191,7 @@ const ExperienceSkillForm = ({
                 })}
               </Accordion.Trigger>
               <Accordion.Content>
-                <ul data-h2-padding="base(0, 0, 0, x1)">
+                <ul className="list-disc pl-6">
                   <li>
                     {intl.formatMessage({
                       defaultMessage:
@@ -231,7 +231,7 @@ const ExperienceSkillForm = ({
         </div>
         {!selectedExperienceId ? (
           <Well>
-            <p data-h2-text-align="base(center)">
+            <p className="text-center">
               {intl.formatMessage({
                 defaultMessage: "Please select an experience to continue.",
                 id: "CYkH6C",
@@ -256,13 +256,7 @@ const ExperienceSkillForm = ({
           />
         )}
         <Dialog.Footer>
-          <div
-            data-h2-width="base(100%)"
-            className="flex"
-            data-h2-flex-wrap="base(wrap)"
-            data-h2-flex-direction="base(row)"
-            data-h2-gap="base(x1)"
-          >
+          <div className="flex w-full flex-row flex-wrap gap-6">
             <Button
               type="submit"
               mode="solid"

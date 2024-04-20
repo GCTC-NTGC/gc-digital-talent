@@ -42,7 +42,7 @@ const AdditionalDetails = ({ experienceType }: AdditionalDetailsProps) => {
       <div>
         {derivedType ? (
           <>
-            <p data-h2-margin="base(0, 0, x1, 0)">
+            <p className="mb-6">
               {intl.formatMessage({
                 defaultMessage:
                   "Optionally describe <strong>key tasks</strong>, <strong>responsibilities</strong>, or <strong>other information</strong> you feel were crucial in making this experience important.",

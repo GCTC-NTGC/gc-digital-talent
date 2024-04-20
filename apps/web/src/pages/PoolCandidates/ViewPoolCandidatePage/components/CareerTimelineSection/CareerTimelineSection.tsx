@@ -50,12 +50,7 @@ const CareerTimelineSection = ({ experiences }: CareerTimelineSectionProps) => {
         data-h2-justify-content="base(space-between)"
         data-h2-margin-bottom="base(x.5)"
       >
-        <div
-          className="flex"
-          data-h2-flex-direction="base(row)"
-          data-h2-gap="base(x.5)"
-          data-h2-justify-content="base(space-between)"
-        >
+        <div className="justift-between flex flex-row gap-3">
           <ExperienceSortAndFilter
             initialFormValues={sortAndFilterValues}
             onChange={(formValues) => setSortAndFilterValues(formValues)}

@@ -38,27 +38,25 @@ const ExperienceDetails = ({ experienceType }: ExperienceDetailsProps) => {
           description: "Heading for the details section of the experience form",
         })}
       </Heading>
-      <div>
-        {derivedType ? (
-          <>
-            <p data-h2-margin="base(0, 0, x1, 0)">
-              {intl.formatMessage({
-                defaultMessage:
-                  "Provide a few standardized details about your experience to help managers better understand how it’s played a role in your career journey.",
-                id: "czThVC",
-                description: "Help text for the experience details section",
-              })}
-            </p>
-            {derivedType === "award" && <AwardFields labels={labels} />}
-            {derivedType === "community" && <CommunityFields labels={labels} />}
-            {derivedType === "education" && <EducationFields labels={labels} />}
-            {derivedType === "personal" && <PersonalFields labels={labels} />}
-            {derivedType === "work" && <WorkFields labels={labels} />}
-          </>
-        ) : (
-          <NullExperienceType />
-        )}
-      </div>
+      {derivedType ? (
+        <>
+          <p className="mb-6">
+            {intl.formatMessage({
+              defaultMessage:
+                "Provide a few standardized details about your experience to help managers better understand how it’s played a role in your career journey.",
+              id: "czThVC",
+              description: "Help text for the experience details section",
+            })}
+          </p>
+          {derivedType === "award" && <AwardFields labels={labels} />}
+          {derivedType === "community" && <CommunityFields labels={labels} />}
+          {derivedType === "education" && <EducationFields labels={labels} />}
+          {derivedType === "personal" && <PersonalFields labels={labels} />}
+          {derivedType === "work" && <WorkFields labels={labels} />}
+        </>
+      ) : (
+        <NullExperienceType />
+      )}
     </>
   );
 };

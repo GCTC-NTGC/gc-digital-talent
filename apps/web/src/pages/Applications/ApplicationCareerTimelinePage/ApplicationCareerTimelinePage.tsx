@@ -320,10 +320,7 @@ export const ApplicationCareerTimeline = ({
         </>
       )}
 
-      <div
-        data-h2-flex-grid="base(center, x1, x1)"
-        data-h2-margin-bottom="base(x.5)"
-      >
+      <div className="mb-3 flex flex-wrap gap-6">
         <ExperienceSortAndFilter
           initialFormValues={sortAndFilterValues}
           onChange={(formValues) => setSortAndFilterValues(formValues)}
