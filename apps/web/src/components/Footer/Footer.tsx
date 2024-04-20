@@ -73,25 +73,13 @@ const Footer = ({ width }: FooterProps) => {
     <footer
       data-h2-background-color="base(foreground) base:dark(white)"
       data-h2-border-top="base(1px solid black.20)"
-      data-h2-padding="base(x2, 0)"
-      data-h2-margin="base(auto, 0, 0, 0)"
+      className="mt-auto py-12 text-center"
     >
       <div {...footerWidth}>
-        <div
-          data-h2-display="base(grid)"
-          data-h2-grid-template-columns="base(1fr) p-tablet(1fr 1fr) laptop(repeat(3, minmax(0, 1fr)))"
-          data-h2-gap="base(x1) p-tablet(x2)"
-          data-h2-align-items="base(center)"
-        >
-          <div
-            data-h2-text-align="base(center) p-tablet(left)"
-            data-h2-grid-column="laptop(1 / 3)"
-          >
+        <div className="grid items-center gap-6 sm:grid-cols-2 sm:gap-12 md:grid-cols-3">
+          <div className="sm:col-span-2 sm:text-left">
             <nav
-              className="flex"
-              data-h2-gap="base(x1)"
-              data-h2-flex-direction="base(column) p-tablet(row)"
-              data-h2-flex-wrap="p-tablet(wrap)"
+              className="flex flex-col gap-6 sm:flex-row sm:flex-wrap"
               aria-label={intl.formatMessage({
                 defaultMessage: "Policy and feedback",
                 id: "xdojyj",
@@ -103,7 +91,7 @@ const Footer = ({ width }: FooterProps) => {
                 <Link key={props.href} color="black" {...props} />
               ))}
             </nav>
-            <div data-h2-margin="base(x2, 0, x1, 0) p-tablet(x1, 0, 0, 0)">
+            <div className="mb-6 mt-12 sm:mb-0 sm:mt-6">
               <p
                 data-h2-color="base(black.70)"
                 data-h2-font-size="base(caption)"
@@ -129,21 +117,21 @@ const Footer = ({ width }: FooterProps) => {
               </p>
             </div>
           </div>
-          <div data-h2-text-align="base(center) p-tablet(right)">
+          <div className="sm:text-right">
             <a
               href={`https://www.canada.ca/${intl.locale}.html`}
               target="_blank"
               rel="noopener noreferrer"
             >
               <CanadaLogo
+                className="max-w-64"
                 data-h2-display="base(inline-block) base:dark(none)"
-                data-h2-max-width="base(x10)"
               />
               <CanadaLogoWhite
+                className="max-w-64"
                 data-h2-display="base(none) base:dark(inline-block)"
-                data-h2-max-width="base(x10)"
               />
-              <span data-h2-visually-hidden="base(invisible)">
+              <span className="sr-only">
                 {intl.formatMessage({
                   defaultMessage: "Canada.ca",
                   id: "m1eQrS",

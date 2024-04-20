@@ -43,14 +43,16 @@ const CareerTimelineSection = ({ experiences }: CareerTimelineSectionProps) => {
         {intl.formatMessage(navigationMessages.careerTimelineAndRecruitment)}
       </Heading>
       <div
-        className="flex"
+        // After
+        className="mb-3 flex flex-row items-end justify-between gap-3"
+        // Before
         data-h2-flex-direction="base(row)"
         data-h2-gap="base(x.5)"
         data-h2-align-items="base(flex-end)"
         data-h2-justify-content="base(space-between)"
         data-h2-margin-bottom="base(x.5)"
       >
-        <div className="justift-between flex flex-row gap-3">
+        <div className="flex flex-row justify-between gap-3">
           <ExperienceSortAndFilter
             initialFormValues={sortAndFilterValues}
             onChange={(formValues) => setSortAndFilterValues(formValues)}

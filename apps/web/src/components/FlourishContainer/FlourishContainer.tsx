@@ -1,6 +1,7 @@
 import React from "react";
 
 import { useTheme } from "@gc-digital-talent/theme";
+import { cn } from "@gc-digital-talent/ui";
 
 import desktopGraphicsLight2 from "~/assets/img/Desktop_Graphics_light_2.webp";
 import desktopGraphicsLight3 from "~/assets/img/Desktop_Graphics_light_3.webp";
@@ -25,51 +26,29 @@ const FlourishContainer = ({
 }: FlourishContainerProps) => {
   const { mode } = useTheme();
   return (
-    <div data-h2-layer="base(3, relative)">
+    <div className="relative z-30">
       <div
         data-h2-background="base(background)"
-        data-h2-height="base(100%)"
-        data-h2-width="base(100%)"
-        data-h2-position="base(absolute)"
-        {...(skew && {
-          "data-h2-transform": "base(skewY(-3deg))",
+        className={cn("absolute h-full w-full overflow-hidden", {
+          "-skew-y-3": skew,
         })}
-        data-h2-overflow="base(hidden)"
       >
         {show.includes("top") && (
           <img
-            data-h2-position="base(absolute)"
-            data-h2-location="base(0, 0, auto, auto)"
-            data-h2-transform="base(skew(3deg))"
-            data-h2-max-width="base(initial)"
-            {...(size === "lg"
-              ? {
-                  "data-h2-height": "base(auto) p-tablet(50%)",
-                  "data-h2-width": "base(150%) p-tablet(auto)",
-                }
-              : {
-                  "data-h2-height": "base(auto) p-tablet(20%)",
-                  "data-h2-width": "base(60%) p-tablet(auto)",
-                })}
+            className={cn("absolute bottom-auto right-auto skew-x-3 skew-y-3", {
+              "h-auto w-[150%] sm:h-[20%] sm:w-auto": size === "lg",
+              "h-auto w-[60%] sm:h-1/2 sm:w-auto": size !== "sm",
+            })}
             src={mode === "dark" ? desktopGraphicsDark2 : desktopGraphicsLight2}
             alt=""
           />
         )}
         {show.includes("bottom") && (
           <img
-            data-h2-position="base(absolute)"
-            data-h2-location="base(auto, auto, 0, 0)"
-            data-h2-transform="base(skew(3deg))"
-            data-h2-max-width="base(initial)"
-            {...(size === "lg"
-              ? {
-                  "data-h2-height": "base(auto) desktop(90%)",
-                  "data-h2-width": "base(150%) p-tablet(100%) desktop(auto)",
-                }
-              : {
-                  "data-h2-height": "base(auto) desktop(30%)",
-                  "data-h2-width": "base(45%) p-tablet(32%) desktop(auto)",
-                })}
+            className={cn("absolute left-auto top-auto skew-x-3 skew-y-3", {
+              "h-auto w-[150%] sm:w-full md:w-auto lg:h-[90%]": size === "lg",
+              "h-auto w-[45%] sm:w-[32%] lg:h-[30%] lg:w-auto": size !== "sm",
+            })}
             src={mode === "dark" ? desktopGraphicsDark3 : desktopGraphicsLight3}
             alt=""
           />

@@ -21,17 +21,13 @@ interface FeatureBlockProps {
 const FeatureBlock = ({ content }: FeatureBlockProps) => {
   return (
     <div
-      className="flex"
-      data-h2-flex-direction="base(column)"
+      className="flex flex-col overflow-hidden rounded shadow-lg"
       data-h2-background-color="base(foreground)"
-      data-h2-radius="base(rounded)"
-      data-h2-overflow="base(hidden)"
-      data-h2-shadow="base(large)"
     >
       <div
         data-h2-color="base:all(white)"
         data-h2-background-color="base:all(black.darker)"
-        data-h2-padding="base(x1)"
+        className="p-6"
       >
         <Heading
           level="h3"
@@ -43,17 +39,14 @@ const FeatureBlock = ({ content }: FeatureBlockProps) => {
         </Heading>
       </div>
       <div
-        data-h2-height="base(x10) desktop(x12)"
+        className="h-60 bg-cover lg:h-80"
         style={{
           backgroundImage: `url('${content.img.path}')`,
           backgroundPosition: content.img.position || "center",
-          backgroundSize: "cover",
         }}
       />
-      <div data-h2-flex-grow="base(1)" data-h2-padding="base(x1)">
-        {content.summary}
-      </div>
-      <div data-h2-padding="base(0, x1, x1, x1)">
+      <div className="flex-grow p-6">{content.summary}</div>
+      <div className="p-6 pt-0">
         <Link
           color="black"
           mode="inline"
