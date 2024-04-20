@@ -5,7 +5,7 @@ import { useSearchParams } from "react-router-dom";
 
 import { Scalars, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { Link, Loading, Well } from "@gc-digital-talent/ui";
+import { Link, Loading, Well, cn } from "@gc-digital-talent/ui";
 
 import NotificationItem from "./NotificationItem";
 import NotificationPortal, {
@@ -98,12 +98,8 @@ const NotificationListPage = ({
       {fetching && exclude.length === 0 && <Loading inline />}
       {showNullMessage && (
         <NotificationPortal.Portal containerId={NULL_MESSAGE_ROOT_ID}>
-          <Well
-            {...(inDialog && {
-              "data-h2-margin": "base(0 x1)",
-            })}
-          >
-            <p className="font-bold" data-h2-margin-bottom="base(x1)">
+          <Well className={cn({ "mx-6": inDialog })}>
+            <p className="mb-6 font-bold">
               {intl.formatMessage({
                 defaultMessage: "There aren't any notifications here.",
                 id: "8JYRed",
@@ -124,7 +120,7 @@ const NotificationListPage = ({
       )}
       {isLastPage && data?.notifications.paginatorInfo.hasMorePages && (
         <NotificationPortal.Portal containerId={LOAD_MORE_ROOT_ID}>
-          <p data-h2-margin-top="base(x1)">
+          <p className="mt-6">
             <Link
               mode="solid"
               color="secondary"

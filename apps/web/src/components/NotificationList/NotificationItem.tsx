@@ -11,6 +11,7 @@ import {
   DialogPrimitive,
   DropdownMenu,
   Separator,
+  cn,
 } from "@gc-digital-talent/ui";
 import {
   DATE_FORMAT_STRING,
@@ -119,31 +120,25 @@ const NotificationItem = ({
   return (
     <li>
       <CardBasic
-        className="flex"
+        className={cn("flex", {
+          "!rounded-none p-3": inDialog,
+          "outline outline-4": !inDialog,
+        })}
         {...(inDialog
           ? {
-              "data-h2-padding": "base(x.5)",
               "data-h2-shadow":
                 "base:selectors[:has(a:focus-visible)](inset x.25 0 0 0 rgb(var(--h2-color-focus)))",
-              "data-h2-radius": "base(0)",
             }
           : {
-              "data-h2-outline-width": "base(3px)",
-              "data-h2-outline-style": "base(solid)",
               "data-h2-outline-color":
                 "base(transparent) base:selectors[:has(a:focus-visible)](focus)",
             })}
       >
-        <div
-          data-h2-padding="base(0 x.5)"
-          data-h2-align-self="base(flex-end)"
-          data-h2-font-size="base(copy)"
-        >
+        <div className="mb-1 self-end px-3">
           {isUnread && (
             <svg
               data-h2-color="base(tertiary)"
-              data-h2-height="base(x.25)"
-              data-h2-width="base(x.25)"
+              className="h-1.5 w-1.5"
               viewBox="0 0 8 8"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -152,22 +147,15 @@ const NotificationItem = ({
             </svg>
           )}
         </div>
-        <div
-          className="flex"
-          data-h2-flex-direction="base(column-reverse)"
-          data-h2-gap="base(x.5 0)"
-          data-h2-flex-grow="base(1)"
-        >
+        <div className="flex flex-grow flex-col-reverse gap-y-3">
           <LinkWrapper inDialog={inDialog}>
             <BaseLink
               to={info.href}
               onClick={handleLinkClicked}
-              data-h2-text-decoration="base(none)"
-              data-h2-color="base:hover(secondary.darker)"
-              data-h2-outline="base(none)"
-              {...(isUnread && {
-                "data-h2-font-weight": "base(700)",
+              className={cn("no-underline outline-none", {
+                "font-bold": isUnread,
               })}
+              data-h2-color="base:hover(secondary.darker)"
             >
               {info.message}
             </BaseLink>
@@ -180,7 +168,7 @@ const NotificationItem = ({
             {createdAt}
           </p>
         </div>
-        <div data-h2-align-self="base(center)">
+        <div className="self-center">
           <DropdownMenu.Root>
             <DropdownMenu.Trigger>
               <Button

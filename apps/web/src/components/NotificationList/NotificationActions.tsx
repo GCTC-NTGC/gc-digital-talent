@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
-import { Button, Link } from "@gc-digital-talent/ui";
+import { Button, Link, cn } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -32,14 +32,7 @@ const NotificationActions = ({
   };
 
   return (
-    <div
-      className="flex"
-      data-h2-gap="base(x1)"
-      data-h2-margin-bottom="base(x1)"
-      {...(inDialog && {
-        "data-h2-padding": "base(0 x1)",
-      })}
-    >
+    <div className={cn("mb-6 flex gap-6", { "px-6": inDialog })}>
       {!inDialog && (
         <>
           <Link

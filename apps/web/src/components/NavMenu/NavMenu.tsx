@@ -27,14 +27,11 @@ const NavMenu = ({ mainItems, utilityItems }: NavMenuProps) => {
     <div
       data-h2-background-color="base(foreground) base:dark(white)"
       data-h2-border-bottom="base(1px solid black.20)"
-      data-h2-padding="base(x1, 0)"
+      className="py-6"
     >
       <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
-        <div
-          className="flex"
-          data-h2-flex-direction="base(column) p-tablet(row)"
-        >
-          <div data-h2-flex-grow="base(1)">
+        <div className="flex flex-col sm:flex-row">
+          <div className="flex-grow">
             <nav
               aria-label={intl.formatMessage({
                 defaultMessage: "Main menu",
@@ -42,12 +39,7 @@ const NavMenu = ({ mainItems, utilityItems }: NavMenuProps) => {
                 description: "Label for the main navigation",
               })}
             >
-              <ul
-                data-h2-list-style="base(none)"
-                data-h2-flex-grid="base(flex-start, x1, 0)"
-                data-h2-justify-content="base(center) p-tablet(flex-start)"
-                data-h2-padding="base(0, 0, 0, 0)"
-              >
+              <ul className="flex justify-center gap-6 sm:justify-start">
                 {mainItems.map((item) => (
                   <ListItem key={item.key}>{item}</ListItem>
                 ))}
@@ -57,7 +49,7 @@ const NavMenu = ({ mainItems, utilityItems }: NavMenuProps) => {
           {utilityItems && utilityItems.length > 0 ? (
             <>
               <div data-h2-flex-grow="base(2)" data-h2-min-width="base(x3)" />
-              <div data-h2-flex-grow="base(1)">
+              <div className="flex-grow">
                 <nav
                   aria-label={intl.formatMessage({
                     defaultMessage: "Account menu",
@@ -65,12 +57,7 @@ const NavMenu = ({ mainItems, utilityItems }: NavMenuProps) => {
                     description: "Label for the user account navigation menu",
                   })}
                 >
-                  <ul
-                    data-h2-list-style="base(none)"
-                    data-h2-flex-grid="base(flex-start, x1, 0)"
-                    data-h2-justify-content="base(center) p-tablet(flex-end)"
-                    data-h2-padding="base(0, 0, 0, 0)"
-                  >
+                  <ul className="flex justify-center gap-6 sm:justify-end">
                     {utilityItems.map((item) => (
                       <ListItem key={item.key}>{item}</ListItem>
                     ))}

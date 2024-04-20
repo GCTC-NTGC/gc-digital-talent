@@ -62,9 +62,9 @@ const RemoveDialog = React.forwardRef<
         </AlertDialog.Title>
         <AlertDialog.Description>
           <p
+            className="mb-3"
             data-h2-font-size="base(caption)"
             data-h2-color="base(black.light)"
-            data-h2-margin-bottom="base(x.5)"
           >
             {date}
           </p>

@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
+import { cn } from "@gc-digital-talent/ui";
 
 import usePollingQuery from "~/hooks/usePollingQuery";
 
@@ -73,16 +74,7 @@ const NotificationList = ({
         onlyUnread={onlyUnread}
         inDialog={inDialog}
       />
-      <ul
-        data-h2-list-style="base(none)"
-        data-h2-padding="base(0)"
-        className="flex"
-        data-h2-flex-direction="base(column)"
-        data-h2-margin="base(x1 0)"
-        {...(!inDialog && {
-          "data-h2-gap": "base(x.25 0)",
-        })}
-      >
+      <ul className={cn("my-6 flex flex-col p-0", { "gap-y-1.5": !inDialog })}>
         {liveNotifications.length > 0 ? (
           <>
             {liveNotifications.map((notification) => (

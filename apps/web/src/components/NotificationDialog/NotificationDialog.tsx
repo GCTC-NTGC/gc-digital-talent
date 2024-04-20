@@ -37,12 +37,7 @@ const NotificationCount_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const ellipsis = () => (
-  <EllipsisVerticalIcon
-    data-h2-width="base(x.75)"
-    data-h2-vertical-align="base(middle)"
-  />
-);
+const ellipsis = () => <EllipsisVerticalIcon className="w-4.5 align-middle" />;
 
 const NotificationDialog = () => {
   const intl = useIntl();
@@ -61,8 +56,8 @@ const NotificationDialog = () => {
         <Button
           mode="icon_only"
           color="black"
+          className="relative"
           icon={notificationCount > 0 ? UnreadAlertBellIcon : BellAlertIconSm}
-          data-h2-position="base(relative)"
           aria-label={intl.formatMessage({
             defaultMessage: "View notifications",
             id: "ztx8xL",
@@ -80,9 +75,7 @@ const NotificationDialog = () => {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
               data-h2-background-color="base:all(black)"
-              data-h2-position="base(fixed)"
-              data-h2-location="base(0)"
-              data-h2-z-index="base(8)"
+              className="fixed inset-0 z-[80]"
             />
             <DialogPrimitive.Content forceMount asChild>
               <m.div
@@ -93,26 +86,10 @@ const NotificationDialog = () => {
                 data-h2-background-color="base(foreground)"
                 data-h2-color="base(black)"
                 data-h2-font-family="base(sans)"
-                data-h2-max-width="base(95vw)"
-                data-h2-width="base(x18)"
-                data-h2-overflow-y="base(auto)"
-                data-h2-position="base(fixed)"
-                data-h2-top="base(0)"
-                data-h2-right="base(0)"
-                data-h2-bottom="base(0)"
-                data-h2-margin="base(x.5 x.5 x.5 auto)"
-                data-h2-radius="base(s)"
-                data-h2-shadow="base(0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .5))"
-                data-h2-z-index="base(9)"
+                className="fixed inset-0 left-auto z-[90] my-3 mr-3 w-[27rem] max-w-[95vw] overflow-y-auto rounded shadow-lg"
               >
-                <div data-h2-padding="base(x1)">
-                  <div
-                    className="flex"
-                    data-h2-align-items="base(center)"
-                    data-h2-justify-content="base(space-between)"
-                    data-h2-gap="base(x.25 0)"
-                    data-h2-margin-bottom="base(x.5)"
-                  >
+                <div className="p-6">
+                  <div className="mb-3 flex items-center justify-between gap-y-1.5">
                     <Heading
                       level="h2"
                       size="h5"
@@ -123,7 +100,7 @@ const NotificationDialog = () => {
                     >
                       {intl.formatMessage(notificationMessages.title)}
                     </Heading>
-                    <div className="flex" data-h2-gap="base(x.25 0)">
+                    <div className="flex gap-y-1.5">
                       <Dialog.Close asChild>
                         <Button
                           mode="icon_only"
@@ -160,7 +137,7 @@ const NotificationDialog = () => {
                   limit={30}
                   onRead={executeQuery}
                 />
-                <p data-h2-margin="base(x.5 x1)">
+                <p className="mx-6 my-3">
                   <DialogPrimitive.Close asChild>
                     <Link
                       href={paths.notifications()}

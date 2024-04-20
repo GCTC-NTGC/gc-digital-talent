@@ -37,16 +37,13 @@ const MissingLanguageRequirementsBlock = ({
   icon,
   missingLanguageRequirements,
   headingLevel = "h2",
-  ...rest
 }: MissingLanguageRequirementsBlockProps) => {
   return (
     <div
-      className="flex"
-      data-h2-padding="base(x1)"
-      data-h2-radius="base(rounded)"
-      {...rest}
+      data-h2-background-color="base(foreground)"
+      className="mb-3 flex rounded p-6 shadow-md"
     >
-      <span data-h2-margin="base(x.15, x1, 0, 0)">{icon}</span>
+      <span className="mr-6 mt-1">{icon}</span>
       <div>
         <Heading
           level={headingLevel}
@@ -57,9 +54,7 @@ const MissingLanguageRequirementsBlock = ({
         </Heading>
         {missingLanguageRequirements.length ? (
           <>
-            <p data-h2-margin="base(x.5, 0, x.25, 0)">
-              {languageRequirementsBlurb}
-            </p>
+            <p className="mb-1.5 mt-3">{languageRequirementsBlurb}</p>
             <Chips>
               {missingLanguageRequirements.map((requirementName: string) => (
                 <Chip key={requirementName} color={chipType.color}>
@@ -94,9 +89,6 @@ const MissingLanguageRequirements = ({
 
   return missingLanguageRequirements.length ? (
     <MissingLanguageRequirementsBlock
-      data-h2-background-color="base(foreground)"
-      data-h2-shadow="base(medium)"
-      data-h2-margin="base(0, 0, x.5, 0)"
       chipType={{ color: "error" }}
       headingLevel={headingLevel}
       title={intl.formatMessage({
