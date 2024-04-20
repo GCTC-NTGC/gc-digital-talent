@@ -43,44 +43,27 @@ const HeroCard = ({ color, title, href, children, asNav }: HeroCardProps) => {
   return (
     <Wrapper
       data-h2-background-color="base(foreground)"
-      data-h2-radius="base(s)"
-      data-h2-shadow="base(m)"
-      data-h2-flex-grow="base(1)"
+      className="flex-grow rounded shadow-md"
       aria-label={title}
     >
       <div
-        className="block font-bold"
+        className="block rounded-t p-6 font-bold"
         data-h2-font-size="base(h6, 1)"
-        data-h2-padding="base(x1)"
-        data-h2-radius="base(s, s, 0px, 0px)"
         {...{ ...colorMap[color] }}
       >
         {/* The styles on the regular Link component don't allow for text with a right-aligned SVG */}
         <RouterLink
           to={href}
-          data-h2-transform="base:hover:children[svg](translate(20%, 0))"
-          data-h2-transition="base:children[svg](transform .2s ease)"
+          className="group/link w-full underline"
           data-h2-color="base:all(black) base:all:hover(black)"
-          data-h2-text-decoration="base(underline)"
-          data-h2-width="base(100%)"
         >
-          <span
-            data-h2-align-items="base(center)"
-            className="flex"
-            data-h2-width="base(100%)"
-            data-h2-justify-content="base(space-between)"
-          >
+          <span className="flex w-full items-center justify-between">
             <span>{title}</span>
-            <ChevronDoubleRightIcon
-              data-h2-height="base(x1)"
-              data-h2-width="base(x1)"
-            />
+            <ChevronDoubleRightIcon className="h-6 w-6 transition-transform duration-200 ease-in-out group-hover/link:translate-x-[20%]" />
           </span>
         </RouterLink>
       </div>
-      <ul data-h2-padding="base(x1)" data-h2-list-style="base(none)">
-        {children}
-      </ul>
+      <ul className="p-6">{children}</ul>
     </Wrapper>
   );
 };

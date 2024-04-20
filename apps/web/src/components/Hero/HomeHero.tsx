@@ -18,37 +18,21 @@ const HomeHero = ({
   callToAction,
   children,
 }: HomeHeroProps) => (
-  <div
-    data-h2-background-color="base(#000)"
-    data-h2-position="base(relative)"
-    data-h2-padding-top="base(x3) p-tablet(x4) l-tablet(x6)"
-    data-h2-padding-bottom="p-tablet(calc(x4 + 3%)) l-tablet(calc(x6 + 3%))"
-    data-h2-overflow="base(hidden)"
-  >
+  <div className="relative overflow-hidden bg-black pb-[calc(6rem+3%)] pt-18 sm:pt-24 md:pb-[calc(10rem+3%)] md:pt-40">
     <div
-      data-h2-position="base(relative)"
+      className="relative z-10"
       data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
-      data-h2-layer="base(1, relative)"
     >
-      <div
-        data-h2-color="base:all(white)"
-        data-h2-text-align="base(center) p-tablet(left)"
-      >
+      <div data-h2-color="base:all(white)" className="text-center sm:text-left">
         {children}
       </div>
       {callToAction ? (
-        <div
-          className="flex"
-          data-h2-align-items="base(flex-start)"
-          data-h2-gap="base(x1)"
-          data-h2-justify-content="base(center) p-tablet(flex-start)"
-          data-h2-flex-wrap="base(wrap) p-tablet(initial)"
-        >
+        <div className="flex flex-wrap items-start justify-center gap-6 sm:justify-start">
           {callToAction}
         </div>
       ) : null}
     </div>
-    <div data-h2-padding-top="base(x3) p-tablet(0)">
+    <div className="pt-18 sm:pt-0">
       <picture>
         {sources.map(({ srcset, media }) => (
           <source key={`${srcset}${media}`} srcSet={srcset} media={media} />
@@ -56,13 +40,7 @@ const HomeHero = ({
         <img
           src={src}
           alt={alt}
-          data-h2-height="p-tablet(100%)"
-          data-h2-margin-bottom="base(-x2) p-tablet(0)"
-          data-h2-position="base(relative) p-tablet(absolute)"
-          data-h2-top="p-tablet(0)"
-          data-h2-left="p-tablet(auto) l-tablet(50%)"
-          data-h2-right="p-tablet(0px) l-tablet(auto)"
-          data-h2-width="base(100%) p-tablet(auto)"
+          className="relative right-0 top-0 -mb-12 w-full sm:absolute sm:mb-0 sm:h-full sm:w-auto md:left-1/2 md:right-auto"
         />
       </picture>
     </div>

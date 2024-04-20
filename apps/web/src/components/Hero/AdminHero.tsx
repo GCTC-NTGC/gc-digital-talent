@@ -30,16 +30,12 @@ const AdminHero = ({
 
   return (
     <div
+      className="mb-20"
       data-h2-background="base(linear-gradient(92deg, rgba(175, 103, 255, 0.10) 1.42%, rgba(0, 195, 183, 0.10) 98.58%))"
-      data-h2-margin-bottom="base(x3)"
     >
       <div data-h2-container="base(center, full, x1) base(center, full, x2)">
-        <div data-h2-color="base(black)" data-h2-padding="base(x2 0)">
-          <div
-            className="flex"
-            data-h2-justify-content="base(space-between)"
-            data-h2-align-items="base(baseline)"
-          >
+        <div data-h2-color="base(black)" className="py-12">
+          <div className="flex items-baseline justify-between">
             <div>
               <Heading
                 ref={headingRef}
@@ -52,10 +48,7 @@ const AdminHero = ({
                 {title}
               </Heading>
               {subtitle && (
-                <p
-                  data-h2-font-size="base(h5, 1.4)"
-                  data-h2-margin="base(x1, 0, 0, 0)"
-                >
+                <p className="mt-6" data-h2-font-size="base(h5, 1.4)">
                   {subtitle}
                 </p>
               )}

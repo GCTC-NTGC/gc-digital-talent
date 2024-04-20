@@ -35,16 +35,11 @@ const Header = ({ width }: HeaderProps) => {
     <header
       data-h2-background-color="base(foreground) base:dark(white)"
       data-h2-border-bottom="base(1px solid black.20)"
-      data-h2-padding="base(x1, 0) p-tablet(x.75, 0)"
+      className="py-6 sm:py-4.5"
     >
       <div {...headerWidth}>
-        <div
-          data-h2-display="base(grid)"
-          data-h2-grid-template-columns="base(1fr) p-tablet(1fr 1fr)"
-          data-h2-gap="base(x.5) p-tablet(x2)"
-          data-h2-align-items="base(center)"
-        >
-          <div data-h2-text-align="base(center) p-tablet(left)">
+        <div className="grid items-center gap-3 text-center sm:grid-cols-2 sm:gap-12">
+          <div className="sm:text-left">
             <a
               href={`https://www.canada.ca/${locale}.html`}
               target="_blank"
@@ -53,27 +48,27 @@ const Header = ({ width }: HeaderProps) => {
               {locale === "en" ? (
                 <>
                   <GocLogoEn
-                    data-h2-max-width="base(x12)"
+                    className="max-w-80"
                     data-h2-display="base(block) base:dark(none)"
                   />
                   <GocLogoWhiteEn
-                    data-h2-max-width="base(x12)"
+                    className="max-w-80"
                     data-h2-display="base(none) base:dark(block)"
                   />
                 </>
               ) : (
                 <>
                   <GocLogoFr
-                    data-h2-max-width="base(x12)"
+                    className="max-w-80"
                     data-h2-display="base(block) base:dark(none)"
                   />
                   <GocLogoWhiteFr
-                    data-h2-max-width="base(x12)"
+                    className="max-w-80"
                     data-h2-display="base(none) base:dark(block)"
                   />
                 </>
               )}
-              <span data-h2-visually-hidden="base(invisible)">
+              <span className="sr-only">
                 {intl.formatMessage({
                   defaultMessage: "Canada.ca",
                   id: "gpcHeU",
@@ -83,21 +78,14 @@ const Header = ({ width }: HeaderProps) => {
               </span>
             </a>
           </div>
-          <div
-            className="flex"
-            data-h2-flex-direction="base(column) p-tablet(row)"
-            data-h2-gap="base(x.5) p-tablet(x1)"
-            data-h2-align-items="base(center)"
-            data-h2-justify-content="base(center) p-tablet(flex-end)"
-            data-h2-text-align="base(center) p-tablet(left)"
-          >
+          <div className="flex flex-col items-center justify-center gap-3 text-center sm:flex-row sm:justify-end sm:gap-6 sm:text-left ">
             <div>
               <ThemeSwitcher />
             </div>
             <div>
               <a
+                className="outline-none"
                 data-h2-background-color="base:focus-visible(focus)"
-                data-h2-outline="base(none)"
                 data-h2-color="base:hover(secondary.darker) base:focus-visible(black)"
                 href={languageTogglePath}
                 lang={changeToLang === "en" ? "en" : "fr"}

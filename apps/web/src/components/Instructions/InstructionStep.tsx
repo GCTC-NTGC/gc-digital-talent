@@ -21,42 +21,21 @@ export const InstructionStep = ({
   const imgSrc = mode === "dark" && imageDark ? imageDark : image;
 
   return (
-    <li
-      className="flex"
-      data-h2-flex-direction="base(column)"
-      data-h2-flex-item="base(1of1) p-tablet(1of4)"
-    >
-      <div className="flex" data-h2-flex-direction="base(row)">
+    <li className="flex flex-col">
+      <div className="flex flex-row">
         <img src={imgSrc} alt="" />
         {includeArrow && (
           <ArrowRightCircleIcon
-            data-h2-display="base(none) p-tablet(block)"
-            data-h2-vertical-align="base(middle)"
+            className="hidden h-auto w-10 overflow-visible px-1.5 align-middle sm:block"
             data-h2-color="base:all(black.lighter)"
-            data-h2-height="base(auto)"
-            data-h2-width="base(x1.5)"
-            data-h2-overflow="base(visible)"
-            data-h2-padding="base(0, x0.25)"
           />
         )}
       </div>
-      <div
-        data-h2-flex-grow="base(1)"
-        data-h2-flex="base(1)"
-        data-h2-text-indent="base(-1em)"
-        data-h2-padding-left="base(1em)"
-        data-h2-margin="base(x.5, 0, 0, 0)"
-      >
-        {children}
-      </div>
+      <div className="mt-3 flex-1 flex-grow pl-4 -indent-4">{children}</div>
       {includeArrow && (
         <ArrowDownCircleIcon
-          data-h2-display="base(block) p-tablet(none)"
+          className="m-auto block h-auto w-10 py-3 sm:hidden"
           data-h2-color="base:all(black.lighter)"
-          data-h2-height="base(auto)"
-          data-h2-width="base(x1.5)"
-          data-h2-margin="base(auto)"
-          data-h2-padding="base(x0.5, 0)"
         />
       )}
     </li>
