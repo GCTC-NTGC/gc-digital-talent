@@ -12,27 +12,12 @@ const IconLabel = ({ label, icon, children }: IconLabelProps) => {
   const Icon = icon;
 
   return (
-    <p
-      data-h2-display="base(grid)"
-      data-h2-grid-template-columns="base(x1 1fr)"
-      data-h2-gap="base(0, x.25)"
-    >
-      <span
-        data-h2-display="base(inline-block)"
-        data-h2-height="base(x1)"
-        data-h2-width="base(x1)"
-        data-h2-vertical-align="base(middle)"
-      >
+    <p className="grid grid-cols-[1.75rem_1fr] gap-x-1.5">
+      <span className="inline-block h-6 w-6 align-middle">
         <Icon />
       </span>
       <span>
-        <span
-          className="font-bold"
-          data-h2-display="base(inline-block)"
-          data-h2-margin-right="base(x.15)"
-        >
-          {label}
-        </span>
+        <span className="mr-1 inline-block font-bold">{label}</span>
         {children && <span>{children}</span>}
       </span>
     </p>

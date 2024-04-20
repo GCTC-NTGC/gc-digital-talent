@@ -6,22 +6,15 @@ type DivProps = React.HTMLAttributes<HTMLDivElement>;
 
 const Root = (props: DivProps) => (
   <div
+    className="rounded p-6 shadow-xl"
     data-h2-background="base(foreground)"
-    data-h2-padding="base(x1)"
-    data-h2-radius="base(rounded)"
-    data-h2-shadow="base(larger)"
     {...props}
   />
 );
 
 const Header = (props: DivProps) => (
   <div
-    data-h2-align-items="base(flex-start)"
-    className="flex"
-    data-h2-flex-direction="base(column) l-tablet(row)"
-    data-h2-justify-content="base(space-between)"
-    data-h2-gap="base(x1 0) l-tablet(0 x1)"
-    data-h2-margin-bottom="base(x1)"
+    className="mb-6 flex flex-col items-start justify-between gap-y-6 md:flex-row md:gap-x-6 md:gap-y-0"
     {...props}
   />
 );
@@ -30,11 +23,7 @@ const Footer = (props: DivProps) => (
   <>
     <Separator space="sm" />
     <div
-      className="flex"
-      data-h2-flex-direction="base(column) p-tablet(row)"
-      data-h2-justify-content="base(flex-start)"
-      data-h2-gap="base(x.5 0) p-tablet(0 x1)"
-      data-h2-align-items="base(center)"
+      className="flex flex-col items-center justify-start gap-y-3 sm:flex-row sm:gap-x-6 sm:gap-y-0"
       {...props}
     />
   </>

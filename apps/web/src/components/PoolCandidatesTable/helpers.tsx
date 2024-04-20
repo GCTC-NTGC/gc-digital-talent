@@ -246,7 +246,7 @@ export const bookmarkCell = (candidate: PoolCandidate) => {
 
 export const bookmarkHeader = (intl: IntlShape) => (
   <BookmarkIcon
-    data-h2-width="base(x1)"
+    className="w-6"
     aria-label={intl.formatMessage(tableMessages.bookmark)}
   />
 );

@@ -4,7 +4,14 @@ import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 import CalendarIcon from "@heroicons/react/24/outline/CalendarIcon";
 
-import { Heading, HeadingRank, Link, Chip, Chips } from "@gc-digital-talent/ui";
+import {
+  Heading,
+  HeadingRank,
+  Link,
+  Chip,
+  Chips,
+  cn,
+} from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import {
   getLocale,
@@ -57,36 +64,24 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
   return (
     <div
       data-h2-background-color="base(foreground)"
-      data-h2-shadow="base(larger)"
-      data-h2-margin-top="base(x1)"
-      data-h2-padding="base(x1) p-tablet(x2, x2, x2, x6.5)"
-      data-h2-position="base(relative)"
-      data-h2-radius="base(rounded)"
+      className="relative mt-6 rounded p-6 shadow-xl sm:p-12 sm:pl-44"
     >
       <div
         data-h2-background-color="base(secondary)"
-        data-h2-position="base(absolute) base:selectors[::before](absolute) base:selectors[::after](absolute)"
-        data-h2-location="base(-x.25, auto, auto, x1) p-tablet(-x.25, auto, auto, x1.5) base:selectors[::before](auto, auto, 0px, 0px) base:selectors[::after](auto, 0px, 0px, auto)"
-        data-h2-radius="base(rounded, rounded, 0px, 0px)"
-        data-h2-height="base(x4.5) base:selectors[::before](0px) base:selectors[::after](0px)"
-        data-h2-width="base(x3.5) base:selectors[::before](0px) base:selectors[::after](0px)"
-        data-h2-content="base:selectors[::before](' ') base:selectors[::after](' ')"
-        data-h2-display="base:selectors[::before](block) base:selectors[::after](block)"
+        className={cn(
+          "absolute -top-1.5 left-6 h-28 w-24 rounded-t sm:left-10",
+          "before:absolute before:bottom-0 before:left-0 before:block before:h-0 before:w-0 before:translate-y-6",
+          "after:absolute after:bottom-0 after:right-0 after:block after:h-0 after:w-0 after:translate-y-6",
+        )}
         data-h2-border-top="base:selectors[::before](x3 solid transparent) base:selectors[::after](x3 solid transparent)"
         data-h2-border-bottom="base:selectors[::before](x1.5 solid transparent) base:selectors[::after](x1.5 solid transparent)"
         data-h2-border-left="base:selectors[::before](x3 solid secondary)"
         data-h2-border-right="base:selectors[::after](x3 solid secondary)"
-        data-h2-transform="base:selectors[::before](translate(0, 1.5rem)) base:selectors[::after](translate(0, 1.5rem))"
       >
         <span
           data-h2-color="base:all(black) base:iap(white)"
-          className="font-bold"
+          className="absolute bottom-9 left-1/2 z-10 -translate-x-1/2 font-bold *:whitespace-nowrap"
           data-h2-font-size="base(h5, 1)"
-          data-h2-layer="base(2)"
-          data-h2-position="base(absolute)"
-          data-h2-location="base(auto, auto, x1.25, 50%)"
-          data-h2-transform="base(translate(-50%, 0px))"
-          data-h2-white-space="base:children[*](nowrap)"
         >
           {classificationAbbr || (
             <abbr title={intl.formatMessage(commonMessages.notAvailable)}>
@@ -100,36 +95,21 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
         </span>
       </div>
       <div>
-        <div
-          data-h2-display="base(block) p-tablet(flex)"
-          data-h2-gap="base(x1.5)"
-        >
+        <div className="block gap-10 sm:flex">
           <Heading
             level={headingLevel}
             size="h5"
-            className="font-bold"
+            className="max-w-3/4 min-h-28 hyphens-auto pl-28 font-bold sm:min-h-0 sm:pl-0 "
             data-h2-margin="base(0, 0, x1, 0) p-tablet(0)"
-            data-h2-padding-left="base(x4.5) p-tablet(0)"
-            data-h2-hyphens="base(auto)"
-            data-h2-max-width="p-tablet(75%)"
-            data-h2-min-height="base(x4.5) p-tablet(auto)"
           >
             {getShortPoolTitleHtml(intl, pool)}
           </Heading>
           <div
             data-h2-background-color="base(secondary)"
-            data-h2-display="base(none) p-tablet(block)"
-            data-h2-height="base(x.25)"
-            data-h2-width="base(100%)"
-            data-h2-margin-top="base(x.5)"
-            data-h2-flex="base(1)"
+            className="mt-3 hidden h-1.5 w-full flex-1 sm:block"
           />
         </div>
-        <div
-          data-h2-display="base(block) l-tablet(flex)"
-          data-h2-gap="base(x2)"
-          data-h2-margin-top="base(x1) base:children[>p:last-child](x1) l-tablet:children[>p:last-child](0px)"
-        >
+        <div className="mt-6 flex flex-col flex-wrap gap-y-6 md:flex-row md:gap-12">
           <IconLabel
             icon={CalendarIcon}
             label={
@@ -176,8 +156,8 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
             {salaryRange ?? intl.formatMessage(commonMessages.notAvailable)}
           </IconLabel>
         </div>
-        <div data-h2-margin-top="base(x1)">
-          <div data-h2-margin-bottom="base(x.25)">
+        <div className="mt-6">
+          <div className="mb-1.5">
             <IconLabel
               icon={BoltIcon}
               label={intl.formatMessage({
@@ -206,8 +186,8 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
             </p>
           )}
         </div>
-        <div data-h2-margin-top="base(x1.5)">
-          {pool.id && (
+        {pool.id && (
+          <div className="mt-12">
             <Link color="secondary" mode="solid" href={paths.pool(pool.id)}>
               <span>
                 {intl.formatMessage(
@@ -222,8 +202,8 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
                 )}
               </span>
             </Link>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

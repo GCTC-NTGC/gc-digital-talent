@@ -117,15 +117,11 @@ const PoolCandidateFilterDialog = ({
       })}
       {...{ resetValues, onSubmit }}
     >
-      <div
-        data-h2-display="base(grid)"
-        data-h2-gap="base(x1)"
-        data-h2-grid-template-columns="p-tablet(repeat(2, 1fr)) p-tablet(repeat(3, 1fr))"
-      >
+      <div className="grid gap-6 md:grid-cols-3">
         {hidePoolFilter ? (
           <HiddenInput name="pools" />
         ) : (
-          <div data-h2-grid-column="l-tablet(span 3)">
+          <div className="col-span-3">
             <Combobox
               id="pools"
               name="pools"
@@ -239,11 +235,7 @@ const PoolCandidateFilterDialog = ({
             label: intl.formatMessage(getWorkRegion(value)),
           }))}
         />
-        <div
-          className="flex"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x1 0)"
-        >
+        <div className="flex flex-col gap-y-5">
           <RadioGroup
             idPrefix="expiryStatus"
             name="expiryStatus"
@@ -283,7 +275,7 @@ const PoolCandidateFilterDialog = ({
             description: "Label for the government employee field",
           })}
         />
-        <div data-h2-grid-column="l-tablet(span 2)">
+        <div className="col-span-2">
           <Select
             id="languageAbility"
             name="languageAbility"
@@ -300,7 +292,7 @@ const PoolCandidateFilterDialog = ({
             }))}
           />
         </div>
-        <div data-h2-grid-column="l-tablet(span 3)">
+        <div className="col-span-3">
           <Combobox
             id="skills"
             name="skills"

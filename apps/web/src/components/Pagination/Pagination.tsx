@@ -7,7 +7,7 @@ import ChevronRightIcon from "@heroicons/react/24/solid/ChevronRightIcon";
 import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 
-import { Button, Color, DropdownMenu } from "@gc-digital-talent/ui";
+import { Button, Color, DropdownMenu, cn } from "@gc-digital-talent/ui";
 
 import { DOTS, usePagination } from "./usePagination";
 import PageButton from "./PageButton";
@@ -90,11 +90,7 @@ const Pagination = ({
   const currentPageStartIndex = (currentPage - 1) * pageSize + 1;
   const currentPageSize = currentPage * pageSize;
 
-  const iconStyles = {
-    "data-h2-width": "base(1rem)",
-    "data-h2-height": "base(1rem)",
-    "data-h2-vertical-align": "base(middle)",
-  };
+  const iconStyles = "w-4 h-4 align-middle";
 
   const fontColor =
     color === "white"
@@ -107,26 +103,18 @@ const Pagination = ({
 
   return (
     <div
-      className="flex"
-      data-h2-flex-direction="base(column) l-tablet(row)"
-      data-h2-align-items="base(center)"
-      data-h2-justify-content="base(space-between)"
-      data-h2-gap="base(x1 0) l-tablet(0 x.5)"
+      className={cn(
+        "flex flex-col items-center justify-between gap-y-6 md:flex-row md:gap-x-3 md:gap-y-0",
+        {
+          "justify-start": spacing === "start",
+          "justify-end": spacing === "end",
+        },
+      )}
       data-h2-font-size="base(caption)"
-      {...(spacing === "start" && {
-        "data-h2-justify-content": "base(flex-start)",
-      })}
-      {...(spacing === "end" && {
-        "data-h2-justify-content": "base(flex-end)",
-      })}
       {...fontColor}
       {...rest}
     >
-      <div
-        className="flex"
-        data-h2-align-items="base(center)"
-        data-h2-gap="base(0, x.5)"
-      >
+      <div className="flex items-center gap-x-4">
         <span>
           {intl.formatMessage(
             {
@@ -188,14 +176,8 @@ const Pagination = ({
         )}
       </div>
       <nav role="navigation" aria-label={ariaLabel}>
-        <ul
-          className="flex"
-          data-h2-align-items="base(center)"
-          data-h2-gap="base(0 x.5)"
-          data-h2-list-style="base(none)"
-          data-h2-padding="base(0)"
-        >
-          <li>
+        <ul className="flex items-center gap-x-3 p-0">
+          <li className="flex items-center">
             <PageButton
               color={color}
               disabled={isLeftArrowDisabled || lessThanTwoItems}
@@ -206,10 +188,10 @@ const Pagination = ({
               })}
               onClick={() => onCurrentPageChange(1)}
             >
-              <ChevronDoubleLeftIcon {...iconStyles} />
+              <ChevronDoubleLeftIcon className={iconStyles} />
             </PageButton>
           </li>
-          <li>
+          <li className="flex items-center">
             <PageButton
               disabled={isLeftArrowDisabled || lessThanTwoItems}
               onClick={previousPage}
@@ -221,7 +203,7 @@ const Pagination = ({
                   "Aria label for previous page button in pagination nav",
               })}
             >
-              <ChevronLeftIcon {...iconStyles} />
+              <ChevronLeftIcon className={iconStyles} />
             </PageButton>
           </li>
 
@@ -261,7 +243,7 @@ const Pagination = ({
             );
           })}
 
-          <li>
+          <li className="flex items-center">
             <PageButton
               disabled={isRightArrowDisabled || lessThanTwoItems}
               onClick={nextPage}
@@ -273,10 +255,10 @@ const Pagination = ({
                   "Aria label for next page button in pagination nav",
               })}
             >
-              <ChevronRightIcon {...iconStyles} />
+              <ChevronRightIcon className={iconStyles} />
             </PageButton>
           </li>
-          <li>
+          <li className="flex items-center">
             <PageButton
               disabled={isRightArrowDisabled || lessThanTwoItems}
               color={color}
@@ -287,7 +269,7 @@ const Pagination = ({
                 description: "Label for last page button in pagination nav",
               })}
             >
-              <ChevronDoubleRightIcon {...iconStyles} />
+              <ChevronDoubleRightIcon className={iconStyles} />
             </PageButton>
           </li>
         </ul>
