@@ -133,7 +133,7 @@ const RecruitmentAvailabilityDialog = ({
         <Dialog.Body>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(updateSuspendedAtStatus)}>
-              <p data-h2-margin-bottom="base(x1)">
+              <p className="mb-6">
                 {intl.formatMessage(
                   {
                     defaultMessage:
@@ -147,7 +147,7 @@ const RecruitmentAvailabilityDialog = ({
                   },
                 )}
               </p>
-              <p data-h2-margin-bottom="base(x1)">
+              <p className="mb-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "If you've recently taken a job or simply no longer want to be considered for opportunities, you can disable your availability in this recruitment process. <strong>This will <emphasize>not</emphasize> remove you from the process</strong> itself and you can always re-enable your availability if you change your mind.",

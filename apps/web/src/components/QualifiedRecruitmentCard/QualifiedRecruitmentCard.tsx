@@ -68,17 +68,10 @@ const QualifiedRecruitmentCard = ({
   return (
     <div
       data-h2-border-left="base(x.5 solid secondary)"
-      data-h2-padding="base(x1 x1 x.5 x1)"
-      data-h2-shadow="base(larger)"
-      data-h2-radius="base(0 rounded rounded 0)"
       data-h2-background-color="base(foreground)"
+      className="rounded-r p-6 pb-3 shadow-xl"
     >
-      <div
-        className="flex"
-        data-h2-align-items="base(center)"
-        data-h2-justify-content="base(space-between)"
-        data-h2-gap="base(0 x1)"
-      >
+      <div className="flex items-center justify-between gap-x-6">
         <Heading level={headingLevel} size="h6" data-h2-margin="base(0)">
           {title.html}
         </Heading>
@@ -86,10 +79,7 @@ const QualifiedRecruitmentCard = ({
           {statusChip.text}
         </Chip>
       </div>
-      <p
-        data-h2-color="base(secondary.darker)"
-        data-h2-margin="base(x.25 0 x1 0)"
-      >
+      <p data-h2-color="base(secondary.darker)" className="mb-6 mt-1.5">
         {getRecruitmentType(candidate.pool.publishingGroup, intl)}
       </p>
       <Collapsible.Root open={isOpen} onOpenChange={setIsOpen}>
@@ -98,7 +88,7 @@ const QualifiedRecruitmentCard = ({
             type="button"
             mode="inline"
             color="black"
-            data-h2-transform="base:children[.QualifiedRecruitmentCard__Icon](rotate(0deg)) base:selectors[[data-state='open']]:children[.QualifiedRecruitmentCard__Icon](rotate(90deg))"
+            className="group/qr-card"
             aria-label={
               isOpen
                 ? intl
@@ -125,16 +115,8 @@ const QualifiedRecruitmentCard = ({
                     .toString()
             }
           >
-            <span
-              className="flex"
-              data-h2-align-items="base(center)"
-              data-h2-gap="base(0 x.25)"
-            >
-              <ChevronRightIcon
-                data-h2-height="base(x1)"
-                data-h2-width="base(x1)"
-                className="QualifiedRecruitmentCard__Icon"
-              />
+            <span className="flex items-center gap-x-1.5">
+              <ChevronRightIcon className="h-6 w-6 group-data-[state=open]/qr-card:rotate-90" />
               <span>
                 {isOpen
                   ? intl.formatMessage({
@@ -155,7 +137,7 @@ const QualifiedRecruitmentCard = ({
             </span>
           </Button>
         </Collapsible.Trigger>
-        <Collapsible.Content data-h2-padding-left="base(x1.25)">
+        <Collapsible.Content className="pl-9">
           <Heading
             level={contentHeadingLevel}
             size="h6"
@@ -189,11 +171,7 @@ const QualifiedRecruitmentCard = ({
                   getSkillCategory(SkillCategory.Behavioural),
                 )}
               </Heading>
-              <ul
-                data-h2-display="base(grid)"
-                data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
-                data-h2-gap="base(x.125 x.5)"
-              >
+              <ul className="grid gap-x-3 gap-y-1 sm:grid-cols-2">
                 {categorizedSkills[SkillCategory.Behavioural]?.map((skill) => (
                   <li key={skill.id}>{getLocalizedName(skill.name, intl)}</li>
                 ))}
@@ -212,11 +190,7 @@ const QualifiedRecruitmentCard = ({
               >
                 {intl.formatMessage(getSkillCategory(SkillCategory.Technical))}
               </Heading>
-              <ul
-                data-h2-display="base(grid)"
-                data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
-                data-h2-gap="base(x.125 x1.5)"
-              >
+              <ul className="grid gap-x-3 gap-y-1 sm:grid-cols-2">
                 {categorizedSkills[SkillCategory.Technical]?.map((skill) => (
                   <li key={skill.id}>{getLocalizedName(skill.name, intl)}</li>
                 ))}
@@ -229,30 +203,13 @@ const QualifiedRecruitmentCard = ({
         data-h2-width="base(calc(100% + x2))"
         data-h2-margin="base(x1 -x1 x.5 -x1)"
       />
-      <div
-        className="flex"
-        data-h2-flex-direction="base(column) p-tablet(row)"
-        data-h2-align-items="base(center)"
-        data-h2-justify-content="base(space-between)"
-        data-h2-gap="base(x.5 0) p-tablet(0 x.5)"
-        data-h2-text-align="base(center) p-tablet(inherit)"
-      >
-        <div
-          className="flex"
-          data-h2-flex-direction="base(column) p-tablet(row)"
-          data-h2-align-items="base(center)"
-          data-h2-justify-content="base(space-between)"
-          data-h2-gap="base(x.5 0) p-tablet(0 x.25)"
-          data-h2-text-align="base(center) p-tablet(inherit)"
-        >
+      <div className="flex flex-col items-center justify-between gap-y-3 text-center sm:flex-row sm:gap-x-3 sm:gap-y-0 sm:text-inherit">
+        <div className="flex flex-col items-center justify-between gap-x-1.5 gap-y-3 text-center sm:flex-row sm:text-inherit">
           {availability.text && (
             <p data-h2-font-size="base(caption)">
               {AvailabilityIcon ? (
                 <AvailabilityIcon
-                  data-h2-height="base(auto)"
-                  data-h2-width="base(x.5)"
-                  data-h2-display="base(inline-block)"
-                  data-h2-margin="base(3px, x.25, 0, 0)"
+                  className="mr-1.5 inline-block h-auto w-3"
                   {...availability.color}
                 />
               ) : null}
@@ -260,12 +217,12 @@ const QualifiedRecruitmentCard = ({
             </p>
           )}
           {availability.showDialog && (
-            <div data-h2-flex-shrink="base(0)">
+            <div className="flex-shrink-0">
               <RecruitmentAvailabilityDialog candidate={candidate} />
             </div>
           )}
         </div>
-        <div data-h2-flex-shrink="base(0)">
+        <div className="flex-shrink-0">
           <Button
             mode="inline"
             color="black"
