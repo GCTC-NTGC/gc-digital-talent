@@ -36,6 +36,9 @@ export default {
         primary: `rgb(var(--color-primary) / <alpha-value>)`,
         background: `rgb(var(--color-background) / <alpha-value>)`,
       },
+      flexGrow: {
+        2: "2",
+      },
       spacing: {
         "4.5": "1.125rem",
         "18": "4.5rem",

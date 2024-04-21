@@ -26,16 +26,13 @@ const PersonnelRequirementsSection = ({
   });
 
   return (
-    <TableOfContents.Section
-      id={PAGE_SECTION_ID.PERSONNEL_REQUIREMENTS}
-      data-h2-padding-top="base(x2)"
-    >
-      <Heading data-h2-margin="base(0, 0, x1, 0)" level="h4" size="h5">
+    <TableOfContents.Section id={PAGE_SECTION_ID.PERSONNEL_REQUIREMENTS}>
+      <Heading className="mb-6 mt-12" size="h5">
         {intl.formatMessage(
           getSectionTitle(PAGE_SECTION_ID.PERSONNEL_REQUIREMENTS),
         )}
       </Heading>
-      <p data-h2-margin-bottom="base(x.5)">
+      <p className="mb-3">
         {intl.formatMessage({
           defaultMessage:
             "Provide information on each type of personnel required under the contract. Add more as needed.",
@@ -44,7 +41,7 @@ const PersonnelRequirementsSection = ({
         })}
       </p>
       <Repeater.Root
-        data-h2-margin-bottom="base(1rem)"
+        className="mb-4"
         name="personnelRequirements"
         onAdd={() => {
           append({});
@@ -83,7 +80,7 @@ const PersonnelRequirementsSection = ({
           ))
         ) : (
           <Well>
-            <p className="font-bold" data-h2-margin-bottom="base(x.5)">
+            <p className="mb-3 font-bold">
               {intl.formatMessage({
                 defaultMessage: "You have no personnel requirements.",
                 id: "+C20lR",

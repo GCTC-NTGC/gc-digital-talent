@@ -27,16 +27,13 @@ const QuestionnaireSection = ({
 }: QuestionnaireSectionProps) => {
   const intl = useIntl();
   return (
-    <TableOfContents.Section
-      id={PAGE_SECTION_ID.QUESTIONNAIRE}
-      data-h2-padding-top="base(x2)"
-    >
+    <TableOfContents.Section id={PAGE_SECTION_ID.QUESTIONNAIRE}>
       <Heading
         Icon={ListBulletIcon}
         level="h2"
         size="h3"
         color="tertiary"
-        data-h2-font-weight="base(400)"
+        className="font-normal"
       >
         {intl.formatMessage(getSectionTitle(PAGE_SECTION_ID.QUESTIONNAIRE))}
       </Heading>
@@ -48,7 +45,7 @@ const QuestionnaireSection = ({
       <OperationsConsiderationsSection />
       <TalentSourcingDecisionSection />
       <Separator />
-      <Submit data-h2-margin-top="base(x2)" isSubmitting={isSubmitting} />
+      <Submit isSubmitting={isSubmitting} />
     </TableOfContents.Section>
   );
 };

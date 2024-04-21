@@ -149,21 +149,12 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
 
   return (
     <TableOfContents.Section id={PAGE_SECTION_ID.CONTRACT_REQUIREMENTS}>
-      <Heading
-        data-h2-margin="base(x3, 0, x1, 0)"
-        level="h3"
-        size="h4"
-        className="font-bold"
-      >
+      <Heading level="h3" size="h4" className="mb-6 mt-12 font-bold">
         {intl.formatMessage(
           getSectionTitle(PAGE_SECTION_ID.CONTRACT_REQUIREMENTS),
         )}
       </Heading>
-      <div
-        className="flex"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1)"
-      >
+      <div className="flex flex-col gap-6">
         <CompoundQuestion
           title={intl.formatMessage({
             defaultMessage: "Description of the work required",
@@ -173,7 +164,7 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
           })}
           introduction={
             <>
-              <p>
+              <p className="mb-3">
                 {intl.formatMessage({
                   defaultMessage:
                     "What are the tasks that the contractor is expected to perform within the contract?",
@@ -182,7 +173,7 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
                     "Context for _work requirement description_ textbox in the _digital services contracting questionnaire_",
                 })}
               </p>
-              <p>
+              <p className="mb-3">
                 {intl.formatMessage({
                   defaultMessage: "For example, the contractor will:",
                   id: "I+GYIo",
@@ -190,7 +181,7 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
                     "Context for _work requirement description_ textbox in the _digital services contracting questionnaire_",
                 })}
               </p>
-              <ul>
+              <ul className="my-3 list-outside list-disc pl-12 [&>li]:mb-1.5">
                 <li>
                   {intl.formatMessage({
                     defaultMessage:

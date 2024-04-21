@@ -26,27 +26,19 @@ const PreambleSection = () => {
   const paths = useRoutes();
   return (
     <>
-      <TableOfContents.Section
-        id={PAGE_SECTION_ID.PREAMBLE}
-        data-h2-padding-top="base(x2)"
-      >
+      <TableOfContents.Section id={PAGE_SECTION_ID.PREAMBLE}>
         <Heading
           Icon={LightBulbIcon}
           level="h2"
           size="h3"
           color="primary"
-          data-h2-font-weight="base(400)"
+          className="mb-6 mt-12 font-normal"
         >
           {intl.formatMessage(getSectionTitle(PAGE_SECTION_ID.PREAMBLE))}
         </Heading>
       </TableOfContents.Section>
       <TableOfContents.Section id={PAGE_SECTION_ID.SUPPORTING_THE_COMMUNITY}>
-        <Heading
-          data-h2-margin="base(x3, 0, x1, 0)"
-          level="h3"
-          size="h4"
-          className="font-bold"
-        >
+        <Heading level="h3" size="h4" className="mt-12 font-bold">
           {intl.formatMessage(
             getSectionTitle(PAGE_SECTION_ID.SUPPORTING_THE_COMMUNITY),
           )}
@@ -60,7 +52,7 @@ const PreambleSection = () => {
               "Introduction to the _supporting the community_ section of the _digital services contracting questionnaire_",
           })}
         </p>
-        <ul data-h2-margin-top="base(x.5)">
+        <ul className="my-6 list-outside list-disc pl-12 [&>li]:mb-1.5">
           <li>
             {intl.formatMessage(
               {
@@ -79,7 +71,7 @@ const PreambleSection = () => {
               },
             )}
           </li>
-          <li data-h2-margin-top="base(x.25)">
+          <li>
             {intl.formatMessage({
               defaultMessage:
                 "Running government-wide recruitment processes for digital talent",
@@ -88,7 +80,7 @@ const PreambleSection = () => {
                 "An OCIO role in the _supporting the community_ section of the _digital services contracting questionnaire_",
             })}
           </li>
-          <li data-h2-margin-top="base(x.25)">
+          <li>
             {intl.formatMessage({
               defaultMessage:
                 "Implementing and supporting initiatives to advance diversity, equity, and inclusion in the digital community",
@@ -97,7 +89,7 @@ const PreambleSection = () => {
                 "An OCIO role in the _supporting the community_ section of the _digital services contracting questionnaire_",
             })}
           </li>
-          <li data-h2-margin-top="base(x.25)">
+          <li>
             {intl.formatMessage({
               defaultMessage:
                 "Maintaining pools of digital talent accessible by all departments",
@@ -106,7 +98,7 @@ const PreambleSection = () => {
                 "An OCIO role in the _supporting the community_ section of the _digital services contracting questionnaire_",
             })}
           </li>
-          <li data-h2-margin-top="base(x.25)">
+          <li>
             {intl.formatMessage({
               defaultMessage: "Developing career pathways for digital talent",
               id: "pBAHrf",
@@ -114,7 +106,7 @@ const PreambleSection = () => {
                 "An OCIO role in the _supporting the community_ section of the _digital services contracting questionnaire_",
             })}
           </li>
-          <li data-h2-margin-top="base(x.25)">
+          <li>
             {intl.formatMessage({
               defaultMessage:
                 "Identifying and coordinating government-wide training and upskilling opportunities",
@@ -126,15 +118,10 @@ const PreambleSection = () => {
         </ul>
       </TableOfContents.Section>
       <TableOfContents.Section id={PAGE_SECTION_ID.WHY_COLLECT}>
-        <Heading
-          data-h2-margin="base(x3, 0, x1, 0)"
-          level="h3"
-          size="h4"
-          className="font-bold"
-        >
+        <Heading level="h3" size="h4" className="mt-12 font-bold">
           {intl.formatMessage(getSectionTitle(PAGE_SECTION_ID.WHY_COLLECT))}
         </Heading>
-        <p>
+        <p className="mb-3">
           {intl.formatMessage({
             defaultMessage:
               "This data collection enables business intelligence on the GC digital talent ecosystem. The information helps to identify emerging digital skills requirements and potential gaps in the GC digital community.",
@@ -143,7 +130,7 @@ const PreambleSection = () => {
               "Paragraph one of the introduction to the _why collect this data_ section of the _digital services contracting questionnaire_",
           })}
         </p>
-        <p data-h2-margin-top="base(x.5)">
+        <p className="mb-3">
           {intl.formatMessage({
             defaultMessage:
               "Informed by this data, OCIO can work with departments and agencies on government-wide strategies and initiatives to develop the GC digital community, including:",
@@ -152,7 +139,7 @@ const PreambleSection = () => {
               "Paragraph two of the introduction to the _why collect this data_ section of the _digital services contracting questionnaire_",
           })}
         </p>
-        <ul data-h2-margin-top="base(x.5)">
+        <ul className="my-3 list-outside list-disc pl-12 [&>li]:mb-1.5">
           <li>
             {intl.formatMessage({
               defaultMessage:
@@ -162,7 +149,7 @@ const PreambleSection = () => {
                 "A reason to collect this data in the _why collect this data_ section of the _digital services contracting questionnaire_",
             })}
           </li>
-          <li data-h2-margin-top="base(x.25)">
+          <li>
             {intl.formatMessage({
               defaultMessage:
                 "Advancing the coordination of training and upskilling opportunities for the GC digital community",
@@ -171,7 +158,7 @@ const PreambleSection = () => {
                 "A reason to collect this data in the _why collect this data_ section of the _digital services contracting questionnaire_",
             })}
           </li>
-          <li data-h2-margin-top="base(x.25)">
+          <li>
             {intl.formatMessage({
               defaultMessage:
                 "Identifying potential systemic challenges and barriers in sourcing digital talent",
@@ -180,7 +167,7 @@ const PreambleSection = () => {
                 "A reason to collect this data in the _why collect this data_ section of the _digital services contracting questionnaire_",
             })}
           </li>
-          <li data-h2-margin-top="base(x.25)">
+          <li>
             {intl.formatMessage({
               defaultMessage:
                 "Working with mandate authorities across the GC to identify solutions and best practices",
@@ -192,15 +179,10 @@ const PreambleSection = () => {
         </ul>
       </TableOfContents.Section>
       <TableOfContents.Section id={PAGE_SECTION_ID.REQUIREMENTS}>
-        <Heading
-          data-h2-margin="base(x3, 0, x1, 0)"
-          level="h3"
-          size="h4"
-          className="font-bold"
-        >
+        <Heading level="h3" size="h4" className="mt-12 font-bold">
           {intl.formatMessage(getSectionTitle(PAGE_SECTION_ID.REQUIREMENTS))}
         </Heading>
-        <p>
+        <p className="mb-3">
           {intl.formatMessage(
             {
               defaultMessage:
@@ -215,7 +197,7 @@ const PreambleSection = () => {
             },
           )}
         </p>
-        <p data-h2-margin-top="base(x.5)">
+        <p className="mb-3">
           {intl.formatMessage(
             {
               defaultMessage:
@@ -230,7 +212,7 @@ const PreambleSection = () => {
             },
           )}
         </p>
-        <p data-h2-margin-top="base(x.5)">
+        <p className="mb-3">
           {intl.formatMessage({
             defaultMessage:
               "The completed questionnaire needs to be submitted at the time when a contract for digital services (including call-up of an established contracting vehicle) is submitted to departmental procurement authorities for processing.",
@@ -239,7 +221,7 @@ const PreambleSection = () => {
               "Paragraph three of the _requirements_ section of the _digital services contracting questionnaire_",
           })}
         </p>
-        <p data-h2-margin-top="base(x.5)">
+        <p className="mb-10">
           {intl.formatMessage({
             defaultMessage:
               "This is a reporting requirement only and does not impose any additional approval steps by OCIO. In other words, no OCIO approval is required to initiate a procurement process for digital services.",
@@ -248,7 +230,7 @@ const PreambleSection = () => {
               "Paragraph four of the _requirements_ section of the _digital services contracting questionnaire_",
           })}
         </p>
-        <div data-h2-margin-top="base(x1.25)">
+        <div className="mb-6">
           <Collapsible.Root open={isOpen} onOpenChange={setIsOpen}>
             <Collapsible.Trigger asChild>
               <Button
@@ -278,16 +260,8 @@ const PreambleSection = () => {
                         .toString()
                 }
               >
-                <span
-                  className="flex"
-                  data-h2-align-items="base(center)"
-                  data-h2-gap="base(0 x.25)"
-                >
-                  <ChevronRightIcon
-                    data-h2-height="base(x1)"
-                    data-h2-width="base(x1)"
-                    className="CollapsibleChevron__Icon"
-                  />
+                <span className="flex items-center gap-x-1.5">
+                  <ChevronRightIcon className="CollapsibleChevron__Icon h-6 w-6" />
                   <span>
                     {isOpen
                       ? intl.formatMessage({
@@ -310,7 +284,7 @@ const PreambleSection = () => {
             </Collapsible.Trigger>
             <Collapsible.Content data-h2-padding-left="base(x1.5)">
               <Separator space="sm" />
-              <p>
+              <p className="mb-3">
                 {intl.formatMessage({
                   defaultMessage:
                     "For the purpose of this requirement, contracts for digital services include any contract, regardless of procurement type or solicitation procedure, that supports the development or delivery of GC digital initiatives, products or services, such as contracts that are for:",
@@ -319,7 +293,7 @@ const PreambleSection = () => {
                     "Paragraph one of the _examples of contracts_ section of the _digital services contracting questionnaire_",
                 })}
               </p>
-              <ul data-h2-margin-top="base(x.5)">
+              <ul className="my-3 list-outside list-disc pl-12 [&>li]:mb-1.5">
                 <li>
                   {intl.formatMessage({
                     defaultMessage: "information technology",
@@ -328,7 +302,7 @@ const PreambleSection = () => {
                       "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_",
                   })}
                 </li>
-                <li data-h2-margin-top="base(x.25)">
+                <li>
                   {intl.formatMessage({
                     defaultMessage: "information management",
                     id: "G0OY3I",
@@ -336,7 +310,7 @@ const PreambleSection = () => {
                       "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_",
                   })}
                 </li>
-                <li data-h2-margin-top="base(x.25)">
+                <li>
                   {intl.formatMessage({
                     defaultMessage: "cybersecurity",
                     id: "6cEYtp",
@@ -344,7 +318,7 @@ const PreambleSection = () => {
                       "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_",
                   })}
                 </li>
-                <li data-h2-margin-top="base(x.25)">
+                <li>
                   {intl.formatMessage({
                     defaultMessage:
                       "data management for the development or delivery of a GC digital initiative, service or product",
@@ -353,7 +327,7 @@ const PreambleSection = () => {
                       "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_",
                   })}
                 </li>
-                <li data-h2-margin-top="base(x.25)">
+                <li>
                   {intl.formatMessage({
                     defaultMessage:
                       "data science and analytics for the development or delivery of a GC digital initiative, service or product",
@@ -362,7 +336,7 @@ const PreambleSection = () => {
                       "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_",
                   })}
                 </li>
-                <li data-h2-margin-top="base(x.25)">
+                <li>
                   {intl.formatMessage({
                     defaultMessage:
                       "user-experience research or service design for the development or delivery of a GC digital initiative, service or product",
@@ -372,7 +346,7 @@ const PreambleSection = () => {
                   })}
                 </li>
               </ul>
-              <p data-h2-margin-top="base(x.5)">
+              <p className="mb-3">
                 {intl.formatMessage({
                   defaultMessage:
                     "Examples of these contracts may include, but are not limited to:",
@@ -381,7 +355,7 @@ const PreambleSection = () => {
                     "Paragraph two of the _examples of contracts_ section of the _digital services contracting questionnaire_",
                 })}
               </p>
-              <ul data-h2-margin-top="base(x.5)">
+              <ul className="my-3 list-outside list-disc pl-12 [&>li]:mb-1.5">
                 <li>
                   {intl.formatMessage({
                     defaultMessage:
@@ -391,7 +365,7 @@ const PreambleSection = () => {
                       "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_",
                   })}
                 </li>
-                <li data-h2-margin-top="base(x.25)">
+                <li>
                   {intl.formatMessage({
                     defaultMessage:
                       "a sole source contract for a consulting firm to conduct user research on a digital product",
@@ -400,7 +374,7 @@ const PreambleSection = () => {
                       "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_",
                   })}
                 </li>
-                <li data-h2-margin-top="base(x.25)">
+                <li>
                   {intl.formatMessage({
                     defaultMessage:
                       "a supply arrangement for a supplier to build a digital application",
@@ -409,7 +383,7 @@ const PreambleSection = () => {
                       "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_",
                   })}
                 </li>
-                <li data-h2-margin-top="base(x.25)">
+                <li>
                   {intl.formatMessage({
                     defaultMessage:
                       "a contract bringing in consultants to conduct service design for a digital service",
@@ -418,7 +392,7 @@ const PreambleSection = () => {
                       "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_",
                   })}
                 </li>
-                <li data-h2-margin-top="base(x.25)">
+                <li>
                   {intl.formatMessage({
                     defaultMessage:
                       "a competitive contract to bring in multiple software developers for surge capacity",
@@ -427,7 +401,7 @@ const PreambleSection = () => {
                       "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_",
                   })}
                 </li>
-                <li data-h2-margin-top="base(x.25)">
+                <li>
                   {intl.formatMessage({
                     defaultMessage:
                       "an amendment or extension to a contract for software testing",
@@ -437,7 +411,7 @@ const PreambleSection = () => {
                   })}
                 </li>
               </ul>
-              <p data-h2-margin-top="base(x.5)">
+              <p className="mb-3">
                 {intl.formatMessage(
                   {
                     defaultMessage:
@@ -458,21 +432,19 @@ const PreambleSection = () => {
             </Collapsible.Content>
           </Collapsible.Root>
         </div>
-        <div className="mt-6">
-          <Checkbox
-            boundingBox
-            boundingBoxLabel={intl.formatMessage({
-              defaultMessage: "Preamble confirmation",
-              id: "b8XLn5",
-              description:
-                "Preamble confirmation label of the _digital services contracting questionnaire_",
-            })}
-            id="readPreamble"
-            name="readPreamble"
-            label={labels.readPreamble}
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
-          />
-        </div>
+        <Checkbox
+          boundingBox
+          boundingBoxLabel={intl.formatMessage({
+            defaultMessage: "Preamble confirmation",
+            id: "b8XLn5",
+            description:
+              "Preamble confirmation label of the _digital services contracting questionnaire_",
+          })}
+          id="readPreamble"
+          name="readPreamble"
+          label={labels.readPreamble}
+          rules={{ required: intl.formatMessage(errorMessages.required) }}
+        />
       </TableOfContents.Section>
     </>
   );

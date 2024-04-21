@@ -39,7 +39,7 @@ const Resources = () => {
           Icon={ClipboardDocumentIcon}
           size="h3"
           color="secondary"
-          data-h2-margin="base(x3, 0, x1, 0)"
+          className="mb-6 mt-20"
         >
           {intl.formatMessage({
             defaultMessage: "General resources",
@@ -64,24 +64,14 @@ const Resources = () => {
             description: "Second message for the general resources section.",
           })}
         </p>
-        <div
-          data-h2-display="base(grid)"
-          data-h2-grid-template-columns="base(1fr) p-tablet(repeat(2, minmax(0, 1fr)))"
-          data-h2-gap="base(x1) p-tablet(x2)"
-          data-h2-margin="base(x1, 0, 0, 0) p-tablet(x2, 0, 0, 0)"
-        >
-          <CardBasic
-            className="flex"
-            data-h2-flex-direction="base(column)"
-            data-h2-justify-content="base(space-evenly)"
-          >
+        <div className="mt-6 grid gap-6 sm:mt-12 sm:grid-cols-2 sm:gap-12">
+          <CardBasic className="flex flex-col justify-evenly">
             <img
               src={trainingSession}
               alt=""
-              data-h2-display="base(none) p-tablet(block)"
-              data-h2-margin="base(0, 0, x1, 0)"
+              className="mb-6 hidden sm:block"
             />
-            <p data-h2-text-align="base(center)">
+            <p className="text-center">
               {intl.formatMessage({
                 defaultMessage: "Training session presentation - Coming soon.",
                 id: "MSitul",
@@ -90,17 +80,8 @@ const Resources = () => {
               })}
             </p>
           </CardBasic>
-          <CardBasic
-            className="flex"
-            data-h2-flex-direction="base(column)"
-            data-h2-justify-content="base(space-evenly)"
-          >
-            <img
-              src={decisionTree}
-              alt=""
-              data-h2-display="base(none) p-tablet(block)"
-              data-h2-margin="base(0, 0, x1, 0)"
-            />
+          <CardBasic className="flex flex-col justify-evenly">
+            <img src={decisionTree} alt="" className="mb-6 hidden sm:block" />
             <Link
               mode="solid"
               color="secondary"
@@ -150,7 +131,7 @@ const Resources = () => {
           Icon={FolderOpenIcon}
           size="h3"
           color="quaternary"
-          data-h2-margin="base(x3, 0, x1, 0)"
+          className="mb-6 mt-20"
         >
           {intl.formatMessage({
             defaultMessage: "Group-specific resources",
@@ -159,12 +140,7 @@ const Resources = () => {
               "Heading for section for the group-specific resources section.",
           })}
         </Heading>
-        <div
-          data-h2-display="base(grid)"
-          data-h2-grid-template-columns="base(1fr) p-tablet(repeat(2, minmax(0, 1fr))) l-tablet(repeat(3, minmax(0, 1fr)))"
-          data-h2-gap="base(x1)"
-          data-h2-margin="base(x1, 0, 0, 0) p-tablet(x2, 0, 0, 0)"
-        >
+        <div className="mt-6 grid gap-6 sm:mt-12 sm:grid-cols-2 md:grid-cols-3">
           <Card
             color="black"
             title={intl.formatMessage({
@@ -174,20 +150,11 @@ const Resources = () => {
             })}
             noPadding
           >
-            <div
-              className="flex"
-              data-h2-flex-direction="base(column)"
-              data-h2-justify-content="base(space-between)"
-              data-h2-height="base(100%)"
-            >
+            <div className="flex h-full flex-col justify-between">
               <div>
-                <img
-                  src={managers}
-                  alt=""
-                  data-h2-display="base(none) p-tablet(block)"
-                />
+                <img src={managers} alt="" className="hidden sm:block" />
 
-                <p data-h2-margin="base(x1)">
+                <p className="m-6">
                   {intl.formatMessage({
                     defaultMessage:
                       "These resources are designed to support digital initiative managers and leads in fulfilling their responsibilities under the Directive on Digital Talent. This implementation guidance explains why the directive is needed and what is required. Use the decision tree to navigate the reporting requirements.",
@@ -197,7 +164,7 @@ const Resources = () => {
                   })}
                 </p>
               </div>
-              <div data-h2-margin="base(0, x1, x2, x1)">
+              <div className="mx-6 mb-12">
                 <p className="font-bold">
                   {intl.formatMessage({
                     defaultMessage: "Implementation guidance for managers",
@@ -265,19 +232,10 @@ const Resources = () => {
             })}
             noPadding
           >
-            <div
-              className="flex"
-              data-h2-flex-direction="base(column)"
-              data-h2-justify-content="base(space-between)"
-              data-h2-height="base(100%)"
-            >
+            <div className="flex h-full flex-col justify-between">
               <div>
-                <img
-                  src={hr}
-                  alt=""
-                  data-h2-display="base(none) p-tablet(block)"
-                />
-                <p data-h2-margin="base(x1)">
+                <img src={hr} alt="" className="hidden sm:block" />
+                <p className="m-6">
                   {intl.formatMessage({
                     defaultMessage:
                       "Human resources (HR) advisors are responsible for ensuring clients looking for digital talent are aware of their obligations under the Directive on Digital Talent and supporting clients in leveraging flexibilities available in the HR policy suite to hire digital talent. These resources are designed to help HR advisors in carrying out these responsibilities.",
@@ -287,7 +245,7 @@ const Resources = () => {
                   })}
                 </p>
               </div>
-              <div data-h2-margin="base(0, x1, x2, x1)">
+              <div className="mx-6 mb-12">
                 <p className="font-bold">
                   {intl.formatMessage({
                     defaultMessage: "Implementation guidance for HR advisors",
@@ -347,19 +305,10 @@ const Resources = () => {
             })}
             noPadding
           >
-            <div
-              className="flex"
-              data-h2-flex-direction="base(column)"
-              data-h2-justify-content="base(space-between)"
-              data-h2-height="base(100%)"
-            >
+            <div className="flex h-full flex-col justify-between">
               <div>
-                <img
-                  src={procurement}
-                  alt=""
-                  data-h2-display="base(none) p-tablet(block)"
-                />
-                <p data-h2-margin="base(x1)">
+                <img src={procurement} alt="" className="hidden sm:block" />
+                <p className="m-6">
                   {intl.formatMessage({
                     defaultMessage:
                       "The Directive does not introduce any additional procedural steps for procurement officers, but there are procurement-related reporting requirements that fall to digital initiative leads. These resources are designed to help procurement officers in supporting their clients when they procure digital services (e.g. digital talent, IT-related, IM-related, etc.).",
@@ -369,7 +318,7 @@ const Resources = () => {
                   })}
                 </p>
               </div>
-              <div data-h2-margin="base(0, x1, x2, x1)">
+              <div className="mx-6 mb-12">
                 <p className="font-bold">
                   {intl.formatMessage({
                     defaultMessage:

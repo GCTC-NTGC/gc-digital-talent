@@ -18,24 +18,15 @@ const TechnologicalChangeSection = () => {
 
   return (
     <TableOfContents.Section id={PAGE_SECTION_ID.TECHNOLOGICAL_CHANGE}>
-      <Heading
-        data-h2-margin="base(x3, 0, x1, 0)"
-        level="h3"
-        size="h4"
-        className="font-bold"
-      >
+      <Heading level="h3" size="h4" className="mb-6 mt-12 font-bold">
         {intl.formatMessage(
           getSectionTitle(PAGE_SECTION_ID.TECHNOLOGICAL_CHANGE),
         )}
       </Heading>
-      <div
-        className="flex"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1)"
-      >
+      <div className="flex flex-col gap-6">
         <CompoundQuestion
           introduction={
-            <div>
+            <>
               <p data-h2-margin-bottom="base(x.5)" className="font-bold">
                 {intl.formatMessage({
                   defaultMessage:
@@ -45,7 +36,7 @@ const TechnologicalChangeSection = () => {
                     "Context for _technological change_ section, paragraph 1, in the _digital services contracting questionnaire_",
                 })}
               </p>
-              <ul>
+              <ul className="my-3 list-outside list-disc pl-12 [&>li]:mb-1.5">
                 <li>
                   {intl.formatMessage({
                     defaultMessage:
@@ -83,7 +74,7 @@ const TechnologicalChangeSection = () => {
                   })}
                 </li>
               </ul>
-            </div>
+            </>
           }
           inputElement={
             <RadioGroup

@@ -90,19 +90,10 @@ const ScopeOfContractSection = () => {
 
   return (
     <TableOfContents.Section id={PAGE_SECTION_ID.SCOPE_OF_CONTRACT}>
-      <Heading
-        data-h2-margin="base(x3, 0, x1, 0)"
-        level="h3"
-        size="h4"
-        className="font-bold"
-      >
+      <Heading level="h3" size="h4" className="mb-5 mt-12 font-bold">
         {intl.formatMessage(getSectionTitle(PAGE_SECTION_ID.SCOPE_OF_CONTRACT))}
       </Heading>
-      <div
-        className="flex"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1)"
-      >
+      <div className="flex flex-col gap-6">
         <Input
           id="contractTitle"
           name="contractTitle"

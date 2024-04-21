@@ -119,21 +119,12 @@ const GeneralInformationSection = ({
 
   return (
     <TableOfContents.Section id={PAGE_SECTION_ID.GENERAL_INFORMATION}>
-      <Heading
-        data-h2-margin="base(x3, 0, x1, 0)"
-        level="h3"
-        size="h4"
-        className="font-bold"
-      >
+      <Heading level="h3" size="h4" className="font-bold">
         {intl.formatMessage(
           getSectionTitle(PAGE_SECTION_ID.GENERAL_INFORMATION),
         )}
       </Heading>
-      <div
-        className="flex"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1)"
-      >
+      <div className="flex flex-col gap-6">
         <Select
           id="department"
           name="department"

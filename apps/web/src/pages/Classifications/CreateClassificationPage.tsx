@@ -72,9 +72,7 @@ export const CreateClassificationForm = ({
       <FormProvider {...methods}>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x.5 0)"
+          className="flex flex-col gap-y-3"
         >
           <Input
             id="name_en"
@@ -175,7 +173,7 @@ export const CreateClassificationForm = ({
               },
             }}
           />
-          <div data-h2-align-self="base(flex-start)">
+          <div className="self-start">
             <Submit />
           </div>
         </form>

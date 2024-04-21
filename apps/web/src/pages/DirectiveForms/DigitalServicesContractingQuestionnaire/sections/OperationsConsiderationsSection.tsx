@@ -60,25 +60,16 @@ const OperationsConsiderationsSection = () => {
 
   return (
     <TableOfContents.Section id={PAGE_SECTION_ID.OPERATIONS_CONSIDERATIONS}>
-      <Heading
-        data-h2-margin="base(x3, 0, x1, 0)"
-        level="h3"
-        size="h4"
-        className="font-bold"
-      >
+      <Heading level="h3" size="h4" className="mt-20 font-bold">
         {intl.formatMessage(
           getSectionTitle(PAGE_SECTION_ID.OPERATIONS_CONSIDERATIONS),
         )}
       </Heading>
-      <div
-        className="flex"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1)"
-      >
+      <div className="flex flex-col gap-6">
         <CompoundQuestion
           introduction={
             <>
-              <p data-h2-margin-bottom="base(x.5)" className="font-bold">
+              <p className="mb-3 font-bold">
                 {intl.formatMessage({
                   defaultMessage:
                     "Do any of the following factors have influence on the decision to contract?",
@@ -87,7 +78,7 @@ const OperationsConsiderationsSection = () => {
                     "Context for _operations considerations_ section, paragraph 1, in the _digital services contracting questionnaire_",
                 })}
               </p>
-              <ul>
+              <ul className="my-6 list-outside list-disc pl-12 [&>li]:mb-1.5">
                 <li>
                   {intl.formatMessage(
                     getOperationsConsideration(

@@ -16,12 +16,11 @@ const InstructionsSection = () => {
         level="h2"
         size="h3"
         color="secondary"
-        data-h2-font-weight="base(400)"
-        data-h2-margin="base(0, 0, x1, 0)"
+        className="mt-0 font-normal"
       >
         {intl.formatMessage(getSectionTitle(PAGE_SECTION_ID.INSTRUCTIONS))}
       </Heading>
-      <p>
+      <p className="mb-3">
         {intl.formatMessage({
           defaultMessage:
             "Complete and submit this questionnaire at the time when a contract for digital services is submitted to departmental procurement authorities for processing.",
@@ -30,7 +29,7 @@ const InstructionsSection = () => {
             "Paragraph one of the _instructions_ section of the _digital services contracting questionnaire_",
         })}
       </p>
-      <p data-h2-margin-top="base(x.5)">
+      <p className="mb-3">
         {intl.formatMessage(
           {
             defaultMessage:
@@ -45,7 +44,7 @@ const InstructionsSection = () => {
           },
         )}
       </p>
-      <p data-h2-margin-top="base(x.5)">
+      <p className="mb-3">
         {intl.formatMessage(
           {
             defaultMessage:
@@ -60,7 +59,7 @@ const InstructionsSection = () => {
           },
         )}
       </p>
-      <p data-h2-margin-top="base(x.5)">
+      <p>
         {intl.formatMessage(
           {
             defaultMessage:

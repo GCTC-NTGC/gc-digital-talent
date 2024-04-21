@@ -89,7 +89,7 @@ export const DigitalServicesContractingQuestionnaire = ({
       />
       <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
         <TableOfContents.Wrapper>
-          <TableOfContents.Navigation data-h2-padding-top="base(x3)">
+          <TableOfContents.Navigation className="pt-20">
             <TableOfContents.List>
               <TableOfContents.ListItem>
                 <TableOfContents.AnchorLink id={PAGE_SECTION_ID.INSTRUCTIONS}>

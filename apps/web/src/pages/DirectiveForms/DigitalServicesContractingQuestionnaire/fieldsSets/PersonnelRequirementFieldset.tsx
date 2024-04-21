@@ -127,11 +127,7 @@ const PersonnelRequirementFieldset = ({
   };
 
   return (
-    <div
-      className="flex"
-      data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x1)"
-    >
+    <div className="flex flex-col gap-6">
       <Input
         id={`${fieldsetName}.resourceType`}
         name={`${fieldsetName}.resourceType`}
@@ -173,19 +169,13 @@ const PersonnelRequirementFieldset = ({
           : commonMessages.notFound;
         const skillName = getLocalizedName(selectedSkillModel?.name, intl);
         return (
-          <div
-            key={requirement.skillId}
-            className="flex"
-            data-h2-flex-direction="base(column)"
-          >
+          <div key={requirement.skillId} className="flex flex-col">
             <div>
               <div
                 key={requirement.skillId}
-                className="flex"
-                data-h2-justify-content="base(flex-end)"
-                data-h2-gap="base(x.75)"
+                className="flex justify-end gap-4.5"
               >
-                <div data-h2-flex-grow="base(2)">
+                <div className="grow-2">
                   <p>{skillName}</p>
                   <p data-h2-color="base(black.light)">
                     {intl.formatMessage(
@@ -251,7 +241,7 @@ const PersonnelRequirementFieldset = ({
           </div>
         );
       })}
-      <div data-h2-margin-top="base(x.5)">
+      <div className="mt-3">
         <SkillDialog
           skills={skills}
           context="directive_forms"

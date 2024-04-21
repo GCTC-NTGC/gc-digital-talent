@@ -80,17 +80,12 @@ const TalentSourcingDecisionSection = () => {
 
   return (
     <TableOfContents.Section id={PAGE_SECTION_ID.TALENT_SOURCING_DECISION}>
-      <Heading
-        data-h2-margin="base(x3, 0, x1, 0)"
-        level="h3"
-        size="h4"
-        className="font-bold"
-      >
+      <Heading level="h3" size="h4" className="mb-6 mt-12 font-bold">
         {intl.formatMessage(
           getSectionTitle(PAGE_SECTION_ID.TALENT_SOURCING_DECISION),
         )}
       </Heading>
-      <Heading data-h2-margin="base(x2, 0, x1, 0)" level="h4" size="h5">
+      <Heading level="h4" size="h5" className="mb-6 mt-12">
         {intl.formatMessage({
           defaultMessage: "Rationale for contracting",
           id: "TiutAx",
@@ -98,11 +93,7 @@ const TalentSourcingDecisionSection = () => {
             "Label for _rationale for contracting_ section in the _digital services contracting questionnaire_",
         })}
       </Heading>
-      <div
-        className="flex"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1)"
-      >
+      <div className="flex flex-col gap-6">
         <RadioGroup
           legend={labels.contractingRationalePrimary}
           id="contractingRationalePrimary"
@@ -136,7 +127,7 @@ const TalentSourcingDecisionSection = () => {
           <CompoundQuestion
             introduction={
               <>
-                <p>
+                <p className="mb-3">
                   {intl.formatMessage(
                     {
                       defaultMessage:
@@ -156,7 +147,7 @@ const TalentSourcingDecisionSection = () => {
                     },
                   )}
                 </p>
-                <p data-h2-margin-top="base(x.5)">
+                <p>
                   {intl.formatMessage(
                     {
                       defaultMessage:
@@ -253,7 +244,7 @@ const TalentSourcingDecisionSection = () => {
           />
         ) : null}
       </div>
-      <Heading data-h2-margin="base(x2, 0, x1, 0)" level="h4" size="h5">
+      <Heading level="h4" size="h5" className="mb-6 mt-12">
         {intl.formatMessage({
           defaultMessage: "Knowledge transfer",
           id: "OOHY6f",
@@ -261,11 +252,7 @@ const TalentSourcingDecisionSection = () => {
             "Label for _knowledge transfer_ section in the _digital services contracting questionnaire_",
         })}
       </Heading>
-      <div
-        className="flex"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1)"
-      >
+      <div className="flex flex-col gap-6">
         <RadioGroup
           legend={labels.ongoingNeedForKnowledge}
           id="ongoingNeedForKnowledge"
