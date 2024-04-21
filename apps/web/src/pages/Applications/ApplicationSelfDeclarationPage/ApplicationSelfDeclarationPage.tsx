@@ -226,7 +226,7 @@ export const ApplicationSelfDeclaration = ({
                       "Disclaimer before signing Indigenous self-declaration form",
                   })}
                 </p>
-                <div data-h2-margin="base(x1 0)">
+                <div className="my-6">
                   <Input
                     type="text"
                     id="signature"

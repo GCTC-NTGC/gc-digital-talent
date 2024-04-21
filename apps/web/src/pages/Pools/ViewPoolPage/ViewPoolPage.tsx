@@ -115,7 +115,7 @@ export const ViewPool = ({
         <Heading level="h2" Icon={UserGroupIcon} color="primary">
           {pageTitle}
         </Heading>
-        <p data-h2-margin="base(x1 0)">
+        <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
               "From here you can duplicate, delete or submit your process for publication. Your process can be published once the advertisement information and assessment plan are complete.",
@@ -146,7 +146,7 @@ export const ViewPool = ({
                 {intl.formatMessage(advertisementBadge.label)}
               </Chip>
             </ProcessCard.Header>
-            <p data-h2-margin="base(x1 0)">
+            <p className="my-6">
               {intl.formatMessage({
                 defaultMessage:
                   "Define the process information such as classification, impact, and skill requirements.",
@@ -155,7 +155,7 @@ export const ViewPool = ({
                   "Information about what an advertisement represents",
               })}
             </p>
-            <p data-h2-margin="base(x1 0)">
+            <p className="my-6">
               {intl.formatMessage(processMessages.processNumber)}
               {intl.formatMessage(commonMessages.dividingColon)}
               {pool.processNumber || (
@@ -210,7 +210,7 @@ export const ViewPool = ({
                 {intl.formatMessage(assessmentBadge.label)}
               </Chip>
             </ProcessCard.Header>
-            <p data-h2-margin="base(x1 0)">
+            <p className="my-6">
               {intl.formatMessage({
                 defaultMessage:
                   "Define the assessments used to evaluate each skill in the advertisement.",
@@ -260,7 +260,7 @@ export const ViewPool = ({
               </Chip>
             </ProcessCard.Header>
             {pool.status === PoolStatus.Published && (
-              <p data-h2-margin="base(x1 0)">
+              <p className="my-6">
                 {intl.formatMessage(
                   {
                     defaultMessage:
@@ -278,7 +278,7 @@ export const ViewPool = ({
             {[PoolStatus.Archived, PoolStatus.Closed].includes(
               pool.status ?? PoolStatus.Draft,
             ) && (
-              <p data-h2-margin="base(x1 0)">
+              <p className="my-6">
                 {intl.formatMessage(
                   {
                     defaultMessage:
@@ -295,7 +295,7 @@ export const ViewPool = ({
             )}
             {pool.status === PoolStatus.Draft ? (
               <>
-                <p data-h2-margin="base(x1 0)">
+                <p className="my-6">
                   {intl.formatMessage({
                     defaultMessage:
                       "This process is in <heavyWarning>draft</heavyWarning> and has not been advertised yet.",
@@ -304,10 +304,7 @@ export const ViewPool = ({
                       "Message displayed to admins when a process is in draft mode",
                   })}
                 </p>
-                <p
-                  data-h2-margin="base(x1 0)"
-                  data-h2-color="base(black.light)"
-                >
+                <p className="my-6" data-h2-color="base(black.light)">
                   {intl.formatMessage({
                     defaultMessage:
                       "Publish your advertisement to start receiving applications.",
@@ -318,7 +315,7 @@ export const ViewPool = ({
                 </p>
               </>
             ) : (
-              <p data-h2-margin="base(x1 0)" data-h2-color="base(black.light)">
+              <p className="my-6" data-h2-color="base(black.light)">
                 {intl.formatMessage(
                   {
                     defaultMessage:

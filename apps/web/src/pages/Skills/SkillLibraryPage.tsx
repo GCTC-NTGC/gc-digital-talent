@@ -119,7 +119,7 @@ const SkillLibrary = ({ userSkills, skills }: SkillLibraryProps) => {
               >
                 {sections.showcase.title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x1 0)">
+              <p className="my-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "Your skill showcase allows you to curate lists of skills from your library that present a more targeted story about your strengths and areas of interest. While your skill library acts as a central place to manage all of the skills you add to your profile, the showcases you complete are paired with your job applications to help recruiters and managers see a more complete picture of your talent.",

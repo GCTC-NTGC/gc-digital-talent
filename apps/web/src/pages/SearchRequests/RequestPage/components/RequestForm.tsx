@@ -431,7 +431,7 @@ export const RequestForm = ({
               label: intl.formatMessage(getSearchRequestReason(value)),
             }))}
           />
-          <p data-h2-margin="base(x1 0)">
+          <p className="my-6">
             {intl.formatMessage(
               {
                 defaultMessage:
@@ -506,7 +506,7 @@ export const RequestForm = ({
               })}
             </p>
             {candidateCount === 0 ? (
-              <p data-h2-margin="base(x1 0)">
+              <p className="my-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "If you are submitting a form that had zero estimated candidates, let us know more about this request in the comments.",

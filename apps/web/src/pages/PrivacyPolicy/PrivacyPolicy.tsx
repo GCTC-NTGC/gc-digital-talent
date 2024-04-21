@@ -127,7 +127,7 @@ const PrivacyPolicy = () => {
         <Heading size="h3" data-h2-margin="base(0, 0, x1, 0)">
           {pageTitle}
         </Heading>
-        <p data-h2-margin="base(x1 0)">
+        <p className="my-6">
           {intl.formatMessage(
             {
               defaultMessage:
@@ -147,7 +147,7 @@ const PrivacyPolicy = () => {
             },
           )}
         </p>
-        <p data-h2-margin="base(x1 0)">
+        <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
               "Please do not provide additional personal information which is not required for this purpose.",
@@ -155,7 +155,7 @@ const PrivacyPolicy = () => {
             description: "Paragraph for privacy policy page",
           })}
         </p>
-        <p data-h2-margin="base(x1 0)">
+        <p className="my-6">
           {intl.formatMessage(
             {
               defaultMessage:
@@ -169,7 +169,7 @@ const PrivacyPolicy = () => {
             },
           )}
         </p>
-        <p data-h2-margin="base(x1 0)">
+        <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
               "Failure to provide personal information will result in your ineligibility for employment opportunities associated with this tool.",
@@ -177,7 +177,7 @@ const PrivacyPolicy = () => {
             description: "Paragraph for privacy policy page",
           })}
         </p>
-        <p data-h2-margin="base(x1 0)">
+        <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
               "You have the right to the correction of, the access to, and protection of your personal information under the Privacy Act and the right to complain to the Privacy Commissioner of Canada about the handling of your personal information.",
@@ -185,7 +185,7 @@ const PrivacyPolicy = () => {
             description: "Paragraph for privacy policy page",
           })}
         </p>
-        <p data-h2-margin="base(x1 0)">
+        <p className="my-6">
           {intl.formatMessage(
             {
               defaultMessage:

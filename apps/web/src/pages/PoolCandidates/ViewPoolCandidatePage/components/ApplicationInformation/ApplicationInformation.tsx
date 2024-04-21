@@ -175,7 +175,7 @@ const ApplicationInformation = ({
           </Button>
         </div>
       </div>
-      <p data-h2-margin="base(x1 0)">
+      <p className="my-6">
         {intl.formatMessage(
           {
             defaultMessage:

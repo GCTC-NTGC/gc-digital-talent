@@ -308,7 +308,7 @@ const AccessibilityStatementPage = () => {
               >
                 {sections[0].title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x1 0)">
+              <p className="my-6">
                 {intl.formatMessage(
                   {
                     defaultMessage:
@@ -330,7 +330,7 @@ const AccessibilityStatementPage = () => {
               >
                 {sections[1].title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x1 0)">
+              <p className="my-6">
                 {intl.formatMessage(
                   {
                     id: "5Cwvgi",

@@ -108,7 +108,7 @@ const EssentialSkillsSection = ({
       >
         {sectionMetadata.title}
       </ToggleSection.Header>
-      <p data-h2-margin="base(x1 0)">{subtitle}</p>
+      <p className="my-6">{subtitle}</p>
       <SkillTable
         caption={sectionMetadata.title}
         data={essentialSkills}

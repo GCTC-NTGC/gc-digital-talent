@@ -436,7 +436,7 @@ export const PoolPoster = ({
                 </div>
               </div>
               {showSpecialNote && (
-                <Well data-h2-margin="base(x1 0)">
+                <Well className="my-6">
                   <Heading
                     level="h3"
                     size="h6"

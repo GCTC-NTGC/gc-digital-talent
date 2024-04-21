@@ -253,7 +253,7 @@ const OrganizeSection = ({
           </Accordion.Content>
         </Accordion.Item>
       </Accordion.Root>
-      <div data-h2-margin="base(x1 0)">
+      <div className="my-6">
         <CardRepeater.Root<AssessmentStep>
           items={steps}
           disabled={formDisabled}

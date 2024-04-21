@@ -186,7 +186,7 @@ export const SkillShowcase = ({
                   {sections.topSkills.title}
                 </TableOfContents.Heading>
               </div>
-              <p data-h2-margin="base(x1 0)">
+              <p className="my-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "This section allows you to feature the skills that you're strongest in. You're able to specify up to 5 behavioural skills and up to 10 technical skills to help create a holistic picture of your talent. The skills you showcase here help potential hiring managers better understand your core strengths and how you might fit their team's needs.",
@@ -270,7 +270,7 @@ export const SkillShowcase = ({
                   {sections.improveSkills.title}
                 </TableOfContents.Heading>
               </div>
-              <p data-h2-margin="base(x1 0)">
+              <p className="my-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "Where your top skills highlight your strengths, this section allows you to provide us with a bit of insight on the skills you're actively working to improve. The skills listed below don't necessarily have to be weaknesses - if you’re interested in improving the skill through experience or training, include it here.",

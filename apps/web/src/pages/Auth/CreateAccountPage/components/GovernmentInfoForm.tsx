@@ -287,12 +287,7 @@ export const GovernmentInfoFormFields = ({
 
   // render the actual form
   return (
-    <div
-      className="flex"
-      data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x1 0)"
-      data-h2-margin="base(x1 0)"
-    >
+    <div className="my-6 flex flex-col gap-y-6">
       <RadioGroup
         idPrefix="govEmployeeYesNo"
         legend={labels.govEmployeeYesNo}

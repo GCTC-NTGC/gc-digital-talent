@@ -146,7 +146,7 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
               steps={applicationStepsToStepperArgs(steps, application)}
             />
             {isIAP && (
-              <div data-h2-margin="base(x1 0)">
+              <div className="my-6">
                 <IapContactDialog />
               </div>
             )}

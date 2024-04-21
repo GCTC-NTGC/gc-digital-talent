@@ -141,7 +141,7 @@ const SupportForm = ({
           description: "Support form title",
         })}
       </Heading>
-      <p data-h2-margin="base(x1 0)">
+      <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
             "Have a specific question? Want to provide feedback or report a bug? Send us a message using this form.",

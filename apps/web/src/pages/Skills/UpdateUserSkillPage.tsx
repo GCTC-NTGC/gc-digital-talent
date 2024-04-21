@@ -470,7 +470,7 @@ export const UpdateUserSkillForm = ({
                 })}
               </p>
               {skillDescription && (
-                <Well data-h2-margin="base(x1 0)">
+                <Well className="my-6">
                   <p className="font-bold" data-h2-margin-bottom="base(x.5)">
                     {intl.formatMessage(
                       {
@@ -653,7 +653,7 @@ export const UpdateUserSkillForm = ({
               >
                 {sections.featuredExperiences.title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x1 0)">
+              <p className="my-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "Any experience you've added to your career timeline that features this skill can be managed in this section. You can also link this skill to other experiences using the button provided.",

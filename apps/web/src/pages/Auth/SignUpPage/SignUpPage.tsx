@@ -359,7 +359,7 @@ const SignUpPage = () => {
                 size="sm"
                 mode="card"
                 collapsible
-                data-h2-margin="base(x1 0)"
+                className="my-6"
               >
                 <Accordion.Item value="one">
                   <Accordion.Trigger as="h4">

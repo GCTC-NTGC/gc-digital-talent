@@ -82,7 +82,7 @@ export const AssessmentPlanBuilder = ({
           {intl.formatMessage(assessmentBadge.label)}
         </Chip>
       </Heading>
-      <p data-h2-margin="base(x1 0)">{intl.formatMessage(pageSubtitle)}</p>
+      <p className="my-6">{intl.formatMessage(pageSubtitle)}</p>
       <Separator />
       <TableOfContents.Wrapper>
         <TableOfContents.Navigation>

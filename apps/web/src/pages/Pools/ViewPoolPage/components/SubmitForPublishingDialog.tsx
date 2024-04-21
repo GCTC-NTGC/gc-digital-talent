@@ -71,7 +71,7 @@ const SubmitForPublishingDialog = ({
                 "Lead-in text on a complete process, ready for publishing",
             })}
           </p>
-          <p data-h2-margin="base(x1 0)">
+          <p className="my-6">
             {intl.formatMessage(
               {
                 defaultMessage:
@@ -83,7 +83,7 @@ const SubmitForPublishingDialog = ({
               { a: contactLink },
             )}
           </p>
-          <p data-h2-margin="base(x1 0)">
+          <p className="my-6">
             {intl.formatMessage({
               defaultMessage:
                 "The GC Digital Talent team will review and publish your advertisement.",

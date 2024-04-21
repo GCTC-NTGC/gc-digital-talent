@@ -324,7 +324,7 @@ const TermsAndConditions = () => {
               >
                 {sections.usingFiles.title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x1 0)">
+              <p className="my-6">
                 {intl.formatMessage(
                   {
                     defaultMessage:
@@ -346,7 +346,7 @@ const TermsAndConditions = () => {
               >
                 {sections.providingContent.title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x1 0)">
+              <p className="my-6">
                 {intl.formatMessage(
                   {
                     id: "wsNG8a",
@@ -532,7 +532,7 @@ const TermsAndConditions = () => {
               >
                 {sections.trademarkNotice.title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x1 0)">
+              <p className="my-6">
                 {intl.formatMessage(
                   {
                     id: "zcr51k",
@@ -555,7 +555,7 @@ const TermsAndConditions = () => {
               >
                 {sections.accessibilityCommitment.title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x1 0)">
+              <p className="my-6">
                 {intl.formatMessage(
                   {
                     id: "4jMHwL",
@@ -580,7 +580,7 @@ const TermsAndConditions = () => {
               >
                 {sections.socialMedia.title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x1 0)">
+              <p className="my-6">
                 {intl.formatMessage({
                   id: "nxAw/X",
                   defaultMessage:

@@ -74,7 +74,7 @@ const GeneralQuestionsSection = ({
             "Helper message indicating what general questions are and how they differ from screening questions",
         })}
       </p>
-      <div data-h2-margin="base(x1 0)">
+      <div className="my-6">
         <CardRepeater.Root<GeneralQuestion>
           items={questions}
           disabled={formDisabled}
@@ -93,7 +93,7 @@ const GeneralQuestionsSection = ({
         </CardRepeater.Root>
       </div>
       {questions.length === 0 ? (
-        <Well data-h2-margin="base(x1 0)" data-h2-text-align="base(center)">
+        <Well className="my-6" data-h2-text-align="base(center)">
           <p className="font-bold" data-h2-margin-bottom="base(x.5)">
             {intl.formatMessage({
               defaultMessage: "You haven't added any questions yet.",

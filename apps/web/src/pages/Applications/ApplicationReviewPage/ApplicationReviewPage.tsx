@@ -556,7 +556,7 @@ const ApplicationReview = ({
                   </p>
                 </li>
               </ul>
-              <div data-h2-margin="base(x1 0)">
+              <div className="my-6">
                 <Input
                   id="signature"
                   label={intl.formatMessage({

@@ -88,7 +88,7 @@ const NotificationsPage = () => {
                   description: "Title for list of a users notifications",
                 })}
               </Heading>
-              <p data-h2-margin="base(x1 0)">
+              <p className="my-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "This page provides a complete overview of your notification history. From here you can review, pin, and delete notifications from your account. If you'd like to manage which notifications you receive and their format, you can do so from your account settings page.",

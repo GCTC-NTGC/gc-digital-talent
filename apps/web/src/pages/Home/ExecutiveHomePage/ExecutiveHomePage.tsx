@@ -388,7 +388,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
           mode="card"
           size="sm"
           collapsible
-          data-h2-margin="base(x1 0)"
+          className="my-6"
         >
           <Accordion.Item value="digital-community-support">
             <Accordion.Trigger as="h4">

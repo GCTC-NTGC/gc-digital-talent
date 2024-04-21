@@ -258,7 +258,7 @@ const UpdateSkillShowcase = ({
               >
                 {pageInfo.title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x1 0)">{pageInfo.blurb}</p>
+              <p className="my-6">{pageInfo.blurb}</p>
               <div>
                 <div data-h2-margin-bottom="base(1rem)">
                   <CardRepeater.Root<SkillBrowserDialogFormValues>
