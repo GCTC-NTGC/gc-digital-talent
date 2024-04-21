@@ -62,7 +62,7 @@ const Display = ({
       });
 
   return (
-    <div data-h2-display="base(grid)" data-h2-gap="base(x1)">
+    <div className="grid gap-6">
       <FieldDisplay
         hasError={empty(isGovEmployee)}
         label={intl.formatMessage({

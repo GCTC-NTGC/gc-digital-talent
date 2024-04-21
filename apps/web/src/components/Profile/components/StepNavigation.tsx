@@ -157,13 +157,7 @@ const StepNavigation = ({
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(handleNavigation)}>
-        <div
-          className="flex"
-          data-h2-gap="base(x1)"
-          data-h2-flex-wrap="base(wrap)"
-          data-h2-flex-direction="base(column) l-tablet(row)"
-          data-h2-align-items="base(flex-start) l-tablet(center)"
-        >
+        <div className="flex-wra flex flex-col items-start gap-6 md:flex-row md:items-center">
           <Button
             type="submit"
             color="primary"

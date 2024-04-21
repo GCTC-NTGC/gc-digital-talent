@@ -8,6 +8,7 @@ import {
   getLanguageProficiency,
 } from "@gc-digital-talent/i18n";
 import { getOrThrowError } from "@gc-digital-talent/helpers";
+import { cn } from "@gc-digital-talent/ui";
 
 import { getEvaluatedLanguageLevels } from "~/utils/userUtils";
 
@@ -88,10 +89,7 @@ const Display = ({
   }
 
   return (
-    <div
-      data-h2-display="base(grid)"
-      {...(context !== "print" && { "data-h2-gap": "base(x1)" })}
-    >
+    <div className={cn("grid", { "gap-6": context !== "print" })}>
       <FieldDisplay
         hasError={
           !lookingForEnglish && !lookingForFrench && !lookingForBilingual
@@ -100,7 +98,7 @@ const Display = ({
         context={context}
       >
         {lookingForEnglish || lookingForFrench || lookingForBilingual ? (
-          <ul>
+          <ul className="my-3 list-inside list-disc pl-6">
             {lookingForEnglish && (
               <li>
                 {intl.formatMessage({
@@ -201,7 +199,7 @@ const Display = ({
             )}
         </>
       ) : (
-        <div data-h2-display="base(grid)" data-h2-gap="base(x1)">
+        <div className="grid gap-6">
           {lookingForBilingual && (
             <>
               <FieldDisplay
@@ -239,11 +237,8 @@ const Display = ({
                     {examValidity}
                   </FieldDisplay>
                   <div
-                    data-h2-display="base(grid)"
-                    data-h2-grid-template-columns="l-tablet(1fr 1fr 1fr)"
-                    data-h2-gap="base(x1, 0) l-tablet(0, x1)"
-                    {...(context === "print" && {
-                      "data-h2-gap": "base(0, 0)",
+                    className={cn("grid md:grid-cols-3", {
+                      "gap-6": context !== "print",
                     })}
                   >
                     <FieldDisplay

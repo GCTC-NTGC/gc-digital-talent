@@ -53,7 +53,7 @@ const DiversityEquityInclusion = ({
         id: "iKWOl+",
         description: "Introduction text for selecting employment equity groups",
       })}
-      <ul data-h2-padding="base(x0.5, x1.5)">
+      <ul className="my-3 list-inside list-disc pl-6">
         <li>
           {intl.formatMessage({
             defaultMessage:
@@ -98,7 +98,7 @@ const DiversityEquityInclusion = ({
                 })}
           </Accordion.Trigger>
           <Accordion.Content>
-            <p data-h2-padding-bottom="base(x0.5)">
+            <p className="mb-3">
               {intl.formatMessage({
                 defaultMessage:
                   "While the language around these categories is in need of updating, the Government of Canada will sometimes use these categories in hiring to make sure that it is meeting the aims of employment equity.",
@@ -107,7 +107,7 @@ const DiversityEquityInclusion = ({
                   "Description of how the Government of Canada uses employment equity categories in hiring.",
               })}
             </p>
-            <p data-h2-margin-bottom="base(x0.5)">
+            <p className="mb-3">
               {intl.formatMessage({
                 defaultMessage:
                   "These four groups are <strong>women, Aboriginal peoples, persons with disabilities,</strong> and <strong>members of visible minorities</strong>.",
@@ -116,7 +116,7 @@ const DiversityEquityInclusion = ({
                   "Second paragraph for employment equity information.",
               })}
             </p>
-            <p data-h2-margin-bottom="base(x0.5)">
+            <p className="mb-3">
               {intl.formatMessage({
                 defaultMessage:
                   "If you are a member of one or more of these employment equity groups, and you do not wish to self identify on this platform, there is no obligation to do so.",
@@ -125,7 +125,7 @@ const DiversityEquityInclusion = ({
                   "Third paragraph for employment equity information.",
               })}
             </p>
-            <p data-h2-margin-bottom="base(x0.5)" className="font-bold">
+            <p className="mb-3 font-bold">
               {intl.formatMessage({
                 defaultMessage: "How will this data be used?",
                 id: "ttRVSp",

@@ -2,6 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { cn } from "@gc-digital-talent/ui";
 
 interface FieldDisplayProps {
   label: React.ReactNode;
@@ -27,17 +28,17 @@ const FieldDisplay = ({
       {...rest}
     >
       <span
-        {...(context !== "print" && { "data-h2-display": "base(block)" })}
-        {...(context === "default" && { "data-h2-font-weight": "base(700)" })}
+        className={cn({
+          block: context !== "print",
+          "font-bold": context === "default",
+        })}
       >
         {label}
         {context === "print" &&
           intl.formatMessage(commonMessages.dividingColon)}
       </span>
       {children && (
-        <span
-          {...(context === "admin" && { "data-h2-font-weight": "base(700)" })}
-        >
+        <span className={cn({ "font-bold": context === "admin" })}>
           {children}
         </span>
       )}

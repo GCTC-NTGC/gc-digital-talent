@@ -96,7 +96,7 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
                 })}
           </Accordion.Trigger>
           <Accordion.Content>
-            <p data-h2-margin-bottom="base(x1)">
+            <p className="mb-6">
               {intl.formatMessage({
                 defaultMessage:
                   "GC Digital Talent partners with the Government of Canada's credential service, GCKey, to provide you with account access using a single username and password. You can manage related data on the GCKey website and it will automatically reflect here when you access your account.",
@@ -146,7 +146,7 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
                 })}
           </Accordion.Trigger>
           <Accordion.Content>
-            <p data-h2-margin-bottom="base(x0.5)">
+            <p className="mb-3">
               {intl.formatMessage(
                 {
                   defaultMessage:
@@ -160,7 +160,7 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
                 },
               )}
             </p>
-            <p data-h2-margin-bottom="base(x1)">
+            <p className="mb-6">
               {intl.formatMessage(
                 {
                   defaultMessage:
@@ -183,14 +183,16 @@ const AccountAndPrivacy = ({ user, pool }: SectionProps) => {
                 />
               ))
             ) : (
-              <Well data-h2-text-align="base(center)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "You do not currently have any talent pools on your profile.",
-                  id: "QHR5ay",
-                  description:
-                    "Message displayed in recruitment availability when the user is not in any valid pools",
-                })}
+              <Well>
+                <p className="text-center">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "You do not currently have any talent pools on your profile.",
+                    id: "QHR5ay",
+                    description:
+                      "Message displayed in recruitment availability when the user is not in any valid pools",
+                  })}
+                </p>
               </Well>
             )}
           </Accordion.Content>

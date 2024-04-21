@@ -39,11 +39,7 @@ const Display = ({
 
   return (
     <>
-      <div
-        data-h2-display="base(grid)"
-        data-h2-grid-template-columns="p-tablet(repeat(2, 1fr)) l-tablet(repeat(3, 1fr))"
-        data-h2-gap="base(x1)"
-      >
+      <div className="mb-6 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
         <DisplayColumn>
           <FieldDisplay
             hasError={!firstName}
@@ -154,34 +150,34 @@ const Display = ({
           </FieldDisplay>
         </DisplayColumn>
       </div>
-      <FieldDisplay
-        hasError={empty(armedForcesStatus)}
-        label={intl.formatMessage({
-          defaultMessage: "Veteran status",
-          id: "OVWo88",
-          description: "Title for Veteran status",
-        })}
-        data-h2-padding-top="base(x1)"
-      >
-        {armedForcesStatus !== null && armedForcesStatus !== undefined
-          ? intl.formatMessage(
-              getArmedForcesStatusesProfile(armedForcesStatus, false),
-            )
-          : notProvided}
-      </FieldDisplay>
-      <FieldDisplay
-        hasError={!citizenship}
-        label={intl.formatMessage({
-          defaultMessage: "Citizenship status",
-          id: "4v9y7U",
-          description: "Citizenship status label",
-        })}
-        data-h2-padding-top="base(x1)"
-      >
-        {citizenship
-          ? intl.formatMessage(getCitizenshipStatusesProfile(citizenship))
-          : notProvided}
-      </FieldDisplay>
+      <div className="flex flex-col gap-y-6">
+        <FieldDisplay
+          hasError={empty(armedForcesStatus)}
+          label={intl.formatMessage({
+            defaultMessage: "Veteran status",
+            id: "OVWo88",
+            description: "Title for Veteran status",
+          })}
+        >
+          {armedForcesStatus !== null && armedForcesStatus !== undefined
+            ? intl.formatMessage(
+                getArmedForcesStatusesProfile(armedForcesStatus, false),
+              )
+            : notProvided}
+        </FieldDisplay>
+        <FieldDisplay
+          hasError={!citizenship}
+          label={intl.formatMessage({
+            defaultMessage: "Citizenship status",
+            id: "4v9y7U",
+            description: "Citizenship status label",
+          })}
+        >
+          {citizenship
+            ? intl.formatMessage(getCitizenshipStatusesProfile(citizenship))
+            : notProvided}
+        </FieldDisplay>
+      </div>
     </>
   );
 };

@@ -12,14 +12,7 @@ const FormActions = ({ isUpdating }: FormActionsProps) => {
   const intl = useIntl();
 
   return (
-    <div
-      className="flex"
-      data-h2-gap="base(x.25, x.5)"
-      data-h2-flex-wrap="base(wrap)"
-      data-h2-flex-direction="base(column) l-tablet(row)"
-      data-h2-align-items="base(flex-start) l-tablet(center)"
-      data-h2-margin-top="base(x1)"
-    >
+    <div className="mt-6 flex flex-col flex-wrap items-start gap-x-1.5 gap-y-3 md:flex-row md:items-center">
       <Button
         type="submit"
         color="secondary"

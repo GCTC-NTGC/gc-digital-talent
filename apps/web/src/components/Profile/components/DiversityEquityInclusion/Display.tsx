@@ -36,7 +36,7 @@ const Display = ({
 
   return hasClaimedEquityGroup ? (
     <>
-      <ul>
+      <ul className="list-inside list-disc">
         {isWoman && (
           <li>{intl.formatMessage(getEmploymentEquityStatement("woman"))}</li>
         )}
@@ -53,15 +53,13 @@ const Display = ({
         {isIndigenous && (
           <li>
             {intl.formatMessage(getEmploymentEquityStatement("indigenous"))}
-            <ul data-h2-padding-left="base(x.25)">
+            <ul className="pl-1.5">
               {nonLegacyIndigenousCommunities.length > 0
                 ? nonLegacyIndigenousCommunities.map((community) => {
                     return (
                       <li
                         key={community}
-                        className="flex"
-                        data-h2-align-items="base(center)"
-                        data-h2-gap="base(0, x.25)"
+                        className="flex items-center gap-x-1.5"
                       >
                         <CommunityIcon community={community} />
                         <span>

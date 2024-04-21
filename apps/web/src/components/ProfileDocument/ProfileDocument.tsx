@@ -46,21 +46,14 @@ interface ProfileDocumentProps {
 }
 
 const PageSection = ({ children }: { children: React.ReactNode }) => (
-  <div
-    data-h2-margin-bottom="base(2rem)"
-    className="block"
-    data-h2-break-inside="base(avoid) base:print(avoid)"
-    data-h2-break-after="base(avoid) base:print(avoid)"
-  >
+  <div className="mb-10 block break-inside-avoid break-after-avoid">
     {children}
   </div>
 );
 
 // If a section is too big, use this instead of PageSection to allow it to break
 const BreakingPageSection = ({ children }: { children: React.ReactNode }) => (
-  <div data-h2-margin-bottom="base(2rem)" className="block">
-    {children}
-  </div>
+  <div className="mb-10 block">{children}</div>
 );
 
 const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
@@ -72,8 +65,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
       <div style={{ display: "none" }}>
         <div data-h2 ref={ref}>
           <div
-            data-h2-font-family="base(sans) base:print(sans)"
-            data-h2-padding-bottom="base(1rem)"
+            className="pb-4 font-sans"
             data-h2-border-bottom="base(2px dashed black) base:print(2px dashed black)"
           >
             {results && (
@@ -651,7 +643,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                         <Heading level="h4" className="font-bold">
                           {intl.formatMessage(navigationMessages.skillShowcase)}
                         </Heading>
-                        <p data-h2-margin="base(x1 0)">
+                        <p className="my-6">
                           {intl.formatMessage({
                             defaultMessage:
                               "The skill showcase allows a candidate to provide a curated series of lists that highlight their specific strengths, weaknesses and skill growth opportunities. These lists can provide you with insight into a candidate's broader skill set and where they might be interested in new skills.",
