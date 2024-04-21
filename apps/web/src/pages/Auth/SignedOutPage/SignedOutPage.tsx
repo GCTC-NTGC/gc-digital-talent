@@ -137,14 +137,10 @@ const SignedOutPage = () => {
       <Hero title={pageTitle} crumbs={crumbs} />
       <div
         data-h2-container="base(center, small, x1) p-tablet(center, small, x2)"
-        data-h2-margin="base(x3, 0)"
+        className="my-20"
       >
         {alert}
-        <Heading
-          data-h2-margin="base(x3, 0, x1, 0)"
-          size="h3"
-          data-h2-font-weight="base(400)"
-        >
+        <Heading size="h3" className="mb-6 mt-20">
           {intl.formatMessage({
             defaultMessage: "Quick Links",
             id: "Igrveg",
@@ -161,37 +157,35 @@ const SignedOutPage = () => {
               "Description of the links presented on the logged out page.",
           })}
         </p>
-        <div data-h2-margin="base(x.5, 0, 0, 0)">
-          <ul data-h2-padding="base(0, 0, 0, x1)">
-            <li>
-              <Link href={paths.home()}>
-                {intl.formatMessage({
-                  defaultMessage: "Return home",
-                  id: "Hgd/PL",
-                  description: "Link text to return to the home page",
-                })}
-              </Link>
-            </li>
-            <li>
-              <Link href={paths.browsePools()}>
-                {intl.formatMessage({
-                  defaultMessage: "View open pools",
-                  id: "FtlwFY",
-                  description: "Link text to view all open pools",
-                })}
-              </Link>
-            </li>
-            <li>
-              <Link href={`/${locale}/talent-cloud/report`} external>
-                {intl.formatMessage({
-                  defaultMessage: "Talent Cloud report",
-                  id: "L9mWLV",
-                  description: "Link text to read the report on talent cloud",
-                })}
-              </Link>
-            </li>
-          </ul>
-        </div>
+        <ul className="my-6 list-outside list-disc pl-12">
+          <li>
+            <Link href={paths.home()}>
+              {intl.formatMessage({
+                defaultMessage: "Return home",
+                id: "Hgd/PL",
+                description: "Link text to return to the home page",
+              })}
+            </Link>
+          </li>
+          <li>
+            <Link href={paths.browsePools()}>
+              {intl.formatMessage({
+                defaultMessage: "View open pools",
+                id: "FtlwFY",
+                description: "Link text to view all open pools",
+              })}
+            </Link>
+          </li>
+          <li>
+            <Link href={`/${locale}/talent-cloud/report`} external>
+              {intl.formatMessage({
+                defaultMessage: "Talent Cloud report",
+                id: "L9mWLV",
+                description: "Link text to read the report on talent cloud",
+              })}
+            </Link>
+          </li>
+        </ul>
       </div>
       <AlertDialog.Root open={loggedIn}>
         <AlertDialog.Content>

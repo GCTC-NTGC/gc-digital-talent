@@ -13,14 +13,10 @@ interface LinkWellProps {
 
 const LinkWell = ({ title, links }: LinkWellProps) => (
   <Well>
-    <Heading level="h3" size="h5" data-h2-margin="base(0, 0, x.5, 0)">
+    <Heading level="h3" size="h5" className="mb-3 mt-0">
       {title}
     </Heading>
-    <div
-      className="flex"
-      data-h2-flex-wrap="base(wrap)"
-      data-h2-gap="base(x.5)"
-    >
+    <div className="flex flex-wrap gap-3">
       {links.map(({ label, ...rest }) => (
         <Link key={rest.href} color="secondary" mode="solid" {...rest}>
           {label}

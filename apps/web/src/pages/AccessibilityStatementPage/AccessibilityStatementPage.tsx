@@ -302,10 +302,7 @@ const AccessibilityStatementPage = () => {
               )}
             </p>
             <TableOfContents.Section id={sections[0].id}>
-              <TableOfContents.Heading
-                size="h3"
-                data-h2-margin="base(x3, 0, x1, 0)"
-              >
+              <TableOfContents.Heading size="h3" className="mb-6 mt-20">
                 {sections[0].title}
               </TableOfContents.Heading>
               <p className="my-6">
@@ -324,10 +321,7 @@ const AccessibilityStatementPage = () => {
               </p>
             </TableOfContents.Section>
             <TableOfContents.Section id={sections[1].id}>
-              <TableOfContents.Heading
-                size="h3"
-                data-h2-margin="base(x3, 0, x1, 0)"
-              >
+              <TableOfContents.Heading size="h3" className="mb-6 mt-20">
                 {sections[1].title}
               </TableOfContents.Heading>
               <p className="my-6">
@@ -342,12 +336,7 @@ const AccessibilityStatementPage = () => {
                   { wcagLink },
                 )}
               </p>
-              <Heading
-                level="h3"
-                size="h4"
-                className="font-bold"
-                data-h2-margin="base(x3, 0, x1, 0)"
-              >
+              <Heading level="h3" size="h4" className="mb-5 mt-20 font-bold">
                 {intl.formatMessage({
                   defaultMessage:
                     "Making our products accessible and usable by all",
@@ -356,7 +345,7 @@ const AccessibilityStatementPage = () => {
                     "Heading for the items we consider for accessibility.",
                 })}
               </Heading>
-              <p data-h2-margin="base(x1, 0, x.5, 0)">
+              <p className="mb-3 mt-6">
                 {intl.formatMessage({
                   id: "ASYJlr",
                   defaultMessage:
@@ -365,7 +354,7 @@ const AccessibilityStatementPage = () => {
                     "Lead in text for list of items we consider for accessibility",
                 })}
               </p>
-              <ul>
+              <ul className="list-outside list-disc pl-12 [&>li]:mb-1.5">
                 <li>
                   {intl.formatMessage({
                     defaultMessage: "Our designers pay attention to:",
@@ -373,7 +362,7 @@ const AccessibilityStatementPage = () => {
                     description:
                       "Intro to list of items designers consider for accessibility",
                   })}
-                  <ul data-h2-margin="base:children[> li](x.25, 0, 0, 0)">
+                  <ul className="my-3 list-outside list-disc pl-6 [&>li]:mb-1.5">
                     <li>
                       {intl.formatMessage({
                         defaultMessage:
@@ -410,14 +399,14 @@ const AccessibilityStatementPage = () => {
                     </li>
                   </ul>
                 </li>
-                <li data-h2-margin="base(x.5, 0, 0, 0)">
+                <li>
                   {intl.formatMessage({
                     defaultMessage: "Our developers pay attention to:",
                     id: "Wi4tia",
                     description:
                       "Intro to list of items developers consider for accessibility",
                   })}
-                  <ul data-h2-margin="base:children[> li](x.25, 0, 0, 0)">
+                  <ul className="my-3 list-outside list-disc pl-6 [&>li]:mb-1.5">
                     <li>
                       {intl.formatMessage(
                         {
@@ -463,12 +452,7 @@ const AccessibilityStatementPage = () => {
                   </ul>
                 </li>
               </ul>
-              <Heading
-                level="h3"
-                size="h4"
-                className="font-bold"
-                data-h2-margin="base(x3, 0, x1, 0)"
-              >
+              <Heading level="h3" size="h4" className="mb-6 mt-20 font-bold">
                 {intl.formatMessage({
                   defaultMessage: "Testing with real users",
                   id: "7+GPYf",
@@ -489,13 +473,10 @@ const AccessibilityStatementPage = () => {
               </p>
             </TableOfContents.Section>
             <TableOfContents.Section id={sections[2].id}>
-              <TableOfContents.Heading
-                size="h3"
-                data-h2-margin="base(x3, 0, x1, 0)"
-              >
+              <TableOfContents.Heading size="h3" className="mb-6 mt-20">
                 {sections[2].title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x.5, 0)">
+              <p className="my-3">
                 {intl.formatMessage({
                   defaultMessage:
                     "Despite all efforts to make our website fully accessible, if you encounter a problem we missed, or require a different format, we encourage you to contact us at:",
@@ -504,12 +485,12 @@ const AccessibilityStatementPage = () => {
                     "Lead in text for accessibility contact information",
                 })}
               </p>
-              <p data-h2-margin="base(x.5, 0)">
+              <p className="my-3">
                 <Link external href={`mailto:${TALENTSEARCH_SUPPORT_EMAIL}`}>
                   {TALENTSEARCH_SUPPORT_EMAIL}
                 </Link>
               </p>
-              <p data-h2-margin="base(x.5, 0)">
+              <p className="my-3">
                 {intl.formatMessage({
                   defaultMessage:
                     "We try to reply to inquiries within five business days. We also welcome your feedback on our accessibility efforts.",
@@ -519,13 +500,10 @@ const AccessibilityStatementPage = () => {
               </p>
             </TableOfContents.Section>
             <TableOfContents.Section id={sections[3].id}>
-              <TableOfContents.Heading
-                size="h3"
-                data-h2-margin="base(x3, 0, x1, 0)"
-              >
+              <TableOfContents.Heading size="h3" className="mb-6 mt-20">
                 {sections[3].title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x.5, 0)">
+              <p className="my-3">
                 {intl.formatMessage(
                   {
                     id: "WSo3Y/",
@@ -543,7 +521,7 @@ const AccessibilityStatementPage = () => {
                   },
                 )}
               </p>
-              <p data-h2-margin="base(x.5, 0)">
+              <p className="my-3">
                 {intl.formatMessage({
                   defaultMessage:
                     "Not all complaints will go directly to the Accessibility Commissioner. There are some exceptions:",
@@ -552,7 +530,7 @@ const AccessibilityStatementPage = () => {
                     "Disclaimer about accessibility complaint exceptions.",
                 })}
               </p>
-              <ul data-h2-margin="base:children[> li](x.25, 0, 0, 0)">
+              <ul className="list-outside list-disc pl-12 [&>li]:mb-1.5">
                 <li>
                   {intl.formatMessage(
                     {
@@ -618,7 +596,7 @@ const AccessibilityStatementPage = () => {
                   )}
                 </li>
               </ul>
-              <p data-h2-margin="base(x.5, 0)">
+              <p className="my-3">
                 {intl.formatMessage({
                   defaultMessage:
                     "If you are not happy with how we respond to your complaint, reach out to the CHRC at the coordinates below:",
@@ -627,7 +605,7 @@ const AccessibilityStatementPage = () => {
                     "Description of what to do if users are not content with complaint response",
                 })}
               </p>
-              <ul data-h2-margin="base:children[> li](x.25, 0)">
+              <ul className="list-outside list-disc pl-12 [&>li]:mb-1.5">
                 <li>
                   {intl.formatMessage(
                     {
@@ -698,7 +676,7 @@ const AccessibilityStatementPage = () => {
                   )}
                 </li>
               </ul>
-              <p data-h2-margin="base(x.5, 0)">
+              <p className="my-3">
                 {intl.formatMessage({
                   defaultMessage:
                     "This statement was prepared on November 8, 2022.",
@@ -711,11 +689,7 @@ const AccessibilityStatementPage = () => {
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
       </div>
-      <div
-        data-h2-background-image="base(main-linear)"
-        className="block"
-        data-h2-height="base(x1)"
-      />
+      <div data-h2-background-image="base(main-linear)" className="block h-6" />
     </>
   );
 };

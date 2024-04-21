@@ -74,7 +74,7 @@ const SignInPage = () => {
     <>
       <SEO title={pageTitle} />
       <Hero title={pageTitle} crumbs={crumbs} />
-      <div data-h2-padding="base(x3, 0)">
+      <div className="my-20">
         <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
           {!iapMode ? (
             <>
@@ -84,8 +84,7 @@ const SignInPage = () => {
                 color="warning"
                 level="h2"
                 size="h3"
-                data-h2-margin="base(0, 0, x1, 0)"
-                data-h2-font-weight="base(400)"
+                className="mb-6 mt-0 font-normal"
               >
                 {intl.formatMessage({
                   defaultMessage: "Welcome back",
@@ -94,7 +93,7 @@ const SignInPage = () => {
                     "Heading at the top of the sign in page for applicant profiles",
                 })}
               </Heading>
-              <p data-h2-margin="base(x1, 0)">
+              <p className="my-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "Just a reminder you'll be leaving our site to sign in with GCKey. If anything goes wrong, we have prepared additional guidance for you.",
@@ -115,8 +114,7 @@ const SignInPage = () => {
                 color="primary"
                 level="h2"
                 size="h3"
-                data-h2-margin="base(x3, 0, x1, 0)"
-                data-h2-font-weight="base(400)"
+                className="mb-1 mt-20 font-normal"
               >
                 {intl.formatMessage({
                   defaultMessage: "Signing in to your account",
@@ -125,12 +123,7 @@ const SignInPage = () => {
                     "Heading for section of the sign in page showing the sign in steps",
                 })}
               </Heading>
-              <Heading
-                level="h3"
-                size="h6"
-                className="font-bold"
-                data-h2-margin="base(x2, 0, x1, 0)"
-              >
+              <Heading level="h3" size="h6" className="mb-6 mt-12 font-bold">
                 {intl.formatMessage({
                   defaultMessage:
                     "Steps to signing in with GCKey and completing two-factor authentication",
@@ -191,8 +184,7 @@ const SignInPage = () => {
                 color="tertiary"
                 level="h2"
                 size="h3"
-                data-h2-margin="base(x3, 0, x1, 0)"
-                data-h2-font-weight="base(400)"
+                className="mb-1 mt-20"
               >
                 {intl.formatMessage({
                   defaultMessage: "Frequently Asked Questions (FAQs)",
@@ -249,7 +241,7 @@ const SignInPage = () => {
                     {intl.formatMessage(gckeyMessages.questionExistingAccount)}
                   </Accordion.Trigger>
                   <Accordion.Content>
-                    <p data-h2-margin-bottom="base(x0.5)">
+                    <p className="mb-3">
                       {intl.formatMessage(gckeyMessages.answerExistingAccount)}
                     </p>
                   </Accordion.Content>
@@ -267,7 +259,7 @@ const SignInPage = () => {
                     {intl.formatMessage(gckeyMessages.questionContactGCkey)}
                   </Accordion.Trigger>
                   <Accordion.Content>
-                    <p data-h2-margin-bottom="base(x0.5)">
+                    <p className="mb-3">
                       {intl.formatMessage(gckeyMessages.answerContactGCkey1)}
                     </p>
                     <p>
@@ -282,7 +274,7 @@ const SignInPage = () => {
                     >
                       1-855-438-1102
                     </Link>
-                    <p data-h2-margin-top="base(x0.5)">
+                    <p className="mt-3">
                       {intl.formatMessage(gckeyMessages.answerContactGCkey3)}
                     </p>
                     <Link
@@ -294,7 +286,7 @@ const SignInPage = () => {
                     >
                       1-855-438-1103
                     </Link>
-                    <p data-h2-margin-top="base(x0.5)">
+                    <p className="mt-3">
                       {intl.formatMessage(gckeyMessages.answerContactGCkey4)}
                     </p>
                     <Link
@@ -306,7 +298,7 @@ const SignInPage = () => {
                     >
                       1-800-2318-6290
                     </Link>
-                    <p data-h2-margin-top="base(x0.5)">
+                    <p className="mt-3">
                       {intl.formatMessage(gckeyMessages.answerContactGCkey5)}
                     </p>
                   </Accordion.Content>
@@ -330,7 +322,7 @@ const SignInPage = () => {
                   </Accordion.Content>
                 </Accordion.Item>
               </Accordion.Root>
-              <p data-h2-margin-top="base(x1)">
+              <p className="mt-6">
                 {intl.formatMessage(gckeyMessages.moreQuestions, { helpLink })}
               </p>
             </>
@@ -346,7 +338,7 @@ const SignInPage = () => {
                     "Instructions on how to sign in with GCKey - IAP variant",
                 })}
               </p>
-              <p data-h2-margin="base(x.5, 0, 0, 0)">
+              <p className="mt-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "If you're unsure of whether you have an existing GCKey account, continue to the website and try signing in. If you can't remember your password, you can also reset it there.",
@@ -355,7 +347,7 @@ const SignInPage = () => {
                     "Instructions on what to do if user doesn't know if they have a GCKey - IAP variant",
                 })}
               </p>
-              <p data-h2-margin="base(x.5, 0, 0, 0)">
+              <p className="mt-3">
                 {intl.formatMessage(
                   {
                     defaultMessage:
@@ -370,7 +362,7 @@ const SignInPage = () => {
                   },
                 )}
               </p>
-              <p data-h2-margin="base(x1, 0, 0, 0)">
+              <p className="mt-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "<strong>Heads up!</strong> Before we send you off to set up your GCKey credentials, we ask that you take another look at the program's eligibility criteria to ensure that you meet the requirements.",
@@ -379,7 +371,7 @@ const SignInPage = () => {
                     "A request for the user to review the IAP eligibility criteria",
                 })}
               </p>
-              <p data-h2-margin="base(x2, 0, 0, 0)">
+              <p className="mt-12">
                 {intl.formatMessage(
                   {
                     defaultMessage:
@@ -400,12 +392,7 @@ const SignInPage = () => {
             </>
           )}
           <Separator />
-          <div
-            className="flex"
-            data-h2-flex-direction="base(row)"
-            data-h2-align-items="base(center)"
-            data-h2-gap="base(x1)"
-          >
+          <div className="flex items-center gap-6">
             <Link href={loginPath} mode="solid" color="secondary" external>
               {intl.formatMessage({
                 defaultMessage: "Continue to GCKey and sign in",

@@ -81,7 +81,7 @@ const SignUpPage = () => {
     <>
       <SEO title={pageTitle} />
       <Hero title={pageTitle} crumbs={crumbs} />
-      <div data-h2-padding="base(x3, 0)">
+      <div className="my-20">
         <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
           {!iapMode ? (
             <>
@@ -91,8 +91,7 @@ const SignUpPage = () => {
                 color="primary"
                 level="h2"
                 size="h3"
-                data-h2-font-weight="base(400)"
-                data-h2-margin="base(0, 0, x1, 0)"
+                className="mb-6 mt-0 font-normal"
               >
                 {intl.formatMessage({
                   defaultMessage: "What to expect when creating an account",
@@ -101,8 +100,8 @@ const SignUpPage = () => {
                     "Heading at the top of the sign up page for applicant profiles",
                 })}
               </Heading>
-              <ul data-h2-margin="base(x1, 0)" data-h2-padding-left="base(x1)">
-                <li data-h2-margin-top="base(x.25)">
+              <ul className="my-6 list-outside list-disc pl-6 [&>li]:mb-1.5">
+                <li>
                   {intl.formatMessage({
                     defaultMessage:
                       "To sign up (or authenticate) with GC Digital Talent, we require that you use GCKey.",
@@ -110,7 +109,7 @@ const SignUpPage = () => {
                     description: "A _what to expect_ point on the sign up page",
                   })}
                 </li>
-                <li data-h2-margin-top="base(x.25)">
+                <li>
                   {intl.formatMessage({
                     defaultMessage:
                       "GCKey is a Government of Canada credential that allows you to securely conduct online business with various governmental programs and services.",
@@ -118,7 +117,7 @@ const SignUpPage = () => {
                     description: "A _what to expect_ point on the sign up page",
                   })}
                 </li>
-                <li data-h2-margin-top="base(x.25)">
+                <li>
                   {intl.formatMessage({
                     defaultMessage:
                       "In addition to GCKey, you will need to set up a two-factor authenticator app for an added layer of security. (See setting up two-factor authentication for details)",
@@ -126,7 +125,7 @@ const SignUpPage = () => {
                     description: "A _what to expect_ point on the sign up page",
                   })}
                 </li>
-                <li data-h2-margin-top="base(x.25)">
+                <li>
                   {intl.formatMessage({
                     defaultMessage:
                       "Expect to spend approximately 20 minutes to set up GCKey and the authenticator app.",
@@ -134,7 +133,7 @@ const SignUpPage = () => {
                     description: "A _what to expect_ point on the sign up page",
                   })}
                 </li>
-                <li data-h2-margin-top="base(x.25)">
+                <li>
                   {intl.formatMessage({
                     defaultMessage:
                       "We have prepared additional guidance In the next section to help.",
@@ -150,12 +149,7 @@ const SignUpPage = () => {
                   description: "GCKey sign up link text on the sign up page",
                 })}
               </Link>
-              <Heading
-                level="h3"
-                size="h4"
-                className="font-bold"
-                data-h2-margin="base(x3, 0, x1, 0)"
-              >
+              <Heading level="h3" size="h4" className="mb-6 mt-20 font-bold">
                 {intl.formatMessage({
                   defaultMessage: "Part 1: Creating a GCKey account",
                   id: "u98IOx",
@@ -163,12 +157,7 @@ const SignUpPage = () => {
                     "Heading for section of the sign up page showing the create steps",
                 })}
               </Heading>
-              <Heading
-                level="h4"
-                size="h6"
-                className="font-bold"
-                data-h2-margin="base(x2, 0, x.5, 0)"
-              >
+              <Heading level="h4" size="h6" className="mb-3 mt-12 font-bold">
                 {intl.formatMessage({
                   defaultMessage: "Steps to create your GCKey account",
                   id: "lZwkcR",
@@ -223,12 +212,7 @@ const SignUpPage = () => {
                   })}
                 </Instructions.Step>
               </Instructions.List>
-              <Heading
-                level="h3"
-                size="h4"
-                className="font-bold"
-                data-h2-margin="base(x3, 0, x1, 0)"
-              >
+              <Heading level="h3" size="h4" className="mb-6 mt-20 font-bold">
                 {intl.formatMessage({
                   defaultMessage:
                     "Part 2: Setting up two-factor authentication",
@@ -237,12 +221,7 @@ const SignUpPage = () => {
                     "Heading for section of the sign up page showing the mfa steps",
                 })}
               </Heading>
-              <Heading
-                level="h4"
-                size="h6"
-                className="font-bold"
-                data-h2-margin="base(x2, 0, x.5, 0)"
-              >
+              <Heading level="h4" size="h6" className="mb-3 mt-12 font-bold">
                 {intl.formatMessage({
                   defaultMessage: "Why set up a two-factor authentication?",
                   id: "mjUxjN",
@@ -258,12 +237,7 @@ const SignUpPage = () => {
                   description: "Copy explaining why to set up mfa",
                 })}
               </p>
-              <Heading
-                level="h4"
-                size="h6"
-                className="font-bold"
-                data-h2-margin="base(x2, 0, x.5, 0)"
-              >
+              <Heading level="h4" size="h6" className="mb-3 mt-12 font-bold">
                 {intl.formatMessage({
                   defaultMessage: "You will need an authenticator app.",
                   id: "/WLsRj",
@@ -278,12 +252,7 @@ const SignUpPage = () => {
                   description: "Copy explaining mfa apps",
                 })}
               </p>
-              <Heading
-                level="h4"
-                size="h6"
-                className="font-bold"
-                data-h2-margin="base(x2, 0, x.5, 0)"
-              >
+              <Heading level="h4" size="h6" className="mb-3 mt-12 font-bold">
                 {intl.formatMessage({
                   defaultMessage:
                     "Setting up your two-factor authentication app",
@@ -344,8 +313,7 @@ const SignUpPage = () => {
                 color="tertiary"
                 level="h2"
                 size="h3"
-                data-h2-font-weight="base(400)"
-                data-h2-margin="base(x3, 0, x1, 0)"
+                className="mb-6 mt-20 font-normal"
               >
                 {intl.formatMessage({
                   defaultMessage: "Frequently Asked Questions (FAQs)",
@@ -374,7 +342,7 @@ const SignUpPage = () => {
                     {intl.formatMessage(gckeyMessages.questionContactGCkey)}
                   </Accordion.Trigger>
                   <Accordion.Content>
-                    <p data-h2-margin-bottom="base(x0.5)">
+                    <p className="mb-3">
                       {intl.formatMessage(gckeyMessages.answerContactGCkey1)}
                     </p>
                     <p>
@@ -385,11 +353,11 @@ const SignUpPage = () => {
                       external
                       href="tel:1-855-438-1102"
                       aria-label="1 8 5 5 4 3 8 1 1 0 2"
-                      data-h2-margin-top="base(x0.5)"
+                      className="mt-3"
                     >
                       1-855-438-1102
                     </Link>
-                    <p data-h2-margin-top="base(x0.5)">
+                    <p className="mt-3">
                       {intl.formatMessage(gckeyMessages.answerContactGCkey3)}
                     </p>
                     <Link
@@ -397,11 +365,11 @@ const SignUpPage = () => {
                       external
                       href="tel:1-855-438-1103"
                       aria-label="1 8 5 5 4 3 8 1 1 0 3"
-                      data-h2-margin-top="base(x0.5)"
+                      className="mt-3"
                     >
                       1-855-438-1103
                     </Link>
-                    <p data-h2-margin-top="base(x0.5)">
+                    <p className="mt-3">
                       {intl.formatMessage(gckeyMessages.answerContactGCkey4)}
                     </p>
                     <Link
@@ -409,11 +377,11 @@ const SignUpPage = () => {
                       external
                       href="tel:1-800-2318-6290"
                       aria-label="1 8 0 0 2 3 1 8 6 2 9 0"
-                      data-h2-margin-top="base(x0.5)"
+                      className="mt-3"
                     >
                       1-800-2318-6290
                     </Link>
-                    <p data-h2-margin-top="base(x0.5)">
+                    <p className="mt-3">
                       {intl.formatMessage(gckeyMessages.answerContactGCkey5)}
                     </p>
                   </Accordion.Content>
@@ -483,7 +451,7 @@ const SignUpPage = () => {
                   </Accordion.Content>
                 </Accordion.Item>
               </Accordion.Root>
-              <p data-h2-margin-top="base(x1)">
+              <p className="mt-6">
                 {intl.formatMessage(gckeyMessages.moreQuestions, { helpLink })}
               </p>
             </>
@@ -499,7 +467,7 @@ const SignUpPage = () => {
                     "Instructions on how to sign in with GCKey - IAP variant",
                 })}
               </p>
-              <p data-h2-margin="base(x.5, 0, 0, 0)">
+              <p className="mt-3">
                 {intl.formatMessage({
                   defaultMessage:
                     "If you're unsure of whether you have an existing GCKey account, continue to the website and try signing in. If you can't remember your password, you can also reset it there.",
@@ -508,7 +476,7 @@ const SignUpPage = () => {
                     "Instructions on what to do if user doesn't know if they have a GCKey - IAP variant",
                 })}
               </p>
-              <p data-h2-margin="base(x.5, 0, 0, 0)">
+              <p className="mt-3">
                 {intl.formatMessage(
                   {
                     defaultMessage:
@@ -523,7 +491,7 @@ const SignUpPage = () => {
                   },
                 )}
               </p>
-              <p data-h2-margin="base(x1, 0, 0, 0)">
+              <p className="mt-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "<strong>Heads up!</strong> Before we send you off to set up your GCKey credentials, we ask that you take another look at the program's eligibility criteria to ensure that you meet the requirements.",
@@ -532,7 +500,7 @@ const SignUpPage = () => {
                     "A request for the user to review the IAP eligibility criteria",
                 })}
               </p>
-              <p data-h2-margin="base(x2, 0, 0, 0)">
+              <p className="mt-12">
                 {intl.formatMessage(
                   {
                     defaultMessage:
@@ -553,12 +521,7 @@ const SignUpPage = () => {
             </>
           )}
           <Separator />
-          <div
-            className="flex"
-            data-h2-flex-direction="base(column) l-tablet(row)"
-            data-h2-align-items="base(center)"
-            data-h2-gap="base(x1)"
-          >
+          <div className="flex flex-col items-center gap-6 md:flex-row">
             <Link href={loginPath} mode="solid" color="secondary" external>
               {intl.formatMessage({
                 defaultMessage: "Continue to GCKey and sign up",

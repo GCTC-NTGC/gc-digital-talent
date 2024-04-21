@@ -31,14 +31,10 @@ const SitewideAnnouncementDisplay = ({
   const { en: titleEn, fr: titleFr } = title;
   const { en: messageEn, fr: messageFr } = message;
   return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-gap="base(x1)"
-      data-h2-grid-template-columns="base(repeat(2, 1fr))"
-    >
+    <div className="grid grid-cols-2 gap-6">
       <ToggleForm.FieldDisplay
         label={intl.formatMessage(labels.isEnabled)}
-        data-h2-grid-column="base(span 2)"
+        className="col-span-2"
       >
         {isEnabled
           ? intl.formatMessage(commonMessages.yes)

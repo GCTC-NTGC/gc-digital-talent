@@ -105,11 +105,7 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
         subtitle={intl.formatMessage(subTitle)}
       />
       <AdminContentWrapper>
-        <Heading
-          size="h4"
-          className="font-bold"
-          data-h2-margin="base(0, 0, x1, 0)"
-        >
+        <Heading size="h4" className="mb-6 mt-0 font-bold">
           {intl.formatMessage({
             defaultMessage: "What are you working on today?",
             id: "wHnGAK",
@@ -117,11 +113,7 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
               "Heading for the sections of links available to the current user",
           })}
         </Heading>
-        <div
-          className="flex"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x1, 0)"
-        >
+        <div className="flex flex-col gap-y-6">
           {hasRole("pool_operator", roleAssignments) && (
             <LinkWell
               title={intl.formatMessage({

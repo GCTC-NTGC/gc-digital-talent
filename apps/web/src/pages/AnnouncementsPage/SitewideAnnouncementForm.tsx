@@ -118,11 +118,9 @@ const SitewideAnnouncementForm = ({
     <FormProvider {...methods}>
       <form
         onSubmit={handleSubmit(handleSave)}
-        data-h2-display="base(grid)"
-        data-h2-gap="base(x1)"
-        data-h2-grid-template-columns="base(repeat(2, 1fr))"
+        className="grid grid-cols-2 gap-6"
       >
-        <div data-h2-grid-column="base(span 2)">
+        <div className="col-span-2">
           <SwitchInput
             id="isEnabled"
             name="isEnabled"
@@ -184,13 +182,7 @@ const SitewideAnnouncementForm = ({
           }}
         />
 
-        <div
-          data-h2-grid-column="base(span 2)"
-          className="flex"
-          data-h2-gap="base(x.5)"
-          data-h2-align-items="base(center)"
-          data-h2-flex-wrap="base(wrap)"
-        >
+        <div className="col-span-2 flex flex-wrap items-center gap-3">
           <Submit
             text={intl.formatMessage(formMessages.saveChanges)}
             aria-label={intl.formatMessage({

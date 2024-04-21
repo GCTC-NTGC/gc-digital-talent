@@ -3,7 +3,13 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 
-import { Alert, Heading, Pending } from "@gc-digital-talent/ui";
+import {
+  Alert,
+  CardBasic,
+  Heading,
+  Pending,
+  Separator,
+} from "@gc-digital-talent/ui";
 import {
   BasicForm,
   Input,
@@ -152,154 +158,134 @@ export const CreateAccountForm = ({
         })}
         subtitle={intl.formatMessage(subTitle)}
       >
-        <section data-h2-padding="base(0, 0, x3, 0)">
-          <Alert.Root type="success" live={false}>
-            <Alert.Title>
+        <Alert.Root type="success" live={false}>
+          <Alert.Title>
+            {intl.formatMessage({
+              defaultMessage: "You've successfully signed in",
+              id: "DeGAS5",
+              description:
+                "Title for successful sign in alert in create account page.",
+            })}
+          </Alert.Title>
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "Welcome to the GC Digital Talent platform. Moving forward, you can sign in to your profile using the same GCKey username and password.",
+              id: "OBRGkE",
+              description:
+                "Message for successful sign in alert in create account page",
+            })}
+          </p>
+        </Alert.Root>
+      </Hero>
+      <div
+        data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
+        className="mb-12"
+      >
+        <CardBasic>
+          <BasicForm
+            onSubmit={handleSubmit}
+            cacheKey={cacheKey}
+            labels={labels}
+          >
+            <Heading level="h2" size="h3" className="mb-6 mt-0">
               {intl.formatMessage({
-                defaultMessage: "You've successfully signed in",
-                id: "DeGAS5",
-                description:
-                  "Title for successful sign in alert in create account page.",
+                defaultMessage: "Getting started",
+                id: "o/YTo0",
+                description: "Main heading in create account page.",
               })}
-            </Alert.Title>
-            <p>
+            </Heading>
+            <p className="mb-6">
               {intl.formatMessage({
                 defaultMessage:
-                  "Welcome to the GC Digital Talent platform. Moving forward, you can sign in to your profile using the same GCKey username and password.",
-                id: "OBRGkE",
+                  "Before we take you to your profile, we need to collect some required information to complete your account set up.",
+                id: "x6saT3",
                 description:
-                  "Message for successful sign in alert in create account page",
+                  "Message after main heading in create account page.",
               })}
             </p>
-          </Alert.Root>
-          <div
-            data-h2-background-color="base(foreground)"
-            data-h2-radius="base(rounded)"
-            data-h2-padding="base(x1) p-tablet(x2)"
-            data-h2-shadow="base(large)"
-          >
-            <BasicForm
-              onSubmit={handleSubmit}
-              cacheKey={cacheKey}
-              labels={labels}
-            >
-              <Heading
-                level="h2"
-                size="h3"
-                data-h2-font-weight="base(400)"
-                data-h2-margin="base(0, 0, x1, 0)"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Getting started",
-                  id: "o/YTo0",
-                  description: "Main heading in create account page.",
-                })}
-              </Heading>
-              <p data-h2-padding="base(0, 0, x1, 0)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Before we take you to your profile, we need to collect some required information to complete your account set up.",
-                  id: "x6saT3",
-                  description:
-                    "Message after main heading in create account page.",
-                })}
-              </p>
-              <div>
-                <div className="flex" data-h2-margin="base(0, 0, x1, 0)">
-                  <div style={{ flex: 1 }} data-h2-padding="base(0, x1, 0, 0)">
-                    <Input
-                      id="firstName"
-                      name="firstName"
-                      type="text"
-                      label={labels.firstName}
-                      rules={{
-                        required: intl.formatMessage(errorMessages.required),
-                      }}
-                    />
-                  </div>
-                  <div style={{ flex: 1 }} data-h2-padding="base(0, 0, 0, x1)">
-                    <Input
-                      id="lastName"
-                      name="lastName"
-                      type="text"
-                      label={labels.lastName}
-                      rules={{
-                        required: intl.formatMessage(errorMessages.required),
-                      }}
-                    />
-                  </div>
-                </div>
-                <div data-h2-margin="base(0, 0, x1, 0)">
-                  <Input
-                    id="email"
-                    type="email"
-                    name="email"
-                    label={labels.email}
-                    rules={{
-                      required: intl.formatMessage(errorMessages.required),
-                    }}
-                  />
-                </div>
-                <RadioGroup
-                  idPrefix="required-lang-preferences"
-                  legend={labels.preferredLang}
-                  id="preferredLang"
-                  name="preferredLang"
+            <div className="flex flex-col gap-y-6">
+              <div className="mb-6 grid gap-6 md:grid-cols-2">
+                <Input
+                  id="firstName"
+                  name="firstName"
+                  type="text"
+                  label={labels.firstName}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
-                  items={enumToOptions(Language).map(({ value }) => ({
-                    value,
-                    label: intl.formatMessage(getLanguage(value)),
-                  }))}
-                  defaultSelected={Language.En}
                 />
-                <p data-h2-margin="base(x1, 0, x.5, 0)">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Below we’d like to know if you’re already an employee with the Government of Canada. We collect this information because it helps us understand, at an aggregate level, how digital skills are distributed amongst departments.",
-                    id: "XijxiY",
-                    description:
-                      "First message before is a government of canada radio group in create account form.",
-                  })}
-                </p>
-                <p data-h2-margin="base(0, 0, x1, 0)">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "We also use this information to provide you with more contextualized opportunities and suggestions based on your employment status.",
-                    id: "5U4C61",
-                    description:
-                      "Second message before is a government of canada radio group in create account form.",
-                  })}
-                </p>
-                <GovernmentInfoFormFields
-                  labels={labels}
-                  departments={departments}
-                  classifications={classifications}
+                <Input
+                  id="lastName"
+                  name="lastName"
+                  type="text"
+                  label={labels.lastName}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
                 />
-                <div
-                  data-h2-margin="base(x2, 0, 0, 0)"
-                  data-h2-padding="base(x2, 0, 0, 0)"
-                  data-h2-border-top="base(1px solid gray)"
-                  className="flex"
-                  data-h2-justify-content="base(flex-start)"
-                >
-                  <Submit
-                    mode="solid"
-                    color="secondary"
-                    text={intl.formatMessage({
-                      defaultMessage: "Save and go to my profile",
-                      id: "H3Za3e",
-                      description:
-                        "Button label for submit button on create account form.",
-                    })}
-                  />
-                </div>
               </div>
-            </BasicForm>
-          </div>
-        </section>
-      </Hero>
+              <Input
+                id="email"
+                type="email"
+                name="email"
+                label={labels.email}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
+              <RadioGroup
+                idPrefix="required-lang-preferences"
+                legend={labels.preferredLang}
+                id="preferredLang"
+                name="preferredLang"
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+                items={enumToOptions(Language).map(({ value }) => ({
+                  value,
+                  label: intl.formatMessage(getLanguage(value)),
+                }))}
+                defaultSelected={Language.En}
+              />
+            </div>
+            <p className="mb-3 mt-6">
+              {intl.formatMessage({
+                defaultMessage:
+                  "Below we’d like to know if you’re already an employee with the Government of Canada. We collect this information because it helps us understand, at an aggregate level, how digital skills are distributed amongst departments.",
+                id: "XijxiY",
+                description:
+                  "First message before is a government of canada radio group in create account form.",
+              })}
+            </p>
+            <p className="mb-6">
+              {intl.formatMessage({
+                defaultMessage:
+                  "We also use this information to provide you with more contextualized opportunities and suggestions based on your employment status.",
+                id: "5U4C61",
+                description:
+                  "Second message before is a government of canada radio group in create account form.",
+              })}
+            </p>
+            <GovernmentInfoFormFields
+              labels={labels}
+              departments={departments}
+              classifications={classifications}
+            />
+            <Separator className="my-12" />
+            <Submit
+              mode="solid"
+              color="secondary"
+              text={intl.formatMessage({
+                defaultMessage: "Save and go to my profile",
+                id: "H3Za3e",
+                description:
+                  "Button label for submit button on create account form.",
+              })}
+            />
+          </BasicForm>
+        </CardBasic>
+      </div>
     </>
   );
 };

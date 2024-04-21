@@ -1,6 +1,10 @@
 import React from "react";
 
-interface FieldDisplayProps {
+interface FieldDisplayProps
+  extends React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+  > {
   label: React.ReactNode;
   children?: React.ReactNode;
   hasError?: boolean | null;
