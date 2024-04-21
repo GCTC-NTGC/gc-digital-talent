@@ -9,8 +9,7 @@ const SpinnerIcon = (props: IconProps) => {
 
   return (
     <m.span
-      data-h2-display="base(inline-flex)"
-      data-h2-margin-right="base(x.25)"
+      className="mr-1.5 inline-flex"
       {...(!shouldReduceMotion && {
         animate: {
           rotate: [0, 360],
@@ -23,7 +22,7 @@ const SpinnerIcon = (props: IconProps) => {
         },
       })}
     >
-      <ArrowPathIcon {...props} data-h2-margin-right="base(0)" />
+      <ArrowPathIcon {...props} className="mr-0" />
     </m.span>
   );
 };

@@ -149,122 +149,118 @@ const ApplicantFilters = ({
   );
 
   return (
-    <section data-h2-flex-grid="base(flex-start, x2, x.5)">
-      <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-        <div>
-          <FilterBlock
-            title={intl.formatMessage({
-              defaultMessage: "Pool Requested",
-              id: "rz8uPO",
-              description:
-                "Title for the pool block in the manager info section of the single search request view.",
-            })}
-            content={
-              applicantFilter
-                ? applicantFilter?.pools?.map((pool) =>
-                    getShortPoolTitleHtml(intl, pool),
-                  )
-                : null
-            }
-          />
-          <FilterBlock
-            title={intl.formatMessage({
-              defaultMessage: "Group and level",
-              id: "Rn5e/i",
-              description:
-                "Title for group and level on summary of filters section",
-            })}
-            content={uniqueItems(
-              classificationsFromBrowserHistory ||
-                classificationsFromApplicantFilter,
-            )}
-          />
-          <FilterBlock
-            title={intl.formatMessage(processMessages.stream)}
-            content={
-              applicantFilter?.qualifiedStreams?.map((stream) => {
-                return intl.formatMessage(getPoolStream(stream as string));
-              }) ?? []
-            }
-          />
-          <FilterBlock
-            title={intl.formatMessage(
-              {
-                defaultMessage: "Selected skills ({numOfSkills})",
-                id: "159+n7",
-                description:
-                  "Title for skills section on summary of filters section",
-              },
-              { numOfSkills: skills?.length || 0 },
-            )}
-            content={
-              skills && skills?.length > 0 ? (
-                <Chips>
-                  {skills.map((skillName) => (
-                    <Chip key={skillName} color="primary">
-                      {skillName}
-                    </Chip>
-                  ))}
-                </Chips>
-              ) : null
-            }
-          />
-          <FilterBlock
-            title={intl.formatMessage({
-              defaultMessage: "Education Level",
-              id: "YKqt+1",
-              description:
-                "Title for education level on summary of filters section",
-            })}
-            content={educationLevel}
-          />
-        </div>
-      </div>
-      <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-        <div>
-          <FilterBlock
-            title={intl.formatMessage({
-              defaultMessage: "Work language ability",
-              id: "VX3Og5",
-              description:
-                "Title for work language on summary of filters section",
-            })}
-            content={languageAbility}
-          />
-          {employmentDuration && (
-            <FilterBlock
-              title={intl.formatMessage({
-                defaultMessage: "Employment duration",
-                description: "Title for Employment duration section",
-                id: "Muh/+P",
-              })}
-              content={employmentDuration}
-            />
+    <section className="grid gap-6 sm:grid-cols-2">
+      <div className="flex flex-col">
+        <FilterBlock
+          title={intl.formatMessage({
+            defaultMessage: "Pool Requested",
+            id: "rz8uPO",
+            description:
+              "Title for the pool block in the manager info section of the single search request view.",
+          })}
+          content={
+            applicantFilter
+              ? applicantFilter?.pools?.map((pool) =>
+                  getShortPoolTitleHtml(intl, pool),
+                )
+              : null
+          }
+        />
+        <FilterBlock
+          title={intl.formatMessage({
+            defaultMessage: "Group and level",
+            id: "Rn5e/i",
+            description:
+              "Title for group and level on summary of filters section",
+          })}
+          content={uniqueItems(
+            classificationsFromBrowserHistory ||
+              classificationsFromApplicantFilter,
           )}
+        />
+        <FilterBlock
+          title={intl.formatMessage(processMessages.stream)}
+          content={
+            applicantFilter?.qualifiedStreams?.map((stream) => {
+              return intl.formatMessage(getPoolStream(stream as string));
+            }) ?? []
+          }
+        />
+        <FilterBlock
+          title={intl.formatMessage(
+            {
+              defaultMessage: "Selected skills ({numOfSkills})",
+              id: "159+n7",
+              description:
+                "Title for skills section on summary of filters section",
+            },
+            { numOfSkills: skills?.length || 0 },
+          )}
+          content={
+            skills && skills?.length > 0 ? (
+              <Chips>
+                {skills.map((skillName) => (
+                  <Chip key={skillName} color="primary">
+                    {skillName}
+                  </Chip>
+                ))}
+              </Chips>
+            ) : null
+          }
+        />
+        <FilterBlock
+          title={intl.formatMessage({
+            defaultMessage: "Education Level",
+            id: "YKqt+1",
+            description:
+              "Title for education level on summary of filters section",
+          })}
+          content={educationLevel}
+        />
+      </div>
+      <div className="flex flex-col">
+        <FilterBlock
+          title={intl.formatMessage({
+            defaultMessage: "Work language ability",
+            id: "VX3Og5",
+            description:
+              "Title for work language on summary of filters section",
+          })}
+          content={languageAbility}
+        />
+        {employmentDuration && (
           <FilterBlock
             title={intl.formatMessage({
-              defaultMessage: "Work Location",
-              id: "MWZgsB",
-              description:
-                "Title for work location section on summary of filters section",
+              defaultMessage: "Employment duration",
+              description: "Title for Employment duration section",
+              id: "Muh/+P",
             })}
-            content={workLocations}
+            content={employmentDuration}
           />
-          <FilterBlock
-            title={intl.formatMessage(commonMessages.employmentEquity)}
-            content={employmentEquity}
-          />
-          <FilterBlock
-            title={intl.formatMessage({
-              defaultMessage:
-                "Conditions of employment / Operational requirements",
-              id: "cMsRgt",
-              description:
-                "Title for operational requirements section on summary of filters section",
-            })}
-            content={operationalRequirements}
-          />
-        </div>
+        )}
+        <FilterBlock
+          title={intl.formatMessage({
+            defaultMessage: "Work Location",
+            id: "MWZgsB",
+            description:
+              "Title for work location section on summary of filters section",
+          })}
+          content={workLocations}
+        />
+        <FilterBlock
+          title={intl.formatMessage(commonMessages.employmentEquity)}
+          content={employmentEquity}
+        />
+        <FilterBlock
+          title={intl.formatMessage({
+            defaultMessage:
+              "Conditions of employment / Operational requirements",
+            id: "cMsRgt",
+            description:
+              "Title for operational requirements section on summary of filters section",
+          })}
+          content={operationalRequirements}
+        />
       </div>
     </section>
   );

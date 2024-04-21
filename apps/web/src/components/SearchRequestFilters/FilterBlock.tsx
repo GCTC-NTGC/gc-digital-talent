@@ -21,7 +21,10 @@ const FilterBlockContent = ({
 
   if (isEmpty(content)) {
     return (
-      <ul data-h2-color="base(black)">
+      <ul
+        className="my-3 list-inside list-disc pl-6"
+        data-h2-color="base(black)"
+      >
         <li>
           {intl.formatMessage({
             defaultMessage: "(None selected)",
@@ -36,7 +39,10 @@ const FilterBlockContent = ({
   return (
     <div>
       {isArray(content) && content.length > 0 ? (
-        <ul data-h2-color="base(black)">
+        <ul
+          className="my-3 list-inside list-disc pl-6"
+          data-h2-color="base(black)"
+        >
           {content.map((text) => (
             <li key={uniqueId()}>{text}</li>
           ))}
@@ -52,14 +58,10 @@ const FilterBlock = ({ title, content }: FilterBlockProps) => {
   const intl = useIntl();
 
   return (
-    <div data-h2-padding="base(0, 0, x1, 0)">
-      <p
-        data-h2-display="base(block) p-tablet(inline)"
-        data-h2-padding="base(0, x.125, 0, 0)"
-        data-h2-font-weight="base(600)"
-      >
-        <span data-h2-display="base(inline)">{title}</span>
-        <span data-h2-display="base(none) p-tablet(inline)">
+    <div className="mb-6">
+      <p className="block pr-1 font-bold sm:inline">
+        <span className="inline">{title}</span>
+        <span className="hidden sm:inline">
           {intl.formatMessage(commonMessages.dividingColon)}
         </span>
       </p>

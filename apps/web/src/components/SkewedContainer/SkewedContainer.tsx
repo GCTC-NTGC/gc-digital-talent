@@ -12,38 +12,26 @@ interface SkewedContainerProps {
 const SkewedContainer = ({ children }: SkewedContainerProps) => {
   const { mode } = useTheme();
   return (
-    <div data-h2-margin="base(-3%, 0, 0, 0)" data-h2-layer="base(2, relative)">
+    <div className="relative z-20 mt-[-3%]">
       <div
-        data-h2-height="base(100%)"
-        data-h2-width="base(100%)"
+        className="absolute h-full w-full -skew-y-3 overflow-hidden"
         data-h2-background-color="base(background)"
-        data-h2-position="base(absolute)"
-        data-h2-transform="base(skewY(-3deg))"
-        data-h2-overflow="base(hidden)"
       >
         <img
-          data-h2-position="base(absolute)"
-          data-h2-location="base(0, 0, auto, auto)"
-          data-h2-transform="base(translate(32%, -52%) skew(3deg)) l-tablet(translate(0, 0) skew(3deg))"
-          data-h2-height="base(auto)"
-          data-h2-width="base(250%) l-tablet(40%)"
-          data-h2-max-width="base(initial)"
+          className="skew-3 absolute right-0 top-0 h-auto w-[250%] translate-x-[32%] translate-y-[-52%] md:w-2/5 md:translate-x-0 md:translate-y-0"
           src={mode === "dark" ? desktopGraphicsDark1 : desktopGraphicsLight1}
           alt=""
         />
         <div
           data-h2-background="base(main-linear)"
-          data-h2-location="base(0, 0, auto, 0)"
-          className="block"
-          data-h2-height="base(x1)"
-          data-h2-position="base(absolute)"
+          className="absolute left-0 right-0 top-0 block h-6"
         />
       </div>
       <div
-        data-h2-position="base(relative)"
+        className="relative"
         data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
       >
-        <div data-h2-padding="base(x3, 0) p-tablet(x5, 0, x4, 0) l-tablet(x7, 0, x6, 0)">
+        <div className="py-20 sm:pb-36 sm:pt-40 md:pb-40 md:pt-48">
           {children}
         </div>
       </div>

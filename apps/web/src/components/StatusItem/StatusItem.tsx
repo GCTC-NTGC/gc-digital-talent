@@ -4,7 +4,7 @@ import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIc
 import ExclamationTriangleIcon from "@heroicons/react/20/solid/ExclamationTriangleIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/20/solid/QuestionMarkCircleIcon";
 
-import { Link, IconType, ScrollToLink } from "@gc-digital-talent/ui";
+import { Link, IconType, ScrollToLink, cn } from "@gc-digital-talent/ui";
 
 export type Status = "error" | "success" | "warning" | "optional";
 export type StatusColor =
@@ -37,8 +37,6 @@ const layoutStyleMap: Record<Layout, Record<string, string>> = {
   hero: {
     "data-h2-border-top":
       "base:selectors[:not(:first-child)](1px solid gray.lighter)",
-    "data-h2-margin-top": "base:selectors[:not(:first-child)](x.5)",
-    "data-h2-padding-top": "base:selectors[:not(:first-child)](x.5)",
   },
   compact: {},
 };
@@ -55,6 +53,7 @@ const StatusItemTitle = ({
   scrollTo?: string;
   children?: React.ReactElement;
   color?: StatusColor;
+  className?: string;
 }) => {
   if (href) {
     return (
@@ -124,9 +123,7 @@ const StatusItem = ({
   const combinedTitle = (
     <>
       {hiddenContextPrefix ? (
-        <span data-h2-visually-hidden="base(invisible)">
-          {`${hiddenContextPrefix} - `}
-        </span>
+        <span className="sr-only">{`${hiddenContextPrefix} - `}</span>
       ) : null}
       {title}
     </>
@@ -144,23 +141,16 @@ const StatusItem = ({
 
   return (
     <Wrapper
-      className="flex"
-      data-h2-justify-content="base(space-between)"
-      data-h2-gap="base(x.15)"
+      className={cn("flex justify-between gap-1", {
+        "[&:not(:first-child)]:mt-3 [&:not(:first-child)]:pt-3":
+          layout === "hero",
+      })}
       {...layoutStyleMap[layout]}
     >
-      <span
-        className="flex"
-        data-h2-flex-direction="base(row)"
-        data-h2-gap="base(x0.5)"
-      >
+      <span className="flex gap-x-3">
         {Icon && (
           <Icon
-            data-h2-height="base(x.75)"
-            data-h2-width="base(x.75)"
-            data-h2-min-width="base(x.75)"
-            data-h2-margin-top="base(x.15)"
-            data-h2-transition="base(color .2s ease)"
+            className="mt-1 h-4.5 w-4.5 transition-colors duration-200 ease-in-out"
             {...iconColorMap[effectiveIconColor]}
           />
         )}
@@ -168,8 +158,8 @@ const StatusItem = ({
         <StatusItemTitle
           href={href}
           scrollTo={scrollTo}
-          data-h2-text-align="base(left)"
           color={effectiveTitleColor}
+          className="text-left"
         >
           {combinedTitle}
         </StatusItemTitle>

@@ -18,22 +18,9 @@ const SkewedImageContainer = ({
 }: SkewedImageContainerProps) => {
   return (
     <div className="relative z-40">
-      <div
-        data-h2-height="base(100%)"
-        data-h2-width="base(100%)"
-        data-h2-background-color="base(#000)"
-        data-h2-position="base(absolute)"
-        data-h2-transform="base(skewY(-3deg))"
-        data-h2-overflow="base(hidden)"
-      >
+      <div className="absolute h-full w-full -skew-y-3 overflow-hidden bg-black">
         <div
-          data-h2-position="base(absolute)"
-          data-h2-transform="base(skewY(3deg))"
-          data-h2-top="base(-3rem)"
-          data-h2-height="base(calc(100% + 3rem))"
-          data-h2-width="base(100%)"
-          data-h2-background-repeat="base(no-repeat)"
-          data-h2-background-size="base(auto 50vh) p-tablet(auto 60vh) l-tablet(auto 110%)"
+          className="absolute -top-12 h-[calc(100%+3rem)] w-full skew-y-3 bg-[length:auto_50vh] bg-no-repeat sm:bg-[length:auto_60vh] md:bg-[length:auto_110%]"
           {...imgProps}
           style={{
             backgroundImage: `url('${imgSrc}')`,
@@ -41,24 +28,18 @@ const SkewedImageContainer = ({
         />
         <div
           data-h2-background="base(main-linear)"
-          data-h2-location="base(0, 0, auto, 0)"
-          className="block"
-          data-h2-height="base(x1)"
-          data-h2-position="base(absolute)"
+          className="absolute left-0 right-0 top-0 block h-6"
         />
         <div
           data-h2-background="base(main-linear)"
-          data-h2-location="base(auto, 0, 0, 0)"
-          className="block"
-          data-h2-height="base(x1)"
-          data-h2-position="base(absolute)"
+          className="absolute bottom-0 left-0 right-0 block h-6"
         />
       </div>
       <div
-        data-h2-position="base(relative)"
+        className="relative"
         data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
       >
-        <div data-h2-padding="base(x4, 0, 50vh, 0) p-tablet(x5, 0, 60vh, 0) l-tablet(x7, 0, x6, 0)">
+        <div className="pb-[50vh] pt-24 sm:pb-[60vh] sm:pt-32 md:pb-36 md:pt-40">
           {children}
         </div>
       </div>

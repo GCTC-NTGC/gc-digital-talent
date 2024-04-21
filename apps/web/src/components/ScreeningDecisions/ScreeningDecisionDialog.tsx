@@ -121,7 +121,7 @@ const AssessmentStepTypeSection = ({
     case "EDUCATION":
       return (
         <div>
-          <p data-h2-margin-bottom="base(x.5)">
+          <p className="mb-3">
             {intl.formatMessage({
               defaultMessage: "Selected requirement option:",
               id: "FS4Dg5",
@@ -130,17 +130,9 @@ const AssessmentStepTypeSection = ({
             })}
           </p>
           {educationRequirementOption ? (
-            <Well
-              data-h2-margin-bottom="base(x1)"
-              data-h2-text-align="base(left)"
-            >
-              {educationRequirementOption}
-            </Well>
+            <Well className="mb-6 text-left">{educationRequirementOption}</Well>
           ) : (
-            <p
-              data-h2-margin-bottom="base(x.5)"
-              data-h2-margin-left="base(x.25)"
-            >
+            <p className="mb-3 ml-1.5">
               {intl.formatMessage(commonMessages.notFound)}
             </p>
           )}
@@ -149,18 +141,15 @@ const AssessmentStepTypeSection = ({
     default:
       return (
         <div>
-          <Well
-            data-h2-margin-bottom="base(x1)"
-            data-h2-text-align="base(center)"
-          >
+          <Well className="mb-6 text-center">
             <Accordion.Root type="single" collapsible>
               <Accordion.Item value="skill">
                 <Accordion.Trigger>
                   {getTitle(poolSkill, intl)}
                 </Accordion.Trigger>
                 <Accordion.Content data-h2-text-align="base(left)">
-                  <div data-h2-margin="base(x1, 0)">
-                    <p data-h2-margin-bottom="base(x1)" className="font-bold">
+                  <div className="my-6">
+                    <p className="mb-6 font-bold">
                       {getLocalizedName(poolSkill?.skill?.name, intl)}
                     </p>
                     <p>
@@ -170,12 +159,7 @@ const AssessmentStepTypeSection = ({
                   <div>
                     {poolSkill?.requiredLevel && poolSkill.skill ? (
                       <>
-                        <p
-                          data-h2-margin-bottom="base(x1)"
-                          className="font-bold"
-                        >
-                          {skillLevel}
-                        </p>
+                        <p className="mb-6 font-bold">{skillLevel}</p>
                         <p>
                           {intl.formatMessage(
                             getSkillLevelDefinition(
@@ -212,12 +196,10 @@ const ScreeningQuestions = ({
 
   if (screeningQuestions.length === 0)
     return (
-      <p data-h2-margin-bottom="base(x1)">
-        {intl.formatMessage(commonMessages.notProvided)}
-      </p>
+      <p className="mb-6">{intl.formatMessage(commonMessages.notProvided)}</p>
     );
   return (
-    <Accordion.Root type="multiple" data-h2-margin-bottom="base(x1)">
+    <Accordion.Root type="multiple" className="mb-6">
       {screeningQuestions.length &&
         screeningQuestions.map((screeningQuestion) => (
           <Accordion.Item
@@ -252,7 +234,7 @@ const SupportingEvidence = ({
   const contentHeadingLevel = incrementHeadingRank(headingAs);
   return (
     <div>
-      <p data-h2-margin-bottom="base(x.5)">
+      <p className="mb-3">
         {intl.formatMessage({
           defaultMessage: "Supporting evidence:",
           id: "w59dPh",
@@ -262,7 +244,7 @@ const SupportingEvidence = ({
       </p>
       {experiences.length ? (
         experiences.map((experience) => (
-          <div data-h2-margin-bottom="base(x.5)" key={experience.id}>
+          <div className="mb-3" key={experience.id}>
             <ExperienceCard
               experience={experience}
               headingLevel={contentHeadingLevel}
@@ -272,7 +254,7 @@ const SupportingEvidence = ({
           </div>
         ))
       ) : (
-        <p data-h2-margin-bottom="base(x.5)" data-h2-margin-left="base(x.25)">
+        <p className="mb-3 ml-1.5">
           {intl.formatMessage(commonMessages.notFound)}
         </p>
       )}
@@ -414,8 +396,7 @@ export const ScreeningDecisionDialog = ({
                     AssessmentDecision.Successful && !educationRequirement ? (
                     <span
                       data-h2-color="base(gray.darker)"
-                      data-h2-text-decoration="base(none)"
-                      className="block"
+                      className="block no-underline"
                     >
                       {intl.formatMessage(
                         initialValues?.assessmentDecisionLevel
@@ -457,19 +438,14 @@ export const ScreeningDecisionDialog = ({
             ) : (
               <SupportingEvidence experiences={experiences} skill={skill} />
             )}
-            <div data-h2-margin="base(x1, 0)">
+            <div className="my-6">
               <BasicForm
                 onSubmit={onSubmit}
                 labels={labels}
                 options={{ defaultValues: initialValues || defaultValues }}
               >
                 <ScreeningDecisionDialogForm dialogType={dialogType} />
-                <Dialog.Footer
-                  className="flex"
-                  data-h2-justify-content="base(flex-start)"
-                  data-h2-align-items="base(baseline)"
-                  data-h2-gap="base(x1)"
-                >
+                <Dialog.Footer className="flex items-baseline justify-start gap-6">
                   <Submit
                     color="secondary"
                     data-h2-margin-top="base(x1)"
