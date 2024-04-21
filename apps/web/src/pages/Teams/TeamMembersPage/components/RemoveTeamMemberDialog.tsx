@@ -90,7 +90,7 @@ const RemoveTeamMemberDialog = ({
       <Dialog.Content>
         <Dialog.Header>{label}</Dialog.Header>
         <Dialog.Body>
-          <p data-h2-margin="base(x1, 0)">
+          <p className="my-6">
             {intl.formatMessage(
               {
                 defaultMessage:
@@ -106,7 +106,7 @@ const RemoveTeamMemberDialog = ({
           </p>
           {user.roles.length ? (
             <>
-              <p data-h2-margin="base(x1, 0)">
+              <p className="my-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "They will lose all of the following team roles:",
@@ -124,7 +124,7 @@ const RemoveTeamMemberDialog = ({
               </Chips>
             </>
           ) : null}
-          <p data-h2-margin="base(x1, 0)">
+          <p className="my-6">
             {intl.formatMessage(uiMessages.confirmContinue)}
           </p>
           <Dialog.Footer>

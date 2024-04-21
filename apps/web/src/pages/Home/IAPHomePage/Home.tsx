@@ -268,7 +268,7 @@ export const Home = ({ query }: HomeProps) => {
                         description: "First paragraph about the program",
                       })}
                     </p>
-                    <p data-h2-margin="base(x1, 0)">
+                    <p className="my-6">
                       {intl.formatMessage({
                         defaultMessage:
                           "By valuing and focusing on a person’s potential, rather than on their educational attainment level, the program removes one of the biggest barriers that exists when it comes to employment within the digital economy. The program has been developed by, with, and for Indigenous peoples from across Canada. Its design incorporates the preferences and needs of Indigenous learners while recognizing the importance of community.",
@@ -276,7 +276,7 @@ export const Home = ({ query }: HomeProps) => {
                         description: "Second paragraph about the program",
                       })}
                     </p>
-                    <p data-h2-margin="base(x1, 0)">
+                    <p className="my-6">
                       {intl.formatMessage({
                         defaultMessage:
                           "Apprentices who are involved in the program say that it is “life-changing”, that it represents “a chance to have a better life through technology”, and that “there are no barriers to succeeding in this program”.",
@@ -373,7 +373,7 @@ export const Home = ({ query }: HomeProps) => {
                         "First paragraph what will you learn at the program",
                     })}
                   </p>
-                  <p data-h2-margin="base(x1, 0)">
+                  <p className="my-6">
                     {intl.formatMessage({
                       defaultMessage:
                         "Apprentices will be partnered with a peer to facilitate job shadowing and supervised work, and they are assigned a mentor who provides experienced counsel and guidance over the course of the program.",
@@ -382,7 +382,7 @@ export const Home = ({ query }: HomeProps) => {
                         "First paragraph what will you learn at the program",
                     })}
                   </p>
-                  <p data-h2-margin="base(x1, 0)">
+                  <p className="my-6">
                     {intl.formatMessage({
                       defaultMessage:
                         "At the end of their 24-month term, apprentices will have marketable and in-demand certifications and skills, as well as the confidence necessary to contribute as part of Canada’s digital workforce, both within and outside the federal public service.",
@@ -480,7 +480,7 @@ export const Home = ({ query }: HomeProps) => {
                         "First paragraph about who the program is for",
                     })}
                   </p>
-                  <p data-h2-margin="base(x1, 0)">
+                  <p className="my-6">
                     {intl.formatMessage(
                       {
                         defaultMessage:
@@ -610,10 +610,7 @@ export const Home = ({ query }: HomeProps) => {
                         })}
                       </span>
                     </Heading>
-                    <p
-                      data-h2-color="base:all(white)"
-                      data-h2-margin="base(x1, 0)"
-                    >
+                    <p data-h2-color="base:all(white)" className="my-6">
                       {intl.formatMessage({
                         defaultMessage:
                           "Apply today to start your journey to a career in Information Technology.",
@@ -955,7 +952,7 @@ export const Home = ({ query }: HomeProps) => {
                           description: "Talent portal information sentence 1",
                         })}
                       </p>
-                      <p data-h2-margin="base(x1, 0)">
+                      <p className="my-6">
                         {intl.formatMessage({
                           defaultMessage:
                             "It is a platform designed to host employment opportunities for Indigenous peoples in a way that recognizes and showcases their unique talents, ideas, skills and passion.",

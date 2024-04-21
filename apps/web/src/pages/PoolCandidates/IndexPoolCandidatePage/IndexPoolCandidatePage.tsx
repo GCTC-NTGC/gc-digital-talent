@@ -181,7 +181,7 @@ export const IndexPoolCandidatePage = () => {
     <AdminContentWrapper>
       <SEO title={pageTitle} description={formattedSubTitle} />
       <Pending fetching={fetching} error={error}>
-        <p data-h2-margin="base(x1, 0)">{formattedSubTitle}</p>
+        <p className="my-6">{formattedSubTitle}</p>
         <PoolCandidatesTable
           hidePoolFilter
           initialFilterInput={{

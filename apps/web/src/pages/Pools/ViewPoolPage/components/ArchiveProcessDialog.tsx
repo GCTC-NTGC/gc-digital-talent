@@ -54,7 +54,7 @@ const ArchiveProcessDialog = ({
               },
             )}
           </p>
-          <p data-h2-margin="base(x1, 0)">
+          <p className="my-6">
             {intl.formatMessage({
               id: "iA1Q8d",
               defaultMessage:

@@ -92,7 +92,7 @@ const RemoveIndividualRoleDialog = ({
               { userName },
             )}
           </p>
-          <p data-h2-margin="base(x1, 0)">
+          <p className="my-6">
             {intl.formatMessage({
               defaultMessage: "The user will lose the following role:",
               id: "VsV4Vu",
@@ -100,10 +100,10 @@ const RemoveIndividualRoleDialog = ({
                 "Text notifying user which role will be removed from the user",
             })}
           </p>
-          <p data-h2-margin="base(x1, 0)">
+          <p className="my-6">
             <Chip color="secondary">{roleDisplayName}</Chip>
           </p>
-          <p data-h2-margin="base(x1, 0)">
+          <p className="my-6">
             {intl.formatMessage(uiMessages.confirmContinue)}
           </p>
           <Dialog.Footer>

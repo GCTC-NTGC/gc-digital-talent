@@ -213,7 +213,7 @@ export const ApplicationStatusForm = ({
               </div>
             </div>
           </Well>
-          <p data-h2-margin="base(x1, 0)">
+          <p className="my-6">
             <Submit
               color="primary"
               isSubmitting={isSubmitting}

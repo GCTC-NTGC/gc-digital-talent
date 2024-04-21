@@ -283,7 +283,7 @@ export const ApplicationSelfDeclaration = ({
               </>
             ) : (
               <>
-                <p data-h2-margin="base(x1, 0)">
+                <p className="my-6">
                   {intl.formatMessage({
                     defaultMessage:
                       "This program is for First Nations, Inuit, and Métis peoples within the geographic boundaries of Canada.",
@@ -292,7 +292,7 @@ export const ApplicationSelfDeclaration = ({
                       "Disclaimer displayed when a user has indicated they are not Indigenous on the self-declaration form.",
                   })}
                 </p>
-                <p data-h2-margin="base(x1, 0)">
+                <p className="my-6">
                   {intl.formatMessage({
                     defaultMessage: "Not a member of an Indigenous group?",
                     id: "Xe90FW",
@@ -300,7 +300,7 @@ export const ApplicationSelfDeclaration = ({
                       "Lead in text for button to submit form and navigate to a different page when no Indigenous",
                   })}
                 </p>
-                <p data-h2-margin="base(x1, 0)">
+                <p className="my-6">
                   {/* Form must have a submit button to satisfy https://www.w3.org/TR/2016/NOTE-WCAG20-TECHS-20161007/H32 */}
                   <Button
                     type="submit"
@@ -332,7 +332,7 @@ export const ApplicationSelfDeclaration = ({
           </div>
           <Separator />
           <HelpLink />
-          <p className="font-bold" data-h2-margin="base(x1, 0)">
+          <p className="my-6 font-bold">
             {intl.formatMessage(
               {
                 defaultMessage:

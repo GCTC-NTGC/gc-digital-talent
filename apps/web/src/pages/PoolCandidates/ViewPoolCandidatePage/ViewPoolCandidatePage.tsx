@@ -595,7 +595,7 @@ export const ViewPoolCandidate = ({
       data-h2-display="l-tablet(flex)"
       data-h2-align-items="base(center)"
       data-h2-justify-content="base(space-between)"
-      data-h2-margin="base(x1, 0)"
+      className="my-6"
     >
       {snapshotUserPropertyExists && (
         <>
@@ -773,7 +773,7 @@ export const ViewPoolCandidate = ({
                   "Title for more actions sidebar on view pool candidate page",
               })}
             </Heading>
-            <p data-h2-margin="base(x1, 0)">
+            <p className="my-6">
               {intl.formatMessage({
                 defaultMessage:
                   "Additional information, relevant to this candidate’s application.",

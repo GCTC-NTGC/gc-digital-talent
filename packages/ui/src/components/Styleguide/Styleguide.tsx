@@ -13,7 +13,7 @@ const Styleguide = ({ children, ...rest }: StyleguideProps) => {
           data-h2-display="base(grid) base:children[>div>div](grid)"
           data-h2-grid-template-columns="base(1fr 1fr) base:children[>div>div](1fr 1fr 1fr 1fr 1fr 1fr 1fr)"
           data-h2-gap="base:children[>div>div](x1)"
-          data-h2-margin="base(x1, 0)"
+          className="my-6"
           data-h2-padding="base:children[>div>div](x1) base:children[>div>div>div](x1, 0)"
           data-h2-width="base:children[>div>div>div](100%)"
         >
@@ -152,7 +152,7 @@ const Styleguide = ({ children, ...rest }: StyleguideProps) => {
           data-h2-background="base:children[>div](background)"
           data-h2-display="base(grid)"
           data-h2-grid-template-columns="base(1fr 1fr)"
-          data-h2-margin="base(x1, 0)"
+          className="my-6"
           data-h2-padding="base:children[>div](x1)"
         >
           <div data-h2="light">

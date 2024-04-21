@@ -113,7 +113,7 @@ const EditTeamMemberDialog = ({ user, team }: EditTeamMemberDialogProps) => {
       <Dialog.Content>
         <Dialog.Header>{label}</Dialog.Header>
         <Dialog.Body>
-          <p data-h2-margin="base(x1, 0)">
+          <p className="my-6">
             {intl.formatMessage({
               defaultMessage: "Change or remove this membership's permissions.",
               id: "qPxrKm",

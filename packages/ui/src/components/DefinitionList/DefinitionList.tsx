@@ -89,7 +89,7 @@ interface RootProps
 }
 
 const Root = ({ children, ...rest }: RootProps) => (
-  <dl data-h2-margin="base(x1, 0)" {...rest}>
+  <dl className="my-6" {...rest}>
     {children}
   </dl>
 );

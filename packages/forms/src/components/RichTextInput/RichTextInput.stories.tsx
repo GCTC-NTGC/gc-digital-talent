@@ -65,7 +65,7 @@ const Template: StoryFn<DefaultValueRichTextInputArgs> = (args) => {
               }}
             >
               <RichTextInput {...rest} />
-              <p data-h2-margin="base(x1, 0)">
+              <p className="my-6">
                 <Submit />
               </p>
             </Form>

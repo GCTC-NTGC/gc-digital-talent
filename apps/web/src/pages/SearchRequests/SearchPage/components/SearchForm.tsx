@@ -187,7 +187,7 @@ export const SearchForm = ({
 
           {results?.length && candidateCount > 0 ? (
             <>
-              <p data-h2-margin="base(x1, 0)">
+              <p className="my-6">
                 <Button
                   color="primary"
                   type="submit"

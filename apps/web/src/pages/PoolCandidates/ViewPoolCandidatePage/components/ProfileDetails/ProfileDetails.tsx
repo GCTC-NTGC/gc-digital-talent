@@ -129,18 +129,14 @@ const ProfileDetails = ({ user }: ProfileDetailsProps) => {
   return (
     <Well
       fontSize="caption"
-      className="flex"
-      data-h2-flex-wrap="base(wrap)"
-      data-h2-align-items="base(center)"
-      data-h2-gap="base(0, x.5)"
+      className="flex flex-wrap items-center gap-x-3"
       data-h2-color="base(black)"
       data-h2-background="base(linear-gradient(92deg, rgba(175, 103, 255, 0.10) 1.42%, rgba(0, 195, 183, 0.10) 98.58%))"
-      data-h2-margin="base(x1, 0)"
     >
       {profileDetails.map((detail, index) => (
         <div
           key={uniqueId()}
-          className="flex"
+          className="flex items-center gap-x-3"
           data-h2-align-items="base(center)"
           data-h2-gap="base(0, x.5)"
         >

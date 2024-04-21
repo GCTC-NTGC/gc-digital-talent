@@ -102,7 +102,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
             description: "Heading for the executive opportunities",
           })}
         </Heading>
-        <p data-h2-margin="base(x1, 0)">
+        <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
               "This platform allows you to apply to recruitment processes that make it easy for senior executives and HR recruitment teams to find you. This page offers you a snapshot of our open recruitment processes. Come back and check this page often!",

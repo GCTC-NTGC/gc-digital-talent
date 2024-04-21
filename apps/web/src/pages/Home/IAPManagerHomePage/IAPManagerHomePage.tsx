@@ -268,7 +268,7 @@ export const IAPManagerHomePage = () => {
                         "Paragraph 1 of the 'About the program' section",
                     })}
                   </p>
-                  <p data-h2-margin="base(x1, 0)">
+                  <p className="my-6">
                     {intl.formatMessage({
                       defaultMessage:
                         "Linked directly to the advancement of reconciliation, the program was designed by, for, and with First Nations, Inuit, and Métis peoples.",
@@ -277,7 +277,7 @@ export const IAPManagerHomePage = () => {
                         "Paragraph 2 of the 'About the program' section",
                     })}
                   </p>
-                  <p data-h2-margin="base(x1, 0)">
+                  <p className="my-6">
                     {intl.formatMessage({
                       defaultMessage:
                         "This program removes one of the biggest barriers to employment by placing value in a person’s potential rather than on their education attainment level. In doing so, this initiative contributes to closing educational, employment, and economic gaps faced by Indigenous Peoples in Canada.",
@@ -286,7 +286,7 @@ export const IAPManagerHomePage = () => {
                         "Paragraph 3 of the 'About the program' section",
                     })}
                   </p>
-                  <p data-h2-margin="base(x1, 0)">
+                  <p className="my-6">
                     {intl.formatMessage({
                       defaultMessage:
                         "The Office of Indigenous Initiatives (OII) is the team that supports the program.",
@@ -384,7 +384,7 @@ export const IAPManagerHomePage = () => {
                         "Paragraph 1 of the 'Circle of Support' subsection",
                     })}
                   </p>
-                  <p data-h2-margin="base(x1, 0)">
+                  <p className="my-6">
                     {intl.formatMessage({
                       defaultMessage:
                         "Additional supports include Sharing Circles, access to an IT Training Support Advisor, and Apprentice Success Facilitators. While the Facilitators are principally a resource for Apprentices, they are also a support system for Managers and Supervisors.",

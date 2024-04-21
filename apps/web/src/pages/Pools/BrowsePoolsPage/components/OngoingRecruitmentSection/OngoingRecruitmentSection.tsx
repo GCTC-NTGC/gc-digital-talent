@@ -1158,8 +1158,7 @@ const OngoingRecruitmentSection = ({
                       <div key={classification.key}>
                         <h4
                           data-h2-font-size="base(copy)"
-                          className="font-bold"
-                          data-h2-margin="base(x1, 0)"
+                          className="my-6 font-bold"
                         >
                           {classification.title}
                         </h4>

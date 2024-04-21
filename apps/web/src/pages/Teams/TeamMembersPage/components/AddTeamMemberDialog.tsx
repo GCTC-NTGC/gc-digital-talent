@@ -132,7 +132,7 @@ AddTeamMemberDialogProps) => {
       <Dialog.Content>
         <Dialog.Header>{label}</Dialog.Header>
         <Dialog.Body>
-          <p data-h2-margin="base(x1, 0)">
+          <p className="my-6">
             {intl.formatMessage({
               defaultMessage:
                 "Search for a new member from the list of approved managers.",

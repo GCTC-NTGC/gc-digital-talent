@@ -299,7 +299,7 @@ export const ApplicationCareerTimeline = ({
         </>
       ) : (
         <>
-          <p data-h2-margin="base(x1, 0)">
+          <p className="my-6">
             {intl.formatMessage({
               defaultMessage:
                 "Creating your career timeline is a little different on this platform. First and foremost, any work you do here will be saved to your profile so that you can reuse it on other applications down the road.",
@@ -308,7 +308,7 @@ export const ApplicationCareerTimeline = ({
                 "Application step to begin working on career timeline, paragraph one",
             })}
           </p>
-          <p data-h2-margin="base(x1, 0)">
+          <p className="my-6">
             {intl.formatMessage({
               defaultMessage:
                 "Building your career timeline consists of describing <strong>work experiences</strong>, <strong>education</strong>, <strong>community participation</strong>, <strong>personal learning</strong>, and <strong>awards</strong> you’ve earned. In a later step, you’ll use these experiences to highlight your skills. You can start adding experiences to your career timeline using the “<strong>Add a new experience</strong>” link.",

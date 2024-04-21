@@ -69,7 +69,7 @@ const ApplicationCareerTimelineIntroduction = ({
       >
         {pageInfo.title}
       </Heading>
-      <p data-h2-margin="base(x1, 0)">
+      <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
             "The next step is to make sure that your career timeline is as up-to-date as possible.",
@@ -78,7 +78,7 @@ const ApplicationCareerTimelineIntroduction = ({
             "Application step to begin working on career timeline, paragraph one",
         })}
       </p>
-      <p data-h2-margin="base(x1, 0)">
+      <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
             "More specifically, not only do we want to know your <strong>work history</strong>, but we highly value knowing about your <strong>community experience</strong>, <strong>awards</strong>, <strong>personal initiatives</strong>, and <strong>education</strong> too!",
@@ -87,7 +87,7 @@ const ApplicationCareerTimelineIntroduction = ({
             "Application step to begin working on career timeline, paragraph two",
         })}
       </p>
-      <p data-h2-margin="base(x1, 0)">
+      <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
             "Once you’ve completed your career timeline and are happy with the experiences you’ve added, you’ll use them in further steps to help us better understand how you meet the skill requirements for this opportunity.",

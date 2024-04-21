@@ -97,7 +97,7 @@ const SkillLibrary = ({ userSkills, skills }: SkillLibraryProps) => {
               >
                 {sections.manage.title}
               </TableOfContents.Heading>
-              <p data-h2-margin="base(x1, 0)">
+              <p className="my-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "This section allows you to manage all the skills linked to your profile, experiences, and showcase. Select a skill's name to manage further details including your level and related career experiences.",

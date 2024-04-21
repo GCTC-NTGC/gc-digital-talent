@@ -74,14 +74,10 @@ const ApplicationCareerTimelineAdd = ({
 
   return (
     <>
-      <Heading
-        data-h2-margin-top="base(0)"
-        size="h3"
-        data-h2-font-weight="base(400)"
-      >
+      <Heading className="mt-0 font-normal" size="h3">
         {pageInfo.title}
       </Heading>
-      <p data-h2-margin="base(x1, 0)">
+      <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
             "This form allows you to add a new experience to your career timeline. Get started by selecting the type of experience you’d like to add. If you need more information about what a certain type can include, expand the information below to see examples.",

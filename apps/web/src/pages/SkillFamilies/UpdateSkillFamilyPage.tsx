@@ -232,7 +232,7 @@ export const UpdateSkillFamilyForm = ({
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
-            <div data-h2-margin="base(x1, 0)">
+            <div className="my-6">
               <Combobox
                 id="skills"
                 name="skills"

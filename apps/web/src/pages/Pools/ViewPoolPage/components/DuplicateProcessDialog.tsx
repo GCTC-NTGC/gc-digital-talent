@@ -53,7 +53,7 @@ const DuplicateProcessDialog = ({
               },
             )}
           </p>
-          <p data-h2-margin="base(x1, 0)">
+          <p className="my-6">
             {intl.formatMessage({
               id: "NivtzV",
               defaultMessage:
@@ -62,7 +62,7 @@ const DuplicateProcessDialog = ({
                 "Text explaining what will happen when duplicating a process",
             })}
           </p>
-          <p data-h2-margin="base(x1, 0)">
+          <p className="my-6">
             {intl.formatMessage({
               id: "3Rad8l",
               defaultMessage:

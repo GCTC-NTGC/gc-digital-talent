@@ -65,7 +65,7 @@ const GeneralQuestionsSection = ({
       <TableOfContents.Heading icon={QuestionMarkCircleIcon} color="secondary">
         {sectionMetadata.title}
       </TableOfContents.Heading>
-      <p data-h2-margin="base(x1, 0)">
+      <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
             "This section allows you to <strong>optionally</strong> add up to 10 general questions that will be asked to applicants during the application process. Please note that these are <strong>not screening questions</strong>. Screening questions will be added when you craft your assessment plan.",

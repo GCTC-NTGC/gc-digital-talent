@@ -54,7 +54,7 @@ const UnarchiveProcessDialog = ({
               },
             )}
           </p>
-          <p data-h2-margin="base(x1, 0)">
+          <p className="my-6">
             {intl.formatMessage({
               defaultMessage:
                 "This will show this pool back to the public.  All users associated with this pool will be able to see it in their profile information.",

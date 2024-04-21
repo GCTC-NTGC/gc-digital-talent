@@ -496,7 +496,7 @@ export const RequestForm = ({
                 />
               </div>
             </div>
-            <p data-h2-margin="base(x1, 0)">
+            <p className="my-6">
               {intl.formatMessage({
                 defaultMessage:
                   "In this field please include any additional details and qualifications you are seeking from the candidates such as: programming languages, certifications, knowledge, or a specific work location.",

@@ -107,7 +107,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
       >
         {pageInfo.title}
       </Heading>
-      <p data-h2-margin="base(x1, 0)">
+      <p className="my-6">
         {intl.formatMessage(
           {
             defaultMessage:
@@ -120,7 +120,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
           },
         )}
       </p>
-      <p data-h2-margin="base(x1, 0)">
+      <p className="my-6">
         {isIAP
           ? intl.formatMessage({
               defaultMessage:
@@ -137,7 +137,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
                 "Description of how the skills-based hiring platform assess candidates.",
             })}
       </p>
-      <p data-h2-margin="base(x1, 0)">
+      <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
             "<strong>To get started, we'll ask you to review your basic profile information</strong>. If you haven't created your profile yet, no problem! You can add all the relevant information in the next step.",

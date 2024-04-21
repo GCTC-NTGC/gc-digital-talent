@@ -287,7 +287,7 @@ const CareerTimelineAndRecruitment = ({
                   {intl.formatMessage(navigationMessages.browseJobs)}
                 </Link>
               </div>
-              <p data-h2-margin="base(x1, 0)">
+              <p className="my-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "When you apply to a recruitment process and successfully pass the assessment, you’re awarded entry and can start being considered for related opportunities. This section highlights all active and expired processes that you’re currently a part of and allows you to manage whether or not you appear in talent searches.",

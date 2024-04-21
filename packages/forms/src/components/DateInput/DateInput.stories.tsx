@@ -183,7 +183,7 @@ const RenderDependantInput = ({ name }: Pick<DateInputProps, "name">) => {
   return inputDate && isAfter(new Date(), inputDate) ? (
     <Input type="text" id="signature" name="signature" label="Signature" />
   ) : (
-    <p data-h2-color="base(black)" data-h2-margin="base(x1, 0)">
+    <p data-h2-color="base(black)" className="my-6">
       Please select a date in the past to continue.
     </p>
   );

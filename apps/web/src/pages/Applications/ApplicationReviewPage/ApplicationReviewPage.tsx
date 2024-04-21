@@ -238,7 +238,7 @@ const ApplicationReview = ({
             "Edit link text for career timeline section of the application review page.",
         })}
       >
-        <p data-h2-margin="base(x1, 0)">
+        <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
               "This section summarizes your career timeline as it will be seen by hiring managers for these positions.",
@@ -295,7 +295,7 @@ const ApplicationReview = ({
             "Edit link text for education requirements section of the application review page.",
         })}
       >
-        <p data-h2-margin="base(x1, 0)">
+        <p className="my-6">
           {classificationGroup === "EX"
             ? intl.formatMessage({
                 defaultMessage:
@@ -377,7 +377,7 @@ const ApplicationReview = ({
             "Edit link text for skill requirements section of the application review page.",
         })}
       >
-        <p data-h2-margin="base(x1, 0)">
+        <p className="my-6">
           {intl.formatMessage({
             defaultMessage:
               "This section outlines your responses on how your experience meets the skill requirements for these positions.",
