@@ -414,13 +414,7 @@ export const PoolPoster = ({
           </TableOfContents.Navigation>
           <TableOfContents.Content>
             <TableOfContents.Section id={sections.employmentDetails.id}>
-              <div
-                data-h2-align-items="base(baseline)"
-                className="flex"
-                data-h2-gap="base(x.5 x1)"
-                data-h2-flex-wrap="base(wrap)"
-                data-h2-margin-bottom="base(x1)"
-              >
+              <div className="flex-wap mb-6 flex items-baseline gap-x-1 gap-y-3">
                 <div data-h2-flex-grow="base(1)">
                   <TableOfContents.Heading
                     size="h3"
@@ -688,7 +682,7 @@ export const PoolPoster = ({
               >
                 {sections.minEducation.title}
               </TableOfContents.Heading>
-              <Text data-h2-margin-bottom="base(x1)">
+              <Text className="mb-6">
                 {intl.formatMessage(
                   {
                     defaultMessage:
@@ -709,13 +703,7 @@ export const PoolPoster = ({
               />
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.skillRequirements.id}>
-              <div
-                data-h2-align-items="base(baseline)"
-                className="flex"
-                data-h2-gap="base(x.5 x1)"
-                data-h2-flex-wrap="base(wrap)"
-                data-h2-margin-bottom="base(x1)"
-              >
+              <div className="ga-x-6 mb-6 flex flex-wrap items-baseline gap-y-2">
                 <div data-h2-flex-grow="base(1)">
                   <TableOfContents.Heading
                     size="h3"
@@ -805,12 +793,7 @@ export const PoolPoster = ({
               </TableOfContents.Heading>
               {pool.yourImpact && (
                 <>
-                  <Heading
-                    level="h3"
-                    size="h4"
-                    className="font-bold"
-                    data-h2-margin-bottom="base(x1)"
-                  >
+                  <Heading level="h3" size="h4" className="mb-6 font-bold">
                     {intl.formatMessage({
                       defaultMessage: "Your impact",
                       id: "MOpG7g",
@@ -827,12 +810,7 @@ export const PoolPoster = ({
               )}
               {pool.keyTasks && (
                 <>
-                  <Heading
-                    level="h3"
-                    size="h4"
-                    className="font-bold"
-                    data-h2-margin-bottom="base(x1)"
-                  >
+                  <Heading level="h3" size="h4" className="mb-6 font-bold">
                     {intl.formatMessage({
                       defaultMessage: "Common tasks in this role",
                       id: "ATO0GK",
@@ -849,12 +827,7 @@ export const PoolPoster = ({
               )}
               {showAboutUs && (
                 <>
-                  <Heading
-                    level="h3"
-                    size="h4"
-                    className="font-bold"
-                    data-h2-margin-bottom="base(x1)"
-                  >
+                  <Heading level="h3" size="h4" className="mb-6 font-bold">
                     {intl.formatMessage({
                       defaultMessage: "About us",
                       id: "LTpCFL",
@@ -871,13 +844,7 @@ export const PoolPoster = ({
               )}
             </TableOfContents.Section>
             <TableOfContents.Section id={sections.moreInfo.id}>
-              <div
-                data-h2-align-items="base(baseline)"
-                className="flex"
-                data-h2-gap="base(x.5 x1)"
-                data-h2-flex-wrap="base(wrap)"
-                data-h2-margin-bottom="base(x1)"
-              >
+              <div className="mb-6 flex flex-wrap items-baseline gap-x-6 gap-y-3">
                 <div data-h2-flex-grow="base(1)">
                   <TableOfContents.Heading
                     size="h3"

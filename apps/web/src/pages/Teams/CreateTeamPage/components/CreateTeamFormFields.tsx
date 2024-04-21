@@ -36,10 +36,7 @@ const CreateTeamFormFields = ({ departments }: CreateTeamFormFieldsProps) => {
   };
 
   return (
-    <div
-      data-h2-flex-grid="base(center, x1, x1)"
-      data-h2-margin-bottom="base(x1)"
-    >
+    <div data-h2-flex-grid="base(center, x1, x1)" className="mb-6">
       <div data-h2-flex-item="base(1/2)">
         <Input
           type="text"

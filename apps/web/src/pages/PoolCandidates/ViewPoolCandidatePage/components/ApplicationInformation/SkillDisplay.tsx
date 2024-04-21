@@ -25,9 +25,7 @@ const SkillExperiences = ({ skill, experiences }: SkillExperiencesProps) => {
         {getLocalizedName(skill.name, intl)}
       </Heading>
       {skill.description && (
-        <p data-h2-margin-bottom="base(x1)">
-          {getLocalizedName(skill.description, intl)}
-        </p>
+        <p className="mb-6">{getLocalizedName(skill.description, intl)}</p>
       )}
       <Separator data-h2-background-color="base(tertiary)" space="sm" />
       {skillExperiences.length ? (

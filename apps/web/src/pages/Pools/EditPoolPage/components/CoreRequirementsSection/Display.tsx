@@ -35,7 +35,7 @@ const Display = ({ pool, subtitle }: DisplayProps) => {
 
   return (
     <>
-      {subtitle && <p data-h2-margin-bottom="base(x1)">{subtitle}</p>}
+      {subtitle && <p className="mb-6">{subtitle}</p>}
       <div
         data-h2-display="base(grid)"
         data-h2-gap="base(x1)"

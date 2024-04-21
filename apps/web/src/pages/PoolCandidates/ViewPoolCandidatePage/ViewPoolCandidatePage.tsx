@@ -782,13 +782,7 @@ export const ViewPoolCandidate = ({
                   "Description for more actions sidebar on view pool candidate page",
               })}
             </p>
-            <CardBasic
-              className="flex"
-              data-h2-flex-direction="base(column)"
-              data-h2-align-items="base(flex-start)"
-              data-h2-gap="base(x.5)"
-              data-h2-margin-bottom="base(x1)"
-            >
+            <CardBasic className="mb-6 flex flex-col items-start gap-3">
               {poolCandidate.status &&
                 RECORD_DECISION_STATUSES.includes(poolCandidate.status) && (
                   <FinalDecisionDialog
@@ -848,12 +842,7 @@ export const ViewPoolCandidate = ({
               </Link>
             </CardBasic>
             <div
-              className="flex"
-              data-h2-flex-direction="base(column)"
-              data-h2-align-items="base(flex-start)"
-              data-h2-gap="base(x.5)"
-              data-h2-margin-bottom="base(x1)"
-              data-h2-padding="base(x1)"
+              className="mb-6 flex flex-col items-start gap-3 p-6"
               data-h2-background-color="base(error.lightest.3)"
             >
               <Heading level="h3" size="h6" data-h2-margin-top="base(0)">
@@ -896,7 +885,7 @@ export const ViewPoolCandidate = ({
             </div>
           </Sidebar.Sidebar>
           <Sidebar.Content>
-            <div data-h2-margin-bottom="base(x1)">
+            <div className="mb-6">
               <Heading
                 Icon={ExclamationTriangleIcon}
                 color="quaternary"

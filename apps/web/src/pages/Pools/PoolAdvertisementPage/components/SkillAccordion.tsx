@@ -116,7 +116,7 @@ const SkillAccordion = ({ poolSkill, required }: SkillAccordionProps) => {
       </Accordion.Trigger>
       <Accordion.Content>
         {poolSkill.skill.description && (
-          <p data-h2-margin-bottom="base(x1)">
+          <p className="mb-6">
             <span className="font-bold">
               {intl.formatMessage({
                 defaultMessage: "Skill definition",

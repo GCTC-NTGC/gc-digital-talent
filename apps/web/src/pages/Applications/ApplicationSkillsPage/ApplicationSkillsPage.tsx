@@ -285,7 +285,7 @@ export const ApplicationSkills = ({
               description: "Heading for required behavioural skills section",
             })}
           </Heading>
-          <p data-h2-margin-bottom="base(x1)">
+          <p className="mb-6">
             {intl.formatMessage({
               defaultMessage:
                 "The following skills are required for this role, but aren't required as a part of this application. <strong>They will be reviewed during the assessment process should your application be accepted</strong>.",
@@ -312,7 +312,7 @@ export const ApplicationSkills = ({
               description: "Heading for optional behavioural skills section",
             })}
           </Heading>
-          <p data-h2-margin-bottom="base(x1)">{optionalDisclaimer}</p>
+          <p className="mb-6">{optionalDisclaimer}</p>
           <SkillDescriptionAccordion
             skills={categorizedOptionalSkills[SkillCategory.Behavioural] ?? []}
           />

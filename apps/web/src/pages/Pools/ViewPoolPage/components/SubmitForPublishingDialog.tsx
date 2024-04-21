@@ -62,7 +62,7 @@ const SubmitForPublishingDialog = ({
       <Dialog.Content>
         <Dialog.Header>{dialogTitle}</Dialog.Header>
         <Dialog.Body>
-          <p data-h2-margin-bottom="base(x1)">
+          <p className="mb-6">
             {intl.formatMessage({
               defaultMessage:
                 " Your advertisement information and assessment plan are complete.",

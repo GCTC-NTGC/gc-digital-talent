@@ -118,12 +118,7 @@ const CoreRequirementsSection = ({
         <ToggleSection.OpenContent>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
-              <div
-                className="flex"
-                data-h2-flex-direction="base(column)"
-                data-h2-gap="base(x1 0)"
-                data-h2-margin-bottom="base(x1)"
-              >
+              <div className="mb-6 flex flex-col gap-y-6">
                 <RadioGroup
                   idPrefix="locationOption"
                   legend={intl.formatMessage(processMessages.location)}

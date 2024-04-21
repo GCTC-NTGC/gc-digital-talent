@@ -137,7 +137,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
             data-h2-display="p-tablet(flex)"
             data-h2-align-items="p-tablet(flex-end)"
             data-h2-justify-content="p-tablet(space-between)"
-            data-h2-margin-bottom="base(x1)"
+            className="mb-6"
           >
             <Heading
               data-h2-margin="base(0)"
@@ -200,7 +200,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
             data-h2-display="p-tablet(flex)"
             data-h2-align-items="p-tablet(flex-end)"
             data-h2-justify-content="p-tablet(space-between)"
-            data-h2-margin-bottom="base(x1)"
+            className="mb-6"
           >
             <Heading
               data-h2-margin="base(0)"

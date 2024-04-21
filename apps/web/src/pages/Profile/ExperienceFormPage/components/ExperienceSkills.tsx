@@ -79,7 +79,7 @@ const ExperienceSkills = ({
           description: "Title for skills on Experience form",
         })}
       </Heading>
-      <p data-h2-margin-bottom="base(x1)">
+      <p className="mb-6">
         {intl.formatMessage({
           defaultMessage:
             "Featured skills allow you to highlight how you used or developed particularly important skillsets during your experience. When applying to an opportunity on the platform, you’ll be asked to link the essential skills required for that job to your experiences in the same way, allowing you to build a holistic picture of your skill development. Skills you link during an application will also appear here for later editing.",

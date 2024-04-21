@@ -78,7 +78,7 @@ const Featured = () => {
       key: "hiring-indigenous-talent",
       title: intl.formatMessage(commonMessages.iapTitle),
       summary: (
-        <p data-h2-margin-bottom="base(x1)">
+        <p className="mb-6">
           {intl.formatMessage({
             defaultMessage:
               "Designed by the Indigenous community for the Indigenous community, this program recruits entry-level applicants for learning and development IT opportunities across government.",

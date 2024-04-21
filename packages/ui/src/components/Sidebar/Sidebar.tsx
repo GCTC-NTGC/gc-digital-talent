@@ -9,7 +9,7 @@ const Sidebar = ({ children, ...rest }: SidebarProps) => (
     <div
       data-h2-height="base(100%)"
       data-h2-position="base(relative)"
-      data-h2-margin-bottom="base(x1)"
+      className="mb-6"
     >
       <div
         data-h2-position="base(sticky)"

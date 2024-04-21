@@ -52,7 +52,7 @@ const UpdateUserSubForm = ({ user, onUpdateSub }: UpdateUserSubFormProps) => {
 
   return (
     <section data-h2-container="base(left, s)">
-      <Heading level="h3" size="h4" data-h2-margin-bottom="base(x1)">
+      <Heading level="h3" size="h4" className="mb-6">
         {intl.formatMessage({
           defaultMessage: "Update subject",
           id: "NuT+Rx",

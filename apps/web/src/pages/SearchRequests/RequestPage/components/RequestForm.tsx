@@ -303,7 +303,7 @@ export const RequestForm = ({
             "Form header for filling in contact information section.",
         })}
       </Heading>
-      <p data-h2-margin-bottom="base(x1)">
+      <p className="mb-6">
         {intl.formatMessage({
           defaultMessage:
             "To submit a request, please provide the following information so we can contact you.",
@@ -546,7 +546,7 @@ export const RequestForm = ({
             selectedClassifications={selectedClassifications}
           />
           <Separator />
-          <p className="font-bold" data-h2-margin-bottom="base(x1)">
+          <p className="mb-6 font-bold">
             {intl.formatMessage(
               {
                 defaultMessage:

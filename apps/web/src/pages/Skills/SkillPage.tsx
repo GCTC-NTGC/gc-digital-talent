@@ -89,9 +89,7 @@ export const SkillPage = () => {
             level="h2"
             size="h6"
             id="cant-find-a-skill"
-            className="font-bold"
-            data-h2-margin-top="base(0)"
-            data-h2-margin-bottom="base(x1)"
+            className="mb-6 mt-0 font-bold"
           >
             {intl.formatMessage(skillBrowserMessages.showSkillInfo)}
           </Heading>

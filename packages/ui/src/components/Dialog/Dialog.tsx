@@ -212,7 +212,7 @@ interface DialogFooterProps extends React.HTMLProps<HTMLDivElement> {
 
 const Footer = ({ children, className, ...rest }: DialogFooterProps) => (
   <div data-h2-margin="base(x1 0 0 0)">
-    <Separator space="none" data-h2-margin-bottom="base(x1)" />
+    <Separator space="none" className="mb-6" />
     <div
       data-h2-align-items="base(center)"
       className={cn("flex", className)}

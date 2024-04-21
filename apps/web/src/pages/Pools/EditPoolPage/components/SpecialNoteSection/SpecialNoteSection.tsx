@@ -125,7 +125,7 @@ const SpecialNoteSection = ({
         <ToggleSection.OpenContent>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(handleSave)}>
-              <div data-h2-margin-bottom="base(x1)">
+              <div className="mb-6">
                 <Checkbox
                   id="has-special-note"
                   name="hasSpecialNote"

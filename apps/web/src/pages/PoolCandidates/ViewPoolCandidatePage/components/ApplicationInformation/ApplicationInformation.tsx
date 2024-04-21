@@ -134,14 +134,7 @@ const ApplicationInformation = ({
 
   return (
     <>
-      <div
-        className="flex"
-        data-h2-align-items="l-tablet(flex-end)"
-        data-h2-flex-direction="base(column) l-tablet(row)"
-        data-h2-justify-content="base(space-between)"
-        data-h2-gap="base(x.5 0) l-tablet(0 x.5)"
-        data-h2-margin-bottom="base(x1)"
-      >
+      <div className="mb-6 flex flex-col justify-between gap-3 md:flex-row md:items-end">
         {/** Note: Change to `margin-bottom` when application screening is added  */}
         <Heading Icon={UserCircleIcon} color="primary" data-h2-margin="base(0)">
           {intl.formatMessage({
@@ -372,7 +365,7 @@ const ApplicationInformation = ({
             })}
           </Accordion.Trigger>
           <Accordion.Content>
-            <p data-h2-margin-bottom="base(x1)">
+            <p className="mb-6">
               {intl.formatMessage({
                 defaultMessage: "The applicant has confirmed that:",
                 id: "iYD0eJ",

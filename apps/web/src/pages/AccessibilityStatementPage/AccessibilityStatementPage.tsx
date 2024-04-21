@@ -288,7 +288,7 @@ const AccessibilityStatementPage = () => {
             </TableOfContents.List>
           </TableOfContents.Navigation>
           <TableOfContents.Content>
-            <p data-h2-margin-bottom="base(x1)">
+            <p className="mb-6">
               {intl.formatMessage(
                 {
                   id: "fzqya3",

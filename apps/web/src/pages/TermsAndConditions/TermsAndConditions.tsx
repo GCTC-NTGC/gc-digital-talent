@@ -602,8 +602,7 @@ const TermsAndConditions = () => {
                     level="h3"
                     size="h4"
                     color="black"
-                    className="font-bold"
-                    data-h2-margin-bottom="base(x1)"
+                    className="mb-6 font-bold"
                   >
                     {intl.formatMessage({
                       id: "6f2bWo",
@@ -635,8 +634,7 @@ const TermsAndConditions = () => {
                     level="h3"
                     size="h4"
                     color="black"
-                    className="font-bold"
-                    data-h2-margin-bottom="base(x1)"
+                    className="mb-6 font-bold"
                   >
                     {intl.formatMessage({
                       id: "L7Pe9h",
@@ -658,8 +656,7 @@ const TermsAndConditions = () => {
                     level="h3"
                     size="h4"
                     color="black"
-                    className="font-bold"
-                    data-h2-margin-bottom="base(x1)"
+                    className="mb-6 font-bold"
                   >
                     {intl.formatMessage({
                       id: "+lxGIT",
@@ -681,8 +678,7 @@ const TermsAndConditions = () => {
                     level="h3"
                     size="h4"
                     color="black"
-                    className="font-bold"
-                    data-h2-margin-bottom="base(x1)"
+                    className="mb-6 font-bold"
                   >
                     {intl.formatMessage({
                       id: "lPuC3S",
@@ -747,8 +743,7 @@ const TermsAndConditions = () => {
                     level="h3"
                     size="h4"
                     color="black"
-                    className="font-bold"
-                    data-h2-margin-bottom="base(x1)"
+                    className="mb-6 font-bold"
                   >
                     {intl.formatMessage({
                       id: "9CAhAX",
@@ -772,8 +767,7 @@ const TermsAndConditions = () => {
                     level="h3"
                     size="h4"
                     color="black"
-                    className="font-bold"
-                    data-h2-margin-bottom="base(x1)"
+                    className="mb-6 font-bold"
                   >
                     {intl.formatMessage({
                       id: "FAEU2d",
@@ -803,8 +797,7 @@ const TermsAndConditions = () => {
                     level="h3"
                     size="h4"
                     color="black"
-                    className="font-bold"
-                    data-h2-margin-bottom="base(x1)"
+                    className="mb-6 font-bold"
                   >
                     {intl.formatMessage({
                       id: "V0jG33",
@@ -828,8 +821,7 @@ const TermsAndConditions = () => {
                     level="h3"
                     size="h4"
                     color="black"
-                    className="font-bold"
-                    data-h2-margin-bottom="base(x1)"
+                    className="mb-6 font-bold"
                   >
                     {intl.formatMessage({
                       id: "diSBjl",

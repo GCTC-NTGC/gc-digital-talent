@@ -170,7 +170,7 @@ export const ApplicationSelfDeclaration = ({
       >
         {pageInfo.title}
       </Heading>
-      <p data-h2-margin-bottom="base(x1)">
+      <p className="mb-6">
         {intl.formatMessage({
           defaultMessage:
             "We recognize the importance of Indigenous voices in the federal government. The program was designed in partnership with Indigenous peoples. By completing and signing the Indigenous Peoples Self-Declaration Form, you are helping to protect the space, agreeing that you are a part of the three distinct Indigenous groups in Canada and are interested in joining the program!",
