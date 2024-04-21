@@ -668,7 +668,7 @@ export const IAPManagerHomePage = () => {
                         "Title for the 'How to begin hiring an apprentice' section",
                     })}
                   </Heading>
-                  <p data-h2-margin="base(x1, 0, 0, 0)">
+                  <p className="mt-6">
                     {intl.formatMessage({
                       defaultMessage:
                         "Download the manager’s package for more information and then contact the team to get the process started.",

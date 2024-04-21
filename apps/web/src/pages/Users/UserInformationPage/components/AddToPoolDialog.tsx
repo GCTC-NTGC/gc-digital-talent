@@ -210,7 +210,7 @@ const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
           <p data-h2-font-weight="base(800)">
             - {getFullNameHtml(user.firstName, user.lastName, intl)}
           </p>
-          <p data-h2-margin="base(x1, 0, 0, 0)">
+          <p className="mt-6">
             {intl.formatMessage({
               defaultMessage: "Choose pool:",
               id: "K3LEpl",
@@ -238,7 +238,7 @@ const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
                   options={poolOptions}
                 />
               </div>
-              <p data-h2-margin="base(x1, 0, 0, 0)">
+              <p className="mt-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "Set an expiry date for this candidate on this pool:",

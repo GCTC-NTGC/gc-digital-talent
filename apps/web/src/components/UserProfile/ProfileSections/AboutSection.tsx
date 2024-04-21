@@ -209,7 +209,7 @@ const AboutSection = ({ editPath, user }: AboutSectionProps) => {
         )}
       </div>
       {hasEmptyRequiredFields(user) && (
-        <div data-h2-margin="base(x1, 0, 0, 0)">
+        <div className="mt-6">
           <p>
             {editPath && (
               <>

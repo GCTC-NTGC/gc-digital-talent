@@ -123,7 +123,7 @@ const ChangeDateDialog = ({
           <p data-h2-font-weight="base(800)">
             - {getFullNameHtml(user.firstName, user.lastName, intl)}
           </p>
-          <p data-h2-margin="base(x1, 0, 0, 0)">
+          <p className="mt-6">
             {intl.formatMessage({
               defaultMessage: "On the following pool:",
               id: "jIlwJ8",
@@ -136,7 +136,7 @@ const ChangeDateDialog = ({
           </p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(submitForm)}>
-              <p data-h2-margin="base(x1, 0, 0, 0)">
+              <p className="mt-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "Set an expiry date for this candidate on this pool:",

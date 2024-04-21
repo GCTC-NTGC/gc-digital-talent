@@ -160,7 +160,7 @@ const ValidationDependantTemplate: StoryFn<DateInputArgs> = (args) => {
               onSubmit={(data) => action("Submit Form")(data)}
             >
               <ValidationDependantInputs {...args} />
-              <p data-h2-margin="base(x1, 0, 0, 0)">
+              <p className="mt-6">
                 <Submit />
               </p>
             </Form>
@@ -205,7 +205,7 @@ const RenderDependantTemplate: StoryFn<DateInputArgs> = (args) => {
             >
               <DateInput name={name} {...rest} />
               <RenderDependantInput name={name} />
-              <p data-h2-margin="base(x1, 0, 0, 0)">
+              <p className="mt-6">
                 <Submit />
               </p>
             </Form>
@@ -264,7 +264,7 @@ const AsyncTemplate: StoryFn<AsyncArgs> = (args) => {
                 onSubmit={(data) => action("Submit Form")(data)}
               >
                 <DateInput {...rest} />
-                <p data-h2-margin="base(x1, 0, 0, 0)">
+                <p className="mt-6">
                   <Submit />
                 </p>
               </Form>

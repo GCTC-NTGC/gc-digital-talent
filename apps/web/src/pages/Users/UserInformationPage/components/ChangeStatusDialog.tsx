@@ -211,7 +211,7 @@ const ChangeStatusDialog = ({
           <p className="font-bold">
             - {getFullNameHtml(user.firstName, user.lastName, intl)}
           </p>
-          <p data-h2-margin="base(x1, 0, 0, 0)">
+          <p className="mt-6">
             {intl.formatMessage({
               defaultMessage: "From the following pool:",
               id: "FUxE8S",
@@ -224,7 +224,7 @@ const ChangeStatusDialog = ({
           </p>
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(submitForm)}>
-              <p data-h2-margin="base(x1, 0, 0, 0)">
+              <p className="mt-6">
                 {intl.formatMessage({
                   defaultMessage: "Choose status:",
                   id: "Zbk4zf",
@@ -259,7 +259,7 @@ const ChangeStatusDialog = ({
                   )}
                 />
               </div>
-              <p data-h2-margin="base(x1, 0, 0, 0)">
+              <p className="mt-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "If you want this status to change across multiple pools, select them here:",

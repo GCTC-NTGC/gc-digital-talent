@@ -235,7 +235,7 @@ const LinkCareerTimeline = ({
       // If "I meet the post-secondary option" is selected, checkboxes for all the user's Education experiences are shown.
       case EducationRequirementOption.Education:
         return (
-          <div data-h2-margin="base(x1, 0, 0, 0)">
+          <div className="mt-6">
             {experienceItems.educationExperiences.length === 0 ? (
               <Well>
                 <p
@@ -274,7 +274,7 @@ const LinkCareerTimeline = ({
       // Otherwise, show null state
       default:
         return (
-          <Well data-h2-margin="base(x1, 0, 0, 0)">
+          <Well className="mt-6">
             <p data-h2-text-align="base(center)">
               {intl.formatMessage({
                 defaultMessage: "Please select an option to continue.",

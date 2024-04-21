@@ -259,7 +259,7 @@ export const BrowsePools = () => {
                   })
             }
             link={profileLink}
-            data-h2-margin="base(x1, 0, 0, 0)"
+            className="mt-6"
           >
             <p>
               {loggedIn

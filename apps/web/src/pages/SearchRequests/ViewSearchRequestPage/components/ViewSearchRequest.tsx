@@ -443,7 +443,7 @@ export const ViewSearchRequest = ({
             <div
               data-h2-padding="base(x1, 0, 0, 0)"
               data-h2-border-top="base(1px solid black.2)"
-              data-h2-margin="base(x1, 0, 0, 0)"
+              className="mt-6"
             >
               <div data-h2-flex-grid="base(flex-start, 0) p-tablet(flex-start, x2, x1)">
                 <div data-h2-flex-item="base(1of1) p-tablet(1of2)">

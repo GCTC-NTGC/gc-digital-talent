@@ -33,7 +33,7 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
       data-h2-background-color="base(foreground)"
       data-h2-shadow="base(larger)"
       data-h2-border-left="base(x.5 solid secondary)"
-      data-h2-margin="base(x1, 0, 0, 0)"
+      className="mt-6"
       data-h2-radius="base(0, s, s, 0)"
       data-h2-padding="base(x1)"
       aria-labelledby={`search_pool_${pool.id}`}
@@ -121,14 +121,7 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
           : null}
       </p>
       <Separator space="sm" />
-      <div
-        className="flex"
-        data-h2-flex-direction="base(row)"
-        data-h2-flex-wrap="base(wrap)"
-        data-h2-align-items="base(center)"
-        data-h2-gap="base(x1)"
-        data-h2-margin="base(x1, 0, 0, 0)"
-      >
+      <div className="mt-6 flex flex-wrap items-center gap-6">
         <Button
           color="secondary"
           type="submit"

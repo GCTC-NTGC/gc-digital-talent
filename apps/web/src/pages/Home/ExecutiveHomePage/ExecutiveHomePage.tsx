@@ -81,7 +81,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
         <p
           data-h2-font-size="base(h6, 1.4)"
           data-h2-font-weight="base(300)"
-          data-h2-margin="base(x1, 0, 0, 0)"
+          className="mt-6"
           data-h2-max-width="p-tablet(65%) l-tablet(50%)"
         >
           {intl.formatMessage(subTitle)}

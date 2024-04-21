@@ -719,7 +719,7 @@ export const Home = ({ query }: HomeProps) => {
                     description: "How it works, step 1 heading",
                   })}
                 >
-                  <p data-h2-margin="base(x1, 0, 0, 0)">
+                  <p className="mt-6">
                     {intl.formatMessage({
                       defaultMessage:
                         "The program was designed to respond to reconciliation and the building of a renewed relationship based on recognition of rights, respect, cooperation and partnership with Indigenous peoples.",
@@ -727,7 +727,7 @@ export const Home = ({ query }: HomeProps) => {
                       description: "How it works, step 1 content paragraph 1",
                     })}
                   </p>
-                  <p data-h2-margin="base(x1, 0, 0, 0)">
+                  <p className="mt-6">
                     {intl.formatMessage({
                       defaultMessage:
                         "There are three distinct groups of Indigenous peoples recognized in the Canadian constitution. You will be asked to confirm which Indigenous group(s) you belong to via the Indigenous Peoples Self-Declaration Form.",
@@ -746,7 +746,7 @@ export const Home = ({ query }: HomeProps) => {
                     description: "How it works, step 2 heading",
                   })}
                 >
-                  <p data-h2-margin="base(x1, 0, 0, 0)">
+                  <p className="mt-6">
                     {intl.formatMessage({
                       defaultMessage:
                         "We want to learn about you and about your interest/passion in the area of IT!",
@@ -754,7 +754,7 @@ export const Home = ({ query }: HomeProps) => {
                       description: "How it works, step 2 content sentence 1",
                     })}
                   </p>
-                  <p data-h2-margin="base(x1, 0, 0, 0)">
+                  <p className="mt-6">
                     {intl.formatMessage({
                       defaultMessage:
                         "We’ll invite you to create a profile which will be saved and submitted as your actual application.",
@@ -773,7 +773,7 @@ export const Home = ({ query }: HomeProps) => {
                     description: "How it works, step 3 heading",
                   })}
                 >
-                  <p data-h2-margin="base(x1, 0, 0, 0)">
+                  <p className="mt-6">
                     {intl.formatMessage({
                       defaultMessage:
                         "You'll be prompted to confirm the information you provided",
@@ -781,7 +781,7 @@ export const Home = ({ query }: HomeProps) => {
                       description: "How it works, step 3 content sentence 1",
                     })}
                   </p>
-                  <p data-h2-margin="base(x1, 0, 0, 0)">
+                  <p className="mt-6">
                     {intl.formatMessage({
                       defaultMessage:
                         "Upon submission, a team member will contact you within 5-10 business days.",
@@ -944,7 +944,7 @@ export const Home = ({ query }: HomeProps) => {
                           description: "Talent Portal information heading",
                         })}
                       </Heading>
-                      <p data-h2-margin="base(x1, 0, 0, 0)">
+                      <p className="mt-6">
                         {intl.formatMessage({
                           defaultMessage:
                             "The Indigenous Talent Portal was built for the Indigenous community, by the Indigenous community.",
