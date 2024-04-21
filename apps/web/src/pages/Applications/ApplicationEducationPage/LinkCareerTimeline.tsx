@@ -181,7 +181,7 @@ const LinkCareerTimeline = ({
           <>
             {showEssentialExperienceMessage && (
               <>
-                <p data-h2-margin="base(0, 0, x.5, 0)">
+                <p className="mb-3">
                   {intl.formatMessage({
                     defaultMessage: "Please select experiences in:",
                     id: "6Q1N7Z",
@@ -189,21 +189,16 @@ const LinkCareerTimeline = ({
                       "Message before skills list in application education page.",
                   })}
                 </p>
-                <ul data-h2-margin="base(0, 0, x1, 0)">
+                <ul className="mb-6 list-outside list-disc pl-12 [>&li]:mb-3">
                   {Object.values(essentialExperienceMessages).map((value) => (
-                    <li key={uniqueId()} data-h2-margin="base(0, 0, x.25, 0)">
-                      {intl.formatMessage(value)}
-                    </li>
+                    <li key={uniqueId()}>{intl.formatMessage(value)}</li>
                   ))}
                 </ul>
               </>
             )}
             {experienceItems.allExperiences.length === 0 ? (
-              <Well>
-                <p
-                  data-h2-text-align="base(center)"
-                  data-h2-margin-bottom="base(x.5)"
-                >
+              <Well className="text-center">
+                <p className="mb-3">
                   {intl.formatMessage({
                     defaultMessage:
                       "<strong>It looks like you haven't added any experiences to your career timeline yet.</strong>",
@@ -212,7 +207,7 @@ const LinkCareerTimeline = ({
                       "Alert message informing user to add experience in application education page.",
                   })}
                 </p>
-                <p data-h2-text-align="base(center)">
+                <p>
                   {intl.formatMessage(
                     {
                       defaultMessage:
@@ -237,11 +232,8 @@ const LinkCareerTimeline = ({
         return (
           <div className="mt-6">
             {experienceItems.educationExperiences.length === 0 ? (
-              <Well>
-                <p
-                  data-h2-text-align="base(center)"
-                  data-h2-margin-bottom="base(x.5)"
-                >
+              <Well className="text-center">
+                <p className="mb-3">
                   {intl.formatMessage({
                     defaultMessage:
                       "<strong>It looks like you haven't added any education experiences to your career timeline yet.</strong>",
@@ -250,7 +242,7 @@ const LinkCareerTimeline = ({
                       "Alert message informing user to add education experience in application education page.",
                   })}
                 </p>
-                <p data-h2-text-align="base(center)">
+                <p>
                   {intl.formatMessage(
                     {
                       defaultMessage: `You can add education-specific experiences by selecting the "Education and certificates" option when <link>creating a new career timeline experience in the previous step.</link>`,
@@ -274,8 +266,8 @@ const LinkCareerTimeline = ({
       // Otherwise, show null state
       default:
         return (
-          <Well className="mt-6">
-            <p data-h2-text-align="base(center)">
+          <Well className="mt-6 text-center">
+            <p>
               {intl.formatMessage({
                 defaultMessage: "Please select an option to continue.",
                 id: "cT6KeA",
@@ -289,12 +281,7 @@ const LinkCareerTimeline = ({
   };
   return (
     <>
-      <Heading
-        level="h3"
-        size="h6"
-        data-h2-margin="base(x2, 0, x.5, 0)"
-        className="font-bold"
-      >
+      <Heading level="h3" size="h6" className="mb-3 mt-12 font-bold">
         {intl.formatMessage({
           defaultMessage: "Link your career timeline",
           id: "K6Tzh1",
@@ -302,7 +289,7 @@ const LinkCareerTimeline = ({
             "Heading for checklist section in application education page.",
         })}
       </Heading>
-      <p data-h2-margin="base(0, 0, x.5, 0)">
+      <p className="mb-3">
         {intl.formatMessage({
           defaultMessage:
             "Once you’ve selected the criteria you meet, this section asks you to tell us which of the specific items in your career timeline meet that option. If you need to add something to your career timeline, you can do so by returning to the career timeline step in the application.",

@@ -100,11 +100,7 @@ export const ApplicationProfile = ({
 
   return (
     <ProfileFormProvider>
-      <Heading
-        size="h3"
-        data-h2-font-weight="base(400)"
-        data-h2-margin="base(0, 0, x1, 0)"
-      >
+      <Heading size="h3" className="mt-0">
         {pageInfo.title}
       </Heading>
       <p>
@@ -115,19 +111,19 @@ export const ApplicationProfile = ({
           description: "Application step to complete your profile, description",
         })}
       </p>
-      <div data-h2-margin="base(x3, 0, 0, 0)">
+      <div className="mt-20">
         <PersonalInformation {...sectionProps} />
       </div>
-      <div data-h2-margin="base(x3, 0, 0, 0)">
+      <div className="mt-20">
         <WorkPreferences {...sectionProps} />
       </div>
-      <div data-h2-margin="base(x3, 0, 0, 0)">
+      <div className="mt-20">
         <DiversityEquityInclusion {...sectionProps} />
       </div>
-      <div data-h2-margin="base(x3, 0, 0, 0)">
+      <div className="mt-20">
         <GovernmentInformation {...sectionProps} />
       </div>
-      <div data-h2-margin="base(x2, 0, 0, 0)">
+      <div className="mt-20">
         <LanguageProfile {...sectionProps} application={application} />
       </div>
       <Separator />

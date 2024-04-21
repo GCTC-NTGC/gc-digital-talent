@@ -56,15 +56,11 @@ const ApplicationQuestionsIntroduction = ({
 
   return (
     <>
-      <Heading
-        data-h2-margin="base(0, 0, x1, 0)"
-        data-h2-font-weight="base(400)"
-        size="h3"
-      >
+      <Heading size="h3" className="mt-0">
         {pageInfo.title}
       </Heading>
       <>
-        <p>
+        <p className="mb-3">
           {intl.formatMessage({
             defaultMessage:
               "This step allows hiring managers to ask two different types of questions: screening questions and general questions. Each question will be labelled so that you have a clear understanding of how your answer will be reviewed.",
@@ -73,7 +69,7 @@ const ApplicationQuestionsIntroduction = ({
               "Application step for additional questions, introduction description, paragraph one",
           })}
         </p>
-        <p data-h2-padding-top="base(x.5)">
+        <p>
           {intl.formatMessage({
             defaultMessage:
               "Your answers to <strong>screening questions will be evaluated</strong> as a part of your application, so be sure to give each question the time and thought required for an answer that really represents you and your experience.",
@@ -84,13 +80,7 @@ const ApplicationQuestionsIntroduction = ({
         </p>
       </>
       <Separator />
-      <div
-        className="flex"
-        data-h2-gap="base(x1)"
-        data-h2-flex-wrap="base(wrap)"
-        data-h2-flex-direction="base(column) l-tablet(row)"
-        data-h2-align-items="base(flex-start) l-tablet(center)"
-      >
+      <div className="flex flex-col flex-wrap items-start gap-6 md:flex-row md:items-center">
         <Link
           color="primary"
           mode="solid"

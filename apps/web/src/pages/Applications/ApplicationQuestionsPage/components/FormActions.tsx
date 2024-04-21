@@ -22,13 +22,7 @@ const FormActions = ({ disabled = false }: FormActionsProps) => {
   return (
     <>
       <Separator />
-      <div
-        className="flex"
-        data-h2-gap="base(x1)"
-        data-h2-flex-wrap="base(wrap)"
-        data-h2-flex-direction="base(column) l-tablet(row)"
-        data-h2-align-items="base(flex-start) l-tablet(center)"
-      >
+      <div className="flex flex-col flex-wrap items-start gap-6 md:flex-row md:items-center">
         <Button
           type="submit"
           mode="solid"

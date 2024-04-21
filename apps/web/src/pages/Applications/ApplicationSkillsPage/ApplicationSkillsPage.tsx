@@ -171,18 +171,8 @@ export const ApplicationSkills = ({
 
   return (
     <>
-      <div
-        className="flex"
-        data-h2-flex-direction="base(column) p-tablet(row)"
-        data-h2-justify-content="base(space-between)"
-        data-h2-align-items="base(flex-start) p-tablet(center)"
-        data-h2-margin="base(0, 0, x1, 0)"
-      >
-        <Heading
-          data-h2-margin="base(0)"
-          data-h2-font-weight="base(400)"
-          size="h3"
-        >
+      <div className="mb-6 flex flex-col items-start justify-between sm:flex-row sm:items-center">
+        <Heading size="h3" className="my-0">
           {pageInfo.title}
         </Heading>
         <Link href={instructionsPath} mode="inline">
@@ -213,12 +203,7 @@ export const ApplicationSkills = ({
       </p>
       {categorizedEssentialSkills[SkillCategory.Technical]?.length ? (
         <>
-          <Heading
-            level="h3"
-            size="h4"
-            data-h2-margin="base(x3, 0, x1, 0)"
-            className="font-bold"
-          >
+          <Heading level="h3" size="h4" className="mb-6 mt-20 font-bold">
             {intl.formatMessage({
               defaultMessage: "Required technical skills",
               id: "OCrKtT",
@@ -247,12 +232,7 @@ export const ApplicationSkills = ({
       ) : null}
       {categorizedOptionalSkills[SkillCategory.Technical]?.length ? (
         <>
-          <Heading
-            level="h3"
-            size="h4"
-            data-h2-margin="base(x3, 0, x1, 0)"
-            className="font-bold"
-          >
+          <Heading level="h3" size="h4" className="mb-6 mt-20 font-bold">
             {intl.formatMessage({
               defaultMessage: "Optional technical skills",
               id: "mm1X02",
@@ -273,12 +253,7 @@ export const ApplicationSkills = ({
       ) : null}
       {categorizedEssentialSkills[SkillCategory.Behavioural]?.length ? (
         <>
-          <Heading
-            level="h3"
-            size="h4"
-            data-h2-margin="base(x3, 0, x1, 0)"
-            className="font-bold"
-          >
+          <Heading level="h3" size="h4" className="mb-6 mt-20 font-bold">
             {intl.formatMessage({
               defaultMessage: "Required behavioural skills",
               id: "zv4Vyd",
@@ -300,12 +275,7 @@ export const ApplicationSkills = ({
       ) : null}
       {categorizedOptionalSkills[SkillCategory.Behavioural]?.length ? (
         <>
-          <Heading
-            level="h3"
-            size="h4"
-            data-h2-margin="base(x3, 0, x1, 0)"
-            className="font-bold"
-          >
+          <Heading level="h3" size="h4" className="mb-6 mt-20 font-bold">
             {intl.formatMessage({
               defaultMessage: "Optional behavioural skills",
               id: "BqeIyx",
@@ -322,7 +292,7 @@ export const ApplicationSkills = ({
         <form onSubmit={methods.handleSubmit(handleSubmit)}>
           <Separator />
           {/* -x.25 removes stray gap from flex layout */}
-          <div data-h2-margin="base(-x.25 0 x1 0)">
+          <div className="-mt-1.5 mb-6">
             <Input
               id="skillsMissingExperiences"
               name="skillsMissingExperiences"
@@ -339,13 +309,7 @@ export const ApplicationSkills = ({
               }}
             />
           </div>
-          <div
-            className="flex"
-            data-h2-gap="base(x1)"
-            data-h2-flex-wrap="base(wrap)"
-            data-h2-flex-direction="base(column) l-tablet(row)"
-            data-h2-align-items="base(flex-start) l-tablet(center)"
-          >
+          <div className="flex flex-col flex-wrap items-start gap-6 md:flex-row md:items-center">
             <Button
               type="submit"
               mode="solid"

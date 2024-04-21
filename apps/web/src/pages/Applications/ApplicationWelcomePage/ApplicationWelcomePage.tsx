@@ -100,11 +100,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
 
   return (
     <>
-      <Heading
-        size="h3"
-        data-h2-font-weight="base(400)"
-        data-h2-margin="base(0, 0, x1, 0)"
-      >
+      <Heading size="h3" className="mt-0">
         {pageInfo.title}
       </Heading>
       <p className="my-6">
@@ -147,13 +143,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
         })}
       </p>
       <Separator />
-      <div
-        className="flex"
-        data-h2-gap="base(x1)"
-        data-h2-flex-wrap="base(wrap)"
-        data-h2-flex-direction="base(column) l-tablet(row)"
-        data-h2-align-items="base(flex-start) l-tablet(center)"
-      >
+      <div className="flex flex-col flex-wrap items-start gap-6 md:flex-row md:items-center">
         <form onSubmit={handleNavigation}>
           <Button
             type="submit"

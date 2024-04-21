@@ -171,58 +171,43 @@ const ApplicationReview = ({
   const classificationGroup = application.pool.classification?.group;
   return (
     <section>
-      <Heading
-        data-h2-margin="base(0, 0, x1, 0)"
-        data-h2-font-weight="base(400)"
-        size="h3"
-      >
+      <Heading size="h3" className="mt-0">
         {pageInfo.title}
       </Heading>
-      <div data-h2-margin-bottom="base(x2)">
-        <p data-h2-margin="base(x1, 0, x.5, 0)">
+      <p className="mb-3">
+        {intl.formatMessage({
+          defaultMessage:
+            "Before continuing, it’s important that you understand the following notes about your application:",
+          id: "GXmpsW",
+          description: "Starting message for the application review page.",
+        })}
+      </p>
+      <ul className="mb-6 list-outside list-disc pl-12 [&>li]:mb-3">
+        <li>
           {intl.formatMessage({
             defaultMessage:
-              "Before continuing, it’s important that you understand the following notes about your application:",
-            id: "GXmpsW",
-            description: "Starting message for the application review page.",
+              "When you submit your application, a copy of your profile will be created as a part of your application.",
+            id: "A9Urm+",
+            description: "List item note 1 for the application review page.",
           })}
-        </p>
-        <ul data-h2-padding="base(0, 0, 0, x1)">
-          <li>
-            <p data-h2-margin-bottom="base(x.5)">
-              {intl.formatMessage({
-                defaultMessage:
-                  "When you submit your application, a copy of your profile will be created as a part of your application.",
-                id: "A9Urm+",
-                description:
-                  "List item note 1 for the application review page.",
-              })}
-            </p>
-          </li>
-          <li>
-            <p data-h2-margin-bottom="base(x.5)">
-              {intl.formatMessage({
-                defaultMessage:
-                  "Changes made to your profile after submitting will not be updated on your application.",
-                id: "Pasf+O",
-                description:
-                  "List item note 2 for the application review page.",
-              })}
-            </p>
-          </li>
-          <li>
-            <p data-h2-margin-bottom="base(x.5)">
-              {intl.formatMessage({
-                defaultMessage:
-                  "You are still encouraged to keep your profile up to date, as updated versions will be used at later steps of the hiring process.",
-                id: "8BR20I",
-                description:
-                  "List item note 3 for the application review page.",
-              })}
-            </p>
-          </li>
-        </ul>
-      </div>
+        </li>
+        <li>
+          {intl.formatMessage({
+            defaultMessage:
+              "Changes made to your profile after submitting will not be updated on your application.",
+            id: "Pasf+O",
+            description: "List item note 2 for the application review page.",
+          })}
+        </li>
+        <li>
+          {intl.formatMessage({
+            defaultMessage:
+              "You are still encouraged to keep your profile up to date, as updated versions will be used at later steps of the hiring process.",
+            id: "8BR20I",
+            description: "List item note 3 for the application review page.",
+          })}
+        </li>
+      </ul>
       <ReviewSection
         title={intl.formatMessage({
           defaultMessage: "Your career timeline",
@@ -247,11 +232,7 @@ const ApplicationReview = ({
               "Blurb for career timeline section of the application review page.",
           })}
         </p>
-        <div
-          data-h2-display="base(grid)"
-          data-h2-grid-template-columns="base(100%)"
-          data-h2-gap="base(x.5)"
-        >
+        <div className="flex flex-col gap-y-3">
           {hasSomeExperience ? (
             nonEmptyExperiences.map((experience) => (
               <ExperienceCard
@@ -267,8 +248,8 @@ const ApplicationReview = ({
               />
             ))
           ) : (
-            <Well>
-              <p data-h2-text-align="base(center)">
+            <Well className="text-center">
+              <p>
                 {intl.formatMessage({
                   defaultMessage:
                     "It looks like you haven't added any experiences to your career timeline yet.",
@@ -312,11 +293,7 @@ const ApplicationReview = ({
                   "Message on education requirements card on the application review page.",
               })}
         </p>
-        <div
-          data-h2-display="base(grid)"
-          data-h2-grid-template-columns="base(100%)"
-          data-h2-gap="base(x.5)"
-        >
+        <div className="flex flex-col gap-y-3">
           {educationRequirementExperiences?.length > 0 ? (
             educationRequirementExperiences.map((experience) => (
               <ExperienceCard
@@ -335,8 +312,8 @@ const ApplicationReview = ({
             <div>
               {application.educationRequirementOption === null ||
               application.educationRequirementOption === undefined ? (
-                <Well>
-                  <p data-h2-text-align="base(center)">
+                <Well className="text-center">
+                  <p>
                     {intl.formatMessage({
                       defaultMessage:
                         "It looks like you haven't selected an education requirement yet.",
@@ -347,8 +324,8 @@ const ApplicationReview = ({
                   </p>
                 </Well>
               ) : (
-                <Well>
-                  <p data-h2-text-align="base(center)">
+                <Well className="text-center">
+                  <p>
                     {intl.formatMessage({
                       defaultMessage:
                         "It looks like you haven't added any experiences to your career timeline yet.",
@@ -386,20 +363,18 @@ const ApplicationReview = ({
               "Instructional text under the Skill Requirements section",
           })}
         </p>
-        <div>
-          {categorizedEssentialSkills[SkillCategory.Technical]?.map(
-            (requiredTechnicalSkill) => (
-              <SkillTree
-                key={requiredTechnicalSkill.id}
-                skill={requiredTechnicalSkill}
-                experiences={experiences}
-                showDisclaimer
-                hideConnectButton
-                hideEdit
-              />
-            ),
-          )}
-        </div>
+        {categorizedEssentialSkills[SkillCategory.Technical]?.map(
+          (requiredTechnicalSkill) => (
+            <SkillTree
+              key={requiredTechnicalSkill.id}
+              skill={requiredTechnicalSkill}
+              experiences={experiences}
+              showDisclaimer
+              hideConnectButton
+              hideEdit
+            />
+          ),
+        )}
       </ReviewSection>
       {screeningQuestions.length > 0 && (
         <ReviewSection
@@ -413,8 +388,8 @@ const ApplicationReview = ({
           })}
         >
           {screeningQuestionResponses.length > 0 ? (
-            <div>
-              <p data-h2-margin="base(x1, 0, x.5, 0)">
+            <>
+              <p className="mb-3 mt-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "You’ve answered the following screening questions:",
@@ -423,10 +398,10 @@ const ApplicationReview = ({
                     "Message in screening questions section of the application review page.",
                 })}
               </p>
-              <ul data-h2-padding="base(0, 0, 0, x1)">
+              <ul className="my-3 list-outside list-disc pl-12 [&>li]:mb-3">
                 {screeningQuestionResponses.map((response) => (
-                  <li key={response.id} data-h2-margin-bottom="base(x.5)">
-                    <p className="font-bold" data-h2-margin-bottom="base(x.25)">
+                  <li key={response.id}>
+                    <p className="mb-1.5 font-bold">
                       {response.screeningQuestion?.question
                         ? response.screeningQuestion.question[locale]
                         : ""}
@@ -435,10 +410,10 @@ const ApplicationReview = ({
                   </li>
                 ))}
               </ul>
-            </div>
+            </>
           ) : (
-            <Well>
-              <p data-h2-text-align="base(center)">
+            <Well className="text-center">
+              <p>
                 {intl.formatMessage({
                   defaultMessage:
                     "It looks like you haven't answered any screening questions yet.",
@@ -463,8 +438,8 @@ const ApplicationReview = ({
           })}
         >
           {generalQuestionResponses.length > 0 ? (
-            <div>
-              <p data-h2-margin="base(x1, 0, x.5, 0)">
+            <>
+              <p className="mb-3 mt-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "You've answered the following general questions:",
@@ -473,10 +448,10 @@ const ApplicationReview = ({
                     "Message in general questions section of the application review page.",
                 })}
               </p>
-              <ul data-h2-padding="base(0, 0, 0, x1)">
+              <ul className="my-3 list-outside list-disc pl-12 [&>li]:mb-3">
                 {generalQuestionResponses.map((response) => (
-                  <li key={response.id} data-h2-margin-bottom="base(x.5)">
-                    <p className="font-bold" data-h2-margin-bottom="base(x.25)">
+                  <li key={response.id}>
+                    <p className="mt-1.5 font-bold">
                       {response.generalQuestion?.question
                         ? response.generalQuestion.question[locale]
                         : ""}
@@ -485,10 +460,10 @@ const ApplicationReview = ({
                   </li>
                 ))}
               </ul>
-            </div>
+            </>
           ) : (
-            <Well>
-              <p data-h2-text-align="base(center)">
+            <Well className="text-center">
+              <p>
                 {intl.formatMessage({
                   defaultMessage:
                     "It looks like you haven't answered any general questions yet.",
@@ -502,103 +477,80 @@ const ApplicationReview = ({
         </ReviewSection>
       )}
 
-      <section data-h2-margin="base(x3, 0, 0, 0)">
-        <Heading
-          level="h3"
-          size="h4"
-          className="font-bold"
-          data-h2-margin="base(0, 0, x1, 0)"
-        >
-          {intl.formatMessage({
-            defaultMessage: "Sign and submit",
-            id: "fhgZRX",
-            description:
-              "Heading for sign and submit section of application review page.",
-          })}
-        </Heading>
-        <div>
-          <FormProvider {...methods}>
-            <form onSubmit={methods.handleSubmit(handleSubmit)}>
-              <p data-h2-margin="base(x1, 0, x.5, 0)">
-                {intl.formatMessage({
-                  defaultMessage: `You made it! By signing your name, you confirm that:`,
-                  id: "pH8wF2",
-                  description:
-                    "Instructions for sign and submit section of application review page.",
-                })}
-              </p>
-              <ul data-h2-padding="base(0, 0, 0, x1)">
-                <li>
-                  <p data-h2-margin-bottom="base(x.5)">
-                    {intl.formatMessage({
-                      defaultMessage: `"I’ve reviewed everything written in my application"`,
-                      id: "PDbqFR",
-                      description:
-                        "Review list item for sign and submit section of application review page.",
-                    })}
-                  </p>
-                </li>
-                <li>
-                  <p data-h2-margin-bottom="base(x.5)">
-                    {intl.formatMessage(
-                      applicationMessages.confirmationCommunity,
-                    )}
-                  </p>
-                </li>
-                <li>
-                  <p data-h2-margin-bottom="base(x.5)">
-                    {intl.formatMessage({
-                      defaultMessage: `"I promise that the information I’ve provided is true"`,
-                      id: "1ZQP80",
-                      description:
-                        "Truth list item for sign and submit section of application review page.",
-                    })}
-                  </p>
-                </li>
-              </ul>
-              <div className="my-6">
-                <Input
-                  id="signature"
-                  label={intl.formatMessage({
-                    defaultMessage: "Your full name",
-                    id: "T8eOrg",
-                    description:
-                      "Label displayed for signature input in sign and submit section of application review page.",
-                  })}
-                  type="text"
-                  name="signature"
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                />
-              </div>
-              <div
-                className="flex"
-                data-h2-gap="base(x1)"
-                data-h2-flex-wrap="base(wrap)"
-                data-h2-flex-direction="base(column) l-tablet(row)"
-                data-h2-align-items="base(flex-start) l-tablet(center)"
-              >
-                <Button
-                  type="submit"
-                  mode="solid"
-                  value="continue"
-                  disabled={mutating || isSubmitting}
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Submit my application",
-                    id: "yKr1Ji",
-                    description: "Label for submitting an application",
-                  })}
-                </Button>
-                <Link mode="inline" href={cancelPath}>
-                  {intl.formatMessage(applicationMessages.saveQuit)}
-                </Link>
-              </div>
-            </form>
-          </FormProvider>
-        </div>
-      </section>
+      <Heading level="h3" size="h4">
+        {intl.formatMessage({
+          defaultMessage: "Sign and submit",
+          id: "fhgZRX",
+          description:
+            "Heading for sign and submit section of application review page.",
+        })}
+      </Heading>
+      <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(handleSubmit)}>
+          <p className="mb-3">
+            {intl.formatMessage({
+              defaultMessage: `You made it! By signing your name, you confirm that:`,
+              id: "pH8wF2",
+              description:
+                "Instructions for sign and submit section of application review page.",
+            })}
+          </p>
+          <ul className="my-3 list-outside list-disc pl-12 [&>li]:mb-3">
+            <li>
+              {intl.formatMessage({
+                defaultMessage: `"I’ve reviewed everything written in my application"`,
+                id: "PDbqFR",
+                description:
+                  "Review list item for sign and submit section of application review page.",
+              })}
+            </li>
+            <li>
+              {intl.formatMessage(applicationMessages.confirmationCommunity)}
+            </li>
+            <li>
+              {intl.formatMessage({
+                defaultMessage: `"I promise that the information I’ve provided is true"`,
+                id: "1ZQP80",
+                description:
+                  "Truth list item for sign and submit section of application review page.",
+              })}
+            </li>
+          </ul>
+          <div className="my-6">
+            <Input
+              id="signature"
+              label={intl.formatMessage({
+                defaultMessage: "Your full name",
+                id: "T8eOrg",
+                description:
+                  "Label displayed for signature input in sign and submit section of application review page.",
+              })}
+              type="text"
+              name="signature"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+          </div>
+          <div className="flex flex-col flex-wrap items-start gap-6 md:flex-row md:items-center">
+            <Button
+              type="submit"
+              mode="solid"
+              value="continue"
+              disabled={mutating || isSubmitting}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Submit my application",
+                id: "yKr1Ji",
+                description: "Label for submitting an application",
+              })}
+            </Button>
+            <Link mode="inline" href={cancelPath}>
+              {intl.formatMessage(applicationMessages.saveQuit)}
+            </Link>
+          </div>
+        </form>
+      </FormProvider>
     </section>
   );
 };

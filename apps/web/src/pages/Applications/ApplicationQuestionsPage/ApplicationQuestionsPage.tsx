@@ -132,18 +132,9 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
     >
       {/* Screening Questions */}
       {screeningQuestions.length > 0 && (
-        <div data-h2-margin-bottom="base(x4)">
-          <div
-            data-h2-display="p-tablet(flex)"
-            data-h2-align-items="p-tablet(flex-end)"
-            data-h2-justify-content="p-tablet(space-between)"
-            className="mb-6"
-          >
-            <Heading
-              data-h2-margin="base(0)"
-              data-h2-font-weight="base(400)"
-              size="h3"
-            >
+        <div className="mb-28">
+          <div className="mb-6 sm:flex sm:items-center sm:justify-between">
+            <Heading size="h3" className="mt-0">
               {intl.formatMessage(processMessages.screeningQuestions)}
             </Heading>
             <Link
@@ -158,7 +149,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
               })}
             </Link>
           </div>
-          <p data-h2-margin="base(x1, 0, x3, 0)">
+          <p className="mb-20 mt-6">
             {intl.formatMessage({
               defaultMessage:
                 "Remember, the questions in this section will be used to evaluate your application.",
@@ -168,12 +159,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
           </p>
           {screeningQuestions.map((question, index) => (
             <React.Fragment key={question.id}>
-              <Heading
-                level="h3"
-                size="h4"
-                className="font-bold"
-                data-h2-margin="base(x2, 0, x1, 0)"
-              >
+              <Heading level="h3" size="h4" className="mb-6 mt-12 font-bold">
                 {intl.formatMessage(
                   {
                     defaultMessage: "Question {number}",
@@ -196,17 +182,8 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
       {/* General Questions */}
       {generalQuestions.length > 0 && (
         <>
-          <div
-            data-h2-display="p-tablet(flex)"
-            data-h2-align-items="p-tablet(flex-end)"
-            data-h2-justify-content="p-tablet(space-between)"
-            className="mb-6"
-          >
-            <Heading
-              data-h2-margin="base(0)"
-              data-h2-font-weight="base(400)"
-              size="h3"
-            >
+          <div className="mb-6 sm:flex sm:items-end sm:justify-between">
+            <Heading size="h3" className="my-0">
               {intl.formatMessage(processMessages.generalQuestions)}
             </Heading>
             {screeningQuestions.length === 0 && (
@@ -223,7 +200,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
               </Link>
             )}
           </div>
-          <p data-h2-margin="base(x1, 0, x3, 0)">
+          <p className="mb-20">
             {intl.formatMessage({
               defaultMessage:
                 "Please answer these questions to the best of your ability to help hiring managers gain a stronger understanding of your fit to the opportunity.",
@@ -233,12 +210,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
           </p>
           {generalQuestions.map((question, index) => (
             <React.Fragment key={question.id}>
-              <Heading
-                level="h3"
-                size="h4"
-                className="font-bold"
-                data-h2-margin="base(x2, 0, x1, 0)"
-              >
+              <Heading level="h3" size="h4" className="mb-6 mt-12 font-bold">
                 {intl.formatMessage(
                   {
                     defaultMessage: "Question {number}",

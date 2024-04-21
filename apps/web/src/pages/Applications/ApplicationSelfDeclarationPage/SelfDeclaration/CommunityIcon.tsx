@@ -48,10 +48,7 @@ const CommunityIcon = ({ community, values }: CommunityIconProps) => {
   const [iconOn, iconOff, iconOffDark] = getCommunityIcon(community);
 
   const styles = {
-    "data-h2-location": "base(0)",
-    "data-h2-position": "base(absolute)",
-    "data-h2-width": "base(100%)",
-    "data-h2-height": "base(100%)",
+    className: "inset-0 absolute w-full h-full",
     // Fade animation
     initial: { opacity: 0 },
     exit: { opacity: 0 },
@@ -59,13 +56,8 @@ const CommunityIcon = ({ community, values }: CommunityIconProps) => {
   };
 
   return (
-    <div data-h2-width="base(100%)">
-      <div
-        data-h2-position="base(relative)"
-        data-h2-width="base(100%)"
-        data-h2-height="base(0)"
-        data-h2-padding="base(0, 0, 100%, 0)"
-      >
+    <div className="w-full">
+      <div className="relative h-0 w-full pb-[100%]">
         <AnimatePresence>
           {isOn ? (
             <m.img {...styles} alt="" key={`${community}-true`} src={iconOn} />

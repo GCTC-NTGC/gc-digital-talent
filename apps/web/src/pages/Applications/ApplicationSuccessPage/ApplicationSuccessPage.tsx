@@ -55,7 +55,7 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
   return (
     <Alert.Root type="success" live={false}>
       <Alert.Title>{pageInfo.title}</Alert.Title>
-      <p data-h2-margin="base(x.5, 0)">
+      <p className="my-3">
         {intl.formatMessage(
           {
             defaultMessage:
@@ -68,7 +68,7 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
           },
         )}
       </p>
-      <p data-h2-margin="base(x.5, 0)">
+      <p className="my-3">
         {isIAP
           ? intl.formatMessage({
               defaultMessage:
@@ -85,9 +85,9 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
                 "Description of review process and next steps for the applicant.",
             })}
       </p>
-      <ul data-h2-margin-bottom="base(x1.5)">
+      <ul className="my-6 list-outside list-disc pl-12 [&>li]:mb-1.5">
         {!isIAP && (
-          <li data-h2-margin-bottom="base(x.25)">
+          <li>
             <Link
               newTab
               external
@@ -109,7 +109,7 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
             </Link>
           </li>
         )}
-        <li data-h2-margin-bottom="base(x.25)">
+        <li>
           <Link
             href={paths.myProfile()}
             data-h2-display="base(inline-block)"
@@ -125,7 +125,7 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
           </Link>
         </li>
         {!isIAP && (
-          <li data-h2-margin-bottom="base(x.25)">
+          <li>
             <Link
               href={paths.browsePools()}
               data-h2-display="base(inline-block)"
@@ -142,13 +142,7 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
           </li>
         )}
       </ul>
-      <p
-        data-h2-margin="base(x.5, 0)"
-        className="flex"
-        data-h2-flex-wrap="base(wrap)"
-        data-h2-gap="base(x1)"
-        data-h2-align-items="base(center)"
-      >
+      <p className="my-3 flex flex-wrap items-center gap-6">
         <Link
           href={
             locale === "fr"
