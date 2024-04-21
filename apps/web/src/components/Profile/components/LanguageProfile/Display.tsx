@@ -199,7 +199,8 @@ const Display = ({
             )}
         </>
       ) : (
-        <div className="grid gap-6">
+        // eslint-disable-next-line react/jsx-no-useless-fragment
+        <>
           {lookingForBilingual && (
             <>
               <FieldDisplay
@@ -270,7 +271,7 @@ const Display = ({
               ) : null}
             </>
           )}
-        </div>
+        </>
       )}
     </div>
   );

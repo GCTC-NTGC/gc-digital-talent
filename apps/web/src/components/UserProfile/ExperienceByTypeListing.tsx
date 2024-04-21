@@ -42,20 +42,12 @@ const ExperienceByType = ({
 }) => {
   return (
     <div>
-      <div
-        className="flex"
-        data-h2-align-items="base(center)"
-        data-h2-padding="base(0, 0, x.5, 0)"
-      >
-        <span data-h2-margin="base(x.125, x.5, 0, 0)">{icon}</span>
+      <div className="mb-3 flex items-center gap-x-3">
+        <span className="mt-1">{icon}</span>
         <p data-h2-font-size="base(h5, 1)">{title}</p>
       </div>
       <div>
-        <div
-          className="flex"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x.5 0)"
-        >
+        <div className="flex flex-col gap-y-3">
           {experiences.map((experience) => (
             <ExperienceCard
               key={experience.id}
@@ -110,7 +102,7 @@ const ExperienceByTypeListing = ({
 
   return (
     <>
-      <p data-h2-text-align="base(right)">
+      <p className="text-right">
         <Button mode="inline" onClick={toggleAllExpanded}>
           {intl.formatMessage(
             hasExpanded
@@ -119,24 +111,24 @@ const ExperienceByTypeListing = ({
           )}
         </Button>
       </p>
-      {personalExperiences.length > 0 ? (
-        <ExperienceByType
-          title={intl.formatMessage({
-            defaultMessage: "Personal experiences",
-            id: "6VyRZ/",
-            description:
-              "Heading for personal experiences in experience by type listing",
-          })}
-          icon={<LightBulbIcon style={{ width: "1.5rem" }} />}
-          headingLevel={headingLevel}
-          editParam={editParam}
-          experiences={personalExperiences}
-          isExperienceOpen={isExpanded}
-          onExperienceOpenChange={toggleExpandedItem}
-        />
-      ) : null}
-      {communityExperiences.length > 0 ? (
-        <div data-h2-margin="base(x2, 0, 0, 0)">
+      <div className="flex flex-col gap-y-12">
+        {personalExperiences.length > 0 ? (
+          <ExperienceByType
+            title={intl.formatMessage({
+              defaultMessage: "Personal experiences",
+              id: "6VyRZ/",
+              description:
+                "Heading for personal experiences in experience by type listing",
+            })}
+            icon={<LightBulbIcon style={{ width: "1.5rem" }} />}
+            headingLevel={headingLevel}
+            editParam={editParam}
+            experiences={personalExperiences}
+            isExperienceOpen={isExpanded}
+            onExperienceOpenChange={toggleExpandedItem}
+          />
+        ) : null}
+        {communityExperiences.length > 0 ? (
           <ExperienceByType
             title={intl.formatMessage({
               defaultMessage: "Community experiences",
@@ -151,10 +143,8 @@ const ExperienceByTypeListing = ({
             isExperienceOpen={isExpanded}
             onExperienceOpenChange={toggleExpandedItem}
           />
-        </div>
-      ) : null}
-      {workExperiences.length > 0 ? (
-        <div data-h2-margin="base(x2, 0, 0, 0)">
+        ) : null}
+        {workExperiences.length > 0 ? (
           <ExperienceByType
             title={intl.formatMessage({
               defaultMessage: "Work experiences",
@@ -168,10 +158,8 @@ const ExperienceByTypeListing = ({
             isExperienceOpen={isExpanded}
             onExperienceOpenChange={toggleExpandedItem}
           />
-        </div>
-      ) : null}
-      {educationExperiences.length > 0 ? (
-        <div data-h2-margin="base(x2, 0, 0, 0)">
+        ) : null}
+        {educationExperiences.length > 0 ? (
           <ExperienceByType
             title={intl.formatMessage({
               defaultMessage: "Education experiences",
@@ -186,10 +174,8 @@ const ExperienceByTypeListing = ({
             isExperienceOpen={isExpanded}
             onExperienceOpenChange={toggleExpandedItem}
           />
-        </div>
-      ) : null}
-      {awardExperiences.length > 0 ? (
-        <div data-h2-margin="base(x2, 0, 0, 0)">
+        ) : null}
+        {awardExperiences.length > 0 ? (
           <ExperienceByType
             title={intl.formatMessage({
               defaultMessage: "Award experiences",
@@ -204,8 +190,8 @@ const ExperienceByTypeListing = ({
             isExperienceOpen={isExpanded}
             onExperienceOpenChange={toggleExpandedItem}
           />
-        </div>
-      ) : null}
+        ) : null}
+      </div>
     </>
   );
 };

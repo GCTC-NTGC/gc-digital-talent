@@ -12,13 +12,7 @@ type NullDisplayProps = {
 const NullDisplay = ({ title, content, optional }: NullDisplayProps) => {
   const intl = useIntl();
   return (
-    <Well
-      className="flex"
-      data-h2-flex-direction="base(column)"
-      data-h2-align-items="base(center)"
-      data-h2-gap="base(x.5, 0)"
-      data-h2-padding="base(x1)"
-    >
+    <Well className="flex flex-col items-center gap-y-3 p-6">
       {title ? (
         <p className="font-bold">{title}</p>
       ) : (
@@ -36,7 +30,7 @@ const NullDisplay = ({ title, content, optional }: NullDisplayProps) => {
               })}
         </p>
       )}
-      <p data-h2-font-weight="base(400)" data-h2-text-align="base(center)">
+      <p className="text-center font-normal">
         {content ||
           intl.formatMessage({
             defaultMessage: `Use the "Edit" button to get started.`,

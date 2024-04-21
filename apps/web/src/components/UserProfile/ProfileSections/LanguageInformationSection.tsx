@@ -24,37 +24,33 @@ const LanguageInformationSection = ({
     <Well>
       {!hasAllEmptyFields(user) && <Display user={user} context="admin" />}
       {hasAllEmptyFields(user) && editPath && (
-        <div data-h2-flex-item="base(1of1)">
-          <p>
-            {intl.formatMessage({
-              defaultMessage: "You haven't added any information here yet.",
-              id: "SCCX7B",
-              description: "Message for when no data exists for the section",
-            })}
-          </p>
-        </div>
+        <p>
+          {intl.formatMessage({
+            defaultMessage: "You haven't added any information here yet.",
+            id: "SCCX7B",
+            description: "Message for when no data exists for the section",
+          })}
+        </p>
       )}
       {hasEmptyRequiredFields(user) && (
-        <div data-h2-flex-item="base(1of1)">
-          <p>
-            {editPath && (
-              <>
-                {intl.formatMessage(commonMessages.requiredFieldsMissing)}{" "}
-                <Link href={editPath}>
-                  {intl.formatMessage({
-                    defaultMessage: "Edit your language information options.",
-                    id: "S9lNLG",
-                    description:
-                      "Link text to edit language information on profile.",
-                  })}
-                </Link>
-              </>
-            )}
-            {!editPath && (
-              <>{intl.formatMessage(commonMessages.noInformationProvided)}</>
-            )}
-          </p>
-        </div>
+        <p>
+          {editPath && (
+            <>
+              {intl.formatMessage(commonMessages.requiredFieldsMissing)}{" "}
+              <Link href={editPath}>
+                {intl.formatMessage({
+                  defaultMessage: "Edit your language information options.",
+                  id: "S9lNLG",
+                  description:
+                    "Link text to edit language information on profile.",
+                })}
+              </Link>
+            </>
+          )}
+          {!editPath && (
+            <>{intl.formatMessage(commonMessages.noInformationProvided)}</>
+          )}
+        </p>
       )}
     </Well>
   );

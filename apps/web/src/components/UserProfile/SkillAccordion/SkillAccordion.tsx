@@ -75,9 +75,7 @@ const SkillAccordion = ({
     return (
       <>
         <p data-h2-color="base(primary.darker)">{title}</p>
-        <p data-h2-margin="base(0, 0, x.5, 0)">
-          {getDateRange({ endDate, startDate, intl })}
-        </p>
+        <p className="mb-3">{getDateRange({ endDate, startDate, intl })}</p>
         <p>{description}</p>
         <p>{justification}</p>
         <p>{details}</p>
@@ -113,15 +111,10 @@ const SkillAccordion = ({
             { institution },
           )}
         </p>
-        <p data-h2-margin="base(0, 0, x.5, 0)">
-          {getDateRange({ endDate, startDate, intl })}
-        </p>
+        <p className="mb-3">{getDateRange({ endDate, startDate, intl })}</p>
         <p>
           {type ? intl.formatMessage(getEducationType(type)) : ""}{" "}
-          <span
-            data-h2-color="base(primary.darker)"
-            data-h2-font-style="base(italic)"
-          >
+          <span className="italic" data-h2-color="base(primary.darker)">
             {status ? intl.formatMessage(getEducationStatus(status)) : ""}{" "}
           </span>
         </p>
@@ -168,7 +161,7 @@ const SkillAccordion = ({
             { issuedBy, title },
           )}
         </p>
-        <p data-h2-margin="base(0, 0, x.5, 0)">
+        <p className="mb-3">
           {awardedDate && formattedDate(awardedDate, intl)}
         </p>
         <p>
@@ -192,8 +185,7 @@ const SkillAccordion = ({
         <p>{justification}</p>
         <p
           data-h2-color="base(primary.darker)"
-          className="font-bold"
-          data-h2-margin="base(x1, 0, x.25, 0)"
+          className="mb-1.5 mt-6 font-bold"
         >
           {intl.formatMessage({
             defaultMessage: "Additional details:",
@@ -232,9 +224,7 @@ const SkillAccordion = ({
             { organization, title },
           )}
         </p>
-        <p data-h2-margin="base(0, 0, x.5, 0)">
-          {getDateRange({ endDate, startDate, intl })}
-        </p>
+        <p className="mb-3">{getDateRange({ endDate, startDate, intl })}</p>
         <p>
           {intl.formatMessage(
             {
@@ -248,8 +238,7 @@ const SkillAccordion = ({
         <p>{justification}</p>
         <p
           data-h2-color="base(primary.darker)"
-          className="font-bold"
-          data-h2-margin="base(x1, 0, x.25, 0)"
+          className="mb-1.5 mt-6 font-bold"
         >
           {intl.formatMessage({
             defaultMessage: "Additional details:",
@@ -288,15 +277,12 @@ const SkillAccordion = ({
             { organization, role },
           )}
         </p>
-        <p data-h2-margin="base(0, 0, x.5, 0)">
-          {getDateRange({ endDate, startDate, intl })}
-        </p>
+        <p className="mb-3">{getDateRange({ endDate, startDate, intl })}</p>
         <p>{division}</p>
         <p>{justification}</p>
         <p
           data-h2-color="base(primary.darker)"
-          className="font-bold"
-          data-h2-margin="base(x1, 0, x.25, 0)"
+          className="mb-1.5 mt-6 font-bold"
         >
           {intl.formatMessage({
             defaultMessage: "Additional details:",
@@ -311,8 +297,8 @@ const SkillAccordion = ({
   const renderWithExperience = () => {
     return experiences?.map((experience) => {
       return (
-        <ul data-h2-padding="base(0, 0, 0, x1)" key={experience?.id}>
-          <li data-h2-margin="base(x1, 0, 0, 0)">
+        <ul className="mt-6 list-inside list-disc" key={experience?.id}>
+          <li>
             {isPersonalExperience(experience!)
               ? getPersonalExperience(experience)
               : ""}
@@ -348,7 +334,7 @@ const SkillAccordion = ({
     if (experiences != null && experiences.length > 0) {
       return (
         <>
-          <p data-h2-margin-top="base(x1)" className="font-bold">
+          <p className="mt-6 font-bold">
             {intl.formatMessage({
               defaultMessage:
                 "This skill has the following related experiences:",

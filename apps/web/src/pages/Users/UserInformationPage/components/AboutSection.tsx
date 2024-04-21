@@ -20,7 +20,7 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
   return (
     <Well>
       <div data-h2-flex-grid="base(normal, x1, x.5)">
-        <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+        <div>
           <p className="font-bold">
             {intl.formatMessage({
               defaultMessage: "Name:",
@@ -30,7 +30,7 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
           </p>
           <p>{getFullNameHtml(user.firstName, user.lastName, intl)}</p>
         </div>
-        <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+        <div>
           <p className="font-bold">
             {intl.formatMessage({
               defaultMessage: "Email:",
@@ -40,7 +40,7 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
           </p>
           <p>{user.email}</p>
         </div>
-        <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+        <div>
           <p className="font-bold">
             {intl.formatMessage({
               defaultMessage: "Preferred Communication Language:",
@@ -55,7 +55,7 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
               : ""}
           </p>
         </div>
-        <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+        <div>
           <p className="font-bold">
             {intl.formatMessage({
               defaultMessage: "Preferred spoken interview language",
@@ -72,7 +72,7 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
               : ""}
           </p>
         </div>
-        <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+        <div>
           <p className="font-bold">
             {intl.formatMessage({
               defaultMessage: "Preferred written exam language",
@@ -89,7 +89,7 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
               : ""}
           </p>
         </div>
-        <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+        <div>
           <p className="font-bold">
             {intl.formatMessage({
               defaultMessage: "Phone:",
@@ -111,7 +111,7 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
             )}
           </p>
         </div>
-        <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+        <div>
           <p className="font-bold">
             {intl.formatMessage({
               defaultMessage: "Current Location:",
@@ -129,7 +129,7 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
               : ""}
           </p>
         </div>
-        <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+        <div>
           <p className="font-bold">
             {intl.formatMessage({
               defaultMessage: "Member of CAF:",
@@ -146,7 +146,7 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
               </p>
             )}
         </div>
-        <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+        <div>
           <p className="font-bold">
             {intl.formatMessage({
               defaultMessage: "Citizenship:",

@@ -74,39 +74,33 @@ const WorkPreferencesSection = ({
 
   return (
     <Well>
-      <div data-h2-flex-grid="base(flex-start, x2, x1)">
+      <div className="flex flex-col gap-y-6">
         {hasEmptyRequiredFields(user) && (
           <>
-            <div data-h2-flex-item="base(1of1)">
-              <p>
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "You haven't added any information here yet.",
+                id: "SCCX7B",
+                description: "Message for when no data exists for the section",
+              })}
+            </p>
+            <p>
+              {intl.formatMessage(commonMessages.requiredFieldsMissing)}{" "}
+              <Link href={editPath}>
                 {intl.formatMessage({
-                  defaultMessage: "You haven't added any information here yet.",
-                  id: "SCCX7B",
-                  description:
-                    "Message for when no data exists for the section",
+                  defaultMessage: "Edit your work preference options.",
+                  id: "eFCDP4",
+                  description: "Link text to edit work preferences on profile",
                 })}
-              </p>
-            </div>
-            <div data-h2-flex-item="base(1of1)">
-              <p>
-                {intl.formatMessage(commonMessages.requiredFieldsMissing)}{" "}
-                <Link href={editPath}>
-                  {intl.formatMessage({
-                    defaultMessage: "Edit your work preference options.",
-                    id: "eFCDP4",
-                    description:
-                      "Link text to edit work preferences on profile",
-                  })}
-                </Link>
-              </p>
-            </div>
+              </Link>
+            </p>
           </>
         )}
 
         {positionDuration &&
           positionDuration.includes(PositionDuration.Temporary) && (
-            <div data-h2-flex-item="base(1of1)">
-              <p>
+            <div>
+              <p className="mb-1.5">
                 {intl.formatMessage({
                   defaultMessage:
                     "I would consider accepting a job that lasts for:",
@@ -115,7 +109,7 @@ const WorkPreferencesSection = ({
                     "Label for what length of position user prefers, followed by colon",
                 })}
               </p>
-              <ul data-h2-padding="base(0, 0, 0, x1)">
+              <ul className="list-inside list-disc">
                 <li>
                   {intl.formatMessage({
                     defaultMessage:
@@ -131,8 +125,8 @@ const WorkPreferencesSection = ({
 
         {positionDuration &&
           !positionDuration.includes(PositionDuration.Temporary) && (
-            <div data-h2-flex-item="base(1of1)">
-              <p>
+            <div>
+              <p className="mb-1.5">
                 {intl.formatMessage({
                   defaultMessage:
                     "I would consider accepting a job that lasts for:",
@@ -141,7 +135,7 @@ const WorkPreferencesSection = ({
                     "Label for what length of position user prefers, followed by colon",
                 })}
               </p>
-              <ul data-h2-padding="base(0, 0, 0, x1)">
+              <ul className="list-inside list-disc">
                 <li>
                   {intl.formatMessage({
                     defaultMessage: "Permanent duration",
@@ -154,8 +148,8 @@ const WorkPreferencesSection = ({
           )}
 
         {anyCriteriaSelected && !isEmpty(unacceptedOperationalArray) && (
-          <div data-h2-flex-item="base(1of1)">
-            <p>
+          <div>
+            <p className="mb-1.5">
               {intl.formatMessage({
                 defaultMessage: "I would consider accepting a job that:",
                 id: "l/jGX9",
@@ -163,14 +157,14 @@ const WorkPreferencesSection = ({
                   "Label for what conditions a user will accept, followed by a colon",
               })}
             </p>
-            <ul data-h2-padding="base(0, 0, 0, x1)">
+            <ul className="list-inside list-disc">
               {acceptedOperationalArray}
             </ul>
           </div>
         )}
         {anyCriteriaSelected && !isEmpty(unacceptedOperationalArray) && (
-          <div data-h2-flex-item="base(1of1)">
-            <p>
+          <div>
+            <p className="mb-1.5">
               {intl.formatMessage({
                 defaultMessage:
                   "I would <strong>not consider</strong> accepting a job that:",
@@ -178,15 +172,15 @@ const WorkPreferencesSection = ({
                 description: "would not accept job line before a list",
               })}
             </p>
-            <ul data-h2-padding="base(0, 0, 0, x1)">
+            <ul className="list-inside list-disc">
               {unacceptedOperationalArray}
             </ul>
           </div>
         )}
 
         {anyCriteriaSelected && isEmpty(unacceptedOperationalArray) && (
-          <div data-h2-flex-item="base(1of1)">
-            <p>
+          <div>
+            <p className="mb-1.5">
               {intl.formatMessage({
                 defaultMessage: "I would consider accepting a job that:",
                 id: "l/jGX9",
@@ -194,15 +188,15 @@ const WorkPreferencesSection = ({
                   "Label for what conditions a user will accept, followed by a colon",
               })}
             </p>
-            <ul data-h2-padding="base(0, 0, 0, x1)">
+            <ul className="list-inside list-disc">
               {acceptedOperationalArray}
             </ul>
           </div>
         )}
 
         {!anyCriteriaSelected && editPath && (
-          <div data-h2-flex-item="base(1of1)">
-            <p>
+          <div>
+            <p className="mb-1.5">
               {intl.formatMessage({
                 defaultMessage:
                   "I would <strong>not consider</strong> accepting a job that:",
@@ -210,16 +204,14 @@ const WorkPreferencesSection = ({
                 description: "would not accept job line before a list",
               })}
             </p>
-            <ul data-h2-padding="base(0, 0, 0, x1)">
+            <ul className="list-inside list-disc">
               {unacceptedOperationalArray}
             </ul>
           </div>
         )}
 
         {hasAllEmptyFields(user) && !editPath && (
-          <div data-h2-flex-item="base(1of1)">
-            <p>{intl.formatMessage(commonMessages.noInformationProvided)}</p>
-          </div>
+          <p>{intl.formatMessage(commonMessages.noInformationProvided)}</p>
         )}
       </div>
     </Well>

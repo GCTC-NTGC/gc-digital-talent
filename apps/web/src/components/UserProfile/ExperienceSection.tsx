@@ -149,7 +149,7 @@ const ExperienceSection = ({
         ))}
       </Tabs.List>
       <Tabs.Content value="0">
-        <p data-h2-margin-bottom="base(x.5)" data-h2-text-align="base(right)">
+        <p className="mb-3 text-right">
           <Button mode="inline" onClick={toggleAllExpanded}>
             {intl.formatMessage(
               hasExpanded
@@ -158,11 +158,7 @@ const ExperienceSection = ({
             )}
           </Button>
         </p>
-        <div
-          className="flex"
-          data-h2-flex-direction="base(column)"
-          data-h2-gap="base(x.5 0)"
-        >
+        <div className="flex flex-col gap-y-3">
           {sortedByDate.map((experience) => (
             <ExperienceCard
               headingLevel={headingLevel}
@@ -200,8 +196,7 @@ const ExperienceSection = ({
     <div
       data-h2-background-color="base(background.dark)"
       data-h2-border="base(1px solid background.darker)"
-      data-h2-padding="base(x1)"
-      data-h2-radius="base(s)"
+      className="rounded p-6"
     >
       {!editPath ? (
         <p>
@@ -214,7 +209,7 @@ const ExperienceSection = ({
         </p>
       ) : (
         <>
-          <p data-h2-padding="base(0, 0, x1, 0)">
+          <p className="mb-6">
             {intl.formatMessage({
               defaultMessage: "You haven't added any information here yet.",
               id: "SCCX7B",

@@ -30,66 +30,55 @@ const WorkLocationSection = ({
 
   return (
     <Well>
-      <div data-h2-flex-grid="base(flex-start, x2, x1)">
+      <div className="flex flex-col gap-y-6">
         {anyCriteriaSelected(user) && (
-          <div data-h2-flex-item="base(1of1)">
-            <p>
-              <span className="block">
-                {intl.formatMessage({
-                  defaultMessage: "Work location:",
-                  id: "b5bUa0",
-                  description: "Work Location label, followed by colon",
-                })}
-              </span>
-              <span className="font-bold">{regionPreferences}</span>
-            </p>
-          </div>
+          <p>
+            <span className="block">
+              {intl.formatMessage({
+                defaultMessage: "Work location:",
+                id: "b5bUa0",
+                description: "Work Location label, followed by colon",
+              })}
+            </span>
+            <span className="font-bold">{regionPreferences}</span>
+          </p>
         )}
         {!!user.locationExemptions && (
-          <div data-h2-flex-item="base(1of1)">
-            <p>
-              <span className="block">
-                {intl.formatMessage({
-                  defaultMessage: "Work location exceptions",
-                  id: "OpKC2i",
-                  description: "Work location exceptions label",
-                })}
-                {intl.formatMessage(commonMessages.dividingColon)}
-              </span>
-              <span className="font-bold">{user.locationExemptions}</span>
-            </p>
-          </div>
+          <p>
+            <span className="block">
+              {intl.formatMessage({
+                defaultMessage: "Work location exceptions",
+                id: "OpKC2i",
+                description: "Work location exceptions label",
+              })}
+              {intl.formatMessage(commonMessages.dividingColon)}
+            </span>
+            <span className="font-bold">{user.locationExemptions}</span>
+          </p>
         )}
         {hasEmptyRequiredFields(user) && editPath && (
           <>
-            <div data-h2-flex-item="base(1of1)">
-              <p>
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "You haven't added any information here yet.",
+                id: "SCCX7B",
+                description: "Message for when no data exists for the section",
+              })}
+            </p>
+            <p>
+              {intl.formatMessage(commonMessages.requiredFieldsMissing)}{" "}
+              <Link href={editPath}>
                 {intl.formatMessage({
-                  defaultMessage: "You haven't added any information here yet.",
-                  id: "SCCX7B",
-                  description:
-                    "Message for when no data exists for the section",
+                  defaultMessage: "Edit your work location options.",
+                  id: "F3/88e",
+                  description: "Link text to edit work location on profile",
                 })}
-              </p>
-            </div>
-            <div data-h2-flex-item="base(1of1)">
-              <p>
-                {intl.formatMessage(commonMessages.requiredFieldsMissing)}{" "}
-                <Link href={editPath}>
-                  {intl.formatMessage({
-                    defaultMessage: "Edit your work location options.",
-                    id: "F3/88e",
-                    description: "Link text to edit work location on profile",
-                  })}
-                </Link>
-              </p>
-            </div>
+              </Link>
+            </p>
           </>
         )}
         {hasAllEmptyFields(user) && !editPath && (
-          <div data-h2-flex-item="base(1of1)">
-            <p>{intl.formatMessage(commonMessages.noInformationProvided)}</p>
-          </div>
+          <p>{intl.formatMessage(commonMessages.noInformationProvided)}</p>
         )}
       </div>
     </Well>

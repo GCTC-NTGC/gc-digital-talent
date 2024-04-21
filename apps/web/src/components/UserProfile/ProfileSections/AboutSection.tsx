@@ -36,9 +36,9 @@ const AboutSection = ({ editPath, user }: AboutSectionProps) => {
   } = user;
   return (
     <Well>
-      <div data-h2-flex-grid="base(flex-start, x2, x1)">
+      <div className="grid gap-6 sm:grid-cols-2">
         {(!!firstName || !!lastName) && (
-          <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+          <div>
             <p>
               <span className="block">
                 {intl.formatMessage({
@@ -54,7 +54,7 @@ const AboutSection = ({ editPath, user }: AboutSectionProps) => {
           </div>
         )}
         {!!email && (
-          <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+          <div>
             <p>
               <span className="block">
                 {intl.formatMessage({
@@ -68,7 +68,7 @@ const AboutSection = ({ editPath, user }: AboutSectionProps) => {
           </div>
         )}
         {!!telephone && (
-          <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+          <div>
             <p>
               <span className="block">
                 {intl.formatMessage({
@@ -93,7 +93,7 @@ const AboutSection = ({ editPath, user }: AboutSectionProps) => {
           </div>
         )}
         {!!preferredLang && (
-          <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+          <div>
             <p>
               <span className="block">
                 {intl.formatMessage({
@@ -113,7 +113,7 @@ const AboutSection = ({ editPath, user }: AboutSectionProps) => {
         )}
 
         {!!preferredLanguageForInterview && (
-          <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+          <div>
             <p>
               {intl.formatMessage({
                 defaultMessage: "Preferred spoken interview language",
@@ -134,7 +134,7 @@ const AboutSection = ({ editPath, user }: AboutSectionProps) => {
         )}
 
         {!!preferredLanguageForExam && (
-          <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+          <div>
             <p>
               {intl.formatMessage({
                 defaultMessage: "Preferred written exam language",
@@ -153,7 +153,7 @@ const AboutSection = ({ editPath, user }: AboutSectionProps) => {
         )}
 
         {!!currentCity && !!currentProvince && (
-          <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+          <div>
             <p>
               <span className="block">
                 {intl.formatMessage({
@@ -172,7 +172,7 @@ const AboutSection = ({ editPath, user }: AboutSectionProps) => {
           </div>
         )}
         {armedForcesStatus !== null && armedForcesStatus !== undefined && (
-          <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+          <div>
             <p>
               <span className="block">
                 {intl.formatMessage({
@@ -190,7 +190,7 @@ const AboutSection = ({ editPath, user }: AboutSectionProps) => {
           </div>
         )}
         {citizenship ? (
-          <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+          <div>
             <p>
               <span className="block">
                 {intl.formatMessage({

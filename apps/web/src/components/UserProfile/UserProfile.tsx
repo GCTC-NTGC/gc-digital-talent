@@ -60,18 +60,10 @@ const HeadingWrapper = ({
   show: boolean;
 }) => {
   if (!show && children) {
-    return (
-      <div data-h2-padding="base(x1, 0, x1, 0)">
-        <div data-h2-flex-grid="base(center, x2, x1)">{children}</div>
-      </div>
-    );
+    return <div className="my-6">{children}</div>;
   }
 
-  return (
-    <div data-h2-padding="base(x2, 0, x1, 0)">
-      <div data-h2-flex-grid="base(center, x2, x1)">{children}</div>
-    </div>
-  );
+  return <div className="mb-6 mt-12">{children}</div>;
 };
 
 const EditUrlLink = ({ link, text }: { link: string; text: string }) => (
@@ -226,18 +218,13 @@ const UserProfile = ({
         {showSection("about") && (
           <TableOfContents.Section id={PAGE_SECTION_ID.ABOUT}>
             <HeadingWrapper show={!!sections.about?.editUrl}>
-              <div
-                data-h2-flex-item="base(1of1) p-tablet(fill)"
-                data-h2-text-align="base(center) p-tablet(left)"
+              <TableOfContents.Heading
+                as={headingLevel}
+                icon={UserIcon}
+                data-h2-margin-top="base(0)"
               >
-                <TableOfContents.Heading
-                  as={headingLevel}
-                  icon={UserIcon}
-                  data-h2-margin-top="base(0)"
-                >
-                  {intl.formatMessage(navigationMessages.aboutMe)}
-                </TableOfContents.Heading>
-              </div>
+                {intl.formatMessage(navigationMessages.aboutMe)}
+              </TableOfContents.Heading>
               {sections.about?.editUrl && (
                 <EditUrlLink
                   link={sections.about.editUrl}
@@ -264,19 +251,11 @@ const UserProfile = ({
         {showSection("employmentEquity") && (
           <TableOfContents.Section id={PAGE_SECTION_ID.DEI}>
             <HeadingWrapper show={!!sections.employmentEquity?.editUrl}>
-              <div
-                data-h2-flex-item="base(1of1) p-tablet(fill)"
-                data-h2-text-align="base(center) p-tablet(left)"
-              >
-                <TableOfContents.Heading
-                  as={headingLevel}
-                  icon={UserCircleIcon}
-                >
-                  {intl.formatMessage(
-                    navigationMessages.diversityEquityInclusion,
-                  )}
-                </TableOfContents.Heading>
-              </div>
+              <TableOfContents.Heading as={headingLevel} icon={UserCircleIcon}>
+                {intl.formatMessage(
+                  navigationMessages.diversityEquityInclusion,
+                )}
+              </TableOfContents.Heading>
               {sections.employmentEquity?.editUrl && (
                 <EditUrlLink
                   link={sections.employmentEquity.editUrl}
@@ -308,17 +287,12 @@ const UserProfile = ({
         {showSection("language") && (
           <TableOfContents.Section id={PAGE_SECTION_ID.LANGUAGE}>
             <HeadingWrapper show={!!sections.language?.editUrl}>
-              <div
-                data-h2-flex-item="base(1of1) p-tablet(fill)"
-                data-h2-text-align="base(center) p-tablet(left)"
+              <TableOfContents.Heading
+                as={headingLevel}
+                icon={ChatBubbleLeftRightIcon}
               >
-                <TableOfContents.Heading
-                  as={headingLevel}
-                  icon={ChatBubbleLeftRightIcon}
-                >
-                  {intl.formatMessage(navigationMessages.languageInformation)}
-                </TableOfContents.Heading>
-              </div>
+                {intl.formatMessage(navigationMessages.languageInformation)}
+              </TableOfContents.Heading>
               {sections.language?.editUrl && (
                 <EditUrlLink
                   link={sections.language.editUrl}
@@ -350,17 +324,12 @@ const UserProfile = ({
         {showSection("government") && (
           <TableOfContents.Section id={PAGE_SECTION_ID.GOVERNMENT}>
             <HeadingWrapper show={!!sections.government?.editUrl}>
-              <div
-                data-h2-flex-item="base(1of1) p-tablet(fill)"
-                data-h2-text-align="base(center) p-tablet(left)"
+              <TableOfContents.Heading
+                as={headingLevel}
+                icon={BuildingLibraryIcon}
               >
-                <TableOfContents.Heading
-                  as={headingLevel}
-                  icon={BuildingLibraryIcon}
-                >
-                  {intl.formatMessage(navigationMessages.governmentInformation)}
-                </TableOfContents.Heading>
-              </div>
+                {intl.formatMessage(navigationMessages.governmentInformation)}
+              </TableOfContents.Heading>
               {sections.government?.editUrl && (
                 <EditUrlLink
                   link={sections.government.editUrl}
@@ -392,14 +361,9 @@ const UserProfile = ({
         {showSection("workLocation") && (
           <TableOfContents.Section id={PAGE_SECTION_ID.WORK_LOCATION}>
             <HeadingWrapper show={!!sections.workLocation?.editUrl}>
-              <div
-                data-h2-flex-item="base(1of1) p-tablet(fill)"
-                data-h2-text-align="base(center) p-tablet(left)"
-              >
-                <TableOfContents.Heading as={headingLevel} icon={MapPinIcon}>
-                  {intl.formatMessage(navigationMessages.workLocation)}
-                </TableOfContents.Heading>
-              </div>
+              <TableOfContents.Heading as={headingLevel} icon={MapPinIcon}>
+                {intl.formatMessage(navigationMessages.workLocation)}
+              </TableOfContents.Heading>
               {sections.workLocation?.editUrl && (
                 <EditUrlLink
                   link={sections.workLocation.editUrl}
@@ -431,17 +395,9 @@ const UserProfile = ({
         {showSection("workPreferences") && (
           <TableOfContents.Section id={PAGE_SECTION_ID.WORK_PREFERENCES}>
             <HeadingWrapper show={!!sections.workPreferences?.editUrl}>
-              <div
-                data-h2-flex-item="base(1of1) p-tablet(fill)"
-                data-h2-text-align="base(center) p-tablet(left)"
-              >
-                <TableOfContents.Heading
-                  as={headingLevel}
-                  icon={HandThumbUpIcon}
-                >
-                  {intl.formatMessage(navigationMessages.workPreferences)}
-                </TableOfContents.Heading>
-              </div>
+              <TableOfContents.Heading as={headingLevel} icon={HandThumbUpIcon}>
+                {intl.formatMessage(navigationMessages.workPreferences)}
+              </TableOfContents.Heading>
               {sections.workPreferences?.editUrl && (
                 <EditUrlLink
                   link={sections.workPreferences.editUrl}
@@ -477,16 +433,11 @@ const UserProfile = ({
             <HeadingWrapper
               show={!!sections.careerTimelineAndRecruitment?.editUrl}
             >
-              <div
-                data-h2-flex-item="base(1of1) p-tablet(fill)"
-                data-h2-text-align="base(center) p-tablet(left)"
-              >
-                <TableOfContents.Heading as={headingLevel} icon={BoltIcon}>
-                  {intl.formatMessage(
-                    navigationMessages.careerTimelineAndRecruitment,
-                  )}
-                </TableOfContents.Heading>
-              </div>
+              <TableOfContents.Heading as={headingLevel} icon={BoltIcon}>
+                {intl.formatMessage(
+                  navigationMessages.careerTimelineAndRecruitment,
+                )}
+              </TableOfContents.Heading>
               {sections.careerTimelineAndRecruitment?.editUrl && (
                 <EditUrlLink
                   link={sections.careerTimelineAndRecruitment.editUrl}
@@ -518,14 +469,9 @@ const UserProfile = ({
         {showSection("skillShowcase") && (
           <TableOfContents.Section id={PAGE_SECTION_ID.SKILL_SHOWCASE}>
             <HeadingWrapper show={!!sections.skillShowcase?.editUrl}>
-              <div
-                data-h2-flex-item="base(1of1) p-tablet(fill)"
-                data-h2-text-align="base(center) p-tablet(left)"
-              >
-                <TableOfContents.Heading as={headingLevel} icon={BoltIcon}>
-                  {intl.formatMessage(navigationMessages.skillShowcase)}
-                </TableOfContents.Heading>
-              </div>
+              <TableOfContents.Heading as={headingLevel} icon={BoltIcon}>
+                {intl.formatMessage(navigationMessages.skillShowcase)}
+              </TableOfContents.Heading>
             </HeadingWrapper>
             {sections.skillShowcase?.override ? (
               sections.skillShowcase.override

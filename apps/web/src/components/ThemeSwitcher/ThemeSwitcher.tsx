@@ -11,11 +11,7 @@ const Beta = () => {
   const intl = useIntl();
 
   return (
-    <span
-      data-h2-font-size="base(caption)"
-      className="font-bold"
-      data-h2-text-transform="base(uppercase)"
-    >
+    <span data-h2-font-size="base(caption)" className="font-bold uppercase">
       {intl.formatMessage({
         defaultMessage: "Beta",
         id: "RTR3mh",
