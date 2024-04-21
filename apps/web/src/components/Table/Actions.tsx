@@ -33,11 +33,7 @@ const Actions = ({ id, label, editPathFunc }: ActionsProps) => {
       )}
       state={{ from: currentUrl }}
     >
-      <PencilIcon
-        className="block"
-        data-h2-height="base(x.75)"
-        data-h2-width="base(x.75)"
-      />
+      <PencilIcon className="block h-4.5 w-4.5" />
     </Link>
   );
 };

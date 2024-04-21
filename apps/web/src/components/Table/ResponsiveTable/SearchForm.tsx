@@ -4,7 +4,7 @@ import debounce from "lodash/debounce";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
 
-import { Button, DropdownMenu } from "@gc-digital-talent/ui";
+import { Button, DropdownMenu, cn } from "@gc-digital-talent/ui";
 import { useCommonInputStyles, Field } from "@gc-digital-talent/forms";
 
 import ResetButton from "../ResetButton";
@@ -115,15 +115,11 @@ const SearchForm = <T,>({
   const allTableMsg = overrideAllTableMsg ?? defaultAllTableMsg;
 
   return (
-    <div data-h2-width="base(100%) l-tablet(auto)">
-      <Field.Label
-        htmlFor={id}
-        data-h2-display="base(inline-block)"
-        data-h2-margin-bottom="base(x.15)"
-      >
+    <div className="w-full md:w-auto">
+      <Field.Label htmlFor={id} className="mb-1 inline-block">
         {label}
       </Field.Label>
-      <div className="flex" data-h2-width="base(100%) l-tablet(auto)">
+      <div className="flex w-full md:w-auto">
         {showDropdown ? (
           <DropdownMenu.Root>
             <DropdownMenu.Trigger>
@@ -166,17 +162,10 @@ const SearchForm = <T,>({
             </DropdownMenu.Content>
           </DropdownMenu.Root>
         ) : null}
-        <div
-          data-h2-position="base(relative)"
-          className="flex"
-          data-h2-flex-grow="base(1)"
-        >
+        <div className="relative flex flex-grow">
           <div
             aria-hidden
-            data-h2-position="base(absolute)"
-            data-h2-location="base(x.25, auto, x.25, x.25)"
-            className="flex"
-            data-h2-align-items="base(center)"
+            className="absolute bottom-1.5 left-1.5 top-1.5 flex items-center"
           />
           <input
             name="search"
@@ -186,28 +175,19 @@ const SearchForm = <T,>({
             onChange={debouncedChangeHandler}
             defaultValue={state?.term}
             {...styles}
+            className={cn("ml-0 w-full p-3 pr-10 md:w-auto", {
+              "!rounded-l-none": showDropdown,
+              "!rounded": !showDropdown,
+            })}
             data-h2-background-color="base(foreground)"
             data-h2-border-color="base(gray) base:focus-visible(focus)"
-            data-h2-margin-left="base(0)"
-            data-h2-padding="base(x.5 x1.5 x.5 x.5)"
-            data-h2-width="base(100%) l-tablet(auto)"
-            {...(showDropdown
-              ? {
-                  "data-h2-radius": "base(0, s, s, 0)",
-                  "data-h2-border-left-color": "l-tablet(transparent)",
-                }
-              : {
-                  "data-h2-radius": "base(s)",
-                })}
+            {...(showDropdown && {
+              "data-h2-border-left-color": "l-tablet(transparent)",
+            })}
             {...inputProps}
           />
           {searchTerm && (
-            <div
-              data-h2-position="base(absolute)"
-              data-h2-location="base(x.25, x.25, x.25, auto)"
-              className="flex"
-              data-h2-align-items="base(stretch)"
-            >
+            <div className="absolute bottom-1.5 right-1.5 top-1.5 flex items-stretch">
               <ResetButton onClick={handleReset} />
             </div>
           )}

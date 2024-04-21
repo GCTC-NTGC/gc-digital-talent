@@ -90,10 +90,7 @@ type DivHTMLProps = React.DetailedHTMLProps<
  */
 const Column = (props: DivHTMLProps) => (
   <div
-    className="flex"
-    data-h2-flex-direction="base(column) l-tablet(row)"
-    data-h2-align-items="base(flex-start) l-tablet(center)"
-    data-h2-gap="base(x.5 0) l-tablet(0 x.5)"
+    className="flex flex-col items-start gap-y-3 md:flex-row md:items-center md:gap-x-3 md:gap-y-0"
     {...props}
   />
 );
@@ -105,12 +102,7 @@ const Column = (props: DivHTMLProps) => (
  * @returns JSX.Element
  */
 const Section = (props: DivHTMLProps) => (
-  <div
-    className="flex"
-    data-h2-align-items="base(center)"
-    data-h2-gap="base(0 x.25)"
-    {...props}
-  />
+  <div className="flex items-center gap-x-3" {...props} />
 );
 
 type BulletProps = React.DetailedHTMLProps<
@@ -125,7 +117,7 @@ type BulletProps = React.DetailedHTMLProps<
  * @returns JSX.Element
  */
 const Bullet = (props: Omit<BulletProps, "children">) => (
-  <span aria-hidden data-h2-display="base(none) l-tablet(block)" {...props}>
+  <span aria-hidden className="hidden md:block" {...props}>
     &bull;
   </span>
 );
@@ -170,16 +162,9 @@ const Actions = ({
 
   return (
     <div
-      className="flex"
-      data-h2-flex-direction="base(column) l-tablet(row)"
-      data-h2-align-items="base(center) l-tablet(flex-start)"
-      data-h2-gap="base(x.5 0) l-tablet(0 x.5)"
-      data-h2-padding="base(x.5, x1)"
+      className="sticky left-0 flex flex-col items-center justify-between gap-y-3 px-6 py-3 md:flex-row md:items-start md:gap-x-3 md:gap-y-0"
       data-h2-background-color="base(background.darkest) base:dark(white)"
       data-h2-color="base:all(white)"
-      data-h2-position="base(sticky)"
-      data-h2-justify-content="base(space-between)"
-      data-h2-left="base(0)"
     >
       {rowSelect && (
         <Column>
@@ -191,18 +176,11 @@ const Actions = ({
             />
           ) : (
             <Section
-              className="flex"
-              data-h2-flex-direction="base(column) l-tablet(row)"
-              data-h2-align-items="base(center)"
-              data-h2-justify-content="base(space-between)"
-              data-h2-gap="base(x.5 0) l-tablet(0 x.5)"
+              className="flex flex-col items-center justify-between gap-y-3 md:flex-row md:gap-x-3 md:gap-y-0"
               data-h2-font-size="base(caption)"
             >
               <Section>
-                <CheckCircleIcon
-                  data-h2-width="base(1em)"
-                  data-h2-height="base(1em)"
-                />
+                <CheckCircleIcon className="h-4 w-4" />
                 <span>
                   {intl.formatMessage(
                     {
@@ -218,13 +196,10 @@ const Actions = ({
                   )}
                 </span>
               </Section>
-              <span data-h2-display="base(none) l-tablet(block)">
-                <Bullet data-h2-display="base(none) l-tablet(block)" />
+              <span className="hidden md:block">
+                <Bullet className-="hidden md:block" />
               </span>
-              <span
-                data-h2-position="base(relative)"
-                data-h2-align-items="base(center)"
-              >
+              <span className="relative items-center">
                 <Button
                   data-h2-font-weight="base(400)"
                   data-h2-position="base(relative)"
@@ -244,13 +219,9 @@ const Actions = ({
               </span>
 
               {download?.selection && (
-                <span
-                  data-h2-align-items="base(center)"
-                  className="flex"
-                  data-h2-gap="base(0 x.25) l-tablet(0 x.5)"
-                >
-                  <span data-h2-display="base(none) l-tablet(block)">
-                    <Bullet data-h2-display="base(none) l-tablet(block)" />
+                <span className="flex items-center gap-x-1.5 md:gap-3">
+                  <span className="hidden md:block">
+                    <Bullet className="hidden md:block" />
                   </span>
                   <DownloadCsv
                     data-h2-font-weight="base(400)"
@@ -273,13 +244,9 @@ const Actions = ({
               )}
 
               {(print?.onPrint || print?.component) && (
-                <span
-                  data-h2-align-items="base(center)"
-                  className="flex"
-                  data-h2-gap="base(0 x.5)"
-                >
-                  <span data-h2-display="base(none) l-tablet(block)">
-                    <Bullet data-h2-display="base(none) l-tablet(block)" />
+                <span className="flex items-center gap-x-3">
+                  <span className="hidden md:block">
+                    <Bullet className="hidden md:block" />
                   </span>
                   {print.component ?? (
                     <Button onClick={print.onPrint} {...actionButtonStyles}>

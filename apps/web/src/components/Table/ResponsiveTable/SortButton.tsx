@@ -45,7 +45,7 @@ const SortButton = <T,>({ column, locked, children }: SortButtonProps<T>) => {
       icon={locked ? LockClosedIcon : icon}
     >
       {sortDirection && (
-        <span data-h2-visually-hidden="base(invisible)">
+        <span className="sr-only">
           {sortDirection === "asc"
             ? intl.formatMessage({
                 defaultMessage: " (Ascending)",

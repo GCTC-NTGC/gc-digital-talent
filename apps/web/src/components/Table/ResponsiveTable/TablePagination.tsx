@@ -64,7 +64,7 @@ const TablePagination = <T,>({
 
   return (
     <Pagination
-      data-h2-margin-top="base(x1) l-tablet(x.5)"
+      className="mt-6 md:mt-3"
       color="black"
       ariaLabel={intl.formatMessage(
         {

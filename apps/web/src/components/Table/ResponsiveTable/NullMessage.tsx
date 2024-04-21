@@ -22,7 +22,7 @@ const NullMessage = ({ title, description }: NullMessageProps) => {
   const intl = useIntl();
 
   return (
-    <Well data-h2-margin="base(x1 0)" data-h2-text-align="base(center)">
+    <Well className="my-6 text-center">
       <Heading data-h2-margin-top="base(0)" data-h2-font-size="base(copy)">
         {title ||
           intl.formatMessage({

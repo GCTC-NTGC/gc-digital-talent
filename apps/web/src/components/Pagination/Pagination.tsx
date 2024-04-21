@@ -59,6 +59,7 @@ const Pagination = ({
   spacing,
   color,
   activeColor = "black",
+  className,
   ...rest
 }: PaginationProps) => {
   const intl = useIntl();
@@ -109,6 +110,7 @@ const Pagination = ({
           "justify-start": spacing === "start",
           "justify-end": spacing === "end",
         },
+        className,
       )}
       data-h2-font-size="base(caption)"
       {...fontColor}

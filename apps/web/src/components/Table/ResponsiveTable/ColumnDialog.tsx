@@ -52,13 +52,8 @@ const ColumnDialog = <T extends object>({ table }: ColumnDialogProps<T>) => {
               {intl.formatMessage(adminMessages.showHideTableColumns)}
             </Field.Legend>
             <Field.BoundingBox>
-              <div data-h2-margin="base(x.125, 0)">
-                <Field.Label
-                  className="flex"
-                  data-h2-align-items="base(flex-start)"
-                  data-h2-gap="base(0 x.25)"
-                  data-h2-font-weight="base(400)"
-                >
+              <div className="my-1">
+                <Field.Label className="flex items-center gap-x-1.5 font-normal">
                   <input
                     ref={allColumnsRef}
                     {...{
@@ -76,8 +71,8 @@ const ColumnDialog = <T extends object>({ table }: ColumnDialogProps<T>) => {
                 .map((column) => {
                   const header = getColumnHeader(column, "columnDialogHeader");
                   return (
-                    <div key={column.id} data-h2-margin="base(x.125, 0)">
-                      <label>
+                    <div key={column.id} className="my-1">
+                      <Field.Label className="flex items-center gap-x-1.5 font-normal">
                         <input
                           {...{
                             type: "checkbox",
@@ -86,7 +81,7 @@ const ColumnDialog = <T extends object>({ table }: ColumnDialogProps<T>) => {
                           }}
                         />{" "}
                         {header}
-                      </label>
+                      </Field.Label>
                     </div>
                   );
                 })}

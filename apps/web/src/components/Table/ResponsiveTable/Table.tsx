@@ -4,7 +4,7 @@ import { flexRender } from "@tanstack/react-table";
 import type { Header, Cell } from "@tanstack/react-table";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 
-import { Link } from "@gc-digital-talent/ui";
+import { Link, cn } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import SortButton from "./SortButton";
@@ -86,24 +86,18 @@ type RowProps = React.DetailedHTMLProps<
 >;
 
 const HeadRow = (props: RowProps) => (
-  <tr
-    data-h2-display="base(none) l-tablet(table-row)"
-    {...styles.row}
-    {...props}
-  />
+  <tr className={cn("hidden md:table-row", styles.row)} {...props} />
 );
 
 const Row = (props: RowProps) => (
   <tr
     role="row"
-    data-h2-display="base(flex) l-tablet(table-row)"
+    className={cn(
+      "flex flex-row flex-wrap items-center justify-between md:table-row",
+      styles.row,
+    )}
     data-h2-background-color="base:selectors[:nth-child(even)](background.dark.50) base:dark:selectors[:nth-child(even)](white.3) base:selectors[:nth-child(odd)](foreground)"
     data-h2-border-bottom="base:selectors[:not(:last-child)](1px solid gray.dark)"
-    data-h2-flex-direction="base(row)"
-    data-h2-flex-wrap="base(wrap)"
-    data-h2-justify-content="base(space-between)"
-    data-h2-align-items="base(center)"
-    {...styles.row}
     {...props}
   />
 );
@@ -126,15 +120,13 @@ const HeadCell = <T,>({ header, ...rest }: HeadCellProps<T>) => {
       role="columnheader"
       data-h2-background-color="base(background.darkest) base:dark(white)"
       data-h2-color="base:all(white)"
-      data-h2-display="base(none) l-tablet(table-cell)"
-      data-h2-font-size="base(caption)"
-      data-h2-vertical-align="base(middle)"
-      data-h2-font-weight="base(400)"
-      {...(!isRowSelect &&
-        !shouldShrink && {
-          "data-h2-min-width": "base(x8)",
-        })}
-      {...styles.cell}
+      className={cn(
+        "none align-middle font-normal md:table-cell",
+        {
+          "min-w-56": !isRowSelect && !shouldShrink,
+        },
+        styles.cell,
+      )}
       {...rest}
     >
       {header.isPlaceholder ? null : (
@@ -175,18 +167,16 @@ const Cell = <T,>({ cell, ...rest }: CellProps<T>) => {
       // REF: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/td#technical_summary:~:text=%3Ctr%3E%20element.-,Implicit%20ARIA%20role,-cell%20if%20a
       // eslint-disable-next-line jsx-a11y/no-interactive-element-to-noninteractive-role
       role="cell"
-      data-h2-vertical-align="base(middle)"
-      data-h2-max-width="base(100%) l-tablet(none)"
+      className={cn(
+        "max-w-full align-middle md:max-w-none",
+        styles.cell,
+        cellStyles.td,
+      )}
       data-h2-color="base(black)"
-      {...cellStyles.td}
-      {...styles.cell}
       {...rest}
     >
       {showHeader && (
-        <span
-          data-h2-display="base(inline) l-tablet(none)"
-          className="font-bold"
-        >
+        <span className="inline font-bold md:hidden">
           {header}
           {intl.formatMessage(commonMessages.dividingColon)}{" "}
         </span>
@@ -204,7 +194,7 @@ type ControlProps = React.DetailedHTMLProps<
 >;
 
 const Control = (props: ControlProps) => (
-  <div data-h2-width="base(100%) l-tablet(auto)" {...props} />
+  <div className="w-full md:w-auto" {...props} />
 );
 
 interface AddActionProps {
@@ -214,7 +204,7 @@ interface AddActionProps {
 const AddAction = ({ add }: AddActionProps) => (
   <>
     {add.linkProps && (
-      <Control data-h2-flex-shrink="base(1)">
+      <Control className="shrink-0">
         <Link
           icon={PlusCircleIcon}
           color="secondary"
@@ -238,24 +228,11 @@ interface ControlsProps {
 
 const Controls = ({ children, add }: ControlsProps) => (
   <div
-    className="flex"
-    data-h2-align-items="base(flex-end)"
-    data-h2-flex-direction="base(column) l-tablet(row)"
-    data-h2-gap="base(x.25 0) l-tablet(0 x.25)"
-    data-h2-margin-bottom="base(x1) l-tablet(x.25)"
-    data-h2-justify-content="base(space-between)"
+    className="mb-6 flex flex-col items-end justify-between gap-x-1.5 gap-y-1.5 md:mb-1.5 md:flex-row md:gap-y-0"
     data-h2-font-size="base(caption)"
   >
     {add && <AddAction add={add} />}
-    <div
-      className="flex"
-      data-h2-align-items="base(flex-end)"
-      data-h2-flex-direction="base(column) l-tablet(row)"
-      data-h2-gap="base(x.25 0) l-tablet(0 x.25)"
-      data-h2-flex-grow="base(1)"
-      data-h2-order="base(-1)"
-      data-h2-width="base(100%) l-tablet(auto)"
-    >
+    <div className="-order-1 flex w-full flex-grow flex-col items-end gap-y-1.5 md:w-auto md:flex-row md:gap-x-1.5 md:gap-y-0">
       {children}
     </div>
   </div>
