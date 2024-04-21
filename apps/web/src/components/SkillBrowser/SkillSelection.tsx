@@ -80,12 +80,7 @@ const SkillSelection = ({
 
   return (
     <>
-      <div
-        data-h2-display="base(grid)"
-        data-h2-gap="base(x1)"
-        data-h2-margin-bottom="base(x1)"
-        data-h2-grid-template-columns="l-tablet(1fr 1fr 1fr)"
-      >
+      <div className="mb-6 grid gap-6 md:grid-cols-3">
         <Select
           id="skill-family"
           name="family"
@@ -103,7 +98,7 @@ const SkillSelection = ({
             })),
           ]}
         />
-        <div data-h2-grid-column="l-tablet(span 2)">
+        <div className="md:col-span-2">
           <Combobox
             id="skill"
             name="skill"
@@ -120,7 +115,7 @@ const SkillSelection = ({
       </div>
       {!selectedSkill && (
         <Well>
-          <p data-h2-text-align="base(center)">
+          <p className="text-center">
             {intl.formatMessage(skillBrowserMessages.nullSkill)}
           </p>
         </Well>

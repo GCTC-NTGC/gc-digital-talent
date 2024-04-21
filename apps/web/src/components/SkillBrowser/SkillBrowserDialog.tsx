@@ -167,7 +167,7 @@ const SkillBrowserDialog = ({
               {selectedSkill && context === "pool" && (
                 <SkillDetailsPool category={selectedSkill.category} />
               )}
-              <Dialog.Footer data-h2-justify-content="base(flex-start)">
+              <Dialog.Footer className="justify-start">
                 <Button
                   type="button"
                   color="secondary"

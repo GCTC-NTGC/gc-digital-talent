@@ -31,20 +31,11 @@ const SkillRankCard = ({
 
   return (
     <div
-      data-h2-width="base(100%)"
+      className="w-full rounded-b p-6 shadow-xl"
       data-h2-border-top="base(x.5 solid secondary)"
-      data-h2-shadow="base(xl)"
-      data-h2-radius="base(0 0 s s)"
-      data-h2-padding="base(x1)"
       data-h2-background-color="base(foreground)"
     >
-      <div
-        className="flex"
-        data-h2-align-items="base(center)"
-        data-h2-justify-content="base(space-between)"
-        data-h2-flex-direction="base(column) p-tablet(row)"
-        data-h2-margin-bottom="base(x1)"
-      >
+      <div className="space-between mb-6 flex flex-col items-center sm:flex-row">
         <Heading level={titleAs} size="h6" data-h2-margin="base(0)">
           {title}
         </Heading>
@@ -62,7 +53,7 @@ const SkillRankCard = ({
       <p>{description}</p>
       <Separator space="sm" />
       {userSkills.length ? (
-        <ul data-h2-margin="base(0)" data-h2-padding-left="base(x.75)">
+        <ul className="list-outside list-disc pl-4.5">
           {userSkills.map((userSkill) => (
             <SkillRankListItem
               key={userSkill.id}

@@ -16,7 +16,7 @@ const SkillDetails = ({ category, context }: SkillDetailsProps) => {
 
   return (
     <>
-      <p data-h2-margin="base(x1 0)">
+      <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
             "Once you've found a skill, we ask that you give an honest evaluation of your approximate experience level. This level will be provided to hiring managers alongside any official Government of Canada skill evaluations to help provide a more holistic understanding of your abilities.",
@@ -24,11 +24,7 @@ const SkillDetails = ({ category, context }: SkillDetailsProps) => {
           description: "Help text for providing a skill level",
         })}
       </p>
-      <div
-        className="flex"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1 0)"
-      >
+      <div className="flex flex-col gap-y-6">
         <UserSkillFormFields category={category} context={context} />
       </div>
     </>

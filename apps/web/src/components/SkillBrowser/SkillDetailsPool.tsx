@@ -25,7 +25,7 @@ const SkillDetailsPool = ({ category }: SkillDetailsPoolProps) => {
 
   return (
     <>
-      <p data-h2-margin="base(x1 0)">
+      <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
             "Now that you've selected a skill, please indicate the level applicants will need to demonstrate it at.",
@@ -33,11 +33,7 @@ const SkillDetailsPool = ({ category }: SkillDetailsPoolProps) => {
           description: "Help text for setting required skill levels",
         })}
       </p>
-      <div
-        className="flex"
-        data-h2-flex-direction="base(column)"
-        data-h2-gap="base(x1 0)"
-      >
+      <div className="my-6 flex flex-col">
         <RadioGroup
           idPrefix="skillLevel"
           name="skillLevel"

@@ -44,7 +44,7 @@ interface TreeViewHeadProps {
  */
 const Head = ({ children }: TreeViewHeadProps) => <div>{children}</div>;
 
-interface TreeViewRootProps {
+interface TreeViewRootProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
 }
 

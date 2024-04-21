@@ -8,7 +8,7 @@ const NullFamilyMessage = () => {
 
   return (
     <Well>
-      <p data-h2-text-align="base(center)">
+      <p className="text-center">
         {intl.formatMessage({
           id: "5CIYu4",
           defaultMessage: "Please select a skill family to continue.",

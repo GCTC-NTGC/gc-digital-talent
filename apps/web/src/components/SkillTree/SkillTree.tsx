@@ -76,7 +76,7 @@ const SkillTree = ({
   ) : null;
 
   return (
-    <TreeView.Root data-h2-margin="base(x1, 0, 0, 0)">
+    <TreeView.Root className="mt-6">
       <TreeView.Head>
         <CardBasic>
           <Heading level={headingAs} size="h6" data-h2-margin-top="base(0)">

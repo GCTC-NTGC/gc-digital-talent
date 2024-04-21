@@ -9,6 +9,7 @@ import { useIntl } from "react-intl";
 import { uiMessages } from "@gc-digital-talent/i18n";
 
 import Separator from "../Separator";
+import { cn } from "../../utils";
 
 const StyledOverlay = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Overlay>,
@@ -209,12 +210,12 @@ interface DialogFooterProps extends React.HTMLProps<HTMLDivElement> {
   children: React.ReactNode;
 }
 
-const Footer = ({ children, ...rest }: DialogFooterProps) => (
+const Footer = ({ children, className, ...rest }: DialogFooterProps) => (
   <div data-h2-margin="base(x1 0 0 0)">
     <Separator space="none" data-h2-margin-bottom="base(x1)" />
     <div
       data-h2-align-items="base(center)"
-      className="flex"
+      className={cn("flex", className)}
       data-h2-justify-content="base(flex-end)"
       data-h2-gap="base(0 x1)"
       {...rest}

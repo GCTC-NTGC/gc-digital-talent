@@ -22,11 +22,7 @@ const SkillsInDetail = ({ skills, onDelete }: SkillsInDetailProps) => {
   const { register } = useForm();
 
   return (
-    <div
-      className="flex"
-      data-h2-flex-direction="base(column)"
-      data-h2-gap="base(x.5 0)"
-    >
+    <div className="flex flex-col gap-y-3">
       {skills.length > 0 &&
         skills.map(({ id, name, skillId }, index) => (
           <Card key={id} title="" color="white" bold>

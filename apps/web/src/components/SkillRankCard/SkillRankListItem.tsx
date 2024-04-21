@@ -48,29 +48,24 @@ const SkillRankListItem = ({
   const NameWrapper = editable ? SkillLink : React.Fragment;
 
   return (
-    <li data-h2-margin-bottom="base(x.25)">
-      <span
-        className="flex"
-        data-h2-align-items="base(flex-start)"
-        data-h2-gap="base(x.5 x.25)"
-        data-h2-justify-content="base(space-between)"
-      >
+    <li className="mb-3 w-full items-start justify-between gap-x-1.5">
+      <span className="flex items-start justify-between gap-x-3 gap-y-1.5">
         <NameWrapper {...(editable && { id: skill.id })}>
           {getLocalizedName(skill.name, intl)}
         </NameWrapper>
         {skillLevel ? (
           <span
+            className="shrink-0"
             data-h2-font-size="base(caption, calc(var(--h2-line-height-body) + .4))"
             data-h2-color="base(black.light)"
-            data-h2-flex-shrink="base(0)"
           >
             {intl.formatMessage(getSkillLevelName(skillLevel, skill.category))}
           </span>
         ) : (
           <span
+            className="shrink-0"
             data-h2-font-size="base(caption, calc(var(--h2-line-height-body) + .4))"
             data-h2-color="base(black.light)"
-            data-h2-flex-shrink="base(0)"
           >
             {intl.formatMessage(commonMessages.unspecified)}
           </span>
