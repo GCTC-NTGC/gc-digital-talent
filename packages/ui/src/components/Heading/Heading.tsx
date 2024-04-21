@@ -1,7 +1,9 @@
 import React from "react";
+import { cva } from "class-variance-authority";
 
 import { IconType, Color } from "../../types";
 import { headingStyles, iconStyles } from "./styles";
+import { cn } from "../../utils";
 
 export type HeadingLevel = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 export type HeadingRef = HTMLHeadingElement;
@@ -13,27 +15,60 @@ export interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
   Icon?: IconType;
 }
 
+const heading = cva([], {
+  variants: {
+    size: {
+      h1: ["font-bold"],
+      h2: ["font-bold", "mt-12", "mb-3"],
+      h3: ["mt-10 mb-1.5"],
+      h4: ["mt-10", "mb-1.5"],
+      h5: ["mt-6", "mb-1.5"],
+      h6: ["mt-6", "mb-1.5"],
+    },
+  },
+});
+
+const icon = cva(
+  ["align-middle", "h-auto", "shrink-0", "stroke-[1.6]", "sm:inline-block"],
+  {
+    variants: {
+      size: {
+        h1: ["w-12", "h-12", "stroke-[1.5]"],
+        h2: ["w-11", "h-11"],
+        h3: ["w-9", "h-9"],
+        h4: ["w-8", "h-8"],
+        h5: ["w-6", "h-6"],
+        h6: ["w-5", "h-5"],
+      },
+    },
+  },
+);
+
 const Heading = React.forwardRef<HeadingRef, HeadingProps>(
-  ({ level = "h2", size, Icon, color, children, ...rest }, forwardedRef) => {
+  (
+    { level = "h2", size, Icon, color, children, className, ...rest },
+    forwardedRef,
+  ) => {
     const El = level;
 
     return (
       <El
         ref={forwardedRef}
         {...headingStyles[size || level]}
-        {...(Icon && {
-          "data-h2-display": "base(flex)",
-          "data-h2-align-items": "base(center)",
-          "data-h2-gap": "base(0 x.5)",
+        className={heading({
+          size: size || level,
+          className: cn(
+            {
+              "flex items-center gap-x-3": !!Icon,
+            },
+            className,
+          ),
         })}
         {...rest}
       >
         {Icon && (
           <Icon
-            data-h2-display="p-tablet(inline-block)"
-            data-h2-vertical-align="base(middle)"
-            data-h2-height="base(auto)"
-            data-h2-flex-shrink="base(0)"
+            className={icon({ size: size || level })}
             {...(color ? iconStyles[color] : {})}
           />
         )}
