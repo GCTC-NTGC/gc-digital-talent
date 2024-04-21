@@ -8,6 +8,7 @@ export interface HeadingProps {
   size?: HeadingLevel;
   icon?: IconType;
   color?: Color;
+  className?: string;
 }
 
 const TOCHeading = ({

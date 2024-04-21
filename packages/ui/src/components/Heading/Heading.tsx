@@ -55,15 +55,13 @@ const Heading = React.forwardRef<HeadingRef, HeadingProps>(
       <El
         ref={forwardedRef}
         {...headingStyles[size || level]}
-        className={heading({
-          size: size || level,
-          className: cn(
-            {
-              "flex items-center gap-x-3": !!Icon,
-            },
-            className,
-          ),
-        })}
+        className={cn(
+          heading({ size }),
+          {
+            "flex items-center gap-x-3": !!Icon,
+          },
+          className,
+        )}
         {...rest}
       >
         {Icon && (
