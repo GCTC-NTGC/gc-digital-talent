@@ -1,7 +1,11 @@
 import type { Config } from "tailwindcss";
 
 export default {
-  content: ["./src/**/*.{tsx,ts}", "../../packages/**/src/**/*.{tsx,ts}"],
+  content: [
+    "./src/**/*.{tsx,ts}",
+    "./public/**/*.html",
+    "../../packages/**/src/**/*.{tsx,ts}",
+  ],
   theme: {
     container: {
       center: true,
