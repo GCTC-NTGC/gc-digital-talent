@@ -1,4 +1,5 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { cva } from "class-variance-authority";
 
 import {
   Color,
@@ -180,6 +181,7 @@ export {
   incrementHeadingRank,
   decrementHeadingRank,
   cn,
+  cva,
   headingStyles,
   useCardRepeaterContext,
   useControllableState,
