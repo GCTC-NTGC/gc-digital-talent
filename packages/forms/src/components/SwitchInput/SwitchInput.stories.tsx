@@ -87,7 +87,7 @@ const Template: StoryFn<SwitchInputArgs> = (args) => {
           </div>
         ))}
       </div>
-      <p data-h2-margin-top="base(x1)">
+      <p className="mt-6">
         <Submit />
       </p>
     </Form>

@@ -766,7 +766,7 @@ export const PoolPoster = ({
                 type="multiple"
                 mode="card"
                 size="sm"
-                data-h2-margin-top="base(x1)"
+                className="mt-6"
                 value={skillsValue}
                 onValueChange={setSkillsValue}
               >

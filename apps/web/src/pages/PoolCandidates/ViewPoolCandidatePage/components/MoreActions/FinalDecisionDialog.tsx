@@ -267,7 +267,7 @@ const FinalDecisionDialog = ({
                       }),
                     },
                   ]}
-                  data-h2-margin-top="base(x1)"
+                  className="mt-6"
                 />
               )}
               {finalAssessmentDecisionValue === "qualified" && (
@@ -298,14 +298,10 @@ const FinalDecisionDialog = ({
                       message: intl.formatMessage(errorMessages.futureDate),
                     },
                   }}
-                  data-h2-margin-top="base(x1)"
+                  className="mt-6"
                 />
               )}
-              <Well
-                color="warning"
-                fontSize="caption"
-                data-h2-margin-top="base(x1)"
-              >
+              <Well color="warning" fontSize="caption" className="mt-6">
                 <p data-h2-margin-bottom="base(x.5)" className="font-bold">
                   {intl.formatMessage({
                     defaultMessage: "Important",

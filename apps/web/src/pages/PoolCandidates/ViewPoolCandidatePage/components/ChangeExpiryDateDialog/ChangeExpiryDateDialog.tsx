@@ -135,11 +135,7 @@ const ChangeExpiryDateDialog = ({
                   description: "Help text for setting a candidate expiry date",
                 })}
               />
-              <Well
-                color="warning"
-                fontSize="caption"
-                data-h2-margin-top="base(x1)"
-              >
+              <Well color="warning" fontSize="caption" className="mt-6">
                 <Heading level="h3" size="h6" data-h2-margin-top="base(0)">
                   {intl.formatMessage({
                     defaultMessage: "Important",

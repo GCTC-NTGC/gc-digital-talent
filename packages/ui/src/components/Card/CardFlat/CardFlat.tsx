@@ -81,13 +81,7 @@ const CardFlat = ({ color, links, title, children }: CardFlatProps) => {
         </div>
       )}
       {links && links.length > 0 ? (
-        <div
-          data-h2-margin-top="base(x1)"
-          data-h2-align-items="base(center)"
-          className="flex"
-          data-h2-flex-wrap="base(wrap)"
-          data-h2-gap="base(x.25)"
-        >
+        <div className="mt-6 flex flex-wrap items-center gap-3">
           {links.map((link) => (
             <CardFlatLink
               key={link.naturalKey ?? link.href}

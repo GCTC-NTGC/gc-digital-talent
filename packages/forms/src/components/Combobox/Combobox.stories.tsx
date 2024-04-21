@@ -87,7 +87,7 @@ const Template: StoryFn<ComboboxType> = (args) => {
                 fetching={isSearching}
                 options={mockSearch ? filteredOptions : options}
               />
-              <p data-h2-margin-top="base(x1)">
+              <p className="mt-6">
                 <Submit />
               </p>
             </BasicForm>

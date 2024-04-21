@@ -100,7 +100,7 @@ const RequestConfirmationPage = () => {
                 "Paragraph one, message to user the request was received",
             })}
           </Alert.Title>
-          <p data-h2-margin-top="base(x1)">
+          <p className="mt-6">
             {intl.formatMessage(
               {
                 defaultMessage:

@@ -109,7 +109,7 @@ const ViewTeam = ({ teamQuery }: ViewTeamProps) => {
           ) : null}
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-          <p data-h2-margin-top="base(x1)">
+          <p className="mt-6">
             {intl.formatMessage({
               defaultMessage: "Key",
               id: "CvV2l6",
@@ -128,7 +128,7 @@ const ViewTeam = ({ teamQuery }: ViewTeamProps) => {
           </p>
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-          <p data-h2-margin-top="base(x1)">
+          <p className="mt-6">
             {intl.formatMessage({
               defaultMessage: "Contact email",
               id: "nGNj5Q",
@@ -147,7 +147,7 @@ const ViewTeam = ({ teamQuery }: ViewTeamProps) => {
           </p>
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-          <p data-h2-margin-top="base(x1)">
+          <p className="mt-6">
             {intl.formatMessage({
               defaultMessage: "Team's short description (English)",
               id: "sSGgnI",
@@ -166,7 +166,7 @@ const ViewTeam = ({ teamQuery }: ViewTeamProps) => {
           </p>
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
-          <p data-h2-margin-top="base(x1)">
+          <p className="mt-6">
             {intl.formatMessage({
               defaultMessage: "Team's short description (French)",
               id: "RSkJQR",

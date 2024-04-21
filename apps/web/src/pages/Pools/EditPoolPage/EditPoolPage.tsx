@@ -374,7 +374,7 @@ export const EditPoolForm = ({
                       >
                         {sectionMetadata.basicInfo.title}
                       </Heading>
-                      <p data-h2-margin-top="base(x1)">
+                      <p className="mt-6">
                         {sectionMetadata.basicInfo.subtitle}
                       </p>
                     </div>
@@ -434,7 +434,7 @@ export const EditPoolForm = ({
                       >
                         {sectionMetadata.skillRequirements.title}
                       </Heading>
-                      <p data-h2-margin-top="base(x1)">
+                      <p className="mt-6">
                         {sectionMetadata.skillRequirements.subtitle}
                       </p>
                     </div>
@@ -473,7 +473,7 @@ export const EditPoolForm = ({
                         >
                           {sectionMetadata.aboutRole.title}
                         </Heading>
-                        <p data-h2-margin-top="base(x1)">
+                        <p className="mt-6">
                           {sectionMetadata.aboutRole.subtitle}
                         </p>
                       </div>
@@ -518,7 +518,7 @@ export const EditPoolForm = ({
                         >
                           {sectionMetadata.commonQuestions.title}
                         </Heading>
-                        <p data-h2-margin-top="base(x1)">
+                        <p className="mt-6">
                           {sectionMetadata.commonQuestions.subtitle}
                         </p>
                       </div>

@@ -160,13 +160,7 @@ const ExperienceSkills = ({
         </Accordion.Item>
       </Accordion.Root>
       {derivedType ? (
-        <div
-          className="flex"
-          data-h2-gap="base(x.5)"
-          data-h2-flex-direction="base(column)"
-          data-h2-flex-wrap="p-tablet(wrap)"
-          data-h2-margin-top="base(x1)"
-        >
+        <div className="mt-6 flex flex-col gap-3 sm:flex-wrap">
           <div data-h2-align-self="base(flex-end)">
             <SkillBrowserDialog
               trigger={{

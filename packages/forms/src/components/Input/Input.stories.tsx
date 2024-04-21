@@ -27,7 +27,7 @@ const TemplateInput: StoryFn<InputProps> = (args) => {
           <div data-h2-background="base(background)" data-h2-padding="base(x2)">
             <Form onSubmit={action("Submit Form")}>
               <Input {...rest} />
-              <p data-h2-margin-top="base(x1)">
+              <p className="mt-6">
                 <Submit />
               </p>
             </Form>

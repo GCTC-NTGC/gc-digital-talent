@@ -232,10 +232,7 @@ const AssessmentSummary = ({
         <TableBody data={educationEssentialSkillsTableData} />
       </table>
       {nonessentialSkillsTableData.length > 0 && (
-        <table
-          data-h2-margin-top="base(x1)"
-          data-h2-background="base(background)"
-        >
+        <table className="mt-6" data-h2-background="base(background)">
           <caption data-h2-visually-hidden="base(invisible)">
             {intl.formatMessage({
               defaultMessage: "Asset criteria",

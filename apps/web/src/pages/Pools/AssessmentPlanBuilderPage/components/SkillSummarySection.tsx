@@ -81,7 +81,7 @@ const SkillSummarySection = ({ pool }: SkillSummarySectionProps) => {
           </Accordion.Content>
         </Accordion.Item>
       </Accordion.Root>
-      <div data-h2-margin-top="base(x1)">
+      <div className="mt-6">
         <SkillSummaryTable
           poolSkills={pool.poolSkills?.filter(notEmpty) ?? []}
           assessmentSteps={pool.assessmentSteps?.filter(notEmpty) ?? []}

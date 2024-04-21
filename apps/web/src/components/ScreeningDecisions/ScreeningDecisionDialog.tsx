@@ -448,7 +448,7 @@ export const ScreeningDecisionDialog = ({
                 <Dialog.Footer className="flex items-baseline justify-start gap-6">
                   <Submit
                     color="secondary"
-                    data-h2-margin-top="base(x1)"
+                    className="mt-6"
                     text={intl.formatMessage({
                       defaultMessage: "Save decision",
                       id: "hQ2+aE",

@@ -678,13 +678,7 @@ export const IAPManagerHomePage = () => {
                     })}
                   </p>
                 </div>
-                <div
-                  data-h2-margin-top="base(x1)"
-                  className="flex"
-                  data-h2-flex-direction="base(column) p-tablet(row)"
-                  data-h2-gap="base(x1)"
-                  data-h2-align-items="base(center)"
-                >
+                <div className="mt-6 flex flex-col items-center gap-6 sm:flex-row">
                   <Link
                     mode="solid"
                     external

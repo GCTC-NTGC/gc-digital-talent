@@ -48,7 +48,7 @@ const Template: StoryFn<SelectProps> = (args) => {
               options={{ defaultValues: { groups: "" } }}
             >
               <Select {...args} options={departmentOptions} />
-              <p data-h2-margin-top="base(x1)">
+              <p className="mt-6">
                 <Submit />
               </p>
             </Form>
@@ -115,7 +115,7 @@ const TemplateGroups: StoryFn<SelectProps> = (args) => {
             >
               <div>
                 <Select {...args} options={groupOptions} />
-                <p data-h2-margin-top="base(x1)">
+                <p className="mt-6">
                   <Submit />
                 </p>
               </div>

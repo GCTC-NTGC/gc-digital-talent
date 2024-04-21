@@ -258,7 +258,7 @@ const CareerTimelineAndRecruitment = ({
                     "Descriptive paragraph for the Manage your career timeline section of the career timeline and recruitment page.",
                 })}
               </p>
-              <div data-h2-margin-top="base(x1)">
+              <div className="mt-6">
                 <CareerTimelineSection
                   experiences={[...experiences]}
                   userId={userId}

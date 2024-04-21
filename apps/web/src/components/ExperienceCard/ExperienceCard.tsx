@@ -188,7 +188,7 @@ const ExperienceCard = ({
         <Collapsible.Root
           open={isOpen}
           onOpenChange={setIsOpen}
-          data-h2-margin-top="base(x1)"
+          className="mt-6"
         >
           <Collapsible.Trigger asChild>
             <Button

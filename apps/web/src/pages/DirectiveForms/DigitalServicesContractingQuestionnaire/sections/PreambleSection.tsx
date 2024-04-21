@@ -458,7 +458,7 @@ const PreambleSection = () => {
             </Collapsible.Content>
           </Collapsible.Root>
         </div>
-        <div data-h2-margin-top="base(x1)">
+        <div className="mt-6">
           <Checkbox
             boundingBox
             boundingBoxLabel={intl.formatMessage({

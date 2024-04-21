@@ -98,7 +98,7 @@ const ApplicationCareerTimelineAdd = ({
             })}
           </Accordion.Trigger>
           <Accordion.Content>
-            <p data-h2-margin-top="base(x1)">
+            <p className="mt-6">
               {intl.formatMessage({
                 defaultMessage:
                   "We all have a variety of accomplishments and experiences that shape both our careers and skills. Please only share what you would be comfortable sharing with a coworker. On this platform, you can add the following to your career timeline:",
