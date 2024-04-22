@@ -14,7 +14,7 @@ final class RevertPlaceCandidate
      */
     public function __invoke($_, array $args)
     {
-        $candidate = PoolCandidate::find($args['id']);
+        $candidate = PoolCandidate::findOrFail($args['id']);
 
         $candidate->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
         $candidate->placed_at = null;

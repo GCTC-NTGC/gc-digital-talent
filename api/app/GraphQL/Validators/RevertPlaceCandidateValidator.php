@@ -20,7 +20,7 @@ final class RevertPlaceCandidateValidator extends Validator
     public function rules(): array
     {
         $id = $this->arg('id');
-        $candidate = PoolCandidate::find($id);
+        $candidate = PoolCandidate::findOrFail($id);
         $placedStatuses = array_column(PlacementType::cases(), 'name');
 
         if (! (in_array($candidate->pool_candidate_status, $placedStatuses))) {
