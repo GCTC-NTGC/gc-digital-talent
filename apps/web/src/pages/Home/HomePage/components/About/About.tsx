@@ -13,21 +13,16 @@ const About = () => {
   return (
     <div
       data-h2-background="base(home-footer-linear)"
-      data-h2-layer="base(2, relative)"
-      data-h2-margin="base(-3%, 0, 0, 0)"
+      className="relative z-20 mt-[-3%]"
     >
-      <div
-        data-h2-position="base(relative)"
-        data-h2-padding="base(calc((3rem * var(--h2-line-height-copy)) + 3%), 0, x3, 0) p-tablet(calc((4rem * var(--h2-line-height-copy)) + 3%), 0, x4, 0) l-tablet(calc((6rem * var(--h2-line-height-copy)) + 3%), 0, x6, 0)"
-      >
+      <div className="relative pb-16 pt-24 sm:pb-24 sm:pt-32 md:pb-40 md:pt-52">
         <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
           <div data-h2-color="base:all(black)">
             <Heading
               level="h2"
               size="h3"
-              data-h2-font-weight="base(400)"
+              className="mt-0 font-normal"
               Icon={NewspaperIcon}
-              data-h2-margin="base(0)"
             >
               {intl.formatMessage({
                 defaultMessage: "Learn more",
@@ -35,12 +30,7 @@ const About = () => {
                 description: "Heading for the about section of the homepage",
               })}
             </Heading>
-            <div
-              data-h2-display="base(grid)"
-              data-h2-grid-template-columns="base(1fr) p-tablet(repeat(2, minmax(0, 1fr))) l-tablet(repeat(3, minmax(0, 1fr)))"
-              data-h2-gap="base(x2) p-tablet(x3)"
-              data-h2-padding="base(x2, 0, 0, 0)"
-            >
+            <div className="grid gap-12 pt-12 sm:grid-cols-2 sm:gap-20 md:grid-cols-3">
               <CardFlat
                 color="blackFixed"
                 title={intl.formatMessage({

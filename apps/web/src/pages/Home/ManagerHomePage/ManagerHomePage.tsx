@@ -223,8 +223,7 @@ const HomePage = () => {
       <SkewedImageContainer
         imgSrc={managerProfileHero}
         imgProps={{
-          "data-h2-background-position":
-            "base(80% 110%) l-tablet(60% 50%) desktop(right 50%)",
+          className: "bg-[80%_110%] md:bg-[60%_50%] lg:[right_50%]",
         }}
       >
         <p

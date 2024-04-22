@@ -99,14 +99,12 @@ const Hero = ({ defaultImage }: HeroProps) => {
         </>
       }
     >
-      <Heading level="h1" data-h2-margin="base(0, 0, x0.5, 0)">
+      <Heading level="h1" className="mb-3 mt-0">
         {intl.formatMessage(commonMessages.projectTitle)}
       </Heading>
       <p
         data-h2-font-size="base(h6, 1.4)"
-        data-h2-font-weight="base(300)"
-        data-h2-margin="base(x1, 0, x2, 0)"
-        data-h2-max-width="p-tablet(65%) l-tablet(50%)"
+        className="mb-12 mt-6 font-light sm:max-w-[65%] md:max-w-1/2"
       >
         {intl.formatMessage(
           {

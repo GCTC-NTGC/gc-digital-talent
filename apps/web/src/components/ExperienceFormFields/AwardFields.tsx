@@ -24,7 +24,7 @@ const AwardFields = ({ labels }: SubExperienceFormProps) => {
   const todayDate = new Date();
 
   return (
-    <div className="mt-3 max-w-[50rem]">
+    <div className="mt-3 max-w-256">
       <div className="grid gap-6 sm:grid-cols-2">
         <Input
           id="awardTitle"

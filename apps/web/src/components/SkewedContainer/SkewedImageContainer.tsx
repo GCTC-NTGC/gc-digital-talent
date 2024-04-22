@@ -1,14 +1,14 @@
 import React from "react";
 
+import { cn } from "@gc-digital-talent/ui";
+
 interface SkewedImageContainerProps {
   children: React.ReactNode;
   imgSrc: string;
   imgProps?: React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLDivElement>,
     HTMLDivElement
-  > & {
-    [data: string]: string;
-  };
+  >;
 }
 
 const SkewedImageContainer = ({
@@ -20,8 +20,11 @@ const SkewedImageContainer = ({
     <div className="relative z-40">
       <div className="absolute h-full w-full -skew-y-3 overflow-hidden bg-black">
         <div
-          className="absolute -top-12 h-[calc(100%+3rem)] w-full skew-y-3 bg-[length:auto_50vh] bg-no-repeat sm:bg-[length:auto_60vh] md:bg-[length:auto_110%]"
           {...imgProps}
+          className={cn(
+            "absolute -top-12 h-[calc(100%+3rem)] w-full skew-y-3 bg-[length:auto_50vh] bg-no-repeat sm:bg-[length:auto_60vh] md:bg-[length:auto_110%]",
+            imgProps?.className,
+          )}
           style={{
             backgroundImage: `url('${imgSrc}')`,
           }}

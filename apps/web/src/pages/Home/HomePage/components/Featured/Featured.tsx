@@ -107,8 +107,7 @@ const Featured = () => {
       <Heading
         level="h2"
         size="h3"
-        data-h2-font-weight="base(400)"
-        data-h2-margin="base(0)"
+        className="mt-0 font-normal"
         color="quinary"
         Icon={MagnifyingGlassCircleIcon}
       >
@@ -118,12 +117,7 @@ const Featured = () => {
           description: "Heading for featured items on the homepage",
         })}
       </Heading>
-      <div
-        data-h2-display="base(grid)"
-        data-h2-grid-template-columns="base(1fr) p-tablet(repeat(2, minmax(0, 1fr)))"
-        data-h2-gap="base(x1)"
-        data-h2-padding="base(x2, 0, 0, 0)"
-      >
+      <div className="grid gap-6 pt-12 sm:grid-cols-2">
         {featured.map((item) => (
           <FeatureBlock key={item.key} content={item} />
         ))}

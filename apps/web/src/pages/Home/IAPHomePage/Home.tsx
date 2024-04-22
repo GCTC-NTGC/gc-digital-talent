@@ -5,7 +5,7 @@ import orderBy from "lodash/orderBy";
 import { useSearchParams } from "react-router-dom";
 import { useQuery } from "urql";
 
-import { Link, Pending } from "@gc-digital-talent/ui";
+import { Link, Pending, cn } from "@gc-digital-talent/ui";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 import {
   graphql,
@@ -78,7 +78,7 @@ export const Home = ({ query }: HomeProps) => {
   return (
     <m.div
       data-h2-background="base(white) base:dark(background)"
-      data-h2-overflow="base(hidden visible)"
+      className="overflow-x-hidden overflow-y-visible"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -89,17 +89,9 @@ export const Home = ({ query }: HomeProps) => {
           lang: locale,
         })}
       >
-        <div
-          data-h2-width="base(100%)"
-          data-h2-position="base(relative)"
-          className="flex"
-          data-h2-flex-direction="base(column)"
-        >
+        <div className="relative flex w-full flex-col">
           <img
-            className="block"
-            data-h2-layer="base(1, relative)"
-            data-h2-width="base(100%)"
-            data-h2-order="base(2)"
+            className="relative z-10 order-2 block w-full"
             src={iapHeroImg}
             alt={intl.formatMessage({
               defaultMessage:
@@ -111,30 +103,22 @@ export const Home = ({ query }: HomeProps) => {
           />
           <div
             data-h2-background="base(linear-gradient(#46032c, #46032c 90%, transparent)) p-tablet(linear-gradient(#46032c, #46032c 60%, transparent)) l-tablet(linear-gradient(#46032c, #46032c 30%, transparent)) laptop(transparent)"
-            data-h2-layer="base(2, relative)"
-            data-h2-padding="base(x1.2 x2 x3 x2) p-tablet(x2 x2 x1 x2) l-tablet(x2 x2 0 x2) laptop(0)"
-            data-h2-margin-bottom="base(-x2) p-tablet(-x4.5) l-tablet(-x6) laptop(0)"
-            data-h2-height="laptop(0)"
-            data-h2-overflow="laptop(visible)"
-            data-h2-width="base(100%)"
+            className={cn(
+              "relative z-20 max-w-full lg:h-0 lg:overflow-visible",
+              "-mb-12 px-12 pb-20 pt-7",
+              "sm:-mb-28 sm:p-12 sm:pb-6",
+              "md:-mb-36 md:px-20 md:pb-0 md:pt-20",
+              "lg:mb-0 lg:p-0",
+            )}
           >
-            <div
-              data-h2-align-items="p-tablet(center)"
-              data-h2-display="p-tablet(flex)"
-              data-h2-gap="p-tablet(x1)"
-              data-h2-max-width="base(x23) laptop(x28)"
-              data-h2-margin="base(0 auto)"
-              data-h2-padding="p-tablet(0 0 0 x1) laptop(x2 0 0 x1)"
-            >
+            <div className="mx-auto max-w-[34rem] sm:flex sm:items-center sm:gap-6 sm:pl-6 lg:max-w-[48rem] lg:pt-12">
               <img
                 src={logoImg}
                 alt=""
-                className="block"
-                data-h2-margin="base(0, auto, x.5, auto)"
-                data-h2-width="base(x4) laptop(x7)"
+                className="mx-auto mb-3 mt-0 block w-24 max-w-full lg:w-48"
               />
               <div
-                data-h2-text-align="base(center) p-tablet(left)"
+                className="text-center sm:text-left"
                 data-h2-color="base:all(white)"
               >
                 <h1 data-h2-font-size="base(h3, 1.2)" className="font-bold">
@@ -146,11 +130,7 @@ export const Home = ({ query }: HomeProps) => {
                       "Homepage title for IT Apprenticeship Program for Indigenous Peoples",
                   })}
                 </h1>
-                <p
-                  data-h2-font-size="base(caption)"
-                  className="font-bold"
-                  data-h2-margin-top="base(x.5)"
-                >
+                <p data-h2-font-size="base(caption)" className="mt-3 font-bold">
                   {intl.formatMessage({
                     defaultMessage:
                       "Apply today to get started on your IT career journey.",
@@ -162,40 +142,24 @@ export const Home = ({ query }: HomeProps) => {
               </div>
             </div>
           </div>
-          <div
-            data-h2-padding="base(x1, x2)"
-            data-h2-position="base(relative) p-tablet(absolute)"
-            data-h2-layer="base(1, relative) p-tablet(2, absolute)"
-            data-h2-location="p-tablet(auto, auto, 20%, 50%)"
-            data-h2-min-width="base(x12)"
-            data-h2-order="base(3)"
-            data-h2-transform="p-tablet(translateX(-50%))"
-          >
+          <div className="relative z-10 order-3 my-6 min-w-80 px-12 sm:absolute sm:bottom-[20%] sm:left-1/2 sm:z-20 sm:-translate-x-1/2">
             {latestPool ? <ApplyLink id={latestPool.id} /> : <ApplyDialog />}
           </div>
         </div>
         {/* About section */}
-        <div data-h2-layer="base(1, relative)">
+        <div className="relative z-10">
           <div
+            className="relative"
             data-h2-container="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
-            data-h2-position="base(relative)"
           >
-            <div
-              data-h2-position="base(relative)"
-              data-h2-location="p-tablet(-x3, auto, auto, auto) l-tablet(-x4, auto, auto, auto)"
-            >
+            <div className="relative sm:-top-20 md:-top-24">
               <div
-                data-h2-padding="p-tablet(x2) l-tablet(x3)"
+                className="rounded-3xl sm:p-12 md:p-20"
                 data-h2-background-color="base(white) base:dark(background)"
-                data-h2-radius="base(iap-home-card)"
               >
-                <div data-h2-flex-grid="base(stretch, x3, x1) p-tablet(stretch, x2, x1) l-tablet(stretch, x3, x1)">
-                  <div data-h2-flex-item="base(1of1) p-tablet(3of7)">
-                    <div
-                      data-h2-height="p-tablet(100%)"
-                      data-h2-width="p-tablet(100%)"
-                      data-h2-position="base(relative)"
-                    >
+                <div className="grid gap-20 sm:grid-cols-7">
+                  <div className="sm:col-span-3">
+                    <div className="relative sm:h-full sm:w-full">
                       <div
                         data-h2-radius="base(100rem)"
                         data-h2-height="base(x8)"
@@ -247,12 +211,10 @@ export const Home = ({ query }: HomeProps) => {
                       />
                     </div>
                   </div>
-                  <div data-h2-flex-item="base(1of1) p-tablet(4of7)">
+                  <div className="sm:col-span-4">
                     <Heading
                       data-h2-font-size="base(h3, 1)"
-                      data-h2-margin="base(x6, 0, x2, 0) p-tablet(x1, 0, x2, 0)"
-                      data-h2-text-align="base(center) p-tablet(left)"
-                      data-h2-layer="base(1, relative)"
+                      className="relative z-10 mb-12 mt-36 text-center sm:mt-6 sm:text-left"
                     >
                       {intl.formatMessage({
                         defaultMessage: "About the program",
@@ -260,7 +222,7 @@ export const Home = ({ query }: HomeProps) => {
                         description: "Program information section title",
                       })}
                     </Heading>
-                    <p data-h2-margin="base(x2, 0, x1, 0)">
+                    <p className="mb-6 mt-12">
                       {intl.formatMessage({
                         defaultMessage:
                           "The IT Apprenticeship Program for Indigenous Peoples is a Government of Canada initiative specifically for First Nations, Inuit, and Métis peoples. It is pathway to employment in the federal public service for Indigenous peoples who have a passion for Information Technology (IT).",
@@ -284,7 +246,7 @@ export const Home = ({ query }: HomeProps) => {
                         description: "Third paragraph about the program",
                       })}
                     </p>
-                    <div data-h2-margin="base(x2, 0, 0, 0)">
+                    <div className="mt-12">
                       <CTAButtons latestPoolId={latestPool?.id} />
                     </div>
                   </div>
@@ -296,25 +258,16 @@ export const Home = ({ query }: HomeProps) => {
         {/* Learn section */}
         <div>
           <div
+            className="relative"
             data-h2-container="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
-            data-h2-position="base(relative)"
           >
-            <div data-h2-padding="p-tablet(x2) l-tablet(x3)">
-              <div data-h2-flex-grid="base(stretch, x3, x1) p-tablet(stretch, x2, x1) l-tablet(stretch, x3, x1)">
-                <div
-                  data-h2-flex-item="base(1of1) p-tablet(3of7)"
-                  data-h2-order="p-tablet(2)"
-                >
-                  <div
-                    data-h2-height="p-tablet(100%)"
-                    data-h2-width="p-tablet(100%)"
-                    data-h2-position="base(relative)"
-                  >
+            <div className="p-12 md:p-20">
+              <div className="grid gap-20 sm:grid-cols-7 sm:gap-12 md:gap-20">
+                <div className="sm:order-2 sm:col-span-3">
+                  <div className="relative sm:h-full sm:w-full">
                     <RadiatingCircles
+                      className="absolute -right-72 -top-12 w-[110%]"
                       data-h2-color="base(secondary.light.5) base:dark(secondary.light)"
-                      data-h2-position="base(absolute)"
-                      data-h2-width="base(110%)"
-                      data-h2-location="base(-x2, -x12, auto, auto)"
                     />
                     <img
                       src={manOnComputer}
@@ -324,13 +277,7 @@ export const Home = ({ query }: HomeProps) => {
                         description:
                           "Indigenous Apprenticeship man on computer image text alternative",
                       })}
-                      data-h2-min-height="base(60vh) p-tablet(initial)"
-                      data-h2-height="p-tablet(100%)"
-                      data-h2-width="p-tablet(100%)"
-                      data-h2-position="base(relative)"
-                      style={{
-                        objectFit: "cover",
-                      }}
+                      className="relative min-h-[60vh] object-cover sm:h-full sm:min-h-0 sm:w-full"
                     />
                     <img
                       src={gloves}
@@ -341,20 +288,14 @@ export const Home = ({ query }: HomeProps) => {
                         description:
                           "Indigenous Apprenticeship gloves image text alternative",
                       })}
-                      data-h2-position="base(absolute)"
-                      data-h2-width="base(140%)"
-                      data-h2-location="base(auto, -x4, -x5, auto) l-tablet(auto, -x8, -x9, auto)"
+                      className="absolute -bottom-32 -right-24 w-[140%] md:-bottom-60 md:-right-52"
                     />
                   </div>
                 </div>
-                <div
-                  data-h2-flex-item="base(1of1) p-tablet(4of7)"
-                  data-h2-order="p-tablet(1)"
-                >
+                <div className="sm:order-1 sm:col-span-4">
                   <Heading
                     data-h2-font-size="base(h3, 1)"
-                    data-h2-margin="base(x4, 0, x2, 0) p-tablet(x1, 0, x2, 0)"
-                    data-h2-text-align="base(center) p-tablet(left)"
+                    className="mb-12 mt-20 text-center sm:mt-12 sm:text-left"
                   >
                     {intl.formatMessage({
                       defaultMessage:
@@ -364,7 +305,7 @@ export const Home = ({ query }: HomeProps) => {
                         "What applicants will learn sections heading",
                     })}
                   </Heading>
-                  <p data-h2-margin="base(x2, 0, x1, 0)">
+                  <p className="mb-6 mt-12">
                     {intl.formatMessage({
                       defaultMessage:
                         "Apprentices follow a 24-month structured program consisting of a mix of on-the-job learning and formal training.",
@@ -391,7 +332,7 @@ export const Home = ({ query }: HomeProps) => {
                         "First paragraph what will you learn at the program",
                     })}
                   </p>
-                  <div data-h2-visually-hidden="base(revealed) l-tablet(invisible)">
+                  <div className="md:sr-only">
                     <CTAButtons latestPoolId={latestPool?.id} />
                   </div>
                 </div>
@@ -400,27 +341,18 @@ export const Home = ({ query }: HomeProps) => {
           </div>
         </div>
         {/* Who section */}
-        <div
-          data-h2-layer="base(2, relative)"
-          data-h2-margin="base(x2, 0, 0, 0)"
-        >
+        <div className="relative z-20 mt-12">
           <div
+            className="relative"
             data-h2-container="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
-            data-h2-position="base(relative)"
           >
-            <div data-h2-padding="p-tablet(x2) l-tablet(x3)">
-              <div data-h2-flex-grid="base(stretch, x3, x1) p-tablet(stretch, x2, x1) l-tablet(stretch, x3, x1)">
-                <div data-h2-flex-item="base(1of1) p-tablet(3of7)">
-                  <div
-                    data-h2-height="p-tablet(100%)"
-                    data-h2-width="p-tablet(100%)"
-                    data-h2-position="base(relative)"
-                  >
+            <div className="p-12 md:p-20">
+              <div className="grid gap-20 sm:grid-cols-7 sm:gap-12 md:gap-20">
+                <div className="sm:col-span-3">
+                  <div className="relative sm:h-full sm:w-full">
                     <Triangle
-                      data-h2-position="base(absolute)"
-                      data-h2-width="base(120%)"
+                      className="absolute -left-8 -top-8 w-[120%] sm:-left-12 sm:-top-12"
                       data-h2-color="base(secondary) base:dark(secondary.light)"
-                      data-h2-location="base(-2rem, auto, auto, -2rem) p-tablet(-3rem, auto, auto, -3rem)"
                     />
                     <img
                       src={applicant}
@@ -431,13 +363,7 @@ export const Home = ({ query }: HomeProps) => {
                         description:
                           "Indigenous Apprenticeship applicant image text alternative",
                       })}
-                      data-h2-min-height="base(60vh) p-tablet(initial)"
-                      data-h2-height="p-tablet(100%)"
-                      data-h2-width="p-tablet(100%)"
-                      data-h2-position="base(relative)"
-                      style={{
-                        objectFit: "cover",
-                      }}
+                      className="relative min-h-[60vh] object-cover sm:h-full sm:min-h-0 sm:w-full"
                     />
                     <img
                       src={ulu}
@@ -448,21 +374,14 @@ export const Home = ({ query }: HomeProps) => {
                         description:
                           "Indigenous Apprenticeship ulu image text alternative",
                       })}
-                      data-h2-display="base(block) p-tablet(none)"
-                      data-h2-position="base(absolute)"
-                      data-h2-width="base(x20)"
-                      data-h2-location="base(auto, -30%, -10%, auto)"
+                      className="absolute -right-1/3 bottom-[-10%] block w-[34rem] sm:hidden"
                     />
                   </div>
                 </div>
-                <div
-                  data-h2-flex-item="base(1of1) p-tablet(4of7)"
-                  data-h2-position="base(relative)"
-                >
+                <div className="relative sm:col-span-4">
                   <Heading
                     data-h2-font-size="base(h3, 1)"
-                    data-h2-margin="base(x2, 0) p-tablet(x1, 0, x2, 0)"
-                    data-h2-text-align="base(center) p-tablet(left)"
+                    className="my-12 text-center sm:mt-6 sm:text-left"
                   >
                     {intl.formatMessage({
                       defaultMessage: "Who is the program for?",
@@ -471,7 +390,7 @@ export const Home = ({ query }: HomeProps) => {
                         "Heading for section about who the program is for",
                     })}
                   </Heading>
-                  <p data-h2-margin="base(x2, 0, x1, 0)">
+                  <p className="mb-6 mt-12">
                     {intl.formatMessage({
                       defaultMessage:
                         "The program is for First Nations, Inuit, and Métis peoples. If you are First Nations, an Inuk, or Métis, and if you have a passion for technology, then this program is for you!",
@@ -502,17 +421,9 @@ export const Home = ({ query }: HomeProps) => {
                       description:
                         "Indigenous Apprenticeship ulu image text alternative",
                     })}
-                    data-h2-display="base(none) p-tablet(block)"
-                    data-h2-position="base(absolute)"
-                    data-h2-width="base(x20)"
-                    data-h2-location="base(auto, -40%, auto, auto) l-tablet(auto, -30%, auto, auto)"
+                    className="absolute right-[-40%] hidden w-[34rem] sm:block md:-right-1/3"
                   />
-                  <div
-                    data-h2-margin="base(x2, 0, x1, 0)"
-                    data-h2-min-width="base(5rem)"
-                    data-h2-width="p-tablet(50%)"
-                    data-h2-position="base(relative)"
-                  >
+                  <div className="relative mb-6 mt-12 min-h-12 min-w-20 sm:w-1/2">
                     <RequirementDialog />
                   </div>
                 </div>
@@ -522,20 +433,16 @@ export const Home = ({ query }: HomeProps) => {
         </div>
         {/* Testimonial section */}
         <div
-          data-h2-layer="base(1, relative)"
-          data-h2-margin="p-tablet(x2, 0, 0, 0)"
-          data-h2-padding="base(x3, 0, x2, 0) l-tablet(x5, 0)"
+          className="relative z-10 mt-12 bg-cover bg-[right_10%_center] pb-[20px] pt-20 md:py-32"
           style={{
             backgroundImage: `url(${quoteBg})`,
-            backgroundSize: "cover",
-            backgroundPosition: "right 10% center",
           }}
         >
           <div data-h2-container="base(center, medium, x1) l-tablet(center, medium, x2)">
             <Heading
               light
               data-h2-color="base:all(white)"
-              data-h2-text-align="base(center)"
+              className="text-center"
             >
               {intl.formatMessage({
                 defaultMessage: "What We’re Hearing",
@@ -548,22 +455,15 @@ export const Home = ({ query }: HomeProps) => {
         </div>
         {/* Application call to action section */}
         <div
-          data-h2-padding="base(x2, 0, x5, 0) p-tablet(x3, 0, x6, 0) l-tablet(x6, 0, x9, 0)"
+          className="bg-cover bg-[top_center] pb-28 pt-12 sm:pb-52 sm:pt-36 md:pb-60 md:pt-40"
           style={{
             backgroundImage: `url(${sash})`,
-            backgroundSize: "cover",
-            backgroundPosition: "top center",
           }}
         >
           <div data-h2-container="base(center, iap-home, x1) p-tablet(center, iap-home, x2)">
             <div>
-              <div
-                data-h2-shadow="base(l)"
-                data-h2-display="base(grid)"
-                data-h2-grid-template-rows="base(1fr 1fr) p-tablet(1fr)"
-                data-h2-grid-template-columns="base(minmax(1px, 1fr)) p-tablet(1fr 2fr) l-tablet(1fr 1fr) desktop(4fr 3fr)"
-              >
-                <div data-h2-position="base(relative)">
+              <div className="grid grid-rows-2 shadow-lg sm:grid-cols-3  sm:grid-rows-1 md:grid-cols-2 xl:grid-cols-7">
+                <div className="relative xl:col-span-4">
                   <img
                     src={lowerBack}
                     alt={intl.formatMessage({
@@ -572,22 +472,13 @@ export const Home = ({ query }: HomeProps) => {
                       description:
                         "Indigenous Apprenticeship lower back image text alternative",
                     })}
-                    style={{
-                      position: "absolute",
-                      inset: "0",
-                      objectFit: "cover",
-                      objectPosition: "center",
-                      height: "100%",
-                      width: "100%",
-                    }}
+                    className="absolute inset-0 h-full w-full object-cover object-center"
                   />
                 </div>
-                <div>
+                <div className="sm:col-span-2 md:col-span-1 xl:col-span-3">
                   <div
-                    data-h2-height="base(100%)"
+                    className="min-h-full p-12 text-center sm:p-20 sm:text-left"
                     data-h2-background-color="base(secondary.light)"
-                    data-h2-padding="base(x2) p-tablet(x3)"
-                    data-h2-text-align="base(center) p-tablet(left)"
                   >
                     <Heading
                       light
@@ -632,36 +523,20 @@ export const Home = ({ query }: HomeProps) => {
         {/* Coming soon section */}
         <div
           data-h2-background-color="base(secondary)"
-          data-h2-padding="base(0) p-tablet(0, 0, x1, 0) l-tablet(0, 0, x4, 0)"
-          data-h2-position="base(relative)"
+          className="relative sm:pr-6 md:pb-28"
         >
-          <div
-            data-h2-height="base(100%)"
-            data-h2-width="base(100%)"
-            data-h2-position="base(absolute)"
-            data-h2-location="base(0, auto, auto, 0)"
-            data-h2-overflow="base(hidden)"
-          >
+          <div className="absolute left-0 top-0 h-full w-full overflow-hidden">
             <RadiatingCircles
+              className="absolute left-[-10%] top-72 w-1/2"
               data-h2-color="base(primary)"
-              data-h2-position="base(absolute)"
-              data-h2-location="base(x10, auto, auto, -10%)"
-              data-h2-width="base(50%)"
             />
-            <ThickCircle
-              data-h2-position="base(absolute)"
-              data-h2-location="base(auto, -10%, x35, auto)"
-              data-h2-width="base(35%)"
-            />
+            <ThickCircle className="absolute bottom-[60rem] right-[-10%] w-[35%]" />
           </div>
           <div
+            className="relative"
             data-h2-container="base(center, iap-home, x1) p-tablet(center, iap-home, x2)"
-            data-h2-position="base(relative)"
           >
-            <div
-              data-h2-text-align="base(center)"
-              data-h2-margin="base(0, 0, x3, 0)"
-            >
+            <div className="mb-20 text-center">
               <Banner>
                 <Heading
                   data-h2-color="base:all(white)"
@@ -677,7 +552,7 @@ export const Home = ({ query }: HomeProps) => {
               <Heading
                 light
                 data-h2-color="base:all(white)"
-                data-h2-margin="base(0, 0, x3, 0) p-tablet(x3, 0)"
+                className="mb-20 mt-0 text-5xl sm:my-20"
               >
                 {intl.formatMessage({
                   defaultMessage:
@@ -686,7 +561,11 @@ export const Home = ({ query }: HomeProps) => {
                   description: "heading for indigenous talent portal section",
                 })}
               </Heading>
-              <Heading as="h3" data-h2-color="base:all(white)">
+              <Heading
+                as="h3"
+                data-h2-color="base:all(white)"
+                className="text-4xl"
+              >
                 {intl.formatMessage({
                   defaultMessage: "How it Will Work",
                   id: "U8bLT7",
@@ -694,11 +573,7 @@ export const Home = ({ query }: HomeProps) => {
                     "heading for how the indigenous talent portal will work",
                 })}
               </Heading>
-              <p
-                data-h2-margin="base(x1, auto, 0, auto)"
-                data-h2-color="base:all(white)"
-                data-h2-max-width="base(38rem)"
-              >
+              <p className="mx-w-[38rem] mx-auto mt-6">
                 {intl.formatMessage({
                   defaultMessage:
                     "Soon, applicants will be able to apply using an online, interactive tool that will be available on this website. Here’s what we’re working on:",
@@ -708,8 +583,8 @@ export const Home = ({ query }: HomeProps) => {
                 })}
               </p>
             </div>
-            <div data-h2-flex-grid="base(flex-start, x3, x2)">
-              <div data-h2-flex-item="base(1of1) l-tablet(1of3)">
+            <div className="grid gap-20 md:grid-cols-3">
+              <div>
                 <Step
                   position="1"
                   title={intl.formatMessage({
@@ -737,7 +612,7 @@ export const Home = ({ query }: HomeProps) => {
                   </p>
                 </Step>
               </div>
-              <div data-h2-flex-item="base(1of1) l-tablet(1of3)">
+              <div>
                 <Step
                   position="2"
                   title={intl.formatMessage({
@@ -764,7 +639,7 @@ export const Home = ({ query }: HomeProps) => {
                   </p>
                 </Step>
               </div>
-              <div data-h2-flex-item="base(1of1) l-tablet(1of3)">
+              <div>
                 <Step
                   position="3"
                   title={intl.formatMessage({
@@ -793,7 +668,11 @@ export const Home = ({ query }: HomeProps) => {
               </div>
             </div>
             <div data-h2-text-align="base(center)" data-h2-margin="base(x3, 0)">
-              <Heading as="h3" data-h2-color="base:all(white)">
+              <Heading
+                as="h3"
+                data-h2-color="base:all(white)"
+                className="text-4xl"
+              >
                 {intl.formatMessage({
                   defaultMessage: "Strategy",
                   id: "DBczOG",
@@ -802,9 +681,8 @@ export const Home = ({ query }: HomeProps) => {
                 })}
               </Heading>
               <p
-                data-h2-margin="base(x1, auto, 0, auto)"
+                className="mx-auto mt-6 max-w-[38rem]"
                 data-h2-color="base:all(white)"
-                data-h2-max-width="base(38rem)"
               >
                 {intl.formatMessage({
                   defaultMessage:
@@ -815,126 +693,98 @@ export const Home = ({ query }: HomeProps) => {
                 })}
               </p>
             </div>
-            <div data-h2-flex-grid="base(flex-start, x3, x2)">
-              <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of4)">
-                <Card
-                  Icon={People}
-                  title={intl.formatMessage({
-                    defaultMessage: "High Demand",
-                    id: "MgLLHd",
-                    description: "Talent portal strategy item 1 heading",
+            <div className="grid gap-20 text-center sm:grid-cols-2 xl:grid-cols-4">
+              <Card
+                Icon={People}
+                title={intl.formatMessage({
+                  defaultMessage: "High Demand",
+                  id: "MgLLHd",
+                  description: "Talent portal strategy item 1 heading",
+                })}
+              >
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Address the great demand for Indigenous talent in IT.",
+                    id: "Xhfkfg",
+                    description: "Talent portal strategy item 1 content",
                   })}
-                >
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Address the great demand for Indigenous talent in IT.",
-                      id: "Xhfkfg",
-                      description: "Talent portal strategy item 1 content",
-                    })}
-                  </p>
-                </Card>
-              </div>
-              <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of4)">
-                <Card
-                  Icon={TrendingUp}
-                  title={intl.formatMessage({
-                    defaultMessage: "Grow",
-                    id: "436DA5",
-                    description: "Talent portal strategy item 2 heading",
+                </p>
+              </Card>
+              <Card
+                Icon={TrendingUp}
+                title={intl.formatMessage({
+                  defaultMessage: "Grow",
+                  id: "436DA5",
+                  description: "Talent portal strategy item 2 heading",
+                })}
+              >
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Allow for growth in its recruitment scope by targeting other occupational areas in the future.",
+                    id: "84rSVg",
+                    description: "Talent portal strategy item 2 content",
                   })}
-                >
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Allow for growth in its recruitment scope by targeting other occupational areas in the future.",
-                      id: "84rSVg",
-                      description: "Talent portal strategy item 2 content",
-                    })}
-                  </p>
-                </Card>
-              </div>
-              <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of4)">
-                <Card
-                  Icon={BarChart}
-                  title={intl.formatMessage({
-                    defaultMessage: "Assess",
-                    id: "lIHNov",
-                    description: "Talent portal strategy item 3 heading",
+                </p>
+              </Card>
+              <Card
+                Icon={BarChart}
+                title={intl.formatMessage({
+                  defaultMessage: "Assess",
+                  id: "lIHNov",
+                  description: "Talent portal strategy item 3 heading",
+                })}
+              >
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Allow for data and feedback to be collected and leveraged to improve the service.",
+                    id: "rQ61eh",
+                    description: "Talent portal strategy item 3 content",
                   })}
-                >
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Allow for data and feedback to be collected and leveraged to improve the service.",
-                      id: "rQ61eh",
-                      description: "Talent portal strategy item 3 content",
-                    })}
-                  </p>
-                </Card>
-              </div>
-              <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of4)">
-                <Card
-                  Icon={Calendar}
-                  title={intl.formatMessage({
-                    defaultMessage: "Launch",
-                    id: "8PhWBd",
-                    description: "Talent portal strategy item 4 heading",
+                </p>
+              </Card>
+              <Card
+                Icon={Calendar}
+                title={intl.formatMessage({
+                  defaultMessage: "Launch",
+                  id: "8PhWBd",
+                  description: "Talent portal strategy item 4 heading",
+                })}
+              >
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Aim to launch the program in the early half of 2024.",
+                    id: "utLdbN",
+                    description: "Talent portal strategy item 4 content",
                   })}
-                >
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Aim to launch the program in the early half of 2024.",
-                      id: "utLdbN",
-                      description: "Talent portal strategy item 4 content",
-                    })}
-                  </p>
-                </Card>
-              </div>
+                </p>
+              </Card>
             </div>
-            <div data-h2-padding="base(x4, 0)">
-              <div data-h2-position="base(relative)">
-                <div
-                  data-h2-position="base(absolute)"
-                  data-h2-width="base(75%)"
-                  data-h2-location="base(auto, auto, -2rem, -2rem) p-tablet(auto, auto, -3rem, -3rem)"
-                  style={{ transform: "rotate(180deg) scaleX(-1)" }}
-                >
+            <div className="py-28">
+              <div className="relative">
+                <div className="absolute -bottom-8 -left-8 w-3/4 -scale-y-100 sm:-bottom-12 sm:-left-12">
                   <Triangle
-                    data-h2-width="base(100%)"
+                    className="w-full"
                     data-h2-color="base(secondary.light)"
                   />
                 </div>
                 <div
                   data-h2-background-color="base(secondary.light)"
-                  data-h2-padding="base(x2, x2, 0, x2) p-tablet(x3, x2) l-tablet(x5, x3)"
-                  data-h2-position="base(relative)"
-                  data-h2-text-align="base(center) p-tablet(left)"
+                  className="relative p-12 pb-0 text-center sm:py-20 sm:text-left md:px-20 md:py-36"
                 >
-                  <div
-                    data-h2-height="base(100%)"
-                    data-h2-width="base(100%)"
-                    data-h2-position="base(absolute)"
-                    data-h2-location="base(0, 0, auto, auto)"
-                    data-h2-overflow="base(hidden)"
-                  >
+                  <div className="absolute right-0 top-0 h-full w-full overflow-hidden">
                     <img
                       src={iconWatermark}
                       alt=""
-                      data-h2-position="base(absolute)"
-                      data-h2-location="base(auto, -x2, -x5, auto) p-tablet(auto, -x4, -x7, auto)"
-                      data-h2-width="base(120%) p-tablet(x25) desktop(x35)"
-                      data-h2-max-width="base(initial)"
-                      data-h2-opacity="base(40%)"
+                      className="absolute -bottom-32 -right-12 w-[120%] max-w-[initial] opacity-40 sm:-bottom-40 xl:w-[60rem]"
                     />
                   </div>
-                  <div
-                    data-h2-flex-grid="base(stretch, x2) p-tablet(stretch, 0)"
-                    data-h2-position="base(relative)"
-                  >
+                  <div className="relative grid gap-12 sm:grid-cols-2 md:grid-cols-5 md:gap-0 xl:grid-cols-2">
                     <div
-                      data-h2-flex-item="base(1of1) p-tablet(1of2) l-tablet(3of5) desktop(1of2)"
+                      className="md:col-span-3 xl:col-span-1"
                       data-h2-color="base:all(white)"
                     >
                       <Heading data-h2-color="base:all(white)" light>
@@ -962,14 +812,9 @@ export const Home = ({ query }: HomeProps) => {
                       </p>
                       <AccommodationsDialog />
                     </div>
-                    <div
-                      data-h2-flex-item="base(1of1) p-tablet(1of2) l-tablet(2of5) desktop(1of2)"
-                      data-h2-position="base(relative)"
-                    >
+                    <div className="relative grid md:col-span-2 xl:col-span-1">
                       <img
-                        className="block"
-                        data-h2-position="p-tablet(absolute)"
-                        data-h2-location="p-tablet(auto, -x2, -x3, auto) l-tablet(auto, -x3, -x5, auto)"
+                        className="block sm:absolute sm:-bottom-20 sm:-right-12 md:-bottom-36 md:-right-20"
                         src={indigenousWoman}
                         alt={intl.formatMessage({
                           defaultMessage:

@@ -31,6 +31,7 @@ export default {
     extend: {
       borderRadius: {
         DEFAULT: "0.3125rem",
+        "3xl": "1.25rem",
       },
       colors: {
         primary: `rgb(var(--color-primary) / <alpha-value>)`,
@@ -39,9 +40,13 @@ export default {
       flexGrow: {
         2: "2",
       },
+      maxWidth: {
+        "1/2": "50%",
+      },
       spacing: {
         "4.5": "1.125rem",
         "18": "4.5rem",
+        "256": "50rem",
       },
     },
   },

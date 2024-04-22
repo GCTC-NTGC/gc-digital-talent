@@ -8,6 +8,7 @@ import { useQuery } from "urql";
 
 import {
   Accordion,
+  CardBasic,
   CardFlat,
   Flourish,
   Heading,
@@ -75,14 +76,12 @@ export const HomePage = ({ pools }: HomePageProps) => {
           alt: "",
         }}
       >
-        <Heading level="h1" size="h2" data-h2-margin="base(0, 0, x0.5, 0)">
+        <Heading level="h1" size="h2" className="mb-3 mt-0">
           {intl.formatMessage(pageTitle)}
         </Heading>
         <p
           data-h2-font-size="base(h6, 1.4)"
-          data-h2-font-weight="base(300)"
-          className="mt-6"
-          data-h2-max-width="p-tablet(65%) l-tablet(50%)"
+          className="mt-6 font-light lg:max-w-1/2"
         >
           {intl.formatMessage(subTitle)}
         </p>
@@ -91,10 +90,9 @@ export const HomePage = ({ pools }: HomePageProps) => {
         <Heading
           level="h2"
           size="h3"
-          data-h2-font-weight="base(400)"
           Icon={RocketLaunchIcon}
           color="secondary"
-          data-h2-margin="base(0)"
+          className="my-0 font-normal"
         >
           {intl.formatMessage({
             defaultMessage: "Executive recruitment processes",
@@ -112,28 +110,16 @@ export const HomePage = ({ pools }: HomePageProps) => {
           })}
         </p>
         {pools.length > 0 ? (
-          <div data-h2-padding="base(x2, 0)">
-            <ul
-              data-h2-margin="base(0)"
-              data-h2-padding="base(0)"
-              data-h2-list-style="base(none)"
-            >
-              {pools.map((pool) => (
-                <li key={pool.id}>
-                  <PoolCard pool={pool} />
-                </li>
-              ))}
-            </ul>
-          </div>
+          <ul className="my-12">
+            {pools.map((pool) => (
+              <li key={pool.id}>
+                <PoolCard pool={pool} />
+              </li>
+            ))}
+          </ul>
         ) : (
-          <div
-            data-h2-padding="base(x1)"
-            data-h2-margin="base(x1, 0, x2, 0)"
-            data-h2-radius="base(s)"
-            data-h2-shadow="base(medium)"
-            data-h2-background="base(foreground)"
-          >
-            <Heading level="h3" size="h6" data-h2-margin-top="base(0)">
+          <CardBasic>
+            <Heading level="h3" size="h6" className="mt-0">
               {intl.formatMessage({
                 defaultMessage: "More opportunities are coming soon!",
                 id: "g+JcDC",
@@ -149,25 +135,21 @@ export const HomePage = ({ pools }: HomePageProps) => {
                   "Message displayed when there are no executive opportunities available",
               })}
             </p>
-          </div>
+          </CardBasic>
         )}
       </SkewedContainer>
       <div
         data-h2-background="base(background)"
-        data-h2-padding="base(x4, 0, x3, 0)"
+        className="relative z-30 pb-20 pt-24"
         data-h2-border-top="base:all(solid 1px gray.lighter)"
-        data-h2-margin-top="base(-x1) l-tablet(-x3)"
-        data-h2-position="base(relative)"
-        data-h2-z-index="base(3)"
       >
         <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2) laptop(center, large, x3)">
           <Heading
             level="h2"
             size="h3"
-            data-h2-font-weight="base(400)"
             Icon={PuzzlePieceIcon}
             color="quaternary"
-            data-h2-margin-top="base(0)"
+            className="mt-0 font-normal"
           >
             {intl.formatMessage({
               defaultMessage: "What we can do for you",
@@ -175,12 +157,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
               description: "Heading for the executive opportunities",
             })}
           </Heading>
-          <div
-            data-h2-display="base(grid)"
-            data-h2-grid-template-columns="base(1fr) p-tablet(repeat(2, minmax(0, 1fr))) l-tablet(repeat(3, minmax(0, 1fr)))"
-            data-h2-gap="base(x2) p-tablet(x3)"
-            data-h2-padding="base(x2, 0)"
-          >
+          <div className="my-12 grid gap-12 sm:grid-cols-2 sm:gap-20 md:grid-cols-3">
             <CardFlat
               color="tertiary"
               title={intl.formatMessage({
@@ -288,16 +265,13 @@ export const HomePage = ({ pools }: HomePageProps) => {
       <SkewedImageContainer
         imgSrc={executiveProfileHero}
         imgProps={{
-          "data-h2-background-position":
-            "base(80% 110%) l-tablet(60% 50%) desktop(right 50%)",
+          className: "bg-[80%_110%] md:bg-[60%_50%] lg:[right_50%]",
         }}
       >
         <p
           data-h2-font-size="base(h6, 1.4)"
-          data-h2-font-weight="base(300)"
           data-h2-color="base:all(white)"
-          data-h2-margin="base(0, 0, x2, 0)"
-          data-h2-max-width="p-tablet(50%)"
+          className="mb-12 max-w-1/2"
         >
           {intl.formatMessage({
             defaultMessage:
@@ -307,11 +281,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
               "Description of how application profiles works for managers/executives.",
           })}
         </p>
-        <div
-          className="flex"
-          data-h2-gap="base(x1)"
-          data-h2-justify-content="base(flex-start)"
-        >
+        <div className="flex justify-start gap-6">
           <Link
             color="quinary"
             mode="cta"
@@ -330,8 +300,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
         <Heading
           level="h2"
           size="h3"
-          data-h2-font-weight="base(400)"
-          data-h2-margin="base(0, 0, x0.5, 0)"
+          className="mt-0 font-normal"
           Icon={SparklesIcon}
           color="primary"
         >
@@ -342,19 +311,14 @@ export const HomePage = ({ pools }: HomePageProps) => {
               "Heading for exposition section on the executive homepage",
           })}
         </Heading>
-        <Heading
-          level="h3"
-          size="h6"
-          className="font-bold"
-          data-h2-margin="base(x2, 0, x.5, 0)"
-        >
+        <Heading level="h3" size="h6" className="mb-3 mt-12 font-bold">
           {intl.formatMessage({
             defaultMessage: "Who is EXposition for?",
             id: "XoGKAf",
             description: "Heading for EXposition eligibility",
           })}
         </Heading>
-        <p data-h2-margin="base(x.5, 0, 0, 0)">
+        <p className="mb-3">
           {intl.formatMessage({
             defaultMessage:
               "Are you a leader looking to attract or promote high-potential talent within the digital (IM, IT or data fields) community? Do you have talented employees to nominate at the EX minus one to the EX-03 group and level? Are you from the human resources community and interested in interdepartmental opportunities for your digital workforce?",
@@ -362,7 +326,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
             id: "hml0gm",
           })}
         </p>
-        <p data-h2-margin="base(x.5, 0, 0, 0)">
+        <p className="mb-3">
           {intl.formatMessage({
             defaultMessage:
               "If your answer is yes to one or several of the previous questions, we have the solution you are looking for. Since 2019, we have built trust with hundreds of digital leaders from dozens of organizations across the Government of Canada to help talented employees optimize their skills, achieve their potential, develop new experiences, and engage in the succession planning process.",
@@ -370,12 +334,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
             id: "80WTKY",
           })}
         </p>
-        <Heading
-          level="h3"
-          size="h6"
-          className="font-bold"
-          data-h2-margin="base(x2, 0, x.5, 0)"
-        >
+        <Heading level="h3" size="h6" className="mb-3 mt-12 font-bold">
           {intl.formatMessage({
             defaultMessage:
               "Learn more about our four services and discover how we can help you achieve your goals!",
@@ -472,7 +431,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
             </Accordion.Content>
           </Accordion.Item>
         </Accordion.Root>
-        <p data-h2-margin-bottom="base(x3)">
+        <p className="mb-20">
           <Link
             external
             mode="solid"

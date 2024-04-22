@@ -30,7 +30,7 @@ const EducationFields = ({ labels }: SubExperienceFormProps) => {
   const watchStartDate = useWatch({ name: "startDate" });
 
   return (
-    <div className="mt-3 max-w-[50rem]">
+    <div className="mt-3 max-w-256">
       <div className="grid gap-6 sm:grid-cols-2">
         <Select
           id="educationType"

@@ -16,17 +16,13 @@ const Profile = () => {
     <SkewedImageContainer
       imgSrc={profileHeroImg}
       imgProps={{
-        "data-h2-background-position":
-          "base(100% 110%) l-tablet(calc(50% + 20rem) 50%)",
+        className: "bg-[100%_110%] md:bg-[calc(50%+20rem)]",
       }}
     >
       <p
+        className="mb-12 text-center font-light sm:max-w-1/2 sm:text-left"
         data-h2-font-size="base(h6, 1.4)"
-        data-h2-font-weight="base(300)"
         data-h2-color="base:all(white)"
-        data-h2-margin="base(0, 0, x2, 0)"
-        data-h2-max-width="p-tablet(50%)"
-        data-h2-text-align="base(center) p-tablet(left)"
       >
         {intl.formatMessage({
           defaultMessage:
@@ -35,11 +31,7 @@ const Profile = () => {
           description: "Description of how application profiles work.",
         })}
       </p>
-      <div
-        className="flex"
-        data-h2-gap="base(x1)"
-        data-h2-justify-content="base(center) p-tablet(flex-start)"
-      >
+      <div className="flex justify-center gap-6 sm:justify-start">
         <Link
           color="quinary"
           mode="cta"
