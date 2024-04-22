@@ -47,7 +47,14 @@ class SyncNewRodFields extends Command
         ];
 
         $applicableModels = PoolCandidate::with('user')
-            ->whereNotIn('pool_candidate_status', [PoolCandidateStatus::DRAFT->name, PoolCandidateStatus::DRAFT_EXPIRED->name])
+            ->whereNotIn('pool_candidate_status', [
+                PoolCandidateStatus::DRAFT->name,
+                PoolCandidateStatus::DRAFT_EXPIRED->name,
+                PoolCandidateStatus::NEW_APPLICATION->name,
+                PoolCandidateStatus::APPLICATION_REVIEW->name,
+                PoolCandidateStatus::SCREENED_IN->name,
+                PoolCandidateStatus::UNDER_ASSESSMENT->name,
+            ])
             ->get();
         $modelCount = count($applicableModels);
         $modelUpdatedCount = 0;
