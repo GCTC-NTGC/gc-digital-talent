@@ -16,8 +16,11 @@ export default {
 } as Meta;
 
 const TemplateSkillAccordion: StoryFn<SkillAccordionProps> = (args) => {
+  const {
+    skill: { id },
+  } = args;
   return (
-    <Accordion.Root type="single">
+    <Accordion.Root type="single" defaultValue={id}>
       <SkillAccordion {...args} />
     </Accordion.Root>
   );
