@@ -20,7 +20,7 @@ return new class extends Migration
             $table->softDeletes();
             $table->uuid('user_id');
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete(true);
-            $table->text('details');
+            $table->text('details')->nullable();
             $table->string('experience_type')->index();
             $table->jsonb('properties')->nullable();
         });
