@@ -62,6 +62,12 @@ fi
 
 # Include the stdout from the migration as its own block, cleaned to make Slack happy
 CLEANED_STDOUT=${MIGRATION_STDOUT//[^a-zA-Z0-9_ $'\n']/}
+
+# Slack has a max size of 3000 characters
+# https://api.slack.com/reference/block-kit/blocks#section
+if [ "${#CLEANED_STDOUT}" -gt "2500" ] ; then
+    CLEANED_STDOUT="${CLEANED_STDOUT:0:2500}..."
+fi
 add_section_block "$TRIPLE_BACK_TICK $CLEANED_STDOUT $TRIPLE_BACK_TICK"
 
 # Load Laravel Scheduler cron
