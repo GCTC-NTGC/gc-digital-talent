@@ -14,18 +14,18 @@
     "lint:fix": "eslint ./ --fix --ext .js,.ts,.jsx,.tsx"
   },
   "devDependencies": {
-    "@gc-digital-talent/date-helpers": "*",
-    "@gc-digital-talent/env": "*",
-    "@gc-digital-talent/eslint-config": "*",
-    "@gc-digital-talent/graphql": "*",
-    "@playwright/test": "^1.42.1",
+    "@gc-digital-talent/date-helpers": "workspace:*",
+    "@gc-digital-talent/env": "workspace:*",
+    "@gc-digital-talent/eslint-config": "workspace:*",
+    "@gc-digital-talent/graphql": "workspace:*",
+    "@playwright/test": "^1.43.1",
     "@types/node": "^20.12.7",
-    "axe-core": "^4.8.4",
+    "axe-core": "^4.9.0",
     "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
-    "eslint-plugin-playwright": "^1.5.2"
+    "eslint-plugin-playwright": "^1.6.0"
   },
   "dependencies": {
-    "@axe-core/playwright": "^4.8.5"
+    "@axe-core/playwright": "^4.9.0"
   }
 }

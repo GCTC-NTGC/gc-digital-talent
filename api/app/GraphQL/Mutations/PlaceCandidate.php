@@ -14,7 +14,7 @@ final class PlaceCandidate
      */
     public function __invoke($_, array $args)
     {
-        $candidate = PoolCandidate::find($args['id']);
+        $candidate = PoolCandidate::findOrFail($args['id']);
         $placementType = $args['placementType'];
         $now = Carbon::now();
         $departmentId = $args['departmentId'];

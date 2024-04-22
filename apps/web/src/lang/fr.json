@@ -115,6 +115,10 @@
     "defaultMessage": "Sélectionnez une catégorie",
     "description": "Placeholder displayed on the skill family form category field."
   },
+  "+jIT2i": {
+    "defaultMessage": "Exemple",
+    "description": "Title for the example component"
+  },
   "+jknvj": {
     "defaultMessage": "Évaluation enregistrée avec succès.",
     "description": "Message displayed to user if the assessment result was saved successfully."
@@ -342,6 +346,10 @@
   "/uOExm": {
     "defaultMessage": "Votre numéro de confirmation est le suivant : <strong>{id}</strong>",
     "description": "An application confirmation number"
+  },
+  "/voRGj": {
+    "defaultMessage": "Afficher tous<hidden> les filtres avancés</hidden>",
+    "description": "Button text to show all advanced filters"
   },
   "/yOfhq": {
     "defaultMessage": "Durée de l’emploi ",
@@ -1103,6 +1111,10 @@
     "defaultMessage": "Veuillez préciser la méthode",
     "description": "Label for _other method of supply_ fieldset in the _digital services contracting questionnaire_"
   },
+  "4RE3DP": {
+    "defaultMessage": "Compétences constituant un atout",
+    "description": "Label for 'asset skills' input on the assessment details dialog"
+  },
   "4RK/oW": {
     "defaultMessage": "Minorité visible",
     "description": "Message for visible minority option in the employment equity section of the request page."
@@ -1383,10 +1395,6 @@
     "defaultMessage": "Quelle application d'authentification devrais-je installer?",
     "description": "GCKey question for which authenticator app to use"
   },
-  "5nlauT": {
-    "defaultMessage": "Question filtre {index} : {question}",
-    "description": "CSV Header, Screening question column. "
-  },
   "5pQfyv": {
     "defaultMessage": "Postes en français",
     "description": "Message for the french positions option"
@@ -1607,10 +1615,6 @@
     "defaultMessage": "Gestionnaire",
     "description": "Title displayed on the search request table manager column."
   },
-  "7Jc8aA": {
-    "defaultMessage": "Compétences évaluées",
-    "description": "Label for 'assessed skills' input on the assessment details dialog"
-  },
   "7KEfBI": {
     "defaultMessage": "Ces données sont agrégées et utilisées pour cibler les tendances dans les différents ministères. Elles ne sont pas utilisées pour l’analyse d’une décision individuelle d’établissement des contrats.",
     "description": "Introduction for _influencing factors_ section, in the _digital services contracting questionnaire_"
@@ -1794,10 +1798,6 @@
   "8L9eJ3": {
     "defaultMessage": "Le gouvernement du Canada ne se prononcera pas sur des questions de partisanerie ou de politique, et il ne répondra pas aux questions qui contreviennent aux règles énoncées dans cet avis.",
     "description": "Paragraph for comments and interaction section"
-  },
-  "8M/lmC": {
-    "defaultMessage": "N'oubliez pas que pour vous reconnecter, vous devrez utiliser votre nom d’utilisateur et votre mot de passe CléGC. Nous espérons vous voir bientôt!",
-    "description": "Message displayed to a user after signing out"
   },
   "8M2Tbu": {
     "defaultMessage": "<strong>Service de relais vidéo :</strong>La CCDP accepte les appels utilisant le service de relais vidéo effectués par l’intermédiaire de <relayServiceLink>SRV Canada</relayServiceLink>.",
@@ -2871,6 +2871,14 @@
     "defaultMessage": "Modifier les principales compétences comportementales",
     "description": "Link text for editing a users top behavioural skills"
   },
+  "EWvBgF": {
+    "defaultMessage": "Questions générales {index}",
+    "description": "CSV Header, general question column. "
+  },
+  "EY7YQM": {
+    "defaultMessage": "Il manque au moins 1 évaluation pour les compétences suivantes",
+    "description": "Warning message for skills with missing assessment on the 'assessment details' dialog"
+  },
   "EYPaLh": {
     "defaultMessage": "Vous avez obtenu un diplôme à l’extérieur du Canada? <foreignDegreeLink>Apprenez-en davantage sur les équivalences pour les diplômes étrangers.</foreignDegreeLink>",
     "description": "External link message for the EX graduation with degree requirement."
@@ -3006,6 +3014,10 @@
   "FKF8lG": {
     "defaultMessage": "Catégorie (français)",
     "description": "Title for category in French"
+  },
+  "FKfj8D": {
+    "defaultMessage": "Compétences essentielles",
+    "description": "Label for 'essential skills' input on the assessment details dialog"
   },
   "FMJiDY": {
     "defaultMessage": "Sélectionnez la valeur totale du contrat",
@@ -3558,6 +3570,10 @@
   "Ih9aGC": {
     "defaultMessage": "Compétences comportementales",
     "description": "Heading for a list of users behavioural skills"
+  },
+  "IhPS6D": {
+    "defaultMessage": "Important",
+    "description": "Heading for a section of important information"
   },
   "IhXvCe": {
     "defaultMessage": "Êtes-vous certain de vouloir supprimer cette expérience de votre profil? Cette action ne peut être annulée.",
@@ -4167,6 +4183,10 @@
     "defaultMessage": "Supprimez  « {skillName} » de votre profil",
     "description": "Title for the confirmation alert to delete a skill"
   },
+  "M1en14": {
+    "defaultMessage": "Afficher tous<hidden> les renseignements liés à l’expérience</hidden>",
+    "description": "Button label to expand all experiences"
+  },
   "M2LfhH": {
     "defaultMessage": "Modifier<hidden> une compétence</hidden>",
     "description": "Breadcrumb title for the edit skill page link."
@@ -4390,6 +4410,10 @@
   "NV+5pq": {
     "defaultMessage": "Vous voulez en faire plus? Acquérez de l’expérience en matière de gestion au sein d’un comité d’embauche ou essayez de diriger votre propre processus de recrutement.",
     "description": "Paragraph two, description of the managers community"
+  },
+  "NZ3laJ": {
+    "defaultMessage": "Pour vous reconnecter, vous devrez utiliser votre nom d’utilisateur et votre mot de passe CléGC. Nous espérons vous voir bientôt!",
+    "description": "Message displayed to a user after signing out"
   },
   "NaF4Iu": {
     "defaultMessage": "Inscrivez-vous dès aujourd’hui!",
@@ -5303,6 +5327,10 @@
     "defaultMessage": "Vous avez répondu aux questions suivantes :",
     "description": "Message in screening questions section of the application review page."
   },
+  "Se2I7I": {
+    "defaultMessage": "Échec de la mise à jour de la date d’expiration",
+    "description": "Error message for updating expiry date"
+  },
   "SeJ1eB": {
     "defaultMessage": "Vous recevrez des candidats qui ont :",
     "description": "Title for the candidate list in the 'Indigenous talent ready for IT apprenticeships' section"
@@ -5398,6 +5426,10 @@
   "TE2Nwv": {
     "defaultMessage": "Critères de compétences constituant un atout",
     "description": "Sub title for the pool essential skills"
+  },
+  "THBjEx": {
+    "defaultMessage": "Date d'expiration",
+    "description": "Label for the expiry date input"
   },
   "TIAla1": {
     "defaultMessage": "Non réussi",
@@ -5717,6 +5749,10 @@
   "V9lxDE": {
     "defaultMessage": "Il semble que vous n’ayez pas encore répondu aux questions de sélection.",
     "description": "Null state message in screening questions section of the application review page."
+  },
+  "V9uhhO": {
+    "defaultMessage": "Modification de la date d'expiration",
+    "description": "Title for the change expiry date dialog"
   },
   "VAI+TU": {
     "defaultMessage": "Il n’est pas nécessaire d’évaluer chaque critère essentiel au moyen de chaque méthode d’évaluation. À titre d’exemple, un examen ou des questions d’entrevue techniques permettent mieux d’évaluer les allégations de compétences techniques faites par les candidats, alors que les entrevues ou les vérifications des références sont davantage adaptées pour vérifier les compétences comportementales.",
@@ -6274,6 +6310,10 @@
     "defaultMessage": "Coordonnées",
     "description": "Profile section title for contact information"
   },
+  "XrRt6V": {
+    "defaultMessage": "Date d'expiration mise à jour avec succès",
+    "description": "Success message for updating expiry date"
+  },
   "XrfkBm": {
     "defaultMessage": "Aucune expérience n’est liée à cette compétence.",
     "description": "Message displayed when no experiences have been attached to a skill"
@@ -6334,6 +6374,10 @@
     "defaultMessage": "Apprendre comment décrire le mieux possible votre expérience d’une compétence",
     "description": "Button text to open accordion describing skill experience"
   },
+  "YCv/4v": {
+    "defaultMessage": "Durée pendant laquelle le candidat sera pris en considération pour une affectation à la suite de cette procédure. La durée habituelle est de 2 ans.",
+    "description": "Help text for setting a candidate expiry date"
+  },
   "YGM/D5": {
     "defaultMessage": "Le programme dure 24 mois et les apprentis ont accès à un soutien pendant leur période de participation au programme.",
     "description": "Learn more dialog question two paragraph one"
@@ -6373,10 +6417,6 @@
   "YSnedz": {
     "defaultMessage": "Ayant eu le privilège de travailler en étroite collaboration avec les apprenti·es autochtones et de constater l’immense talent et le potentiel qu’ils possèdent, notre équipe à IRCC est convaincue que cet investissement apportera une valeur considérable à la fois à notre ministère et à nos apprenti·es eux·elles-mêmes.",
     "description": "Quote from Darcy Pierlot about working with apprentices"
-  },
-  "YUx5ti": {
-    "defaultMessage": "Compte supprimé",
-    "description": "Title for the page users land on if their account was deleted."
   },
   "YV3EoS": {
     "defaultMessage": "Modifier les compétences comportementales pour les améliorer",
@@ -7543,7 +7583,7 @@
     "description": "Text on view-user page that the user is part of a visible minority"
   },
   "eihm6A": {
-    "defaultMessage": "Pour postuler à cet emploi, vous devrez être en mesure de démontrer que vous possédez <strong>toutes les compétences</strong> marquées <heavyPrimary>\"Requises\"</heavyPrimary>. Si vous possédez l'une des compétences<heavySecondary>\"Facultatives,\"</heavySecondary> nous vous recommandons de l'inclure, car elle augmentera vos chances de trouver un emploi.",
+    "defaultMessage": "Pour postuler à cet emploi, vous devrez être en mesure de démontrer que vous possédez <strong>toutes les compétences</strong> marquées <heavyPrimary>« Requises »</heavyPrimary>. Si vous possédez l'une des compétences <heavySecondary>« Facultatives »</heavySecondary> nous vous recommandons de l'inclure, car elle augmentera vos chances de trouver un emploi.",
     "description": "Descriptive text about how skills are defined and used for pool advertisements and applications"
   },
   "ekDavD": {
@@ -9606,6 +9646,10 @@
     "defaultMessage": "Chercher les demandes",
     "description": "Label for the search request table search input"
   },
+  "pp+b1H": {
+    "defaultMessage": "Réduire tous<hidden> les renseignements liés à l’expérience</hidden>",
+    "description": "Button label to collapse all experiences"
+  },
   "ppJF9L": {
     "defaultMessage": "Autorité financière déléguée (sec. 32) du contrat",
     "description": "Label for _financial authority_ fieldset in the _digital services contracting questionnaire_"
@@ -9638,6 +9682,10 @@
     "defaultMessage": "À venir!",
     "description": "Heading for a coming soon section"
   },
+  "q5V/+5": {
+    "defaultMessage": "Réduire tous <hidden> les filtres avancés</hidden>",
+    "description": "Button text to hide all advanced filters"
+  },
   "q5rd9x": {
     "defaultMessage": " Description de l’expérience",
     "description": "Label displayed on Personal Experience form for experience description input"
@@ -9653,6 +9701,10 @@
   "qEvJjr": {
     "defaultMessage": "Afin de garantir que le programme reste accessible aux peuples autochtones du Canada, vous devez remplir le formulaire d’auto-déclaration des peuples autochtones et confirmer que vous êtes membre d’une ou plusieurs des communautés autochtones du Canada.",
     "description": "Paragraph three for the self-declaration explanation dialog"
+  },
+  "qFIyZv": {
+    "defaultMessage": "Votre session a expiré. Veuillez vous reconnecter.",
+    "description": "Title for the alert displayed after a user signs out"
   },
   "qFY+K4": {
     "defaultMessage": "Organiser l’approche d’évaluation",

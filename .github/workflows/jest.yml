@@ -45,6 +45,18 @@ jobs:
         run: |
           pnpm run build:fresh
 
-      - name: "Run Unit Tests: all workspaces"
+      - name: "Run Unit Tests: all workspaces with coverage"
         working-directory: ./
-        run: pnpm run test
+        run: |
+          if [ github.actor != 'dependabot[bot]' ]; then
+            pnpm run test -- --coverage
+          else
+            pnpm run test
+          fi
+      - name: "Upload coverage report to Codecov"
+        if: github.actor != 'dependabot[bot]'
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: unittests
+          fail_ci_if_error: false

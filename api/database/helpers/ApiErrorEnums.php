@@ -25,7 +25,18 @@ class ApiErrorEnums
 
     const PROCESS_CLOSING_DATE_EXTEND = 'UpdatePoolClosingDateExtend';
 
+    // pool candidate field validation
+    const EXPIRY_DATE_REQUIRED = 'ExpiryDateRequired';
+
+    const EXPIRY_DATE_AFTER_TODAY = 'ExpiryDateAfterToday';
+
     // ROD status mutation messages
+    const INVALID_STATUS_QUALIFICATION = 'InvalidStatusForQualification';
+
+    const INVALID_STATUS_DISQUALIFICATION = 'InvalidStatusForDisqualification';
+
+    const INVALID_STATUS_REVERT_FINAL_DECISION = 'InvalidStatusForRevertFinalDecision';
+
     const INVALID_STATUS_PLACING = 'InvalidStatusForPlacing';
 
     const CANDIDATE_NOT_PLACED = 'CandidateNotPlaced';
