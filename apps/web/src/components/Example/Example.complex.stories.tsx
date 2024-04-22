@@ -11,6 +11,7 @@ type PagePropsAndCustomArgs = React.ComponentProps<typeof Example> & {
 
 const meta = {
   component: Example,
+  title: "Example/Complex",
   render: ({ footer, ...args }) => (
     <>
       <Example {...args} />
