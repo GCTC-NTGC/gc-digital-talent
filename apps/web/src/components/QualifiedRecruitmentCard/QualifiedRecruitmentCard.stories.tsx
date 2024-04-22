@@ -68,4 +68,4 @@ const Template: StoryFn<typeof QualifiedRecruitmentCard> = () => {
   );
 };
 
-export const AllCards = Template.bind({});
+export const Default = Template.bind({});
