@@ -13,10 +13,14 @@ return new class extends Migration
     public function up(): void
     {
         DB::statement("UPDATE assessment_results SET skill_decision_notes = CONCAT(
-            'Decision notes: ', skill_decision_notes, CHR(13),CHR(10),
-            'Notes for this assessment: ', assessment_notes, CHR(13),CHR(10),
+            skill_decision_notes, CHR(13),CHR(10),
+            'Notes for this assessment: ', assessment_notes
+        ) WHERE assessment_notes IS NOT NULL");
+
+        DB::statement("UPDATE assessment_results SET skill_decision_notes = CONCAT(
+            skill_decision_notes, CHR(13),CHR(10),
             'Other justification notes:  ', other_justification_notes
-        )");
+        ) WHERE other_justification_notes IS NOT NULL");
 
         Schema::table('assessment_results', function (Blueprint $table) {
             $table->dropColumn('assessment_notes');
