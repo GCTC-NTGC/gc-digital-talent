@@ -31,13 +31,13 @@ const Template: StoryFn<typeof AssessmentStepTracker> = (args) => (
   <AssessmentStepTracker {...args} />
 );
 
-export const WithCandidates = Template.bind({});
-WithCandidates.args = {
+export const Default = Template.bind({});
+Default.args = {
   pool: poolWithAssessmentSteps,
 };
 
-export const Empty = Template.bind({});
-Empty.args = {
+export const Null = Template.bind({});
+Null.args = {
   pool: {
     ...poolWithAssessmentSteps,
     poolCandidates: [],

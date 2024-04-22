@@ -18,7 +18,7 @@ const Template: StoryFn<typeof AssessmentResultsTable> = (args) => (
   <AssessmentResultsTable {...args} />
 );
 
-export const WithCandidates = Template.bind({});
-WithCandidates.args = {
+export const Default = Template.bind({});
+Default.args = {
   poolCandidate,
 };
