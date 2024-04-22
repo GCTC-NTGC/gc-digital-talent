@@ -115,6 +115,10 @@
     "defaultMessage": "Sélectionnez une catégorie",
     "description": "Placeholder displayed on the skill family form category field."
   },
+  "+jIT2i": {
+    "defaultMessage": "Exemple",
+    "description": "Title for the example component"
+  },
   "+jknvj": {
     "defaultMessage": "Évaluation enregistrée avec succès.",
     "description": "Message displayed to user if the assessment result was saved successfully."
