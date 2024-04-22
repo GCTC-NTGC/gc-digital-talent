@@ -74,10 +74,10 @@ const Template: StoryFn<typeof FilterDialog> = (args) => {
   );
 };
 
-export const Empty = Template.bind({});
+export const Null = Template.bind({});
 
-export const DefaultValues = Template.bind({});
-DefaultValues.args = {
+export const Default = Template.bind({});
+Default.args = {
   options: {
     defaultValues: {
       single: mockOptions[1].value,
