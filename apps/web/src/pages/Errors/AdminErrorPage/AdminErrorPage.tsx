@@ -19,21 +19,14 @@ const AdminErrorPage = () => {
   );
 
   return (
-    <div data-h2-margin="base(x3, 0)">
-      <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
-        <div data-h2-flex-grid="base(flex-start, x3)">
-          <div data-h2-flex-item="base(1of1)" data-h2-text-align="base(center)">
-            <h3
-              data-h2-font-size="base(h4, 1.3)"
-              className="font-bold"
-              data-h2-margin="base(0, 0, x1, 0)"
-            >
-              {error.messages.title}
-            </h3>
-            {error.messages.body}
-          </div>
-        </div>
-      </div>
+    <div
+      data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
+      className="mt-20 text-center"
+    >
+      <h1 data-h2-font-size="base(h4, 1.3)" className="mb-6 font-bold">
+        {error.messages.title}
+      </h1>
+      {error.messages.body}
     </div>
   );
 };
