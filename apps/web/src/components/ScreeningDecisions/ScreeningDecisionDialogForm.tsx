@@ -90,6 +90,7 @@ const ScreeningDecisionDialogForm = ({
     if (isAssessmentDecisionUnSuccessful) {
       resetDirtyField("assessmentDecisionLevel");
       resetDirtyField("skillDecisionNotes");
+      resetDirtyField("justifications");
     }
 
     if (isAssessmentOnHold) {
