@@ -55,7 +55,7 @@ return new class extends Migration
                                 'end_date', end_date,
                                 'title', title,
                                 'organization', organization,
-                                'project'
+                                'project', project
                             )
                         SQL))
                 );
@@ -88,7 +88,7 @@ return new class extends Migration
                                 'start_date', start_date,
                                 'end_date', end_date,
                                 'title', title,
-                                'description'
+                                'description', description
                             )
                         SQL))
                 );
