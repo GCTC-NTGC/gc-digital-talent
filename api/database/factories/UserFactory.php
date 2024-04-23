@@ -131,26 +131,38 @@ class UserFactory extends Factory
 
     public function withSkillsAndExperiences($count = 10)
     {
-        $experienceFactories = [
-            AwardExperience::factory(),
-            CommunityExperience::factory(),
-            EducationExperience::factory(),
-            PersonalExperience::factory(),
-            WorkExperience::factory(),
-        ];
         $allSkills = Skill::select('id')->inRandomOrder()->take($count)->get();
 
-        return $this->afterCreating(function (User $user) use ($count, $experienceFactories, $allSkills) {
+        return $this->afterCreating(function (User $user) use ($count, $allSkills) {
+            $experienceFactories = [
+                AwardExperience::factory(['user_id' => $user->id]),
+                CommunityExperience::factory(['user_id' => $user->id]),
+                EducationExperience::factory(['user_id' => $user->id]),
+                PersonalExperience::factory(['user_id' => $user->id]),
+                WorkExperience::factory(['user_id' => $user->id]),
+            ];
+
             $skillSequence = $allSkills->shuffle()->map(fn ($skill) => ['skill_id' => $skill['id']])->toArray();
 
             $userSkills = UserSkill::factory($count)->for($user)
                 ->sequence(...$skillSequence)
                 ->create();
             $skills = $userSkills->map(fn ($us) => $us->skill);
-            $experienceFactory = $this->faker->randomElement($experienceFactories);
-            $experienceFactory->count($count)->for($user)->afterCreating(function ($experience) use ($skills) {
-                $experience->skills()->sync($this->faker->randomElements($skills, $this->faker->numberBetween(1, $skills->count())));
-            });
+
+            // create two experiences and attach a random number of skills to each through experience_skill pivot
+            $experienceOne = $this->faker->randomElement($experienceFactories)->create();
+            $skillsForExperienceOne = $this->faker->unique()->randomElements($skills, $this->faker->numberBetween(1, $skills->count()));
+            $syncDataExperienceOne = array_map(function ($skill) {
+                return ['id' => $skill->id, 'details' => $this->faker->text()];
+            }, $skillsForExperienceOne);
+            $experienceOne->syncSkills($syncDataExperienceOne);
+
+            $experienceTwo = $this->faker->randomElement($experienceFactories)->create();
+            $skillsForExperienceTwo = $this->faker->unique()->randomElements($skills, $this->faker->numberBetween(1, $skills->count()));
+            $syncDataExperienceTwo = array_map(function ($skill) {
+                return ['id' => $skill->id, 'details' => $this->faker->text()];
+            }, $skillsForExperienceTwo);
+            $experienceTwo->syncSkills($syncDataExperienceTwo);
         });
     }
 
