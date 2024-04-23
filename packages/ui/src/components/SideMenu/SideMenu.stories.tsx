@@ -9,6 +9,7 @@ import ArrowLeftOnRectangleIcon from "@heroicons/react/24/solid/ArrowLeftOnRecta
 import { useIntl } from "react-intl";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
+import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Button from "../Button";
 import SideMenuComponent from "./SideMenu";
@@ -33,6 +34,12 @@ export default {
   },
   parameters: {
     layout: "fullscreen",
+    chromatic: {
+      modes: {
+        light: allModes.light,
+        dark: allModes.dark,
+      },
+    },
   },
 } as Meta;
 
