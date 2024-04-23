@@ -26,48 +26,48 @@ const TemplateSkillAccordion: StoryFn<SkillAccordionProps> = (args) => {
   );
 };
 
-export const AccordionAwardExample = TemplateSkillAccordion.bind({});
-export const AccordionCommunityExample = TemplateSkillAccordion.bind({});
-export const AccordionEducationExample = TemplateSkillAccordion.bind({});
-export const AccordionPersonalExample = TemplateSkillAccordion.bind({});
-export const AccordionWorkExample = TemplateSkillAccordion.bind({});
-export const AccordionNoExperienceExample = TemplateSkillAccordion.bind({});
+export const AccordionAward = TemplateSkillAccordion.bind({});
+export const AccordionCommunity = TemplateSkillAccordion.bind({});
+export const AccordionEducation = TemplateSkillAccordion.bind({});
+export const AccordionPersonal = TemplateSkillAccordion.bind({});
+export const AccordionWork = TemplateSkillAccordion.bind({});
+export const AccordionNoExperience = TemplateSkillAccordion.bind({});
 
-AccordionAwardExample.args = {
+AccordionAward.args = {
   skill: {
     ...fakeSkills()[0],
     experiences: experienceGenerators.awardExperiences(),
   },
 };
 
-AccordionCommunityExample.args = {
+AccordionCommunity.args = {
   skill: {
     ...fakeSkills()[0],
     experiences: experienceGenerators.communityExperiences(2),
   },
 };
 
-AccordionEducationExample.args = {
+AccordionEducation.args = {
   skill: {
     ...fakeSkills()[0],
     experiences: experienceGenerators.educationExperiences(),
   },
 };
 
-AccordionPersonalExample.args = {
+AccordionPersonal.args = {
   skill: {
     ...fakeSkills()[0],
     experiences: experienceGenerators.personalExperiences(),
   },
 };
 
-AccordionWorkExample.args = {
+AccordionWork.args = {
   skill: {
     ...fakeSkills()[0],
     experiences: experienceGenerators.workExperiences(),
   },
 };
-AccordionNoExperienceExample.args = {
+AccordionNoExperience.args = {
   skill: {
     ...fakeSkills()[0],
     experiences: [],
