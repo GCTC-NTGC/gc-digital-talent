@@ -35,7 +35,7 @@ function justPastExpiry(accessToken: string): Date {
 describe("Login and logout", () => {
   // Prepare to intercept/detect relevant GraphQL requests.
   beforeEach(() => {
-    cy.intercept("POST", "/graphql", (req) => {
+    cy.intercept("POST", "**/graphql", (req) => {
       aliasQuery(req, "authorizationQuery");
     });
   });
@@ -78,7 +78,7 @@ describe("Login and logout", () => {
     // If you log in as a deleted user you end up on the "user deleted" page.
     it("will show a message when logged in as a deleted user", () => {
       // stub the "user deleted" API response
-      cy.intercept("POST", "/graphql", (req) => {
+      cy.intercept("POST", "**/graphql", (req) => {
         if (hasOperationName(req, "authorizationQuery")) {
           // Declare the alias from the initial intercept in the beforeEach
           req.alias = "gqlauthorizationQueryQuery";
