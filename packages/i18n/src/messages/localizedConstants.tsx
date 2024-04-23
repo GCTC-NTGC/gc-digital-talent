@@ -2229,17 +2229,17 @@ export const getPoolOpportunityLength = (
 const candidateRemovalReasons = defineMessages({
   [CandidateRemovalReason.RequestedToBeWithdrawn]: {
     defaultMessage: "Candidate has requested to be withdrawn",
-    id: "261Ycu",
+    id: "kaowOV",
     description: "Option for request to be withdrawn",
   },
   [CandidateRemovalReason.NotResponsive]: {
     defaultMessage: "Candidate is not responsive",
-    id: "BoTqZU",
+    id: "V6t8Yd",
     description: "Option for not responsive candidate being removed",
   },
   [CandidateRemovalReason.Other]: {
     defaultMessage: "Other reason",
-    id: "MrQfby",
+    id: "mW2qym",
     description: "Option for other reason to remove candidate",
   },
 });
