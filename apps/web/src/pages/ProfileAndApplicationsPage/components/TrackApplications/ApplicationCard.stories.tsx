@@ -14,26 +14,17 @@ import ApplicationCard from "./ApplicationCard";
 
 const mockApplications = fakePoolCandidates(20);
 
-const activeApplications = Object.values(PoolCandidateStatus).map(
-  (status, index) => {
-    return {
-      ...mockApplications[index],
-      status,
-      archivedAt: null,
-      pool: {
-        ...mockApplications[index].pool,
-        closingDate: FAR_FUTURE_DATE,
-      },
-    };
-  },
-);
-
-const expiredApplications = fakePoolCandidates(5).map((application) => ({
-  ...application,
-  expiryDate: FAR_PAST_DATE,
-}));
-
-const applications = [...activeApplications, ...expiredApplications];
+const applications = Object.values(PoolCandidateStatus).map((status, index) => {
+  return {
+    ...mockApplications[index],
+    status,
+    archivedAt: null,
+    pool: {
+      ...mockApplications[index].pool,
+      closingDate: FAR_FUTURE_DATE,
+    },
+  };
+});
 
 export default {
   component: ApplicationCard,
