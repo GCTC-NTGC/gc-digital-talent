@@ -14,7 +14,7 @@ describe("User Profile Workflow Tests", () => {
   };
 
   beforeEach(() => {
-    cy.intercept("POST", "/graphql", (req) => {
+    cy.intercept("POST", "**/graphql", (req) => {
       aliasQuery(req, "ProfileUser");
       aliasMutation(req, "UpdateUserAsUser");
     });
