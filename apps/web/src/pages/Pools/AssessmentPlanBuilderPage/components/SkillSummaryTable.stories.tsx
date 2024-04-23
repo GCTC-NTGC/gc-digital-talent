@@ -1,5 +1,6 @@
 import React from "react";
 import type { StoryFn } from "@storybook/react";
+import { faker } from "@faker-js/faker";
 
 import {
   fakePools,
@@ -16,9 +17,11 @@ import {
 
 import SkillSummaryTable from "./SkillSummaryTable";
 
+faker.seed(0);
+
 export default {
   component: SkillSummaryTable,
-  title: "Components/SkillSummaryTable",
+  title: "Tables/Skill Summary Table",
 };
 
 const Template: StoryFn<typeof SkillSummaryTable> = (args) => {
@@ -123,7 +126,7 @@ const assessmentStepsArray: AssessmentStep[] = [
 
 export const Default = Template.bind({});
 Default.args = {
-  title: "Title",
+  title: faker.lorem.words(1),
   poolSkills: poolSkillsArray,
   assessmentSteps: assessmentStepsArray,
 };
