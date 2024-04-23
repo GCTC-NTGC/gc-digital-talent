@@ -361,9 +361,7 @@ export const ScreeningDecisionDialog = ({
     assessmentDecision: null,
     assessmentDecisionLevel: null,
     justifications: null,
-    otherJustificationNotes: null,
     skillDecisionNotes: null,
-    assessmentNotes: null,
   };
 
   const triggerColor = (): Color => {
@@ -563,9 +561,7 @@ const ScreeningDecisionDialogApi = ({
     )
       ? assessmentResult.justifications[0]
       : assessmentResult?.justifications,
-    otherJustificationNotes: assessmentResult?.otherJustificationNotes,
     skillDecisionNotes: assessmentResult?.skillDecisionNotes,
-    assessmentNotes: assessmentResult?.assessmentNotes,
   };
 
   const [, executeCreateMutation] = useMutation(

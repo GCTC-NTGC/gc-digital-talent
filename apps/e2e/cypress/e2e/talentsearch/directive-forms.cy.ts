@@ -105,7 +105,7 @@ const DigitalContractQuestionnaire_Query = graphql(
 
 describe("Directive Forms Tests", () => {
   beforeEach(() => {
-    cy.intercept("POST", "/graphql", (req) => {
+    cy.intercept("POST", "**/graphql", (req) => {
       aliasQuery(req, "DigitalContractQuestionnaire");
       aliasMutation(req, "CreateDigitalContractingQuestionnaire");
     });
