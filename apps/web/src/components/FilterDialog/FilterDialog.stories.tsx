@@ -74,8 +74,6 @@ const Template: StoryFn<typeof FilterDialog> = (args) => {
   );
 };
 
-export const Null = Template.bind({});
-
 export const Default = Template.bind({});
 Default.args = {
   options: {
@@ -85,3 +83,5 @@ Default.args = {
     },
   },
 };
+
+export const Null = Template.bind({});
