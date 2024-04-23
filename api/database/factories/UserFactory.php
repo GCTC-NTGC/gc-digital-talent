@@ -151,14 +151,14 @@ class UserFactory extends Factory
 
             // create two experiences and attach a random number of skills to each through experience_skill pivot
             $experienceOne = $this->faker->randomElement($experienceFactories)->create();
-            $skillsForExperienceOne = $this->faker->unique()->randomElements($skills, $this->faker->numberBetween(1, $skills->count()));
+            $skillsForExperienceOne = $this->faker->randomElements($skills, $this->faker->numberBetween(1, $skills->count()));
             $syncDataExperienceOne = array_map(function ($skill) {
                 return ['id' => $skill->id, 'details' => $this->faker->text()];
             }, $skillsForExperienceOne);
             $experienceOne->syncSkills($syncDataExperienceOne);
 
             $experienceTwo = $this->faker->randomElement($experienceFactories)->create();
-            $skillsForExperienceTwo = $this->faker->unique()->randomElements($skills, $this->faker->numberBetween(1, $skills->count()));
+            $skillsForExperienceTwo = $this->faker->randomElements($skills, $this->faker->numberBetween(1, $skills->count()));
             $syncDataExperienceTwo = array_map(function ($skill) {
                 return ['id' => $skill->id, 'details' => $this->faker->text()];
             }, $skillsForExperienceTwo);
