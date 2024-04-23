@@ -13,7 +13,7 @@ import FinalDecisionDialog from "./FinalDecisionDialog";
 
 export default {
   component: FinalDecisionDialog,
-  title: "Components/Final decision dialog",
+  title: "Components/Final Decision Dialog",
   decorators: [OverlayOrDialogDecorator],
   args: {
     defaultOpen: true,
@@ -23,10 +23,12 @@ export default {
 const fakedCandidate = fakePoolCandidates(1)[0];
 const fakedSkills = fakeSkills(3);
 
-// education result, success
-// skill 0, 1 success and 1 fail
-// skill 1, success
-// skill 2, not sure
+/*
+education result, success
+skill 0, 1 success and 1 fail
+skill 1, success
+skill 2, not sure
+*/
 const candidateAssessmentResults: AssessmentResult[] = [
   {
     id: "education-result",
