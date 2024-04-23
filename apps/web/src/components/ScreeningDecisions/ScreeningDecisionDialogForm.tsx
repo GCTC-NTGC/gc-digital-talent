@@ -65,16 +65,6 @@ const ScreeningDecisionDialogForm = ({
   const otherReasonSelected =
     Array.isArray(watchJustifications) &&
     watchJustifications.includes(AssessmentResultJustification.FailedOther);
-  const insufficientlyDemonstrated =
-    Array.isArray(watchJustifications) &&
-    watchJustifications.includes(
-      AssessmentResultJustification.SkillFailedInsufficientlyDemonstrated,
-    );
-  const notEnoughInformation =
-    Array.isArray(watchJustifications) &&
-    watchJustifications.includes(
-      AssessmentResultJustification.FailedNotEnoughInformation,
-    );
 
   /**
    * Reset un-rendered fields
@@ -237,11 +227,7 @@ const ScreeningDecisionDialogForm = ({
           </p>
         </Well>
       )}
-      {isAssessmentOnHold ||
-      (isAssessmentDecisionUnSuccessful &&
-        (insufficientlyDemonstrated ||
-          notEnoughInformation ||
-          otherReasonSelected)) ? (
+      {isAssessmentOnHold || isAssessmentDecisionUnSuccessful ? (
         <div data-h2-margin="base(x1, 0)">
           <TextArea
             id="skillDecisionNotes"
