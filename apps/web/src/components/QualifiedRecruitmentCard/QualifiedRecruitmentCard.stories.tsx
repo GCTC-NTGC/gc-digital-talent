@@ -35,7 +35,7 @@ const availabilities: Availability[] = ["Available", "Unavailable"];
 
 export default {
   component: QualifiedRecruitmentCard,
-  title: "Components/Qualified Recruitment Card",
+  title: "Components/Card/Qualified Recruitment Card",
 };
 
 const Template: StoryFn<typeof QualifiedRecruitmentCard> = () => {

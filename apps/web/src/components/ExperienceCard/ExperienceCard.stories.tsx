@@ -13,7 +13,7 @@ faker.seed(0);
 
 export default {
   component: ExperienceCard,
-  title: "Components/Experience Card",
+  title: "Components/Card/Experience Card",
 };
 
 const Template: StoryFn<typeof ExperienceCard> = (args) => {

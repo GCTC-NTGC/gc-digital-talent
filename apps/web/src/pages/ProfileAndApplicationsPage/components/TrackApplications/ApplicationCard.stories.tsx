@@ -25,7 +25,7 @@ const applications = Object.values(PoolCandidateStatus).map((status, index) => {
 
 export default {
   component: ApplicationCard,
-  title: "Components/Application Card",
+  title: "Components/Card/Application Card",
 } as Meta;
 
 const Template: StoryFn<typeof ApplicationCard> = () => {
@@ -53,4 +53,4 @@ const Template: StoryFn<typeof ApplicationCard> = () => {
   );
 };
 
-export const ApplicationCards = Template.bind({});
+export const Default = Template.bind({});
