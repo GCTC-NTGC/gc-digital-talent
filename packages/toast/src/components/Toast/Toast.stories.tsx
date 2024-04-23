@@ -42,4 +42,4 @@ const Template: StoryFn<StoryArgs> = (args) => {
   );
 };
 
-export const BasicToast = Template.bind({});
+export const Default = Template.bind({});
