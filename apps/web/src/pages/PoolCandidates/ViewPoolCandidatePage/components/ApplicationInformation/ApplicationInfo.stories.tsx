@@ -51,6 +51,7 @@ export default {
     snapshot: mockUser,
     application: mockPoolCandidate,
     poolQuery: mockPool,
+    defaultOpen: true,
   },
 };
 
