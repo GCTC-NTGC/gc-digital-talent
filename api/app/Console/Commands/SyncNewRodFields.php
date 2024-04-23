@@ -46,7 +46,7 @@ class SyncNewRodFields extends Command
             PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
         ];
 
-        $applicableModels = PoolCandidate::with('user')
+        $applicableModels = PoolCandidate::with('user') // lazy load error otherwise
             ->whereNotIn('pool_candidate_status', [
                 PoolCandidateStatus::DRAFT->name,
                 PoolCandidateStatus::DRAFT_EXPIRED->name,
