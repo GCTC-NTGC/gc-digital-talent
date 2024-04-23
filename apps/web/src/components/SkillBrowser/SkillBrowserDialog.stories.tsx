@@ -15,7 +15,7 @@ const mockSkills = getStaticSkills();
 
 export default {
   component: SkillBrowserDialog,
-  title: "Components/Skill Browser/Dialog",
+  title: "Components/Dialog/Skill Browser Dialog",
   decorators: [OverlayOrDialogDecorator],
   args: {
     skills: mockSkills,

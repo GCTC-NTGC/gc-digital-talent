@@ -13,7 +13,7 @@ import FinalDecisionDialog from "./FinalDecisionDialog";
 
 export default {
   component: FinalDecisionDialog,
-  title: "Components/Final Decision Dialog",
+  title: "Components/Dialog/Final Decision Dialog",
   decorators: [OverlayOrDialogDecorator],
   args: {
     defaultOpen: true,

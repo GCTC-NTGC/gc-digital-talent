@@ -23,7 +23,7 @@ type FormValues = {
 
 export default {
   component: FilterDialog,
-  title: "Components/Filter Dialog",
+  title: "Components/Dialog/Filter Dialog",
   decorators: [OverlayOrDialogDecorator],
   args: {
     defaultOpen: true,

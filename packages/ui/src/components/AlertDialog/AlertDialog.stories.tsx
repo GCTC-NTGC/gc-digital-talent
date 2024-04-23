@@ -11,7 +11,7 @@ import AlertDialog from "./AlertDialog";
 
 export default {
   component: AlertDialog.Root,
-  title: "Components/Alert Dialog",
+  title: "Components/Dialog/Alert Dialog",
   decorators: [OverlayOrDialogDecorator],
   args: { defaultOpen: true },
   parameters: {
