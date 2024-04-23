@@ -1,6 +1,7 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
 import { Meta, StoryFn } from "@storybook/react";
+import { color } from "framer-motion";
 
 import Pagination from "./Pagination";
 import type { PaginationProps } from "./Pagination";
@@ -14,6 +15,11 @@ export default {
     handlePageSize: action("Change page size"),
     color: "black",
     mode: "outline",
+  },
+  argTypes: {
+    color: {
+      control: false,
+    },
   },
 } as Meta;
 
@@ -31,7 +37,6 @@ Default.args = {
   siblings: 1,
   currentPage: 1,
   pageSize: 10,
-  color: "black",
 };
 
 NoDots.args = {
