@@ -44,6 +44,7 @@ import ChangeStatusDialog from "~/pages/Users/UserInformationPage/components/Cha
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import {
   RECORD_DECISION_STATUSES,
+  REMOVED_STATUSES,
   REVERT_DECISION_STATUSES,
 } from "~/constants/poolCandidate";
 
@@ -54,6 +55,7 @@ import NotesDialog from "./components/MoreActions/NotesDialog";
 import FinalDecisionDialog from "./components/MoreActions/FinalDecisionDialog";
 import CandidateNavigation from "./components/CandidateNavigation/CandidateNavigation";
 import ChangeExpiryDateDialog from "./components/ChangeExpiryDateDialog/ChangeExpiryDateDialog";
+import RemoveCandidateDialog from "./components/RemoveCandidateDialog/RemoveCandidateDialog";
 
 const screeningAndAssessmentTitle = defineMessage({
   defaultMessage: "Screening and assessment",
@@ -65,6 +67,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
   query PoolCandidateSnapshot($poolCandidateId: UUID!) {
     poolCandidate(id: $poolCandidateId) {
       ...CandidateExpiryDateDialog
+      ...RemoveCandidateDialog
       id
       status
       user {
@@ -815,6 +818,10 @@ export const ViewPoolCandidate = ({
                   <></>
                 )}
               <ChangeExpiryDateDialog expiryDateQuery={poolCandidate} />
+              {poolCandidate.status &&
+                !REMOVED_STATUSES.includes(poolCandidate.status) && (
+                  <RemoveCandidateDialog removalQuery={poolCandidate} />
+                )}
               {/* TODO: Add "Remove" and "Re-instate" dialogs to Pool Candidate
               page (#9198) */}
               {false && (
