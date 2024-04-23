@@ -56,6 +56,7 @@ import FinalDecisionDialog from "./components/MoreActions/FinalDecisionDialog";
 import CandidateNavigation from "./components/CandidateNavigation/CandidateNavigation";
 import ChangeExpiryDateDialog from "./components/ChangeExpiryDateDialog/ChangeExpiryDateDialog";
 import RemoveCandidateDialog from "./components/RemoveCandidateDialog/RemoveCandidateDialog";
+import ReinstateCandidateDialog from "./components/ReinstateCandidateDialog/ReinstateCandidateDialog";
 
 const screeningAndAssessmentTitle = defineMessage({
   defaultMessage: "Screening and assessment",
@@ -68,6 +69,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
     poolCandidate(id: $poolCandidateId) {
       ...CandidateExpiryDateDialog
       ...RemoveCandidateDialog
+      ...ReinstateCandidateDialog
       id
       status
       user {
@@ -738,6 +740,9 @@ export const ViewPoolCandidate = ({
     intl,
   );
 
+  const isRemoved =
+    poolCandidate.status && REMOVED_STATUSES.includes(poolCandidate.status);
+
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
       {
@@ -797,7 +802,8 @@ export const ViewPoolCandidate = ({
               data-h2-margin-bottom="base(x1)"
             >
               {poolCandidate.status &&
-                RECORD_DECISION_STATUSES.includes(poolCandidate.status) && (
+                RECORD_DECISION_STATUSES.includes(poolCandidate.status) &&
+                !isRemoved && (
                   <FinalDecisionDialog
                     poolCandidateId={poolCandidate.id}
                     poolCandidateStatus={poolCandidate.status}
@@ -818,10 +824,11 @@ export const ViewPoolCandidate = ({
                   <></>
                 )}
               <ChangeExpiryDateDialog expiryDateQuery={poolCandidate} />
-              {poolCandidate.status &&
-                !REMOVED_STATUSES.includes(poolCandidate.status) && (
-                  <RemoveCandidateDialog removalQuery={poolCandidate} />
-                )}
+              {isRemoved ? (
+                <ReinstateCandidateDialog reinstateQuery={poolCandidate} />
+              ) : (
+                <RemoveCandidateDialog removalQuery={poolCandidate} />
+              )}
               {/* TODO: Add "Remove" and "Re-instate" dialogs to Pool Candidate
               page (#9198) */}
               {false && (
