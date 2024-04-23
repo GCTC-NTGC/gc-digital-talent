@@ -3,6 +3,8 @@ import type { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { faker } from "@faker-js/faker";
 
+import { allModes } from "@gc-digital-talent/storybook-helpers";
+
 import CardRepeater from "./CardRepeater";
 import { useCardRepeaterContext } from "./CardRepeaterProvider";
 import Button from "../Button/Button";
@@ -157,8 +159,6 @@ const AddDialog = () => {
   );
 };
 
-const themes = ["light", "dark"];
-
 const Template: StoryFn<typeof CardRepeater.Root<CardItem>> = (args) => {
   const { items: itemsArg } = args;
   const [items, setItems] = React.useState<CardItem[]>(itemsArg ?? []);
@@ -169,34 +169,23 @@ const Template: StoryFn<typeof CardRepeater.Root<CardItem>> = (args) => {
   };
 
   return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-grid-template-columns="base(100%) l-tablet(50% 50%)"
+    <CardRepeater.Root<CardItem>
+      {...args}
+      items={items}
+      onUpdate={handleUpdate}
+      add={<AddDialog />}
     >
-      {themes.map((theme) => (
-        <div data-h2={theme} key={theme}>
-          <div data-h2-background="base(background)" data-h2-padding="base(x2)">
-            <CardRepeater.Root<CardItem>
-              {...args}
-              items={items}
-              onUpdate={handleUpdate}
-              add={<AddDialog />}
-            >
-              {items.map((item, index) => (
-                <CardRepeater.Card
-                  key={item.id}
-                  index={index}
-                  edit={<EditDialog item={item} index={index} />}
-                  remove={<RemoveDialog item={item} index={index} />}
-                >
-                  {item.value}
-                </CardRepeater.Card>
-              ))}
-            </CardRepeater.Root>
-          </div>
-        </div>
+      {items.map((item, index) => (
+        <CardRepeater.Card
+          key={item.id}
+          index={index}
+          edit={<EditDialog item={item} index={index} />}
+          remove={<RemoveDialog item={item} index={index} />}
+        >
+          {item.value}
+        </CardRepeater.Card>
       ))}
-    </div>
+    </CardRepeater.Root>
   );
 };
 
@@ -227,32 +216,40 @@ const defaultItems = [
   },
 ];
 
-export const WithItems = Template.bind({});
-WithItems.args = {
+export const Default = Template.bind({});
+Default.parameters = {
+  chromatic: {
+    modes: {
+      light: allModes.light,
+      dark: allModes.dark,
+    },
+  },
+};
+Default.args = {
   items: defaultItems,
 };
 
 export const MaxItems = Template.bind({});
 MaxItems.args = {
-  ...WithItems.args,
+  ...Default.args,
   max: 6,
 };
 
 export const HiddenIndex = Template.bind({});
 HiddenIndex.args = {
-  ...WithItems.args,
+  ...Default.args,
   hideIndex: true,
 };
 
 export const Disabled = Template.bind({});
 Disabled.args = {
-  ...WithItems.args,
+  ...Default.args,
   disabled: true,
 };
 
 export const Locked = Template.bind({});
 Locked.args = {
-  ...WithItems.args,
+  ...Default.args,
   moveDisabledIndexes: [1],
   editDisabledIndexes: [2],
   removeDisabledIndexes: [3],
