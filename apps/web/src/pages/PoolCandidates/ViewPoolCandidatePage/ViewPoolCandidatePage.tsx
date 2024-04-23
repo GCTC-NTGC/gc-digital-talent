@@ -66,6 +66,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
   query PoolCandidateSnapshot($poolCandidateId: UUID!) {
     poolCandidate(id: $poolCandidateId) {
       ...CandidateExpiryDateDialog
+      ...RevertFinalDecisionDialog
       finalDecisionAt
       id
       status
@@ -810,10 +811,7 @@ export const ViewPoolCandidate = ({
               {poolCandidate.status &&
                 REVERT_DECISION_STATUSES.includes(poolCandidate.status) && (
                   <RevertFinalDecisionDialog
-                    poolCandidateId={poolCandidate.id}
-                    poolCandidateStatus={poolCandidate.status}
-                    expiryDate={poolCandidate.expiryDate}
-                    finalDecisionAt={poolCandidate.finalDecisionAt}
+                    revertFinalDecisionQuery={poolCandidate}
                   />
                 )}
               <ChangeExpiryDateDialog expiryDateQuery={poolCandidate} />

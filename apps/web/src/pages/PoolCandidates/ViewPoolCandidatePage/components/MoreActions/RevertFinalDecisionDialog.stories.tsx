@@ -23,20 +23,32 @@ const Template: StoryFn<typeof RevertFinalDecisionDialog> = (args) => (
 );
 
 const defaultArgs = {
-  poolCandidateId: fakedCandidate.id,
-  poolCandidateStatus: fakedCandidate.status,
+  id: fakedCandidate.id,
+  status: fakedCandidate.status,
   expiryDate: fakedCandidate.expiryDate,
   finalDecisionAt: fakedCandidate.finalDecisionAt,
 };
 
 export const Qualified = Template.bind({});
 Qualified.args = {
-  ...defaultArgs,
-  poolCandidateStatus: PoolCandidateStatus.QualifiedAvailable,
+  revertFinalDecisionQuery: {
+    " $fragmentRefs": {
+      RevertFinalDecisionDialogFragment: {
+        ...defaultArgs,
+        status: PoolCandidateStatus.QualifiedAvailable,
+      },
+    },
+  },
 };
 
 export const Disqualified = Template.bind({});
 Disqualified.args = {
-  ...defaultArgs,
-  poolCandidateStatus: PoolCandidateStatus.ScreenedOutApplication,
+  revertFinalDecisionQuery: {
+    " $fragmentRefs": {
+      RevertFinalDecisionDialogFragment: {
+        ...defaultArgs,
+        status: PoolCandidateStatus.ScreenedOutApplication,
+      },
+    },
+  },
 };

@@ -5,8 +5,9 @@ import ArrowUturnLeftIcon from "@heroicons/react/24/outline/ArrowUturnLeftIcon";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import {
-  Maybe,
+  FragmentType,
   PoolCandidateStatus,
+  getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
@@ -31,32 +32,41 @@ const messages = defineMessages({
   },
 });
 
-const FinalDecision_RevertMutation = graphql(/* GraphQL */ `
-  mutation FinalDecision_RevertMutation($id: UUID!) {
+const RevertFinalDecision_Mutation = graphql(/* GraphQL */ `
+  mutation RevertFinalDecision_Mutation($id: UUID!) {
     revertFinalDecision(id: $id) {
       id
     }
   }
 `);
 
+const RevertFinalDecisionDialog_Fragment = graphql(/* GraphQL */ `
+  fragment RevertFinalDecisionDialog on PoolCandidate {
+    id
+    expiryDate
+    finalDecisionAt
+    status
+  }
+`);
+
 interface RevertFinalDecisionDialogProps {
-  poolCandidateId: string;
-  poolCandidateStatus: Maybe<PoolCandidateStatus> | undefined;
-  expiryDate?: Maybe<string> | undefined;
-  finalDecisionAt?: Maybe<string> | undefined;
+  revertFinalDecisionQuery: FragmentType<
+    typeof RevertFinalDecisionDialog_Fragment
+  >;
   defaultOpen?: boolean;
 }
 
 const RevertFinalDecisionDialog = ({
-  poolCandidateId,
-  poolCandidateStatus,
-  expiryDate,
-  finalDecisionAt,
+  revertFinalDecisionQuery,
   defaultOpen = false,
 }: RevertFinalDecisionDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = React.useState<boolean>(defaultOpen);
-  const [, executeMutation] = useMutation(FinalDecision_RevertMutation);
+  const [, executeMutation] = useMutation(RevertFinalDecision_Mutation);
+  const { id, expiryDate, finalDecisionAt, status } = getFragment(
+    RevertFinalDecisionDialog_Fragment,
+    revertFinalDecisionQuery,
+  );
 
   const handleError = () => {
     toast.error(
@@ -70,7 +80,7 @@ const RevertFinalDecisionDialog = ({
   };
 
   const handleSubmit = async () => {
-    await executeMutation({ id: poolCandidateId })
+    await executeMutation({ id })
       .then((result) => {
         if (result.data?.revertFinalDecision) {
           toast.success(
@@ -93,15 +103,15 @@ const RevertFinalDecisionDialog = ({
 
   const isQualified = () => {
     if (
-      poolCandidateStatus === PoolCandidateStatus.QualifiedAvailable ||
-      poolCandidateStatus === PoolCandidateStatus.Expired
+      status === PoolCandidateStatus.QualifiedAvailable ||
+      status === PoolCandidateStatus.Expired
     ) {
       return true;
     }
 
     if (
-      poolCandidateStatus === PoolCandidateStatus.ScreenedOutApplication ||
-      poolCandidateStatus === PoolCandidateStatus.ScreenedOutAssessment
+      status === PoolCandidateStatus.ScreenedOutApplication ||
+      status === PoolCandidateStatus.ScreenedOutAssessment
     ) {
       return false;
     }
@@ -171,8 +181,8 @@ const RevertFinalDecisionDialog = ({
                 </p>
                 <p data-h2-font-weight="base(bold)">
                   {intl.formatMessage(
-                    poolCandidateStatus
-                      ? getPoolCandidateStatus(poolCandidateStatus)
+                    status
+                      ? getPoolCandidateStatus(status)
                       : commonMessages.notFound,
                   )}
                 </p>
