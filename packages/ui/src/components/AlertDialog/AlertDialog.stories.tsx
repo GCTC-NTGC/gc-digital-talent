@@ -33,12 +33,10 @@ const Template: StoryFn<typeof AlertDialog.Root> = ({ defaultOpen }) => (
     <AlertDialog.Content>
       <AlertDialog.Title>Example Alert Dialog</AlertDialog.Title>
       <AlertDialog.Description>
-        <p>
-          An alert dialog is a modal dialog that interrupts the user&apos;s
-          workflow to communicate an important message and acquire a response.
-          Examples include action confirmation prompts and error message
-          confirmations.
-        </p>
+        An alert dialog is a modal dialog that interrupts the user&apos;s
+        workflow to communicate an important message and acquire a response.
+        Examples include action confirmation prompts and error message
+        confirmations.
       </AlertDialog.Description>
       <AlertDialog.Footer>
         <AlertDialog.Cancel>
