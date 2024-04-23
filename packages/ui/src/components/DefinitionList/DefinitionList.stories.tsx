@@ -45,8 +45,8 @@ Default.args = {
   ),
 };
 
-export const WithIcons = Template.bind({});
-WithIcons.args = {
+export const WithIcon = Template.bind({});
+WithIcon.args = {
   children: (
     <>
       <DefinitionList.Item title="Item One" Icon={AcademicCapIcon}>
