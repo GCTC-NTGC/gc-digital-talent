@@ -1,7 +1,6 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
 import { Meta, StoryFn } from "@storybook/react";
-import { color } from "framer-motion";
 
 import Pagination from "./Pagination";
 import type { PaginationProps } from "./Pagination";
