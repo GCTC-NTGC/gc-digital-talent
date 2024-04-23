@@ -12,7 +12,7 @@ faker.seed(0);
 
 export default {
   component: CardRepeater.Root,
-  title: "Components/Card Repeater",
+  title: "Components/Card/Card Repeater",
 };
 
 type CardItem = {
