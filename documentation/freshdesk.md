@@ -1,6 +1,6 @@
 # Freshdesk
 
-Freshdesk is the customer service software used by GC Digital Talent for creating support tickets.
+Freshdesk is the customer service software used by GC Digital Talent for creating support tickets. There is no shared test environment. In order to test the creation of support tickets, either sign up for a free trial Freshdesk account or use the production account where [`FRESHDESK_API_TICKET_TAG` must be set to "test"](#environment-variables).
 
 ## Account
 
@@ -22,7 +22,7 @@ These values are read by the API in `api/config/freshdesk.php`. The API logic fo
 - Set value of `FRESHDESK_API_TICKET_TAG` to "test"
 
 > [!NOTE]  
-> Optional fields that are not required for ticket creation locally but are used in production are `FRESHDESK_API_PRODUCT_ID` and `FRESHDESK_API_EMAIL_CONFIG_ID`. The Freshdesk API has endpoints for [products](https://developers.freshdesk.com/api/#products) and [email configs](https://developers.freshdesk.com/api/#email-configs) in case they need to be tested on a local environment
+> Optional fields that are not required for ticket creation locally but are used in production are `FRESHDESK_API_PRODUCT_ID` and `FRESHDESK_API_EMAIL_CONFIG_ID`. The Freshdesk API has endpoints for [products](https://developers.freshdesk.com/api/#products) and [email configs](https://developers.freshdesk.com/api/#email-configs) in case they need to be tested on a local environment.
 
 ## Create and view ticket
 
