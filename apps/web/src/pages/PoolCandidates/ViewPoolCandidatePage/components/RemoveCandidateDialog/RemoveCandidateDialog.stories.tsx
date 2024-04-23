@@ -1,12 +1,11 @@
-import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
 import RemoveCandidateDialog, {
   RemoveCandidateDialog_Fragment,
 } from "./RemoveCandidateDialog";
-import { makeFragmentData } from "@gc-digital-talent/graphql";
 
 const mockCandidates = fakePoolCandidates(1);
 const mockCandidateFragment = makeFragmentData(
