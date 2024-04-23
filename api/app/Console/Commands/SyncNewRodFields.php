@@ -34,18 +34,7 @@ class SyncNewRodFields extends Command
         $dateNow = Carbon::now();
         $placedStatuses = PoolCandidateStatus::placedGroup();
         $removedStatuses = PoolCandidateStatus::removedGroup();
-        $finalDecisionStatuses = [
-            PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-            PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
-            PoolCandidateStatus::QUALIFIED_WITHDREW->name,
-            PoolCandidateStatus::PLACED_TENTATIVE->name,
-            PoolCandidateStatus::PLACED_CASUAL->name,
-            PoolCandidateStatus::PLACED_TERM->name,
-            PoolCandidateStatus::PLACED_INDETERMINATE->name,
-            PoolCandidateStatus::EXPIRED->name,
-            PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
-            PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
-        ];
+        $finalDecisionStatuses = PoolCandidateStatus::finalDecisionGroup();
 
         // set final_decision_at
         DB::table('pool_candidates')
