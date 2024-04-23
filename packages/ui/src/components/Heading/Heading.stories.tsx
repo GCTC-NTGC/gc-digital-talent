@@ -7,13 +7,9 @@ import Heading from "./Heading";
 export default {
   component: Heading,
   title: "Components/Heading",
-  args: {
-    children: "Heading",
-  },
 } as Meta<typeof Heading>;
 
-const Single: StoryFn<typeof Heading> = (args) => <Heading {...args} />;
-const All: StoryFn<typeof Heading> = (args) => (
+const Template: StoryFn<typeof Heading> = (args) => (
   <>
     <Heading {...args} level="h1">
       Heading 1
@@ -36,11 +32,9 @@ const All: StoryFn<typeof Heading> = (args) => (
   </>
 );
 
-export const Default = Single.bind({});
+export const Default = Template.bind({});
 
-export const AllLevels = All.bind({});
-
-export const WithIcon = All.bind({});
+export const WithIcon = Template.bind({});
 WithIcon.args = {
   Icon: AcademicCapIcon,
 };
