@@ -43,7 +43,7 @@ const RemoveCandidate_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-const RemoveCandidateDialog_Fragment = graphql(/* GraphQL */ `
+export const RemoveCandidateDialog_Fragment = graphql(/* GraphQL */ `
   fragment RemoveCandidateDialog on PoolCandidate {
     id
     removalReason
@@ -59,13 +59,15 @@ const title = defineMessage({
 
 interface RemoveCandidateDialogProps {
   removalQuery: FragmentType<typeof RemoveCandidateDialog_Fragment>;
+  defaultOpen?: boolean;
 }
 
 const RemoveCandidateDialog = ({
   removalQuery,
+  defaultOpen = false,
 }: RemoveCandidateDialogProps) => {
   const intl = useIntl();
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = React.useState<boolean>(defaultOpen);
   const candidate = getFragment(RemoveCandidateDialog_Fragment, removalQuery);
 
   const [{ fetching }, removeCandidate] = useMutation(RemoveCandidate_Mutation);
