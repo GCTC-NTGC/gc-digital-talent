@@ -2,10 +2,7 @@ import React from "react";
 import type { Meta, StoryFn } from "@storybook/react";
 
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
-import {
-  FAR_FUTURE_DATE,
-  FAR_PAST_DATE,
-} from "@gc-digital-talent/date-helpers";
+import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
 
 import { isExpired } from "~/utils/poolCandidate";
