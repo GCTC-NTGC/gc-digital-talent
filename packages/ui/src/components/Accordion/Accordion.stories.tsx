@@ -5,6 +5,8 @@ import Cog8ToothIcon from "@heroicons/react/24/solid/Cog8ToothIcon";
 import { faker } from "@faker-js/faker";
 import { action } from "@storybook/addon-actions";
 
+import { allModes } from "@gc-digital-talent/storybook-helpers";
+
 import Accordion from "./Accordion";
 import Button from "../Button";
 
@@ -45,49 +47,30 @@ export default {
   },
 } as Meta<typeof Accordion.Root>;
 
-const themes: Array<string> = ["light", "dark"];
-
 const Template: StoryFn<typeof Accordion.Root> = ({ children, ...rest }) => {
   return (
-    <>
-      {themes.map((theme) => (
-        <div key={theme} data-h2={theme}>
-          <div
-            {...(theme === "light"
-              ? {
-                  "data-h2-background-color": "base(white)",
-                }
-              : {
-                  "data-h2-background-color": "base(background)",
-                })}
-            data-h2-padding="base(x2 x2 x1 x2)"
-          >
-            <Accordion.Root {...rest}>
-              <Accordion.Item value="one">
-                <Accordion.Trigger icon={AcademicCapIcon} subtitle="Subtitle">
-                  Accordion One
-                </Accordion.Trigger>
-                <Accordion.Content>{children}</Accordion.Content>
-              </Accordion.Item>
-              <Accordion.Item value="two">
-                <Accordion.Trigger
-                  icon={Cog8ToothIcon}
-                  subtitle="Subtitle"
-                  context="Some additional context"
-                >
-                  Accordion Two
-                </Accordion.Trigger>
-                <Accordion.Content>{children}</Accordion.Content>
-              </Accordion.Item>
-              <Accordion.Item value="three">
-                <Accordion.Trigger>Accordion Three</Accordion.Trigger>
-                <Accordion.Content>{children}</Accordion.Content>
-              </Accordion.Item>
-            </Accordion.Root>
-          </div>
-        </div>
-      ))}
-    </>
+    <Accordion.Root {...rest}>
+      <Accordion.Item value="one">
+        <Accordion.Trigger icon={AcademicCapIcon} subtitle="Subtitle">
+          Accordion One
+        </Accordion.Trigger>
+        <Accordion.Content>{children}</Accordion.Content>
+      </Accordion.Item>
+      <Accordion.Item value="two">
+        <Accordion.Trigger
+          icon={Cog8ToothIcon}
+          subtitle="Subtitle"
+          context="Some additional context"
+        >
+          Accordion Two
+        </Accordion.Trigger>
+        <Accordion.Content>{children}</Accordion.Content>
+      </Accordion.Item>
+      <Accordion.Item value="three">
+        <Accordion.Trigger>Accordion Three</Accordion.Trigger>
+        <Accordion.Content>{children}</Accordion.Content>
+      </Accordion.Item>
+    </Accordion.Root>
   );
 };
 
@@ -140,6 +123,15 @@ const ControlledTemplate: StoryFn<ControlledProps> = ({
 };
 
 export const Default = Template.bind({});
+Default.parameters = {
+  chromatic: {
+    modes: {
+      light: allModes.light,
+      "light mobile": allModes["light mobile"],
+      dark: allModes.dark,
+    },
+  },
+};
 Default.args = {
   type: "single",
   collapsible: true,
@@ -148,6 +140,15 @@ Default.args = {
 };
 
 export const Card = Template.bind({});
+Card.parameters = {
+  chromatic: {
+    modes: {
+      light: allModes.light,
+      "light mobile": allModes["light mobile"],
+      dark: allModes.dark,
+    },
+  },
+};
 Card.args = {
   type: "single",
   mode: "card",
