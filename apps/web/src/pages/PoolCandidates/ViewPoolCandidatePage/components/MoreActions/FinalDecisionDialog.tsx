@@ -21,6 +21,8 @@ import {
 } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
+import FormChangeNotifyWell from "~/components/FormChangeNotifyWell/FormChangeNotifyWell";
+
 import AssessmentSummary from "./components/AssessmentSummary";
 
 const PoolCandidate_QualifyCandidateMutation = graphql(/* GraphQL */ `
@@ -301,31 +303,7 @@ const FinalDecisionDialog = ({
                   data-h2-margin-top="base(x1)"
                 />
               )}
-              <Well
-                color="warning"
-                fontSize="caption"
-                data-h2-margin-top="base(x1)"
-              >
-                <p
-                  data-h2-margin-bottom="base(x.5)"
-                  data-h2-font-weight="base(700)"
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Important",
-                    id: "IKGhHj",
-                    description: "Important note or caption",
-                  })}
-                </p>
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "The candidate will be notified of any changes made in this form.",
-                    id: "17dZD4",
-                    description:
-                      "Caption notifying the user about who can know about the results of form changes",
-                  })}
-                </p>
-              </Well>
+              <FormChangeNotifyWell data-h2-margin-top="base(x1)" />
               <Dialog.Footer data-h2-justify-content="base(flex-start)">
                 <Dialog.Close>
                   <Button type="button" color="primary" mode="inline">

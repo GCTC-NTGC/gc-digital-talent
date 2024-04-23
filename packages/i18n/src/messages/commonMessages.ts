@@ -234,6 +234,11 @@ const commonMessages = defineMessages({
     id: "VV8TA5",
     description: "An action to go back to a previous location",
   },
+  important: {
+    defaultMessage: "Important",
+    id: "IKGhHj",
+    description: "Important note or caption",
+  },
 });
 
 export default commonMessages;

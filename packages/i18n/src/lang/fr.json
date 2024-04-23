@@ -15,6 +15,14 @@
     "defaultMessage": "Désélectionner {label}",
     "description": "Text to uncheck checkbox button"
   },
+  "17dZD4": {
+    "defaultMessage": "Le candidat/la candidate sera informé(e) de toute modification apportée au présent formulaire.",
+    "description": "Caption notifying the user about who can know about the results of form changes"
+  },
+  "IKGhHj": {
+    "defaultMessage": "Important",
+    "description": "Important note or caption"
+  },
   "+9VBmQ": {
     "defaultMessage": "Je m'identifie en tant que femme.",
     "description": "Statement for when someone indicates they are a woman"
