@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Alert, Link } from "@gc-digital-talent/ui";
-import { useLocale } from "@gc-digital-talent/i18n";
+import { getLocale } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -42,7 +42,7 @@ export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
 
 const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
-  const { locale } = useLocale();
+  const locale = getLocale(intl);
   const paths = useRoutes();
   const { currentStepOrdinal, isIAP } = useApplicationContext();
   const pageInfo = getPageInfo({

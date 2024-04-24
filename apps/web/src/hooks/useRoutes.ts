@@ -1,6 +1,7 @@
 import path from "path-browserify";
+import { useIntl } from "react-intl";
 
-import { useLocale, Locales } from "@gc-digital-talent/i18n";
+import { Locales, getLocale } from "@gc-digital-talent/i18n";
 
 import { ExperienceType } from "~/types/experience";
 import { PageSectionId as UserProfilePageSectionId } from "~/components/UserProfile/constants";
@@ -315,7 +316,8 @@ const getRoutes = (lang: Locales) => {
 };
 
 const useRoutes = () => {
-  const { locale } = useLocale();
+  const intl = useIntl();
+  const locale = getLocale(intl);
 
   return getRoutes(locale);
 };
