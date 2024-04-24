@@ -2,7 +2,7 @@ import React from "react";
 import { StoryFn, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
-import { VIEWPORT } from "@gc-digital-talent/storybook-helpers";
+import { VIEWPORT, allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Form from "../BasicForm";
 import Submit from "../Submit";
@@ -15,36 +15,19 @@ export default {
   title: "Form/Checkbox",
 } as Meta;
 
-const themes = ["light", "dark"];
+const Template: StoryFn<CheckboxProps> = (args) => (
+  <Form onSubmit={action("Submit Form")}>
+    <Checkbox {...args} />
+    <Submit data-h2-margin-top="base(x1)" />
+  </Form>
+);
 
-const TemplateCheckbox: StoryFn<CheckboxProps> = (args) => {
-  return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-grid-template-columns="base(100%) l-tablet(50% 50%)"
-    >
-      {themes.map((theme) => (
-        <div data-h2={theme} key={theme}>
-          <div data-h2-background="base(background)" data-h2-padding="base(x2)">
-            <Form onSubmit={action("Submit Form")}>
-              <Checkbox {...args} />
-              <p data-h2-margin-top="base(x1)">
-                <Submit />
-              </p>
-            </Form>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-};
+export const Default = Template.bind({});
+export const WithBoundingBox = Template.bind({});
+export const WithElementLabel = Template.bind({});
+export const WithLongText = Template.bind({});
 
-export const IndividualCheckbox = TemplateCheckbox.bind({});
-export const CheckboxWithBoundingBox = TemplateCheckbox.bind({});
-export const CheckboxElementLabel = TemplateCheckbox.bind({});
-export const LongTextCheckbox = TemplateCheckbox.bind({});
-
-IndividualCheckbox.args = {
+Default.args = {
   id: "hasDiploma",
   name: "hasDiploma",
   label: "Have a Diploma",
@@ -52,13 +35,22 @@ IndividualCheckbox.args = {
   rules: { required: "This must be accepted to continue." },
 };
 
-CheckboxWithBoundingBox.args = {
-  ...IndividualCheckbox.args,
+Default.parameters = {
+  chromatic: {
+    modes: {
+      light: allModes.light,
+      dark: allModes.dark,
+    },
+  },
+};
+
+WithBoundingBox.args = {
+  ...Default.args,
   boundingBox: true,
   boundingBoxLabel: "Bounding box label",
 };
 
-CheckboxElementLabel.args = {
+WithElementLabel.args = {
   id: "Red Selection",
   name: "Red Selection",
   label: (
@@ -66,7 +58,7 @@ CheckboxElementLabel.args = {
   ),
 };
 
-LongTextCheckbox.args = {
+WithLongText.args = {
   id: "iAgree",
   name: "iAgree",
   label:
@@ -75,7 +67,7 @@ LongTextCheckbox.args = {
   rules: { required: "This must be accepted to continue." },
 };
 
-LongTextCheckbox.parameters = {
+WithLongText.parameters = {
   viewport: {
     defaultViewport: VIEWPORT.PHONE,
   },
