@@ -9,7 +9,7 @@ import CareerTimelineAndRecruitment, {
 } from "./components/CareerTimelineAndRecruitment";
 
 export default {
-  title: "Pages/Career timeline and recruitment",
+  title: "Pages/Profile And Applications/Career Timeline And Recruitment Page",
   args: {
     userId: "test",
     experiencesQuery: [],
