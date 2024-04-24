@@ -46,7 +46,7 @@ describe("Pools", () => {
   };
 
   beforeEach(() => {
-    cy.intercept("POST", "/graphql", (req) => {
+    cy.intercept("POST", "**/graphql", (req) => {
       aliasQuery(req, "EditPoolPage");
       aliasQuery(req, "CreatePoolPage");
       aliasQuery(req, "ViewPoolPage");
