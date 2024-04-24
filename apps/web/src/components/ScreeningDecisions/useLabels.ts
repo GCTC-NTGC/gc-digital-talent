@@ -28,22 +28,10 @@ const getLabels = (intl: IntlShape) => {
       description:
         "Label for demonstrated notes text area in the screening decision dialog.",
     }),
-    assessmentNotes: intl.formatMessage({
-      defaultMessage: "Notes for this assessment",
-      id: "vHDpXX",
-      description:
-        "Label for generic notes text area in the screening decision dialog.",
-    }),
     failedOther: intl.formatMessage({
       defaultMessage: "Other reason for screening out.",
       id: "C5uhBP",
       description: "Label for radio option in the screening decision dialog.",
-    }),
-    other: intl.formatMessage({
-      defaultMessage: "Other reason",
-      id: "HtjPHW",
-      description:
-        "Label for other reason text area in the screening decision dialog.",
     }),
   } as const;
 };

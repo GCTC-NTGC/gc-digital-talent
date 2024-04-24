@@ -20,7 +20,7 @@ return new class extends Migration
             $table->softDeletes();
             $table->uuid('user_id');
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete(true);
-            $table->text('details');
+            $table->text('details')->nullable();
             $table->string('experience_type')->index();
             $table->jsonb('properties')->nullable();
         });
@@ -34,13 +34,13 @@ return new class extends Migration
                     DB::table('award_experiences')
                         ->select(DB::raw(<<<'SQL'
                             id, created_at, updated_at, deleted_at, user_id, details, 'App\Models\AwardExperience',
-                            (concat('{',
-                            '"awarded_date": ', coalesce('"' || (awarded_date) || '"' , 'null'), ',',
-                            '"title": "', title, '",',
-                            '"issued_by": "', issued_by, '",',
-                            '"awarded_to": "', awarded_to, '",',
-                            '"awarded_scope": "', awarded_scope, '"',
-                            '}'))::jsonb
+                            json_build_object(
+                                'awarded_date', awarded_date,
+                                'title', title,
+                                'issued_by', issued_by,
+                                'awarded_to', awarded_to,
+                                'awarded_scope', awarded_scope
+                            )
                         SQL))
                 );
 
@@ -50,13 +50,13 @@ return new class extends Migration
                     DB::table('community_experiences')
                         ->select(DB::raw(<<<'SQL'
                             id, created_at, updated_at, deleted_at, user_id, details, 'App\Models\CommunityExperience',
-                            (concat('{',
-                            '"start_date": ', coalesce('"' || (start_date) || '"' , 'null'), ',',
-                            '"end_date": ', coalesce('"' || (end_date) || '"' , 'null'), ',',
-                            '"title": "', title, '",',
-                            '"organization": "', organization, '",',
-                            '"project": "', project, '"',
-                            '}'))::jsonb
+                            json_build_object(
+                                'start_date', start_date,
+                                'end_date', end_date,
+                                'title', title,
+                                'organization', organization,
+                                'project', project
+                            )
                         SQL))
                 );
 
@@ -66,15 +66,15 @@ return new class extends Migration
                     DB::table('education_experiences')
                         ->select(DB::raw(<<<'SQL'
                             id, created_at, updated_at, deleted_at, user_id, details, 'App\Models\EducationExperience',
-                            (concat('{',
-                            '"start_date": ', coalesce('"' || (start_date) || '"' , 'null'), ',',
-                            '"end_date": ', coalesce('"' || (end_date) || '"' , 'null'), ',',
-                            '"institution": "', institution, '",',
-                            '"area_of_study": "', area_of_study, '",',
-                            '"thesis_title": "', thesis_title, '",',
-                            '"type": "', type, '",',
-                            '"status": "', status, '"',
-                            '}'))::jsonb
+                            json_build_object(
+                                'start_date', start_date,
+                                'end_date', end_date,
+                                'institution', institution,
+                                'area_of_study', area_of_study,
+                                'thesis_title', thesis_title,
+                                'type', type,
+                                'status', status
+                            )
                         SQL))
                 );
 
@@ -84,12 +84,12 @@ return new class extends Migration
                     DB::table('personal_experiences')
                         ->select(DB::raw(<<<'SQL'
                             id, created_at, updated_at, deleted_at, user_id, details,'App\Models\PersonalExperience',
-                            (concat('{',
-                            '"start_date": ', coalesce('"' || (start_date) || '"' , 'null'), ',',
-                            '"end_date": ', coalesce('"' || (end_date) || '"' , 'null'), ',',
-                            '"title": "', title, '",',
-                            '"description": "', description, '"',
-                            '}'))::jsonb
+                            json_build_object(
+                                'start_date', start_date,
+                                'end_date', end_date,
+                                'title', title,
+                                'description', description
+                            )
                         SQL))
                 );
 
@@ -99,13 +99,13 @@ return new class extends Migration
                     DB::table('work_experiences')
                         ->select(DB::raw(<<<'SQL'
                             id, created_at, updated_at, deleted_at, user_id, details,'App\Models\WorkExperience',
-                            (concat('{',
-                            '"start_date": ', coalesce('"' || (start_date) || '"' , 'null'), ',',
-                            '"end_date": ', coalesce('"' || (end_date) || '"' , 'null'), ',',
-                            '"role": "', role, '",',
-                            '"organization": "', organization, '",',
-                            '"division": "', division, '"',
-                            '}'))::jsonb
+                            json_build_object(
+                                'start_date', start_date,
+                                'end_date', end_date,
+                                'role', role,
+                                'organization', organization,
+                                'division', division
+                            )
                         SQL))
                 );
 

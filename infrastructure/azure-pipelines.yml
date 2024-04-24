@@ -34,19 +34,32 @@ jobs:
         displayName: Dependencies
         env:
           API_URI: /graphql
+          API_PROTECTED_URI: /admin/graphql
           ADMIN_APP_DIR: /admin
           # We don't need Cypress in this environment, and so this avoid permission errors of installing it.
           # See: https://docs.cypress.io/guides/getting-started/installing-cypress#Skipping-installation
           CYPRESS_INSTALL_BINARY: 0
 
+      - task: CopyFiles@2
+        displayName: "Copy files to staging directory"
+        inputs:
+          SourceFolder: "$(System.DefaultWorkingDirectory)"
+          Contents: |
+            api/**
+            apps/web/dist/**
+            infrastructure/**
+            tc-report/**
+          TargetFolder: "$(Build.ArtifactStagingDirectory)/Stage"
+
       - task: ArchiveFiles@2
         displayName: "Archive Files"
         inputs:
-          rootFolderOrFile: $(System.DefaultWorkingDirectory)
+          rootFolderOrFile: "$(Build.ArtifactStagingDirectory)/Stage"
           includeRootFolder: false
-          archiveFile: "$(Build.ArtifactStagingDirectory)/Application_$(Build.BuildId).zip"
+          archiveFile: "$(Build.ArtifactStagingDirectory)/Release/Application_$(Build.BuildId).zip"
 
       - task: PublishBuildArtifacts@1
         displayName: "Publish Artifact: gcDigitalTalent"
         inputs:
+          PathtoPublish: "$(Build.ArtifactStagingDirectory)/Release"
           ArtifactName: gcDigitalTalent

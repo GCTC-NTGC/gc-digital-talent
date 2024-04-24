@@ -2,7 +2,7 @@ import { aliasMutation } from "../../support/graphql-test-utils";
 
 describe("Create account tests", () => {
   beforeEach(() => {
-    cy.intercept("POST", "/graphql", (req) => {
+    cy.intercept("POST", "**/graphql", (req) => {
       aliasMutation(req, "CreateAccount_Mutation");
     });
   });

@@ -72,6 +72,3 @@ pnpm install --frozen-lockfile
 
 ### Build frontend
 pnpm run build
-
-### Remove modules once build completes:
-find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +
