@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
-import { fakeUsers } from "@gc-digital-talent/fake-data";
-
 import { FormValues, SupportFormComponent } from "./SupportForm";
 
 export default {
@@ -30,10 +28,3 @@ const Template: StoryFn<typeof SupportFormComponent> = (args) => {
 };
 
 export const Default = Template.bind({});
-export const FormWithUser = Template.bind({});
-
-const userData = fakeUsers();
-
-FormWithUser.args = {
-  currentUser: userData[0],
-};
