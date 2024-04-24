@@ -389,16 +389,8 @@ class ApplicantFilterTest extends TestCase
         );
         $filter->qualifiedClassifications()->saveMany([$pool->classification]);
         $candidateUser = User::with([
-            'awardExperiences',
-            'awardExperiences.skills',
-            'communityExperiences',
-            'communityExperiences.skills',
-            'educationExperiences',
-            'educationExperiences.skills',
-            'personalExperiences',
-            'personalExperiences.skills',
-            'workExperiences',
-            'workExperiences.skills',
+            'experiences',
+            'experiences.skills',
         ])->find($candidate->user_id);
         $candidateSkills = $candidateUser->experiences->pluck('skills')->flatten()->unique();
         $filter->skills()->saveMany($candidateSkills->shuffle()->take(3));
