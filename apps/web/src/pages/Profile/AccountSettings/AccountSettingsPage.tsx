@@ -217,8 +217,8 @@ const AccountSettingsPage = () => {
                     <p data-h2-margin="base(0, 0, x1, 0)">
                       {intl.formatMessage({
                         defaultMessage:
-                          "The settings provided in this section allow you to control when you receive notifications and how they are delivered. Email notifications are delivered to the email provided on your profile, while in-app notifications are delivered to the notification pane found in the main menu next to your name.",
-                        id: "hnyf1f",
+                          "The settings provided in this section allow you to control the types of notifications you receive and where they are delivered. Email notifications are delivered to the contact email provided on your profile, while in-app notifications are delivered to the notification pane found in the main menu.",
+                        id: "J/gp3y",
                         description:
                           "Subtitle for notification settings section on account settings page.",
                       })}
@@ -244,8 +244,9 @@ const AccountSettingsPage = () => {
                   <p data-h2-margin="base(0, 0, x1, 0)">
                     {intl.formatMessage(
                       {
-                        defaultMessage: `By applying to a talent pool on the platform, you agree to receive notifications about related potential employment opportunities. You can disable these notifications using the "availability" controls below, or by reviewing your <link>current recruitment processes on your career timeline</link>.`,
-                        id: "WcEkbD",
+                        defaultMessage: `When you are admitted into a talent recruitment process, you agree to receive notifications about potential opportunities that meet the criteria of the process. These notifications will only be sent if you've enabled "Job alert" notifications in the "Notification settings" section of this page. You can also disable these notifications on a per process basis using the controls found on the cards provided.
+                        `,
+                        id: "wYct8d",
                         description:
                           "Subtitle for recruitment availability section on account settings page.",
                       },

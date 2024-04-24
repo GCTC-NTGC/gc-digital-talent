@@ -34,8 +34,8 @@ const AccountManagement = () => {
           <p data-h2-margin-bottom="base(x1)">
             {intl.formatMessage({
               defaultMessage:
-                "GC Digital Talent partners with the Government of Canada's credential service, GCKey, to provide you with account access using a single username and password. You can manage related data on the GCKey website and it will automatically reflect here when you access your account.",
-              id: "NkZeS1",
+                "GC Digital Talent partners with the Government of Canada's credential service, GCKey, to provide you with account access using a single username and password. You can manage your username and password on the GCKey website, and those changes will automatically work when signing in to the GC Digital Talent platform.",
+              id: "bzcV2Q",
               description:
                 "Description of how we use GCKey for authentication.",
             })}
