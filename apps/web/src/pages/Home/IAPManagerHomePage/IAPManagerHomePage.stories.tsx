@@ -10,7 +10,7 @@ import { IAPManagerHomePage } from "./IAPManagerHomePage";
 
 export default {
   component: IAPManagerHomePage,
-  title: "Pages/IAP Manager Home Page",
+  title: "Pages/IAP/Manager Home Page",
   parameters: {
     layout: "fullscreen",
     themes: {

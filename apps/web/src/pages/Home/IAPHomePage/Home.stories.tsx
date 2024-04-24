@@ -33,7 +33,7 @@ const messages: Map<string, Messages> = new Map([
 export default {
   component: Home,
   decorators: [MockGraphqlDecorator],
-  title: "Pages/Home Page/IAP",
+  title: "Pages/IAP/Home Page",
   parameters: {
     apiResponsesConfig: {
       latency: {
