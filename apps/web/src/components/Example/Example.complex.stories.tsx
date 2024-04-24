@@ -43,7 +43,7 @@ export default meta;
 
 type Story = StoryObj<PagePropsAndCustomArgs>;
 
-export const CustomFooter: Story = {
+export const Default: Story = {
   args: {
     footer: "CustomFooterText",
     color: "primary",
