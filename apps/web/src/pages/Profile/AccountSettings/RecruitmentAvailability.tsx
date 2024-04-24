@@ -29,7 +29,7 @@ const RecruitmentAvailability = ({ user }: { user: User }) => {
         PoolCandidateStatus.PlacedCasual,
         PoolCandidateStatus.PlacedIndeterminate,
         PoolCandidateStatus.PlacedTerm,
-        PoolCandidateStatus.Expired,
+        PoolCandidateStatus.Expired, // if the status is expired, they need to have been qualified first.
       ].includes(status),
   );
   return activeApplications.length > 0 ? (
@@ -41,8 +41,8 @@ const RecruitmentAvailability = ({ user }: { user: User }) => {
       <p data-h2-margin="base(0, 0, x1, 0)" data-h2-font-weight="base(bold)">
         {intl.formatMessage({
           defaultMessage:
-            "There aren't any recruitment processes on your profile yet.",
-          id: "xCJW2N",
+            "There aren't any active recruitment processes on your profile right now.",
+          id: "p0KALn",
           description:
             "Message displayed in recruitment availability when the user is not in any valid pools",
         })}
