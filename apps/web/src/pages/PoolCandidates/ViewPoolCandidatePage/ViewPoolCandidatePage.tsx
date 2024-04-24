@@ -67,7 +67,6 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
     poolCandidate(id: $poolCandidateId) {
       ...CandidateExpiryDateDialog
       ...RevertFinalDecisionDialog
-      finalDecisionAt
       id
       status
       user {
