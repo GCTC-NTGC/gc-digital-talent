@@ -89,11 +89,12 @@ const NotificationChecklist = ({
                 data-h2-color="base(gray)"
               >
                 <CheckIcon
-                  aria-label={
-                    value === "email"
-                      ? intl.formatMessage(commonMessages.email)
-                      : intl.formatMessage(commonMessages.inApp)
-                  }
+                  aria-label={intl.formatMessage({
+                    defaultMessage: "System notifications are always enabled.",
+                    id: "d5X1iR",
+                    description:
+                      "Aria label for system notification icons in notification settings.",
+                  })}
                   aria-hidden="false"
                   data-h2-height="base(x1)"
                   data-h2-width="base(x1)"
