@@ -16,6 +16,11 @@ import {
   formMessages,
   getPoolCandidateStatus,
 } from "@gc-digital-talent/i18n";
+import {
+  DATE_FORMAT_STRING,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 
 import Important from "./components/Important";
 
@@ -40,7 +45,7 @@ const RevertFinalDecision_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-const RevertFinalDecisionDialog_Fragment = graphql(/* GraphQL */ `
+export const RevertFinalDecisionDialog_Fragment = graphql(/* GraphQL */ `
   fragment RevertFinalDecisionDialog on PoolCandidate {
     id
     expiryDate
@@ -101,28 +106,28 @@ const RevertFinalDecisionDialog = ({
       });
   };
 
-  const isQualified = () => {
-    if (
-      status === PoolCandidateStatus.QualifiedAvailable ||
-      status === PoolCandidateStatus.Expired
-    ) {
-      return true;
-    }
+  let isQualified: boolean | null = null;
+  if (
+    status === PoolCandidateStatus.QualifiedAvailable ||
+    status === PoolCandidateStatus.Expired
+  ) {
+    isQualified = true;
+  }
 
-    if (
-      status === PoolCandidateStatus.ScreenedOutApplication ||
-      status === PoolCandidateStatus.ScreenedOutAssessment
-    ) {
-      return false;
-    }
-
-    return null; // mutation should throw an error if it's any other status
-  };
+  if (
+    status === PoolCandidateStatus.ScreenedOutApplication ||
+    status === PoolCandidateStatus.ScreenedOutAssessment
+  ) {
+    isQualified = false;
+  }
 
   const finalDecisionDate = finalDecisionAt
-    ? new Date(finalDecisionAt).toISOString().split("T")[0]
-    : intl.formatMessage(commonMessages.notFound);
-
+    ? formatDate({
+        date: parseDateTimeUtc(finalDecisionAt),
+        formatString: DATE_FORMAT_STRING,
+        intl,
+      })
+    : intl.formatMessage(commonMessages.notAvailable);
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
@@ -162,13 +167,13 @@ const RevertFinalDecisionDialog = ({
                 },
                 {
                   decision: intl.formatMessage(
-                    isQualified() ? messages.qualified : messages.disqualified,
+                    isQualified ? messages.qualified : messages.disqualified,
                   ),
-                  date: isQualified() ? expiryDate : finalDecisionDate,
+                  date: isQualified ? expiryDate : finalDecisionDate,
                 },
               )}
             </p>
-            {!isQualified() && (
+            {!isQualified && (
               <div data-h2-display="base(grid)" data-h2-gap="base(x.5)">
                 <p>
                   {intl.formatMessage({
@@ -188,7 +193,7 @@ const RevertFinalDecisionDialog = ({
                 </p>
               </div>
             )}
-            <p {...(!isQualified() && { "data-h2-font-weight": "base(bold)" })}>
+            <p {...(!isQualified && { "data-h2-font-weight": "base(bold)" })}>
               {intl.formatMessage({
                 defaultMessage:
                   "Do you wish to revert this decision and set candidate status to “Under assessment”?",

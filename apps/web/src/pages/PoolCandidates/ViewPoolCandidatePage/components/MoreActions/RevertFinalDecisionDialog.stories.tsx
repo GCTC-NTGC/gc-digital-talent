@@ -3,9 +3,24 @@ import { Meta, StoryFn } from "@storybook/react";
 
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
-import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
+import {
+  PoolCandidateStatus,
+  makeFragmentData,
+} from "@gc-digital-talent/graphql";
 
-import RevertFinalDecisionDialog from "./RevertFinalDecisionDialog";
+import RevertFinalDecisionDialog, {
+  RevertFinalDecisionDialog_Fragment,
+} from "./RevertFinalDecisionDialog";
+
+const fakedCandidate = fakePoolCandidates(1)[0];
+const qualifiedData = makeFragmentData(
+  { ...fakedCandidate, status: PoolCandidateStatus.QualifiedAvailable },
+  RevertFinalDecisionDialog_Fragment,
+);
+const disqualifiedData = makeFragmentData(
+  { ...fakedCandidate, status: PoolCandidateStatus.ScreenedOutAssessment },
+  RevertFinalDecisionDialog_Fragment,
+);
 
 export default {
   component: RevertFinalDecisionDialog,
@@ -16,39 +31,16 @@ export default {
   },
 } as Meta;
 
-const fakedCandidate = fakePoolCandidates(1)[0];
-
 const Template: StoryFn<typeof RevertFinalDecisionDialog> = (args) => (
   <RevertFinalDecisionDialog {...args} />
 );
 
-const defaultArgs = {
-  id: fakedCandidate.id,
-  status: fakedCandidate.status,
-  expiryDate: fakedCandidate.expiryDate,
-  finalDecisionAt: fakedCandidate.finalDecisionAt,
-};
-
 export const Qualified = Template.bind({});
 Qualified.args = {
-  revertFinalDecisionQuery: {
-    " $fragmentRefs": {
-      RevertFinalDecisionDialogFragment: {
-        ...defaultArgs,
-        status: PoolCandidateStatus.QualifiedAvailable,
-      },
-    },
-  },
+  revertFinalDecisionQuery: qualifiedData,
 };
 
 export const Disqualified = Template.bind({});
 Disqualified.args = {
-  revertFinalDecisionQuery: {
-    " $fragmentRefs": {
-      RevertFinalDecisionDialogFragment: {
-        ...defaultArgs,
-        status: PoolCandidateStatus.ScreenedOutApplication,
-      },
-    },
-  },
+  revertFinalDecisionQuery: disqualifiedData,
 };
