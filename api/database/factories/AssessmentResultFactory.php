@@ -60,8 +60,6 @@ class AssessmentResultFactory extends Factory
                 return [
                     'assessment_result_type' => $type->name,
                     'justifications' => $justifications,
-                    'other_justification_notes' => in_array(AssessmentResultJustification::FAILED_OTHER->name, $justifications) ?
-                        $this->faker->paragraph() : null,
                     'assessment_decision_level' => null,
                     'skill_decision_notes' => null,
                 ];
@@ -74,8 +72,6 @@ class AssessmentResultFactory extends Factory
                 return [
                     'assessment_result_type' => $type->name,
                     'justifications' => $justifications,
-                    'other_justification_notes' => in_array(AssessmentResultJustification::FAILED_OTHER->name, $justifications) ?
-                        $this->faker->paragraph() : null,
                     'assessment_decision' => $assessmentDecision,
                     'assessment_decision_level' => $assessmentDecision === AssessmentDecision::SUCCESSFUL->name ?
                         $this->faker->randomElement(array_column(AssessmentDecisionLevel::cases(), 'name')) : null,
