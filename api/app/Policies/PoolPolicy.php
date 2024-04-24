@@ -192,10 +192,6 @@ class PoolPolicy
      */
     public function viewAssessmentPlan(User $user, Pool $pool)
     {
-        if ($user->isAbleTo('view-any-assessmentPlan')) {
-            return true;
-        }
-
         return (new PermissionCheckService($user))->userCan('view', $pool, 'assessmentPlan');
     }
 }

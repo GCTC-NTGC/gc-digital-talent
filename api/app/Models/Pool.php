@@ -137,7 +137,8 @@ class Pool extends Model implements PermissionResourceInterface
     // Posters can be considered to be teams themselves, as well as belonging to a community.
     public function teams()
     {
-        return [$this->id, $this->team_id];
+        $this->load('team';)
+        return [$this, $this->team];
     }
     public function resourceName(): string
     {
