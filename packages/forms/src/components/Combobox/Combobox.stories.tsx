@@ -5,6 +5,7 @@ import { action } from "@storybook/addon-actions";
 import { faker } from "@faker-js/faker";
 
 import { getStaticSkills } from "@gc-digital-talent/fake-data";
+import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import BasicForm from "../BasicForm";
 import Submit from "../Submit";
@@ -39,8 +40,6 @@ export default {
   title: "Form/Combobox",
 };
 
-const themes = ["light", "dark"];
-
 const Template: StoryFn<ComboboxType> = (args) => {
   const { mockSearch, defaultValue, options, fetching, ...rest } = args;
   const [isSearching, setIsSearching] = React.useState<boolean>(
@@ -70,36 +69,32 @@ const Template: StoryFn<ComboboxType> = (args) => {
     : undefined;
 
   return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-grid-template-columns="base(100%) l-tablet(50% 50%)"
+    <BasicForm
+      onSubmit={action("onSubmit")}
+      options={{ defaultValues: { skill: defaultValue ?? "" } }}
     >
-      {themes.map((theme) => (
-        <div data-h2={theme} key={theme}>
-          <div data-h2-background="base(background)" data-h2-padding="base(x2)">
-            <BasicForm
-              onSubmit={action("onSubmit")}
-              options={{ defaultValues: { skill: defaultValue ?? "" } }}
-            >
-              <Combobox
-                {...rest}
-                onSearch={debouncedSearch}
-                fetching={isSearching}
-                options={mockSearch ? filteredOptions : options}
-              />
-              <p data-h2-margin-top="base(x1)">
-                <Submit />
-              </p>
-            </BasicForm>
-          </div>
-        </div>
-      ))}
-    </div>
+      <Combobox
+        {...rest}
+        onSearch={debouncedSearch}
+        fetching={isSearching}
+        options={mockSearch ? filteredOptions : options}
+      />
+      <Submit data-h2-margin-top="base(x1)" />
+    </BasicForm>
   );
 };
 
 export const Default = Template.bind({});
 Default.args = defaultArgs;
+
+Default.parameters = {
+  chromatic: {
+    modes: {
+      light: allModes.light,
+      dark: allModes.dark,
+    },
+  },
+};
 
 export const Loading = Template.bind({});
 Loading.args = {
@@ -143,9 +138,6 @@ DefaultValue.args = {
   ...defaultArgs,
   defaultValue: skills[0].value,
 };
-
-export const Multi = Template.bind({});
-Multi.args = defaultMultiArgs;
 
 export const MultiDefault = Template.bind({});
 MultiDefault.args = {
