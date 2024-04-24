@@ -77,8 +77,3 @@ WithValues.args = {
     UpdateUserSkill_Fragment,
   ),
 };
-
-export const NoAvailableExperiences = Template.bind({});
-NoAvailableExperiences.args = {
-  experiencesQuery: [],
-};
