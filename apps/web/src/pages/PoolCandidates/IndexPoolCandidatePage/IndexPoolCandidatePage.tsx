@@ -179,7 +179,14 @@ export const IndexPoolCandidatePage = () => {
 
   return (
     <AdminContentWrapper>
-      <SEO title={pageTitle} description={formattedSubTitle} />
+      <SEO
+        title={intl.formatMessage({
+          defaultMessage: "Talent placement",
+          id: "0YpfAG",
+          description: "Title for candidates tab for a process",
+        })}
+        description={formattedSubTitle}
+      />
       <Pending fetching={fetching} error={error}>
         <p data-h2-margin="base(x1, 0)">{formattedSubTitle}</p>
         <PoolCandidatesTable
