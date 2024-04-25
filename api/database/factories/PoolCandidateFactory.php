@@ -36,17 +36,7 @@ class PoolCandidateFactory extends Factory
      */
     public function definition()
     {
-        $relevantStatusesForFinalDecision = [
-            PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-            PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
-            PoolCandidateStatus::QUALIFIED_WITHDREW->name,
-            PoolCandidateStatus::PLACED_CASUAL->name,
-            PoolCandidateStatus::PLACED_TERM->name,
-            PoolCandidateStatus::PLACED_INDETERMINATE->name,
-            PoolCandidateStatus::EXPIRED->name,
-            PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
-            PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
-        ];
+        $relevantStatusesForFinalDecision = PoolCandidateStatus::finalDecisionGroup();
         $placedStatuses = PoolCandidateStatus::placedGroup();
         $placedDepartmentId = Department::inRandomOrder()
             ->limit(1)
