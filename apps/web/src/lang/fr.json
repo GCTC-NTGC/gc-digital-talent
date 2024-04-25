@@ -3423,10 +3423,6 @@
     "defaultMessage": "Veuillez sélectionner une compétence pour continuer.",
     "description": "Help text to tell users to select a skill before submitting"
   },
-  "HtjPHW": {
-    "defaultMessage": "Autre motif",
-    "description": "Label for other reason text area in the screening decision dialog."
-  },
   "HvD7jI": {
     "defaultMessage": "Comment utiliser cet outil",
     "description": "Heading displayed in the How To area of the hero section of the Search page."
@@ -10461,10 +10457,6 @@
   "vFMPHW": {
     "defaultMessage": "Postes en anglais",
     "description": "English Positions message"
-  },
-  "vHDpXX": {
-    "defaultMessage": "Notes pour cette évaluation",
-    "description": "Label for generic notes text area in the screening decision dialog."
   },
   "vJ/8Mk": {
     "defaultMessage": "Identification des talents numériques – Tables rondes sur la gestion des talents",

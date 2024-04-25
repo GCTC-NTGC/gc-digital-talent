@@ -387,7 +387,6 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
         }
         assessmentDecision
         assessmentDecisionLevel
-        assessmentNotes
         assessmentResultType
         assessmentStep {
           id
@@ -398,10 +397,8 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
           }
         }
         justifications
-        otherJustificationNotes
         assessmentDecisionLevel
         skillDecisionNotes
-        assessmentNotes
         poolSkill {
           id
           type

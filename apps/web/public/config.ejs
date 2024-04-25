@@ -16,6 +16,7 @@ const data = new Map([
     // Feature flags
     ["FEATURE_DIRECTIVE_FORMS", filterUnusable("$FEATURE_DIRECTIVE_FORMS") ?? "<%= htmlWebpackPlugin.options.environment.FEATURE_DIRECTIVE_FORMS %>"],
     ["FEATURE_NOTIFICATIONS", filterUnusable("$FEATURE_NOTIFICATIONS") ?? "<%= htmlWebpackPlugin.options.environment.FEATURE_NOTIFICATIONS %>"],
+    ["FEATURE_PROTECTED_API", filterUnusable("$FEATURE_PROTECTED_API") ?? "<%= htmlWebpackPlugin.options.environment.FEATURE_PROTECTED_API %>"],
 
     // Azure application insights not used in dev
     ["APPLICATIONINSIGHTS_CONNECTION_STRING", filterUnusable("$APPLICATIONINSIGHTS_CONNECTION_STRING")],

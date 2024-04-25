@@ -21,7 +21,7 @@ import { aliasQuery } from "../../support/graphql-test-utils";
 
 describe("Submit Application for IAP Workflow Tests", () => {
   beforeEach(() => {
-    cy.intercept("POST", "/graphql", (req) => {
+    cy.intercept("POST", "**/graphql", (req) => {
       aliasQuery(req, "Application");
     });
 
