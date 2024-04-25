@@ -12,7 +12,7 @@ import {
 import {
   commonMessages,
   navigationMessages,
-  useLocale,
+  getLocale,
 } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -32,7 +32,7 @@ import SkipLink from "./SkipLink";
 
 const Layout = () => {
   const intl = useIntl();
-  const { locale } = useLocale();
+  const locale = getLocale(intl);
   const paths = useRoutes();
   useLayoutTheme("default");
 

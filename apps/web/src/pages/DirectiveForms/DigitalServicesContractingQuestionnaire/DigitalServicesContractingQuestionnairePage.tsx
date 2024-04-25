@@ -7,7 +7,7 @@ import { useMutation, useQuery } from "urql";
 import { Link, Pending, TableOfContents } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { BasicForm } from "@gc-digital-talent/forms";
-import { useLocale } from "@gc-digital-talent/i18n";
+import { getLocale } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import {
   Department,
@@ -56,7 +56,7 @@ export const DigitalServicesContractingQuestionnaire = ({
   defaultValues,
 }: DigitalServicesContractingQuestionnaireProps) => {
   const intl = useIntl();
-  const localeState = useLocale();
+  const locale = getLocale(intl);
   const paths = useRoutes();
 
   const crumbs = useBreadcrumbs({
@@ -118,7 +118,7 @@ export const DigitalServicesContractingQuestionnaire = ({
               color="secondary"
               block
               external
-              href={localeState.locale === "fr" ? contractingFr : contractingEn}
+              href={locale === "fr" ? contractingFr : contractingEn}
             >
               {intl.formatMessage({
                 defaultMessage: "Download a copy of this form",

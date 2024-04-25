@@ -5,7 +5,7 @@ import FolderOpenIcon from "@heroicons/react/24/outline/FolderOpenIcon";
 import ArrowDownOnSquareIcon from "@heroicons/react/24/outline/ArrowDownOnSquareIcon";
 
 import { Card, CardBasic, Heading, Link } from "@gc-digital-talent/ui";
-import { uiMessages, useLocale } from "@gc-digital-talent/i18n";
+import { uiMessages, getLocale } from "@gc-digital-talent/i18n";
 
 import trainingSession from "~/assets/img/Directive_landing_page_graphics_R1-01.webp";
 import decisionTree from "~/assets/img/Directive_landing_page_graphics_R1-02.webp";
@@ -31,7 +31,7 @@ import procurementDocxFr from "~/assets/documents/Orientation_approvisionnement_
 
 const Resources = () => {
   const intl = useIntl();
-  const localeState = useLocale();
+  const locale = getLocale(intl);
   return (
     <>
       <section>
@@ -107,11 +107,7 @@ const Resources = () => {
               block
               external
               download
-              href={
-                localeState.locale === "en"
-                  ? decisionTreePdfEn
-                  : decisionTreePdfFr
-              }
+              href={locale === "en" ? decisionTreePdfEn : decisionTreePdfFr}
               data-h2-margin="base(0, 0, x1, 0)"
             >
               {intl.formatMessage({
@@ -128,11 +124,7 @@ const Resources = () => {
               block
               external
               download
-              href={
-                localeState.locale === "en"
-                  ? decisionTreeDocxEn
-                  : decisionTreeDocxFr
-              }
+              href={locale === "en" ? decisionTreeDocxEn : decisionTreeDocxFr}
             >
               {intl.formatMessage({
                 defaultMessage:
@@ -213,7 +205,7 @@ const Resources = () => {
                   external
                   download
                   href={
-                    localeState.locale === "en"
+                    locale === "en"
                       ? guidanceManagerPdfEn
                       : guidanceManagerPdfFr
                   }
@@ -244,7 +236,7 @@ const Resources = () => {
                       "Aria label for download guidance for managers plain text link.",
                   })}
                   href={
-                    localeState.locale === "en"
+                    locale === "en"
                       ? guidanceManagerDocxEn
                       : guidanceManagerDocxFr
                   }
@@ -309,7 +301,7 @@ const Resources = () => {
                     description:
                       "Aria label for download guidance for human resources pdf link.",
                   })}
-                  href={localeState.locale === "en" ? hrPdfEn : hrPdfFr}
+                  href={locale === "en" ? hrPdfEn : hrPdfFr}
                   icon={ArrowDownOnSquareIcon}
                   data-h2-margin="base(x1, 0, x1, 0)"
                   data-h2-justify-content="base(flex-start)"
@@ -329,7 +321,7 @@ const Resources = () => {
                     description:
                       "Aria label for download guidance for human resources plain text link.",
                   })}
-                  href={localeState.locale === "en" ? hrDocxEn : hrDocxFr}
+                  href={locale === "en" ? hrDocxEn : hrDocxFr}
                   icon={ArrowDownOnSquareIcon}
                   data-h2-justify-content="base(flex-start)"
                 >
@@ -385,11 +377,7 @@ const Resources = () => {
                   block
                   external
                   download
-                  href={
-                    localeState.locale === "en"
-                      ? procurementPdfEn
-                      : procurementPdfFr
-                  }
+                  href={locale === "en" ? procurementPdfEn : procurementPdfFr}
                   aria-label={intl.formatMessage({
                     defaultMessage:
                       "Download the implementation guidance for procurement officers (PDF)",
@@ -416,11 +404,7 @@ const Resources = () => {
                     description:
                       "Aria label for download guidance for procurement officers plain text link.",
                   })}
-                  href={
-                    localeState.locale === "en"
-                      ? procurementDocxEn
-                      : procurementDocxFr
-                  }
+                  href={locale === "en" ? procurementDocxEn : procurementDocxFr}
                   icon={ArrowDownOnSquareIcon}
                   data-h2-justify-content="base(flex-start)"
                 >
