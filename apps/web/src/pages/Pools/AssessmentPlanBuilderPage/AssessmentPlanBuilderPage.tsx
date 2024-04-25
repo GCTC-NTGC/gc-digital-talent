@@ -45,8 +45,8 @@ const pageTitle = defineMessage(messages.assessmentPlan);
 
 const pageSubtitle = defineMessage({
   defaultMessage:
-    "Select, organize and define the assessments used to evaluate each skill in the advertisement. Make sure every skill is assessed at least once to complete your assessment plan.",
-  id: "SSZY5w",
+    "Select, organize and define the assessments used to evaluate each skill in the advertisement. Make sure every essential skill is assessed at least once to complete your assessment plan.",
+  id: "iuA2pt",
   description: "Subtitle for the assessment plan builder",
 });
 export interface AssessmentPlanBuilderProps {
