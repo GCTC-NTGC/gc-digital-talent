@@ -22,7 +22,6 @@ import SideMenuCategory from "./SideMenuCategory";
 
 export default {
   component: SideMenuComponent,
-  title: "Components/Side Menu",
   args: {
     isOpen: true,
   },

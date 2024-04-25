@@ -7,7 +7,6 @@ import Board from "./Board";
 
 export default {
   component: Board.Root,
-  title: "Components/Board",
   parameters: {
     chromatic: {
       modes: {

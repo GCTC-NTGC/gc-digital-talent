@@ -12,7 +12,6 @@ import type { CheckboxProps } from ".";
 
 export default {
   component: Checkbox,
-  title: "Form/Checkbox",
 } as Meta;
 
 const Template: StoryFn<CheckboxProps> = (args) => (

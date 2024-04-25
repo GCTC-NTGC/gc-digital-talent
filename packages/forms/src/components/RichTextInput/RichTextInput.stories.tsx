@@ -23,7 +23,6 @@ const defaultContent = `
 
 export default {
   component: RichTextInput,
-  title: "Form/Rich Text",
   args: {
     name: "richText",
     id: "rich-text",

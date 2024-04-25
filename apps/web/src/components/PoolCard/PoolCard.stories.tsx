@@ -17,7 +17,6 @@ Object.keys(fakedPoolNull).forEach((key) => {
 
 export default {
   component: PoolCard,
-  title: "Components/Card/Pool Card",
   args: {
     pool: fakedPool,
   },

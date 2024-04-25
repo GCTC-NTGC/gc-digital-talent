@@ -9,7 +9,6 @@ import SkillAccordion, { SkillAccordionProps } from "./SkillAccordion";
 const skill = fakeSkills()[0];
 export default {
   component: SkillAccordion,
-  title: "Components/Accordion/Skill Accordion",
   args: {
     skill,
   },

@@ -7,7 +7,6 @@ import type { PaginationProps } from "./Pagination";
 
 export default {
   component: Pagination,
-  title: "Components/Pagination",
   args: {
     ariaLabel: "Pagination table",
     handlePageChange: action("Change page"),

@@ -7,7 +7,6 @@ import NavTabs from "./NavTabs";
 
 export default {
   component: NavTabs.Root,
-  title: "Components/Tabs/Nav Tabs",
   parameters: {
     defaultPath: {
       path: "/:index",

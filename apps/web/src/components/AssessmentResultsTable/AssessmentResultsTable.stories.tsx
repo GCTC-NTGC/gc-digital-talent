@@ -11,7 +11,6 @@ const poolCandidate = testPoolCandidate;
 
 export default {
   component: AssessmentResultsTable,
-  title: "Components/Assessment Step Table",
 };
 
 const Template: StoryFn<typeof AssessmentResultsTable> = (args) => (

@@ -25,7 +25,6 @@ const applications = Object.values(PoolCandidateStatus).map((status, index) => {
 
 export default {
   component: ApplicationCard,
-  title: "Components/Card/Application Card",
 } as Meta;
 
 const Template: StoryFn<typeof ApplicationCard> = () => {

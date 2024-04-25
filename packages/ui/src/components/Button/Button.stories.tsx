@@ -10,7 +10,6 @@ import type { ButtonProps } from "./Button";
 
 export default {
   component: Button,
-  title: "Components/Button",
   args: {
     label: "Button label",
   },

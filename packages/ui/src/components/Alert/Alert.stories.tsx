@@ -11,7 +11,6 @@ faker.seed(0);
 
 export default {
   component: Alert.Root,
-  title: "Components/Alert",
   args: {
     children: faker.lorem.sentences(3),
     icon: BellIcon,

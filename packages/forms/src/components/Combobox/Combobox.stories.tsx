@@ -37,7 +37,6 @@ type ComboboxType = ComboboxProps & {
 
 export default {
   component: Combobox,
-  title: "Form/Combobox",
 };
 
 const Template: StoryFn<ComboboxType> = (args) => {

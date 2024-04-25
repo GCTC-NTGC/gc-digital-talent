@@ -10,7 +10,6 @@ const fakeUserData = fakeUsers(1)[0];
 
 export default {
   component: ProfilePage,
-  title: "Pages/Profile and Applications/Profile Page",
   args: {},
 } as Meta;
 

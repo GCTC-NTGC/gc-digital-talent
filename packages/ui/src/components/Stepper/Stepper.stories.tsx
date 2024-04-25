@@ -45,7 +45,6 @@ const ReactRouterDecorator: Decorator<Args> = (Story, options) => {
 
 export default {
   component: Stepper,
-  title: "Components/Stepper",
   decorators: [ReactRouterDecorator],
   parameters: {
     chromatic: {

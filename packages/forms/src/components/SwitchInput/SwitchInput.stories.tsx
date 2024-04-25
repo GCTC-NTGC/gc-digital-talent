@@ -17,7 +17,6 @@ type SwitchInputArgs = SwitchInputProps & {
 
 export default {
   component: SwitchInput,
-  title: "Form/Switch Input",
 };
 
 const colors: Array<Color> = [

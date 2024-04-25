@@ -95,7 +95,6 @@ const download: DatasetDownload = {
 
 export default {
   component: Table,
-  title: "Components/Responsive Table",
   args: {
     data: mockUsers,
     columns,

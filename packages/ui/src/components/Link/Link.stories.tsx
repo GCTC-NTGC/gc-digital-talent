@@ -10,7 +10,6 @@ import type { LinkProps } from "./Link";
 
 export default {
   component: Link,
-  title: "Components/Link",
   args: {
     label: "Link label",
   },

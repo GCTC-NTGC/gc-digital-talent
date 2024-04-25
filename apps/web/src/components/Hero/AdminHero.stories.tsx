@@ -26,10 +26,6 @@ const navItems = [
 
 export default {
   component: AdminHero,
-  title: "Components/Hero/Admin",
-  args: {
-    title: "Hero",
-  },
   parameters: {
     defaultPath: {
       path: "/:index",

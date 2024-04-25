@@ -10,7 +10,6 @@ faker.seed(0);
 
 export default {
   component: CardFlat,
-  title: "Components/Card/Card Flat",
   parameters: {
     chromatic: {
       modes: {

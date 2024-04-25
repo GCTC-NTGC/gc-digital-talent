@@ -12,7 +12,6 @@ import CardOptionGroup, { CardOption } from "./CardOptionGroup";
 
 export default {
   component: CardOptionGroup,
-  title: "Form/Card Option Group",
   parameters: {
     chromatic: {
       modes: {

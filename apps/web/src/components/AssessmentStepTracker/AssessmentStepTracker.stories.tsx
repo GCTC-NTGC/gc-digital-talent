@@ -8,7 +8,6 @@ import { poolWithAssessmentSteps } from "./testData";
 
 export default {
   component: AssessmentStepTracker,
-  title: "Components/Assessment Step Tracker",
   decorators: [MockGraphqlDecorator],
   parameters: {
     apiResponsesConfig: {

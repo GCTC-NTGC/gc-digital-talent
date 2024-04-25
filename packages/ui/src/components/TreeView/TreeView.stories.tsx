@@ -12,7 +12,6 @@ faker.seed(0);
 
 export default {
   component: TreeView.Root,
-  title: "Components/Tree View",
 } as Meta;
 
 const Template: StoryFn<typeof TreeView.Root> = () => {

@@ -6,7 +6,6 @@ import Heading from "./Heading";
 
 export default {
   component: Heading,
-  title: "Components/Heading",
 } as Meta<typeof Heading>;
 
 const Template: StoryFn<typeof Heading> = (args) => (

@@ -32,7 +32,6 @@ const mockExperiencesFragment = mockExperiences.map((experience) =>
 
 export default {
   component: UpdateUserSkillForm,
-  title: "Forms/Update User Skill Form",
   decorators: [MockGraphqlDecorator],
   args: {
     userId: mockUser.id,

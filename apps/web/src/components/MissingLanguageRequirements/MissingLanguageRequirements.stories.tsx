@@ -20,7 +20,6 @@ const bilingualPool: Pool = {
 };
 
 export default {
-  title: "Components/Missing Language Requirements",
   component: MissingLanguageRequirements,
 } as Meta<MissingLanguageRequirementsComponent>;
 

@@ -32,7 +32,6 @@ const expiredRecruitments: Application[] = fakePoolCandidates(5).map(
 
 export default {
   component: TrackApplications,
-  title: "Pages/Profile and Applications/Track Applications",
   args: {
     applications: [...activeRecruitments, ...expiredRecruitments],
     userId: mockApplications[0].id,

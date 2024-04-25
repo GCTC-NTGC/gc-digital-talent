@@ -26,7 +26,6 @@ import DateInput, { DateInputProps } from "./DateInput";
 
 export default {
   component: DateInput,
-  title: "Form/Date Input",
   args: {
     name: "date",
     id: "date",

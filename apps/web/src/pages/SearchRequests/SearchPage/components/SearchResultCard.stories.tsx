@@ -7,7 +7,6 @@ import { fakePools } from "@gc-digital-talent/fake-data";
 import SearchResultCard from "./SearchResultCard";
 
 const meta: Meta<typeof SearchResultCard> = {
-  title: "Components/Card/Search Result Card",
   component: SearchResultCard,
 };
 

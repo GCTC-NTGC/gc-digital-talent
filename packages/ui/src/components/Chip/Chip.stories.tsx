@@ -23,7 +23,6 @@ const colors: Color[] = [
 
 export default {
   component: Chip,
-  title: "Components/Chip",
   parameters: {
     chromatic: {
       modes: {

@@ -12,7 +12,6 @@ const mockApplication = fakePoolCandidates(1)[0];
 
 export default {
   component: ApplicationSelfDeclaration,
-  title: "Pages/Application/Self-Declaration",
 } as Meta<typeof ApplicationSelfDeclaration>;
 
 const Template: StoryFn<typeof ApplicationSelfDeclaration> = () => (

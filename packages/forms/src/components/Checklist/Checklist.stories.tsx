@@ -10,7 +10,6 @@ import Checklist from "./Checklist";
 
 export default {
   component: Checklist,
-  title: "Form/Checklist",
 };
 
 const Template: StoryFn<typeof Checklist> = (args) => (

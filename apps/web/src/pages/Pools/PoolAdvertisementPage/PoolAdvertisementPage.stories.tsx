@@ -15,7 +15,6 @@ nullPool.id = fakePool.id; // pool will never have a null id
 
 export default {
   component: PoolPoster,
-  title: "Pages/Process Page",
 } as Meta<typeof PoolPoster>;
 
 const Template: StoryFn<typeof PoolPoster> = (args) => {

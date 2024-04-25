@@ -19,7 +19,6 @@ const Text = () => {
 
 export default {
   component: Accordion.Root,
-  title: "Components/Accordion",
   subcomponents: {
     Root,
     Item,

@@ -12,7 +12,6 @@ import type { TextAreaProps } from ".";
 
 export default {
   component: TextArea,
-  title: "Form/TextArea",
   args: {
     id: "description",
     name: "description",

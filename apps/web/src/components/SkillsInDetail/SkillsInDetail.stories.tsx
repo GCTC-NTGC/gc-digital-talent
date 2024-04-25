@@ -9,7 +9,6 @@ import SkillsInDetail from "./SkillsInDetail";
 
 export default {
   component: SkillsInDetail,
-  title: "Components/Skills In Detail",
   args: {
     skills: [],
     onDelete: (skillId: string) =>

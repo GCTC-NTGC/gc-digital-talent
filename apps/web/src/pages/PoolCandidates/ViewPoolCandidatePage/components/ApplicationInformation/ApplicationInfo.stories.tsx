@@ -46,7 +46,6 @@ mockUser = {
 
 export default {
   component: ApplicationInformation,
-  title: "Components/Application Info",
   args: {
     snapshot: mockUser,
     application: mockPoolCandidate,

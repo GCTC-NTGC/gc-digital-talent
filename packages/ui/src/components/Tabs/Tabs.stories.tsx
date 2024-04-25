@@ -7,7 +7,6 @@ import Tabs from "./Tabs";
 
 export default {
   component: Tabs.Root,
-  title: "Components/Tabs",
   parameters: {
     chromatic: {
       modes: {

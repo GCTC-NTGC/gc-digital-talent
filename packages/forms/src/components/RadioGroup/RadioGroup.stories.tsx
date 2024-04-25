@@ -13,7 +13,6 @@ faker.seed(0);
 
 export default {
   component: RadioGroup,
-  title: "Form/Radio Group",
 };
 
 const Template: StoryFn<typeof RadioGroup> = (args) => (

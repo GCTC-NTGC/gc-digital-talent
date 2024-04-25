@@ -13,7 +13,6 @@ faker.seed(0);
 
 export default {
   component: DefinitionList.Root,
-  title: "Components/Definition List",
 } as Meta<typeof DefinitionList.Root>;
 
 const Template: StoryFn<typeof DefinitionList.Root> = (args) => {

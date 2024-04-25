@@ -6,7 +6,7 @@ import Example from "./Example";
 // The default export metadata controls how Storybook lists your stories and provides information used by addons.
 const meta = {
   component: Example,
-  title: "Example/Simple",
+
   // You can also define args at the component level. They will apply to all the component's stories unless you overwrite them. To do so, use the args key on the default CSF export.
   argTypes: {
     showBorder: { control: "boolean" },

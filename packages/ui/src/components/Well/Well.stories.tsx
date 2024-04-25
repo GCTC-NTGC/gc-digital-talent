@@ -10,7 +10,6 @@ faker.seed(0);
 
 export default {
   component: Well,
-  title: "Components/Well",
   args: {
     content: faker.lorem.sentences(2),
   },

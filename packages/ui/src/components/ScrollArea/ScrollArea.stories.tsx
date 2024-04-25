@@ -7,7 +7,6 @@ import ScrollArea from "./ScrollArea";
 
 export default {
   component: ScrollArea.Root,
-  title: "Components/Scroll Area",
   parameters: {
     chromatic: {
       modes: {

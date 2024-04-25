@@ -14,7 +14,6 @@ faker.seed(0);
 
 export default {
   component: Dialog.Root,
-  title: "Components/Dialog",
   decorators: [OverlayOrDialogDecorator],
   parameters: {
     chromatic: {

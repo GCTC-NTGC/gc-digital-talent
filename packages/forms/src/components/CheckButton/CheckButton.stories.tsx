@@ -8,7 +8,6 @@ import CheckButton from "./CheckButton";
 
 export default {
   component: CheckButton,
-  title: "Form/Check Button",
   args: {
     label: "Check button label",
   },

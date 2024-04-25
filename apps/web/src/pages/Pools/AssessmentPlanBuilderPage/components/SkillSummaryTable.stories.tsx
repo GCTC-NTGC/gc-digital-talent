@@ -21,7 +21,6 @@ faker.seed(0);
 
 export default {
   component: SkillSummaryTable,
-  title: "Tables/Skill Summary Table",
 };
 
 const Template: StoryFn<typeof SkillSummaryTable> = (args) => {

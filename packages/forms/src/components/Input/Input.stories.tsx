@@ -12,7 +12,6 @@ import type { InputProps } from ".";
 
 export default {
   component: Input,
-  title: "Form/Input",
 } as Meta;
 
 const TemplateInput: StoryFn<InputProps> = (args) => {

@@ -25,7 +25,6 @@ const mockFragmentData = makeFragmentData(
 
 export default {
   component: CreateAccountForm,
-  title: "Forms/Create Account Form",
 } as Meta<typeof CreateAccountForm>;
 
 const Template: StoryFn<typeof CreateAccountForm> = () => {

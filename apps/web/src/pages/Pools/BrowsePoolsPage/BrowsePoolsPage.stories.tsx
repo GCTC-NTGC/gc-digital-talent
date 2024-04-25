@@ -24,7 +24,6 @@ const mockPoolsOngoing = fakePools(2).map((advert) => ({
 
 export default {
   component: BrowsePools,
-  title: "Pages/Browse Pools Page",
   decorators: [MockGraphqlDecorator],
 } as Meta;
 

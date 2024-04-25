@@ -12,7 +12,6 @@ import DropdownMenu from "./DropdownMenu";
 
 export default {
   component: DropdownMenu.Root,
-  title: "Components/Dropdown Menu",
   decorators: [OverlayOrDialogDecorator],
   chromatic: {
     modes: {

@@ -1,9 +1,7 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 
-const meta: Meta = {
-  title: "Example/Style Guide",
-};
+const meta: Meta = {};
 
 export default meta;
 

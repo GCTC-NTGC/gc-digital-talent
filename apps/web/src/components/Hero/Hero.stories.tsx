@@ -7,7 +7,6 @@ import Hero from "./Hero";
 
 export default {
   component: Hero,
-  title: "Components/Hero",
   args: {
     title: "Hero",
     subtitle: "Subtitle",

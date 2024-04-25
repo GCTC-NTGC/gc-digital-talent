@@ -23,7 +23,6 @@ type StoryProps = RepeaterProps &
 
 export default {
   component: Repeater.Fieldset,
-  title: "Form/Repeater",
 };
 
 const defaultArgs = {

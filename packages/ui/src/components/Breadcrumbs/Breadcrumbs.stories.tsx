@@ -5,7 +5,6 @@ import Breadcrumbs from "./Breadcrumbs";
 
 export default {
   component: Breadcrumbs,
-  title: "Components/Breadcrumbs",
 } as Meta<typeof Breadcrumbs>;
 
 const Template: StoryFn = () => (

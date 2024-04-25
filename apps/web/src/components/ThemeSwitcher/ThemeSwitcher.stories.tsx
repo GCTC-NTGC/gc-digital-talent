@@ -7,7 +7,6 @@ import ThemeSwitcher from "./ThemeSwitcher";
 
 export default {
   component: ThemeSwitcher,
-  title: "Components/Theme Switcher",
   decorators: [OverlayOrDialogDecorator],
 } as Meta;
 

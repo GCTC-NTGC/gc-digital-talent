@@ -17,7 +17,6 @@ import type { SelectProps } from ".";
 
 export default {
   component: Select,
-  title: "Form/Select",
   argTypes: {
     contextToggleHandler: {
       table: {

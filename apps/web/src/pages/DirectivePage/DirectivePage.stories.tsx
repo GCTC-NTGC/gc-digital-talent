@@ -7,7 +7,6 @@ import DirectivePage from "./DirectivePage";
 
 export default {
   component: DirectivePage,
-  title: "Pages/Directive On Digital Talent/Directive On Digital Talent Page",
 } as Meta;
 
 const Template: StoryFn<typeof DirectivePage> = () => <DirectivePage />;

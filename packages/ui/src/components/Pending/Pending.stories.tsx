@@ -16,7 +16,6 @@ type PendingArgs = Omit<PendingProps, "error"> & {
 
 export default {
   component: Pending,
-  title: "Components/Pending",
   decorators: [OverlayOrDialogDecorator],
   argTypes: {
     pause: {
