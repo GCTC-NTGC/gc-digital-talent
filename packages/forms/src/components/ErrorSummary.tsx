@@ -29,7 +29,7 @@ const numberRegex = /(\d+)/g;
 /**
  * Get Field Label
  *
- * , getLocaleUser the field name to extract the associated label
+ * Use the field name to extract the associated label
  *
  * @param {string} name - The name property of the field
  * @param {FieldLabels} labels - Available labels
