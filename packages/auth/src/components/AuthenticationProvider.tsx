@@ -12,6 +12,7 @@ interface AuthenticationContainerProps {
 
 const AuthenticationProvider = ({ children }: AuthenticationContainerProps) => {
   const apiPaths = useApiRoutes();
+  // eslint-disable-next-line no-restricted-syntax
   const { locale } = useLocale();
   const refreshTokenSetPath = apiPaths.refreshAccessToken();
 
