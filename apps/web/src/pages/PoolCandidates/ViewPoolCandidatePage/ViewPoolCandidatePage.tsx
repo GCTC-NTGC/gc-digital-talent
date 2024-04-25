@@ -823,11 +823,13 @@ export const ViewPoolCandidate = ({
                   // eslint-disable-next-line react/jsx-no-useless-fragment
                   <></>
                 )}
-              <ChangeExpiryDateDialog expiryDateQuery={poolCandidate} />
               {isRemoved ? (
                 <ReinstateCandidateDialog reinstateQuery={poolCandidate} />
               ) : (
-                <RemoveCandidateDialog removalQuery={poolCandidate} />
+                <>
+                  <RemoveCandidateDialog removalQuery={poolCandidate} />
+                  <ChangeExpiryDateDialog expiryDateQuery={poolCandidate} />
+                </>
               )}
               {/* TODO: Add "Remove" and "Re-instate" dialogs to Pool Candidate
               page (#9198) */}
