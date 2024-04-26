@@ -98,8 +98,11 @@ stages:
       - script: npx playwright install
         displayName: "Install Playwright browsers"
 
+
       - script: npm run e2e:playwright:chromium
         displayName: "Run playwright tests"
+        env:
+          CI: 'true'
       - task: AzureCLI@2
         displayName: 'Copy Playwright Results to Storage'
         condition: succeededOrFailed()
