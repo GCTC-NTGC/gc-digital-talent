@@ -45,7 +45,6 @@ class PoolCandidateFactory extends Factory
         $removedStatuses = PoolCandidateStatus::removedGroup();
 
         return [
-            'cmo_identifier' => $this->faker->word(),
             'expiry_date' => $this->faker->dateTimeBetween('-1 years', '3 years'),
             'pool_candidate_status' => $this->faker->boolean() ?
                 $this->faker->randomElement([PoolCandidateStatus::QUALIFIED_AVAILABLE, PoolCandidateStatus::PLACED_CASUAL])->name :

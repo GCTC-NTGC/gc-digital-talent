@@ -235,7 +235,6 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
             priorityWeight
           }
           isBookmarked
-          cmoIdentifier
           expiryDate
           status
           submittedAt
