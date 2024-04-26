@@ -2491,10 +2491,6 @@
     "defaultMessage": "Vous pouvez autodéclarer votre appartenance à une ou plusieurs des communautés énumérées alphabétiquement ci-dessous.",
     "description": "Text that appears before employment equity form options."
   },
-  "CX/qKY": {
-    "defaultMessage": "à {institution}",
-    "description": "Study at institution"
-  },
   "CY+493": {
     "defaultMessage": "Pour en apprendre davantage",
     "description": "Button text to learn more about the program"

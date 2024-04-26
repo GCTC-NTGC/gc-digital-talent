@@ -28,6 +28,7 @@ import {
 } from "~/utils/experienceUtils";
 import { InvertedSkillExperience } from "~/utils/skillUtils";
 import { getDateRange, formattedDate } from "~/utils/dateUtils";
+import experienceMessages from "~/messages/experienceMessages";
 
 export interface SkillAccordionProps {
   skill: InvertedSkillExperience;
@@ -103,15 +104,12 @@ const SkillAccordion = ({
     return (
       <div>
         <p>
-          <span data-h2-color="base(primary.darker)">{areaOfStudy}</span>{" "}
-          {intl.formatMessage(
-            {
-              defaultMessage: " at {institution}",
-              id: "CX/qKY",
-              description: "Study at institution",
-            },
-            { institution },
-          )}
+          {intl.formatMessage(experienceMessages.educationAt, {
+            areaOfStudy: (
+              <span data-h2-color="base(primary.darker)">{areaOfStudy}</span>
+            ),
+            institution,
+          })}
         </p>
         <p data-h2-margin="base(0, 0, x.5, 0)">
           {getDateRange({ endDate, startDate, intl })}
