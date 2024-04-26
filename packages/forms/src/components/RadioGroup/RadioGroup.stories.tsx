@@ -52,12 +52,6 @@ WithContext.args = {
     "Check the action tab after submitting to see how the form values are represented.",
 };
 
-export const Disabled = Template.bind({});
-Disabled.args = {
-  ...Default.args,
-  disabled: true,
-};
-
 export const Elements = Template.bind({});
 Elements.args = {
   idPrefix: "elements",
