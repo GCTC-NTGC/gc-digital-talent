@@ -100,7 +100,7 @@ type User {
   # Pool info
   poolCandidates: [PoolCandidate]
     @hasMany(scopes: ["authorizedToView"])
-    @canResolved(ability: "view") # PoolsCandidate objects associate the user with a pool
+    @canResolved(ability: "view") # PoolCandidate objects associate the user with a pool
   # Experiences
   experiences: [Experience] @belongsToMany # All experiences that a user owns
   awardExperiences: [AwardExperience] @belongsToMany # Award experiences that a user owns

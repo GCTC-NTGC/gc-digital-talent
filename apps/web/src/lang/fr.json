@@ -467,6 +467,10 @@
     "defaultMessage": "Erreur : nom de compétence non trouvé",
     "description": "Error message when skill name is not found on request page."
   },
+  "0Uvziq": {
+    "defaultMessage": "Candidats du bassin",
+    "description": "Title for pool candidates"
+  },
   "0VlOQq": {
     "defaultMessage": "Modifier - compétence",
     "description": "Page title for the edit skill page."
@@ -11113,10 +11117,6 @@
   "zemp3H": {
     "defaultMessage": "Niveau de sécurité",
     "description": "Label for _security level_ fieldset in the _digital services contracting questionnaire_"
-  },
-  "zfi91j": {
-    "defaultMessage": "Candidats du bassin",
-    "description": "Title for pool candidates"
   },
   "zl6H2p": {
     "defaultMessage": "Questions relatives à l’Initiative en matière numérique",

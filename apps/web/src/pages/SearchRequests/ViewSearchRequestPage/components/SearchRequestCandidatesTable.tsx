@@ -123,7 +123,7 @@ const SingleSearchRequestTableApi = ({
               expiryStatus: CandidateExpiryFilter.Active,
             }
       }
-      title={intl.formatMessage(adminMessages.poolsCandidates)}
+      title={intl.formatMessage(adminMessages.poolCandidates)}
     />
   );
 };

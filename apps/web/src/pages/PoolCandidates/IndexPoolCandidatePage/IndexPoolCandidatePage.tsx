@@ -167,7 +167,7 @@ export const IndexPoolCandidatePage = () => {
   const intl = useIntl();
   const { poolId } = useRequiredParams<RouteParams>("poolId");
 
-  const pageTitle = intl.formatMessage(adminMessages.poolsCandidates);
+  const pageTitle = intl.formatMessage(adminMessages.poolCandidates);
   const formattedSubTitle = intl.formatMessage(subTitle);
 
   const [{ data, fetching, error }] = useQuery({
