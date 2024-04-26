@@ -2,24 +2,38 @@ import React from "react";
 import { StoryFn, Meta } from "@storybook/react";
 
 import { fakePools } from "@gc-digital-talent/fake-data";
-import { Pool } from "@gc-digital-talent/graphql";
+import { Pool, makeFragmentData } from "@gc-digital-talent/graphql";
 
-import PoolCard from "./PoolCard";
+import PoolCard, { PoolCard_Fragment } from "./PoolCard";
 
 const fakedPools = fakePools();
-const fakedPool = fakedPools[0];
-const fakedPool2 = fakedPools[1];
-const fakedPool3 = fakedPools[2];
-const fakedPool4 = fakedPools[3];
-const fakedPoolNull = fakedPools[0];
-
-if (fakedPool3.classification?.minSalary) {
-  fakedPool3.classification.minSalary = null;
-}
-
-if (fakedPool4.classification?.maxSalary) {
-  fakedPool4.classification.maxSalary = null;
-}
+const fakedPool = makeFragmentData(fakedPools[0], PoolCard_Fragment);
+const fakedPool2 = makeFragmentData(fakedPools[1], PoolCard_Fragment);
+const fakedPool3 = makeFragmentData(
+  {
+    ...fakedPools[2],
+    classification: fakedPools[2].classification
+      ? {
+          ...fakedPools[2].classification,
+          minSalary: null,
+        }
+      : undefined,
+  },
+  PoolCard_Fragment,
+);
+const fakedPool4 = makeFragmentData(
+  {
+    ...fakedPools[3],
+    classification: fakedPools[3].classification
+      ? {
+          ...fakedPools[3].classification,
+          maxSalary: null,
+        }
+      : undefined,
+  },
+  PoolCard_Fragment,
+);
+const fakedPoolNull = makeFragmentData(fakedPools[0], PoolCard_Fragment);
 
 // idea stolen from ProfilePage.stories.tsx
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -39,15 +53,15 @@ export default {
 const TemplatePoolCard: StoryFn<{ pool: Pool }> = () => (
   <div>
     <p data-h2-padding="base(x0.5, 0, x0.5, 0)">First</p>
-    <PoolCard pool={fakedPool} />
+    <PoolCard poolQuery={fakedPool} />
     <p data-h2-padding="base(x0.50, 0, x0.5, 0)">Second</p>
-    <PoolCard pool={fakedPool2} />
+    <PoolCard poolQuery={fakedPool2} />
     <p data-h2-padding="base(x0.50, 0, x0.5, 0)">Third - only maxSalary</p>
-    <PoolCard pool={fakedPool3} />
+    <PoolCard poolQuery={fakedPool3} />
     <p data-h2-padding="base(x0.50, 0, x0.5, 0)">Fourth - Only minSalary</p>
-    <PoolCard pool={fakedPool4} />
+    <PoolCard poolQuery={fakedPool4} />
     <p data-h2-padding="base(x0.5, 0, x0.5, 0)">Null</p>
-    <PoolCard pool={nullPool} />
+    <PoolCard poolQuery={nullPool} />
   </div>
 );
 

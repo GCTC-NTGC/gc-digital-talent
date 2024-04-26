@@ -12,6 +12,7 @@ import {
   PoolStatus,
   PublishingGroup,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
@@ -41,92 +42,9 @@ const BrowsePoolsPage_Query = graphql(/* GraphQL */ `
   query BrowsePoolsPage($closingAfter: DateTime) {
     publishedPools(closingAfter: $closingAfter) {
       id
-      name {
-        en
-        fr
-      }
-      closingDate
-      status
-      language
-      securityClearance
-      classification {
-        id
-        group
-        level
-        name {
-          en
-          fr
-        }
-        minSalary
-        maxSalary
-        genericJobTitles {
-          id
-          key
-          name {
-            en
-            fr
-          }
-        }
-      }
-      yourImpact {
-        en
-        fr
-      }
-      keyTasks {
-        en
-        fr
-      }
-      essentialSkills {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        category
-        families {
-          id
-          key
-          description {
-            en
-            fr
-          }
-          name {
-            en
-            fr
-          }
-        }
-      }
-      nonessentialSkills {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        category
-        families {
-          id
-          key
-          description {
-            en
-            fr
-          }
-          name {
-            en
-            fr
-          }
-        }
-      }
-      isRemote
-      location {
-        en
-        fr
-      }
-      stream
-      processNumber
-      publishedAt
       publishingGroup
+      status
+      ...ActiveRecruitmentSectionPool
     }
     ...OngoingRecruitmentSection
   }
@@ -152,11 +70,7 @@ export const BrowsePools = () => {
     variables: { closingAfter: now }, // pass current dateTime into query argument
   });
 
-  const pools =
-    data?.publishedPools.filter(
-      (pool) => typeof pool !== `undefined` && !!pool,
-    ) ?? [];
-
+  const pools = unpackMaybes(data?.publishedPools);
   const title = intl.formatMessage(navigationMessages.browseJobs);
   const formattedSubTitle = intl.formatMessage(subTitle);
 
@@ -231,7 +145,7 @@ export const BrowsePools = () => {
           style={{ zIndex: 1 }}
         >
           <div>
-            <ActiveRecruitmentSection pools={activeRecruitmentPools} />
+            <ActiveRecruitmentSection poolsQuery={activeRecruitmentPools} />
           </div>
           {ongoingRecruitmentPools.length > 0 && (
             <div>
