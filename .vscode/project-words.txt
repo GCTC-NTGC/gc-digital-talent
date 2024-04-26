@@ -36,6 +36,7 @@ freshdesk
 Freshdesk
 FRESHDESK
 Gatineau
+GCNOTIFY
 gctalent
 headlessui
 Helpdesk
