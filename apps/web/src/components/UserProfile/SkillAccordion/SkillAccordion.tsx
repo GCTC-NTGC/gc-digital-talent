@@ -9,6 +9,7 @@ import {
   getAwardedTo,
   getEducationStatus,
   getEducationType,
+  commonMessages,
 } from "@gc-digital-talent/i18n";
 import {
   Skill,
@@ -20,6 +21,7 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import {
+  getExperienceFormLabels,
   isAwardExperience,
   isCommunityExperience,
   isEducationExperience,
@@ -65,6 +67,8 @@ const SkillAccordion = ({
   const intl = useIntl();
   const locale = getLocale(intl);
 
+  const experienceFormLabels = getExperienceFormLabels(intl);
+
   const { name, experiences } = skill;
 
   const getPersonalExperience = (experience: PersonalExperience) => {
@@ -75,13 +79,17 @@ const SkillAccordion = ({
 
     return (
       <>
-        <p data-h2-color="base(primary.darker)">{title}</p>
-        <p data-h2-margin="base(0, 0, x.5, 0)">
-          {getDateRange({ endDate, startDate, intl })}
-        </p>
-        <p>{description}</p>
-        <p>{justification}</p>
-        <p>{details}</p>
+        {title && <p data-h2-color="base(primary.darker)">{title}</p>}
+        {endDate || startDate ? (
+          <p data-h2-margin="base(0, 0, x.5, 0)">
+            {getDateRange({ endDate, startDate, intl })}
+          </p>
+        ) : (
+          ""
+        )}
+        {description && <p>{description}</p>}
+        {justification && <p>{justification}</p>}
+        {details && <p>{details}</p>}
       </>
     );
   };
@@ -102,42 +110,49 @@ const SkillAccordion = ({
     const justification = skills ? grabSkillJustification(skills, skill) : "";
 
     return (
-      <div>
-        <p>
-          {intl.formatMessage(experienceMessages.educationAt, {
-            areaOfStudy: (
-              <span data-h2-color="base(primary.darker)">{areaOfStudy}</span>
-            ),
-            institution,
-          })}
-        </p>
-        <p data-h2-margin="base(0, 0, x.5, 0)">
-          {getDateRange({ endDate, startDate, intl })}
-        </p>
-        <p>
-          {type ? intl.formatMessage(getEducationType(type)) : ""}{" "}
-          <span
-            data-h2-color="base(primary.darker)"
-            data-h2-font-style="base(italic)"
-          >
-            {status ? intl.formatMessage(getEducationStatus(status)) : ""}{" "}
-          </span>
-        </p>
-        <p>
-          {thesisTitle
-            ? intl.formatMessage(
-                {
-                  defaultMessage: "Thesis: {thesisTitle}",
-                  id: "omDlZN",
-                  description: "Thesis, if applicable",
-                },
-                { thesisTitle },
-              )
-            : ""}
-        </p>
+      <>
+        {areaOfStudy || institution ? (
+          <p>
+            {intl.formatMessage(experienceMessages.educationAt, {
+              areaOfStudy: (
+                <span data-h2-color="base(primary.darker)">{areaOfStudy}</span>
+              ),
+              institution,
+            })}
+          </p>
+        ) : (
+          ""
+        )}
+        {endDate || startDate ? (
+          <p data-h2-margin="base(0, 0, x.5, 0)">
+            {getDateRange({ endDate, startDate, intl })}
+          </p>
+        ) : (
+          ""
+        )}
+        {type && status ? (
+          <p>
+            {intl.formatMessage(getEducationType(type))}{" "}
+            <span
+              data-h2-color="base(primary.darker)"
+              data-h2-font-style="base(italic)"
+            >
+              {intl.formatMessage(getEducationStatus(status))}
+            </span>
+          </p>
+        ) : (
+          ""
+        )}
+        {thesisTitle && (
+          <p>
+            {experienceFormLabels.thesisTitle}
+            {intl.formatMessage(commonMessages.dividingColon)}
+            {thesisTitle}
+          </p>
+        )}
         <p>{details}</p>
         <p>{justification}</p>
-      </div>
+      </>
     );
   };
 
@@ -156,51 +171,49 @@ const SkillAccordion = ({
 
     return (
       <>
-        <p>
-          {intl.formatMessage(
-            {
-              defaultMessage: "<primary>{title}</primary> issued by {issuedBy}",
-              id: "cK/hoN",
-              description: "The award title is issued by some group",
-            },
-            { issuedBy, title },
-          )}
-        </p>
-        <p data-h2-margin="base(0, 0, x.5, 0)">
-          {awardedDate && formattedDate(awardedDate, intl)}
-        </p>
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "Awarded to: ",
-            id: "3JL02L",
-            description: "The award was given to",
-          })}{" "}
-          {awardedTo ? intl.formatMessage(getAwardedTo(awardedTo)) : ""}
-        </p>
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "Scope: ",
-            id: "FAOzjP",
-            description: "The scope of the award given",
-          })}{" "}
-          {awardedScope
-            ? intl.formatMessage(getAwardedScope(awardedScope))
-            : ""}
-        </p>
-        <p>{justification}</p>
-        <p
-          data-h2-color="base(primary.darker)"
-          data-h2-font-weight="base(700)"
-          data-h2-margin="base(x1, 0, x.25, 0)"
-        >
-          {intl.formatMessage({
-            defaultMessage: "Additional details:",
-            id: "QfOWr0",
-            description: "Additional details if provided (without details)",
-          })}
-        </p>
-
-        <p>{details}</p>
+        {title || issuedBy ? (
+          <p>
+            {intl.formatMessage(experienceMessages.awardIssuedBy, {
+              title: <span data-h2-color="base(primary.darker)">{title}</span>,
+              issuedBy,
+            })}
+          </p>
+        ) : (
+          ""
+        )}
+        {awardedDate && (
+          <p data-h2-margin="base(0, 0, x.5, 0)">
+            {formattedDate(awardedDate, intl)}
+          </p>
+        )}
+        {awardedTo && (
+          <p>
+            {experienceFormLabels.awardedTo}
+            {intl.formatMessage(commonMessages.dividingColon)}
+            {intl.formatMessage(getAwardedTo(awardedTo))}
+          </p>
+        )}
+        {awardedScope && (
+          <p>
+            {experienceFormLabels.awardedScope}
+            {intl.formatMessage(commonMessages.dividingColon)}
+            {intl.formatMessage(getAwardedScope(awardedScope))}
+          </p>
+        )}
+        {justification && <p>{justification}</p>}
+        {details && (
+          <>
+            <p
+              data-h2-color="base(primary.darker)"
+              data-h2-font-weight="base(700)"
+              data-h2-margin="base(x1, 0, x.25, 0)"
+            >
+              {experienceFormLabels.details}
+              {intl.formatMessage(commonMessages.dividingColon)}
+            </p>
+            <p>{details}</p>
+          </>
+        )}
       </>
     );
   };
@@ -220,42 +233,46 @@ const SkillAccordion = ({
 
     return (
       <>
-        <p>
-          {intl.formatMessage(
-            {
-              defaultMessage: "<primary>{title}</primary> at {organization}",
-              id: "UPx6kk",
-              description: "Title at organization",
-            },
-            { organization, title },
-          )}
-        </p>
-        <p data-h2-margin="base(0, 0, x.5, 0)">
-          {getDateRange({ endDate, startDate, intl })}
-        </p>
-        <p>
-          {intl.formatMessage(
-            {
-              defaultMessage: "Project: {project}",
-              id: "gtLuDM",
-              description: "Project Name",
-            },
-            { project },
-          )}
-        </p>
+        {title || organization ? (
+          <p>
+            {intl.formatMessage(experienceMessages.communityAt, {
+              title: <span data-h2-color="base(primary.darker)">{title}</span>,
+              organization,
+            })}
+          </p>
+        ) : (
+          ""
+        )}
+        {endDate || startDate ? (
+          <p data-h2-margin="base(0, 0, x.5, 0)">
+            {getDateRange({ endDate, startDate, intl })}
+          </p>
+        ) : (
+          ""
+        )}
+        {project && (
+          <>
+            <p>
+              {experienceFormLabels.project}
+              {intl.formatMessage(commonMessages.dividingColon)}
+            </p>
+            <p>{project}</p>
+          </>
+        )}
         <p>{justification}</p>
-        <p
-          data-h2-color="base(primary.darker)"
-          data-h2-font-weight="base(700)"
-          data-h2-margin="base(x1, 0, x.25, 0)"
-        >
-          {intl.formatMessage({
-            defaultMessage: "Additional details:",
-            id: "QfOWr0",
-            description: "Additional details if provided (without details)",
-          })}
-        </p>
-        <p>{details}</p>
+        {details && (
+          <>
+            <p
+              data-h2-color="base(primary.darker)"
+              data-h2-font-weight="base(700)"
+              data-h2-margin="base(x1, 0, x.25, 0)"
+            >
+              {experienceFormLabels.details}
+              {intl.formatMessage(commonMessages.dividingColon)}
+            </p>
+            <p>{details}</p>
+          </>
+        )}
       </>
     );
   };
@@ -275,60 +292,61 @@ const SkillAccordion = ({
 
     return (
       <>
-        <p>
-          {intl.formatMessage(
-            {
-              defaultMessage: "<primary>{role}</primary> at {organization}",
-              id: "VOheZB",
-              description:
-                "Role at organization in work experience block of skill accordion.",
-            },
-            { organization, role },
-          )}
-        </p>
-        <p data-h2-margin="base(0, 0, x.5, 0)">
-          {getDateRange({ endDate, startDate, intl })}
-        </p>
-        <p>{division}</p>
-        <p>{justification}</p>
-        <p
-          data-h2-color="base(primary.darker)"
-          data-h2-font-weight="base(700)"
-          data-h2-margin="base(x1, 0, x.25, 0)"
-        >
-          {intl.formatMessage({
-            defaultMessage: "Additional details:",
-            id: "QfOWr0",
-            description: "Additional details if provided (without details)",
-          })}
-        </p>
-        <p>{details}</p>
+        {role || organization ? (
+          <p>
+            {intl.formatMessage(experienceMessages.workAt, {
+              role: <span data-h2-color="base(primary.darker)">{role}</span>,
+              organization,
+            })}
+          </p>
+        ) : (
+          ""
+        )}
+        {endDate || startDate ? (
+          <p data-h2-margin="base(0, 0, x.5, 0)">
+            {getDateRange({ endDate, startDate, intl })}
+          </p>
+        ) : (
+          ""
+        )}
+        {division && <p>{division}</p>}
+        {justification && <p>{justification}</p>}
+        {details && (
+          <>
+            <p
+              data-h2-color="base(primary.darker)"
+              data-h2-font-weight="base(700)"
+              data-h2-margin="base(x1, 0, x.25, 0)"
+            >
+              {experienceFormLabels.details}
+              {intl.formatMessage(commonMessages.dividingColon)}
+            </p>
+            <p>{details}</p>
+          </>
+        )}
       </>
     );
   };
+
   const renderWithExperience = () => {
     return experiences?.map((experience) => {
       return (
         <ul data-h2-padding="base(0, 0, 0, x1)" key={experience?.id}>
           <li data-h2-margin="base(x1, 0, 0, 0)">
-            {isPersonalExperience(experience!)
-              ? getPersonalExperience(experience)
-              : ""}
-            {isEducationExperience(experience!)
-              ? getEducationExperience(experience)
-              : ""}
-            {isAwardExperience(experience!)
-              ? getAwardExperience(experience)
-              : ""}
-            {isCommunityExperience(experience!)
-              ? getCommunityExperience(experience)
-              : ""}
-            {isWorkExperience(experience!) ? getWorkExperience(experience) : ""}
+            {isPersonalExperience(experience!) &&
+              getPersonalExperience(experience)}
+            {isEducationExperience(experience!) &&
+              getEducationExperience(experience)}
+            {isAwardExperience(experience!) && getAwardExperience(experience)}
+            {isCommunityExperience(experience!) &&
+              getCommunityExperience(experience)}
+            {isWorkExperience(experience!) && getWorkExperience(experience)}
           </li>
         </ul>
       );
     });
   };
+
   const renderNoExperience = () => {
     return (
       <p>
@@ -365,22 +383,17 @@ const SkillAccordion = ({
     <Accordion.Item value={skill.id}>
       <Accordion.Trigger
         as={headingLevel}
-        context={
-          experiences?.length === 1
-            ? intl.formatMessage({
-                defaultMessage: "1 Experience",
-                id: "dQseX7",
-                description: "Pluralization for one experience",
-              })
-            : intl.formatMessage(
-                {
-                  defaultMessage: "{experienceLength} Experiences",
-                  id: "xNVsei",
-                  description: "Pluralization for zero or multiple experiences",
-                },
-                { experienceLength: experiences ? experiences.length : 0 },
-              )
-        }
+        context={intl.formatMessage(
+          {
+            defaultMessage:
+              "{experienceCount, plural, =0 {0 experiences} =1 {1 experience} other {# experiences}}",
+            id: "C6kQXh",
+            description: "list a number of unknown experiences",
+          },
+          {
+            experienceCount: experiences ? experiences.length : 0,
+          },
+        )}
       >
         {name[locale]}
       </Accordion.Trigger>
