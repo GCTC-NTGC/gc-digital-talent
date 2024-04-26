@@ -4,6 +4,7 @@ namespace App\Notifications;
 
 use App\Enums\Language;
 use App\Models\User;
+use App\Notifications\Messages\GcNotifyEmailMessage;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Carbon;
@@ -65,7 +66,7 @@ class ApplicationDeadlineApproaching extends Notification implements CanBeSentVi
     /**
      * Get the GC Notify representation of the notification.
      */
-    public function toGcNotifyEmail(User $notifiable): array
+    public function toGcNotifyEmail(User $notifiable): GcNotifyEmailMessage
     {
         $locale = $this->locale ?? $notifiable->preferredLocale();
         $localizedClosingDateString = Carbon::executeWithLocale($locale,
@@ -74,30 +75,30 @@ class ApplicationDeadlineApproaching extends Notification implements CanBeSentVi
 
         if ($locale == Language::EN->value) {
             // English notification
-            $payload = [
-                'template_id' => config('notify.templates.application_deadline_approaching_en'),
-                'email_address' => $notifiable->email,
-                'message_variables' => [
+            $message = new GcNotifyEmailMessage(
+                config('notify.templates.application_deadline_approaching_en'),
+                $notifiable->email,
+                [
                     'closing date' => $localizedClosingDateString,
                     'opportunity title' => $this->opportunityTitleEn,
                     'pool advertisement link' => $this->poolAdvertisementLinkEn,
                     'application link' => $this->applicationLinkEn,
-                ],
-            ];
+                ]
+            );
         } else {
             // French notification
-            $payload = [
-                'template_id' => config('notify.templates.application_deadline_approaching_fr'),
-                'email_address' => $notifiable->email,
-                'message_variables' => [
+            $message = new GcNotifyEmailMessage(
+                config('notify.templates.application_deadline_approaching_fr'),
+                $notifiable->email,
+                [
                     'closing date' => $localizedClosingDateString,
                     'opportunity title' => $this->opportunityTitleFr,
                     'pool advertisement link' => $this->poolAdvertisementLinkFr,
                     'application link' => $this->applicationLinkFr,
-                ],
-            ];
+                ]
+            );
         }
 
-        return $payload;
+        return $message;
     }
 }

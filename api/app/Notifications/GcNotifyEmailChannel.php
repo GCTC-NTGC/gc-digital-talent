@@ -13,12 +13,12 @@ class GcNotifyEmailChannel
      */
     public function send(object $notifiable, CanBeSentViaGcNotifyEmail $notification): void
     {
-        $emailDefinition = $notification->toGcNotifyEmail($notifiable);
+        $message = $notification->toGcNotifyEmail($notifiable);
 
         $response = Notify::sendEmail(
-            $emailDefinition['email_address'],
-            $emailDefinition['template_id'],
-            $emailDefinition['message_variables'],
+            $message->emailAddress,
+            $message->templateId,
+            $message->messageVariables
         );
 
         if (! $response->successful()) {

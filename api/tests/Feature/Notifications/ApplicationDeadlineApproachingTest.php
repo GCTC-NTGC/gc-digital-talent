@@ -13,6 +13,7 @@ use Tests\TestCase;
 use Throwable;
 
 use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertEqualsCanonicalizing;
 use function PHPUnit\Framework\assertFalse;
 
 class ApplicationDeadlineApproachingTest extends TestCase
@@ -96,36 +97,41 @@ class ApplicationDeadlineApproachingTest extends TestCase
                 'email' => 'example@example.org',
             ]);
 
-        $email = $this->fixtureNotification->toGcNotifyEmail($user);
+        $message = $this->fixtureNotification->toGcNotifyEmail($user);
 
-        assertEquals($email['email_address'], 'example@example.org');
+        assertEquals('example@example.org', $message->emailAddress);
     }
 
     public function testLocalizesGcNotifyCorrectlyToEn(): void
     {
-        $userEn = User::factory()
+        $user = User::factory()
             ->create(['preferred_lang' => 'en']);
 
-        $email = $this->fixtureNotification->toGcNotifyEmail($userEn);
+        $message = $this->fixtureNotification->toGcNotifyEmail($user);
 
-        assertEquals($email['template_id'], config('notify.templates.application_deadline_approaching_en'));
-        assertEquals($email['message_variables']['closing date'], 'December 31, 2999');
-        assertEquals($email['message_variables']['opportunity title'], 'opportunityTitleEn');
-        assertEquals($email['message_variables']['pool advertisement link'], 'poolAdvertisementLinkEn');
-        assertEquals($email['message_variables']['application link'], 'applicationLinkEn');
+        assertEquals(config('notify.templates.application_deadline_approaching_en'), $message->templateId);
+        assertEqualsCanonicalizing([
+            'closing date' => 'December 31, 2999',
+            'opportunity title' => 'opportunityTitleEn',
+            'pool advertisement link' => 'poolAdvertisementLinkEn',
+            'application link' => 'applicationLinkEn'],
+            $message->messageVariables);
     }
 
     public function testLocalizesGcNotifyCorrectlyToFr(): void
     {
-        $userEn = User::factory()
+        $user = User::factory()
             ->create(['preferred_lang' => 'fr']);
 
-        $email = $this->fixtureNotification->toGcNotifyEmail($userEn);
+        $message = $this->fixtureNotification->toGcNotifyEmail($user);
 
-        assertEquals($email['template_id'], config('notify.templates.application_deadline_approaching_fr'));
-        assertEquals($email['message_variables']['closing date'], 'décembre 31, 2999');
-        assertEquals($email['message_variables']['opportunity title'], 'opportunityTitleFr');
-        assertEquals($email['message_variables']['pool advertisement link'], 'poolAdvertisementLinkFr');
-        assertEquals($email['message_variables']['application link'], 'applicationLinkFr');
+        assertEquals(config('notify.templates.application_deadline_approaching_fr'), $message->templateId);
+        assertEqualsCanonicalizing([
+            'closing date' => 'décembre 31, 2999',
+            'opportunity title' => 'opportunityTitleFr',
+            'pool advertisement link' => 'poolAdvertisementLinkFr',
+            'application link' => 'applicationLinkFr',
+        ], $message->messageVariables);
+
     }
 }
