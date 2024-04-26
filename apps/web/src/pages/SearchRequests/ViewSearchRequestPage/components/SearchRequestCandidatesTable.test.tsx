@@ -15,7 +15,6 @@ import {
   fakePoolCandidates,
   fakeSkills,
 } from "@gc-digital-talent/fake-data";
-import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
 
 import SingleSearchRequestTableApi from "./SearchRequestCandidatesTable";
 
