@@ -1869,6 +1869,7 @@ const createRoute = (
   ]);
 
 const Router = () => {
+  // eslint-disable-next-line no-restricted-syntax
   const { locale } = useLocale();
   const routes = useRoutes();
   const featureFlags = useFeatureFlags();

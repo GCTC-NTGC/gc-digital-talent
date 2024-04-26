@@ -12,7 +12,7 @@ import {
   errorMessages,
   getEvaluatedLanguageAbility,
   getLanguage,
-  useLocale,
+  getLocale,
 } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
 import { EvaluatedLanguageAbility, Language } from "@gc-digital-talent/graphql";
@@ -35,7 +35,7 @@ interface ConsideredLanguagesProps {
 
 const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
   const intl = useIntl();
-  const { locale } = useLocale();
+  const locale = getLocale(intl);
   const { watch, resetField } = useFormContext();
 
   const languageEvaluationPageLink = (msg: React.ReactNode) => {

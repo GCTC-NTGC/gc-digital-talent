@@ -27,7 +27,6 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * Class PoolCandidate
  *
  * @property string $id
- * @property string $cmo_identifier
  * @property Illuminate\Support\Carbon $expiry_date
  * @property Illuminate\Support\Carbon $archived_at
  * @property Illuminate\Support\Carbon $submitted_at
