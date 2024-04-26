@@ -12,9 +12,13 @@ import {
   PoolSkill,
   PoolSkillType,
   SkillCategory,
+  makeFragmentData,
 } from "@gc-digital-talent/graphql";
 
-import SkillSummaryTable from "./SkillSummaryTable";
+import SkillSummaryTable, {
+  SkillSummaryTableAssessmentStep_Fragment,
+  SkillSummaryTablePoolSkill_Fragment,
+} from "./SkillSummaryTable";
 
 export default {
   component: SkillSummaryTable,
@@ -124,6 +128,10 @@ const assessmentStepsArray: AssessmentStep[] = [
 export const Default = Template.bind({});
 Default.args = {
   title: "Title",
-  poolSkills: poolSkillsArray,
-  assessmentSteps: assessmentStepsArray,
+  poolSkillsQuery: poolSkillsArray.map((poolSkill) =>
+    makeFragmentData(poolSkill, SkillSummaryTablePoolSkill_Fragment),
+  ),
+  assessmentStepsQuery: assessmentStepsArray.map((assessmentStep) =>
+    makeFragmentData(assessmentStep, SkillSummaryTableAssessmentStep_Fragment),
+  ),
 };

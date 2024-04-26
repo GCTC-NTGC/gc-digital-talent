@@ -31,6 +31,8 @@ import {
   ScreeningQuestion,
   Scalars,
   PoolSkillType,
+  FragmentType,
+  getFragment,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -90,6 +92,25 @@ const AssessmentDetailsDialog_ScreeningQuestionMutation = graphql(
   `,
 );
 
+const AssessmentDetailsDialogPoolSkill_Fragment = graphql(/* GraphQL */ `
+  fragment AssessmentDetailsDialogPoolSkill on PoolSkill {
+    id
+    type
+    skill {
+      id
+      category
+      key
+      name {
+        en
+        fr
+      }
+    }
+    assessmentSteps {
+      id
+    }
+  }
+`);
+
 type DialogMode = "regular" | "screening_question";
 type DialogAction = "create" | "update";
 
@@ -122,7 +143,9 @@ type InitialValues = Omit<
 
 interface AssessmentDetailsDialogProps {
   initialValues: InitialValues;
-  allPoolSkills: PoolSkill[];
+  poolSkillsQuery: FragmentType<
+    typeof AssessmentDetailsDialogPoolSkill_Fragment
+  >[];
   disallowStepTypes?: AssessmentStepType[];
   trigger: React.ReactNode;
   onError?: () => void;
@@ -130,12 +153,16 @@ interface AssessmentDetailsDialogProps {
 
 const AssessmentDetailsDialog = ({
   initialValues,
-  allPoolSkills,
+  poolSkillsQuery,
   disallowStepTypes = [],
   trigger,
   onError,
 }: AssessmentDetailsDialogProps) => {
   const intl = useIntl();
+  const allPoolSkills = getFragment(
+    AssessmentDetailsDialogPoolSkill_Fragment,
+    poolSkillsQuery,
+  );
   const dialogAction: DialogAction = initialValues.id ? "update" : "create";
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
