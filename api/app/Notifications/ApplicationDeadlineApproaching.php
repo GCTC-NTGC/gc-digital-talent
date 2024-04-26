@@ -47,7 +47,7 @@ class ApplicationDeadlineApproaching extends Notification implements CanBeSentVi
     public function toArray(object $notifiable): array
     {
         return [
-            'closingDate' => $this->closingDate,
+            'closingDate' => $this->closingDate->toDateString(),
             'opportunityTitle' => [
                 'en' => $this->opportunityTitleEn,
                 'fr' => $this->opportunityTitleFr,
@@ -56,7 +56,7 @@ class ApplicationDeadlineApproaching extends Notification implements CanBeSentVi
                 'en' => $this->poolAdvertisementLinkEn,
                 'fr' => $this->poolAdvertisementLinkFr,
             ],
-            'applicationLinkEn' => [
+            'applicationLink' => [
                 'en' => $this->applicationLinkEn,
                 'fr' => $this->applicationLinkFr,
             ],

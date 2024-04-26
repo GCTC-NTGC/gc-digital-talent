@@ -10,6 +10,7 @@ namespace App\Enums;
 enum NotificationType
 {
     case PoolCandidateStatusChanged;
+    case ApplicationDeadlineApproaching;
 
     public static function fromClassName(string $className)
     {

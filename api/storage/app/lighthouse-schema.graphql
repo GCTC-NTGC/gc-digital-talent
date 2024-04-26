@@ -299,6 +299,18 @@ type PoolCandidateStatusChangedNotification implements Notification {
   poolName: LocalizedString
 }
 
+type ApplicationDeadlineApproachingNotification implements Notification {
+  id: ID!
+  type: NotificationType!
+  readAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  closingDate: DateTime!
+  opportunityTitle: LocalizedString!
+  applicationLink: LocalizedString!
+  poolAdvertisementLink: LocalizedString!
+}
+
 type UserPublicProfile {
   id: ID!
   email: Email
@@ -2424,6 +2436,7 @@ enum NotificationFamily {
 
 enum NotificationType {
   PoolCandidateStatusChanged
+  ApplicationDeadlineApproaching
 }
 
 enum CandidateRemovalReason {

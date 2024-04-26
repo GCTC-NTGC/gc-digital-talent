@@ -147,6 +147,19 @@ type PoolCandidateStatusChangedNotification implements Notification {
   poolName: LocalizedString @rename(attribute: "pool_name")
 }
 
+type ApplicationDeadlineApproachingNotification implements Notification {
+  id: ID!
+  type: NotificationType!
+  readAt: DateTime @rename(attribute: "read_at")
+  createdAt: DateTime! @rename(attribute: "created_at")
+  updatedAt: DateTime! @rename(attribute: "updated_at")
+
+  closingDate: Date!
+  opportunityTitle: LocalizedString!
+  applicationLink: LocalizedString!
+  poolAdvertisementLink: LocalizedString!
+}
+
 type UserPublicProfile @model(class: "\\App\\Models\\User") {
   id: ID!
   email: Email
