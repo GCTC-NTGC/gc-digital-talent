@@ -51,9 +51,9 @@ const messages = defineMessages({
     id: "Myfw+L",
     description: "Title for pools",
   },
-  poolsCandidates: {
-    defaultMessage: "Pools candidates",
-    id: "zfi91j",
+  poolCandidates: {
+    defaultMessage: "Pool candidates",
+    id: "0Uvziq",
     description: "Title for pool candidates",
   },
   publishingGroups: {
