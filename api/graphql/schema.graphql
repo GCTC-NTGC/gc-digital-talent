@@ -154,10 +154,10 @@ type ApplicationDeadlineApproachingNotification implements Notification {
   createdAt: DateTime! @rename(attribute: "created_at")
   updatedAt: DateTime! @rename(attribute: "updated_at")
 
-  closingDate: Date!
-  opportunityTitle: LocalizedString!
-  applicationLink: LocalizedString!
-  poolAdvertisementLink: LocalizedString!
+  closingDate: Date
+  poolName: LocalizedString
+  applicationLink: LocalizedString
+  poolAdvertisementLink: LocalizedString
 }
 
 type UserPublicProfile @model(class: "\\App\\Models\\User") {

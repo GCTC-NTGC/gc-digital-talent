@@ -18,8 +18,8 @@ class ApplicationDeadlineApproaching extends Notification implements CanBeSentVi
      */
     public function __construct(
         public Carbon $closingDate,
-        public string $opportunityTitleEn,
-        public string $opportunityTitleFr,
+        public string $poolNameEn,
+        public string $poolNameFr,
         public string $poolAdvertisementLinkEn,
         public string $poolAdvertisementLinkFr,
         public string $applicationLinkEn,
@@ -48,9 +48,9 @@ class ApplicationDeadlineApproaching extends Notification implements CanBeSentVi
     {
         return [
             'closingDate' => $this->closingDate->toDateString(),
-            'opportunityTitle' => [
-                'en' => $this->opportunityTitleEn,
-                'fr' => $this->opportunityTitleFr,
+            'poolName' => [
+                'en' => $this->poolNameEn,
+                'fr' => $this->poolNameFr,
             ],
             'poolAdvertisementLink' => [
                 'en' => $this->poolAdvertisementLinkEn,
@@ -80,7 +80,7 @@ class ApplicationDeadlineApproaching extends Notification implements CanBeSentVi
                 $notifiable->email,
                 [
                     'closing date' => $localizedClosingDateString,
-                    'opportunity title' => $this->opportunityTitleEn,
+                    'pool name' => $this->poolNameEn,
                     'pool advertisement link' => $this->poolAdvertisementLinkEn,
                     'application link' => $this->applicationLinkEn,
                 ]
@@ -92,7 +92,7 @@ class ApplicationDeadlineApproaching extends Notification implements CanBeSentVi
                 $notifiable->email,
                 [
                     'closing date' => $localizedClosingDateString,
-                    'opportunity title' => $this->opportunityTitleFr,
+                    'pool name' => $this->poolNameFr,
                     'pool advertisement link' => $this->poolAdvertisementLinkFr,
                     'application link' => $this->applicationLinkFr,
                 ]

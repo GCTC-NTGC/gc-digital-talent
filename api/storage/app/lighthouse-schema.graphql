@@ -305,10 +305,10 @@ type ApplicationDeadlineApproachingNotification implements Notification {
   readAt: DateTime
   createdAt: DateTime!
   updatedAt: DateTime!
-  closingDate: DateTime!
-  opportunityTitle: LocalizedString!
-  applicationLink: LocalizedString!
-  poolAdvertisementLink: LocalizedString!
+  closingDate: Date
+  poolName: LocalizedString
+  applicationLink: LocalizedString
+  poolAdvertisementLink: LocalizedString
 }
 
 type UserPublicProfile {

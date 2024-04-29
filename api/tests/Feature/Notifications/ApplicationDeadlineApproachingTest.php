@@ -31,8 +31,8 @@ class ApplicationDeadlineApproachingTest extends TestCase
 
         $this->fixtureNotification = new ApplicationDeadlineApproaching(
             Carbon::parse('2999-12-31'),
-            'opportunityTitleEn',
-            'opportunityTitleFr',
+            'poolNameEn',
+            'poolNameFr',
             'poolAdvertisementLinkEn',
             'poolAdvertisementLinkFr',
             'applicationLinkEn',
@@ -112,7 +112,7 @@ class ApplicationDeadlineApproachingTest extends TestCase
         assertEquals(config('notify.templates.application_deadline_approaching_en'), $message->templateId);
         assertEqualsCanonicalizing([
             'closing date' => 'December 31, 2999',
-            'opportunity title' => 'opportunityTitleEn',
+            'pool name' => 'poolNameEn',
             'pool advertisement link' => 'poolAdvertisementLinkEn',
             'application link' => 'applicationLinkEn'],
             $message->messageVariables);
@@ -128,7 +128,7 @@ class ApplicationDeadlineApproachingTest extends TestCase
         assertEquals(config('notify.templates.application_deadline_approaching_fr'), $message->templateId);
         assertEqualsCanonicalizing([
             'closing date' => 'décembre 31, 2999',
-            'opportunity title' => 'opportunityTitleFr',
+            'pool name' => 'poolNameFr',
             'pool advertisement link' => 'poolAdvertisementLinkFr',
             'application link' => 'applicationLinkFr',
         ], $message->messageVariables);
