@@ -12,8 +12,8 @@ import {
   getPoolCandidateStatus,
 } from "@gc-digital-talent/i18n";
 import {
-  parseDateTimeUtc,
-  relativeClosingDate,
+  formDateStringToDate,
+  formatDate,
 } from "@gc-digital-talent/date-helpers";
 import { useLogger } from "@gc-digital-talent/logger";
 import { GraphqlType } from "@gc-digital-talent/helpers";
@@ -92,15 +92,19 @@ const applicationDeadlineApproachingNotificationToInfo = (
   notification: ApplicationDeadlineApproachingNotification,
   intl: IntlShape,
 ): NotificationInfo => {
-  const poolName = getLocalizedName(notification.poolName, intl);
-  const closingDateObject = parseDateTimeUtc(
+  const poolNameLocalized = getLocalizedName(notification.poolName, intl);
+  const closingDateObject = formDateStringToDate(
     notification.closingDate ?? "1900-01-01",
   );
-  const closingDate = relativeClosingDate({
-    closingDate: closingDateObject,
+  const closingDateFormatted = formatDate({
+    date: closingDateObject,
+    formatString: "PPP",
     intl,
   });
-  const applicationLink = getLocalizedName(notification.applicationLink, intl);
+  // need to strip off the hostname for SPA navigation
+  const applicationUrl = new URL(
+    getLocalizedName(notification.applicationLink, intl),
+  );
 
   return {
     message: intl.formatMessage(
@@ -111,18 +115,18 @@ const applicationDeadlineApproachingNotificationToInfo = (
         description: "Notification message for pool candidate status changed",
       },
       {
-        poolName,
-        closingDate,
+        poolName: poolNameLocalized,
+        closingDate: closingDateFormatted,
       },
     ),
-    href: applicationLink,
+    href: applicationUrl.pathname,
     label: intl.formatMessage(
       {
         defaultMessage: "Application deadline approaching for {poolName}",
         id: "K1yDdz",
         description: "Label for the pool status changed notification",
       },
-      { poolName },
+      { poolName: poolNameLocalized },
     ),
   };
 };
