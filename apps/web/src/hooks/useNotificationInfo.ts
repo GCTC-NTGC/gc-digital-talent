@@ -2,8 +2,8 @@ import { IntlShape, useIntl } from "react-intl";
 import React from "react";
 
 import {
+  ApplicationDeadlineApproachingNotification,
   Notification,
-  NotificationType,
   PoolCandidateStatusChangedNotification,
 } from "@gc-digital-talent/graphql";
 import {
@@ -11,6 +11,12 @@ import {
   getLocalizedName,
   getPoolCandidateStatus,
 } from "@gc-digital-talent/i18n";
+import {
+  parseDateTimeUtc,
+  relativeClosingDate,
+} from "@gc-digital-talent/date-helpers";
+import { useLogger } from "@gc-digital-talent/logger";
+import { GraphqlType } from "@gc-digital-talent/helpers";
 
 import useRoutes from "./useRoutes";
 
@@ -20,18 +26,20 @@ type NotificationInfo = {
   href: string;
 };
 
-type NotificationInfoGetterFunc<T extends Notification = Notification> = (
-  notification: T,
+function isPoolCandidateStatusChangedNotification(
+  notification: GraphqlType,
+): notification is PoolCandidateStatusChangedNotification {
+  return (
+    // eslint-disable-next-line no-underscore-dangle
+    notification.__typename === "PoolCandidateStatusChangedNotification"
+  );
+}
+
+const poolCandidateStatusChangedNotificationToInfo = (
+  notification: PoolCandidateStatusChangedNotification,
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
-) => NotificationInfo | null;
-
-// Not technically a union but will be once
-type NotificationUnion = PoolCandidateStatusChangedNotification;
-
-const usePoolCandidateStatusChangedInfo: NotificationInfoGetterFunc<
-  PoolCandidateStatusChangedNotification
-> = (notification, paths, intl) => {
+): NotificationInfo | null => {
   if (!notification.poolCandidateId) return null;
   const poolName = getLocalizedName(notification.poolName, intl);
   const oldStatus = intl.formatMessage(
@@ -71,25 +79,78 @@ const usePoolCandidateStatusChangedInfo: NotificationInfoGetterFunc<
   };
 };
 
-const notificationInfoGetters = new Map<
-  NotificationType,
-  NotificationInfoGetterFunc<NotificationUnion>
->([
-  [
-    NotificationType.PoolCandidateStatusChanged,
-    usePoolCandidateStatusChangedInfo,
-  ],
-]);
+function isApplicationDeadlineApproachingNotification(
+  notification: GraphqlType,
+): notification is ApplicationDeadlineApproachingNotification {
+  return (
+    // eslint-disable-next-line no-underscore-dangle
+    notification.__typename === "ApplicationDeadlineApproachingNotification"
+  );
+}
+
+const applicationDeadlineApproachingNotificationToInfo = (
+  notification: ApplicationDeadlineApproachingNotification,
+  intl: IntlShape,
+): NotificationInfo => {
+  const poolName = getLocalizedName(notification.poolName, intl);
+  const closingDateObject = parseDateTimeUtc(
+    notification.closingDate ?? "1900-01-01",
+  );
+  const closingDate = relativeClosingDate({
+    closingDate: closingDateObject,
+    intl,
+  });
+  const applicationLink = getLocalizedName(notification.applicationLink, intl);
+
+  return {
+    message: intl.formatMessage(
+      {
+        defaultMessage:
+          "{poolName} closes on {closingDate}. Continue your application.",
+        id: "nVRb8r",
+        description: "Notification message for pool candidate status changed",
+      },
+      {
+        poolName,
+        closingDate,
+      },
+    ),
+    href: applicationLink,
+    label: intl.formatMessage(
+      {
+        defaultMessage: "Application deadline approaching for {poolName}",
+        id: "K1yDdz",
+        description: "Label for the pool status changed notification",
+      },
+      { poolName },
+    ),
+  };
+};
 
 const useNotificationInfo = (
-  notification: NotificationUnion,
+  notification: Notification & GraphqlType,
 ): NotificationInfo | null => {
   const intl = useIntl();
   const paths = useRoutes();
-  if (!notification.type) return null;
-  const getter = notificationInfoGetters.get(notification.type);
+  const logger = useLogger();
 
-  return getter?.(notification, paths, intl) ?? null;
+  if (isPoolCandidateStatusChangedNotification(notification)) {
+    return poolCandidateStatusChangedNotificationToInfo(
+      notification,
+      paths,
+      intl,
+    );
+  }
+
+  if (isApplicationDeadlineApproachingNotification(notification)) {
+    return applicationDeadlineApproachingNotificationToInfo(notification, intl);
+  }
+
+  logger.warning(
+    // eslint-disable-next-line no-underscore-dangle
+    `Could not create NotificationInfo for ${notification.__typename}`,
+  );
+  return null;
 };
 
 export default useNotificationInfo;

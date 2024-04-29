@@ -55,6 +55,21 @@ const NotificationItem_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
+    ... on ApplicationDeadlineApproachingNotification {
+      closingDate
+      poolName {
+        en
+        fr
+      }
+      applicationLink {
+        en
+        fr
+      }
+      poolAdvertisementLink {
+        en
+        fr
+      }
+    }
   }
 `);
 
