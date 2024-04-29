@@ -5,7 +5,13 @@ import sortBy from "lodash/sortBy";
 
 import { TableOfContents, CardRepeater, Well } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { FragmentType, GeneralQuestion, Pool, PoolStatus, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  GeneralQuestion,
+  PoolStatus,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 import { EditPoolSectionMetadata } from "~/types/pool";
 
@@ -30,7 +36,7 @@ const EditPoolGeneralQuestions_Fragment = graphql(/* GraphQL */ `
       ...GeneralQuestionCard
     }
   }
-`)
+`);
 
 interface GeneralQuestionsProps {
   poolQuery: FragmentType<typeof EditPoolGeneralQuestions_Fragment>;

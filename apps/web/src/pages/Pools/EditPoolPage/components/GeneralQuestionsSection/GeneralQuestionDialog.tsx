@@ -2,7 +2,12 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 
-import { FragmentType, GeneralQuestion, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  GeneralQuestion,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import {
   Button,
   CardRepeater,
@@ -18,7 +23,7 @@ import { FormValues, dataToFormValues, labels } from "./utils";
 const TEXT_AREA_ROWS = 3;
 const TEXT_AREA_MAX_WORDS = 200;
 
-const GeneralQuestionDialog_Fragment = graphql(/* GraphQL */`
+const GeneralQuestionDialog_Fragment = graphql(/* GraphQL */ `
   fragment GeneralQuestionDialog on GeneralQuestion {
     id
     question {
@@ -26,7 +31,7 @@ const GeneralQuestionDialog_Fragment = graphql(/* GraphQL */`
       fr
     }
   }
-`)
+`);
 interface GeneralQuestionDialogProps {
   questionQuery?: FragmentType<typeof GeneralQuestionDialog_Fragment>;
   index?: number;

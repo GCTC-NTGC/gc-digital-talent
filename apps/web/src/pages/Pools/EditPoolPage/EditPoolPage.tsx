@@ -15,7 +15,6 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   graphql,
-  Pool,
   Scalars,
   Skill,
   FragmentType,
@@ -79,7 +78,7 @@ import WhatToExpectAdmissionSection, {
   WhatToExpectAdmissionSubmitData,
 } from "./components/WhatToExpectAdmissionSection/WhatToExpectAdmissionSection";
 
-export const EditPool_Fragment = graphql(/* GraphQL */`
+export const EditPool_Fragment = graphql(/* GraphQL */ `
   fragment EditPool on Pool {
     ...EditPoolAboutUs
     ...EditPoolClosingDate
@@ -132,8 +131,8 @@ export const EditPool_Fragment = graphql(/* GraphQL */`
       }
     }
     aboutUs {
-    en
-    fr
+      en
+      fr
     }
     yourImpact {
       en
@@ -152,7 +151,7 @@ export const EditPool_Fragment = graphql(/* GraphQL */`
       fr
     }
   }
-`)
+`);
 
 export type PoolSubmitData =
   | ClosingDateSubmitData

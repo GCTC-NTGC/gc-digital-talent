@@ -13,7 +13,12 @@ import {
   getPublishingGroup,
   getPoolStream,
 } from "@gc-digital-talent/i18n";
-import { FragmentType, getFragment, graphql, Pool, PoolTableQuery, PoolTableRowFragment } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  getFragment,
+  graphql,
+  Pool,
+} from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
@@ -36,7 +41,7 @@ import {
   viewTeamLinkCell,
 } from "./helpers";
 
- export const PoolTableRow_Fragment = graphql(/* GraphQL */`
+export const PoolTableRow_Fragment = graphql(/* GraphQL */ `
   fragment PoolTableRow on Pool {
     id
     stream
@@ -45,8 +50,8 @@ import {
     createdDate
     updatedDate
     name {
-    en
-    fr
+      en
+      fr
     }
     classification {
       id
@@ -68,7 +73,7 @@ import {
       email
     }
   }
-`)
+`);
 
 const columnHelper = createColumnHelper<Pool>();
 interface PoolTableProps {

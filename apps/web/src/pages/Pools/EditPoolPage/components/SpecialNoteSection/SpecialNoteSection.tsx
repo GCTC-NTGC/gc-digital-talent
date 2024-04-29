@@ -25,7 +25,7 @@ import { SectionProps } from "../../types";
 import Display from "./Display";
 import ActionWrapper from "../ActionWrapper";
 
-const EditPoolSpecialNote_Fragment = graphql(/* GraphQL */`
+const EditPoolSpecialNote_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolSpecialNote on Pool {
     id
     status
@@ -34,7 +34,7 @@ const EditPoolSpecialNote_Fragment = graphql(/* GraphQL */`
       fr
     }
   }
-`)
+`);
 
 type FormValues = {
   hasSpecialNote: boolean;
@@ -44,7 +44,10 @@ type FormValues = {
 
 export type SpecialNoteSubmitData = Pick<UpdatePoolInput, "specialNote">;
 
-type SpecialNoteSectionProps = SectionProps<SpecialNoteSubmitData, FragmentType<typeof EditPoolSpecialNote_Fragment>>;
+type SpecialNoteSectionProps = SectionProps<
+  SpecialNoteSubmitData,
+  FragmentType<typeof EditPoolSpecialNote_Fragment>
+>;
 
 const TEXT_AREA_MAX_WORDS_EN = 100;
 const TEXT_AREA_MAX_WORDS_FR = TEXT_AREA_MAX_WORDS_EN + 30;

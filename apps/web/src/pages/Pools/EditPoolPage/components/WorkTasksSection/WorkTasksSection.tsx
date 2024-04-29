@@ -28,7 +28,7 @@ import { SectionProps } from "../../types";
 import Display from "./Display";
 import ActionWrapper from "../ActionWrapper";
 
-const EditPoolKeyTasks_Fragment = graphql(/* GraphQL */`
+const EditPoolKeyTasks_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolKeyTasks on Pool {
     id
     status
@@ -37,7 +37,7 @@ const EditPoolKeyTasks_Fragment = graphql(/* GraphQL */`
       fr
     }
   }
-`)
+`);
 
 type FormValues = {
   YourWorkEn?: LocalizedString["en"];
@@ -46,7 +46,10 @@ type FormValues = {
 
 export type WorkTasksSubmitData = Pick<UpdatePoolInput, "keyTasks">;
 
-type WorkTasksSectionProps = SectionProps<WorkTasksSubmitData, FragmentType<typeof EditPoolKeyTasks_Fragment>>;
+type WorkTasksSectionProps = SectionProps<
+  WorkTasksSubmitData,
+  FragmentType<typeof EditPoolKeyTasks_Fragment>
+>;
 
 const TEXT_AREA_MAX_WORDS_EN = 400;
 const TEXT_AREA_MAX_WORDS_FR = TEXT_AREA_MAX_WORDS_EN + 100;

@@ -41,7 +41,7 @@ import {
 import { SectionProps } from "../../types";
 import ActionWrapper from "../ActionWrapper";
 
-const EditPoolName_Fragment = graphql(/* GraphQL */`
+const EditPoolName_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolName on Pool {
     id
     status
@@ -59,7 +59,7 @@ const EditPoolName_Fragment = graphql(/* GraphQL */`
       fr
     }
   }
-`)
+`);
 
 export const PoolClassification_Fragment = graphql(/* GraphQL */ `
   fragment PoolClassification on Classification {
@@ -73,7 +73,10 @@ export const PoolClassification_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-type PoolNameSectionProps = SectionProps<PoolNameSubmitData, FragmentType<typeof EditPoolName_Fragment>> & {
+type PoolNameSectionProps = SectionProps<
+  PoolNameSubmitData,
+  FragmentType<typeof EditPoolName_Fragment>
+> & {
   classificationsQuery: FragmentType<typeof PoolClassification_Fragment>[];
 };
 

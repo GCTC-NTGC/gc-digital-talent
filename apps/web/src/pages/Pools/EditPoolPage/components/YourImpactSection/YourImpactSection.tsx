@@ -28,7 +28,7 @@ import { SectionProps } from "../../types";
 import Display from "./Display";
 import ActionWrapper from "../ActionWrapper";
 
-const EditPoolYourImpact_Fragment = graphql(/* GraphQL */`
+const EditPoolYourImpact_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolYourImpact on Pool {
     id
     status
@@ -37,7 +37,7 @@ const EditPoolYourImpact_Fragment = graphql(/* GraphQL */`
       fr
     }
   }
-`)
+`);
 
 type FormValues = {
   yourImpactEn?: LocalizedString["en"];
@@ -46,7 +46,10 @@ type FormValues = {
 
 export type YourImpactSubmitData = Pick<UpdatePoolInput, "yourImpact">;
 
-type YourImpactSectionProps = SectionProps<YourImpactSubmitData, FragmentType<typeof EditPoolYourImpact_Fragment>>;
+type YourImpactSectionProps = SectionProps<
+  YourImpactSubmitData,
+  FragmentType<typeof EditPoolYourImpact_Fragment>
+>;
 
 const TEXT_AREA_MAX_WORDS_EN = 200;
 const TEXT_AREA_MAX_WORDS_FR = TEXT_AREA_MAX_WORDS_EN + 100;

@@ -29,7 +29,7 @@ import { SectionProps } from "../../types";
 import Display from "./Display";
 import ActionWrapper from "../ActionWrapper";
 
-export const EditPoolAboutUs_Fragment = graphql(/* GraphQL */`
+export const EditPoolAboutUs_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolAboutUs on Pool {
     id
     status
@@ -38,7 +38,7 @@ export const EditPoolAboutUs_Fragment = graphql(/* GraphQL */`
       fr
     }
   }
-`)
+`);
 
 type FormValues = {
   aboutUsEn?: LocalizedString["en"];
@@ -47,7 +47,10 @@ type FormValues = {
 
 export type AboutUsSubmitData = Pick<UpdatePoolInput, "aboutUs">;
 
-type AboutUsSectionProps = SectionProps<AboutUsSubmitData, FragmentType<typeof EditPoolAboutUs_Fragment>>;
+type AboutUsSectionProps = SectionProps<
+  AboutUsSubmitData,
+  FragmentType<typeof EditPoolAboutUs_Fragment>
+>;
 
 const TEXT_AREA_MAX_WORDS_EN = 100;
 const TEXT_AREA_MAX_WORDS_FR = TEXT_AREA_MAX_WORDS_EN + 30;

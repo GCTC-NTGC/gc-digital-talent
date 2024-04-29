@@ -2,9 +2,9 @@ import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 
 import { fakePools, fakeTeams } from "@gc-digital-talent/fake-data";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
 import { PoolTable, PoolTableRow_Fragment } from "./PoolTable";
-import { makeFragmentData } from "@gc-digital-talent/graphql";
 
 const mockPools = fakePools();
 const mockTeams = fakeTeams();
@@ -32,6 +32,8 @@ const Template: StoryFn<typeof PoolTable> = (args) => {
 
 export const Default = Template.bind({});
 Default.args = {
-  poolsQuery: mockPoolsWithTeam.map((pool) => makeFragmentData(pool, PoolTableRow_Fragment)),
+  poolsQuery: mockPoolsWithTeam.map((pool) =>
+    makeFragmentData(pool, PoolTableRow_Fragment),
+  ),
   title: "Pools",
 };

@@ -1,27 +1,27 @@
 import { graphql } from "@gc-digital-talent/graphql";
 
-export const EditPoolSkills_Fragment = graphql(/* GraphQL */`
- fragment EditPoolSkills on Pool {
-  id
-  status
-  poolSkills {
+// eslint-disable-next-line import/prefer-default-export
+export const EditPoolSkills_Fragment = graphql(/* GraphQL */ `
+  fragment EditPoolSkills on Pool {
     id
-    type
-    requiredLevel
-    skill {
+    status
+    poolSkills {
       id
-      key
-      category
-      name {
-        en
-        fr
+      type
+      requiredLevel
+      skill {
+        id
+        key
+        category
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
       }
-      description {
-        en
-        fr
-      }
-
     }
   }
- }
-`)
+`);

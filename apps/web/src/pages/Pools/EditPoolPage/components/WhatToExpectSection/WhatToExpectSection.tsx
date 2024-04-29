@@ -25,7 +25,7 @@ import { SectionProps } from "../../types";
 import Display from "./Display";
 import ActionWrapper from "../ActionWrapper";
 
-const EditPoolWhatToExpect_Fragment = graphql(/* GraphQL */`
+const EditPoolWhatToExpect_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolWhatToExpect on Pool {
     id
     status
@@ -34,7 +34,7 @@ const EditPoolWhatToExpect_Fragment = graphql(/* GraphQL */`
       fr
     }
   }
-`)
+`);
 
 type FormValues = {
   whatToExpectEn?: LocalizedString["en"];
@@ -43,7 +43,10 @@ type FormValues = {
 
 export type WhatToExpectSubmitData = Pick<UpdatePoolInput, "whatToExpect">;
 
-type WhatToExpectSectionProps = SectionProps<WhatToExpectSubmitData, FragmentType<typeof EditPoolWhatToExpect_Fragment>>;
+type WhatToExpectSectionProps = SectionProps<
+  WhatToExpectSubmitData,
+  FragmentType<typeof EditPoolWhatToExpect_Fragment>
+>;
 
 const TEXT_AREA_MAX_WORDS_EN = 200;
 const TEXT_AREA_MAX_WORDS_FR = TEXT_AREA_MAX_WORDS_EN + 100;

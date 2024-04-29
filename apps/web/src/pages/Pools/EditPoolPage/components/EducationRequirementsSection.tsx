@@ -4,7 +4,12 @@ import TagIcon from "@heroicons/react/24/outline/TagIcon";
 
 import { Heading, Link, ScrollToLink, Well } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
-import { FragmentType, PublishingGroup, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  PublishingGroup,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
 import { isInNullState } from "~/validators/process/classification";
@@ -13,7 +18,7 @@ import { wrapAbbr } from "~/utils/nameUtils";
 
 import { SectionProps } from "../types";
 
-const EditPoolEducationRequirements_Fragment = graphql(/* GraphQL */`
+const EditPoolEducationRequirements_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolEducationRequirements on Pool {
     id
     status
@@ -24,9 +29,15 @@ const EditPoolEducationRequirements_Fragment = graphql(/* GraphQL */`
       level
     }
   }
-`)
+`);
 
-type EducationRequirementsSectionProps = Omit<SectionProps<null, FragmentType<typeof EditPoolEducationRequirements_Fragment>>, "onSave"> & {
+type EducationRequirementsSectionProps = Omit<
+  SectionProps<
+    null,
+    FragmentType<typeof EditPoolEducationRequirements_Fragment>
+  >,
+  "onSave"
+> & {
   changeTargetId: string;
 };
 

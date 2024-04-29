@@ -12,7 +12,14 @@ import {
   formatDate,
 } from "@gc-digital-talent/date-helpers";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
-import { PoolStatus, Pool, UpdatePoolInput, graphql, getFragment, FragmentType } from "@gc-digital-talent/graphql";
+import {
+  PoolStatus,
+  Pool,
+  UpdatePoolInput,
+  graphql,
+  getFragment,
+  FragmentType,
+} from "@gc-digital-talent/graphql";
 
 import useDeepCompareEffect from "~/hooks/useDeepCompareEffect";
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
@@ -33,7 +40,7 @@ const dialog = (chunks: React.ReactNode) => (
   <ClosingDateDialog title={chunks} />
 );
 
-const EditPoolClosingDate_Fragment = graphql(/* GraphQL */`
+const EditPoolClosingDate_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolClosingDate on Pool {
     id
     status
@@ -46,7 +53,10 @@ type FormValues = {
 };
 
 export type ClosingDateSubmitData = Pick<UpdatePoolInput, "closingDate">;
-type ClosingDateSectionProps = SectionProps<ClosingDateSubmitData, FragmentType<typeof EditPoolClosingDate_Fragment>>;
+type ClosingDateSectionProps = SectionProps<
+  ClosingDateSubmitData,
+  FragmentType<typeof EditPoolClosingDate_Fragment>
+>;
 
 const ClosingDateSection = ({
   poolQuery,

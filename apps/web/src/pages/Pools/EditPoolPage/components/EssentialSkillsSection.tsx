@@ -4,7 +4,6 @@ import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
 
 import { ToggleSection } from "@gc-digital-talent/ui";
 import {
-  Pool,
   PoolSkillType,
   SkillCategory,
   SkillLevel,

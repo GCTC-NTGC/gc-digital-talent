@@ -14,12 +14,15 @@ import {
 } from "@gc-digital-talent/date-helpers";
 import { PoolStatus, makeFragmentData } from "@gc-digital-talent/graphql";
 
-import { EditPoolForm, EditPoolFormProps, EditPool_Fragment } from "./EditPoolPage";
+import {
+  EditPoolForm,
+  EditPoolFormProps,
+  EditPool_Fragment,
+} from "./EditPoolPage";
 
 const classifications = fakeClassifications();
 const skills = fakeSkills(100, fakeSkillFamilies(10));
-const pools = fakePools(1, skills, classifications);
-const pool = makeFragmentData(pools[0], EditPool_Fragment);
+const pool = fakePools(1, skills, classifications)[0];
 
 export default {
   component: EditPoolForm,
@@ -44,30 +47,39 @@ const TemplateEditPoolForm: StoryFn<EditPoolFormProps> = (
 
 export const DraftPool = TemplateEditPoolForm.bind({});
 DraftPool.args = {
-  poolQuery: makeFragmentData({
-    ...pools[0],
-    closingDate: FAR_FUTURE_DATE,
-    publishedAt: null,
-    status: PoolStatus.Draft,
-  }, EditPool_Fragment)
+  poolQuery: makeFragmentData(
+    {
+      ...pool,
+      closingDate: FAR_FUTURE_DATE,
+      publishedAt: null,
+      status: PoolStatus.Draft,
+    },
+    EditPool_Fragment,
+  ),
 };
 
 export const PublishedPool = TemplateEditPoolForm.bind({});
 PublishedPool.args = {
-  poolQuery: makeFragmentData({
-    ...pools[0],
-    publishedAt: FAR_PAST_DATE,
-    status: PoolStatus.Published,
-    closingDate: FAR_FUTURE_DATE,
-  }, EditPool_Fragment)
+  poolQuery: makeFragmentData(
+    {
+      ...pool,
+      publishedAt: FAR_PAST_DATE,
+      status: PoolStatus.Published,
+      closingDate: FAR_FUTURE_DATE,
+    },
+    EditPool_Fragment,
+  ),
 };
 
 export const ExpiredPool = TemplateEditPoolForm.bind({});
 ExpiredPool.args = {
-  poolQuery: makeFragmentData({
-    ...pools[0],
-    publishedAt: FAR_PAST_DATE,
-    status: PoolStatus.Closed,
-    closingDate: FAR_PAST_DATE,
-  }, EditPool_Fragment)
+  poolQuery: makeFragmentData(
+    {
+      ...pool,
+      publishedAt: FAR_PAST_DATE,
+      status: PoolStatus.Closed,
+      closingDate: FAR_PAST_DATE,
+    },
+    EditPool_Fragment,
+  ),
 };

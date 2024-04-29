@@ -46,7 +46,7 @@ import {
 } from "./utils";
 import ActionWrapper from "../ActionWrapper";
 
-const EditPoolCoreRequirements_Fragment = graphql(/* GraphQL */`
+const EditPoolCoreRequirements_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolCoreRequirements on Pool {
     id
     status
@@ -58,9 +58,12 @@ const EditPoolCoreRequirements_Fragment = graphql(/* GraphQL */`
       fr
     }
   }
-`)
+`);
 
-type CoreRequirementsSectionProps = SectionProps<CoreRequirementsSubmitData, FragmentType<typeof EditPoolCoreRequirements_Fragment>>;
+type CoreRequirementsSectionProps = SectionProps<
+  CoreRequirementsSubmitData,
+  FragmentType<typeof EditPoolCoreRequirements_Fragment>
+>;
 
 const CoreRequirementsSection = ({
   poolQuery,
