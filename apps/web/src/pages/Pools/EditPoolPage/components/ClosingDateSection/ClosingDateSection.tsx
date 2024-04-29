@@ -12,7 +12,7 @@ import {
   formatDate,
 } from "@gc-digital-talent/date-helpers";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
-import { PoolStatus, Pool, UpdatePoolInput } from "@gc-digital-talent/graphql";
+import { PoolStatus, Pool, UpdatePoolInput, graphql, getFragment, FragmentType } from "@gc-digital-talent/graphql";
 
 import useDeepCompareEffect from "~/hooks/useDeepCompareEffect";
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
@@ -33,20 +33,29 @@ const dialog = (chunks: React.ReactNode) => (
   <ClosingDateDialog title={chunks} />
 );
 
+const EditPoolClosingDate_Fragment = graphql(/* GraphQL */`
+  fragment EditPoolClosingDate on Pool {
+    id
+    status
+    closingDate
+  }
+`);
+
 type FormValues = {
   endDate?: Pool["closingDate"];
 };
 
 export type ClosingDateSubmitData = Pick<UpdatePoolInput, "closingDate">;
-type ClosingDateSectionProps = SectionProps<ClosingDateSubmitData>;
+type ClosingDateSectionProps = SectionProps<ClosingDateSubmitData, FragmentType<typeof EditPoolClosingDate_Fragment>>;
 
 const ClosingDateSection = ({
-  pool,
+  poolQuery,
   sectionMetadata,
   onSave,
 }: ClosingDateSectionProps): JSX.Element => {
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
+  const pool = getFragment(EditPoolClosingDate_Fragment, poolQuery);
   const emptyRequired = hasEmptyRequiredFields(pool);
   const invalidRequired = hasInvalidRequiredFields(pool);
   const { isSubmitting } = useEditPoolContext();

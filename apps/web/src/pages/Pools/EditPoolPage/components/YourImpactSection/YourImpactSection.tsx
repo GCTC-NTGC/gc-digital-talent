@@ -11,6 +11,9 @@ import {
   LocalizedString,
   Pool,
   UpdatePoolInput,
+  graphql,
+  FragmentType,
+  getFragment,
 } from "@gc-digital-talent/graphql";
 
 import {
@@ -25,6 +28,17 @@ import { SectionProps } from "../../types";
 import Display from "./Display";
 import ActionWrapper from "../ActionWrapper";
 
+const EditPoolYourImpact_Fragment = graphql(/* GraphQL */`
+  fragment EditPoolYourImpact on Pool {
+    id
+    status
+    yourImpact {
+      en
+      fr
+    }
+  }
+`)
+
 type FormValues = {
   yourImpactEn?: LocalizedString["en"];
   yourImpactFr?: LocalizedString["fr"];
@@ -32,17 +46,18 @@ type FormValues = {
 
 export type YourImpactSubmitData = Pick<UpdatePoolInput, "yourImpact">;
 
-type YourImpactSectionProps = SectionProps<YourImpactSubmitData>;
+type YourImpactSectionProps = SectionProps<YourImpactSubmitData, FragmentType<typeof EditPoolYourImpact_Fragment>>;
 
 const TEXT_AREA_MAX_WORDS_EN = 200;
 const TEXT_AREA_MAX_WORDS_FR = TEXT_AREA_MAX_WORDS_EN + 100;
 
 const YourImpactSection = ({
-  pool,
+  poolQuery,
   sectionMetadata,
   onSave,
 }: YourImpactSectionProps): JSX.Element => {
   const intl = useIntl();
+  const pool = getFragment(EditPoolYourImpact_Fragment, poolQuery);
   const isNull = hasAllEmptyFields(pool);
   const emptyRequired = hasEmptyRequiredFields(pool);
   const { isSubmitting } = useEditPoolContext();

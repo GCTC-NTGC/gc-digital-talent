@@ -21,6 +21,9 @@ import {
   PoolStatus,
   PoolLanguage,
   SecurityStatus,
+  graphql,
+  FragmentType,
+  getFragment,
 } from "@gc-digital-talent/graphql";
 
 import {
@@ -43,14 +46,29 @@ import {
 } from "./utils";
 import ActionWrapper from "../ActionWrapper";
 
-type CoreRequirementsSectionProps = SectionProps<CoreRequirementsSubmitData>;
+const EditPoolCoreRequirements_Fragment = graphql(/* GraphQL */`
+  fragment EditPoolCoreRequirements on Pool {
+    id
+    status
+    language
+    securityClearance
+    isRemote
+    location {
+      en
+      fr
+    }
+  }
+`)
+
+type CoreRequirementsSectionProps = SectionProps<CoreRequirementsSubmitData, FragmentType<typeof EditPoolCoreRequirements_Fragment>>;
 
 const CoreRequirementsSection = ({
-  pool,
+  poolQuery,
   sectionMetadata,
   onSave,
 }: CoreRequirementsSectionProps): JSX.Element => {
   const intl = useIntl();
+  const pool = getFragment(EditPoolCoreRequirements_Fragment, poolQuery);
   const isNull = hasAllEmptyFields(pool);
   const emptyRequired = hasEmptyRequiredFields(pool);
   const { isSubmitting } = useEditPoolContext();

@@ -10,6 +10,8 @@ import {
   SkillLevel,
   PoolStatus,
   Skill,
+  FragmentType,
+  getFragment,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -19,21 +21,23 @@ import { EditPoolSectionMetadata } from "~/types/pool";
 
 import SkillTable from "./SkillTable";
 import { PoolSkillMutationsType } from "../types";
+import { EditPoolSkills_Fragment } from "../fragments";
 
 type EssentialSkillsSectionProps = {
-  pool: Pool;
+  poolQuery: FragmentType<typeof EditPoolSkills_Fragment>;
   sectionMetadata: EditPoolSectionMetadata;
   skills: Array<Skill>;
   poolSkillMutations: PoolSkillMutationsType;
 };
 
 const EssentialSkillsSection = ({
-  pool,
+  poolQuery,
   skills,
   sectionMetadata,
   poolSkillMutations,
 }: EssentialSkillsSectionProps): JSX.Element => {
   const intl = useIntl();
+  const pool = getFragment(EditPoolSkills_Fragment, poolQuery);
   const emptyRequired = hasEmptyRequiredFields(pool);
   const { icon } = useToggleSectionInfo({
     isNull: emptyRequired,
