@@ -29,7 +29,18 @@ const mockCandidate = {
   },
 };
 
-const poolCandidateStatuses = Object.values(PoolCandidateStatus);
+// List of statuses found in isApplicationQualifiedRecruitment function.
+const qualifiedRecruitmentStatuses = [
+  PoolCandidateStatus.QualifiedAvailable,
+  PoolCandidateStatus.QualifiedUnavailable,
+  PoolCandidateStatus.QualifiedWithdrew,
+  PoolCandidateStatus.PlacedTentative,
+  PoolCandidateStatus.PlacedCasual,
+  PoolCandidateStatus.PlacedTerm,
+  PoolCandidateStatus.PlacedIndeterminate,
+  PoolCandidateStatus.Expired,
+];
+
 type Availability = "Available" | "Unavailable";
 const availabilities: Availability[] = ["Available", "Unavailable"];
 
@@ -41,7 +52,7 @@ const Template: StoryFn<typeof QualifiedRecruitmentCard> = () => {
   return (
     <div data-h2-display="base(flex)">
       <div data-h2-padding="base(x1)" data-h2-background="base(white)">
-        {poolCandidateStatuses.map((poolCandidateStatus) =>
+        {qualifiedRecruitmentStatuses.map((poolCandidateStatus) =>
           availabilities.map((availability) => (
             <div
               data-h2-margin="base(0, 0, x.5, 0)"
