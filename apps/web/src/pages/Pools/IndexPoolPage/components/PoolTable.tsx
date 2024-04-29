@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import { Pending } from "@gc-digital-talent/ui";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, hasRole, useAuthorization } from "@gc-digital-talent/auth";
 import {
   getPoolStatus,
@@ -13,7 +13,7 @@ import {
   getPublishingGroup,
   getPoolStream,
 } from "@gc-digital-talent/i18n";
-import { graphql, Pool, PoolTableQuery } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql, Pool, PoolTableQuery, PoolTableRowFragment } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
@@ -36,15 +36,50 @@ import {
   viewTeamLinkCell,
 } from "./helpers";
 
+ export const PoolTableRow_Fragment = graphql(/* GraphQL */`
+  fragment PoolTableRow on Pool {
+    id
+    stream
+    publishingGroup
+    status
+    createdDate
+    updatedDate
+    name {
+    en
+    fr
+    }
+    classification {
+      id
+      group
+      level
+    }
+    team {
+      id
+      name
+      displayName {
+        en
+        fr
+      }
+    }
+    owner {
+      id
+      firstName
+      lastName
+      email
+    }
+  }
+`)
+
 const columnHelper = createColumnHelper<Pool>();
 interface PoolTableProps {
-  pools: NonNullable<PoolTableQuery["pools"][0]>[];
+  poolsQuery: FragmentType<typeof PoolTableRow_Fragment>[];
   title: string;
 }
 
-export const PoolTable = ({ pools, title }: PoolTableProps) => {
+export const PoolTable = ({ poolsQuery, title }: PoolTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const pools = getFragment(PoolTableRow_Fragment, poolsQuery);
 
   const columns = [
     columnHelper.accessor("id", {
@@ -178,7 +213,7 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
     }),
   ] as ColumnDef<Pool>[];
 
-  const data = pools.filter(notEmpty);
+  const data = unpackMaybes([...pools]);
 
   return (
     <Table<Pool>
@@ -220,36 +255,11 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
 const PoolTable_Query = graphql(/* GraphQL */ `
   query PoolTable {
     pools {
-      id
+      ...PoolTableRow
       team {
         id
         name
-        displayName {
-          en
-          fr
-        }
       }
-      owner {
-        id
-        email
-        firstName
-        lastName
-      }
-      name {
-        en
-        fr
-      }
-      classification {
-        id
-        group
-        level
-      }
-      status
-      stream
-      processNumber
-      publishingGroup
-      createdDate
-      updatedDate
     }
   }
 `);
@@ -276,7 +286,7 @@ const PoolTableApi = ({ title }: { title: string }) => {
 
   return (
     <Pending fetching={fetching} error={error}>
-      <PoolTable pools={pools ?? []} title={title} />
+      <PoolTable poolsQuery={pools} title={title} />
     </Pending>
   );
 };
