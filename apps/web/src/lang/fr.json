@@ -963,10 +963,6 @@
     "defaultMessage": "Lancement de la troisième cohorte du programme de mentorat de la collectivité du numérique destiné aux membres des groupes d’équité en matière d’emploi.",
     "description": "Description of the mentorship program"
   },
-  "3JL02L": {
-    "defaultMessage": "Décerné à :",
-    "description": "The award was given to"
-  },
   "3MboNR": {
     "defaultMessage": "Veuillez sélectionner une date d’expiration",
     "description": "Label for date selection input for expiry date"
@@ -2495,10 +2491,6 @@
     "defaultMessage": "Vous pouvez autodéclarer votre appartenance à une ou plusieurs des communautés énumérées alphabétiquement ci-dessous.",
     "description": "Text that appears before employment equity form options."
   },
-  "CX/qKY": {
-    "defaultMessage": "à {institution}",
-    "description": "Study at institution"
-  },
   "CY+493": {
     "defaultMessage": "Pour en apprendre davantage",
     "description": "Button text to learn more about the program"
@@ -2986,10 +2978,6 @@
   "FAEU2d": {
     "defaultMessage": "Droit d’auteur",
     "description": "Heading for comments and interaction section"
-  },
-  "FAOzjP": {
-    "defaultMessage": "Portée :",
-    "description": "The scope of the award given"
   },
   "FC5tje": {
     "defaultMessage": "Autres commentaires",
@@ -4935,10 +4923,6 @@
     "defaultMessage": "Il manque des renseignements personnels",
     "description": "Error message displayed when a users personal information is incomplete"
   },
-  "QfOWr0": {
-    "defaultMessage": "Détails additionnels :",
-    "description": "Additional details if provided (without details)"
-  },
   "QgX0vb": {
     "defaultMessage": "Retirer<hidden> {skillName}</hidden>",
     "description": "Button text to delete a personnel skill requirement"
@@ -5619,10 +5603,6 @@
     "defaultMessage": "Autochtone selon la définition de ce programme",
     "description": "Heading for the definition of Indigenous dialog"
   },
-  "UPx6kk": {
-    "defaultMessage": "<primary>{title}</primary> à {organization}",
-    "description": "Title at organization"
-  },
   "UQlyXu": {
     "defaultMessage": "Les apprentis feront l’expérience d’un apprentissage au travail et pendant la formation en ligne dans un ou plusieurs domaines de la technologie de l’information. On s’attend à ce que les apprentis démontrent leur intérêt et leur passion pour la technologie en étant prêts à observer, à apprendre et à pratiquer de nouvelles compétences qui sont développées au cours du programme. En moyenne, un apprenti passera quatre jours par semaine en apprentissage pratique, tandis que le cinquième jour de la semaine sera consacré au perfectionnement personnel et professionnel par la formation en ligne et par d’autres possibilités de formation et de perfectionnement.",
     "description": "Learn more dialog question eight paragraph one"
@@ -5797,10 +5777,6 @@
   "VN6uCI": {
     "defaultMessage": "Ces compétences essentielles ont été évaluées dans le cadre du processus :",
     "description": "Text showing the essentials skills assessed during the process"
-  },
-  "VOheZB": {
-    "defaultMessage": "<primary>{role}</primary> à {organization}",
-    "description": "Role at organization in work experience block of skill accordion."
   },
   "VUPlmN": {
     "defaultMessage": "Premières Nations (inscrites ou non)",
@@ -7102,10 +7078,6 @@
     "defaultMessage": "Il n'y a aucun élément à afficher.",
     "description": "Message when there is no data to display in a table"
   },
-  "cK/hoN": {
-    "defaultMessage": "<primary>{title}</primary> délivré par {issuedBy}",
-    "description": "The award title is issued by some group"
-  },
   "cL3OoZ": {
     "defaultMessage": "Notification non lue",
     "description": "Link text to show unread notifications"
@@ -7301,10 +7273,6 @@
   "dJXjhw": {
     "defaultMessage": "Sélectionnez un volet",
     "description": "Placeholder for stream filter in browse opportunities form."
-  },
-  "dQseX7": {
-    "defaultMessage": "1 expérience",
-    "description": "Pluralization for one experience"
   },
   "dSfDu1": {
     "defaultMessage": "Aidez les gestionnaires à comprendre les domaines dans lesquels vous souhaitez améliorer des compétences comportementales. Vous pouvez modifier cette vitrine à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez à la vitrine qui ne sont pas déjà dans votre bibliothèque seront ajoutées automatiquement.",
@@ -7977,10 +7945,6 @@
   "gsaza3": {
     "defaultMessage": "Prévoyez-vous un effet de report ou d’entraînement immédiat sur d’autres services en termes de niveaux de personnel ou de compétences requises?",
     "description": "Label for _has immediate impact on other departments_ fieldset in the _digital services contracting questionnaire_"
-  },
-  "gtLuDM": {
-    "defaultMessage": "Projet : {project}",
-    "description": "Project Name"
   },
   "gtU+9w": {
     "defaultMessage": "Bienvenue aux cadres",
@@ -9442,10 +9406,6 @@
     "defaultMessage": "Le présent énoncé a été préparé le 8 novembre 2022.",
     "description": "Disclaimer for the when the accessibility statement was last updated"
   },
-  "omDlZN": {
-    "defaultMessage": "Thèse : {thesisTitle}",
-    "description": "Thesis, if applicable"
-  },
   "opkSia": {
     "defaultMessage": "Gérer « {skillName} »",
     "description": "Page title for the skill self evaluation page"
@@ -10749,10 +10709,6 @@
   "xM6U6U": {
     "defaultMessage": "Sans objet (s. o.)",
     "description": "Not applicable contract supply method"
-  },
-  "xNVsei": {
-    "defaultMessage": "{experienceLength} Expériences",
-    "description": "Pluralization for zero or multiple experiences"
   },
   "xPaVvi": {
     "defaultMessage": "Comme l’indiquent les <link>Procédures obligatoires sur les talents numériques</link>, il incombe au chef opérationnel de remplir et de soumettre le questionnaire sur les contrats de services numériques s’il fournit des services numériques.",
