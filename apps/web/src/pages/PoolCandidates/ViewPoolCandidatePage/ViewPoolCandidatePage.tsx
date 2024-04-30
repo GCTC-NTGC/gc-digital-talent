@@ -28,6 +28,9 @@ import {
   graphql,
   ArmedForcesStatus,
   PoolCandidateSnapshotQuery,
+  Department,
+  PoolCandidateStatus,
+  makeFragmentData,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -46,6 +49,10 @@ import {
   RECORD_DECISION_STATUSES,
   REVERT_DECISION_STATUSES,
 } from "~/constants/poolCandidate";
+import {
+  JobPlacementDialog,
+  JobPlacementDialog_Fragment,
+} from "~/components/PoolCandidatesTable/JobPlacementDialog";
 
 import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
 import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
@@ -440,12 +447,21 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
       }
       status
     }
+    departments {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
   }
 `);
 
 export interface ViewPoolCandidateProps {
   poolCandidate: NonNullable<PoolCandidateSnapshotQuery["poolCandidate"]>;
   pools: Pool[];
+  departments: Department[];
 }
 
 type SectionContent = {
@@ -457,6 +473,7 @@ type SectionContent = {
 export const ViewPoolCandidate = ({
   poolCandidate,
   pools,
+  departments,
 }: ViewPoolCandidateProps): JSX.Element => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -754,6 +771,11 @@ export const ViewPoolCandidate = ({
     isAdmin: true,
   });
 
+  const jobPlacementDialogQuery = makeFragmentData(
+    { id: poolCandidate.id, status: poolCandidate.status },
+    JobPlacementDialog_Fragment,
+  );
+
   return (
     <>
       <AdminHero
@@ -810,6 +832,15 @@ export const ViewPoolCandidate = ({
                   // TODO: Add "Revert final decision" dialog in here (#9197)
                   // eslint-disable-next-line react/jsx-no-useless-fragment
                   <></>
+                )}
+              {poolCandidate.status &&
+                poolCandidate.status ===
+                  PoolCandidateStatus.QualifiedAvailable && (
+                  <JobPlacementDialog
+                    jobPlacementDialogQuery={jobPlacementDialogQuery}
+                    departments={departments}
+                    context="view"
+                  />
                 )}
               <ChangeExpiryDateDialog expiryDateQuery={poolCandidate} />
               {/* TODO: Add "Remove" and "Re-instate" dialogs to Pool Candidate
@@ -939,6 +970,7 @@ export const ViewPoolCandidatePage = () => {
         <ViewPoolCandidate
           poolCandidate={data.poolCandidate}
           pools={data.pools.filter(notEmpty)}
+          departments={data.departments.filter(notEmpty)}
         />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
