@@ -224,7 +224,7 @@ type Pool {
   assessmentSteps: [AssessmentStep]
     @hasMany
     @canRoot(ability: "viewAssessmentPlan")
-  poolSkills: [PoolSkill] @hasMany
+  poolSkills(type: PoolSkillType @where): [PoolSkill] @hasMany
 }
 
 type GeneralQuestionResponse {

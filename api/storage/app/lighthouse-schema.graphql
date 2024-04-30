@@ -355,7 +355,7 @@ type Pool {
   archivedAt: DateTime
   isComplete: Boolean
   assessmentSteps: [AssessmentStep]
-  poolSkills: [PoolSkill]
+  poolSkills(type: PoolSkillType): [PoolSkill]
 }
 
 type GeneralQuestionResponse {
