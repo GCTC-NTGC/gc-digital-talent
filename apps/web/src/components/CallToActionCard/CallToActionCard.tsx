@@ -1,6 +1,12 @@
 import React from "react";
 
-import { Heading, Link, HeadingRank, LinkProps } from "@gc-digital-talent/ui";
+import {
+  Heading,
+  Link,
+  HeadingRank,
+  LinkProps,
+  CardBasic,
+} from "@gc-digital-talent/ui";
 
 interface CallToActionCardProps
   extends React.DetailedHTMLProps<
@@ -23,14 +29,7 @@ const CallToActionCard = ({
   link,
   ...rest
 }: CallToActionCardProps) => (
-  <div
-    data-h2-background-color="base(foreground)"
-    data-h2-color="base(black)"
-    data-h2-shadow="base(large)"
-    data-h2-padding="base(x1)"
-    data-h2-radius="base(rounded)"
-    {...rest}
-  >
+  <CardBasic {...rest}>
     <div
       data-h2-display="p-tablet(flex)"
       data-h2-gap="base(x3)"
@@ -62,7 +61,7 @@ const CallToActionCard = ({
         </Link>
       </div>
     </div>
-  </div>
+  </CardBasic>
 );
 
 export default CallToActionCard;
