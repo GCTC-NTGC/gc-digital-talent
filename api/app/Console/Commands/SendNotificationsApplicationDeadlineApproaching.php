@@ -45,6 +45,7 @@ class SendNotificationsApplicationDeadlineApproaching extends Command
         $poolsClosingOnClosingDay = Pool::wasPublished()
             ->where('closing_date', '>=', $startOfClosingDayInUtc)
             ->where('closing_date', '<=', $endOfClosingDayInUtc)
+            ->with('classification')
             ->get();
 
         $this->info('Found '.$poolsClosingOnClosingDay->count().' pools.');
@@ -53,8 +54,8 @@ class SendNotificationsApplicationDeadlineApproaching extends Command
             $this->info('Searching pool '.$pool->id.' ('.$pool->name['en'].')');
 
             $draftApplications = $pool->poolCandidates()
-                ->with('user')
                 ->whereNull('submitted_at')
+                ->with('user')
                 ->get();
 
             $this->info('Found '.$draftApplications->count().' applications.');
@@ -62,8 +63,8 @@ class SendNotificationsApplicationDeadlineApproaching extends Command
             foreach ($draftApplications as $poolCandidate) {
                 $notification = new ApplicationDeadlineApproaching(
                     $closingDayInPacific,
-                    $pool->name['en'],
-                    $pool->name['fr'],
+                    $pool->classification->displayName.': '.$pool->name['en'],
+                    $pool->classification->displayName.' : '.$pool->name['fr'],
                     $pool->id,
                     $poolCandidate->id,
                 );
