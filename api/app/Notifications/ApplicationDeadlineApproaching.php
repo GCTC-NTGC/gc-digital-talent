@@ -20,10 +20,8 @@ class ApplicationDeadlineApproaching extends Notification implements CanBeSentVi
         public Carbon $closingDate,
         public string $poolNameEn,
         public string $poolNameFr,
-        public string $poolAdvertisementLinkEn,
-        public string $poolAdvertisementLinkFr,
-        public string $applicationLinkEn,
-        public string $applicationLinkFr,
+        public string $poolId,
+        public string $poolCandidateId,
     ) {
     }
 
@@ -52,14 +50,8 @@ class ApplicationDeadlineApproaching extends Notification implements CanBeSentVi
                 'en' => $this->poolNameEn,
                 'fr' => $this->poolNameFr,
             ],
-            'poolAdvertisementLink' => [
-                'en' => $this->poolAdvertisementLinkEn,
-                'fr' => $this->poolAdvertisementLinkFr,
-            ],
-            'applicationLink' => [
-                'en' => $this->applicationLinkEn,
-                'fr' => $this->applicationLinkFr,
-            ],
+            'poolId' => $this->poolId,
+            'poolCandidateId' => $this->poolCandidateId,
         ];
     }
 
@@ -80,9 +72,9 @@ class ApplicationDeadlineApproaching extends Notification implements CanBeSentVi
                 $notifiable->email,
                 [
                     'closing date' => $localizedClosingDateString,
-                    'pool name' => $this->poolNameEn,
-                    'pool advertisement link' => $this->poolAdvertisementLinkEn,
-                    'application link' => $this->applicationLinkEn,
+                    'opportunity title' => $this->poolNameEn,
+                    'job advertisement link' => config('app.url').'/en/browse/pools/'.$this->poolId,
+                    'application link' => config('app.url').'/en/applications/'.$this->poolCandidateId,
                 ]
             );
         } else {
@@ -92,9 +84,9 @@ class ApplicationDeadlineApproaching extends Notification implements CanBeSentVi
                 $notifiable->email,
                 [
                     'closing date' => $localizedClosingDateString,
-                    'pool name' => $this->poolNameFr,
-                    'pool advertisement link' => $this->poolAdvertisementLinkFr,
-                    'application link' => $this->applicationLinkFr,
+                    'opportunity title' => $this->poolNameFr,
+                    'job advertisement link' => config('app.url').'/fr/browse/pools/'.$this->poolId,
+                    'application link' => config('app.url').'/fr/applications/'.$this->poolCandidateId,
                 ]
             );
         }

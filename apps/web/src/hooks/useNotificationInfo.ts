@@ -90,6 +90,7 @@ function isApplicationDeadlineApproachingNotification(
 
 const applicationDeadlineApproachingNotificationToInfo = (
   notification: ApplicationDeadlineApproachingNotification,
+  paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
 ): NotificationInfo => {
   const poolNameLocalized = getLocalizedName(notification.poolName, intl);
@@ -101,10 +102,6 @@ const applicationDeadlineApproachingNotificationToInfo = (
     formatString: "PPP",
     intl,
   });
-  // need to strip off the hostname for SPA navigation
-  const applicationUrl = new URL(
-    getLocalizedName(notification.applicationLink, intl),
-  );
 
   return {
     message: intl.formatMessage(
@@ -119,7 +116,9 @@ const applicationDeadlineApproachingNotificationToInfo = (
         closingDate: closingDateFormatted,
       },
     ),
-    href: applicationUrl.pathname,
+    href: notification.poolCandidateId
+      ? paths.application(notification.poolCandidateId)
+      : "",
     label: intl.formatMessage(
       {
         defaultMessage: "Application deadline approaching for {poolName}",
@@ -147,7 +146,11 @@ const useNotificationInfo = (
   }
 
   if (isApplicationDeadlineApproachingNotification(notification)) {
-    return applicationDeadlineApproachingNotificationToInfo(notification, intl);
+    return applicationDeadlineApproachingNotificationToInfo(
+      notification,
+      paths,
+      intl,
+    );
   }
 
   logger.warning(

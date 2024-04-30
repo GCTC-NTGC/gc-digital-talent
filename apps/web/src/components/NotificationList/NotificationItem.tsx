@@ -61,14 +61,8 @@ const NotificationItem_Fragment = graphql(/* GraphQL */ `
         en
         fr
       }
-      applicationLink {
-        en
-        fr
-      }
-      poolAdvertisementLink {
-        en
-        fr
-      }
+      poolId
+      poolCandidateId
     }
   }
 `);

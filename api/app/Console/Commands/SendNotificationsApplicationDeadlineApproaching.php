@@ -64,10 +64,8 @@ class SendNotificationsApplicationDeadlineApproaching extends Command
                     $closingDayInPacific,
                     $pool->name['en'],
                     $pool->name['fr'],
-                    config('app.url').'/en/browse/pools/'.$pool->id,
-                    config('app.url').'/fr/browse/pools/'.$pool->id,
-                    config('app.url').'/en/applications/'.$poolCandidate->id,
-                    config('app.url').'/fr/applications/'.$poolCandidate->id,
+                    $pool->id,
+                    $poolCandidate->id,
                 );
                 try {
                     $poolCandidate->user->notify($notification);
