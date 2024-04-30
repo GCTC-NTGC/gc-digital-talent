@@ -100,7 +100,7 @@ type User {
   # Pool info
   poolCandidates: [PoolCandidate]
     @hasMany(scopes: ["authorizedToView"])
-    @canResolved(ability: "view") # PoolsCandidate objects associate the user with a pool
+    @canResolved(ability: "view") # PoolCandidate objects associate the user with a pool
   # Experiences
   experiences: [Experience] @belongsToMany # All experiences that a user owns
   awardExperiences: [AwardExperience] @belongsToMany # Award experiences that a user owns
@@ -282,10 +282,6 @@ type PoolCandidate {
   id: ID!
   pool: Pool! @belongsTo @canResolved(ability: "view")
   user: User! @belongsTo(relation: "user") @canResolved(ability: "view")
-  # cmoIdentifier can be an arbitrary string used to relate this candidate to an external database.
-  cmoIdentifier: ID
-    @rename(attribute: "cmo_identifier")
-    @deprecated(reason: "Field no longer used")
   # Expiry date for this candidate being in the pool.
   expiryDate: Date @rename(attribute: "expiry_date")
 
