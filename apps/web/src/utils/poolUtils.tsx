@@ -351,17 +351,12 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
       {
         icon: UserGroupIcon,
         title: intl.formatMessage({
-          defaultMessage: "Candidates",
-          id: "X4TOhW",
-          description: "Page title for the admin pool candidates index page",
+          defaultMessage: "Talent placement",
+          id: "0YpfAG",
+          description: "Title for candidates tab for a process",
         }),
         link: {
           url: paths.poolCandidateTable(pool.id),
-          label: intl.formatMessage({
-            defaultMessage: "Talent placement",
-            id: "0YpfAG",
-            description: "Title for candidates tab for a process",
-          }),
         },
       },
     ],

@@ -15,7 +15,7 @@ import {
   errorMessages,
   getGovEmployeeType,
   uiMessages,
-  useLocale,
+  getLocale,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
@@ -77,7 +77,7 @@ const FormFields = ({
   labels,
 }: FormFieldsProps) => {
   const intl = useIntl();
-  const { locale } = useLocale();
+  const locale = getLocale(intl);
   const departments = getFragment(
     GovernmentInfoDepartment_Fragment,
     departmentsQuery,

@@ -36,17 +36,7 @@ class PoolCandidateFactory extends Factory
      */
     public function definition()
     {
-        $relevantStatusesForFinalDecision = [
-            PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-            PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
-            PoolCandidateStatus::QUALIFIED_WITHDREW->name,
-            PoolCandidateStatus::PLACED_CASUAL->name,
-            PoolCandidateStatus::PLACED_TERM->name,
-            PoolCandidateStatus::PLACED_INDETERMINATE->name,
-            PoolCandidateStatus::EXPIRED->name,
-            PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
-            PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
-        ];
+        $relevantStatusesForFinalDecision = PoolCandidateStatus::finalDecisionGroup();
         $placedStatuses = PoolCandidateStatus::placedGroup();
         $placedDepartmentId = Department::inRandomOrder()
             ->limit(1)
@@ -55,7 +45,6 @@ class PoolCandidateFactory extends Factory
         $removedStatuses = PoolCandidateStatus::removedGroup();
 
         return [
-            'cmo_identifier' => $this->faker->word(),
             'expiry_date' => $this->faker->dateTimeBetween('-1 years', '3 years'),
             'pool_candidate_status' => $this->faker->boolean() ?
                 $this->faker->randomElement([PoolCandidateStatus::QUALIFIED_AVAILABLE, PoolCandidateStatus::PLACED_CASUAL])->name :

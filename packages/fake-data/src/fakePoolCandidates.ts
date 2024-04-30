@@ -36,9 +36,6 @@ const generatePoolCandidate = (pools: Pool[], users: User[]): PoolCandidate => {
     id: faker.string.uuid(),
     pool,
     user,
-    cmoIdentifier: faker.helpers.slugify(
-      faker.lorem.words(faker.number.int({ min: 1, max: 3 })),
-    ),
     educationRequirementExperiences: fakeExperiences(1),
     educationRequirementOption:
       faker.helpers.arrayElement<EducationRequirementOption>(

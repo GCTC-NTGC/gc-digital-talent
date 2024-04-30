@@ -406,7 +406,6 @@ type PoolCandidate {
   id: ID!
   pool: Pool!
   user: User!
-  cmoIdentifier: ID @deprecated(reason: "Field no longer used")
   expiryDate: Date
   status: PoolCandidateStatus
   statusWeight: Int

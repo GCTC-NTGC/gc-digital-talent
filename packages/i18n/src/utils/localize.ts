@@ -7,7 +7,6 @@ import type {
   Scalars,
 } from "@gc-digital-talent/graphql";
 
-import { STORED_LOCALE } from "../const";
 import { Locales } from "../types";
 import { commonMessages } from "../messages";
 
@@ -28,7 +27,7 @@ export function oppositeLocale(locale: Locales): Locales {
 }
 
 export const changeLocale = (locale: Locales) => {
-  localStorage.setItem(STORED_LOCALE, locale);
+  localStorage.setItem("stored_locale", locale);
 };
 
 export function localizePath(
