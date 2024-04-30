@@ -2,12 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 
-import {
-  FragmentType,
-  GeneralQuestion,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Button,
   CardRepeater,

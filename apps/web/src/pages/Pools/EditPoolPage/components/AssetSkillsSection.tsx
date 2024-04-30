@@ -8,7 +8,6 @@ import {
   PoolSkillType,
   SkillCategory,
   SkillLevel,
-  Pool,
   PoolStatus,
   Skill,
   FragmentType,
