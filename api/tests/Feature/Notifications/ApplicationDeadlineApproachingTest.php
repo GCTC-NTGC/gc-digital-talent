@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Notifications;
 
+use App\Models\Notification;
 use App\Models\User;
 use App\Notifications\ApplicationDeadlineApproaching;
 use Database\Seeders\RolePermissionSeeder;
@@ -50,6 +51,7 @@ class ApplicationDeadlineApproachingTest extends TestCase
             $user = User::factory()
                 ->create([
                     'email' => config('notify.smokeTest.emailAddress'),
+                    // TODO: set email preference
                 ]);
 
             $user->notify($this->fixtureNotification);
@@ -98,5 +100,29 @@ class ApplicationDeadlineApproachingTest extends TestCase
             'pool advertisement link' => config('app.url').'/fr/browse/pools/1',
             'application link' => config('app.url').'/fr/applications/2'],
             $message->messageVariables);
+    }
+
+    public function testSavesDatabaseFieldsCorrectly(): void
+    {
+        $user = User::factory()
+            ->create([
+                'email' => 'example@example.org',
+                'preferred_lang' => 'en',
+                // TODO: set notification preference
+            ]);
+
+        $user->notify($this->fixtureNotification);
+
+        $notification = Notification::all()->sole();
+        assertEqualsCanonicalizing([
+            'closingDate' => '2999-12-31',
+            'poolName' => [
+                'en' => 'poolNameEn',
+                'fr' => 'poolNameFr',
+            ],
+            'poolId' => '1',
+            'poolCandidateId' => '2',
+        ], $notification->data
+        );
     }
 }
