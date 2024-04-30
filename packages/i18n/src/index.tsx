@@ -82,6 +82,7 @@ import {
   getTableAssessmentDecision,
   getSearchRequestReason,
   getPoolOpportunityLength,
+  getPlacementType,
 } from "./messages/localizedConstants";
 import getOrThrowError from "./utils/error";
 import type { LocalizedArray } from "./utils/localize";
@@ -167,6 +168,7 @@ export {
   getAssessmentDecision,
   getSearchRequestReason,
   getPoolOpportunityLength,
+  getPlacementType,
   getAssessmentDecisionLevel,
   getAssessmentJustification,
   getTableAssessmentDecision,

@@ -37,6 +37,7 @@ import {
   AssessmentResultJustification,
   AssessmentDecisionLevel,
   PoolOpportunityLength,
+  PlacementType,
 } from "@gc-digital-talent/graphql";
 
 import getOrThrowError from "../utils/error";
@@ -2223,4 +2224,36 @@ export const getPoolOpportunityLength = (
     poolOpportunityLengths,
     poolOpportunityLengthId,
     `Invalid Pool Opportunity Length '${poolOpportunityLengthId}'`,
+  );
+
+const placementTypes = defineMessages({
+  [PlacementType.PlacedTentative]: {
+    defaultMessage: "Tentatively placed (Verbal or email confirmation)",
+    id: "gqYQti",
+    description: "The placement type is Offer in Progress, tentatively placed",
+  },
+  [PlacementType.PlacedCasual]: {
+    defaultMessage: "Placed casual",
+    id: "idkOXC",
+    description: "The placement type is Placed Casual.",
+  },
+  [PlacementType.PlacedTerm]: {
+    defaultMessage: "Placed term",
+    id: "To3sqR",
+    description: "The placement type is Placed Term.",
+  },
+  [PlacementType.PlacedIndeterminate]: {
+    defaultMessage: "Placed indeterminate",
+    id: "LyUIGV",
+    description: "The placement type is Placed Indeterminate.",
+  },
+});
+
+export const getPlacementType = (
+  placementTypeId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    placementTypes,
+    placementTypeId,
+    `Invalid Placement Type '${placementTypeId}'`,
   );
