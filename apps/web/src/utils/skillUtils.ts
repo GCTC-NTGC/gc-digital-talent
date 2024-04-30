@@ -330,10 +330,10 @@ export const sortPoolSkillsBySkillCategory = (
  * @returns Skill[]
  */
 export const filterPoolSkillsByType = (
-  poolSkills: PoolSkill[],
+  poolSkills: Maybe<Maybe<PoolSkill>[]> | undefined,
   poolSkillType: PoolSkillType,
 ): Skill[] => {
-  const skills = poolSkills
+  const skills = unpackMaybes(poolSkills)
     .filter((poolSkill) => poolSkill.type === poolSkillType)
     .map((poolSkill) => poolSkill.skill);
   return unpackMaybes(skills);
@@ -353,4 +353,8 @@ export function groupPoolSkillByType(
       PoolSkillType.Nonessential,
     ),
   };
+}
+
+export function poolSkillsToSkills(poolSkills?: Maybe<Maybe<PoolSkill>[]>) {
+  return unpackMaybes(poolSkills?.map((poolSkill) => poolSkill?.skill));
 }

@@ -19,11 +19,12 @@ import {
   localizeSalaryRange,
   commonMessages,
 } from "@gc-digital-talent/i18n";
-import { Pool } from "@gc-digital-talent/graphql";
+import { Pool, PoolSkillType } from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
 import useRoutes from "~/hooks/useRoutes";
+import { filterPoolSkillsByType } from "~/utils/skillUtils";
 
 import IconLabel from "./IconLabel";
 
@@ -46,6 +47,10 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
+  const essentialSkills = filterPoolSkillsByType(
+    pool.poolSkills,
+    PoolSkillType.Essential,
+  );
 
   const classificationAbbr = pool.classification
     ? wrapAbbr(
@@ -191,9 +196,9 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
               })}
             />
           </div>
-          {pool.essentialSkills?.length ? (
+          {essentialSkills.length ? (
             <Chips>
-              {pool.essentialSkills.map((skill) => (
+              {essentialSkills.map((skill) => (
                 <Chip key={skill.id} color="secondary">
                   {getLocalizedName(skill.name, intl)}
                 </Chip>

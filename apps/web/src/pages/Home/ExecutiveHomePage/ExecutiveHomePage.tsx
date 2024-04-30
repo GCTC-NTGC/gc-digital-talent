@@ -538,45 +538,27 @@ const ExecutiveHomePage_Query = graphql(/* GraphQL */ `
         en
         fr
       }
-      essentialSkills {
+      poolSkills(type: ESSENTIAL) {
         id
-        key
-        name {
-          en
-          fr
-        }
-        category
-        families {
+        skill {
           id
           key
-          description {
-            en
-            fr
-          }
           name {
             en
             fr
           }
-        }
-      }
-      nonessentialSkills {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        category
-        families {
-          id
-          key
-          description {
-            en
-            fr
-          }
-          name {
-            en
-            fr
+          category
+          families {
+            id
+            key
+            description {
+              en
+              fr
+            }
+            name {
+              en
+              fr
+            }
           }
         }
       }

@@ -442,23 +442,16 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
         }
         pool {
           id
-          essentialSkills {
-            id
-            key
-            name {
-              en
-              fr
+          poolSkills {
+            skill {
+              id
+              key
+              name {
+                en
+                fr
+              }
+              category
             }
-            category
-          }
-          nonessentialSkills {
-            id
-            key
-            name {
-              en
-              fr
-            }
-            category
           }
         }
         user {
