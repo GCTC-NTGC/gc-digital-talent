@@ -42,10 +42,11 @@ import {
   graphql,
   PoolStatus,
   Scalars,
-  Pool,
   PublishingGroup,
   Maybe,
   PoolSkillType,
+  FragmentType,
+  getFragment,
 } from "@gc-digital-talent/graphql";
 
 import {
@@ -67,10 +68,7 @@ import ApplicationLink, {
   ApplicationLinkProps,
 } from "./components/ApplicationLink";
 import Text from "./components/Text";
-import SkillAccordion, {
-  PoolSkillWithSkill,
-  isPoolWithSkill as isPoolSkillWithSkill,
-} from "./components/SkillAccordion";
+import SkillAccordion from "./components/SkillAccordion";
 import DataRow from "./components/DataRow";
 import GenericJobTitleAccordion from "./components/GenericJobTitleAccordion";
 import DeadlineDialog from "./components/DeadlineDialog";
@@ -107,6 +105,103 @@ const standardsLink = (locale: Locales, chunks: React.ReactNode) => (
   </Link>
 );
 
+export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
+  fragment PoolAdvertisement on Pool {
+    id
+    name {
+      en
+      fr
+    }
+    stream
+    closingDate
+    status
+    language
+    securityClearance
+    opportunityLength
+    classification {
+      id
+      group
+      level
+      name {
+        en
+        fr
+      }
+      minSalary
+      maxSalary
+      genericJobTitles {
+        id
+        key
+        name {
+          en
+          fr
+        }
+      }
+    }
+    yourImpact {
+      en
+      fr
+    }
+    keyTasks {
+      en
+      fr
+    }
+    whatToExpect {
+      en
+      fr
+    }
+    specialNote {
+      en
+      fr
+    }
+    whatToExpectAdmission {
+      en
+      fr
+    }
+    aboutUs {
+      en
+      fr
+    }
+    poolSkills {
+      id
+      type
+      skill {
+        id
+        key
+        category
+        name {
+          en
+          fr
+        }
+      }
+      ...PoolSkillAccordion
+    }
+    isRemote
+    location {
+      en
+      fr
+    }
+    stream
+    processNumber
+    publishingGroup
+    generalQuestions {
+      id
+      question {
+        en
+        fr
+      }
+    }
+    team {
+      id
+      name
+      contactEmail
+      displayName {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 const moreInfoAccordions = {
   whoCanApply: "who-can-apply",
   dei: "diversity-equity-inclusion",
@@ -122,13 +217,13 @@ const subTitle = defineMessage({
 });
 
 interface PoolAdvertisementProps {
-  pool: Pool;
+  poolQuery: FragmentType<typeof PoolAdvertisement_Fragment>;
   applicationId?: Scalars["ID"]["output"];
   hasApplied?: boolean;
 }
 
 export const PoolPoster = ({
-  pool,
+  poolQuery,
   applicationId,
   hasApplied,
 }: PoolAdvertisementProps) => {
@@ -139,6 +234,7 @@ export const PoolPoster = ({
   const [moreInfoValue, setMoreInfoValue] = React.useState<string[]>([]);
   const [skillsValue, setSkillsValue] = React.useState<string[]>([]);
   const [linkCopied, setLinkCopied] = React.useState<boolean>(false);
+  const pool = getFragment(PoolAdvertisement_Fragment, poolQuery);
 
   const { classification } = pool;
   const genericJobTitles =
@@ -186,18 +282,16 @@ export const PoolPoster = ({
 
   // Separate essential and asset skills, sort them by category, and confirm they include skill data
   const poolSkills = unpackMaybes(pool.poolSkills);
-  const essentialPoolSkills: PoolSkillWithSkill[] =
-    sortPoolSkillsBySkillCategory(
-      poolSkills.filter(
-        (poolSkill) => poolSkill.type === PoolSkillType.Essential,
-      ),
-    ).filter(isPoolSkillWithSkill);
-  const nonessentialPoolSkills: PoolSkillWithSkill[] =
-    sortPoolSkillsBySkillCategory(
-      poolSkills.filter(
-        (poolSkill) => poolSkill.type === PoolSkillType.Nonessential,
-      ),
-    ).filter(isPoolSkillWithSkill);
+  const essentialPoolSkills = sortPoolSkillsBySkillCategory(
+    poolSkills.filter(
+      (poolSkill) => poolSkill.type === PoolSkillType.Essential,
+    ),
+  );
+  const nonessentialPoolSkills = sortPoolSkillsBySkillCategory(
+    poolSkills.filter(
+      (poolSkill) => poolSkill.type === PoolSkillType.Nonessential,
+    ),
+  );
 
   const contactEmail = pool.team?.contactEmail;
 
@@ -226,13 +320,13 @@ export const PoolPoster = ({
       setSkillsValue([]);
     } else {
       const essentialIds = essentialPoolSkills.map(
-        (poolSkill) => poolSkill.skill.id,
+        (poolSkill) => poolSkill.skill?.id,
       );
       const nonEssentialIds = nonessentialPoolSkills.map(
-        (poolSkill) => poolSkill.skill.id,
+        (poolSkill) => poolSkill.skill?.id,
       );
 
-      setSkillsValue([...essentialIds, ...nonEssentialIds]);
+      setSkillsValue(unpackMaybes([...essentialIds, ...nonEssentialIds]));
     }
   };
 
@@ -785,12 +879,16 @@ export const PoolPoster = ({
                 {essentialPoolSkills.map((poolSkill) => (
                   <SkillAccordion
                     key={poolSkill.id}
-                    poolSkill={poolSkill}
+                    poolSkillQuery={poolSkill}
                     required
                   />
-                ))}
+                ))}{" "}
                 {nonessentialPoolSkills.map((poolSkill) => (
-                  <SkillAccordion key={poolSkill.id} poolSkill={poolSkill} />
+                  <SkillAccordion
+                    key={poolSkill.id}
+                    poolSkillQuery={poolSkill}
+                    required
+                  />
                 ))}
               </Accordion.Root>
             </TableOfContents.Section>
@@ -1146,114 +1244,9 @@ const PoolAdvertisementPage_Query = graphql(/* GraphQL */ `
       }
     }
     pool(id: $id) {
+      ...PoolAdvertisement
       id
-      name {
-        en
-        fr
-      }
-      stream
-      closingDate
       status
-      language
-      securityClearance
-      opportunityLength
-      classification {
-        id
-        group
-        level
-        name {
-          en
-          fr
-        }
-        minSalary
-        maxSalary
-        genericJobTitles {
-          id
-          key
-          name {
-            en
-            fr
-          }
-        }
-      }
-      yourImpact {
-        en
-        fr
-      }
-      keyTasks {
-        en
-        fr
-      }
-      whatToExpect {
-        en
-        fr
-      }
-      specialNote {
-        en
-        fr
-      }
-      whatToExpectAdmission {
-        en
-        fr
-      }
-      aboutUs {
-        en
-        fr
-      }
-      poolSkills {
-        id
-        type
-        requiredLevel
-        skill {
-          id
-          key
-          name {
-            en
-            fr
-          }
-          description {
-            en
-            fr
-          }
-          category
-          families {
-            id
-            key
-            name {
-              en
-              fr
-            }
-            description {
-              en
-              fr
-            }
-          }
-        }
-      }
-      isRemote
-      location {
-        en
-        fr
-      }
-      stream
-      processNumber
-      publishingGroup
-      generalQuestions {
-        id
-        question {
-          en
-          fr
-        }
-      }
-      team {
-        id
-        name
-        contactEmail
-        displayName {
-          en
-          fr
-        }
-      }
     }
   }
 `);
@@ -1281,7 +1274,7 @@ const PoolAdvertisementPage = () => {
     <Pending fetching={fetching} error={error}>
       {data?.pool && isVisible ? (
         <PoolPoster
-          pool={data?.pool}
+          poolQuery={data?.pool}
           applicationId={application?.id}
           hasApplied={notEmpty(application?.submittedAt)}
         />
