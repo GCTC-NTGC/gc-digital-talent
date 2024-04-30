@@ -4851,10 +4851,6 @@
     "defaultMessage": "<strong>Il semble que vous n’ayez pas encore ajouté d’expériences à votre parcours professionnel.</strong>",
     "description": "Alert message informing user to add experience in application education page."
   },
-  "Q8ta9H": {
-    "defaultMessage": "Candidat qualifié",
-    "description": "Message for qualified candidate"
-  },
   "Q9c+Kg": {
     "defaultMessage": "Rechercher et ajouter une compétence à votre vitrine",
     "description": "Title for the find a skill dialog within the skill showcase"
