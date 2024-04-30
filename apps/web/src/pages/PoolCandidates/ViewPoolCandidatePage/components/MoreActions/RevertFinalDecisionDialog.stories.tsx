@@ -1,5 +1,5 @@
 import React from "react";
-import { Meta, StoryFn } from "@storybook/react";
+import { Meta, StoryFn, StoryObj } from "@storybook/react";
 
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
@@ -31,16 +31,16 @@ export default {
   },
 } as Meta;
 
-const Template: StoryFn<typeof RevertFinalDecisionDialog> = (args) => (
-  <RevertFinalDecisionDialog {...args} />
-);
+type Story = StoryObj<typeof RevertFinalDecisionDialog>;
 
-export const Qualified = Template.bind({});
-Qualified.args = {
-  revertFinalDecisionQuery: qualifiedData,
+export const Qualified: Story = {
+  args: {
+    revertFinalDecisionQuery: qualifiedData,
+  },
 };
 
-export const Disqualified = Template.bind({});
-Disqualified.args = {
-  revertFinalDecisionQuery: disqualifiedData,
+export const Disqualified: Story = {
+  args: {
+    revertFinalDecisionQuery: disqualifiedData,
+  },
 };
