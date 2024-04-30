@@ -296,10 +296,12 @@ const NotificationSettings = ({
                 data-h2-display="base(flex)"
                 data-h2-justify-content="base(space-between)"
               >
-                <p aria-hidden data-h2-margin-left="base(x.25)">
+                <p aria-hidden data-h2-width="base(54px)">
                   {intl.formatMessage(commonMessages.email)}
                 </p>
-                <p aria-hidden>{intl.formatMessage(commonMessages.inApp)}</p>
+                <p aria-hidden data-h2-width="base(54px)">
+                  {intl.formatMessage(commonMessages.inApp)}
+                </p>
               </div>
             </div>
             {formFields.map((props) => (
