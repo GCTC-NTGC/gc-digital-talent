@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Console\Commands\HardDeleteOldUsers;
 use App\Console\Commands\PruneUserGeneratedFiles;
+use App\Console\Commands\SendNotificationsApplicationDeadlineApproaching;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -26,6 +27,12 @@ class Kernel extends ConsoleKernel
             ->dailyAt('2:00')
             ->withoutOverlapping()
             ->appendOutputTo('/tmp/laravel-prune-user-generated-files.log');
+
+        // queue up Application Deadline Approaching emails every day, close to the time the pool would close
+        $schedule->command(SendNotificationsApplicationDeadlineApproaching::class)
+            ->timezone('America/Vancouver')
+            ->dailyAt('23:00')
+            ->appendOutputTo('/tmp/send-notifications-application-deadline-approaching.log');
     }
 
     /**
