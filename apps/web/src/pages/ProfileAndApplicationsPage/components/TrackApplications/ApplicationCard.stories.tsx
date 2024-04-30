@@ -2,10 +2,7 @@ import React from "react";
 import type { Meta, StoryFn } from "@storybook/react";
 
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
-import {
-  FAR_FUTURE_DATE,
-  FAR_PAST_DATE,
-} from "@gc-digital-talent/date-helpers";
+import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
 
 import { isExpired } from "~/utils/poolCandidate";
@@ -14,30 +11,20 @@ import ApplicationCard from "./ApplicationCard";
 
 const mockApplications = fakePoolCandidates(20);
 
-const activeApplications = Object.values(PoolCandidateStatus).map(
-  (status, index) => {
-    return {
-      ...mockApplications[index],
-      status,
-      archivedAt: null,
-      pool: {
-        ...mockApplications[index].pool,
-        closingDate: FAR_FUTURE_DATE,
-      },
-    };
-  },
-);
-
-const expiredApplications = fakePoolCandidates(5).map((application) => ({
-  ...application,
-  expiryDate: FAR_PAST_DATE,
-}));
-
-const applications = [...activeApplications, ...expiredApplications];
+const applications = Object.values(PoolCandidateStatus).map((status, index) => {
+  return {
+    ...mockApplications[index],
+    status,
+    archivedAt: null,
+    pool: {
+      ...mockApplications[index].pool,
+      closingDate: FAR_FUTURE_DATE,
+    },
+  };
+});
 
 export default {
   component: ApplicationCard,
-  title: "Components/Application Card",
 } as Meta;
 
 const Template: StoryFn<typeof ApplicationCard> = () => {
@@ -65,4 +52,4 @@ const Template: StoryFn<typeof ApplicationCard> = () => {
   );
 };
 
-export const ApplicationCards = Template.bind({});
+export const Default = Template.bind({});

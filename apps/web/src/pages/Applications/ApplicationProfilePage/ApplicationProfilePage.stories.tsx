@@ -9,7 +9,6 @@ const fakeApplication = fakePoolCandidates()[0];
 
 export default {
   component: ApplicationProfile,
-  title: "Pages/Application/Profile",
   args: {
     application: fakeApplication,
     user: fakeApplication.user,

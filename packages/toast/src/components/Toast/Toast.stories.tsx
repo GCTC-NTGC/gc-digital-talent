@@ -17,7 +17,6 @@ faker.seed(0);
 
 export default {
   component: Toast,
-  title: "Components/Toast",
   args: {
     text: "Toast text",
     longText: faker.lorem.sentences(3),
@@ -42,4 +41,4 @@ const Template: StoryFn<StoryArgs> = (args) => {
   );
 };
 
-export const BasicToast = Template.bind({});
+export const Default = Template.bind({});

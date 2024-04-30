@@ -11,7 +11,6 @@ const mockUserSkills = fakeUserSkills(23);
 
 export default {
   component: SkillShowcase,
-  title: "Pages/Skill Showcase Page",
 } as Meta;
 
 const Template: StoryFn<typeof SkillShowcase> = (args) => {

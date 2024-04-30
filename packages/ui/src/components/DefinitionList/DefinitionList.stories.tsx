@@ -13,7 +13,6 @@ faker.seed(0);
 
 export default {
   component: DefinitionList.Root,
-  title: "Components/Definition List",
 } as Meta<typeof DefinitionList.Root>;
 
 const Template: StoryFn<typeof DefinitionList.Root> = (args) => {
@@ -45,8 +44,8 @@ Default.args = {
   ),
 };
 
-export const WithIcons = Template.bind({});
-WithIcons.args = {
+export const WithIcon = Template.bind({});
+WithIcon.args = {
   children: (
     <>
       <DefinitionList.Item title="Item One" Icon={AcademicCapIcon}>

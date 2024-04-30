@@ -2,7 +2,14 @@ import React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import { CardFlat, Flourish, Pending } from "@gc-digital-talent/ui";
+import {
+  CardBasic,
+  CardFlat,
+  Flourish,
+  Heading,
+  Link,
+  Pending,
+} from "@gc-digital-talent/ui";
 import { useTheme } from "@gc-digital-talent/theme";
 import { useAuthentication } from "@gc-digital-talent/auth";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
@@ -23,7 +30,6 @@ import flourishTopLight from "~/assets/img/browse_top_light.webp";
 import flourishBottomLight from "~/assets/img/browse_bottom_light.webp";
 import flourishTopDark from "~/assets/img/browse_top_dark.webp";
 import flourishBottomDark from "~/assets/img/browse_bottom_dark.webp";
-import CallToActionCard from "~/components/CallToActionCard/CallToActionCard";
 
 import OngoingRecruitmentSection from "./components/OngoingRecruitmentSection/OngoingRecruitmentSection";
 import ActiveRecruitmentSection from "./components/ActiveRecruitmentSection/ActiveRecruitmentSection";
@@ -241,44 +247,67 @@ export const BrowsePools = () => {
               />
             </div>
           )}
-          <CallToActionCard
-            heading={
-              areOpportunitiesShowing
-                ? intl.formatMessage({
-                    defaultMessage: "More opportunities are coming soon!",
-                    id: "g+JcDC",
-                    description:
-                      "Heading for message about upcoming opportunities",
-                  })
-                : intl.formatMessage({
-                    defaultMessage:
-                      "No opportunities are available right now, but more are coming soon!",
-                    id: "xHjgXz",
-                    description:
-                      "Text displayed when there are no pool advertisements to display",
-                  })
-            }
-            link={profileLink}
-            data-h2-margin="base(x1, 0, 0, 0)"
-          >
-            <p>
-              {loggedIn
-                ? intl.formatMessage({
-                    defaultMessage:
-                      "We're posting new opportunities all the time. By keeping your profile up to date, you'll be able to submit applications lightning fast when the time comes.",
-                    id: "9SZDCq",
-                    description:
-                      "Text describing upcoming opportunities instructing users to update a profile when signed in",
-                  })
-                : intl.formatMessage({
-                    defaultMessage:
-                      "We're posting new opportunities all the time. By starting your profile now, you'll be able to submit applications lightning fast when the time comes.",
-                    id: "3sbLPV",
-                    description:
-                      "Text describing upcoming opportunities instructing users to create a profile when anonymous",
-                  })}
-            </p>
-          </CallToActionCard>
+          <CardBasic data-h2-margin="base(x1, 0, 0, 0)">
+            <div
+              data-h2-display="p-tablet(flex)"
+              data-h2-gap="base(x3)"
+              data-h2-align-items="base(center)"
+              data-h2-justify-content="base(space-between)"
+            >
+              <div>
+                <Heading
+                  level="h2"
+                  size="h6"
+                  data-h2-margin="base(0, 0, x.5, 0)"
+                >
+                  {areOpportunitiesShowing
+                    ? intl.formatMessage({
+                        defaultMessage: "More opportunities are coming soon!",
+                        id: "g+JcDC",
+                        description:
+                          "Heading for message about upcoming opportunities",
+                      })
+                    : intl.formatMessage({
+                        defaultMessage:
+                          "No opportunities are available right now, but more are coming soon!",
+                        id: "xHjgXz",
+                        description:
+                          "Text displayed when there are no pool advertisements to display",
+                      })}
+                </Heading>
+                <p>
+                  {loggedIn
+                    ? intl.formatMessage({
+                        defaultMessage:
+                          "We're posting new opportunities all the time. By keeping your profile up to date, you'll be able to submit applications lightning fast when the time comes.",
+                        id: "9SZDCq",
+                        description:
+                          "Text describing upcoming opportunities instructing users to update a profile when signed in",
+                      })
+                    : intl.formatMessage({
+                        defaultMessage:
+                          "We're posting new opportunities all the time. By starting your profile now, you'll be able to submit applications lightning fast when the time comes.",
+                        id: "3sbLPV",
+                        description:
+                          "Text describing upcoming opportunities instructing users to create a profile when anonymous",
+                      })}
+                </p>
+              </div>
+              <div
+                data-h2-margin="base(x1, 0, 0, 0) p-tablet(0)"
+                data-h2-flex-shrink="base(0)"
+              >
+                <Link
+                  color="secondary"
+                  mode="solid"
+                  href={profileLink.href}
+                  style={{ whiteSpace: "nowrap" }}
+                >
+                  {profileLink.label}
+                </Link>
+              </div>
+            </div>
+          </CardBasic>
         </div>
         <img
           alt=""
