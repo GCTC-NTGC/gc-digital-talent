@@ -51,11 +51,6 @@ const messages = defineMessages({
     description:
       "Message displayed when candidate is qualified or disqualified according to assessment results, but a final decision is yet to be made.",
   },
-  qualifiedCandidate: {
-    defaultMessage: "Qualified candidate",
-    id: "Q8ta9H",
-    description: "Message for qualified candidate",
-  },
   disqualified: {
     defaultMessage: "Disqualified",
     id: "/dy2CX",

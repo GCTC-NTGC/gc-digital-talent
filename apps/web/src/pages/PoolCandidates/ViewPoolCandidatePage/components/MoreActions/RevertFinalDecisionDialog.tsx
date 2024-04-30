@@ -1,5 +1,5 @@
 import React from "react";
-import { defineMessages, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 import ArrowUturnLeftIcon from "@heroicons/react/24/outline/ArrowUturnLeftIcon";
 
@@ -157,7 +157,7 @@ const RevertFinalDecisionDialog = ({
                 {
                   decision: intl.formatMessage(
                     isQualified
-                      ? poolCandidateMessages.qualifiedCandidate
+                      ? poolCandidateMessages.qualified
                       : poolCandidateMessages.disqualified,
                   ),
                   date: isQualified ? expiryDate : finalDecisionDate,
