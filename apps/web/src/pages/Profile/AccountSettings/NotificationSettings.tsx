@@ -288,12 +288,19 @@ const NotificationSettings = ({
             data-h2-padding-bottom="base(x1)"
           >
             <div
-              data-h2-display="base(flex)"
-              data-h2-gap="base(x1) p-tablet(x2) laptop(x2.5)"
-              data-h2-align-self="base(flex-end)"
+              data-h2-display="base(grid)"
+              data-h2-grid-template-columns="base(4fr 1fr)"
             >
-              <p aria-hidden>{intl.formatMessage(commonMessages.email)}</p>
-              <p aria-hidden>{intl.formatMessage(commonMessages.inApp)}</p>
+              <div>{/* For grid template columns */}</div>
+              <div
+                data-h2-display="base(flex)"
+                data-h2-justify-content="base(space-between)"
+              >
+                <p aria-hidden data-h2-margin-left="base(x.25)">
+                  {intl.formatMessage(commonMessages.email)}
+                </p>
+                <p aria-hidden>{intl.formatMessage(commonMessages.inApp)}</p>
+              </div>
             </div>
             {formFields.map((props) => (
               <NotificationChecklist key={props.id} {...props} />
