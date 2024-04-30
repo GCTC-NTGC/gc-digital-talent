@@ -22,20 +22,9 @@ import {
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
 
-import Important from "./components/Important";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
-const messages = defineMessages({
-  qualified: {
-    defaultMessage: "Qualified candidate",
-    id: "Q8ta9H",
-    description: "Message for qualified candidate",
-  },
-  disqualified: {
-    defaultMessage: "Disqualified",
-    id: "NQkEC9",
-    description: "Message for disqualified candidate",
-  },
-});
+import Important from "./components/Important";
 
 const RevertFinalDecision_Mutation = graphql(/* GraphQL */ `
   mutation RevertFinalDecision_Mutation($id: UUID!) {
@@ -167,7 +156,9 @@ const RevertFinalDecisionDialog = ({
                 },
                 {
                   decision: intl.formatMessage(
-                    isQualified ? messages.qualified : messages.disqualified,
+                    isQualified
+                      ? poolCandidateMessages.qualifiedCandidate
+                      : poolCandidateMessages.disqualified,
                   ),
                   date: isQualified ? expiryDate : finalDecisionDate,
                 },

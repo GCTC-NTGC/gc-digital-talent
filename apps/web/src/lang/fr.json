@@ -4395,10 +4395,6 @@
     "defaultMessage": "Pour quel ministère travaillez-vous?",
     "description": "Label for department select input in the request form"
   },
-  "NQkEC9": {
-    "defaultMessage": "Éliminé du processus",
-    "description": "Message for disqualified candidate"
-  },
   "NROIaL": {
     "defaultMessage": "Il manque certaines compétences à cette évaluation",
     "description": "Warning message that an assessment step is missing skills"
