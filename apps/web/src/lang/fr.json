@@ -3647,6 +3647,10 @@
     "defaultMessage": "Vous pouvez ajouter jusqu’à {maxSteps} méthodes d’évaluation, mais ce n’est pas nécessaire. Si toutes les compétences ont été prises en compte, vous n’avez pas à en ajouter d’autres. Choisir un trop grand nombre de méthodes d’évaluation peut retarder le processus de dotation et réduire les chances que le processus d’embauche soit couronné de succès.",
     "description": "Description for warning message when the user has added many assessments to the assessment plan"
   },
+  "J/gp3y": {
+    "defaultMessage": "Les paramètres mentionnés dans cette section vous permettent de contrôler les types de notifications que vous recevez et l’endroit où elles sont envoyées. Les notifications par courriel sont envoyées à l’adresse de courriel de la personne-ressource figurant dans votre profil, tandis que les notifications intégrées à l’application sont transmises dans le panneau de notification situé dans le menu principal.",
+    "description": "Subtitle for notification settings section on account settings page."
+  },
   "J/kDDk": {
     "defaultMessage": "L’évaluation officielle de la Commission de la fonction publique vous donne trois lettres qui indiquent vos compétences dans votre deuxième langue. Vous pouvez <selfAssessmentLink> en savoir plus sur cette évaluation en consultant leur site Web.</selfAssessmentLink>",
     "description": "Context message for exam validity in language information form."
@@ -4458,10 +4462,6 @@
   "NjHXGh": {
     "defaultMessage": "En savoir plus<hidden> sur le Bureau de la dirigeante principale de l’information</hidden>",
     "description": "Link text for the Office of the Chief Information Officer"
-  },
-  "NkZeS1": {
-    "defaultMessage": "Talents numériques du GC s'associe au service de justificatifs du gouvernement du Canada, CléGC, pour vous donner accès à votre compte à l'aide d'une seule combinaison de nom d'utilisateur et de mot de passe. Vous pouvez gérer les données connexes sur le site Web de CléGC, et elles s'afficheront automatiquement ici lorsque vous accéderez à votre compte.",
-    "description": "Description of how we use GCKey for authentication."
   },
   "NlYIHM": {
     "defaultMessage": "Ajoutez, modifiez, et gérez les compétences de votre profil.",
@@ -6010,10 +6010,6 @@
     "defaultMessage": "Demande",
     "description": "Heading displayed above the single search request component."
   },
-  "WcEkbD": {
-    "defaultMessage": "En participant à un bassin de talents sur la plateforme, vous acceptez de recevoir des notifications sur les possibilités d'emploi qui y sont liées. Vous pouvez désactiver ces notifications à l'aide des \"availability\" contrôles ci-dessous, ou en examinant vos <link>processus de recrutement actuels sur votre calendrier de carrière</link>.",
-    "description": "Subtitle for recruitment availability section on account settings page."
-  },
   "Wd/+eR": {
     "defaultMessage": "Droit de priorité",
     "description": "Label for applicant's priority entitlement status"
@@ -7030,6 +7026,10 @@
     "defaultMessage": "Ce volet comprend des compétences spécialisées en matière de sécurité, axées sur la programmation, l’infrastructure, les applications commerciales et les données.",
     "description": "Title for the 'security' IT work stream"
   },
+  "bzcV2Q": {
+    "defaultMessage": "La plateforme des talents numériques du GC s’associe au service de justificatifs du GC, CléGC, pour vous donner accès à votre compte à l’aide d’une seule combinaison de nom d’utilisateur et de mot de passe. Vous pouvez gérer votre nom d’utilisateur et votre mot de passe sur le site Web de CléGC; les modifications auront automatiquement été intégrées lorsque vous ouvrirez une session dans la plateforme des talents numériques du GC.",
+    "description": "Description of how we use GCKey for authentication."
+  },
   "c+6rQB": {
     "defaultMessage": "N’est pas intéressé",
     "description": "Status for when the user has suspended an application"
@@ -7249,6 +7249,10 @@
   "d4r7rO": {
     "defaultMessage": "Afficher ou masquer les colonnes",
     "description": "Button text to open the dialog for disabling or enabling column display"
+  },
+  "d5X1iR": {
+    "defaultMessage": "Les notifications de système sont toujours activées.",
+    "description": "Aria label for system notification icons in notification settings."
   },
   "d8CQJr": {
     "defaultMessage": " Création réussie de la famille de compétences!",
@@ -8177,10 +8181,6 @@
   "hnrC2A": {
     "defaultMessage": "Très secret",
     "description": "Top secret screening level"
-  },
-  "hnyf1f": {
-    "defaultMessage": "Les paramètres fournis dans cette section vous permettent de contrôler le moment où vous recevez des notifications et la manière dont elles sont délivrées. Les notifications par courriel sont envoyées à l'adresse électronique indiquée dans votre profil, tandis que les notifications par application sont envoyées dans le panneau de notification situé dans le menu principal à côté de votre nom.",
-    "description": "Subtitle for notification settings section on account settings page."
   },
   "hqZfyb": {
     "defaultMessage": "Affinez les résultats de votre tableau à l'aide des filtres suivants.",
@@ -9474,6 +9474,10 @@
     "defaultMessage": "Nom du candidat",
     "description": "Title displayed on the Pool Candidates table name column."
   },
+  "p0KALn": {
+    "defaultMessage": "Aucun processus de recrutement n’est actif dans votre profil en ce moment.",
+    "description": "Message displayed in recruitment availability when the user is not in any valid pools"
+  },
   "p19YJ2": {
     "defaultMessage": "Présentez une demande dès aujourd’hui pour entreprendre une carrière en technologie de l’information.",
     "description": "Application box content"
@@ -10638,6 +10642,10 @@
     "defaultMessage": "1 à 5",
     "description": "Contract FTE range between one and five"
   },
+  "wYct8d": {
+    "defaultMessage": "Lorsque vous êtes admis dans un processus de recrutement de talents, vous acceptez de recevoir des notifications sur d’éventuelles possibilités qui répondent aux critères du processus. Ces notifications ne seront envoyées que si vous avez activé les notifications \"Alerte d’emploi\" dans la section des \"paramètres de notification\" de cette page. Vous pouvez aussi désactiver ces notifications pour chaque processus à l’aide des contrôles figurant sur les cartes fournies.",
+    "description": "Subtitle for recruitment availability section on account settings page."
+  },
   "weLwJA": {
     "defaultMessage": "Recherche de talent",
     "description": "Link text for the search page breadcrumb"
@@ -10721,10 +10729,6 @@
   "xAfVa9": {
     "defaultMessage": "Nous pouvons peut-être vous aider!",
     "description": "Heading for helping user if no candidates matched the filters chosen."
-  },
-  "xCJW2N": {
-    "defaultMessage": "Il n'y a pas encore de processus de recrutement sur votre profil.",
-    "description": "Message displayed in recruitment availability when the user is not in any valid pools"
   },
   "xCoGIm": {
     "defaultMessage": "Envisagez d’ajouter au moins une méthode d’évaluation pour améliorer la qualité de votre bassin de candidats.",
