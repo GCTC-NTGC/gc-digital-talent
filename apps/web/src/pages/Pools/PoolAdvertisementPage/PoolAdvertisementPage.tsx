@@ -887,7 +887,6 @@ export const PoolPoster = ({
                   <SkillAccordion
                     key={poolSkill.id}
                     poolSkillQuery={poolSkill}
-                    required
                   />
                 ))}
               </Accordion.Root>
