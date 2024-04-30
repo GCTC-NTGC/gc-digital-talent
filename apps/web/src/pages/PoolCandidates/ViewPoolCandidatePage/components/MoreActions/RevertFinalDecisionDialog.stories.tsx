@@ -23,7 +23,6 @@ const disqualifiedData = makeFragmentData(
 
 export default {
   component: RevertFinalDecisionDialog,
-  title: "Components/Revert final decision dialog",
   decorators: [OverlayOrDialogDecorator],
   args: {
     defaultOpen: true,
