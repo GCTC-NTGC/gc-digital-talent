@@ -96,6 +96,7 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
     poolCandidateStatus: [
       PoolCandidateStatus.QualifiedAvailable,
       PoolCandidateStatus.PlacedCasual,
+      PoolCandidateStatus.PlacedTentative,
     ],
   };
 };
@@ -123,7 +124,7 @@ const SingleSearchRequestTableApi = ({
               expiryStatus: CandidateExpiryFilter.Active,
             }
       }
-      title={intl.formatMessage(adminMessages.poolsCandidates)}
+      title={intl.formatMessage(adminMessages.poolCandidates)}
     />
   );
 };
