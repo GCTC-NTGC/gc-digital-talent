@@ -23,7 +23,6 @@ const colors: Color[] = [
 
 export default {
   component: Chip,
-  title: "Components/Chip",
   parameters: {
     chromatic: {
       modes: {
@@ -46,8 +45,8 @@ const Template: StoryFn<typeof Chip> = (args) => {
   );
 };
 
-export const NoDismiss = Template.bind({});
-NoDismiss.args = {
+export const Default = Template.bind({});
+Default.args = {
   onDismiss: undefined,
 };
 

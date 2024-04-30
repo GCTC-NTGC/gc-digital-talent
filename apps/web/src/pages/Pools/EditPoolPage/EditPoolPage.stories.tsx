@@ -22,7 +22,6 @@ const pool = fakePools(1, skills, classifications)[0];
 
 export default {
   component: EditPoolForm,
-  title: "Forms/Edit Pool Form",
   args: {
     classifications,
     skills,
