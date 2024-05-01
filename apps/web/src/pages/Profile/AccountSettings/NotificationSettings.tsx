@@ -44,7 +44,7 @@ const NotificationChecklist = ({
     {
       value: "email",
       label: (
-        <span data-h2-visually-hidden="base(invisible)">
+        <span data-h2-visually-hidden="p-tablet(invisible)">
           {intl.formatMessage(commonMessages.email)}
         </span>
       ),
@@ -52,7 +52,7 @@ const NotificationChecklist = ({
     {
       value: "inApp",
       label: (
-        <span data-h2-visually-hidden="base(invisible)">
+        <span data-h2-visually-hidden="p-tablet(invisible)">
           {intl.formatMessage(commonMessages.inApp)}
         </span>
       ),
@@ -63,7 +63,7 @@ const NotificationChecklist = ({
     return (
       <div
         data-h2-display="base(grid)"
-        data-h2-grid-template-columns="base(2fr 2fr) p-tablet(4fr 1fr)"
+        data-h2-grid-template-columns="p-tablet(4fr 1fr)"
         data-h2-gap="base(x1)"
         data-h2-align-items="base(center)"
         data-h2-margin-bottom="base(x1)"
@@ -79,15 +79,16 @@ const NotificationChecklist = ({
         </div>
         <div
           data-h2-display="base(flex)"
-          data-h2-justify-content="base(space-between)"
+          data-h2-justify-content="p-tablet(space-between)"
         >
-          {notificationOptions.map(({ value }) => {
+          {notificationOptions.map(({ value, label }) => {
             const key = `${id}-${value}`;
             return (
               <span
                 key={key}
                 data-h2-padding="base(x.25 x.75 x.25 x.5)"
-                data-h2-color="base(gray)"
+                data-h2-display="base(flex)"
+                data-h2-gap="base(x.25)"
               >
                 <CheckIcon
                   aria-label={intl.formatMessage({
@@ -102,7 +103,11 @@ const NotificationChecklist = ({
                   data-h2-border="base(thin solid black.light)"
                   data-h2-radius="base(input)"
                   data-h2-vertical-align="base(middle)"
+                  data-h2-color="base(gray)"
                 />
+                <span data-h2-visually-hidden="p-tablet(invisible)">
+                  {label}
+                </span>
               </span>
             );
           })}
@@ -122,7 +127,7 @@ const NotificationChecklist = ({
         </Field.Legend>
         <div
           data-h2-display="base(grid)"
-          data-h2-grid-template-columns="base(2fr 2fr) p-tablet(4fr 1fr)"
+          data-h2-grid-template-columns="p-tablet(4fr 1fr)"
           data-h2-gap="base(x1)"
           data-h2-align-items="base(center)"
         >
@@ -137,7 +142,7 @@ const NotificationChecklist = ({
           </div>
           <div
             data-h2-display="base(flex)"
-            data-h2-justify-content="base(space-between)"
+            data-h2-justify-content="p-tablet(space-between)"
           >
             {notificationOptions.map(({ value, label }) => {
               const checkboxId = `${id}-${value}`;
@@ -290,8 +295,8 @@ const NotificationSettings = ({
             data-h2-padding-bottom="base(x1)"
           >
             <div
-              data-h2-display="base(grid)"
-              data-h2-grid-template-columns="base(2fr 2fr) p-tablet(4fr 1fr)"
+              data-h2-display="base(none) p-tablet(grid)"
+              data-h2-grid-template-columns="p-tablet(4fr 1fr)"
               data-h2-gap="base(x1)"
             >
               <div>{/* For grid template columns */}</div>
