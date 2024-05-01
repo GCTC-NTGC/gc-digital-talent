@@ -19,7 +19,8 @@ import {
 } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import {
-  AssessmentPlanBuilderPageQuery,
+  FragmentType,
+  getFragment,
   graphql,
   Scalars,
 } from "@gc-digital-talent/graphql";
@@ -45,21 +46,51 @@ const pageTitle = defineMessage(messages.assessmentPlan);
 
 const pageSubtitle = defineMessage({
   defaultMessage:
-    "Select, organize and define the assessments used to evaluate each skill in the advertisement. Make sure every skill is assessed at least once to complete your assessment plan.",
-  id: "SSZY5w",
+    "Select, organize and define the assessments used to evaluate each skill in the advertisement. Make sure every essential skill is assessed at least once to complete your assessment plan.",
+  id: "iuA2pt",
   description: "Subtitle for the assessment plan builder",
 });
+
+export const AssessmentPlanBuilderPool_Fragment = graphql(/* GraphQL */ `
+  fragment AssessmentPlanBuilderPool on Pool {
+    id
+    ...OrganizeSectionPool
+    ...SkillSummarySectionPool
+    publishedAt
+    poolSkills {
+      id
+      skill {
+        id
+        category
+        key
+        name {
+          en
+          fr
+        }
+      }
+    }
+    assessmentSteps {
+      id
+      type
+      poolSkills {
+        id
+      }
+    }
+  }
+`);
+
 export interface AssessmentPlanBuilderProps {
-  pool: NonNullable<AssessmentPlanBuilderPageQuery["pool"]>;
+  poolQuery: FragmentType<typeof AssessmentPlanBuilderPool_Fragment>;
   pageIsLoading: boolean;
 }
 
 export const AssessmentPlanBuilder = ({
-  pool,
+  poolQuery,
   pageIsLoading,
 }: AssessmentPlanBuilderProps) => {
   const intl = useIntl();
   const routes = useRoutes();
+  const pool = getFragment(AssessmentPlanBuilderPool_Fragment, poolQuery);
   pool.poolSkills?.sort((a, b) => {
     const aName = getLocalizedName(a?.skill?.name, intl);
     const bName = getLocalizedName(b?.skill?.name, intl);
@@ -110,8 +141,8 @@ export const AssessmentPlanBuilder = ({
         </TableOfContents.Navigation>
 
         <TableOfContents.Content>
-          <OrganizeSection pool={pool} pageIsLoading={pageIsLoading} />
-          <SkillSummarySection pool={pool} />
+          <OrganizeSection poolQuery={pool} pageIsLoading={pageIsLoading} />
+          <SkillSummarySection poolQuery={pool} />
           <Separator space="lg" />
         </TableOfContents.Content>
       </TableOfContents.Wrapper>
@@ -127,61 +158,7 @@ const AssessmentPlanBuilderPage_Query = graphql(/* GraphQL */ `
   query AssessmentPlanBuilderPage($poolId: UUID!) {
     # the existing data of the pool to edit
     pool(id: $poolId) {
-      id
-      name {
-        en
-        fr
-      }
-      publishedAt
-      poolSkills {
-        id
-        type
-        skill {
-          name {
-            en
-            fr
-          }
-          # three junk fields required by schema since non-nullable
-          id
-          category
-          key
-        }
-        assessmentSteps {
-          id
-        }
-      }
-      assessmentSteps {
-        id
-        sortOrder
-        type
-        title {
-          en
-          fr
-        }
-        poolSkills {
-          id
-          type
-          skill {
-            name {
-              en
-              fr
-            }
-            # three junk fields required by schema since non-nullable
-            id
-            category
-            key
-          }
-        }
-      }
-      status
-      screeningQuestions {
-        id
-        question {
-          en
-          fr
-        }
-        sortOrder
-      }
+      ...AssessmentPlanBuilderPool
       team {
         id
         name
@@ -233,7 +210,7 @@ export const AssessmentPlanBuilderPage = () => {
     if (queryData?.pool && authorizedToSeeThePage) {
       return (
         <AssessmentPlanBuilder
-          pool={queryData.pool}
+          poolQuery={queryData.pool}
           pageIsLoading={queryFetching}
         />
       );

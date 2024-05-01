@@ -84,16 +84,20 @@ interface ApplicationInformationProps {
       })
     | null;
   snapshot: User;
+  defaultOpen?: boolean;
 }
 
 const ApplicationInformation = ({
   poolQuery,
   snapshot,
   application,
+  defaultOpen = false,
 }: ApplicationInformationProps) => {
   const intl = useIntl();
   const pool = getFragment(ApplicationInformation_PoolFragment, poolQuery);
-  const [openSections, setOpenSections] = React.useState<string[]>([]);
+  const [openSections, setOpenSections] = React.useState<string[]>(
+    defaultOpen ? Object.values(SECTION_KEY) : [],
+  );
   const hasOpenSections = openSections.length > 0;
 
   const toggleSections = () => {

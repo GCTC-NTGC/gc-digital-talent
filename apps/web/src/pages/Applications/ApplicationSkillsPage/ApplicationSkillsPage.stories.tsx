@@ -55,7 +55,6 @@ const hasExperiencesProps: ApplicationSkillsProps = {
 
 export default {
   component: ApplicationSkills,
-  title: "Pages/Application/Skill Requirements",
 } as Meta<typeof ApplicationSkills>;
 
 const Template: StoryFn<typeof ApplicationSkills> = (props) => (

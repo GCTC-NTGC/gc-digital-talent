@@ -34,7 +34,6 @@ const mockPaginatorInfo = {
 };
 
 export default {
-  title: "Tables/Pool Candidates Table",
   component: PoolCandidatesTable,
   parameters: {
     apiResponses: {

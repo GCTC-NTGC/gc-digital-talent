@@ -19,7 +19,15 @@ import {
   localizeSalaryRange,
   commonMessages,
 } from "@gc-digital-talent/i18n";
-import { Pool, PoolSkillType } from "@gc-digital-talent/graphql";
+import {
+  Classification,
+  FragmentType,
+  Maybe,
+  PoolSkillType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
@@ -28,22 +36,57 @@ import { filterPoolSkillsByType } from "~/utils/skillUtils";
 
 import IconLabel from "./IconLabel";
 
-const getSalaryRange = (pool: Pool, locale: string) => {
-  if (!pool.classification) return null;
+export const PoolCard_Fragment = graphql(/* GraphQL */ `
+  fragment PoolCard on Pool {
+    id
+    stream
+    closingDate
+    name {
+      en
+      fr
+    }
+    classification {
+      id
+      group
+      level
+      minSalary
+      maxSalary
+    }
+    poolSkills {
+      id
+      type
+      skill {
+        id
+        category
+        key
+        name {
+          en
+          fr
+        }
+      }
+    }
+  }
+`);
+
+const getSalaryRange = (
+  locale: string,
+  classification?: Maybe<Classification>,
+) => {
+  if (!classification) return null;
 
   return localizeSalaryRange(
-    pool.classification.minSalary,
-    pool.classification.maxSalary,
+    classification.minSalary,
+    classification.maxSalary,
     locale,
   );
 };
 
 export interface PoolCardProps {
-  pool: Pool;
+  poolQuery: FragmentType<typeof PoolCard_Fragment>;
   headingLevel?: HeadingRank;
 }
 
-const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
+const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
@@ -51,6 +94,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
     pool.poolSkills,
     PoolSkillType.Essential,
   );
+  const pool = getFragment(PoolCard_Fragment, poolQuery);
 
   const classificationAbbr = pool.classification
     ? wrapAbbr(
@@ -58,7 +102,11 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
         intl,
       )
     : "";
-  const salaryRange = getSalaryRange(pool, locale);
+  const salaryRange = getSalaryRange(locale, pool.classification);
+  const essentialSkills = filterPoolSkillsByType(
+    unpackMaybes(pool.poolSkills),
+    PoolSkillType.Essential,
+  );
 
   const notAvailableAbbr = intl.formatMessage({
     defaultMessage: "N/A",

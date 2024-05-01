@@ -5,6 +5,8 @@ import { StoryFn, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { faker } from "@faker-js/faker";
 
+import { allModes } from "@gc-digital-talent/storybook-helpers";
+
 import Stepper from "./Stepper";
 import { defaultSteps } from "./testUtils";
 import { StepType } from "./types";
@@ -43,8 +45,15 @@ const ReactRouterDecorator: Decorator<Args> = (Story, options) => {
 
 export default {
   component: Stepper,
-  title: "Components/Stepper",
   decorators: [ReactRouterDecorator],
+  parameters: {
+    chromatic: {
+      modes: {
+        light: allModes.light,
+        dark: allModes.dark,
+      },
+    },
+  },
 } as Meta<typeof Stepper>;
 
 const Template: StoryFn<typeof Stepper> = (args) => {
@@ -59,13 +68,6 @@ const Template: StoryFn<typeof Stepper> = (args) => {
 
 export const Default = Template.bind({});
 Default.args = {
-  label: "Default Stepper",
-  steps: defaultSteps,
-  currentIndex: 2,
-};
-
-export const WithLongLabel = Template.bind({});
-WithLongLabel.args = {
   label: "Default Stepper",
   steps: longLabelSteps,
   currentIndex: 2,

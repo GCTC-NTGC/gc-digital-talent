@@ -20,7 +20,6 @@ const labels = {
 
 export default {
   component: BasicForm,
-  title: "Form/Basic Form",
   args: {
     onSubmit: async (values) => action("onSubmit")(values),
     labels,

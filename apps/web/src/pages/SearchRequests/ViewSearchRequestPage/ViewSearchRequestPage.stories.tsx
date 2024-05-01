@@ -10,7 +10,6 @@ const mockSearchRequests = fakeSearchRequests();
 
 export default {
   component: ViewSearchRequest,
-  title: "Pages/View Search Request Page",
   args: {
     searchRequestQuery: mockSearchRequests[0],
   },
