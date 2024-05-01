@@ -5303,10 +5303,6 @@
     "defaultMessage": "Raison de la clôture",
     "description": "Label for the reason for closing the pool"
   },
-  "SSZY5w": {
-    "defaultMessage": "Sélectionner, organiser et définir les évaluations ayant été utilisées pour évaluer chaque compétence de l’offre d’emploi. Veillez à ce que chaque compétence soit évaluée au moins une fois pour compléter votre plan d’évaluation.",
-    "description": "Subtitle for the assessment plan builder"
-  },
   "STDYoR": {
     "defaultMessage": "Date d'expiration",
     "description": "Title of the 'Expiry date' column for the table on view-user page"
@@ -8405,6 +8401,10 @@
   "issrI6": {
     "defaultMessage": "Avis concernant l’image de marque",
     "description": "Title for the trademark notice section."
+  },
+  "iuA2pt": {
+    "defaultMessage": "Sélectionner, organiser et définir les évaluations ayant été utilisées pour évaluer chaque compétence de l’offre d’emploi. Veillez à ce que chaque compétence essentielle soit évaluée au moins une fois pour compléter votre plan d’évaluation.",
+    "description": "Subtitle for the assessment plan builder"
   },
   "iuve97": {
     "defaultMessage": "Modifier le statut",
