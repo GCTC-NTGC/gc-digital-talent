@@ -201,8 +201,8 @@ const OrganizeSection = ({
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
-            "Use this section to define which assessments will be used as part of your assessment process. Make sure every skill is assessed at least once to complete your assessment plan.",
-          id: "faVKVj",
+            "Use this section to define which assessments will be used as part of your assessment process. Make sure every essential skill is assessed at least once to complete your assessment plan.",
+          id: "xtNiNu",
           description:
             "Introduction to the organize section in the assessment plan builder, paragraph 1",
         })}

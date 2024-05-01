@@ -455,15 +455,17 @@ const AssessmentDetailsDialog = ({
     createAssessmentStepFetching ||
     createOrUpdateScreeningQuestionAssessmentStepMutationFetching;
 
-  const missingSkills = allPoolSkills.filter(({ assessmentSteps }) => {
-    const steps = unpackMaybes(assessmentSteps);
+  const missingEssentialSkills = allPoolSkills
+    .filter((poolSkill) => poolSkill.type === PoolSkillType.Essential)
+    .filter(({ assessmentSteps }) => {
+      const steps = unpackMaybes(assessmentSteps);
 
-    if (steps.length === 0) {
-      return true;
-    }
+      if (steps.length === 0) {
+        return true;
+      }
 
-    return false;
-  });
+      return false;
+    });
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
@@ -718,7 +720,7 @@ const AssessmentDetailsDialog = ({
                         "description of 'skill selection' section of the 'assessment details' dialog",
                     })}
                   </div>
-                  {missingSkills.length ? (
+                  {missingEssentialSkills.length ? (
                     <Well
                       color="warning"
                       data-h2-margin-top="base(x.25)"
@@ -738,7 +740,7 @@ const AssessmentDetailsDialog = ({
                         {intl.formatMessage(commonMessages.dividingColon)}
                       </p>
                       <Chips>
-                        {missingSkills.map(({ skill }) => (
+                        {missingEssentialSkills.map(({ skill }) => (
                           <Chip key={skill?.id} color="warning">
                             {getLocalizedName(skill?.name, intl)}
                           </Chip>
