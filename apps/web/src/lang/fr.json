@@ -1411,6 +1411,10 @@
     "defaultMessage": "Type d’instrument",
     "description": "Label for _instrument type_ fieldset in the _digital services contracting questionnaire_"
   },
+  "5r2C2L": {
+    "defaultMessage": "Souhaitez-vous annuler cette décision et remettre le statut du candidat à « en cours d’évaluation »?",
+    "description": "Final question on revert final decision dialog on view pool candidate page"
+  },
   "5r5XSh": {
     "defaultMessage": "Veuillez vérifier votre courriel pour obtenir un résumé de votre soumission.",
     "description": "Support form success paragraph two"
@@ -2103,6 +2107,10 @@
     "defaultMessage": "Demande de renseignements",
     "description": "Heading for the request information section of the single search request view."
   },
+  "AGRCgy": {
+    "defaultMessage": "Annuler la décision finale",
+    "description": "Button label for revert final decision on view pool candidate page"
+  },
   "AJs1VQ": {
     "defaultMessage": "Question (FR)",
     "description": "Label for an French general question"
@@ -2398,6 +2406,10 @@
   "C03OK7": {
     "defaultMessage": "Établissement d’un bassin de talents numériques",
     "description": "Heading for the directives digital talent and sourcing component"
+  },
+  "C3YsFy": {
+    "defaultMessage": "Annuler la décision d’évaluation finale",
+    "description": "Subtitle for view revert final decision dialog on view pool candidate page"
   },
   "C3fUwm": {
     "defaultMessage": "Version",
@@ -2806,6 +2818,10 @@
   "Dzyk1q": {
     "defaultMessage": "En collaboration avec le Programme d’apprentissage en TI pour les personnes autochtones, le Portail des talents autochtones commencera par mettre l’accent sur les talents en TI et en technologie, ce qui permettra :",
     "description": "Description for strategy for the indigenous talent portal"
+  },
+  "E0HXwp": {
+    "defaultMessage": "Pour la raison suivante",
+    "description": "Final decision reason heading on revert final decision dialog on view pool candidate page"
   },
   "E2nMR3": {
     "defaultMessage": "Partager",
@@ -3602,6 +3618,10 @@
   "Iu55iw": {
     "defaultMessage": "Enregistrer les exigences fondamentales",
     "description": "Text on a button to save core requirements"
+  },
+  "Iv1kqA": {
+    "defaultMessage": "Erreur : impossible d’annuler le statut de la décision finale",
+    "description": "Message displayed when an error reverting final decision status of pool candidate"
   },
   "IvJ9Xd": {
     "defaultMessage": "Information sur l'échelle salariale",
@@ -4863,6 +4883,10 @@
     "defaultMessage": "{status} <hidden>changer le statut pour {poolName}</hidden>",
     "description": "Button to change a users status in a pool - located in the table on view-user page"
   },
+  "QJi1ZQ": {
+    "defaultMessage": "Annuler la décision et mettre le statut à jour",
+    "description": "Button label to revert final decision on view pool candidate page"
+  },
   "QKGmDP": {
     "defaultMessage": "<strong>Les postes hybrides</strong> requièrent une présence au bureau au moins un jour par semaine, le reste du temps pouvant être travaillé depuis le lieu de votre choix.",
     "description": "Definition for 'hybrid positions'"
@@ -5370,6 +5394,10 @@
   "SypvZP": {
     "defaultMessage": "La liste est filtrée vers le {jobStream} volet du travail.",
     "description": "Announcement that the job stream filter is active."
+  },
+  "T+fhB+": {
+    "defaultMessage": "Décision finale annulée",
+    "description": "Message displayed when a pool candidate final decision has been updated by an admin"
   },
   "T0JO/F": {
     "defaultMessage": "Description du travail requis",
@@ -8577,6 +8605,10 @@
   "jx7Sf1": {
     "defaultMessage": "J’aimerais être pris en considération pour des postes bilingues (anglais et français)",
     "description": "Bilingual Positions message"
+  },
+  "jxH8bt": {
+    "defaultMessage": "Le candidat a reçu la cote <strong>{decision}</strong> le <strong>{date}</strong>",
+    "description": "Qualified candidate details on revert final decision dialog on view pool candidate page"
   },
   "jyQi0m": {
     "defaultMessage": "Si vous êtes membre d’une Première Nation, Inuk ou Métis, et que vous vivez au Canada, vous pouvez demander à devenir un apprentis dans le cadre de ce programme.",

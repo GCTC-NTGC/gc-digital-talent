@@ -54,6 +54,7 @@ import NotesDialog from "./components/MoreActions/NotesDialog";
 import FinalDecisionDialog from "./components/MoreActions/FinalDecisionDialog";
 import CandidateNavigation from "./components/CandidateNavigation/CandidateNavigation";
 import ChangeExpiryDateDialog from "./components/ChangeExpiryDateDialog/ChangeExpiryDateDialog";
+import RevertFinalDecisionDialog from "./components/MoreActions/RevertFinalDecisionDialog";
 
 const screeningAndAssessmentTitle = defineMessage({
   defaultMessage: "Screening and assessment",
@@ -65,6 +66,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
   query PoolCandidateSnapshot($poolCandidateId: UUID!) {
     poolCandidate(id: $poolCandidateId) {
       ...CandidateExpiryDateDialog
+      ...RevertFinalDecisionDialog
       id
       status
       user {
@@ -807,9 +809,9 @@ export const ViewPoolCandidate = ({
                 )}
               {poolCandidate.status &&
                 REVERT_DECISION_STATUSES.includes(poolCandidate.status) && (
-                  // TODO: Add "Revert final decision" dialog in here (#9197)
-                  // eslint-disable-next-line react/jsx-no-useless-fragment
-                  <></>
+                  <RevertFinalDecisionDialog
+                    revertFinalDecisionQuery={poolCandidate}
+                  />
                 )}
               <ChangeExpiryDateDialog expiryDateQuery={poolCandidate} />
               {/* TODO: Add "Remove" and "Re-instate" dialogs to Pool Candidate
