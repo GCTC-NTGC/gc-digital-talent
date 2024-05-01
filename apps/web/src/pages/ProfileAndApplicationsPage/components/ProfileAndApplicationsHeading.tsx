@@ -43,9 +43,9 @@ import {
 import StatusItem from "~/components/StatusItem/StatusItem";
 import HeroCard from "~/components/HeroCard/HeroCard";
 import { PAGE_SECTION_ID as PROFILE_PAGE_SECTION_ID } from "~/components/UserProfile/constants";
-import { isApplicationQualifiedRecruitment } from "~/utils/applicationUtils";
 import { PAGE_SECTION_ID as CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
 import experienceMessages from "~/messages/experienceMessages";
+import { isQualifiedStatus } from "~/utils/poolCandidate";
 
 import { PartialUser } from "../types";
 
@@ -423,8 +423,9 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               description: "Title for qualified recruitments section",
             })}
             itemCount={
-              notEmptyApplications.filter(isApplicationQualifiedRecruitment)
-                .length
+              notEmptyApplications.filter((application) =>
+                isQualifiedStatus(application.status),
+              ).length
             }
             icon={ShieldCheckIcon}
             href={paths.careerTimelineAndRecruitment(user.id, {

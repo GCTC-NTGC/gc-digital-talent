@@ -178,19 +178,6 @@ export function isApplicationInProgress(a: Application): boolean {
   );
 }
 
-export function isApplicationQualifiedRecruitment(a: Application): boolean {
-  return (
-    a.status === PoolCandidateStatus.QualifiedAvailable ||
-    a.status === PoolCandidateStatus.QualifiedUnavailable ||
-    a.status === PoolCandidateStatus.QualifiedWithdrew ||
-    a.status === PoolCandidateStatus.PlacedTentative ||
-    a.status === PoolCandidateStatus.PlacedCasual ||
-    a.status === PoolCandidateStatus.PlacedTerm ||
-    a.status === PoolCandidateStatus.PlacedIndeterminate ||
-    a.status === PoolCandidateStatus.Expired
-  );
-}
-
 export function notRemoved(a: Application): boolean {
   return a.status !== PoolCandidateStatus.Removed;
 }

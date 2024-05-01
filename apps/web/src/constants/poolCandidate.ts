@@ -8,6 +8,7 @@ export const QUALIFIED_STATUSES = [
   PoolCandidateStatus.PlacedCasual,
   PoolCandidateStatus.PlacedTerm,
   PoolCandidateStatus.PlacedIndeterminate,
+  PoolCandidateStatus.Expired,
 ];
 
 export const DISQUALIFIED_STATUSES = [
