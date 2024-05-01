@@ -610,13 +610,10 @@ class PoolCandidate extends Model
 
         // collect skills attached to the Pool to pass into resource collection
         $pool = Pool::with([
-            'essentialSkills',
-            'nonessentialSkills',
+            'poolSkills',
             'classification',
         ])->findOrFail($this->pool_id);
-        $essentialSkillIds = $pool->essentialSkills()->pluck('skills.id')->toArray();
-        $nonessentialSkillIds = $pool->nonessentialSkills()->pluck('skills.id')->toArray();
-        $poolSkillIds = array_merge($essentialSkillIds, $nonessentialSkillIds);
+        $poolSkillIds = $pool->poolSkills()->pluck('skill_id')->toArray();
 
         $profile = new UserResource($user);
         $profile = $profile->poolSkillIds($poolSkillIds);
@@ -841,13 +838,8 @@ class PoolCandidate extends Model
         ])->findOrFail($this->user_id);
 
         // collect skills attached to the Pool to pass into resource collection
-        $pool = Pool::with([
-            'essentialSkills',
-            'nonessentialSkills',
-        ])->findOrFail($this->pool_id);
-        $essentialSkillIds = $pool->essentialSkills()->pluck('skills.id')->toArray();
-        $nonessentialSkillIds = $pool->nonessentialSkills()->pluck('skills.id')->toArray();
-        $poolSkillIds = array_merge($essentialSkillIds, $nonessentialSkillIds);
+        $pool = Pool::with(['poolSkills'])->findOrFail($this->pool_id);
+        $poolSkillIds = $pool->poolSkills()->pluck('skills.id')->toArray();
 
         // filter out any non-applicable PoolCandidate models attached to User
         $poolCandidateCollection = $user->poolCandidates;
