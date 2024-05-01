@@ -10,7 +10,7 @@ import {
   useAnnouncer,
 } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { graphql, Pool } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import useCurrentPage from "~/hooks/useCurrentPage";
@@ -24,13 +24,44 @@ import { PageNavKeys } from "~/types/pool";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminHero from "~/components/Hero/AdminHero";
 
+export const PoolLayout_Fragment = graphql(/* GraphQL */ `
+  fragment PoolLayout on Pool {
+    id
+    stream
+    publishedAt
+    isComplete
+    name {
+      en
+      fr
+    }
+    team {
+      id
+      name
+      displayName {
+        en
+        fr
+      }
+    }
+    classification {
+      id
+      group
+      level
+      name {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 interface PoolHeaderProps {
-  pool: Pick<Pool, "id" | "classification" | "stream" | "name" | "team">;
+  poolQuery: FragmentType<typeof PoolLayout_Fragment>;
 }
 
-const PoolHeader = ({ pool }: PoolHeaderProps) => {
+const PoolHeader = ({ poolQuery }: PoolHeaderProps) => {
   const intl = useIntl();
   const { announce } = useAnnouncer();
+  const pool = getFragment(PoolLayout_Fragment, poolQuery);
 
   const pages = useAdminPoolPages(intl, pool);
 
@@ -85,27 +116,7 @@ const PoolHeader = ({ pool }: PoolHeaderProps) => {
 const PoolLayout_Query = graphql(/* GraphQL */ `
   query PoolLayout($poolId: UUID!) {
     pool(id: $poolId) {
-      id
-      name {
-        en
-        fr
-      }
-      stream
-      classification {
-        id
-        group
-        level
-      }
-      publishedAt
-      isComplete
-      team {
-        id
-        name
-        displayName {
-          en
-          fr
-        }
-      }
+      ...PoolLayout
     }
   }
 `);
@@ -126,7 +137,7 @@ const PoolLayout = () => {
   return (
     <>
       <Pending fetching={fetching} error={error}>
-        {data?.pool ? <PoolHeader pool={data.pool} /> : <ThrowNotFound />}
+        {data?.pool ? <PoolHeader poolQuery={data.pool} /> : <ThrowNotFound />}
       </Pending>
       <Outlet />
     </>

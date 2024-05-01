@@ -2,8 +2,9 @@ import React from "react";
 import { StoryFn, Meta } from "@storybook/react";
 
 import { fakePools } from "@gc-digital-talent/fake-data";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
-import PoolCard from "./PoolCard";
+import PoolCard, { PoolCard_Fragment } from "./PoolCard";
 
 const fakedPools = fakePools();
 const fakedPool = fakedPools[0];
@@ -18,7 +19,7 @@ Object.keys(fakedPoolNull).forEach((key) => {
 export default {
   component: PoolCard,
   args: {
-    pool: fakedPool,
+    poolQuery: makeFragmentData(fakedPool, PoolCard_Fragment),
   },
 } as Meta;
 
@@ -28,5 +29,5 @@ export const Default = Template.bind({});
 
 export const Null = Template.bind({});
 Null.args = {
-  pool: nullPool,
+  poolQuery: makeFragmentData(nullPool, PoolCard_Fragment),
 };
