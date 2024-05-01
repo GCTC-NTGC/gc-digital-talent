@@ -41,6 +41,7 @@ import SkillSummarySection, {
   sectionTitle as skillSummarySectionTitle,
 } from "./components/SkillSummarySection";
 import { PAGE_SECTION_ID } from "./navigation";
+import AssessmentPlanBuilderPool_Fragment from "./fragment";
 
 const pageTitle = defineMessage(messages.assessmentPlan);
 
@@ -50,34 +51,6 @@ const pageSubtitle = defineMessage({
   id: "iuA2pt",
   description: "Subtitle for the assessment plan builder",
 });
-
-export const AssessmentPlanBuilderPool_Fragment = graphql(/* GraphQL */ `
-  fragment AssessmentPlanBuilderPool on Pool {
-    id
-    ...OrganizeSectionPool
-    ...SkillSummarySectionPool
-    publishedAt
-    poolSkills {
-      id
-      skill {
-        id
-        category
-        key
-        name {
-          en
-          fr
-        }
-      }
-    }
-    assessmentSteps {
-      id
-      type
-      poolSkills {
-        id
-      }
-    }
-  }
-`);
 
 export interface AssessmentPlanBuilderProps {
   poolQuery: FragmentType<typeof AssessmentPlanBuilderPool_Fragment>;
@@ -97,7 +70,7 @@ export const AssessmentPlanBuilder = ({
     return aName.localeCompare(bName);
   });
 
-  const assessmentStatus = getAssessmentPlanStatus(pool);
+  const assessmentStatus = getAssessmentPlanStatus(poolQuery);
   const assessmentBadge = getPoolCompletenessBadge(assessmentStatus);
 
   return (

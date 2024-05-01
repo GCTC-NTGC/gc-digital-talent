@@ -10,11 +10,24 @@ import {
 
 import { PoolCompleteness } from "~/types/pool";
 import ViewPool_Fragment from "~/pages/Pools/ViewPoolPage/fragment";
+import AssessmentPlanBuilderPool_Fragment from "~/pages/Pools/AssessmentPlanBuilderPage/fragment";
+
+function isViewPool_Fragment(
+  poolQuery:
+    | FragmentType<typeof ViewPool_Fragment>
+    | FragmentType<typeof AssessmentPlanBuilderPool_Fragment>,
+): poolQuery is FragmentType<typeof ViewPool_Fragment> {
+  return "ViewPoolFragment" in poolQuery;
+}
 
 export function getAssessmentPlanStatus(
-  poolQuery: FragmentType<typeof ViewPool_Fragment>,
+  poolQuery:
+    | FragmentType<typeof ViewPool_Fragment>
+    | FragmentType<typeof AssessmentPlanBuilderPool_Fragment>,
 ): PoolCompleteness {
-  const pool = getFragment(ViewPool_Fragment, poolQuery);
+  const pool = isViewPool_Fragment(poolQuery)
+    ? getFragment(ViewPool_Fragment, poolQuery)
+    : getFragment(AssessmentPlanBuilderPool_Fragment, poolQuery);
 
   if (!pool || !pool.poolSkills || !pool.assessmentSteps) {
     return "incomplete";
@@ -26,12 +39,12 @@ export function getAssessmentPlanStatus(
 
   const allEssentialPoolSkillIds = pool.poolSkills
     .filter(notEmpty)
-    .filter((poolSkill) => poolSkill.type === PoolSkillType.Essential)
-    .map((poolSkill) => poolSkill.id);
+    .filter((poolSkill) => poolSkill?.type === PoolSkillType.Essential)
+    .map((poolSkill) => poolSkill?.id);
   const assessedPoolSkillIds = pool.assessmentSteps
     .filter(notEmpty)
     .flatMap((step) =>
-      step.poolSkills?.filter(notEmpty).map((poolSkill) => poolSkill.id),
+      step?.poolSkills?.filter(notEmpty).map((poolSkill) => poolSkill.id),
     );
   const thereAreUnassessedEssentialPoolSkills = allEssentialPoolSkillIds.some(
     (poolSkillId) => !assessedPoolSkillIds.includes(poolSkillId),

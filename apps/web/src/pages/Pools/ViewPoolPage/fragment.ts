@@ -21,9 +21,15 @@ const ViewPool_Fragment = graphql(/* GraphQL */ `
     }
     poolSkills {
       id
+      type
     }
     assessmentSteps {
       id
+      type
+      poolSkills {
+        id
+        type
+      }
     }
     poolCandidates {
       id
