@@ -467,6 +467,10 @@
     "defaultMessage": "Erreur : nom de compétence non trouvé",
     "description": "Error message when skill name is not found on request page."
   },
+  "0Uvziq": {
+    "defaultMessage": "Candidats du bassin",
+    "description": "Title for pool candidates"
+  },
   "0VlOQq": {
     "defaultMessage": "Modifier - compétence",
     "description": "Page title for the edit skill page."
@@ -959,10 +963,6 @@
     "defaultMessage": "Lancement de la troisième cohorte du programme de mentorat de la collectivité du numérique destiné aux membres des groupes d’équité en matière d’emploi.",
     "description": "Description of the mentorship program"
   },
-  "3JL02L": {
-    "defaultMessage": "Décerné à :",
-    "description": "The award was given to"
-  },
   "3MboNR": {
     "defaultMessage": "Veuillez sélectionner une date d’expiration",
     "description": "Label for date selection input for expiry date"
@@ -1410,6 +1410,10 @@
   "5pyCTN": {
     "defaultMessage": "Type d’instrument",
     "description": "Label for _instrument type_ fieldset in the _digital services contracting questionnaire_"
+  },
+  "5r2C2L": {
+    "defaultMessage": "Souhaitez-vous annuler cette décision et remettre le statut du candidat à « en cours d’évaluation »?",
+    "description": "Final question on revert final decision dialog on view pool candidate page"
   },
   "5r5XSh": {
     "defaultMessage": "Veuillez vérifier votre courriel pour obtenir un résumé de votre soumission.",
@@ -2103,6 +2107,10 @@
     "defaultMessage": "Demande de renseignements",
     "description": "Heading for the request information section of the single search request view."
   },
+  "AGRCgy": {
+    "defaultMessage": "Annuler la décision finale",
+    "description": "Button label for revert final decision on view pool candidate page"
+  },
   "AJs1VQ": {
     "defaultMessage": "Question (FR)",
     "description": "Label for an French general question"
@@ -2399,6 +2407,10 @@
     "defaultMessage": "Établissement d’un bassin de talents numériques",
     "description": "Heading for the directives digital talent and sourcing component"
   },
+  "C3YsFy": {
+    "defaultMessage": "Annuler la décision d’évaluation finale",
+    "description": "Subtitle for view revert final decision dialog on view pool candidate page"
+  },
   "C3fUwm": {
     "defaultMessage": "Version",
     "description": "Label for the specific version number of the site"
@@ -2490,10 +2502,6 @@
   "CWy2xr": {
     "defaultMessage": "Vous pouvez autodéclarer votre appartenance à une ou plusieurs des communautés énumérées alphabétiquement ci-dessous.",
     "description": "Text that appears before employment equity form options."
-  },
-  "CX/qKY": {
-    "defaultMessage": "à {institution}",
-    "description": "Study at institution"
   },
   "CY+493": {
     "defaultMessage": "Pour en apprendre davantage",
@@ -2811,6 +2819,10 @@
     "defaultMessage": "En collaboration avec le Programme d’apprentissage en TI pour les personnes autochtones, le Portail des talents autochtones commencera par mettre l’accent sur les talents en TI et en technologie, ce qui permettra :",
     "description": "Description for strategy for the indigenous talent portal"
   },
+  "E0HXwp": {
+    "defaultMessage": "Pour la raison suivante",
+    "description": "Final decision reason heading on revert final decision dialog on view pool candidate page"
+  },
   "E2nMR3": {
     "defaultMessage": "Partager",
     "description": "Label for sharing a pool advertisement"
@@ -2982,10 +2994,6 @@
   "FAEU2d": {
     "defaultMessage": "Droit d’auteur",
     "description": "Heading for comments and interaction section"
-  },
-  "FAOzjP": {
-    "defaultMessage": "Portée :",
-    "description": "The scope of the award given"
   },
   "FC5tje": {
     "defaultMessage": "Autres commentaires",
@@ -3423,10 +3431,6 @@
     "defaultMessage": "Veuillez sélectionner une compétence pour continuer.",
     "description": "Help text to tell users to select a skill before submitting"
   },
-  "HtjPHW": {
-    "defaultMessage": "Autre motif",
-    "description": "Label for other reason text area in the screening decision dialog."
-  },
   "HvD7jI": {
     "defaultMessage": "Comment utiliser cet outil",
     "description": "Heading displayed in the How To area of the hero section of the Search page."
@@ -3614,6 +3618,10 @@
   "Iu55iw": {
     "defaultMessage": "Enregistrer les exigences fondamentales",
     "description": "Text on a button to save core requirements"
+  },
+  "Iv1kqA": {
+    "defaultMessage": "Erreur : impossible d’annuler le statut de la décision finale",
+    "description": "Message displayed when an error reverting final decision status of pool candidate"
   },
   "IvJ9Xd": {
     "defaultMessage": "Information sur l'échelle salariale",
@@ -3875,6 +3883,10 @@
     "defaultMessage": "État du processus",
     "description": "Title for card for actions related to changing the status of a process"
   },
+  "KKLx+Z": {
+    "defaultMessage": "<strong>Tâches</strong>, <strong>responsabilités</strong> ou autre <strong>information clés</strong> qui, selon vous, sont essentielles à l’importance de cette expérience.",
+    "description": "Help text for the experience additional details field"
+  },
   "KKXJFE": {
     "defaultMessage": "Fiabilité",
     "description": "Reliability screening level"
@@ -3994,10 +4006,6 @@
   "Kss450": {
     "defaultMessage": "Une option de prolongation du contrat est-elle actuellement prévue?",
     "description": "Label for _contract extendable_ fieldset in the _digital services contracting questionnaire_"
-  },
-  "KteuZ5": {
-    "defaultMessage": "<strong>Tâches</strong>, <strong>responsabilités</strong> ou autre <strong>information clés facultatives</strong> qui, selon vous, sont essentielles à l’importance de cette expérience.",
-    "description": "Help text for the experience additional details field"
   },
   "Kyf9At": {
     "defaultMessage": "Définir les renseignements et les exigences de ce processus de recrutement.",
@@ -4875,6 +4883,10 @@
     "defaultMessage": "{status} <hidden>changer le statut pour {poolName}</hidden>",
     "description": "Button to change a users status in a pool - located in the table on view-user page"
   },
+  "QJi1ZQ": {
+    "defaultMessage": "Annuler la décision et mettre le statut à jour",
+    "description": "Button label to revert final decision on view pool candidate page"
+  },
   "QKGmDP": {
     "defaultMessage": "<strong>Les postes hybrides</strong> requièrent une présence au bureau au moins un jour par semaine, le reste du temps pouvant être travaillé depuis le lieu de votre choix.",
     "description": "Definition for 'hybrid positions'"
@@ -4934,10 +4946,6 @@
   "QceO8G": {
     "defaultMessage": "Il manque des renseignements personnels",
     "description": "Error message displayed when a users personal information is incomplete"
-  },
-  "QfOWr0": {
-    "defaultMessage": "Détails additionnels :",
-    "description": "Additional details if provided (without details)"
   },
   "QgX0vb": {
     "defaultMessage": "Retirer<hidden> {skillName}</hidden>",
@@ -5387,6 +5395,10 @@
     "defaultMessage": "La liste est filtrée vers le {jobStream} volet du travail.",
     "description": "Announcement that the job stream filter is active."
   },
+  "T+fhB+": {
+    "defaultMessage": "Décision finale annulée",
+    "description": "Message displayed when a pool candidate final decision has been updated by an admin"
+  },
   "T0JO/F": {
     "defaultMessage": "Description du travail requis",
     "description": "title for _work requirement description_ textbox in the _digital services contracting questionnaire_"
@@ -5619,10 +5631,6 @@
     "defaultMessage": "Autochtone selon la définition de ce programme",
     "description": "Heading for the definition of Indigenous dialog"
   },
-  "UPx6kk": {
-    "defaultMessage": "<primary>{title}</primary> à {organization}",
-    "description": "Title at organization"
-  },
   "UQlyXu": {
     "defaultMessage": "Les apprentis feront l’expérience d’un apprentissage au travail et pendant la formation en ligne dans un ou plusieurs domaines de la technologie de l’information. On s’attend à ce que les apprentis démontrent leur intérêt et leur passion pour la technologie en étant prêts à observer, à apprendre et à pratiquer de nouvelles compétences qui sont développées au cours du programme. En moyenne, un apprenti passera quatre jours par semaine en apprentissage pratique, tandis que le cinquième jour de la semaine sera consacré au perfectionnement personnel et professionnel par la formation en ligne et par d’autres possibilités de formation et de perfectionnement.",
     "description": "Learn more dialog question eight paragraph one"
@@ -5797,10 +5805,6 @@
   "VN6uCI": {
     "defaultMessage": "Ces compétences essentielles ont été évaluées dans le cadre du processus :",
     "description": "Text showing the essentials skills assessed during the process"
-  },
-  "VOheZB": {
-    "defaultMessage": "<primary>{role}</primary> à {organization}",
-    "description": "Role at organization in work experience block of skill accordion."
   },
   "VUPlmN": {
     "defaultMessage": "Premières Nations (inscrites ou non)",
@@ -6137,10 +6141,6 @@
   "X3bPom": {
     "defaultMessage": "Octroi de contrat pour des services numériques",
     "description": "Short name for Digital Services Contracting Form"
-  },
-  "X4TOhW": {
-    "defaultMessage": "Candidats",
-    "description": "Page title for the admin pool candidates index page"
   },
   "X5tRR4": {
     "defaultMessage": "Il n’existe aucune compétence jusqu’à présent.",
@@ -7106,10 +7106,6 @@
     "defaultMessage": "Il n'y a aucun élément à afficher.",
     "description": "Message when there is no data to display in a table"
   },
-  "cK/hoN": {
-    "defaultMessage": "<primary>{title}</primary> délivré par {issuedBy}",
-    "description": "The award title is issued by some group"
-  },
   "cL3OoZ": {
     "defaultMessage": "Notification non lue",
     "description": "Link text to show unread notifications"
@@ -7305,10 +7301,6 @@
   "dJXjhw": {
     "defaultMessage": "Sélectionnez un volet",
     "description": "Placeholder for stream filter in browse opportunities form."
-  },
-  "dQseX7": {
-    "defaultMessage": "1 expérience",
-    "description": "Pluralization for one experience"
   },
   "dSfDu1": {
     "defaultMessage": "Aidez les gestionnaires à comprendre les domaines dans lesquels vous souhaitez améliorer des compétences comportementales. Vous pouvez modifier cette vitrine à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez à la vitrine qui ne sont pas déjà dans votre bibliothèque seront ajoutées automatiquement.",
@@ -7982,10 +7974,6 @@
     "defaultMessage": "Prévoyez-vous un effet de report ou d’entraînement immédiat sur d’autres services en termes de niveaux de personnel ou de compétences requises?",
     "description": "Label for _has immediate impact on other departments_ fieldset in the _digital services contracting questionnaire_"
   },
-  "gtLuDM": {
-    "defaultMessage": "Projet : {project}",
-    "description": "Project Name"
-  },
   "gtU+9w": {
     "defaultMessage": "Bienvenue aux cadres",
     "description": "Page title for the executives homepage"
@@ -8617,6 +8605,10 @@
   "jx7Sf1": {
     "defaultMessage": "J’aimerais être pris en considération pour des postes bilingues (anglais et français)",
     "description": "Bilingual Positions message"
+  },
+  "jxH8bt": {
+    "defaultMessage": "Le candidat a reçu la cote <strong>{decision}</strong> le <strong>{date}</strong>",
+    "description": "Qualified candidate details on revert final decision dialog on view pool candidate page"
   },
   "jyQi0m": {
     "defaultMessage": "Si vous êtes membre d’une Première Nation, Inuk ou Métis, et que vous vivez au Canada, vous pouvez demander à devenir un apprentis dans le cadre de ce programme.",
@@ -9445,10 +9437,6 @@
   "om2bZu": {
     "defaultMessage": "Le présent énoncé a été préparé le 8 novembre 2022.",
     "description": "Disclaimer for the when the accessibility statement was last updated"
-  },
-  "omDlZN": {
-    "defaultMessage": "Thèse : {thesisTitle}",
-    "description": "Thesis, if applicable"
   },
   "opkSia": {
     "defaultMessage": "Gérer « {skillName} »",
@@ -10462,10 +10450,6 @@
     "defaultMessage": "Postes en anglais",
     "description": "English Positions message"
   },
-  "vHDpXX": {
-    "defaultMessage": "Notes pour cette évaluation",
-    "description": "Label for generic notes text area in the screening decision dialog."
-  },
   "vJ/8Mk": {
     "defaultMessage": "Identification des talents numériques – Tables rondes sur la gestion des talents",
     "description": "Button text to open section describing identification of digital talents"
@@ -10757,10 +10741,6 @@
   "xM6U6U": {
     "defaultMessage": "Sans objet (s. o.)",
     "description": "Not applicable contract supply method"
-  },
-  "xNVsei": {
-    "defaultMessage": "{experienceLength} Expériences",
-    "description": "Pluralization for zero or multiple experiences"
   },
   "xPaVvi": {
     "defaultMessage": "Comme l’indiquent les <link>Procédures obligatoires sur les talents numériques</link>, il incombe au chef opérationnel de remplir et de soumettre le questionnaire sur les contrats de services numériques s’il fournit des services numériques.",
@@ -11125,10 +11105,6 @@
   "zemp3H": {
     "defaultMessage": "Niveau de sécurité",
     "description": "Label for _security level_ fieldset in the _digital services contracting questionnaire_"
-  },
-  "zfi91j": {
-    "defaultMessage": "Candidats du bassin",
-    "description": "Title for pool candidates"
   },
   "zl6H2p": {
     "defaultMessage": "Questions relatives à l’Initiative en matière numérique",

@@ -5,7 +5,6 @@ import Separator from "./Separator";
 
 export default {
   component: Separator,
-  title: "Components/Separator",
 } as Meta<typeof Separator>;
 
 const Template: StoryFn<typeof Separator> = () => (

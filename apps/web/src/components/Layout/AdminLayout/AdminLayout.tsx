@@ -14,7 +14,7 @@ import {
   SideMenuContentWrapper,
   SideMenuItem,
 } from "@gc-digital-talent/ui";
-import { uiMessages, useLocale } from "@gc-digital-talent/i18n";
+import { uiMessages, getLocale } from "@gc-digital-talent/i18n";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 
 import Footer from "~/components/Footer/Footer";
@@ -107,7 +107,7 @@ const OpenMenuButton = React.forwardRef<
 
 const AdminLayout = () => {
   const intl = useIntl();
-  const { locale } = useLocale();
+  const locale = getLocale(intl);
   const paths = useRoutes();
   useLayoutTheme("default");
   const isSmallScreen = useIsSmallScreen();

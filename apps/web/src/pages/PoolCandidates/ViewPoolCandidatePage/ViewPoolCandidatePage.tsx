@@ -57,6 +57,7 @@ import CandidateNavigation from "./components/CandidateNavigation/CandidateNavig
 import ChangeExpiryDateDialog from "./components/ChangeExpiryDateDialog/ChangeExpiryDateDialog";
 import RemoveCandidateDialog from "./components/RemoveCandidateDialog/RemoveCandidateDialog";
 import ReinstateCandidateDialog from "./components/ReinstateCandidateDialog/ReinstateCandidateDialog";
+import RevertFinalDecisionDialog from "./components/MoreActions/RevertFinalDecisionDialog";
 
 const screeningAndAssessmentTitle = defineMessage({
   defaultMessage: "Screening and assessment",
@@ -70,6 +71,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
       ...CandidateExpiryDateDialog
       ...RemoveCandidateDialog
       ...ReinstateCandidateDialog
+      ...RevertFinalDecisionDialog
       id
       status
       user {
@@ -392,7 +394,6 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
         }
         assessmentDecision
         assessmentDecisionLevel
-        assessmentNotes
         assessmentResultType
         assessmentStep {
           id
@@ -403,10 +404,8 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
           }
         }
         justifications
-        otherJustificationNotes
         assessmentDecisionLevel
         skillDecisionNotes
-        assessmentNotes
         poolSkill {
           id
           type
@@ -819,9 +818,9 @@ export const ViewPoolCandidate = ({
                 )}
               {poolCandidate.status &&
                 REVERT_DECISION_STATUSES.includes(poolCandidate.status) && (
-                  // TODO: Add "Revert final decision" dialog in here (#9197)
-                  // eslint-disable-next-line react/jsx-no-useless-fragment
-                  <></>
+                  <RevertFinalDecisionDialog
+                    revertFinalDecisionQuery={poolCandidate}
+                  />
                 )}
               {isRemoved ? (
                 <ReinstateCandidateDialog reinstateQuery={poolCandidate} />

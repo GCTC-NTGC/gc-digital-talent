@@ -18,7 +18,6 @@ const Toggle = () => {
 
 export default {
   component: ToggleSection.Root,
-  title: "Components/Toggle Section",
 } as Meta<typeof ToggleSection.Root>;
 
 const Template: StoryFn<typeof ToggleSection.Root> = (args) => (

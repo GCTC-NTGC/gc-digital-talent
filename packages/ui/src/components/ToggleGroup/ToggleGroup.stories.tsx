@@ -8,7 +8,6 @@ import ToggleGroup from "./ToggleGroup";
 
 export default {
   component: ToggleGroup.Root,
-  title: "Components/Toggle Group",
   args: {
     type: "single",
   },

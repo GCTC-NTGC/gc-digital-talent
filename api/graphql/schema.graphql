@@ -100,7 +100,7 @@ type User {
   # Pool info
   poolCandidates: [PoolCandidate]
     @hasMany(scopes: ["authorizedToView"])
-    @canResolved(ability: "view") # PoolsCandidate objects associate the user with a pool
+    @canResolved(ability: "view") # PoolCandidate objects associate the user with a pool
   # Experiences
   experiences: [Experience] @belongsToMany # All experiences that a user owns
   awardExperiences: [AwardExperience] @belongsToMany # Award experiences that a user owns
@@ -263,12 +263,9 @@ type AssessmentResult {
   assessmentDecision: AssessmentDecision
     @rename(attribute: "assessment_decision")
   justifications: [AssessmentResultJustification]
-  otherJustificationNotes: String
-    @rename(attribute: "other_justification_notes")
   assessmentDecisionLevel: AssessmentDecisionLevel
     @rename(attribute: "assessment_decision_level")
   skillDecisionNotes: String @rename(attribute: "skill_decision_notes")
-  assessmentNotes: String @rename(attribute: "assessment_notes")
 }
 
 type PoolSkill {
@@ -285,10 +282,6 @@ type PoolCandidate {
   id: ID!
   pool: Pool! @belongsTo @canResolved(ability: "view")
   user: User! @belongsTo(relation: "user") @canResolved(ability: "view")
-  # cmoIdentifier can be an arbitrary string used to relate this candidate to an external database.
-  cmoIdentifier: ID
-    @rename(attribute: "cmo_identifier")
-    @deprecated(reason: "Field no longer used")
   # Expiry date for this candidate being in the pool.
   expiryDate: Date @rename(attribute: "expiry_date")
 
@@ -1482,12 +1475,9 @@ input CreateAssessmentResultInput
   assessmentDecision: AssessmentDecision
     @rename(attribute: "assessment_decision")
   justifications: [AssessmentResultJustification]
-  otherJustificationNotes: String
-    @rename(attribute: "other_justification_notes")
   assessmentDecisionLevel: AssessmentDecisionLevel
     @rename(attribute: "assessment_decision_level")
   skillDecisionNotes: String @rename(attribute: "skill_decision_notes")
-  assessmentNotes: String @rename(attribute: "assessment_notes")
 }
 
 input UpdateAssessmentResultInput
@@ -1500,12 +1490,9 @@ input UpdateAssessmentResultInput
   assessmentDecision: AssessmentDecision
     @rename(attribute: "assessment_decision")
   justifications: [AssessmentResultJustification]
-  otherJustificationNotes: String
-    @rename(attribute: "other_justification_notes")
   assessmentDecisionLevel: AssessmentDecisionLevel
     @rename(attribute: "assessment_decision_level")
   skillDecisionNotes: String @rename(attribute: "skill_decision_notes")
-  assessmentNotes: String @rename(attribute: "assessment_notes")
 }
 
 input PoolSkillBelongsToMany {

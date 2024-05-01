@@ -10,7 +10,6 @@ const fakeUserArray = fakeApplicants(5);
 
 export default {
   component: UserProfile,
-  title: "Components/User Profile",
   args: {},
 } as Meta;
 
@@ -31,29 +30,15 @@ const TemplateUserProfile: StoryFn<User> = (args) => {
   );
 };
 
-export const UserProfileStory1 = TemplateUserProfile.bind({});
-export const UserProfileStory2 = TemplateUserProfile.bind({});
-export const UserProfileStory3 = TemplateUserProfile.bind({});
-export const UserProfileStory4 = TemplateUserProfile.bind({});
-export const UserProfileStory5 = TemplateUserProfile.bind({});
-export const UserProfileNull = TemplateUserProfile.bind({});
+export const Default = TemplateUserProfile.bind({});
+export const Null = TemplateUserProfile.bind({});
 
-UserProfileStory1.args = { ...fakeUserArray[0] };
-UserProfileStory2.args = { ...fakeUserArray[1] };
-UserProfileStory3.args = {
-  ...fakeUserArray[2],
-  experiences: fakeExperiences(3),
-};
-UserProfileStory4.args = {
-  ...fakeUserArray[3],
-  experiences: fakeExperiences(4),
-};
-UserProfileStory5.args = {
+Default.args = {
   ...fakeUserArray[4],
   indigenousCommunities: [IndigenousCommunity.LegacyIsIndigenous],
   experiences: fakeExperiences(5),
 };
-UserProfileNull.args = {
+Null.args = {
   firstName: null,
   lastName: null,
   email: undefined,

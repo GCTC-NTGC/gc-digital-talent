@@ -24,6 +24,7 @@ import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import FormChangeNotifyWell from "~/components/FormChangeNotifyWell/FormChangeNotifyWell";
 
 import AssessmentSummary from "./components/AssessmentSummary";
+import Important from "./components/Important";
 
 const PoolCandidate_QualifyCandidateMutation = graphql(/* GraphQL */ `
   mutation PoolCandidate_QualifyCandidateMutation(

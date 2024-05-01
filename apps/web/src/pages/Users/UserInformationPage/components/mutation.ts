@@ -6,7 +6,6 @@ const UpdatePoolCandidateStatus_Mutation = graphql(/* GraphQL */ `
     $poolCandidate: UpdatePoolCandidateStatusInput!
   ) {
     updatePoolCandidateStatus(id: $id, poolCandidate: $poolCandidate) {
-      cmoIdentifier
       expiryDate
       status
     }

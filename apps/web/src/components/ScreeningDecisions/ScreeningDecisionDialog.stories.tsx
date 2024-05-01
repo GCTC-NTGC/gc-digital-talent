@@ -91,7 +91,6 @@ poolCandidate.profileSnapshot = JSON.stringify(profileSnapshot);
 
 export default {
   component: ScreeningDecisionDialog,
-  title: "Components/Screening Decisions/ScreeningDecisionDialog",
   decorators: [OverlayOrDialogDecorator],
   args: {
     assessmentStep,
@@ -157,8 +156,6 @@ WithInitialValues.args = {
     assessmentDecisionLevel: AssessmentDecisionLevel.AboveAndBeyondRequired,
     skillDecisionNotes:
       "This applicant went above and beyond our expectations.",
-    assessmentNotes: undefined,
-    otherJustificationNotes: undefined,
   },
   isOpen: true,
 };

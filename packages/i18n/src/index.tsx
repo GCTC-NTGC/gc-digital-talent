@@ -85,7 +85,6 @@ import {
   getCandidateRemovalReason,
 } from "./messages/localizedConstants";
 import getOrThrowError from "./utils/error";
-import { STORED_LOCALE } from "./const";
 import type { LocalizedArray } from "./utils/localize";
 import type { Locales, Messages } from "./types";
 
@@ -101,7 +100,6 @@ export {
   getLocalizedName,
   localizeCurrency,
   localizeSalaryRange,
-  STORED_LOCALE,
   apiMessages,
   commonMessages,
   errorMessages,

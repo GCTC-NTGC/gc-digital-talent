@@ -9,7 +9,7 @@ import CareerTimelineAndRecruitment, {
 } from "./components/CareerTimelineAndRecruitment";
 
 export default {
-  title: "Pages/Career timeline and recruitment",
+  component: CareerTimelineAndRecruitment,
   args: {
     userId: "test",
     experiencesQuery: [],
