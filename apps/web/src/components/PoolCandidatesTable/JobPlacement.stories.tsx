@@ -1,5 +1,4 @@
-import React from "react";
-import { Meta, StoryFn } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 
 import {
   fakeDepartments,
@@ -37,7 +36,6 @@ const notPlacedData = makeFragmentData(
 
 export default {
   component: JobPlacementDialog,
-  title: "Components/Job placement dialog",
   decorators: [OverlayOrDialogDecorator],
   args: {
     departments,
@@ -45,16 +43,16 @@ export default {
   },
 } as Meta;
 
-const Template: StoryFn<typeof JobPlacementDialog> = (args) => (
-  <JobPlacementDialog {...args} />
-);
+type Story = StoryObj<typeof JobPlacementDialog>;
 
-export const Placed = Template.bind({});
-Placed.args = {
-  jobPlacementDialogQuery: placedData,
+export const Placed: Story = {
+  args: {
+    jobPlacementDialogQuery: placedData,
+  },
 };
 
-export const NotPlaced = Template.bind({});
-NotPlaced.args = {
-  jobPlacementDialogQuery: notPlacedData,
+export const NotPlaced: Story = {
+  args: {
+    jobPlacementDialogQuery: notPlacedData,
+  },
 };

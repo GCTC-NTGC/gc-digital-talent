@@ -81,15 +81,17 @@ interface JobPlacementDialogProps {
   jobPlacementDialogQuery: FragmentType<typeof JobPlacementDialog_Fragment>;
   departments: Department[];
   context?: "table" | "view";
+  defaultOpen?: boolean;
 }
 
 export const JobPlacementDialog = ({
   jobPlacementDialogQuery,
   departments,
   context = "table",
+  defaultOpen = false,
 }: JobPlacementDialogProps) => {
   const intl = useIntl();
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
   const [, executePlacedCandidate] = useMutation(PlaceCandidate_Mutation);
   const [, executeRevertPlacedCandidate] = useMutation(
     RevertPlaceCandidate_Mutation,
