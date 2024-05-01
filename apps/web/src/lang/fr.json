@@ -3863,6 +3863,10 @@
     "defaultMessage": "État du processus",
     "description": "Title for card for actions related to changing the status of a process"
   },
+  "KKLx+Z": {
+    "defaultMessage": "<strong>Tâches</strong>, <strong>responsabilités</strong> ou autre <strong>information clés</strong> qui, selon vous, sont essentielles à l’importance de cette expérience.",
+    "description": "Help text for the experience additional details field"
+  },
   "KKXJFE": {
     "defaultMessage": "Fiabilité",
     "description": "Reliability screening level"
@@ -3982,10 +3986,6 @@
   "Kss450": {
     "defaultMessage": "Une option de prolongation du contrat est-elle actuellement prévue?",
     "description": "Label for _contract extendable_ fieldset in the _digital services contracting questionnaire_"
-  },
-  "KteuZ5": {
-    "defaultMessage": "<strong>Tâches</strong>, <strong>responsabilités</strong> ou autre <strong>information clés facultatives</strong> qui, selon vous, sont essentielles à l’importance de cette expérience.",
-    "description": "Help text for the experience additional details field"
   },
   "Kyf9At": {
     "defaultMessage": "Définir les renseignements et les exigences de ce processus de recrutement.",
