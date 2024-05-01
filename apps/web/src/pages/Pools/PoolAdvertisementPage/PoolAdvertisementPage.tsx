@@ -882,7 +882,7 @@ export const PoolPoster = ({
                     poolSkillQuery={poolSkill}
                     required
                   />
-                ))}{" "}
+                ))}
                 {nonessentialPoolSkills.map((poolSkill) => (
                   <SkillAccordion
                     key={poolSkill.id}
