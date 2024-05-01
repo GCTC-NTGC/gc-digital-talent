@@ -64,13 +64,31 @@ const PoolHeader = ({ poolQuery }: PoolHeaderProps) => {
   const pool = getFragment(PoolLayout_Fragment, poolQuery);
 
   const pages = useAdminPoolPages(intl, pool);
-  const pagesObject = Object.fromEntries(pages);
-
-  const poolTitle = getShortPoolTitleLabel(intl, pool);
   const currentPage = useCurrentPage<PageNavKeys>(pages);
+
   const subTitle = pool.team
     ? getLocalizedName(pool.team?.displayName, intl)
     : currentPage?.subtitle;
+
+  const heroTitle = () => {
+    if (currentPage?.link.url.includes("edit")) {
+      return currentPage?.title;
+    }
+    if (currentPage?.link.url.includes("plan")) {
+      return currentPage?.title;
+    }
+    return getShortPoolTitleLabel(intl, pool);
+  };
+
+  const heroSubtitle = () => {
+    if (currentPage?.link.url.includes("edit")) {
+      return currentPage?.subtitle;
+    }
+    if (currentPage?.link.url.includes("plan")) {
+      return currentPage?.subtitle;
+    }
+    return subTitle;
+  };
 
   const advertisementStatus = getAdvertisementStatus(pool);
   const advertisementBadge = getPoolCompletenessBadge(advertisementStatus);
@@ -85,16 +103,8 @@ const PoolHeader = ({ poolQuery }: PoolHeaderProps) => {
     <>
       <SEO title={currentPage?.title} description={subTitle} />
       <AdminHero
-        title={
-          currentPage?.link.url.includes("edit")
-            ? pagesObject.edit.title
-            : poolTitle
-        }
-        subtitle={
-          currentPage?.link.url.includes("edit")
-            ? pagesObject.edit.subtitle
-            : subTitle
-        }
+        title={heroTitle()}
+        subtitle={heroSubtitle()}
         nav={
           // Pages with crumbs are sub-pages and don't show up as tabs
           currentPage?.crumbs

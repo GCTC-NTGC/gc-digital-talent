@@ -383,10 +383,6 @@
     "defaultMessage": "<strong>Non</strong>, je n'ai pas de droit de priorité.",
     "description": "Label displayed for does not have priority entitlement option"
   },
-  "0Arzgj": {
-    "defaultMessage": "Cette section sert à définir les évaluations qui seront utilisées dans le cadre de votre processus d’évaluation. Vous pouvez également changer l’ordre dans lequel vous prévoyez effectuer ces évaluations. Les seules exceptions sont les évaluations de “présélection des candidatures” et de “questions de présélection (au moment de la candidature)” qui constitueront toujours la première et la deuxième étape pour tout processus d’évaluation.",
-    "description": "introduction to the organize section in the assessment plan builder"
-  },
   "0D3ZhO": {
     "defaultMessage": "Demandes",
     "description": "The menu category for requests items"
@@ -798,6 +794,10 @@
   "2W6Q3k": {
     "defaultMessage": "Commencez <hidden> par indiquer vos préférences en matière de travail</hidden>",
     "description": "Call to action to begin editing work preferences"
+  },
+  "2ZjclP": {
+    "defaultMessage": "Sélectionner, organiser et définir les évaluations ayant été utilisées pour évaluer chaque compétence de l’offre d’emploi.",
+    "description": "Subtitle for the assessment plan builder"
   },
   "2aBKgf": {
     "defaultMessage": "Il y a deux types d'employés du <abbreviation>TI-04</abbreviation> : ceux qui suivent un cheminement en gestion et les contributeurs individuels.",
@@ -5303,10 +5303,6 @@
     "defaultMessage": "Raison de la clôture",
     "description": "Label for the reason for closing the pool"
   },
-  "SSZY5w": {
-    "defaultMessage": "Sélectionner, organiser et définir les évaluations ayant été utilisées pour évaluer chaque compétence de l’offre d’emploi. Veillez à ce que chaque compétence soit évaluée au moins une fois pour compléter votre plan d’évaluation.",
-    "description": "Subtitle for the assessment plan builder"
-  },
   "STDYoR": {
     "defaultMessage": "Date d'expiration",
     "description": "Title of the 'Expiry date' column for the table on view-user page"
@@ -7730,6 +7726,10 @@
     "defaultMessage": "Créer une classification",
     "description": "Page title for the classification creation page"
   },
+  "faVKVj": {
+    "defaultMessage": "Cette section sert à définir les évaluations qui seront utilisées dans le cadre de votre processus d’évaluation. Veillez à ce que chaque compétence soit évaluée au moins une fois pour compléter votre plan d’évaluation.",
+    "description": "Introduction to the organize section in the assessment plan builder, paragraph 1"
+  },
   "faWz84": {
     "defaultMessage": "Personnes résidant au Canada, et citoyens canadiens et résidents permanents résidant à l’étranger.",
     "description": "List of criteria needed in order to apply"
@@ -9745,6 +9745,10 @@
   "qUkJSG": {
     "defaultMessage": "0 à 3 mois",
     "description": "Contract start timeframe of zero to three months"
+  },
+  "qX9s0l": {
+    "defaultMessage": "Vous pouvez également changer l’ordre dans lequel vous prévoyez effectuer ces évaluations. Les seules exceptions sont les évaluations de “présélection des candidatures” et de “questions de présélection (au moment de la candidature)” qui constitueront toujours la première et la deuxième étape pour tout processus d’évaluation.",
+    "description": "Introduction to the organize section in the assessment plan builder, paragraph 2"
   },
   "qXnXKH": {
     "defaultMessage": "Processus dupliqué avec succès!",

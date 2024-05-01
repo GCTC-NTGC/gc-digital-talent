@@ -312,6 +312,12 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
       "plan",
       {
         title: intl.formatMessage(messages.assessmentPlan),
+        subtitle: intl.formatMessage({
+          defaultMessage:
+            "Select, organize and define the assessments used to evaluate each skill in the advertisement.",
+          id: "2ZjclP",
+          description: "Subtitle for the assessment plan builder",
+        }),
         link: {
           url: paths.assessmentPlanBuilder(pool.id),
         },

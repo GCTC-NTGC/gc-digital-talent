@@ -201,10 +201,19 @@ const OrganizeSection = ({
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
-            "Use this section to define which assessments will be used as part of your assessment process. You can also change the order in which you plan to perform these evaluations. The only exceptions are the “Application screening” and the “Screening questions (at the time of application)” assessments which will always be the first and second steps in any assessment process.",
-          id: "0Arzgj",
+            "Use this section to define which assessments will be used as part of your assessment process. Make sure every skill is assessed at least once to complete your assessment plan.",
+          id: "faVKVj",
           description:
-            "introduction to the organize section in the assessment plan builder",
+            "Introduction to the organize section in the assessment plan builder, paragraph 1",
+        })}
+      </p>
+      <p data-h2-margin="base(x1, 0)">
+        {intl.formatMessage({
+          defaultMessage:
+            "You can also change the order in which you plan to perform these evaluations. The only exceptions are the “Application screening” and the “Screening questions (at the time of application)” assessments which will always be the first and second steps in any assessment process.",
+          id: "qX9s0l",
+          description:
+            "Introduction to the organize section in the assessment plan builder, paragraph 2",
         })}
       </p>
       <Accordion.Root type="multiple" size="sm">
