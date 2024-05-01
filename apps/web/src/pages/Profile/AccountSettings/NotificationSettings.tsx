@@ -63,7 +63,8 @@ const NotificationChecklist = ({
     return (
       <div
         data-h2-display="base(grid)"
-        data-h2-grid-template-columns="base(4fr 1fr)"
+        data-h2-grid-template-columns="base(2fr 2fr) p-tablet(4fr 1fr)"
+        data-h2-gap="base(x1)"
         data-h2-align-items="base(center)"
         data-h2-margin-bottom="base(x1)"
       >
@@ -121,7 +122,8 @@ const NotificationChecklist = ({
         </Field.Legend>
         <div
           data-h2-display="base(grid)"
-          data-h2-grid-template-columns="base(4fr 1fr)"
+          data-h2-grid-template-columns="base(2fr 2fr) p-tablet(4fr 1fr)"
+          data-h2-gap="base(x1)"
           data-h2-align-items="base(center)"
         >
           <div>
@@ -289,7 +291,8 @@ const NotificationSettings = ({
           >
             <div
               data-h2-display="base(grid)"
-              data-h2-grid-template-columns="base(4fr 1fr)"
+              data-h2-grid-template-columns="base(2fr 2fr) p-tablet(4fr 1fr)"
+              data-h2-gap="base(x1)"
             >
               <div>{/* For grid template columns */}</div>
               <div
