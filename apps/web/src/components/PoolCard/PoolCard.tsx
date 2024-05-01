@@ -27,7 +27,6 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
@@ -90,11 +89,11 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
+  const pool = getFragment(PoolCard_Fragment, poolQuery);
   const essentialSkills = filterPoolSkillsByType(
     pool.poolSkills,
     PoolSkillType.Essential,
   );
-  const pool = getFragment(PoolCard_Fragment, poolQuery);
 
   const classificationAbbr = pool.classification
     ? wrapAbbr(
@@ -103,10 +102,6 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
       )
     : "";
   const salaryRange = getSalaryRange(locale, pool.classification);
-  const essentialSkills = filterPoolSkillsByType(
-    unpackMaybes(pool.poolSkills),
-    PoolSkillType.Essential,
-  );
 
   const notAvailableAbbr = intl.formatMessage({
     defaultMessage: "N/A",
