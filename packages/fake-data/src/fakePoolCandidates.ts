@@ -56,7 +56,10 @@ const generatePoolCandidate = (pools: Pool[], users: User[]): PoolCandidate => {
     isBookmarked: faker.datatype.boolean(0.2),
     generalQuestionResponses,
     screeningQuestionResponses,
-    // assessmentResults,
+    finalDecisionAt: faker.date
+      .between({ from: FAR_PAST_DATE, to: FAR_FUTURE_DATE })
+      .toISOString()
+      .substring(0, 10),
   };
 };
 
