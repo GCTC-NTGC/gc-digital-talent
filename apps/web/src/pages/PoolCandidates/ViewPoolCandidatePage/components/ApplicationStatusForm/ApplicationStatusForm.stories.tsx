@@ -12,7 +12,6 @@ const mockApplication = mockApplications[0];
 
 export default {
   component: ApplicationStatusForm,
-  title: "Forms/Application Status Form",
 } as Meta;
 
 const Template: StoryFn<typeof ApplicationStatusForm> = (args) => {

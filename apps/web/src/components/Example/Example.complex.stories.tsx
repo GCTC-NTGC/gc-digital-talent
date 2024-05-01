@@ -11,6 +11,7 @@ type PagePropsAndCustomArgs = React.ComponentProps<typeof Example> & {
 
 const meta = {
   component: Example,
+
   render: ({ footer, ...args }) => (
     <>
       <Example {...args} />
@@ -42,7 +43,7 @@ export default meta;
 
 type Story = StoryObj<PagePropsAndCustomArgs>;
 
-export const CustomFooter: Story = {
+export const Default: Story = {
   args: {
     footer: "CustomFooterText",
     color: "primary",

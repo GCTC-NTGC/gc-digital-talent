@@ -1,11 +1,20 @@
 import React from "react";
 import type { StoryFn, Meta } from "@storybook/react";
 
+import { allModes } from "@gc-digital-talent/storybook-helpers";
+
 import ScrollArea from "./ScrollArea";
 
 export default {
   component: ScrollArea.Root,
-  title: "Components/ScrollArea",
+  parameters: {
+    chromatic: {
+      modes: {
+        light: allModes.light,
+        dark: allModes.dark,
+      },
+    },
+  },
 } as Meta<typeof ScrollArea.Root>;
 
 const ITEMS = Array.from({ length: 50 }).map(

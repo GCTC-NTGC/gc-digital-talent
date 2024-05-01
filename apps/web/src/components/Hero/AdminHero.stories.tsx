@@ -1,6 +1,8 @@
 import React from "react";
 import { StoryFn } from "@storybook/react";
 
+import { allModes } from "@gc-digital-talent/storybook-helpers";
+
 import AdminHero from "./AdminHero";
 
 const navItems = [
@@ -24,43 +26,25 @@ const navItems = [
 
 export default {
   component: AdminHero,
-  title: "Components/Hero/Admin",
-  args: {
-    title: "Hero",
-  },
   parameters: {
     defaultPath: {
       path: "/:index",
       initialEntries: [`/one`],
     },
+    chromatic: {
+      modes: {
+        light: allModes.light,
+        "light mobile": allModes["light mobile"],
+        dark: allModes.dark,
+      },
+    },
   },
 };
 
-const Template: StoryFn<typeof AdminHero> = (args) => (
-  <>
-    <div data-h2="light">
-      <div
-        data-h2-padding="base(x2)"
-        data-h2-background-color="base(background)"
-      >
-        <AdminHero {...args} />
-      </div>
-    </div>
-    <div data-h2="dark">
-      <div
-        data-h2-padding="base(x2)"
-        data-h2-background-color="base(background)"
-      >
-        <AdminHero {...args} />
-      </div>
-    </div>
-  </>
-);
+const Template: StoryFn<typeof AdminHero> = (args) => <AdminHero {...args} />;
 
 export const Default = Template.bind({});
-
-export const Subtitle = Template.bind({});
-Subtitle.args = {
+Default.args = {
   subtitle: "A subtitle for the current page.",
 };
 

@@ -5,7 +5,6 @@ import NotFound from "./NotFound";
 
 export default {
   component: NotFound,
-  title: "Components/Not Found",
 } as Meta;
 
 const Template: StoryFn = (args) => {
@@ -13,8 +12,8 @@ const Template: StoryFn = (args) => {
   return <NotFound headingMessage={headingMessage}>{children}</NotFound>;
 };
 
-export const Example1 = Template.bind({});
-Example1.args = {
+export const Default = Template.bind({});
+Default.args = {
   headingMessage: "Sorry, we can't find the page you were looking for.",
   children: (
     <>

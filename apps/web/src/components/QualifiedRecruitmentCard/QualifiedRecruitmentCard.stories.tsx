@@ -7,10 +7,9 @@ import {
   fakeTeams,
   fakeDepartments,
 } from "@gc-digital-talent/fake-data";
-import {
-  PoolCandidateStatus,
-  PublishingGroup,
-} from "@gc-digital-talent/graphql";
+import { PublishingGroup } from "@gc-digital-talent/graphql";
+
+import { QUALIFIED_STATUSES } from "~/constants/poolCandidate";
 
 import QualifiedRecruitmentCard from "./QualifiedRecruitmentCard";
 
@@ -29,20 +28,18 @@ const mockCandidate = {
   },
 };
 
-const poolCandidateStatuses = Object.values(PoolCandidateStatus);
 type Availability = "Available" | "Unavailable";
 const availabilities: Availability[] = ["Available", "Unavailable"];
 
 export default {
   component: QualifiedRecruitmentCard,
-  title: "Components/Qualified Recruitment Card",
 };
 
 const Template: StoryFn<typeof QualifiedRecruitmentCard> = () => {
   return (
     <div data-h2-display="base(flex)">
       <div data-h2-padding="base(x1)" data-h2-background="base(white)">
-        {poolCandidateStatuses.map((poolCandidateStatus) =>
+        {QUALIFIED_STATUSES.map((poolCandidateStatus) =>
           availabilities.map((availability) => (
             <div
               data-h2-margin="base(0, 0, x.5, 0)"
@@ -68,4 +65,4 @@ const Template: StoryFn<typeof QualifiedRecruitmentCard> = () => {
   );
 };
 
-export const AllCards = Template.bind({});
+export const Default = Template.bind({});

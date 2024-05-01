@@ -20,7 +20,6 @@ const skills = getStaticSkills();
 
 export default {
   component: SearchForm,
-  title: "Forms/Search Form",
   decorators: [MockGraphqlDecorator],
   args: {
     pools: mockPools,

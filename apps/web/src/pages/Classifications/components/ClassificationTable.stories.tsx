@@ -16,7 +16,6 @@ const classifications = mockClassifications.map((classification) =>
 
 export default {
   component: ClassificationTable,
-  title: "Tables/Classification Table",
 } as Meta<typeof ClassificationTable>;
 
 const Template: StoryFn<typeof ClassificationTable> = (args) => {

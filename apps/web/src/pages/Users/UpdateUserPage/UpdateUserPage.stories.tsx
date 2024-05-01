@@ -20,7 +20,6 @@ const userData = {
 
 export default {
   component: UpdateUserPage,
-  title: "Pages/Update User Page",
   parameters: {
     defaultPath: {
       path: "/en/admin/users/:userId/edit",

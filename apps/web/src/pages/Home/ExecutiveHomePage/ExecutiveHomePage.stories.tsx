@@ -21,7 +21,6 @@ const defaultParameters = {
 
 export default {
   component: HomePage,
-  title: "Pages/Home Page/Executive",
 };
 
 const Template: StoryFn<typeof HomePage> = (args) => <HomePage {...args} />;

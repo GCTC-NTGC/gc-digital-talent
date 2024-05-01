@@ -21,7 +21,6 @@ const teamData = {
 
 export default {
   component: TeamMembersPage,
-  title: "Pages/Team Members Page",
   parameters: {
     defaultPath: {
       path: "/en/admin/teams/:teamId/members",
