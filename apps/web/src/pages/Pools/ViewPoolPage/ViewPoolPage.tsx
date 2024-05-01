@@ -44,44 +44,7 @@ import UnarchiveProcessDialog from "./components/UnArchiveProcessDialog";
 import DeleteProcessDialog from "./components/DeleteProcessDialog";
 import ChangeDateDialog from "./components/ChangeDateDialog";
 import PublishProcessDialog from "./components/PublishProcessDialog";
-
-export const ViewPool_Fragment = graphql(/* GraphQL */ `
-  fragment ViewPool on Pool {
-    id
-    publishingGroup
-    publishedAt
-    isComplete
-    status
-    closingDate
-    processNumber
-    stream
-    classification {
-      id
-      group
-      level
-    }
-    name {
-      en
-      fr
-    }
-    poolSkills {
-      id
-    }
-    assessmentSteps {
-      id
-    }
-    poolCandidates {
-      id
-      pool {
-        id
-      }
-      user {
-        id
-        email
-      }
-    }
-  }
-`);
+import ViewPool_Fragment from "./fragment";
 
 export interface ViewPoolProps {
   poolQuery: FragmentType<typeof ViewPool_Fragment>;
@@ -113,7 +76,7 @@ export const ViewPool = ({
   const poolName = getShortPoolTitleHtml(intl, pool);
   const advertisementStatus = getAdvertisementStatus(pool);
   const advertisementBadge = getPoolCompletenessBadge(advertisementStatus);
-  const assessmentStatus = getAssessmentPlanStatus(pool);
+  const assessmentStatus = getAssessmentPlanStatus(poolQuery);
   const assessmentBadge = getPoolCompletenessBadge(assessmentStatus);
   const processBadge = getProcessStatusBadge(pool.status);
   const canPublish = checkRole(

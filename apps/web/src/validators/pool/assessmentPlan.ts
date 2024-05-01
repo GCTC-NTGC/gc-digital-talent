@@ -3,13 +3,19 @@ import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
   AssessmentStepType,
-  Pool,
+  FragmentType,
   PoolSkillType,
+  getFragment,
 } from "@gc-digital-talent/graphql";
 
 import { PoolCompleteness } from "~/types/pool";
+import ViewPool_Fragment from "~/pages/Pools/ViewPoolPage/fragment";
 
-export function getAssessmentPlanStatus(pool: Pool): PoolCompleteness {
+export function getAssessmentPlanStatus(
+  poolQuery: FragmentType<typeof ViewPool_Fragment>,
+): PoolCompleteness {
+  const pool = getFragment(ViewPool_Fragment, poolQuery);
+
   if (!pool || !pool.poolSkills || !pool.assessmentSteps) {
     return "incomplete";
   }
