@@ -62,14 +62,17 @@ const CandidateCount_Query = graphql(/* GraphQL */ `
           group
           level
         }
-        essentialSkills {
+        poolSkills(type: ESSENTIAL) {
           id
-          key
-          name {
-            en
-            fr
+          skill {
+            id
+            key
+            name {
+              en
+              fr
+            }
+            category
           }
-          category
         }
         team {
           id
