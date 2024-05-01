@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Enums\Language;
+use App\Enums\NotificationFamily;
 use App\Models\User;
 use App\Notifications\Messages\GcNotifyEmailMessage;
 use Illuminate\Bus\Queueable;
@@ -30,10 +31,20 @@ class ApplicationDeadlineApproaching extends Notification implements CanBeSentVi
      *
      * @return array<int, string>
      */
-    public function via(object $notifiable): array
+    public function via(User $notifiable): array
     {
-        // todo, check the settings attached to the user to decide
-        return ['database', GcNotifyEmailChannel::class];
+        $notificationFamily = NotificationFamily::APPLICATION_UPDATE->name;
+        $enabledChannels = [];
+
+        if (! in_array($notificationFamily, $notifiable->ignored_email_notifications ?? [])) {
+            array_push($enabledChannels, GcNotifyEmailChannel::class);
+        }
+
+        if (! in_array($notificationFamily, $notifiable->ignored_in_app_notifications ?? [])) {
+            array_push($enabledChannels, 'database');
+        }
+
+        return $enabledChannels;
     }
 
     /**
