@@ -37,7 +37,7 @@ import {
 } from "~/utils/csvUtils";
 import adminMessages from "~/messages/adminMessages";
 import processMessages from "~/messages/processMessages";
-import { groupPoolSkillByType } from "~/utils/skillUtils";
+import { groupPoolSkillByType, poolSkillsToSkills } from "~/utils/skillUtils";
 
 import { getLabels } from "../Profile/components/LanguageProfile/utils";
 
@@ -59,9 +59,7 @@ export const getPoolCandidateCsvData = (
       pool: poolAd,
     }) => {
       const locale = getLocale(intl);
-      const poolSkills = unpackMaybes(
-        poolAd.poolSkills?.map((poolSkill) => poolSkill?.skill),
-      );
+      const poolSkills = poolSkillsToSkills(poolAd.poolSkills);
 
       return {
         status: status
