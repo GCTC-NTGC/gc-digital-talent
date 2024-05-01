@@ -31,6 +31,12 @@ class SendNotificationsApplicationDeadlineApproaching extends Command
      */
     public function handle()
     {
+        if (! config('feature.notifications')) {
+            $this->info('The feature flag is off.  Aborting.');
+
+            return Command::SUCCESS;
+        }
+
         $successCount = 0;
         $failureCount = 0;
 
