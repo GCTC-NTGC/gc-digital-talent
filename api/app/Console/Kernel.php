@@ -24,7 +24,7 @@ class Kernel extends ConsoleKernel
         // clean up old user generated files every day at 2:00 AM
         $schedule->command(PruneUserGeneratedFiles::class)
             ->timezone('America/Toronto')
-            ->dailyAt('2:00')
+            ->dailyAt('1:00')
             ->withoutOverlapping()
             ->appendOutputTo('/tmp/laravel-prune-user-generated-files.log');
 
