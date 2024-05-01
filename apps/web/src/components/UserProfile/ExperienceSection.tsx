@@ -170,6 +170,7 @@ const ExperienceSection = ({
               onOpenChange={() => toggleExpandedItem(experience.id)}
               isOpen={isExpanded(experience.id)}
               experience={experience}
+              showEdit={false}
               editParam={editParam}
             />
           ))}

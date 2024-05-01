@@ -22,7 +22,6 @@ const mockPoolsWithTeam = mockPools.flatMap((pool) => {
 
 export default {
   component: PoolTable,
-  title: "Tables/Pool Table",
 } as Meta<typeof PoolTable>;
 
 const Template: StoryFn<typeof PoolTable> = (args) => {

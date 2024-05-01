@@ -7,7 +7,6 @@ import AccessibilityStatement from "./AccessibilityStatementPage";
 
 export default {
   component: AccessibilityStatement,
-  title: "Pages/Accessibility Statement",
 } as Meta;
 
 const Template: StoryFn<typeof AccessibilityStatement> = () => (

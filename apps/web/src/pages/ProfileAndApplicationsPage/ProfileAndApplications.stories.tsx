@@ -35,7 +35,6 @@ mockApplications[0].status = PoolCandidateStatus.Draft;
 
 export default {
   component: ProfileAndApplications,
-  title: "Pages/Profile and Applications",
 } as Meta<typeof ProfileAndApplications>;
 
 const Template: StoryFn<typeof ProfileAndApplications> = (args) => (

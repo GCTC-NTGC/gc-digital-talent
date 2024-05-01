@@ -22,7 +22,6 @@ const pool = fakePools(1, skills, classifications)[0];
 
 const meta: Meta<typeof ViewPool> = {
   component: ViewPool,
-  title: "Pages/Process Information",
 };
 
 export default meta;

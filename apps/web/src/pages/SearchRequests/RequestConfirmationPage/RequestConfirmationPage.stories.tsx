@@ -9,7 +9,6 @@ const mockId = faker.string.uuid();
 
 export default {
   component: RequestConfirmationPage,
-  title: "Pages/Request Confirmation Page",
   parameters: {
     defaultPath: {
       path: "/search/request/:requestId",

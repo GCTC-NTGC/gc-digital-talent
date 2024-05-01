@@ -39,7 +39,6 @@ const hasExperiencesProps: ApplicationCareerTimelineStory["args"] = {
 
 export default {
   component: ApplicationCareerTimeline,
-  title: "Pages/Application/Review Career Timeline",
 } as Meta<typeof ApplicationCareerTimeline>;
 
 const Template: ApplicationCareerTimelineStory = (props) => (

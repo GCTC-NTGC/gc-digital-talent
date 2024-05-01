@@ -4,7 +4,14 @@ import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 import CalendarIcon from "@heroicons/react/24/outline/CalendarIcon";
 
-import { Heading, HeadingRank, Link, Chip, Chips } from "@gc-digital-talent/ui";
+import {
+  Heading,
+  HeadingRank,
+  Link,
+  Chip,
+  Chips,
+  CardBasic,
+} from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import {
   getLocale,
@@ -104,13 +111,10 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
   });
 
   return (
-    <div
-      data-h2-background-color="base(foreground)"
-      data-h2-shadow="base(larger)"
+    <CardBasic
       data-h2-margin-top="base(x1)"
       data-h2-padding="base(x1) p-tablet(x2, x2, x2, x6.5)"
       data-h2-position="base(relative)"
-      data-h2-radius="base(rounded)"
     >
       <div
         data-h2-background-color="base(secondary)"
@@ -274,7 +278,7 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
           )}
         </div>
       </div>
-    </div>
+    </CardBasic>
   );
 };
 

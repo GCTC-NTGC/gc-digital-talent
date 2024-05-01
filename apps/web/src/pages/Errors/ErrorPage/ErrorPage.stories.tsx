@@ -7,7 +7,6 @@ import Error404 from "./ErrorPage";
 
 export default {
   component: Error404,
-  title: "Pages/404 Page",
 } as Meta;
 
 const Template: StoryFn<typeof Error404> = () => <Error404 />;

@@ -64,6 +64,7 @@ const ExperienceByType = ({
               experience={experience}
               headingLevel={headingLevel}
               editParam={editParam}
+              showEdit={false}
             />
           ))}
         </div>

@@ -22,7 +22,6 @@ type AdminLayoutArgs = {
 
 export default {
   component: AdminLayout,
-  title: "Components/Layout/Admin Layout",
   args: {
     loggedIn: true,
     roles: availableRoles,

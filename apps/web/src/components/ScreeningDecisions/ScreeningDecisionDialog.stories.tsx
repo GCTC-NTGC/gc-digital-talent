@@ -91,7 +91,6 @@ poolCandidate.profileSnapshot = JSON.stringify(profileSnapshot);
 
 export default {
   component: ScreeningDecisionDialog,
-  title: "Components/Screening Decisions/ScreeningDecisionDialog",
   decorators: [OverlayOrDialogDecorator],
   args: {
     assessmentStep,

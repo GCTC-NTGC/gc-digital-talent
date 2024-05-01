@@ -25,7 +25,6 @@ const mockPaginatorInfo = {
 
 export default {
   component: UserTable,
-  title: "Tables/User Table",
   parameters: {
     apiResponses: {
       UsersPaginated: {

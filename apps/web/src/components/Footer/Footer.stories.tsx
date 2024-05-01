@@ -5,7 +5,6 @@ import FooterComponent from "./Footer";
 
 export default {
   component: FooterComponent,
-  title: "Components/Footer",
 } as Meta;
 
 const TemplateFooter: StoryFn = () => {

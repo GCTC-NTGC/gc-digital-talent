@@ -5,7 +5,6 @@ import HeaderComponent from "./Header";
 
 export default {
   component: HeaderComponent,
-  title: "Components/Header",
 } as Meta;
 
 const TemplateHeader: StoryFn = () => {

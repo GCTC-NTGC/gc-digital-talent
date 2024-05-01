@@ -19,7 +19,6 @@ nullPool.id = fakePool.id; // pool will never have a null id
 
 export default {
   component: PoolPoster,
-  title: "Pages/Pool Poster",
 } as Meta<typeof PoolPoster>;
 
 const Template: StoryFn<typeof PoolPoster> = (args) => {
@@ -27,12 +26,12 @@ const Template: StoryFn<typeof PoolPoster> = (args) => {
   return <PoolPoster poolQuery={poolQuery} />;
 };
 
-export const CompletedPoolPoster = Template.bind({});
-CompletedPoolPoster.args = {
+export const Completed = Template.bind({});
+Completed.args = {
   poolQuery: makeFragmentData(fakePool, PoolAdvertisement_Fragment),
 };
 
-export const NullPoolPoster = Template.bind({});
-NullPoolPoster.args = {
+export const Null = Template.bind({});
+Null.args = {
   poolQuery: makeFragmentData(nullPool, PoolAdvertisement_Fragment),
 };
