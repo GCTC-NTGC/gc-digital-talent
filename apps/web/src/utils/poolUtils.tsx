@@ -271,6 +271,12 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
           id: "yM04jy",
           description: "Title for advertisement information of a process",
         }),
+        subtitle: intl.formatMessage({
+          defaultMessage:
+            "Define the information and requirements for this recruitment process.",
+          id: "Kyf9At",
+          description: "Description of a process' advertisement",
+        }),
         link: {
           url: paths.poolUpdate(pool.id),
         },

@@ -64,6 +64,7 @@ const PoolHeader = ({ poolQuery }: PoolHeaderProps) => {
   const pool = getFragment(PoolLayout_Fragment, poolQuery);
 
   const pages = useAdminPoolPages(intl, pool);
+  const pagesObject = Object.fromEntries(pages);
 
   const poolTitle = getShortPoolTitleLabel(intl, pool);
   const currentPage = useCurrentPage<PageNavKeys>(pages);
@@ -84,8 +85,16 @@ const PoolHeader = ({ poolQuery }: PoolHeaderProps) => {
     <>
       <SEO title={currentPage?.title} description={subTitle} />
       <AdminHero
-        title={poolTitle}
-        subtitle={subTitle}
+        title={
+          currentPage?.link.url.includes("edit")
+            ? pagesObject.edit.title
+            : poolTitle
+        }
+        subtitle={
+          currentPage?.link.url.includes("edit")
+            ? pagesObject.edit.subtitle
+            : subTitle
+        }
         nav={
           // Pages with crumbs are sub-pages and don't show up as tabs
           currentPage?.crumbs
