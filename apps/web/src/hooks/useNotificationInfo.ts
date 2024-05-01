@@ -108,8 +108,9 @@ const applicationDeadlineApproachingNotificationToInfo = (
       {
         defaultMessage:
           "{poolName} closes on {closingDate}. Continue your application.",
-        id: "nVRb8r",
-        description: "Notification message for pool candidate status changed",
+        id: "fAJPpJ",
+        description:
+          "Message for application deadline approaching notification",
       },
       {
         poolName: poolNameLocalized,
@@ -121,11 +122,15 @@ const applicationDeadlineApproachingNotificationToInfo = (
       : "",
     label: intl.formatMessage(
       {
-        defaultMessage: "Application deadline approaching for {poolName}",
-        id: "K1yDdz",
-        description: "Label for the pool status changed notification",
+        defaultMessage: "{poolName} closes on {closingDate}.",
+        id: "OWYrdr",
+        description:
+          "Label for the application deadline approaching notification",
       },
-      { poolName: poolNameLocalized },
+      {
+        poolName: poolNameLocalized,
+        closingDate: closingDateFormatted,
+      },
     ),
   };
 };
