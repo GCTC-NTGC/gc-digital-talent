@@ -12,9 +12,13 @@ import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
-import { PoolStatus } from "@gc-digital-talent/graphql";
+import { PoolStatus, makeFragmentData } from "@gc-digital-talent/graphql";
 
-import { EditPoolForm, EditPoolFormProps } from "./EditPoolPage";
+import {
+  EditPoolForm,
+  EditPoolFormProps,
+  EditPool_Fragment,
+} from "./EditPoolPage";
 
 const classifications = fakeClassifications();
 const skills = fakeSkills(100, fakeSkillFamilies(10));
@@ -42,30 +46,39 @@ const TemplateEditPoolForm: StoryFn<EditPoolFormProps> = (
 
 export const DraftPool = TemplateEditPoolForm.bind({});
 DraftPool.args = {
-  pool: {
-    ...pool,
-    closingDate: FAR_FUTURE_DATE,
-    publishedAt: null,
-    status: PoolStatus.Draft,
-  },
+  poolQuery: makeFragmentData(
+    {
+      ...pool,
+      closingDate: FAR_FUTURE_DATE,
+      publishedAt: null,
+      status: PoolStatus.Draft,
+    },
+    EditPool_Fragment,
+  ),
 };
 
 export const PublishedPool = TemplateEditPoolForm.bind({});
 PublishedPool.args = {
-  pool: {
-    ...pool,
-    publishedAt: FAR_PAST_DATE,
-    status: PoolStatus.Published,
-    closingDate: FAR_FUTURE_DATE,
-  },
+  poolQuery: makeFragmentData(
+    {
+      ...pool,
+      publishedAt: FAR_PAST_DATE,
+      status: PoolStatus.Published,
+      closingDate: FAR_FUTURE_DATE,
+    },
+    EditPool_Fragment,
+  ),
 };
 
 export const ExpiredPool = TemplateEditPoolForm.bind({});
 ExpiredPool.args = {
-  pool: {
-    ...pool,
-    publishedAt: FAR_PAST_DATE,
-    status: PoolStatus.Closed,
-    closingDate: FAR_PAST_DATE,
-  },
+  poolQuery: makeFragmentData(
+    {
+      ...pool,
+      publishedAt: FAR_PAST_DATE,
+      status: PoolStatus.Closed,
+      closingDate: FAR_PAST_DATE,
+    },
+    EditPool_Fragment,
+  ),
 };
