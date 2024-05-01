@@ -104,9 +104,15 @@ const PoolHeader = ({ poolQuery }: PoolHeaderProps) => {
               }
         }
         contentRight={
-          <Chip color={advertisementBadge.color} data-h2-flex-shrink="base(0)">
-            {intl.formatMessage(advertisementBadge.label)}
-          </Chip>
+          (currentPage?.link.url.includes("edit") ||
+            currentPage?.link.url.includes("plan")) && (
+            <Chip
+              color={advertisementBadge.color}
+              data-h2-flex-shrink="base(0)"
+            >
+              {intl.formatMessage(advertisementBadge.label)}
+            </Chip>
+          )
         }
       />
     </>
