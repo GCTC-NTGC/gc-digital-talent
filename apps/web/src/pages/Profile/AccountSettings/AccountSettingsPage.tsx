@@ -180,7 +180,7 @@ const AccountSettingsPage = () => {
               <TableOfContents.Content>
                 <TableOfContents.Section
                   id={sections.accountManagement.id}
-                  data-h2-margin-top="base(x3)"
+                  data-h2-margin-top="base(x2) p-tablet(x3)"
                 >
                   <TableOfContents.Heading
                     size="h3"
@@ -204,7 +204,7 @@ const AccountSettingsPage = () => {
                 {featureFlags.notifications && (
                   <TableOfContents.Section
                     id={sections.notificationSettings.id}
-                    data-h2-margin-top="base(x3)"
+                    data-h2-margin-top="base(x2) p-tablet(x3)"
                   >
                     <TableOfContents.Heading
                       size="h3"
@@ -231,7 +231,7 @@ const AccountSettingsPage = () => {
                 )}
                 <TableOfContents.Section
                   id={sections.recruitmentAvailability.id}
-                  data-h2-margin-top="base(x3)"
+                  data-h2-margin-top="base(x2) p-tablet(x3)"
                 >
                   <TableOfContents.Heading
                     size="h3"
