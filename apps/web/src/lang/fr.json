@@ -695,10 +695,6 @@
     "defaultMessage": "Vous approchez de la limite!",
     "description": "Title for warning message when the user has added many assessments to the assessment plan"
   },
-  "1pCzp1": {
-    "defaultMessage": "Utilisez les filtres pour préciser vos exigences. Nous vous montrerons un nombre estimatif de candidats qui répondent à vos critères, au fur et à mesure que vous entrez votre information. Veuillez sélectionner « <strong>Demande de candidats</strong> ». Vous verrez alors apparaître un formulaire à partir duquel vous pourriez fournir vos coordonnées et soumettre votre demande.",
-    "description": "Content displayed in the How To area of the hero section of the Search page."
-  },
   "1pFMSH": {
     "defaultMessage": "Remplir la Formulaire d’autodéclaration à l’intention des peuples autochtones",
     "description": "How it works, step 1 heading"
@@ -2063,6 +2059,10 @@
     "defaultMessage": "Vous n'êtes pas inscrit à titre d'employé actuel du gouvernement.",
     "description": "Message indicating the user is not marked in the system as being federally employed currently"
   },
+  "9qzCX/": {
+    "defaultMessage": "Veuillez soumettre une demande vide et nous essayerons de vous aider.",
+    "description": "Link text to scroll to the submit button when no candidates were found"
+  },
   "9vQj8o": {
     "defaultMessage": "Oh! on dirait que vous avez été trop vite!",
     "description": "Application step skipped page title"
@@ -2951,10 +2951,6 @@
     "defaultMessage": "Équipes",
     "description": "Title for the index team page"
   },
-  "F+LDbs": {
-    "defaultMessage": "Si vous êtes à la recherche du talent, vous avez frappé à la bonne porte. Notre base de données de talents est ouverte à la plupart des ministères et des agences. Veuillez remplir une demande pour trouver des candidats qualifiés. Les candidats sont évalués selon leurs compétences et regroupés en bassins pour répondre à vos besoins en matière de dotation.",
-    "description": "Content displayed in the find talent page explaining the page and what it offers to users."
-  },
   "F+WFWB": {
     "defaultMessage": "Région",
     "description": "Label for work location filter in search form."
@@ -3595,6 +3591,10 @@
     "defaultMessage": "Le fait de ne pas fournir de renseignements personnels vous rendra inadmissible aux postes d'emploi associées à cet outil.",
     "description": "Paragraph for privacy policy page"
   },
+  "Il8ztR": {
+    "defaultMessage": "Si vous êtes à la recherche du talent, vous avez frappé à la bonne porte. Notre base de données de talents est ouverte à la plupart des ministères et des agences. Veuillez remplir une demande pour trouver des candidats qualifiés. Tous les candidats qualifiés dans des bassins ont été évalués et ont réussi l’évaluation.",
+    "description": "Content displayed in the find talent page explaining the page and what it offers to users."
+  },
   "Ilot3b": {
     "defaultMessage": "Que se passe-t-il après lorsqu’une personne achève le programme de 24 mois?",
     "description": "Learn more dialog question three heading"
@@ -3954,6 +3954,10 @@
   "KghI8A": {
     "defaultMessage": "Postulez dès-maintenant",
     "description": "Link text to apply for a pool advertisement"
+  },
+  "KhOXZ3": {
+    "defaultMessage": "Utilisez les filtres pour préciser vos exigences. Nous vous montrerons un nombre estimatif de candidats qualifiés qui répondent à vos critères, au fur et à mesure que vous entrez votre information. Veuillez sélectionner « Demande de candidats ». Vous verrez alors apparaître un formulaire à partir duquel vous pourriez fournir vos coordonnées et soumettre votre demande.",
+    "description": "Content displayed in the How To area of the hero section of the Search page."
   },
   "KifUVY": {
     "defaultMessage": "Ce contrat est-il mis en place au nom d'un autre ministère ou organisme du gouvernement du Canada?",
@@ -5925,10 +5929,6 @@
   "W+T8Mm": {
     "defaultMessage": "Ajouter cette expérience",
     "description": "Button to submit the link experience to skill form"
-  },
-  "W/cZp2": {
-    "defaultMessage": "Veuillez soumettre une demande en blanc et dites-nous en davantage dans les commentaires.",
-    "description": "Link text to scroll to the submit button when no candidates were found"
   },
   "W1vWDi": {
     "defaultMessage": "Étape de l’évaluation sauvegardée avec succès!",
@@ -8873,6 +8873,10 @@
   "ll9u08": {
     "defaultMessage": "Annonces",
     "description": "Page title for the announcements page"
+  },
+  "llGBZI": {
+    "defaultMessage": "Par contre, nous avons des candidats dans notre base de données de talents qui n’ont pas encore été évalués mais qui pourraient répondre à vos besoins.",
+    "description": "Heading for helping user if no candidates matched the filters chosen."
   },
   "lmD1ef": {
     "defaultMessage": "Sélection de la compétence",
