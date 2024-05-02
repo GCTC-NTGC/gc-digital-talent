@@ -66,3 +66,4 @@ jobs:
           autoAcceptChanges: true
           workingDir: apps/web
           onlyChanged: true
+          zip: true
