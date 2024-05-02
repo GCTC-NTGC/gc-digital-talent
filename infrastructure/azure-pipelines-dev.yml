@@ -8,120 +8,122 @@ resources:
       ref: refs/heads/main
 variables:
   phpVersion: "8.2"
-  serviceConnectionName: 'Talent Cloud Service Connection'
+  serviceConnectionName: "Talent Cloud Service Connection"
 stages:
-- stage: Build
-  displayName: Build stage
-  jobs:
-  - job: build_artifact
-    displayName: Build artifact
+  - stage: Build
+    displayName: Build stage
+    jobs:
+      - job: build_artifact
+        displayName: Build artifact
+        pool:
+          vmImage: ubuntu-20.04
+        steps:
+          - checkout: self
+            clean: true
+            fetchDepth: 1
+
+          - script: infrastructure/bin/set_php_versions.sh ${{ variables.phpVersion }}
+            displayName: "PHP version"
+
+          - script: infrastructure/bin/deploy.sh -d -r $(System.DefaultWorkingDirectory)
+            displayName: Dependencies
+            env:
+              API_URI: /graphql
+              ADMIN_APP_DIR: /admin
+              API_PROTECTED_URI: /admin/graphql
+              # We don't need Cypress in this environment, and so this avoid permission errors of installing it.
+              # See: https://docs.cypress.io/guides/getting-started/installing-cypress#Skipping-installation
+              CYPRESS_INSTALL_BINARY: 0
+
+          - task: ArchiveFiles@2
+            displayName: "Archive Files"
+            inputs:
+              rootFolderOrFile: $(System.DefaultWorkingDirectory)
+              includeRootFolder: false
+              archiveFile: "$(Build.ArtifactStagingDirectory)/Application_$(Build.BuildId).zip"
+
+          - task: PublishBuildArtifacts@1
+            displayName: "Publish Artifact: gcDigitalTalent"
+            inputs:
+              ArtifactName: gcDigitalTalent
+  - stage: Test
     pool:
-      vmImage: ubuntu-20.04
-    steps:
-      - checkout: self
-        clean: true
-        fetchDepth: 1
+      name: "TBS Linux Self Hosted"
+    displayName: Test stage
+    dependsOn: Build
+    variables:
+      - name: npm_config_user_config
+        value: "$(System.DefaultWorkingDirectory)/infrastructure/.npmrc"
+      - name: dirResults
+        value: "$(System.DefaultWorkingDirectory)/apps/playwright/test-results"
+      - name: resourceGroupName
+        value: "rg_tbs_talent_2_PaaS"
+      - name: vertical
+        value: "dev"
+      - name: storageAccountName
+        value: "sttalclddevcacstdl"
+      - name: storageContainer
+        value: "playwright-results"
+    jobs:
+      - job: run_playwright_tests
+        displayName: Run Playwright tests
+        timeoutInMinutes: 10
+        pool:
+          name: "TBS Linux Self Hosted"
+        steps:
+          - checkout: self
+            clean: true
+            fetchDepth: 1
 
-      - script: infrastructure/bin/set_php_versions.sh ${{ variables.phpVersion }}
-        displayName: "PHP version"
+          - task: DownloadBuildArtifacts@0
+            inputs:
+              artifactName: gcDigitalTalent
+              downloadPath: $(System.DefaultWorkingDirectory)/artifacts
+          - task: npmAuthenticate@0
+            displayName: "00 - NPM Authenticate"
+            name: "NPM_Authenticate"
+            inputs:
+              workingFile: $(npm_config_user_config)
 
-      - script: infrastructure/bin/deploy.sh -d -r $(System.DefaultWorkingDirectory)
-        displayName: Dependencies
-        env:
-          API_URI: /graphql
-          ADMIN_APP_DIR: /admin
-          API_PROTECTED_URI: /admin/graphql
-          # We don't need Cypress in this environment, and so this avoid permission errors of installing it.
-          # See: https://docs.cypress.io/guides/getting-started/installing-cypress#Skipping-installation
-          CYPRESS_INSTALL_BINARY: 0
+          - script: echo ##vso[task.setvariable variable=NPM_CONFIG_USERCONFIG]$(npm_config_user_config)
+            displayName: "Set Custom .npmrc Location"
 
-      - task: ArchiveFiles@2
-        displayName: "Archive Files"
-        inputs:
-          rootFolderOrFile: $(System.DefaultWorkingDirectory)
-          includeRootFolder: false
-          archiveFile: "$(Build.ArtifactStagingDirectory)/Application_$(Build.BuildId).zip"
+          - script: CYPRESS_INSTALL_BINARY=/opt/cypress.zip pnpm install cypress
+            displayName: "Install Cypress"
 
-      - task: PublishBuildArtifacts@1
-        displayName: "Publish Artifact: gcDigitalTalent"
-        inputs:
-          ArtifactName: gcDigitalTalent
-- stage: Test
-  pool:
-    name: 'TBS Linux Self Hosted'
-  displayName: Test stage
-  dependsOn: Build
-  variables:
-    - name: npm_config_user_config
-      value: '$(System.DefaultWorkingDirectory)/infrastructure/.npmrc'
-    - name: dirResults
-      value: '$(System.DefaultWorkingDirectory)/apps/playwright/test-results'
-    - name: resourceGroupName
-      value: 'rg_tbs_talent_2_PaaS'
-    - name: vertical
-      value: 'dev'
-    - name: storageAccountName
-      value: 'sttalclddevcacstdl'
-    - name: storageContainer
-      value: 'playwright-results'
-  jobs:
-  - job: run_playwright_tests
-    displayName: Run Playwright tests
-    timeoutInMinutes: 10
-    pool:
-      name: 'TBS Linux Self Hosted'
-    steps:
-      - checkout: self
-        clean: true
-        fetchDepth: 1
+          - script: pnpm install --dev
+            displayName: "Install Node.js dependencies"
 
-      - task: DownloadBuildArtifacts@0
-        inputs:
-          artifactName: gcDigitalTalent
-          downloadPath: $(System.DefaultWorkingDirectory)/artifacts
-      - task: npmAuthenticate@0
-        displayName: '00 - NPM Authenticate'
-        name: 'NPM_Authenticate'
-        inputs:
-          workingFile: $(npm_config_user_config)
+          - script: pnpm run build:packages
+            displayName: "Build dependencies"
 
-      - script: echo ##vso[task.setvariable variable=NPM_CONFIG_USERCONFIG]$(npm_config_user_config)
-        displayName: 'Set Custom .npmrc Location'
+          - script: npx playwright install
+            displayName: "Install Playwright browsers"
 
-      - script: npx npm install --include=dev
-        displayName: "Install Node.js dependencies"
-
-      - script: npm run build:packages
-        displayName: "Build dependencies"
-
-      - script: npx playwright install
-        displayName: "Install Playwright browsers"
-
-
-      - script: npm run e2e:playwright:chromium
-        displayName: "Run playwright tests"
-        env:
-          CI: 'true'
-      - task: AzureCLI@2
-        displayName: 'Copy Playwright Results to Storage'
-        condition: succeededOrFailed()
-        inputs:
-          azureSubscription: $(serviceConnectionName)
-          scriptType: bash
-          scriptLocation: inlineScript
-          inlineScript: |
-            if [ ! $(which az 2> /dev/null) ]; then echo “ERROR: az cli not found” && exit 1; fi
-            DIR_SRC="${{ variables.dirResults }}"
-            echo "dirResults: ${{ variables.dirResults }}"
-            TIMESTAMP="$(date +'%Y-%m-%d %H:%M:%S')"
-            echo "Timestamp: ${TIMESTAMP}"
-            if [ -d "${DIR_SRC}" ]; then
-              SA_RG="${{ variables.resourceGroupName }}"
-              SA_NAME="${{ variables.storageAccountName }}"
-              SA_CONTAINER_NAME="${{ variables.storageContainer }}"
-              SA_CONTAINER_PATH_PREFIX="${{ variables.vertical }}/${TIMESTAMP}"
-              AZURE_STORAGE_KEY=$(az storage account keys list --resource-group "$SA_RG" --account-name "$SA_NAME" --query "[0].value" --output tsv)
-              az storage blob upload-batch --destination "${SA_CONTAINER_NAME}" --account-name "${SA_NAME}" --destination-path "${SA_CONTAINER_PATH_PREFIX}" --source "${DIR_SRC}"
-            else
-              echo "No 'test-results' directory found"
-            fi
+          - script: pnpm run e2e:playwright:chromium
+            displayName: "Run playwright tests"
+            env:
+              CI: "true"
+          - task: AzureCLI@2
+            displayName: "Copy Playwright Results to Storage"
+            condition: succeededOrFailed()
+            inputs:
+              azureSubscription: $(serviceConnectionName)
+              scriptType: bash
+              scriptLocation: inlineScript
+              inlineScript: |
+                if [ ! $(which az 2> /dev/null) ]; then echo “ERROR: az cli not found” && exit 1; fi
+                DIR_SRC="${{ variables.dirResults }}"
+                echo "dirResults: ${{ variables.dirResults }}"
+                TIMESTAMP="$(date +'%Y-%m-%d %H:%M:%S')"
+                echo "Timestamp: ${TIMESTAMP}"
+                if [ -d "${DIR_SRC}" ]; then
+                  SA_RG="${{ variables.resourceGroupName }}"
+                  SA_NAME="${{ variables.storageAccountName }}"
+                  SA_CONTAINER_NAME="${{ variables.storageContainer }}"
+                  SA_CONTAINER_PATH_PREFIX="${{ variables.vertical }}/${TIMESTAMP}"
+                  AZURE_STORAGE_KEY=$(az storage account keys list --resource-group "$SA_RG" --account-name "$SA_NAME" --query "[0].value" --output tsv)
+                  az storage blob upload-batch --destination "${SA_CONTAINER_NAME}" --account-name "${SA_NAME}" --destination-path "${SA_CONTAINER_PATH_PREFIX}" --source "${DIR_SRC}"
+                else
+                  echo "No 'test-results' directory found"
+                fi
