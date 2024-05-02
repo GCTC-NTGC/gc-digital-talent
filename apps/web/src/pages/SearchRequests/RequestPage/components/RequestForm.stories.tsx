@@ -43,7 +43,6 @@ applicantFilter.qualifiedClassifications = [classifications[0]];
 
 export default {
   component: RequestForm,
-  title: "Forms/Request Form",
   args: {
     departmentsQuery: departmentFragments,
     classificationsQuery: classificationFragments,

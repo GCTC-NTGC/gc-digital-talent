@@ -19,7 +19,6 @@ import WorkPreferences from "~/components/Profile/components/WorkPreferences/Wor
 import LanguageProfile from "~/components/Profile/components/LanguageProfile/LanguageProfile";
 import GovernmentInformation from "~/components/Profile/components/GovernmentInformation/GovernmentInformation";
 import DiversityEquityInclusion from "~/components/Profile/components/DiversityEquityInclusion/DiversityEquityInclusion";
-import AccountAndPrivacy from "~/components/Profile/components/AccountAndPrivacy/AccountAndPrivacy";
 
 const ProfileUpdateUser_Mutation = graphql(/* GraphQL */ `
   mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
@@ -454,13 +453,6 @@ export const ProfileForm = ({ userQuery }: ProfilePageProps) => {
                   {intl.formatMessage(getSectionTitle("language"))}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
-              <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink
-                  id={PAGE_SECTION_ID.ACCOUNT_AND_PRIVACY}
-                >
-                  {intl.formatMessage(getSectionTitle("account"))}
-                </TableOfContents.AnchorLink>
-              </TableOfContents.ListItem>
             </TableOfContents.List>
           </TableOfContents.Navigation>
           <TableOfContents.Content data-h2-padding-top="base(x3)">
@@ -490,12 +482,6 @@ export const ProfileForm = ({ userQuery }: ProfilePageProps) => {
               data-h2-padding-top="base(x3)"
             >
               <LanguageProfile {...sectionProps} />
-            </TableOfContents.Section>
-            <TableOfContents.Section
-              id={PAGE_SECTION_ID.ACCOUNT_AND_PRIVACY}
-              data-h2-padding-top="base(x3)"
-            >
-              <AccountAndPrivacy {...sectionProps} />
             </TableOfContents.Section>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>

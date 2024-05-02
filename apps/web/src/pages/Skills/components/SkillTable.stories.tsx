@@ -10,7 +10,6 @@ const mockSkillFamilies = fakeSkillFamilies();
 
 export default {
   component: SkillTable,
-  title: "Tables/Skill Table",
 } as Meta<typeof SkillTable>;
 
 const Template: StoryFn<typeof SkillTable> = (args) => {

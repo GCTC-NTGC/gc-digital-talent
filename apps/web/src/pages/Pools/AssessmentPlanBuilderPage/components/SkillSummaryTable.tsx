@@ -13,11 +13,14 @@ import {
 import {
   AssessmentStep,
   AssessmentStepType,
+  FragmentType,
   Maybe,
   PoolSkill,
   PoolSkillType,
   Skill,
   SkillCategory,
+  getFragment,
+  graphql,
 } from "@gc-digital-talent/graphql";
 import { Chip } from "@gc-digital-talent/ui";
 
@@ -26,11 +29,44 @@ import cells from "~/components/Table/cells";
 
 import { assessmentStepDisplayName } from "../utils";
 
+export const SkillSummaryTablePoolSkill_Fragment = graphql(/* GraphQL */ `
+  fragment SkillSummaryPoolSkill on PoolSkill {
+    id
+    type
+    skill {
+      id
+      key
+      category
+      name {
+        en
+        fr
+      }
+    }
+  }
+`);
+
+export const SkillSummaryTableAssessmentStep_Fragment = graphql(/* GraphQL */ `
+  fragment SkillSummaryTableAssessmentStep on AssessmentStep {
+    id
+    type
+    sortOrder
+    title {
+      en
+      fr
+    }
+    poolSkills {
+      id
+    }
+  }
+`);
+
 const columnHelper = createColumnHelper<PoolSkill>();
 
 export interface SkillSummaryTableProps {
-  poolSkills: Array<PoolSkill>;
-  assessmentSteps: Array<AssessmentStep>;
+  poolSkillsQuery: FragmentType<typeof SkillSummaryTablePoolSkill_Fragment>[];
+  assessmentStepsQuery: FragmentType<
+    typeof SkillSummaryTableAssessmentStep_Fragment
+  >[];
   title: string;
 }
 
@@ -72,7 +108,7 @@ const CheckIconElement = (
 
 const plannedAssessmentCell = (
   poolSkill: PoolSkill,
-  assessmentSteps: AssessmentStep[],
+  assessmentSteps: readonly AssessmentStep[],
   intl: IntlShape,
 ): JSX.Element | null => {
   const assessmentCount = assessmentSteps.filter((assessmentStep) =>
@@ -105,10 +141,18 @@ const plannedAssessmentCell = (
 
 const SkillSummaryTable = ({
   title,
-  poolSkills,
-  assessmentSteps,
+  poolSkillsQuery,
+  assessmentStepsQuery,
 }: SkillSummaryTableProps) => {
   const intl = useIntl();
+  const poolSkills = getFragment(
+    SkillSummaryTablePoolSkill_Fragment,
+    poolSkillsQuery,
+  );
+  const assessmentSteps = getFragment(
+    SkillSummaryTableAssessmentStep_Fragment,
+    assessmentStepsQuery,
+  );
 
   const requirementTypeCell = (poolSkill: PoolSkill): JSX.Element | null => {
     if (poolSkill?.type) {
@@ -202,12 +246,12 @@ const SkillSummaryTable = ({
 
   let columns = initialColumns;
   // ensure array of assessments is sorted by sortOrder, if null bump to end, then add them to the core columns
-  assessmentSteps.sort((a, b) => {
+  const sortedAssessmentSteps = [...assessmentSteps].sort((a, b) => {
     const aPosition = a.sortOrder ?? 100;
     const bPosition = b.sortOrder ?? 100;
     return aPosition > bPosition ? 1 : -1;
   });
-  assessmentSteps.forEach((assessmentStep) => {
+  sortedAssessmentSteps.forEach((assessmentStep) => {
     const headerName = assessmentStepDisplayName(assessmentStep, intl);
     const newColumn = columnHelper.display({
       id: assessmentStep.type ?? assessmentStep.id,
@@ -220,7 +264,11 @@ const SkillSummaryTable = ({
   });
 
   return (
-    <Table<PoolSkill> data={poolSkills} caption={title} columns={columns} />
+    <Table<PoolSkill>
+      data={[...poolSkills]}
+      caption={title}
+      columns={columns}
+    />
   );
 };
 

@@ -44,6 +44,11 @@ export const parameters = {
       date: /Date$/,
     },
   },
+  options: {
+    storySort: {
+      method: "alphabetical",
+    },
+  },
   reactIntl: {
     defaultLocale: "en",
     locales: ["en", "fr"],

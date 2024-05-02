@@ -16,7 +16,6 @@ const skillFragments = skillData.map((skill) =>
 
 export default {
   component: ExperienceForm,
-  title: "Forms/Experience Form",
   args: {
     experienceType: "award",
     skillsQuery: skillFragments,

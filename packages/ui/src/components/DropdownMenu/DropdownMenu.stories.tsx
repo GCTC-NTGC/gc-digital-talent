@@ -2,15 +2,23 @@ import React from "react";
 import type { StoryFn, Meta } from "@storybook/react";
 import CheckIcon from "@heroicons/react/24/solid/CheckIcon";
 
-import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
+import {
+  OverlayOrDialogDecorator,
+  allModes,
+} from "@gc-digital-talent/storybook-helpers";
 
 import Button from "../Button";
 import DropdownMenu from "./DropdownMenu";
 
 export default {
   component: DropdownMenu.Root,
-  title: "Components/Dropdown Menu",
   decorators: [OverlayOrDialogDecorator],
+  chromatic: {
+    modes: {
+      light: allModes.light,
+      dark: allModes.dark,
+    },
+  },
 } as Meta;
 
 const Check = () => (

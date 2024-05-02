@@ -11,7 +11,6 @@ mockUser.awardExperiences = experienceGenerators.awardExperiences(1);
 
 export default {
   component: ProfileAndApplicationsHeading,
-  title: "Pages/Profile and Applications/Profile and Applications Heading",
   args: {
     user: mockUser,
   },

@@ -9,7 +9,6 @@ import TableOfContents from ".";
 
 export default {
   component: TableOfContents.Wrapper,
-  title: "Components/Table of Contents",
 };
 
 faker.seed(0);
