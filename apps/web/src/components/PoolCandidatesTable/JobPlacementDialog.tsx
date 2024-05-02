@@ -209,10 +209,19 @@ export const JobPlacementDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        {context === "table" ? (
-          <Button color="black" mode="inline">
-            {intl.formatMessage(statusToJobPlacement(status))}
-          </Button>
+        <Button
+          mode="inline"
+          {...(context === "table"
+            ? {
+                color: "black",
+              }
+            : {
+                icon: MapPinIcon,
+                color: "primary",
+              })}
+        >
+          {intl.formatMessage(statusToJobPlacement(status))}
+        </Button>
         ) : (
           <Button icon={MapPinIcon} type="button" color="primary" mode="inline">
             {intl.formatMessage(statusToJobPlacement(status))}
