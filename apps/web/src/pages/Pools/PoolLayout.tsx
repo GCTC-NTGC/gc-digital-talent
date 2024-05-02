@@ -29,6 +29,7 @@ import { PageNavKeys } from "~/types/pool";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminHero from "~/components/Hero/AdminHero";
 import { PageNavInfo } from "~/types/pages";
+import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
 
 export const PoolLayout_Fragment = graphql(/* GraphQL */ `
   fragment PoolLayout on Pool {
@@ -110,8 +111,10 @@ const PoolHeader = ({ poolQuery }: PoolHeaderProps) => {
   const heroTitleValue = heroTitle({ currentPage, intl, pool });
   const heroSubtitleValue = heroSubtitle({ currentPage, subTitle });
 
-  const advertisementStatus = getAdvertisementStatus(pool);
-  const advertisementBadge = getPoolCompletenessBadge(advertisementStatus);
+  const status = currentPage?.link.url.includes("plan")
+    ? getAssessmentPlanStatus(pool)
+    : getAdvertisementStatus(pool);
+  const badge = getPoolCompletenessBadge(status);
 
   React.useEffect(() => {
     if (currentPage?.title) {
@@ -145,11 +148,8 @@ const PoolHeader = ({ poolQuery }: PoolHeaderProps) => {
         contentRight={
           (currentPage?.link.url.includes("edit") ||
             currentPage?.link.url.includes("plan")) && (
-            <Chip
-              color={advertisementBadge.color}
-              data-h2-flex-shrink="base(0)"
-            >
-              {intl.formatMessage(advertisementBadge.label)}
+            <Chip color={badge.color} data-h2-flex-shrink="base(0)">
+              {intl.formatMessage(badge.label)}
             </Chip>
           )
         }
