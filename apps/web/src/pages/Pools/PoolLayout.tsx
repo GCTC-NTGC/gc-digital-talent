@@ -58,6 +58,36 @@ export const PoolLayout_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
+    poolSkills {
+      id
+      type
+      skill {
+        id
+        category
+        key
+        name {
+          en
+          fr
+        }
+      }
+    }
+    assessmentSteps {
+      id
+      type
+      poolSkills {
+        id
+        type
+        skill {
+          id
+          category
+          key
+          name {
+            en
+            fr
+          }
+        }
+      }
+    }
   }
 `);
 

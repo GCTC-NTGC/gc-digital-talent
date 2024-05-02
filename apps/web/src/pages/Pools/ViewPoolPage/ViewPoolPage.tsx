@@ -69,6 +69,19 @@ export const ViewPool_Fragment = graphql(/* GraphQL */ `
     }
     assessmentSteps {
       id
+      poolSkills {
+        id
+        type
+        skill {
+          id
+          category
+          key
+          name {
+            en
+            fr
+          }
+        }
+      }
     }
     poolCandidates {
       id
