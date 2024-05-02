@@ -46,7 +46,9 @@ const hasExperiencesProps: ApplicationSkillsProps = {
       ...fakePoolCandidate.pool,
       poolSkills: experienceSkills.map((skill) => ({
         id: faker.string.uuid(),
-        ...(fakePoolCandidate?.pool?.poolSkills?.[0] ?? []),
+        ...faker.helpers.arrayElement(
+          fakePoolCandidate?.pool?.poolSkills ?? [],
+        ),
         skill,
       })),
     },
