@@ -37,10 +37,12 @@ export const PLACED_STATUSES = [
   PoolCandidateStatus.PlacedCasual,
   PoolCandidateStatus.PlacedIndeterminate,
   PoolCandidateStatus.PlacedTerm,
-  PoolCandidateStatus.PlacedTentative,
 ];
 
-export const NOT_PLACED_STATUSES = [PoolCandidateStatus.QualifiedAvailable];
+export const NOT_PLACED_STATUSES = [
+  PoolCandidateStatus.PlacedTentative,
+  PoolCandidateStatus.QualifiedAvailable,
+];
 
 export const RECORD_DECISION_STATUSES = [
   PoolCandidateStatus.NewApplication,

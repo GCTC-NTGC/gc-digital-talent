@@ -29,7 +29,11 @@ import {
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 
-import { isQualifiedStatus, statusToJobPlacement } from "~/utils/poolCandidate";
+import {
+  isPlacedStatus,
+  isQualifiedStatus,
+  statusToJobPlacement,
+} from "~/utils/poolCandidate";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 export const PLACEMENT_TYPE_STATUSES = [
@@ -104,7 +108,7 @@ export const JobPlacementDialog = ({
   } = getFragment(JobPlacementDialog_Fragment, jobPlacementDialogQuery);
 
   const placedJob =
-    status && PLACEMENT_TYPE_STATUSES.includes(status)
+    isPlacedStatus(status) || status === PoolCandidateStatus.PlacedTentative
       ? (status as unknown as PlacementType)
       : "NOT_PLACED";
 
