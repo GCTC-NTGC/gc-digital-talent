@@ -253,7 +253,11 @@ export const JobPlacementDialog = ({
                   <Select
                     id="placedDepartment"
                     name="placedDepartment"
-                    label="Placed department"
+                    label={intl.formatMessage({
+                      defaultMessage: "Placed department",
+                      id: "G8JoCN",
+                      description: "Label for the placed department field",
+                    })}
                     nullSelection={intl.formatMessage({
                       defaultMessage: "Select a department",
                       id: "y827h2",
