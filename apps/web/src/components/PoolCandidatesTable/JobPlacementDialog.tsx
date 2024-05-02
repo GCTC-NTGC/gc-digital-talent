@@ -29,11 +29,7 @@ import {
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 
-import {
-  isPlacedStatus,
-  isQualifiedStatus,
-  statusToJobPlacement,
-} from "~/utils/poolCandidate";
+import { isQualifiedStatus, statusToJobPlacement } from "~/utils/poolCandidate";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 export const PLACEMENT_TYPE_STATUSES = [
