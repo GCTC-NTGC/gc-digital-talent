@@ -299,7 +299,7 @@ export const JobPlacementDialog = ({
   );
 };
 
-function jobPlacementDialogAccessor(
+export function jobPlacementDialogAccessor(
   poolCandidateId: string,
   departments: Department[],
   status?: Maybe<PoolCandidateStatus>,
@@ -318,4 +318,4 @@ function jobPlacementDialogAccessor(
   );
 }
 
-export default jobPlacementDialogAccessor;
+export default JobPlacementDialog;

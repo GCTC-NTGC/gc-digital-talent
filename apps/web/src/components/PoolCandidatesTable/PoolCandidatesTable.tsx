@@ -78,7 +78,7 @@ import {
   getPoolCandidateCsvData,
   getPoolCandidateCsvHeaders,
 } from "./poolCandidateCsv";
-import jobPlacementDialogAccessor from "./JobPlacementDialog";
+import { jobPlacementDialogAccessor } from "./JobPlacementDialog";
 
 const columnHelper = createColumnHelper<PoolCandidateWithSkillCount>();
 
