@@ -85,10 +85,15 @@ else
 fi
 
 # Copy nginx config and reload
-if /home/site/wwwroot/infrastructure/bin/substitute_file.sh /home/site/wwwroot/infrastructure/conf/nginx-conf-deploy/default /etc/nginx/sites-available/default '$NGINX_PORT $ROBOTS_FILENAME' && nginx -s reload ; then
-    add_section_block ":white_check_mark: Config copy for Nginx *successful*."
+if
+    touch /etc/nginx/conf.d/default.conf && \
+    /home/site/wwwroot/infrastructure/bin/substitute_file.sh \
+        /home/site/wwwroot/infrastructure/conf/nginx-conf-deploy/default \
+        /etc/nginx/sites-available/default '$NGINX_PORT $ROBOTS_FILENAME' && \
+    nginx -s reload ; then
+    add_section_block ":white_check_mark: Set up Nginx *successful*."
 else
-    add_section_block ":X: Config copy for Nginx *failed*. $MENTION"
+    add_section_block ":X: Set up Nginx *failed*. $MENTION"
 fi
 
 # Copy custom PHP-FPM config
