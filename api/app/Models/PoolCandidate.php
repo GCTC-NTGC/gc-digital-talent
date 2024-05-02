@@ -839,7 +839,7 @@ class PoolCandidate extends Model
 
         // collect skills attached to the Pool to pass into resource collection
         $pool = Pool::with(['poolSkills'])->findOrFail($this->pool_id);
-        $poolSkillIds = $pool->poolSkills()->pluck('skills.id')->toArray();
+        $poolSkillIds = $pool->poolSkills()->pluck('skill_id')->toArray();
 
         // filter out any non-applicable PoolCandidate models attached to User
         $poolCandidateCollection = $user->poolCandidates;
