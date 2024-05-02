@@ -48,6 +48,10 @@ import {
   pageTitle as announcementsPageTitle,
   pageSolidIcon as announcementsPageIcon,
 } from "~/pages/AnnouncementsPage/AnnouncementsPage";
+import {
+  adminPageTitle as skillPageTitle,
+  pageSolidIcon as skillPageIcon,
+} from "~/pages/Skills/SkillPage";
 
 import LinkWell from "./components/LinkWell";
 
@@ -150,6 +154,11 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                   }),
                   href: adminRoutes.teamTable(),
                   icon: indexTeamPageIcon,
+                },
+                {
+                  label: intl.formatMessage(skillPageTitle),
+                  href: adminRoutes.skills(),
+                  icon: skillPageIcon,
                 },
               ]}
             />

@@ -1,26 +1,35 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 
 import { fakeClassifications } from "@gc-digital-talent/fake-data";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
-import { ClassificationTable } from "./ClassificationTable";
+import {
+  ClassificationTable,
+  ClassificationTableRow_Fragment,
+} from "./ClassificationTable";
 
 const mockClassifications = fakeClassifications();
+const classifications = mockClassifications.map((classification) =>
+  makeFragmentData(classification, ClassificationTableRow_Fragment),
+);
 
 export default {
   component: ClassificationTable,
-  title: "Tables/Classification Table",
-} as ComponentMeta<typeof ClassificationTable>;
+} as Meta<typeof ClassificationTable>;
 
-const Template: ComponentStory<typeof ClassificationTable> = (args) => {
-  const { classifications, title } = args;
+const Template: StoryFn<typeof ClassificationTable> = (args) => {
+  const { classificationsQuery, title } = args;
   return (
-    <ClassificationTable classifications={classifications} title={title} />
+    <ClassificationTable
+      classificationsQuery={classificationsQuery}
+      title={title}
+    />
   );
 };
 
 export const Default = Template.bind({});
 Default.args = {
-  classifications: mockClassifications,
+  classificationsQuery: classifications,
   title: "Classifications",
 };

@@ -4,8 +4,8 @@ import ClipboardDocumentIcon from "@heroicons/react/24/outline/ClipboardDocument
 import FolderOpenIcon from "@heroicons/react/24/outline/FolderOpenIcon";
 import ArrowDownOnSquareIcon from "@heroicons/react/24/outline/ArrowDownOnSquareIcon";
 
-import { Card, CardBasic, Heading, Link } from "@gc-digital-talent/ui";
-import { uiMessages, useLocale } from "@gc-digital-talent/i18n";
+import { CardBasic, Heading, Link } from "@gc-digital-talent/ui";
+import { uiMessages, getLocale } from "@gc-digital-talent/i18n";
 
 import trainingSession from "~/assets/img/Directive_landing_page_graphics_R1-01.webp";
 import decisionTree from "~/assets/img/Directive_landing_page_graphics_R1-02.webp";
@@ -31,7 +31,7 @@ import procurementDocxFr from "~/assets/documents/Orientation_approvisionnement_
 
 const Resources = () => {
   const intl = useIntl();
-  const localeState = useLocale();
+  const locale = getLocale(intl);
   return (
     <>
       <section>
@@ -107,11 +107,7 @@ const Resources = () => {
               block
               external
               download
-              href={
-                localeState.locale === "en"
-                  ? decisionTreePdfEn
-                  : decisionTreePdfFr
-              }
+              href={locale === "en" ? decisionTreePdfEn : decisionTreePdfFr}
               data-h2-margin="base(0, 0, x1, 0)"
             >
               {intl.formatMessage({
@@ -128,11 +124,7 @@ const Resources = () => {
               block
               external
               download
-              href={
-                localeState.locale === "en"
-                  ? decisionTreeDocxEn
-                  : decisionTreeDocxFr
-              }
+              href={locale === "en" ? decisionTreeDocxEn : decisionTreeDocxFr}
             >
               {intl.formatMessage({
                 defaultMessage:
@@ -165,20 +157,31 @@ const Resources = () => {
           data-h2-gap="base(x1)"
           data-h2-margin="base(x1, 0, 0, 0) p-tablet(x2, 0, 0, 0)"
         >
-          <Card
-            color="black"
-            title={intl.formatMessage({
-              defaultMessage: "Digital initiative managers",
-              id: "Tvsi5A",
-              description: "Title for group-specific resource card",
-            })}
-            noPadding
+          <CardBasic
+            data-h2-overflow="base(hidden)"
+            data-h2-padding="base(0)"
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
           >
+            <div
+              data-h2-display="base(block) base:children[>span](block)"
+              data-h2-padding="base(x1)"
+              data-h2-background-color="base(gray.darkest) base:dark(foreground.shade)"
+              data-h2-color="base:all(white)"
+            >
+              <span data-h2-font-size="base(h6, 1)">
+                {intl.formatMessage({
+                  defaultMessage: "Digital initiative managers",
+                  id: "Tvsi5A",
+                  description: "Title for group-specific resource card",
+                })}
+              </span>
+            </div>
             <div
               data-h2-display="base(flex)"
               data-h2-flex-direction="base(column)"
               data-h2-justify-content="base(space-between)"
-              data-h2-height="base(100%)"
+              data-h2-flex-grow="base(1)"
             >
               <div>
                 <img
@@ -187,7 +190,7 @@ const Resources = () => {
                   data-h2-display="base(none) p-tablet(block)"
                 />
 
-                <p data-h2-margin="base(x1)">
+                <p data-h2-padding="base(0 x1)">
                   {intl.formatMessage({
                     defaultMessage:
                       "These resources are designed to support digital initiative managers and leads in fulfilling their responsibilities under the Directive on Digital Talent. This implementation guidance explains why the directive is needed and what is required. Use the decision tree to navigate the reporting requirements.",
@@ -197,7 +200,7 @@ const Resources = () => {
                   })}
                 </p>
               </div>
-              <div data-h2-margin="base(0, x1, x2, x1)">
+              <div data-h2-padding="base(x1)">
                 <p data-h2-font-weight="base(bold)">
                   {intl.formatMessage({
                     defaultMessage: "Implementation guidance for managers",
@@ -213,7 +216,7 @@ const Resources = () => {
                   external
                   download
                   href={
-                    localeState.locale === "en"
+                    locale === "en"
                       ? guidanceManagerPdfEn
                       : guidanceManagerPdfFr
                   }
@@ -244,7 +247,7 @@ const Resources = () => {
                       "Aria label for download guidance for managers plain text link.",
                   })}
                   href={
-                    localeState.locale === "en"
+                    locale === "en"
                       ? guidanceManagerDocxEn
                       : guidanceManagerDocxFr
                   }
@@ -255,21 +258,32 @@ const Resources = () => {
                 </Link>
               </div>
             </div>
-          </Card>
-          <Card
-            color="black"
-            title={intl.formatMessage({
-              defaultMessage: "Human resources advisors",
-              id: "x+kUrO",
-              description: "Title for group-specific resource card",
-            })}
-            noPadding
+          </CardBasic>
+          <CardBasic
+            data-h2-overflow="base(hidden)"
+            data-h2-padding="base(0)"
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
           >
+            <div
+              data-h2-display="base(block) base:children[>span](block)"
+              data-h2-padding="base(x1)"
+              data-h2-background-color="base(gray.darkest) base:dark(foreground.shade)"
+              data-h2-color="base:all(white)"
+            >
+              <span data-h2-font-size="base(h6, 1)">
+                {intl.formatMessage({
+                  defaultMessage: "Human resources advisors",
+                  id: "x+kUrO",
+                  description: "Title for group-specific resource card",
+                })}
+              </span>
+            </div>
             <div
               data-h2-display="base(flex)"
               data-h2-flex-direction="base(column)"
               data-h2-justify-content="base(space-between)"
-              data-h2-height="base(100%)"
+              data-h2-flex-grow="base(1)"
             >
               <div>
                 <img
@@ -277,7 +291,7 @@ const Resources = () => {
                   alt=""
                   data-h2-display="base(none) p-tablet(block)"
                 />
-                <p data-h2-margin="base(x1)">
+                <p data-h2-padding="base(0 x1)">
                   {intl.formatMessage({
                     defaultMessage:
                       "Human resources (HR) advisors are responsible for ensuring clients looking for digital talent are aware of their obligations under the Directive on Digital Talent and supporting clients in leveraging flexibilities available in the HR policy suite to hire digital talent. These resources are designed to help HR advisors in carrying out these responsibilities.",
@@ -287,7 +301,7 @@ const Resources = () => {
                   })}
                 </p>
               </div>
-              <div data-h2-margin="base(0, x1, x2, x1)">
+              <div data-h2-padding="base(x1)">
                 <p data-h2-font-weight="base(bold)">
                   {intl.formatMessage({
                     defaultMessage: "Implementation guidance for HR advisors",
@@ -309,7 +323,7 @@ const Resources = () => {
                     description:
                       "Aria label for download guidance for human resources pdf link.",
                   })}
-                  href={localeState.locale === "en" ? hrPdfEn : hrPdfFr}
+                  href={locale === "en" ? hrPdfEn : hrPdfFr}
                   icon={ArrowDownOnSquareIcon}
                   data-h2-margin="base(x1, 0, x1, 0)"
                   data-h2-justify-content="base(flex-start)"
@@ -329,7 +343,7 @@ const Resources = () => {
                     description:
                       "Aria label for download guidance for human resources plain text link.",
                   })}
-                  href={localeState.locale === "en" ? hrDocxEn : hrDocxFr}
+                  href={locale === "en" ? hrDocxEn : hrDocxFr}
                   icon={ArrowDownOnSquareIcon}
                   data-h2-justify-content="base(flex-start)"
                 >
@@ -337,21 +351,32 @@ const Resources = () => {
                 </Link>
               </div>
             </div>
-          </Card>
-          <Card
-            color="black"
-            title={intl.formatMessage({
-              defaultMessage: "Procurement officers",
-              id: "n92mcX",
-              description: "Title for procurement officer resource card",
-            })}
-            noPadding
+          </CardBasic>
+          <CardBasic
+            data-h2-overflow="base(hidden)"
+            data-h2-padding="base(0)"
+            data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column)"
           >
+            <div
+              data-h2-display="base(block) base:children[>span](block)"
+              data-h2-padding="base(x1)"
+              data-h2-background-color="base(gray.darkest) base:dark(foreground.shade)"
+              data-h2-color="base:all(white)"
+            >
+              <span data-h2-font-size="base(h6, 1)">
+                {intl.formatMessage({
+                  defaultMessage: "Procurement officers",
+                  id: "n92mcX",
+                  description: "Title for procurement officer resource card",
+                })}
+              </span>
+            </div>
             <div
               data-h2-display="base(flex)"
               data-h2-flex-direction="base(column)"
               data-h2-justify-content="base(space-between)"
-              data-h2-height="base(100%)"
+              data-h2-flex-grow="base(1)"
             >
               <div>
                 <img
@@ -369,7 +394,7 @@ const Resources = () => {
                   })}
                 </p>
               </div>
-              <div data-h2-margin="base(0, x1, x2, x1)">
+              <div data-h2-padding="base(x1)">
                 <p data-h2-font-weight="base(bold)">
                   {intl.formatMessage({
                     defaultMessage:
@@ -385,11 +410,7 @@ const Resources = () => {
                   block
                   external
                   download
-                  href={
-                    localeState.locale === "en"
-                      ? procurementPdfEn
-                      : procurementPdfFr
-                  }
+                  href={locale === "en" ? procurementPdfEn : procurementPdfFr}
                   aria-label={intl.formatMessage({
                     defaultMessage:
                       "Download the implementation guidance for procurement officers (PDF)",
@@ -416,11 +437,7 @@ const Resources = () => {
                     description:
                       "Aria label for download guidance for procurement officers plain text link.",
                   })}
-                  href={
-                    localeState.locale === "en"
-                      ? procurementDocxEn
-                      : procurementDocxFr
-                  }
+                  href={locale === "en" ? procurementDocxEn : procurementDocxFr}
                   icon={ArrowDownOnSquareIcon}
                   data-h2-justify-content="base(flex-start)"
                 >
@@ -428,7 +445,7 @@ const Resources = () => {
                 </Link>
               </div>
             </div>
-          </Card>
+          </CardBasic>
         </div>
       </section>
     </>

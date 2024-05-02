@@ -220,17 +220,16 @@ export const getPoolCandidateCsvHeaders = (
   const generalQuestionHeaders = pool?.generalQuestions
     ? pool.generalQuestions.filter(notEmpty).map((generalQuestion, index) => ({
         id: generalQuestion.id,
-        displayName: intl.formatMessage(
+        displayName: `${intl.formatMessage(
           {
-            defaultMessage: "Screening question {index}: {question}",
-            id: "5nlauT",
-            description: "CSV Header, Screening question column. ",
+            defaultMessage: "General question {index}",
+            id: "EWvBgF",
+            description: "CSV Header, general question column. ",
           },
           {
             index: generalQuestion.sortOrder || index + 1,
-            question: getLocalizedName(generalQuestion.question, intl),
           },
-        ),
+        )}${intl.formatMessage(commonMessages.dividingColon)}${getLocalizedName(generalQuestion.question, intl)}`,
       }))
     : [];
 

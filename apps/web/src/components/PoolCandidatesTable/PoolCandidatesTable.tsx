@@ -235,7 +235,6 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
             priorityWeight
           }
           isBookmarked
-          cmoIdentifier
           expiryDate
           status
           submittedAt
@@ -721,7 +720,7 @@ const PoolCandidatesTable = ({
     ),
   ] as ColumnDef<PoolCandidateWithSkillCount>[];
 
-  const hiddenColumnIds = ["candidacyStatus", "notes", "status"];
+  const hiddenColumnIds = ["candidacyStatus", "notes"];
 
   return (
     <Table<PoolCandidateWithSkillCount>

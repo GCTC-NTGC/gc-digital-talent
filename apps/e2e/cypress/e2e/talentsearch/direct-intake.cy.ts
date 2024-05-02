@@ -2,7 +2,7 @@ import { aliasQuery } from "../../support/graphql-test-utils";
 
 describe("Talentsearch Direct Intake Page", () => {
   beforeEach(() => {
-    cy.intercept("POST", "/graphql", (req) => {
+    cy.intercept("POST", "**/graphql", (req) => {
       aliasQuery(req, "BrowsePoolsPage");
     });
   });

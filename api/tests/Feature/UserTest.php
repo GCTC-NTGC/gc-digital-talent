@@ -21,16 +21,19 @@ use App\Models\UserSkill;
 use App\Models\WorkExperience;
 use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\GenericJobTitleSeeder;
+use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
+use Tests\UsesProtectedGraphqlEndpoint;
 
 class UserTest extends TestCase
 {
     use MakesGraphQLRequests;
     use RefreshDatabase;
     use RefreshesSchemaCache;
+    use UsesProtectedGraphqlEndpoint;
 
     // protected $requestResponder;
     protected $platformAdmin;
@@ -46,8 +49,8 @@ class UserTest extends TestCase
         $this->platformAdmin = User::factory()
             ->asAdmin()
             ->create([
-                'email' => 'admin@test.com',
-                'sub' => 'admin@test.com',
+                'email' => 'platform-admin@test.com',
+                'sub' => 'platform-admin@test.com',
 
                 // The following properties make sure this user doesn't match certain test queries, skewing results.
                 'looking_for_english' => null,

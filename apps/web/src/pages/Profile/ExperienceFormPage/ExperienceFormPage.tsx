@@ -19,7 +19,12 @@ import {
   formMessages,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import { Scalars, Skill, graphql } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  Scalars,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -31,7 +36,6 @@ import type {
   ExperienceType,
   AllExperienceFormValues,
   ExperienceFormValues,
-  AnyExperience,
   ExperienceDetailsSubmissionData,
   ExperienceMutationResponse,
 } from "~/types/experience";
@@ -80,27 +84,122 @@ type FormValues = ExperienceFormValues<AllExperienceFormValues> & {
   action: FormAction;
 };
 
+export const ExperienceFormSkill_Fragment = graphql(/* GraphQL */ `
+  fragment ExperienceFormSkill on Skill {
+    id
+    key
+    name {
+      en
+      fr
+    }
+    keywords {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    category
+    families {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+    }
+  }
+`);
+
+export const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
+  fragment ExperienceFormExperience on Experience {
+    id
+    details
+    user {
+      id
+    }
+    skills {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      category
+      experienceSkillRecord {
+        details
+      }
+    }
+    ... on AwardExperience {
+      title
+      issuedBy
+      awardedDate
+      awardedTo
+      awardedScope
+    }
+    ... on CommunityExperience {
+      title
+      organization
+      project
+      startDate
+      endDate
+    }
+    ... on EducationExperience {
+      institution
+      areaOfStudy
+      thesisTitle
+      startDate
+      endDate
+      type
+      status
+    }
+    ... on PersonalExperience {
+      title
+      description
+      startDate
+      endDate
+    }
+    ... on WorkExperience {
+      role
+      organization
+      division
+      startDate
+      endDate
+    }
+  }
+`);
+
 export interface ExperienceFormProps {
   edit?: boolean;
-  experience?: AnyExperience;
+  experienceQuery?: FragmentType<typeof ExperienceFormExperience_Fragment>;
   experienceId?: string;
   experienceType: ExperienceType;
-  skills: Skill[];
+  skillsQuery: FragmentType<typeof ExperienceFormSkill_Fragment>[];
   userId: string;
 }
 
 export const ExperienceForm = ({
   edit,
-  experience,
+  experienceQuery,
   experienceId,
   experienceType,
-  skills,
+  skillsQuery,
   userId,
 }: ExperienceFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
   const returnPath = paths.careerTimelineAndRecruitment(userId || "");
+  const experience = getFragment(
+    ExperienceFormExperience_Fragment,
+    experienceQuery,
+  );
+  const skills = getFragment(ExperienceFormSkill_Fragment, skillsQuery);
 
   const defaultValues =
     experienceId && experience
@@ -346,7 +445,7 @@ export const ExperienceForm = ({
                 <TableOfContents.Section id="skills">
                   <ExperienceSkills
                     experienceType={experienceType}
-                    skills={skills}
+                    skills={[...skills]}
                   />
                 </TableOfContents.Section>
                 <Separator space="lg" />
@@ -482,90 +581,16 @@ const context: Partial<OperationContext> = {
 const ExperienceFormData_Query = graphql(/* GraphQL */ `
   query ExperienceFormData {
     skills {
-      id
-      key
-      name {
-        en
-        fr
-      }
-      keywords {
-        en
-        fr
-      }
-      description {
-        en
-        fr
-      }
-      category
-      families {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        description {
-          en
-          fr
-        }
-      }
+      ...ExperienceFormSkill
     }
     me {
       id
       experiences {
         id
-        details
         user {
           id
         }
-        skills {
-          id
-          key
-          name {
-            en
-            fr
-          }
-          category
-          experienceSkillRecord {
-            details
-          }
-        }
-        ... on AwardExperience {
-          title
-          issuedBy
-          awardedDate
-          awardedTo
-          awardedScope
-        }
-        ... on CommunityExperience {
-          title
-          organization
-          project
-          startDate
-          endDate
-        }
-        ... on EducationExperience {
-          institution
-          areaOfStudy
-          thesisTitle
-          startDate
-          endDate
-          type
-          status
-        }
-        ... on PersonalExperience {
-          title
-          description
-          startDate
-          endDate
-        }
-        ... on WorkExperience {
-          role
-          organization
-          division
-          startDate
-          endDate
-        }
+        ...ExperienceFormExperience
       }
     }
   }
@@ -603,10 +628,10 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
       {skills ? (
         <ExperienceForm
           edit={edit}
-          experience={experience}
+          experienceQuery={experience}
           experienceId={experienceId || ""}
           experienceType={experienceType}
-          skills={skills}
+          skillsQuery={skills}
           userId={userId || ""}
         />
       ) : (

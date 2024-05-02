@@ -3,13 +3,13 @@ import { useIntl } from "react-intl";
 import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 
 import { CardFlat, Heading } from "@gc-digital-talent/ui";
-import { useLocale } from "@gc-digital-talent/i18n";
+import { getLocale } from "@gc-digital-talent/i18n";
 
 import { wrapAbbr } from "~/utils/nameUtils";
 
 const About = () => {
   const intl = useIntl();
-  const { locale } = useLocale();
+  const locale = getLocale(intl);
   return (
     <div
       data-h2-background="base(home-footer-linear)"

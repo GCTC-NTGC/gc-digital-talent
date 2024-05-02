@@ -12,7 +12,7 @@ import {
 import {
   commonMessages,
   errorMessages,
-  useLocale,
+  getLocale,
 } from "@gc-digital-talent/i18n";
 
 import type { FieldLabels } from "./BasicForm";
@@ -29,7 +29,7 @@ const numberRegex = /(\d+)/g;
 /**
  * Get Field Label
  *
- * User the field name to extract the associated label
+ * Use the field name to extract the associated label
  *
  * @param {string} name - The name property of the field
  * @param {FieldLabels} labels - Available labels
@@ -113,7 +113,7 @@ const ErrorSummary = React.forwardRef<
   ErrorSummaryProps
 >(({ labels, show }, forwardedRef) => {
   const intl = useIntl();
-  const { locale } = useLocale();
+  const locale = getLocale(intl);
   const { errors } = useFormState();
 
   // Don't show if the form is valid

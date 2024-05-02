@@ -18,9 +18,10 @@ import {
   RoleAssignment,
   CreatePoolInput,
   CreatePoolMutation,
-  Classification,
   Maybe,
   Team,
+  FragmentType,
+  getFragment,
 } from "@gc-digital-talent/graphql";
 
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
@@ -30,6 +31,18 @@ import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/Ind
 import AdminHero from "~/components/Hero/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
+const CreatePoolClassification_Fragment = graphql(/* GraphQL */ `
+  fragment CreatePoolClassification on Classification {
+    id
+    group
+    level
+    name {
+      en
+      fr
+    }
+  }
+`);
+
 type FormValues = {
   classification: string;
   team: string;
@@ -37,7 +50,9 @@ type FormValues = {
 
 interface CreatePoolFormProps {
   userId: string;
-  classificationsArray: Classification[];
+  classificationsQuery: FragmentType<
+    typeof CreatePoolClassification_Fragment
+  >[];
   handleCreatePool: (
     userId: string,
     teamId: string,
@@ -48,7 +63,7 @@ interface CreatePoolFormProps {
 
 export const CreatePoolForm = ({
   userId,
-  classificationsArray,
+  classificationsQuery,
   handleCreatePool,
   teamsArray,
 }: CreatePoolFormProps) => {
@@ -57,6 +72,10 @@ export const CreatePoolForm = ({
   const paths = useRoutes();
   const methods = useForm<FormValues>();
   const { handleSubmit } = methods;
+  const classifications = getFragment(
+    CreatePoolClassification_Fragment,
+    classificationsQuery,
+  );
 
   // submission section, and navigate to edit the created pool
   const formValuesToSubmitData = (values: FormValues): CreatePoolInput => ({
@@ -92,7 +111,7 @@ export const CreatePoolForm = ({
   };
 
   // recycled from EditPool
-  const classificationOptions: Option[] = classificationsArray.map(
+  const classificationOptions: Option[] = classifications.map(
     ({ id, group, level, name }) => ({
       value: id,
       label: `${group}-0${level} (${getLocalizedName(name, intl)})`,
@@ -213,13 +232,7 @@ const CreatePoolPage_Query = graphql(/* GraphQL */ `
       }
     }
     classifications {
-      name {
-        en
-        fr
-      }
-      level
-      group
-      id
+      ...CreatePoolClassification
     }
   }
 `);
@@ -251,25 +264,19 @@ const subTitle = defineMessage({
 const CreatePoolPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  const [lookupResult] = useQuery({ query: CreatePoolPage_Query });
-  const { data: lookupData, fetching, error } = lookupResult;
+  const [{ data, fetching, error }] = useQuery({ query: CreatePoolPage_Query });
 
-  // current user
-  const userIdQueryUntyped = lookupData?.me?.id;
-  const userIdQuery = userIdQueryUntyped || "";
-
-  const classificationsData = unpackMaybes(lookupData?.classifications);
   const roleAssignments =
-    unpackMaybes(lookupData?.me?.authInfo?.roleAssignments) ?? [];
+    unpackMaybes(data?.me?.authInfo?.roleAssignments) ?? [];
   const teamsArray = roleAssignmentsToTeams(roleAssignments);
 
   const [, executeMutation] = useMutation(CreatePoolPage_Mutation);
   const handleCreatePool = (
     userId: string,
     teamId: string,
-    data: CreatePoolInput,
+    pool: CreatePoolInput,
   ) =>
-    executeMutation({ userId, teamId, pool: data }).then((result) => {
+    executeMutation({ userId, teamId, pool }).then((result) => {
       if (result.data?.createPool) {
         return result.data?.createPool;
       }
@@ -304,8 +311,8 @@ const CreatePoolPage = () => {
       <AdminContentWrapper>
         <Pending fetching={fetching} error={error}>
           <CreatePoolForm
-            userId={userIdQuery}
-            classificationsArray={classificationsData}
+            userId={data?.me?.id ?? ""}
+            classificationsQuery={unpackMaybes(data?.classifications)}
             handleCreatePool={handleCreatePool}
             teamsArray={teamsArray}
           />

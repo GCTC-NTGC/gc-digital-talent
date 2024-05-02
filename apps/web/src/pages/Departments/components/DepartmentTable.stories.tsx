@@ -1,24 +1,30 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { StoryFn, Meta } from "@storybook/react";
 
 import { fakeDepartments } from "@gc-digital-talent/fake-data";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
-import { DepartmentTable } from "./DepartmentTable";
+import {
+  DepartmentTable,
+  DepartmentTableRow_Fragment,
+} from "./DepartmentTable";
 
 const mockDepartments = fakeDepartments();
+const departmentFragments = mockDepartments.map((department) =>
+  makeFragmentData(department, DepartmentTableRow_Fragment),
+);
 
 export default {
   component: DepartmentTable,
-  title: "Tables/Department Table",
-} as ComponentMeta<typeof DepartmentTable>;
+} as Meta<typeof DepartmentTable>;
 
-const Template: ComponentStory<typeof DepartmentTable> = (args) => {
-  const { departments, title } = args;
-  return <DepartmentTable departments={departments} title={title} />;
+const Template: StoryFn<typeof DepartmentTable> = (args) => {
+  const { departmentsQuery, title } = args;
+  return <DepartmentTable departmentsQuery={departmentsQuery} title={title} />;
 };
 
 export const Default = Template.bind({});
 Default.args = {
-  departments: mockDepartments,
+  departmentsQuery: departmentFragments,
   title: "Departments",
 };

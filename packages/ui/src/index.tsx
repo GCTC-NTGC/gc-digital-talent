@@ -15,12 +15,11 @@ import Button, { type ButtonProps } from "./components/Button";
 import Counter from "./components/Button/Counter";
 import Breadcrumbs, { type BreadcrumbsProps } from "./components/Breadcrumbs";
 import Board from "./components/Board/Board";
-import Card, {
+import {
   CardBasic,
   CardFlat,
   type CardBasicProps,
   type CardFlatProps,
-  type CardProps,
 } from "./components/Card";
 import CardRepeater, {
   useCardRepeaterContext,
@@ -92,7 +91,6 @@ export type {
   ButtonProps,
   ButtonLinkMode,
   CardFlatProps,
-  CardProps,
   CardBasicProps,
   HeadingProps,
   HeadingLevel,
@@ -132,7 +130,6 @@ export {
   Board,
   Breadcrumbs,
   Button,
-  Card,
   CardBasic,
   CardFlat,
   CardRepeater,

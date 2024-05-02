@@ -4,12 +4,12 @@ import React from "react";
 import { useIntl } from "react-intl";
 import get from "lodash/get";
 import omit from "lodash/omit";
-import isAfter from "date-fns/isAfter";
-import isBefore from "date-fns/isBefore";
-import isSameDay from "date-fns/isSameDay";
-import isSameMonth from "date-fns/isSameMonth";
-import isSameYear from "date-fns/isSameYear";
-import isValid from "date-fns/isValid";
+import { isAfter } from "date-fns/isAfter";
+import { isBefore } from "date-fns/isBefore";
+import { isSameDay } from "date-fns/isSameDay";
+import { isSameMonth } from "date-fns/isSameMonth";
+import { isSameYear } from "date-fns/isSameYear";
+import { isValid } from "date-fns/isValid";
 import { FieldError, useFormContext, Controller } from "react-hook-form";
 
 import { errorMessages } from "@gc-digital-talent/i18n";

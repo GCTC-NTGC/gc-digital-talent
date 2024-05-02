@@ -9,7 +9,9 @@ import {
   ACCESS_TOKEN,
   REFRESH_TOKEN,
   ID_TOKEN,
-  POST_LOGOUT_URI_KEY,
+  POST_LOGOUT_OVERRIDE_PATH_KEY,
+  LogoutReason,
+  LOGOUT_REASON_KEY,
 } from "../const";
 import useLogoutChannel from "../hooks/useLogoutChannel";
 
@@ -36,12 +38,26 @@ interface TokenSet {
 export const AuthenticationContext =
   React.createContext<AuthenticationState>(defaultAuthState);
 
-const logoutAndRefreshPage = (
-  logoutUri: string,
-  logoutRedirectUri: string,
-  postLogoutUri?: string,
-  broadcastLogoutMessage?: () => void,
-): void => {
+type logoutAndRefreshPageParameters = {
+  // the "end session" URI of the auth provider
+  logoutUri: string;
+  // the logout landing page of our app (whitelisted)
+  postLogoutRedirectUri: string;
+  // if we want to go to another path else after logout
+  postLogoutOverridePath?: string;
+  // a function to broadcast the logout event to other tabs
+  broadcastLogoutMessage?: () => void;
+  // the reason for the logout
+  logoutReason?: LogoutReason;
+};
+
+const logoutAndRefreshPage = ({
+  logoutUri,
+  postLogoutRedirectUri,
+  postLogoutOverridePath,
+  broadcastLogoutMessage,
+  logoutReason,
+}: logoutAndRefreshPageParameters): void => {
   defaultLogger.notice("Logging out and refreshing the page");
   // capture tokens before they are removed
   const accessToken = localStorage.getItem(ACCESS_TOKEN);
@@ -52,14 +68,22 @@ const logoutAndRefreshPage = (
   localStorage.removeItem(REFRESH_TOKEN);
   localStorage.removeItem(ID_TOKEN);
 
-  if (postLogoutUri) {
-    if (!postLogoutUri.startsWith("/")) {
+  if (postLogoutOverridePath) {
+    if (!postLogoutOverridePath.startsWith("/")) {
       defaultLogger.warning(
-        `Tried to set an unsafe uri as postLogoutUri: ${postLogoutUri}`,
+        `Tried to set an unsafe uri as postLogoutOverridePath: ${postLogoutOverridePath}`,
       );
     } else {
-      sessionStorage.setItem(POST_LOGOUT_URI_KEY, postLogoutUri);
+      // this gets pulled out out in the router before loading the logout landing page
+      sessionStorage.setItem(
+        POST_LOGOUT_OVERRIDE_PATH_KEY,
+        postLogoutOverridePath,
+      );
     }
+  }
+
+  if (logoutReason) {
+    localStorage.setItem(LOGOUT_REASON_KEY, logoutReason);
   }
 
   let authSessionIsCurrentlyActive = false; // assume false unless we can prove it below
@@ -75,10 +99,10 @@ const logoutAndRefreshPage = (
   broadcastLogoutMessage?.();
   if (idToken && authSessionIsCurrentlyActive) {
     // SiC logout will error out unless there is actually an active session
-    window.location.href = `${logoutUri}?post_logout_redirect_uri=${logoutRedirectUri}&id_token_hint=${idToken}`;
+    window.location.href = `${logoutUri}?post_logout_redirect_uri=${encodeURIComponent(postLogoutRedirectUri)}&id_token_hint=${idToken}`;
   } else {
     // at least a hard refresh to URI to restart react app
-    window.location.href = logoutRedirectUri;
+    window.location.href = postLogoutRedirectUri;
   }
 };
 
@@ -104,20 +128,20 @@ function clearQueryParams() {
 interface AuthenticationContainerProps {
   tokenRefreshPath: string;
   logoutUri: string;
-  logoutRedirectUri: string;
+  postLogoutRedirectUri: string;
   children?: React.ReactNode;
 }
 
 const AuthenticationContainer = ({
   tokenRefreshPath,
   logoutUri,
-  logoutRedirectUri,
+  postLogoutRedirectUri,
   children,
 }: AuthenticationContainerProps) => {
   const logger = useLogger();
   const { broadcastLogoutMessage } = useLogoutChannel(() => {
     if (!localStorage.getItem(ACCESS_TOKEN)) {
-      window.location.href = logoutRedirectUri;
+      window.location.href = postLogoutRedirectUri;
     }
   });
 
@@ -132,6 +156,8 @@ const AuthenticationContainer = ({
     if (newTokens?.idToken) {
       localStorage.setItem(ID_TOKEN, newTokens.idToken);
     }
+    // also clear the last logout reason
+    localStorage.removeItem(LOGOUT_REASON_KEY);
   }
 
   // Logout if the access token is removed in another way other than
@@ -139,7 +165,7 @@ const AuthenticationContainer = ({
   useEffect(() => {
     const logoutOnAccessTokenRemoved = (event: StorageEvent) => {
       if (event.key === ACCESS_TOKEN && event.newValue === null) {
-        window.location.href = logoutRedirectUri;
+        window.location.href = postLogoutRedirectUri;
       }
     };
 
@@ -162,13 +188,13 @@ const AuthenticationContainer = ({
     return {
       loggedIn: !!localStorage.getItem(ACCESS_TOKEN),
       logout: localStorage.getItem(ACCESS_TOKEN)
-        ? (postLogoutUri) =>
-            logoutAndRefreshPage(
+        ? (postLogoutOverridePath) =>
+            logoutAndRefreshPage({
               logoutUri,
-              logoutRedirectUri,
-              postLogoutUri,
+              postLogoutRedirectUri,
+              postLogoutOverridePath,
               broadcastLogoutMessage,
-            )
+            })
         : () => {
             /* If not logged in, logout does nothing. */
           },
@@ -208,13 +234,17 @@ const AuthenticationContainer = ({
           }
         } else {
           logger.notice("Failed to refresh auth state.");
-          logoutAndRefreshPage(logoutUri, logoutRedirectUri);
+          logoutAndRefreshPage({
+            logoutUri,
+            postLogoutRedirectUri,
+            logoutReason: "session-expired",
+          });
         }
       },
     };
   }, [
     logoutUri,
-    logoutRedirectUri,
+    postLogoutRedirectUri,
     broadcastLogoutMessage,
     tokenRefreshPath,
     logger,

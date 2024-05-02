@@ -6,7 +6,7 @@ import {
   getLanguageRequirement,
   getLocalizedName,
   getSecurityClearance,
-  useLocale,
+  getLocale,
 } from "@gc-digital-talent/i18n";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
@@ -16,7 +16,7 @@ import { DisplayProps } from "../../types";
 
 const Display = ({ pool, subtitle }: DisplayProps) => {
   const intl = useIntl();
-  const { locale } = useLocale();
+  const locale = getLocale(intl);
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   const { language, securityClearance, location, isRemote } = pool;
 

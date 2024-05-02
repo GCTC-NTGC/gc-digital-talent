@@ -49,7 +49,6 @@ describe("Talentsearch Profile Page", () => {
       cy.contains("Diversity, equity, and inclusion");
       cy.contains("Government employee information");
       cy.contains("Language profile");
-      cy.contains("Account and privacy settings");
 
       cy.visit("/en/talent/profile");
       cy.contains("Personal and contact information");
@@ -57,7 +56,6 @@ describe("Talentsearch Profile Page", () => {
       cy.contains("Diversity, equity, and inclusion");
       cy.contains("Government employee information");
       cy.contains("Language profile");
-      cy.contains("Account and privacy settings");
     });
   });
 });

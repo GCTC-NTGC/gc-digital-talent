@@ -1,5 +1,5 @@
 import { IntlShape, MessageDescriptor } from "react-intl";
-import isPast from "date-fns/isPast";
+import { isPast } from "date-fns/isPast";
 import React from "react";
 import sortBy from "lodash/sortBy";
 

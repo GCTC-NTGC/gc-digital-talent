@@ -1,11 +1,17 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 
 import { fakePoolCandidates, fakeUsers } from "@gc-digital-talent/fake-data";
 import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
-import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
+import {
+  PoolCandidateStatus,
+  makeFragmentData,
+} from "@gc-digital-talent/graphql";
 
-import { ProfileAndApplications } from "./ProfileAndApplicationsPage";
+import {
+  ProfileAndApplications,
+  ProfileAndApplicationsUser_Fragment,
+} from "./ProfileAndApplicationsPage";
 
 const mockApplications = fakePoolCandidates(20);
 const mockUsers = fakeUsers(1);
@@ -29,17 +35,19 @@ mockApplications[0].status = PoolCandidateStatus.Draft;
 
 export default {
   component: ProfileAndApplications,
-  title: "Pages/Profile and Applications",
-} as ComponentMeta<typeof ProfileAndApplications>;
+} as Meta<typeof ProfileAndApplications>;
 
-const Template: ComponentStory<typeof ProfileAndApplications> = (args) => (
+const Template: StoryFn<typeof ProfileAndApplications> = (args) => (
   <ProfileAndApplications {...args} />
 );
 
 export const Default = Template.bind({});
 Default.args = {
-  user: {
-    ...mockUsers[0],
-    poolCandidates: [...activeApplications, ...expiredApplications],
-  },
+  userQuery: makeFragmentData(
+    {
+      ...mockUsers[0],
+      poolCandidates: [...activeApplications, ...expiredApplications],
+    },
+    ProfileAndApplicationsUser_Fragment,
+  ),
 };

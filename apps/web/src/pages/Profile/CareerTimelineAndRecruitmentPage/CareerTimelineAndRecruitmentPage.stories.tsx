@@ -1,18 +1,23 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { StoryFn, Meta } from "@storybook/react";
 
 import { fakeExperiences } from "@gc-digital-talent/fake-data";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
-import CareerTimelineAndRecruitment from "./components/CareerTimelineAndRecruitment";
+import CareerTimelineAndRecruitment, {
+  CareerTimelineExperience_Fragment,
+} from "./components/CareerTimelineAndRecruitment";
 
 export default {
-  title: "Pages/Career timeline and recruitment",
+  component: CareerTimelineAndRecruitment,
   args: {
     userId: "test",
+    experiencesQuery: [],
+    applicationsQuery: [],
   },
-} as ComponentMeta<typeof CareerTimelineAndRecruitment>;
+} as Meta<typeof CareerTimelineAndRecruitment>;
 
-const CareerTimelineAndRecruitmentTemplate: ComponentStory<
+const CareerTimelineAndRecruitmentTemplate: StoryFn<
   typeof CareerTimelineAndRecruitment
 > = (args) => {
   return <CareerTimelineAndRecruitment {...args} />;
@@ -28,9 +33,11 @@ export const WithExperiencesMissingSkills =
 const mockExperiences = fakeExperiences(10);
 
 NoExperiences.args = {
-  experiences: [],
+  experiencesQuery: [],
 };
 
 WithExperiences.args = {
-  experiences: mockExperiences,
+  experiencesQuery: mockExperiences.map((experience) =>
+    makeFragmentData(experience, CareerTimelineExperience_Fragment),
+  ),
 };

@@ -33,3 +33,5 @@ migrate:
 artisan:
 	$(DOCKER_EXEC) "php artisan $(CMD)"
 
+watch:
+	docker-compose run -w /var/www/html --rm maintenance pnpm run watch

@@ -4,7 +4,7 @@ import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { Locales, useLocale } from "@gc-digital-talent/i18n";
 import {
   RequireAuth,
-  POST_LOGOUT_URI_KEY,
+  POST_LOGOUT_OVERRIDE_PATH_KEY,
   ROLE_NAME,
 } from "@gc-digital-talent/auth";
 import { Loading } from "@gc-digital-talent/ui";
@@ -18,7 +18,6 @@ import IAPLayout from "~/components/Layout/IAPLayout";
 import { TalentRedirect, ProfileRedirect } from "~/components/Redirects";
 import CreateAccountRedirect from "~/pages/Auth/CreateAccountPage/CreateAccountRedirect";
 import useRoutes from "~/hooks/useRoutes";
-import RequireUserNotDeleted from "~/pages/Auth/UserDeletedPage/RequireUserNotDeleted";
 import ScreeningAndEvaluationPage from "~/pages/Pools/ScreeningAndEvaluationPage/ScreeningAndEvaluationPage";
 
 /** Home */
@@ -130,14 +129,6 @@ const SignedOutPage = React.lazy(() =>
       ),
   ),
 );
-const UserDeletedPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsUserDeletedPage" */ "../pages/Auth/UserDeletedPage/UserDeletedPage"
-      ),
-  ),
-);
 const SignInPage = React.lazy(() =>
   lazyRetry(
     () =>
@@ -185,6 +176,14 @@ const CareerTimelineAndRecruitmentPage = React.lazy(() =>
     () =>
       import(
         /* webpackChunkName: "tsCareerTimelineAndRecruitmentPage" */ "../pages/Profile/CareerTimelineAndRecruitmentPage/CareerTimelineAndRecruitmentPage"
+      ),
+  ),
+);
+const AccountSettingsPage = React.lazy(() =>
+  lazyRetry(
+    () =>
+      import(
+        /* webpackChunkName: "tsAccountSettingsPage" */ "../pages/Profile/AccountSettings/AccountSettingsPage"
       ),
   ),
 );
@@ -767,11 +766,7 @@ const createRoute = (
   createBrowserRouter([
     {
       path: `/`,
-      element: (
-        <RequireUserNotDeleted>
-          <Layout />
-        </RequireUserNotDeleted>
-      ),
+      element: <Layout />,
       errorElement: <ErrorPage />,
       children: [
         {
@@ -859,24 +854,22 @@ const createRoute = (
             {
               path: "logged-out",
               loader: async () => {
-                const redirectUri = sessionStorage.getItem(POST_LOGOUT_URI_KEY);
-                if (redirectUri) {
-                  sessionStorage.removeItem(POST_LOGOUT_URI_KEY);
-                  if (redirectUri.startsWith("/")) {
-                    window.location.href = redirectUri; // do a hard redirect here because redirectUri may exist in another router entrypoint (eg admin)
+                const overridePath = sessionStorage.getItem(
+                  POST_LOGOUT_OVERRIDE_PATH_KEY,
+                );
+                if (overridePath) {
+                  sessionStorage.removeItem(POST_LOGOUT_OVERRIDE_PATH_KEY);
+                  if (overridePath.startsWith("/")) {
+                    window.location.href = overridePath; // do a hard redirect here because redirectUri may exist in another router entrypoint (eg admin)
                     return null;
                   }
                   defaultLogger.warning(
-                    `Retrieved an unsafe uri from POST_LOGOUT_URI: ${redirectUri}`,
+                    `Retrieved an unsafe uri from POST_LOGOUT_URI: ${overridePath}`,
                   );
                 }
                 return null;
               },
               element: <SignedOutPage />,
-            },
-            {
-              path: "user-deleted",
-              element: <UserDeletedPage />,
             },
             {
               path: "login-info",
@@ -905,6 +898,17 @@ const createRoute = (
                       loginPath={loginPath}
                     >
                       <Outlet />
+                    </RequireAuth>
+                  ),
+                },
+                {
+                  path: "settings",
+                  element: (
+                    <RequireAuth
+                      roles={[ROLE_NAME.Applicant]}
+                      loginPath={loginPath}
+                    >
+                      <AccountSettingsPage />
                     </RequireAuth>
                   ),
                 },
@@ -1263,11 +1267,7 @@ const createRoute = (
     },
     {
       path: `${locale}/admin`,
-      element: (
-        <RequireUserNotDeleted>
-          <AdminLayout />
-        </RequireUserNotDeleted>
-      ),
+      element: <AdminLayout />,
       errorElement: <AdminErrorPage />,
       children: [
         {
@@ -1847,11 +1847,7 @@ const createRoute = (
     },
     {
       path: `${locale}/indigenous-it-apprentice`,
-      element: (
-        <RequireUserNotDeleted>
-          <IAPLayout />
-        </RequireUserNotDeleted>
-      ),
+      element: <IAPLayout />,
       errorElement: <ErrorPage />,
       children: [
         {
@@ -1873,6 +1869,7 @@ const createRoute = (
   ]);
 
 const Router = () => {
+  // eslint-disable-next-line no-restricted-syntax
   const { locale } = useLocale();
   const routes = useRoutes();
   const featureFlags = useFeatureFlags();

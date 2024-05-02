@@ -108,7 +108,7 @@ export type DatasetDownloadItem = {
 /** Controls the download buttons in `RowSelection.Actions` */
 export type DatasetDownload = {
   /** Props for the download button when items are selected */
-  selection: DatasetDownloadItem;
+  selection?: DatasetDownloadItem;
   /** Props for the download button for all items */
   all?: DatasetDownloadItem;
   /** Show loading icon when download data is being fetched */

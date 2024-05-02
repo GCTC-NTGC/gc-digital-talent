@@ -1,6 +1,6 @@
 import React from "react";
 import { faker } from "@faker-js/faker";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { StoryFn, Meta } from "@storybook/react";
 
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
 
@@ -34,7 +34,6 @@ const mockPaginatorInfo = {
 };
 
 export default {
-  title: "Tables/Pool Candidates Table",
   component: PoolCandidatesTable,
   parameters: {
     apiResponses: {
@@ -48,9 +47,9 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof PoolCandidatesTable>;
+} as Meta<typeof PoolCandidatesTable>;
 
-const Template: ComponentStory<typeof PoolCandidatesTable> = (args) => {
+const Template: StoryFn<typeof PoolCandidatesTable> = (args) => {
   const { initialFilterInput } = args;
 
   return (

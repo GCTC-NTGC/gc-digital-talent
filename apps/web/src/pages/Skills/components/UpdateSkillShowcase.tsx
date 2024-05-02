@@ -283,7 +283,6 @@ const UpdateSkillShowcase = ({
                             !existingSkillsRankingFiltered.includes(skill.id),
                         )}
                         onSave={handleAdd}
-                        showCategory={false}
                         noToast
                       />
                     }

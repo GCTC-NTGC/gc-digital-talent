@@ -31,6 +31,8 @@ const mockDepartments = fakeDepartments();
 
 const meta: Meta<typeof DigitalServicesContractingQuestionnaire> = {
   component: DigitalServicesContractingQuestionnaire,
+  title:
+    "Pages/Directive On Digital Talent/Digital Services Contracting Questionnaire",
   args: {
     skills: mockSkills,
     departments: mockDepartments,

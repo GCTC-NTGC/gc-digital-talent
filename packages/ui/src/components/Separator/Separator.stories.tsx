@@ -1,20 +1,13 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 
-import SeparatorDocs from "./Separator.docs.mdx";
 import Separator from "./Separator";
 
 export default {
   component: Separator,
-  title: "Components/Separator",
-  parameters: {
-    docs: {
-      page: SeparatorDocs,
-    },
-  },
-} as ComponentMeta<typeof Separator>;
+} as Meta<typeof Separator>;
 
-const Template: ComponentStory<typeof Separator> = () => (
+const Template: StoryFn<typeof Separator> = () => (
   <div data-h2-width="base(100%)" data-h2-max-width="base(320px)">
     <p>Separator for content</p>
     <Separator

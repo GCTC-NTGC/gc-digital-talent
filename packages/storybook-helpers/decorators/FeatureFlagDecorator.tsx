@@ -1,5 +1,5 @@
 import React from "react";
-import { useParameter } from "@storybook/addons";
+import { useParameter } from "@storybook/preview-api";
 import { StoryFn } from "@storybook/react";
 
 import { FeatureFlagProvider, FeatureFlags } from "@gc-digital-talent/env";

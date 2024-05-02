@@ -31,11 +31,16 @@ class AppPage {
    * @param variables
    * @returns
    */
-  async graphqlRequest(query: string, variables?: Record<string, unknown>) {
+  async graphqlRequest(
+    query: string,
+    variables?: Record<string, unknown>,
+    isPrivileged: boolean = true,
+  ) {
     await this.gotoHome();
     await this.waitForGraphqlResponse("authorizationQuery");
     const tokens = await getAuthTokens(this.page);
-    const res = await this.page.request.post("/graphql", {
+    const url = isPrivileged ? "/admin/graphql" : "/graphql";
+    const res = await this.page.request.post(url, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${tokens.accessToken}`,

@@ -1,5 +1,5 @@
 import { IntlShape } from "react-intl";
-import isPast from "date-fns/isPast";
+import { isPast } from "date-fns/isPast";
 
 import { StepType } from "@gc-digital-talent/ui";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";

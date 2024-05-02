@@ -61,6 +61,7 @@ module.exports = (basePath, appMeta) => {
       new DefinePlugin({
         "process.env": {
           API_URI: JSON.stringify(process.env.API_URI),
+          API_PROTECTED_URI: JSON.stringify(process.env.API_PROTECTED_URI),
           BUILD_DATE: JSON.stringify(new Date()),
           API_SUPPORT_ENDPOINT: JSON.stringify(
             process.env.API_SUPPORT_ENDPOINT,

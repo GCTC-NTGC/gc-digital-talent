@@ -18,6 +18,7 @@ interface HeaderProps {
 
 const Header = ({ width }: HeaderProps) => {
   const intl = useIntl();
+  // eslint-disable-next-line no-restricted-syntax
   const { locale } = useLocale();
 
   const location = useLocation();

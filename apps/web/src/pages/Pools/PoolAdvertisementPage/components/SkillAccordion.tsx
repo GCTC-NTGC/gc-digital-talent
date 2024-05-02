@@ -7,8 +7,12 @@ import {
   getLocalizedName,
   getSkillLevelMessages,
 } from "@gc-digital-talent/i18n";
-import { PoolSkill, SkillCategory } from "@gc-digital-talent/graphql";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import {
+  FragmentType,
+  SkillCategory,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 interface ContextProps {
   required?: boolean;
@@ -41,22 +45,35 @@ const Context = ({ required }: ContextProps) => {
   );
 };
 
-// A version of the PoolSkill type where skill has been confirmed non-null and defined.
-export type PoolSkillWithSkill = PoolSkill & {
-  skill: NonNullable<PoolSkill["skill"]>;
-};
-export function isPoolWithSkill(
-  poolSkill: PoolSkill,
-): poolSkill is PoolSkillWithSkill {
-  return notEmpty(poolSkill.skill);
-}
+const PoolSkillAccordion_Fragment = graphql(/* GraphQL */ `
+  fragment PoolSkillAccordion on PoolSkill {
+    id
+    requiredLevel
+    skill {
+      id
+      key
+      category
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 interface SkillAccordionProps {
-  poolSkill: PoolSkillWithSkill;
+  poolSkillQuery: FragmentType<typeof PoolSkillAccordion_Fragment>;
   required?: ContextProps["required"];
 }
 
-const SkillAccordion = ({ poolSkill, required }: SkillAccordionProps) => {
+const SkillAccordion = ({ poolSkillQuery, required }: SkillAccordionProps) => {
   const intl = useIntl();
+  const poolSkill = getFragment(PoolSkillAccordion_Fragment, poolSkillQuery);
+  if (!poolSkill.skill) return null;
 
   const definitionAndLevel = poolSkill.requiredLevel
     ? getSkillLevelMessages(poolSkill.requiredLevel, poolSkill.skill.category)

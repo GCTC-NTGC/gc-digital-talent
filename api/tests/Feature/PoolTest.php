@@ -15,6 +15,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
+use Tests\UsesProtectedGraphqlEndpoint;
 
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertSame;
@@ -24,6 +25,7 @@ class PoolTest extends TestCase
     use MakesGraphQLRequests;
     use RefreshDatabase;
     use RefreshesSchemaCache;
+    use UsesProtectedGraphqlEndpoint;
 
     protected $team;
 
@@ -777,9 +779,6 @@ class PoolTest extends TestCase
 
     public function testAssessmentStepValidation(): void
     {
-        if (! config('feature.record_of_decision')) {
-            $this->markTestSkipped('record_of_decision is off');
-        }
 
         Classification::factory()->create();
         Skill::factory()->count(5)->create([
@@ -832,9 +831,6 @@ class PoolTest extends TestCase
 
     public function testPoolSkillValidation(): void
     {
-        if (! config('feature.record_of_decision')) {
-            $this->markTestSkipped('record_of_decision is off');
-        }
 
         Classification::factory()->create();
         Skill::factory()->create([
@@ -896,5 +892,30 @@ class PoolTest extends TestCase
             ]
         )
             ->assertJsonFragment(['id' => $completePool->id]);
+    }
+
+    // a pool operator can successfully delete a pool that they created but is still in draft
+    public function testCanDeleteDraftPool(): void
+    {
+        $pool = Pool::factory()
+            ->for($this->poolOperator)
+            ->withAssessments()
+            ->draft()
+            ->create([
+                'team_id' => $this->team,
+            ]);
+
+        $this->actingAs($this->poolOperator, 'api')->graphQL(
+            /** @lang GraphQL */
+            '   mutation DeletePool($id: ID!) {
+                    deletePool(id: $id) { id }
+                } ',
+            ['id' => $pool->id]
+        )
+            ->assertExactJson([
+                'data' => [
+                    'deletePool' => ['id' => $pool->id],
+                ],
+            ]);
     }
 }

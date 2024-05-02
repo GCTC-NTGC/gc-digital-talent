@@ -10,7 +10,7 @@ import { Heading, Link, Accordion, CardFlat } from "@gc-digital-talent/ui";
 import {
   Locales,
   navigationMessages,
-  useLocale,
+  getLocale,
 } from "@gc-digital-talent/i18n";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 
@@ -57,7 +57,7 @@ export const pageTitle = defineMessage({
 
 const DirectivePage = () => {
   const intl = useIntl();
-  const { locale } = useLocale();
+  const locale = getLocale(intl);
   const paths = useRoutes();
   const { directiveForms: directiveFormsFlag } = useFeatureFlags();
 

@@ -21,9 +21,7 @@ export type FormValues = {
     | AssessmentResult["justifications"]
     | AssessmentResultJustification;
   assessmentDecisionLevel: AssessmentResult["assessmentDecisionLevel"];
-  otherJustificationNotes: AssessmentResult["otherJustificationNotes"];
   skillDecisionNotes: AssessmentResult["skillDecisionNotes"];
-  assessmentNotes?: Maybe<string>;
 };
 
 export type FormValuesToApiCreateInputArgs = {
@@ -59,9 +57,7 @@ export function convertFormValuesToApiCreateInput({
     assessmentDecision,
     assessmentDecisionLevel,
     justifications,
-    otherJustificationNotes,
     skillDecisionNotes,
-    assessmentNotes,
   } = formValues;
 
   return {
@@ -72,10 +68,8 @@ export function convertFormValuesToApiCreateInput({
     assessmentDecisionLevel,
     assessmentResultType,
     justifications: justificationsConverted(justifications) ?? undefined,
-    otherJustificationNotes,
     poolSkillId,
     skillDecisionNotes,
-    assessmentNotes,
   };
 }
 export function convertFormValuesToApiUpdateInput({
@@ -87,9 +81,7 @@ export function convertFormValuesToApiUpdateInput({
     assessmentDecision,
     assessmentDecisionLevel,
     justifications,
-    otherJustificationNotes,
     skillDecisionNotes,
-    assessmentNotes,
   } = formValues;
 
   return {
@@ -99,9 +91,7 @@ export function convertFormValuesToApiUpdateInput({
     assessmentDecisionLevel,
     assessmentResultType,
     justifications: justificationsConverted(justifications) ?? undefined,
-    otherJustificationNotes,
     skillDecisionNotes,
-    assessmentNotes,
   };
 }
 

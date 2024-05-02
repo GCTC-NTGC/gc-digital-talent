@@ -1,7 +1,11 @@
 /* eslint-disable import/prefer-default-export */
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { AssessmentStepType, Pool } from "@gc-digital-talent/graphql";
+import {
+  AssessmentStepType,
+  Pool,
+  PoolSkillType,
+} from "@gc-digital-talent/graphql";
 
 import { PoolCompleteness } from "~/types/pool";
 
@@ -14,15 +18,16 @@ export function getAssessmentPlanStatus(pool: Pool): PoolCompleteness {
     return "submitted";
   }
 
-  const allPoolSkillIds = pool.poolSkills
+  const allEssentialPoolSkillIds = pool.poolSkills
     .filter(notEmpty)
+    .filter((poolSkill) => poolSkill.type === PoolSkillType.Essential)
     .map((poolSkill) => poolSkill.id);
   const assessedPoolSkillIds = pool.assessmentSteps
     .filter(notEmpty)
     .flatMap((step) =>
       step.poolSkills?.filter(notEmpty).map((poolSkill) => poolSkill.id),
     );
-  const thereAreUnassessedPoolSkills = allPoolSkillIds.some(
+  const thereAreUnassessedEssentialPoolSkills = allEssentialPoolSkillIds.some(
     (poolSkillId) => !assessedPoolSkillIds.includes(poolSkillId),
   );
 
@@ -36,7 +41,10 @@ export function getAssessmentPlanStatus(pool: Pool): PoolCompleteness {
       (assessmentStep) => !assessmentStep?.poolSkills?.length,
     );
 
-  if (!thereAreUnassessedPoolSkills && !thereAreAssessmentStepsWithNoSkills) {
+  if (
+    !thereAreUnassessedEssentialPoolSkills &&
+    !thereAreAssessmentStepsWithNoSkills
+  ) {
     return "complete";
   }
 

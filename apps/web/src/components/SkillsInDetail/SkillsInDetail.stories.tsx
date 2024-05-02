@@ -5,13 +5,10 @@ import { StoryFn } from "@storybook/react";
 import { fakeSkills } from "@gc-digital-talent/fake-data";
 import { BasicForm } from "@gc-digital-talent/forms";
 
-import type { FormSkills } from "~/types/experience";
-
 import SkillsInDetail from "./SkillsInDetail";
 
 export default {
   component: SkillsInDetail,
-  title: "Components/Skills In Detail",
   args: {
     skills: [],
     onDelete: (skillId: string) =>
@@ -27,11 +24,16 @@ const Template: StoryFn<typeof SkillsInDetail> = (args) => {
   );
 };
 
+const fakeSkill = fakeSkills(1)[0];
+
 export const Default = Template.bind({});
 Default.args = {
-  skills: fakeSkills(2).map((skill) => ({
-    id: skill.id,
-    skillId: skill.id,
-    name: skill.name,
-  })) as FormSkills,
+  skills: [
+    {
+      id: fakeSkill.id,
+      skillId: fakeSkill.id,
+      name: fakeSkill.name,
+      details: "",
+    },
+  ],
 };

@@ -24,5 +24,4 @@ export interface FormValues {
 
 export interface BaseSkillBrowserProps {
   skills: Skill[];
-  showCategory?: boolean;
 }

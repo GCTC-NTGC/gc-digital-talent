@@ -5,7 +5,6 @@ import SignInPage from "./SignInPage";
 
 export default {
   component: SignInPage,
-  title: "Pages/Sign In Page",
 } as Meta;
 
 const Template: StoryFn = () => <SignInPage />;

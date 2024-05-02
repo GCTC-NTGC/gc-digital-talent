@@ -115,6 +115,26 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
         "Message displayed to user after application fails to get deleted.",
     },
 
+    RemoveCandidateAlreadyPlaced: {
+      defaultMessage:
+        "A candidate can't be removed after already being placed.",
+      id: "72usGv",
+      description:
+        "Message displayed to user after attempting to remove an already placed candidate.",
+    },
+    RemoveCandidateAlreadyRemoved: {
+      defaultMessage: "Candidate is already removed.",
+      id: "vy6A5+",
+      description:
+        "Message displayed to user after attempting to remove an already removed candidate.",
+    },
+    CandidateUnexpectedStatus: {
+      defaultMessage: "Candidate has unexpected status.",
+      id: "AlECuf",
+      description:
+        "Message displayed to user after attempting to update a candidate with an unexpected status.",
+    },
+
     // assessmentStep updating
     AssessmentStepsSamePool: {
       defaultMessage: "AssessmentSteps must belong to the same pool.",

@@ -2,7 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet-async";
 import { useIntl } from "react-intl";
 
-import { commonMessages, useLocale } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 
 import Favicon from "./Favicon";
 
@@ -16,7 +16,7 @@ interface SEOProps {
 
 const SEO = ({ title, description, type = "website" }: SEOProps) => {
   const intl = useIntl();
-  const { locale } = useLocale();
+  const locale = getLocale(intl);
   const defaultTitle = intl.formatMessage(commonMessages.projectTitle);
 
   const defaultDescription = intl.formatMessage({

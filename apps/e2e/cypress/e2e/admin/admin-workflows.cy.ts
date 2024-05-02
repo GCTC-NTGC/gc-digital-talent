@@ -26,7 +26,7 @@ describe("Admin Workflow Tests", () => {
   };
 
   beforeEach(() => {
-    cy.intercept("POST", "/graphql", (req) => {
+    cy.intercept("POST", "**/graphql", (req) => {
       aliasQuery(req, "UsersPaginated");
       aliasQuery(req, "UpdateUserData");
       aliasQuery(req, "UsersTable_SelectUsers");

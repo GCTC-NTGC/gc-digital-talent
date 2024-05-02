@@ -45,7 +45,7 @@ const generateUserSkill = (
     ]),
     experiences: experiences.length
       ? faker.helpers.arrayElements<AnyGeneratedExperience>(experiences)
-      : ([] as AnyGeneratedExperience[]),
+      : undefined,
   };
 };
 

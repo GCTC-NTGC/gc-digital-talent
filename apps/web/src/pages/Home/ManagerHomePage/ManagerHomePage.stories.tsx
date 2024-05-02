@@ -7,7 +7,6 @@ import ManagerHomePage from "./ManagerHomePage";
 
 export default {
   component: ManagerHomePage,
-  title: "Pages/Home Page/Manager",
 };
 
 const Template: StoryFn = () => <ManagerHomePage />;

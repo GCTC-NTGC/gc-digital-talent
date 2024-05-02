@@ -14,7 +14,7 @@ import {
   SideMenuContentWrapper,
   SideMenuItem,
 } from "@gc-digital-talent/ui";
-import { uiMessages, useLocale } from "@gc-digital-talent/i18n";
+import { uiMessages, getLocale } from "@gc-digital-talent/i18n";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 
 import Footer from "~/components/Footer/Footer";
@@ -67,6 +67,10 @@ import {
   pageTitle as announcementsPageTitle,
   pageOutlineIcon as announcementsPageIcon,
 } from "~/pages/AnnouncementsPage/AnnouncementsPage";
+import {
+  adminPageTitle as skillPageTitle,
+  pageOutlineIcon as skillPageIcon,
+} from "~/pages/Skills/SkillPage";
 
 import SitewideBanner from "../SitewideBanner";
 import SkipLink from "../SkipLink";
@@ -103,7 +107,7 @@ const OpenMenuButton = React.forwardRef<
 
 const AdminLayout = () => {
   const intl = useIntl();
-  const { locale } = useLocale();
+  const locale = getLocale(intl);
   const paths = useRoutes();
   useLayoutTheme("default");
   const isSmallScreen = useIsSmallScreen();
@@ -217,6 +221,19 @@ const AdminLayout = () => {
             ) && (
               <SideMenuItem href={paths.teamTable()} icon={indexTeamPageIcon}>
                 {intl.formatMessage(indexTeamPageTitle)}
+              </SideMenuItem>
+            )}
+            {checkRole(
+              [
+                ROLE_NAME.PoolOperator,
+                ROLE_NAME.RequestResponder,
+                ROLE_NAME.CommunityManager,
+                ROLE_NAME.PlatformAdmin,
+              ],
+              roleAssignments,
+            ) && (
+              <SideMenuItem href={paths.skills()} icon={skillPageIcon}>
+                {intl.formatMessage(skillPageTitle)}
               </SideMenuItem>
             )}
           </SideMenuCategory>

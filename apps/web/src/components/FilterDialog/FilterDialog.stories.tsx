@@ -23,7 +23,6 @@ type FormValues = {
 
 export default {
   component: FilterDialog,
-  title: "Components/Filter Dialog",
   decorators: [OverlayOrDialogDecorator],
   args: {
     defaultOpen: true,
@@ -74,10 +73,8 @@ const Template: StoryFn<typeof FilterDialog> = (args) => {
   );
 };
 
-export const Empty = Template.bind({});
-
-export const DefaultValues = Template.bind({});
-DefaultValues.args = {
+export const Default = Template.bind({});
+Default.args = {
   options: {
     defaultValues: {
       single: mockOptions[1].value,
@@ -85,3 +82,5 @@ DefaultValues.args = {
     },
   },
 };
+
+export const Null = Template.bind({});

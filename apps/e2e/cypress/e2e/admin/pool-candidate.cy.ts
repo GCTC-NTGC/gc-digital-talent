@@ -25,7 +25,7 @@ describe.skip("Pool Candidates", () => {
   };
 
   beforeEach(() => {
-    cy.intercept("POST", "/graphql", (req) => {
+    cy.intercept("POST", "**/graphql", (req) => {
       aliasQuery(req, "ViewPoolCandidatesPage");
       aliasQuery(req, "PoolTable");
       aliasQuery(req, "CandidatesTableCandidatesPaginated_Query");

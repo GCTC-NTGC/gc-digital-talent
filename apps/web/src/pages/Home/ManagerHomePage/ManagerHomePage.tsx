@@ -50,7 +50,16 @@ const HomePage = () => {
       />
       <HomeHero
         img={{
-          srcset: `${managerHeroPortrait} 600w, ${managerHeroTablet} 900w, ${managerHeroLandscape} 1200w`,
+          sources: [
+            {
+              srcset: managerHeroPortrait,
+              media: "(max-width: 48rem)",
+            },
+            {
+              srcset: managerHeroTablet,
+              media: "(max-width: 67.5rem)",
+            },
+          ],
           src: managerHeroLandscape,
           alt: "",
         }}

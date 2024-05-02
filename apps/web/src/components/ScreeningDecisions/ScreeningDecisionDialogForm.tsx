@@ -25,9 +25,7 @@ type FormNames =
   | "assessmentDecision"
   | "justifications"
   | "assessmentDecisionLevel"
-  | "otherJustificationNotes"
   | "skillDecisionNotes"
-  | "assessmentNotes"
   | `justifications.${number}`;
 
 interface ScreeningDecisionDialogFormProps {
@@ -81,24 +79,18 @@ const ScreeningDecisionDialogForm = ({
       resetDirtyField("justifications");
       resetDirtyField("assessmentDecisionLevel");
       resetDirtyField("skillDecisionNotes");
-      if (!otherReasonSelected) {
-        resetDirtyField("otherJustificationNotes");
-      }
     }
 
     if (isAssessmentDecisionSuccessful) {
       if (!educationRequirementSelected) {
         resetDirtyField("justifications");
       }
-      resetDirtyField("otherJustificationNotes");
     }
 
     if (isAssessmentDecisionUnSuccessful) {
       resetDirtyField("assessmentDecisionLevel");
       resetDirtyField("skillDecisionNotes");
-      if (!otherReasonSelected) {
-        resetDirtyField("otherJustificationNotes");
-      }
+      resetDirtyField("justifications");
     }
 
     if (isAssessmentOnHold) {
@@ -111,7 +103,6 @@ const ScreeningDecisionDialogForm = ({
     isAssessmentDecisionSuccessful,
     isAssessmentDecisionUnSuccessful,
     isAssessmentDecisionNotSure,
-    otherReasonSelected,
     isAssessmentOnHold,
     educationRequirementSelected,
     setValue,
@@ -151,18 +142,6 @@ const ScreeningDecisionDialogForm = ({
 
   return (
     <>
-      {dialogType === "GENERIC" && (
-        <div data-h2-margin-bottom="base(x1)">
-          <TextArea
-            id="assessmentNotes"
-            name="assessmentNotes"
-            rows={TEXT_AREA_ROWS}
-            wordLimit={TEXT_AREA_MAX_WORDS}
-            label={labels.assessmentNotes}
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
-          />
-        </div>
-      )}
       <div data-h2-margin-bottom="base(x1)">
         <CardOptionGroup
           idPrefix="assessmentDecision"
@@ -248,16 +227,19 @@ const ScreeningDecisionDialogForm = ({
           </p>
         </Well>
       )}
-      {otherReasonSelected &&
-      (isAssessmentDecisionUnSuccessful || isAssessmentOnHold) ? (
+      {isAssessmentOnHold || isAssessmentDecisionUnSuccessful ? (
         <div data-h2-margin="base(x1, 0)">
           <TextArea
-            id="otherJustificationNotes"
-            name="otherJustificationNotes"
+            id="skillDecisionNotes"
+            name="skillDecisionNotes"
             rows={TEXT_AREA_ROWS}
             wordLimit={TEXT_AREA_MAX_WORDS}
-            label={labels.other}
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
+            label={labels.decisionNotes}
+            rules={
+              otherReasonSelected
+                ? { required: intl.formatMessage(errorMessages.required) }
+                : {}
+            }
           />
         </div>
       ) : null}

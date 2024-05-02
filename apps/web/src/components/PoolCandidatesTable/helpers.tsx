@@ -730,7 +730,6 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
             }
           }
         }
-        cmoIdentifier
         expiryDate
         status
         submittedAt

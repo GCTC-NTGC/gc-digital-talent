@@ -197,30 +197,18 @@ const ApplicantFilters = ({
               },
               { numOfSkills: skills?.length || 0 },
             )}
-          >
-            <Chips>
-              {skills && skills.length > 0 ? (
-                skills.map((skillName) => {
-                  return (
+            content={
+              skills && skills?.length > 0 ? (
+                <Chips>
+                  {skills.map((skillName) => (
                     <Chip key={skillName} color="primary">
                       {skillName}
                     </Chip>
-                  );
-                })
-              ) : (
-                <ul data-h2-color="base(black)">
-                  <li>
-                    {intl.formatMessage({
-                      defaultMessage: "(None selected)",
-                      id: "+O6J4u",
-                      description:
-                        "Text shown when the filter was not selected",
-                    })}
-                  </li>
-                </ul>
-              )}
-            </Chips>
-          </FilterBlock>
+                  ))}
+                </Chips>
+              ) : null
+            }
+          />
           <FilterBlock
             title={intl.formatMessage({
               defaultMessage: "Education Level",

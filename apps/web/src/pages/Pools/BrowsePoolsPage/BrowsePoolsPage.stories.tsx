@@ -1,5 +1,5 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 
 import {
   CHROMATIC_VIEWPORTS,
@@ -16,16 +16,18 @@ const mockPools = fakePools(3).map((advert) => ({
   status: PoolStatus.Published,
 }));
 
-type Meta = ComponentMeta<typeof BrowsePools>;
-type Story = ComponentStory<typeof BrowsePools>;
+const mockPoolsOngoing = fakePools(2).map((advert) => ({
+  ...advert,
+  publishingGroup: PublishingGroup.ItJobsOngoing,
+  status: PoolStatus.Published,
+}));
 
 export default {
   component: BrowsePools,
-  title: "Pages/Browse Pools Page",
   decorators: [MockGraphqlDecorator],
 } as Meta;
 
-const Template: Story = () => <BrowsePools />;
+const Template: StoryFn<typeof BrowsePools> = () => <BrowsePools />;
 
 export const Default = Template.bind({});
 Default.parameters = {
@@ -40,6 +42,24 @@ Default.parameters = {
     BrowsePoolsPage: {
       data: {
         publishedPools: mockPools,
+      },
+    },
+  },
+};
+
+export const OngoingRecruitment = Template.bind({});
+OngoingRecruitment.parameters = {
+  chromatic: { viewports: CHROMATIC_VIEWPORTS },
+  apiResponsesConfig: {
+    latency: {
+      min: 0,
+      max: 0,
+    },
+  },
+  apiResponses: {
+    BrowsePoolsPage: {
+      data: {
+        publishedPools: mockPoolsOngoing,
       },
     },
   },

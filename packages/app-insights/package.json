@@ -13,15 +13,15 @@
   },
   "dependencies": {
     "@gc-digital-talent/env": "workspace:*",
-    "@microsoft/applicationinsights-react-js": "^17.1.1",
-    "@microsoft/applicationinsights-web": "^3.1.1"
+    "@microsoft/applicationinsights-react-js": "^17.1.2",
+    "@microsoft/applicationinsights-web": "^3.2.0"
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
-    "@types/react": "^18.2.74",
+    "@types/react": "^18.3.1",
     "eslint": "^8.57.0",
-    "react": "^18.2.0",
+    "react": "^18.3.1",
     "tsconfig": "workspace:*",
-    "typescript": "^5.4.4"
+    "typescript": "^5.4.5"
   }
 }

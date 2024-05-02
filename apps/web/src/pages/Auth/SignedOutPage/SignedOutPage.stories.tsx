@@ -5,7 +5,6 @@ import SignedOutPage from "./SignedOutPage";
 
 export default {
   component: SignedOutPage,
-  title: "Pages/Signed Out Page",
 } as Meta;
 
 const Template: StoryFn = () => <SignedOutPage />;

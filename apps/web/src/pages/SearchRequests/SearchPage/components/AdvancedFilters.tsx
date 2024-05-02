@@ -3,7 +3,7 @@ import { IntlShape, useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import isArray from "lodash/isArray";
 
-import { Accordion, Heading } from "@gc-digital-talent/ui";
+import { Accordion, Button, Heading } from "@gc-digital-talent/ui";
 import { Checklist, RadioGroup } from "@gc-digital-talent/forms";
 import {
   getOperationalRequirement,
@@ -49,9 +49,16 @@ const getFieldLabel = (
   );
 };
 
+const accordionIds = {
+  educationRequirement: "educationRequirement",
+  employmentDuration: "employmentDuration",
+  operationalRequirements: "operationalRequirements",
+};
+
 const AdvancedFilters = () => {
   const intl = useIntl();
   const { watch } = useFormContext();
+  const [openFilters, setOpenFilters] = React.useState<string[]>([]);
   const [educationRequirement, employmentDuration, operationalRequirements] =
     watch([
       "educationRequirement",
@@ -117,21 +124,60 @@ const AdvancedFilters = () => {
     }),
   );
 
+  const toggleOpenFilters = () => {
+    const newOpenFilters =
+      openFilters.length === 0 ? Object.values(accordionIds) : [];
+    setOpenFilters(newOpenFilters);
+  };
+
   return (
     <>
-      <Heading
-        level="h3"
-        size="h6"
-        data-h2-font-weight="base(700)"
-        data-h2-margin="base(x2, 0, x.5, 0)"
+      <div
+        data-h2-display="base(flex)"
+        data-h2-flex-wrap="base(wrap)"
+        data-h2-align-items="base(center)"
+        data-h2-gap="base(0x.5)"
+        data-h2-justify-content="base(space-between)"
+        data-h2-margin="base(x2 0 x.5 0)"
       >
-        {intl.formatMessage({
-          defaultMessage: "Advanced filters",
-          id: "eozWFc",
-          description: "Title for the additional filters",
-        })}
-      </Heading>
-      <Accordion.Root type="multiple" size="sm">
+        <Heading
+          level="h3"
+          size="h6"
+          data-h2-font-weight="base(700)"
+          data-h2-margin="base(0)"
+        >
+          {intl.formatMessage({
+            defaultMessage: "Advanced filters",
+            id: "eozWFc",
+            description: "Title for the additional filters",
+          })}
+        </Heading>
+        <Button
+          mode="inline"
+          color="secondary"
+          type="button"
+          onClick={toggleOpenFilters}
+        >
+          {openFilters.length > 0
+            ? intl.formatMessage({
+                defaultMessage:
+                  "Collapse all<hidden> advanced filters</hidden>",
+                id: "q5V/+5",
+                description: "Button text to hide all advanced filters",
+              })
+            : intl.formatMessage({
+                defaultMessage: "Expand all<hidden> advanced filters</hidden>",
+                id: "/voRGj",
+                description: "Button text to show all advanced filters",
+              })}
+        </Button>
+      </div>
+      <Accordion.Root
+        type="multiple"
+        size="sm"
+        value={openFilters}
+        onValueChange={setOpenFilters}
+      >
         <Accordion.Item value="educationRequirement">
           <Accordion.Trigger
             as="h4"

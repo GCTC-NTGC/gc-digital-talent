@@ -19,9 +19,8 @@ on:
 jobs:
   chromatic:
     name: Chromatic
-    # 1. Always run for commits on main branch, and for any other commits...
-    # 2. Never run automatically on first trigger event, only on manual re-run.
-    if: ${{ github.ref_name == 'main' || github.run_attempt > 1 }}
+    # Only run if not dependabot,
+    if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-22.04
     env:
       PNPM_VERSION: "8.15.0"
@@ -66,3 +65,4 @@ jobs:
           # display immediately as "passing".
           autoAcceptChanges: true
           workingDir: apps/web
+          onlyChanged: true

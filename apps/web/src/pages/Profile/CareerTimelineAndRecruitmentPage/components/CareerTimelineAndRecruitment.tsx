@@ -9,14 +9,16 @@ import {
   AwardExperience,
   CommunityExperience,
   EducationExperience,
+  FragmentType,
   PersonalExperience,
   WorkExperience,
+  getFragment,
+  graphql,
 } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
-import { Application } from "~/utils/applicationUtils";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import { PAGE_SECTION_ID, titles } from "../constants";
@@ -30,14 +32,6 @@ const subTitle = defineMessage({
     "Description for the Career timeline and recruitment page in applicant profile.",
 });
 
-type MergedExperiences = Array<
-  | AwardExperience
-  | CommunityExperience
-  | EducationExperience
-  | PersonalExperience
-  | WorkExperience
->;
-
 export type ExperienceForDate =
   | (AwardExperience & { startDate: string; endDate: string })
   | CommunityExperience
@@ -45,19 +39,162 @@ export type ExperienceForDate =
   | PersonalExperience
   | WorkExperience;
 
+export const CareerTimelineExperience_Fragment = graphql(/* GraphQL */ `
+  fragment CareerTimelineExperience on Experience {
+    id
+    details
+    user {
+      id
+      email
+    }
+    skills {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      category
+      experienceSkillRecord {
+        details
+      }
+    }
+    ... on AwardExperience {
+      title
+      issuedBy
+      awardedDate
+      awardedTo
+      awardedScope
+    }
+    ... on CommunityExperience {
+      title
+      organization
+      project
+      startDate
+      endDate
+    }
+    ... on EducationExperience {
+      institution
+      areaOfStudy
+      thesisTitle
+      startDate
+      endDate
+      type
+      status
+    }
+    ... on PersonalExperience {
+      title
+      description
+      startDate
+      endDate
+    }
+    ... on WorkExperience {
+      role
+      organization
+      division
+      startDate
+      endDate
+    }
+  }
+`);
+
+export const CareerTimelineApplication_Fragment = graphql(/* GraphQL */ `
+  fragment CareerTimelineApplication on PoolCandidate {
+    id
+    status
+    archivedAt
+    submittedAt
+    suspendedAt
+    pool {
+      id
+      closingDate
+      name {
+        en
+        fr
+      }
+      publishingGroup
+      stream
+      classification {
+        id
+        group
+        level
+        name {
+          en
+          fr
+        }
+        genericJobTitles {
+          id
+          key
+          name {
+            en
+            fr
+          }
+        }
+        minSalary
+        maxSalary
+      }
+      essentialSkills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+        category
+        families {
+          id
+          key
+          description {
+            en
+            fr
+          }
+          name {
+            en
+            fr
+          }
+        }
+      }
+      team {
+        id
+        name
+        departments {
+          id
+          departmentNumber
+          name {
+            en
+            fr
+          }
+        }
+      }
+    }
+  }
+`);
+
 interface CareerTimelineAndRecruitmentProps {
   userId: string;
-  experiences?: MergedExperiences;
-  applications: Application[];
+  experiencesQuery: FragmentType<typeof CareerTimelineExperience_Fragment>[];
+  applicationsQuery: FragmentType<typeof CareerTimelineApplication_Fragment>[];
 }
 
 const CareerTimelineAndRecruitment = ({
-  experiences,
-  applications,
+  experiencesQuery,
+  applicationsQuery,
   userId,
 }: CareerTimelineAndRecruitmentProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const experiences = getFragment(
+    CareerTimelineExperience_Fragment,
+    experiencesQuery,
+  );
+  const applications = getFragment(
+    CareerTimelineApplication_Fragment,
+    applicationsQuery,
+  );
 
   const crumbs = useBreadcrumbs({
     crumbs: [
@@ -123,7 +260,7 @@ const CareerTimelineAndRecruitment = ({
               </p>
               <div data-h2-margin-top="base(x1)">
                 <CareerTimelineSection
-                  experiences={experiences}
+                  experiences={[...experiences]}
                   userId={userId}
                 />
               </div>
@@ -159,7 +296,7 @@ const CareerTimelineAndRecruitment = ({
                     "Descriptive paragraph for the Qualified recruitment processes section of the career timeline and recruitment page.",
                 })}
               </p>
-              <QualifiedRecruitmentsSection applications={applications} />
+              <QualifiedRecruitmentsSection applications={[...applications]} />
             </TableOfContents.Section>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>

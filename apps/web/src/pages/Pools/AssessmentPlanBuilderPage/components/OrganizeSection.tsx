@@ -10,8 +10,9 @@ import {
   graphql,
   AssessmentStep,
   AssessmentStepType,
-  Pool,
   PoolStatus,
+  FragmentType,
+  getFragment,
 } from "@gc-digital-talent/graphql";
 
 import AssessmentDetailsDialog from "./AssessmentDetailsDialog";
@@ -44,16 +45,33 @@ const OrganizeSection_SwapMutation = graphql(/* GraphQL */ `
   }
 `);
 
+const OrganizeSectionPool_Fragment = graphql(/* GraphQL */ `
+  fragment OrganizeSectionPool on Pool {
+    id
+    status
+    ...AssessmentStepCardPool
+    poolSkills {
+      ...AssessmentDetailsDialogPoolSkill
+    }
+    assessmentSteps {
+      id
+      type
+      sortOrder
+    }
+  }
+`);
+
 export interface OrganizeSectionProps {
-  pool: Pool;
+  poolQuery: FragmentType<typeof OrganizeSectionPool_Fragment>;
   pageIsLoading: boolean;
 }
 
 const OrganizeSection = ({
-  pool,
+  poolQuery,
   pageIsLoading: pageLoading,
 }: OrganizeSectionProps) => {
   const intl = useIntl();
+  const pool = getFragment(OrganizeSectionPool_Fragment, poolQuery);
   const initialSteps = React.useMemo(
     () => sortBy(unpackMaybes(pool.assessmentSteps), (step) => step.sortOrder),
     [pool.assessmentSteps],
@@ -275,7 +293,7 @@ const OrganizeSection = ({
                 </CardRepeater.Add>
               }
               onError={resetSteps}
-              allPoolSkills={unpackMaybes(pool.poolSkills)}
+              poolSkillsQuery={unpackMaybes(pool.poolSkills)}
               disallowStepTypes={
                 alreadyHasAScreeningQuestionsStep
                   ? [AssessmentStepType.ScreeningQuestionsAtApplication]
@@ -295,7 +313,7 @@ const OrganizeSection = ({
               onMove={move}
               onRemove={remove}
               assessmentStep={assessmentStep}
-              pool={pool}
+              poolQuery={pool}
             />
           ))}
         </CardRepeater.Root>

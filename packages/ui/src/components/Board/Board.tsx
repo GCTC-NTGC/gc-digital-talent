@@ -13,6 +13,7 @@ import { BoardProvider, useBoardContext } from "./BoardProvider";
 import { findColumns } from "./utils";
 import { BoardColumn } from "./types";
 import { ARROW_KEY, isArrowKey } from "../../utils/keyboard";
+import getFontColor from "../../utils/button/getButtonFontColor";
 
 type RootProps = React.HTMLProps<HTMLDivElement> & {
   defaultItem?: number;
@@ -363,6 +364,7 @@ const Info = ({
             data-h2-height="base(x.75)"
             data-h2-width="base(x.75)"
             data-h2-transition="base(transform 150ms ease)"
+            {...getFontColor({ mode: "inline", color: "black" })}
           />
           <span className="Info__Trigger__Title">{title}</span>
         </span>

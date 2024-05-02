@@ -13,8 +13,8 @@ export type DisplayProps = {
   subtitle?: React.ReactNode;
 };
 
-export type SectionProps<T> = {
-  pool: Pool;
+export type SectionProps<T, F> = {
+  poolQuery: F;
   sectionMetadata: EditPoolSectionMetadata;
   onSave: (submitData: T) => Promise<void>;
 };

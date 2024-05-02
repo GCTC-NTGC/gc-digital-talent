@@ -41,7 +41,6 @@ const AddToPoolDialog_Mutation = graphql(/* GraphQL */ `
       user {
         id
       }
-      cmoIdentifier
       expiryDate
       status
     }

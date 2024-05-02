@@ -43,3 +43,17 @@ export const NOT_PLACED_STATUSES = [
   PoolCandidateStatus.QualifiedAvailable,
   PoolCandidateStatus.PlacedTentative,
 ];
+
+export const RECORD_DECISION_STATUSES = [
+  PoolCandidateStatus.NewApplication,
+  PoolCandidateStatus.ApplicationReview,
+  PoolCandidateStatus.ScreenedIn,
+  PoolCandidateStatus.UnderAssessment,
+];
+
+export const REVERT_DECISION_STATUSES = [
+  PoolCandidateStatus.ScreenedOutApplication,
+  PoolCandidateStatus.ScreenedOutAssessment,
+  PoolCandidateStatus.QualifiedAvailable,
+  PoolCandidateStatus.Expired,
+];

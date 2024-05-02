@@ -1,5 +1,5 @@
 import React from "react";
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { StoryFn, Meta } from "@storybook/react";
 import AcademicCapIcon from "@heroicons/react/24/solid/AcademicCapIcon";
 import { action } from "@storybook/addon-actions";
 
@@ -18,10 +18,9 @@ const Toggle = () => {
 
 export default {
   component: ToggleSection.Root,
-  title: "Components/Toggle Section",
-} as ComponentMeta<typeof ToggleSection.Root>;
+} as Meta<typeof ToggleSection.Root>;
 
-const Template: ComponentStory<typeof ToggleSection.Root> = (args) => (
+const Template: StoryFn<typeof ToggleSection.Root> = (args) => (
   <ToggleSection.Root
     {...args}
     onOpenChange={(open) => action("onOpenToggle")(open)}
@@ -50,7 +49,7 @@ const Template: ComponentStory<typeof ToggleSection.Root> = (args) => (
 
 export const Default = Template.bind({});
 
-const NestedTemplate: ComponentStory<typeof ToggleSection.Root> = (args) => (
+const NestedTemplate: StoryFn<typeof ToggleSection.Root> = (args) => (
   <ToggleSection.Root
     {...args}
     onOpenChange={(open) => action("onOpenToggle")(open)}

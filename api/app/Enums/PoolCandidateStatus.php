@@ -32,4 +32,41 @@ enum PoolCandidateStatus
             PoolCandidateStatus::PLACED_CASUAL->name,
         ];
     }
+
+    public static function placedGroup(): array
+    {
+        return [
+            PoolCandidateStatus::PLACED_CASUAL->name,
+            PoolCandidateStatus::PLACED_INDETERMINATE->name,
+            PoolCandidateStatus::PLACED_TENTATIVE->name,
+            PoolCandidateStatus::PLACED_TERM->name,
+        ];
+    }
+
+    public static function removedGroup(): array
+    {
+        return [
+            PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name,
+            PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name,
+            PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
+            PoolCandidateStatus::QUALIFIED_WITHDREW->name,
+            PoolCandidateStatus::REMOVED->name,
+        ];
+    }
+
+    public static function finalDecisionGroup(): array
+    {
+        return [
+            PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
+            PoolCandidateStatus::QUALIFIED_WITHDREW->name,
+            PoolCandidateStatus::PLACED_TENTATIVE->name,
+            PoolCandidateStatus::PLACED_CASUAL->name,
+            PoolCandidateStatus::PLACED_TERM->name,
+            PoolCandidateStatus::PLACED_INDETERMINATE->name,
+            PoolCandidateStatus::EXPIRED->name,
+            PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
+            PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
+        ];
+    }
 }

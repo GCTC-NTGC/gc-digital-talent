@@ -9,7 +9,7 @@ FROM ubuntu:23.10
 RUN apt-get update \
   && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tzdata \
   && apt-get install -y perl unzip wget curl \
-  && apt-get install -y php8.2 php-mbstring php-xml php-pgsql php-zip php-curl php-bcmath \
+  && apt-get install -y php8.2 php-mbstring php-xml php-pgsql php-zip php-curl php-bcmath php-gd \
   && apt-get install -y git
 
 # install node from official image

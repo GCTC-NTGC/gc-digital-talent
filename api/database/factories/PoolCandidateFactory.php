@@ -4,10 +4,12 @@ namespace Database\Factories;
 
 use App\Enums\ApplicationStep;
 use App\Enums\AssessmentResultType;
+use App\Enums\CandidateRemovalReason;
 use App\Enums\EducationRequirementOption;
 use App\Enums\PoolCandidateStatus;
 use App\Models\AssessmentResult;
 use App\Models\AssessmentStep;
+use App\Models\Department;
 use App\Models\EducationExperience;
 use App\Models\GeneralQuestionResponse;
 use App\Models\Pool;
@@ -34,8 +36,15 @@ class PoolCandidateFactory extends Factory
      */
     public function definition()
     {
+        $relevantStatusesForFinalDecision = PoolCandidateStatus::finalDecisionGroup();
+        $placedStatuses = PoolCandidateStatus::placedGroup();
+        $placedDepartmentId = Department::inRandomOrder()
+            ->limit(1)
+            ->pluck('id')
+            ->first();
+        $removedStatuses = PoolCandidateStatus::removedGroup();
+
         return [
-            'cmo_identifier' => $this->faker->word(),
             'expiry_date' => $this->faker->dateTimeBetween('-1 years', '3 years'),
             'pool_candidate_status' => $this->faker->boolean() ?
                 $this->faker->randomElement([PoolCandidateStatus::QUALIFIED_AVAILABLE, PoolCandidateStatus::PLACED_CASUAL])->name :
@@ -52,6 +61,30 @@ class PoolCandidateFactory extends Factory
                 $this->faker->numberBetween(0, count(ApplicationStep::cases()) - 2)
             ),
             'is_bookmarked' => $this->faker->boolean(10),
+            'final_decision_at' => function (array $attributes) use ($relevantStatusesForFinalDecision) {
+                return in_array($attributes['pool_candidate_status'], $relevantStatusesForFinalDecision) ?
+                $this->faker->dateTimeBetween('-4 weeks', '-2 weeks') : null;
+            },
+            'placed_at' => function (array $attributes) use ($placedStatuses) {
+                return in_array($attributes['pool_candidate_status'], $placedStatuses) ?
+                $this->faker->dateTimeBetween('-2 weeks', 'now') : null;
+            },
+            'placed_department_id' => function (array $attributes) use ($placedStatuses, $placedDepartmentId) {
+                return in_array($attributes['pool_candidate_status'], $placedStatuses) ?
+                $placedDepartmentId : null;
+            },
+            'removed_at' => function (array $attributes) use ($removedStatuses) {
+                return in_array($attributes['pool_candidate_status'], $removedStatuses) ?
+                $this->faker->dateTimeBetween('-2 weeks', 'now') : null;
+            },
+            'removal_reason' => function (array $attributes) use ($removedStatuses) {
+                return in_array($attributes['pool_candidate_status'], $removedStatuses) ?
+                $this->faker->randomElement(CandidateRemovalReason::cases())->name : null;
+            },
+            'removal_reason_other' => function (array $attributes) {
+                return $attributes['removal_reason'] === CandidateRemovalReason::OTHER->name ?
+                $this->faker->sentence() : null;
+            },
         ];
     }
 

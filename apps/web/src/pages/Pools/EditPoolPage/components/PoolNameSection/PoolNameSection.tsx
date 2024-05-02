@@ -14,8 +14,9 @@ import { Input, Select, Submit, enumToOptions } from "@gc-digital-talent/forms";
 import {
   PublishingGroup,
   PoolStatus,
-  Classification,
-  Maybe,
+  FragmentType,
+  getFragment,
+  graphql,
 } from "@gc-digital-talent/graphql";
 
 import {
@@ -40,17 +41,53 @@ import {
 import { SectionProps } from "../../types";
 import ActionWrapper from "../ActionWrapper";
 
-type PoolNameSectionProps = SectionProps<PoolNameSubmitData> & {
-  classifications: Array<Maybe<Classification>>;
+const EditPoolName_Fragment = graphql(/* GraphQL */ `
+  fragment EditPoolName on Pool {
+    id
+    status
+    processNumber
+    publishingGroup
+    opportunityLength
+    stream
+    classification {
+      id
+      group
+      level
+    }
+    name {
+      en
+      fr
+    }
+  }
+`);
+
+export const PoolClassification_Fragment = graphql(/* GraphQL */ `
+  fragment PoolClassification on Classification {
+    id
+    group
+    level
+    name {
+      en
+      fr
+    }
+  }
+`);
+
+type PoolNameSectionProps = SectionProps<
+  PoolNameSubmitData,
+  FragmentType<typeof EditPoolName_Fragment>
+> & {
+  classificationsQuery: FragmentType<typeof PoolClassification_Fragment>[];
 };
 
 const PoolNameSection = ({
-  pool,
-  classifications,
+  poolQuery,
+  classificationsQuery,
   sectionMetadata,
   onSave,
 }: PoolNameSectionProps): JSX.Element => {
   const intl = useIntl();
+  const pool = getFragment(EditPoolName_Fragment, poolQuery);
   const isNull = isInNullState(pool);
   const emptyRequired = hasEmptyRequiredFields(pool);
   const { isSubmitting } = useEditPoolContext();
@@ -59,6 +96,10 @@ const PoolNameSection = ({
     emptyRequired,
     fallbackIcon: TagIcon,
   });
+  const classifications = getFragment(
+    PoolClassification_Fragment,
+    classificationsQuery,
+  );
 
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(pool),

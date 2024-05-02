@@ -141,10 +141,10 @@ Cypress.Commands.add("expectToast", (text) => {
 });
 
 // issue an authenticated graphql request
-Cypress.Commands.add("graphqlRequest", (body) => {
+Cypress.Commands.add("graphqlRequest", (body, isPrivileged = true) => {
   cy.request({
     method: "POST",
-    url: "/graphql",
+    url: isPrivileged ? "/admin/graphql" : "/graphql",
     auth: {
       bearer: window.localStorage.getItem("access_token"),
     },

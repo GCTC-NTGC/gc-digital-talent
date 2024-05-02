@@ -29,6 +29,7 @@ module.exports = {
   ],
   plugins: [
     "import",
+    "no-only-tests",
     "@typescript-eslint",
     "turbo"
   ],
@@ -65,6 +66,7 @@ module.exports = {
         pathGroupsExcludedImportTypes: ["@gc-digital-talent/**"],
       },
     ],
+    "no-only-tests/no-only-tests": "error",
     "no-param-reassign": "warn",
     "no-use-before-define": "off",
     "no-shadow": "off",

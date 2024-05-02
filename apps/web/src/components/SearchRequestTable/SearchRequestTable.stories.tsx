@@ -18,7 +18,6 @@ const mockPaginatorInfo = {
 };
 
 export default {
-  title: "Tables/Search Request Table",
   component: SearchRequestTable,
   parameters: {
     apiResponses: {

@@ -81,7 +81,7 @@ describe("SkillAccordion", () => {
 
     await openAccordion(testSkill.name.en);
 
-    expect(screen.getByText("1 Experience")).toBeInTheDocument();
+    expect(screen.getByText("1 experience")).toBeInTheDocument();
     expect(
       screen.getByRole("region", {
         name: new RegExp(testSkill.name.en || "", "i"),
@@ -100,7 +100,7 @@ describe("SkillAccordion", () => {
     renderSkillAccordion(testSkill);
     await openAccordion(testSkill.name.en);
 
-    expect(screen.getByText("1 Experience")).toBeInTheDocument();
+    expect(screen.getByText("1 experience")).toBeInTheDocument();
 
     const detail = screen.getByRole("region", {
       name: new RegExp(testSkill.name.en || "", "i"),
@@ -127,7 +127,7 @@ describe("SkillAccordion", () => {
 
     await openAccordion(testSkill.name.en);
 
-    expect(screen.getByText("1 Experience")).toBeInTheDocument();
+    expect(screen.getByText("1 experience")).toBeInTheDocument();
 
     const detail = screen.getByRole("region", {
       name: new RegExp(testSkill.name.en || "", "i"),
@@ -153,7 +153,7 @@ describe("SkillAccordion", () => {
 
     await openAccordion(testSkill.name.en);
 
-    expect(screen.getByText("1 Experience")).toBeInTheDocument();
+    expect(screen.getByText("1 experience")).toBeInTheDocument();
 
     const detail = screen.getByRole("region", {
       name: new RegExp(testSkill.name.en || "", "i"),
@@ -179,7 +179,7 @@ describe("SkillAccordion", () => {
 
     await openAccordion(testSkill.name.en);
 
-    expect(screen.getByText("1 Experience")).toBeInTheDocument();
+    expect(screen.getByText("1 experience")).toBeInTheDocument();
 
     const detail = screen.getByRole("region", {
       name: new RegExp(testSkill.name.en || "", "i"),
@@ -201,7 +201,7 @@ describe("SkillAccordion", () => {
 
     await openAccordion(testSkill.name.en);
 
-    expect(screen.getByText("2 Experiences")).toBeInTheDocument();
+    expect(screen.getByText("2 experiences")).toBeInTheDocument();
 
     const detail = screen.getByRole("region", {
       name: new RegExp(testSkill.name.en || "", "i"),

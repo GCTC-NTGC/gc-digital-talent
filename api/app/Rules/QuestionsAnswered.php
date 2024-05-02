@@ -42,19 +42,17 @@ class QuestionsAnswered implements ValidationRule
             }
         }
 
-        if (config('feature.record_of_decision')) {
-            $screeningQuestions = ScreeningQuestion::where('pool_id', $value)
-                ->get()
-                ->pluck('id');
+        $screeningQuestions = ScreeningQuestion::where('pool_id', $value)
+            ->get()
+            ->pluck('id');
 
-            if (count($screeningQuestions)) {
-                $responseCount = $this->application->screeningQuestionResponses()
-                    ->whereIn('screening_question_id', $screeningQuestions)
-                    ->count();
+        if (count($screeningQuestions)) {
+            $responseCount = $this->application->screeningQuestionResponses()
+                ->whereIn('screening_question_id', $screeningQuestions)
+                ->count();
 
-                if ($responseCount < count($screeningQuestions)) {
-                    $fail(ApiEnums::POOL_CANDIDATE_MISSING_QUESTION_RESPONSE);
-                }
+            if ($responseCount < count($screeningQuestions)) {
+                $fail(ApiEnums::POOL_CANDIDATE_MISSING_QUESTION_RESPONSE);
             }
         }
     }

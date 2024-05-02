@@ -15,7 +15,6 @@ const mockSkills = getStaticSkills();
 
 export default {
   component: SkillBrowserDialog,
-  title: "Components/Skill Browser/Dialog",
   decorators: [OverlayOrDialogDecorator],
   args: {
     skills: mockSkills,
@@ -49,19 +48,16 @@ ExperienceContext.args = {
 export const LibraryContext = Template.bind({});
 LibraryContext.args = {
   context: "library",
-  showCategory: false,
 };
 
 export const ShowcaseContext = Template.bind({});
 ShowcaseContext.args = {
   context: "showcase",
-  showCategory: false,
 };
 
 export const ShowcaseShowMyLibraryContext = Template.bind({});
 ShowcaseShowMyLibraryContext.args = {
   context: "showcase",
-  showCategory: false,
   inLibrary: faker.helpers.arrayElements<Skill>(mockSkills, 15),
 };
 

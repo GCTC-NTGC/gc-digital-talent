@@ -105,7 +105,7 @@ const DigitalContractQuestionnaire_Query = graphql(
 
 describe("Directive Forms Tests", () => {
   beforeEach(() => {
-    cy.intercept("POST", "/graphql", (req) => {
+    cy.intercept("POST", "**/graphql", (req) => {
       aliasQuery(req, "DigitalContractQuestionnaire");
       aliasMutation(req, "CreateDigitalContractingQuestionnaire");
     });
@@ -309,16 +309,6 @@ describe("Directive Forms Tests", () => {
     });
 
     cy.findByRole("dialog", { name: "Find a skill" }).within(() => {
-      cy.findByRole("combobox", {
-        name: "Skill category",
-      }).then((dropdown) => {
-        cy.wrap(dropdown).select(1); // All categories
-      });
-      cy.findByRole("combobox", {
-        name: "Skill family",
-      }).then((dropdown) => {
-        cy.wrap(dropdown).select(1); // All families
-      });
       cy.findByRole("combobox", { name: "Skill*" }).then((combobox) => {
         cy.wrap(combobox).focus();
         cy.wrap(combobox).type("Ability to Learn Quickly{downArrow}{enter}");

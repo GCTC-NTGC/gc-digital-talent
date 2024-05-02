@@ -14,15 +14,12 @@ class AssessmentStepComplete implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $flagBoolean = config('feature.record_of_decision');
 
-        if ($flagBoolean) {
-            $assessmentStep = AssessmentStep::find($value)->load('poolSkills');
+        $assessmentStep = AssessmentStep::find($value)->load('poolSkills');
 
-            // check step has at least one pool skill
-            if (count($assessmentStep->poolSkills) === 0 && $assessmentStep->type !== AssessmentStepType::APPLICATION_SCREENING->name) {
-                $fail('AssessmentStepMissingSkills');
-            }
+        // check step has at least one pool skill
+        if (count($assessmentStep->poolSkills) === 0 && $assessmentStep->type !== AssessmentStepType::APPLICATION_SCREENING->name) {
+            $fail('AssessmentStepMissingSkills');
         }
     }
 }

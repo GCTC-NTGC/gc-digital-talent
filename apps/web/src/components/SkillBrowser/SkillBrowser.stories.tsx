@@ -13,7 +13,6 @@ const mockSkills = getStaticSkills();
 
 export default {
   component: SkillBrowser,
-  title: "Components/Skill Browser/Inline",
   args: {
     skills: mockSkills,
     name: "skills",

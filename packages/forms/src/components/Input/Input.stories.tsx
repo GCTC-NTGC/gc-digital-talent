@@ -1,6 +1,8 @@
 import React from "react";
-import { Story, Meta } from "@storybook/react";
+import { StoryFn, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+
+import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Form from "../BasicForm";
 import Submit from "../Submit";
@@ -10,35 +12,29 @@ import type { InputProps } from ".";
 
 export default {
   component: Input,
-  title: "Form/Input",
 } as Meta;
 
-const themes = ["light", "dark"];
-
-const TemplateInput: Story<InputProps> = (args) => {
+const TemplateInput: StoryFn<InputProps> = (args) => {
   const { ...rest } = args;
   return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-grid-template-columns="base(100%) l-tablet(50% 50%)"
-    >
-      {themes.map((theme) => (
-        <div data-h2={theme} key={theme}>
-          <div data-h2-background="base(background)" data-h2-padding="base(x2)">
-            <Form onSubmit={action("Submit Form")}>
-              <Input {...rest} />
-              <p data-h2-margin-top="base(x1)">
-                <Submit />
-              </p>
-            </Form>
-          </div>
-        </div>
-      ))}
-    </div>
+    <Form onSubmit={action("Submit Form")}>
+      <Input {...rest} />
+      <Submit data-h2-margin-top="base(x1)" />
+    </Form>
   );
 };
 
 export const TextInput = TemplateInput.bind({});
+
+TextInput.parameters = {
+  chromatic: {
+    modes: {
+      light: allModes.light,
+      "light mobile": allModes["light mobile"],
+      dark: allModes.dark,
+    },
+  },
+};
 
 TextInput.args = {
   type: "text",
@@ -98,9 +94,9 @@ ElementLabelText.args = {
   context: "Additional context about this field.",
 };
 
-export const ReadOnlyTextInput = TemplateInput.bind({});
+export const TextInputReadOnly = TemplateInput.bind({});
 
-ReadOnlyTextInput.args = {
+TextInputReadOnly.args = {
   type: "text",
   id: "firstName",
   label: "First Name",

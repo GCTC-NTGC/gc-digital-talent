@@ -61,7 +61,16 @@ export const HomePage = ({ pools }: HomePageProps) => {
       />
       <HomeHero
         img={{
-          srcset: `${executiveHeroPortrait} 600w, ${executiveHeroTablet} 900w, ${executiveHeroLandscape} 1200w`,
+          sources: [
+            {
+              srcset: `${executiveHeroPortrait}`,
+              media: "(max-width: 48rem)",
+            },
+            {
+              srcset: `${executiveHeroTablet}`,
+              media: "(max-width: 67.5rem)",
+            },
+          ],
           src: executiveHeroLandscape,
           alt: "",
         }}
@@ -111,7 +120,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
             >
               {pools.map((pool) => (
                 <li key={pool.id}>
-                  <PoolCard pool={pool} />
+                  <PoolCard poolQuery={pool} />
                 </li>
               ))}
             </ul>
@@ -494,92 +503,8 @@ const ExecutiveHomePage_Query = graphql(/* GraphQL */ `
   query ExecutiveHomePage($closingAfter: DateTime) {
     publishedPools(closingAfter: $closingAfter) {
       id
-      name {
-        en
-        fr
-      }
-      closingDate
-      status
-      language
-      securityClearance
-      classification {
-        id
-        group
-        level
-        name {
-          en
-          fr
-        }
-        minSalary
-        maxSalary
-        genericJobTitles {
-          id
-          key
-          name {
-            en
-            fr
-          }
-        }
-      }
-      yourImpact {
-        en
-        fr
-      }
-      keyTasks {
-        en
-        fr
-      }
-      essentialSkills {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        category
-        families {
-          id
-          key
-          description {
-            en
-            fr
-          }
-          name {
-            en
-            fr
-          }
-        }
-      }
-      nonessentialSkills {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        category
-        families {
-          id
-          key
-          description {
-            en
-            fr
-          }
-          name {
-            en
-            fr
-          }
-        }
-      }
-      isRemote
-      location {
-        en
-        fr
-      }
-      stream
-      processNumber
-      publishedAt
       publishingGroup
+      ...PoolCard
     }
   }
 `);

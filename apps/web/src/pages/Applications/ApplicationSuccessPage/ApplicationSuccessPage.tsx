@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Alert, Link } from "@gc-digital-talent/ui";
-import { useLocale } from "@gc-digital-talent/i18n";
+import { getLocale } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -42,7 +42,7 @@ export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
 
 const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
-  const { locale } = useLocale();
+  const locale = getLocale(intl);
   const paths = useRoutes();
   const { currentStepOrdinal, isIAP } = useApplicationContext();
   const pageInfo = getPageInfo({
@@ -152,8 +152,8 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
         <Link
           href={
             locale === "fr"
-              ? "https://forms-formulaires.alpha.canada.ca/fr/id/clsdw2j7t00igxd8211b53rlv"
-              : "https://forms-formulaires.alpha.canada.ca/en/id/clsdw2j7t00igxd8211b53rlv"
+              ? "https://forms-formulaires.alpha.canada.ca/fr/id/cluk67skq014qyq819p40237j"
+              : "https://forms-formulaires.alpha.canada.ca/en/id/cluk67skq014qyq819p40237j"
           }
           color="secondary"
           mode="solid"

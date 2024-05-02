@@ -12,7 +12,7 @@ describe("Redirects", () => {
   };
 
   beforeEach(() => {
-    cy.intercept("POST", "/graphql", (req) => {
+    cy.intercept("POST", "**/graphql", (req) => {
       aliasQuery(req, "ProfileUser");
     });
     cy.loginByRole("applicant");

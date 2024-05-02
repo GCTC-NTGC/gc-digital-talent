@@ -8,7 +8,6 @@ faker.seed(0);
 
 export default {
   component: Spoiler,
-  title: "Components/Spoiler",
 };
 
 const Template: StoryFn<typeof Spoiler> = (args) => <Spoiler {...args} />;

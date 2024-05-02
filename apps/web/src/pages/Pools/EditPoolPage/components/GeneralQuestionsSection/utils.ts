@@ -12,7 +12,7 @@ export type FormValues = {
 };
 
 export const dataToFormValues = (
-  initialData?: GeneralQuestion,
+  initialData?: GeneralQuestion | null,
 ): FormValues => ({
   id: initialData?.id ?? "new",
   questionEn: initialData?.question?.en ?? "",
