@@ -383,7 +383,7 @@ importers:
         version: 6.23.0(react-dom@18.2.0)(react@18.2.0)
       urql:
         specifier: ^4.0.7
-        version: 4.0.7(graphql@16.8.1)(react@18.2.0)
+        version: 4.0.7(react@18.2.0)
     devDependencies:
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
@@ -428,8 +428,8 @@ importers:
         specifier: workspace:*
         version: link:../toast
       '@urql/core':
-        specifier: ^5.0.0
-        version: 5.0.0(graphql@16.8.1)
+        specifier: ^5.0.3
+        version: 5.0.3(graphql@16.8.1)
       '@urql/exchange-auth':
         specifier: ^2.1.6
         version: 2.1.6(graphql@16.8.1)
@@ -1011,8 +1011,8 @@ importers:
         specifier: ^8.0.6
         version: 8.0.6(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.5)
       '@urql/core':
-        specifier: ^5.0.0
-        version: 5.0.0(graphql@16.8.1)
+        specifier: ^5.0.3
+        version: 5.0.3(graphql@16.8.1)
       chromatic:
         specifier: ^11.3.0
         version: 11.3.0
@@ -1239,7 +1239,7 @@ importers:
         version: 6.23.0(react-dom@18.2.0)(react@18.2.0)
       urql:
         specifier: ^4.0.7
-        version: 4.0.7(graphql@16.8.1)(react@18.2.0)
+        version: 4.0.7(react@18.2.0)
     devDependencies:
       '@faker-js/faker':
         specifier: ^8.4.1
@@ -7253,10 +7253,19 @@ packages:
     transitivePeerDependencies:
       - graphql
 
+  /@urql/core@5.0.3(graphql@16.8.1):
+    resolution: {integrity: sha512-NZ3YqRr6IphbpFjGqujJOuVuV8/QegYxfjy1zdmOSWpYYFLpmMBfVtzZ/L8IiqPERVAEAIKjUsryLnVtXJQo4w==}
+    dependencies:
+      '@0no-co/graphql.web': 1.0.6(graphql@16.8.1)
+      wonka: 6.3.4
+    transitivePeerDependencies:
+      - graphql
+    dev: false
+
   /@urql/exchange-auth@2.1.6(graphql@16.8.1):
     resolution: {integrity: sha512-snOlt7p5kYq0KnPDuXkKe2qW3/BucQZOElvTeo3svLQuk9JiNJVnm6ffQ6QGiGO+G3AtMrctnno1+X44fLtDuQ==}
     dependencies:
-      '@urql/core': 5.0.0(graphql@16.8.1)
+      '@urql/core': 5.0.3(graphql@16.8.1)
       wonka: 6.3.4
     transitivePeerDependencies:
       - graphql
@@ -16427,6 +16436,18 @@ packages:
       wonka: 6.3.4
     transitivePeerDependencies:
       - graphql
+
+  /urql@4.0.7(react@18.2.0):
+    resolution: {integrity: sha512-wnOONtZoYEobmamM5ushUBGil6UCUPd7SH5uEAqsz5Y/qBV88/2QG6jq7v6xP+413x5Lqy0h0hCGRB0KIeG6Kg==}
+    peerDependencies:
+      react: '>= 16.8.0'
+    dependencies:
+      '@urql/core': 5.0.3(graphql@16.8.1)
+      react: 18.2.0
+      wonka: 6.3.4
+    transitivePeerDependencies:
+      - graphql
+    dev: false
 
   /use-callback-ref@1.3.1(@types/react@18.2.78)(react@18.2.0):
     resolution: {integrity: sha512-Lg4Vx1XZQauB42Hw3kK7JM6yjVjgFmFC5/Ab797s79aARomD2nEErc4mCgM8EZrARLmmbWpi5DGCadmK50DcAQ==}
