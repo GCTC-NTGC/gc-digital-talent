@@ -10,8 +10,7 @@ import {
   makeFragmentData,
 } from "@gc-digital-talent/graphql";
 
-import {
-  JobPlacementDialog,
+import JobPlacementDialog, {
   JobPlacementDialog_Fragment,
 } from "./JobPlacementDialog";
 

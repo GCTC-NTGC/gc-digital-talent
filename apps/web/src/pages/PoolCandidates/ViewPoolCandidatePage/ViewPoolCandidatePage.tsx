@@ -48,7 +48,7 @@ import {
   RECORD_DECISION_STATUSES,
   REVERT_DECISION_STATUSES,
 } from "~/constants/poolCandidate";
-import { JobPlacementDialog } from "~/components/PoolCandidatesTable/JobPlacementDialog";
+import JobPlacementDialog from "~/components/PoolCandidatesTable/JobPlacementDialog";
 
 import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
 import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";

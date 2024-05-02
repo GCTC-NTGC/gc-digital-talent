@@ -84,7 +84,7 @@ interface JobPlacementDialogProps {
   defaultOpen?: boolean;
 }
 
-export const JobPlacementDialog = ({
+const JobPlacementDialog = ({
   jobPlacementDialogQuery,
   departments,
   context = "table",
