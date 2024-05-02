@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Console\Commands\HardDeleteOldUsers;
+use App\Console\Commands\LogFlagsCommand;
 use App\Console\Commands\PruneUserGeneratedFiles;
 use App\Console\Commands\SendNotificationsApplicationDeadlineApproaching;
 use Illuminate\Console\Scheduling\Schedule;
@@ -40,6 +41,10 @@ class Kernel extends ConsoleKernel
                 ->appendOutputTo('/tmp/send-notifications-application-deadline-approaching.log');
 
         }
+
+        $schedule->command(LogFlagsCommand::class)
+            ->everyMinute()
+            ->appendOutputTo('/tmp/log-flags.log');
     }
 
     /**
