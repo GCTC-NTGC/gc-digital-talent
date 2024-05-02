@@ -57,6 +57,18 @@ const OrganizeSectionPool_Fragment = graphql(/* GraphQL */ `
       id
       type
       sortOrder
+      poolSkills {
+        id
+        skill {
+          id
+          key
+          category
+          name {
+            en
+            fr
+          }
+        }
+      }
     }
   }
 `);
