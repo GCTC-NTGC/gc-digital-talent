@@ -89,7 +89,7 @@ if
     touch /etc/nginx/conf.d/default.conf && \
     /home/site/wwwroot/infrastructure/bin/substitute_file.sh \
         /home/site/wwwroot/infrastructure/conf/nginx-conf-deploy/default \
-        /etc/nginx/sites-available/default '$NGINX_PORT $ROBOTS_FILENAME' && \
+        /etc/nginx/sites-available/default '$NGINX_PORT $ROBOTS_FILENAME $HTTP_DISGUISED_HOST' && \
     nginx -s reload ; then
     add_section_block ":white_check_mark: Set up Nginx *successful*."
 else

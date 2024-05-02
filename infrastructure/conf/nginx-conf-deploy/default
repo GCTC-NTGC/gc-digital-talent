@@ -9,7 +9,7 @@ server {
 
     root /home/site/wwwroot;
     index  index.php index.html index.htm;
-    #server_name talent.canada.ca www.talent.canada.ca;
+    server_name $HTTP_DISGUISED_HOST;
     absolute_redirect off;
     gzip_static on;
 

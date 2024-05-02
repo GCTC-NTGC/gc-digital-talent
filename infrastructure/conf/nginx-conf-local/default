@@ -19,7 +19,7 @@ server {
     listen [::]:8080;
     root /home/site/wwwroot;
     index  index.php index.html index.htm;
-    #server_name localhost;
+    server_name localhost;
     gzip_static on;
     absolute_redirect off;
 
