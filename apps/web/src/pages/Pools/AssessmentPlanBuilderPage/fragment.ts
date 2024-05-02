@@ -5,7 +5,7 @@ const AssessmentPlanBuilderPool_Fragment = graphql(/* GraphQL */ `
     id
     ...OrganizeSectionPool
     ...SkillSummarySectionPool
-    publishedAt
+    ...AssessmentPlanStatus
     poolSkills {
       id
       type
@@ -17,13 +17,6 @@ const AssessmentPlanBuilderPool_Fragment = graphql(/* GraphQL */ `
           en
           fr
         }
-      }
-    }
-    assessmentSteps {
-      id
-      type
-      poolSkills {
-        id
       }
     }
   }

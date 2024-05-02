@@ -70,7 +70,7 @@ export const AssessmentPlanBuilder = ({
     return aName.localeCompare(bName);
   });
 
-  const assessmentStatus = getAssessmentPlanStatus(poolQuery);
+  const assessmentStatus = getAssessmentPlanStatus(pool);
   const assessmentBadge = getPoolCompletenessBadge(assessmentStatus);
 
   return (

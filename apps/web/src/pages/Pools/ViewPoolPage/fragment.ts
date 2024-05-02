@@ -2,9 +2,9 @@ import { graphql } from "@gc-digital-talent/graphql";
 
 const ViewPool_Fragment = graphql(/* GraphQL */ `
   fragment ViewPool on Pool {
+    ...AssessmentPlanStatus
     id
     publishingGroup
-    publishedAt
     isComplete
     status
     closingDate
@@ -22,14 +22,6 @@ const ViewPool_Fragment = graphql(/* GraphQL */ `
     poolSkills {
       id
       type
-    }
-    assessmentSteps {
-      id
-      type
-      poolSkills {
-        id
-        type
-      }
     }
     poolCandidates {
       id

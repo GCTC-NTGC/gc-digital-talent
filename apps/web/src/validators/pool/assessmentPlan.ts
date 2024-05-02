@@ -6,28 +6,33 @@ import {
   FragmentType,
   PoolSkillType,
   getFragment,
+  graphql,
 } from "@gc-digital-talent/graphql";
 
 import { PoolCompleteness } from "~/types/pool";
-import ViewPool_Fragment from "~/pages/Pools/ViewPoolPage/fragment";
-import AssessmentPlanBuilderPool_Fragment from "~/pages/Pools/AssessmentPlanBuilderPage/fragment";
 
-function isViewPool_Fragment(
-  poolQuery:
-    | FragmentType<typeof ViewPool_Fragment>
-    | FragmentType<typeof AssessmentPlanBuilderPool_Fragment>,
-): poolQuery is FragmentType<typeof ViewPool_Fragment> {
-  return "ViewPoolFragment" in poolQuery;
-}
+export const AssessmentPlanStatus_Fragment = graphql(/* GraphQL */ `
+  fragment AssessmentPlanStatus on Pool {
+    publishedAt
+    poolSkills {
+      id
+      type
+    }
+    assessmentSteps {
+      id
+      type
+      poolSkills {
+        id
+        type
+      }
+    }
+  }
+`);
 
 export function getAssessmentPlanStatus(
-  poolQuery:
-    | FragmentType<typeof ViewPool_Fragment>
-    | FragmentType<typeof AssessmentPlanBuilderPool_Fragment>,
+  poolQuery: FragmentType<typeof AssessmentPlanStatus_Fragment>,
 ): PoolCompleteness {
-  const pool = isViewPool_Fragment(poolQuery)
-    ? getFragment(ViewPool_Fragment, poolQuery)
-    : getFragment(AssessmentPlanBuilderPool_Fragment, poolQuery);
+  const pool = getFragment(AssessmentPlanStatus_Fragment, poolQuery);
 
   if (!pool || !pool.poolSkills || !pool.assessmentSteps) {
     return "incomplete";
