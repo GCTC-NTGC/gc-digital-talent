@@ -30,7 +30,6 @@ import {
   PoolCandidateSnapshotQuery,
   Department,
   PoolCandidateStatus,
-  makeFragmentData,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -49,10 +48,7 @@ import {
   RECORD_DECISION_STATUSES,
   REVERT_DECISION_STATUSES,
 } from "~/constants/poolCandidate";
-import {
-  JobPlacementDialog,
-  JobPlacementDialog_Fragment,
-} from "~/components/PoolCandidatesTable/JobPlacementDialog";
+import { JobPlacementDialog } from "~/components/PoolCandidatesTable/JobPlacementDialog";
 
 import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
 import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
@@ -74,6 +70,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
     poolCandidate(id: $poolCandidateId) {
       ...CandidateExpiryDateDialog
       ...RevertFinalDecisionDialog
+      ...JobPlacementDialog
       id
       status
       user {
@@ -773,11 +770,6 @@ export const ViewPoolCandidate = ({
     isAdmin: true,
   });
 
-  const jobPlacementDialogQuery = makeFragmentData(
-    { id: poolCandidate.id, status: poolCandidate.status },
-    JobPlacementDialog_Fragment,
-  );
-
   return (
     <>
       <AdminHero
@@ -839,7 +831,7 @@ export const ViewPoolCandidate = ({
                 poolCandidate.status ===
                   PoolCandidateStatus.QualifiedAvailable && (
                   <JobPlacementDialog
-                    jobPlacementDialogQuery={jobPlacementDialogQuery}
+                    jobPlacementDialogQuery={poolCandidate}
                     departments={departments}
                     context="view"
                   />

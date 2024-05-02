@@ -142,7 +142,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
       data {
         id
         poolCandidate {
-          ...JobPlacementDialog_Fragment
+          ...JobPlacementDialog
           id
           pool {
             id

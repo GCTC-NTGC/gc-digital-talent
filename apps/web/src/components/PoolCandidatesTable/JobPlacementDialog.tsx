@@ -63,7 +63,7 @@ const RevertPlaceCandidate_Mutation = graphql(/* GraphQL */ `
 `);
 
 export const JobPlacementDialog_Fragment = graphql(/* GraphQL */ `
-  fragment JobPlacementDialog_Fragment on PoolCandidate {
+  fragment JobPlacementDialog on PoolCandidate {
     id
     status
     placedDepartment {
