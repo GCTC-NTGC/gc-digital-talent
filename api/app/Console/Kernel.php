@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Console\Commands\HardDeleteOldUsers;
+use App\Console\Commands\LogFlagsCommand;
 use App\Console\Commands\PruneUserGeneratedFiles;
 use App\Console\Commands\SendNotificationsApplicationDeadlineApproaching;
 use Illuminate\Console\Scheduling\Schedule;
@@ -21,7 +22,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command(HardDeleteOldUsers::class)->dailyAt('08:00');
 
-        // clean up old user generated files every day at 2:00 AM
+        // clean up old user generated files every day at 1:00 AM
         $schedule->command(PruneUserGeneratedFiles::class)
             ->timezone('America/Toronto')
             ->dailyAt('1:00')
@@ -33,6 +34,10 @@ class Kernel extends ConsoleKernel
             ->timezone('America/Vancouver')
             ->dailyAt('23:00')
             ->appendOutputTo('/tmp/send-notifications-application-deadline-approaching.log');
+
+        $schedule->command(LogFlagsCommand::class)
+            ->hourly()
+            ->appendOutputTo('/tmp/log-flags.log');
     }
 
     /**
