@@ -36,7 +36,7 @@ class Kernel extends ConsoleKernel
             ->appendOutputTo('/tmp/send-notifications-application-deadline-approaching.log');
 
         $schedule->command(LogFlagsCommand::class)
-            ->hourly()
+            ->everyTenSeconds()
             ->appendOutputTo('/tmp/log-flags.log');
     }
 
