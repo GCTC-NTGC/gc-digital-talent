@@ -124,6 +124,17 @@ export const JobPlacementDialog = ({
 
   const isPlaced = watchPlacedJob !== "NOT_PLACED";
 
+  const handleSuccess = () => {
+    toast.success(
+      intl.formatMessage({
+        defaultMessage: "Job placement status saved successfully",
+        id: "gr8+Es",
+        description:
+          "Message displayed when a job placement status has been saved.",
+      }),
+    );
+  };
+
   const handleError = () => {
     toast.error(
       intl.formatMessage({
@@ -149,14 +160,7 @@ export const JobPlacementDialog = ({
       })
         .then((result) => {
           if (result.data?.placeCandidate) {
-            toast.success(
-              intl.formatMessage({
-                defaultMessage: "Job placement saved successfully",
-                id: "KK4Llj",
-                description:
-                  "Message displayed when a pool candidate has been placed successfully",
-              }),
-            );
+            handleSuccess();
             setIsOpen(false);
           } else {
             handleError();
@@ -171,14 +175,7 @@ export const JobPlacementDialog = ({
       })
         .then((result) => {
           if (result.data?.revertPlaceCandidate) {
-            toast.success(
-              intl.formatMessage({
-                defaultMessage: "Revert placed candidate",
-                id: "1icxaY",
-                description:
-                  "Message displayed when a pool candidate job placement status has been reverted",
-              }),
-            );
+            handleSuccess();
             setIsOpen(false);
           } else {
             handleError();
@@ -222,11 +219,6 @@ export const JobPlacementDialog = ({
         >
           {intl.formatMessage(statusToJobPlacement(status))}
         </Button>
-        ) : (
-          <Button icon={MapPinIcon} type="button" color="primary" mode="inline">
-            {intl.formatMessage(statusToJobPlacement(status))}
-          </Button>
-        )}
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header
