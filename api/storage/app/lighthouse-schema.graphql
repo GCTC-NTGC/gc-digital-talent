@@ -76,6 +76,16 @@ type Query {
     "The offset from which items are returned."
     page: Int
   ): PoolCandidateSearchRequestPaginator!
+  notifications(
+    where: NotificationFilterInput
+    excludeIds: [UUID!]
+
+    "Limits number of fetched items."
+    first: Int! = 10
+
+    "The offset from which items are returned."
+    page: Int
+  ): NotificationPaginator!
 }
 
 type Mutation {
@@ -87,10 +97,17 @@ type Mutation {
   deleteUser(id: ID!): User
   restoreUser(id: ID!): User
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
-  updatePoolCandidateAsAdmin(id: UUID!, poolCandidate: UpdatePoolCandidateAsAdminInput!): PoolCandidate
+  updatePoolCandidateStatus(id: UUID!, poolCandidate: UpdatePoolCandidateStatusInput!): PoolCandidate
   togglePoolCandidateBookmark(id: ID!): Boolean
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
+  removeCandidate(id: UUID!, removalReason: CandidateRemovalReason!, removalReasonOther: String): PoolCandidate
+  reinstateCandidate(id: UUID!): PoolCandidate
   deletePoolCandidate(id: ID!): PoolCandidate
+  qualifyCandidate(id: UUID!, expiryDate: Date!): PoolCandidate
+  disqualifyCandidate(id: UUID!, reason: DisqualificationReason!): PoolCandidate
+  revertFinalDecision(id: UUID!): PoolCandidate
+  placeCandidate(id: UUID!, placeCandidate: PlaceCandidateInput!): PoolCandidate
+  revertPlaceCandidate(id: UUID!): PoolCandidate
   createClassification(classification: CreateClassificationInput!): Classification
   updateClassification(id: ID!, classification: UpdateClassificationInput!): Classification
   deleteClassification(id: ID!): Classification
@@ -123,9 +140,12 @@ type Mutation {
   createPool(userId: ID!, teamId: ID!, pool: CreatePoolInput!): Pool
   duplicatePool(id: ID!, teamId: ID!): Pool
   updatePool(id: ID!, pool: UpdatePoolInput!): Pool
+  createPoolSkill(poolId: ID!, skillId: ID!, poolSkill: CreatePoolSkillInput!): PoolSkill
+  updatePoolSkill(id: ID!, poolSkill: UpdatePoolSkillInput!): PoolSkill
+  deletePoolSkill(id: ID!): PoolSkill
   publishPool(id: ID!): Pool
-  changePoolClosingDate(id: ID!, newClosingDate: DateTime!): Pool
-  closePool(id: ID!): Pool
+  changePoolClosingDate(id: ID!, closingDate: DateTime!): Pool
+  closePool(id: ID!, reason: String!): Pool
   deletePool(id: ID!): Pool
   archivePool(id: ID!): Pool
   unarchivePool(id: ID!): Pool
@@ -139,6 +159,10 @@ type Mutation {
   deleteTeam(id: UUID!): Team
   updateUserTeamRoles(teamRoleAssignments: UpdateUserTeamRolesInput!): Team
   markNotificationAsRead(id: UUID!): Notification
+  markNotificationAsUnread(id: UUID!): Notification
+  deleteNotification(id: UUID!): Notification
+  markAllNotificationsAsRead: [Notification]
+  updateIgnoredNotifications(ignoredEmailNotifications: [NotificationFamily], ignoredInAppNotifications: [NotificationFamily]): User
   createUserSkill(userId: UUID!, skillId: UUID!, userSkill: CreateUserSkillInput): UserSkill
   updateUserSkill(id: UUID!, userSkill: UpdateUserSkillInput): UserSkill
   updateUserSkillRankings(userId: UUID!, userSkillRanking: UpdateUserSkillRankingsInput!): User
@@ -213,7 +237,9 @@ type User {
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
-  bilingualEvaluation: BilingualEvaluation
+  firstOfficialLanguage: Language
+  secondLanguageExamCompleted: Boolean
+  secondLanguageExamValidity: Boolean
   comprehensionLevel: EvaluatedLanguageAbility
   writtenLevel: EvaluatedLanguageAbility
   verbalLevel: EvaluatedLanguageAbility
@@ -249,25 +275,27 @@ type User {
   isProfileComplete: Boolean
   priorityWeight: Int
   authInfo: UserAuthInfo
-  unreadNotifications: [Notification!]
-  notifications: [Notification!]
+  ignoredEmailNotifications: [NotificationFamily]
+  ignoredInAppNotifications: [NotificationFamily]
 }
 
 interface Notification {
   id: ID!
+  type: NotificationType!
   readAt: DateTime
-  createdAt: DateTime
-  updatedAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type PoolCandidateStatusChangedNotification implements Notification {
   id: ID!
+  type: NotificationType!
   readAt: DateTime
-  createdAt: DateTime
-  updatedAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
   oldStatus: PoolCandidateStatus
   newStatus: PoolCandidateStatus
-  poolId: ID
+  poolCandidateId: ID
   poolName: LocalizedString
 }
 
@@ -297,20 +325,22 @@ type Pool {
   owner: UserPublicProfile
   team: Team
   name: LocalizedString
-  classifications: [Classification]
+  classification: Classification
   operationalRequirements: [OperationalRequirement]
   poolCandidates: [PoolCandidate]
   keyTasks: LocalizedString
   yourImpact: LocalizedString
   whatToExpect: LocalizedString
   specialNote: LocalizedString
+  whatToExpectAdmission: LocalizedString
+  aboutUs: LocalizedString
   isRemote: Boolean
   location: LocalizedString
   securityClearance: SecurityStatus
   language: PoolLanguage
   status: PoolStatus
-  essentialSkills: [Skill!]
-  nonessentialSkills: [Skill!]
+  essentialSkills: [Skill!] @deprecated(reason: "Switch to poolSkills filtering for PoolSkillType.ESSENTIAL")
+  nonessentialSkills: [Skill!] @deprecated(reason: "Switch to poolSkills filtering for PoolSkillType.NONESSENTIAL")
   stream: PoolStream
   processNumber: String
   publishingGroup: PublishingGroup
@@ -320,6 +350,7 @@ type Pool {
   generalQuestions: [GeneralQuestion]
   screeningQuestions: [ScreeningQuestion]
   closingDate: DateTime
+  closingReason: String
   publishedAt: DateTime
   archivedAt: DateTime
   isComplete: Boolean
@@ -359,16 +390,14 @@ type AssessmentResult {
   assessmentResultType: AssessmentResultType
   assessmentDecision: AssessmentDecision
   justifications: [AssessmentResultJustification]
-  otherJustificationNotes: String
   assessmentDecisionLevel: AssessmentDecisionLevel
   skillDecisionNotes: String
-  assessmentNotes: String
 }
 
 type PoolSkill {
   id: ID!
   type: PoolSkillType
-  pool: Pool
+  requiredLevel: SkillLevel
   skill: Skill
   assessmentSteps: [AssessmentStep]
 }
@@ -377,7 +406,6 @@ type PoolCandidate {
   id: ID!
   pool: Pool!
   user: User!
-  cmoIdentifier: ID
   expiryDate: Date
   status: PoolCandidateStatus
   statusWeight: Int
@@ -387,6 +415,9 @@ type PoolCandidate {
   suspendedAt: DateTime
   deletedDate: DateTime
   isBookmarked: Boolean
+  removedAt: DateTime
+  removalReason: CandidateRemovalReason
+  removalReasonOther: String
   profileSnapshot: JSON
   signature: String
   submittedSteps: [ApplicationStep!]
@@ -395,6 +426,9 @@ type PoolCandidate {
   educationRequirementOption: EducationRequirementOption
   educationRequirementExperiences: [Experience]
   assessmentResults: [AssessmentResult]
+  finalDecisionAt: DateTime
+  placedAt: DateTime
+  placedDepartment: Department
 }
 
 type PoolCandidateWithSkillCount {
@@ -764,7 +798,9 @@ input CreateUserInput {
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
-  bilingualEvaluation: BilingualEvaluation
+  firstOfficialLanguage: Language
+  secondLanguageExamCompleted: Boolean
+  secondLanguageExamValidity: Boolean
   comprehensionLevel: EvaluatedLanguageAbility
   writtenLevel: EvaluatedLanguageAbility
   verbalLevel: EvaluatedLanguageAbility
@@ -809,7 +845,9 @@ input UpdateUserAsAdminInput {
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
-  bilingualEvaluation: BilingualEvaluation
+  firstOfficialLanguage: Language
+  secondLanguageExamCompleted: Boolean
+  secondLanguageExamValidity: Boolean
   comprehensionLevel: EvaluatedLanguageAbility
   writtenLevel: EvaluatedLanguageAbility
   verbalLevel: EvaluatedLanguageAbility
@@ -863,7 +901,9 @@ input UpdateUserAsUserInput {
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
-  bilingualEvaluation: BilingualEvaluation
+  firstOfficialLanguage: Language
+  secondLanguageExamCompleted: Boolean
+  secondLanguageExamValidity: Boolean
   comprehensionLevel: EvaluatedLanguageAbility
   writtenLevel: EvaluatedLanguageAbility
   verbalLevel: EvaluatedLanguageAbility
@@ -923,7 +963,6 @@ input ClassificationBelongsToMany {
 input CreatePoolCandidateAsAdminInput {
   pool: PoolBelongsTo!
   user: UserBelongsTo!
-  cmoIdentifier: ID
   expiryDate: Date
   status: PoolCandidateStatus = NEW_APPLICATION
   notes: String
@@ -937,11 +976,14 @@ input UpdateClassificationInput {
   maxSalary: Int
 }
 
-input UpdatePoolCandidateAsAdminInput {
-  cmoIdentifier: ID
+input UpdatePoolCandidateStatusInput {
   expiryDate: Date
   status: PoolCandidateStatus
-  isBookmarked: Boolean
+}
+
+input PlaceCandidateInput {
+  placementType: PlacementType!
+  departmentId: UUID!
 }
 
 input CreateDepartmentInput {
@@ -1173,7 +1215,7 @@ input GenericJobTitleBelongsToMany {
 }
 
 input CreatePoolInput {
-  classifications: ClassificationBelongsToMany
+  classification: ClassificationBelongsTo
 }
 
 input CreateGeneralQuestionInput {
@@ -1199,26 +1241,19 @@ input SyncScreeningQuestionsInput {
   sortOrder: Int
 }
 
-input SyncEssentialPoolSkills {
-  sync: [ID]
-}
-
-input SyncNonessentialPoolSkills {
-  sync: [ID]
-}
-
 input UpdatePoolInput {
   name: LocalizedStringInput
-  classifications: ClassificationBelongsToMany
+  classification: ClassificationBelongsTo
   stream: PoolStream
   processNumber: String
   closingDate: DateTime
+  closingReason: String
   yourImpact: LocalizedStringInput
   keyTasks: LocalizedStringInput
   whatToExpect: LocalizedStringInput
   specialNote: LocalizedStringInput
-  essentialSkills: SyncEssentialPoolSkills
-  nonessentialSkills: SyncNonessentialPoolSkills
+  whatToExpectAdmission: LocalizedStringInput
+  aboutUs: LocalizedStringInput
   language: PoolLanguage
   securityClearance: SecurityStatus
   location: LocalizedStringInput
@@ -1226,6 +1261,15 @@ input UpdatePoolInput {
   publishingGroup: PublishingGroup
   opportunityLength: PoolOpportunityLength
   generalQuestions: UpdateGeneralQuestionsHasMany
+}
+
+input CreatePoolSkillInput {
+  type: PoolSkillType!
+  requiredLevel: SkillLevel
+}
+
+input UpdatePoolSkillInput {
+  requiredLevel: SkillLevel
 }
 
 input AssessmentStepInput {
@@ -1246,10 +1290,8 @@ input CreateAssessmentResultInput {
   assessmentResultType: AssessmentResultType
   assessmentDecision: AssessmentDecision
   justifications: [AssessmentResultJustification]
-  otherJustificationNotes: String
   assessmentDecisionLevel: AssessmentDecisionLevel
   skillDecisionNotes: String
-  assessmentNotes: String
 }
 
 input UpdateAssessmentResultInput {
@@ -1257,10 +1299,8 @@ input UpdateAssessmentResultInput {
   assessmentResultType: AssessmentResultType
   assessmentDecision: AssessmentDecision
   justifications: [AssessmentResultJustification]
-  otherJustificationNotes: String
   assessmentDecisionLevel: AssessmentDecisionLevel
   skillDecisionNotes: String
-  assessmentNotes: String
 }
 
 input PoolSkillBelongsToMany {
@@ -1343,12 +1383,19 @@ input UpdateApplicationInput {
   generalQuestionResponses: UpdateGeneralQuestionResponsesHasMany
   screeningQuestionResponses: UpdateScreeningQuestionResponsesHasMany
   educationRequirementOption: EducationRequirementOption
-  educationRequirementAwardExperiences: UpdateEducationExperiencesRequirementBelongsToMany
-  educationRequirementCommunityExperiences: UpdateEducationExperiencesRequirementBelongsToMany
-  educationRequirementEducationExperiences: UpdateEducationExperiencesRequirementBelongsToMany
-  educationRequirementPersonalExperiences: UpdateEducationExperiencesRequirementBelongsToMany
-  educationRequirementWorkExperiences: UpdateEducationExperiencesRequirementBelongsToMany
+  educationRequirementExperiences: UpdateEducationExperiencesRequirementBelongsToMany
   applicationId: ID
+}
+
+input DateRange {
+  from: DateTime!
+  to: DateTime!
+}
+
+input NotificationFilterInput {
+  onlyUnread: Boolean
+  readAt: DateRange
+  createdAt: DateRange
 }
 
 type DigitalContractingPersonnelSkill {
@@ -1676,6 +1723,15 @@ type PoolCandidateSearchRequestPaginator {
   data: [PoolCandidateSearchRequest!]!
 }
 
+"A paginated list of Notification items."
+type NotificationPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of Notification items."
+  data: [Notification!]!
+}
+
 "Allowed column names for Query.poolCandidatesPaginated.orderBy."
 enum QueryPoolCandidatesPaginatedOrderByUserColumn {
   PRIORITY_WEIGHT
@@ -1881,12 +1937,6 @@ enum GovEmployeeType {
   INDETERMINATE
 }
 
-enum BilingualEvaluation {
-  COMPLETED_ENGLISH
-  COMPLETED_FRENCH
-  NOT_COMPLETED
-}
-
 enum EvaluatedLanguageAbility {
   X
   A
@@ -1955,6 +2005,11 @@ enum PoolStatus {
   ARCHIVED
 }
 
+enum DisqualificationReason {
+  SCREENED_OUT_APPLICATION
+  SCREENED_OUT_ASSESSMENT
+}
+
 enum PoolCandidateStatus {
   DRAFT
   DRAFT_EXPIRED
@@ -1975,6 +2030,13 @@ enum PoolCandidateStatus {
   PLACED_INDETERMINATE
   EXPIRED
   REMOVED
+}
+
+enum PlacementType {
+  PLACED_TENTATIVE
+  PLACED_CASUAL
+  PLACED_TERM
+  PLACED_INDETERMINATE
 }
 
 enum SecurityStatus {
@@ -2352,4 +2414,20 @@ enum AssessmentDecisionLevel {
   AT_REQUIRED
   ABOVE_REQUIRED
   ABOVE_AND_BEYOND_REQUIRED
+}
+
+enum NotificationFamily {
+  SYSTEM_MESSAGE
+  APPLICATION_UPDATE
+  JOB_ALERT
+}
+
+enum NotificationType {
+  PoolCandidateStatusChanged
+}
+
+enum CandidateRemovalReason {
+  REQUESTED_TO_BE_WITHDRAWN
+  NOT_RESPONSIVE
+  OTHER
 }

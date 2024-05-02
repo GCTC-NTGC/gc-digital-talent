@@ -8,11 +8,7 @@ import {
 } from "@tanstack/react-table";
 import { useMutation } from "urql";
 
-import {
-  getLocalizedName,
-  getBehaviouralSkillLevel,
-  getTechnicalSkillLevel,
-} from "@gc-digital-talent/i18n";
+import { getLocalizedName, getSkillLevelName } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { Skill, SkillLevel, UserSkill } from "@gc-digital-talent/graphql";
@@ -63,23 +59,17 @@ interface SkillLibraryTableProps {
   caption: string;
   data: UserSkill[];
   allSkills: Skill[];
-  isTechnical?: boolean;
 }
 
 const SkillLibraryTable = ({
   caption,
   data,
   allSkills,
-  isTechnical = false,
 }: SkillLibraryTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const { userAuthInfo } = useAuthorization();
   const [, executeCreateMutation] = useMutation(CreateUserSkill_Mutation);
-
-  const levelGetter = isTechnical
-    ? getTechnicalSkillLevel
-    : getBehaviouralSkillLevel;
 
   const userSkillSkillIds = data.map((usrSkill) => usrSkill.skill.id);
   const unclaimedSkills = allSkills.filter(
@@ -134,10 +124,15 @@ const SkillLibraryTable = ({
       }),
       cell: ({
         row: {
-          original: { skillLevel },
+          original: {
+            skillLevel,
+            skill: { category },
+          },
         },
       }: UserSkillCell) =>
-        skillLevel ? intl.formatMessage(levelGetter(skillLevel)) : null,
+        skillLevel
+          ? intl.formatMessage(getSkillLevelName(skillLevel, category))
+          : null,
       enableHiding: false,
       enableColumnFilter: false,
       sortingFn: skillLevelSort,
@@ -154,7 +149,6 @@ const SkillLibraryTable = ({
         component: (
           <SkillBrowserDialog
             context="library"
-            showCategory={false}
             skills={unclaimedSkills}
             onSave={async (value) => {
               executeCreateMutation({
@@ -171,8 +165,8 @@ const SkillLibraryTable = ({
       }}
       search={{
         label: intl.formatMessage({
-          defaultMessage: "Search for a skill",
-          id: "RjYGPw",
+          defaultMessage: "Search your skills",
+          id: "bBIZ3a",
           description: "Label for the skill library table search input",
         }),
         internal: true,

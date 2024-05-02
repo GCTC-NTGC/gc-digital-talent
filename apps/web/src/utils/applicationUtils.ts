@@ -1,5 +1,5 @@
 import { IntlShape } from "react-intl";
-import isPast from "date-fns/isPast";
+import { isPast } from "date-fns/isPast";
 
 import { StepType } from "@gc-digital-talent/ui";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
@@ -29,7 +29,6 @@ type GetApplicationPagesArgs = {
   intl: IntlShape;
   application: Application_PoolCandidateFragment;
   experienceId?: string;
-  RoDFlag: boolean;
 };
 
 // Dynamically build the list of application steps for this application
@@ -38,11 +37,10 @@ export const getApplicationSteps = ({
   intl,
   application,
   experienceId,
-  RoDFlag,
 }: GetApplicationPagesArgs): Array<ApplicationStepInfo> => {
   const showQuestionStep =
     application.pool.generalQuestions?.length ||
-    (RoDFlag && application.pool.screeningQuestions?.length);
+    application.pool.screeningQuestions?.length;
 
   // build the order of step functions to call
   const stepInfoFunctions = [
@@ -65,7 +63,6 @@ export const getApplicationSteps = ({
       application,
       resourceId: experienceId,
       stepOrdinal: index + 1,
-      RoDFlag,
     }),
   );
 
@@ -146,14 +143,12 @@ export function isOnDisabledPage(
 export function applicationStepsToStepperArgs(
   applicationSteps: Array<ApplicationStepInfo>,
   application: PoolCandidate,
-  RoDFlag: boolean,
 ): StepType[] {
   return applicationSteps
     .filter((step) => step.showInStepper)
     .map((step) => {
       return {
         href: step.mainPage.link.url,
-        icon: step.mainPage.icon,
         label: step.mainPage.link.label || step.mainPage.title,
         completed:
           step.applicationStep &&
@@ -163,12 +158,7 @@ export function applicationStepsToStepperArgs(
           step.prerequisites,
           application.submittedSteps,
         )?.length,
-        error: step.hasError?.(
-          application.user,
-          application.pool,
-          application,
-          RoDFlag,
-        ),
+        error: step.hasError?.(application.user, application.pool, application),
       };
     });
 }

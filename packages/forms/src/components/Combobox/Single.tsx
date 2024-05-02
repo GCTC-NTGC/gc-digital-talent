@@ -1,5 +1,6 @@
 import React from "react";
 import { useCombobox } from "downshift";
+import isEqual from "lodash/isEqual";
 
 import Field from "../Field";
 import Menu from "./Menu";
@@ -28,9 +29,19 @@ const Single = ({
   fetching = false,
   isRequired = false,
 }: SingleProps) => {
+  const [previousOptions, setPreviousOptions] =
+    React.useState<Option[]>(options);
   const [available, setAvailable] = React.useState<Option[]>(options);
   const inputRef = React.useRef<HTMLInputElement | null>(null);
-  const items = isExternalSearch ? options : available;
+  // Note: Pattern comes from https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
+  if (!isEqual(options, previousOptions)) {
+    setAvailable(options);
+    setPreviousOptions(options);
+  }
+  const items = React.useMemo(
+    () => (isExternalSearch ? options : available),
+    [available, isExternalSearch, options],
+  );
 
   const {
     isOpen,
@@ -77,8 +88,10 @@ const Single = ({
   };
 
   React.useEffect(() => {
-    setAvailable(options);
-  }, [options]);
+    if (!value?.value) {
+      selectItem(null);
+    }
+  }, [selectItem, value?.value]);
 
   return (
     <>

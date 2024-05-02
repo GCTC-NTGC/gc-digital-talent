@@ -1,19 +1,23 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { StoryFn, Meta } from "@storybook/react";
 
-import { fakeSkills, fakeExperiences } from "@gc-digital-talent/fake-data";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { fakeExperiences } from "@gc-digital-talent/fake-data";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
-import CareerTimelineAndRecruitment from "./components/CareerTimelineAndRecruitment";
+import CareerTimelineAndRecruitment, {
+  CareerTimelineExperience_Fragment,
+} from "./components/CareerTimelineAndRecruitment";
 
 export default {
-  title: "Pages/Career timeline and recruitment",
+  component: CareerTimelineAndRecruitment,
   args: {
     userId: "test",
+    experiencesQuery: [],
+    applicationsQuery: [],
   },
-} as ComponentMeta<typeof CareerTimelineAndRecruitment>;
+} as Meta<typeof CareerTimelineAndRecruitment>;
 
-const CareerTimelineAndRecruitmentTemplate: ComponentStory<
+const CareerTimelineAndRecruitmentTemplate: StoryFn<
   typeof CareerTimelineAndRecruitment
 > = (args) => {
   return <CareerTimelineAndRecruitment {...args} />;
@@ -27,38 +31,13 @@ export const WithExperiencesMissingSkills =
   CareerTimelineAndRecruitmentTemplate.bind({});
 
 const mockExperiences = fakeExperiences(10);
-const mockExperienceSkills = mockExperiences
-  .map((experience) => {
-    return experience.skills;
-  })
-  .filter(notEmpty)
-  .flatMap((skill) => skill);
-
-const mockSkills = [...fakeSkills(20), ...mockExperienceSkills];
-
-const mockRequiredSkills = mockSkills.slice(0, 5);
-const mockOptionalSkills = mockSkills.slice(6, 10);
 
 NoExperiences.args = {
-  experiences: [],
+  experiencesQuery: [],
 };
 
 WithExperiences.args = {
-  experiences: mockExperiences,
-};
-
-NoExperiencesMissingSkills.args = {
-  experiences: [],
-  missingSkills: {
-    requiredSkills: mockRequiredSkills,
-    optionalSkills: mockOptionalSkills,
-  },
-};
-
-WithExperiencesMissingSkills.args = {
-  experiences: mockExperiences,
-  missingSkills: {
-    requiredSkills: mockRequiredSkills,
-    optionalSkills: mockOptionalSkills,
-  },
+  experiencesQuery: mockExperiences.map((experience) =>
+    makeFragmentData(experience, CareerTimelineExperience_Fragment),
+  ),
 };

@@ -2,38 +2,30 @@
   "name": "@gc-digital-talent/theme",
   "license": "AGPL-3.0",
   "version": "1.0.0",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "sideEffects": false,
-  "files": [
-    "dist/**"
-  ],
+  "types": "./src/index.tsx",
+  "exports": {
+    ".": "./src/index.tsx"
+  },
   "scripts": {
-    "build": "env NODE_ENV=production tsup",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "dev": "tsup",
-    "watch": "tsup --watch",
     "lint": "eslint \"src/**/*.ts*\"",
     "tsc": "tsc --project tsconfig.json --noEmit",
     "test": "jest --detectOpenHandles --forceExit --passWithNoTests"
   },
   "jest": {
-    "preset": "jest-presets/jest/node"
+    "preset": "@gc-digital-talent/jest-presets/jest/browser"
   },
   "dependencies": {
-    "@gc-digital-talent/env": "*",
-    "@gc-digital-talent/storage": "*"
+    "@gc-digital-talent/env": "workspace:*",
+    "@gc-digital-talent/storage": "workspace:*"
   },
   "devDependencies": {
-    "@swc/core": "^1.4.2",
-    "@types/react": "^18.2.61",
+    "@gc-digital-talent/eslint-config": "workspace:*",
+    "@gc-digital-talent/jest-presets": "workspace:*",
+    "@types/react": "^18.3.1",
     "eslint": "^8.57.0",
-    "eslint-config-custom": "*",
     "jest": "^29.7.0",
-    "jest-presets": "*",
-    "react": "^18.2.0",
-    "tsconfig": "*",
-    "tsup": "^8.0.2",
-    "typescript": "^5.3.3"
+    "react": "^18.3.1",
+    "tsconfig": "workspace:*",
+    "typescript": "^5.4.5"
   }
 }

@@ -1,6 +1,7 @@
 import {
   Classification,
   CreatePoolCandidateSearchRequestInput,
+  CreatePoolSkillInput,
   CreateTeamInput,
   CreateUserInput,
   Department,
@@ -8,11 +9,12 @@ import {
   Pool,
   PoolCandidate,
   PoolCandidateSearchRequest,
+  PoolSkill,
   Role,
   Skill,
   Team,
   UpdateApplicationInput,
-  UpdatePoolCandidateAsAdminInput,
+  UpdatePoolCandidateStatusInput,
   UpdatePoolCandidateSearchRequestInput,
   UpdatePoolInput,
   UpdateUserAsAdminInput,
@@ -52,9 +54,13 @@ declare global {
       /**
        * Custom command to make a graphql request directly.
        * @param {Object} body - Body of the GraphQL request
+       * @param {boolean} isPrivileged - Make the request on the protected endpoint
        * @example cy.logout()
        */
-      graphqlRequest<T extends Object>(body: Object): Promise<T>;
+      graphqlRequest<T extends Object>(
+        body: Object,
+        isPrivileged?: boolean,
+      ): Promise<T>;
       /**
        * Override specific feature flags.
        * Note: Should be used in `before*`
@@ -73,13 +79,13 @@ declare global {
        * Custom command to create an pool.
        * @param {string} userId - ID of the user owning the application
        * @param {string} teamId - ID of the team to assign to the pool
-       * @param {array<string>} classificationIds - Array of the classification Ids to assign to the pool
+       * @param {string} classificationIds - Classification to assign to the pool
        * @example cy.createPool('userUUID', 'teamUUID', ['classificationId])
        */
       createPool(
         userId: string,
         teamId: string,
-        classificationIds: string[],
+        classificationId: string,
       ): Chainable<Pool>;
       /**
        * Custom command to update an existing pool.
@@ -94,6 +100,18 @@ declare global {
        * @example cy.publishPool('poolUUID')
        */
       publishPool(id: string): Chainable<Pool>;
+      /**
+       * Custom command to create a PoolSkill model
+       * @param {string} poolId - ID of the pool to attach to
+       * @param {string} skillId - ID of the skill to attach to
+       * @param {CreatePoolSkillInput} poolSkill - Input object
+       * @example cy.createPoolSkill(id, id, object)
+       */
+      createPoolSkill(
+        poolId: string,
+        skillId: string,
+        poolSkill: CreatePoolSkillInput,
+      ): Chainable<PoolSkill>;
 
       /**
        * ======================================
@@ -114,7 +132,7 @@ declare global {
       /**
        * Custom command to submit an existing application.
        * @param {string} applicationId - ID of the application being submitted
-       * @param {UpdatePoolCandidateAsAdminInput} application - New application data
+       * @param {UpdateApplicationInput} application - New application data
        * @example cy.updateApplication('applicationUUID', {...})
        */
       updateApplication(
@@ -134,12 +152,12 @@ declare global {
       /**
        * Custom command to update an existing application as a user with the admin role.
        * @param {string} applicationId - ID of the application being submitted
-       * @param {UpdatePoolCandidateAsAdminInput} input - Input for the graphql request
-       * @example cy.updatePoolCandidateAsAdmin('applicationUUID', 'John Doe')
+       * @param {UpdatePoolCandidateStatusInput} input - Input for the graphql request
+       * @example cy.updatePoolCandidateStatus('applicationUUID', 'John Doe')
        */
-      updatePoolCandidateAsAdmin(
+      updatePoolCandidateStatus(
         applicationId: string,
-        input: UpdatePoolCandidateAsAdminInput,
+        input: UpdatePoolCandidateStatusInput,
       ): Chainable<PoolCandidate>;
 
       /**

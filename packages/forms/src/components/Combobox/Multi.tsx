@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useCombobox, useMultipleSelection } from "downshift";
+import isEqual from "lodash/isEqual";
 
 import { formMessages } from "@gc-digital-talent/i18n";
 import { Button } from "@gc-digital-talent/ui";
@@ -35,9 +36,19 @@ const Multi = ({
 }: MultiProps) => {
   const intl = useIntl();
   const [inputValue, setInputValue] = React.useState<string>("");
-  const [available, setAvailable] = React.useState<Option[]>([]);
+  const [previousOptions, setPreviousOptions] =
+    React.useState<Option[]>(options);
+  const [available, setAvailable] = React.useState<Option[]>(options);
   const inputRef = React.useRef<HTMLInputElement | null>(null);
-  const items = isExternalSearch ? options : available;
+  // NOTE: Pattern comes from https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
+  if (!isEqual(options, previousOptions)) {
+    setPreviousOptions(options);
+    setAvailable(options);
+  }
+  const items = React.useMemo(
+    () => (isExternalSearch ? options : available),
+    [available, isExternalSearch, options],
+  );
 
   const handleInputChanged = (newQuery?: string) => {
     const query = newQuery ?? "";
@@ -63,7 +74,6 @@ const Multi = ({
     selectedItems,
     reset,
   } = useMultipleSelection<Option>({
-    itemToString,
     initialSelectedItems: value,
     // Reverse the keyboard navigation (we place our chips after the input, not before)
     keyNavigationPrevious: "ArrowRight",
@@ -188,10 +198,6 @@ const Multi = ({
     },
   });
 
-  React.useEffect(() => {
-    setAvailable(options);
-  }, [options]);
-
   const handleClear = () => {
     handleInputChanged("");
     inputRef?.current?.focus();
@@ -209,11 +215,7 @@ const Multi = ({
       <Field.Label {...getLabelProps()} required={isRequired}>
         {label}
       </Field.Label>
-      <div
-        className="combo"
-        data-h2-position="base(relative)"
-        data-h2-width="base(100%)"
-      >
+      <div data-h2-position="base(relative)" data-h2-width="base(100%)">
         <Input.Wrapper>
           <Input.Search />
           <input

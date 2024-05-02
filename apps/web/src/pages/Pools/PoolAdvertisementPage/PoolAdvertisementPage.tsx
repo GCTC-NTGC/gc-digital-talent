@@ -1,5 +1,5 @@
 import React from "react";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 import MapIcon from "@heroicons/react/24/outline/MapIcon";
 import InformationCircleIcon from "@heroicons/react/20/solid/InformationCircleIcon";
@@ -42,14 +42,15 @@ import {
   graphql,
   PoolStatus,
   Scalars,
-  Pool,
   PublishingGroup,
   Maybe,
+  PoolSkillType,
+  FragmentType,
+  getFragment,
 } from "@gc-digital-talent/graphql";
 
 import {
   formatClassificationString,
-  getClassificationGroup,
   getClassificationSalaryRangeUrl,
   getFullPoolTitleHtml,
   getShortPoolTitleLabel,
@@ -61,7 +62,7 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import { sortSkillsByCategory } from "~/utils/skillUtils";
+import { sortPoolSkillsBySkillCategory } from "~/utils/skillUtils";
 
 import ApplicationLink, {
   ApplicationLinkProps,
@@ -72,7 +73,7 @@ import DataRow from "./components/DataRow";
 import GenericJobTitleAccordion from "./components/GenericJobTitleAccordion";
 import DeadlineDialog from "./components/DeadlineDialog";
 import WorkLocationDialog from "./components/WorkLocationDialog";
-// import SkillLevelDialog from "./components/SkillLevelDialog";
+import SkillLevelDialog from "./components/SkillLevelDialog";
 
 type SectionContent = {
   id: string;
@@ -104,22 +105,125 @@ const standardsLink = (locale: Locales, chunks: React.ReactNode) => (
   </Link>
 );
 
+export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
+  fragment PoolAdvertisement on Pool {
+    id
+    name {
+      en
+      fr
+    }
+    stream
+    closingDate
+    status
+    language
+    securityClearance
+    opportunityLength
+    classification {
+      id
+      group
+      level
+      name {
+        en
+        fr
+      }
+      minSalary
+      maxSalary
+      genericJobTitles {
+        id
+        key
+        name {
+          en
+          fr
+        }
+      }
+    }
+    yourImpact {
+      en
+      fr
+    }
+    keyTasks {
+      en
+      fr
+    }
+    whatToExpect {
+      en
+      fr
+    }
+    specialNote {
+      en
+      fr
+    }
+    whatToExpectAdmission {
+      en
+      fr
+    }
+    aboutUs {
+      en
+      fr
+    }
+    poolSkills {
+      id
+      type
+      skill {
+        id
+        key
+        category
+        name {
+          en
+          fr
+        }
+      }
+      ...PoolSkillAccordion
+    }
+    isRemote
+    location {
+      en
+      fr
+    }
+    stream
+    processNumber
+    publishingGroup
+    generalQuestions {
+      id
+      question {
+        en
+        fr
+      }
+    }
+    team {
+      id
+      name
+      contactEmail
+      displayName {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 const moreInfoAccordions = {
   whoCanApply: "who-can-apply",
   dei: "diversity-equity-inclusion",
   accommodations: "accommodations",
   whatToExpectApply: "what-to-expect-apply",
-  whatToExpectIfSuccessful: "what-to-expect-success",
+  whatToExpectAdmission: "what-to-expect-admission",
 };
 
+const subTitle = defineMessage({
+  defaultMessage: "Learn more about this opportunity and begin an application.",
+  id: "H5EXEi",
+  description: "Subtitle for a pool advertisement page",
+});
+
 interface PoolAdvertisementProps {
-  pool: Pool;
+  poolQuery: FragmentType<typeof PoolAdvertisement_Fragment>;
   applicationId?: Scalars["ID"]["output"];
   hasApplied?: boolean;
 }
 
 export const PoolPoster = ({
-  pool,
+  poolQuery,
   applicationId,
   hasApplied,
 }: PoolAdvertisementProps) => {
@@ -130,8 +234,9 @@ export const PoolPoster = ({
   const [moreInfoValue, setMoreInfoValue] = React.useState<string[]>([]);
   const [skillsValue, setSkillsValue] = React.useState<string[]>([]);
   const [linkCopied, setLinkCopied] = React.useState<boolean>(false);
+  const pool = getFragment(PoolAdvertisement_Fragment, poolQuery);
 
-  const classification = pool.classifications ? pool.classifications[0] : null;
+  const { classification } = pool;
   const genericJobTitles =
     classification?.genericJobTitles?.filter(notEmpty) || [];
   let classificationString = ""; // type wrangling the complex type into a string
@@ -143,6 +248,7 @@ export const PoolPoster = ({
   }
   const poolTitle = getShortPoolTitleLabel(intl, pool);
   const fullPoolTitle = getFullPoolTitleHtml(intl, pool);
+  const formattedSubTitle = intl.formatMessage(subTitle);
   const salaryRangeUrl = getClassificationSalaryRangeUrl(
     locale,
     classification,
@@ -155,8 +261,12 @@ export const PoolPoster = ({
       })
     : getLocalizedName(pool.location, intl);
 
+  const showAboutUs = !!(pool.aboutUs && pool.aboutUs[locale]);
   const showSpecialNote = !!(pool.specialNote && pool.specialNote[locale]);
   const showWhatToExpect = !!(pool.whatToExpect && pool.whatToExpect[locale]);
+  const showWhatToExpectAdmission = !!(
+    pool.whatToExpectAdmission && pool.whatToExpectAdmission[locale]
+  );
 
   const opportunityLength = pool.opportunityLength
     ? intl.formatMessage(getPoolOpportunityLength(pool.opportunityLength))
@@ -170,11 +280,17 @@ export const PoolPoster = ({
     ? intl.formatMessage(getSecurityClearance(pool.securityClearance))
     : "";
 
-  const essentialSkills = sortSkillsByCategory(
-    unpackMaybes(pool.essentialSkills),
+  // Separate essential and asset skills, sort them by category, and confirm they include skill data
+  const poolSkills = unpackMaybes(pool.poolSkills);
+  const essentialPoolSkills = sortPoolSkillsBySkillCategory(
+    poolSkills.filter(
+      (poolSkill) => poolSkill.type === PoolSkillType.Essential,
+    ),
   );
-  const nonEssentialSkills = sortSkillsByCategory(
-    unpackMaybes(pool.nonessentialSkills),
+  const nonessentialPoolSkills = sortPoolSkillsBySkillCategory(
+    poolSkills.filter(
+      (poolSkill) => poolSkill.type === PoolSkillType.Nonessential,
+    ),
   );
 
   const contactEmail = pool.team?.contactEmail;
@@ -203,10 +319,14 @@ export const PoolPoster = ({
     if (skillsValue.length > 0) {
       setSkillsValue([]);
     } else {
-      const essentialIds = essentialSkills.map((skill) => skill.id);
-      const nonEssentialIds = nonEssentialSkills.map((skill) => skill.id);
+      const essentialIds = essentialPoolSkills.map(
+        (poolSkill) => poolSkill.skill?.id,
+      );
+      const nonEssentialIds = nonessentialPoolSkills.map(
+        (poolSkill) => poolSkill.skill?.id,
+      );
 
-      setSkillsValue([...essentialIds, ...nonEssentialIds]);
+      setSkillsValue(unpackMaybes([...essentialIds, ...nonEssentialIds]));
     }
   };
 
@@ -217,16 +337,18 @@ export const PoolPoster = ({
     canApply,
   };
 
-  const links = useBreadcrumbs([
-    {
-      label: intl.formatMessage(navigationMessages.browseJobs),
-      url: paths.browsePools(),
-    },
-    {
-      label: poolTitle,
-      url: paths.pool(pool.id),
-    },
-  ]);
+  const links = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(navigationMessages.browseJobs),
+        url: paths.browsePools(),
+      },
+      {
+        label: poolTitle,
+        url: paths.pool(pool.id),
+      },
+    ],
+  });
 
   const sections: Record<string, SectionContent> = {
     employmentDetails: {
@@ -279,21 +401,12 @@ export const PoolPoster = ({
     },
   };
 
-  const classificationGroup = getClassificationGroup(pool);
+  const classificationGroup = pool.classification?.group;
 
   return (
     <>
-      <SEO title={poolTitle} />
-      <Hero
-        title={poolTitle}
-        subtitle={intl.formatMessage({
-          defaultMessage:
-            "Learn more about this opportunity and begin an application.",
-          id: "H5EXEi",
-          description: "Subtitle for a pool advertisement page",
-        })}
-        crumbs={links}
-      />
+      <SEO title={poolTitle} description={formattedSubTitle} />
+      <Hero title={poolTitle} subtitle={formattedSubTitle} crumbs={links} />
       <div
         data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
         data-h2-margin-top="base(x3)"
@@ -754,8 +867,7 @@ export const PoolPoster = ({
                     "Descriptive text about how skills are used during the application process",
                 })}
               </Text>
-              {/** Uncomment in #8828 */}
-              {/** <SkillLevelDialog /> */}
+              <SkillLevelDialog />
               <Accordion.Root
                 type="multiple"
                 mode="card"
@@ -764,11 +876,18 @@ export const PoolPoster = ({
                 value={skillsValue}
                 onValueChange={setSkillsValue}
               >
-                {essentialSkills.map((skill) => (
-                  <SkillAccordion key={skill.id} skill={skill} required />
+                {essentialPoolSkills.map((poolSkill) => (
+                  <SkillAccordion
+                    key={poolSkill.id}
+                    poolSkillQuery={poolSkill}
+                    required
+                  />
                 ))}
-                {nonEssentialSkills.map((skill) => (
-                  <SkillAccordion key={skill.id} skill={skill} />
+                {nonessentialPoolSkills.map((poolSkill) => (
+                  <SkillAccordion
+                    key={poolSkill.id}
+                    poolSkillQuery={poolSkill}
+                  />
                 ))}
               </Accordion.Root>
             </TableOfContents.Section>
@@ -821,6 +940,28 @@ export const PoolPoster = ({
                   <RichTextRenderer
                     node={htmlToRichTextJSON(
                       getLocalizedName(pool.keyTasks, intl),
+                    )}
+                  />
+                </>
+              )}
+              {showAboutUs && (
+                <>
+                  <Heading
+                    level="h3"
+                    size="h4"
+                    data-h2-font-weight="base(700)"
+                    data-h2-margin-bottom="base(x1)"
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "About us",
+                      id: "LTpCFL",
+                      description:
+                        "Title for about us section on a pool advertisement.",
+                    })}
+                  </Heading>
+                  <RichTextRenderer
+                    node={htmlToRichTextJSON(
+                      getLocalizedName(pool.aboutUs, intl),
                     )}
                   />
                 </>
@@ -924,28 +1065,33 @@ export const PoolPoster = ({
                     ))}
                   </>
                 ) : null}
-                <Accordion.Item value={moreInfoAccordions.dei}>
-                  <Accordion.Trigger as="h3">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        '"How are equity and inclusion considered in this recruitment process?"',
-                      id: "WPJAiw",
-                      description:
-                        "Button text to toggle the accordion for diversity, equity, and inclusion",
-                    })}
-                  </Accordion.Trigger>
-                  <Accordion.Content>
-                    <Text data-h2-margin="base(0)">
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "You can learn more about our commitment to equity and inclusion by reading our Inclusivity statement. We also provide an Accessibility statement that outlines how the platform considers and implements accessible best practices.",
-                        id: "UOHEw1",
-                        description:
-                          "Information on commitment to diversity, equity, and inclusion",
-                      })}
-                    </Text>
-                  </Accordion.Content>
-                </Accordion.Item>
+                {
+                  // TODO: restore this accordion when Equity Statement page exists https://github.com/GCTC-NTGC/design-gc-digital-talent/issues/45
+                  false && (
+                    <Accordion.Item value={moreInfoAccordions.dei}>
+                      <Accordion.Trigger as="h3">
+                        {intl.formatMessage({
+                          defaultMessage:
+                            '"How are equity and inclusion considered in this recruitment process?"',
+                          id: "WPJAiw",
+                          description:
+                            "Button text to toggle the accordion for diversity, equity, and inclusion",
+                        })}
+                      </Accordion.Trigger>
+                      <Accordion.Content>
+                        <Text data-h2-margin="base(0)">
+                          {intl.formatMessage({
+                            defaultMessage:
+                              "You can learn more about our commitment to equity and inclusion by reading our Inclusivity statement. We also provide an Accessibility statement that outlines how the platform considers and implements accessible best practices.",
+                            id: "UOHEw1",
+                            description:
+                              "Information on commitment to diversity, equity, and inclusion",
+                          })}
+                        </Text>
+                      </Accordion.Content>
+                    </Accordion.Item>
+                  )
+                }
                 <Accordion.Item value={moreInfoAccordions.accommodations}>
                   <Accordion.Trigger as="h3">
                     {intl.formatMessage({
@@ -989,6 +1135,28 @@ export const PoolPoster = ({
                       <RichTextRenderer
                         node={htmlToRichTextJSON(
                           getLocalizedName(pool.whatToExpect, intl),
+                        )}
+                      />
+                    </Accordion.Content>
+                  </Accordion.Item>
+                )}
+                {showWhatToExpectAdmission && (
+                  <Accordion.Item
+                    value={moreInfoAccordions.whatToExpectAdmission}
+                  >
+                    <Accordion.Trigger as="h3">
+                      {intl.formatMessage({
+                        defaultMessage:
+                          '"What should I expect if I\'m successful in the process?"',
+                        id: "hwVlzN",
+                        description:
+                          "Button text to toggle the accordion for what to expect after admission",
+                      })}
+                    </Accordion.Trigger>
+                    <Accordion.Content>
+                      <RichTextRenderer
+                        node={htmlToRichTextJSON(
+                          getLocalizedName(pool.whatToExpectAdmission, intl),
                         )}
                       />
                     </Accordion.Content>
@@ -1075,126 +1243,9 @@ const PoolAdvertisementPage_Query = graphql(/* GraphQL */ `
       }
     }
     pool(id: $id) {
+      ...PoolAdvertisement
       id
-      name {
-        en
-        fr
-      }
-      stream
-      closingDate
       status
-      language
-      securityClearance
-      opportunityLength
-      classifications {
-        id
-        group
-        level
-        name {
-          en
-          fr
-        }
-        minSalary
-        maxSalary
-        genericJobTitles {
-          id
-          key
-          name {
-            en
-            fr
-          }
-        }
-      }
-      yourImpact {
-        en
-        fr
-      }
-      keyTasks {
-        en
-        fr
-      }
-      whatToExpect {
-        en
-        fr
-      }
-      specialNote {
-        en
-        fr
-      }
-      essentialSkills {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        description {
-          en
-          fr
-        }
-        category
-        families {
-          id
-          key
-          description {
-            en
-            fr
-          }
-          name {
-            en
-            fr
-          }
-        }
-      }
-      nonessentialSkills {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        description {
-          en
-          fr
-        }
-        category
-        families {
-          id
-          key
-          description {
-            en
-            fr
-          }
-          name {
-            en
-            fr
-          }
-        }
-      }
-      isRemote
-      location {
-        en
-        fr
-      }
-      stream
-      processNumber
-      publishingGroup
-      generalQuestions {
-        id
-        question {
-          en
-          fr
-        }
-      }
-      team {
-        id
-        name
-        contactEmail
-        displayName {
-          en
-          fr
-        }
-      }
     }
   }
 `);
@@ -1222,7 +1273,7 @@ const PoolAdvertisementPage = () => {
     <Pending fetching={fetching} error={error}>
       {data?.pool && isVisible ? (
         <PoolPoster
-          pool={data?.pool}
+          poolQuery={data?.pool}
           applicationId={application?.id}
           hasApplied={notEmpty(application?.submittedAt)}
         />

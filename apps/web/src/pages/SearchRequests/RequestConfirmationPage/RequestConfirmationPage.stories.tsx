@@ -1,6 +1,6 @@
 import React from "react";
 import { faker } from "@faker-js/faker";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 
 import RequestConfirmationPage from "./RequestConfirmationPage";
 
@@ -9,16 +9,15 @@ const mockId = faker.string.uuid();
 
 export default {
   component: RequestConfirmationPage,
-  title: "Pages/Request Confirmation Page",
   parameters: {
     defaultPath: {
       path: "/search/request/:requestId",
       initialEntries: [`/search/request/${mockId}`],
     },
   },
-} as ComponentMeta<typeof RequestConfirmationPage>;
+} as Meta<typeof RequestConfirmationPage>;
 
-const Template: ComponentStory<typeof RequestConfirmationPage> = () => {
+const Template: StoryFn<typeof RequestConfirmationPage> = () => {
   return <RequestConfirmationPage />;
 };
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 
 import { fakeUsers, fakeTeams, fakeRoles } from "@gc-digital-talent/fake-data";
 
@@ -21,7 +21,6 @@ const teamData = {
 
 export default {
   component: TeamMembersPage,
-  title: "Pages/Team Members Page",
   parameters: {
     defaultPath: {
       path: "/en/admin/teams/:teamId/members",
@@ -51,10 +50,8 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof TeamMembersPage>;
+} as Meta<typeof TeamMembersPage>;
 
-const Template: ComponentStory<typeof TeamMembersPage> = () => (
-  <TeamMembersPage />
-);
+const Template: StoryFn<typeof TeamMembersPage> = () => <TeamMembersPage />;
 
 export const Default = Template.bind({});

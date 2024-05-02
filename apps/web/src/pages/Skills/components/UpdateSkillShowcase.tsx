@@ -9,6 +9,7 @@ import {
   ButtonLinkMode,
   CardRepeater,
   Link,
+  BreadcrumbsProps,
 } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -39,7 +40,7 @@ interface UpdateSkillShowcaseProps {
   allUserSkills: UserSkill[];
   initialData: FormValues;
   maxItems: number;
-  crumbs: { label: string; url: string }[];
+  crumbs: BreadcrumbsProps["crumbs"];
   pageInfo: {
     id: string;
     title: string;
@@ -282,7 +283,6 @@ const UpdateSkillShowcase = ({
                             !existingSkillsRankingFiltered.includes(skill.id),
                         )}
                         onSave={handleAdd}
-                        showCategory={false}
                         noToast
                       />
                     }

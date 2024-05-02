@@ -26,22 +26,27 @@ use Spatie\Activitylog\Traits\LogsActivity;
 /**
  * Class PoolCandidate
  *
- * @property int $id
- * @property string $cmo_identifier
+ * @property string $id
  * @property Illuminate\Support\Carbon $expiry_date
  * @property Illuminate\Support\Carbon $archived_at
  * @property Illuminate\Support\Carbon $submitted_at
  * @property string $signature
  * @property string $pool_candidate_status
  * @property int $status_weight
- * @property int $pool_id
- * @property int $user_id
+ * @property string $pool_id
+ * @property string $user_id
  * @property Illuminate\Support\Carbon $suspended_at
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  * @property array $submitted_steps
  * @property string $education_requirement_option
  * @property bool $is_bookmarked
+ * @property Illuminate\Support\Carbon $placed_at
+ * @property string $placed_department_id
+ * @property Illuminate\Support\Carbon $final_decision_at
+ * @property Illuminate\Support\Carbon $removed_at
+ * @property string $removal_reason
+ * @property string $removal_reason_other
  */
 class PoolCandidate extends Model
 {
@@ -64,6 +69,9 @@ class PoolCandidate extends Model
         'profile_snapshot' => 'json',
         'submitted_steps' => 'array',
         'is_bookmarked' => 'boolean',
+        'placed_at' => 'datetime',
+        'final_decision_at' => 'datetime',
+        'removed_at' => 'datetime',
     ];
 
     /**
@@ -81,6 +89,8 @@ class PoolCandidate extends Model
         'profile_snapshot',
         'expiry_date',
         'pool_candidate_status',
+        'submitted_steps',
+        'education_requirement_option',
     ];
 
     protected $touches = ['user'];
@@ -137,6 +147,11 @@ class PoolCandidate extends Model
         return $this->belongsTo(Pool::class)->select(Pool::getSelectableColumns())->withTrashed();
     }
 
+    public function placedDepartment(): BelongsTo
+    {
+        return $this->belongsTo(Department::class);
+    }
+
     public function generalQuestionResponses(): HasMany
     {
         return $this->hasMany(GeneralQuestionResponse::class)->select(['id',
@@ -154,50 +169,55 @@ class PoolCandidate extends Model
     // education_requirement_option fulfilled by what experience models
     public function educationRequirementAwardExperiences(): BelongsToMany
     {
-        return $this->morphedByMany(
+        return $this->belongsToMany(
             AwardExperience::class,
-            'experience',
-            'pool_candidate_education_requirement_experience'
+            'pool_candidate_education_requirement_experience',
+            'pool_candidate_id',
+            'experience_id'
         )
             ->withTimestamps();
     }
 
     public function educationRequirementCommunityExperiences(): BelongsToMany
     {
-        return $this->morphedByMany(
+        return $this->belongsToMany(
             CommunityExperience::class,
-            'experience',
-            'pool_candidate_education_requirement_experience'
+            'pool_candidate_education_requirement_experience',
+            'pool_candidate_id',
+            'experience_id'
         )
             ->withTimestamps();
     }
 
     public function educationRequirementEducationExperiences(): BelongsToMany
     {
-        return $this->morphedByMany(
+        return $this->belongsToMany(
             EducationExperience::class,
-            'experience',
-            'pool_candidate_education_requirement_experience'
+            'pool_candidate_education_requirement_experience',
+            'pool_candidate_id',
+            'experience_id'
         )
             ->withTimestamps();
     }
 
     public function educationRequirementPersonalExperiences(): BelongsToMany
     {
-        return $this->morphedByMany(
+        return $this->belongsToMany(
             PersonalExperience::class,
-            'experience',
-            'pool_candidate_education_requirement_experience'
+            'pool_candidate_education_requirement_experience',
+            'pool_candidate_id',
+            'experience_id'
         )
             ->withTimestamps();
     }
 
     public function educationRequirementWorkExperiences(): BelongsToMany
     {
-        return $this->morphedByMany(
+        return $this->belongsToMany(
             WorkExperience::class,
-            'experience',
-            'pool_candidate_education_requirement_experience'
+            'pool_candidate_education_requirement_experience',
+            'pool_candidate_id',
+            'experience_id'
         )
             ->withTimestamps();
     }
@@ -207,16 +227,15 @@ class PoolCandidate extends Model
         return $this->hasMany(AssessmentResult::class);
     }
 
-    public function getEducationRequirementExperiencesAttribute()
+    public function educationRequirementExperiences(): BelongsToMany
     {
-        $collection = collect();
-        $collection = $collection->merge($this->educationRequirementAwardExperiences);
-        $collection = $collection->merge($this->educationRequirementCommunityExperiences);
-        $collection = $collection->merge($this->educationRequirementEducationExperiences);
-        $collection = $collection->merge($this->educationRequirementPersonalExperiences);
-        $collection = $collection->merge($this->educationRequirementWorkExperiences);
-
-        return $collection;
+        return $this->belongsToMany(
+            Experience::class,
+            'pool_candidate_education_requirement_experience',
+            'pool_candidate_id',
+            'experience_id'
+        )
+            ->withTimestamps();
     }
 
     public static function scopeQualifiedStreams(Builder $query, ?array $streams): Builder
@@ -263,7 +282,7 @@ class PoolCandidate extends Model
             })
             // Now ensure the PoolCandidate is in a pool with the right classification
             ->whereHas('pool', function ($query) use ($classifications) {
-                $query->whereHas('classifications', function ($query) use ($classifications) {
+                $query->whereHas('classification', function ($query) use ($classifications) {
                     $query->where(function ($query) use ($classifications) {
                         foreach ($classifications as $classification) {
                             $query->orWhere(function ($query) use ($classification) {
@@ -301,19 +320,20 @@ class PoolCandidate extends Model
     }
 
     /**
-     * Scope is IT
+     * Scope is IT & OTHER Publishing Groups
      *
      * Restrict a query by pool candidates that are for pools
-     * containing IT specific publishing groups
+     * containing IT and OTHER publishing groups
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query  The existing query being built
      * @return \Illuminate\Database\Eloquent\Builder The resulting query
      */
-    public static function scopeInITPublishingGroup(Builder $query)
+    public static function scopeInTalentSearchablePublishingGroup(Builder $query)
     {
         $query = self::scopePublishingGroups($query, [
             PublishingGroup::IT_JOBS_ONGOING->name,
             PublishingGroup::IT_JOBS->name,
+            PublishingGroup::OTHER->name,
         ]);
 
         return $query;
@@ -575,7 +595,7 @@ class PoolCandidate extends Model
             'workExperiences.skills',
             'poolCandidates',
             'poolCandidates.pool',
-            'poolCandidates.pool.classifications',
+            'poolCandidates.pool.classification',
             'poolCandidates.educationRequirementAwardExperiences.skills',
             'poolCandidates.educationRequirementCommunityExperiences.skills',
             'poolCandidates.educationRequirementEducationExperiences.skills',
@@ -592,6 +612,7 @@ class PoolCandidate extends Model
         $pool = Pool::with([
             'essentialSkills',
             'nonessentialSkills',
+            'classification',
         ])->findOrFail($this->pool_id);
         $essentialSkillIds = $pool->essentialSkills()->pluck('skills.id')->toArray();
         $nonessentialSkillIds = $pool->nonessentialSkills()->pluck('skills.id')->toArray();
@@ -807,7 +828,7 @@ class PoolCandidate extends Model
             'workExperiences.skills',
             'poolCandidates',
             'poolCandidates.pool',
-            'poolCandidates.pool.classifications',
+            'poolCandidates.pool.classification',
             'poolCandidates.educationRequirementAwardExperiences.skills',
             'poolCandidates.educationRequirementCommunityExperiences.skills',
             'poolCandidates.educationRequirementEducationExperiences.skills',

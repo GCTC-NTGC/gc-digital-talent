@@ -10,9 +10,32 @@ server {
     root /home/site/wwwroot;
     index  index.php index.html index.htm;
     #server_name talent.canada.ca www.talent.canada.ca;
+    absolute_redirect off;
+    gzip_static on;
 
     # redirect server error pages
     error_page   404  /404;
+
+    # Permanent redirects to avoid dead links
+    location = /en/communities/digital-talent {
+        absolute_redirect on;
+        return 301 https://www.canada.ca/en/government/system/digital-government/gcdigital-community.html;
+    }
+    location = /fr/communities/digital-talent {
+        absolute_redirect on;
+        return 301 https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/collectivite-gcnumerique.html;
+    }
+    location = /en/talent/search { return 301 /en/search$is_args$args; }
+    location = /fr/talent/search { return 301 /fr/search$is_args$args; }
+    location = /en/applications { return 301 /en/applicant/profile-and-applications$is_args$args; }
+    location = /fr/applications { return 301 /fr/applicant/profile-and-applications$is_args$args; }
+    location = /en/applicant/dashboard { return 301 /en/applicant/profile-and-applications$is_args$args; }
+    location = /fr/applicant/dashboard { return 301 /fr/applicant/profile-and-applications$is_args$args; }
+    location = /en/privacy-notice { return 301 /en/privacy-policy$is_args$args; }
+    location = /fr/privacy-notice { return 301 /fr/privacy-policy$is_args$args; }
+
+    # Permanent redirect for IAP french vanity url
+    location = /apprentis-autochtone-ti { return 301 /fr/indigenous-it-apprentice$is_args$args; }
 
     # Disable .git directory
     location ~ /\.git {
@@ -21,36 +44,36 @@ server {
         log_not_found off;
     }
 
+    # handle special cases
     location = /robots.txt {
         alias /home/site/wwwroot/infrastructure/conf/$ROBOTS_FILENAME;
     }
-
     location = /restricted.html {
         alias /home/site/wwwroot/apps/web/dist/restricted.html;
     }
-
-    # Permanent redirects to avoid dead links
-    location = /en/communities/digital-talent { return 301 https://www.canada.ca/en/government/system/digital-government/gcdigital-community.html; }
-    location = /fr/communities/digital-talent { return 301 https://www.canada.ca/fr/gouvernement/systeme/gouvernement-numerique/collectivite-gcnumerique.html; }
-
-    # Permanent redirect within the same domain with relative path
-    location = /en/talent/search {
-        absolute_redirect off;
-        return 301 /en/search;
+    # For debugging FPM.  Only accessible locally.
+    location ~ ^/(fpm-status)$ {
+        allow 127.0.0.1;
+        deny all;
+        fastcgi_pass 127.0.0.1:9001;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_index index.php;
     }
-    location = /fr/talent/search {
-        absolute_redirect off;
-        return 301 /fr/search;
+    # For checking FPM status.  Enabled in prod locally to test post_deply script.
+    location ~ ^/(fpm-ping)$ {
+        allow 127.0.0.1;
+        deny all;
+        fastcgi_pass 127.0.0.1:9000;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_index index.php;
     }
-
-    # Permanent redirect for IAP french vanity url
-    location = /apprentis-autochtone-ti {
-        absolute_redirect off;
-        return 301 /fr/indigenous-it-apprentice;
+    # find the web config in the writable home root - run time variables
+    location = /config.js {
+        add_header Cache-Control "public, max-age=60"; # 1 minute - to distrubute variable changes
+        alias /home/site/config-web.js;
     }
-
-    # enable serving gzip-ed files
-    gzip_static on;
 
     # api
     location = /graphql {
@@ -58,7 +81,20 @@ server {
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
     }
+    # privileged access to the API behind the VPN
+    location = /admin/graphql {
+        fastcgi_pass 127.0.0.1:9000;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
+    }
+    # graphql online web interface
     location = /graphiql {
+        fastcgi_pass 127.0.0.1:9000;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
+    }
+    # graphql online web interface - privileged access
+    location = /admin/graphiql {
         fastcgi_pass 127.0.0.1:9000;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
@@ -92,221 +128,35 @@ server {
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME /home/site/wwwroot/api/public/index.php;
     }
-    # For debugging FPM.  Only accessible locally.
-    location ~ ^/(fpm-status)$ {
-        allow 127.0.0.1;
-        deny all;
-        fastcgi_pass 127.0.0.1:9001;
-        include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        fastcgi_index index.php;
-    }
-    # For checking FPM status.  Enabled in prod locally to test post_deply script.
-    location ~ ^/(fpm-ping)$ {
-        allow 127.0.0.1;
-        deny all;
-        fastcgi_pass 127.0.0.1:9000;
-        include fastcgi_params;
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        fastcgi_index index.php;
-    }
 
-    # rewrite root-level possible lang prefix to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/?$" {
-        add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/?$" /apps/web/dist/index.html break;
-    }
-
-    # find the web config in the writable home root - run time variables
-    location = /config.js {
-        add_header Cache-Control "public, max-age=60"; # 1 minute - to distrubute variable changes
-        alias /home/site/config-web.js;
-    }
-
-    # rewrite tc-report static files to "tc-report/_site"
-    location ~ "^/tc-report/(.*\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|doc|docx|map|webmanifest|webp))$" {
+    # serve tc-report asset files
+    location ~ ^/tc-report/(.+)$ {
         add_header Cache-Control "public, max-age=604800"; # 1 week
-        rewrite "^/tc-report/(.*\.(:?png|ico|gif|jpg|jpeg|svg|css|js|pdf|doc|docx|map|webmanifest|webp))$" /tc-report/_site/$1 break;
+        try_files /tc-report/_site/$1 /tc-report/_site/$1/index.html =404;
     }
 
-    # rewrite talent static contenthashed files to "apps/web/dist"
-    location ~ "^(/(?:.*\.)?[a-z0-9]{20}\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx))$" {
-        add_header Cache-Control "public, max-age=31536000"; # 1 year
-        rewrite "^(/(?:.*\.)?[a-z0-9]{20}\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx))$" /apps/web/dist/$1 break;
-    }
+    # serve other asset files files
+    location ~ "\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx)$" {
+        # contenthashed asset files get cached for a year
+        location ~ "^/(.*\.)?[a-z0-9]{20}\.(png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx)$" {
+            add_header Cache-Control "public, max-age=31536000"; # 1 year
+            try_files /apps/web/dist/$uri =404;
+        }
 
-     # rewrite talent static unhashed files to "apps/web/dist"
-    location ~ "^(/.*\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx))$" {
+        # unhashed assets get cached for an hour
         add_header Cache-Control "public, max-age=3600"; # 1 hour
-        rewrite "^(/.*\.(?:png|ico|gif|jpg|jpeg|svg|css|js|pdf|map|doc|docx|webmanifest|webp|pptx))$" /apps/web/dist/$1 break;
+        try_files /apps/web/dist/$uri =404;
     }
 
-    # rewrite possible lang prefix then "talent" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/talent(/.*|$)" {
-        add_header Cache-Control "public, max-age=0"; # 1 hour
-        rewrite "^(?:/[a-z]{2})?/talent(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "admin" to admin index.html
-    location ~ "^(?:/[a-z]{2})?/admin(/?.*|$)" {
-        add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/admin(/?.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "executive" to executive index.html
-    location ~ "^(?:/[a-z]{2})?/executive(/?.*|$)" {
-        add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/executive(/?.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "manager" to manager index.html
-    location ~ "^(?:/[a-z]{2})?/manager(/?.*|$)" {
-        add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/manager(/?.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "users" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/users(/.*|$)" {
-          add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/users(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "search" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/search(/.*|$)" {
-          add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/search(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "logged-out" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/logged-out(/.*|$)" {
-          add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/logged-out(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "user-deleted" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/user-deleted(/.*|$)" {
-          add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/user-deleted(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "browse" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/browse(/.*|$)" {
-      add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/browse(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "404" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/404(/.*|$)" {
-          add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/404(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "support" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/support(/.*|$)" {
-          add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/support(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "terms-and-conditions" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/terms-and-conditions(/.*|$)" {
-        rewrite "^(?:/[a-z]{2})?/terms-and-conditions(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "privacy-policy" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/privacy-policy(/.*|$)" {
-        rewrite "^(?:/[a-z]{2})?/privacy-policy(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "accessibility-statement" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/accessibility-statement(/.*|$)" {
-          add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/accessibility-statement(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "directive-on-digital-talent" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/directive-on-digital-talent(/.*|$)" {
-          add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/directive-on-digital-talent(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # Redirect old "applications" to new profile and applications
-    location = /en/applications {
-      absolute_redirect off;
-      return 301 /en/applicant/profile-and-applications$is_args$args;
-    }
-
-    location = /fr/applications/ {
-        absolute_redirect off;
-        return 301 /fr/applicant/profile-and-applications$is_args$args;
-    }
-
-    location = /en/applications/ {
-      absolute_redirect off;
-      return 301 /en/applicant/profile-and-applications$is_args$args;
-    }
-
-    location = /fr/applications {
-        absolute_redirect off;
-        return 301 /fr/applicant/profile-and-applications$is_args$args;
-    }
-
-    # rewrite possible lang prefix then "applications" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/applications(/.*)" {
-      rewrite "^(?:/[a-z]{2})?/applications(/.*)" /apps/web/dist/index.html break;
-    }
-
-    # Redirect old dashboard to new profile and applications
-    location = /en/applicant/dashboard {
-      absolute_redirect off;
-      return 301 /en/applicant/profile-and-applications$is_args$args;
-    }
-
-    location = /fr/applicant/dashboard {
-        absolute_redirect off;
-        return 301 /fr/applicant/profile-and-applications$is_args$args;
-    }
-
-    # rewrite possible lang prefix then "applicant" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/applicant(/.*|$)" {
-        add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-      rewrite "^(?:/[a-z]{2})?/applicant(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "create-account" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/create-account(/.*|$)" {
-          add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/create-account(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "register-info" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/register-info(/.*|$)" {
-      add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/register-info(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "login-info" to apps/web index.html
-    location ~ "^(?:/[a-z]{2})?/login-info(/.*|$)" {
-          add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/login-info(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # rewrite possible lang prefix then "indigenous-it-apprentice" to web index.html
-    location ~ "^(?:/[a-z]{2})?/indigenous-it-apprentice(/.*|$)" {
-          add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        rewrite "^(?:/[a-z]{2})?/indigenous-it-apprentice(/.*|$)" /apps/web/dist/index.html break;
-    }
-
-    # fallback any other files to "tc-report/_site"
-    ## Must be second to last of the file!
-    location ~ "^/(.*\.(\w+))$" {
+    # for known tc-report paths, serve tc-report files, and fall back to main SPA.
+    location ~ ^/(en|fr)/(2000|diversity|hiring|projects|talent-cloud|vision)(/|$) {
         add_header Cache-Control "public, max-age=604800"; # 1 week
-        rewrite "^/(.*\.(\w+))$" /tc-report/_site/$1 break;
+        try_files /tc-report/_site/$uri /tc-report/_site/$uri/index.html /;
     }
 
-    # fallback any other path to "tc-report/_site" index.html
-    ## Must be last of the file!
-    location ~ ^/(.*)$ {
-        add_header Cache-Control "public, max-age=604800"; # 1 week
-        rewrite ^/(.*)$ /tc-report/_site/$1/index.html break;
+    # for all other uris, serve SPA index with no caching
+    location / {
+        add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
+        try_files /apps/web/dist/index.html =404;
     }
 }

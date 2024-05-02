@@ -1,11 +1,12 @@
 import React from "react";
-import { Story, ComponentMeta } from "@storybook/react";
+import { StoryFn, Meta } from "@storybook/react";
+
+import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Hero from "./Hero";
 
 export default {
   component: Hero,
-  title: "Components/Hero",
   args: {
     title: "Hero",
     subtitle: "Subtitle",
@@ -28,86 +29,22 @@ export default {
       },
     ],
   },
-} as ComponentMeta<typeof Hero>;
-
-const heroContent = {
-  title: "Hero",
-  subtitle: "Subtitle",
-  crumbs: [
-    {
-      label: "Home",
-      url: "#home",
+  chromatic: {
+    modes: {
+      light: allModes.light,
+      "light mobile": allModes["light mobile"],
+      dark: allModes.dark,
+      "light iap": allModes["light iap desktop"],
+      "dark iap": allModes["dark iap desktop"],
     },
-    {
-      label: "One",
-      url: "#one",
-    },
-    {
-      label: "Two",
-      url: "#two",
-    },
-    {
-      label: "Three",
-      url: "#three",
-    },
-  ],
-};
+  },
+} as Meta<typeof Hero>;
 
-const StandardStory: Story = (args) => (
-  <>
-    <div data-h2="light">
-      <div
-        data-h2-padding="base(x2)"
-        data-h2-background-color="base(background)"
-      >
-        <Hero {...heroContent} {...args} />
-      </div>
-    </div>
-    <div data-h2="dark">
-      <div
-        data-h2-padding="base(x2)"
-        data-h2-background-color="base(background)"
-      >
-        <Hero {...heroContent} {...args} />
-      </div>
-    </div>
-    <div data-h2="iap light">
-      <div
-        data-h2-padding="base(x2)"
-        data-h2-background-color="base(background)"
-      >
-        <Hero {...heroContent} {...args} />
-      </div>
-    </div>
-    <div data-h2="iap dark">
-      <div
-        data-h2-padding="base(x2)"
-        data-h2-background-color="base(background)"
-      >
-        <Hero {...heroContent} {...args} />
-      </div>
-    </div>
-  </>
-);
+const Template: StoryFn<typeof Hero> = (args) => <Hero {...args} />;
 
-export const Standard = StandardStory.bind({});
+export const Default = Template.bind({});
 
-export const WithImage = StandardStory.bind({});
-WithImage.args = {
-  imgPath: "https://via.placeholder.com/500",
-};
-
-export const NoSubtitle = StandardStory.bind({});
-NoSubtitle.args = {
-  subtitle: undefined,
-};
-
-export const Centered = StandardStory.bind({});
-Centered.args = {
-  centered: true,
-};
-
-export const Overlap = StandardStory.bind({});
+export const Overlap = Template.bind({});
 Overlap.args = {
   centered: true,
   children: (

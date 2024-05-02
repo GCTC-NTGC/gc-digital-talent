@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
@@ -21,17 +21,14 @@ import {
   navigationMessages,
 } from "@gc-digital-talent/i18n";
 import { BasicForm } from "@gc-digital-talent/forms";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import {
-  Experience,
-  Maybe,
+  FragmentType,
   Scalars,
-  Skill,
   SkillLevel,
-  SkillCategory,
-  UserSkill,
   WhenSkillUsed,
+  getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
 
@@ -42,6 +39,7 @@ import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSkillFormDialog from "~/components/ExperienceSkillFormDialog/ExperienceSkillFormDialog";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import {
   CreateUserSkill_Mutation,
@@ -108,27 +106,180 @@ const NullExperienceMessage = ({
   );
 };
 
+const subTitle = defineMessage({
+  defaultMessage:
+    "Update your skill level and manage career experiences linked to this skill.",
+  id: "xJfPRe",
+  description: "Subtitle for the self skill evaluation page",
+});
+
+export const UpdateUserSkillSkill_Fragment = graphql(/* GraphQL */ `
+  fragment UpdateUserSkillSkill on Skill {
+    id
+    key
+    category
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+  }
+`);
+
+export const UpdateUserSkillExperience_Fragment = graphql(/* GraphQL */ `
+  fragment UpdateUserSkillExperience on Experience {
+    id
+    __typename
+    details
+    user {
+      id
+    }
+    ... on AwardExperience {
+      title
+      issuedBy
+      awardedDate
+      awardedTo
+      awardedScope
+    }
+    ... on CommunityExperience {
+      title
+      organization
+      project
+      startDate
+      endDate
+    }
+    ... on EducationExperience {
+      institution
+      areaOfStudy
+      thesisTitle
+      startDate
+      endDate
+      type
+      status
+    }
+    ... on PersonalExperience {
+      title
+      description
+      startDate
+      endDate
+    }
+    ... on WorkExperience {
+      role
+      organization
+      division
+      startDate
+      endDate
+    }
+  }
+`);
+
+export const UpdateUserSkill_Fragment = graphql(/* GraphQL */ `
+  fragment UpdateUserSkill on UserSkill {
+    id
+    whenSkillUsed
+    skillLevel
+    topSkillsRank
+    improveSkillsRank
+    user {
+      id
+    }
+    skill {
+      id
+      key
+      category
+      name {
+        en
+        fr
+      }
+    }
+    experiences {
+      id
+      __typename
+      details
+      user {
+        id
+      }
+      ... on AwardExperience {
+        title
+        issuedBy
+        awardedDate
+        awardedTo
+        awardedScope
+      }
+      ... on CommunityExperience {
+        title
+        organization
+        project
+        startDate
+        endDate
+      }
+      ... on EducationExperience {
+        institution
+        areaOfStudy
+        thesisTitle
+        startDate
+        endDate
+        type
+        status
+      }
+      ... on PersonalExperience {
+        title
+        description
+        startDate
+        endDate
+      }
+      ... on WorkExperience {
+        role
+        organization
+        division
+        startDate
+        endDate
+      }
+      skills {
+        id
+        key
+        category
+        name {
+          en
+          fr
+        }
+        experienceSkillRecord {
+          details
+        }
+      }
+    }
+  }
+`);
+
 interface UpdateUserSkillFormProps {
   userId: Scalars["UUID"]["output"];
-  skill: Skill;
-  experiences: Experience[];
-  userSkill?: Maybe<UserSkill>;
+  skillQuery: FragmentType<typeof UpdateUserSkillSkill_Fragment>;
+  experiencesQuery: FragmentType<typeof UpdateUserSkillExperience_Fragment>[];
+  userSkillQuery?: FragmentType<typeof UpdateUserSkill_Fragment> | null;
 }
 
 export const UpdateUserSkillForm = ({
   userId,
-  experiences,
-  skill,
-  userSkill,
+  experiencesQuery,
+  skillQuery,
+  userSkillQuery,
 }: UpdateUserSkillFormProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const skill = getFragment(UpdateUserSkillSkill_Fragment, skillQuery);
+  const experiences = getFragment(
+    UpdateUserSkillExperience_Fragment,
+    experiencesQuery,
+  );
+  const userSkill = getFragment(UpdateUserSkill_Fragment, userSkillQuery);
   const skillName = getLocalizedName(skill.name, intl);
   const skillDescription = getLocalizedName(skill.description, intl);
   const hasUserSkill = notEmpty(userSkill);
-  const isTechnical = skill.category === SkillCategory.Technical;
   const linkedExperiences = userSkill?.experiences?.filter(notEmpty);
   const from = searchParams.get("from");
   const fromShowcase = from && from === "showcase";
@@ -223,37 +374,31 @@ export const UpdateUserSkillForm = ({
       );
   };
 
-  const crumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: paths.home(),
-    },
-    {
-      label: intl.formatMessage(navigationMessages.profileAndApplications),
-      url: paths.profileAndApplications(),
-    },
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(navigationMessages.profileAndApplications),
+        url: paths.profileAndApplications(),
+      },
 
-    {
-      label: intl.formatMessage(navigationMessages.skillLibrary),
-      url: paths.skillLibrary(),
-    },
-    ...(fromShowcase
-      ? [
-          {
-            label: intl.formatMessage(navigationMessages.skillShowcase),
-            url: paths.skillShowcase(),
-          },
-        ]
-      : []),
-    {
-      label: skillName,
-      url: paths.editUserSkill(skill.id),
-    },
-  ];
+      {
+        label: intl.formatMessage(navigationMessages.skillLibrary),
+        url: paths.skillLibrary(),
+      },
+      ...(fromShowcase
+        ? [
+            {
+              label: intl.formatMessage(navigationMessages.skillShowcase),
+              url: paths.skillShowcase(),
+            },
+          ]
+        : []),
+      {
+        label: skillName,
+        url: paths.editUserSkill(skill.id),
+      },
+    ],
+  });
 
   const sections: PageSections = {
     skillLevel: {
@@ -283,19 +428,12 @@ export const UpdateUserSkillForm = ({
     { skillName },
   );
 
+  const formattedSubTitle = intl.formatMessage(subTitle);
+
   return (
     <>
-      <SEO title={pageTitle} />
-      <Hero
-        title={pageTitle}
-        crumbs={crumbs}
-        subtitle={intl.formatMessage({
-          defaultMessage:
-            "Update your skill level and manage career experiences linked to this skill.",
-          id: "xJfPRe",
-          description: "Subtitle for the self skill evaluation page",
-        })}
-      />
+      <SEO title={pageTitle} description={formattedSubTitle} />
+      <Hero title={pageTitle} crumbs={crumbs} subtitle={formattedSubTitle} />
       <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
         <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
           <TableOfContents.Navigation>
@@ -367,7 +505,7 @@ export const UpdateUserSkillForm = ({
                   data-h2-gap="base(x1 0)"
                   data-h2-margin="base(x1, 0, x2, 0)"
                 >
-                  <UserSkillFormFields isTechnical={isTechnical} />
+                  <UserSkillFormFields category={skill.category} />
                   <div
                     data-h2-display="base(flex)"
                     data-h2-flex-wrap="base(wrap)"
@@ -588,154 +726,17 @@ const UpdateUserSkill_Query = graphql(/* GraphQL */ `
     me {
       id
       userSkills(includeSkillIds: [$skillId]) {
-        id
-        whenSkillUsed
-        skillLevel
-        topSkillsRank
-        improveSkillsRank
-        user {
-          id
-        }
         skill {
           id
-          key
-          category
-          name {
-            en
-            fr
-          }
         }
-        experiences {
-          id
-          __typename
-          details
-          user {
-            id
-          }
-          ... on AwardExperience {
-            title
-            issuedBy
-            awardedDate
-            awardedTo
-            awardedScope
-          }
-          ... on CommunityExperience {
-            title
-            organization
-            project
-            startDate
-            endDate
-          }
-          ... on EducationExperience {
-            institution
-            areaOfStudy
-            thesisTitle
-            startDate
-            endDate
-            type
-            status
-          }
-          ... on PersonalExperience {
-            title
-            description
-            startDate
-            endDate
-          }
-          ... on WorkExperience {
-            role
-            organization
-            division
-            startDate
-            endDate
-          }
-          skills {
-            id
-            key
-            category
-            name {
-              en
-              fr
-            }
-            experienceSkillRecord {
-              details
-            }
-          }
-        }
+        ...UpdateUserSkill
       }
       experiences {
-        id
-        id
-        __typename
-        details
-        user {
-          id
-        }
-        ... on AwardExperience {
-          title
-          issuedBy
-          awardedDate
-          awardedTo
-          awardedScope
-        }
-        ... on CommunityExperience {
-          title
-          organization
-          project
-          startDate
-          endDate
-        }
-        ... on EducationExperience {
-          institution
-          areaOfStudy
-          thesisTitle
-          startDate
-          endDate
-          type
-          status
-        }
-        ... on PersonalExperience {
-          title
-          description
-          startDate
-          endDate
-        }
-        ... on WorkExperience {
-          role
-          organization
-          division
-          startDate
-          endDate
-        }
+        ...UpdateUserSkillExperience
       }
     }
     skill(id: $skillId) {
-      id
-      key
-      category
-      name {
-        en
-        fr
-      }
-      description {
-        en
-        fr
-      }
-      keywords {
-        en
-        fr
-      }
-      families {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        description {
-          en
-          fr
-        }
-      }
+      ...UpdateUserSkillSkill
     }
   }
 `);
@@ -752,16 +753,15 @@ const UpdateUserSkillPage = () => {
   });
 
   const userSkill = data?.me?.userSkills?.find((s) => s?.skill.id === skillId);
-  const userExperiences = data?.me?.experiences?.filter(notEmpty);
 
   return (
     <Pending fetching={fetching} error={error}>
       {data?.skill ? (
         <UpdateUserSkillForm
           userId={data.me?.id ?? ""}
-          skill={data.skill}
-          userSkill={userSkill}
-          experiences={userExperiences ?? []}
+          skillQuery={data.skill}
+          userSkillQuery={userSkill}
+          experiencesQuery={unpackMaybes(data.me?.experiences)}
         />
       ) : (
         <ThrowNotFound

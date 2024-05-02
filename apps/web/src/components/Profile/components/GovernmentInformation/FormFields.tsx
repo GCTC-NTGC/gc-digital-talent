@@ -15,13 +15,14 @@ import {
   errorMessages,
   getGovEmployeeType,
   uiMessages,
-  useLocale,
+  getLocale,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
-  Classification,
-  Department,
+  FragmentType,
   GovEmployeeType,
+  getFragment,
+  graphql,
 } from "@gc-digital-talent/graphql";
 
 import useDirtyFields from "../../hooks/useDirtyFields";
@@ -39,19 +40,52 @@ const priorityEntitlementLink = (locale: string, chunks: React.ReactNode) => {
   );
 };
 
+const GovernmentInfoDepartment_Fragment = graphql(/* GraphQL */ `
+  fragment GovernmentInfoDepartment on Department {
+    id
+    departmentNumber
+    name {
+      en
+      fr
+    }
+  }
+`);
+
+export const GovernmentInfoClassification_Fragment = graphql(/* GraphQL */ `
+  fragment GovernmentInfoClassification on Classification {
+    id
+    name {
+      en
+      fr
+    }
+    group
+    level
+  }
+`);
+
 interface FormFieldsProps {
-  departments: Department[];
-  classifications: Classification[];
+  departmentsQuery: FragmentType<typeof GovernmentInfoDepartment_Fragment>[];
+  classificationsQuery: FragmentType<
+    typeof GovernmentInfoClassification_Fragment
+  >[];
   labels: FieldLabels;
 }
 
 const FormFields = ({
-  departments,
-  classifications,
+  departmentsQuery,
+  classificationsQuery,
   labels,
 }: FormFieldsProps) => {
   const intl = useIntl();
-  const { locale } = useLocale();
+  const locale = getLocale(intl);
+  const departments = getFragment(
+    GovernmentInfoDepartment_Fragment,
+    departmentsQuery,
+  );
+  const classifications = getFragment(
+    GovernmentInfoClassification_Fragment,
+    classificationsQuery,
+  );
   useDirtyFields("government");
   const { watch, resetField } = useFormContext();
   // hooks to watch, needed for conditional rendering
@@ -63,8 +97,8 @@ const FormFields = ({
       "priorityEntitlementYesNo",
     ]);
 
-  const groupOptions = getGroupOptions(classifications, intl);
-  const levelOptions = getLevelOptions(classifications, groupSelection);
+  const groupOptions = getGroupOptions([...classifications], intl);
+  const levelOptions = getLevelOptions([...classifications], groupSelection);
   const hasPriorityEntitlement = priorityEntitlement === "yes";
   const isGovEmployee = govEmployee === "yes";
   const isPlaced =
@@ -155,7 +189,7 @@ const FormFields = ({
               description:
                 "Null selection for department select input in the request form.",
             })}
-            options={objectsToSortedOptions(departments, intl)}
+            options={objectsToSortedOptions([...departments], intl)}
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}

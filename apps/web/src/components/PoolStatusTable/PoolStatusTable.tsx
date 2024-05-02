@@ -1,7 +1,7 @@
 import React from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
-import isPast from "date-fns/isPast";
+import { isPast } from "date-fns/isPast";
 
 import {
   commonMessages,

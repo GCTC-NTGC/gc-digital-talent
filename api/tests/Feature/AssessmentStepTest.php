@@ -13,6 +13,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
+use Tests\UsesProtectedGraphqlEndpoint;
 
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertNotNull;
@@ -23,6 +24,7 @@ class AssessmentStepTest extends TestCase
     use MakesGraphQLRequests;
     use RefreshDatabase;
     use RefreshesSchemaCache;
+    use UsesProtectedGraphqlEndpoint;
 
     protected $teamUser;
 
@@ -49,8 +51,8 @@ class AssessmentStepTest extends TestCase
     }
 
     protected $createAssessmentStep =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         mutation createAssessmentStep($poolId: UUID!, $assessmentStep: AssessmentStepInput!){
             createAssessmentStep(poolId: $poolId, assessmentStep: $assessmentStep) {
                 id
@@ -68,8 +70,8 @@ class AssessmentStepTest extends TestCase
     ';
 
     protected $updateAssessmentStep =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         mutation updateAssessmentStep($id: UUID!, $assessmentStep: AssessmentStepInput!){
             updateAssessmentStep(id: $id, assessmentStep: $assessmentStep) {
                 id
@@ -87,8 +89,8 @@ class AssessmentStepTest extends TestCase
     ';
 
     protected $deleteAssessmentStep =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         mutation deleteAssessmentStep($id: UUID!){
             deleteAssessmentStep(id: $id) {
                 id
@@ -97,8 +99,8 @@ class AssessmentStepTest extends TestCase
     ';
 
     protected $createOrUpdateScreeningQuestionAssessmentStep =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         mutation createOrUpdateScreeningQuestionAssessmentStep(
             $poolId: UUID!,
             $screeningQuestions: [SyncScreeningQuestionsInput],

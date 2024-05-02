@@ -33,6 +33,12 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       description:
         "Error message that the user has selected both status and non-status first nations.",
     },
+    NotIgnorableNotificationFamily: {
+      defaultMessage: "Given notification group cannot be ignored.",
+      id: "bXECaV",
+      description:
+        "Error message that the user has attempted to set an invalid notification family as ignored.",
+    },
 
     // skill validation
     SkillFamilyKeyStringInUse: {
@@ -109,6 +115,26 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
         "Message displayed to user after application fails to get deleted.",
     },
 
+    RemoveCandidateAlreadyPlaced: {
+      defaultMessage:
+        "A candidate can't be removed after already being placed.",
+      id: "72usGv",
+      description:
+        "Message displayed to user after attempting to remove an already placed candidate.",
+    },
+    RemoveCandidateAlreadyRemoved: {
+      defaultMessage: "Candidate is already removed.",
+      id: "vy6A5+",
+      description:
+        "Message displayed to user after attempting to remove an already removed candidate.",
+    },
+    CandidateUnexpectedStatus: {
+      defaultMessage: "Candidate has unexpected status.",
+      id: "AlECuf",
+      description:
+        "Message displayed to user after attempting to update a candidate with an unexpected status.",
+    },
+
     // assessmentStep updating
     AssessmentStepsSamePool: {
       defaultMessage: "AssessmentSteps must belong to the same pool.",
@@ -135,13 +161,19 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
     },
 
     // pool updating
-    UpdatePoolClosingDate: {
+    UpdatePoolClosingDateFuture: {
       defaultMessage: "The pool must have a closing date after today.",
       id: "qmEyxS",
       description:
         "Error message that the pool closing date isn't in the future.",
     },
-
+    UpdatePoolClosingDateExtend: {
+      defaultMessage:
+        "Extended closing date must be after the current closing date.",
+      id: "Ork8sR",
+      description:
+        "Error message that the pool closing date isn't after the existing one",
+    },
     // pool archiving
     ArchivePoolInvalidStatus: {
       defaultMessage:

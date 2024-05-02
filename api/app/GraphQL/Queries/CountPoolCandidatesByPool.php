@@ -13,7 +13,7 @@ final class CountPoolCandidatesByPool
      */
     public function __invoke($_, array $args)
     {
-        $filters = $args['where'];
+        $filters = ! empty($args['where']) ? $args['where'] : [];
 
         // query counts pool candidate rows, so start on that model
         $queryBuilder = PoolCandidate::query();
@@ -32,8 +32,8 @@ final class CountPoolCandidatesByPool
         // available candidates scope (scope CANDIDATE_STATUS_QUALIFIED_AVAILABLE or CANDIDATE_STATUS_PLACED_CASUAL, or PLACED_TENTATIVE)
         PoolCandidate::scopeAvailable($queryBuilder);
 
-        // Only display IT candidates
-        PoolCandidate::scopeInITPublishingGroup($queryBuilder);
+        // Only display IT & OTHER publishing group candidates
+        PoolCandidate::scopeInTalentSearchablePublishingGroup($queryBuilder);
 
         $queryBuilder->whereHas('user', function (Builder $userQuery) use ($filters) {
             // user filters go here

@@ -1,3 +1,5 @@
+import * as DialogPrimitive from "@radix-ui/react-dialog";
+
 import {
   Color,
   HeadingRank,
@@ -10,20 +12,20 @@ import Alert, { type AlertProps } from "./components/Alert";
 import AlertDialog from "./components/AlertDialog";
 import Announcer, { useAnnouncer } from "./components/Announcer/Announcer";
 import Button, { type ButtonProps } from "./components/Button";
+import Counter from "./components/Button/Counter";
 import Breadcrumbs, { type BreadcrumbsProps } from "./components/Breadcrumbs";
 import Board from "./components/Board/Board";
-import Card, {
+import {
   CardBasic,
   CardFlat,
   type CardBasicProps,
   type CardFlatProps,
-  type CardProps,
 } from "./components/Card";
-import CardLink, { type CardLinkProps } from "./components/CardLink";
 import CardRepeater, {
   useCardRepeaterContext,
 } from "./components/CardRepeater/CardRepeater";
-import Chip, { Chips, type ChipProps } from "./components/Chip";
+import Chip, { type ChipProps } from "./components/Chip/Chip";
+import Chips from "./components/Chip/Chips";
 import Collapsible from "./components/Collapsible";
 import DefinitionList from "./components/DefinitionList/DefinitionList";
 import Dialog from "./components/Dialog";
@@ -34,6 +36,7 @@ import Heading, {
   HeadingLevel,
   HeadingRef,
 } from "./components/Heading";
+import { headingStyles } from "./components/Heading/styles";
 import Link, {
   DownloadCsv,
   ScrollToLink,
@@ -48,11 +51,6 @@ import Loading, { type LoadingProps } from "./components/Loading";
 import NavTabs from "./components/Tabs/NavTabs";
 import NotFound, { ThrowNotFound } from "./components/NotFound";
 import Pending, { type PendingProps } from "./components/Pending";
-import Pill, {
-  type PillProps,
-  type PillMode,
-  type PillSize,
-} from "./components/Pill";
 import ScrollArea from "./components/ScrollArea";
 import Separator from "./components/Separator";
 import SideMenu, {
@@ -83,6 +81,7 @@ import ToggleSection from "./components/ToggleSection/ToggleSection";
 import TreeView from "./components/TreeView";
 import Well, { WellProps } from "./components/Well";
 import { incrementHeadingRank, decrementHeadingRank } from "./utils";
+import useControllableState from "./hooks/useControllableState";
 
 export type {
   Color,
@@ -92,10 +91,7 @@ export type {
   ButtonProps,
   ButtonLinkMode,
   CardFlatProps,
-  CardProps,
   CardBasicProps,
-  CardLinkProps,
-  ChipProps,
   HeadingProps,
   HeadingLevel,
   HeadingRef,
@@ -108,9 +104,7 @@ export type {
   MenuLinkProps,
   LoadingProps,
   PendingProps,
-  PillProps,
-  PillMode,
-  PillSize,
+  ChipProps,
   SidebarProps,
   SideMenuProps,
   SideMenuItemProps,
@@ -136,16 +130,17 @@ export {
   Board,
   Breadcrumbs,
   Button,
-  Card,
   CardBasic,
   CardFlat,
-  CardLink,
   CardRepeater,
   Chips,
   Chip,
   Collapsible,
+  Counter,
   DefinitionList,
   Dialog,
+  /* Re-exporting primitive for custom solutions */
+  DialogPrimitive,
   DropdownMenu,
   Flourish,
   Heading,
@@ -158,7 +153,6 @@ export {
   Pending,
   NotFound,
   ThrowNotFound,
-  Pill,
   ScrollArea,
   Separator,
   SideMenu,
@@ -179,4 +173,10 @@ export {
   Well,
 };
 
-export { incrementHeadingRank, decrementHeadingRank, useCardRepeaterContext };
+export {
+  incrementHeadingRank,
+  decrementHeadingRank,
+  headingStyles,
+  useCardRepeaterContext,
+  useControllableState,
+};

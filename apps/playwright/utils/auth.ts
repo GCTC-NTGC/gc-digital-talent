@@ -1,6 +1,4 @@
-import { Role } from "@gc-digital-talent/graphql";
 import { Cookie, Page } from "@playwright/test";
-import { graphqlRequest } from "./graphql";
 
 /**
  * Login by sub
@@ -19,7 +17,23 @@ export async function loginBySub(page: Page, sub: string) {
     .click();
   await page.getByPlaceholder("Enter any user/subject").fill(sub);
   await page.getByRole("button", { name: /sign-in/i }).click();
-  await page.waitForURL("**/applicant/profile-and-applications");
+  /**
+   * Note: Fixes an issue where the URL was redirecting some of the time
+   * We should probably improve this to not reply on a specific operation name.
+   */
+  await page.waitForResponse(
+    async (resp) => {
+      if (await resp.url()?.includes("/graphql")) {
+        const reqJson = await resp.request()?.postDataJSON();
+        return reqJson.operationName === "ProfileAndApplicationsApplicant";
+      }
+
+      return false;
+    },
+    {
+      timeout: 120 * 1000,
+    },
+  );
 }
 
 /**
@@ -129,52 +143,3 @@ export async function getAuthTokens(page: Page): Promise<AuthTokens> {
 
   return tokens;
 }
-
-export const Test_RolesQueryDocument = /* GraphQL */ `
-  query Test_Roles {
-    roles {
-      id
-      name
-    }
-  }
-`;
-
-/**
- * Get Roles
- *
- * Get all the roles directly from
- * the API.
- */
-export async function getRoles(): Promise<Role[]> {
-  const res = await graphqlRequest(Test_RolesQueryDocument);
-
-  return res.roles;
-}
-
-export const Test_UpdateUserRolesMutationDocument = /* GraphQL */ `
-  mutation Test_UpdateUserRoles($updateUserRolesInput: UpdateUserRolesInput!) {
-    updateUserRoles(updateUserRolesInput: $updateUserRolesInput) {
-      id
-      roleAssignments {
-        id
-        role {
-          id
-          name
-          isTeamBased
-          displayName {
-            en
-            fr
-          }
-        }
-        team {
-          id
-          name
-          displayName {
-            en
-            fr
-          }
-        }
-      }
-    }
-  }
-`;

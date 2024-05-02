@@ -3,10 +3,16 @@ import { useIntl } from "react-intl";
 import { useForm, FormProvider } from "react-hook-form";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 
-import { Button, ButtonProps, Dialog, IconType } from "@gc-digital-talent/ui";
+import {
+  Button,
+  ButtonProps,
+  Dialog,
+  IconType,
+  Link,
+} from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { Skill, SkillCategory } from "@gc-digital-talent/graphql";
+import { Skill } from "@gc-digital-talent/graphql";
 
 import SkillDetails from "./SkillDetails";
 import SkillSelection from "./SkillSelection";
@@ -16,14 +22,14 @@ import {
   showDetails,
 } from "./utils";
 import { SkillBrowserDialogContext, FormValues } from "./types";
+import SkillDetailsPool from "./SkillDetailsPool";
+import useRoutes from "../../hooks/useRoutes";
 
 interface SkillBrowserDialogProps {
   // All available skills
   skills: Skill[];
   // The context in which the dialog is being used
   context?: SkillBrowserDialogContext;
-  // Determines if the category filter is shown or not
-  showCategory?: boolean;
   // Currently selected skills (only needed if you want to display them in the selection)
   inLibrary?: Skill[];
   // Should the dialog be open on page load?
@@ -50,7 +56,6 @@ const SkillBrowserDialog = ({
   skills,
   onSave,
   context,
-  showCategory,
   trigger,
   inLibrary,
   initialState,
@@ -60,6 +65,7 @@ const SkillBrowserDialog = ({
   ...rest
 }: SkillBrowserDialogProps) => {
   const intl = useIntl();
+  const paths = useRoutes();
   const [isOpen, setIsOpen] = React.useState<boolean>(defaultOpen);
   const [selectedSkill, setSelectedSkill] = React.useState<Skill | null>(null);
   const methods = useForm<FormValues>({
@@ -149,16 +155,17 @@ const SkillBrowserDialog = ({
           <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(handleAddSkill)}>
               <SkillSelection
-                {...{ showCategory, skills, inLibrary }}
+                {...{ skills, inLibrary }}
                 onSelectSkill={setSelectedSkill}
               />
               {selectedSkill && shouldShowDetails && (
                 <SkillDetails
-                  isTechnical={
-                    selectedSkill.category === SkillCategory.Technical
-                  }
+                  category={selectedSkill.category}
                   context={context}
                 />
+              )}
+              {selectedSkill && context === "pool" && (
+                <SkillDetailsPool category={selectedSkill.category} />
               )}
               <Dialog.Footer data-h2-justify-content="base(flex-start)">
                 <Button
@@ -176,6 +183,19 @@ const SkillBrowserDialog = ({
                     {intl.formatMessage(commonMessages.cancel)}
                   </Button>
                 </Dialog.Close>
+                <Link
+                  newTab
+                  href={`${paths.skills()}#cant-find-a-skill`}
+                  mode="inline"
+                  data-h2-margin-left="base(auto)"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Can't find a skill?",
+                    id: "4qdoau",
+                    description:
+                      "Link to suggestions on what to do if you can't find a skill in the skill browser.",
+                  })}
+                </Link>
               </Dialog.Footer>
             </form>
           </FormProvider>

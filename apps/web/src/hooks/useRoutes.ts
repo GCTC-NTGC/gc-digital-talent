@@ -1,6 +1,7 @@
 import path from "path-browserify";
+import { useIntl } from "react-intl";
 
-import { useLocale, Locales } from "@gc-digital-talent/i18n";
+import { Locales, getLocale } from "@gc-digital-talent/i18n";
 
 import { ExperienceType } from "~/types/experience";
 import { PageSectionId as UserProfilePageSectionId } from "~/components/UserProfile/constants";
@@ -50,10 +51,10 @@ const getRoutes = (lang: Locales) => {
     accessibility: () => path.join(baseUrl, "accessibility-statement"),
     manager: () => path.join(baseUrl, "manager"),
     executive: () => path.join(baseUrl, "executive"),
+    skills: () => path.join(baseUrl, "skills"),
 
     // Admin
-    admin: () => adminUrl,
-    adminDashboard: () => path.join(adminUrl, "dashboard"),
+    adminDashboard: () => adminUrl,
 
     // Admin - Pools
     poolTable: () => path.join(adminUrl, "pools"),
@@ -292,6 +293,9 @@ const getRoutes = (lang: Locales) => {
     improveTechnicalSkills: () =>
       path.join(showcase, "5-technical-skills-to-train"),
 
+    // Notifications
+    notifications: () => path.join(applicantUrl, "notifications"),
+
     // Directive on digital talent
     directive: () => path.join(baseUrl, "directive-on-digital-talent"),
     digitalServicesContractingQuestionnaire: () =>
@@ -300,6 +304,9 @@ const getRoutes = (lang: Locales) => {
         "directive-on-digital-talent",
         "digital-services-contracting-questionnaire",
       ),
+
+    // Account Settings
+    accountSettings: () => path.join(applicantUrl, "settings"),
 
     /**
      * Deprecated
@@ -312,7 +319,8 @@ const getRoutes = (lang: Locales) => {
 };
 
 const useRoutes = () => {
-  const { locale } = useLocale();
+  const intl = useIntl();
+  const locale = getLocale(intl);
 
   return getRoutes(locale);
 };

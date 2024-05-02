@@ -287,6 +287,12 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
   ]);
 
   React.useEffect(() => {
+    if (pagination?.internal) {
+      table.resetPageIndex(true);
+    }
+  }, [filter?.state, pagination?.internal, table]);
+
+  React.useEffect(() => {
     if (sort?.onSortChange) {
       sort.onSortChange(sortingState);
     }
@@ -362,9 +368,10 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
                 ))}
               </Table.Body>
             </Table.Table>
-            {rowSelect && (
+            {(rowSelect || download?.all) && (
               <RowSelection.Actions
                 {...{
+                  rowSelect: !!rowSelect,
                   download,
                   print,
                   isLoading,

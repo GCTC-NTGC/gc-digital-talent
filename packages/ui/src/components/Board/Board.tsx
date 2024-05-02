@@ -13,6 +13,7 @@ import { BoardProvider, useBoardContext } from "./BoardProvider";
 import { findColumns } from "./utils";
 import { BoardColumn } from "./types";
 import { ARROW_KEY, isArrowKey } from "../../utils/keyboard";
+import getFontColor from "../../utils/button/getButtonFontColor";
 
 type RootProps = React.HTMLProps<HTMLDivElement> & {
   defaultItem?: number;
@@ -242,7 +243,7 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
             data-h2-pointer-events="base(none)"
             data-h2-z-index="base(2)"
             data-h2-inset="base(0)"
-            data-h2-shadow="base(inset)"
+            data-h2-shadow="base(inside)"
             data-h2-radius="base(s)"
           />
         </div>
@@ -363,6 +364,7 @@ const Info = ({
             data-h2-height="base(x.75)"
             data-h2-width="base(x.75)"
             data-h2-transition="base(transform 150ms ease)"
+            {...getFontColor({ mode: "inline", color: "black" })}
           />
           <span className="Info__Trigger__Title">{title}</span>
         </span>
@@ -379,7 +381,7 @@ const Info = ({
       <Collapsible.Content
         data-h2-background="base(background)"
         data-h2-padding="base(x.5)"
-        data-h2-shadow="base(inset)"
+        data-h2-shadow="base(inside)"
       >
         {children}
       </Collapsible.Content>

@@ -4,6 +4,11 @@
 import React from "react";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 
+import { ButtonProps } from "../Button";
+import getFontColor from "../../utils/button/getButtonFontColor";
+import getBackgroundColor from "../../utils/button/getButtonBackgroundColor";
+import getBaseStyle from "../../utils/button/getButtonBaseStyle";
+
 const Trigger = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Trigger>
@@ -40,7 +45,7 @@ const StyledArrow = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Arrow>
 >((props, forwardedRef) => (
   <DropdownMenuPrimitive.Arrow
-    style={{ fill: `rgba(var(--h2-color-white), 1)` }}
+    data-h2-fill="base(foreground)"
     ref={forwardedRef}
     {...props}
   />
@@ -83,50 +88,79 @@ const SubContent = ({
 
 const itemStyleProps = {
   className: "DropdownMenu__Item",
-  style: {
-    fontSize: "0.85rem",
-  },
   "data-h2-align-items": "base(center)",
-  "data-h2-background-color":
-    "base(transparent) base:hover(secondary.15) base:selectors[[data-disabled]]:hover(black.lightest.10)",
-  "data-h2-color": "base(black) base:selectors[[data-disabled]](black.light)",
   "data-h2-cursor": "base(pointer)",
   "data-h2-display": "base(flex)",
-  "data-h2-padding": "base(x.25, x.5, x.25, x1)",
+  "data-h2-font-weight": "base(700)",
+  "data-h2-padding": "base(x.25 x1)",
   "data-h2-position": "base(relative)",
   "data-h2-radius": "base(s)",
+  "data-h2-text-decoration": "base(underline)", // To match the buttons
+};
+
+type ItemProps = React.ComponentPropsWithoutRef<
+  typeof DropdownMenuPrimitive.Item
+> & {
+  color?: ButtonProps["color"];
 };
 
 const Item = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Item>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item>
->((props, forwardedRef) => (
+  ItemProps
+>(({ color = "secondary", ...rest }, forwardedRef) => (
   <DropdownMenuPrimitive.Item
-    {...itemStyleProps}
     ref={forwardedRef}
-    {...props}
+    {...{
+      ...getBaseStyle({ mode: "inline" }),
+      ...getFontColor({ mode: "inline", color }),
+      ...getBackgroundColor({ mode: "inline", color }),
+    }}
+    {...itemStyleProps}
+    {...rest}
   />
 ));
+
+type CheckboxItemProps = React.ComponentPropsWithoutRef<
+  typeof DropdownMenuPrimitive.CheckboxItem
+> & {
+  color?: ButtonProps["color"];
+};
 
 const CheckboxItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.CheckboxItem>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.CheckboxItem>
->((props, forwardedRef) => (
+  CheckboxItemProps
+>(({ color = "secondary", ...rest }, forwardedRef) => (
   <DropdownMenuPrimitive.CheckboxItem
-    {...itemStyleProps}
     ref={forwardedRef}
-    {...props}
+    {...{
+      ...getBaseStyle({ mode: "inline" }),
+      ...getFontColor({ mode: "inline", color }),
+      ...getBackgroundColor({ mode: "inline", color }),
+    }}
+    {...itemStyleProps}
+    {...rest}
   />
 ));
 
+type RadioItemProps = React.ComponentPropsWithoutRef<
+  typeof DropdownMenuPrimitive.RadioItem
+> & {
+  color?: ButtonProps["color"];
+};
+
 const RadioItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.RadioItem>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.RadioItem>
->((props, forwardedRef) => (
+  RadioItemProps
+>(({ color = "secondary", ...rest }, forwardedRef) => (
   <DropdownMenuPrimitive.RadioItem
-    {...itemStyleProps}
     ref={forwardedRef}
-    {...props}
+    {...{
+      ...getBaseStyle({ mode: "inline" }),
+      ...getFontColor({ mode: "inline", color }),
+      ...getBackgroundColor({ mode: "inline", color }),
+    }}
+    {...itemStyleProps}
+    {...rest}
   />
 ));
 
@@ -146,7 +180,7 @@ const Separator = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Separator>
 >((props, forwardedRef) => (
   <DropdownMenuPrimitive.Separator
-    data-h2-color="base(gray)"
+    data-h2-color="base(gray.light)"
     data-h2-margin="base(x.25, 0, x.25, 0)"
     style={{ height: 1 }}
     ref={forwardedRef}

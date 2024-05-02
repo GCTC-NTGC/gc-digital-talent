@@ -3,13 +3,13 @@
 namespace Database\Factories;
 
 use App\Enums\ArmedForcesStatus;
-use App\Enums\BilingualEvaluation;
 use App\Enums\CitizenshipStatus;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\EvaluatedLanguageAbility;
 use App\Enums\GovEmployeeType;
 use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
+use App\Enums\NotificationFamily;
 use App\Enums\OperationalRequirement;
 use App\Enums\PositionDuration;
 use App\Enums\ProvinceOrTerritory;
@@ -21,6 +21,7 @@ use App\Models\EducationExperience;
 use App\Models\PersonalExperience;
 use App\Models\Skill;
 use App\Models\User;
+use App\Models\UserSkill;
 use App\Models\WorkExperience;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -44,7 +45,6 @@ class UserFactory extends Factory
         $randomClassification = Classification::inRandomOrder()->first();
         $isGovEmployee = $this->faker->boolean();
         $hasPriorityEntitlement = $this->faker->boolean(10);
-        $hasBeenEvaluated = $this->faker->boolean();
         $isDeclared = $this->faker->boolean();
 
         $lookingEnglish = $this->faker->boolean();
@@ -52,6 +52,13 @@ class UserFactory extends Factory
         $lookingBilingual = $this->faker->boolean();
         if (! $lookingEnglish && ! $lookingFrench && ! $lookingBilingual) {
             $lookingEnglish = true;
+        }
+
+        $examCompleted = $lookingBilingual ? $this->faker->boolean() : null;
+        $examValid = $examCompleted ? $this->faker->boolean() : null;
+        $examLevels = null;
+        if ($examCompleted) {
+            $examLevels = true;
         }
 
         return [
@@ -68,23 +75,23 @@ class UserFactory extends Factory
             'looking_for_english' => $lookingEnglish,
             'looking_for_french' => $lookingFrench,
             'looking_for_bilingual' => $lookingBilingual,
-            'bilingual_evaluation' => $hasBeenEvaluated ? $this->faker->randomElement([
-                BilingualEvaluation::COMPLETED_ENGLISH->name,
-                BilingualEvaluation::COMPLETED_FRENCH->name,
-            ]) : BilingualEvaluation::NOT_COMPLETED->name,
-
-            'comprehension_level' => $hasBeenEvaluated ?
+            'first_official_language' => $lookingBilingual ?
+                $this->faker->randomElement(Language::cases())->value
+                : null,
+            'estimated_language_ability' => $lookingBilingual ?
+                $this->faker->randomElement(EstimatedLanguageAbility::cases())->name
+                : null,
+            'second_language_exam_completed' => $examCompleted,
+            'second_language_exam_validity' => $examValid,
+            'comprehension_level' => $examLevels ?
                 $this->faker->randomElement(EvaluatedLanguageAbility::cases())->name
                 : null,
-            'written_level' => $hasBeenEvaluated ?
+            'written_level' => $examLevels ?
                 $this->faker->randomElement(EvaluatedLanguageAbility::cases())->name
                 : null,
-            'verbal_level' => $hasBeenEvaluated ?
+            'verbal_level' => $examLevels ?
                 $this->faker->randomElement(EvaluatedLanguageAbility::cases())->name
                 : null,
-            'estimated_language_ability' => $hasBeenEvaluated ?
-                null
-                : $this->faker->randomElement(EstimatedLanguageAbility::cases())->name,
             'is_gov_employee' => $isGovEmployee,
             'department' => $isGovEmployee && $randomDepartment ? $randomDepartment->id : null,
             'current_classification' => $isGovEmployee && $randomClassification ? $randomClassification->id : null,
@@ -117,45 +124,45 @@ class UserFactory extends Factory
             'priority_number' => $hasPriorityEntitlement ? $this->faker->word() : null,
             'indigenous_declaration_signature' => $isDeclared ? $this->faker->firstName() : null,
             'indigenous_communities' => $isDeclared ? [$this->faker->randomElement(IndigenousCommunity::cases())->name] : [],
+            'ignored_email_notifications' => $this->faker->optional->randomElements(array_column(NotificationFamily::cases(), 'name'), null),
+            'ignored_in_app_notifications' => $this->faker->optional->randomElements(array_column(NotificationFamily::cases(), 'name'), null),
         ];
     }
 
-    public function withExperiences($count = 10)
+    public function withSkillsAndExperiences($count = 10)
     {
-        $types = [
-            AwardExperience::factory(),
-            CommunityExperience::factory(),
-            EducationExperience::factory(),
-            PersonalExperience::factory(),
-            WorkExperience::factory(),
-        ];
+        $allSkills = Skill::select('id')->inRandomOrder()->take($count)->get();
 
-        return $this->withSkills()->afterCreating(function (User $user) use ($types, $count) {
-            for ($i = 0; $i < $count; $i++) {
-                $type = $this->faker->randomElement($types);
-                $type->create([
-                    'user_id' => $user->id,
-                ]);
-            }
-        });
-    }
+        return $this->afterCreating(function (User $user) use ($count, $allSkills) {
+            $experienceFactories = [
+                AwardExperience::factory(['user_id' => $user->id]),
+                CommunityExperience::factory(['user_id' => $user->id]),
+                EducationExperience::factory(['user_id' => $user->id]),
+                PersonalExperience::factory(['user_id' => $user->id]),
+                WorkExperience::factory(['user_id' => $user->id]),
+            ];
 
-    /**
-     * Skills must have already been generated.
-     */
-    public function withSkills($count = 10)
-    {
-        return $this->afterCreating(function (User $user) use ($count) {
-            // If user has no experiences yet, create one.
-            if (! $user->experiences->count()) {
-                WorkExperience::factory()->create(['user_id' => $user->id]);
-                $user->refresh();
-            }
+            $skillSequence = $allSkills->shuffle()->map(fn ($skill) => ['skill_id' => $skill['id']])->toArray();
 
-            // Take $count random skills and assign each to a random experience of this user.
-            $skills = Skill::inRandomOrder()->take($count)->get();
-            $experience = $this->faker->randomElement($user->experiences);
-            $experience->syncSkills($skills);
+            $userSkills = UserSkill::factory($count)->for($user)
+                ->sequence(...$skillSequence)
+                ->create();
+            $skills = $userSkills->map(fn ($us) => $us->skill);
+
+            // create two experiences and attach a random number of skills to each through experience_skill pivot
+            $experienceOne = $this->faker->randomElement($experienceFactories)->create();
+            $skillsForExperienceOne = $this->faker->randomElements($skills, $this->faker->numberBetween(1, $skills->count()));
+            $syncDataExperienceOne = array_map(function ($skill) {
+                return ['id' => $skill->id, 'details' => $this->faker->text()];
+            }, $skillsForExperienceOne);
+            $experienceOne->syncSkills($syncDataExperienceOne);
+
+            $experienceTwo = $this->faker->randomElement($experienceFactories)->create();
+            $skillsForExperienceTwo = $this->faker->randomElements($skills, $this->faker->numberBetween(1, $skills->count()));
+            $syncDataExperienceTwo = array_map(function ($skill) {
+                return ['id' => $skill->id, 'details' => $this->faker->text()];
+            }, $skillsForExperienceTwo);
+            $experienceTwo->syncSkills($syncDataExperienceTwo);
         });
     }
 

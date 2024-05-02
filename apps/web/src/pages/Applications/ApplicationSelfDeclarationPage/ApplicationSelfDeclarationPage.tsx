@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import HeartIcon from "@heroicons/react/20/solid/HeartIcon";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { useMutation } from "urql";
@@ -20,7 +19,6 @@ import {
   graphql,
   IndigenousCommunity,
 } from "@gc-digital-talent/graphql";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -78,7 +76,6 @@ export const getPageInfo: GetPageNavInfo = ({
       id: "gQl1LT",
       description: "Subtitle for the self-declaration page",
     }),
-    icon: HeartIcon,
     crumbs: [
       {
         url: path,
@@ -134,14 +131,12 @@ export const ApplicationSelfDeclaration = ({
 }: ApplicationSelfDeclarationProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const features = useFeatureFlags();
   const { currentStepOrdinal } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
     paths,
     application,
     stepOrdinal: currentStepOrdinal,
-    RoDFlag: features.recordOfDecision,
   });
   const methods = useForm<FormValues>({
     defaultValues: {

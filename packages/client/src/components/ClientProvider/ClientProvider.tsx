@@ -13,21 +13,25 @@ import { useIntl } from "react-intl";
 
 import {
   ACCESS_TOKEN,
+  LOGOUT_REASON_KEY,
   REFRESH_TOKEN,
   useAuthentication,
 } from "@gc-digital-talent/auth";
 import { useLogger } from "@gc-digital-talent/logger";
 import { toast } from "@gc-digital-talent/toast";
 import { uniqueItems } from "@gc-digital-talent/helpers";
-import { getLocale } from "@gc-digital-talent/i18n";
+import type { LogoutReason } from "@gc-digital-talent/auth";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import {
   buildValidationErrorMessageNode,
   containsAuthenticationError,
   extractErrorMessages,
   extractValidationMessageKeys,
+  containsUserDeletedError,
 } from "../../utils/errors";
 import specialErrorExchange from "../../exchanges/specialErrorExchange";
+import protectedEndpointExchange from "../../exchanges/protectedEndpointExchange";
 
 const apiUri = process.env.API_URI ?? "http://localhost:8000/graphql";
 
@@ -51,9 +55,9 @@ const ClientProvider = ({
   children?: React.ReactNode;
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const authContext = useAuthentication();
   const logger = useLogger();
+  const { protectedApi: protectedApiFlag } = useFeatureFlags();
   // Create a mutable object to hold the auth state
   const authRef = React.useRef(authContext);
   // Keep the contents of that mutable object up to date
@@ -69,6 +73,7 @@ const ClientProvider = ({
         requestPolicy: "cache-and-network",
         exchanges: [
           cacheExchange,
+          ...(protectedApiFlag ? [protectedEndpointExchange] : []),
           mapExchange({
             onError(error, operation) {
               if (error.graphQLErrors || error.networkError) {
@@ -81,9 +86,26 @@ const ClientProvider = ({
                 );
               }
 
+              const isDeleteUserError = containsUserDeletedError(error);
+              if (isDeleteUserError) {
+                logger.info(
+                  "detected a 'user deleted' error in the graphql client",
+                );
+                const logoutReason: LogoutReason = "user-deleted";
+                localStorage.setItem(LOGOUT_REASON_KEY, logoutReason);
+                authRef.current.logout();
+                return;
+              }
+
               const isAuthError = containsAuthenticationError(error);
               if (isAuthError) {
-                authRef.current.logout(`/${locale}/logged-out`);
+                logger.info(
+                  "detected a authentication error in the graphql client",
+                );
+                const logoutReason: LogoutReason = "session-expired";
+                localStorage.setItem(LOGOUT_REASON_KEY, logoutReason);
+                authRef.current.logout();
+                return;
               }
 
               let errorMessages = extractErrorMessages(error);
@@ -143,7 +165,7 @@ const ClientProvider = ({
         ],
       })
     );
-  }, [client, intl, locale, logger]);
+  }, [client, intl, logger, protectedApiFlag]);
 
   return <Provider value={internalClient}>{children}</Provider>;
 };

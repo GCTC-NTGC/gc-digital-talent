@@ -1,5 +1,5 @@
 import React from "react";
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { StoryFn, Meta } from "@storybook/react";
 import AcademicCapIcon from "@heroicons/react/24/solid/AcademicCapIcon";
 import BackspaceIcon from "@heroicons/react/24/solid/BackspaceIcon";
 import CakeIcon from "@heroicons/react/24/solid/CakeIcon";
@@ -13,10 +13,9 @@ faker.seed(0);
 
 export default {
   component: DefinitionList.Root,
-  title: "Components/Definition List",
-} as ComponentMeta<typeof DefinitionList.Root>;
+} as Meta<typeof DefinitionList.Root>;
 
-const Template: ComponentStory<typeof DefinitionList.Root> = (args) => {
+const Template: StoryFn<typeof DefinitionList.Root> = (args) => {
   const { children } = args;
 
   return <DefinitionList.Root>{children}</DefinitionList.Root>;
@@ -45,8 +44,8 @@ Default.args = {
   ),
 };
 
-export const WithIcons = Template.bind({});
-WithIcons.args = {
+export const WithIcon = Template.bind({});
+WithIcon.args = {
   children: (
     <>
       <DefinitionList.Item title="Item One" Icon={AcademicCapIcon}>

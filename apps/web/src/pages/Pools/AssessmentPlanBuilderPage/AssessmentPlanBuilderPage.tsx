@@ -6,7 +6,6 @@ import { useQuery } from "urql";
 import {
   commonMessages,
   errorMessages,
-  formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import {
@@ -14,21 +13,20 @@ import {
   Link,
   NotFound,
   Pending,
-  Pill,
+  Chip,
   Separator,
-  Sidebar,
+  TableOfContents,
 } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import {
-  AssessmentPlanBuilderPageQuery,
+  FragmentType,
+  getFragment,
   graphql,
   Scalars,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import SEO from "~/components/SEO/SEO";
 import { routeErrorMessages } from "~/hooks/useErrorMessages";
@@ -36,29 +34,63 @@ import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
 import { getPoolCompletenessBadge } from "~/utils/poolUtils";
 import messages from "~/messages/adminMessages";
 
-import OrganizeSection from "./components/OrganizeSection";
-import SkillSummarySection from "./components/SkillSummarySection";
-import SkillsQuickSummary from "./components/SkillsQuickSummary";
+import OrganizeSection, {
+  sectionTitle as organizeSectionTitle,
+} from "./components/OrganizeSection";
+import SkillSummarySection, {
+  sectionTitle as skillSummarySectionTitle,
+} from "./components/SkillSummarySection";
+import { PAGE_SECTION_ID } from "./navigation";
 
 const pageTitle = defineMessage(messages.assessmentPlan);
 
 const pageSubtitle = defineMessage({
   defaultMessage:
-    "Select, organize and define the assessments used to evaluate each skill in the advertisement. Make sure every skill is assessed at least once to complete your assessment plan.",
-  id: "SSZY5w",
+    "Select, organize and define the assessments used to evaluate each skill in the advertisement. Make sure every essential skill is assessed at least once to complete your assessment plan.",
+  id: "iuA2pt",
   description: "Subtitle for the assessment plan builder",
 });
+
+export const AssessmentPlanBuilderPool_Fragment = graphql(/* GraphQL */ `
+  fragment AssessmentPlanBuilderPool on Pool {
+    id
+    ...OrganizeSectionPool
+    ...SkillSummarySectionPool
+    publishedAt
+    poolSkills {
+      id
+      skill {
+        id
+        category
+        key
+        name {
+          en
+          fr
+        }
+      }
+    }
+    assessmentSteps {
+      id
+      type
+      poolSkills {
+        id
+      }
+    }
+  }
+`);
+
 export interface AssessmentPlanBuilderProps {
-  pool: NonNullable<AssessmentPlanBuilderPageQuery["pool"]>;
+  poolQuery: FragmentType<typeof AssessmentPlanBuilderPool_Fragment>;
   pageIsLoading: boolean;
 }
 
 export const AssessmentPlanBuilder = ({
-  pool,
+  poolQuery,
   pageIsLoading,
 }: AssessmentPlanBuilderProps) => {
   const intl = useIntl();
   const routes = useRoutes();
+  const pool = getFragment(AssessmentPlanBuilderPool_Fragment, poolQuery);
   pool.poolSkills?.sort((a, b) => {
     const aName = getLocalizedName(a?.skill?.name, intl);
     const bName = getLocalizedName(b?.skill?.name, intl);
@@ -74,66 +106,46 @@ export const AssessmentPlanBuilder = ({
         title={intl.formatMessage(pageTitle)}
         description={intl.formatMessage(pageSubtitle)}
       />
-      <div data-h2-container="base(center, full, 0)">
-        <Heading level="h2" Icon={ClipboardDocumentListIcon} color="primary">
-          {intl.formatMessage(pageTitle)}
-          <div data-h2-flex-grow="base(2)" />
-          <Pill
-            bold
-            mode="outline"
-            color={assessmentBadge.color}
-            data-h2-flex-shrink="base(0)"
-          >
-            {intl.formatMessage(assessmentBadge.label)}
-          </Pill>
-        </Heading>
-        <p data-h2-margin="base(x1 0)">{intl.formatMessage(pageSubtitle)}</p>
-        <Separator data-h2-margin="base(x2, 0, x1, 0)" />
-        <Sidebar.Wrapper>
-          <Sidebar.Sidebar>
-            <div data-h2-margin-top="base(x1.5)">
-              <SkillsQuickSummary
-                poolSkills={pool.poolSkills?.filter(notEmpty) ?? []}
-                assessmentSteps={pool.assessmentSteps?.filter(notEmpty) ?? []}
-              />
-            </div>
-          </Sidebar.Sidebar>
-          <Sidebar.Content>
-            <OrganizeSection pool={pool} pageIsLoading={pageIsLoading} />
-            <SkillSummarySection pool={pool} />
-            <Separator space="lg" />
-            <div
-              data-h2-display="base(flex)"
-              data-h2-gap="base(x.5, x1)"
-              data-h2-flex-wrap="base(wrap)"
-              data-h2-flex-direction="base(column) l-tablet(row)"
-              data-h2-align-items="base(flex-start) l-tablet(center)"
-            >
-              <Link
-                mode="solid"
-                color="secondary"
-                href={routes.poolView(pool.id)}
+      <Heading level="h2" Icon={ClipboardDocumentListIcon} color="primary">
+        {intl.formatMessage(pageTitle)}
+        <div data-h2-flex-grow="base(2)" />
+        <Chip color={assessmentBadge.color} data-h2-flex-shrink="base(0)">
+          {intl.formatMessage(assessmentBadge.label)}
+        </Chip>
+      </Heading>
+      <p data-h2-margin="base(x1 0)">{intl.formatMessage(pageSubtitle)}</p>
+      <Separator />
+      <TableOfContents.Wrapper>
+        <TableOfContents.Navigation>
+          <TableOfContents.List>
+            <TableOfContents.ListItem>
+              <TableOfContents.AnchorLink
+                id={PAGE_SECTION_ID.ORGANIZE_ASSESSMENT_APPROACH}
               >
-                {/* Doesn't actually save anything */}
-                {intl.formatMessage({
-                  defaultMessage: "Save plan and go back",
-                  id: "Rbp02p",
-                  description:
-                    "Text on a button to save the assessment plan and return to the pool page",
-                })}
-              </Link>
-              <Link
-                type="button"
-                mode="inline"
-                color="primary"
-                href={routes.poolView(pool.id)}
-              >
-                {intl.formatMessage(formMessages.cancelGoBack)}
-              </Link>
-            </div>
-          </Sidebar.Content>
-        </Sidebar.Wrapper>
-      </div>
+                {intl.formatMessage(organizeSectionTitle)}
+              </TableOfContents.AnchorLink>
+            </TableOfContents.ListItem>
+            <TableOfContents.ListItem>
+              <TableOfContents.AnchorLink id={PAGE_SECTION_ID.SKILL_SUMMARY}>
+                {intl.formatMessage(skillSummarySectionTitle)}
+              </TableOfContents.AnchorLink>
+            </TableOfContents.ListItem>
+          </TableOfContents.List>
+          <Link mode="solid" color="secondary" href={routes.poolView(pool.id)}>
+            {intl.formatMessage({
+              defaultMessage: "Back to process details",
+              id: "nPPUMW",
+              description: "Link text to go back to the process details page",
+            })}
+          </Link>
+        </TableOfContents.Navigation>
+
+        <TableOfContents.Content>
+          <OrganizeSection poolQuery={pool} pageIsLoading={pageIsLoading} />
+          <SkillSummarySection poolQuery={pool} />
+          <Separator space="lg" />
+        </TableOfContents.Content>
+      </TableOfContents.Wrapper>
     </>
   );
 };
@@ -146,58 +158,7 @@ const AssessmentPlanBuilderPage_Query = graphql(/* GraphQL */ `
   query AssessmentPlanBuilderPage($poolId: UUID!) {
     # the existing data of the pool to edit
     pool(id: $poolId) {
-      id
-      name {
-        en
-        fr
-      }
-      publishedAt
-      poolSkills {
-        id
-        type
-        skill {
-          name {
-            en
-            fr
-          }
-          # three junk fields required by schema since non-nullable
-          id
-          category
-          key
-        }
-      }
-      assessmentSteps {
-        id
-        sortOrder
-        type
-        title {
-          en
-          fr
-        }
-        poolSkills {
-          id
-          type
-          skill {
-            name {
-              en
-              fr
-            }
-            # three junk fields required by schema since non-nullable
-            id
-            category
-            key
-          }
-        }
-      }
-      status
-      screeningQuestions {
-        id
-        question {
-          en
-          fr
-        }
-        sortOrder
-      }
+      ...AssessmentPlanBuilderPool
       team {
         id
         name
@@ -209,7 +170,6 @@ const AssessmentPlanBuilderPage_Query = graphql(/* GraphQL */ `
 export const AssessmentPlanBuilderPage = () => {
   const intl = useIntl();
   const { poolId } = useRequiredParams<RouteParams>("poolId");
-  const routes = useRoutes();
   const authorization = useAuthorization();
 
   const notFoundMessage = intl.formatMessage(
@@ -234,31 +194,6 @@ export const AssessmentPlanBuilderPage = () => {
       variables: { poolId },
     });
 
-  // Note: Should technically be in subNav of layout?
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(indexPoolPageTitle),
-      url: routes.poolTable(),
-    },
-    {
-      label: getLocalizedName(queryData?.pool?.name, intl),
-      url: routes.poolView(poolId),
-    },
-    {
-      label: intl.formatMessage(pageTitle),
-      url: routes.assessmentPlanBuilder(poolId),
-    },
-  ];
-
   // RequireAuth in router can't check team roles
   const authorizedToSeeThePage: boolean =
     authorization.roleAssignments?.some(
@@ -275,7 +210,7 @@ export const AssessmentPlanBuilderPage = () => {
     if (queryData?.pool && authorizedToSeeThePage) {
       return (
         <AssessmentPlanBuilder
-          pool={queryData.pool}
+          poolQuery={queryData.pool}
           pageIsLoading={queryFetching}
         />
       );

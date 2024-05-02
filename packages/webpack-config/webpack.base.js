@@ -61,6 +61,7 @@ module.exports = (basePath, appMeta) => {
       new DefinePlugin({
         "process.env": {
           API_URI: JSON.stringify(process.env.API_URI),
+          API_PROTECTED_URI: JSON.stringify(process.env.API_PROTECTED_URI),
           BUILD_DATE: JSON.stringify(new Date()),
           API_SUPPORT_ENDPOINT: JSON.stringify(
             process.env.API_SUPPORT_ENDPOINT,
@@ -78,7 +79,7 @@ module.exports = (basePath, appMeta) => {
         title: meta.title,
         template: "./public/index.html",
         meta: {
-          description: meta.description,
+          description: { content: meta.description, "data-rh": "true", },
           "og:url": { property: "og:url", content: meta.url, "data-rh": "true" },
           "og:type": { property: "og:type", content: meta.type, "data-rh": "true" },
           "og:title": { property: "og:title", content: meta.title, "data-rh": "true" },
@@ -129,6 +130,7 @@ module.exports = (basePath, appMeta) => {
                       // formatjs transformer for intl strings
                       TsTransformer.transform({
                         overrideIdFn: "[sha512:contenthash:base64:6]",
+                        preserveWhitespace: true
                       }),
                     ],
                   };

@@ -3,9 +3,14 @@ import { useIntl } from "react-intl";
 import { Outlet } from "react-router-dom";
 import { useQuery } from "urql";
 
-import { Pending, Pill, ThrowNotFound } from "@gc-digital-talent/ui";
+import {
+  Pending,
+  Chip,
+  ThrowNotFound,
+  useAnnouncer,
+} from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { graphql, Pool } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import useCurrentPage from "~/hooks/useCurrentPage";
@@ -19,30 +24,68 @@ import { PageNavKeys } from "~/types/pool";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminHero from "~/components/Hero/AdminHero";
 
+export const PoolLayout_Fragment = graphql(/* GraphQL */ `
+  fragment PoolLayout on Pool {
+    id
+    stream
+    publishedAt
+    isComplete
+    name {
+      en
+      fr
+    }
+    team {
+      id
+      name
+      displayName {
+        en
+        fr
+      }
+    }
+    classification {
+      id
+      group
+      level
+      name {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 interface PoolHeaderProps {
-  pool: Pick<Pool, "id" | "classifications" | "stream" | "name" | "team">;
+  poolQuery: FragmentType<typeof PoolLayout_Fragment>;
 }
 
-const PoolHeader = ({ pool }: PoolHeaderProps) => {
+const PoolHeader = ({ poolQuery }: PoolHeaderProps) => {
   const intl = useIntl();
+  const { announce } = useAnnouncer();
+  const pool = getFragment(PoolLayout_Fragment, poolQuery);
 
   const pages = useAdminPoolPages(intl, pool);
 
   const poolTitle = getShortPoolTitleLabel(intl, pool);
   const currentPage = useCurrentPage<PageNavKeys>(pages);
-  const subtitle = pool.team
+  const subTitle = pool.team
     ? getLocalizedName(pool.team?.displayName, intl)
     : currentPage?.subtitle;
 
   const advertisementStatus = getAdvertisementStatus(pool);
   const advertisementBadge = getPoolCompletenessBadge(advertisementStatus);
 
+  React.useEffect(() => {
+    if (currentPage?.title) {
+      announce(currentPage?.title);
+    }
+  }, [announce, currentPage?.title, intl]);
+
   return (
     <>
-      <SEO title={currentPage?.title} />
+      <SEO title={currentPage?.title} description={subTitle} />
       <AdminHero
         title={poolTitle}
-        subtitle={subtitle}
+        subtitle={subTitle}
         nav={
           // Pages with crumbs are sub-pages and don't show up as tabs
           currentPage?.crumbs
@@ -61,14 +104,9 @@ const PoolHeader = ({ pool }: PoolHeaderProps) => {
               }
         }
         contentRight={
-          <Pill
-            bold
-            mode="outline"
-            color={advertisementBadge.color}
-            data-h2-flex-shrink="base(0)"
-          >
+          <Chip color={advertisementBadge.color} data-h2-flex-shrink="base(0)">
             {intl.formatMessage(advertisementBadge.label)}
-          </Pill>
+          </Chip>
         }
       />
     </>
@@ -78,27 +116,7 @@ const PoolHeader = ({ pool }: PoolHeaderProps) => {
 const PoolLayout_Query = graphql(/* GraphQL */ `
   query PoolLayout($poolId: UUID!) {
     pool(id: $poolId) {
-      id
-      name {
-        en
-        fr
-      }
-      stream
-      classifications {
-        id
-        group
-        level
-      }
-      publishedAt
-      isComplete
-      team {
-        id
-        name
-        displayName {
-          en
-          fr
-        }
-      }
+      ...PoolLayout
     }
   }
 `);
@@ -119,7 +137,7 @@ const PoolLayout = () => {
   return (
     <>
       <Pending fetching={fetching} error={error}>
-        {data?.pool ? <PoolHeader pool={data.pool} /> : <ThrowNotFound />}
+        {data?.pool ? <PoolHeader poolQuery={data.pool} /> : <ThrowNotFound />}
       </Pending>
       <Outlet />
     </>

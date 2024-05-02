@@ -16,12 +16,14 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
+use Tests\UsesProtectedGraphqlEndpoint;
 
 class PoolCandidateSearchRequestPaginatedTest extends TestCase
 {
     use MakesGraphQLRequests;
     use RefreshDatabase;
     use RefreshesSchemaCache;
+    use UsesProtectedGraphqlEndpoint;
 
     protected $adminUser;
 
@@ -56,8 +58,8 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
     }
 
     protected $searchRequestQuery =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         query poolCandidateSearchRequestsPaginated($where: PoolCandidateSearchRequestInput){
             poolCandidateSearchRequestsPaginated(where: $where) {
                 data

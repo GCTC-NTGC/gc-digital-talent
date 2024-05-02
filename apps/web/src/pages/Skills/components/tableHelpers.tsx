@@ -1,13 +1,14 @@
 import React from "react";
 import { IntlShape } from "react-intl";
 
-import { getLocalizedName, getSkillCategory } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
-import { Pill } from "@gc-digital-talent/ui";
 import {
+  getLocalizedName,
+  getSkillCategory,
   LocalizedArray,
   getLocalizedArray,
-} from "@gc-digital-talent/i18n/src/utils/localize";
+} from "@gc-digital-talent/i18n";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import { Chip, Chips } from "@gc-digital-talent/ui";
 import {
   Maybe,
   Skill,
@@ -32,12 +33,12 @@ export function skillFamiliesCell(
     ?.filter(notEmpty)
     .sort()
     .map((family) => (
-      <Pill color="primary" mode="outline" key={family?.key}>
+      <Chip color="primary" key={family?.key}>
         {getLocalizedName(family.name, intl)}
-      </Pill>
+      </Chip>
     ));
 
-  return families ? <span>{families}</span> : null;
+  return families ? <Chips>{families}</Chips> : null;
 }
 
 export function familiesAccessor(skill: Skill, intl: IntlShape) {

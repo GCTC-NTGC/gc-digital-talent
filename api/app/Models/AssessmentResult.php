@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * Class AssessmentResult
@@ -16,16 +18,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $assessment_result_type
  * @property string $assessment_decision
  * @property array $justifications
- * @property string $other_justification_notes
  * @property string $assessment_decision_level
  * @property string $skill_decision_notes
- * @property string $assessment_notes
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
 class AssessmentResult extends Model
 {
     use HasFactory;
+    use LogsActivity;
 
     protected $keyType = 'string';
 
@@ -44,6 +45,14 @@ class AssessmentResult extends Model
      * @var array
      */
     protected $fillable = [];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['*'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
+    }
 
     public function assessmentStep(): BelongsTo
     {

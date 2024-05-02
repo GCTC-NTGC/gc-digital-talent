@@ -10,12 +10,14 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
+use Tests\UsesProtectedGraphqlEndpoint;
 
 class GeneralQuestionResponsesTest extends TestCase
 {
     use MakesGraphQLRequests;
     use RefreshDatabase;
     use RefreshesSchemaCache;
+    use UsesProtectedGraphqlEndpoint;
 
     protected $teamUser;
 
@@ -28,8 +30,8 @@ class GeneralQuestionResponsesTest extends TestCase
     protected $questionId;
 
     protected $updateApplication =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         mutation updateApplication($id: ID!, $application: UpdateApplicationInput!) {
             updateApplication(id: $id, application: $application) {
                 generalQuestionResponses {

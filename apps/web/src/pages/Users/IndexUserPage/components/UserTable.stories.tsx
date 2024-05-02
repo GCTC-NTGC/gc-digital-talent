@@ -1,5 +1,5 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 
 import {
   fakeClassifications,
@@ -25,7 +25,6 @@ const mockPaginatorInfo = {
 
 export default {
   component: UserTable,
-  title: "Tables/User Table",
   parameters: {
     apiResponses: {
       UsersPaginated: {
@@ -46,9 +45,9 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof UserTable>;
+} as Meta<typeof UserTable>;
 
-const Template: ComponentStory<typeof UserTable> = ({ title }) => {
+const Template: StoryFn<typeof UserTable> = ({ title }) => {
   return <UserTable title={title} />;
 };
 

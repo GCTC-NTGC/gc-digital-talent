@@ -7,8 +7,8 @@ import type {
   Scalars,
 } from "@gc-digital-talent/graphql";
 
-import { STORED_LOCALE } from "../const";
 import { Locales } from "../types";
+import { commonMessages } from "../messages";
 
 export function isLocale(locale?: string): locale is Locales {
   return locale === "en" || locale === "fr";
@@ -27,7 +27,7 @@ export function oppositeLocale(locale: Locales): Locales {
 }
 
 export const changeLocale = (locale: Locales) => {
-  localStorage.setItem(STORED_LOCALE, locale);
+  localStorage.setItem("stored_locale", locale);
 };
 
 export function localizePath(
@@ -71,11 +71,7 @@ export const getLocalizedName = (
 
   const notAvailable = emptyNotFound
     ? ""
-    : intl.formatMessage({
-        defaultMessage: "N/A",
-        id: "UCGAzS",
-        description: "displayed when localized string not available",
-      });
+    : intl.formatMessage(commonMessages.notAvailable);
 
   if (!name || !name[locale]) {
     return notAvailable;
@@ -99,11 +95,7 @@ export const getLocalizedArray = (
 
   const notAvailable = emptyNotFound
     ? ""
-    : intl.formatMessage({
-        defaultMessage: "N/A",
-        id: "UCGAzS",
-        description: "displayed when localized string not available",
-      });
+    : intl.formatMessage(commonMessages.notAvailable);
 
   if (!name || !name[locale]) {
     return notAvailable;

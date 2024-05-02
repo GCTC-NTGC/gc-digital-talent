@@ -6,15 +6,10 @@ import {
   AssessmentResultType,
   CreateAssessmentResultInput,
   Maybe,
-  SkillCategory,
   UpdateAssessmentResultInput,
   UserSkill,
 } from "@gc-digital-talent/graphql";
-import {
-  commonMessages,
-  getBehaviouralSkillLevel,
-  getTechnicalSkillLevel,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, getSkillLevelName } from "@gc-digital-talent/i18n";
 
 import { NO_DECISION } from "~/utils/assessmentResults";
 
@@ -26,9 +21,7 @@ export type FormValues = {
     | AssessmentResult["justifications"]
     | AssessmentResultJustification;
   assessmentDecisionLevel: AssessmentResult["assessmentDecisionLevel"];
-  otherJustificationNotes: AssessmentResult["otherJustificationNotes"];
   skillDecisionNotes: AssessmentResult["skillDecisionNotes"];
-  assessmentNotes?: Maybe<string>;
 };
 
 export type FormValuesToApiCreateInputArgs = {
@@ -64,9 +57,7 @@ export function convertFormValuesToApiCreateInput({
     assessmentDecision,
     assessmentDecisionLevel,
     justifications,
-    otherJustificationNotes,
     skillDecisionNotes,
-    assessmentNotes,
   } = formValues;
 
   return {
@@ -77,10 +68,8 @@ export function convertFormValuesToApiCreateInput({
     assessmentDecisionLevel,
     assessmentResultType,
     justifications: justificationsConverted(justifications) ?? undefined,
-    otherJustificationNotes,
     poolSkillId,
     skillDecisionNotes,
-    assessmentNotes,
   };
 }
 export function convertFormValuesToApiUpdateInput({
@@ -92,9 +81,7 @@ export function convertFormValuesToApiUpdateInput({
     assessmentDecision,
     assessmentDecisionLevel,
     justifications,
-    otherJustificationNotes,
     skillDecisionNotes,
-    assessmentNotes,
   } = formValues;
 
   return {
@@ -104,9 +91,7 @@ export function convertFormValuesToApiUpdateInput({
     assessmentDecisionLevel,
     assessmentResultType,
     justifications: justificationsConverted(justifications) ?? undefined,
-    otherJustificationNotes,
     skillDecisionNotes,
-    assessmentNotes,
   };
 }
 
@@ -118,11 +103,9 @@ export function getLocalizedSkillLevel(
     return intl.formatMessage(commonMessages.notFound);
   }
 
-  if (userSkill.skill.category === SkillCategory.Technical) {
-    return intl.formatMessage(getTechnicalSkillLevel(userSkill.skillLevel));
-  }
-
-  return intl.formatMessage(getBehaviouralSkillLevel(userSkill.skillLevel));
+  return intl.formatMessage(
+    getSkillLevelName(userSkill.skillLevel, userSkill.skill.category),
+  );
 }
 
 export const educationJustificationContext = (

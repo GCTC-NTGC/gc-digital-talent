@@ -3,10 +3,11 @@ import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
-import { Button, Dialog, Heading, Well } from "@gc-digital-talent/ui";
+import { Button, Dialog, Heading } from "@gc-digital-talent/ui";
 import { DateInput, RadioGroup, Submit } from "@gc-digital-talent/forms";
 import {
   AssessmentResult,
+  DisqualificationReason,
   Maybe,
   PoolCandidateStatus,
   Skill,
@@ -21,13 +22,27 @@ import {
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
 import AssessmentSummary from "./components/AssessmentSummary";
+import Important from "./components/Important";
 
-const PoolCandidate_UpdateStatusAndExpiryMutation = graphql(/* GraphQL */ `
-  mutation PoolCandidate_UpdateStatusAndExpiryMutation(
+const PoolCandidate_QualifyCandidateMutation = graphql(/* GraphQL */ `
+  mutation PoolCandidate_QualifyCandidateMutation(
     $id: UUID!
-    $input: UpdatePoolCandidateAsAdminInput!
+    $expiryDate: Date!
   ) {
-    updatePoolCandidateAsAdmin(id: $id, poolCandidate: $input) {
+    qualifyCandidate(id: $id, expiryDate: $expiryDate) {
+      id
+      status
+      expiryDate
+    }
+  }
+`);
+
+const PoolCandidate_DisqualifyCandidateMutation = graphql(/* GraphQL */ `
+  mutation PoolCandidate_DisqualifyCandidateMutation(
+    $id: UUID!
+    $reason: DisqualificationReason!
+  ) {
+    disqualifyCandidate(id: $id, reason: $reason) {
       id
       status
       expiryDate
@@ -53,7 +68,6 @@ interface FinalDecisionDialogProps {
 
 const FinalDecisionDialog = ({
   poolCandidateId,
-  poolCandidateStatus,
   expiryDate,
   essentialSkills,
   nonessentialSkills,
@@ -63,8 +77,11 @@ const FinalDecisionDialog = ({
   const intl = useIntl();
   const todayDate = new Date();
   const [isOpen, setIsOpen] = React.useState<boolean>(defaultOpen);
-  const [, executeMutation] = useMutation(
-    PoolCandidate_UpdateStatusAndExpiryMutation,
+  const [, executeQualifyMutation] = useMutation(
+    PoolCandidate_QualifyCandidateMutation,
+  );
+  const [, executeDisqualifyMutation] = useMutation(
+    PoolCandidate_DisqualifyCandidateMutation,
   );
 
   const methods = useForm<FormValues>({
@@ -91,47 +108,61 @@ const FinalDecisionDialog = ({
   const handleFormSubmit: SubmitHandler<FormValues> = async (
     values: FormValues,
   ) => {
-    let computedStatus = poolCandidateStatus;
-    if (values.finalAssessmentDecision === "qualified") {
-      computedStatus = PoolCandidateStatus.QualifiedAvailable;
-    }
-    if (
-      values.finalAssessmentDecision === "disqualified" &&
-      values.disqualifiedDecision === "assessment"
-    ) {
-      computedStatus = PoolCandidateStatus.ScreenedOutAssessment;
-    }
-    if (
-      values.finalAssessmentDecision === "disqualified" &&
-      values.disqualifiedDecision === "application"
-    ) {
-      computedStatus = PoolCandidateStatus.ScreenedOutApplication;
-    }
-
-    const statusObject = { status: computedStatus };
-    const massagedValues = values.expiryDate
-      ? { ...statusObject, expiryDate: values.expiryDate }
-      : statusObject;
-
-    await executeMutation({ id: poolCandidateId, input: massagedValues })
-      .then((result) => {
-        if (result.data?.updatePoolCandidateAsAdmin) {
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Pool candidate status updated successfully",
-              id: "uSdcX4",
-              description:
-                "Message displayed when a pool candidate has been updated by and admin",
-            }),
-          );
-          setIsOpen(false);
-        } else {
-          handleError();
-        }
+    if (values.finalAssessmentDecision === "qualified" && values.expiryDate) {
+      await executeQualifyMutation({
+        id: poolCandidateId,
+        expiryDate: values.expiryDate,
       })
-      .catch(() => {
-        handleError();
-      });
+        .then((result) => {
+          if (result.data?.qualifyCandidate) {
+            toast.success(
+              intl.formatMessage({
+                defaultMessage: "Pool candidate status updated successfully",
+                id: "uSdcX4",
+                description:
+                  "Message displayed when a pool candidate has been updated by and admin",
+              }),
+            );
+            setIsOpen(false);
+          } else {
+            handleError();
+          }
+        })
+        .catch(() => {
+          handleError();
+        });
+    } else if (
+      values.finalAssessmentDecision === "disqualified" &&
+      values.disqualifiedDecision
+    ) {
+      await executeDisqualifyMutation({
+        id: poolCandidateId,
+        reason:
+          values.disqualifiedDecision === "application"
+            ? DisqualificationReason.ScreenedOutApplication
+            : DisqualificationReason.ScreenedOutAssessment,
+      })
+        .then((result) => {
+          if (result.data?.disqualifyCandidate) {
+            toast.success(
+              intl.formatMessage({
+                defaultMessage: "Pool candidate status updated successfully",
+                id: "uSdcX4",
+                description:
+                  "Message displayed when a pool candidate has been updated by and admin",
+              }),
+            );
+            setIsOpen(false);
+          } else {
+            handleError();
+          }
+        })
+        .catch(() => {
+          handleError();
+        });
+    } else {
+      handleError();
+    }
   };
 
   return (
@@ -271,31 +302,7 @@ const FinalDecisionDialog = ({
                   data-h2-margin-top="base(x1)"
                 />
               )}
-              <Well
-                color="warning"
-                fontSize="caption"
-                data-h2-margin-top="base(x1)"
-              >
-                <p
-                  data-h2-margin-bottom="base(x.5)"
-                  data-h2-font-weight="base(700)"
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Important",
-                    id: "IKGhHj",
-                    description: "Important note or caption",
-                  })}
-                </p>
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "The candidate will be notified of any changes made in this form.",
-                    id: "17dZD4",
-                    description:
-                      "Caption notifying the user about who can know about the results of form changes",
-                  })}
-                </p>
-              </Well>
+              <Important data-h2-margin-top="base(x1)" />
               <Dialog.Footer data-h2-justify-content="base(flex-start)">
                 <Dialog.Close>
                   <Button type="button" color="primary" mode="inline">

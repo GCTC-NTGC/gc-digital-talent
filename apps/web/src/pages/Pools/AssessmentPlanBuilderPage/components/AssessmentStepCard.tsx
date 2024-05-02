@@ -14,7 +14,9 @@ import {
 import {
   AssessmentStep,
   AssessmentStepType,
-  Pool,
+  FragmentType,
+  getFragment,
+  graphql,
 } from "@gc-digital-talent/graphql";
 
 import processMessages from "~/messages/processMessages";
@@ -22,10 +24,27 @@ import processMessages from "~/messages/processMessages";
 import { assessmentStepDisplayName } from "../utils";
 import AssessmentDetailsDialog from "./AssessmentDetailsDialog";
 
+const AssessmentStepCardPool_Fragment = graphql(/* GraphQL */ `
+  fragment AssessmentStepCardPool on Pool {
+    id
+    poolSkills {
+      ...AssessmentDetailsDialogPoolSkill
+    }
+    screeningQuestions {
+      id
+      sortOrder
+      question {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 type AssessmentStepCardProps = {
   index: number;
   assessmentStep: AssessmentStep;
-  pool: Pool;
+  poolQuery: FragmentType<typeof AssessmentStepCardPool_Fragment>;
   onRemove: (index: number) => void;
   onMove: (fromIndex: number, toIndex: number) => void;
 };
@@ -33,12 +52,13 @@ type AssessmentStepCardProps = {
 const AssessmentStepCard = ({
   index,
   assessmentStep,
-  pool,
+  poolQuery,
   onRemove,
   onMove,
 }: AssessmentStepCardProps) => {
   const intl = useIntl();
   const { move, remove } = useCardRepeaterContext();
+  const pool = getFragment(AssessmentStepCardPool_Fragment, poolQuery);
   const skillNames = unpackMaybes(assessmentStep.poolSkills).map((poolSkill) =>
     getLocalizedName(poolSkill?.skill?.name, intl),
   );
@@ -47,6 +67,8 @@ const AssessmentStepCard = ({
     unpackMaybes(pool.screeningQuestions),
     (question) => question.sortOrder,
   );
+  const isApplicationScreening =
+    assessmentStep.type === AssessmentStepType.ApplicationScreening;
 
   const handleMove = (from: number, to: number) => {
     move(from, to);
@@ -64,7 +86,7 @@ const AssessmentStepCard = ({
       onMove={handleMove} // immediately fire event
       edit={
         <AssessmentDetailsDialog
-          allPoolSkills={pool.poolSkills?.filter(notEmpty) ?? []}
+          poolSkillsQuery={pool.poolSkills?.filter(notEmpty) ?? []}
           initialValues={{
             id: assessmentStep.id,
             poolId: pool.id,
@@ -99,16 +121,21 @@ const AssessmentStepCard = ({
         {assessmentStepDisplayName(assessmentStep, intl)}
       </Heading>
 
-      {skillNames.length ? (
+      {skillNames.length || isApplicationScreening ? (
         <ul
           data-h2-color="base(black.light)"
           data-h2-font-size="base(caption)"
           data-h2-padding-left="base(0)"
           data-h2-margin-top="base(x.5)"
         >
+          {isApplicationScreening && (
+            <li data-h2-padding-left="base(0)" data-h2-display="base(inline)">
+              {intl.formatMessage(processMessages.educationRequirement)}
+            </li>
+          )}
           {skillNames.map((skillName, skillIndex) => (
             <React.Fragment key={skillName}>
-              {skillIndex !== 0 ? (
+              {skillIndex !== 0 || isApplicationScreening ? (
                 <span data-h2-margin="base(0 x.5)" aria-hidden>
                   •
                 </span>

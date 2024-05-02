@@ -13,7 +13,7 @@ import {
   getProvinceOrTerritory,
 } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { Link, Pill, Spoiler } from "@gc-digital-talent/ui";
+import { Link, Chip, Spoiler } from "@gc-digital-talent/ui";
 import {
   graphql,
   CandidateExpiryFilter,
@@ -39,7 +39,7 @@ import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import {
-  getCandidateStatusPill,
+  getCandidateStatusChip,
   statusToJobPlacement,
 } from "~/utils/poolCandidate";
 import {
@@ -230,19 +230,13 @@ export const finalDecisionCell = (
   intl: IntlShape,
   poolCandidate: PoolCandidate,
   poolAssessmentSteps: AssessmentStep[],
-  recordOfDecisionFlag: boolean, // TODO: remove with #8415
 ) => {
-  const { color, label } = getCandidateStatusPill(
+  const { color, label } = getCandidateStatusChip(
     poolCandidate,
     unpackMaybes(poolAssessmentSteps),
     intl,
-    recordOfDecisionFlag,
   );
-  return (
-    <Pill mode="outline" color={color}>
-      {label}
-    </Pill>
-  );
+  return <Chip color={color}>{label}</Chip>;
 };
 
 export const jobPlacementCell = (
@@ -302,7 +296,6 @@ export function transformSortStateToOrderByClause(
   const columnMap = new Map<string, string>([
     ["dateReceived", "submitted_at"],
     ["candidacyStatus", "suspended_at"],
-    ["candidacyStatus", "suspended_at"],
     ["finalDecision", "status"],
     ["jobPlacement", "status"],
     ["candidateName", "FIRST_NAME"],
@@ -312,6 +305,7 @@ export function transformSortStateToOrderByClause(
     ["skillCount", "skill_count"],
     ["priority", "PRIORITY_WEIGHT"],
     ["status", "status_weight"],
+    ["notes", "notes"],
   ]);
 
   const sortingRule = sortingRules?.find((rule) => {
@@ -321,7 +315,9 @@ export function transformSortStateToOrderByClause(
 
   if (
     sortingRule &&
-    ["dateReceived", "candidacyStatus", "status"].includes(sortingRule.id)
+    ["dateReceived", "candidacyStatus", "status", "notes"].includes(
+      sortingRule.id,
+    )
   ) {
     const columnName = columnMap.get(sortingRule.id);
     return {
@@ -434,7 +430,7 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
             fr
           }
           stream
-          classifications {
+          classification {
             id
             name {
               en
@@ -477,7 +473,9 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
           lookingForEnglish
           lookingForFrench
           lookingForBilingual
-          bilingualEvaluation
+          firstOfficialLanguage
+          secondLanguageExamCompleted
+          secondLanguageExamValidity
           comprehensionLevel
           writtenLevel
           verbalLevel
@@ -732,7 +730,6 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
             }
           }
         }
-        cmoIdentifier
         expiryDate
         status
         submittedAt

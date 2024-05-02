@@ -50,8 +50,8 @@ export NVM_DIR="$HOME/.nvm"
 
 source ~/.bash_profile
 nvm install v20.11.0
-#nvm install-latest-npm
-npm install -g npm@9.9.2
+#nvm install-latest-pnpm
+npm install -g pnpm@8.15
 
 ### API
 
@@ -68,13 +68,7 @@ php artisan lighthouse:print-schema --write
 
 ### Install all npm dependencies
 cd $ROOT_DIR
-npm ci --include=dev
+pnpm install --frozen-lockfile
 
 ### Build frontend
-npm run build
-chmod -R a+r,a+w node_modules
-
-if [ "$GCDT_DEV" = false ]; then
-### Cleanup frontend npm dependencies
- npm prune --production
-fi
+pnpm run build

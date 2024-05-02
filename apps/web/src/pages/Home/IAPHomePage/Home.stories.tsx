@@ -1,13 +1,12 @@
 import React from "react";
-import type { Meta, Story } from "@storybook/react";
+import type { Meta, StoryFn } from "@storybook/react";
 
 import {
   THEMES,
   allModes,
   MockGraphqlDecorator,
 } from "@gc-digital-talent/storybook-helpers";
-import NestedLanguageProvider from "@gc-digital-talent/i18n/src/components/NestedLanguageProvider";
-import { Messages } from "@gc-digital-talent/i18n";
+import { NestedLanguageProvider, Messages } from "@gc-digital-talent/i18n";
 import { fakePools } from "@gc-digital-talent/fake-data";
 import { PublishingGroup } from "@gc-digital-talent/graphql";
 
@@ -34,7 +33,6 @@ const messages: Map<string, Messages> = new Map([
 export default {
   component: Home,
   decorators: [MockGraphqlDecorator],
-  title: "Pages/Home Page/IAP",
   parameters: {
     apiResponsesConfig: {
       latency: {
@@ -51,14 +49,17 @@ export default {
     },
     layout: "fullscreen",
     chromatic: {
-      mode: {
-        mobile: allModes.mobile,
+      modes: {
+        light: allModes["light iap desktop"],
+        "light mobile": allModes["light mobile"],
+        dark: allModes["dark iap desktop"],
+        french: allModes["iap french"],
       },
     },
   },
 } as Meta;
 
-const Template: Story = () => (
+const Template: StoryFn = () => (
   <NestedLanguageProvider messages={messages}>
     <Home />
   </NestedLanguageProvider>
@@ -68,12 +69,5 @@ export const Default = Template.bind({});
 Default.parameters = {
   themes: {
     themeOverride: THEMES.iap.light,
-  },
-};
-
-export const Dark = Template.bind({});
-Dark.parameters = {
-  themes: {
-    themeOverride: THEMES.iap.dark,
   },
 };

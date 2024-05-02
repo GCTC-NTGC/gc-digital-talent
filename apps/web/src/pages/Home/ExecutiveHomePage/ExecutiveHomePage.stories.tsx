@@ -21,7 +21,6 @@ const defaultParameters = {
 
 export default {
   component: HomePage,
-  title: "Pages/Home Page/Executive",
 };
 
 const Template: StoryFn<typeof HomePage> = (args) => <HomePage {...args} />;
@@ -31,12 +30,10 @@ WithPools.parameters = defaultParameters;
 WithPools.args = {
   pools: mockPools.map((pool) => ({
     ...pool,
-    classifications: [
-      {
-        ...classification,
-        group: "EX",
-      },
-    ],
+    classification: {
+      ...classification,
+      group: "EX",
+    },
   })),
 };
 

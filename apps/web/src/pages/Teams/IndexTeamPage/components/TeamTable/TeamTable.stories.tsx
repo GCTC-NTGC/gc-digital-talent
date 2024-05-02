@@ -1,12 +1,17 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 
 import { fakeTeams } from "@gc-digital-talent/fake-data";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
-import { TeamTable } from "./TeamTable";
+import { TeamTable, TeamTable_TeamFragment } from "./TeamTable";
 import { MyRoleTeam } from "./types";
 
 const mockTeams = fakeTeams();
+
+const mockTeamFragments = mockTeams.map((mockTeam) =>
+  makeFragmentData(mockTeam, TeamTable_TeamFragment),
+);
 
 const mockRolesAndTeams: MyRoleTeam[] = [
   {
@@ -27,19 +32,22 @@ const mockRolesAndTeams: MyRoleTeam[] = [
 
 export default {
   component: TeamTable,
-  title: "Tables/Team Table",
-} as ComponentMeta<typeof TeamTable>;
+} as Meta<typeof TeamTable>;
 
-const Template: ComponentStory<typeof TeamTable> = (args) => {
-  const { teams, myRolesAndTeams, title } = args;
+const Template: StoryFn<typeof TeamTable> = (args) => {
+  const { teamsQuery, myRolesAndTeams, title } = args;
   return (
-    <TeamTable teams={teams} myRolesAndTeams={myRolesAndTeams} title={title} />
+    <TeamTable
+      teamsQuery={teamsQuery}
+      myRolesAndTeams={myRolesAndTeams}
+      title={title}
+    />
   );
 };
 
 export const Default = Template.bind({});
 Default.args = {
-  teams: mockTeams,
+  teamsQuery: mockTeamFragments,
   myRolesAndTeams: mockRolesAndTeams,
   title: "Teams",
 };

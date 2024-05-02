@@ -4,12 +4,11 @@ import { useMutation } from "urql";
 import BookmarkIconOutline from "@heroicons/react/24/outline/BookmarkIcon";
 import BookmarkIconSolid from "@heroicons/react/24/solid/BookmarkIcon";
 
-import { Button } from "@gc-digital-talent/ui";
+import { Button, useControllableState } from "@gc-digital-talent/ui";
 import { PoolCandidate, graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
-import useControllableState from "@gc-digital-talent/ui/src/hooks/useControllableState";
 
-import { getFullNameLabel } from "../../utils/nameUtils";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
 // Note: Update to use fragment masking after #8973
 // const PoolCandidate_BookmarkFragment = graphql(/* GraphQL */ `

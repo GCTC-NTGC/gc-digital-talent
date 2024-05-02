@@ -7,8 +7,8 @@ import { AnimatePresence } from "framer-motion";
 import {
   NestedLanguageProvider,
   Messages,
-  useLocale,
   commonMessages,
+  getLocale,
 } from "@gc-digital-talent/i18n";
 import { getRuntimeVariable } from "@gc-digital-talent/env";
 import { useAuthentication, useAuthorization } from "@gc-digital-talent/auth";
@@ -50,7 +50,8 @@ const IAPSeo = () => {
 };
 
 const Layout = () => {
-  const { locale } = useLocale();
+  const intl = useIntl();
+  const locale = getLocale(intl);
   const location = useLocation();
   const { userAuthInfo } = useAuthorization();
   const { loggedIn } = useAuthentication();
@@ -78,7 +79,6 @@ const Layout = () => {
           <IAPSeo />
           <SkipLink />
           <div
-            className="container"
             data-h2-display="base(flex)"
             data-h2-flex-direction="base(column)"
             data-h2-min-height="base(100vh)"

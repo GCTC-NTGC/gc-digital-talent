@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
 import { useMutation } from "urql";
 
-import { Dialog, Button, Pill } from "@gc-digital-talent/ui";
+import { Dialog, Button, Chip, Chips } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   formMessages,
@@ -11,7 +11,7 @@ import {
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { Team } from "@gc-digital-talent/graphql";
+import { TeamMembersPage_TeamFragment as TeamMembersPageTeamFragmentType } from "@gc-digital-talent/graphql";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { TeamMember } from "~/utils/teamUtils";
@@ -20,7 +20,7 @@ import { UpdateUserTeamRoles_Mutation } from "./operations";
 
 interface RemoveTeamMemberDialogProps {
   user: TeamMember;
-  team: Team;
+  team: TeamMembersPageTeamFragmentType;
 }
 
 const RemoveTeamMemberDialog = ({
@@ -115,21 +115,13 @@ const RemoveTeamMemberDialog = ({
                     "Lead text for the list of roles the user will lose",
                 })}
               </p>
-              <ul
-                data-h2-display="base(flex)"
-                data-h2-flex-wrap="base(wrap)"
-                data-h2-list-style="base(none)"
-                data-h2-padding="base(0)"
-                data-h2-gap="base(x.25)"
-              >
+              <Chips>
                 {user.roles.map((role) => (
-                  <li key={role.id}>
-                    <Pill mode="solid" color="black">
-                      {getLocalizedName(role.displayName, intl)}
-                    </Pill>
-                  </li>
+                  <Chip key={role.id} color="black">
+                    {getLocalizedName(role.displayName, intl)}
+                  </Chip>
                 ))}
-              </ul>
+              </Chips>
             </>
           ) : null}
           <p data-h2-margin="base(x1, 0)">

@@ -2,25 +2,38 @@ import React from "react";
 import { defineMessage, useIntl } from "react-intl";
 
 import { Accordion, Heading } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
-import { Pool } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import { PAGE_SECTION_ID } from "../navigation";
 import SkillSummaryTable from "./SkillSummaryTable";
 
-const sectionTitle = defineMessage({
+export const sectionTitle = defineMessage({
   defaultMessage: "Skill summary",
   id: "iNIXQ9",
   description:
     "Title for the skill summary section in the assessment plan builder",
 });
 
+const SkillSummarySectionPool_Fragment = graphql(/* GraphQL */ `
+  fragment SkillSummarySectionPool on Pool {
+    id
+    poolSkills {
+      ...SkillSummaryPoolSkill
+    }
+    assessmentSteps {
+      ...SkillSummaryTableAssessmentStep
+    }
+  }
+`);
+
 export interface SkillSummarySectionProps {
-  pool: Pool;
+  poolQuery: FragmentType<typeof SkillSummarySectionPool_Fragment>;
 }
 
-const SkillSummarySection = ({ pool }: SkillSummarySectionProps) => {
+const SkillSummarySection = ({ poolQuery }: SkillSummarySectionProps) => {
   const intl = useIntl();
+  const pool = getFragment(SkillSummarySectionPool_Fragment, poolQuery);
   return (
     <>
       <Heading
@@ -33,8 +46,8 @@ const SkillSummarySection = ({ pool }: SkillSummarySectionProps) => {
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
-            "Overview of all skills and assessments planned for this pool.",
-          id: "t0OrQA",
+            "Overview of all skills and assessments planned for this process.",
+          id: "S/R0ne",
           description:
             "introduction to the skill summary section in the assessment plan builder",
         })}
@@ -83,8 +96,8 @@ const SkillSummarySection = ({ pool }: SkillSummarySectionProps) => {
       </Accordion.Root>
       <div data-h2-margin-top="base(x1)">
         <SkillSummaryTable
-          poolSkills={pool.poolSkills?.filter(notEmpty) ?? []}
-          assessmentSteps={pool.assessmentSteps?.filter(notEmpty) ?? []}
+          poolSkillsQuery={unpackMaybes(pool.poolSkills)}
+          assessmentStepsQuery={unpackMaybes(pool.assessmentSteps)}
           title={intl.formatMessage(sectionTitle)}
         />
       </div>

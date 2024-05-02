@@ -3,38 +3,91 @@ import { useIntl } from "react-intl";
 import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
 
 import { ToggleSection } from "@gc-digital-talent/ui";
-import { PoolStatus, Skill, UpdatePoolInput } from "@gc-digital-talent/graphql";
+import { notEmpty } from "@gc-digital-talent/helpers";
+import {
+  PoolSkillType,
+  SkillCategory,
+  SkillLevel,
+  PoolStatus,
+  Skill,
+  FragmentType,
+  getFragment,
+} from "@gc-digital-talent/graphql";
 
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
+import { EditPoolSectionMetadata } from "~/types/pool";
+import { hasEmptyRequiredFields } from "~/validators/process/nonEssentialSkills";
 
 import SkillTable from "./SkillTable";
-import { SectionProps } from "../types";
+import { PoolSkillMutationsType } from "../types";
+import { EditPoolSkills_Fragment } from "../fragments";
 
-export type AssetSkillsSubmitData = Pick<UpdatePoolInput, "nonessentialSkills">;
-type AssetSkillsSectionProps = SectionProps<AssetSkillsSubmitData> & {
+type AssetSkillsSectionProps = {
+  poolQuery: FragmentType<typeof EditPoolSkills_Fragment>;
+  sectionMetadata: EditPoolSectionMetadata;
   skills: Array<Skill>;
+  poolSkillMutations: PoolSkillMutationsType;
 };
 
 const AssetSkillsSection = ({
-  pool,
+  poolQuery,
   skills,
   sectionMetadata,
-  onSave,
+  poolSkillMutations,
 }: AssetSkillsSectionProps): JSX.Element => {
   const intl = useIntl();
+  const pool = getFragment(EditPoolSkills_Fragment, poolQuery);
+  const emptyRequired = hasEmptyRequiredFields(pool);
   const { icon } = useToggleSectionInfo({
-    isNull: false,
-    emptyRequired: false,
+    isNull: emptyRequired,
+    emptyRequired,
     fallbackIcon: AcademicCapIcon,
   });
-  const defaultSkills = pool.nonessentialSkills ? pool.nonessentialSkills : [];
 
-  const handleSave = async (ids: string[]) => {
-    onSave({
-      nonessentialSkills: {
-        sync: ids,
-      },
+  const poolSkills = pool.poolSkills ?? [];
+  const nonessentialPoolSkills = poolSkills
+    .filter(notEmpty)
+    .filter(
+      (poolSkill) =>
+        poolSkill.type === PoolSkillType.Nonessential && poolSkill.skill,
+    );
+
+  const nonessentialSkills: (Skill & {
+    poolSkillId: string;
+    requiredLevel?: SkillLevel;
+  })[] = nonessentialPoolSkills.map((poolSkill) => {
+    return {
+      category: poolSkill.skill?.category ?? SkillCategory.Technical,
+      description: poolSkill.skill?.description,
+      id: poolSkill.skill?.id ?? poolSkill.id,
+      key: poolSkill.skill?.key,
+      name: poolSkill.skill?.name ?? {},
+      poolSkillId: poolSkill.id,
+      requiredLevel: poolSkill.requiredLevel ?? undefined,
+    };
+  });
+
+  const handleCreate = async (
+    skillSelected: string,
+    skillLevel: SkillLevel,
+  ) => {
+    poolSkillMutations.create(pool.id, skillSelected, {
+      type: PoolSkillType.Nonessential,
+      requiredLevel: skillLevel,
     });
+  };
+
+  const handleUpdate = async (
+    poolSkillSelected: string,
+    skillLevel: SkillLevel,
+  ) => {
+    poolSkillMutations.update(poolSkillSelected, {
+      requiredLevel: skillLevel,
+    });
+  };
+
+  const handleRemove = async (poolSkillSelected: string) => {
+    poolSkillMutations.delete(poolSkillSelected);
   };
 
   // disabled unless status is draft
@@ -61,9 +114,11 @@ const AssetSkillsSection = ({
       <p data-h2-margin="base(x1 0)">{subtitle}</p>
       <SkillTable
         caption={sectionMetadata.title}
-        data={defaultSkills}
+        data={nonessentialSkills}
         allSkills={skills}
-        onSave={handleSave}
+        onCreate={handleCreate}
+        onUpdate={handleUpdate}
+        onRemove={handleRemove}
         disableAdd={formDisabled}
         nullMessage={{
           title: intl.formatMessage({

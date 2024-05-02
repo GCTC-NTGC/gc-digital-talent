@@ -5,13 +5,8 @@ import { IntlShape } from "react-intl";
 import { toast } from "@gc-digital-talent/toast";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
-/** Input parameters for the specialErrorExchange. */
-export interface SpecialErrorExchangeOptions {
-  intl: IntlShape;
-}
-
 // A custom exchange that watches for special errors that are meaningful to us and need special handling.
-const specialErrorExchange = ({ intl }: SpecialErrorExchangeOptions) => {
+const specialErrorExchange = ({ intl }: { intl: IntlShape }) => {
   const exchange: Exchange =
     ({ forward }) =>
     (ops$) =>

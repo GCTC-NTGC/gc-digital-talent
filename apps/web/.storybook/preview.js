@@ -1,18 +1,17 @@
+import React from "react";
 import {
+  ContainerDecorator,
   FeatureFlagDecorator,
   HelmetDecorator,
   MockGraphqlDecorator,
   ReducedMotionDecorator,
   RouterDecorator,
   ThemeDecorator,
-  VIEWPORTS
+  VIEWPORTS,
 } from "@gc-digital-talent/storybook-helpers";
 import { richTextElements as defaultRichTextElements } from "@gc-digital-talent/i18n";
-import "@gc-digital-talent/forms/dist/index.css";
-import "@gc-digital-talent/ui/dist/index.css";
-import "@gc-digital-talent/toast/dist/index.css";
-import frCommonCompiled from "@gc-digital-talent/i18n/src/lang/frCompiled.json";
 
+import frCommonCompiled from "@gc-digital-talent/i18n/frCompiled.json";
 import frCompiled from "../src/lang/frCompiled.json";
 
 import "../src/assets/css/hydrogen.css";
@@ -26,12 +25,18 @@ const messages = {
   },
 };
 
-const getMessages = (locale) => messages[locale];
+export const globals = {
+  locale: "en",
+  locales: {
+    en: "English",
+    fr: "Français",
+  },
+};
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   backgrounds: {
-    disable: true
+    disable: true,
   },
   controls: {
     matchers: {
@@ -39,10 +44,15 @@ export const parameters = {
       date: /Date$/,
     },
   },
-  intl: {
-    locales: ["en", "fr"],
+  options: {
+    storySort: {
+      method: "alphabetical",
+    },
+  },
+  reactIntl: {
     defaultLocale: "en",
-    getMessages,
+    locales: ["en", "fr"],
+    messages,
     defaultRichTextElements,
   },
   viewport: {
@@ -57,13 +67,5 @@ export const decorators = [
   MockGraphqlDecorator,
   ThemeDecorator,
   RouterDecorator,
-  (Story) => (
-    <div
-      data-h2-color="base(black)"
-      data-h2-background="base(background)"
-      data-h2-font-family="base(sans)"
-    >
-      <Story />
-    </div>
-  ),
+  ContainerDecorator,
 ];

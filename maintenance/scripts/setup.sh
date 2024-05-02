@@ -53,17 +53,18 @@ cp .env.example .env --preserve=all
 # build projects
 git config --global --add safe.directory /var/www/html
 cd /var/www/html
-npm install
+pnpm install
 if [ "$GCDT_CI" = true ]; then
-  npm run build:fresh
+  pnpm run build:fresh
 else
-  npm run dev:fresh
+  pnpm run dev:fresh
 fi
 chmod -R a+r,a+w \
   node_modules \
+  apps/**/node_modules \
+  packages/**/node_modules \
   apps/*/.turbo \
   apps/*/src/lang \
   apps/*/dist \
   packages/*/.turbo \
-  packages/*/dist \
   packages/*/src/lang

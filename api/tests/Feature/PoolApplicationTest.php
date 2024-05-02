@@ -18,6 +18,9 @@ use App\Models\Team;
 use App\Models\User;
 use Carbon\Carbon;
 use Database\Helpers\ApiEnums;
+use Database\Seeders\ClassificationSeeder;
+use Database\Seeders\GenericJobTitleSeeder;
+use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -26,6 +29,7 @@ use Illuminate\Testing\Fluent\AssertableJson;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
+use Tests\UsesProtectedGraphqlEndpoint;
 
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertNotNull;
@@ -35,6 +39,7 @@ class PoolApplicationTest extends TestCase
     use MakesGraphQLRequests;
     use RefreshDatabase;
     use RefreshesSchemaCache;
+    use UsesProtectedGraphqlEndpoint;
     use WithFaker;
 
     protected $applicantUser;
@@ -52,8 +57,8 @@ class PoolApplicationTest extends TestCase
     protected $unauthorizedMessage = 'This action is unauthorized.';
 
     protected $queryDocument =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         query poolCandidate($id: UUID!) {
             poolCandidate(id: $id) {
                 status
@@ -62,8 +67,8 @@ class PoolApplicationTest extends TestCase
     ';
 
     protected $createMutationDocument =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         mutation createApplication($userId: ID!, $poolId: ID!){
             createApplication(userId: $userId, poolId: $poolId) {
                 user {
@@ -78,8 +83,8 @@ class PoolApplicationTest extends TestCase
     ';
 
     protected $deleteMutationDocument =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         mutation deleteApplication($id: ID!) {
             deleteApplication(id: $id) {
                 id
@@ -88,8 +93,8 @@ class PoolApplicationTest extends TestCase
     ';
 
     protected $suspendMutationDocument =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         mutation suspendApplication($id: ID!, $isSuspended: Boolean!) {
             changeApplicationSuspendedAt(id: $id, isSuspended: $isSuspended) {
                 suspendedAt
@@ -98,8 +103,8 @@ class PoolApplicationTest extends TestCase
     ';
 
     protected $submitMutationDocument =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         mutation submitTest($id: ID!, $sig: String!) {
             submitApplication(id: $id, signature: $sig) {
                 submittedAt
@@ -548,10 +553,6 @@ class PoolApplicationTest extends TestCase
 
     public function testApplicationSubmitScreeningQuestions(): void
     {
-        if (! config('feature.record_of_decision')) {
-            $this->markTestSkipped('record_of_decision is off');
-        }
-
         $newPool = Pool::factory()->published()->create([
             'closing_date' => Carbon::now()->addDays(1),
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
@@ -1001,8 +1002,10 @@ class PoolApplicationTest extends TestCase
             'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
             'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
-            'education_requirement_option' => null,
         ]);
+        $newPoolCandidate->update(['education_requirement_option' => null]);
+        $newPoolCandidate->educationRequirementEducationExperiences()->sync([]);
+        $newPoolCandidate->educationRequirementWorkExperiences()->sync([]);
         $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
 
         // assert can't submit with incomplete education requirement

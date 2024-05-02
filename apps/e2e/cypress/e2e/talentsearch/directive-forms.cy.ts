@@ -105,7 +105,7 @@ const DigitalContractQuestionnaire_Query = graphql(
 
 describe("Directive Forms Tests", () => {
   beforeEach(() => {
-    cy.intercept("POST", "/graphql", (req) => {
+    cy.intercept("POST", "**/graphql", (req) => {
       aliasQuery(req, "DigitalContractQuestionnaire");
       aliasMutation(req, "CreateDigitalContractingQuestionnaire");
     });
@@ -309,17 +309,8 @@ describe("Directive Forms Tests", () => {
     });
 
     cy.findByRole("dialog", { name: "Find a skill" }).within(() => {
-      cy.findByRole("combobox", {
-        name: "Skill category",
-      }).then((dropdown) => {
-        cy.wrap(dropdown).select(1); // All categories
-      });
-      cy.findByRole("combobox", {
-        name: "Skill family",
-      }).then((dropdown) => {
-        cy.wrap(dropdown).select(1); // All families
-      });
       cy.findByRole("combobox", { name: "Skill*" }).then((combobox) => {
+        cy.wrap(combobox).focus();
         cy.wrap(combobox).type("Ability to Learn Quickly{downArrow}{enter}");
       });
       cy.findByRole("group", {
@@ -371,7 +362,7 @@ describe("Directive Forms Tests", () => {
       name: /Please specify the other requirement/i,
     }).type("Please specify the other requirement");
 
-    //technological change
+    // technological change
     cy.findByRole("group", {
       name: /Select "yes" if any of the listed technological change factors apply/i,
     }).within(() => {
@@ -466,6 +457,7 @@ describe("Directive Forms Tests", () => {
           id: questionnaireId,
         },
       }).then((data) => {
+        // eslint-disable-next-line no-unused-expressions
         expect(
           Cypress._.isMatch(data.digitalContractingQuestionnaire, {
             // preamble not saved
@@ -758,7 +750,7 @@ describe("Directive Forms Tests", () => {
       cy.findByRole("radio", { name: "No" }).click();
     });
 
-    //technological change
+    // technological change
     cy.findByRole("group", {
       name: /Select "yes" if any of the listed technological change factors apply/i,
     }).within(() => {
@@ -847,6 +839,7 @@ describe("Directive Forms Tests", () => {
           id: questionnaireId,
         },
       }).then((data) => {
+        // eslint-disable-next-line no-unused-expressions
         expect(
           Cypress._.isMatch(data.digitalContractingQuestionnaire, {
             // preamble not saved

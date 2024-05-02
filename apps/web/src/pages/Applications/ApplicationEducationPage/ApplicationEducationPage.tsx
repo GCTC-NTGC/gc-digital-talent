@@ -2,7 +2,6 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
-import PresentationChartBarIcon from "@heroicons/react/20/solid/PresentationChartBarIcon";
 
 import {
   Button,
@@ -19,16 +18,9 @@ import {
   EducationRequirementOption,
   Experience,
 } from "@gc-digital-talent/graphql";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import applicationMessages from "~/messages/applicationMessages";
-import {
-  isAwardExperience,
-  isCommunityExperience,
-  isEducationExperience,
-  isPersonalExperience,
-  isWorkExperience,
-} from "~/utils/experienceUtils";
+import { isEducationExperience } from "~/utils/experienceUtils";
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { ExperienceForDate } from "~/types/experience";
@@ -39,14 +31,6 @@ import { useApplicationContext } from "../ApplicationContext";
 import LinkCareerTimeline from "./LinkCareerTimeline";
 import { getEducationRequirementOptions } from "./utils";
 import useApplication from "../useApplication";
-
-type EducationRequirementExperiences = {
-  educationRequirementAwardExperiences: { sync: string[] };
-  educationRequirementCommunityExperiences: { sync: string[] };
-  educationRequirementEducationExperiences: { sync: string[] };
-  educationRequirementPersonalExperiences: { sync: string[] };
-  educationRequirementWorkExperiences: { sync: string[] };
-};
 
 type PageAction = "continue" | "cancel";
 
@@ -75,7 +59,6 @@ export const getPageInfo: GetPageNavInfo = ({
       id: "gtns9R",
       description: "Subtitle for the application education  page",
     }),
-    icon: PresentationChartBarIcon,
     crumbs: [
       {
         url: path,
@@ -106,7 +89,6 @@ const ApplicationEducation = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
-  const features = useFeatureFlags();
   const navigate = useNavigate();
   const { followingPageUrl, currentStepOrdinal, isIAP, classificationGroup } =
     useApplicationContext();
@@ -115,7 +97,6 @@ const ApplicationEducation = ({
     paths,
     application,
     stepOrdinal: currentStepOrdinal,
-    RoDFlag: features.recordOfDecision,
   });
   const nextStep =
     followingPageUrl ?? paths.applicationSkillsIntro(application.id);
@@ -170,91 +151,24 @@ const ApplicationEducation = ({
           ).length > 0));
 
     if (isValid) {
-      const emptyEducationRequirementExperiences: EducationRequirementExperiences =
-        {
-          educationRequirementAwardExperiences: { sync: [] },
-          educationRequirementCommunityExperiences: { sync: [] },
-          educationRequirementEducationExperiences: { sync: [] },
-          educationRequirementPersonalExperiences: { sync: [] },
-          educationRequirementWorkExperiences: { sync: [] },
-        };
-
-      // Gets all experiences by type that have been selected by the applicant.
-      const allExperiences = experiences.reduce(
-        (
-          accumulator: EducationRequirementExperiences,
-          experience: Experience,
-        ) => {
-          return {
-            ...accumulator,
-            ...(isAwardExperience(experience) &&
-              includesExperience(experience.id) && {
-                educationRequirementAwardExperiences: {
-                  sync: [
-                    ...accumulator.educationRequirementAwardExperiences.sync,
-                    experience.id,
-                  ],
-                },
-              }),
-            ...(isCommunityExperience(experience) &&
-              includesExperience(experience.id) && {
-                educationRequirementCommunityExperiences: {
-                  sync: [
-                    ...accumulator.educationRequirementCommunityExperiences
-                      .sync,
-                    experience.id,
-                  ],
-                },
-              }),
-            ...(isEducationExperience(experience) &&
-              includesExperience(experience.id) && {
-                educationRequirementEducationExperiences: {
-                  sync: [
-                    ...accumulator.educationRequirementEducationExperiences
-                      .sync,
-                    experience.id,
-                  ],
-                },
-              }),
-            ...(isPersonalExperience(experience) &&
-              includesExperience(experience.id) && {
-                educationRequirementPersonalExperiences: {
-                  sync: [
-                    ...accumulator.educationRequirementPersonalExperiences.sync,
-                    experience.id,
-                  ],
-                },
-              }),
-            ...(isWorkExperience(experience) &&
-              includesExperience(experience.id) && {
-                educationRequirementWorkExperiences: {
-                  sync: [
-                    ...accumulator.educationRequirementWorkExperiences.sync,
-                    experience.id,
-                  ],
-                },
-              }),
-          };
-        },
-        emptyEducationRequirementExperiences,
+      const selectedExperiences = experiences.filter((experience) =>
+        includesExperience(experience.id),
       );
 
       // Only save education experiences IF the applicant selects "I meet the post-secondary option".
       // Otherwise, save all experiences.
       const educationRequirementExperiences =
         formValues.educationRequirement === EducationRequirementOption.Education
-          ? {
-              ...emptyEducationRequirementExperiences,
-              educationRequirementEducationExperiences:
-                allExperiences.educationRequirementEducationExperiences,
-            }
-          : allExperiences;
+          ? selectedExperiences.filter(isEducationExperience)
+          : selectedExperiences;
 
       executeMutation({
         id: application.id,
         application: {
           educationRequirementOption: formValues.educationRequirement,
-          ...educationRequirementExperiences,
+          educationRequirementExperiences: {
+            sync: educationRequirementExperiences.map((e) => e.id),
+          },
           ...(formValues.action === "continue" && {
             insertSubmittedStep: ApplicationStep.EducationRequirements,
           }),

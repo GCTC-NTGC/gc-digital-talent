@@ -7,12 +7,15 @@ use App\Models\User;
 use App\Models\UserSkill;
 use App\Models\WorkExperience;
 use Carbon\Carbon;
+use Database\Seeders\ClassificationSeeder;
+use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\Concerns\InteractsWithExceptionHandling;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
+use Tests\UsesProtectedGraphqlEndpoint;
 
 use function PHPUnit\Framework\assertEquals;
 
@@ -22,6 +25,7 @@ class ExperienceTest extends TestCase
     use MakesGraphQLRequests;
     use RefreshDatabase;
     use RefreshesSchemaCache;
+    use UsesProtectedGraphqlEndpoint;
 
     protected $platformAdmin;
 
@@ -46,7 +50,10 @@ class ExperienceTest extends TestCase
     public function testSkillRelationshipsWorkWithPivot(): void
     {
         $userSkills = UserSkill::factory()->count(3)
-            ->create(['user_id' => $this->platformAdmin->id]);
+            ->create([
+                'user_id' => $this->platformAdmin->id,
+                'skill_id' => Skill::factory(),
+            ]);
         $experience = WorkExperience::factory()->create([
             'user_id' => $this->platformAdmin->id,
         ]);
@@ -137,6 +144,7 @@ class ExperienceTest extends TestCase
     {
         $userSkills = UserSkill::factory(2)->create([
             'user_id' => $this->platformAdmin->id,
+            'skill_id' => Skill::factory(),
         ]);
         $experience = WorkExperience::factory()->create([
             'user_id' => $this->platformAdmin->id,
@@ -231,7 +239,6 @@ class ExperienceTest extends TestCase
         ]);
         $experienceSkill = new ExperienceSkill();
         $experienceSkill->experience_id = $experience->id;
-        $experienceSkill->experience_type = 'workExperience';
         $experienceSkill->user_skill_id = $userSkill->id;
         $experienceSkill->details = 'some details';
         $experienceSkill->save();
@@ -279,6 +286,7 @@ class ExperienceTest extends TestCase
     {
         $userSkills = UserSkill::factory(2)->create([
             'user_id' => $this->platformAdmin->id,
+            'skill_id' => Skill::factory(),
         ]);
         $experience = WorkExperience::factory()->create([
             'user_id' => $this->platformAdmin->id,
@@ -322,6 +330,7 @@ class ExperienceTest extends TestCase
     {
         $userSkills = UserSkill::factory(2)->create([
             'user_id' => $this->platformAdmin->id,
+            'skill_id' => Skill::factory(),
         ]);
         $experience = WorkExperience::factory()->create([
             'user_id' => $this->platformAdmin->id,
@@ -399,6 +408,7 @@ class ExperienceTest extends TestCase
     {
         $userSkills = UserSkill::factory(2)->create([
             'user_id' => $this->platformAdmin->id,
+            'skill_id' => Skill::factory(),
         ]);
         $experience = WorkExperience::factory()->create([
             'user_id' => $this->platformAdmin->id,

@@ -5,7 +5,13 @@ import sortBy from "lodash/sortBy";
 
 import { TableOfContents, CardRepeater, Well } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { GeneralQuestion, Pool, PoolStatus } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  GeneralQuestion,
+  PoolStatus,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 import { EditPoolSectionMetadata } from "~/types/pool";
 
@@ -18,10 +24,22 @@ import {
 import GeneralQuestionCard from "./GeneralQuestionCard";
 import GeneralQuestionDialog from "./GeneralQuestionDialog";
 
-const MAX_GENERAL_QUESTIONS = 3;
+const MAX_GENERAL_QUESTIONS = 10;
+
+const EditPoolGeneralQuestions_Fragment = graphql(/* GraphQL */ `
+  fragment EditPoolGeneralQuestions on Pool {
+    id
+    status
+    generalQuestions {
+      id
+      sortOrder
+      ...GeneralQuestionCard
+    }
+  }
+`);
 
 interface GeneralQuestionsProps {
-  pool: Pool;
+  poolQuery: FragmentType<typeof EditPoolGeneralQuestions_Fragment>;
   sectionMetadata: EditPoolSectionMetadata;
   onSave: GeneralQuestionsSubmit;
 }
@@ -29,12 +47,14 @@ interface GeneralQuestionsProps {
 export type { GeneralQuestionsSubmitData };
 
 const GeneralQuestionsSection = ({
-  pool,
+  poolQuery,
   sectionMetadata,
   onSave,
 }: GeneralQuestionsProps) => {
   const intl = useIntl();
-  const initialQuestions = React.useMemo(
+  const [isUpdating, setIsUpdating] = React.useState<boolean>(false);
+  const pool = getFragment(EditPoolGeneralQuestions_Fragment, poolQuery);
+  const questions = React.useMemo(
     () =>
       sortBy(
         unpackMaybes(pool.generalQuestions),
@@ -42,29 +62,22 @@ const GeneralQuestionsSection = ({
       ),
     [pool.generalQuestions],
   );
-  const [questions, setQuestions] =
-    React.useState<GeneralQuestion[]>(initialQuestions);
   const { isSubmitting } = useEditPoolContext();
 
-  React.useEffect(() => {
-    setQuestions(initialQuestions);
-  }, [initialQuestions]);
-
-  const resetQuestions = () => {
-    setQuestions(initialQuestions);
-  };
-
-  // disabled unless status is draft
-  const formDisabled = pool.status !== PoolStatus.Draft;
-
   const handleUpdate = (newQuestions: GeneralQuestion[]) => {
+    setIsUpdating(true);
     const generalQuestions = repeaterQuestionsToSubmitData(
       newQuestions,
       questions,
     );
-    setQuestions(newQuestions);
-    onSave({ generalQuestions }).catch(resetQuestions);
+    onSave({ generalQuestions }).then(() => {
+      setIsUpdating(false);
+    });
   };
+
+  // disabled unless status is draft
+  const formDisabled =
+    pool.status !== PoolStatus.Draft || isUpdating || isSubmitting;
 
   return (
     <>
@@ -74,8 +87,8 @@ const GeneralQuestionsSection = ({
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
-            "This section allows you to <strong>optionally</strong> add up to 3 general questions that will be asked to applicants during the application process. Please note that these are <strong>not screening questions</strong>. Screening questions will be added when you craft your assessment plan.",
-          id: "iAG/IN",
+            "This section allows you to <strong>optionally</strong> add up to 10 general questions that will be asked to applicants during the application process. Please note that these are <strong>not screening questions</strong>. Screening questions will be added when you craft your assessment plan.",
+          id: "4W8uc/",
           description:
             "Helper message indicating what general questions are and how they differ from screening questions",
         })}
@@ -83,16 +96,17 @@ const GeneralQuestionsSection = ({
       <div data-h2-margin="base(x1 0)">
         <CardRepeater.Root<GeneralQuestion>
           items={questions}
-          disabled={isSubmitting || formDisabled}
+          disabled={formDisabled}
           max={MAX_GENERAL_QUESTIONS}
           onUpdate={handleUpdate}
-          add={<GeneralQuestionDialog />}
+          add={<GeneralQuestionDialog disabled={formDisabled} />}
         >
           {questions.map((generalQuestion, index) => (
             <GeneralQuestionCard
               key={generalQuestion.id}
               index={index}
-              generalQuestion={generalQuestion}
+              generalQuestionQuery={generalQuestion}
+              disabled={formDisabled}
             />
           ))}
         </CardRepeater.Root>

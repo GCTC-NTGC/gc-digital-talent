@@ -8,7 +8,11 @@ import {
   Heading,
   Link,
 } from "@gc-digital-talent/ui";
-import { useAuthentication } from "@gc-digital-talent/auth";
+import {
+  LOGOUT_REASON_KEY,
+  LogoutReason,
+  useAuthentication,
+} from "@gc-digital-talent/auth";
 import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 
 import Hero from "~/components/Hero/Hero";
@@ -23,27 +27,74 @@ const SignedOutPage = () => {
   const { loggedIn, logout } = useAuthentication();
   const paths = useRoutes();
 
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "See you next time!",
-    id: "cZmuts",
-    description: "Title for the page users land on after successful logout.",
-  });
+  const supportLink = (chunks: React.ReactNode) => (
+    <Link
+      href={paths.support()}
+      state={{ referrer: window.location.href }}
+      color="black"
+    >
+      {chunks}
+    </Link>
+  );
 
-  const crumbs = useBreadcrumbs([
-    {
-      label: pageTitle,
-      url: paths.loggedOut(),
-    },
-  ]);
+  const logoutReason = localStorage.getItem(
+    LOGOUT_REASON_KEY,
+  ) as LogoutReason | null; // no way to make compile time guarantees on this
 
-  return (
-    <>
-      <SEO title={pageTitle} />
-      <Hero title={pageTitle} crumbs={crumbs} />
-      <div
-        data-h2-container="base(center, small, x1) p-tablet(center, small, x2)"
-        data-h2-margin="base(x3, 0)"
-      >
+  let alert;
+  switch (logoutReason) {
+    case "session-expired":
+      alert = (
+        <Alert.Root type="warning" live={false}>
+          <Alert.Title>
+            {intl.formatMessage({
+              defaultMessage: "Your session has expired. Please sign in again.",
+              id: "qFIyZv",
+              description:
+                "Title for the alert displayed after a user signs out",
+            })}
+          </Alert.Title>
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "To sign back in, you'll need to use your GCKey username and password. We hope to see you soon!",
+              id: "NZ3laJ",
+              description: "Message displayed to a user after signing out",
+            })}
+          </p>
+        </Alert.Root>
+      );
+      break;
+    case "user-deleted":
+      alert = (
+        <Alert.Root type="warning" live={false}>
+          <Alert.Title>
+            {intl.formatMessage({
+              defaultMessage: "User account deleted",
+              id: "eMrYDr",
+              description:
+                "Title for the alert displayed after a user signs into a deleted account",
+            })}
+          </Alert.Title>
+          <p>
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "This user account has been deleted. Please <inlineLink>contact us</inlineLink> if you have any questions.",
+                id: "DZfLMk",
+                description:
+                  "Message displayed to a user after signing into a deleted account",
+              },
+              {
+                inlineLink: supportLink,
+              },
+            )}
+          </p>
+        </Alert.Root>
+      );
+      break;
+    default:
+      alert = (
         <Alert.Root type="success" live={false}>
           <Alert.Title>
             {intl.formatMessage({
@@ -56,12 +107,39 @@ const SignedOutPage = () => {
           <p>
             {intl.formatMessage({
               defaultMessage:
-                "Remember, to sign back in, you'll need to use your GCKey username and password. We hope to see you soon!",
-              id: "8M/lmC",
+                "To sign back in, you'll need to use your GCKey username and password. We hope to see you soon!",
+              id: "NZ3laJ",
               description: "Message displayed to a user after signing out",
             })}
           </p>
         </Alert.Root>
+      );
+  }
+
+  const pageTitle = intl.formatMessage({
+    defaultMessage: "See you next time!",
+    id: "cZmuts",
+    description: "Title for the page users land on after successful logout.",
+  });
+
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: pageTitle,
+        url: paths.loggedOut(),
+      },
+    ],
+  });
+
+  return (
+    <>
+      <SEO title={pageTitle} />
+      <Hero title={pageTitle} crumbs={crumbs} />
+      <div
+        data-h2-container="base(center, small, x1) p-tablet(center, small, x2)"
+        data-h2-margin="base(x3, 0)"
+      >
+        {alert}
         <Heading
           data-h2-margin="base(x3, 0, x1, 0)"
           size="h3"

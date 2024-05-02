@@ -1,27 +1,30 @@
-import { type Page } from "@playwright/test";
-
 import {
   Classification,
   CreatePoolInput,
+  CreatePoolSkillInput,
   Pool,
   PoolLanguage,
   PoolOpportunityLength,
+  PoolSkill,
+  PoolSkillType,
   PoolStream,
   PublishingGroup,
   SecurityStatus,
   Skill,
+  SkillLevel,
   UpdatePoolInput,
 } from "@gc-digital-talent/graphql";
 import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 
 import {
   Test_CreatePoolMutationDocument,
+  Test_CreatePoolSkillMutationDocument,
   Test_PublishPoolMutationDocument,
   Test_UpdatePoolMutationDocument,
 } from "~/utils/pools";
 import { GraphQLResponse } from "~/utils/graphql";
 
-import { AppPage } from "./AppPage";
+import AppPage from "./AppPage";
 
 type CreateAndPublishPoolArgs = {
   userId: string;
@@ -36,11 +39,7 @@ type CreateAndPublishPoolArgs = {
  *
  * Page containing utilities for interacting with pools
  */
-export class PoolPage extends AppPage {
-  constructor(page: Page) {
-    super(page);
-  }
-
+class PoolPage extends AppPage {
   async gotoIndex() {
     await this.page.goto("/admin/pools");
   }
@@ -66,6 +65,20 @@ export class PoolPage extends AppPage {
     });
   }
 
+  async createPoolSkill(
+    poolId: string,
+    skillId: string,
+    poolSkill: CreatePoolSkillInput,
+  ): Promise<PoolSkill> {
+    return this.graphqlRequest(Test_CreatePoolSkillMutationDocument, {
+      poolId,
+      skillId,
+      poolSkill,
+    }).then((res: GraphQLResponse<"createPoolSkill", PoolSkill>) => {
+      return res.createPoolSkill;
+    });
+  }
+
   async publishPool(poolId: string): Promise<Pool> {
     return this.graphqlRequest(Test_PublishPoolMutationDocument, {
       id: poolId,
@@ -80,12 +93,12 @@ export class PoolPage extends AppPage {
     skill,
   }: CreateAndPublishPoolArgs): Promise<Pool> {
     let pool = await this.createPool(userId, teamId, {
-      classifications: { sync: [classification.id] },
+      classification: { connect: classification.id },
     });
 
     pool = await this.updatePool(pool.id, {
       name: {
-        en: name ? name : `Playwright Test Pool EN ${Date.now().valueOf()}`,
+        en: name || `Playwright Test Pool EN ${Date.now().valueOf()}`,
         fr: `Playwright Test Pool FR ${Date.now().valueOf()}`,
       },
       stream: PoolStream.BusinessAdvisoryServices,
@@ -95,9 +108,6 @@ export class PoolPage extends AppPage {
         fr: "test impact FR",
       },
       keyTasks: { en: "key task EN", fr: "key task FR" },
-      essentialSkills: {
-        sync: [skill.id],
-      },
       language: PoolLanguage.Various,
       securityClearance: SecurityStatus.Secret,
       opportunityLength: PoolOpportunityLength.Various,
@@ -109,8 +119,15 @@ export class PoolPage extends AppPage {
       publishingGroup: PublishingGroup.ItJobs,
     });
 
+    await this.createPoolSkill(pool.id, skill.id, {
+      type: PoolSkillType.Essential,
+      requiredLevel: SkillLevel.Beginner,
+    });
+
     pool = await this.publishPool(pool.id);
 
     return pool;
   }
 }
+
+export default PoolPage;

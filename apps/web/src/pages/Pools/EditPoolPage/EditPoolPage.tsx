@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
 import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
-import { useQuery } from "urql";
+import { OperationContext, useQuery } from "urql";
 
 import {
   NotFound,
@@ -12,13 +12,13 @@ import {
   Heading,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   graphql,
-  Pool,
   Scalars,
-  Classification,
   Skill,
+  FragmentType,
+  getFragment,
 } from "@gc-digital-talent/graphql";
 
 import { EditPoolSectionMetadata } from "~/types/pool";
@@ -30,15 +30,19 @@ import {
   hasEmptyRequiredFields as poolNameError,
   isInNullState as educationRequirementIsNull,
 } from "~/validators/process/classification";
-import { hasEmptyRequiredFields as closingDateError } from "~/validators/process/closingDate";
+import { hasInvalidRequiredFields as closingDateError } from "~/validators/process/closingDate";
 import { hasEmptyRequiredFields as yourImpactError } from "~/validators/process/yourImpact";
 import { hasEmptyRequiredFields as keyTasksError } from "~/validators/process/keyTasks";
 import { hasEmptyRequiredFields as coreRequirementsError } from "~/validators/process/coreRequirements";
 import { hasEmptyRequiredFields as essentialSkillsError } from "~/validators/process/essentialSkills";
+import { hasEmptyRequiredFields as nonessentialSkillsError } from "~/validators/process/nonEssentialSkills";
+import { hasOneEmptyField as aboutUsError } from "~/validators/process/aboutUs";
+import { hasOneEmptyField as whatToExpectAdmissionError } from "~/validators/process/whatToExpectAdmission";
 import usePoolMutations from "~/hooks/usePoolMutations";
 import { hasAllEmptyFields as specialNoteIsNull } from "~/validators/process/specialNote";
 
 import PoolNameSection, {
+  PoolClassification_Fragment,
   type PoolNameSubmitData,
 } from "./components/PoolNameSection/PoolNameSection";
 import ClosingDateSection, {
@@ -53,12 +57,8 @@ import WorkTasksSection, {
 import CoreRequirementsSection, {
   type CoreRequirementsSubmitData,
 } from "./components/CoreRequirementsSection/CoreRequirementsSection";
-import EssentialSkillsSection, {
-  type EssentialSkillsSubmitData,
-} from "./components/EssentialSkillsSection";
-import AssetSkillsSection, {
-  type AssetSkillsSubmitData,
-} from "./components/AssetSkillsSection";
+import EssentialSkillsSection from "./components/EssentialSkillsSection";
+import AssetSkillsSection from "./components/AssetSkillsSection";
 import EducationRequirementsSection from "./components/EducationRequirementsSection";
 import GeneralQuestionsSection, {
   type GeneralQuestionsSubmitData,
@@ -70,34 +70,118 @@ import WhatToExpectSection, {
   type WhatToExpectSubmitData,
 } from "./components/WhatToExpectSection/WhatToExpectSection";
 import EditPoolContext from "./components/EditPoolContext";
-import { SectionKey } from "./types";
+import { PoolSkillMutationsType, SectionKey } from "./types";
+import AboutUsSection, {
+  AboutUsSubmitData,
+} from "./components/AboutUsSection/AboutUsSection";
+import WhatToExpectAdmissionSection, {
+  WhatToExpectAdmissionSubmitData,
+} from "./components/WhatToExpectAdmissionSection/WhatToExpectAdmissionSection";
+
+export const EditPool_Fragment = graphql(/* GraphQL */ `
+  fragment EditPool on Pool {
+    ...EditPoolAboutUs
+    ...EditPoolClosingDate
+    ...EditPoolCoreRequirements
+    ...EditPoolEducationRequirements
+    ...EditPoolGeneralQuestions
+    ...EditPoolKeyTasks
+    ...EditPoolName
+    ...EditPoolSkills
+    ...EditPoolSpecialNote
+    ...EditPoolWhatToExpectAdmission
+    ...EditPoolWhatToExpect
+    ...EditPoolYourImpact
+
+    id
+    stream
+    processNumber
+    publishingGroup
+    opportunityLength
+    closingDate
+    language
+    securityClearance
+    publishedAt
+    status
+    location {
+      en
+      fr
+    }
+    name {
+      en
+      fr
+    }
+    classification {
+      id
+      group
+      level
+    }
+    poolSkills {
+      id
+      type
+      requiredLevel
+      skill {
+        id
+        category
+        key
+        name {
+          en
+          fr
+        }
+      }
+    }
+    aboutUs {
+      en
+      fr
+    }
+    yourImpact {
+      en
+      fr
+    }
+    keyTasks {
+      en
+      fr
+    }
+    specialNote {
+      en
+      fr
+    }
+    whatToExpectAdmission {
+      en
+      fr
+    }
+  }
+`);
 
 export type PoolSubmitData =
-  | AssetSkillsSubmitData
   | ClosingDateSubmitData
-  | EssentialSkillsSubmitData
   | CoreRequirementsSubmitData
   | PoolNameSubmitData
   | WorkTasksSubmitData
   | YourImpactSubmitData
   | WhatToExpectSubmitData
+  | WhatToExpectAdmissionSubmitData
   | SpecialNoteSubmitData
+  | AboutUsSubmitData
   | GeneralQuestionsSubmitData;
 
 export interface EditPoolFormProps {
-  pool: Pool;
-  classifications: Array<Classification>;
+  poolQuery: FragmentType<typeof EditPool_Fragment>;
+  classifications: FragmentType<typeof PoolClassification_Fragment>[];
   skills: Array<Skill>;
   onSave: (submitData: PoolSubmitData) => Promise<void>;
+  poolSkillMutations: PoolSkillMutationsType;
 }
 
 export const EditPoolForm = ({
-  pool,
+  poolQuery,
   classifications,
   skills,
   onSave,
+  poolSkillMutations,
 }: EditPoolFormProps): JSX.Element => {
   const intl = useIntl();
+  const pool = getFragment(EditPool_Fragment, poolQuery);
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Create a new recruitment",
@@ -113,8 +197,10 @@ export const EditPoolForm = ({
   });
 
   const basicInfoHasError = poolNameError(pool) || closingDateError(pool);
-  const skillRequirementsHasError = essentialSkillsError(pool);
-  const aboutRoleHasError = yourImpactError(pool) || keyTasksError(pool);
+  const skillRequirementsHasError =
+    essentialSkillsError(pool) || nonessentialSkillsError(pool);
+  const aboutRoleHasError =
+    yourImpactError(pool) || keyTasksError(pool) || aboutUsError(pool);
   const sectionMetadata: Record<SectionKey, EditPoolSectionMetadata> = {
     basicInfo: {
       id: "basic-info",
@@ -210,7 +296,7 @@ export const EditPoolForm = ({
     },
     assetSkills: {
       id: "asset-skills",
-      hasError: false, // Optional section
+      hasError: nonessentialSkillsError(pool),
       title: intl.formatMessage({
         defaultMessage: "Asset skill criteria",
         id: "TE2Nwv",
@@ -255,9 +341,19 @@ export const EditPoolForm = ({
       }),
       inList: false,
     },
+    aboutUs: {
+      id: "about-us",
+      hasError: false, // Optional section
+      title: intl.formatMessage({
+        defaultMessage: "About us",
+        id: "Wy6aeg",
+        description: "Sub title for the pool about us section",
+      }),
+      inList: false,
+    },
     commonQuestions: {
       id: "common-questions",
-      hasError: false, // Add understanding classification (#8831) validation here
+      hasError: whatToExpectAdmissionError(pool), // Add understanding classification (#8831) validation here
       title: intl.formatMessage({
         defaultMessage: "Common questions",
         id: "RahVQS",
@@ -280,6 +376,16 @@ export const EditPoolForm = ({
         defaultMessage: "What to expect post-application",
         id: "U0MY+6",
         description: "Title for the what to expect section",
+      }),
+      inList: false,
+    },
+    whatToExpectAdmission: {
+      id: "what-to-expect-admission",
+      hasError: false,
+      title: intl.formatMessage({
+        defaultMessage: "What to expect post-admission",
+        id: "Uwtkv6",
+        description: "Title for the what to expect post admission section",
       }),
       inList: false,
     },
@@ -349,13 +455,13 @@ export const EditPoolForm = ({
                       </p>
                     </div>
                     <PoolNameSection
-                      pool={pool}
-                      classifications={classifications}
+                      poolQuery={pool}
+                      classificationsQuery={classifications}
                       sectionMetadata={sectionMetadata.poolName}
                       onSave={onSave}
                     />
                     <ClosingDateSection
-                      pool={pool}
+                      poolQuery={pool}
                       sectionMetadata={sectionMetadata.closingDate}
                       onSave={onSave}
                     />
@@ -365,14 +471,14 @@ export const EditPoolForm = ({
                   id={sectionMetadata.coreRequirements.id}
                 >
                   <CoreRequirementsSection
-                    pool={pool}
+                    poolQuery={pool}
                     sectionMetadata={sectionMetadata.coreRequirements}
                     onSave={onSave}
                   />
                 </TableOfContents.Section>
                 <TableOfContents.Section id={sectionMetadata.specialNote.id}>
                   <SpecialNoteSection
-                    pool={pool}
+                    poolQuery={pool}
                     sectionMetadata={sectionMetadata.specialNote}
                     onSave={onSave}
                   />
@@ -381,7 +487,7 @@ export const EditPoolForm = ({
                   id={sectionMetadata.educationRequirements.id}
                 >
                   <EducationRequirementsSection
-                    pool={pool}
+                    poolQuery={pool}
                     sectionMetadata={sectionMetadata.educationRequirements}
                     changeTargetId={sectionMetadata.basicInfo.id}
                   />
@@ -409,16 +515,16 @@ export const EditPoolForm = ({
                       </p>
                     </div>
                     <EssentialSkillsSection
-                      pool={pool}
+                      poolQuery={pool}
                       skills={skills}
                       sectionMetadata={sectionMetadata.essentialSkills}
-                      onSave={onSave}
+                      poolSkillMutations={poolSkillMutations}
                     />
                     <AssetSkillsSection
-                      pool={pool}
+                      poolQuery={pool}
                       skills={skills}
                       sectionMetadata={sectionMetadata.assetSkills}
-                      onSave={onSave}
+                      poolSkillMutations={poolSkillMutations}
                     />
                   </div>
                 </TableOfContents.Section>
@@ -448,13 +554,18 @@ export const EditPoolForm = ({
                         </p>
                       </div>
                       <YourImpactSection
-                        pool={pool}
+                        poolQuery={pool}
                         sectionMetadata={sectionMetadata.yourImpact}
                         onSave={onSave}
                       />
                       <WorkTasksSection
-                        pool={pool}
+                        poolQuery={pool}
                         sectionMetadata={sectionMetadata.workTasks}
+                        onSave={onSave}
+                      />
+                      <AboutUsSection
+                        poolQuery={pool}
+                        sectionMetadata={sectionMetadata.aboutUs}
                         onSave={onSave}
                       />
                     </div>
@@ -488,8 +599,13 @@ export const EditPoolForm = ({
                         </p>
                       </div>
                       <WhatToExpectSection
-                        pool={pool}
+                        poolQuery={pool}
                         sectionMetadata={sectionMetadata.whatToExpect}
+                        onSave={onSave}
+                      />
+                      <WhatToExpectAdmissionSection
+                        poolQuery={pool}
+                        sectionMetadata={sectionMetadata.whatToExpectAdmission}
                         onSave={onSave}
                       />
                     </div>
@@ -499,7 +615,7 @@ export const EditPoolForm = ({
                   id={sectionMetadata.generalQuestions.id}
                 >
                   <GeneralQuestionsSection
-                    pool={pool}
+                    poolQuery={pool}
                     sectionMetadata={sectionMetadata.generalQuestions}
                     onSave={onSave}
                   />
@@ -517,123 +633,12 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
   query EditPoolPage($poolId: UUID!) {
     # the existing data of the pool to edit
     pool(id: $poolId) {
-      id
-      name {
-        en
-        fr
-      }
-      closingDate
-      status
-      language
-      securityClearance
-      isComplete
-      classifications {
-        id
-        group
-        level
-        name {
-          en
-          fr
-        }
-        genericJobTitles {
-          id
-          key
-          name {
-            en
-            fr
-          }
-        }
-      }
-      yourImpact {
-        en
-        fr
-      }
-      keyTasks {
-        en
-        fr
-      }
-      whatToExpect {
-        en
-        fr
-      }
-      specialNote {
-        en
-        fr
-      }
-      essentialSkills {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        category
-        families {
-          id
-          key
-          description {
-            en
-            fr
-          }
-          name {
-            en
-            fr
-          }
-        }
-      }
-      nonessentialSkills {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        category
-        families {
-          id
-          key
-          description {
-            en
-            fr
-          }
-          name {
-            en
-            fr
-          }
-        }
-      }
-      isRemote
-      location {
-        en
-        fr
-      }
-      stream
-      processNumber
-      publishingGroup
-      opportunityLength
-      generalQuestions {
-        id
-        sortOrder
-        question {
-          en
-          fr
-        }
-      }
-      team {
-        id
-        name
-      }
+      ...EditPool
     }
 
     # all classifications to populate form dropdown
     classifications {
-      id
-      group
-      level
-      name {
-        en
-        fr
-      }
+      ...PoolClassification
     }
 
     # all skills to populate skill pickers
@@ -673,6 +678,11 @@ type RouteParams = {
   poolId: Scalars["ID"]["output"];
 };
 
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["PoolSkill"],
+  requestPolicy: "cache-first",
+};
+
 export const EditPoolPage = () => {
   const intl = useIntl();
   const { poolId } = useRequiredParams<RouteParams>("poolId");
@@ -695,24 +705,32 @@ export const EditPoolPage = () => {
 
   const [{ data, fetching, error }] = useQuery({
     query: EditPoolPage_Query,
+    context,
     variables: { poolId },
   });
 
   const { isFetching, mutations } = usePoolMutations();
 
   const ctx = React.useMemo(() => {
-    return { isSubmitting: isFetching };
-  }, [isFetching]);
+    return { isSubmitting: isFetching || fetching };
+  }, [fetching, isFetching]);
+
+  const poolSkillMutations = {
+    create: mutations.createPoolSkill,
+    update: mutations.updatePoolSkill,
+    delete: mutations.deletePoolSkill,
+  };
 
   return (
     <Pending fetching={fetching} error={error}>
       {data?.pool ? (
         <EditPoolContext.Provider value={ctx}>
           <EditPoolForm
-            pool={data.pool}
-            classifications={data.classifications.filter(notEmpty)}
+            poolQuery={data.pool}
+            classifications={unpackMaybes(data.classifications)}
             skills={data.skills.filter(notEmpty)}
             onSave={(saveData) => mutations.update(poolId, saveData)}
+            poolSkillMutations={poolSkillMutations}
           />
         </EditPoolContext.Provider>
       ) : (

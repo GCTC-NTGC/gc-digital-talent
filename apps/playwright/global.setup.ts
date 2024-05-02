@@ -1,4 +1,4 @@
-import { Page, test as setup } from "@playwright/test";
+import { test as setup } from "@playwright/test";
 
 import auth from "~/constants/auth";
 import { login } from "~/utils/auth";

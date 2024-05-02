@@ -8,6 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
+use Tests\UsesProtectedGraphqlEndpoint;
 
 use function PHPUnit\Framework\assertSame;
 
@@ -16,6 +17,7 @@ class GeneralQuestionTest extends TestCase
     use MakesGraphQLRequests;
     use RefreshDatabase;
     use RefreshesSchemaCache;
+    use UsesProtectedGraphqlEndpoint;
 
     protected $teamUser;
 
@@ -26,8 +28,8 @@ class GeneralQuestionTest extends TestCase
     protected $pool;
 
     protected $updatePoolMutation =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         mutation updatePool($id: ID! ,$pool: UpdatePoolInput!) {
             updatePool(id: $id, pool: $pool) {
                 generalQuestions {

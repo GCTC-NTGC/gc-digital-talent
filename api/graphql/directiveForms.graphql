@@ -372,31 +372,28 @@ input DepartmentSpecificRecruitmentProcessFormInput
 extend type Query {
   digitalContractingQuestionnaire(
     id: UUID! @eq
-  ): DigitalContractingQuestionnaire
-    @find
-    @guard
-    @can(ability: "view", query: true)
+  ): DigitalContractingQuestionnaire @find @guard @canQuery(ability: "view")
   digitalContractingQuestionnaires: [DigitalContractingQuestionnaire!]!
     @all
     @guard
-    @can(ability: "viewAny")
+    @canModel(ability: "viewAny")
   departmentSpecificRecruitmentProcessForm(
     id: UUID! @eq
   ): DepartmentSpecificRecruitmentProcessForm
     @find
     @guard
-    @can(ability: "view", query: true)
+    @canQuery(ability: "view")
   departmentSpecificRecruitmentProcessForms: [DepartmentSpecificRecruitmentProcessForm!]!
     @all
     @guard
-    @can(ability: "viewAny")
+    @canModel(ability: "viewAny")
 }
 
 extend type Mutation {
   createDigitalContractingQuestionnaire(
     digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!
       @spread
-  ): DigitalContractingQuestionnaire @create @guard @can(ability: "create")
+  ): DigitalContractingQuestionnaire @create @guard @canModel(ability: "create")
   updateDigitalContractingQuestionnaire(
     id: UUID!
     digitalContractingQuestionnaire: DigitalContractingQuestionnaireInput!
@@ -404,13 +401,13 @@ extend type Mutation {
   ): DigitalContractingQuestionnaire
     @update
     @guard
-    @can(ability: "update", find: "id")
+    @canFind(ability: "update", find: "id")
   deleteDigitalContractingQuestionnaire(
     id: UUID! @whereKey
   ): DigitalContractingQuestionnaire
     @delete
     @guard
-    @can(ability: "delete", find: "id")
+    @canFind(ability: "delete", find: "id")
 
   createDepartmentSpecificRecruitmentProcessForm(
     departmentSpecificRecruitmentProcessForm: DepartmentSpecificRecruitmentProcessFormInput!
@@ -418,7 +415,7 @@ extend type Mutation {
   ): DepartmentSpecificRecruitmentProcessForm
     @create
     @guard
-    @can(ability: "create")
+    @canModel(ability: "create")
   updateDepartmentSpecificRecruitmentProcessForm(
     id: UUID!
     departmentSpecificRecruitmentProcessForm: DepartmentSpecificRecruitmentProcessFormInput!
@@ -426,11 +423,11 @@ extend type Mutation {
   ): DepartmentSpecificRecruitmentProcessForm
     @update
     @guard
-    @can(ability: "update", find: "id")
+    @canFind(ability: "update", find: "id")
   deleteDepartmentSpecificRecruitmentProcessForm(
     id: UUID! @whereKey
   ): DepartmentSpecificRecruitmentProcessForm
     @delete
     @guard
-    @can(ability: "delete", find: "id")
+    @canFind(ability: "delete", find: "id")
 }

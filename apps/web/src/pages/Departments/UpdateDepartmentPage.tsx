@@ -10,9 +10,10 @@ import { Input, Submit } from "@gc-digital-talent/forms";
 import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
 import { Pending, NotFound } from "@gc-digital-talent/ui";
 import {
-  Department,
+  FragmentType,
   Scalars,
   UpdateDepartmentInput,
+  getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
 
@@ -23,24 +24,37 @@ import { pageTitle as indexDepartmentPageTitle } from "~/pages/Departments/Index
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminHero from "~/components/Hero/AdminHero";
 import adminMessages from "~/messages/adminMessages";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+
+export const DepartmentForm_Fragment = graphql(/* GraphQL */ `
+  fragment DepartmentForm on Department {
+    id
+    departmentNumber
+    name {
+      en
+      fr
+    }
+  }
+`);
 
 type FormValues = UpdateDepartmentInput;
 
 interface UpdateDepartmentProps {
-  initialDepartment: Department;
+  query: FragmentType<typeof DepartmentForm_Fragment>;
   handleUpdateDepartment: (
     id: string,
     data: FormValues,
-  ) => Promise<UpdateDepartmentInput>;
+  ) => Promise<FragmentType<typeof DepartmentForm_Fragment>>;
 }
 
 export const UpdateDepartmentForm = ({
-  initialDepartment,
+  query,
   handleUpdateDepartment,
 }: UpdateDepartmentProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
+  const initialDepartment = getFragment(DepartmentForm_Fragment, query);
   const methods = useForm<FormValues>({
     defaultValues: {
       departmentNumber: initialDepartment.departmentNumber,
@@ -138,12 +152,7 @@ type RouteParams = {
 const Department_Query = graphql(/* GraphQL */ `
   query Department($id: UUID!) {
     department(id: $id) {
-      id
-      departmentNumber
-      name {
-        en
-        fr
-      }
+      ...DepartmentForm
     }
   }
 `);
@@ -151,12 +160,7 @@ const Department_Query = graphql(/* GraphQL */ `
 const UpdateDepartment_Mutation = graphql(/* GraphQL */ `
   mutation UpdateDepartment($id: ID!, $department: UpdateDepartmentInput!) {
     updateDepartment(id: $id, department: $department) {
-      id
-      departmentNumber
-      name {
-        en
-        fr
-      }
+      ...DepartmentForm
     }
   }
 `);
@@ -186,33 +190,28 @@ const UpdateDepartmentPage = () => {
       return Promise.reject(result.error);
     });
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(indexDepartmentPageTitle),
-      url: routes.departmentTable(),
-    },
-    ...(departmentId
-      ? [
-          {
-            label: intl.formatMessage({
-              defaultMessage: "Edit<hidden> department</hidden>",
-              id: "FYIbdJ",
-              description:
-                "Breadcrumb title for the edit department page link.",
-            }),
-            url: routes.departmentUpdate(departmentId),
-          },
-        ]
-      : []),
-  ];
+  const navigationCrumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(indexDepartmentPageTitle),
+        url: routes.departmentTable(),
+      },
+      ...(departmentId
+        ? [
+            {
+              label: intl.formatMessage({
+                defaultMessage: "Edit<hidden> department</hidden>",
+                id: "FYIbdJ",
+                description:
+                  "Breadcrumb title for the edit department page link.",
+              }),
+              url: routes.departmentUpdate(departmentId),
+            },
+          ]
+        : []),
+    ],
+    isAdmin: true,
+  });
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Edit department",
@@ -231,7 +230,7 @@ const UpdateDepartmentPage = () => {
         <Pending fetching={fetching} error={error}>
           {departmentData?.department ? (
             <UpdateDepartmentForm
-              initialDepartment={departmentData.department}
+              query={departmentData.department}
               handleUpdateDepartment={handleUpdateDepartment}
             />
           ) : (

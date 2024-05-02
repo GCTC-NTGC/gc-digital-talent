@@ -4,12 +4,10 @@ import AcademicCapIcon from "@heroicons/react/20/solid/AcademicCapIcon";
 import BanknotesIcon from "@heroicons/react/20/solid/BanknotesIcon";
 import UserIcon from "@heroicons/react/20/solid/UserIcon";
 
-import ToggleGroupDocs from "./ToggleGroup.docs.mdx";
 import ToggleGroup from "./ToggleGroup";
 
 export default {
   component: ToggleGroup.Root,
-  title: "Components/Toggle Group",
   args: {
     type: "single",
   },
@@ -17,11 +15,6 @@ export default {
     type: {
       control: "select",
       options: ["single", "multiple"],
-    },
-  },
-  parameters: {
-    docs: {
-      page: ToggleGroupDocs,
     },
   },
 } as Meta<typeof ToggleGroup.Root>;

@@ -30,6 +30,9 @@ stages:
         env:
           API_URI: /graphql
           ADMIN_APP_DIR: /admin
+          API_PROTECTED_URI: /admin/graphql
+          # We don't need Cypress in this environment, and so this avoid permission errors of installing it.
+          # See: https://docs.cypress.io/guides/getting-started/installing-cypress#Skipping-installation
           CYPRESS_INSTALL_BINARY: 0
 
       - task: ArchiveFiles@2
@@ -43,7 +46,6 @@ stages:
         displayName: "Publish Artifact: gcDigitalTalent"
         inputs:
           ArtifactName: gcDigitalTalent
-
 - stage: Test
   pool:
     name: 'TBS Linux Self Hosted'
@@ -94,7 +96,7 @@ stages:
 
       - script: npm run build:packages
         displayName: "Build dependencies"
-      
+
       - script: npx playwright install
         displayName: "Install Playwright browsers"
 
@@ -126,9 +128,3 @@ stages:
             else
               echo "No 'test-results' directory found"
             fi
-
-
-
-
-
-

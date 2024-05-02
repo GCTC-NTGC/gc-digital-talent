@@ -1,54 +1,40 @@
 import React from "react";
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import { StoryFn, Meta } from "@storybook/react";
 import { faker } from "@faker-js/faker";
 
-import Well from "./Well";
+import { allModes } from "@gc-digital-talent/storybook-helpers";
 
-type ComponentType = typeof Well;
-type Meta = ComponentMeta<ComponentType>;
-type Story = ComponentStory<ComponentType>;
+import Well from "./Well";
 
 faker.seed(0);
 
 export default {
   component: Well,
-  title: "Components/Well",
   args: {
     content: faker.lorem.sentences(2),
   },
+  parameters: {
+    chromatic: {
+      modes: {
+        light: allModes.light,
+        dark: allModes.dark,
+      },
+    },
+  },
 } as Meta;
 
-const themes = ["light", "dark"];
-
-const Template: Story = (args) => {
+const Template: StoryFn<typeof Well> = (args) => {
   const { content } = args;
   return (
     <div
-      data-h2-display="base(grid)"
-      data-h2-grid-template-columns="base(100%) l-tablet(50% 50%)"
+      data-h2-display="base(flex)"
+      data-h2-flex-direction="base(column)"
+      data-h2-gap="base(x1 0)"
     >
-      {themes.map((theme) => (
-        <div data-h2={theme} key={theme}>
-          <div
-            data-h2-background="base(background)"
-            data-h2-padding="base(x2)"
-            data-h2-margin-top="base:children[>div:not(:first-child)](x.25)"
-          >
-            <Well>
-              <p>Default: {content}</p>
-            </Well>
-            <Well color="success">
-              <p>Success: {content}</p>
-            </Well>
-            <Well color="warning">
-              <p>Warning: {content}</p>
-            </Well>
-            <Well color="error">
-              <p>Error: {content}</p>
-            </Well>
-          </div>
-        </div>
-      ))}
+      <Well>Default: {content}</Well>
+      <Well color="success">Success: {content}</Well>
+      <Well color="warning">Warning: {content}</Well>
+      <Well color="error">Error: {content}</Well>
     </div>
   );
 };

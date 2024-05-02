@@ -13,7 +13,7 @@ use App\Models\User;
 use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\GenericJobTitleSeeder;
-use Database\Seeders\PoolSeeder;
+use Database\Seeders\PoolTestSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
@@ -21,12 +21,14 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
+use Tests\UsesProtectedGraphqlEndpoint;
 
 class ApplicantFilterTest extends TestCase
 {
     use MakesGraphQLRequests;
     use RefreshDatabase;
     use RefreshesSchemaCache;
+    use UsesProtectedGraphqlEndpoint;
 
     protected $adminUser;
 
@@ -173,7 +175,7 @@ class ApplicantFilterTest extends TestCase
         $this->seed(ClassificationSeeder::class);
         $this->seed(SkillFamilySeeder::class);
         $this->seed(SkillSeeder::class);
-        $this->seed(PoolSeeder::class);
+        $this->seed(PoolTestSeeder::class);
 
         $filters = ApplicantFilter::factory()->withRelationships()->count(10)->create();
         $this->assertEquals(10, $filters->count());
@@ -194,7 +196,7 @@ class ApplicantFilterTest extends TestCase
         $this->seed(ClassificationSeeder::class);
         $this->seed(SkillFamilySeeder::class);
         $this->seed(SkillSeeder::class);
-        $this->seed(PoolSeeder::class);
+        $this->seed(PoolTestSeeder::class);
 
         $filter = ApplicantFilter::factory()->withRelationships()->create();
         $request = PoolCandidateSearchRequest::factory()->create([
@@ -344,7 +346,7 @@ class ApplicantFilterTest extends TestCase
         $this->seed(GenericJobTitleSeeder::class);
         $this->seed(SkillFamilySeeder::class);
         $this->seed(SkillSeeder::class);
-        $this->seed(PoolSeeder::class);
+        $this->seed(PoolTestSeeder::class);
 
         $pool = Pool::factory()
             ->published()
@@ -357,9 +359,9 @@ class ApplicantFilterTest extends TestCase
                 'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
             ]);
         // Create candidates who may show up in searches
-        $candidates = PoolCandidate::factory()->count(100)->availableInSearch()->create([
+        $candidates = PoolCandidate::factory()->count(10)->availableInSearch()->create([
             'pool_id' => $pool->id,
-            'user_id' => User::factory()->withSkills(10),
+            'user_id' => User::factory()->withSkillsAndExperiences(10),
         ]);
 
         // Generate a filter that matches at least one candidate
@@ -385,22 +387,12 @@ class ApplicantFilterTest extends TestCase
                 'operational_requirements' => $candidate->user->accepted_operational_requirements,
             ]
         );
-        $filter->qualifiedClassifications()->saveMany(
-            $pool->classifications->unique()
-        );
+        $filter->qualifiedClassifications()->saveMany([$pool->classification]);
         $candidateUser = User::with([
-            'awardExperiences',
-            'awardExperiences.skills',
-            'communityExperiences',
-            'communityExperiences.skills',
-            'educationExperiences',
-            'educationExperiences.skills',
-            'personalExperiences',
-            'personalExperiences.skills',
-            'workExperiences',
-            'workExperiences.skills',
+            'experiences',
+            'experiences.skills',
         ])->find($candidate->user_id);
-        $candidateSkills = $candidateUser->experiences->pluck('skills')->flatten()->unique();
+        $candidateSkills = $candidateUser->experiences[0]->skills;
         $filter->skills()->saveMany($candidateSkills->shuffle()->take(3));
         $filter->pools()->save($pool);
         $filter->qualified_streams = $pool->stream;

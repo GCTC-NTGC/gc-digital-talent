@@ -1,37 +1,136 @@
-import React from "react";
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
-import { useIntl } from "react-intl";
+import React, { useEffect, useMemo, useState } from "react";
+import {
+  ColumnDef,
+  PaginationState,
+  createColumnHelper,
+} from "@tanstack/react-table";
+import { createIntl, createIntlCache, useIntl } from "react-intl";
 import { OperationContext, useQuery } from "urql";
-import { useLocation } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
+import { SubmitHandler } from "react-hook-form";
 
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getLocalizedName,
+  useIntlLanguages,
+} from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Pending } from "@gc-digital-talent/ui";
-import { Skill, graphql } from "@gc-digital-talent/graphql";
+import {
+  Skill,
+  SkillCategory,
+  SkillFamily,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
 import { normalizedText } from "~/components/Table/sortingFns";
+import {
+  INITIAL_STATE,
+  SEARCH_PARAM_KEY,
+} from "~/components/Table/ResponsiveTable/constants";
+import * as messages from "~/lang/frCompiled.json";
 
 import {
   categoryAccessor,
   familiesAccessor,
-  keywordsAccessor,
   skillFamiliesCell,
 } from "./tableHelpers";
+import SkillFilterDialog, { FormValues } from "./SkillFilterDialog";
+import { getSkillCsvData, getSkillCsvHeaders } from "./skillCsv";
+
+export type SkillFilterInput = FormValues;
+
+export function stringToEnumSkillCategory(
+  selection: string,
+): SkillCategory | undefined {
+  if (Object.values(SkillCategory).includes(selection as SkillCategory)) {
+    return selection as SkillCategory;
+  }
+  return undefined;
+}
+
+export function transformFormValuesToSkillFilterInput(
+  data: FormValues,
+): SkillFilterInput {
+  return {
+    skillCategories: data.skillCategories?.length
+      ? data.skillCategories.map(stringToEnumSkillCategory).filter(notEmpty)
+      : undefined,
+    skillFamilies: data.skillFamilies?.length ? data.skillFamilies : undefined,
+  };
+}
+
+export function transformSkillFilterInputToFormValues(
+  input: SkillFilterInput | undefined,
+): FormValues {
+  return {
+    skillCategories: input?.skillCategories?.filter(notEmpty) ?? [],
+    skillFamilies: input?.skillFamilies?.filter(notEmpty) ?? [],
+  };
+}
 
 const columnHelper = createColumnHelper<Skill>();
 
 interface SkillTableProps {
   skills: Array<Skill>;
+  skillFamilies: SkillFamily[];
   title: string;
+  paginationState?: PaginationState;
+  addButton?: boolean;
+  fetching?: boolean;
+  csvDownload?: boolean;
 }
 
-export const SkillTable = ({ skills, title }: SkillTableProps) => {
+export const SkillTable = ({
+  skills,
+  title,
+  paginationState,
+  addButton,
+  skillFamilies,
+  fetching,
+  csvDownload,
+}: SkillTableProps) => {
   const intl = useIntl();
+  const cache = createIntlCache();
+  const englishMessages = useIntlLanguages("en", messages);
+  const frenchMessages = useIntlLanguages("fr", messages);
+  const intlEn = createIntl(
+    {
+      locale: "en",
+      messages: englishMessages,
+    },
+    cache,
+  );
+  const intlFr = createIntl(
+    {
+      locale: "fr",
+      messages: frenchMessages,
+    },
+    cache,
+  );
+
   const paths = useRoutes();
+  const [searchParams] = useSearchParams();
+  const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
+  const initialFilters: SkillFilterInput = useMemo(
+    () => (filtersEncoded ? JSON.parse(filtersEncoded) : undefined),
+    [filtersEncoded],
+  );
+
+  const [filterState, setFilterState] =
+    useState<SkillFilterInput>(initialFilters);
+
+  const [dataState, setDataState] = useState<Skill[]>(skills);
+
+  const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
+    const transformedData = transformFormValuesToSkillFilterInput(data);
+    setFilterState(transformedData);
+  };
+
   const columns = [
     columnHelper.accessor("id", {
       id: "id",
@@ -50,6 +149,18 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
         return cells.edit(skill.id, paths.skillTable(), skillName, skillName);
       },
     }),
+    columnHelper.accessor((skill) => familiesAccessor(skill, intl), {
+      id: "skillFamilies",
+      sortingFn: normalizedText,
+      header: intl.formatMessage(adminMessages.skillFamilies),
+      cell: ({ row: { original: skill } }) =>
+        skillFamiliesCell(skill.families, intl),
+    }),
+    columnHelper.accessor(({ category }) => categoryAccessor(category, intl), {
+      id: "category",
+      sortingFn: normalizedText,
+      header: intl.formatMessage(adminMessages.category),
+    }),
     columnHelper.accessor(
       (skill) => getLocalizedName(skill.description, intl, true),
       {
@@ -63,30 +174,30 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
         }),
       },
     ),
-    columnHelper.accessor((skill) => keywordsAccessor(skill, intl), {
-      id: "keywords",
-      sortingFn: normalizedText,
-      header: intl.formatMessage({
-        defaultMessage: "Keywords",
-        id: "I7rxxQ",
-        description: "Title displayed for the skill table Keywords column.",
-      }),
-    }),
-    columnHelper.accessor((skill) => familiesAccessor(skill, intl), {
-      id: "skillFamilies",
-      sortingFn: normalizedText,
-      header: intl.formatMessage(adminMessages.skillFamilies),
-      cell: ({ row: { original: skill } }) =>
-        skillFamiliesCell(skill.families, intl),
-    }),
-    columnHelper.accessor(({ category }) => categoryAccessor(category, intl), {
-      id: "category",
-      sortingFn: normalizedText,
-      header: intl.formatMessage(adminMessages.category),
-    }),
   ] as ColumnDef<Skill>[];
 
-  const data = skills.filter(notEmpty);
+  useEffect(() => {
+    let filteredData = skills;
+    // filter by skill family
+    if (filterState?.skillFamilies)
+      filteredData = filteredData.filter((skill) =>
+        skill.families?.find((skillFamily) =>
+          filterState.skillFamilies?.includes(skillFamily.key),
+        ),
+      );
+
+    // filter by skill category
+    if (filterState?.skillCategories)
+      filteredData = filteredData?.filter(
+        (skill) =>
+          skill.category ===
+          filterState.skillCategories?.find(
+            (category) => category === skill.category,
+          ),
+      );
+
+    setDataState(filteredData);
+  }, [filterState, skills]);
 
   const { pathname, search, hash } = useLocation();
   const currentUrl = `${pathname}${search}${hash}`;
@@ -94,13 +205,14 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
   return (
     <Table<Skill>
       caption={title}
-      data={data}
+      data={dataState}
       columns={columns}
-      hiddenColumnIds={["id", "keywords"]}
+      hiddenColumnIds={["id"]}
       pagination={{
         internal: true,
-        total: data.length,
+        total: dataState.length,
         pageSizes: [10, 20, 50],
+        initialState: paginationState ?? INITIAL_STATE.paginationState,
       }}
       sort={{
         internal: true,
@@ -114,17 +226,60 @@ export const SkillTable = ({ skills, title }: SkillTableProps) => {
           description: "Label for the skills table search input",
         }),
       }}
-      add={{
-        linkProps: {
-          href: paths.skillCreate(),
-          label: intl.formatMessage({
-            defaultMessage: "Create skill",
-            id: "71mPNh",
-            description: "Title for Create skill",
-          }),
-          from: currentUrl,
-        },
+      add={
+        addButton
+          ? {
+              linkProps: {
+                href: paths.skillCreate(),
+                label: intl.formatMessage({
+                  defaultMessage: "Create skill",
+                  id: "71mPNh",
+                  description: "Title for Create skill",
+                }),
+                from: currentUrl,
+              },
+            }
+          : undefined
+      }
+      filter={{
+        state: filterState,
+        component: (
+          <SkillFilterDialog
+            skillFamilies={skillFamilies}
+            fetching={fetching}
+            onSubmit={handleFilterSubmit}
+            resetValues={transformSkillFilterInputToFormValues({})}
+            initialValues={transformSkillFilterInputToFormValues(
+              initialFilters,
+            )}
+          />
+        ),
       }}
+      download={
+        csvDownload
+          ? {
+              all: {
+                csv: {
+                  headers: getSkillCsvHeaders(intl),
+                  data: () => {
+                    return getSkillCsvData(skills, intlEn, intlFr);
+                  },
+                  fileName: intl.formatMessage({
+                    defaultMessage: "GC Digital Talent - All skills.csv",
+                    id: "4tIdsX",
+                    description: "Filename for skills CSV file download",
+                  }),
+                },
+                label: intl.formatMessage({
+                  defaultMessage: "Download all skills (CSV)",
+                  id: "XovI8x",
+                  description:
+                    "Text label for button to download a csv file of all skills.",
+                }),
+              },
+            }
+          : undefined
+      }
     />
   );
 };
@@ -160,6 +315,14 @@ const SkillTableSkills_Query = graphql(/* GraphQL */ `
         }
       }
     }
+    skillFamilies {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
   }
 `);
 
@@ -168,15 +331,35 @@ const context: Partial<OperationContext> = {
   requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
 };
 
-const SkillTableApi = ({ title }: { title: string }) => {
+const SkillTableApi = ({
+  title,
+  paginationState,
+  addButton,
+  csvDownload,
+}: {
+  title: string;
+  paginationState?: PaginationState;
+  addButton?: boolean;
+  csvDownload?: boolean;
+}) => {
   const [{ data, fetching, error }] = useQuery({
     query: SkillTableSkills_Query,
     context,
   });
 
+  const skillFamilies: SkillFamily[] = unpackMaybes(data?.skillFamilies);
+
   return (
     <Pending fetching={fetching} error={error}>
-      <SkillTable skills={unpackMaybes(data?.skills)} title={title} />
+      <SkillTable
+        skills={unpackMaybes(data?.skills)}
+        title={title}
+        addButton={addButton}
+        paginationState={paginationState}
+        fetching={fetching}
+        skillFamilies={skillFamilies}
+        csvDownload={csvDownload}
+      />
     </Pending>
   );
 };

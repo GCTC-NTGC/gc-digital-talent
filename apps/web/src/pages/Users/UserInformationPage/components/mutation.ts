@@ -1,16 +1,15 @@
 import { graphql } from "@gc-digital-talent/graphql";
 
-const AdminUpdatePoolCandidate_Mutation = graphql(/* GraphQL */ `
-  mutation AdminUpdatePoolCandidate_Mutation(
+const UpdatePoolCandidateStatus_Mutation = graphql(/* GraphQL */ `
+  mutation UpdatePoolCandidateStatus_Mutation(
     $id: UUID!
-    $poolCandidate: UpdatePoolCandidateAsAdminInput!
+    $poolCandidate: UpdatePoolCandidateStatusInput!
   ) {
-    updatePoolCandidateAsAdmin(id: $id, poolCandidate: $poolCandidate) {
-      cmoIdentifier
+    updatePoolCandidateStatus(id: $id, poolCandidate: $poolCandidate) {
       expiryDate
       status
     }
   }
 `);
 
-export default AdminUpdatePoolCandidate_Mutation;
+export default UpdatePoolCandidateStatus_Mutation;

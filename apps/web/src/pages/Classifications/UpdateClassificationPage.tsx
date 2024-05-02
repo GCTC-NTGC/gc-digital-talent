@@ -16,9 +16,10 @@ import {
 } from "@gc-digital-talent/i18n";
 import {
   graphql,
-  Classification,
   Scalars,
   UpdateClassificationInput,
+  FragmentType,
+  getFragment,
 } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
@@ -28,20 +29,36 @@ import { pageTitle as indexClassificationPageTitle } from "~/pages/Classificatio
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminHero from "~/components/Hero/AdminHero";
 import adminMessages from "~/messages/adminMessages";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+
+export const ClassificationForm_Fragment = graphql(/* GraphQL */ `
+  fragment ClassificationForm on Classification {
+    id
+    name {
+      en
+      fr
+    }
+    group
+    level
+    minSalary
+    maxSalary
+  }
+`);
 
 type FormValues = UpdateClassificationInput;
 interface UpdateClassificationFormProps {
-  initialClassification: Classification;
+  query: FragmentType<typeof ClassificationForm_Fragment>;
   onUpdateClassification: (id: string, data: FormValues) => Promise<FormValues>;
 }
 
 export const UpdateClassificationForm = ({
-  initialClassification,
+  query,
   onUpdateClassification,
 }: UpdateClassificationFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
+  const initialClassification = getFragment(ClassificationForm_Fragment, query);
   const methods = useForm<FormValues>({
     defaultValues: initialClassification,
   });
@@ -209,15 +226,7 @@ type RouteParams = {
 const Classification_Query = graphql(/* GraphQL */ `
   query Classification($id: UUID!) {
     classification(id: $id) {
-      id
-      name {
-        en
-        fr
-      }
-      group
-      level
-      minSalary
-      maxSalary
+      ...ClassificationForm
     }
   }
 `);
@@ -263,33 +272,28 @@ const UpdateClassification = () => {
       return Promise.reject(result.error);
     });
 
-  const navigationCrumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: routes.adminDashboard(),
-    },
-    {
-      label: intl.formatMessage(indexClassificationPageTitle),
-      url: routes.classificationTable(),
-    },
-    ...(classificationId
-      ? [
-          {
-            label: intl.formatMessage({
-              defaultMessage: "Edit<hidden> classification</hidden>",
-              id: "ow4z7W",
-              description:
-                "Breadcrumb title for the edit classification page link.",
-            }),
-            url: routes.classificationUpdate(classificationId),
-          },
-        ]
-      : []),
-  ];
+  const navigationCrumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(indexClassificationPageTitle),
+        url: routes.classificationTable(),
+      },
+      ...(classificationId
+        ? [
+            {
+              label: intl.formatMessage({
+                defaultMessage: "Edit<hidden> classification</hidden>",
+                id: "ow4z7W",
+                description:
+                  "Breadcrumb title for the edit classification page link.",
+              }),
+              url: routes.classificationUpdate(classificationId),
+            },
+          ]
+        : []),
+    ],
+    isAdmin: true,
+  });
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Update classification",
@@ -308,7 +312,7 @@ const UpdateClassification = () => {
         <Pending fetching={fetching} error={error}>
           {classificationData?.classification ? (
             <UpdateClassificationForm
-              initialClassification={classificationData?.classification}
+              query={classificationData?.classification}
               onUpdateClassification={handleUpdateClassification}
             />
           ) : (

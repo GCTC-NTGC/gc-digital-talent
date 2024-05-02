@@ -1,5 +1,5 @@
 import React from "react";
-import { MessageDescriptor, defineMessage, useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 import HomeOutlineIcon from "@heroicons/react/24/outline/HomeIcon";
 import HomeSolidIcon from "@heroicons/react/24/solid/HomeIcon";
@@ -7,6 +7,7 @@ import HomeSolidIcon from "@heroicons/react/24/solid/HomeIcon";
 import { Heading, Pending, IconType } from "@gc-digital-talent/ui";
 import { useAuthorization, hasRole } from "@gc-digital-talent/auth";
 import { User, graphql } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import { getFullNameHtml } from "~/utils/nameUtils";
@@ -47,14 +48,25 @@ import {
   pageTitle as announcementsPageTitle,
   pageSolidIcon as announcementsPageIcon,
 } from "~/pages/AnnouncementsPage/AnnouncementsPage";
+import {
+  adminPageTitle as skillPageTitle,
+  pageSolidIcon as skillPageIcon,
+} from "~/pages/Skills/SkillPage";
 
 import LinkWell from "./components/LinkWell";
 
-export const pageTitle: MessageDescriptor = defineMessage({
+export const pageTitle = defineMessage({
   defaultMessage: "Dashboard",
   id: "ArwIQV",
   description: "Title for dashboard",
 });
+const subTitle = defineMessage({
+  defaultMessage:
+    "This is the administrator hub of the GC Digital Talent platform, manage, sort and recruit talent to the GoC.",
+  id: "7nxtBm",
+  description: "Subtitle for the admin dashboard page",
+});
+
 export const pageOutlineIcon: IconType = HomeOutlineIcon;
 export const pageSolidIcon: IconType = HomeSolidIcon;
 interface DashboardPageProps {
@@ -68,7 +80,10 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
 
   return (
     <>
-      <SEO title={intl.formatMessage(pageTitle)} />
+      <SEO
+        title={intl.formatMessage(pageTitle)}
+        description={intl.formatMessage(subTitle)}
+      />
       <AdminHero
         title={intl.formatMessage(
           {
@@ -84,19 +99,10 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                   currentUser.lastName,
                   intl,
                 )
-              : intl.formatMessage({
-                  defaultMessage: "N/A",
-                  id: "AauSuA",
-                  description: "Not available message.",
-                }),
+              : intl.formatMessage(commonMessages.notAvailable),
           },
         )}
-        subtitle={intl.formatMessage({
-          defaultMessage:
-            "This is the administrator hub of the GC Digital Talent platform, manage, sort and recruit talent to the GoC.",
-          id: "7nxtBm",
-          description: "Subtitle for the admin dashboard page",
-        })}
+        subtitle={intl.formatMessage(subTitle)}
       />
       <AdminContentWrapper>
         <Heading
@@ -148,6 +154,11 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                   }),
                   href: adminRoutes.teamTable(),
                   icon: indexTeamPageIcon,
+                },
+                {
+                  label: intl.formatMessage(skillPageTitle),
+                  href: adminRoutes.skills(),
+                  icon: skillPageIcon,
                 },
               ]}
             />

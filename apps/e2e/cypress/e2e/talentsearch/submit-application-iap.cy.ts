@@ -11,15 +11,17 @@ import {
   WorkRegion,
   SkillCategory,
   User,
+  PoolSkillType,
+  SkillLevel,
 } from "@gc-digital-talent/graphql";
-import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
+import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers/const";
 
 import { addRolesToUser } from "../../support/userHelpers";
 import { aliasQuery } from "../../support/graphql-test-utils";
 
 describe("Submit Application for IAP Workflow Tests", () => {
   beforeEach(() => {
-    cy.intercept("POST", "/graphql", function (req) {
+    cy.intercept("POST", "**/graphql", (req) => {
       aliasQuery(req, "Application");
     });
 
@@ -43,25 +45,23 @@ describe("Submit Application for IAP Workflow Tests", () => {
     cy.log(`Test run ${uniqueTestId}`);
 
     cy.loginByRole("admin");
-    cy.get<string[]>("@testGenericJobTitleIds").then(
-      (testGenericJobTitleIds) => {
-        // This user must have the entire profile completed to be able to apply to a pool
-        cy.createUser({
-          email: `cypress.user.${uniqueTestId}@example.org`,
-          sub: `cypress.sub.${uniqueTestId}`,
-          currentProvince: ProvinceOrTerritory.Ontario,
-          currentCity: "Test City",
-          telephone: "+10123456789",
-          armedForcesStatus: ArmedForcesStatus.NonCaf,
-          citizenship: CitizenshipStatus.Citizen,
-          lookingForEnglish: true,
-          isGovEmployee: false,
-          hasPriorityEntitlement: false,
-          locationPreferences: [WorkRegion.Ontario],
-          positionDuration: [PositionDuration.Permanent],
-        }).as("testUser");
-      },
-    );
+    cy.get<string[]>("@testGenericJobTitleIds").then(() => {
+      // This user must have the entire profile completed to be able to apply to a pool
+      cy.createUser({
+        email: `cypress.user.${uniqueTestId}@example.org`,
+        sub: `cypress.sub.${uniqueTestId}`,
+        currentProvince: ProvinceOrTerritory.Ontario,
+        currentCity: "Test City",
+        telephone: "+10123456789",
+        armedForcesStatus: ArmedForcesStatus.NonCaf,
+        citizenship: CitizenshipStatus.Citizen,
+        lookingForEnglish: true,
+        isGovEmployee: false,
+        hasPriorityEntitlement: false,
+        locationPreferences: [WorkRegion.Ontario],
+        positionDuration: [PositionDuration.Permanent],
+      }).as("testUser");
+    });
 
     cy.get<User>("@testUser").then((testUser) => {
       addRolesToUser(testUser.id, ["guest", "base_user", "applicant"]);
@@ -73,7 +73,7 @@ describe("Submit Application for IAP Workflow Tests", () => {
         .then((adminUserId) => {
           cy.get<string>("@testClassificationId").then(
             (testClassificationId) => {
-              cy.createPool(adminUserId, dcmId, [testClassificationId])
+              cy.createPool(adminUserId, dcmId, testClassificationId)
                 .its("id")
                 .as("testPoolId")
                 .then((testPoolId) => {
@@ -90,9 +90,6 @@ describe("Submit Application for IAP Workflow Tests", () => {
                         fr: "test impact FR",
                       },
                       keyTasks: { en: "key task EN", fr: "key task FR" },
-                      essentialSkills: {
-                        sync: testSkillIds,
-                      },
                       language: PoolLanguage.Various,
                       securityClearance: SecurityStatus.Secret,
                       location: {
@@ -103,6 +100,12 @@ describe("Submit Application for IAP Workflow Tests", () => {
                       opportunityLength: PoolOpportunityLength.Various,
                       publishingGroup: PublishingGroup.Iap,
                     });
+                    testSkillIds.forEach((skillId) =>
+                      cy.createPoolSkill(testPoolId, skillId, {
+                        type: PoolSkillType.Essential,
+                        requiredLevel: SkillLevel.Beginner,
+                      }),
+                    );
                     cy.publishPool(testPoolId);
                   });
                 });
@@ -310,7 +313,7 @@ describe("Submit Application for IAP Workflow Tests", () => {
       "Thank you for your interest in becoming an IT apprentice with the Government of Canada.",
     ); // customized copy for IAP
     cy.findByRole("link", {
-      name: /Visit your Profile and applications page/i,
+      name: /return to your dashboard/i,
     }).click();
 
     // Back on dashboard

@@ -30,6 +30,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property array $key_tasks
  * @property array $your_impact
  * @property array $what_to_expect
+ * @property array $what_to_expect_admission
+ * @property array $about_us
  * @property array $advertisement_location
  * @property array $special_note
  * @property string $security_clearance
@@ -38,6 +40,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $process_number
  * @property string $publishing_group
  * @property string $opportunity_length
+ * @property string $closing_reason
  * @property string $team_id
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
@@ -66,6 +69,8 @@ class Pool extends Model
         'your_impact' => 'array',
         'what_to_expect' => 'array',
         'special_note' => 'array',
+        'what_to_expect_admission' => 'array',
+        'about_us' => 'array',
         'closing_date' => 'datetime',
         'published_at' => 'datetime',
         'is_remote' => 'boolean',
@@ -93,6 +98,7 @@ class Pool extends Model
         'publishing_group',
         'process_number',
         'operational_requirements',
+        'closing_reason',
         'archived_at',
     ];
 
@@ -111,6 +117,8 @@ class Pool extends Model
         'key_tasks',
         'special_note',
         'advertisement_language',
+        'classification_id',
+        'closing_reason',
     ];
 
     public function getActivitylogOptions(): LogOptions
@@ -133,9 +141,9 @@ class Pool extends Model
         return $this->belongsTo(Team::class);
     }
 
-    public function classifications(): BelongsToMany
+    public function classification(): BelongsTo
     {
-        return $this->belongsToMany(Classification::class);
+        return $this->belongsTo(Classification::class);
     }
 
     public function poolCandidates(): HasMany
@@ -209,7 +217,7 @@ class Pool extends Model
     }
 
     // Sync the APPLICATION_SCREENING assessment step with the pools technical skills
-    private function syncApplicationScreeningStepPoolSkills()
+    public function syncApplicationScreeningStepPoolSkills()
     {
         $screeningStep = $this->assessmentSteps()->firstOrCreate([
             'type' => AssessmentStepType::APPLICATION_SCREENING->name,
@@ -259,7 +267,7 @@ class Pool extends Model
     // is the pool considered "complete", filled out entirely by the pool operator
     public function getIsCompleteAttribute()
     {
-        $pool = $this->load(['classifications', 'essentialSkills']);
+        $pool = $this->load(['classification', 'essentialSkills', 'nonessentialSkills', 'poolSkills']);
 
         $poolCompleteValidation = new PoolIsCompleteValidator;
         $validator = Validator::make($pool->toArray(),

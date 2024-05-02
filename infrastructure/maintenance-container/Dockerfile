@@ -9,7 +9,7 @@ FROM ubuntu:23.10
 RUN apt-get update \
   && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tzdata \
   && apt-get install -y perl unzip wget curl \
-  && apt-get install -y php8.2 php-mbstring php-xml php-pgsql php-zip php-curl php-bcmath \
+  && apt-get install -y php8.2 php-mbstring php-xml php-pgsql php-zip php-curl php-bcmath php-gd \
   && apt-get install -y git
 
 # install node from official image
@@ -26,7 +26,7 @@ RUN cd /usr/local/bin \
 RUN git config --global --add safe.directory /var/www/html
 
 # bump npm version
-RUN npm install --location=global npm@9.9.2
+RUN npm install --location=global pnpm@8.15
 
 # install composer from official image
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer

@@ -4,8 +4,8 @@ import { useMutation, useQuery } from "urql";
 
 import { Pending, NotFound } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { graphql, Scalars, UpdateTeamInput } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -24,52 +24,11 @@ const UpdateTeam_Mutation = graphql(/* GraphQL */ `
 const UpdateTeamData_Query = graphql(/* GraphQL */ `
   query UpdateTeamData($teamId: UUID!) {
     team(id: $teamId) {
-      id
-      name
-      contactEmail
-      displayName {
-        en
-        fr
-      }
-      departments {
-        id
-        departmentNumber
-        name {
-          en
-          fr
-        }
-      }
-      description {
-        en
-        fr
-      }
-      roleAssignments {
-        id
-        role {
-          id
-          name
-          isTeamBased
-          displayName {
-            en
-            fr
-          }
-        }
-        user {
-          id
-          email
-          firstName
-          lastName
-        }
-      }
+      ...UpdateTeamPage_Team
     }
 
     departments {
-      id
-      departmentNumber
-      name {
-        en
-        fr
-      }
+      ...TeamDepartmentOption
     }
   }
 `);
@@ -89,8 +48,7 @@ const EditTeamPage = () => {
   });
   const [, executeMutation] = useMutation(UpdateTeam_Mutation);
 
-  const departments = unpackMaybes(data?.departments);
-  const team = data?.team;
+  const teamQuery = data?.team;
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Edit team information",
@@ -116,12 +74,12 @@ const EditTeamPage = () => {
   return (
     <AdminContentWrapper>
       <Pending fetching={fetching} error={error}>
-        {team ? (
+        {teamQuery ? (
           <>
             <SEO title={pageTitle} />
             <UpdateTeamForm
-              team={team}
-              departments={departments}
+              teamQuery={teamQuery}
+              departmentsQuery={unpackMaybes(data?.departments)}
               onSubmit={handleSubmit}
             />
           </>

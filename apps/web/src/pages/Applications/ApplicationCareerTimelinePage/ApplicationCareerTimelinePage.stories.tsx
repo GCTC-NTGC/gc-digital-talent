@@ -1,5 +1,5 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 
 import {
   fakeExperiences,
@@ -13,9 +13,7 @@ import { ApplicationCareerTimeline } from "./ApplicationCareerTimelinePage";
 const fakePoolCandidate = fakePoolCandidates(1)[0];
 const fakeUser = fakePoolCandidate.user;
 
-type ApplicationCareerTimelineStory = ComponentStory<
-  typeof ApplicationCareerTimeline
->;
+type ApplicationCareerTimelineStory = StoryFn<typeof ApplicationCareerTimeline>;
 
 const noExperiencesProps: ApplicationCareerTimelineStory["args"] = {
   application: {
@@ -41,8 +39,7 @@ const hasExperiencesProps: ApplicationCareerTimelineStory["args"] = {
 
 export default {
   component: ApplicationCareerTimeline,
-  title: "Pages/Application/Review Career Timeline",
-} as ComponentMeta<typeof ApplicationCareerTimeline>;
+} as Meta<typeof ApplicationCareerTimeline>;
 
 const Template: ApplicationCareerTimelineStory = (props) => (
   <ApplicationCareerTimeline {...props} />

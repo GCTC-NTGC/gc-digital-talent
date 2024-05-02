@@ -2,21 +2,19 @@
   "name": "@gc-digital-talent/storage",
   "license": "AGPL-3.0",
   "version": "1.0.0",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist/**"
-  ],
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "scripts": {
-    "build": "tsc --declaration",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "dev": "tsc --declaration",
     "lint": "eslint \"src/**/*.ts*\""
   },
   "devDependencies": {
-    "eslint-config-custom": "*",
-    "react": "^18.2.0",
-    "tsconfig": "*",
-    "typescript": "^5.3.3"
+    "@gc-digital-talent/eslint-config": "workspace:*",
+    "@types/react": "^18.3.1",
+    "eslint": "^8.57.0",
+    "react": "^18.3.1",
+    "tsconfig": "workspace:*",
+    "typescript": "^5.4.5"
   }
 }

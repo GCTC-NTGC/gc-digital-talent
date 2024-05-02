@@ -1,9 +1,10 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 
 import { fakePools, fakeTeams } from "@gc-digital-talent/fake-data";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
-import { PoolTable } from "./PoolTable";
+import { PoolTable, PoolTableRow_Fragment } from "./PoolTable";
 
 const mockPools = fakePools();
 const mockTeams = fakeTeams();
@@ -21,16 +22,17 @@ const mockPoolsWithTeam = mockPools.flatMap((pool) => {
 
 export default {
   component: PoolTable,
-  title: "Tables/Pool Table",
-} as ComponentMeta<typeof PoolTable>;
+} as Meta<typeof PoolTable>;
 
-const Template: ComponentStory<typeof PoolTable> = (args) => {
-  const { pools, title } = args;
-  return <PoolTable pools={pools} title={title} />;
+const Template: StoryFn<typeof PoolTable> = (args) => {
+  const { poolsQuery, title } = args;
+  return <PoolTable poolsQuery={poolsQuery} title={title} />;
 };
 
 export const Default = Template.bind({});
 Default.args = {
-  pools: mockPoolsWithTeam,
+  poolsQuery: mockPoolsWithTeam.map((pool) =>
+    makeFragmentData(pool, PoolTableRow_Fragment),
+  ),
   title: "Pools",
 };

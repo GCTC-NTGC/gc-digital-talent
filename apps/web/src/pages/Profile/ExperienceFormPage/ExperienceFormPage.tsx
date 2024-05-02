@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { OperationContext, useQuery } from "urql";
 
@@ -19,7 +19,12 @@ import {
   formMessages,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import { Scalars, Skill, graphql } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  Scalars,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -31,7 +36,6 @@ import type {
   ExperienceType,
   AllExperienceFormValues,
   ExperienceFormValues,
-  AnyExperience,
   ExperienceDetailsSubmissionData,
   ExperienceMutationResponse,
 } from "~/types/experience";
@@ -47,8 +51,32 @@ import {
   formValuesToSubmitData,
   queryResultToDefaultValues,
 } from "~/utils/experienceUtils";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import ExperienceSkills from "./components/ExperienceSkills";
+
+const editPageTitle = defineMessage({
+  defaultMessage: "Edit a career timeline experience",
+  id: "1T+YAC",
+  description: "Display text for edit experience form in breadcrumbs",
+});
+const addPageTitle = defineMessage({
+  defaultMessage: "Add an experience to your career timeline",
+  id: "gU/nxf",
+  description: "Title for application career timeline add experience",
+});
+
+const editSubTitle = defineMessage({
+  defaultMessage: "Update or delete an experience on your career timeline",
+  id: "A+4huJ",
+  description: "Display text for edit experience form in breadcrumbs",
+});
+const addSubTitle = defineMessage({
+  defaultMessage:
+    "Describe work, education, community, personal, or award experiences.",
+  id: "YwO4XP",
+  description: "Display text for add experience form in breadcrumbs",
+});
 
 type FormAction = "return" | "add-another";
 type FormValues = ExperienceFormValues<AllExperienceFormValues> & {
@@ -56,27 +84,122 @@ type FormValues = ExperienceFormValues<AllExperienceFormValues> & {
   action: FormAction;
 };
 
+export const ExperienceFormSkill_Fragment = graphql(/* GraphQL */ `
+  fragment ExperienceFormSkill on Skill {
+    id
+    key
+    name {
+      en
+      fr
+    }
+    keywords {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    category
+    families {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+    }
+  }
+`);
+
+export const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
+  fragment ExperienceFormExperience on Experience {
+    id
+    details
+    user {
+      id
+    }
+    skills {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      category
+      experienceSkillRecord {
+        details
+      }
+    }
+    ... on AwardExperience {
+      title
+      issuedBy
+      awardedDate
+      awardedTo
+      awardedScope
+    }
+    ... on CommunityExperience {
+      title
+      organization
+      project
+      startDate
+      endDate
+    }
+    ... on EducationExperience {
+      institution
+      areaOfStudy
+      thesisTitle
+      startDate
+      endDate
+      type
+      status
+    }
+    ... on PersonalExperience {
+      title
+      description
+      startDate
+      endDate
+    }
+    ... on WorkExperience {
+      role
+      organization
+      division
+      startDate
+      endDate
+    }
+  }
+`);
+
 export interface ExperienceFormProps {
   edit?: boolean;
-  experience?: AnyExperience;
+  experienceQuery?: FragmentType<typeof ExperienceFormExperience_Fragment>;
   experienceId?: string;
   experienceType: ExperienceType;
-  skills: Skill[];
+  skillsQuery: FragmentType<typeof ExperienceFormSkill_Fragment>[];
   userId: string;
 }
 
 export const ExperienceForm = ({
   edit,
-  experience,
+  experienceQuery,
   experienceId,
   experienceType,
-  skills,
+  skillsQuery,
   userId,
 }: ExperienceFormProps) => {
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
   const returnPath = paths.careerTimelineAndRecruitment(userId || "");
+  const experience = getFragment(
+    ExperienceFormExperience_Fragment,
+    experienceQuery,
+  );
+  const skills = getFragment(ExperienceFormSkill_Fragment, skillsQuery);
 
   const defaultValues =
     experienceId && experience
@@ -208,72 +331,49 @@ export const ExperienceForm = ({
     }
   }, [isSubmitSuccessful, reset, action, setFocus, setValue]);
 
-  const crumbs: { label: string | React.ReactNode; url: string }[] = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: paths.home(),
-    },
-    {
-      label: intl.formatMessage(navigationMessages.profileAndApplications),
-      url: paths.profileAndApplications(),
-    },
-    {
-      label: intl.formatMessage(
-        navigationMessages.careerTimelineAndRecruitment,
-      ),
-      url: returnPath,
-    },
-    {
-      label: experience
-        ? intl.formatMessage({
-            defaultMessage: "Edit experience",
-            id: "zsUuN9",
-            description: "Title for edit experience page",
-          })
-        : intl.formatMessage({
-            defaultMessage: "Add Experience",
-            id: "mJ1HE4",
-            description: "Display text for add experience form in breadcrumbs",
-          }),
-      url: experience
-        ? paths.editExperience(userId, experienceType, experience.id)
-        : "#",
-    },
-  ];
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(navigationMessages.profileAndApplications),
+        url: paths.profileAndApplications(),
+      },
+      {
+        label: intl.formatMessage(
+          navigationMessages.careerTimelineAndRecruitment,
+        ),
+        url: returnPath,
+      },
+      {
+        label: experience
+          ? intl.formatMessage({
+              defaultMessage: "Edit experience",
+              id: "zsUuN9",
+              description: "Title for edit experience page",
+            })
+          : intl.formatMessage({
+              defaultMessage: "Add Experience",
+              id: "mJ1HE4",
+              description:
+                "Display text for add experience form in breadcrumbs",
+            }),
+        url: experience
+          ? paths.editExperience(userId, experienceType, experience.id)
+          : "#",
+      },
+    ],
+  });
 
   const pageTitle: string = experience
-    ? intl.formatMessage({
-        defaultMessage: "Edit a career timeline experience",
-        id: "1T+YAC",
-        description: "Display text for edit experience form in breadcrumbs",
-      })
-    : intl.formatMessage({
-        defaultMessage: "Add an experience to your career timeline",
-        id: "gU/nxf",
-        description: "Title for application career timeline add experience",
-      });
+    ? intl.formatMessage(editPageTitle)
+    : intl.formatMessage(addPageTitle);
 
   const pageSubtitle: string = experience
-    ? intl.formatMessage({
-        defaultMessage:
-          "Update or delete an experience on your career timeline",
-        id: "A+4huJ",
-        description: "Display text for edit experience form in breadcrumbs",
-      })
-    : intl.formatMessage({
-        defaultMessage:
-          "Describe work, education, community, personal, or award experiences.",
-        id: "YwO4XP",
-        description: "Display text for add experience form in breadcrumbs",
-      });
+    ? intl.formatMessage(editSubTitle)
+    : intl.formatMessage(addSubTitle);
 
   return (
     <>
-      <SEO title={pageTitle} />
+      <SEO title={pageTitle} description={pageSubtitle} />
       <Hero title={pageTitle} subtitle={pageSubtitle} crumbs={crumbs} />
       <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
         <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
@@ -345,7 +445,7 @@ export const ExperienceForm = ({
                 <TableOfContents.Section id="skills">
                   <ExperienceSkills
                     experienceType={experienceType}
-                    skills={skills}
+                    skills={[...skills]}
                   />
                 </TableOfContents.Section>
                 <Separator space="lg" />
@@ -466,97 +566,31 @@ export const ExperienceForm = ({
 };
 
 const context: Partial<OperationContext> = {
-  additionalTypenames: ["Skill", "SkillFamily"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
-  requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
+  additionalTypenames: [
+    "Skill",
+    "SkillFamily",
+    "AwardExperience",
+    "CommunityExperience",
+    "EducationExperience",
+    "PersonalExperience",
+    "WorkExperience",
+  ], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
+  requestPolicy: "cache-first", // The list of skills and experiences will rarely change, so we override default request policy to avoid unnecessary cache updates.
 };
 
 const ExperienceFormData_Query = graphql(/* GraphQL */ `
   query ExperienceFormData {
     skills {
-      id
-      key
-      name {
-        en
-        fr
-      }
-      keywords {
-        en
-        fr
-      }
-      description {
-        en
-        fr
-      }
-      category
-      families {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        description {
-          en
-          fr
-        }
-      }
+      ...ExperienceFormSkill
     }
     me {
       id
       experiences {
         id
-        details
         user {
           id
         }
-        skills {
-          id
-          key
-          name {
-            en
-            fr
-          }
-          category
-          experienceSkillRecord {
-            details
-          }
-        }
-        ... on AwardExperience {
-          title
-          issuedBy
-          awardedDate
-          awardedTo
-          awardedScope
-        }
-        ... on CommunityExperience {
-          title
-          organization
-          project
-          startDate
-          endDate
-        }
-        ... on EducationExperience {
-          institution
-          areaOfStudy
-          thesisTitle
-          startDate
-          endDate
-          type
-          status
-        }
-        ... on PersonalExperience {
-          title
-          description
-          startDate
-          endDate
-        }
-        ... on WorkExperience {
-          role
-          organization
-          division
-          startDate
-          endDate
-        }
+        ...ExperienceFormExperience
       }
     }
   }
@@ -594,10 +628,10 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
       {skills ? (
         <ExperienceForm
           edit={edit}
-          experience={experience}
+          experienceQuery={experience}
           experienceId={experienceId || ""}
           experienceType={experienceType}
-          skills={skills}
+          skillsQuery={skills}
           userId={userId || ""}
         />
       ) : (

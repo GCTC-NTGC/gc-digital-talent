@@ -8,17 +8,6 @@ To set up a local development environment, run these commands from anywhere in r
 
 1. Build and run the containers: `docker-compose up --detach --build`
 2. To setup the apps: `docker-compose run --rm maintenance bash setup.sh`
-   - <details>
-        <summary>If you encounter unexpected hangs without error during <code>npm install</code>...</summary>
-        ...try stopping `mock-auth` container temporarily. (It runs a Java app,
-        and these can be memory hogs.) You can do this via Docker UI or this CLI
-        command:
-        ```
-        docker-compose stop mock-auth
-        # Finish building app.
-        docker-compose start mock-auth
-        ```
-     </details>
 3. Next you can log in:
    - For testing admin accounts:
      1. Navigate to http://localhost:8000/login
@@ -26,7 +15,7 @@ To set up a local development environment, run these commands from anywhere in r
      3. Navigate to http://localhost:8000/admin/dashboard
    - For testing applicant accounts:
      1. Navigate to http://localhost:8000/en/login-info
-     2. Click on "Continue to GCKey and Login"
+     2. Click on "Continue to GCKey and sign in"
      3. Enter `applicant@test.com` as the "User/subject" (the "Claims" input can be left blank, and there is no password)
      4. Navigate to http://localhost:8000/en/talent/profile
 
@@ -43,7 +32,7 @@ Or refresh all of them in order:
 
 ## Working on UI
 
-In order to compile and render UI for development, you have two options.
+In order to compile and render UI for development, you have two options:
 
 - log into the local UI using the steps above
 - run Storybook to view individual components
@@ -51,14 +40,14 @@ In order to compile and render UI for development, you have two options.
 ### Logging into the UI
 
 - Navigate to the app you'd like to work on (e.g. `cd apps/web`)
-- Run `npm run watch`
+- Run `pnpm run watch`
 - Allow the first compile to happen
 - Make some changes, watch it recompile, and refresh your page
 
 ### Running Storybook
 
-- Navigate to the app you'd like to work on (e.g. `cd app/web`)
-- Run `npm run storybook`
+- Navigate to the app you'd like to work on (e.g. `cd apps/web`)
+- Run `pnpm run storybook`
 - Allow the first compile to happen
 - Make some changes, watch it recompile, and your Storybook page should automatically refresh
 

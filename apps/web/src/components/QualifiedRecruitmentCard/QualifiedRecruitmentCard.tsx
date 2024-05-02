@@ -10,7 +10,7 @@ import {
   Collapsible,
   Heading,
   HeadingRank,
-  Pill,
+  Chip,
   Separator,
   incrementHeadingRank,
 } from "@gc-digital-talent/ui";
@@ -40,7 +40,7 @@ const QualifiedRecruitmentCard = ({
   const contentHeadingLevel = incrementHeadingRank(headingLevel);
   const {
     title,
-    statusPill,
+    statusChip,
     availability: { icon: AvailabilityIcon, ...availability },
   } = getQualifiedRecruitmentInfo(candidate, intl);
 
@@ -63,7 +63,7 @@ const QualifiedRecruitmentCard = ({
     }
   }, [linkCopied, setLinkCopied]);
 
-  const PillIcon = statusPill.icon;
+  const ChipIcon = statusChip.icon;
 
   return (
     <div
@@ -82,23 +82,9 @@ const QualifiedRecruitmentCard = ({
         <Heading level={headingLevel} size="h6" data-h2-margin="base(0)">
           {title.html}
         </Heading>
-        <Pill bold mode="outline" color={statusPill.color}>
-          {PillIcon ? (
-            <span
-              data-h2-display="base(flex)"
-              data-h2-align-items="base(center)"
-              data-h2-gap="base(0 x.25)"
-            >
-              <PillIcon
-                data-h2-width="base(1rem)"
-                data-h2-height="base(auto)"
-              />
-              <span>{statusPill.text}</span>
-            </span>
-          ) : (
-            statusPill.text
-          )}
-        </Pill>
+        <Chip color={statusChip.color} icon={ChipIcon}>
+          {statusChip.text}
+        </Chip>
       </div>
       <p
         data-h2-color="base(secondary.darker)"
@@ -153,15 +139,15 @@ const QualifiedRecruitmentCard = ({
                 {isOpen
                   ? intl.formatMessage({
                       defaultMessage:
-                        "Hide this recruitment's skill assessments",
-                      id: "+h7iQH",
+                        "Hide the skill assessments of this process",
+                      id: "vMcen8",
                       description:
                         "Button text to hide a miscellaneous qualified recruitment's skill assessments",
                     })
                   : intl.formatMessage({
                       defaultMessage:
-                        "Show this recruitment's skill assessments",
-                      id: "BFewIk",
+                        "Show the skill assessments of this process",
+                      id: "nSwruS",
                       description:
                         "Button text to show a miscellaneous qualified recruitment's skill assessments",
                     })}
@@ -303,14 +289,14 @@ const QualifiedRecruitmentCard = ({
           >
             {linkCopied
               ? intl.formatMessage({
-                  defaultMessage: "Recruitment ID copied",
-                  id: "5HJIwt",
+                  defaultMessage: "Process ID copied",
+                  id: "QNmxIN",
                   description:
                     "Button text to indicate that a specific qualified recruitment's ID has been copied",
                 })
               : intl.formatMessage({
-                  defaultMessage: "Copy recruitment ID",
-                  id: "iO72f+",
+                  defaultMessage: "Copy process ID",
+                  id: "IW+wmC",
                   description:
                     "Button text to copy a specific qualified recruitment's ID",
                 })}

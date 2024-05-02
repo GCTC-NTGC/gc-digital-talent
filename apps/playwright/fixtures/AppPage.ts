@@ -2,6 +2,7 @@ import { type Page } from "@playwright/test";
 
 import { Test_MeQueryDocument } from "~/utils/user";
 import { FeatureFlags, getFeatureFlagConfig } from "~/utils/featureFlags";
+
 import { getAuthTokens } from "../utils/auth";
 
 /**
@@ -9,8 +10,12 @@ import { getAuthTokens } from "../utils/auth";
  *
  * Common functionality, extended by other pages
  */
-export class AppPage {
-  constructor(public readonly page: Page) {}
+class AppPage {
+  public readonly page: Page;
+
+  constructor(public readonly appPage: Page) {
+    this.page = appPage;
+  }
 
   async gotoHome(locale: "en" | "fr" = "en") {
     // Timeout is for Firefox having issues with this navigation
@@ -26,11 +31,16 @@ export class AppPage {
    * @param variables
    * @returns
    */
-  async graphqlRequest(query: string, variables?: Record<string, unknown>) {
+  async graphqlRequest(
+    query: string,
+    variables?: Record<string, unknown>,
+    isPrivileged: boolean = true,
+  ) {
     await this.gotoHome();
     await this.waitForGraphqlResponse("authorizationQuery");
     const tokens = await getAuthTokens(this.page);
-    const res = await this.page.request.post("/graphql", {
+    const url = isPrivileged ? "/admin/graphql" : "/graphql";
+    const res = await this.page.request.post(url, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${tokens.accessToken}`,
@@ -84,3 +94,5 @@ export class AppPage {
     return res.me;
   }
 }
+
+export default AppPage;

@@ -1,5 +1,5 @@
 import React from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Meta, StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
 import { CHROMATIC_VIEWPORTS } from "@gc-digital-talent/storybook-helpers";
@@ -12,10 +12,9 @@ const mockApplication = fakePoolCandidates(1)[0];
 
 export default {
   component: ApplicationSelfDeclaration,
-  title: "Application/Self-Declaration",
-} as ComponentMeta<typeof ApplicationSelfDeclaration>;
+} as Meta<typeof ApplicationSelfDeclaration>;
 
-const Template: ComponentStory<typeof ApplicationSelfDeclaration> = () => (
+const Template: StoryFn<typeof ApplicationSelfDeclaration> = () => (
   <ApplicationSelfDeclaration
     onSubmit={(values) => action("onSubmit")(values)}
     application={mockApplication}

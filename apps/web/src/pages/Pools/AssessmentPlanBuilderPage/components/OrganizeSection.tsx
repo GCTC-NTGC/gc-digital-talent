@@ -10,8 +10,9 @@ import {
   graphql,
   AssessmentStep,
   AssessmentStepType,
-  Pool,
   PoolStatus,
+  FragmentType,
+  getFragment,
 } from "@gc-digital-talent/graphql";
 
 import AssessmentDetailsDialog from "./AssessmentDetailsDialog";
@@ -23,7 +24,7 @@ import {
 } from "../constants";
 import AssessmentStepCard from "./AssessmentStepCard";
 
-const sectionTitle = defineMessage({
+export const sectionTitle = defineMessage({
   defaultMessage: "Organize assessment approach",
   id: "qFY+K4",
   description: "Title for the organize section in the assessment plan builder",
@@ -44,16 +45,33 @@ const OrganizeSection_SwapMutation = graphql(/* GraphQL */ `
   }
 `);
 
+const OrganizeSectionPool_Fragment = graphql(/* GraphQL */ `
+  fragment OrganizeSectionPool on Pool {
+    id
+    status
+    ...AssessmentStepCardPool
+    poolSkills {
+      ...AssessmentDetailsDialogPoolSkill
+    }
+    assessmentSteps {
+      id
+      type
+      sortOrder
+    }
+  }
+`);
+
 export interface OrganizeSectionProps {
-  pool: Pool;
+  poolQuery: FragmentType<typeof OrganizeSectionPool_Fragment>;
   pageIsLoading: boolean;
 }
 
 const OrganizeSection = ({
-  pool,
+  poolQuery,
   pageIsLoading: pageLoading,
 }: OrganizeSectionProps) => {
   const intl = useIntl();
+  const pool = getFragment(OrganizeSectionPool_Fragment, poolQuery);
   const initialSteps = React.useMemo(
     () => sortBy(unpackMaybes(pool.assessmentSteps), (step) => step.sortOrder),
     [pool.assessmentSteps],
@@ -173,14 +191,18 @@ const OrganizeSection = ({
 
   return (
     <>
-      <Heading level="h3" id={PAGE_SECTION_ID.ORGANIZE_ASSESSMENT_APPROACH}>
+      <Heading
+        level="h3"
+        id={PAGE_SECTION_ID.ORGANIZE_ASSESSMENT_APPROACH}
+        data-h2-margin-top="base(0)"
+      >
         {intl.formatMessage(sectionTitle)}
       </Heading>
       <p data-h2-margin="base(x1, 0)">
         {intl.formatMessage({
           defaultMessage:
-            "Use this section to define which assessments will be used as part of your assessment process. You can also change the order in which you plan to perform these evaluations. The only exceptions are the “Application screening” and the “Screening questions (at the time of application)” assessments which will always be the first and second steps in any pool advertisement.",
-          id: "F46Sel",
+            "Use this section to define which assessments will be used as part of your assessment process. You can also change the order in which you plan to perform these evaluations. The only exceptions are the “Application screening” and the “Screening questions (at the time of application)” assessments which will always be the first and second steps in any assessment process.",
+          id: "0Arzgj",
           description:
             "introduction to the organize section in the assessment plan builder",
         })}
@@ -271,7 +293,7 @@ const OrganizeSection = ({
                 </CardRepeater.Add>
               }
               onError={resetSteps}
-              allPoolSkills={unpackMaybes(pool.poolSkills)}
+              poolSkillsQuery={unpackMaybes(pool.poolSkills)}
               disallowStepTypes={
                 alreadyHasAScreeningQuestionsStep
                   ? [AssessmentStepType.ScreeningQuestionsAtApplication]
@@ -291,7 +313,7 @@ const OrganizeSection = ({
               onMove={move}
               onRemove={remove}
               assessmentStep={assessmentStep}
-              pool={pool}
+              poolQuery={pool}
             />
           ))}
         </CardRepeater.Root>

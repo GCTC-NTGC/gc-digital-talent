@@ -1,6 +1,8 @@
-import { FeatureFlagProvider, FeatureFlags } from "@gc-digital-talent/env";
-import { useParameter } from "@storybook/addons";
+import React from "react";
+import { useParameter } from "@storybook/preview-api";
 import { StoryFn } from "@storybook/react";
+
+import { FeatureFlagProvider, FeatureFlags } from "@gc-digital-talent/env";
 
 const FeatureFlagDecorator = (Story: StoryFn) => {
   const flags = useParameter<FeatureFlags | undefined>(

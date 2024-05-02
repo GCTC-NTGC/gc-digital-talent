@@ -14,6 +14,7 @@ use Illuminate\Testing\Fluent\AssertableJson;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
+use Tests\UsesProtectedGraphqlEndpoint;
 
 use function PHPUnit\Framework\assertNotNull;
 use function PHPUnit\Framework\assertNull;
@@ -23,6 +24,7 @@ class UserSkillTest extends TestCase
     use MakesGraphQLRequests;
     use RefreshDatabase;
     use RefreshesSchemaCache;
+    use UsesProtectedGraphqlEndpoint;
 
     protected $user;
 
@@ -49,8 +51,8 @@ class UserSkillTest extends TestCase
     }
 
     protected $createUserSkill =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         mutation createUserSkill($userId: UUID!, $skillId: UUID!, $userSkill: CreateUserSkillInput){
             createUserSkill(userId: $userId, skillId: $skillId, userSkill: $userSkill) {
                 id
@@ -67,8 +69,8 @@ class UserSkillTest extends TestCase
     ';
 
     protected $updateUserSkill =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         mutation updateUserSkill($id: UUID!, $userSkill: UpdateUserSkillInput){
             updateUserSkill(id :$id, userSkill: $userSkill) {
                 id
@@ -79,8 +81,8 @@ class UserSkillTest extends TestCase
     ';
 
     protected $deleteUserSkill =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         mutation deleteUserSkill($id: UUID!){
             deleteUserSkill(id :$id) {
                 id
@@ -89,8 +91,8 @@ class UserSkillTest extends TestCase
     ';
 
     protected $updateUserSkillRankings =
-    /** @lang GraphQL */
-    '
+        /** @lang GraphQL */
+        '
         mutation updateUserSkillRankings($userId: UUID!, $userSkillRanking: UpdateUserSkillRankingsInput!){
             updateUserSkillRankings(userId :$userId, userSkillRanking:$userSkillRanking) {
                 id
@@ -432,7 +434,6 @@ class UserSkillTest extends TestCase
         ]);
         DB::table('experience_skill')->insert([
             'experience_id' => $workExperienceModel->id,
-            'experience_type' => 'workExperience',
             'user_skill_id' => $userSkillModel->id,
         ]);
         $experienceSkillModel = ExperienceSkill::first();

@@ -1,3 +1,4 @@
+import React from "react";
 import { LazyMotion, MotionConfig, domAnimation } from "framer-motion";
 import isChromatic from "chromatic/isChromatic";
 import { StoryFn } from "@storybook/react";

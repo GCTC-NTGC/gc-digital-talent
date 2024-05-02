@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import { Pending } from "@gc-digital-talent/ui";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, hasRole, useAuthorization } from "@gc-digital-talent/auth";
 import {
   getPoolStatus,
@@ -13,7 +13,12 @@ import {
   getPublishingGroup,
   getPoolStream,
 } from "@gc-digital-talent/i18n";
-import { graphql, Pool, PoolTableQuery } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  getFragment,
+  graphql,
+  Pool,
+} from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
@@ -26,26 +31,60 @@ import processMessages from "~/messages/processMessages";
 import {
   classificationAccessor,
   classificationSortFn,
-  classificationsCell,
+  classificationCell,
   emailLinkAccessor,
   fullNameCell,
   ownerEmailAccessor,
   ownerNameAccessor,
-  poolCandidatesViewCell,
   poolNameAccessor,
   viewCell,
   viewTeamLinkCell,
 } from "./helpers";
 
+export const PoolTableRow_Fragment = graphql(/* GraphQL */ `
+  fragment PoolTableRow on Pool {
+    id
+    stream
+    publishingGroup
+    status
+    createdDate
+    updatedDate
+    name {
+      en
+      fr
+    }
+    classification {
+      id
+      group
+      level
+    }
+    team {
+      id
+      name
+      displayName {
+        en
+        fr
+      }
+    }
+    owner {
+      id
+      firstName
+      lastName
+      email
+    }
+  }
+`);
+
 const columnHelper = createColumnHelper<Pool>();
 interface PoolTableProps {
-  pools: NonNullable<PoolTableQuery["pools"][0]>[];
+  poolsQuery: FragmentType<typeof PoolTableRow_Fragment>[];
   title: string;
 }
 
-export const PoolTable = ({ pools, title }: PoolTableProps) => {
+export const PoolTable = ({ poolsQuery, title }: PoolTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const pools = getFragment(PoolTableRow_Fragment, poolsQuery);
 
   const columns = [
     columnHelper.accessor("id", {
@@ -63,22 +102,19 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
       cell: ({ row: { original: pool } }) =>
         viewCell(paths.poolView(pool.id), pool, intl),
     }),
-    columnHelper.accessor(
-      (row) => classificationAccessor(row.classifications),
-      {
-        id: "classifications",
-        header: intl.formatMessage({
-          defaultMessage: "Group and Level",
-          id: "FGUGtr",
-          description:
-            "Title displayed for the Pool table Group and Level column.",
-        }),
-        sortingFn: (rowA: Row<Pool>, rowB: Row<Pool>) =>
-          classificationSortFn(rowA.original, rowB.original),
-        cell: ({ row: { original: pool } }) =>
-          classificationsCell(pool.classifications),
-      },
-    ),
+    columnHelper.accessor((row) => classificationAccessor(row.classification), {
+      id: "classification",
+      header: intl.formatMessage({
+        defaultMessage: "Group and Level",
+        id: "FGUGtr",
+        description:
+          "Title displayed for the Pool table Group and Level column.",
+      }),
+      sortingFn: (rowA: Row<Pool>, rowB: Row<Pool>) =>
+        classificationSortFn(rowA.original, rowB.original),
+      cell: ({ row: { original: pool } }) =>
+        classificationCell(pool.classification),
+    }),
     columnHelper.accessor(
       (row) =>
         intl.formatMessage(
@@ -107,16 +143,6 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
         header: intl.formatMessage(processMessages.publishingGroup),
       },
     ),
-    columnHelper.display({
-      id: "candidates",
-      header: intl.formatMessage({
-        defaultMessage: "Candidates",
-        id: "EdUZaX",
-        description: "Header for the View Candidates column of the Pools table",
-      }),
-      cell: ({ row: { original: pool } }) =>
-        poolCandidatesViewCell(paths.poolCandidateTable(pool.id), intl, pool),
-    }),
     columnHelper.accessor(
       (row) =>
         intl.formatMessage(
@@ -160,16 +186,6 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
       }),
       cell: ({ row: { original: pool } }) => emailLinkAccessor(pool, intl),
     }),
-    columnHelper.display({
-      id: "edit",
-      header: intl.formatMessage(commonMessages.edit),
-      cell: ({ row: { original: pool } }) =>
-        cells.edit(
-          pool.id,
-          paths.poolTable(),
-          getLocalizedName(pool.name, intl),
-        ),
-    }),
     columnHelper.accessor(({ createdDate }) => accessors.date(createdDate), {
       id: "createdDate",
       enableColumnFilter: false,
@@ -202,7 +218,7 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
     }),
   ] as ColumnDef<Pool>[];
 
-  const data = pools.filter(notEmpty);
+  const data = unpackMaybes([...pools]);
 
   return (
     <Table<Pool>
@@ -213,8 +229,8 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
       search={{
         internal: true,
         label: intl.formatMessage({
-          defaultMessage: "Search pools",
-          id: "qb6pT2",
+          defaultMessage: "Search processes",
+          id: "6yn+iJ",
           description: "Label for the pools table search input",
         }),
       }}
@@ -231,9 +247,9 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
         linkProps: {
           href: paths.poolCreate(),
           label: intl.formatMessage({
-            defaultMessage: "Create Pool",
-            id: "/Y7x+s",
-            description: "Heading displayed above the Create Pool form.",
+            defaultMessage: "Create process",
+            id: "wP9+aN",
+            description: "Heading displayed above the Create process form.",
           }),
         },
       }}
@@ -244,36 +260,11 @@ export const PoolTable = ({ pools, title }: PoolTableProps) => {
 const PoolTable_Query = graphql(/* GraphQL */ `
   query PoolTable {
     pools {
-      id
+      ...PoolTableRow
       team {
         id
         name
-        displayName {
-          en
-          fr
-        }
       }
-      owner {
-        id
-        email
-        firstName
-        lastName
-      }
-      name {
-        en
-        fr
-      }
-      classifications {
-        id
-        group
-        level
-      }
-      status
-      stream
-      processNumber
-      publishingGroup
-      createdDate
-      updatedDate
     }
   }
 `);
@@ -300,7 +291,7 @@ const PoolTableApi = ({ title }: { title: string }) => {
 
   return (
     <Pending fetching={fetching} error={error}>
-      <PoolTable pools={pools ?? []} title={title} />
+      <PoolTable poolsQuery={pools} title={title} />
     </Pending>
   );
 };

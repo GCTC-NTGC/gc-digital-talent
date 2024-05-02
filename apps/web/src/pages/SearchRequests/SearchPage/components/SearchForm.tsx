@@ -91,11 +91,17 @@ export const SearchForm = ({
         },
         allPools: values.allPools,
         candidateCount: values.count,
-        selectedClassifications: selectedPool
-          ? selectedPool.classifications?.filter(notEmpty)
+        selectedClassifications: selectedPool?.classification
+          ? [selectedPool.classification]
           : applicantFilter?.qualifiedClassifications?.filter(notEmpty),
       },
     });
+  };
+
+  const handleSubmitAllPools = () => {
+    setValue("allPools", true);
+    setValue("pool", "");
+    setValue("count", candidateCount);
   };
 
   return (
@@ -127,8 +133,8 @@ export const SearchForm = ({
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "If you are looking for talent, you have found the right place. Our talent database is open to most departments and agencies. Complete a request to find qualified candidates. Candidates are assessed for their skills and grouped into pools to meet your staffing needs.",
-                  id: "F+LDbs",
+                    "If you are looking for talent, you have found the right place. Our talent database is open to most departments and agencies. Complete a request to find qualified candidates. All candidates in pools were assessed and successfully qualified.",
+                  id: "Il8ztR",
                   description:
                     "Content displayed in the find talent page explaining the page and what it offers to users.",
                 })}
@@ -136,8 +142,8 @@ export const SearchForm = ({
               <p data-h2-margin-top="base(x.5)">
                 {intl.formatMessage({
                   defaultMessage:
-                    "Use the filters to specify your requirements. We will show you an estimated number of candidates who match your criteria as you enter your information. Select “<strong>Request candidates</strong>” when you are done. Doing so will bring you to a form where you can provide your contact information and submit your request.",
-                  id: "1pCzp1",
+                    "Use the filters to specify your requirements. We will show you an estimated number of qualified candidates who match your criteria as you enter your information. Select “Request candidates” when you are done. Doing so will bring you to a form where you can provide your contact information and submit your request.",
+                  id: "KhOXZ3",
                   description:
                     "Content displayed in the How To area of the hero section of the Search page.",
                 })}
@@ -187,11 +193,7 @@ export const SearchForm = ({
                   type="submit"
                   {...poolSubmitProps}
                   value=""
-                  onClick={() => {
-                    setValue("allPools", true);
-                    setValue("pool", "");
-                    setValue("count", candidateCount);
-                  }}
+                  onClick={handleSubmitAllPools}
                 >
                   {intl.formatMessage({
                     defaultMessage: "Request candidates from all pools",
@@ -249,7 +251,7 @@ const SearchForm_Query = graphql(/* GraphQL */ `
         en
         fr
       }
-      classifications {
+      classification {
         id
         group
         level

@@ -9,7 +9,13 @@ import { useQuery } from "urql";
 import { Pending, TableOfContents, ThrowNotFound } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { Scalars, graphql } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  Pool,
+  Scalars,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
@@ -17,13 +23,244 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import adminMessages from "~/messages/adminMessages";
 
 import AboutSection from "./components/AboutSection";
-import { UserInformationProps } from "./types";
 import CandidateStatusSection from "./components/CandidateStatusSection";
 import NotesSection from "./components/NotesSection";
 import EmploymentEquitySection from "./components/EmploymentEquitySection";
 
-const UserInformation = ({ user, pools }: UserInformationProps) => {
+const UserInfo_Fragment = graphql(/* GraphQL */ `
+  fragment UserInfo on User {
+    id
+    email
+    firstName
+    lastName
+    telephone
+    citizenship
+    armedForcesStatus
+    preferredLang
+    preferredLanguageForInterview
+    preferredLanguageForExam
+    currentProvince
+    currentCity
+    lookingForEnglish
+    lookingForFrench
+    lookingForBilingual
+    firstOfficialLanguage
+    secondLanguageExamCompleted
+    secondLanguageExamValidity
+    comprehensionLevel
+    writtenLevel
+    verbalLevel
+    estimatedLanguageAbility
+    isGovEmployee
+    govEmployeeType
+    hasPriorityEntitlement
+    priorityNumber
+    locationPreferences
+    locationExemptions
+    positionDuration
+    acceptedOperationalRequirements
+    indigenousCommunities
+    indigenousDeclarationSignature
+    hasDisability
+    isVisibleMinority
+    isWoman
+    poolCandidates {
+      id
+      status
+      expiryDate
+      notes
+      suspendedAt
+      user {
+        id
+      }
+      pool {
+        id
+        name {
+          en
+          fr
+        }
+        classification {
+          id
+          group
+          level
+        }
+        stream
+        publishingGroup
+        team {
+          id
+          name
+          displayName {
+            en
+            fr
+          }
+        }
+      }
+    }
+    department {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+    currentClassification {
+      id
+      group
+      level
+      name {
+        en
+        fr
+      }
+    }
+    experiences {
+      id
+      __typename
+      user {
+        id
+        email
+      }
+      details
+      skills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+        keywords {
+          en
+          fr
+        }
+        category
+        experienceSkillRecord {
+          details
+        }
+      }
+      ... on AwardExperience {
+        title
+        issuedBy
+        awardedDate
+        awardedTo
+        awardedScope
+      }
+      ... on CommunityExperience {
+        title
+        organization
+        project
+        startDate
+        endDate
+      }
+      ... on EducationExperience {
+        institution
+        areaOfStudy
+        thesisTitle
+        startDate
+        endDate
+        type
+        status
+      }
+      ... on PersonalExperience {
+        title
+        description
+        startDate
+        endDate
+      }
+      ... on WorkExperience {
+        role
+        organization
+        division
+        startDate
+        endDate
+      }
+    }
+    topTechnicalSkillsRanking {
+      id
+      user {
+        id
+      }
+      skill {
+        id
+        key
+        category
+        name {
+          en
+          fr
+        }
+      }
+      skillLevel
+      topSkillsRank
+      improveSkillsRank
+    }
+    topBehaviouralSkillsRanking {
+      id
+      user {
+        id
+      }
+      skill {
+        id
+        key
+        category
+        name {
+          en
+          fr
+        }
+      }
+      skillLevel
+      topSkillsRank
+      improveSkillsRank
+    }
+    improveTechnicalSkillsRanking {
+      id
+      user {
+        id
+      }
+      skill {
+        id
+        key
+        category
+        name {
+          en
+          fr
+        }
+      }
+      skillLevel
+      topSkillsRank
+      improveSkillsRank
+    }
+    improveBehaviouralSkillsRanking {
+      id
+      user {
+        id
+      }
+      skill {
+        id
+        key
+        category
+        name {
+          en
+          fr
+        }
+      }
+      skillLevel
+      topSkillsRank
+      improveSkillsRank
+    }
+  }
+`);
+
+interface UserInformationProps {
+  userQuery: FragmentType<typeof UserInfo_Fragment>;
+  pools: Pool[];
+}
+
+const UserInformation = ({ userQuery, pools }: UserInformationProps) => {
   const intl = useIntl();
+  const user = getFragment(UserInfo_Fragment, userQuery);
 
   const items = [
     {
@@ -101,225 +338,7 @@ const UserInformation = ({ user, pools }: UserInformationProps) => {
 const UserInformation_Query = graphql(/* GraphQL */ `
   query GetViewUserData($id: UUID!) {
     user(id: $id, trashed: WITH) {
-      id
-      email
-      firstName
-      lastName
-      telephone
-      citizenship
-      armedForcesStatus
-      preferredLang
-      preferredLanguageForInterview
-      preferredLanguageForExam
-      currentProvince
-      currentCity
-      lookingForEnglish
-      lookingForFrench
-      lookingForBilingual
-      bilingualEvaluation
-      comprehensionLevel
-      writtenLevel
-      verbalLevel
-      estimatedLanguageAbility
-      isGovEmployee
-      govEmployeeType
-      hasPriorityEntitlement
-      priorityNumber
-      locationPreferences
-      locationExemptions
-      positionDuration
-      acceptedOperationalRequirements
-      indigenousCommunities
-      indigenousDeclarationSignature
-      hasDisability
-      isVisibleMinority
-      isWoman
-      poolCandidates {
-        id
-        status
-        expiryDate
-        notes
-        suspendedAt
-        user {
-          id
-        }
-        pool {
-          id
-          name {
-            en
-            fr
-          }
-          classifications {
-            id
-            group
-            level
-          }
-          stream
-          publishingGroup
-          team {
-            id
-            name
-            displayName {
-              en
-              fr
-            }
-          }
-        }
-      }
-      department {
-        id
-        departmentNumber
-        name {
-          en
-          fr
-        }
-      }
-      currentClassification {
-        id
-        group
-        level
-        name {
-          en
-          fr
-        }
-      }
-      experiences {
-        id
-        __typename
-        user {
-          id
-          email
-        }
-        details
-        skills {
-          id
-          key
-          name {
-            en
-            fr
-          }
-          description {
-            en
-            fr
-          }
-          keywords {
-            en
-            fr
-          }
-          category
-          experienceSkillRecord {
-            details
-          }
-        }
-        ... on AwardExperience {
-          title
-          issuedBy
-          awardedDate
-          awardedTo
-          awardedScope
-        }
-        ... on CommunityExperience {
-          title
-          organization
-          project
-          startDate
-          endDate
-        }
-        ... on EducationExperience {
-          institution
-          areaOfStudy
-          thesisTitle
-          startDate
-          endDate
-          type
-          status
-        }
-        ... on PersonalExperience {
-          title
-          description
-          startDate
-          endDate
-        }
-        ... on WorkExperience {
-          role
-          organization
-          division
-          startDate
-          endDate
-        }
-      }
-      topTechnicalSkillsRanking {
-        id
-        user {
-          id
-        }
-        skill {
-          id
-          key
-          category
-          name {
-            en
-            fr
-          }
-        }
-        skillLevel
-        topSkillsRank
-        improveSkillsRank
-      }
-      topBehaviouralSkillsRanking {
-        id
-        user {
-          id
-        }
-        skill {
-          id
-          key
-          category
-          name {
-            en
-            fr
-          }
-        }
-        skillLevel
-        topSkillsRank
-        improveSkillsRank
-      }
-      improveTechnicalSkillsRanking {
-        id
-        user {
-          id
-        }
-        skill {
-          id
-          key
-          category
-          name {
-            en
-            fr
-          }
-        }
-        skillLevel
-        topSkillsRank
-        improveSkillsRank
-      }
-      improveBehaviouralSkillsRanking {
-        id
-        user {
-          id
-        }
-        skill {
-          id
-          key
-          category
-          name {
-            en
-            fr
-          }
-        }
-        skillLevel
-        topSkillsRank
-        improveSkillsRank
-      }
+      ...UserInfo
     }
     pools {
       id
@@ -328,7 +347,7 @@ const UserInformation_Query = graphql(/* GraphQL */ `
         fr
       }
       stream
-      classifications {
+      classification {
         id
         group
         level
@@ -364,7 +383,7 @@ const UserInformationPage = () => {
       />
       <Pending fetching={fetching} error={error}>
         {user && pools ? (
-          <UserInformation user={user} pools={pools} />
+          <UserInformation userQuery={user} pools={pools} />
         ) : (
           <ThrowNotFound />
         )}

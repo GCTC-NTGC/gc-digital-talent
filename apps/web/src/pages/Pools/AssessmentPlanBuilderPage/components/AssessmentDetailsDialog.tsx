@@ -3,12 +3,13 @@ import { useIntl } from "react-intl";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
-import { Button, Dialog, Well } from "@gc-digital-talent/ui";
+import { Button, Chip, Chips, Dialog, Well } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   errorMessages,
   getLocalizedName,
   uiMessages,
+  getAssessmentStepType,
 } from "@gc-digital-talent/i18n";
 import {
   Select,
@@ -21,7 +22,6 @@ import {
   Field,
   alphaSortOptions,
 } from "@gc-digital-talent/forms";
-import { getAssessmentStepType } from "@gc-digital-talent/i18n/src/messages/localizedConstants";
 import { toast } from "@gc-digital-talent/toast";
 import {
   graphql,
@@ -30,7 +30,11 @@ import {
   PoolSkill,
   ScreeningQuestion,
   Scalars,
+  PoolSkillType,
+  FragmentType,
+  getFragment,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import processMessages from "~/messages/processMessages";
 
@@ -41,6 +45,12 @@ import {
   SCREENING_QUESTIONS_TEXT_AREA_FR_MAX_WORDS,
   SCREENING_QUESTIONS_TEXT_AREA_ROWS,
 } from "../constants";
+import { poolSkillToOption } from "../utils";
+
+type AssessedSkillsItems = {
+  essentialSkillItems: CheckboxOption[];
+  assetSkills: CheckboxOption[];
+};
 
 const AssessmentDetailsDialog_CreateMutation = graphql(/* GraphQL */ `
   mutation createAssessmentStep(
@@ -82,6 +92,25 @@ const AssessmentDetailsDialog_ScreeningQuestionMutation = graphql(
   `,
 );
 
+const AssessmentDetailsDialogPoolSkill_Fragment = graphql(/* GraphQL */ `
+  fragment AssessmentDetailsDialogPoolSkill on PoolSkill {
+    id
+    type
+    skill {
+      id
+      category
+      key
+      name {
+        en
+        fr
+      }
+    }
+    assessmentSteps {
+      id
+    }
+  }
+`);
+
 type DialogMode = "regular" | "screening_question";
 type DialogAction = "create" | "update";
 
@@ -114,7 +143,9 @@ type InitialValues = Omit<
 
 interface AssessmentDetailsDialogProps {
   initialValues: InitialValues;
-  allPoolSkills: PoolSkill[];
+  poolSkillsQuery: FragmentType<
+    typeof AssessmentDetailsDialogPoolSkill_Fragment
+  >[];
   disallowStepTypes?: AssessmentStepType[];
   trigger: React.ReactNode;
   onError?: () => void;
@@ -122,12 +153,16 @@ interface AssessmentDetailsDialogProps {
 
 const AssessmentDetailsDialog = ({
   initialValues,
-  allPoolSkills,
+  poolSkillsQuery,
   disallowStepTypes = [],
   trigger,
   onError,
 }: AssessmentDetailsDialogProps) => {
   const intl = useIntl();
+  const allPoolSkills = getFragment(
+    AssessmentDetailsDialogPoolSkill_Fragment,
+    poolSkillsQuery,
+  );
   const dialogAction: DialogAction = initialValues.id ? "update" : "create";
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
@@ -169,7 +204,14 @@ const AssessmentDetailsDialog = ({
       ),
     },
   });
-  const { handleSubmit, control, watch, setValue, reset } = methods;
+  const {
+    handleSubmit,
+    control,
+    watch,
+    setValue,
+    reset,
+    formState: { errors },
+  } = methods;
 
   const [selectedTypeOfAssessment] = watch(["typeOfAssessment"]);
   const dialogMode: DialogMode =
@@ -355,13 +397,34 @@ const AssessmentDetailsDialog = ({
   const canAddScreeningQuestions =
     fields.length < SCREENING_QUESTIONS_MAX_QUESTIONS;
 
-  const assessedSkillsItems: CheckboxOption[] = alphaSortOptions(
-    allPoolSkills.map((poolSkill) => ({
-      value: poolSkill.id,
-      label: poolSkill?.skill?.name
-        ? getLocalizedName(poolSkill.skill.name, intl)
-        : intl.formatMessage(commonMessages.nameNotLoaded),
-    })),
+  const assessedSkillsItems: AssessedSkillsItems = allPoolSkills.reduce(
+    (assessedSkills: AssessedSkillsItems, poolSkill: PoolSkill) => {
+      if (poolSkill.type === PoolSkillType.Essential) {
+        return {
+          essentialSkillItems: [
+            ...assessedSkills.essentialSkillItems,
+            poolSkillToOption(poolSkill, intl),
+          ],
+          assetSkills: assessedSkills.assetSkills,
+        };
+      }
+
+      if (poolSkill.type === PoolSkillType.Nonessential) {
+        return {
+          assetSkills: [
+            ...assessedSkills.assetSkills,
+            poolSkillToOption(poolSkill, intl),
+          ],
+          essentialSkillItems: assessedSkills.essentialSkillItems,
+        };
+      }
+
+      return assessedSkills;
+    },
+    {
+      essentialSkillItems: [],
+      assetSkills: [],
+    },
   );
 
   const assessmentStepTypeOptions = [
@@ -391,6 +454,18 @@ const AssessmentDetailsDialog = ({
     updateAssessmentStepFetching ||
     createAssessmentStepFetching ||
     createOrUpdateScreeningQuestionAssessmentStepMutationFetching;
+
+  const missingEssentialSkills = allPoolSkills
+    .filter((poolSkill) => poolSkill.type === PoolSkillType.Essential)
+    .filter(({ assessmentSteps }) => {
+      const steps = unpackMaybes(assessmentSteps);
+
+      if (steps.length === 0) {
+        return true;
+      }
+
+      return false;
+    });
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
@@ -497,9 +572,7 @@ const AssessmentDetailsDialog = ({
                     <Repeater.Root
                       data-h2-margin-bottom="base(1rem)"
                       name="screeningQuestionFieldArray"
-                      total={fields.length}
                       showAdd={canAddScreeningQuestions}
-                      showUnsavedChanges={false}
                       onAdd={() => {
                         append({
                           id: null,
@@ -529,7 +602,6 @@ const AssessmentDetailsDialog = ({
                             name="screeningQuestionFieldArray"
                             key={id}
                             index={index}
-                            total={fields.length}
                             onMove={move}
                             onRemove={remove}
                             legend={intl.formatMessage(
@@ -544,6 +616,7 @@ const AssessmentDetailsDialog = ({
                               },
                             )}
                             hideLegend
+                            isLast={index === fields.length - 1}
                           >
                             <input
                               type="hidden"
@@ -629,7 +702,7 @@ const AssessmentDetailsDialog = ({
                   </>
                 ) : null}
 
-                <div>
+                <div data-h2-display="base(grid)" data-h2-gap="base(x.25)">
                   <div data-h2-font-weight="base(700)">
                     {intl.formatMessage({
                       defaultMessage: "Skill selection",
@@ -638,27 +711,81 @@ const AssessmentDetailsDialog = ({
                         "title of 'skill selection' section of the 'assessment details' dialog",
                     })}
                   </div>
-                  <div data-h2-margin-top="base(x.25)">
+                  <div>
                     {intl.formatMessage({
                       defaultMessage:
-                        "Using the list of skills from the pool advertisement, select the skills you are planning to assess using this evaluation method. ",
-                      id: "ARL2Tz",
+                        "Using the list of skills from the recruitment process, select the skills you are planning to assess using this evaluation method.",
+                      id: "II4+N3",
                       description:
                         "description of 'skill selection' section of the 'assessment details' dialog",
                     })}
                   </div>
+                  {missingEssentialSkills.length ? (
+                    <Well
+                      color="warning"
+                      data-h2-margin-top="base(x.25)"
+                      data-h2-padding="base(x.5)"
+                    >
+                      <p
+                        data-h2-margin-bottom="base(x.5)"
+                        data-h2-font-size="base(caption)"
+                      >
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "The following skills are missing at least 1 assessment",
+                          id: "EY7YQM",
+                          description:
+                            "Warning message for skills with missing assessment on the 'assessment details' dialog",
+                        })}
+                        {intl.formatMessage(commonMessages.dividingColon)}
+                      </p>
+                      <Chips>
+                        {missingEssentialSkills.map(({ skill }) => (
+                          <Chip key={skill?.id} color="warning">
+                            {getLocalizedName(skill?.name, intl)}
+                          </Chip>
+                        ))}
+                      </Chips>
+                    </Well>
+                  ) : null}
                 </div>
-                <Checklist
-                  idPrefix="assessedSkills"
-                  id="assessedSkills"
-                  name="assessedSkills"
-                  legend={intl.formatMessage(labels.assessedSkills)}
-                  items={assessedSkillsItems}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                />
-                {!assessedSkillsItems.length ? (
+                {assessedSkillsItems.essentialSkillItems.length > 0 && (
+                  <Checklist
+                    idPrefix="essentialSkills"
+                    id="essentialSkills"
+                    name="assessedSkills"
+                    legend={intl.formatMessage(labels.essentialSkills)}
+                    items={alphaSortOptions(
+                      assessedSkillsItems.essentialSkillItems,
+                    )}
+                    rules={{
+                      validate: (selectedAssessedSkills: string[]) => {
+                        return selectedAssessedSkills.length > 0;
+                      },
+                    }}
+                  />
+                )}
+                {assessedSkillsItems.assetSkills.length > 0 && (
+                  <Checklist
+                    idPrefix="assetSkills"
+                    id="assetSkills"
+                    name="assessedSkills"
+                    legend={intl.formatMessage(labels.assetSkills)}
+                    items={alphaSortOptions(assessedSkillsItems.assetSkills)}
+                    rules={{
+                      validate: (selectedAssessedSkills: string[]) => {
+                        return selectedAssessedSkills.length > 0;
+                      },
+                    }}
+                  />
+                )}
+                {errors.assessedSkills ? (
+                  <Field.Error>
+                    {intl.formatMessage(errorMessages.required)}
+                  </Field.Error>
+                ) : null}
+                {!assessedSkillsItems.essentialSkillItems.length &&
+                !assessedSkillsItems.assetSkills.length ? (
                   <Field.Error>
                     {intl.formatMessage({
                       defaultMessage:

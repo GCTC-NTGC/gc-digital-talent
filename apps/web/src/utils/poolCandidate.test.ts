@@ -7,7 +7,7 @@ import { createIntl, createIntlCache } from "react-intl";
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
 import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
 
-import { getCandidateStatusPill } from "./poolCandidate";
+import { getCandidateStatusChip } from "./poolCandidate";
 import {
   candidateFullyQualified,
   candidateFullyQualifiedExceptMissingEducation,
@@ -28,9 +28,8 @@ describe("PoolCandidate utils", () => {
     },
     intlCache,
   );
-  const recordOfDecisionFlag = true;
 
-  describe("Candidate Status pill", () => {
+  describe("Candidate Status chip", () => {
     const candidate = fakePoolCandidates(1)[0];
 
     it('should return "Qualified" in success color for QUALIFIED_AVAILABLE and all PLACED statuses', () => {
@@ -43,12 +42,7 @@ describe("PoolCandidate utils", () => {
       ];
       statuses.forEach((status) => {
         candidate.status = status;
-        const { label, color } = getCandidateStatusPill(
-          candidate,
-          [],
-          intl,
-          recordOfDecisionFlag,
-        );
+        const { label, color } = getCandidateStatusChip(candidate, [], intl);
         expect(label).toBe("Qualified");
         expect(color).toBe("success");
       });
@@ -61,12 +55,7 @@ describe("PoolCandidate utils", () => {
       ];
       statuses.forEach((status) => {
         candidate.status = status;
-        const { label, color } = getCandidateStatusPill(
-          candidate,
-          [],
-          intl,
-          recordOfDecisionFlag,
-        );
+        const { label, color } = getCandidateStatusChip(candidate, [], intl);
         expect(label).toBe("Disqualified");
         expect(color).toBe("error");
       });
@@ -74,115 +63,102 @@ describe("PoolCandidate utils", () => {
 
     it('should return "Removed" in black color for removed statuses, along with reason for removal', () => {
       candidate.status = PoolCandidateStatus.ScreenedOutNotInterested;
-      let pill = getCandidateStatusPill(
-        candidate,
-        [],
-        intl,
-        recordOfDecisionFlag,
-      );
-      expect(pill.label).toBe("Removed: To assess");
-      expect(pill.color).toBe("black");
+      let chip = getCandidateStatusChip(candidate, [], intl);
+      expect(chip.label).toBe("Removed: To assess");
+      expect(chip.color).toBe("black");
 
       candidate.status = PoolCandidateStatus.ScreenedOutNotResponsive;
-      pill = getCandidateStatusPill(candidate, [], intl, recordOfDecisionFlag);
-      expect(pill.label).toBe("Removed: To assess");
-      expect(pill.color).toBe("black");
+      chip = getCandidateStatusChip(candidate, [], intl);
+      expect(chip.label).toBe("Removed: To assess");
+      expect(chip.color).toBe("black");
 
       candidate.status = PoolCandidateStatus.QualifiedUnavailable;
-      pill = getCandidateStatusPill(candidate, [], intl, recordOfDecisionFlag);
-      expect(pill.label).toBe("Removed: Qualified");
-      expect(pill.color).toBe("black");
-      expect(pill.color).toBe("black");
+      chip = getCandidateStatusChip(candidate, [], intl);
+      expect(chip.label).toBe("Removed: Qualified");
+      expect(chip.color).toBe("black");
+      expect(chip.color).toBe("black");
 
       candidate.status = PoolCandidateStatus.Removed;
-      pill = getCandidateStatusPill(candidate, [], intl, recordOfDecisionFlag);
-      expect(pill.label).toBe("Removed"); // This status was only for legacy candidates, and its hard to interpret exact reason
-      expect(pill.color).toBe("black");
+      chip = getCandidateStatusChip(candidate, [], intl);
+      expect(chip.label).toBe("Removed"); // This status was only for legacy candidates, and its hard to interpret exact reason
+      expect(chip.color).toBe("black");
 
       candidate.status = PoolCandidateStatus.Expired;
-      pill = getCandidateStatusPill(candidate, [], intl, recordOfDecisionFlag);
-      expect(pill.label).toBe("Expired: Qualified"); // Okay technically this one doesn't say Removed
-      expect(pill.color).toBe("black");
+      chip = getCandidateStatusChip(candidate, [], intl);
+      expect(chip.label).toBe("Expired: Qualified"); // Okay technically this one doesn't say Removed
+      expect(chip.color).toBe("black");
     });
     describe("Candidates in assessment", () => {
       it('should return "Qualified: Pending decision" and success color for candidates with an assessment status who have passed all AssessmentSteps', () => {
-        const pill = getCandidateStatusPill(
+        const chip = getCandidateStatusChip(
           candidateFullyQualified,
           poolWithAssessmentSteps.assessmentSteps,
           intl,
-          recordOfDecisionFlag,
         );
-        expect(pill.label).toBe("Qualified: Pending decision");
-        expect(pill.color).toBe("success");
+        expect(chip.label).toBe("Qualified: Pending decision");
+        expect(chip.color).toBe("success");
       });
       it('should return "Qualified: Pending decision" and success color for candidates with a Hold status on a middle step, and qualified otherwise', () => {
-        const pill = getCandidateStatusPill(
+        const chip = getCandidateStatusChip(
           candidateQualifiedExceptHoldOnMiddleAssessment,
           poolWithAssessmentSteps.assessmentSteps,
           intl,
-          recordOfDecisionFlag,
         );
-        expect(pill.label).toBe("Qualified: Pending decision");
-        expect(pill.color).toBe("success");
+        expect(chip.label).toBe("Qualified: Pending decision");
+        expect(chip.color).toBe("success");
       });
       it('should return "To assess: Step 1" with warning color for candidates missing education assessment', () => {
-        const pill = getCandidateStatusPill(
+        const chip = getCandidateStatusChip(
           candidateFullyQualifiedExceptMissingEducation,
           poolWithAssessmentSteps.assessmentSteps,
           intl,
-          recordOfDecisionFlag,
         );
-        expect(pill.label).toBe("To assess: Step 1");
-        expect(pill.color).toBe("warning");
+        expect(chip.label).toBe("To assess: Step 1");
+        expect(chip.color).toBe("warning");
       });
       it('should return "To assess: Step 1" with warning color for candidates with no assessments', () => {
-        const pill = getCandidateStatusPill(
+        const chip = getCandidateStatusChip(
           candidateNoAssessments,
           poolWithAssessmentSteps.assessmentSteps,
           intl,
-          recordOfDecisionFlag,
         );
-        expect(pill.label).toBe("To assess: Step 1");
-        expect(pill.color).toBe("warning");
+        expect(chip.label).toBe("To assess: Step 1");
+        expect(chip.color).toBe("warning");
       });
       it('should return "To assess: Step 3" with warning color for candidate qualified except for hold on final (third) step', () => {
-        const pill = getCandidateStatusPill(
+        const chip = getCandidateStatusChip(
           candidateQualifiedExceptHoldOnFinalAssessment,
           poolWithAssessmentSteps.assessmentSteps,
           intl,
-          recordOfDecisionFlag,
         );
-        expect(pill.label).toBe("To assess: Step 3");
-        expect(pill.color).toBe("warning");
+        expect(chip.label).toBe("To assess: Step 3");
+        expect(chip.color).toBe("warning");
       });
       it('should return "To assess: Step 3" with warning color for candidate with incomplete final (third) step', () => {
-        let pill = getCandidateStatusPill(
+        let chip = getCandidateStatusChip(
           candidateHoldOnMiddleStepAndNoResultsOnFinalStep,
           poolWithAssessmentSteps.assessmentSteps,
           intl,
-          recordOfDecisionFlag,
         );
-        expect(pill.label).toBe("To assess: Step 3");
-        expect(pill.color).toBe("warning");
+        expect(chip.label).toBe("To assess: Step 3");
+        expect(chip.color).toBe("warning");
 
-        pill = getCandidateStatusPill(
+        chip = getCandidateStatusChip(
           candidateUnfinishedFinalAssessment,
           poolWithAssessmentSteps.assessmentSteps,
           intl,
-          recordOfDecisionFlag,
         );
-        expect(pill.label).toBe("To assess: Step 3");
-        expect(pill.color).toBe("warning");
+        expect(chip.label).toBe("To assess: Step 3");
+        expect(chip.color).toBe("warning");
       });
       it('should return "Disqualified: Pending decision" with error color for candidate with any one unsuccessful step', () => {
-        const pill = getCandidateStatusPill(
+        const chip = getCandidateStatusChip(
           candidateOneFailingAssessment,
           poolWithAssessmentSteps.assessmentSteps,
           intl,
-          recordOfDecisionFlag,
         );
-        expect(pill.label).toBe("Disqualified: Pending decision");
-        expect(pill.color).toBe("error");
+        expect(chip.label).toBe("Disqualified: Pending decision");
+        expect(chip.color).toBe("error");
       });
     });
   });

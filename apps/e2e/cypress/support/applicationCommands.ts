@@ -3,8 +3,8 @@ import {
   Command_CreateApplicationMutation,
   Command_SubmitApplicationMutation,
   Command_UpdateApplicationMutation,
-  Command_UpdatePoolCandidateAsAdminMutation,
   graphql,
+  UpdatePoolCandidateStatus_MutationMutation,
 } from "@gc-digital-talent/graphql";
 
 const commandCreateApplicationDoc = /* GraphQL */ `
@@ -32,7 +32,7 @@ Cypress.Commands.add("createApplication", (userId, poolId) => {
       const experienceId = me.experiences[0].id;
       cy.updateApplication(data.createApplication.id, {
         educationRequirementOption: EducationRequirementOption.AppliedWork,
-        educationRequirementPersonalExperiences: {
+        educationRequirementExperiences: {
           sync: [experienceId],
         },
       })
@@ -93,12 +93,12 @@ Cypress.Commands.add("submitApplication", (applicationId, signature) => {
   });
 });
 
-const commandUpdatePoolCandidateAsAdminDoc = /* GraphQL */ `
-  mutation Command_UpdatePoolCandidateAsAdmin(
+const commandUpdatePoolCandidateStatusDoc = /* GraphQL */ `
+  mutation Command_UpdatePoolCandidateStatus(
     $id: UUID!
-    $input: UpdatePoolCandidateAsAdminInput!
+    $input: UpdatePoolCandidateStatusInput!
   ) {
-    updatePoolCandidateAsAdmin(id: $id, poolCandidate: $input) {
+    updatePoolCandidateStatus(id: $id, poolCandidate: $input) {
       id
       expiryDate
       status
@@ -106,22 +106,18 @@ const commandUpdatePoolCandidateAsAdminDoc = /* GraphQL */ `
   }
 `;
 
-const Command_UpdatePoolCandidateAsAdminMutation = graphql(
-  commandUpdatePoolCandidateAsAdminDoc,
-);
-
 Cypress.Commands.add(
-  "updatePoolCandidateAsAdmin",
-  (applicationId, updatePoolCandidateAsAdminInput) => {
-    cy.graphqlRequest<Command_UpdatePoolCandidateAsAdminMutation>({
-      operationName: "Command_UpdatePoolCandidateAsAdmin",
-      query: commandUpdatePoolCandidateAsAdminDoc,
+  "updatePoolCandidateStatus",
+  (applicationId, updatePoolCandidateStatusInput) => {
+    cy.graphqlRequest<UpdatePoolCandidateStatus_MutationMutation>({
+      operationName: "Command_UpdatePoolCandidateStatus",
+      query: commandUpdatePoolCandidateStatusDoc,
       variables: {
         id: applicationId,
-        input: updatePoolCandidateAsAdminInput,
+        input: updatePoolCandidateStatusInput,
       },
     }).then((data) => {
-      cy.wrap(data.updatePoolCandidateAsAdmin);
+      cy.wrap(data.updatePoolCandidateStatus);
     });
   },
 );

@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import { useReactToPrint } from "react-to-print";
 
 import {
@@ -20,6 +20,17 @@ import printStyles from "~/styles/printStyles";
 
 import RequestConfirmationPrintDocument from "./components/RequestConfirmationPrintDocument";
 
+const pageTitle = defineMessage({
+  defaultMessage: "Successful request",
+  id: "DcpFle",
+  description: "Page title for the request confirmation page.",
+});
+const subTitle = defineMessage({
+  defaultMessage: "Your request was submitted successfully.",
+  id: "rVgBGi",
+  description: "Subtitle for the request confirmation page.",
+});
+
 type RequestConfirmationParams = {
   requestId: Scalars["ID"]["output"];
 };
@@ -36,29 +47,28 @@ const RequestConfirmationPage = () => {
   const { requestId } =
     useRequiredParams<RequestConfirmationParams>("requestId");
 
-  const crumbs = useBreadcrumbs([
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Search for talent",
-        id: "weLwJA",
-        description: "Link text for the search page breadcrumb",
-      }),
-      url: paths.search(),
-    },
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Request submitted",
-        id: "0zo274",
-        description: "Link text for request confirmation breadcrumb",
-      }),
-      url: paths.requestConfirmation(requestId),
-    },
-  ]);
+  const formattedPageTitle = intl.formatMessage(pageTitle);
+  const formattedSubTitle = intl.formatMessage(subTitle);
 
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Successful request",
-    id: "DcpFle",
-    description: "Page title for the request confirmation page.",
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Search for talent",
+          id: "weLwJA",
+          description: "Link text for the search page breadcrumb",
+        }),
+        url: paths.search(),
+      },
+      {
+        label: intl.formatMessage({
+          defaultMessage: "Request submitted",
+          id: "0zo274",
+          description: "Link text for request confirmation breadcrumb",
+        }),
+        url: paths.requestConfirmation(requestId),
+      },
+    ],
   });
 
   const componentRef = useRef(null);
@@ -74,14 +84,10 @@ const RequestConfirmationPage = () => {
 
   return requestId ? (
     <>
-      <SEO title={pageTitle} />
+      <SEO title={formattedPageTitle} description={formattedSubTitle} />
       <Hero
-        title={pageTitle}
-        subtitle={intl.formatMessage({
-          defaultMessage: "Your request was submitted successfully.",
-          id: "rVgBGi",
-          description: "Subtitle for the request confirmation page.",
-        })}
+        title={formattedPageTitle}
+        subtitle={formattedSubTitle}
         crumbs={crumbs}
       />
       <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">

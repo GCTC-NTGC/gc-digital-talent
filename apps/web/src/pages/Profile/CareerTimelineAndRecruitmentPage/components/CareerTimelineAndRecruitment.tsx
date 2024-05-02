@@ -1,5 +1,5 @@
 import React from "react";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
@@ -9,30 +9,28 @@ import {
   AwardExperience,
   CommunityExperience,
   EducationExperience,
+  FragmentType,
   PersonalExperience,
-  Skill,
   WorkExperience,
+  getFragment,
+  graphql,
 } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
-import MissingSkills from "~/components/MissingSkills";
-import { flattenExperienceSkills } from "~/types/experience";
 import useRoutes from "~/hooks/useRoutes";
-import { wrapAbbr } from "~/utils/nameUtils";
-import { Application } from "~/utils/applicationUtils";
+import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import { PAGE_SECTION_ID, titles } from "../constants";
 import CareerTimelineSection from "./CareerTimelineSection";
 import QualifiedRecruitmentsSection from "./QualifiedRecruitmentsSection";
 
-type MergedExperiences = Array<
-  | AwardExperience
-  | CommunityExperience
-  | EducationExperience
-  | PersonalExperience
-  | WorkExperience
->;
+const subTitle = defineMessage({
+  defaultMessage: "Manage your experience and qualified recruitment processes.",
+  id: "zJKngJ",
+  description:
+    "Description for the Career timeline and recruitment page in applicant profile.",
+});
 
 export type ExperienceForDate =
   | (AwardExperience & { startDate: string; endDate: string })
@@ -41,66 +39,183 @@ export type ExperienceForDate =
   | PersonalExperience
   | WorkExperience;
 
+export const CareerTimelineExperience_Fragment = graphql(/* GraphQL */ `
+  fragment CareerTimelineExperience on Experience {
+    id
+    details
+    user {
+      id
+      email
+    }
+    skills {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      category
+      experienceSkillRecord {
+        details
+      }
+    }
+    ... on AwardExperience {
+      title
+      issuedBy
+      awardedDate
+      awardedTo
+      awardedScope
+    }
+    ... on CommunityExperience {
+      title
+      organization
+      project
+      startDate
+      endDate
+    }
+    ... on EducationExperience {
+      institution
+      areaOfStudy
+      thesisTitle
+      startDate
+      endDate
+      type
+      status
+    }
+    ... on PersonalExperience {
+      title
+      description
+      startDate
+      endDate
+    }
+    ... on WorkExperience {
+      role
+      organization
+      division
+      startDate
+      endDate
+    }
+  }
+`);
+
+export const CareerTimelineApplication_Fragment = graphql(/* GraphQL */ `
+  fragment CareerTimelineApplication on PoolCandidate {
+    id
+    status
+    archivedAt
+    submittedAt
+    suspendedAt
+    pool {
+      id
+      closingDate
+      name {
+        en
+        fr
+      }
+      publishingGroup
+      stream
+      classification {
+        id
+        group
+        level
+        name {
+          en
+          fr
+        }
+        genericJobTitles {
+          id
+          key
+          name {
+            en
+            fr
+          }
+        }
+        minSalary
+        maxSalary
+      }
+      essentialSkills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+        category
+        families {
+          id
+          key
+          description {
+            en
+            fr
+          }
+          name {
+            en
+            fr
+          }
+        }
+      }
+      team {
+        id
+        name
+        departments {
+          id
+          departmentNumber
+          name {
+            en
+            fr
+          }
+        }
+      }
+    }
+  }
+`);
+
 interface CareerTimelineAndRecruitmentProps {
   userId: string;
-  experiences?: MergedExperiences;
-  applications: Application[];
-  missingSkills?: {
-    requiredSkills: Skill[];
-    optionalSkills: Skill[];
-  };
+  experiencesQuery: FragmentType<typeof CareerTimelineExperience_Fragment>[];
+  applicationsQuery: FragmentType<typeof CareerTimelineApplication_Fragment>[];
 }
 
 const CareerTimelineAndRecruitment = ({
-  experiences,
-  applications,
-  missingSkills,
+  experiencesQuery,
+  applicationsQuery,
   userId,
 }: CareerTimelineAndRecruitmentProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const hasCareerTimelineItems = !!experiences?.length;
+  const experiences = getFragment(
+    CareerTimelineExperience_Fragment,
+    experiencesQuery,
+  );
+  const applications = getFragment(
+    CareerTimelineApplication_Fragment,
+    applicationsQuery,
+  );
 
-  const crumbs = [
-    {
-      label: intl.formatMessage({
-        defaultMessage: "Home",
-        id: "EBmWyo",
-        description: "Link text for the home link in breadcrumbs.",
-      }),
-      url: paths.home(),
-    },
-    {
-      label: intl.formatMessage(navigationMessages.profileAndApplications),
-      url: paths.profileAndApplications(),
-    },
-    {
-      label: intl.formatMessage(titles.careerTimelineAndRecruitment),
-      url: paths.careerTimelineAndRecruitment(userId),
-    },
-  ];
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(navigationMessages.profileAndApplications),
+        url: paths.profileAndApplications(),
+      },
+      {
+        label: intl.formatMessage(titles.careerTimelineAndRecruitment),
+        url: paths.careerTimelineAndRecruitment(userId),
+      },
+    ],
+  });
 
   const pageTitle = intl.formatMessage(titles.careerTimelineAndRecruitment);
+  const formattedSubtitle = intl.formatMessage(subTitle);
 
   return (
     <>
-      <SEO title={pageTitle} />
-      <Hero
-        title={pageTitle}
-        subtitle={intl.formatMessage(
-          {
-            defaultMessage:
-              "Manage your experience and qualified recruitment processes.",
-            id: "zJKngJ",
-            description:
-              "Description for the Career timeline and recruitment page in applicant profile.",
-          },
-          {
-            abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
-          },
-        )}
-        crumbs={crumbs}
-      />
+      <SEO title={pageTitle} description={formattedSubtitle} />
+      <Hero title={pageTitle} subtitle={formattedSubtitle} crumbs={crumbs} />
       <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
         <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
           <TableOfContents.Navigation>
@@ -143,22 +258,9 @@ const CareerTimelineAndRecruitment = ({
                     "Descriptive paragraph for the Manage your career timeline section of the career timeline and recruitment page.",
                 })}
               </p>
-              {missingSkills && (
-                <div data-h2-margin="base(x1, 0)">
-                  <MissingSkills
-                    addedSkills={
-                      hasCareerTimelineItems
-                        ? flattenExperienceSkills(experiences)
-                        : []
-                    }
-                    requiredSkills={missingSkills.requiredSkills}
-                    optionalSkills={missingSkills.optionalSkills}
-                  />
-                </div>
-              )}
               <div data-h2-margin-top="base(x1)">
                 <CareerTimelineSection
-                  experiences={experiences}
+                  experiences={[...experiences]}
                   userId={userId}
                 />
               </div>
@@ -194,7 +296,7 @@ const CareerTimelineAndRecruitment = ({
                     "Descriptive paragraph for the Qualified recruitment processes section of the career timeline and recruitment page.",
                 })}
               </p>
-              <QualifiedRecruitmentsSection applications={applications} />
+              <QualifiedRecruitmentsSection applications={[...applications]} />
             </TableOfContents.Section>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>

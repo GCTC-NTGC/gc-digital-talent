@@ -6,13 +6,16 @@ use App\Enums\AssessmentStepType;
 use App\Enums\OperationalRequirement;
 use App\Enums\PoolLanguage;
 use App\Enums\PoolOpportunityLength;
+use App\Enums\PoolSkillType;
 use App\Enums\PoolStream;
 use App\Enums\PublishingGroup;
 use App\Enums\SecurityStatus;
+use App\Enums\SkillLevel;
 use App\Models\AssessmentStep;
 use App\Models\Classification;
 use App\Models\GeneralQuestion;
 use App\Models\Pool;
+use App\Models\PoolSkill;
 use App\Models\ScreeningQuestion;
 use App\Models\Skill;
 use App\Models\Team;
@@ -53,6 +56,11 @@ class PoolFactory extends Factory
             $teamId = Team::factory()->create()->id;
         }
 
+        $classification = Classification::inRandomOrder()->first();
+        if (! $classification) {
+            $classification = Classification::factory()->create();
+        }
+
         $name = $this->faker->unique()->company();
 
         // this is essentially the draft state
@@ -60,17 +68,29 @@ class PoolFactory extends Factory
             'name' => ['en' => $name, 'fr' => $name],
             'user_id' => $adminUserId,
             'team_id' => $teamId,
+            'classification_id' => $classification->id,
         ];
     }
 
     public function configure()
     {
         return $this->afterCreating(function (Pool $pool) {
-            $classifications = Classification::inRandomOrder()->limit(1)->get();
             $skills = Skill::inRandomOrder()->limit(10)->get();
-            $pool->classifications()->saveMany($classifications);
-            $pool->setEssentialPoolSkills($skills->slice(0, 5)->pluck('id'));
-            $pool->setNonessentialPoolSkills($skills->slice(5, 5)->pluck('id'));
+
+            foreach ($skills->slice(0, 5) as $skill) {
+                $poolSkill = new PoolSkill();
+                $poolSkill->skill_id = $skill->id;
+                $poolSkill->type = PoolSkillType::ESSENTIAL->name;
+                $poolSkill->required_skill_level = $this->faker->randomElement(array_column(SkillLevel::cases(), 'name'));
+                $pool->poolSkills()->save($poolSkill);
+            }
+            foreach ($skills->slice(5, 5) as $skill) {
+                $poolSkill = new PoolSkill();
+                $poolSkill->skill_id = $skill->id;
+                $poolSkill->type = PoolSkillType::NONESSENTIAL->name;
+                $poolSkill->required_skill_level = $this->faker->randomElement(array_column(SkillLevel::cases(), 'name'));
+                $pool->poolSkills()->save($poolSkill);
+            }
 
             GeneralQuestion::factory()
                 ->count(3)
@@ -131,6 +151,8 @@ class PoolFactory extends Factory
                 'key_tasks' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
                 'your_impact' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
                 'what_to_expect' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
+                'what_to_expect_admission' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
+                'about_us' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
                 'security_clearance' => $this->faker->randomElement(array_column(SecurityStatus::cases(), 'name')),
                 'advertisement_language' => $this->faker->randomElement(array_column(PoolLanguage::cases(), 'name')),
                 'advertisement_location' => ! $isRemote ? ['en' => $this->faker->country(), 'fr' => $this->faker->country()] : null,

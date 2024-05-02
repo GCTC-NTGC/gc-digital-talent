@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 
-import { GeneralQuestion } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Button,
   CardRepeater,
@@ -18,17 +18,29 @@ import { FormValues, dataToFormValues, labels } from "./utils";
 const TEXT_AREA_ROWS = 3;
 const TEXT_AREA_MAX_WORDS = 200;
 
+const GeneralQuestionDialog_Fragment = graphql(/* GraphQL */ `
+  fragment GeneralQuestionDialog on GeneralQuestion {
+    id
+    question {
+      en
+      fr
+    }
+  }
+`);
 interface GeneralQuestionDialogProps {
-  question?: GeneralQuestion;
+  questionQuery?: FragmentType<typeof GeneralQuestionDialog_Fragment>;
   index?: number;
+  disabled?: boolean;
 }
 
 const GeneralQuestionDialog = ({
-  question,
+  questionQuery,
   index,
+  disabled,
 }: GeneralQuestionDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const question = getFragment(GeneralQuestionDialog_Fragment, questionQuery);
   const isUpdate = !!question;
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(question),
@@ -65,12 +77,13 @@ const GeneralQuestionDialog = ({
       <Dialog.Trigger>
         {isUpdate ? (
           <CardRepeater.Edit
+            disabled={disabled}
             aria-label={intl.formatMessage(formMessages.repeaterEdit, {
               index,
             })}
           />
         ) : (
-          <CardRepeater.Add>
+          <CardRepeater.Add disabled={disabled}>
             {intl.formatMessage({
               defaultMessage: "Add a new question",
               id: "uEqA50",

@@ -1,5 +1,5 @@
 import React from "react";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import { useQuery } from "urql";
@@ -56,6 +56,13 @@ export type UserSkillShowcaseFragment = FragmentType<
   typeof SkillShowcase_UserSkillFragment
 >[];
 
+const subTitle = defineMessage({
+  defaultMessage:
+    "Curate your top skills and highlight skills you'd like to improve.",
+  id: "w5mV/m",
+  description: "Subtitle for the skill showcase page",
+});
+
 interface SkillShowcaseProps {
   topBehaviouralSkillsQuery: UserSkillShowcaseFragment;
   topTechnicalSkillsQuery: UserSkillShowcaseFragment;
@@ -89,28 +96,24 @@ export const SkillShowcase = ({
   );
 
   const pageTitle = intl.formatMessage(navigationMessages.skillShowcase);
+  const formattedSubTitle = intl.formatMessage(subTitle);
 
-  const subtitle = intl.formatMessage({
-    defaultMessage:
-      "Curate your top skills and highlight skills you'd like to improve.",
-    id: "w5mV/m",
-    description: "Subtitle for the skill showcase page",
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: intl.formatMessage(navigationMessages.profileAndApplications),
+        url: paths.profileAndApplications(),
+      },
+      {
+        label: intl.formatMessage(navigationMessages.skillLibrary),
+        url: paths.skillLibrary(),
+      },
+      {
+        label: pageTitle,
+        url: paths.skillShowcase(),
+      },
+    ],
   });
-
-  const crumbs = useBreadcrumbs([
-    {
-      label: intl.formatMessage(navigationMessages.profileAndApplications),
-      url: paths.profileAndApplications(),
-    },
-    {
-      label: intl.formatMessage(navigationMessages.skillLibrary),
-      url: paths.skillLibrary(),
-    },
-    {
-      label: pageTitle,
-      url: paths.skillShowcase(),
-    },
-  ]);
 
   const sections: PageSections = {
     topSkills: {
@@ -135,8 +138,8 @@ export const SkillShowcase = ({
 
   return (
     <>
-      <SEO title={pageTitle} />
-      <Hero title={pageTitle} crumbs={crumbs} subtitle={subtitle} />
+      <SEO title={pageTitle} description={formattedSubTitle} />
+      <Hero title={pageTitle} crumbs={crumbs} subtitle={formattedSubTitle} />
       <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
         <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
           <TableOfContents.Navigation>

@@ -1,55 +1,39 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
-import { Meta, Story } from "@storybook/react";
+import { StoryFn } from "@storybook/react";
 
 import { fakeSkills } from "@gc-digital-talent/fake-data";
-import { BasicForm, Submit } from "@gc-digital-talent/forms";
+import { BasicForm } from "@gc-digital-talent/forms";
 
-import type { FormSkills } from "~/types/experience";
-
-import SkillsInDetail, { SkillsInDetailProps } from "./SkillsInDetail";
+import SkillsInDetail from "./SkillsInDetail";
 
 export default {
   component: SkillsInDetail,
-  title: "Components/Skills In Detail",
   args: {
     skills: [],
-    handleDelete: action("Remove from experience"),
+    onDelete: (skillId: string) =>
+      action("Remove skill from experience")(skillId),
   },
-} as Meta;
+};
 
-const TemplateSkillsInDetail: Story<SkillsInDetailProps> = (args) => {
-  const { skills } = args;
+const Template: StoryFn<typeof SkillsInDetail> = (args) => {
   return (
     <BasicForm onSubmit={action("submit")}>
       <SkillsInDetail {...args} />
-      {skills.length !== 0 && <Submit />}
     </BasicForm>
   );
 };
 
-export const NoSkills = TemplateSkillsInDetail.bind({});
-export const FewSkills = TemplateSkillsInDetail.bind({});
-export const ManySkills = TemplateSkillsInDetail.bind({});
+const fakeSkill = fakeSkills(1)[0];
 
-NoSkills.args = {
-  skills: [],
-};
-
-FewSkills.args = {
-  skills: fakeSkills(2).map((skill) => ({
-    id: skill.id,
-    skillId: skill.id,
-    name: skill.name,
-    details: skill.experienceSkillRecord?.details || "",
-  })) as FormSkills,
-};
-
-ManySkills.args = {
-  skills: fakeSkills(5).map((skill) => ({
-    id: skill.id,
-    skillId: skill.id,
-    name: skill.name,
-    details: skill.experienceSkillRecord?.details || "",
-  })) as FormSkills,
+export const Default = Template.bind({});
+Default.args = {
+  skills: [
+    {
+      id: fakeSkill.id,
+      skillId: fakeSkill.id,
+      name: fakeSkill.name,
+      details: "",
+    },
+  ],
 };

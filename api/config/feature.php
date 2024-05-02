@@ -27,12 +27,24 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Record of decision
+    | Notifications
     |--------------------------------------------------------------------------
     |
-    | A feature to introduce a multiple step assessment builder for evaluating candidates
+    | A feature to introduce notifications (application and email)
     |
     */
 
-    'record_of_decision' => (bool) env('FEATURE_RECORD_OF_DECISION', false),
+    'notifications' => (bool) env('FEATURE_NOTIFICATIONS', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Protected API
+    |--------------------------------------------------------------------------
+    |
+    | A feature to add enhanced protection for the API depending on the network path used
+    |
+    */
+
+    'protectedApi' => (bool) env('FEATURE_PROTECTED_API', false),
+
 ];

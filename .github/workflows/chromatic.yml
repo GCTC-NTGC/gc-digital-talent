@@ -4,7 +4,6 @@ on:
   push:
     branches: ["main"]
     paths:
-      - chromatic.config.json
       - .github/workflows/storybook.yml
       - packages/**
       - apps/**
@@ -13,7 +12,6 @@ on:
     branches: [main]
   pull_request:
     paths:
-      - chromatic.config.json
       - .github/workflows/storybook.yml
       - packages/**
       - apps/**
@@ -21,43 +19,41 @@ on:
 jobs:
   chromatic:
     name: Chromatic
-    # 1. Always run for commits on main branch, and for any other commits...
-    # 2. Never run automatically on first trigger event, only on manual re-run.
-    if: ${{ github.ref_name == 'main' || github.run_attempt > 1 }}
+    # Only run if not dependabot,
+    if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-22.04
     env:
-      NPM_VERSION: "9.9.2"
+      PNPM_VERSION: "8.15.0"
     steps:
       - uses: actions/checkout@v4
         with:
           # Chromatic requires full git history.
           fetch-depth: 0
 
+      - uses: pnpm/action-setup@v3
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
       - uses: actions/setup-node@v4
         with:
           node-version-file: "./.nvmrc"
-          cache: npm
-          cache-dependency-path: |
-            ./package-lock.json
-
-      - name: Upgrade to latest npm
-        run: npm install --location=global npm@${{ env.NPM_VERSION }}
+          cache: pnpm
 
       - name: "Install dependencies: workspace"
         working-directory: ./
         run: |
-          npm install
+          pnpm install
 
       - name: "Setup: all workspaces"
         working-directory: ./
         run: |
-          npm run codegen
-          npm run intl-compile
+          pnpm codegen
+          pnpm intl-compile
 
       - name: "Build: all workspaces"
         working-directory: ./
         run: |
-          npm run build
+          pnpm build
 
       - name: "Publish Storybook: all"
         uses: chromaui/action@v11
@@ -68,3 +64,5 @@ jobs:
           # moment, and want the GitHub status check in PRs (for "UI Tests") to
           # display immediately as "passing".
           autoAcceptChanges: true
+          workingDir: apps/web
+          onlyChanged: true

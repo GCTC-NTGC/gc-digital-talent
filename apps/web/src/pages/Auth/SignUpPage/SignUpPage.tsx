@@ -56,12 +56,14 @@ const SignUpPage = () => {
     description: "Page title for the registration page for applicant profiles",
   });
 
-  const crumbs = useBreadcrumbs([
-    {
-      label: pageTitle,
-      url: paths.register(),
-    },
-  ]);
+  const crumbs = useBreadcrumbs({
+    crumbs: [
+      {
+        label: pageTitle,
+        url: paths.register(),
+      },
+    ],
+  });
 
   useEffect(() => {
     if (iapMode && themeKey !== "iap") {

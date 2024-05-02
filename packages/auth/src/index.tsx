@@ -11,10 +11,12 @@ import {
   ACCESS_TOKEN,
   REFRESH_TOKEN,
   ID_TOKEN,
-  POST_LOGOUT_URI_KEY,
+  POST_LOGOUT_OVERRIDE_PATH_KEY,
   ROLE_NAME,
   RoleName,
+  LOGOUT_REASON_KEY,
 } from "./const";
+import type { LogoutReason } from "./const";
 
 export {
   RequireAuth,
@@ -33,8 +35,9 @@ export {
   ACCESS_TOKEN,
   REFRESH_TOKEN,
   ID_TOKEN,
-  POST_LOGOUT_URI_KEY,
+  POST_LOGOUT_OVERRIDE_PATH_KEY,
+  LOGOUT_REASON_KEY,
   ROLE_NAME,
 };
 
-export type { RoleName };
+export type { RoleName, LogoutReason };

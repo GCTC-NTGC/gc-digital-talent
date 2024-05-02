@@ -4,10 +4,12 @@ namespace Database\Factories;
 
 use App\Enums\ApplicationStep;
 use App\Enums\AssessmentResultType;
+use App\Enums\CandidateRemovalReason;
 use App\Enums\EducationRequirementOption;
 use App\Enums\PoolCandidateStatus;
 use App\Models\AssessmentResult;
 use App\Models\AssessmentStep;
+use App\Models\Department;
 use App\Models\EducationExperience;
 use App\Models\GeneralQuestionResponse;
 use App\Models\Pool;
@@ -34,8 +36,15 @@ class PoolCandidateFactory extends Factory
      */
     public function definition()
     {
+        $relevantStatusesForFinalDecision = PoolCandidateStatus::finalDecisionGroup();
+        $placedStatuses = PoolCandidateStatus::placedGroup();
+        $placedDepartmentId = Department::inRandomOrder()
+            ->limit(1)
+            ->pluck('id')
+            ->first();
+        $removedStatuses = PoolCandidateStatus::removedGroup();
+
         return [
-            'cmo_identifier' => $this->faker->word(),
             'expiry_date' => $this->faker->dateTimeBetween('-1 years', '3 years'),
             'pool_candidate_status' => $this->faker->boolean() ?
                 $this->faker->randomElement([PoolCandidateStatus::QUALIFIED_AVAILABLE, PoolCandidateStatus::PLACED_CASUAL])->name :
@@ -49,10 +58,33 @@ class PoolCandidateFactory extends Factory
             'submitted_steps' => array_slice(
                 array_column(ApplicationStep::cases(), 'name'),
                 0,
-                $this->faker->numberBetween(0, count(ApplicationStep::cases()) - 1)
+                $this->faker->numberBetween(0, count(ApplicationStep::cases()) - 2)
             ),
-            'education_requirement_option' => $this->faker->randomElement(EducationRequirementOption::cases())->name,
             'is_bookmarked' => $this->faker->boolean(10),
+            'final_decision_at' => function (array $attributes) use ($relevantStatusesForFinalDecision) {
+                return in_array($attributes['pool_candidate_status'], $relevantStatusesForFinalDecision) ?
+                $this->faker->dateTimeBetween('-4 weeks', '-2 weeks') : null;
+            },
+            'placed_at' => function (array $attributes) use ($placedStatuses) {
+                return in_array($attributes['pool_candidate_status'], $placedStatuses) ?
+                $this->faker->dateTimeBetween('-2 weeks', 'now') : null;
+            },
+            'placed_department_id' => function (array $attributes) use ($placedStatuses, $placedDepartmentId) {
+                return in_array($attributes['pool_candidate_status'], $placedStatuses) ?
+                $placedDepartmentId : null;
+            },
+            'removed_at' => function (array $attributes) use ($removedStatuses) {
+                return in_array($attributes['pool_candidate_status'], $removedStatuses) ?
+                $this->faker->dateTimeBetween('-2 weeks', 'now') : null;
+            },
+            'removal_reason' => function (array $attributes) use ($removedStatuses) {
+                return in_array($attributes['pool_candidate_status'], $removedStatuses) ?
+                $this->faker->randomElement(CandidateRemovalReason::cases())->name : null;
+            },
+            'removal_reason_other' => function (array $attributes) {
+                return $attributes['removal_reason'] === CandidateRemovalReason::OTHER->name ?
+                $this->faker->sentence() : null;
+            },
         ];
     }
 
@@ -71,6 +103,7 @@ class PoolCandidateFactory extends Factory
                 $poolCandidate->update([
                     'submitted_at' => $submittedDate,
                     'signature' => $fakeSignature,
+                    'submitted_steps' => array_column(ApplicationStep::cases(), 'name'),
                 ]);
             }
 
@@ -98,7 +131,24 @@ class PoolCandidateFactory extends Factory
                 }
             }
 
-            if ($poolCandidate->education_requirement_option === EducationRequirementOption::EDUCATION->name) {
+            // set education requirement option, influenced by classification of pool
+            $classification = $poolCandidate->pool->classification;
+            if ($classification) {
+                if ($classification->group === 'EX') {
+                    $poolCandidate->update([
+                        'education_requirement_option' => EducationRequirementOption::PROFESSIONAL_DESIGNATION->name,
+                    ]);
+                } else {
+                    $requirementOption = $this->faker->boolean() ? EducationRequirementOption::APPLIED_WORK->name : EducationRequirementOption::EDUCATION->name;
+                    $poolCandidate->update([
+                        'education_requirement_option' => $requirementOption,
+                    ]);
+                }
+            }
+
+            // attach either a work or education experience to a pool candidate to meet minimum criteria
+            if ($poolCandidate->education_requirement_option === EducationRequirementOption::EDUCATION->name ||
+            $poolCandidate->education_requirement_option === EducationRequirementOption::PROFESSIONAL_DESIGNATION->name) {
                 //Ensure user has at least one education experience
                 $experience = EducationExperience::factory()->create([
                     'user_id' => $poolCandidate->user_id,
