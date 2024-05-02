@@ -44,7 +44,42 @@ import UnarchiveProcessDialog from "./components/UnArchiveProcessDialog";
 import DeleteProcessDialog from "./components/DeleteProcessDialog";
 import ChangeDateDialog from "./components/ChangeDateDialog";
 import PublishProcessDialog from "./components/PublishProcessDialog";
-import ViewPool_Fragment from "./fragment";
+
+export const ViewPool_Fragment = graphql(/* GraphQL */ `
+  fragment ViewPool on Pool {
+    ...AssessmentPlanStatus
+    id
+    publishingGroup
+    isComplete
+    status
+    closingDate
+    processNumber
+    stream
+    classification {
+      id
+      group
+      level
+    }
+    name {
+      en
+      fr
+    }
+    poolSkills {
+      id
+      type
+    }
+    poolCandidates {
+      id
+      pool {
+        id
+      }
+      user {
+        id
+        email
+      }
+    }
+  }
+`);
 
 export interface ViewPoolProps {
   poolQuery: FragmentType<typeof ViewPool_Fragment>;

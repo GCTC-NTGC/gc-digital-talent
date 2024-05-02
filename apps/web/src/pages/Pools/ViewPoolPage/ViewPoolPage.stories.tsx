@@ -14,8 +14,7 @@ import {
 } from "@gc-digital-talent/date-helpers";
 import { PoolStatus, makeFragmentData } from "@gc-digital-talent/graphql";
 
-import { ViewPool, ViewPoolProps } from "./ViewPoolPage";
-import ViewPool_Fragment from "./fragment";
+import { ViewPool, ViewPoolProps, ViewPool_Fragment } from "./ViewPoolPage";
 
 const classifications = fakeClassifications();
 const skills = fakeSkills(100, fakeSkillFamilies(10));
