@@ -77,7 +77,7 @@ export const JobPlacementDialog_Fragment = graphql(/* GraphQL */ `
 `);
 
 type FormValues = {
-  placedJob?: PlacementType | "NOT_PLACED";
+  placementType?: PlacementType | "NOT_PLACED";
   placedDepartment?: string;
 };
 
@@ -107,14 +107,14 @@ export const JobPlacementDialog = ({
     placedDepartment,
   } = getFragment(JobPlacementDialog_Fragment, jobPlacementDialogQuery);
 
-  const placedJob =
-    isPlacedStatus(status) || status === PoolCandidateStatus.PlacedTentative
+  const placementType =
+    status && PLACEMENT_TYPE_STATUSES.includes(status)
       ? (status as unknown as PlacementType)
       : "NOT_PLACED";
 
   const methods = useForm<FormValues>({
     defaultValues: {
-      placedJob,
+      placementType,
       placedDepartment: placedDepartment?.id,
     },
   });
@@ -124,9 +124,9 @@ export const JobPlacementDialog = ({
   }
 
   const { handleSubmit, watch } = methods;
-  const watchPlacedJob = watch("placedJob");
+  const watchPlacementType = watch("placementType");
 
-  const isPlaced = watchPlacedJob !== "NOT_PLACED";
+  const isPlaced = watchPlacementType !== "NOT_PLACED";
 
   const handleSuccess = () => {
     toast.success(
@@ -154,12 +154,12 @@ export const JobPlacementDialog = ({
   const handleFormSubmit: SubmitHandler<FormValues> = async (
     values: FormValues,
   ) => {
-    if (values.placedJob && values.placedJob !== "NOT_PLACED") {
+    if (values.placementType && values.placementType !== "NOT_PLACED") {
       await executePlacedCandidate({
         id: poolCandidateId,
         placeCandidate: {
           departmentId: values.placedDepartment,
-          placementType: values.placedJob,
+          placementType: values.placementType,
         },
       })
         .then((result) => {
@@ -191,7 +191,7 @@ export const JobPlacementDialog = ({
     }
   };
 
-  const placedJobOptions = [
+  const placementTypeOptions = [
     {
       value: "NOT_PLACED",
       label: intl.formatMessage(poolCandidateMessages.notPlaced),
@@ -244,14 +244,14 @@ export const JobPlacementDialog = ({
             <form onSubmit={handleSubmit(handleFormSubmit)}>
               <div data-h2-display="base(grid)" data-h2-gap="base(x1)">
                 <RadioGroup
-                  idPrefix="placedJob"
-                  name="placedJob"
+                  idPrefix="placementType"
+                  name="placementType"
                   legend={intl.formatMessage({
                     defaultMessage: "Job placement status",
                     id: "dpO8Va",
                     description: "Label for the job placement status field",
                   })}
-                  items={placedJobOptions}
+                  items={placementTypeOptions}
                 />
                 {isPlaced && (
                   <Select
