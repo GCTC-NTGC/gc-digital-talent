@@ -62,13 +62,6 @@ server {
         break;
     }
 
-    # Disable .git directory
-    location ~ /\.git {
-        deny all;
-        access_log off;
-        log_not_found off;
-    }
-
     # handle special cases
     location = /robots.txt {
         alias /home/site/wwwroot/infrastructure/conf/dev.robots.txt;
