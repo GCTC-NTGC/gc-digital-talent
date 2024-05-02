@@ -66,11 +66,6 @@ interface HeroTitleProps {
   pool: PoolLayoutFragment;
 }
 
-interface HeroSubtitleProps {
-  currentPage: PageNavInfo | undefined;
-  subTitle: string | undefined;
-}
-
 const heroTitle = ({ currentPage, intl, pool }: HeroTitleProps) => {
   if (currentPage?.link.url.includes("edit")) {
     return currentPage?.title;
@@ -80,6 +75,11 @@ const heroTitle = ({ currentPage, intl, pool }: HeroTitleProps) => {
   }
   return getShortPoolTitleLabel(intl, pool);
 };
+
+interface HeroSubtitleProps {
+  currentPage: PageNavInfo | undefined;
+  subTitle: string | undefined;
+}
 
 const heroSubtitle = ({ currentPage, subTitle }: HeroSubtitleProps) => {
   if (currentPage?.link.url.includes("edit")) {
