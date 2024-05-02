@@ -31,6 +31,7 @@ import {
   Maybe,
   PoolCandidateWithSkillCount,
   PublishingGroup,
+  FragmentType,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -78,7 +79,10 @@ import {
   getPoolCandidateCsvData,
   getPoolCandidateCsvHeaders,
 } from "./poolCandidateCsv";
-import { jobPlacementDialogAccessor } from "./JobPlacementDialog";
+import {
+  JobPlacementDialog_Fragment,
+  jobPlacementDialogAccessor,
+} from "./JobPlacementDialog";
 
 const columnHelper = createColumnHelper<PoolCandidateWithSkillCount>();
 
@@ -635,12 +639,13 @@ const PoolCandidatesTable = ({
         header: intl.formatMessage(tableMessages.jobPlacement),
         cell: ({
           row: {
-            original: {
-              poolCandidate: { id, status, placedDepartment },
-            },
+            original: { poolCandidate },
           },
         }) =>
-          jobPlacementDialogAccessor(id, departments, status, placedDepartment),
+          jobPlacementDialogAccessor(
+            poolCandidate as FragmentType<typeof JobPlacementDialog_Fragment>,
+            departments,
+          ),
         enableSorting: false,
       },
     ),

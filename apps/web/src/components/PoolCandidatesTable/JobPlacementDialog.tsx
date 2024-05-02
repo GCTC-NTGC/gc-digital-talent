@@ -14,12 +14,10 @@ import {
 import {
   Department,
   FragmentType,
-  Maybe,
   PlacementType,
   PoolCandidateStatus,
   getFragment,
   graphql,
-  makeFragmentData,
 } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
@@ -296,16 +294,9 @@ const JobPlacementDialog = ({
 };
 
 export function jobPlacementDialogAccessor(
-  poolCandidateId: string,
+  jobPlacementDialogQuery: FragmentType<typeof JobPlacementDialog_Fragment>,
   departments: Department[],
-  status?: Maybe<PoolCandidateStatus>,
-  placedDepartment?: Maybe<Department>,
 ) {
-  const jobPlacementDialogQuery = makeFragmentData(
-    { id: poolCandidateId, status, placedDepartment },
-    JobPlacementDialog_Fragment,
-  );
-
   return (
     <JobPlacementDialog
       jobPlacementDialogQuery={jobPlacementDialogQuery}
