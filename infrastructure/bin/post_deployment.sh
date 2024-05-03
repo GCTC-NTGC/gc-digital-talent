@@ -68,6 +68,7 @@ fi
 add_section_block "$TRIPLE_BACK_TICK $CLEANED_STDOUT $TRIPLE_BACK_TICK"
 
 # Load Laravel Scheduler cron
+# For extra debugging you can add `>> /tmp/run_laravel_scheduler.log 2>&1` to the end of the cron'd command
 if echo "  *  *  *  *  * root    . /etc/profile ; php /home/site/wwwroot/api/artisan schedule:run" >> /etc/crontab ; then
     add_section_block ":white_check_mark: Laravel Scheduler cron setup *successful*."
 else

@@ -36,9 +36,9 @@ class Kernel extends ConsoleKernel
 
             // queue up Application Deadline Approaching emails every day, close to the time the pool would close
             $schedule->command(SendNotificationsApplicationDeadlineApproaching::class)
-                ->timezone('America/Vancouver')
-                // ->dailyAt('23:00')
-                ->everyTenMinutes()
+                ->timezone('America/Toronto')
+                // 10 PM Eastern is the same day across the country, close to the end of the day in NL
+                ->dailyAt('22:00')
                 ->appendOutputTo('/tmp/send-notifications-application-deadline-approaching.log');
 
         } else {
