@@ -97,7 +97,10 @@ const NotificationListPage = ({
       ) : null}
       {fetching && exclude.length === 0 && <Loading inline />}
       {showNullMessage && (
-        <NotificationPortal.Portal containerId={NULL_MESSAGE_ROOT_ID}>
+        <NotificationPortal.Portal
+          containerId={NULL_MESSAGE_ROOT_ID}
+          inDialog={inDialog}
+        >
           <Well
             {...(inDialog && {
               "data-h2-margin": "base(0 x1)",
