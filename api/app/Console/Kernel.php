@@ -20,9 +20,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // Log facade does not seem to work in here!
-        // Config utility does not seem to work in here!
-
         // $schedule->command(HardDeleteOldUsers::class)->dailyAt('08:00');
 
         // clean up old user generated files every day at 1:00 AM
