@@ -2,12 +2,7 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import uniqueId from "lodash/uniqueId";
 
-import {
-  FragmentType,
-  User,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   getCitizenshipStatusesAdmin,
