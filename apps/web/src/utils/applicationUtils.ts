@@ -1,3 +1,10 @@
+/**
+ * This file contains utility functions for working with applications on the Applicant side,
+ * particularly for the multi-step application process,
+ * and also for how applications are displayed in the applicant dashboard.
+ *
+ * For utilities general to the PoolCandidate object, or specific to the Admin side, see ./poolCandidates.ts
+ */
 import { IntlShape } from "react-intl";
 import { isPast } from "date-fns/isPast";
 

@@ -1,3 +1,9 @@
+/**
+ * This file contains utility functions for working with the Pool Candidate model generally,
+ * and for interacting with Pool Candidates on the Admin side (e.g. Assessment).
+ *
+ * For utilities specific to the Applicant-side UI, see ./applicationUtils.ts
+ */
 import { IntlShape, MessageDescriptor } from "react-intl";
 import { isPast } from "date-fns/isPast";
 import React from "react";
