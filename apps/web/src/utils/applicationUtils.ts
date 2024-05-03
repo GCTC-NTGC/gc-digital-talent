@@ -24,6 +24,8 @@ import skillsStepInfo from "~/pages/Applications/skillsStep/skillsStepInfo";
 import { isIAPPool } from "~/utils/poolUtils";
 import careerTimelineStepInfo from "~/pages/Applications/careerTimelineStep/careerTimelineStepInfo";
 
+import { isDraftStatus, isToAssessStatus } from "./poolCandidate";
+
 type GetApplicationPagesArgs = {
   paths: ReturnType<typeof useRoutes>;
   intl: IntlShape;
@@ -165,19 +167,21 @@ export function applicationStepsToStepperArgs(
 
 export type Application = Omit<PoolCandidate, "user">;
 
-export function isApplicationInProgress(a: Application): boolean {
-  const isExpired = a.pool.closingDate
-    ? isPast(parseDateTimeUtc(a.pool.closingDate))
-    : false;
+/**
+ * Returns true if the application is
+ * - a draft which still may be submitted (ie pool has not closed)
+ * - OR has been submitted but is still in assessment
+ */
+export function isApplicationInProgress(a: {
+  status: PoolCandidateStatus;
+  pool: { closingDate: string };
+}): boolean {
+  const poolIsExpired = isPast(parseDateTimeUtc(a.pool.closingDate));
   return (
-    (!isExpired && a.status === PoolCandidateStatus.Draft) ||
-    a.status === PoolCandidateStatus.NewApplication ||
-    a.status === PoolCandidateStatus.ApplicationReview ||
-    a.status === PoolCandidateStatus.UnderAssessment ||
-    a.status === PoolCandidateStatus.ScreenedIn
+    (isDraftStatus(a.status) && !poolIsExpired) || isToAssessStatus(a.status)
   );
 }
 
-export function notRemoved(a: Application): boolean {
+export function notRemoved(a: { status: PoolCandidateStatus }): boolean {
   return a.status !== PoolCandidateStatus.Removed;
 }

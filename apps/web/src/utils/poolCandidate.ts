@@ -35,6 +35,7 @@ import {
   TO_ASSESS_STATUSES,
   PLACED_STATUSES,
   NOT_PLACED_STATUSES,
+  DRAFT_STATUSES,
 } from "~/constants/poolCandidate";
 
 import { isOngoingPublishingGroup } from "./poolUtils";
@@ -51,6 +52,10 @@ export const isRemovedStatus = (
 export const isQualifiedStatus = (
   status: Maybe<PoolCandidateStatus> | undefined,
 ): boolean => (status ? QUALIFIED_STATUSES.includes(status) : false);
+
+export const isDraftStatus = (
+  status: Maybe<PoolCandidateStatus> | undefined,
+): boolean => (status ? DRAFT_STATUSES.includes(status) : false);
 
 export const isToAssessStatus = (
   status: Maybe<PoolCandidateStatus> | undefined,
