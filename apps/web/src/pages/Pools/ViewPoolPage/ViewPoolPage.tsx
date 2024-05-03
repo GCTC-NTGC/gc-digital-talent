@@ -47,9 +47,9 @@ import PublishProcessDialog from "./components/PublishProcessDialog";
 
 export const ViewPool_Fragment = graphql(/* GraphQL */ `
   fragment ViewPool on Pool {
+    ...AssessmentPlanStatus
     id
     publishingGroup
-    publishedAt
     isComplete
     status
     closingDate
@@ -66,9 +66,7 @@ export const ViewPool_Fragment = graphql(/* GraphQL */ `
     }
     poolSkills {
       id
-    }
-    assessmentSteps {
-      id
+      type
     }
     poolCandidates {
       id
