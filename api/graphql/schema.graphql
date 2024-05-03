@@ -183,7 +183,6 @@ type Pool {
     @guard
   poolCandidatesCount: Int
     @count(relation: "poolCandidates", scopes: ["notDraft"])
-    @guard
   keyTasks: LocalizedString @rename(attribute: "key_tasks")
   yourImpact: LocalizedString @rename(attribute: "your_impact")
   whatToExpect: LocalizedString @rename(attribute: "what_to_expect")
