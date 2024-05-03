@@ -32,11 +32,6 @@ class SendNotificationsApplicationDeadlineApproaching extends Command
     public function handle()
     {
         $this->info('SendNotificationsApplicationDeadlineApproaching running at '.Carbon::now()->toDateTimeString());
-        $this->info('Notification flag is '.(config('feature.notifications') ? 'ON' : 'OFF').'.');
-
-        if (! config('feature.notifications')) {
-            return Command::SUCCESS;
-        }
 
         $successCount = 0;
         $failureCount = 0;

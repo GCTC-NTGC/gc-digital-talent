@@ -3,7 +3,6 @@
 namespace App\Console;
 
 use App\Console\Commands\HardDeleteOldUsers;
-use App\Console\Commands\LogFlagsCommand;
 use App\Console\Commands\PruneUserGeneratedFiles;
 use App\Console\Commands\SendNotificationsApplicationDeadlineApproaching;
 use Illuminate\Console\Scheduling\Schedule;
@@ -33,16 +32,18 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping()
             ->appendOutputTo('/tmp/laravel-prune-user-generated-files.log');
 
-        // queue up Application Deadline Approaching emails every day, close to the time the pool would close
-        $schedule->command(SendNotificationsApplicationDeadlineApproaching::class)
-            ->timezone('America/Vancouver')
-            // ->dailyAt('23:00')
-            ->everyTenMinutes()
-            ->appendOutputTo('/tmp/send-notifications-application-deadline-approaching.log');
+        if (config('feature.notifications')) {
 
-        $schedule->command(LogFlagsCommand::class)
-            ->everyMinute()
-            ->appendOutputTo('/tmp/log-flags.log');
+            // queue up Application Deadline Approaching emails every day, close to the time the pool would close
+            $schedule->command(SendNotificationsApplicationDeadlineApproaching::class)
+                ->timezone('America/Vancouver')
+                // ->dailyAt('23:00')
+                ->everyTenMinutes()
+                ->appendOutputTo('/tmp/send-notifications-application-deadline-approaching.log');
+
+        } else {
+            Log::debug('Notification flag is off.  Skipping all notification sending commands.');
+        }
     }
 
     /**
