@@ -5,7 +5,12 @@ import { useIntl } from "react-intl";
 import FolderOpenIcon from "@heroicons/react/24/outline/FolderOpenIcon";
 
 import { Accordion, Heading, Link, Well } from "@gc-digital-talent/ui";
-import { PoolCandidate, Scalars } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  Scalars,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { isApplicationInProgress, notRemoved } from "~/utils/applicationUtils";
@@ -16,21 +21,35 @@ function buildLink(href: string, chunks: React.ReactNode): React.ReactElement {
   return <Link href={href}>{chunks}</Link>;
 }
 
-export type Application = Omit<PoolCandidate, "user">;
+export const TrackApplicationsCandidate_Fragment = graphql(/* GraphQL */ `
+  fragment TrackApplicationsCandidate on PoolCandidate {
+    ...ApplicationCard
+    id
+    status
+    pool {
+      id
+      closingDate
+    }
+  }
+`);
 
 interface TrackApplicationsProps {
-  applications: Application[];
+  applicationsQuery: FragmentType<typeof TrackApplicationsCandidate_Fragment>[];
   userId: Scalars["ID"]["output"];
 }
 
 type AccordionItems = Array<"in_progress" | "past" | "">;
 
 const TrackApplications = ({
-  applications,
+  applicationsQuery,
   userId,
 }: TrackApplicationsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const applications = getFragment(
+    TrackApplicationsCandidate_Fragment,
+    applicationsQuery,
+  );
 
   const inProgressApplications = applications.filter(isApplicationInProgress);
 
@@ -143,7 +162,7 @@ const TrackApplications = ({
                 inProgressApplications.map((activeRecruitment) => (
                   <ApplicationCard
                     key={activeRecruitment.id}
-                    application={activeRecruitment}
+                    poolCandidateQuery={activeRecruitment}
                   />
                 ))
               ) : (
@@ -216,7 +235,7 @@ const TrackApplications = ({
                 pastApplications.map((pastApplication) => (
                   <ApplicationCard
                     key={pastApplication.id}
-                    application={pastApplication}
+                    poolCandidateQuery={pastApplication}
                   />
                 ))
               ) : (

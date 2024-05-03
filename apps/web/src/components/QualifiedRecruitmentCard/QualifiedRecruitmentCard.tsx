@@ -14,30 +14,85 @@ import {
   Separator,
   incrementHeadingRank,
 } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { getLocalizedName, getSkillCategory } from "@gc-digital-talent/i18n";
-import { SkillCategory } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  SkillCategory,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 import { categorizeSkill } from "~/utils/skillUtils";
 import { getRecruitmentType } from "~/utils/poolCandidate";
-import { Application } from "~/utils/applicationUtils";
 
 import RecruitmentAvailabilityDialog from "../RecruitmentAvailabilityDialog/RecruitmentAvailabilityDialog";
 import { getQualifiedRecruitmentInfo, joinDepartments } from "./utils";
 
+export const QualifiedRecruitmentCard_Fragment = graphql(/* GraphQL */ `
+  fragment QualifiedRecruitmentCard on PoolCandidate {
+    ...RecruitmentAvailabilityDialog
+    id
+    status
+    suspendedAt
+    pool {
+      id
+      stream
+      publishingGroup
+      name {
+        en
+        fr
+      }
+      classification {
+        id
+        group
+        level
+      }
+      team {
+        id
+        name
+        departments {
+          id
+          departmentNumber
+          name {
+            en
+            fr
+          }
+        }
+      }
+      poolSkills {
+        id
+        skill {
+          id
+          category
+          key
+          name {
+            en
+            fr
+          }
+        }
+      }
+    }
+  }
+`);
+
 export interface QualifiedRecruitmentCardProps {
-  candidate: Application;
+  candidateQuery: FragmentType<typeof QualifiedRecruitmentCard_Fragment>;
   headingLevel?: HeadingRank;
 }
 
 const QualifiedRecruitmentCard = ({
-  candidate,
+  candidateQuery,
   headingLevel = "h2",
 }: QualifiedRecruitmentCardProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const [linkCopied, setLinkCopied] = React.useState<boolean>(false);
   const contentHeadingLevel = incrementHeadingRank(headingLevel);
+  const candidate = getFragment(
+    QualifiedRecruitmentCard_Fragment,
+    candidateQuery,
+  );
   const {
     title,
     statusChip,
@@ -51,7 +106,9 @@ const QualifiedRecruitmentCard = ({
 
   // NOTE: Until we store assessed skills, we will just be displayed all essential skills
   const categorizedSkills = categorizeSkill(
-    candidate.pool.essentialSkills?.filter(notEmpty) ?? [],
+    unpackMaybes(
+      candidate.pool?.poolSkills?.map((poolSkill) => poolSkill?.skill),
+    ),
   );
 
   /** Reset link copied after 3 seconds */
@@ -261,7 +318,7 @@ const QualifiedRecruitmentCard = ({
           )}
           {availability.showDialog && (
             <div data-h2-flex-shrink="base(0)">
-              <RecruitmentAvailabilityDialog candidate={candidate} />
+              <RecruitmentAvailabilityDialog candidateQuery={candidate} />
             </div>
           )}
         </div>

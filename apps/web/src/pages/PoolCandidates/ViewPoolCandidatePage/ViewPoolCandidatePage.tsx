@@ -70,6 +70,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
       id
       status
       user {
+        ...ApplicationProfileDetails
         id
         firstName
         lastName
@@ -763,7 +764,7 @@ export const ViewPoolCandidate = ({
         contentRight={chips}
         nav={{ mode: "crumbs", items: navigationCrumbs }}
       >
-        <ProfileDetails user={poolCandidate.user} />
+        <ProfileDetails userQuery={poolCandidate.user} />
       </AdminHero>
       <AdminContentWrapper>
         <Sidebar.Wrapper>

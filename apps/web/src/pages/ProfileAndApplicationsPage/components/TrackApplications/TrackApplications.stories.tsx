@@ -6,34 +6,45 @@ import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
-import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
+import {
+  PoolCandidateStatus,
+  makeFragmentData,
+} from "@gc-digital-talent/graphql";
 
-import TrackApplications, { Application } from "./TrackApplications";
+import TrackApplications, {
+  TrackApplicationsCandidate_Fragment,
+} from "./TrackApplications";
 
 const mockApplications = fakePoolCandidates(20);
 
-const activeRecruitments: Application[] = Object.values(PoolCandidateStatus)
+const activeRecruitments = Object.values(PoolCandidateStatus)
   .filter((status) => status !== PoolCandidateStatus.Expired)
   .map((status, index) => {
-    return {
-      ...mockApplications[index],
-      status,
-      archivedAt: null,
-      expiryDate: FAR_FUTURE_DATE,
-    };
+    return makeFragmentData(
+      {
+        ...mockApplications[index],
+        status,
+        archivedAt: null,
+        expiryDate: FAR_FUTURE_DATE,
+      },
+      TrackApplicationsCandidate_Fragment,
+    );
   });
 
-const expiredRecruitments: Application[] = fakePoolCandidates(5).map(
-  (application) => ({
-    ...application,
-    expiryDate: FAR_PAST_DATE,
-  }),
+const expiredRecruitments = fakePoolCandidates(5).map((application) =>
+  makeFragmentData(
+    {
+      ...application,
+      expiryDate: FAR_PAST_DATE,
+    },
+    TrackApplicationsCandidate_Fragment,
+  ),
 );
 
 export default {
   component: TrackApplications,
   args: {
-    applications: [...activeRecruitments, ...expiredRecruitments],
+    applicationsQuery: [...activeRecruitments, ...expiredRecruitments],
     userId: mockApplications[0].id,
   },
 } as Meta;
@@ -45,5 +56,5 @@ const Template: StoryFn<typeof TrackApplications> = (args) => {
 export const DefaultQualifiedRecruitments = Template.bind({});
 export const NoQualifiedRecruitments = Template.bind({});
 NoQualifiedRecruitments.args = {
-  applications: [],
+  applicationsQuery: [],
 };

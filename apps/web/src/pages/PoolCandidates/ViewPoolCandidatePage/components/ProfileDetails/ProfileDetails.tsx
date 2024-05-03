@@ -2,7 +2,12 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import uniqueId from "lodash/uniqueId";
 
-import { User } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  User,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   getCitizenshipStatusesAdmin,
@@ -11,12 +16,26 @@ import {
 } from "@gc-digital-talent/i18n";
 import { Link, Well } from "@gc-digital-talent/ui";
 
+const ApplicationProfileDetails_Fragment = graphql(/* GraphQL */ `
+  fragment ApplicationProfileDetails on User {
+    currentCity
+    currentProvince
+    telephone
+    email
+    citizenship
+    preferredLang
+    preferredLanguageForInterview
+    preferredLanguageForExam
+  }
+`);
+
 interface ProfileDetailsProps {
-  user: User;
+  userQuery: FragmentType<typeof ApplicationProfileDetails_Fragment>;
 }
 
-const ProfileDetails = ({ user }: ProfileDetailsProps) => {
+const ProfileDetails = ({ userQuery }: ProfileDetailsProps) => {
   const intl = useIntl();
+  const user = getFragment(ApplicationProfileDetails_Fragment, userQuery);
 
   const location = (
     <p>

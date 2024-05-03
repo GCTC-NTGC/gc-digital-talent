@@ -178,7 +178,9 @@ export function isApplicationInProgress(a: Application): boolean {
   );
 }
 
-export function isApplicationQualifiedRecruitment(a: Application): boolean {
+export function isApplicationQualifiedRecruitment(
+  a: Pick<Application, "status">,
+): boolean {
   return (
     a.status === PoolCandidateStatus.QualifiedAvailable ||
     a.status === PoolCandidateStatus.QualifiedUnavailable ||

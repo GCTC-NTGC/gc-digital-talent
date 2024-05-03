@@ -10,7 +10,7 @@ import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
 import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
 import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
 
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   Alert,
   Link,
@@ -19,7 +19,7 @@ import {
   ScrollToLinkProps,
 } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
-import { AwardExperience } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import Hero from "~/components/Hero/Hero";
 import useRoutes, {
@@ -47,8 +47,6 @@ import { isApplicationQualifiedRecruitment } from "~/utils/applicationUtils";
 import { PAGE_SECTION_ID as CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
 import experienceMessages from "~/messages/experienceMessages";
 
-import { PartialUser } from "../types";
-
 function buildLink(
   href: string,
   chunks: React.ReactNode,
@@ -72,27 +70,65 @@ function buildScrollToLink(
     </ScrollToLink>
   );
 }
+
+const DashboardHeadingUser_Fragment = graphql(/* GraphQL */ `
+  fragment DashboardHeadingUser on User {
+    id
+    firstName
+    locationPreferences
+    positionDuration
+    isGovEmployee
+    hasPriorityEntitlement
+    priorityNumber
+    lookingForEnglish
+    lookingForFrench
+    lookingForBilingual
+    firstOfficialLanguage
+    estimatedLanguageAbility
+    secondLanguageExamCompleted
+    secondLanguageExamValidity
+    writtenLevel
+    comprehensionLevel
+    verbalLevel
+    experiences {
+      id
+    }
+    poolCandidates {
+      id
+      status
+    }
+    userSkills {
+      id
+    }
+    topBehaviouralSkillsRanking {
+      id
+    }
+    topTechnicalSkillsRanking {
+      id
+    }
+    improveBehaviouralSkillsRanking {
+      id
+    }
+    improveTechnicalSkillsRanking {
+      id
+    }
+  }
+`);
+
 interface DashboardHeadingProps {
-  user: PartialUser;
+  userQuery: FragmentType<typeof DashboardHeadingUser_Fragment>;
 }
 
-const DashboardHeading = ({ user }: DashboardHeadingProps) => {
+const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const [searchParams, setSearchParams] = useSearchParams();
+  const user = getFragment(DashboardHeadingUser_Fragment, userQuery);
 
-  const notEmptyExperiences = user.experiences?.filter(notEmpty) ?? [];
-  const notEmptyApplications = user.poolCandidates?.filter(notEmpty) ?? [];
+  const notEmptyExperiences = unpackMaybes(user.experiences);
+  const notEmptyApplications = unpackMaybes(user.poolCandidates);
 
-  const awardExperiences =
-    notEmptyExperiences?.filter(isAwardExperience).map(
-      (award: AwardExperience) =>
-        ({
-          ...award,
-          startDate: award.awardedDate,
-          endDate: award.awardedDate,
-        }) as AwardExperience & { startDate: string; endDate: string },
-    ) || [];
+  const awardExperiences = notEmptyExperiences?.filter(isAwardExperience) || [];
   const communityExperiences =
     notEmptyExperiences?.filter(isCommunityExperience) || [];
   const educationExperiences =

@@ -100,6 +100,7 @@ export const CareerTimelineExperience_Fragment = graphql(/* GraphQL */ `
 
 export const CareerTimelineApplication_Fragment = graphql(/* GraphQL */ `
   fragment CareerTimelineApplication on PoolCandidate {
+    ...QualifiedRecruitmentsCandidate
     id
     status
     archivedAt
@@ -296,7 +297,9 @@ const CareerTimelineAndRecruitment = ({
                     "Descriptive paragraph for the Qualified recruitment processes section of the career timeline and recruitment page.",
                 })}
               </p>
-              <QualifiedRecruitmentsSection applications={[...applications]} />
+              <QualifiedRecruitmentsSection
+                applicationsQuery={[...applications]}
+              />
             </TableOfContents.Section>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>

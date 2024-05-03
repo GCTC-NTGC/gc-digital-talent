@@ -336,18 +336,21 @@ export const formValuesToSubmitData = (
   };
 };
 
-export const isAwardExperience = (e: AnyExperience): e is AwardExperience =>
-  e.__typename === "AwardExperience";
+type SimpleAnyExperience = Omit<AnyExperience, "user">;
+
+export const isAwardExperience = (
+  e: SimpleAnyExperience,
+): e is AwardExperience => e.__typename === "AwardExperience";
 export const isCommunityExperience = (
-  e: AnyExperience,
+  e: SimpleAnyExperience,
 ): e is CommunityExperience => e.__typename === "CommunityExperience";
 export const isEducationExperience = (
-  e: AnyExperience,
+  e: SimpleAnyExperience,
 ): e is EducationExperience => e.__typename === "EducationExperience";
 export const isPersonalExperience = (
-  e: AnyExperience,
+  e: SimpleAnyExperience,
 ): e is PersonalExperience => e.__typename === "PersonalExperience";
-export const isWorkExperience = (e: AnyExperience): e is WorkExperience =>
+export const isWorkExperience = (e: SimpleAnyExperience): e is WorkExperience =>
   e.__typename === "WorkExperience";
 
 export const compareByDate = (e1: ExperienceForDate, e2: ExperienceForDate) => {

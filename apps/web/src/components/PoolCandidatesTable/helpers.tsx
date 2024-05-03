@@ -33,6 +33,7 @@ import {
   ProvinceOrTerritory,
   SortOrder,
   AssessmentStep,
+  FragmentType,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -55,7 +56,9 @@ import processMessages from "~/messages/processMessages";
 
 import { FormValues } from "./types";
 import tableMessages from "./tableMessages";
-import CandidateBookmark from "../CandidateBookmark/CandidateBookmark";
+import CandidateBookmark, {
+  PoolCandidate_BookmarkFragment,
+} from "../CandidateBookmark/CandidateBookmark";
 
 export const statusCell = (
   status: PoolCandidateStatus | null | undefined,
@@ -246,8 +249,10 @@ export const jobPlacementCell = (
   return <span>{intl.formatMessage(statusToJobPlacement(status))}</span>;
 };
 
-export const bookmarkCell = (candidate: PoolCandidate) => {
-  return <CandidateBookmark candidate={candidate} size="lg" />;
+export const bookmarkCell = (
+  candidate: FragmentType<typeof PoolCandidate_BookmarkFragment>,
+) => {
+  return <CandidateBookmark candidateQuery={candidate} size="lg" />;
 };
 
 export const bookmarkHeader = (intl: IntlShape) => (

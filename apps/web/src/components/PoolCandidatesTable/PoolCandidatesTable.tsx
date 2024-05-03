@@ -30,6 +30,7 @@ import {
   Maybe,
   PoolCandidateWithSkillCount,
   PublishingGroup,
+  FragmentType,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -78,6 +79,7 @@ import {
   getPoolCandidateCsvData,
   getPoolCandidateCsvHeaders,
 } from "./poolCandidateCsv";
+import { PoolCandidate_BookmarkFragment } from "../CandidateBookmark/CandidateBookmark";
 
 const columnHelper = createColumnHelper<PoolCandidateWithSkillCount>();
 
@@ -134,6 +136,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
         id
         poolCandidate {
           id
+          ...PoolCandidate_Bookmark
           pool {
             id
             name {
@@ -512,7 +515,12 @@ const PoolCandidatesTable = ({
               row: {
                 original: { poolCandidate },
               },
-            }) => bookmarkCell(poolCandidate),
+            }) =>
+              bookmarkCell(
+                poolCandidate as FragmentType<
+                  typeof PoolCandidate_BookmarkFragment
+                >,
+              ),
             meta: {
               shrink: true,
               hideMobileHeader: true,
