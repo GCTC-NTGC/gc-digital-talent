@@ -21,6 +21,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        // Log facade does not seem to work in here!
+        // Config utility does not seem to work in here!
+
         // $schedule->command(HardDeleteOldUsers::class)->dailyAt('08:00');
 
         // clean up old user generated files every day at 1:00 AM
@@ -30,17 +33,12 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping()
             ->appendOutputTo('/tmp/laravel-prune-user-generated-files.log');
 
-        Log::info('Notification flag is '.(config('feature.notifications') ? 'ON' : 'OFF').'.');
-        if (config('feature.notifications')) {
-
-            // queue up Application Deadline Approaching emails every day, close to the time the pool would close
-            $schedule->command(SendNotificationsApplicationDeadlineApproaching::class)
-                ->timezone('America/Vancouver')
-                // ->dailyAt('23:00')
-                ->everyTenMinutes()
-                ->appendOutputTo('/tmp/send-notifications-application-deadline-approaching.log');
-
-        }
+        // queue up Application Deadline Approaching emails every day, close to the time the pool would close
+        $schedule->command(SendNotificationsApplicationDeadlineApproaching::class)
+            ->timezone('America/Vancouver')
+            // ->dailyAt('23:00')
+            ->everyTenMinutes()
+            ->appendOutputTo('/tmp/send-notifications-application-deadline-approaching.log');
 
         $schedule->command(LogFlagsCommand::class)
             ->everyMinute()
