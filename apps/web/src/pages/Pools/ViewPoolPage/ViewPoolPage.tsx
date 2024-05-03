@@ -55,6 +55,7 @@ export const ViewPool_Fragment = graphql(/* GraphQL */ `
     closingDate
     processNumber
     stream
+    poolCandidatesCount
     classification {
       id
       group
@@ -69,16 +70,6 @@ export const ViewPool_Fragment = graphql(/* GraphQL */ `
     }
     assessmentSteps {
       id
-    }
-    poolCandidates {
-      id
-      pool {
-        id
-      }
-      user {
-        id
-        email
-      }
     }
   }
 `);
@@ -372,7 +363,7 @@ export const ViewPool = ({
                       "The number of applicants to a specific process",
                   },
                   {
-                    count: pool?.poolCandidates?.length ?? 0,
+                    count: pool.poolCandidatesCount ?? 0,
                   },
                 )}
               </p>
