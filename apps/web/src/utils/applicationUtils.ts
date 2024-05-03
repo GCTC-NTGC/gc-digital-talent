@@ -190,7 +190,3 @@ export function isApplicationQualifiedRecruitment(a: Application): boolean {
     a.status === PoolCandidateStatus.Expired
   );
 }
-
-export function notRemoved(a: Application): boolean {
-  return a.status !== PoolCandidateStatus.Removed;
-}
