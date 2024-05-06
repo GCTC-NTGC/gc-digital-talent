@@ -4,7 +4,6 @@ import { useIntl } from "react-intl";
 import {
   commonMessages,
   getLanguageRequirement,
-  getLocalizedName,
   getSecurityClearance,
   getLocale,
 } from "@gc-digital-talent/i18n";
