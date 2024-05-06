@@ -419,6 +419,10 @@
     "defaultMessage": "Au cours des 24 mois, les apprenti·es apprennent en cours d’emploi avec un·e partenaire pair (4 jours par semaine) et suivent un programme de formation en ligne à leur rythme (1 jour par semaine) dans le cadre de leur perfectionnement.",
     "description": "Paragraph 1 of the 'Work integrated learning and IT training' subsection"
   },
+  "0Ic6ql": {
+    "defaultMessage": "Candidat non retiré",
+    "description": "Error message for removing a candidate"
+  },
   "0IggSg": {
     "defaultMessage": "Veuillez sélectionner les options qui reflètent le mieux vos qualifications",
     "description": "Legend for the radio group in the application education page - IAP variant."
@@ -1063,6 +1067,10 @@
     "defaultMessage": "Sauvegarder les détails de l’évaluation",
     "description": "Button text to save assessment details"
   },
+  "4Ahswu": {
+    "defaultMessage": "Motif",
+    "description": "Label for the reason why a candidate is being removed"
+  },
   "4BpFoX": {
     "defaultMessage": "{title} émis par {issuedBy}",
     "description": "The award title is issued by some group"
@@ -1143,6 +1151,10 @@
     "defaultMessage": "Aucune information n'a été fournie",
     "description": "Message on Admin side when user not filled Experience section."
   },
+  "4Z3/xp": {
+    "defaultMessage": "Retirer le candidat",
+    "description": "Title for action to remove a candidate"
+  },
   "4Zl/mp": {
     "defaultMessage": "Personne handicapée",
     "description": "Text on view-user page that the user has a disability"
@@ -1158,6 +1170,10 @@
   "4bjh8X": {
     "defaultMessage": "Erreur : utilisateur introuvable",
     "description": "Message displayed to user if user is not found"
+  },
+  "4cN/oN": {
+    "defaultMessage": "Pour le motif suivant",
+    "description": "Lead in text for a decisions reason"
   },
   "4f5qcw": {
     "defaultMessage": "Rôle actuel",
@@ -2482,6 +2498,10 @@
   "CRXFbo": {
     "defaultMessage": "Dans cette section, vous devez indiquer si vous êtes actuellement un(e) employé(e) du gouvernement du Canada, et vous devez répondre à d’autres questions connexes",
     "description": "Descriptive text explaining the government information section of the application profile"
+  },
+  "CRcpm4": {
+    "defaultMessage": "Rétablir le candidat et mettre à jour le statut",
+    "description": "Button text to reinstate a candidate and update their status"
   },
   "CRnoE8": {
     "defaultMessage": "Cacher les exemples de « contrats de services numériques » où cette exigence s’applique",
@@ -6030,6 +6050,10 @@
     "defaultMessage": "Connexion à votre compte",
     "description": "Heading for section of the sign in page showing the sign in steps"
   },
+  "Wo+T62": {
+    "defaultMessage": "Souhaitez-vous annuler cette décision et régler le statut du candidat à « En cours d’évaluation »?",
+    "description": "Confirmation text for reinstating a candidate"
+  },
   "WpA63g": {
     "defaultMessage": "Je suis intéressé(e) à embaucher un diplômé/un talent avancé",
     "description": "Subject line of a manager's email for apprenticeship"
@@ -7518,6 +7542,10 @@
     "defaultMessage": "Je suis prêt!",
     "description": "An action button to proceed"
   },
+  "ehYGss": {
+    "defaultMessage": "Le candidat a reçu la cote <strong>« Retiré »</strong> le <strong>{removedDate}</strong>.",
+    "description": "Date the candidate was removed on"
+  },
   "ehrsDa": {
     "defaultMessage": "Langue de l'entrevue de vive voix",
     "description": "Legend text for spoken interview language preference for interviews"
@@ -7641,6 +7669,10 @@
   "fOl4Ez": {
     "defaultMessage": "Mots-clés (français)",
     "description": "Label displayed on the skill form keywords field in French."
+  },
+  "fP0gCn": {
+    "defaultMessage": "Rétablir le candidat",
+    "description": "Title for action to reinstate a candidate"
   },
   "fPIZn9": {
     "defaultMessage": "Détails additionnels",
@@ -8437,6 +8469,10 @@
   "jHuiRm": {
     "defaultMessage": "Billet créé avec succès!",
     "description": "Support form toast message success"
+  },
+  "jI3Kfv": {
+    "defaultMessage": "Si vous souhaitez que ce candidat ne soit plus pris en considération pour des motifs extérieurs au processus d’évaluation, veuillez le préciser dans les champs suivants",
+    "description": "Help text for removing a candidate"
   },
   "jIMP76": {
     "defaultMessage": "Fournir quelques détails",
@@ -9366,6 +9402,10 @@
     "defaultMessage": "Demande de candidats pour le bassin : <primary>{candidateCountNumber, plural, =0 {aucun candidat} =1 {1 candidat estimé} other {{candidateCountNumber} candidats estimés}}</primary>",
     "description": "Total estimated candidates message in summary of filters"
   },
+  "ohLTJS": {
+    "defaultMessage": "Candidat non rétabli",
+    "description": "Error message for reinstating a candidate"
+  },
   "oiaUxW": {
     "defaultMessage": "Si vous avez déjà un compte de CléGC, vous pouvez ouvrir une session dans votre profil sur la plateforme Talents numériques du GC à l'aide de votre CléGC, même si vous n'avez jamais utilisé cette plateforme avant. Si vous ne savez pas si vous avez déjà un compte de CléGC, continuez vers le site Web et essayez d'ouvrir une session. Si vous ne vous souvenez pas de votre mot de passe, c'est là que vous pourrez aussi le réinitialiser.",
     "description": "GCKey answer for when user already has an account"
@@ -9449,6 +9489,10 @@
   "pCZ1wt": {
     "defaultMessage": "Sélectionnez une famille de compétences",
     "description": "Placeholder message when there is no skill family selected"
+  },
+  "pErNfb": {
+    "defaultMessage": "Retirer le candidat et mettre à jour le statut",
+    "description": "Button text to remove a candidate and update their status"
   },
   "pFYfVv": {
     "defaultMessage": "Sélection de la rangée",
@@ -9677,6 +9721,10 @@
   "qSTIKZ": {
     "defaultMessage": "Échec de la mise à jour de la date d'expiration",
     "description": "Toast for failed expiry date update on view-user page"
+  },
+  "qShZxu": {
+    "defaultMessage": "Candidat rétabli avec succès",
+    "description": "Success message for reinstating a candidate"
   },
   "qT9sS0": {
     "defaultMessage": "Postes en français",
@@ -10029,6 +10077,10 @@
   "sl1kbp": {
     "defaultMessage": "détails pour {name}",
     "description": "Link text suffix to read more details for a search request"
+  },
+  "slQ7q5": {
+    "defaultMessage": "Candidat retiré avec succès",
+    "description": "Success message for removing a candidate"
   },
   "sr20Tb": {
     "defaultMessage": "Citoyenneté",
