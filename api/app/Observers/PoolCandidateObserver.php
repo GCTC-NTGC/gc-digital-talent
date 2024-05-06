@@ -3,7 +3,6 @@
 namespace App\Observers;
 
 use App\Models\PoolCandidate;
-use App\Notifications\PoolCandidateStatusChanged;
 
 class PoolCandidateObserver
 {
@@ -22,9 +21,6 @@ class PoolCandidateObserver
     {
         $oldStatus = $poolCandidate->getOriginal('pool_candidate_status');
         $newStatus = $poolCandidate->pool_candidate_status;
-        if (config('feature.status_notifications') && $oldStatus != $newStatus) {
-            $poolCandidate->user->notify(new PoolCandidateStatusChanged($oldStatus, $newStatus, $poolCandidate->id, $poolCandidate->pool->name));
-        }
     }
 
     /**
