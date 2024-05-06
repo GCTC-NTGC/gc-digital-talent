@@ -306,12 +306,15 @@ export function transformSortStateToOrderByClause(
     ["priority", "PRIORITY_WEIGHT"],
     ["status", "status_weight"],
     ["notes", "notes"],
+    ["skillCount", "skillCount"],
   ]);
 
   const sortingRule = sortingRules?.find((rule) => {
     const columnName = columnMap.get(rule.id);
     return !!columnName;
   });
+
+  console.log(sortingRule);
 
   if (
     sortingRule &&
@@ -354,6 +357,7 @@ export function transformSortStateToOrderByClause(
     filterState?.applicantFilter?.skills &&
     filterState.applicantFilter.skills.length > 0
   ) {
+    console.log("is skill count");
     return {
       column: "skill_count",
       order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
@@ -377,26 +381,12 @@ export function getSortOrder(
   sortingRules?: SortingState,
   filterState?: PoolCandidateSearchInput,
   doNotUseBookmark?: boolean,
-  recordDecisionActive?: boolean,
 ): QueryPoolCandidatesPaginatedOrderByRelationOrderByClause[] {
   const hasProcess = sortingRules?.find((rule) => rule.id === "process");
   return [
     ...(doNotUseBookmark
       ? []
       : [{ column: "is_bookmarked", order: SortOrder.Desc }]),
-    ...(recordDecisionActive
-      ? []
-      : [
-          { column: "status_weight", order: SortOrder.Asc },
-          {
-            user: {
-              aggregate: OrderByRelationWithColumnAggregateFunction.Max,
-              column:
-                "PRIORITY_WEIGHT" as QueryPoolCandidatesPaginatedOrderByUserColumn,
-            },
-            order: SortOrder.Asc,
-          },
-        ]),
     // Do not apply other filters if we are sorting by process
     ...(!hasProcess
       ? [transformSortStateToOrderByClause(sortingRules, filterState)]
