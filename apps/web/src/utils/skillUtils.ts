@@ -308,9 +308,9 @@ export const sortSkillsByCategory = (skills: Skill[]): Skill[] => {
  * @param poolSkills PoolSkill[]
  * @returns PoolSkill[]
  */
-export const sortPoolSkillsBySkillCategory = (
-  poolSkills: PoolSkill[],
-): PoolSkill[] => {
+export const sortPoolSkillsBySkillCategory = <T extends PoolSkill[]>(
+  poolSkills: T,
+) => {
   return poolSkills.sort((poolSkillA, poolSkillB) => {
     if (poolSkillA?.skill?.category && poolSkillB?.skill?.category) {
       return (

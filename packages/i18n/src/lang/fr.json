@@ -183,6 +183,10 @@
     "defaultMessage": "Atout",
     "description": "The skill is considered nonessential."
   },
+  "2jrMyA": {
+    "defaultMessage": "Non conforme",
+    "description": "The search status is not compliant"
+  },
   "2wKf2U": {
     "defaultMessage": "Modifier",
     "description": "Text to trigger edit action"
@@ -1558,6 +1562,10 @@
   "l+x5JF": {
     "defaultMessage": "L'une ou les deux étapes données ne peuvent être interchangées.",
     "description": "Error message that one of the assessment steps cannot have its sort order changed."
+  },
+  "l0aGCz": {
+    "defaultMessage": "Intégré",
+    "description": "Title for in app notifications"
   },
   "l4wLn9": {
     "defaultMessage": "Je suis un citoyen canadien.",

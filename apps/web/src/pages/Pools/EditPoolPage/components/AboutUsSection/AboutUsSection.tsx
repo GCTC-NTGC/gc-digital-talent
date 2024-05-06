@@ -11,6 +11,9 @@ import {
   LocalizedString,
   Pool,
   UpdatePoolInput,
+  FragmentType,
+  getFragment,
+  graphql,
 } from "@gc-digital-talent/graphql";
 
 import {
@@ -26,6 +29,17 @@ import { SectionProps } from "../../types";
 import Display from "./Display";
 import ActionWrapper from "../ActionWrapper";
 
+export const EditPoolAboutUs_Fragment = graphql(/* GraphQL */ `
+  fragment EditPoolAboutUs on Pool {
+    id
+    status
+    aboutUs {
+      en
+      fr
+    }
+  }
+`);
+
 type FormValues = {
   aboutUsEn?: LocalizedString["en"];
   aboutUsFr?: LocalizedString["fr"];
@@ -33,17 +47,21 @@ type FormValues = {
 
 export type AboutUsSubmitData = Pick<UpdatePoolInput, "aboutUs">;
 
-type AboutUsSectionProps = SectionProps<AboutUsSubmitData>;
+type AboutUsSectionProps = SectionProps<
+  AboutUsSubmitData,
+  FragmentType<typeof EditPoolAboutUs_Fragment>
+>;
 
 const TEXT_AREA_MAX_WORDS_EN = 100;
 const TEXT_AREA_MAX_WORDS_FR = TEXT_AREA_MAX_WORDS_EN + 30;
 
 const AboutUsSection = ({
-  pool,
+  poolQuery,
   sectionMetadata,
   onSave,
 }: AboutUsSectionProps): JSX.Element => {
   const intl = useIntl();
+  const pool = getFragment(EditPoolAboutUs_Fragment, poolQuery);
   const isNull = hasAllEmptyFields(pool);
   const { isSubmitting } = useEditPoolContext();
   const { isEditing, setIsEditing, icon } = useToggleSectionInfo({

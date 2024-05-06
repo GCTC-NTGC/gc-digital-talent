@@ -364,10 +364,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               description:
                 "Title of the Account and privacy settings link section",
             })}
-            href={paths.profile(
-              user.id,
-              PROFILE_PAGE_SECTION_ID.ACCOUNT_AND_PRIVACY,
-            )}
+            href={paths.accountSettings()}
             icon={LockClosedIcon}
           />
         </HeroCard>

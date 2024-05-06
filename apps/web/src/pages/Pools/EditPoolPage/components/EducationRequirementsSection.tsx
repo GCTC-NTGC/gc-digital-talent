@@ -4,7 +4,12 @@ import TagIcon from "@heroicons/react/24/outline/TagIcon";
 
 import { Heading, Link, ScrollToLink, Well } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
-import { PublishingGroup } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  PublishingGroup,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
 import { isInNullState } from "~/validators/process/classification";
@@ -13,17 +18,37 @@ import { wrapAbbr } from "~/utils/nameUtils";
 
 import { SectionProps } from "../types";
 
-type EducationRequirementsSectionProps = Omit<SectionProps<null>, "onSave"> & {
+const EditPoolEducationRequirements_Fragment = graphql(/* GraphQL */ `
+  fragment EditPoolEducationRequirements on Pool {
+    id
+    status
+    publishingGroup
+    classification {
+      id
+      group
+      level
+    }
+  }
+`);
+
+type EducationRequirementsSectionProps = Omit<
+  SectionProps<
+    null,
+    FragmentType<typeof EditPoolEducationRequirements_Fragment>
+  >,
+  "onSave"
+> & {
   changeTargetId: string;
 };
 
 const EducationRequirementsSection = ({
-  pool,
+  poolQuery,
   sectionMetadata,
   changeTargetId,
 }: EducationRequirementsSectionProps): JSX.Element => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const pool = getFragment(EditPoolEducationRequirements_Fragment, poolQuery);
   const isNull = isInNullState(pool);
   const { icon } = useToggleSectionInfo({
     isNull,

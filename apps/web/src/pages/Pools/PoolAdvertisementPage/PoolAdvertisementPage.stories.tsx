@@ -2,8 +2,12 @@ import React from "react";
 import { StoryFn, Meta } from "@storybook/react";
 
 import { fakePools } from "@gc-digital-talent/fake-data";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
-import { PoolPoster } from "./PoolAdvertisementPage";
+import {
+  PoolAdvertisement_Fragment,
+  PoolPoster,
+} from "./PoolAdvertisementPage";
 
 const fakePool = fakePools(1)[0];
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -18,12 +22,16 @@ export default {
 } as Meta<typeof PoolPoster>;
 
 const Template: StoryFn<typeof PoolPoster> = (args) => {
-  const { pool } = args;
-  return <PoolPoster pool={pool} />;
+  const { poolQuery } = args;
+  return <PoolPoster poolQuery={poolQuery} />;
 };
 
 export const Completed = Template.bind({});
-Completed.args = { pool: fakePool };
+Completed.args = {
+  poolQuery: makeFragmentData(fakePool, PoolAdvertisement_Fragment),
+};
 
 export const Null = Template.bind({});
-Null.args = { pool: nullPool };
+Null.args = {
+  poolQuery: makeFragmentData(nullPool, PoolAdvertisement_Fragment),
+};
