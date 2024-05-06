@@ -8,7 +8,6 @@ import {
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import {
-  graphql,
   AwardExperience,
   CommunityExperience,
   EducationExperience,
@@ -16,8 +15,6 @@ import {
   PersonalExperience,
   Skill,
   WorkExperience,
-  FragmentType,
-  getFragment,
 } from "@gc-digital-talent/graphql";
 
 import { getExperienceSkills } from "~/utils/skillUtils";
@@ -54,31 +51,16 @@ const getRelevantSkillRecordDetails = (
   return applicableSkill?.experienceSkillRecord?.details ?? null;
 };
 
-const SkillWithExperiences_SkillFragment = graphql(/* GraphQL */ `
-  fragment SkillWithExperiences_SkillFragment on Skill {
-    id
-    name {
-      en
-      fr
-    }
-    description {
-      en
-      fr
-    }
-  }
-`);
-
 export interface SkillWithExperiencesProps {
-  skillQuery: FragmentType<typeof SkillWithExperiences_SkillFragment>;
+  skill: Skill;
   experiences: Experience[];
 }
 
 const SkillWithExperiences = ({
-  skillQuery,
+  skill,
   experiences,
 }: SkillWithExperiencesProps): JSX.Element => {
   const intl = useIntl();
-  const skill = getFragment(SkillWithExperiences_SkillFragment, skillQuery);
   const skillExperiences = getExperienceSkills(experiences, skill);
   const experienceFormLabels = getExperienceFormLabels(intl);
 

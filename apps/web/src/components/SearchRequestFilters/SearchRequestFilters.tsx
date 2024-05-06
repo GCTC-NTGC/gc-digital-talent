@@ -281,7 +281,6 @@ const SearchRequestFilters = ({
 }: SearchRequestFiltersProps) => {
   const intl = useIntl();
   let poolCandidateFilter;
-  // eslint-disable-next-line no-underscore-dangle
   if (filters?.__typename === "ApplicantFilter") {
     return (
       <ApplicantFilters
@@ -291,7 +290,6 @@ const SearchRequestFilters = ({
     );
   }
 
-  // eslint-disable-next-line no-underscore-dangle
   if (filters?.__typename === "PoolCandidateFilter") {
     poolCandidateFilter = filters;
   }
