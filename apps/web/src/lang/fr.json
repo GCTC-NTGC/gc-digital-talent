@@ -2887,10 +2887,6 @@
     "defaultMessage": "Entrevues de vive voix",
     "description": "Label for preferred lang for interviews in profile details box."
   },
-  "EUukwf": {
-    "defaultMessage": "Votre statut a été changé de <heavyPrimary>{oldStatus}</heavyPrimary> à <heavyPrimary>{newStatus}</heavyPrimary> dans {poolName}.",
-    "description": "Notification message for pool candidate status changed"
-  },
   "EVkmeA": {
     "defaultMessage": "Modifier les principales compétences comportementales",
     "description": "Link text for editing a users top behavioural skills"
@@ -4654,10 +4650,6 @@
   "Ot2eBH": {
     "defaultMessage": "Renseignements généraux",
     "description": "Title for general information section"
-  },
-  "OvGt/x": {
-    "defaultMessage": "Changement de statut de {poolName}",
-    "description": "Label for the pool status changed notification"
   },
   "OvL68O": {
     "defaultMessage": "Conçu par la communauté autochtone, avec elle et pour elle, le programme recrute des candidats des Premières Nations, inuits et métis qui se passionnent pour les TI, pour des emplois de niveau débutant, ainsi que pour des possibilités d’apprentissage et de perfectionnement.",
