@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class PoolCandidateFilter
  *
- * @deprecated
+ * @deprecated Replaced by ApplicantFilter.
  *
  * @property int $id
  * @property bool $has_diploma
