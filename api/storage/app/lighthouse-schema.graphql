@@ -298,6 +298,15 @@ type ApplicationDeadlineApproachingNotification implements Notification {
   poolCandidateId: ID
 }
 
+type ApplicationStatusChangedNotification implements Notification {
+  id: ID!
+  type: NotificationType!
+  readAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  poolName: LocalizedString
+}
+
 type UserPublicProfile {
   id: ID!
   email: Email
