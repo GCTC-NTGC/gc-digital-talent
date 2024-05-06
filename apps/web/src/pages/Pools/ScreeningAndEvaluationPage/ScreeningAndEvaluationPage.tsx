@@ -85,7 +85,7 @@ const ScreeningAndEvaluationPage = () => {
   const batchLoader = React.useCallback(async () => {
     const batches = [];
 
-    for (let i = 0; i < lastPage; i += 1) {
+    for (let i = 1; i <= lastPage; i += 1) {
       batches.push(
         client
           .query(ScreeningAndEvaluation_CandidatesQuery, {
