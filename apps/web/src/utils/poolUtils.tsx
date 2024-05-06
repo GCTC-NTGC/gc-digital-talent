@@ -368,7 +368,9 @@ export const isOngoingPublishingGroup = (
 ): boolean =>
   publishingGroup ? ONGOING_PUBLISHING_GROUPS.includes(publishingGroup) : false;
 
-export const getAdvertisementStatus = (pool?: Pool): PoolCompleteness => {
+export const getAdvertisementStatus = (
+  pool?: Pick<Pool, "publishedAt" | "isComplete">,
+): PoolCompleteness => {
   if (!pool) return "incomplete";
 
   if (pool.publishedAt) return "submitted";
