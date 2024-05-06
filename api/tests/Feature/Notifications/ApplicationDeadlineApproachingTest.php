@@ -116,10 +116,10 @@ class ApplicationDeadlineApproachingTest extends TestCase
 
         assertEquals(config('notify.templates.application_deadline_approaching_en'), $message->templateId);
         assertEquals('example@example.org', $message->emailAddress);
-        assertEqualsCanonicalizing([
+        assertEquals([
             'closing date' => 'December 31, 2999',
-            'pool name' => 'poolNameEn',
-            'pool advertisement link' => config('app.url').'/en/browse/pools/1',
+            'opportunity title' => 'poolNameEn',
+            'job advertisement link' => config('app.url').'/en/browse/pools/1',
             'application link' => config('app.url').'/en/applications/2'],
             $message->messageVariables);
     }
@@ -137,10 +137,10 @@ class ApplicationDeadlineApproachingTest extends TestCase
 
         assertEquals(config('notify.templates.application_deadline_approaching_fr'), $message->templateId);
         assertEquals('example@example.org', $message->emailAddress);
-        assertEqualsCanonicalizing([
+        assertEquals([
             'closing date' => 'décembre 31, 2999',
-            'pool name' => 'poolNameFr',
-            'pool advertisement link' => config('app.url').'/fr/browse/pools/1',
+            'opportunity title' => 'poolNameFr',
+            'job advertisement link' => config('app.url').'/fr/browse/pools/1',
             'application link' => config('app.url').'/fr/applications/2'],
             $message->messageVariables);
     }
@@ -150,8 +150,6 @@ class ApplicationDeadlineApproachingTest extends TestCase
     {
         $user = User::factory()
             ->create([
-                'email' => 'example@example.org',
-                'preferred_lang' => 'en',
                 'ignored_email_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
                 'ignored_in_app_notifications' => [],
             ]);
@@ -159,7 +157,7 @@ class ApplicationDeadlineApproachingTest extends TestCase
         $user->notify($this->fixtureNotification);
 
         $notification = Notification::all()->sole();
-        assertEqualsCanonicalizing([
+        assertEquals([
             'closingDate' => '2999-12-31',
             'poolName' => [
                 'en' => 'poolNameEn',
