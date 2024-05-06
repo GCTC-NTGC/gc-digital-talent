@@ -47,14 +47,15 @@ import PublishProcessDialog from "./components/PublishProcessDialog";
 
 export const ViewPool_Fragment = graphql(/* GraphQL */ `
   fragment ViewPool on Pool {
+    ...AssessmentPlanStatus
     id
     publishingGroup
-    publishedAt
     isComplete
     status
     closingDate
     processNumber
     stream
+    poolCandidatesCount
     classification {
       id
       group
@@ -66,32 +67,7 @@ export const ViewPool_Fragment = graphql(/* GraphQL */ `
     }
     poolSkills {
       id
-    }
-    assessmentSteps {
-      id
-      poolSkills {
-        id
-        type
-        skill {
-          id
-          category
-          key
-          name {
-            en
-            fr
-          }
-        }
-      }
-    }
-    poolCandidates {
-      id
-      pool {
-        id
-      }
-      user {
-        id
-        email
-      }
+      type
     }
   }
 `);
@@ -385,7 +361,7 @@ export const ViewPool = ({
                       "The number of applicants to a specific process",
                   },
                   {
-                    count: pool?.poolCandidates?.length ?? 0,
+                    count: pool.poolCandidatesCount ?? 0,
                   },
                 )}
               </p>

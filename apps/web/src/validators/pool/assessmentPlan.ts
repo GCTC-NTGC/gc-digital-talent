@@ -3,13 +3,37 @@ import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
   AssessmentStepType,
-  Pool,
+  FragmentType,
   PoolSkillType,
+  getFragment,
+  graphql,
 } from "@gc-digital-talent/graphql";
 
 import { PoolCompleteness } from "~/types/pool";
 
-export function getAssessmentPlanStatus(pool: Pool): PoolCompleteness {
+export const AssessmentPlanStatus_Fragment = graphql(/* GraphQL */ `
+  fragment AssessmentPlanStatus on Pool {
+    publishedAt
+    poolSkills {
+      id
+      type
+    }
+    assessmentSteps {
+      id
+      type
+      poolSkills {
+        id
+        type
+      }
+    }
+  }
+`);
+
+export function getAssessmentPlanStatus(
+  poolQuery: FragmentType<typeof AssessmentPlanStatus_Fragment>,
+): PoolCompleteness {
+  const pool = getFragment(AssessmentPlanStatus_Fragment, poolQuery);
+
   if (!pool || !pool.poolSkills || !pool.assessmentSteps) {
     return "incomplete";
   }
@@ -20,12 +44,12 @@ export function getAssessmentPlanStatus(pool: Pool): PoolCompleteness {
 
   const allEssentialPoolSkillIds = pool.poolSkills
     .filter(notEmpty)
-    .filter((poolSkill) => poolSkill.type === PoolSkillType.Essential)
-    .map((poolSkill) => poolSkill.id);
+    .filter((poolSkill) => poolSkill?.type === PoolSkillType.Essential)
+    .map((poolSkill) => poolSkill?.id);
   const assessedPoolSkillIds = pool.assessmentSteps
     .filter(notEmpty)
     .flatMap((step) =>
-      step.poolSkills?.filter(notEmpty).map((poolSkill) => poolSkill.id),
+      step?.poolSkills?.filter(notEmpty).map((poolSkill) => poolSkill.id),
     );
   const thereAreUnassessedEssentialPoolSkills = allEssentialPoolSkillIds.some(
     (poolSkillId) => !assessedPoolSkillIds.includes(poolSkillId),

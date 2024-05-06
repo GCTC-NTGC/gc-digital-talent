@@ -33,6 +33,7 @@ import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
 
 export const PoolLayout_Fragment = graphql(/* GraphQL */ `
   fragment PoolLayout on Pool {
+    ...AssessmentPlanStatus
     id
     stream
     publishedAt
@@ -56,36 +57,6 @@ export const PoolLayout_Fragment = graphql(/* GraphQL */ `
       name {
         en
         fr
-      }
-    }
-    poolSkills {
-      id
-      type
-      skill {
-        id
-        category
-        key
-        name {
-          en
-          fr
-        }
-      }
-    }
-    assessmentSteps {
-      id
-      type
-      poolSkills {
-        id
-        type
-        skill {
-          id
-          category
-          key
-          name {
-            en
-            fr
-          }
-        }
       }
     }
   }

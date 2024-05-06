@@ -46,14 +46,15 @@ const pageSubtitle = defineMessage({
   description: "Subtitle for the assessment plan builder",
 });
 
-export const AssessmentPlanBuilderPool_Fragment = graphql(/* GraphQL */ `
+const AssessmentPlanBuilderPool_Fragment = graphql(/* GraphQL */ `
   fragment AssessmentPlanBuilderPool on Pool {
     id
     ...OrganizeSectionPool
     ...SkillSummarySectionPool
-    publishedAt
+    ...AssessmentPlanStatus
     poolSkills {
       id
+      type
       skill {
         id
         category
@@ -62,13 +63,6 @@ export const AssessmentPlanBuilderPool_Fragment = graphql(/* GraphQL */ `
           en
           fr
         }
-      }
-    }
-    assessmentSteps {
-      id
-      type
-      poolSkills {
-        id
       }
     }
   }

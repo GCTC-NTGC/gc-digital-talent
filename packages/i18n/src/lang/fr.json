@@ -1543,6 +1543,10 @@
     "defaultMessage": "L'une ou les deux étapes données ne peuvent être interchangées.",
     "description": "Error message that one of the assessment steps cannot have its sort order changed."
   },
+  "l0aGCz": {
+    "defaultMessage": "Intégré",
+    "description": "Title for in app notifications"
+  },
   "l4wLn9": {
     "defaultMessage": "Je suis un citoyen canadien.",
     "description": "declaring one to be a Canadian citizen"

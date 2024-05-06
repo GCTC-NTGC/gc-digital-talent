@@ -879,6 +879,10 @@
     "defaultMessage": "À propos de nous (français)",
     "description": "Label for a process' French about us"
   },
+  "2r9tuE": {
+    "defaultMessage": "Paramètres du compte",
+    "description": "Title for the account settings page"
+  },
   "2wzOfY": {
     "defaultMessage": "Exécuter un processus de recrutement",
     "description": "Heading for the contact section to run a recruitment process"
@@ -2847,6 +2851,10 @@
     "defaultMessage": "Aidez les gestionnaires à comprendre vos occasions potentielles d’apprentissage de compétences comportementales.",
     "description": "Page description for the improve behavioural skills page"
   },
+  "EG5WpQ": {
+    "defaultMessage": "Erreur : impossible de mettre à jour les paramètres",
+    "description": "Message displayed when an error occurs while updating notification settings."
+  },
   "EGNLD7": {
     "defaultMessage": "Durée de l’emploi",
     "description": "Label for pool advertisement employment length"
@@ -3183,6 +3191,10 @@
     "defaultMessage": "Recrutement",
     "description": "The menu category for recruitment items"
   },
+  "G6PxDn": {
+    "defaultMessage": "Cette section met l'accent sur la gestion générale du compte et sur les informations relatives à la manière dont nous établissons un lien avec votre CléGC.",
+    "description": "Subtitle for account management section on account settings page."
+  },
   "G6V8wJ": {
     "defaultMessage": "Type de changement de date",
     "description": "Legend for the radio group to select whether to extend a date or set to now"
@@ -3366,6 +3378,10 @@
   "HBljcn": {
     "defaultMessage": "Nom (anglais)",
     "description": "Title for name in English"
+  },
+  "HBmwNb": {
+    "defaultMessage": "Messages du système",
+    "description": "Title for system messages checklist"
   },
   "HBuWZ0": {
     "defaultMessage": "Titre du poste",
@@ -3650,6 +3666,10 @@
   "J/JdxQ": {
     "defaultMessage": "Vous pouvez ajouter jusqu’à {maxSteps} méthodes d’évaluation, mais ce n’est pas nécessaire. Si toutes les compétences ont été prises en compte, vous n’avez pas à en ajouter d’autres. Choisir un trop grand nombre de méthodes d’évaluation peut retarder le processus de dotation et réduire les chances que le processus d’embauche soit couronné de succès.",
     "description": "Description for warning message when the user has added many assessments to the assessment plan"
+  },
+  "J/gp3y": {
+    "defaultMessage": "Les paramètres mentionnés dans cette section vous permettent de contrôler les types de notifications que vous recevez et l’endroit où elles sont envoyées. Les notifications par courriel sont envoyées à l’adresse de courriel de la personne-ressource figurant dans votre profil, tandis que les notifications intégrées à l’application sont transmises dans le panneau de notification situé dans le menu principal.",
+    "description": "Subtitle for notification settings section on account settings page."
   },
   "J/kDDk": {
     "defaultMessage": "L’évaluation officielle de la Commission de la fonction publique vous donne trois lettres qui indiquent vos compétences dans votre deuxième langue. Vous pouvez <selfAssessmentLink> en savoir plus sur cette évaluation en consultant leur site Web.</selfAssessmentLink>",
@@ -4054,10 +4074,6 @@
   "LAW/ov": {
     "defaultMessage": "Facteurs de propriété intellectuelle (par exemple, les logiciels propriétaires.)",
     "description": "Intellectual property factors contracting rationale"
-  },
-  "LBU5dT": {
-    "defaultMessage": "Se renseigner sur la CléGC et trouver des liens vers les renseignements sur le compte.",
-    "description": "Introductory text displayed in sign in and authentication accordion."
   },
   "LCVNJq": {
     "defaultMessage": "Mise à jour réussie des renseignements sur la diversité, l’équité et l’inclusion!",
@@ -4471,10 +4487,6 @@
     "defaultMessage": "En savoir plus<hidden> sur le Bureau de la dirigeante principale de l’information</hidden>",
     "description": "Link text for the Office of the Chief Information Officer"
   },
-  "NkZeS1": {
-    "defaultMessage": "Talents numériques du GC s'associe au service de justificatifs du gouvernement du Canada, CléGC, pour vous donner accès à votre compte à l'aide d'une seule combinaison de nom d'utilisateur et de mot de passe. Vous pouvez gérer les données connexes sur le site Web de CléGC, et elles s'afficheront automatiquement ici lorsque vous accéderez à votre compte.",
-    "description": "Description of how we use GCKey for authentication."
-  },
   "NlYIHM": {
     "defaultMessage": "Ajoutez, modifiez, et gérez les compétences de votre profil.",
     "description": "Page description for the skill library page"
@@ -4870,10 +4882,6 @@
   "QF/z5s": {
     "defaultMessage": "Copier {title} l'URL dans le presse-papiers",
     "description": "Button text to copy a specific qualified recruitment's ID"
-  },
-  "QHR5ay": {
-    "defaultMessage": "Vous n'avez pas actuellement de bassins de talents dans votre profil.",
-    "description": "Message displayed in recruitment availability when the user is not in any valid pools"
   },
   "QISMlC": {
     "defaultMessage": "Titre spécifique (anglais)",
@@ -5291,10 +5299,6 @@
     "defaultMessage": "Profil de l’utilisateur",
     "description": "Title for the user profile page"
   },
-  "SMWsMk": {
-    "defaultMessage": "Paramètres du compte et de confidentialité",
-    "description": "Heading for the account and privacy settings section on the profile"
-  },
   "SNwPLZ": {
     "defaultMessage": "<strong>Ma situation concorde avec l’option d’expérience de travail appliquée</strong>",
     "description": "Radio group option for education requirement filter in application education form."
@@ -5354,10 +5358,6 @@
   "SgkkWp": {
     "defaultMessage": "Remplir et soumettre ce questionnaire au moment où un contrat de services numériques est soumis aux autorités ministérielles chargées de l’approvisionnement aux fins de traitement.",
     "description": "Paragraph one of the _instructions_ section of the _digital services contracting questionnaire_"
-  },
-  "Sgp2Zb": {
-    "defaultMessage": "Voyez comment vos données sont consultées et gérez la disponibilité et les communications.",
-    "description": "Introductory text displayed in recruitment availability accordion."
   },
   "SkV4+/": {
     "defaultMessage": "Numéro de suivi",
@@ -6114,6 +6114,10 @@
     "defaultMessage": "Sélecteur de mode de couleur du thème",
     "description": "Label for the group of buttons to change the current colour mode"
   },
+  "WwuIcM": {
+    "defaultMessage": "En savoir plus sur CléGC, gérer les notifications et mettre à jour vos disponibilités.",
+    "description": "Subtitle for the account settings page."
+  },
   "Wy6aeg": {
     "defaultMessage": "À propos de nous",
     "description": "Sub title for the pool about us section"
@@ -6157,10 +6161,6 @@
   "XBfpuW": {
     "defaultMessage": "Ouvert",
     "description": "Simplified status label for a published process"
-  },
-  "XCYYdk": {
-    "defaultMessage": "Gérer la disponibilité pour le recrutement",
-    "description": "Heading for opening the recruitment availability accordion in account and privacy"
   },
   "XD0OVN": {
     "defaultMessage": "Message (Anglais)",
@@ -6325,6 +6325,10 @@
   "XzGOuV": {
     "defaultMessage": "Ajouter un nouvel élément ({numOfSkills}/{maxSkills})",
     "description": "Label for skill dialog trigger on skills showcase section."
+  },
+  "XzyFuo": {
+    "defaultMessage": "Soyez informé des prochaines échéances de candidature, des changements de statut, etc.",
+    "description": "Subtitle for application updates checklist"
   },
   "Y+GgIV": {
     "defaultMessage": "Toutes les compétences indiquées dans l’annonce doivent être évaluées au moyen d’une méthode, à tout le moins. Lorsque vous vous fiez aux affirmations d’un candidat (p. ex., la candidature initiale) vous devez sélectionner une autre méthode d’évaluation pour évaluer ou valider l’affirmation du candidat qu’il possède cette compétence. Dans la plupart des cas, cela signifiera que vous avez deux ou trois autres méthodes d’évaluation au-delà de la présentation de candidature initiale.",
@@ -6982,6 +6986,10 @@
     "defaultMessage": "Titre du poste (FR)",
     "description": "Label for a pool advertisements specific French title"
   },
+  "blvpQr": {
+    "defaultMessage": "Ces notifications sont obligatoires et comprennent la vérification de l'adresse électronique et d'autres communications importantes.",
+    "description": "Subtitle for system messages checklist"
+  },
   "bnhqpY": {
     "defaultMessage": "Est équivalent en termes de durée de l’intensité/de l’apprentissage par rapport aux exigences du diplôme",
     "description": "Text for education accepted information context in screening decision dialog"
@@ -7041,6 +7049,10 @@
   "bz6geU": {
     "defaultMessage": "Ce volet comprend des compétences spécialisées en matière de sécurité, axées sur la programmation, l’infrastructure, les applications commerciales et les données.",
     "description": "Title for the 'security' IT work stream"
+  },
+  "bzcV2Q": {
+    "defaultMessage": "La plateforme des talents numériques du GC s’associe au service de justificatifs du GC, CléGC, pour vous donner accès à votre compte à l’aide d’une seule combinaison de nom d’utilisateur et de mot de passe. Vous pouvez gérer votre nom d’utilisateur et votre mot de passe sur le site Web de CléGC; les modifications auront automatiquement été intégrées lorsque vous ouvrirez une session dans la plateforme des talents numériques du GC.",
+    "description": "Description of how we use GCKey for authentication."
   },
   "c+6rQB": {
     "defaultMessage": "N’est pas intéressé",
@@ -7261,6 +7273,10 @@
   "d4r7rO": {
     "defaultMessage": "Afficher ou masquer les colonnes",
     "description": "Button text to open the dialog for disabling or enabling column display"
+  },
+  "d5X1iR": {
+    "defaultMessage": "Les notifications de système sont toujours activées.",
+    "description": "Aria label for system notification icons in notification settings."
   },
   "d8CQJr": {
     "defaultMessage": " Création réussie de la famille de compétences!",
@@ -7562,6 +7578,10 @@
     "defaultMessage": "étiqueter et compléter les jeux de données fournis, le cas échéant, pour l’établissement de rapports",
     "description": "Context example for _work requirement description_ textbox in the _digital services contracting questionnaire_"
   },
+  "efBMD2": {
+    "defaultMessage": "Gestion des comptes",
+    "description": "Title for the account management."
+  },
   "egLb65": {
     "defaultMessage": "Je suis prêt!",
     "description": "An action button to proceed"
@@ -7593,6 +7613,10 @@
   "enffKD": {
     "defaultMessage": "Raison pour la demande de talent",
     "description": "Label for the reason for submitting the request."
+  },
+  "ennrdC": {
+    "defaultMessage": "Paramètres mis à jour avec succès",
+    "description": "Message displayed when applicant updated their notification settings."
   },
   "eozWFc": {
     "defaultMessage": "Filtres avancés",
@@ -7701,6 +7725,10 @@
   "fQkgnT": {
     "defaultMessage": "Placement professionnel",
     "description": "Title displayed on the Pool Candidates table job placement column"
+  },
+  "fRoNIK": {
+    "defaultMessage": "Alertes emploi",
+    "description": "Title for job alerts checklist"
   },
   "fRwqM9": {
     "defaultMessage": "Relier une expérience de parcours professionnel <hidden> à {skillName}</hidden>",
@@ -8042,6 +8070,10 @@
     "defaultMessage": "Agrandir toutes les sections d'informations complémentaires",
     "description": "Accessible link text to expand all accordions for more information"
   },
+  "hAN/NC": {
+    "defaultMessage": "Les processus de recrutement apparaîtront ici automatiquement au fur et à mesure que vous y serez admis. Vous pouvez commencer par postuler aux offres d'emploi disponibles sur la <link>page de recherche d'emploi</link>.",
+    "description": "Additional message displayed in recruitment availability when the user is not in any valid pools"
+  },
   "hBDz/h": {
     "defaultMessage": "Commencez<hidden> à remplir votre profil linguistique</hidden>",
     "description": "Call to action to begin editing language profile"
@@ -8234,6 +8266,10 @@
     "defaultMessage": "Vous avez réussi! En signant votre nom ci-dessous, vous confirmez que :",
     "description": "Confirmation message before signature form on sign and submit page."
   },
+  "i4EMJm": {
+    "defaultMessage": "Votre compte CléGC",
+    "description": "Accordion trigger for your GCKey account info."
+  },
   "i4TGiO": {
     "defaultMessage": "Voici un tableau des équipes, de même que de leurs détails pertinents. Vous pouvez également créer une nouvelle équipe ou en modifier une qui existe déjà.",
     "description": "Descriptive text about the list of teams in the admin portal."
@@ -8301,10 +8337,6 @@
   "iNUK3f": {
     "defaultMessage": "Facultatives",
     "description": "Label for an optional skill"
-  },
-  "iPuAKE": {
-    "defaultMessage": "Cacher la disponibilité pour le recrutement",
-    "description": "Heading for closing the recruitment availability accordion in account and privacy"
   },
   "iSbtcK": {
     "defaultMessage": "Directement lié à l’avancement de la réconciliation, le programme a été conçu par, pour et avec les Premières Nations, les Inuit et les Métis.",
@@ -9058,6 +9090,10 @@
     "defaultMessage": "utilisateurs_{date}.csv",
     "description": "Filename for user CSV file download"
   },
+  "mZ1C/0": {
+    "defaultMessage": "Paramètres des notifications",
+    "description": "Title for the notification settings."
+  },
   "maMA3/": {
     "defaultMessage": "Le Bureau de la dirigeante principale de l’information du Canada (BDPI) du Secrétariat du Conseil du Trésor du Canada (SCT) est responsable de la durabilité et du perfectionnement de la collectivité du numérique du gouvernement du Canada (GC), y compris :",
     "description": "Introduction to the _supporting the community_ section of the _digital services contracting questionnaire_"
@@ -9210,6 +9246,10 @@
     "defaultMessage": "Pour l'instant, notre site n'est accessible qu'au moyen d'une appli d'authentification.",
     "description": "GCKey answer for whether there is an alternative to an authenticator app"
   },
+  "nKwVX7": {
+    "defaultMessage": "Disponibilité pour recrutement",
+    "description": "Title for the recruitment availability."
+  },
   "nPPUMW": {
     "defaultMessage": "Retourner au traitement des détails",
     "description": "Link text to go back to the process details page"
@@ -9305,10 +9345,6 @@
   "nsm/uC": {
     "defaultMessage": "{skillName} (Essentielles)",
     "description": "CSV Header, Essential skill column."
-  },
-  "nx5fZY": {
-    "defaultMessage": "En postulant à un bassin de talents sur la plateforme, vous acceptez de recevoir des notifications sur les possibilités d’emploi potentielles qui y sont liées. Vous pouvez gérer ces notifications à l’aide des <strong>mesures de contrôle de disponibilité</strong>, ou en consultant les <link>processus de recrutement actuels sur votre parcours professionnel</link>.",
-    "description": "Description for managing recruitment availability."
   },
   "nxAw/X": {
     "defaultMessage": "Cet avis a été préparé pour expliquer la façon dont le gouvernement du Canada interagit avec le public sur les plateformes de médias sociaux.",
@@ -9469,6 +9505,10 @@
   "p/Qp/u": {
     "defaultMessage": "Nom du candidat",
     "description": "Title displayed on the Pool Candidates table name column."
+  },
+  "p0KALn": {
+    "defaultMessage": "Aucun processus de recrutement n’est actif dans votre profil en ce moment.",
+    "description": "Message displayed in recruitment availability when the user is not in any valid pools"
   },
   "p19YJ2": {
     "defaultMessage": "Présentez une demande dès aujourd’hui pour entreprendre une carrière en technologie de l’information.",
@@ -10270,6 +10310,10 @@
     "defaultMessage": "La Plateforme de talents numériques du gouvernement du Canada est un système de recrutement basé sur les compétences. Cela signifie que votre candidature mettra davantage l’accent sur vos compétences et sur la façon dont vous les avez utilisées lors d’expériences passées pour nous aider à mieux comprendre votre adéquation.",
     "description": "Description of how the skills-based hiring platform assess candidates."
   },
+  "u3CPra": {
+    "defaultMessage": "Recevoir une notification lorsqu'un nouvel emploi est publié sur la plateforme.",
+    "description": "Subtitle for job alerts checklist"
+  },
   "u3eefq": {
     "defaultMessage": "Demander des candidats faisant partie d’un bassin",
     "description": "Page title for the request candidates form page"
@@ -10429,6 +10473,10 @@
   "v0EVPQ": {
     "defaultMessage": "Ce programme s’adresse aux membres de Premières nations, aux Inuits et aux Métis du Canada.",
     "description": "Disclaimer displayed when a user has indicated they are not Indigenous on the self-declaration form."
+  },
+  "v21LPW": {
+    "defaultMessage": "Mises à jour de l'application",
+    "description": "Title for application updates checklist"
   },
   "v9mTgX": {
     "defaultMessage": "Un processus de demande en ligne sera bientôt disponible afin de permettre aux gens d’exprimer leur intérêt. Entre-temps, nous vous encourageons à envoyer votre curriculum vitae et votre lettre de présentation par courriel, à edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca.",
@@ -10630,6 +10678,10 @@
     "defaultMessage": "1 à 5",
     "description": "Contract FTE range between one and five"
   },
+  "wYct8d": {
+    "defaultMessage": "Lorsque vous êtes admis dans un processus de recrutement de talents, vous acceptez de recevoir des notifications sur d’éventuelles possibilités qui répondent aux critères du processus. Ces notifications ne seront envoyées que si vous avez activé les notifications « Alerte d’emploi » dans la section des « paramètres de notification » de cette page. Vous pouvez aussi désactiver ces notifications pour chaque processus à l’aide des contrôles figurant sur les cartes fournies.",
+    "description": "Subtitle for recruitment availability section on account settings page."
+  },
   "weLwJA": {
     "defaultMessage": "Recherche de talent",
     "description": "Link text for the search page breadcrumb"
@@ -10681,10 +10733,6 @@
   "wzoCfb": {
     "defaultMessage": "Sécurité de la <abbreviation>TI</abbreviation>",
     "description": "Title for the 'security' IT work stream"
-  },
-  "x+PMFn": {
-    "defaultMessage": "En apprendre davantage sur l'ouverture de séance et l'authentification",
-    "description": "Heading for opening the sign in and authentication accordion in account and privacy"
   },
   "x+kUrO": {
     "defaultMessage": "Conseillers en ressources humaines",
@@ -10909,10 +10957,6 @@
   "yGyjXK": {
     "defaultMessage": "Sélectionnez la langue dans laquelle le travail sera effectué et livré.",
     "description": "Label for _required work languages_ fieldset in the _digital services contracting questionnaire_"
-  },
-  "yITGeG": {
-    "defaultMessage": "En acceptant d'utiliser la plateforme Talents numériques du GC, vous consentez à ce que vos données soient anonymisées et utilisées à des fins statistiques. Vous pouvez en apprendre davantage sur la façon dont nous traitons vos renseignements confidentiels dans la <link>politique de confidentialité de notre plateforme</link>.",
-    "description": "Description of how we handle privacy."
   },
   "yJnGeT": {
     "defaultMessage": "Choisissez le critère auquel vous répondez.",

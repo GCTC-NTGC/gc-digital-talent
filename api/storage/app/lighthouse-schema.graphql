@@ -328,6 +328,7 @@ type Pool {
   classification: Classification
   operationalRequirements: [OperationalRequirement]
   poolCandidates: [PoolCandidate]
+  poolCandidatesCount: Int
   keyTasks: LocalizedString
   yourImpact: LocalizedString
   whatToExpect: LocalizedString
