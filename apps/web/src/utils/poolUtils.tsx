@@ -271,6 +271,12 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
           id: "yM04jy",
           description: "Title for advertisement information of a process",
         }),
+        subtitle: intl.formatMessage({
+          defaultMessage:
+            "Define the information and requirements for this recruitment process.",
+          id: "Kyf9At",
+          description: "Description of a process' advertisement",
+        }),
         link: {
           url: paths.poolUpdate(pool.id),
         },
@@ -306,6 +312,12 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
       "plan",
       {
         title: intl.formatMessage(messages.assessmentPlan),
+        subtitle: intl.formatMessage({
+          defaultMessage:
+            "Select, organize and define the assessments used to evaluate each skill in the advertisement.",
+          id: "2ZjclP",
+          description: "Subtitle for the assessment plan builder",
+        }),
         link: {
           url: paths.assessmentPlanBuilder(pool.id),
         },
