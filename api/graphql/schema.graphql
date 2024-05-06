@@ -454,7 +454,9 @@ type PoolCandidateSearchRequest {
   status: PoolCandidateSearchStatus @rename(attribute: "request_status")
   statusChangedAt: DateTime @rename(attribute: "request_status_changed_at")
   adminNotes: String @rename(attribute: "admin_notes")
-  poolCandidateFilter: PoolCandidateFilter @belongsTo
+  poolCandidateFilter: PoolCandidateFilter
+    @belongsTo
+    @deprecated(reason: "Replaced by applicantFilter")
   applicantFilter: ApplicantFilter @belongsTo
   wasEmpty: Boolean @rename(attribute: "was_empty")
   managerJobTitle: String @rename(attribute: "manager_job_title")
