@@ -36,6 +36,7 @@ import {
   SkillCategory,
   FragmentType,
   getFragment,
+  PoolSkillType,
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -124,11 +125,17 @@ const ApplicationPrintDocument = React.forwardRef<
   // filter out behavioural skills for both, and unused asset skills
   const poolSkills = groupPoolSkillByType(pool?.poolSkills);
   const poolEssentialTechnicalSkills = unpackMaybes(
-    filterSkillsByCategory(poolSkills.ESSENTIAL, SkillCategory.Technical),
+    filterSkillsByCategory(
+      poolSkills.get(PoolSkillType.Essential),
+      SkillCategory.Technical,
+    ),
   );
 
   const poolNonEssentialTechnicalSkills = unpackMaybes(
-    filterSkillsByCategory(poolSkills.NONESSENTIAL, SkillCategory.Technical),
+    filterSkillsByCategory(
+      poolSkills.get(PoolSkillType.Nonessential),
+      SkillCategory.Technical,
+    ),
   );
   const experiencesSkillIds = getExperiencesSkillIds(
     user.experiences?.filter(notEmpty) ?? [],

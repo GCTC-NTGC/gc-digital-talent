@@ -17,6 +17,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   ApplicationStep,
   Experience,
+  PoolSkillType,
   SkillCategory,
 } from "@gc-digital-talent/graphql";
 
@@ -96,10 +97,10 @@ export const ApplicationSkills = ({
   const instructionsPath = paths.applicationSkillsIntro(application.id);
   const poolSkillsByType = groupPoolSkillByType(application.pool.poolSkills);
   const categorizedEssentialSkills = categorizeSkill(
-    poolSkillsByType.ESSENTIAL,
+    poolSkillsByType.get(PoolSkillType.Essential),
   );
   const categorizedOptionalSkills = categorizeSkill(
-    poolSkillsByType.NONESSENTIAL,
+    poolSkillsByType.get(PoolSkillType.Nonessential),
   );
   const [{ fetching: mutating }, executeMutation] =
     useUpdateApplicationMutation();

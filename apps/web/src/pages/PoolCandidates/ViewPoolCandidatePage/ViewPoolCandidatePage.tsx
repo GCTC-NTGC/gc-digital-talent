@@ -28,6 +28,7 @@ import {
   graphql,
   ArmedForcesStatus,
   PoolCandidateSnapshotQuery,
+  PoolSkillType,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -782,8 +783,10 @@ export const ViewPoolCandidate = ({
                     poolCandidateId={poolCandidate.id}
                     poolCandidateStatus={poolCandidate.status}
                     expiryDate={poolCandidate.expiryDate}
-                    essentialSkills={skills.ESSENTIAL ?? []}
-                    nonessentialSkills={skills.NONESSENTIAL ?? []}
+                    essentialSkills={skills.get(PoolSkillType.Essential) ?? []}
+                    nonessentialSkills={
+                      skills.get(PoolSkillType.Nonessential) ?? []
+                    }
                     assessmentResults={
                       poolCandidate?.assessmentResults?.filter(notEmpty) ?? []
                     }

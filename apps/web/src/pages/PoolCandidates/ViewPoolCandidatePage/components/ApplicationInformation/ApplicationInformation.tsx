@@ -8,6 +8,7 @@ import {
   Maybe,
   Pool,
   PoolCandidate,
+  PoolSkillType,
   Scalars,
   SkillCategory,
   User,
@@ -114,11 +115,15 @@ const ApplicationInformation = ({
   );
 
   const skills = groupPoolSkillByType(pool?.poolSkills);
-  const categorizedEssentialSkills = categorizeSkill(skills.ESSENTIAL);
+  const categorizedEssentialSkills = categorizeSkill(
+    skills.get(PoolSkillType.Essential),
+  );
   const technicalEssentialSkills = unpackMaybes(
     categorizedEssentialSkills[SkillCategory.Technical],
   );
-  const categorizedAssetSkills = categorizeSkill(skills.NONESSENTIAL);
+  const categorizedAssetSkills = categorizeSkill(
+    skills.get(PoolSkillType.Nonessential),
+  );
   const technicalAssetSkills = unpackMaybes(
     categorizedAssetSkills[SkillCategory.Technical],
   );

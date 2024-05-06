@@ -21,6 +21,7 @@ import {
   PoolCandidate,
   PositionDuration,
   Pool,
+  PoolSkillType,
 } from "@gc-digital-talent/graphql";
 
 import {
@@ -187,7 +188,7 @@ export const getPoolCandidateCsvHeaders = (
 ): DownloadCsvProps["headers"] => {
   const poolSkills = groupPoolSkillByType(unpackMaybes(pool?.poolSkills));
   const essentialSkillHeaders =
-    poolSkills.ESSENTIAL?.map((skill) => {
+    poolSkills.get(PoolSkillType.Essential)?.map((skill) => {
       return {
         id: skill.key,
         displayName: intl.formatMessage(
@@ -201,7 +202,7 @@ export const getPoolCandidateCsvHeaders = (
       };
     }) ?? [];
   const nonEssentialSkillHeaders =
-    poolSkills.NONESSENTIAL?.map((skill) => {
+    poolSkills.get(PoolSkillType.Nonessential)?.map((skill) => {
       return {
         id: skill.key,
         displayName: intl.formatMessage(
