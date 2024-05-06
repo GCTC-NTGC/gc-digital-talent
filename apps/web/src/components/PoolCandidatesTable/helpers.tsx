@@ -314,8 +314,6 @@ export function transformSortStateToOrderByClause(
     return !!columnName;
   });
 
-  console.log(sortingRule);
-
   if (
     sortingRule &&
     ["dateReceived", "candidacyStatus", "status", "notes"].includes(
@@ -357,7 +355,6 @@ export function transformSortStateToOrderByClause(
     filterState?.applicantFilter?.skills &&
     filterState.applicantFilter.skills.length > 0
   ) {
-    console.log("is skill count");
     return {
       column: "skill_count",
       order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
