@@ -540,7 +540,7 @@ type PoolCandidateSearchRequest {
   status: PoolCandidateSearchStatus
   statusChangedAt: DateTime
   adminNotes: String
-  poolCandidateFilter: PoolCandidateFilter
+  poolCandidateFilter: PoolCandidateFilter @deprecated(reason: "Replaced by applicantFilter")
   applicantFilter: ApplicantFilter
   wasEmpty: Boolean
   managerJobTitle: String
