@@ -341,18 +341,17 @@ export const filterPoolSkillsByType = (
 
 export function groupPoolSkillByType(
   poolSkills?: Maybe<Maybe<PoolSkill>[]>,
-): Record<PoolSkillType, Maybe<Array<Skill> | undefined>> {
-  const nonEmptyPoolSkills = unpackMaybes(poolSkills);
-  return {
-    [PoolSkillType.Essential]: filterPoolSkillsByType(
-      nonEmptyPoolSkills,
-      PoolSkillType.Essential,
-    ),
-    [PoolSkillType.Nonessential]: filterPoolSkillsByType(
-      nonEmptyPoolSkills,
-      PoolSkillType.Nonessential,
-    ),
-  };
+): Map<PoolSkillType, Array<Skill>> {
+  return unpackMaybes(poolSkills).reduce((map, poolSkill) => {
+    const { type, skill } = poolSkill;
+    if (type && skill) {
+      if (!map.has(type)) {
+        map.set(type, []);
+      }
+      map.get(type)?.push(skill);
+    }
+    return map;
+  }, new Map<PoolSkillType, Array<Skill>>());
 }
 
 export function poolSkillsToSkills(poolSkills?: Maybe<Maybe<PoolSkill>[]>) {
