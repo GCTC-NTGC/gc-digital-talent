@@ -163,67 +163,39 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
           }
         }
       }
-      essentialSkills {
+      poolSkills {
         id
-        key
-        category
-        name {
-          en
-          fr
-        }
-        description {
-          en
-          fr
-        }
-        keywords {
-          en
-          fr
-        }
-        experienceSkillRecord {
-          details
-        }
-        families {
+        type
+        skill {
           id
           key
-          description {
-            en
-            fr
-          }
+          category
           name {
             en
             fr
           }
-        }
-      }
-      nonessentialSkills {
-        id
-        key
-        category
-        name {
-          en
-          fr
-        }
-        description {
-          en
-          fr
-        }
-        keywords {
-          en
-          fr
-        }
-        experienceSkillRecord {
-          details
-        }
-        families {
-          id
-          key
           description {
             en
             fr
           }
-          name {
+          keywords {
             en
             fr
+          }
+          experienceSkillRecord {
+            details
+          }
+          families {
+            id
+            key
+            description {
+              en
+              fr
+            }
+            name {
+              en
+              fr
+            }
           }
         }
       }
