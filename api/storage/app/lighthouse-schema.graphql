@@ -2131,6 +2131,7 @@ enum PoolCandidateSearchStatus {
   WAITING
   DONE
   DONE_NO_CANDIDATES
+  NOT_COMPLIANT
 }
 
 enum PoolCandidateSearchPositionType {

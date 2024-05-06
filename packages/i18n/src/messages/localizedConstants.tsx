@@ -779,6 +779,11 @@ const poolCandidateSearchStatuses = defineMessages({
     id: "Mau9e6",
     description: "The search status is done with no candidates found",
   },
+  [PoolCandidateSearchStatus.NotCompliant]: {
+    defaultMessage: "Not compliant",
+    id: "2jrMyA",
+    description: "The search status is not compliant",
+  },
 });
 
 export const getPoolCandidateSearchStatus = (
