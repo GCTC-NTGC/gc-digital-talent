@@ -1,14 +1,10 @@
 import React from "react";
-import { IntlShape, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 
 import { Board, Link, Well } from "@gc-digital-talent/ui";
-import {
-  commonMessages,
-  getAssessmentStepType,
-  getLocalizedName,
-} from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { AssessmentStep, Pool } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import applicationMessages from "~/messages/applicationMessages";
 import useRoutes from "~/hooks/useRoutes";
@@ -22,34 +18,88 @@ import {
   groupPoolCandidatesByStep,
   defaultFilters,
   filterAlreadyDisqualified,
+  generateStepName,
 } from "./utils";
 import Filters from "./Filters";
+import SpinnerIcon from "../SpinnerIcon/SpinnerIcon";
 
 const talentPlacementLink = (chunks: React.ReactNode, href: string) => (
   <Link href={href}>{chunks}</Link>
 );
+
+export const AssessmentStepTracker_CandidateFragment = graphql(/* GraphQL */ `
+  fragment AssessmentStepTracker_Candidate on PoolCandidate {
+    id
+    isBookmarked
+    status
+    pool {
+      id
+    }
+    user {
+      id
+      firstName
+      lastName
+      armedForcesStatus
+      hasPriorityEntitlement
+    }
+    assessmentResults {
+      id
+      assessmentStep {
+        id
+      }
+      assessmentDecision
+      assessmentDecisionLevel
+      assessmentResultType
+      poolSkill {
+        id
+        type
+      }
+    }
+  }
+`);
+
+export const AssessmentStepTracker_PoolFragment = graphql(/* GraphQL */ `
+  fragment AssessmentStepTracker_Pool on Pool {
+    id
+    assessmentSteps {
+      id
+      title {
+        en
+        fr
+      }
+      type
+      sortOrder
+      poolSkills {
+        id
+        type
+      }
+    }
+  }
+`);
+
 export interface AssessmentStepTrackerProps {
-  pool: Pool;
+  poolQuery?: FragmentType<typeof AssessmentStepTracker_PoolFragment>;
+  candidateQuery?: FragmentType<
+    typeof AssessmentStepTracker_CandidateFragment
+  >[];
+  fetching: boolean;
 }
 
-const generateStepName = (step: AssessmentStep, intl: IntlShape): string => {
-  // check if title exists in LocalizedString object, then return empty string if not for a truthy check
-  const titleLocalized = getLocalizedName(step.title, intl, true);
-  if (titleLocalized) {
-    return titleLocalized;
-  }
-  if (step.type) {
-    return intl.formatMessage(getAssessmentStepType(step.type));
-  }
-  return intl.formatMessage(commonMessages.notAvailable);
-};
-
-const AssessmentStepTracker = ({ pool }: AssessmentStepTrackerProps) => {
+const AssessmentStepTracker = ({
+  poolQuery,
+  candidateQuery,
+  fetching,
+}: AssessmentStepTrackerProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const [filters, setFilters] = React.useState<ResultFilters>(defaultFilters);
-  const steps = unpackMaybes(pool.assessmentSteps);
-  const candidates = unpackMaybes(pool.poolCandidates);
+  const pool = getFragment(AssessmentStepTracker_PoolFragment, poolQuery);
+  const steps = unpackMaybes(pool?.assessmentSteps);
+  const poolCandidates = getFragment(
+    AssessmentStepTracker_CandidateFragment,
+    candidateQuery,
+  );
+  const candidates = unpackMaybes(poolCandidates ? [...poolCandidates] : []);
   // to handle partially completed processes, filter out candidates assessed and disqualified pre-RoD
   const filteredCandidates = filterAlreadyDisqualified(candidates);
   const groupedSteps = groupPoolCandidatesByStep(steps, filteredCandidates);
@@ -75,15 +125,27 @@ const AssessmentStepTracker = ({ pool }: AssessmentStepTrackerProps) => {
                   {stepName}
                 </Board.ColumnHeader>
                 <ResultsDetails {...{ resultCounts, step, filters }} />
-                <AssessmentResults
-                  stepType={step.type}
-                  stepName={
-                    stepNumber +
-                    intl.formatMessage(commonMessages.dividingColon) +
-                    stepName
-                  }
-                  {...{ results }}
-                />
+                {fetching ? (
+                  <Well fontSize="caption" data-h2-margin="base(0 x.5)">
+                    <div
+                      data-h2-display="base(flex)"
+                      data-h2-align-items="base(center)"
+                    >
+                      <SpinnerIcon data-h2-width="base(x.75)" />
+                      <span>{intl.formatMessage(commonMessages.loading)}</span>
+                    </div>
+                  </Well>
+                ) : (
+                  <AssessmentResults
+                    stepType={step.type}
+                    stepName={
+                      stepNumber +
+                      intl.formatMessage(commonMessages.dividingColon) +
+                      stepName
+                    }
+                    {...{ results }}
+                  />
+                )}
               </Board.Column>
             );
           })}
@@ -94,7 +156,10 @@ const AssessmentStepTracker = ({ pool }: AssessmentStepTrackerProps) => {
             {intl.formatMessage(processMessages.noAssessmentPlan)}{" "}
             {intl.formatMessage(processMessages.viewTalentPlacement, {
               a: (chunks: React.ReactNode) =>
-                talentPlacementLink(chunks, paths.poolCandidateTable(pool.id)),
+                talentPlacementLink(
+                  chunks,
+                  paths.poolCandidateTable(pool?.id ?? ""),
+                ),
             })}
           </p>
         </Well>
