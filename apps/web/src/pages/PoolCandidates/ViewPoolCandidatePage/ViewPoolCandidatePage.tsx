@@ -28,6 +28,7 @@ import {
   graphql,
   ArmedForcesStatus,
   PoolCandidateSnapshotQuery,
+  PoolSkillType,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -46,6 +47,7 @@ import {
   RECORD_DECISION_STATUSES,
   REVERT_DECISION_STATUSES,
 } from "~/constants/poolCandidate";
+import { groupPoolSkillByType } from "~/utils/skillUtils";
 
 import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
 import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
@@ -272,45 +274,26 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
           group
           level
         }
-        essentialSkills {
-          id
-          key
-          name {
-            en
-            fr
-          }
-          description {
-            en
-            fr
-          }
-          category
-          families {
+        poolSkills {
+          skill {
             id
             key
             name {
               en
               fr
             }
-          }
-        }
-        nonessentialSkills {
-          id
-          key
-          name {
-            en
-            fr
-          }
-          description {
-            en
-            fr
-          }
-          category
-          families {
-            id
-            key
-            name {
+            description {
               en
               fr
+            }
+            category
+            families {
+              id
+              key
+              name {
+                en
+                fr
+              }
             }
           }
         }
@@ -735,6 +718,8 @@ export const ViewPoolCandidate = ({
     intl,
   );
 
+  const skills = groupPoolSkillByType(poolCandidate.pool.poolSkills);
+
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
       {
@@ -799,9 +784,9 @@ export const ViewPoolCandidate = ({
                     poolCandidateId={poolCandidate.id}
                     poolCandidateStatus={poolCandidate.status}
                     expiryDate={poolCandidate.expiryDate}
-                    essentialSkills={poolCandidate.pool.essentialSkills ?? []}
+                    essentialSkills={skills.get(PoolSkillType.Essential) ?? []}
                     nonessentialSkills={
-                      poolCandidate.pool.nonessentialSkills ?? []
+                      skills.get(PoolSkillType.Nonessential) ?? []
                     }
                     assessmentResults={
                       poolCandidate?.assessmentResults?.filter(notEmpty) ?? []

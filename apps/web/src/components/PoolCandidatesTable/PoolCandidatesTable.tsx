@@ -671,7 +671,7 @@ const PoolCandidatesTable = ({
         ),
       },
     ),
-    columnHelper.display({
+    columnHelper.accessor("skillCount", {
       id: "skillCount",
       header: intl.formatMessage(tableMessages.skillCount),
       cell: ({

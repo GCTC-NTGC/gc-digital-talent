@@ -15,12 +15,13 @@ import {
   getEvaluatedLanguageAbility,
   commonMessages,
 } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   Maybe,
   PoolCandidate,
   PositionDuration,
   Pool,
+  PoolSkillType,
 } from "@gc-digital-talent/graphql";
 
 import {
@@ -37,6 +38,7 @@ import {
 } from "~/utils/csvUtils";
 import adminMessages from "~/messages/adminMessages";
 import processMessages from "~/messages/processMessages";
+import { groupPoolSkillByType, poolSkillsToSkills } from "~/utils/skillUtils";
 
 import { getLabels } from "../Profile/components/LanguageProfile/utils";
 
@@ -58,10 +60,8 @@ export const getPoolCandidateCsvData = (
       pool: poolAd,
     }) => {
       const locale = getLocale(intl);
-      const poolSkills =
-        poolAd.essentialSkills && poolAd.nonessentialSkills
-          ? [...poolAd.essentialSkills, ...poolAd.nonessentialSkills]
-          : [];
+      const poolSkills = poolSkillsToSkills(poolAd.poolSkills);
+
       return {
         status: status
           ? intl.formatMessage(getPoolCandidateStatus(status as string))
@@ -186,36 +186,35 @@ export const getPoolCandidateCsvHeaders = (
   intl: IntlShape,
   pool?: Maybe<Pool>,
 ): DownloadCsvProps["headers"] => {
-  const essentialSkillHeaders = pool?.essentialSkills
-    ? pool.essentialSkills.map((skill) => {
-        return {
-          id: skill.key,
-          displayName: intl.formatMessage(
-            {
-              defaultMessage: "{skillName} (Essential)",
-              id: "nsm/uC",
-              description: "CSV Header, Essential skill column.",
-            },
-            { skillName: getLocalizedName(skill.name, intl) },
-          ),
-        };
-      })
-    : [];
-  const nonEssentialSkillHeaders = pool?.nonessentialSkills
-    ? pool.nonessentialSkills.map((skill) => {
-        return {
-          id: skill.key,
-          displayName: intl.formatMessage(
-            {
-              defaultMessage: "{skillName} (Asset)",
-              id: "exYii8",
-              description: "CSV Header, Asset skill column.",
-            },
-            { skillName: getLocalizedName(skill.name, intl) },
-          ),
-        };
-      })
-    : [];
+  const poolSkills = groupPoolSkillByType(unpackMaybes(pool?.poolSkills));
+  const essentialSkillHeaders =
+    poolSkills.get(PoolSkillType.Essential)?.map((skill) => {
+      return {
+        id: skill.key,
+        displayName: intl.formatMessage(
+          {
+            defaultMessage: "{skillName} (Essential)",
+            id: "nsm/uC",
+            description: "CSV Header, Essential skill column.",
+          },
+          { skillName: getLocalizedName(skill.name, intl) },
+        ),
+      };
+    }) ?? [];
+  const nonEssentialSkillHeaders =
+    poolSkills.get(PoolSkillType.Nonessential)?.map((skill) => {
+      return {
+        id: skill.key,
+        displayName: intl.formatMessage(
+          {
+            defaultMessage: "{skillName} (Asset)",
+            id: "exYii8",
+            description: "CSV Header, Asset skill column.",
+          },
+          { skillName: getLocalizedName(skill.name, intl) },
+        ),
+      };
+    }) ?? [];
 
   const generalQuestionHeaders = pool?.generalQuestions
     ? pool.generalQuestions.filter(notEmpty).map((generalQuestion, index) => ({

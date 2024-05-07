@@ -91,6 +91,16 @@ const messages = defineMessages({
     id: "7VCuZQ",
     description: "Label for a process' location requirement",
   },
+  locationEn: {
+    defaultMessage: "Location (English)",
+    id: "IhaKpH",
+    description: "Label for a process' english location requirement",
+  },
+  locationFr: {
+    defaultMessage: "Location (French)",
+    id: "yl3eY6",
+    description: "Label for a process' french location requirement",
+  },
   whatToExpectEn: {
     defaultMessage: "What to expect (English)",
     id: "lNZ/UI",

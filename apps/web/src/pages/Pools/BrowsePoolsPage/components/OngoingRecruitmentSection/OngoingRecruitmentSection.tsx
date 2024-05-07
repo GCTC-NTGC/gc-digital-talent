@@ -23,12 +23,14 @@ import {
   Pool,
   getFragment,
   FragmentType,
+  PoolSkillType,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
 
 import messages from "../../messages";
+import { filterPoolSkillsByType } from "../../../../../utils/skillUtils";
 
 // the shape of the data model to populate this component
 interface StreamViewModel {
@@ -80,11 +82,14 @@ const streamIsRecommended = (
   stream: StreamViewModel,
   userSkillIds: Skill["id"][],
 ): boolean =>
-  stream.classifications.some((classification) =>
-    classification.pool?.essentialSkills?.every((skill) =>
-      userSkillIds.includes(skill.id),
-    ),
-  );
+  stream.classifications.some((classification) => {
+    const essentialSkills = filterPoolSkillsByType(
+      classification.pool?.poolSkills,
+      PoolSkillType.Essential,
+    );
+
+    return essentialSkills.every((skill) => userSkillIds.includes(skill.id));
+  });
 
 const OngoingRecruitmentSection_QueryFragment = graphql(/* GraphQL */ `
   fragment OngoingRecruitmentSection on Query {

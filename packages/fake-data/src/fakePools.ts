@@ -107,8 +107,6 @@ const generatePool = (
     publishedAt: faker.date
       .between({ from: FAR_PAST_DATE, to: PAST_DATE })
       .toISOString(),
-    essentialSkills,
-    nonessentialSkills,
     poolSkills,
     securityClearance: faker.helpers.arrayElement(
       Object.values(SecurityStatus),

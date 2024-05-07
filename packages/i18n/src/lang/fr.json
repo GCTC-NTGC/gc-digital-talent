@@ -179,6 +179,10 @@
     "defaultMessage": "Atout",
     "description": "The skill is considered nonessential."
   },
+  "2jrMyA": {
+    "defaultMessage": "Non conforme",
+    "description": "The search status is not compliant"
+  },
   "2wKf2U": {
     "defaultMessage": "Modifier",
     "description": "Text to trigger edit action"

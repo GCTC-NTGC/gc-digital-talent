@@ -25,7 +25,6 @@ type AbstractFilter = PoolCandidateFilter | ApplicantFilter;
 function isPoolCandidateFilter(
   filter: AbstractFilter,
 ): filter is PoolCandidateFilter {
-  // eslint-disable-next-line no-underscore-dangle
   if (filter.__typename === "PoolCandidateFilter") return true;
 
   return false;

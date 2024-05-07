@@ -383,10 +383,6 @@
     "defaultMessage": "<strong>Non</strong>, je n'ai pas de droit de priorité.",
     "description": "Label displayed for does not have priority entitlement option"
   },
-  "0Arzgj": {
-    "defaultMessage": "Cette section sert à définir les évaluations qui seront utilisées dans le cadre de votre processus d’évaluation. Vous pouvez également changer l’ordre dans lequel vous prévoyez effectuer ces évaluations. Les seules exceptions sont les évaluations de “présélection des candidatures” et de “questions de présélection (au moment de la candidature)” qui constitueront toujours la première et la deuxième étape pour tout processus d’évaluation.",
-    "description": "introduction to the organize section in the assessment plan builder"
-  },
   "0D3ZhO": {
     "defaultMessage": "Demandes",
     "description": "The menu category for requests items"
@@ -794,6 +790,10 @@
   "2W6Q3k": {
     "defaultMessage": "Commencez <hidden> par indiquer vos préférences en matière de travail</hidden>",
     "description": "Call to action to begin editing work preferences"
+  },
+  "2ZjclP": {
+    "defaultMessage": "Sélectionner, organiser et définir les évaluations ayant été utilisées pour évaluer chaque compétence de l’offre d’emploi.",
+    "description": "Subtitle for the assessment plan builder"
   },
   "2aBKgf": {
     "defaultMessage": "Il y a deux types d'employés du <abbreviation>TI-04</abbreviation> : ceux qui suivent un cheminement en gestion et les contributeurs individuels.",
@@ -3598,6 +3598,10 @@
   "IhXvCe": {
     "defaultMessage": "Êtes-vous certain de vouloir supprimer cette expérience de votre profil? Cette action ne peut être annulée.",
     "description": "Question displayed when a user attempts to delete an experience from their profile"
+  },
+  "IhaKpH": {
+    "defaultMessage": "Lieu (anglais)",
+    "description": "Label for a process' english location requirement"
   },
   "IjBtl5": {
     "defaultMessage": "Le transfert de connaissances de l’entrepreneur à l’unité de travail du gouvernement a-t-il été intégré au contrat?",
@@ -8434,10 +8438,6 @@
     "defaultMessage": "Avis concernant l’image de marque",
     "description": "Title for the trademark notice section."
   },
-  "iuA2pt": {
-    "defaultMessage": "Sélectionner, organiser et définir les évaluations ayant été utilisées pour évaluer chaque compétence de l’offre d’emploi. Veillez à ce que chaque compétence essentielle soit évaluée au moins une fois pour compléter votre plan d’évaluation.",
-    "description": "Subtitle for the assessment plan builder"
-  },
   "iuve97": {
     "defaultMessage": "Modifier le statut",
     "description": "Confirmation button for change status dialog"
@@ -9790,6 +9790,10 @@
     "defaultMessage": "0 à 3 mois",
     "description": "Contract start timeframe of zero to three months"
   },
+  "qX9s0l": {
+    "defaultMessage": "Vous pouvez également changer l’ordre dans lequel vous prévoyez effectuer ces évaluations. Les seules exceptions sont les évaluations de “présélection des candidatures” et de “questions de présélection (au moment de la candidature)” qui constitueront toujours la première et la deuxième étape pour tout processus d’évaluation.",
+    "description": "Introduction to the organize section in the assessment plan builder, paragraph 2"
+  },
   "qXnXKH": {
     "defaultMessage": "Processus dupliqué avec succès!",
     "description": "Message displayed to user after pool is duplicated"
@@ -10874,6 +10878,10 @@
     "defaultMessage": "Vous n'avez pas encore rempli ces renseignements",
     "description": "Null message on sections for edit pool page."
   },
+  "xtNiNu": {
+    "defaultMessage": "Cette section sert à définir les évaluations qui seront utilisées dans le cadre de votre processus d’évaluation. Veillez à ce que chaque compétence essentielle soit évaluée au moins une fois pour compléter votre plan d’évaluation.",
+    "description": "Introduction to the organize section in the assessment plan builder, paragraph 1"
+  },
   "xvULuR": {
     "defaultMessage": "En savoir plus sur les lieux de travail et la terminologie.",
     "description": "Info button label for pool application work location details."
@@ -11013,6 +11021,10 @@
   "yiqfHr": {
     "defaultMessage": "<strong>Oui</strong>, j’utilise cette compétence dans mon rôle actuel.",
     "description": "Option for when a skill is currently being used"
+  },
+  "yl3eY6": {
+    "defaultMessage": "Lieu (français)",
+    "description": "Label for a process' french location requirement"
   },
   "ymHPWF": {
     "defaultMessage": "Cette section présente vos réponses sur les façons dont votre expérience correspond aux compétences requises pour ces postes.",
