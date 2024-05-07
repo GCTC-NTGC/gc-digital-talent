@@ -103,6 +103,10 @@
     "defaultMessage": "Incapable de postuler pour ce bassin",
     "description": "Message displayed when user attempts to apply to an unpublished pool"
   },
+  "17dZD4": {
+    "defaultMessage": "Le candidat/la candidate sera informé(e) de toute modification apportée au présent formulaire.",
+    "description": "Caption notifying the user about who can know about the results of form changes"
+  },
   "1RTwS3": {
     "defaultMessage": "nécessite que je fasse des <strong>heures supplémentaires planifiées</strong>.",
     "description": "The operational requirement described as scheduled overtime."
@@ -619,6 +623,10 @@
     "defaultMessage": "Entretien de suivi",
     "description": "Follow-up interview assessment."
   },
+  "IKGhHj": {
+    "defaultMessage": "Important",
+    "description": "Important note or caption"
+  },
   "ILQGq/": {
     "defaultMessage": "L’équivalence de l’expérience de travail est acceptée",
     "description": "Option for justification when assessment decision is successful."
@@ -1050,6 +1058,10 @@
   "V3+fXY": {
     "defaultMessage": "L’exigence relative à l’éducation est incomplete",
     "description": "Message displayed when user attempts to apply to a pool with incomplete education requirement"
+  },
+  "V6t8Yd": {
+    "defaultMessage": "Le candidat ne répond pas",
+    "description": "Option for not responsive candidate being removed"
   },
   "VV8TA5": {
     "defaultMessage": "Retour",
@@ -1535,6 +1547,10 @@
     "defaultMessage": "Études ou expérience insuffisantes pour satisfaire à l’exigence.",
     "description": "Option for justification when assessment decision is unsuccessful."
   },
+  "kaowOV": {
+    "defaultMessage": "Le candidat a demandé à être retiré",
+    "description": "Option for request to be withdrawn"
+  },
   "kg28xx": {
     "defaultMessage": "Un champ obligatoire est vide : Français – Votre incidence",
     "description": "Error message that Your Impact in French must be filled"
@@ -1594,6 +1610,10 @@
   "mPBvYz": {
     "defaultMessage": "Examen technique – Sur place",
     "description": "Technical exam assessment done at some specified location."
+  },
+  "mW2qym": {
+    "defaultMessage": "Autre motif",
+    "description": "Option for other reason to remove candidate"
   },
   "mhZmff": {
     "defaultMessage": "La demande doit être soumise.",
