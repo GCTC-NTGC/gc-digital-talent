@@ -43,6 +43,105 @@ class PoolTestSeeder extends Seeder
                 'closing_date' => config('constants.far_future_date'),
                 'publishing_group' => PublishingGroup::IAP->name,
             ],
+            //  IT-01  - Draft Job
+
+            [
+                'name' => [
+                    'en' => 'Infrastructure Operations Technician',
+                    'fr' => 'Technicien(-ne) des opérations relatives à l’infrastructure',
+                ],
+                'classification_id' => Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 1)->sole()->id,
+                'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
+                'team_id' => Team::select('id')->where('name', 'digital-community-management')->sole()->id,
+                'published_at' => null,
+                'closing_date' => config('constants.far_future_date'),
+                'publishing_group' => PublishingGroup::IT_JOBS->name,
+            ],
+
+            // IT-02  - Simple
+            [
+                'name' => [
+                    'en' => 'IT Security Analyst',
+                    'fr' => 'Analyste en sécurité des TI',
+                ],
+                'classification_id' => Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 2)->sole()->id,
+                'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
+                'team_id' => Team::select('id')->where('name', 'digital-community-management')->sole()->id,
+                'published_at' => null,
+                'closing_date' => config('constants.far_future_date'),
+                'publishing_group' => PublishingGroup::IT_JOBS->name,
+            ],
+            // IT-03 Published – Complex
+            [
+                'name' => [
+                    'en' => 'IT Security Specialist',
+                    'fr' => 'Spécialiste en sécurité des TI',
+                ],
+                'classification_id' => Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 3)->sole()->id,
+                'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
+                'team_id' => Team::select('id')->where('name', 'digital-community-management')->sole()->id,
+                'published_at' => config('constants.past_date'),
+                'closing_date' => config('constants.far_future_date'),
+                'publishing_group' => PublishingGroup::IT_JOBS->name,
+            ],
+
+            // IT-04 Published - Simple
+            [
+                'name' => [
+                    'en' => 'IT Security Consultant',
+                    'fr' => 'Consultant(-e) en sécurité des TI',
+                ],
+                'classification_id' => Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 4)->sole()->id,
+                'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
+                'team_id' => Team::select('id')->where('name', 'digital-community-management')->sole()->id,
+                'published_at' => config('constants.past_date'),
+                'closing_date' => config('constants.far_future_date'),
+                'publishing_group' => PublishingGroup::IT_JOBS->name,
+            ],
+
+            // IT - 05 Closed - Simple
+            [
+                'name' => [
+                    'en' => 'IT Security Manager',
+                    'fr' => 'Gestionnaire de la sécurité des TI',
+                ],
+                'classification_id' => Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 5)->sole()->id,
+                'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
+                'team_id' => Team::select('id')->where('name', 'digital-community-management')->sole()->id,
+                'published_at' => config('constants.past_date'),
+                'closing_date' => config('constants.past_date'),
+                'publishing_group' => PublishingGroup::IT_JOBS->name,
+            ],
+
+            // Ex-03 Complex
+            [
+                'name' => [
+                    'en' => 'IT Security Architect',
+                    'fr' => 'Architecte en sécurité des TI',
+                ],
+                'classification_id' => Classification::select('id')->where('group', 'ilike', 'EX')->where('level', 3)->sole()->id,
+                'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
+                'team_id' => Team::select('id')->where('name', 'digital-community-management')->sole()->id,
+                'published_at' => config('constants.past_date'),
+                'closing_date' => config('constants.past_date'),
+                'publishing_group' => PublishingGroup::EXECUTIVE_JOBS->name,
+            ],
+
+            // PM-01 – Simple
+            [
+                'name' => [
+                    'en' => 'Project Manager',
+                    'fr' => 'Gestionnaire de projet',
+                ],
+                'classification_id' => Classification::select('id')->where('group', 'ilike', 'PM')->where('level', 1)->sole()->id,
+                'stream' => PoolStream::ACCESS_INFORMATION_PRIVACY->name,
+                'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
+                'team_id' => Team::select('id')->where('name', 'digital-community-management')->sole()->id,
+                'published_at' => config('constants.past_date'),
+                // closes in 6 months from now
+                'closing_date' => now()->addMonths(6),
+                'publishing_group' => PublishingGroup::OTHER->name,
+            ],
         ];
 
         foreach ($pools as $poolData) {
