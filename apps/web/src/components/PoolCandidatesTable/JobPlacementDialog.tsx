@@ -137,8 +137,8 @@ const JobPlacementDialog = ({
     toast.error(
       intl.formatMessage({
         defaultMessage:
-          "Error: could not update pool candidate's job placement status",
-        id: "UMR6ez",
+          "Error: could not update candidate's job placement status",
+        id: "8oOKi9",
         description:
           "Message displayed when an error occurs while updating pool candidate's job placement status",
       }),

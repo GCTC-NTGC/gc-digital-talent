@@ -1875,6 +1875,10 @@
     "defaultMessage": "Les talents autochtones prêts pour un stage d’apprentissage en TI",
     "description": "Title for the 'Indigenous talent ready for IT apprenticeships' section"
   },
+  "8oOKi9": {
+    "defaultMessage": "Erreur : impossible de mettre à jour le statut du placement du candidat",
+    "description": "Message displayed when an error occurs while updating pool candidate's job placement status"
+  },
   "8ownC2": {
     "defaultMessage": "Veuillez préciser la raison",
     "description": "Label for _an other contracting rationale_ field in the _digital services contracting questionnaire_"
@@ -5630,10 +5634,6 @@
   "UKw7sB": {
     "defaultMessage": "Flux de travail",
     "description": "Label displayed on the pool form stream/job title field."
-  },
-  "UMR6ez": {
-    "defaultMessage": "Erreur : impossible de mettre à jour le statut du placement du candidat provenant du bassin",
-    "description": "Message displayed when an error occurs while updating pool candidate's job placement status"
   },
   "UNLuiP": {
     "defaultMessage": "3 à 6 mois",
