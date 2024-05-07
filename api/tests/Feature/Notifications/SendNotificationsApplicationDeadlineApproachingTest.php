@@ -23,15 +23,9 @@ class SendNotificationsApplicationDeadlineApproachingTest extends TestCase
     use RefreshDatabase;
     use RefreshesSchemaCache;
 
-    private ApplicationDeadlineApproaching $fixtureNotification;
-
     protected function setUp(): void
     {
         parent::setUp();
-
-        if (! config('notify.client.apiKey')) {
-            $this->markTestSkipped('API key not found');
-        }
 
         Notification::fake();
 
