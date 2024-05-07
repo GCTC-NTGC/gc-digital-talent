@@ -654,7 +654,7 @@ const PoolCandidatesTable = ({
         getLocalizedName(row.poolCandidate.placedDepartment?.name, intl, true),
       {
         id: "placedDepartment",
-        header: intl.formatMessage(commonMessages.department),
+        header: intl.formatMessage(tableMessages.placedDepartment),
         enableColumnFilter: false,
         enableSorting: false,
       },

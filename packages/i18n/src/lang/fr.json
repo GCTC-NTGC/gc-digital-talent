@@ -735,6 +735,10 @@
     "defaultMessage": "Travailler occasionnellement des heures supplémentaires",
     "description": "The operational requirement described as occasional overtime. (short-form for limited space)"
   },
+  "LyUIGV": {
+    "defaultMessage": "En placement pour une période indéterminée",
+    "description": "The placement type is Placed Indeterminate."
+  },
   "LyVI+p": {
     "defaultMessage": "En attente d’une évaluation plus approfondie",
     "description": "Table assessment decision when candidate has unsuccessful assessment but on hold."
@@ -1026,6 +1030,10 @@
   "TmCCgR": {
     "defaultMessage": "cela m'oblige à d'avoir un permis de conduire valide ou un degré de mobilité personnelle habituellement associée à la possession d'un permis de conduire valide.",
     "description": "The operational requirement described as driver's license."
+  },
+  "To3sqR": {
+    "defaultMessage": "En placement pour une période déterminée",
+    "description": "The placement type is Placed Term."
   },
   "Tw90Pi": {
     "defaultMessage": "Sauvegarde en cours...",
@@ -1407,6 +1415,10 @@
     "defaultMessage": "Identité autochtone",
     "description": "Group for when someone indicates they are indigenous"
   },
+  "gqYQti": {
+    "defaultMessage": "En placement provisoire (confirmation verbale ou par courriel)",
+    "description": "The placement type is Offer in Progress, tentatively placed"
+  },
   "gz2VrQ": {
     "defaultMessage": "Intermédiaire",
     "description": "Intermediate, skill level"
@@ -1454,6 +1466,10 @@
   "iYot5P": {
     "defaultMessage": "Architecture intégrée de la TI",
     "description": "Pool Stream described as Enterprise Architecture."
+  },
+  "idkOXC": {
+    "defaultMessage": "En placement pour un emploi occasionnel",
+    "description": "The placement type is Placed Casual."
   },
   "ijGl5r": {
     "defaultMessage": "Souhaitez-vous poursuivre?",
