@@ -76,6 +76,52 @@ const applicationDeadlineApproachingNotificationToInfo = (
   };
 };
 
+function isApplicationStatusChangedNotification(
+  notification: GraphqlType,
+): notification is ApplicationStatusChangedNotification {
+  return (
+    // eslint-disable-next-line no-underscore-dangle
+    notification.__typename === "ApplicationStatusChangedNotification"
+  );
+}
+
+const applicationStatusChangedNotificationToInfo = (
+  notification: ApplicationStatusChangedNotification,
+  paths: ReturnType<typeof useRoutes>,
+  intl: IntlShape,
+): NotificationInfo => {
+  const poolNameLocalized = getLocalizedName(notification.poolName, intl);
+
+  return {
+    message: intl.formatMessage(
+      {
+        defaultMessage:
+          "The status of your application for {poolName} has been updated.",
+        id: "FSBogI",
+        description: "Message for application status changed notification",
+      },
+      {
+        poolName: poolNameLocalized,
+      },
+    ),
+    href: paths.profileAndApplications({
+      fragmentIdentifier: "track-applications-section",
+    }),
+    label: intl.formatMessage(
+      {
+        defaultMessage:
+          "The status of your application for {poolName} has been updated.",
+        id: "LHv3/N",
+        description:
+          "Label for the application deadline approaching notification",
+      },
+      {
+        poolName: poolNameLocalized,
+      },
+    ),
+  };
+};
+
 const useNotificationInfo = (
   notification: Notification & GraphqlType,
 ): NotificationInfo | null => {
