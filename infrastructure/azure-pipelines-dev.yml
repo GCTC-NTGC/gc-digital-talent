@@ -53,7 +53,7 @@ stages:
     dependsOn: Build
     variables:
       - name: npm_config_user_config
-        value: "$(System.DefaultWorkingDirectory)/infrastructure/.npmrc"
+        value: "$(System.DefaultWorkingDirectory)/.npmrc"
       - name: dirResults
         value: "$(System.DefaultWorkingDirectory)/apps/playwright/test-results"
       - name: resourceGroupName
@@ -79,6 +79,18 @@ stages:
             inputs:
               artifactName: gcDigitalTalent
               downloadPath: $(System.DefaultWorkingDirectory)/artifacts
+          - task: AzureCLI@2
+            displayName: "Update NPMRC Config"
+            inputs:
+              scriptType: bash
+              scriptLocation: inlineScript
+              azureSubscription: $(serviceConnectionName)
+              inlineScript: |
+                NPMRC_FILE="${{ variables.npm_config_user_config }}"
+                echo "Editing .npmrc: ${NPMRC_FILE}"
+                echo "registry=
+                https://pkgs.dev.azure.com/tbs-sct/53c8b022-82b7-4031-88aa-0d1266fc3bf5/_packaging/TalentCloud_Custom_NPM_Feed/npm/registry/
+                 always-auth=true" >> "${NPMRC_FILE}
           - task: npmAuthenticate@0
             displayName: "00 - NPM Authenticate"
             name: "NPM_Authenticate"
