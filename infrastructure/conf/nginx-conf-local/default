@@ -19,7 +19,7 @@ server {
     listen [::]:8080;
     root /home/site/wwwroot;
     index  index.php index.html index.htm;
-    #server_name localhost;
+    server_name localhost;
     gzip_static on;
     absolute_redirect off;
 
@@ -60,13 +60,6 @@ server {
         proxy_set_header X-Forwarded-Proto http;
         proxy_set_header Host localhost:8000;
         break;
-    }
-
-    # Disable .git directory
-    location ~ /\.git {
-        deny all;
-        access_log off;
-        log_not_found off;
     }
 
     # handle special cases

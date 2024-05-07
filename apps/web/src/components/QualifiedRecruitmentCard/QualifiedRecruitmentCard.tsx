@@ -14,11 +14,10 @@ import {
   Separator,
   incrementHeadingRank,
 } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
 import { getLocalizedName, getSkillCategory } from "@gc-digital-talent/i18n";
-import { SkillCategory } from "@gc-digital-talent/graphql";
+import { PoolSkillType, SkillCategory } from "@gc-digital-talent/graphql";
 
-import { categorizeSkill } from "~/utils/skillUtils";
+import { categorizeSkill, filterPoolSkillsByType } from "~/utils/skillUtils";
 import { getRecruitmentType } from "~/utils/poolCandidate";
 import { Application } from "~/utils/applicationUtils";
 
@@ -50,9 +49,11 @@ const QualifiedRecruitmentCard = ({
   );
 
   // NOTE: Until we store assessed skills, we will just be displayed all essential skills
-  const categorizedSkills = categorizeSkill(
-    candidate.pool.essentialSkills?.filter(notEmpty) ?? [],
+  const essentialSkills = filterPoolSkillsByType(
+    candidate.pool.poolSkills,
+    PoolSkillType.Essential,
   );
+  const categorizedSkills = categorizeSkill(essentialSkills);
 
   /** Reset link copied after 3 seconds */
   React.useEffect(() => {

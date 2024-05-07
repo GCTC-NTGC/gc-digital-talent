@@ -181,6 +181,8 @@ type Pool {
     @hasMany(relation: "publishedPoolCandidates", scopes: ["authorizedToView"])
     @canResolved(ability: "view")
     @guard
+  poolCandidatesCount: Int
+    @count(relation: "poolCandidates", scopes: ["notDraft"])
   keyTasks: LocalizedString @rename(attribute: "key_tasks")
   yourImpact: LocalizedString @rename(attribute: "your_impact")
   whatToExpect: LocalizedString @rename(attribute: "what_to_expect")
@@ -193,16 +195,6 @@ type Pool {
   securityClearance: SecurityStatus @rename(attribute: "security_clearance")
   language: PoolLanguage @rename(attribute: "advertisement_language")
   status: PoolStatus @rename(attribute: "status")
-  essentialSkills: [Skill!]
-    @belongsToMany
-    @deprecated(
-      reason: "Switch to poolSkills filtering for PoolSkillType.ESSENTIAL"
-    )
-  nonessentialSkills: [Skill!]
-    @belongsToMany
-    @deprecated(
-      reason: "Switch to poolSkills filtering for PoolSkillType.NONESSENTIAL"
-    )
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
@@ -224,7 +216,7 @@ type Pool {
   assessmentSteps: [AssessmentStep]
     @hasMany
     @canRoot(ability: "viewAssessmentPlan")
-  poolSkills: [PoolSkill] @hasMany
+  poolSkills(type: PoolSkillType @where): [PoolSkill] @hasMany
 }
 
 type GeneralQuestionResponse {
@@ -452,7 +444,9 @@ type PoolCandidateSearchRequest {
   status: PoolCandidateSearchStatus @rename(attribute: "request_status")
   statusChangedAt: DateTime @rename(attribute: "request_status_changed_at")
   adminNotes: String @rename(attribute: "admin_notes")
-  poolCandidateFilter: PoolCandidateFilter @belongsTo
+  poolCandidateFilter: PoolCandidateFilter
+    @belongsTo
+    @deprecated(reason: "Replaced by applicantFilter")
   applicantFilter: ApplicantFilter @belongsTo
   wasEmpty: Boolean @rename(attribute: "was_empty")
   managerJobTitle: String @rename(attribute: "manager_job_title")
