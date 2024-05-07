@@ -205,6 +205,13 @@ const formMessages = defineMessages({
     description:
       "Prompt text for a user selecting an employment equity group for their profile",
   },
+  candidateNotify: {
+    defaultMessage:
+      "The candidate will be notified of any changes made in this form.",
+    id: "17dZD4",
+    description:
+      "Caption notifying the user about who can know about the results of form changes",
+  },
 });
 
 export default formMessages;

@@ -383,10 +383,6 @@
     "defaultMessage": "<strong>Non</strong>, je n'ai pas de droit de priorité.",
     "description": "Label displayed for does not have priority entitlement option"
   },
-  "0Arzgj": {
-    "defaultMessage": "Cette section sert à définir les évaluations qui seront utilisées dans le cadre de votre processus d’évaluation. Vous pouvez également changer l’ordre dans lequel vous prévoyez effectuer ces évaluations. Les seules exceptions sont les évaluations de “présélection des candidatures” et de “questions de présélection (au moment de la candidature)” qui constitueront toujours la première et la deuxième étape pour tout processus d’évaluation.",
-    "description": "introduction to the organize section in the assessment plan builder"
-  },
   "0D3ZhO": {
     "defaultMessage": "Demandes",
     "description": "The menu category for requests items"
@@ -418,6 +414,10 @@
   "0IZsNR": {
     "defaultMessage": "Au cours des 24 mois, les apprenti·es apprennent en cours d’emploi avec un·e partenaire pair (4 jours par semaine) et suivent un programme de formation en ligne à leur rythme (1 jour par semaine) dans le cadre de leur perfectionnement.",
     "description": "Paragraph 1 of the 'Work integrated learning and IT training' subsection"
+  },
+  "0Ic6ql": {
+    "defaultMessage": "Candidat non retiré",
+    "description": "Error message for removing a candidate"
   },
   "0IggSg": {
     "defaultMessage": "Veuillez sélectionner les options qui reflètent le mieux vos qualifications",
@@ -562,10 +562,6 @@
   "16iCWc": {
     "defaultMessage": "Vétéran",
     "description": "Label for veteran chip on view candidate page"
-  },
-  "17dZD4": {
-    "defaultMessage": "Le candidat/la candidate sera informé(e) de toute modification apportée au présent formulaire.",
-    "description": "Caption notifying the user about who can know about the results of form changes"
   },
   "18pJdz": {
     "defaultMessage": "2. Ils ont révisé la liste de contrôle de la trousse du gestionnaire et ont des postes à pourvoir pour embaucher un apprentis en TI",
@@ -794,6 +790,10 @@
   "2W6Q3k": {
     "defaultMessage": "Commencez <hidden> par indiquer vos préférences en matière de travail</hidden>",
     "description": "Call to action to begin editing work preferences"
+  },
+  "2ZjclP": {
+    "defaultMessage": "Sélectionner, organiser et définir les évaluations ayant été utilisées pour évaluer chaque compétence de l’offre d’emploi.",
+    "description": "Subtitle for the assessment plan builder"
   },
   "2aBKgf": {
     "defaultMessage": "Il y a deux types d'employés du <abbreviation>TI-04</abbreviation> : ceux qui suivent un cheminement en gestion et les contributeurs individuels.",
@@ -1071,6 +1071,10 @@
     "defaultMessage": "Sauvegarder les détails de l’évaluation",
     "description": "Button text to save assessment details"
   },
+  "4Ahswu": {
+    "defaultMessage": "Motif",
+    "description": "Label for the reason why a candidate is being removed"
+  },
   "4BpFoX": {
     "defaultMessage": "{title} émis par {issuedBy}",
     "description": "The award title is issued by some group"
@@ -1151,6 +1155,10 @@
     "defaultMessage": "Aucune information n'a été fournie",
     "description": "Message on Admin side when user not filled Experience section."
   },
+  "4Z3/xp": {
+    "defaultMessage": "Supprimer le candidat",
+    "description": "Title for action to remove a candidate"
+  },
   "4Zl/mp": {
     "defaultMessage": "Personne handicapée",
     "description": "Text on view-user page that the user has a disability"
@@ -1166,6 +1174,10 @@
   "4bjh8X": {
     "defaultMessage": "Erreur : utilisateur introuvable",
     "description": "Message displayed to user if user is not found"
+  },
+  "4cN/oN": {
+    "defaultMessage": "Pour la raison suivante",
+    "description": "Lead in text for a decisions reason"
   },
   "4f5qcw": {
     "defaultMessage": "Rôle actuel",
@@ -2495,6 +2507,10 @@
     "defaultMessage": "Dans cette section, vous devez indiquer si vous êtes actuellement un(e) employé(e) du gouvernement du Canada, et vous devez répondre à d’autres questions connexes",
     "description": "Descriptive text explaining the government information section of the application profile"
   },
+  "CRcpm4": {
+    "defaultMessage": "Rétablir le candidat et mettre à jour le statut",
+    "description": "Button text to reinstate a candidate and update their status"
+  },
   "CRnoE8": {
     "defaultMessage": "Cacher les exemples de « contrats de services numériques » où cette exigence s’applique",
     "description": "Button text to hide a specific qualified recruitment cards's skill assessments"
@@ -3527,10 +3543,6 @@
     "defaultMessage": "Cacher plus de renseignements sur l'équité en matière d'emploi",
     "description": "Heading for closing the accordion with information on employment equity"
   },
-  "IKGhHj": {
-    "defaultMessage": "Important",
-    "description": "Important note or caption"
-  },
   "IOtzp7": {
     "defaultMessage": "Pour cette possibilité, les demandes doivent être soumises au plus tard, le :",
     "description": "Second paragraph for pool deadlines dialog"
@@ -3591,13 +3603,13 @@
     "defaultMessage": "Compétences comportementales",
     "description": "Heading for a list of users behavioural skills"
   },
-  "IhPS6D": {
-    "defaultMessage": "Important",
-    "description": "Heading for a section of important information"
-  },
   "IhXvCe": {
     "defaultMessage": "Êtes-vous certain de vouloir supprimer cette expérience de votre profil? Cette action ne peut être annulée.",
     "description": "Question displayed when a user attempts to delete an experience from their profile"
+  },
+  "IhaKpH": {
+    "defaultMessage": "Lieu (anglais)",
+    "description": "Label for a process' english location requirement"
   },
   "IjBtl5": {
     "defaultMessage": "Le transfert de connaissances de l’entrepreneur à l’unité de travail du gouvernement a-t-il été intégré au contrat?",
@@ -6078,6 +6090,10 @@
     "defaultMessage": "Connexion à votre compte",
     "description": "Heading for section of the sign in page showing the sign in steps"
   },
+  "Wo+T62": {
+    "defaultMessage": "Souhaitez-vous annuler cette décision et régler le statut du candidat à « En cours d’évaluation »?",
+    "description": "Confirmation text for reinstating a candidate"
+  },
   "WpA63g": {
     "defaultMessage": "Je suis intéressé(e) à embaucher un diplômé/un talent avancé",
     "description": "Subject line of a manager's email for apprenticeship"
@@ -6637,6 +6653,10 @@
   "ZUO1OX": {
     "defaultMessage": "Numéro de priorité :",
     "description": "Label for applicant's priority number value"
+  },
+  "ZVfbLF": {
+    "defaultMessage": "Erreur lors du chargement des candidats",
+    "description": "Error message when pool candidates could not be loaded"
   },
   "ZWnKEJ": {
     "defaultMessage": "Famille de compétences {skillFamilyId} non trouvée.",
@@ -7590,6 +7610,10 @@
     "defaultMessage": "Je suis prêt!",
     "description": "An action button to proceed"
   },
+  "ehYGss": {
+    "defaultMessage": "Le candidat a reçu la cote <strong>« Retiré »</strong> le <strong>{removedDate}</strong>.",
+    "description": "Date the candidate was removed on"
+  },
   "ehrsDa": {
     "defaultMessage": "Langue de l'entrevue de vive voix",
     "description": "Legend text for spoken interview language preference for interviews"
@@ -7721,6 +7745,10 @@
   "fOl4Ez": {
     "defaultMessage": "Mots-clés (français)",
     "description": "Label displayed on the skill form keywords field in French."
+  },
+  "fP0gCn": {
+    "defaultMessage": "Rétablir le candidat",
+    "description": "Title for action to reinstate a candidate"
   },
   "fPIZn9": {
     "defaultMessage": "Détails additionnels",
@@ -8442,10 +8470,6 @@
     "defaultMessage": "Avis concernant l’image de marque",
     "description": "Title for the trademark notice section."
   },
-  "iuA2pt": {
-    "defaultMessage": "Sélectionner, organiser et définir les évaluations ayant été utilisées pour évaluer chaque compétence de l’offre d’emploi. Veillez à ce que chaque compétence essentielle soit évaluée au moins une fois pour compléter votre plan d’évaluation.",
-    "description": "Subtitle for the assessment plan builder"
-  },
   "iuve97": {
     "defaultMessage": "Modifier le statut",
     "description": "Confirmation button for change status dialog"
@@ -8533,6 +8557,10 @@
   "jHuiRm": {
     "defaultMessage": "Billet créé avec succès!",
     "description": "Support form toast message success"
+  },
+  "jI3Kfv": {
+    "defaultMessage": "Si vous souhaitez que ce candidat ne soit plus pris en considération pour des motifs extérieurs au processus d’évaluation, veuillez le préciser dans les champs suivants",
+    "description": "Help text for removing a candidate"
   },
   "jIMP76": {
     "defaultMessage": "Fournir quelques détails",
@@ -9474,6 +9502,10 @@
     "defaultMessage": "Demande de candidats pour le bassin : <primary>{candidateCountNumber, plural, =0 {aucun candidat} =1 {1 candidat estimé} other {{candidateCountNumber} candidats estimés}}</primary>",
     "description": "Total estimated candidates message in summary of filters"
   },
+  "ohLTJS": {
+    "defaultMessage": "Candidat non rétabli",
+    "description": "Error message for reinstating a candidate"
+  },
   "oiaUxW": {
     "defaultMessage": "Si vous avez déjà un compte de CléGC, vous pouvez ouvrir une session dans votre profil sur la plateforme Talents numériques du GC à l'aide de votre CléGC, même si vous n'avez jamais utilisé cette plateforme avant. Si vous ne savez pas si vous avez déjà un compte de CléGC, continuez vers le site Web et essayez d'ouvrir une session. Si vous ne vous souvenez pas de votre mot de passe, c'est là que vous pourrez aussi le réinitialiser.",
     "description": "GCKey answer for when user already has an account"
@@ -9561,6 +9593,10 @@
   "pCZ1wt": {
     "defaultMessage": "Sélectionnez une famille de compétences",
     "description": "Placeholder message when there is no skill family selected"
+  },
+  "pErNfb": {
+    "defaultMessage": "Retirer le candidat et mettre à jour le statut",
+    "description": "Button text to remove a candidate and update their status"
   },
   "pFYfVv": {
     "defaultMessage": "Sélection de la rangée",
@@ -9790,6 +9826,10 @@
     "defaultMessage": "Échec de la mise à jour de la date d'expiration",
     "description": "Toast for failed expiry date update on view-user page"
   },
+  "qShZxu": {
+    "defaultMessage": "Candidat rétabli avec succès",
+    "description": "Success message for reinstating a candidate"
+  },
   "qT9sS0": {
     "defaultMessage": "Postes en français",
     "description": "French Positions message"
@@ -9797,6 +9837,10 @@
   "qUkJSG": {
     "defaultMessage": "0 à 3 mois",
     "description": "Contract start timeframe of zero to three months"
+  },
+  "qX9s0l": {
+    "defaultMessage": "Vous pouvez également changer l’ordre dans lequel vous prévoyez effectuer ces évaluations. Les seules exceptions sont les évaluations de “présélection des candidatures” et de “questions de présélection (au moment de la candidature)” qui constitueront toujours la première et la deuxième étape pour tout processus d’évaluation.",
+    "description": "Introduction to the organize section in the assessment plan builder, paragraph 2"
   },
   "qXnXKH": {
     "defaultMessage": "Processus dupliqué avec succès!",
@@ -10141,6 +10185,10 @@
   "sl1kbp": {
     "defaultMessage": "détails pour {name}",
     "description": "Link text suffix to read more details for a search request"
+  },
+  "slQ7q5": {
+    "defaultMessage": "Candidat retiré avec succès",
+    "description": "Success message for removing a candidate"
   },
   "sr20Tb": {
     "defaultMessage": "Citoyenneté",
@@ -10882,6 +10930,10 @@
     "defaultMessage": "Vous n'avez pas encore rempli ces renseignements",
     "description": "Null message on sections for edit pool page."
   },
+  "xtNiNu": {
+    "defaultMessage": "Cette section sert à définir les évaluations qui seront utilisées dans le cadre de votre processus d’évaluation. Veillez à ce que chaque compétence essentielle soit évaluée au moins une fois pour compléter votre plan d’évaluation.",
+    "description": "Introduction to the organize section in the assessment plan builder, paragraph 1"
+  },
   "xvULuR": {
     "defaultMessage": "En savoir plus sur les lieux de travail et la terminologie.",
     "description": "Info button label for pool application work location details."
@@ -11021,6 +11073,10 @@
   "yiqfHr": {
     "defaultMessage": "<strong>Oui</strong>, j’utilise cette compétence dans mon rôle actuel.",
     "description": "Option for when a skill is currently being used"
+  },
+  "yl3eY6": {
+    "defaultMessage": "Lieu (français)",
+    "description": "Label for a process' french location requirement"
   },
   "ymHPWF": {
     "defaultMessage": "Cette section présente vos réponses sur les façons dont votre expérience correspond aux compétences requises pour ces postes.",

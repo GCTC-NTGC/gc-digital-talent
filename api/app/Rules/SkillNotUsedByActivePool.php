@@ -20,12 +20,9 @@ class SkillNotUsedByActivePool implements ValidationRule
             Pool::scopeCurrentlyActive($query);
         }))
             ->where(function ($query) use ($skillId) {
-                $query->whereHas('essentialSkills', function ($query) use ($skillId) {
+                $query->whereHas('poolSkills', function ($query) use ($skillId) {
                     return $query->where('skill_id', $skillId);
-                })
-                    ->orWhereHas('nonessentialSkills', function ($query) use ($skillId) {
-                        return $query->where('skill_id', $skillId);
-                    });
+                });
             })
             ->get();
 

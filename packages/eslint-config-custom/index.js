@@ -73,6 +73,7 @@ module.exports = {
     "@typescript-eslint/no-use-before-define": "warn",
     "@typescript-eslint/no-shadow": "error",
     "@typescript-eslint/no-empty-function": "warn",
+    "no-underscore-dangle": ["error", { "allow": ["__typename"] }]
   },
   settings: {
     "import/extensions": [".ts", ".tsx"],
