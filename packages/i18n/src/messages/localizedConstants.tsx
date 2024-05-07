@@ -38,6 +38,7 @@ import {
   AssessmentDecisionLevel,
   PoolOpportunityLength,
   PlacementType,
+  CandidateRemovalReason,
 } from "@gc-digital-talent/graphql";
 
 import getOrThrowError from "../utils/error";
@@ -2261,4 +2262,30 @@ export const getPlacementType = (
     placementTypes,
     placementTypeId,
     `Invalid Placement Type '${placementTypeId}'`,
+  );
+const candidateRemovalReasons = defineMessages({
+  [CandidateRemovalReason.RequestedToBeWithdrawn]: {
+    defaultMessage: "Candidate has requested to be withdrawn",
+    id: "kaowOV",
+    description: "Option for request to be withdrawn",
+  },
+  [CandidateRemovalReason.NotResponsive]: {
+    defaultMessage: "Candidate is not responsive",
+    id: "V6t8Yd",
+    description: "Option for not responsive candidate being removed",
+  },
+  [CandidateRemovalReason.Other]: {
+    defaultMessage: "Other reason",
+    id: "mW2qym",
+    description: "Option for other reason to remove candidate",
+  },
+});
+
+export const getCandidateRemovalReason = (
+  candidateRemovalReasonId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    candidateRemovalReasons,
+    candidateRemovalReasonId,
+    `Invalid Candidate removal reason '${candidateRemovalReasonId}'`,
   );
