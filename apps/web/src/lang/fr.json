@@ -6634,6 +6634,10 @@
     "defaultMessage": "Numéro de priorité :",
     "description": "Label for applicant's priority number value"
   },
+  "ZVfbLF": {
+    "defaultMessage": "Erreur lors du chargement des candidats",
+    "description": "Error message when pool candidates could not be loaded"
+  },
   "ZWnKEJ": {
     "defaultMessage": "Famille de compétences {skillFamilyId} non trouvée.",
     "description": "Message displayed for skillFamily not found."

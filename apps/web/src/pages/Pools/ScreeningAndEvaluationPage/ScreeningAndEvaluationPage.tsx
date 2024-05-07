@@ -103,8 +103,8 @@ const ScreeningAndEvaluationPage = () => {
     } catch {
       toast.error(
         intl.formatMessage({
-          defaultMessage: "Error loading candidates.",
-          id: "CuCiy/",
+          defaultMessage: "Error loading candidates",
+          id: "ZVfbLF",
           description: "Error message when pool candidates could not be loaded",
         }),
       );
