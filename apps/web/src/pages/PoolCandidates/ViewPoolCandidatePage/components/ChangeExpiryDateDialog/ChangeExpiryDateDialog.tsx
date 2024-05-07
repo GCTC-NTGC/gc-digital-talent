@@ -5,13 +5,14 @@ import CalendarDaysIcon from "@heroicons/react/20/solid/CalendarDaysIcon";
 import { useIntl } from "react-intl";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
-import { Button, Dialog, Heading, Well } from "@gc-digital-talent/ui";
+import { Button, Dialog } from "@gc-digital-talent/ui";
 import { DateInput } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
 
 import applicationMessages from "~/messages/applicationMessages";
 import { isQualifiedStatus } from "~/utils/poolCandidate";
+import FormChangeNotifyWell from "~/components/FormChangeNotifyWell/FormChangeNotifyWell";
 
 type FormValues = {
   expiryDate: string;
@@ -135,29 +136,7 @@ const ChangeExpiryDateDialog = ({
                   description: "Help text for setting a candidate expiry date",
                 })}
               />
-              <Well
-                color="warning"
-                fontSize="caption"
-                data-h2-margin-top="base(x1)"
-              >
-                <Heading level="h3" size="h6" data-h2-margin-top="base(0)">
-                  {intl.formatMessage({
-                    defaultMessage: "Important",
-                    id: "IhPS6D",
-                    description:
-                      "Heading for a section of important information",
-                  })}
-                </Heading>
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "The candidate will be notified of any changes made in this form.",
-                    id: "17dZD4",
-                    description:
-                      "Caption notifying the user about who can know about the results of form changes",
-                  })}
-                </p>
-              </Well>
+              <FormChangeNotifyWell data-h2-margin-top="base(x1)" />
               <Dialog.Footer data-h2-justify-content="base(flex-start)">
                 <Button type="submit" disabled={fetching}>
                   {intl.formatMessage(applicationMessages.saveContinue)}

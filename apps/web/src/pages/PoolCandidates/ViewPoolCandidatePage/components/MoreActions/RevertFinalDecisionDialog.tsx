@@ -23,8 +23,7 @@ import {
 } from "@gc-digital-talent/date-helpers";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
-
-import Important from "./components/Important";
+import FormChangeNotifyWell from "~/components/FormChangeNotifyWell/FormChangeNotifyWell";
 
 const RevertFinalDecision_Mutation = graphql(/* GraphQL */ `
   mutation RevertFinalDecision_Mutation($id: UUID!) {
@@ -193,7 +192,7 @@ const RevertFinalDecisionDialog = ({
                   "Final question on revert final decision dialog on view pool candidate page",
               })}
             </p>
-            <Important />
+            <FormChangeNotifyWell />
           </div>
           <Dialog.Footer data-h2-justify-content="base(flex-start)">
             <Dialog.Close>
