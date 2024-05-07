@@ -5,7 +5,6 @@ namespace Tests\Feature\Notifications;
 use App\Enums\PoolCandidateStatus;
 use App\Models\PoolCandidate;
 use App\Models\User;
-use App\Notifications\ApplicationDeadlineApproaching;
 use App\Notifications\ApplicationStatusChanged;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -17,8 +16,6 @@ class TriggerApplicationStatusChangedTest extends TestCase
 {
     use RefreshDatabase;
     use RefreshesSchemaCache;
-
-    private ApplicationDeadlineApproaching $fixtureNotification;
 
     protected function setUp(): void
     {
