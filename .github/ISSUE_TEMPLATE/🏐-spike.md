@@ -1,7 +1,7 @@
 ---
 name: "🏐 Spike"
 about: Learn more about something we cannot yet estimate.
-title: "🐛 "
+title: "🏐 "
 labels: spike
 assignees: ""
 ---
