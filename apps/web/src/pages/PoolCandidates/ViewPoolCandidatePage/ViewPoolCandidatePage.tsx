@@ -44,6 +44,7 @@ import ChangeStatusDialog from "~/pages/Users/UserInformationPage/components/Cha
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import {
   RECORD_DECISION_STATUSES,
+  REMOVED_STATUSES,
   REVERT_DECISION_STATUSES,
 } from "~/constants/poolCandidate";
 import { groupPoolSkillByType } from "~/utils/skillUtils";
@@ -55,6 +56,8 @@ import NotesDialog from "./components/MoreActions/NotesDialog";
 import FinalDecisionDialog from "./components/MoreActions/FinalDecisionDialog";
 import CandidateNavigation from "./components/CandidateNavigation/CandidateNavigation";
 import ChangeExpiryDateDialog from "./components/ChangeExpiryDateDialog/ChangeExpiryDateDialog";
+import RemoveCandidateDialog from "./components/RemoveCandidateDialog/RemoveCandidateDialog";
+import ReinstateCandidateDialog from "./components/ReinstateCandidateDialog/ReinstateCandidateDialog";
 import RevertFinalDecisionDialog from "./components/MoreActions/RevertFinalDecisionDialog";
 
 const screeningAndAssessmentTitle = defineMessage({
@@ -67,6 +70,8 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
   query PoolCandidateSnapshot($poolCandidateId: UUID!) {
     poolCandidate(id: $poolCandidateId) {
       ...CandidateExpiryDateDialog
+      ...RemoveCandidateDialog
+      ...ReinstateCandidateDialog
       ...RevertFinalDecisionDialog
       id
       status
@@ -458,6 +463,9 @@ export const ViewPoolCandidate = ({
 
   const skills = groupPoolSkillByType(poolCandidate.pool.poolSkills);
 
+  const isRemoved =
+    poolCandidate.status && REMOVED_STATUSES.includes(poolCandidate.status);
+
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
       {
@@ -548,7 +556,8 @@ export const ViewPoolCandidate = ({
               data-h2-margin-bottom="base(x1)"
             >
               {poolCandidate.status &&
-                RECORD_DECISION_STATUSES.includes(poolCandidate.status) && (
+                RECORD_DECISION_STATUSES.includes(poolCandidate.status) &&
+                !isRemoved && (
                   <FinalDecisionDialog
                     poolCandidateId={poolCandidate.id}
                     poolCandidateStatus={poolCandidate.status}
@@ -568,7 +577,14 @@ export const ViewPoolCandidate = ({
                     revertFinalDecisionQuery={poolCandidate}
                   />
                 )}
-              <ChangeExpiryDateDialog expiryDateQuery={poolCandidate} />
+              {isRemoved ? (
+                <ReinstateCandidateDialog reinstateQuery={poolCandidate} />
+              ) : (
+                <>
+                  <RemoveCandidateDialog removalQuery={poolCandidate} />
+                  <ChangeExpiryDateDialog expiryDateQuery={poolCandidate} />
+                </>
+              )}
               {/* TODO: Add "Remove" and "Re-instate" dialogs to Pool Candidate
               page (#9198) */}
               {false && (
