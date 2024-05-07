@@ -214,6 +214,7 @@ const JobPlacementDialog = ({
                 icon: MapPinIcon,
                 color: "primary",
               })}
+          data-h2-text-align="base(left)"
         >
           {intl.formatMessage(statusToJobPlacement(status))}
         </Button>
