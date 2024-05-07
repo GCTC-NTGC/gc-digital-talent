@@ -172,23 +172,25 @@ export function applicationStepsToStepperArgs(
     });
 }
 
-export type Application = Omit<PoolCandidate, "user">;
-
 /**
  * Returns true if the application is
  * - a draft which still may be submitted (ie pool has not closed)
  * - OR has been submitted but is still in assessment
  */
 export function isApplicationInProgress(a: {
-  status: PoolCandidateStatus;
-  pool: { closingDate: string };
+  status?: Maybe<PoolCandidateStatus>;
+  pool: { closingDate?: Maybe<string> };
 }): boolean {
-  const poolIsExpired = isPast(parseDateTimeUtc(a.pool.closingDate));
+  const poolIsExpired = a.pool.closingDate
+    ? isPast(parseDateTimeUtc(a.pool.closingDate))
+    : false; // If it doesn't have a closing date it can't be expired
   return (
     (isDraftStatus(a.status) && !poolIsExpired) || isToAssessStatus(a.status)
   );
 }
 
-export function notRemoved(a: { status: PoolCandidateStatus }): boolean {
+export function notRemoved(a: {
+  status?: Maybe<PoolCandidateStatus>;
+}): boolean {
   return a.status !== PoolCandidateStatus.Removed;
 }
