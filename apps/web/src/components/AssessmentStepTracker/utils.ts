@@ -14,7 +14,11 @@ import {
   AssessmentStep,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getAssessmentStepType,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
 
 import { NO_DECISION, NullableDecision } from "~/utils/assessmentResults";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
@@ -286,4 +290,19 @@ export const filterAlreadyDisqualified = (
       ),
   );
   return filteredResult;
+};
+
+export const generateStepName = (
+  step: AssessmentStep,
+  intl: IntlShape,
+): string => {
+  // check if title exists in LocalizedString object, then return empty string if not for a truthy check
+  const titleLocalized = getLocalizedName(step.title, intl, true);
+  if (titleLocalized) {
+    return titleLocalized;
+  }
+  if (step.type) {
+    return intl.formatMessage(getAssessmentStepType(step.type));
+  }
+  return intl.formatMessage(commonMessages.notAvailable);
 };
