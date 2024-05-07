@@ -1156,7 +1156,7 @@
     "description": "Message on Admin side when user not filled Experience section."
   },
   "4Z3/xp": {
-    "defaultMessage": "Retirer le candidat",
+    "defaultMessage": "Supprimer le candidat",
     "description": "Title for action to remove a candidate"
   },
   "4Zl/mp": {
@@ -1176,7 +1176,7 @@
     "description": "Message displayed to user if user is not found"
   },
   "4cN/oN": {
-    "defaultMessage": "Pour le motif suivant",
+    "defaultMessage": "Pour la raison suivante",
     "description": "Lead in text for a decisions reason"
   },
   "4f5qcw": {
