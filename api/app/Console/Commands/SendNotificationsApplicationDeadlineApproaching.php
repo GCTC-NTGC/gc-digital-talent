@@ -74,6 +74,7 @@ class SendNotificationsApplicationDeadlineApproaching extends Command
                     $poolCandidate->user->notify($notification);
                     $successCount++;
                 } catch (Throwable $e) {
+                    $this->error('Failure for ['.$poolCandidate->id.']. '.$e->getMessage().' ');
                     $failureCount++;
                 }
             }
