@@ -126,7 +126,7 @@ const AssessmentStepTracker = ({
                 </Board.ColumnHeader>
                 <ResultsDetails {...{ resultCounts, step, filters }} />
                 {fetching ? (
-                  <Well fontSize="caption" data-h2-margin="base(0 x.5)">
+                  <Well fontSize="caption" data-h2-margin="base(x.5)">
                     <div
                       data-h2-display="base(flex)"
                       data-h2-align-items="base(center)"
