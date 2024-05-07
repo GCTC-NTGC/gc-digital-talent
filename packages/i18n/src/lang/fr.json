@@ -744,7 +744,7 @@
     "description": "The operational requirement described as occasional overtime. (short-form for limited space)"
   },
   "LyUIGV": {
-    "defaultMessage": "En placement pour une période indéterminée",
+    "defaultMessage": "Période indéterminée",
     "description": "The placement type is Placed Indeterminate."
   },
   "LyVI+p": {
@@ -1040,7 +1040,7 @@
     "description": "The operational requirement described as driver's license."
   },
   "To3sqR": {
-    "defaultMessage": "En placement pour une période déterminée",
+    "defaultMessage": "Période déterminée",
     "description": "The placement type is Placed Term."
   },
   "Tw90Pi": {
@@ -1480,7 +1480,7 @@
     "description": "Pool Stream described as Enterprise Architecture."
   },
   "idkOXC": {
-    "defaultMessage": "En placement pour un emploi occasionnel",
+    "defaultMessage": "Placé occasionnels",
     "description": "The placement type is Placed Casual."
   },
   "ijGl5r": {
