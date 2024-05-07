@@ -4,6 +4,38 @@ import { useIntl } from "react-intl";
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 
+interface FooterProps {
+  onDelete: () => void;
+}
+
+const Footer = ({ onDelete }: FooterProps) => {
+  const intl = useIntl();
+  return (
+    <>
+      <div>
+        <Dialog.Close>
+          <Button color="secondary">
+            {intl.formatMessage(formMessages.cancelGoBack)}
+          </Button>
+        </Dialog.Close>
+      </div>
+      <div>
+        <Dialog.Close>
+          <Button
+            onClick={() => {
+              onDelete();
+            }}
+            mode="solid"
+            color="error"
+          >
+            {intl.formatMessage(commonMessages.delete)}
+          </Button>
+        </Dialog.Close>
+      </div>
+    </>
+  );
+};
+
 type DeleteDialogProps = {
   onDelete: () => void;
   trigger: React.ReactNode;
@@ -15,33 +47,6 @@ const DeleteDialog = ({
 }: DeleteDialogProps): JSX.Element => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
-  const Footer = React.useMemo(
-    () => (
-      <>
-        <div>
-          <Dialog.Close>
-            <Button color="secondary">
-              {intl.formatMessage(formMessages.cancelGoBack)}
-            </Button>
-          </Dialog.Close>
-        </div>
-        <div>
-          <Dialog.Close>
-            <Button
-              onClick={() => {
-                onDelete();
-              }}
-              mode="solid"
-              color="error"
-            >
-              {intl.formatMessage(commonMessages.delete)}
-            </Button>
-          </Dialog.Close>
-        </div>
-      </>
-    ),
-    [intl, onDelete],
-  );
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
       <Dialog.Trigger>{trigger}</Dialog.Trigger>
@@ -64,7 +69,9 @@ const DeleteDialog = ({
               description: "Question to continue in a confirmation dialog",
             })}
           </p>
-          <Dialog.Footer>{Footer}</Dialog.Footer>
+          <Dialog.Footer>
+            <Footer onDelete={onDelete} />
+          </Dialog.Footer>
         </Dialog.Body>
       </Dialog.Content>
     </Dialog.Root>
