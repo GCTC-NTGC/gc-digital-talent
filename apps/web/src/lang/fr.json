@@ -3599,6 +3599,10 @@
     "defaultMessage": "Êtes-vous certain de vouloir supprimer cette expérience de votre profil? Cette action ne peut être annulée.",
     "description": "Question displayed when a user attempts to delete an experience from their profile"
   },
+  "IhaKpH": {
+    "defaultMessage": "Lieu (anglais)",
+    "description": "Label for a process' english location requirement"
+  },
   "IjBtl5": {
     "defaultMessage": "Le transfert de connaissances de l’entrepreneur à l’unité de travail du gouvernement a-t-il été intégré au contrat?",
     "description": "Label for _knowledge transfer in contract_ fieldset in the _digital services contracting questionnaire_"
@@ -11017,6 +11021,10 @@
   "yiqfHr": {
     "defaultMessage": "<strong>Oui</strong>, j’utilise cette compétence dans mon rôle actuel.",
     "description": "Option for when a skill is currently being used"
+  },
+  "yl3eY6": {
+    "defaultMessage": "Lieu (français)",
+    "description": "Label for a process' french location requirement"
   },
   "ymHPWF": {
     "defaultMessage": "Cette section présente vos réponses sur les façons dont votre expérience correspond aux compétences requises pour ces postes.",
