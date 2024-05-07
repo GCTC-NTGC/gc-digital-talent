@@ -427,6 +427,10 @@ const PoolCandidatesTable = ({
     return poolCandidates.filter(notEmpty);
   }, [data?.poolCandidatesPaginated.data]);
 
+  const candidateIdsFromFilterData = filteredData.map(
+    (iterator) => iterator.poolCandidate.id,
+  );
+
   const [{ data: allSkillsData, fetching: fetchingSkills }] = useQuery({
     query: CandidatesTableSkills_Query,
   });
@@ -530,7 +534,13 @@ const PoolCandidatesTable = ({
           row: {
             original: { poolCandidate },
           },
-        }) => candidateNameCell(poolCandidate, paths, intl),
+        }) =>
+          candidateNameCell(
+            poolCandidate,
+            paths,
+            intl,
+            candidateIdsFromFilterData,
+          ),
         meta: {
           isRowTitle: true,
         },
