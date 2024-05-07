@@ -281,7 +281,6 @@ type User {
 
 interface Notification {
   id: ID!
-  type: NotificationType!
   readAt: DateTime
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -289,7 +288,6 @@ interface Notification {
 
 type PoolCandidateStatusChangedNotification implements Notification {
   id: ID!
-  type: NotificationType!
   readAt: DateTime
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -301,7 +299,6 @@ type PoolCandidateStatusChangedNotification implements Notification {
 
 type ApplicationDeadlineApproachingNotification implements Notification {
   id: ID!
-  type: NotificationType!
   readAt: DateTime
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -2432,11 +2429,6 @@ enum NotificationFamily {
   SYSTEM_MESSAGE
   APPLICATION_UPDATE
   JOB_ALERT
-}
-
-enum NotificationType {
-  PoolCandidateStatusChanged
-  ApplicationDeadlineApproaching
 }
 
 enum CandidateRemovalReason {

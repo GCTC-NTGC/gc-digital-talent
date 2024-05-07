@@ -128,7 +128,6 @@ type User {
 
 interface Notification {
   id: ID!
-  type: NotificationType!
   readAt: DateTime @rename(attribute: "read_at")
   createdAt: DateTime! @rename(attribute: "created_at")
   updatedAt: DateTime! @rename(attribute: "updated_at")
@@ -136,7 +135,6 @@ interface Notification {
 
 type PoolCandidateStatusChangedNotification implements Notification {
   id: ID!
-  type: NotificationType!
   readAt: DateTime @rename(attribute: "read_at")
   createdAt: DateTime! @rename(attribute: "created_at")
   updatedAt: DateTime! @rename(attribute: "updated_at")
@@ -149,7 +147,6 @@ type PoolCandidateStatusChangedNotification implements Notification {
 
 type ApplicationDeadlineApproachingNotification implements Notification {
   id: ID!
-  type: NotificationType!
   readAt: DateTime @rename(attribute: "read_at")
   createdAt: DateTime! @rename(attribute: "created_at")
   updatedAt: DateTime! @rename(attribute: "updated_at")
