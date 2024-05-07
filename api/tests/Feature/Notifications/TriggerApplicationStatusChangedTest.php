@@ -24,10 +24,6 @@ class TriggerApplicationStatusChangedTest extends TestCase
     {
         parent::setUp();
 
-        if (! config('notify.client.apiKey')) {
-            $this->markTestSkipped('API key not found');
-        }
-
         Notification::fake();
 
         $this->seed(RolePermissionSeeder::class);
