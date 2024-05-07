@@ -172,6 +172,8 @@ export function applicationStepsToStepperArgs(
     });
 }
 
+export type Application = Omit<PoolCandidate, "user">;
+
 /**
  * Returns true if the application is
  * - a draft which still may be submitted (ie pool has not closed)
