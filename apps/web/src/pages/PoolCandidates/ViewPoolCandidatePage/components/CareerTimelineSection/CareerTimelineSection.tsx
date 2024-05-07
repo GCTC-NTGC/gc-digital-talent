@@ -43,18 +43,19 @@ const CareerTimelineSection = ({ experiences }: CareerTimelineSectionProps) => {
         {intl.formatMessage(navigationMessages.careerTimelineAndRecruitment)}
       </Heading>
       <div
-        data-h2-flex-grid="base(center, x1, x1)"
+        data-h2-display="base(flex)"
+        data-h2-gap="base(x.5)"
         data-h2-margin-bottom="base(x.5)"
+        data-h2-flex-wrap="base(wrap)"
       >
         <ExperienceSortAndFilter
           initialFormValues={sortAndFilterValues}
           onChange={(formValues) => setSortAndFilterValues(formValues)}
         />
-        <div data-h2-flex-item="base(0of1) p-tablet(fill)">{/* spacer */}</div>
         {hasExperiences && (
           <div
-            data-h2-flex-item="base(1of1) p-tablet(content)"
             data-h2-align-self="base(flex-end)"
+            data-h2-margin-left="p-tablet(auto)"
           >
             <Button mode="inline" color="secondary" onClick={toggleAllExpanded}>
               {intl.formatMessage(
