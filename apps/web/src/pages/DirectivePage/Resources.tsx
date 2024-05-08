@@ -22,7 +22,7 @@ import hrPdfEn from "~/assets/documents/Guidance_HR_PDF_EN.pdf";
 import hrPdfFr from "~/assets/documents/Orientation_RH_PDF_FR.pdf";
 import hrDocxEn from "~/assets/documents/Guidance_HR_text_EN.docx";
 import hrDocxFr from "~/assets/documents/Orientation_RH_texte_FR.docx";
-import procurement from "~/assets/img/Procurment_officer_image.webp";
+import procurement from "~/assets/img/Procurement_officer_image.webp";
 import procurementPdfEn from "~/assets/documents/Guidance_Procurement_PDF_EN.pdf";
 import procurementPdfFr from "~/assets/documents/Orientation_approvisionnement_PDF_FR.pdf";
 import procurementDocxEn from "~/assets/documents/Guidance_Procurement_text_EN.docx";
