@@ -4,6 +4,7 @@ Analyser
 archivable
 Assertable
 atag
+atip
 Authenticatable
 Authorizable
 behavioural
