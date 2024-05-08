@@ -27,6 +27,8 @@ import {
   graphql,
   ArmedForcesStatus,
   PoolCandidateSnapshotQuery,
+  Department,
+  PoolCandidateStatus,
   PoolSkillType,
 } from "@gc-digital-talent/graphql";
 
@@ -47,6 +49,7 @@ import {
   REMOVED_STATUSES,
   REVERT_DECISION_STATUSES,
 } from "~/constants/poolCandidate";
+import JobPlacementDialog from "~/components/PoolCandidatesTable/JobPlacementDialog";
 import { groupPoolSkillByType } from "~/utils/skillUtils";
 
 import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
@@ -73,6 +76,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
       ...RemoveCandidateDialog
       ...ReinstateCandidateDialog
       ...RevertFinalDecisionDialog
+      ...JobPlacementDialog
       id
       status
       user {
@@ -429,17 +433,27 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
       }
       status
     }
+    departments {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
   }
 `);
 
 export interface ViewPoolCandidateProps {
   poolCandidate: NonNullable<PoolCandidateSnapshotQuery["poolCandidate"]>;
   pools: Pool[];
+  departments: Department[];
 }
 
 export const ViewPoolCandidate = ({
   poolCandidate,
   pools,
+  departments,
 }: ViewPoolCandidateProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -575,6 +589,15 @@ export const ViewPoolCandidate = ({
                 REVERT_DECISION_STATUSES.includes(poolCandidate.status) && (
                   <RevertFinalDecisionDialog
                     revertFinalDecisionQuery={poolCandidate}
+                  />
+                )}
+              {poolCandidate.status &&
+                poolCandidate.status ===
+                  PoolCandidateStatus.QualifiedAvailable && (
+                  <JobPlacementDialog
+                    jobPlacementDialogQuery={poolCandidate}
+                    departments={departments}
+                    context="view"
                   />
                 )}
               {isRemoved ? (
@@ -756,6 +779,7 @@ export const ViewPoolCandidatePage = () => {
         <ViewPoolCandidate
           poolCandidate={data.poolCandidate}
           pools={data.pools.filter(notEmpty)}
+          departments={data.departments.filter(notEmpty)}
         />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
