@@ -17,6 +17,10 @@ class CommunityPolicy
      */
     public function viewAny(?User $user)
     {
-        return $user->isAbleTo('view-any-community');
+        if ($user) {
+            return $user->isAbleTo('view-any-community');
+        }
+
+        return true;
     }
 }
