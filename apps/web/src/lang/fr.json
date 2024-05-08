@@ -1871,10 +1871,6 @@
     "defaultMessage": "Les talents autochtones prêts pour un stage d’apprentissage en TI",
     "description": "Title for the 'Indigenous talent ready for IT apprenticeships' section"
   },
-  "8oOKi9": {
-    "defaultMessage": "Erreur : impossible de mettre à jour le statut du placement du candidat",
-    "description": "Message displayed when an error occurs while updating pool candidate's job placement status"
-  },
   "8ownC2": {
     "defaultMessage": "Veuillez préciser la raison",
     "description": "Label for _an other contracting rationale_ field in the _digital services contracting questionnaire_"
@@ -2811,10 +2807,6 @@
     "defaultMessage": "Retirer le membre",
     "description": "Label for the dialog to remove a users team membership"
   },
-  "DyHuZi": {
-    "defaultMessage": "Enregistrer la décision",
-    "description": "Submit message for job placement dialog"
-  },
   "DyaaHi": {
     "defaultMessage": "Portée du prix",
     "description": "Label displayed on Award form for award scope input"
@@ -3206,10 +3198,6 @@
   "G7ICNn": {
     "defaultMessage": "Vous êtes sur le point de reproduire ce processus : {poolName}",
     "description": "Text to confirm the process to be duplicated"
-  },
-  "G8JoCN": {
-    "defaultMessage": "Ministère de placement",
-    "description": "Label for the placed department field"
   },
   "G8cmgj": {
     "defaultMessage": "En termes d’équivalents temps plein (ETP), le nombre total estimé de ressources prévues du contrat ou nécessaires pour produire les produits livrables du contrat",
@@ -4935,10 +4923,6 @@
     "defaultMessage": "Solutions logicielles de la TI",
     "description": "Label for the 'software solutions' IT work stream"
   },
-  "QSbP/J": {
-    "defaultMessage": "Suivre le placement de ce candidat à l'aide des options suivantes.",
-    "description": "Subtitle for job placement dialog"
-  },
   "QVWGaL": {
     "defaultMessage": "Formulaire d’octroi de contrat de services numériques",
     "description": "Heading for the digital Services contracting form"
@@ -5941,10 +5925,6 @@
   "W3KFtQ": {
     "defaultMessage": "Vous avez déjà un compte de CléGC?",
     "description": "GCKey question for when user already has an account"
-  },
-  "W3NvhG": {
-    "defaultMessage": "Placement professionnel",
-    "description": "Heading job placement dialog"
   },
   "W58QTT": {
     "defaultMessage": "Cet utilisateur n'est encore dans aucun bassin",
@@ -7430,10 +7410,6 @@
     "defaultMessage": "Les conseillers techniques sont des travailleurs individuels qui fournissent des conseils et des recommandations afin d’appuyer la prestation de services.",
     "description": "Description for the 'IT-03 Advisor' classification, paragraph 2"
   },
-  "dpO8Va": {
-    "defaultMessage": "Statut du placement",
-    "description": "Label for the job placement status field"
-  },
   "drDPf3": {
     "defaultMessage": "Parcourez les offres dans le domaine des <abbreviation>TI</abbreviation> pour la communauté autochtone",
     "description": "Title for Indigenous community job opportunities on Browse IT jobs page"
@@ -8017,10 +7993,6 @@
   "gpcHeU": {
     "defaultMessage": "Canada.ca",
     "description": "Alt text for the Canada logo link in the Header."
-  },
-  "gr8+Es": {
-    "defaultMessage": "Le statut du placement a été enregistré avec succès",
-    "description": "Message displayed when a job placement status has been saved."
   },
   "gsaza3": {
     "defaultMessage": "Prévoyez-vous un effet de report ou d’entraînement immédiat sur d’autres services en termes de niveaux de personnel ou de compétences requises?",
@@ -8741,10 +8713,6 @@
   "kUkyuI": {
     "defaultMessage": "Vous pouvez utiliser le bouton \"Ajouter une compétence\" pour mettre une compétence en vedette ici.",
     "description": "Secondary message to user when no skills have been attached to experience."
-  },
-  "kVavip": {
-    "defaultMessage": "Ministère de placement",
-    "description": "Title displayed on the Pool Candidates table placed department column"
   },
   "kXAnJt": {
     "defaultMessage": "Échec de la mise à jour des notes pour le candidat dans le {poolName}",
