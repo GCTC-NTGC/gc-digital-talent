@@ -367,6 +367,14 @@ export const ViewPool = ({
               </p>
             )}
             <ProcessCard.Footer>
+              {pool.status === PoolStatus.Draft && canPublish && (
+                <PublishProcessDialog
+                  {...commonDialogProps}
+                  closingDate={pool.closingDate}
+                  onPublish={onPublish}
+                  isReadyToPublish={isReadyToPublish}
+                />
+              )}
               {!canPublish && pool.status === PoolStatus.Draft && (
                 <SubmitForPublishingDialog
                   isReadyToPublish={isReadyToPublish}
@@ -404,14 +412,6 @@ export const ViewPool = ({
                 <DeleteProcessDialog
                   {...commonDialogProps}
                   onDelete={onDelete}
-                />
-              )}
-              {pool.status === PoolStatus.Draft && canPublish && (
-                <PublishProcessDialog
-                  {...commonDialogProps}
-                  closingDate={pool.closingDate}
-                  onPublish={onPublish}
-                  isReadyToPublish={isReadyToPublish}
                 />
               )}
             </ProcessCard.Footer>

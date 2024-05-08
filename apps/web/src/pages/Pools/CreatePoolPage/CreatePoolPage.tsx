@@ -185,7 +185,7 @@ export const CreatePoolForm = ({
                     "Label/title for creating a recruitment process.",
                 })}
               />
-              <Link href={paths.poolTable()} mode="inline" color="quaternary">
+              <Link href={paths.poolTable()} mode="inline" color="warning">
                 {intl.formatMessage(formMessages.cancelGoBack)}
               </Link>
             </div>

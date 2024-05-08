@@ -18,26 +18,21 @@ const DeleteDialog = ({
   const Footer = React.useMemo(
     () => (
       <>
-        <div>
-          <Dialog.Close>
-            <Button color="secondary">
-              {intl.formatMessage(formMessages.cancelGoBack)}
-            </Button>
-          </Dialog.Close>
-        </div>
-        <div>
-          <Dialog.Close>
-            <Button
-              onClick={() => {
-                onDelete();
-              }}
-              mode="solid"
-              color="error"
-            >
-              {intl.formatMessage(commonMessages.delete)}
-            </Button>
-          </Dialog.Close>
-        </div>
+        <Dialog.Close>
+          <Button color="warning" mode="inline">
+            {intl.formatMessage(formMessages.cancelGoBack)}
+          </Button>
+        </Dialog.Close>
+        <Dialog.Close>
+          <Button
+            onClick={() => {
+              onDelete();
+            }}
+            color="error"
+          >
+            {intl.formatMessage(commonMessages.delete)}
+          </Button>
+        </Dialog.Close>
       </>
     ),
     [intl, onDelete],
