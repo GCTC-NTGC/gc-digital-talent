@@ -331,10 +331,6 @@
     "defaultMessage": "En fonction des besoins",
     "description": "As and when needed personnel other requirement"
   },
-  "/s66sg": {
-    "defaultMessage": "Statut de la demande",
-    "description": "Title for admins to edit an applications status."
-  },
   "/sBGov": {
     "defaultMessage": "Question {number}",
     "description": "Heading for a specific screening question"
@@ -506,10 +502,6 @@
   "0lDq3P": {
     "defaultMessage": "La liste n’est pas filtrée. ",
     "description": "Announcement that the job stream filter is not active."
-  },
-  "0lUoqK": {
-    "defaultMessage": "Renseignements personnels et coordonnées",
-    "description": "Title for the personal and contact information snapshot section"
   },
   "0nP0Wj": {
     "defaultMessage": "Selon la <link>définition de Statistique Canada</link>, ce groupe :",
@@ -715,10 +707,6 @@
     "defaultMessage": "Minorité visible",
     "description": "CSV Header, Visible Minority column"
   },
-  "1yO4e+": {
-    "defaultMessage": "Vous êtes sur le point de supprimer cette évaluation.",
-    "description": "First paragraph for delete assessment step dialog"
-  },
   "21QCEK": {
     "defaultMessage": "« J’atteste que les renseignements que j’ai fournis sont vrais »",
     "description": "Signature list item on sign and submit page."
@@ -754,10 +742,6 @@
   "2FBdeQ": {
     "defaultMessage": "Apprentissage en cours d’emploi",
     "description": "Experience requirement, On the job."
-  },
-  "2KM4iz": {
-    "defaultMessage": "Parcours professionnel",
-    "description": "Title for the career timeline snapshot section"
   },
   "2Ljgvn": {
     "defaultMessage": "Voir l’affiche d’emploi pour ce processus de recrutement",
@@ -1379,10 +1363,6 @@
     "defaultMessage": "Rappelez-vous que, {skillName} est défini comme",
     "description": "Lead-in text to a skill description"
   },
-  "5iNcHS": {
-    "defaultMessage": "Candidature",
-    "description": "Title displayed for the Pool Candidates table View Application link."
-  },
   "5j409K": {
     "defaultMessage": "Notes et commentaires",
     "description": "Title for view notes dialog on view pool candidate page"
@@ -1886,6 +1866,10 @@
   "8n9opI": {
     "defaultMessage": "Les talents autochtones prêts pour un stage d’apprentissage en TI",
     "description": "Title for the 'Indigenous talent ready for IT apprenticeships' section"
+  },
+  "8oOKi9": {
+    "defaultMessage": "Erreur : impossible de mettre à jour le statut du placement du candidat",
+    "description": "Message displayed when an error occurs while updating pool candidate's job placement status"
   },
   "8ownC2": {
     "defaultMessage": "Veuillez préciser la raison",
@@ -2555,10 +2539,6 @@
     "defaultMessage": "<strong>Je réponds à l’option de désignation professionnelle</strong>",
     "description": "Radio group option for education requirement filter in application education form."
   },
-  "Cjp2F6": {
-    "defaultMessage": "Information sur le bassin",
-    "description": "Title for the pool info page"
-  },
   "Cl3GCt": {
     "defaultMessage": "Titre du contrat",
     "description": "Label for _contract title_ field in the _digital services contracting questionnaire_"
@@ -2650,6 +2630,10 @@
   "DC2A59": {
     "defaultMessage": "Agrandir toutes les sections<hidden> de l’information sur la demande</hidden>",
     "description": "Button text to open all application information accordions"
+  },
+  "DG4c6M": {
+    "defaultMessage": "{status}<hidden> changer le statut pour {poolName}</hidden>",
+    "description": "Button to change a users status in a pool - located in the table on view-user page"
   },
   "DHQasU": {
     "defaultMessage": "Voir les notes",
@@ -2826,6 +2810,10 @@
   "DyHeaZ": {
     "defaultMessage": "Retirer le membre",
     "description": "Label for the dialog to remove a users team membership"
+  },
+  "DyHuZi": {
+    "defaultMessage": "Enregistrer la décision",
+    "description": "Submit message for job placement dialog"
   },
   "DyaaHi": {
     "defaultMessage": "Portée du prix",
@@ -3218,6 +3206,10 @@
   "G7ICNn": {
     "defaultMessage": "Vous êtes sur le point de reproduire ce processus : {poolName}",
     "description": "Text to confirm the process to be duplicated"
+  },
+  "G8JoCN": {
+    "defaultMessage": "Ministère de placement",
+    "description": "Label for the placed department field"
   },
   "G8cmgj": {
     "defaultMessage": "En termes d’équivalents temps plein (ETP), le nombre total estimé de ressources prévues du contrat ou nécessaires pour produire les produits livrables du contrat",
@@ -4903,10 +4895,6 @@
     "defaultMessage": "Sélectionnez un volet",
     "description": "Placeholder for stream filter in search form."
   },
-  "QJPsGW": {
-    "defaultMessage": "{status} <hidden>changer le statut pour {poolName}</hidden>",
-    "description": "Button to change a users status in a pool - located in the table on view-user page"
-  },
   "QJi1ZQ": {
     "defaultMessage": "Annuler la décision et mettre le statut à jour",
     "description": "Button label to revert final decision on view pool candidate page"
@@ -4942,6 +4930,10 @@
   "QSTaWO": {
     "defaultMessage": "Solutions logicielles de la TI",
     "description": "Label for the 'software solutions' IT work stream"
+  },
+  "QSbP/J": {
+    "defaultMessage": "Suivre le placement de ce candidat à l'aide des options suivantes.",
+    "description": "Subtitle for job placement dialog"
   },
   "QVWGaL": {
     "defaultMessage": "Formulaire d’octroi de contrat de services numériques",
@@ -5667,10 +5659,6 @@
     "defaultMessage": "Supprimer cette question",
     "description": "Button text to delete a general question"
   },
-  "Ude1JQ": {
-    "defaultMessage": "Texte",
-    "description": "Title for the application’s profile snapshot."
-  },
   "UduzGA": {
     "defaultMessage": "Enregistrer l’introduction",
     "description": "Text on a button to save the pool introduction"
@@ -5949,6 +5937,10 @@
   "W3KFtQ": {
     "defaultMessage": "Vous avez déjà un compte de CléGC?",
     "description": "GCKey question for when user already has an account"
+  },
+  "W3NvhG": {
+    "defaultMessage": "Placement professionnel",
+    "description": "Heading job placement dialog"
   },
   "W58QTT": {
     "defaultMessage": "Cet utilisateur n'est encore dans aucun bassin",
@@ -6317,10 +6309,6 @@
   "XpiMeF": {
     "defaultMessage": "Chercher dans notre base de données de compétences et les associer à votre profil.",
     "description": "Subtitle for the find a skill dialog within the skill library"
-  },
-  "Xpo+u6": {
-    "defaultMessage": "Compétences constituant un atout",
-    "description": "Title for the optional skills snapshot section"
   },
   "XqF3wS": {
     "defaultMessage": "Coordonnées",
@@ -7438,6 +7426,10 @@
     "defaultMessage": "Les conseillers techniques sont des travailleurs individuels qui fournissent des conseils et des recommandations afin d’appuyer la prestation de services.",
     "description": "Description for the 'IT-03 Advisor' classification, paragraph 2"
   },
+  "dpO8Va": {
+    "defaultMessage": "Statut du placement",
+    "description": "Label for the job placement status field"
+  },
   "drDPf3": {
     "defaultMessage": "Parcourez les offres dans le domaine des <abbreviation>TI</abbreviation> pour la communauté autochtone",
     "description": "Title for Indigenous community job opportunities on Browse IT jobs page"
@@ -8021,6 +8013,10 @@
   "gpcHeU": {
     "defaultMessage": "Canada.ca",
     "description": "Alt text for the Canada logo link in the Header."
+  },
+  "gr8+Es": {
+    "defaultMessage": "Le statut du placement a été enregistré avec succès",
+    "description": "Message displayed when a job placement status has been saved."
   },
   "gsaza3": {
     "defaultMessage": "Prévoyez-vous un effet de report ou d’entraînement immédiat sur d’autres services en termes de niveaux de personnel ou de compétences requises?",
@@ -8742,6 +8738,10 @@
     "defaultMessage": "Vous pouvez utiliser le bouton \"Ajouter une compétence\" pour mettre une compétence en vedette ici.",
     "description": "Secondary message to user when no skills have been attached to experience."
   },
+  "kVavip": {
+    "defaultMessage": "Ministère de placement",
+    "description": "Title displayed on the Pool Candidates table placed department column"
+  },
   "kXAnJt": {
     "defaultMessage": "Échec de la mise à jour des notes pour le candidat dans le {poolName}",
     "description": "Toast notification for failed update of candidates notes in specified pool"
@@ -8970,10 +8970,6 @@
     "defaultMessage": "Exigences temporelles",
     "description": "Timing requirements contracting rationale"
   },
-  "m0JFE/": {
-    "defaultMessage": "Code",
-    "description": "Title for the application’s profile snapshot."
-  },
   "m1eQrS": {
     "defaultMessage": "Canada.ca",
     "description": "Alt text for the Canada logo link in the Footer."
@@ -9194,10 +9190,6 @@
     "defaultMessage": "Toutes les compétences suivantes sont facultatives mais avantageuses pour le poste. Le fait de les démontrer pourrait vous être bénéfique lorsque votre candidature est considérée.",
     "description": "Descriptive text about how optional skills are used in the application process"
   },
-  "mqWvWR": {
-    "defaultMessage": "Questions de sélection",
-    "description": "Title for the screening questions snapshot section"
-  },
   "mrMxsI": {
     "defaultMessage": "Oui, il s'agit d'un poste de supervision",
     "description": "Checkbox selection that confirms a job opportunity will have supervising duties. "
@@ -9257,10 +9249,6 @@
   "nDm9dX": {
     "defaultMessage": "Enregistrer la disponibilité",
     "description": "Button text to save availability in a recruitment"
-  },
-  "nEVNHp": {
-    "defaultMessage": "Information sur l'employé(e) du gouvernement",
-    "description": "Title for the government employee information snapshot section"
   },
   "nGNj5Q": {
     "defaultMessage": "Courriel de la personne-ressource",
@@ -10049,10 +10037,6 @@
   "s5hTYo": {
     "defaultMessage": "Rôles des membres",
     "description": "Label for the input to select role of a team role"
-  },
-  "s7F24X": {
-    "defaultMessage": "Préférences de travail",
-    "description": "Title for the work preferences snapshot section"
   },
   "s7Uy7q": {
     "defaultMessage": "Services professionnels, administratifs, et de soutien à la gestion",
