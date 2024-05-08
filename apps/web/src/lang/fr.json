@@ -4259,10 +4259,6 @@
     "defaultMessage": "Votre impact",
     "description": "Title for impact section on a pool advertisement."
   },
-  "MSitul": {
-    "defaultMessage": "Présentation des séances de formation à venir très bientôt.",
-    "description": "Message under training session image on directive page."
-  },
   "MTPlbB": {
     "defaultMessage": "Cette liste permet au candidat de préciser <strong>jusqu’à 5 compétences techniques </strong> pour lesquelles ils souhaitent recevoir une formation.",
     "description": "Description of a users technical skills to be improved for admins"
