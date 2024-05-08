@@ -46,6 +46,8 @@ server {
     location = /fr/applicant/dashboard { return 301 /fr/applicant/profile-and-applications$is_args$args; }
     location = /en/privacy-notice { return 301 /en/privacy-policy$is_args$args; }
     location = /fr/privacy-notice { return 301 /fr/privacy-policy$is_args$args; }
+    location = /en/talent/profile { return 301 /en/applicant$is_args$args; }
+    location = /fr/talent/profile { return 301 /fr/applicant$is_args$args; }
     location = /en/applicant/profile-and-applications { return 301 /en/applicant$is_args$args; }
     location = /fr/applicant/profile-and-applications { return 301 /fr/applicant$is_args$args; }
     location = /en/applicant/profile-and-applications/skills { return 301 /en/applicant/skills$is_args$args; }

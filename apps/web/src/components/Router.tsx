@@ -15,7 +15,6 @@ import { useFeatureFlags, FeatureFlags } from "@gc-digital-talent/env";
 import Layout from "~/components/Layout/Layout";
 import AdminLayout from "~/components/Layout/AdminLayout/AdminLayout";
 import IAPLayout from "~/components/Layout/IAPLayout";
-import { TalentRedirect, ProfileRedirect } from "~/components/Redirects";
 import CreateAccountRedirect from "~/pages/Auth/CreateAccountPage/CreateAccountRedirect";
 import useRoutes from "~/hooks/useRoutes";
 import ScreeningAndEvaluationPage from "~/pages/Pools/ScreeningAndEvaluationPage/ScreeningAndEvaluationPage";
@@ -1069,25 +1068,6 @@ const createRoute = (
               ],
             },
             {
-              path: "users",
-              // Redirect any route in this section to /create-account
-              // if no email is set
-              element: <CreateAccountRedirect />,
-              children: [
-                {
-                  path: "me",
-                  element: (
-                    <RequireAuth
-                      roles={[ROLE_NAME.Applicant]}
-                      loginPath={loginPath}
-                    >
-                      <ProfileRedirect />
-                    </RequireAuth>
-                  ),
-                },
-              ],
-            },
-            {
               path: "browse",
               children: [
                 {
@@ -1211,17 +1191,6 @@ const createRoute = (
                   ],
                 },
               ],
-            },
-            {
-              path: "talent/profile/*",
-              element: (
-                <RequireAuth
-                  roles={[ROLE_NAME.Applicant]}
-                  loginPath={loginPath}
-                >
-                  <TalentRedirect />
-                </RequireAuth>
-              ),
             },
             {
               path: "*",
