@@ -119,7 +119,7 @@ class PoolTestSeeder extends Seeder
                     'en' => 'IT Security Architect',
                     'fr' => 'Architecte en sécurité des TI',
                 ],
-                'classification_id' => Classification::select('id')->where('group', 'ilike', 'EX')->where('level', 3)->sole()->id,
+                'classification_id' => Classification::select('id')->where('group', 'ilike', 'EC')->where('level', 3)->sole()->id,
                 'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
                 'team_id' => Team::select('id')->where('name', 'digital-community-management')->sole()->id,
                 'published_at' => config('constants.past_date'),

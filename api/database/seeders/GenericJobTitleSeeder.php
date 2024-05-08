@@ -87,6 +87,18 @@ class GenericJobTitleSeeder extends Seeder
                 ],
 
             ],
+            [
+                'key' => GenericJobTitleKey::EXECUTIVE_EX03->name,
+                'name' => [
+                    'en' => 'Digital Leaders',
+                    'fr' => 'Chefs de file du numérique',
+                ],
+                'classification' => [
+                    'group' => 'EX',
+                    'level' => 3,
+                ],
+
+            ],
         ];
 
         foreach ($genericJobTitles as $genericJobTitle) {
