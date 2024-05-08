@@ -71,7 +71,7 @@ function buildScrollToLink(
   );
 }
 
-const DashboardHeadingUser_Fragment = graphql(/* GraphQL */ `
+export const DashboardHeadingUser_Fragment = graphql(/* GraphQL */ `
   fragment DashboardHeadingUser on User {
     id
     firstName
