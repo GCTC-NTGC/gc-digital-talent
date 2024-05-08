@@ -30,6 +30,7 @@ return [
         'test_bulk_sms' => env('GCNOTIFY_TEMPLATE_TEST_BULK_SMS'),
         'application_deadline_approaching_en' => env('GCNOTIFY_TEMPLATE_APPLICATION_DEADLINE_APPROACHING_EN'),
         'application_deadline_approaching_fr' => env('GCNOTIFY_TEMPLATE_APPLICATION_DEADLINE_APPROACHING_FR'),
+        'talent_request_submission_confirmation_enfr' => env('GCNOTIFY_TEMPLATE_TALENT_REQUEST_SUBMISSION_CONFIRMATION_ENFR'),
     ],
 
     /*
