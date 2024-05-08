@@ -37,6 +37,7 @@ import {
   AssessmentResultJustification,
   AssessmentDecisionLevel,
   PoolOpportunityLength,
+  PlacementType,
   CandidateRemovalReason,
 } from "@gc-digital-talent/graphql";
 
@@ -2231,6 +2232,37 @@ export const getPoolOpportunityLength = (
     `Invalid Pool Opportunity Length '${poolOpportunityLengthId}'`,
   );
 
+const placementTypes = defineMessages({
+  [PlacementType.PlacedTentative]: {
+    defaultMessage: "Tentatively placed (Verbal or email confirmation)",
+    id: "gqYQti",
+    description: "The placement type is Offer in Progress, tentatively placed",
+  },
+  [PlacementType.PlacedCasual]: {
+    defaultMessage: "Placed casual",
+    id: "idkOXC",
+    description: "The placement type is Placed Casual.",
+  },
+  [PlacementType.PlacedTerm]: {
+    defaultMessage: "Placed term",
+    id: "To3sqR",
+    description: "The placement type is Placed Term.",
+  },
+  [PlacementType.PlacedIndeterminate]: {
+    defaultMessage: "Placed indeterminate",
+    id: "LyUIGV",
+    description: "The placement type is Placed Indeterminate.",
+  },
+});
+
+export const getPlacementType = (
+  placementTypeId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    placementTypes,
+    placementTypeId,
+    `Invalid Placement Type '${placementTypeId}'`,
+  );
 const candidateRemovalReasons = defineMessages({
   [CandidateRemovalReason.RequestedToBeWithdrawn]: {
     defaultMessage: "Candidate has requested to be withdrawn",
