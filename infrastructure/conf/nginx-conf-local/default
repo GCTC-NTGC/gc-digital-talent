@@ -46,6 +46,13 @@ server {
     location = /fr/applicant/dashboard { return 301 /fr/applicant/profile-and-applications$is_args$args; }
     location = /en/privacy-notice { return 301 /en/privacy-policy$is_args$args; }
     location = /fr/privacy-notice { return 301 /fr/privacy-policy$is_args$args; }
+    location = /en/applicant/profile-and-applications { return 301 /en/applicant$is_args$args; }
+    location = /fr/applicant/profile-and-applications { return 301 /fr/applicant$is_args$args; }
+    location = /en/applicant/profile-and-applications/skills { return 301 /en/applicant/skills$is_args$args; }
+    location = /fr/applicant/profile-and-applications/skills { return 301 /fr/applicant/skills$is_args$args; }
+    location = /en/applicant/profile-and-applications/skills/showcase { return 301 /en/applicant/skills/showcase$is_args$args; }
+    location = /fr/applicant/profile-and-applications/skills/showcase { return 301 /fr/applicant/skills/showcase$is_args$args; }
+    location ~ ^/(en|fr)/users/(.+)(/|$) { return 301 /$1/applicant$is_args$args; }
 
     # Permanent redirect for IAP french vanity url
     location = /apprentis-autochtone-ti { return 301 /fr/indigenous-it-apprentice$is_args$args; }
