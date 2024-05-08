@@ -109,7 +109,6 @@ class GenericJobTitleSeeder extends Seeder
                 'group' => $genericJobTitle['classification']['group'],
                 'level' => $genericJobTitle['classification']['level'],
             ])->sole()->id;
-
             $finalValue = array_merge($genericJobTitle, ['classification_id' => $classificationId]);
             unset($finalValue['classification']);
             GenericJobTitle::updateOrCreate($identifier, $finalValue);
