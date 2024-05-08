@@ -137,8 +137,8 @@ const ChangeExpiryDateDialog = ({
                 })}
               />
               <FormChangeNotifyWell data-h2-margin-top="base(x1)" />
-              <Dialog.Footer data-h2-justify-content="base(flex-start)">
-                <Button type="submit" disabled={fetching}>
+              <Dialog.Footer>
+                <Button type="submit" color="secondary" disabled={fetching}>
                   {intl.formatMessage(applicationMessages.saveContinue)}
                 </Button>
                 <Dialog.Close>
