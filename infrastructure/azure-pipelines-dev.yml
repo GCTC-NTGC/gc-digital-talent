@@ -117,7 +117,7 @@ stages:
               CI: "true"
           - task: AzureCLI@2
             displayName: "Copy Playwright Results to Storage"
-            condition: succeededOrFailed()
+            condition: always()
             inputs:
               azureSubscription: $(serviceConnectionName)
               scriptType: bash
