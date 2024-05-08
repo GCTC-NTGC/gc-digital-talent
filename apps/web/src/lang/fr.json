@@ -707,10 +707,6 @@
     "defaultMessage": "Minorité visible",
     "description": "CSV Header, Visible Minority column"
   },
-  "1yO4e+": {
-    "defaultMessage": "Vous êtes sur le point de supprimer cette évaluation.",
-    "description": "First paragraph for delete assessment step dialog"
-  },
   "21QCEK": {
     "defaultMessage": "« J’atteste que les renseignements que j’ai fournis sont vrais »",
     "description": "Signature list item on sign and submit page."
