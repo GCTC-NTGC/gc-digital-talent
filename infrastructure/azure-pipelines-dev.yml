@@ -102,7 +102,7 @@ stages:
           - script: CYPRESS_INSTALL_BINARY=/opt/cypress.zip pnpm install cypress
             displayName: "Install Cypress"
 
-          - script: pnpm install --dev
+          - script: pnpm install --no-optional
             displayName: "Install Node.js dependencies"
 
           - script: pnpm run build:packages
