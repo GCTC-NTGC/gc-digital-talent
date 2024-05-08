@@ -133,8 +133,16 @@ const FilterDialog = <TFieldValues extends FieldValues>({
             <form onSubmit={methods.handleSubmit(handleSubmit)}>
               {children}
               <Dialog.Footer>
+                <Button type="submit" color="secondary" disabled={isSubmitting}>
+                  {intl.formatMessage({
+                    description:
+                      "Submit button within the search filter dialog",
+                    defaultMessage: "Show results",
+                    id: "V4+lDw",
+                  })}
+                </Button>
                 <Button
-                  color="secondary"
+                  color="warning"
                   mode="inline"
                   type="reset"
                   onClick={handleClear}
@@ -144,14 +152,6 @@ const FilterDialog = <TFieldValues extends FieldValues>({
                       "Button text to reset table filters to the default values",
                     defaultMessage: "Reset filters",
                     id: "ROfrit",
-                  })}
-                </Button>
-                <Button type="submit" color="primary" disabled={isSubmitting}>
-                  {intl.formatMessage({
-                    description:
-                      "Submit button within the search filter dialog",
-                    defaultMessage: "Show results",
-                    id: "V4+lDw",
                   })}
                 </Button>
               </Dialog.Footer>
