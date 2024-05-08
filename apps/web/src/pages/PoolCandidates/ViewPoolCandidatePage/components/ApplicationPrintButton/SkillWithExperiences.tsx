@@ -7,15 +7,7 @@ import {
   getEducationStatus,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import {
-  AwardExperience,
-  CommunityExperience,
-  EducationExperience,
-  Experience,
-  PersonalExperience,
-  Skill,
-  WorkExperience,
-} from "@gc-digital-talent/graphql";
+import { Experience, Scalars, Skill } from "@gc-digital-talent/graphql";
 
 import { getExperienceSkills } from "~/utils/skillUtils";
 import experienceMessages from "~/messages/experienceMessages";
@@ -26,6 +18,7 @@ import {
   isCommunityExperience,
   isEducationExperience,
   isPersonalExperience,
+  isWorkExperience,
 } from "~/utils/experienceUtils";
 
 const PageSection = ({ children }: { children: React.ReactNode }) => (
@@ -41,160 +34,152 @@ const PageSection = ({ children }: { children: React.ReactNode }) => (
 
 const getRelevantSkillRecordDetails = (
   experience: Experience,
-  sectionSkill: Pick<Skill, "id">,
+  skillId: Skill["id"],
 ): string | null => {
   const experienceSkills = experience.skills ?? [];
   const applicableSkill = experienceSkills.find(
-    (skill) => skill.id === sectionSkill.id,
+    (skill) => skill.id === skillId,
   );
 
   return applicableSkill?.experienceSkillRecord?.details ?? null;
 };
 
-export interface SkillWithExperiencesProps {
-  skill: Skill;
-  experiences: Experience[];
+interface ExperienceListForSkillProps {
+  experience: Experience;
+  skillId: Scalars["UUID"]["output"];
 }
 
-const SkillWithExperiences = ({
-  skill,
-  experiences,
-}: SkillWithExperiencesProps): JSX.Element => {
+const ExperienceListForSkill = ({
+  experience,
+  skillId,
+}: ExperienceListForSkillProps) => {
   const intl = useIntl();
-  const skillExperiences = getExperienceSkills(experiences, skill);
   const experienceFormLabels = getExperienceFormLabels(intl);
 
-  const experienceListForSkill = (
-    experience:
-      | AwardExperience
-      | CommunityExperience
-      | EducationExperience
-      | PersonalExperience
-      | WorkExperience,
-    sectionSkill: Pick<Skill, "id">,
-  ): JSX.Element => {
-    if (isAwardExperience(experience)) {
-      const { title, issuedBy, awardedDate, awardedTo, details } = experience;
-      return (
-        <>
-          <p>
-            {intl.formatMessage(experienceMessages.awardIssuedBy, {
-              title,
-              issuedBy,
-            })}
-          </p>
-          <p>
-            {awardedDate
-              ? formattedDate(awardedDate, intl)
-              : intl.formatMessage(commonMessages.notProvided)}
-          </p>
-          <p>
-            {experienceFormLabels.awardedTo}
-            {intl.formatMessage(commonMessages.dividingColon)}
-            {awardedTo
-              ? intl.formatMessage(getAwardedTo(awardedTo))
-              : intl.formatMessage(commonMessages.notAvailable)}
-          </p>
-          <p>
-            {experienceFormLabels.howIUsed}
-            {intl.formatMessage(commonMessages.dividingColon)}
-            {getRelevantSkillRecordDetails(experience, sectionSkill) ??
-              intl.formatMessage(commonMessages.notAvailable)}
-          </p>
-          <p>{details}</p>
-          <p>
-            {experienceFormLabels.details}
-            {intl.formatMessage(commonMessages.dividingColon)}
-            {details ?? intl.formatMessage(commonMessages.notAvailable)}
-          </p>
-        </>
-      );
-    }
-    if (isCommunityExperience(experience)) {
-      const { title, organization, endDate, startDate, project, details } =
-        experience;
-      return (
-        <>
-          <p>
-            {intl.formatMessage(experienceMessages.communityAt, {
-              title,
-              organization,
-            })}
-          </p>
-          <p>{getDateRange({ endDate, startDate, intl })}</p>
-          <p>
-            {experienceFormLabels.project}
-            {intl.formatMessage(commonMessages.dividingColon)}
-            {project ?? intl.formatMessage(commonMessages.notAvailable)}
-          </p>
-          <p>
-            {experienceFormLabels.howIUsed}
-            {intl.formatMessage(commonMessages.dividingColon)}
-            {getRelevantSkillRecordDetails(experience, sectionSkill) ??
-              intl.formatMessage(commonMessages.notAvailable)}
-          </p>
-          <p>
-            {experienceFormLabels.details}
-            {intl.formatMessage(commonMessages.dividingColon)}
-            {details ?? intl.formatMessage(commonMessages.notAvailable)}
-          </p>
-        </>
-      );
-    }
-    if (isEducationExperience(experience)) {
-      const { areaOfStudy, institution, startDate, endDate, status, details } =
-        experience;
-      return (
-        <>
-          <p>
-            {intl.formatMessage(experienceMessages.educationAt, {
-              areaOfStudy,
-              institution,
-            })}
-          </p>
-          <p>{getDateRange({ endDate, startDate, intl })}</p>
-          <p>
-            {experienceFormLabels.educationStatus}
-            {intl.formatMessage(commonMessages.dividingColon)}
-            {status
-              ? intl.formatMessage(getEducationStatus(status))
-              : intl.formatMessage(commonMessages.notAvailable)}
-          </p>
-          <p>
-            {experienceFormLabels.howIUsed}
-            {intl.formatMessage(commonMessages.dividingColon)}
-            {getRelevantSkillRecordDetails(experience, sectionSkill) ??
-              intl.formatMessage(commonMessages.notAvailable)}
-          </p>
-          <p>
-            {experienceFormLabels.details}
-            {intl.formatMessage(commonMessages.dividingColon)}
-            {details ?? intl.formatMessage(commonMessages.notAvailable)}
-          </p>
-        </>
-      );
-    }
-    if (isPersonalExperience(experience)) {
-      const { details, title, startDate, endDate, description } = experience;
-      return (
-        <>
-          <p>{title || ""}</p>
-          <p>{getDateRange({ endDate, startDate, intl })}</p>
-          <p>{description}</p>
-          <p>
-            {experienceFormLabels.howIUsed}
-            {intl.formatMessage(commonMessages.dividingColon)}
-            {getRelevantSkillRecordDetails(experience, sectionSkill) ??
-              intl.formatMessage(commonMessages.notAvailable)}
-          </p>
-          <p>
-            {experienceFormLabels.details}
-            {intl.formatMessage(commonMessages.dividingColon)}
-            {details ?? intl.formatMessage(commonMessages.notAvailable)}
-          </p>
-        </>
-      );
-    }
+  if (isAwardExperience(experience)) {
+    const { title, issuedBy, awardedDate, awardedTo, details } = experience;
+    return (
+      <>
+        <p>
+          {intl.formatMessage(experienceMessages.awardIssuedBy, {
+            title,
+            issuedBy,
+          })}
+        </p>
+        <p>
+          {awardedDate
+            ? formattedDate(awardedDate, intl)
+            : intl.formatMessage(commonMessages.notProvided)}
+        </p>
+        <p>
+          {experienceFormLabels.awardedTo}
+          {intl.formatMessage(commonMessages.dividingColon)}
+          {awardedTo
+            ? intl.formatMessage(getAwardedTo(awardedTo))
+            : intl.formatMessage(commonMessages.notAvailable)}
+        </p>
+        <p>
+          {experienceFormLabels.howIUsed}
+          {intl.formatMessage(commonMessages.dividingColon)}
+          {getRelevantSkillRecordDetails(experience, skillId) ??
+            intl.formatMessage(commonMessages.notAvailable)}
+        </p>
+        <p>{details}</p>
+        <p>
+          {experienceFormLabels.details}
+          {intl.formatMessage(commonMessages.dividingColon)}
+          {details ?? intl.formatMessage(commonMessages.notAvailable)}
+        </p>
+      </>
+    );
+  }
+  if (isCommunityExperience(experience)) {
+    const { title, organization, endDate, startDate, project, details } =
+      experience;
+    return (
+      <>
+        <p>
+          {intl.formatMessage(experienceMessages.communityAt, {
+            title,
+            organization,
+          })}
+        </p>
+        <p>{getDateRange({ endDate, startDate, intl })}</p>
+        <p>
+          {experienceFormLabels.project}
+          {intl.formatMessage(commonMessages.dividingColon)}
+          {project ?? intl.formatMessage(commonMessages.notAvailable)}
+        </p>
+        <p>
+          {experienceFormLabels.howIUsed}
+          {intl.formatMessage(commonMessages.dividingColon)}
+          {getRelevantSkillRecordDetails(experience, skillId) ??
+            intl.formatMessage(commonMessages.notAvailable)}
+        </p>
+        <p>
+          {experienceFormLabels.details}
+          {intl.formatMessage(commonMessages.dividingColon)}
+          {details ?? intl.formatMessage(commonMessages.notAvailable)}
+        </p>
+      </>
+    );
+  }
+  if (isEducationExperience(experience)) {
+    const { areaOfStudy, institution, startDate, endDate, status, details } =
+      experience;
+    return (
+      <>
+        <p>
+          {intl.formatMessage(experienceMessages.educationAt, {
+            areaOfStudy,
+            institution,
+          })}
+        </p>
+        <p>{getDateRange({ endDate, startDate, intl })}</p>
+        <p>
+          {experienceFormLabels.educationStatus}
+          {intl.formatMessage(commonMessages.dividingColon)}
+          {status
+            ? intl.formatMessage(getEducationStatus(status))
+            : intl.formatMessage(commonMessages.notAvailable)}
+        </p>
+        <p>
+          {experienceFormLabels.howIUsed}
+          {intl.formatMessage(commonMessages.dividingColon)}
+          {getRelevantSkillRecordDetails(experience, skillId) ??
+            intl.formatMessage(commonMessages.notAvailable)}
+        </p>
+        <p>
+          {experienceFormLabels.details}
+          {intl.formatMessage(commonMessages.dividingColon)}
+          {details ?? intl.formatMessage(commonMessages.notAvailable)}
+        </p>
+      </>
+    );
+  }
+  if (isPersonalExperience(experience)) {
+    const { details, title, startDate, endDate, description } = experience;
+    return (
+      <>
+        <p>{title || ""}</p>
+        <p>{getDateRange({ endDate, startDate, intl })}</p>
+        <p>{description}</p>
+        <p>
+          {experienceFormLabels.howIUsed}
+          {intl.formatMessage(commonMessages.dividingColon)}
+          {getRelevantSkillRecordDetails(experience, skillId) ??
+            intl.formatMessage(commonMessages.notAvailable)}
+        </p>
+        <p>
+          {experienceFormLabels.details}
+          {intl.formatMessage(commonMessages.dividingColon)}
+          {details ?? intl.formatMessage(commonMessages.notAvailable)}
+        </p>
+      </>
+    );
+  }
+
+  if (isWorkExperience(experience)) {
     const { role, organization, startDate, endDate, division, details } =
       experience; // left with work experience
     return (
@@ -214,7 +199,7 @@ const SkillWithExperiences = ({
         <p>
           {experienceFormLabels.howIUsed}
           {intl.formatMessage(commonMessages.dividingColon)}
-          {getRelevantSkillRecordDetails(experience, sectionSkill) ??
+          {getRelevantSkillRecordDetails(experience, skillId) ??
             intl.formatMessage(commonMessages.notAvailable)}
         </p>
         <p>
@@ -224,7 +209,22 @@ const SkillWithExperiences = ({
         </p>
       </>
     );
-  };
+  }
+
+  return null;
+};
+
+export interface SkillWithExperiencesProps {
+  skill: Skill;
+  experiences: Experience[];
+}
+
+const SkillWithExperiences = ({
+  skill,
+  experiences,
+}: SkillWithExperiencesProps): JSX.Element => {
+  const intl = useIntl();
+  const skillExperiences = getExperienceSkills(experiences, skill);
 
   const description = getLocalizedName(skill.description, intl, true);
 
@@ -238,7 +238,10 @@ const SkillWithExperiences = ({
         {skillExperiences.map((experience) => {
           return (
             <li key={experience.id}>
-              {experienceListForSkill(experience, skill)}
+              <ExperienceListForSkill
+                experience={experience}
+                skillId={skill.id}
+              />
             </li>
           );
         })}

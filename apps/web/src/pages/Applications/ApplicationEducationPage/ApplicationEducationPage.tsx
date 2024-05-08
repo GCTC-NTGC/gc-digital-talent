@@ -122,10 +122,8 @@ const ApplicationEducation = ({
   const {
     register,
     setValue,
-    watch,
     formState: { isSubmitting },
   } = methods;
-  const watchEducationRequirement = watch("educationRequirement");
   const actionProps = register("action");
 
   const [{ fetching: mutating }, executeMutation] =
@@ -275,7 +273,6 @@ const ApplicationEducation = ({
           />
           <LinkCareerTimeline
             experiences={experiences}
-            watchEducationRequirement={watchEducationRequirement}
             previousStepPath={previousStep}
             classificationGroup={classificationGroup}
           />

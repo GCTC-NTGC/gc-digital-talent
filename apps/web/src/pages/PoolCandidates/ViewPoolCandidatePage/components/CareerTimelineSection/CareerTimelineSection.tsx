@@ -35,7 +35,7 @@ const CareerTimelineSection = ({ experiences }: CareerTimelineSectionProps) => {
     intl,
   );
 
-  const hasSomeExperience = !!experiences.length;
+  const hasExperiences = !!experiences.length;
 
   return (
     <>
@@ -44,50 +44,46 @@ const CareerTimelineSection = ({ experiences }: CareerTimelineSectionProps) => {
       </Heading>
       <div
         data-h2-display="base(flex)"
-        data-h2-flex-direction="base(row)"
         data-h2-gap="base(x.5)"
-        data-h2-align-items="base(flex-end)"
-        data-h2-justify-content="base(space-between)"
         data-h2-margin-bottom="base(x.5)"
+        data-h2-flex-wrap="base(wrap)"
       >
-        <div
-          data-h2-display="base(flex)"
-          data-h2-flex-direction="base(row)"
-          data-h2-gap="base(x.5)"
-          data-h2-justify-content="base(space-between)"
-        >
-          <ExperienceSortAndFilter
-            initialFormValues={sortAndFilterValues}
-            onChange={(formValues) => setSortAndFilterValues(formValues)}
-          />
-        </div>
-        <Button mode="inline" color="secondary" onClick={toggleAllExpanded}>
-          {intl.formatMessage(
-            hasExpanded
-              ? experienceMessages.collapseDetails
-              : experienceMessages.expandDetails,
-          )}
-        </Button>
+        <ExperienceSortAndFilter
+          initialFormValues={sortAndFilterValues}
+          onChange={(formValues) => setSortAndFilterValues(formValues)}
+        />
+        {hasExperiences && (
+          <div
+            data-h2-align-self="base(flex-end)"
+            data-h2-margin-left="p-tablet(auto)"
+          >
+            <Button mode="inline" color="secondary" onClick={toggleAllExpanded}>
+              {intl.formatMessage(
+                hasExpanded
+                  ? experienceMessages.collapseDetails
+                  : experienceMessages.expandDetails,
+              )}
+            </Button>
+          </div>
+        )}
       </div>
-      {hasSomeExperience ? (
+      {hasExperiences ? (
         <div
           data-h2-display="base(flex)"
           data-h2-flex-direction="base(column)"
           data-h2-gap="base(x.5 0)"
         >
-          {experienceList.map((experience) => {
-            return (
-              <ExperienceCard
-                key={experience.id}
-                experience={experience}
-                headingLevel="h3"
-                showSkills={false}
-                showEdit={false}
-                isOpen={isExpanded(experience.id)}
-                onOpenChange={() => toggleExpandedItem(experience.id)}
-              />
-            );
-          })}
+          {experienceList.map((experience) => (
+            <ExperienceCard
+              key={experience.id}
+              experience={experience}
+              headingLevel="h3"
+              showSkills={false}
+              showEdit={false}
+              isOpen={isExpanded(experience.id)}
+              onOpenChange={() => toggleExpandedItem(experience.id)}
+            />
+          ))}
         </div>
       ) : (
         <Well>
