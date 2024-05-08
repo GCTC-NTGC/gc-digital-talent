@@ -315,7 +315,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
           <Link
             color="quinary"
             mode="cta"
-            href={paths.myProfile()}
+            href={paths.profile()}
             icon={UserPlusIcon}
           >
             {intl.formatMessage({

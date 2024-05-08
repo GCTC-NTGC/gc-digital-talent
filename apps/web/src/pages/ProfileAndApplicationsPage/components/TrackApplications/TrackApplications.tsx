@@ -5,7 +5,7 @@ import { useIntl } from "react-intl";
 import FolderOpenIcon from "@heroicons/react/24/outline/FolderOpenIcon";
 
 import { Accordion, Heading, Link, Well } from "@gc-digital-talent/ui";
-import { PoolCandidate, Scalars } from "@gc-digital-talent/graphql";
+import { PoolCandidate } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { isApplicationInProgress, notRemoved } from "~/utils/applicationUtils";
@@ -20,15 +20,11 @@ export type Application = Omit<PoolCandidate, "user">;
 
 interface TrackApplicationsProps {
   applications: Application[];
-  userId: Scalars["ID"]["output"];
 }
 
 type AccordionItems = Array<"in_progress" | "past" | "">;
 
-const TrackApplications = ({
-  applications,
-  userId,
-}: TrackApplicationsProps) => {
+const TrackApplications = ({ applications }: TrackApplicationsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 
@@ -82,7 +78,7 @@ const TrackApplications = ({
             {
               a: (chunks: React.ReactNode) =>
                 buildLink(
-                  paths.careerTimelineAndRecruitment(userId, {
+                  paths.careerTimelineAndRecruitment({
                     section:
                       CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES,
                   }),

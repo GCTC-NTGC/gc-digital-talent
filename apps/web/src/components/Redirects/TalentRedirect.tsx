@@ -14,16 +14,15 @@ const TalentRedirect = () => {
 
   React.useEffect(() => {
     if (userAuthInfo) {
-      const { id } = userAuthInfo;
-      let profilePath = paths.profile(id);
+      let profilePath = paths.profile();
       if (pathname.includes("create-account")) {
         profilePath = paths.createAccount();
       }
       if (pathname.includes("career-timeline")) {
-        profilePath = paths.careerTimelineAndRecruitment(id);
+        profilePath = paths.careerTimelineAndRecruitment();
 
         if (pathname.includes("create")) {
-          profilePath = paths.createExperience(id);
+          profilePath = paths.createExperience();
         }
       }
 

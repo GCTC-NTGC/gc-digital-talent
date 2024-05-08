@@ -1,5 +1,5 @@
 import React from "react";
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { Locales, useLocale } from "@gc-digital-talent/i18n";
 import {
@@ -897,7 +897,7 @@ const createRoute = (
                       roles={[ROLE_NAME.Applicant]}
                       loginPath={loginPath}
                     >
-                      <Outlet />
+                      <ProfileAndApplicationsPage />
                     </RequireAuth>
                   ),
                 },
@@ -926,7 +926,18 @@ const createRoute = (
                   }),
                 },
                 {
-                  path: "profile-and-applications",
+                  path: "personal-information",
+                  element: (
+                    <RequireAuth
+                      roles={[ROLE_NAME.Applicant]}
+                      loginPath={loginPath}
+                    >
+                      <ProfilePage />
+                    </RequireAuth>
+                  ),
+                },
+                {
+                  path: "career-timeline",
                   children: [
                     {
                       index: true,
@@ -935,12 +946,66 @@ const createRoute = (
                           roles={[ROLE_NAME.Applicant]}
                           loginPath={loginPath}
                         >
-                          <ProfileAndApplicationsPage />
+                          <CareerTimelineAndRecruitmentPage />
                         </RequireAuth>
                       ),
                     },
                     {
-                      path: "skills",
+                      path: "create",
+                      element: (
+                        <RequireAuth
+                          roles={[ROLE_NAME.Applicant]}
+                          loginPath={loginPath}
+                        >
+                          <ExperienceFormPage />
+                        </RequireAuth>
+                      ),
+                    },
+                    {
+                      path: ":experienceId",
+                      children: [
+                        {
+                          path: "edit",
+                          element: (
+                            <RequireAuth
+                              roles={[ROLE_NAME.Applicant]}
+                              loginPath={loginPath}
+                            >
+                              <ExperienceFormPage edit />
+                            </RequireAuth>
+                          ),
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  path: "skills",
+                  children: [
+                    {
+                      index: true,
+                      element: (
+                        <RequireAuth
+                          roles={[ROLE_NAME.Applicant]}
+                          loginPath={loginPath}
+                        >
+                          <SkillLibraryPage />
+                        </RequireAuth>
+                      ),
+                    },
+                    {
+                      path: ":skillId",
+                      element: (
+                        <RequireAuth
+                          roles={[ROLE_NAME.Applicant]}
+                          loginPath={loginPath}
+                        >
+                          <UpdateUserSkillPage />
+                        </RequireAuth>
+                      ),
+                    },
+                    {
+                      path: "showcase",
                       children: [
                         {
                           index: true,
@@ -949,80 +1014,53 @@ const createRoute = (
                               roles={[ROLE_NAME.Applicant]}
                               loginPath={loginPath}
                             >
-                              <SkillLibraryPage />
+                              <SkillShowcasePage />
                             </RequireAuth>
                           ),
                         },
                         {
-                          path: ":skillId",
+                          path: "top-5-behavioural-skills",
                           element: (
                             <RequireAuth
                               roles={[ROLE_NAME.Applicant]}
                               loginPath={loginPath}
                             >
-                              <UpdateUserSkillPage />
+                              <TopBehaviouralSkillsPage />
                             </RequireAuth>
                           ),
                         },
                         {
-                          path: "showcase",
-                          children: [
-                            {
-                              index: true,
-                              element: (
-                                <RequireAuth
-                                  roles={[ROLE_NAME.Applicant]}
-                                  loginPath={loginPath}
-                                >
-                                  <SkillShowcasePage />
-                                </RequireAuth>
-                              ),
-                            },
-                            {
-                              path: "top-5-behavioural-skills",
-                              element: (
-                                <RequireAuth
-                                  roles={[ROLE_NAME.Applicant]}
-                                  loginPath={loginPath}
-                                >
-                                  <TopBehaviouralSkillsPage />
-                                </RequireAuth>
-                              ),
-                            },
-                            {
-                              path: "top-10-technical-skills",
-                              element: (
-                                <RequireAuth
-                                  roles={[ROLE_NAME.Applicant]}
-                                  loginPath={loginPath}
-                                >
-                                  <TopTechnicalSkillsPage />
-                                </RequireAuth>
-                              ),
-                            },
-                            {
-                              path: "3-behavioural-skills-to-improve",
-                              element: (
-                                <RequireAuth
-                                  roles={[ROLE_NAME.Applicant]}
-                                  loginPath={loginPath}
-                                >
-                                  <ImproveBehaviouralSkillsPage />
-                                </RequireAuth>
-                              ),
-                            },
-                            {
-                              path: "5-technical-skills-to-train",
-                              element: (
-                                <RequireAuth
-                                  roles={[ROLE_NAME.Applicant]}
-                                  loginPath={loginPath}
-                                >
-                                  <ImproveTechnicalSkillsPage />
-                                </RequireAuth>
-                              ),
-                            },
-                          ],
+                          path: "top-10-technical-skills",
+                          element: (
+                            <RequireAuth
+                              roles={[ROLE_NAME.Applicant]}
+                              loginPath={loginPath}
+                            >
+                              <TopTechnicalSkillsPage />
+                            </RequireAuth>
+                          ),
+                        },
+                        {
+                          path: "3-behavioural-skills-to-improve",
+                          element: (
+                            <RequireAuth
+                              roles={[ROLE_NAME.Applicant]}
+                              loginPath={loginPath}
+                            >
+                              <ImproveBehaviouralSkillsPage />
+                            </RequireAuth>
+                          ),
+                        },
+                        {
+                          path: "5-technical-skills-to-train",
+                          element: (
+                            <RequireAuth
+                              roles={[ROLE_NAME.Applicant]}
+                              loginPath={loginPath}
+                            >
+                              <ImproveTechnicalSkillsPage />
+                            </RequireAuth>
+                          ),
                         },
                       ],
                     },
@@ -1046,70 +1084,6 @@ const createRoute = (
                       <ProfileRedirect />
                     </RequireAuth>
                   ),
-                },
-                {
-                  path: ":userId",
-                  children: [
-                    {
-                      path: "personal-information",
-                      children: [
-                        {
-                          index: true,
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.Applicant]}
-                              loginPath={loginPath}
-                            >
-                              <ProfilePage />
-                            </RequireAuth>
-                          ),
-                        },
-                        {
-                          path: "career-timeline",
-                          children: [
-                            {
-                              index: true,
-                              element: (
-                                <RequireAuth
-                                  roles={[ROLE_NAME.Applicant]}
-                                  loginPath={loginPath}
-                                >
-                                  <CareerTimelineAndRecruitmentPage />
-                                </RequireAuth>
-                              ),
-                            },
-                            {
-                              path: "create",
-                              element: (
-                                <RequireAuth
-                                  roles={[ROLE_NAME.Applicant]}
-                                  loginPath={loginPath}
-                                >
-                                  <ExperienceFormPage />
-                                </RequireAuth>
-                              ),
-                            },
-                            {
-                              path: ":experienceId",
-                              children: [
-                                {
-                                  path: "edit",
-                                  element: (
-                                    <RequireAuth
-                                      roles={[ROLE_NAME.Applicant]}
-                                      loginPath={loginPath}
-                                    >
-                                      <ExperienceFormPage edit />
-                                    </RequireAuth>
-                                  ),
-                                },
-                              ],
-                            },
-                          ],
-                        },
-                      ],
-                    },
-                  ],
                 },
               ],
             },
