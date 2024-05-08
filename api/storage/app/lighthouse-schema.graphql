@@ -460,6 +460,13 @@ type Department {
   teams: [Team]
 }
 
+type Community {
+  id: ID!
+  key: String!
+  name: LocalizedString
+  description: LocalizedString
+}
+
 type Team {
   id: ID!
   name: String!

@@ -352,6 +352,13 @@ type Department {
   teams: [Team] @belongsToMany @canModel(ability: "viewAny")
 }
 
+type Community {
+  id: ID!
+  key: String!
+  name: LocalizedString
+  description: LocalizedString
+}
+
 type Team {
   id: ID!
   name: String! # represents a unique key for a team
