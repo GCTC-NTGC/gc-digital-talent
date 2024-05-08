@@ -41,7 +41,7 @@ const Submit = ({
 
   return (
     <Button
-      color={color || "primary"}
+      color={color || "secondary"}
       mode={mode || "solid"}
       type="submit"
       icon={icon}
