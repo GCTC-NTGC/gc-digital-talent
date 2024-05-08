@@ -2655,6 +2655,10 @@
     "defaultMessage": "Agrandir toutes les sections<hidden> de l’information sur la demande</hidden>",
     "description": "Button text to open all application information accordions"
   },
+  "DG4c6M": {
+    "defaultMessage": "{status}<hidden> changer le statut pour {poolName}</hidden>",
+    "description": "Button to change a users status in a pool - located in the table on view-user page"
+  },
   "DHQasU": {
     "defaultMessage": "Voir les notes",
     "description": "Button label for view notes on view pool candidate page"
@@ -4914,10 +4918,6 @@
   "QJ5uDV": {
     "defaultMessage": "Sélectionnez un volet",
     "description": "Placeholder for stream filter in search form."
-  },
-  "QJPsGW": {
-    "defaultMessage": "{status} <hidden>changer le statut pour {poolName}</hidden>",
-    "description": "Button to change a users status in a pool - located in the table on view-user page"
   },
   "QJi1ZQ": {
     "defaultMessage": "Annuler la décision et mettre le statut à jour",
