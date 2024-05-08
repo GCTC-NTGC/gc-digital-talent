@@ -289,7 +289,7 @@ const ApplicationEducation = ({
           >
             <Button
               type="submit"
-              mode="solid"
+              color="secondary"
               value="continue"
               disabled={mutating || isSubmitting}
               {...actionProps}

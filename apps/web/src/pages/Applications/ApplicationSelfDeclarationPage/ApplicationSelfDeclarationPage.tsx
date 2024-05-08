@@ -246,7 +246,7 @@ export const ApplicationSelfDeclaration = ({
                 >
                   <Button
                     type="submit"
-                    mode="solid"
+                    color="secondary"
                     value="continue"
                     disabled={isSubmitting}
                     {...actionProps}
@@ -305,6 +305,7 @@ export const ApplicationSelfDeclaration = ({
                   <Button
                     type="submit"
                     mode="solid"
+                    color="secondary"
                     value="explore"
                     disabled={isSubmitting}
                     {...actionProps}
