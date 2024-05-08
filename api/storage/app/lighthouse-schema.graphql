@@ -26,6 +26,7 @@ type Query {
   skills: [Skill]!
   genericJobTitle(id: UUID!): GenericJobTitle
   genericJobTitles: [GenericJobTitle]!
+  communities: [Community]!
   team(id: UUID!): Team
   teams: [Team]!
   roles: [Role]!
