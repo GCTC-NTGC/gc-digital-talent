@@ -207,19 +207,9 @@ const SignedOutPage = () => {
             })}
           </p>
           <AlertDialog.Footer>
-            <AlertDialog.Cancel>
-              <Link
-                color="primary"
-                mode="inline"
-                href={paths.profileAndApplications()}
-              >
-                {intl.formatMessage(commonMessages.cancel)}
-              </Link>
-            </AlertDialog.Cancel>
             <AlertDialog.Action>
               <Button
-                mode="solid"
-                color="primary"
+                color="secondary"
                 type="button"
                 onClick={() => {
                   logout();
@@ -228,6 +218,15 @@ const SignedOutPage = () => {
                 {intl.formatMessage(authMessages.signOut)}
               </Button>
             </AlertDialog.Action>
+            <AlertDialog.Cancel>
+              <Link
+                color="warning"
+                mode="inline"
+                href={paths.profileAndApplications()}
+              >
+                {intl.formatMessage(commonMessages.cancel)}
+              </Link>
+            </AlertDialog.Cancel>
           </AlertDialog.Footer>
         </AlertDialog.Content>
       </AlertDialog.Root>
