@@ -17,6 +17,7 @@ import {
   errorMessages,
   getLanguage,
   getLocale,
+  getLocalizedName,
   getPoolCandidatePriorities,
   getPoolCandidateStatus,
 } from "@gc-digital-talent/i18n";
@@ -30,6 +31,7 @@ import {
   Maybe,
   PoolCandidateWithSkillCount,
   PublishingGroup,
+  FragmentType,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -59,7 +61,6 @@ import {
   candidateNameCell,
   currentLocationAccessor,
   finalDecisionCell,
-  jobPlacementCell,
   notesCell,
   priorityCell,
   statusCell,
@@ -78,11 +79,15 @@ import {
   getPoolCandidateCsvData,
   getPoolCandidateCsvHeaders,
 } from "./poolCandidateCsv";
+import {
+  JobPlacementDialog_Fragment,
+  jobPlacementDialogAccessor,
+} from "./JobPlacementDialog";
 
 const columnHelper = createColumnHelper<PoolCandidateWithSkillCount>();
 
-const CandidatesTableSkills_Query = graphql(/* GraphQL */ `
-  query CandidatesTableSkills {
+const CandidatesTable_Query = graphql(/* GraphQL */ `
+  query CandidatesTable_Query {
     skills {
       id
       key
@@ -112,6 +117,14 @@ const CandidatesTableSkills_Query = graphql(/* GraphQL */ `
         }
       }
     }
+    departments {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
   }
 `);
 
@@ -133,6 +146,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
       data {
         id
         poolCandidate {
+          ...JobPlacementDialog
           id
           pool {
             id
@@ -427,13 +441,15 @@ const PoolCandidatesTable = ({
     return poolCandidates.filter(notEmpty);
   }, [data?.poolCandidatesPaginated.data]);
 
-  const [{ data: allSkillsData, fetching: fetchingSkills }] = useQuery({
-    query: CandidatesTableSkills_Query,
+  const [{ data: tableData, fetching: fetchingTableData }] = useQuery({
+    query: CandidatesTable_Query,
   });
-  const allSkills = unpackMaybes(allSkillsData?.skills);
+  const allSkills = unpackMaybes(tableData?.skills);
   const filteredSkillIds = filterState?.applicantFilter?.skills
     ?.filter(notEmpty)
     .map((skill) => skill.id);
+
+  const departments = unpackMaybes(tableData?.departments);
 
   const isPoolCandidate = (
     candidate: Error | PoolCandidate | null,
@@ -623,11 +639,23 @@ const PoolCandidatesTable = ({
         header: intl.formatMessage(tableMessages.jobPlacement),
         cell: ({
           row: {
-            original: {
-              poolCandidate: { status },
-            },
+            original: { poolCandidate },
           },
-        }) => jobPlacementCell(intl, status),
+        }) =>
+          jobPlacementDialogAccessor(
+            poolCandidate as FragmentType<typeof JobPlacementDialog_Fragment>,
+            departments,
+          ),
+        enableSorting: false,
+      },
+    ),
+    columnHelper.accessor(
+      (row) =>
+        getLocalizedName(row.poolCandidate.placedDepartment?.name, intl, true),
+      {
+        id: "placedDepartment",
+        header: intl.formatMessage(tableMessages.placedDepartment),
+        enableColumnFilter: false,
         enableSorting: false,
       },
     ),
@@ -727,7 +755,7 @@ const PoolCandidatesTable = ({
       caption={title}
       data={filteredData}
       columns={columns}
-      isLoading={fetching || fetchingSkills}
+      isLoading={fetching || fetchingTableData}
       hiddenColumnIds={hiddenColumnIds}
       search={{
         internal: false,
