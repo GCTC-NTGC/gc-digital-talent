@@ -176,8 +176,8 @@ const ChangeStatusDialog = ({
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "{status} <hidden>Change status for {poolName}</hidden>",
-                id: "QJPsGW",
+                  "{status}<hidden> Change status for {poolName}</hidden>",
+                id: "DG4c6M",
                 description:
                   "Button to change a users status in a pool - located in the table on view-user page",
               },
