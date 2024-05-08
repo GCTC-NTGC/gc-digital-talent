@@ -74,6 +74,7 @@ class NewJobPosted extends Notification implements CanBeSentViaGcNotifyEmail
                 config('notify.templates.new_job_posted_en'),
                 $notifiable->email,
                 [
+                    'applicant name' => $notifiable->first_name,
                     'opportunity title' => $this->poolNameEn,
                     'job advertisement link' => config('app.url').'/en/browse/pools/'.$this->poolId,
                 ]
@@ -84,6 +85,7 @@ class NewJobPosted extends Notification implements CanBeSentViaGcNotifyEmail
                 config('notify.templates.new_job_posted_fr'),
                 $notifiable->email,
                 [
+                    'applicant name' => $notifiable->first_name,
                     'opportunity title' => $this->poolNameFr,
                     'job advertisement link' => config('app.url').'/fr/browse/pools/'.$this->poolId,
                 ]
