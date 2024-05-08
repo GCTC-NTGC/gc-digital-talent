@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('communities', function (Blueprint $table) {
             $table->uuid('id')->primary('id')->default(new Expression('gen_random_uuid()'));
             $table->timestamps();
-            $table->string('key');
+            $table->string('key')->unique();
             $table->jsonb('name')->default(json_encode(['en' => '', 'fr' => '']))->nullable();
             $table->jsonb('description')->default(json_encode(['en' => '', 'fr' => '']))->nullable();
         });
