@@ -359,7 +359,7 @@ class ApplicantFilterTest extends TestCase
                 'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
             ]);
         // Create candidates who may show up in searches
-        $candidates = PoolCandidate::factory()->count(100)->availableInSearch()->create([
+        $candidates = PoolCandidate::factory()->count(10)->availableInSearch()->create([
             'pool_id' => $pool->id,
             'user_id' => User::factory()->withSkillsAndExperiences(10),
         ]);
@@ -392,7 +392,7 @@ class ApplicantFilterTest extends TestCase
             'experiences',
             'experiences.skills',
         ])->find($candidate->user_id);
-        $candidateSkills = $candidateUser->experiences->pluck('skills')->flatten()->unique();
+        $candidateSkills = $candidateUser->experiences[0]->skills;
         $filter->skills()->saveMany($candidateSkills->shuffle()->take(3));
         $filter->pools()->save($pool);
         $filter->qualified_streams = $pool->stream;

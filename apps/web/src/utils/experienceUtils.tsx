@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import { IntlShape, useIntl } from "react-intl";
 import BookOpenIcon from "@heroicons/react/20/solid/BookOpenIcon";
 import BriefcaseIcon from "@heroicons/react/20/solid/BriefcaseIcon";
@@ -411,12 +410,10 @@ export const deriveExperienceType = (
     ["WorkExperience", "work"],
   ]);
 
-  // eslint-disable-next-line no-underscore-dangle
   if (!experience.__typename) {
     return undefined;
   }
 
-  // eslint-disable-next-line no-underscore-dangle
   return map.get(experience.__typename);
 };
 

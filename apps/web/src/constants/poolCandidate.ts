@@ -44,8 +44,8 @@ export const PLACED_STATUSES = [
 ];
 
 export const NOT_PLACED_STATUSES = [
-  PoolCandidateStatus.QualifiedAvailable,
   PoolCandidateStatus.PlacedTentative,
+  PoolCandidateStatus.QualifiedAvailable,
 ];
 
 export const RECORD_DECISION_STATUSES = [

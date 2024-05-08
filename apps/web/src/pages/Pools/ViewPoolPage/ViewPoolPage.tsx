@@ -12,7 +12,13 @@ import {
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
-import { graphql, Pool, PoolStatus, Scalars } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  getFragment,
+  graphql,
+  PoolStatus,
+  Scalars,
+} from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -39,8 +45,35 @@ import DeleteProcessDialog from "./components/DeleteProcessDialog";
 import ChangeDateDialog from "./components/ChangeDateDialog";
 import PublishProcessDialog from "./components/PublishProcessDialog";
 
+export const ViewPool_Fragment = graphql(/* GraphQL */ `
+  fragment ViewPool on Pool {
+    ...AssessmentPlanStatus
+    id
+    publishingGroup
+    isComplete
+    status
+    closingDate
+    processNumber
+    stream
+    poolCandidatesCount
+    classification {
+      id
+      group
+      level
+    }
+    name {
+      en
+      fr
+    }
+    poolSkills {
+      id
+      type
+    }
+  }
+`);
+
 export interface ViewPoolProps {
-  pool: Pool;
+  poolQuery: FragmentType<typeof ViewPool_Fragment>;
   isFetching: boolean;
   onPublish: () => Promise<void>;
   onDelete: () => Promise<void>;
@@ -52,7 +85,7 @@ export interface ViewPoolProps {
 }
 
 export const ViewPool = ({
-  pool,
+  poolQuery,
   isFetching,
   onPublish,
   onDelete,
@@ -65,6 +98,7 @@ export const ViewPool = ({
   const intl = useIntl();
   const paths = useRoutes();
   const { roleAssignments } = useAuthorization();
+  const pool = getFragment(ViewPool_Fragment, poolQuery);
   const poolName = getShortPoolTitleHtml(intl, pool);
   const advertisementStatus = getAdvertisementStatus(pool);
   const advertisementBadge = getPoolCompletenessBadge(advertisementStatus);
@@ -105,8 +139,7 @@ export const ViewPool = ({
   });
 
   const isReadyToPublish =
-    getAdvertisementStatus(pool) === "complete" &&
-    getAssessmentPlanStatus(pool) === "complete";
+    advertisementStatus === "complete" && assessmentStatus === "complete";
 
   return (
     <>
@@ -328,7 +361,7 @@ export const ViewPool = ({
                       "The number of applicants to a specific process",
                   },
                   {
-                    count: pool?.poolCandidates?.length ?? 0,
+                    count: pool.poolCandidatesCount ?? 0,
                   },
                 )}
               </p>
@@ -396,48 +429,10 @@ type RouteParams = {
 const ViewPoolPage_Query = graphql(/* GraphQL */ `
   query ViewPoolPage($id: UUID!) {
     pool(id: $id) {
-      id
-      name {
-        en
-        fr
-      }
-      publishedAt
-      isComplete
-      status
-      stream
-      processNumber
-      closingDate
-      classification {
-        id
-        name {
-          en
-          fr
-        }
-        group
-        level
-      }
-      poolCandidates {
-        id
-        pool {
-          id
-        }
-        user {
-          id
-        }
-      }
+      ...ViewPool
       team {
         id
         name
-      }
-      poolSkills {
-        id
-      }
-      assessmentSteps {
-        id
-        type
-        poolSkills {
-          id
-        }
       }
     }
   }
@@ -457,7 +452,7 @@ const ViewPoolPage = () => {
       <Pending fetching={fetching} error={error}>
         {poolId && data?.pool ? (
           <ViewPool
-            pool={data.pool}
+            poolQuery={data.pool}
             isFetching={isFetching}
             onExtend={async (newClosingDate: string) => {
               return mutations.extend(poolId, newClosingDate);

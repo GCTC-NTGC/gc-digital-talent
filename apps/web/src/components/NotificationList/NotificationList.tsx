@@ -113,7 +113,7 @@ const NotificationList = ({
           );
         })}
       </ul>
-      <NotificationPortal.Containers />
+      <NotificationPortal.Containers inDialog={inDialog} />
     </>
   );
 };

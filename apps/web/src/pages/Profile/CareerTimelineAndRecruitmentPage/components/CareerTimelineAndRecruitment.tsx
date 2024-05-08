@@ -133,28 +133,31 @@ export const CareerTimelineApplication_Fragment = graphql(/* GraphQL */ `
         minSalary
         maxSalary
       }
-      essentialSkills {
+      poolSkills(type: ESSENTIAL) {
         id
-        key
-        name {
-          en
-          fr
-        }
-        description {
-          en
-          fr
-        }
-        category
-        families {
+        skill {
           id
           key
+          name {
+            en
+            fr
+          }
           description {
             en
             fr
           }
-          name {
-            en
-            fr
+          category
+          families {
+            id
+            key
+            description {
+              en
+              fr
+            }
+            name {
+              en
+              fr
+            }
           }
         }
       }

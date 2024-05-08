@@ -44,7 +44,7 @@ export function transformSortStateToOrderByClause(
     ["manager", "full_name"],
     ["jobTitle", "job_title"],
     ["email", "email"],
-    ["status", "request_status"],
+    ["status", "request_status_weight"],
     ["requestedDate", "created_at"],
   ]);
 

@@ -328,6 +328,7 @@ type Pool {
   classification: Classification
   operationalRequirements: [OperationalRequirement]
   poolCandidates: [PoolCandidate]
+  poolCandidatesCount: Int
   keyTasks: LocalizedString
   yourImpact: LocalizedString
   whatToExpect: LocalizedString
@@ -339,8 +340,6 @@ type Pool {
   securityClearance: SecurityStatus
   language: PoolLanguage
   status: PoolStatus
-  essentialSkills: [Skill!] @deprecated(reason: "Switch to poolSkills filtering for PoolSkillType.ESSENTIAL")
-  nonessentialSkills: [Skill!] @deprecated(reason: "Switch to poolSkills filtering for PoolSkillType.NONESSENTIAL")
   stream: PoolStream
   processNumber: String
   publishingGroup: PublishingGroup
@@ -355,7 +354,7 @@ type Pool {
   archivedAt: DateTime
   isComplete: Boolean
   assessmentSteps: [AssessmentStep]
-  poolSkills: [PoolSkill]
+  poolSkills(type: PoolSkillType): [PoolSkill]
 }
 
 type GeneralQuestionResponse {
@@ -539,7 +538,7 @@ type PoolCandidateSearchRequest {
   status: PoolCandidateSearchStatus
   statusChangedAt: DateTime
   adminNotes: String
-  poolCandidateFilter: PoolCandidateFilter
+  poolCandidateFilter: PoolCandidateFilter @deprecated(reason: "Replaced by applicantFilter")
   applicantFilter: ApplicantFilter
   wasEmpty: Boolean
   managerJobTitle: String
@@ -2130,6 +2129,7 @@ enum PoolCandidateSearchStatus {
   WAITING
   DONE
   DONE_NO_CANDIDATES
+  NOT_COMPLIANT
 }
 
 enum PoolCandidateSearchPositionType {

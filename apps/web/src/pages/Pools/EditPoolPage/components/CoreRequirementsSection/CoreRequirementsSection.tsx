@@ -2,6 +2,7 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
 import InboxStackIcon from "@heroicons/react/24/outline/InboxStackIcon";
+import isEmpty from "lodash/isEmpty";
 
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import {
@@ -21,6 +22,9 @@ import {
   PoolStatus,
   PoolLanguage,
   SecurityStatus,
+  graphql,
+  FragmentType,
+  getFragment,
 } from "@gc-digital-talent/graphql";
 
 import {
@@ -43,14 +47,32 @@ import {
 } from "./utils";
 import ActionWrapper from "../ActionWrapper";
 
-type CoreRequirementsSectionProps = SectionProps<CoreRequirementsSubmitData>;
+const EditPoolCoreRequirements_Fragment = graphql(/* GraphQL */ `
+  fragment EditPoolCoreRequirements on Pool {
+    id
+    status
+    language
+    securityClearance
+    isRemote
+    location {
+      en
+      fr
+    }
+  }
+`);
+
+type CoreRequirementsSectionProps = SectionProps<
+  CoreRequirementsSubmitData,
+  FragmentType<typeof EditPoolCoreRequirements_Fragment>
+>;
 
 const CoreRequirementsSection = ({
-  pool,
+  poolQuery,
   sectionMetadata,
   onSave,
 }: CoreRequirementsSectionProps): JSX.Element => {
   const intl = useIntl();
+  const pool = getFragment(EditPoolCoreRequirements_Fragment, poolQuery);
   const isNull = hasAllEmptyFields(pool);
   const emptyRequired = hasEmptyRequiredFields(pool);
   const { isSubmitting } = useEditPoolContext();
@@ -63,11 +85,14 @@ const CoreRequirementsSection = ({
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(pool),
   });
-  const { handleSubmit, control } = methods;
+  const { handleSubmit, control, watch } = methods;
   const locationOption: FormValues["locationOption"] = useWatch({
     control,
     name: "locationOption",
   });
+
+  const watchSpecificLocationEn = watch("specificLocationEn");
+  const watchSpecificLocationFr = watch("specificLocationFr");
 
   const handleSave = async (formValues: FormValues) => {
     return onSave(formValuesToSubmitData(formValues))
@@ -165,6 +190,18 @@ const CoreRequirementsSection = ({
                       })}
                       disabled={formDisabled}
                       maxLength={1023}
+                      rules={{
+                        validate: () => {
+                          if (
+                            watchSpecificLocationFr &&
+                            isEmpty(watchSpecificLocationEn)
+                          ) {
+                            return false;
+                          }
+
+                          return true;
+                        },
+                      }}
                     />
                     <Input
                       id="specificLocationFr"
@@ -178,6 +215,18 @@ const CoreRequirementsSection = ({
                       })}
                       disabled={formDisabled}
                       maxLength={1023}
+                      rules={{
+                        validate: () => {
+                          if (
+                            watchSpecificLocationEn &&
+                            isEmpty(watchSpecificLocationFr)
+                          ) {
+                            return false;
+                          }
+
+                          return true;
+                        },
+                      }}
                     />
                   </>
                 ) : undefined}

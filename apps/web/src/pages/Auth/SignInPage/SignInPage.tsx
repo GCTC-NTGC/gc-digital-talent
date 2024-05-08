@@ -25,6 +25,12 @@ import step4ImageDark from "~/assets/img/sign-in-steps-4-dark.webp";
 import Instructions from "~/components/Instructions";
 import gckeyMessages from "~/messages/gckeyMessages";
 
+const helpLink = (chunks: React.ReactNode, path: string) => (
+  <Link href={path} state={{ referrer: window.location.href }}>
+    {chunks}
+  </Link>
+);
+
 const buildExternalLink = (path: string, chunks: React.ReactNode) => (
   <Link external href={path}>
     {chunks}
@@ -63,12 +69,6 @@ const SignInPage = () => {
       setThemeKey("iap");
     }
   }, [iapMode, themeKey, setThemeKey]);
-
-  const helpLink = (chunks: React.ReactNode) => (
-    <Link href={paths.support()} state={{ referrer: window.location.href }}>
-      {chunks}
-    </Link>
-  );
 
   return (
     <>
@@ -215,7 +215,8 @@ const SignInPage = () => {
                   <Accordion.Content>
                     <p>
                       {intl.formatMessage(gckeyMessages.answerRecoveryCodes, {
-                        helpLink,
+                        helpLink: (chunks: React.ReactNode) =>
+                          helpLink(chunks, paths.support()),
                       })}
                     </p>
                   </Accordion.Content>
@@ -227,7 +228,8 @@ const SignInPage = () => {
                   <Accordion.Content>
                     <p>
                       {intl.formatMessage(gckeyMessages.answerRemove2FA, {
-                        helpLink,
+                        helpLink: (chunks: React.ReactNode) =>
+                          helpLink(chunks, paths.support()),
                       })}
                     </p>
                   </Accordion.Content>
@@ -239,7 +241,8 @@ const SignInPage = () => {
                   <Accordion.Content>
                     <p>
                       {intl.formatMessage(gckeyMessages.questionAuthCodes, {
-                        helpLink,
+                        helpLink: (chunks: React.ReactNode) =>
+                          helpLink(chunks, paths.support()),
                       })}
                     </p>
                   </Accordion.Content>
@@ -331,7 +334,10 @@ const SignInPage = () => {
                 </Accordion.Item>
               </Accordion.Root>
               <p data-h2-margin-top="base(x1)">
-                {intl.formatMessage(gckeyMessages.moreQuestions, { helpLink })}
+                {intl.formatMessage(gckeyMessages.moreQuestions, {
+                  helpLink: (chunks: React.ReactNode) =>
+                    helpLink(chunks, paths.support()),
+                })}
               </p>
             </>
           ) : (

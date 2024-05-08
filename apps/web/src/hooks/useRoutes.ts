@@ -305,6 +305,9 @@ const getRoutes = (lang: Locales) => {
         "digital-services-contracting-questionnaire",
       ),
 
+    // Account Settings
+    accountSettings: () => path.join(applicantUrl, "settings"),
+
     /**
      * Deprecated
      *
