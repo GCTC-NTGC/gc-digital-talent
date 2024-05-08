@@ -228,7 +228,6 @@ export const UpdateSearchRequestForm = ({
                 data-h2-padding-top="base(x.5)"
               >
                 <Submit
-                  color="primary"
                   disabled={isSaving}
                   isSubmitting={isSaving}
                   text={intl.formatMessage({
@@ -250,7 +249,7 @@ export const UpdateSearchRequestForm = ({
         </FormProvider>
       </div>
       <div>
-        <Link href={navigateTo} mode="inline" color="secondary">
+        <Link href={navigateTo} mode="inline" color="warning">
           {intl.formatMessage({
             defaultMessage: "Back to requests",
             id: "O8nHiQ",

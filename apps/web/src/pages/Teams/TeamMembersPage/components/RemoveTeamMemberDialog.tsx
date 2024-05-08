@@ -128,19 +128,14 @@ const RemoveTeamMemberDialog = ({
             {intl.formatMessage(uiMessages.confirmContinue)}
           </p>
           <Dialog.Footer>
+            <Button color="error" onClick={handleRemove} disabled={fetching}>
+              {fetching ? intl.formatMessage(commonMessages.saving) : label}
+            </Button>
             <Dialog.Close>
-              <Button color="secondary">
+              <Button color="warning" mode="inline">
                 {intl.formatMessage(formMessages.cancelGoBack)}
               </Button>
             </Dialog.Close>
-            <Button
-              mode="solid"
-              color="error"
-              onClick={handleRemove}
-              disabled={fetching}
-            >
-              {fetching ? intl.formatMessage(commonMessages.saving) : label}
-            </Button>
           </Dialog.Footer>
         </Dialog.Body>
       </Dialog.Content>
