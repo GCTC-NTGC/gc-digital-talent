@@ -88,7 +88,7 @@ stages:
               inlineScript: |
                 NPMRC_FILE="${{ variables.npm_config_user_config }}"
                 echo "Editing .npmrc: ${NPMRC_FILE}"
-                echo "registry=https://pkgs.dev.azure.com/tbs-sct/53c8b022-82b7-4031-88aa-0d1266fc3bf5/_packaging/TalentCloud_Custom_NPM_Feed/npm/registry/
+                echo "registry=https://pkgs.dev.azure.com/tbs-sct/_packaging/TBS_Custom_Npm_Feed/npm/registry/
                  always-auth=true" >> "${NPMRC_FILE}"
           - task: npmAuthenticate@0
             displayName: "00 - NPM Authenticate"
