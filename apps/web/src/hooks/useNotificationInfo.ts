@@ -3,6 +3,7 @@ import React from "react";
 
 import {
   ApplicationDeadlineApproachingNotification,
+  NewJobPostedNotification,
   Notification,
   PoolCandidateStatusChangedNotification,
 } from "@gc-digital-talent/graphql";
@@ -131,6 +132,39 @@ const applicationDeadlineApproachingNotificationToInfo = (
   };
 };
 
+function isNewJobPostedNotification(
+  notification: GraphqlType,
+): notification is NewJobPostedNotification {
+  return (
+    // eslint-disable-next-line no-underscore-dangle
+    notification.__typename === "NewJobPostedNotification"
+  );
+}
+
+const newJobPostedNotificationToInfo = (
+  notification: NewJobPostedNotification,
+  paths: ReturnType<typeof useRoutes>,
+  intl: IntlShape,
+): NotificationInfo => {
+  const poolNameLocalized = getLocalizedName(notification.poolName, intl);
+
+  return {
+    message: intl.formatMessage({
+      defaultMessage:
+        "A new opportunity is now available! Find out if this is a fit for you and apply.",
+      id: "OlSnME",
+      description: "Message for new job posted notification",
+    }),
+    href: notification.poolId ? paths.pool(notification.poolId) : "",
+    label: intl.formatMessage({
+      defaultMessage:
+        "A new opportunity is now available! Find out if this is a fit for you and apply.",
+      id: "Nm+j2a",
+      description: "Label for the new job posted notification",
+    }),
+  };
+};
+
 const useNotificationInfo = (
   notification: Notification & GraphqlType,
 ): NotificationInfo | null => {
@@ -152,6 +186,10 @@ const useNotificationInfo = (
       paths,
       intl,
     );
+  }
+
+  if (isNewJobPostedNotification(notification)) {
+    return newJobPostedNotificationToInfo(notification, paths, intl);
   }
 
   logger.warning(
