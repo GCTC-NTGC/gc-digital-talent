@@ -29,10 +29,7 @@ type NotificationInfo = {
 function isPoolCandidateStatusChangedNotification(
   notification: GraphqlType,
 ): notification is PoolCandidateStatusChangedNotification {
-  return (
-    // eslint-disable-next-line no-underscore-dangle
-    notification.__typename === "PoolCandidateStatusChangedNotification"
-  );
+  return notification.__typename === "PoolCandidateStatusChangedNotification";
 }
 
 const poolCandidateStatusChangedNotificationToInfo = (
@@ -83,7 +80,6 @@ function isApplicationDeadlineApproachingNotification(
   notification: GraphqlType,
 ): notification is ApplicationDeadlineApproachingNotification {
   return (
-    // eslint-disable-next-line no-underscore-dangle
     notification.__typename === "ApplicationDeadlineApproachingNotification"
   );
 }
@@ -159,7 +155,6 @@ const useNotificationInfo = (
   }
 
   logger.warning(
-    // eslint-disable-next-line no-underscore-dangle
     `Could not create NotificationInfo for ${notification.__typename}`,
   );
   return null;
