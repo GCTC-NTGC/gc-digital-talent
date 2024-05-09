@@ -194,7 +194,24 @@ const ExperienceSection = ({
               />
             ))}
           </Accordion.Root>
-        ) : null}
+        ) : (
+          <div
+            data-h2-background-color="base(background.dark)"
+            data-h2-border="base(1px solid background.darker)"
+            data-h2-padding="base(x1)"
+            data-h2-radius="base(s)"
+          >
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "No skills have been linked to any experiences.",
+                id: "23/pqm",
+                description:
+                  "Null state for when no skills have been linked to any experiences",
+              })}
+            </p>
+          </div>
+        )}
       </Tabs.Content>
     </Tabs.Root>
   ) : (
