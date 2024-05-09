@@ -29,7 +29,8 @@ import IAPNavMenu from "../NavMenu/IAPNavMenu";
 import LogoutButton from "./LogoutButton";
 import SitewideBanner from "./SitewideBanner";
 import SkipLink from "./SkipLink";
-import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
+
+export { ErrorBoundary } from "./ErrorBoundary/ErrorBoundary";
 
 export const Component = () => {
   const intl = useIntl();
@@ -155,5 +156,3 @@ export const Component = () => {
 };
 
 Component.Layout = "Layout";
-
-export { ErrorBoundary };

@@ -25,7 +25,8 @@ import * as micMessages from "~/lang/micCompiled.json";
 
 import SkipLink from "./SkipLink";
 import SitewideBanner from "./SitewideBanner";
-import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
+
+export { ErrorBoundary } from "./ErrorBoundary/ErrorBoundary";
 
 const messages: Map<string, Messages> = new Map([
   ["crg", crgMessages],
@@ -103,7 +104,5 @@ export const Component = () => {
     </NestedLanguageProvider>
   );
 };
-
-export { ErrorBoundary };
 
 Component.displayName = "IAPLayout";

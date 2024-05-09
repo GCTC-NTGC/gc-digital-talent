@@ -3,7 +3,7 @@ import { Meta, StoryFn } from "@storybook/react";
 
 import { CHROMATIC_VIEWPORTS } from "@gc-digital-talent/storybook-helpers";
 
-import ErrorBoundary from "./ErrorBoundary";
+import { ErrorBoundary } from "./ErrorBoundary";
 
 export default {
   component: ErrorBoundary,
