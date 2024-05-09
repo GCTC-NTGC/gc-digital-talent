@@ -37,32 +37,6 @@ const AdminErrorPage = React.lazy(() =>
   ),
 );
 
-/** Departments */
-const IndexDepartmentPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminIndexDepartmentPage" */ "../pages/Departments/IndexDepartmentPage"
-      ),
-  ),
-);
-const CreateDepartmentPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminCreateDepartmentPage" */ "../pages/Departments/CreateDepartmentPage"
-      ),
-  ),
-);
-const UpdateDepartmentPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminUpdateDepartmentPage" */ "../pages/Departments/UpdateDepartmentPage"
-      ),
-  ),
-);
-
 /** Skill Families */
 const IndexSkillFamilyPage = React.lazy(() =>
   lazyRetry(
@@ -916,39 +890,21 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   children: [
                     {
                       index: true,
-                      element: (
-                        <RequireAuth
-                          roles={[ROLE_NAME.PlatformAdmin]}
-                          loginPath={loginPath}
-                        >
-                          <IndexDepartmentPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import("../pages/Departments/IndexDepartmentPage"),
                     },
                     {
                       path: "create",
-                      element: (
-                        <RequireAuth
-                          roles={[ROLE_NAME.PlatformAdmin]}
-                          loginPath={loginPath}
-                        >
-                          <CreateDepartmentPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import("../pages/Departments/CreateDepartmentPage"),
                     },
                     {
                       path: ":departmentId",
                       children: [
                         {
                           path: "edit",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.PlatformAdmin]}
-                              loginPath={loginPath}
-                            >
-                              <UpdateDepartmentPage />
-                            </RequireAuth>
-                          ),
+                          lazy: () =>
+                            import("../pages/Departments/UpdateDepartmentPage"),
                         },
                       ],
                     },
