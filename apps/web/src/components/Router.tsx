@@ -37,48 +37,6 @@ const AdminErrorPage = React.lazy(() =>
   ),
 );
 
-/** Users */
-const IndexUserPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminIndexUserPage" */ "../pages/Users/IndexUserPage/IndexUserPage"
-      ),
-  ),
-);
-const UserLayout = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminUserLayout" */ "../pages/Users/UserLayout"
-      ),
-  ),
-);
-const UpdateUserPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminUpdateUserPage" */ "../pages/Users/UpdateUserPage/UpdateUserPage"
-      ),
-  ),
-);
-const AdminUserProfilePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminAdminUserProfilePage" */ "../pages/Users/AdminUserProfilePage/AdminUserProfilePage"
-      ),
-  ),
-);
-const UserInformationPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminUserInformationPage" */ "../pages/Users/UserInformationPage/UserInformationPage"
-      ),
-  ),
-);
-
 /** Teams */
 const IndexTeamPage = React.lazy(() =>
   lazyRetry(
@@ -898,74 +856,31 @@ const createRoute = (locale: Locales, loginPath: string) =>
               children: [
                 {
                   index: true,
-                  element: (
-                    <RequireAuth
-                      roles={[
-                        ROLE_NAME.PoolOperator,
-                        ROLE_NAME.RequestResponder,
-                        ROLE_NAME.PlatformAdmin,
-                      ]}
-                      loginPath={loginPath}
-                    >
-                      <IndexUserPage />
-                    </RequireAuth>
-                  ),
+                  lazy: () =>
+                    import("../pages/Users/IndexUserPage/IndexUserPage"),
                 },
                 {
                   path: ":userId",
-                  element: (
-                    <RequireAuth
-                      roles={[
-                        ROLE_NAME.PoolOperator,
-                        ROLE_NAME.RequestResponder,
-                        ROLE_NAME.PlatformAdmin,
-                      ]}
-                      loginPath={loginPath}
-                    >
-                      <UserLayout />
-                    </RequireAuth>
-                  ),
+                  lazy: () => import("../pages/Users/UserLayout"),
                   children: [
                     {
                       index: true,
-                      element: (
-                        <RequireAuth
-                          roles={[
-                            ROLE_NAME.PoolOperator,
-                            ROLE_NAME.RequestResponder,
-                            ROLE_NAME.PlatformAdmin,
-                          ]}
-                          loginPath={loginPath}
-                        >
-                          <UserInformationPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import(
+                          "../pages/Users/UserInformationPage/UserInformationPage"
+                        ),
                     },
                     {
                       path: "profile",
-                      element: (
-                        <RequireAuth
-                          roles={[
-                            ROLE_NAME.PoolOperator,
-                            ROLE_NAME.RequestResponder,
-                            ROLE_NAME.PlatformAdmin,
-                          ]}
-                          loginPath={loginPath}
-                        >
-                          <AdminUserProfilePage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import(
+                          "../pages/Users/AdminUserProfilePage/AdminUserProfilePage"
+                        ),
                     },
                     {
                       path: "edit",
-                      element: (
-                        <RequireAuth
-                          roles={[ROLE_NAME.PlatformAdmin]}
-                          loginPath={loginPath}
-                        >
-                          <UpdateUserPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import("../pages/Users/UpdateUserPage/UpdateUserPage"),
                     },
                   ],
                 },
