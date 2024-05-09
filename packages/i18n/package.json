@@ -38,7 +38,7 @@
     "react-intl": "^6.6.5",
     "react-router-dom": "^6.23.0",
     "tsconfig": "workspace:*",
-    "tsx": "^4.8.2",
+    "tsx": "^4.9.3",
     "typescript": "^5.4.5",
     "yargs": "^17.7.2"
   }
