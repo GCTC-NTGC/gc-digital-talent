@@ -63,6 +63,7 @@ subquery
 TALENTSEARCH
 tanstack
 TELEWORK
+Telework
 testid
 textbox
 Timeframe
