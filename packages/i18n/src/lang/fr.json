@@ -1391,6 +1391,10 @@
     "defaultMessage": "Annuler et revenir en arrière",
     "description": "Text to cancel changes to a form"
   },
+  "fO0cRR": {
+    "defaultMessage": "Vous devez supprimer un élément si vous voulez en ajouter un autre",
+    "description": "Message displayed when max items have been reached on repeater component."
+  },
   "fUF8rg": {
     "defaultMessage": "Sélectionnez une option",
     "description": "Null selection for select input"
@@ -1590,10 +1594,6 @@
   "lDeaXK": {
     "defaultMessage": "Disponibilité, volonté et capacité à faire des heures supplémentaires (planifiées)",
     "description": "The operational requirement described as scheduled overtime."
-  },
-  "fO0cRR": {
-    "defaultMessage": "Vous devez supprimer un élément si vous voulez en ajouter un autre",
-    "description": "Message displayed when max items have been reached on repeater component."
   },
   "lXgeJr": {
     "defaultMessage": "Veuillez relier au moins une expérience du calendrier de carrière à chacune des exigences techniques requises, et veillez à ce que chaque compétence possède des détails sur la façon de s’en servir.",
