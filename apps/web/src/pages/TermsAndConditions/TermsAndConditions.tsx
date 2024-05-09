@@ -145,7 +145,7 @@ const optimizeLink = (locale: Locales, chunks: React.ReactNode) => (
   </Link>
 );
 
-const TermsAndConditions = () => {
+export const Component = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
@@ -867,4 +867,6 @@ const TermsAndConditions = () => {
   );
 };
 
-export default TermsAndConditions;
+Component.displayName = "TermsAndConditionsPage";
+
+export default Component;

@@ -19,68 +19,11 @@ import CreateAccountRedirect from "~/pages/Auth/CreateAccountPage/CreateAccountR
 import useRoutes from "~/hooks/useRoutes";
 import ScreeningAndEvaluationPage from "~/pages/Pools/ScreeningAndEvaluationPage/ScreeningAndEvaluationPage";
 
-/** Home */
-const HomePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsHomePage" */ "../pages/Home/HomePage/HomePage"
-      ),
-  ),
-);
-const ExecutiveHomePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsExecutiveHomePage" */ "../pages/Home/ExecutiveHomePage/ExecutiveHomePage"
-      ),
-  ),
-);
-const ManagerHomePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsManagerHomePage" */ "../pages/Home/ManagerHomePage/ManagerHomePage"
-      ),
-  ),
-);
 const ErrorPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
         /* webpackChunkName: "tsErrorPage" */ "../pages/Errors/ErrorPage/ErrorPage"
-      ),
-  ),
-);
-const SupportPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsSupportPage" */ "../pages/SupportPage/SupportPage"
-      ),
-  ),
-);
-const TermsAndConditions = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsSupportPage" */ "../pages/TermsAndConditions/TermsAndConditions"
-      ),
-  ),
-);
-const PrivacyPolicy = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsSupportPage" */ "../pages/PrivacyPolicy/PrivacyPolicy"
-      ),
-  ),
-);
-const AccessibilityPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsAccessibilityPage" */ "../pages/AccessibilityStatementPage/AccessibilityStatementPage"
       ),
   ),
 );
@@ -774,31 +717,37 @@ const createRoute = (
           children: [
             {
               index: true,
-              element: <HomePage />,
+              lazy: () => import("../pages/Home/HomePage/HomePage"),
             },
             {
               path: "executive",
-              element: <ExecutiveHomePage />,
+              lazy: () =>
+                import("../pages/Home/ExecutiveHomePage/ExecutiveHomePage"),
             },
             {
               path: "manager",
-              element: <ManagerHomePage />,
+              lazy: () =>
+                import("../pages/Home/ManagerHomePage/ManagerHomePage"),
             },
             {
               path: "support",
-              element: <SupportPage />,
+              lazy: () => import("../pages/SupportPage/SupportPage"),
             },
             {
               path: "terms-and-conditions",
-              element: <TermsAndConditions />,
+              lazy: () =>
+                import("../pages/TermsAndConditions/TermsAndConditions"),
             },
             {
               path: "privacy-policy",
-              element: <PrivacyPolicy />,
+              lazy: () => import("../pages/PrivacyPolicy/PrivacyPolicy"),
             },
             {
               path: "accessibility-statement",
-              element: <AccessibilityPage />,
+              lazy: () =>
+                import(
+                  "../pages/AccessibilityStatementPage/AccessibilityStatementPage"
+                ),
             },
             {
               path: "directive-on-digital-talent",
