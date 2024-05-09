@@ -69,7 +69,7 @@
     "@babel/preset-env": "^7.24.5",
     "@babel/preset-react": "^7.23.3",
     "@faker-js/faker": "^8.4.1",
-    "@formatjs/cli": "^6.2.9",
+    "@formatjs/cli": "^6.2.10",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/fake-data": "workspace:*",
     "@gc-digital-talent/helpers": "workspace:*",
