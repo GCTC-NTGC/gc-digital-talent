@@ -28,32 +28,6 @@ const ErrorPage = React.lazy(() =>
   ),
 );
 
-/** Auth */
-const SignUpPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsSignUpPage" */ "../pages/Auth/SignUpPage/SignUpPage"
-      ),
-  ),
-);
-const SignedOutPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsSignedOutPage" */ "../pages/Auth/SignedOutPage/SignedOutPage"
-      ),
-  ),
-);
-const SignInPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsSignInPage" */ "../pages/Auth/SignInPage/SignInPage"
-      ),
-  ),
-);
-
 /** Profile */
 const CreateAccountPage = React.lazy(() =>
   lazyRetry(
@@ -778,7 +752,7 @@ const createRoute = (
             },
             {
               path: "register-info",
-              element: <SignUpPage />,
+              lazy: () => import("../pages/Auth/SignUpPage/SignUpPage"),
             },
             {
               path: "logged-out",
@@ -798,11 +772,11 @@ const createRoute = (
                 }
                 return null;
               },
-              element: <SignedOutPage />,
+              lazy: () => import("../pages/Auth/SignedOutPage/SignedOutPage"),
             },
             {
               path: "login-info",
-              element: <SignInPage />,
+              lazy: () => import("../pages/Auth/SignInPage/SignInPage"),
             },
             {
               path: "create-account",
