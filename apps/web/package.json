@@ -59,7 +59,7 @@
     "react-dom": "^18.2.0",
     "react-helmet-async": "^2.0.5",
     "react-hook-form": "^7.51.4",
-    "react-intl": "^6.6.5",
+    "react-intl": "^6.6.6",
     "react-router-dom": "^6.23.0",
     "react-to-print": "^2.15.1",
     "urql": "^4.0.7"
