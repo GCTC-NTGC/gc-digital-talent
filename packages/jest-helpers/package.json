@@ -15,7 +15,7 @@
   "dependencies": {
     "@gc-digital-talent/i18n": "workspace:*",
     "jest": "^29.7.0",
-    "react-helmet-async": "^2.0.4",
+    "react-helmet-async": "^2.0.5",
     "react-intl": "^6.6.5",
     "react-router-dom": "^6.23.0"
   },
