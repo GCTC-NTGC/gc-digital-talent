@@ -1675,9 +1675,9 @@
     "defaultMessage": "<strong>Nota :</strong> Les résultats tiendront compte de tout candidat qui correspond à <strong>l’une ou plusieurs</strong> des régions sélectionnées",
     "description": "Context for the work region/location preferences filter in the search form."
   },
-  "7nuHuz": {
+  "9t56Ev": {
     "defaultMessage": "Nombre d’évaluations",
-    "description": "Title for a column that displays the numer of assessments planned for a skill."
+    "description": "Title for a column that displays the number of assessments planned for a skill."
   },
   "7nxtBm": {
     "defaultMessage": "Il s’agit du carrefour de l’administrateur de la plateforme des talents numériques du GC à partir d’où il est possible de gérer, trier et recruter le talent pour le GC.",
@@ -2071,9 +2071,9 @@
     "defaultMessage": "Description",
     "description": "Title displayed for the skill table Description column."
   },
-  "9zhqQf": {
+  "pwsDVe": {
     "defaultMessage": "Établissement d’hyperliens vers des sites Web autres que ceux du gouvernement du Canada",
-    "description": "Title for the linkink to gov section"
+    "description": "Title for the linking to gov section"
   },
   "A+4huJ": {
     "defaultMessage": "Mettre à jour ou supprimer une expérience dans votre chronologie de carrière",
