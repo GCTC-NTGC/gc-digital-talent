@@ -10,7 +10,7 @@ import {
   TableOfContents,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { User, graphql } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 
@@ -31,30 +31,7 @@ const AccountSettings_Query = graphql(/* GraphQL */ `
       ignoredEmailNotifications
       ignoredInAppNotifications
       poolCandidates {
-        id
-        status
-        archivedAt
-        submittedAt
-        suspendedAt
-        pool {
-          id
-          closingDate
-          name {
-            en
-            fr
-          }
-          publishingGroup
-          stream
-          classification {
-            id
-            group
-            level
-            name {
-              en
-              fr
-            }
-          }
-        }
+        ...RecruitmentAvailabilityCandidate
       }
     }
   }
@@ -256,7 +233,9 @@ const AccountSettingsPage = () => {
                       },
                     )}
                   </p>
-                  <RecruitmentAvailability user={data?.me as User} />
+                  <RecruitmentAvailability
+                    candidatesQuery={unpackMaybes(data.me.poolCandidates)}
+                  />
                 </TableOfContents.Section>
               </TableOfContents.Content>
             </TableOfContents.Wrapper>

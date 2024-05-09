@@ -7,11 +7,14 @@ import {
   Scalars,
   ArmedForcesStatus,
   AssessmentStepType,
+  FragmentType,
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 
-import CandidateBookmark from "../CandidateBookmark/CandidateBookmark";
+import CandidateBookmark, {
+  PoolCandidate_BookmarkFragment,
+} from "../CandidateBookmark/CandidateBookmark";
 import useRoutes from "../../hooks/useRoutes";
 import {
   CandidateAssessmentResult,
@@ -104,7 +107,11 @@ const AssessmentResult = ({
         })}
       >
         <CandidateBookmark
-          candidate={result.poolCandidate}
+          candidateQuery={
+            result.poolCandidate as FragmentType<
+              typeof PoolCandidate_BookmarkFragment
+            >
+          }
           bookmarked={isBookmarked}
           onBookmarkChange={setIsBookmarked}
         />

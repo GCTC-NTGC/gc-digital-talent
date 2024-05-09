@@ -83,6 +83,7 @@ import {
   JobPlacementDialog_Fragment,
   jobPlacementDialogAccessor,
 } from "./JobPlacementDialog";
+import { PoolCandidate_BookmarkFragment } from "../CandidateBookmark/CandidateBookmark";
 
 const columnHelper = createColumnHelper<PoolCandidateWithSkillCount>();
 
@@ -148,6 +149,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
         poolCandidate {
           ...JobPlacementDialog
           id
+          ...PoolCandidate_Bookmark
           pool {
             id
             name {
@@ -532,7 +534,12 @@ const PoolCandidatesTable = ({
               row: {
                 original: { poolCandidate },
               },
-            }) => bookmarkCell(poolCandidate),
+            }) =>
+              bookmarkCell(
+                poolCandidate as FragmentType<
+                  typeof PoolCandidate_BookmarkFragment
+                >,
+              ),
             meta: {
               shrink: true,
               hideMobileHeader: true,

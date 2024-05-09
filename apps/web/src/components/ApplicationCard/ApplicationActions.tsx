@@ -4,29 +4,23 @@ import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 
 import { AlertDialog, Button, Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { PoolCandidate } from "@gc-digital-talent/graphql";
+import { Scalars } from "@gc-digital-talent/graphql";
 
-import {
-  getShortPoolTitleHtml,
-  getShortPoolTitleLabel,
-} from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 import { PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
 
-type Application = Omit<PoolCandidate, "user">;
-
 interface ActionProps {
   show: boolean;
+  title: string;
 }
 
 interface ContinueActionProps extends ActionProps {
-  application: Application;
+  id: Scalars["UUID"]["output"];
 }
 
-const ContinueAction = ({ show, application }: ContinueActionProps) => {
+const ContinueAction = ({ show, title, id }: ContinueActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { pool } = application;
 
   if (!show) {
     return null;
@@ -38,7 +32,7 @@ const ContinueAction = ({ show, application }: ContinueActionProps) => {
         mode="inline"
         fontSize="caption"
         color="black"
-        href={paths.application(application.id)}
+        href={paths.application(id)}
       >
         {intl.formatMessage(
           {
@@ -47,7 +41,7 @@ const ContinueAction = ({ show, application }: ContinueActionProps) => {
             description: "Link text to continue a specific application",
           },
           {
-            name: getShortPoolTitleHtml(intl, pool),
+            name: title,
           },
         )}
       </Link>
@@ -55,21 +49,19 @@ const ContinueAction = ({ show, application }: ContinueActionProps) => {
   );
 };
 interface ViewActionProps extends ActionProps {
-  application: Application;
+  id: Scalars["UUID"]["output"];
 }
 
-const ViewAction = ({ show, application }: ViewActionProps) => {
+const ViewAction = ({ show, id, title }: ViewActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { pool } = application;
-  const title = getShortPoolTitleLabel(intl, pool);
   if (!show) {
     return null;
   }
 
   return (
     <Link
-      href={paths.application(application.id)}
+      href={paths.application(id)}
       mode="inline"
       fontSize="caption"
       color="black"
@@ -99,25 +91,25 @@ const ViewAction = ({ show, application }: ViewActionProps) => {
 };
 
 interface SeeAdvertisementActionProps extends ActionProps {
-  advertisement: Application["pool"];
+  poolId: Scalars["UUID"]["output"];
 }
 
 const SeeAdvertisementAction = ({
   show,
-  advertisement,
+  poolId,
+  title,
 }: SeeAdvertisementActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const jobTitle = getShortPoolTitleLabel(intl, advertisement);
 
-  if (!show || !advertisement) {
+  if (!show) {
     return null;
   }
 
   return (
     <Link
       mode="inline"
-      href={paths.pool(advertisement.id)}
+      href={paths.pool(poolId)}
       color="black"
       fontSize="caption"
       aria-label={intl.formatMessage(
@@ -127,7 +119,7 @@ const SeeAdvertisementAction = ({
           description: "Link text to see an applications advertisement",
         },
         {
-          title: jobTitle,
+          title,
         },
       )}
     >
@@ -138,20 +130,17 @@ const SeeAdvertisementAction = ({
           description: "Link text to see an applications advertisement",
         },
         {
-          name: jobTitle,
+          name: title,
         },
       )}
     </Link>
   );
 };
-interface SupportActionProps extends ActionProps {
-  application: Application;
-}
+interface SupportActionProps extends ActionProps {}
 
-const SupportAction = ({ show, application }: SupportActionProps) => {
+const SupportAction = ({ show, title }: SupportActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const jobTitle = getShortPoolTitleLabel(intl, application.pool);
   if (!show) {
     return null;
   }
@@ -170,7 +159,7 @@ const SupportAction = ({ show, application }: SupportActionProps) => {
           description: "Link text to direct a user to the support page",
         },
         {
-          title: jobTitle,
+          title,
         },
       )}
     >
@@ -184,19 +173,19 @@ const SupportAction = ({ show, application }: SupportActionProps) => {
 };
 
 interface CopyApplicationIdActionProps extends ActionProps {
-  application: Application;
+  id: Scalars["UUID"]["output"];
 }
 
 const CopyApplicationIdAction = ({
   show,
-  application,
+  title,
+  id,
 }: CopyApplicationIdActionProps) => {
   const intl = useIntl();
   const [linkCopied, setLinkCopied] = React.useState<boolean>(false);
   if (!show) {
     return null;
   }
-  const jobTitle = getShortPoolTitleLabel(intl, application.pool);
   return (
     <Button
       mode="inline"
@@ -205,7 +194,7 @@ const CopyApplicationIdAction = ({
       data-h2-vertical-align="base(top)"
       icon={linkCopied ? CheckIcon : undefined}
       onClick={() => {
-        navigator.clipboard.writeText(application.id);
+        navigator.clipboard.writeText(id);
         setLinkCopied(true);
       }}
       aria-label={
@@ -217,7 +206,7 @@ const CopyApplicationIdAction = ({
                 description: "Button text to copy a specific application ID",
               },
               {
-                title: jobTitle,
+                title,
               },
             )
           : intl.formatMessage(
@@ -228,7 +217,7 @@ const CopyApplicationIdAction = ({
                   "Button text to indicate that a specific application's ID has been copied",
               },
               {
-                title: jobTitle,
+                title,
               },
             )
       }
@@ -248,17 +237,10 @@ const CopyApplicationIdAction = ({
     </Button>
   );
 };
-interface VisitCareerTimelineActionProps extends ActionProps {
-  application: Application;
-}
 
-const VisitCareerTimelineAction = ({
-  show,
-  application,
-}: VisitCareerTimelineActionProps) => {
+const VisitCareerTimelineAction = ({ show, title }: ActionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const jobTitle = getShortPoolTitleLabel(intl, application.pool);
 
   if (!show) {
     return null;
@@ -282,7 +264,7 @@ const VisitCareerTimelineAction = ({
             "Link text to direct a user to the recruitment section on the career timeline page",
         },
         {
-          title: jobTitle,
+          title,
         },
       )}
     >
@@ -297,18 +279,16 @@ const VisitCareerTimelineAction = ({
 };
 
 export interface DeleteActionProps extends ActionProps {
-  application: Application;
   onDelete: () => void;
 }
 
-const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
+const DeleteAction = ({ show, title, onDelete }: DeleteActionProps) => {
   const intl = useIntl();
 
   if (!show) {
     return null;
   }
 
-  const name = getShortPoolTitleLabel(intl, application.pool);
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
@@ -324,7 +304,7 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
               description: "Link text to delete a specific application",
             },
             {
-              title: name,
+              title,
             },
           )}
         >
@@ -335,7 +315,7 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
               description: "Link text to delete a specific application",
             },
             {
-              name,
+              name: title,
             },
           )}
         </Button>
@@ -349,7 +329,7 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
               description:
                 "Title for the modal that appears when a user attempts to delete an application",
             },
-            { name },
+            { name: title },
           )}
         </AlertDialog.Title>
         <AlertDialog.Description>
@@ -361,7 +341,7 @@ const DeleteAction = ({ show, application, onDelete }: DeleteActionProps) => {
               description:
                 "Question displayed when user attempts to delete an application",
             },
-            { name },
+            { name: title },
           )}
         </AlertDialog.Description>
         <AlertDialog.Footer>
