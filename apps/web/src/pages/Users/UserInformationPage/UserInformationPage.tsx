@@ -56,6 +56,7 @@ const UserInfo_Fragment = graphql(/* GraphQL */ `
     govEmployeeType
     hasPriorityEntitlement
     priorityNumber
+    priorityWeight
     locationPreferences
     locationExemptions
     positionDuration
@@ -71,6 +72,15 @@ const UserInfo_Fragment = graphql(/* GraphQL */ `
       expiryDate
       notes
       suspendedAt
+      submittedAt
+      placedDepartment {
+        id
+        departmentNumber
+        name {
+          en
+          fr
+        }
+      }
       user {
         id
       }
