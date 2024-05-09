@@ -17,7 +17,7 @@
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "*",
     "@testing-library/cypress": "^10.0.1",
-    "@types/node": "^20.12.7",
+    "@types/node": "^20.12.11",
     "axe-core": "^4.9.1",
     "cy-verify-downloads": "^0.2.4",
     "cypress": "^13.9.0",
