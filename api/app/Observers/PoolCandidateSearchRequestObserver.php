@@ -5,7 +5,9 @@ namespace App\Observers;
 use App\Models\PoolCandidateSearchRequest;
 use App\Notifications\GcNotifyEmailChannel;
 use App\Notifications\TalentRequestSubmissionConfirmation;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
+use Throwable;
 
 class PoolCandidateSearchRequestObserver
 {
@@ -17,10 +19,15 @@ class PoolCandidateSearchRequestObserver
         if (config('feature.notifications')) {
             $message = new TalentRequestSubmissionConfirmation($poolCandidateSearchRequest->id);
 
-            Notification::route(GcNotifyEmailChannel::class, [
-                'requestor name' => $poolCandidateSearchRequest->full_name,
-                'email address' => $poolCandidateSearchRequest->email,
-            ])->notify($message);
+            try {
+                Notification::route(GcNotifyEmailChannel::class, [
+                    'requestor name' => $poolCandidateSearchRequest->full_name,
+                    'email address' => $poolCandidateSearchRequest->email,
+                ])->notify($message);
+            } catch (Throwable $e) {
+                // best-effort: log error and continue
+                Log::error('Couldn\'t send request confirmation: '.$e->getMessage());
+            }
         }
     }
 
