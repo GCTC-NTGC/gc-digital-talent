@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 
 import { Heading } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
-import { notEmpty } from "@gc-digital-talent/helpers";
 
 import { UserInformationProps } from "../types";
 import AddToPoolDialog from "./AddToPoolDialog";
@@ -28,8 +27,6 @@ const CandidateStatusSection = ({
     description: "Title of the 'Pool status' section of the view-user page",
   });
 
-  const poolCandidates = user.poolCandidates?.filter(notEmpty);
-
   return (
     <>
       <Heading level="h4" data-h2-margin="base(x2, 0, x1, 0)">
@@ -37,7 +34,6 @@ const CandidateStatusSection = ({
       </Heading>
       <UserCandidatesTable
         user={user}
-        poolCandidates={poolCandidates ?? []}
         title={titleString}
         departments={departments ?? []}
       />
