@@ -715,6 +715,10 @@
     "defaultMessage": "Cette section porte sur les renseignements qui fournissent au demandeur le contexte du type de travail qu'il fera, avec qui il travaillera et l'incidence du rôle sur les Canadiens et les Canadiennes.",
     "description": "Sub title for basic information"
   },
+  "23/pqm": {
+    "defaultMessage": "Aucune compétence n'a été liée à des expériences.",
+    "description": "Null state for when no skills have been linked to any experiences"
+  },
   "248YQT": {
     "defaultMessage": "Pas encore prêt à partir? Retournez à la page d'accueil, découvrez de nouvelles possibilités, ou apprenez-en plus sur certaines recherches derrière cette plateforme.",
     "description": "Description of the links presented on the logged out page."
