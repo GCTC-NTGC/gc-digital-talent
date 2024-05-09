@@ -8,7 +8,7 @@ import {
   Link,
   Button,
 } from "@gc-digital-talent/ui";
-import { getLocale } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 import { AwardExperience, Experience } from "@gc-digital-talent/graphql";
 
 import {
@@ -222,14 +222,7 @@ const ExperienceSection = ({
       data-h2-radius="base(s)"
     >
       {!editPath ? (
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "No information has been provided",
-            id: "4Xa7Pd",
-            description:
-              "Message on Admin side when user not filled Experience section.",
-          })}
-        </p>
+        <p>{intl.formatMessage(commonMessages.noInformationProvided)}</p>
       ) : (
         <>
           <p data-h2-padding="base(0, 0, x1, 0)">

@@ -1135,10 +1135,6 @@
     "defaultMessage": "Rôles des membres",
     "description": "Title displayed for the team members table roles column."
   },
-  "4Xa7Pd": {
-    "defaultMessage": "Aucune information n'a été fournie",
-    "description": "Message on Admin side when user not filled Experience section."
-  },
   "4Z3/xp": {
     "defaultMessage": "Supprimer le candidat",
     "description": "Title for action to remove a candidate"
