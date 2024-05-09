@@ -37,32 +37,6 @@ const AdminErrorPage = React.lazy(() =>
   ),
 );
 
-/** Classifications */
-const IndexClassificationPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminIndexClassificationPage" */ "../pages/Classifications/IndexClassificationPage"
-      ),
-  ),
-);
-const CreateClassificationPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminCreateClassificationPage" */ "../pages/Classifications/CreateClassificationPage"
-      ),
-  ),
-);
-const UpdateClassificationPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminUpdateClassificationPage" */ "../pages/Classifications/UpdateClassificationPage"
-      ),
-  ),
-);
-
 /** Pool Candidates */
 const AllPoolCandidatesPage = React.lazy(() =>
   lazyRetry(
@@ -1067,39 +1041,27 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   children: [
                     {
                       index: true,
-                      element: (
-                        <RequireAuth
-                          roles={[ROLE_NAME.PlatformAdmin]}
-                          loginPath={loginPath}
-                        >
-                          <IndexClassificationPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import(
+                          "../pages/Classifications/IndexClassificationPage"
+                        ),
                     },
                     {
                       path: "create",
-                      element: (
-                        <RequireAuth
-                          roles={[ROLE_NAME.PlatformAdmin]}
-                          loginPath={loginPath}
-                        >
-                          <CreateClassificationPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import(
+                          "../pages/Classifications/CreateClassificationPage"
+                        ),
                     },
                     {
                       path: ":classificationId",
                       children: [
                         {
                           path: "edit",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.PlatformAdmin]}
-                              loginPath={loginPath}
-                            >
-                              <UpdateClassificationPage />
-                            </RequireAuth>
-                          ),
+                          lazy: () =>
+                            import(
+                              "../pages/Classifications/UpdateClassificationPage"
+                            ),
                         },
                       ],
                     },
