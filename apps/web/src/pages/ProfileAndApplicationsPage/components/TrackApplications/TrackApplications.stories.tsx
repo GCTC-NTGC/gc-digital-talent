@@ -34,7 +34,6 @@ export default {
   component: TrackApplications,
   args: {
     applications: [...activeRecruitments, ...expiredRecruitments],
-    userId: mockApplications[0].id,
   },
 } as Meta;
 

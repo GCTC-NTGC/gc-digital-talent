@@ -107,7 +107,7 @@ export const BrowsePools = () => {
     activeRecruitmentPools.length || ongoingRecruitmentPools.length;
 
   const profileLink = {
-    href: loggedIn ? paths.myProfile() : paths.login(),
+    href: loggedIn ? paths.profile() : paths.login(),
     label: loggedIn
       ? intl.formatMessage({
           defaultMessage: "Update my profile",

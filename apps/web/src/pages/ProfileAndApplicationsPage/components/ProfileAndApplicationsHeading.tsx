@@ -143,10 +143,10 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
         },
         {
           a1: (chunks: React.ReactNode) =>
-            buildLink(paths.profile(user.id), chunks, "whiteFixed"),
+            buildLink(paths.profile(), chunks, "whiteFixed"),
           a2: (chunks: React.ReactNode) =>
             buildLink(
-              paths.careerTimelineAndRecruitment(user.id),
+              paths.careerTimelineAndRecruitment(),
               chunks,
               "whiteFixed",
             ),
@@ -283,7 +283,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             id: "cA0iH+",
             description: "Profile and applications card title for profile card",
           })}
-          href={paths.profile(user.id)}
+          href={paths.profile()}
         >
           <StatusItem
             asListItem
@@ -296,7 +296,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             status={
               aboutSectionHasEmptyRequiredFields(user) ? "error" : "success"
             }
-            href={paths.profile(user.id, PROFILE_PAGE_SECTION_ID.ABOUT)}
+            href={paths.profile(PROFILE_PAGE_SECTION_ID.ABOUT)}
           />
 
           <StatusItem
@@ -309,10 +309,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
                 ? "error"
                 : "success"
             }
-            href={paths.profile(
-              user.id,
-              PROFILE_PAGE_SECTION_ID.WORK_PREFERENCES,
-            )}
+            href={paths.profile(PROFILE_PAGE_SECTION_ID.WORK_PREFERENCES)}
           />
 
           <StatusItem
@@ -321,7 +318,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             title={intl.formatMessage(
               navigationMessages.diversityEquityInclusion,
             )}
-            href={paths.profile(user.id, PROFILE_PAGE_SECTION_ID.DEI)}
+            href={paths.profile(PROFILE_PAGE_SECTION_ID.DEI)}
             icon={UserGroupIcon}
           />
           <StatusItem
@@ -337,7 +334,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
                 ? "error"
                 : "success"
             }
-            href={paths.profile(user.id, PROFILE_PAGE_SECTION_ID.GOVERNMENT)}
+            href={paths.profile(PROFILE_PAGE_SECTION_ID.GOVERNMENT)}
           />
 
           <StatusItem
@@ -353,7 +350,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
                 ? "error"
                 : "success"
             }
-            href={paths.profile(user.id, PROFILE_PAGE_SECTION_ID.LANGUAGE)}
+            href={paths.profile(PROFILE_PAGE_SECTION_ID.LANGUAGE)}
           />
           <StatusItem
             asListItem
@@ -376,7 +373,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             description:
               "Profile and applications card title for career timeline card",
           })}
-          href={paths.careerTimelineAndRecruitment(user.id)}
+          href={paths.careerTimelineAndRecruitment()}
         >
           <StatusItem
             layout="hero"
@@ -425,7 +422,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               ).length
             }
             icon={ShieldCheckIcon}
-            href={paths.careerTimelineAndRecruitment(user.id, {
+            href={paths.careerTimelineAndRecruitment({
               section:
                 CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES,
             })}

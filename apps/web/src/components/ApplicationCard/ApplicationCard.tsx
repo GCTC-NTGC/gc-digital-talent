@@ -5,7 +5,6 @@ import { useMutation } from "urql";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Heading, HeadingProps, Chip, Separator } from "@gc-digital-talent/ui";
-import { useAuthorization } from "@gc-digital-talent/auth";
 import { toast } from "@gc-digital-talent/toast";
 import {
   graphql,
@@ -61,7 +60,6 @@ const ApplicationCard = ({
     application,
     intl,
   );
-  const { userAuthInfo } = useAuthorization();
   const applicationTitle = getShortPoolTitleHtml(intl, application.pool);
   return (
     <div
@@ -148,7 +146,6 @@ const ApplicationCard = ({
 
         <ApplicationActions.VisitCareerTimelineAction
           show={isApplicantQualified}
-          userID={userAuthInfo?.id ?? ""}
           application={application}
         />
         <ApplicationActions.SupportAction show application={application} />

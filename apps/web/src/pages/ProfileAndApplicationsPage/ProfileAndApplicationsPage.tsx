@@ -276,7 +276,7 @@ export const ProfileAndApplications = ({
       <section data-h2-margin="base(x3, 0)">
         <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
           <div id="track-applications-section">
-            <TrackApplications applications={applications} userId={user.id} />
+            <TrackApplications applications={applications} />
           </div>
         </div>
       </section>
