@@ -29,6 +29,7 @@ import {
   SkillCategory,
   graphql,
 } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -37,6 +38,7 @@ import adminMessages from "~/messages/adminMessages";
 import { parseKeywords } from "~/utils/skillUtils";
 import AdminHero from "~/components/Hero/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 type Option<V> = { value: V; label: string };
 
@@ -391,5 +393,13 @@ const CreateSkillPage = () => {
     </>
   );
 };
+
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
+    <CreateSkillPage />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminCreateSkillPage";
 
 export default CreateSkillPage;

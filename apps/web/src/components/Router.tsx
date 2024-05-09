@@ -37,88 +37,6 @@ const AdminErrorPage = React.lazy(() =>
   ),
 );
 
-/** Skills */
-const IndexSkillPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminIndexSkillPage" */ "../pages/Skills/IndexSkillPage"
-      ),
-  ),
-);
-const CreateSkillPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminCreateSkillPage" */ "../pages/Skills/CreateSkillPage"
-      ),
-  ),
-);
-const UpdateSkillPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminUpdateSkillPage" */ "../pages/Skills/UpdateSkillPage"
-      ),
-  ),
-);
-const SkillLibraryPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsSkillLibraryPage" */ "../pages/Skills/SkillLibraryPage"
-      ),
-  ),
-);
-const UpdateUserSkillPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsUpdateUserSkillPage" */ "../pages/Skills/UpdateUserSkillPage"
-      ),
-  ),
-);
-const SkillShowcasePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsSkillShowcasePage" */ "../pages/Skills/SkillShowcasePage"
-      ),
-  ),
-);
-const TopBehaviouralSkillsPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsTopBehaviouralSkillsPage" */ "../pages/Skills/TopBehaviouralSkillsPage"
-      ),
-  ),
-);
-const TopTechnicalSkillsPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsTopTechnicalSkillsPage" */ "../pages/Skills/TopTechnicalSkillsPage"
-      ),
-  ),
-);
-const ImproveBehaviouralSkillsPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsImproveBehaviouralSkillsPage" */ "../pages/Skills/ImproveBehaviouralSkillsPage"
-      ),
-  ),
-);
-const ImproveTechnicalSkillsPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsImproveTechnicalSkillsPage" */ "../pages/Skills/ImproveTechnicalSkillsPage"
-      ),
-  ),
-);
-
 /** Search Requests */
 const IndexSearchRequestPage = React.lazy(() =>
   lazyRetry(
@@ -162,12 +80,6 @@ const DigitalServicesContractingQuestionnaire = React.lazy(() =>
       import(
         /* webpackChunkName: "tsDirectiveDigitalServicesContractingQuestionnaire" */ "../pages/DirectiveForms/DigitalServicesContractingQuestionnaire/DigitalServicesContractingQuestionnairePage"
       ),
-  ),
-);
-const SkillPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(/* webpackChunkName: "tsSkillPage" */ "../pages/Skills/SkillPage"),
   ),
 );
 
@@ -267,7 +179,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
             },
             {
               path: "skills",
-              element: <SkillPage />,
+              lazy: () => import("../pages/Skills/SkillPage"),
             },
             {
               path: "register-info",
@@ -374,83 +286,43 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   children: [
                     {
                       index: true,
-                      element: (
-                        <RequireAuth
-                          roles={[ROLE_NAME.Applicant]}
-                          loginPath={loginPath}
-                        >
-                          <SkillLibraryPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () => import("../pages/Skills/SkillLibraryPage"),
                     },
                     {
                       path: ":skillId",
-                      element: (
-                        <RequireAuth
-                          roles={[ROLE_NAME.Applicant]}
-                          loginPath={loginPath}
-                        >
-                          <UpdateUserSkillPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () => import("../pages/Skills/UpdateUserSkillPage"),
                     },
                     {
                       path: "showcase",
                       children: [
                         {
                           index: true,
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.Applicant]}
-                              loginPath={loginPath}
-                            >
-                              <SkillShowcasePage />
-                            </RequireAuth>
-                          ),
+                          lazy: () =>
+                            import("../pages/Skills/SkillShowcasePage"),
                         },
                         {
                           path: "top-5-behavioural-skills",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.Applicant]}
-                              loginPath={loginPath}
-                            >
-                              <TopBehaviouralSkillsPage />
-                            </RequireAuth>
-                          ),
+                          lazy: () =>
+                            import("../pages/Skills/TopBehaviouralSkillsPage"),
                         },
                         {
                           path: "top-10-technical-skills",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.Applicant]}
-                              loginPath={loginPath}
-                            >
-                              <TopTechnicalSkillsPage />
-                            </RequireAuth>
-                          ),
+                          lazy: () =>
+                            import("../pages/Skills/TopTechnicalSkillsPage"),
                         },
                         {
                           path: "3-behavioural-skills-to-improve",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.Applicant]}
-                              loginPath={loginPath}
-                            >
-                              <ImproveBehaviouralSkillsPage />
-                            </RequireAuth>
-                          ),
+                          lazy: () =>
+                            import(
+                              "../pages/Skills/ImproveBehaviouralSkillsPage"
+                            ),
                         },
                         {
                           path: "5-technical-skills-to-train",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.Applicant]}
-                              loginPath={loginPath}
-                            >
-                              <ImproveTechnicalSkillsPage />
-                            </RequireAuth>
-                          ),
+                          lazy: () =>
+                            import(
+                              "../pages/Skills/ImproveTechnicalSkillsPage"
+                            ),
                         },
                       ],
                     },
@@ -889,39 +761,18 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   children: [
                     {
                       index: true,
-                      element: (
-                        <RequireAuth
-                          roles={[ROLE_NAME.PlatformAdmin]}
-                          loginPath={loginPath}
-                        >
-                          <IndexSkillPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () => import("../pages/Skills/IndexSkillPage"),
                     },
                     {
                       path: "create",
-                      element: (
-                        <RequireAuth
-                          roles={[ROLE_NAME.PlatformAdmin]}
-                          loginPath={loginPath}
-                        >
-                          <CreateSkillPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () => import("../pages/Skills/CreateSkillPage"),
                     },
                     {
                       path: ":skillId",
                       children: [
                         {
                           path: "edit",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.PlatformAdmin]}
-                              loginPath={loginPath}
-                            >
-                              <UpdateSkillPage />
-                            </RequireAuth>
-                          ),
+                          lazy: () => import("../pages/Skills/UpdateSkillPage"),
                         },
                       ],
                     },
