@@ -571,6 +571,10 @@
     "defaultMessage": "Termine demain, à {time}",
     "description": "Text displayed when relative date is tomorrow."
   },
+  "Gv3lBS": {
+    "defaultMessage": "Votre demande n'a pas été complétée. Veuillez réessayer ou contactez notre équipe pour obtenir de l'aide.",
+    "description": "Message for Unauthorized or Request Rejected server response"
+  },
   "Gx8qCK": {
     "defaultMessage": "À propos de moi",
     "description": "Name of About me page"
