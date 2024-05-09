@@ -37,32 +37,6 @@ const AdminErrorPage = React.lazy(() =>
   ),
 );
 
-/** Skill Families */
-const IndexSkillFamilyPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminIndexSkillFamilyPage" */ "../pages/SkillFamilies/IndexSkillFamilyPage"
-      ),
-  ),
-);
-const CreateSkillFamilyPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminCreateSkillFamilyPage" */ "../pages/SkillFamilies/CreateSkillFamilyPage"
-      ),
-  ),
-);
-const UpdateSkillFamilyPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminUpdateSkillFamilyPage" */ "../pages/SkillFamilies/UpdateSkillFamilyPage"
-      ),
-  ),
-);
-
 /** Skills */
 const IndexSkillPage = React.lazy(() =>
   lazyRetry(
@@ -958,39 +932,23 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   children: [
                     {
                       index: true,
-                      element: (
-                        <RequireAuth
-                          roles={[ROLE_NAME.PlatformAdmin]}
-                          loginPath={loginPath}
-                        >
-                          <IndexSkillFamilyPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import("../pages/SkillFamilies/IndexSkillFamilyPage"),
                     },
                     {
                       path: "create",
-                      element: (
-                        <RequireAuth
-                          roles={[ROLE_NAME.PlatformAdmin]}
-                          loginPath={loginPath}
-                        >
-                          <CreateSkillFamilyPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import("../pages/SkillFamilies/CreateSkillFamilyPage"),
                     },
                     {
                       path: ":skillFamilyId",
                       children: [
                         {
                           path: "edit",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.PlatformAdmin]}
-                              loginPath={loginPath}
-                            >
-                              <UpdateSkillFamilyPage />
-                            </RequireAuth>
-                          ),
+                          lazy: () =>
+                            import(
+                              "../pages/SkillFamilies/UpdateSkillFamilyPage"
+                            ),
                         },
                       ],
                     },
