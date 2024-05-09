@@ -37,56 +37,6 @@ const AdminErrorPage = React.lazy(() =>
   ),
 );
 
-/** Teams */
-const IndexTeamPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminIndexTeamPage" */ "../pages/Teams/IndexTeamPage/IndexTeamPage"
-      ),
-  ),
-);
-const CreateTeamPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminCreateTeamPage" */ "../pages/Teams/CreateTeamPage/CreateTeamPage"
-      ),
-  ),
-);
-const TeamLayout = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminTeamLayout" */ "../pages/Teams/TeamLayout"
-      ),
-  ),
-);
-const ViewTeamPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminViewTeamPage" */ "../pages/Teams/ViewTeamPage/ViewTeamPage"
-      ),
-  ),
-);
-const UpdateTeamPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminUpdateTeamPage" */ "../pages/Teams/UpdateTeamPage/UpdateTeamPage"
-      ),
-  ),
-);
-const TeamMembersPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminTeamMembersPage" */ "../pages/Teams/TeamMembersPage/TeamMembersPage"
-      ),
-  ),
-);
-
 /** Classifications */
 const IndexClassificationPage = React.lazy(() =>
   lazyRetry(
@@ -891,91 +841,34 @@ const createRoute = (locale: Locales, loginPath: string) =>
               children: [
                 {
                   index: true,
-                  element: (
-                    <RequireAuth
-                      roles={[
-                        ROLE_NAME.PoolOperator,
-                        ROLE_NAME.CommunityManager,
-                        ROLE_NAME.PlatformAdmin,
-                      ]}
-                      loginPath={loginPath}
-                    >
-                      <IndexTeamPage />
-                    </RequireAuth>
-                  ),
+                  lazy: () =>
+                    import("../pages/Teams/IndexTeamPage/IndexTeamPage"),
                 },
                 {
                   path: "create",
-                  element: (
-                    <RequireAuth
-                      roles={[
-                        ROLE_NAME.CommunityManager,
-                        ROLE_NAME.PlatformAdmin,
-                      ]}
-                      loginPath={loginPath}
-                    >
-                      <CreateTeamPage />
-                    </RequireAuth>
-                  ),
+                  lazy: () =>
+                    import("../pages/Teams/CreateTeamPage/CreateTeamPage"),
                 },
                 {
                   path: ":teamId",
-                  element: (
-                    <RequireAuth
-                      roles={[
-                        ROLE_NAME.PoolOperator,
-                        ROLE_NAME.CommunityManager,
-                        ROLE_NAME.PlatformAdmin,
-                      ]}
-                      loginPath={loginPath}
-                    >
-                      <TeamLayout />
-                    </RequireAuth>
-                  ),
+                  lazy: () => import("../pages/Teams/TeamLayout"),
                   children: [
                     {
                       index: true,
-                      element: (
-                        <RequireAuth
-                          roles={[
-                            ROLE_NAME.PoolOperator,
-                            ROLE_NAME.CommunityManager,
-                            ROLE_NAME.PlatformAdmin,
-                          ]}
-                          loginPath={loginPath}
-                        >
-                          <ViewTeamPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import("../pages/Teams/ViewTeamPage/ViewTeamPage"),
                     },
                     {
                       path: "edit",
-                      element: (
-                        <RequireAuth
-                          roles={[
-                            ROLE_NAME.CommunityManager,
-                            ROLE_NAME.PlatformAdmin,
-                          ]}
-                          loginPath={loginPath}
-                        >
-                          <UpdateTeamPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import("../pages/Teams/UpdateTeamPage/UpdateTeamPage"),
                     },
                     {
                       path: "members",
-                      element: (
-                        <RequireAuth
-                          roles={[
-                            ROLE_NAME.PoolOperator,
-                            ROLE_NAME.CommunityManager,
-                            ROLE_NAME.PlatformAdmin,
-                          ]}
-                          loginPath={loginPath}
-                        >
-                          <TeamMembersPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import(
+                          "../pages/Teams/TeamMembersPage/TeamMembersPage"
+                        ),
                     },
                   ],
                 },

@@ -19,6 +19,7 @@ import {
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import AddTeamMemberDialog from "./components/AddTeamMemberDialog";
 import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
@@ -159,5 +160,19 @@ const TeamMembersPage = () => {
     </AdminContentWrapper>
   );
 };
+
+export const Component = () => (
+  <RequireAuth
+    roles={[
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.CommunityManager,
+      ROLE_NAME.PlatformAdmin,
+    ]}
+  >
+    <TeamMembersPage />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminTeamMembersPage";
 
 export default TeamMembersPage;
