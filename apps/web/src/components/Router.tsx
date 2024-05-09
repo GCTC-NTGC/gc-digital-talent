@@ -37,24 +37,6 @@ const AdminErrorPage = React.lazy(() =>
   ),
 );
 
-/** Search Requests */
-const IndexSearchRequestPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminIndexSearchRequestPage" */ "../pages/SearchRequests/IndexSearchRequestPage/IndexSearchRequestPage"
-      ),
-  ),
-);
-const ViewSearchRequestPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminViewSearchRequestPage" */ "../pages/SearchRequests/ViewSearchRequestPage/ViewSearchRequestPage"
-      ),
-  ),
-);
-
 /** Announcements */
 const AnnouncementsPage = React.lazy(() =>
   lazyRetry(
@@ -675,25 +657,17 @@ const createRoute = (locale: Locales, loginPath: string) =>
               children: [
                 {
                   index: true,
-                  element: (
-                    <RequireAuth
-                      roles={[ROLE_NAME.RequestResponder]}
-                      loginPath={loginPath}
-                    >
-                      <IndexSearchRequestPage />
-                    </RequireAuth>
-                  ),
+                  lazy: () =>
+                    import(
+                      "../pages/SearchRequests/IndexSearchRequestPage/IndexSearchRequestPage"
+                    ),
                 },
                 {
                   path: ":searchRequestId",
-                  element: (
-                    <RequireAuth
-                      roles={[ROLE_NAME.RequestResponder]}
-                      loginPath={loginPath}
-                    >
-                      <ViewSearchRequestPage />
-                    </RequireAuth>
-                  ),
+                  lazy: () =>
+                    import(
+                      "../pages/SearchRequests/ViewSearchRequestPage/ViewSearchRequestPage"
+                    ),
                 },
               ],
             },
