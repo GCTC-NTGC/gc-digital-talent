@@ -28,38 +28,11 @@ const ErrorPage = React.lazy(() =>
   ),
 );
 
-/** IAP Home Page */
-const IAPHomePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "iapHomePage" */ "../pages/Home/IAPHomePage/Home"
-      ),
-  ),
-);
-const IAPManagerHomePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "iapHomePage" */ "../pages/Home/IAPManagerHomePage/IAPManagerHomePage"
-      ),
-  ),
-);
-
-/** Admin */
 const AdminErrorPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
         /* webpackChunkName: "adminAdminErrorPage" */ "../pages/Errors/AdminErrorPage/AdminErrorPage"
-      ),
-  ),
-);
-const AdminDashboardPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminAdminDashboardPage" */ "../pages/AdminDashboardPage/AdminDashboardPage"
       ),
   ),
 );
@@ -917,19 +890,8 @@ const createRoute = (locale: Locales, loginPath: string) =>
           children: [
             {
               index: true,
-              element: (
-                <RequireAuth
-                  roles={[
-                    ROLE_NAME.PoolOperator,
-                    ROLE_NAME.RequestResponder,
-                    ROLE_NAME.CommunityManager,
-                    ROLE_NAME.PlatformAdmin,
-                  ]}
-                  loginPath={loginPath}
-                >
-                  <AdminDashboardPage />
-                </RequireAuth>
-              ),
+              lazy: () =>
+                import("../pages/AdminDashboardPage/AdminDashboardPage"),
             },
             {
               path: "users",
@@ -1494,11 +1456,12 @@ const createRoute = (locale: Locales, loginPath: string) =>
       children: [
         {
           index: true,
-          element: <IAPHomePage />,
+          lazy: () => import("../pages/Home/IAPHomePage/Home"),
         },
         {
           path: "hire",
-          element: <IAPManagerHomePage />,
+          lazy: () =>
+            import("../pages/Home/IAPManagerHomePage/IAPManagerHomePage"),
         },
         {
           path: "*",

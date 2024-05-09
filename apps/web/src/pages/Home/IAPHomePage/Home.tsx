@@ -1014,7 +1014,7 @@ const IAPHomePage_Query = graphql(/* GraphQL */ `
 
 const now = nowUTCDateTime();
 
-const HomeApi = () => {
+export const Component = () => {
   const [{ data, fetching, error }] = useQuery({
     query: IAPHomePage_Query,
     variables: { closingAfter: now, publishingGroup: PublishingGroup.Iap },
@@ -1037,4 +1037,4 @@ const HomeApi = () => {
   );
 };
 
-export default HomeApi;
+Component.displayName = "IAPHomePage";
