@@ -37,32 +37,6 @@ const AdminErrorPage = React.lazy(() =>
   ),
 );
 
-/** Pool Candidates */
-const AllPoolCandidatesPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminAllPoolCandidatesPage" */ "../pages/PoolCandidates/AllPoolCandidatesPage/AllPoolCandidatesPage"
-      ),
-  ),
-);
-const IndexPoolCandidatePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminIndexPoolCandidatePage" */ "../pages/PoolCandidates/IndexPoolCandidatePage/IndexPoolCandidatePage"
-      ),
-  ),
-);
-const ViewPoolCandidatePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminViewPoolCandidate" */ "../pages/PoolCandidates/ViewPoolCandidatePage/ViewPoolCandidatePage"
-      ),
-  ),
-);
-
 /** Pools */
 const IndexPoolPage = React.lazy(() =>
   lazyRetry(
@@ -929,17 +903,10 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       children: [
                         {
                           index: true,
-                          element: (
-                            <RequireAuth
-                              roles={[
-                                ROLE_NAME.PoolOperator,
-                                ROLE_NAME.RequestResponder,
-                              ]}
-                              loginPath={loginPath}
-                            >
-                              <IndexPoolCandidatePage />
-                            </RequireAuth>
-                          ),
+                          lazy: () =>
+                            import(
+                              "../pages/PoolCandidates/IndexPoolCandidatePage/IndexPoolCandidatePage"
+                            ),
                         },
                       ],
                     },
@@ -978,33 +945,17 @@ const createRoute = (locale: Locales, loginPath: string) =>
             },
             {
               path: "pool-candidates",
-              element: (
-                <RequireAuth
-                  roles={[
-                    ROLE_NAME.PoolOperator,
-                    ROLE_NAME.RequestResponder,
-                    ROLE_NAME.PlatformAdmin,
-                  ]}
-                  loginPath={loginPath}
-                >
-                  <AllPoolCandidatesPage />
-                </RequireAuth>
-              ),
+              lazy: () =>
+                import(
+                  "../pages/PoolCandidates/AllPoolCandidatesPage/AllPoolCandidatesPage"
+                ),
             },
             {
               path: "candidates/:poolCandidateId/application",
-              element: (
-                <RequireAuth
-                  roles={[
-                    ROLE_NAME.PoolOperator,
-                    ROLE_NAME.RequestResponder,
-                    ROLE_NAME.PlatformAdmin,
-                  ]}
-                  loginPath={loginPath}
-                >
-                  <ViewPoolCandidatePage />
-                </RequireAuth>
-              ),
+              lazy: () =>
+                import(
+                  "../pages/PoolCandidates/ViewPoolCandidatePage/ViewPoolCandidatePage"
+                ),
             },
             {
               path: "talent-requests",
