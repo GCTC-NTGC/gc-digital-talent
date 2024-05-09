@@ -21,8 +21,9 @@ import {
 } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
+import FormChangeNotifyWell from "~/components/FormChangeNotifyWell/FormChangeNotifyWell";
+
 import AssessmentSummary from "./components/AssessmentSummary";
-import Important from "./components/Important";
 
 const PoolCandidate_QualifyCandidateMutation = graphql(/* GraphQL */ `
   mutation PoolCandidate_QualifyCandidateMutation(
@@ -302,7 +303,7 @@ const FinalDecisionDialog = ({
                   data-h2-margin-top="base(x1)"
                 />
               )}
-              <Important data-h2-margin-top="base(x1)" />
+              <FormChangeNotifyWell data-h2-margin-top="base(x1)" />
               <Dialog.Footer data-h2-justify-content="base(flex-start)">
                 <Dialog.Close>
                   <Button type="button" color="primary" mode="inline">

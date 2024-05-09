@@ -24,7 +24,7 @@ class ClassificationFactory extends Factory
         $faker = $this->faker;
 
         return [
-            'group' => $faker->name,
+            'group' => $faker->regexify('[A-Z]{2}'),
             'name' => ['en' => $faker->name, 'fr' => $faker->name],
             'level' => $faker->numberBetween(0, 5),
             'min_salary' => $faker->randomElement([50000, 60000, 70000]),

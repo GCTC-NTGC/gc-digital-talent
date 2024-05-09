@@ -38,7 +38,6 @@ const profileSnapshot: User = {
     {
       ...poolCandidate,
       educationRequirementOption:
-        // eslint-disable-next-line no-underscore-dangle
         experience.__typename === "EducationExperience"
           ? EducationRequirementOption.Education
           : EducationRequirementOption.AppliedWork,

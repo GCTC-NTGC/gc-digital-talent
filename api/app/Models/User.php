@@ -15,6 +15,7 @@ use App\Traits\EnrichedNotifiable;
 use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -80,7 +81,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property array $ignored_email_notifications
  * @property array $ignored_in_app_notifications
  */
-class User extends Model implements Authenticatable, LaratrustUser
+class User extends Model implements Authenticatable, HasLocalePreference, LaratrustUser
 {
     use AuthenticatableTrait;
     use Authorizable;
@@ -224,6 +225,14 @@ class User extends Model implements Authenticatable, LaratrustUser
             ->logOnly(['*'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();
+    }
+
+    /**
+     * Get the user's preferred locale.
+     */
+    public function preferredLocale(): string
+    {
+        return $this->preferred_lang;
     }
 
     public function pools(): HasMany

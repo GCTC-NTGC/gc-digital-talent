@@ -36,13 +36,18 @@ import {
   SkillCategory,
   FragmentType,
   getFragment,
+  PoolSkillType,
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import PrintExperienceByType from "~/components/UserProfile/PrintExperienceByType/PrintExperienceByType";
 import { anyCriteriaSelected as anyCriteriaSelectedDiversityEquityInclusion } from "~/validators/profile/diversityEquityInclusion";
 import applicationMessages from "~/messages/applicationMessages";
-import { getExperiencesSkillIds } from "~/utils/skillUtils";
+import {
+  filterSkillsByCategory,
+  getExperiencesSkillIds,
+  groupPoolSkillByType,
+} from "~/utils/skillUtils";
 import processMessages from "~/messages/processMessages";
 import Display from "~/components/Profile/components/LanguageProfile/Display";
 
@@ -76,15 +81,22 @@ const BreakingPageSection = ({ children }: { children: React.ReactNode }) => (
 export const ApplicationPrintDocument_PoolFragment = graphql(/* GraphQL */ `
   fragment ApplicationPrintDocument_PoolFragment on Pool {
     id
-    essentialSkills {
+    poolSkills {
       id
-      category
-      ...SkillWithExperiences_SkillFragment
-    }
-    nonessentialSkills {
-      id
-      category
-      ...SkillWithExperiences_SkillFragment
+      type
+      skill {
+        id
+        category
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+      }
     }
   }
 `);
@@ -111,14 +123,20 @@ const ApplicationPrintDocument = React.forwardRef<
     [];
 
   // filter out behavioural skills for both, and unused asset skills
-  const poolEssentialTechnicalSkills =
-    pool?.essentialSkills?.filter(
-      (skill) => skill.category === SkillCategory.Technical,
-    ) ?? [];
-  const poolNonEssentialTechnicalSkills =
-    pool?.nonessentialSkills?.filter(
-      (skill) => skill.category === SkillCategory.Technical,
-    ) ?? [];
+  const poolSkills = groupPoolSkillByType(pool?.poolSkills);
+  const poolEssentialTechnicalSkills = unpackMaybes(
+    filterSkillsByCategory(
+      poolSkills.get(PoolSkillType.Essential),
+      SkillCategory.Technical,
+    ),
+  );
+
+  const poolNonEssentialTechnicalSkills = unpackMaybes(
+    filterSkillsByCategory(
+      poolSkills.get(PoolSkillType.Nonessential),
+      SkillCategory.Technical,
+    ),
+  );
   const experiencesSkillIds = getExperiencesSkillIds(
     user.experiences?.filter(notEmpty) ?? [],
   );
@@ -271,7 +289,7 @@ const ApplicationPrintDocument = React.forwardRef<
                     poolEssentialTechnicalSkills.map((skill) => (
                       <SkillWithExperiences
                         key={skill.id}
-                        skillQuery={skill}
+                        skill={skill}
                         experiences={user.experiences?.filter(notEmpty) ?? []}
                       />
                     ))
@@ -291,7 +309,7 @@ const ApplicationPrintDocument = React.forwardRef<
                     usedAssetsSkills.map((skill) => (
                       <SkillWithExperiences
                         key={skill.id}
-                        skillQuery={skill}
+                        skill={skill}
                         experiences={user.experiences?.filter(notEmpty) ?? []}
                       />
                     ))

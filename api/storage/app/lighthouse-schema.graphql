@@ -281,7 +281,6 @@ type User {
 
 interface Notification {
   id: ID!
-  type: NotificationType!
   readAt: DateTime
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -289,7 +288,6 @@ interface Notification {
 
 type PoolCandidateStatusChangedNotification implements Notification {
   id: ID!
-  type: NotificationType!
   readAt: DateTime
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -297,6 +295,17 @@ type PoolCandidateStatusChangedNotification implements Notification {
   newStatus: PoolCandidateStatus
   poolCandidateId: ID
   poolName: LocalizedString
+}
+
+type ApplicationDeadlineApproachingNotification implements Notification {
+  id: ID!
+  readAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  closingDate: Date
+  poolName: LocalizedString
+  poolId: ID
+  poolCandidateId: ID
 }
 
 type UserPublicProfile {
@@ -340,8 +349,6 @@ type Pool {
   securityClearance: SecurityStatus
   language: PoolLanguage
   status: PoolStatus
-  essentialSkills: [Skill!] @deprecated(reason: "Switch to poolSkills filtering for PoolSkillType.ESSENTIAL")
-  nonessentialSkills: [Skill!] @deprecated(reason: "Switch to poolSkills filtering for PoolSkillType.NONESSENTIAL")
   stream: PoolStream
   processNumber: String
   publishingGroup: PublishingGroup
@@ -356,7 +363,7 @@ type Pool {
   archivedAt: DateTime
   isComplete: Boolean
   assessmentSteps: [AssessmentStep]
-  poolSkills: [PoolSkill]
+  poolSkills(type: PoolSkillType): [PoolSkill]
 }
 
 type GeneralQuestionResponse {
@@ -540,7 +547,7 @@ type PoolCandidateSearchRequest {
   status: PoolCandidateSearchStatus
   statusChangedAt: DateTime
   adminNotes: String
-  poolCandidateFilter: PoolCandidateFilter
+  poolCandidateFilter: PoolCandidateFilter @deprecated(reason: "Replaced by applicantFilter")
   applicantFilter: ApplicantFilter
   wasEmpty: Boolean
   managerJobTitle: String
@@ -2422,10 +2429,6 @@ enum NotificationFamily {
   SYSTEM_MESSAGE
   APPLICATION_UPDATE
   JOB_ALERT
-}
-
-enum NotificationType {
-  PoolCandidateStatusChanged
 }
 
 enum CandidateRemovalReason {

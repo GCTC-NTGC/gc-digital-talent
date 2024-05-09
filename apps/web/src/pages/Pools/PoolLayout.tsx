@@ -1,5 +1,5 @@
 import React from "react";
-import { useIntl } from "react-intl";
+import { IntlShape, useIntl } from "react-intl";
 import { Outlet } from "react-router-dom";
 import { useQuery } from "urql";
 
@@ -10,7 +10,12 @@ import {
   useAnnouncer,
 } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  PoolLayoutFragment,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import useCurrentPage from "~/hooks/useCurrentPage";
@@ -23,9 +28,12 @@ import {
 import { PageNavKeys } from "~/types/pool";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminHero from "~/components/Hero/AdminHero";
+import { PageNavInfo } from "~/types/pages";
+import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
 
 export const PoolLayout_Fragment = graphql(/* GraphQL */ `
   fragment PoolLayout on Pool {
+    ...AssessmentPlanStatus
     id
     stream
     publishedAt
@@ -54,6 +62,37 @@ export const PoolLayout_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+interface HeroTitleProps {
+  currentPage: PageNavInfo | undefined;
+  intl: IntlShape;
+  pool: PoolLayoutFragment;
+}
+
+const heroTitle = ({ currentPage, intl, pool }: HeroTitleProps) => {
+  if (currentPage?.link.url.includes("edit")) {
+    return currentPage?.title;
+  }
+  if (currentPage?.link.url.includes("plan")) {
+    return currentPage?.title;
+  }
+  return getShortPoolTitleLabel(intl, pool);
+};
+
+interface HeroSubtitleProps {
+  currentPage: PageNavInfo | undefined;
+  subTitle: string | undefined;
+}
+
+const heroSubtitle = ({ currentPage, subTitle }: HeroSubtitleProps) => {
+  if (currentPage?.link.url.includes("edit")) {
+    return currentPage?.subtitle;
+  }
+  if (currentPage?.link.url.includes("plan")) {
+    return currentPage?.subtitle;
+  }
+  return subTitle;
+};
+
 interface PoolHeaderProps {
   poolQuery: FragmentType<typeof PoolLayout_Fragment>;
 }
@@ -64,15 +103,19 @@ const PoolHeader = ({ poolQuery }: PoolHeaderProps) => {
   const pool = getFragment(PoolLayout_Fragment, poolQuery);
 
   const pages = useAdminPoolPages(intl, pool);
-
-  const poolTitle = getShortPoolTitleLabel(intl, pool);
   const currentPage = useCurrentPage<PageNavKeys>(pages);
+
   const subTitle = pool.team
     ? getLocalizedName(pool.team?.displayName, intl)
     : currentPage?.subtitle;
 
-  const advertisementStatus = getAdvertisementStatus(pool);
-  const advertisementBadge = getPoolCompletenessBadge(advertisementStatus);
+  const heroTitleValue = heroTitle({ currentPage, intl, pool });
+  const heroSubtitleValue = heroSubtitle({ currentPage, subTitle });
+
+  const status = currentPage?.link.url.includes("plan")
+    ? getAssessmentPlanStatus(pool)
+    : getAdvertisementStatus(pool);
+  const badge = getPoolCompletenessBadge(status);
 
   React.useEffect(() => {
     if (currentPage?.title) {
@@ -84,8 +127,8 @@ const PoolHeader = ({ poolQuery }: PoolHeaderProps) => {
     <>
       <SEO title={currentPage?.title} description={subTitle} />
       <AdminHero
-        title={poolTitle}
-        subtitle={subTitle}
+        title={heroTitleValue}
+        subtitle={heroSubtitleValue}
         nav={
           // Pages with crumbs are sub-pages and don't show up as tabs
           currentPage?.crumbs
@@ -104,9 +147,12 @@ const PoolHeader = ({ poolQuery }: PoolHeaderProps) => {
               }
         }
         contentRight={
-          <Chip color={advertisementBadge.color} data-h2-flex-shrink="base(0)">
-            {intl.formatMessage(advertisementBadge.label)}
-          </Chip>
+          (currentPage?.link.url.includes("edit") ||
+            currentPage?.link.url.includes("plan")) && (
+            <Chip color={badge.color} data-h2-flex-shrink="base(0)">
+              {intl.formatMessage(badge.label)}
+            </Chip>
+          )
         }
       />
     </>

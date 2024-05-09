@@ -15,7 +15,6 @@ interface AnswerInputProps {
 
 const AnswerInput = ({ index, question }: AnswerInputProps) => {
   const intl = useIntl();
-  // eslint-disable-next-line no-underscore-dangle
   const isScreening = question.__typename === "ScreeningQuestion";
   const answerPrefix = isScreening ? "screeningAnswers" : "generalAnswers";
   const questionId = `${answerPrefix}.${index}.question`;

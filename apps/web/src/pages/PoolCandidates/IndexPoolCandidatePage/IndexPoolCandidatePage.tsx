@@ -78,56 +78,36 @@ const IndexPoolCandidatePage_Query = graphql(/* GraphQL */ `
         en
         fr
       }
-      essentialSkills {
+      poolSkills {
         id
-        key
-        name {
-          en
-          fr
-        }
-        description {
-          en
-          fr
-        }
-        category
-        families {
+        type
+        skill {
           id
           key
-          description {
-            en
-            fr
-          }
           name {
             en
             fr
           }
-        }
-      }
-      nonessentialSkills {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        description {
-          en
-          fr
-        }
-        category
-        families {
-          id
-          key
           description {
             en
             fr
           }
-          name {
-            en
-            fr
+          category
+          families {
+            id
+            key
+            description {
+              en
+              fr
+            }
+            name {
+              en
+              fr
+            }
           }
         }
       }
+
       isRemote
       location {
         en

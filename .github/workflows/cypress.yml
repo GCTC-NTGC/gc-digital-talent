@@ -54,7 +54,7 @@ jobs:
       - name: "Run: setup.sh"
         run: docker-compose run --rm maintenance bash setup.sh -c
 
-      - uses: pnpm/action-setup@v3
+      - uses: pnpm/action-setup@v4
         with:
           version: ${{ env.PNPM_VERSION }}
 
