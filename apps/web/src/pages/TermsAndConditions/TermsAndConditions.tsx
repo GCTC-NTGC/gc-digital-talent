@@ -185,8 +185,8 @@ const TermsAndConditions = () => {
       id: "linking-to-gov",
       title: intl.formatMessage({
         defaultMessage: "Linking to non-Government of Canada websites",
-        id: "9zhqQf",
-        description: "Title for the linkink to gov section",
+        id: "pwsDVe",
+        description: "Title for the linking to gov section",
       }),
     },
     ownershipAndUsage: {
