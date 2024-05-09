@@ -65,7 +65,7 @@ const subTitle = defineMessage({
   description: "Subtitle for the browse IT jobs page",
 });
 
-export const BrowsePools = () => {
+export const Component = () => {
   const { mode } = useTheme();
   const intl = useIntl();
   const { loggedIn } = useAuthentication();
@@ -328,4 +328,6 @@ export const BrowsePools = () => {
   );
 };
 
-export default BrowsePools;
+Component.displayName = "BrowsePoolsPage";
+
+export default Component;

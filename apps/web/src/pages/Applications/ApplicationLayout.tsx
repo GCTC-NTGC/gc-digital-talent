@@ -185,7 +185,7 @@ const Application_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const ApplicationLayout = () => {
+export const Component = () => {
   const id = useApplicationId();
   const intl = useIntl();
   const [{ data, fetching, error, stale }] = useQuery({
@@ -217,4 +217,6 @@ const ApplicationLayout = () => {
   );
 };
 
-export default ApplicationLayout;
+Component.displayName = "ApplicationLayout";
+
+export default Component;

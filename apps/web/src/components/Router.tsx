@@ -28,152 +28,6 @@ const ErrorPage = React.lazy(() =>
   ),
 );
 
-/** Direct Intake */
-const BrowsePoolsPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsBrowsePoolsPage" */ "../pages/Pools/BrowsePoolsPage/BrowsePoolsPage"
-      ),
-  ),
-);
-const PoolAdvertisementPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsPoolAdvertPage" */ "../pages/Pools/PoolAdvertisementPage/PoolAdvertisementPage"
-      ),
-  ),
-);
-const CreateApplicationPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsCreateApplicationPage" */ "../pages/CreateApplicationPage/CreateApplicationPage"
-      ),
-  ),
-);
-const ApplicationLayout = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsApplicationLayout" */ "../pages/Applications/ApplicationLayout"
-      ),
-  ),
-);
-const ApplicationWelcomePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsApplicationWelcomePage" */ "../pages/Applications/ApplicationWelcomePage/ApplicationWelcomePage"
-      ),
-  ),
-);
-const ApplicationSelfDeclarationPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsApplicationSelfDeclarationPage" */ "../pages/Applications/ApplicationSelfDeclarationPage/ApplicationSelfDeclarationPage"
-      ),
-  ),
-);
-const ApplicationProfilePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsApplicationProfilePage" */ "../pages/Applications/ApplicationProfilePage/ApplicationProfilePage"
-      ),
-  ),
-);
-const ApplicationCareerTimelineIntroductionPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsApplicationCareerTimelineIntroductionPage" */ "../pages/Applications/ApplicationCareerTimelineIntroductionPage/ApplicationCareerTimelineIntroductionPage"
-      ),
-  ),
-);
-const ApplicationCareerTimelinePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsApplicationCareerTimelinePage" */ "../pages/Applications/ApplicationCareerTimelinePage/ApplicationCareerTimelinePage"
-      ),
-  ),
-);
-const ApplicationCareerTimelineAddPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsApplicationCareerTimelineAddPage" */ "../pages/Applications/ApplicationCareerTimelineAddPage/ApplicationCareerTimelineAddPage"
-      ),
-  ),
-);
-const ApplicationCareerTimelineEditPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsApplicationCareerTimelineEditPage" */ "../pages/Applications/ApplicationCareerTimelineEditPage/ApplicationCareerTimelineEditPage"
-      ),
-  ),
-);
-const ApplicationEducationPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsApplicationEducationPage" */ "../pages/Applications/ApplicationEducationPage/ApplicationEducationPage"
-      ),
-  ),
-);
-const ApplicationSkillsIntroductionPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsApplicationSkillsIntroductionPage" */ "../pages/Applications/ApplicationSkillsIntroductionPage/ApplicationSkillsIntroductionPage"
-      ),
-  ),
-);
-const ApplicationSkillsPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsApplicationSkillsPage" */ "../pages/Applications/ApplicationSkillsPage/ApplicationSkillsPage"
-      ),
-  ),
-);
-const ApplicationQuestionsIntroductionPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsApplicationQuestionsIntroductionPage" */ "../pages/Applications/ApplicationQuestionsIntroductionPage/ApplicationQuestionsIntroductionPage"
-      ),
-  ),
-);
-const ApplicationQuestionsPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsApplicationQuestionsPage" */ "../pages/Applications/ApplicationQuestionsPage/ApplicationQuestionsPage"
-      ),
-  ),
-);
-const ApplicationReviewPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsApplicationReviewPage" */ "../pages/Applications/ApplicationReviewPage/ApplicationReviewPage"
-      ),
-  ),
-);
-const ApplicationSuccessPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsApplicationSuccessPage" */ "../pages/Applications/ApplicationSuccessPage/ApplicationSuccessPage"
-      ),
-  ),
-);
-
 /** IAP Home Page */
 const IAPHomePage = React.lazy(() =>
   lazyRetry(
@@ -885,25 +739,27 @@ const createRoute = (locale: Locales, loginPath: string) =>
                   children: [
                     {
                       index: true,
-                      element: <BrowsePoolsPage />,
+                      lazy: () =>
+                        import(
+                          "../pages/Pools/BrowsePoolsPage/BrowsePoolsPage"
+                        ),
                     },
                     {
                       path: ":poolId",
                       children: [
                         {
                           index: true,
-                          element: <PoolAdvertisementPage />,
+                          lazy: () =>
+                            import(
+                              "../pages/Pools/PoolAdvertisementPage/PoolAdvertisementPage"
+                            ),
                         },
                         {
                           path: "create-application",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.Applicant]}
-                              loginPath={loginPath}
-                            >
-                              <CreateApplicationPage />
-                            </RequireAuth>
-                          ),
+                          lazy: () =>
+                            import(
+                              "../pages/CreateApplicationPage/CreateApplicationPage"
+                            ),
                         },
                       ],
                     },
@@ -916,64 +772,85 @@ const createRoute = (locale: Locales, loginPath: string) =>
               children: [
                 {
                   path: ":applicationId",
-                  element: (
-                    <RequireAuth
-                      roles={[ROLE_NAME.Applicant]}
-                      loginPath={loginPath}
-                    >
-                      <ApplicationLayout />
-                    </RequireAuth>
-                  ),
+                  lazy: () => import("../pages/Applications/ApplicationLayout"),
                   children: [
                     {
                       path: "welcome",
-                      element: <ApplicationWelcomePage />,
+                      lazy: () =>
+                        import(
+                          "../pages/Applications/ApplicationWelcomePage/ApplicationWelcomePage"
+                        ),
                     },
                     {
                       path: "self-declaration",
-                      element: <ApplicationSelfDeclarationPage />,
+                      lazy: () =>
+                        import(
+                          "../pages/Applications/ApplicationSelfDeclarationPage/ApplicationSelfDeclarationPage"
+                        ),
                     },
                     {
                       path: "profile",
-                      element: <ApplicationProfilePage />,
+                      lazy: () =>
+                        import(
+                          "../pages/Applications/ApplicationProfilePage/ApplicationProfilePage"
+                        ),
                     },
                     {
                       path: "career-timeline",
                       children: [
                         {
                           index: true,
-                          element: <ApplicationCareerTimelinePage />,
+                          lazy: () =>
+                            import(
+                              "../pages/Applications/ApplicationCareerTimelinePage/ApplicationCareerTimelinePage"
+                            ),
                         },
                         {
                           path: "introduction",
-                          element: (
-                            <ApplicationCareerTimelineIntroductionPage />
-                          ),
+                          lazy: () =>
+                            import(
+                              "../pages/Applications/ApplicationCareerTimelineIntroductionPage/ApplicationCareerTimelineIntroductionPage"
+                            ),
                         },
                         {
                           path: "add",
-                          element: <ApplicationCareerTimelineAddPage />,
+                          lazy: () =>
+                            import(
+                              "../pages/Applications/ApplicationCareerTimelineAddPage/ApplicationCareerTimelineAddPage"
+                            ),
                         },
                         {
                           path: ":experienceId",
-                          element: <ApplicationCareerTimelineEditPage />,
+                          lazy: () =>
+                            import(
+                              "../pages/Applications/ApplicationCareerTimelineEditPage/ApplicationCareerTimelineEditPage"
+                            ),
                         },
                       ],
                     },
                     {
                       path: "education",
-                      element: <ApplicationEducationPage />,
+                      lazy: () =>
+                        import(
+                          "../pages/Applications/ApplicationEducationPage/ApplicationEducationPage"
+                        ),
                     },
                     {
                       path: "skills",
                       children: [
                         {
                           index: true,
-                          element: <ApplicationSkillsPage />,
+                          lazy: () =>
+                            import(
+                              "../pages/Applications/ApplicationSkillsPage/ApplicationSkillsPage"
+                            ),
                         },
                         {
                           path: "introduction",
-                          element: <ApplicationSkillsIntroductionPage />,
+                          lazy: () =>
+                            import(
+                              "../pages/Applications/ApplicationSkillsIntroductionPage/ApplicationSkillsIntroductionPage"
+                            ),
                         },
                       ],
                     },
@@ -982,21 +859,33 @@ const createRoute = (locale: Locales, loginPath: string) =>
                       children: [
                         {
                           index: true,
-                          element: <ApplicationQuestionsPage />,
+                          lazy: () =>
+                            import(
+                              "../pages/Applications/ApplicationQuestionsPage/ApplicationQuestionsPage"
+                            ),
                         },
                         {
                           path: "introduction",
-                          element: <ApplicationQuestionsIntroductionPage />,
+                          lazy: () =>
+                            import(
+                              "../pages/Applications/ApplicationQuestionsIntroductionPage/ApplicationQuestionsIntroductionPage"
+                            ),
                         },
                       ],
                     },
                     {
                       path: "review",
-                      element: <ApplicationReviewPage />,
+                      lazy: () =>
+                        import(
+                          "../pages/Applications/ApplicationReviewPage/ApplicationReviewPage"
+                        ),
                     },
                     {
                       path: "success",
-                      element: <ApplicationSuccessPage />,
+                      lazy: () =>
+                        import(
+                          "../pages/Applications/ApplicationSuccessPage/ApplicationSuccessPage"
+                        ),
                     },
                   ],
                 },

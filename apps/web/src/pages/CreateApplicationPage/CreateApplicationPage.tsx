@@ -75,7 +75,7 @@ const CreateApplication_Mutation = graphql(/* GraphQL */ `
  * it exists only to create an application
  * and forward a user on
  */
-const CreateApplication = () => {
+export const Component = () => {
   const { poolId } = useRequiredParams<RouteParams>("poolId");
   const intl = useIntl();
   const paths = useRoutes();
@@ -228,4 +228,6 @@ const CreateApplication = () => {
   return <Loading />;
 };
 
-export default CreateApplication;
+Component.displayName = "CreateApplicationPage";
+
+export default Component;

@@ -426,7 +426,7 @@ export const ApplicationCareerTimeline = ({
   );
 };
 
-const ApplicationCareerTimelinePage = () => {
+export const Component = () => {
   const { application } = useApplication();
 
   const experiences: Experience[] = unpackMaybes(application.user.experiences);
@@ -441,4 +441,4 @@ const ApplicationCareerTimelinePage = () => {
   );
 };
 
-export default ApplicationCareerTimelinePage;
+Component.displayName = "ApplicationCareerTimelinePage";
