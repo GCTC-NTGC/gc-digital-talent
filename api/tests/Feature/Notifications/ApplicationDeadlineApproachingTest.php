@@ -10,7 +10,6 @@ use App\Notifications\GcNotifyEmailChannel;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
-use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
@@ -20,7 +19,6 @@ use function PHPUnit\Framework\assertFalse;
 class ApplicationDeadlineApproachingTest extends TestCase
 {
     use RefreshDatabase;
-    use RefreshesSchemaCache;
 
     private ApplicationDeadlineApproaching $fixtureNotification;
 

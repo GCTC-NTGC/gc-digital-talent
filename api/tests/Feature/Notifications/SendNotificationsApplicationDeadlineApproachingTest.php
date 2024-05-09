@@ -13,7 +13,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Notification;
-use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 
 use function PHPUnit\Framework\assertEquals;
@@ -21,7 +20,6 @@ use function PHPUnit\Framework\assertEquals;
 class SendNotificationsApplicationDeadlineApproachingTest extends TestCase
 {
     use RefreshDatabase;
-    use RefreshesSchemaCache;
 
     protected function setUp(): void
     {
