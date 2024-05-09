@@ -883,10 +883,6 @@
     "defaultMessage": "La date doit être avant ou égale au {date}",
     "description": "Error message when a date was entered that is greater than the maximum required"
   },
-  "Q3Pc71": {
-    "defaultMessage": "Il n’est pas possible de sauvegarder ce texte. Veillez à ce que le texte soit dépourvu de formatage ou de caractères spéciaux, et essayez de nouveau.",
-    "description": "Error message that there might be a special character."
-  },
   "QRXLf/": {
     "defaultMessage": "Chargement des résultats...",
     "description": "Message to display when a search is currently loading results."
