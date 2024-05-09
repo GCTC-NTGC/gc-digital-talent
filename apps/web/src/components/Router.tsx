@@ -28,32 +28,6 @@ const ErrorPage = React.lazy(() =>
   ),
 );
 
-/** Search */
-const SearchPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsSearchPage" */ "../pages/SearchRequests/SearchPage/SearchPage"
-      ),
-  ),
-);
-const RequestPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsRequestPage" */ "../pages/SearchRequests/RequestPage/RequestPage"
-      ),
-  ),
-);
-const RequestConfirmationPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsRequestConfirmationPage" */ "../pages/SearchRequests/RequestConfirmationPage/RequestConfirmationPage"
-      ),
-  ),
-);
-
 /** Auth */
 const SignUpPage = React.lazy(() =>
   lazyRetry(
@@ -774,18 +748,25 @@ const createRoute = (
               children: [
                 {
                   index: true,
-                  element: <SearchPage />,
+                  lazy: () =>
+                    import("../pages/SearchRequests/SearchPage/SearchPage"),
                 },
                 {
                   path: "request",
                   children: [
                     {
                       index: true,
-                      element: <RequestPage />,
+                      lazy: () =>
+                        import(
+                          "../pages/SearchRequests/RequestPage/RequestPage"
+                        ),
                     },
                     {
                       path: ":requestId",
-                      element: <RequestConfirmationPage />,
+                      lazy: () =>
+                        import(
+                          "../pages/SearchRequests/RequestConfirmationPage/RequestConfirmationPage"
+                        ),
                     },
                   ],
                 },
