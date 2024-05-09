@@ -176,10 +176,15 @@ export const candidacyStatusAccessor = (
   );
 };
 
-export const notesCell = (candidate: PoolCandidate, intl: IntlShape) =>
-  candidate?.notes ? (
+export const notesCell = (
+  intl: IntlShape,
+  firstName?: Maybe<string>,
+  lastName?: Maybe<string>,
+  notes?: Maybe<string>,
+) =>
+  notes ? (
     <Spoiler
-      text={candidate.notes}
+      text={notes}
       linkSuffix={intl.formatMessage(
         {
           defaultMessage: "notes for {name}",
@@ -188,11 +193,7 @@ export const notesCell = (candidate: PoolCandidate, intl: IntlShape) =>
             "Link text suffix to read more notes for a pool candidate",
         },
         {
-          name: getFullNameLabel(
-            candidate.user.firstName,
-            candidate.user.lastName,
-            intl,
-          ),
+          name: getFullNameLabel(firstName, lastName, intl),
         },
       )}
     />

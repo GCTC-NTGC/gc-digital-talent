@@ -6,7 +6,7 @@ import {
   Department,
   FragmentType,
   PoolCandidate,
-  User,
+  UserInfoFragment,
 } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
@@ -15,7 +15,7 @@ import {
   getPoolCandidatePriorities,
   getPoolCandidateStatus,
 } from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
@@ -46,24 +46,51 @@ import {
   statusCell,
 } from "./helpers";
 
-const columnHelper = createColumnHelper<PoolCandidate>();
+type PoolCandidateSlice = Pick<
+  PoolCandidate,
+  | "id"
+  | "user"
+  | "notes"
+  | "submittedAt"
+  | "status"
+  | "pool"
+  | "placedDepartment"
+  | "suspendedAt"
+>;
+
+const columnHelper = createColumnHelper<PoolCandidateSlice>();
 
 export interface UserCandidatesTableProps {
-  user: User;
-  poolCandidates: PoolCandidate[];
+  user: UserInfoFragment;
   departments: Department[];
   title: string;
 }
 
 const UserCandidatesTable = ({
   user,
-  poolCandidates,
   departments,
   title,
 }: UserCandidatesTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const candidateIds = poolCandidates.map((candidate) => candidate.id);
+
+  const poolCandidatesUnpacked = user.poolCandidates?.filter(notEmpty) ?? [];
+  const poolCandidatesMappedToType: PoolCandidateSlice[] =
+    poolCandidatesUnpacked.map((candidate) => {
+      return {
+        id: candidate.id,
+        user: candidate.user,
+        notes: candidate.notes,
+        submittedAt: candidate.submittedAt,
+        status: candidate.status,
+        pool: candidate.pool,
+        placedDepartment: candidate.placedDepartment,
+        suspendedAt: candidate.suspendedAt,
+      };
+    });
+  const candidateIds = poolCandidatesMappedToType.map(
+    (candidate) => candidate.id,
+  );
 
   const columns = [
     columnHelper.display({
@@ -185,7 +212,7 @@ const UserCandidatesTable = ({
       header: intl.formatMessage(adminMessages.notes),
       sortingFn: normalizedText,
       cell: ({ row: { original: poolCandidate } }) =>
-        notesCell(poolCandidate, intl),
+        notesCell(intl, poolCandidate.notes, user.firstName, user.lastName),
     }),
     columnHelper.accessor(
       () =>
@@ -226,11 +253,11 @@ const UserCandidatesTable = ({
         },
       }) => cells.date(submittedAt, intl),
     }),
-  ] as ColumnDef<PoolCandidate>[];
+  ] as ColumnDef<PoolCandidateSlice>[];
 
   return (
-    <Table<PoolCandidate>
-      data={poolCandidates}
+    <Table<PoolCandidateSlice>
+      data={poolCandidatesMappedToType}
       columns={columns}
       caption={title}
       sort={{ internal: true }}
