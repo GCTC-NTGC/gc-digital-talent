@@ -51,7 +51,6 @@ export async function loginByGCKeySignIn(
   page: Page, // page object
   username: string,
   password: string,
-  sub?: string,
 ) {
   await page.goto("/login-info");
   await page
@@ -65,8 +64,6 @@ export async function loginByGCKeySignIn(
     .click();
   await page.waitForURL("**/applicant/profile-and-applications");
 }
-
-
 
 /**
  * Attempt to login by sub and fallback to loginByGckeySignIn if it fails
@@ -88,9 +85,8 @@ export async function login(
   if (process.env.baseURL === "http://localhost:8000") {
     await loginBySub(page, sub);
   } else {
-    await loginByGCKeySignIn(page, username, password, sub);
+    await loginByGCKeySignIn(page, username, password);
   }
-
 }
 
 export type AuthCookies = {
