@@ -10,6 +10,7 @@ import { Pending, TableOfContents, ThrowNotFound } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
+  Department,
   FragmentType,
   Pool,
   Scalars,
@@ -256,9 +257,14 @@ const UserInfo_Fragment = graphql(/* GraphQL */ `
 interface UserInformationProps {
   userQuery: FragmentType<typeof UserInfo_Fragment>;
   pools: Pool[];
+  departments: Department[];
 }
 
-const UserInformation = ({ userQuery, pools }: UserInformationProps) => {
+const UserInformation = ({
+  userQuery,
+  pools,
+  departments,
+}: UserInformationProps) => {
   const intl = useIntl();
   const user = getFragment(UserInfo_Fragment, userQuery);
 
@@ -282,7 +288,13 @@ const UserInformation = ({ userQuery, pools }: UserInformationProps) => {
           "Title of the 'Candidate status' section of the view-user page",
       }),
       titleIcon: CalculatorIcon,
-      content: <CandidateStatusSection user={user} pools={pools} />,
+      content: (
+        <CandidateStatusSection
+          user={user}
+          pools={pools}
+          departments={departments}
+        />
+      ),
     },
     {
       id: "notes",
@@ -354,6 +366,14 @@ const UserInformation_Query = graphql(/* GraphQL */ `
       }
       status
     }
+    departments {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
   }
 `);
 
@@ -371,6 +391,7 @@ const UserInformationPage = () => {
 
   const user = data?.user;
   const pools = unpackMaybes(data?.pools);
+  const departments = unpackMaybes(data?.departments);
 
   return (
     <AdminContentWrapper>
@@ -383,7 +404,11 @@ const UserInformationPage = () => {
       />
       <Pending fetching={fetching} error={error}>
         {user && pools ? (
-          <UserInformation userQuery={user} pools={pools} />
+          <UserInformation
+            userQuery={user}
+            pools={pools}
+            departments={departments}
+          />
         ) : (
           <ThrowNotFound />
         )}

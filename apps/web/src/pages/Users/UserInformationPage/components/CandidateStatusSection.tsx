@@ -3,13 +3,17 @@ import { useIntl } from "react-intl";
 
 import { Heading } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
-
-import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import { UserInformationProps } from "../types";
 import AddToPoolDialog from "./AddToPoolDialog";
+import UserCandidatesTable from "./UserCandidatesTable/UserCandidatesTable";
 
-const CandidateStatusSection = ({ user, pools }: UserInformationProps) => {
+const CandidateStatusSection = ({
+  user,
+  pools,
+  departments,
+}: UserInformationProps) => {
   const intl = useIntl();
   const { roleAssignments, isLoaded } = useAuthorization();
   const isAdmin =
@@ -18,17 +22,25 @@ const CandidateStatusSection = ({ user, pools }: UserInformationProps) => {
       (roleAssignment) => roleAssignment.role?.name === ROLE_NAME.PlatformAdmin,
     );
 
+  const titleString = intl.formatMessage({
+    defaultMessage: "Pool status",
+    id: "hIaETV",
+    description: "Title of the 'Pool status' section of the view-user page",
+  });
+
+  const poolCandidates = user.poolCandidates?.filter(notEmpty);
+
   return (
     <>
       <Heading level="h4" data-h2-margin="base(x2, 0, x1, 0)">
-        {intl.formatMessage({
-          defaultMessage: "Pool status",
-          id: "hIaETV",
-          description:
-            "Title of the 'Pool status' section of the view-user page",
-        })}
+        {titleString}
       </Heading>
-      <PoolStatusTable user={user} pools={pools} />
+      <UserCandidatesTable
+        user={user}
+        poolCandidates={poolCandidates ?? []}
+        title={titleString}
+        departments={departments ?? []}
+      />
       {isAdmin && (
         <>
           <h4 data-h2-margin="base(x2, 0, x1, 0)">
