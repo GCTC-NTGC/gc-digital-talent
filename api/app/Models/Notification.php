@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\NotificationType;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Support\Facades\Auth;
@@ -31,14 +29,6 @@ class Notification extends DatabaseNotification
         }
 
         return parent::getAttribute($key);
-    }
-
-    public function type(): Attribute
-    {
-
-        return Attribute::make(
-            get: fn (string $value) => NotificationType::fromClassName($value)->name
-        );
     }
 
     public function scopeOnlyUnread(Builder $query, ?bool $onlyUnread)
