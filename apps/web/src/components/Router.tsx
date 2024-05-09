@@ -37,56 +37,6 @@ const AdminErrorPage = React.lazy(() =>
   ),
 );
 
-/** Pools */
-const IndexPoolPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminIndexPoolPage" */ "../pages/Pools/IndexPoolPage/IndexPoolPage"
-      ),
-  ),
-);
-const CreatePoolPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminCreatePoolPage" */ "../pages/Pools/CreatePoolPage/CreatePoolPage"
-      ),
-  ),
-);
-const EditPoolPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminEditPoolPage" */ "../pages/Pools/EditPoolPage/EditPoolPage"
-      ),
-  ),
-);
-const AssessmentPlanBuilderPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminAssessmentPlanBuilderPage" */ "../pages/Pools/AssessmentPlanBuilderPage/AssessmentPlanBuilderPage"
-      ),
-  ),
-);
-const PoolLayout = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminPoolLayout" */ "../pages/Pools/PoolLayout"
-      ),
-  ),
-);
-const ViewPoolPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminViewPoolPage" */ "../pages/Pools/ViewPoolPage/ViewPoolPage"
-      ),
-  ),
-);
-
 /** Departments */
 const IndexDepartmentPage = React.lazy(() =>
   lazyRetry(
@@ -827,76 +777,27 @@ const createRoute = (locale: Locales, loginPath: string) =>
               children: [
                 {
                   index: true,
-                  element: (
-                    <RequireAuth
-                      roles={[
-                        ROLE_NAME.PoolOperator,
-                        ROLE_NAME.CommunityManager,
-                        ROLE_NAME.PlatformAdmin,
-                      ]}
-                      loginPath={loginPath}
-                    >
-                      <IndexPoolPage />
-                    </RequireAuth>
-                  ),
+                  lazy: () =>
+                    import("../pages/Pools/IndexPoolPage/IndexPoolPage"),
                 },
                 {
                   path: "create",
-                  element: (
-                    <RequireAuth
-                      roles={[ROLE_NAME.PoolOperator]}
-                      loginPath={loginPath}
-                    >
-                      <CreatePoolPage />
-                    </RequireAuth>
-                  ),
+                  lazy: () =>
+                    import("../pages/Pools/CreatePoolPage/CreatePoolPage"),
                 },
                 {
                   path: ":poolId",
-                  element: (
-                    <RequireAuth
-                      roles={[
-                        ROLE_NAME.PoolOperator,
-                        ROLE_NAME.RequestResponder,
-                        ROLE_NAME.CommunityManager,
-                        ROLE_NAME.PlatformAdmin,
-                      ]}
-                      loginPath={loginPath}
-                    >
-                      <PoolLayout />
-                    </RequireAuth>
-                  ),
+                  lazy: () => import("../pages/Pools/PoolLayout"),
                   children: [
                     {
                       index: true,
-                      element: (
-                        <RequireAuth
-                          roles={[
-                            ROLE_NAME.PoolOperator,
-                            ROLE_NAME.RequestResponder,
-                            ROLE_NAME.CommunityManager,
-                            ROLE_NAME.PlatformAdmin,
-                          ]}
-                          loginPath={loginPath}
-                        >
-                          <ViewPoolPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import("../pages/Pools/ViewPoolPage/ViewPoolPage"),
                     },
                     {
                       path: "edit",
-                      element: (
-                        <RequireAuth
-                          roles={[
-                            ROLE_NAME.PoolOperator,
-                            ROLE_NAME.CommunityManager,
-                            ROLE_NAME.PlatformAdmin,
-                          ]}
-                          loginPath={loginPath}
-                        >
-                          <EditPoolPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import("../pages/Pools/EditPoolPage/EditPoolPage"),
                     },
                     {
                       path: "pool-candidates",
@@ -926,18 +827,10 @@ const createRoute = (locale: Locales, loginPath: string) =>
                     },
                     {
                       path: "plan",
-                      element: (
-                        <RequireAuth
-                          roles={[
-                            ROLE_NAME.PoolOperator,
-                            ROLE_NAME.CommunityManager,
-                            ROLE_NAME.PlatformAdmin,
-                          ]}
-                          loginPath={loginPath}
-                        >
-                          <AssessmentPlanBuilderPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import(
+                          "../pages/Pools/AssessmentPlanBuilderPage/AssessmentPlanBuilderPage"
+                        ),
                     },
                   ],
                 },
