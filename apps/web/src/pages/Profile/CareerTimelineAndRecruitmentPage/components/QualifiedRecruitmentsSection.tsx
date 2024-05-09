@@ -6,10 +6,8 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 
 import QualifiedRecruitmentCard from "~/components/QualifiedRecruitmentCard/QualifiedRecruitmentCard";
 import useRoutes from "~/hooks/useRoutes";
-import {
-  Application,
-  isApplicationQualifiedRecruitment,
-} from "~/utils/applicationUtils";
+import { Application } from "~/utils/applicationUtils";
+import { isQualifiedStatus } from "~/utils/poolCandidate";
 
 interface QualifiedRecruitmentsSectionProps {
   applications?: Application[];
@@ -25,8 +23,8 @@ const QualifiedRecruitmentsSection = ({
 
   const applicationsNotNull = applications?.filter(notEmpty) ?? [];
 
-  const applicationsDisplay = applicationsNotNull.filter(
-    isApplicationQualifiedRecruitment,
+  const applicationsDisplay = applicationsNotNull.filter((application) =>
+    isQualifiedStatus(application.status),
   );
 
   const hasExperiences = applicationsDisplay.length >= 1;
