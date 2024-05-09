@@ -2,10 +2,7 @@ import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { Locales, useLocale } from "@gc-digital-talent/i18n";
-import {
-  POST_LOGOUT_OVERRIDE_PATH_KEY,
-  ROLE_NAME,
-} from "@gc-digital-talent/auth";
+import { POST_LOGOUT_OVERRIDE_PATH_KEY } from "@gc-digital-talent/auth";
 import { Loading } from "@gc-digital-talent/ui";
 import { lazyRetry } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
@@ -13,11 +10,6 @@ import { defaultLogger } from "@gc-digital-talent/logger";
 import Layout from "~/components/Layout/Layout";
 import AdminLayout from "~/components/Layout/AdminLayout/AdminLayout";
 import IAPLayout from "~/components/Layout/IAPLayout";
-import CreateAccountRedirect from "~/pages/Auth/CreateAccountPage/CreateAccountRedirect";
-import useRoutes from "~/hooks/useRoutes";
-import ScreeningAndEvaluationPage from "~/pages/Pools/ScreeningAndEvaluationPage/ScreeningAndEvaluationPage";
-
-import RequireAuth from "./RequireAuth/RequireAuth";
 
 const ErrorPage = React.lazy(() =>
   lazyRetry(
@@ -37,35 +29,7 @@ const AdminErrorPage = React.lazy(() =>
   ),
 );
 
-/** Announcements */
-const AnnouncementsPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminAnnouncementsPage" */ "../pages/AnnouncementsPage/AnnouncementsPage"
-      ),
-  ),
-);
-
-/** Directive on Digital Talent */
-const DirectivePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsDirectivePage" */ "../pages/DirectivePage/DirectivePage"
-      ),
-  ),
-);
-const DigitalServicesContractingQuestionnaire = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsDirectiveDigitalServicesContractingQuestionnaire" */ "../pages/DirectiveForms/DigitalServicesContractingQuestionnaire/DigitalServicesContractingQuestionnairePage"
-      ),
-  ),
-);
-
-const createRoute = (locale: Locales, loginPath: string) =>
+const createRoute = (locale: Locales) =>
   createBrowserRouter([
     {
       path: `/`,
@@ -115,18 +79,14 @@ const createRoute = (locale: Locales, loginPath: string) =>
               children: [
                 {
                   index: true,
-                  element: <DirectivePage />,
+                  lazy: () => import("../pages/DirectivePage/DirectivePage"),
                 },
                 {
                   path: "digital-services-contracting-questionnaire",
-                  element: (
-                    <RequireAuth
-                      roles={[ROLE_NAME.PlatformAdmin]}
-                      loginPath={loginPath}
-                    >
-                      <DigitalServicesContractingQuestionnaire />
-                    </RequireAuth>
-                  ),
+                  lazy: () =>
+                    import(
+                      "../pages/DirectiveForms/DigitalServicesContractingQuestionnaire/DigitalServicesContractingQuestionnairePage"
+                    ),
                 },
               ],
             },
@@ -198,7 +158,8 @@ const createRoute = (locale: Locales, loginPath: string) =>
             },
             {
               path: "applicant",
-              element: <CreateAccountRedirect />,
+              lazy: () =>
+                import("../pages/Auth/CreateAccountPage/CreateAccountRedirect"),
               children: [
                 {
                   index: true,
@@ -615,17 +576,10 @@ const createRoute = (locale: Locales, loginPath: string) =>
                     },
                     {
                       path: "screening",
-                      element: (
-                        <RequireAuth
-                          roles={[
-                            ROLE_NAME.PoolOperator,
-                            ROLE_NAME.PlatformAdmin,
-                          ]}
-                          loginPath={loginPath}
-                        >
-                          <ScreeningAndEvaluationPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import(
+                          "../pages/Pools/ScreeningAndEvaluationPage/ScreeningAndEvaluationPage"
+                        ),
                     },
                     {
                       path: "plan",
@@ -781,14 +735,8 @@ const createRoute = (locale: Locales, loginPath: string) =>
                 },
                 {
                   path: "announcements",
-                  element: (
-                    <RequireAuth
-                      roles={[ROLE_NAME.PlatformAdmin]}
-                      loginPath={loginPath}
-                    >
-                      <AnnouncementsPage />
-                    </RequireAuth>
-                  ),
+                  lazy: () =>
+                    import("../pages/AnnouncementsPage/AnnouncementsPage"),
                 },
               ],
             },
@@ -829,8 +777,7 @@ const createRoute = (locale: Locales, loginPath: string) =>
 const Router = () => {
   // eslint-disable-next-line no-restricted-syntax
   const { locale } = useLocale();
-  const routes = useRoutes();
-  const router = createRoute(locale, routes.login());
+  const router = createRoute(locale);
   return (
     <RouterProvider
       router={router}
