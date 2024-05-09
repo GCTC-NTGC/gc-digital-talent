@@ -443,6 +443,10 @@ const PoolCandidatesTable = ({
     return poolCandidates.filter(notEmpty);
   }, [data?.poolCandidatesPaginated.data]);
 
+  const candidateIdsFromFilterData = filteredData.map(
+    (iterator) => iterator.poolCandidate.id,
+  );
+
   const [{ data: tableData, fetching: fetchingTableData }] = useQuery({
     query: CandidatesTable_Query,
   });
@@ -553,7 +557,13 @@ const PoolCandidatesTable = ({
           row: {
             original: { poolCandidate },
           },
-        }) => candidateNameCell(poolCandidate, paths, intl),
+        }) =>
+          candidateNameCell(
+            poolCandidate,
+            paths,
+            intl,
+            candidateIdsFromFilterData,
+          ),
         meta: {
           isRowTitle: true,
         },

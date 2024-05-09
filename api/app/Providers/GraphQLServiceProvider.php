@@ -48,7 +48,6 @@ use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
 use App\Enums\LanguageAbility;
 use App\Enums\NotificationFamily;
-use App\Enums\NotificationType;
 use App\Enums\OperationalRequirement;
 use App\Enums\PlacementType;
 use App\Enums\PoolCandidateSearchPositionType;
@@ -662,15 +661,6 @@ class GraphQLServiceProvider extends ServiceProvider
             }
         );
 
-        $typeRegistry->registerLazy(
-            'NotificationType',
-            static function (): EnumType {
-                return new EnumType([
-                    'name' => 'NotificationType',
-                    'values' => array_column(NotificationType::cases(), 'name'),
-                ]);
-            }
-        );
         $typeRegistry->registerLazy(
             'CandidateRemovalReason',
             static function (): EnumType {

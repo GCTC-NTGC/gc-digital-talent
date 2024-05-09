@@ -35,15 +35,11 @@ export const TrackApplicationsCandidate_Fragment = graphql(/* GraphQL */ `
 
 interface TrackApplicationsProps {
   applicationsQuery: FragmentType<typeof TrackApplicationsCandidate_Fragment>[];
-  userId: Scalars["ID"]["output"];
 }
 
 type AccordionItems = Array<"in_progress" | "past" | "">;
 
-const TrackApplications = ({
-  applicationsQuery,
-  userId,
-}: TrackApplicationsProps) => {
+const TrackApplications = ({ applicationsQuery }: TrackApplicationsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const applications = getFragment(
@@ -101,7 +97,7 @@ const TrackApplications = ({
             {
               a: (chunks: React.ReactNode) =>
                 buildLink(
-                  paths.careerTimelineAndRecruitment(userId, {
+                  paths.careerTimelineAndRecruitment({
                     section:
                       CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES,
                   }),

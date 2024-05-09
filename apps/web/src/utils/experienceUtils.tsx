@@ -8,7 +8,6 @@ import React from "react";
 import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { useAuthorization } from "@gc-digital-talent/auth";
 import { IconType } from "@gc-digital-talent/ui";
 import {
   AwardExperience,
@@ -673,10 +672,8 @@ type UseExperienceInfo = (experience: AnyExperience) => ExperienceInfo;
  */
 export const useExperienceInfo: UseExperienceInfo = (experience) => {
   const intl = useIntl();
-  const { userAuthInfo } = useAuthorization();
   const paths = useRoutes();
   const experienceType = deriveExperienceType(experience);
-  const userId = experience?.user?.id || userAuthInfo?.id || "";
   const defaults = {
     title: intl.formatMessage(commonMessages.notProvided).toString(),
     titleHtml: intl.formatMessage(commonMessages.notProvided),
@@ -685,14 +682,6 @@ export const useExperienceInfo: UseExperienceInfo = (experience) => {
   };
 
   if (!experienceType) return defaults;
-
-  const editPaths = new Map<ExperienceType, string>([
-    ["award", paths.editExperience(userId, "award", experience.id)],
-    ["community", paths.editExperience(userId, "community", experience.id)],
-    ["education", paths.editExperience(userId, "education", experience.id)],
-    ["personal", paths.editExperience(userId, "personal", experience.id)],
-    ["work", paths.editExperience(userId, "work", experience.id)],
-  ]);
 
   const typeMessages = new Map<ExperienceType, string>([
     ["award", intl.formatMessage(experienceMessages.award)],
@@ -713,7 +702,7 @@ export const useExperienceInfo: UseExperienceInfo = (experience) => {
   return {
     title: getExperienceName(experience, intl)?.toString() ?? defaults.title,
     titleHtml: getExperienceName(experience, intl, true),
-    editPath: editPaths.get(experienceType),
+    editPath: paths.editExperience(experience.id),
     typeMessage: typeMessages.get(experienceType) || defaults.typeMessage,
     icon: icons.get(experienceType) || defaults.icon,
     date: getExperienceDate(experience, intl),

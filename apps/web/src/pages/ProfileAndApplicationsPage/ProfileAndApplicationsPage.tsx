@@ -51,7 +51,6 @@ export const ProfileAndApplications = ({
           <div id="track-applications-section">
             <TrackApplications
               applicationsQuery={unpackMaybes(user.poolCandidates)}
-              userId={user.id}
             />
           </div>
         </div>

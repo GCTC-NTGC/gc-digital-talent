@@ -208,7 +208,7 @@ const CareerTimelineAndRecruitment = ({
       },
       {
         label: intl.formatMessage(titles.careerTimelineAndRecruitment),
-        url: paths.careerTimelineAndRecruitment(userId),
+        url: paths.careerTimelineAndRecruitment(),
       },
     ],
   });

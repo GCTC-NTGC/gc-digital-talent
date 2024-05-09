@@ -331,10 +331,6 @@
     "defaultMessage": "En fonction des besoins",
     "description": "As and when needed personnel other requirement"
   },
-  "/s66sg": {
-    "defaultMessage": "Statut de la demande",
-    "description": "Title for admins to edit an applications status."
-  },
   "/sBGov": {
     "defaultMessage": "Question {number}",
     "description": "Heading for a specific screening question"
@@ -506,10 +502,6 @@
   "0lDq3P": {
     "defaultMessage": "La liste n’est pas filtrée. ",
     "description": "Announcement that the job stream filter is not active."
-  },
-  "0lUoqK": {
-    "defaultMessage": "Renseignements personnels et coordonnées",
-    "description": "Title for the personal and contact information snapshot section"
   },
   "0nP0Wj": {
     "defaultMessage": "Selon la <link>définition de Statistique Canada</link>, ce groupe :",
@@ -715,10 +707,6 @@
     "defaultMessage": "Minorité visible",
     "description": "CSV Header, Visible Minority column"
   },
-  "1yO4e+": {
-    "defaultMessage": "Vous êtes sur le point de supprimer cette évaluation.",
-    "description": "First paragraph for delete assessment step dialog"
-  },
   "21QCEK": {
     "defaultMessage": "« J’atteste que les renseignements que j’ai fournis sont vrais »",
     "description": "Signature list item on sign and submit page."
@@ -754,10 +742,6 @@
   "2FBdeQ": {
     "defaultMessage": "Apprentissage en cours d’emploi",
     "description": "Experience requirement, On the job."
-  },
-  "2KM4iz": {
-    "defaultMessage": "Parcours professionnel",
-    "description": "Title for the career timeline snapshot section"
   },
   "2Ljgvn": {
     "defaultMessage": "Voir l’affiche d’emploi pour ce processus de recrutement",
@@ -1378,10 +1362,6 @@
   "5dhDA+": {
     "defaultMessage": "Rappelez-vous que, {skillName} est défini comme",
     "description": "Lead-in text to a skill description"
-  },
-  "5iNcHS": {
-    "defaultMessage": "Candidature",
-    "description": "Title displayed for the Pool Candidates table View Application link."
   },
   "5j409K": {
     "defaultMessage": "Notes et commentaires",
@@ -2559,10 +2539,6 @@
     "defaultMessage": "<strong>Je réponds à l’option de désignation professionnelle</strong>",
     "description": "Radio group option for education requirement filter in application education form."
   },
-  "Cjp2F6": {
-    "defaultMessage": "Information sur le bassin",
-    "description": "Title for the pool info page"
-  },
   "Cl3GCt": {
     "defaultMessage": "Titre du contrat",
     "description": "Label for _contract title_ field in the _digital services contracting questionnaire_"
@@ -2654,6 +2630,10 @@
   "DC2A59": {
     "defaultMessage": "Agrandir toutes les sections<hidden> de l’information sur la demande</hidden>",
     "description": "Button text to open all application information accordions"
+  },
+  "DG4c6M": {
+    "defaultMessage": "{status}<hidden> changer le statut pour {poolName}</hidden>",
+    "description": "Button to change a users status in a pool - located in the table on view-user page"
   },
   "DHQasU": {
     "defaultMessage": "Voir les notes",
@@ -4279,10 +4259,6 @@
     "defaultMessage": "Votre impact",
     "description": "Title for impact section on a pool advertisement."
   },
-  "MSitul": {
-    "defaultMessage": "Présentation des séances de formation à venir très bientôt.",
-    "description": "Message under training session image on directive page."
-  },
   "MTPlbB": {
     "defaultMessage": "Cette liste permet au candidat de préciser <strong>jusqu’à 5 compétences techniques </strong> pour lesquelles ils souhaitent recevoir une formation.",
     "description": "Description of a users technical skills to be improved for admins"
@@ -4611,6 +4587,10 @@
     "defaultMessage": "6 à 10",
     "description": "Contract FTE range between six and ten"
   },
+  "OWYrdr": {
+    "defaultMessage": "Le processus pour {poolName} prend fin le {closingDate}.",
+    "description": "Label for the application deadline approaching notification"
+  },
   "OY6KVG": {
     "defaultMessage": "Montrez aux gestionnaires les cinq compétences comportementales les plus fortes qui font de vous un membre formidable de l’équipe. Vous pouvez modifier cette vitrine à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez à la vitrine qui ne sont pas déjà dans votre bibliothèque seront ajoutées automatiquement.",
     "description": "Page blurb for the top behavioural skills page"
@@ -4914,10 +4894,6 @@
   "QJ5uDV": {
     "defaultMessage": "Sélectionnez un volet",
     "description": "Placeholder for stream filter in search form."
-  },
-  "QJPsGW": {
-    "defaultMessage": "{status} <hidden>changer le statut pour {poolName}</hidden>",
-    "description": "Button to change a users status in a pool - located in the table on view-user page"
   },
   "QJi1ZQ": {
     "defaultMessage": "Annuler la décision et mettre le statut à jour",
@@ -5683,10 +5659,6 @@
     "defaultMessage": "Supprimer cette question",
     "description": "Button text to delete a general question"
   },
-  "Ude1JQ": {
-    "defaultMessage": "Texte",
-    "description": "Title for the application’s profile snapshot."
-  },
   "UduzGA": {
     "defaultMessage": "Enregistrer l’introduction",
     "description": "Text on a button to save the pool introduction"
@@ -6337,10 +6309,6 @@
   "XpiMeF": {
     "defaultMessage": "Chercher dans notre base de données de compétences et les associer à votre profil.",
     "description": "Subtitle for the find a skill dialog within the skill library"
-  },
-  "Xpo+u6": {
-    "defaultMessage": "Compétences constituant un atout",
-    "description": "Title for the optional skills snapshot section"
   },
   "XqF3wS": {
     "defaultMessage": "Coordonnées",
@@ -7722,6 +7690,10 @@
     "defaultMessage": "Les compétences suivantes sont requises pour ce rôle, mais ne sont pas requises dans le cadre de cette candidature. <strong>Ils seront examinés au cours du processus d’évaluation si votre candidature est acceptée</strong>.",
     "description": "Information regarding required behavioural skills"
   },
+  "fAJPpJ": {
+    "defaultMessage": "Le processus pour {poolName} prend fin le {closingDate}. Continuer votre soumission.",
+    "description": "Message for application deadline approaching notification"
+  },
   "fEcEv3": {
     "defaultMessage": "Signée",
     "description": "Heading for the application snapshot users signature"
@@ -9002,10 +8974,6 @@
     "defaultMessage": "Exigences temporelles",
     "description": "Timing requirements contracting rationale"
   },
-  "m0JFE/": {
-    "defaultMessage": "Code",
-    "description": "Title for the application’s profile snapshot."
-  },
   "m1eQrS": {
     "defaultMessage": "Canada.ca",
     "description": "Alt text for the Canada logo link in the Footer."
@@ -9226,10 +9194,6 @@
     "defaultMessage": "Toutes les compétences suivantes sont facultatives mais avantageuses pour le poste. Le fait de les démontrer pourrait vous être bénéfique lorsque votre candidature est considérée.",
     "description": "Descriptive text about how optional skills are used in the application process"
   },
-  "mqWvWR": {
-    "defaultMessage": "Questions de sélection",
-    "description": "Title for the screening questions snapshot section"
-  },
   "mrMxsI": {
     "defaultMessage": "Oui, il s'agit d'un poste de supervision",
     "description": "Checkbox selection that confirms a job opportunity will have supervising duties. "
@@ -9289,10 +9253,6 @@
   "nDm9dX": {
     "defaultMessage": "Enregistrer la disponibilité",
     "description": "Button text to save availability in a recruitment"
-  },
-  "nEVNHp": {
-    "defaultMessage": "Information sur l'employé(e) du gouvernement",
-    "description": "Title for the government employee information snapshot section"
   },
   "nGNj5Q": {
     "defaultMessage": "Courriel de la personne-ressource",
@@ -10081,10 +10041,6 @@
   "s5hTYo": {
     "defaultMessage": "Rôles des membres",
     "description": "Label for the input to select role of a team role"
-  },
-  "s7F24X": {
-    "defaultMessage": "Préférences de travail",
-    "description": "Title for the work preferences snapshot section"
   },
   "s7Uy7q": {
     "defaultMessage": "Services professionnels, administratifs, et de soutien à la gestion",

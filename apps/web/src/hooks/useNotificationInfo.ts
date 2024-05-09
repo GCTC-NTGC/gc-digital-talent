@@ -2,8 +2,8 @@ import { IntlShape, useIntl } from "react-intl";
 import React from "react";
 
 import {
+  ApplicationDeadlineApproachingNotification,
   Notification,
-  NotificationType,
   PoolCandidateStatusChangedNotification,
 } from "@gc-digital-talent/graphql";
 import {
@@ -11,6 +11,12 @@ import {
   getLocalizedName,
   getPoolCandidateStatus,
 } from "@gc-digital-talent/i18n";
+import {
+  formDateStringToDate,
+  formatDate,
+} from "@gc-digital-talent/date-helpers";
+import { useLogger } from "@gc-digital-talent/logger";
+import { GraphqlType } from "@gc-digital-talent/helpers";
 
 import useRoutes from "./useRoutes";
 
@@ -20,18 +26,17 @@ type NotificationInfo = {
   href: string;
 };
 
-type NotificationInfoGetterFunc<T extends Notification = Notification> = (
-  notification: T,
+function isPoolCandidateStatusChangedNotification(
+  notification: GraphqlType,
+): notification is PoolCandidateStatusChangedNotification {
+  return notification.__typename === "PoolCandidateStatusChangedNotification";
+}
+
+const poolCandidateStatusChangedNotificationToInfo = (
+  notification: PoolCandidateStatusChangedNotification,
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
-) => NotificationInfo | null;
-
-// Not technically a union but will be once
-type NotificationUnion = PoolCandidateStatusChangedNotification;
-
-const usePoolCandidateStatusChangedInfo: NotificationInfoGetterFunc<
-  PoolCandidateStatusChangedNotification
-> = (notification, paths, intl) => {
+): NotificationInfo | null => {
   if (!notification.poolCandidateId) return null;
   const poolName = getLocalizedName(notification.poolName, intl);
   const oldStatus = intl.formatMessage(
@@ -71,25 +76,88 @@ const usePoolCandidateStatusChangedInfo: NotificationInfoGetterFunc<
   };
 };
 
-const notificationInfoGetters = new Map<
-  NotificationType,
-  NotificationInfoGetterFunc<NotificationUnion>
->([
-  [
-    NotificationType.PoolCandidateStatusChanged,
-    usePoolCandidateStatusChangedInfo,
-  ],
-]);
+function isApplicationDeadlineApproachingNotification(
+  notification: GraphqlType,
+): notification is ApplicationDeadlineApproachingNotification {
+  return (
+    notification.__typename === "ApplicationDeadlineApproachingNotification"
+  );
+}
+
+const applicationDeadlineApproachingNotificationToInfo = (
+  notification: ApplicationDeadlineApproachingNotification,
+  paths: ReturnType<typeof useRoutes>,
+  intl: IntlShape,
+): NotificationInfo => {
+  const poolNameLocalized = getLocalizedName(notification.poolName, intl);
+  const closingDateObject = formDateStringToDate(
+    notification.closingDate ?? "1900-01-01",
+  );
+  const closingDateFormatted = formatDate({
+    date: closingDateObject,
+    formatString: "PPP",
+    intl,
+  });
+
+  return {
+    message: intl.formatMessage(
+      {
+        defaultMessage:
+          "{poolName} closes on {closingDate}. Continue your application.",
+        id: "fAJPpJ",
+        description:
+          "Message for application deadline approaching notification",
+      },
+      {
+        poolName: poolNameLocalized,
+        closingDate: closingDateFormatted,
+      },
+    ),
+    href: notification.poolCandidateId
+      ? paths.application(notification.poolCandidateId)
+      : "",
+    label: intl.formatMessage(
+      {
+        defaultMessage: "{poolName} closes on {closingDate}.",
+        id: "OWYrdr",
+        description:
+          "Label for the application deadline approaching notification",
+      },
+      {
+        poolName: poolNameLocalized,
+        closingDate: closingDateFormatted,
+      },
+    ),
+  };
+};
 
 const useNotificationInfo = (
-  notification: NotificationUnion,
+  notification: Notification & GraphqlType,
 ): NotificationInfo | null => {
   const intl = useIntl();
   const paths = useRoutes();
-  if (!notification.type) return null;
-  const getter = notificationInfoGetters.get(notification.type);
+  const logger = useLogger();
 
-  return getter?.(notification, paths, intl) ?? null;
+  if (isPoolCandidateStatusChangedNotification(notification)) {
+    return poolCandidateStatusChangedNotificationToInfo(
+      notification,
+      paths,
+      intl,
+    );
+  }
+
+  if (isApplicationDeadlineApproachingNotification(notification)) {
+    return applicationDeadlineApproachingNotificationToInfo(
+      notification,
+      paths,
+      intl,
+    );
+  }
+
+  logger.warning(
+    `Could not create NotificationInfo for ${notification.__typename}`,
+  );
+  return null;
 };
 
 export default useNotificationInfo;

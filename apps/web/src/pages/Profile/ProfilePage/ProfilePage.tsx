@@ -391,7 +391,7 @@ export const ProfileForm = ({ userQuery }: ProfilePageProps) => {
       },
       {
         label: formattedPageTitle,
-        url: paths.profile(user.id),
+        url: paths.profile(),
       },
     ],
   });

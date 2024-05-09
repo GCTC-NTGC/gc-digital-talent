@@ -7,7 +7,7 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import QualifiedRecruitmentCard from "~/components/QualifiedRecruitmentCard/QualifiedRecruitmentCard";
 import useRoutes from "~/hooks/useRoutes";
-import { isApplicationQualifiedRecruitment } from "~/utils/applicationUtils";
+import { isQualifiedStatus } from "~/utils/poolCandidate";
 
 const QualifiedRecruitmentsCandidate_Fragment = graphql(/* GraphQL */ `
   fragment QualifiedRecruitmentsCandidate on PoolCandidate {
@@ -37,8 +37,8 @@ const QualifiedRecruitmentsSection = ({
 
   const applicationsNotNull = unpackMaybes([...applications]);
 
-  const applicationsDisplay = applicationsNotNull.filter(
-    isApplicationQualifiedRecruitment,
+  const applicationsDisplay = applicationsNotNull.filter((application) =>
+    isQualifiedStatus(application.status),
   );
 
   return applicationsDisplay.length >= 1 ? (
