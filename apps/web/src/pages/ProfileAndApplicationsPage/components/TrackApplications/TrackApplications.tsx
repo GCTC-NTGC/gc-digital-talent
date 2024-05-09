@@ -5,12 +5,7 @@ import { useIntl } from "react-intl";
 import FolderOpenIcon from "@heroicons/react/24/outline/FolderOpenIcon";
 
 import { Accordion, Heading, Link, Well } from "@gc-digital-talent/ui";
-import {
-  FragmentType,
-  Scalars,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { isApplicationInProgress, notRemoved } from "~/utils/applicationUtils";
