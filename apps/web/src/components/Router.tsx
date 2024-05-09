@@ -4,41 +4,17 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Locales, useLocale } from "@gc-digital-talent/i18n";
 import { POST_LOGOUT_OVERRIDE_PATH_KEY } from "@gc-digital-talent/auth";
 import { Loading } from "@gc-digital-talent/ui";
-import { lazyRetry } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
-
-import Layout from "~/components/Layout/Layout";
-import AdminLayout from "~/components/Layout/AdminLayout/AdminLayout";
-import IAPLayout from "~/components/Layout/IAPLayout";
-
-const ErrorPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsErrorPage" */ "../pages/Errors/ErrorPage/ErrorPage"
-      ),
-  ),
-);
-
-const AdminErrorPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminAdminErrorPage" */ "../pages/Errors/AdminErrorPage/AdminErrorPage"
-      ),
-  ),
-);
 
 const createRoute = (locale: Locales) =>
   createBrowserRouter([
     {
       path: `/`,
-      element: <Layout />,
-      errorElement: <ErrorPage />,
+      lazy: () => import("./Layout/Layout"),
       children: [
         {
           path: locale,
-          errorElement: <ErrorPage />,
+          lazy: () => import("./Layout/ErrorBoundary/ErrorBoundary"),
           children: [
             {
               index: true,
@@ -451,11 +427,15 @@ const createRoute = (locale: Locales) =>
     },
     {
       path: `${locale}/admin`,
-      element: <AdminLayout />,
-      errorElement: <AdminErrorPage />,
+      lazy: () => import("./Layout/AdminLayout/AdminLayout"),
       children: [
         {
-          errorElement: <AdminErrorPage />,
+          async lazy() {
+            const { ErrorBoundary } = await import(
+              "./Layout/AdminLayout/AdminLayout"
+            );
+            return { ErrorBoundary };
+          },
           children: [
             {
               index: true,
@@ -752,8 +732,7 @@ const createRoute = (locale: Locales) =>
     },
     {
       path: `${locale}/indigenous-it-apprentice`,
-      element: <IAPLayout />,
-      errorElement: <ErrorPage />,
+      lazy: () => import("./Layout/IAPLayout"),
       children: [
         {
           index: true,

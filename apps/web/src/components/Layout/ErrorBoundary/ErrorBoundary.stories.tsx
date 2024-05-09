@@ -3,13 +3,13 @@ import { Meta, StoryFn } from "@storybook/react";
 
 import { CHROMATIC_VIEWPORTS } from "@gc-digital-talent/storybook-helpers";
 
-import Error404 from "./ErrorPage";
+import ErrorBoundary from "./ErrorBoundary";
 
 export default {
-  component: Error404,
+  component: ErrorBoundary,
 } as Meta;
 
-const Template: StoryFn<typeof Error404> = () => <Error404 />;
+const Template: StoryFn<typeof ErrorBoundary> = () => <ErrorBoundary />;
 
 export const Default = Template.bind({});
 Default.parameters = {
