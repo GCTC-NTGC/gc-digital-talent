@@ -7,7 +7,6 @@ import ArrowDownOnSquareIcon from "@heroicons/react/24/outline/ArrowDownOnSquare
 import { CardBasic, Heading, Link } from "@gc-digital-talent/ui";
 import { uiMessages, getLocale } from "@gc-digital-talent/i18n";
 
-import trainingSession from "~/assets/img/Directive_landing_page_graphics_R1-01.webp";
 import decisionTree from "~/assets/img/Directive_landing_page_graphics_R1-02.webp";
 import decisionTreePdfEn from "~/assets/documents/Decision_Tree_PDF_EN.pdf";
 import decisionTreePdfFr from "~/assets/documents/Arbre_decisionnel_PDF_FR.pdf";
@@ -23,7 +22,7 @@ import hrPdfEn from "~/assets/documents/Guidance_HR_PDF_EN.pdf";
 import hrPdfFr from "~/assets/documents/Orientation_RH_PDF_FR.pdf";
 import hrDocxEn from "~/assets/documents/Guidance_HR_text_EN.docx";
 import hrDocxFr from "~/assets/documents/Orientation_RH_texte_FR.docx";
-import procurement from "~/assets/img/Procurment_officer_image.webp";
+import procurement from "~/assets/img/Procurement_officer_image.webp";
 import procurementPdfEn from "~/assets/documents/Guidance_Procurement_PDF_EN.pdf";
 import procurementPdfFr from "~/assets/documents/Orientation_approvisionnement_PDF_FR.pdf";
 import procurementDocxEn from "~/assets/documents/Guidance_Procurement_text_EN.docx";
@@ -70,26 +69,6 @@ const Resources = () => {
           data-h2-gap="base(x1) p-tablet(x2)"
           data-h2-margin="base(x1, 0, 0, 0) p-tablet(x2, 0, 0, 0)"
         >
-          <CardBasic
-            data-h2-display="base(flex)"
-            data-h2-flex-direction="base(column)"
-            data-h2-justify-content="base(space-evenly)"
-          >
-            <img
-              src={trainingSession}
-              alt=""
-              data-h2-display="base(none) p-tablet(block)"
-              data-h2-margin="base(0, 0, x1, 0)"
-            />
-            <p data-h2-text-align="base(center)">
-              {intl.formatMessage({
-                defaultMessage: "Training session presentation - Coming soon.",
-                id: "MSitul",
-                description:
-                  "Message under training session image on directive page.",
-              })}
-            </p>
-          </CardBasic>
           <CardBasic
             data-h2-display="base(flex)"
             data-h2-flex-direction="base(column)"

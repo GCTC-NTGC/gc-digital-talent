@@ -36,18 +36,15 @@ fi
 
 cd /home/site/wwwroot/api
 
-# Create cache directory
-if mkdir --parents /tmp/bootstrap/cache ; then
-    add_section_block ":white_check_mark: Cache directory creation *successful*."
+# Laravel local cache
+if
+    mkdir --parents /tmp/bootstrap/cache && \
+    chown www-data:www-data /tmp/bootstrap/cache && \
+    php artisan config:cache ;
+then
+    add_section_block ":white_check_mark: Laravel cache setup *successful*."
 else
-    add_section_block ":X: Cache directory creation *failed*. $MENTION"
-fi
-
-# Chown cache directory
-if chown www-data:www-data /tmp/bootstrap/cache ; then
-    add_section_block ":white_check_mark: Cache directory chown *successful*."
-else
-    add_section_block ":X: Cache directory chown *failed*. $MENTION"
+    add_section_block ":X: Laravel cache setup *failed*. $MENTION"
 fi
 
 # Laravel database migrations
@@ -71,7 +68,8 @@ fi
 add_section_block "$TRIPLE_BACK_TICK $CLEANED_STDOUT $TRIPLE_BACK_TICK"
 
 # Load Laravel Scheduler cron
-if echo "  *  *  *  *  * root    cd /home/site/wwwroot/api && php artisan schedule:run" >> /etc/crontab ; then
+# For extra debugging you can add `>> /tmp/run_laravel_scheduler.log 2>&1` to the end of the cron'd command
+if echo "  *  *  *  *  * www-data . /etc/profile ; php /home/site/wwwroot/api/artisan schedule:run" >> /etc/crontab ; then
     add_section_block ":white_check_mark: Laravel Scheduler cron setup *successful*."
 else
     add_section_block ":X: Laravel Scheduler cron setup *failed*. $MENTION"

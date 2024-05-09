@@ -139,6 +139,45 @@ const plannedAssessmentCell = (
   );
 };
 
+interface RequirementTypeCellProps {
+  poolSkill: PoolSkill;
+  intl: IntlShape;
+}
+
+const assessmentStepCell = (
+  poolSkill: PoolSkill,
+  assessmentStep: AssessmentStep,
+  intl: IntlShape,
+): JSX.Element | null => {
+  // return early with specific message for certain combination
+  if (
+    poolSkill.skill?.category === SkillCategory.Behavioural &&
+    assessmentStep.type === AssessmentStepType.ApplicationScreening
+  ) {
+    return <span>{intl.formatMessage(commonMessages.notApplicable)}</span>;
+  }
+
+  if (
+    assessmentStep.poolSkills?.some(
+      (assessmentStepPoolSkill) => assessmentStepPoolSkill?.id === poolSkill.id,
+    )
+  ) {
+    return CheckIconElement(poolSkill.skill, assessmentStep.type);
+  }
+  return null;
+};
+
+const requirementTypeCell = ({ poolSkill, intl }: RequirementTypeCellProps) => {
+  if (!poolSkill.type) return null;
+  return poolSkill.type === PoolSkillType.Essential ? (
+    <span data-h2-color="base(primary.darker)" data-h2-font-weight="base(700)">
+      {intl.formatMessage(getPoolSkillType(poolSkill.type))}
+    </span>
+  ) : (
+    <span>{intl.formatMessage(getPoolSkillType(poolSkill.type))}</span>
+  );
+};
+
 const SkillSummaryTable = ({
   title,
   poolSkillsQuery,
@@ -153,45 +192,6 @@ const SkillSummaryTable = ({
     SkillSummaryTableAssessmentStep_Fragment,
     assessmentStepsQuery,
   );
-
-  const requirementTypeCell = (poolSkill: PoolSkill): JSX.Element | null => {
-    if (poolSkill?.type) {
-      return poolSkill.type === PoolSkillType.Essential ? (
-        <span
-          data-h2-color="base(primary.darker)"
-          data-h2-font-weight="base(700)"
-        >
-          {intl.formatMessage(getPoolSkillType(poolSkill.type))}
-        </span>
-      ) : (
-        <span>{intl.formatMessage(getPoolSkillType(poolSkill.type))}</span>
-      );
-    }
-    return null;
-  };
-
-  const assessmentStepCell = (
-    poolSkill: PoolSkill,
-    assessmentStep: AssessmentStep,
-  ): JSX.Element | null => {
-    // return early with specific message for certain combination
-    if (
-      poolSkill.skill?.category === SkillCategory.Behavioural &&
-      assessmentStep.type === AssessmentStepType.ApplicationScreening
-    ) {
-      return <span>{intl.formatMessage(commonMessages.notApplicable)}</span>;
-    }
-
-    if (
-      assessmentStep.poolSkills?.some(
-        (assessmentStepPoolSkill) =>
-          assessmentStepPoolSkill?.id === poolSkill.id,
-      )
-    ) {
-      return CheckIconElement(poolSkill.skill, assessmentStep.type);
-    }
-    return null;
-  };
 
   const initialColumns = [
     columnHelper.accessor((row) => getLocalizedName(row.skill?.name, intl), {
@@ -225,7 +225,7 @@ const SkillSummaryTable = ({
       }),
       enableHiding: false,
       cell: ({ row: { original: poolSkill } }) =>
-        cells.jsx(requirementTypeCell(poolSkill)),
+        cells.jsx(requirementTypeCell({ poolSkill, intl })),
     }),
     columnHelper.accessor(
       (row) =>
@@ -257,7 +257,7 @@ const SkillSummaryTable = ({
       id: assessmentStep.type ?? assessmentStep.id,
       header: headerName,
       cell: ({ row: { original: poolSkill } }) =>
-        cells.jsx(assessmentStepCell(poolSkill, assessmentStep)),
+        cells.jsx(assessmentStepCell(poolSkill, assessmentStep, intl)),
       enableHiding: false,
     });
     columns = [...columns, newColumn];

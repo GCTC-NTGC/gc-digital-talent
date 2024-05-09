@@ -249,13 +249,11 @@ const CopyApplicationIdAction = ({
   );
 };
 interface VisitCareerTimelineActionProps extends ActionProps {
-  userID: string;
   application: Application;
 }
 
 const VisitCareerTimelineAction = ({
   show,
-  userID,
   application,
 }: VisitCareerTimelineActionProps) => {
   const intl = useIntl();
@@ -266,7 +264,7 @@ const VisitCareerTimelineAction = ({
     return null;
   }
 
-  const recruitmentSectionUrl = paths.careerTimelineAndRecruitment(userID, {
+  const recruitmentSectionUrl = paths.careerTimelineAndRecruitment({
     section: PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES,
   });
 

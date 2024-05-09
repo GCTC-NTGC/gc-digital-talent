@@ -118,6 +118,7 @@ export const candidateNameCell = (
   candidate: PoolCandidate,
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
+  tableCandidateIds?: string[],
 ) => {
   const candidateName = getFullNameLabel(
     candidate.user.firstName,
@@ -125,7 +126,10 @@ export const candidateNameCell = (
     intl,
   );
   return (
-    <Link href={paths.poolCandidateApplication(candidate.id)}>
+    <Link
+      href={paths.poolCandidateApplication(candidate.id)}
+      state={{ candidateIds: tableCandidateIds, stepName: null }}
+    >
       {candidateName}
     </Link>
   );

@@ -6,13 +6,12 @@ describe("Talentsearch Profile Page", () => {
 
   context("Anonymous visitor", () => {
     it("redirects restricted pages to login", () => {
-      [
-        "/en/talent/profile",
-        "/en/users/test-applicant/personal-information",
-      ].forEach((restrictedPath) => {
-        cy.visit(restrictedPath);
-        onLoginInfoPage();
-      });
+      ["/en/talent/profile", "/en/applicant/personal-information"].forEach(
+        (restrictedPath) => {
+          cy.visit(restrictedPath);
+          onLoginInfoPage();
+        },
+      );
     });
   });
 
@@ -30,8 +29,8 @@ describe("Talentsearch Profile Page", () => {
 
       [
         "/en/talent/profile",
-        "/en/users/test-no-role/personal-information",
-        "/en/users/test-no-role/personal-information/career-timeline",
+        "/en/applicant/personal-information",
+        "/en/applicant/career-timeline",
       ].forEach((restrictedPath) => {
         cy.visit(restrictedPath);
         cy.contains("not authorized");
@@ -43,14 +42,7 @@ describe("Talentsearch Profile Page", () => {
     beforeEach(() => cy.loginByRole("applicant"));
 
     it("loads page successfully", () => {
-      cy.visit("/en/users/test-applicant/personal-information");
-      cy.contains("Personal and contact information");
-      cy.contains("Work preferences");
-      cy.contains("Diversity, equity, and inclusion");
-      cy.contains("Government employee information");
-      cy.contains("Language profile");
-
-      cy.visit("/en/talent/profile");
+      cy.visit("/en/applicant/personal-information");
       cy.contains("Personal and contact information");
       cy.contains("Work preferences");
       cy.contains("Diversity, equity, and inclusion");
