@@ -1672,12 +1672,8 @@
     "description": "Label for job title input in the request form"
   },
   "7mb9oA": {
-    "defaultMessage": "<strong>Nota :</strong> Les résultats tiendront compte de tout candidat qui correspond à <strong>l’une ou plusieurs</strong> des régions sélectionnées",
+    "defaultMessage": "<strong>Note :</strong> Les résultats tiendront compte de tout candidat qui correspond à <strong>l’une ou plusieurs</strong> des régions sélectionnées",
     "description": "Context for the work region/location preferences filter in the search form."
-  },
-  "7nuHuz": {
-    "defaultMessage": "Nombre d’évaluations",
-    "description": "Title for a column that displays the numer of assessments planned for a skill."
   },
   "7nxtBm": {
     "defaultMessage": "Il s’agit du carrefour de l’administrateur de la plateforme des talents numériques du GC à partir d’où il est possible de gérer, trier et recruter le talent pour le GC.",
@@ -2063,6 +2059,10 @@
     "defaultMessage": "Veuillez soumettre une demande vide et nous essayerons de vous aider.",
     "description": "Link text to scroll to the submit button when no candidates were found"
   },
+  "9t56Ev": {
+    "defaultMessage": "Nombre d’évaluations",
+    "description": "Title for a column that displays the number of assessments planned for a skill."
+  },
   "9vQj8o": {
     "defaultMessage": "Oh! on dirait que vous avez été trop vite!",
     "description": "Application step skipped page title"
@@ -2070,10 +2070,6 @@
   "9yGJ6k": {
     "defaultMessage": "Description",
     "description": "Title displayed for the skill table Description column."
-  },
-  "9zhqQf": {
-    "defaultMessage": "Établissement d’hyperliens vers des sites Web autres que ceux du gouvernement du Canada",
-    "description": "Title for the linkink to gov section"
   },
   "A+4huJ": {
     "defaultMessage": "Mettre à jour ou supprimer une expérience dans votre chronologie de carrière",
@@ -4587,6 +4583,10 @@
     "defaultMessage": "6 à 10",
     "description": "Contract FTE range between six and ten"
   },
+  "OWYrdr": {
+    "defaultMessage": "Le processus pour {poolName} prend fin le {closingDate}.",
+    "description": "Label for the application deadline approaching notification"
+  },
   "OY6KVG": {
     "defaultMessage": "Montrez aux gestionnaires les cinq compétences comportementales les plus fortes qui font de vous un membre formidable de l’équipe. Vous pouvez modifier cette vitrine à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez à la vitrine qui ne sont pas déjà dans votre bibliothèque seront ajoutées automatiquement.",
     "description": "Page blurb for the top behavioural skills page"
@@ -5135,10 +5135,6 @@
     "defaultMessage": "Brève description de l'équipe (en français)",
     "description": "Label for team description in French language"
   },
-  "RTR3mh": {
-    "defaultMessage": "Bêta",
-    "description": "Label to indicate a feature is in beta"
-  },
   "RTf/0v": {
     "defaultMessage": "L’utilisateur perdra tous les rôles suivants au sein de l’équipe : ",
     "description": "Text notifying user which role will be removed from the user"
@@ -5644,7 +5640,7 @@
     "description": "Label for department select input in the request form"
   },
   "UXsUvN": {
-    "defaultMessage": "<strong>Nota :</strong> Les résultats tiendront compte de tout candidat qui correspond à <strong>l’un ou plusieurs</strong> des groupes d’équité en matière d’emploi ayant été sélectionnés",
+    "defaultMessage": "<strong>Note :</strong> Les résultats tiendront compte de tout candidat qui correspond à <strong>l’un ou plusieurs</strong> des groupes d’équité en matière d’emploi ayant été sélectionnés",
     "description": "Context for employment equity filter in search form."
   },
   "UZWLKn": {
@@ -7686,6 +7682,10 @@
     "defaultMessage": "Les compétences suivantes sont requises pour ce rôle, mais ne sont pas requises dans le cadre de cette candidature. <strong>Ils seront examinés au cours du processus d’évaluation si votre candidature est acceptée</strong>.",
     "description": "Information regarding required behavioural skills"
   },
+  "fAJPpJ": {
+    "defaultMessage": "Le processus pour {poolName} prend fin le {closingDate}. Continuer votre soumission.",
+    "description": "Message for application deadline approaching notification"
+  },
   "fEcEv3": {
     "defaultMessage": "Signée",
     "description": "Heading for the application snapshot users signature"
@@ -8711,7 +8711,7 @@
     "description": "Title for team"
   },
   "kLGIuJ": {
-    "defaultMessage": "<strong>Nota :</strong> Les résultats tiendront compte de tout candidat qui correspond à <strong>l’une ou plusieurs</strong> des compétences ayant été sélectionnées",
+    "defaultMessage": "<strong>Note :</strong> Les résultats tiendront compte de tout candidat qui correspond à <strong>l’une ou plusieurs</strong> des compétences ayant été sélectionnées",
     "description": "Context for skills selection filter in search form."
   },
   "kMoUof": {
@@ -9717,6 +9717,10 @@
   "pvQVVh": {
     "defaultMessage": "Veuillez soumettre cette demande « telle quelle », puis nous vous reviendrons.",
     "description": "Instructions telling the user to submit a request even though there are no candidates"
+  },
+  "pwsDVe": {
+    "defaultMessage": "Établissement d’hyperliens vers des sites Web autres que ceux du gouvernement du Canada",
+    "description": "Title for the linking to gov section"
   },
   "px7yu1": {
     "defaultMessage": "Il n'y a pas d'options d'équité en matière d'emploi.",

@@ -26,6 +26,7 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { useAuthorization } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import {
@@ -194,7 +195,7 @@ export const ExperienceForm = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const returnPath = paths.careerTimelineAndRecruitment(userId || "");
+  const returnPath = paths.careerTimelineAndRecruitment();
   const experience = getFragment(
     ExperienceFormExperience_Fragment,
     experienceQuery,
@@ -356,9 +357,7 @@ export const ExperienceForm = ({
               description:
                 "Display text for add experience form in breadcrumbs",
             }),
-        url: experience
-          ? paths.editExperience(userId, experienceType, experience.id)
-          : "#",
+        url: experience ? paths.editExperience(experience.id) : "#",
       },
     ],
   });
@@ -607,7 +606,8 @@ export interface ExperienceFormContainerProps {
 
 const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
   const intl = useIntl();
-  const { experienceId, userId } = useParams<RouteParams>();
+  const { userAuthInfo } = useAuthorization();
+  const { experienceId } = useParams<RouteParams>();
   const { state } = useLocation();
 
   const [{ data, fetching, error }] = useQuery({
@@ -632,7 +632,7 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
           experienceId={experienceId || ""}
           experienceType={experienceType}
           skillsQuery={skills}
-          userId={userId || ""}
+          userId={userAuthInfo?.id || ""}
         />
       ) : (
         <ThrowNotFound

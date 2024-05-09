@@ -250,7 +250,7 @@ const HomePage = () => {
           <Link
             color="quinary"
             mode="cta"
-            href={paths.myProfile()}
+            href={paths.profile()}
             icon={UserPlusIcon}
           >
             {intl.formatMessage({
