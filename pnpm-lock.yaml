@@ -565,8 +565,8 @@ importers:
         specifier: ^3.6.1
         version: 3.6.1(@typescript-eslint/parser@7.8.0)(eslint-plugin-import@2.29.1)(eslint@8.57.0)
       eslint-plugin-formatjs:
-        specifier: ^4.13.0
-        version: 4.13.0(eslint@8.57.0)
+        specifier: ^4.13.1
+        version: 4.13.1(eslint@8.57.0)
       eslint-plugin-import:
         specifier: ^2.29.1
         version: 2.29.1(@typescript-eslint/parser@7.8.0)(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0)
@@ -10089,8 +10089,8 @@ packages:
       regexpp: 3.2.0
     dev: true
 
-  /eslint-plugin-formatjs@4.13.0(eslint@8.57.0):
-    resolution: {integrity: sha512-sxgHQNyVclNRO7aydGwxohwxYR03/oRDW0uUXFWayNMPTlnb9sET3LCovBjvQF7qAHDGFDcLwg4ECSyui4nG8A==}
+  /eslint-plugin-formatjs@4.13.1(eslint@8.57.0):
+    resolution: {integrity: sha512-QYXgrBYLwEcqN4Vvis18es1JFAY+6YAkjpyNmTZzAMpithZm9U7z6eWUD4gqFainWlk8cFKvkOOvSyQ4/LUgVA==}
     peerDependencies:
       eslint: 7 || 8
     dependencies:
