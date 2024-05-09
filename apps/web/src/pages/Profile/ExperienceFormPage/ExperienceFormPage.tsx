@@ -26,6 +26,7 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { useAuthorization } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import {
@@ -605,7 +606,8 @@ export interface ExperienceFormContainerProps {
 
 const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
   const intl = useIntl();
-  const { experienceId, userId } = useParams<RouteParams>();
+  const { userAuthInfo } = useAuthorization();
+  const { experienceId } = useParams<RouteParams>();
   const { state } = useLocation();
 
   const [{ data, fetching, error }] = useQuery({
@@ -630,7 +632,7 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
           experienceId={experienceId || ""}
           experienceType={experienceType}
           skillsQuery={skills}
-          userId={userId || ""}
+          userId={userAuthInfo?.id || ""}
         />
       ) : (
         <ThrowNotFound
