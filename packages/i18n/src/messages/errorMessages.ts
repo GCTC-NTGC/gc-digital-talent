@@ -107,8 +107,8 @@ const errorMessages = defineMessages({
   },
   requestRejected: {
     defaultMessage:
-      "Your request wasn't completed. Please try again or contact support for help.",
-    id: "Wg9ONw",
+      "Your request wasn't completed. Please try again or contact our team for help.",
+    id: "Gv3lBS",
     description: "Message for Unauthorized or Request Rejected server response",
   },
 });
