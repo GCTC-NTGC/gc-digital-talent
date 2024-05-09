@@ -55,8 +55,8 @@ importers:
         specifier: ^8.57.0
         version: 8.57.0
       eslint-plugin-cypress:
-        specifier: ^3.0.3
-        version: 3.0.3(eslint@8.57.0)
+        specifier: ^3.2.0
+        version: 3.2.0(eslint@8.57.0)
       jwt-decode:
         specifier: 4.0.0
         version: 4.0.0
@@ -10075,10 +10075,10 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-plugin-cypress@3.0.3(eslint@8.57.0):
-    resolution: {integrity: sha512-yrdAyBoHRCarLrlozReLAuRn/AXQPqWf7+HoXzWLFAH7ntqn1RLpBqi2Vl7Czl2Y1pWNFVpXJlFeNj5dmUslsg==}
+  /eslint-plugin-cypress@3.2.0(eslint@8.57.0):
+    resolution: {integrity: sha512-HaxMz6BoU4ay+K4WrG9ZJC1NdX06FqSlAwtRDStjM0ORFT7zCNPNuRJ+kUPc17Rt2AMUBSqeD9L0zTR3uZhPpw==}
     peerDependencies:
-      eslint: '>=7 <9'
+      eslint: '>=7'
     dependencies:
       eslint: 8.57.0
       globals: 13.24.0
