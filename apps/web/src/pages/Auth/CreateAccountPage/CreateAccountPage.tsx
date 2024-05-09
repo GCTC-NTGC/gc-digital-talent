@@ -12,7 +12,7 @@ import {
   enumToOptions,
 } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
-import { useAuthorization } from "@gc-digital-talent/auth";
+import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { errorMessages, getLanguage } from "@gc-digital-talent/i18n";
 import { emptyToNull, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
@@ -26,6 +26,7 @@ import {
 
 import Hero from "~/components/Hero/Hero";
 import SEO from "~/components/SEO/SEO";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRoutes from "~/hooks/useRoutes";
 
 import {
@@ -409,5 +410,11 @@ const CreateAccount = () => {
     </Pending>
   );
 };
+
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+    <CreateAccount />
+  </RequireAuth>
+);
 
 export default CreateAccount;

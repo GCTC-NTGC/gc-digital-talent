@@ -3,14 +3,12 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { Locales, useLocale } from "@gc-digital-talent/i18n";
 import {
-  RequireAuth,
   POST_LOGOUT_OVERRIDE_PATH_KEY,
   ROLE_NAME,
 } from "@gc-digital-talent/auth";
 import { Loading } from "@gc-digital-talent/ui";
 import { lazyRetry } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
-import { useFeatureFlags, FeatureFlags } from "@gc-digital-talent/env";
 
 import Layout from "~/components/Layout/Layout";
 import AdminLayout from "~/components/Layout/AdminLayout/AdminLayout";
@@ -19,69 +17,13 @@ import CreateAccountRedirect from "~/pages/Auth/CreateAccountPage/CreateAccountR
 import useRoutes from "~/hooks/useRoutes";
 import ScreeningAndEvaluationPage from "~/pages/Pools/ScreeningAndEvaluationPage/ScreeningAndEvaluationPage";
 
+import RequireAuth from "./RequireAuth/RequireAuth";
+
 const ErrorPage = React.lazy(() =>
   lazyRetry(
     () =>
       import(
         /* webpackChunkName: "tsErrorPage" */ "../pages/Errors/ErrorPage/ErrorPage"
-      ),
-  ),
-);
-
-/** Profile */
-const CreateAccountPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsCreateAccountPage" */ "../pages/Auth/CreateAccountPage/CreateAccountPage"
-      ),
-  ),
-);
-const ProfileAndApplicationsPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsProfileAndApplicationsPage" */ "../pages/ProfileAndApplicationsPage/ProfileAndApplicationsPage"
-      ),
-  ),
-);
-const ProfilePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsProfilePage" */ "../pages/Profile/ProfilePage/ProfilePage"
-      ),
-  ),
-);
-const ExperienceFormPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsEditExperiencePage" */ "../pages/Profile/ExperienceFormPage/ExperienceFormPage"
-      ),
-  ),
-);
-const CareerTimelineAndRecruitmentPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsCareerTimelineAndRecruitmentPage" */ "../pages/Profile/CareerTimelineAndRecruitmentPage/CareerTimelineAndRecruitmentPage"
-      ),
-  ),
-);
-const AccountSettingsPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsAccountSettingsPage" */ "../pages/Profile/AccountSettings/AccountSettingsPage"
-      ),
-  ),
-);
-const NotificationsPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsNotificationsPage" */ "../pages/Notifications/NotificationsPage/NotificationsPage"
       ),
   ),
 );
@@ -648,11 +590,7 @@ const SkillPage = React.lazy(() =>
   ),
 );
 
-const createRoute = (
-  locale: Locales,
-  loginPath: string,
-  featureFlags: FeatureFlags,
-) =>
+const createRoute = (locale: Locales, loginPath: string) =>
   createBrowserRouter([
     {
       path: `/`,
@@ -780,14 +718,8 @@ const createRoute = (
             },
             {
               path: "create-account",
-              element: (
-                <RequireAuth
-                  roles={[ROLE_NAME.Applicant]}
-                  loginPath={loginPath}
-                >
-                  <CreateAccountPage />
-                </RequireAuth>
-              ),
+              lazy: () =>
+                import("../pages/Auth/CreateAccountPage/CreateAccountPage"),
             },
             {
               path: "applicant",
@@ -795,88 +727,62 @@ const createRoute = (
               children: [
                 {
                   index: true,
-                  element: (
-                    <RequireAuth
-                      roles={[ROLE_NAME.Applicant]}
-                      loginPath={loginPath}
-                    >
-                      <ProfileAndApplicationsPage />
-                    </RequireAuth>
-                  ),
+                  lazy: () =>
+                    import(
+                      "../pages/ProfileAndApplicationsPage/ProfileAndApplicationsPage"
+                    ),
                 },
                 {
                   path: "settings",
-                  element: (
-                    <RequireAuth
-                      roles={[ROLE_NAME.Applicant]}
-                      loginPath={loginPath}
-                    >
-                      <AccountSettingsPage />
-                    </RequireAuth>
-                  ),
+                  lazy: () =>
+                    import(
+                      "../pages/Profile/AccountSettings/AccountSettingsPage"
+                    ),
                 },
                 {
-                  ...(featureFlags.notifications && {
-                    path: "notifications",
-                    element: (
-                      <RequireAuth
-                        roles={[ROLE_NAME.Applicant]}
-                        loginPath={loginPath}
-                      >
-                        <NotificationsPage />
-                      </RequireAuth>
+                  path: "notifications",
+                  lazy: () =>
+                    import(
+                      "../pages/Notifications/NotificationsPage/NotificationsPage"
                     ),
-                  }),
                 },
                 {
                   path: "personal-information",
-                  element: (
-                    <RequireAuth
-                      roles={[ROLE_NAME.Applicant]}
-                      loginPath={loginPath}
-                    >
-                      <ProfilePage />
-                    </RequireAuth>
-                  ),
+                  lazy: () =>
+                    import("../pages/Profile/ProfilePage/ProfilePage"),
                 },
                 {
                   path: "career-timeline",
                   children: [
                     {
                       index: true,
-                      element: (
-                        <RequireAuth
-                          roles={[ROLE_NAME.Applicant]}
-                          loginPath={loginPath}
-                        >
-                          <CareerTimelineAndRecruitmentPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import(
+                          "../pages/Profile/CareerTimelineAndRecruitmentPage/CareerTimelineAndRecruitmentPage"
+                        ),
                     },
                     {
                       path: "create",
-                      element: (
-                        <RequireAuth
-                          roles={[ROLE_NAME.Applicant]}
-                          loginPath={loginPath}
-                        >
-                          <ExperienceFormPage />
-                        </RequireAuth>
-                      ),
+                      async lazy() {
+                        const { Create } = await import(
+                          "../pages/Profile/ExperienceFormPage/ExperienceFormPage"
+                        );
+
+                        return { Component: Create };
+                      },
                     },
                     {
                       path: ":experienceId",
                       children: [
                         {
                           path: "edit",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.Applicant]}
-                              loginPath={loginPath}
-                            >
-                              <ExperienceFormPage edit />
-                            </RequireAuth>
-                          ),
+                          async lazy() {
+                            const { Edit } = await import(
+                              "../pages/Profile/ExperienceFormPage/ExperienceFormPage"
+                            );
+
+                            return { Component: Edit };
+                          },
                         },
                       ],
                     },
@@ -1719,8 +1625,7 @@ const Router = () => {
   // eslint-disable-next-line no-restricted-syntax
   const { locale } = useLocale();
   const routes = useRoutes();
-  const featureFlags = useFeatureFlags();
-  const router = createRoute(locale, routes.login(), featureFlags);
+  const router = createRoute(locale, routes.login());
   return (
     <RouterProvider
       router={router}
