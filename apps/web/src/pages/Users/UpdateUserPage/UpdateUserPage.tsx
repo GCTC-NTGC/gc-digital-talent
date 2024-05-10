@@ -23,6 +23,7 @@ import {
   UpdateUserAsAdminMutation,
   User,
 } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -41,6 +42,7 @@ import {
   UpdateUserRoles_Mutation,
   UpdateUserSub_Mutation,
 } from "./operations";
+import RequireAuth from "../../../components/RequireAuth/RequireAuth";
 
 type FormValues = Pick<
   UpdateUserAsAdminInput,
@@ -389,5 +391,13 @@ const UpdateUserPage = () => {
     </AdminContentWrapper>
   );
 };
+
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
+    <UpdateUserPage />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminUpdateUserPage";
 
 export default UpdateUserPage;

@@ -354,7 +354,7 @@ export const ApplicationSelfDeclaration = ({
   );
 };
 
-const ApplicationSelfDeclarationPage = () => {
+export const Component = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const { application } = useApplication();
@@ -426,4 +426,4 @@ const ApplicationSelfDeclarationPage = () => {
   );
 };
 
-export default ApplicationSelfDeclarationPage;
+Component.displayName = "ApplicationSelfDeclarationPage";

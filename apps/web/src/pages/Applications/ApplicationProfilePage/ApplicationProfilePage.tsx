@@ -140,7 +140,7 @@ export const ApplicationProfile = ({
   );
 };
 
-const ApplicationProfilePage = () => {
+export const Component = () => {
   const { application } = useApplication();
 
   return application?.pool && application.user ? (
@@ -150,4 +150,4 @@ const ApplicationProfilePage = () => {
   );
 };
 
-export default ApplicationProfilePage;
+Component.displayName = "ApplicationProfilePage";

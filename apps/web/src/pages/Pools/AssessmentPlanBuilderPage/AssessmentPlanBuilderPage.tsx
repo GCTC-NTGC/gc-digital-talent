@@ -28,6 +28,7 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import SEO from "~/components/SEO/SEO";
 import { routeErrorMessages } from "~/hooks/useErrorMessages";
 import messages from "~/messages/adminMessages";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import OrganizeSection, {
   sectionTitle as organizeSectionTitle,
@@ -228,5 +229,19 @@ export const AssessmentPlanBuilderPage = () => {
     </AdminContentWrapper>
   );
 };
+
+export const Component = () => (
+  <RequireAuth
+    roles={[
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.CommunityManager,
+      ROLE_NAME.PlatformAdmin,
+    ]}
+  >
+    <AssessmentPlanBuilderPage />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminAssessmentPlanBuilderPage";
 
 export default AssessmentPlanBuilderPage;

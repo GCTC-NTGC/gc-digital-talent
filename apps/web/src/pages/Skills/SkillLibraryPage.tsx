@@ -8,11 +8,13 @@ import { TableOfContents, Pending, Link } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { Skill, UserSkill } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import SkillLibraryTable from "./components/SkillLibraryTable";
 import { UserSkills_Query } from "./operations";
@@ -161,5 +163,13 @@ const SkillLibraryPage = () => {
     </Pending>
   );
 };
+
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+    <SkillLibraryPage />
+  </RequireAuth>
+);
+
+Component.displayName = "SkillLibraryPage";
 
 export default SkillLibraryPage;

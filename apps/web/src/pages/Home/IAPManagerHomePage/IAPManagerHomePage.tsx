@@ -42,7 +42,8 @@ function buildMailToUri(
   return linkBuilder;
 }
 
-export const IAPManagerHomePage = () => {
+// eslint-disable-next-line import/prefer-default-export
+export const Component = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const hireAnApprenticeEmailUri = buildMailToUri(
@@ -875,4 +876,6 @@ export const IAPManagerHomePage = () => {
   );
 };
 
-export default IAPManagerHomePage;
+Component.displayName = "IAPManagerHomePage";
+
+export default Component;
