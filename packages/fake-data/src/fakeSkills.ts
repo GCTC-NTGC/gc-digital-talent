@@ -1,4 +1,4 @@
-import { faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker/locale/en";
 import { UniqueEnforcer } from "enforce-unique";
 
 import { Skill, SkillCategory, SkillFamily } from "@gc-digital-talent/graphql";
