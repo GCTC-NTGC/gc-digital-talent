@@ -28,7 +28,7 @@ import CandidateStatusSection from "./components/CandidateStatusSection";
 import NotesSection from "./components/NotesSection";
 import EmploymentEquitySection from "./components/EmploymentEquitySection";
 
-const UserInfo_Fragment = graphql(/* GraphQL */ `
+export const UserInfo_Fragment = graphql(/* GraphQL */ `
   fragment UserInfo on User {
     id
     email
@@ -270,7 +270,7 @@ interface UserInformationProps {
   departments: Department[];
 }
 
-const UserInformation = ({
+export const UserInformation = ({
   userQuery,
   pools,
   departments,
