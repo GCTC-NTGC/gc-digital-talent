@@ -561,16 +561,19 @@ export const EditPoolForm = ({
                         poolQuery={pool}
                         sectionMetadata={sectionMetadata.yourImpact}
                         onSave={onSave}
+                        onUpdatePublished={onUpdatePublished}
                       />
                       <WorkTasksSection
                         poolQuery={pool}
                         sectionMetadata={sectionMetadata.workTasks}
                         onSave={onSave}
+                        onUpdatePublished={onUpdatePublished}
                       />
                       <AboutUsSection
                         poolQuery={pool}
                         sectionMetadata={sectionMetadata.aboutUs}
                         onSave={onSave}
+                        onUpdatePublished={onUpdatePublished}
                       />
                     </div>
                   </TableOfContents.Section>
@@ -606,11 +609,13 @@ export const EditPoolForm = ({
                         poolQuery={pool}
                         sectionMetadata={sectionMetadata.whatToExpect}
                         onSave={onSave}
+                        onUpdatePublished={onUpdatePublished}
                       />
                       <WhatToExpectAdmissionSection
                         poolQuery={pool}
                         sectionMetadata={sectionMetadata.whatToExpectAdmission}
                         onSave={onSave}
+                        onUpdatePublished={onUpdatePublished}
                       />
                     </div>
                   </TableOfContents.Section>

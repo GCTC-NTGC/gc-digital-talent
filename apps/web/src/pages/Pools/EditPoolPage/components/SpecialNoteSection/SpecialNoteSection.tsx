@@ -15,12 +15,11 @@ import {
   getFragment,
   PoolStatus,
 } from "@gc-digital-talent/graphql";
-import { useAuthorization } from "@gc-digital-talent/auth";
 
 import { hasAllEmptyFields } from "~/validators/process/specialNote";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
-import { userCanEditPool } from "~/utils/poolUtils";
+import useCanUserEditPool from "~/hooks/useCanUserEditPool";
 
 import { useEditPoolContext } from "../EditPoolContext";
 import { PublishedEditableSectionProps, SectionProps } from "../../types";
@@ -66,9 +65,9 @@ const SpecialNoteSection = ({
   onUpdatePublished,
 }: SpecialNoteSectionProps): JSX.Element => {
   const intl = useIntl();
-  const { userAuthInfo } = useAuthorization();
   const pool = getFragment(EditPoolSpecialNote_Fragment, poolQuery);
   const isNull = hasAllEmptyFields(pool);
+  const canEdit = useCanUserEditPool(pool.status);
   const { isSubmitting } = useEditPoolContext();
   const { isEditing, setIsEditing, icon } = useToggleSectionInfo({
     isNull,
@@ -109,9 +108,7 @@ const SpecialNoteSection = ({
           }
         : null, // Save data if confirmation box (hasSpecialNote) is selected
     })
-      .then(() => {
-        onSuccess(formValues);
-      })
+      .then(() => onSuccess(formValues))
       .catch(() => methods.reset(formValues));
   };
 
@@ -132,8 +129,6 @@ const SpecialNoteSection = ({
       });
     });
   };
-
-  const canEdit = userCanEditPool(pool.status, userAuthInfo?.roleAssignments);
 
   const subtitle = intl.formatMessage({
     defaultMessage:
