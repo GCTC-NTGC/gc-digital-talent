@@ -10,6 +10,7 @@ import {
   ROLE_NAME,
   RoleName,
 } from "@gc-digital-talent/auth";
+import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import AdminLayout from "./AdminLayout";
 
@@ -30,6 +31,11 @@ export default {
     roles: {
       control: "check",
       options: availableRoles,
+    },
+  },
+  chromatic: {
+    modes: {
+      light: allModes.light,
     },
   },
 } as Meta<AdminLayoutArgs>;
