@@ -3,6 +3,7 @@ alertdialog
 Analyser
 Assertable
 atag
+atip
 Authenticatable
 Authorizable
 behavioural
