@@ -245,6 +245,13 @@ const UserCandidatesTable = ({
       columns={columns}
       caption={title}
       sort={{ internal: true }}
+      hiddenColumnIds={[
+        "candidateName",
+        "priority",
+        "preferredLang",
+        "email",
+        "currentLocation",
+      ]}
     />
   );
 };
