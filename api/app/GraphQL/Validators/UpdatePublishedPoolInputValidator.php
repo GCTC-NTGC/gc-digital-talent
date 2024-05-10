@@ -28,7 +28,7 @@ final class UpdatePublishedPoolInputValidator extends Validator
                     'required',
                 ]),
             ],
-            // Optional Fields
+            // Optional fields
             'specialNote.en' => ['required_with:specialNote.fr', 'string'],
             'specialNote.fr' => ['required_with:specialNote.en', 'string'],
             'aboutUs.en' => ['required_with:aboutUs.fr', 'string', 'nullable'],
