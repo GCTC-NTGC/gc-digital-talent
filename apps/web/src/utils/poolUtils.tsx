@@ -16,7 +16,7 @@ import {
   navigationMessages,
 } from "@gc-digital-talent/i18n";
 import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { notEmpty } from "@gc-digital-talent/helpers";
 import {
   parseDateTimeUtc,
   relativeClosingDate,
@@ -41,7 +41,6 @@ import { PageNavKeys, PoolCompleteness } from "~/types/pool";
 import messages from "~/messages/adminMessages";
 
 import { wrapAbbr } from "./nameUtils";
-import { checkRole } from "./teamUtils";
 
 /**
  * Check if a pool matches a
