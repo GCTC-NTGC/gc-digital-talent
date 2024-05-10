@@ -43,7 +43,7 @@ type HeaderProps<TData> = BaseProps & {
  * The header cell for row selection column
  *
  * @param HeaderProps
- * @returns JSX.Element
+ * @returns React.JSX.Element
  */
 const Header = <TData extends object>({
   table,
@@ -67,7 +67,7 @@ type CellProps<TData> = BaseProps & {
  * The cell cell for row selection column
  *
  * @param CellProps
- * @returns JSX.Element
+ * @returns React.JSX.Element
  */
 const Cell = <TData extends object>({ row, ...props }: CellProps<TData>) => (
   <CheckButton
@@ -86,7 +86,7 @@ type DivHTMLProps = React.DetailedHTMLProps<
  * Layout column for the row selection footer
  *
  * @param DivHTMLProps
- * @returns JSX.Element
+ * @returns React.JSX.Element
  */
 const Column = (props: DivHTMLProps) => (
   <div
@@ -102,7 +102,7 @@ const Column = (props: DivHTMLProps) => (
  * Layout section for the row selection footer
  *
  * @param DivHTMLProps
- * @returns JSX.Element
+ * @returns React.JSX.Element
  */
 const Section = (props: DivHTMLProps) => (
   <div
@@ -122,7 +122,7 @@ type BulletProps = React.DetailedHTMLProps<
  * Simple bullet (used as a separator for actions)
  *
  * @param BulletProps
- * @returns JSX.Element
+ * @returns React.JSX.Element
  */
 const Bullet = (props: Omit<BulletProps, "children">) => (
   <span aria-hidden data-h2-display="base(none) l-tablet(block)" {...props}>
@@ -156,7 +156,7 @@ interface ActionsProps {
  * Actions for the selected rows
  *
  * @param ActionsProps
- * @returns JSX.Element
+ * @returns React.JSX.Element
  */
 const Actions = ({
   rowSelect,

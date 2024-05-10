@@ -34,7 +34,7 @@ const AssetSkillsSection = ({
   skills,
   sectionMetadata,
   poolSkillMutations,
-}: AssetSkillsSectionProps): JSX.Element => {
+}: AssetSkillsSectionProps): React.JSX.Element => {
   const intl = useIntl();
   const pool = getFragment(EditPoolSkills_Fragment, poolQuery);
   const emptyRequired = hasEmptyRequiredFields(pool);

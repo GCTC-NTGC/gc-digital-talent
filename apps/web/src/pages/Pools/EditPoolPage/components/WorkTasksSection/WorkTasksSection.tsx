@@ -58,7 +58,7 @@ const WorkTasksSection = ({
   poolQuery,
   sectionMetadata,
   onSave,
-}: WorkTasksSectionProps): JSX.Element => {
+}: WorkTasksSectionProps): React.JSX.Element => {
   const intl = useIntl();
   const pool = getFragment(EditPoolKeyTasks_Fragment, poolQuery);
   const isNull = hasAllEmptyFields(pool);

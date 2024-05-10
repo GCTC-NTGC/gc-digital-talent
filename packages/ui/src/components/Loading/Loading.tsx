@@ -27,7 +27,7 @@ const Loading = ({
   live,
   children,
   ...rest
-}: LoadingProps): JSX.Element => {
+}: LoadingProps): React.JSX.Element => {
   const shouldReduceMotion = useReducedMotion();
   const inlineWrapper = {
     inline: {
