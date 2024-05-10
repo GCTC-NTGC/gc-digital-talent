@@ -25,6 +25,8 @@ class ApiErrorEnums
 
     const PROCESS_CLOSING_DATE_EXTEND = 'UpdatePoolClosingDateExtend';
 
+    const CHANGE_JUSTIFICATION_REQUIRED = 'ChangeJustificationRequired';
+
     // pool candidate field validation
     const EXPIRY_DATE_REQUIRED = 'ExpiryDateRequired';
 

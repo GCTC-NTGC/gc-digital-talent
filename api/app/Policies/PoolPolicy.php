@@ -124,6 +124,17 @@ class PoolPolicy
     }
 
     /**
+     * Determine whether the user can published draft pools.
+     *
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function updatePublished(User $user, Pool $pool)
+    {
+        return $pool->getStatusAttribute() === PoolStatus::PUBLISHED->name
+            && $user->isAbleTo('update-any-publishedPool');
+    }
+
+    /**
      * Determine whether the user can publish the pool.
      *
      * @return \Illuminate\Auth\Access\Response|bool

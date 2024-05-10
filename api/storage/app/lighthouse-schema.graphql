@@ -140,6 +140,7 @@ type Mutation {
   createPool(userId: ID!, teamId: ID!, pool: CreatePoolInput!): Pool
   duplicatePool(id: ID!, teamId: ID!): Pool
   updatePool(id: ID!, pool: UpdatePoolInput!): Pool
+  updatePublishedPool(id: ID!, pool: UpdatePublishedPoolInput!): Pool
   createPoolSkill(poolId: ID!, skillId: ID!, poolSkill: CreatePoolSkillInput!): PoolSkill
   updatePoolSkill(id: ID!, poolSkill: UpdatePoolSkillInput!): PoolSkill
   deletePoolSkill(id: ID!): PoolSkill
@@ -1269,6 +1270,17 @@ input UpdatePoolInput {
   publishingGroup: PublishingGroup
   opportunityLength: PoolOpportunityLength
   generalQuestions: UpdateGeneralQuestionsHasMany
+}
+
+input UpdatePublishedPoolInput {
+  id: ID
+  changeJustification: String
+  yourImpact: LocalizedStringInput
+  keyTasks: LocalizedStringInput
+  whatToExpect: LocalizedStringInput
+  specialNote: LocalizedStringInput
+  whatToExpectAdmission: LocalizedStringInput
+  aboutUs: LocalizedStringInput
 }
 
 input CreatePoolSkillInput {
