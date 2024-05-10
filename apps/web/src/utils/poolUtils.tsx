@@ -16,7 +16,7 @@ import {
   navigationMessages,
 } from "@gc-digital-talent/i18n";
 import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   parseDateTimeUtc,
   relativeClosingDate,
@@ -41,6 +41,7 @@ import { PageNavKeys, PoolCompleteness } from "~/types/pool";
 import messages from "~/messages/adminMessages";
 
 import { wrapAbbr } from "./nameUtils";
+import { checkRole } from "./teamUtils";
 
 /**
  * Check if a pool matches a
@@ -536,3 +537,26 @@ export const sortedOpportunityLengths = [
   PoolOpportunityLength.Indeterminate,
   PoolOpportunityLength.Various,
 ];
+
+/**
+ * Determine if a pool can be edited
+ *
+ * @param poolStatus
+ * @param roleAssignments
+ * @returns
+ */
+export function userCanEditPool(
+  poolStatus?: Maybe<PoolStatus>,
+  roleAssignments?: Maybe<Maybe<RoleAssignment>[]> | undefined,
+) {
+  if (poolStatus === PoolStatus.Draft) return true;
+
+  if (poolStatus === PoolStatus.Published) {
+    return checkRole(
+      [ROLE_NAME.CommunityManager, ROLE_NAME.PlatformAdmin],
+      unpackMaybes(roleAssignments),
+    );
+  }
+
+  return false;
+}
