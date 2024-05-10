@@ -299,7 +299,7 @@ class Pool extends Model
         });
     }
 
-    public function scopeWasPublished(Builder $query, ?array $args)
+    public function scopeWasPublished(Builder $query)
     {
         $query->where('published_at', '<=', Carbon::now()->toDateTimeString());
 

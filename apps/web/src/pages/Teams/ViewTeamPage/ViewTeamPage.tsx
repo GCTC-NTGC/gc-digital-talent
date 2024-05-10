@@ -6,11 +6,13 @@ import { useQuery } from "urql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Pending, NotFound, Link, Separator } from "@gc-digital-talent/ui";
 import { Scalars, graphql } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import ViewTeam, { ViewTeamPageFragment } from "./components/ViewTeam";
 
@@ -94,5 +96,19 @@ const ViewTeamPage = () => {
     </AdminContentWrapper>
   );
 };
+
+export const Component = () => (
+  <RequireAuth
+    roles={[
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.CommunityManager,
+      ROLE_NAME.PlatformAdmin,
+    ]}
+  >
+    <ViewTeamPage />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminViewTeamPage";
 
 export default ViewTeamPage;

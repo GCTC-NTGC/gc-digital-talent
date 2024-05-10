@@ -26,6 +26,8 @@ import * as micMessages from "~/lang/micCompiled.json";
 import SkipLink from "./SkipLink";
 import SitewideBanner from "./SitewideBanner";
 
+export { ErrorBoundary } from "./ErrorBoundary/ErrorBoundary";
+
 const messages: Map<string, Messages> = new Map([
   ["crg", crgMessages],
   ["crk", crkMessages],
@@ -49,7 +51,7 @@ const IAPSeo = () => {
   );
 };
 
-const Layout = () => {
+export const Component = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const location = useLocation();
@@ -103,4 +105,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+Component.displayName = "IAPLayout";

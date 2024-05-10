@@ -8,6 +8,7 @@ import { toast } from "@gc-digital-talent/toast";
 import { Input, Submit } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { graphql, CreateDepartmentInput } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -16,6 +17,7 @@ import { pageTitle as indexDepartmentPageTitle } from "~/pages/Departments/Index
 import AdminHero from "~/components/Hero/AdminHero";
 import adminMessages from "~/messages/adminMessages";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 type FormValues = CreateDepartmentInput;
 
@@ -176,5 +178,13 @@ const CreateDepartmentPage = () => {
     </>
   );
 };
+
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
+    <CreateDepartmentPage />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminCreateDepartmentPage";
 
 export default CreateDepartmentPage;

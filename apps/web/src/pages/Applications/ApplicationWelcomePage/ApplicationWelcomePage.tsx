@@ -176,8 +176,8 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
   );
 };
 
-const ApplicationWelcomePage = () => (
+export const Component = () => (
   <ApplicationApi PageComponent={ApplicationWelcome} />
 );
 
-export default ApplicationWelcomePage;
+Component.displayName = "ApplicationWelcomePage";

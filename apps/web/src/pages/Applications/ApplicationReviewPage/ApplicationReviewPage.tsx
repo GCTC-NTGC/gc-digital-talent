@@ -614,7 +614,7 @@ const ApplicationReview = ({
   );
 };
 
-const ApplicationReviewPage = () => {
+export const Component = () => {
   const { application } = useApplication();
 
   const experiences: Experience[] = unpackMaybes(application.user.experiences);
@@ -626,4 +626,4 @@ const ApplicationReviewPage = () => {
   );
 };
 
-export default ApplicationReviewPage;
+Component.displayName = "ApplicationReviewPage";

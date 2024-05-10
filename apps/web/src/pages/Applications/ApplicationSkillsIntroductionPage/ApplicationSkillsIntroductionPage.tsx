@@ -115,8 +115,8 @@ const ApplicationSkillsIntroduction = ({
   );
 };
 
-const ApplicationSkillsIntroductionPage = () => (
+export const Component = () => (
   <ApplicationApi PageComponent={ApplicationSkillsIntroduction} />
 );
 
-export default ApplicationSkillsIntroductionPage;
+Component.displayName = "ApplicationSkillsIntroductionPage";

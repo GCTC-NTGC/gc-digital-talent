@@ -42,7 +42,6 @@ const LinkWrapper = ({ inDialog = false, children }: LinkWrapperProps) => {
 const NotificationItem_Fragment = graphql(/* GraphQL */ `
   fragment NotificationItem on Notification {
     id
-    type
     readAt
     createdAt
     updatedAt
@@ -54,6 +53,15 @@ const NotificationItem_Fragment = graphql(/* GraphQL */ `
         en
         fr
       }
+    }
+    ... on ApplicationDeadlineApproachingNotification {
+      closingDate
+      poolName {
+        en
+        fr
+      }
+      poolId
+      poolCandidateId
     }
   }
 `);

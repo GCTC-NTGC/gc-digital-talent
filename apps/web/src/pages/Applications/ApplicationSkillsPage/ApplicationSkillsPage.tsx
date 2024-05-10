@@ -372,7 +372,7 @@ export const ApplicationSkills = ({
   );
 };
 
-const ApplicationSkillsPage = () => {
+export const Component = () => {
   const { application } = useApplication();
 
   const experiences: Experience[] = unpackMaybes(application.user.experiences);
@@ -383,4 +383,5 @@ const ApplicationSkillsPage = () => {
     <ThrowNotFound />
   );
 };
-export default ApplicationSkillsPage;
+
+Component.displayName = "ApplicationSkillsPage";

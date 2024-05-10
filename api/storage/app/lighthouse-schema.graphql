@@ -26,6 +26,7 @@ type Query {
   skills: [Skill]!
   genericJobTitle(id: UUID!): GenericJobTitle
   genericJobTitles: [GenericJobTitle]!
+  communities: [Community]!
   team(id: UUID!): Team
   teams: [Team]!
   roles: [Role]!
@@ -281,7 +282,6 @@ type User {
 
 interface Notification {
   id: ID!
-  type: NotificationType!
   readAt: DateTime
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -289,7 +289,6 @@ interface Notification {
 
 type PoolCandidateStatusChangedNotification implements Notification {
   id: ID!
-  type: NotificationType!
   readAt: DateTime
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -297,6 +296,17 @@ type PoolCandidateStatusChangedNotification implements Notification {
   newStatus: PoolCandidateStatus
   poolCandidateId: ID
   poolName: LocalizedString
+}
+
+type ApplicationDeadlineApproachingNotification implements Notification {
+  id: ID!
+  readAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  closingDate: Date
+  poolName: LocalizedString
+  poolId: ID
+  poolCandidateId: ID
 }
 
 type UserPublicProfile {
@@ -458,6 +468,13 @@ type Department {
   departmentNumber: Int!
   name: LocalizedString!
   teams: [Team]
+}
+
+type Community {
+  id: ID!
+  key: String!
+  name: LocalizedString
+  description: LocalizedString
 }
 
 type Team {
@@ -2420,10 +2437,6 @@ enum NotificationFamily {
   SYSTEM_MESSAGE
   APPLICATION_UPDATE
   JOB_ALERT
-}
-
-enum NotificationType {
-  PoolCandidateStatusChanged
 }
 
 enum CandidateRemovalReason {

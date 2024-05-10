@@ -63,6 +63,7 @@ class RolePermissionTest extends TestCase
             'create-any-searchRequest',
             'view-any-team',
             'view-any-role',
+            'view-any-community',
         ], true)); // The `true` as a second argument means user must have ALL permissions, instead of just one.
 
         $this->assertFalse(($this->user->isAbleTo('view-any-user')));
@@ -94,6 +95,7 @@ class RolePermissionTest extends TestCase
             'create-any-searchRequest',
             'view-any-team',
             'view-any-role',
+            'view-any-community',
         ], true));
 
         $this->assertFalse(($this->user->isAbleTo('view-any-user')));

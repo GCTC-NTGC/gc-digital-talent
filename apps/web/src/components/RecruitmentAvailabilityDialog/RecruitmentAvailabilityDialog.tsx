@@ -7,14 +7,9 @@ import { Dialog, Button } from "@gc-digital-talent/ui";
 import { RadioGroup } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { graphql } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import { poolTitle } from "~/utils/poolUtils";
-import { Application } from "~/utils/applicationUtils";
-
-interface RecruitmentAvailabilityDialogProps {
-  candidate: Application;
-}
 
 type FormValues = {
   isSuspended: "true" | "false"; // Note: RadioGroup only accepts strings
@@ -31,10 +26,38 @@ const RecruitmentAvailabilityChangeSuspendedAt_Mutation = graphql(
   `,
 );
 
+const RecruitmentAvailabilityDialog_Fragment = graphql(/* GraphQL */ `
+  fragment RecruitmentAvailabilityDialog on PoolCandidate {
+    id
+    suspendedAt
+    pool {
+      id
+      stream
+      name {
+        en
+        fr
+      }
+      classification {
+        id
+        group
+        level
+      }
+    }
+  }
+`);
+
+interface RecruitmentAvailabilityDialogProps {
+  candidateQuery: FragmentType<typeof RecruitmentAvailabilityDialog_Fragment>;
+}
+
 const RecruitmentAvailabilityDialog = ({
-  candidate,
+  candidateQuery,
 }: RecruitmentAvailabilityDialogProps) => {
   const intl = useIntl();
+  const candidate = getFragment(
+    RecruitmentAvailabilityDialog_Fragment,
+    candidateQuery,
+  );
   const [, executeMutation] = useMutation(
     RecruitmentAvailabilityChangeSuspendedAt_Mutation,
   );

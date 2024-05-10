@@ -13,7 +13,7 @@ import useErrorMessages from "~/hooks/useErrorMessages";
 import darkPug from "~/assets/img/404_pug_dark.webp";
 import lightPug from "~/assets/img/404_pug_light.webp";
 
-const ErrorPage = () => {
+export const ErrorBoundary = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const { mode } = useTheme();
@@ -23,7 +23,7 @@ const ErrorPage = () => {
 
   logger.notice(
     JSON.stringify({
-      message: "ErrorPage triggered",
+      message: "ErrorBoundary triggered",
       pathname: location.pathname,
       error,
     }),
@@ -120,4 +120,4 @@ const ErrorPage = () => {
   );
 };
 
-export default ErrorPage;
+export default ErrorBoundary;

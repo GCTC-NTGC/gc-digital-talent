@@ -65,7 +65,7 @@ const subTitle = defineMessage({
   description: "Subtitle for the browse IT jobs page",
 });
 
-export const BrowsePools = () => {
+export const Component = () => {
   const { mode } = useTheme();
   const intl = useIntl();
   const { loggedIn } = useAuthentication();
@@ -107,7 +107,7 @@ export const BrowsePools = () => {
     activeRecruitmentPools.length || ongoingRecruitmentPools.length;
 
   const profileLink = {
-    href: loggedIn ? paths.myProfile() : paths.login(),
+    href: loggedIn ? paths.profile() : paths.login(),
     label: loggedIn
       ? intl.formatMessage({
           defaultMessage: "Update my profile",
@@ -328,4 +328,6 @@ export const BrowsePools = () => {
   );
 };
 
-export default BrowsePools;
+Component.displayName = "BrowsePoolsPage";
+
+export default Component;

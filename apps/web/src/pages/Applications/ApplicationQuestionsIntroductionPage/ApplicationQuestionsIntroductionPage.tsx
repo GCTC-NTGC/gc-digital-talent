@@ -114,8 +114,8 @@ const ApplicationQuestionsIntroduction = ({
   );
 };
 
-const ApplicationQuestionsIntroductionPage = () => (
+export const Component = () => (
   <ApplicationApi PageComponent={ApplicationQuestionsIntroduction} />
 );
 
-export default ApplicationQuestionsIntroductionPage;
+Component.displayName = "ApplicationQuestionsIntroductionPage";

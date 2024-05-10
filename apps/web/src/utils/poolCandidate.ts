@@ -1,3 +1,9 @@
+/**
+ * This file contains utility functions for working with the Pool Candidate model generally,
+ * and for interacting with Pool Candidates on the Admin side (e.g. Assessment).
+ *
+ * For utilities specific to the Applicant-side UI, see ./applicationUtils.ts
+ */
 import { IntlShape, MessageDescriptor } from "react-intl";
 import { isPast } from "date-fns/isPast";
 import React from "react";
@@ -35,6 +41,7 @@ import {
   TO_ASSESS_STATUSES,
   PLACED_STATUSES,
   NOT_PLACED_STATUSES,
+  DRAFT_STATUSES,
 } from "~/constants/poolCandidate";
 
 import { isOngoingPublishingGroup } from "./poolUtils";
@@ -51,6 +58,10 @@ export const isRemovedStatus = (
 export const isQualifiedStatus = (
   status: Maybe<PoolCandidateStatus> | undefined,
 ): boolean => (status ? QUALIFIED_STATUSES.includes(status) : false);
+
+export const isDraftStatus = (
+  status: Maybe<PoolCandidateStatus> | undefined,
+): boolean => (status ? DRAFT_STATUSES.includes(status) : false);
 
 export const isToAssessStatus = (
   status: Maybe<PoolCandidateStatus> | undefined,

@@ -5,39 +5,68 @@ import { useMutation } from "urql";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Heading, HeadingProps, Chip, Separator } from "@gc-digital-talent/ui";
-import { useAuthorization } from "@gc-digital-talent/auth";
 import { toast } from "@gc-digital-talent/toast";
 import {
+  FragmentType,
+  getFragment,
   graphql,
-  PoolCandidate,
   PoolCandidateStatus,
 } from "@gc-digital-talent/graphql";
 
 import { isDraft, isExpired, isQualifiedStatus } from "~/utils/poolCandidate";
-import { getShortPoolTitleHtml } from "~/utils/poolUtils";
+import {
+  getShortPoolTitleHtml,
+  getShortPoolTitleLabel,
+} from "~/utils/poolUtils";
 import { getStatusChipInfo } from "~/components/QualifiedRecruitmentCard/utils";
 import ApplicationLink from "~/pages/Pools/PoolAdvertisementPage/components/ApplicationLink";
 
-import ApplicationActions, { DeleteActionProps } from "./ApplicationActions";
+import ApplicationActions from "./ApplicationActions";
 import { getApplicationDeadlineMessage } from "./utils";
 
-type Application = Omit<
-  PoolCandidate,
-  "user" | "educationRequirementExperiences"
->;
+const ApplicationCardDelete_Mutation = graphql(/* GraphQL */ `
+  mutation ApplicationCardDelete($id: ID!) {
+    deleteApplication(id: $id) {
+      id
+    }
+  }
+`);
+
+export const ApplicationCard_Fragment = graphql(/* GraphQL */ `
+  fragment ApplicationCard on PoolCandidate {
+    id
+    status
+    suspendedAt
+    submittedAt
+    pool {
+      id
+      closingDate
+      stream
+      name {
+        en
+        fr
+      }
+      classification {
+        id
+        group
+        level
+      }
+    }
+  }
+`);
 
 export interface ApplicationCardProps {
-  application: Application;
+  poolCandidateQuery: FragmentType<typeof ApplicationCard_Fragment>;
   headingLevel?: HeadingProps["level"];
-  onDelete: DeleteActionProps["onDelete"];
 }
 
 const ApplicationCard = ({
-  application,
+  poolCandidateQuery,
   headingLevel = "h2",
-  onDelete,
 }: ApplicationCardProps) => {
   const intl = useIntl();
+  const [, executeDeleteMutation] = useMutation(ApplicationCardDelete_Mutation);
+  const application = getFragment(ApplicationCard_Fragment, poolCandidateQuery);
 
   // Conditionals for card actions
   const applicationIsDraft = isDraft(application.status);
@@ -58,11 +87,30 @@ const ApplicationCard = ({
     : getStatusChipInfo(application.status, application.suspendedAt, intl);
 
   const applicationDeadlineMessage = getApplicationDeadlineMessage(
-    application,
     intl,
+    application.pool.closingDate,
+    application.submittedAt,
   );
-  const { userAuthInfo } = useAuthorization();
   const applicationTitle = getShortPoolTitleHtml(intl, application.pool);
+  const applicationTitleString = getShortPoolTitleLabel(intl, application.pool);
+
+  const deleteApplication = () => {
+    executeDeleteMutation({
+      id: application.id,
+    }).then((result) => {
+      if (result.data?.deleteApplication) {
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Application deleted successfully!",
+            id: "xdGPxT",
+            description:
+              "Message displayed to user after application is deleted successfully.",
+          }),
+        );
+      }
+    });
+  };
+
   return (
     <div
       data-h2-background-color="base(foreground)"
@@ -139,28 +187,30 @@ const ApplicationCard = ({
       >
         <ApplicationActions.ViewAction
           show={!applicationIsDraft}
-          application={application}
+          id={application.id}
+          title={applicationTitleString}
         />
         <ApplicationActions.SeeAdvertisementAction
           show={notEmpty(application.pool)}
-          advertisement={application.pool}
+          poolId={application.pool.id}
+          title={applicationTitleString}
         />
 
         <ApplicationActions.VisitCareerTimelineAction
           show={isApplicantQualified}
-          userID={userAuthInfo?.id ?? ""}
-          application={application}
+          title={applicationTitleString}
         />
-        <ApplicationActions.SupportAction show application={application} />
+        <ApplicationActions.SupportAction show title={applicationTitleString} />
         <ApplicationActions.DeleteAction
           show={applicationIsDraft}
-          application={application}
-          onDelete={onDelete}
+          title={applicationTitleString}
+          onDelete={deleteApplication}
         />
         <div data-h2-margin-left="base(0) p-tablet(auto)">
           <ApplicationActions.CopyApplicationIdAction
             show
-            application={application}
+            id={application.id}
+            title={applicationTitleString}
           />
         </div>
       </div>
@@ -168,42 +218,4 @@ const ApplicationCard = ({
   );
 };
 
-const ApplicationCardDelete_Mutation = graphql(/* GraphQL */ `
-  mutation ApplicationCardDelete($id: ID!) {
-    deleteApplication(id: $id) {
-      id
-    }
-  }
-`);
-
-interface ApplicationCardApiProps {
-  application: Application;
-}
-
-const ApplicationCardApi = ({ application }: ApplicationCardApiProps) => {
-  const [, executeDeleteMutation] = useMutation(ApplicationCardDelete_Mutation);
-  const intl = useIntl();
-
-  const deleteApplication = () => {
-    executeDeleteMutation({
-      id: application.id,
-    }).then((result) => {
-      if (result.data?.deleteApplication) {
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Application deleted successfully!",
-            id: "xdGPxT",
-            description:
-              "Message displayed to user after application is deleted successfully.",
-          }),
-        );
-      }
-    });
-  };
-
-  return (
-    <ApplicationCard application={application} onDelete={deleteApplication} />
-  );
-};
-
-export default ApplicationCardApi;
+export default ApplicationCard;

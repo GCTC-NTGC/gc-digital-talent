@@ -25,6 +25,7 @@ const pageTitle = defineMessage({
   id: "DcpFle",
   description: "Page title for the request confirmation page.",
 });
+
 const subTitle = defineMessage({
   defaultMessage: "Your request was submitted successfully.",
   id: "rVgBGi",
@@ -41,7 +42,7 @@ const mailLink = (chunks: React.ReactNode) => (
   </Link>
 );
 
-const RequestConfirmationPage = () => {
+export const Component = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const { requestId } =
@@ -181,4 +182,6 @@ const RequestConfirmationPage = () => {
   );
 };
 
-export default RequestConfirmationPage;
+Component.displayName = "RequestConfirmationPage";
+
+export default Component;

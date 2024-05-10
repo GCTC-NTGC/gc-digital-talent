@@ -122,8 +122,8 @@ const ApplicationCareerTimelineIntroduction = ({
   );
 };
 
-const ApplicationCareerTimelineIntroductionPage = () => (
+export const Component = () => (
   <ApplicationApi PageComponent={ApplicationCareerTimelineIntroduction} />
 );
 
-export default ApplicationCareerTimelineIntroductionPage;
+Component.displayName = "ApplicationCareerTimelineIntroductionPage";

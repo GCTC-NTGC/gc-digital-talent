@@ -9,6 +9,7 @@ import { useQuery } from "urql";
 import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import AdminHero from "~/components/Hero/AdminHero";
@@ -16,6 +17,8 @@ import useRoutes from "~/hooks/useRoutes";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import { PageNavInfo } from "~/types/pages";
+
+import RequireAuth from "../../components/RequireAuth/RequireAuth";
 
 const TeamLayout_TeamFragment = graphql(/* GraphQL */ `
   fragment TeamLayout_Team on Team {
@@ -141,5 +144,19 @@ const TeamLayout = () => {
     </>
   );
 };
+
+export const Component = () => (
+  <RequireAuth
+    roles={[
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.CommunityManager,
+      ROLE_NAME.PlatformAdmin,
+    ]}
+  >
+    <TeamLayout />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminTeamLayout";
 
 export default TeamLayout;

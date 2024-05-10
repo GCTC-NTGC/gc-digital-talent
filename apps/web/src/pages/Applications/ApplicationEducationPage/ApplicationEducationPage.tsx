@@ -316,7 +316,7 @@ const ApplicationEducation = ({
   );
 };
 
-const ApplicationEducationPage = () => {
+export const Component = () => {
   const { application } = useApplication();
 
   const experiences: Experience[] = unpackMaybes(application.user.experiences);
@@ -328,4 +328,4 @@ const ApplicationEducationPage = () => {
   );
 };
 
-export default ApplicationEducationPage;
+Component.displayName = "ApplicationEducationPage";

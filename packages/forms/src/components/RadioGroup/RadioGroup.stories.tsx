@@ -1,7 +1,7 @@
 import React from "react";
 import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker/locale/en";
 
 import { VIEWPORT, allModes } from "@gc-digital-talent/storybook-helpers";
 

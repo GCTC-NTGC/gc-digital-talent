@@ -36,7 +36,7 @@ const pageSubtitle = defineMessage({
   description: "Subtitle for explore skills page",
 });
 
-export const SkillPage = () => {
+export const Component = () => {
   const intl = useIntl();
   const routes = useRoutes();
 
@@ -125,4 +125,6 @@ export const SkillPage = () => {
   );
 };
 
-export default SkillPage;
+Component.displayName = "SkillPage";
+
+export default Component;
