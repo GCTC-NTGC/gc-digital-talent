@@ -162,6 +162,7 @@ class PoolFactory extends Factory
                 'process_number' => $this->faker->word(),
                 'publishing_group' => $this->faker->randomElement(array_column(PublishingGroup::cases(), 'name')),
                 'opportunity_length' => $this->faker->randomElement(array_column(PoolOpportunityLength::cases(), 'name')),
+                'change_justification' => $this->faker()->boolean(50) ? $this->faker()->paragraph() : null,
             ];
         });
     }
