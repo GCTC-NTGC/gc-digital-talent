@@ -168,7 +168,6 @@ export const UpdateSearchRequestForm = ({
             />
             <div data-h2-text-align="base(right)">
               <Submit
-                color="primary"
                 disabled={isSaving}
                 isSubmitting={isSaving}
                 text={intl.formatMessage({

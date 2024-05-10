@@ -195,12 +195,7 @@ const RevertFinalDecisionDialog = ({
             <FormChangeNotifyWell />
           </div>
           <Dialog.Footer>
-            <Button
-              type="submit"
-              color="primary"
-              mode="solid"
-              onClick={handleSubmit}
-            >
+            <Button type="submit" color="secondary" onClick={handleSubmit}>
               {intl.formatMessage({
                 defaultMessage: "Revert decision and update status",
                 id: "QJi1ZQ",
