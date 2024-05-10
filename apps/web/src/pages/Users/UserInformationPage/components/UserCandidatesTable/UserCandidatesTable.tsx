@@ -196,7 +196,7 @@ const UserCandidatesTable = ({
       header: intl.formatMessage(adminMessages.notes),
       sortingFn: normalizedText,
       cell: ({ row: { original: poolCandidate } }) =>
-        notesCell(intl, poolCandidate.notes, user.firstName, user.lastName),
+        notesCell(intl, user.firstName, user.lastName, poolCandidate.notes),
     }),
     columnHelper.accessor(
       () =>
