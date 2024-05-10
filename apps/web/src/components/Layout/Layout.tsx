@@ -155,4 +155,4 @@ export const Component = () => {
   );
 };
 
-Component.Layout = "Layout";
+Component.displayName = "Layout";
