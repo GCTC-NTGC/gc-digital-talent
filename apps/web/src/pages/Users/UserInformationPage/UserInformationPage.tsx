@@ -75,6 +75,7 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
       notes
       suspendedAt
       submittedAt
+      isBookmarked
       placedDepartment {
         id
         departmentNumber

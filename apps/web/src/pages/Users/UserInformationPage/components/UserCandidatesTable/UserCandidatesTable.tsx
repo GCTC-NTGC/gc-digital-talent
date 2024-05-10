@@ -55,6 +55,7 @@ type PoolCandidateSlice = Pick<
   | "pool"
   | "placedDepartment"
   | "suspendedAt"
+  | "isBookmarked"
 >;
 
 const columnHelper = createColumnHelper<PoolCandidateSlice>();
@@ -85,6 +86,7 @@ const UserCandidatesTable = ({
         pool: candidate.pool,
         placedDepartment: candidate.placedDepartment,
         suspendedAt: candidate.suspendedAt,
+        isBookmarked: candidate.isBookmarked,
       };
     });
   const candidateIds = poolCandidatesMappedToType.map(
@@ -99,6 +101,7 @@ const UserCandidatesTable = ({
       cell: ({ row: { original: poolCandidate } }) =>
         bookmarkCell(
           poolCandidate as FragmentType<typeof PoolCandidate_BookmarkFragment>,
+          poolCandidate.isBookmarked,
         ),
       meta: {
         shrink: true,

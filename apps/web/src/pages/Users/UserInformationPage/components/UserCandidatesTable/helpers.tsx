@@ -57,8 +57,15 @@ export const candidateNameCell = (
 };
 export const bookmarkCell = (
   candidate: FragmentType<typeof PoolCandidate_BookmarkFragment>,
+  isBookmarked?: Maybe<boolean>,
 ) => {
-  return <CandidateBookmark candidateQuery={candidate} size="lg" />;
+  return (
+    <CandidateBookmark
+      candidateQuery={candidate}
+      bookmarked={isBookmarked ?? undefined}
+      size="lg"
+    />
+  );
 };
 
 export const bookmarkHeader = (intl: IntlShape) => (
