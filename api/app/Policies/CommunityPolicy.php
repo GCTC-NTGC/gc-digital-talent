@@ -15,12 +15,8 @@ class CommunityPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(?User $user)
+    public function viewAny()
     {
-        if ($user) {
-            return $user->isAbleTo('view-any-community');
-        }
-
         return true;
     }
 }
