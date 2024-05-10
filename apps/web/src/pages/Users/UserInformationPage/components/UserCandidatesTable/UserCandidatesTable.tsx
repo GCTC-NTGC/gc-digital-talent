@@ -180,7 +180,6 @@ const UserCandidatesTable = ({
         id: "placedDepartment",
         header: intl.formatMessage(tableMessages.placedDepartment),
         enableColumnFilter: false,
-        enableSorting: false,
       },
     ),
     columnHelper.accessor(
@@ -191,7 +190,7 @@ const UserCandidatesTable = ({
         header: intl.formatMessage(tableMessages.candidacyStatus),
       },
     ),
-    columnHelper.accessor(({ notes }) => notes, {
+    columnHelper.accessor(({ notes }) => notes || "", {
       id: "notes",
       header: intl.formatMessage(adminMessages.notes),
       sortingFn: normalizedText,
