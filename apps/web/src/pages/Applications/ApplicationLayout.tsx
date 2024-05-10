@@ -8,6 +8,7 @@ import { TableOfContents, Stepper, Loading } from "@gc-digital-talent/ui";
 import { empty, isUuidError, notEmpty } from "@gc-digital-talent/helpers";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
@@ -22,6 +23,7 @@ import {
   getNextStepToSubmit,
   isOnDisabledPage,
 } from "~/utils/applicationUtils";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import StepDisabledPage from "./StepDisabledPage/StepDisabledPage";
 import ApplicationContextProvider from "./ApplicationContext";
@@ -185,7 +187,7 @@ const Application_Query = graphql(/* GraphQL */ `
   }
 `);
 
-export const Component = () => {
+const Layout = () => {
   const id = useApplicationId();
   const intl = useIntl();
   const [{ data, fetching, error, stale }] = useQuery({
@@ -216,6 +218,12 @@ export const Component = () => {
     </>
   );
 };
+
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+    <Layout />
+  </RequireAuth>
+);
 
 Component.displayName = "ApplicationLayout";
 
