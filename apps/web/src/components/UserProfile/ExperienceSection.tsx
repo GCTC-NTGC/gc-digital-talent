@@ -7,6 +7,7 @@ import {
   HeadingRank,
   Link,
   Button,
+  Well,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 import { AwardExperience, Experience } from "@gc-digital-talent/graphql";
@@ -195,12 +196,7 @@ const ExperienceSection = ({
             ))}
           </Accordion.Root>
         ) : (
-          <div
-            data-h2-background-color="base(background.dark)"
-            data-h2-border="base(1px solid background.darker)"
-            data-h2-padding="base(x1)"
-            data-h2-radius="base(s)"
-          >
+          <Well>
             <p>
               {intl.formatMessage({
                 defaultMessage:
@@ -210,17 +206,12 @@ const ExperienceSection = ({
                   "Null state for when no skills have been linked to any experiences",
               })}
             </p>
-          </div>
+          </Well>
         )}
       </Tabs.Content>
     </Tabs.Root>
   ) : (
-    <div
-      data-h2-background-color="base(background.dark)"
-      data-h2-border="base(1px solid background.darker)"
-      data-h2-padding="base(x1)"
-      data-h2-radius="base(s)"
-    >
+    <Well>
       {!editPath ? (
         <p>{intl.formatMessage(commonMessages.noInformationProvided)}</p>
       ) : (
@@ -244,7 +235,7 @@ const ExperienceSection = ({
           </p>
         </>
       )}
-    </div>
+    </Well>
   );
 };
 
