@@ -109,6 +109,13 @@ const UpdatePublishedProcessDialog = ({
                 id="changeJustification"
                 label={label}
                 rules={{ required: intl.formatMessage(errorMessages.required) }}
+                context={intl.formatMessage({
+                  defaultMessage:
+                    "Please write the justification for this change.",
+                  id: "SjISKL",
+                  description:
+                    "Help text for justifying updating published pool",
+                })}
               />
               <Dialog.Footer>
                 <Button color="error" type="button" onClick={handleSave}>
