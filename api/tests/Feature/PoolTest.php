@@ -955,7 +955,6 @@ class PoolTest extends TestCase
         $vars = [
             'id' => $pool->id,
             'pool' => [
-                'id' => $pool->id,
                 'aboutUs' => ['en' => 'About us EN', 'fr' => 'About us FR'],
                 'changeJustification' => 'Justification',
             ],
@@ -989,7 +988,6 @@ class PoolTest extends TestCase
             ->graphQL($mutation, [
                 'id' => $pool->id,
                 'pool' => [
-                    'id' => $pool->id,
                     'aboutUs' => [
                         'en' => 'About us EN',
                         'fr' => 'About us FR',

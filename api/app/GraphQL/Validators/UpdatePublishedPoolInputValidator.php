@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Validators;
 
-use App\Enums\PoolStatus;
-use App\Models\Pool;
 use Database\Helpers\ApiErrorEnums;
-use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
 final class UpdatePublishedPoolInputValidator extends Validator
@@ -20,15 +17,8 @@ final class UpdatePublishedPoolInputValidator extends Validator
     public function rules(): array
     {
 
-        $pool = Pool::find($this->arg('id'));
-
         return [
-            'changeJustification' => [
-                Rule::when($pool->status === PoolStatus::PUBLISHED->name, [
-                    'required',
-                ]),
-            ],
-            // Optional fields
+            'changeJustification' => ['required', 'string'],
             'specialNote.en' => ['required_with:specialNote.fr', 'string'],
             'specialNote.fr' => ['required_with:specialNote.en', 'string'],
             'aboutUs.en' => ['required_with:aboutUs.fr', 'string', 'nullable'],
@@ -37,8 +27,6 @@ final class UpdatePublishedPoolInputValidator extends Validator
             'whatToExpectAdmission.fr' => ['required_with:whatToExpectAdmission.en', 'string', 'nullable'],
             'whatToExpect.en' => ['required_with:whatToExpect.fr', 'string', 'nullable'],
             'whatToExpect.fr' => ['required_with:whatToExpect.en', 'string', 'nullable'],
-
-            // Always required fields
             'yourImpact.en' => ['required_with:yourImpact.fr', 'string'],
             'yourImpact.fr' => ['required_with:yourImpact.en', 'string'],
             'keyTasks.en' => ['required_with:keyTasks.fr', 'string'],

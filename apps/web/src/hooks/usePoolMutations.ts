@@ -169,10 +169,7 @@ const usePoolMutations = (returnPath?: string) => {
     id: string,
     pool: UpdatePublishedPoolInput,
   ) => {
-    return executeUpdatePublishedMutation({
-      id,
-      pool: { id, ...pool },
-    })
+    return executeUpdatePublishedMutation({ id, pool })
       .then((result) => {
         if (result.data?.updatePublishedPool) {
           toast.success(

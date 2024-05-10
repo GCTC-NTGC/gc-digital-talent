@@ -1273,7 +1273,6 @@ input UpdatePoolInput {
 }
 
 input UpdatePublishedPoolInput {
-  id: ID
   changeJustification: String
   yourImpact: LocalizedStringInput
   keyTasks: LocalizedStringInput
