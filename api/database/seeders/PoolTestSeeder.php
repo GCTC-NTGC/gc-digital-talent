@@ -150,20 +150,42 @@ class PoolTestSeeder extends Seeder
             ];
             $poolModel = Pool::where($identifier)->first();
             if (! $poolModel) {
-                $createdPool = Pool::factory()
-                    ->published()
-                    ->create($poolData);
+
                 // constrain CMO Digital Careers pool to predictable values
                 if ($identifier['name->en'] == 'CMO Digital Careers') {
+                    $createdPool = Pool::factory()
+                        ->published()
+                        ->create($poolData);
                     $classificationIT01Id = Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 1)->sole()->id;
                     $createdPool->classification_id = $classificationIT01Id;
                     $createdPool->stream = PoolStream::BUSINESS_ADVISORY_SERVICES->name;
                     $createdPool->advertisement_language = PoolLanguage::VARIOUS->name;
                     $createdPool->save();
                 }
+
+                if ($identifier['name->en'] == 'Infrastructure Operations Technician') {
+                    $createdPool = Pool::factory()
+                        ->withPoolSkills(0,0)
+                        ->withQuestions(0,0)
+                        ->draft()
+                        ->create($poolData);
+                }
+
+                 if ($identifier['name->en'] == 'IT Security Specialist') {
+                    $createdPool = Pool::factory()
+                        ->withPoolSkills(2,2)
+                        ->withQuestions(0,1)
+                        ->draft()
+                        ->withAssessments()
+                        ->create($poolData);
+                }
+
             } else {
                 $poolModel->update($poolData);
             }
         }
+
+        // Create a pool with no screening questions
+
     }
 }

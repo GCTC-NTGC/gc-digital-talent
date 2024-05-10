@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Enums\AssessmentStepType;
 use App\Enums\OperationalRequirement;
 use App\Enums\PoolLanguage;
 use App\Enums\PoolOpportunityLength;
@@ -15,7 +14,6 @@ use App\Models\AssessmentStep;
 use App\Models\Classification;
 use App\Models\GeneralQuestion;
 use App\Models\Pool;
-use App\Models\PoolSkill;
 use App\Models\ScreeningQuestion;
 use App\Models\Skill;
 use App\Models\Team;
@@ -31,6 +29,14 @@ class PoolFactory extends Factory
      * @var string
      */
     protected $model = Pool::class;
+
+    private $essentialCount = 1;
+
+    private $nonEssentialCount = 1;
+
+    private $generalQuestionsCount = 3;
+
+    private $screeningQuestionsCount = 3;
 
     /**
      * Define the model's default state.
@@ -72,55 +78,53 @@ class PoolFactory extends Factory
         ];
     }
 
-    public function configure()
+    public function withPoolSkills($essentialCount, $nonEssentialCount)
     {
-        return $this->afterCreating(function (Pool $pool) {
+        return $this->afterCreating(function (Pool $pool) use ($essentialCount, $nonEssentialCount) {
+            $this->essentialCount = $essentialCount;
+            $this->nonEssentialCount = $nonEssentialCount;
+
             $skills = Skill::inRandomOrder()->limit(10)->get();
+            $essentialSkills = $skills->random($essentialCount);
+            $this->createPoolSkills($pool, $essentialSkills, PoolSkillType::ESSENTIAL);
 
-            foreach ($skills->slice(0, 5) as $skill) {
-                $poolSkill = new PoolSkill();
-                $poolSkill->skill_id = $skill->id;
-                $poolSkill->type = PoolSkillType::ESSENTIAL->name;
-                $poolSkill->required_skill_level = $this->faker->randomElement(array_column(SkillLevel::cases(), 'name'));
-                $pool->poolSkills()->save($poolSkill);
-            }
-            foreach ($skills->slice(5, 5) as $skill) {
-                $poolSkill = new PoolSkill();
-                $poolSkill->skill_id = $skill->id;
-                $poolSkill->type = PoolSkillType::NONESSENTIAL->name;
-                $poolSkill->required_skill_level = $this->faker->randomElement(array_column(SkillLevel::cases(), 'name'));
-                $pool->poolSkills()->save($poolSkill);
-            }
-
-            GeneralQuestion::factory()
-                ->count(3)
-                ->sequence(
-                    ['sort_order' => 1],
-                    ['sort_order' => 2],
-                    ['sort_order' => 3],
-                )
-                ->create(['pool_id' => $pool->id]);
-
-            $screeningAssessmentStep = AssessmentStep::factory()->create(
-                [
-                    'pool_id' => $pool->id,
-                    'type' => AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name,
-                ]
-            );
-            ScreeningQuestion::factory()
-                ->count(3)
-                ->sequence(
-                    ['sort_order' => 1],
-                    ['sort_order' => 2],
-                    ['sort_order' => 3],
-                )
-                ->create(
-                    [
-                        'pool_id' => $pool->id,
-                        'assessment_step_id' => $screeningAssessmentStep->id,
-                    ]
-                );
+            $nonEssentialSkills = $skills->diff($essentialSkills)->random($nonEssentialCount);
+            $this->createPoolSkills($pool, $nonEssentialSkills, PoolSkillType::NONESSENTIAL);
         });
+    }
+
+    public function createPoolSkills($pool, $skillCount, $type)
+    {
+        $skills = Skill::inRandomOrder()->limit($skillCount)->get();
+        // for each skills create it as pool skill
+        foreach ($skills as $skill) {
+            $pool->poolSkills()->create([
+                'skill_id' => $skill->id,
+                'type' => $type,
+                'required_skill_level' => $this->faker->randomElement(array_column(SkillLevel::cases(), 'name')),
+            ]);
+        }
+    }
+
+    public function withQuestions($generalQuestionsCount, $screeningQuestionsCount)
+    {
+        return $this->afterCreating(function (Pool $pool) use ($generalQuestionsCount, $screeningQuestionsCount) {
+            $this->createQuestions(GeneralQuestion::class, $generalQuestionsCount, $pool->id);
+            $this->createQuestions(ScreeningQuestion::class, $screeningQuestionsCount, $pool->id);
+        });
+    }
+
+    public function createQuestions($factory, $count, $poolId)
+    {
+        $sequence = [];
+        for ($i = 1; $i <= $count; $i++) {
+            $sequence[] = ['sort_order' => $i];
+        }
+
+        $factory::factory()
+            ->count($count)
+            ->sequence(...$sequence)
+            ->create(['pool_id' => $poolId]);
     }
 
     /**
