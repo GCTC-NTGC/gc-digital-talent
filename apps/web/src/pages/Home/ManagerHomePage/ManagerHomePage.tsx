@@ -38,7 +38,7 @@ const pageSubtitle = defineMessage({
   description: "Subtitle for the manager homepage",
 });
 
-const HomePage = () => {
+export const Component = () => {
   const intl = useIntl();
   const paths = useRoutes();
 
@@ -424,4 +424,6 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+Component.displayName = "ManagerHomePage";
+
+export default Component;

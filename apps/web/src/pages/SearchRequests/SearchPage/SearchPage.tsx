@@ -15,6 +15,7 @@ const pageTitle = defineMessage({
   id: "9Jkoms",
   description: "Title displayed on hero for Search and Request pages.",
 });
+
 const subTitle = defineMessage({
   defaultMessage:
     "Discover talent using a set of comprehensive filters, including classification, languages, and skills.",
@@ -22,7 +23,7 @@ const subTitle = defineMessage({
   description: "Subtitle for the search page",
 });
 
-const SearchPage = () => {
+export const Component = () => {
   const intl = useIntl();
   const paths = useRoutes();
 
@@ -54,4 +55,6 @@ const SearchPage = () => {
   );
 };
 
-export default SearchPage;
+Component.displayName = "SearchPage";
+
+export default Component;

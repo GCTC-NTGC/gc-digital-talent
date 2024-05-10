@@ -1250,7 +1250,7 @@ const PoolAdvertisementPage_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const PoolAdvertisementPage = () => {
+export const Component = () => {
   const { poolId } = useRequiredParams<RouteParams>("poolId", true);
   const auth = useAuthorization();
 
@@ -1284,4 +1284,6 @@ const PoolAdvertisementPage = () => {
   );
 };
 
-export default PoolAdvertisementPage;
+Component.displayName = "PoolAdvertisementPage";
+
+export default Component;

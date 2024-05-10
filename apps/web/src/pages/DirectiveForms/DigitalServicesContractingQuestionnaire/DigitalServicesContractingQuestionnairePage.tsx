@@ -14,12 +14,14 @@ import {
   DigitalContractingQuestionnaireInput,
   Skill,
 } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import Hero from "~/components/Hero";
 import contractingEn from "~/assets/documents/Digital_Contracting_Questionnaire_EN.docx";
 import contractingFr from "~/assets/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import { pageTitle as directiveHomePageTitle } from "../../DirectivePage/DirectivePage";
 import { getSectionTitle, PAGE_SECTION_ID } from "./navigation";
@@ -210,5 +212,13 @@ const DigitalServicesContractingQuestionnairePage = () => {
     </Pending>
   );
 };
+
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
+    <DigitalServicesContractingQuestionnairePage />
+  </RequireAuth>
+);
+
+Component.displayName = "DigitalServicesContractingQuestionnairePage";
 
 export default DigitalServicesContractingQuestionnairePage;

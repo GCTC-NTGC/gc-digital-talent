@@ -27,7 +27,7 @@ const supportLink = (chunks: React.ReactNode, path: string) => (
   </Link>
 );
 
-const SignedOutPage = () => {
+export const Component = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const { loggedIn, logout } = useAuthentication();
@@ -232,4 +232,6 @@ const SignedOutPage = () => {
   );
 };
 
-export default SignedOutPage;
+Component.displayName = "SignedOutPage";
+
+export default Component;

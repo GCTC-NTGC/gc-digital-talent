@@ -6,7 +6,7 @@ import {
   THEMES,
 } from "@gc-digital-talent/storybook-helpers";
 
-import { IAPManagerHomePage } from "./IAPManagerHomePage";
+import IAPManagerHomePage from "./IAPManagerHomePage";
 
 export default {
   component: IAPManagerHomePage,

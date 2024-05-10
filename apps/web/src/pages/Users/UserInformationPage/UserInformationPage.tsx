@@ -17,11 +17,13 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import adminMessages from "~/messages/adminMessages";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import AboutSection from "./components/AboutSection";
 import CandidateStatusSection from "./components/CandidateStatusSection";
@@ -426,5 +428,19 @@ const UserInformationPage = () => {
     </AdminContentWrapper>
   );
 };
+
+export const Component = () => (
+  <RequireAuth
+    roles={[
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.RequestResponder,
+      ROLE_NAME.PlatformAdmin,
+    ]}
+  >
+    <UserInformationPage />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminUserInformationPage";
 
 export default UserInformationPage;

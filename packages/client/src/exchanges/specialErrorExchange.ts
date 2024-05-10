@@ -20,7 +20,7 @@ const specialErrorExchange = ({ intl }: { intl: IntlShape }) => {
             result?.error?.response?.status === 403 &&
             result?.error?.networkError?.message?.includes("Request Rejected")
           ) {
-            toast.error(intl.formatMessage(errorMessages.specialCharacters));
+            toast.error(intl.formatMessage(errorMessages.requestRejected));
           }
         }),
       );
