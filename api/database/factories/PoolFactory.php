@@ -93,9 +93,8 @@ class PoolFactory extends Factory
         });
     }
 
-    public function createPoolSkills($pool, $skillCount, $type)
+    public function createPoolSkills($pool, $skills, $type)
     {
-        $skills = Skill::inRandomOrder()->limit($skillCount)->get();
         // for each skills create it as pool skill
         foreach ($skills as $skill) {
             $pool->poolSkills()->create([
