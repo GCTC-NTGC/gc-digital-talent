@@ -43,7 +43,6 @@ import {
   notesCell,
   priorityCell,
   processCell,
-  statusCell,
 } from "./helpers";
 
 type PoolCandidateSlice = Pick<
@@ -129,21 +128,6 @@ const UserCandidatesTable = ({
         },
       }) => processCell(pool, paths, intl),
     }),
-    columnHelper.accessor(
-      ({ status }) =>
-        intl.formatMessage(
-          status ? getPoolCandidateStatus(status) : commonMessages.notFound,
-        ),
-      {
-        id: "status",
-        header: intl.formatMessage(commonMessages.status),
-        cell: ({ row: { original: poolCandidate } }) =>
-          statusCell(poolCandidate.status, intl),
-        meta: {
-          hideMobileHeader: true,
-        },
-      },
-    ),
     columnHelper.accessor(
       () =>
         intl.formatMessage(

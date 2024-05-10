@@ -7,7 +7,6 @@ import {
   getCandidateSuspendedFilterStatus,
   getLanguage,
   getPoolCandidatePriorities,
-  getPoolCandidateStatus,
   getProvinceOrTerritory,
 } from "@gc-digital-talent/i18n";
 import { Chip, Link, Spoiler } from "@gc-digital-talent/ui";
@@ -68,42 +67,6 @@ export const bookmarkHeader = (intl: IntlShape) => (
     aria-label={intl.formatMessage(tableMessages.bookmark)}
   />
 );
-
-export const statusCell = (
-  status: PoolCandidateStatus | null | undefined,
-  intl: IntlShape,
-) => {
-  if (!status) return null;
-
-  if (status === PoolCandidateStatus.NewApplication) {
-    return (
-      <span
-        data-h2-color="base(tertiary.darker)"
-        data-h2-font-weight="base(700)"
-      >
-        {intl.formatMessage(getPoolCandidateStatus(status as string))}
-      </span>
-    );
-  }
-  if (
-    status === PoolCandidateStatus.ApplicationReview ||
-    status === PoolCandidateStatus.ScreenedIn ||
-    status === PoolCandidateStatus.ScreenedOutApplication ||
-    status === PoolCandidateStatus.ScreenedOutNotInterested ||
-    status === PoolCandidateStatus.ScreenedOutNotResponsive ||
-    status === PoolCandidateStatus.UnderAssessment ||
-    status === PoolCandidateStatus.ScreenedOutAssessment
-  ) {
-    return (
-      <span data-h2-font-weight="base(700)">
-        {intl.formatMessage(getPoolCandidateStatus(status as string))}
-      </span>
-    );
-  }
-  return (
-    <span>{intl.formatMessage(getPoolCandidateStatus(status as string))}</span>
-  );
-};
 
 export const priorityCell = (
   priority: number | null | undefined,
