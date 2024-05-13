@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Pool;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -26,6 +27,7 @@ class DatabaseSeeder extends Seeder
             // convenient test data
             UserTestSeeder::class,
             PoolTestSeeder::class,
+            PoolCandidateTestSeeder::class,
             AssessmentResultTestSeeder::class,
 
             // random data to fill it out

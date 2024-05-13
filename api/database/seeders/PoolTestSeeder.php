@@ -44,7 +44,6 @@ class PoolTestSeeder extends Seeder
                 'publishing_group' => PublishingGroup::IAP->name,
             ],
             //  IT-01  - Draft Job
-
             [
                 'name' => [
                     'en' => 'Infrastructure Operations Technician',
