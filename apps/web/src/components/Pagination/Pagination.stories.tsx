@@ -16,6 +16,11 @@ export default {
     currentPage: 1,
     pageSize: 10,
   },
+  parameters: {
+    actions: {
+      argTypesRegex: "^(onCurrentPageChange|onPageSizeChange)$",
+    },
+  },
 } satisfies Meta<typeof Pagination>;
 
 type Story = StoryObj<typeof Pagination>;
