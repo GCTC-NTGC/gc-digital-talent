@@ -22,7 +22,7 @@ const Pending = ({
   inline = false,
   pause = false,
   children,
-}: PendingProps): JSX.Element => {
+}: PendingProps): React.JSX.Element => {
   const intl = useIntl();
   if (fetching) {
     return (

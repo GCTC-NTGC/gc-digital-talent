@@ -128,7 +128,6 @@ type User {
 
 interface Notification {
   id: ID!
-  type: NotificationType!
   readAt: DateTime @rename(attribute: "read_at")
   createdAt: DateTime! @rename(attribute: "created_at")
   updatedAt: DateTime! @rename(attribute: "updated_at")
@@ -136,7 +135,6 @@ interface Notification {
 
 type PoolCandidateStatusChangedNotification implements Notification {
   id: ID!
-  type: NotificationType!
   readAt: DateTime @rename(attribute: "read_at")
   createdAt: DateTime! @rename(attribute: "created_at")
   updatedAt: DateTime! @rename(attribute: "updated_at")
@@ -145,6 +143,18 @@ type PoolCandidateStatusChangedNotification implements Notification {
   newStatus: PoolCandidateStatus @rename(attribute: "new_status")
   poolCandidateId: ID @rename(attribute: "pool_candidate_id")
   poolName: LocalizedString @rename(attribute: "pool_name")
+}
+
+type ApplicationDeadlineApproachingNotification implements Notification {
+  id: ID!
+  readAt: DateTime @rename(attribute: "read_at")
+  createdAt: DateTime! @rename(attribute: "created_at")
+  updatedAt: DateTime! @rename(attribute: "updated_at")
+
+  closingDate: Date
+  poolName: LocalizedString
+  poolId: ID
+  poolCandidateId: ID
 }
 
 type UserPublicProfile @model(class: "\\App\\Models\\User") {
@@ -195,16 +205,6 @@ type Pool {
   securityClearance: SecurityStatus @rename(attribute: "security_clearance")
   language: PoolLanguage @rename(attribute: "advertisement_language")
   status: PoolStatus @rename(attribute: "status")
-  essentialSkills: [Skill!]
-    @belongsToMany
-    @deprecated(
-      reason: "Switch to poolSkills filtering for PoolSkillType.ESSENTIAL"
-    )
-  nonessentialSkills: [Skill!]
-    @belongsToMany
-    @deprecated(
-      reason: "Switch to poolSkills filtering for PoolSkillType.NONESSENTIAL"
-    )
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
@@ -226,7 +226,7 @@ type Pool {
   assessmentSteps: [AssessmentStep]
     @hasMany
     @canRoot(ability: "viewAssessmentPlan")
-  poolSkills: [PoolSkill] @hasMany
+  poolSkills(type: PoolSkillType @where): [PoolSkill] @hasMany
 }
 
 type GeneralQuestionResponse {
@@ -362,6 +362,13 @@ type Department {
   teams: [Team] @belongsToMany @canModel(ability: "viewAny")
 }
 
+type Community {
+  id: ID!
+  key: String!
+  name: LocalizedString
+  description: LocalizedString
+}
+
 type Team {
   id: ID!
   name: String! # represents a unique key for a team
@@ -454,7 +461,9 @@ type PoolCandidateSearchRequest {
   status: PoolCandidateSearchStatus @rename(attribute: "request_status")
   statusChangedAt: DateTime @rename(attribute: "request_status_changed_at")
   adminNotes: String @rename(attribute: "admin_notes")
-  poolCandidateFilter: PoolCandidateFilter @belongsTo
+  poolCandidateFilter: PoolCandidateFilter
+    @belongsTo
+    @deprecated(reason: "Replaced by applicantFilter")
   applicantFilter: ApplicantFilter @belongsTo
   wasEmpty: Boolean @rename(attribute: "was_empty")
   managerJobTitle: String @rename(attribute: "manager_job_title")
@@ -819,6 +828,8 @@ type Query {
     @find
     @canModel(ability: "view")
   genericJobTitles: [GenericJobTitle]! @all @canModel(ability: "viewAny")
+
+  communities: [Community]! @all @canModel(ability: "viewAny")
   team(id: UUID! @eq): Team @find @canQuery(ability: "view")
   teams: [Team]! @all @canModel(ability: "viewAny")
   roles: [Role]! @all @canModel(ability: "viewAny")

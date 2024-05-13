@@ -122,10 +122,8 @@ const ApplicationEducation = ({
   const {
     register,
     setValue,
-    watch,
     formState: { isSubmitting },
   } = methods;
-  const watchEducationRequirement = watch("educationRequirement");
   const actionProps = register("action");
 
   const [{ fetching: mutating }, executeMutation] =
@@ -275,7 +273,6 @@ const ApplicationEducation = ({
           />
           <LinkCareerTimeline
             experiences={experiences}
-            watchEducationRequirement={watchEducationRequirement}
             previousStepPath={previousStep}
             classificationGroup={classificationGroup}
           />
@@ -319,7 +316,7 @@ const ApplicationEducation = ({
   );
 };
 
-const ApplicationEducationPage = () => {
+export const Component = () => {
   const { application } = useApplication();
 
   const experiences: Experience[] = unpackMaybes(application.user.experiences);
@@ -331,4 +328,4 @@ const ApplicationEducationPage = () => {
   );
 };
 
-export default ApplicationEducationPage;
+Component.displayName = "ApplicationEducationPage";

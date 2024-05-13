@@ -315,7 +315,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
           <Link
             color="quinary"
             mode="cta"
-            href={paths.myProfile()}
+            href={paths.profile()}
             icon={UserPlusIcon}
           >
             {intl.formatMessage({
@@ -511,7 +511,7 @@ const ExecutiveHomePage_Query = graphql(/* GraphQL */ `
 
 const now = nowUTCDateTime();
 
-const HomePageApi = () => {
+export const Component = () => {
   const [{ data, fetching, error }] = useQuery({
     query: ExecutiveHomePage_Query,
     variables: { closingAfter: now }, // pass current dateTime into query argument
@@ -529,4 +529,4 @@ const HomePageApi = () => {
   );
 };
 
-export default HomePageApi;
+Component.displayName = "ExecutiveHomePage";

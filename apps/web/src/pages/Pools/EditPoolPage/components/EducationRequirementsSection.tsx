@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import TagIcon from "@heroicons/react/24/outline/TagIcon";
 
 import { Heading, Link, ScrollToLink, Well } from "@gc-digital-talent/ui";
-import { getLocale } from "@gc-digital-talent/i18n";
+import { Locales, getLocale } from "@gc-digital-talent/i18n";
 import {
   FragmentType,
   PublishingGroup,
@@ -17,6 +17,24 @@ import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import { wrapAbbr } from "~/utils/nameUtils";
 
 import { SectionProps } from "../types";
+
+const qualityStandardsLink = (chunks: React.ReactNode, locale: Locales) => {
+  const href =
+    locale === "en"
+      ? "https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/core.html#rpsi"
+      : "https://www.canada.ca/fr/secretariat-conseil-tresor/services/dotation/normes-qualification/centrale.html#eepr";
+  return (
+    <Link href={href} newTab external>
+      {chunks}
+    </Link>
+  );
+};
+
+const scrollToLink = (chunks: React.ReactNode, to: string) => (
+  <ScrollToLink to={to} mode="text" color="secondary">
+    {chunks}
+  </ScrollToLink>
+);
 
 const EditPoolEducationRequirements_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolEducationRequirements on Pool {
@@ -45,7 +63,7 @@ const EducationRequirementsSection = ({
   poolQuery,
   sectionMetadata,
   changeTargetId,
-}: EducationRequirementsSectionProps): JSX.Element => {
+}: EducationRequirementsSectionProps): React.JSX.Element => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const pool = getFragment(EditPoolEducationRequirements_Fragment, poolQuery);
@@ -59,24 +77,6 @@ const EducationRequirementsSection = ({
   const classificationAbbr = pool.classification
     ? wrapAbbr(`${classificationGroup}-0${pool.classification.level}`, intl)
     : "";
-
-  const qualityStandardsLink = (chunks: React.ReactNode) => {
-    const href =
-      locale === "en"
-        ? "https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/core.html#rpsi"
-        : "https://www.canada.ca/fr/secretariat-conseil-tresor/services/dotation/normes-qualification/centrale.html#eepr";
-    return (
-      <Link href={href} newTab external>
-        {chunks}
-      </Link>
-    );
-  };
-
-  const scrollToLink = (chunks: React.ReactNode) => (
-    <ScrollToLink to={changeTargetId} mode="text" color="secondary">
-      {chunks}
-    </ScrollToLink>
-  );
 
   return (
     <div>
@@ -98,8 +98,10 @@ const EducationRequirementsSection = ({
             description: "Lead-in text for a process' education requirements",
           },
           {
-            qualityStandardsLink,
-            scrollToLink,
+            qualityStandardsLink: (chunks: React.ReactNode) =>
+              qualityStandardsLink(chunks, locale),
+            scrollToLink: (chunks: React.ReactNode) =>
+              scrollToLink(chunks, changeTargetId),
             classificationAbbr,
           },
         )}

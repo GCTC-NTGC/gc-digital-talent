@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
 import SparklesIcon from "@heroicons/react/24/outline/SparklesIcon";
-import ArrowLeftOnRectangleIcon from "@heroicons/react/24/outline/ArrowLeftOnRectangleIcon";
+import ArrowLeftEndOnRectangleIcon from "@heroicons/react/24/outline/ArrowLeftEndOnRectangleIcon";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
 
 import { Accordion, Heading, Link, Separator } from "@gc-digital-talent/ui";
@@ -25,13 +25,19 @@ import step4ImageDark from "~/assets/img/sign-in-steps-4-dark.webp";
 import Instructions from "~/components/Instructions";
 import gckeyMessages from "~/messages/gckeyMessages";
 
+const helpLink = (chunks: React.ReactNode, path: string) => (
+  <Link href={path} state={{ referrer: window.location.href }}>
+    {chunks}
+  </Link>
+);
+
 const buildExternalLink = (path: string, chunks: React.ReactNode) => (
   <Link external href={path}>
     {chunks}
   </Link>
 );
 
-const SignInPage = () => {
+export const Component = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const apiPaths = useApiRoutes();
@@ -63,12 +69,6 @@ const SignInPage = () => {
       setThemeKey("iap");
     }
   }, [iapMode, themeKey, setThemeKey]);
-
-  const helpLink = (chunks: React.ReactNode) => (
-    <Link href={paths.support()} state={{ referrer: window.location.href }}>
-      {chunks}
-    </Link>
-  );
 
   return (
     <>
@@ -111,7 +111,7 @@ const SignInPage = () => {
                 })}
               </Link>
               <Heading
-                Icon={ArrowLeftOnRectangleIcon}
+                Icon={ArrowLeftEndOnRectangleIcon}
                 color="primary"
                 level="h2"
                 size="h3"
@@ -215,7 +215,8 @@ const SignInPage = () => {
                   <Accordion.Content>
                     <p>
                       {intl.formatMessage(gckeyMessages.answerRecoveryCodes, {
-                        helpLink,
+                        helpLink: (chunks: React.ReactNode) =>
+                          helpLink(chunks, paths.support()),
                       })}
                     </p>
                   </Accordion.Content>
@@ -227,7 +228,8 @@ const SignInPage = () => {
                   <Accordion.Content>
                     <p>
                       {intl.formatMessage(gckeyMessages.answerRemove2FA, {
-                        helpLink,
+                        helpLink: (chunks: React.ReactNode) =>
+                          helpLink(chunks, paths.support()),
                       })}
                     </p>
                   </Accordion.Content>
@@ -239,7 +241,8 @@ const SignInPage = () => {
                   <Accordion.Content>
                     <p>
                       {intl.formatMessage(gckeyMessages.questionAuthCodes, {
-                        helpLink,
+                        helpLink: (chunks: React.ReactNode) =>
+                          helpLink(chunks, paths.support()),
                       })}
                     </p>
                   </Accordion.Content>
@@ -331,7 +334,10 @@ const SignInPage = () => {
                 </Accordion.Item>
               </Accordion.Root>
               <p data-h2-margin-top="base(x1)">
-                {intl.formatMessage(gckeyMessages.moreQuestions, { helpLink })}
+                {intl.formatMessage(gckeyMessages.moreQuestions, {
+                  helpLink: (chunks: React.ReactNode) =>
+                    helpLink(chunks, paths.support()),
+                })}
               </p>
             </>
           ) : (
@@ -427,4 +433,6 @@ const SignInPage = () => {
   );
 };
 
-export default SignInPage;
+Component.displayName = "SignInPage";
+
+export default Component;

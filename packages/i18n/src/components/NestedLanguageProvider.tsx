@@ -33,7 +33,7 @@ const NestedLanguageProvider = ({
    * just return the children
    */
   if (!locale || !localeMessages) {
-    return children as JSX.Element;
+    return children as React.JSX.Element;
   }
 
   // Merge the messages

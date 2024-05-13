@@ -1,108 +1,79 @@
 import { NotificationFamily } from "@gc-digital-talent/graphql";
 
-import { FormValues, UpdateNotificationInput } from "./types";
+import { FormValues, UpdateNotificationInput, NotificationType } from "./types";
+
+const inputNameToFamilyMap: Record<keyof FormValues, NotificationFamily> = {
+  systemMessages: NotificationFamily.SystemMessage,
+  applicationUpdates: NotificationFamily.ApplicationUpdate,
+  jobAlerts: NotificationFamily.JobAlert,
+};
 
 export const formValuesToData = (values: FormValues) => {
-  let data: UpdateNotificationInput = {
+  const data: UpdateNotificationInput = {
     ignoredEmailNotifications: [],
     ignoredInAppNotifications: [],
   };
 
-  data = values.applicationUpdates.reduce((acc, curr) => {
-    switch (curr) {
-      case "email":
-        return {
-          ...acc,
-          ignoredEmailNotifications: [NotificationFamily.ApplicationUpdate],
-        };
-      case "inApp":
-        return {
-          ...acc,
-          ignoredInAppNotifications: [NotificationFamily.ApplicationUpdate],
-        };
-      default: {
-        return acc;
-      }
-    }
-  }, data);
+  const keys = Object.keys(values) as Array<keyof FormValues>;
+  keys.forEach((key) => {
+    const family = inputNameToFamilyMap[key];
+    const enabledTypes = values[key];
 
-  data = values.jobAlerts.reduce((acc, curr) => {
-    switch (curr) {
-      case "email":
-        return {
-          ...acc,
-          ignoredEmailNotifications: [
-            ...acc.ignoredEmailNotifications,
-            NotificationFamily.JobAlert,
-          ],
-        };
-      case "inApp":
-        return {
-          ...acc,
-          ignoredInAppNotifications: [
-            ...acc.ignoredInAppNotifications,
-            NotificationFamily.JobAlert,
-          ],
-        };
-      default: {
-        return acc;
+    // System messages cannot be ignored
+    if (family && family !== NotificationFamily.SystemMessage) {
+      if (!enabledTypes.includes("email")) {
+        data.ignoredEmailNotifications = [
+          ...data.ignoredEmailNotifications,
+          family,
+        ];
+      }
+
+      if (!enabledTypes.includes("inApp")) {
+        data.ignoredInAppNotifications = [
+          ...data.ignoredInAppNotifications,
+          family,
+        ];
       }
     }
-  }, data);
+  });
 
   return data;
 };
 
-export const dataValuesToFormValues = ({
-  ignoredEmailNotifications,
-  ignoredInAppNotifications,
-}: {
+type IgnoredNotifications = {
   ignoredEmailNotifications: NotificationFamily[];
   ignoredInAppNotifications: NotificationFamily[];
-}) => {
-  let defaultValues: FormValues = {
+};
+
+const getIgnoredNotificationFamilyValue = (
+  {
+    ignoredEmailNotifications,
+    ignoredInAppNotifications,
+  }: IgnoredNotifications,
+  family: NotificationFamily,
+): NotificationType[] => {
+  let values: NotificationType[] = [];
+  if (!ignoredEmailNotifications.includes(family)) {
+    values = [...values, "email"];
+  }
+  if (!ignoredInAppNotifications.includes(family)) {
+    values = [...values, "inApp"];
+  }
+  return values;
+};
+
+export const dataValuesToFormValues = (
+  ignoredNotifications: IgnoredNotifications,
+) => {
+  return {
     systemMessages: ["email", "inApp"],
-    applicationUpdates: [],
-    jobAlerts: [],
-  };
-
-  defaultValues = ignoredEmailNotifications.reduce((acc, curr) => {
-    switch (curr) {
-      case NotificationFamily.ApplicationUpdate:
-        return {
-          ...acc,
-          applicationUpdates: ["email"],
-        };
-      case NotificationFamily.JobAlert:
-        return {
-          ...acc,
-          jobAlerts: ["email"],
-        };
-      default: {
-        return acc;
-      }
-    }
-  }, defaultValues);
-
-  defaultValues = ignoredInAppNotifications.reduce((acc, curr) => {
-    switch (curr) {
-      case NotificationFamily.ApplicationUpdate:
-        return {
-          ...acc,
-          applicationUpdates: acc.applicationUpdates
-            ? [...acc.applicationUpdates, "inApp"]
-            : ["inApp"],
-        };
-      case NotificationFamily.JobAlert:
-        return {
-          ...acc,
-          jobAlerts: acc.jobAlerts ? [...acc.jobAlerts, "inApp"] : ["inApp"],
-        };
-      default: {
-        return defaultValues;
-      }
-    }
-  }, defaultValues);
-
-  return defaultValues;
+    applicationUpdates: getIgnoredNotificationFamilyValue(
+      ignoredNotifications,
+      NotificationFamily.ApplicationUpdate,
+    ),
+    jobAlerts: getIgnoredNotificationFamilyValue(
+      ignoredNotifications,
+      NotificationFamily.JobAlert,
+    ),
+  } satisfies FormValues;
 };

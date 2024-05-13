@@ -1,6 +1,5 @@
 import * as React from "react";
 import { defineMessage, useIntl } from "react-intl";
-import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
 import { useQuery } from "urql";
 
 import {
@@ -9,11 +8,9 @@ import {
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import {
-  Heading,
   Link,
   NotFound,
   Pending,
-  Chip,
   Separator,
   TableOfContents,
 } from "@gc-digital-talent/ui";
@@ -30,9 +27,8 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import SEO from "~/components/SEO/SEO";
 import { routeErrorMessages } from "~/hooks/useErrorMessages";
-import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
-import { getPoolCompletenessBadge } from "~/utils/poolUtils";
 import messages from "~/messages/adminMessages";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import OrganizeSection, {
   sectionTitle as organizeSectionTitle,
@@ -46,8 +42,8 @@ const pageTitle = defineMessage(messages.assessmentPlan);
 
 const pageSubtitle = defineMessage({
   defaultMessage:
-    "Select, organize and define the assessments used to evaluate each skill in the advertisement. Make sure every essential skill is assessed at least once to complete your assessment plan.",
-  id: "iuA2pt",
+    "Select, organize and define the assessments used to evaluate each skill in the advertisement.",
+  id: "2ZjclP",
   description: "Subtitle for the assessment plan builder",
 });
 
@@ -91,24 +87,12 @@ export const AssessmentPlanBuilder = ({
     return aName.localeCompare(bName);
   });
 
-  const assessmentStatus = getAssessmentPlanStatus(pool);
-  const assessmentBadge = getPoolCompletenessBadge(assessmentStatus);
-
   return (
     <>
       <SEO
         title={intl.formatMessage(pageTitle)}
         description={intl.formatMessage(pageSubtitle)}
       />
-      <Heading level="h2" Icon={ClipboardDocumentListIcon} color="primary">
-        {intl.formatMessage(pageTitle)}
-        <div data-h2-flex-grow="base(2)" />
-        <Chip color={assessmentBadge.color} data-h2-flex-shrink="base(0)">
-          {intl.formatMessage(assessmentBadge.label)}
-        </Chip>
-      </Heading>
-      <p data-h2-margin="base(x1 0)">{intl.formatMessage(pageSubtitle)}</p>
-      <Separator />
       <TableOfContents.Wrapper>
         <TableOfContents.Navigation>
           <TableOfContents.List>
@@ -245,5 +229,19 @@ export const AssessmentPlanBuilderPage = () => {
     </AdminContentWrapper>
   );
 };
+
+export const Component = () => (
+  <RequireAuth
+    roles={[
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.CommunityManager,
+      ROLE_NAME.PlatformAdmin,
+    ]}
+  >
+    <AssessmentPlanBuilderPage />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminAssessmentPlanBuilderPage";
 
 export default AssessmentPlanBuilderPage;

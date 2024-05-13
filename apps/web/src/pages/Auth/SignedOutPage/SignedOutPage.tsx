@@ -21,21 +21,17 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import authMessages from "~/messages/authMessages";
 
-const SignedOutPage = () => {
+const supportLink = (chunks: React.ReactNode, path: string) => (
+  <Link href={path} state={{ referrer: window.location.href }} color="black">
+    {chunks}
+  </Link>
+);
+
+export const Component = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const { loggedIn, logout } = useAuthentication();
   const paths = useRoutes();
-
-  const supportLink = (chunks: React.ReactNode) => (
-    <Link
-      href={paths.support()}
-      state={{ referrer: window.location.href }}
-      color="black"
-    >
-      {chunks}
-    </Link>
-  );
 
   const logoutReason = localStorage.getItem(
     LOGOUT_REASON_KEY,
@@ -86,7 +82,8 @@ const SignedOutPage = () => {
                   "Message displayed to a user after signing into a deleted account",
               },
               {
-                inlineLink: supportLink,
+                inlineLink: (chunks: React.ReactNode) =>
+                  supportLink(chunks, paths.support()),
               },
             )}
           </p>
@@ -235,4 +232,6 @@ const SignedOutPage = () => {
   );
 };
 
-export default SignedOutPage;
+Component.displayName = "SignedOutPage";
+
+export default Component;

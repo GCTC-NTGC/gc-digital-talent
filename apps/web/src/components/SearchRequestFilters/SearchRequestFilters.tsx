@@ -76,6 +76,7 @@ const ApplicantFilters = ({
           description: "Text shown when the filter was not selected",
         });
 
+  // eslint-disable-next-line deprecation/deprecation
   const educationLevel: string | undefined = applicantFilter?.hasDiploma
     ? intl.formatMessage({
         defaultMessage: "Required diploma from post-secondary institution",
@@ -281,7 +282,6 @@ const SearchRequestFilters = ({
 }: SearchRequestFiltersProps) => {
   const intl = useIntl();
   let poolCandidateFilter;
-  // eslint-disable-next-line no-underscore-dangle
   if (filters?.__typename === "ApplicantFilter") {
     return (
       <ApplicantFilters
@@ -291,7 +291,6 @@ const SearchRequestFilters = ({
     );
   }
 
-  // eslint-disable-next-line no-underscore-dangle
   if (filters?.__typename === "PoolCandidateFilter") {
     poolCandidateFilter = filters;
   }
@@ -310,6 +309,7 @@ const SearchRequestFilters = ({
     pool.stream ? intl.formatMessage(getPoolStream(pool.stream)) : "",
   );
 
+  // eslint-disable-next-line deprecation/deprecation
   const educationLevel: string | undefined = poolCandidateFilter?.hasDiploma
     ? intl.formatMessage({
         defaultMessage: "Required diploma from post-secondary institution",

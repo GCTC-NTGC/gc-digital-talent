@@ -34,7 +34,7 @@ const EssentialSkillsSection = ({
   skills,
   sectionMetadata,
   poolSkillMutations,
-}: EssentialSkillsSectionProps): JSX.Element => {
+}: EssentialSkillsSectionProps): React.JSX.Element => {
   const intl = useIntl();
   const pool = getFragment(EditPoolSkills_Fragment, poolQuery);
   const emptyRequired = hasEmptyRequiredFields(pool);

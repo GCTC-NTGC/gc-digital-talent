@@ -55,7 +55,7 @@ export const pageTitle = defineMessage({
   description: "Title for the digital talent directive page",
 });
 
-const DirectivePage = () => {
+export const Component = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
@@ -478,4 +478,6 @@ const DirectivePage = () => {
   );
 };
 
-export default DirectivePage;
+Component.displayName = "DirectivePage";
+
+export default Component;

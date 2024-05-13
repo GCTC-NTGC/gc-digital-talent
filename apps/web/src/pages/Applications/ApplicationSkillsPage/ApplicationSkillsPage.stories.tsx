@@ -1,5 +1,6 @@
 import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
+import { faker } from "@faker-js/faker/locale/en";
 
 import {
   fakePoolCandidates,
@@ -11,6 +12,8 @@ import {
   ApplicationSkills,
   ApplicationSkillsProps,
 } from "./ApplicationSkillsPage";
+
+faker.seed(0);
 
 const fakePoolCandidate = fakePoolCandidates(1)[0];
 const fakeUser = fakePoolCandidate.user;
@@ -41,7 +44,13 @@ const hasExperiencesProps: ApplicationSkillsProps = {
     },
     pool: {
       ...fakePoolCandidate.pool,
-      essentialSkills: [...experienceSkills],
+      poolSkills: experienceSkills.map((skill) => ({
+        id: faker.string.uuid(),
+        ...faker.helpers.arrayElement(
+          fakePoolCandidate?.pool?.poolSkills ?? [],
+        ),
+        skill,
+      })),
     },
   },
   experiences: mockExperiences,

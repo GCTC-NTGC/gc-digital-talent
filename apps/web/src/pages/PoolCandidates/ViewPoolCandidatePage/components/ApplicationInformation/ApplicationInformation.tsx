@@ -8,6 +8,7 @@ import {
   Maybe,
   Pool,
   PoolCandidate,
+  PoolSkillType,
   Scalars,
   SkillCategory,
   User,
@@ -28,7 +29,7 @@ import GovernmentInformationDisplay from "~/components/Profile/components/Govern
 import LanguageProfileDisplay from "~/components/Profile/components/LanguageProfile/Display";
 import PersonalInformationDisplay from "~/components/Profile/components/PersonalInformation/Display";
 import WorkPreferencesDisplay from "~/components/Profile/components/WorkPreferences/Display";
-import { categorizeSkill } from "~/utils/skillUtils";
+import { categorizeSkill, groupPoolSkillByType } from "~/utils/skillUtils";
 import applicationMessages from "~/messages/applicationMessages";
 import processMessages from "~/messages/processMessages";
 
@@ -39,33 +40,21 @@ import SkillDisplay from "./SkillDisplay";
 
 const ApplicationInformation_PoolFragment = graphql(/* GraphQL */ `
   fragment ApplicationInformation_PoolFragment on Pool {
-    essentialSkills {
+    poolSkills {
       id
-      key
-      category
-      name {
-        en
-        fr
+      skill {
+        id
+        key
+        category
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
       }
-      description {
-        en
-        fr
-      }
-      ...SkillWithExperiences_SkillFragment
-    }
-    nonessentialSkills {
-      id
-      key
-      category
-      name {
-        en
-        fr
-      }
-      description {
-        en
-        fr
-      }
-      ...SkillWithExperiences_SkillFragment
     }
     ...ApplicationPrintDocument_PoolFragment
   }
@@ -125,11 +114,16 @@ const ApplicationInformation = ({
     application?.screeningQuestionResponses ?? [],
   );
 
-  const categorizedEssentialSkills = categorizeSkill(pool.essentialSkills);
+  const skills = groupPoolSkillByType(pool?.poolSkills);
+  const categorizedEssentialSkills = categorizeSkill(
+    skills.get(PoolSkillType.Essential),
+  );
   const technicalEssentialSkills = unpackMaybes(
     categorizedEssentialSkills[SkillCategory.Technical],
   );
-  const categorizedAssetSkills = categorizeSkill(pool.nonessentialSkills);
+  const categorizedAssetSkills = categorizeSkill(
+    skills.get(PoolSkillType.Nonessential),
+  );
   const technicalAssetSkills = unpackMaybes(
     categorizedAssetSkills[SkillCategory.Technical],
   );

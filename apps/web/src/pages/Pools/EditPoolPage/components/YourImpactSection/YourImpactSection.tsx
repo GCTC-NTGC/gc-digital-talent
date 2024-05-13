@@ -58,7 +58,7 @@ const YourImpactSection = ({
   poolQuery,
   sectionMetadata,
   onSave,
-}: YourImpactSectionProps): JSX.Element => {
+}: YourImpactSectionProps): React.JSX.Element => {
   const intl = useIntl();
   const pool = getFragment(EditPoolYourImpact_Fragment, poolQuery);
   const isNull = hasAllEmptyFields(pool);

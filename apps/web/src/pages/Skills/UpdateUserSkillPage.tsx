@@ -31,6 +31,7 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
@@ -40,6 +41,7 @@ import ExperienceSkillFormDialog from "~/components/ExperienceSkillFormDialog/Ex
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import {
   CreateUserSkill_Mutation,
@@ -775,5 +777,13 @@ const UpdateUserSkillPage = () => {
     </Pending>
   );
 };
+
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+    <UpdateUserSkillPage />
+  </RequireAuth>
+);
+
+Component.displayName = "UpdateUserSkillPage";
 
 export default UpdateUserSkillPage;

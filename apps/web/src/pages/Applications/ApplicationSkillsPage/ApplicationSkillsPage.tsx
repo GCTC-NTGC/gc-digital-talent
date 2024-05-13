@@ -17,13 +17,14 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   ApplicationStep,
   Experience,
+  PoolSkillType,
   SkillCategory,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import applicationMessages from "~/messages/applicationMessages";
 import { GetPageNavInfo } from "~/types/applicationStep";
-import { categorizeSkill } from "~/utils/skillUtils";
+import { categorizeSkill, groupPoolSkillByType } from "~/utils/skillUtils";
 import { AnyExperience } from "~/types/experience";
 import { isIncomplete } from "~/validators/profile/skillRequirements";
 import SkillTree from "~/components/SkillTree/SkillTree";
@@ -94,11 +95,12 @@ export const ApplicationSkills = ({
     stepOrdinal: currentStepOrdinal,
   });
   const instructionsPath = paths.applicationSkillsIntro(application.id);
+  const poolSkillsByType = groupPoolSkillByType(application.pool.poolSkills);
   const categorizedEssentialSkills = categorizeSkill(
-    application.pool.essentialSkills,
+    poolSkillsByType.get(PoolSkillType.Essential),
   );
   const categorizedOptionalSkills = categorizeSkill(
-    application.pool.nonessentialSkills,
+    poolSkillsByType.get(PoolSkillType.Nonessential),
   );
   const [{ fetching: mutating }, executeMutation] =
     useUpdateApplicationMutation();
@@ -370,7 +372,7 @@ export const ApplicationSkills = ({
   );
 };
 
-const ApplicationSkillsPage = () => {
+export const Component = () => {
   const { application } = useApplication();
 
   const experiences: Experience[] = unpackMaybes(application.user.experiences);
@@ -381,4 +383,5 @@ const ApplicationSkillsPage = () => {
     <ThrowNotFound />
   );
 };
-export default ApplicationSkillsPage;
+
+Component.displayName = "ApplicationSkillsPage";

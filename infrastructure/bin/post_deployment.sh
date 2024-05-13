@@ -36,18 +36,15 @@ fi
 
 cd /home/site/wwwroot/api
 
-# Create cache directory
-if mkdir --parents /tmp/bootstrap/cache ; then
-    add_section_block ":white_check_mark: Cache directory creation *successful*."
+# Laravel local cache
+if
+    mkdir --parents /tmp/bootstrap/cache && \
+    chown www-data:www-data /tmp/bootstrap/cache && \
+    php artisan config:cache ;
+then
+    add_section_block ":white_check_mark: Laravel cache setup *successful*."
 else
-    add_section_block ":X: Cache directory creation *failed*. $MENTION"
-fi
-
-# Chown cache directory
-if chown www-data:www-data /tmp/bootstrap/cache ; then
-    add_section_block ":white_check_mark: Cache directory chown *successful*."
-else
-    add_section_block ":X: Cache directory chown *failed*. $MENTION"
+    add_section_block ":X: Laravel cache setup *failed*. $MENTION"
 fi
 
 # Laravel database migrations
@@ -71,7 +68,8 @@ fi
 add_section_block "$TRIPLE_BACK_TICK $CLEANED_STDOUT $TRIPLE_BACK_TICK"
 
 # Load Laravel Scheduler cron
-if echo "  *  *  *  *  * root    cd /home/site/wwwroot/api && php artisan schedule:run" >> /etc/crontab ; then
+# For extra debugging you can add `>> /tmp/run_laravel_scheduler.log 2>&1` to the end of the cron'd command
+if echo "  *  *  *  *  * www-data . /etc/profile ; php /home/site/wwwroot/api/artisan schedule:run" >> /etc/crontab ; then
     add_section_block ":white_check_mark: Laravel Scheduler cron setup *successful*."
 else
     add_section_block ":X: Laravel Scheduler cron setup *failed*. $MENTION"
@@ -85,10 +83,15 @@ else
 fi
 
 # Copy nginx config and reload
-if /home/site/wwwroot/infrastructure/bin/substitute_file.sh /home/site/wwwroot/infrastructure/conf/nginx-conf-deploy/default /etc/nginx/sites-available/default '$NGINX_PORT $ROBOTS_FILENAME' && nginx -s reload ; then
-    add_section_block ":white_check_mark: Config copy for Nginx *successful*."
+if
+    touch /etc/nginx/conf.d/default.conf && \
+    /home/site/wwwroot/infrastructure/bin/substitute_file.sh \
+        /home/site/wwwroot/infrastructure/conf/nginx-conf-deploy/default \
+        /etc/nginx/sites-available/default '$NGINX_PORT $ROBOTS_FILENAME $HTTP_DISGUISED_HOST' && \
+    nginx -s reload ; then
+    add_section_block ":white_check_mark: Set up Nginx *successful*."
 else
-    add_section_block ":X: Config copy for Nginx *failed*. $MENTION"
+    add_section_block ":X: Set up Nginx *failed*. $MENTION"
 fi
 
 # Copy custom PHP-FPM config

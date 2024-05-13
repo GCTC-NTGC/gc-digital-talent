@@ -36,6 +36,7 @@ import usePoolMutations from "~/hooks/usePoolMutations";
 import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
 import messages from "~/messages/adminMessages";
 import processMessages from "~/messages/processMessages";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import SubmitForPublishingDialog from "./components/SubmitForPublishingDialog";
 import DuplicateProcessDialog from "./components/DuplicateProcessDialog";
@@ -94,7 +95,7 @@ export const ViewPool = ({
   onArchive,
   onDuplicate,
   onUnarchive,
-}: ViewPoolProps): JSX.Element => {
+}: ViewPoolProps): React.JSX.Element => {
   const intl = useIntl();
   const paths = useRoutes();
   const { roleAssignments } = useAuthorization();
@@ -496,5 +497,20 @@ const ViewPoolPage = () => {
     </AdminContentWrapper>
   );
 };
+
+export const Component = () => (
+  <RequireAuth
+    roles={[
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.RequestResponder,
+      ROLE_NAME.CommunityManager,
+      ROLE_NAME.PlatformAdmin,
+    ]}
+  >
+    <ViewPoolPage />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminViewPoolPage";
 
 export default ViewPoolPage;

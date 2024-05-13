@@ -39,7 +39,7 @@ export default {
 } as Meta;
 
 const TemplateEditPoolForm: StoryFn<EditPoolFormProps> = (
-  args: JSX.IntrinsicAttributes & EditPoolFormProps,
+  args: React.JSX.IntrinsicAttributes & EditPoolFormProps,
 ) => {
   return <EditPoolForm {...args} />;
 };
