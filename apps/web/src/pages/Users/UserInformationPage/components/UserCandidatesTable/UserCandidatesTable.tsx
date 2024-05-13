@@ -10,7 +10,6 @@ import {
 } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
-  getLanguage,
   getLocalizedName,
   getPoolCandidatePriorities,
   getPoolCandidateStatus,
@@ -38,7 +37,6 @@ import {
   bookmarkHeader,
   candidacyStatusAccessor,
   candidateNameCell,
-  currentLocationAccessor,
   finalDecisionCell,
   notesCell,
   priorityCell,
@@ -231,34 +229,6 @@ const UserCandidatesTable = ({
       cell: ({ row: { original: poolCandidate } }) =>
         notesCell(intl, user.firstName, user.lastName, poolCandidate.notes),
     }),
-    columnHelper.accessor(
-      () =>
-        intl.formatMessage(
-          user.preferredLang
-            ? getLanguage(user.preferredLang)
-            : commonMessages.notFound,
-        ),
-      {
-        id: "preferredLang",
-        header: intl.formatMessage(
-          commonMessages.preferredCommunicationLanguage,
-        ),
-      },
-    ),
-    columnHelper.accessor(() => user.email, {
-      id: "email",
-      header: intl.formatMessage(commonMessages.email),
-      sortingFn: normalizedText,
-      cell: () => cells.email(user.email),
-    }),
-    columnHelper.accessor(
-      () =>
-        currentLocationAccessor(user.currentCity, user.currentProvince, intl),
-      {
-        id: "currentLocation",
-        header: intl.formatMessage(tableMessages.currentLocation),
-      },
-    ),
     columnHelper.accessor(({ submittedAt }) => accessors.date(submittedAt), {
       id: "dateReceived",
       enableColumnFilter: false,
@@ -278,13 +248,7 @@ const UserCandidatesTable = ({
       columns={columns}
       caption={title}
       sort={{ internal: true }}
-      hiddenColumnIds={[
-        "candidateName",
-        "priority",
-        "preferredLang",
-        "email",
-        "currentLocation",
-      ]}
+      hiddenColumnIds={["candidateName", "priority"]}
     />
   );
 };

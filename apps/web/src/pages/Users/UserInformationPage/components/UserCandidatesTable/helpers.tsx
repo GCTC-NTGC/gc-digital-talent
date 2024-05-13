@@ -5,9 +5,7 @@ import { IntlShape } from "react-intl";
 import {
   commonMessages,
   getCandidateSuspendedFilterStatus,
-  getLanguage,
   getPoolCandidatePriorities,
-  getProvinceOrTerritory,
 } from "@gc-digital-talent/i18n";
 import { Chip, Link, Spoiler } from "@gc-digital-talent/ui";
 import {
@@ -18,8 +16,6 @@ import {
   CandidateSuspendedFilter,
   Maybe,
   AssessmentStep,
-  ProvinceOrTerritory,
-  Language,
   Pool,
 } from "@gc-digital-talent/graphql";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
@@ -168,28 +164,6 @@ export const notesCell = (
       )}
     />
   ) : null;
-
-export const preferredLanguageAccessor = (
-  language: Language | null | undefined,
-  intl: IntlShape,
-) => (
-  <span>
-    {intl.formatMessage(
-      language ? getLanguage(language) : commonMessages.notFound,
-    )}
-  </span>
-);
-
-export const currentLocationAccessor = (
-  city: string | null | undefined,
-  province: ProvinceOrTerritory | null | undefined,
-  intl: IntlShape,
-) =>
-  `${city || intl.formatMessage(commonMessages.notFound)}, ${intl.formatMessage(
-    province
-      ? getProvinceOrTerritory(province as string)
-      : commonMessages.notFound,
-  )}`;
 
 export const finalDecisionCell = (
   intl: IntlShape,
