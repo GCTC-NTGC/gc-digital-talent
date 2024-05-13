@@ -350,16 +350,33 @@ class Pool extends Model
         return $query;
     }
 
+    public static function scopeTeam(Builder $query, ?string $team): Builder
+    {
+        if ($team) {
+            $query->whereHas('team', function ($query) use ($team) {
+                Team::scopeDisplayName($query, $team);
+            });
+        }
+
+        return $query;
+    }
+
     public static function scopeGeneralSearch(Builder $query, ?string $term): Builder
     {
         if ($term) {
             $query->where(function ($query) use ($term) {
                 self::scopeName($query, $term);
+
                 $query->orWhere(function ($query) use ($term) {
                     self::scopeOwnerName($query, $term);
                 });
+
                 $query->orWhere(function ($query) use ($term) {
                     self::scopeOwnerEmail($query, $term);
+                });
+
+                $query->orWhere(function ($query) use ($term) {
+                    self::scopeTeam($query, $term);
                 });
             });
         }

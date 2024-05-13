@@ -156,18 +156,6 @@ const PoolTable = ({ title }: PoolTableProps) => {
     });
   };
 
-  const [{ data, fetching }] = useQuery({
-    query: PoolTable_Query,
-    variables: {
-      where: transformPoolInput({ search: searchState }),
-      page: paginationState.pageIndex,
-      first: paginationState.pageSize,
-      orderBy: sortState
-        ? [transformSortStateToOrderByClause(sortState)]
-        : undefined,
-    },
-  });
-
   const columns = [
     columnHelper.accessor("id", {
       id: "id",
@@ -191,8 +179,6 @@ const PoolTable = ({ title }: PoolTableProps) => {
         description:
           "Title displayed for the Pool table Group and Level column.",
       }),
-      // TO DO: Reenable when scope added
-      enableColumnFilter: false,
       // TO DO: Reenable when sort relation added
       enableSorting: false,
       cell: ({ row: { original: pool } }) =>
@@ -205,7 +191,7 @@ const PoolTable = ({ title }: PoolTableProps) => {
         ),
       {
         id: "stream",
-        // TO DO: Reenable when scope is added
+        // TO DO: Move to filters
         enableColumnFilter: false,
         header: intl.formatMessage({
           defaultMessage: "Stream",
@@ -223,8 +209,6 @@ const PoolTable = ({ title }: PoolTableProps) => {
         ),
       {
         id: "publishingGroup",
-        // TO DO: Reenable when scope is added
-        enableColumnFilter: false,
         header: intl.formatMessage(processMessages.publishingGroup),
       },
     ),
@@ -248,8 +232,6 @@ const PoolTable = ({ title }: PoolTableProps) => {
         id: "team",
         header: intl.formatMessage(adminMessages.team),
         // TO DO: Reenable when scope is added
-        enableColumnFilter: false,
-        // TO DO: Reenable when relation order by added
         enableSorting: false,
         cell: ({ row: { original: pool } }) =>
           viewTeamLinkCell(
@@ -306,6 +288,18 @@ const PoolTable = ({ title }: PoolTableProps) => {
       }) => cells.date(updatedDate, intl),
     }),
   ] as ColumnDef<Pool>[];
+
+  const [{ data, fetching }] = useQuery({
+    query: PoolTable_Query,
+    variables: {
+      where: transformPoolInput({ search: searchState }),
+      page: paginationState.pageIndex,
+      first: paginationState.pageSize,
+      orderBy: sortState
+        ? [transformSortStateToOrderByClause(sortState)]
+        : undefined,
+    },
+  });
 
   const filteredData = React.useMemo(
     () => unpackMaybes(data?.poolsPaginated.data),
