@@ -641,6 +641,7 @@ input UserPublicProfileFilterInput {
 }
 
 input PoolFilterInput {
+  generalSearch: String @scope
   name: String @scope
   ownerName: String @scope
   ownerEmail: String @scope
@@ -768,7 +769,10 @@ type Query {
     @deprecated(reason: "pools is deprecated. Use poolsPaginated instead.")
   poolsPaginated(
     where: PoolFilterInput
-    orderBy: [OrderByClause!] @orderBy
+    orderBy: _
+      @orderBy(
+        relations: [{ relation: "user", columns: ["first_name", "email"] }]
+      )
   ): [Pool]!
     @paginate(
       defaultCount: 10

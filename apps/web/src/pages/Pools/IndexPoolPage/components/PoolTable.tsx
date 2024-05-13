@@ -1,11 +1,15 @@
 import React from "react";
-import { ColumnDef, Row, createColumnHelper } from "@tanstack/react-table";
+import {
+  ColumnDef,
+  PaginationState,
+  Row,
+  SortingState,
+  createColumnHelper,
+} from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import { Pending } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { ROLE_NAME, hasRole, useAuthorization } from "@gc-digital-talent/auth";
 import {
   getPoolStatus,
   commonMessages,
@@ -13,24 +17,19 @@ import {
   getPublishingGroup,
   getPoolStream,
 } from "@gc-digital-talent/i18n";
-import {
-  FragmentType,
-  getFragment,
-  graphql,
-  Pool,
-} from "@gc-digital-talent/graphql";
+import { graphql, Pool } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import Table, {
+  getTableStateFromSearchParams,
+} from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import accessors from "~/components/Table/accessors";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
-import { normalizedText } from "~/components/Table/sortingFns";
 import processMessages from "~/messages/processMessages";
 
 import {
   classificationAccessor,
-  classificationSortFn,
   classificationCell,
   emailLinkAccessor,
   fullNameCell,
@@ -39,52 +38,135 @@ import {
   poolNameAccessor,
   viewCell,
   viewTeamLinkCell,
+  transformPoolInput,
+  transformSortStateToOrderByClause,
 } from "./helpers";
+import { INITIAL_STATE } from "~/components/Table/ResponsiveTable/constants";
+import { SearchState } from "~/components/Table/ResponsiveTable/types";
 
-export const PoolTableRow_Fragment = graphql(/* GraphQL */ `
-  fragment PoolTableRow on Pool {
-    id
-    stream
-    publishingGroup
-    status
-    createdDate
-    updatedDate
-    name {
-      en
-      fr
-    }
-    classification {
-      id
-      group
-      level
-    }
-    team {
-      id
-      name
-      displayName {
-        en
-        fr
+const columnHelper = createColumnHelper<Pool>();
+
+const defaultState = {
+  ...INITIAL_STATE,
+  sortState: [{ id: "createdAt", desc: false }],
+};
+
+const PoolTable_Query = graphql(/* GraphQL */ `
+  query PoolTable(
+    $where: PoolFilterInput
+    $orderBy: [QueryPoolsPaginatedOrderByRelationOrderByClause!]
+    $first: Int
+    $page: Int
+  ) {
+    poolsPaginated(
+      where: $where
+      orderBy: $orderBy
+      first: $first
+      page: $page
+    ) {
+      data {
+        id
+        stream
+        publishingGroup
+        status
+        createdDate
+        updatedDate
+        name {
+          en
+          fr
+        }
+        classification {
+          id
+          group
+          level
+        }
+        team {
+          id
+          name
+          displayName {
+            en
+            fr
+          }
+        }
+        owner {
+          id
+          firstName
+          lastName
+          email
+        }
       }
-    }
-    owner {
-      id
-      firstName
-      lastName
-      email
+      paginatorInfo {
+        count
+        currentPage
+        firstItem
+        hasMorePages
+        lastItem
+        lastPage
+        perPage
+        total
+      }
     }
   }
 `);
 
-const columnHelper = createColumnHelper<Pool>();
 interface PoolTableProps {
-  poolsQuery: FragmentType<typeof PoolTableRow_Fragment>[];
   title: string;
 }
 
-export const PoolTable = ({ poolsQuery, title }: PoolTableProps) => {
+const PoolTable = ({ title }: PoolTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const pools = getFragment(PoolTableRow_Fragment, poolsQuery);
+  const initialState = getTableStateFromSearchParams(defaultState);
+  const [paginationState, setPaginationState] = React.useState<PaginationState>(
+    initialState.paginationState
+      ? {
+          ...initialState.paginationState,
+          pageIndex: initialState.paginationState.pageIndex + 1,
+        }
+      : INITIAL_STATE.paginationState,
+  );
+  const [searchState, setSearchState] = React.useState<SearchState>(
+    initialState.searchState ?? INITIAL_STATE.searchState,
+  );
+  const [sortState, setSortState] = React.useState<SortingState | undefined>(
+    initialState.sortState ?? [{ id: "createdDate", desc: false }],
+  );
+
+  const handlePaginationStateChange = ({
+    pageIndex,
+    pageSize,
+  }: PaginationState) => {
+    setPaginationState((previous) => ({
+      pageIndex:
+        previous.pageSize === pageSize
+          ? pageIndex ?? INITIAL_STATE.paginationState.pageIndex
+          : 0,
+      pageSize: pageSize ?? INITIAL_STATE.paginationState.pageSize,
+    }));
+  };
+
+  const handleSearchStateChange = ({ term, type }: SearchState) => {
+    setPaginationState((previous) => ({
+      ...previous,
+      pageIndex: 0,
+    }));
+    setSearchState({
+      term: term ?? INITIAL_STATE.searchState.term,
+      type: type ?? INITIAL_STATE.searchState.type,
+    });
+  };
+
+  const [{ data, fetching }] = useQuery({
+    query: PoolTable_Query,
+    variables: {
+      where: transformPoolInput({ search: searchState }),
+      page: paginationState.pageIndex,
+      first: paginationState.pageSize,
+      orderBy: sortState
+        ? [transformSortStateToOrderByClause(sortState)]
+        : undefined,
+    },
+  });
 
   const columns = [
     columnHelper.accessor("id", {
@@ -94,7 +176,6 @@ export const PoolTable = ({ poolsQuery, title }: PoolTableProps) => {
     }),
     columnHelper.accessor((row) => poolNameAccessor(row, intl), {
       id: "name",
-      sortingFn: normalizedText,
       header: intl.formatMessage(commonMessages.name),
       meta: {
         isRowTitle: true,
@@ -110,8 +191,10 @@ export const PoolTable = ({ poolsQuery, title }: PoolTableProps) => {
         description:
           "Title displayed for the Pool table Group and Level column.",
       }),
-      sortingFn: (rowA: Row<Pool>, rowB: Row<Pool>) =>
-        classificationSortFn(rowA.original, rowB.original),
+      // TO DO: Reenable when scope added
+      enableColumnFilter: false,
+      // TO DO: Reenable when sort relation added
+      enableSorting: false,
       cell: ({ row: { original: pool } }) =>
         classificationCell(pool.classification),
     }),
@@ -122,12 +205,13 @@ export const PoolTable = ({ poolsQuery, title }: PoolTableProps) => {
         ),
       {
         id: "stream",
+        // TO DO: Reenable when scope is added
+        enableColumnFilter: false,
         header: intl.formatMessage({
           defaultMessage: "Stream",
           id: "9KGR0d",
           description: "Title displayed for the Pool table Stream column.",
         }),
-        sortingFn: normalizedText,
       },
     ),
     columnHelper.accessor(
@@ -139,7 +223,8 @@ export const PoolTable = ({ poolsQuery, title }: PoolTableProps) => {
         ),
       {
         id: "publishingGroup",
-        sortingFn: normalizedText,
+        // TO DO: Reenable when scope is added
+        enableColumnFilter: false,
         header: intl.formatMessage(processMessages.publishingGroup),
       },
     ),
@@ -150,7 +235,10 @@ export const PoolTable = ({ poolsQuery, title }: PoolTableProps) => {
         ),
       {
         id: "status",
-        sortingFn: normalizedText,
+        // TO DO: Reenable when scope is added
+        enableColumnFilter: false,
+        // TO DO: Reenable when relation order by added
+        enableSorting: false,
         header: intl.formatMessage(commonMessages.status),
       },
     ),
@@ -159,7 +247,10 @@ export const PoolTable = ({ poolsQuery, title }: PoolTableProps) => {
       {
         id: "team",
         header: intl.formatMessage(adminMessages.team),
-        sortingFn: normalizedText,
+        // TO DO: Reenable when scope is added
+        enableColumnFilter: false,
+        // TO DO: Reenable when relation order by added
+        enableSorting: false,
         cell: ({ row: { original: pool } }) =>
           viewTeamLinkCell(
             paths.teamView(pool.team?.id ? pool.team?.id : ""),
@@ -189,7 +280,6 @@ export const PoolTable = ({ poolsQuery, title }: PoolTableProps) => {
     columnHelper.accessor(({ createdDate }) => accessors.date(createdDate), {
       id: "createdDate",
       enableColumnFilter: false,
-      sortingFn: "datetime",
       header: intl.formatMessage({
         defaultMessage: "Created",
         id: "zAqJMe",
@@ -204,7 +294,6 @@ export const PoolTable = ({ poolsQuery, title }: PoolTableProps) => {
     columnHelper.accessor(({ updatedDate }) => accessors.date(updatedDate), {
       id: "updatedDate",
       enableColumnFilter: false,
-      sortingFn: "datetime",
       header: intl.formatMessage({
         defaultMessage: "Updated",
         id: "R2sSy9",
@@ -218,30 +307,39 @@ export const PoolTable = ({ poolsQuery, title }: PoolTableProps) => {
     }),
   ] as ColumnDef<Pool>[];
 
-  const data = unpackMaybes([...pools]);
+  const filteredData = React.useMemo(
+    () => unpackMaybes(data?.poolsPaginated.data),
+    [data?.poolsPaginated.data],
+  );
 
   return (
     <Table<Pool>
       caption={title}
-      data={data}
+      data={filteredData}
       columns={columns}
+      isLoading={fetching}
       hiddenColumnIds={["id", "createdDate", "ownerEmail", "ownerName"]}
       search={{
-        internal: true,
+        internal: false,
         label: intl.formatMessage({
           defaultMessage: "Search processes",
           id: "6yn+iJ",
           description: "Label for the pools table search input",
         }),
+        onChange: handleSearchStateChange,
       }}
       sort={{
-        internal: true,
-        initialState: [{ id: "createdDate", desc: true }],
+        internal: false,
+        onSortChange: setSortState,
+        initialState: defaultState.sortState,
       }}
       pagination={{
-        internal: true,
-        total: data.length,
+        internal: false,
+        initialState: INITIAL_STATE.paginationState,
+        state: paginationState,
+        total: data?.poolsPaginated.paginatorInfo.total,
         pageSizes: [10, 20, 50],
+        onPaginationChange: handlePaginationStateChange,
       }}
       add={{
         linkProps: {
@@ -257,43 +355,4 @@ export const PoolTable = ({ poolsQuery, title }: PoolTableProps) => {
   );
 };
 
-const PoolTable_Query = graphql(/* GraphQL */ `
-  query PoolTable {
-    pools {
-      ...PoolTableRow
-      team {
-        id
-        name
-      }
-    }
-  }
-`);
-
-const PoolTableApi = ({ title }: { title: string }) => {
-  const [{ data, fetching, error }] = useQuery({ query: PoolTable_Query });
-  const { roleAssignments } = useAuthorization();
-  const pools = unpackMaybes(data?.pools).filter((pool) => {
-    if (
-      hasRole(ROLE_NAME.PlatformAdmin, roleAssignments) ||
-      hasRole(ROLE_NAME.RequestResponder, roleAssignments) ||
-      hasRole(ROLE_NAME.CommunityManager, roleAssignments)
-    ) {
-      return true;
-    }
-
-    return (
-      pool.team &&
-      roleAssignments?.some(
-        (role) => role.team && role?.team?.id === pool?.team?.id,
-      )
-    );
-  });
-
-  return (
-    <Pending fetching={fetching} error={error}>
-      <PoolTable poolsQuery={pools} title={title} />
-    </Pending>
-  );
-};
-
-export default PoolTableApi;
+export default PoolTable;

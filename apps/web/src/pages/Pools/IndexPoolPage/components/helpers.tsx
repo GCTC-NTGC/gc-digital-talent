@@ -7,10 +7,17 @@ import {
   Classification,
   LocalizedString,
   Maybe,
+  OrderByClause,
+  OrderByRelationWithColumnAggregateFunction,
   Pool,
+  QueryPoolsPaginatedOrderByRelationOrderByClause,
+  QueryPoolsPaginatedOrderByUserColumn,
+  SortOrder,
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
+import { SearchState } from "../../../../components/Table/ResponsiveTable/types";
+import { SortingState } from "@tanstack/react-table";
 
 export function poolNameAccessor(pool: Pool, intl: IntlShape) {
   const name = getLocalizedName(pool.name, intl);
@@ -134,4 +141,74 @@ export function ownerNameAccessor(pool: Pool) {
 
 export function ownerEmailAccessor(pool: Pool) {
   return pool.owner && pool.owner.email ? pool.owner.email.toLowerCase() : "";
+}
+
+type TransformPoolInputArgs = {
+  search: SearchState;
+};
+
+export function transformPoolInput({ search }: TransformPoolInputArgs) {
+  if (
+    typeof search.term === "undefined" &&
+    typeof search.type === "undefined"
+  ) {
+    return undefined;
+  }
+
+  return {
+    generalSearch: !!search.term && !search.type ? search.term : undefined,
+    name: search.type === "name" ? search.term : undefined,
+    ownerName: search.type === "ownerName" ? search.term : undefined,
+    ownerEmail: search.type === "ownerEmail" ? search.term : undefined,
+  };
+}
+
+export function transformSortStateToOrderByClause(
+  sortingRules?: SortingState,
+): QueryPoolsPaginatedOrderByRelationOrderByClause {
+  const columnMap = new Map<string, string>([
+    ["id", "id"],
+    ["name", "name"],
+    ["publishingGroup", "publishing_group"],
+    ["stream", "stream"],
+    ["ownerName", "first_name"],
+    ["ownerEmail", "email"],
+    ["createdDate", "created_at"],
+    ["updatedDate", "updated_at"],
+    // ["team", "displayName"],
+    // ["status", "status"],
+    // ["classification", "classification"],
+  ]);
+
+  const sortingRule = sortingRules?.find((rule) => {
+    const columnName = columnMap.get(rule.id);
+    return !!columnName;
+  });
+
+  if (sortingRule && ["ownerName", "ownerEmail"].includes(sortingRule.id)) {
+    const columnName = columnMap.get(sortingRule.id);
+    return {
+      column: undefined,
+      order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+      user: {
+        aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+        column: columnName as QueryPoolsPaginatedOrderByUserColumn,
+      },
+    };
+  }
+
+  if (sortingRule) {
+    const columnName = columnMap.get(sortingRule.id);
+    return {
+      column: columnName,
+      order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+      user: undefined,
+    };
+  }
+
+  return {
+    column: "created_at",
+    order: SortOrder.Asc,
+    user: undefined,
+  };
 }
