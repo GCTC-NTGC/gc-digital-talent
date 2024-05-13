@@ -1,4 +1,3 @@
-import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
 import { fakePools, fakeTeams } from "@gc-digital-talent/fake-data";

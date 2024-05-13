@@ -2,7 +2,6 @@ import React from "react";
 import {
   ColumnDef,
   PaginationState,
-  Row,
   SortingState,
   createColumnHelper,
 } from "@tanstack/react-table";
@@ -24,6 +23,8 @@ import useRoutes from "~/hooks/useRoutes";
 import Table, {
   getTableStateFromSearchParams,
 } from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import { INITIAL_STATE } from "~/components/Table/ResponsiveTable/constants";
+import { SearchState } from "~/components/Table/ResponsiveTable/types";
 import accessors from "~/components/Table/accessors";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
@@ -43,8 +44,6 @@ import {
   getTeamDisplayNameSort,
   getOrderByClause,
 } from "./helpers";
-import { INITIAL_STATE } from "~/components/Table/ResponsiveTable/constants";
-import { SearchState } from "~/components/Table/ResponsiveTable/types";
 
 const columnHelper = createColumnHelper<Pool>();
 
