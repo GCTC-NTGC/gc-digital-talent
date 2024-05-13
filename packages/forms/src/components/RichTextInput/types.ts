@@ -16,7 +16,7 @@ export interface NodeProps {
   node: Node;
 }
 
-export type NodeRenderer = (props: NodeProps) => JSX.Element;
+export type NodeRenderer = (props: NodeProps) => React.JSX.Element;
 
 export interface RenderMap {
   readonly [attr: string]: NodeRenderer;

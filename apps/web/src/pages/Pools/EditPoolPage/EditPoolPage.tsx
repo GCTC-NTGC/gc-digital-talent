@@ -181,7 +181,7 @@ export const EditPoolForm = ({
   skills,
   onSave,
   poolSkillMutations,
-}: EditPoolFormProps): JSX.Element => {
+}: EditPoolFormProps): React.JSX.Element => {
   const intl = useIntl();
   const pool = getFragment(EditPool_Fragment, poolQuery);
 

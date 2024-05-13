@@ -1,49 +1,51 @@
-import React from "react";
 import { action } from "@storybook/addon-actions";
-import { Meta, StoryFn } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 
 import Pagination from "./Pagination";
-import type { PaginationProps } from "./Pagination";
 
 export default {
   component: Pagination,
   args: {
     ariaLabel: "Pagination table",
-    handlePageChange: action("Change page"),
-    handlePageSize: action("Change page size"),
+    onCurrentPageChange: action("Change page"),
+    onPageSizeChange: action("Change page size"),
     color: "black",
-    mode: "outline",
+    totalCount: 100,
+    totalPages: 10,
+    siblings: 1,
+    currentPage: 1,
+    pageSize: 10,
   },
-  argTypes: {
-    color: {
-      control: false,
+  parameters: {
+    controls: {
+      include: [
+        "ariaLabel",
+        "totalCount",
+        "totalPages",
+        "siblings",
+        "currentPage",
+        "pageSize",
+      ],
+    },
+    actions: {
+      argTypesRegex: "^(onCurrentPageChange|onPageSizeChange)$",
     },
   },
-} as Meta;
+} satisfies Meta<typeof Pagination>;
 
-const TemplatePagination: StoryFn<PaginationProps> = (args) => {
-  return <Pagination {...args} />;
+type Story = StoryObj<typeof Pagination>;
+
+export const Default: Story = {};
+
+export const NoDots: Story = {
+  args: {
+    totalPages: 5,
+    totalCount: 50,
+  },
 };
 
-export const Default = TemplatePagination.bind({});
-export const NoDots = TemplatePagination.bind({});
-export const BothDots = TemplatePagination.bind({});
-
-Default.args = {
-  totalCount: 100,
-  totalPages: 10,
-  siblings: 1,
-  currentPage: 1,
-  pageSize: 10,
-};
-
-NoDots.args = {
-  ...Default.args,
-  totalPages: 5,
-  totalCount: 50,
-};
-
-BothDots.args = {
-  ...Default.args,
-  currentPage: 5,
+export const BothDots: Story = {
+  args: {
+    currentPage: 5,
+  },
 };

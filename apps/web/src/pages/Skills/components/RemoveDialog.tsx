@@ -10,7 +10,10 @@ type RemoveDialogProps = {
   index: number;
 };
 
-const RemoveDialog = ({ onRemove, index }: RemoveDialogProps): JSX.Element => {
+const RemoveDialog = ({
+  onRemove,
+  index,
+}: RemoveDialogProps): React.JSX.Element => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const [isBusy, setIsBusy] = React.useState<boolean>(false);

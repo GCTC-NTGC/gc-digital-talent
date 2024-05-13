@@ -62,7 +62,7 @@ const ClosingDateSection = ({
   poolQuery,
   sectionMetadata,
   onSave,
-}: ClosingDateSectionProps): JSX.Element => {
+}: ClosingDateSectionProps): React.JSX.Element => {
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
   const pool = getFragment(EditPoolClosingDate_Fragment, poolQuery);

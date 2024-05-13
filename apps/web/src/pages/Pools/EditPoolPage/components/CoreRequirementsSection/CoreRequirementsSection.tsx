@@ -70,7 +70,7 @@ const CoreRequirementsSection = ({
   poolQuery,
   sectionMetadata,
   onSave,
-}: CoreRequirementsSectionProps): JSX.Element => {
+}: CoreRequirementsSectionProps): React.JSX.Element => {
   const intl = useIntl();
   const pool = getFragment(EditPoolCoreRequirements_Fragment, poolQuery);
   const isNull = hasAllEmptyFields(pool);

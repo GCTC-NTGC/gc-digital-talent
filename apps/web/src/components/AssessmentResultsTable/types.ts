@@ -21,7 +21,7 @@ export type AssessmentTableRowColumnProps = {
   poolCandidate: PoolCandidate;
   assessmentStep: AssessmentStep;
   intl: IntlShape;
-  header: JSX.Element;
+  header: React.JSX.Element;
 };
 
 export type StatusColor = "error" | "hold" | "toAssess" | "success" | "gray";

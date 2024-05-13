@@ -23,7 +23,7 @@ interface EquityOptionProps {
   description?: React.ReactNode;
 }
 
-type EquityDialogFunc = (props: EquityDialogProps) => JSX.Element;
+type EquityDialogFunc = (props: EquityDialogProps) => React.JSX.Element;
 
 const dialogMap: Record<EquityGroup, EquityDialogFunc> = {
   disability: DisabilityDialog,

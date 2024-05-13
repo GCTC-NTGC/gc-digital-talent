@@ -95,7 +95,7 @@ export const ViewPool = ({
   onArchive,
   onDuplicate,
   onUnarchive,
-}: ViewPoolProps): JSX.Element => {
+}: ViewPoolProps): React.JSX.Element => {
   const intl = useIntl();
   const paths = useRoutes();
   const { roleAssignments } = useAuthorization();
