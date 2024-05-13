@@ -77,10 +77,12 @@ class PoolFactory extends Factory
             $this->$essentialCount = $essentialCount;
             $this->$nonEssentialCount = $nonEssentialCount;
 
-            $skills = Skill::inRandomOrder()->limit(20)->get();
-            $essentialSkills = $skills->random($essentialCount);
+            $skills = Skill::inRandomOrder()->limit(10)->get();
+            //slice first set of skills as essential skills
+            $essentialSkills = $skills->slice(0, $essentialCount);
+            //slice next set of  skills as non essential skills
+            $nonEssentialSkills = $skills->slice($essentialCount, $nonEssentialCount);
             $this->createPoolSkills($pool, $essentialSkills, PoolSkillType::ESSENTIAL->name);
-            $nonEssentialSkills = $skills->diff($essentialSkills)->random($nonEssentialCount);
             $this->createPoolSkills($pool, $nonEssentialSkills, PoolSkillType::NONESSENTIAL->name);
         });
     }
@@ -121,6 +123,15 @@ class PoolFactory extends Factory
         $step->poolSkills()->sync($poolSkillArray);
 
         return $step;
+    }
+
+    public function withAssessmentStepAndWithoutPoolSkills()
+    {
+        return $this->afterCreating(function (Pool $pool) {
+            $step = $this->createAssessmentStep($pool, AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name);
+
+            return $step;
+        });
     }
 
     public function createQuestions($factory, $count, $poolId, $assessmentStepId = null)
@@ -240,7 +251,7 @@ class PoolFactory extends Factory
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory
      */
-    public function withAssessments($noOfAssessmentSteps)
+    public function withAssessments($noOfAssessmentSteps = 2)
     {
         return $this->afterCreating(function (Pool $pool, $noOfAssessmentSteps) {
             $steps = [];
