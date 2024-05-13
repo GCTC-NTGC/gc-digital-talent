@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\AssessmentStepType;
 use App\Enums\OperationalRequirement;
 use App\Enums\PoolLanguage;
 use App\Enums\PoolOpportunityLength;
@@ -84,12 +85,11 @@ class PoolFactory extends Factory
             $this->essentialCount = $essentialCount;
             $this->nonEssentialCount = $nonEssentialCount;
 
-            $skills = Skill::inRandomOrder()->limit(10)->get();
+            $skills = Skill::inRandomOrder()->limit(20)->get();
             $essentialSkills = $skills->random($essentialCount);
-            $this->createPoolSkills($pool, $essentialSkills, PoolSkillType::ESSENTIAL);
-
+            $this->createPoolSkills($pool, $essentialSkills, PoolSkillType::ESSENTIAL->name);
             $nonEssentialSkills = $skills->diff($essentialSkills)->random($nonEssentialCount);
-            $this->createPoolSkills($pool, $nonEssentialSkills, PoolSkillType::NONESSENTIAL);
+            $this->createPoolSkills($pool, $nonEssentialSkills, PoolSkillType::NONESSENTIAL->name);
         });
     }
 
@@ -109,21 +109,50 @@ class PoolFactory extends Factory
     {
         return $this->afterCreating(function (Pool $pool) use ($generalQuestionsCount, $screeningQuestionsCount) {
             $this->createQuestions(GeneralQuestion::class, $generalQuestionsCount, $pool->id);
-            $this->createQuestions(ScreeningQuestion::class, $screeningQuestionsCount, $pool->id);
+            $this->createQuestions(ScreeningQuestion::class, $screeningQuestionsCount, $pool->id, $this->createAssessmentStepWithPoolSkills($pool, AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name)->id);
         });
     }
 
-    public function createQuestions($factory, $count, $poolId)
+    public function createAssessmentStep($pool, $type)
+    {
+        return AssessmentStep::factory()
+            ->create([
+                'pool_id' => $pool->id,
+                'type' => $type,
+            ]);
+    }
+
+    public function createAssessmentStepWithPoolSkills($pool, $type)
+    {
+        $step = $this->createAssessmentStep($pool, $type);
+        $poolSkillArray = $pool->poolSkills->pluck('id')->toArray();
+        $step->poolSkills()->sync($poolSkillArray);
+
+        return $step;
+    }
+
+    public function createQuestions($factory, $count, $poolId, $assessmentStepId = null)
     {
         $sequence = [];
         for ($i = 1; $i <= $count; $i++) {
             $sequence[] = ['sort_order' => $i];
         }
-
-        $factory::factory()
-            ->count($count)
-            ->sequence(...$sequence)
-            ->create(['pool_id' => $poolId]);
+        if ($assessmentStepId !== null) {
+            $factory::factory()
+                ->count($count)
+                ->sequence(...$sequence)
+                ->create([
+                    'pool_id' => $poolId,
+                    'assessment_step_id' => $assessmentStepId,
+                ]);
+        } else {
+            $factory::factory()
+                ->count($count)
+                ->sequence(...$sequence)
+                ->create([
+                    'pool_id' => $poolId,
+                ]);
+        }
     }
 
     /**
@@ -219,16 +248,16 @@ class PoolFactory extends Factory
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory
      */
-    public function withAssessments()
+    public function withAssessments($noOfAssessmentSteps)
     {
-        return $this->afterCreating(function (Pool $pool) {
-            $step1 = AssessmentStep::factory()
-                ->create(['pool_id' => $pool->id]);
-            $step2 = AssessmentStep::factory()
-                ->create(['pool_id' => $pool->id]);
-            $poolSkillArray = $pool->poolSkills->pluck('id')->toArray();
-            $step1->poolSkills()->sync(array_slice($poolSkillArray, 0, 5, true));
-            $step2->poolSkills()->sync(array_slice($poolSkillArray, 5, 5, true));
+        return $this->afterCreating(function (Pool $pool, $noOfAssessmentSteps) {
+            $steps = [];
+            $screeningQuestionStep = $this->createAssessmentStepWithPoolSkills($pool, AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name);
+
+            for($i = 0; $i < $noOfAssessmentSteps - 1; $i++) {
+                $steps[$i] = $this->createAssessmentStepWithPoolSkills($pool, $this->faker->randomElement(array_column(AssessmentStepType::cases(), 'name'))->name);
+            }
+
         });
     }
 }

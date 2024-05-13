@@ -82,7 +82,7 @@ class PoolTestSeeder extends Seeder
                 'team_id' => Team::select('id')->where('name', 'digital-community-management')->sole()->id,
                 'published_at' => config('constants.past_date'),
                 'closing_date' => config('constants.far_future_date'),
-                'publishing_group' => PublishingGroup::IT_JOBS->name,
+                'publishing_group' => PublishingGroup::IT_JOBS_ONGOING->name,
             ],
 
             // IT-04 Published - Simple
@@ -95,7 +95,7 @@ class PoolTestSeeder extends Seeder
                 'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
                 'team_id' => Team::select('id')->where('name', 'digital-community-management')->sole()->id,
                 'published_at' => config('constants.past_date'),
-                'closing_date' => config('constants.far_future_date'),
+                'closing_date' => now()->addMonths(6),
                 'publishing_group' => PublishingGroup::IT_JOBS->name,
             ],
 
@@ -120,6 +120,7 @@ class PoolTestSeeder extends Seeder
                     'fr' => 'Architecte en sécurité des TI',
                 ],
                 'classification_id' => Classification::select('id')->where('group', 'ilike', 'EC')->where('level', 3)->sole()->id,
+                'stream' => PoolStream::EXECUTIVE_GROUP->name,
                 'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
                 'team_id' => Team::select('id')->where('name', 'digital-community-management')->sole()->id,
                 'published_at' => config('constants.past_date'),
@@ -138,7 +139,6 @@ class PoolTestSeeder extends Seeder
                 'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
                 'team_id' => Team::select('id')->where('name', 'digital-community-management')->sole()->id,
                 'published_at' => config('constants.past_date'),
-                // closes in 6 months from now
                 'closing_date' => now()->addMonths(6),
                 'publishing_group' => PublishingGroup::OTHER->name,
             ],
@@ -154,6 +154,8 @@ class PoolTestSeeder extends Seeder
                 // constrain CMO Digital Careers pool to predictable values
                 if ($identifier['name->en'] == 'CMO Digital Careers') {
                     $createdPool = Pool::factory()
+                        ->withPoolSkills(4,4)
+                        ->withQuestions(2,2)
                         ->published()
                         ->create($poolData);
                     $classificationIT01Id = Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 1)->sole()->id;
@@ -162,7 +164,7 @@ class PoolTestSeeder extends Seeder
                     $createdPool->advertisement_language = PoolLanguage::VARIOUS->name;
                     $createdPool->save();
                 }
-
+                // IT -01
                 if ($identifier['name->en'] == 'Infrastructure Operations Technician') {
                     $createdPool = Pool::factory()
                         ->withPoolSkills(0,0)
@@ -170,13 +172,41 @@ class PoolTestSeeder extends Seeder
                         ->draft()
                         ->create($poolData);
                 }
-
-                 if ($identifier['name->en'] == 'IT Security Specialist') {
+                 // IT -02
+                 if ($identifier['name->en'] == 'IT Security Analyst') {
                     $createdPool = Pool::factory()
                         ->withPoolSkills(2,2)
                         ->withQuestions(0,1)
                         ->draft()
-                        ->withAssessments()
+                        ->withAssessments(2)
+                        ->create($poolData);
+                }
+                // IT - 03
+                 if ($identifier['name->en'] == 'IT Security Specialist') {
+                    $createdPool = Pool::factory()
+                        ->withPoolSkills(6,6)
+                        ->withQuestions(3,3)
+                        ->published()
+                        ->withAssessments(5)
+                        ->create($poolData);
+                }
+
+                //IT -04
+                 if ($identifier['name->en'] == 'IT Security Consultant') {
+                    $createdPool = Pool::factory()
+                        ->withPoolSkills(2,2)
+                        ->withQuestions(3,3)
+                        ->published()
+                        ->withAssessments(5)
+                        ->create($poolData);
+                }
+
+                 if ($identifier['name->en'] == 'IT Security Manager') {
+                    $createdPool = Pool::factory()
+                        ->withPoolSkills(2,2)
+                        ->withQuestions(0,1)
+                        ->published()
+                        ->withAssessments(5)
                         ->create($poolData);
                 }
 
@@ -184,8 +214,5 @@ class PoolTestSeeder extends Seeder
                 $poolModel->update($poolData);
             }
         }
-
-        // Create a pool with no screening questions
-
     }
 }
