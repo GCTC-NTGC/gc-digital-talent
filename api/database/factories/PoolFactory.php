@@ -31,14 +31,6 @@ class PoolFactory extends Factory
      */
     protected $model = Pool::class;
 
-    private $essentialCount = 1;
-
-    private $nonEssentialCount = 1;
-
-    private $generalQuestionsCount = 3;
-
-    private $screeningQuestionsCount = 3;
-
     /**
      * Define the model's default state.
      *
@@ -82,8 +74,8 @@ class PoolFactory extends Factory
     public function withPoolSkills($essentialCount, $nonEssentialCount)
     {
         return $this->afterCreating(function (Pool $pool) use ($essentialCount, $nonEssentialCount) {
-            $this->essentialCount = $essentialCount;
-            $this->nonEssentialCount = $nonEssentialCount;
+            $this->$essentialCount = $essentialCount;
+            $this->$nonEssentialCount = $nonEssentialCount;
 
             $skills = Skill::inRandomOrder()->limit(20)->get();
             $essentialSkills = $skills->random($essentialCount);
@@ -254,7 +246,7 @@ class PoolFactory extends Factory
             $steps = [];
             $screeningQuestionStep = $this->createAssessmentStepWithPoolSkills($pool, AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name);
 
-            for($i = 0; $i < $noOfAssessmentSteps - 1; $i++) {
+            for ($i = 0; $i < $noOfAssessmentSteps - 1; $i++) {
                 $steps[$i] = $this->createAssessmentStepWithPoolSkills($pool, $this->faker->randomElement(array_column(AssessmentStepType::cases(), 'name'))->name);
             }
 
