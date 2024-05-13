@@ -4,13 +4,8 @@ import React from "react";
 import {
   ApplicationDeadlineApproachingNotification,
   Notification,
-  PoolCandidateStatusChangedNotification,
 } from "@gc-digital-talent/graphql";
-import {
-  commonMessages,
-  getLocalizedName,
-  getPoolCandidateStatus,
-} from "@gc-digital-talent/i18n";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   formDateStringToDate,
   formatDate,
@@ -24,56 +19,6 @@ type NotificationInfo = {
   message: React.ReactNode;
   label: string;
   href: string;
-};
-
-function isPoolCandidateStatusChangedNotification(
-  notification: GraphqlType,
-): notification is PoolCandidateStatusChangedNotification {
-  return notification.__typename === "PoolCandidateStatusChangedNotification";
-}
-
-const poolCandidateStatusChangedNotificationToInfo = (
-  notification: PoolCandidateStatusChangedNotification,
-  paths: ReturnType<typeof useRoutes>,
-  intl: IntlShape,
-): NotificationInfo | null => {
-  if (!notification.poolCandidateId) return null;
-  const poolName = getLocalizedName(notification.poolName, intl);
-  const oldStatus = intl.formatMessage(
-    notification.oldStatus
-      ? getPoolCandidateStatus(notification.oldStatus)
-      : commonMessages.notAvailable,
-  );
-  const newStatus = intl.formatMessage(
-    notification.newStatus
-      ? getPoolCandidateStatus(notification.newStatus)
-      : commonMessages.notAvailable,
-  );
-
-  return {
-    message: intl.formatMessage(
-      {
-        defaultMessage:
-          "Your status has changed from <heavyPrimary>{oldStatus}</heavyPrimary> to <heavyPrimary>{newStatus}</heavyPrimary> in {poolName}.",
-        id: "EUukwf",
-        description: "Notification message for pool candidate status changed",
-      },
-      {
-        oldStatus,
-        newStatus,
-        poolName,
-      },
-    ),
-    href: paths.application(notification.poolCandidateId),
-    label: intl.formatMessage(
-      {
-        defaultMessage: "Status change for {poolName}",
-        id: "OvGt/x",
-        description: "Label for the pool status changed notification",
-      },
-      { poolName },
-    ),
-  };
 };
 
 function isApplicationDeadlineApproachingNotification(
@@ -137,14 +82,6 @@ const useNotificationInfo = (
   const intl = useIntl();
   const paths = useRoutes();
   const logger = useLogger();
-
-  if (isPoolCandidateStatusChangedNotification(notification)) {
-    return poolCandidateStatusChangedNotificationToInfo(
-      notification,
-      paths,
-      intl,
-    );
-  }
 
   if (isApplicationDeadlineApproachingNotification(notification)) {
     return applicationDeadlineApproachingNotificationToInfo(
