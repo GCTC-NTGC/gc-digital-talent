@@ -48,10 +48,6 @@ const UserCandidatesTableRow_Fragment = graphql(/* GraphQL */ `
     id
     firstName
     lastName
-    email
-    preferredLang
-    currentCity
-    currentProvince
     priorityWeight
     poolCandidates {
       id
