@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
-import MapPinIcon from "@heroicons/react/24/outline/MapPinIcon";
 
 import {
   RadioGroup,
@@ -211,7 +210,6 @@ const JobPlacementDialog = ({
                 color: "black",
               }
             : {
-                icon: MapPinIcon,
                 color: "primary",
               })}
           data-h2-text-align="base(left)"

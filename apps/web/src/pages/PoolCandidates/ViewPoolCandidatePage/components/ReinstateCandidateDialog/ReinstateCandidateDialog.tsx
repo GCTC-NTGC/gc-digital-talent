@@ -1,7 +1,6 @@
 import React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation } from "urql";
-import HandRaisedIcon from "@heroicons/react/20/solid/HandRaisedIcon";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
@@ -90,8 +89,8 @@ const ReinstateCandidateDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button mode="inline" icon={HandRaisedIcon}>
-          {intl.formatMessage(title)}
+        <Button mode="inline" color="warning">
+          {intl.formatMessage(commonMessages.removed)}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>

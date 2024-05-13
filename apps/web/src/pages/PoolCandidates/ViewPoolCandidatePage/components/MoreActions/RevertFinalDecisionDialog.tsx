@@ -1,7 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
-import ArrowUturnLeftIcon from "@heroicons/react/24/outline/ArrowUturnLeftIcon";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import {
@@ -24,6 +23,7 @@ import {
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import FormChangeNotifyWell from "~/components/FormChangeNotifyWell/FormChangeNotifyWell";
+import { isQualifiedStatus } from "~/utils/poolCandidate";
 
 const RevertFinalDecision_Mutation = graphql(/* GraphQL */ `
   mutation RevertFinalDecision_Mutation($id: UUID!) {
@@ -95,10 +95,7 @@ const RevertFinalDecisionDialog = ({
   };
 
   let isQualified: boolean | null = null;
-  if (
-    status === PoolCandidateStatus.QualifiedAvailable ||
-    status === PoolCandidateStatus.Expired
-  ) {
+  if (isQualifiedStatus(status) || PoolCandidateStatus.Expired) {
     isQualified = true;
   }
 
@@ -120,17 +117,15 @@ const RevertFinalDecisionDialog = ({
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
         <Button
-          icon={ArrowUturnLeftIcon}
           type="button"
-          color="primary"
+          color={isQualified ? "primary" : "error"}
           mode="inline"
         >
-          {intl.formatMessage({
-            defaultMessage: "Revert final decision",
-            id: "AGRCgy",
-            description:
-              "Button label for revert final decision on view pool candidate page",
-          })}
+          {isQualified ? (
+            <>{intl.formatMessage(poolCandidateMessages.qualified)}</>
+          ) : (
+            <>{intl.formatMessage(poolCandidateMessages.disqualified)}</>
+          )}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>

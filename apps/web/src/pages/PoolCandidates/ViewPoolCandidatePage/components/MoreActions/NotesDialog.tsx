@@ -3,22 +3,36 @@ import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import ChatBubbleBottomCenterIcon from "@heroicons/react/24/outline/ChatBubbleBottomCenterIcon";
 import { useMutation } from "urql";
+import isEmpty from "lodash/isEmpty";
 
-import { Button, Dialog } from "@gc-digital-talent/ui";
+import { ToggleSection } from "@gc-digital-talent/ui";
 import { Submit, TextArea } from "@gc-digital-talent/forms";
-import { Maybe, PoolCandidate, graphql } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  Maybe,
+  PoolCandidate,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
-import { formMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 
 import adminMessages from "~/messages/adminMessages";
+import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
+import ToggleForm from "~/components/ToggleForm/ToggleForm";
 
+export const NotesDialog_Fragment = graphql(/* Graphql */ `
+  fragment NotesDialog on PoolCandidate {
+    id
+    notes
+  }
+`);
 type FormValues = {
   notes?: PoolCandidate["notes"];
 };
 
 interface NotesDialogProps {
-  poolCandidateId: string;
-  notes: Maybe<string> | undefined;
+  poolCandidate: FragmentType<typeof NotesDialog_Fragment>;
 }
 
 const PoolCandidate_UpdateNotesMutation = graphql(/* GraphQL */ `
@@ -30,14 +44,44 @@ const PoolCandidate_UpdateNotesMutation = graphql(/* GraphQL */ `
   }
 `);
 
-const NotesDialog = ({ poolCandidateId, notes }: NotesDialogProps) => {
+const Display = ({ notes }: { notes?: Maybe<string> }) => {
   const intl = useIntl();
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+
+  return (
+    <>
+      <ToggleForm.FieldDisplay
+        hasError={false}
+        label={intl.formatMessage(adminMessages.notes)}
+      >
+        {notes || intl.formatMessage(commonMessages.notProvided)}
+      </ToggleForm.FieldDisplay>
+      <ToggleForm.Trigger data-h2-margin-top="base(x.5)">
+        {intl.formatMessage({
+          defaultMessage: "Edit notes",
+          id: "CTl5IT",
+          description: "Button text to start editing pool candidate notes",
+        })}
+      </ToggleForm.Trigger>
+    </>
+  );
+};
+
+const NotesDialog = ({
+  poolCandidate: poolCandidateQuery,
+}: NotesDialogProps) => {
+  const intl = useIntl();
   const [, executeMutation] = useMutation(PoolCandidate_UpdateNotesMutation);
+  const poolCandidate = getFragment(NotesDialog_Fragment, poolCandidateQuery);
+
+  const { isEditing, setIsEditing } = useToggleSectionInfo({
+    isNull: isEmpty(poolCandidate.notes),
+    emptyRequired: false,
+    fallbackIcon: ChatBubbleBottomCenterIcon,
+  });
 
   const methods = useForm<FormValues>({
     defaultValues: {
-      notes: notes ?? "",
+      notes: poolCandidate.notes ?? "",
     },
   });
   const { handleSubmit } = methods;
@@ -56,7 +100,7 @@ const NotesDialog = ({ poolCandidateId, notes }: NotesDialogProps) => {
   const handleFormSubmit: SubmitHandler<FormValues> = async (
     values: FormValues,
   ) => {
-    await executeMutation({ id: poolCandidateId, notes: values.notes ?? "" })
+    await executeMutation({ id: poolCandidate.id, notes: values.notes ?? "" })
       .then((result) => {
         if (result.data?.updatePoolCandidateNotes) {
           toast.success(
@@ -67,7 +111,6 @@ const NotesDialog = ({ poolCandidateId, notes }: NotesDialogProps) => {
                 "Message displayed when a pool candidate has been updated by and admin",
             }),
           );
-          setIsOpen(false);
         } else {
           handleError();
         }
@@ -83,64 +126,44 @@ const NotesDialog = ({ poolCandidateId, notes }: NotesDialogProps) => {
   };
 
   return (
-    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
-      <Dialog.Trigger>
-        <Button
-          icon={ChatBubbleBottomCenterIcon}
-          type="button"
-          color="primary"
-          mode="inline"
-        >
-          {intl.formatMessage({
-            defaultMessage: "View Notes",
-            id: "DHQasU",
-            description:
-              "Button label for view notes on view pool candidate page",
-          })}
-        </Button>
-      </Dialog.Trigger>
-      <Dialog.Content>
-        <Dialog.Header
-          subtitle={intl.formatMessage({
-            defaultMessage:
-              "Write additional comments about this application. This is visible only to managers of this process.",
-            id: "i4171w",
-            description:
-              "Subtitle for view notes dialog on view pool candidate page",
-          })}
-        >
-          {intl.formatMessage({
-            defaultMessage: "Notes and comments",
-            id: "5j409K",
-            description:
-              "Title for view notes dialog on view pool candidate page",
-          })}
-        </Dialog.Header>
-        <Dialog.Body>
-          <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(handleFormSubmit)}>
-              <TextArea
-                id="notes"
-                name="notes"
-                label={intl.formatMessage(adminMessages.notes)}
-              />
-              <Dialog.Footer data-h2-justify-content="base(flex-start)">
-                <Dialog.Close>
-                  <Button type="button" color="primary" mode="inline">
-                    {intl.formatMessage(formMessages.cancelGoBack)}
-                  </Button>
-                </Dialog.Close>
-                <Submit
-                  text={intl.formatMessage(formMessages.saveChanges)}
-                  color="primary"
-                  mode="solid"
+    <div>
+      <ToggleSection.Root
+        id="notes-dialog-form"
+        open={isEditing}
+        onOpenChange={setIsEditing}
+      >
+        <ToggleSection.Content>
+          <ToggleSection.InitialContent>
+            <Display notes={poolCandidate.notes} />
+          </ToggleSection.InitialContent>
+          <ToggleSection.OpenContent>
+            <FormProvider {...methods}>
+              <form
+                onSubmit={handleSubmit(handleFormSubmit)}
+                data-h2-display="base(flex)"
+                data-h2-flex-direction="base(column)"
+                data-h2-gap="base(x.5)"
+              >
+                <TextArea
+                  id="notes"
+                  name="notes"
+                  label={intl.formatMessage(adminMessages.notes)}
+                  rows={8}
                 />
-              </Dialog.Footer>
-            </form>
-          </FormProvider>
-        </Dialog.Body>
-      </Dialog.Content>
-    </Dialog.Root>
+
+                <ToggleSection.Close>
+                  <Submit
+                    text={intl.formatMessage(formMessages.saveChanges)}
+                    color="primary"
+                    mode="solid"
+                  />
+                </ToggleSection.Close>
+              </form>
+            </FormProvider>
+          </ToggleSection.OpenContent>
+        </ToggleSection.Content>
+      </ToggleSection.Root>
+    </div>
   );
 };
 
