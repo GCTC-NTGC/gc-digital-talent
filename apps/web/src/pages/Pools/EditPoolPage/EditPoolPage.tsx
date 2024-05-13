@@ -20,6 +20,7 @@ import {
   FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import { EditPoolSectionMetadata } from "~/types/pool";
 import SEO from "~/components/SEO/SEO";
@@ -40,6 +41,7 @@ import { hasOneEmptyField as aboutUsError } from "~/validators/process/aboutUs";
 import { hasOneEmptyField as whatToExpectAdmissionError } from "~/validators/process/whatToExpectAdmission";
 import usePoolMutations from "~/hooks/usePoolMutations";
 import { hasAllEmptyFields as specialNoteIsNull } from "~/validators/process/specialNote";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import PoolNameSection, {
   PoolClassification_Fragment,
@@ -741,5 +743,19 @@ export const EditPoolPage = () => {
     </Pending>
   );
 };
+
+export const Component = () => (
+  <RequireAuth
+    roles={[
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.CommunityManager,
+      ROLE_NAME.PlatformAdmin,
+    ]}
+  >
+    <EditPoolPage />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminEditPoolPage";
 
 export default EditPoolPage;

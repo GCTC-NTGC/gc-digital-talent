@@ -34,6 +34,7 @@ import {
   FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -43,6 +44,7 @@ import adminMessages from "~/messages/adminMessages";
 import { parseKeywords } from "~/utils/skillUtils";
 import AdminHero from "~/components/Hero/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 type Option<V> = { value: V; label: string };
 
@@ -448,5 +450,13 @@ export const UpdateSkill = () => {
     </>
   );
 };
+
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
+    <UpdateSkill />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminUpdateSkillPage";
 
 export default UpdateSkill;

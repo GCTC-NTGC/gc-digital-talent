@@ -13,7 +13,7 @@ describe("Create account tests", () => {
     ).toString();
 
     cy.loginBySubject(uniqueTestId);
-    cy.visit("/en/users/me");
+    cy.visit("/en/applicant");
 
     // should go to the create-account page
     cy.findByRole("heading", {
@@ -58,7 +58,7 @@ describe("Create account tests", () => {
     cy.wait("@gqlCreateAccount_MutationMutation");
     // should go to the personal information page
     cy.findByRole("heading", {
-      name: `Personal information`,
+      name: /Welcome back/i,
       level: 1,
     }).should("exist");
   });

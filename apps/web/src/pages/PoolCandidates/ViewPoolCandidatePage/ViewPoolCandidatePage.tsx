@@ -1,7 +1,5 @@
 import * as React from "react";
 import { defineMessage, useIntl } from "react-intl";
-import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
-import HandRaisedIcon from "@heroicons/react/24/outline/HandRaisedIcon";
 import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTriangleIcon";
 import { OperationContext, useQuery } from "urql";
 
@@ -11,9 +9,6 @@ import {
   Accordion,
   Heading,
   Sidebar,
-  CardBasic,
-  Button,
-  Link,
   Chip,
   Chips,
 } from "@gc-digital-talent/ui";
@@ -28,8 +23,8 @@ import {
   ArmedForcesStatus,
   PoolCandidateSnapshotQuery,
   Department,
-  PoolCandidateStatus,
 } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -43,20 +38,11 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import AssessmentResultsTable from "~/components/AssessmentResultsTable/AssessmentResultsTable";
 import ChangeStatusDialog from "~/pages/Users/UserInformationPage/components/ChangeStatusDialog";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import {
-  REMOVED_STATUSES,
-  REVERT_DECISION_STATUSES,
-} from "~/constants/poolCandidate";
-import JobPlacementDialog from "~/components/PoolCandidatesTable/JobPlacementDialog";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
 import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
 import ProfileDetails from "./components/ProfileDetails/ProfileDetails";
-import NotesDialog from "./components/MoreActions/NotesDialog";
-import ChangeExpiryDateDialog from "./components/ChangeExpiryDateDialog/ChangeExpiryDateDialog";
-import RemoveCandidateDialog from "./components/RemoveCandidateDialog/RemoveCandidateDialog";
-import ReinstateCandidateDialog from "./components/ReinstateCandidateDialog/ReinstateCandidateDialog";
-import RevertFinalDecisionDialog from "./components/MoreActions/RevertFinalDecisionDialog";
 import MoreActions from "./components/MoreActions/MoreActions";
 
 const screeningAndAssessmentTitle = defineMessage({
@@ -68,15 +54,11 @@ const screeningAndAssessmentTitle = defineMessage({
 const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
   query PoolCandidateSnapshot($poolCandidateId: UUID!) {
     poolCandidate(id: $poolCandidateId) {
-      ...CandidateExpiryDateDialog
-      ...RemoveCandidateDialog
-      ...ReinstateCandidateDialog
-      ...RevertFinalDecisionDialog
-      ...JobPlacementDialog
       ...MoreActions
       id
       status
       user {
+        ...ApplicationProfileDetails
         id
         firstName
         lastName
@@ -532,7 +514,7 @@ export const ViewPoolCandidate = ({
           </Chips>
         }
       >
-        <ProfileDetails user={poolCandidate.user} />
+        <ProfileDetails userQuery={poolCandidate.user} />
       </AdminHero>
       <AdminContentWrapper>
         <Sidebar.Wrapper>
@@ -701,5 +683,19 @@ export const ViewPoolCandidatePage = () => {
     </Pending>
   );
 };
+
+export const Component = () => (
+  <RequireAuth
+    roles={[
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.RequestResponder,
+      ROLE_NAME.PlatformAdmin,
+    ]}
+  >
+    <ViewPoolCandidatePage />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminViewPoolCandidatePage";
 
 export default ViewPoolCandidatePage;

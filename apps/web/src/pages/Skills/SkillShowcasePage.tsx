@@ -13,6 +13,7 @@ import {
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
@@ -20,6 +21,7 @@ import SkillRankCard from "~/components/SkillRankCard/SkillRankCard";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import profileMessages from "~/messages/profileMessages";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 type PageSection = {
   id: string;
@@ -397,5 +399,13 @@ const SkillShowcasePage = () => {
     </Pending>
   );
 };
+
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+    <SkillShowcasePage />
+  </RequireAuth>
+);
+
+Component.displayName = "SkillShowcasePage";
 
 export default SkillShowcasePage;

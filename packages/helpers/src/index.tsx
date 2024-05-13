@@ -25,6 +25,7 @@ import {
   unpackMaybes,
 } from "./utils/util";
 import useIsSmallScreen from "./hooks/useIsSmallScreen";
+import { GraphqlType } from "./types/graphql";
 
 export {
   assertUnreachable,
@@ -51,3 +52,4 @@ export {
   pickMap,
   unpackMaybes,
 };
+export type { GraphqlType };

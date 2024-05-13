@@ -206,7 +206,7 @@ type Section = {
   title: React.ReactNode;
 };
 
-const AccessibilityStatementPage = () => {
+export const Component = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
@@ -720,4 +720,6 @@ const AccessibilityStatementPage = () => {
   );
 };
 
-export default AccessibilityStatementPage;
+Component.displayName = "AccessibilityStatementPage";
+
+export default Component;

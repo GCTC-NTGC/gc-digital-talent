@@ -37,7 +37,7 @@ const buildExternalLink = (path: string, chunks: React.ReactNode) => (
   </Link>
 );
 
-const SignInPage = () => {
+export const Component = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const apiPaths = useApiRoutes();
@@ -433,4 +433,6 @@ const SignInPage = () => {
   );
 };
 
-export default SignInPage;
+Component.displayName = "SignInPage";
+
+export default Component;

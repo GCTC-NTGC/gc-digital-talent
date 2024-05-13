@@ -8,6 +8,7 @@ export const QUALIFIED_STATUSES = [
   PoolCandidateStatus.PlacedCasual,
   PoolCandidateStatus.PlacedTerm,
   PoolCandidateStatus.PlacedIndeterminate,
+  PoolCandidateStatus.Expired,
 ];
 
 export const DISQUALIFIED_STATUSES = [
@@ -24,9 +25,12 @@ export const REMOVED_STATUSES = [
   PoolCandidateStatus.Removed,
 ];
 
-export const TO_ASSESS_STATUSES = [
+export const DRAFT_STATUSES = [
   PoolCandidateStatus.Draft,
   PoolCandidateStatus.DraftExpired,
+];
+
+export const TO_ASSESS_STATUSES = [
   PoolCandidateStatus.NewApplication,
   PoolCandidateStatus.ApplicationReview,
   PoolCandidateStatus.ScreenedIn,
