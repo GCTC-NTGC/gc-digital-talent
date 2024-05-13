@@ -163,7 +163,6 @@ type NewJobPostedNotification implements Notification {
   createdAt: DateTime! @rename(attribute: "created_at")
   updatedAt: DateTime! @rename(attribute: "updated_at")
 
-  poolName: LocalizedString
   poolId: ID
 }
 

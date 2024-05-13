@@ -53,10 +53,6 @@ class NewJobPosted extends Notification implements CanBeSentViaGcNotifyEmail
     public function toArray(object $notifiable): array
     {
         return [
-            'poolName' => [
-                'en' => $this->poolNameEn,
-                'fr' => $this->poolNameFr,
-            ],
             'poolId' => $this->poolId,
         ];
     }

@@ -5,6 +5,8 @@ namespace App\Observers;
 use App\Models\Pool;
 use App\Models\User;
 use App\Notifications\NewJobPosted;
+use Illuminate\Support\Facades\Log;
+use Throwable;
 
 class PoolObserver
 {
@@ -33,7 +35,14 @@ class PoolObserver
                     $pool->id
                 );
 
-                User::all()->each(fn ($user) => $user->notify($notification));
+                User::all()->each(function ($user) use ($notification) {
+                    try {
+                        $user->notify($notification);
+                    } catch (Throwable $e) {
+                        // best-effort: log and continue
+                        Log::error('Failed to send "new job posted" notification to ['.$user->id.']');
+                    }
+                });
             }
         }
     }

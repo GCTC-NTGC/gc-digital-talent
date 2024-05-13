@@ -64,10 +64,6 @@ const NotificationItem_Fragment = graphql(/* GraphQL */ `
       poolCandidateId
     }
     ... on NewJobPostedNotification {
-      poolName {
-        en
-        fr
-      }
       poolId
     }
   }

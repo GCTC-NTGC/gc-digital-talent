@@ -146,8 +146,6 @@ const newJobPostedNotificationToInfo = (
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
 ): NotificationInfo => {
-  const poolNameLocalized = getLocalizedName(notification.poolName, intl);
-
   return {
     message: intl.formatMessage({
       defaultMessage:
