@@ -521,7 +521,7 @@ class PoolCandidateSearchTest extends TestCase
             $query,
             [
                 'where' => [
-                    'generalSearch' => ['test notes'],
+                    'generalSearch' => 'test notes',
                 ],
             ]
         )->assertJson([
