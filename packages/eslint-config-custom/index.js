@@ -27,16 +27,28 @@ module.exports = {
       extends: ["plugin:testing-library/react"],
     },
   ],
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: 2020,
+    sourceType: "module",
+    project: ["./tsconfig.json"],
+  },
   plugins: [
     "import",
     "no-only-tests",
     "@typescript-eslint",
-    "turbo"
+    "turbo",
+    "deprecation",
   ],
   rules: {
-    camelcase: ["warn", {
-      allow: ["\w*Query$", "\w*Fragment$", "\w*Mutation$", "\w*Document$"]
-    }],
+    camelcase: [
+      "warn",
+      {
+        allow: ["w*Query$", "w*Fragment$", "w*Mutation$", "w*Document$"],
+      },
+    ],
     "consistent-return": "warn",
     "import/no-extraneous-dependencies": "off",
     "import/extensions": ["warn", "never", { json: "always" }],
@@ -73,7 +85,8 @@ module.exports = {
     "@typescript-eslint/no-use-before-define": "warn",
     "@typescript-eslint/no-shadow": "error",
     "@typescript-eslint/no-empty-function": "warn",
-    "no-underscore-dangle": ["error", { "allow": ["__typename"] }]
+    "no-underscore-dangle": ["error", { allow: ["__typename"] }],
+    "deprecation/deprecation": "warn",
   },
   settings: {
     "import/extensions": [".ts", ".tsx"],
@@ -82,8 +95,8 @@ module.exports = {
     },
     "import/resolver": {
       typescript: {
-        project: [__dirname]
-      }
-    }
-  }
-}
+        project: [__dirname],
+      },
+    },
+  },
+};

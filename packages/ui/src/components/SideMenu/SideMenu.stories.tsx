@@ -5,7 +5,7 @@ import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import SquaresPlusIcon from "@heroicons/react/24/outline/SquaresPlusIcon";
 import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
-import ArrowLeftOnRectangleIcon from "@heroicons/react/24/solid/ArrowLeftOnRectangleIcon";
+import ArrowLeftEndOnRectangleIcon from "@heroicons/react/24/solid/ArrowLeftEndOnRectangleIcon";
 import { useIntl } from "react-intl";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
@@ -58,7 +58,7 @@ const TemplateSideMenu: StoryFn = (args) => {
         open={isOpen}
         onOpenChange={setOpen}
         footer={
-          <SideMenuButton icon={ArrowLeftOnRectangleIcon}>
+          <SideMenuButton icon={ArrowLeftEndOnRectangleIcon}>
             Sign out
           </SideMenuButton>
         }

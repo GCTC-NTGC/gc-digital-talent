@@ -127,13 +127,13 @@ export const splitAndJoin = (text: string, split?: string, join?: string) =>
  * @param intl   react-intl object
  * @param title  abbreviation title
  *
- * @returns jsx.element
+ * @returns React.JSX.Element
  */
 export const wrapAbbr = (
   text: React.ReactNode,
   intl: IntlShape,
   title?: string,
-): JSX.Element => {
+): React.JSX.Element => {
   const fallbackTitle = intl.formatMessage({
     id: "MuWdei",
     defaultMessage: "Abbreviation not found.",

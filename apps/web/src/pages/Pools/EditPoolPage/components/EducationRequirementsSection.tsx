@@ -63,7 +63,7 @@ const EducationRequirementsSection = ({
   poolQuery,
   sectionMetadata,
   changeTargetId,
-}: EducationRequirementsSectionProps): JSX.Element => {
+}: EducationRequirementsSectionProps): React.JSX.Element => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const pool = getFragment(EditPoolEducationRequirements_Fragment, poolQuery);

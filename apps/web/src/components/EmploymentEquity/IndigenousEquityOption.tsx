@@ -24,7 +24,7 @@ interface EquityOptionProps {
   disabled?: boolean;
 }
 
-type IndigenousDialogFunc = (props: IndigenousDialogProps) => JSX.Element;
+type IndigenousDialogFunc = (props: IndigenousDialogProps) => React.JSX.Element;
 
 const dialogMap: Record<EquityGroup, IndigenousDialogFunc> = {
   indigenous: IndigenousDialog,
