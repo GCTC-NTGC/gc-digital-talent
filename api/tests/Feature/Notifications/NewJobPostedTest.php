@@ -156,10 +156,6 @@ class NewJobPostedTest extends TestCase
 
         $notification = Notification::all()->sole();
         assertEquals([
-            'poolName' => [
-                'en' => 'poolNameEn',
-                'fr' => 'poolNameFr',
-            ],
             'poolId' => '1',
         ], $notification->data
         );
