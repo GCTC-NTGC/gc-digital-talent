@@ -3,13 +3,8 @@
 namespace Database\Factories;
 
 use App\Enums\AssessmentStepType;
-use App\Enums\OperationalRequirement;
-use App\Enums\PoolLanguage;
-use App\Enums\PoolOpportunityLength;
 use App\Enums\PoolSkillType;
-use App\Enums\PoolStream;
 use App\Enums\PublishingGroup;
-use App\Enums\SecurityStatus;
 use App\Enums\SkillLevel;
 use App\Models\AssessmentStep;
 use App\Models\Classification;
@@ -30,14 +25,6 @@ class PoolFactory extends Factory
      * @var string
      */
     protected $model = Pool::class;
-
-    private $essentialCount = 1;
-
-    private $nonEssentialCount = 1;
-
-    private $generalQuestionsCount = 3;
-
-    private $screeningQuestionsCount = 3;
 
     /**
      * Define the model's default state.
@@ -82,8 +69,8 @@ class PoolFactory extends Factory
     public function withPoolSkills($essentialCount, $nonEssentialCount)
     {
         return $this->afterCreating(function (Pool $pool) use ($essentialCount, $nonEssentialCount) {
-            $this->essentialCount = $essentialCount;
-            $this->nonEssentialCount = $nonEssentialCount;
+            $this->$essentialCount = $essentialCount;
+            $this->$nonEssentialCount = $nonEssentialCount;
 
             $skills = Skill::inRandomOrder()->limit(20)->get();
             $essentialSkills = $skills->random($essentialCount);
@@ -156,76 +143,6 @@ class PoolFactory extends Factory
     }
 
     /**
-     * Indicate that the pool is draft.
-     */
-    public function draft(): Factory
-    {
-        return $this->state(function (array $attributes) {
-            // the base state is draft already
-            return [];
-        });
-    }
-
-    /**
-     * Indicate that the pool is published.
-     */
-    public function published(): Factory
-    {
-        return $this->state(function (array $attributes) {
-            $isRemote = $this->faker->boolean();
-            $hasSpecialNote = $this->faker->boolean();
-
-            return [
-                // published in the past, closes in the future
-                'published_at' => $this->faker->dateTimeBetween('-30 days', '-1 days'),
-
-                'operational_requirements' => $this->faker->randomElements(array_column(OperationalRequirement::cases(), 'name'), 2),
-                'key_tasks' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
-                'your_impact' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
-                'what_to_expect' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
-                'what_to_expect_admission' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
-                'about_us' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
-                'security_clearance' => $this->faker->randomElement(array_column(SecurityStatus::cases(), 'name')),
-                'advertisement_language' => $this->faker->randomElement(array_column(PoolLanguage::cases(), 'name')),
-                'advertisement_location' => ! $isRemote ? ['en' => $this->faker->country(), 'fr' => $this->faker->country()] : null,
-                'special_note' => ! $hasSpecialNote ? ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'] : null,
-                'is_remote' => $isRemote,
-                'stream' => $this->faker->randomElement(PoolStream::cases())->name,
-                'process_number' => $this->faker->word(),
-                'publishing_group' => $this->faker->randomElement(array_column(PublishingGroup::cases(), 'name')),
-                'opportunity_length' => $this->faker->randomElement(array_column(PoolOpportunityLength::cases(), 'name')),
-            ];
-        });
-    }
-
-    /**
-     * Indicate that the pool is closed.
-     */
-    public function closed(): Factory
-    {
-        return $this->published()->state(function (array $attributes) {
-            return [
-                'published_at' => $this->faker->dateTimeBetween('-6 months', '-2 months'),
-                'closing_date' => $this->faker->dateTimeBetween('-1 months', '-1 day'),
-            ];
-        });
-    }
-
-    /**
-     * Indicate that the pool is archived.
-     */
-    public function archived(): Factory
-    {
-        return $this->closed()->state(function (array $attributes) {
-            return [
-                'published_at' => $this->faker->dateTimeBetween('-12 months', '-6 months'),
-                'closing_date' => $this->faker->dateTimeBetween('-6 months', '-2 months'),
-                'archived_at' => $this->faker->dateTimeBetween('-1 month', '-1 day'),
-            ];
-        });
-    }
-
-    /**
      * Pool Candidates for this pool will appear in search results
      *
      * Note: That means only IT publishing groups
@@ -251,10 +168,8 @@ class PoolFactory extends Factory
     public function withAssessments($noOfAssessmentSteps)
     {
         return $this->afterCreating(function (Pool $pool, $noOfAssessmentSteps) {
-            $steps = [];
-            $screeningQuestionStep = $this->createAssessmentStepWithPoolSkills($pool, AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name);
-
-            for($i = 0; $i < $noOfAssessmentSteps - 1; $i++) {
+            $this->createAssessmentStepWithPoolSkills($pool, AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name);
+            for ($i = 0; $i < $noOfAssessmentSteps - 1; $i++) {
                 $steps[$i] = $this->createAssessmentStepWithPoolSkills($pool, $this->faker->randomElement(array_column(AssessmentStepType::cases(), 'name'))->name);
             }
 
