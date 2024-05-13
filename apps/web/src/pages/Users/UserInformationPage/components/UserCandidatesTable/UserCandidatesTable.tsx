@@ -15,7 +15,7 @@ import {
   getPoolCandidatePriorities,
   getPoolCandidateStatus,
 } from "@gc-digital-talent/i18n";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
@@ -74,7 +74,7 @@ const UserCandidatesTable = ({
   const intl = useIntl();
   const paths = useRoutes();
 
-  const poolCandidatesUnpacked = user.poolCandidates?.filter(notEmpty) ?? [];
+  const poolCandidatesUnpacked = unpackMaybes(user.poolCandidates);
   const poolCandidatesMappedToType: PoolCandidateSlice[] =
     poolCandidatesUnpacked.map((candidate) => {
       return {
