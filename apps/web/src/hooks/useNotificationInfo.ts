@@ -135,10 +135,7 @@ const applicationDeadlineApproachingNotificationToInfo = (
 function isNewJobPostedNotification(
   notification: GraphqlType,
 ): notification is NewJobPostedNotification {
-  return (
-    // eslint-disable-next-line no-underscore-dangle
-    notification.__typename === "NewJobPostedNotification"
-  );
+  return notification.__typename === "NewJobPostedNotification";
 }
 
 const newJobPostedNotificationToInfo = (
