@@ -619,7 +619,7 @@ input UserFilterInput {
   telephone: String @scope
   email: String @scope
   name: String @scope
-  generalSearch: [String] @scope
+  generalSearch: String @scope
   roles: [ID] @scope(name: "roleAssignments")
   trashed: Trashed @trashed
 }
@@ -648,7 +648,7 @@ input ApplicantFilterInput {
 input PoolCandidateSearchInput {
   applicantFilter: ApplicantFilterInput @spread
   email: String @scope
-  generalSearch: [String] @scope
+  generalSearch: String @scope
   name: String @scope
   notes: String @scope
   isGovEmployee: Boolean @scope
