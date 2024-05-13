@@ -17,6 +17,16 @@ export default {
     pageSize: 10,
   },
   parameters: {
+    controls: {
+      include: [
+        "ariaLabel",
+        "totalCount",
+        "totalPages",
+        "siblings",
+        "currentPage",
+        "pageSize",
+      ],
+    },
     actions: {
       argTypesRegex: "^(onCurrentPageChange|onPageSizeChange)$",
     },
