@@ -33,7 +33,7 @@ const CandidateStatusSection = ({
         {titleString}
       </Heading>
       <UserCandidatesTable
-        user={user}
+        userQuery={user}
         title={titleString}
         departments={departments ?? []}
       />

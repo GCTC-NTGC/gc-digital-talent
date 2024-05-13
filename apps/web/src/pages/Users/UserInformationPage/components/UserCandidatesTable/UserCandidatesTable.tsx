@@ -5,8 +5,8 @@ import { useIntl } from "react-intl";
 import {
   Department,
   FragmentType,
-  PoolCandidate,
-  UserInfoFragment,
+  getFragment,
+  graphql,
 } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
@@ -45,53 +45,84 @@ import {
   processCell,
 } from "./helpers";
 
-type PoolCandidateSlice = Pick<
-  PoolCandidate,
-  | "id"
-  | "user"
-  | "notes"
-  | "submittedAt"
-  | "status"
-  | "pool"
-  | "placedDepartment"
-  | "suspendedAt"
-  | "isBookmarked"
->;
-
-const columnHelper = createColumnHelper<PoolCandidateSlice>();
+const UserCandidatesTableRow_Fragment = graphql(/* GraphQL */ `
+  fragment UserCandidatesTableRow on User {
+    id
+    firstName
+    lastName
+    email
+    preferredLang
+    currentCity
+    currentProvince
+    priorityWeight
+    poolCandidates {
+      id
+      isBookmarked
+      status
+      submittedAt
+      suspendedAt
+      notes
+      assessmentResults {
+        id
+        assessmentStep {
+          id
+        }
+        assessmentResultType
+        assessmentDecision
+        assessmentDecisionLevel
+      }
+      placedDepartment {
+        id
+        departmentNumber
+        name {
+          en
+          fr
+        }
+      }
+      pool {
+        id
+        assessmentSteps {
+          id
+          type
+          sortOrder
+          title {
+            en
+            fr
+          }
+          poolSkills {
+            id
+            type
+            requiredLevel
+          }
+        }
+      }
+      user {
+        id
+      }
+    }
+  }
+`);
 
 export interface UserCandidatesTableProps {
-  user: UserInfoFragment;
+  userQuery: FragmentType<typeof UserCandidatesTableRow_Fragment>;
   departments: Department[];
   title: string;
 }
 
 const UserCandidatesTable = ({
-  user,
+  userQuery,
   departments,
   title,
 }: UserCandidatesTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 
+  const user = getFragment(UserCandidatesTableRow_Fragment, userQuery);
   const poolCandidatesUnpacked = unpackMaybes(user.poolCandidates);
-  const poolCandidatesMappedToType: PoolCandidateSlice[] =
-    poolCandidatesUnpacked.map((candidate) => {
-      return {
-        id: candidate.id,
-        user: candidate.user,
-        notes: candidate.notes,
-        submittedAt: candidate.submittedAt,
-        status: candidate.status,
-        pool: candidate.pool,
-        placedDepartment: candidate.placedDepartment,
-        suspendedAt: candidate.suspendedAt,
-        isBookmarked: candidate.isBookmarked,
-      };
-    });
-  const candidateIds = poolCandidatesMappedToType.map(
-    (candidate) => candidate.id,
-  );
+  type PoolCandidateSlice = (typeof poolCandidatesUnpacked)[number];
+  const columnHelper = createColumnHelper<PoolCandidateSlice>();
+
+  const candidateIds = poolCandidatesUnpacked.map((candidate) => candidate.id);
 
   const columns = [
     columnHelper.display({
@@ -243,7 +274,7 @@ const UserCandidatesTable = ({
 
   return (
     <Table<PoolCandidateSlice>
-      data={poolCandidatesMappedToType}
+      data={poolCandidatesUnpacked}
       columns={columns}
       caption={title}
       sort={{ internal: true }}

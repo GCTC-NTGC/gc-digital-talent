@@ -32,6 +32,7 @@ import EmploymentEquitySection from "./components/EmploymentEquitySection";
 
 export const UserInfo_Fragment = graphql(/* GraphQL */ `
   fragment UserInfo on User {
+    ...UserCandidatesTableRow
     id
     email
     firstName
