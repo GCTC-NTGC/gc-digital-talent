@@ -313,7 +313,6 @@ type NewJobPostedNotification implements Notification {
   readAt: DateTime
   createdAt: DateTime!
   updatedAt: DateTime!
-  poolName: LocalizedString
   poolId: ID
 }
 
