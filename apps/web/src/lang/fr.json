@@ -4487,6 +4487,10 @@
     "defaultMessage": "Ajoutez, modifiez, et gérez les compétences de votre profil.",
     "description": "Page description for the skill library page"
   },
+  "Nm+j2a": {
+    "defaultMessage": "Un nouveau poste y est maintenant affiché! À vous de juger s’il vous convient et de présenter votre candidature.",
+    "description": "Label for the new job posted notification"
+  },
   "NuT+Rx": {
     "defaultMessage": "Procéder à la mise à jour du sujet",
     "description": "Heading label for update a user's subject form"
@@ -4626,6 +4630,10 @@
   "Ok+Ojl": {
     "defaultMessage": "{skill} est défini comme :",
     "description": "Heading for a specific skills definition"
+  },
+  "OlSnME": {
+    "defaultMessage": "Un nouveau poste y est maintenant affiché! À vous de juger s’il vous convient et de présenter votre candidature.",
+    "description": "Message for new job posted notification"
   },
   "OlZeZO": {
     "defaultMessage": "Sélectionnez une catégorie",
