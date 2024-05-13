@@ -13,6 +13,7 @@ use App\Enums\NotificationFamily;
 use App\Enums\OperationalRequirement;
 use App\Enums\PositionDuration;
 use App\Enums\ProvinceOrTerritory;
+use App\Enums\SkillLevel;
 use App\Models\AwardExperience;
 use App\Models\Classification;
 use App\Models\CommunityExperience;
@@ -127,6 +128,28 @@ class UserFactory extends Factory
             'ignored_email_notifications' => $this->faker->optional->randomElements(array_column(NotificationFamily::cases(), 'name'), null),
             'ignored_in_app_notifications' => $this->faker->optional->randomElements(array_column(NotificationFamily::cases(), 'name'), null),
         ];
+    }
+
+    public function withPoolSkillsAndExperiences($skills)
+    {
+        return $this->afterCreating(function (User $user) use ($skills) {
+            foreach ($skills as $skill) {
+                $user->skills()->attach($skill['id'], ['skill_level' => SkillLevel::ADVANCED]);
+            }
+            $experienceFactories = [
+                AwardExperience::factory(['user_id' => $user->id]),
+                CommunityExperience::factory(['user_id' => $user->id]),
+                EducationExperience::factory(['user_id' => $user->id]),
+                PersonalExperience::factory(['user_id' => $user->id]),
+                WorkExperience::factory(['user_id' => $user->id]),
+            ];
+            $experience = $this->faker->randomElement($experienceFactories)->create();
+            $skillsForExperience = $this->faker->randomElements($skills, $this->faker->numberBetween(1, $skills->count()));
+            $syncDataExperience = array_map(function ($skill) {
+                return ['id' => $skill->id, 'details' => $this->faker->text()];
+            }, $skillsForExperience);
+            $experience->syncSkills($syncDataExperience);
+        });
     }
 
     public function withSkillsAndExperiences($count = 10)
