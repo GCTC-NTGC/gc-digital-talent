@@ -19,7 +19,7 @@ const ClosingDateDialog = ({
   title,
 }: {
   title: React.ReactNode;
-}): JSX.Element => {
+}): React.JSX.Element => {
   const intl = useIntl();
   const routes = useRoutes();
 

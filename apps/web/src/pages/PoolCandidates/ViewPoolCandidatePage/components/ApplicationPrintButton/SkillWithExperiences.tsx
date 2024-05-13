@@ -222,7 +222,7 @@ export interface SkillWithExperiencesProps {
 const SkillWithExperiences = ({
   skill,
   experiences,
-}: SkillWithExperiencesProps): JSX.Element => {
+}: SkillWithExperiencesProps): React.JSX.Element => {
   const intl = useIntl();
   const skillExperiences = getExperienceSkills(experiences, skill);
 

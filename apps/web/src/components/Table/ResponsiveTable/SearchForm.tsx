@@ -17,7 +17,7 @@ import { SearchFormProps, SearchColumn, SearchState } from "./types";
  * or by specific columns (searchBy)
  *
  * @param SearchFormProps
- * @returns JSX.Element
+ * @returns React.JSX.Element
  */
 const SearchForm = <T,>({
   table,

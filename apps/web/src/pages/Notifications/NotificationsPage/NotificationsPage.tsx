@@ -67,9 +67,8 @@ const NotificationsPage = () => {
                   })}
                 </p>
                 <p>
-                  {/** Update URL when page is created in (ticket not created yet?) */}
                   <Link
-                    href={paths.home()}
+                    href={`${paths.accountSettings()}#notification-settings`}
                     icon={Cog8ToothIcon}
                     mode="inline"
                     color="primary"

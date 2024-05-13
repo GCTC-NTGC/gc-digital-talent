@@ -7,7 +7,7 @@ interface DefaultPath {
   initialEntries: string[];
 }
 
-const createRouter = (story: JSX.Element, defaultPath?: DefaultPath) =>
+const createRouter = (story: React.JSX.Element, defaultPath?: DefaultPath) =>
   createMemoryRouter(
     [
       {
