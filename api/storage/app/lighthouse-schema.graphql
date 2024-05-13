@@ -728,6 +728,7 @@ input PoolCandidateSearchInput {
   expiryStatus: CandidateExpiryFilter
   suspendedStatus: CandidateSuspendedFilter
   publishingGroups: [PublishingGroup]
+  appliedClassifications: [ClassificationFilterInput]
 }
 
 input PoolCandidateSearchRequestInput {

@@ -653,6 +653,10 @@ input PoolCandidateSearchInput {
   expiryStatus: CandidateExpiryFilter @scope(name: "expiryStatus")
   suspendedStatus: CandidateSuspendedFilter @scope(name: "suspendedStatus")
   publishingGroups: [PublishingGroup] @scope(name: "publishingGroups") # Filters applicants based on the publishing group of the pool
+  # Filters applicants based on the classification of all pools they are currently in.
+  # There is also a classification field as part of ApplicantFilterInput however it includes scoping for availability.
+  appliedClassifications: [ClassificationFilterInput]
+    @scope(name: "appliedClassifications")
 }
 
 input PoolCandidateSearchRequestInput {

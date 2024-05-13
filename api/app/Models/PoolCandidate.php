@@ -261,6 +261,33 @@ class PoolCandidate extends Model
     }
 
     /**
+     * Scopes the query to return PoolCandidates in a pool with one of the specified classifications.
+     * If $classifications is empty, this scope will be ignored.
+     *
+     * @param  array|null  $classifications  Each classification is an object with a group and a level field.
+     */
+    public static function scopeAppliedClassifications(Builder $query, ?array $classifications): Builder
+    {
+        if (empty($classifications)) {
+            return $query;
+        }
+
+        $query->whereHas('pool', function ($query) use ($classifications) {
+            $query->whereHas('classification', function ($query) use ($classifications) {
+                $query->where(function ($query) use ($classifications) {
+                    foreach ($classifications as $classification) {
+                        $query->orWhere(function ($query) use ($classification) {
+                            $query->where('group', $classification['group'])->where('level', $classification['level']);
+                        });
+                    }
+                });
+            });
+        });
+
+        return $query;
+    }
+
+    /**
      * Scopes the query to only return PoolCandidates who are available in a pool with one of the specified classifications.
      * If $classifications is empty, this scope will be ignored.
      *
@@ -273,25 +300,10 @@ class PoolCandidate extends Model
         }
 
         // Ensure the PoolCandidates are qualified and available.
-        $query->where(function ($query) {
-            $query->whereDate('pool_candidates.expiry_date', '>=', Carbon::now())->orWhereNull('expiry_date'); // Where the PoolCandidate is not expired
-        })
-            ->whereIn('pool_candidates.pool_candidate_status', PoolCandidateStatus::qualifiedEquivalentGroup()) // Where the PoolCandidate is accepted into the pool and not already placed.
-            ->where(function ($query) {
-                $query->where('suspended_at', '>=', Carbon::now())->orWhereNull('suspended_at'); // Where the candidate has not suspended their candidacy in the pool
-            })
-            // Now ensure the PoolCandidate is in a pool with the right classification
-            ->whereHas('pool', function ($query) use ($classifications) {
-                $query->whereHas('classification', function ($query) use ($classifications) {
-                    $query->where(function ($query) use ($classifications) {
-                        foreach ($classifications as $classification) {
-                            $query->orWhere(function ($query) use ($classification) {
-                                $query->where('group', $classification['group'])->where('level', $classification['level']);
-                            });
-                        }
-                    });
-                });
-            });
+        $query = self::scopeAvailable($query);
+
+        // Now ensure the PoolCandidate is in a pool with the right classification
+        $query = self::scopeAppliedClassifications($query, $classifications);
 
         return $query;
     }

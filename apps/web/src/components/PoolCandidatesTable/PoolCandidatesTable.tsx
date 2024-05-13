@@ -404,6 +404,7 @@ const PoolCandidatesTable = ({
       suspendedStatus: fancyFilterState?.suspendedStatus,
       isGovEmployee: fancyFilterState?.isGovEmployee,
       publishingGroups: fancyFilterState?.publishingGroups,
+      appliedClassifications: fancyFilterState?.appliedClassifications,
     };
   };
 
