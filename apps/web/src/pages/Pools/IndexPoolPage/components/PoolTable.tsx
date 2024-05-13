@@ -179,8 +179,8 @@ const PoolTable = ({ title }: PoolTableProps) => {
         description:
           "Title displayed for the Pool table Group and Level column.",
       }),
-      // TO DO: Reenable when sort relation added
-      enableSorting: false,
+      // TO DO: Move to filter
+      enableColumnFilter: false,
       cell: ({ row: { original: pool } }) =>
         classificationCell(pool.classification),
     }),
@@ -296,7 +296,7 @@ const PoolTable = ({ title }: PoolTableProps) => {
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
       orderBy: sortState
-        ? [transformSortStateToOrderByClause(sortState)]
+        ? transformSortStateToOrderByClause(sortState)
         : undefined,
     },
   });

@@ -10,6 +10,7 @@ import {
   OrderByClause,
   OrderByRelationWithColumnAggregateFunction,
   Pool,
+  QueryPoolsPaginatedOrderByClassificationColumn,
   QueryPoolsPaginatedOrderByRelationOrderByClause,
   QueryPoolsPaginatedOrderByUserColumn,
   SortOrder,
@@ -166,19 +167,19 @@ export function transformPoolInput({ search }: TransformPoolInputArgs) {
 
 export function transformSortStateToOrderByClause(
   sortingRules?: SortingState,
-): QueryPoolsPaginatedOrderByRelationOrderByClause {
+): QueryPoolsPaginatedOrderByRelationOrderByClause[] {
   const columnMap = new Map<string, string>([
     ["id", "id"],
     ["name", "name"],
     ["publishingGroup", "publishing_group"],
     ["stream", "stream"],
-    ["ownerName", "first_name"],
-    ["ownerEmail", "email"],
+    ["ownerName", "FIRST_NAME"],
+    ["ownerEmail", "EMAIL"],
     ["createdDate", "created_at"],
     ["updatedDate", "updated_at"],
+    ["classification", "classification"],
     // ["team", "displayName"],
     // ["status", "status"],
-    // ["classification", "classification"],
   ]);
 
   const sortingRule = sortingRules?.find((rule) => {
@@ -186,30 +187,57 @@ export function transformSortStateToOrderByClause(
     return !!columnName;
   });
 
+  if (sortingRule && sortingRule.id === "classification") {
+    return [
+      {
+        column: undefined,
+        order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+        classification: {
+          aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+          column: "GROUP" as QueryPoolsPaginatedOrderByClassificationColumn,
+        },
+      },
+      {
+        column: undefined,
+        order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+        classification: {
+          aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+          column: "LEVEL" as QueryPoolsPaginatedOrderByClassificationColumn,
+        },
+      },
+    ];
+  }
+
   if (sortingRule && ["ownerName", "ownerEmail"].includes(sortingRule.id)) {
     const columnName = columnMap.get(sortingRule.id);
-    return {
-      column: undefined,
-      order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
-      user: {
-        aggregate: OrderByRelationWithColumnAggregateFunction.Max,
-        column: columnName as QueryPoolsPaginatedOrderByUserColumn,
+    return [
+      {
+        column: undefined,
+        order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+        user: {
+          aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+          column: columnName as QueryPoolsPaginatedOrderByUserColumn,
+        },
       },
-    };
+    ];
   }
 
   if (sortingRule) {
     const columnName = columnMap.get(sortingRule.id);
-    return {
-      column: columnName,
-      order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
-      user: undefined,
-    };
+    return [
+      {
+        column: columnName,
+        order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+        user: undefined,
+      },
+    ];
   }
 
-  return {
-    column: "created_at",
-    order: SortOrder.Asc,
-    user: undefined,
-  };
+  return [
+    {
+      column: "created_at",
+      order: SortOrder.Asc,
+      user: undefined,
+    },
+  ];
 }
