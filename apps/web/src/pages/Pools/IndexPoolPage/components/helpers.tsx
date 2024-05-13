@@ -1,15 +1,20 @@
 import React from "react";
 import { IntlShape } from "react-intl";
+import { SortingState } from "@tanstack/react-table";
 
-import { getLocalizedName, getPoolStream } from "@gc-digital-talent/i18n";
+import {
+  Locales,
+  getLocalizedName,
+  getPoolStream,
+} from "@gc-digital-talent/i18n";
 import { Link, Chip } from "@gc-digital-talent/ui";
 import {
   Classification,
   LocalizedString,
   Maybe,
-  OrderByClause,
   OrderByRelationWithColumnAggregateFunction,
   Pool,
+  PoolTeamDisplayNameOrderByInput,
   QueryPoolsPaginatedOrderByClassificationColumn,
   QueryPoolsPaginatedOrderByRelationOrderByClause,
   QueryPoolsPaginatedOrderByUserColumn,
@@ -17,8 +22,7 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
-import { SearchState } from "../../../../components/Table/ResponsiveTable/types";
-import { SortingState } from "@tanstack/react-table";
+import { SearchState } from "~/components/Table/ResponsiveTable/types";
 
 export function poolNameAccessor(pool: Pool, intl: IntlShape) {
   const name = getLocalizedName(pool.name, intl);
@@ -165,9 +169,9 @@ export function transformPoolInput({ search }: TransformPoolInputArgs) {
   };
 }
 
-export function transformSortStateToOrderByClause(
+export function getOrderByClause(
   sortingRules?: SortingState,
-): QueryPoolsPaginatedOrderByRelationOrderByClause[] {
+): QueryPoolsPaginatedOrderByRelationOrderByClause[] | undefined {
   const columnMap = new Map<string, string>([
     ["id", "id"],
     ["name", "name"],
@@ -178,7 +182,7 @@ export function transformSortStateToOrderByClause(
     ["createdDate", "created_at"],
     ["updatedDate", "updated_at"],
     ["classification", "classification"],
-    // ["team", "displayName"],
+    ["team", "team"],
     // ["status", "status"],
   ]);
 
@@ -186,6 +190,9 @@ export function transformSortStateToOrderByClause(
     const columnName = columnMap.get(rule.id);
     return !!columnName;
   });
+
+  // Team is handled by another arg
+  if (sortingRule?.id === "team") return undefined;
 
   if (sortingRule && sortingRule.id === "classification") {
     return [
@@ -240,4 +247,18 @@ export function transformSortStateToOrderByClause(
       user: undefined,
     },
   ];
+}
+
+export function getTeamDisplayNameSort(
+  sortingRules?: SortingState,
+  locale?: Locales,
+): PoolTeamDisplayNameOrderByInput | undefined {
+  const sortingRule = sortingRules?.find((rule) => rule.id === "team");
+
+  if (!sortingRule) return undefined;
+
+  return {
+    locale: locale ?? "en",
+    order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+  };
 }

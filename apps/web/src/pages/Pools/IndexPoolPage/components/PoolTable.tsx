@@ -16,6 +16,7 @@ import {
   getLocalizedName,
   getPublishingGroup,
   getPoolStream,
+  getLocale,
 } from "@gc-digital-talent/i18n";
 import { graphql, Pool } from "@gc-digital-talent/graphql";
 
@@ -39,7 +40,8 @@ import {
   viewCell,
   viewTeamLinkCell,
   transformPoolInput,
-  transformSortStateToOrderByClause,
+  getTeamDisplayNameSort,
+  getOrderByClause,
 } from "./helpers";
 import { INITIAL_STATE } from "~/components/Table/ResponsiveTable/constants";
 import { SearchState } from "~/components/Table/ResponsiveTable/types";
@@ -54,12 +56,14 @@ const defaultState = {
 const PoolTable_Query = graphql(/* GraphQL */ `
   query PoolTable(
     $where: PoolFilterInput
+    $orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput
     $orderBy: [QueryPoolsPaginatedOrderByRelationOrderByClause!]
     $first: Int
     $page: Int
   ) {
     poolsPaginated(
       where: $where
+      orderByTeamDisplayName: $orderByTeamDisplayName
       orderBy: $orderBy
       first: $first
       page: $page
@@ -115,6 +119,7 @@ interface PoolTableProps {
 
 const PoolTable = ({ title }: PoolTableProps) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const paths = useRoutes();
   const initialState = getTableStateFromSearchParams(defaultState);
   const [paginationState, setPaginationState] = React.useState<PaginationState>(
@@ -231,8 +236,6 @@ const PoolTable = ({ title }: PoolTableProps) => {
       {
         id: "team",
         header: intl.formatMessage(adminMessages.team),
-        // TO DO: Reenable when scope is added
-        enableSorting: false,
         cell: ({ row: { original: pool } }) =>
           viewTeamLinkCell(
             paths.teamView(pool.team?.id ? pool.team?.id : ""),
@@ -295,9 +298,8 @@ const PoolTable = ({ title }: PoolTableProps) => {
       where: transformPoolInput({ search: searchState }),
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
-      orderBy: sortState
-        ? transformSortStateToOrderByClause(sortState)
-        : undefined,
+      orderByTeamDisplayName: getTeamDisplayNameSort(sortState, locale),
+      orderBy: sortState ? getOrderByClause(sortState) : undefined,
     },
   });
 

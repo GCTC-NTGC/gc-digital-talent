@@ -58,6 +58,7 @@ type Query {
   ): UserPublicProfilePaginator!
   poolsPaginated(
     where: PoolFilterInput
+    orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput
     orderBy: [QueryPoolsPaginatedOrderByRelationOrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
@@ -735,6 +736,11 @@ input PoolFilterInput {
   ownerName: String
   ownerEmail: String
   team: String
+}
+
+input PoolTeamDisplayNameOrderByInput {
+  locale: String!
+  order: SortOrder!
 }
 
 input ApplicantFilterInput {

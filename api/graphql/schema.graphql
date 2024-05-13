@@ -648,6 +648,11 @@ input PoolFilterInput {
   team: String @scope
 }
 
+input PoolTeamDisplayNameOrderByInput {
+  locale: String!
+  order: SortOrder!
+}
+
 # Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
 input ApplicantFilterInput {
   equity: EquitySelectionsInput @scope
@@ -770,6 +775,7 @@ type Query {
     @deprecated(reason: "pools is deprecated. Use poolsPaginated instead.")
   poolsPaginated(
     where: PoolFilterInput
+    orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput @scope
     orderBy: _
       @orderBy(
         relations: [
