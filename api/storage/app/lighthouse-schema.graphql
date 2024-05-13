@@ -11,7 +11,7 @@ type Query {
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
-  pools: [Pool]!
+  pools: [Pool]! @deprecated(reason: "pools is deprecated. Use poolsPaginated instead.")
   poolCandidate(id: UUID!): PoolCandidate
   poolCandidates(includeIds: [ID]!): [PoolCandidate]! @deprecated(reason: "poolCandidates is deprecated. Use poolCandidatesPaginated instead. Remove in #7656.")
   countPoolCandidatesByPool(where: ApplicantFilterInput): [CandidateSearchPoolResult!]!
@@ -56,6 +56,16 @@ type Query {
     "The offset from which items are returned."
     page: Int
   ): UserPublicProfilePaginator!
+  poolsPaginated(
+    where: PoolFilterInput
+    orderBy: [OrderByClause!]
+
+    "Limits number of fetched items. Maximum allowed value: 1000."
+    first: Int! = 10
+
+    "The offset from which items are returned."
+    page: Int
+  ): PoolPaginator!
   poolCandidatesPaginated(
     where: PoolCandidateSearchInput
     orderByPoolName: PoolCandidatePoolNameOrderByInput
@@ -717,6 +727,12 @@ input UserFilterInput {
 
 input UserPublicProfileFilterInput {
   publicProfileSearch: String
+}
+
+input PoolFilterInput {
+  name: String
+  ownerName: String
+  ownerEmail: String
 }
 
 input ApplicantFilterInput {
@@ -1719,6 +1735,15 @@ type UserPublicProfilePaginator {
 
   "A list of UserPublicProfile items."
   data: [UserPublicProfile!]!
+}
+
+"A paginated list of Pool items."
+type PoolPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of Pool items."
+  data: [Pool!]!
 }
 
 "A paginated list of PoolCandidateWithSkillCount items."

@@ -314,8 +314,46 @@ class Pool extends Model
         return $query;
     }
 
+    public static function scopeName(Builder $query, ?string $name): Builder
+    {
+        if ($name) {
+            $query->where(function ($query) use ($name) {
+                $term = sprintf('%%%s%%', $name);
+
+                return $query->where('name->en', 'ilike', $term)
+                    ->orWhere('name->fr', 'ilike', $term);
+            });
+        }
+
+        return $query;
+    }
+
+    public static function scopeOwnerName(Builder $query, ?string $name): Builder
+    {
+        if ($name) {
+            $query->whereHas('user', function ($query) use ($name) {
+                User::scopeName($query, $name);
+            });
+        }
+
+        return $query;
+    }
+
+    public static function scopeOwnerEmail(Builder $query, ?string $email): Builder
+    {
+        if ($email) {
+            $query->whereHas('user', function ($query) use ($email) {
+                User::scopeEmail($query, $email);
+            });
+        }
+
+        return $query;
+    }
+
     public function scopeAuthorizedToView(Builder $query)
     {
+
+        /** @var \App\Models\User */
         $user = Auth::user();
 
         if (! $user) {
