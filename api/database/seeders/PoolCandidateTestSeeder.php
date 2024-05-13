@@ -4,9 +4,9 @@ namespace Database\Seeders;
 
 use App\Enums\ApplicationStep;
 use App\Enums\PoolCandidateStatus;
+use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
-use App\Models\Pool;
 use Illuminate\Database\Seeder;
 
 class PoolCandidateTestSeeder extends Seeder
@@ -30,7 +30,7 @@ class PoolCandidateTestSeeder extends Seeder
         // this was split into two steps as otherwise PoolCandidateFactory automatically assigns a submitted_at
         $candidateOne->pool_candidate_status = PoolCandidateStatus::EXPIRED->name;
         $candidateOne->save();
-        $users=[];
+        $users = [];
         $users[0] = User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
@@ -43,7 +43,7 @@ class PoolCandidateTestSeeder extends Seeder
                 'citizenship' => 'Canadian',
             ]);
 
-        $users[1] =  User::factory()
+        $users[1] = User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
             ->create([
@@ -53,7 +53,7 @@ class PoolCandidateTestSeeder extends Seeder
                 'sub' => 'user2@test.com',
             ]);
 
-       $users[2] = User::factory()
+        $users[2] = User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
             ->asGovEmployee()
@@ -64,7 +64,7 @@ class PoolCandidateTestSeeder extends Seeder
                 'sub' => 'user3@test.com',
             ]);
 
-       $users[3] = User::factory()
+        $users[3] = User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
             ->create([
@@ -109,7 +109,7 @@ class PoolCandidateTestSeeder extends Seeder
                 'email' => 'user8@test.com',
                 'sub' => 'user8@test.com',
             ]);
-    $this->applyToAllPools($users, Pool::all());
+        $this->applyToAllPools($users, Pool::all());
     }
 
     public function applyToAllPools($users, $pools)
@@ -126,49 +126,41 @@ class PoolCandidateTestSeeder extends Seeder
                     $poolCandidate->pool_candidate_status = PoolCandidateStatus::PLACED_INDETERMINATE->name;
                     $poolCandidate->save();
                 }
-                if($user->first_name == 'User2')
-                {
+                if ($user->first_name == 'User2') {
                     $poolCandidate->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
                     $poolCandidate->expiry_date = now()->addYears(2);
                     $poolCandidate->save();
                 }
-                if($user->first_name == 'User3')
-                {
+                if ($user->first_name == 'User3') {
                     $poolCandidate->pool_candidate_status = PoolCandidateStatus::PLACED_TENTATIVE->name;
                     $poolCandidate->expiry_date = now()->addYears(2);
                     $poolCandidate->save();
                 }
-                if($user->first_name == 'User3')
-                {
+                if ($user->first_name == 'User3') {
                     $poolCandidate->pool_candidate_status = PoolCandidateStatus::PLACED_TENTATIVE->name;
                     $poolCandidate->expiry_date = now()->addYears(2);
                     $poolCandidate->save();
                 }
-                if($user->first_name == 'User4')
-                {
+                if ($user->first_name == 'User4') {
                     $poolCandidate->pool_candidate_status = PoolCandidateStatus::REMOVED->name;
                     $poolCandidate->save();
                 }
-             if($user->first_name == 'User5')
-                {
+                if ($user->first_name == 'User5') {
                     $poolCandidate->pool_candidate_status = PoolCandidateStatus::SCREENED_OUT_APPLICATION->name;
                     $poolCandidate->expiry_date = now()->addYears(2);
                     $poolCandidate->save();
                 }
-         if($user->first_name == 'User6')
-                {
+                if ($user->first_name == 'User6') {
                     $poolCandidate->pool_candidate_status = PoolCandidateStatus::REMOVED->name;
                     $poolCandidate->expiry_date = now()->addYears(2);
                     $poolCandidate->save();
                 }
-                 if($user->first_name == 'User7')
-                {
+                if ($user->first_name == 'User7') {
                     $poolCandidate->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
                     $poolCandidate->expiry_date = now()->addYears(2);
                     $poolCandidate->save();
                 }
-                 if($user->first_name == 'User8')
-                {
+                if ($user->first_name == 'User8') {
                     $poolCandidate->pool_candidate_status = PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name;
                     $poolCandidate->expiry_date = now()->addYears(2);
                     $poolCandidate->save();

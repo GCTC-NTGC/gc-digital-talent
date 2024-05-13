@@ -142,7 +142,6 @@ class PoolTestSeeder extends Seeder
                 'publishing_group' => PublishingGroup::OTHER->name,
             ],
         ];
-
         foreach ($pools as $poolData) {
             $identifier = [
                 'name->en' => $poolData['name']['en'],
@@ -153,8 +152,8 @@ class PoolTestSeeder extends Seeder
                 // constrain CMO Digital Careers pool to predictable values
                 if ($identifier['name->en'] == 'CMO Digital Careers') {
                     $createdPool = Pool::factory()
-                        ->withPoolSkills(4,4)
-                        ->withQuestions(2,2)
+                        ->withPoolSkills(4, 4)
+                        ->withQuestions(2, 2)
                         ->published()
                         ->create($poolData);
                     $classificationIT01Id = Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 1)->sole()->id;
@@ -166,44 +165,44 @@ class PoolTestSeeder extends Seeder
                 // IT -01
                 if ($identifier['name->en'] == 'Infrastructure Operations Technician') {
                     $createdPool = Pool::factory()
-                        ->withPoolSkills(0,0)
-                        ->withQuestions(0,0)
+                        ->withPoolSkills(0, 0)
+                        ->withQuestions(0, 0)
                         ->draft()
                         ->create($poolData);
                 }
-                 // IT -02
-                 if ($identifier['name->en'] == 'IT Security Analyst') {
+                // IT -02
+                if ($identifier['name->en'] == 'IT Security Analyst') {
                     $createdPool = Pool::factory()
-                        ->withPoolSkills(2,2)
-                        ->withQuestions(0,1)
+                        ->withPoolSkills(2, 2)
+                        ->withQuestions(0, 1)
                         ->draft()
                         ->withAssessments(2)
                         ->create($poolData);
                 }
                 // IT - 03
-                 if ($identifier['name->en'] == 'IT Security Specialist') {
+                if ($identifier['name->en'] == 'IT Security Specialist') {
                     $createdPool = Pool::factory()
-                        ->withPoolSkills(6,6)
-                        ->withQuestions(3,3)
+                        ->withPoolSkills(6, 6)
+                        ->withQuestions(3, 3)
                         ->published()
                         ->withAssessments(5)
                         ->create($poolData);
                 }
 
                 //IT -04
-                 if ($identifier['name->en'] == 'IT Security Consultant') {
+                if ($identifier['name->en'] == 'IT Security Consultant') {
                     $createdPool = Pool::factory()
-                        ->withPoolSkills(2,2)
-                        ->withQuestions(3,3)
+                        ->withPoolSkills(2, 2)
+                        ->withQuestions(3, 3)
                         ->published()
                         ->withAssessments(5)
                         ->create($poolData);
                 }
 
-                 if ($identifier['name->en'] == 'IT Security Manager') {
+                if ($identifier['name->en'] == 'IT Security Manager') {
                     $createdPool = Pool::factory()
-                        ->withPoolSkills(2,2)
-                        ->withQuestions(0,1)
+                        ->withPoolSkills(2, 2)
+                        ->withQuestions(0, 1)
                         ->published()
                         ->withAssessments(5)
                         ->create($poolData);
