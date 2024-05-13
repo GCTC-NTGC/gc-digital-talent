@@ -293,6 +293,9 @@ importers:
       jest-axe:
         specifier: ^8.0.0
         version: 8.0.0
+      jest-diff:
+        specifier: ^29.7.0
+        version: 29.7.0
       jest-fail-on-console:
         specifier: ^3.2.0
         version: 3.2.0

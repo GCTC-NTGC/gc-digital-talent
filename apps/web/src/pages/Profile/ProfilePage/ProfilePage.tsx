@@ -98,7 +98,8 @@ const subTitle = defineMessage({
   description: "subtitle for the profile page",
 });
 
-export const UserProfile_Fragment = graphql(/* GraphQL */ `
+// export text for testing
+export const UserProfile_FragmentText = /* GraphQL */ `
   fragment UserProfile on User {
     id
     authInfo {
@@ -371,7 +372,9 @@ export const UserProfile_Fragment = graphql(/* GraphQL */ `
       }
     }
   }
-`);
+`;
+
+export const UserProfile_Fragment = graphql(UserProfile_FragmentText);
 
 export interface ProfilePageProps {
   userQuery: FragmentType<typeof UserProfile_Fragment>;
