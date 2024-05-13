@@ -105,11 +105,11 @@ const errorMessages = defineMessages({
     description:
       "Error message when a date was entered that is greater than the maximum required",
   },
-  specialCharacters: {
+  requestRejected: {
     defaultMessage:
-      "The text cannot be saved. Please ensure the text has no formatting or special characters and try again.",
-    id: "Q3Pc71",
-    description: "Error message that there might be a special character.",
+      "Your request wasn't completed. Please try again or contact our team for help.",
+    id: "Gv3lBS",
+    description: "Message for Unauthorized or Request Rejected server response",
   },
 });
 

@@ -9,12 +9,14 @@ import {
   FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import UserProfile from "~/components/UserProfile";
 import AdminAboutUserSection from "~/components/AdminAboutUserSection/AdminAboutUserSection";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRequiredParams from "~/hooks/useRequiredParams";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import SingleUserProfilePrintButton from "./components/SingleUserProfilePrintButton";
 
@@ -336,5 +338,19 @@ const AdminUserProfilePage = () => {
     </AdminContentWrapper>
   );
 };
+
+export const Component = () => (
+  <RequireAuth
+    roles={[
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.RequestResponder,
+      ROLE_NAME.PlatformAdmin,
+    ]}
+  >
+    <AdminUserProfilePage />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminUserProfilePage";
 
 export default AdminUserProfilePage;

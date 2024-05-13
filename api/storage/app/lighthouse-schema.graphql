@@ -26,6 +26,7 @@ type Query {
   skills: [Skill]!
   genericJobTitle(id: UUID!): GenericJobTitle
   genericJobTitles: [GenericJobTitle]!
+  communities: [Community]!
   team(id: UUID!): Team
   teams: [Team]!
   roles: [Role]!
@@ -467,6 +468,13 @@ type Department {
   departmentNumber: Int!
   name: LocalizedString!
   teams: [Team]
+}
+
+type Community {
+  id: ID!
+  key: String!
+  name: LocalizedString
+  description: LocalizedString
 }
 
 type Team {

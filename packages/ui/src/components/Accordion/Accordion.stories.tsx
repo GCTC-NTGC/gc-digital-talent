@@ -2,7 +2,7 @@ import React from "react";
 import type { Meta, StoryFn } from "@storybook/react";
 import AcademicCapIcon from "@heroicons/react/24/solid/AcademicCapIcon";
 import Cog8ToothIcon from "@heroicons/react/24/solid/Cog8ToothIcon";
-import { faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker/locale/en";
 import { action } from "@storybook/addon-actions";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";

@@ -31,6 +31,7 @@ import {
   PoolCandidateStatus,
   PoolSkillType,
 } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -51,6 +52,7 @@ import {
 } from "~/constants/poolCandidate";
 import JobPlacementDialog from "~/components/PoolCandidatesTable/JobPlacementDialog";
 import { groupPoolSkillByType } from "~/utils/skillUtils";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
 import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
@@ -80,6 +82,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
       id
       status
       user {
+        ...ApplicationProfileDetails
         id
         firstName
         lastName
@@ -540,7 +543,7 @@ export const ViewPoolCandidate = ({
           </Chips>
         }
       >
-        <ProfileDetails user={poolCandidate.user} />
+        <ProfileDetails userQuery={poolCandidate.user} />
       </AdminHero>
       <AdminContentWrapper>
         <Sidebar.Wrapper>
@@ -798,5 +801,19 @@ export const ViewPoolCandidatePage = () => {
     </Pending>
   );
 };
+
+export const Component = () => (
+  <RequireAuth
+    roles={[
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.RequestResponder,
+      ROLE_NAME.PlatformAdmin,
+    ]}
+  >
+    <ViewPoolCandidatePage />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminViewPoolCandidatePage";
 
 export default ViewPoolCandidatePage;

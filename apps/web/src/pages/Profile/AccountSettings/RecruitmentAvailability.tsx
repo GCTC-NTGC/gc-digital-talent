@@ -1,7 +1,12 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 
-import { PoolCandidateStatus, User } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  PoolCandidateStatus,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Link, Well } from "@gc-digital-talent/ui";
 
@@ -14,11 +19,31 @@ const inlineLink = (href: string, chunks: React.ReactNode) => (
   </Link>
 );
 
-const RecruitmentAvailability = ({ user }: { user: User }) => {
+const RecruitmentAvailabilityCandidate_Fragment = graphql(/* GraphQL */ `
+  fragment RecruitmentAvailabilityCandidate on PoolCandidate {
+    status
+    id
+    ...ApplicationCard
+  }
+`);
+
+interface RecruitmentAvailabilityProps {
+  candidatesQuery: FragmentType<
+    typeof RecruitmentAvailabilityCandidate_Fragment
+  >[];
+}
+
+const RecruitmentAvailability = ({
+  candidatesQuery,
+}: RecruitmentAvailabilityProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const applications = getFragment(
+    RecruitmentAvailabilityCandidate_Fragment,
+    candidatesQuery,
+  );
 
-  const activeApplications = unpackMaybes(user.poolCandidates).filter(
+  const activeApplications = unpackMaybes([...applications]).filter(
     ({ status }) =>
       status &&
       [
@@ -34,7 +59,7 @@ const RecruitmentAvailability = ({ user }: { user: User }) => {
   );
   return activeApplications.length > 0 ? (
     activeApplications.map((application) => (
-      <ApplicationCard key={application.id} application={application} />
+      <ApplicationCard key={application.id} poolCandidateQuery={application} />
     ))
   ) : (
     <Well data-h2-margin="base(x1 0)" data-h2-text-align="base(center)">

@@ -8,7 +8,7 @@ import {
 import { fakePools } from "@gc-digital-talent/fake-data";
 import { PoolStatus, PublishingGroup } from "@gc-digital-talent/graphql";
 
-import { BrowsePools } from "./BrowsePoolsPage";
+import BrowsePools from "./BrowsePoolsPage";
 
 const mockPools = fakePools(3).map((advert) => ({
   ...advert,

@@ -207,9 +207,9 @@ const SkillSummaryTable = ({
       id: "plannedAssessment",
       header: intl.formatMessage({
         defaultMessage: "Number of assessments",
-        id: "7nuHuz",
+        id: "9t56Ev",
         description:
-          "Title for a column that displays the numer of assessments planned for a skill.",
+          "Title for a column that displays the number of assessments planned for a skill.",
       }),
       cell: ({ row: { original: poolSkill } }) =>
         cells.jsx(plannedAssessmentCell(poolSkill, assessmentSteps, intl)),

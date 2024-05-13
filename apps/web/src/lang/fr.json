@@ -715,6 +715,10 @@
     "defaultMessage": "Cette section porte sur les renseignements qui fournissent au demandeur le contexte du type de travail qu'il fera, avec qui il travaillera et l'incidence du rôle sur les Canadiens et les Canadiennes.",
     "description": "Sub title for basic information"
   },
+  "23/pqm": {
+    "defaultMessage": "Aucune compétence n'a été liée à des expériences.",
+    "description": "Null state for when no skills have been linked to any experiences"
+  },
   "248YQT": {
     "defaultMessage": "Pas encore prêt à partir? Retournez à la page d'accueil, découvrez de nouvelles possibilités, ou apprenez-en plus sur certaines recherches derrière cette plateforme.",
     "description": "Description of the links presented on the logged out page."
@@ -1134,10 +1138,6 @@
   "4Washm": {
     "defaultMessage": "Rôles des membres",
     "description": "Title displayed for the team members table roles column."
-  },
-  "4Xa7Pd": {
-    "defaultMessage": "Aucune information n'a été fournie",
-    "description": "Message on Admin side when user not filled Experience section."
   },
   "4Z3/xp": {
     "defaultMessage": "Supprimer le candidat",
@@ -1672,12 +1672,8 @@
     "description": "Label for job title input in the request form"
   },
   "7mb9oA": {
-    "defaultMessage": "<strong>Nota :</strong> Les résultats tiendront compte de tout candidat qui correspond à <strong>l’une ou plusieurs</strong> des régions sélectionnées",
+    "defaultMessage": "<strong>Note :</strong> Les résultats tiendront compte de tout candidat qui correspond à <strong>l’une ou plusieurs</strong> des régions sélectionnées",
     "description": "Context for the work region/location preferences filter in the search form."
-  },
-  "7nuHuz": {
-    "defaultMessage": "Nombre d’évaluations",
-    "description": "Title for a column that displays the numer of assessments planned for a skill."
   },
   "7nxtBm": {
     "defaultMessage": "Il s’agit du carrefour de l’administrateur de la plateforme des talents numériques du GC à partir d’où il est possible de gérer, trier et recruter le talent pour le GC.",
@@ -2063,6 +2059,10 @@
     "defaultMessage": "Veuillez soumettre une demande vide et nous essayerons de vous aider.",
     "description": "Link text to scroll to the submit button when no candidates were found"
   },
+  "9t56Ev": {
+    "defaultMessage": "Nombre d’évaluations",
+    "description": "Title for a column that displays the number of assessments planned for a skill."
+  },
   "9vQj8o": {
     "defaultMessage": "Oh! on dirait que vous avez été trop vite!",
     "description": "Application step skipped page title"
@@ -2070,10 +2070,6 @@
   "9yGJ6k": {
     "defaultMessage": "Description",
     "description": "Title displayed for the skill table Description column."
-  },
-  "9zhqQf": {
-    "defaultMessage": "Établissement d’hyperliens vers des sites Web autres que ceux du gouvernement du Canada",
-    "description": "Title for the linkink to gov section"
   },
   "A+4huJ": {
     "defaultMessage": "Mettre à jour ou supprimer une expérience dans votre chronologie de carrière",
@@ -5139,10 +5135,6 @@
     "defaultMessage": "Brève description de l'équipe (en français)",
     "description": "Label for team description in French language"
   },
-  "RTR3mh": {
-    "defaultMessage": "Bêta",
-    "description": "Label to indicate a feature is in beta"
-  },
   "RTf/0v": {
     "defaultMessage": "L’utilisateur perdra tous les rôles suivants au sein de l’équipe : ",
     "description": "Text notifying user which role will be removed from the user"
@@ -5648,7 +5640,7 @@
     "description": "Label for department select input in the request form"
   },
   "UXsUvN": {
-    "defaultMessage": "<strong>Nota :</strong> Les résultats tiendront compte de tout candidat qui correspond à <strong>l’un ou plusieurs</strong> des groupes d’équité en matière d’emploi ayant été sélectionnés",
+    "defaultMessage": "<strong>Note :</strong> Les résultats tiendront compte de tout candidat qui correspond à <strong>l’un ou plusieurs</strong> des groupes d’équité en matière d’emploi ayant été sélectionnés",
     "description": "Context for employment equity filter in search form."
   },
   "UZWLKn": {
@@ -7415,7 +7407,7 @@
     "description": "Message describing the employment equity filter in the search form."
   },
   "dm3BlY": {
-    "defaultMessage": "Vous avez lu toute la FAQ et n'y avez pas trouvé la réponse que vous cherchiez? <helpLink>Contactez votre équipe pour obtenir de l'aide</helpLink>",
+    "defaultMessage": "Vous avez lu toute la FAQ et n'y avez pas trouvé la réponse que vous cherchiez? <helpLink>Contactez notre équipe pour obtenir de l'aide</helpLink>",
     "description": "GCKey question and answer for more support"
   },
   "dnKWUf": {
@@ -8719,7 +8711,7 @@
     "description": "Title for team"
   },
   "kLGIuJ": {
-    "defaultMessage": "<strong>Nota :</strong> Les résultats tiendront compte de tout candidat qui correspond à <strong>l’une ou plusieurs</strong> des compétences ayant été sélectionnées",
+    "defaultMessage": "<strong>Note :</strong> Les résultats tiendront compte de tout candidat qui correspond à <strong>l’une ou plusieurs</strong> des compétences ayant été sélectionnées",
     "description": "Context for skills selection filter in search form."
   },
   "kMoUof": {
@@ -9725,6 +9717,10 @@
   "pvQVVh": {
     "defaultMessage": "Veuillez soumettre cette demande « telle quelle », puis nous vous reviendrons.",
     "description": "Instructions telling the user to submit a request even though there are no candidates"
+  },
+  "pwsDVe": {
+    "defaultMessage": "Établissement d’hyperliens vers des sites Web autres que ceux du gouvernement du Canada",
+    "description": "Title for the linking to gov section"
   },
   "px7yu1": {
     "defaultMessage": "Il n'y a pas d'options d'équité en matière d'emploi.",

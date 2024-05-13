@@ -28,7 +28,7 @@ import {
 } from "~/utils/poolCandidateCombinedStatus";
 
 export const joinDepartments = (
-  departments: Maybe<Maybe<Department>[]>,
+  departments: Maybe<Maybe<Pick<Department, "name">>[]>,
   intl: IntlShape,
 ) => {
   return (

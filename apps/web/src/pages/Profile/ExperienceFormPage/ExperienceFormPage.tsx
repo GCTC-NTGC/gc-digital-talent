@@ -26,7 +26,7 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { useAuthorization } from "@gc-digital-talent/auth";
+import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import {
@@ -53,6 +53,7 @@ import {
   queryResultToDefaultValues,
 } from "~/utils/experienceUtils";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import ExperienceSkills from "./components/ExperienceSkills";
 
@@ -647,5 +648,21 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
     </Pending>
   );
 };
+
+export const Create = () => (
+  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+    <ExperienceFormContainer />
+  </RequireAuth>
+);
+
+Create.displayName = "CreateExperienceFormPage";
+
+export const Edit = () => (
+  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+    <ExperienceFormContainer edit />
+  </RequireAuth>
+);
+
+Edit.displayName = "EditExperienceFormPage";
 
 export default ExperienceFormContainer;
