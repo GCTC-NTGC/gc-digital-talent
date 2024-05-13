@@ -85,7 +85,7 @@ const PoolNameSection = ({
   classificationsQuery,
   sectionMetadata,
   onSave,
-}: PoolNameSectionProps): JSX.Element => {
+}: PoolNameSectionProps): React.JSX.Element => {
   const intl = useIntl();
   const pool = getFragment(EditPoolName_Fragment, poolQuery);
   const isNull = isInNullState(pool);

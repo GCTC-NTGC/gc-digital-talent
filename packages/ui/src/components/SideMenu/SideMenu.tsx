@@ -19,7 +19,7 @@ export interface SideMenuProps {
   /** Accessible name for the navigation region */
   label: string;
   /** Add items to the end of the menu */
-  footer?: JSX.Element;
+  footer?: React.JSX.Element;
   /** Ref for the button that triggers the opening (for focus management)  */
   triggerRef?: React.RefObject<HTMLButtonElement>;
   /** Main menu items */

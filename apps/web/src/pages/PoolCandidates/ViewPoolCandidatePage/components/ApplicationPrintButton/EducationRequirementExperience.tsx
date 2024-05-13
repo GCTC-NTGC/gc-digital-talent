@@ -28,7 +28,7 @@ export interface EducationRequirementExperienceProps {
 
 const EducationRequirementExperience = ({
   experience,
-}: EducationRequirementExperienceProps): JSX.Element => {
+}: EducationRequirementExperienceProps): React.JSX.Element => {
   const intl = useIntl();
 
   if (isAwardExperience(experience)) {

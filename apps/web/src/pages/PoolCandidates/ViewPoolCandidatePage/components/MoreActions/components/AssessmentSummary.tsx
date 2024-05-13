@@ -26,7 +26,11 @@ type SkillAssessmentCalculated = {
   hold: number;
 };
 
-const TableHeader = ({ tableTitle }: { tableTitle: string }): JSX.Element => {
+const TableHeader = ({
+  tableTitle,
+}: {
+  tableTitle: string;
+}): React.JSX.Element => {
   const intl = useIntl();
 
   return (
@@ -101,7 +105,7 @@ type TableRow = {
   results: SkillAssessmentCalculated;
 };
 
-const TableBody = ({ data }: { data: TableRow[] }): JSX.Element => {
+const TableBody = ({ data }: { data: TableRow[] }): React.JSX.Element => {
   return (
     <tbody>
       {data.map((row) => (

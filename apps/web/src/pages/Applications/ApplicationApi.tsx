@@ -9,7 +9,7 @@ export type ApplicationPageProps = {
 };
 
 interface ApplicationApiProps {
-  PageComponent: (props: ApplicationPageProps) => JSX.Element;
+  PageComponent: (props: ApplicationPageProps) => React.JSX.Element;
 }
 
 const ApplicationApi = ({ PageComponent }: ApplicationApiProps) => {

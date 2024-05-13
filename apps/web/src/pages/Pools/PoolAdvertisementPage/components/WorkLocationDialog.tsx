@@ -11,7 +11,7 @@ type WorkLocationDialogProps = {
 
 const WorkLocationDialog = ({
   workLocation,
-}: WorkLocationDialogProps): JSX.Element => {
+}: WorkLocationDialogProps): React.JSX.Element => {
   const intl = useIntl();
 
   return (
