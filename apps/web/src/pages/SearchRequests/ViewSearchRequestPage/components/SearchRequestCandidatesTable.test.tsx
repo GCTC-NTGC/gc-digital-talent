@@ -7,7 +7,7 @@ import { screen, within } from "@testing-library/react";
 import React from "react";
 import { Provider as GraphqlProvider } from "urql";
 import { fromValue } from "wonka";
-import { faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker/locale/en";
 
 import { renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import {

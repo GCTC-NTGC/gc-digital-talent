@@ -21,7 +21,9 @@ type DeadlineDialogProps = {
   deadline: Date;
 };
 
-const DeadlineDialog = ({ deadline }: DeadlineDialogProps): JSX.Element => {
+const DeadlineDialog = ({
+  deadline,
+}: DeadlineDialogProps): React.JSX.Element => {
   const intl = useIntl();
   const routes = useRoutes();
   // https://stackoverflow.com/a/34602679

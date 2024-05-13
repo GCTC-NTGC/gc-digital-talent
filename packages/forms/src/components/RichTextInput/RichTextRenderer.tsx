@@ -74,7 +74,7 @@ const RichTextRenderer = ({
   node,
   renderMap = nodeRenderMap,
 }: RichTextRendererProps) => {
-  const children: JSX.Element[] = [];
+  const children: React.JSX.Element[] = [];
   // Node has its own content so recursively append it.
   if (node.content) {
     node.content.forEach((childNode, index) => {

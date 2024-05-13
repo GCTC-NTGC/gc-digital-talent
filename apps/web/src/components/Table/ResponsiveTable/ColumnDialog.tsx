@@ -21,7 +21,7 @@ interface ColumnDialogProps<TData> {
  * Controls the display of specific columns
  *
  * @param ColumnDialogProps
- * @returns JSX.Element
+ * @returns React.JSX.Element
  */
 const ColumnDialog = <T extends object>({ table }: ColumnDialogProps<T>) => {
   const intl = useIntl();

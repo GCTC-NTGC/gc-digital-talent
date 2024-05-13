@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
 import SparklesIcon from "@heroicons/react/24/outline/SparklesIcon";
-import ArrowLeftOnRectangleIcon from "@heroicons/react/24/outline/ArrowLeftOnRectangleIcon";
+import ArrowLeftEndOnRectangleIcon from "@heroicons/react/24/outline/ArrowLeftEndOnRectangleIcon";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
 
 import { Accordion, Heading, Link, Separator } from "@gc-digital-talent/ui";
@@ -37,7 +37,7 @@ const buildExternalLink = (path: string, chunks: React.ReactNode) => (
   </Link>
 );
 
-const SignInPage = () => {
+export const Component = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const apiPaths = useApiRoutes();
@@ -111,7 +111,7 @@ const SignInPage = () => {
                 })}
               </Link>
               <Heading
-                Icon={ArrowLeftOnRectangleIcon}
+                Icon={ArrowLeftEndOnRectangleIcon}
                 color="primary"
                 level="h2"
                 size="h3"
@@ -433,4 +433,6 @@ const SignInPage = () => {
   );
 };
 
-export default SignInPage;
+Component.displayName = "SignInPage";
+
+export default Component;

@@ -5,7 +5,7 @@ export type UpdateNotificationInput = {
   ignoredInAppNotifications: NotificationFamily[];
 };
 
-type NotificationType = "email" | "inApp";
+export type NotificationType = "email" | "inApp";
 
 export type FormValues = {
   systemMessages: NotificationType[];

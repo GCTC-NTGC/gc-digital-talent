@@ -263,8 +263,8 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
   );
 };
 
-const ApplicationQuestionsPage = () => (
+export const Component = () => (
   <ApplicationApi PageComponent={ApplicationQuestions} />
 );
 
-export default ApplicationQuestionsPage;
+Component.displayName = "ApplicationQuestionsPage";

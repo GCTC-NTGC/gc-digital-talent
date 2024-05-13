@@ -90,7 +90,7 @@ const personalInfoLink = (locale: Locales, chunks: React.ReactNode) => (
   </Link>
 );
 
-const PrivacyPolicy = () => {
+export const Component = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
@@ -205,4 +205,6 @@ const PrivacyPolicy = () => {
   );
 };
 
-export default PrivacyPolicy;
+Component.displayName = "PrivacyPolicyPage";
+
+export default Component;

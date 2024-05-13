@@ -83,6 +83,7 @@ return [
         'assessmentPlan' => 'assessmentPlan',
         'assessmentResult' => 'assessmentResult',
         'announcement' => 'announcement',
+        'community' => 'community',
     ],
 
     /*
@@ -480,6 +481,11 @@ return [
             'en' => 'Update any announcement',
             'fr' => 'Mise à jour de toute annonce',
         ],
+
+        'view-any-community' => [
+            'en' => 'View any community',
+            'fr' => 'Voir toutes les communautés',
+        ],
     ],
 
     /*
@@ -630,6 +636,9 @@ return [
             'announcement' => [
                 'any' => ['view'],
             ],
+            'community' => [
+                'any' => ['view'],
+            ],
         ],
 
         'base_user' => [
@@ -667,6 +676,9 @@ return [
                 'any' => ['view'],
             ],
             'announcement' => [
+                'any' => ['view'],
+            ],
+            'community' => [
                 'any' => ['view'],
             ],
         ],

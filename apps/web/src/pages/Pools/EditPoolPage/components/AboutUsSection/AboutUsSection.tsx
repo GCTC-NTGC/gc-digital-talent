@@ -66,7 +66,7 @@ const AboutUsSection = ({
   sectionMetadata,
   onSave,
   onUpdatePublished,
-}: AboutUsSectionProps): JSX.Element => {
+}: AboutUsSectionProps): React.JSX.Element => {
   const intl = useIntl();
   const pool = getFragment(EditPoolAboutUs_Fragment, poolQuery);
   const isNull = hasAllEmptyFields(pool);

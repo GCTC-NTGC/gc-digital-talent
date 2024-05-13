@@ -3,7 +3,7 @@
  */
 
 import React from "react";
-import { faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker/locale/en";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 

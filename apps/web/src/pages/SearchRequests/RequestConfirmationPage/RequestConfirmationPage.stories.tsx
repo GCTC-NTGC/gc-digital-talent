@@ -1,5 +1,5 @@
 import React from "react";
-import { faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker/locale/en";
 import { Meta, StoryFn } from "@storybook/react";
 
 import RequestConfirmationPage from "./RequestConfirmationPage";

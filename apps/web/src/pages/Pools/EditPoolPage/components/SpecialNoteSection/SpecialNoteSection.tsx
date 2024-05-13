@@ -63,7 +63,7 @@ const SpecialNoteSection = ({
   sectionMetadata,
   onSave,
   onUpdatePublished,
-}: SpecialNoteSectionProps): JSX.Element => {
+}: SpecialNoteSectionProps): React.JSX.Element => {
   const intl = useIntl();
   const pool = getFragment(EditPoolSpecialNote_Fragment, poolQuery);
   const isNull = hasAllEmptyFields(pool);

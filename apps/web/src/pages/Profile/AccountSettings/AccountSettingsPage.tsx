@@ -13,12 +13,14 @@ import {
 import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { useFeatureFlags } from "@gc-digital-talent/env";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
 import profileMessages from "~/messages/profileMessages";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import AccountManagement from "./AccountManagement";
 import RecruitmentAvailability from "./RecruitmentAvailability";
@@ -249,5 +251,13 @@ const AccountSettingsPage = () => {
     </Pending>
   );
 };
+
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+    <AccountSettingsPage />
+  </RequireAuth>
+);
+
+Component.displayName = "AccountSettingsPage";
 
 export default AccountSettingsPage;

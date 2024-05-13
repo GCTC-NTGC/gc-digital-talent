@@ -5,6 +5,7 @@ import { useMutation, useQuery } from "urql";
 import { TableOfContents, ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
@@ -19,6 +20,7 @@ import WorkPreferences from "~/components/Profile/components/WorkPreferences/Wor
 import LanguageProfile from "~/components/Profile/components/LanguageProfile/LanguageProfile";
 import GovernmentInformation from "~/components/Profile/components/GovernmentInformation/GovernmentInformation";
 import DiversityEquityInclusion from "~/components/Profile/components/DiversityEquityInclusion/DiversityEquityInclusion";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 const ProfileUpdateUser_Mutation = graphql(/* GraphQL */ `
   mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
@@ -514,5 +516,13 @@ const ProfilePage = () => {
     </Pending>
   );
 };
+
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+    <ProfilePage />
+  </RequireAuth>
+);
+
+Component.displayName = "ProfilePage";
 
 export default ProfilePage;

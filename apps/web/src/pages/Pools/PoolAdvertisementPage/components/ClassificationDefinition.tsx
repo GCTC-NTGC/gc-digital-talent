@@ -152,7 +152,7 @@ const LevelFourManager = () => {
   );
 };
 
-const LevelFourAdvisor = (): JSX.Element => {
+const LevelFourAdvisor = (): React.JSX.Element => {
   const intl = useIntl();
 
   return (
@@ -192,7 +192,7 @@ interface ClassificationDefinitionProps {
   name: string;
 }
 
-const definitionMap: Record<string, () => JSX.Element> = {
+const definitionMap: Record<string, () => React.JSX.Element> = {
   [GenericJobTitleKey.TechnicianIt01]: LevelOne,
   [GenericJobTitleKey.AnalystIt02]: LevelTwo,
   [GenericJobTitleKey.TeamLeaderIt03]: LevelThreeLead,

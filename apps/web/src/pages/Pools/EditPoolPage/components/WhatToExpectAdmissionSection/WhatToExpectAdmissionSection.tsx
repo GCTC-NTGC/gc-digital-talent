@@ -68,7 +68,7 @@ const WhatToExpectAdmissionSection = ({
   sectionMetadata,
   onSave,
   onUpdatePublished,
-}: WhatToExpectAdmissionSectionProps): JSX.Element => {
+}: WhatToExpectAdmissionSectionProps): React.JSX.Element => {
   const intl = useIntl();
   const pool = getFragment(EditPoolWhatToExpectAdmission_Fragment, poolQuery);
   const isNull = hasAllEmptyFields(pool);

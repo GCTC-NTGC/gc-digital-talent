@@ -192,8 +192,8 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
   );
 };
 
-const ApplicationSuccessPage = () => (
+export const Component = () => (
   <ApplicationApi PageComponent={ApplicationSuccess} />
 );
 
-export default ApplicationSuccessPage;
+Component.displayName = "ApplicationSuccessPage";

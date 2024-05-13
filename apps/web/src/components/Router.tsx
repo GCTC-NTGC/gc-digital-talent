@@ -2,821 +2,67 @@ import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { Locales, useLocale } from "@gc-digital-talent/i18n";
-import {
-  RequireAuth,
-  POST_LOGOUT_OVERRIDE_PATH_KEY,
-  ROLE_NAME,
-} from "@gc-digital-talent/auth";
+import { POST_LOGOUT_OVERRIDE_PATH_KEY } from "@gc-digital-talent/auth";
 import { Loading } from "@gc-digital-talent/ui";
-import { lazyRetry } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
-import { useFeatureFlags, FeatureFlags } from "@gc-digital-talent/env";
 
-import Layout from "~/components/Layout/Layout";
-import AdminLayout from "~/components/Layout/AdminLayout/AdminLayout";
-import IAPLayout from "~/components/Layout/IAPLayout";
-import CreateAccountRedirect from "~/pages/Auth/CreateAccountPage/CreateAccountRedirect";
-import useRoutes from "~/hooks/useRoutes";
-import ScreeningAndEvaluationPage from "~/pages/Pools/ScreeningAndEvaluationPage/ScreeningAndEvaluationPage";
-
-/** Home */
-const HomePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsHomePage" */ "../pages/Home/HomePage/HomePage"
-      ),
-  ),
-);
-const ExecutiveHomePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsExecutiveHomePage" */ "../pages/Home/ExecutiveHomePage/ExecutiveHomePage"
-      ),
-  ),
-);
-const ManagerHomePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsManagerHomePage" */ "../pages/Home/ManagerHomePage/ManagerHomePage"
-      ),
-  ),
-);
-const ErrorPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsErrorPage" */ "../pages/Errors/ErrorPage/ErrorPage"
-      ),
-  ),
-);
-const SupportPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsSupportPage" */ "../pages/SupportPage/SupportPage"
-      ),
-  ),
-);
-const TermsAndConditions = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsSupportPage" */ "../pages/TermsAndConditions/TermsAndConditions"
-      ),
-  ),
-);
-const PrivacyPolicy = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsSupportPage" */ "../pages/PrivacyPolicy/PrivacyPolicy"
-      ),
-  ),
-);
-const AccessibilityPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsAccessibilityPage" */ "../pages/AccessibilityStatementPage/AccessibilityStatementPage"
-      ),
-  ),
-);
-
-/** Search */
-const SearchPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsSearchPage" */ "../pages/SearchRequests/SearchPage/SearchPage"
-      ),
-  ),
-);
-const RequestPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsRequestPage" */ "../pages/SearchRequests/RequestPage/RequestPage"
-      ),
-  ),
-);
-const RequestConfirmationPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsRequestConfirmationPage" */ "../pages/SearchRequests/RequestConfirmationPage/RequestConfirmationPage"
-      ),
-  ),
-);
-
-/** Auth */
-const SignUpPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsSignUpPage" */ "../pages/Auth/SignUpPage/SignUpPage"
-      ),
-  ),
-);
-const SignedOutPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsSignedOutPage" */ "../pages/Auth/SignedOutPage/SignedOutPage"
-      ),
-  ),
-);
-const SignInPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsSignInPage" */ "../pages/Auth/SignInPage/SignInPage"
-      ),
-  ),
-);
-
-/** Profile */
-const CreateAccountPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsCreateAccountPage" */ "../pages/Auth/CreateAccountPage/CreateAccountPage"
-      ),
-  ),
-);
-const ProfileAndApplicationsPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsProfileAndApplicationsPage" */ "../pages/ProfileAndApplicationsPage/ProfileAndApplicationsPage"
-      ),
-  ),
-);
-const ProfilePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsProfilePage" */ "../pages/Profile/ProfilePage/ProfilePage"
-      ),
-  ),
-);
-const ExperienceFormPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsEditExperiencePage" */ "../pages/Profile/ExperienceFormPage/ExperienceFormPage"
-      ),
-  ),
-);
-const CareerTimelineAndRecruitmentPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsCareerTimelineAndRecruitmentPage" */ "../pages/Profile/CareerTimelineAndRecruitmentPage/CareerTimelineAndRecruitmentPage"
-      ),
-  ),
-);
-const AccountSettingsPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsAccountSettingsPage" */ "../pages/Profile/AccountSettings/AccountSettingsPage"
-      ),
-  ),
-);
-const NotificationsPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsNotificationsPage" */ "../pages/Notifications/NotificationsPage/NotificationsPage"
-      ),
-  ),
-);
-
-/** Direct Intake */
-const BrowsePoolsPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsBrowsePoolsPage" */ "../pages/Pools/BrowsePoolsPage/BrowsePoolsPage"
-      ),
-  ),
-);
-const PoolAdvertisementPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsPoolAdvertPage" */ "../pages/Pools/PoolAdvertisementPage/PoolAdvertisementPage"
-      ),
-  ),
-);
-const CreateApplicationPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsCreateApplicationPage" */ "../pages/CreateApplicationPage/CreateApplicationPage"
-      ),
-  ),
-);
-const ApplicationLayout = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsApplicationLayout" */ "../pages/Applications/ApplicationLayout"
-      ),
-  ),
-);
-const ApplicationWelcomePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsApplicationWelcomePage" */ "../pages/Applications/ApplicationWelcomePage/ApplicationWelcomePage"
-      ),
-  ),
-);
-const ApplicationSelfDeclarationPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsApplicationSelfDeclarationPage" */ "../pages/Applications/ApplicationSelfDeclarationPage/ApplicationSelfDeclarationPage"
-      ),
-  ),
-);
-const ApplicationProfilePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsApplicationProfilePage" */ "../pages/Applications/ApplicationProfilePage/ApplicationProfilePage"
-      ),
-  ),
-);
-const ApplicationCareerTimelineIntroductionPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsApplicationCareerTimelineIntroductionPage" */ "../pages/Applications/ApplicationCareerTimelineIntroductionPage/ApplicationCareerTimelineIntroductionPage"
-      ),
-  ),
-);
-const ApplicationCareerTimelinePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsApplicationCareerTimelinePage" */ "../pages/Applications/ApplicationCareerTimelinePage/ApplicationCareerTimelinePage"
-      ),
-  ),
-);
-const ApplicationCareerTimelineAddPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsApplicationCareerTimelineAddPage" */ "../pages/Applications/ApplicationCareerTimelineAddPage/ApplicationCareerTimelineAddPage"
-      ),
-  ),
-);
-const ApplicationCareerTimelineEditPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsApplicationCareerTimelineEditPage" */ "../pages/Applications/ApplicationCareerTimelineEditPage/ApplicationCareerTimelineEditPage"
-      ),
-  ),
-);
-const ApplicationEducationPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsApplicationEducationPage" */ "../pages/Applications/ApplicationEducationPage/ApplicationEducationPage"
-      ),
-  ),
-);
-const ApplicationSkillsIntroductionPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsApplicationSkillsIntroductionPage" */ "../pages/Applications/ApplicationSkillsIntroductionPage/ApplicationSkillsIntroductionPage"
-      ),
-  ),
-);
-const ApplicationSkillsPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsApplicationSkillsPage" */ "../pages/Applications/ApplicationSkillsPage/ApplicationSkillsPage"
-      ),
-  ),
-);
-const ApplicationQuestionsIntroductionPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsApplicationQuestionsIntroductionPage" */ "../pages/Applications/ApplicationQuestionsIntroductionPage/ApplicationQuestionsIntroductionPage"
-      ),
-  ),
-);
-const ApplicationQuestionsPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsApplicationQuestionsPage" */ "../pages/Applications/ApplicationQuestionsPage/ApplicationQuestionsPage"
-      ),
-  ),
-);
-const ApplicationReviewPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsApplicationReviewPage" */ "../pages/Applications/ApplicationReviewPage/ApplicationReviewPage"
-      ),
-  ),
-);
-const ApplicationSuccessPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsApplicationSuccessPage" */ "../pages/Applications/ApplicationSuccessPage/ApplicationSuccessPage"
-      ),
-  ),
-);
-
-/** IAP Home Page */
-const IAPHomePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "iapHomePage" */ "../pages/Home/IAPHomePage/Home"
-      ),
-  ),
-);
-const IAPManagerHomePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "iapHomePage" */ "../pages/Home/IAPManagerHomePage/IAPManagerHomePage"
-      ),
-  ),
-);
-
-/** Admin */
-const AdminErrorPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminAdminErrorPage" */ "../pages/Errors/AdminErrorPage/AdminErrorPage"
-      ),
-  ),
-);
-const AdminDashboardPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminAdminDashboardPage" */ "../pages/AdminDashboardPage/AdminDashboardPage"
-      ),
-  ),
-);
-
-/** Users */
-const IndexUserPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminIndexUserPage" */ "../pages/Users/IndexUserPage/IndexUserPage"
-      ),
-  ),
-);
-const UserLayout = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminUserLayout" */ "../pages/Users/UserLayout"
-      ),
-  ),
-);
-const UpdateUserPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminUpdateUserPage" */ "../pages/Users/UpdateUserPage/UpdateUserPage"
-      ),
-  ),
-);
-const AdminUserProfilePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminAdminUserProfilePage" */ "../pages/Users/AdminUserProfilePage/AdminUserProfilePage"
-      ),
-  ),
-);
-const UserInformationPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminUserInformationPage" */ "../pages/Users/UserInformationPage/UserInformationPage"
-      ),
-  ),
-);
-
-/** Teams */
-const IndexTeamPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminIndexTeamPage" */ "../pages/Teams/IndexTeamPage/IndexTeamPage"
-      ),
-  ),
-);
-const CreateTeamPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminCreateTeamPage" */ "../pages/Teams/CreateTeamPage/CreateTeamPage"
-      ),
-  ),
-);
-const TeamLayout = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminTeamLayout" */ "../pages/Teams/TeamLayout"
-      ),
-  ),
-);
-const ViewTeamPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminViewTeamPage" */ "../pages/Teams/ViewTeamPage/ViewTeamPage"
-      ),
-  ),
-);
-const UpdateTeamPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminUpdateTeamPage" */ "../pages/Teams/UpdateTeamPage/UpdateTeamPage"
-      ),
-  ),
-);
-const TeamMembersPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminTeamMembersPage" */ "../pages/Teams/TeamMembersPage/TeamMembersPage"
-      ),
-  ),
-);
-
-/** Classifications */
-const IndexClassificationPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminIndexClassificationPage" */ "../pages/Classifications/IndexClassificationPage"
-      ),
-  ),
-);
-const CreateClassificationPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminCreateClassificationPage" */ "../pages/Classifications/CreateClassificationPage"
-      ),
-  ),
-);
-const UpdateClassificationPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminUpdateClassificationPage" */ "../pages/Classifications/UpdateClassificationPage"
-      ),
-  ),
-);
-
-/** Pool Candidates */
-const AllPoolCandidatesPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminAllPoolCandidatesPage" */ "../pages/PoolCandidates/AllPoolCandidatesPage/AllPoolCandidatesPage"
-      ),
-  ),
-);
-const IndexPoolCandidatePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminIndexPoolCandidatePage" */ "../pages/PoolCandidates/IndexPoolCandidatePage/IndexPoolCandidatePage"
-      ),
-  ),
-);
-const ViewPoolCandidatePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminViewPoolCandidate" */ "../pages/PoolCandidates/ViewPoolCandidatePage/ViewPoolCandidatePage"
-      ),
-  ),
-);
-
-/** Pools */
-const IndexPoolPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminIndexPoolPage" */ "../pages/Pools/IndexPoolPage/IndexPoolPage"
-      ),
-  ),
-);
-const CreatePoolPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminCreatePoolPage" */ "../pages/Pools/CreatePoolPage/CreatePoolPage"
-      ),
-  ),
-);
-const EditPoolPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminEditPoolPage" */ "../pages/Pools/EditPoolPage/EditPoolPage"
-      ),
-  ),
-);
-const AssessmentPlanBuilderPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminAssessmentPlanBuilderPage" */ "../pages/Pools/AssessmentPlanBuilderPage/AssessmentPlanBuilderPage"
-      ),
-  ),
-);
-const PoolLayout = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminPoolLayout" */ "../pages/Pools/PoolLayout"
-      ),
-  ),
-);
-const ViewPoolPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminViewPoolPage" */ "../pages/Pools/ViewPoolPage/ViewPoolPage"
-      ),
-  ),
-);
-
-/** Departments */
-const IndexDepartmentPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminIndexDepartmentPage" */ "../pages/Departments/IndexDepartmentPage"
-      ),
-  ),
-);
-const CreateDepartmentPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminCreateDepartmentPage" */ "../pages/Departments/CreateDepartmentPage"
-      ),
-  ),
-);
-const UpdateDepartmentPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminUpdateDepartmentPage" */ "../pages/Departments/UpdateDepartmentPage"
-      ),
-  ),
-);
-
-/** Skill Families */
-const IndexSkillFamilyPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminIndexSkillFamilyPage" */ "../pages/SkillFamilies/IndexSkillFamilyPage"
-      ),
-  ),
-);
-const CreateSkillFamilyPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminCreateSkillFamilyPage" */ "../pages/SkillFamilies/CreateSkillFamilyPage"
-      ),
-  ),
-);
-const UpdateSkillFamilyPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminUpdateSkillFamilyPage" */ "../pages/SkillFamilies/UpdateSkillFamilyPage"
-      ),
-  ),
-);
-
-/** Skills */
-const IndexSkillPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminIndexSkillPage" */ "../pages/Skills/IndexSkillPage"
-      ),
-  ),
-);
-const CreateSkillPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminCreateSkillPage" */ "../pages/Skills/CreateSkillPage"
-      ),
-  ),
-);
-const UpdateSkillPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminUpdateSkillPage" */ "../pages/Skills/UpdateSkillPage"
-      ),
-  ),
-);
-const SkillLibraryPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsSkillLibraryPage" */ "../pages/Skills/SkillLibraryPage"
-      ),
-  ),
-);
-const UpdateUserSkillPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsUpdateUserSkillPage" */ "../pages/Skills/UpdateUserSkillPage"
-      ),
-  ),
-);
-const SkillShowcasePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsSkillShowcasePage" */ "../pages/Skills/SkillShowcasePage"
-      ),
-  ),
-);
-const TopBehaviouralSkillsPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsTopBehaviouralSkillsPage" */ "../pages/Skills/TopBehaviouralSkillsPage"
-      ),
-  ),
-);
-const TopTechnicalSkillsPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsTopTechnicalSkillsPage" */ "../pages/Skills/TopTechnicalSkillsPage"
-      ),
-  ),
-);
-const ImproveBehaviouralSkillsPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsImproveBehaviouralSkillsPage" */ "../pages/Skills/ImproveBehaviouralSkillsPage"
-      ),
-  ),
-);
-const ImproveTechnicalSkillsPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsImproveTechnicalSkillsPage" */ "../pages/Skills/ImproveTechnicalSkillsPage"
-      ),
-  ),
-);
-
-/** Search Requests */
-const IndexSearchRequestPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminIndexSearchRequestPage" */ "../pages/SearchRequests/IndexSearchRequestPage/IndexSearchRequestPage"
-      ),
-  ),
-);
-const ViewSearchRequestPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminViewSearchRequestPage" */ "../pages/SearchRequests/ViewSearchRequestPage/ViewSearchRequestPage"
-      ),
-  ),
-);
-
-/** Announcements */
-const AnnouncementsPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "adminAnnouncementsPage" */ "../pages/AnnouncementsPage/AnnouncementsPage"
-      ),
-  ),
-);
-
-/** Directive on Digital Talent */
-const DirectivePage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsDirectivePage" */ "../pages/DirectivePage/DirectivePage"
-      ),
-  ),
-);
-const DigitalServicesContractingQuestionnaire = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(
-        /* webpackChunkName: "tsDirectiveDigitalServicesContractingQuestionnaire" */ "../pages/DirectiveForms/DigitalServicesContractingQuestionnaire/DigitalServicesContractingQuestionnairePage"
-      ),
-  ),
-);
-const SkillPage = React.lazy(() =>
-  lazyRetry(
-    () =>
-      import(/* webpackChunkName: "tsSkillPage" */ "../pages/Skills/SkillPage"),
-  ),
-);
-
-const createRoute = (
-  locale: Locales,
-  loginPath: string,
-  featureFlags: FeatureFlags,
-) =>
+const createRoute = (locale: Locales) =>
   createBrowserRouter([
     {
       path: `/`,
-      element: <Layout />,
-      errorElement: <ErrorPage />,
+      lazy: () => import("./Layout/Layout"),
       children: [
         {
           path: locale,
-          errorElement: <ErrorPage />,
+          lazy: () => import("./Layout/ErrorBoundary/ErrorBoundary"),
           children: [
             {
               index: true,
-              element: <HomePage />,
+              lazy: () => import("../pages/Home/HomePage/HomePage"),
             },
             {
               path: "executive",
-              element: <ExecutiveHomePage />,
+              lazy: () =>
+                import("../pages/Home/ExecutiveHomePage/ExecutiveHomePage"),
             },
             {
               path: "manager",
-              element: <ManagerHomePage />,
+              lazy: () =>
+                import("../pages/Home/ManagerHomePage/ManagerHomePage"),
             },
             {
               path: "support",
-              element: <SupportPage />,
+              lazy: () => import("../pages/SupportPage/SupportPage"),
             },
             {
               path: "terms-and-conditions",
-              element: <TermsAndConditions />,
+              lazy: () =>
+                import("../pages/TermsAndConditions/TermsAndConditions"),
             },
             {
               path: "privacy-policy",
-              element: <PrivacyPolicy />,
+              lazy: () => import("../pages/PrivacyPolicy/PrivacyPolicy"),
             },
             {
               path: "accessibility-statement",
-              element: <AccessibilityPage />,
+              lazy: () =>
+                import(
+                  "../pages/AccessibilityStatementPage/AccessibilityStatementPage"
+                ),
             },
             {
               path: "directive-on-digital-talent",
               children: [
                 {
                   index: true,
-                  element: <DirectivePage />,
+                  lazy: () => import("../pages/DirectivePage/DirectivePage"),
                 },
                 {
                   path: "digital-services-contracting-questionnaire",
-                  element: (
-                    <RequireAuth
-                      roles={[ROLE_NAME.PlatformAdmin]}
-                      loginPath={loginPath}
-                    >
-                      <DigitalServicesContractingQuestionnaire />
-                    </RequireAuth>
-                  ),
+                  lazy: () =>
+                    import(
+                      "../pages/DirectiveForms/DigitalServicesContractingQuestionnaire/DigitalServicesContractingQuestionnairePage"
+                    ),
                 },
               ],
             },
@@ -825,18 +71,25 @@ const createRoute = (
               children: [
                 {
                   index: true,
-                  element: <SearchPage />,
+                  lazy: () =>
+                    import("../pages/SearchRequests/SearchPage/SearchPage"),
                 },
                 {
                   path: "request",
                   children: [
                     {
                       index: true,
-                      element: <RequestPage />,
+                      lazy: () =>
+                        import(
+                          "../pages/SearchRequests/RequestPage/RequestPage"
+                        ),
                     },
                     {
                       path: ":requestId",
-                      element: <RequestConfirmationPage />,
+                      lazy: () =>
+                        import(
+                          "../pages/SearchRequests/RequestConfirmationPage/RequestConfirmationPage"
+                        ),
                     },
                   ],
                 },
@@ -844,11 +97,11 @@ const createRoute = (
             },
             {
               path: "skills",
-              element: <SkillPage />,
+              lazy: () => import("../pages/Skills/SkillPage"),
             },
             {
               path: "register-info",
-              element: <SignUpPage />,
+              lazy: () => import("../pages/Auth/SignUpPage/SignUpPage"),
             },
             {
               path: "logged-out",
@@ -868,111 +121,80 @@ const createRoute = (
                 }
                 return null;
               },
-              element: <SignedOutPage />,
+              lazy: () => import("../pages/Auth/SignedOutPage/SignedOutPage"),
             },
             {
               path: "login-info",
-              element: <SignInPage />,
+              lazy: () => import("../pages/Auth/SignInPage/SignInPage"),
             },
             {
               path: "create-account",
-              element: (
-                <RequireAuth
-                  roles={[ROLE_NAME.Applicant]}
-                  loginPath={loginPath}
-                >
-                  <CreateAccountPage />
-                </RequireAuth>
-              ),
+              lazy: () =>
+                import("../pages/Auth/CreateAccountPage/CreateAccountPage"),
             },
             {
               path: "applicant",
-              element: <CreateAccountRedirect />,
+              lazy: () =>
+                import("../pages/Auth/CreateAccountPage/CreateAccountRedirect"),
               children: [
                 {
                   index: true,
-                  element: (
-                    <RequireAuth
-                      roles={[ROLE_NAME.Applicant]}
-                      loginPath={loginPath}
-                    >
-                      <ProfileAndApplicationsPage />
-                    </RequireAuth>
-                  ),
+                  lazy: () =>
+                    import(
+                      "../pages/ProfileAndApplicationsPage/ProfileAndApplicationsPage"
+                    ),
                 },
                 {
                   path: "settings",
-                  element: (
-                    <RequireAuth
-                      roles={[ROLE_NAME.Applicant]}
-                      loginPath={loginPath}
-                    >
-                      <AccountSettingsPage />
-                    </RequireAuth>
-                  ),
+                  lazy: () =>
+                    import(
+                      "../pages/Profile/AccountSettings/AccountSettingsPage"
+                    ),
                 },
                 {
-                  ...(featureFlags.notifications && {
-                    path: "notifications",
-                    element: (
-                      <RequireAuth
-                        roles={[ROLE_NAME.Applicant]}
-                        loginPath={loginPath}
-                      >
-                        <NotificationsPage />
-                      </RequireAuth>
+                  path: "notifications",
+                  lazy: () =>
+                    import(
+                      "../pages/Notifications/NotificationsPage/NotificationsPage"
                     ),
-                  }),
                 },
                 {
                   path: "personal-information",
-                  element: (
-                    <RequireAuth
-                      roles={[ROLE_NAME.Applicant]}
-                      loginPath={loginPath}
-                    >
-                      <ProfilePage />
-                    </RequireAuth>
-                  ),
+                  lazy: () =>
+                    import("../pages/Profile/ProfilePage/ProfilePage"),
                 },
                 {
                   path: "career-timeline",
                   children: [
                     {
                       index: true,
-                      element: (
-                        <RequireAuth
-                          roles={[ROLE_NAME.Applicant]}
-                          loginPath={loginPath}
-                        >
-                          <CareerTimelineAndRecruitmentPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import(
+                          "../pages/Profile/CareerTimelineAndRecruitmentPage/CareerTimelineAndRecruitmentPage"
+                        ),
                     },
                     {
                       path: "create",
-                      element: (
-                        <RequireAuth
-                          roles={[ROLE_NAME.Applicant]}
-                          loginPath={loginPath}
-                        >
-                          <ExperienceFormPage />
-                        </RequireAuth>
-                      ),
+                      async lazy() {
+                        const { Create } = await import(
+                          "../pages/Profile/ExperienceFormPage/ExperienceFormPage"
+                        );
+
+                        return { Component: Create };
+                      },
                     },
                     {
                       path: ":experienceId",
                       children: [
                         {
                           path: "edit",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.Applicant]}
-                              loginPath={loginPath}
-                            >
-                              <ExperienceFormPage edit />
-                            </RequireAuth>
-                          ),
+                          async lazy() {
+                            const { Edit } = await import(
+                              "../pages/Profile/ExperienceFormPage/ExperienceFormPage"
+                            );
+
+                            return { Component: Edit };
+                          },
                         },
                       ],
                     },
@@ -983,83 +205,43 @@ const createRoute = (
                   children: [
                     {
                       index: true,
-                      element: (
-                        <RequireAuth
-                          roles={[ROLE_NAME.Applicant]}
-                          loginPath={loginPath}
-                        >
-                          <SkillLibraryPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () => import("../pages/Skills/SkillLibraryPage"),
                     },
                     {
                       path: ":skillId",
-                      element: (
-                        <RequireAuth
-                          roles={[ROLE_NAME.Applicant]}
-                          loginPath={loginPath}
-                        >
-                          <UpdateUserSkillPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () => import("../pages/Skills/UpdateUserSkillPage"),
                     },
                     {
                       path: "showcase",
                       children: [
                         {
                           index: true,
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.Applicant]}
-                              loginPath={loginPath}
-                            >
-                              <SkillShowcasePage />
-                            </RequireAuth>
-                          ),
+                          lazy: () =>
+                            import("../pages/Skills/SkillShowcasePage"),
                         },
                         {
                           path: "top-5-behavioural-skills",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.Applicant]}
-                              loginPath={loginPath}
-                            >
-                              <TopBehaviouralSkillsPage />
-                            </RequireAuth>
-                          ),
+                          lazy: () =>
+                            import("../pages/Skills/TopBehaviouralSkillsPage"),
                         },
                         {
                           path: "top-10-technical-skills",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.Applicant]}
-                              loginPath={loginPath}
-                            >
-                              <TopTechnicalSkillsPage />
-                            </RequireAuth>
-                          ),
+                          lazy: () =>
+                            import("../pages/Skills/TopTechnicalSkillsPage"),
                         },
                         {
                           path: "3-behavioural-skills-to-improve",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.Applicant]}
-                              loginPath={loginPath}
-                            >
-                              <ImproveBehaviouralSkillsPage />
-                            </RequireAuth>
-                          ),
+                          lazy: () =>
+                            import(
+                              "../pages/Skills/ImproveBehaviouralSkillsPage"
+                            ),
                         },
                         {
                           path: "5-technical-skills-to-train",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.Applicant]}
-                              loginPath={loginPath}
-                            >
-                              <ImproveTechnicalSkillsPage />
-                            </RequireAuth>
-                          ),
+                          lazy: () =>
+                            import(
+                              "../pages/Skills/ImproveTechnicalSkillsPage"
+                            ),
                         },
                       ],
                     },
@@ -1075,25 +257,27 @@ const createRoute = (
                   children: [
                     {
                       index: true,
-                      element: <BrowsePoolsPage />,
+                      lazy: () =>
+                        import(
+                          "../pages/Pools/BrowsePoolsPage/BrowsePoolsPage"
+                        ),
                     },
                     {
                       path: ":poolId",
                       children: [
                         {
                           index: true,
-                          element: <PoolAdvertisementPage />,
+                          lazy: () =>
+                            import(
+                              "../pages/Pools/PoolAdvertisementPage/PoolAdvertisementPage"
+                            ),
                         },
                         {
                           path: "create-application",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.Applicant]}
-                              loginPath={loginPath}
-                            >
-                              <CreateApplicationPage />
-                            </RequireAuth>
-                          ),
+                          lazy: () =>
+                            import(
+                              "../pages/CreateApplicationPage/CreateApplicationPage"
+                            ),
                         },
                       ],
                     },
@@ -1106,64 +290,85 @@ const createRoute = (
               children: [
                 {
                   path: ":applicationId",
-                  element: (
-                    <RequireAuth
-                      roles={[ROLE_NAME.Applicant]}
-                      loginPath={loginPath}
-                    >
-                      <ApplicationLayout />
-                    </RequireAuth>
-                  ),
+                  lazy: () => import("../pages/Applications/ApplicationLayout"),
                   children: [
                     {
                       path: "welcome",
-                      element: <ApplicationWelcomePage />,
+                      lazy: () =>
+                        import(
+                          "../pages/Applications/ApplicationWelcomePage/ApplicationWelcomePage"
+                        ),
                     },
                     {
                       path: "self-declaration",
-                      element: <ApplicationSelfDeclarationPage />,
+                      lazy: () =>
+                        import(
+                          "../pages/Applications/ApplicationSelfDeclarationPage/ApplicationSelfDeclarationPage"
+                        ),
                     },
                     {
                       path: "profile",
-                      element: <ApplicationProfilePage />,
+                      lazy: () =>
+                        import(
+                          "../pages/Applications/ApplicationProfilePage/ApplicationProfilePage"
+                        ),
                     },
                     {
                       path: "career-timeline",
                       children: [
                         {
                           index: true,
-                          element: <ApplicationCareerTimelinePage />,
+                          lazy: () =>
+                            import(
+                              "../pages/Applications/ApplicationCareerTimelinePage/ApplicationCareerTimelinePage"
+                            ),
                         },
                         {
                           path: "introduction",
-                          element: (
-                            <ApplicationCareerTimelineIntroductionPage />
-                          ),
+                          lazy: () =>
+                            import(
+                              "../pages/Applications/ApplicationCareerTimelineIntroductionPage/ApplicationCareerTimelineIntroductionPage"
+                            ),
                         },
                         {
                           path: "add",
-                          element: <ApplicationCareerTimelineAddPage />,
+                          lazy: () =>
+                            import(
+                              "../pages/Applications/ApplicationCareerTimelineAddPage/ApplicationCareerTimelineAddPage"
+                            ),
                         },
                         {
                           path: ":experienceId",
-                          element: <ApplicationCareerTimelineEditPage />,
+                          lazy: () =>
+                            import(
+                              "../pages/Applications/ApplicationCareerTimelineEditPage/ApplicationCareerTimelineEditPage"
+                            ),
                         },
                       ],
                     },
                     {
                       path: "education",
-                      element: <ApplicationEducationPage />,
+                      lazy: () =>
+                        import(
+                          "../pages/Applications/ApplicationEducationPage/ApplicationEducationPage"
+                        ),
                     },
                     {
                       path: "skills",
                       children: [
                         {
                           index: true,
-                          element: <ApplicationSkillsPage />,
+                          lazy: () =>
+                            import(
+                              "../pages/Applications/ApplicationSkillsPage/ApplicationSkillsPage"
+                            ),
                         },
                         {
                           path: "introduction",
-                          element: <ApplicationSkillsIntroductionPage />,
+                          lazy: () =>
+                            import(
+                              "../pages/Applications/ApplicationSkillsIntroductionPage/ApplicationSkillsIntroductionPage"
+                            ),
                         },
                       ],
                     },
@@ -1172,21 +377,33 @@ const createRoute = (
                       children: [
                         {
                           index: true,
-                          element: <ApplicationQuestionsPage />,
+                          lazy: () =>
+                            import(
+                              "../pages/Applications/ApplicationQuestionsPage/ApplicationQuestionsPage"
+                            ),
                         },
                         {
                           path: "introduction",
-                          element: <ApplicationQuestionsIntroductionPage />,
+                          lazy: () =>
+                            import(
+                              "../pages/Applications/ApplicationQuestionsIntroductionPage/ApplicationQuestionsIntroductionPage"
+                            ),
                         },
                       ],
                     },
                     {
                       path: "review",
-                      element: <ApplicationReviewPage />,
+                      lazy: () =>
+                        import(
+                          "../pages/Applications/ApplicationReviewPage/ApplicationReviewPage"
+                        ),
                     },
                     {
                       path: "success",
-                      element: <ApplicationSuccessPage />,
+                      lazy: () =>
+                        import(
+                          "../pages/Applications/ApplicationSuccessPage/ApplicationSuccessPage"
+                        ),
                     },
                   ],
                 },
@@ -1210,101 +427,51 @@ const createRoute = (
     },
     {
       path: `${locale}/admin`,
-      element: <AdminLayout />,
-      errorElement: <AdminErrorPage />,
+      lazy: () => import("./Layout/AdminLayout/AdminLayout"),
       children: [
         {
-          errorElement: <AdminErrorPage />,
+          async lazy() {
+            const { ErrorBoundary } = await import(
+              "./Layout/AdminLayout/AdminLayout"
+            );
+            return { ErrorBoundary };
+          },
           children: [
             {
               index: true,
-              element: (
-                <RequireAuth
-                  roles={[
-                    ROLE_NAME.PoolOperator,
-                    ROLE_NAME.RequestResponder,
-                    ROLE_NAME.CommunityManager,
-                    ROLE_NAME.PlatformAdmin,
-                  ]}
-                  loginPath={loginPath}
-                >
-                  <AdminDashboardPage />
-                </RequireAuth>
-              ),
+              lazy: () =>
+                import("../pages/AdminDashboardPage/AdminDashboardPage"),
             },
             {
               path: "users",
               children: [
                 {
                   index: true,
-                  element: (
-                    <RequireAuth
-                      roles={[
-                        ROLE_NAME.PoolOperator,
-                        ROLE_NAME.RequestResponder,
-                        ROLE_NAME.PlatformAdmin,
-                      ]}
-                      loginPath={loginPath}
-                    >
-                      <IndexUserPage />
-                    </RequireAuth>
-                  ),
+                  lazy: () =>
+                    import("../pages/Users/IndexUserPage/IndexUserPage"),
                 },
                 {
                   path: ":userId",
-                  element: (
-                    <RequireAuth
-                      roles={[
-                        ROLE_NAME.PoolOperator,
-                        ROLE_NAME.RequestResponder,
-                        ROLE_NAME.PlatformAdmin,
-                      ]}
-                      loginPath={loginPath}
-                    >
-                      <UserLayout />
-                    </RequireAuth>
-                  ),
+                  lazy: () => import("../pages/Users/UserLayout"),
                   children: [
                     {
                       index: true,
-                      element: (
-                        <RequireAuth
-                          roles={[
-                            ROLE_NAME.PoolOperator,
-                            ROLE_NAME.RequestResponder,
-                            ROLE_NAME.PlatformAdmin,
-                          ]}
-                          loginPath={loginPath}
-                        >
-                          <UserInformationPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import(
+                          "../pages/Users/UserInformationPage/UserInformationPage"
+                        ),
                     },
                     {
                       path: "profile",
-                      element: (
-                        <RequireAuth
-                          roles={[
-                            ROLE_NAME.PoolOperator,
-                            ROLE_NAME.RequestResponder,
-                            ROLE_NAME.PlatformAdmin,
-                          ]}
-                          loginPath={loginPath}
-                        >
-                          <AdminUserProfilePage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import(
+                          "../pages/Users/AdminUserProfilePage/AdminUserProfilePage"
+                        ),
                     },
                     {
                       path: "edit",
-                      element: (
-                        <RequireAuth
-                          roles={[ROLE_NAME.PlatformAdmin]}
-                          loginPath={loginPath}
-                        >
-                          <UpdateUserPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import("../pages/Users/UpdateUserPage/UpdateUserPage"),
                     },
                   ],
                 },
@@ -1315,91 +482,34 @@ const createRoute = (
               children: [
                 {
                   index: true,
-                  element: (
-                    <RequireAuth
-                      roles={[
-                        ROLE_NAME.PoolOperator,
-                        ROLE_NAME.CommunityManager,
-                        ROLE_NAME.PlatformAdmin,
-                      ]}
-                      loginPath={loginPath}
-                    >
-                      <IndexTeamPage />
-                    </RequireAuth>
-                  ),
+                  lazy: () =>
+                    import("../pages/Teams/IndexTeamPage/IndexTeamPage"),
                 },
                 {
                   path: "create",
-                  element: (
-                    <RequireAuth
-                      roles={[
-                        ROLE_NAME.CommunityManager,
-                        ROLE_NAME.PlatformAdmin,
-                      ]}
-                      loginPath={loginPath}
-                    >
-                      <CreateTeamPage />
-                    </RequireAuth>
-                  ),
+                  lazy: () =>
+                    import("../pages/Teams/CreateTeamPage/CreateTeamPage"),
                 },
                 {
                   path: ":teamId",
-                  element: (
-                    <RequireAuth
-                      roles={[
-                        ROLE_NAME.PoolOperator,
-                        ROLE_NAME.CommunityManager,
-                        ROLE_NAME.PlatformAdmin,
-                      ]}
-                      loginPath={loginPath}
-                    >
-                      <TeamLayout />
-                    </RequireAuth>
-                  ),
+                  lazy: () => import("../pages/Teams/TeamLayout"),
                   children: [
                     {
                       index: true,
-                      element: (
-                        <RequireAuth
-                          roles={[
-                            ROLE_NAME.PoolOperator,
-                            ROLE_NAME.CommunityManager,
-                            ROLE_NAME.PlatformAdmin,
-                          ]}
-                          loginPath={loginPath}
-                        >
-                          <ViewTeamPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import("../pages/Teams/ViewTeamPage/ViewTeamPage"),
                     },
                     {
                       path: "edit",
-                      element: (
-                        <RequireAuth
-                          roles={[
-                            ROLE_NAME.CommunityManager,
-                            ROLE_NAME.PlatformAdmin,
-                          ]}
-                          loginPath={loginPath}
-                        >
-                          <UpdateTeamPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import("../pages/Teams/UpdateTeamPage/UpdateTeamPage"),
                     },
                     {
                       path: "members",
-                      element: (
-                        <RequireAuth
-                          roles={[
-                            ROLE_NAME.PoolOperator,
-                            ROLE_NAME.CommunityManager,
-                            ROLE_NAME.PlatformAdmin,
-                          ]}
-                          loginPath={loginPath}
-                        >
-                          <TeamMembersPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import(
+                          "../pages/Teams/TeamMembersPage/TeamMembersPage"
+                        ),
                     },
                   ],
                 },
@@ -1410,124 +520,53 @@ const createRoute = (
               children: [
                 {
                   index: true,
-                  element: (
-                    <RequireAuth
-                      roles={[
-                        ROLE_NAME.PoolOperator,
-                        ROLE_NAME.CommunityManager,
-                        ROLE_NAME.PlatformAdmin,
-                      ]}
-                      loginPath={loginPath}
-                    >
-                      <IndexPoolPage />
-                    </RequireAuth>
-                  ),
+                  lazy: () =>
+                    import("../pages/Pools/IndexPoolPage/IndexPoolPage"),
                 },
                 {
                   path: "create",
-                  element: (
-                    <RequireAuth
-                      roles={[ROLE_NAME.PoolOperator]}
-                      loginPath={loginPath}
-                    >
-                      <CreatePoolPage />
-                    </RequireAuth>
-                  ),
+                  lazy: () =>
+                    import("../pages/Pools/CreatePoolPage/CreatePoolPage"),
                 },
                 {
                   path: ":poolId",
-                  element: (
-                    <RequireAuth
-                      roles={[
-                        ROLE_NAME.PoolOperator,
-                        ROLE_NAME.RequestResponder,
-                        ROLE_NAME.CommunityManager,
-                        ROLE_NAME.PlatformAdmin,
-                      ]}
-                      loginPath={loginPath}
-                    >
-                      <PoolLayout />
-                    </RequireAuth>
-                  ),
+                  lazy: () => import("../pages/Pools/PoolLayout"),
                   children: [
                     {
                       index: true,
-                      element: (
-                        <RequireAuth
-                          roles={[
-                            ROLE_NAME.PoolOperator,
-                            ROLE_NAME.RequestResponder,
-                            ROLE_NAME.CommunityManager,
-                            ROLE_NAME.PlatformAdmin,
-                          ]}
-                          loginPath={loginPath}
-                        >
-                          <ViewPoolPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import("../pages/Pools/ViewPoolPage/ViewPoolPage"),
                     },
                     {
                       path: "edit",
-                      element: (
-                        <RequireAuth
-                          roles={[
-                            ROLE_NAME.PoolOperator,
-                            ROLE_NAME.CommunityManager,
-                            ROLE_NAME.PlatformAdmin,
-                          ]}
-                          loginPath={loginPath}
-                        >
-                          <EditPoolPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import("../pages/Pools/EditPoolPage/EditPoolPage"),
                     },
                     {
                       path: "pool-candidates",
                       children: [
                         {
                           index: true,
-                          element: (
-                            <RequireAuth
-                              roles={[
-                                ROLE_NAME.PoolOperator,
-                                ROLE_NAME.RequestResponder,
-                              ]}
-                              loginPath={loginPath}
-                            >
-                              <IndexPoolCandidatePage />
-                            </RequireAuth>
-                          ),
+                          lazy: () =>
+                            import(
+                              "../pages/PoolCandidates/IndexPoolCandidatePage/IndexPoolCandidatePage"
+                            ),
                         },
                       ],
                     },
                     {
                       path: "screening",
-                      element: (
-                        <RequireAuth
-                          roles={[
-                            ROLE_NAME.PoolOperator,
-                            ROLE_NAME.PlatformAdmin,
-                          ]}
-                          loginPath={loginPath}
-                        >
-                          <ScreeningAndEvaluationPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import(
+                          "../pages/Pools/ScreeningAndEvaluationPage/ScreeningAndEvaluationPage"
+                        ),
                     },
                     {
                       path: "plan",
-                      element: (
-                        <RequireAuth
-                          roles={[
-                            ROLE_NAME.PoolOperator,
-                            ROLE_NAME.CommunityManager,
-                            ROLE_NAME.PlatformAdmin,
-                          ]}
-                          loginPath={loginPath}
-                        >
-                          <AssessmentPlanBuilderPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import(
+                          "../pages/Pools/AssessmentPlanBuilderPage/AssessmentPlanBuilderPage"
+                        ),
                     },
                   ],
                 },
@@ -1535,58 +574,34 @@ const createRoute = (
             },
             {
               path: "pool-candidates",
-              element: (
-                <RequireAuth
-                  roles={[
-                    ROLE_NAME.PoolOperator,
-                    ROLE_NAME.RequestResponder,
-                    ROLE_NAME.PlatformAdmin,
-                  ]}
-                  loginPath={loginPath}
-                >
-                  <AllPoolCandidatesPage />
-                </RequireAuth>
-              ),
+              lazy: () =>
+                import(
+                  "../pages/PoolCandidates/AllPoolCandidatesPage/AllPoolCandidatesPage"
+                ),
             },
             {
               path: "candidates/:poolCandidateId/application",
-              element: (
-                <RequireAuth
-                  roles={[
-                    ROLE_NAME.PoolOperator,
-                    ROLE_NAME.RequestResponder,
-                    ROLE_NAME.PlatformAdmin,
-                  ]}
-                  loginPath={loginPath}
-                >
-                  <ViewPoolCandidatePage />
-                </RequireAuth>
-              ),
+              lazy: () =>
+                import(
+                  "../pages/PoolCandidates/ViewPoolCandidatePage/ViewPoolCandidatePage"
+                ),
             },
             {
               path: "talent-requests",
               children: [
                 {
                   index: true,
-                  element: (
-                    <RequireAuth
-                      roles={[ROLE_NAME.RequestResponder]}
-                      loginPath={loginPath}
-                    >
-                      <IndexSearchRequestPage />
-                    </RequireAuth>
-                  ),
+                  lazy: () =>
+                    import(
+                      "../pages/SearchRequests/IndexSearchRequestPage/IndexSearchRequestPage"
+                    ),
                 },
                 {
                   path: ":searchRequestId",
-                  element: (
-                    <RequireAuth
-                      roles={[ROLE_NAME.RequestResponder]}
-                      loginPath={loginPath}
-                    >
-                      <ViewSearchRequestPage />
-                    </RequireAuth>
-                  ),
+                  lazy: () =>
+                    import(
+                      "../pages/SearchRequests/ViewSearchRequestPage/ViewSearchRequestPage"
+                    ),
                 },
               ],
             },
@@ -1598,39 +613,27 @@ const createRoute = (
                   children: [
                     {
                       index: true,
-                      element: (
-                        <RequireAuth
-                          roles={[ROLE_NAME.PlatformAdmin]}
-                          loginPath={loginPath}
-                        >
-                          <IndexClassificationPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import(
+                          "../pages/Classifications/IndexClassificationPage"
+                        ),
                     },
                     {
                       path: "create",
-                      element: (
-                        <RequireAuth
-                          roles={[ROLE_NAME.PlatformAdmin]}
-                          loginPath={loginPath}
-                        >
-                          <CreateClassificationPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import(
+                          "../pages/Classifications/CreateClassificationPage"
+                        ),
                     },
                     {
                       path: ":classificationId",
                       children: [
                         {
                           path: "edit",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.PlatformAdmin]}
-                              loginPath={loginPath}
-                            >
-                              <UpdateClassificationPage />
-                            </RequireAuth>
-                          ),
+                          lazy: () =>
+                            import(
+                              "../pages/Classifications/UpdateClassificationPage"
+                            ),
                         },
                       ],
                     },
@@ -1641,39 +644,21 @@ const createRoute = (
                   children: [
                     {
                       index: true,
-                      element: (
-                        <RequireAuth
-                          roles={[ROLE_NAME.PlatformAdmin]}
-                          loginPath={loginPath}
-                        >
-                          <IndexDepartmentPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import("../pages/Departments/IndexDepartmentPage"),
                     },
                     {
                       path: "create",
-                      element: (
-                        <RequireAuth
-                          roles={[ROLE_NAME.PlatformAdmin]}
-                          loginPath={loginPath}
-                        >
-                          <CreateDepartmentPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import("../pages/Departments/CreateDepartmentPage"),
                     },
                     {
                       path: ":departmentId",
                       children: [
                         {
                           path: "edit",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.PlatformAdmin]}
-                              loginPath={loginPath}
-                            >
-                              <UpdateDepartmentPage />
-                            </RequireAuth>
-                          ),
+                          lazy: () =>
+                            import("../pages/Departments/UpdateDepartmentPage"),
                         },
                       ],
                     },
@@ -1684,39 +669,18 @@ const createRoute = (
                   children: [
                     {
                       index: true,
-                      element: (
-                        <RequireAuth
-                          roles={[ROLE_NAME.PlatformAdmin]}
-                          loginPath={loginPath}
-                        >
-                          <IndexSkillPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () => import("../pages/Skills/IndexSkillPage"),
                     },
                     {
                       path: "create",
-                      element: (
-                        <RequireAuth
-                          roles={[ROLE_NAME.PlatformAdmin]}
-                          loginPath={loginPath}
-                        >
-                          <CreateSkillPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () => import("../pages/Skills/CreateSkillPage"),
                     },
                     {
                       path: ":skillId",
                       children: [
                         {
                           path: "edit",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.PlatformAdmin]}
-                              loginPath={loginPath}
-                            >
-                              <UpdateSkillPage />
-                            </RequireAuth>
-                          ),
+                          lazy: () => import("../pages/Skills/UpdateSkillPage"),
                         },
                       ],
                     },
@@ -1727,39 +691,23 @@ const createRoute = (
                   children: [
                     {
                       index: true,
-                      element: (
-                        <RequireAuth
-                          roles={[ROLE_NAME.PlatformAdmin]}
-                          loginPath={loginPath}
-                        >
-                          <IndexSkillFamilyPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import("../pages/SkillFamilies/IndexSkillFamilyPage"),
                     },
                     {
                       path: "create",
-                      element: (
-                        <RequireAuth
-                          roles={[ROLE_NAME.PlatformAdmin]}
-                          loginPath={loginPath}
-                        >
-                          <CreateSkillFamilyPage />
-                        </RequireAuth>
-                      ),
+                      lazy: () =>
+                        import("../pages/SkillFamilies/CreateSkillFamilyPage"),
                     },
                     {
                       path: ":skillFamilyId",
                       children: [
                         {
                           path: "edit",
-                          element: (
-                            <RequireAuth
-                              roles={[ROLE_NAME.PlatformAdmin]}
-                              loginPath={loginPath}
-                            >
-                              <UpdateSkillFamilyPage />
-                            </RequireAuth>
-                          ),
+                          lazy: () =>
+                            import(
+                              "../pages/SkillFamilies/UpdateSkillFamilyPage"
+                            ),
                         },
                       ],
                     },
@@ -1767,14 +715,8 @@ const createRoute = (
                 },
                 {
                   path: "announcements",
-                  element: (
-                    <RequireAuth
-                      roles={[ROLE_NAME.PlatformAdmin]}
-                      loginPath={loginPath}
-                    >
-                      <AnnouncementsPage />
-                    </RequireAuth>
-                  ),
+                  lazy: () =>
+                    import("../pages/AnnouncementsPage/AnnouncementsPage"),
                 },
               ],
             },
@@ -1790,16 +732,16 @@ const createRoute = (
     },
     {
       path: `${locale}/indigenous-it-apprentice`,
-      element: <IAPLayout />,
-      errorElement: <ErrorPage />,
+      lazy: () => import("./Layout/IAPLayout"),
       children: [
         {
           index: true,
-          element: <IAPHomePage />,
+          lazy: () => import("../pages/Home/IAPHomePage/Home"),
         },
         {
           path: "hire",
-          element: <IAPManagerHomePage />,
+          lazy: () =>
+            import("../pages/Home/IAPManagerHomePage/IAPManagerHomePage"),
         },
         {
           path: "*",
@@ -1814,9 +756,7 @@ const createRoute = (
 const Router = () => {
   // eslint-disable-next-line no-restricted-syntax
   const { locale } = useLocale();
-  const routes = useRoutes();
-  const featureFlags = useFeatureFlags();
-  const router = createRoute(locale, routes.login(), featureFlags);
+  const router = createRoute(locale);
   return (
     <RouterProvider
       router={router}

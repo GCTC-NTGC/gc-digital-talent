@@ -62,7 +62,7 @@ const WhatToExpectSection = ({
   sectionMetadata,
   onSave,
   onUpdatePublished,
-}: WhatToExpectSectionProps): JSX.Element => {
+}: WhatToExpectSectionProps): React.JSX.Element => {
   const intl = useIntl();
   const pool = getFragment(EditPoolWhatToExpect_Fragment, poolQuery);
   const isNull = hasAllEmptyFields(pool);

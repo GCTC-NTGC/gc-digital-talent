@@ -4,14 +4,16 @@ import LightBulbOutlineIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import LightBulbSolidIcon from "@heroicons/react/24/solid/LightBulbIcon";
 
 import { IconType } from "@gc-digital-talent/ui";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import AdminHero from "~/components/Hero/AdminHero";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import SkillTableApi from "./components/SkillTable";
-import AdminHero from "../../components/Hero/AdminHero";
 
 export const pageTitle: MessageDescriptor = defineMessage({
   defaultMessage: "Skills editor",
@@ -50,5 +52,13 @@ export const IndexSkillPage = () => {
     </>
   );
 };
+
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
+    <IndexSkillPage />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminIndexSkillPage";
 
 export default IndexSkillPage;

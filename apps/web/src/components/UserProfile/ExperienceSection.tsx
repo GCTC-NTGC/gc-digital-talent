@@ -7,8 +7,9 @@ import {
   HeadingRank,
   Link,
   Button,
+  Well,
 } from "@gc-digital-talent/ui";
-import { getLocale } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 import { AwardExperience, Experience } from "@gc-digital-talent/graphql";
 
 import {
@@ -194,25 +195,25 @@ const ExperienceSection = ({
               />
             ))}
           </Accordion.Root>
-        ) : null}
+        ) : (
+          <Well>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "No skills have been linked to any experiences.",
+                id: "23/pqm",
+                description:
+                  "Null state for when no skills have been linked to any experiences",
+              })}
+            </p>
+          </Well>
+        )}
       </Tabs.Content>
     </Tabs.Root>
   ) : (
-    <div
-      data-h2-background-color="base(background.dark)"
-      data-h2-border="base(1px solid background.darker)"
-      data-h2-padding="base(x1)"
-      data-h2-radius="base(s)"
-    >
+    <Well>
       {!editPath ? (
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "No information has been provided",
-            id: "4Xa7Pd",
-            description:
-              "Message on Admin side when user not filled Experience section.",
-          })}
-        </p>
+        <p>{intl.formatMessage(commonMessages.noInformationProvided)}</p>
       ) : (
         <>
           <p data-h2-padding="base(0, 0, x1, 0)">
@@ -234,7 +235,7 @@ const ExperienceSection = ({
           </p>
         </>
       )}
-    </div>
+    </Well>
   );
 };
 
