@@ -104,108 +104,104 @@ const RevertFinalDecisionDialog = ({
         intl,
       })
     : intl.formatMessage(commonMessages.notAvailable);
+
+  if (!isQualified || !isDisqualifiedStatus(status)) {
+    intl.formatMessage(commonMessages.notApplicable);
+  }
   return (
-    <div>
-      {isQualified || isDisqualifiedStatus(status) ? (
-        <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
-          <Dialog.Trigger>
-            <Button
-              type="button"
-              color={isQualified ? "primary" : "error"}
-              mode="inline"
-            >
-              {isQualified ? (
-                <>{intl.formatMessage(poolCandidateMessages.qualified)}</>
-              ) : (
-                <>{intl.formatMessage(poolCandidateMessages.disqualified)}</>
+    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+      <Dialog.Trigger>
+        <Button
+          type="button"
+          color={isQualified ? "primary" : "error"}
+          mode="inline"
+        >
+          {isQualified ? (
+            <>{intl.formatMessage(poolCandidateMessages.qualified)}</>
+          ) : (
+            <>{intl.formatMessage(poolCandidateMessages.disqualified)}</>
+          )}
+        </Button>
+      </Dialog.Trigger>
+      <Dialog.Content>
+        <Dialog.Header>
+          {intl.formatMessage({
+            defaultMessage: "Revert final assessment decision",
+            id: "C3YsFy",
+            description:
+              "Subtitle for view revert final decision dialog on view pool candidate page",
+          })}
+        </Dialog.Header>
+        <Dialog.Body>
+          <div data-h2-display="base(grid)" data-h2-gap="base(x1)">
+            <p>
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "Candidate was marked <strong>{decision}</strong> on <strong>{date}</strong>",
+                  id: "jxH8bt",
+                  description:
+                    "Qualified candidate details on revert final decision dialog on view pool candidate page",
+                },
+                {
+                  decision: intl.formatMessage(
+                    isQualified
+                      ? poolCandidateMessages.qualified
+                      : poolCandidateMessages.disqualified,
+                  ),
+                  date: isQualified ? expiryDate : finalDecisionDate,
+                },
               )}
-            </Button>
-          </Dialog.Trigger>
-          <Dialog.Content>
-            <Dialog.Header>
-              {intl.formatMessage({
-                defaultMessage: "Revert final assessment decision",
-                id: "C3YsFy",
-                description:
-                  "Subtitle for view revert final decision dialog on view pool candidate page",
-              })}
-            </Dialog.Header>
-            <Dialog.Body>
-              <div data-h2-display="base(grid)" data-h2-gap="base(x1)">
+            </p>
+            {!isQualified && (
+              <div data-h2-display="base(grid)" data-h2-gap="base(x.5)">
                 <p>
+                  {intl.formatMessage({
+                    defaultMessage: "For the following reason",
+                    id: "E0HXwp",
+                    description:
+                      "Final decision reason heading on revert final decision dialog on view pool candidate page",
+                  })}
+                  {intl.formatMessage(commonMessages.dividingColon)}
+                </p>
+                <p data-h2-font-weight="base(bold)">
                   {intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "Candidate was marked <strong>{decision}</strong> on <strong>{date}</strong>",
-                      id: "jxH8bt",
-                      description:
-                        "Qualified candidate details on revert final decision dialog on view pool candidate page",
-                    },
-                    {
-                      decision: intl.formatMessage(
-                        isQualified
-                          ? poolCandidateMessages.qualified
-                          : poolCandidateMessages.disqualified,
-                      ),
-                      date: isQualified ? expiryDate : finalDecisionDate,
-                    },
+                    status
+                      ? getPoolCandidateStatus(status)
+                      : commonMessages.notFound,
                   )}
                 </p>
-                {!isQualified && (
-                  <div data-h2-display="base(grid)" data-h2-gap="base(x.5)">
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage: "For the following reason",
-                        id: "E0HXwp",
-                        description:
-                          "Final decision reason heading on revert final decision dialog on view pool candidate page",
-                      })}
-                      {intl.formatMessage(commonMessages.dividingColon)}
-                    </p>
-                    <p data-h2-font-weight="base(bold)">
-                      {intl.formatMessage(
-                        status
-                          ? getPoolCandidateStatus(status)
-                          : commonMessages.notFound,
-                      )}
-                    </p>
-                  </div>
-                )}
-                <p
-                  {...(!isQualified && { "data-h2-font-weight": "base(bold)" })}
-                >
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Do you wish to revert this decision and set candidate status to “Under assessment”?",
-                    id: "5r2C2L",
-                    description:
-                      "Final question on revert final decision dialog on view pool candidate page",
-                  })}
-                </p>
-                <FormChangeNotifyWell />
               </div>
-              <Dialog.Footer>
-                <Button type="submit" color="secondary" onClick={handleSubmit}>
-                  {intl.formatMessage({
-                    defaultMessage: "Revert decision and update status",
-                    id: "QJi1ZQ",
-                    description:
-                      "Button label to revert final decision on view pool candidate page",
-                  })}
-                </Button>
-                <Dialog.Close>
-                  <Button color="warning" mode="inline">
-                    {intl.formatMessage(formMessages.cancelGoBack)}
-                  </Button>
-                </Dialog.Close>
-              </Dialog.Footer>
-            </Dialog.Body>
-          </Dialog.Content>
-        </Dialog.Root>
-      ) : (
-        intl.formatMessage(commonMessages.notApplicable)
-      )}
-    </div>
+            )}
+            <p {...(!isQualified && { "data-h2-font-weight": "base(bold)" })}>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Do you wish to revert this decision and set candidate status to “Under assessment”?",
+                id: "5r2C2L",
+                description:
+                  "Final question on revert final decision dialog on view pool candidate page",
+              })}
+            </p>
+            <FormChangeNotifyWell />
+          </div>
+          <Dialog.Footer>
+            <Button type="submit" color="secondary" onClick={handleSubmit}>
+              {intl.formatMessage({
+                defaultMessage: "Revert decision and update status",
+                id: "QJi1ZQ",
+                description:
+                  "Button label to revert final decision on view pool candidate page",
+              })}
+            </Button>
+            <Dialog.Close>
+              <Button color="warning" mode="inline">
+                {intl.formatMessage(formMessages.cancelGoBack)}
+              </Button>
+            </Dialog.Close>
+          </Dialog.Footer>
+        </Dialog.Body>
+      </Dialog.Content>
+    </Dialog.Root>
   );
 };
 
