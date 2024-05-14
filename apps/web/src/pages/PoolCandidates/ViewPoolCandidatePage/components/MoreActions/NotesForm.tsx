@@ -5,7 +5,7 @@ import ChatBubbleBottomCenterIcon from "@heroicons/react/24/outline/ChatBubbleBo
 import { useMutation } from "urql";
 import isEmpty from "lodash/isEmpty";
 
-import { ToggleSection } from "@gc-digital-talent/ui";
+import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import { Submit, TextArea } from "@gc-digital-talent/forms";
 import {
   FragmentType,
@@ -68,7 +68,9 @@ const Display = ({ notes }: { notes?: Maybe<string> }) => {
 
 const NotesForm = ({ poolCandidate: poolCandidateQuery }: NotesFormProps) => {
   const intl = useIntl();
-  const [, executeMutation] = useMutation(PoolCandidate_UpdateNotesMutation);
+  const [{ fetching }, executeMutation] = useMutation(
+    PoolCandidate_UpdateNotesMutation,
+  );
   const poolCandidate = getFragment(NotesForm_Fragment, poolCandidateQuery);
 
   const { isEditing, setIsEditing } = useToggleSectionInfo({
@@ -121,6 +123,8 @@ const NotesForm = ({ poolCandidate: poolCandidateQuery }: NotesFormProps) => {
       keepDirty: false,
       defaultValue: values.notes,
     });
+
+    setIsEditing(false);
   };
 
   return (
@@ -148,13 +152,19 @@ const NotesForm = ({ poolCandidate: poolCandidateQuery }: NotesFormProps) => {
                 rows={8}
               />
 
-              <ToggleSection.Close>
+              <div data-h2-display="base(flex)" data-h2-gap="base(x.5)">
                 <Submit
                   text={intl.formatMessage(formMessages.saveChanges)}
                   color="primary"
                   mode="solid"
+                  isSubmitting={fetching}
                 />
-              </ToggleSection.Close>
+                <ToggleSection.Close>
+                  <Button mode="inline" type="button" color="quaternary">
+                    {intl.formatMessage(commonMessages.cancel)}
+                  </Button>
+                </ToggleSection.Close>
+              </div>
             </form>
           </FormProvider>
         </ToggleSection.OpenContent>
