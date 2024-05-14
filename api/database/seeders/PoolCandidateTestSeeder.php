@@ -30,7 +30,7 @@ class PoolCandidateTestSeeder extends Seeder
         // this was split into two steps as otherwise PoolCandidateFactory automatically assigns a submitted_at
         $candidateOne->pool_candidate_status = PoolCandidateStatus::EXPIRED->name;
         $candidateOne->save();
-        $users=[];
+        $users = [];
         $users[0] = User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()

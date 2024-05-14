@@ -696,7 +696,7 @@ class PoolTest extends TestCase
         Skill::factory()->create();
 
         $completePool = Pool::factory()
-            ->withPoolSkills(2,2)
+            ->withPoolSkills(2, 2)
             ->withAssessments(2)
             ->published()
             ->create([
@@ -750,7 +750,7 @@ class PoolTest extends TestCase
 
         $completePool = Pool::factory()
             ->published()
-            ->withPoolSkills(2,2)
+            ->withPoolSkills(2, 2)
             ->create([
                 'closing_date' => config('constants.far_future_date'),
             ]);

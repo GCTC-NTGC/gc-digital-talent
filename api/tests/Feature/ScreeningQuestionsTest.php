@@ -102,11 +102,11 @@ class ScreeningQuestionsTest extends TestCase
             'name' => $this->teamName,
         ]);
         Skill::factory()->count(3)->create();
-        $this->pool = Pool::factory()->draft()->withPoolSkills(2,2)->create([
+        $this->pool = Pool::factory()->draft()->withPoolSkills(2, 2)->create([
             'team_id' => $this->team->id,
         ]);
         $this->poolSkillId = (PoolSkill::all()->pluck('id')->toArray())[0];
-        $this->publishedPool = Pool::factory()->published()->WithPoolSkills(2,2)->WithQuestions(2,2)->create([
+        $this->publishedPool = Pool::factory()->published()->WithPoolSkills(2, 2)->WithQuestions(2, 2)->create([
             'team_id' => $this->team->id,
         ]);
         $this->adminUser = User::factory()

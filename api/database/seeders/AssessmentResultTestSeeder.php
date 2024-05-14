@@ -83,7 +83,7 @@ class AssessmentResultTestSeeder extends Seeder
 
         $user2 = User::select('id')->where('first_name', 'User2')->sole();
         $poolCandidate2 = PoolCandidate::select('id')->where('user_id', $user2->id)->where('pool_id', $securityAnalystPool->id)->sole();
-        $this->assessSkillsWithLevelAndJustification($poolCandidate2, $securityAnalystPool->poolSkills()->where('type', PoolSkillType::ESSENTIAL->name)->pluck('id')->toArray(), $assessmentStep, AssessmentDecisionLevel::AT_REQUIRED->name,[AssessmentResultJustification::EDUCATION_ACCEPTED_WORK_EXPERIENCE_EQUIVALENCY->name], AssessmentDecision::SUCCESSFUL->name, AssessmentResultType::SKILL);
+        $this->assessSkillsWithLevelAndJustification($poolCandidate2, $securityAnalystPool->poolSkills()->where('type', PoolSkillType::ESSENTIAL->name)->pluck('id')->toArray(), $assessmentStep, AssessmentDecisionLevel::AT_REQUIRED->name, [AssessmentResultJustification::EDUCATION_ACCEPTED_WORK_EXPERIENCE_EQUIVALENCY->name], AssessmentDecision::SUCCESSFUL->name, AssessmentResultType::SKILL);
 
         $user3 = User::select('id')->where('first_name', 'User3')->sole();
         $poolCandidate3 = PoolCandidate::select('id')->where('user_id', $user3->id)->where('pool_id', $securityAnalystPool->id)->sole();
