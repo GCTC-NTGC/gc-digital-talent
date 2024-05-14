@@ -1174,12 +1174,6 @@ const operationalRequirementLabelFirstPersonNoBold = defineMessages({
   },
 });
 
-export const OperationalRequirementV1 = [
-  OperationalRequirement.ShiftWork,
-  OperationalRequirement.OvertimeScheduled,
-  OperationalRequirement.OvertimeShortNotice,
-];
-
 export const OperationalRequirementV2 = [
   OperationalRequirement.OvertimeOccasional,
   OperationalRequirement.OvertimeRegular,
