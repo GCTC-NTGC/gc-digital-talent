@@ -8,7 +8,11 @@ import { Button, Dialog } from "@gc-digital-talent/ui";
 import { DateInput } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import {
+  DATE_FORMAT_STRING,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 
 import applicationMessages from "~/messages/applicationMessages";
 import { isQualifiedStatus } from "~/utils/poolCandidate";
@@ -114,7 +118,7 @@ const ChangeExpiryDateDialog = ({
         <Button mode="inline">
           {formatDate({
             date: parseDateTimeUtc(application.expiryDate),
-            formatString: "PPPP",
+            formatString: DATE_FORMAT_STRING,
             intl,
           }) || title}
         </Button>
