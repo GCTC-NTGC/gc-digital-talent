@@ -133,18 +133,6 @@ interface Notification {
   updatedAt: DateTime! @rename(attribute: "updated_at")
 }
 
-type PoolCandidateStatusChangedNotification implements Notification {
-  id: ID!
-  readAt: DateTime @rename(attribute: "read_at")
-  createdAt: DateTime! @rename(attribute: "created_at")
-  updatedAt: DateTime! @rename(attribute: "updated_at")
-
-  oldStatus: PoolCandidateStatus @rename(attribute: "old_status")
-  newStatus: PoolCandidateStatus @rename(attribute: "new_status")
-  poolCandidateId: ID @rename(attribute: "pool_candidate_id")
-  poolName: LocalizedString @rename(attribute: "pool_name")
-}
-
 type ApplicationDeadlineApproachingNotification implements Notification {
   id: ID!
   readAt: DateTime @rename(attribute: "read_at")

@@ -45,15 +45,6 @@ const NotificationItem_Fragment = graphql(/* GraphQL */ `
     readAt
     createdAt
     updatedAt
-    ... on PoolCandidateStatusChangedNotification {
-      oldStatus
-      newStatus
-      poolCandidateId
-      poolName {
-        en
-        fr
-      }
-    }
     ... on ApplicationDeadlineApproachingNotification {
       closingDate
       poolName {
