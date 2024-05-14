@@ -163,8 +163,6 @@ export function transformPoolInput({ search }: TransformPoolInputArgs) {
   return {
     generalSearch: !!search.term && !search.type ? search.term : undefined,
     name: search.type === "name" ? search.term : undefined,
-    ownerName: search.type === "ownerName" ? search.term : undefined,
-    ownerEmail: search.type === "ownerEmail" ? search.term : undefined,
     team: search.type === "type" ? search.term : undefined,
   };
 }

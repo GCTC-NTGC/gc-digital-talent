@@ -724,8 +724,6 @@ input UserPublicProfileFilterInput {
 input PoolFilterInput {
   generalSearch: String
   name: String
-  ownerName: String
-  ownerEmail: String
   team: String
   streams: [PoolStream!]
   statuses: [PoolStatus!]

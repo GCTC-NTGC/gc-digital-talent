@@ -245,6 +245,8 @@ const PoolTable = ({ title }: PoolTableProps) => {
     ),
     columnHelper.accessor((row) => ownerNameAccessor(row), {
       id: "ownerName",
+      // Note: Being removed with communities
+      enableColumnFilter: false,
       header: intl.formatMessage({
         defaultMessage: "Owner Name",
         id: "AWk4BX",
@@ -254,6 +256,8 @@ const PoolTable = ({ title }: PoolTableProps) => {
     }),
     columnHelper.accessor((row) => ownerEmailAccessor(row), {
       id: "ownerEmail",
+      // Note: Being removed with communities
+      enableColumnFilter: false,
       header: intl.formatMessage({
         defaultMessage: "Owner Email",
         id: "pe5WkF",

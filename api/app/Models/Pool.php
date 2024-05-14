@@ -328,28 +328,6 @@ class Pool extends Model
         return $query;
     }
 
-    public static function scopeOwnerName(Builder $query, ?string $name): Builder
-    {
-        if ($name) {
-            $query->whereHas('user', function ($query) use ($name) {
-                User::scopeName($query, $name);
-            });
-        }
-
-        return $query;
-    }
-
-    public static function scopeOwnerEmail(Builder $query, ?string $email): Builder
-    {
-        if ($email) {
-            $query->whereHas('user', function ($query) use ($email) {
-                User::scopeEmail($query, $email);
-            });
-        }
-
-        return $query;
-    }
-
     public static function scopeTeam(Builder $query, ?string $team): Builder
     {
         if ($team) {
@@ -406,14 +384,6 @@ class Pool extends Model
         if ($term) {
             $query->where(function ($query) use ($term) {
                 self::scopeName($query, $term);
-
-                $query->orWhere(function ($query) use ($term) {
-                    self::scopeOwnerName($query, $term);
-                });
-
-                $query->orWhere(function ($query) use ($term) {
-                    self::scopeOwnerEmail($query, $term);
-                });
 
                 $query->orWhere(function ($query) use ($term) {
                     self::scopeTeam($query, $term);

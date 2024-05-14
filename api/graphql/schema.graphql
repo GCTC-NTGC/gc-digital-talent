@@ -631,8 +631,6 @@ input UserPublicProfileFilterInput {
 input PoolFilterInput {
   generalSearch: String @scope
   name: String @scope
-  ownerName: String @scope
-  ownerEmail: String @scope
   team: String @scope
   streams: [PoolStream!] @scope
   statuses: [PoolStatus!] @scope
