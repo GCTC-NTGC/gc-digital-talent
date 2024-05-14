@@ -13,7 +13,10 @@ import {
   CreatePoolCandidateSearchRequestInput,
   makeFragmentData,
 } from "@gc-digital-talent/graphql";
-import { allModes } from "@gc-digital-talent/storybook-helpers";
+import {
+  MockGraphqlDecorator,
+  allModes,
+} from "@gc-digital-talent/storybook-helpers";
 
 import {
   RequestForm,
@@ -43,6 +46,7 @@ applicantFilter.qualifiedClassifications = [classifications[0]];
 
 export default {
   component: RequestForm,
+  decorators: [MockGraphqlDecorator],
   args: {
     departmentsQuery: departmentFragments,
     classificationsQuery: classificationFragments,
@@ -65,6 +69,15 @@ export default {
       modes: {
         light: allModes.light,
         "light mobile": allModes["light mobile"],
+      },
+    },
+    apiResponses: {
+      PoolsInFilter: {
+        data: {
+          poolsPaginated: {
+            data: [pools[0]],
+          },
+        },
       },
     },
   },
