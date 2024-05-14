@@ -212,8 +212,8 @@ const RecruitmentAvailabilityDialog = ({
                   },
                 ]}
               />
-              <Dialog.Footer data-h2-justify-content="base(flex-start)">
-                <Button type="submit" disabled={isSubmitting}>
+              <Dialog.Footer>
+                <Button type="submit" disabled={isSubmitting} color="secondary">
                   {intl.formatMessage({
                     defaultMessage: "Save availability",
                     id: "nDm9dX",
@@ -222,7 +222,7 @@ const RecruitmentAvailabilityDialog = ({
                   })}
                 </Button>
                 <Dialog.Close>
-                  <Button mode="inline" color="secondary">
+                  <Button mode="inline" color="warning">
                     {intl.formatMessage(commonMessages.cancel)}
                   </Button>
                 </Dialog.Close>

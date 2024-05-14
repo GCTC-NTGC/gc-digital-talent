@@ -124,17 +124,13 @@ const NotesDialog = ({ poolCandidateId, notes }: NotesDialogProps) => {
                 name="notes"
                 label={intl.formatMessage(adminMessages.notes)}
               />
-              <Dialog.Footer data-h2-justify-content="base(flex-start)">
+              <Dialog.Footer>
+                <Submit text={intl.formatMessage(formMessages.saveChanges)} />
                 <Dialog.Close>
-                  <Button type="button" color="primary" mode="inline">
+                  <Button color="warning" mode="inline">
                     {intl.formatMessage(formMessages.cancelGoBack)}
                   </Button>
                 </Dialog.Close>
-                <Submit
-                  text={intl.formatMessage(formMessages.saveChanges)}
-                  color="primary"
-                  mode="solid"
-                />
               </Dialog.Footer>
             </form>
           </FormProvider>

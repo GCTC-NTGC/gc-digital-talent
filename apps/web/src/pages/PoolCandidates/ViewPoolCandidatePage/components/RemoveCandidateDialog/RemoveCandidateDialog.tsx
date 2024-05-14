@@ -172,7 +172,7 @@ const RemoveCandidateDialog = ({
                 )}
                 <FormChangeNotifyWell />
               </div>
-              <Dialog.Footer data-h2-justify-content="base(flex-start)">
+              <Dialog.Footer>
                 <Button type="submit" color="error" disabled={fetching}>
                   {intl.formatMessage({
                     defaultMessage: "Remove candidate and update status",
@@ -182,7 +182,7 @@ const RemoveCandidateDialog = ({
                   })}
                 </Button>
                 <Dialog.Close>
-                  <Button mode="inline" color="secondary">
+                  <Button mode="inline" color="warning">
                     {intl.formatMessage(formMessages.cancelGoBack)}
                   </Button>
                 </Dialog.Close>

@@ -87,7 +87,6 @@ const SupportFormSuccess = ({ onFormToggle }: SupportFormSuccessProps) => {
       </p> */}
       <Button
         color="secondary"
-        mode="solid"
         onClick={() => {
           onFormToggle(true);
         }}
@@ -241,7 +240,7 @@ const SupportForm = ({
               trackUnsaved={false}
             />
             <div data-h2-align-self="base(flex-start)">
-              <Submit color="secondary" />
+              <Submit />
             </div>
           </form>
         </FormProvider>

@@ -800,7 +800,7 @@ const AssessmentDetailsDialog = ({
             </form>
           </FormProvider>
 
-          <Dialog.Footer data-h2-justify-content="base(flex-start)">
+          <Dialog.Footer>
             <Button
               color="secondary"
               onClick={handleSubmit(submitForm)}

@@ -92,7 +92,7 @@ const SubmitForPublishingDialog = ({
                 "Description of what happens after a process is submitted for publishing",
             })}
           </p>
-          <Dialog.Footer data-h2-justify-content="base(flex-start)">
+          <Dialog.Footer>
             <Dialog.Close>
               <Button mode="inline" color="secondary">
                 {intl.formatMessage({

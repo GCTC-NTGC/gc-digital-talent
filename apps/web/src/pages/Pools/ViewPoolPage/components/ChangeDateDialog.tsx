@@ -223,10 +223,9 @@ const ChangeDateDialog = ({
                   </Well>
                 </>
               )}
-              <Dialog.Footer data-h2-justify-content="base(flex-start)">
+              <Dialog.Footer>
                 <Button
                   type="submit"
-                  mode="solid"
                   color={type === "extend" ? "secondary" : "error"}
                   disabled={isSubmitting}
                 >

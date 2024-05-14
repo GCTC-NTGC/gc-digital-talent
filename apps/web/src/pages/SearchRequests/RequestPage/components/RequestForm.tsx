@@ -568,8 +568,6 @@ export const RequestForm = ({
             data-h2-align-items="base(center)"
           >
             <Submit
-              color="primary"
-              mode="solid"
               text={intl.formatMessage({
                 defaultMessage: "Submit Request",
                 id: "eTTlR0",
@@ -578,7 +576,7 @@ export const RequestForm = ({
             />
             <Link
               mode="inline"
-              data-h2-margin="base(0, x.5, 0, 0)"
+              color="warning"
               href={paths.search()}
               state={{
                 ...state,

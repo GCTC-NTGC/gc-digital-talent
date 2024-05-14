@@ -104,7 +104,7 @@ const ApplicationCareerTimelineIntroduction = ({
         data-h2-flex-direction="base(column) l-tablet(row)"
         data-h2-align-items="base(flex-start) l-tablet(center)"
       >
-        <Link color="primary" mode="solid" href={nextStep}>
+        <Link color="secondary" mode="solid" href={nextStep}>
           {intl.formatMessage({
             defaultMessage: "Got it, let's go!",
             id: "AOrJqm",

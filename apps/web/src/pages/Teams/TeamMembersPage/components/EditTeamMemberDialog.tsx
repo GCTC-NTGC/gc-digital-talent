@@ -189,21 +189,16 @@ const EditTeamMemberDialog = ({ user, team }: EditTeamMemberDialogProps) => {
                 />
               </div>
               <Dialog.Footer>
-                <Dialog.Close>
-                  <Button color="secondary">
-                    {intl.formatMessage(formMessages.cancelGoBack)}
-                  </Button>
-                </Dialog.Close>
-                <Button
-                  mode="solid"
-                  color="secondary"
-                  type="submit"
-                  disabled={isSubmitting}
-                >
+                <Button color="secondary" type="submit" disabled={isSubmitting}>
                   {isSubmitting
                     ? intl.formatMessage(commonMessages.saving)
                     : intl.formatMessage(formMessages.saveChanges)}
                 </Button>
+                <Dialog.Close>
+                  <Button color="warning" mode="inline">
+                    {intl.formatMessage(formMessages.cancelGoBack)}
+                  </Button>
+                </Dialog.Close>
               </Dialog.Footer>
             </form>
           </FormProvider>
