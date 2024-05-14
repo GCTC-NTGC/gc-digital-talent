@@ -84,11 +84,7 @@ const UpdatePublishedProcessDialog = ({
         <Dialog.Body>
           <Well color="warning" data-h2-margin-bottom="base(x1)">
             <Heading level="h3" size="h6" data-h2-margin-top="base(0)">
-              {intl.formatMessage({
-                defaultMessage: "Warning!",
-                id: "iUK2PO",
-                description: "Heading for a potentially dangerous action alert",
-              })}
+              {intl.formatMessage(commonMessages.warning)}
             </Heading>
             <p>
               {intl.formatMessage({

@@ -205,11 +205,7 @@ const ChangeDateDialog = ({
                       data-h2-font-weight="base(700)"
                       data-h2-margin-bottom="base(x.5)"
                     >
-                      {intl.formatMessage({
-                        defaultMessage: "Warning!",
-                        id: "ISuyAo",
-                        description: "Title for a warning message",
-                      })}
+                      {intl.formatMessage(commonMessages.warning)}
                     </p>
                     <p>
                       {intl.formatMessage({

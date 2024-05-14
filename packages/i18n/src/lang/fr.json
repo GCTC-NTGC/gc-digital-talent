@@ -1199,6 +1199,10 @@
     "defaultMessage": "{wordCount} / {wordLimit} mots",
     "description": "Message for words remaining before hitting the limit"
   },
+  "YtV1mE": {
+    "defaultMessage": "Avertissement!",
+    "description": "A potentially dangerous action alert"
+  },
   "YtwHjm": {
     "defaultMessage": "E (courant)",
     "description": "The evaluated language ability level of E"
@@ -1454,10 +1458,6 @@
   "hWMUFx": {
     "defaultMessage": "cela m'oblige à faire des heures supplémentaires habituelles.",
     "description": "The operational requirement described as regular overtime."
-  },
-  "hd7hdn": {
-    "defaultMessage": "avertissement",
-    "description": "Message for the warning status"
   },
   "hpBnAk": {
     "defaultMessage": "Vous ne pouvez pas désarchiver un bassin à moins que son statut indique qu'il soit archivé.",

@@ -3539,10 +3539,6 @@
     "defaultMessage": "Supprimer le signet de {candidateName} du haut de la colonne.",
     "description": "Un-bookmark button label for applicant assessment tracking."
   },
-  "ISuyAo": {
-    "defaultMessage": "Avertissement!",
-    "description": "Title for a warning message"
-  },
   "IT6Djp": {
     "defaultMessage": "Les conditions d’emploi sélectionnées seront comparées à celles choisies par les candidats dans leur demande.",
     "description": "Message describing the operational requirements filter in the search form."
