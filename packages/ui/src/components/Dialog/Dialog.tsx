@@ -215,8 +215,7 @@ const Footer = ({ children, ...rest }: DialogFooterProps) => (
     <div
       data-h2-align-items="base(center)"
       data-h2-display="base(flex)"
-      data-h2-justify-content="base(flex-end)"
-      data-h2-gap="base(0 x1)"
+      data-h2-gap="base(0 x.5)"
       {...rest}
     >
       {children}

@@ -167,7 +167,7 @@ const SkillBrowserDialog = ({
               {selectedSkill && context === "pool" && (
                 <SkillDetailsPool category={selectedSkill.category} />
               )}
-              <Dialog.Footer data-h2-justify-content="base(flex-start)">
+              <Dialog.Footer>
                 <Button
                   type="button"
                   color="secondary"
@@ -179,7 +179,7 @@ const SkillBrowserDialog = ({
                     : submit}
                 </Button>
                 <Dialog.Close>
-                  <Button type="button" mode="inline" color="quaternary">
+                  <Button type="button" mode="inline" color="warning">
                     {intl.formatMessage(commonMessages.cancel)}
                   </Button>
                 </Dialog.Close>

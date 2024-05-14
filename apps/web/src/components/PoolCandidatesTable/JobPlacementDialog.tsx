@@ -283,18 +283,16 @@ const JobPlacementDialog = ({
                   />
                 )}
               </div>
-              <Dialog.Footer data-h2-justify-content="base(flex-start)">
+              <Dialog.Footer>
                 <Submit
                   text={intl.formatMessage({
                     defaultMessage: "Save decision",
                     id: "DyHuZi",
                     description: "Submit message for job placement dialog",
                   })}
-                  color="primary"
-                  mode="solid"
                 />
                 <Dialog.Close>
-                  <Button color="tertiary" mode="inline">
+                  <Button color="warning" mode="inline">
                     {intl.formatMessage(commonMessages.cancel)}
                   </Button>
                 </Dialog.Close>

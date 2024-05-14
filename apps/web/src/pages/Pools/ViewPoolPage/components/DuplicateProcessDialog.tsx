@@ -72,9 +72,8 @@ const DuplicateProcessDialog = ({
             })}
           </p>
 
-          <Dialog.Footer data-h2-justify-content="base(flex-start)">
+          <Dialog.Footer>
             <Button
-              mode="solid"
               color="secondary"
               onClick={handleDuplicate}
               disabled={isFetching}
