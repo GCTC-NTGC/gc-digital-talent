@@ -63,7 +63,6 @@ import {
   finalDecisionCell,
   notesCell,
   priorityCell,
-  statusCell,
   transformFormValuesToFilterState,
   transformPoolCandidateSearchInputToFormValues,
   getSortOrder,
@@ -588,24 +587,6 @@ const PoolCandidatesTable = ({
             },
           ),
         ]),
-    columnHelper.accessor(
-      ({ poolCandidate: { status } }) =>
-        intl.formatMessage(
-          status ? getPoolCandidateStatus(status) : commonMessages.notFound,
-        ),
-      {
-        id: "status",
-        header: intl.formatMessage(commonMessages.status),
-        cell: ({
-          row: {
-            original: { poolCandidate },
-          },
-        }) => statusCell(poolCandidate.status, intl),
-        meta: {
-          hideMobileHeader: true,
-        },
-      },
-    ),
     columnHelper.accessor(
       ({ poolCandidate: { user } }) =>
         intl.formatMessage(
