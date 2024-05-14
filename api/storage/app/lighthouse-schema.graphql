@@ -300,7 +300,6 @@ type ApplicationDeadlineApproachingNotification implements Notification {
 
 type ApplicationStatusChangedNotification implements Notification {
   id: ID!
-  type: NotificationType!
   readAt: DateTime
   createdAt: DateTime!
   updatedAt: DateTime!

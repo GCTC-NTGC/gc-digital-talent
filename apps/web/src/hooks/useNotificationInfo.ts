@@ -3,6 +3,7 @@ import React from "react";
 
 import {
   ApplicationDeadlineApproachingNotification,
+  ApplicationStatusChangedNotification,
   Notification,
 } from "@gc-digital-talent/graphql";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
@@ -79,10 +80,7 @@ const applicationDeadlineApproachingNotificationToInfo = (
 function isApplicationStatusChangedNotification(
   notification: GraphqlType,
 ): notification is ApplicationStatusChangedNotification {
-  return (
-    // eslint-disable-next-line no-underscore-dangle
-    notification.__typename === "ApplicationStatusChangedNotification"
-  );
+  return notification.__typename === "ApplicationStatusChangedNotification";
 }
 
 const applicationStatusChangedNotificationToInfo = (
