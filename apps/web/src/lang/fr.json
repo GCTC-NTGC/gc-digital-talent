@@ -9634,6 +9634,10 @@
     "defaultMessage": "Le Programme d’apprentissage en TI pour les personnes autochtones est une initiative du gouvernement du Canada visant particulièrement les Premières Nations, les Inuits et les Métis. C’est un chemin vers un emploi dans la fonction publique fédérale pour les personnes autochtones qui ont une passion pour la technologie de l’information (TI).",
     "description": "First paragraph about the program"
   },
+  "pXLPjN": {
+    "defaultMessage": "J’ai fait l’objet d’une évaluation par la Commission de la fonction publique dans ma deuxième langue officielle.",
+    "description": "Statement for completion of a Public Service Commission evaluation of a second official language"
+  },
   "pXiwEH": {
     "defaultMessage": "Fermer immédiatement",
     "description": "Option to close the pool"
