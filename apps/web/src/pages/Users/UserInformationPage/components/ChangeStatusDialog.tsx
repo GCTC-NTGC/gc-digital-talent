@@ -274,37 +274,6 @@ const ChangeStatusDialog = ({
                     statuses: [PoolStatus.Closed, PoolStatus.Published],
                   }}
                 />
-                {/* <Combobox
-                  id="changeStatusDialog-additionalPools"
-                  name="additionalPools"
-                  isMulti
-                  label={intl.formatMessage({
-                    defaultMessage: "Additional pools",
-                    id: "8V8WwR",
-                    description:
-                      "Label displayed on the additional pools field of the change candidate status dialog",
-                  })}
-                  placeholder={intl.formatMessage({
-                    defaultMessage: "Select additional pools",
-                    id: "xjZO11",
-                    description:
-                      "Placeholder displayed on the additional pools field of the change candidate status dialog.",
-                  })}
-                  options={pools
-                    .filter((pool) => userPoolIds.includes(pool.id)) // only show pools with user's candidates in them
-                    .filter((pool) => selectedCandidate.pool.id !== pool.id) // don't show the pool of the currently selected candidate as an additional option
-                    .filter(
-                      (pool) =>
-                        pool.status === PoolStatus.Published ||
-                        pool.status === PoolStatus.Closed,
-                    )
-                    .map((pool) => {
-                      return {
-                        value: pool.id,
-                        label: getShortPoolTitleLabel(intl, pool),
-                      };
-                    })}
-                /> */}
               </div>
               <Dialog.Footer>
                 <Button disabled={fetching} type="submit" color="secondary">
