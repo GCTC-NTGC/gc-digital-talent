@@ -1281,7 +1281,7 @@ input UpdatePoolInput {
 }
 
 input UpdatePublishedPoolInput {
-  changeJustification: String!
+  changeJustification: String
   yourImpact: LocalizedStringInput
   keyTasks: LocalizedStringInput
   whatToExpect: LocalizedStringInput

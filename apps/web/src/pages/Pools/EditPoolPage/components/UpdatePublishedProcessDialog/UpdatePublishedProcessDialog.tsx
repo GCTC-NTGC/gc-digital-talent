@@ -5,7 +5,6 @@ import { FormProvider, useForm } from "react-hook-form";
 import { Button, Dialog, Heading, Well } from "@gc-digital-talent/ui";
 import {
   FragmentType,
-  Scalars,
   UpdatePublishedPoolInput,
   getFragment,
   graphql,
@@ -37,9 +36,7 @@ const UpdatePublishedProcessDialog_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-export type FormValues = Partial<UpdatePublishedPoolInput> & {
-  changeJustification: Scalars["String"]["input"];
-};
+export type FormValues = Partial<UpdatePublishedPoolInput>;
 
 interface UpdatePublishedProcessDialogProps
   extends PublishedEditableSectionProps {
@@ -57,7 +54,7 @@ const UpdatePublishedProcessDialog = ({
 
   const methods = useForm<FormValues>({
     defaultValues: {
-      changeJustification: "",
+      changeJustification: null,
     },
   });
 
