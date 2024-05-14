@@ -26,11 +26,7 @@ import {
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 
-import {
-  isNotPlacedStatus,
-  isQualifiedStatus,
-  statusToJobPlacement,
-} from "~/utils/poolCandidate";
+import { isNotPlacedStatus, isQualifiedStatus } from "~/utils/poolCandidate";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 export const PLACEMENT_TYPE_STATUSES = [

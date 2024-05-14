@@ -1,4 +1,7 @@
+import React, { useEffect } from "react";
 import { Args, Decorator, Meta, StoryObj } from "@storybook/react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { action } from "@storybook/addon-actions";
 
 import {
   fakeDepartments,
@@ -12,22 +15,19 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import MoreActions, { MoreActions_Fragment } from "./MoreActions";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { action } from "@storybook/addon-actions";
 
 const poolCandidates = fakePoolCandidates(5);
-const poolCandidate = poolCandidates[2];
+const fakeCandidate = poolCandidates[2];
 
 const profileSnapshot: User = {
-  id: poolCandidate.user.id,
+  id: fakeCandidate.user.id,
 };
-poolCandidate.profileSnapshot = JSON.stringify(profileSnapshot);
+fakeCandidate.profileSnapshot = JSON.stringify(profileSnapshot);
 
 const getData = (status: PoolCandidateStatus) =>
-  makeFragmentData({ ...poolCandidate, status }, MoreActions_Fragment);
+  makeFragmentData({ ...fakeCandidate, status }, MoreActions_Fragment);
 
-const ReactRouterDecorator: Decorator<Args> = (Story, options) => {
+const ReactRouterDecorator: Decorator<Args> = (Story) => {
   const location = useLocation();
   const navigate = useNavigate();
 
