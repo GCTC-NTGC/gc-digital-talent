@@ -933,10 +933,10 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $query;
     }
 
-    public static function scopeGeneralSearch(Builder $query, ?array $searchTerms): Builder
+    public static function scopeGeneralSearch(Builder $query, ?string $searchTerm): Builder
     {
-        if ($searchTerms && is_array($searchTerms)) {
-            $combinedSearchTerm = implode('&', array_map('trim', $searchTerms));
+        if ($searchTerm) {
+            $combinedSearchTerm = trim($searchTerm);
 
             $query
                 // attach the tsquery to every row to use for filtering

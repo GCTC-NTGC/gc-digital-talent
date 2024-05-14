@@ -405,15 +405,15 @@ class PoolCandidate extends Model
         return $query;
     }
 
-    public function scopeGeneralSearch(Builder $query, ?array $searchTerms): Builder
+    public function scopeGeneralSearch(Builder $query, ?string $searchTerm): Builder
     {
-        if (empty($searchTerms)) {
+        if (empty($searchTerm)) {
             return $query;
         }
 
-        $query->where(function ($query) use ($searchTerms) {
-            $query->whereHas('user', function ($query) use ($searchTerms) {
-                User::scopeGeneralSearch($query, $searchTerms);
+        $query->where(function ($query) use ($searchTerm) {
+            $query->whereHas('user', function ($query) use ($searchTerm) {
+                User::scopeGeneralSearch($query, $searchTerm);
             });
         });
 
