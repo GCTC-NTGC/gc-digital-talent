@@ -17,6 +17,8 @@ class TriggerApplicationStatusChangedTest extends TestCase
     use RefreshDatabase;
     use RefreshesSchemaCache;
 
+    protected User $user;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -25,15 +27,22 @@ class TriggerApplicationStatusChangedTest extends TestCase
 
         $this->seed(RolePermissionSeeder::class);
 
+        $this->user = User::factory()->create([
+            'ignored_email_notifications' => [],
+            'ignored_in_app_notifications' => [],
+        ]);
+
     }
 
     // no notification when an application is created or submitted
     public function testNothingSentForNewApplications(): void
     {
-        $user = User::factory()->create();
         $application = PoolCandidate::factory()
-            ->for($user)
-            ->create(['pool_candidate_status' => PoolCandidateStatus::DRAFT->name]);
+            ->for($this->user)
+            ->create([
+                'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+
+            ]);
 
         $application->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
         $application->save();
@@ -44,9 +53,8 @@ class TriggerApplicationStatusChangedTest extends TestCase
     // no notification when an application is moved between non-final and non-removed statuses
     public function testNothingSentForUnrelatedStatusChanges(): void
     {
-        $user = User::factory()->create();
         $application = PoolCandidate::factory()
-            ->for($user)
+            ->for($this->user)
             ->create(['pool_candidate_status' => PoolCandidateStatus::DRAFT->name]);
 
         $application->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
@@ -65,16 +73,15 @@ class TriggerApplicationStatusChangedTest extends TestCase
     // triggers a notification when an application is moved into a final decision status
     public function testNotifyWhenFinalDecision(): void
     {
-        $user = User::factory()->create();
         $application = PoolCandidate::factory()
-            ->for($user)
+            ->for($this->user)
             ->create(['pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name]);
 
         $application->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
         $application->save();
 
         Notification::assertSentTo(
-            [$user], ApplicationStatusChanged::class
+            [$this->user], ApplicationStatusChanged::class
         );
 
     }
@@ -82,16 +89,15 @@ class TriggerApplicationStatusChangedTest extends TestCase
     // triggers a notification when an application is moved out of a final decision status
     public function testNotifyWhenRevertFinalDecision(): void
     {
-        $user = User::factory()->create();
         $application = PoolCandidate::factory()
-            ->for($user)
+            ->for($this->user)
             ->create(['pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name]);
 
         $application->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
         $application->save();
 
         Notification::assertSentTo(
-            [$user], ApplicationStatusChanged::class
+            [$this->user], ApplicationStatusChanged::class
         );
 
     }
@@ -99,16 +105,15 @@ class TriggerApplicationStatusChangedTest extends TestCase
     // triggers a notification when an application is moved into a removed decision status
     public function testNotifyWhenRemovedDecision(): void
     {
-        $user = User::factory()->create();
         $application = PoolCandidate::factory()
-            ->for($user)
+            ->for($this->user)
             ->create(['pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name]);
 
         $application->pool_candidate_status = PoolCandidateStatus::REMOVED->name;
         $application->save();
 
         Notification::assertSentTo(
-            [$user], ApplicationStatusChanged::class
+            [$this->user], ApplicationStatusChanged::class
         );
 
     }
@@ -116,16 +121,15 @@ class TriggerApplicationStatusChangedTest extends TestCase
     // triggers a notification when an application is moved out of a removed decision status
     public function testNotifyWhenRevertRemovedDecision(): void
     {
-        $user = User::factory()->create();
         $application = PoolCandidate::factory()
-            ->for($user)
+            ->for($this->user)
             ->create(['pool_candidate_status' => PoolCandidateStatus::REMOVED->name]);
 
         $application->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
         $application->save();
 
         Notification::assertSentTo(
-            [$user], ApplicationStatusChanged::class
+            [$this->user], ApplicationStatusChanged::class
         );
 
     }

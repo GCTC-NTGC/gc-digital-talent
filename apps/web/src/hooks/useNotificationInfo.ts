@@ -135,6 +135,14 @@ const useNotificationInfo = (
     );
   }
 
+  if (isApplicationStatusChangedNotification(notification)) {
+    return applicationStatusChangedNotificationToInfo(
+      notification,
+      paths,
+      intl,
+    );
+  }
+
   logger.warning(
     `Could not create NotificationInfo for ${notification.__typename}`,
   );
