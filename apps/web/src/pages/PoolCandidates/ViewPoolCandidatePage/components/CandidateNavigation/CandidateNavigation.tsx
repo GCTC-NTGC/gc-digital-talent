@@ -60,12 +60,12 @@ const CandidateNavigation = ({
 
   return (
     <div
-      data-h2-display="base(flex)"
+      data-h2-display="base(grid)"
       data-h2-align-items="base(center)"
-      data-h2-justify-content="base(space-between)"
+      data-h2-grid-template-columns="base(1fr auto 1fr)"
       data-h2-gap="base(x.5)"
     >
-      {previousCandidate && (
+      {previousCandidate ? (
         <Link
           mode="icon_only"
           href={paths.poolCandidateApplication(previousCandidate)}
@@ -73,12 +73,10 @@ const CandidateNavigation = ({
           aria-label={intl.formatMessage(messages.previousCandidate)}
           {...commonLinkProps}
         />
+      ) : (
+        <div /> // for styling
       )}
-      <div
-        {...(!previousCandidate
-          ? { "data-h2-text-align": "base(left)" }
-          : { "data-h2-text-align": "base(center)" })}
-      >
+      <div data-h2-text-align="base(center)" data-h2-grid-column="base(2)">
         <p
           data-h2-color="base(primary.darker)"
           data-h2-font-weight="base(700)"
@@ -100,15 +98,7 @@ const CandidateNavigation = ({
           aria-label={intl.formatMessage(messages.nextCandidate)}
           {...commonLinkProps}
           data-h2-margin-right="base(0)"
-        />
-      )}
-      {lastCandidate && (
-        <Link
-          mode="icon_only"
-          href={paths.screeningAndEvaluation(poolId)}
-          icon={ArrowLeftCircleIcon}
-          aria-label={intl.formatMessage(messages.backToAssessments)}
-          {...commonLinkProps}
+          data-h2-text-align="base(right)"
         />
       )}
     </div>
