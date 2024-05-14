@@ -23,10 +23,6 @@
     "defaultMessage": "Période déterminée",
     "description": "The pool candidate's status is Placed Term."
   },
-  "+U4KU4": {
-    "defaultMessage": "Cela m'oblige à faire les heures supplémentaires prévues.",
-    "description": "The operational requirement described as scheduled overtime."
-  },
   "+ZPD1J": {
     "defaultMessage": "Fermer le menu",
     "description": "Text label for button that closes side menu."
@@ -71,10 +67,6 @@
     "defaultMessage": "Pas dans les FAC",
     "description": "user is not in the CAF"
   },
-  "0Nz6aa": {
-    "defaultMessage": "Travailler des heures supplémentaires prévues",
-    "description": "The operational requirement described as scheduled overtime. (short-form for limited space)"
-  },
   "0OPWbJ": {
     "defaultMessage": "Vous avez déjà postulé dans ce bassin",
     "description": "Message displayed when a user attempts to apply to pool more than once"
@@ -106,10 +98,6 @@
   "17dZD4": {
     "defaultMessage": "Le candidat/la candidate sera informé(e) de toute modification apportée au présent formulaire.",
     "description": "Caption notifying the user about who can know about the results of form changes"
-  },
-  "1RTwS3": {
-    "defaultMessage": "nécessite que je fasse des <strong>heures supplémentaires planifiées</strong>.",
-    "description": "The operational requirement described as scheduled overtime."
   },
   "1Wbu+6": {
     "defaultMessage": "Premières Nations détenant le statut ",
@@ -863,10 +851,6 @@
     "defaultMessage": "Menu des options de bascule",
     "description": "Button text to toggle the combobox menu"
   },
-  "P1ajBo": {
-    "defaultMessage": "cela m'oblige à faire des heures supplémentaires à court préavis.",
-    "description": "The operational requirement described as overtime."
-  },
   "P6PD/I": {
     "defaultMessage": "Manitoba",
     "description": "Manitoba selection for province or territory input"
@@ -1115,10 +1099,6 @@
     "defaultMessage": "Facultatif",
     "description": "Displayed next to optional form inputs."
   },
-  "WYLjD1": {
-    "defaultMessage": "Travailler des heures supplémentaires à court préavis",
-    "description": "The operational requirement described as short notice overtime. (short-form for limited space)"
-  },
   "WcXADs": {
     "defaultMessage": "Anglais seulement",
     "description": "The language ability is English only."
@@ -1306,10 +1286,6 @@
   "clDpR4": {
     "defaultMessage": "Modérément développée",
     "description": "The behavioural skill level for intermediate"
-  },
-  "cnFVR1": {
-    "defaultMessage": "m'oblige à faire des <strong>heures supplémentaires sans préavis</strong>.",
-    "description": "The operational requirement described as overtime."
   },
   "coUese": {
     "defaultMessage": "Gestion de portefeuilles de projets de la TI",
@@ -1575,10 +1551,6 @@
     "defaultMessage": "Un champ obligatoire est vide : Français – Votre incidence",
     "description": "Error message that Your Impact in French must be filled"
   },
-  "kwaeXP": {
-    "defaultMessage": "Disponibilité, volonté et capacité à faire des heures supplémentaires (à court terme)",
-    "description": "The operational requirement described as occasional overtime."
-  },
   "l+x5JF": {
     "defaultMessage": "L'une ou les deux étapes données ne peuvent être interchangées.",
     "description": "Error message that one of the assessment steps cannot have its sort order changed."
@@ -1590,10 +1562,6 @@
   "l4wLn9": {
     "defaultMessage": "Je suis un citoyen canadien.",
     "description": "declaring one to be a Canadian citizen"
-  },
-  "lDeaXK": {
-    "defaultMessage": "Disponibilité, volonté et capacité à faire des heures supplémentaires (planifiées)",
-    "description": "The operational requirement described as scheduled overtime."
   },
   "lXgeJr": {
     "defaultMessage": "Veuillez relier au moins une expérience du calendrier de carrière à chacune des exigences techniques requises, et veillez à ce que chaque compétence possède des détails sur la façon de s’en servir.",
