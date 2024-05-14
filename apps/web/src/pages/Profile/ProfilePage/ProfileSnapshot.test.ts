@@ -1,8 +1,9 @@
-import { UserProfile_FragmentText as frontendQuery } from "./ProfilePage";
+import path from "path";
+import { readFile } from "fs/promises";
+
 import { diffLinesRaw, DIFF_EQUAL, diffLinesUnified } from "jest-diff";
 
-const fs = require("fs");
-const path = require("path");
+import { UserProfile_FragmentText as frontendQuery } from "./ProfilePage";
 
 function normalizeQuery(q: string[]): string[] {
   const result = q.map((line) => {
@@ -14,7 +15,7 @@ function normalizeQuery(q: string[]): string[] {
 }
 
 describe("Profile snapshot tests", () => {
-  test("Should have both queries matching", () => {
+  test("Should have frontend and backend queries matching", async () => {
     const frontendQueryLines = normalizeQuery(frontendQuery.split("\n"));
     if (frontendQueryLines[0].trimStart().startsWith("fragment UserProfile")) {
       // expect that first line will be different so remove it from test
@@ -24,13 +25,7 @@ describe("Profile snapshot tests", () => {
     const backendQueryPath = path.resolve(
       "~/../../../api/app/GraphQL/Mutations/PoolCandidateSnapshot.graphql",
     );
-    const backendQuery = fs.readFileSync(
-      backendQueryPath,
-      "utf8",
-      function (err: any, data: any) {
-        return data;
-      },
-    );
+    const backendQuery = await readFile(backendQueryPath, { encoding: "utf8" });
     const backendQueryLines = normalizeQuery(backendQuery.split("\n"));
     if (
       backendQueryLines[0].trimStart().startsWith("query getProfile(") &&
@@ -43,7 +38,7 @@ describe("Profile snapshot tests", () => {
     const diffAnalysis = diffLinesRaw(frontendQueryLines, backendQueryLines);
     const unequalLineCount = diffAnalysis.filter(
       // filter for lines that are not equal
-      (diff) => diff[0] != DIFF_EQUAL,
+      (diff) => diff[0] !== DIFF_EQUAL,
     ).length;
 
     if (unequalLineCount > 0) {
@@ -56,7 +51,7 @@ describe("Profile snapshot tests", () => {
           includeChangeCounts: true,
         },
       );
-      console.debug(prettyDiff);
+      process.stdout.write(prettyDiff);
     }
 
     expect(unequalLineCount).toEqual(0);
