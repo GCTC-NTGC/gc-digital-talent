@@ -43,6 +43,7 @@ class PoolTestSeeder extends Seeder
                 'closing_date' => config('constants.far_future_date'),
                 'publishing_group' => PublishingGroup::IAP->name,
             ],
+            
             //  IT-01  - Draft Job
             [
                 'name' => [
@@ -70,6 +71,7 @@ class PoolTestSeeder extends Seeder
                 'closing_date' => config('constants.far_future_date'),
                 'publishing_group' => PublishingGroup::IT_JOBS->name,
             ],
+
             // IT-03 Published – Complex
             [
                 'name' => [
@@ -162,6 +164,7 @@ class PoolTestSeeder extends Seeder
                     $createdPool->advertisement_language = PoolLanguage::VARIOUS->name;
                     $createdPool->save();
                 }
+
                 // IT -01
                 if ($identifier['name->en'] == 'Infrastructure Operations Technician') {
                     $createdPool = Pool::factory()
@@ -170,6 +173,7 @@ class PoolTestSeeder extends Seeder
                         ->draft()
                         ->create($poolData);
                 }
+
                 // IT -02
                 if ($identifier['name->en'] == 'IT Security Analyst') {
                     $createdPool = Pool::factory()
@@ -199,7 +203,28 @@ class PoolTestSeeder extends Seeder
                         ->create($poolData);
                 }
 
+                // IT - 05 Closed - Simple
                 if ($identifier['name->en'] == 'IT Security Manager') {
+                    $createdPool = Pool::factory()
+                        ->withPoolSkills(2, 2)
+                        ->withQuestions(2, 1)
+                        ->published()
+                        ->withAssessments(5)
+                        ->create($poolData);
+                }
+
+                // Ex-03 Complex
+                if ($identifier['name->en'] == 'IT Security Architect') {
+                    $createdPool = Pool::factory()
+                        ->withPoolSkills(6, 6)
+                        ->withQuestions(3, 3)
+                        ->published()
+                        ->withAssessments(5)
+                        ->create($poolData);
+                }
+
+                // PM-01 – Simple
+                if ($identifier['name->en'] == 'Project Manager') {
                     $createdPool = Pool::factory()
                         ->withPoolSkills(2, 2)
                         ->withQuestions(0, 1)
