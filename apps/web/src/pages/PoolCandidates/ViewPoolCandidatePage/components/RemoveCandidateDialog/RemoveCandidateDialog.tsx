@@ -113,12 +113,7 @@ const RemoveCandidateDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button
-          mode="inline"
-          color="error"
-          data-h2-text-align="base(center)"
-          data-h2-width="base(100%)"
-        >
+        <Button mode="inline" color="error" block>
           {intl.formatMessage(title)}
         </Button>
       </Dialog.Trigger>
