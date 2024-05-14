@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Enums\ApplicationStep;
+use App\Enums\CitizenshipStatus;
 use App\Enums\PoolCandidateStatus;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
@@ -40,7 +41,7 @@ class PoolCandidateTestSeeder extends Seeder
                 'email' => 'user1@test.com',
                 'sub' => 'user1@test.com',
                 'has_priority_entitlement' => true,
-                'citizenship' => 'Canadian',
+                'citizenship' => CitizenshipStatus::CITIZEN->name,
             ]);
 
         $users[1] = User::factory()
@@ -51,17 +52,18 @@ class PoolCandidateTestSeeder extends Seeder
                 'last_name' => 'Test2',
                 'email' => 'user2@test.com',
                 'sub' => 'user2@test.com',
+                'citizenship' => CitizenshipStatus::CITIZEN->name,
             ]);
 
         $users[2] = User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
-            ->asGovEmployee()
             ->create([
                 'first_name' => 'User3',
                 'last_name' => 'Test3',
                 'email' => 'user3@test.com',
                 'sub' => 'user3@test.com',
+                'citizenship' => CitizenshipStatus::PERMANENT_RESIDENT->name,
             ]);
 
         $users[3] = User::factory()
@@ -72,6 +74,7 @@ class PoolCandidateTestSeeder extends Seeder
                 'last_name' => 'Test4',
                 'email' => 'user4@test.com',
                 'sub' => 'test4@test.com',
+                'citizenship' => CitizenshipStatus::CITIZEN->name,
             ]);
 
         $users[4] = User::factory()
@@ -82,6 +85,7 @@ class PoolCandidateTestSeeder extends Seeder
                 'last_name' => 'Test5',
                 'email' => 'user5@test.com',
                 'sub' => 'user5@test.com',
+                'citizenship' => CitizenshipStatus::OTHER->name,
             ]);
 
         $users[5] = User::factory()
@@ -90,6 +94,7 @@ class PoolCandidateTestSeeder extends Seeder
                 'last_name' => 'Test6',
                 'email' => 'user6@test.com',
                 'sub' => 'user6@test.com',
+                'citizenship' => CitizenshipStatus::CITIZEN->name,
             ]);
         $users[6] = User::factory()
             ->asApplicant()
@@ -99,6 +104,7 @@ class PoolCandidateTestSeeder extends Seeder
                 'last_name' => 'Test7',
                 'email' => 'user7@test.com',
                 'sub' => 'user7@test.com',
+                'citizenship' => CitizenshipStatus::PERMANENT_RESIDENT->name,
             ]);
         $users[7] = User::factory()
             ->asApplicant()
@@ -108,6 +114,7 @@ class PoolCandidateTestSeeder extends Seeder
                 'last_name' => 'Test8',
                 'email' => 'user8@test.com',
                 'sub' => 'user8@test.com',
+                'citizenship' => CitizenshipStatus::CITIZEN->name,
             ]);
         $this->applyToAllPools($users, Pool::all());
     }
