@@ -8,7 +8,7 @@ import { Accordion, Heading, Link, Well } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import { isApplicationInProgress, notRemoved } from "~/utils/applicationUtils";
+import { isApplicationInProgress } from "~/utils/applicationUtils";
 import { PAGE_SECTION_ID as CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
 import ApplicationCard from "~/components/ApplicationCard/ApplicationCard";
 
@@ -44,11 +44,9 @@ const TrackApplications = ({ applicationsQuery }: TrackApplicationsProps) => {
 
   const inProgressApplications = applications.filter(isApplicationInProgress);
 
-  const pastApplications = applications
-    .filter((a) => {
-      return !isApplicationInProgress(a);
-    })
-    .filter(notRemoved);
+  const pastApplications = applications.filter((a) => {
+    return !isApplicationInProgress(a);
+  });
 
   const [currentAccordionItems, setCurrentAccordionItems] =
     React.useState<AccordionItems>(["in_progress", "past"]); // start with both open

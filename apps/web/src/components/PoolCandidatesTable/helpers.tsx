@@ -9,7 +9,6 @@ import {
   getCandidateSuspendedFilterStatus,
   getLanguage,
   getPoolCandidatePriorities,
-  getPoolCandidateStatus,
   getProvinceOrTerritory,
 } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
@@ -59,42 +58,6 @@ import tableMessages from "./tableMessages";
 import CandidateBookmark, {
   PoolCandidate_BookmarkFragment,
 } from "../CandidateBookmark/CandidateBookmark";
-
-export const statusCell = (
-  status: PoolCandidateStatus | null | undefined,
-  intl: IntlShape,
-) => {
-  if (!status) return null;
-
-  if (status === PoolCandidateStatus.NewApplication) {
-    return (
-      <span
-        data-h2-color="base(tertiary.darker)"
-        data-h2-font-weight="base(700)"
-      >
-        {intl.formatMessage(getPoolCandidateStatus(status as string))}
-      </span>
-    );
-  }
-  if (
-    status === PoolCandidateStatus.ApplicationReview ||
-    status === PoolCandidateStatus.ScreenedIn ||
-    status === PoolCandidateStatus.ScreenedOutApplication ||
-    status === PoolCandidateStatus.ScreenedOutNotInterested ||
-    status === PoolCandidateStatus.ScreenedOutNotResponsive ||
-    status === PoolCandidateStatus.UnderAssessment ||
-    status === PoolCandidateStatus.ScreenedOutAssessment
-  ) {
-    return (
-      <span data-h2-font-weight="base(700)">
-        {intl.formatMessage(getPoolCandidateStatus(status as string))}
-      </span>
-    );
-  }
-  return (
-    <span>{intl.formatMessage(getPoolCandidateStatus(status as string))}</span>
-  );
-};
 
 export const priorityCell = (
   priority: number | null | undefined,
