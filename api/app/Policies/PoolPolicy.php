@@ -124,7 +124,7 @@ class PoolPolicy
     }
 
     /**
-     * Determine whether the user can published pools.
+     * Determine whether the user can update published pools.
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
