@@ -67,58 +67,49 @@ const CandidateNavigation = ({
     >
       {previousCandidate && (
         <Link
+          mode="icon_only"
           href={paths.poolCandidateApplication(previousCandidate)}
           icon={ArrowLeftCircleIcon}
           aria-label={intl.formatMessage(messages.previousCandidate)}
           {...commonLinkProps}
-        >
-          <span data-h2-visually-hidden="base(invisible)">
-            {intl.formatMessage(messages.previousCandidate)}
-          </span>
-        </Link>
+        />
       )}
-      {stepName && (
-        <div
-          {...(!previousCandidate
-            ? { "data-h2-text-align": "base(left)" }
-            : { "data-h2-text-align": "base(center)" })}
+      <div
+        {...(!previousCandidate
+          ? { "data-h2-text-align": "base(left)" }
+          : { "data-h2-text-align": "base(center)" })}
+      >
+        <p
+          data-h2-color="base(primary.darker)"
+          data-h2-font-weight="base(700)"
+          data-h2-margin-bottom="base(x.25)"
         >
-          <p
-            data-h2-color="base(primary.darker)"
-            data-h2-font-weight="base(700)"
-            data-h2-margin-bottom="base(x.25)"
-          >
-            {candidateName}
-          </p>
+          {candidateName}
+        </p>
+        {stepName && (
           <p data-h2-color="base(black.70)" data-h2-font-size="base(caption)">
             {stepName}
           </p>
-        </div>
-      )}
+        )}
+      </div>
       {nextCandidate && (
         <Link
+          mode="icon_only"
           href={paths.poolCandidateApplication(nextCandidate)}
           icon={ArrowRightCircleIcon}
           aria-label={intl.formatMessage(messages.nextCandidate)}
           {...commonLinkProps}
           data-h2-margin-right="base(0)"
-        >
-          <span data-h2-visually-hidden="base(invisible)">
-            {intl.formatMessage(messages.nextCandidate)}
-          </span>
-        </Link>
+        />
       )}
       {lastCandidate && (
         <Link
+          mode="icon_only"
           href={paths.screeningAndEvaluation(poolId)}
           icon={ArrowLeftCircleIcon}
           aria-label={intl.formatMessage(messages.backToAssessments)}
           {...commonLinkProps}
-        >
-          <span data-h2-visually-hidden="base(invisible)">
-            {intl.formatMessage(messages.backToAssessments)}
-          </span>
-        </Link>
+        />
       )}
     </div>
   );
