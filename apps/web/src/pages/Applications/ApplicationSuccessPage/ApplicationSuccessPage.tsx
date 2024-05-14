@@ -111,7 +111,7 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
         )}
         <li data-h2-margin-bottom="base(x.25)">
           <Link
-            href={paths.myProfile()}
+            href={paths.profile()}
             data-h2-display="base(inline-block)"
             data-h2-text-align="base(left)"
             data-h2-vertical-align="base(top)"
@@ -192,8 +192,8 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
   );
 };
 
-const ApplicationSuccessPage = () => (
+export const Component = () => (
   <ApplicationApi PageComponent={ApplicationSuccess} />
 );
 
-export default ApplicationSuccessPage;
+Component.displayName = "ApplicationSuccessPage";

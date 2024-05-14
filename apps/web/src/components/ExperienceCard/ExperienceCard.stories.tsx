@@ -1,6 +1,6 @@
 import React from "react";
 import { StoryFn } from "@storybook/react";
-import { faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker/locale/en";
 
 import {
   experienceGenerators,

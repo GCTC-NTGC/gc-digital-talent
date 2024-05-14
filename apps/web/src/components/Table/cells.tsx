@@ -45,7 +45,7 @@ function viewCell(
   );
 }
 
-function jsxCell(element: JSX.Element | null): JSX.Element | null {
+function jsxCell(element: React.JSX.Element | null): React.JSX.Element | null {
   return element || null;
 }
 

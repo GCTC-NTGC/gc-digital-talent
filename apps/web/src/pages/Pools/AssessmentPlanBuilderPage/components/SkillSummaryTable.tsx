@@ -73,7 +73,7 @@ export interface SkillSummaryTableProps {
 const CheckIconElement = (
   skill: Skill | null | undefined,
   assessmentStepType: Maybe<AssessmentStepType> | undefined,
-): JSX.Element | null => {
+): React.JSX.Element | null => {
   const intl = useIntl();
   if (!skill) {
     return null;
@@ -110,7 +110,7 @@ const plannedAssessmentCell = (
   poolSkill: PoolSkill,
   assessmentSteps: readonly AssessmentStep[],
   intl: IntlShape,
-): JSX.Element | null => {
+): React.JSX.Element | null => {
   const assessmentCount = assessmentSteps.filter((assessmentStep) =>
     assessmentStep.poolSkills?.some(
       (assessmentStepPoolSkill) => assessmentStepPoolSkill?.id === poolSkill.id,
@@ -148,7 +148,7 @@ const assessmentStepCell = (
   poolSkill: PoolSkill,
   assessmentStep: AssessmentStep,
   intl: IntlShape,
-): JSX.Element | null => {
+): React.JSX.Element | null => {
   // return early with specific message for certain combination
   if (
     poolSkill.skill?.category === SkillCategory.Behavioural &&
@@ -207,9 +207,9 @@ const SkillSummaryTable = ({
       id: "plannedAssessment",
       header: intl.formatMessage({
         defaultMessage: "Number of assessments",
-        id: "7nuHuz",
+        id: "9t56Ev",
         description:
-          "Title for a column that displays the numer of assessments planned for a skill.",
+          "Title for a column that displays the number of assessments planned for a skill.",
       }),
       cell: ({ row: { original: poolSkill } }) =>
         cells.jsx(plannedAssessmentCell(poolSkill, assessmentSteps, intl)),

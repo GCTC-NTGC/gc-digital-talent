@@ -16,7 +16,7 @@ export interface NullMessageProps {
  * Displayed when there are no rows in the table
  *
  * @param NullMessageProps
- * @returns JSX.Element
+ * @returns React.JSX.Element
  */
 const NullMessage = ({ title, description }: NullMessageProps) => {
   const intl = useIntl();

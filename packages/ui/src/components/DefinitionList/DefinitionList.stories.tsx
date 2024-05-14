@@ -5,7 +5,7 @@ import BackspaceIcon from "@heroicons/react/24/solid/BackspaceIcon";
 import CakeIcon from "@heroicons/react/24/solid/CakeIcon";
 import DevicePhoneMobileIcon from "@heroicons/react/24/solid/DevicePhoneMobileIcon";
 import EnvelopeIcon from "@heroicons/react/24/solid/EnvelopeIcon";
-import { faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker/locale/en";
 
 import DefinitionList from "./DefinitionList";
 

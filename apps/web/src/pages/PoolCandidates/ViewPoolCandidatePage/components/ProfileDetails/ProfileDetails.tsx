@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 
-import { User } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   getCitizenshipStatusesAdmin,
@@ -10,12 +10,26 @@ import {
 } from "@gc-digital-talent/i18n";
 import { Link, Well } from "@gc-digital-talent/ui";
 
+const ApplicationProfileDetails_Fragment = graphql(/* GraphQL */ `
+  fragment ApplicationProfileDetails on User {
+    currentCity
+    currentProvince
+    telephone
+    email
+    citizenship
+    preferredLang
+    preferredLanguageForInterview
+    preferredLanguageForExam
+  }
+`);
+
 interface ProfileDetailsProps {
-  user: User;
+  userQuery: FragmentType<typeof ApplicationProfileDetails_Fragment>;
 }
 
-const ProfileDetails = ({ user }: ProfileDetailsProps) => {
+const ProfileDetails = ({ userQuery }: ProfileDetailsProps) => {
   const intl = useIntl();
+  const user = getFragment(ApplicationProfileDetails_Fragment, userQuery);
 
   return (
     <Well

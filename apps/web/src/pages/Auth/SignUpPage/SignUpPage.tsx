@@ -44,7 +44,7 @@ const buildExternalLink = (path: string, chunks: React.ReactNode) => (
   </Link>
 );
 
-const SignUpPage = () => {
+export const Component = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const apiPaths = useApiRoutes();
@@ -586,4 +586,6 @@ const SignUpPage = () => {
   );
 };
 
-export default SignUpPage;
+Component.displayName = "SignUpPage";
+
+export default Component;

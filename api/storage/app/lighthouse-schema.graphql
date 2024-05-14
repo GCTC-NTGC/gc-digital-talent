@@ -26,6 +26,7 @@ type Query {
   skills: [Skill]!
   genericJobTitle(id: UUID!): GenericJobTitle
   genericJobTitles: [GenericJobTitle]!
+  communities: [Community]!
   team(id: UUID!): Team
   teams: [Team]!
   roles: [Role]!
@@ -286,17 +287,6 @@ interface Notification {
   updatedAt: DateTime!
 }
 
-type PoolCandidateStatusChangedNotification implements Notification {
-  id: ID!
-  readAt: DateTime
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  oldStatus: PoolCandidateStatus
-  newStatus: PoolCandidateStatus
-  poolCandidateId: ID
-  poolName: LocalizedString
-}
-
 type ApplicationDeadlineApproachingNotification implements Notification {
   id: ID!
   readAt: DateTime
@@ -467,6 +457,13 @@ type Department {
   departmentNumber: Int!
   name: LocalizedString!
   teams: [Team]
+}
+
+type Community {
+  id: ID!
+  key: String!
+  name: LocalizedString
+  description: LocalizedString
 }
 
 type Team {

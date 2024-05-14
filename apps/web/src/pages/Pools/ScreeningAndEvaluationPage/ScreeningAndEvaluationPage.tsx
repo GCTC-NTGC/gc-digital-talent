@@ -5,12 +5,14 @@ import { useIntl } from "react-intl";
 import { graphql, FragmentType, Scalars } from "@gc-digital-talent/graphql";
 import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AssessmentStepTracker, {
   AssessmentStepTracker_CandidateFragment,
 } from "~/components/AssessmentStepTracker/AssessmentStepTracker";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 type RouteParams = {
   poolId: Scalars["ID"]["input"];
@@ -140,5 +142,13 @@ const ScreeningAndEvaluationPage = () => {
     </AdminContentWrapper>
   );
 };
+
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin]}>
+    <ScreeningAndEvaluationPage />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminScreeningAndEvaluationPage";
 
 export default ScreeningAndEvaluationPage;

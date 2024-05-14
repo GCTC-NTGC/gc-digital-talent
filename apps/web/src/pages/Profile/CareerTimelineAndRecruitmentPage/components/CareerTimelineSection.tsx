@@ -61,7 +61,7 @@ const CareerTimelineSection = ({
             data-h2-align-self="base(flex-end)"
           >
             <Link
-              href={paths.createExperience(userId)}
+              href={paths.createExperience()}
               icon={PlusCircleIcon}
               mode="solid"
               color="secondary"

@@ -571,6 +571,10 @@
     "defaultMessage": "Termine demain, à {time}",
     "description": "Text displayed when relative date is tomorrow."
   },
+  "Gv3lBS": {
+    "defaultMessage": "Votre demande n'a pas été complétée. Veuillez réessayer ou contactez notre équipe pour obtenir de l'aide.",
+    "description": "Message for Unauthorized or Request Rejected server response"
+  },
   "Gx8qCK": {
     "defaultMessage": "À propos de moi",
     "description": "Name of About me page"
@@ -882,10 +886,6 @@
   "PMwqcS": {
     "defaultMessage": "La date doit être avant ou égale au {date}",
     "description": "Error message when a date was entered that is greater than the maximum required"
-  },
-  "Q3Pc71": {
-    "defaultMessage": "Il n’est pas possible de sauvegarder ce texte. Veillez à ce que le texte soit dépourvu de formatage ou de caractères spéciaux, et essayez de nouveau.",
-    "description": "Error message that there might be a special character."
   },
   "QRXLf/": {
     "defaultMessage": "Chargement des résultats...",
@@ -1391,6 +1391,10 @@
     "defaultMessage": "Annuler et revenir en arrière",
     "description": "Text to cancel changes to a form"
   },
+  "fO0cRR": {
+    "defaultMessage": "Vous devez supprimer un élément si vous voulez en ajouter un autre",
+    "description": "Message displayed when max items have been reached on repeater component."
+  },
   "fUF8rg": {
     "defaultMessage": "Sélectionnez une option",
     "description": "Null selection for select input"
@@ -1590,10 +1594,6 @@
   "lDeaXK": {
     "defaultMessage": "Disponibilité, volonté et capacité à faire des heures supplémentaires (planifiées)",
     "description": "The operational requirement described as scheduled overtime."
-  },
-  "lFLEy2": {
-    "defaultMessage": "Vous devez supprimer un élément si vous voulez en ajouter un autre",
-    "description": "Message displayed when max items have been reached on repeater component."
   },
   "lXgeJr": {
     "defaultMessage": "Veuillez relier au moins une expérience du calendrier de carrière à chacune des exigences techniques requises, et veillez à ce que chaque compétence possède des détails sur la façon de s’en servir.",
