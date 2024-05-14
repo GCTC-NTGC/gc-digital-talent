@@ -53,7 +53,7 @@ class GeneralQuestionResponsesTest extends TestCase
         $this->team = Team::factory()->create([
             'name' => $this->teamName,
         ]);
-        $this->pool = Pool::factory()->draft()->create([
+        $this->pool = Pool::factory()->draft()->WithPoolSkills(2,2)->WithQuestions(2,2)->create([
             'team_id' => $this->team->id,
         ]);
         $this->teamUser = User::factory()

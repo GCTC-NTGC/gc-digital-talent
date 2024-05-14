@@ -406,7 +406,7 @@ class PoolApplicationTest extends TestCase
     public function testApplicationSubmitSkills(): void
     {
         // create a pool, attach one essential skill to it
-        $newPool = Pool::factory()->create([
+        $newPool = Pool::factory()->WithPoolSkills(1,0)->create([
             'closing_date' => Carbon::now()->addDays(1),
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
         ]);
