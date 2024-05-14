@@ -6,7 +6,7 @@ import { useMutation } from "urql";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { Select, enumToOptions, Combobox } from "@gc-digital-talent/forms";
+import { Select, enumToOptions } from "@gc-digital-talent/forms";
 import {
   commonMessages,
   errorMessages,
@@ -23,6 +23,7 @@ import {
   UpdatePoolCandidateStatusInput,
 } from "@gc-digital-talent/graphql";
 
+import PoolFilterInput from "~/components/PoolFilterInput/PoolFilterInput";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import {
   getShortPoolTitleHtml,
@@ -30,7 +31,6 @@ import {
 } from "~/utils/poolUtils";
 
 import UpdatePoolCandidateStatus_Mutation from "./mutation";
-import PoolFilterInput from "~/components/PoolFilterInput/PoolFilterInput";
 
 type FormValues = {
   status: PoolCandidate["status"];

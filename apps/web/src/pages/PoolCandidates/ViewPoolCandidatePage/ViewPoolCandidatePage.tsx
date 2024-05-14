@@ -23,7 +23,6 @@ import {
   User,
   Scalars,
   Maybe,
-  Pool,
   graphql,
   ArmedForcesStatus,
   PoolCandidateSnapshotQuery,

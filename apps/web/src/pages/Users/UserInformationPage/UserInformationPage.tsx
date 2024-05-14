@@ -12,7 +12,6 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   Department,
   FragmentType,
-  Pool,
   Scalars,
   getFragment,
   graphql,
