@@ -31,26 +31,19 @@ const messages = defineMessages({
 
 interface CandidateNavigationProps {
   candidateId: string;
-  poolId: string;
   candidateName: string;
 }
 
 const CandidateNavigation = ({
   candidateId,
-  poolId,
   candidateName,
 }: CandidateNavigationProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const candidateNavigation = usePoolCandidateNavigation(candidateId);
   if (!candidateNavigation) return null;
-  const {
-    nextCandidate,
-    previousCandidate,
-    lastCandidate,
-    candidateIds,
-    stepName,
-  } = candidateNavigation;
+  const { nextCandidate, previousCandidate, candidateIds, stepName } =
+    candidateNavigation;
 
   const commonLinkProps: LinkProps = {
     color: "primary",

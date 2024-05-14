@@ -93,7 +93,6 @@ const MoreActions = ({
       >
         <CandidateNavigation
           candidateId={poolCandidate.id}
-          poolId={poolCandidate.pool.id}
           candidateName={candidateName}
         />
         <Separator orientation="horizontal" data-h2-margin="base(x.5, 0)" />

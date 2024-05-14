@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
 import { Args, Decorator, Meta, StoryObj } from "@storybook/react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { action } from "@storybook/addon-actions";
 
 import {
   fakeDepartments,
@@ -28,7 +26,6 @@ const getData = (status: PoolCandidateStatus) =>
   makeFragmentData({ ...fakeCandidate, status }, MoreActions_Fragment);
 
 const ReactRouterDecorator: Decorator<Args> = (Story) => {
-  const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,8 +35,7 @@ const ReactRouterDecorator: Decorator<Args> = (Story) => {
         stepName: "Step 1: Application screening",
       },
     }); // <-- redirect to current path with state
-    action("location")(location);
-  }, []);
+  }, [navigate]);
 
   return <Story />;
 };
