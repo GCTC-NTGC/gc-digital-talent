@@ -496,13 +496,10 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             'not_accepted' => [],
         ];
         foreach ($operationalRequirements as $requirement) {
-            // Note: Scheduled overtime is legacy
-            if ($requirement !== OperationalRequirement::OVERTIME_SCHEDULED->name && $requirement !== OperationalRequirement::OVERTIME_SHORT_NOTICE->name) {
-                if (in_array($requirement, $this->accepted_operational_requirements ?? [])) {
-                    $preferences['accepted'][] = $requirement;
-                } else {
-                    $preferences['not_accepted'][] = $requirement;
-                }
+            if (in_array($requirement, $this->accepted_operational_requirements ?? [])) {
+                $preferences['accepted'][] = $requirement;
+            } else {
+                $preferences['not_accepted'][] = $requirement;
             }
         }
 

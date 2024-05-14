@@ -766,7 +766,7 @@ class UserTest extends TestCase
         User::factory()->count(5)->create([
             'accepted_operational_requirements' => null,
         ]);
-        $operationalRequirement1 = OperationalRequirement::OVERTIME_SCHEDULED->name;
+        $operationalRequirement1 = OperationalRequirement::OVERTIME_REGULAR->name;
         $operationalRequirement2 = OperationalRequirement::SHIFT_WORK->name;
         $operationalRequirement3 = OperationalRequirement::ON_CALL->name;
 
