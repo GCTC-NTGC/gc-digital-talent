@@ -344,10 +344,29 @@ class Pool extends Model
         if (! empty($streams)) {
             $query->where(function ($query) use ($streams) {
                 foreach ($streams as $stream) {
-                    $query->orWhereJsonContains('stream', $stream);
+                    $query->orWhere('stream', $stream);
                 }
             });
         }
+
+        return $query;
+    }
+
+    public static function scopeNotArchived(Builder $query)
+    {
+        $query->where(function ($query) {
+            $query->whereNull('archived_at')
+                ->orWhere('archived_at', '>', Carbon::now());
+        });
+
+        return $query;
+    }
+
+    public static function scopeNotClosed(Builder $query): Builder
+    {
+        $query->where(function ($query) {
+            $query->whereNull('closing_date')->orWhere('closing_date', '>', Carbon::now());
+        });
 
         return $query;
     }
@@ -367,7 +386,11 @@ class Pool extends Model
                 }
 
                 if (in_array(PoolStatus::PUBLISHED->name, $statuses)) {
-                    $query->orWhere('published_at', '<=', Carbon::now());
+                    $query->orWhere(function ($query) {
+                        $query->where('published_at', '<=', Carbon::now());
+                        self::scopeNotClosed($query);
+                        self::scopeNotArchived($query);
+                    });
                 }
 
                 if (in_array(PoolStatus::DRAFT->name, $statuses)) {
@@ -448,16 +471,6 @@ class Pool extends Model
                 return $query;
             });
         }
-
-        return $query;
-    }
-
-    public function scopeNotArchived(Builder $query)
-    {
-        $query->where(function ($query) {
-            $query->whereNull('archived_at');
-            $query->orWhere('archived_at', '>', Carbon::now()->toDateTimeString());
-        });
 
         return $query;
     }

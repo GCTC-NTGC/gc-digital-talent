@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\PoolStatus;
+use App\Enums\PoolStream;
 use App\Enums\SkillCategory;
 use App\Models\Classification;
 use App\Models\Pool;
@@ -891,5 +892,189 @@ class PoolTest extends TestCase
                     'deletePool' => ['id' => $pool->id],
                 ],
             ]);
+    }
+
+    /**
+     * @group paginated
+     */
+    public function testPoolNameScope(): void
+    {
+        $toBeFound = Pool::factory()->create([
+            'name' => ['en' => 'Found EN', 'fr' => 'Found FR'],
+        ]);
+
+        Pool::factory()->create([
+            'name' => ['en' => 'Not EN', 'fr' => 'Not FR'],
+        ]);
+
+        $res = $this->graphQL(
+            /** @lang GraphQL */
+            '
+                query ScopePoolName($where: PoolFilterInput) {
+                    poolsPaginated(where: $where) {
+                        data {
+                            id
+                            name { en fr }
+                        }
+                    }
+                }
+            ',
+            ['where' => ['name' => 'found']]
+        )->assertJsonFragment([
+            'id' => $toBeFound->id,
+            'name' => $toBeFound->name,
+        ]);
+
+        assertSame(1, count($res->json('data.poolsPaginated.data')));
+    }
+
+    /**
+     * @group paginated
+     */
+    public function testPoolTeamScope(): void
+    {
+        $toBeFound = Pool::factory()->create([
+            'team_id' => $this->team,
+        ]);
+
+        Pool::factory()->create([
+            'team_id' => Team::factory()->create(),
+        ]);
+
+        $res = $this->graphQL(
+            /** @lang GraphQL */
+            '
+                query ScopePoolName($where: PoolFilterInput) {
+                    poolsPaginated(where: $where) {
+                        data {
+                            id
+                            team { id name }
+                        }
+                    }
+                }
+            ',
+            [
+                'where' => [
+                    'team' => $this->team->display_name['en'],
+                ],
+            ]
+        )->assertJsonFragment([
+            'id' => $toBeFound->id,
+            'team' => [
+                'id' => $this->team->id,
+                'name' => $this->team->name,
+            ],
+        ]);
+
+        assertSame(1, count($res->json('data.poolsPaginated.data')));
+    }
+
+    /**
+     * @group paginated
+     */
+    public function testPoolStreamsScope(): void
+    {
+        $ATIP = Pool::factory()->create([
+            'stream' => PoolStream::ACCESS_INFORMATION_PRIVACY->name,
+        ]);
+
+        $BAS = Pool::factory()->create([
+            'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
+        ]);
+
+        Pool::factory()->create([
+            'stream' => PoolStream::DATABASE_MANAGEMENT->name,
+        ]);
+
+        $res = $this->graphQL(
+            /** @lang GraphQL */
+            '
+                query ScopePoolName($where: PoolFilterInput) {
+                    poolsPaginated(where: $where) {
+                        data {
+                            id
+                            stream
+                        }
+                    }
+                }
+            ',
+            [
+                'where' => [
+                    'streams' => [
+                        PoolStream::ACCESS_INFORMATION_PRIVACY->name,
+                        PoolStream::BUSINESS_ADVISORY_SERVICES->name,
+                    ],
+                ],
+            ]
+        )->assertJsonFragment([
+            'data' => [
+                [
+                    'id' => $ATIP->id,
+                    'stream' => PoolStream::ACCESS_INFORMATION_PRIVACY->name,
+                ],
+                [
+                    'id' => $BAS->id,
+                    'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
+                ],
+            ],
+        ]);
+
+        assertSame(2, count($res->json('data.poolsPaginated.data')));
+    }
+
+    /**
+     * @group paginated
+     */
+    public function testPoolStatusScope(): void
+    {
+        $closed = Pool::factory()->closed()->create();
+        $published = Pool::factory()->published()->create();
+        $draft = Pool::factory()->draft()->create();
+
+        $query = /** @lang GraphQL */
+            '
+                query ScopePoolName($where: PoolFilterInput) {
+                    poolsPaginated(where: $where) {
+                        data {
+                            id
+                            status
+                        }
+                    }
+                }
+            ';
+
+        $closedRes = $this->graphQL($query, [
+            'where' => [
+                'statuses' => [PoolStatus::CLOSED->name],
+            ],
+        ])->assertJsonFragment([
+            'id' => $closed->id,
+            'status' => PoolStatus::CLOSED->name,
+        ]);
+
+        assertSame(1, count($closedRes->json('data.poolsPaginated.data')));
+
+        $publishedRes = $this->graphQL($query, [
+            'where' => [
+                'statuses' => [PoolStatus::PUBLISHED->name],
+            ],
+        ])->assertJsonFragment([
+            'id' => $published->id,
+            'status' => PoolStatus::PUBLISHED->name,
+        ]);
+
+        assertSame(1, count($publishedRes->json('data.poolsPaginated.data')));
+
+        $draftRes = $this->graphQL($query, [
+            'where' => [
+                'statuses' => [PoolStatus::DRAFT->name],
+            ],
+        ])->assertJsonFragment([
+            'id' => $draft->id,
+            'status' => PoolStatus::DRAFT->name,
+        ]);
+
+        assertSame(1, count($draftRes->json('data.poolsPaginated.data')));
+
     }
 }
