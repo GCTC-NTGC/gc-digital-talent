@@ -31,7 +31,7 @@ import ApplicationPrintButton from "../ApplicationPrintButton/ApplicationPrintBu
 import RevertFinalDecisionDialog from "./RevertFinalDecisionDialog";
 import ReinstateCandidateDialog from "../ReinstateCandidateDialog/ReinstateCandidateDialog";
 import ChangeExpiryDateDialog from "../ChangeExpiryDateDialog/ChangeExpiryDateDialog";
-import NotesDialog from "./NotesDialog";
+import NotesForm from "./NotesForm";
 
 export const MoreActions_Fragment = graphql(/* GraphQL */ `
   fragment MoreActions on PoolCandidate {
@@ -41,7 +41,7 @@ export const MoreActions_Fragment = graphql(/* GraphQL */ `
     ...CandidateExpiryDateDialog
     ...JobPlacementDialog
     ...ReinstateCandidateDialog
-    ...NotesDialog
+    ...NotesForm
     id
     pool {
       id
@@ -181,7 +181,7 @@ const MoreActions = ({
           </CardBasic>
         )}
       </div>
-      <NotesDialog poolCandidate={poolCandidate} />
+      <NotesForm poolCandidate={poolCandidate} />
     </div>
   );
 };

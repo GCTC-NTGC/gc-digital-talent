@@ -21,8 +21,8 @@ import adminMessages from "~/messages/adminMessages";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 
-export const NotesDialog_Fragment = graphql(/* Graphql */ `
-  fragment NotesDialog on PoolCandidate {
+export const NotesForm_Fragment = graphql(/* Graphql */ `
+  fragment NotesForm on PoolCandidate {
     id
     notes
   }
@@ -31,8 +31,8 @@ type FormValues = {
   notes?: PoolCandidate["notes"];
 };
 
-interface NotesDialogProps {
-  poolCandidate: FragmentType<typeof NotesDialog_Fragment>;
+interface NotesFormProps {
+  poolCandidate: FragmentType<typeof NotesForm_Fragment>;
 }
 
 const PoolCandidate_UpdateNotesMutation = graphql(/* GraphQL */ `
@@ -66,12 +66,10 @@ const Display = ({ notes }: { notes?: Maybe<string> }) => {
   );
 };
 
-const NotesDialog = ({
-  poolCandidate: poolCandidateQuery,
-}: NotesDialogProps) => {
+const NotesForm = ({ poolCandidate: poolCandidateQuery }: NotesFormProps) => {
   const intl = useIntl();
   const [, executeMutation] = useMutation(PoolCandidate_UpdateNotesMutation);
-  const poolCandidate = getFragment(NotesDialog_Fragment, poolCandidateQuery);
+  const poolCandidate = getFragment(NotesForm_Fragment, poolCandidateQuery);
 
   const { isEditing, setIsEditing } = useToggleSectionInfo({
     isNull: isEmpty(poolCandidate.notes),
@@ -126,45 +124,43 @@ const NotesDialog = ({
   };
 
   return (
-    <div>
-      <ToggleSection.Root
-        id="notes-dialog-form"
-        open={isEditing}
-        onOpenChange={setIsEditing}
-      >
-        <ToggleSection.Content>
-          <ToggleSection.InitialContent>
-            <Display notes={poolCandidate.notes} />
-          </ToggleSection.InitialContent>
-          <ToggleSection.OpenContent>
-            <FormProvider {...methods}>
-              <form
-                onSubmit={handleSubmit(handleFormSubmit)}
-                data-h2-display="base(flex)"
-                data-h2-flex-direction="base(column)"
-                data-h2-gap="base(x.5)"
-              >
-                <TextArea
-                  id="notes"
-                  name="notes"
-                  label={intl.formatMessage(adminMessages.notes)}
-                  rows={8}
-                />
+    <ToggleSection.Root
+      id="notes-dialog-form"
+      open={isEditing}
+      onOpenChange={setIsEditing}
+    >
+      <ToggleSection.Content>
+        <ToggleSection.InitialContent>
+          <Display notes={poolCandidate.notes} />
+        </ToggleSection.InitialContent>
+        <ToggleSection.OpenContent>
+          <FormProvider {...methods}>
+            <form
+              onSubmit={handleSubmit(handleFormSubmit)}
+              data-h2-display="base(flex)"
+              data-h2-flex-direction="base(column)"
+              data-h2-gap="base(x.5)"
+            >
+              <TextArea
+                id="notes"
+                name="notes"
+                label={intl.formatMessage(adminMessages.notes)}
+                rows={8}
+              />
 
-                <ToggleSection.Close>
-                  <Submit
-                    text={intl.formatMessage(formMessages.saveChanges)}
-                    color="primary"
-                    mode="solid"
-                  />
-                </ToggleSection.Close>
-              </form>
-            </FormProvider>
-          </ToggleSection.OpenContent>
-        </ToggleSection.Content>
-      </ToggleSection.Root>
-    </div>
+              <ToggleSection.Close>
+                <Submit
+                  text={intl.formatMessage(formMessages.saveChanges)}
+                  color="primary"
+                  mode="solid"
+                />
+              </ToggleSection.Close>
+            </form>
+          </FormProvider>
+        </ToggleSection.OpenContent>
+      </ToggleSection.Content>
+    </ToggleSection.Root>
   );
 };
 
-export default NotesDialog;
+export default NotesForm;
