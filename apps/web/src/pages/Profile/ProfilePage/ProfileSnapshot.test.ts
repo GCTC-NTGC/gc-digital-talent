@@ -17,9 +17,13 @@ function normalizeQuery(q: string[]): string[] {
 describe("Profile snapshot tests", () => {
   test("Should have frontend and backend queries matching", async () => {
     const frontendQueryLines = normalizeQuery(frontendQuery.split("\n"));
-    if (frontendQueryLines[0].trimStart().startsWith("fragment UserProfile")) {
-      // expect that first line will be different so remove it from test
+    // expect that the outer layer will be different so remove it from test
+    if (
+      frontendQueryLines.at(0)?.trim() === "fragment UserProfile on User {" &&
+      frontendQueryLines.at(-1)?.trim() === "}"
+    ) {
       frontendQueryLines.splice(0, 1);
+      frontendQueryLines.splice(-1, 1);
     }
 
     const backendQueryPath = path.resolve(
@@ -27,12 +31,16 @@ describe("Profile snapshot tests", () => {
     );
     const backendQuery = await readFile(backendQueryPath, { encoding: "utf8" });
     const backendQueryLines = normalizeQuery(backendQuery.split("\n"));
+    // expect that the outer two layers will be different so remove them from test
     if (
-      backendQueryLines[0].trimStart().startsWith("query getProfile(") &&
-      backendQueryLines[1].trimStart().startsWith("user(")
+      backendQueryLines.at(0)?.trim() ===
+        "query getProfile($userId: UUID!) {" &&
+      backendQueryLines.at(1)?.trim() === "user(id: $userId) {" &&
+      backendQueryLines.at(-2)?.trim() === "}" &&
+      backendQueryLines.at(-1)?.trim() === "}"
     ) {
-      // expect that first two lines will be different so remove them from test
       backendQueryLines.splice(0, 2);
+      backendQueryLines.splice(-2, 2);
     }
 
     const diffAnalysis = diffLinesRaw(frontendQueryLines, backendQueryLines);
