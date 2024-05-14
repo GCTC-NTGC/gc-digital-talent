@@ -124,7 +124,7 @@ class PoolPolicy
     }
 
     /**
-     * Determine whether the user can published draft pools.
+     * Determine whether the user can published pools.
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */

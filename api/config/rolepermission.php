@@ -238,8 +238,8 @@ return [
             'fr' => 'Mise à jour des bassins non publiés dans cette équipe',
         ],
         'update-any-publishedPool' => [
-            'en' => 'Update published Pools in this Team',
-            'fr' => 'Mise à jour des bassins publiée dans cette équipe',
+            'en' => 'Update published Pools',
+            'fr' => 'Mise à jour des bassins publiés',
         ],
         'publish-team-pool' => [
             'en' => 'Publish Pools in this Team',
