@@ -177,6 +177,7 @@ export const UserProfile_FragmentText = /* GraphQL */ `
       }
     }
     experiences {
+      # profileExperience fragment
       id
       __typename
       user {
@@ -284,6 +285,7 @@ export const UserProfile_FragmentText = /* GraphQL */ `
       }
       educationRequirementOption
       educationRequirementExperiences {
+        # profileExperience fragment
         id
         __typename
         details
