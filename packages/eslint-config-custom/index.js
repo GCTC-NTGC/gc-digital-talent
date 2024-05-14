@@ -33,7 +33,7 @@ module.exports = {
     },
     ecmaVersion: 2020,
     sourceType: "module",
-    project: ["./tsconfig.json"],
+    project: true,
   },
   plugins: [
     "import",
