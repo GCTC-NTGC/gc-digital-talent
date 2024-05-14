@@ -765,6 +765,7 @@ type Query {
     @deprecated(reason: "pools is deprecated. Use poolsPaginated instead.")
   poolsPaginated(
     includeIds: [UUID!] @in(key: "id")
+    excludeIds: [UUID!] @notIn(key: "id")
     where: PoolFilterInput
     orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput @scope
     orderBy: _

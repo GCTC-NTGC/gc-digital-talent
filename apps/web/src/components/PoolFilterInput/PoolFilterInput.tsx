@@ -14,10 +14,12 @@ interface PoolFilterInputProps {
   id?: string;
   filterInput?: PoolFilterInput;
   includeIds?: Scalars["UUID"]["input"][];
+  excludeIds?: Scalars["UUID"]["input"][];
 }
 
 const PoolFilterInput = ({
   includeIds,
+  excludeIds,
   filterInput = {},
   name = "pools",
   id = "pools",
@@ -34,6 +36,7 @@ const PoolFilterInput = ({
       generalSearch: query || undefined,
     },
     includeIds,
+    excludeIds,
   );
 
   const handleDebouncedSearch = debounce((newQuery: string) => {

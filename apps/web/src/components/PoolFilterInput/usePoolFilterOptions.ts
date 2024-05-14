@@ -2,12 +2,7 @@ import { useQuery } from "urql";
 import { useMemo } from "react";
 import { useIntl } from "react-intl";
 
-import {
-  graphql,
-  Pool,
-  PoolFilterInput,
-  Scalars,
-} from "@gc-digital-talent/graphql";
+import { graphql, PoolFilterInput, Scalars } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Option } from "@gc-digital-talent/forms";
 
@@ -16,13 +11,15 @@ import { getShortPoolTitleLabel } from "~/utils/poolUtils";
 const PoolFilter_Query = graphql(/* GraphQL */ `
   query PoolFilter(
     $where: PoolFilterInput
-    $includeIds: [UUID!]
     $first: Int
+    $includeIds: [UUID!]
+    $excludeIds: [UUID!]
     $page: Int
   ) {
     poolsPaginated(
       where: $where
       includeIds: $includeIds
+      excludeIds: $excludeIds
       first: $first
       page: $page
     ) {
@@ -56,6 +53,7 @@ type UsePoolFilterOptionsReturn = {
 const usePoolFilterOptions = (
   where?: PoolFilterInput,
   includeIds?: Scalars["UUID"]["input"][],
+  excludeIds?: Scalars["UUID"]["input"][],
 ): UsePoolFilterOptionsReturn => {
   const intl = useIntl();
   const [{ data, fetching }] = useQuery({
@@ -64,6 +62,7 @@ const usePoolFilterOptions = (
       first: 100,
       where,
       includeIds,
+      excludeIds,
     },
   });
 

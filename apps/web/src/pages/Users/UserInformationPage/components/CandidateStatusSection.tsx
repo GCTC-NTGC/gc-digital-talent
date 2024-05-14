@@ -10,7 +10,6 @@ import UserCandidatesTable from "./UserCandidatesTable/UserCandidatesTable";
 
 const CandidateStatusSection = ({
   user,
-  pools,
   departments,
 }: UserInformationProps) => {
   const intl = useIntl();
@@ -47,7 +46,7 @@ const CandidateStatusSection = ({
                 "Title of the 'Add user to pools' section of the view-user page",
             })}
           </h4>
-          <AddToPoolDialog user={user} pools={pools} />
+          <AddToPoolDialog user={user} />
         </>
       )}
     </>

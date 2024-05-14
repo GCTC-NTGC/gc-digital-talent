@@ -5,6 +5,5 @@ export interface BasicUserInformationProps {
 }
 
 export interface UserInformationProps extends BasicUserInformationProps {
-  pools: Pool[];
   departments?: Department[];
 }

@@ -58,6 +58,7 @@ type Query {
   ): UserPublicProfilePaginator!
   poolsPaginated(
     includeIds: [UUID!]
+    excludeIds: [UUID!]
     where: PoolFilterInput
     orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput
     orderBy: [QueryPoolsPaginatedOrderByRelationOrderByClause!]
