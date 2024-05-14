@@ -26,7 +26,11 @@ import {
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 
-import { isQualifiedStatus, statusToJobPlacement } from "~/utils/poolCandidate";
+import {
+  isNotPlacedStatus,
+  isQualifiedStatus,
+  statusToJobPlacement,
+} from "~/utils/poolCandidate";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 export const PLACEMENT_TYPE_STATUSES = [
@@ -200,6 +204,17 @@ const JobPlacementDialog = ({
     })),
   ];
 
+  let label = intl.formatMessage(commonMessages.notAvailable);
+  if (status) {
+    if (isNotPlacedStatus(status)) {
+      label = intl.formatMessage(poolCandidateMessages.notPlaced);
+    }
+
+    if (status && PLACEMENT_TYPE_STATUSES.includes(status)) {
+      label = intl.formatMessage(getPlacementType(status));
+    }
+  }
+
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
@@ -214,7 +229,7 @@ const JobPlacementDialog = ({
               })}
           data-h2-text-align="base(left)"
         >
-          {intl.formatMessage(statusToJobPlacement(status))}
+          {label}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
