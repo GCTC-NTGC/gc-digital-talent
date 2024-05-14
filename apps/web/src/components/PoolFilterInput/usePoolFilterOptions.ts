@@ -6,7 +6,7 @@ import { graphql, PoolFilterInput } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Option } from "@gc-digital-talent/forms";
 
-import { getShortPoolTitleLabel } from "../utils/poolUtils";
+import { getShortPoolTitleLabel } from "~/utils/poolUtils";
 
 const PoolFilter_Query = graphql(/* GraphQL */ `
   query PoolFilter($where: PoolFilterInput, $first: Int, $page: Int) {
