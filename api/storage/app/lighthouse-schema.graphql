@@ -726,6 +726,8 @@ input PoolFilterInput {
   ownerName: String
   ownerEmail: String
   team: String
+  streams: [PoolStream!]
+  statuses: [PoolStatus!]
 }
 
 input PoolTeamDisplayNameOrderByInput {

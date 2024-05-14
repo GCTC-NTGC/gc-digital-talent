@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import debounce from "lodash/debounce";
 
 import { Combobox } from "@gc-digital-talent/forms";
+import { PoolFilterInput, Scalars } from "@gc-digital-talent/graphql";
 
 import adminMessages from "~/messages/adminMessages";
 
@@ -11,9 +12,13 @@ import usePoolFilterOptions from "./usePoolFilterOptions";
 interface PoolFilterInputProps {
   name?: string;
   id?: string;
+  filterInput?: PoolFilterInput;
+  includeIds?: Scalars["UUID"]["input"][];
 }
 
 const PoolFilterInput = ({
+  includeIds,
+  filterInput = {},
   name = "pools",
   id = "pools",
 }: PoolFilterInputProps) => {
@@ -23,9 +28,13 @@ const PoolFilterInput = ({
     poolOptions,
     total,
     fetching: poolsFetching,
-  } = usePoolFilterOptions({
-    generalSearch: query || undefined,
-  });
+  } = usePoolFilterOptions(
+    {
+      ...filterInput,
+      generalSearch: query || undefined,
+    },
+    includeIds,
+  );
 
   const handleDebouncedSearch = debounce((newQuery: string) => {
     setQuery(newQuery);

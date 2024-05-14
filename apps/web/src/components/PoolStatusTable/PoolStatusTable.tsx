@@ -38,10 +38,9 @@ const columnHelper = createColumnHelper<PoolCandidate>();
 
 interface PoolStatusTableProps {
   user: User;
-  pools: Pool[];
 }
 
-const PoolStatusTable = ({ user, pools }: PoolStatusTableProps) => {
+const PoolStatusTable = ({ user }: PoolStatusTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 
@@ -96,8 +95,7 @@ const PoolStatusTable = ({ user, pools }: PoolStatusTableProps) => {
       {
         id: "status",
         enableHiding: false,
-        cell: ({ row: { original: candidate } }) =>
-          statusCell(candidate, user, pools),
+        cell: ({ row: { original: candidate } }) => statusCell(candidate, user),
         header: intl.formatMessage(commonMessages.status),
         sortingFn: sortStatus,
       },

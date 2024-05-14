@@ -634,6 +634,8 @@ input PoolFilterInput {
   ownerName: String @scope
   ownerEmail: String @scope
   team: String @scope
+  streams: [PoolStream!] @scope
+  statuses: [PoolStatus!] @scope
 }
 
 input PoolTeamDisplayNameOrderByInput {

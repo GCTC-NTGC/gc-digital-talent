@@ -30,6 +30,7 @@ import {
 } from "~/utils/poolUtils";
 
 import UpdatePoolCandidateStatus_Mutation from "./mutation";
+import PoolFilterInput from "~/components/PoolFilterInput/PoolFilterInput";
 
 type FormValues = {
   status: PoolCandidate["status"];
@@ -39,13 +40,11 @@ type FormValues = {
 interface ChangeStatusDialogProps {
   selectedCandidate: PoolCandidate;
   user: User;
-  pools: Pool[];
 }
 
 const ChangeStatusDialog = ({
   selectedCandidate,
   user,
-  pools,
 }: ChangeStatusDialogProps) => {
   const intl = useIntl();
   const [open, setOpen] = React.useState(false);
@@ -269,7 +268,13 @@ const ChangeStatusDialog = ({
                 })}
               </p>
               <div data-h2-margin="base(x.5, 0, x.125, 0)">
-                <Combobox
+                <PoolFilterInput
+                  includeIds={userPoolIds}
+                  filterInput={{
+                    statuses: [PoolStatus.Closed, PoolStatus.Published],
+                  }}
+                />
+                {/* <Combobox
                   id="changeStatusDialog-additionalPools"
                   name="additionalPools"
                   isMulti
@@ -299,7 +304,7 @@ const ChangeStatusDialog = ({
                         label: getShortPoolTitleLabel(intl, pool),
                       };
                     })}
-                />
+                /> */}
               </div>
               <Dialog.Footer>
                 <Button disabled={fetching} type="submit" color="secondary">

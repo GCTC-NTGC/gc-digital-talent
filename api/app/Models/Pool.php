@@ -361,6 +361,46 @@ class Pool extends Model
         return $query;
     }
 
+    public static function scopeStreams(Builder $query, ?array $streams): Builder
+    {
+        if (! empty($streams)) {
+            $query->where(function ($query) use ($streams) {
+                foreach ($streams as $stream) {
+                    $query->orWhereJsonContains('stream', $stream);
+                }
+            });
+        }
+
+        return $query;
+    }
+
+    public static function scopeStatuses(Builder $query, ?array $statuses): Builder
+    {
+        if (! empty($statuses)) {
+
+            $query->where(function ($query) use ($statuses) {
+
+                if (in_array(PoolStatus::ARCHIVED->name, $statuses)) {
+                    $query->orWhere('archived_at', '<=', Carbon::now());
+                }
+
+                if (in_array(PoolStatus::CLOSED->name, $statuses)) {
+                    $query->orWhere('closing_date', '<=', Carbon::now());
+                }
+
+                if (in_array(PoolStatus::PUBLISHED->name, $statuses)) {
+                    $query->orWhere('published_at', '<=', Carbon::now());
+                }
+
+                if (in_array(PoolStatus::DRAFT->name, $statuses)) {
+                    $query->orWhereNull('published_at');
+                }
+            });
+        }
+
+        return $query;
+    }
+
     public static function scopeGeneralSearch(Builder $query, ?string $term): Builder
     {
         if ($term) {
