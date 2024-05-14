@@ -12,6 +12,7 @@ import usePoolFilterOptions from "./usePoolFilterOptions";
 interface PoolFilterInputProps {
   name?: string;
   id?: string;
+  label?: React.ReactNode;
   filterInput?: PoolFilterInput;
   includeIds?: Scalars["UUID"]["input"][];
   excludeIds?: Scalars["UUID"]["input"][];
@@ -20,6 +21,7 @@ interface PoolFilterInputProps {
 const PoolFilterInput = ({
   includeIds,
   excludeIds,
+  label,
   filterInput = {},
   name = "pools",
   id = "pools",
@@ -48,7 +50,7 @@ const PoolFilterInput = ({
       {...{ name, id }}
       isMulti
       isExternalSearch
-      label={intl.formatMessage(adminMessages.pools)}
+      label={label || intl.formatMessage(adminMessages.pools)}
       fetching={poolsFetching}
       total={total}
       onSearch={handleDebouncedSearch}

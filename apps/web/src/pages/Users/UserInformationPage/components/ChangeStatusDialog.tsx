@@ -273,6 +273,12 @@ const ChangeStatusDialog = ({
                   filterInput={{
                     statuses: [PoolStatus.Closed, PoolStatus.Published],
                   }}
+                  label={intl.formatMessage({
+                    defaultMessage: "Additional pools",
+                    id: "8V8WwR",
+                    description:
+                      "Label displayed on the additional pools field of the change candidate status dialog",
+                  })}
                 />
               </div>
               <Dialog.Footer>
