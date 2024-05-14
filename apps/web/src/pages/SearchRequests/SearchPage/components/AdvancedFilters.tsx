@@ -9,7 +9,7 @@ import {
   getOperationalRequirement,
   getEmploymentDuration,
   EmploymentDuration,
-  OperationalRequirementV2,
+  OperationalRequirements,
 } from "@gc-digital-talent/i18n";
 
 import { NullSelection } from "~/types/searchRequest";
@@ -110,14 +110,14 @@ const AdvancedFilters = () => {
     },
   ];
 
-  const operationalRequirementOptions = OperationalRequirementV2.map(
+  const operationalRequirementOptions = OperationalRequirements.map(
     (value) => ({
       value,
       label: intl.formatMessage(getOperationalRequirement(value)),
     }),
   );
 
-  const operationalRequirementOptionsShort = OperationalRequirementV2.map(
+  const operationalRequirementOptionsShort = OperationalRequirements.map(
     (value) => ({
       value,
       label: intl.formatMessage(getOperationalRequirement(value, "short")),

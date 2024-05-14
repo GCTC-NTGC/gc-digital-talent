@@ -1153,7 +1153,7 @@ const operationalRequirementLabelFirstPersonNoBold = defineMessages({
   },
 });
 
-export const OperationalRequirementV2 = [
+export const OperationalRequirements = [
   OperationalRequirement.OvertimeOccasional,
   OperationalRequirement.OvertimeRegular,
   OperationalRequirement.ShiftWork,
