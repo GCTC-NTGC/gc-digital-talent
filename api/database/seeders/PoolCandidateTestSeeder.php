@@ -136,11 +136,6 @@ class PoolCandidateTestSeeder extends Seeder
                     $poolCandidate->expiry_date = now()->addYears(2);
                     $poolCandidate->save();
                 }
-                if ($user->first_name == 'User3') {
-                    $poolCandidate->pool_candidate_status = PoolCandidateStatus::PLACED_TENTATIVE->name;
-                    $poolCandidate->expiry_date = now()->addYears(2);
-                    $poolCandidate->save();
-                }
                 if ($user->first_name == 'User4') {
                     $poolCandidate->pool_candidate_status = PoolCandidateStatus::REMOVED->name;
                     $poolCandidate->save();
