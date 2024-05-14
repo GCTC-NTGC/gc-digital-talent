@@ -43,7 +43,7 @@ class PoolTestSeeder extends Seeder
                 'closing_date' => config('constants.far_future_date'),
                 'publishing_group' => PublishingGroup::IAP->name,
             ],
-            
+
             //  IT-01  - Draft Job
             [
                 'name' => [
