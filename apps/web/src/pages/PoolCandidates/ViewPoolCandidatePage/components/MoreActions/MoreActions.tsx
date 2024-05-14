@@ -158,7 +158,6 @@ const MoreActions = ({
           <Link
             href={paths.userProfile(poolCandidate.user.id)}
             icon={UserCircleIcon}
-            type="button"
             color="primary"
             mode="inline"
           >
