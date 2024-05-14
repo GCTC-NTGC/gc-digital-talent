@@ -99,6 +99,8 @@ const subTitle = defineMessage({
 });
 
 // export text for testing
+// should match the getProfile query from api/app/GraphQL/Mutations/PoolCandidateSnapshot.graphql
+// eslint-disable-next-line camelcase
 export const UserProfile_FragmentText = /* GraphQL */ `
   fragment UserProfile on User {
     id
