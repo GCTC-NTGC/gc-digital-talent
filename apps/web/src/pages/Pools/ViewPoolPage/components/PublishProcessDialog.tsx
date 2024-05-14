@@ -57,7 +57,7 @@ const PublishProcessDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button color="primary" disabled={!isReadyToPublish}>
+        <Button color="secondary" disabled={!isReadyToPublish}>
           {title}
         </Button>
       </Dialog.Trigger>
@@ -121,9 +121,8 @@ const PublishProcessDialog = ({
                 </li>
               )}
           </ul>
-          <Dialog.Footer data-h2-justify-content="base(flex-start)">
+          <Dialog.Footer>
             <Button
-              mode="solid"
               color="secondary"
               onClick={handlePublish}
               disabled={isFetching}

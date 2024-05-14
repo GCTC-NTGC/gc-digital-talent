@@ -92,7 +92,7 @@ const ApplicationQuestionsIntroduction = ({
         data-h2-align-items="base(flex-start) l-tablet(center)"
       >
         <Link
-          color="primary"
+          color="secondary"
           mode="solid"
           href={paths.applicationQuestions(application.id)}
         >

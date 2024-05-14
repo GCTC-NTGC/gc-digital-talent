@@ -592,7 +592,7 @@ const ApplicationReview = ({
               >
                 <Button
                   type="submit"
-                  mode="solid"
+                  color="secondary"
                   value="continue"
                   disabled={mutating || isSubmitting}
                 >

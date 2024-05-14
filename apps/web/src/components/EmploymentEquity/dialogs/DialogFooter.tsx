@@ -27,7 +27,7 @@ const DialogFooter = ({ saveText, disabled }: DialogFooterProps) => {
         data-h2-align-self="base(center)"
         data-h2-padding-left="base(x1)"
       >
-        <Button type="button" mode="inline" color="tertiary">
+        <Button type="button" mode="inline" color="warning">
           {intl.formatMessage(commonMessages.cancel)}
         </Button>
       </Dialog.Close>

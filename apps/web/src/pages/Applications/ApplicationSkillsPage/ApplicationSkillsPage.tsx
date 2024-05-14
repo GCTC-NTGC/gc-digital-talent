@@ -350,7 +350,7 @@ export const ApplicationSkills = ({
           >
             <Button
               type="submit"
-              mode="solid"
+              color="secondary"
               value="continue"
               disabled={mutating || isSubmitting}
               onClick={() => {

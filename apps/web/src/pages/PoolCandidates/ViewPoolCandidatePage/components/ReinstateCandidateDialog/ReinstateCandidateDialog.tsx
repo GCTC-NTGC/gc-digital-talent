@@ -141,8 +141,12 @@ const ReinstateCandidateDialog = ({
           </p>
           <FormChangeNotifyWell />
 
-          <Dialog.Footer data-h2-justify-content="base(flex-start)">
-            <Button type="button" disabled={fetching} onClick={handleReinstate}>
+          <Dialog.Footer>
+            <Button
+              color="secondary"
+              disabled={fetching}
+              onClick={handleReinstate}
+            >
               {intl.formatMessage({
                 defaultMessage: "Reinstate candidate and update status",
                 id: "CRcpm4",
@@ -151,7 +155,7 @@ const ReinstateCandidateDialog = ({
               })}
             </Button>
             <Dialog.Close>
-              <Button mode="inline" color="secondary">
+              <Button mode="inline" color="warning">
                 {intl.formatMessage(formMessages.cancelGoBack)}
               </Button>
             </Dialog.Close>

@@ -93,13 +93,6 @@ const CreateTeamForm = ({
         data-h2-gap="base(x1)"
         data-h2-align-items="base(center)"
       >
-        <Link mode="inline" href={navigateTo}>
-          {intl.formatMessage({
-            defaultMessage: "Cancel and go back to teams",
-            id: "i0IT1I",
-            description: "Link text to cancel updating a team",
-          })}
-        </Link>
         <Submit
           text={intl.formatMessage({
             defaultMessage: "Create new team",
@@ -107,6 +100,13 @@ const CreateTeamForm = ({
             description: "Button text for the create team form submit button",
           })}
         />
+        <Link mode="inline" color="warning" href={navigateTo}>
+          {intl.formatMessage({
+            defaultMessage: "Cancel and go back to teams",
+            id: "i0IT1I",
+            description: "Link text to cancel updating a team",
+          })}
+        </Link>
       </div>
     </BasicForm>
   );

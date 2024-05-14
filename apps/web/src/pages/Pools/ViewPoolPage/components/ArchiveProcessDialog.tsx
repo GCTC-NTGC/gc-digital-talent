@@ -63,14 +63,8 @@ const ArchiveProcessDialog = ({
                 "Text explaining what will happen when archiving a process",
             })}
           </p>
-          <Dialog.Footer data-h2-justify-content="base(flex-start)">
-            <Dialog.Close>
-              <Button color="secondary" mode="inline">
-                {intl.formatMessage(formMessages.cancelGoBack)}
-              </Button>
-            </Dialog.Close>
+          <Dialog.Footer>
             <Button
-              mode="solid"
               color="error"
               onClick={handleArchive}
               icon={ArchiveBoxIcon}
@@ -78,6 +72,11 @@ const ArchiveProcessDialog = ({
             >
               {title}
             </Button>
+            <Dialog.Close>
+              <Button color="warning" mode="inline">
+                {intl.formatMessage(formMessages.cancelGoBack)}
+              </Button>
+            </Dialog.Close>
           </Dialog.Footer>
         </Dialog.Body>
       </Dialog.Content>

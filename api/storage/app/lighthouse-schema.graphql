@@ -299,17 +299,6 @@ interface Notification {
   updatedAt: DateTime!
 }
 
-type PoolCandidateStatusChangedNotification implements Notification {
-  id: ID!
-  readAt: DateTime
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  oldStatus: PoolCandidateStatus
-  newStatus: PoolCandidateStatus
-  poolCandidateId: ID
-  poolName: LocalizedString
-}
-
 type ApplicationDeadlineApproachingNotification implements Notification {
   id: ID!
   readAt: DateTime

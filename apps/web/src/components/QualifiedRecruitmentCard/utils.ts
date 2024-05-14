@@ -25,6 +25,7 @@ import {
   isInactiveCombinedStatus,
   isErrorCombinedStatus,
   isSuspendedCombinedStatus,
+  isRemovedCombinedStatus,
 } from "~/utils/poolCandidateCombinedStatus";
 
 export const joinDepartments = (
@@ -70,7 +71,10 @@ export const getStatusChipInfo = (
       text,
     };
   }
-  if (isExpiredCombinedStatus(combinedStatus)) {
+  if (
+    isExpiredCombinedStatus(combinedStatus) ||
+    isRemovedCombinedStatus(combinedStatus)
+  ) {
     return {
       color: "black",
       text,

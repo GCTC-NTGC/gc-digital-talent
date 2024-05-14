@@ -151,11 +151,11 @@ const EditExperienceForm = ({
           data-h2-flex-direction="base(column) l-tablet(row)"
           data-h2-align-items="base(flex-start) l-tablet(center)"
         >
-          <Button type="submit" disabled={isSubmitting}>
+          <Button type="submit" disabled={isSubmitting} color="secondary">
             {intl.formatMessage(formMessages.saveChanges)}
           </Button>
           <Link
-            color="quaternary"
+            color="warning"
             mode="inline"
             href={paths.applicationCareerTimeline(applicationId)}
           >
@@ -190,22 +190,21 @@ const EditExperienceForm = ({
                 })}
               </AlertDialog.Description>
               <AlertDialog.Footer>
-                <AlertDialog.Cancel>
-                  <Button type="button" color="secondary">
-                    {intl.formatMessage(commonMessages.cancel)}
-                  </Button>
-                </AlertDialog.Cancel>
                 <AlertDialog.Action>
                   <Button
                     type="submit"
-                    mode="solid"
-                    color="primary"
+                    color="error"
                     disabled={isSubmitting}
                     onClick={handleDeleteExperience}
                   >
                     {intl.formatMessage(commonMessages.delete)}
                   </Button>
                 </AlertDialog.Action>
+                <AlertDialog.Cancel>
+                  <Button type="button" color="warning" mode="inline">
+                    {intl.formatMessage(commonMessages.cancel)}
+                  </Button>
+                </AlertDialog.Cancel>
               </AlertDialog.Footer>
             </AlertDialog.Content>
           </AlertDialog.Root>
