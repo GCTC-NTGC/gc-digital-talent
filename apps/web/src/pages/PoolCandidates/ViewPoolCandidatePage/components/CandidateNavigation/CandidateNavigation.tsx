@@ -55,10 +55,10 @@ const CandidateNavigation = ({
     <div
       data-h2-display="base(grid)"
       data-h2-align-items="base(center)"
-      data-h2-grid-template-columns="base(1fr auto 1fr)"
+      data-h2-grid-template-columns="base(x1 auto x1)"
       data-h2-gap="base(x.5)"
     >
-      {previousCandidate ? (
+      {previousCandidate && (
         <Link
           mode="icon_only"
           href={paths.poolCandidateApplication(previousCandidate)}
@@ -66,19 +66,17 @@ const CandidateNavigation = ({
           aria-label={intl.formatMessage(messages.previousCandidate)}
           {...commonLinkProps}
         />
-      ) : (
-        <div /> // for styling
       )}
       <div data-h2-text-align="base(center)" data-h2-grid-column="base(2)">
-        <p
-          data-h2-color="base(primary.darker)"
-          data-h2-font-weight="base(700)"
-          data-h2-margin-bottom="base(x.25)"
-        >
+        <p data-h2-color="base(primary.darker)" data-h2-font-weight="base(700)">
           {candidateName}
         </p>
         {stepName && (
-          <p data-h2-color="base(black.70)" data-h2-font-size="base(caption)">
+          <p
+            data-h2-color="base(black.70)"
+            data-h2-font-size="base(caption)"
+            data-h2-margin-top="base(x.25)"
+          >
             {stepName}
           </p>
         )}
@@ -90,8 +88,6 @@ const CandidateNavigation = ({
           icon={ArrowRightCircleIcon}
           aria-label={intl.formatMessage(messages.nextCandidate)}
           {...commonLinkProps}
-          data-h2-margin-right="base(0)"
-          data-h2-text-align="base(right)"
         />
       )}
     </div>
