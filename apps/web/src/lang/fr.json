@@ -1811,6 +1811,10 @@
     "defaultMessage": "N'oubliez pas que les questions de cette section seront utilisées pour évaluer votre candidature.",
     "description": "Reminder what screening questions are used for."
   },
+  "8V8WwR": {
+    "defaultMessage": "Bassins additionnels",
+    "description": "Label displayed on the additional pools field of the change candidate status dialog"
+  },
   "8W/am2": {
     "defaultMessage": "Cette liste vous permet de mettre en évidence <strong>jusqu’à 5 comportements ou compétences « générales »</strong> que vous maîtrisez. Montrez-nous qui vous êtes!",
     "description": "Description of a users top behavioural skills"
