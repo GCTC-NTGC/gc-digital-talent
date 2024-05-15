@@ -12,6 +12,8 @@ use Illuminate\Database\Seeder;
 
 class PoolCandidateTestSeeder extends Seeder
 {
+    protected $publishedPools = [];
+
     /**
      * Seeds initial user records into that database.
      * These users are only useful for testing locally.
@@ -20,7 +22,6 @@ class PoolCandidateTestSeeder extends Seeder
      */
     public function run()
     {
-
         $candidateOne = PoolCandidate::factory()->create([
             'pool_candidate_status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
             'submitted_at' => config('constants.far_past_date'),
@@ -31,143 +32,151 @@ class PoolCandidateTestSeeder extends Seeder
         // this was split into two steps as otherwise PoolCandidateFactory automatically assigns a submitted_at
         $candidateOne->pool_candidate_status = PoolCandidateStatus::EXPIRED->name;
         $candidateOne->save();
-        $users = [];
-        $users[0] = User::factory()
+        $this->publishedPools = Pool::select('id', 'name')->whereNotNull('published_at')->get();
+
+        // 1- Perfect Priority
+        User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
+            ->afterCreating(function (User $user) {
+                $this->applyToAllPools($user, PoolCandidateStatus::QUALIFIED_AVAILABLE, now()->addYears(2));
+            })
             ->create([
-                'first_name' => 'User1',
-                'last_name' => 'Test1',
-                'email' => 'user1@test.com',
-                'sub' => 'user1@test.com',
+                'first_name' => 'Perfect',
+                'last_name' => 'Priority',
+                'email' => 'perfect@test.com',
+                'sub' => 'perfect@test.com',
                 'has_priority_entitlement' => true,
                 'citizenship' => CitizenshipStatus::CITIZEN->name,
             ]);
 
-        $users[1] = User::factory()
+        //2- Barely qualified Veteran
+        User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
+            ->afterCreating(function (User $user) {
+                $this->applyToAllPools($user, PoolCandidateStatus::QUALIFIED_AVAILABLE, now()->addYears(2));
+            })
             ->create([
-                'first_name' => 'User2',
-                'last_name' => 'Test2',
-                'email' => 'user2@test.com',
-                'sub' => 'user2@test.com',
+                'first_name' => 'Barely qualified',
+                'last_name' => 'Veteran',
+                'email' => 'veteran@test.com',
+                'sub' => 'veteran@test.com',
                 'citizenship' => CitizenshipStatus::CITIZEN->name,
             ]);
 
-        $users[2] = User::factory()
+        // 3- Try-hard Not a veteran
+        User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
+            ->afterCreating(function (User $user) {
+                $this->applyToAllPools($user, PoolCandidateStatus::PLACED_TENTATIVE, now()->addYears(2));
+            })
             ->create([
-                'first_name' => 'User3',
-                'last_name' => 'Test3',
-                'email' => 'user3@test.com',
-                'sub' => 'user3@test.com',
+                'first_name' => 'Try-hard',
+                'last_name' => 'Not a veteran',
+                'email' => 'try-hard@test.com',
+                'sub' => 'try-hard@test.com',
                 'citizenship' => CitizenshipStatus::PERMANENT_RESIDENT->name,
             ]);
 
-        $users[3] = User::factory()
+        //4- Absent Canadian
+        User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
+            ->afterCreating(function (User $user) {
+                $this->applyToAllPools($user, PoolCandidateStatus::REMOVED);
+            })
             ->create([
-                'first_name' => 'User4',
-                'last_name' => 'Test4',
-                'email' => 'user4@test.com',
-                'sub' => 'test4@test.com',
+                'first_name' => 'Absent',
+                'last_name' => 'Canadian',
+                'email' => 'absent@test.com',
+                'sub' => 'absent@test.com',
                 'citizenship' => CitizenshipStatus::CITIZEN->name,
             ]);
 
-        $users[4] = User::factory()
+        //5- Screened-out Non-Canadian
+        User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
+            ->afterCreating(function (User $user) {
+                $this->applyToAllPools($user, PoolCandidateStatus::QUALIFIED_AVAILABLE, now()->addYears(2));
+            })
             ->create([
-                'first_name' => 'User5',
-                'last_name' => 'Test5',
-                'email' => 'user5@test.com',
-                'sub' => 'user5@test.com',
+                'first_name' => 'Screened-out',
+                'last_name' => 'Non-Canadian',
+                'email' => 'Screened-out@test.com',
+                'sub' => 'Screened-out@test.com',
                 'citizenship' => CitizenshipStatus::OTHER->name,
             ]);
 
-        $users[5] = User::factory()
-            ->create([
-                'first_name' => 'User6',
-                'last_name' => 'Test6',
-                'email' => 'user6@test.com',
-                'sub' => 'user6@test.com',
-                'citizenship' => CitizenshipStatus::CITIZEN->name,
-            ]);
-        $users[6] = User::factory()
+        // 6- Failed Notes master
+        User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
+            ->afterCreating(function (User $user) {
+                $this->applyToAllPools($user, PoolCandidateStatus::QUALIFIED_AVAILABLE, now()->addYears(2));
+            })
             ->create([
-                'first_name' => 'User7',
-                'last_name' => 'Test7',
-                'email' => 'user7@test.com',
-                'sub' => 'user7@test.com',
+                'first_name' => 'Failed',
+                'last_name' => 'NotesMaster',
+                'email' => 'Failed@test.com',
+                'sub' => 'Failed@test.com',
+                'citizenship' => CitizenshipStatus::CITIZEN->name,
+            ]);
+
+        // 7- Barely qualified Holder
+        User::factory()
+            ->asApplicant()
+            ->withSkillsAndExperiences()
+            ->afterCreating(function (User $user) {
+                $this->applyToAllPools($user, PoolCandidateStatus::QUALIFIED_AVAILABLE, now()->addYears(2));
+            })
+            ->create([
+                'first_name' => 'Barely',
+                'last_name' => 'qualified Holder',
+                'email' => 'barely@test.com',
+                'sub' => 'barely@test.com',
                 'citizenship' => CitizenshipStatus::PERMANENT_RESIDENT->name,
             ]);
-        $users[7] = User::factory()
+
+        //8- Unsuccessful Priority
+        User::factory()
             ->asApplicant()
             ->withSkillsAndExperiences()
+            ->afterCreating(function (User $user) {
+                $this->applyToAllPools($user, PoolCandidateStatus::SCREENED_OUT_ASSESSMENT);
+            })
             ->create([
-                'first_name' => 'User8',
-                'last_name' => 'Test8',
-                'email' => 'user8@test.com',
-                'sub' => 'user8@test.com',
+                'first_name' => 'Unsuccessful',
+                'last_name' => 'Priority',
+                'email' => 'Unsuccessful@test.com',
+                'sub' => 'Unsuccessful@test.com',
                 'citizenship' => CitizenshipStatus::CITIZEN->name,
             ]);
-        $this->applyToAllPools($users, Pool::all());
+
     }
 
-    public function applyToAllPools($users, $pools)
+    public function applyToAllPools($user, $status, $expiryDate = null, $placedDepartmentId = null)
     {
-        foreach ($pools as $pool) {
-            foreach ($users as $user) {
-                $poolCandidate = PoolCandidate::factory()->create([
+        foreach ($this->publishedPools as $pool) {
+            // create a pool candidate in the pool
+            PoolCandidate::factory()->for($user)->for($pool)
+                ->afterCreating(function (PoolCandidate $candidate) {
+                    if ($candidate->submitted_at) {
+                        $candidate->createSnapshot();
+                    }
+                })
+                ->create([
                     'pool_id' => $pool->id,
                     'user_id' => $user->id,
                     'submitted_at' => config('constants.far_past_date'),
                     'submitted_steps' => array_column(ApplicationStep::cases(), 'name'),
+                    'pool_candidate_status' => $status->name,
+                    'expiry_date' => $expiryDate,
+                    'placed_department_id' => $placedDepartmentId,
                 ]);
-                if ($user->first_name == 'User1' && $pool->name['en'] == 'IT Security Analyst') {
-                    $poolCandidate->pool_candidate_status = PoolCandidateStatus::PLACED_INDETERMINATE->name;
-                    $poolCandidate->save();
-                }
-                if ($user->first_name == 'User2') {
-                    $poolCandidate->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
-                    $poolCandidate->expiry_date = now()->addYears(2);
-                    $poolCandidate->save();
-                }
-                if ($user->first_name == 'User3') {
-                    $poolCandidate->pool_candidate_status = PoolCandidateStatus::PLACED_TENTATIVE->name;
-                    $poolCandidate->expiry_date = now()->addYears(2);
-                    $poolCandidate->save();
-                }
-                if ($user->first_name == 'User4') {
-                    $poolCandidate->pool_candidate_status = PoolCandidateStatus::REMOVED->name;
-                    $poolCandidate->save();
-                }
-                if ($user->first_name == 'User5') {
-                    $poolCandidate->pool_candidate_status = PoolCandidateStatus::SCREENED_OUT_APPLICATION->name;
-                    $poolCandidate->expiry_date = now()->addYears(2);
-                    $poolCandidate->save();
-                }
-                if ($user->first_name == 'User6') {
-                    $poolCandidate->pool_candidate_status = PoolCandidateStatus::REMOVED->name;
-                    $poolCandidate->expiry_date = now()->addYears(2);
-                    $poolCandidate->save();
-                }
-                if ($user->first_name == 'User7') {
-                    $poolCandidate->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
-                    $poolCandidate->expiry_date = now()->addYears(2);
-                    $poolCandidate->save();
-                }
-                if ($user->first_name == 'User8') {
-                    $poolCandidate->pool_candidate_status = PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name;
-                    $poolCandidate->expiry_date = now()->addYears(2);
-                    $poolCandidate->save();
-                }
-            }
+
         }
     }
 }
