@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Artisan::call(RemoveOperationalRequirement::class, ["operationalRequirement" => "OVERTIME_SCHEDULED"]);
-        Artisan::call(RemoveOperationalRequirement::class, ["operationalRequirement" => "OVERTIME_SHORT_NOTICE"]);
+        Artisan::call(RemoveOperationalRequirement::class, ['operationalRequirement' => 'OVERTIME_SCHEDULED']);
+        Artisan::call(RemoveOperationalRequirement::class, ['operationalRequirement' => 'OVERTIME_SHORT_NOTICE']);
     }
 
     /**
