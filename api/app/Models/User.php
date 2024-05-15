@@ -790,6 +790,24 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     }
 
     /**
+     * Scopes the query to only return users in a pool with one of the specified classifications.
+     * If $classifications is empty, this scope will be ignored.
+     *
+     * @param  array|null  $classifications  Each classification is an object with a group and a level field.
+     */
+    public static function scopeAppliedClassifications(Builder $query, ?array $classifications): Builder
+    {
+        if (empty($classifications)) {
+            return $query;
+        }
+        $query->whereHas('poolCandidates', function ($query) use ($classifications) {
+            PoolCandidate::scopeAppliedClassifications($query, $classifications);
+        });
+
+        return $query;
+    }
+
+    /**
      * Scopes the query to only return users who are available in a pool with one of the specified classifications.
      * If $classifications is empty, this scope will be ignored.
      *
