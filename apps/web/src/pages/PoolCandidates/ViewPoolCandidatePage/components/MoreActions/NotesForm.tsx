@@ -53,7 +53,13 @@ const Display = ({ notes }: { notes?: Maybe<string> }) => {
         hasError={false}
         label={intl.formatMessage(adminMessages.notes)}
       >
-        {notes || intl.formatMessage(commonMessages.notProvided)}
+        <div
+          data-h2-margin-top="base(x.5)"
+          data-h2-max-height="base(10rem)"
+          data-h2-overflow="base(scroll)"
+        >
+          {notes || intl.formatMessage(commonMessages.notProvided)}
+        </div>
       </ToggleForm.FieldDisplay>
       <ToggleForm.Trigger data-h2-margin-top="base(x.5)">
         {intl.formatMessage({
@@ -152,7 +158,12 @@ const NotesForm = ({ poolCandidate: poolCandidateQuery }: NotesFormProps) => {
                 rows={8}
               />
 
-              <div data-h2-display="base(flex)" data-h2-gap="base(x.5)">
+              <div
+                data-h2-display="base(flex)"
+                data-h2-flex-wrap="base(wrap)"
+                data-h2-text-align="base(center)"
+                data-h2-gap="base(x.5)"
+              >
                 <Submit
                   text={intl.formatMessage(formMessages.saveChanges)}
                   color="primary"
