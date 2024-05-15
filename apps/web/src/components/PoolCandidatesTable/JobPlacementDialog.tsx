@@ -22,6 +22,7 @@ import {
   commonMessages,
   errorMessages,
   getPlacementType,
+  getPoolCandidateStatus,
 } from "@gc-digital-talent/i18n";
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
@@ -207,7 +208,7 @@ const JobPlacementDialog = ({
     }
 
     if (status && PLACEMENT_TYPE_STATUSES.includes(status)) {
-      label = intl.formatMessage(getPlacementType(status));
+      label = intl.formatMessage(getPoolCandidateStatus(status));
     }
   }
 
