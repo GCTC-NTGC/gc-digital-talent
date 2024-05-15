@@ -49,7 +49,5 @@ We strongly recommend running the project entirely with Docker. In this case the
 
 Then, follow the instructions in [`/maintenance/README.md`](/maintenance/README.md) to build the project docker containers and run the build scripts. That should handle everything!
 
-### Complications?
-
-- Make sure virtualization is enabled in your machine's BIOS (this is for Docker Desktop)
-- Docker is finicky—try exiting it entirely and restarting it
+> [!TIP]
+> If using Docker Desktop, make sure virtualization is enabled in your machine's BIOS.
