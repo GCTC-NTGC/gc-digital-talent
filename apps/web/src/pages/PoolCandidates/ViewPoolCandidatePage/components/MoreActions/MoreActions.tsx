@@ -141,7 +141,7 @@ const MoreActions = ({
                   />
                 </span>
               )}
-            <span data-h2-margin-top="base(x.5)">
+            <span>
               <RemoveCandidateDialog removalQuery={poolCandidate} />
             </span>
           </>
@@ -153,7 +153,7 @@ const MoreActions = ({
         data-h2-text-align="base(center)"
         data-h2-gap="base(x.5)"
       >
-        <CardBasic data-h2-flex="base(1)">
+        <CardBasic data-h2-flex="base(1)" data-h2-padding="base(x.5)">
           <Link
             href={paths.userProfile(poolCandidate.user.id)}
             icon={UserCircleIcon}
@@ -169,7 +169,7 @@ const MoreActions = ({
           </Link>
         </CardBasic>
         {parsedSnapshot && (
-          <CardBasic data-h2-flex="base(1)">
+          <CardBasic data-h2-flex="base(1)" data-h2-padding="base(x.5)">
             <ApplicationPrintButton
               mode="inline"
               color="secondary"
