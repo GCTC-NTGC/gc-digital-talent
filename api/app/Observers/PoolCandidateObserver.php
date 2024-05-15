@@ -5,6 +5,8 @@ namespace App\Observers;
 use App\Enums\PoolCandidateStatus;
 use App\Models\PoolCandidate;
 use App\Notifications\ApplicationStatusChanged;
+use Illuminate\Support\Facades\Log;
+use Throwable;
 
 class PoolCandidateObserver
 {
@@ -34,10 +36,16 @@ class PoolCandidateObserver
                  // old status was a removed
                 in_array($oldStatus, PoolCandidateStatus::removedGroup())
             ) {
-                $poolCandidate->user->notify(new ApplicationStatusChanged(
-                    $poolCandidate->pool->name['en'],
-                    $poolCandidate->pool->name['fr'],
-                ));
+                try {
+
+                    $poolCandidate->user->notify(new ApplicationStatusChanged(
+                        $poolCandidate->pool->name['en'],
+                        $poolCandidate->pool->name['fr'],
+                    ));
+                } catch (Throwable $e) {
+                    // best-effort: log and continue
+                    Log::error('Failed to send "application status changed" notification to ['.$poolCandidate->id.']');
+                }
             }
         }
 

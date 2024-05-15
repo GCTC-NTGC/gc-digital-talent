@@ -248,7 +248,7 @@ const getRoutes = (lang: Locales) => {
         searchParams.set(FromIapSuccessQueryKey, "true");
 
       return (
-        path.join(applicantUrl, "profile-and-applications") +
+        applicantUrl +
         createSearchQuery(searchParams) +
         createFragment(opts?.fragmentIdentifier)
       );
