@@ -5,6 +5,7 @@ use App\Enums\AssessmentStepType;
 use App\Enums\EducationRequirementOption;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolLanguage;
+use App\Facades\Notify;
 use App\Models\AssessmentStep;
 use App\Models\AwardExperience;
 use App\Models\EducationExperience;
@@ -117,7 +118,7 @@ class PoolApplicationTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
+        Notify::spy(); // don't send any notifications
         // Run necessary seeders
         $this->seed(ClassificationSeeder::class);
         $this->seed(GenericJobTitleSeeder::class);
