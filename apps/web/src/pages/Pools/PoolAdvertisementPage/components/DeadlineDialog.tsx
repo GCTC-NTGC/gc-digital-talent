@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { useIntl } from "react-intl";
 import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
 

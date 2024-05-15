@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import { useIntl } from "react-intl";
 

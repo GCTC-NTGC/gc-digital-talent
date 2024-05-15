@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { useIntl } from "react-intl";
 import { FieldErrors, FieldValues, useFormState } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";

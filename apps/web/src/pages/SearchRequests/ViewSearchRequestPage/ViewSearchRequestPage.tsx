@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Scalars } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 

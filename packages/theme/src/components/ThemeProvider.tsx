@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 
 import { useLocalStorage } from "@gc-digital-talent/storage";
 

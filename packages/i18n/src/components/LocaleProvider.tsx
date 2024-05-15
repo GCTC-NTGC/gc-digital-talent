@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 
 import { Locales } from "../types";
 import { isLocale, localeRedirect } from "../utils/localize";

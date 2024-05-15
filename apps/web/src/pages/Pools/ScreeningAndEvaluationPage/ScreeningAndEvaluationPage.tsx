@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useClient, useQuery } from "urql";
 import { useIntl } from "react-intl";
 
@@ -70,8 +70,8 @@ const ScreeningAndEvaluationPage = () => {
   const client = useClient();
   const intl = useIntl();
   const [fetchingCandidates, setFetchingCandidates] =
-    React.useState<boolean>(true);
-  const [candidates, setCandidates] = React.useState<
+    useState<boolean>(true);
+  const [candidates, setCandidates] = useState<
     FragmentType<typeof AssessmentStepTracker_CandidateFragment>[]
   >([]);
   const [{ data, fetching, error }] = useQuery({
@@ -84,7 +84,7 @@ const ScreeningAndEvaluationPage = () => {
   });
   const lastPage = data?.poolCandidatesPaginated.paginatorInfo.lastPage ?? 0;
 
-  const batchLoader = React.useCallback(async () => {
+  const batchLoader = useCallback(async () => {
     const batches = [];
 
     for (let i = 1; i <= lastPage; i += 1) {
@@ -116,7 +116,7 @@ const ScreeningAndEvaluationPage = () => {
     }
   }, [client, intl, lastPage, poolId]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (lastPage) {
       batchLoader().then((res) => {
         setCandidates(res);

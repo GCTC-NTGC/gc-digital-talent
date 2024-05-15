@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 
 export type WrapperProps = React.DetailedHTMLProps<
   React.HtmlHTMLAttributes<HTMLDivElement>,

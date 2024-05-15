@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import type { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { faker } from "@faker-js/faker/locale/en";

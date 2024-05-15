@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { IntlShape, useIntl } from "react-intl";
 import {
   Row,

@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 
 import { getRuntimeVariableNotNull } from "@gc-digital-talent/env";
 import { useLocale } from "@gc-digital-talent/i18n";

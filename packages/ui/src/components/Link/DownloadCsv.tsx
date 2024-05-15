@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import CsvDownloader, { ICsvProps } from "react-csv-downloader";
 
 import ButtonLinkContent from "../ButtonLinkContent/ButtonLinkContent";

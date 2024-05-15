@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import MapIcon from "@heroicons/react/24/outline/MapIcon";
 import ChartPieIcon from "@heroicons/react/24/outline/ChartPieIcon";

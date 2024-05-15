@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { HelmetProvider } from "react-helmet-async";
 import { IntlProvider } from "react-intl";
 import { BrowserRouter } from "react-router-dom";

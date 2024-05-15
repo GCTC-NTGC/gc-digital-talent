@@ -1,4 +1,3 @@
-import React from "react";
 import { MessageDescriptor, defineMessage, useIntl } from "react-intl";
 import BuildingOffice2OutlineIcon from "@heroicons/react/24/outline/BuildingOffice2Icon";
 import BuildingOffice2SolidIcon from "@heroicons/react/24/solid/BuildingOffice2Icon";

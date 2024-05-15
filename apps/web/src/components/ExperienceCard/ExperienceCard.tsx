@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { useIntl } from "react-intl";
 import isArray from "lodash/isArray";
 import isBoolean from "lodash/isBoolean";

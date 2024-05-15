@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 import { useLogger } from "@gc-digital-talent/logger";

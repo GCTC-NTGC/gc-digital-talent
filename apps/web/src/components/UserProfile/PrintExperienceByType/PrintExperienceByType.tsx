@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 
 import { AwardExperience, Experience } from "@gc-digital-talent/graphql";
@@ -30,7 +29,7 @@ const PrintExperienceByType = ({ experiences }: PrintExperienceByTypeProps) => {
             ...award,
             startDate: award.awardedDate,
             endDate: award.awardedDate,
-          }) as AwardExperience & { startDate: string; endDate: string },
+          } as AwardExperience & { startDate: string; endDate: string }),
       )
       .sort(compareByDate) || [];
   const communityExperiences =

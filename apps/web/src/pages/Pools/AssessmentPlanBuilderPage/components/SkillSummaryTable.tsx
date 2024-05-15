@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { IntlShape, useIntl } from "react-intl";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";

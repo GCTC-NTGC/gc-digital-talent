@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { GraphQLError } from "graphql";
 import { CombinedError } from "urql";
 import { IntlShape } from "react-intl";

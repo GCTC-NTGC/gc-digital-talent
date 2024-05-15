@@ -2,7 +2,6 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import React from "react";
 import { screen, fireEvent } from "@testing-library/react";
 
 import { renderWithProviders } from "@gc-digital-talent/jest-helpers";

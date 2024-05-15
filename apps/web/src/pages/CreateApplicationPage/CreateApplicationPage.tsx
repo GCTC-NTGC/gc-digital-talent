@@ -1,4 +1,4 @@
-import React from "react";
+import { useRef } from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "urql";
@@ -99,9 +99,9 @@ const CreateApplication = () => {
   });
 
   // We use this ref to make sure we only try to apply once
-  const mutationCounter = React.useRef<number>(0);
+  const mutationCounter = useRef<number>(0);
   // We use this ref to make sure we only start navigation and pop a toast once
-  const navigateWithToastCounter = React.useRef<number>(0);
+  const navigateWithToastCounter = useRef<number>(0);
 
   // Start navigation and pop a toast.  Increment the ref to ensure we only do this once.
   const navigateWithToast = (path: string, toastFunction: () => void): void => {

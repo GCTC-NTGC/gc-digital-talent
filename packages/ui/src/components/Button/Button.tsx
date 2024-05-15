@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 
 import ButtonLinkContent from "../ButtonLinkContent/ButtonLinkContent";
 import { ButtonLinkProps } from "../../types";

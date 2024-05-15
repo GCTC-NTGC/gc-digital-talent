@@ -1,6 +1,6 @@
 /* eslint-disable import/no-duplicates */
 // known issue with date-fns and eslint https://github.com/date-fns/date-fns/issues/1756#issuecomment-624803874
-import React from "react";
+import * as React from "react";
 import { useIntl } from "react-intl";
 import get from "lodash/get";
 import omit from "lodash/omit";

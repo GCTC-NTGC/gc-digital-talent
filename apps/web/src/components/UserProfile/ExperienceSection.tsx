@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useMemo } from "react";
 import { useIntl } from "react-intl";
 
 import {
@@ -44,7 +44,7 @@ const ExperienceSection = ({
   const intl = useIntl();
   const locale = getLocale(intl);
 
-  const awardExperiences = React.useMemo(
+  const awardExperiences = useMemo(
     () =>
       experiences
         ?.filter(isAwardExperience)
@@ -54,33 +54,33 @@ const ExperienceSection = ({
               ...award,
               startDate: award.awardedDate,
               endDate: award.awardedDate,
-            }) as AwardExperience & { startDate: string; endDate: string },
+            } as AwardExperience & { startDate: string; endDate: string }),
         )
         .sort(compareByDate) || [],
     [experiences],
   );
 
-  const communityExperiences = React.useMemo(
+  const communityExperiences = useMemo(
     () => experiences?.filter(isCommunityExperience).sort(compareByDate) || [],
     [experiences],
   );
 
-  const educationExperiences = React.useMemo(
+  const educationExperiences = useMemo(
     () => experiences?.filter(isEducationExperience).sort(compareByDate) || [],
     [experiences],
   );
 
-  const personalExperiences = React.useMemo(
+  const personalExperiences = useMemo(
     () => experiences?.filter(isPersonalExperience).sort(compareByDate) || [],
     [experiences],
   );
 
-  const workExperiences = React.useMemo(
+  const workExperiences = useMemo(
     () => experiences?.filter(isWorkExperience).sort(compareByDate) || [],
     [experiences],
   );
 
-  const allExperiences = React.useMemo(
+  const allExperiences = useMemo(
     () => [
       ...awardExperiences,
       ...communityExperiences,
@@ -101,7 +101,7 @@ const ExperienceSection = ({
   const { isExpanded, hasExpanded, toggleAllExpanded, toggleExpandedItem } =
     useControlledCollapsibleGroup(sortedByDate.map(({ id }) => id));
 
-  const allSkills = React.useMemo(
+  const allSkills = useMemo(
     () => invertSkillExperienceTree(allExperiences),
     [allExperiences],
   );

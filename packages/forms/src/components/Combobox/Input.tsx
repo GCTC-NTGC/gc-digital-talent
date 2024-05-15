@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { motion } from "framer-motion";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import ChevronDownIcon from "@heroicons/react/24/outline/ChevronDownIcon";

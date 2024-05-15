@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import uniqueId from "lodash/uniqueId";
 import { useIntl } from "react-intl";
 import sortBy from "lodash/sortBy";

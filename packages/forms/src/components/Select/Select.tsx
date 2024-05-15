@@ -1,4 +1,5 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
+import * as React from "react";
 import { FieldError, useFormContext } from "react-hook-form";
 import get from "lodash/get";
 

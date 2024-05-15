@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";

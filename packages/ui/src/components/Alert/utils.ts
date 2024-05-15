@@ -1,4 +1,3 @@
-import React from "react";
 import { IntlShape } from "react-intl";
 import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
 import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";

@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useMemo } from "react";
 import debounce from "lodash/debounce";
 import type { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
@@ -41,13 +41,13 @@ export default {
 
 const Template: StoryFn<ComboboxType> = (args) => {
   const { mockSearch, defaultValue, options, fetching, ...rest } = args;
-  const [isSearching, setIsSearching] = React.useState<boolean>(
+  const [isSearching, setIsSearching] = useState<boolean>(
     fetching ?? false,
   );
   const [filteredOptions, setFilteredOptions] =
-    React.useState<Option[]>(options);
+    useState<Option[]>(options);
 
-  const handleSearch = React.useMemo(() => {
+  const handleSearch = useMemo(() => {
     return mockSearch
       ? (term: string) => {
           setIsSearching(true);

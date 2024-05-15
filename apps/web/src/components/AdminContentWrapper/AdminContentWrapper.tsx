@@ -1,5 +1,3 @@
-import React from "react";
-
 interface AdminContentWrapperProps {
   children: React.ReactNode;
 }

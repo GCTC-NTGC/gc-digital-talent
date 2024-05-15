@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import type { Meta, StoryFn } from "@storybook/react";
 import AcademicCapIcon from "@heroicons/react/24/solid/AcademicCapIcon";
 import Cog8ToothIcon from "@heroicons/react/24/solid/Cog8ToothIcon";

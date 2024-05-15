@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { useIntl } from "react-intl";
 import { m } from "framer-motion";
 import orderBy from "lodash/orderBy";

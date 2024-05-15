@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { Outlet, ScrollRestoration, useLocation } from "react-router-dom";
 import { useIntl } from "react-intl";
 import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";

@@ -1,19 +1,19 @@
 /**
  * Documentation: https://www.radix-ui.com/docs/primitives/components/tabs
  */
-import React from "react";
+import { forwardRef } from "react";
 import * as TabsPrimitive from "@radix-ui/react-tabs";
 
 import { commonTabStyles, handleTabFocus } from "./utils";
 
-const Root = React.forwardRef<
+const Root = forwardRef<
   React.ElementRef<typeof TabsPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Root>
 >((props, forwardedRef) => (
   <TabsPrimitive.Root ref={forwardedRef} {...commonTabStyles.root} {...props} />
 ));
 
-const List = React.forwardRef<
+const List = forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>
 >(({ children, ...rest }, forwardedRef) => (
@@ -27,7 +27,7 @@ const List = React.forwardRef<
   </TabsPrimitive.List>
 ));
 
-const Trigger = React.forwardRef<
+const Trigger = forwardRef<
   React.ElementRef<typeof TabsPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>
 >(({ children, ...rest }, forwardedRef) => (
@@ -42,7 +42,7 @@ const Trigger = React.forwardRef<
   </TabsPrimitive.Trigger>
 ));
 
-const Content = React.forwardRef<
+const Content = forwardRef<
   React.ElementRef<typeof TabsPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>
 >((props, forwardedRef) => (

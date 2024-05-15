@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useIntl } from "react-intl";
 import ArrowUpIcon from "@heroicons/react/24/solid/ArrowUpIcon";

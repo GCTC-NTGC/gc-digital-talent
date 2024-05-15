@@ -5,7 +5,7 @@
  *
  * Documentation: https://www.radix-ui.com/docs/primitives/components/navigation-menu
  */
-import React from "react";
+import * as React from "react";
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 

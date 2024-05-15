@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { defineMessage, useIntl } from "react-intl";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";

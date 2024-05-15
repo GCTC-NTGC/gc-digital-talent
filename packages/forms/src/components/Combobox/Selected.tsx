@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 
 import useInputStyles from "../../hooks/useInputStyles";

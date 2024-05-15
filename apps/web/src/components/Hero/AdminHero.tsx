@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 
 import { Flourish, Heading, type HeadingRef } from "@gc-digital-talent/ui";
 

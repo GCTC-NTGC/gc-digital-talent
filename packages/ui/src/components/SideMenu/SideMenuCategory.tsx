@@ -1,4 +1,5 @@
-import React, { Children } from "react";
+import { Children } from "react";
+import * as React from "react";
 import { m, useReducedMotion } from "framer-motion";
 
 import { useSideMenuContext } from "./SideMenuProvider";

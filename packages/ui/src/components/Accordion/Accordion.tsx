@@ -1,7 +1,7 @@
 /**
  * Documentation: https://www.radix-ui.com/docs/primitives/components/accordion
  */
-import React from "react";
+import * as React from "react";
 import ChevronRightIcon from "@heroicons/react/24/solid/ChevronRightIcon";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 

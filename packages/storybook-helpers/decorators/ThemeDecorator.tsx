@@ -1,6 +1,7 @@
 import { DecoratorHelpers } from "@storybook/addon-themes";
 import type { DecoratorFunction, Renderer } from "@storybook/types";
-import React, { useEffect, useMemo } from "react";
+import { useEffect, useMemo } from "react";
+import * as React from "react";
 
 import {
   Theme,

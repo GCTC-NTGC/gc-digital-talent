@@ -1,4 +1,5 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
+import * as React from "react";
 import { authExchange } from "@urql/exchange-auth";
 import { JwtPayload, jwtDecode } from "jwt-decode";
 import {

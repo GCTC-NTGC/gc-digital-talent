@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { useQuery } from "urql";
 
 import { Pending } from "@gc-digital-talent/ui";

@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IntlShape, useIntl } from "react-intl";
 import groupBy from "lodash/groupBy";
@@ -187,7 +187,7 @@ export const ApplicationCareerTimeline = ({
   } = methods;
 
   const [sortAndFilterValues, setSortAndFilterValues] =
-    React.useState<ExperienceSortAndFilterFormValues>({
+    useState<ExperienceSortAndFilterFormValues>({
       sortBy: "date_desc",
       filterBy: "none",
     });

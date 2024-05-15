@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import ArrowTopRightOnSquareIcon from "@heroicons/react/20/solid/ArrowTopRightOnSquareIcon";
 import { useIntl } from "react-intl";
 

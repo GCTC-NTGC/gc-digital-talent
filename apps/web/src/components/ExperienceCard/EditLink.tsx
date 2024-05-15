@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
 import { Link, Button, Color, ButtonLinkMode } from "@gc-digital-talent/ui";

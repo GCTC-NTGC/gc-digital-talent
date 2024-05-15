@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { useIntl } from "react-intl";
 import { Editor } from "@tiptap/react";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";

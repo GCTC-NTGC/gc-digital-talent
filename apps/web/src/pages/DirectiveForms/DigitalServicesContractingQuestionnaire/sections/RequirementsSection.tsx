@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 
@@ -96,7 +96,7 @@ const RequirementsSection = ({ skills }: RequirementsSectionProps) => {
   /**
    * Reset un-rendered fields
    */
-  React.useEffect(() => {
+  useEffect(() => {
     const resetDirtyField = (name: string) => {
       resetField(name, { keepDirty: false, defaultValue: null });
     };

@@ -1,4 +1,3 @@
-import React from "react";
 import { MessageDescriptor, defineMessage, useIntl } from "react-intl";
 import PaperAirplaneOutlineIcon from "@heroicons/react/24/outline/PaperAirplaneIcon";
 import PaperAirplaneSolidIcon from "@heroicons/react/24/solid/PaperAirplaneIcon";

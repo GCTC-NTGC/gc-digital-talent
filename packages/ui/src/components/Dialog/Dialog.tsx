@@ -1,7 +1,7 @@
 /**
  * Documentation: https://www.radix-ui.com/docs/primitives/components/dialog
  */
-import React from "react";
+import * as React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import { useIntl } from "react-intl";

@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { IntlShape } from "react-intl";
 
 import { Link } from "@gc-digital-talent/ui";

@@ -1,9 +1,9 @@
-import React from "react";
+import { forwardRef } from "react";
 import { useIntl } from "react-intl";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
 
-const CloseButton = React.forwardRef<
+const CloseButton = forwardRef<
   React.ElementRef<typeof Button>,
   React.ComponentPropsWithoutRef<typeof Button>
 >((props, forwardedRef) => {

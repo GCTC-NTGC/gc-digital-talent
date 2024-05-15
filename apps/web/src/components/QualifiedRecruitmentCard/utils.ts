@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { IntlShape } from "react-intl";
 import NoSymbolIcon from "@heroicons/react/20/solid/NoSymbolIcon";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";

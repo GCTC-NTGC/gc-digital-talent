@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import BookOpenIcon from "@heroicons/react/20/solid/BookOpenIcon";
 import BriefcaseIcon from "@heroicons/react/20/solid/BriefcaseIcon";
@@ -21,7 +21,7 @@ interface ExperienceHeadingProps {
 const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
   const intl = useIntl();
   const [accordionState, setAccordionState] =
-    React.useState<AccordionStates>("");
+    useState<AccordionStates>("");
 
   return (
     <div>

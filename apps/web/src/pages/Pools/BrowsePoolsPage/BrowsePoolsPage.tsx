@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 

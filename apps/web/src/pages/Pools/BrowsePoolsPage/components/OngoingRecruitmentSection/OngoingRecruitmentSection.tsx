@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import CpuChipIcon from "@heroicons/react/24/outline/CpuChipIcon";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";

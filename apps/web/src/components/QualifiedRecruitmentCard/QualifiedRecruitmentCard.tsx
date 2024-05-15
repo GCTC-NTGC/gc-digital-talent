@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { useIntl } from "react-intl";
 import ChevronRightIcon from "@heroicons/react/20/solid/ChevronRightIcon";
 import GlobeAmericasIcon from "@heroicons/react/20/solid/GlobeAmericasIcon";
@@ -86,8 +86,8 @@ const QualifiedRecruitmentCard = ({
   headingLevel = "h2",
 }: QualifiedRecruitmentCardProps) => {
   const intl = useIntl();
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
-  const [linkCopied, setLinkCopied] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [linkCopied, setLinkCopied] = useState<boolean>(false);
   const contentHeadingLevel = incrementHeadingRank(headingLevel);
   const candidate = getFragment(
     QualifiedRecruitmentCard_Fragment,
@@ -112,7 +112,7 @@ const QualifiedRecruitmentCard = ({
   const categorizedSkills = categorizeSkill(essentialSkills);
 
   /** Reset link copied after 3 seconds */
-  React.useEffect(() => {
+  useEffect(() => {
     if (linkCopied) {
       setTimeout(() => {
         setLinkCopied(false);

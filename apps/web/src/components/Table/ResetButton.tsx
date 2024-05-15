@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { useIntl } from "react-intl";
 import XMarkIcon from "@heroicons/react/24/solid/XMarkIcon";
 

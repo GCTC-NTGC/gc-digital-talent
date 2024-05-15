@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { useIntl } from "react-intl";
 import uniqueId from "lodash/uniqueId";
 import isEmpty from "lodash/isEmpty";

@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 
 /**
  * Props that can be passed to an `<TreeView.Item />`

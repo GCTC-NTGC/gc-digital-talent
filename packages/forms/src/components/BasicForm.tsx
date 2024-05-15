@@ -1,4 +1,5 @@
-import React, { PropsWithChildren, ReactElement } from "react";
+import { PropsWithChildren, ReactElement } from "react";
+import * as React from "react";
 import {
   FieldValues,
   FormProvider,

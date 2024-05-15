@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { useIntl } from "react-intl";
 import EnvelopeIcon from "@heroicons/react/24/outline/EnvelopeIcon";
 import EnvelopeSolid from "@heroicons/react/24/solid/EnvelopeIcon";

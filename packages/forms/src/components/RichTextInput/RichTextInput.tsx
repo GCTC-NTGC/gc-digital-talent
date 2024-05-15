@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { FieldError, useFormContext, Controller } from "react-hook-form";
 import { useIntl } from "react-intl";
 import get from "lodash/get";

@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 
 import { Heading } from "@gc-digital-talent/ui";
 import { Experience } from "@gc-digital-talent/graphql";

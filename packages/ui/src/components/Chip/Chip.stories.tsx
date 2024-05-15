@@ -1,4 +1,3 @@
-import React from "react";
 import { StoryFn, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import AcademicCapIcon from "@heroicons/react/20/solid/AcademicCapIcon";

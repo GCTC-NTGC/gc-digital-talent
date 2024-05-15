@@ -3,7 +3,6 @@
  */
 import "@testing-library/jest-dom";
 import { screen, fireEvent, waitFor } from "@testing-library/react";
-import React from "react";
 
 import { renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { fakeTeams, fakeDepartments } from "@gc-digital-talent/fake-data";

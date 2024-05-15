@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { HelmetProvider } from "react-helmet-async";
 import { MotionConfig, LazyMotion } from "framer-motion";
 

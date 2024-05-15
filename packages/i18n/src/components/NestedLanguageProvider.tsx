@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { IntlProvider, useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
 

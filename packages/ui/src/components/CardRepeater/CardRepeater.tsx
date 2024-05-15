@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React from "react";
+import * as React from "react";
 
 import { ARROW_KEY, isArrowKey } from "../../utils/keyboard";
 import {

@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useRef, useMemo, useEffect } from "react";
 import { useCombobox } from "downshift";
 import isEqual from "lodash/isEqual";
 
@@ -30,15 +30,15 @@ const Single = ({
   isRequired = false,
 }: SingleProps) => {
   const [previousOptions, setPreviousOptions] =
-    React.useState<Option[]>(options);
-  const [available, setAvailable] = React.useState<Option[]>(options);
-  const inputRef = React.useRef<HTMLInputElement | null>(null);
+    useState<Option[]>(options);
+  const [available, setAvailable] = useState<Option[]>(options);
+  const inputRef = useRef<HTMLInputElement | null>(null);
   // Note: Pattern comes from https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
   if (!isEqual(options, previousOptions)) {
     setAvailable(options);
     setPreviousOptions(options);
   }
-  const items = React.useMemo(
+  const items = useMemo(
     () => (isExternalSearch ? options : available),
     [available, isExternalSearch, options],
   );
@@ -87,7 +87,7 @@ const Single = ({
     inputRef?.current?.focus();
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!value?.value) {
       selectItem(null);
     }

@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useRef, useMemo } from "react";
 import { useIntl } from "react-intl";
 import { useCombobox, useMultipleSelection } from "downshift";
 import isEqual from "lodash/isEqual";
@@ -35,17 +35,17 @@ const Multi = ({
   isRequired = false,
 }: MultiProps) => {
   const intl = useIntl();
-  const [inputValue, setInputValue] = React.useState<string>("");
+  const [inputValue, setInputValue] = useState<string>("");
   const [previousOptions, setPreviousOptions] =
-    React.useState<Option[]>(options);
-  const [available, setAvailable] = React.useState<Option[]>(options);
-  const inputRef = React.useRef<HTMLInputElement | null>(null);
+    useState<Option[]>(options);
+  const [available, setAvailable] = useState<Option[]>(options);
+  const inputRef = useRef<HTMLInputElement | null>(null);
   // NOTE: Pattern comes from https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
   if (!isEqual(options, previousOptions)) {
     setPreviousOptions(options);
     setAvailable(options);
   }
-  const items = React.useMemo(
+  const items = useMemo(
     () => (isExternalSearch ? options : available),
     [available, isExternalSearch, options],
   );

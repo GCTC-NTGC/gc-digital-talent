@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { useIntl } from "react-intl";
 import type { Column } from "@tanstack/react-table";
 import ArrowDownIcon from "@heroicons/react/20/solid/ArrowDownIcon";

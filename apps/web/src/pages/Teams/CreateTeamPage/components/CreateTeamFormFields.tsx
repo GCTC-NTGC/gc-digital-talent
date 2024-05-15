@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import kebabCase from "lodash/kebabCase";

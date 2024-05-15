@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import ArrowLeftCircleIcon from "@heroicons/react/20/solid/ArrowLeftCircleIcon";
 import ArrowRightCircleIcon from "@heroicons/react/20/solid/ArrowRightCircleIcon";

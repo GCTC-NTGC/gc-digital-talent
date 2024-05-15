@@ -1,4 +1,3 @@
-import React from "react";
 import { IntlShape } from "react-intl";
 
 import { getLocalizedName, getPoolStream } from "@gc-digital-talent/i18n";

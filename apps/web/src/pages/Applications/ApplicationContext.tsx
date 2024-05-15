@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 
 import { useTheme } from "@gc-digital-talent/theme";
 import { Application_PoolCandidateFragment } from "@gc-digital-talent/graphql";

@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 
 type Animation = "none" | "translate-up" | "translate-down";
 

@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 
 /**
  * Wraps text in span to increase font-weight

@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
+import * as React from "react";
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";

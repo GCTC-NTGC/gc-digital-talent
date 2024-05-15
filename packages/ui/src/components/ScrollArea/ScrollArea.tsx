@@ -1,10 +1,10 @@
 /**
  * Documentation: https://www.radix-ui.com/docs/primitives/components/scroll-area
  */
-import React from "react";
+import { forwardRef } from "react";
 import * as ScrollAreaPrimitive from "@radix-ui/react-scroll-area";
 
-const Root = React.forwardRef<
+const Root = forwardRef<
   React.ElementRef<typeof ScrollAreaPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Root>
 >((props, forwardedRef) => (
@@ -16,7 +16,7 @@ const Root = React.forwardRef<
   />
 ));
 
-const Viewport = React.forwardRef<
+const Viewport = forwardRef<
   React.ElementRef<typeof ScrollAreaPrimitive.Viewport>,
   React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Viewport>
 >((props, forwardedRef) => (
@@ -29,7 +29,7 @@ const Viewport = React.forwardRef<
   />
 ));
 
-const Scrollbar = React.forwardRef<
+const Scrollbar = forwardRef<
   React.ElementRef<typeof ScrollAreaPrimitive.Scrollbar>,
   React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Scrollbar>
 >((props, forwardedRef) => (
@@ -50,7 +50,7 @@ const Scrollbar = React.forwardRef<
   />
 ));
 
-const Thumb = React.forwardRef<
+const Thumb = forwardRef<
   React.ElementRef<typeof ScrollAreaPrimitive.Thumb>,
   React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Thumb>
 >((props, forwardedRef) => (
@@ -72,7 +72,7 @@ const Thumb = React.forwardRef<
   />
 ));
 
-const Corner = React.forwardRef<
+const Corner = forwardRef<
   React.ElementRef<typeof ScrollAreaPrimitive.Corner>,
   React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Corner>
 >((props, forwardedRef) => (

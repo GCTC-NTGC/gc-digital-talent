@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 
 import { Board, Link, Well } from "@gc-digital-talent/ui";
@@ -74,7 +74,7 @@ const AssessmentResult = ({
   const intl = useIntl();
   const paths = useRoutes();
 
-  const [isBookmarked, setIsBookmarked] = React.useState<boolean>(
+  const [isBookmarked, setIsBookmarked] = useState<boolean>(
     result.poolCandidate?.isBookmarked ?? false,
   );
 
