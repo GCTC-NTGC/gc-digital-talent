@@ -41,11 +41,8 @@ export default {
 
 const Template: StoryFn<ComboboxType> = (args) => {
   const { mockSearch, defaultValue, options, fetching, ...rest } = args;
-  const [isSearching, setIsSearching] = useState<boolean>(
-    fetching ?? false,
-  );
-  const [filteredOptions, setFilteredOptions] =
-    useState<Option[]>(options);
+  const [isSearching, setIsSearching] = useState<boolean>(fetching ?? false);
+  const [filteredOptions, setFilteredOptions] = useState<Option[]>(options);
 
   const handleSearch = useMemo(() => {
     return mockSearch

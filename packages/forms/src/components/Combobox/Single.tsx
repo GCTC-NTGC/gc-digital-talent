@@ -29,8 +29,7 @@ const Single = ({
   fetching = false,
   isRequired = false,
 }: SingleProps) => {
-  const [previousOptions, setPreviousOptions] =
-    useState<Option[]>(options);
+  const [previousOptions, setPreviousOptions] = useState<Option[]>(options);
   const [available, setAvailable] = useState<Option[]>(options);
   const inputRef = useRef<HTMLInputElement | null>(null);
   // Note: Pattern comes from https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes

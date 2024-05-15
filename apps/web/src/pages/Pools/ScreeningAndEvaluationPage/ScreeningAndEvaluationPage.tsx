@@ -69,8 +69,7 @@ const ScreeningAndEvaluationPage = () => {
   const { poolId } = useRequiredParams<RouteParams>("poolId");
   const client = useClient();
   const intl = useIntl();
-  const [fetchingCandidates, setFetchingCandidates] =
-    useState<boolean>(true);
+  const [fetchingCandidates, setFetchingCandidates] = useState<boolean>(true);
   const [candidates, setCandidates] = useState<
     FragmentType<typeof AssessmentStepTracker_CandidateFragment>[]
   >([]);

@@ -8,8 +8,7 @@ const defaultContext: EditPoolContextState = {
   isSubmitting: false,
 };
 
-const EditPoolContext =
-  createContext<EditPoolContextState>(defaultContext);
+const EditPoolContext = createContext<EditPoolContextState>(defaultContext);
 
 export const useEditPoolContext = () => {
   const state = useContext(EditPoolContext);

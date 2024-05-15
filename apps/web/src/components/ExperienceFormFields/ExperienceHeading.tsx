@@ -20,8 +20,7 @@ interface ExperienceHeadingProps {
 
 const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
   const intl = useIntl();
-  const [accordionState, setAccordionState] =
-    useState<AccordionStates>("");
+  const [accordionState, setAccordionState] = useState<AccordionStates>("");
 
   return (
     <div>

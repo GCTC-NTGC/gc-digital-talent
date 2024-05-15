@@ -312,9 +312,9 @@ const PoolCandidatesTable = ({
   const client = useClient();
   const [isSelecting, setIsSelecting] = useState<boolean>(false);
   const [selectingFor, setSelectingFor] = useState<SelectingFor>(null);
-  const [selectedCandidates, setSelectedCandidates] = useState<
-    PoolCandidate[]
-  >([]);
+  const [selectedCandidates, setSelectedCandidates] = useState<PoolCandidate[]>(
+    [],
+  );
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
   const initialFilters: PoolCandidateSearchInput = useMemo(
