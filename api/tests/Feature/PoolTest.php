@@ -899,17 +899,20 @@ class PoolTest extends TestCase
      */
     public function testPoolNameScope(): void
     {
-        $toBeFound = Pool::factory()->create([
-            'name' => ['en' => 'Found EN', 'fr' => 'Found FR'],
-        ]);
+        $toBeFound = Pool::factory()->published()
+            ->create([
+                'name' => ['en' => 'Found EN', 'fr' => 'Found FR'],
+            ]);
 
-        Pool::factory()->create([
+        Pool::factory()->published()->create([
             'name' => ['en' => 'Not EN', 'fr' => 'Not FR'],
         ]);
 
-        $res = $this->graphQL(
-            /** @lang GraphQL */
-            '
+        $res = $this
+            ->actingAs($this->baseUser)
+            ->graphQL(
+                /** @lang GraphQL */
+                '
                 query ScopePoolName($where: PoolFilterInput) {
                     poolsPaginated(where: $where) {
                         data {
@@ -919,11 +922,11 @@ class PoolTest extends TestCase
                     }
                 }
             ',
-            ['where' => ['name' => 'found']]
-        )->assertJsonFragment([
-            'id' => $toBeFound->id,
-            'name' => $toBeFound->name,
-        ]);
+                ['where' => ['name' => 'found']]
+            )->assertJsonFragment([
+                'id' => $toBeFound->id,
+                'name' => $toBeFound->name,
+            ]);
 
         assertSame(1, count($res->json('data.poolsPaginated.data')));
     }
@@ -933,15 +936,15 @@ class PoolTest extends TestCase
      */
     public function testPoolTeamScope(): void
     {
-        $toBeFound = Pool::factory()->create([
+        $toBeFound = Pool::factory()->published()->create([
             'team_id' => $this->team,
         ]);
 
-        Pool::factory()->create([
+        Pool::factory()->published()->create([
             'team_id' => Team::factory()->create(),
         ]);
 
-        $res = $this->graphQL(
+        $res = $this->actingAs($this->adminUser)->graphQL(
             /** @lang GraphQL */
             '
                 query ScopePoolName($where: PoolFilterInput) {
@@ -974,19 +977,19 @@ class PoolTest extends TestCase
      */
     public function testPoolStreamsScope(): void
     {
-        $ATIP = Pool::factory()->create([
+        $ATIP = Pool::factory()->published()->create([
             'stream' => PoolStream::ACCESS_INFORMATION_PRIVACY->name,
         ]);
 
-        $BAS = Pool::factory()->create([
+        $BAS = Pool::factory()->published()->create([
             'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
         ]);
 
-        Pool::factory()->create([
+        Pool::factory()->published()->create([
             'stream' => PoolStream::DATABASE_MANAGEMENT->name,
         ]);
 
-        $res = $this->graphQL(
+        $res = $this->actingAs($this->baseUser)->graphQL(
             /** @lang GraphQL */
             '
                 query ScopePoolName($where: PoolFilterInput) {
@@ -1029,7 +1032,7 @@ class PoolTest extends TestCase
     {
         $closed = Pool::factory()->closed()->create();
         $published = Pool::factory()->published()->create();
-        $draft = Pool::factory()->draft()->create();
+        $draft = Pool::factory()->create();
 
         $query = /** @lang GraphQL */
             '
@@ -1043,36 +1046,42 @@ class PoolTest extends TestCase
                 }
             ';
 
-        $closedRes = $this->graphQL($query, [
-            'where' => [
-                'statuses' => [PoolStatus::CLOSED->name],
-            ],
-        ])->assertJsonFragment([
-            'id' => $closed->id,
-            'status' => PoolStatus::CLOSED->name,
-        ]);
+        $closedRes = $this
+            ->actingAs($this->adminUser)
+            ->graphQL($query, [
+                'where' => [
+                    'statuses' => [PoolStatus::CLOSED->name],
+                ],
+            ])->assertJsonFragment([
+                'id' => $closed->id,
+                'status' => PoolStatus::CLOSED->name,
+            ]);
 
         assertSame(1, count($closedRes->json('data.poolsPaginated.data')));
 
-        $publishedRes = $this->graphQL($query, [
-            'where' => [
-                'statuses' => [PoolStatus::PUBLISHED->name],
-            ],
-        ])->assertJsonFragment([
-            'id' => $published->id,
-            'status' => PoolStatus::PUBLISHED->name,
-        ]);
+        $publishedRes = $this
+            ->actingAs($this->adminUser)
+            ->graphQL($query, [
+                'where' => [
+                    'statuses' => [PoolStatus::PUBLISHED->name],
+                ],
+            ])->assertJsonFragment([
+                'id' => $published->id,
+                'status' => PoolStatus::PUBLISHED->name,
+            ]);
 
         assertSame(1, count($publishedRes->json('data.poolsPaginated.data')));
 
-        $draftRes = $this->graphQL($query, [
-            'where' => [
-                'statuses' => [PoolStatus::DRAFT->name],
-            ],
-        ])->assertJsonFragment([
-            'id' => $draft->id,
-            'status' => PoolStatus::DRAFT->name,
-        ]);
+        $draftRes = $this
+            ->actingAs($this->adminUser)
+            ->graphQL($query, [
+                'where' => [
+                    'statuses' => [PoolStatus::DRAFT->name],
+                ],
+            ])->assertJsonFragment([
+                'id' => $draft->id,
+                'status' => PoolStatus::DRAFT->name,
+            ]);
 
         assertSame(1, count($draftRes->json('data.poolsPaginated.data')));
 
