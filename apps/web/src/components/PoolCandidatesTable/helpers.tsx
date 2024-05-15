@@ -697,7 +697,7 @@ export function transformPoolCandidateSearchInputToFormValues(
   return {
     publishingGroups: input?.publishingGroups?.filter(notEmpty) ?? [],
     classifications:
-      input?.applicantFilter?.qualifiedClassifications
+      input?.appliedClassifications
         ?.filter(notEmpty)
         .map((c) => `${c.group}-${c.level}`) ?? [],
     stream: input?.applicantFilter?.qualifiedStreams?.filter(notEmpty) ?? [],
@@ -746,10 +746,6 @@ export function transformFormValuesToFilterState(
       languageAbility: data.languageAbility
         ? stringToEnumLanguage(data.languageAbility)
         : undefined,
-      qualifiedClassifications: data.classifications.map((classification) => {
-        const splitString = classification.split("-");
-        return { group: splitString[0], level: Number(splitString[1]) };
-      }),
       qualifiedStreams: data.stream as PoolStream[],
       operationalRequirements: data.operationalRequirement
         .map((requirement) => {
@@ -792,5 +788,9 @@ export function transformFormValuesToFilterState(
       : undefined,
     isGovEmployee: data.govEmployee ? true : undefined, // massage from FormValue type to PoolCandidateSearchInput
     publishingGroups: data.publishingGroups as PublishingGroup[],
+    appliedClassifications: data.classifications.map((classification) => {
+      const splitString = classification.split("-");
+      return { group: splitString[0], level: Number(splitString[1]) };
+    }),
   };
 }

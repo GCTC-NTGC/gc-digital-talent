@@ -712,7 +712,7 @@ input UserFilterInput {
   telephone: String
   email: String
   name: String
-  generalSearch: [String]
+  generalSearch: String
   roles: [ID]
   trashed: Trashed
 }
@@ -751,7 +751,7 @@ input ApplicantFilterInput {
 input PoolCandidateSearchInput {
   applicantFilter: ApplicantFilterInput
   email: String
-  generalSearch: [String]
+  generalSearch: String
   name: String
   notes: String
   isGovEmployee: Boolean
@@ -760,6 +760,7 @@ input PoolCandidateSearchInput {
   expiryStatus: CandidateExpiryFilter
   suspendedStatus: CandidateSuspendedFilter
   publishingGroups: [PublishingGroup]
+  appliedClassifications: [ClassificationFilterInput]
 }
 
 input PoolCandidateSearchRequestInput {

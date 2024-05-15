@@ -4,7 +4,8 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ClassificationResource extends JsonResource
+// Sometimes we have to query for relationship non-nullable fields when they're not needed because of codegen
+class UserStubResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,12 +17,7 @@ class ClassificationResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'group' => $this->group,
-            'level' => $this->level,
-            'name' => $this->name,
-            'minSalary' => $this->min_salary,
-            'maxSalary' => $this->max_salary,
-            'genericJobTitles' => GenericJobTitleResource::collection($this->whenLoaded('genericJobTitles')),
+            'email' => $this->email,
         ];
     }
 }
