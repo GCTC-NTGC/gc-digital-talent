@@ -908,11 +908,8 @@ class PoolTest extends TestCase
             'name' => ['en' => 'Not EN', 'fr' => 'Not FR'],
         ]);
 
-        $res = $this
-            ->actingAs($this->baseUser)
-            ->graphQL(
-                /** @lang GraphQL */
-                '
+        $res = $this->graphQL(/** @lang GraphQL */
+            '
                 query ScopePoolName($where: PoolFilterInput) {
                     poolsPaginated(where: $where) {
                         data {
@@ -922,11 +919,11 @@ class PoolTest extends TestCase
                     }
                 }
             ',
-                ['where' => ['name' => 'found']]
-            )->assertJsonFragment([
-                'id' => $toBeFound->id,
-                'name' => $toBeFound->name,
-            ]);
+            ['where' => ['name' => 'found']]
+        )->assertJsonFragment([
+            'id' => $toBeFound->id,
+            'name' => $toBeFound->name,
+        ]);
 
         assertSame(1, count($res->json('data.poolsPaginated.data')));
     }
@@ -944,8 +941,7 @@ class PoolTest extends TestCase
             'team_id' => Team::factory()->create(),
         ]);
 
-        $res = $this->actingAs($this->adminUser)->graphQL(
-            /** @lang GraphQL */
+        $res = $this->graphQL(/** @lang GraphQL */
             '
                 query ScopePoolName($where: PoolFilterInput) {
                     poolsPaginated(where: $where) {
@@ -989,8 +985,7 @@ class PoolTest extends TestCase
             'stream' => PoolStream::DATABASE_MANAGEMENT->name,
         ]);
 
-        $res = $this->actingAs($this->baseUser)->graphQL(
-            /** @lang GraphQL */
+        $res = $this->graphQL(/** @lang GraphQL */
             '
                 query ScopePoolName($where: PoolFilterInput) {
                     poolsPaginated(where: $where) {
@@ -1047,7 +1042,7 @@ class PoolTest extends TestCase
             ';
 
         $closedRes = $this
-            ->actingAs($this->adminUser)
+            ->actingAs($this->adminUser, 'api')
             ->graphQL($query, [
                 'where' => [
                     'statuses' => [PoolStatus::CLOSED->name],
@@ -1060,7 +1055,7 @@ class PoolTest extends TestCase
         assertSame(1, count($closedRes->json('data.poolsPaginated.data')));
 
         $publishedRes = $this
-            ->actingAs($this->adminUser)
+            ->actingAs($this->adminUser, 'api')
             ->graphQL($query, [
                 'where' => [
                     'statuses' => [PoolStatus::PUBLISHED->name],
@@ -1073,7 +1068,7 @@ class PoolTest extends TestCase
         assertSame(1, count($publishedRes->json('data.poolsPaginated.data')));
 
         $draftRes = $this
-            ->actingAs($this->adminUser)
+            ->actingAs($this->adminUser, 'api')
             ->graphQL($query, [
                 'where' => [
                     'statuses' => [PoolStatus::DRAFT->name],
