@@ -36,7 +36,9 @@ const UpdatePublishedProcessDialog_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-export type FormValues = Partial<UpdatePublishedPoolInput>;
+export type FormValues = Partial<UpdatePublishedPoolInput> & {
+  changeJustification: UpdatePublishedPoolInput["changeJustification"];
+};
 
 interface UpdatePublishedProcessDialogProps
   extends PublishedEditableSectionProps {
@@ -54,7 +56,7 @@ const UpdatePublishedProcessDialog = ({
 
   const methods = useForm<FormValues>({
     defaultValues: {
-      changeJustification: null,
+      changeJustification: "",
     },
   });
 

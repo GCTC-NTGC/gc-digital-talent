@@ -1453,7 +1453,7 @@ input UpdatePoolInput {
 }
 
 input UpdatePublishedPoolInput @validator {
-  changeJustification: String @rename(attribute: "change_justification")
+  changeJustification: String! @rename(attribute: "change_justification")
   yourImpact: LocalizedStringInput @rename(attribute: "your_impact")
   keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
   whatToExpect: LocalizedStringInput @rename(attribute: "what_to_expect")

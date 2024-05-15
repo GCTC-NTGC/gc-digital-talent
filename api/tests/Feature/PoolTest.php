@@ -995,9 +995,7 @@ class PoolTest extends TestCase
                 ],
             ])
             ->assertJsonFragment([
-                'validation' => [
-                    'pool.changeJustification' => [ApiErrorEnums::CHANGE_JUSTIFICATION_REQUIRED],
-                ],
+                'message' => 'Variable "$pool" got invalid value {"aboutUs":{"en":"About us EN","fr":"About us FR"}}; Field "changeJustification" of required type "String!" was not provided.',
             ]);
     }
 }
