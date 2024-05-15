@@ -1,9 +1,9 @@
-import * as React from "react";
+import { ReactNode } from "react";
 
 import { Breadcrumbs, NavTabs } from "@gc-digital-talent/ui";
 
 type NavItem = {
-  label: React.ReactNode;
+  label: ReactNode;
   url: string;
 };
 

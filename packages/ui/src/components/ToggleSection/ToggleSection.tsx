@@ -1,6 +1,17 @@
-import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import * as TogglePrimitive from "@radix-ui/react-toggle";
+import {
+  HTMLProps,
+  ReactNode,
+  forwardRef,
+  useCallback,
+  useId,
+  ElementRef,
+  ComponentPropsWithoutRef,
+  HTMLAttributes,
+  MouseEventHandler,
+  ReactElement,
+} from "react";
 
 import Heading, { HeadingProps } from "../Heading";
 import useControllableState from "../../hooks/useControllableState";
@@ -47,21 +58,21 @@ const composeId = (name: string, contentId?: string) => {
   return id;
 };
 
-interface RootProps extends React.HTMLProps<HTMLDivElement> {
+interface RootProps extends HTMLProps<HTMLDivElement> {
   /** Sets the section to be 'open' by default */
   defaultOpen?: boolean;
   /** Controllable open state */
   open?: boolean;
   /** Callback when the section has been 'opened */
   onOpenChange?: (open: boolean) => void;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 /**
  * The root component that contains all other components
  * and provides context to those components
  */
-const Root = React.forwardRef<HTMLDivElement, RootProps>(
+const Root = forwardRef<HTMLDivElement, RootProps>(
   (
     { defaultOpen, open: openProp, onOpenChange, children, ...rest },
     forwardedRef,
@@ -72,7 +83,7 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
       onChange: onOpenChange,
     });
 
-    const handleOpenToggle = React.useCallback(() => {
+    const handleOpenToggle = useCallback(() => {
       setOpen((prevOpen) => {
         const newOpen = !prevOpen;
         return newOpen;
@@ -81,7 +92,7 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
 
     return (
       <ToggleSectionProvider
-        contentId={React.useId()}
+        contentId={useId()}
         open={open}
         onOpenToggle={handleOpenToggle}
         onOpenChange={setOpen}
@@ -105,63 +116,60 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
  * A wrapper used to style the content
  * portion of the section
  */
-const Content = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLProps<HTMLDivElement>
->(({ children, ...props }, forwardedRef) => {
-  const context = useToggleSectionContext();
+const Content = forwardRef<HTMLDivElement, HTMLProps<HTMLDivElement>>(
+  ({ children, ...props }, forwardedRef) => {
+    const context = useToggleSectionContext();
 
-  return (
-    <div
-      id={context?.contentId}
-      ref={forwardedRef}
-      data-h2-background="base(foreground)"
-      data-h2-color="base(black)"
-      data-h2-padding="base(x1)"
-      data-h2-radius="base(rounded)"
-      data-h2-shadow="base(m)"
-      {...props}
-    >
-      {children}
-    </div>
-  );
-});
+    return (
+      <div
+        id={context?.contentId}
+        ref={forwardedRef}
+        data-h2-background="base(foreground)"
+        data-h2-color="base(black)"
+        data-h2-padding="base(x1)"
+        data-h2-radius="base(rounded)"
+        data-h2-shadow="base(m)"
+        {...props}
+      >
+        {children}
+      </div>
+    );
+  },
+);
 
 /**
  * The content that is displayed when
  * the section is 'closed'
  */
-const InitialContent = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLProps<HTMLDivElement>
->(({ children, ...props }, forwardedRef) => {
-  const context = useToggleSectionContext();
-  const id = composeId(NAME.INITIAL_CONTENT, context?.contentId);
+const InitialContent = forwardRef<HTMLDivElement, HTMLProps<HTMLDivElement>>(
+  ({ children, ...props }, forwardedRef) => {
+    const context = useToggleSectionContext();
+    const id = composeId(NAME.INITIAL_CONTENT, context?.contentId);
 
-  return (
-    <div id={id} ref={forwardedRef} {...props}>
-      {context?.open ? null : children}
-    </div>
-  );
-});
+    return (
+      <div id={id} ref={forwardedRef} {...props}>
+        {context?.open ? null : children}
+      </div>
+    );
+  },
+);
 
 /**
  * The content that is displayed when
  * the section is 'open'
  */
-const OpenContent = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLProps<HTMLDivElement>
->(({ children, ...props }, forwardedRef) => {
-  const context = useToggleSectionContext();
-  const id = composeId(NAME.OPEN_CONTENT, context?.contentId);
+const OpenContent = forwardRef<HTMLDivElement, HTMLProps<HTMLDivElement>>(
+  ({ children, ...props }, forwardedRef) => {
+    const context = useToggleSectionContext();
+    const id = composeId(NAME.OPEN_CONTENT, context?.contentId);
 
-  return (
-    <div id={id} ref={forwardedRef} {...props}>
-      {context?.open ? children : null}
-    </div>
-  );
-});
+    return (
+      <div id={id} ref={forwardedRef} {...props}>
+        {context?.open ? children : null}
+      </div>
+    );
+  },
+);
 
 /**
  * A toggle that opens and closes
@@ -169,9 +177,9 @@ const OpenContent = React.forwardRef<
  *
  * SEE: https://www.radix-ui.com/docs/primitives/components/toggle
  */
-const Trigger = React.forwardRef<
-  React.ElementRef<typeof TogglePrimitive.Root>,
-  Omit<React.ComponentPropsWithoutRef<typeof TogglePrimitive.Root>, "asChild">
+const Trigger = forwardRef<
+  ElementRef<typeof TogglePrimitive.Root>,
+  Omit<ComponentPropsWithoutRef<typeof TogglePrimitive.Root>, "asChild">
 >(({ children, onPressedChange, ...toggleProps }, forwardedRef) => {
   const context = useToggleSectionContext();
   const controls = composeControls(context?.contentId);
@@ -196,18 +204,18 @@ const Trigger = React.forwardRef<
   );
 });
 
-interface ToggleProps extends React.HTMLAttributes<HTMLElement> {
-  children?: React.ReactNode;
+interface ToggleProps extends HTMLAttributes<HTMLElement> {
+  children?: ReactNode;
   /** Determine if this toggle opens or closes the section */
   open: boolean;
 }
 
-const Toggle = React.forwardRef<HTMLElement, ToggleProps>(
+const Toggle = forwardRef<HTMLElement, ToggleProps>(
   ({ onClick, open, ...props }, forwardedRef) => {
     const context = useToggleSectionContext();
     const controls = composeControls(context?.contentId);
 
-    const handleClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+    const handleClick: MouseEventHandler<HTMLButtonElement> = (event) => {
       if (onClick) {
         onClick(event);
       }
@@ -230,7 +238,7 @@ const Toggle = React.forwardRef<HTMLElement, ToggleProps>(
  * Generic wrapper that attaches a click
  * handler to a button that 'opens' the section
  */
-const Open = React.forwardRef<HTMLElement, Omit<ToggleProps, "open">>(
+const Open = forwardRef<HTMLElement, Omit<ToggleProps, "open">>(
   (props, forwardedRef) => {
     return <Toggle open ref={forwardedRef} {...props} />;
   },
@@ -240,7 +248,7 @@ const Open = React.forwardRef<HTMLElement, Omit<ToggleProps, "open">>(
  * Generic wrapper that attaches a click
  * handler to a button that 'closes' the section
  */
-const Close = React.forwardRef<HTMLElement, Omit<ToggleProps, "open">>(
+const Close = forwardRef<HTMLElement, Omit<ToggleProps, "open">>(
   (props, forwardedRef) => {
     return <Toggle open={false} ref={forwardedRef} {...props} />;
   },
@@ -248,13 +256,13 @@ const Close = React.forwardRef<HTMLElement, Omit<ToggleProps, "open">>(
 
 interface HeaderProps extends HeadingProps {
   /** The toggle for the component (appears on right side of header) */
-  toggle?: React.ReactElement<typeof Toggle>;
+  toggle?: ReactElement<typeof Toggle>;
 }
 
 /**
  * A styled header for the section
  */
-const Header = React.forwardRef<HTMLHeadingElement, HeaderProps>(
+const Header = forwardRef<HTMLHeadingElement, HeaderProps>(
   ({ toggle, ...headingProps }, forwardedRef) => {
     return (
       <div data-h2-flex-grid="base(center, x2)">

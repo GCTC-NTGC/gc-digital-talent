@@ -1,7 +1,7 @@
-import * as React from "react";
+import { ReactNode } from "react";
 
 export interface InstructionListProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export const InstructionList = ({ children }: InstructionListProps) => {

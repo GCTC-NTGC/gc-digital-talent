@@ -1,13 +1,13 @@
-import * as React from "react";
 import { useLocation, Link, LinkProps } from "react-router-dom";
+import { useState, useEffect, MouseEvent, KeyboardEvent } from "react";
 
 import ButtonLinkContent from "../ButtonLinkContent/ButtonLinkContent";
 import { ButtonLinkProps } from "../../types";
 import getButtonStyles from "../../utils/button/getButtonStyles";
 
 type ClickEvent =
-  | React.MouseEvent<HTMLAnchorElement | undefined>
-  | React.KeyboardEvent<HTMLAnchorElement | undefined>;
+  | MouseEvent<HTMLAnchorElement | undefined>
+  | KeyboardEvent<HTMLAnchorElement | undefined>;
 
 export type ScrollLinkClickFunc = (
   e: ClickEvent,
@@ -49,17 +49,15 @@ const ScrollToLink = ({
   ...rest
 }: ScrollToLinkProps) => {
   const { pathname, hash, search, state } = useLocation();
-  const [targetSection, setTargetSection] = React.useState<HTMLElement | null>(
-    null,
-  );
+  const [targetSection, setTargetSection] = useState<HTMLElement | null>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (hash && hash === `#${to}`) {
       scrollToSection(targetSection);
     }
   }, [pathname, hash, to, targetSection]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const section = document.getElementById(to.toString());
     setTargetSection(section);
   }, [to]);

@@ -1,10 +1,10 @@
-import * as React from "react";
+import { HTMLProps, ReactNode } from "react";
 
 import { HeadingRank } from "@gc-digital-talent/ui";
 
-interface ContentSectionProps extends React.HTMLProps<HTMLDivElement> {
+interface ContentSectionProps extends HTMLProps<HTMLDivElement> {
   title: string;
-  children: React.ReactNode;
+  children: ReactNode;
   headingLevel?: HeadingRank;
 }
 

@@ -1,5 +1,5 @@
-import * as React from "react";
 import { IntlProvider } from "react-intl";
+import { ReactNode } from "react";
 
 import useLocale from "../hooks/useLocale";
 import useIntlLanguages from "../hooks/useIntlMessages";
@@ -8,7 +8,7 @@ import defaultRichTextElements from "./richTextElements";
 
 interface LanguageProviderProps {
   messages: Messages;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const LanguageProvider = ({ messages, children }: LanguageProviderProps) => {

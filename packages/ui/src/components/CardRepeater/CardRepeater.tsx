@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import * as React from "react";
+
+import { KeyboardEventHandler, ReactElement, ReactNode, useId } from "react";
 
 import { ARROW_KEY, isArrowKey } from "../../utils/keyboard";
 import {
@@ -16,8 +17,8 @@ type RootProps<T extends BaseItem> = Omit<
   CardRepeaterProviderProps<T>,
   "children" | "id"
 > & {
-  children?: React.ReactElement<CardProps> | React.ReactElement<CardProps>[];
-  add?: React.ReactNode;
+  children?: ReactElement<CardProps> | ReactElement<CardProps>[];
+  add?: ReactNode;
 };
 
 const cardSelector = `.${CARD_CLASS_NAME}`;
@@ -28,7 +29,7 @@ const Root = <T extends BaseItem>({
   add,
   ...rest
 }: RootProps<T>) => {
-  const id = React.useId();
+  const id = useId();
 
   const decrementFocus = (el: HTMLElement) => {
     let sibling = el.previousElementSibling;
@@ -60,7 +61,7 @@ const Root = <T extends BaseItem>({
     }
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent) => {
+  const handleKeyDown: KeyboardEventHandler = (event) => {
     if (isArrowKey(event.key)) {
       const target = event.target as HTMLElement;
       let targetItem: HTMLElement | null | undefined = target;

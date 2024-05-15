@@ -1,4 +1,4 @@
-import * as React from "react";
+import { JSX } from "react";
 import { useIntl } from "react-intl";
 import CheckIcon from "@heroicons/react/24/solid/CheckCircleIcon";
 import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
@@ -26,11 +26,7 @@ type SkillAssessmentCalculated = {
   hold: number;
 };
 
-const TableHeader = ({
-  tableTitle,
-}: {
-  tableTitle: string;
-}): React.JSX.Element => {
+const TableHeader = ({ tableTitle }: { tableTitle: string }): JSX.Element => {
   const intl = useIntl();
 
   return (
@@ -105,7 +101,7 @@ type TableRow = {
   results: SkillAssessmentCalculated;
 };
 
-const TableBody = ({ data }: { data: TableRow[] }): React.JSX.Element => {
+const TableBody = ({ data }: { data: TableRow[] }): JSX.Element => {
   return (
     <tbody>
       {data.map((row) => (

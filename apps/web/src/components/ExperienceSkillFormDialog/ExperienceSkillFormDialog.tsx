@@ -1,6 +1,6 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
+import { ReactNode, useState } from "react";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
@@ -33,7 +33,7 @@ interface ExperienceSkillFormDialogProps {
   skill?: Skill;
   experience?: Experience;
   availableExperiences?: Experience[];
-  trigger?: React.ReactNode;
+  trigger?: ReactNode;
 }
 
 const ExperienceSkillFormDialog = ({
@@ -43,7 +43,7 @@ const ExperienceSkillFormDialog = ({
   availableExperiences,
   onSave,
 }: ExperienceSkillFormDialogProps) => {
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const intl = useIntl();
   let experiences = availableExperiences ?? [];
   if (experience) {

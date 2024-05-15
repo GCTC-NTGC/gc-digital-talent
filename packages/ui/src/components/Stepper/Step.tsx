@@ -1,12 +1,12 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
+import { ReactNode } from "react";
 
 import { StepState } from "./types";
 import { linkStyleMap, getIconFromState, messageMap } from "./utils";
 import Link from "../Link";
 
 interface StepLinkProps {
-  children: React.ReactNode;
+  children: ReactNode;
   href: string;
   state: StepState;
   preventDisable?: boolean;
@@ -46,7 +46,7 @@ const StepLink = ({
 };
 interface StepProps extends Omit<StepLinkProps, "children"> {
   last?: boolean;
-  label: React.ReactNode;
+  label: ReactNode;
 }
 
 const Step = ({

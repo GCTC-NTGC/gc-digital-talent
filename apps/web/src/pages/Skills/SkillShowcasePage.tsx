@@ -1,8 +1,8 @@
-import * as React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import { useQuery } from "urql";
+import { ReactNode } from "react";
 
 import {
   TableOfContents,
@@ -25,7 +25,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 type PageSection = {
   id: string;
-  title: React.ReactNode;
+  title: ReactNode;
 };
 type PageSections = Record<string, PageSection>;
 

@@ -1,4 +1,10 @@
-import * as React from "react";
+import {
+  createContext,
+  useContext,
+  ReactNode,
+  useMemo,
+  useEffect,
+} from "react";
 
 import { useTheme } from "@gc-digital-talent/theme";
 import { Application_PoolCandidateFragment } from "@gc-digital-talent/graphql";
@@ -20,10 +26,10 @@ const defaultContext: ApplicationContextState = {
 };
 
 const ApplicationContext =
-  React.createContext<ApplicationContextState>(defaultContext);
+  createContext<ApplicationContextState>(defaultContext);
 
 export const useApplicationContext = () => {
-  const ctx = React.useContext(ApplicationContext);
+  const ctx = useContext(ApplicationContext);
 
   return ctx;
 };
@@ -32,7 +38,7 @@ interface ApplicationContextProviderProps {
   application: Application_PoolCandidateFragment;
   followingPageUrl?: string;
   currentStepOrdinal?: number;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const ApplicationContextProvider = ({
@@ -42,7 +48,7 @@ const ApplicationContextProvider = ({
   children,
 }: ApplicationContextProviderProps) => {
   const { setKey } = useTheme();
-  const state = React.useMemo(
+  const state = useMemo(
     () => ({
       isIAP: isIAPPool(application.pool),
       followingPageUrl,
@@ -52,7 +58,7 @@ const ApplicationContextProvider = ({
     [application.pool, followingPageUrl, currentStepOrdinal],
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     const themeCheck = setTimeout(() => {
       if (isIAPPool(application.pool)) {
         setKey("iap");

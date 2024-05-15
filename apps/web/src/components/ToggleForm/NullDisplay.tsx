@@ -1,11 +1,11 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
+import { ReactNode } from "react";
 
 import { Well } from "@gc-digital-talent/ui";
 
 type NullDisplayProps = {
-  title?: React.ReactNode;
-  content?: React.ReactNode;
+  title?: ReactNode;
+  content?: ReactNode;
   optional?: boolean;
 };
 

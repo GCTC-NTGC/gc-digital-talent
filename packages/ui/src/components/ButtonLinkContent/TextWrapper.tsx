@@ -1,11 +1,11 @@
-import * as React from "react";
+import { ReactNode } from "react";
 
 import { ButtonLinkMode } from "../../types";
 
 interface TextWrapperProps {
   mode: ButtonLinkMode;
   newTab?: boolean;
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 const TextWrapper = ({ mode, newTab = false, children }: TextWrapperProps) => {

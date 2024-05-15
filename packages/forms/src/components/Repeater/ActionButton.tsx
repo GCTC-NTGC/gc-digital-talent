@@ -1,9 +1,9 @@
-import * as React from "react";
+import { DetailedHTMLProps, ButtonHTMLAttributes, forwardRef } from "react";
 
 type Animation = "none" | "translate-up" | "translate-down";
 
-export type ActionButtonProps = React.DetailedHTMLProps<
-  React.ButtonHTMLAttributes<HTMLButtonElement>,
+export type ActionButtonProps = DetailedHTMLProps<
+  ButtonHTMLAttributes<HTMLButtonElement>,
   HTMLButtonElement
 > & {
   animation?: Animation;
@@ -13,7 +13,7 @@ export type ActionButtonProps = React.DetailedHTMLProps<
  * Generic button to apply styles to a
  * fieldset action button
  */
-const ActionButton = React.forwardRef<HTMLButtonElement, ActionButtonProps>(
+const ActionButton = forwardRef<HTMLButtonElement, ActionButtonProps>(
   ({ animation = "none", disabled, ...rest }, ref) => {
     const animationStyles: Record<Animation, Record<string, string>> = {
       none: {},

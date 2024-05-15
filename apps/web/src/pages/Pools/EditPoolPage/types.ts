@@ -1,4 +1,4 @@
-import * as React from "react";
+import { ReactNode } from "react";
 
 import {
   CreatePoolSkillInput,
@@ -10,7 +10,7 @@ import { EditPoolSectionMetadata } from "~/types/pool";
 
 export type DisplayProps = {
   pool: Pool;
-  subtitle?: React.ReactNode;
+  subtitle?: ReactNode;
 };
 
 export type SectionProps<T, F> = {

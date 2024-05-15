@@ -1,9 +1,9 @@
-import * as React from "react";
 import type { Meta, StoryFn } from "@storybook/react";
 import AcademicCapIcon from "@heroicons/react/24/solid/AcademicCapIcon";
 import Cog8ToothIcon from "@heroicons/react/24/solid/Cog8ToothIcon";
 import { faker } from "@faker-js/faker/locale/en";
 import { action } from "@storybook/addon-actions";
+import { ComponentPropsWithoutRef, useState } from "react";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
@@ -76,7 +76,7 @@ const Template: StoryFn<typeof Accordion.Root> = ({ children, ...rest }) => {
 const ACCORDION_VALUES = ["one", "two", "three"];
 
 type ControlledProps = Omit<
-  React.ComponentPropsWithoutRef<typeof Accordion.Root>,
+  ComponentPropsWithoutRef<typeof Accordion.Root>,
   "type" | "value" | "onValueChange" | "defaultValue"
 >;
 
@@ -84,7 +84,7 @@ const ControlledTemplate: StoryFn<ControlledProps> = ({
   children,
   ...rest
 }) => {
-  const [value, setValue] = React.useState<string[]>([]);
+  const [value, setValue] = useState<string[]>([]);
   const someOpen = value.length > 0;
 
   const toggleAll = () => {

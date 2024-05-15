@@ -1,13 +1,13 @@
-import * as React from "react";
+import { ReactNode } from "react";
 
 import { Link, LinkProps, Heading, Well } from "@gc-digital-talent/ui";
 
 type WellLink = Omit<LinkProps, "children"> & {
-  label: React.ReactNode;
+  label: ReactNode;
 };
 
 interface LinkWellProps {
-  title: React.ReactNode;
+  title: ReactNode;
   links: Array<WellLink>;
 }
 

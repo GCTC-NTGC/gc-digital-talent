@@ -1,10 +1,10 @@
-import * as React from "react";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
+import { DetailedHTMLProps, HTMLAttributes, forwardRef } from "react";
 
 import useInputStyles from "../../hooks/useInputStyles";
 
-type HTMLDivProps = React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLDivElement>,
+type HTMLDivProps = DetailedHTMLProps<
+  HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 >;
 
@@ -34,14 +34,11 @@ const Items = (props: HTMLDivProps) => (
 );
 
 type ItemProps = Omit<
-  React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLSpanElement>,
-    HTMLSpanElement
-  >,
+  DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>,
   "ref"
 >;
 
-const Item = React.forwardRef<HTMLSpanElement, ItemProps>(
+const Item = forwardRef<HTMLSpanElement, ItemProps>(
   ({ children, ...rest }, forwardedRef) => (
     <span
       ref={forwardedRef}

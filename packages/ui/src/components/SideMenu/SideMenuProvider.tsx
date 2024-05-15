@@ -1,4 +1,4 @@
-import * as React from "react";
+import { ReactNode, createContext, useContext, useMemo } from "react";
 
 type SideMenuContextValue = {
   open: boolean;
@@ -6,12 +6,12 @@ type SideMenuContextValue = {
   onOpenChange?: (newOpen: boolean) => void;
 };
 
-const SideMenuContext = React.createContext<SideMenuContextValue | undefined>(
+const SideMenuContext = createContext<SideMenuContextValue | undefined>(
   undefined,
 );
 
 type SideMenuProviderProps = {
-  children: React.ReactNode;
+  children: ReactNode;
 } & SideMenuContextValue;
 
 export const SideMenuProvider = ({
@@ -19,7 +19,7 @@ export const SideMenuProvider = ({
   ...context
 }: SideMenuProviderProps) => {
   const { open, onOpenToggle, onOpenChange } = context;
-  const value = React.useMemo(
+  const value = useMemo(
     () => ({
       open,
       onOpenToggle,
@@ -36,7 +36,7 @@ export const SideMenuProvider = ({
 };
 
 export const useSideMenuContext = () => {
-  const context = React.useContext(SideMenuContext);
+  const context = useContext(SideMenuContext);
 
   return context;
 };

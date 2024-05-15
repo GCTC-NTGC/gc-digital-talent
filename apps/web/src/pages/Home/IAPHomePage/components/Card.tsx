@@ -1,11 +1,11 @@
-import * as React from "react";
+import { HTMLAttributes, ReactElement, ReactNode } from "react";
 
 import Heading from "./Heading";
 
 interface CardProps {
   title: string;
-  Icon?: (props: React.HTMLAttributes<HTMLOrSVGElement>) => React.ReactElement;
-  children?: React.ReactNode;
+  Icon?: (props: HTMLAttributes<HTMLOrSVGElement>) => ReactElement;
+  children?: ReactNode;
 }
 
 const Card = ({ title, Icon, children }: CardProps) => (

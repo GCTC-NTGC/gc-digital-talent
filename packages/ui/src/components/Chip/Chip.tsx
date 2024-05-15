@@ -1,6 +1,13 @@
-import * as React from "react";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import { useIntl } from "react-intl";
+import {
+  DetailedHTMLProps,
+  HTMLAttributes,
+  useRef,
+  MouseEventHandler,
+  KeyboardEventHandler,
+  KeyboardEvent,
+} from "react";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
@@ -13,12 +20,12 @@ import colorMap from "./styles";
  */
 const deleteKeys = ["Backspace", "Delete", "Space", "Enter"];
 
-const isDeleteEvent = (event: React.KeyboardEvent<HTMLSpanElement>) => {
+const isDeleteEvent = (event: KeyboardEvent<HTMLSpanElement>): boolean => {
   return deleteKeys.includes(event.code);
 };
 
-export type ChipProps = React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLSpanElement>,
+export type ChipProps = DetailedHTMLProps<
+  HTMLAttributes<HTMLSpanElement>,
   HTMLSpanElement
 > & {
   color?: Color;
@@ -35,7 +42,7 @@ const Chip = ({
 }: ChipProps) => {
   const intl = useIntl();
   const Icon = icon;
-  const chipRef = React.useRef<HTMLSpanElement | null>(null);
+  const chipRef = useRef<HTMLSpanElement | null>(null);
   const styles = colorMap.get(color);
 
   const iconProps = {
@@ -43,21 +50,19 @@ const Chip = ({
     "data-h2-height": "base(x.5)",
   };
 
-  const handleClick: React.MouseEventHandler<HTMLSpanElement> = (event) => {
+  const handleClick: MouseEventHandler<HTMLSpanElement> = (event) => {
     event.stopPropagation();
     onDismiss?.();
   };
 
-  const handleKeyDown: React.KeyboardEventHandler<HTMLSpanElement> = (
-    event,
-  ) => {
+  const handleKeyDown: KeyboardEventHandler<HTMLSpanElement> = (event) => {
     // Don't do anything, we want this event to fire on key up
     if (event.currentTarget === event.target && isDeleteEvent(event)) {
       event.preventDefault();
     }
   };
 
-  const handleKeyUp: React.KeyboardEventHandler<HTMLSpanElement> = (event) => {
+  const handleKeyUp: KeyboardEventHandler<HTMLSpanElement> = (event) => {
     // Only handle key events on the chip, not children
     if (event.currentTarget === event.target) {
       if (onDismiss && isDeleteEvent(event)) {

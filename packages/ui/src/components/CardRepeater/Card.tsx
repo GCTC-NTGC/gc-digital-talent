@@ -1,9 +1,9 @@
-import * as React from "react";
 import { m, useReducedMotion } from "framer-motion";
 import { useIntl } from "react-intl";
 import ArrowDownIcon from "@heroicons/react/20/solid/ArrowDownIcon";
 import ArrowUpIcon from "@heroicons/react/20/solid/ArrowUpIcon";
 import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
+import { ReactNode } from "react";
 
 import { formMessages } from "@gc-digital-talent/i18n";
 
@@ -11,7 +11,7 @@ import { useCardRepeaterContext } from "./CardRepeaterProvider";
 import { Action, Edit, Remove } from "./Button";
 
 type ActionsProps = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 const Actions = ({ children }: ActionsProps) => (
@@ -46,9 +46,9 @@ export const CARD_CLASS_NAME = "Card__Repeater";
 
 export type CardProps = {
   index: number;
-  children: React.ReactNode;
-  edit?: React.ReactNode;
-  remove?: React.ReactNode;
+  children: ReactNode;
+  edit?: ReactNode;
+  remove?: ReactNode;
   error?: boolean;
   onMove?: (from: number, to: number) => void;
 };

@@ -1,6 +1,6 @@
-import * as React from "react";
 import { IntlShape } from "react-intl";
 import uniqueId from "lodash/uniqueId";
+import { ReactNode } from "react";
 
 import { Locales } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
@@ -9,10 +9,7 @@ import { EducationRequirementOption } from "@gc-digital-talent/graphql";
 
 import applicationMessages from "~/messages/applicationMessages";
 
-export const qualityStandardsLink = (
-  chunks: React.ReactNode,
-  locale: Locales,
-) => {
+export const qualityStandardsLink = (chunks: ReactNode, locale: Locales) => {
   const href =
     locale === "en"
       ? "https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/core.html#rpsi"
@@ -24,7 +21,7 @@ export const qualityStandardsLink = (
   );
 };
 
-export const foreignDegreeLink = (chunks: React.ReactNode, locale: Locales) => {
+export const foreignDegreeLink = (chunks: ReactNode, locale: Locales) => {
   const href =
     locale === "en"
       ? "https://www.canada.ca/en/public-service-commission/jobs/services/gc-jobs/degree-equivalency.html"
@@ -36,7 +33,7 @@ export const foreignDegreeLink = (chunks: React.ReactNode, locale: Locales) => {
   );
 };
 
-export const degreeLink = (chunks: React.ReactNode, locale: Locales) => {
+export const degreeLink = (chunks: ReactNode, locale: Locales) => {
   const href =
     locale === "en"
       ? "https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/core.html#deg"
@@ -48,7 +45,7 @@ export const degreeLink = (chunks: React.ReactNode, locale: Locales) => {
   );
 };
 
-export const postSecondaryLink = (chunks: React.ReactNode, locale: Locales) => {
+export const postSecondaryLink = (chunks: ReactNode, locale: Locales) => {
   const href =
     locale === "en"
       ? "https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/core.html#rpsi"
@@ -60,7 +57,7 @@ export const postSecondaryLink = (chunks: React.ReactNode, locale: Locales) => {
   );
 };
 
-export const eligibilityLink = (chunks: React.ReactNode, locale: Locales) => {
+export const eligibilityLink = (chunks: ReactNode, locale: Locales) => {
   const href =
     locale === "en"
       ? "https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/core.html#elig"
@@ -72,7 +69,7 @@ export const eligibilityLink = (chunks: React.ReactNode, locale: Locales) => {
   );
 };
 
-export const acceptableLink = (chunks: React.ReactNode, locale: Locales) => {
+export const acceptableLink = (chunks: ReactNode, locale: Locales) => {
   const href =
     locale === "en"
       ? "https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/core.html#acce"
@@ -151,7 +148,7 @@ export const getEducationRequirementOptions = (
           contentBelow: (
             <p>
               {intl.formatMessage(applicationMessages.professionalDesignation, {
-                link: (msg: React.ReactNode) => eligibilityLink(msg, locale),
+                link: (msg: ReactNode) => eligibilityLink(msg, locale),
               })}
             </p>
           ),
@@ -168,7 +165,7 @@ export const getEducationRequirementOptions = (
           contentBelow: (
             <p>
               {intl.formatMessage(applicationMessages.appliedWorkExpEXGroup, {
-                link: (msg: React.ReactNode) => acceptableLink(msg, locale),
+                link: (msg: ReactNode) => acceptableLink(msg, locale),
               })}
             </p>
           ),
@@ -186,14 +183,14 @@ export const getEducationRequirementOptions = (
             <>
               <p>
                 {intl.formatMessage(applicationMessages.graduationWithDegree, {
-                  degreeLink: (msg: React.ReactNode) => degreeLink(msg, locale),
-                  postSecondaryLink: (msg: React.ReactNode) =>
+                  degreeLink: (msg: ReactNode) => degreeLink(msg, locale),
+                  postSecondaryLink: (msg: ReactNode) =>
                     postSecondaryLink(msg, locale),
                 })}
               </p>
               <p>
                 {intl.formatMessage(applicationMessages.foreignDegree, {
-                  foreignDegreeLink: (msg: React.ReactNode) =>
+                  foreignDegreeLink: (msg: ReactNode) =>
                     foreignDegreeLink(msg, locale),
                 })}
               </p>
@@ -300,7 +297,7 @@ export const getEducationRequirementOptions = (
                 : intl.formatMessage(
                     applicationMessages.postSecondaryEducation,
                     {
-                      link: (msg: React.ReactNode) =>
+                      link: (msg: ReactNode) =>
                         qualityStandardsLink(msg, locale),
                     },
                   )}

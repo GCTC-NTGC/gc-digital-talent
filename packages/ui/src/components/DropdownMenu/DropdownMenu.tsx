@@ -1,17 +1,17 @@
 /**
  * Documentation: https://www.radix-ui.com/docs/primitives/components/dropdown-menu
  */
-import * as React from "react";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
+import { forwardRef, ElementRef, ComponentPropsWithoutRef } from "react";
 
 import { ButtonProps } from "../Button";
 import getFontColor from "../../utils/button/getButtonFontColor";
 import getBackgroundColor from "../../utils/button/getButtonBackgroundColor";
 import getBaseStyle from "../../utils/button/getButtonBaseStyle";
 
-const Trigger = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Trigger>
+const Trigger = forwardRef<
+  ElementRef<typeof DropdownMenuPrimitive.Trigger>,
+  ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Trigger>
 >(({ asChild = true, ...rest }, forwardedRef) => (
   <DropdownMenuPrimitive.Trigger
     ref={forwardedRef}
@@ -28,9 +28,9 @@ const contentStyles = {
   "data-h2-shadow": "base(s)",
 };
 
-const StyledContent = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content>
+const StyledContent = forwardRef<
+  ElementRef<typeof DropdownMenuPrimitive.Content>,
+  ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content>
 >((props, forwardedRef) => (
   <DropdownMenuPrimitive.Content
     {...contentStyles}
@@ -40,9 +40,9 @@ const StyledContent = React.forwardRef<
   />
 ));
 
-const StyledArrow = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuPrimitive.Arrow>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Arrow>
+const StyledArrow = forwardRef<
+  ElementRef<typeof DropdownMenuPrimitive.Arrow>,
+  ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Arrow>
 >((props, forwardedRef) => (
   <DropdownMenuPrimitive.Arrow
     data-h2-fill="base(foreground)"
@@ -51,7 +51,7 @@ const StyledArrow = React.forwardRef<
   />
 ));
 
-type DropdownMenuPrimitiveContentProps = React.ComponentPropsWithoutRef<
+type DropdownMenuPrimitiveContentProps = ComponentPropsWithoutRef<
   typeof DropdownMenuPrimitive.Content
 >;
 const Content = ({ children, ...props }: DropdownMenuPrimitiveContentProps) => (
@@ -63,9 +63,9 @@ const Content = ({ children, ...props }: DropdownMenuPrimitiveContentProps) => (
   </DropdownMenuPrimitive.Portal>
 );
 
-const StyledSubContent = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuPrimitive.SubContent>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubContent>
+const StyledSubContent = forwardRef<
+  ElementRef<typeof DropdownMenuPrimitive.SubContent>,
+  ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubContent>
 >((props, forwardedRef) => (
   <DropdownMenuPrimitive.SubContent
     {...contentStyles}
@@ -74,7 +74,7 @@ const StyledSubContent = React.forwardRef<
   />
 ));
 
-type DropdownMenuPrimitiveSubContentProps = React.ComponentPropsWithoutRef<
+type DropdownMenuPrimitiveSubContentProps = ComponentPropsWithoutRef<
   typeof DropdownMenuPrimitive.SubContent
 >;
 const SubContent = ({
@@ -98,14 +98,12 @@ const itemStyleProps = {
   "data-h2-text-decoration": "base(underline)", // To match the buttons
 };
 
-type ItemProps = React.ComponentPropsWithoutRef<
-  typeof DropdownMenuPrimitive.Item
-> & {
+type ItemProps = ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item> & {
   color?: ButtonProps["color"];
 };
 
-const Item = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuPrimitive.Item>,
+const Item = forwardRef<
+  ElementRef<typeof DropdownMenuPrimitive.Item>,
   ItemProps
 >(({ color = "secondary", ...rest }, forwardedRef) => (
   <DropdownMenuPrimitive.Item
@@ -120,14 +118,14 @@ const Item = React.forwardRef<
   />
 ));
 
-type CheckboxItemProps = React.ComponentPropsWithoutRef<
+type CheckboxItemProps = ComponentPropsWithoutRef<
   typeof DropdownMenuPrimitive.CheckboxItem
 > & {
   color?: ButtonProps["color"];
 };
 
-const CheckboxItem = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuPrimitive.CheckboxItem>,
+const CheckboxItem = forwardRef<
+  ElementRef<typeof DropdownMenuPrimitive.CheckboxItem>,
   CheckboxItemProps
 >(({ color = "secondary", ...rest }, forwardedRef) => (
   <DropdownMenuPrimitive.CheckboxItem
@@ -142,14 +140,14 @@ const CheckboxItem = React.forwardRef<
   />
 ));
 
-type RadioItemProps = React.ComponentPropsWithoutRef<
+type RadioItemProps = ComponentPropsWithoutRef<
   typeof DropdownMenuPrimitive.RadioItem
 > & {
   color?: ButtonProps["color"];
 };
 
-const RadioItem = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuPrimitive.RadioItem>,
+const RadioItem = forwardRef<
+  ElementRef<typeof DropdownMenuPrimitive.RadioItem>,
   RadioItemProps
 >(({ color = "secondary", ...rest }, forwardedRef) => (
   <DropdownMenuPrimitive.RadioItem
@@ -164,9 +162,9 @@ const RadioItem = React.forwardRef<
   />
 ));
 
-const Label = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuPrimitive.Label>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label>
+const Label = forwardRef<
+  ElementRef<typeof DropdownMenuPrimitive.Label>,
+  ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label>
 >((props, forwardedRef) => (
   <DropdownMenuPrimitive.Label
     data-h2-color="base(black)"
@@ -175,9 +173,9 @@ const Label = React.forwardRef<
   />
 ));
 
-const Separator = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuPrimitive.Separator>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Separator>
+const Separator = forwardRef<
+  ElementRef<typeof DropdownMenuPrimitive.Separator>,
+  ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Separator>
 >((props, forwardedRef) => (
   <DropdownMenuPrimitive.Separator
     data-h2-color="base(gray.light)"
@@ -188,9 +186,9 @@ const Separator = React.forwardRef<
   />
 ));
 
-const ItemIndicator = React.forwardRef<
-  React.ElementRef<typeof DropdownMenuPrimitive.ItemIndicator>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.ItemIndicator>
+const ItemIndicator = forwardRef<
+  ElementRef<typeof DropdownMenuPrimitive.ItemIndicator>,
+  ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.ItemIndicator>
 >((props, forwardedRef) => (
   <DropdownMenuPrimitive.ItemIndicator
     data-h2-align-items="base(center)"

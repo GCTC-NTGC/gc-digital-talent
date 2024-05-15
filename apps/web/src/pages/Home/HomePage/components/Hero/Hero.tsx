@@ -1,7 +1,7 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import StarIcon from "@heroicons/react/24/outline/StarIcon";
 import MagnifyingGlassIcon from "@heroicons/react/24/outline/MagnifyingGlassIcon";
+import { ReactNode } from "react";
 
 import { Heading, Link } from "@gc-digital-talent/ui";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
@@ -116,7 +116,7 @@ const Hero = ({ defaultImage }: HeroProps) => {
             description: "Description of the application on the homepage",
           },
           {
-            abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+            abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
           },
         )}
       </p>

@@ -1,9 +1,9 @@
-import * as React from "react";
+import { ReactNode } from "react";
 import { useIntl } from "react-intl";
 
 export interface Quote {
-  content: React.ReactNode | string;
-  author: string | React.ReactNode;
+  content: ReactNode | string;
+  author: string | ReactNode;
 }
 
 const useQuote = (): Quote => {
@@ -24,7 +24,7 @@ const useQuote = (): Quote => {
           description: "testimonial number one",
         },
         {
-          b: (chunks: React.ReactNode) => (
+          b: (chunks: ReactNode) => (
             <span style={{ color: "#FFDCA7" }}>{chunks}</span>
           ),
         },

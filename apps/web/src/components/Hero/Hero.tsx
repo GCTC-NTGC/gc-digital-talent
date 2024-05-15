@@ -1,4 +1,4 @@
-import * as React from "react";
+import { ReactNode, useEffect, useRef } from "react";
 
 import {
   Heading,
@@ -36,12 +36,12 @@ const paddingMap = new Map([
 
 interface HeroProps {
   imgPath?: string;
-  title: React.ReactNode;
-  subtitle?: React.ReactNode;
+  title: ReactNode;
+  subtitle?: ReactNode;
   crumbs?: BreadcrumbsProps["crumbs"];
-  children?: React.ReactNode;
+  children?: ReactNode;
   centered?: boolean;
-  linkSlot?: React.ReactNode;
+  linkSlot?: ReactNode;
 }
 
 const Hero = ({
@@ -53,7 +53,7 @@ const Hero = ({
   linkSlot,
   centered = false,
 }: HeroProps) => {
-  const headingRef = React.useRef<HeadingRef>(null);
+  const headingRef = useRef<HeadingRef>(null);
   const showImg = imgPath && !centered && !children;
   const breadCrumbs =
     crumbs && crumbs.length > 0 ? <Breadcrumbs crumbs={crumbs} /> : null;
@@ -71,7 +71,7 @@ const Hero = ({
     padding = paddingMap.get("overlap");
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (headingRef.current) {
       headingRef.current.focus();
     }

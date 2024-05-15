@@ -1,7 +1,7 @@
-import * as React from "react";
+import { ReactNode } from "react";
 
 interface ColumnDisplayProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const ColumnDisplay = ({ children }: ColumnDisplayProps) => (

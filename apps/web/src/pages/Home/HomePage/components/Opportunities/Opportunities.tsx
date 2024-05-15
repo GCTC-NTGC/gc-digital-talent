@@ -1,6 +1,6 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import SparklesIcon from "@heroicons/react/24/outline/SparklesIcon";
+import { ReactNode } from "react";
 
 import { Heading, CardFlat } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
@@ -60,7 +60,7 @@ const Opportunities = () => {
                   "Description for the digital government job opportunities",
               },
               {
-                abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+                abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
               },
             )}
           </p>
@@ -95,7 +95,7 @@ const Opportunities = () => {
                   "Paragraph one, description of the managers community",
               },
               {
-                abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+                abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
               },
             )}
           </p>

@@ -1,6 +1,6 @@
-import * as React from "react";
+import { HTMLProps } from "react";
 
-type WrapperProps = React.HTMLProps<HTMLDivElement>;
+type WrapperProps = HTMLProps<HTMLDivElement>;
 
 const Wrapper = ({ children, ...rest }: WrapperProps) => (
   <div data-h2-padding="base(0, 0, x3, 0)" {...rest}>

@@ -1,4 +1,4 @@
-import * as React from "react";
+import { ReactNode, DetailedHTMLProps, HTMLAttributes } from "react";
 
 import { HTMLInputProps } from "../../types";
 
@@ -6,14 +6,11 @@ export interface Option {
   /** The data used on form submission  */
   value: string | number;
   /** Text to display in the list of options */
-  label: React.ReactNode;
+  label: ReactNode;
 }
 
 export type HTMLSpanProps = Omit<
-  React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLSpanElement>,
-    HTMLSpanElement
-  >,
+  DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>,
   "ref"
 >;
 
@@ -23,7 +20,7 @@ export type BaseProps = {
   /** If this input is required or not */
   isRequired?: boolean;
   /** Label for the input */
-  label: React.ReactNode;
+  label: ReactNode;
   /** Props to pass to the HTML `input` */
   inputProps?: HTMLInputProps;
   /** Optional: Set if the options are being fetched */

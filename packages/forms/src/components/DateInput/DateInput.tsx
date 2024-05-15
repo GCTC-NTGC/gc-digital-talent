@@ -1,6 +1,5 @@
 /* eslint-disable import/no-duplicates */
 // known issue with date-fns and eslint https://github.com/date-fns/date-fns/issues/1756#issuecomment-624803874
-import * as React from "react";
 import { useIntl } from "react-intl";
 import get from "lodash/get";
 import omit from "lodash/omit";
@@ -11,6 +10,7 @@ import { isSameMonth } from "date-fns/isSameMonth";
 import { isSameYear } from "date-fns/isSameYear";
 import { isValid } from "date-fns/isValid";
 import { FieldError, useFormContext, Controller } from "react-hook-form";
+import { ReactNode } from "react";
 
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { formDateStringToDate } from "@gc-digital-talent/date-helpers";
@@ -27,7 +27,7 @@ import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 export type DateInputProps = Omit<CommonInputProps, "rules" | "label"> &
   HTMLFieldsetProps & {
     /** Holds text for the legend associated with the RadioGroup fieldset. */
-    legend: React.ReactNode;
+    legend: ReactNode;
     /** If true, the legend will be hidden */
     hideLegend?: boolean;
     /** Set of validation rules and error messages to impose on all input elements. */

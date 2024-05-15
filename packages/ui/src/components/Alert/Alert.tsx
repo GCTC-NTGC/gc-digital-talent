@@ -1,6 +1,16 @@
-import * as React from "react";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import { useIntl } from "react-intl";
+import {
+  createContext,
+  ComponentPropsWithoutRef,
+  forwardRef,
+  ElementRef,
+  useState,
+  useMemo,
+  HTMLProps,
+  ReactNode,
+  useContext,
+} from "react";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
@@ -20,9 +30,7 @@ type AlertContextValue = {
   type: AlertType;
 };
 
-const AlertContext = React.createContext<AlertContextValue | undefined>(
-  undefined,
-);
+const AlertContext = createContext<AlertContextValue | undefined>(undefined);
 
 /**
  * Props that can be passed to an `<Alert.Root />`
@@ -33,20 +41,20 @@ const AlertContext = React.createContext<AlertContextValue | undefined>(
  * @member {boolean} live adds [role="alert"] forcing the alert to be read out to assistive technology
  * @member {function} onDismiss execute code when the alert is dismissed
  */
-export interface AlertProps extends React.ComponentPropsWithoutRef<"div"> {
+export interface AlertProps extends ComponentPropsWithoutRef<"div"> {
   type: AlertType;
   dismissible?: boolean;
   live?: boolean; // REF: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/alert_role
   onDismiss?: () => void;
 }
 
-const Alert = React.forwardRef<React.ElementRef<"div">, AlertProps>(
+const Alert = forwardRef<ElementRef<"div">, AlertProps>(
   (
     { type, onDismiss, live = true, dismissible = false, children, ...rest },
     forwardedRef,
   ) => {
     const intl = useIntl();
-    const [isOpen, setIsOpen] = React.useState(true);
+    const [isOpen, setIsOpen] = useState(true);
     const Icon = iconMap[type];
 
     const close = () => {
@@ -56,7 +64,7 @@ const Alert = React.forwardRef<React.ElementRef<"div">, AlertProps>(
       }
     };
 
-    const state = React.useMemo(
+    const state = useMemo(
       () => ({
         type,
       }),
@@ -150,14 +158,14 @@ const Alert = React.forwardRef<React.ElementRef<"div">, AlertProps>(
  * @member {AlertHeadingLevel} as is the semantic heading level to render the title in
  */
 interface AlertTitleProps
-  extends React.HTMLProps<HTMLHeadingElement | HTMLParagraphElement> {
-  children: React.ReactNode;
+  extends HTMLProps<HTMLHeadingElement | HTMLParagraphElement> {
+  children: ReactNode;
   as?: AlertHeadingLevel;
 }
 
 const Title = ({ as = "h2", children, ...rest }: AlertTitleProps) => {
   const intl = useIntl();
-  const ctx = React.useContext(AlertContext);
+  const ctx = useContext(AlertContext);
   const alertLevelTitle = getAlertLevelTitle(ctx?.type || "info", intl);
   const Heading = as;
 
@@ -178,7 +186,7 @@ const Title = ({ as = "h2", children, ...rest }: AlertTitleProps) => {
   );
 };
 interface AlertFooterProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const Footer = ({ children }: AlertFooterProps) => (

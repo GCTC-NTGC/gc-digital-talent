@@ -1,4 +1,4 @@
-import * as React from "react";
+import { JSX } from "react";
 import { StoryContext, StoryFn } from "@storybook/react";
 import { createMemoryRouter, RouterProvider } from "react-router-dom";
 
@@ -7,7 +7,7 @@ interface DefaultPath {
   initialEntries: string[];
 }
 
-const createRouter = (story: React.JSX.Element, defaultPath?: DefaultPath) =>
+const createRouter = (story: JSX.Element, defaultPath?: DefaultPath) =>
   createMemoryRouter(
     [
       {

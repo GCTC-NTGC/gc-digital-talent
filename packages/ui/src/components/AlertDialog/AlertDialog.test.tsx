@@ -4,14 +4,14 @@
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import * as React from "react";
+import { ComponentPropsWithoutRef } from "react";
 
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 
 import Button from "../Button";
 import AlertDialog from "./AlertDialog";
 
-type AlertDialogRootPrimitivePropsWithoutRef = React.ComponentPropsWithoutRef<
+type AlertDialogRootPrimitivePropsWithoutRef = ComponentPropsWithoutRef<
   typeof AlertDialog.Root
 >;
 const DefaultChildren = () => (

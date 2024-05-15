@@ -1,11 +1,11 @@
-import * as React from "react";
+import { ReactElement, ReactNode, useId, cloneElement } from "react";
 
 import { useLogger } from "@gc-digital-talent/logger";
 
 export type CompoundQuestionProps = {
   title?: string;
-  introduction?: React.ReactElement | React.ReactNode | string;
-  inputElement: React.ReactElement;
+  introduction?: ReactElement | ReactNode | string;
+  inputElement: ReactElement;
 };
 
 // This component is for adding extra information before a form input and ensuring that the aria labels are properly attached.
@@ -20,8 +20,8 @@ const CompoundQuestion = ({
       "Expecting either a title or introduction to use the CompoundQuestion component",
     );
   }
-  const descriptionId = React.useId();
-  const clonedInput = React.cloneElement(inputElement, {
+  const descriptionId = useId();
+  const clonedInput = cloneElement(inputElement, {
     "aria-describedby": title ? descriptionId : undefined,
   });
   return (

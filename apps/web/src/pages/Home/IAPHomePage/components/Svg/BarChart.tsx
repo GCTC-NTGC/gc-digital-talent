@@ -1,6 +1,6 @@
-import * as React from "react";
+import { HTMLAttributes } from "react";
 
-const BarChart = (props: React.HTMLAttributes<HTMLOrSVGElement>) => (
+const BarChart = (props: HTMLAttributes<HTMLOrSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"

@@ -1,9 +1,9 @@
-import * as React from "react";
+import { ReactNode } from "react";
 
 import { BreadcrumbsProps, IconType } from "@gc-digital-talent/ui";
 
 type PageNavLink = {
-  label?: React.ReactNode;
+  label?: ReactNode;
   url: string;
 };
 

@@ -1,5 +1,5 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
+import { ReactNode } from "react";
 
 import { Flourish, Heading, Link } from "@gc-digital-talent/ui";
 import { Locales, getLocale } from "@gc-digital-talent/i18n";
@@ -8,7 +8,7 @@ import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 
-const justiceLaws7Link = (locale: Locales, chunks: React.ReactNode) => (
+const justiceLaws7Link = (locale: Locales, chunks: ReactNode) => (
   <Link
     newTab
     external
@@ -21,7 +21,7 @@ const justiceLaws7Link = (locale: Locales, chunks: React.ReactNode) => (
     {chunks}
   </Link>
 );
-const justiceLaws15Link = (locale: Locales, chunks: React.ReactNode) => (
+const justiceLaws15Link = (locale: Locales, chunks: ReactNode) => (
   <Link
     newTab
     external
@@ -34,7 +34,7 @@ const justiceLaws15Link = (locale: Locales, chunks: React.ReactNode) => (
     {chunks}
   </Link>
 );
-const justiceLaws29Link = (locale: Locales, chunks: React.ReactNode) => (
+const justiceLaws29Link = (locale: Locales, chunks: ReactNode) => (
   <Link
     newTab
     external
@@ -48,7 +48,7 @@ const justiceLaws29Link = (locale: Locales, chunks: React.ReactNode) => (
   </Link>
 );
 
-const justiceLaws30Link = (locale: Locales, chunks: React.ReactNode) => (
+const justiceLaws30Link = (locale: Locales, chunks: ReactNode) => (
   <Link
     newTab
     external
@@ -62,7 +62,7 @@ const justiceLaws30Link = (locale: Locales, chunks: React.ReactNode) => (
   </Link>
 );
 
-const publicServiceLink = (locale: Locales, chunks: React.ReactNode) => (
+const publicServiceLink = (locale: Locales, chunks: ReactNode) => (
   <Link
     newTab
     external
@@ -76,7 +76,7 @@ const publicServiceLink = (locale: Locales, chunks: React.ReactNode) => (
   </Link>
 );
 
-const personalInfoLink = (locale: Locales, chunks: React.ReactNode) => (
+const personalInfoLink = (locale: Locales, chunks: ReactNode) => (
   <Link
     newTab
     external
@@ -136,13 +136,13 @@ export const Component = () => {
               description: "Paragraph for privacy policy page",
             },
             {
-              justiceLaws7Link: (chunks: React.ReactNode) =>
+              justiceLaws7Link: (chunks: ReactNode) =>
                 justiceLaws7Link(locale, chunks),
-              justiceLaws15Link: (chunks: React.ReactNode) =>
+              justiceLaws15Link: (chunks: ReactNode) =>
                 justiceLaws15Link(locale, chunks),
-              justiceLaws29Link: (chunks: React.ReactNode) =>
+              justiceLaws29Link: (chunks: ReactNode) =>
                 justiceLaws29Link(locale, chunks),
-              justiceLaws30Link: (chunks: React.ReactNode) =>
+              justiceLaws30Link: (chunks: ReactNode) =>
                 justiceLaws30Link(locale, chunks),
             },
           )}
@@ -164,7 +164,7 @@ export const Component = () => {
               description: "Paragraph for privacy policy page",
             },
             {
-              publicServiceLink: (chunks: React.ReactNode) =>
+              publicServiceLink: (chunks: ReactNode) =>
                 publicServiceLink(locale, chunks),
             },
           )}
@@ -194,7 +194,7 @@ export const Component = () => {
               description: "Paragraph for privacy policy page",
             },
             {
-              personalInfoLink: (chunks: React.ReactNode) =>
+              personalInfoLink: (chunks: ReactNode) =>
                 personalInfoLink(locale, chunks),
             },
           )}

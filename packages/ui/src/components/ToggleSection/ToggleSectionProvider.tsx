@@ -1,4 +1,4 @@
-import * as React from "react";
+import { ReactNode, createContext, useContext, useMemo } from "react";
 
 type ToggleSectionContextValue = {
   contentId: string;
@@ -7,12 +7,12 @@ type ToggleSectionContextValue = {
   onOpenChange?: (newOpen: boolean) => void;
 };
 
-const ToggleSectionContext = React.createContext<
+const ToggleSectionContext = createContext<
   ToggleSectionContextValue | undefined
 >(undefined);
 
 type ToggleSectionProviderProps = {
-  children: React.ReactNode;
+  children: ReactNode;
 } & ToggleSectionContextValue;
 
 export const ToggleSectionProvider = ({
@@ -20,7 +20,7 @@ export const ToggleSectionProvider = ({
   ...context
 }: ToggleSectionProviderProps) => {
   const { contentId, open, onOpenToggle, onOpenChange } = context;
-  const value = React.useMemo(
+  const value = useMemo(
     () => ({
       contentId,
       open,
@@ -38,7 +38,7 @@ export const ToggleSectionProvider = ({
 };
 
 export const useToggleSectionContext = () => {
-  const context = React.useContext(ToggleSectionContext);
+  const context = useContext(ToggleSectionContext);
 
   return context;
 };

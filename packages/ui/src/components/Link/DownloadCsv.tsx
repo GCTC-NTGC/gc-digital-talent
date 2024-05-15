@@ -1,5 +1,5 @@
-import * as React from "react";
 import CsvDownloader, { ICsvProps } from "react-csv-downloader";
+import { ReactNode } from "react";
 
 import ButtonLinkContent from "../ButtonLinkContent/ButtonLinkContent";
 import getButtonStyles from "../../utils/button/getButtonStyles";
@@ -18,7 +18,7 @@ export interface DownloadCsvProps
   headers: CsvHeader[];
   data: ICsvProps["datas"];
   fileName: string;
-  children: React.ReactNode;
+  children: ReactNode;
   disabled?: boolean;
 }
 

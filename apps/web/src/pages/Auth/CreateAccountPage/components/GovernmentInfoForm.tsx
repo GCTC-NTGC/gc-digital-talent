@@ -1,7 +1,7 @@
-import * as React from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import uniqBy from "lodash/uniqBy";
+import { ReactNode, useEffect } from "react";
 
 import {
   errorMessages,
@@ -40,7 +40,7 @@ type FormValues = {
   priorityEntitlementNumber?: string;
 };
 
-const priorityEntitlementLink = (locale: string, chunks: React.ReactNode) => {
+const priorityEntitlementLink = (locale: string, chunks: ReactNode) => {
   const href =
     locale === "en"
       ? "https://www.canada.ca/en/public-service-commission/services/information-priority-administration.html"
@@ -256,7 +256,7 @@ export const GovernmentInfoFormFields = ({
    * Reset fields when they disappear
    * to avoid confusing users about unsaved changes
    */
-  React.useEffect(() => {
+  useEffect(() => {
     const resetDirtyField = (name: string) => {
       resetField(name, {
         keepDirty: false,
@@ -413,7 +413,7 @@ export const GovernmentInfoFormFields = ({
               "Sentence asking whether the user possesses priority entitlement",
           },
           {
-            priorityEntitlementLink: (chunks: React.ReactNode) =>
+            priorityEntitlementLink: (chunks: ReactNode) =>
               priorityEntitlementLink(locale, chunks),
           },
         )}

@@ -1,7 +1,7 @@
-import * as React from "react";
+import { ReactNode } from "react";
 
 interface BannerProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 const Banner = ({ children }: BannerProps) => (

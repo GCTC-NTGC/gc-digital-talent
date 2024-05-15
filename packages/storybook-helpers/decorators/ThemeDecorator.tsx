@@ -1,7 +1,6 @@
 import { DecoratorHelpers } from "@storybook/addon-themes";
 import type { DecoratorFunction, Renderer } from "@storybook/types";
-import { useEffect, useMemo } from "react";
-import * as React from "react";
+import { ReactNode, useEffect, useMemo } from "react";
 
 import {
   Theme,
@@ -70,7 +69,7 @@ const withThemeFromHydrogen = <TRenderer extends Renderer = any>({
 
     return (
       <ThemeProvider>
-        {storyFn() as React.ReactNode}
+        {storyFn() as ReactNode}
         <ThemeSetter
           theme={{
             key: themeArr[0] ?? "default",

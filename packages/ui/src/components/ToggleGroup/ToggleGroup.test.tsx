@@ -2,16 +2,16 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import * as React from "react";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { ComponentPropsWithoutRef } from "react";
 
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 
 import ToggleGroup from "./ToggleGroup";
 
 const renderToggleGroup = (
-  props: React.ComponentPropsWithoutRef<typeof ToggleGroup.Root>,
+  props: ComponentPropsWithoutRef<typeof ToggleGroup.Root>,
 ) => {
   return renderWithProviders(
     <ToggleGroup.Root {...props}>

@@ -1,11 +1,11 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
+import { ReactNode } from "react";
 
 import { Button, Dialog, Link } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { Maybe } from "@gc-digital-talent/graphql";
 
-const contactLink = (chunks: React.ReactNode) => (
+const contactLink = (chunks: ReactNode) => (
   <Link
     color="secondary"
     external

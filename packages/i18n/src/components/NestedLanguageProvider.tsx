@@ -1,13 +1,13 @@
-import * as React from "react";
 import { IntlProvider, useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
+import { ReactNode, JSX } from "react";
 
 import { Messages } from "../types";
 import defaultRichTextElements from "./richTextElements";
 
 interface NestedLanguageProvider {
   messages: Map<string, Messages>;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 /**
@@ -33,7 +33,7 @@ const NestedLanguageProvider = ({
    * just return the children
    */
   if (!locale || !localeMessages) {
-    return children as React.JSX.Element;
+    return children as JSX.Element;
   }
 
   // Merge the messages

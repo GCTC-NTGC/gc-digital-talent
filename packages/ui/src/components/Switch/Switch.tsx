@@ -1,11 +1,11 @@
-import * as React from "react";
 import * as SwitchPrimitive from "@radix-ui/react-switch";
+import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 
 import getStyles, { SwitchColor } from "./styles";
 import { IconType } from "../../types";
 import useControllableState from "../../hooks/useControllableState";
 
-export type SwitchProps = React.ComponentPropsWithoutRef<
+export type SwitchProps = ComponentPropsWithoutRef<
   typeof SwitchPrimitive.Root
 > & {
   disabled?: boolean;
@@ -20,10 +20,7 @@ export type SwitchProps = React.ComponentPropsWithoutRef<
   color?: SwitchColor;
 };
 
-const Switch = React.forwardRef<
-  React.ElementRef<typeof SwitchPrimitive.Root>,
-  SwitchProps
->(
+const Switch = forwardRef<ElementRef<typeof SwitchPrimitive.Root>, SwitchProps>(
   (
     {
       color = "primary",

@@ -1,4 +1,3 @@
-import * as React from "react";
 import { IntlShape, MessageDescriptor } from "react-intl";
 import ClipboardDocumentIcon from "@heroicons/react/24/outline/ClipboardDocumentIcon";
 import ClipboardDocumentListIcon from "@heroicons/react/20/solid/ClipboardDocumentListIcon";
@@ -6,6 +5,7 @@ import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
 import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
+import { ReactNode } from "react";
 
 import {
   Locales,
@@ -123,7 +123,7 @@ export const formattedPoolPosterTitle = ({
   short,
   intl,
 }: formattedPoolPosterTitleProps): {
-  html: React.ReactNode;
+  html: ReactNode;
   label: string;
 } => {
   const streamString = stream
@@ -164,7 +164,7 @@ export const formattedPoolPosterTitle = ({
 };
 
 interface PoolTitleOptions {
-  defaultTitle?: React.ReactNode;
+  defaultTitle?: ReactNode;
   short?: boolean;
 }
 
@@ -172,7 +172,7 @@ export const poolTitle = (
   intl: IntlShape,
   pool: Maybe<Pool>,
   options?: PoolTitleOptions,
-): { html: React.ReactNode; label: string } => {
+): { html: ReactNode; label: string } => {
   const fallbackTitle =
     options?.defaultTitle ??
     intl.formatMessage({
@@ -215,7 +215,7 @@ export const getFullPoolTitleHtml = (
   intl: IntlShape,
   pool: Maybe<Pool>,
   options?: { defaultTitle?: string },
-): React.ReactNode => poolTitle(intl, pool, options).html;
+): ReactNode => poolTitle(intl, pool, options).html;
 
 export const getFullPoolTitleLabel = (
   intl: IntlShape,
@@ -227,7 +227,7 @@ export const getShortPoolTitleHtml = (
   intl: IntlShape,
   pool: Maybe<Pool>,
   options?: { defaultTitle?: string },
-): React.ReactNode =>
+): ReactNode =>
   poolTitle(intl, pool, {
     ...options,
     short: true,

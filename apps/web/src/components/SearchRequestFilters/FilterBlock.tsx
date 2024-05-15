@@ -1,15 +1,15 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import uniqueId from "lodash/uniqueId";
 import isEmpty from "lodash/isEmpty";
 import isArray from "lodash/isArray";
+import { ReactNode } from "react";
 
 import { Maybe } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 interface FilterBlockProps {
   title: string;
-  content?: Maybe<string | React.ReactNode> | Maybe<string[]>;
+  content?: Maybe<string | ReactNode> | Maybe<string[]>;
 }
 
 const FilterBlockContent = ({

@@ -1,12 +1,9 @@
-import * as React from "react";
+import { DetailedHTMLProps, HTMLAttributes } from "react";
 
 const List = ({
   children,
   ...rest
-}: React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLUListElement>,
-  HTMLUListElement
->) => (
+}: DetailedHTMLProps<HTMLAttributes<HTMLUListElement>, HTMLUListElement>) => (
   <ul
     data-h2-display="base(flex)"
     data-h2-flex-direction="base(column)"

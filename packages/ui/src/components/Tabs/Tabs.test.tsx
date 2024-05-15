@@ -4,13 +4,13 @@
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import { screen } from "@testing-library/react";
-import * as React from "react";
+import { ComponentPropsWithoutRef } from "react";
 
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 
 import Tabs from ".";
 
-type TabsRootPrimitivePropsWithoutRef = React.ComponentPropsWithoutRef<
+type TabsRootPrimitivePropsWithoutRef = ComponentPropsWithoutRef<
   typeof Tabs.Root
 >;
 

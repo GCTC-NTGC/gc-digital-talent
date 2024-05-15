@@ -1,3 +1,4 @@
+import { ReactNode, useState } from "react";
 import { useIntl } from "react-intl";
 
 import { Board, Link, Well } from "@gc-digital-talent/ui";
@@ -22,7 +23,7 @@ import {
 import Filters from "./Filters";
 import SpinnerIcon from "../SpinnerIcon/SpinnerIcon";
 
-const talentPlacementLink = (chunks: React.ReactNode, href: string) => (
+const talentPlacementLink = (chunks: ReactNode, href: string) => (
   <Link href={href}>{chunks}</Link>
 );
 
@@ -91,7 +92,7 @@ const AssessmentStepTracker = ({
 }: AssessmentStepTrackerProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const [filters, setFilters] = React.useState<ResultFilters>(defaultFilters);
+  const [filters, setFilters] = useState<ResultFilters>(defaultFilters);
   const pool = getFragment(AssessmentStepTracker_PoolFragment, poolQuery);
   const steps = unpackMaybes(pool?.assessmentSteps);
   const poolCandidates = getFragment(
@@ -154,7 +155,7 @@ const AssessmentStepTracker = ({
           <p>
             {intl.formatMessage(processMessages.noAssessmentPlan)}{" "}
             {intl.formatMessage(processMessages.viewTalentPlacement, {
-              a: (chunks: React.ReactNode) =>
+              a: (chunks: ReactNode) =>
                 talentPlacementLink(
                   chunks,
                   paths.poolCandidateTable(pool?.id ?? ""),

@@ -1,5 +1,5 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
+import { ReactNode } from "react";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
@@ -9,7 +9,7 @@ import Crumb from "./Crumb";
 export interface BreadcrumbsProps {
   fullWidth?: boolean;
   crumbs: {
-    label: React.ReactNode;
+    label: ReactNode;
     url: string;
   }[];
 }

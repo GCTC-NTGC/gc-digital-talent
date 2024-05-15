@@ -1,12 +1,17 @@
 /**
  * Documentation: https://www.radix-ui.com/docs/primitives/components/toggle-group
  */
-import * as React from "react";
 import * as ToggleGroupPrimitive from "@radix-ui/react-toggle-group";
+import {
+  forwardRef,
+  ElementRef,
+  ComponentPropsWithoutRef,
+  ReactNode,
+} from "react";
 
-const Item = React.forwardRef<
-  React.ElementRef<typeof ToggleGroupPrimitive.Item>,
-  React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Item>
+const Item = forwardRef<
+  ElementRef<typeof ToggleGroupPrimitive.Item>,
+  ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Item>
 >((props, forwardedRef) => (
   <ToggleGroupPrimitive.Item
     data-h2-align-items="base(center)"
@@ -22,14 +27,14 @@ const Item = React.forwardRef<
   />
 ));
 
-export type RootProps = React.ComponentPropsWithoutRef<
+export type RootProps = ComponentPropsWithoutRef<
   typeof ToggleGroupPrimitive.Root
 > & {
-  label?: React.ReactNode;
+  label?: ReactNode;
 };
 
-const Root = React.forwardRef<
-  React.ElementRef<typeof ToggleGroupPrimitive.Root>,
+const Root = forwardRef<
+  ElementRef<typeof ToggleGroupPrimitive.Root>,
   RootProps
 >(({ label, children, ...rest }, forwardedRef) => {
   return (

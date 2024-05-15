@@ -1,5 +1,5 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
+import { ReactNode, JSX } from "react";
 
 import { GenericJobTitleKey } from "@gc-digital-talent/graphql";
 
@@ -20,7 +20,7 @@ const LevelOne = () => {
           description: "blurb describing IT-01",
         },
         {
-          abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+          abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
         },
       )}
     </Text>
@@ -40,7 +40,7 @@ const LevelTwo = () => {
           description: "blurb describing IT-02",
         },
         {
-          abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+          abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
         },
       )}
     </Text>
@@ -61,7 +61,7 @@ const LevelThreeLead = () => {
             description: "IT-03 description precursor",
           },
           {
-            abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+            abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
           },
         )}
       </Text>
@@ -74,7 +74,7 @@ const LevelThreeLead = () => {
             description: "IT-03 team lead path description",
           },
           {
-            abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+            abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
           },
         )}
       </Text>
@@ -96,7 +96,7 @@ const LevelThreeAdvisor = () => {
             description: "IT-03 description precursor",
           },
           {
-            abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+            abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
           },
         )}
       </Text>
@@ -109,7 +109,7 @@ const LevelThreeAdvisor = () => {
             description: "IT-03 advisor description",
           },
           {
-            abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+            abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
           },
         )}
       </Text>
@@ -131,7 +131,7 @@ const LevelFourManager = () => {
             description: "IT-04 description precursor",
           },
           {
-            abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+            abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
           },
         )}
       </Text>
@@ -144,7 +144,7 @@ const LevelFourManager = () => {
             description: "IT-04 manager path description",
           },
           {
-            abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+            abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
           },
         )}
       </Text>
@@ -152,7 +152,7 @@ const LevelFourManager = () => {
   );
 };
 
-const LevelFourAdvisor = (): React.JSX.Element => {
+const LevelFourAdvisor = (): JSX.Element => {
   const intl = useIntl();
 
   return (
@@ -166,7 +166,7 @@ const LevelFourAdvisor = (): React.JSX.Element => {
             description: "IT-04 description precursor",
           },
           {
-            abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+            abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
           },
         )}
       </Text>
@@ -180,7 +180,7 @@ const LevelFourAdvisor = (): React.JSX.Element => {
               "IT-04 senior advisor description precursor to work stream list",
           },
           {
-            abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+            abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
           },
         )}
       </Text>
@@ -192,7 +192,7 @@ interface ClassificationDefinitionProps {
   name: string;
 }
 
-const definitionMap: Record<string, () => React.JSX.Element> = {
+const definitionMap: Record<string, () => JSX.Element> = {
   [GenericJobTitleKey.TechnicianIt01]: LevelOne,
   [GenericJobTitleKey.AnalystIt02]: LevelTwo,
   [GenericJobTitleKey.TeamLeaderIt03]: LevelThreeLead,

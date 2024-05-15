@@ -1,6 +1,6 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
+import { ReactNode, JSX } from "react";
 
 import { Button } from "@gc-digital-talent/ui";
 
@@ -19,11 +19,11 @@ interface EquityOptionProps {
   option: EquityGroup;
   // Note: Just defining the func signature
   onSave: (value: boolean) => void;
-  title: React.ReactNode;
-  description?: React.ReactNode;
+  title: ReactNode;
+  description?: ReactNode;
 }
 
-type EquityDialogFunc = (props: EquityDialogProps) => React.JSX.Element;
+type EquityDialogFunc = (props: EquityDialogProps) => JSX.Element;
 
 const dialogMap: Record<EquityGroup, EquityDialogFunc> = {
   disability: DisabilityDialog,

@@ -4,8 +4,8 @@ import BriefcaseIcon from "@heroicons/react/20/solid/BriefcaseIcon";
 import LightBulbIcon from "@heroicons/react/20/solid/LightBulbIcon";
 import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
-import * as React from "react";
 import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
+import { ReactNode } from "react";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { IconType } from "@gc-digital-talent/ui";
@@ -40,7 +40,7 @@ import experienceMessages from "../messages/experienceMessages";
  *
  * @param intl IntlShape
  * @param experienceType  ExperienceType
- * @returns Record<string, React.ReactNode>
+ * @returns Record<string, ReactNode>
  */
 export const getExperienceFormLabels = (
   intl: IntlShape,
@@ -568,7 +568,7 @@ export const queryResultToDefaultValues = (
  * Get the name of any experience type
  *
  * @param AnyExperience experience
- * @return string|React.ReactNode
+ * @return string|ReactNode
  */
 export const getExperienceName = (
   experience: AnyExperience,
@@ -629,12 +629,12 @@ export const getExperienceName = (
  *
  * @param {AnyExperience} experience
  * @param {IntlShape} intl
- * @return {string|React.ReactNode}
+ * @return {string|ReactNode}
  */
 export const getExperienceDate = (
   experience: AnyExperience,
   intl: IntlShape,
-): undefined | React.ReactNode => {
+): undefined | ReactNode => {
   let dateString;
   if (!experience) {
     return dateString;
@@ -652,11 +652,11 @@ export const getExperienceDate = (
 
 type ExperienceInfo = {
   title: string;
-  titleHtml: React.ReactNode;
+  titleHtml: ReactNode;
   editPath?: string;
-  typeMessage: React.ReactNode;
+  typeMessage: ReactNode;
   icon: IconType;
-  date?: React.ReactNode;
+  date?: ReactNode;
 };
 
 type UseExperienceInfo = (experience: AnyExperience) => ExperienceInfo;

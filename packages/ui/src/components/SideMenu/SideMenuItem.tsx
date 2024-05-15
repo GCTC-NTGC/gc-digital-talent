@@ -1,6 +1,6 @@
-import * as React from "react";
 import { m, useReducedMotion } from "framer-motion";
 import { NavLink, NavLinkProps, useNavigate } from "react-router-dom";
+import { ReactNode, HTMLProps, forwardRef, MouseEventHandler } from "react";
 
 import { sanitizeUrl, useIsSmallScreen } from "@gc-digital-talent/helpers";
 
@@ -10,7 +10,7 @@ import { commonStyles } from "./styles";
 
 interface SideMenuItemChildProps {
   icon: IconType;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const SideMenuItemChildren = ({ icon, children }: SideMenuItemChildProps) => {
@@ -81,7 +81,7 @@ const SideMenuItem = ({ icon, children, href, ...rest }: SideMenuItemProps) => {
   const ctx = useSideMenuContext();
   const isSmallScreen = useIsSmallScreen();
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+  const handleClick: MouseEventHandler = (e) => {
     e.preventDefault();
     if (isSmallScreen && ctx?.onOpenChange) {
       ctx?.onOpenChange(false);
@@ -118,10 +118,10 @@ export const ExternalSideMenuItem = ({
   );
 };
 
-type SideMenuButtonProps = React.HTMLProps<HTMLButtonElement> &
+type SideMenuButtonProps = HTMLProps<HTMLButtonElement> &
   SideMenuItemChildProps;
 
-export const SideMenuButton = React.forwardRef<
+export const SideMenuButton = forwardRef<
   HTMLButtonElement,
   SideMenuButtonProps
 >(({ icon, children, ...rest }, forwardedRef) => (

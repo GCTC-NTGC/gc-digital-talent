@@ -1,9 +1,9 @@
-import * as React from "react";
 import { Link } from "react-router-dom";
 import ChevronRightIcon from "@heroicons/react/24/solid/ChevronRightIcon";
+import { ReactNode } from "react";
 
 interface CrumbProps {
-  children: React.ReactNode;
+  children: ReactNode;
   isCurrent?: boolean;
   url: string;
 }

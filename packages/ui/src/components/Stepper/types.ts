@@ -1,4 +1,4 @@
-import * as React from "react";
+import { ReactNode } from "react";
 
 export type StepState =
   | "active"
@@ -10,7 +10,7 @@ export type StepState =
 
 export type StepType = {
   href: string;
-  label: React.ReactNode;
+  label: ReactNode;
   completed?: boolean | null;
   disabled?: boolean | null;
   error?: boolean | null;

@@ -1,6 +1,12 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
+import {
+  ComponentPropsWithoutRef,
+  ElementRef,
+  ReactNode,
+  forwardRef,
+  useState,
+} from "react";
 
 import { AlertDialog, Button, DropdownMenu } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -8,20 +14,18 @@ import { Scalars } from "@gc-digital-talent/graphql";
 
 import { DeleteNotification_Mutation } from "./mutations";
 
-type RemoveDialogProps = React.ComponentPropsWithoutRef<
-  typeof DropdownMenu.Item
-> & {
+type RemoveDialogProps = ComponentPropsWithoutRef<typeof DropdownMenu.Item> & {
   id: Scalars["UUID"]["output"];
-  message: React.ReactNode;
+  message: ReactNode;
   date: string;
 };
 
-const RemoveDialog = React.forwardRef<
-  React.ElementRef<typeof DropdownMenu.Item>,
+const RemoveDialog = forwardRef<
+  ElementRef<typeof DropdownMenu.Item>,
   RemoveDialogProps
 >(({ id, message, date, onSelect, ...rest }, forwardedRef) => {
   const intl = useIntl();
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const [{ fetching: deleting }, executeDeleteMutation] = useMutation(
     DeleteNotification_Mutation,

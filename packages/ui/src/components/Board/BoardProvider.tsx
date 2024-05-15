@@ -1,4 +1,11 @@
-import * as React from "react";
+import {
+  MouseEventHandler,
+  ReactNode,
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+} from "react";
 
 import { BoardColumn } from "./types";
 
@@ -12,17 +19,15 @@ type ControlledContext = {
 };
 
 type ContextEvents = {
-  handleClickItem: (event: React.MouseEvent) => void;
+  handleClickItem: MouseEventHandler;
 };
 
 type BoardContextValue = ControlledContext & ContextEvents;
 
-const BoardContext = React.createContext<BoardContextValue | undefined>(
-  undefined,
-);
+const BoardContext = createContext<BoardContextValue | undefined>(undefined);
 
 type BoardProviderProps = {
-  children: React.ReactNode;
+  children: ReactNode;
 } & ControlledContext;
 
 export const BoardProvider = ({ children, ...context }: BoardProviderProps) => {
@@ -35,7 +40,7 @@ export const BoardProvider = ({ children, ...context }: BoardProviderProps) => {
     columns,
   } = context;
 
-  const selectItem = React.useCallback(
+  const selectItem = useCallback(
     (newItem: number, newColumn: number) => {
       const targetColumn = columns[newColumn];
       const { items } = targetColumn;
@@ -53,8 +58,8 @@ export const BoardProvider = ({ children, ...context }: BoardProviderProps) => {
     [columns, onColumnChange, onItemChange],
   );
 
-  const handleClickItem = React.useCallback(
-    (event: React.MouseEvent) => {
+  const handleClickItem: MouseEventHandler = useCallback(
+    (event) => {
       const target = event.currentTarget as HTMLElement;
 
       columns.every((column, colIndex) => {
@@ -73,7 +78,7 @@ export const BoardProvider = ({ children, ...context }: BoardProviderProps) => {
     [columns, selectItem],
   );
 
-  const value = React.useMemo(
+  const value = useMemo(
     () => ({
       id,
       selectedItem,
@@ -100,7 +105,7 @@ export const BoardProvider = ({ children, ...context }: BoardProviderProps) => {
 };
 
 export const useBoardContext = () => {
-  const context = React.useContext(BoardContext);
+  const context = useContext(BoardContext);
 
   return context;
 };

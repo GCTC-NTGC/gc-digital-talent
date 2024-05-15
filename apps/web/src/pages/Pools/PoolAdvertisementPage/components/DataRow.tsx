@@ -1,11 +1,11 @@
-import * as React from "react";
+import { ReactNode } from "react";
 
 import { Separator } from "@gc-digital-talent/ui";
 
 interface DataRowProps {
   label: string;
-  value: React.ReactNode;
-  suffix?: React.ReactNode;
+  value: ReactNode;
+  suffix?: ReactNode;
   hideSeparator?: boolean;
 }
 

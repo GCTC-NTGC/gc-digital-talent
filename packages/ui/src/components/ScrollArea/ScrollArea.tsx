@@ -1,12 +1,12 @@
 /**
  * Documentation: https://www.radix-ui.com/docs/primitives/components/scroll-area
  */
-import { forwardRef } from "react";
+import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 import * as ScrollAreaPrimitive from "@radix-ui/react-scroll-area";
 
 const Root = forwardRef<
-  React.ElementRef<typeof ScrollAreaPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Root>
+  ElementRef<typeof ScrollAreaPrimitive.Root>,
+  ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Root>
 >((props, forwardedRef) => (
   <ScrollAreaPrimitive.Root
     data-h2-overflow="base(hidden)"
@@ -17,8 +17,8 @@ const Root = forwardRef<
 ));
 
 const Viewport = forwardRef<
-  React.ElementRef<typeof ScrollAreaPrimitive.Viewport>,
-  React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Viewport>
+  ElementRef<typeof ScrollAreaPrimitive.Viewport>,
+  ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Viewport>
 >((props, forwardedRef) => (
   <ScrollAreaPrimitive.Viewport
     data-h2-height="base(100%)"
@@ -30,8 +30,8 @@ const Viewport = forwardRef<
 ));
 
 const Scrollbar = forwardRef<
-  React.ElementRef<typeof ScrollAreaPrimitive.Scrollbar>,
-  React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Scrollbar>
+  ElementRef<typeof ScrollAreaPrimitive.Scrollbar>,
+  ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Scrollbar>
 >((props, forwardedRef) => (
   <ScrollAreaPrimitive.Scrollbar
     data-h2-background-color="base(gray.lighter) base:hover(gray.light)"
@@ -51,8 +51,8 @@ const Scrollbar = forwardRef<
 ));
 
 const Thumb = forwardRef<
-  React.ElementRef<typeof ScrollAreaPrimitive.Thumb>,
-  React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Thumb>
+  ElementRef<typeof ScrollAreaPrimitive.Thumb>,
+  ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Thumb>
 >((props, forwardedRef) => (
   <ScrollAreaPrimitive.Thumb
     data-h2-background-color="base(primary)"
@@ -73,8 +73,8 @@ const Thumb = forwardRef<
 ));
 
 const Corner = forwardRef<
-  React.ElementRef<typeof ScrollAreaPrimitive.Corner>,
-  React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Corner>
+  ElementRef<typeof ScrollAreaPrimitive.Corner>,
+  ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Corner>
 >((props, forwardedRef) => (
   <ScrollAreaPrimitive.Corner
     data-h2-background-color="base(primary)"

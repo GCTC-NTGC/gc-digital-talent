@@ -1,5 +1,5 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
+import { createContext, ReactNode, useMemo, useContext } from "react";
 
 import { formMessages } from "@gc-digital-talent/i18n";
 
@@ -7,12 +7,12 @@ import useControllableState from "../../hooks/useControllableState";
 import { BaseItem, CardRepeaterContextProps, ItemWithId } from "./types";
 import { useAnnouncer } from "../Announcer/Announcer";
 
-const CardRepeaterContext = React.createContext<
-  CardRepeaterContextProps | undefined
->(undefined);
+const CardRepeaterContext = createContext<CardRepeaterContextProps | undefined>(
+  undefined,
+);
 
 export type CardRepeaterProviderProps<T extends BaseItem = BaseItem> = {
-  children: React.ReactNode;
+  children: ReactNode;
 } & CardRepeaterContextProps<T>;
 
 export const CardRepeaterProvider = <T extends BaseItem>({
@@ -36,7 +36,7 @@ export const CardRepeaterProvider = <T extends BaseItem>({
     onChange: onUpdateProp,
   });
 
-  const value = React.useMemo(
+  const value = useMemo(
     () => ({
       items: items ?? [],
       onUpdate: (newItems: ItemWithId<T>[]) => setItems(newItems),
@@ -71,7 +71,7 @@ export const CardRepeaterProvider = <T extends BaseItem>({
 };
 
 export const useCardRepeaterContext = <T extends BaseItem = BaseItem>() => {
-  const ctx = React.useContext(CardRepeaterContext);
+  const ctx = useContext(CardRepeaterContext);
   const { announce } = useAnnouncer();
   const intl = useIntl();
   const total = ctx?.items.length ?? 0;

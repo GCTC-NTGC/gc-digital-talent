@@ -1,6 +1,6 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
+import { ReactNode, useEffect } from "react";
 
 import { Link, Well } from "@gc-digital-talent/ui";
 import {
@@ -28,7 +28,7 @@ import {
 import useDirtyFields from "../../hooks/useDirtyFields";
 import { getGroupOptions, getLevelOptions } from "./utils";
 
-const priorityEntitlementLink = (locale: string, chunks: React.ReactNode) => {
+const priorityEntitlementLink = (locale: string, chunks: ReactNode) => {
   const href =
     locale === "en"
       ? "https://www.canada.ca/en/public-service-commission/services/information-priority-administration.html"
@@ -111,7 +111,7 @@ const FormFields = ({
    * Reset fields when they disappear
    * to avoid confusing users about unsaved changes
    */
-  React.useEffect(() => {
+  useEffect(() => {
     const resetDirtyField = (name: string) => {
       resetField(name, {
         keepDirty: false,
@@ -304,7 +304,7 @@ const FormFields = ({
               description: "Sentence describing what priority entitlement is",
             },
             {
-              priorityEntitlementLink: (chunks: React.ReactNode) =>
+              priorityEntitlementLink: (chunks: ReactNode) =>
                 priorityEntitlementLink(locale, chunks),
             },
           )}

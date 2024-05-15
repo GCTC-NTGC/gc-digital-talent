@@ -1,4 +1,3 @@
-import * as React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 import MapIcon from "@heroicons/react/24/outline/MapIcon";
@@ -9,6 +8,7 @@ import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCirc
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
+import { ReactNode, useState } from "react";
 
 import {
   ThrowNotFound,
@@ -81,7 +81,7 @@ type SectionContent = {
   title: string;
 };
 
-const anchorTag = (chunks: React.ReactNode, email?: Maybe<string>) => {
+const anchorTag = (chunks: ReactNode, email?: Maybe<string>) => {
   return email ? (
     <Link external href={`mailto:${email}`}>
       {chunks}
@@ -91,7 +91,7 @@ const anchorTag = (chunks: React.ReactNode, email?: Maybe<string>) => {
   );
 };
 
-const standardsLink = (locale: Locales, chunks: React.ReactNode) => (
+const standardsLink = (locale: Locales, chunks: ReactNode) => (
   <Link
     newTab
     external
@@ -231,9 +231,9 @@ export const PoolPoster = ({
   const locale = getLocale(intl);
   const paths = useRoutes();
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
-  const [moreInfoValue, setMoreInfoValue] = React.useState<string[]>([]);
-  const [skillsValue, setSkillsValue] = React.useState<string[]>([]);
-  const [linkCopied, setLinkCopied] = React.useState<boolean>(false);
+  const [moreInfoValue, setMoreInfoValue] = useState<string[]>([]);
+  const [skillsValue, setSkillsValue] = useState<string[]>([]);
+  const [linkCopied, setLinkCopied] = useState<boolean>(false);
   const pool = getFragment(PoolAdvertisement_Fragment, poolQuery);
 
   const { classification } = pool;
@@ -792,8 +792,7 @@ export const PoolPoster = ({
                       "Description of minimum education requirements",
                   },
                   {
-                    link: (chunks: React.ReactNode) =>
-                      standardsLink(locale, chunks),
+                    link: (chunks: ReactNode) => standardsLink(locale, chunks),
                   },
                 )}
               </Text>
@@ -1113,7 +1112,7 @@ export const PoolPoster = ({
                             "Opening sentence asking if accommodations are needed",
                         },
                         {
-                          a: (chunks: React.ReactNode) =>
+                          a: (chunks: ReactNode) =>
                             anchorTag(chunks, contactEmail),
                           name: getLocalizedName(pool.team?.displayName, intl),
                         },

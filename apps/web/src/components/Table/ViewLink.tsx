@@ -1,6 +1,6 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
+import { ReactElement } from "react";
 
 import { Link, LinkProps } from "@gc-digital-talent/ui";
 
@@ -18,7 +18,7 @@ function ViewLink({
   name,
   hiddenLabel,
   ...rest
-}: ViewLinkProps): React.ReactElement {
+}: ViewLinkProps): ReactElement {
   const intl = useIntl();
   const { pathname, search, hash } = useLocation();
   const currentUrl = `${pathname}${search}${hash}`; // Passing the current url, including search params, allows the next page to return to current table state.

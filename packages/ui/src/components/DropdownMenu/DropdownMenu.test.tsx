@@ -4,7 +4,7 @@
 import "@testing-library/jest-dom";
 import { act, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import * as React from "react";
+import { ComponentPropsWithoutRef, useState } from "react";
 
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 
@@ -12,7 +12,7 @@ import Button from "../Button";
 
 import DropdownMenu from ".";
 
-type DropdownMenuRootPrimitivePropsWithoutRef = React.ComponentPropsWithoutRef<
+type DropdownMenuRootPrimitivePropsWithoutRef = ComponentPropsWithoutRef<
   typeof DropdownMenu.Root
 >;
 
@@ -55,7 +55,7 @@ const DefaultChildren = ({ onValueChange, value }: ChildProps) => (
 const StatefulDropdownMenu = (
   props: DropdownMenuRootPrimitivePropsWithoutRef,
 ) => {
-  const [value, setValue] = React.useState<string>("");
+  const [value, setValue] = useState<string>("");
 
   return (
     <DropdownMenu.Root {...props}>

@@ -1,5 +1,5 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
+import { ReactNode, forwardRef } from "react";
 
 import { Heading } from "@gc-digital-talent/ui";
 
@@ -7,7 +7,7 @@ interface RequestConfirmationPrintDocumentProps {
   requestId: string;
 }
 
-const PageSection = ({ children }: { children: React.ReactNode }) => (
+const PageSection = ({ children }: { children: ReactNode }) => (
   <div
     data-h2-margin-bottom="base(2rem)"
     data-h2-display="base(block)"
@@ -18,7 +18,7 @@ const PageSection = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
-const RequestConfirmationPrintDocument = React.forwardRef<
+const RequestConfirmationPrintDocument = forwardRef<
   HTMLDivElement,
   RequestConfirmationPrintDocumentProps
 >(({ requestId }, ref) => {

@@ -1,10 +1,10 @@
-import * as React from "react";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
+import { ReactNode } from "react";
 
 import { Link, Button, Color, ButtonLinkMode } from "@gc-digital-talent/ui";
 
 interface EditLinkProps {
-  children: React.ReactNode;
+  children: ReactNode;
   ariaLabel: string;
   editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
   onEditClick?: () => void; // Callback function if edit is a button

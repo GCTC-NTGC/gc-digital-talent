@@ -1,6 +1,6 @@
-import * as React from "react";
 import { HelmetProvider } from "react-helmet-async";
 import { MotionConfig, LazyMotion } from "framer-motion";
+import { ReactNode } from "react";
 
 import { AppInsightsProvider } from "@gc-digital-talent/app-insights";
 import {
@@ -22,7 +22,7 @@ const loadFeatures = () =>
   import("./motion-features").then((res) => res.default);
 interface ContextContainerProps {
   messages: Messages;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const ContextContainer = ({ messages, children }: ContextContainerProps) => (

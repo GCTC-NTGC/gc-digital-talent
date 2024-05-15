@@ -1,12 +1,12 @@
-import * as React from "react";
+import { ReactNode } from "react";
 
 import { HeadingRank } from "@gc-digital-talent/ui";
 
 interface FilterBlockProps {
   id: string;
-  title?: string | React.ReactNode;
+  title?: string | ReactNode;
   text: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
   headingLevel?: HeadingRank;
 }
 

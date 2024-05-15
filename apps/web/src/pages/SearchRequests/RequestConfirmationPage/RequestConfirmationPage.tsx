@@ -1,5 +1,4 @@
-import { useRef } from "react";
-import * as React from "react";
+import { ReactNode, useRef } from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { useReactToPrint } from "react-to-print";
 
@@ -37,7 +36,7 @@ type RequestConfirmationParams = {
   requestId: Scalars["ID"]["output"];
 };
 
-const mailLink = (chunks: React.ReactNode) => (
+const mailLink = (chunks: ReactNode) => (
   <Link external href="mailto:recruitmentimit-recrutementgiti@tbs-sct.gc.ca">
     {chunks}
   </Link>

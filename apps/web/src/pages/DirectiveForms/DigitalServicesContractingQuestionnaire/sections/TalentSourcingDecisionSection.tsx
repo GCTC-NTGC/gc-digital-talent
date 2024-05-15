@@ -1,6 +1,6 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
+import { useEffect, ReactNode } from "react";
 
 import { Heading, TableOfContents } from "@gc-digital-talent/ui";
 import {
@@ -52,7 +52,7 @@ const TalentSourcingDecisionSection = () => {
   const isOcioConfirmedTalentShortageYes =
     selectedOcioConfirmedTalentShortage === YesNo.Yes;
 
-  React.useEffect(() => {
+  useEffect(() => {
     const resetDirtyField = (name: string) => {
       resetField(name, { keepDirty: false, defaultValue: null });
     };
@@ -151,7 +151,7 @@ const TalentSourcingDecisionSection = () => {
                           ContractingRationale.ShortageOfTalent,
                         ),
                       ),
-                      link: (chunks: React.ReactNode) =>
+                      link: (chunks: ReactNode) =>
                         buildExternalLink(paths.search(), chunks),
                     },
                   )}
@@ -171,7 +171,7 @@ const TalentSourcingDecisionSection = () => {
                           ContractingRationale.ShortageOfTalent,
                         ),
                       ),
-                      link: (chunks: React.ReactNode) =>
+                      link: (chunks: ReactNode) =>
                         buildExternalLink(paths.search(), chunks),
                     },
                   )}
@@ -210,7 +210,7 @@ const TalentSourcingDecisionSection = () => {
                 sectionName: intl.formatMessage(
                   getSectionTitle(PAGE_SECTION_ID.PERSONNEL_REQUIREMENTS),
                 ),
-                link: (chunks: React.ReactNode) =>
+                link: (chunks: ReactNode) =>
                   buildExternalLink(paths.search(), chunks),
               },
             )}

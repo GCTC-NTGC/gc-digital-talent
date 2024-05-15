@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-useless-fragment */
-import * as React from "react";
+import { JSX } from "react";
 
 import { Link, LinkProps } from "@gc-digital-talent/ui";
 
@@ -74,7 +74,7 @@ const RichTextRenderer = ({
   node,
   renderMap = nodeRenderMap,
 }: RichTextRendererProps) => {
-  const children: React.JSX.Element[] = [];
+  const children: JSX.Element[] = [];
   // Node has its own content so recursively append it.
   if (node.content) {
     node.content.forEach((childNode, index) => {

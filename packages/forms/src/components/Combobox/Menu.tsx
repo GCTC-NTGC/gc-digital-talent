@@ -1,17 +1,22 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import ArrowPathIcon from "@heroicons/react/24/solid/ArrowPathIcon";
 import { motion, useReducedMotion } from "framer-motion";
 import omit from "lodash/omit";
+import {
+  DetailedHTMLProps,
+  HTMLAttributes,
+  forwardRef,
+  LiHTMLAttributes,
+} from "react";
 
 import { formMessages, uiMessages } from "@gc-digital-talent/i18n";
 
 import useInputStyles from "../../hooks/useInputStyles";
 import { HTMLSpanProps } from "./types";
 
-type WrapperProps = React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLDivElement>,
+type WrapperProps = DetailedHTMLProps<
+  HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 >;
 
@@ -34,7 +39,7 @@ const Wrapper = (props: WrapperProps) => {
   );
 };
 
-const Message = React.forwardRef<HTMLSpanElement, HTMLSpanProps>(
+const Message = forwardRef<HTMLSpanElement, HTMLSpanProps>(
   (props, forwardedRef) => (
     <span
       ref={forwardedRef}
@@ -74,7 +79,7 @@ const Available = ({ count, total, ...rest }: AvailableProps) => {
 
 const AnimatedFetchingIcon = motion(ArrowPathIcon);
 
-const Fetching = React.forwardRef<HTMLSpanElement, HTMLSpanProps>(
+const Fetching = forwardRef<HTMLSpanElement, HTMLSpanProps>(
   (props, forwardedRef) => {
     const intl = useIntl();
     const shouldReduceMotion = useReducedMotion();
@@ -101,8 +106,8 @@ const Fetching = React.forwardRef<HTMLSpanElement, HTMLSpanProps>(
   },
 );
 
-type HTMLLiProps = React.DetailedHTMLProps<
-  React.LiHTMLAttributes<HTMLLIElement>,
+type HTMLLiProps = DetailedHTMLProps<
+  LiHTMLAttributes<HTMLLIElement>,
   HTMLLIElement
 >;
 
@@ -111,7 +116,7 @@ type ItemProps = HTMLLiProps & {
   selected?: boolean;
 };
 
-const Item = React.forwardRef<HTMLLIElement, ItemProps>(
+const Item = forwardRef<HTMLLIElement, ItemProps>(
   ({ active, selected, children, ...rest }, forwardedRef) => (
     <li
       ref={forwardedRef}
@@ -146,24 +151,22 @@ const Item = React.forwardRef<HTMLLIElement, ItemProps>(
   ),
 );
 
-type ListProps = React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLUListElement>,
+type ListProps = DetailedHTMLProps<
+  HTMLAttributes<HTMLUListElement>,
   HTMLUListElement
 >;
 
-const List = React.forwardRef<HTMLUListElement, ListProps>(
-  (props, forwardedRef) => (
-    <ul
-      ref={forwardedRef}
-      data-h2-list-style="base(none)"
-      data-h2-max-height="base(20rem)"
-      data-h2-margin="base(0)"
-      data-h2-overflow="base(visible auto)"
-      data-h2-padding="base(x.125 0)"
-      {...props}
-    />
-  ),
-);
+const List = forwardRef<HTMLUListElement, ListProps>((props, forwardedRef) => (
+  <ul
+    ref={forwardedRef}
+    data-h2-list-style="base(none)"
+    data-h2-max-height="base(20rem)"
+    data-h2-margin="base(0)"
+    data-h2-overflow="base(visible auto)"
+    data-h2-padding="base(x.125 0)"
+    {...props}
+  />
+));
 
 interface EmptyProps {
   fetching?: boolean;

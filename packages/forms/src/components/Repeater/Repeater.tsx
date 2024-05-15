@@ -1,4 +1,3 @@
-import * as React from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useIntl } from "react-intl";
 import ArrowUpIcon from "@heroicons/react/24/solid/ArrowUpIcon";
@@ -7,6 +6,7 @@ import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 import LockClosedIcon from "@heroicons/react/24/solid/LockClosedIcon";
 import { useFormContext } from "react-hook-form";
+import { ReactNode, HTMLProps, useId } from "react";
 
 import { Button, Link, useAnnouncer } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
@@ -22,10 +22,10 @@ export interface RepeaterFieldsetProps {
   /** A string specifying a name for the input control. */
   name: string;
   /** The legend for the fieldset (required but hidden by default) */
-  legend: React.ReactNode;
+  legend: ReactNode;
   /** Set if the legend should be visually hidden (default: false) */
   hideLegend?: boolean;
-  children: React.ReactNode;
+  children: ReactNode;
   /** Callback function when this item's index is changed' */
   onMove: (from: number, to: number) => void;
   /** Callback when the item is removed from the array */
@@ -279,12 +279,12 @@ const Fieldset = ({
   );
 };
 
-export interface RepeaterProps extends React.HTMLProps<HTMLDivElement> {
+export interface RepeaterProps extends HTMLProps<HTMLDivElement> {
   /** A string specifying a name for the input control. */
   name: string;
-  children: React.ReactNode;
+  children: ReactNode;
   /** Contextual text for the button to add items */
-  addText?: React.ReactNode;
+  addText?: ReactNode;
   /** Callback function when the add button is clicked */
   onAdd?: () => void;
   /** Determine if we want to show the add button or not */
@@ -300,7 +300,7 @@ const Root = ({
   ...rest
 }: RepeaterProps) => {
   const intl = useIntl();
-  const addId = React.useId();
+  const addId = useId();
 
   const {
     formState: { errors },

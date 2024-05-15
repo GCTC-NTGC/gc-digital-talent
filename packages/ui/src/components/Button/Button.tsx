@@ -1,16 +1,13 @@
-import * as React from "react";
+import { DetailedHTMLProps, ButtonHTMLAttributes, forwardRef } from "react";
 
 import ButtonLinkContent from "../ButtonLinkContent/ButtonLinkContent";
 import { ButtonLinkProps } from "../../types";
 import getButtonStyles from "../../utils/button/getButtonStyles";
 
 export type ButtonProps = ButtonLinkProps &
-  React.DetailedHTMLProps<
-    React.ButtonHTMLAttributes<HTMLButtonElement>,
-    HTMLButtonElement
-  >;
+  DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
       children,

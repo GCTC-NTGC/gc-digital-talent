@@ -1,8 +1,8 @@
-import * as React from "react";
+import { ReactNode } from "react";
 
 interface HomeHeroProps {
-  children: React.ReactNode;
-  callToAction?: React.ReactNode;
+  children: ReactNode;
+  callToAction?: ReactNode;
   img: {
     sources: {
       srcset: string;

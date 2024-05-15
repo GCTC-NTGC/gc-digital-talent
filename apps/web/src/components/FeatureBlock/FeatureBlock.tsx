@@ -1,11 +1,11 @@
-import * as React from "react";
+import { ReactNode } from "react";
 
 import { Heading, Link } from "@gc-digital-talent/ui";
 
 interface FeatureBlockProps {
   content: {
     title: string;
-    summary: React.ReactNode;
+    summary: ReactNode;
     img: {
       path: string;
       position?: string;

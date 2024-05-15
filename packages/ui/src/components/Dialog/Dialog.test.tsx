@@ -4,9 +4,9 @@
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import * as React from "react";
 import PlusIcon from "@heroicons/react/24/solid/PlusIcon";
 import { faker } from "@faker-js/faker/locale/en";
+import { ComponentPropsWithoutRef } from "react";
 
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 
@@ -14,7 +14,7 @@ import Button from "../Button";
 
 import Dialog from ".";
 
-type DialogRootPrimitivePropsWithoutRef = React.ComponentPropsWithoutRef<
+type DialogRootPrimitivePropsWithoutRef = ComponentPropsWithoutRef<
   typeof Dialog.Root
 >;
 const DefaultChildren = () => (

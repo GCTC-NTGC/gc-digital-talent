@@ -1,6 +1,6 @@
-import * as React from "react";
 import ArrowRightCircleIcon from "@heroicons/react/24/solid/ArrowRightCircleIcon";
 import ArrowDownCircleIcon from "@heroicons/react/24/solid/ArrowDownCircleIcon";
+import { ReactNode } from "react";
 
 import { useTheme } from "@gc-digital-talent/theme";
 
@@ -8,7 +8,7 @@ export interface InstructionStepProps {
   image: string;
   imageDark?: string;
   includeArrow?: boolean;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export const InstructionStep = ({

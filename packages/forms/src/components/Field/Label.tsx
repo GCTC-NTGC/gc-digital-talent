@@ -1,15 +1,15 @@
-import * as React from "react";
+import { DetailedHTMLProps, LabelHTMLAttributes, forwardRef } from "react";
 
 import Required from "./Required";
 
-export type LabelProps = React.DetailedHTMLProps<
-  React.LabelHTMLAttributes<HTMLLabelElement>,
+export type LabelProps = DetailedHTMLProps<
+  LabelHTMLAttributes<HTMLLabelElement>,
   HTMLLabelElement
 > & {
   required?: boolean;
 };
 
-const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
+const Label = forwardRef<HTMLLabelElement, LabelProps>(
   ({ required, children, ...props }, forwardedRef) => (
     <label
       ref={forwardedRef}

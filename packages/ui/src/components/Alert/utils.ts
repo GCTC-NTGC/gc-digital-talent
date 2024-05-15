@@ -3,6 +3,7 @@ import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
 import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
 import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
 import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTriangleIcon";
+import { ReactNode } from "react";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
@@ -82,7 +83,7 @@ export const iconStyleMap: Record<AlertType, Record<string, string>> = {
 };
 
 export const getAlertLevelTitle = (type: AlertType, intl: IntlShape) => {
-  const alertLevelTitles = new Map<AlertType, React.ReactNode>([
+  const alertLevelTitles = new Map<AlertType, ReactNode>([
     ["success", intl.formatMessage(uiMessages.successAlert)],
     ["warning", intl.formatMessage(uiMessages.warningAlert)],
     ["error", intl.formatMessage(uiMessages.errorAlert)],

@@ -1,8 +1,8 @@
-import * as React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "urql";
+import { ReactNode, useState, useEffect } from "react";
 
 import { Button, Heading, Pending, Separator } from "@gc-digital-talent/ui";
 import { unpackMaybes, notEmpty } from "@gc-digital-talent/helpers";
@@ -26,11 +26,11 @@ import SearchFilterAdvice from "./SearchFilterAdvice";
 import NoResults from "./NoResults";
 import SearchResultCard from "./SearchResultCard";
 
-const testId = (chunks: React.ReactNode) => (
+const testId = (chunks: ReactNode) => (
   <span data-testid="candidateCount">{chunks}</span>
 );
 
-const styledCount = (chunks: React.ReactNode) => (
+const styledCount = (chunks: ReactNode) => (
   <span data-h2-font-weight="base(700)" data-h2-color="base(secondary.dark)">
     {chunks}
   </span>
@@ -53,7 +53,7 @@ export const SearchForm = ({
   const { defaultValues, initialFilters } = useInitialFilters(pools);
 
   const [applicantFilter, setApplicantFilter] =
-    React.useState<ApplicantFilterInput>(initialFilters);
+    useState<ApplicantFilterInput>(initialFilters);
 
   const { fetching, candidateCount, results } =
     useCandidateCount(applicantFilter);
@@ -66,7 +66,7 @@ export const SearchForm = ({
   const { watch, register, setValue } = methods;
   const poolSubmitProps = register("pool");
 
-  React.useEffect(() => {
+  useEffect(() => {
     const subscription = watch((newValues) => {
       const newFilters = formValuesToData(
         newValues as FormValues,

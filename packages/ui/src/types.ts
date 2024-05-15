@@ -1,4 +1,10 @@
-import * as React from "react";
+import {
+  PropsWithoutRef,
+  SVGProps,
+  RefAttributes,
+  ElementType,
+  ForwardRefExoticComponent,
+} from "react";
 
 export type Color =
   | "primary"
@@ -17,14 +23,14 @@ export type Color =
 
 export type HeadingRank = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 
-export type IconProps = React.PropsWithoutRef<React.SVGProps<SVGSVGElement>> & {
+export type IconProps = PropsWithoutRef<SVGProps<SVGSVGElement>> & {
   title?: string;
   titleId?: string;
-} & React.RefAttributes<SVGSVGElement>;
+} & RefAttributes<SVGSVGElement>;
 
 export type IconType =
-  | React.ElementType<IconProps>
-  | React.ForwardRefExoticComponent<IconProps>;
+  | ElementType<IconProps>
+  | ForwardRefExoticComponent<IconProps>;
 
 type HydrogenAttributeKey = `data-h2-${string}`;
 

@@ -1,5 +1,4 @@
-import { useMemo } from "react";
-import * as React from "react";
+import { ReactNode, useEffect, useMemo, useRef } from "react";
 import { authExchange } from "@urql/exchange-auth";
 import { JwtPayload, jwtDecode } from "jwt-decode";
 import {
@@ -53,16 +52,16 @@ const ClientProvider = ({
   children,
 }: {
   client?: Client;
-  children?: React.ReactNode;
+  children?: ReactNode;
 }) => {
   const intl = useIntl();
   const authContext = useAuthentication();
   const logger = useLogger();
   const { protectedApi: protectedApiFlag } = useFeatureFlags();
   // Create a mutable object to hold the auth state
-  const authRef = React.useRef(authContext);
+  const authRef = useRef(authContext);
   // Keep the contents of that mutable object up to date
-  React.useEffect(() => {
+  useEffect(() => {
     authRef.current = authContext;
   }, [authContext]);
 

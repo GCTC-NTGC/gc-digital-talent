@@ -1,6 +1,6 @@
-import * as React from "react";
+import { HTMLProps } from "react";
 
-export type CardBasicProps = React.HTMLProps<HTMLDivElement>;
+export type CardBasicProps = HTMLProps<HTMLDivElement>;
 
 const CardBasic = (props: CardBasicProps) => (
   <div

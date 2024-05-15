@@ -1,8 +1,8 @@
-import * as React from "react";
 import { useIntl, defineMessage } from "react-intl";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import { useQuery } from "urql";
+import { ReactNode } from "react";
 
 import {
   Link,
@@ -46,7 +46,7 @@ export type SectionKey =
 
 type Section = {
   id: string;
-  title: React.ReactNode;
+  title: ReactNode;
 };
 
 const pageTitle = defineMessage({
@@ -62,7 +62,7 @@ const subTitle = defineMessage({
   description: "Subtitle for the account settings page.",
 });
 
-const inlineLink = (href: string, chunks: React.ReactNode) => (
+const inlineLink = (href: string, chunks: ReactNode) => (
   <Link href={href} color="black">
     {chunks}
   </Link>
@@ -230,7 +230,7 @@ const AccountSettingsPage = () => {
                           "Subtitle for recruitment availability section on account settings page.",
                       },
                       {
-                        link: (chunks: React.ReactNode) =>
+                        link: (chunks: ReactNode) =>
                           inlineLink(paths.profileAndApplications(), chunks),
                       },
                     )}

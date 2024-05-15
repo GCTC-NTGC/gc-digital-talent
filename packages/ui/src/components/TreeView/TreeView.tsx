@@ -1,4 +1,4 @@
-import * as React from "react";
+import { ReactNode } from "react";
 
 /**
  * Props that can be passed to an `<TreeView.Item />`
@@ -8,7 +8,7 @@ import * as React from "react";
  */
 interface TreeViewItemProps {
   noBranch?: boolean;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const Item = ({ noBranch, children, ...rest }: TreeViewItemProps) => (
@@ -34,7 +34,7 @@ const Item = ({ noBranch, children, ...rest }: TreeViewItemProps) => (
 );
 
 interface TreeViewHeadProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 /**
@@ -45,7 +45,7 @@ interface TreeViewHeadProps {
 const Head = ({ children }: TreeViewHeadProps) => <div>{children}</div>;
 
 interface TreeViewRootProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 /**

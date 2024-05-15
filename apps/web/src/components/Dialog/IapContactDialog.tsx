@@ -1,10 +1,10 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import ChatBubbleLeftRightIcon from "@heroicons/react/20/solid/ChatBubbleLeftRightIcon";
+import { ReactNode } from "react";
 
 import { Button, Dialog, Link } from "@gc-digital-talent/ui";
 
-const mailLink = (chunks: React.ReactNode) => (
+const mailLink = (chunks: ReactNode) => (
   <Link external href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca">
     {chunks}
   </Link>

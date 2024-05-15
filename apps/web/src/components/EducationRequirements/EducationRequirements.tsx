@@ -1,5 +1,5 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
+import { HTMLProps, ReactNode } from "react";
 
 import { Link, Heading, HeadingLevel, CardBasic } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
@@ -13,13 +13,13 @@ import {
   postSecondaryLink,
 } from "~/pages/Applications/ApplicationEducationPage/utils";
 
-type TextProps = React.HTMLProps<HTMLParagraphElement>;
+type TextProps = HTMLProps<HTMLParagraphElement>;
 
 const Text = (props: TextProps) => (
   <p data-h2-margin="base(x.5, 0)" {...props} />
 );
 
-const Wrapper = (props: React.HTMLProps<HTMLDivElement>) => (
+const Wrapper = (props: HTMLProps<HTMLDivElement>) => (
   <div
     data-h2-display="base(grid)"
     data-h2-grid-template-columns="base(1fr) l-tablet(1fr 1fr)"
@@ -29,7 +29,7 @@ const Wrapper = (props: React.HTMLProps<HTMLDivElement>) => (
   />
 );
 
-const Or = (props: React.HTMLProps<HTMLDivElement>) => {
+const Or = (props: HTMLProps<HTMLDivElement>) => {
   const intl = useIntl();
   return (
     <span
@@ -77,7 +77,7 @@ const EducationRequirements = ({
   const intl = useIntl();
   const locale = getLocale(intl);
 
-  const qualityStandardsLink = (chunks: React.ReactNode) => {
+  const qualityStandardsLink = (chunks: ReactNode) => {
     const href =
       locale === "en"
         ? "https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/core.html#rpsi"
@@ -108,7 +108,7 @@ const EducationRequirements = ({
             </Heading>
             <Text>
               {intl.formatMessage(applicationMessages.professionalDesignation, {
-                link: (msg: React.ReactNode) => eligibilityLink(msg, locale),
+                link: (msg: ReactNode) => eligibilityLink(msg, locale),
               })}
             </Text>
           </CardBasic>
@@ -128,7 +128,7 @@ const EducationRequirements = ({
             </Heading>
             <Text>
               {intl.formatMessage(applicationMessages.appliedWorkExpEXGroup, {
-                link: (msg: React.ReactNode) => acceptableLink(msg, locale),
+                link: (msg: ReactNode) => acceptableLink(msg, locale),
               })}
             </Text>
           </CardBasic>
@@ -148,14 +148,14 @@ const EducationRequirements = ({
             </Heading>
             <Text>
               {intl.formatMessage(applicationMessages.graduationWithDegree, {
-                degreeLink: (msg: React.ReactNode) => degreeLink(msg, locale),
-                postSecondaryLink: (msg: React.ReactNode) =>
+                degreeLink: (msg: ReactNode) => degreeLink(msg, locale),
+                postSecondaryLink: (msg: ReactNode) =>
                   postSecondaryLink(msg, locale),
               })}
             </Text>
             <Text>
               {intl.formatMessage(applicationMessages.foreignDegree, {
-                foreignDegreeLink: (msg: React.ReactNode) =>
+                foreignDegreeLink: (msg: ReactNode) =>
                   foreignDegreeLink(msg, locale),
               })}
             </Text>

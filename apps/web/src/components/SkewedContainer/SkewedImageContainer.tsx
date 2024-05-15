@@ -1,10 +1,10 @@
-import * as React from "react";
+import { ReactNode, DetailedHTMLProps, HTMLAttributes } from "react";
 
 interface SkewedImageContainerProps {
-  children: React.ReactNode;
+  children: ReactNode;
   imgSrc: string;
-  imgProps?: React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLDivElement>,
+  imgProps?: DetailedHTMLProps<
+    HTMLAttributes<HTMLDivElement>,
     HTMLDivElement
   > & {
     [data: string]: string;

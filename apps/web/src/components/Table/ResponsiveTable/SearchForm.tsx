@@ -1,8 +1,8 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import debounce from "lodash/debounce";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
+import { ChangeEvent, useCallback, useMemo, useRef, useState } from "react";
 
 import { Button, DropdownMenu } from "@gc-digital-talent/ui";
 import { useCommonInputStyles, Field } from "@gc-digital-talent/forms";
@@ -17,7 +17,7 @@ import { SearchFormProps, SearchColumn, SearchState } from "./types";
  * or by specific columns (searchBy)
  *
  * @param SearchFormProps
- * @returns React.JSX.Element
+ * @returns JSX.Element
  */
 const SearchForm = <T,>({
   table,
@@ -30,22 +30,18 @@ const SearchForm = <T,>({
   overrideAllTableMsg,
 }: SearchFormProps<T>) => {
   const intl = useIntl();
-  const searchRef = React.useRef<HTMLInputElement | null>(null);
+  const searchRef = useRef<HTMLInputElement | null>(null);
   const styles = useCommonInputStyles();
   const initialColumn =
     state?.type && searchBy
       ? searchBy.find((column) => column.value === state?.type)
       : undefined;
 
-  const [column, setColumn] = React.useState<SearchColumn | undefined>(
-    initialColumn,
-  );
-  const [searchTerm, setSearchTerm] = React.useState<string | undefined>(
-    state?.term,
-  );
+  const [column, setColumn] = useState<SearchColumn | undefined>(initialColumn);
+  const [searchTerm, setSearchTerm] = useState<string | undefined>(state?.term);
   const showDropdown = searchBy && searchBy.length;
 
-  const updateTable = React.useCallback(
+  const updateTable = useCallback(
     (newState: SearchState) => {
       table.resetPageIndex(true); // Go to first page when searching
       if (newState.type && newState.type !== "") {
@@ -68,8 +64,8 @@ const SearchForm = <T,>({
     [onChange, table],
   );
 
-  const handleChange = React.useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
       e.preventDefault();
       setSearchTerm(e.target.value);
       updateTable({
@@ -92,7 +88,7 @@ const SearchForm = <T,>({
     }
   };
 
-  const debouncedChangeHandler = React.useMemo(
+  const debouncedChangeHandler = useMemo(
     () => debounce(handleChange, 300),
     [handleChange],
   );

@@ -1,7 +1,7 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { useMutation } from "urql";
+import { ReactNode, useState, useEffect } from "react";
 
 import { Button, Chip, Chips, Dialog, Well } from "@gc-digital-talent/ui";
 import {
@@ -147,7 +147,7 @@ interface AssessmentDetailsDialogProps {
     typeof AssessmentDetailsDialogPoolSkill_Fragment
   >[];
   disallowStepTypes?: AssessmentStepType[];
-  trigger: React.ReactNode;
+  trigger: ReactNode;
   onError?: () => void;
 }
 
@@ -164,7 +164,7 @@ const AssessmentDetailsDialog = ({
     poolSkillsQuery,
   );
   const dialogAction: DialogAction = initialValues.id ? "update" : "create";
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const [
     { fetching: createAssessmentStepFetching },
@@ -257,7 +257,7 @@ const AssessmentDetailsDialog = ({
     },
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (dialogMode === "regular") {
       setValue("screeningQuestionFieldArray", []);
     }

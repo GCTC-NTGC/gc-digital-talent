@@ -1,4 +1,4 @@
-import * as React from "react";
+import { JSX } from "react";
 
 import { PoolCandidate } from "@gc-digital-talent/graphql";
 
@@ -9,7 +9,7 @@ export type ApplicationPageProps = {
 };
 
 interface ApplicationApiProps {
-  PageComponent: (props: ApplicationPageProps) => React.JSX.Element;
+  PageComponent: (props: ApplicationPageProps) => JSX.Element;
 }
 
 const ApplicationApi = ({ PageComponent }: ApplicationApiProps) => {

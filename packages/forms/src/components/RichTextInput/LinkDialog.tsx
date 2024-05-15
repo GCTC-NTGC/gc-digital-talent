@@ -1,8 +1,8 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import { Editor } from "@tiptap/react";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import LinkIcon from "@heroicons/react/20/solid/LinkIcon";
+import { KeyboardEventHandler, useState } from "react";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import {
@@ -48,7 +48,7 @@ interface LinkDialogProps {
 
 const LinkDialog = ({ editor }: LinkDialogProps) => {
   const intl = useIntl();
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleSubmit: SubmitHandler<FormValues> = (
     { href, newTab, action },
@@ -99,7 +99,7 @@ const LinkDialog = ({ editor }: LinkDialogProps) => {
     setIsOpen(newOpen);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown: KeyboardEventHandler = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
       handleSave("add");

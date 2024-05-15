@@ -1,5 +1,4 @@
-import { Children } from "react";
-import * as React from "react";
+import { Children, ReactNode } from "react";
 import { m, useReducedMotion } from "framer-motion";
 
 import { useSideMenuContext } from "./SideMenuProvider";
@@ -29,7 +28,7 @@ const commonStyles = {
 
 type SideMenuCategoryProps = {
   title: string;
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 const SideMenuCategory = ({ title, children }: SideMenuCategoryProps) => {

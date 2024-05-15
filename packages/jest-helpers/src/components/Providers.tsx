@@ -1,12 +1,12 @@
-import * as React from "react";
 import { HelmetProvider } from "react-helmet-async";
 import { IntlProvider } from "react-intl";
 import { BrowserRouter } from "react-router-dom";
+import { ReactNode } from "react";
 
 import { richTextElements } from "@gc-digital-talent/i18n";
 
 interface ProvidersProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const Providers = ({ children }: ProvidersProps) => {

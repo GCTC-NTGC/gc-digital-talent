@@ -1,10 +1,10 @@
-import * as React from "react";
 import { IntlShape } from "react-intl";
+import { ReactNode } from "react";
 
 import { CardFlatProps } from "@gc-digital-talent/ui";
 
 interface GetFormLinkArgs {
-  formName: React.ReactNode;
+  formName: ReactNode;
   files: { en: string; fr: string };
   intl: IntlShape;
 }

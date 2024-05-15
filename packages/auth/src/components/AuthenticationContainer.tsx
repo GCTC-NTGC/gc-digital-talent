@@ -1,8 +1,6 @@
 // Note: We need snake case for tokens
 /* eslint-disable camelcase */
-import { useEffect, useMemo } from "react";
-
-import * as React from "react";
+import { ReactNode, createContext, useEffect, useMemo } from "react";
 import { JwtPayload, jwtDecode } from "jwt-decode";
 
 import { defaultLogger, useLogger } from "@gc-digital-talent/logger";
@@ -38,7 +36,7 @@ interface TokenSet {
 }
 
 export const AuthenticationContext =
-  React.createContext<AuthenticationState>(defaultAuthState);
+  createContext<AuthenticationState>(defaultAuthState);
 
 type logoutAndRefreshPageParameters = {
   // the "end session" URI of the auth provider
@@ -131,7 +129,7 @@ interface AuthenticationContainerProps {
   tokenRefreshPath: string;
   logoutUri: string;
   postLogoutRedirectUri: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 const AuthenticationContainer = ({

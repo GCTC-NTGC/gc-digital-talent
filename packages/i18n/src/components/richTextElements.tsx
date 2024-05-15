@@ -1,4 +1,4 @@
-import * as React from "react";
+import { ReactNode } from "react";
 
 /**
  * Wraps text in span to increase font-weight
@@ -11,7 +11,7 @@ import * as React from "react";
  *
  * @param text text to wrap.
  */
-const strong = (text: React.ReactNode) => (
+const strong = (text: ReactNode) => (
   <span data-h2-font-weight="base(700)">{text}</span>
 );
 
@@ -19,7 +19,7 @@ const strong = (text: React.ReactNode) => (
  * Wraps text in span to make invisible to sighted users
  * @param text text to wrap.
  */
-const hidden = (text: React.ReactNode) => (
+const hidden = (text: ReactNode) => (
   <span data-h2-visually-hidden="base(invisible)" style={{ whiteSpace: "pre" }}>
     {text}
   </span>
@@ -29,7 +29,7 @@ const hidden = (text: React.ReactNode) => (
  * Wraps text in tags to make it the primary color with a heavy weight
  * @param text text to wrap.
  */
-const heavyPrimary = (text: React.ReactNode) => (
+const heavyPrimary = (text: ReactNode) => (
   <span data-h2-color="base(primary.darker)" data-h2-font-weight="base(700)">
     {text}
   </span>
@@ -39,7 +39,7 @@ const heavyPrimary = (text: React.ReactNode) => (
  * Wraps text in tags to make it the primary color
  * @param text text to wrap.
  */
-const primary = (text: React.ReactNode) => (
+const primary = (text: ReactNode) => (
   <span data-h2-color="base(primary.darker)">{text}</span>
 );
 
@@ -47,7 +47,7 @@ const primary = (text: React.ReactNode) => (
  * Wraps text in tags to make it the secondary color with a heavy weight
  * @param text text to wrap.
  */
-const heavySecondary = (text: React.ReactNode) => (
+const heavySecondary = (text: ReactNode) => (
   <span data-h2-color="base(secondary.darker)" data-h2-font-weight="base(700)">
     {text}
   </span>
@@ -57,7 +57,7 @@ const heavySecondary = (text: React.ReactNode) => (
  * Wraps text in tags to make it the secondary color
  * @param text text to wrap.
  */
-const secondary = (text: React.ReactNode) => (
+const secondary = (text: ReactNode) => (
   <span data-h2-color="base(secondary.darker)">{text}</span>
 );
 
@@ -65,7 +65,7 @@ const secondary = (text: React.ReactNode) => (
  * Wraps text in tags to make it red
  * @param text  text to wrap
  */
-const red = (text: React.ReactNode) => (
+const red = (text: ReactNode) => (
   <span data-h2-color="base(error.dark)">{text}</span>
 );
 
@@ -73,7 +73,7 @@ const red = (text: React.ReactNode) => (
  * Wraps text in tags to make it red and bold
  * @param text  text to wrap
  */
-const heavyRed = (text: React.ReactNode) => (
+const heavyRed = (text: ReactNode) => (
   <span
     data-h2-color="base(error.darker) base:dark(error.lightest)"
     data-h2-font-weight="base(700)"
@@ -86,7 +86,7 @@ const heavyRed = (text: React.ReactNode) => (
  * Wraps text in tags to make it yellow
  * @param text  text to wrap
  */
-const warning = (text: React.ReactNode) => (
+const warning = (text: ReactNode) => (
   <span data-h2-color="base(warning.dark)">{text}</span>
 );
 
@@ -94,7 +94,7 @@ const warning = (text: React.ReactNode) => (
  * Wraps text in tags to make it yellow bold
  * @param text  text to wrap
  */
-const heavyWarning = (text: React.ReactNode) => (
+const heavyWarning = (text: ReactNode) => (
   <span data-h2-color="base(warning.dark)" data-h2-font-weight="base(700)">
     {text}
   </span>
@@ -104,7 +104,7 @@ const heavyWarning = (text: React.ReactNode) => (
  * Wraps text in tags to make it gray
  * @param text  text to wrap
  */
-const gray = (text: React.ReactNode) => (
+const gray = (text: ReactNode) => (
   <span data-h2-color="base(gray.dark)">{text}</span>
 );
 
@@ -112,7 +112,7 @@ const gray = (text: React.ReactNode) => (
  * Wraps text in tags to make it underlined
  * @param text  text to wrap
  */
-const underline = (text: React.ReactNode) => (
+const underline = (text: ReactNode) => (
   <span data-h2-text-decoration="base(underline)">{text}</span>
 );
 
@@ -123,7 +123,7 @@ const underline = (text: React.ReactNode) => (
  *
  * @param text text to wrap.
  */
-const emphasize = (text: React.ReactNode) => (
+const emphasize = (text: ReactNode) => (
   <strong data-h2-font-weight="base(700)">{text}</strong>
 );
 

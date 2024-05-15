@@ -1,4 +1,4 @@
-import * as React from "react";
+import { FocusEvent } from "react";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import kebabCase from "lodash/kebabCase";
@@ -27,7 +27,7 @@ const CreateTeamFormFields = ({ departments }: CreateTeamFormFieldsProps) => {
       label: getLocalizedName(department.name, intl),
     })) ?? [];
 
-  const handleDisplayBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+  const handleDisplayBlur = (e: FocusEvent<HTMLInputElement>) => {
     const { value: newValue } = e.target;
     const value = getValues("name");
     if (!value) {

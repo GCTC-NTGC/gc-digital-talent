@@ -1,6 +1,6 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import isEmpty from "lodash/isEmpty";
+import { ReactNode, forwardRef } from "react";
 
 import { Heading } from "@gc-digital-talent/ui";
 import {
@@ -60,7 +60,7 @@ interface ApplicationPrintDocumentProps {
   anonymous?: boolean;
 }
 
-const PageSection = ({ children }: { children: React.ReactNode }) => (
+const PageSection = ({ children }: { children: ReactNode }) => (
   <div
     data-h2-margin-bottom="base(2rem)"
     data-h2-display="base(block)"
@@ -72,7 +72,7 @@ const PageSection = ({ children }: { children: React.ReactNode }) => (
 );
 
 // If a section is too big, use this instead of PageSection to allow it to break
-const BreakingPageSection = ({ children }: { children: React.ReactNode }) => (
+const BreakingPageSection = ({ children }: { children: ReactNode }) => (
   <div data-h2-margin-bottom="base(2rem)" data-h2-display="base(block)">
     {children}
   </div>
@@ -101,7 +101,7 @@ export const ApplicationPrintDocument_PoolFragment = graphql(/* GraphQL */ `
   }
 `);
 
-const ApplicationPrintDocument = React.forwardRef<
+const ApplicationPrintDocument = forwardRef<
   HTMLDivElement,
   ApplicationPrintDocumentProps
 >(({ user, poolQuery, anonymous }, ref) => {

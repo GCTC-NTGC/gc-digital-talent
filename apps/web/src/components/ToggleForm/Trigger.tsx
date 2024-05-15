@@ -1,12 +1,12 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
+import { ReactNode } from "react";
 
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 
 const { useContext } = ToggleSection;
 
 interface TriggerProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const Trigger = ({ children, ...rest }: TriggerProps) => {

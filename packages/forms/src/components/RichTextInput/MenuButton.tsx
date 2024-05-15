@@ -1,4 +1,4 @@
-import * as React from "react";
+import { ReactNode, forwardRef } from "react";
 
 import { Button, ButtonProps } from "@gc-digital-talent/ui";
 
@@ -8,10 +8,10 @@ type MenuButtonProps = {
   utilityIcon?: ButtonProps["utilityIcon"];
   disabled?: ButtonProps["disabled"];
   active?: boolean;
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
-const MenuButton = React.forwardRef<HTMLButtonElement, MenuButtonProps>(
+const MenuButton = forwardRef<HTMLButtonElement, MenuButtonProps>(
   ({ active, ...rest }, ref) => (
     <Button
       ref={ref}

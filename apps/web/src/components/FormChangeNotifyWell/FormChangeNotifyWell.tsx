@@ -1,14 +1,11 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
+import { DetailedHTMLProps, HTMLAttributes } from "react";
 
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import { Heading, HeadingLevel, Well } from "@gc-digital-talent/ui";
 
 interface FormChangeNotifyWellProps
-  extends React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLDivElement>,
-    HTMLDivElement
-  > {
+  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   headingAs?: HeadingLevel;
 }
 

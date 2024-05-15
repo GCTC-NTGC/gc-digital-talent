@@ -1,6 +1,6 @@
-import * as React from "react";
 import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { ReactNode, useEffect } from "react";
 
 import {
   RadioGroup,
@@ -30,7 +30,7 @@ const EvaluatedAbilityItemsSortOrder = [
   EvaluatedLanguageAbility.NotAssessed,
 ];
 
-const languageEvaluationPageLink = (msg: React.ReactNode, locale: Locales) => {
+const languageEvaluationPageLink = (msg: ReactNode, locale: Locales) => {
   return (
     <Link
       newTab
@@ -46,7 +46,7 @@ const languageEvaluationPageLink = (msg: React.ReactNode, locale: Locales) => {
   );
 };
 
-const selfAssessmentLink = (msg: React.ReactNode, locale: Locales) => {
+const selfAssessmentLink = (msg: ReactNode, locale: Locales) => {
   return (
     <Link
       newTab
@@ -95,7 +95,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
   /**
    * Reset un-rendered fields
    */
-  React.useEffect(() => {
+  useEffect(() => {
     const resetDirtyField = (name: string) => {
       resetField(name, { keepDirty: false });
     };
@@ -180,7 +180,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
               "Context message for estimated language ability in language information form.",
           },
           {
-            languageEvaluationPageLink: (chunks: React.ReactNode) =>
+            languageEvaluationPageLink: (chunks: ReactNode) =>
               languageEvaluationPageLink(chunks, locale),
           },
         )}
@@ -212,7 +212,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
                   "Context message for exam validity in language information form.",
               },
               {
-                selfAssessmentLink: (chunks: React.ReactNode) =>
+                selfAssessmentLink: (chunks: ReactNode) =>
                   selfAssessmentLink(chunks, locale),
               },
             )}

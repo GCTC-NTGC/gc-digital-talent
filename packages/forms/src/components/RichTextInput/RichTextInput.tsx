@@ -1,7 +1,7 @@
-import * as React from "react";
 import { FieldError, useFormContext, Controller } from "react-hook-form";
 import { useIntl } from "react-intl";
 import get from "lodash/get";
+import { DetailedHTMLProps, HTMLAttributes } from "react";
 
 import { errorMessages } from "@gc-digital-talent/i18n";
 
@@ -13,7 +13,7 @@ import useFieldState from "../../hooks/useFieldState";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 
 export type RichTextInputProps = Omit<
-  React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+  DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
   "ref"
 > &
   CommonInputProps & {
