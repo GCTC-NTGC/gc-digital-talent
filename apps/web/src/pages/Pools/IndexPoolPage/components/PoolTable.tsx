@@ -214,6 +214,7 @@ const PoolTable = ({ title }: PoolTableProps) => {
       {
         id: "publishingGroup",
         header: intl.formatMessage(processMessages.publishingGroup),
+        enableColumnFilter: false,
       },
     ),
     columnHelper.accessor(
