@@ -215,7 +215,11 @@ export const ViewPool = ({
               <Link
                 mode="inline"
                 color="secondary"
-                href={paths.pool(pool.id)}
+                href={
+                  advertisementStatus === "submitted"
+                    ? paths.pool(pool.id)
+                    : paths.poolPreview(pool.id)
+                }
                 newTab
               >
                 {advertisementStatus === "submitted"
