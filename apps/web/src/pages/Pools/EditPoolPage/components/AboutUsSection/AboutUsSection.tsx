@@ -1,4 +1,4 @@
-import * as React from "react";
+import { JSX } from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
@@ -66,7 +66,7 @@ const AboutUsSection = ({
   sectionMetadata,
   onSave,
   onUpdatePublished,
-}: AboutUsSectionProps): React.JSX.Element => {
+}: AboutUsSectionProps): JSX.Element => {
   const intl = useIntl();
   const pool = getFragment(EditPoolAboutUs_Fragment, poolQuery);
   const isNull = hasAllEmptyFields(pool);

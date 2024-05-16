@@ -1,8 +1,8 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
+import { ComponentPropsWithoutRef, forwardRef } from "react";
 
 import { formMessages } from "@gc-digital-talent/i18n";
 
@@ -11,13 +11,11 @@ import { useCardRepeaterContext } from "./CardRepeaterProvider";
 
 type Animation = "none" | "translate-up" | "translate-down";
 
-export type ActionButtonProps = React.ComponentPropsWithoutRef<
-  typeof Button
-> & {
+export type ActionButtonProps = ComponentPropsWithoutRef<typeof Button> & {
   animation?: Animation;
 };
 
-export const Action = React.forwardRef<HTMLButtonElement, ActionButtonProps>(
+export const Action = forwardRef<HTMLButtonElement, ActionButtonProps>(
   ({ animation = "none", disabled, ...rest }, ref) => {
     const animationStyles: Record<Animation, Record<string, string>> = {
       none: {},
@@ -47,9 +45,9 @@ export const Action = React.forwardRef<HTMLButtonElement, ActionButtonProps>(
   },
 );
 
-export const Add = React.forwardRef<
+export const Add = forwardRef<
   HTMLButtonElement,
-  React.ComponentPropsWithoutRef<typeof Button>
+  ComponentPropsWithoutRef<typeof Button>
 >(({ children, disabled, ...rest }, forwardedRef) => {
   const intl = useIntl();
   const { max, total } = useCardRepeaterContext();
@@ -76,18 +74,18 @@ export const Add = React.forwardRef<
   );
 });
 
-export const Edit = React.forwardRef<
+export const Edit = forwardRef<
   HTMLButtonElement,
-  React.ComponentPropsWithoutRef<typeof Button>
+  ComponentPropsWithoutRef<typeof Button>
 >(({ children, ...rest }, forwardedRef) => (
   <Action ref={forwardedRef} icon={PencilSquareIcon} {...rest}>
     {children}
   </Action>
 ));
 
-export const Remove = React.forwardRef<
+export const Remove = forwardRef<
   HTMLButtonElement,
-  React.ComponentPropsWithoutRef<typeof Button>
+  ComponentPropsWithoutRef<typeof Button>
 >(({ children, ...rest }, forwardedRef) => (
   <Action ref={forwardedRef} icon={TrashIcon} color="error" {...rest}>
     {children}

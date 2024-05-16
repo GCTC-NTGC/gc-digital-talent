@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 import ArrowUturnLeftIcon from "@heroicons/react/24/outline/ArrowUturnLeftIcon";
@@ -54,7 +54,7 @@ const RevertFinalDecisionDialog = ({
   defaultOpen = false,
 }: RevertFinalDecisionDialogProps) => {
   const intl = useIntl();
-  const [isOpen, setIsOpen] = React.useState<boolean>(defaultOpen);
+  const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
   const [, executeMutation] = useMutation(RevertFinalDecision_Mutation);
   const { id, expiryDate, finalDecisionAt, status } = getFragment(
     RevertFinalDecisionDialog_Fragment,
@@ -194,18 +194,8 @@ const RevertFinalDecisionDialog = ({
             </p>
             <FormChangeNotifyWell />
           </div>
-          <Dialog.Footer data-h2-justify-content="base(flex-start)">
-            <Dialog.Close>
-              <Button type="button" color="primary" mode="inline">
-                {intl.formatMessage(formMessages.cancelGoBack)}
-              </Button>
-            </Dialog.Close>
-            <Button
-              type="submit"
-              color="primary"
-              mode="solid"
-              onClick={handleSubmit}
-            >
+          <Dialog.Footer>
+            <Button type="submit" color="secondary" onClick={handleSubmit}>
               {intl.formatMessage({
                 defaultMessage: "Revert decision and update status",
                 id: "QJi1ZQ",
@@ -213,6 +203,11 @@ const RevertFinalDecisionDialog = ({
                   "Button label to revert final decision on view pool candidate page",
               })}
             </Button>
+            <Dialog.Close>
+              <Button color="warning" mode="inline">
+                {intl.formatMessage(formMessages.cancelGoBack)}
+              </Button>
+            </Dialog.Close>
           </Dialog.Footer>
         </Dialog.Body>
       </Dialog.Content>

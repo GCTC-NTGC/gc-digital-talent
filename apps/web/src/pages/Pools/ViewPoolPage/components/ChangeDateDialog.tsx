@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useCallback } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { useIntl } from "react-intl";
 
@@ -36,7 +36,7 @@ const ChangeDateDialog = ({
   onExtend,
   onClose,
 }: ChangeDateDialogProps) => {
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const intl = useIntl();
   let minDate = new Date();
   if (closingDate) {
@@ -60,7 +60,7 @@ const ChangeDateDialog = ({
 
   const type = watch("type");
 
-  const handleChangeDate = React.useCallback(
+  const handleChangeDate = useCallback(
     async (formValues: FormValues) => {
       if (formValues.type === "close") {
         await onClose(formValues.reason ?? "").then(() => setIsOpen(false));
@@ -219,10 +219,9 @@ const ChangeDateDialog = ({
                   </Well>
                 </>
               )}
-              <Dialog.Footer data-h2-justify-content="base(flex-start)">
+              <Dialog.Footer>
                 <Button
                   type="submit"
-                  mode="solid"
                   color={type === "extend" ? "secondary" : "error"}
                   disabled={isSubmitting}
                 >

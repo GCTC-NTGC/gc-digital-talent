@@ -1,4 +1,3 @@
-import React from "react";
 import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
 import { StoryFn, Meta } from "@storybook/react";
 

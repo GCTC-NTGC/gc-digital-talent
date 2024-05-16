@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import zipWith from "lodash/zipWith";
@@ -48,7 +48,7 @@ const ChangeStatusDialog = ({
   pools,
 }: ChangeStatusDialogProps) => {
   const intl = useIntl();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const methods = useForm<FormValues>();
 
   const [{ fetching }, executeMutation] = useMutation(
@@ -302,35 +302,21 @@ const ChangeStatusDialog = ({
                 />
               </div>
               <Dialog.Footer>
-                <Dialog.Close>
-                  <Button type="button" color="secondary">
-                    <span data-h2-text-decoration="base(underline)">
-                      {intl.formatMessage(formMessages.cancelGoBack)}
-                    </span>
-                  </Button>
-                </Dialog.Close>
-
-                <Button
-                  disabled={fetching}
-                  type="submit"
-                  mode="solid"
-                  color="secondary"
-                  data-h2-display="base(flex)"
-                  data-h2-align-items="base(center)"
-                >
-                  {fetching ? (
-                    intl.formatMessage(commonMessages.saving)
-                  ) : (
-                    <span data-h2-text-decoration="base(underline)">
-                      {intl.formatMessage({
+                <Button disabled={fetching} type="submit" color="secondary">
+                  {fetching
+                    ? intl.formatMessage(commonMessages.saving)
+                    : intl.formatMessage({
                         defaultMessage: "Change status",
                         id: "iuve97",
                         description:
                           "Confirmation button for change status dialog",
                       })}
-                    </span>
-                  )}
                 </Button>
+                <Dialog.Close>
+                  <Button type="button" color="warning" mode="inline">
+                    {intl.formatMessage(formMessages.cancelGoBack)}
+                  </Button>
+                </Dialog.Close>
               </Dialog.Footer>
             </form>
           </FormProvider>

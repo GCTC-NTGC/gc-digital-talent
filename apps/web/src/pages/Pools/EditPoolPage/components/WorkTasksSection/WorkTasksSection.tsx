@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
@@ -65,7 +64,7 @@ const WorkTasksSection = ({
   sectionMetadata,
   onSave,
   onUpdatePublished,
-}: WorkTasksSectionProps): React.JSX.Element => {
+}: WorkTasksSectionProps) => {
   const intl = useIntl();
   const pool = getFragment(EditPoolKeyTasks_Fragment, poolQuery);
   const isNull = hasAllEmptyFields(pool);

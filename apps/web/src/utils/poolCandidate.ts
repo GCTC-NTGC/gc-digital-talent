@@ -6,8 +6,8 @@
  */
 import { IntlShape, MessageDescriptor } from "react-intl";
 import { isPast } from "date-fns/isPast";
-import React from "react";
 import sortBy from "lodash/sortBy";
+import { ReactNode } from "react";
 
 import {
   formatDate,
@@ -514,7 +514,7 @@ const computeInAssessmentStatusChip = (
 
 type StatusChip = {
   color: Color;
-  label: React.ReactNode;
+  label: ReactNode;
 };
 
 export const getCandidateStatusChip = (

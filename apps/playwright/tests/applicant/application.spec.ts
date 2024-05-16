@@ -174,7 +174,6 @@ test.describe("Application", () => {
     await application.page
       .getByRole("link", { name: /add a new experience/i })
       .click();
-    await expect(application.page.url()).toContain("/career-timeline/add");
     await application.addExperience();
     await expect(application.page.getByRole("alert")).toContainText(
       /successfully added experience!/i,

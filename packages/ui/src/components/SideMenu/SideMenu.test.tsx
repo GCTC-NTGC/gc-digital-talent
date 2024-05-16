@@ -2,7 +2,6 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import React from "react";
 import { screen } from "@testing-library/react";
 import MagnifyingGlassIcon from "@heroicons/react/24/solid/MagnifyingGlassIcon";
 

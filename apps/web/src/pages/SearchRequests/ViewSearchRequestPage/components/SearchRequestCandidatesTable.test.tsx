@@ -4,7 +4,6 @@
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import { screen, within } from "@testing-library/react";
-import React from "react";
 import { Provider as GraphqlProvider } from "urql";
 import { fromValue } from "wonka";
 import { faker } from "@faker-js/faker/locale/en";

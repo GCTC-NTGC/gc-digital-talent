@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
@@ -270,18 +270,16 @@ const JobPlacementDialog = ({
                   />
                 )}
               </div>
-              <Dialog.Footer data-h2-justify-content="base(flex-start)">
+              <Dialog.Footer>
                 <Submit
                   text={intl.formatMessage({
                     defaultMessage: "Save decision",
                     id: "DyHuZi",
                     description: "Submit message for job placement dialog",
                   })}
-                  color="primary"
-                  mode="solid"
                 />
                 <Dialog.Close>
-                  <Button color="tertiary" mode="inline">
+                  <Button color="warning" mode="inline">
                     {intl.formatMessage(commonMessages.cancel)}
                   </Button>
                 </Dialog.Close>

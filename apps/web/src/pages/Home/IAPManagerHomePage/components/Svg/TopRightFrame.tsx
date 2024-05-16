@@ -1,6 +1,6 @@
-import React from "react";
+import { HTMLProps } from "react";
 
-const TopRightFrame = (props: React.HTMLProps<SVGSVGElement>) => (
+const TopRightFrame = (props: HTMLProps<SVGSVGElement>) => (
   <svg
     viewBox="0 0 360 494"
     fill="none"

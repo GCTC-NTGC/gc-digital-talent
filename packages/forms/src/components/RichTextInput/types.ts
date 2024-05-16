@@ -1,3 +1,5 @@
+import { ReactNode, JSX } from "react";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface Attrs {
   readonly [attr: string]: any;
@@ -12,11 +14,11 @@ export interface Node {
 }
 
 export interface NodeProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   node: Node;
 }
 
-export type NodeRenderer = (props: NodeProps) => React.JSX.Element;
+export type NodeRenderer = (props: NodeProps) => JSX.Element;
 
 export interface RenderMap {
   readonly [attr: string]: NodeRenderer;

@@ -1,4 +1,3 @@
-import React from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { isPast } from "date-fns/isPast";
@@ -12,7 +11,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { PoolCandidate } from "@gc-digital-talent/graphql";
+import { Pool, PoolCandidate, User } from "@gc-digital-talent/graphql";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
@@ -23,7 +22,6 @@ import { viewTeamLinkCell } from "~/pages/Pools/IndexPoolPage/components/helpers
 import processMessages from "~/messages/processMessages";
 import adminMessages from "~/messages/adminMessages";
 
-import { UserInformationProps } from "../../pages/Users/UserInformationPage/types";
 import accessors from "../Table/accessors";
 import { expiryCell, statusCell } from "./cells";
 import sortStatus from "./sortStatus";
@@ -37,7 +35,12 @@ const isSuspended = (suspendedAt: PoolCandidate["suspendedAt"]): boolean => {
 
 const columnHelper = createColumnHelper<PoolCandidate>();
 
-const PoolStatusTable = ({ user, pools }: UserInformationProps) => {
+interface PoolStatusTableProps {
+  user: User;
+  pools: Pool[];
+}
+
+const PoolStatusTable = ({ user, pools }: PoolStatusTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 

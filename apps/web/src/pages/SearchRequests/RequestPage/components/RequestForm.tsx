@@ -1,8 +1,8 @@
-import * as React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
+import { ReactNode } from "react";
 
 import {
   Checkbox,
@@ -50,7 +50,7 @@ import {
   FormValues as SearchFormValues,
 } from "~/types/searchRequest";
 
-const directiveLink = (chunks: React.ReactNode, href: string) => (
+const directiveLink = (chunks: ReactNode, href: string) => (
   <Link href={href} newTab>
     {chunks}
   </Link>
@@ -440,7 +440,7 @@ export const RequestForm = ({
                 description: "Link to more information on the directive.",
               },
               {
-                directiveLink: (chunks: React.ReactNode) =>
+                directiveLink: (chunks: ReactNode) =>
                   directiveLink(chunks, paths.directive()),
               },
             )}
@@ -568,8 +568,6 @@ export const RequestForm = ({
             data-h2-align-items="base(center)"
           >
             <Submit
-              color="primary"
-              mode="solid"
               text={intl.formatMessage({
                 defaultMessage: "Submit Request",
                 id: "eTTlR0",
@@ -578,7 +576,7 @@ export const RequestForm = ({
             />
             <Link
               mode="inline"
-              data-h2-margin="base(0, x.5, 0, 0)"
+              color="warning"
               href={paths.search()}
               state={{
                 ...state,

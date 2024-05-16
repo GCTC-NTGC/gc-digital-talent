@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useRef, useEffect } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 import { useIntl } from "react-intl";
 
@@ -15,9 +15,8 @@ interface ErrorSummaryProps {
 }
 
 const ErrorSummary = ({ experienceType }: ErrorSummaryProps) => {
-  const [showErrorSummary, setShowErrorSummary] =
-    React.useState<boolean>(false);
-  const errorSummaryRef = React.useRef<HTMLDivElement>(null);
+  const [showErrorSummary, setShowErrorSummary] = useState<boolean>(false);
+  const errorSummaryRef = useRef<HTMLDivElement>(null);
   const intl = useIntl();
   const type = useWatch({ name: "experienceType" });
   const derivedType = type ?? experienceType;
@@ -27,14 +26,14 @@ const ErrorSummary = ({ experienceType }: ErrorSummaryProps) => {
   } = useFormContext();
   const flatErrors = flattenErrors(errors);
 
-  React.useEffect(() => {
+  useEffect(() => {
     // After during submit, if there are errors, focus the summary
     if (errors && isSubmitting) {
       setShowErrorSummary(true);
     }
   }, [isSubmitting, errors]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (
       showErrorSummary &&
       errorSummaryRef.current &&

@@ -1,8 +1,8 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import EnvelopeIcon from "@heroicons/react/24/outline/EnvelopeIcon";
 import EnvelopeSolid from "@heroicons/react/24/solid/EnvelopeIcon";
 import ArrowDownTrayIcon from "@heroicons/react/24/outline/ArrowDownTrayIcon";
+import { ReactNode } from "react";
 
 import { getLocale } from "@gc-digital-talent/i18n";
 import { Heading, Link, Well, headingStyles } from "@gc-digital-talent/ui";
@@ -22,7 +22,7 @@ import packageFrDoc from "~/assets/documents/Trousse du gestionnaire - PATIPA.pp
 import { CloseQuote, OpenQuote, Triangle } from "../IAPHomePage/components/Svg";
 import TopRightFrame from "./components/Svg/TopRightFrame";
 
-const makeLink = (chunks: React.ReactNode, url: string) => (
+const makeLink = (chunks: ReactNode, url: string) => (
   <Link href={url} color="primary">
     {chunks}
   </Link>
@@ -412,7 +412,7 @@ export const Component = () => {
                           "Paragraph 1 of the 'Digital certificate credential' subsection",
                       },
                       {
-                        link: (chunks: React.ReactNode) => {
+                        link: (chunks: ReactNode) => {
                           return makeLink(
                             chunks,
                             locale === "en"
@@ -799,7 +799,7 @@ export const Component = () => {
                       "Paragraph 1 of the 'A commitment to diverse digital talent' section",
                   },
                   {
-                    link: (chunks: React.ReactNode) => {
+                    link: (chunks: ReactNode) => {
                       return makeLink(
                         chunks,
                         locale === "en"

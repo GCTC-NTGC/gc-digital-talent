@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useMemo } from "react";
 import { useIntl } from "react-intl";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import sortBy from "lodash/sortBy";
@@ -52,9 +52,9 @@ const GeneralQuestionsSection = ({
   onSave,
 }: GeneralQuestionsProps) => {
   const intl = useIntl();
-  const [isUpdating, setIsUpdating] = React.useState<boolean>(false);
+  const [isUpdating, setIsUpdating] = useState<boolean>(false);
   const pool = getFragment(EditPoolGeneralQuestions_Fragment, poolQuery);
-  const questions = React.useMemo(
+  const questions = useMemo(
     () =>
       sortBy(
         unpackMaybes(pool.generalQuestions),

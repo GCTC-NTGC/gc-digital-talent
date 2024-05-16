@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IntlShape, useIntl } from "react-intl";
 import groupBy from "lodash/groupBy";
@@ -187,7 +187,7 @@ export const ApplicationCareerTimeline = ({
   } = methods;
 
   const [sortAndFilterValues, setSortAndFilterValues] =
-    React.useState<ExperienceSortAndFilterFormValues>({
+    useState<ExperienceSortAndFilterFormValues>({
       sortBy: "date_desc",
       filterBy: "none",
     });
@@ -407,7 +407,7 @@ export const ApplicationCareerTimeline = ({
           >
             <Button
               type="submit"
-              mode="solid"
+              color="secondary"
               value="continue"
               disabled={mutating || isSubmitting}
               onClick={() => {
@@ -416,7 +416,7 @@ export const ApplicationCareerTimeline = ({
             >
               {intl.formatMessage(applicationMessages.saveContinue)}
             </Button>
-            <Link mode="inline" href={cancelPath}>
+            <Link mode="inline" href={cancelPath} color="secondary">
               {intl.formatMessage(applicationMessages.saveQuit)}
             </Link>
           </div>

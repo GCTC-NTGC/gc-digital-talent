@@ -1,9 +1,9 @@
-import React from "react";
 import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
 import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
 import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
 import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTriangleIcon";
 import { toast as toastify, ToastOptions } from "react-toastify";
+import { ReactNode } from "react";
 
 import ToastMessage from "./components/ToastMessage/ToastMessage";
 
@@ -14,22 +14,22 @@ const iconStyles = {
 };
 
 const toast = {
-  success: (message: React.ReactNode, options?: ToastOptions) =>
+  success: (message: ReactNode, options?: ToastOptions) =>
     toastify.success(<ToastMessage>{message}</ToastMessage>, {
       icon: <CheckCircleIcon {...iconStyles} />,
       ...options,
     }),
-  error: (message: React.ReactNode, options?: ToastOptions) =>
+  error: (message: ReactNode, options?: ToastOptions) =>
     toastify.error(<ToastMessage>{message}</ToastMessage>, {
       icon: <ExclamationTriangleIcon {...iconStyles} />,
       ...options,
     }),
-  warning: (message: React.ReactNode, options?: ToastOptions) =>
+  warning: (message: ReactNode, options?: ToastOptions) =>
     toastify.warning(<ToastMessage>{message}</ToastMessage>, {
       icon: <ExclamationCircleIcon {...iconStyles} />,
       ...options,
     }),
-  info: (message: React.ReactNode, options?: ToastOptions) =>
+  info: (message: ReactNode, options?: ToastOptions) =>
     toastify.info(<ToastMessage>{message}</ToastMessage>, {
       icon: <BellAlertIcon {...iconStyles} />,
       ...options,

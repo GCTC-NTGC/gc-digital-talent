@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
@@ -394,7 +394,7 @@ const CreateAccount = () => {
   const shouldNavigate = meId && email;
   const fallbackTarget = paths.profileAndApplications();
   const navigationTarget = from || fallbackTarget;
-  React.useEffect(() => {
+  useEffect(() => {
     if (shouldNavigate) {
       navigate(navigationTarget);
     }

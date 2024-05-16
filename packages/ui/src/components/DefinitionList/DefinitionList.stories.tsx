@@ -1,4 +1,3 @@
-import React from "react";
 import type { StoryFn, Meta } from "@storybook/react";
 import AcademicCapIcon from "@heroicons/react/24/solid/AcademicCapIcon";
 import BackspaceIcon from "@heroicons/react/24/solid/BackspaceIcon";

@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
@@ -77,7 +77,7 @@ const FinalDecisionDialog = ({
 }: FinalDecisionDialogProps) => {
   const intl = useIntl();
   const todayDate = new Date();
-  const [isOpen, setIsOpen] = React.useState<boolean>(defaultOpen);
+  const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
   const [, executeQualifyMutation] = useMutation(
     PoolCandidate_QualifyCandidateMutation,
   );
@@ -304,17 +304,13 @@ const FinalDecisionDialog = ({
                 />
               )}
               <FormChangeNotifyWell data-h2-margin-top="base(x1)" />
-              <Dialog.Footer data-h2-justify-content="base(flex-start)">
+              <Dialog.Footer>
+                <Submit text={intl.formatMessage(formMessages.saveChanges)} />
                 <Dialog.Close>
-                  <Button type="button" color="primary" mode="inline">
+                  <Button color="warning" mode="inline">
                     {intl.formatMessage(formMessages.cancelGoBack)}
                   </Button>
                 </Dialog.Close>
-                <Submit
-                  text={intl.formatMessage(formMessages.saveChanges)}
-                  color="primary"
-                  mode="solid"
-                />
               </Dialog.Footer>
             </form>
           </FormProvider>

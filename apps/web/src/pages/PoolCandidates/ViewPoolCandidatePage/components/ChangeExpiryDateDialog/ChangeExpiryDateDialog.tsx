@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useMutation } from "urql";
 import { FormProvider, useForm } from "react-hook-form";
 import CalendarDaysIcon from "@heroicons/react/20/solid/CalendarDaysIcon";
@@ -46,7 +46,7 @@ const ChangeExpiryDateDialog = ({
   expiryDateQuery,
 }: ChangeExpiryDateDialogProps) => {
   const intl = useIntl();
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const application = getFragment(
     CandidateExpiryDateDialog_Fragment,
     expiryDateQuery,
@@ -137,8 +137,8 @@ const ChangeExpiryDateDialog = ({
                 })}
               />
               <FormChangeNotifyWell data-h2-margin-top="base(x1)" />
-              <Dialog.Footer data-h2-justify-content="base(flex-start)">
-                <Button type="submit" disabled={fetching}>
+              <Dialog.Footer>
+                <Button type="submit" color="secondary" disabled={fetching}>
                   {intl.formatMessage(applicationMessages.saveContinue)}
                 </Button>
                 <Dialog.Close>

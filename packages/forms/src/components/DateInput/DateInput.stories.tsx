@@ -1,6 +1,6 @@
 /* eslint-disable import/no-duplicates */
 // known issue with date-fns and eslint https://github.com/date-fns/date-fns/issues/1756#issuecomment-624803874
-import React from "react";
+import { useState, useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import { StoryFn } from "@storybook/react";
@@ -195,10 +195,10 @@ type AsyncArgs = DateInputProps & {
 const AsyncTemplate: StoryFn<AsyncArgs> = (args) => {
   const intl = useIntl();
   const { mockQuery, ...rest } = args;
-  const [fetching, setFetching] = React.useState<boolean>(false);
-  const [pool, setPool] = React.useState<Pool | null>(null);
+  const [fetching, setFetching] = useState<boolean>(false);
+  const [pool, setPool] = useState<Pool | null>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setFetching(true);
     mockQuery()
       .then((res: Pool) => {

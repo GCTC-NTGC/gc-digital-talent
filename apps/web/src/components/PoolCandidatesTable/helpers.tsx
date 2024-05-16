@@ -1,4 +1,3 @@
-import React from "react";
 import { IntlShape } from "react-intl";
 import { SortingState } from "@tanstack/react-table";
 import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
@@ -9,7 +8,6 @@ import {
   getCandidateSuspendedFilterStatus,
   getLanguage,
   getPoolCandidatePriorities,
-  getPoolCandidateStatus,
   getProvinceOrTerritory,
 } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
@@ -59,42 +57,6 @@ import tableMessages from "./tableMessages";
 import CandidateBookmark, {
   PoolCandidate_BookmarkFragment,
 } from "../CandidateBookmark/CandidateBookmark";
-
-export const statusCell = (
-  status: PoolCandidateStatus | null | undefined,
-  intl: IntlShape,
-) => {
-  if (!status) return null;
-
-  if (status === PoolCandidateStatus.NewApplication) {
-    return (
-      <span
-        data-h2-color="base(tertiary.darker)"
-        data-h2-font-weight="base(700)"
-      >
-        {intl.formatMessage(getPoolCandidateStatus(status as string))}
-      </span>
-    );
-  }
-  if (
-    status === PoolCandidateStatus.ApplicationReview ||
-    status === PoolCandidateStatus.ScreenedIn ||
-    status === PoolCandidateStatus.ScreenedOutApplication ||
-    status === PoolCandidateStatus.ScreenedOutNotInterested ||
-    status === PoolCandidateStatus.ScreenedOutNotResponsive ||
-    status === PoolCandidateStatus.UnderAssessment ||
-    status === PoolCandidateStatus.ScreenedOutAssessment
-  ) {
-    return (
-      <span data-h2-font-weight="base(700)">
-        {intl.formatMessage(getPoolCandidateStatus(status as string))}
-      </span>
-    );
-  }
-  return (
-    <span>{intl.formatMessage(getPoolCandidateStatus(status as string))}</span>
-  );
-};
 
 export const priorityCell = (
   priority: number | null | undefined,
@@ -734,7 +696,7 @@ export function transformPoolCandidateSearchInputToFormValues(
   return {
     publishingGroups: input?.publishingGroups?.filter(notEmpty) ?? [],
     classifications:
-      input?.applicantFilter?.qualifiedClassifications
+      input?.appliedClassifications
         ?.filter(notEmpty)
         .map((c) => `${c.group}-${c.level}`) ?? [],
     stream: input?.applicantFilter?.qualifiedStreams?.filter(notEmpty) ?? [],
@@ -783,10 +745,6 @@ export function transformFormValuesToFilterState(
       languageAbility: data.languageAbility
         ? stringToEnumLanguage(data.languageAbility)
         : undefined,
-      qualifiedClassifications: data.classifications.map((classification) => {
-        const splitString = classification.split("-");
-        return { group: splitString[0], level: Number(splitString[1]) };
-      }),
       qualifiedStreams: data.stream as PoolStream[],
       operationalRequirements: data.operationalRequirement
         .map((requirement) => {
@@ -829,5 +787,9 @@ export function transformFormValuesToFilterState(
       : undefined,
     isGovEmployee: data.govEmployee ? true : undefined, // massage from FormValue type to PoolCandidateSearchInput
     publishingGroups: data.publishingGroups as PublishingGroup[],
+    appliedClassifications: data.classifications.map((classification) => {
+      const splitString = classification.split("-");
+      return { group: splitString[0], level: Number(splitString[1]) };
+    }),
   };
 }

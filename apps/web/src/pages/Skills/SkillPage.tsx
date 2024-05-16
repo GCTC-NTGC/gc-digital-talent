@@ -1,7 +1,7 @@
-import React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import BoltOutlineIcon from "@heroicons/react/24/outline/BoltIcon";
 import BoltSolidIcon from "@heroicons/react/24/solid/BoltIcon";
+import { ReactNode } from "react";
 
 import { Alert, Heading, IconType, Link, Well } from "@gc-digital-talent/ui";
 
@@ -18,7 +18,7 @@ import SkillTableApi from "./components/SkillTable";
 export const pageSolidIcon: IconType = BoltSolidIcon;
 export const pageOutlineIcon: IconType = BoltOutlineIcon;
 
-const suggestionLink = (chunks: React.ReactNode, href: string) => (
+const suggestionLink = (chunks: ReactNode, href: string) => (
   <Link href={href} state={{ referrer: window.location.href }}>
     {chunks}
   </Link>
@@ -114,7 +114,7 @@ export const Component = () => {
                   "Help text to tell users to change their filters to find a skill",
               },
               {
-                a: (chunks: React.ReactNode) =>
+                a: (chunks: ReactNode) =>
                   suggestionLink(chunks, routes.support()),
               },
             )}

@@ -1,4 +1,3 @@
-import React from "react";
 import { MessageDescriptor, defineMessage, useIntl } from "react-intl";
 import CloudOutlineIcon from "@heroicons/react/24/outline/CloudIcon";
 import CloudSolidIcon from "@heroicons/react/24/solid/CloudIcon";

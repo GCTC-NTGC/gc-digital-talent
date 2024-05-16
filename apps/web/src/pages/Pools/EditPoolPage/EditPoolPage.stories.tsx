@@ -1,4 +1,4 @@
-import React from "react";
+import { JSX } from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
@@ -39,7 +39,7 @@ export default {
 } as Meta;
 
 const TemplateEditPoolForm: StoryFn<EditPoolFormProps> = (
-  args: React.JSX.IntrinsicAttributes & EditPoolFormProps,
+  args: JSX.IntrinsicAttributes & EditPoolFormProps,
 ) => {
   return <EditPoolForm {...args} />;
 };

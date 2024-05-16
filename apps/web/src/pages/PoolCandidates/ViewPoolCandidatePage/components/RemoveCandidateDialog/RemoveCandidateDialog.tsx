@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation } from "urql";
 import { FormProvider, useForm } from "react-hook-form";
@@ -67,7 +67,7 @@ const RemoveCandidateDialog = ({
   defaultOpen = false,
 }: RemoveCandidateDialogProps) => {
   const intl = useIntl();
-  const [isOpen, setIsOpen] = React.useState<boolean>(defaultOpen);
+  const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
   const candidate = getFragment(RemoveCandidateDialog_Fragment, removalQuery);
 
   const [{ fetching }, removeCandidate] = useMutation(RemoveCandidate_Mutation);
@@ -172,7 +172,7 @@ const RemoveCandidateDialog = ({
                 )}
                 <FormChangeNotifyWell />
               </div>
-              <Dialog.Footer data-h2-justify-content="base(flex-start)">
+              <Dialog.Footer>
                 <Button type="submit" color="error" disabled={fetching}>
                   {intl.formatMessage({
                     defaultMessage: "Remove candidate and update status",
@@ -182,7 +182,7 @@ const RemoveCandidateDialog = ({
                   })}
                 </Button>
                 <Dialog.Close>
-                  <Button mode="inline" color="secondary">
+                  <Button mode="inline" color="warning">
                     {intl.formatMessage(formMessages.cancelGoBack)}
                   </Button>
                 </Dialog.Close>

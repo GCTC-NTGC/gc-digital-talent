@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { Outlet } from "react-router-dom";
 import { useQuery } from "urql";
@@ -119,7 +119,7 @@ const PoolHeader = ({ poolQuery }: PoolHeaderProps) => {
     : getAdvertisementStatus(pool);
   const badge = getPoolCompletenessBadge(status);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (currentPage?.title) {
       announce(currentPage?.title);
     }

@@ -1,4 +1,3 @@
-import React from "react";
 import BarsArrowUpIcon from "@heroicons/react/24/solid/BarsArrowUpIcon";
 import BarsArrowDownIcon from "@heroicons/react/24/solid/BarsArrowDownIcon";
 

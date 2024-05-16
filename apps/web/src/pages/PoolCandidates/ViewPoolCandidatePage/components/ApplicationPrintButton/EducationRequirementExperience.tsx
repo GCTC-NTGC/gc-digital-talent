@@ -1,4 +1,4 @@
-import React from "react";
+import { JSX } from "react";
 import { useIntl } from "react-intl";
 
 import {
@@ -28,7 +28,7 @@ export interface EducationRequirementExperienceProps {
 
 const EducationRequirementExperience = ({
   experience,
-}: EducationRequirementExperienceProps): React.JSX.Element => {
+}: EducationRequirementExperienceProps): JSX.Element => {
   const intl = useIntl();
 
   if (isAwardExperience(experience)) {

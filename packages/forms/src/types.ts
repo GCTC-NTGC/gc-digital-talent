@@ -1,4 +1,10 @@
 import {
+  DetailedHTMLProps,
+  InputHTMLAttributes,
+  FieldsetHTMLAttributes,
+  ReactNode,
+} from "react";
+import {
   RegisterOptions,
   FieldError,
   FieldErrorsImpl,
@@ -10,16 +16,13 @@ export type FieldState = "unset" | "invalid" | "dirty";
 export type StyleRecord = Record<string, string>;
 
 export type HTMLInputProps = Omit<
-  React.DetailedHTMLProps<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
-  >,
+  DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
   "capture" | "type"
 >;
 
 export type HTMLFieldsetProps = Omit<
-  React.DetailedHTMLProps<
-    React.FieldsetHTMLAttributes<HTMLFieldSetElement>,
+  DetailedHTMLProps<
+    FieldsetHTMLAttributes<HTMLFieldSetElement>,
     HTMLFieldSetElement
   >,
   "ref"
@@ -29,9 +32,9 @@ export type CommonInputProps = {
   /** HTML id used to identify the element. */
   id: string;
   /** Optional context which user can view by toggling a button. */
-  context?: string | React.ReactNode;
+  context?: string | ReactNode;
   /** Holds text for the label associated with the input element */
-  label: string | React.ReactNode;
+  label: string | ReactNode;
   /** A string specifying a name for the input control. */
   name: string;
   /** Set of validation rules and error messages to impose on input. */
@@ -49,7 +52,7 @@ export type InputFieldError =
   | undefined;
 
 export type Option = {
-  label: React.ReactNode;
+  label: ReactNode;
   value: string | number;
   disabled?: boolean;
   options?: Option[];
@@ -57,7 +60,7 @@ export type Option = {
   ariaLabel?: string;
 };
 export type OptGroup = {
-  label: React.ReactNode;
+  label: ReactNode;
   options: Option[];
   disabled?: boolean;
   value: string | number;

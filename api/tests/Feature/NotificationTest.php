@@ -1,19 +1,18 @@
 <?php
 
 use App\Enums\NotificationFamily;
-use App\Enums\PoolCandidateStatus;
 use App\Models\Notification;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
-use App\Notifications\PoolCandidateStatusChanged;
-use Carbon\Carbon;
+use App\Notifications\ApplicationDeadlineApproaching;
 use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\GenericJobTitleSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Carbon;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
@@ -28,9 +27,7 @@ class NotificationTest extends TestCase
 
     protected $notification;
 
-    protected $originalStatus;
-
-    protected $newStatus;
+    protected $closingDate;
 
     protected $pool;
 
@@ -44,14 +41,11 @@ class NotificationTest extends TestCase
                 data {
                     id
                     readAt
-                    ... on PoolCandidateStatusChangedNotification {
-                        oldStatus
-                        newStatus
+                    ... on ApplicationDeadlineApproachingNotification {
+                        closingDate
+                        poolName { en fr }
+                        poolId
                         poolCandidateId
-                        poolName {
-                            en
-                            fr
-                        }
                     }
                 }
             }
@@ -78,7 +72,8 @@ class NotificationTest extends TestCase
             ->create([
                 'email' => 'candidate-user@test.com',
                 'sub' => 'candidate-user@test.com',
-                'ignored_email_notifications' => null,
+                'ignored_email_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
+                'ignored_in_app_notifications' => [],
             ]);
 
         $this->poolCandidate = PoolCandidate::factory()->create([
@@ -86,14 +81,14 @@ class NotificationTest extends TestCase
             'pool_id' => $this->pool->id,
         ]);
 
-        $this->originalStatus = PoolCandidateStatus::NEW_APPLICATION->name;
-        $this->newStatus = PoolCandidateStatus::PLACED_TERM->name;
+        $this->closingDate = Carbon::parse(config('constants.far_future_date'));
         $this->candidateUser->notify(
-            new PoolCandidateStatusChanged(
-                $this->originalStatus,
-                $this->newStatus,
+            new ApplicationDeadlineApproaching(
+                $this->closingDate,
+                $this->pool->name['en'],
+                $this->pool->name['fr'],
+                $this->pool->id,
                 $this->poolCandidate->id,
-                $this->pool->name
             )
         );
 
@@ -111,8 +106,7 @@ class NotificationTest extends TestCase
                             [
                                 'id' => $this->notification->id,
                                 'readAt' => null,
-                                'oldStatus' => $this->originalStatus,
-                                'newStatus' => $this->newStatus,
+                                'closingDate' => $this->closingDate->toDateString(),
                                 'poolCandidateId' => $this->poolCandidate->id,
                                 'poolName' => [
                                     'en' => $this->pool->name['en'],
@@ -188,19 +182,22 @@ class NotificationTest extends TestCase
     {
 
         $this->candidateUser->notify(
-            new PoolCandidateStatusChanged(
-                PoolCandidateStatus::SCREENED_IN->name,
-                PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            new ApplicationDeadlineApproaching(
+                new Carbon('2030-01-01'),
+                $this->pool->name['en'],
+                $this->pool->name['fr'],
+                $this->pool->id,
                 $this->poolCandidate->id,
-                $this->pool->name
             )
         );
         $this->candidateUser->notify(
-            new PoolCandidateStatusChanged(
-                PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-                PoolCandidateStatus::QUALIFIED_WITHDREW->name,
+            new ApplicationDeadlineApproaching(
+                new Carbon('2030-02-01'),
+                $this->pool->name['en'],
+                $this->pool->name['fr'],
+                $this->pool->id,
                 $this->poolCandidate->id,
-                $this->pool->name
+
             )
         );
 
@@ -209,11 +206,11 @@ class NotificationTest extends TestCase
 
         // Confirm they exist as unread first
         $response->assertJsonFragment([
-            'oldStatus' => PoolCandidateStatus::SCREENED_IN->name,
+            'closingDate' => '2030-01-01',
             'readAt' => null,
         ]);
         $response->assertJsonFragment([
-            'oldStatus' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            'closingDate' => '2030-02-01',
             'readAt' => null,
         ]);
 
@@ -234,20 +231,22 @@ class NotificationTest extends TestCase
     public function testOnlyUnreadQuery()
     {
         $this->candidateUser->notify(
-            new PoolCandidateStatusChanged(
-                PoolCandidateStatus::SCREENED_OUT_NOT_INTERESTED->name,
-                PoolCandidateStatus::QUALIFIED_WITHDREW->name,
+            new ApplicationDeadlineApproaching(
+                new Carbon('2030-01-01'),
+                $this->pool->name['en'],
+                $this->pool->name['fr'],
+                $this->pool->id,
                 $this->poolCandidate->id,
-                $this->pool->name
             )
         );
 
         $this->candidateUser->notify(
-            new PoolCandidateStatusChanged(
-                PoolCandidateStatus::NEW_APPLICATION->name,
-                PoolCandidateStatus::PLACED_CASUAL->name,
+            new ApplicationDeadlineApproaching(
+                new Carbon('2030-02-01'),
+                $this->pool->name['en'],
+                $this->pool->name['fr'],
+                $this->pool->id,
                 $this->poolCandidate->id,
-                $this->pool->name
             )
         );
 
@@ -272,11 +271,12 @@ class NotificationTest extends TestCase
     public function testDateRangeFilter()
     {
         $this->candidateUser->notify(
-            new PoolCandidateStatusChanged(
-                PoolCandidateStatus::PLACED_INDETERMINATE->name,
-                PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+            new ApplicationDeadlineApproaching(
+                new Carbon('2030-01-01'),
+                $this->pool->name['en'],
+                $this->pool->name['fr'],
+                $this->pool->id,
                 $this->poolCandidate->id,
-                $this->pool->name
             )
         );
 

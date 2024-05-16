@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
@@ -68,7 +67,7 @@ const WhatToExpectAdmissionSection = ({
   sectionMetadata,
   onSave,
   onUpdatePublished,
-}: WhatToExpectAdmissionSectionProps): React.JSX.Element => {
+}: WhatToExpectAdmissionSectionProps) => {
   const intl = useIntl();
   const pool = getFragment(EditPoolWhatToExpectAdmission_Fragment, poolQuery);
   const isNull = hasAllEmptyFields(pool);
