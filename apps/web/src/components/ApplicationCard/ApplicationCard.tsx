@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
 import { useMutation } from "urql";

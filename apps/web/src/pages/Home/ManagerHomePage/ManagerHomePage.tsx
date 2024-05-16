@@ -1,4 +1,3 @@
-import React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import MagnifyingGlassCircleIcon from "@heroicons/react/24/outline/MagnifyingGlassCircleIcon";
 import MagnifyingGlassIcon from "@heroicons/react/24/outline/MagnifyingGlassIcon";

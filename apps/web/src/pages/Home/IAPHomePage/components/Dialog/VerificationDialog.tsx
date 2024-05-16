@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";

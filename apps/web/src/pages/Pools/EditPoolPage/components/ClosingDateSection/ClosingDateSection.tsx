@@ -1,7 +1,7 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import CalendarIcon from "@heroicons/react/24/outline/CalendarIcon";
+import { ReactNode, JSX } from "react";
 
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import { DateInput, Submit } from "@gc-digital-talent/forms";
@@ -36,9 +36,7 @@ import { SectionProps } from "../../types";
 import ActionWrapper from "../ActionWrapper";
 import ClosingDateDialog from "./ClosingDateDialog";
 
-const dialog = (chunks: React.ReactNode) => (
-  <ClosingDateDialog title={chunks} />
-);
+const dialog = (chunks: ReactNode) => <ClosingDateDialog title={chunks} />;
 
 const EditPoolClosingDate_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolClosingDate on Pool {
@@ -62,7 +60,7 @@ const ClosingDateSection = ({
   poolQuery,
   sectionMetadata,
   onSave,
-}: ClosingDateSectionProps): React.JSX.Element => {
+}: ClosingDateSectionProps): JSX.Element => {
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
   const pool = getFragment(EditPoolClosingDate_Fragment, poolQuery);

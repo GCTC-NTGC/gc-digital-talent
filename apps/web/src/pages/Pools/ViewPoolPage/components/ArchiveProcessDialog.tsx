@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import ArchiveBoxIcon from "@heroicons/react/24/solid/ArchiveBoxIcon";
 
@@ -16,7 +16,7 @@ const ArchiveProcessDialog = ({
   isFetching,
   onArchive,
 }: ArchiveProcessDialogProps) => {
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const intl = useIntl();
 
   const title = intl.formatMessage({

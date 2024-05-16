@@ -1,4 +1,3 @@
-import * as React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import HandRaisedIcon from "@heroicons/react/24/outline/HandRaisedIcon";

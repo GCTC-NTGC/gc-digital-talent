@@ -1,5 +1,3 @@
-import React from "react";
-
 import { ApplyDialog, LearnDialog } from "./Dialog";
 import ApplyLink from "./ApplyLink";
 

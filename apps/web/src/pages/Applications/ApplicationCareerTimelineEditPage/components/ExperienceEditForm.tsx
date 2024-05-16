@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";

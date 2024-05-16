@@ -1,5 +1,4 @@
 /* eslint-disable react/forbid-elements */
-import React from "react";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
 

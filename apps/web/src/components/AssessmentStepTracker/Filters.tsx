@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { useIntl } from "react-intl";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
@@ -33,7 +33,7 @@ const Filters = ({
   });
   const { watch, handleSubmit } = methods;
 
-  React.useEffect(() => {
+  useEffect(() => {
     const subscription = watch((newValues) => {
       onFiltersChange({
         ...defaultFilters,

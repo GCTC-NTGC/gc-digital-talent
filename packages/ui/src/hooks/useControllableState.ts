@@ -1,4 +1,11 @@
-import React from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 import useCallbackRef from "./useCallbackRef";
 
@@ -17,12 +24,12 @@ const useUnControlledState = <T>({
   defaultValue,
   onChange,
 }: Omit<UseControllableStateArgs<T>, "controlledProp">) => {
-  const unControlledState = React.useState<T | undefined>(defaultValue);
+  const unControlledState = useState<T | undefined>(defaultValue);
   const [value] = unControlledState;
-  const prevValueRef = React.useRef(value);
+  const prevValueRef = useRef(value);
   const handleChange = useCallbackRef(onChange);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (prevValueRef.current !== value) {
       handleChange(value as T);
       prevValueRef.current = value;
@@ -33,7 +40,7 @@ const useUnControlledState = <T>({
 };
 
 /**
- * A controlled version of React.useState
+ * A controlled version of useState
  *
  * Ref: https://github.com/radix-ui/primitives/tree/main/packages/react/use-controllable-state
  */
@@ -52,22 +59,21 @@ const useControllableState = <T>({
   const value = isControlled ? controlledProp : unControlledProp;
   const handleChange = useCallbackRef(onChange);
 
-  const setValue: React.Dispatch<React.SetStateAction<T | undefined>> =
-    React.useCallback(
-      (newValue) => {
-        if (isControlled) {
-          const setter = newValue as SetStateFunc<T>;
-          const nextValue =
-            typeof newValue === "function" ? setter(controlledProp) : newValue;
-          if (nextValue !== controlledProp) {
-            handleChange(nextValue as T);
-          }
-        } else {
-          setUncontrolledProp(newValue);
+  const setValue: Dispatch<SetStateAction<T | undefined>> = useCallback(
+    (newValue) => {
+      if (isControlled) {
+        const setter = newValue as SetStateFunc<T>;
+        const nextValue =
+          typeof newValue === "function" ? setter(controlledProp) : newValue;
+        if (nextValue !== controlledProp) {
+          handleChange(nextValue as T);
         }
-      },
-      [controlledProp, handleChange, isControlled, setUncontrolledProp],
-    );
+      } else {
+        setUncontrolledProp(newValue);
+      }
+    },
+    [controlledProp, handleChange, isControlled, setUncontrolledProp],
+  );
 
   return [value, setValue] as const;
 };

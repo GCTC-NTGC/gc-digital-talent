@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 
 interface UseSelectedRowsReturn<T> {
-  setSelectedRows: React.Dispatch<React.SetStateAction<T[]>>;
+  setSelectedRows: Dispatch<SetStateAction<T[]>>;
   selectedRows: T[];
   hasSelected: boolean;
 }

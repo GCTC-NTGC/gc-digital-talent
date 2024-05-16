@@ -1,18 +1,24 @@
 /**
  * Documentation: https://www.radix-ui.com/docs/primitives/components/dialog
  */
-import React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import { useIntl } from "react-intl";
+import {
+  forwardRef,
+  ElementRef,
+  ComponentPropsWithoutRef,
+  ReactNode,
+  HTMLProps,
+} from "react";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
 import Separator from "../Separator";
 
-const StyledOverlay = React.forwardRef<
-  React.ElementRef<typeof DialogPrimitive.Overlay>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
+const StyledOverlay = forwardRef<
+  ElementRef<typeof DialogPrimitive.Overlay>,
+  ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
 >((props, forwardedRef) => (
   <DialogPrimitive.Overlay
     data-h2-display="base(grid)"
@@ -26,9 +32,9 @@ const StyledOverlay = React.forwardRef<
   />
 ));
 
-const StyledContent = React.forwardRef<
-  React.ElementRef<typeof DialogPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
+const StyledContent = forwardRef<
+  ElementRef<typeof DialogPrimitive.Content>,
+  ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
 >((props, forwardedRef) => (
   <DialogPrimitive.Content
     ref={forwardedRef}
@@ -73,9 +79,9 @@ const StyledContent = React.forwardRef<
   />
 ));
 
-const StyledClose = React.forwardRef<
-  React.ElementRef<typeof DialogPrimitive.Close>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Close>
+const StyledClose = forwardRef<
+  ElementRef<typeof DialogPrimitive.Close>,
+  ComponentPropsWithoutRef<typeof DialogPrimitive.Close>
 >((props, forwardedRef) => (
   <DialogPrimitive.Close ref={forwardedRef} asChild {...props} />
 ));
@@ -86,12 +92,12 @@ interface DialogProps extends DialogPrimitiveContentProps {
   closeLabel?: string;
 }
 
-type DialogPrimitiveContentProps = React.ComponentPropsWithoutRef<
+type DialogPrimitiveContentProps = ComponentPropsWithoutRef<
   typeof DialogPrimitive.Content
 >;
 
-const Content = React.forwardRef<
-  React.ElementRef<typeof DialogPrimitive.Content>,
+const Content = forwardRef<
+  ElementRef<typeof DialogPrimitive.Content>,
   DialogProps
 >(
   (
@@ -149,16 +155,16 @@ const Content = React.forwardRef<
   },
 );
 
-const Trigger = React.forwardRef<
-  React.ElementRef<typeof DialogPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Trigger>
+const Trigger = forwardRef<
+  ElementRef<typeof DialogPrimitive.Trigger>,
+  ComponentPropsWithoutRef<typeof DialogPrimitive.Trigger>
 >(({ asChild = true, ...rest }, forwardedRef) => (
   <DialogPrimitive.Trigger ref={forwardedRef} asChild={asChild} {...rest} />
 ));
 
-const StyledTitle = React.forwardRef<
-  React.ElementRef<typeof DialogPrimitive.Title>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
+const StyledTitle = forwardRef<
+  ElementRef<typeof DialogPrimitive.Title>,
+  ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
 >((props, forwardedRef) => (
   <DialogPrimitive.Title
     data-h2-font-weight="base(700)"
@@ -170,9 +176,9 @@ const StyledTitle = React.forwardRef<
   />
 ));
 
-const StyledDescription = React.forwardRef<
-  React.ElementRef<typeof DialogPrimitive.Description>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
+const StyledDescription = forwardRef<
+  ElementRef<typeof DialogPrimitive.Description>,
+  ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
 >((props, forwardedRef) => (
   <DialogPrimitive.Description
     data-h2-margin="base(x.5, 0, 0, 0)"
@@ -182,8 +188,8 @@ const StyledDescription = React.forwardRef<
 ));
 
 interface DialogHeaderProps {
-  subtitle?: React.ReactNode;
-  children: React.ReactNode;
+  subtitle?: ReactNode;
+  children: ReactNode;
 }
 
 const Header = ({ subtitle, children }: DialogHeaderProps) => (
@@ -205,8 +211,8 @@ const Header = ({ subtitle, children }: DialogHeaderProps) => (
   </div>
 );
 
-interface DialogFooterProps extends React.HTMLProps<HTMLDivElement> {
-  children: React.ReactNode;
+interface DialogFooterProps extends HTMLProps<HTMLDivElement> {
+  children: ReactNode;
 }
 
 const Footer = ({ children, ...rest }: DialogFooterProps) => (
@@ -224,7 +230,7 @@ const Footer = ({ children, ...rest }: DialogFooterProps) => (
 );
 
 interface DialogBodyProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const Body = ({ children }: DialogBodyProps) => (

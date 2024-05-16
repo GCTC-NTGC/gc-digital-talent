@@ -1,4 +1,4 @@
-import React from "react";
+import { ReactNode } from "react";
 
 import { getRuntimeVariableNotNull } from "@gc-digital-talent/env";
 import { useLocale } from "@gc-digital-talent/i18n";
@@ -7,7 +7,7 @@ import { useApiRoutes } from "../hooks/useApiRoutes";
 import AuthenticationContainer from "./AuthenticationContainer";
 
 interface AuthenticationContainerProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 const AuthenticationProvider = ({ children }: AuthenticationContainerProps) => {

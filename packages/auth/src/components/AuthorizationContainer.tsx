@@ -1,4 +1,4 @@
-import React from "react";
+import { createContext, ReactNode, useMemo } from "react";
 
 import {
   Maybe,
@@ -12,7 +12,7 @@ export interface AuthorizationState {
   isLoaded: boolean;
 }
 
-export const AuthorizationContext = React.createContext<AuthorizationState>({
+export const AuthorizationContext = createContext<AuthorizationState>({
   roleAssignments: null,
   userAuthInfo: null,
   isLoaded: false,
@@ -22,7 +22,7 @@ interface AuthorizationContainerProps {
   roleAssignments: Maybe<Array<RoleAssignment>>;
   userAuthInfo?: Maybe<UserAuthInfo>;
   isLoaded: boolean;
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 const AuthorizationContainer = ({
@@ -31,7 +31,7 @@ const AuthorizationContainer = ({
   isLoaded,
   children,
 }: AuthorizationContainerProps) => {
-  const state = React.useMemo<AuthorizationState>(() => {
+  const state = useMemo<AuthorizationState>(() => {
     return {
       roleAssignments,
       userAuthInfo,

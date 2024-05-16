@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
 import { useMutation } from "urql";
@@ -32,7 +32,7 @@ const RemoveTeamMemberDialog = ({
     UpdateUserTeamRoles_Mutation,
   );
 
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleRemove = async () => {
     await executeMutation({

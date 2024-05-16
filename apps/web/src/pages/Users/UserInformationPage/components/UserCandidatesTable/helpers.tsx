@@ -1,4 +1,3 @@
-import React from "react";
 import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
 import { IntlShape } from "react-intl";
 

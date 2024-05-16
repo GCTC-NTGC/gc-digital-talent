@@ -1,8 +1,8 @@
-import React from "react";
 import { useIntl, defineMessage } from "react-intl";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import flatMap from "lodash/flatMap";
 import { OperationContext, useQuery } from "urql";
+import { useEffect } from "react";
 
 import { TableOfContents, Stepper, Loading } from "@gc-digital-talent/ui";
 import { empty, isUuidError, notEmpty } from "@gc-digital-talent/helpers";
@@ -106,7 +106,7 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
 
   // If we cannot find the current page, redirect to the first step
   // that has not been submitted yet, or the last step
-  React.useEffect(() => {
+  useEffect(() => {
     if (empty(currentPage)) {
       navigate(nextStepToSubmit.mainPage.link.url, {
         replace: true,

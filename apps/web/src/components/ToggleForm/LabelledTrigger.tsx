@@ -1,5 +1,5 @@
-import React from "react";
 import { useIntl } from "react-intl";
+import { ReactNode } from "react";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 
@@ -7,7 +7,7 @@ import SectionTrigger from "./Trigger";
 
 interface LabelledTriggerProps {
   disabled?: boolean;
-  sectionTitle: React.ReactNode;
+  sectionTitle: ReactNode;
 }
 
 const LabelledTrigger = ({ disabled, sectionTitle }: LabelledTriggerProps) => {

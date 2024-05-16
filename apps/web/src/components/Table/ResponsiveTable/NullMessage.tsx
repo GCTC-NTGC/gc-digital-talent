@@ -1,13 +1,13 @@
-import React from "react";
 import { useIntl } from "react-intl";
+import { ReactNode } from "react";
 
 import { Heading, Well } from "@gc-digital-talent/ui";
 
 export interface NullMessageProps {
   /** Heading for the message */
-  title?: React.ReactNode;
+  title?: ReactNode;
   /** Main body of the message */
-  description?: React.ReactNode;
+  description?: ReactNode;
 }
 
 /**
@@ -16,7 +16,7 @@ export interface NullMessageProps {
  * Displayed when there are no rows in the table
  *
  * @param NullMessageProps
- * @returns React.JSX.Element
+ * @returns JSX.Element
  */
 const NullMessage = ({ title, description }: NullMessageProps) => {
   const intl = useIntl();

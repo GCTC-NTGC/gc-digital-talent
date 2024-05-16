@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import debounce from "lodash/debounce";
@@ -38,7 +38,7 @@ const AddTeamMemberDialog = ({
 }: // onSave,
 AddTeamMemberDialogProps) => {
   const intl = useIntl();
-  const [query, setQuery] = React.useState<string>("");
+  const [query, setQuery] = useState<string>("");
   const {
     users,
     total,
@@ -48,7 +48,7 @@ AddTeamMemberDialogProps) => {
   });
   const { roles, fetching: rolesFetching } = useAvailableRoles();
   const [, executeMutation] = useMutation(UpdateUserTeamRoles_Mutation);
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const methods = useForm<TeamMemberFormValues>({
     defaultValues: {

@@ -1,8 +1,8 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { useMutation } from "urql";
+import { ReactNode } from "react";
 
 import {
   Button,
@@ -95,15 +95,15 @@ export const getPageInfo: GetPageNavInfo = ({
   };
 };
 
-const whyLink = (chunks: React.ReactNode) => (
+const whyLink = (chunks: ReactNode) => (
   <SelfDeclarationDialog>{chunks}</SelfDeclarationDialog>
 );
 
-const verificationLink = (chunks: React.ReactNode) => (
+const verificationLink = (chunks: ReactNode) => (
   <VerificationDialog>{chunks}</VerificationDialog>
 );
 
-const definitionLink = (chunks: React.ReactNode) => (
+const definitionLink = (chunks: ReactNode) => (
   <DefinitionDialog>{chunks}</DefinitionDialog>
 );
 
@@ -322,8 +322,7 @@ export const ApplicationSelfDeclaration = ({
                           "Button text to submit the Indigenous self-declaration form when not Indigenous.",
                       },
                       {
-                        abbreviation: (text: React.ReactNode) =>
-                          wrapAbbr(text, intl),
+                        abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
                       },
                     )}
                   </Button>

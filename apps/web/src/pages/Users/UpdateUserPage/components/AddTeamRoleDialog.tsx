@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
@@ -56,7 +56,7 @@ const AddTeamRoleDialog = ({
   onAddRoles,
 }: AddTeamRoleDialogProps) => {
   const intl = useIntl();
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const userName = getFullNameHtml(user.firstName, user.lastName, intl);
 
   const methods = useForm<FormValues>({

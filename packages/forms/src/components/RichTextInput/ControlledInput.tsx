@@ -1,4 +1,4 @@
-import React from "react";
+import { useMemo, useEffect } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import {
   ControllerRenderProps,
@@ -41,7 +41,7 @@ const ControlledInput = ({
   const stateStyles = useFieldStateStyles(name, !trackUnsaved);
   const content = defaultValues ? defaultValues[name] : undefined;
 
-  const editorProps = React.useMemo(
+  const editorProps = useMemo(
     () => ({
       attributes: {
         role: "textbox",
@@ -76,7 +76,7 @@ const ControlledInput = ({
     },
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     editor?.setOptions({ editorProps });
   }, [editor, editorProps, fieldState]);
 

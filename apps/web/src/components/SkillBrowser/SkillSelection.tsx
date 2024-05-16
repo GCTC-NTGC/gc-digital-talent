@@ -1,4 +1,4 @@
-import React from "react";
+import { useMemo, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
 
@@ -32,7 +32,7 @@ const SkillSelection = ({
 
   const [family, skill] = watch(["family", "skill"]);
 
-  const filteredFamilies = React.useMemo(() => {
+  const filteredFamilies = useMemo(() => {
     return getFilteredFamilies({ skills }).sort((familyA, familyB) => {
       const a = normalizeString(getLocalizedName(familyA.name, intl));
       const b = normalizeString(getLocalizedName(familyB.name, intl));
@@ -43,7 +43,7 @@ const SkillSelection = ({
     });
   }, [skills, intl]);
 
-  const filteredSkills = React.useMemo(() => {
+  const filteredSkills = useMemo(() => {
     return getFilteredSkills({ skills, family, inLibrary }).sort(
       (skillA, skillB) => {
         const a = normalizeString(getLocalizedName(skillA.name, intl));
@@ -56,23 +56,23 @@ const SkillSelection = ({
     );
   }, [family, inLibrary, skills, intl]);
 
-  const selectedSkill = React.useMemo(() => {
+  const selectedSkill = useMemo(() => {
     return skill
       ? skills.find((currentSkill) => currentSkill.id === skill)
       : undefined;
   }, [skill, skills]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (onSelectSkill) {
       onSelectSkill(selectedSkill || null);
     }
   }, [onSelectSkill, selectedSkill]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     resetField("skill");
   }, [family, resetField]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     resetField("family");
   }, [resetField]);
 

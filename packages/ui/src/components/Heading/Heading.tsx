@@ -1,4 +1,4 @@
-import React from "react";
+import { HTMLAttributes, forwardRef } from "react";
 
 import { IconType, Color } from "../../types";
 import { headingStyles, iconStyles } from "./styles";
@@ -6,14 +6,14 @@ import { headingStyles, iconStyles } from "./styles";
 export type HeadingLevel = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 export type HeadingRef = HTMLHeadingElement;
 
-export interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
+export interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
   level?: HeadingLevel;
   size?: HeadingLevel;
   color?: Color;
   Icon?: IconType;
 }
 
-const Heading = React.forwardRef<HeadingRef, HeadingProps>(
+const Heading = forwardRef<HeadingRef, HeadingProps>(
   ({ level = "h2", size, Icon, color, children, ...rest }, forwardedRef) => {
     const El = level;
 

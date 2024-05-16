@@ -1,5 +1,5 @@
-import React from "react";
 import { useIntl } from "react-intl";
+import { useState } from "react";
 
 import { Button, CardRepeater, Dialog } from "@gc-digital-talent/ui";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
@@ -10,13 +10,10 @@ type RemoveDialogProps = {
   index: number;
 };
 
-const RemoveDialog = ({
-  onRemove,
-  index,
-}: RemoveDialogProps): React.JSX.Element => {
+const RemoveDialog = ({ onRemove, index }: RemoveDialogProps) => {
   const intl = useIntl();
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
-  const [isBusy, setIsBusy] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isBusy, setIsBusy] = useState<boolean>(false);
 
   const handleRemove = () => {
     setIsBusy(true);

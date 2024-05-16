@@ -1,4 +1,4 @@
-import React from "react";
+import { ReactNode } from "react";
 
 import { useTheme } from "@gc-digital-talent/theme";
 
@@ -11,7 +11,7 @@ type Side = "top" | "bottom";
 type Size = "sm" | "lg";
 
 interface FlourishContainerProps {
-  children: React.ReactNode;
+  children: ReactNode;
   show?: Array<Side>;
   size?: Size;
   skew?: boolean;

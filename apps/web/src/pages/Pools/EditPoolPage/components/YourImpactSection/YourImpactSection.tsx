@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import PresentationChartBarIcon from "@heroicons/react/24/outline/PresentationChartBarIcon";
@@ -58,7 +57,7 @@ const YourImpactSection = ({
   poolQuery,
   sectionMetadata,
   onSave,
-}: YourImpactSectionProps): React.JSX.Element => {
+}: YourImpactSectionProps) => {
   const intl = useIntl();
   const pool = getFragment(EditPoolYourImpact_Fragment, poolQuery);
   const isNull = hasAllEmptyFields(pool);
