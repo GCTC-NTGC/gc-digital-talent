@@ -250,9 +250,9 @@ const commonMessages = defineMessages({
     description: "Label for print button",
   },
   expiryDate: {
-    defaultMessage: "Expiry Date",
-    id: "BNEY8G",
-    description: "CSV Header, Expiry Date column",
+    defaultMessage: "Expiry date",
+    id: "AAFkmX",
+    description: "Label for expiry Date",
   },
   jobPlacement: {
     defaultMessage: "Job placement",

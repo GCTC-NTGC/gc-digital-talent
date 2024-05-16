@@ -415,6 +415,10 @@
     "defaultMessage": "Il y a une exigence linguistique manquante",
     "description": "Message displayed when user attempts to apply to a pool without the language requirement"
   },
+  "AAFkmX": {
+    "defaultMessage": "Date d'expiration",
+    "description": "Label for expiry Date"
+  },
   "ACO2Uz": {
     "defaultMessage": "erreur",
     "description": "Message for the error status"
@@ -434,10 +438,6 @@
   "AvBSV+": {
     "defaultMessage": "Oh non... ",
     "description": "Title displayed for a table error loading state."
-  },
-  "BNEY8G": {
-    "defaultMessage": "Date d’expiration",
-    "description": "CSV Header, Expiry Date column"
   },
   "BXxvCZ": {
     "defaultMessage": "Aucun nom n'a été fourni",
