@@ -1,4 +1,4 @@
-import { defineMessages, MessageDescriptor } from "react-intl";
+import { defineMessage, defineMessages, MessageDescriptor } from "react-intl";
 
 import {
   Language,
@@ -40,9 +40,31 @@ import {
   PlacementType,
   CandidateRemovalReason,
 } from "@gc-digital-talent/graphql";
+import { hasKey } from "@gc-digital-talent/helpers";
 
-import getOrThrowError from "../utils/error";
 import commonMessages from "./commonMessages";
+
+const enumNotFound = defineMessage({
+  defaultMessage: "Enum not found",
+  id: "kQTtt9",
+  description: "Error message when human readable message not found",
+});
+
+/**
+ * Returns the value at the specified key. If the key is not present, throws an error.
+ * @param object
+ * @param key
+ * @param errorMessage
+ */
+function getOrDisplayError<T>(
+  object: { [key: string]: T },
+  key: string | number,
+): T | MessageDescriptor {
+  if (!hasKey(object, key)) {
+    return enumNotFound;
+  }
+  return object[key];
+}
 
 const employmentEquityGroups = defineMessages({
   woman: {
@@ -69,12 +91,7 @@ const employmentEquityGroups = defineMessages({
 
 export const getEmploymentEquityGroup = (
   equityGroup: keyof typeof employmentEquityGroups,
-): MessageDescriptor =>
-  getOrThrowError(
-    employmentEquityGroups,
-    equityGroup,
-    `Invalid equity group '${equityGroup}'`,
-  );
+): MessageDescriptor => getOrDisplayError(employmentEquityGroups, equityGroup);
 
 const employmentEquityStatements = defineMessages({
   woman: {
@@ -104,11 +121,7 @@ const employmentEquityStatements = defineMessages({
 export const getEmploymentEquityStatement = (
   equityStatement: keyof typeof employmentEquityStatements,
 ): MessageDescriptor =>
-  getOrThrowError(
-    employmentEquityStatements,
-    equityStatement,
-    `Invalid equity statement '${equityStatement}'`,
-  );
+  getOrDisplayError(employmentEquityStatements, equityStatement);
 
 const languageProficiency = defineMessages({
   [EstimatedLanguageAbility.Beginner]: {
@@ -130,12 +143,7 @@ const languageProficiency = defineMessages({
 
 export const getLanguageProficiency = (
   languageProf: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    languageProficiency,
-    languageProf,
-    `Invalid skill level '${languageProf}'`,
-  );
+): MessageDescriptor => getOrDisplayError(languageProficiency, languageProf);
 
 const languages = defineMessages({
   [Language.En]: {
@@ -151,7 +159,7 @@ const languages = defineMessages({
 });
 
 export const getLanguage = (languageId: string | number): MessageDescriptor =>
-  getOrThrowError(languages, languageId, `Invalid Language '${languageId}'`);
+  getOrDisplayError(languages, languageId);
 
 const citizenshipStatusesProfile = defineMessages({
   [CitizenshipStatus.Citizen]: {
@@ -170,11 +178,7 @@ const citizenshipStatusesProfile = defineMessages({
 export const getCitizenshipStatusesProfile = (
   citizenshipId: string | number,
 ): MessageDescriptor =>
-  getOrThrowError(
-    citizenshipStatusesProfile,
-    citizenshipId,
-    `Invalid Language '${citizenshipId}'`,
-  );
+  getOrDisplayError(citizenshipStatusesProfile, citizenshipId);
 
 const citizenshipStatusesAdmin = defineMessages({
   [CitizenshipStatus.Citizen]: {
@@ -193,11 +197,7 @@ const citizenshipStatusesAdmin = defineMessages({
 export const getCitizenshipStatusesAdmin = (
   citizenshipId: string | number,
 ): MessageDescriptor =>
-  getOrThrowError(
-    citizenshipStatusesAdmin,
-    citizenshipId,
-    `Invalid Language '${citizenshipId}'`,
-  );
+  getOrDisplayError(citizenshipStatusesAdmin, citizenshipId);
 
 const armedForcesStatusesAdmin = defineMessages({
   [ArmedForcesStatus.Veteran]: {
@@ -220,11 +220,7 @@ const armedForcesStatusesAdmin = defineMessages({
 export const getArmedForcesStatusesAdmin = (
   armedForcesId: string | number,
 ): MessageDescriptor =>
-  getOrThrowError(
-    armedForcesStatusesAdmin,
-    armedForcesId,
-    `Invalid status '${armedForcesId}'`,
-  );
+  getOrDisplayError(armedForcesStatusesAdmin, armedForcesId);
 
 const armedForcesStatusesProfile = defineMessages({
   [ArmedForcesStatus.Veteran]: {
@@ -269,10 +265,9 @@ export const getArmedForcesStatusesProfile = (
   armedForcesId: string | number,
   bold = true,
 ): MessageDescriptor =>
-  getOrThrowError(
+  getOrDisplayError(
     bold ? armedForcesStatusesProfile : armedForcesStatusesProfileNoBold,
     armedForcesId,
-    `Invalid status '${armedForcesId}'`,
   );
 
 const educationRequirementOptions = (classificationGroup?: string) =>
@@ -320,10 +315,9 @@ export const getEducationRequirementOption = (
   educationRequirementOptionId: string,
   classificationGroup?: string,
 ): MessageDescriptor =>
-  getOrThrowError(
+  getOrDisplayError(
     educationRequirementOptions(classificationGroup),
     educationRequirementOptionId,
-    `Invalid Education Requirement Option '${educationRequirementOptionId}'`,
   );
 
 export const EmploymentDuration = {
@@ -366,11 +360,7 @@ export const getEmploymentDuration = (
     short: employmentDurationShort,
   };
 
-  return getOrThrowError(
-    messageDictionary[format],
-    employmentDurationId,
-    `Invalid Employment Duration '${employmentDurationId}'`,
-  );
+  return getOrDisplayError(messageDictionary[format], employmentDurationId);
 };
 
 const languageAbilities = defineMessages({
@@ -393,12 +383,7 @@ const languageAbilities = defineMessages({
 
 export const getLanguageAbility = (
   languageAbilityId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    languageAbilities,
-    languageAbilityId,
-    `Invalid Language Ability '${languageAbilityId}'`,
-  );
+): MessageDescriptor => getOrDisplayError(languageAbilities, languageAbilityId);
 
 const languageRequirements = defineMessages({
   [PoolLanguage.BilingualAdvanced]: {
@@ -431,11 +416,7 @@ const languageRequirements = defineMessages({
 export const getLanguageRequirement = (
   languageRequirementId: string | number,
 ): MessageDescriptor =>
-  getOrThrowError(
-    languageRequirements,
-    languageRequirementId,
-    `Invalid Language Requirement '${languageRequirementId}'`,
-  );
+  getOrDisplayError(languageRequirements, languageRequirementId);
 
 const workRegions = defineMessages({
   [WorkRegion.Atlantic]: {
@@ -579,20 +560,14 @@ export const getWorkRegionsDetailed = (
   workRegionId: string | number,
   showBold = true,
 ): MessageDescriptor =>
-  getOrThrowError(
+  getOrDisplayError(
     showBold ? workRegionsDetailed : workRegionsDetailedNoBold,
     workRegionId,
-    `Invalid Work Region '${workRegionId}'`,
   );
 
 export const getWorkRegion = (
   workRegionId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    workRegions,
-    workRegionId,
-    `Invalid Work Region '${workRegionId}'`,
-  );
+): MessageDescriptor => getOrDisplayError(workRegions, workRegionId);
 
 const poolCandidateStatuses = defineMessages({
   [PoolCandidateStatus.Draft]: {
@@ -694,11 +669,7 @@ const poolCandidateStatuses = defineMessages({
 export const getPoolCandidateStatus = (
   poolCandidateStatusId: string | number,
 ): MessageDescriptor =>
-  getOrThrowError(
-    poolCandidateStatuses,
-    poolCandidateStatusId,
-    `Invalid Pool Candidate Status '${poolCandidateStatusId}'`,
-  );
+  getOrDisplayError(poolCandidateStatuses, poolCandidateStatusId);
 
 const candidateExpiryFilterStatuses = defineMessages({
   [CandidateExpiryFilter.Active]: {
@@ -721,10 +692,9 @@ const candidateExpiryFilterStatuses = defineMessages({
 export const getCandidateExpiryFilterStatus = (
   candidateExpiryFilterStatusId: string | number,
 ): MessageDescriptor =>
-  getOrThrowError(
+  getOrDisplayError(
     candidateExpiryFilterStatuses,
     candidateExpiryFilterStatusId,
-    `Invalid Pool Candidate Status '${candidateExpiryFilterStatusId}'`,
   );
 
 const candidateSuspendedFilterStatuses = defineMessages({
@@ -748,10 +718,9 @@ const candidateSuspendedFilterStatuses = defineMessages({
 export const getCandidateSuspendedFilterStatus = (
   candidateSuspendedFilterStatusId: string | number,
 ): MessageDescriptor =>
-  getOrThrowError(
+  getOrDisplayError(
     candidateSuspendedFilterStatuses,
     candidateSuspendedFilterStatusId,
-    `Invalid Pool Candidate Status '${candidateSuspendedFilterStatusId}'`,
   );
 
 const poolCandidateSearchStatuses = defineMessages({
@@ -791,11 +760,7 @@ const poolCandidateSearchStatuses = defineMessages({
 export const getPoolCandidateSearchStatus = (
   poolCandidateSearchStatusId: string | number,
 ): MessageDescriptor =>
-  getOrThrowError(
-    poolCandidateSearchStatuses,
-    poolCandidateSearchStatusId,
-    `Invalid Pool Candidate Search Status '${poolCandidateSearchStatusId}'`,
-  );
+  getOrDisplayError(poolCandidateSearchStatuses, poolCandidateSearchStatusId);
 
 const poolCandidateSearchPositionTypes = defineMessages({
   [PoolCandidateSearchPositionType.IndividualContributor]: {
@@ -813,10 +778,9 @@ const poolCandidateSearchPositionTypes = defineMessages({
 export const getPoolCandidateSearchPositionType = (
   poolCandidateSearchPositionTypeId: string | number,
 ): MessageDescriptor =>
-  getOrThrowError(
+  getOrDisplayError(
     poolCandidateSearchPositionTypes,
     poolCandidateSearchPositionTypeId,
-    `Invalid Pool Candidate Search Position Type '${poolCandidateSearchPositionTypeId}'`,
   );
 
 const SkillCategories = defineMessages({
@@ -834,12 +798,7 @@ const SkillCategories = defineMessages({
 
 export const getSkillCategory = (
   skillCategoryId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    SkillCategories,
-    skillCategoryId,
-    `Invalid Skill Category '${skillCategoryId}'`,
-  );
+): MessageDescriptor => getOrDisplayError(SkillCategories, skillCategoryId);
 
 const PoolSkillTypes = defineMessages({
   [PoolSkillType.Essential]: {
@@ -856,12 +815,7 @@ const PoolSkillTypes = defineMessages({
 
 export const getPoolSkillType = (
   poolSkillId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    PoolSkillTypes,
-    poolSkillId,
-    `Invalid PoolSkill Type '${poolSkillId}'`,
-  );
+): MessageDescriptor => getOrDisplayError(PoolSkillTypes, poolSkillId);
 
 const GenericJobTitles = defineMessages({
   [GenericJobTitleKey.TechnicianIt01]: {
@@ -898,12 +852,7 @@ const GenericJobTitles = defineMessages({
 
 export const getGenericJobTitles = (
   GenericJobTitleId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    GenericJobTitles,
-    GenericJobTitleId,
-    `Invalid role '${GenericJobTitleId}'`,
-  );
+): MessageDescriptor => getOrDisplayError(GenericJobTitles, GenericJobTitleId);
 
 const awardedToMessages = defineMessages({
   [AwardedTo.Me]: {
@@ -929,11 +878,7 @@ const awardedToMessages = defineMessages({
 });
 
 export const getAwardedTo = (awardedToId: string | number): MessageDescriptor =>
-  getOrThrowError(
-    awardedToMessages,
-    awardedToId,
-    `Invalid awardedTo ${awardedToId}`,
-  );
+  getOrDisplayError(awardedToMessages, awardedToId);
 
 const awardedScopeMessages = defineMessages({
   [AwardedScope.International]: {
@@ -975,12 +920,7 @@ const awardedScopeMessages = defineMessages({
 
 export const getAwardedScope = (
   awardedScopeId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    awardedScopeMessages,
-    awardedScopeId,
-    `Invalid awardedTo ${awardedScopeId}`,
-  );
+): MessageDescriptor => getOrDisplayError(awardedScopeMessages, awardedScopeId);
 
 const educationStatusMessages = defineMessages({
   [EducationStatus.SuccessCredential]: {
@@ -1015,11 +955,7 @@ const educationStatusMessages = defineMessages({
 export const getEducationStatus = (
   educationStatusId: string | number,
 ): MessageDescriptor =>
-  getOrThrowError(
-    educationStatusMessages,
-    educationStatusId,
-    `Invalid educationStatus ${educationStatusId}`,
-  );
+  getOrDisplayError(educationStatusMessages, educationStatusId);
 
 const educationTypeMessages = defineMessages({
   [EducationType.Diploma]: {
@@ -1063,11 +999,7 @@ const educationTypeMessages = defineMessages({
 export const getEducationType = (
   educationTypeId: string | number,
 ): MessageDescriptor =>
-  getOrThrowError(
-    educationTypeMessages,
-    educationTypeId,
-    `Invalid educationType ${educationTypeId}`,
-  );
+  getOrDisplayError(educationTypeMessages, educationTypeId);
 
 const operationalRequirementLabelFirstPerson = defineMessages({
   [OperationalRequirement.ShiftWork]: {
@@ -1326,11 +1258,7 @@ export const getOperationalRequirement = (
     short: operationalRequirementLabelShort,
   };
 
-  return getOrThrowError(
-    messageDictionary[format],
-    operationalRequirementId,
-    `Invalid Operational Requirement '${operationalRequirementId}'`,
-  );
+  return getOrDisplayError(messageDictionary[format], operationalRequirementId);
 };
 
 const provinceOrTerritory = defineMessages({
@@ -1407,11 +1335,7 @@ const provinceOrTerritory = defineMessages({
 export const getProvinceOrTerritory = (
   provinceOrTerritoryId: string | number,
 ): MessageDescriptor =>
-  getOrThrowError(
-    provinceOrTerritory,
-    provinceOrTerritoryId,
-    `Invalid province or territory '${provinceOrTerritoryId}'`,
-  );
+  getOrDisplayError(provinceOrTerritory, provinceOrTerritoryId);
 
 const poolStream = defineMessages({
   [PoolStream.AccessInformationPrivacy]: {
@@ -1473,12 +1397,7 @@ const poolStream = defineMessages({
 
 export const getPoolStream = (
   poolStreamId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    poolStream,
-    poolStreamId,
-    `Invalid Pool Stream '${poolStreamId}'`,
-  );
+): MessageDescriptor => getOrDisplayError(poolStream, poolStreamId);
 
 const govEmployeeType = defineMessages({
   [GovEmployeeType.Student]: {
@@ -1505,12 +1424,7 @@ const govEmployeeType = defineMessages({
 
 export const getGovEmployeeType = (
   govEmployeeTypeId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    govEmployeeType,
-    govEmployeeTypeId,
-    `Invalid Government of Employee Type '${govEmployeeTypeId}'`,
-  );
+): MessageDescriptor => getOrDisplayError(govEmployeeType, govEmployeeTypeId);
 
 const simpleGovEmployeeType = defineMessages({
   [GovEmployeeType.Student]: {
@@ -1538,11 +1452,7 @@ const simpleGovEmployeeType = defineMessages({
 export const getSimpleGovEmployeeType = (
   govEmployeeTypeId: string | number,
 ): MessageDescriptor =>
-  getOrThrowError(
-    simpleGovEmployeeType,
-    govEmployeeTypeId,
-    `Invalid Government of Employee Type '${govEmployeeTypeId}'`,
-  );
+  getOrDisplayError(simpleGovEmployeeType, govEmployeeTypeId);
 
 const poolStatus = defineMessages({
   [PoolStatus.Draft]: {
@@ -1569,12 +1479,7 @@ const poolStatus = defineMessages({
 
 export const getPoolStatus = (
   poolStatusId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    poolStatus,
-    poolStatusId,
-    `Invalid Pool Status '${poolStatusId}'`,
-  );
+): MessageDescriptor => getOrDisplayError(poolStatus, poolStatusId);
 
 const securityClearances = defineMessages({
   [SecurityStatus.Reliability]: {
@@ -1597,11 +1502,7 @@ const securityClearances = defineMessages({
 export const getSecurityClearance = (
   securityClearanceId: string | number,
 ): MessageDescriptor =>
-  getOrThrowError(
-    securityClearances,
-    securityClearanceId,
-    `Invalid Security Clearance '${securityClearanceId}'`,
-  );
+  getOrDisplayError(securityClearances, securityClearanceId);
 
 export const poolCandidatePriorities = defineMessages({
   10: {
@@ -1625,11 +1526,7 @@ export const poolCandidatePriorities = defineMessages({
 export const getPoolCandidatePriorities = (
   priorityWeight: string | number,
 ): MessageDescriptor =>
-  getOrThrowError(
-    poolCandidatePriorities,
-    priorityWeight,
-    `Invalid Candidate Priority Weight '${priorityWeight}'`,
-  );
+  getOrDisplayError(poolCandidatePriorities, priorityWeight);
 
 const publishingGroups = defineMessages({
   [PublishingGroup.ExecutiveJobs]: {
@@ -1658,12 +1555,7 @@ const publishingGroups = defineMessages({
 
 export const getPublishingGroup = (
   publishingGroup: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    publishingGroups,
-    publishingGroup,
-    `Invalid publishing group '${publishingGroup}'`,
-  );
+): MessageDescriptor => getOrDisplayError(publishingGroups, publishingGroup);
 
 const abbreviations = defineMessages({
   AS: {
@@ -1705,12 +1597,7 @@ const abbreviations = defineMessages({
 
 export const getAbbreviations = (
   abbreviation: keyof typeof abbreviations,
-): MessageDescriptor =>
-  getOrThrowError(
-    abbreviations,
-    abbreviation,
-    `Invalid abbreviation '${abbreviation}'`,
-  );
+): MessageDescriptor => getOrDisplayError(abbreviations, abbreviation);
 
 const indigenousCommunities = defineMessages({
   [IndigenousCommunity.StatusFirstNations]: {
@@ -1745,11 +1632,7 @@ const indigenousCommunities = defineMessages({
 export const getIndigenousCommunity = (
   indigenousCommunity: string | number,
 ): MessageDescriptor =>
-  getOrThrowError(
-    indigenousCommunities,
-    indigenousCommunity,
-    `Invalid indigenous community '${indigenousCommunity}'`,
-  );
+  getOrDisplayError(indigenousCommunities, indigenousCommunity);
 
 const technicalSkillLevelNames = defineMessages({
   [SkillLevel.Beginner]: {
@@ -1856,18 +1739,10 @@ export const getSkillLevelName = (
   skillCategory: SkillCategory,
 ): MessageDescriptor => {
   if (skillCategory === SkillCategory.Technical) {
-    return getOrThrowError(
-      technicalSkillLevelNames,
-      skillLevel,
-      `Invalid technical skill level '${skillLevel}'`,
-    );
+    return getOrDisplayError(technicalSkillLevelNames, skillLevel);
   }
 
-  return getOrThrowError(
-    behaviouralSkillLevelNames,
-    skillLevel,
-    `Invalid behavioural skill level '${skillLevel}'`,
-  );
+  return getOrDisplayError(behaviouralSkillLevelNames, skillLevel);
 };
 
 export const getSkillLevelDefinition = (
@@ -1875,18 +1750,10 @@ export const getSkillLevelDefinition = (
   skillCategory: SkillCategory,
 ): MessageDescriptor => {
   if (skillCategory === SkillCategory.Technical) {
-    return getOrThrowError(
-      technicalSkillLevelDefinitions,
-      skillLevel,
-      `Invalid technical skill level '${skillLevel}'`,
-    );
+    return getOrDisplayError(technicalSkillLevelDefinitions, skillLevel);
   }
 
-  return getOrThrowError(
-    behaviouralSkillLevelDefinitions,
-    skillLevel,
-    `Invalid behavioural skill level '${skillLevel}'`,
-  );
+  return getOrDisplayError(behaviouralSkillLevelDefinitions, skillLevel);
 };
 
 export const getSkillLevelMessages = (
@@ -1939,12 +1806,7 @@ const evaluatedLanguageMessages = defineMessages({
 
 export const getEvaluatedLanguageAbility = (
   ability: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    evaluatedLanguageMessages,
-    ability,
-    `Invalid evaluatedLanguageAbility ${ability}`,
-  );
+): MessageDescriptor => getOrDisplayError(evaluatedLanguageMessages, ability);
 
 const assessmentStepTypes = defineMessages({
   [AssessmentStepType.AdditionalAssessment]: {
@@ -2002,11 +1864,7 @@ const assessmentStepTypes = defineMessages({
 export const getAssessmentStepType = (
   assessmentStepTypeId: string | number,
 ): MessageDescriptor =>
-  getOrThrowError(
-    assessmentStepTypes,
-    assessmentStepTypeId,
-    `Invalid Assessment Step Type '${assessmentStepTypeId}'`,
-  );
+  getOrDisplayError(assessmentStepTypes, assessmentStepTypeId);
 
 const searchRequestReasons = defineMessages({
   [PoolCandidateSearchRequestReason.GeneralInterest]: {
@@ -2039,11 +1897,7 @@ const searchRequestReasons = defineMessages({
 export const getSearchRequestReason = (
   searchRequestReasonId: string | number,
 ): MessageDescriptor =>
-  getOrThrowError(
-    searchRequestReasons,
-    searchRequestReasonId,
-    `Invalid Search Request Reason '${searchRequestReasonId}'`,
-  );
+  getOrDisplayError(searchRequestReasons, searchRequestReasonId);
 
 const assessmentDecisions = defineMessages({
   [AssessmentDecision.Successful]: {
@@ -2069,11 +1923,7 @@ const assessmentDecisions = defineMessages({
 export const getAssessmentDecision = (
   assessmentDecisionId: string | number,
 ): MessageDescriptor =>
-  getOrThrowError(
-    assessmentDecisions,
-    assessmentDecisionId,
-    `Invalid Search Request Reason '${assessmentDecisionId}'`,
-  );
+  getOrDisplayError(assessmentDecisions, assessmentDecisionId);
 
 const tableAssessmentDecisions = defineMessages({
   [AssessmentDecision.Successful]: {
@@ -2099,11 +1949,7 @@ const tableAssessmentDecisions = defineMessages({
 export const getTableAssessmentDecision = (
   assessmentDecisionId: string | number,
 ): MessageDescriptor =>
-  getOrThrowError(
-    tableAssessmentDecisions,
-    assessmentDecisionId,
-    `Invalid Search Request Reason '${assessmentDecisionId}'`,
-  );
+  getOrDisplayError(tableAssessmentDecisions, assessmentDecisionId);
 
 const assessmentJustifications = defineMessages({
   [AssessmentResultJustification.EducationAcceptedCombinationEducationWorkExperience]:
@@ -2162,11 +2008,7 @@ const assessmentJustifications = defineMessages({
 export const getAssessmentJustification = (
   assessmentJustificationId: string | number,
 ): MessageDescriptor =>
-  getOrThrowError(
-    assessmentJustifications,
-    assessmentJustificationId,
-    `Invalid Search Request Reason '${assessmentJustificationId}'`,
-  );
+  getOrDisplayError(assessmentJustifications, assessmentJustificationId);
 
 const assessmentDecisionLevels = defineMessages({
   [AssessmentDecisionLevel.AboveAndBeyondRequired]: {
@@ -2189,11 +2031,7 @@ const assessmentDecisionLevels = defineMessages({
 export const getAssessmentDecisionLevel = (
   assessmentDecisionLevelId: string | number,
 ): MessageDescriptor =>
-  getOrThrowError(
-    assessmentDecisionLevels,
-    assessmentDecisionLevelId,
-    `Invalid Search Request Reason '${assessmentDecisionLevelId}'`,
-  );
+  getOrDisplayError(assessmentDecisionLevels, assessmentDecisionLevelId);
 
 const poolOpportunityLengths = defineMessages({
   [PoolOpportunityLength.Indeterminate]: {
@@ -2226,11 +2064,7 @@ const poolOpportunityLengths = defineMessages({
 export const getPoolOpportunityLength = (
   poolOpportunityLengthId: string | number,
 ): MessageDescriptor =>
-  getOrThrowError(
-    poolOpportunityLengths,
-    poolOpportunityLengthId,
-    `Invalid Pool Opportunity Length '${poolOpportunityLengthId}'`,
-  );
+  getOrDisplayError(poolOpportunityLengths, poolOpportunityLengthId);
 
 const placementTypes = defineMessages({
   [PlacementType.PlacedTentative]: {
@@ -2257,12 +2091,7 @@ const placementTypes = defineMessages({
 
 export const getPlacementType = (
   placementTypeId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    placementTypes,
-    placementTypeId,
-    `Invalid Placement Type '${placementTypeId}'`,
-  );
+): MessageDescriptor => getOrDisplayError(placementTypes, placementTypeId);
 const candidateRemovalReasons = defineMessages({
   [CandidateRemovalReason.RequestedToBeWithdrawn]: {
     defaultMessage: "Candidate has requested to be withdrawn",
@@ -2284,8 +2113,4 @@ const candidateRemovalReasons = defineMessages({
 export const getCandidateRemovalReason = (
   candidateRemovalReasonId: string | number,
 ): MessageDescriptor =>
-  getOrThrowError(
-    candidateRemovalReasons,
-    candidateRemovalReasonId,
-    `Invalid Candidate removal reason '${candidateRemovalReasonId}'`,
-  );
+  getOrDisplayError(candidateRemovalReasons, candidateRemovalReasonId);
