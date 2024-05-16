@@ -6,6 +6,7 @@ import {
 } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
+import { useState, useMemo } from "react";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
@@ -120,7 +121,7 @@ const PoolTable = ({ title }: PoolTableProps) => {
   const locale = getLocale(intl);
   const paths = useRoutes();
   const initialState = getTableStateFromSearchParams(defaultState);
-  const [paginationState, setPaginationState] = React.useState<PaginationState>(
+  const [paginationState, setPaginationState] = useState<PaginationState>(
     initialState.paginationState
       ? {
           ...initialState.paginationState,
@@ -128,10 +129,10 @@ const PoolTable = ({ title }: PoolTableProps) => {
         }
       : INITIAL_STATE.paginationState,
   );
-  const [searchState, setSearchState] = React.useState<SearchState>(
+  const [searchState, setSearchState] = useState<SearchState>(
     initialState.searchState ?? INITIAL_STATE.searchState,
   );
-  const [sortState, setSortState] = React.useState<SortingState | undefined>(
+  const [sortState, setSortState] = useState<SortingState | undefined>(
     initialState.sortState ?? [{ id: "createdDate", desc: false }],
   );
 
@@ -305,7 +306,7 @@ const PoolTable = ({ title }: PoolTableProps) => {
     },
   });
 
-  const filteredData = React.useMemo(
+  const filteredData = useMemo(
     () => unpackMaybes(data?.poolsPaginated.data),
     [data?.poolsPaginated.data],
   );
