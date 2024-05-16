@@ -1,9 +1,8 @@
-import { Meta, StoryFn } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 
 import { fakePools, fakeTeams } from "@gc-digital-talent/fake-data";
-import { makeFragmentData } from "@gc-digital-talent/graphql";
 
-import { PoolTable, PoolTableRow_Fragment } from "./PoolTable";
+import PoolTable from "./PoolTable";
 
 const mockPools = fakePools();
 const mockTeams = fakeTeams();
@@ -19,19 +18,34 @@ const mockPoolsWithTeam = mockPools.flatMap((pool) => {
   }));
 });
 
-export default {
+const mockPaginatorInfo = {
+  count: 1,
+  currentPage: 1,
+  firstItem: 1,
+  hasMorePages: true,
+  lastItem: 1,
+  lastPage: 1,
+  perPage: 5,
+  total: 100,
+};
+
+const meta = {
   component: PoolTable,
-} as Meta<typeof PoolTable>;
+  parameters: {
+    apiResponses: {
+      PoolTable: {
+        data: {
+          poolsPaginated: {
+            data: [...mockPoolsWithTeam.slice(0, 4)],
+            paginatorInfo: mockPaginatorInfo,
+          },
+        },
+      },
+    },
+  },
+} satisfies Meta<typeof PoolTable>;
+export default meta;
 
-const Template: StoryFn<typeof PoolTable> = (args) => {
-  const { poolsQuery, title } = args;
-  return <PoolTable poolsQuery={poolsQuery} title={title} />;
-};
+type Story = StoryObj<typeof PoolTable>;
 
-export const Default = Template.bind({});
-Default.args = {
-  poolsQuery: mockPoolsWithTeam.map((pool) =>
-    makeFragmentData(pool, PoolTableRow_Fragment),
-  ),
-  title: "Pools",
-};
+export const Default: Story = {};

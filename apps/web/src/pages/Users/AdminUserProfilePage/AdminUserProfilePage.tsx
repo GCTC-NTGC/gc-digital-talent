@@ -289,20 +289,6 @@ const AdminUserProfile_Query = graphql(/* GraphQL */ `
     user(id: $id, trashed: WITH) {
       ...AdminUserProfileUser
     }
-    pools {
-      id
-      name {
-        en
-        fr
-      }
-      stream
-      classification {
-        id
-        group
-        level
-      }
-      status
-    }
   }
 `);
 
