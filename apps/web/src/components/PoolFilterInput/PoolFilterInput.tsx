@@ -1,6 +1,6 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import debounce from "lodash/debounce";
+import { useState } from "react";
 
 import { Combobox } from "@gc-digital-talent/forms";
 import { PoolFilterInput, Scalars } from "@gc-digital-talent/graphql";
@@ -27,7 +27,7 @@ const PoolFilterInput = ({
   id = "pools",
 }: PoolFilterInputProps) => {
   const intl = useIntl();
-  const [query, setQuery] = React.useState<string>("");
+  const [query, setQuery] = useState<string>("");
   const {
     poolOptions,
     total,
