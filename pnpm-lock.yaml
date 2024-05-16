@@ -434,8 +434,8 @@ importers:
         specifier: ^5.0.0
         version: 5.0.0(graphql@16.8.1)
       '@urql/exchange-auth':
-        specifier: ^2.1.6
-        version: 2.1.6(graphql@16.8.1)
+        specifier: ^2.2.0
+        version: 2.2.0(@urql/core@5.0.0)
       graphql:
         specifier: ^16.8.1
         version: 16.8.1
@@ -7302,13 +7302,13 @@ packages:
     transitivePeerDependencies:
       - graphql
 
-  /@urql/exchange-auth@2.1.6(graphql@16.8.1):
-    resolution: {integrity: sha512-snOlt7p5kYq0KnPDuXkKe2qW3/BucQZOElvTeo3svLQuk9JiNJVnm6ffQ6QGiGO+G3AtMrctnno1+X44fLtDuQ==}
+  /@urql/exchange-auth@2.2.0(@urql/core@5.0.0):
+    resolution: {integrity: sha512-4bJR22EYa/flbhwMBj4lU8MI4cO3ddo/DX7FygWeaeHZU+RWfnQKifCKwxIYlnoV8/CgYRM4lFSMIByYlhmWcg==}
+    peerDependencies:
+      '@urql/core': ^5.0.0
     dependencies:
       '@urql/core': 5.0.0(graphql@16.8.1)
       wonka: 6.3.4
-    transitivePeerDependencies:
-      - graphql
     dev: false
 
   /@webassemblyjs/ast@1.11.6:
