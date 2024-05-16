@@ -297,8 +297,8 @@ importers:
         specifier: ^29.7.0
         version: 29.7.0
       jest-fail-on-console:
-        specifier: ^3.2.0
-        version: 3.2.0
+        specifier: ^3.3.0
+        version: 3.3.0
       prettier:
         specifier: ^3.2.5
         version: 3.2.5
@@ -12248,8 +12248,8 @@ packages:
       jest-mock: 29.7.0
       jest-util: 29.7.0
 
-  /jest-fail-on-console@3.2.0:
-    resolution: {integrity: sha512-GSqvjURdT/U+yu9JEr3EUTEB4kZi9feXMWS/jXGXB/lsnXXHcdU9Xsm2tEupSdqSEtrhTjOCqEJseFMrQ1ryvg==}
+  /jest-fail-on-console@3.3.0:
+    resolution: {integrity: sha512-J9rnFQvQwkcGJw01zCEKe2Uag+E926lFgIyaQGep2LqhQH7OCRHyD+tm/jnNoKlSRnOBO60DmzMjeQAVI3f5cw==}
     dev: true
 
   /jest-get-type@29.6.3:
