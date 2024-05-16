@@ -20,7 +20,7 @@
     "lodash": "^4.17.21",
     "react-helmet-async": "^2.0.5",
     "react-router-dom": "^6.23.0",
-    "urql": "^4.0.7",
+    "urql": "^4.1.0",
     "wonka": "^6.3.4"
   },
   "devDependencies": {
