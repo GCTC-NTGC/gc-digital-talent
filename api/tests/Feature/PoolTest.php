@@ -2,6 +2,7 @@
 
 use App\Enums\PoolStatus;
 use App\Enums\PoolStream;
+use App\Enums\PublishingGroup;
 use App\Enums\SkillCategory;
 use App\Models\Classification;
 use App\Models\Pool;
@@ -1013,6 +1014,58 @@ class PoolTest extends TestCase
                 [
                     'id' => $BAS->id,
                     'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
+                ],
+            ],
+        ]);
+
+        assertSame(2, count($res->json('data.poolsPaginated.data')));
+    }
+
+    /**
+     * @group paginated
+     */
+    public function testPublishingGroupsScope(): void
+    {
+        $IT = Pool::factory()->published()->create([
+            'publishing_group' => PublishingGroup::IT_JOBS->name,
+        ]);
+
+        $IAP = Pool::factory()->published()->create([
+            'publishing_group' => PublishingGroup::IAP->name,
+        ]);
+
+        Pool::factory()->published()->create([
+            'publishing_group' => PublishingGroup::EXECUTIVE_JOBS->name,
+        ]);
+
+        $res = $this->graphQL(/** @lang GraphQL */
+            '
+                query ScopePoolName($where: PoolFilterInput) {
+                    poolsPaginated(where: $where) {
+                        data {
+                            id
+                            publishingGroup
+                        }
+                    }
+                }
+            ',
+            [
+                'where' => [
+                    'publishingGroups' => [
+                        PublishingGroup::IT_JOBS->name,
+                        PublishingGroup::IAP->name,
+                    ],
+                ],
+            ]
+        )->assertJsonFragment([
+            'data' => [
+                [
+                    'id' => $IT->id,
+                    'publishingGroup' => PublishingGroup::IT_JOBS->name,
+                ],
+                [
+                    'id' => $IAP->id,
+                    'publishingGroup' => PublishingGroup::IAP->name,
                 ],
             ],
         ]);
