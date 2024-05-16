@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
@@ -15,7 +15,7 @@ const DuplicateProcessDialog = ({
   isFetching,
   onDuplicate,
 }: DuplicateProcessDialogProps) => {
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const intl = useIntl();
 
   const title = intl.formatMessage({

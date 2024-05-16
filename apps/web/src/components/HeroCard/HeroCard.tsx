@@ -1,6 +1,6 @@
-import * as React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import ChevronDoubleRightIcon from "@heroicons/react/24/solid/ChevronDoubleRightIcon";
+import { ReactNode } from "react";
 
 type Color = "primary" | "secondary" | "tertiary" | "quaternary" | "quinary";
 
@@ -34,7 +34,7 @@ interface HeroCardProps {
   color: Color;
   title: string;
   href: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
   asNav?: boolean;
 }
 

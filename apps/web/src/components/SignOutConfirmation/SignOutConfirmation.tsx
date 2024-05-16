@@ -1,5 +1,5 @@
-import React from "react";
 import { useIntl } from "react-intl";
+import { ReactNode } from "react";
 
 import { AlertDialog, Button } from "@gc-digital-talent/ui";
 import { useAuthentication } from "@gc-digital-talent/auth";
@@ -8,7 +8,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import authMessages from "~/messages/authMessages";
 
 interface SignOutConfirmationProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const SignOutConfirmation = ({ children }: SignOutConfirmationProps) => {

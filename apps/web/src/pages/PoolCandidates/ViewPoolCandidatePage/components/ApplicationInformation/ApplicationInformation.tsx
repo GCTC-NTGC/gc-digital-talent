@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, Fragment } from "react";
 import { useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 
@@ -96,7 +96,7 @@ const ApplicationInformation = ({
 }: ApplicationInformationProps) => {
   const intl = useIntl();
   const pool = getFragment(ApplicationInformation_PoolFragment, poolQuery);
-  const [openSections, setOpenSections] = React.useState<string[]>(
+  const [openSections, setOpenSections] = useState<string[]>(
     defaultOpen ? Object.values(SECTION_KEY) : [],
   );
   const hasOpenSections = openSections.length > 0;
@@ -225,7 +225,7 @@ const ApplicationInformation = ({
             </Accordion.Trigger>
             <Accordion.Content>
               {screeningQuestionResponses.map((response, index) => (
-                <React.Fragment key={response.id}>
+                <Fragment key={response.id}>
                   <Heading
                     level="h4"
                     size="h6"
@@ -240,7 +240,7 @@ const ApplicationInformation = ({
                     )}
                   </Heading>
                   <p>{response.answer}</p>
-                </React.Fragment>
+                </Fragment>
               ))}
             </Accordion.Content>
           </Accordion.Item>
@@ -252,7 +252,7 @@ const ApplicationInformation = ({
             </Accordion.Trigger>
             <Accordion.Content>
               {generalQuestionResponses.map((response, index) => (
-                <React.Fragment key={response.id}>
+                <Fragment key={response.id}>
                   <Heading
                     level="h4"
                     size="h6"
@@ -264,7 +264,7 @@ const ApplicationInformation = ({
                     {getLocalizedName(response.generalQuestion?.question, intl)}
                   </Heading>
                   <p>{response.answer}</p>
-                </React.Fragment>
+                </Fragment>
               ))}
             </Accordion.Content>
           </Accordion.Item>

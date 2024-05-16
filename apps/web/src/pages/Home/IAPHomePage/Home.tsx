@@ -1,9 +1,9 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { m } from "framer-motion";
 import orderBy from "lodash/orderBy";
 import { useSearchParams } from "react-router-dom";
 import { useQuery } from "urql";
+import { ReactNode } from "react";
 
 import { Link, Pending } from "@gc-digital-talent/ui";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
@@ -49,7 +49,7 @@ import {
 } from "./components/Svg";
 import AccommodationsDialog from "./components/Dialog/AccommodationsDialog";
 
-const mailLink = (chunks: React.ReactNode) => (
+const mailLink = (chunks: ReactNode) => (
   <Link external href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca">
     {chunks}
   </Link>

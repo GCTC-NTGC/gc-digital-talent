@@ -1,8 +1,8 @@
 /* eslint-disable import/no-duplicates */
 // known issue with date-fns and eslint https://github.com/date-fns/date-fns/issues/1756#issuecomment-624803874
-import * as React from "react";
 import { useIntl } from "react-intl";
 import FolderOpenIcon from "@heroicons/react/24/outline/FolderOpenIcon";
+import { ReactNode, ReactElement, useState } from "react";
 
 import { Accordion, Heading, Link, Well } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -12,7 +12,7 @@ import { isApplicationInProgress } from "~/utils/applicationUtils";
 import { PAGE_SECTION_ID as CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
 import ApplicationCard from "~/components/ApplicationCard/ApplicationCard";
 
-function buildLink(href: string, chunks: React.ReactNode): React.ReactElement {
+function buildLink(href: string, chunks: ReactNode): ReactElement {
   return <Link href={href}>{chunks}</Link>;
 }
 
@@ -49,7 +49,7 @@ const TrackApplications = ({ applicationsQuery }: TrackApplicationsProps) => {
   });
 
   const [currentAccordionItems, setCurrentAccordionItems] =
-    React.useState<AccordionItems>(["in_progress", "past"]); // start with both open
+    useState<AccordionItems>(["in_progress", "past"]); // start with both open
 
   return (
     <section>
@@ -88,7 +88,7 @@ const TrackApplications = ({ applicationsQuery }: TrackApplicationsProps) => {
                 "Description for the track applications section on the applicant dashboard, paragraph two.",
             },
             {
-              a: (chunks: React.ReactNode) =>
+              a: (chunks: ReactNode) =>
                 buildLink(
                   paths.careerTimelineAndRecruitment({
                     section:

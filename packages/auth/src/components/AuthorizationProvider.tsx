@@ -1,5 +1,5 @@
-import React from "react";
 import { useQuery } from "urql";
+import { ReactNode } from "react";
 
 import { Pending } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -28,7 +28,7 @@ const authorizationQuery = graphql(/** GraphQL */ `
 `);
 
 interface AuthorizationProviderProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 const AuthorizationProvider = ({ children }: AuthorizationProviderProps) => {

@@ -1,4 +1,4 @@
-import React from "react";
+import { Fragment } from "react";
 import { useIntl } from "react-intl";
 import sortBy from "lodash/sortBy";
 
@@ -134,7 +134,7 @@ const AssessmentStepCard = ({
             </li>
           )}
           {skillNames.map((skillName, skillIndex) => (
-            <React.Fragment key={skillName}>
+            <Fragment key={skillName}>
               {skillIndex !== 0 || isApplicationScreening ? (
                 <span data-h2-margin="base(0 x.5)" aria-hidden>
                   •
@@ -143,7 +143,7 @@ const AssessmentStepCard = ({
               <li data-h2-padding-left="base(0)" data-h2-display="base(inline)">
                 {skillName}
               </li>
-            </React.Fragment>
+            </Fragment>
           ))}
         </ul>
       ) : (

@@ -1,8 +1,8 @@
-import React from "react";
 import { Outlet, ScrollRestoration, useLocation } from "react-router-dom";
 import { useIntl } from "react-intl";
 import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
+import { HTMLProps, forwardRef, useEffect } from "react";
 
 import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 import { useLocalStorage } from "@gc-digital-talent/storage";
@@ -78,11 +78,11 @@ import SitewideBanner from "../SitewideBanner";
 import SkipLink from "../SkipLink";
 import SignInOrSignOut from "./SignInOrSignOut";
 
-interface OpenMenuButtonProps extends React.HTMLProps<HTMLButtonElement> {
+interface OpenMenuButtonProps extends HTMLProps<HTMLButtonElement> {
   show: boolean;
 }
 
-const OpenMenuButton = React.forwardRef<
+const OpenMenuButton = forwardRef<
   HTMLButtonElement,
   Omit<OpenMenuButtonProps, "ref">
 >(({ children, onClick, show }, ref) =>
@@ -120,7 +120,7 @@ export const Component = () => {
     "digitaltalent-menustate",
     true,
   );
-  React.useEffect(() => {
+  useEffect(() => {
     if (isSmallScreen) {
       setMenuOpen(false); // collapse menu if window resized to small
     }

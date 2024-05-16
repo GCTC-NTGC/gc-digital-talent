@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
@@ -114,7 +114,7 @@ const FinalDecisionDialog = ({
     poolCandidateQuery,
   );
   const todayDate = new Date();
-  const [isOpen, setIsOpen] = React.useState<boolean>(defaultOpen);
+  const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
   const [, executeQualifyMutation] = useMutation(
     PoolCandidate_QualifyCandidateMutation,
   );

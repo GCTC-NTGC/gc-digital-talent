@@ -40,8 +40,8 @@ import {
   PlacementType,
   CandidateRemovalReason,
 } from "@gc-digital-talent/graphql";
+import { getOrThrowError } from "@gc-digital-talent/helpers";
 
-import getOrThrowError from "../utils/error";
 import commonMessages from "./commonMessages";
 
 const employmentEquityGroups = defineMessages({

@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";

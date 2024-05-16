@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import PencilIcon from "@heroicons/react/24/outline/PencilIcon";
@@ -34,7 +34,7 @@ const EditTeamMemberDialog = ({ user, team }: EditTeamMemberDialogProps) => {
   const intl = useIntl();
   const { roles, fetching } = useAvailableRoles();
   const [, executeMutation] = useMutation(UpdateUserTeamRoles_Mutation);
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const methods = useForm<TeamMemberFormValues>({
     defaultValues: {

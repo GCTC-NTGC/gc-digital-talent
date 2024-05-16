@@ -5187,10 +5187,6 @@
     "defaultMessage": "Ce programme élimine l’un des principaux obstacles à l’emploi en valorisant le potentiel d’une personne plutôt que son niveau de scolarité. Ce faisant, cette initiative contribue à combler les écarts en matière d’éducation, d’emploi et d’économie auxquelles sont confrontées les personnes autochtones du Canada.",
     "description": "Paragraph 3 of the 'About the program' section"
   },
-  "Rm4SuQ": {
-    "defaultMessage": "Sélectionnez un bassin",
-    "description": "Placeholder displayed on the pool field of the add user to pool dialog."
-  },
   "RmcS7J": {
     "defaultMessage": "Les comptes de médias sociaux ne sont pas des sites Web du gouvernement du Canada : ils constituent seulement un moyen de manifester la présence du gouvernement du Canada sur les plateformes des tiers fournisseurs de services.",
     "description": "Paragraph for comments and interaction section"
@@ -9634,6 +9630,10 @@
     "defaultMessage": "Le Programme d’apprentissage en TI pour les personnes autochtones est une initiative du gouvernement du Canada visant particulièrement les Premières Nations, les Inuits et les Métis. C’est un chemin vers un emploi dans la fonction publique fédérale pour les personnes autochtones qui ont une passion pour la technologie de l’information (TI).",
     "description": "First paragraph about the program"
   },
+  "pXLPjN": {
+    "defaultMessage": "J’ai fait l’objet d’une évaluation par la Commission de la fonction publique dans ma deuxième langue officielle.",
+    "description": "Statement for completion of a Public Service Commission evaluation of a second official language"
+  },
   "pXiwEH": {
     "defaultMessage": "Fermer immédiatement",
     "description": "Option to close the pool"
@@ -10861,10 +10861,6 @@
   "xj7X6V": {
     "defaultMessage": "J’ai lu le préambule.",
     "description": "Preamble confirmation statement of the _digital services contracting questionnaire_"
-  },
-  "xjZO11": {
-    "defaultMessage": "Sélectionnez d’autres bassins additionnels",
-    "description": "Placeholder displayed on the additional pools field of the change candidate status dialog."
   },
   "xkJAuq": {
     "defaultMessage": "Ajouter cette compétence",

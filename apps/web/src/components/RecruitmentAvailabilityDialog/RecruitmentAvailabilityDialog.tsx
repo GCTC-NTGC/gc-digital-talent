@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
@@ -61,7 +61,7 @@ const RecruitmentAvailabilityDialog = ({
   const [, executeMutation] = useMutation(
     RecruitmentAvailabilityChangeSuspendedAt_Mutation,
   );
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const isSuspended = !!candidate.suspendedAt;
   const title = poolTitle(intl, candidate.pool);
 

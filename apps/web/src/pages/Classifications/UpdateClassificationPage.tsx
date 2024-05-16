@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import pick from "lodash/pick";
 import upperCase from "lodash/upperCase";

@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
 import BriefcaseIcon from "@heroicons/react/20/solid/BriefcaseIcon";
@@ -9,6 +8,7 @@ import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
 import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
 import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
+import { ReactNode, ReactElement } from "react";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
@@ -49,9 +49,9 @@ import { isQualifiedStatus } from "~/utils/poolCandidate";
 
 function buildLink(
   href: string,
-  chunks: React.ReactNode,
+  chunks: ReactNode,
   color?: LinkProps["color"],
-): React.ReactElement {
+): ReactElement {
   return (
     <Link href={href} fontSize="h5" mode="text" color={color}>
       {chunks}
@@ -60,10 +60,10 @@ function buildLink(
 }
 function buildScrollToLink(
   to: string,
-  chunks: React.ReactNode,
+  chunks: ReactNode,
   color?: ScrollToLinkProps["color"],
   fontSize?: ScrollToLinkProps["fontSize"],
-): React.ReactElement {
+): ReactElement {
   return (
     <ScrollToLink to={to} mode="text" color={color} fontSize={fontSize}>
       {chunks}
@@ -178,17 +178,17 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
           description: "Subtitle for profile and applications hero",
         },
         {
-          a1: (chunks: React.ReactNode) =>
+          a1: (chunks: ReactNode) =>
             buildLink(paths.profile(), chunks, "whiteFixed"),
-          a2: (chunks: React.ReactNode) =>
+          a2: (chunks: ReactNode) =>
             buildLink(
               paths.careerTimelineAndRecruitment(),
               chunks,
               "whiteFixed",
             ),
-          a3: (chunks: React.ReactNode) =>
+          a3: (chunks: ReactNode) =>
             buildLink(paths.skillLibrary(), chunks, "whiteFixed"),
-          a4: (chunks: React.ReactNode) =>
+          a4: (chunks: ReactNode) =>
             buildScrollToLink(
               "track-applications-section",
               chunks,
@@ -245,7 +245,7 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
                   "Third paragraph for profile and applications notification welcoming an IAP user",
               },
               {
-                a: (chunks: React.ReactNode) =>
+                a: (chunks: ReactNode) =>
                   buildScrollToLink("track-applications-section", chunks),
               },
             )}
@@ -299,7 +299,7 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
                   "Third paragraph for profile and applications notification welcoming an IAP user",
               },
               {
-                a: (chunks: React.ReactNode) =>
+                a: (chunks: ReactNode) =>
                   buildScrollToLink("track-applications-section", chunks),
               },
             )}

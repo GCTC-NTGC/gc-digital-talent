@@ -1,8 +1,8 @@
-import React from "react";
 import { IntlShape } from "react-intl";
 import NoSymbolIcon from "@heroicons/react/20/solid/NoSymbolIcon";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
+import { ReactNode } from "react";
 
 import { Color, IconType } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
@@ -41,7 +41,7 @@ export const joinDepartments = (
 
 type StatusChipInfo = {
   color: Color;
-  text: React.ReactNode;
+  text: ReactNode;
   icon?: IconType;
 };
 
@@ -101,7 +101,7 @@ export const getStatusChipInfo = (
 type AvailabilityInfo = {
   icon: IconType | null;
   color: Record<string, string>;
-  text: React.ReactNode;
+  text: ReactNode;
   showDialog: boolean;
 };
 
@@ -163,7 +163,7 @@ type QualifiedRecruitmentInfo = {
   statusChip: StatusChipInfo;
   availability: AvailabilityInfo;
   title: {
-    html: React.ReactNode;
+    html: ReactNode;
     label: string;
   };
 };

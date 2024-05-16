@@ -1,4 +1,4 @@
-import * as React from "react";
+import { FocusEvent } from "react";
 import get from "lodash/get";
 import { FieldError, useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
@@ -58,7 +58,7 @@ const Input = ({
     },
   });
 
-  const normalizeInput = (e: React.FocusEvent<HTMLInputElement>) => {
+  const normalizeInput = (e: FocusEvent<HTMLInputElement>) => {
     let inputValue = e.target.value;
     if (whitespaceTrim) {
       inputValue = inputValue.trim();

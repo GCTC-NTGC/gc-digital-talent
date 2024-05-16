@@ -1,5 +1,3 @@
-import React from "react";
-
 import Svg, { type SVGProps } from "../Svg/Svg";
 
 const BackgroundGraphic = (props: SVGProps) => (

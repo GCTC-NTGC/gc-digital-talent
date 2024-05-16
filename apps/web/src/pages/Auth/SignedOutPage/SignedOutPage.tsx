@@ -1,5 +1,5 @@
-import React from "react";
 import { useIntl } from "react-intl";
+import { ReactNode } from "react";
 
 import {
   AlertDialog,
@@ -21,7 +21,7 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import authMessages from "~/messages/authMessages";
 
-const supportLink = (chunks: React.ReactNode, path: string) => (
+const supportLink = (chunks: ReactNode, path: string) => (
   <Link href={path} state={{ referrer: window.location.href }} color="black">
     {chunks}
   </Link>
@@ -82,7 +82,7 @@ export const Component = () => {
                   "Message displayed to a user after signing into a deleted account",
               },
               {
-                inlineLink: (chunks: React.ReactNode) =>
+                inlineLink: (chunks: ReactNode) =>
                   supportLink(chunks, paths.support()),
               },
             )}

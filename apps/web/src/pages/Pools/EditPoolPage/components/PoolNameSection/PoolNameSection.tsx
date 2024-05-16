@@ -1,4 +1,4 @@
-import * as React from "react";
+import { JSX } from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import TagIcon from "@heroicons/react/24/outline/TagIcon";
@@ -85,7 +85,7 @@ const PoolNameSection = ({
   classificationsQuery,
   sectionMetadata,
   onSave,
-}: PoolNameSectionProps): React.JSX.Element => {
+}: PoolNameSectionProps): JSX.Element => {
   const intl = useIntl();
   const pool = getFragment(EditPoolName_Fragment, poolQuery);
   const isNull = isInNullState(pool);

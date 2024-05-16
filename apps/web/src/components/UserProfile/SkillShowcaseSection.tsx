@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 
 import { Heading, HeadingRank } from "@gc-digital-talent/ui";

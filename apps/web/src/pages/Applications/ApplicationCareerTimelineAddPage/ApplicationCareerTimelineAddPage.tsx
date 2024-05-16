@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import BriefcaseIcon from "@heroicons/react/20/solid/BriefcaseIcon";

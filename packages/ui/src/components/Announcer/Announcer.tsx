@@ -1,23 +1,30 @@
-import React from "react";
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useMemo,
+} from "react";
 
 type AnnouncerContextValue = {
-  announce: (announcement: React.ReactNode) => void;
+  announce: (announcement: ReactNode) => void;
 };
 
-const AnnouncerContext = React.createContext<AnnouncerContextValue>({
+const AnnouncerContext = createContext<AnnouncerContextValue>({
   announce: () => {
     // PASS: Default announcement
   },
 });
 
 export const useAnnouncer = () => {
-  const context = React.useContext(AnnouncerContext);
+  const context = useContext(AnnouncerContext);
 
   return context;
 };
 
 type AnnouncerProps = {
-  children: React.ReactNode;
+  children: ReactNode;
   /**
    * How live the announcement is (`aria-live`)
    *
@@ -46,10 +53,10 @@ const Announcer = ({
   atomic = true,
   timeout = 150,
 }: AnnouncerProps) => {
-  const [announcement, setAnnouncement] = React.useState<React.ReactNode>("");
+  const [announcement, setAnnouncement] = useState<ReactNode>("");
 
-  const announce = React.useCallback(
-    (newAnnouncement: React.ReactNode) => {
+  const announce = useCallback(
+    (newAnnouncement: ReactNode) => {
       setAnnouncement("");
       setTimeout(() => {
         setAnnouncement(newAnnouncement);
@@ -58,7 +65,7 @@ const Announcer = ({
     [timeout],
   );
 
-  const value = React.useMemo(() => ({ announce }), [announce]);
+  const value = useMemo(() => ({ announce }), [announce]);
 
   return (
     <AnnouncerContext.Provider value={value}>

@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useSearchParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 import isEqual from "lodash/isEqual";
@@ -11,6 +10,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import isEmpty from "lodash/isEmpty";
+import { ReactNode, useEffect, useId, useMemo } from "react";
 
 import { empty, notEmpty } from "@gc-digital-talent/helpers";
 import { Loading } from "@gc-digital-talent/ui";
@@ -44,7 +44,7 @@ import { getColumnHeader, sortingStateToOrderByClause } from "./utils";
 
 interface TableProps<TData, TFilters> {
   /** Accessible name for the table */
-  caption: React.ReactNode;
+  caption: ReactNode;
   /** Data to be displayed within the table */
   data: TData[];
   /** Column definitions for `react-table` */
@@ -94,11 +94,11 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
   filter,
   urlSync = true,
 }: TableProps<TData, TFilters>) => {
-  const id = React.useId();
+  const id = useId();
   const intl = useIntl();
   const [, setSearchParams] = useSearchParams();
   const isInternalSearch = search && search.internal;
-  const memoizedColumns = React.useMemo(() => {
+  const memoizedColumns = useMemo(() => {
     if (!rowSelect) return columns;
     // Inject the selection column if it is enabled
     return [getRowSelectionColumn(rowSelect.cell, intl), ...columns];
@@ -165,7 +165,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
     pagination: paginationState,
   } = table.getState();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (urlSync) {
       const currentParams = new URLSearchParams(window.location.search);
       const newParams = new URLSearchParams(window.location.search);
@@ -286,13 +286,13 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
     filter?.initialState,
   ]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (pagination?.internal) {
       table.resetPageIndex(true);
     }
   }, [filter?.state, pagination?.internal, table]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (sort?.onSortChange) {
       sort.onSortChange(sortingState);
     }

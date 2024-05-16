@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 
 import { toast } from "@gc-digital-talent/toast";
@@ -56,7 +56,7 @@ const EquityOptions = ({
   inApplication,
 }: EquityOptionsProps) => {
   const intl = useIntl();
-  const [accordionOpen, setAccordionOpen] = React.useState<AccordionItems>(""); // Start with accordion closed
+  const [accordionOpen, setAccordionOpen] = useState<AccordionItems>(""); // Start with accordion closed
 
   const resolvedDisability = resolveMaybe(hasDisability);
   const resolvedIndigenousCommunities = resolveMaybeArray(

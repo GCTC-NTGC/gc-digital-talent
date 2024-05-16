@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";

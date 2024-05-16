@@ -1,4 +1,5 @@
 import { IntlShape } from "react-intl";
+import { ReactNode } from "react";
 
 import { getEvaluatedLanguageAbility } from "@gc-digital-talent/i18n";
 import {
@@ -102,7 +103,7 @@ export const getEvaluatedLanguageLevels = (
   comprehensionLevel: Maybe<EvaluatedLanguageAbility> | undefined,
   writtenLevel: Maybe<EvaluatedLanguageAbility> | undefined,
   verbalLevel: Maybe<EvaluatedLanguageAbility> | undefined,
-): React.ReactNode => {
+): ReactNode => {
   return [
     comprehensionLevel
       ? intl.formatMessage(getEvaluatedLanguageAbility(comprehensionLevel))

@@ -1,4 +1,10 @@
-import React from "react";
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+} from "react";
 
 import { useLocalStorage } from "@gc-digital-talent/storage";
 
@@ -43,7 +49,7 @@ const defaultThemeState = {
   },
 };
 
-export const ThemeContext = React.createContext<ThemeState>(defaultThemeState);
+export const ThemeContext = createContext<ThemeState>(defaultThemeState);
 
 const defaultTheme: Theme = {
   key: "default",
@@ -56,7 +62,7 @@ const getDefaultTheme = (override?: ThemeOverride): Theme => ({
 });
 
 interface ThemeProviderProps {
-  children: React.ReactNode;
+  children: ReactNode;
   override?: {
     key?: ThemeKey;
     mode?: ThemeMode;
@@ -81,7 +87,7 @@ const ThemeProvider = ({
     computedMode = prefersDark && !isSetLight ? "dark" : "light";
   }
 
-  const setKey = React.useCallback(
+  const setKey = useCallback(
     (newKey: ThemeKey) => {
       setTheme({
         mode,
@@ -91,7 +97,7 @@ const ThemeProvider = ({
     [setTheme, mode],
   );
 
-  const setMode = React.useCallback(
+  const setMode = useCallback(
     (newMode: ThemeMode) => {
       setTheme({
         key,
@@ -101,7 +107,7 @@ const ThemeProvider = ({
     [setTheme, key],
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     const hydrogen = document.querySelectorAll(
       themeSelector || "html[data-h2], body[data-h2]",
     );
@@ -126,7 +132,7 @@ const ThemeProvider = ({
     });
   }, [computedMode, key, mode, themeSelector]);
 
-  const testDark = React.useCallback(() => {
+  const testDark = useCallback(() => {
     const isSet = mode && mode !== "pref";
     if (!isSet) {
       setTheme({
@@ -136,7 +142,7 @@ const ThemeProvider = ({
     }
   }, [key, mode, setTheme]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener("load", testDark);
     const darkMatcher = window.matchMedia("(prefers-color-scheme: dark)");
     const lightMatcher = window.matchMedia("(prefers-color-scheme: light)");
@@ -151,7 +157,7 @@ const ThemeProvider = ({
     };
   }, [key, mode, setTheme, testDark]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (
       (override?.key && override.key !== key) ||
       (override?.mode && override.mode !== mode)
@@ -161,7 +167,7 @@ const ThemeProvider = ({
     }
   }, [setTheme, override, mode, key]);
 
-  const state = React.useMemo(
+  const state = useMemo(
     () => ({
       fullMode: override?.mode || mode,
       mode: override?.mode || computedMode,

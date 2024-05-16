@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
@@ -54,7 +54,7 @@ const RevertFinalDecisionDialog = ({
   defaultOpen = false,
 }: RevertFinalDecisionDialogProps) => {
   const intl = useIntl();
-  const [isOpen, setIsOpen] = React.useState<boolean>(defaultOpen);
+  const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
   const [, executeMutation] = useMutation(RevertFinalDecision_Mutation);
   const { id, expiryDate, finalDecisionAt, status } = getFragment(
     RevertFinalDecisionDialog_Fragment,

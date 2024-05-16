@@ -1,4 +1,3 @@
-import React from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { isPast } from "date-fns/isPast";
@@ -12,7 +11,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Pool, PoolCandidate, User } from "@gc-digital-talent/graphql";
+import { PoolCandidate, User } from "@gc-digital-talent/graphql";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
@@ -38,10 +37,9 @@ const columnHelper = createColumnHelper<PoolCandidate>();
 
 interface PoolStatusTableProps {
   user: User;
-  pools: Pool[];
 }
 
-const PoolStatusTable = ({ user, pools }: PoolStatusTableProps) => {
+const PoolStatusTable = ({ user }: PoolStatusTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 
@@ -96,8 +94,7 @@ const PoolStatusTable = ({ user, pools }: PoolStatusTableProps) => {
       {
         id: "status",
         enableHiding: false,
-        cell: ({ row: { original: candidate } }) =>
-          statusCell(candidate, user, pools),
+        cell: ({ row: { original: candidate } }) => statusCell(candidate, user),
         header: intl.formatMessage(commonMessages.status),
         sortingFn: sortStatus,
       },

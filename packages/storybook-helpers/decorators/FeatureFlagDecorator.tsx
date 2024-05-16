@@ -1,4 +1,3 @@
-import React from "react";
 import { useParameter } from "@storybook/preview-api";
 import { StoryFn } from "@storybook/react";
 

@@ -1,4 +1,3 @@
-import * as React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTriangleIcon";
 import { OperationContext, useQuery } from "urql";
@@ -18,7 +17,6 @@ import {
   User,
   Scalars,
   Maybe,
-  Pool,
   graphql,
   ArmedForcesStatus,
   PoolCandidateSnapshotQuery,
@@ -398,20 +396,6 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
         }
       }
     }
-    pools {
-      id
-      name {
-        en
-        fr
-      }
-      stream
-      classification {
-        id
-        group
-        level
-      }
-      status
-    }
     departments {
       id
       departmentNumber
@@ -425,13 +409,11 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
 
 export interface ViewPoolCandidateProps {
   poolCandidate: NonNullable<PoolCandidateSnapshotQuery["poolCandidate"]>;
-  pools: Pool[];
   departments: Department[];
 }
 
 export const ViewPoolCandidate = ({
   poolCandidate,
-  pools,
   departments,
 }: ViewPoolCandidateProps) => {
   const intl = useIntl();
@@ -572,7 +554,6 @@ export const ViewPoolCandidate = ({
                 <ChangeStatusDialog
                   selectedCandidate={poolCandidate}
                   user={poolCandidate.user}
-                  pools={pools}
                 />
               </p>
             </div>
@@ -607,10 +588,7 @@ export const ViewPoolCandidate = ({
                         })}
                       </Accordion.Trigger>
                       <Accordion.Content>
-                        <PoolStatusTable
-                          user={poolCandidate.user}
-                          pools={pools}
-                        />
+                        <PoolStatusTable user={poolCandidate.user} />
                       </Accordion.Content>
                     </Accordion.Item>
                   </Accordion.Root>
@@ -660,10 +638,9 @@ export const ViewPoolCandidatePage = () => {
 
   return (
     <Pending fetching={fetching} error={error}>
-      {data?.poolCandidate && data?.pools ? (
+      {data?.poolCandidate ? (
         <ViewPoolCandidate
           poolCandidate={data.poolCandidate}
-          pools={data.pools.filter(notEmpty)}
           departments={data.departments.filter(notEmpty)}
         />
       ) : (

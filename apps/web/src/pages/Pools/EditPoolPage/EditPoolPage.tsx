@@ -1,9 +1,9 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
 import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import { OperationContext, useQuery } from "urql";
+import { useMemo, JSX } from "react";
 
 import {
   NotFound,
@@ -181,7 +181,7 @@ export const EditPoolForm = ({
   skills,
   onSave,
   poolSkillMutations,
-}: EditPoolFormProps): React.JSX.Element => {
+}: EditPoolFormProps): JSX.Element => {
   const intl = useIntl();
   const pool = getFragment(EditPool_Fragment, poolQuery);
 
@@ -713,7 +713,7 @@ export const EditPoolPage = () => {
 
   const { isFetching, mutations } = usePoolMutations();
 
-  const ctx = React.useMemo(() => {
+  const ctx = useMemo(() => {
     return { isSubmitting: isFetching || fetching };
   }, [fetching, isFetching]);
 

@@ -2,7 +2,6 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import React from "react";
 
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 

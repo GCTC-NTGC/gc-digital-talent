@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useMutation } from "urql";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
@@ -50,7 +50,7 @@ const ChangeExpiryDateDialog = ({
   expiryDateQuery,
 }: ChangeExpiryDateDialogProps) => {
   const intl = useIntl();
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const application = getFragment(
     CandidateExpiryDateDialog_Fragment,
     expiryDateQuery,

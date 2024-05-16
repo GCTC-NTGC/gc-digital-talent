@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import omit from "lodash/omit";
 import pick from "lodash/pick";
@@ -59,8 +58,6 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
   // Therefore, transforming ApplicantFilter to ApplicantFilterInput requires omitting any fields not included in the Input type.
   const mapping: MappingType = {
     equity: omitIdAndTypename,
-    qualifiedClassifications: (classifications) =>
-      classifications?.filter(notEmpty).map(classificationToInput),
     hasDiploma: identity,
     languageAbility: identity,
     locationPreferences: identity,
@@ -92,6 +89,9 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
       },
       emptyFilter,
     ),
+    appliedClassifications: applicantFilter.qualifiedClassifications
+      ?.filter(notEmpty)
+      .map(classificationToInput),
     poolCandidateStatus: [
       PoolCandidateStatus.QualifiedAvailable,
       PoolCandidateStatus.PlacedCasual,
