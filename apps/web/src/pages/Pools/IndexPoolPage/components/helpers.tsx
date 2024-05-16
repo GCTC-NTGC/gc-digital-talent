@@ -13,15 +13,19 @@ import {
   Maybe,
   OrderByRelationWithColumnAggregateFunction,
   Pool,
+  PoolFilterInput,
   PoolTeamDisplayNameOrderByInput,
   QueryPoolsPaginatedOrderByClassificationColumn,
   QueryPoolsPaginatedOrderByRelationOrderByClause,
   QueryPoolsPaginatedOrderByUserColumn,
   SortOrder,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 import { SearchState } from "~/components/Table/ResponsiveTable/types";
+
+import { FormValues } from "./PoolFilterDialog";
 
 export function poolNameAccessor(pool: Pool, intl: IntlShape) {
   const name = getLocalizedName(pool.name, intl);
@@ -149,10 +153,15 @@ export function ownerEmailAccessor(pool: Pool) {
 
 type TransformPoolInputArgs = {
   search: SearchState;
+  filters?: PoolFilterInput;
 };
 
-export function transformPoolInput({ search }: TransformPoolInputArgs) {
+export function transformPoolInput({
+  search,
+  filters,
+}: TransformPoolInputArgs) {
   if (
+    typeof filters === "undefined" &&
     typeof search.term === "undefined" &&
     typeof search.type === "undefined"
   ) {
@@ -160,6 +169,7 @@ export function transformPoolInput({ search }: TransformPoolInputArgs) {
   }
 
   return {
+    ...filters,
     generalSearch: !!search.term && !search.type ? search.term : undefined,
     name: search.type === "name" ? search.term : undefined,
     team: search.type === "type" ? search.term : undefined,
@@ -257,5 +267,32 @@ export function getTeamDisplayNameSort(
   return {
     locale: locale ?? "en",
     order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+  };
+}
+
+export function transformFormValuesToFilterInput(
+  data: FormValues,
+): PoolFilterInput {
+  return {
+    publishingGroups: data.publishingGroups,
+    statuses: data.statuses,
+    streams: data.streams,
+    classifications: data.classifications.map((classification) => {
+      const [group, level] = classification.split("-");
+      return { group, level: Number(level) };
+    }),
+  };
+}
+
+export function transformPoolFilterInputToFormValues(
+  input: PoolFilterInput | undefined,
+): FormValues {
+  return {
+    publishingGroups: unpackMaybes(input?.publishingGroups),
+    statuses: unpackMaybes(input?.statuses),
+    streams: unpackMaybes(input?.streams),
+    classifications: unpackMaybes(input?.classifications).map(
+      (c) => `${c.group}-${c.level}`,
+    ),
   };
 }
