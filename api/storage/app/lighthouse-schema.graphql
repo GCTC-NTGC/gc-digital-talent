@@ -727,6 +727,8 @@ input PoolFilterInput {
   team: String
   streams: [PoolStream!]
   statuses: [PoolStatus!]
+  publishingGroups: [PublishingGroup!]
+  classifications: [ClassificationFilterInput!]
 }
 
 input PoolTeamDisplayNameOrderByInput {

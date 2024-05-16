@@ -634,6 +634,8 @@ input PoolFilterInput {
   team: String @scope
   streams: [PoolStream!] @scope
   statuses: [PoolStatus!] @scope
+  publishingGroups: [PublishingGroup!] @scope
+  classifications: [ClassificationFilterInput!] @scope
 }
 
 input PoolTeamDisplayNameOrderByInput {
