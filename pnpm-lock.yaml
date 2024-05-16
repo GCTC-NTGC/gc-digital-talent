@@ -851,6 +851,9 @@ importers:
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config-custom
+      '@gc-digital-talent/helpers':
+        specifier: workspace:*
+        version: link:../helpers
       '@gc-digital-talent/jest-presets':
         specifier: workspace:*
         version: link:../jest-presets
