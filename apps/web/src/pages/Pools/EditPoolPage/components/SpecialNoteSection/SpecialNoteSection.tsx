@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
@@ -56,7 +55,7 @@ const SpecialNoteSection = ({
   poolQuery,
   sectionMetadata,
   onSave,
-}: SpecialNoteSectionProps): React.JSX.Element => {
+}: SpecialNoteSectionProps) => {
   const intl = useIntl();
   const pool = getFragment(EditPoolSpecialNote_Fragment, poolQuery);
   const isNull = hasAllEmptyFields(pool);

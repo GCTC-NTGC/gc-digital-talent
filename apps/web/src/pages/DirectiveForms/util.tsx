@@ -1,5 +1,5 @@
-import React from "react";
 import { IntlShape } from "react-intl";
+import { ReactElement, ReactNode } from "react";
 
 import { Link } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
@@ -8,8 +8,8 @@ import { assertUnreachable } from "@gc-digital-talent/helpers";
 // build an external link to use with a formatjs message
 export function buildExternalLink(
   href: string,
-  chunks: React.ReactNode,
-): React.ReactElement {
+  chunks: ReactNode,
+): ReactElement {
   return (
     <Link href={href} external newTab>
       {chunks}

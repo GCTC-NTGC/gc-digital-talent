@@ -1,5 +1,3 @@
-import React from "react";
-
 import { IconProps } from "@gc-digital-talent/ui";
 
 const UnreadBellAlertIcon = (props: IconProps) => (

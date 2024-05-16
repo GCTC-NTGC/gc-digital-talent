@@ -3,7 +3,6 @@
  */
 import "@testing-library/jest-dom";
 
-import React from "react";
 import { Provider as GraphqlProvider } from "urql";
 import { fromValue } from "wonka";
 import { screen } from "@testing-library/react";

@@ -1,4 +1,11 @@
-import React from "react";
+import {
+  ReactNode,
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
 
 import { SectionKey } from "../types";
 
@@ -21,25 +28,23 @@ const defaultContext: ProfileFormContextState = {
 };
 
 const ProfileFormContext =
-  React.createContext<ProfileFormContextState>(defaultContext);
+  createContext<ProfileFormContextState>(defaultContext);
 
 export const useProfileFormContext = () => {
-  const state = React.useContext(ProfileFormContext);
+  const state = useContext(ProfileFormContext);
 
   return state;
 };
 
 interface ProfileFormProviderProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const ProfileFormProvider = ({ children }: ProfileFormProviderProps) => {
-  const [isSubmitting, setSubmitting] = React.useState<boolean>(false);
-  const [dirtySections, setDirtySections] = React.useState<Array<SectionKey>>(
-    [],
-  );
+  const [isSubmitting, setSubmitting] = useState<boolean>(false);
+  const [dirtySections, setDirtySections] = useState<Array<SectionKey>>([]);
 
-  const toggleDirty = React.useCallback(
+  const toggleDirty = useCallback(
     (section: SectionKey, isDirty: boolean) => {
       let newDirty = dirtySections;
       if (isDirty) {
@@ -59,7 +64,7 @@ const ProfileFormProvider = ({ children }: ProfileFormProviderProps) => {
     setSubmitting(newIsSubmitting);
   };
 
-  const state = React.useMemo(
+  const state = useMemo(
     () => ({
       isSubmitting,
       dirtySections,

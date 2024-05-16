@@ -1,7 +1,7 @@
-import React from "react";
 import type { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { faker } from "@faker-js/faker/locale/en";
+import { useState, FormEvent, ChangeEventHandler } from "react";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
@@ -28,10 +28,10 @@ type EditDialogProps = {
 
 const EditDialog = ({ item, index }: EditDialogProps) => {
   const { update } = useCardRepeaterContext();
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
-  const [value, setValue] = React.useState<string>(item.value);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [value, setValue] = useState<string>(item.value);
 
-  const edit = (event: React.FormEvent) => {
+  const edit = (event: FormEvent) => {
     event.preventDefault();
     const newItem = {
       ...item,
@@ -42,7 +42,7 @@ const EditDialog = ({ item, index }: EditDialogProps) => {
     setIsOpen(false);
   };
 
-  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     setValue(event.currentTarget.value);
   };
 
@@ -81,7 +81,7 @@ type RemoveDialogProps = {
 
 const RemoveDialog = ({ item, index }: RemoveDialogProps) => {
   const { remove } = useCardRepeaterContext();
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const Remove = () => {
     action("Remove")(item);
@@ -111,10 +111,10 @@ const RemoveDialog = ({ item, index }: RemoveDialogProps) => {
 
 const AddDialog = () => {
   const { append } = useCardRepeaterContext();
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
-  const [value, setValue] = React.useState<string>("");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [value, setValue] = useState<string>("");
 
-  const add = (event: React.FormEvent) => {
+  const add = (event: FormEvent) => {
     event.preventDefault();
     const item = {
       id: faker.string.uuid(),
@@ -126,7 +126,7 @@ const AddDialog = () => {
     setIsOpen(false);
   };
 
-  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     setValue(event.currentTarget.value);
   };
 
@@ -160,7 +160,7 @@ const AddDialog = () => {
 
 const Template: StoryFn<typeof CardRepeater.Root<CardItem>> = (args) => {
   const { items: itemsArg } = args;
-  const [items, setItems] = React.useState<CardItem[]>(itemsArg ?? []);
+  const [items, setItems] = useState<CardItem[]>(itemsArg ?? []);
 
   const handleUpdate = (newItems: CardItem[]) => {
     action("update")(newItems);

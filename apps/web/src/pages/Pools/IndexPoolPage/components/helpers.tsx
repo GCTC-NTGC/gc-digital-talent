@@ -1,4 +1,3 @@
-import React from "react";
 import { IntlShape } from "react-intl";
 import { SortingState } from "@tanstack/react-table";
 

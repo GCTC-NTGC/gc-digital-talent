@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 
@@ -16,7 +16,7 @@ const DeleteProcessDialog = ({
   isFetching,
   onDelete,
 }: DeleteProcessDialogProps) => {
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const intl = useIntl();
 
   const title = intl.formatMessage({

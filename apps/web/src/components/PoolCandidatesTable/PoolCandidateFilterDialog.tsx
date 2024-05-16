@@ -1,4 +1,3 @@
-import React from "react";
 import { MessageDescriptor, useIntl } from "react-intl";
 import { OperationContext, useQuery } from "urql";
 

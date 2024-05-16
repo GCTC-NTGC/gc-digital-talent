@@ -1,6 +1,6 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
+import { ReactNode } from "react";
 
 import { Heading, TableOfContents } from "@gc-digital-talent/ui";
 
@@ -40,7 +40,7 @@ const InstructionsSection = () => {
               "Paragraph two of the _instructions_ section of the _digital services contracting questionnaire_",
           },
           {
-            link: (text: React.ReactNode) =>
+            link: (text: ReactNode) =>
               buildExternalLink("mailto:GCTalentGC@tbs-sct.gc.ca", text),
           },
         )}
@@ -55,7 +55,7 @@ const InstructionsSection = () => {
               "Paragraph three of the _instructions_ section of the _digital services contracting questionnaire_",
           },
           {
-            link: (text: React.ReactNode) =>
+            link: (text: ReactNode) =>
               buildExternalLink("mailto:GCTalentGC@tbs-sct.gc.ca", text),
           },
         )}
@@ -70,7 +70,7 @@ const InstructionsSection = () => {
               "Paragraph four of the _instructions_ section of the _digital services contracting questionnaire_",
           },
           {
-            link: (text: React.ReactNode) =>
+            link: (text: ReactNode) =>
               buildExternalLink("mailto:GCTalentGC@tbs-sct.gc.ca", text),
           },
         )}

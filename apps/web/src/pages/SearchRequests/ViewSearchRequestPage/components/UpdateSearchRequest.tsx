@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
@@ -41,7 +41,7 @@ export const UpdateSearchRequestForm = ({
   handleUpdateSearchRequest,
 }: UpdateSearchRequestFormProps) => {
   const intl = useIntl();
-  const [isSaving, setIsSaving] = React.useState<boolean>(false);
+  const [isSaving, setIsSaving] = useState<boolean>(false);
   const paths = useRoutes();
   const methods = useForm<FormValues>({
     defaultValues: initialSearchRequest,

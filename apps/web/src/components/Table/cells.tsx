@@ -1,5 +1,5 @@
-import React from "react";
 import { IntlShape } from "react-intl";
+import { AriaAttributes, JSX } from "react";
 
 import { Link } from "@gc-digital-talent/ui";
 import { Scalars, Maybe } from "@gc-digital-talent/graphql";
@@ -33,7 +33,7 @@ function viewCell(
   href: string,
   name: string,
   hiddenLabel?: string,
-  ariaLabel?: React.AriaAttributes["aria-label"],
+  ariaLabel?: AriaAttributes["aria-label"],
 ) {
   return (
     <ViewLink
@@ -45,7 +45,7 @@ function viewCell(
   );
 }
 
-function jsxCell(element: React.JSX.Element | null): React.JSX.Element | null {
+function jsxCell(element: JSX.Element | null): JSX.Element | null {
   return element || null;
 }
 

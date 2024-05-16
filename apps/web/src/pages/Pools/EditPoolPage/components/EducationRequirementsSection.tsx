@@ -1,6 +1,6 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import TagIcon from "@heroicons/react/24/outline/TagIcon";
+import { ReactNode, JSX } from "react";
 
 import { Heading, Link, ScrollToLink, Well } from "@gc-digital-talent/ui";
 import { Locales, getLocale } from "@gc-digital-talent/i18n";
@@ -18,7 +18,7 @@ import { wrapAbbr } from "~/utils/nameUtils";
 
 import { SectionProps } from "../types";
 
-const qualityStandardsLink = (chunks: React.ReactNode, locale: Locales) => {
+const qualityStandardsLink = (chunks: ReactNode, locale: Locales) => {
   const href =
     locale === "en"
       ? "https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/core.html#rpsi"
@@ -30,7 +30,7 @@ const qualityStandardsLink = (chunks: React.ReactNode, locale: Locales) => {
   );
 };
 
-const scrollToLink = (chunks: React.ReactNode, to: string) => (
+const scrollToLink = (chunks: ReactNode, to: string) => (
   <ScrollToLink to={to} mode="text" color="secondary">
     {chunks}
   </ScrollToLink>
@@ -63,7 +63,7 @@ const EducationRequirementsSection = ({
   poolQuery,
   sectionMetadata,
   changeTargetId,
-}: EducationRequirementsSectionProps): React.JSX.Element => {
+}: EducationRequirementsSectionProps): JSX.Element => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const pool = getFragment(EditPoolEducationRequirements_Fragment, poolQuery);
@@ -98,9 +98,9 @@ const EducationRequirementsSection = ({
             description: "Lead-in text for a process' education requirements",
           },
           {
-            qualityStandardsLink: (chunks: React.ReactNode) =>
+            qualityStandardsLink: (chunks: ReactNode) =>
               qualityStandardsLink(chunks, locale),
-            scrollToLink: (chunks: React.ReactNode) =>
+            scrollToLink: (chunks: ReactNode) =>
               scrollToLink(chunks, changeTargetId),
             classificationAbbr,
           },

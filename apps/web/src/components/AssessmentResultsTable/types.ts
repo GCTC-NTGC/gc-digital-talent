@@ -1,5 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { IntlShape } from "react-intl";
+import { JSX } from "react";
 
 import {
   AssessmentResult,
@@ -21,7 +22,7 @@ export type AssessmentTableRowColumnProps = {
   poolCandidate: PoolCandidate;
   assessmentStep: AssessmentStep;
   intl: IntlShape;
-  header: React.JSX.Element;
+  header: JSX.Element;
 };
 
 export type StatusColor = "error" | "hold" | "toAssess" | "success" | "gray";

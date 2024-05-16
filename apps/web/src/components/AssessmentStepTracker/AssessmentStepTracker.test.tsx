@@ -2,7 +2,6 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import React from "react";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
 import { screen, within } from "@testing-library/react";

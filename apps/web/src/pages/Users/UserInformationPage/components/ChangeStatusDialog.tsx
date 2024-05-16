@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import zipWith from "lodash/zipWith";
@@ -47,7 +47,7 @@ const ChangeStatusDialog = ({
   user,
 }: ChangeStatusDialogProps) => {
   const intl = useIntl();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const methods = useForm<FormValues>();
 
   const [{ fetching }, executeMutation] = useMutation(

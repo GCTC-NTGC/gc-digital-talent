@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useMemo, useRef } from "react";
 import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 import {
@@ -310,23 +310,23 @@ const PoolCandidatesTable = ({
   const paths = useRoutes();
   const initialState = getTableStateFromSearchParams(defaultState);
   const client = useClient();
-  const [isSelecting, setIsSelecting] = React.useState<boolean>(false);
-  const [selectingFor, setSelectingFor] = React.useState<SelectingFor>(null);
-  const [selectedCandidates, setSelectedCandidates] = React.useState<
-    PoolCandidate[]
-  >([]);
+  const [isSelecting, setIsSelecting] = useState<boolean>(false);
+  const [selectingFor, setSelectingFor] = useState<SelectingFor>(null);
+  const [selectedCandidates, setSelectedCandidates] = useState<PoolCandidate[]>(
+    [],
+  );
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
-  const initialFilters: PoolCandidateSearchInput = React.useMemo(
+  const initialFilters: PoolCandidateSearchInput = useMemo(
     () => (filtersEncoded ? JSON.parse(filtersEncoded) : initialFilterInput),
     [filtersEncoded, initialFilterInput],
   );
 
-  const filterRef = React.useRef<PoolCandidateSearchInput | undefined>(
+  const filterRef = useRef<PoolCandidateSearchInput | undefined>(
     initialFilters,
   );
 
-  const [paginationState, setPaginationState] = React.useState<PaginationState>(
+  const [paginationState, setPaginationState] = useState<PaginationState>(
     initialState.paginationState
       ? {
           ...initialState.paginationState,
@@ -337,15 +337,15 @@ const PoolCandidatesTable = ({
 
   const { selectedRows, setSelectedRows } = useSelectedRows<string>([]);
 
-  const [searchState, setSearchState] = React.useState<SearchState>(
+  const [searchState, setSearchState] = useState<SearchState>(
     initialState.searchState ?? INITIAL_STATE.searchState,
   );
 
-  const [sortState, setSortState] = React.useState<SortingState | undefined>(
+  const [sortState, setSortState] = useState<SortingState | undefined>(
     initialState.sortState ?? [{ id: "submitted_at", desc: true }],
   );
 
-  const [filterState, setFilterState] = React.useState<
+  const [filterState, setFilterState] = useState<
     PoolCandidateSearchInput | undefined
   >(initialFilters);
 
@@ -437,7 +437,7 @@ const PoolCandidatesTable = ({
     },
   });
 
-  const filteredData: Array<PoolCandidateWithSkillCount> = React.useMemo(() => {
+  const filteredData: Array<PoolCandidateWithSkillCount> = useMemo(() => {
     const poolCandidates = data?.poolCandidatesPaginated.data ?? [];
     return poolCandidates.filter(notEmpty);
   }, [data?.poolCandidatesPaginated.data]);

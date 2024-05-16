@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Well, WellProps } from "@gc-digital-talent/ui";
 
 const Error = (props: Omit<WellProps, "color" | "fontSize">) => {

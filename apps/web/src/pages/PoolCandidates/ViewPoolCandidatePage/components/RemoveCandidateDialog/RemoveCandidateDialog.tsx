@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation } from "urql";
 import { FormProvider, useForm } from "react-hook-form";
@@ -67,7 +67,7 @@ const RemoveCandidateDialog = ({
   defaultOpen = false,
 }: RemoveCandidateDialogProps) => {
   const intl = useIntl();
-  const [isOpen, setIsOpen] = React.useState<boolean>(defaultOpen);
+  const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
   const candidate = getFragment(RemoveCandidateDialog_Fragment, removalQuery);
 
   const [{ fetching }, removeCandidate] = useMutation(RemoveCandidate_Mutation);

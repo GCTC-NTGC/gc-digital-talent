@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation } from "urql";
 import HandRaisedIcon from "@heroicons/react/20/solid/HandRaisedIcon";
@@ -51,7 +51,7 @@ const ReinstateCandidateDialog = ({
   defaultOpen = false,
 }: ReinstateCandidateDialogProps) => {
   const intl = useIntl();
-  const [isOpen, setIsOpen] = React.useState<boolean>(defaultOpen);
+  const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
   const candidate = getFragment(
     ReinstateCandidateDialog_Fragment,
     reinstateQuery,

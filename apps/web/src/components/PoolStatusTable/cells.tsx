@@ -1,5 +1,3 @@
-import React from "react";
-
 import { PoolCandidate, User } from "@gc-digital-talent/graphql";
 
 import ChangeStatusDialog from "../../pages/Users/UserInformationPage/components/ChangeStatusDialog";

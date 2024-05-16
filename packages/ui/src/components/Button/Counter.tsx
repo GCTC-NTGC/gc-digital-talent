@@ -1,13 +1,13 @@
-import React from "react";
+import { DetailedHTMLProps, HTMLAttributes, forwardRef } from "react";
 
-type CounterProps = React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLSpanElement>,
+type CounterProps = DetailedHTMLProps<
+  HTMLAttributes<HTMLSpanElement>,
   HTMLSpanElement
 > & {
   count: number;
 };
 
-const Counter = React.forwardRef<HTMLSpanElement, CounterProps>(
+const Counter = forwardRef<HTMLSpanElement, CounterProps>(
   ({ count, ...rest }, forwardedRef) => (
     <span
       ref={forwardedRef}

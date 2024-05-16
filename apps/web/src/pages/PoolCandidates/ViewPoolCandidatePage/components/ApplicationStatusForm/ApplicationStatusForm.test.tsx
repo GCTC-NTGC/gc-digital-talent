@@ -2,7 +2,6 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import React from "react";
 import { fireEvent, screen, waitFor } from "@testing-library/react";
 
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";

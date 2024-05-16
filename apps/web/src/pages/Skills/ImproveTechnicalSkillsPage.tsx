@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { OperationContext, useMutation, useQuery } from "urql";
 import StarIcon from "@heroicons/react/24/outline/StarIcon";

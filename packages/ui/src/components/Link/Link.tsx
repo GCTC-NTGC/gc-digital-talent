@@ -1,8 +1,8 @@
-import React from "react";
 import {
   Link as RouterLink,
   LinkProps as RouterLinkProps,
 } from "react-router-dom";
+import { DetailedHTMLProps, AnchorHTMLAttributes, forwardRef } from "react";
 
 import { sanitizeUrl } from "@gc-digital-talent/helpers";
 
@@ -13,8 +13,8 @@ import getButtonStyles from "../../utils/button/getButtonStyles";
 export type LinkProps = ButtonLinkProps &
   Omit<RouterLinkProps, "to"> &
   Omit<
-    React.DetailedHTMLProps<
-      React.AnchorHTMLAttributes<HTMLAnchorElement>,
+    DetailedHTMLProps<
+      AnchorHTMLAttributes<HTMLAnchorElement>,
       HTMLAnchorElement
     >,
     "ref"
@@ -24,7 +24,7 @@ export type LinkProps = ButtonLinkProps &
     disabled?: boolean;
   };
 
-const Link = React.forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
+const Link = forwardRef<HTMLAnchorElement, Omit<LinkProps, "ref">>(
   (
     {
       href,

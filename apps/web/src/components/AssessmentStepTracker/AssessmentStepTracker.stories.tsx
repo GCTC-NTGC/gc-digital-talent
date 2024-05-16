@@ -1,4 +1,3 @@
-import React from "react";
 import type { StoryFn } from "@storybook/react";
 
 import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";

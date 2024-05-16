@@ -1,8 +1,8 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { Link as BaseLink, useNavigate } from "react-router-dom";
 import EllipsisVerticalIcon from "@heroicons/react/20/solid/EllipsisVerticalIcon";
 import { useMutation } from "urql";
+import { ReactNode, MouseEvent } from "react";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
@@ -29,7 +29,7 @@ import {
 
 type LinkWrapperProps = {
   inDialog?: boolean;
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 const LinkWrapper = ({ inDialog = false, children }: LinkWrapperProps) => {
@@ -95,7 +95,7 @@ const NotificationItem = ({
     mutation({ id: notification.id });
   };
 
-  const handleLinkClicked = (event: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleLinkClicked = (event: MouseEvent<HTMLAnchorElement>) => {
     event.stopPropagation();
 
     executeMarkAsReadMutation({ id: notification.id }).then((res) => {

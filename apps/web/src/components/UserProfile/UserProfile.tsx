@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import ChatBubbleLeftRightIcon from "@heroicons/react/24/outline/ChatBubbleLeftRightIcon";
 import BuildingLibraryIcon from "@heroicons/react/24/outline/BuildingLibraryIcon";
@@ -7,6 +6,7 @@ import MapPinIcon from "@heroicons/react/24/outline/MapPinIcon";
 import HandThumbUpIcon from "@heroicons/react/24/outline/HandThumbUpIcon";
 import UserIcon from "@heroicons/react/24/outline/UserIcon";
 import UserCircleIcon from "@heroicons/react/24/solid/UserCircleIcon";
+import { ReactNode } from "react";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
@@ -31,7 +31,7 @@ import { PAGE_SECTION_ID } from "./constants";
 interface SectionControl {
   isVisible: boolean;
   editUrl?: string;
-  override?: React.ReactNode;
+  override?: ReactNode;
 }
 
 interface UserProfileProps {
@@ -48,7 +48,7 @@ interface UserProfileProps {
     skillShowcase?: SectionControl;
   };
   isNavigationVisible?: boolean;
-  subTitle?: React.ReactNode;
+  subTitle?: ReactNode;
   headingLevel?: HeadingRank;
 }
 
@@ -56,7 +56,7 @@ const HeadingWrapper = ({
   children,
   show,
 }: {
-  children?: React.ReactNode;
+  children?: ReactNode;
   show: boolean;
 }) => {
   if (!show && children) {
@@ -94,7 +94,7 @@ const Container = ({
   children,
   show,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   show: boolean;
 }) => {
   if (!show) {

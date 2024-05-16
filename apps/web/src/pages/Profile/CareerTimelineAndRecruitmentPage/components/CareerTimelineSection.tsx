@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 
@@ -30,7 +30,7 @@ const CareerTimelineSection = ({
   const paths = useRoutes();
 
   const [sortAndFilterValues, setSortAndFilterValues] =
-    React.useState<ExperienceSortAndFilterFormValues>({
+    useState<ExperienceSortAndFilterFormValues>({
       sortBy: "date_desc",
       filterBy: "none",
     });

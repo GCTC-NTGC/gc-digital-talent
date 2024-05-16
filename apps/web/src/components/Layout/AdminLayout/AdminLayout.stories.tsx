@@ -1,4 +1,4 @@
-import React from "react";
+import { useMemo } from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import { faker } from "@faker-js/faker/locale/en";
 
@@ -45,14 +45,14 @@ const Template: StoryFn<AdminLayoutArgs> = (args) => {
   const authenticationState = useAuthentication();
   const authorizationState = useAuthorization();
 
-  const mockAuthenticationState = React.useMemo(
+  const mockAuthenticationState = useMemo(
     () => ({
       ...authenticationState,
       loggedIn,
     }),
     [loggedIn, authenticationState],
   );
-  const mockAuthorizationState = React.useMemo(
+  const mockAuthorizationState = useMemo(
     () => ({
       ...authorizationState,
       roleAssignments: roles.map((roleName) => ({

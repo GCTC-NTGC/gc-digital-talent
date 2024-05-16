@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import CalculatorIcon from "@heroicons/react/24/outline/CalculatorIcon";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";

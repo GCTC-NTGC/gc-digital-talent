@@ -1,12 +1,18 @@
-import React from "react";
 import * as SeparatorPrimitive from "@radix-ui/react-separator";
+import {
+  ComponentPropsWithoutRef,
+  DetailedHTMLProps,
+  ElementRef,
+  HTMLAttributes,
+  forwardRef,
+} from "react";
 
-type SeparatorProps = React.ComponentPropsWithoutRef<
+type SeparatorProps = ComponentPropsWithoutRef<
   typeof SeparatorPrimitive.Root
 > & {
   space?: "none" | "xs" | "sm" | "md" | "lg";
 } & Omit<
-    React.DetailedHTMLProps<React.HTMLAttributes<HTMLHRElement>, HTMLHRElement>,
+    DetailedHTMLProps<HTMLAttributes<HTMLHRElement>, HTMLHRElement>,
     "ref"
   >;
 
@@ -15,8 +21,8 @@ type SeparatorProps = React.ComponentPropsWithoutRef<
  * @desc Visually or semantically separates content.
  * @see [Documentation](https://www.radix-ui.com/docs/primitives/components/separator)
  */
-const Separator = React.forwardRef<
-  React.ElementRef<typeof SeparatorPrimitive.Root>,
+const Separator = forwardRef<
+  ElementRef<typeof SeparatorPrimitive.Root>,
   SeparatorProps
 >(
   (

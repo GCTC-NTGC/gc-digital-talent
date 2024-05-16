@@ -1,5 +1,5 @@
 import { IntlShape, useIntl } from "react-intl";
-import React from "react";
+import { ReactNode } from "react";
 
 import {
   ApplicationDeadlineApproachingNotification,
@@ -16,7 +16,7 @@ import { GraphqlType } from "@gc-digital-talent/helpers";
 import useRoutes from "./useRoutes";
 
 type NotificationInfo = {
-  message: React.ReactNode;
+  message: ReactNode;
   label: string;
   href: string;
 };

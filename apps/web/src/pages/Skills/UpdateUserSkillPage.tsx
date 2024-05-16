@@ -1,10 +1,10 @@
-import React from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { defineMessage, useIntl } from "react-intl";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 import { useMutation, useQuery } from "urql";
+import { ReactNode } from "react";
 
 import {
   ThrowNotFound,
@@ -51,7 +51,7 @@ import {
 
 type PageSection = {
   id: string;
-  title: React.ReactNode;
+  title: ReactNode;
 };
 type PageSections = Record<string, PageSection>;
 
@@ -307,7 +307,7 @@ export const UpdateUserSkillForm = ({
   );
   const mutating = creating || updating || deleting;
 
-  const handleSuccess = (msg?: React.ReactNode) => {
+  const handleSuccess = (msg?: ReactNode) => {
     toast.success(
       msg ||
         intl.formatMessage({
@@ -319,7 +319,7 @@ export const UpdateUserSkillForm = ({
     navigate(returnPath);
   };
 
-  const handleError = (msg?: React.ReactNode) => {
+  const handleError = (msg?: ReactNode) => {
     toast.error(
       msg ||
         intl.formatMessage({
