@@ -5187,10 +5187,6 @@
     "defaultMessage": "Ce programme élimine l’un des principaux obstacles à l’emploi en valorisant le potentiel d’une personne plutôt que son niveau de scolarité. Ce faisant, cette initiative contribue à combler les écarts en matière d’éducation, d’emploi et d’économie auxquelles sont confrontées les personnes autochtones du Canada.",
     "description": "Paragraph 3 of the 'About the program' section"
   },
-  "Rm4SuQ": {
-    "defaultMessage": "Sélectionnez un bassin",
-    "description": "Placeholder displayed on the pool field of the add user to pool dialog."
-  },
   "RmcS7J": {
     "defaultMessage": "Les comptes de médias sociaux ne sont pas des sites Web du gouvernement du Canada : ils constituent seulement un moyen de manifester la présence du gouvernement du Canada sur les plateformes des tiers fournisseurs de services.",
     "description": "Paragraph for comments and interaction section"
@@ -10873,10 +10869,6 @@
   "xj7X6V": {
     "defaultMessage": "J’ai lu le préambule.",
     "description": "Preamble confirmation statement of the _digital services contracting questionnaire_"
-  },
-  "xjZO11": {
-    "defaultMessage": "Sélectionnez d’autres bassins additionnels",
-    "description": "Placeholder displayed on the additional pools field of the change candidate status dialog."
   },
   "xkJAuq": {
     "defaultMessage": "Ajouter cette compétence",

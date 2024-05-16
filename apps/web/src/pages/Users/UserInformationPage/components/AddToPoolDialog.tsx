@@ -2,18 +2,22 @@ import { useState } from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import zipWith from "lodash/zipWith";
-import { useMutation } from "urql";
+import { useMutation, useQuery } from "urql";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { DateInput, Combobox } from "@gc-digital-talent/forms";
+import { DateInput } from "@gc-digital-talent/forms";
 import {
   commonMessages,
   errorMessages,
   formMessages,
 } from "@gc-digital-talent/i18n";
 import { currentDate } from "@gc-digital-talent/date-helpers";
-import { emptyToNull, notEmpty } from "@gc-digital-talent/helpers";
+import {
+  emptyToNull,
+  notEmpty,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
 import {
   graphql,
   PoolStatus,
@@ -23,12 +27,9 @@ import {
   PoolCandidate,
 } from "@gc-digital-talent/graphql";
 
-import {
-  getShortPoolTitleLabel,
-  getShortPoolTitleHtml,
-} from "~/utils/poolUtils";
+import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { getFullNameHtml } from "~/utils/nameUtils";
-import adminMessages from "~/messages/adminMessages";
+import PoolFilterInput from "~/components/PoolFilterInput/PoolFilterInput";
 
 const AddToPoolDialog_Mutation = graphql(/* GraphQL */ `
   mutation AddToPoolDialog_Mutation(
@@ -47,6 +48,27 @@ const AddToPoolDialog_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
+const AvailablePoolsToAddTo_Query = graphql(/* GraphQL */ `
+  query AvailablePoolsToAddTo($where: PoolFilterInput, $excludeIds: [UUID!]) {
+    poolsPaginated(where: $where, excludeIds: $excludeIds, first: 1000) {
+      data {
+        id
+        publishingGroup
+        stream
+        name {
+          en
+          fr
+        }
+        classification {
+          id
+          group
+          level
+        }
+      }
+    }
+  }
+`);
+
 type FormValues = {
   pools: Array<Pool["id"]>;
   expiryDate: PoolCandidate["expiryDate"];
@@ -54,10 +76,9 @@ type FormValues = {
 
 interface AddToPoolDialogProps {
   user: User;
-  pools: Pool[];
 }
 
-const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
+const AddToPoolDialog = ({ user }: AddToPoolDialogProps) => {
   const intl = useIntl();
   const [open, setOpen] = useState(false);
   const methods = useForm<FormValues>();
@@ -71,7 +92,14 @@ const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
     }
   });
 
-  const poolsSafe = pools ? pools.filter(notEmpty) : [];
+  const [{ data: poolsData }] = useQuery({
+    query: AvailablePoolsToAddTo_Query,
+    variables: {
+      where: { statuses: [PoolStatus.Closed, PoolStatus.Published] },
+      excludeIds: currentPools,
+    },
+  });
+  const poolsSafe = unpackMaybes(poolsData?.poolsPaginated.data);
   const poolMap = new Map(poolsSafe.map((pool) => [pool.id, pool]));
 
   const requestMutation = async (values: CreatePoolCandidateAsAdminInput) => {
@@ -161,20 +189,6 @@ const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
   };
   const { handleSubmit } = methods;
 
-  const poolOptions = pools
-    .filter((pool) => !currentPools.includes(pool.id))
-    .filter(
-      (pool) =>
-        pool.status === PoolStatus.Published ||
-        pool.status === PoolStatus.Closed,
-    )
-    .map((pool) => {
-      return {
-        value: pool.id,
-        label: getShortPoolTitleLabel(intl, pool),
-      };
-    });
-
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
@@ -220,22 +234,7 @@ const AddToPoolDialog = ({ user, pools }: AddToPoolDialogProps) => {
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(submitForm)}>
               <div data-h2-margin="base(x.5, 0, x.125, 0)">
-                <Combobox
-                  id="addToPoolDialog-pools"
-                  name="pools"
-                  isMulti
-                  label={intl.formatMessage(adminMessages.pools)}
-                  placeholder={intl.formatMessage({
-                    defaultMessage: "Select a pool",
-                    id: "Rm4SuQ",
-                    description:
-                      "Placeholder displayed on the pool field of the add user to pool dialog.",
-                  })}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                  options={poolOptions}
-                />
+                <PoolFilterInput excludeIds={currentPools} />
               </div>
               <p data-h2-margin="base(x1, 0, 0, 0)">
                 {intl.formatMessage({

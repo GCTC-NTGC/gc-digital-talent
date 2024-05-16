@@ -628,6 +628,19 @@ input UserPublicProfileFilterInput {
   publicProfileSearch: String @scope
 }
 
+input PoolFilterInput {
+  generalSearch: String @scope
+  name: String @scope
+  team: String @scope
+  streams: [PoolStream!] @scope
+  statuses: [PoolStatus!] @scope
+}
+
+input PoolTeamDisplayNameOrderByInput {
+  locale: String!
+  order: SortOrder!
+}
+
 # Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
 input ApplicantFilterInput {
   equity: EquitySelectionsInput @scope
@@ -750,6 +763,26 @@ type Query {
     @canModel(ability: "viewAnyPublished", model: "Pool")
   pools: [Pool]!
     @all(scopes: ["authorizedToView", "notArchived"])
+    @canResolved(ability: "view")
+    @deprecated(reason: "pools is deprecated. Use poolsPaginated instead.")
+  poolsPaginated(
+    includeIds: [UUID!] @in(key: "id")
+    excludeIds: [UUID!] @notIn(key: "id")
+    where: PoolFilterInput
+    orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput @scope
+    orderBy: _
+      @orderBy(
+        relations: [
+          { relation: "user", columns: ["first_name", "email"] }
+          { relation: "classification", columns: ["group", "level"] }
+        ]
+      )
+  ): [Pool]!
+    @paginate(
+      defaultCount: 10
+      maxCount: 1000
+      scopes: ["authorizedToView", "notArchived"]
+    )
     @canResolved(ability: "view")
   poolCandidate(id: UUID! @eq): PoolCandidate
     @find
