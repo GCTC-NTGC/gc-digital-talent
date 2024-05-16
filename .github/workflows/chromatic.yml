@@ -56,7 +56,7 @@ jobs:
           pnpm build
 
       - name: "Publish Storybook: all"
-        uses: chromaui/action@v11.3.2
+        uses: chromaui/action@v11.3.5
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           # Auto-accept UI Tests on Chromatic platform.
