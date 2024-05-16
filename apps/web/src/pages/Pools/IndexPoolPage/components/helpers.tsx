@@ -1,15 +1,27 @@
 import { IntlShape } from "react-intl";
+import { SortingState } from "@tanstack/react-table";
 
-import { getLocalizedName, getPoolStream } from "@gc-digital-talent/i18n";
+import {
+  Locales,
+  getLocalizedName,
+  getPoolStream,
+} from "@gc-digital-talent/i18n";
 import { Link, Chip } from "@gc-digital-talent/ui";
 import {
   Classification,
   LocalizedString,
   Maybe,
+  OrderByRelationWithColumnAggregateFunction,
   Pool,
+  PoolTeamDisplayNameOrderByInput,
+  QueryPoolsPaginatedOrderByClassificationColumn,
+  QueryPoolsPaginatedOrderByRelationOrderByClause,
+  QueryPoolsPaginatedOrderByUserColumn,
+  SortOrder,
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
+import { SearchState } from "~/components/Table/ResponsiveTable/types";
 
 export function poolNameAccessor(pool: Pool, intl: IntlShape) {
   const name = getLocalizedName(pool.name, intl);
@@ -133,4 +145,117 @@ export function ownerNameAccessor(pool: Pool) {
 
 export function ownerEmailAccessor(pool: Pool) {
   return pool.owner && pool.owner.email ? pool.owner.email.toLowerCase() : "";
+}
+
+type TransformPoolInputArgs = {
+  search: SearchState;
+};
+
+export function transformPoolInput({ search }: TransformPoolInputArgs) {
+  if (
+    typeof search.term === "undefined" &&
+    typeof search.type === "undefined"
+  ) {
+    return undefined;
+  }
+
+  return {
+    generalSearch: !!search.term && !search.type ? search.term : undefined,
+    name: search.type === "name" ? search.term : undefined,
+    team: search.type === "type" ? search.term : undefined,
+  };
+}
+
+export function getOrderByClause(
+  sortingRules?: SortingState,
+): QueryPoolsPaginatedOrderByRelationOrderByClause[] | undefined {
+  const columnMap = new Map<string, string>([
+    ["id", "id"],
+    ["name", "name"],
+    ["publishingGroup", "publishing_group"],
+    ["stream", "stream"],
+    ["ownerName", "FIRST_NAME"],
+    ["ownerEmail", "EMAIL"],
+    ["createdDate", "created_at"],
+    ["updatedDate", "updated_at"],
+    ["classification", "classification"],
+    ["team", "team"],
+    // ["status", "status"],
+  ]);
+
+  const sortingRule = sortingRules?.find((rule) => {
+    const columnName = columnMap.get(rule.id);
+    return !!columnName;
+  });
+
+  // Team is handled by another arg
+  if (sortingRule?.id === "team") return undefined;
+
+  if (sortingRule && sortingRule.id === "classification") {
+    return [
+      {
+        column: undefined,
+        order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+        classification: {
+          aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+          column: "GROUP" as QueryPoolsPaginatedOrderByClassificationColumn,
+        },
+      },
+      {
+        column: undefined,
+        order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+        classification: {
+          aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+          column: "LEVEL" as QueryPoolsPaginatedOrderByClassificationColumn,
+        },
+      },
+    ];
+  }
+
+  if (sortingRule && ["ownerName", "ownerEmail"].includes(sortingRule.id)) {
+    const columnName = columnMap.get(sortingRule.id);
+    return [
+      {
+        column: undefined,
+        order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+        user: {
+          aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+          column: columnName as QueryPoolsPaginatedOrderByUserColumn,
+        },
+      },
+    ];
+  }
+
+  if (sortingRule) {
+    const columnName = columnMap.get(sortingRule.id);
+    return [
+      {
+        column: columnName,
+        order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+        user: undefined,
+      },
+    ];
+  }
+
+  return [
+    {
+      column: "created_at",
+      order: SortOrder.Asc,
+      user: undefined,
+    },
+  ];
+}
+
+export function getTeamDisplayNameSort(
+  sortingRules?: SortingState,
+  locale?: Locales,
+): PoolTeamDisplayNameOrderByInput | undefined {
+  const sortingRule = sortingRules?.find((rule) => rule.id === "team");
+
+  if (!sortingRule) return undefined;
+
+  return {
+    locale: locale ?? "en",
+    order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+  };
 }
