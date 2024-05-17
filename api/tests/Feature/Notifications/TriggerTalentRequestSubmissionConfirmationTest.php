@@ -20,7 +20,7 @@ class TriggerTalentRequestSubmissionConfirmationTest extends TestCase
         Notification::fake();
     }
 
-    // triggers a notification when an application is moved into a final decision status
+    // triggers a notification when a search request is created
     public function testNotifyWhenRequest(): void
     {
         Department::factory()->create();
