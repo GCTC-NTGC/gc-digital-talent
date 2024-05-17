@@ -1123,17 +1123,6 @@ const operationalRequirementLabelFirstPerson = defineMessages({
     id: "duwt+A",
     description: "The operational requirement described as driver's license.",
   },
-  [OperationalRequirement.OvertimeScheduled]: {
-    defaultMessage: "requires me to <strong>work scheduled overtime</strong>.",
-    id: "1RTwS3",
-    description: "The operational requirement described as scheduled overtime.",
-  },
-  [OperationalRequirement.OvertimeShortNotice]: {
-    defaultMessage:
-      "requires me to <strong>work overtime on short notice</strong>.",
-    id: "cnFVR1",
-    description: "The operational requirement described as overtime.",
-  },
   [OperationalRequirement.OvertimeOccasional]: {
     defaultMessage: "requires me to work <strong>occasional overtime</strong>.",
     id: "sfhO+5",
@@ -1176,16 +1165,6 @@ const operationalRequirementLabelFirstPersonNoBold = defineMessages({
     id: "TmCCgR",
     description: "The operational requirement described as driver's license.",
   },
-  [OperationalRequirement.OvertimeScheduled]: {
-    defaultMessage: "requires me to work scheduled overtime.",
-    id: "+U4KU4",
-    description: "The operational requirement described as scheduled overtime.",
-  },
-  [OperationalRequirement.OvertimeShortNotice]: {
-    defaultMessage: "requires me to work overtime on short notice.",
-    id: "P1ajBo",
-    description: "The operational requirement described as overtime.",
-  },
   [OperationalRequirement.OvertimeOccasional]: {
     defaultMessage: "requires me to work occasional overtime.",
     id: "4mMU7Q",
@@ -1199,13 +1178,7 @@ const operationalRequirementLabelFirstPersonNoBold = defineMessages({
   },
 });
 
-export const OperationalRequirementV1 = [
-  OperationalRequirement.ShiftWork,
-  OperationalRequirement.OvertimeScheduled,
-  OperationalRequirement.OvertimeShortNotice,
-];
-
-export const OperationalRequirementV2 = [
+export const OperationalRequirements = [
   OperationalRequirement.OvertimeOccasional,
   OperationalRequirement.OvertimeRegular,
   OperationalRequirement.ShiftWork,
@@ -1261,19 +1234,6 @@ const operationalRequirementLabelFull = defineMessages({
     id: "vvtqRv",
     description: "The operational requirement described as regular overtime.",
   },
-  [OperationalRequirement.OvertimeScheduled]: {
-    defaultMessage:
-      "Availability, willingness and ability to work overtime (scheduled)",
-    id: "lDeaXK",
-    description: "The operational requirement described as scheduled overtime.",
-  },
-  [OperationalRequirement.OvertimeShortNotice]: {
-    defaultMessage:
-      "Availability, willingness and ability to work overtime (short notice)",
-    id: "kwaeXP",
-    description:
-      "The operational requirement described as occasional overtime.",
-  },
   [OperationalRequirement.OvertimeOccasional]: {
     defaultMessage:
       "Availability, willingness and ability to work overtime (Occasionally).",
@@ -1325,18 +1285,6 @@ const operationalRequirementLabelShort = defineMessages({
     id: "Lw0WrP",
     description:
       "The operational requirement described as occasional overtime. (short-form for limited space)",
-  },
-  [OperationalRequirement.OvertimeScheduled]: {
-    defaultMessage: "Work scheduled overtime",
-    id: "0Nz6aa",
-    description:
-      "The operational requirement described as scheduled overtime. (short-form for limited space)",
-  },
-  [OperationalRequirement.OvertimeShortNotice]: {
-    defaultMessage: "Work overtime on short notice",
-    id: "WYLjD1",
-    description:
-      "The operational requirement described as short notice overtime. (short-form for limited space)",
   },
 });
 

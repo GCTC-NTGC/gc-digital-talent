@@ -38,6 +38,8 @@ class PoolTest extends TestCase
 
     protected $baseUser;
 
+    protected $communityManager;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -53,6 +55,13 @@ class PoolTest extends TestCase
             ->asPoolOperator($this->team->name)
             ->create([
                 'sub' => 'operator@test.com',
+            ]);
+
+        $this->communityManager = User::factory()
+            ->asCommunityManager()
+            ->create([
+                'email' => 'community@test.com',
+                'sub' => 'community@test.com',
             ]);
 
         $this->adminUser = User::factory()
@@ -1080,5 +1089,76 @@ class PoolTest extends TestCase
 
         assertSame(1, count($draftRes->json('data.poolsPaginated.data')));
 
+    }
+
+    /**
+     * Test updating a published pool
+     *
+     * @group editing
+     */
+    public function testPublishedPoolEditing(): void
+    {
+
+        $pool = Pool::factory()
+            ->for($this->poolOperator)
+            ->withAssessments()
+            ->published()
+            ->create([
+                'team_id' => $this->team,
+            ]);
+
+        $mutation = /** GraphQL */ '
+            mutation UpdatePublishedPool($id: ID!, $pool: UpdatePublishedPoolInput!) {
+                updatePublishedPool(id: $id, pool: $pool) {
+                    id
+                }
+            }
+        ';
+
+        $vars = [
+            'id' => $pool->id,
+            'pool' => [
+                'aboutUs' => ['en' => 'About us EN', 'fr' => 'About us FR'],
+                'changeJustification' => 'Justification',
+            ],
+        ];
+
+        // Pool operator cannot edit
+        $this->actingAs($this->poolOperator, 'api')
+            ->graphQL($mutation, $vars)
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        // Community Manager can edit
+        $this->actingAs($this->communityManager, 'api')
+            ->graphQL($mutation, $vars)
+            ->assertExactJson([
+                'data' => [
+                    'updatePublishedPool' => ['id' => $pool->id],
+                ],
+            ]);
+
+        // Platform admins can edit
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($mutation, $vars)
+            ->assertExactJson([
+                'data' => [
+                    'updatePublishedPool' => ['id' => $pool->id],
+                ],
+            ]);
+
+        // Cannot update without justification
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($mutation, [
+                'id' => $pool->id,
+                'pool' => [
+                    'aboutUs' => [
+                        'en' => 'About us EN',
+                        'fr' => 'About us FR',
+                    ],
+                ],
+            ])
+            ->assertJsonFragment([
+                'message' => 'Variable "$pool" got invalid value {"aboutUs":{"en":"About us EN","fr":"About us FR"}}; Field "changeJustification" of required type "String!" was not provided.',
+            ]);
     }
 }

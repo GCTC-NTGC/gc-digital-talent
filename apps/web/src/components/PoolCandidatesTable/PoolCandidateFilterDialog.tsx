@@ -23,7 +23,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
-  OperationalRequirementV2,
+  OperationalRequirements,
   commonMessages,
   getCandidateExpiryFilterStatus,
   getCandidateSuspendedFilterStatus,
@@ -198,7 +198,7 @@ const PoolCandidateFilterDialog = ({
           idPrefix="operationalRequirement"
           name="operationalRequirement"
           legend={intl.formatMessage(navigationMessages.workPreferences)}
-          items={OperationalRequirementV2.map((value) => ({
+          items={OperationalRequirements.map((value) => ({
             value,
             label: intl.formatMessage(
               getOperationalRequirement(value, "short"),

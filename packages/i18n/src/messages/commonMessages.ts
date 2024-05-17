@@ -109,11 +109,6 @@ const commonMessages = defineMessages({
     id: "99cWuv",
     description: "Message for the success status",
   },
-  warning: {
-    defaultMessage: "warning",
-    id: "hd7hdn",
-    description: "Message for the warning status",
-  },
   dividingColon: {
     defaultMessage: ": ",
     id: "i3Jl6C",
@@ -258,6 +253,11 @@ const commonMessages = defineMessages({
     defaultMessage: "Job placement",
     id: "u/+Nrd",
     description: "Label for job placement",
+  },
+  warning: {
+    defaultMessage: "Warning!",
+    id: "YtV1mE",
+    description: "A potentially dangerous action alert",
   },
 });
 

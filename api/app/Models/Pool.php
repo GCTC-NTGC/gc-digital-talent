@@ -41,6 +41,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $publishing_group
  * @property string $opportunity_length
  * @property string $closing_reason
+ * @property string $change_justification
  * @property string $team_id
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
