@@ -130,20 +130,6 @@ const ScreeningDecisionDialogForm = ({
     setValue,
   ]);
 
-  const contextBlock = (messages: string[], key: string) => (
-    <div className="m-3">
-      {messages.map((message, index) => (
-        <span
-          key={`${key}-${index + 1}`}
-          className="mb-3 flex justify-start gap-3"
-        >
-          <CheckIcon className="h-6 w-6" />
-          <p>{message}</p>
-        </span>
-      ))}
-    </div>
-  );
-
   const educationContext = educationJustificationContext(
     Array.isArray(watchJustifications)
       ? watchJustifications?.find(
@@ -161,19 +147,7 @@ const ScreeningDecisionDialogForm = ({
 
   return (
     <>
-      {dialogType === "GENERIC" && (
-        <div className="mb-6">
-          <TextArea
-            id="assessmentNotes"
-            name="assessmentNotes"
-            rows={TEXT_AREA_ROWS}
-            wordLimit={TEXT_AREA_MAX_WORDS}
-            label={labels.assessmentNotes}
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
-          />
-        </div>
-      )}
-      <div className="mb-6">
+      <div data-h2-margin-bottom="base(x1)">
         <CardOptionGroup
           idPrefix="assessmentDecision"
           name="assessmentDecision"
@@ -187,7 +161,7 @@ const ScreeningDecisionDialogForm = ({
       {watchAssessmentDecision === AssessmentDecision.Successful && (
         <div>
           {dialogType === "EDUCATION" ? (
-            <div className="mb-6">
+            <div data-h2-margin-bottom="base(x1)">
               <CardOptionGroup
                 idPrefix="justifications"
                 name="justifications"
@@ -208,7 +182,7 @@ const ScreeningDecisionDialogForm = ({
             </div>
           ) : (
             <>
-              <div className="mb-6">
+              <div data-h2-margin-bottom="base(x1)">
                 <CardOptionGroup
                   idPrefix="assessmentDecisionLevel"
                   name="assessmentDecisionLevel"
@@ -219,7 +193,7 @@ const ScreeningDecisionDialogForm = ({
                   }}
                 />
               </div>
-              <div className="mb-6">
+              <div data-h2-margin-bottom="base(x1)">
                 <TextArea
                   id="skillDecisionNotes"
                   name="skillDecisionNotes"
@@ -233,7 +207,7 @@ const ScreeningDecisionDialogForm = ({
         </div>
       )}
       {watchAssessmentDecision === AssessmentDecision.Unsuccessful && (
-        <div className="mb-6">
+        <div data-h2-margin-bottom="base(x1)">
           <Checklist
             idPrefix="justifications"
             name="justifications"
@@ -259,7 +233,7 @@ const ScreeningDecisionDialogForm = ({
         </Well>
       )}
       {isAssessmentOnHold || isAssessmentDecisionUnSuccessful ? (
-        <div className="my-6">
+        <div data-h2-margin="base(x1, 0)">
           <TextArea
             id="skillDecisionNotes"
             name="skillDecisionNotes"
