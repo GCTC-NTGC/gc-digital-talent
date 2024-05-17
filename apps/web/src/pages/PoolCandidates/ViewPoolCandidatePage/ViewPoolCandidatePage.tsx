@@ -571,11 +571,13 @@ export const ViewPoolCandidate = ({
             </div>
             {parsedSnapshot ? (
               <div data-h2-margin-top="base(x2)">
-                <ApplicationInformation
-                  poolQuery={poolCandidate.pool}
-                  snapshot={parsedSnapshot}
-                  application={snapshotCandidate}
-                />
+                <ErrorBoundary>
+                  <ApplicationInformation
+                    poolQuery={poolCandidate.pool}
+                    snapshot={parsedSnapshot}
+                    application={snapshotCandidate}
+                  />
+                </ErrorBoundary>
                 <div data-h2-margin="base(x2 0)">
                   <Accordion.Root type="single" mode="card" collapsible>
                     <Accordion.Item value="otherRecruitments">
@@ -593,9 +595,11 @@ export const ViewPoolCandidate = ({
                     </Accordion.Item>
                   </Accordion.Root>
                 </div>
-                <CareerTimelineSection
-                  experiences={nonEmptyExperiences ?? []}
-                />
+                <ErrorBoundary>
+                  <CareerTimelineSection
+                    experiences={nonEmptyExperiences ?? []}
+                  />
+                </ErrorBoundary>
               </div>
             ) : (
               <NotFound

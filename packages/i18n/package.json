@@ -27,6 +27,7 @@
     "@formatjs/cli": "^6.2.10",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/helpers": "workspace:*",
+    "@gc-digital-talent/logger": "workspace:*",
     "@gc-digital-talent/jest-presets": "workspace:*",
     "@types/react": "^18.3.2",
     "cpy-cli": "^5.0.0",
