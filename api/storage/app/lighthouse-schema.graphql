@@ -301,6 +301,14 @@ interface Notification {
   updatedAt: DateTime!
 }
 
+type TestNotification implements Notification {
+  id: ID!
+  readAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String
+}
+
 type ApplicationDeadlineApproachingNotification implements Notification {
   id: ID!
   readAt: DateTime

@@ -66,7 +66,7 @@ class NotifyTest extends TestCase
         $this->checkKey('notify.templates.test_sms', 'SMS template ID not found.');
 
         $response = Notify::sendSms(
-            '+16132532222',
+            config('notify.smokeTest.phoneNumber'),
             $this->templates['test_sms'],
             ['name' => $this->username]
         );
@@ -89,19 +89,19 @@ class NotifyTest extends TestCase
             $this->bulkName,
             [
                 [
-                    'phone_number' => '+16132532222',
+                    'phone_number' => config('notify.smokeTest.phoneNumber'),
                     'personalisation' => [
                         'name' => $this->username.' 1',
                     ],
                 ],
                 [
-                    'phone_number' => '+16132532223',
+                    'phone_number' => config('notify.smokeTest.phoneNumber2'),
                     'personalisation' => [
                         'name' => $this->username.' 2',
                     ],
                 ],
                 [
-                    'phone_number' => '+16132532224',
+                    'phone_number' => config('notify.smokeTest.phoneNumber3'),
                     'personalisation' => [
                         'name' => $this->username.' 3',
                     ],
