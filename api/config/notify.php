@@ -12,21 +12,7 @@ return [
     */
     'client' => [
         'apiKey' => env('GCNOTIFY_API_KEY'),
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | GC Notify Rate Limiter
-    |--------------------------------------------------------------------------
-    |
-    | Manage API usage limits
-    |
-    */
-    'rate_limiters' => [
-        'api_rate_limit_key' => 'gc_notify_api_rate_limiter',
-        'api_rate_limit_calls_per_minute' => env('GCNOTIFY_MAX_CALLS_PER_MINUTE'),
-        'exception_throttle_key' => 'gc_notify_exception_throttle',
-
+        'max_requests_per_minute' => env('GCNOTIFY_MAX_REQUESTS_PER_MINUTE'),
     ],
 
     /*

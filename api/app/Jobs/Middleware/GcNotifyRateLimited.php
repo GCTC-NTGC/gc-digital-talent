@@ -15,13 +15,13 @@ class GcNotifyRateLimited
     public function handle(object $job, Closure $next): void
     {
         $executed = RateLimiter::attempt(
-            config('notify.rate_limiters.api_rate_limit_key'),
-            $perMinute = config('notify.rate_limiters.api_rate_limit_calls_per_minute'),
+            'gcnotify_api',
+            $perMinute = config('notify.client.max_requests_per_minute'),
             fn () => $next($job)
         );
 
         if (! $executed) {
-            $job->release(60);
+            $job->release(60); // try again in 60 seconds
         }
     }
 }

@@ -6,7 +6,7 @@ use App\Facades\Notify;
 use App\Jobs\Middleware\GcNotifyRateLimited;
 use App\Notifications\Messages\GcNotifyEmailMessage;
 use DateTime;
-use Error;
+use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -30,8 +30,7 @@ class GcNotifyApiRequest implements ShouldQueue
         return [
             (new GcNotifyRateLimited),
             (new ThrottlesExceptions(10, 5))
-                ->backoff(5)
-                ->by(config('notify.rate_limiters.exception_throttle_key')),
+                ->backoff(5),
         ];
     }
 
@@ -67,7 +66,7 @@ class GcNotifyApiRequest implements ShouldQueue
             $errorMessage = 'Notification failed to send on GcNotifyEmailChannel. '.$firstApiErrorMessage.' ';
             Log::error($errorMessage);
             Log::debug($response->body());
-            throw new Error($errorMessage);
+            throw new Exception($errorMessage);
         }
     }
 }
