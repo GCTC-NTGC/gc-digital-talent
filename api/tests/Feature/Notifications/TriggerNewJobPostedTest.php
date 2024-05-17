@@ -48,7 +48,7 @@ class TriggerNewJobPostedTest extends TestCase
             ]);
     }
 
-    // no notification when an application is created or submitted
+    // no notification when a draft pool is created
     public function testNothingSentForDraftPool(): void
     {
 
@@ -66,7 +66,7 @@ class TriggerNewJobPostedTest extends TestCase
         Notification::assertNothingSent();
     }
 
-    // triggers a notification when an application is moved into a final decision status
+    // triggers a notification when the pool is published
     public function testNotifyWhenPublished(): void
     {
         $pool = Pool::factory()
@@ -82,7 +82,7 @@ class TriggerNewJobPostedTest extends TestCase
         Notification::assertSentTimes(NewJobPosted::class, 2);
     }
 
-    // no notification when an application is closed or archived
+    // no notification when pool is closed or archived
     public function testNothingSentForClosedPool(): void
     {
         $pool = Pool::factory()
