@@ -122,13 +122,15 @@ interface SkillTableProps {
   paginationState?: PaginationState;
   addButton?: boolean;
   csvDownload?: boolean;
+  isPublic?: boolean;
 }
 
-export const SkillTable = ({
+const SkillTable = ({
   title,
   paginationState,
   addButton,
   csvDownload,
+  isPublic,
 }: SkillTableProps) => {
   const intl = useIntl();
   const cache = createIntlCache();
@@ -189,7 +191,9 @@ export const SkillTable = ({
       },
       cell: ({ row: { original: skill } }) => {
         const skillName = getLocalizedName(skill.name, intl);
-        return cells.edit(skill.id, paths.skillTable(), skillName, skillName);
+        return isPublic
+          ? skillName
+          : cells.edit(skill.id, paths.skillTable(), skillName, skillName);
       },
     }),
     columnHelper.accessor((skill) => familiesAccessor(skill, intl), {

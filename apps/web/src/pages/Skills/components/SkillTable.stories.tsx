@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import { fakeSkillFamilies, fakeSkills } from "@gc-digital-talent/fake-data";
 import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
 
-import { SkillTable } from "./SkillTable";
+import SkillTable from "./SkillTable";
 
 const mockSkills = fakeSkills();
 const mockSkillFamilies = fakeSkillFamilies();
