@@ -403,6 +403,10 @@
     "defaultMessage": "Il y a une exigence linguistique manquante",
     "description": "Message displayed when user attempts to apply to a pool without the language requirement"
   },
+  "AAFkmX": {
+    "defaultMessage": "Date d'expiration",
+    "description": "Label for expiry Date"
+  },
   "ACO2Uz": {
     "defaultMessage": "erreur",
     "description": "Message for the error status"
@@ -1363,6 +1367,10 @@
     "defaultMessage": "Il semble y avoir une erreur dans cette liste.",
     "description": "Error message title for repeater component."
   },
+  "f5z4R/": {
+    "defaultMessage": "Imprimer",
+    "description": "Label for print button"
+  },
   "fAj9+G": {
     "defaultMessage": "Avril",
     "description": "Name of the fourth month"
@@ -1838,6 +1846,10 @@
   "u+NuHm": {
     "defaultMessage": "Retourner à mon profil",
     "description": "Link text for button to return to user profile"
+  },
+  "u/+Nrd": {
+    "defaultMessage": "Placement professionnel",
+    "description": "Label for job placement"
   },
   "uKlMuC": {
     "defaultMessage": "Questions de sélection (au moment de la candidature)",

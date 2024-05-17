@@ -239,6 +239,21 @@ const commonMessages = defineMessages({
     id: "IKGhHj",
     description: "Important note or caption",
   },
+  print: {
+    defaultMessage: "Print",
+    id: "f5z4R/",
+    description: "Label for print button",
+  },
+  expiryDate: {
+    defaultMessage: "Expiry date",
+    id: "AAFkmX",
+    description: "Label for expiry Date",
+  },
+  jobPlacement: {
+    defaultMessage: "Job placement",
+    id: "u/+Nrd",
+    description: "Label for job placement",
+  },
   warning: {
     defaultMessage: "Warning!",
     id: "YtV1mE",

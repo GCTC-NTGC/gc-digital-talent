@@ -1,14 +1,21 @@
 import { Meta, StoryFn } from "@storybook/react";
 
-import { fakePoolCandidates, fakeSkills } from "@gc-digital-talent/fake-data";
+import {
+  fakePoolCandidates,
+  fakePools,
+  fakeSkills,
+} from "@gc-digital-talent/fake-data";
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 import {
   AssessmentDecision,
   AssessmentResult,
   AssessmentResultType,
+  makeFragmentData,
 } from "@gc-digital-talent/graphql";
 
-import FinalDecisionDialog from "./FinalDecisionDialog";
+import FinalDecisionDialog, {
+  FinalDecisionDialog_Fragment,
+} from "./FinalDecisionDialog";
 
 export default {
   component: FinalDecisionDialog,
@@ -20,6 +27,7 @@ export default {
 
 const fakedCandidate = fakePoolCandidates(1)[0];
 const fakedSkills = fakeSkills(3);
+const fakedPool = fakePools(1, fakedSkills)[0];
 
 /*
 education result, success
@@ -91,16 +99,22 @@ const candidateAssessmentResults: AssessmentResult[] = [
   },
 ];
 
+const poolCandidate = makeFragmentData(
+  {
+    id: fakedCandidate.id,
+    status: fakedCandidate.status,
+    expiryDate: fakedCandidate.expiryDate,
+    pool: fakedPool,
+    assessmentResults: candidateAssessmentResults,
+  },
+  FinalDecisionDialog_Fragment,
+);
+
 const Template: StoryFn<typeof FinalDecisionDialog> = (args) => (
   <FinalDecisionDialog {...args} />
 );
 
 export const Default = Template.bind({});
 Default.args = {
-  poolCandidateId: fakedCandidate.id,
-  poolCandidateStatus: fakedCandidate.status,
-  expiryDate: fakedCandidate.expiryDate,
-  essentialSkills: [fakedSkills[0], fakedSkills[1]],
-  nonessentialSkills: [fakedSkills[2]],
-  assessmentResults: candidateAssessmentResults,
+  poolCandidate,
 };
