@@ -299,7 +299,7 @@ class Pool extends Model
         });
     }
 
-    public function scopeWasPublished(Builder $query, ?array $args)
+    public function scopeWasPublished(Builder $query)
     {
         $query->where('published_at', '<=', Carbon::now()->toDateTimeString());
 
@@ -314,8 +314,132 @@ class Pool extends Model
         return $query;
     }
 
+    public static function scopeName(Builder $query, ?string $name): Builder
+    {
+        if ($name) {
+            $query->where(function ($query) use ($name) {
+                $term = sprintf('%%%s%%', $name);
+
+                return $query->where('name->en', 'ilike', $term)
+                    ->orWhere('name->fr', 'ilike', $term);
+            });
+        }
+
+        return $query;
+    }
+
+    public static function scopeTeam(Builder $query, ?string $team): Builder
+    {
+        if ($team) {
+            $query->whereHas('team', function ($query) use ($team) {
+                Team::scopeDisplayName($query, $team);
+            });
+        }
+
+        return $query;
+    }
+
+    public static function scopeStreams(Builder $query, ?array $streams): Builder
+    {
+        if (! empty($streams)) {
+            $query->where(function ($query) use ($streams) {
+                foreach ($streams as $stream) {
+                    $query->orWhere('stream', $stream);
+                }
+            });
+        }
+
+        return $query;
+    }
+
+    public static function scopeNotArchived(Builder $query)
+    {
+        $query->where(function ($query) {
+            $query->whereNull('archived_at')
+                ->orWhere('archived_at', '>', Carbon::now());
+        });
+
+        return $query;
+    }
+
+    public static function scopeNotClosed(Builder $query): Builder
+    {
+        $query->where(function ($query) {
+            $query->whereNull('closing_date')->orWhere('closing_date', '>', Carbon::now());
+        });
+
+        return $query;
+    }
+
+    public static function scopeStatuses(Builder $query, ?array $statuses): Builder
+    {
+        if (! empty($statuses)) {
+
+            $query->where(function ($query) use ($statuses) {
+
+                if (in_array(PoolStatus::ARCHIVED->name, $statuses)) {
+                    $query->orWhere('archived_at', '<=', Carbon::now());
+                }
+
+                if (in_array(PoolStatus::CLOSED->name, $statuses)) {
+                    $query->orWhere('closing_date', '<=', Carbon::now());
+                }
+
+                if (in_array(PoolStatus::PUBLISHED->name, $statuses)) {
+                    $query->orWhere(function ($query) {
+                        $query->where('published_at', '<=', Carbon::now());
+                        self::scopeNotClosed($query);
+                        self::scopeNotArchived($query);
+                    });
+                }
+
+                if (in_array(PoolStatus::DRAFT->name, $statuses)) {
+                    $query->orWhereNull('published_at');
+                }
+            });
+        }
+
+        return $query;
+    }
+
+    public static function scopeGeneralSearch(Builder $query, ?string $term): Builder
+    {
+        if ($term) {
+            $query->where(function ($query) use ($term) {
+                self::scopeName($query, $term);
+
+                $query->orWhere(function ($query) use ($term) {
+                    self::scopeTeam($query, $term);
+                });
+            });
+        }
+
+        return $query;
+    }
+
+    /**
+     * Custom sort to handle issues with how laravel aliases
+     * aggregate selects and orderBys for json fields in `lighthouse-php`
+     *
+     * The column used in the orderBy is `table_aggregate_column->property`
+     * But is actually aliased to snake case `table_aggregate_columnproperty`
+     */
+    public function scopeOrderByTeamDisplayName(Builder $query, ?array $args): Builder
+    {
+        extract($args);
+
+        if ($order && $locale) {
+            $query = $query->withMax('team', 'display_name->'.$locale)->orderBy('team_max_display_name'.$locale, $order);
+        }
+
+        return $query;
+
+    }
+
     public function scopeAuthorizedToView(Builder $query)
     {
+
+        /** @var \App\Models\User */
         $user = Auth::user();
 
         if (! $user) {
@@ -347,16 +471,6 @@ class Pool extends Model
                 return $query;
             });
         }
-
-        return $query;
-    }
-
-    public function scopeNotArchived(Builder $query)
-    {
-        $query->where(function ($query) {
-            $query->whereNull('archived_at');
-            $query->orWhere('archived_at', '>', Carbon::now()->toDateTimeString());
-        });
 
         return $query;
     }

@@ -1,6 +1,6 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
+import { ReactNode, useEffect } from "react";
 
 import { formMessages, uiMessages } from "@gc-digital-talent/i18n";
 import { Select } from "@gc-digital-talent/forms";
@@ -44,7 +44,7 @@ const ExperienceSortAndFilter = ({
   });
   const { watch } = methods;
 
-  React.useEffect(() => {
+  useEffect(() => {
     const subscription = watch((watchValues) =>
       onChange({
         sortBy: watchValues.sortBy ?? initialFormValues.sortBy,
@@ -56,7 +56,7 @@ const ExperienceSortAndFilter = ({
 
   const sortOptions: Array<{
     value: FormValues["sortBy"];
-    label: React.ReactNode;
+    label: ReactNode;
   }> = [
     {
       value: "date_desc",
@@ -70,7 +70,7 @@ const ExperienceSortAndFilter = ({
 
   const filterOptions: Array<{
     value: FormValues["filterBy"];
-    label: React.ReactNode;
+    label: ReactNode;
   }> = [
     {
       value: "none",

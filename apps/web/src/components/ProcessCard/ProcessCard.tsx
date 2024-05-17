@@ -1,8 +1,8 @@
-import React from "react";
+import { HTMLAttributes } from "react";
 
 import { Separator } from "@gc-digital-talent/ui";
 
-type DivProps = React.HTMLAttributes<HTMLDivElement>;
+type DivProps = HTMLAttributes<HTMLDivElement>;
 
 const Root = (props: DivProps) => (
   <div

@@ -1,10 +1,10 @@
-import React from "react";
 import type { StoryFn } from "@storybook/react";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import { action } from "@storybook/addon-actions";
 
 import { Color } from "@gc-digital-talent/ui";
+import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Form from "../BasicForm";
 import Submit from "../Submit";
@@ -16,7 +16,6 @@ type SwitchInputArgs = SwitchInputProps & {
 
 export default {
   component: SwitchInput,
-  title: "Form/Switch Input",
 };
 
 const colors: Array<Color> = [
@@ -30,13 +29,11 @@ const colors: Array<Color> = [
   "error",
 ];
 
-const themes: Array<string> = ["light", "dark"];
-
 const allSelected = colors.reduce((accumulator, color) => {
   return {
     ...accumulator,
-    [`dark${color}`]: true,
-    [`light${color}`]: true,
+    [`${color}`]: true,
+    [`${color}`]: true,
   };
 }, {});
 
@@ -49,52 +46,35 @@ const Template: StoryFn<SwitchInputArgs> = (args) => {
         defaultValues,
       }}
     >
-      <div
-        data-h2-display="base(grid)"
-        data-h2-grid-template-columns="p-tablet(1fr 1fr)"
-      >
-        {themes.map((theme) => (
-          <div data-h2={theme} key={theme}>
-            <div
-              data-h2-background="base(background)"
-              data-h2-color="base:dark(black)"
-              data-h2-padding="base(x2)"
-            >
-              <div
-                className="flex"
-                data-h2-flex-direction="base(column)"
-                data-h2-align-items="base(center)"
-                data-h2-gap="base(x.5)"
-              >
-                {colors.map((color) => (
-                  <div
-                    key={`${theme}-${color}`}
-                    className="flex"
-                    data-h2-align-items="base(center)"
-                    data-h2-gap="base(x1)"
-                  >
-                    <SwitchInput
-                      {...rest}
-                      id={`${theme}${color}`}
-                      name={`${theme}${color}`}
-                      color={color}
-                      label={color}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-      <p className="mt-6">
-        <Submit />
-      </p>
+      {colors.map((color) => (
+        <div
+          key={`${color}`}
+          data-h2-display="base(flex)"
+          data-h2-margin-bottom="base(x.5)"
+        >
+          <SwitchInput
+            {...rest}
+            id={`${color}`}
+            name={`${color}`}
+            color={color}
+            label={color}
+          />
+        </div>
+      ))}
+      <Submit />
     </Form>
   );
 };
 
 export const Default = Template.bind({});
+Default.parameters = {
+  chromatic: {
+    modes: {
+      light: allModes.light,
+      dark: allModes.dark,
+    },
+  },
+};
 
 export const WithIcon = Template.bind({});
 WithIcon.args = {

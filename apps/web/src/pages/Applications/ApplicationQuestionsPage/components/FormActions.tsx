@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 
@@ -25,7 +24,7 @@ const FormActions = ({ disabled = false }: FormActionsProps) => {
       <div className="flex flex-col flex-wrap items-start gap-6 md:flex-row md:items-center">
         <Button
           type="submit"
-          mode="solid"
+          color="secondary"
           value="continue"
           disabled={disabled || isSubmitting}
           {...actionProps}

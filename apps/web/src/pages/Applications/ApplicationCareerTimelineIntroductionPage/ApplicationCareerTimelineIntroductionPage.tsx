@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import StarIcon from "@heroicons/react/20/solid/StarIcon";
 
@@ -94,7 +93,7 @@ const ApplicationCareerTimelineIntroduction = ({
       </p>
       <Separator />
       <div className="flex flex-col flex-wrap items-start gap-6 md:flex-row md:items-center">
-        <Link color="primary" mode="solid" href={nextStep}>
+        <Link color="secondary" mode="solid" href={nextStep}>
           {intl.formatMessage({
             defaultMessage: "Got it, let's go!",
             id: "AOrJqm",
@@ -112,8 +111,8 @@ const ApplicationCareerTimelineIntroduction = ({
   );
 };
 
-const ApplicationCareerTimelineIntroductionPage = () => (
+export const Component = () => (
   <ApplicationApi PageComponent={ApplicationCareerTimelineIntroduction} />
 );
 
-export default ApplicationCareerTimelineIntroductionPage;
+Component.displayName = "ApplicationCareerTimelineIntroductionPage";

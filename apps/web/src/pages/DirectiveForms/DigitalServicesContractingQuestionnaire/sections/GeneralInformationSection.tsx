@@ -1,6 +1,6 @@
-import React from "react";
 import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { useEffect, ReactNode } from "react";
 
 import {
   Select,
@@ -83,7 +83,7 @@ const GeneralInformationSection = ({
   /**
    * Reset un-rendered fields
    */
-  React.useEffect(() => {
+  useEffect(() => {
     const resetDirtyField = (name: string) => {
       resetField(name, { keepDirty: false, defaultValue: null });
     };
@@ -369,12 +369,12 @@ const GeneralInformationSection = ({
                     "Context for _digital initiative plan submitted_ fieldset in the _digital services contracting questionnaire_",
                 },
                 {
-                  link1: (chunks: React.ReactNode) => {
+                  link1: (chunks: ReactNode) => {
                     const locale = getLocale(intl);
                     const url = locale === "en" ? talentPlanEn : talentPlanFr;
                     return buildExternalLink(url, chunks);
                   },
-                  link2: (chunks: React.ReactNode) =>
+                  link2: (chunks: ReactNode) =>
                     buildExternalLink(getDirectiveUrl(intl), chunks),
                 },
               )}

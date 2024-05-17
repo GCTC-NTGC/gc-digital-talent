@@ -27,6 +27,8 @@ module.exports = {
     "jsx-a11y",
   ],
   rules: {
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
     "formatjs/no-id": "off",
     "formatjs/enforce-id": [
       "error",
@@ -150,6 +152,10 @@ module.exports = {
         message:
           "The name of the program is IT Apprenticeship Program for Indigenous Peoples.",
       },
+      {
+        selector: "CallExpression[callee.name='useLocale']",
+        message: "Please use getLocale instead."
+      }
     ],
   },
 };

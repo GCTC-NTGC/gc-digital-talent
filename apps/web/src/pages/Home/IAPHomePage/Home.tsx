@@ -1,9 +1,9 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { m } from "framer-motion";
 import orderBy from "lodash/orderBy";
 import { useSearchParams } from "react-router-dom";
 import { useQuery } from "urql";
+import { ReactNode } from "react";
 
 import { Link, Pending, cn } from "@gc-digital-talent/ui";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
@@ -49,7 +49,7 @@ import {
 } from "./components/Svg";
 import AccommodationsDialog from "./components/Dialog/AccommodationsDialog";
 
-const mailLink = (chunks: React.ReactNode) => (
+const mailLink = (chunks: ReactNode) => (
   <Link external href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca">
     {chunks}
   </Link>
@@ -853,7 +853,7 @@ const IAPHomePage_Query = graphql(/* GraphQL */ `
 
 const now = nowUTCDateTime();
 
-const HomeApi = () => {
+export const Component = () => {
   const [{ data, fetching, error }] = useQuery({
     query: IAPHomePage_Query,
     variables: { closingAfter: now, publishingGroup: PublishingGroup.Iap },
@@ -876,4 +876,4 @@ const HomeApi = () => {
   );
 };
 
-export default HomeApi;
+Component.displayName = "IAPHomePage";

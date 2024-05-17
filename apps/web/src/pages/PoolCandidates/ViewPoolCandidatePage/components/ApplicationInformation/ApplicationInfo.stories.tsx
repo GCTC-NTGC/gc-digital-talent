@@ -1,6 +1,5 @@
-import React from "react";
 import { StoryFn } from "@storybook/react";
-import { faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker/locale/en";
 
 import {
   fakePoolCandidates,
@@ -46,11 +45,11 @@ mockUser = {
 
 export default {
   component: ApplicationInformation,
-  title: "Components/Application Info",
   args: {
     snapshot: mockUser,
     application: mockPoolCandidate,
     poolQuery: mockPool,
+    defaultOpen: true,
   },
 };
 

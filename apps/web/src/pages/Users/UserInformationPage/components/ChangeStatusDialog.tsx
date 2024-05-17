@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import zipWith from "lodash/zipWith";
@@ -6,7 +6,7 @@ import { useMutation } from "urql";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { Select, enumToOptions, Combobox } from "@gc-digital-talent/forms";
+import { Select, enumToOptions } from "@gc-digital-talent/forms";
 import {
   commonMessages,
   errorMessages,
@@ -23,6 +23,7 @@ import {
   UpdatePoolCandidateStatusInput,
 } from "@gc-digital-talent/graphql";
 
+import PoolFilterInput from "~/components/PoolFilterInput/PoolFilterInput";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import {
   getShortPoolTitleHtml,
@@ -39,16 +40,14 @@ type FormValues = {
 interface ChangeStatusDialogProps {
   selectedCandidate: PoolCandidate;
   user: User;
-  pools: Pool[];
 }
 
 const ChangeStatusDialog = ({
   selectedCandidate,
   user,
-  pools,
 }: ChangeStatusDialogProps) => {
   const intl = useIntl();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const methods = useForm<FormValues>();
 
   const [{ fetching }, executeMutation] = useMutation(
@@ -176,8 +175,8 @@ const ChangeStatusDialog = ({
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "{status} <hidden>Change status for {poolName}</hidden>",
-                id: "QJPsGW",
+                  "{status}<hidden> Change status for {poolName}</hidden>",
+                id: "DG4c6M",
                 description:
                   "Button to change a users status in a pool - located in the table on view-user page",
               },
@@ -269,68 +268,35 @@ const ChangeStatusDialog = ({
                 })}
               </p>
               <div data-h2-margin="base(x.5, 0, x.125, 0)">
-                <Combobox
-                  id="changeStatusDialog-additionalPools"
-                  name="additionalPools"
-                  isMulti
+                <PoolFilterInput
+                  includeIds={userPoolIds}
+                  filterInput={{
+                    statuses: [PoolStatus.Closed, PoolStatus.Published],
+                  }}
                   label={intl.formatMessage({
                     defaultMessage: "Additional pools",
                     id: "8V8WwR",
                     description:
                       "Label displayed on the additional pools field of the change candidate status dialog",
                   })}
-                  placeholder={intl.formatMessage({
-                    defaultMessage: "Select additional pools",
-                    id: "xjZO11",
-                    description:
-                      "Placeholder displayed on the additional pools field of the change candidate status dialog.",
-                  })}
-                  options={pools
-                    .filter((pool) => userPoolIds.includes(pool.id)) // only show pools with user's candidates in them
-                    .filter((pool) => selectedCandidate.pool.id !== pool.id) // don't show the pool of the currently selected candidate as an additional option
-                    .filter(
-                      (pool) =>
-                        pool.status === PoolStatus.Published ||
-                        pool.status === PoolStatus.Closed,
-                    )
-                    .map((pool) => {
-                      return {
-                        value: pool.id,
-                        label: getShortPoolTitleLabel(intl, pool),
-                      };
-                    })}
                 />
               </div>
               <Dialog.Footer>
-                <Dialog.Close>
-                  <Button type="button" color="secondary">
-                    <span data-h2-text-decoration="base(underline)">
-                      {intl.formatMessage(formMessages.cancelGoBack)}
-                    </span>
-                  </Button>
-                </Dialog.Close>
-
-                <Button
-                  disabled={fetching}
-                  type="submit"
-                  mode="solid"
-                  color="secondary"
-                  className="flex"
-                  data-h2-align-items="base(center)"
-                >
-                  {fetching ? (
-                    intl.formatMessage(commonMessages.saving)
-                  ) : (
-                    <span data-h2-text-decoration="base(underline)">
-                      {intl.formatMessage({
+                <Button disabled={fetching} type="submit" color="secondary">
+                  {fetching
+                    ? intl.formatMessage(commonMessages.saving)
+                    : intl.formatMessage({
                         defaultMessage: "Change status",
                         id: "iuve97",
                         description:
                           "Confirmation button for change status dialog",
                       })}
-                    </span>
-                  )}
                 </Button>
+                <Dialog.Close>
+                  <Button type="button" color="warning" mode="inline">
+                    {intl.formatMessage(formMessages.cancelGoBack)}
+                  </Button>
+                </Dialog.Close>
               </Dialog.Footer>
             </form>
           </FormProvider>

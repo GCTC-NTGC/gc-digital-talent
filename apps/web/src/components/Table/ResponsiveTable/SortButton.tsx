@@ -1,16 +1,16 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import type { Column } from "@tanstack/react-table";
 import ArrowDownIcon from "@heroicons/react/20/solid/ArrowDownIcon";
 import ArrowUpIcon from "@heroicons/react/20/solid/ArrowUpIcon";
 import ArrowsUpDownIcon from "@heroicons/react/20/solid/ArrowsUpDownIcon";
 import LockClosedIcon from "@heroicons/react/24/solid/LockClosedIcon";
+import { ReactNode } from "react";
 
 import { Button } from "@gc-digital-talent/ui";
 
 type SortButtonProps<T> = {
   column: Column<T, unknown>;
-  children: React.ReactNode;
+  children: ReactNode;
   locked?: boolean;
 };
 

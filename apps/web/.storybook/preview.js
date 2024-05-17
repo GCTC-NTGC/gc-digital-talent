@@ -1,4 +1,3 @@
-import React from "react";
 import {
   ContainerDecorator,
   FeatureFlagDecorator,
@@ -42,6 +41,11 @@ export const parameters = {
     matchers: {
       color: /(background|color)$/i,
       date: /Date$/,
+    },
+  },
+  options: {
+    storySort: {
+      method: "alphabetical",
     },
   },
   reactIntl: {

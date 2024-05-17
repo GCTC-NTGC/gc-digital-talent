@@ -1,12 +1,9 @@
-import React from "react";
+import { ReactNode } from "react";
 
 interface FieldDisplayProps
-  extends React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLDivElement>,
-    HTMLDivElement
-  > {
-  label: React.ReactNode;
-  children?: React.ReactNode;
+  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+  label: ReactNode;
+  children?: ReactNode;
   hasError?: boolean | null;
 }
 

@@ -1,9 +1,9 @@
-import React from "react";
 import { useIntl } from "react-intl";
+import { ReactNode } from "react";
 
 import { Link, Well } from "@gc-digital-talent/ui";
 
-const statCanLink = (href: string, chunks: React.ReactNode) => (
+const statCanLink = (href: string, chunks: ReactNode) => (
   <Link newTab external href={href} color="black">
     {chunks}
   </Link>
@@ -29,7 +29,7 @@ const Definition = ({ url, quotedDefinition }: DefinitionProps) => {
               "Link to Statistics Canada's employment equity definitions",
           },
           {
-            link: (chunks: React.ReactNode) => statCanLink(url, chunks),
+            link: (chunks: ReactNode) => statCanLink(url, chunks),
           },
         )}
       </p>

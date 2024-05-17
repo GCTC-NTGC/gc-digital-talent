@@ -1,4 +1,4 @@
-import React, { HTMLAttributes } from "react";
+import { HTMLAttributes } from "react";
 
 import Heading, { type HeadingLevel } from "../Heading";
 import { IconType, Color } from "../../types";

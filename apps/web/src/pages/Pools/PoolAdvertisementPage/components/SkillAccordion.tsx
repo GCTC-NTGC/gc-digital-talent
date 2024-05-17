@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 
 import { Accordion } from "@gc-digital-talent/ui";
@@ -7,8 +6,12 @@ import {
   getLocalizedName,
   getSkillLevelMessages,
 } from "@gc-digital-talent/i18n";
-import { PoolSkill, SkillCategory } from "@gc-digital-talent/graphql";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import {
+  FragmentType,
+  SkillCategory,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 interface ContextProps {
   required?: boolean;
@@ -41,22 +44,59 @@ const Context = ({ required }: ContextProps) => {
   );
 };
 
-// A version of the PoolSkill type where skill has been confirmed non-null and defined.
-export type PoolSkillWithSkill = PoolSkill & {
-  skill: NonNullable<PoolSkill["skill"]>;
-};
-export function isPoolWithSkill(
-  poolSkill: PoolSkill,
-): poolSkill is PoolSkillWithSkill {
-  return notEmpty(poolSkill.skill);
+interface AccordionSubtitleProps {
+  skillLevelItem: string;
+  screeningTime: string;
 }
+
+const AccordionSubtitle = ({
+  skillLevelItem,
+  screeningTime,
+}: AccordionSubtitleProps) => (
+  <span
+    data-h2-align-items="base(flex-start) p-tablet(center)"
+    data-h2-color="base(black.light)"
+    data-h2-font-size="base(caption)"
+    data-h2-margin-top="base(x.5)"
+    data-h2-display="base(flex)"
+    data-h2-flex-direction="base(column) p-tablet(row)"
+    data-h2-gap="base(x.5)"
+  >
+    <span>{skillLevelItem}</span>
+    <span data-h2-display="base(none) p-tablet(inline)">&bull;</span>
+    <span>{screeningTime}</span>
+  </span>
+);
+
+const PoolSkillAccordion_Fragment = graphql(/* GraphQL */ `
+  fragment PoolSkillAccordion on PoolSkill {
+    id
+    requiredLevel
+    skill {
+      id
+      key
+      category
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 interface SkillAccordionProps {
-  poolSkill: PoolSkillWithSkill;
+  poolSkillQuery: FragmentType<typeof PoolSkillAccordion_Fragment>;
   required?: ContextProps["required"];
 }
 
-const SkillAccordion = ({ poolSkill, required }: SkillAccordionProps) => {
+const SkillAccordion = ({ poolSkillQuery, required }: SkillAccordionProps) => {
   const intl = useIntl();
+  const poolSkill = getFragment(PoolSkillAccordion_Fragment, poolSkillQuery);
+  if (!poolSkill.skill) return null;
 
   const definitionAndLevel = poolSkill.requiredLevel
     ? getSkillLevelMessages(poolSkill.requiredLevel, poolSkill.skill.category)
@@ -89,28 +129,17 @@ const SkillAccordion = ({ poolSkill, required }: SkillAccordionProps) => {
             "Message displayed for behavioural skills telling users at what point it will be assessed",
         });
 
-  const accordionSubtitle = (
-    <span
-      data-h2-align-items="base(flex-start) p-tablet(center)"
-      data-h2-color="base(black.light)"
-      data-h2-font-size="base(caption)"
-      data-h2-margin-top="base(x.5)"
-      className="flex"
-      data-h2-flex-direction="base(column) p-tablet(row)"
-      data-h2-gap="base(x.5)"
-    >
-      <span>{skillLevelItem}</span>
-      <span data-h2-display="base(none) p-tablet(inline)">&bull;</span>
-      <span>{screeningTime}</span>
-    </span>
-  );
-
   return (
     <Accordion.Item value={poolSkill.skill.id}>
       <Accordion.Trigger
         as="h3"
         context={<Context required={required} />}
-        subtitle={accordionSubtitle}
+        subtitle={
+          <AccordionSubtitle
+            skillLevelItem={skillLevelItem}
+            screeningTime={screeningTime}
+          />
+        }
       >
         {getLocalizedName(poolSkill.skill.name, intl)}
       </Accordion.Trigger>

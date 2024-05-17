@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { ReactNode, useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
@@ -32,13 +32,19 @@ import mfaStep4ImageDark from "~/assets/img/sign-up-mfa-step-4-dark.webp";
 import Instructions from "~/components/Instructions";
 import gckeyMessages from "~/messages/gckeyMessages";
 
-const buildExternalLink = (path: string, chunks: React.ReactNode) => (
+const helpLink = (chunks: ReactNode, path: string) => (
+  <Link href={path} state={{ referrer: window.location.href }}>
+    {chunks}
+  </Link>
+);
+
+const buildExternalLink = (path: string, chunks: ReactNode) => (
   <Link external href={path}>
     {chunks}
   </Link>
 );
 
-const SignUpPage = () => {
+export const Component = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const apiPaths = useApiRoutes();
@@ -70,12 +76,6 @@ const SignUpPage = () => {
       setThemeKey("iap");
     }
   }, [iapMode, themeKey, setThemeKey]);
-
-  const helpLink = (chunks: React.ReactNode) => (
-    <Link href={paths.support()} state={{ referrer: window.location.href }}>
-      {chunks}
-    </Link>
-  );
 
   return (
     <>
@@ -401,7 +401,8 @@ const SignUpPage = () => {
                   <Accordion.Content>
                     <p>
                       {intl.formatMessage(gckeyMessages.answerRecoveryCodes, {
-                        helpLink,
+                        helpLink: (chunks: ReactNode) =>
+                          helpLink(chunks, paths.support()),
                       })}
                     </p>
                   </Accordion.Content>
@@ -423,7 +424,8 @@ const SignUpPage = () => {
                   <Accordion.Content>
                     <p>
                       {intl.formatMessage(gckeyMessages.answerRemove2FA, {
-                        helpLink,
+                        helpLink: (chunks: ReactNode) =>
+                          helpLink(chunks, paths.support()),
                       })}
                     </p>
                   </Accordion.Content>
@@ -435,7 +437,8 @@ const SignUpPage = () => {
                   <Accordion.Content>
                     <p>
                       {intl.formatMessage(gckeyMessages.questionAuthCodes, {
-                        helpLink,
+                        helpLink: (chunks: ReactNode) =>
+                          helpLink(chunks, paths.support()),
                       })}
                     </p>
                   </Accordion.Content>
@@ -452,7 +455,10 @@ const SignUpPage = () => {
                 </Accordion.Item>
               </Accordion.Root>
               <p className="mt-6">
-                {intl.formatMessage(gckeyMessages.moreQuestions, { helpLink })}
+                {intl.formatMessage(gckeyMessages.moreQuestions, {
+                  helpLink: (chunks: ReactNode) =>
+                    helpLink(chunks, paths.support()),
+                })}
               </p>
             </>
           ) : (
@@ -486,7 +492,7 @@ const SignUpPage = () => {
                       "Instruction on what to do if user does not have a GCKey",
                   },
                   {
-                    a: (chunks: React.ReactNode) =>
+                    a: (chunks: ReactNode) =>
                       buildExternalLink(loginPath, chunks),
                   },
                 )}
@@ -510,7 +516,7 @@ const SignUpPage = () => {
                       "How to get help from the support team - IAP variant",
                   },
                   {
-                    a: (chunks: React.ReactNode) =>
+                    a: (chunks: ReactNode) =>
                       buildExternalLink(
                         "mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca",
                         chunks,
@@ -543,4 +549,6 @@ const SignUpPage = () => {
   );
 };
 
-export default SignUpPage;
+Component.displayName = "SignUpPage";
+
+export default Component;

@@ -1,27 +1,25 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 import BookmarkIconOutline from "@heroicons/react/24/outline/BookmarkIcon";
 import BookmarkIconSolid from "@heroicons/react/24/solid/BookmarkIcon";
 
 import { Button, cn, useControllableState } from "@gc-digital-talent/ui";
-import { PoolCandidate, graphql } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 
-// Note: Update to use fragment masking after #8973
-// const PoolCandidate_BookmarkFragment = graphql(/* GraphQL */ `
-//   fragment PoolCandidate_Bookmark on PoolCandidate {
-//     id
-//     isBookmarked
-//     user {
-//       id
-//       firstName
-//       lastName
-//     }
-//   }
-// `);
+export const PoolCandidate_BookmarkFragment = graphql(/* GraphQL */ `
+  fragment PoolCandidate_Bookmark on PoolCandidate {
+    id
+    isBookmarked
+    user {
+      id
+      firstName
+      lastName
+    }
+  }
+`);
 
 const PoolCandidate_ToggleBookmarkMutation = graphql(/* GraphQL */ `
   mutation ToggleBookmark_Mutation($id: ID!) {
@@ -30,21 +28,20 @@ const PoolCandidate_ToggleBookmarkMutation = graphql(/* GraphQL */ `
 `);
 
 type CandidateBookmarkProps = {
-  // Note: Update to use fragment masking after #8973
-  // query: FragmentType<typeof PoolCandidate_BookmarkFragment>;
-  candidate: PoolCandidate;
+  candidateQuery: FragmentType<typeof PoolCandidate_BookmarkFragment>;
   onBookmarkChange?: (newIsBookmarked: boolean) => void;
   bookmarked?: boolean;
   size?: "sm" | "md" | "lg";
 };
 
 const CandidateBookmark = ({
-  candidate,
+  candidateQuery,
   bookmarked,
   onBookmarkChange,
   size = "md",
 }: CandidateBookmarkProps) => {
   const intl = useIntl();
+  const candidate = getFragment(PoolCandidate_BookmarkFragment, candidateQuery);
   const [isBookmarked, setIsBookmarked] = useControllableState<boolean>({
     controlledProp: bookmarked,
     defaultValue: candidate.isBookmarked ?? undefined,

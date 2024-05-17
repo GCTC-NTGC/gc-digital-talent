@@ -1,4 +1,3 @@
-import React from "react";
 import { StoryFn } from "@storybook/react";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
@@ -21,7 +20,6 @@ const defaultParameters = {
 
 export default {
   component: HomePage,
-  title: "Pages/Home Page/Executive",
 };
 
 const Template: StoryFn<typeof HomePage> = (args) => <HomePage {...args} />;

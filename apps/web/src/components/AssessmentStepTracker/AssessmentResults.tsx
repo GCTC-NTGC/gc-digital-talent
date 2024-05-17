@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 
 import { Board, Link, Well } from "@gc-digital-talent/ui";
@@ -7,11 +7,14 @@ import {
   Scalars,
   ArmedForcesStatus,
   AssessmentStepType,
+  FragmentType,
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 
-import CandidateBookmark from "../CandidateBookmark/CandidateBookmark";
+import CandidateBookmark, {
+  PoolCandidate_BookmarkFragment,
+} from "../CandidateBookmark/CandidateBookmark";
 import useRoutes from "../../hooks/useRoutes";
 import {
   CandidateAssessmentResult,
@@ -66,7 +69,7 @@ const AssessmentResult = ({
   const intl = useIntl();
   const paths = useRoutes();
 
-  const [isBookmarked, setIsBookmarked] = React.useState<boolean>(
+  const [isBookmarked, setIsBookmarked] = useState<boolean>(
     result.poolCandidate?.isBookmarked ?? false,
   );
 
@@ -95,7 +98,11 @@ const AssessmentResult = ({
         })}
       >
         <CandidateBookmark
-          candidate={result.poolCandidate}
+          candidateQuery={
+            result.poolCandidate as FragmentType<
+              typeof PoolCandidate_BookmarkFragment
+            >
+          }
           bookmarked={isBookmarked}
           onBookmarkChange={setIsBookmarked}
           size="md"

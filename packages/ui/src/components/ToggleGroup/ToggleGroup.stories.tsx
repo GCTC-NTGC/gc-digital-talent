@@ -1,4 +1,3 @@
-import React from "react";
 import type { StoryFn, Meta } from "@storybook/react";
 import AcademicCapIcon from "@heroicons/react/20/solid/AcademicCapIcon";
 import BanknotesIcon from "@heroicons/react/20/solid/BanknotesIcon";
@@ -8,7 +7,6 @@ import ToggleGroup from "./ToggleGroup";
 
 export default {
   component: ToggleGroup.Root,
-  title: "Components/Toggle Group",
   args: {
     type: "single",
   },

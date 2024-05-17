@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import PencilIcon from "@heroicons/react/24/outline/PencilIcon";
 import { useLocation } from "react-router-dom";

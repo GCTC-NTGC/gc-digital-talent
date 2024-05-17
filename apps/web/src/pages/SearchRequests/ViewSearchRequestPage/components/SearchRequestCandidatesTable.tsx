@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import omit from "lodash/omit";
 import pick from "lodash/pick";
@@ -25,7 +24,6 @@ type AbstractFilter = PoolCandidateFilter | ApplicantFilter;
 function isPoolCandidateFilter(
   filter: AbstractFilter,
 ): filter is PoolCandidateFilter {
-  // eslint-disable-next-line no-underscore-dangle
   if (filter.__typename === "PoolCandidateFilter") return true;
 
   return false;
@@ -60,8 +58,6 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
   // Therefore, transforming ApplicantFilter to ApplicantFilterInput requires omitting any fields not included in the Input type.
   const mapping: MappingType = {
     equity: omitIdAndTypename,
-    qualifiedClassifications: (classifications) =>
-      classifications?.filter(notEmpty).map(classificationToInput),
     hasDiploma: identity,
     languageAbility: identity,
     locationPreferences: identity,
@@ -93,9 +89,13 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
       },
       emptyFilter,
     ),
+    appliedClassifications: applicantFilter.qualifiedClassifications
+      ?.filter(notEmpty)
+      .map(classificationToInput),
     poolCandidateStatus: [
       PoolCandidateStatus.QualifiedAvailable,
       PoolCandidateStatus.PlacedCasual,
+      PoolCandidateStatus.PlacedTentative,
     ],
   };
 };
@@ -123,7 +123,7 @@ const SingleSearchRequestTableApi = ({
               expiryStatus: CandidateExpiryFilter.Active,
             }
       }
-      title={intl.formatMessage(adminMessages.poolsCandidates)}
+      title={intl.formatMessage(adminMessages.poolCandidates)}
     />
   );
 };

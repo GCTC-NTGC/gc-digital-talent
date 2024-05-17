@@ -1,5 +1,5 @@
-import React from "react";
 import { IntlShape } from "react-intl";
+import { ReactNode } from "react";
 
 import { commonMessages, getAbbreviations } from "@gc-digital-talent/i18n";
 
@@ -69,7 +69,7 @@ export const getFullNameHtml = (
   firstName: string | null | undefined,
   lastName: string | null | undefined,
   intl: IntlShape,
-): React.ReactNode => {
+): ReactNode => {
   if (!firstName && !lastName) {
     return (
       <span data-h2-font-style="base(italic)">
@@ -127,20 +127,16 @@ export const splitAndJoin = (text: string, split?: string, join?: string) =>
  * @param intl   react-intl object
  * @param title  abbreviation title
  *
- * @returns jsx.element
+ * @returns JSX.Element
  */
-export const wrapAbbr = (
-  text: React.ReactNode,
-  intl: IntlShape,
-  title?: string,
-): JSX.Element => {
+export const wrapAbbr = (text: ReactNode, intl: IntlShape, title?: string) => {
   const fallbackTitle = intl.formatMessage({
     id: "MuWdei",
     defaultMessage: "Abbreviation not found.",
     description:
       "Message shown to user when the abbreviation text is not found.",
   });
-  const stringifyText = text && text.toString(); // grabs text from React.ReactNode (is there a better way to get text from React.ReactNode type?)
+  const stringifyText = text && text.toString(); // grabs text from ReactNode (is there a better way to get text from ReactNode type?)
   if (typeof stringifyText !== "string") {
     return (
       <abbr title={fallbackTitle}>

@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
@@ -11,6 +10,9 @@ import {
   LocalizedString,
   Pool,
   UpdatePoolInput,
+  graphql,
+  FragmentType,
+  getFragment,
 } from "@gc-digital-talent/graphql";
 
 import { hasAllEmptyFields } from "~/validators/process/specialNote";
@@ -22,6 +24,17 @@ import { SectionProps } from "../../types";
 import Display from "./Display";
 import ActionWrapper from "../ActionWrapper";
 
+const EditPoolSpecialNote_Fragment = graphql(/* GraphQL */ `
+  fragment EditPoolSpecialNote on Pool {
+    id
+    status
+    specialNote {
+      en
+      fr
+    }
+  }
+`);
+
 type FormValues = {
   hasSpecialNote: boolean;
   specialNoteEn?: LocalizedString["en"];
@@ -30,17 +43,21 @@ type FormValues = {
 
 export type SpecialNoteSubmitData = Pick<UpdatePoolInput, "specialNote">;
 
-type SpecialNoteSectionProps = SectionProps<SpecialNoteSubmitData>;
+type SpecialNoteSectionProps = SectionProps<
+  SpecialNoteSubmitData,
+  FragmentType<typeof EditPoolSpecialNote_Fragment>
+>;
 
 const TEXT_AREA_MAX_WORDS_EN = 100;
 const TEXT_AREA_MAX_WORDS_FR = TEXT_AREA_MAX_WORDS_EN + 30;
 
 const SpecialNoteSection = ({
-  pool,
+  poolQuery,
   sectionMetadata,
   onSave,
-}: SpecialNoteSectionProps): JSX.Element => {
+}: SpecialNoteSectionProps) => {
   const intl = useIntl();
+  const pool = getFragment(EditPoolSpecialNote_Fragment, poolQuery);
   const isNull = hasAllEmptyFields(pool);
   const { isSubmitting } = useEditPoolContext();
   const { isEditing, setIsEditing, icon } = useToggleSectionInfo({

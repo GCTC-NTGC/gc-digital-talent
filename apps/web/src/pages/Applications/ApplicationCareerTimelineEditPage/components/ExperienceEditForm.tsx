@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
@@ -145,11 +144,11 @@ const EditExperienceForm = ({
         <TasksAndResponsibilities experienceType={experienceType} />
         <Separator />
         <div className="flex flex-col flex-wrap items-start gap-6 md:flex-row md:items-center">
-          <Button type="submit" disabled={isSubmitting}>
+          <Button type="submit" disabled={isSubmitting} color="secondary">
             {intl.formatMessage(formMessages.saveChanges)}
           </Button>
           <Link
-            color="quaternary"
+            color="warning"
             mode="inline"
             href={paths.applicationCareerTimeline(applicationId)}
           >
@@ -184,22 +183,21 @@ const EditExperienceForm = ({
                 })}
               </AlertDialog.Description>
               <AlertDialog.Footer>
-                <AlertDialog.Cancel>
-                  <Button type="button" color="secondary">
-                    {intl.formatMessage(commonMessages.cancel)}
-                  </Button>
-                </AlertDialog.Cancel>
                 <AlertDialog.Action>
                   <Button
                     type="submit"
-                    mode="solid"
-                    color="primary"
+                    color="error"
                     disabled={isSubmitting}
                     onClick={handleDeleteExperience}
                   >
                     {intl.formatMessage(commonMessages.delete)}
                   </Button>
                 </AlertDialog.Action>
+                <AlertDialog.Cancel>
+                  <Button type="button" color="warning" mode="inline">
+                    {intl.formatMessage(commonMessages.cancel)}
+                  </Button>
+                </AlertDialog.Cancel>
               </AlertDialog.Footer>
             </AlertDialog.Content>
           </AlertDialog.Root>

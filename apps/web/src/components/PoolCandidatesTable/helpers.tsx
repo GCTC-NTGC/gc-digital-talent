@@ -1,4 +1,3 @@
-import React from "react";
 import { IntlShape } from "react-intl";
 import { SortingState } from "@tanstack/react-table";
 import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
@@ -9,7 +8,6 @@ import {
   getCandidateSuspendedFilterStatus,
   getLanguage,
   getPoolCandidatePriorities,
-  getPoolCandidateStatus,
   getProvinceOrTerritory,
 } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
@@ -33,6 +31,7 @@ import {
   ProvinceOrTerritory,
   SortOrder,
   AssessmentStep,
+  FragmentType,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -55,40 +54,9 @@ import processMessages from "~/messages/processMessages";
 
 import { FormValues } from "./types";
 import tableMessages from "./tableMessages";
-import CandidateBookmark from "../CandidateBookmark/CandidateBookmark";
-
-export const statusCell = (
-  status: PoolCandidateStatus | null | undefined,
-  intl: IntlShape,
-) => {
-  if (!status) return null;
-
-  if (status === PoolCandidateStatus.NewApplication) {
-    return (
-      <span data-h2-color="base(tertiary.darker)" className="font-bold">
-        {intl.formatMessage(getPoolCandidateStatus(status as string))}
-      </span>
-    );
-  }
-  if (
-    status === PoolCandidateStatus.ApplicationReview ||
-    status === PoolCandidateStatus.ScreenedIn ||
-    status === PoolCandidateStatus.ScreenedOutApplication ||
-    status === PoolCandidateStatus.ScreenedOutNotInterested ||
-    status === PoolCandidateStatus.ScreenedOutNotResponsive ||
-    status === PoolCandidateStatus.UnderAssessment ||
-    status === PoolCandidateStatus.ScreenedOutAssessment
-  ) {
-    return (
-      <span className="font-bold">
-        {intl.formatMessage(getPoolCandidateStatus(status as string))}
-      </span>
-    );
-  }
-  return (
-    <span>{intl.formatMessage(getPoolCandidateStatus(status as string))}</span>
-  );
-};
+import CandidateBookmark, {
+  PoolCandidate_BookmarkFragment,
+} from "../CandidateBookmark/CandidateBookmark";
 
 export const priorityCell = (
   priority: number | null | undefined,
@@ -112,6 +80,7 @@ export const candidateNameCell = (
   candidate: PoolCandidate,
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
+  tableCandidateIds?: string[],
 ) => {
   const candidateName = getFullNameLabel(
     candidate.user.firstName,
@@ -119,7 +88,10 @@ export const candidateNameCell = (
     intl,
   );
   return (
-    <Link href={paths.poolCandidateApplication(candidate.id)}>
+    <Link
+      href={paths.poolCandidateApplication(candidate.id)}
+      state={{ candidateIds: tableCandidateIds, stepName: null }}
+    >
       {candidateName}
     </Link>
   );
@@ -240,8 +212,10 @@ export const jobPlacementCell = (
   return <span>{intl.formatMessage(statusToJobPlacement(status))}</span>;
 };
 
-export const bookmarkCell = (candidate: PoolCandidate) => {
-  return <CandidateBookmark candidate={candidate} size="lg" />;
+export const bookmarkCell = (
+  candidate: FragmentType<typeof PoolCandidate_BookmarkFragment>,
+) => {
+  return <CandidateBookmark candidateQuery={candidate} size="lg" />;
 };
 
 export const bookmarkHeader = (intl: IntlShape) => (
@@ -300,6 +274,7 @@ export function transformSortStateToOrderByClause(
     ["priority", "PRIORITY_WEIGHT"],
     ["status", "status_weight"],
     ["notes", "notes"],
+    ["skillCount", "skillCount"],
   ]);
 
   const sortingRule = sortingRules?.find((rule) => {
@@ -371,26 +346,12 @@ export function getSortOrder(
   sortingRules?: SortingState,
   filterState?: PoolCandidateSearchInput,
   doNotUseBookmark?: boolean,
-  recordDecisionActive?: boolean,
 ): QueryPoolCandidatesPaginatedOrderByRelationOrderByClause[] {
   const hasProcess = sortingRules?.find((rule) => rule.id === "process");
   return [
     ...(doNotUseBookmark
       ? []
       : [{ column: "is_bookmarked", order: SortOrder.Desc }]),
-    ...(recordDecisionActive
-      ? []
-      : [
-          { column: "status_weight", order: SortOrder.Asc },
-          {
-            user: {
-              aggregate: OrderByRelationWithColumnAggregateFunction.Max,
-              column:
-                "PRIORITY_WEIGHT" as QueryPoolCandidatesPaginatedOrderByUserColumn,
-            },
-            order: SortOrder.Asc,
-          },
-        ]),
     // Do not apply other filters if we are sorting by process
     ...(!hasProcess
       ? [transformSortStateToOrderByClause(sortingRules, filterState)]
@@ -436,23 +397,16 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
         }
         pool {
           id
-          essentialSkills {
-            id
-            key
-            name {
-              en
-              fr
+          poolSkills {
+            skill {
+              id
+              key
+              name {
+                en
+                fr
+              }
+              category
             }
-            category
-          }
-          nonessentialSkills {
-            id
-            key
-            name {
-              en
-              fr
-            }
-            category
           }
         }
         user {
@@ -724,7 +678,6 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
             }
           }
         }
-        cmoIdentifier
         expiryDate
         status
         submittedAt
@@ -740,7 +693,7 @@ export function transformPoolCandidateSearchInputToFormValues(
   return {
     publishingGroups: input?.publishingGroups?.filter(notEmpty) ?? [],
     classifications:
-      input?.applicantFilter?.qualifiedClassifications
+      input?.appliedClassifications
         ?.filter(notEmpty)
         .map((c) => `${c.group}-${c.level}`) ?? [],
     stream: input?.applicantFilter?.qualifiedStreams?.filter(notEmpty) ?? [],
@@ -789,10 +742,6 @@ export function transformFormValuesToFilterState(
       languageAbility: data.languageAbility
         ? stringToEnumLanguage(data.languageAbility)
         : undefined,
-      qualifiedClassifications: data.classifications.map((classification) => {
-        const splitString = classification.split("-");
-        return { group: splitString[0], level: Number(splitString[1]) };
-      }),
       qualifiedStreams: data.stream as PoolStream[],
       operationalRequirements: data.operationalRequirement
         .map((requirement) => {
@@ -835,5 +784,9 @@ export function transformFormValuesToFilterState(
       : undefined,
     isGovEmployee: data.govEmployee ? true : undefined, // massage from FormValue type to PoolCandidateSearchInput
     publishingGroups: data.publishingGroups as PublishingGroup[],
+    appliedClassifications: data.classifications.map((classification) => {
+      const splitString = classification.split("-");
+      return { group: splitString[0], level: Number(splitString[1]) };
+    }),
   };
 }

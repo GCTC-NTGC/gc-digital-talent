@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
@@ -24,7 +24,7 @@ const PublishProcessDialog = ({
   onPublish,
   isReadyToPublish,
 }: PublishProcessDialogProps) => {
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const intl = useIntl();
 
   const title = intl.formatMessage({
@@ -57,7 +57,7 @@ const PublishProcessDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button color="primary" disabled={!isReadyToPublish}>
+        <Button color="secondary" disabled={!isReadyToPublish}>
           {title}
         </Button>
       </Dialog.Trigger>
@@ -121,9 +121,8 @@ const PublishProcessDialog = ({
                 </li>
               )}
           </ul>
-          <Dialog.Footer data-h2-justify-content="base(flex-start)">
+          <Dialog.Footer>
             <Button
-              mode="solid"
               color="secondary"
               onClick={handlePublish}
               disabled={isFetching}

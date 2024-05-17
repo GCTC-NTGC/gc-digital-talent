@@ -1,6 +1,6 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
+import { ReactNode } from "react";
 
 import { Button, Dialog, Link, LinkProps } from "@gc-digital-talent/ui";
 import { formatDate } from "@gc-digital-talent/date-helpers";
@@ -10,7 +10,7 @@ import useRoutes from "~/hooks/useRoutes";
 const generateLink = (
   href: LinkProps["href"],
   state: LinkProps["state"],
-  chunks: React.ReactNode,
+  chunks: ReactNode,
 ) => (
   <Link newTab external href={href} state={state}>
     {chunks}
@@ -21,7 +21,7 @@ type DeadlineDialogProps = {
   deadline: Date;
 };
 
-const DeadlineDialog = ({ deadline }: DeadlineDialogProps): JSX.Element => {
+const DeadlineDialog = ({ deadline }: DeadlineDialogProps) => {
   const intl = useIntl();
   const routes = useRoutes();
   // https://stackoverflow.com/a/34602679
@@ -143,7 +143,7 @@ const DeadlineDialog = ({ deadline }: DeadlineDialogProps): JSX.Element => {
                   description: "Fourth paragraph for pool deadlines dialog",
                 },
                 {
-                  link: (chunks: React.ReactNode) =>
+                  link: (chunks: ReactNode) =>
                     generateLink(
                       routes.support(),
                       { referrer: window.location.href },

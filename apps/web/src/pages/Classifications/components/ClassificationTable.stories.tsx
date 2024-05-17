@@ -1,4 +1,3 @@
-import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 
 import { fakeClassifications } from "@gc-digital-talent/fake-data";
@@ -16,7 +15,6 @@ const classifications = mockClassifications.map((classification) =>
 
 export default {
   component: ClassificationTable,
-  title: "Tables/Classification Table",
 } as Meta<typeof ClassificationTable>;
 
 const Template: StoryFn<typeof ClassificationTable> = (args) => {

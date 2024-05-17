@@ -1,20 +1,31 @@
-import React from "react";
 import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
 import { useIntl } from "react-intl";
 
 import { Heading } from "@gc-digital-talent/ui";
-import { Pool } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import PoolCard from "~/components/PoolCard/PoolCard";
 
+export const ActiveRecruitmentSectionPool_Fragment = graphql(/* GraphQL */ `
+  fragment ActiveRecruitmentSectionPool on Pool {
+    id
+    closingDate
+    publishedAt
+    ...PoolCard
+  }
+`);
+
 export interface ActiveRecruitmentSectionProps {
-  pools: Pool[];
+  poolsQuery: FragmentType<typeof ActiveRecruitmentSectionPool_Fragment>[];
 }
 
-const ActiveRecruitmentSection = ({ pools }: ActiveRecruitmentSectionProps) => {
+const ActiveRecruitmentSection = ({
+  poolsQuery,
+}: ActiveRecruitmentSectionProps) => {
   const intl = useIntl();
+  const pools = getFragment(ActiveRecruitmentSectionPool_Fragment, poolsQuery);
 
-  pools.sort(
+  const sortedPools = [...pools].sort(
     (p1, p2) =>
       (p1.closingDate ?? "").localeCompare(p2.closingDate ?? "") || // first level sort: by closing date whichever one closes first should appear first on the list
       (p1.publishedAt ?? "").localeCompare(p2.publishedAt ?? ""), // second level sort: whichever one was published first should appear first
@@ -55,15 +66,15 @@ const ActiveRecruitmentSection = ({ pools }: ActiveRecruitmentSectionProps) => {
         })}
       </p>
       <div data-h2-padding="base(x1, 0, 0, 0)">
-        {pools.length ? (
+        {sortedPools.length ? (
           <ul
             data-h2-margin="base(0)"
             data-h2-padding="base(0)"
             data-h2-list-style="base(none)"
           >
-            {pools.map((pool) => (
+            {sortedPools.map((pool) => (
               <li key={pool.id}>
-                <PoolCard pool={pool} />
+                <PoolCard poolQuery={pool} />
               </li>
             ))}
           </ul>

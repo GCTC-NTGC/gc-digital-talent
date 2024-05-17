@@ -1,4 +1,3 @@
-import React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import CalendarIcon from "@heroicons/react/24/outline/CalendarIcon";

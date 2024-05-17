@@ -1,5 +1,5 @@
-import React from "react";
 import { useIntl } from "react-intl";
+import { ReactNode } from "react";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Well, Link } from "@gc-digital-talent/ui";
@@ -31,7 +31,7 @@ const DiversityEquityInclusionSection = ({
       (c) => c !== IndigenousCommunity.LegacyIsIndigenous,
     ) || [];
 
-  const pledgeLink = (text: React.ReactNode) => {
+  const pledgeLink = (text: ReactNode) => {
     return editPath ? <Link href={editPath}>{text}</Link> : null;
   };
 

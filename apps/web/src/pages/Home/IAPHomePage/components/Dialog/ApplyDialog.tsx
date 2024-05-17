@@ -1,12 +1,12 @@
-import React from "react";
 import { useIntl } from "react-intl";
+import { ReactNode } from "react";
 
 import { Button, Dialog, Link } from "@gc-digital-talent/ui";
 
 import CloseButton from "./CloseButton";
 import { BasicDialogProps } from "./types";
 
-const mailAccessor = (chunks: React.ReactNode) => (
+const mailAccessor = (chunks: ReactNode) => (
   <Link
     external
     color="primary"

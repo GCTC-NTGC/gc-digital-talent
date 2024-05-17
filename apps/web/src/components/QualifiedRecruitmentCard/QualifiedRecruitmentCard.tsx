@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { useIntl } from "react-intl";
 import ChevronRightIcon from "@heroicons/react/20/solid/ChevronRightIcon";
 import GlobeAmericasIcon from "@heroicons/react/20/solid/GlobeAmericasIcon";
@@ -14,30 +14,85 @@ import {
   Separator,
   incrementHeadingRank,
 } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
 import { getLocalizedName, getSkillCategory } from "@gc-digital-talent/i18n";
-import { SkillCategory } from "@gc-digital-talent/graphql";
+import {
+  PoolSkillType,
+  FragmentType,
+  SkillCategory,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
-import { categorizeSkill } from "~/utils/skillUtils";
+import { categorizeSkill, filterPoolSkillsByType } from "~/utils/skillUtils";
 import { getRecruitmentType } from "~/utils/poolCandidate";
-import { Application } from "~/utils/applicationUtils";
 
 import RecruitmentAvailabilityDialog from "../RecruitmentAvailabilityDialog/RecruitmentAvailabilityDialog";
 import { getQualifiedRecruitmentInfo, joinDepartments } from "./utils";
 
+export const QualifiedRecruitmentCard_Fragment = graphql(/* GraphQL */ `
+  fragment QualifiedRecruitmentCard on PoolCandidate {
+    ...RecruitmentAvailabilityDialog
+    id
+    status
+    suspendedAt
+    pool {
+      id
+      stream
+      publishingGroup
+      name {
+        en
+        fr
+      }
+      classification {
+        id
+        group
+        level
+      }
+      team {
+        id
+        name
+        departments {
+          id
+          departmentNumber
+          name {
+            en
+            fr
+          }
+        }
+      }
+      poolSkills {
+        id
+        skill {
+          id
+          category
+          key
+          name {
+            en
+            fr
+          }
+        }
+      }
+    }
+  }
+`);
+
 export interface QualifiedRecruitmentCardProps {
-  candidate: Application;
+  candidateQuery: FragmentType<typeof QualifiedRecruitmentCard_Fragment>;
   headingLevel?: HeadingRank;
 }
 
 const QualifiedRecruitmentCard = ({
-  candidate,
+  candidateQuery,
   headingLevel = "h2",
 }: QualifiedRecruitmentCardProps) => {
   const intl = useIntl();
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
-  const [linkCopied, setLinkCopied] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [linkCopied, setLinkCopied] = useState<boolean>(false);
   const contentHeadingLevel = incrementHeadingRank(headingLevel);
+  const candidate = getFragment(
+    QualifiedRecruitmentCard_Fragment,
+    candidateQuery,
+  );
   const {
     title,
     statusChip,
@@ -50,12 +105,14 @@ const QualifiedRecruitmentCard = ({
   );
 
   // NOTE: Until we store assessed skills, we will just be displayed all essential skills
-  const categorizedSkills = categorizeSkill(
-    candidate.pool.essentialSkills?.filter(notEmpty) ?? [],
+  const essentialSkills = filterPoolSkillsByType(
+    candidate.pool.poolSkills,
+    PoolSkillType.Essential,
   );
+  const categorizedSkills = categorizeSkill(essentialSkills);
 
   /** Reset link copied after 3 seconds */
-  React.useEffect(() => {
+  useEffect(() => {
     if (linkCopied) {
       setTimeout(() => {
         setLinkCopied(false);
@@ -218,7 +275,7 @@ const QualifiedRecruitmentCard = ({
           )}
           {availability.showDialog && (
             <div className="flex-shrink-0">
-              <RecruitmentAvailabilityDialog candidate={candidate} />
+              <RecruitmentAvailabilityDialog candidateQuery={candidate} />
             </div>
           )}
         </div>

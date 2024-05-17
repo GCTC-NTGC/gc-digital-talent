@@ -1,5 +1,3 @@
-import React from "react";
-
 const Flourish = () => (
   <div
     data-h2-background="base(main-linear)"

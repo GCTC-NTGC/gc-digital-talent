@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
@@ -11,6 +10,9 @@ import {
   LocalizedString,
   Pool,
   UpdatePoolInput,
+  graphql,
+  FragmentType,
+  getFragment,
 } from "@gc-digital-talent/graphql";
 
 import { hasAllEmptyFields } from "~/validators/process/whatToExpect";
@@ -22,6 +24,17 @@ import { SectionProps } from "../../types";
 import Display from "./Display";
 import ActionWrapper from "../ActionWrapper";
 
+const EditPoolWhatToExpect_Fragment = graphql(/* GraphQL */ `
+  fragment EditPoolWhatToExpect on Pool {
+    id
+    status
+    whatToExpect {
+      en
+      fr
+    }
+  }
+`);
+
 type FormValues = {
   whatToExpectEn?: LocalizedString["en"];
   whatToExpectFr?: LocalizedString["fr"];
@@ -29,17 +42,21 @@ type FormValues = {
 
 export type WhatToExpectSubmitData = Pick<UpdatePoolInput, "whatToExpect">;
 
-type WhatToExpectSectionProps = SectionProps<WhatToExpectSubmitData>;
+type WhatToExpectSectionProps = SectionProps<
+  WhatToExpectSubmitData,
+  FragmentType<typeof EditPoolWhatToExpect_Fragment>
+>;
 
 const TEXT_AREA_MAX_WORDS_EN = 200;
 const TEXT_AREA_MAX_WORDS_FR = TEXT_AREA_MAX_WORDS_EN + 100;
 
 const WhatToExpectSection = ({
-  pool,
+  poolQuery,
   sectionMetadata,
   onSave,
-}: WhatToExpectSectionProps): JSX.Element => {
+}: WhatToExpectSectionProps) => {
   const intl = useIntl();
+  const pool = getFragment(EditPoolWhatToExpect_Fragment, poolQuery);
   const isNull = hasAllEmptyFields(pool);
   const { isSubmitting } = useEditPoolContext();
   const { isEditing, setIsEditing, icon } = useToggleSectionInfo({

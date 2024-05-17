@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
 import BriefcaseIcon from "@heroicons/react/20/solid/BriefcaseIcon";
@@ -9,8 +8,9 @@ import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
 import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
 import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
+import { ReactNode, ReactElement } from "react";
 
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   Alert,
   Link,
@@ -19,7 +19,7 @@ import {
   ScrollToLinkProps,
 } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
-import { AwardExperience } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import Hero from "~/components/Hero/Hero";
 import useRoutes, {
@@ -43,17 +43,15 @@ import {
 import StatusItem from "~/components/StatusItem/StatusItem";
 import HeroCard from "~/components/HeroCard/HeroCard";
 import { PAGE_SECTION_ID as PROFILE_PAGE_SECTION_ID } from "~/components/UserProfile/constants";
-import { isApplicationQualifiedRecruitment } from "~/utils/applicationUtils";
 import { PAGE_SECTION_ID as CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
 import experienceMessages from "~/messages/experienceMessages";
-
-import { PartialUser } from "../types";
+import { isQualifiedStatus } from "~/utils/poolCandidate";
 
 function buildLink(
   href: string,
-  chunks: React.ReactNode,
+  chunks: ReactNode,
   color?: LinkProps["color"],
-): React.ReactElement {
+): ReactElement {
   return (
     <Link href={href} fontSize="h5" mode="text" color={color}>
       {chunks}
@@ -62,37 +60,75 @@ function buildLink(
 }
 function buildScrollToLink(
   to: string,
-  chunks: React.ReactNode,
+  chunks: ReactNode,
   color?: ScrollToLinkProps["color"],
   fontSize?: ScrollToLinkProps["fontSize"],
-): React.ReactElement {
+): ReactElement {
   return (
     <ScrollToLink to={to} mode="text" color={color} fontSize={fontSize}>
       {chunks}
     </ScrollToLink>
   );
 }
+
+export const DashboardHeadingUser_Fragment = graphql(/* GraphQL */ `
+  fragment DashboardHeadingUser on User {
+    id
+    firstName
+    locationPreferences
+    positionDuration
+    isGovEmployee
+    hasPriorityEntitlement
+    priorityNumber
+    lookingForEnglish
+    lookingForFrench
+    lookingForBilingual
+    firstOfficialLanguage
+    estimatedLanguageAbility
+    secondLanguageExamCompleted
+    secondLanguageExamValidity
+    writtenLevel
+    comprehensionLevel
+    verbalLevel
+    experiences {
+      id
+    }
+    poolCandidates {
+      id
+      status
+    }
+    userSkills {
+      id
+    }
+    topBehaviouralSkillsRanking {
+      id
+    }
+    topTechnicalSkillsRanking {
+      id
+    }
+    improveBehaviouralSkillsRanking {
+      id
+    }
+    improveTechnicalSkillsRanking {
+      id
+    }
+  }
+`);
+
 interface DashboardHeadingProps {
-  user: PartialUser;
+  userQuery: FragmentType<typeof DashboardHeadingUser_Fragment>;
 }
 
-const DashboardHeading = ({ user }: DashboardHeadingProps) => {
+const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const [searchParams, setSearchParams] = useSearchParams();
+  const user = getFragment(DashboardHeadingUser_Fragment, userQuery);
 
-  const notEmptyExperiences = user.experiences?.filter(notEmpty) ?? [];
-  const notEmptyApplications = user.poolCandidates?.filter(notEmpty) ?? [];
+  const notEmptyExperiences = unpackMaybes(user.experiences);
+  const notEmptyApplications = unpackMaybes(user.poolCandidates);
 
-  const awardExperiences =
-    notEmptyExperiences?.filter(isAwardExperience).map(
-      (award: AwardExperience) =>
-        ({
-          ...award,
-          startDate: award.awardedDate,
-          endDate: award.awardedDate,
-        }) as AwardExperience & { startDate: string; endDate: string },
-    ) || [];
+  const awardExperiences = notEmptyExperiences?.filter(isAwardExperience) || [];
   const communityExperiences =
     notEmptyExperiences?.filter(isCommunityExperience) || [];
   const educationExperiences =
@@ -142,17 +178,17 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           description: "Subtitle for profile and applications hero",
         },
         {
-          a1: (chunks: React.ReactNode) =>
-            buildLink(paths.profile(user.id), chunks, "whiteFixed"),
-          a2: (chunks: React.ReactNode) =>
+          a1: (chunks: ReactNode) =>
+            buildLink(paths.profile(), chunks, "whiteFixed"),
+          a2: (chunks: ReactNode) =>
             buildLink(
-              paths.careerTimelineAndRecruitment(user.id),
+              paths.careerTimelineAndRecruitment(),
               chunks,
               "whiteFixed",
             ),
-          a3: (chunks: React.ReactNode) =>
+          a3: (chunks: ReactNode) =>
             buildLink(paths.skillLibrary(), chunks, "whiteFixed"),
-          a4: (chunks: React.ReactNode) =>
+          a4: (chunks: ReactNode) =>
             buildScrollToLink(
               "track-applications-section",
               chunks,
@@ -209,7 +245,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
                   "Third paragraph for profile and applications notification welcoming an IAP user",
               },
               {
-                a: (chunks: React.ReactNode) =>
+                a: (chunks: ReactNode) =>
                   buildScrollToLink("track-applications-section", chunks),
               },
             )}
@@ -263,7 +299,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
                   "Third paragraph for profile and applications notification welcoming an IAP user",
               },
               {
-                a: (chunks: React.ReactNode) =>
+                a: (chunks: ReactNode) =>
                   buildScrollToLink("track-applications-section", chunks),
               },
             )}
@@ -283,7 +319,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             id: "cA0iH+",
             description: "Profile and applications card title for profile card",
           })}
-          href={paths.profile(user.id)}
+          href={paths.profile()}
         >
           <StatusItem
             asListItem
@@ -296,7 +332,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             status={
               aboutSectionHasEmptyRequiredFields(user) ? "error" : "success"
             }
-            href={paths.profile(user.id, PROFILE_PAGE_SECTION_ID.ABOUT)}
+            href={paths.profile(PROFILE_PAGE_SECTION_ID.ABOUT)}
           />
 
           <StatusItem
@@ -309,10 +345,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
                 ? "error"
                 : "success"
             }
-            href={paths.profile(
-              user.id,
-              PROFILE_PAGE_SECTION_ID.WORK_PREFERENCES,
-            )}
+            href={paths.profile(PROFILE_PAGE_SECTION_ID.WORK_PREFERENCES)}
           />
 
           <StatusItem
@@ -321,7 +354,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             title={intl.formatMessage(
               navigationMessages.diversityEquityInclusion,
             )}
-            href={paths.profile(user.id, PROFILE_PAGE_SECTION_ID.DEI)}
+            href={paths.profile(PROFILE_PAGE_SECTION_ID.DEI)}
             icon={UserGroupIcon}
           />
           <StatusItem
@@ -337,7 +370,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
                 ? "error"
                 : "success"
             }
-            href={paths.profile(user.id, PROFILE_PAGE_SECTION_ID.GOVERNMENT)}
+            href={paths.profile(PROFILE_PAGE_SECTION_ID.GOVERNMENT)}
           />
 
           <StatusItem
@@ -353,7 +386,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
                 ? "error"
                 : "success"
             }
-            href={paths.profile(user.id, PROFILE_PAGE_SECTION_ID.LANGUAGE)}
+            href={paths.profile(PROFILE_PAGE_SECTION_ID.LANGUAGE)}
           />
           <StatusItem
             asListItem
@@ -364,10 +397,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               description:
                 "Title of the Account and privacy settings link section",
             })}
-            href={paths.profile(
-              user.id,
-              PROFILE_PAGE_SECTION_ID.ACCOUNT_AND_PRIVACY,
-            )}
+            href={paths.accountSettings()}
             icon={LockClosedIcon}
           />
         </HeroCard>
@@ -379,7 +409,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
             description:
               "Profile and applications card title for career timeline card",
           })}
-          href={paths.careerTimelineAndRecruitment(user.id)}
+          href={paths.careerTimelineAndRecruitment()}
         >
           <StatusItem
             layout="hero"
@@ -423,11 +453,12 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
               description: "Title for qualified recruitments section",
             })}
             itemCount={
-              notEmptyApplications.filter(isApplicationQualifiedRecruitment)
-                .length
+              notEmptyApplications.filter((application) =>
+                isQualifiedStatus(application.status),
+              ).length
             }
             icon={ShieldCheckIcon}
-            href={paths.careerTimelineAndRecruitment(user.id, {
+            href={paths.careerTimelineAndRecruitment({
               section:
                 CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID.QUALIFIED_RECRUITMENT_PROCESSES,
             })}

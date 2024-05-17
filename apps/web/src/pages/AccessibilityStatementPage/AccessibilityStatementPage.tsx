@@ -1,5 +1,5 @@
-import React from "react";
 import { useIntl } from "react-intl";
+import { ReactNode } from "react";
 
 import { Heading, Link, TableOfContents } from "@gc-digital-talent/ui";
 import { getLocale, Locales } from "@gc-digital-talent/i18n";
@@ -11,7 +11,7 @@ import { wrapAbbr } from "~/utils/nameUtils";
 import heroImg from "~/assets/img/accessibility-statement-header.webp";
 import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
 
-const digitalStandardsLink = (locale: Locales, chunks: React.ReactNode) => (
+const digitalStandardsLink = (locale: Locales, chunks: ReactNode) => (
   <Link
     newTab
     external
@@ -25,25 +25,25 @@ const digitalStandardsLink = (locale: Locales, chunks: React.ReactNode) => (
   </Link>
 );
 
-const wcagLink = (chunks: React.ReactNode) => (
+const wcagLink = (chunks: ReactNode) => (
   <Link newTab external hrefLang="en" href="https://www.w3.org/TR/WCAG21/">
     {chunks}
   </Link>
 );
 
-const atagLink = (chunks: React.ReactNode) => (
+const atagLink = (chunks: ReactNode) => (
   <Link newTab external hrefLang="en" href="https://www.w3.org/TR/ATAG20/">
     {chunks}
   </Link>
 );
 
-const fableLink = (chunks: React.ReactNode) => (
+const fableLink = (chunks: ReactNode) => (
   <Link newTab external hrefLang="en" href="https://makeitfable.com/">
     {chunks}
   </Link>
 );
 
-const acaLink = (locale: Locales, chunks: React.ReactNode) => (
+const acaLink = (locale: Locales, chunks: ReactNode) => (
   <Link
     newTab
     external
@@ -57,7 +57,7 @@ const acaLink = (locale: Locales, chunks: React.ReactNode) => (
   </Link>
 );
 
-const acrLink = (locale: Locales, chunks: React.ReactNode): React.ReactNode => (
+const acrLink = (locale: Locales, chunks: ReactNode): ReactNode => (
   <Link
     newTab
     external
@@ -71,7 +71,7 @@ const acrLink = (locale: Locales, chunks: React.ReactNode): React.ReactNode => (
   </Link>
 );
 
-const complaintsLink = (locale: Locales, chunks: React.ReactNode) => (
+const complaintsLink = (locale: Locales, chunks: ReactNode) => (
   <Link
     newTab
     external
@@ -85,7 +85,7 @@ const complaintsLink = (locale: Locales, chunks: React.ReactNode) => (
   </Link>
 );
 
-const crtcLink = (locale: Locales, chunks: React.ReactNode) => (
+const crtcLink = (locale: Locales, chunks: ReactNode) => (
   <Link
     newTab
     external
@@ -99,7 +99,7 @@ const crtcLink = (locale: Locales, chunks: React.ReactNode) => (
   </Link>
 );
 
-const crtcActLink = (locale: Locales, chunks: React.ReactNode) => (
+const crtcActLink = (locale: Locales, chunks: ReactNode) => (
   <Link
     newTab
     external
@@ -113,7 +113,7 @@ const crtcActLink = (locale: Locales, chunks: React.ReactNode) => (
   </Link>
 );
 
-const chrcLink = (locale: Locales, chunks: React.ReactNode) => (
+const chrcLink = (locale: Locales, chunks: ReactNode) => (
   <Link
     newTab
     external
@@ -127,7 +127,7 @@ const chrcLink = (locale: Locales, chunks: React.ReactNode) => (
   </Link>
 );
 
-const chraLink = (locale: Locales, chunks: React.ReactNode) => (
+const chraLink = (locale: Locales, chunks: ReactNode) => (
   <Link
     newTab
     external
@@ -141,7 +141,7 @@ const chraLink = (locale: Locales, chunks: React.ReactNode) => (
   </Link>
 );
 
-const ctaLink = (locale: Locales, chunks: React.ReactNode) => (
+const ctaLink = (locale: Locales, chunks: ReactNode) => (
   <Link
     newTab
     external
@@ -155,7 +155,7 @@ const ctaLink = (locale: Locales, chunks: React.ReactNode) => (
   </Link>
 );
 
-const relationsLink = (locale: Locales, chunks: React.ReactNode) => (
+const relationsLink = (locale: Locales, chunks: ReactNode) => (
   <Link
     newTab
     external
@@ -169,7 +169,7 @@ const relationsLink = (locale: Locales, chunks: React.ReactNode) => (
   </Link>
 );
 
-const relayServiceLink = (locale: Locales, chunks: React.ReactNode) => (
+const relayServiceLink = (locale: Locales, chunks: ReactNode) => (
   <Link
     newTab
     external
@@ -183,19 +183,19 @@ const relayServiceLink = (locale: Locales, chunks: React.ReactNode) => (
   </Link>
 );
 
-const chrcMailLink = (chunks: React.ReactNode) => (
+const chrcMailLink = (chunks: ReactNode) => (
   <Link external href="mailto:Info.Com@chrc-ccdp.gc.ca">
     {chunks}
   </Link>
 );
 
-const phoneLink = (chunks: React.ReactNode) => (
+const phoneLink = (chunks: ReactNode) => (
   <Link external href="tel:6139951151">
     {chunks}
   </Link>
 );
 
-const tollFreeLink = (chunks: React.ReactNode) => (
+const tollFreeLink = (chunks: ReactNode) => (
   <Link external href="tel:18882141090">
     {chunks}
   </Link>
@@ -203,10 +203,10 @@ const tollFreeLink = (chunks: React.ReactNode) => (
 
 type Section = {
   id: string;
-  title: React.ReactNode;
+  title: ReactNode;
 };
 
-const AccessibilityStatementPage = () => {
+export const Component = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
@@ -297,7 +297,7 @@ const AccessibilityStatementPage = () => {
                   description: "Opening paragraph for accessibility statement",
                 },
                 {
-                  abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+                  abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
                 },
               )}
             </p>
@@ -314,7 +314,7 @@ const AccessibilityStatementPage = () => {
                     description: "Paragraph describing accessibility standards",
                   },
                   {
-                    digitalStandardsLink: (chunks: React.ReactNode) =>
+                    digitalStandardsLink: (chunks: ReactNode) =>
                       digitalStandardsLink(locale, chunks),
                   },
                 )}
@@ -512,11 +512,9 @@ const AccessibilityStatementPage = () => {
                     description: "Text describing accessibility commissioner",
                   },
                   {
-                    acaLink: (chunks: React.ReactNode) =>
-                      acaLink(locale, chunks),
-                    acrLink: (chunks: React.ReactNode) =>
-                      acrLink(locale, chunks),
-                    complaintsLink: (chunks: React.ReactNode) =>
+                    acaLink: (chunks: ReactNode) => acaLink(locale, chunks),
+                    acrLink: (chunks: ReactNode) => acrLink(locale, chunks),
+                    complaintsLink: (chunks: ReactNode) =>
                       complaintsLink(locale, chunks),
                   },
                 )}
@@ -541,9 +539,8 @@ const AccessibilityStatementPage = () => {
                         "Description of complaints to the Canadian Radio-television and Telecommunications Commission",
                     },
                     {
-                      crtcLink: (chunks: React.ReactNode) =>
-                        crtcLink(locale, chunks),
-                      crtcActLink: (chunks: React.ReactNode) =>
+                      crtcLink: (chunks: ReactNode) => crtcLink(locale, chunks),
+                      crtcActLink: (chunks: ReactNode) =>
                         crtcActLink(locale, chunks),
                     },
                   )}
@@ -558,10 +555,8 @@ const AccessibilityStatementPage = () => {
                         "Description of complaints to the Canadian Human Rights Commission",
                     },
                     {
-                      chrcLink: (chunks: React.ReactNode) =>
-                        chrcLink(locale, chunks),
-                      chraLink: (chunks: React.ReactNode) =>
-                        chraLink(locale, chunks),
+                      chrcLink: (chunks: ReactNode) => chrcLink(locale, chunks),
+                      chraLink: (chunks: ReactNode) => chraLink(locale, chunks),
                     },
                   )}
                 </li>
@@ -575,8 +570,7 @@ const AccessibilityStatementPage = () => {
                         "Description of complaints to the Canadian Transportation Agency",
                     },
                     {
-                      ctaLink: (chunks: React.ReactNode) =>
-                        ctaLink(locale, chunks),
+                      ctaLink: (chunks: ReactNode) => ctaLink(locale, chunks),
                     },
                   )}
                 </li>
@@ -590,7 +584,7 @@ const AccessibilityStatementPage = () => {
                         "Description of complaints to the Federal Public Sector Labour Relations and Employment Board<",
                     },
                     {
-                      relationsLink: (chunks: React.ReactNode) =>
+                      relationsLink: (chunks: ReactNode) =>
                         relationsLink(locale, chunks),
                     },
                   )}
@@ -644,7 +638,7 @@ const AccessibilityStatementPage = () => {
                       description: "VRS contact info",
                     },
                     {
-                      relayServiceLink: (chunks: React.ReactNode) =>
+                      relayServiceLink: (chunks: ReactNode) =>
                         relayServiceLink(locale, chunks),
                     },
                   )}
@@ -694,4 +688,6 @@ const AccessibilityStatementPage = () => {
   );
 };
 
-export default AccessibilityStatementPage;
+Component.displayName = "AccessibilityStatementPage";
+
+export default Component;

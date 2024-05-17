@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
@@ -33,7 +33,7 @@ const ActionCell = (
   onRemove: (poolSkillSelected: string) => Promise<void>,
 ) => {
   const intl = useIntl();
-  const [isOpen] = React.useState<boolean>(false);
+  const [isOpen] = useState<boolean>(false);
   const { id, poolSkillId, requiredLevel, name } = skill;
   const localizedName = getLocalizedName(name, intl);
 

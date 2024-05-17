@@ -1,5 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { IntlShape } from "react-intl";
+import { JSX } from "react";
 
 import {
   AssessmentResult,

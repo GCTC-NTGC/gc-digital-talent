@@ -1,6 +1,6 @@
-import * as React from "react";
 import get from "lodash/get";
 import { FieldError, useFormContext } from "react-hook-form";
+import { Fragment, ReactNode } from "react";
 
 import { Color, IconType } from "@gc-digital-talent/ui";
 
@@ -16,7 +16,7 @@ export type CardOption = {
   /** form value */
   value: string;
   /** label beside the icon */
-  label: string | React.ReactNode;
+  label: string | ReactNode;
   /** icon when unselected - usually the outline version of the selected icon */
   unselectedIcon: IconType;
   /** icon when selected - usually the solid version of the unselected icon */
@@ -93,7 +93,7 @@ export type CardOptionGroupProps = Omit<CommonInputProps, "id" | "label"> &
     /** Each input element will be given an id to match to its label, of the form `${idPrefix}-${value}` */
     idPrefix: string;
     /** Holds text for the legend associated with the CardOptionGroup fieldset. */
-    legend: React.ReactNode;
+    legend: ReactNode;
     /** A list of value and label representing the CardOptions shown.
      * The form will represent the data at `name` as a string containing the chosen value. */
     items: CardOption[];
@@ -172,7 +172,7 @@ const CardOptionGroup = ({
             const isSelected = selectedValue === value;
             const Icon = isSelected ? selectedIcon : unselectedIcon;
             return (
-              <React.Fragment key={value}>
+              <Fragment key={value}>
                 <input
                   id={id}
                   {...register(name, rules)}
@@ -207,7 +207,7 @@ const CardOptionGroup = ({
                   <Icon data-h2-height="base(x1)" data-h2-width="base(x1)" />
                   <span>{label}</span>
                 </Field.Label>
-              </React.Fragment>
+              </Fragment>
             );
           },
         )}

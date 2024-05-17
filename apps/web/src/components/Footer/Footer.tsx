@@ -1,5 +1,4 @@
 /* eslint-disable react/forbid-elements */
-import * as React from "react";
 import { useIntl } from "react-intl";
 
 import { Link, LinkProps } from "@gc-digital-talent/ui";

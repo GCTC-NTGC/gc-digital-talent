@@ -1,4 +1,3 @@
-import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 
 import { fakePoolCandidates, fakeSkills } from "@gc-digital-talent/fake-data";
@@ -13,7 +12,6 @@ import FinalDecisionDialog from "./FinalDecisionDialog";
 
 export default {
   component: FinalDecisionDialog,
-  title: "Components/Final decision dialog",
   decorators: [OverlayOrDialogDecorator],
   args: {
     defaultOpen: true,
@@ -23,10 +21,12 @@ export default {
 const fakedCandidate = fakePoolCandidates(1)[0];
 const fakedSkills = fakeSkills(3);
 
-// education result, success
-// skill 0, 1 success and 1 fail
-// skill 1, success
-// skill 2, not sure
+/*
+education result, success
+skill 0, 1 success and 1 fail
+skill 1, success
+skill 2, not sure
+*/
 const candidateAssessmentResults: AssessmentResult[] = [
   {
     id: "education-result",

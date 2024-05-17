@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
@@ -11,6 +10,9 @@ import {
   LocalizedString,
   Pool,
   UpdatePoolInput,
+  graphql,
+  FragmentType,
+  getFragment,
 } from "@gc-digital-talent/graphql";
 
 import {
@@ -25,6 +27,17 @@ import { SectionProps } from "../../types";
 import Display from "./Display";
 import ActionWrapper from "../ActionWrapper";
 
+const EditPoolKeyTasks_Fragment = graphql(/* GraphQL */ `
+  fragment EditPoolKeyTasks on Pool {
+    id
+    status
+    keyTasks {
+      en
+      fr
+    }
+  }
+`);
+
 type FormValues = {
   YourWorkEn?: LocalizedString["en"];
   YourWorkFr?: LocalizedString["fr"];
@@ -32,17 +45,21 @@ type FormValues = {
 
 export type WorkTasksSubmitData = Pick<UpdatePoolInput, "keyTasks">;
 
-type WorkTasksSectionProps = SectionProps<WorkTasksSubmitData>;
+type WorkTasksSectionProps = SectionProps<
+  WorkTasksSubmitData,
+  FragmentType<typeof EditPoolKeyTasks_Fragment>
+>;
 
 const TEXT_AREA_MAX_WORDS_EN = 400;
 const TEXT_AREA_MAX_WORDS_FR = TEXT_AREA_MAX_WORDS_EN + 100;
 
 const WorkTasksSection = ({
-  pool,
+  poolQuery,
   sectionMetadata,
   onSave,
-}: WorkTasksSectionProps): JSX.Element => {
+}: WorkTasksSectionProps) => {
   const intl = useIntl();
+  const pool = getFragment(EditPoolKeyTasks_Fragment, poolQuery);
   const isNull = hasAllEmptyFields(pool);
   const emptyRequired = hasEmptyRequiredFields(pool);
   const { isSubmitting } = useEditPoolContext();

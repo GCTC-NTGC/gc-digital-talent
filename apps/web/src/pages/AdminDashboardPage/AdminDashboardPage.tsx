@@ -1,11 +1,10 @@
-import React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 import HomeOutlineIcon from "@heroicons/react/24/outline/HomeIcon";
 import HomeSolidIcon from "@heroicons/react/24/solid/HomeIcon";
 
 import { Heading, Pending, IconType } from "@gc-digital-talent/ui";
-import { useAuthorization, hasRole } from "@gc-digital-talent/auth";
+import { useAuthorization, hasRole, ROLE_NAME } from "@gc-digital-talent/auth";
 import { User, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
@@ -52,6 +51,7 @@ import {
   adminPageTitle as skillPageTitle,
   pageSolidIcon as skillPageIcon,
 } from "~/pages/Skills/SkillPage";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import LinkWell from "./components/LinkWell";
 
@@ -285,5 +285,20 @@ const DashboardPageApi = () => {
     </Pending>
   );
 };
+
+export const Component = () => (
+  <RequireAuth
+    roles={[
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.RequestResponder,
+      ROLE_NAME.CommunityManager,
+      ROLE_NAME.PlatformAdmin,
+    ]}
+  >
+    <DashboardPageApi />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminDashboardPage";
 
 export default DashboardPageApi;

@@ -1,4 +1,3 @@
-import React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
@@ -100,6 +99,7 @@ export const CareerTimelineExperience_Fragment = graphql(/* GraphQL */ `
 
 export const CareerTimelineApplication_Fragment = graphql(/* GraphQL */ `
   fragment CareerTimelineApplication on PoolCandidate {
+    ...QualifiedRecruitmentsCandidate
     id
     status
     archivedAt
@@ -133,31 +133,7 @@ export const CareerTimelineApplication_Fragment = graphql(/* GraphQL */ `
         minSalary
         maxSalary
       }
-      essentialSkills {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        description {
-          en
-          fr
-        }
-        category
-        families {
-          id
-          key
-          description {
-            en
-            fr
-          }
-          name {
-            en
-            fr
-          }
-        }
-      }
+
       team {
         id
         name
@@ -204,7 +180,7 @@ const CareerTimelineAndRecruitment = ({
       },
       {
         label: intl.formatMessage(titles.careerTimelineAndRecruitment),
-        url: paths.careerTimelineAndRecruitment(userId),
+        url: paths.careerTimelineAndRecruitment(),
       },
     ],
   });
@@ -296,7 +272,9 @@ const CareerTimelineAndRecruitment = ({
                     "Descriptive paragraph for the Qualified recruitment processes section of the career timeline and recruitment page.",
                 })}
               </p>
-              <QualifiedRecruitmentsSection applications={[...applications]} />
+              <QualifiedRecruitmentsSection
+                applicationsQuery={[...applications]}
+              />
             </TableOfContents.Section>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>

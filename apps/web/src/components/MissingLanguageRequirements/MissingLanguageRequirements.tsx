@@ -1,6 +1,6 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import ExclamationTriangleIcon from "@heroicons/react/24/solid/ExclamationTriangleIcon";
+import { ReactNode } from "react";
 
 import {
   Chip,
@@ -19,11 +19,11 @@ import {
 interface MissingLanguageRequirementsBlockProps {
   chipType: { color: Color };
   /** Title for the block */
-  title: React.ReactNode;
+  title: ReactNode;
   /** Message displayed before language requirements that are missing from application */
-  languageRequirementsBlurb: React.ReactNode;
+  languageRequirementsBlurb: ReactNode;
   /** Icon displayed next to the title */
-  icon: React.ReactNode;
+  icon: ReactNode;
   /** Language requirements missing from the application */
   missingLanguageRequirements: string[];
   /** heading rank to display the title as */

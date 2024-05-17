@@ -1,4 +1,3 @@
-import React from "react";
 import { IntlShape, MessageDescriptor } from "react-intl";
 import ClipboardDocumentIcon from "@heroicons/react/24/outline/ClipboardDocumentIcon";
 import ClipboardDocumentListIcon from "@heroicons/react/20/solid/ClipboardDocumentListIcon";
@@ -6,6 +5,7 @@ import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
 import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
+import { ReactNode } from "react";
 
 import {
   Locales,
@@ -123,7 +123,7 @@ export const formattedPoolPosterTitle = ({
   short,
   intl,
 }: formattedPoolPosterTitleProps): {
-  html: React.ReactNode;
+  html: ReactNode;
   label: string;
 } => {
   const streamString = stream
@@ -164,7 +164,7 @@ export const formattedPoolPosterTitle = ({
 };
 
 interface PoolTitleOptions {
-  defaultTitle?: React.ReactNode;
+  defaultTitle?: ReactNode;
   short?: boolean;
 }
 
@@ -172,7 +172,7 @@ export const poolTitle = (
   intl: IntlShape,
   pool: Maybe<Pool>,
   options?: PoolTitleOptions,
-): { html: React.ReactNode; label: string } => {
+): { html: ReactNode; label: string } => {
   const fallbackTitle =
     options?.defaultTitle ??
     intl.formatMessage({
@@ -215,7 +215,7 @@ export const getFullPoolTitleHtml = (
   intl: IntlShape,
   pool: Maybe<Pool>,
   options?: { defaultTitle?: string },
-): React.ReactNode => poolTitle(intl, pool, options).html;
+): ReactNode => poolTitle(intl, pool, options).html;
 
 export const getFullPoolTitleLabel = (
   intl: IntlShape,
@@ -227,7 +227,7 @@ export const getShortPoolTitleHtml = (
   intl: IntlShape,
   pool: Maybe<Pool>,
   options?: { defaultTitle?: string },
-): React.ReactNode =>
+): ReactNode =>
   poolTitle(intl, pool, {
     ...options,
     short: true,
@@ -271,6 +271,12 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
           id: "yM04jy",
           description: "Title for advertisement information of a process",
         }),
+        subtitle: intl.formatMessage({
+          defaultMessage:
+            "Define the information and requirements for this recruitment process.",
+          id: "Kyf9At",
+          description: "Description of a process' advertisement",
+        }),
         link: {
           url: paths.poolUpdate(pool.id),
         },
@@ -306,6 +312,12 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
       "plan",
       {
         title: intl.formatMessage(messages.assessmentPlan),
+        subtitle: intl.formatMessage({
+          defaultMessage:
+            "Select, organize and define the assessments used to evaluate each skill in the advertisement.",
+          id: "2ZjclP",
+          description: "Subtitle for the assessment plan builder",
+        }),
         link: {
           url: paths.assessmentPlanBuilder(pool.id),
         },
@@ -351,17 +363,12 @@ export const useAdminPoolPages = (intl: IntlShape, pool: Pick<Pool, "id">) => {
       {
         icon: UserGroupIcon,
         title: intl.formatMessage({
-          defaultMessage: "Candidates",
-          id: "X4TOhW",
-          description: "Page title for the admin pool candidates index page",
+          defaultMessage: "Talent placement",
+          id: "0YpfAG",
+          description: "Title for candidates tab for a process",
         }),
         link: {
           url: paths.poolCandidateTable(pool.id),
-          label: intl.formatMessage({
-            defaultMessage: "Talent placement",
-            id: "0YpfAG",
-            description: "Title for candidates tab for a process",
-          }),
         },
       },
     ],
@@ -373,7 +380,9 @@ export const isOngoingPublishingGroup = (
 ): boolean =>
   publishingGroup ? ONGOING_PUBLISHING_GROUPS.includes(publishingGroup) : false;
 
-export const getAdvertisementStatus = (pool?: Pool): PoolCompleteness => {
+export const getAdvertisementStatus = (
+  pool?: Pick<Pool, "publishedAt" | "isComplete">,
+): PoolCompleteness => {
   if (!pool) return "incomplete";
 
   if (pool.publishedAt) return "submitted";

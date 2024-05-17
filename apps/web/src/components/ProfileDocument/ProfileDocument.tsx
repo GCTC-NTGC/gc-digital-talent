@@ -1,6 +1,6 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import isEmpty from "lodash/isEmpty";
+import { Fragment, ReactNode, forwardRef } from "react";
 
 import { Heading } from "@gc-digital-talent/ui";
 import {
@@ -45,18 +45,18 @@ interface ProfileDocumentProps {
   anonymous?: boolean;
 }
 
-const PageSection = ({ children }: { children: React.ReactNode }) => (
+const PageSection = ({ children }: { children: ReactNode }) => (
   <div className="mb-10 block break-inside-avoid break-after-avoid">
     {children}
   </div>
 );
 
 // If a section is too big, use this instead of PageSection to allow it to break
-const BreakingPageSection = ({ children }: { children: React.ReactNode }) => (
+const BreakingPageSection = ({ children }: { children: ReactNode }) => (
   <div className="mb-10 block">{children}</div>
 );
 
-const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
+const ProfileDocument = forwardRef<HTMLDivElement, ProfileDocumentProps>(
   ({ results, anonymous }, ref) => {
     const intl = useIntl();
     const locale = getLocale(intl);
@@ -160,7 +160,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                   ) || [];
 
                 return (
-                  <React.Fragment key={result.id}>
+                  <Fragment key={result.id}>
                     <div>
                       <PageSection>
                         <Heading level="h2" className="font-bold">
@@ -696,7 +696,7 @@ const ProfileDocument = React.forwardRef<HTMLDivElement, ProfileDocumentProps>(
                     {index + 1 !== results.length && (
                       <div style={{ breakAfter: "page" }} />
                     )}
-                  </React.Fragment>
+                  </Fragment>
                 );
               })}
           </div>

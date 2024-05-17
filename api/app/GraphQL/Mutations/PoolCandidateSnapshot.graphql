@@ -1,5 +1,5 @@
-# Comes from apps/web/src/pages/Profile/ProfilePage/profileOperations.graphql
-# Should match the getMe query from that file to take accurate snapshots
+# Comes from apps/web/src/pages/Profile/ProfilePage/ProfilePage.tsx
+# Should match UserProfile_Fragment in that file to take accurate snapshots
 query getProfile($userId: UUID!) {
   user(id: $userId) {
     id
@@ -61,6 +61,10 @@ query getProfile($userId: UUID!) {
     positionDuration
     userSkills {
       id
+      user {
+        id
+        email
+      }
       skill {
         id
         key
@@ -72,11 +76,78 @@ query getProfile($userId: UUID!) {
       }
     }
     experiences {
-      ...profileExperience
+      # profileExperience fragment
+      id
+      __typename
+      user {
+        id
+        email
+      }
+      details
+      skills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+        keywords {
+          en
+          fr
+        }
+        category
+        experienceSkillRecord {
+          details
+        }
+      }
+      ... on AwardExperience {
+        title
+        issuedBy
+        awardedDate
+        awardedTo
+        awardedScope
+      }
+      ... on CommunityExperience {
+        title
+        organization
+        project
+        startDate
+        endDate
+      }
+      ... on EducationExperience {
+        institution
+        areaOfStudy
+        thesisTitle
+        startDate
+        endDate
+        type
+        status
+      }
+      ... on PersonalExperience {
+        title
+        description
+        startDate
+        endDate
+      }
+      ... on WorkExperience {
+        role
+        organization
+        division
+        startDate
+        endDate
+      }
     }
     isProfileComplete
     poolCandidates {
       id
+      user {
+        id
+        email
+      }
       status
       expiryDate
       signature
@@ -99,24 +170,83 @@ query getProfile($userId: UUID!) {
             en
             fr
           }
+          genericJobTitles {
+            id
+            key
+            name {
+              en
+              fr
+            }
+          }
           minSalary
           maxSalary
         }
       }
       educationRequirementOption
       educationRequirementExperiences {
-        ...profileExperience
-      }
-      generalQuestionResponses {
+        # profileExperience fragment
         id
-        answer
-        generalQuestion {
+        __typename
+        details
+        user {
           id
-          sortOrder
-          question {
+          email
+        }
+        skills {
+          id
+          key
+          name {
             en
             fr
           }
+          description {
+            en
+            fr
+          }
+          keywords {
+            en
+            fr
+          }
+          category
+          experienceSkillRecord {
+            details
+          }
+        }
+        ... on AwardExperience {
+          title
+          issuedBy
+          awardedDate
+          awardedTo
+          awardedScope
+        }
+        ... on CommunityExperience {
+          title
+          organization
+          project
+          startDate
+          endDate
+        }
+        ... on EducationExperience {
+          institution
+          areaOfStudy
+          thesisTitle
+          startDate
+          endDate
+          type
+          status
+        }
+        ... on PersonalExperience {
+          title
+          description
+          startDate
+          endDate
+        }
+        ... on WorkExperience {
+          role
+          organization
+          division
+          startDate
+          endDate
         }
       }
       screeningQuestionResponses {
@@ -131,68 +261,18 @@ query getProfile($userId: UUID!) {
           }
         }
       }
+      generalQuestionResponses {
+        id
+        answer
+        generalQuestion {
+          id
+          sortOrder
+          question {
+            en
+            fr
+          }
+        }
+      }
     }
-  }
-}
-
-fragment profileExperience on Experience {
-  id
-  __typename
-  details
-  skills {
-    id
-    key
-    name {
-      en
-      fr
-    }
-    description {
-      en
-      fr
-    }
-    keywords {
-      en
-      fr
-    }
-    category
-    experienceSkillRecord {
-      details
-    }
-  }
-  ... on AwardExperience {
-    title
-    issuedBy
-    awardedDate
-    awardedTo
-    awardedScope
-  }
-  ... on CommunityExperience {
-    title
-    organization
-    project
-    startDate
-    endDate
-  }
-  ... on EducationExperience {
-    institution
-    areaOfStudy
-    thesisTitle
-    startDate
-    endDate
-    type
-    status
-  }
-  ... on PersonalExperience {
-    title
-    description
-    startDate
-    endDate
-  }
-  ... on WorkExperience {
-    role
-    organization
-    division
-    startDate
-    endDate
   }
 }

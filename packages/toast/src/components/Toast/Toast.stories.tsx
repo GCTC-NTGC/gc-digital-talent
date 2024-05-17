@@ -1,6 +1,5 @@
-import React from "react";
 import type { StoryFn, Meta } from "@storybook/react";
-import { faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker/locale/en";
 
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 
@@ -17,7 +16,6 @@ faker.seed(0);
 
 export default {
   component: Toast,
-  title: "Components/Toast",
   args: {
     text: "Toast text",
     longText: faker.lorem.sentences(3),
@@ -42,4 +40,4 @@ const Template: StoryFn<StoryArgs> = (args) => {
   );
 };
 
-export const BasicToast = Template.bind({});
+export const Default = Template.bind({});

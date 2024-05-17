@@ -1,4 +1,3 @@
-import React from "react";
 import { AnimatePresence, m } from "framer-motion";
 import { useFormContext } from "react-hook-form";
 

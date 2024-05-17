@@ -1,7 +1,7 @@
-import React from "react";
+import { ReactNode } from "react";
 
 interface ActionWrapperProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const ActionWrapper = ({ children }: ActionWrapperProps) => (

@@ -1,8 +1,18 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React from "react";
 import ChevronRightIcon from "@heroicons/react/24/solid/ChevronRightIcon";
+import {
+  HTMLProps,
+  forwardRef,
+  useId,
+  useRef,
+  useState,
+  useEffect,
+  ReactNode,
+  KeyboardEventHandler,
+  FocusEventHandler,
+} from "react";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -13,8 +23,9 @@ import { BoardProvider, useBoardContext } from "./BoardProvider";
 import { findColumns } from "./utils";
 import { BoardColumn } from "./types";
 import { ARROW_KEY, isArrowKey } from "../../utils/keyboard";
+import getFontColor from "../../utils/button/getButtonFontColor";
 
-type RootProps = React.HTMLProps<HTMLDivElement> & {
+type RootProps = HTMLProps<HTMLDivElement> & {
   defaultItem?: number;
   item?: number;
   onItemChange?: (newItem: number) => void;
@@ -23,7 +34,7 @@ type RootProps = React.HTMLProps<HTMLDivElement> & {
   onColumnChange?: (newColumn: number) => void;
 };
 
-const Root = React.forwardRef<HTMLDivElement, RootProps>(
+const Root = forwardRef<HTMLDivElement, RootProps>(
   (
     {
       children,
@@ -37,10 +48,10 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
     },
     forwardedRef,
   ) => {
-    const id = React.useId();
+    const id = useId();
     const rootId = `board-${id}`;
-    const rootRef = React.useRef<HTMLDivElement>(null);
-    const [columns, setColumns] = React.useState<BoardColumn[]>([]);
+    const rootRef = useRef<HTMLDivElement>(null);
+    const [columns, setColumns] = useState<BoardColumn[]>([]);
     const [columnIndex = 0, setColumnIndex] = useControllableState<number>({
       controlledProp: colProp,
       defaultValue: defaultColumn,
@@ -52,7 +63,7 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
       onChange: onItemChange,
     });
 
-    React.useEffect(() => {
+    useEffect(() => {
       setColumns(findColumns(rootRef.current));
     }, []);
 
@@ -146,7 +157,7 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
       selectItem(targetItem, targetColumn);
     };
 
-    const handleKeyDown = (event: React.KeyboardEvent) => {
+    const handleKeyDown: KeyboardEventHandler = (event) => {
       if (isArrowKey(event.key)) {
         switch (event.key) {
           case ARROW_KEY.DOWN:
@@ -175,7 +186,7 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
      * Update the internal state when the user
      * changes the focus manually
      */
-    const handleFocus = (event: React.FocusEvent) => {
+    const handleFocus: FocusEventHandler = (event) => {
       const target = event.target as HTMLElement;
       let targetItem: HTMLElement | null | undefined = target
         .closest<HTMLElement>(".Board__Column")
@@ -251,35 +262,34 @@ const Root = React.forwardRef<HTMLDivElement, RootProps>(
   },
 );
 
-const Column = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLProps<HTMLDivElement>
->(({ children, ...rest }, forwardedRef) => {
-  return (
-    <div
-      ref={forwardedRef}
-      className="Board__Column flex"
-      data-h2-background="base(foreground)"
-      data-h2-flex-direction="base(column)"
-      data-h2-radius="base(s)"
-      data-h2-shadow="base(l)"
-      data-h2-flex-shrink="base(0)"
-      data-h2-min-height="base(x12)"
-      // Quick maths to get the board to appear on any viewport height
-      data-h2-max-height="base(calc(90vh - x2))"
-      data-h2-width="base(100%) p-tablet(x14)"
-      {...rest}
-    >
-      {children}
-    </div>
-  );
-});
+const Column = forwardRef<HTMLDivElement, HTMLProps<HTMLDivElement>>(
+  ({ children, ...rest }, forwardedRef) => {
+    return (
+      <div
+        ref={forwardedRef}
+        className="Board__Column flex"
+        data-h2-background="base(foreground)"
+        data-h2-flex-direction="base(column)"
+        data-h2-radius="base(s)"
+        data-h2-shadow="base(l)"
+        data-h2-flex-shrink="base(0)"
+        data-h2-min-height="base(x12)"
+        // Quick maths to get the board to appear on any viewport height
+        data-h2-max-height="base(calc(90vh - x2))"
+        data-h2-width="base(100%) p-tablet(x14)"
+        {...rest}
+      >
+        {children}
+      </div>
+    );
+  },
+);
 
-type ColumnHeaderProps = React.HTMLProps<HTMLDivElement> & {
+type ColumnHeaderProps = HTMLProps<HTMLDivElement> & {
   prefix?: string;
 };
 
-const ColumnHeader = React.forwardRef<HTMLDivElement, ColumnHeaderProps>(
+const ColumnHeader = forwardRef<HTMLDivElement, ColumnHeaderProps>(
   ({ prefix, children, ...rest }, forwardedRef) => {
     return (
       <div
@@ -310,7 +320,7 @@ const ColumnHeader = React.forwardRef<HTMLDivElement, ColumnHeaderProps>(
 type InfoProps = {
   title: string;
   counter?: number;
-  children: React.ReactNode;
+  children: ReactNode;
   defaultOpen?: boolean;
   open?: boolean;
   onOpenChange?: (newOpen: boolean) => void;
@@ -361,6 +371,7 @@ const Info = ({
             data-h2-height="base(x.75)"
             data-h2-width="base(x.75)"
             data-h2-transition="base(transform 150ms ease)"
+            {...getFontColor({ mode: "inline", color: "black" })}
           />
           <span className="Info__Trigger__Title">{title}</span>
         </span>
@@ -385,60 +396,58 @@ const Info = ({
   );
 };
 
-const List = React.forwardRef<
-  HTMLUListElement,
-  React.HTMLProps<HTMLUListElement>
->(({ children, ...rest }, forwardedRef) => {
-  return (
-    <ul
-      ref={forwardedRef}
-      className="Board__List flex"
-      // Note: Scrollable regions should be tabbable
-      // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-      tabIndex={0}
-      data-h2-outline="base:focus-visible(primary.30 solid x.125)"
-      data-h2-flex-direction="base(column)"
-      data-h2-list-style="base(none)"
-      data-h2-flex-grow="base(1)"
-      data-h2-flex-shrink="base(1)"
-      data-h2-overflow-y="base(scroll)"
-      data-h2-margin="base(0)"
-      data-h2-padding="base(0 x.5)"
-      data-h2-border-bottom="base:selectors[>li:not(:last-child)](thin solid black.lightest)"
-      {...rest}
-    >
-      {children}
-    </ul>
-  );
-});
-
-const ListItem = React.forwardRef<
-  HTMLLIElement,
-  React.HTMLProps<HTMLLIElement>
->(({ children, ...rest }, forwardedRef) => {
-  const ctx = useBoardContext();
-
-  return (
-    <li
-      ref={forwardedRef}
-      className="Board__Item"
-      tabIndex={-1}
-      onClick={ctx?.handleClickItem}
-      data-h2-outline="base(none)"
-      data-h2-padding="base(x.5 0)"
-      data-h2-background-color="base:focus-visible:children[.Board__Item__Wrapper](primary.30)"
-      {...rest}
-    >
-      <div
-        className="Board__Item__Wrapper"
-        data-h2-radius="base(s)"
-        data-h2-padding="base(x.125)"
+const List = forwardRef<HTMLUListElement, HTMLProps<HTMLUListElement>>(
+  ({ children, ...rest }, forwardedRef) => {
+    return (
+      <ul
+        ref={forwardedRef}
+        className="Board__List flex"
+        // Note: Scrollable regions should be tabbable
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+        tabIndex={0}
+        data-h2-outline="base:focus-visible(primary.30 solid x.125)"
+        data-h2-flex-direction="base(column)"
+        data-h2-list-style="base(none)"
+        data-h2-flex-grow="base(1)"
+        data-h2-flex-shrink="base(1)"
+        data-h2-overflow-y="base(scroll)"
+        data-h2-margin="base(0)"
+        data-h2-padding="base(0 x.5)"
+        data-h2-border-bottom="base:selectors[>li:not(:last-child)](thin solid black.lightest)"
+        {...rest}
       >
         {children}
-      </div>
-    </li>
-  );
-});
+      </ul>
+    );
+  },
+);
+
+const ListItem = forwardRef<HTMLLIElement, HTMLProps<HTMLLIElement>>(
+  ({ children, ...rest }, forwardedRef) => {
+    const ctx = useBoardContext();
+
+    return (
+      <li
+        ref={forwardedRef}
+        className="Board__Item"
+        tabIndex={-1}
+        onClick={ctx?.handleClickItem}
+        data-h2-outline="base(none)"
+        data-h2-padding="base(x.5 0)"
+        data-h2-background-color="base:focus-visible:children[.Board__Item__Wrapper](primary.30)"
+        {...rest}
+      >
+        <div
+          className="Board__Item__Wrapper"
+          data-h2-radius="base(s)"
+          data-h2-padding="base(x.125)"
+        >
+          {children}
+        </div>
+      </li>
+    );
+  },
+);
 
 export default {
   Root,

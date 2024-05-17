@@ -1,4 +1,3 @@
-import React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import MagnifyingGlassCircleIcon from "@heroicons/react/24/outline/MagnifyingGlassCircleIcon";
 import MagnifyingGlassIcon from "@heroicons/react/24/outline/MagnifyingGlassIcon";
@@ -38,7 +37,7 @@ const pageSubtitle = defineMessage({
   description: "Subtitle for the manager homepage",
 });
 
-const HomePage = () => {
+export const Component = () => {
   const intl = useIntl();
   const paths = useRoutes();
 
@@ -249,7 +248,7 @@ const HomePage = () => {
           <Link
             color="quinary"
             mode="cta"
-            href={paths.myProfile()}
+            href={paths.profile()}
             icon={UserPlusIcon}
           >
             {intl.formatMessage({
@@ -423,4 +422,6 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+Component.displayName = "ManagerHomePage";
+
+export default Component;

@@ -1,4 +1,3 @@
-import React from "react";
 import { IntlShape } from "react-intl";
 
 import { Link, Chip, Chips } from "@gc-digital-talent/ui";

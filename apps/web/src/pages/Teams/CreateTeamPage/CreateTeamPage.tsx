@@ -1,10 +1,10 @@
-import * as React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 
 import { Pending } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { graphql, CreateTeamInput } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -12,6 +12,7 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import { pageTitle as indexTeamPageTitle } from "~/pages/Teams/IndexTeamPage/IndexTeamPage";
 import AdminHero from "~/components/Hero/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import CreateTeamForm from "./components/CreateTeamForm";
 
@@ -103,5 +104,13 @@ const CreateTeamPage = () => {
     </>
   );
 };
+
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.CommunityManager, ROLE_NAME.PlatformAdmin]}>
+    <CreateTeamPage />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminCreateTeamPage";
 
 export default CreateTeamPage;

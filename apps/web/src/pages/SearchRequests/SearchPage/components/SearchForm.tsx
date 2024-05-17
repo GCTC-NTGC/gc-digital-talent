@@ -1,8 +1,8 @@
-import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "urql";
+import { ReactNode, useState, useEffect } from "react";
 
 import { Button, Heading, Pending, Separator } from "@gc-digital-talent/ui";
 import { unpackMaybes, notEmpty } from "@gc-digital-talent/helpers";
@@ -26,11 +26,11 @@ import SearchFilterAdvice from "./SearchFilterAdvice";
 import NoResults from "./NoResults";
 import SearchResultCard from "./SearchResultCard";
 
-const testId = (chunks: React.ReactNode) => (
+const testId = (chunks: ReactNode) => (
   <span data-testid="candidateCount">{chunks}</span>
 );
 
-const styledCount = (chunks: React.ReactNode) => (
+const styledCount = (chunks: ReactNode) => (
   <span className="font-bold" data-h2-color="base(secondary.dark)">
     {chunks}
   </span>
@@ -53,7 +53,7 @@ export const SearchForm = ({
   const { defaultValues, initialFilters } = useInitialFilters(pools);
 
   const [applicantFilter, setApplicantFilter] =
-    React.useState<ApplicantFilterInput>(initialFilters);
+    useState<ApplicantFilterInput>(initialFilters);
 
   const { fetching, candidateCount, results } =
     useCandidateCount(applicantFilter);
@@ -66,7 +66,7 @@ export const SearchForm = ({
   const { watch, register, setValue } = methods;
   const poolSubmitProps = register("pool");
 
-  React.useEffect(() => {
+  useEffect(() => {
     const subscription = watch((newValues) => {
       const newFilters = formValuesToData(
         newValues as FormValues,
@@ -133,8 +133,8 @@ export const SearchForm = ({
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "If you are looking for talent, you have found the right place. Our talent database is open to most departments and agencies. Complete a request to find qualified candidates. Candidates are assessed for their skills and grouped into pools to meet your staffing needs.",
-                  id: "F+LDbs",
+                    "If you are looking for talent, you have found the right place. Our talent database is open to most departments and agencies. Complete a request to find qualified candidates. All candidates in pools were assessed and successfully qualified.",
+                  id: "Il8ztR",
                   description:
                     "Content displayed in the find talent page explaining the page and what it offers to users.",
                 })}
@@ -142,8 +142,8 @@ export const SearchForm = ({
               <p data-h2-margin-top="base(x.5)">
                 {intl.formatMessage({
                   defaultMessage:
-                    "Use the filters to specify your requirements. We will show you an estimated number of candidates who match your criteria as you enter your information. Select “<strong>Request candidates</strong>” when you are done. Doing so will bring you to a form where you can provide your contact information and submit your request.",
-                  id: "1pCzp1",
+                    "Use the filters to specify your requirements. We will show you an estimated number of qualified candidates who match your criteria as you enter your information. Select “Request candidates” when you are done. Doing so will bring you to a form where you can provide your contact information and submit your request.",
+                  id: "KhOXZ3",
                   description:
                     "Content displayed in the How To area of the hero section of the Search page.",
                 })}

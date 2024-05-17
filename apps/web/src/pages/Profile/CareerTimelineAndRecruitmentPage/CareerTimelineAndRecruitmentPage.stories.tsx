@@ -1,4 +1,3 @@
-import React from "react";
 import { StoryFn, Meta } from "@storybook/react";
 
 import { fakeExperiences } from "@gc-digital-talent/fake-data";
@@ -9,7 +8,7 @@ import CareerTimelineAndRecruitment, {
 } from "./components/CareerTimelineAndRecruitment";
 
 export default {
-  title: "Pages/Career timeline and recruitment",
+  component: CareerTimelineAndRecruitment,
   args: {
     userId: "test",
     experiencesQuery: [],

@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 
@@ -66,7 +66,7 @@ const ScopeOfContractSection = () => {
   const isInstrumentTypeOther =
     selectedInstrumentType === ContractInstrument.Other;
 
-  React.useEffect(() => {
+  useEffect(() => {
     const resetDirtyField = (name: string) => {
       resetField(name, { keepDirty: false, defaultValue: null });
     };

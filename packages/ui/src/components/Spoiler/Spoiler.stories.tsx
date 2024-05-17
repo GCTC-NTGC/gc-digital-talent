@@ -1,6 +1,5 @@
-import React from "react";
 import { StoryFn } from "@storybook/react";
-import { faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker/locale/en";
 
 import Spoiler from "./Spoiler";
 
@@ -8,7 +7,6 @@ faker.seed(0);
 
 export default {
   component: Spoiler,
-  title: "Components/Spoiler",
 };
 
 const Template: StoryFn<typeof Spoiler> = (args) => <Spoiler {...args} />;

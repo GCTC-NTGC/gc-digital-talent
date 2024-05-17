@@ -164,6 +164,11 @@ const commonMessages = defineMessages({
     id: "dJd5/f",
     description: "Title for email",
   },
+  inApp: {
+    defaultMessage: "In-app",
+    id: "l0aGCz",
+    description: "Title for in app notifications",
+  },
   department: {
     defaultMessage: "Department",
     id: "9aW0M6",
@@ -233,6 +238,11 @@ const commonMessages = defineMessages({
     defaultMessage: "Return",
     id: "VV8TA5",
     description: "An action to go back to a previous location",
+  },
+  important: {
+    defaultMessage: "Important",
+    id: "IKGhHj",
+    description: "Important note or caption",
   },
 });
 

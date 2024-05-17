@@ -1,4 +1,3 @@
-import React from "react";
 import {
   ControllerFieldState,
   ControllerRenderProps,
@@ -6,6 +5,7 @@ import {
   UseFormStateReturn,
 } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { ChangeEvent } from "react";
 
 import { dateMessages } from "@gc-digital-talent/i18n";
 
@@ -56,17 +56,17 @@ const ControlledInput = ({
     onChange(newValue);
   };
 
-  const handleYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleYearChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value: newYear } = e.target;
     handleChange(newYear ? newYear.padStart(4, "0") : "", DATE_SEGMENT.Year);
   };
 
-  const handleMonthChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleMonthChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const { value: newMonth } = e.target;
     handleChange(newMonth ? newMonth.padStart(2, "0") : "", DATE_SEGMENT.Month);
   };
 
-  const handleDayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleDayChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value: newDay } = e.target;
     handleChange(newDay ? newDay.padStart(2, "0") : "", DATE_SEGMENT.Day);
   };

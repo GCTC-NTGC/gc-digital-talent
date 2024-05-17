@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
@@ -107,7 +107,7 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (action === "add-another" && isSubmitSuccessful) {
       // Help users out by focusing the first input after scrolling
       setFocus("experienceType");
@@ -160,6 +160,7 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
             type="submit"
             mode="solid"
             value="return"
+            color="secondary"
             disabled={executing || isSubmitting}
             {...actionProps}
             onClick={() => setValue("action", "return")}
@@ -173,6 +174,7 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
           <Button
             type="submit"
             mode="inline"
+            color="secondary"
             disabled={executing || isSubmitting}
             {...actionProps}
             onClick={() => setValue("action", "add-another")}
@@ -186,6 +188,7 @@ const AddExperienceForm = ({ applicationId }: AddExperienceFormProps) => {
           </Button>
           <Link
             mode="inline"
+            color="warning"
             href={paths.applicationCareerTimeline(applicationId)}
           >
             {intl.formatMessage(formMessages.cancelGoBack)}

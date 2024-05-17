@@ -1,11 +1,17 @@
-import React from "react";
+import { useState, useMemo } from "react";
 import { useIntl } from "react-intl";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import sortBy from "lodash/sortBy";
 
 import { TableOfContents, CardRepeater, Well } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { GeneralQuestion, Pool, PoolStatus } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  GeneralQuestion,
+  PoolStatus,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 import { EditPoolSectionMetadata } from "~/types/pool";
 
@@ -20,8 +26,20 @@ import GeneralQuestionDialog from "./GeneralQuestionDialog";
 
 const MAX_GENERAL_QUESTIONS = 10;
 
+const EditPoolGeneralQuestions_Fragment = graphql(/* GraphQL */ `
+  fragment EditPoolGeneralQuestions on Pool {
+    id
+    status
+    generalQuestions {
+      id
+      sortOrder
+      ...GeneralQuestionCard
+    }
+  }
+`);
+
 interface GeneralQuestionsProps {
-  pool: Pool;
+  poolQuery: FragmentType<typeof EditPoolGeneralQuestions_Fragment>;
   sectionMetadata: EditPoolSectionMetadata;
   onSave: GeneralQuestionsSubmit;
 }
@@ -29,13 +47,14 @@ interface GeneralQuestionsProps {
 export type { GeneralQuestionsSubmitData };
 
 const GeneralQuestionsSection = ({
-  pool,
+  poolQuery,
   sectionMetadata,
   onSave,
 }: GeneralQuestionsProps) => {
   const intl = useIntl();
-  const [isUpdating, setIsUpdating] = React.useState<boolean>(false);
-  const questions = React.useMemo(
+  const [isUpdating, setIsUpdating] = useState<boolean>(false);
+  const pool = getFragment(EditPoolGeneralQuestions_Fragment, poolQuery);
+  const questions = useMemo(
     () =>
       sortBy(
         unpackMaybes(pool.generalQuestions),
@@ -86,7 +105,7 @@ const GeneralQuestionsSection = ({
             <GeneralQuestionCard
               key={generalQuestion.id}
               index={index}
-              generalQuestion={generalQuestion}
+              generalQuestionQuery={generalQuestion}
               disabled={formDisabled}
             />
           ))}

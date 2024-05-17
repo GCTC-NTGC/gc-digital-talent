@@ -1,5 +1,3 @@
-import React from "react";
-
 import type { Quote as QuoteProps } from "~/hooks/useQuote";
 
 import { CloseQuote, OpenQuote } from "./Svg";

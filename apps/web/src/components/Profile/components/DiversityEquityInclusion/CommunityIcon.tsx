@@ -1,5 +1,3 @@
-import React from "react";
-
 import { IndigenousCommunity } from "@gc-digital-talent/graphql";
 
 import firstNationsIcon from "~/assets/img/first-nations-true.webp";

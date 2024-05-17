@@ -1,13 +1,13 @@
-import React from "react";
 import { useIntl } from "react-intl";
+import { ReactNode } from "react";
 
 import { Heading, Well } from "@gc-digital-talent/ui";
 
 export interface NullMessageProps {
   /** Heading for the message */
-  title?: React.ReactNode;
+  title?: ReactNode;
   /** Main body of the message */
-  description?: React.ReactNode;
+  description?: ReactNode;
 }
 
 /**

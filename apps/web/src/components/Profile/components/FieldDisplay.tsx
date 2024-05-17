@@ -1,12 +1,12 @@
-import React from "react";
 import { useIntl } from "react-intl";
+import { ReactNode } from "react";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { cn } from "@gc-digital-talent/ui";
 
 interface FieldDisplayProps {
-  label: React.ReactNode;
-  children?: React.ReactNode;
+  label: ReactNode;
+  children?: ReactNode;
   hasError?: boolean | null;
   context?: "admin" | "default" | "print";
 }

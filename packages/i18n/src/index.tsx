@@ -82,9 +82,9 @@ import {
   getTableAssessmentDecision,
   getSearchRequestReason,
   getPoolOpportunityLength,
+  getPlacementType,
+  getCandidateRemovalReason,
 } from "./messages/localizedConstants";
-import getOrThrowError from "./utils/error";
-import { STORED_LOCALE } from "./const";
 import type { LocalizedArray } from "./utils/localize";
 import type { Locales, Messages } from "./types";
 
@@ -100,7 +100,6 @@ export {
   getLocalizedName,
   localizeCurrency,
   localizeSalaryRange,
-  STORED_LOCALE,
   apiMessages,
   commonMessages,
   errorMessages,
@@ -115,7 +114,6 @@ export {
   NestedLanguageProvider,
   useIntlLanguages,
   useLocale,
-  getOrThrowError,
 };
 
 export {
@@ -169,9 +167,11 @@ export {
   getAssessmentDecision,
   getSearchRequestReason,
   getPoolOpportunityLength,
+  getPlacementType,
   getAssessmentDecisionLevel,
   getAssessmentJustification,
   getTableAssessmentDecision,
+  getCandidateRemovalReason,
 };
 
 export type { Locales, Messages, LocalizedArray };

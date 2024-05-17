@@ -1,6 +1,6 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
+import { useId, useState, ReactNode } from "react";
 
 import {
   TableOfContents,
@@ -73,8 +73,8 @@ const UpdateSkillShowcase = ({
   disabled,
 }: UpdateSkillShowcaseProps) => {
   const intl = useIntl();
-  const addId = React.useId();
-  const [isBusy, setIsBusy] = React.useState<boolean>(false);
+  const addId = useId();
+  const [isBusy, setIsBusy] = useState<boolean>(false);
 
   const [, executeCreateMutation] = useMutation(CreateUserSkill_Mutation);
   const [, executeUpdateMutation] = useMutation(UpdateUserSkill_Mutation);
@@ -84,7 +84,7 @@ const UpdateSkillShowcase = ({
   );
   const existingSkillsRankingFiltered = unpackMaybes(existingSkillsRanking);
 
-  const handleSuccess = (msg?: React.ReactNode) => {
+  const handleSuccess = (msg?: ReactNode) => {
     toast.success(
       msg ||
         intl.formatMessage({

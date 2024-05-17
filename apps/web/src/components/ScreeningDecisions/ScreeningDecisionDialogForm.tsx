@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import CheckIcon from "@heroicons/react/24/outline/CheckIcon";
@@ -21,13 +21,33 @@ import { FormValues, educationJustificationContext } from "./utils";
 const TEXT_AREA_ROWS = 3;
 const TEXT_AREA_MAX_WORDS = 200;
 
+interface ContextBlockProps {
+  messages: string[];
+  key: string;
+}
+
+const ContextBlock = ({ messages, key }: ContextBlockProps) => (
+  <div data-h2-margin="base(x.5)">
+    {messages.map((message, index) => (
+      <span
+        key={`${key}-${index + 1}`}
+        data-h2-margin-bottom="base(x.5)"
+        data-h2-display="base(flex)"
+        data-h2-justify-content="base(flex-start)"
+        data-h2-gap="base(x.5)"
+      >
+        <CheckIcon data-h2-height="base(x1)" data-h2-width="base(x1)" />
+        <p>{message}</p>
+      </span>
+    ))}
+  </div>
+);
+
 type FormNames =
   | "assessmentDecision"
   | "justifications"
   | "assessmentDecisionLevel"
-  | "otherJustificationNotes"
   | "skillDecisionNotes"
-  | "assessmentNotes"
   | `justifications.${number}`;
 
 interface ScreeningDecisionDialogFormProps {
@@ -71,7 +91,7 @@ const ScreeningDecisionDialogForm = ({
   /**
    * Reset un-rendered fields
    */
-  React.useEffect(() => {
+  useEffect(() => {
     const resetDirtyField = (name: FormNames) => {
       resetField(name, { keepDirty: false, defaultValue: null });
     };
@@ -81,24 +101,18 @@ const ScreeningDecisionDialogForm = ({
       resetDirtyField("justifications");
       resetDirtyField("assessmentDecisionLevel");
       resetDirtyField("skillDecisionNotes");
-      if (!otherReasonSelected) {
-        resetDirtyField("otherJustificationNotes");
-      }
     }
 
     if (isAssessmentDecisionSuccessful) {
       if (!educationRequirementSelected) {
         resetDirtyField("justifications");
       }
-      resetDirtyField("otherJustificationNotes");
     }
 
     if (isAssessmentDecisionUnSuccessful) {
       resetDirtyField("assessmentDecisionLevel");
       resetDirtyField("skillDecisionNotes");
-      if (!otherReasonSelected) {
-        resetDirtyField("otherJustificationNotes");
-      }
+      resetDirtyField("justifications");
     }
 
     if (isAssessmentOnHold) {
@@ -111,7 +125,6 @@ const ScreeningDecisionDialogForm = ({
     isAssessmentDecisionSuccessful,
     isAssessmentDecisionUnSuccessful,
     isAssessmentDecisionNotSure,
-    otherReasonSelected,
     isAssessmentOnHold,
     educationRequirementSelected,
     setValue,
@@ -184,12 +197,12 @@ const ScreeningDecisionDialogForm = ({
                   required: intl.formatMessage(errorMessages.required),
                 }}
                 context={
-                  educationContext
-                    ? contextBlock(
-                        educationContext.messages,
-                        educationContext.key,
-                      )
-                    : null
+                  educationContext ? (
+                    <ContextBlock
+                      messages={educationContext.messages}
+                      key={educationContext.key}
+                    />
+                  ) : null
                 }
               />
             </div>
@@ -245,16 +258,19 @@ const ScreeningDecisionDialogForm = ({
           </p>
         </Well>
       )}
-      {otherReasonSelected &&
-      (isAssessmentDecisionUnSuccessful || isAssessmentOnHold) ? (
+      {isAssessmentOnHold || isAssessmentDecisionUnSuccessful ? (
         <div className="my-6">
           <TextArea
-            id="otherJustificationNotes"
-            name="otherJustificationNotes"
+            id="skillDecisionNotes"
+            name="skillDecisionNotes"
             rows={TEXT_AREA_ROWS}
             wordLimit={TEXT_AREA_MAX_WORDS}
-            label={labels.other}
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
+            label={labels.decisionNotes}
+            rules={
+              otherReasonSelected
+                ? { required: intl.formatMessage(errorMessages.required) }
+                : {}
+            }
           />
         </div>
       ) : null}

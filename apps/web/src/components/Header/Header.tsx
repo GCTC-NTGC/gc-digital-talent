@@ -1,5 +1,4 @@
 /* eslint-disable react/forbid-elements */
-import React from "react";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
 
@@ -18,6 +17,7 @@ interface HeaderProps {
 
 const Header = ({ width }: HeaderProps) => {
   const intl = useIntl();
+  // eslint-disable-next-line no-restricted-syntax
   const { locale } = useLocale();
 
   const location = useLocation();

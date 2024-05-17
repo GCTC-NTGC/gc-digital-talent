@@ -1,16 +1,24 @@
-import React from "react";
+import { useState } from "react";
 import type { StoryFn, Meta } from "@storybook/react";
 import CheckIcon from "@heroicons/react/24/solid/CheckIcon";
 
-import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
+import {
+  OverlayOrDialogDecorator,
+  allModes,
+} from "@gc-digital-talent/storybook-helpers";
 
 import Button from "../Button";
 import DropdownMenu from "./DropdownMenu";
 
 export default {
   component: DropdownMenu.Root,
-  title: "Components/Dropdown Menu",
   decorators: [OverlayOrDialogDecorator],
+  chromatic: {
+    modes: {
+      light: allModes.light,
+      dark: allModes.dark,
+    },
+  },
 } as Meta;
 
 const Check = () => (
@@ -20,8 +28,8 @@ const Check = () => (
 );
 
 const Template: StoryFn<typeof DropdownMenu.Root> = () => {
-  const [isOpen, setIsOpen] = React.useState<boolean>(true);
-  const [value, setValue] = React.useState<string>("");
+  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [value, setValue] = useState<string>("");
   return (
     <DropdownMenu.Root open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenu.Trigger>

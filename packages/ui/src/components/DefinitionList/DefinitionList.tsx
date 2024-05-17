@@ -1,4 +1,9 @@
-import React from "react";
+import {
+  DetailedHTMLProps,
+  HTMLAttributes,
+  ReactNode,
+  ReactElement,
+} from "react";
 
 import { IconType } from "../../types";
 
@@ -25,15 +30,15 @@ const colorMap: Record<Color, Record<string, string>> = {
   },
 };
 
-type GenericHTMLProps = React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLElement>,
+type GenericHTMLProps = DetailedHTMLProps<
+  HTMLAttributes<HTMLElement>,
   HTMLElement
 >;
 
 interface ItemProps {
-  title: React.ReactNode;
+  title: ReactNode;
   Icon?: IconType;
-  children: React.ReactNode;
+  children: ReactNode;
   color?: Color;
   titleProps?: GenericHTMLProps;
   definitionProps?: GenericHTMLProps;
@@ -78,11 +83,11 @@ const Item = ({
   );
 };
 
-type ListItemElement = React.ReactElement<ItemProps>;
+type ListItemElement = ReactElement<ItemProps>;
 
 interface RootProps
-  extends React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLDListElement>,
+  extends DetailedHTMLProps<
+    HTMLAttributes<HTMLDListElement>,
     HTMLDListElement
   > {
   children: ListItemElement | Array<ListItemElement>;

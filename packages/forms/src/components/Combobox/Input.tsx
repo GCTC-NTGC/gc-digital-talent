@@ -1,8 +1,8 @@
-import React from "react";
 import { motion } from "framer-motion";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import ChevronDownIcon from "@heroicons/react/24/outline/ChevronDownIcon";
 import MagnifyingGlassIcon from "@heroicons/react/24/outline/MagnifyingGlassIcon";
+import { DetailedHTMLProps, HTMLAttributes, forwardRef } from "react";
 
 import { Separator as SeparatorPrimitive } from "@gc-digital-talent/ui";
 
@@ -33,11 +33,11 @@ const buttonStyles = {
 };
 
 type DivHTMLProps = Omit<
-  React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+  DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
   "ref"
 >;
 
-const Wrapper = React.forwardRef<HTMLDivElement, DivHTMLProps>(
+const Wrapper = forwardRef<HTMLDivElement, DivHTMLProps>(
   (props, forwardedRef) => (
     <div
       ref={forwardedRef}
@@ -51,7 +51,7 @@ const Wrapper = React.forwardRef<HTMLDivElement, DivHTMLProps>(
   ),
 );
 
-const Actions = React.forwardRef<HTMLDivElement, DivHTMLProps>(
+const Actions = forwardRef<HTMLDivElement, DivHTMLProps>(
   (props, forwardedRef) => (
     <div
       ref={forwardedRef}
@@ -64,7 +64,7 @@ const Actions = React.forwardRef<HTMLDivElement, DivHTMLProps>(
   ),
 );
 
-const Search = React.forwardRef<HTMLDivElement, HTMLSpanProps>(
+const Search = forwardRef<HTMLDivElement, HTMLSpanProps>(
   (props, forwardedRef) => (
     <span
       ref={forwardedRef}
@@ -81,14 +81,11 @@ const Search = React.forwardRef<HTMLDivElement, HTMLSpanProps>(
 );
 
 type HTMLButtonProps = Omit<
-  React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLButtonElement>,
-    HTMLButtonElement
-  >,
+  DetailedHTMLProps<HTMLAttributes<HTMLButtonElement>, HTMLButtonElement>,
   "ref"
 >;
 
-const Clear = React.forwardRef<HTMLButtonElement, HTMLButtonProps>(
+const Clear = forwardRef<HTMLButtonElement, HTMLButtonProps>(
   (props, forwardedRef) => (
     <button
       type="button"
@@ -124,7 +121,7 @@ const iconVariants = {
 
 const AnimatedToggleIcon = motion(ChevronDownIcon);
 
-const Toggle = React.forwardRef<HTMLButtonElement, ToggleProps>(
+const Toggle = forwardRef<HTMLButtonElement, ToggleProps>(
   ({ isOpen, ...rest }, forwardedRef) => (
     <button
       type="button"

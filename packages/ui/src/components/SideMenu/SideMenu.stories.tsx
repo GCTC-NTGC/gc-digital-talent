@@ -1,14 +1,15 @@
-import React from "react";
+import { useState } from "react";
 import { StoryFn, Meta } from "@storybook/react";
 import HomeIcon from "@heroicons/react/24/outline/HomeIcon";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import SquaresPlusIcon from "@heroicons/react/24/outline/SquaresPlusIcon";
 import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
-import ArrowLeftOnRectangleIcon from "@heroicons/react/24/solid/ArrowLeftOnRectangleIcon";
+import ArrowLeftEndOnRectangleIcon from "@heroicons/react/24/solid/ArrowLeftEndOnRectangleIcon";
 import { useIntl } from "react-intl";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
+import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Button from "../Button";
 import SideMenuComponent from "./SideMenu";
@@ -21,7 +22,6 @@ import SideMenuCategory from "./SideMenuCategory";
 
 export default {
   component: SideMenuComponent,
-  title: "Components/Side Menu",
   args: {
     isOpen: true,
   },
@@ -33,13 +33,19 @@ export default {
   },
   parameters: {
     layout: "fullscreen",
+    chromatic: {
+      modes: {
+        light: allModes.light,
+        dark: allModes.dark,
+      },
+    },
   },
 } as Meta;
 
 const TemplateSideMenu: StoryFn = (args) => {
   const intl = useIntl();
   const { isOpen: defaultOpen } = args;
-  const [isOpen, setOpen] = React.useState<boolean>(defaultOpen);
+  const [isOpen, setOpen] = useState<boolean>(defaultOpen);
 
   const handleToggle = () => {
     setOpen(!isOpen);
@@ -52,7 +58,7 @@ const TemplateSideMenu: StoryFn = (args) => {
         open={isOpen}
         onOpenChange={setOpen}
         footer={
-          <SideMenuButton icon={ArrowLeftOnRectangleIcon}>
+          <SideMenuButton icon={ArrowLeftEndOnRectangleIcon}>
             Sign out
           </SideMenuButton>
         }

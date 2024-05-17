@@ -1,9 +1,9 @@
-import React from "react";
+import { HTMLProps, ReactNode, forwardRef } from "react";
 
-interface LogoutButtonProps extends React.HTMLProps<HTMLButtonElement> {
-  children: React.ReactNode;
+interface LogoutButtonProps extends HTMLProps<HTMLButtonElement> {
+  children: ReactNode;
 }
-const LogoutButton = React.forwardRef<HTMLButtonElement, LogoutButtonProps>(
+const LogoutButton = forwardRef<HTMLButtonElement, LogoutButtonProps>(
   ({ children, ...rest }, forwardedRef) => (
     <button
       className="bg-none p-0 underline"

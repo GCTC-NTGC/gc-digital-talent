@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import type { Meta, StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
@@ -12,11 +12,10 @@ const mockApplication = mockApplications[0];
 
 export default {
   component: ApplicationStatusForm,
-  title: "Forms/Application Status Form",
 } as Meta;
 
 const Template: StoryFn<typeof ApplicationStatusForm> = (args) => {
-  const [isSubmitting, setSubmitting] = React.useState<boolean>(false);
+  const [isSubmitting, setSubmitting] = useState<boolean>(false);
   const { application } = args;
 
   const handleSubmit = (values: UpdatePoolCandidateStatusInput) => {

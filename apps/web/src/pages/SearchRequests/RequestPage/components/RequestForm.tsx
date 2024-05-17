@@ -1,8 +1,8 @@
-import * as React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
+import { ReactNode } from "react";
 
 import {
   Checkbox,
@@ -50,7 +50,7 @@ import {
   FormValues as SearchFormValues,
 } from "~/types/searchRequest";
 
-const directiveLink = (chunks: React.ReactNode, href: string) => (
+const directiveLink = (chunks: ReactNode, href: string) => (
   <Link href={href} newTab>
     {chunks}
   </Link>
@@ -105,13 +105,32 @@ export const RequestFormDepartment_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+const PoolsInFilter_Query = graphql(/* GraphQL */ `
+  query PoolsInFilter($includeIds: [UUID!]) {
+    poolsPaginated(includeIds: $includeIds, first: 1000) {
+      data {
+        id
+        name {
+          en
+          fr
+        }
+        classification {
+          id
+          group
+          level
+        }
+        stream
+      }
+    }
+  }
+`);
+
 export interface RequestFormProps {
   departmentsQuery: FragmentType<typeof RequestFormDepartment_Fragment>[];
   skills: Skill[];
   classificationsQuery: FragmentType<
     typeof RequestFormClassification_Fragment
   >[];
-  pools: Pool[];
   applicantFilter: Maybe<ApplicantFilterInput>;
   candidateCount: Maybe<number>;
   searchFormInitialValues?: SearchFormValues;
@@ -125,7 +144,6 @@ export const RequestForm = ({
   departmentsQuery,
   skills,
   classificationsQuery,
-  pools,
   applicantFilter,
   candidateCount,
   selectedClassifications,
@@ -137,6 +155,12 @@ export const RequestForm = ({
   const cacheKey = "ts-createRequest";
   const location = useLocation();
   const state = location.state as BrowserHistoryState;
+  const [{ data: poolsData }] = useQuery({
+    query: PoolsInFilter_Query,
+    variables: {
+      includeIds: unpackMaybes(applicantFilter?.pools).map(({ id }) => id),
+    },
+  });
   const classifications = getFragment(
     RequestFormClassification_Fragment,
     classificationsQuery,
@@ -279,13 +303,7 @@ export const RequestForm = ({
           });
         })
         .filter(notEmpty) ?? [],
-    pools: applicantFilter?.pools
-      ?.map((poolId) => {
-        return pools.find((pool) => {
-          return pool && poolId && pool.id === poolId.id;
-        });
-      })
-      .filter(notEmpty),
+    pools: unpackMaybes(poolsData?.poolsPaginated.data),
   };
 
   return (
@@ -440,7 +458,7 @@ export const RequestForm = ({
                 description: "Link to more information on the directive.",
               },
               {
-                directiveLink: (chunks: React.ReactNode) =>
+                directiveLink: (chunks: ReactNode) =>
                   directiveLink(chunks, paths.directive()),
               },
             )}
@@ -568,8 +586,6 @@ export const RequestForm = ({
             data-h2-align-items="base(center)"
           >
             <Submit
-              color="primary"
-              mode="solid"
               text={intl.formatMessage({
                 defaultMessage: "Submit Request",
                 id: "eTTlR0",
@@ -578,7 +594,7 @@ export const RequestForm = ({
             />
             <Link
               mode="inline"
-              data-h2-margin="base(0, x.5, 0, 0)"
+              color="warning"
               href={paths.search()}
               state={{
                 ...state,
@@ -638,19 +654,6 @@ const RequestForm_SearchRequestDataQuery = graphql(/* GraphQL */ `
     classifications {
       ...RequestFormClassification
     }
-    pools {
-      id
-      name {
-        en
-        fr
-      }
-      classification {
-        id
-        group
-        level
-      }
-      stream
-    }
   }
 `);
 
@@ -671,7 +674,6 @@ const RequestFormApi = ({
   });
 
   const skills: Skill[] = lookupData?.skills.filter(notEmpty) ?? [];
-  const pools: Pool[] = lookupData?.pools.filter(notEmpty) ?? [];
 
   const [, executeMutation] = useMutation(RequestForm_CreateRequestMutation);
   const handleCreatePoolCandidateSearchRequest = (
@@ -698,7 +700,6 @@ const RequestFormApi = ({
           classificationsQuery={unpackMaybes(lookupData?.classifications)}
           departmentsQuery={unpackMaybes(lookupData?.departments)}
           skills={skills}
-          pools={pools}
           applicantFilter={applicantFilter}
           candidateCount={candidateCount}
           searchFormInitialValues={searchFormInitialValues}

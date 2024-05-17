@@ -1,4 +1,3 @@
-import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { FormProvider, useForm } from "react-hook-form";
 
@@ -7,7 +6,6 @@ import { fakePools } from "@gc-digital-talent/fake-data";
 import SearchResultCard from "./SearchResultCard";
 
 const meta: Meta<typeof SearchResultCard> = {
-  title: "Components/Search Result Card",
   component: SearchResultCard,
 };
 

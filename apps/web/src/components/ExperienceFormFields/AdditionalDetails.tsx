@@ -1,4 +1,3 @@
-import React from "react";
 import { useWatch } from "react-hook-form";
 import { useIntl } from "react-intl";
 
@@ -45,8 +44,8 @@ const AdditionalDetails = ({ experienceType }: AdditionalDetailsProps) => {
             <p className="mb-6">
               {intl.formatMessage({
                 defaultMessage:
-                  "Optionally describe <strong>key tasks</strong>, <strong>responsibilities</strong>, or <strong>other information</strong> you feel were crucial in making this experience important.",
-                id: "KteuZ5",
+                  "Describe <strong>key tasks</strong>, <strong>responsibilities</strong>, or <strong>other information</strong> you feel were crucial in making this experience important.",
+                id: "KKLx+Z",
                 description:
                   "Help text for the experience additional details field",
               })}

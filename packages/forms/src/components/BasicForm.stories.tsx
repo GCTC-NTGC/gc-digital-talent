@@ -1,7 +1,7 @@
-import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { useFieldArray, useFormContext } from "react-hook-form";
+import { ReactNode } from "react";
 
 import BasicForm from "./BasicForm";
 import Repeater from "./Repeater/Repeater";
@@ -20,14 +20,13 @@ const labels = {
 
 export default {
   component: BasicForm,
-  title: "Form/Basic Form",
   args: {
     onSubmit: async (values) => action("onSubmit")(values),
     labels,
   },
 } as Meta<typeof BasicForm>;
 
-const FieldWrapper = ({ children }: { children: React.ReactNode }) => (
+const FieldWrapper = ({ children }: { children: ReactNode }) => (
   <div
     className="flex"
     data-h2-flex-direction="base(column)"

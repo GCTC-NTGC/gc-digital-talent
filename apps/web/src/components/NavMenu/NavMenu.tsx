@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement, ReactNode } from "react";
 import { useIntl } from "react-intl";
 
 import { useAuthentication } from "@gc-digital-talent/auth";
@@ -11,7 +11,7 @@ interface NavMenuProps {
   utilityItems?: ReactElement[];
 }
 
-const ListItem = ({ children }: { children?: React.ReactNode }) => (
+const ListItem = ({ children }: { children?: ReactNode }) => (
   <li data-h2-flex-item="base(content)">
     <span className="block" data-h2-margin="base(0, 0, x.5, 0) p-tablet(0)">
       {children}

@@ -1,6 +1,6 @@
-import React from "react";
 import ArrowTopRightOnSquareIcon from "@heroicons/react/20/solid/ArrowTopRightOnSquareIcon";
 import { useIntl } from "react-intl";
+import { DetailedHTMLProps, HTMLAttributes } from "react";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
@@ -8,10 +8,7 @@ import { ButtonLinkMode, IconType } from "../../types";
 import Counter from "../Button/Counter";
 
 interface IconTextProps
-  extends React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLSpanElement>,
-    HTMLSpanElement
-  > {
+  extends DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> {
   mode: ButtonLinkMode;
   fontSize?:
     | "display"

@@ -1,4 +1,4 @@
-import React from "react";
+import { ReactNode } from "react";
 
 import { Heading } from "@gc-digital-talent/ui";
 import { Experience } from "@gc-digital-talent/graphql";
@@ -6,7 +6,7 @@ import { Experience } from "@gc-digital-talent/graphql";
 import ExperienceItem from "./ExperienceItem";
 
 interface ExperienceTypeProps {
-  title: React.ReactNode;
+  title: ReactNode;
   experiences: Experience[];
 }
 

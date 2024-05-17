@@ -1,6 +1,6 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import uniqueId from "lodash/uniqueId";
+import { ReactNode } from "react";
 
 import {
   Flourish,
@@ -26,14 +26,14 @@ export type SectionKey =
 
 type Section = {
   id: string;
-  title: React.ReactNode;
+  title: ReactNode;
 };
 
-const privacyPolicyLink = (path: string, chunks: React.ReactNode) => (
+const privacyPolicyLink = (path: string, chunks: ReactNode) => (
   <Link href={path}>{chunks}</Link>
 );
 
-const langActLink = (locale: Locales, chunks: React.ReactNode) => (
+const langActLink = (locale: Locales, chunks: ReactNode) => (
   <Link
     newTab
     external
@@ -47,7 +47,7 @@ const langActLink = (locale: Locales, chunks: React.ReactNode) => (
   </Link>
 );
 
-const langRegulationsLink = (locale: Locales, chunks: React.ReactNode) => (
+const langRegulationsLink = (locale: Locales, chunks: ReactNode) => (
   <Link
     newTab
     external
@@ -61,7 +61,7 @@ const langRegulationsLink = (locale: Locales, chunks: React.ReactNode) => (
   </Link>
 );
 
-const privacyActLink = (locale: Locales, chunks: React.ReactNode) => (
+const privacyActLink = (locale: Locales, chunks: ReactNode) => (
   <Link
     newTab
     external
@@ -75,7 +75,7 @@ const privacyActLink = (locale: Locales, chunks: React.ReactNode) => (
   </Link>
 );
 
-const questionsLink = (locale: Locales, chunks: React.ReactNode) => (
+const questionsLink = (locale: Locales, chunks: ReactNode) => (
   <Link
     newTab
     external
@@ -89,7 +89,7 @@ const questionsLink = (locale: Locales, chunks: React.ReactNode) => (
   </Link>
 );
 
-const copyrightLink = (locale: Locales, chunks: React.ReactNode) => (
+const copyrightLink = (locale: Locales, chunks: ReactNode) => (
   <Link
     newTab
     external
@@ -103,7 +103,7 @@ const copyrightLink = (locale: Locales, chunks: React.ReactNode) => (
   </Link>
 );
 
-const trademarkLink = (locale: Locales, chunks: React.ReactNode) => (
+const trademarkLink = (locale: Locales, chunks: ReactNode) => (
   <Link
     newTab
     external
@@ -117,7 +117,7 @@ const trademarkLink = (locale: Locales, chunks: React.ReactNode) => (
   </Link>
 );
 
-const accessibilityLink = (locale: Locales, chunks: React.ReactNode) => (
+const accessibilityLink = (locale: Locales, chunks: ReactNode) => (
   <Link
     newTab
     external
@@ -131,7 +131,7 @@ const accessibilityLink = (locale: Locales, chunks: React.ReactNode) => (
   </Link>
 );
 
-const optimizeLink = (locale: Locales, chunks: React.ReactNode) => (
+const optimizeLink = (locale: Locales, chunks: ReactNode) => (
   <Link
     newTab
     external
@@ -145,7 +145,7 @@ const optimizeLink = (locale: Locales, chunks: React.ReactNode) => (
   </Link>
 );
 
-const TermsAndConditions = () => {
+export const Component = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
@@ -185,8 +185,8 @@ const TermsAndConditions = () => {
       id: "linking-to-gov",
       title: intl.formatMessage({
         defaultMessage: "Linking to non-Government of Canada websites",
-        id: "9zhqQf",
-        description: "Title for the linkink to gov section",
+        id: "pwsDVe",
+        description: "Title for the linking to gov section",
       }),
     },
     ownershipAndUsage: {
@@ -333,7 +333,7 @@ const TermsAndConditions = () => {
                     description: "Paragraph describing using files section",
                   },
                   {
-                    privacyPolicyLink: (chunks: React.ReactNode) =>
+                    privacyPolicyLink: (chunks: ReactNode) =>
                       privacyPolicyLink(paths.privacyPolicy(), chunks),
                   },
                 )}
@@ -356,9 +356,9 @@ const TermsAndConditions = () => {
                       "Paragraph describing providing content section",
                   },
                   {
-                    langActLink: (chunks: React.ReactNode) =>
+                    langActLink: (chunks: ReactNode) =>
                       langActLink(locale, chunks),
-                    langRegulationsLink: (chunks: React.ReactNode) =>
+                    langRegulationsLink: (chunks: ReactNode) =>
                       langRegulationsLink(locale, chunks),
                   },
                 )}
@@ -389,9 +389,9 @@ const TermsAndConditions = () => {
                       "Paragraph two describing linking to gov section",
                   },
                   {
-                    privacyActLink: (chunks: React.ReactNode) =>
+                    privacyActLink: (chunks: ReactNode) =>
                       privacyActLink(locale, chunks),
-                    langActLink: (chunks: React.ReactNode) =>
+                    langActLink: (chunks: ReactNode) =>
                       langActLink(locale, chunks),
                   },
                 )}
@@ -501,7 +501,7 @@ const TermsAndConditions = () => {
                           description: "Commercial reproduction list item",
                         },
                         {
-                          questionsLink: (chunks: React.ReactNode) =>
+                          questionsLink: (chunks: ReactNode) =>
                             questionsLink(locale, chunks),
                         },
                       )}
@@ -517,7 +517,7 @@ const TermsAndConditions = () => {
                           "Commercial reproduction list description in ownership and usage section",
                       },
                       {
-                        copyrightLink: (chunks: React.ReactNode) =>
+                        copyrightLink: (chunks: ReactNode) =>
                           copyrightLink(locale, chunks),
                       },
                     )}
@@ -542,7 +542,7 @@ const TermsAndConditions = () => {
                       "Paragraph describing trademark notice section",
                   },
                   {
-                    trademarkLink: (chunks: React.ReactNode) =>
+                    trademarkLink: (chunks: ReactNode) =>
                       trademarkLink(locale, chunks),
                   },
                 )}
@@ -565,9 +565,9 @@ const TermsAndConditions = () => {
                       "Paragraph describing accessibility commitment section",
                   },
                   {
-                    accessibilityLink: (chunks: React.ReactNode) =>
+                    accessibilityLink: (chunks: ReactNode) =>
                       accessibilityLink(locale, chunks),
-                    optimizeLink: (chunks: React.ReactNode) =>
+                    optimizeLink: (chunks: ReactNode) =>
                       optimizeLink(locale, chunks),
                   },
                 )}
@@ -786,7 +786,7 @@ const TermsAndConditions = () => {
                           "Paragraph for comments and interaction section",
                       },
                       {
-                        copyrightLink: (chunks: React.ReactNode) =>
+                        copyrightLink: (chunks: ReactNode) =>
                           copyrightLink(locale, chunks),
                       },
                     )}
@@ -840,7 +840,7 @@ const TermsAndConditions = () => {
                           "Paragraph for comments and interaction section",
                       },
                       {
-                        langActLink: (chunks: React.ReactNode) =>
+                        langActLink: (chunks: ReactNode) =>
                           langActLink(locale, chunks),
                       },
                     )}
@@ -856,4 +856,6 @@ const TermsAndConditions = () => {
   );
 };
 
-export default TermsAndConditions;
+Component.displayName = "TermsAndConditionsPage";
+
+export default Component;

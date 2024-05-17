@@ -1,11 +1,11 @@
-import React from "react";
+import { ReactNode } from "react";
 
 import Heading from "./Heading";
 
 interface StepProps {
   position: string;
   title: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 const Step = ({ position, title, children }: StepProps) => (

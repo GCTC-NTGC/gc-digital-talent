@@ -308,9 +308,9 @@ export const sortSkillsByCategory = (skills: Skill[]): Skill[] => {
  * @param poolSkills PoolSkill[]
  * @returns PoolSkill[]
  */
-export const sortPoolSkillsBySkillCategory = (
-  poolSkills: PoolSkill[],
-): PoolSkill[] => {
+export const sortPoolSkillsBySkillCategory = <T extends PoolSkill[]>(
+  poolSkills: T,
+) => {
   return poolSkills.sort((poolSkillA, poolSkillB) => {
     if (poolSkillA?.skill?.category && poolSkillB?.skill?.category) {
       return (
@@ -330,11 +330,30 @@ export const sortPoolSkillsBySkillCategory = (
  * @returns Skill[]
  */
 export const filterPoolSkillsByType = (
-  poolSkills: PoolSkill[],
+  poolSkills: Maybe<Maybe<PoolSkill>[]> | undefined,
   poolSkillType: PoolSkillType,
 ): Skill[] => {
-  const skills = poolSkills
+  const skills = unpackMaybes(poolSkills)
     .filter((poolSkill) => poolSkill.type === poolSkillType)
     .map((poolSkill) => poolSkill.skill);
   return unpackMaybes(skills);
 };
+
+export function groupPoolSkillByType(
+  poolSkills?: Maybe<Maybe<PoolSkill>[]>,
+): Map<PoolSkillType, Array<Skill>> {
+  return unpackMaybes(poolSkills).reduce((map, poolSkill) => {
+    const { type, skill } = poolSkill;
+    if (type && skill) {
+      if (!map.has(type)) {
+        map.set(type, []);
+      }
+      map.get(type)?.push(skill);
+    }
+    return map;
+  }, new Map<PoolSkillType, Array<Skill>>());
+}
+
+export function poolSkillsToSkills(poolSkills?: Maybe<Maybe<PoolSkill>[]>) {
+  return unpackMaybes(poolSkills?.map((poolSkill) => poolSkill?.skill));
+}

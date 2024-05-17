@@ -100,7 +100,7 @@ type User {
   # Pool info
   poolCandidates: [PoolCandidate]
     @hasMany(scopes: ["authorizedToView"])
-    @canResolved(ability: "view") # PoolsCandidate objects associate the user with a pool
+    @canResolved(ability: "view") # PoolCandidate objects associate the user with a pool
   # Experiences
   experiences: [Experience] @belongsToMany # All experiences that a user owns
   awardExperiences: [AwardExperience] @belongsToMany # Award experiences that a user owns
@@ -128,23 +128,21 @@ type User {
 
 interface Notification {
   id: ID!
-  type: NotificationType!
   readAt: DateTime @rename(attribute: "read_at")
   createdAt: DateTime! @rename(attribute: "created_at")
   updatedAt: DateTime! @rename(attribute: "updated_at")
 }
 
-type PoolCandidateStatusChangedNotification implements Notification {
+type ApplicationDeadlineApproachingNotification implements Notification {
   id: ID!
-  type: NotificationType!
   readAt: DateTime @rename(attribute: "read_at")
   createdAt: DateTime! @rename(attribute: "created_at")
   updatedAt: DateTime! @rename(attribute: "updated_at")
 
-  oldStatus: PoolCandidateStatus @rename(attribute: "old_status")
-  newStatus: PoolCandidateStatus @rename(attribute: "new_status")
-  poolCandidateId: ID @rename(attribute: "pool_candidate_id")
-  poolName: LocalizedString @rename(attribute: "pool_name")
+  closingDate: Date
+  poolName: LocalizedString
+  poolId: ID
+  poolCandidateId: ID
 }
 
 type UserPublicProfile @model(class: "\\App\\Models\\User") {
@@ -181,6 +179,8 @@ type Pool {
     @hasMany(relation: "publishedPoolCandidates", scopes: ["authorizedToView"])
     @canResolved(ability: "view")
     @guard
+  poolCandidatesCount: Int
+    @count(relation: "poolCandidates", scopes: ["notDraft"])
   keyTasks: LocalizedString @rename(attribute: "key_tasks")
   yourImpact: LocalizedString @rename(attribute: "your_impact")
   whatToExpect: LocalizedString @rename(attribute: "what_to_expect")
@@ -193,16 +193,6 @@ type Pool {
   securityClearance: SecurityStatus @rename(attribute: "security_clearance")
   language: PoolLanguage @rename(attribute: "advertisement_language")
   status: PoolStatus @rename(attribute: "status")
-  essentialSkills: [Skill!]
-    @belongsToMany
-    @deprecated(
-      reason: "Switch to poolSkills filtering for PoolSkillType.ESSENTIAL"
-    )
-  nonessentialSkills: [Skill!]
-    @belongsToMany
-    @deprecated(
-      reason: "Switch to poolSkills filtering for PoolSkillType.NONESSENTIAL"
-    )
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
   publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
@@ -224,7 +214,7 @@ type Pool {
   assessmentSteps: [AssessmentStep]
     @hasMany
     @canRoot(ability: "viewAssessmentPlan")
-  poolSkills: [PoolSkill] @hasMany
+  poolSkills(type: PoolSkillType @where): [PoolSkill] @hasMany
 }
 
 type GeneralQuestionResponse {
@@ -263,12 +253,9 @@ type AssessmentResult {
   assessmentDecision: AssessmentDecision
     @rename(attribute: "assessment_decision")
   justifications: [AssessmentResultJustification]
-  otherJustificationNotes: String
-    @rename(attribute: "other_justification_notes")
   assessmentDecisionLevel: AssessmentDecisionLevel
     @rename(attribute: "assessment_decision_level")
   skillDecisionNotes: String @rename(attribute: "skill_decision_notes")
-  assessmentNotes: String @rename(attribute: "assessment_notes")
 }
 
 type PoolSkill {
@@ -285,10 +272,6 @@ type PoolCandidate {
   id: ID!
   pool: Pool! @belongsTo @canResolved(ability: "view")
   user: User! @belongsTo(relation: "user") @canResolved(ability: "view")
-  # cmoIdentifier can be an arbitrary string used to relate this candidate to an external database.
-  cmoIdentifier: ID
-    @rename(attribute: "cmo_identifier")
-    @deprecated(reason: "Field no longer used")
   # Expiry date for this candidate being in the pool.
   expiryDate: Date @rename(attribute: "expiry_date")
 
@@ -365,6 +348,13 @@ type Department {
   departmentNumber: Int! @rename(attribute: "department_number")
   name: LocalizedString!
   teams: [Team] @belongsToMany @canModel(ability: "viewAny")
+}
+
+type Community {
+  id: ID!
+  key: String!
+  name: LocalizedString
+  description: LocalizedString
 }
 
 type Team {
@@ -459,7 +449,9 @@ type PoolCandidateSearchRequest {
   status: PoolCandidateSearchStatus @rename(attribute: "request_status")
   statusChangedAt: DateTime @rename(attribute: "request_status_changed_at")
   adminNotes: String @rename(attribute: "admin_notes")
-  poolCandidateFilter: PoolCandidateFilter @belongsTo
+  poolCandidateFilter: PoolCandidateFilter
+    @belongsTo
+    @deprecated(reason: "Replaced by applicantFilter")
   applicantFilter: ApplicantFilter @belongsTo
   wasEmpty: Boolean @rename(attribute: "was_empty")
   managerJobTitle: String @rename(attribute: "manager_job_title")
@@ -627,13 +619,26 @@ input UserFilterInput {
   telephone: String @scope
   email: String @scope
   name: String @scope
-  generalSearch: [String] @scope
+  generalSearch: String @scope
   roles: [ID] @scope(name: "roleAssignments")
   trashed: Trashed @trashed
 }
 
 input UserPublicProfileFilterInput {
   publicProfileSearch: String @scope
+}
+
+input PoolFilterInput {
+  generalSearch: String @scope
+  name: String @scope
+  team: String @scope
+  streams: [PoolStream!] @scope
+  statuses: [PoolStatus!] @scope
+}
+
+input PoolTeamDisplayNameOrderByInput {
+  locale: String!
+  order: SortOrder!
 }
 
 # Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
@@ -656,7 +661,7 @@ input ApplicantFilterInput {
 input PoolCandidateSearchInput {
   applicantFilter: ApplicantFilterInput @spread
   email: String @scope
-  generalSearch: [String] @scope
+  generalSearch: String @scope
   name: String @scope
   notes: String @scope
   isGovEmployee: Boolean @scope
@@ -666,6 +671,10 @@ input PoolCandidateSearchInput {
   expiryStatus: CandidateExpiryFilter @scope(name: "expiryStatus")
   suspendedStatus: CandidateSuspendedFilter @scope(name: "suspendedStatus")
   publishingGroups: [PublishingGroup] @scope(name: "publishingGroups") # Filters applicants based on the publishing group of the pool
+  # Filters applicants based on the classification of all pools they are currently in.
+  # There is also a classification field as part of ApplicantFilterInput however it includes scoping for availability.
+  appliedClassifications: [ClassificationFilterInput]
+    @scope(name: "appliedClassifications")
 }
 
 input PoolCandidateSearchRequestInput {
@@ -755,6 +764,26 @@ type Query {
   pools: [Pool]!
     @all(scopes: ["authorizedToView", "notArchived"])
     @canResolved(ability: "view")
+    @deprecated(reason: "pools is deprecated. Use poolsPaginated instead.")
+  poolsPaginated(
+    includeIds: [UUID!] @in(key: "id")
+    excludeIds: [UUID!] @notIn(key: "id")
+    where: PoolFilterInput
+    orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput @scope
+    orderBy: _
+      @orderBy(
+        relations: [
+          { relation: "user", columns: ["first_name", "email"] }
+          { relation: "classification", columns: ["group", "level"] }
+        ]
+      )
+  ): [Pool]!
+    @paginate(
+      defaultCount: 10
+      maxCount: 1000
+      scopes: ["authorizedToView", "notArchived"]
+    )
+    @canResolved(ability: "view")
   poolCandidate(id: UUID! @eq): PoolCandidate
     @find
     @guard
@@ -824,6 +853,8 @@ type Query {
     @find
     @canModel(ability: "view")
   genericJobTitles: [GenericJobTitle]! @all @canModel(ability: "viewAny")
+
+  communities: [Community]! @all @canModel(ability: "viewAny")
   team(id: UUID! @eq): Team @find @canQuery(ability: "view")
   teams: [Team]! @all @canModel(ability: "viewAny")
   roles: [Role]! @all @canModel(ability: "viewAny")
@@ -1482,12 +1513,9 @@ input CreateAssessmentResultInput
   assessmentDecision: AssessmentDecision
     @rename(attribute: "assessment_decision")
   justifications: [AssessmentResultJustification]
-  otherJustificationNotes: String
-    @rename(attribute: "other_justification_notes")
   assessmentDecisionLevel: AssessmentDecisionLevel
     @rename(attribute: "assessment_decision_level")
   skillDecisionNotes: String @rename(attribute: "skill_decision_notes")
-  assessmentNotes: String @rename(attribute: "assessment_notes")
 }
 
 input UpdateAssessmentResultInput
@@ -1500,12 +1528,9 @@ input UpdateAssessmentResultInput
   assessmentDecision: AssessmentDecision
     @rename(attribute: "assessment_decision")
   justifications: [AssessmentResultJustification]
-  otherJustificationNotes: String
-    @rename(attribute: "other_justification_notes")
   assessmentDecisionLevel: AssessmentDecisionLevel
     @rename(attribute: "assessment_decision_level")
   skillDecisionNotes: String @rename(attribute: "skill_decision_notes")
-  assessmentNotes: String @rename(attribute: "assessment_notes")
 }
 
 input PoolSkillBelongsToMany {

@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
@@ -17,7 +17,7 @@ export interface SpoilerProps {
 
 const Spoiler = ({ linkSuffix, text, characterCount = 32 }: SpoilerProps) => {
   const intl = useIntl();
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const truncated = text.slice(0, characterCount);
 
   return (

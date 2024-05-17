@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
@@ -82,7 +81,7 @@ const ApplicationQuestionsIntroduction = ({
       <Separator />
       <div className="flex flex-col flex-wrap items-start gap-6 md:flex-row md:items-center">
         <Link
-          color="primary"
+          color="secondary"
           mode="solid"
           href={paths.applicationQuestions(application.id)}
         >
@@ -104,8 +103,8 @@ const ApplicationQuestionsIntroduction = ({
   );
 };
 
-const ApplicationQuestionsIntroductionPage = () => (
+export const Component = () => (
   <ApplicationApi PageComponent={ApplicationQuestionsIntroduction} />
 );
 
-export default ApplicationQuestionsIntroductionPage;
+Component.displayName = "ApplicationQuestionsIntroductionPage";

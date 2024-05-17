@@ -1,5 +1,3 @@
-import React from "react";
-
 import WordCounter from "../WordCounter";
 
 interface FooterProps {

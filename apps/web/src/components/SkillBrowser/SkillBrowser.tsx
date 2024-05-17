@@ -1,4 +1,4 @@
-import React from "react";
+import { useId, useMemo, useEffect } from "react";
 import { useIntl } from "react-intl";
 import { RegisterOptions, useFormContext } from "react-hook-form";
 
@@ -28,7 +28,7 @@ const SkillBrowser = ({
   isMulti = true,
 }: SkillBrowserProps) => {
   const intl = useIntl();
-  const id = React.useId();
+  const id = useId();
   const { watch, resetField, setValue } = useFormContext();
   const inputNames = {
     category: `${id}-${INPUT_NAME.CATEGORY}`,
@@ -36,7 +36,7 @@ const SkillBrowser = ({
   };
   const [family, skillValue] = watch([inputNames.family, name]);
 
-  const filteredFamilies = React.useMemo(() => {
+  const filteredFamilies = useMemo(() => {
     return getFilteredFamilies({ skills }).sort((familyA, familyB) => {
       const a = normalizeString(getLocalizedName(familyA.name, intl));
       const b = normalizeString(getLocalizedName(familyB.name, intl));
@@ -47,7 +47,7 @@ const SkillBrowser = ({
     });
   }, [skills, intl]);
 
-  const filteredSkills = React.useMemo(() => {
+  const filteredSkills = useMemo(() => {
     return getFilteredSkills({ skills, family }).sort((skillA, skillB) => {
       const a = normalizeString(getLocalizedName(skillA.name, intl));
       const b = normalizeString(getLocalizedName(skillB.name, intl));
@@ -58,15 +58,15 @@ const SkillBrowser = ({
     });
   }, [family, skills, intl]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     resetField("skill");
   }, [family, resetField]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     resetField(inputNames.family);
   }, [inputNames.family, resetField]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (skillValue?.length > 0 && !family) {
       setValue(inputNames.family, "all");
     }

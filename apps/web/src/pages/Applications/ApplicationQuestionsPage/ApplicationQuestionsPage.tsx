@@ -1,4 +1,4 @@
-import React from "react";
+import { Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 
@@ -158,7 +158,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
             })}
           </p>
           {screeningQuestions.map((question, index) => (
-            <React.Fragment key={question.id}>
+            <Fragment key={question.id}>
               <Heading level="h3" size="h4" className="mb-6 mt-12 font-bold">
                 {intl.formatMessage(
                   {
@@ -175,7 +175,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
                 name={`screeningAnswers.${index}.questionId`}
               />
               <AnswerInput index={index} question={question} />
-            </React.Fragment>
+            </Fragment>
           ))}
         </div>
       )}
@@ -209,7 +209,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
             })}
           </p>
           {generalQuestions.map((question, index) => (
-            <React.Fragment key={question.id}>
+            <Fragment key={question.id}>
               <Heading level="h3" size="h4" className="mb-6 mt-12 font-bold">
                 {intl.formatMessage(
                   {
@@ -226,7 +226,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
                 name={`generalAnswers.${index}.questionId`}
               />
               <AnswerInput index={index} question={question} />
-            </React.Fragment>
+            </Fragment>
           ))}
         </>
       )}
@@ -235,8 +235,8 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
   );
 };
 
-const ApplicationQuestionsPage = () => (
+export const Component = () => (
   <ApplicationApi PageComponent={ApplicationQuestions} />
 );
 
-export default ApplicationQuestionsPage;
+Component.displayName = "ApplicationQuestionsPage";

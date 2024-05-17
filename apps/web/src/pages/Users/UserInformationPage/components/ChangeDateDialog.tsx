@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
@@ -38,7 +38,7 @@ const ChangeDateDialog = ({
   user,
 }: ChangeDateDialogProps) => {
   const intl = useIntl();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const methods = useForm<FormValues>();
 
   const [{ fetching }, executeMutation] = useMutation(
@@ -164,34 +164,20 @@ const ChangeDateDialog = ({
                 />
               </div>
               <Dialog.Footer>
-                <Dialog.Close>
-                  <Button type="button" color="secondary">
-                    <span data-h2-text-decoration="base(underline)">
-                      {intl.formatMessage(formMessages.cancelGoBack)}
-                    </span>
-                  </Button>
-                </Dialog.Close>
-
-                <Button
-                  disabled={fetching}
-                  type="submit"
-                  mode="solid"
-                  color="secondary"
-                  className="flex"
-                  data-h2-align-items="base(center)"
-                >
-                  {fetching ? (
-                    intl.formatMessage(commonMessages.saving)
-                  ) : (
-                    <span data-h2-text-decoration="base(underline)">
-                      {intl.formatMessage({
+                <Button disabled={fetching} type="submit" color="secondary">
+                  {fetching
+                    ? intl.formatMessage(commonMessages.saving)
+                    : intl.formatMessage({
                         defaultMessage: "Change date",
                         id: "DspBFX",
                         description: "Command to change a date",
                       })}
-                    </span>
-                  )}
                 </Button>
+                <Dialog.Close>
+                  <Button type="button" color="warning" mode="inline">
+                    {intl.formatMessage(formMessages.cancelGoBack)}
+                  </Button>
+                </Dialog.Close>
               </Dialog.Footer>
             </form>
           </FormProvider>

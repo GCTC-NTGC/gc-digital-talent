@@ -1,8 +1,8 @@
-import React from "react";
+import { ReactNode } from "react";
 
 interface NotFoundProps {
   headingMessage: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const NotFound = ({ headingMessage, children }: NotFoundProps) => {

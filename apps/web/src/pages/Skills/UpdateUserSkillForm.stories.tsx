@@ -1,4 +1,3 @@
-import React from "react";
 import { StoryFn, Meta } from "@storybook/react";
 
 import {
@@ -32,7 +31,6 @@ const mockExperiencesFragment = mockExperiences.map((experience) =>
 
 export default {
   component: UpdateUserSkillForm,
-  title: "Forms/Update User Skill Form",
   decorators: [MockGraphqlDecorator],
   args: {
     userId: mockUser.id,
@@ -76,9 +74,4 @@ WithValues.args = {
     },
     UpdateUserSkill_Fragment,
   ),
-};
-
-export const NoAvailableExperiences = Template.bind({});
-NoAvailableExperiences.args = {
-  experiencesQuery: [],
 };

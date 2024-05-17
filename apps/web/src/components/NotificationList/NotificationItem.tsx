@@ -1,8 +1,8 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { Link as BaseLink, useNavigate } from "react-router-dom";
 import EllipsisVerticalIcon from "@heroicons/react/20/solid/EllipsisVerticalIcon";
 import { useMutation } from "urql";
+import { ReactNode, MouseEvent } from "react";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
@@ -30,7 +30,7 @@ import {
 
 type LinkWrapperProps = {
   inDialog?: boolean;
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 const LinkWrapper = ({ inDialog = false, children }: LinkWrapperProps) => {
@@ -43,18 +43,17 @@ const LinkWrapper = ({ inDialog = false, children }: LinkWrapperProps) => {
 const NotificationItem_Fragment = graphql(/* GraphQL */ `
   fragment NotificationItem on Notification {
     id
-    type
     readAt
     createdAt
     updatedAt
-    ... on PoolCandidateStatusChangedNotification {
-      oldStatus
-      newStatus
-      poolCandidateId
+    ... on ApplicationDeadlineApproachingNotification {
+      closingDate
       poolName {
         en
         fr
       }
+      poolId
+      poolCandidateId
     }
   }
 `);
@@ -97,7 +96,7 @@ const NotificationItem = ({
     mutation({ id: notification.id });
   };
 
-  const handleLinkClicked = (event: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleLinkClicked = (event: MouseEvent<HTMLAnchorElement>) => {
     event.stopPropagation();
 
     executeMarkAsReadMutation({ id: notification.id }).then((res) => {
@@ -134,83 +133,102 @@ const NotificationItem = ({
                 "base(transparent) base:selectors[:has(a:focus-visible)](focus)",
             })}
       >
-        <div className="mb-1 self-end px-3">
-          {isUnread && (
-            <svg
-              data-h2-color="base(tertiary)"
-              className="h-1.5 w-1.5"
-              viewBox="0 0 8 8"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle cx="3.5" cy="3.5" r="3.375" fill="currentColor" />
-            </svg>
-          )}
-        </div>
-        <div className="flex flex-grow flex-col-reverse gap-y-3">
-          <LinkWrapper inDialog={inDialog}>
-            <BaseLink
-              to={info.href}
-              onClick={handleLinkClicked}
-              className={cn("no-underline outline-none", {
-                "font-bold": isUnread,
-              })}
-              data-h2-color="base:hover(secondary.darker)"
-            >
-              {info.message}
-            </BaseLink>
-          </LinkWrapper>
+        <div
+          data-h2-display="base(grid)"
+          data-h2-grid-template-columns="base(x.5 1fr)"
+          data-h2-grid-template-rows="base(auto auto)"
+          data-h2-gap="base(x.25)"
+        >
+          <div
+            data-h2-font-size="base(copy)"
+            data-h2-grid-row="base(2)"
+            data-h2-margin="base(0 auto)"
+          >
+            {isUnread && (
+              <svg
+                data-h2-color="base(tertiary)"
+                data-h2-height="base(x.25)"
+                data-h2-width="base(x.25)"
+                viewBox="0 0 8 8"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle cx="3.5" cy="3.5" r="3.375" fill="currentColor" />
+              </svg>
+            )}
+          </div>
+          <div
+            data-h2-grid-row="base(2)"
+            data-h2-display="base(flex)"
+            data-h2-align-items="base(flex-start)"
+            data-h2-gap="base(x.25)"
+          >
+            <LinkWrapper inDialog={inDialog}>
+              <BaseLink
+                to={info.href}
+                onClick={handleLinkClicked}
+                data-h2-text-decoration="base(none)"
+                data-h2-color="base:hover(secondary.darker)"
+                data-h2-outline="base(none)"
+                {...(isUnread && {
+                  "data-h2-font-weight": "base(700)",
+                })}
+              >
+                {info.message}
+              </BaseLink>
+            </LinkWrapper>
+            <DropdownMenu.Root>
+              <DropdownMenu.Trigger>
+                <Button
+                  mode="icon_only"
+                  color="secondary"
+                  data-h2-color="base(black) base:all:hover(secondary.darkest) base:all:focus-visible(black)"
+                  icon={EllipsisVerticalIcon}
+                  aria-label={intl.formatMessage(
+                    {
+                      defaultMessage: "Manage {notificationName}",
+                      id: "lSSz6L",
+                      description: "Button text for managing a notification",
+                    },
+                    { notificationName: info.label },
+                  )}
+                />
+              </DropdownMenu.Trigger>
+              <DropdownMenu.Content align="end">
+                <DropdownMenu.Item asChild onSelect={toggleReadStatus}>
+                  <Button mode="inline" block disabled={isTogglingReadStatus}>
+                    {isUnread
+                      ? intl.formatMessage({
+                          defaultMessage: "Mark as read",
+                          id: "vi7jVU",
+                          description:
+                            "Button text to mark a notification as read",
+                        })
+                      : intl.formatMessage({
+                          defaultMessage: "Mark as unread",
+                          id: "2SnhXV",
+                          description:
+                            "Button text to mark a notification as unread",
+                        })}
+                  </Button>
+                </DropdownMenu.Item>
+                <RemoveDialog
+                  id={notification.id}
+                  message={info.message}
+                  date={createdAt}
+                />
+              </DropdownMenu.Content>
+            </DropdownMenu.Root>
+          </div>
           <p
             className="Notification__Date"
             data-h2-font-size="base(caption)"
             data-h2-color="base(black.light)"
+            data-h2-grid-column="base(2)"
+            data-h2-grid-row="base(1)"
           >
             {createdAt}
           </p>
-        </div>
-        <div className="self-center">
-          <DropdownMenu.Root>
-            <DropdownMenu.Trigger>
-              <Button
-                mode="icon_only"
-                color="secondary"
-                data-h2-color="base(black) base:all:hover(secondary.darkest) base:all:focus-visible(black)"
-                icon={EllipsisVerticalIcon}
-                aria-label={intl.formatMessage(
-                  {
-                    defaultMessage: "Manage {notificationName}",
-                    id: "lSSz6L",
-                    description: "Button text for managing a notification",
-                  },
-                  { notificationName: info.label },
-                )}
-              />
-            </DropdownMenu.Trigger>
-            <DropdownMenu.Content align="end">
-              <DropdownMenu.Item asChild onSelect={toggleReadStatus}>
-                <Button mode="inline" block disabled={isTogglingReadStatus}>
-                  {isUnread
-                    ? intl.formatMessage({
-                        defaultMessage: "Mark as read",
-                        id: "vi7jVU",
-                        description:
-                          "Button text to mark a notification as read",
-                      })
-                    : intl.formatMessage({
-                        defaultMessage: "Mark as unread",
-                        id: "2SnhXV",
-                        description:
-                          "Button text to mark a notification as unread",
-                      })}
-                </Button>
-              </DropdownMenu.Item>
-              <RemoveDialog
-                id={notification.id}
-                message={info.message}
-                date={createdAt}
-              />
-            </DropdownMenu.Content>
-          </DropdownMenu.Root>
         </div>
       </CardBasic>
       {inDialog && (

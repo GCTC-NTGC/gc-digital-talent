@@ -1,4 +1,4 @@
-import React from "react";
+import { ReactNode } from "react";
 
 import { useTheme } from "@gc-digital-talent/theme";
 
@@ -6,7 +6,7 @@ import desktopGraphicsLight1 from "~/assets/img/Desktop_Graphics_light_1.webp";
 import desktopGraphicsDark1 from "~/assets/img/Desktop_Graphics_dark_1.webp";
 
 interface SkewedContainerProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const SkewedContainer = ({ children }: SkewedContainerProps) => {

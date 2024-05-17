@@ -1,4 +1,3 @@
-import React from "react";
 import type { StoryFn } from "@storybook/react";
 
 export default function ContainerDecorator(Story: StoryFn) {

@@ -5,15 +5,21 @@
  *
  * Documentation: https://www.radix-ui.com/docs/primitives/components/navigation-menu
  */
-import React from "react";
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { Link as RouterLink, useLocation } from "react-router-dom";
+import {
+  forwardRef,
+  ElementRef,
+  ComponentPropsWithoutRef,
+  useRef,
+  useEffect,
+} from "react";
 
 import { commonTabStyles, handleTabFocus } from "./utils";
 
-const Root = React.forwardRef<
-  React.ElementRef<typeof NavigationMenuPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Root>
+const Root = forwardRef<
+  ElementRef<typeof NavigationMenuPrimitive.Root>,
+  ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Root>
 >((props, forwardedRef) => (
   <div {...commonTabStyles.root}>
     <NavigationMenuPrimitive.Root ref={forwardedRef} {...props} />
@@ -21,9 +27,9 @@ const Root = React.forwardRef<
   </div>
 ));
 
-const List = React.forwardRef<
-  React.ElementRef<typeof NavigationMenuPrimitive.List>,
-  React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.List>
+const List = forwardRef<
+  ElementRef<typeof NavigationMenuPrimitive.List>,
+  ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.List>
 >(({ children, ...rest }, forwardedRef) => (
   <NavigationMenuPrimitive.List
     ref={forwardedRef}
@@ -35,9 +41,9 @@ const List = React.forwardRef<
   </NavigationMenuPrimitive.List>
 ));
 
-const Item = React.forwardRef<
-  React.ElementRef<typeof NavigationMenuPrimitive.Item>,
-  React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Item>
+const Item = forwardRef<
+  ElementRef<typeof NavigationMenuPrimitive.Item>,
+  ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Item>
 >((props, forwardedRef) => (
   <NavigationMenuPrimitive.Item
     ref={forwardedRef}
@@ -46,22 +52,22 @@ const Item = React.forwardRef<
   />
 ));
 
-type LinkProps = React.ComponentPropsWithoutRef<
+type LinkProps = ComponentPropsWithoutRef<
   typeof NavigationMenuPrimitive.Link
 > & {
   href: string;
 };
 
-const Link = React.forwardRef<
-  React.ElementRef<typeof NavigationMenuPrimitive.Link>,
+const Link = forwardRef<
+  ElementRef<typeof NavigationMenuPrimitive.Link>,
   LinkProps
 >(({ children, href, ...rest }, forwardedRef) => {
   const { pathname } = useLocation();
-  const linkRef = React.useRef<HTMLAnchorElement>(null);
+  const linkRef = useRef<HTMLAnchorElement>(null);
 
   const isActive = pathname === href;
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (linkRef.current) {
       linkRef.current.parentElement?.setAttribute(
         "data-state",

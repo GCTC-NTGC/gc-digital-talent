@@ -1,4 +1,3 @@
-import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 
 import { fakeUsers, fakeTeams, fakeRoles } from "@gc-digital-talent/fake-data";
@@ -21,7 +20,6 @@ const teamData = {
 
 export default {
   component: TeamMembersPage,
-  title: "Pages/Team Members Page",
   parameters: {
     defaultPath: {
       path: "/en/admin/teams/:teamId/members",

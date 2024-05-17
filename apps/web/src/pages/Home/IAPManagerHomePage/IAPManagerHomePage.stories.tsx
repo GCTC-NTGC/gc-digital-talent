@@ -1,4 +1,3 @@
-import React from "react";
 import type { Meta, StoryFn } from "@storybook/react";
 
 import {
@@ -6,11 +5,10 @@ import {
   THEMES,
 } from "@gc-digital-talent/storybook-helpers";
 
-import { IAPManagerHomePage } from "./IAPManagerHomePage";
+import IAPManagerHomePage from "./IAPManagerHomePage";
 
 export default {
   component: IAPManagerHomePage,
-  title: "Pages/IAP Manager Home Page",
   parameters: {
     layout: "fullscreen",
     themes: {

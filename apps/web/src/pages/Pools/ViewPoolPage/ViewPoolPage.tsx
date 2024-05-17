@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import * as React from "react";
 import { useIntl } from "react-intl";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import { useQuery } from "urql";
@@ -12,7 +11,13 @@ import {
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
-import { graphql, Pool, PoolStatus, Scalars } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  getFragment,
+  graphql,
+  PoolStatus,
+  Scalars,
+} from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -30,6 +35,7 @@ import usePoolMutations from "~/hooks/usePoolMutations";
 import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
 import messages from "~/messages/adminMessages";
 import processMessages from "~/messages/processMessages";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import SubmitForPublishingDialog from "./components/SubmitForPublishingDialog";
 import DuplicateProcessDialog from "./components/DuplicateProcessDialog";
@@ -39,8 +45,35 @@ import DeleteProcessDialog from "./components/DeleteProcessDialog";
 import ChangeDateDialog from "./components/ChangeDateDialog";
 import PublishProcessDialog from "./components/PublishProcessDialog";
 
+export const ViewPool_Fragment = graphql(/* GraphQL */ `
+  fragment ViewPool on Pool {
+    ...AssessmentPlanStatus
+    id
+    publishingGroup
+    isComplete
+    status
+    closingDate
+    processNumber
+    stream
+    poolCandidatesCount
+    classification {
+      id
+      group
+      level
+    }
+    name {
+      en
+      fr
+    }
+    poolSkills {
+      id
+      type
+    }
+  }
+`);
+
 export interface ViewPoolProps {
-  pool: Pool;
+  poolQuery: FragmentType<typeof ViewPool_Fragment>;
   isFetching: boolean;
   onPublish: () => Promise<void>;
   onDelete: () => Promise<void>;
@@ -52,7 +85,7 @@ export interface ViewPoolProps {
 }
 
 export const ViewPool = ({
-  pool,
+  poolQuery,
   isFetching,
   onPublish,
   onDelete,
@@ -61,10 +94,11 @@ export const ViewPool = ({
   onArchive,
   onDuplicate,
   onUnarchive,
-}: ViewPoolProps): JSX.Element => {
+}: ViewPoolProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const { roleAssignments } = useAuthorization();
+  const pool = getFragment(ViewPool_Fragment, poolQuery);
   const poolName = getShortPoolTitleHtml(intl, pool);
   const advertisementStatus = getAdvertisementStatus(pool);
   const advertisementBadge = getPoolCompletenessBadge(advertisementStatus);
@@ -105,8 +139,7 @@ export const ViewPool = ({
   });
 
   const isReadyToPublish =
-    getAdvertisementStatus(pool) === "complete" &&
-    getAssessmentPlanStatus(pool) === "complete";
+    advertisementStatus === "complete" && assessmentStatus === "complete";
 
   return (
     <>
@@ -325,12 +358,20 @@ export const ViewPool = ({
                       "The number of applicants to a specific process",
                   },
                   {
-                    count: pool?.poolCandidates?.length ?? 0,
+                    count: pool.poolCandidatesCount ?? 0,
                   },
                 )}
               </p>
             )}
             <ProcessCard.Footer>
+              {pool.status === PoolStatus.Draft && canPublish && (
+                <PublishProcessDialog
+                  {...commonDialogProps}
+                  closingDate={pool.closingDate}
+                  onPublish={onPublish}
+                  isReadyToPublish={isReadyToPublish}
+                />
+              )}
               {!canPublish && pool.status === PoolStatus.Draft && (
                 <SubmitForPublishingDialog
                   isReadyToPublish={isReadyToPublish}
@@ -370,14 +411,6 @@ export const ViewPool = ({
                   onDelete={onDelete}
                 />
               )}
-              {pool.status === PoolStatus.Draft && canPublish && (
-                <PublishProcessDialog
-                  {...commonDialogProps}
-                  closingDate={pool.closingDate}
-                  onPublish={onPublish}
-                  isReadyToPublish={isReadyToPublish}
-                />
-              )}
             </ProcessCard.Footer>
           </ProcessCard.Root>
         </div>
@@ -393,48 +426,10 @@ type RouteParams = {
 const ViewPoolPage_Query = graphql(/* GraphQL */ `
   query ViewPoolPage($id: UUID!) {
     pool(id: $id) {
-      id
-      name {
-        en
-        fr
-      }
-      publishedAt
-      isComplete
-      status
-      stream
-      processNumber
-      closingDate
-      classification {
-        id
-        name {
-          en
-          fr
-        }
-        group
-        level
-      }
-      poolCandidates {
-        id
-        pool {
-          id
-        }
-        user {
-          id
-        }
-      }
+      ...ViewPool
       team {
         id
         name
-      }
-      poolSkills {
-        id
-      }
-      assessmentSteps {
-        id
-        type
-        poolSkills {
-          id
-        }
       }
     }
   }
@@ -454,7 +449,7 @@ const ViewPoolPage = () => {
       <Pending fetching={fetching} error={error}>
         {poolId && data?.pool ? (
           <ViewPool
-            pool={data.pool}
+            poolQuery={data.pool}
             isFetching={isFetching}
             onExtend={async (newClosingDate: string) => {
               return mutations.extend(poolId, newClosingDate);
@@ -498,5 +493,20 @@ const ViewPoolPage = () => {
     </AdminContentWrapper>
   );
 };
+
+export const Component = () => (
+  <RequireAuth
+    roles={[
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.RequestResponder,
+      ROLE_NAME.CommunityManager,
+      ROLE_NAME.PlatformAdmin,
+    ]}
+  >
+    <ViewPoolPage />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminViewPoolPage";
 
 export default ViewPoolPage;

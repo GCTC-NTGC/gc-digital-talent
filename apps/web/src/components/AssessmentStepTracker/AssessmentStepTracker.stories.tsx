@@ -1,15 +1,25 @@
-import React from "react";
 import type { StoryFn } from "@storybook/react";
 
 import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import AssessmentStepTracker from "./AssessmentStepTracker";
+import AssessmentStepTracker, {
+  AssessmentStepTracker_CandidateFragment,
+  AssessmentStepTracker_PoolFragment,
+} from "./AssessmentStepTracker";
 import { poolWithAssessmentSteps } from "./testData";
 
 export default {
   component: AssessmentStepTracker,
-  title: "Components/Assessment Step Tracker",
   decorators: [MockGraphqlDecorator],
+  args: {
+    fetching: false,
+    poolQuery: makeFragmentData(
+      poolWithAssessmentSteps,
+      AssessmentStepTracker_PoolFragment,
+    ),
+  },
   parameters: {
     apiResponsesConfig: {
       latency: {
@@ -31,15 +41,15 @@ const Template: StoryFn<typeof AssessmentStepTracker> = (args) => (
   <AssessmentStepTracker {...args} />
 );
 
-export const WithCandidates = Template.bind({});
-WithCandidates.args = {
-  pool: poolWithAssessmentSteps,
+export const Default = Template.bind({});
+Default.args = {
+  candidateQuery: unpackMaybes(poolWithAssessmentSteps.poolCandidates).map(
+    (candidate) =>
+      makeFragmentData(candidate, AssessmentStepTracker_CandidateFragment),
+  ),
 };
 
-export const Empty = Template.bind({});
-Empty.args = {
-  pool: {
-    ...poolWithAssessmentSteps,
-    poolCandidates: [],
-  },
+export const Null = Template.bind({});
+Null.args = {
+  candidateQuery: [],
 };

@@ -1,4 +1,3 @@
-import React from "react";
 import { useFormState } from "react-hook-form";
 import { useIntl } from "react-intl";
 
@@ -24,7 +23,7 @@ const DialogFooter = ({ saveText, disabled }: DialogFooterProps) => {
         <span>{saveText || intl.formatMessage(formMessages.saveChanges)}</span>
       </Button>
       <Dialog.Close className="ml-6">
-        <Button type="button" mode="inline" color="tertiary">
+        <Button type="button" mode="inline" color="warning">
           {intl.formatMessage(commonMessages.cancel)}
         </Button>
       </Dialog.Close>

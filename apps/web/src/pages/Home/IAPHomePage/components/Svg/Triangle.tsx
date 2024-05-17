@@ -1,6 +1,6 @@
-import React from "react";
+import { HTMLProps } from "react";
 
-const Triangle = (props: React.HTMLProps<SVGSVGElement>) => (
+const Triangle = (props: HTMLProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"

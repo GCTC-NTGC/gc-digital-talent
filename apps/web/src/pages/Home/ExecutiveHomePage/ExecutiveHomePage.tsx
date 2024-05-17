@@ -1,4 +1,3 @@
-import React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
 import PuzzlePieceIcon from "@heroicons/react/24/outline/PuzzlePieceIcon";
@@ -110,13 +109,19 @@ export const HomePage = ({ pools }: HomePageProps) => {
           })}
         </p>
         {pools.length > 0 ? (
-          <ul className="my-12">
-            {pools.map((pool) => (
-              <li key={pool.id}>
-                <PoolCard pool={pool} />
-              </li>
-            ))}
-          </ul>
+          <div data-h2-padding="base(x2, 0)">
+            <ul
+              data-h2-margin="base(0)"
+              data-h2-padding="base(0)"
+              data-h2-list-style="base(none)"
+            >
+              {pools.map((pool) => (
+                <li key={pool.id}>
+                  <PoolCard poolQuery={pool} />
+                </li>
+              ))}
+            </ul>
+          </div>
         ) : (
           <CardBasic>
             <Heading level="h3" size="h6" className="mt-0">
@@ -285,7 +290,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
           <Link
             color="quinary"
             mode="cta"
-            href={paths.myProfile()}
+            href={paths.profile()}
             icon={UserPlusIcon}
           >
             {intl.formatMessage({
@@ -462,99 +467,15 @@ const ExecutiveHomePage_Query = graphql(/* GraphQL */ `
   query ExecutiveHomePage($closingAfter: DateTime) {
     publishedPools(closingAfter: $closingAfter) {
       id
-      name {
-        en
-        fr
-      }
-      closingDate
-      status
-      language
-      securityClearance
-      classification {
-        id
-        group
-        level
-        name {
-          en
-          fr
-        }
-        minSalary
-        maxSalary
-        genericJobTitles {
-          id
-          key
-          name {
-            en
-            fr
-          }
-        }
-      }
-      yourImpact {
-        en
-        fr
-      }
-      keyTasks {
-        en
-        fr
-      }
-      essentialSkills {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        category
-        families {
-          id
-          key
-          description {
-            en
-            fr
-          }
-          name {
-            en
-            fr
-          }
-        }
-      }
-      nonessentialSkills {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        category
-        families {
-          id
-          key
-          description {
-            en
-            fr
-          }
-          name {
-            en
-            fr
-          }
-        }
-      }
-      isRemote
-      location {
-        en
-        fr
-      }
-      stream
-      processNumber
-      publishedAt
       publishingGroup
+      ...PoolCard
     }
   }
 `);
 
 const now = nowUTCDateTime();
 
-const HomePageApi = () => {
+export const Component = () => {
   const [{ data, fetching, error }] = useQuery({
     query: ExecutiveHomePage_Query,
     variables: { closingAfter: now }, // pass current dateTime into query argument
@@ -572,4 +493,4 @@ const HomePageApi = () => {
   );
 };
 
-export default HomePageApi;
+Component.displayName = "ExecutiveHomePage";

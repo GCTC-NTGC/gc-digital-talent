@@ -1,9 +1,9 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
 import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import { OperationContext, useQuery } from "urql";
+import { useMemo, JSX } from "react";
 
 import {
   NotFound,
@@ -15,11 +15,12 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   graphql,
-  Pool,
   Scalars,
   Skill,
   FragmentType,
+  getFragment,
 } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import { EditPoolSectionMetadata } from "~/types/pool";
 import SEO from "~/components/SEO/SEO";
@@ -40,6 +41,7 @@ import { hasOneEmptyField as aboutUsError } from "~/validators/process/aboutUs";
 import { hasOneEmptyField as whatToExpectAdmissionError } from "~/validators/process/whatToExpectAdmission";
 import usePoolMutations from "~/hooks/usePoolMutations";
 import { hasAllEmptyFields as specialNoteIsNull } from "~/validators/process/specialNote";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import PoolNameSection, {
   PoolClassification_Fragment,
@@ -78,6 +80,81 @@ import WhatToExpectAdmissionSection, {
   WhatToExpectAdmissionSubmitData,
 } from "./components/WhatToExpectAdmissionSection/WhatToExpectAdmissionSection";
 
+export const EditPool_Fragment = graphql(/* GraphQL */ `
+  fragment EditPool on Pool {
+    ...EditPoolAboutUs
+    ...EditPoolClosingDate
+    ...EditPoolCoreRequirements
+    ...EditPoolEducationRequirements
+    ...EditPoolGeneralQuestions
+    ...EditPoolKeyTasks
+    ...EditPoolName
+    ...EditPoolSkills
+    ...EditPoolSpecialNote
+    ...EditPoolWhatToExpectAdmission
+    ...EditPoolWhatToExpect
+    ...EditPoolYourImpact
+
+    id
+    stream
+    processNumber
+    publishingGroup
+    opportunityLength
+    closingDate
+    language
+    securityClearance
+    publishedAt
+    status
+    location {
+      en
+      fr
+    }
+    name {
+      en
+      fr
+    }
+    classification {
+      id
+      group
+      level
+    }
+    poolSkills {
+      id
+      type
+      requiredLevel
+      skill {
+        id
+        category
+        key
+        name {
+          en
+          fr
+        }
+      }
+    }
+    aboutUs {
+      en
+      fr
+    }
+    yourImpact {
+      en
+      fr
+    }
+    keyTasks {
+      en
+      fr
+    }
+    specialNote {
+      en
+      fr
+    }
+    whatToExpectAdmission {
+      en
+      fr
+    }
+  }
+`);
+
 export type PoolSubmitData =
   | ClosingDateSubmitData
   | CoreRequirementsSubmitData
@@ -91,7 +168,7 @@ export type PoolSubmitData =
   | GeneralQuestionsSubmitData;
 
 export interface EditPoolFormProps {
-  pool: Pool;
+  poolQuery: FragmentType<typeof EditPool_Fragment>;
   classifications: FragmentType<typeof PoolClassification_Fragment>[];
   skills: Array<Skill>;
   onSave: (submitData: PoolSubmitData) => Promise<void>;
@@ -99,13 +176,14 @@ export interface EditPoolFormProps {
 }
 
 export const EditPoolForm = ({
-  pool,
+  poolQuery,
   classifications,
   skills,
   onSave,
   poolSkillMutations,
 }: EditPoolFormProps): JSX.Element => {
   const intl = useIntl();
+  const pool = getFragment(EditPool_Fragment, poolQuery);
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Create a new recruitment",
@@ -379,13 +457,13 @@ export const EditPoolForm = ({
                       </p>
                     </div>
                     <PoolNameSection
-                      pool={pool}
+                      poolQuery={pool}
                       classificationsQuery={classifications}
                       sectionMetadata={sectionMetadata.poolName}
                       onSave={onSave}
                     />
                     <ClosingDateSection
-                      pool={pool}
+                      poolQuery={pool}
                       sectionMetadata={sectionMetadata.closingDate}
                       onSave={onSave}
                     />
@@ -395,14 +473,14 @@ export const EditPoolForm = ({
                   id={sectionMetadata.coreRequirements.id}
                 >
                   <CoreRequirementsSection
-                    pool={pool}
+                    poolQuery={pool}
                     sectionMetadata={sectionMetadata.coreRequirements}
                     onSave={onSave}
                   />
                 </TableOfContents.Section>
                 <TableOfContents.Section id={sectionMetadata.specialNote.id}>
                   <SpecialNoteSection
-                    pool={pool}
+                    poolQuery={pool}
                     sectionMetadata={sectionMetadata.specialNote}
                     onSave={onSave}
                   />
@@ -411,7 +489,7 @@ export const EditPoolForm = ({
                   id={sectionMetadata.educationRequirements.id}
                 >
                   <EducationRequirementsSection
-                    pool={pool}
+                    poolQuery={pool}
                     sectionMetadata={sectionMetadata.educationRequirements}
                     changeTargetId={sectionMetadata.basicInfo.id}
                   />
@@ -439,13 +517,13 @@ export const EditPoolForm = ({
                       </p>
                     </div>
                     <EssentialSkillsSection
-                      pool={pool}
+                      poolQuery={pool}
                       skills={skills}
                       sectionMetadata={sectionMetadata.essentialSkills}
                       poolSkillMutations={poolSkillMutations}
                     />
                     <AssetSkillsSection
-                      pool={pool}
+                      poolQuery={pool}
                       skills={skills}
                       sectionMetadata={sectionMetadata.assetSkills}
                       poolSkillMutations={poolSkillMutations}
@@ -478,17 +556,17 @@ export const EditPoolForm = ({
                         </p>
                       </div>
                       <YourImpactSection
-                        pool={pool}
+                        poolQuery={pool}
                         sectionMetadata={sectionMetadata.yourImpact}
                         onSave={onSave}
                       />
                       <WorkTasksSection
-                        pool={pool}
+                        poolQuery={pool}
                         sectionMetadata={sectionMetadata.workTasks}
                         onSave={onSave}
                       />
                       <AboutUsSection
-                        pool={pool}
+                        poolQuery={pool}
                         sectionMetadata={sectionMetadata.aboutUs}
                         onSave={onSave}
                       />
@@ -523,12 +601,12 @@ export const EditPoolForm = ({
                         </p>
                       </div>
                       <WhatToExpectSection
-                        pool={pool}
+                        poolQuery={pool}
                         sectionMetadata={sectionMetadata.whatToExpect}
                         onSave={onSave}
                       />
                       <WhatToExpectAdmissionSection
-                        pool={pool}
+                        poolQuery={pool}
                         sectionMetadata={sectionMetadata.whatToExpectAdmission}
                         onSave={onSave}
                       />
@@ -539,7 +617,7 @@ export const EditPoolForm = ({
                   id={sectionMetadata.generalQuestions.id}
                 >
                   <GeneralQuestionsSection
-                    pool={pool}
+                    poolQuery={pool}
                     sectionMetadata={sectionMetadata.generalQuestions}
                     onSave={onSave}
                   />
@@ -557,104 +635,7 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
   query EditPoolPage($poolId: UUID!) {
     # the existing data of the pool to edit
     pool(id: $poolId) {
-      id
-      name {
-        en
-        fr
-      }
-      closingDate
-      status
-      language
-      securityClearance
-      isComplete
-      classification {
-        id
-        group
-        level
-        name {
-          en
-          fr
-        }
-        genericJobTitles {
-          id
-          key
-          name {
-            en
-            fr
-          }
-        }
-      }
-      yourImpact {
-        en
-        fr
-      }
-      keyTasks {
-        en
-        fr
-      }
-      whatToExpect {
-        en
-        fr
-      }
-      specialNote {
-        en
-        fr
-      }
-      aboutUs {
-        en
-        fr
-      }
-      whatToExpectAdmission {
-        en
-        fr
-      }
-      poolSkills {
-        id
-        type
-        requiredLevel
-        skill {
-          id
-          key
-          name {
-            en
-            fr
-          }
-          category
-          families {
-            id
-            key
-            description {
-              en
-              fr
-            }
-            name {
-              en
-              fr
-            }
-          }
-        }
-      }
-      isRemote
-      location {
-        en
-        fr
-      }
-      stream
-      processNumber
-      publishingGroup
-      opportunityLength
-      generalQuestions {
-        id
-        sortOrder
-        question {
-          en
-          fr
-        }
-      }
-      team {
-        id
-        name
-      }
+      ...EditPool
     }
 
     # all classifications to populate form dropdown
@@ -732,7 +713,7 @@ export const EditPoolPage = () => {
 
   const { isFetching, mutations } = usePoolMutations();
 
-  const ctx = React.useMemo(() => {
+  const ctx = useMemo(() => {
     return { isSubmitting: isFetching || fetching };
   }, [fetching, isFetching]);
 
@@ -747,7 +728,7 @@ export const EditPoolPage = () => {
       {data?.pool ? (
         <EditPoolContext.Provider value={ctx}>
           <EditPoolForm
-            pool={data.pool}
+            poolQuery={data.pool}
             classifications={unpackMaybes(data.classifications)}
             skills={data.skills.filter(notEmpty)}
             onSave={(saveData) => mutations.update(poolId, saveData)}
@@ -762,5 +743,19 @@ export const EditPoolPage = () => {
     </Pending>
   );
 };
+
+export const Component = () => (
+  <RequireAuth
+    roles={[
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.CommunityManager,
+      ROLE_NAME.PlatformAdmin,
+    ]}
+  >
+    <EditPoolPage />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminEditPoolPage";
 
 export default EditPoolPage;

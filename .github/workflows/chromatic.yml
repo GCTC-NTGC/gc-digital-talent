@@ -4,7 +4,7 @@ on:
   push:
     branches: ["main"]
     paths:
-      - .github/workflows/storybook.yml
+      - .github/workflows/chromatic.yml
       - packages/**
       - apps/**
 
@@ -12,14 +12,14 @@ on:
     branches: [main]
   pull_request:
     paths:
-      - .github/workflows/storybook.yml
+      - .github/workflows/chromatic.yml
       - packages/**
       - apps/**
 
 jobs:
   chromatic:
     name: Chromatic
-    # Only run if not dependabot,
+    # Only run if not dependabot.
     if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-22.04
     env:
@@ -30,7 +30,7 @@ jobs:
           # Chromatic requires full git history.
           fetch-depth: 0
 
-      - uses: pnpm/action-setup@v3
+      - uses: pnpm/action-setup@v4
         with:
           version: ${{ env.PNPM_VERSION }}
 
@@ -56,7 +56,7 @@ jobs:
           pnpm build
 
       - name: "Publish Storybook: all"
-        uses: chromaui/action@v11
+        uses: chromaui/action@v11.3.5
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           # Auto-accept UI Tests on Chromatic platform.

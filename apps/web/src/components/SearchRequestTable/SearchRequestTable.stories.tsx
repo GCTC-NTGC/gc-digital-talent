@@ -1,4 +1,3 @@
-import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 
 import { fakeSearchRequests } from "@gc-digital-talent/fake-data";
@@ -18,7 +17,6 @@ const mockPaginatorInfo = {
 };
 
 export default {
-  title: "Tables/Search Request Table",
   component: SearchRequestTable,
   parameters: {
     apiResponses: {

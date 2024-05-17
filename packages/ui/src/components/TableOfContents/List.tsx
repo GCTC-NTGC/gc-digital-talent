@@ -1,6 +1,6 @@
-import * as React from "react";
+import { HTMLProps } from "react";
 
-export type ListItemProps = React.HTMLProps<HTMLLIElement>;
+export type ListItemProps = HTMLProps<HTMLLIElement>;
 
 export const ListItem = ({ children, ...rest }: ListItemProps) => (
   <li data-h2-margin-bottom="base(x.25)" {...rest}>
@@ -8,7 +8,7 @@ export const ListItem = ({ children, ...rest }: ListItemProps) => (
   </li>
 );
 
-export interface ListProps extends React.HTMLProps<HTMLUListElement> {
+export interface ListProps extends HTMLProps<HTMLUListElement> {
   space?: "sm" | "lg";
 }
 

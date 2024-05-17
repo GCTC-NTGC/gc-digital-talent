@@ -11,7 +11,7 @@ type Query {
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
-  pools: [Pool]!
+  pools: [Pool]! @deprecated(reason: "pools is deprecated. Use poolsPaginated instead.")
   poolCandidate(id: UUID!): PoolCandidate
   poolCandidates(includeIds: [ID]!): [PoolCandidate]! @deprecated(reason: "poolCandidates is deprecated. Use poolCandidatesPaginated instead. Remove in #7656.")
   countPoolCandidatesByPool(where: ApplicantFilterInput): [CandidateSearchPoolResult!]!
@@ -26,6 +26,7 @@ type Query {
   skills: [Skill]!
   genericJobTitle(id: UUID!): GenericJobTitle
   genericJobTitles: [GenericJobTitle]!
+  communities: [Community]!
   team(id: UUID!): Team
   teams: [Team]!
   roles: [Role]!
@@ -55,6 +56,19 @@ type Query {
     "The offset from which items are returned."
     page: Int
   ): UserPublicProfilePaginator!
+  poolsPaginated(
+    includeIds: [UUID!]
+    excludeIds: [UUID!]
+    where: PoolFilterInput
+    orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput
+    orderBy: [QueryPoolsPaginatedOrderByRelationOrderByClause!]
+
+    "Limits number of fetched items. Maximum allowed value: 1000."
+    first: Int! = 10
+
+    "The offset from which items are returned."
+    page: Int
+  ): PoolPaginator!
   poolCandidatesPaginated(
     where: PoolCandidateSearchInput
     orderByPoolName: PoolCandidatePoolNameOrderByInput
@@ -281,22 +295,20 @@ type User {
 
 interface Notification {
   id: ID!
-  type: NotificationType!
   readAt: DateTime
   createdAt: DateTime!
   updatedAt: DateTime!
 }
 
-type PoolCandidateStatusChangedNotification implements Notification {
+type ApplicationDeadlineApproachingNotification implements Notification {
   id: ID!
-  type: NotificationType!
   readAt: DateTime
   createdAt: DateTime!
   updatedAt: DateTime!
-  oldStatus: PoolCandidateStatus
-  newStatus: PoolCandidateStatus
-  poolCandidateId: ID
+  closingDate: Date
   poolName: LocalizedString
+  poolId: ID
+  poolCandidateId: ID
 }
 
 type UserPublicProfile {
@@ -328,6 +340,7 @@ type Pool {
   classification: Classification
   operationalRequirements: [OperationalRequirement]
   poolCandidates: [PoolCandidate]
+  poolCandidatesCount: Int
   keyTasks: LocalizedString
   yourImpact: LocalizedString
   whatToExpect: LocalizedString
@@ -339,8 +352,6 @@ type Pool {
   securityClearance: SecurityStatus
   language: PoolLanguage
   status: PoolStatus
-  essentialSkills: [Skill!] @deprecated(reason: "Switch to poolSkills filtering for PoolSkillType.ESSENTIAL")
-  nonessentialSkills: [Skill!] @deprecated(reason: "Switch to poolSkills filtering for PoolSkillType.NONESSENTIAL")
   stream: PoolStream
   processNumber: String
   publishingGroup: PublishingGroup
@@ -355,7 +366,7 @@ type Pool {
   archivedAt: DateTime
   isComplete: Boolean
   assessmentSteps: [AssessmentStep]
-  poolSkills: [PoolSkill]
+  poolSkills(type: PoolSkillType): [PoolSkill]
 }
 
 type GeneralQuestionResponse {
@@ -390,10 +401,8 @@ type AssessmentResult {
   assessmentResultType: AssessmentResultType
   assessmentDecision: AssessmentDecision
   justifications: [AssessmentResultJustification]
-  otherJustificationNotes: String
   assessmentDecisionLevel: AssessmentDecisionLevel
   skillDecisionNotes: String
-  assessmentNotes: String
 }
 
 type PoolSkill {
@@ -408,7 +417,6 @@ type PoolCandidate {
   id: ID!
   pool: Pool!
   user: User!
-  cmoIdentifier: ID @deprecated(reason: "Field no longer used")
   expiryDate: Date
   status: PoolCandidateStatus
   statusWeight: Int
@@ -462,6 +470,13 @@ type Department {
   departmentNumber: Int!
   name: LocalizedString!
   teams: [Team]
+}
+
+type Community {
+  id: ID!
+  key: String!
+  name: LocalizedString
+  description: LocalizedString
 }
 
 type Team {
@@ -542,7 +557,7 @@ type PoolCandidateSearchRequest {
   status: PoolCandidateSearchStatus
   statusChangedAt: DateTime
   adminNotes: String
-  poolCandidateFilter: PoolCandidateFilter
+  poolCandidateFilter: PoolCandidateFilter @deprecated(reason: "Replaced by applicantFilter")
   applicantFilter: ApplicantFilter
   wasEmpty: Boolean
   managerJobTitle: String
@@ -697,13 +712,26 @@ input UserFilterInput {
   telephone: String
   email: String
   name: String
-  generalSearch: [String]
+  generalSearch: String
   roles: [ID]
   trashed: Trashed
 }
 
 input UserPublicProfileFilterInput {
   publicProfileSearch: String
+}
+
+input PoolFilterInput {
+  generalSearch: String
+  name: String
+  team: String
+  streams: [PoolStream!]
+  statuses: [PoolStatus!]
+}
+
+input PoolTeamDisplayNameOrderByInput {
+  locale: String!
+  order: SortOrder!
 }
 
 input ApplicantFilterInput {
@@ -723,7 +751,7 @@ input ApplicantFilterInput {
 input PoolCandidateSearchInput {
   applicantFilter: ApplicantFilterInput
   email: String
-  generalSearch: [String]
+  generalSearch: String
   name: String
   notes: String
   isGovEmployee: Boolean
@@ -732,6 +760,7 @@ input PoolCandidateSearchInput {
   expiryStatus: CandidateExpiryFilter
   suspendedStatus: CandidateSuspendedFilter
   publishingGroups: [PublishingGroup]
+  appliedClassifications: [ClassificationFilterInput]
 }
 
 input PoolCandidateSearchRequestInput {
@@ -1293,10 +1322,8 @@ input CreateAssessmentResultInput {
   assessmentResultType: AssessmentResultType
   assessmentDecision: AssessmentDecision
   justifications: [AssessmentResultJustification]
-  otherJustificationNotes: String
   assessmentDecisionLevel: AssessmentDecisionLevel
   skillDecisionNotes: String
-  assessmentNotes: String
 }
 
 input UpdateAssessmentResultInput {
@@ -1304,10 +1331,8 @@ input UpdateAssessmentResultInput {
   assessmentResultType: AssessmentResultType
   assessmentDecision: AssessmentDecision
   justifications: [AssessmentResultJustification]
-  otherJustificationNotes: String
   assessmentDecisionLevel: AssessmentDecisionLevel
   skillDecisionNotes: String
-  assessmentNotes: String
 }
 
 input PoolSkillBelongsToMany {
@@ -1712,6 +1737,15 @@ type UserPublicProfilePaginator {
   data: [UserPublicProfile!]!
 }
 
+"A paginated list of Pool items."
+type PoolPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of Pool items."
+  data: [Pool!]!
+}
+
 "A paginated list of PoolCandidateWithSkillCount items."
 type PoolCandidateWithSkillCountPaginator {
   "Pagination information about the list of items."
@@ -1737,6 +1771,51 @@ type NotificationPaginator {
 
   "A list of Notification items."
   data: [Notification!]!
+}
+
+"Allowed column names for Query.poolsPaginated.orderBy."
+enum QueryPoolsPaginatedOrderByUserColumn {
+  FIRST_NAME
+  EMAIL
+}
+
+"Aggregate specification for Query.poolsPaginated.orderBy.user."
+input QueryPoolsPaginatedOrderByUser {
+  "The aggregate function to apply to the column."
+  aggregate: OrderByRelationWithColumnAggregateFunction!
+
+  "Name of the column to use."
+  column: QueryPoolsPaginatedOrderByUserColumn
+}
+
+"Allowed column names for Query.poolsPaginated.orderBy."
+enum QueryPoolsPaginatedOrderByClassificationColumn {
+  GROUP
+  LEVEL
+}
+
+"Aggregate specification for Query.poolsPaginated.orderBy.classification."
+input QueryPoolsPaginatedOrderByClassification {
+  "The aggregate function to apply to the column."
+  aggregate: OrderByRelationWithColumnAggregateFunction!
+
+  "Name of the column to use."
+  column: QueryPoolsPaginatedOrderByClassificationColumn
+}
+
+"Order by clause for Query.poolsPaginated.orderBy."
+input QueryPoolsPaginatedOrderByRelationOrderByClause {
+  "The column that is used for ordering."
+  column: String
+
+  "The direction that is used for ordering."
+  order: SortOrder!
+
+  "Aggregate specification."
+  user: QueryPoolsPaginatedOrderByUser
+
+  "Aggregate specification."
+  classification: QueryPoolsPaginatedOrderByClassification
 }
 
 "Allowed column names for Query.poolCandidatesPaginated.orderBy."
@@ -2137,6 +2216,7 @@ enum PoolCandidateSearchStatus {
   WAITING
   DONE
   DONE_NO_CANDIDATES
+  NOT_COMPLIANT
 }
 
 enum PoolCandidateSearchPositionType {
@@ -2427,10 +2507,6 @@ enum NotificationFamily {
   SYSTEM_MESSAGE
   APPLICATION_UPDATE
   JOB_ALERT
-}
-
-enum NotificationType {
-  PoolCandidateStatusChanged
 }
 
 enum CandidateRemovalReason {

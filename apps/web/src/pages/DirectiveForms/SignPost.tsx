@@ -1,8 +1,8 @@
-import React from "react";
+import { ReactNode } from "react";
 
 export type SignPostProps = {
   title: string;
-  introduction?: React.ReactNode;
+  introduction?: ReactNode;
 };
 
 // This component is for adding information into a long form to help the user know what's coming up without using a sematic header.

@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
 import { useIntl } from "react-intl";
 
@@ -24,7 +24,7 @@ const DiversityEquityInclusion = ({
   const intl = useIntl();
   const title = getSectionTitle("dei");
   const isComplete = !hasEmptyRequiredFields(user, pool); // no empty required fields so false returns, means complete is true
-  const [accordionOpen, setAccordionOpen] = React.useState<AccordionItems>(""); // Start with accordion closed
+  const [accordionOpen, setAccordionOpen] = useState<AccordionItems>(""); // Start with accordion closed
 
   const handleUpdate = (data: UpdateUserAsUserInput) => {
     return onUpdate(user.id, data);

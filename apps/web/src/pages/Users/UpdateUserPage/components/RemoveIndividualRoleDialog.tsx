@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
 
@@ -28,8 +28,8 @@ const RemoveIndividualRoleDialog = ({
   onUpdateUserRoles,
 }: RemoveIndividualRoleDialogProps) => {
   const intl = useIntl();
-  const [isDeleting, setIsDeleting] = React.useState<boolean>(false);
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isDeleting, setIsDeleting] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleRemove = async () => {
     setIsDeleting(true);

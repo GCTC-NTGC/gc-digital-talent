@@ -1,4 +1,3 @@
-import React from "react";
 import type { StoryFn, Meta } from "@storybook/react";
 import AcademicCapIcon from "@heroicons/react/24/solid/AcademicCapIcon";
 import { action } from "@storybook/addon-actions";
@@ -18,7 +17,6 @@ const Toggle = () => {
 
 export default {
   component: ToggleSection.Root,
-  title: "Components/Toggle Section",
 } as Meta<typeof ToggleSection.Root>;
 
 const Template: StoryFn<typeof ToggleSection.Root> = (args) => (

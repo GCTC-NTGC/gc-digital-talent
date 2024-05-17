@@ -1,5 +1,4 @@
-import React from "react";
-import { faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker/locale/en";
 import { Meta, StoryFn } from "@storybook/react";
 
 import RequestConfirmationPage from "./RequestConfirmationPage";
@@ -9,7 +8,6 @@ const mockId = faker.string.uuid();
 
 export default {
   component: RequestConfirmationPage,
-  title: "Pages/Request Confirmation Page",
   parameters: {
     defaultPath: {
       path: "/search/request/:requestId",

@@ -1,10 +1,10 @@
-import * as React from "react";
 import {
   ToastContainer,
   Slide,
   CloseButton as ReactToastifyCloseButton,
   ToastContainerProps,
 } from "react-toastify";
+import { ComponentPropsWithoutRef } from "react";
 import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
 
 import closeButtonStyles from "./styles";
@@ -12,7 +12,7 @@ import closeButtonStyles from "./styles";
 import "react-toastify/dist/ReactToastify.minimal.css";
 import "./toast.css";
 
-type CloseButtonProps = React.ComponentPropsWithoutRef<
+type CloseButtonProps = ComponentPropsWithoutRef<
   typeof ReactToastifyCloseButton
 >;
 

@@ -1,5 +1,5 @@
-import React from "react";
 import type { StoryFn } from "@storybook/react";
+import { faker } from "@faker-js/faker/locale/en";
 
 import {
   fakePools,
@@ -12,13 +12,18 @@ import {
   PoolSkill,
   PoolSkillType,
   SkillCategory,
+  makeFragmentData,
 } from "@gc-digital-talent/graphql";
 
-import SkillSummaryTable from "./SkillSummaryTable";
+import SkillSummaryTable, {
+  SkillSummaryTableAssessmentStep_Fragment,
+  SkillSummaryTablePoolSkill_Fragment,
+} from "./SkillSummaryTable";
+
+faker.seed(0);
 
 export default {
   component: SkillSummaryTable,
-  title: "Components/SkillSummaryTable",
 };
 
 const Template: StoryFn<typeof SkillSummaryTable> = (args) => {
@@ -123,7 +128,11 @@ const assessmentStepsArray: AssessmentStep[] = [
 
 export const Default = Template.bind({});
 Default.args = {
-  title: "Title",
-  poolSkills: poolSkillsArray,
-  assessmentSteps: assessmentStepsArray,
+  title: faker.lorem.words(1),
+  poolSkillsQuery: poolSkillsArray.map((poolSkill) =>
+    makeFragmentData(poolSkill, SkillSummaryTablePoolSkill_Fragment),
+  ),
+  assessmentStepsQuery: assessmentStepsArray.map((assessmentStep) =>
+    makeFragmentData(assessmentStep, SkillSummaryTableAssessmentStep_Fragment),
+  ),
 };

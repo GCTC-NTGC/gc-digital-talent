@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
@@ -27,7 +27,7 @@ interface AddTeamRoleDialogProps {
 
 const DeleteUserDialog = ({ user, onDeleteUser }: AddTeamRoleDialogProps) => {
   const intl = useIntl();
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const userNameHtml = getFullNameHtml(user.firstName, user.lastName, intl);
   const userNameExpected = getFullNameLabel(
     user.firstName,

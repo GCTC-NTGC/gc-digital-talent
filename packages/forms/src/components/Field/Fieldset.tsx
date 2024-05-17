@@ -1,8 +1,8 @@
-import React from "react";
+import { forwardRef } from "react";
 
 import { HTMLFieldsetProps } from "../../types";
 
-const Fieldset = React.forwardRef<HTMLFieldSetElement, HTMLFieldsetProps>(
+const Fieldset = forwardRef<HTMLFieldSetElement, HTMLFieldsetProps>(
   (props, forwardedRef) => (
     <fieldset
       ref={forwardedRef}

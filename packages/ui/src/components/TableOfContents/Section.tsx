@@ -1,4 +1,4 @@
-import React, { HTMLAttributes } from "react";
+import { HTMLAttributes } from "react";
 
 export interface SectionProps {
   id: string;
@@ -9,7 +9,13 @@ const Section = ({
   children,
   ...rest
 }: SectionProps & HTMLAttributes<HTMLDivElement>) => (
-  <div id={id} tabIndex={-1} data-h2-outline="base(none)" {...rest}>
+  <div
+    data-is-toc-section // Used to find section elements in the Navigation component
+    id={id}
+    tabIndex={-1}
+    data-h2-outline="base(none)"
+    {...rest}
+  >
     {children}
   </div>
 );

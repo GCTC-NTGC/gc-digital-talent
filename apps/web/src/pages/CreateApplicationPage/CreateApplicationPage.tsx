@@ -1,4 +1,4 @@
-import React from "react";
+import { useRef } from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "urql";
@@ -10,11 +10,12 @@ import {
   tryFindMessageDescriptor,
   errorMessages,
 } from "@gc-digital-talent/i18n";
-import { useAuthorization } from "@gc-digital-talent/auth";
+import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { graphql, Scalars } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 type RouteParams = {
   poolId: Scalars["ID"]["output"];
@@ -98,9 +99,9 @@ const CreateApplication = () => {
   });
 
   // We use this ref to make sure we only try to apply once
-  const mutationCounter = React.useRef<number>(0);
+  const mutationCounter = useRef<number>(0);
   // We use this ref to make sure we only start navigation and pop a toast once
-  const navigateWithToastCounter = React.useRef<number>(0);
+  const navigateWithToastCounter = useRef<number>(0);
 
   // Start navigation and pop a toast.  Increment the ref to ensure we only do this once.
   const navigateWithToast = (path: string, toastFunction: () => void): void => {
@@ -228,4 +229,12 @@ const CreateApplication = () => {
   return <Loading />;
 };
 
-export default CreateApplication;
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+    <CreateApplication />
+  </RequireAuth>
+);
+
+Component.displayName = "CreateApplicationPage";
+
+export default Component;

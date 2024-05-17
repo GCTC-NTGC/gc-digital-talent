@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import ComputerDesktopIcon from "@heroicons/react/24/solid/ComputerDesktopIcon";
 import SunIcon from "@heroicons/react/24/solid/SunIcon";
@@ -6,20 +5,6 @@ import MoonIcon from "@heroicons/react/24/solid/MoonIcon";
 
 import { ToggleGroup } from "@gc-digital-talent/ui";
 import { useTheme } from "@gc-digital-talent/theme";
-
-const Beta = () => {
-  const intl = useIntl();
-
-  return (
-    <span data-h2-font-size="base(caption)" className="font-bold uppercase">
-      {intl.formatMessage({
-        defaultMessage: "Beta",
-        id: "RTR3mh",
-        description: "Label to indicate a feature is in beta",
-      })}
-    </span>
-  );
-};
 
 const ThemeSwitcher = () => {
   const intl = useIntl();
@@ -39,7 +24,6 @@ const ThemeSwitcher = () => {
       value={fullMode}
       onValueChange={setMode}
       aria-label={groupLabel}
-      label={<Beta />}
     >
       <ToggleGroup.Item
         value="pref"

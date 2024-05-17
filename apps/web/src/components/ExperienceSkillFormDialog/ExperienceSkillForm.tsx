@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { useForm, FormProvider } from "react-hook-form";
 
@@ -260,7 +259,7 @@ const ExperienceSkillForm = ({
             <Button
               type="submit"
               mode="solid"
-              color="primary"
+              color="secondary"
               disabled={isSubmitting}
               {...actionProps}
               onClick={() => setValue("action", "connect")}
@@ -280,7 +279,7 @@ const ExperienceSkillForm = ({
                   })}
             </Button>
             <Dialog.Close>
-              <Button type="button" mode="inline" color="secondary">
+              <Button type="button" mode="inline" color="warning">
                 {intl.formatMessage(formMessages.cancelGoBack)}
               </Button>
             </Dialog.Close>

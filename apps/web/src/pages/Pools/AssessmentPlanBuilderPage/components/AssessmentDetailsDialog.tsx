@@ -1,7 +1,7 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { useMutation } from "urql";
+import { ReactNode, useState, useEffect } from "react";
 
 import { Button, Chip, Chips, Dialog, Well } from "@gc-digital-talent/ui";
 import {
@@ -31,6 +31,8 @@ import {
   ScreeningQuestion,
   Scalars,
   PoolSkillType,
+  FragmentType,
+  getFragment,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -90,6 +92,25 @@ const AssessmentDetailsDialog_ScreeningQuestionMutation = graphql(
   `,
 );
 
+const AssessmentDetailsDialogPoolSkill_Fragment = graphql(/* GraphQL */ `
+  fragment AssessmentDetailsDialogPoolSkill on PoolSkill {
+    id
+    type
+    skill {
+      id
+      category
+      key
+      name {
+        en
+        fr
+      }
+    }
+    assessmentSteps {
+      id
+    }
+  }
+`);
+
 type DialogMode = "regular" | "screening_question";
 type DialogAction = "create" | "update";
 
@@ -122,22 +143,28 @@ type InitialValues = Omit<
 
 interface AssessmentDetailsDialogProps {
   initialValues: InitialValues;
-  allPoolSkills: PoolSkill[];
+  poolSkillsQuery: FragmentType<
+    typeof AssessmentDetailsDialogPoolSkill_Fragment
+  >[];
   disallowStepTypes?: AssessmentStepType[];
-  trigger: React.ReactNode;
+  trigger: ReactNode;
   onError?: () => void;
 }
 
 const AssessmentDetailsDialog = ({
   initialValues,
-  allPoolSkills,
+  poolSkillsQuery,
   disallowStepTypes = [],
   trigger,
   onError,
 }: AssessmentDetailsDialogProps) => {
   const intl = useIntl();
+  const allPoolSkills = getFragment(
+    AssessmentDetailsDialogPoolSkill_Fragment,
+    poolSkillsQuery,
+  );
   const dialogAction: DialogAction = initialValues.id ? "update" : "create";
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const [
     { fetching: createAssessmentStepFetching },
@@ -230,7 +257,7 @@ const AssessmentDetailsDialog = ({
     },
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (dialogMode === "regular") {
       setValue("screeningQuestionFieldArray", []);
     }
@@ -428,15 +455,17 @@ const AssessmentDetailsDialog = ({
     createAssessmentStepFetching ||
     createOrUpdateScreeningQuestionAssessmentStepMutationFetching;
 
-  const missingSkills = allPoolSkills.filter(({ assessmentSteps }) => {
-    const steps = unpackMaybes(assessmentSteps);
+  const missingEssentialSkills = allPoolSkills
+    .filter((poolSkill) => poolSkill.type === PoolSkillType.Essential)
+    .filter(({ assessmentSteps }) => {
+      const steps = unpackMaybes(assessmentSteps);
 
-    if (steps.length === 0) {
-      return true;
-    }
+      if (steps.length === 0) {
+        return true;
+      }
 
-    return false;
-  });
+      return false;
+    });
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
@@ -691,7 +720,7 @@ const AssessmentDetailsDialog = ({
                         "description of 'skill selection' section of the 'assessment details' dialog",
                     })}
                   </div>
-                  {missingSkills.length ? (
+                  {missingEssentialSkills.length ? (
                     <Well
                       color="warning"
                       data-h2-margin-top="base(x.25)"
@@ -711,7 +740,7 @@ const AssessmentDetailsDialog = ({
                         {intl.formatMessage(commonMessages.dividingColon)}
                       </p>
                       <Chips>
-                        {missingSkills.map(({ skill }) => (
+                        {missingEssentialSkills.map(({ skill }) => (
                           <Chip key={skill?.id} color="warning">
                             {getLocalizedName(skill?.name, intl)}
                           </Chip>
@@ -771,7 +800,7 @@ const AssessmentDetailsDialog = ({
             </form>
           </FormProvider>
 
-          <Dialog.Footer data-h2-justify-content="base(flex-start)">
+          <Dialog.Footer>
             <Button
               color="secondary"
               onClick={handleSubmit(submitForm)}

@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import { AnimatePresence, m } from "framer-motion";
 import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
@@ -42,7 +42,7 @@ const ellipsis = () => <EllipsisVerticalIcon className="w-4.5 align-middle" />;
 const NotificationDialog = () => {
   const intl = useIntl();
   const paths = useRoutes();
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const [{ data }, executeQuery] = usePollingQuery(
     { query: NotificationCount_Query },

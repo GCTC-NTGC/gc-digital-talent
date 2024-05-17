@@ -1,11 +1,11 @@
-import React from "react";
+import { DetailedHTMLProps, InputHTMLAttributes } from "react";
 
 import { cn } from "@gc-digital-talent/ui";
 
 import useInputStyles from "../../hooks/useInputStyles";
 
-type BoundingBoxProps = React.DetailedHTMLProps<
-  React.InputHTMLAttributes<HTMLDivElement>,
+type BoundingBoxProps = DetailedHTMLProps<
+  InputHTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 > & {
   flat?: boolean;

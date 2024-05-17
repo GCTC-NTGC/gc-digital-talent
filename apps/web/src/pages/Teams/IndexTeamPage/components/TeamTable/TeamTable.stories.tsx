@@ -1,4 +1,3 @@
-import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 
 import { fakeTeams } from "@gc-digital-talent/fake-data";
@@ -32,7 +31,6 @@ const mockRolesAndTeams: MyRoleTeam[] = [
 
 export default {
   component: TeamTable,
-  title: "Tables/Team Table",
 } as Meta<typeof TeamTable>;
 
 const Template: StoryFn<typeof TeamTable> = (args) => {

@@ -1,11 +1,13 @@
-import * as React from "react";
 import uniqueId from "lodash/uniqueId";
 import { defineMessages, useIntl } from "react-intl";
+import { useWatch } from "react-hook-form";
+import { ReactNode } from "react";
 
 import { Checklist, CheckboxOption } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { Heading, Link, Well } from "@gc-digital-talent/ui";
 import {
+  Classification,
   EducationRequirementOption,
   Experience,
 } from "@gc-digital-talent/graphql";
@@ -45,6 +47,10 @@ const essentialExperienceMessages = defineMessages({
   },
 });
 
+const previousStepLink = (chunks: ReactNode, path: string) => (
+  <Link href={path}>{chunks}</Link>
+);
+
 const ExperienceChecklist = ({ items }: { items: CheckboxOption[] }) => {
   const intl = useIntl();
   return (
@@ -66,34 +72,156 @@ const ExperienceChecklist = ({ items }: { items: CheckboxOption[] }) => {
   );
 };
 
+type ExperienceItems = {
+  educationExperiences: CheckboxOption[];
+  allExperiences: CheckboxOption[];
+};
+
+interface CheckListSectionProps {
+  group?: Classification["group"];
+  experiences: ExperienceItems;
+  path: string;
+}
+
+const CheckListSection = ({
+  experiences,
+  group,
+  path,
+}: CheckListSectionProps) => {
+  const intl = useIntl();
+  const educationRequirement = useWatch({ name: "educationRequirement" });
+  // decide whether to show the "select experiences in" helper list
+  const showEssentialExperienceMessage: boolean = group !== "EC";
+  switch (educationRequirement) {
+    // If "I meet the applied work experience" option is selected, checkboxes are displayed for every experience.
+    case EducationRequirementOption.AppliedWork:
+    case EducationRequirementOption.ProfessionalDesignation:
+      return (
+        <>
+          {showEssentialExperienceMessage && (
+            <>
+              <p data-h2-margin="base(0, 0, x.5, 0)">
+                {intl.formatMessage({
+                  defaultMessage: "Please select experiences in:",
+                  id: "6Q1N7Z",
+                  description:
+                    "Message before skills list in application education page.",
+                })}
+              </p>
+              <ul data-h2-margin="base(0, 0, x1, 0)">
+                {Object.values(essentialExperienceMessages).map((value) => (
+                  <li key={uniqueId()} data-h2-margin="base(0, 0, x.25, 0)">
+                    {intl.formatMessage(value)}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+          {experiences.allExperiences.length === 0 ? (
+            <Well>
+              <p
+                data-h2-text-align="base(center)"
+                data-h2-margin-bottom="base(x.5)"
+              >
+                {intl.formatMessage({
+                  defaultMessage:
+                    "<strong>It looks like you haven't added any experiences to your career timeline yet.</strong>",
+                  id: "Q83U92",
+                  description:
+                    "Alert message informing user to add experience in application education page.",
+                })}
+              </p>
+              <p data-h2-text-align="base(center)">
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "You can add experiences when <link>creating a new career timeline experience in the previous step.</link>",
+                    id: "G1OWMo",
+                    description:
+                      "Secondary alert message informing user to add experience in application education page.",
+                  },
+                  {
+                    link: (chunks: ReactNode) => previousStepLink(chunks, path),
+                  },
+                )}
+              </p>
+            </Well>
+          ) : (
+            <ExperienceChecklist items={experiences.allExperiences} />
+          )}
+        </>
+      );
+    // If "I meet the post-secondary option" is selected, checkboxes for all the user's Education experiences are shown.
+    case EducationRequirementOption.Education:
+      return (
+        <div data-h2-margin="base(x1, 0, 0, 0)">
+          {experiences.educationExperiences.length === 0 ? (
+            <Well>
+              <p
+                data-h2-text-align="base(center)"
+                data-h2-margin-bottom="base(x.5)"
+              >
+                {intl.formatMessage({
+                  defaultMessage:
+                    "<strong>It looks like you haven't added any education experiences to your career timeline yet.</strong>",
+                  id: "QagkWo",
+                  description:
+                    "Alert message informing user to add education experience in application education page.",
+                })}
+              </p>
+              <p data-h2-text-align="base(center)">
+                {intl.formatMessage(
+                  {
+                    defaultMessage: `You can add education-specific experiences by selecting the "Education and certificates" option when <link>creating a new career timeline experience in the previous step.</link>`,
+                    id: "81Bib7",
+                    description:
+                      "Secondary alert message informing user to add education experience in application education page.",
+                  },
+                  {
+                    link: (chunks: ReactNode) => previousStepLink(chunks, path),
+                  },
+                )}
+              </p>
+            </Well>
+          ) : (
+            <ExperienceChecklist items={experiences.educationExperiences} />
+          )}
+        </div>
+      );
+    // Otherwise, show null state
+    default:
+      return (
+        <Well data-h2-margin="base(x1, 0, 0, 0)">
+          <p data-h2-text-align="base(center)">
+            {intl.formatMessage({
+              defaultMessage: "Please select an option to continue.",
+              id: "cT6KeA",
+              description:
+                "Alert message informing user to select an option first in application education page.",
+            })}
+          </p>
+        </Well>
+      );
+  }
+};
+
 interface LinkCareerTimelineProps {
   experiences: Experience[];
-  watchEducationRequirement: EducationRequirementOption;
   previousStepPath: string;
   classificationGroup?: string;
 }
 
 const LinkCareerTimeline = ({
   experiences,
-  watchEducationRequirement,
   previousStepPath,
   classificationGroup,
 }: LinkCareerTimelineProps) => {
   const intl = useIntl();
-  const previousStepLink = (chunks: React.ReactNode) => (
-    <Link href={previousStepPath}>{chunks}</Link>
-  );
   const experienceItems = experiences.reduce(
     (
-      checklistItems: {
-        educationExperiences: CheckboxOption[];
-        allExperiences: CheckboxOption[];
-      },
+      checklistItems: ExperienceItems,
       experience: Experience,
-    ): {
-      educationExperiences: CheckboxOption[];
-      allExperiences: CheckboxOption[];
-    } => {
+    ): ExperienceItems => {
       if (isEducationExperience(experience)) {
         const educationExperience = {
           value: experience.id,
@@ -169,116 +297,6 @@ const LinkCareerTimeline = ({
     },
   );
 
-  const checkListSection = (): React.ReactNode => {
-    // decide whether to show the "select experiences in" helper list
-    const showEssentialExperienceMessage: boolean =
-      classificationGroup !== "EC";
-    switch (watchEducationRequirement) {
-      // If "I meet the applied work experience" option is selected, checkboxes are displayed for every experience.
-      case EducationRequirementOption.AppliedWork:
-      case EducationRequirementOption.ProfessionalDesignation:
-        return (
-          <>
-            {showEssentialExperienceMessage && (
-              <>
-                <p className="mb-3">
-                  {intl.formatMessage({
-                    defaultMessage: "Please select experiences in:",
-                    id: "6Q1N7Z",
-                    description:
-                      "Message before skills list in application education page.",
-                  })}
-                </p>
-                <ul className="mb-6 list-outside list-disc pl-12 [>&li]:mb-3">
-                  {Object.values(essentialExperienceMessages).map((value) => (
-                    <li key={uniqueId()}>{intl.formatMessage(value)}</li>
-                  ))}
-                </ul>
-              </>
-            )}
-            {experienceItems.allExperiences.length === 0 ? (
-              <Well className="text-center">
-                <p className="mb-3">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "<strong>It looks like you haven't added any experiences to your career timeline yet.</strong>",
-                    id: "Q83U92",
-                    description:
-                      "Alert message informing user to add experience in application education page.",
-                  })}
-                </p>
-                <p>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "You can add experiences when <link>creating a new career timeline experience in the previous step.</link>",
-                      id: "G1OWMo",
-                      description:
-                        "Secondary alert message informing user to add experience in application education page.",
-                    },
-                    {
-                      link: previousStepLink,
-                    },
-                  )}
-                </p>
-              </Well>
-            ) : (
-              <ExperienceChecklist items={experienceItems.allExperiences} />
-            )}
-          </>
-        );
-      // If "I meet the post-secondary option" is selected, checkboxes for all the user's Education experiences are shown.
-      case EducationRequirementOption.Education:
-        return (
-          <div className="mt-6">
-            {experienceItems.educationExperiences.length === 0 ? (
-              <Well className="text-center">
-                <p className="mb-3">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "<strong>It looks like you haven't added any education experiences to your career timeline yet.</strong>",
-                    id: "QagkWo",
-                    description:
-                      "Alert message informing user to add education experience in application education page.",
-                  })}
-                </p>
-                <p>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage: `You can add education-specific experiences by selecting the "Education and certificates" option when <link>creating a new career timeline experience in the previous step.</link>`,
-                      id: "81Bib7",
-                      description:
-                        "Secondary alert message informing user to add education experience in application education page.",
-                    },
-                    {
-                      link: previousStepLink,
-                    },
-                  )}
-                </p>
-              </Well>
-            ) : (
-              <ExperienceChecklist
-                items={experienceItems.educationExperiences}
-              />
-            )}
-          </div>
-        );
-      // Otherwise, show null state
-      default:
-        return (
-          <Well className="mt-6 text-center">
-            <p>
-              {intl.formatMessage({
-                defaultMessage: "Please select an option to continue.",
-                id: "cT6KeA",
-                description:
-                  "Alert message informing user to select an option first in application education page.",
-              })}
-            </p>
-          </Well>
-        );
-    }
-  };
   return (
     <>
       <Heading level="h3" size="h6" className="mb-3 mt-12 font-bold">
@@ -298,7 +316,11 @@ const LinkCareerTimeline = ({
             "Description for checklist section in application education page.",
         })}
       </p>
-      {checkListSection()}
+      <CheckListSection
+        experiences={experienceItems}
+        group={classificationGroup}
+        path={previousStepPath}
+      />
     </>
   );
 };

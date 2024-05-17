@@ -1,9 +1,9 @@
-import React from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
-import { Button, Dialog, Heading, Well } from "@gc-digital-talent/ui";
+import { Button, Dialog, Heading } from "@gc-digital-talent/ui";
 import { DateInput, RadioGroup, Submit } from "@gc-digital-talent/forms";
 import {
   AssessmentResult,
@@ -20,6 +20,8 @@ import {
   formMessages,
 } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
+
+import FormChangeNotifyWell from "~/components/FormChangeNotifyWell/FormChangeNotifyWell";
 
 import AssessmentSummary from "./components/AssessmentSummary";
 
@@ -75,7 +77,7 @@ const FinalDecisionDialog = ({
 }: FinalDecisionDialogProps) => {
   const intl = useIntl();
   const todayDate = new Date();
-  const [isOpen, setIsOpen] = React.useState<boolean>(defaultOpen);
+  const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
   const [, executeQualifyMutation] = useMutation(
     PoolCandidate_QualifyCandidateMutation,
   );
@@ -301,35 +303,14 @@ const FinalDecisionDialog = ({
                   className="mt-6"
                 />
               )}
-              <Well color="warning" fontSize="caption" className="mt-6">
-                <p data-h2-margin-bottom="base(x.5)" className="font-bold">
-                  {intl.formatMessage({
-                    defaultMessage: "Important",
-                    id: "IKGhHj",
-                    description: "Important note or caption",
-                  })}
-                </p>
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "The candidate will be notified of any changes made in this form.",
-                    id: "17dZD4",
-                    description:
-                      "Caption notifying the user about who can know about the results of form changes",
-                  })}
-                </p>
-              </Well>
-              <Dialog.Footer data-h2-justify-content="base(flex-start)">
+              <FormChangeNotifyWell data-h2-margin-top="base(x1)" />
+              <Dialog.Footer>
+                <Submit text={intl.formatMessage(formMessages.saveChanges)} />
                 <Dialog.Close>
-                  <Button type="button" color="primary" mode="inline">
+                  <Button color="warning" mode="inline">
                     {intl.formatMessage(formMessages.cancelGoBack)}
                   </Button>
                 </Dialog.Close>
-                <Submit
-                  text={intl.formatMessage(formMessages.saveChanges)}
-                  color="primary"
-                  mode="solid"
-                />
               </Dialog.Footer>
             </form>
           </FormProvider>

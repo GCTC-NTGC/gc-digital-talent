@@ -1,11 +1,11 @@
-import React from "react";
+import { ReactNode } from "react";
 
 import { IconType } from "@gc-digital-talent/ui";
 
 interface IconLabelProps {
-  label: React.ReactNode;
+  label: ReactNode;
   icon: IconType;
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 const IconLabel = ({ label, icon, children }: IconLabelProps) => {

@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import ChevronDoubleLeftIcon from "@heroicons/react/24/solid/ChevronDoubleLeftIcon";
 import ChevronLeftIcon from "@heroicons/react/24/solid/ChevronLeftIcon";
@@ -6,6 +5,7 @@ import ChevronDoubleRightIcon from "@heroicons/react/24/solid/ChevronDoubleRight
 import ChevronRightIcon from "@heroicons/react/24/solid/ChevronRightIcon";
 import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
+import { DetailedHTMLProps, HTMLAttributes } from "react";
 
 import { Button, Color, DropdownMenu, cn } from "@gc-digital-talent/ui";
 
@@ -16,10 +16,7 @@ type ButtonColor = Extract<Color, "white" | "black">;
 type ActiveColor = Color;
 
 export interface PaginationProps
-  extends React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLDivElement>,
-    HTMLDivElement
-  > {
+  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   /** The current active page. */
   currentPage: number;
   /** Total count of items from array. */

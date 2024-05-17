@@ -1,10 +1,15 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import TagIcon from "@heroicons/react/24/outline/TagIcon";
+import { ReactNode, JSX } from "react";
 
 import { Heading, Link, ScrollToLink, Well } from "@gc-digital-talent/ui";
-import { getLocale } from "@gc-digital-talent/i18n";
-import { PublishingGroup } from "@gc-digital-talent/graphql";
+import { Locales, getLocale } from "@gc-digital-talent/i18n";
+import {
+  FragmentType,
+  PublishingGroup,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
 import { isInNullState } from "~/validators/process/classification";
@@ -13,17 +18,55 @@ import { wrapAbbr } from "~/utils/nameUtils";
 
 import { SectionProps } from "../types";
 
-type EducationRequirementsSectionProps = Omit<SectionProps<null>, "onSave"> & {
+const qualityStandardsLink = (chunks: ReactNode, locale: Locales) => {
+  const href =
+    locale === "en"
+      ? "https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/core.html#rpsi"
+      : "https://www.canada.ca/fr/secretariat-conseil-tresor/services/dotation/normes-qualification/centrale.html#eepr";
+  return (
+    <Link href={href} newTab external>
+      {chunks}
+    </Link>
+  );
+};
+
+const scrollToLink = (chunks: ReactNode, to: string) => (
+  <ScrollToLink to={to} mode="text" color="secondary">
+    {chunks}
+  </ScrollToLink>
+);
+
+const EditPoolEducationRequirements_Fragment = graphql(/* GraphQL */ `
+  fragment EditPoolEducationRequirements on Pool {
+    id
+    status
+    publishingGroup
+    classification {
+      id
+      group
+      level
+    }
+  }
+`);
+
+type EducationRequirementsSectionProps = Omit<
+  SectionProps<
+    null,
+    FragmentType<typeof EditPoolEducationRequirements_Fragment>
+  >,
+  "onSave"
+> & {
   changeTargetId: string;
 };
 
 const EducationRequirementsSection = ({
-  pool,
+  poolQuery,
   sectionMetadata,
   changeTargetId,
 }: EducationRequirementsSectionProps): JSX.Element => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const pool = getFragment(EditPoolEducationRequirements_Fragment, poolQuery);
   const isNull = isInNullState(pool);
   const { icon } = useToggleSectionInfo({
     isNull,
@@ -34,24 +77,6 @@ const EducationRequirementsSection = ({
   const classificationAbbr = pool.classification
     ? wrapAbbr(`${classificationGroup}-0${pool.classification.level}`, intl)
     : "";
-
-  const qualityStandardsLink = (chunks: React.ReactNode) => {
-    const href =
-      locale === "en"
-        ? "https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/core.html#rpsi"
-        : "https://www.canada.ca/fr/secretariat-conseil-tresor/services/dotation/normes-qualification/centrale.html#eepr";
-    return (
-      <Link href={href} newTab external>
-        {chunks}
-      </Link>
-    );
-  };
-
-  const scrollToLink = (chunks: React.ReactNode) => (
-    <ScrollToLink to={changeTargetId} mode="text" color="secondary">
-      {chunks}
-    </ScrollToLink>
-  );
 
   return (
     <div>
@@ -73,8 +98,10 @@ const EducationRequirementsSection = ({
             description: "Lead-in text for a process' education requirements",
           },
           {
-            qualityStandardsLink,
-            scrollToLink,
+            qualityStandardsLink: (chunks: ReactNode) =>
+              qualityStandardsLink(chunks, locale),
+            scrollToLink: (chunks: ReactNode) =>
+              scrollToLink(chunks, changeTargetId),
             classificationAbbr,
           },
         )}

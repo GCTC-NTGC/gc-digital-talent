@@ -1,4 +1,4 @@
-import { faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker/locale/en";
 
 import {
   FAR_FUTURE_DATE,
@@ -36,9 +36,6 @@ const generatePoolCandidate = (pools: Pool[], users: User[]): PoolCandidate => {
     id: faker.string.uuid(),
     pool,
     user,
-    cmoIdentifier: faker.helpers.slugify(
-      faker.lorem.words(faker.number.int({ min: 1, max: 3 })),
-    ),
     educationRequirementExperiences: fakeExperiences(1),
     educationRequirementOption:
       faker.helpers.arrayElement<EducationRequirementOption>(
@@ -59,7 +56,10 @@ const generatePoolCandidate = (pools: Pool[], users: User[]): PoolCandidate => {
     isBookmarked: faker.datatype.boolean(0.2),
     generalQuestionResponses,
     screeningQuestionResponses,
-    // assessmentResults,
+    finalDecisionAt: faker.date
+      .between({ from: FAR_PAST_DATE, to: FAR_FUTURE_DATE })
+      .toISOString()
+      .substring(0, 10),
   };
 };
 

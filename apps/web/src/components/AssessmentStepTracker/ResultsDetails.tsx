@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 
 import { Board, Well, Counter } from "@gc-digital-talent/ui";
@@ -63,7 +63,7 @@ const ResultsDetails = ({
   resultCounts,
   filters,
 }: ResultsDetailsProps) => {
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const intl = useIntl();
   const stepTitle = getLocalizedName(step.title, intl);
   const isApplicationStep =
