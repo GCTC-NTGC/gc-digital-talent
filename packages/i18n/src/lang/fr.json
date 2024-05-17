@@ -1563,6 +1563,10 @@
     "defaultMessage": "Nouvelle candidature",
     "description": "The pool candidate's status is New Application."
   },
+  "kQTtt9": {
+    "defaultMessage": "Enum introuvable",
+    "description": "Error message when human readable message not found"
+  },
   "kSQNt5": {
     "defaultMessage": "Études ou expérience insuffisantes pour satisfaire à l’exigence.",
     "description": "Option for justification when assessment decision is unsuccessful."
