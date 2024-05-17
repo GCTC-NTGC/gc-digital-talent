@@ -177,7 +177,7 @@ type Mutation {
   markNotificationAsUnread(id: UUID!): Notification
   deleteNotification(id: UUID!): Notification
   markAllNotificationsAsRead: [Notification]
-  updateIgnoredNotifications(ignoredEmailNotifications: [NotificationFamily], ignoredInAppNotifications: [NotificationFamily]): User
+  updateEnabledNotifications(enabledEmailNotifications: [NotificationFamily], enabledInAppNotifications: [NotificationFamily]): User
   createUserSkill(userId: UUID!, skillId: UUID!, userSkill: CreateUserSkillInput): UserSkill
   updateUserSkill(id: UUID!, userSkill: UpdateUserSkillInput): UserSkill
   updateUserSkillRankings(userId: UUID!, userSkillRanking: UpdateUserSkillRankingsInput!): User
@@ -290,8 +290,8 @@ type User {
   isProfileComplete: Boolean
   priorityWeight: Int
   authInfo: UserAuthInfo
-  ignoredEmailNotifications: [NotificationFamily]
-  ignoredInAppNotifications: [NotificationFamily]
+  enabledEmailNotifications: [NotificationFamily]
+  enabledInAppNotifications: [NotificationFamily]
 }
 
 interface Notification {
