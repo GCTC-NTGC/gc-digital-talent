@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import CalculatorIcon from "@heroicons/react/24/outline/CalculatorIcon";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
@@ -12,7 +11,6 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   Department,
   FragmentType,
-  Pool,
   Scalars,
   getFragment,
   graphql,
@@ -270,13 +268,11 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
 
 interface UserInformationProps {
   userQuery: FragmentType<typeof UserInfo_Fragment>;
-  pools: Pool[];
   departments: Department[];
 }
 
 export const UserInformation = ({
   userQuery,
-  pools,
   departments,
 }: UserInformationProps) => {
   const intl = useIntl();
@@ -302,13 +298,7 @@ export const UserInformation = ({
           "Title of the 'Candidate status' section of the view-user page",
       }),
       titleIcon: CalculatorIcon,
-      content: (
-        <CandidateStatusSection
-          user={user}
-          pools={pools}
-          departments={departments}
-        />
-      ),
+      content: <CandidateStatusSection user={user} departments={departments} />,
     },
     {
       id: "notes",
@@ -366,20 +356,7 @@ const UserInformation_Query = graphql(/* GraphQL */ `
     user(id: $id, trashed: WITH) {
       ...UserInfo
     }
-    pools {
-      id
-      name {
-        en
-        fr
-      }
-      stream
-      classification {
-        id
-        group
-        level
-      }
-      status
-    }
+
     departments {
       id
       departmentNumber
@@ -404,7 +381,6 @@ const UserInformationPage = () => {
   });
 
   const user = data?.user;
-  const pools = unpackMaybes(data?.pools);
   const departments = unpackMaybes(data?.departments);
 
   return (
@@ -417,12 +393,8 @@ const UserInformationPage = () => {
         })}
       />
       <Pending fetching={fetching} error={error}>
-        {user && pools ? (
-          <UserInformation
-            userQuery={user}
-            pools={pools}
-            departments={departments}
-          />
+        {user ? (
+          <UserInformation userQuery={user} departments={departments} />
         ) : (
           <ThrowNotFound />
         )}

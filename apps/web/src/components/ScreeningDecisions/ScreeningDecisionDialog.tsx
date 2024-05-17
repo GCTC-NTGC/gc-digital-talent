@@ -1,8 +1,8 @@
-import * as React from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 import { useMutation } from "urql";
 import isEmpty from "lodash/isEmpty";
+import { ReactNode, useState } from "react";
 
 import {
   AssessmentDecision,
@@ -110,7 +110,7 @@ const AssessmentStepTypeSection = ({
   poolSkill,
   type,
 }: {
-  educationRequirementOption: React.ReactNode;
+  educationRequirementOption: ReactNode;
   poolSkill?: PoolSkill;
   type: DialogType;
 }) => {
@@ -521,7 +521,7 @@ const ScreeningDecisionDialogApi = ({
   educationRequirement?: boolean;
 }) => {
   const intl = useIntl();
-  const [isOpen, setOpen] = React.useState<boolean>(false);
+  const [isOpen, setOpen] = useState<boolean>(false);
 
   const assessmentResultId = assessmentResult?.id;
   const poolSkill = assessmentResult?.poolSkill ?? poolSkillToAssess;

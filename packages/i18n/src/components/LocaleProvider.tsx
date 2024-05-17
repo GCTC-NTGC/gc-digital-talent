@@ -1,4 +1,4 @@
-import React from "react";
+import { createContext, ReactNode, useState, useEffect, useMemo } from "react";
 
 import { Locales } from "../types";
 import { isLocale, localeRedirect } from "../utils/localize";
@@ -37,19 +37,18 @@ const defaultLocaleState = {
   },
 };
 
-export const LocaleContext =
-  React.createContext<LocaleState>(defaultLocaleState);
+export const LocaleContext = createContext<LocaleState>(defaultLocaleState);
 
 interface LocaleProviderProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const LocaleProvider = ({ children }: LocaleProviderProps) => {
   const pathLocale = getPathLocale(window.location.pathname);
   const desiredLocale = pathLocale || guessLocale(); // figure it out from the path, storage, or browser
-  const [locale, setLocale] = React.useState<Locales>(desiredLocale);
+  const [locale, setLocale] = useState<Locales>(desiredLocale);
 
-  React.useEffect(() => {
+  useEffect(() => {
     // Do a locale redirect if the locale doesn't exist in path yet
     if (!pathLocale) {
       localeRedirect(locale);
@@ -67,7 +66,7 @@ const LocaleProvider = ({ children }: LocaleProviderProps) => {
     }
   }, [locale, desiredLocale, pathLocale]);
 
-  const state = React.useMemo(() => {
+  const state = useMemo(() => {
     return {
       locale,
       setLocale,

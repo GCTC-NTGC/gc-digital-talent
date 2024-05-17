@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
@@ -289,20 +288,6 @@ const AdminUserProfile_Query = graphql(/* GraphQL */ `
   query AdminUserProfile($id: UUID!) {
     user(id: $id, trashed: WITH) {
       ...AdminUserProfileUser
-    }
-    pools {
-      id
-      name {
-        en
-        fr
-      }
-      stream
-      classification {
-        id
-        group
-        level
-      }
-      status
     }
   }
 `);

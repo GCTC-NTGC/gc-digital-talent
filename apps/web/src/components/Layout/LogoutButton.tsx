@@ -1,9 +1,9 @@
-import React from "react";
+import { HTMLProps, ReactNode, forwardRef } from "react";
 
-interface LogoutButtonProps extends React.HTMLProps<HTMLButtonElement> {
-  children: React.ReactNode;
+interface LogoutButtonProps extends HTMLProps<HTMLButtonElement> {
+  children: ReactNode;
 }
-const LogoutButton = React.forwardRef<HTMLButtonElement, LogoutButtonProps>(
+const LogoutButton = forwardRef<HTMLButtonElement, LogoutButtonProps>(
   ({ children, ...rest }, forwardedRef) => (
     <button
       data-h2-color="base(black) base:hover(primary) base:iap(primary) base:iap:dark(primary.lightest) base:iap:hover(primary.darker) base:iap:dark:hover(black)"

@@ -1,4 +1,3 @@
-import * as React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import HandRaisedIcon from "@heroicons/react/24/outline/HandRaisedIcon";
@@ -23,7 +22,6 @@ import {
   User,
   Scalars,
   Maybe,
-  Pool,
   graphql,
   ArmedForcesStatus,
   PoolCandidateSnapshotQuery,
@@ -64,6 +62,7 @@ import ChangeExpiryDateDialog from "./components/ChangeExpiryDateDialog/ChangeEx
 import RemoveCandidateDialog from "./components/RemoveCandidateDialog/RemoveCandidateDialog";
 import ReinstateCandidateDialog from "./components/ReinstateCandidateDialog/ReinstateCandidateDialog";
 import RevertFinalDecisionDialog from "./components/MoreActions/RevertFinalDecisionDialog";
+import ErrorBoundary from "../../../components/ErrorBoundary/ErrorBoundary";
 
 const screeningAndAssessmentTitle = defineMessage({
   defaultMessage: "Screening and assessment",
@@ -422,20 +421,6 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
         }
       }
     }
-    pools {
-      id
-      name {
-        en
-        fr
-      }
-      stream
-      classification {
-        id
-        group
-        level
-      }
-      status
-    }
     departments {
       id
       departmentNumber
@@ -449,13 +434,11 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
 
 export interface ViewPoolCandidateProps {
   poolCandidate: NonNullable<PoolCandidateSnapshotQuery["poolCandidate"]>;
-  pools: Pool[];
   departments: Department[];
 }
 
 export const ViewPoolCandidate = ({
   poolCandidate,
-  pools,
   departments,
 }: ViewPoolCandidateProps) => {
   const intl = useIntl();
@@ -679,7 +662,6 @@ export const ViewPoolCandidate = ({
                 <ChangeStatusDialog
                   selectedCandidate={poolCandidate}
                   user={poolCandidate.user}
-                  pools={pools}
                 />
               </p>
             </div>
@@ -708,11 +690,13 @@ export const ViewPoolCandidate = ({
             </div>
             {parsedSnapshot ? (
               <div data-h2-margin-top="base(x2)">
-                <ApplicationInformation
-                  poolQuery={poolCandidate.pool}
-                  snapshot={parsedSnapshot}
-                  application={snapshotCandidate}
-                />
+                <ErrorBoundary>
+                  <ApplicationInformation
+                    poolQuery={poolCandidate.pool}
+                    snapshot={parsedSnapshot}
+                    application={snapshotCandidate}
+                  />
+                </ErrorBoundary>
                 <div data-h2-margin="base(x2 0)">
                   <Accordion.Root type="single" mode="card" collapsible>
                     <Accordion.Item value="otherRecruitments">
@@ -725,17 +709,16 @@ export const ViewPoolCandidate = ({
                         })}
                       </Accordion.Trigger>
                       <Accordion.Content>
-                        <PoolStatusTable
-                          user={poolCandidate.user}
-                          pools={pools}
-                        />
+                        <PoolStatusTable user={poolCandidate.user} />
                       </Accordion.Content>
                     </Accordion.Item>
                   </Accordion.Root>
                 </div>
-                <CareerTimelineSection
-                  experiences={nonEmptyExperiences ?? []}
-                />
+                <ErrorBoundary>
+                  <CareerTimelineSection
+                    experiences={nonEmptyExperiences ?? []}
+                  />
+                </ErrorBoundary>
               </div>
             ) : (
               <NotFound
@@ -778,10 +761,9 @@ export const ViewPoolCandidatePage = () => {
 
   return (
     <Pending fetching={fetching} error={error}>
-      {data?.poolCandidate && data?.pools ? (
+      {data?.poolCandidate ? (
         <ViewPoolCandidate
           poolCandidate={data.poolCandidate}
-          pools={data.pools.filter(notEmpty)}
           departments={data.departments.filter(notEmpty)}
         />
       ) : (

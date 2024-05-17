@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import CheckIcon from "@heroicons/react/24/outline/CheckIcon";
@@ -91,7 +91,7 @@ const ScreeningDecisionDialogForm = ({
   /**
    * Reset un-rendered fields
    */
-  React.useEffect(() => {
+  useEffect(() => {
     const resetDirtyField = (name: FormNames) => {
       resetField(name, { keepDirty: false, defaultValue: null });
     };

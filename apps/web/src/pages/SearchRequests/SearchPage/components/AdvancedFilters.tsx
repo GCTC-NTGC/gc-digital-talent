@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import isArray from "lodash/isArray";
@@ -58,7 +58,7 @@ const accordionIds = {
 const AdvancedFilters = () => {
   const intl = useIntl();
   const { watch } = useFormContext();
-  const [openFilters, setOpenFilters] = React.useState<string[]>([]);
+  const [openFilters, setOpenFilters] = useState<string[]>([]);
   const [educationRequirement, employmentDuration, operationalRequirements] =
     watch([
       "educationRequirement",

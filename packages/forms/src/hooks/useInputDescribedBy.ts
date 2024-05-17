@@ -1,4 +1,4 @@
-import React from "react";
+import { ReactNode } from "react";
 
 import { InputFieldError } from "../types";
 
@@ -16,7 +16,7 @@ type UseInputDescribedByArgs = {
   /** Determines if each description type is visible or not */
   show: {
     error?: InputFieldError;
-    context?: React.ReactNode;
+    context?: ReactNode;
     unsaved?: boolean;
   };
 };
@@ -41,7 +41,7 @@ type UseInputDescribedBy = (
  * @param {UseInputDescribedByArgs} args
  * @param {Object} args.show  The description elements and if they are visible
  * @param {InputFieldError} args.show.error If the error description is visible
- * @param {React.ReactNode} args.show.context If the context description is visible
+ * @param {ReactNode} args.show.context If the context description is visible
  * @param {boolean} args.show.unsaved If the unsaved changes description is visible
  * @param {string}  args.id A unique identifier of the input
  * @returns {UseInputDescribedByReturn}

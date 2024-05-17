@@ -1,4 +1,4 @@
-import React from "react";
+import { Fragment } from "react";
 import { useIntl } from "react-intl";
 import { useLocation, Outlet, ScrollRestoration } from "react-router-dom";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
@@ -76,7 +76,7 @@ export const Component = () => {
   return (
     <NestedLanguageProvider messages={messages}>
       <AnimatePresence>
-        <React.Fragment key={location.pathname}>
+        <Fragment key={location.pathname}>
           <Favicon locale={locale} project="iap" />
           <IAPSeo />
           <SkipLink />
@@ -99,7 +99,7 @@ export const Component = () => {
             </div>
           </div>
           <ScrollRestoration />
-        </React.Fragment>
+        </Fragment>
       </AnimatePresence>
     </NestedLanguageProvider>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
@@ -37,7 +37,7 @@ type DefaultValueRichTextInputArgs = RichTextInputArgs & {
 
 const Template: StoryFn<DefaultValueRichTextInputArgs> = (args) => {
   const { defaultValue, ...rest } = args;
-  const [output, setOutput] = React.useState<string>(
+  const [output, setOutput] = useState<string>(
     defaultValue ? String(defaultValue) : "",
   );
   return (

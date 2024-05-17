@@ -1,9 +1,9 @@
-import React from "react";
+import { ReactNode, SVGProps as ReactSVGProps } from "react";
 
-export type SVGProps = React.SVGProps<SVGSVGElement>;
+export type SVGProps = ReactSVGProps<SVGSVGElement>;
 
 interface SvgComponentProps extends SVGProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const Svg = ({ children, ...rest }: SvgComponentProps) => (

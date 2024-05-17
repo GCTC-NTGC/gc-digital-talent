@@ -1,4 +1,3 @@
-import React from "react";
 import { faker } from "@faker-js/faker/locale/en";
 import { StoryFn, Meta } from "@storybook/react";
 

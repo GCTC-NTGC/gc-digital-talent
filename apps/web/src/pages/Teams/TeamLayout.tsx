@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { Outlet } from "react-router-dom";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";

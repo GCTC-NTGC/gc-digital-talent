@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import ComputerDesktopIcon from "@heroicons/react/24/solid/ComputerDesktopIcon";
 import SunIcon from "@heroicons/react/24/solid/SunIcon";

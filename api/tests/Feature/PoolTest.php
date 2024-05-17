@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\PoolStatus;
+use App\Enums\PoolStream;
 use App\Enums\SkillCategory;
 use App\Models\Classification;
 use App\Models\Pool;
@@ -322,13 +323,13 @@ class PoolTest extends TestCase
             /** @lang GraphQL */
             '
         query browsePools {
-            pools {
+            publishedPools {
                 id
             }
         }
         '
         )
-            ->assertJsonCount(1, 'data.pools')
+            ->assertJsonCount(1, 'data.publishedPools')
             ->assertJsonFragment(['id' => $publishedPool->id]);
     }
 
@@ -345,21 +346,21 @@ class PoolTest extends TestCase
             /** @lang GraphQL */
             '
         query browsePools {
-            pools {
+            publishedPools {
                 id
             }
         }
         '
         )
-            ->assertJsonCount(1, 'data.pools')
+            ->assertJsonCount(1, 'data.publishedPools')
             ->assertJsonFragment(['id' => $publishedPool->id]);
     }
 
     public function testListPoolsReturnsOnlyPublishedAsBaseRoleUser(): void
     {
-        $publishedPool = Pool::factory()->create([
-            'published_at' => config('constants.past_date'),
-        ]);
+        $publishedPool = Pool::factory()
+            ->published()
+            ->create();
 
         $draftPool = Pool::factory()->create([
             'published_at' => null,
@@ -370,13 +371,13 @@ class PoolTest extends TestCase
             /** @lang GraphQL */
             '
         query browsePools {
-            pools {
+            publishedPools {
                 id
             }
         }
         '
         )
-            ->assertJsonCount(1, 'data.pools')
+            ->assertJsonCount(1, 'data.publishedPools')
             ->assertJsonFragment(['id' => $publishedPool->id]);
     }
 
@@ -395,40 +396,14 @@ class PoolTest extends TestCase
             /** @lang GraphQL */
             '
         query browsePools {
-            pools {
+            publishedPools {
                 id
             }
         }
         '
         )
-            ->assertJsonCount(1, 'data.pools')
+            ->assertJsonCount(1, 'data.publishedPools')
             ->assertJsonFragment(['id' => $publishedPool->id]);
-    }
-
-    // This error is not desired behavior, but is expected due to current implementation.
-    public function testListPoolsReturnsAuthErrorAsNoRoleUser(): void
-    {
-        $publishedPool = Pool::factory()->create([
-            'published_at' => config('constants.past_date'),
-        ]);
-
-        $draftPool = Pool::factory()->create([
-            'published_at' => null,
-        ]);
-
-        $noRoleUser = User::factory()->create();
-        $noRoleUser->syncRoles([]);
-        // Assert query will return only the published pool as guest user
-        $this->actingAs($noRoleUser, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-        query browsePools {
-            pools {
-                id
-            }
-        }
-        '
-        )->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
     // test filtering closing_date on publishedPools
@@ -917,5 +892,193 @@ class PoolTest extends TestCase
                     'deletePool' => ['id' => $pool->id],
                 ],
             ]);
+    }
+
+    /**
+     * @group paginated
+     */
+    public function testPoolNameScope(): void
+    {
+        $toBeFound = Pool::factory()->published()
+            ->create([
+                'name' => ['en' => 'Found EN', 'fr' => 'Found FR'],
+            ]);
+
+        Pool::factory()->published()->create([
+            'name' => ['en' => 'Not EN', 'fr' => 'Not FR'],
+        ]);
+
+        $res = $this->graphQL(/** @lang GraphQL */
+            '
+                query ScopePoolName($where: PoolFilterInput) {
+                    poolsPaginated(where: $where) {
+                        data {
+                            id
+                            name { en fr }
+                        }
+                    }
+                }
+            ',
+            ['where' => ['name' => 'found']]
+        )->assertJsonFragment([
+            'id' => $toBeFound->id,
+            'name' => $toBeFound->name,
+        ]);
+
+        assertSame(1, count($res->json('data.poolsPaginated.data')));
+    }
+
+    /**
+     * @group paginated
+     */
+    public function testPoolTeamScope(): void
+    {
+        $toBeFound = Pool::factory()->published()->create([
+            'team_id' => $this->team,
+        ]);
+
+        Pool::factory()->published()->create([
+            'team_id' => Team::factory()->create(),
+        ]);
+
+        $res = $this->graphQL(/** @lang GraphQL */
+            '
+                query ScopePoolName($where: PoolFilterInput) {
+                    poolsPaginated(where: $where) {
+                        data {
+                            id
+                            team { id name }
+                        }
+                    }
+                }
+            ',
+            [
+                'where' => [
+                    'team' => $this->team->display_name['en'],
+                ],
+            ]
+        )->assertJsonFragment([
+            'id' => $toBeFound->id,
+            'team' => [
+                'id' => $this->team->id,
+                'name' => $this->team->name,
+            ],
+        ]);
+
+        assertSame(1, count($res->json('data.poolsPaginated.data')));
+    }
+
+    /**
+     * @group paginated
+     */
+    public function testPoolStreamsScope(): void
+    {
+        $ATIP = Pool::factory()->published()->create([
+            'stream' => PoolStream::ACCESS_INFORMATION_PRIVACY->name,
+        ]);
+
+        $BAS = Pool::factory()->published()->create([
+            'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
+        ]);
+
+        Pool::factory()->published()->create([
+            'stream' => PoolStream::DATABASE_MANAGEMENT->name,
+        ]);
+
+        $res = $this->graphQL(/** @lang GraphQL */
+            '
+                query ScopePoolName($where: PoolFilterInput) {
+                    poolsPaginated(where: $where) {
+                        data {
+                            id
+                            stream
+                        }
+                    }
+                }
+            ',
+            [
+                'where' => [
+                    'streams' => [
+                        PoolStream::ACCESS_INFORMATION_PRIVACY->name,
+                        PoolStream::BUSINESS_ADVISORY_SERVICES->name,
+                    ],
+                ],
+            ]
+        )->assertJsonFragment([
+            'data' => [
+                [
+                    'id' => $ATIP->id,
+                    'stream' => PoolStream::ACCESS_INFORMATION_PRIVACY->name,
+                ],
+                [
+                    'id' => $BAS->id,
+                    'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
+                ],
+            ],
+        ]);
+
+        assertSame(2, count($res->json('data.poolsPaginated.data')));
+    }
+
+    /**
+     * @group paginated
+     */
+    public function testPoolStatusScope(): void
+    {
+        $closed = Pool::factory()->closed()->create();
+        $published = Pool::factory()->published()->create();
+        $draft = Pool::factory()->create();
+
+        $query = /** @lang GraphQL */
+            '
+                query ScopePoolName($where: PoolFilterInput) {
+                    poolsPaginated(where: $where) {
+                        data {
+                            id
+                            status
+                        }
+                    }
+                }
+            ';
+
+        $closedRes = $this
+            ->actingAs($this->adminUser, 'api')
+            ->graphQL($query, [
+                'where' => [
+                    'statuses' => [PoolStatus::CLOSED->name],
+                ],
+            ])->assertJsonFragment([
+                'id' => $closed->id,
+                'status' => PoolStatus::CLOSED->name,
+            ]);
+
+        assertSame(1, count($closedRes->json('data.poolsPaginated.data')));
+
+        $publishedRes = $this
+            ->actingAs($this->adminUser, 'api')
+            ->graphQL($query, [
+                'where' => [
+                    'statuses' => [PoolStatus::PUBLISHED->name],
+                ],
+            ])->assertJsonFragment([
+                'id' => $published->id,
+                'status' => PoolStatus::PUBLISHED->name,
+            ]);
+
+        assertSame(1, count($publishedRes->json('data.poolsPaginated.data')));
+
+        $draftRes = $this
+            ->actingAs($this->adminUser, 'api')
+            ->graphQL($query, [
+                'where' => [
+                    'statuses' => [PoolStatus::DRAFT->name],
+                ],
+            ])->assertJsonFragment([
+                'id' => $draft->id,
+                'status' => PoolStatus::DRAFT->name,
+            ]);
+
+        assertSame(1, count($draftRes->json('data.poolsPaginated.data')));
+
     }
 }

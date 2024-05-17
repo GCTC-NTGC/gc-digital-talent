@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import {
   ColumnDef,
@@ -9,6 +8,7 @@ import {
 import isEqual from "lodash/isEqual";
 import { SubmitHandler } from "react-hook-form";
 import { useClient, useQuery } from "urql";
+import { ReactNode, useState, useMemo, useRef } from "react";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
@@ -125,7 +125,7 @@ const UsersPaginated_Query = graphql(/* GraphQL */ `
 `);
 
 interface UserTableProps {
-  title: React.ReactNode;
+  title: ReactNode;
 }
 
 const UserTable = ({ title }: UserTableProps) => {
@@ -133,19 +133,17 @@ const UserTable = ({ title }: UserTableProps) => {
   const paths = useRoutes();
   const initialState = getTableStateFromSearchParams(defaultState);
   const client = useClient();
-  const [selectingFor, setSelectingFor] = React.useState<SelectingFor>(null);
-  const [isSelecting, setIsSelecting] = React.useState<boolean>(false);
-  const [selectedApplicants, setSelectedApplicants] = React.useState<User[]>(
-    [],
-  );
+  const [selectingFor, setSelectingFor] = useState<SelectingFor>(null);
+  const [isSelecting, setIsSelecting] = useState<boolean>(false);
+  const [selectedApplicants, setSelectedApplicants] = useState<User[]>([]);
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
-  const initialFilters: UserFilterInput = React.useMemo(
+  const initialFilters: UserFilterInput = useMemo(
     () => (filtersEncoded ? JSON.parse(filtersEncoded) : undefined),
     [filtersEncoded],
   );
-  const filterRef = React.useRef<UserFilterInput | undefined>(initialFilters);
-  const [paginationState, setPaginationState] = React.useState<PaginationState>(
+  const filterRef = useRef<UserFilterInput | undefined>(initialFilters);
+  const [paginationState, setPaginationState] = useState<PaginationState>(
     initialState.paginationState
       ? {
           ...initialState.paginationState,
@@ -154,14 +152,14 @@ const UserTable = ({ title }: UserTableProps) => {
       : INITIAL_STATE.paginationState,
   );
   const { selectedRows, setSelectedRows } = useSelectedRows<string>([]);
-  const [searchState, setSearchState] = React.useState<SearchState>(
+  const [searchState, setSearchState] = useState<SearchState>(
     initialState.searchState ?? INITIAL_STATE.searchState,
   );
-  const [sortState, setSortState] = React.useState<SortingState | undefined>(
+  const [sortState, setSortState] = useState<SortingState | undefined>(
     initialState.sortState ?? [{ id: "createdDate", desc: false }],
   );
   const [filterState, setFilterState] =
-    React.useState<UserFilterInput>(initialFilters);
+    useState<UserFilterInput>(initialFilters);
 
   const handlePaginationStateChange = ({
     pageIndex,
@@ -314,7 +312,7 @@ const UserTable = ({ title }: UserTableProps) => {
     },
   });
 
-  const filteredData: Array<User> = React.useMemo(() => {
+  const filteredData: Array<User> = useMemo(() => {
     const users = data?.usersPaginated?.data ?? [];
     return users.filter(notEmpty);
   }, [data?.usersPaginated?.data]);

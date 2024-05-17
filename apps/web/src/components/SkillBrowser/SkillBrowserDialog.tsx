@@ -1,7 +1,7 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { useForm, FormProvider } from "react-hook-form";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
+import { ReactNode, useEffect, useState } from "react";
 
 import {
   Button,
@@ -37,7 +37,7 @@ interface SkillBrowserDialogProps {
   // Customize the trigger text and icon
   trigger?: {
     id?: string;
-    label?: React.ReactNode;
+    label?: ReactNode;
     icon?: IconType | null;
     mode?: ButtonProps["mode"];
     disabled?: boolean;
@@ -49,7 +49,7 @@ interface SkillBrowserDialogProps {
   // Callback function when a skill is selected
   onSave: (values: FormValues) => Promise<void>;
   /** Custom trigger button which overrides default settings */
-  customTrigger?: React.ReactNode;
+  customTrigger?: ReactNode;
 }
 
 const SkillBrowserDialog = ({
@@ -66,8 +66,8 @@ const SkillBrowserDialog = ({
 }: SkillBrowserDialogProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const [isOpen, setIsOpen] = React.useState<boolean>(defaultOpen);
-  const [selectedSkill, setSelectedSkill] = React.useState<Skill | null>(null);
+  const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
+  const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
   const methods = useForm<FormValues>({
     defaultValues: initialState ?? defaultFormValues,
   });
@@ -131,7 +131,7 @@ const SkillBrowserDialog = ({
     block: trigger?.block,
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (watchSkill) {
       formTrigger("skill");
     }

@@ -1,4 +1,3 @@
-import React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 
@@ -98,7 +97,10 @@ const subTitle = defineMessage({
   description: "subtitle for the profile page",
 });
 
-export const UserProfile_Fragment = graphql(/* GraphQL */ `
+// export text for testing
+// should match the getProfile query from api/app/GraphQL/Mutations/PoolCandidateSnapshot.graphql
+// eslint-disable-next-line camelcase
+export const UserProfile_FragmentText = /* GraphQL */ `
   fragment UserProfile on User {
     id
     authInfo {
@@ -174,6 +176,7 @@ export const UserProfile_Fragment = graphql(/* GraphQL */ `
       }
     }
     experiences {
+      # profileExperience fragment
       id
       __typename
       user {
@@ -281,6 +284,7 @@ export const UserProfile_Fragment = graphql(/* GraphQL */ `
       }
       educationRequirementOption
       educationRequirementExperiences {
+        # profileExperience fragment
         id
         __typename
         details
@@ -371,7 +375,9 @@ export const UserProfile_Fragment = graphql(/* GraphQL */ `
       }
     }
   }
-`);
+`;
+
+export const UserProfile_Fragment = graphql(UserProfile_FragmentText);
 
 export interface ProfilePageProps {
   userQuery: FragmentType<typeof UserProfile_Fragment>;

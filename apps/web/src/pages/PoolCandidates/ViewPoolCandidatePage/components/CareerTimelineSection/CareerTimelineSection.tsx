@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 
@@ -22,7 +22,7 @@ interface CareerTimelineSectionProps {
 const CareerTimelineSection = ({ experiences }: CareerTimelineSectionProps) => {
   const intl = useIntl();
   const [sortAndFilterValues, setSortAndFilterValues] =
-    React.useState<ExperienceSortAndFilterFormValues>({
+    useState<ExperienceSortAndFilterFormValues>({
       sortBy: "date_desc",
       filterBy: "none",
     });

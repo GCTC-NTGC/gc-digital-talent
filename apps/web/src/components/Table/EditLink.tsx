@@ -1,6 +1,6 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
+import { ReactElement } from "react";
 
 import { Link } from "@gc-digital-talent/ui";
 import { Maybe } from "@gc-digital-talent/graphql";
@@ -21,7 +21,7 @@ function EditLink({
   editUrlRoot,
   label,
   text,
-}: EditLinkProps): React.ReactElement {
+}: EditLinkProps): ReactElement {
   const intl = useIntl();
   const href = `${editUrlRoot}/${id}/edit`;
   const { pathname, search, hash } = useLocation();

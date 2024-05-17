@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useMemo } from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
@@ -41,7 +41,7 @@ const TeamMembers = ({ teamQuery }: TeamMembersProps) => {
     roleAssignments,
   );
 
-  const members: TeamMember[] = React.useMemo(
+  const members: TeamMember[] = useMemo(
     () => groupRoleAssignmentsByUser(team.roleAssignments || []),
     [team.roleAssignments],
   );
@@ -95,7 +95,7 @@ const TeamMembers = ({ teamQuery }: TeamMembersProps) => {
     ];
   }
 
-  const data = React.useMemo(() => members.filter(notEmpty), [members]);
+  const data = useMemo(() => members.filter(notEmpty), [members]);
 
   return (
     <>

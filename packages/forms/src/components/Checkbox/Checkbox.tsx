@@ -1,7 +1,7 @@
-import React from "react";
 import get from "lodash/get";
 import { FieldError, useFormContext } from "react-hook-form";
 import { useReducedMotion } from "framer-motion";
+import { ReactNode, Fragment } from "react";
 
 import Field from "../Field";
 import type { CommonInputProps, HTMLInputProps } from "../../types";
@@ -14,7 +14,7 @@ export type CheckboxProps = HTMLInputProps &
     /** Wrap input in bounding box. */
     boundingBox?: boolean;
     /** Label for the bounding box. */
-    boundingBoxLabel?: React.ReactNode;
+    boundingBoxLabel?: ReactNode;
     /** Determine if it should track unsaved changes and render it */
     isUnsaved?: boolean;
     /** Render differently when in a list */
@@ -53,8 +53,8 @@ const Checkbox = ({
   });
 
   const asFieldset = boundingBox && boundingBoxLabel;
-  const Wrapper = asFieldset ? Field.Fieldset : React.Fragment;
-  const BoundingBox = asFieldset ? Field.BoundingBox : React.Fragment;
+  const Wrapper = asFieldset ? Field.Fieldset : Fragment;
+  const BoundingBox = asFieldset ? Field.BoundingBox : Fragment;
 
   return (
     <Field.Wrapper>

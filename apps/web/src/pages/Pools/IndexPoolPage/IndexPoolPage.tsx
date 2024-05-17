@@ -1,4 +1,3 @@
-import React from "react";
 import { MessageDescriptor, defineMessage, useIntl } from "react-intl";
 import SquaresPlusOutlineIcon from "@heroicons/react/24/outline/SquaresPlusIcon";
 import SquaresPlusSolidIcon from "@heroicons/react/24/solid/SquaresPlusIcon";

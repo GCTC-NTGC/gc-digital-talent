@@ -1,4 +1,3 @@
-import React from "react";
 import { faker } from "@faker-js/faker";
 import { StoryFn } from "@storybook/react";
 
@@ -16,6 +15,7 @@ import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
+import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
 
 import UserInformationPage, {
   UserInfo_Fragment,
@@ -96,13 +96,32 @@ const typeAdjustedUser = { ...mockUser, experiences: undefined };
 
 export default {
   component: UserInformationPage,
+  decorators: [MockGraphqlDecorator],
+  parameters: {
+    apiResponses: {
+      PoolFilter: {
+        data: {
+          poolsPaginated: {
+            data: mockPools,
+            paginatorInfo: {
+              total: mockPools.length,
+            },
+          },
+        },
+      },
+      AvailablePoolsToAddTo: {
+        data: {
+          poolsPaginated: { data: mockPools },
+        },
+      },
+    },
+  },
 };
 
 const Template: StoryFn<typeof UserInformationPage> = () => {
   return (
     <UserInformation
       userQuery={makeFragmentData(typeAdjustedUser, UserInfo_Fragment)}
-      pools={mockPools}
       departments={mockDepartments}
     />
   );

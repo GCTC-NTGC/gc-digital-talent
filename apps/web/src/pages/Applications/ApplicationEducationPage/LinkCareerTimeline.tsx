@@ -1,7 +1,7 @@
-import * as React from "react";
 import uniqueId from "lodash/uniqueId";
 import { defineMessages, useIntl } from "react-intl";
 import { useWatch } from "react-hook-form";
+import { ReactNode } from "react";
 
 import { Checklist, CheckboxOption } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
@@ -47,7 +47,7 @@ const essentialExperienceMessages = defineMessages({
   },
 });
 
-const previousStepLink = (chunks: React.ReactNode, path: string) => (
+const previousStepLink = (chunks: ReactNode, path: string) => (
   <Link href={path}>{chunks}</Link>
 );
 
@@ -141,8 +141,7 @@ const CheckListSection = ({
                       "Secondary alert message informing user to add experience in application education page.",
                   },
                   {
-                    link: (chunks: React.ReactNode) =>
-                      previousStepLink(chunks, path),
+                    link: (chunks: ReactNode) => previousStepLink(chunks, path),
                   },
                 )}
               </p>
@@ -179,8 +178,7 @@ const CheckListSection = ({
                       "Secondary alert message informing user to add education experience in application education page.",
                   },
                   {
-                    link: (chunks: React.ReactNode) =>
-                      previousStepLink(chunks, path),
+                    link: (chunks: ReactNode) => previousStepLink(chunks, path),
                   },
                 )}
               </p>

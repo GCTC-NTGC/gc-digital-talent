@@ -2091,7 +2091,7 @@ class UserTest extends TestCase
         ',
             [
                 'where' => [
-                    'generalSearch' => ['sam', '67890'],
+                    'generalSearch' => 'sam 67890',
                 ],
             ]
         )->assertJson([

@@ -1,5 +1,4 @@
 /* eslint-disable import/prefer-default-export */
-import * as React from "react";
 import { IntlShape } from "react-intl";
 
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";

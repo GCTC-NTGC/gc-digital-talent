@@ -1,8 +1,14 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import React from "react";
 import FocusLock from "react-focus-lock";
 import { RemoveScroll } from "react-remove-scroll";
 import { m, AnimatePresence, useReducedMotion } from "framer-motion";
+import {
+  KeyboardEventHandler,
+  ReactNode,
+  RefObject,
+  useCallback,
+  JSX,
+} from "react";
 
 import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 
@@ -19,11 +25,11 @@ export interface SideMenuProps {
   /** Accessible name for the navigation region */
   label: string;
   /** Add items to the end of the menu */
-  footer?: React.JSX.Element;
+  footer?: JSX.Element;
   /** Ref for the button that triggers the opening (for focus management)  */
-  triggerRef?: React.RefObject<HTMLButtonElement>;
+  triggerRef?: RefObject<HTMLButtonElement>;
   /** Main menu items */
-  children?: React.ReactNode;
+  children?: ReactNode;
   /** Reduce motion (needs to be here for context) */
   shouldReduceMotion?: boolean | null;
 }
@@ -44,14 +50,14 @@ const SideMenu = ({
     onChange: onOpenChange,
   });
   const isSmallScreen = useIsSmallScreen();
-  const handleOpenToggle = React.useCallback(() => {
+  const handleOpenToggle = useCallback(() => {
     setOpen((prevOpen) => {
       const newOpen = !prevOpen;
       return newOpen;
     });
   }, [setOpen]);
 
-  const handleKeyDown = (event: React.KeyboardEvent) => {
+  const handleKeyDown: KeyboardEventHandler = (event) => {
     if (event.key === "Escape") {
       event.stopPropagation();
       setOpen(false);

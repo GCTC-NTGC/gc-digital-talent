@@ -1,14 +1,14 @@
-import React from "react";
 import { useFormState } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { ReactNode } from "react";
 
 import { ButtonProps, Color, Button } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
 
 export interface SubmitProps extends Omit<ButtonProps, "ref" | "type"> {
-  text?: string | React.ReactNode;
-  submittedText?: string | React.ReactNode;
-  isSubmittingText?: string | React.ReactNode;
+  text?: string | ReactNode;
+  submittedText?: string | ReactNode;
+  isSubmittingText?: string | ReactNode;
   color?: Color;
   mode?: "solid" | "inline";
   isSubmitting?: boolean;
