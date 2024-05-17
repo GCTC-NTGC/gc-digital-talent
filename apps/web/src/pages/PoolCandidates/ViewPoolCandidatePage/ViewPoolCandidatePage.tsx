@@ -37,6 +37,7 @@ import AssessmentResultsTable from "~/components/AssessmentResultsTable/Assessme
 import ChangeStatusDialog from "~/pages/Users/UserInformationPage/components/ChangeStatusDialog";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import ErrorBoundary from "~/components/ErrorBoundary/ErrorBoundary";
 
 import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
 import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
