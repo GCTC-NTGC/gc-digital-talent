@@ -15,13 +15,8 @@ import {
   useIntlLanguages,
 } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { Pending } from "@gc-digital-talent/ui";
-import {
-  Skill,
-  SkillCategory,
-  SkillFamily,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import { LoadingErrorMessage } from "@gc-digital-talent/ui";
+import { Skill, SkillCategory, graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
@@ -75,23 +70,64 @@ export function transformSkillFilterInputToFormValues(
 
 const columnHelper = createColumnHelper<Skill>();
 
+const SkillTableSkills_Query = graphql(/* GraphQL */ `
+  query SkillTableSkills {
+    skills {
+      id
+      key
+      category
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+      keywords {
+        en
+        fr
+      }
+      families {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+      }
+    }
+    skillFamilies {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+  }
+`);
+
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["Skill", "SkillFamily"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
+  requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
+};
+
 interface SkillTableProps {
-  skills: Array<Skill>;
-  skillFamilies: SkillFamily[];
   title: string;
   paginationState?: PaginationState;
   addButton?: boolean;
-  fetching?: boolean;
   csvDownload?: boolean;
 }
 
 export const SkillTable = ({
-  skills,
   title,
   paginationState,
   addButton,
-  skillFamilies,
-  fetching,
   csvDownload,
 }: SkillTableProps) => {
   const intl = useIntl();
@@ -112,6 +148,13 @@ export const SkillTable = ({
     },
     cache,
   );
+  const [{ data, fetching, error }] = useQuery({
+    query: SkillTableSkills_Query,
+    context,
+  });
+
+  const skills = useMemo(() => unpackMaybes(data?.skills), [data?.skills]);
+  const skillFamilies = unpackMaybes(data?.skillFamilies);
 
   const paths = useRoutes();
   const [searchParams] = useSearchParams();
@@ -126,8 +169,8 @@ export const SkillTable = ({
 
   const [dataState, setDataState] = useState<Skill[]>(skills);
 
-  const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
-    const transformedData = transformFormValuesToSkillFilterInput(data);
+  const handleFilterSubmit: SubmitHandler<FormValues> = (values) => {
+    const transformedData = transformFormValuesToSkillFilterInput(values);
     setFilterState(transformedData);
   };
 
@@ -202,9 +245,14 @@ export const SkillTable = ({
   const { pathname, search, hash } = useLocation();
   const currentUrl = `${pathname}${search}${hash}`;
 
+  if (error) {
+    return <LoadingErrorMessage error={error} />;
+  }
+
   return (
     <Table<Skill>
       caption={title}
+      isLoading={fetching}
       data={dataState}
       columns={columns}
       hiddenColumnIds={["id"]}
@@ -284,84 +332,4 @@ export const SkillTable = ({
   );
 };
 
-const SkillTableSkills_Query = graphql(/* GraphQL */ `
-  query SkillTableSkills {
-    skills {
-      id
-      key
-      category
-      name {
-        en
-        fr
-      }
-      description {
-        en
-        fr
-      }
-      keywords {
-        en
-        fr
-      }
-      families {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        description {
-          en
-          fr
-        }
-      }
-    }
-    skillFamilies {
-      id
-      key
-      name {
-        en
-        fr
-      }
-    }
-  }
-`);
-
-const context: Partial<OperationContext> = {
-  additionalTypenames: ["Skill", "SkillFamily"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
-  requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
-};
-
-const SkillTableApi = ({
-  title,
-  paginationState,
-  addButton,
-  csvDownload,
-}: {
-  title: string;
-  paginationState?: PaginationState;
-  addButton?: boolean;
-  csvDownload?: boolean;
-}) => {
-  const [{ data, fetching, error }] = useQuery({
-    query: SkillTableSkills_Query,
-    context,
-  });
-
-  const skillFamilies: SkillFamily[] = unpackMaybes(data?.skillFamilies);
-
-  return (
-    <Pending fetching={fetching} error={error}>
-      <SkillTable
-        skills={unpackMaybes(data?.skills)}
-        title={title}
-        addButton={addButton}
-        paginationState={paginationState}
-        fetching={fetching}
-        skillFamilies={skillFamilies}
-        csvDownload={csvDownload}
-      />
-    </Pending>
-  );
-};
-
-export default SkillTableApi;
+export default SkillTable;
