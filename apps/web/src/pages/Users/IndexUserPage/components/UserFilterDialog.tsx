@@ -3,7 +3,7 @@ import { OperationContext, useQuery } from "urql";
 
 import {
   EmploymentDuration,
-  OperationalRequirementV2,
+  OperationalRequirements,
   commonMessages,
   getEmploymentDuration,
   getLanguageAbility,
@@ -213,7 +213,7 @@ const UserFilterDialog = ({
             idPrefix="operationalRequirement"
             name="operationalRequirement"
             legend={intl.formatMessage(navigationMessages.workPreferences)}
-            items={OperationalRequirementV2.map((value) => ({
+            items={OperationalRequirements.map((value) => ({
               value,
               label: intl.formatMessage(
                 getOperationalRequirement(value, "short"),
