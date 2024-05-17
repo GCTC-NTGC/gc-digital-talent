@@ -19,6 +19,7 @@ import {
   Skill,
   FragmentType,
   getFragment,
+  UpdatePublishedPoolInput,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
@@ -172,6 +173,7 @@ export interface EditPoolFormProps {
   classifications: FragmentType<typeof PoolClassification_Fragment>[];
   skills: Array<Skill>;
   onSave: (submitData: PoolSubmitData) => Promise<void>;
+  onUpdatePublished: (submitData: UpdatePublishedPoolInput) => Promise<void>;
   poolSkillMutations: PoolSkillMutationsType;
 }
 
@@ -180,6 +182,7 @@ export const EditPoolForm = ({
   classifications,
   skills,
   onSave,
+  onUpdatePublished,
   poolSkillMutations,
 }: EditPoolFormProps): JSX.Element => {
   const intl = useIntl();
@@ -483,6 +486,7 @@ export const EditPoolForm = ({
                     poolQuery={pool}
                     sectionMetadata={sectionMetadata.specialNote}
                     onSave={onSave}
+                    onUpdatePublished={onUpdatePublished}
                   />
                 </TableOfContents.Section>
                 <TableOfContents.Section
@@ -559,16 +563,19 @@ export const EditPoolForm = ({
                         poolQuery={pool}
                         sectionMetadata={sectionMetadata.yourImpact}
                         onSave={onSave}
+                        onUpdatePublished={onUpdatePublished}
                       />
                       <WorkTasksSection
                         poolQuery={pool}
                         sectionMetadata={sectionMetadata.workTasks}
                         onSave={onSave}
+                        onUpdatePublished={onUpdatePublished}
                       />
                       <AboutUsSection
                         poolQuery={pool}
                         sectionMetadata={sectionMetadata.aboutUs}
                         onSave={onSave}
+                        onUpdatePublished={onUpdatePublished}
                       />
                     </div>
                   </TableOfContents.Section>
@@ -604,11 +611,13 @@ export const EditPoolForm = ({
                         poolQuery={pool}
                         sectionMetadata={sectionMetadata.whatToExpect}
                         onSave={onSave}
+                        onUpdatePublished={onUpdatePublished}
                       />
                       <WhatToExpectAdmissionSection
                         poolQuery={pool}
                         sectionMetadata={sectionMetadata.whatToExpectAdmission}
                         onSave={onSave}
+                        onUpdatePublished={onUpdatePublished}
                       />
                     </div>
                   </TableOfContents.Section>
@@ -635,6 +644,7 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
   query EditPoolPage($poolId: UUID!) {
     # the existing data of the pool to edit
     pool(id: $poolId) {
+      status
       ...EditPool
     }
 
@@ -732,6 +742,9 @@ export const EditPoolPage = () => {
             classifications={unpackMaybes(data.classifications)}
             skills={data.skills.filter(notEmpty)}
             onSave={(saveData) => mutations.update(poolId, saveData)}
+            onUpdatePublished={(updateData) =>
+              mutations.updatePublished(poolId, updateData)
+            }
             poolSkillMutations={poolSkillMutations}
           />
         </EditPoolContext.Provider>

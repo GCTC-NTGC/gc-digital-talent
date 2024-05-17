@@ -4,6 +4,7 @@ import {
   CreatePoolSkillInput,
   UpdatePoolSkillInput,
   Pool,
+  UpdatePublishedPoolInput,
 } from "@gc-digital-talent/graphql";
 
 import { EditPoolSectionMetadata } from "~/types/pool";
@@ -17,6 +18,10 @@ export type SectionProps<T, F> = {
   poolQuery: F;
   sectionMetadata: EditPoolSectionMetadata;
   onSave: (submitData: T) => Promise<void>;
+};
+
+export type PublishedEditableSectionProps = {
+  onUpdatePublished: (submitData: UpdatePublishedPoolInput) => Promise<void>;
 };
 
 export type SectionKey =

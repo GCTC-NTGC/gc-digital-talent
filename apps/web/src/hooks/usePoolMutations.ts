@@ -9,6 +9,7 @@ import {
   Scalars,
   CreatePoolSkillInput,
   UpdatePoolSkillInput,
+  UpdatePublishedPoolInput,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -20,6 +21,14 @@ const UpdatePool_Mutation = graphql(/* GraphQL */ `
       generalQuestions {
         id
       }
+    }
+  }
+`);
+
+const UpdatePublishedPool_Mutation = graphql(/* GraphQL */ `
+  mutation UpdatePublishedPool($id: ID!, $pool: UpdatePublishedPoolInput!) {
+    updatePublishedPool(id: $id, pool: $pool) {
+      id
     }
   }
 `);
@@ -119,6 +128,10 @@ const usePoolMutations = (returnPath?: string) => {
 
   const [{ fetching: updateFetching }, executeUpdateMutation] =
     useMutation(UpdatePool_Mutation);
+  const [
+    { fetching: updatePublishedFetching },
+    executeUpdatePublishedMutation,
+  ] = useMutation(UpdatePublishedPool_Mutation);
 
   const handleUpdateError = () => {
     toast.error(
@@ -137,6 +150,28 @@ const usePoolMutations = (returnPath?: string) => {
     return executeUpdateMutation({ id, pool })
       .then((result) => {
         if (result.data?.updatePool) {
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Process updated successfully!",
+              id: "/ZlzNi",
+              description: "Message displayed to user after pool is updated",
+            }),
+          );
+
+          return Promise.resolve();
+        }
+        return handleUpdateError();
+      })
+      .catch(handleUpdateError);
+  };
+
+  const updatePublished = async (
+    id: string,
+    pool: UpdatePublishedPoolInput,
+  ) => {
+    return executeUpdatePublishedMutation({ id, pool })
+      .then((result) => {
+        if (result.data?.updatePublishedPool) {
           toast.success(
             intl.formatMessage({
               defaultMessage: "Process updated successfully!",
@@ -457,6 +492,7 @@ const usePoolMutations = (returnPath?: string) => {
   return {
     isFetching:
       updateFetching ||
+      updatePublishedFetching ||
       extendFetching ||
       publishFetching ||
       closeFetching ||
@@ -469,6 +505,7 @@ const usePoolMutations = (returnPath?: string) => {
       deletePoolSkillFetching,
     mutations: {
       update,
+      updatePublished,
       extend,
       publish,
       close,
