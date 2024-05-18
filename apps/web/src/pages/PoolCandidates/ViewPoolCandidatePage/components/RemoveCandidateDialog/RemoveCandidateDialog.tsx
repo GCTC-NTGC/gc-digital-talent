@@ -2,7 +2,6 @@ import { useState } from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation } from "urql";
 import { FormProvider, useForm } from "react-hook-form";
-import HandRaisedIcon from "@heroicons/react/20/solid/HandRaisedIcon";
 
 import {
   CandidateRemovalReason,
@@ -114,7 +113,7 @@ const RemoveCandidateDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button mode="inline" icon={HandRaisedIcon}>
+        <Button mode="inline" color="error" block>
           {intl.formatMessage(title)}
         </Button>
       </Dialog.Trigger>

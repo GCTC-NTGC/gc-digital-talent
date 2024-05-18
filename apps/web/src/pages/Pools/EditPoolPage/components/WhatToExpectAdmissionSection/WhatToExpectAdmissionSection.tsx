@@ -21,14 +21,19 @@ import {
 } from "~/validators/process/whatToExpectAdmission";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
+import useCanUserEditPool from "~/hooks/useCanUserEditPool";
 
 import { useEditPoolContext } from "../EditPoolContext";
-import { SectionProps } from "../../types";
+import { PublishedEditableSectionProps, SectionProps } from "../../types";
 import Display from "./Display";
 import ActionWrapper from "../ActionWrapper";
+import UpdatePublishedProcessDialog, {
+  type FormValues as UpdateFormValues,
+} from "../UpdatePublishedProcessDialog/UpdatePublishedProcessDialog";
 
 const EditPoolWhatToExpectAdmission_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolWhatToExpectAdmission on Pool {
+    ...UpdatePublishedProcessDialog
     id
     status
     whatToExpectAdmission {
@@ -51,7 +56,8 @@ export type WhatToExpectAdmissionSubmitData = Pick<
 type WhatToExpectAdmissionSectionProps = SectionProps<
   WhatToExpectAdmissionSubmitData,
   FragmentType<typeof EditPoolWhatToExpectAdmission_Fragment>
->;
+> &
+  PublishedEditableSectionProps;
 
 const TEXT_AREA_MAX_WORDS_EN = 200;
 const TEXT_AREA_MAX_WORDS_FR = TEXT_AREA_MAX_WORDS_EN + 100;
@@ -60,10 +66,12 @@ const WhatToExpectAdmissionSection = ({
   poolQuery,
   sectionMetadata,
   onSave,
+  onUpdatePublished,
 }: WhatToExpectAdmissionSectionProps) => {
   const intl = useIntl();
   const pool = getFragment(EditPoolWhatToExpectAdmission_Fragment, poolQuery);
   const isNull = hasAllEmptyFields(pool);
+  const canEdit = useCanUserEditPool(pool.status);
   const { isSubmitting } = useEditPoolContext();
   const { isEditing, setIsEditing, icon } = useToggleSectionInfo({
     isNull,
@@ -80,7 +88,13 @@ const WhatToExpectAdmissionSection = ({
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(pool),
   });
-  const { handleSubmit } = methods;
+  const { handleSubmit, watch } = methods;
+  const values = watch();
+
+  const onSuccess = (formValues: FormValues) => {
+    methods.reset(formValues, { keepDirty: true });
+    setIsEditing(false);
+  };
 
   const handleSave = async (formValues: FormValues) => {
     return onSave({
@@ -89,17 +103,19 @@ const WhatToExpectAdmissionSection = ({
         fr: formValues.whatToExpectAdmissionFr,
       },
     })
-      .then(() => {
-        methods.reset(formValues, {
-          keepDirty: false,
-        });
-        setIsEditing(false);
-      })
+      .then(() => onSuccess(formValues))
       .catch(() => methods.reset(formValues));
   };
 
-  // disabled unless status is draft
-  const formDisabled = pool.status !== PoolStatus.Draft;
+  const handleUpdatePublished = async (formValues: UpdateFormValues) => {
+    await onUpdatePublished({
+      ...formValues,
+      whatToExpectAdmission: {
+        en: values.whatToExpectAdmissionEn,
+        fr: values.whatToExpectAdmissionFr,
+      },
+    }).then(() => onSuccess({ ...values }));
+  };
 
   const subtitle = intl.formatMessage({
     defaultMessage:
@@ -122,7 +138,7 @@ const WhatToExpectAdmissionSection = ({
         size="h4"
         toggle={
           <ToggleForm.LabelledTrigger
-            disabled={formDisabled}
+            disabled={!canEdit}
             sectionTitle={sectionMetadata.title}
           />
         }
@@ -152,8 +168,8 @@ const WhatToExpectAdmissionSection = ({
                       "Label for the English - What to expect textarea in the edit pool page.",
                   })}
                   name="whatToExpectAdmissionEn"
-                  {...(!formDisabled && { wordLimit: TEXT_AREA_MAX_WORDS_EN })}
-                  readOnly={formDisabled}
+                  wordLimit={TEXT_AREA_MAX_WORDS_EN}
+                  readOnly={!canEdit}
                 />
                 <RichTextInput
                   id="whatToExpectAdmissionFr"
@@ -164,13 +180,13 @@ const WhatToExpectAdmissionSection = ({
                       "Label for the French - What to expect textarea in the edit pool page.",
                   })}
                   name="whatToExpectAdmissionFr"
-                  {...(!formDisabled && { wordLimit: TEXT_AREA_MAX_WORDS_FR })}
-                  readOnly={formDisabled}
+                  wordLimit={TEXT_AREA_MAX_WORDS_FR}
+                  readOnly={!canEdit}
                 />
               </div>
 
               <ActionWrapper>
-                {!formDisabled && (
+                {canEdit && pool.status === PoolStatus.Draft && (
                   <Submit
                     text={intl.formatMessage(formMessages.saveChanges)}
                     aria-label={intl.formatMessage({
@@ -182,6 +198,12 @@ const WhatToExpectAdmissionSection = ({
                     color="secondary"
                     mode="solid"
                     isSubmitting={isSubmitting}
+                  />
+                )}
+                {canEdit && pool.status === PoolStatus.Published && (
+                  <UpdatePublishedProcessDialog
+                    poolQuery={pool}
+                    onUpdatePublished={handleUpdatePublished}
                   />
                 )}
                 <ToggleSection.Close>

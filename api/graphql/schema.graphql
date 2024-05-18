@@ -1479,6 +1479,17 @@ input UpdatePoolInput {
   generalQuestions: UpdateGeneralQuestionsHasMany
 }
 
+input UpdatePublishedPoolInput @validator {
+  changeJustification: String! @rename(attribute: "change_justification")
+  yourImpact: LocalizedStringInput @rename(attribute: "your_impact")
+  keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
+  whatToExpect: LocalizedStringInput @rename(attribute: "what_to_expect")
+  specialNote: LocalizedStringInput @rename(attribute: "special_note")
+  whatToExpectAdmission: LocalizedStringInput
+    @rename(attribute: "what_to_expect_admission")
+  aboutUs: LocalizedStringInput @rename(attribute: "about_us")
+}
+
 input CreatePoolSkillInput {
   type: PoolSkillType!
   requiredLevel: SkillLevel @rename(attribute: "required_skill_level")
@@ -1880,6 +1891,10 @@ type Mutation {
     @update
     @guard
     @canFind(ability: "updateDraft", find: "id")
+  updatePublishedPool(id: ID!, pool: UpdatePublishedPoolInput! @spread): Pool
+    @update
+    @guard
+    @canFind(ability: "updatePublished", find: "id")
   createPoolSkill(
     poolId: ID! @rename(attribute: "pool_id")
     skillId: ID! @rename(attribute: "skill_id")

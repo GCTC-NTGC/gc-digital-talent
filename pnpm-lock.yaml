@@ -851,9 +851,15 @@ importers:
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config-custom
+      '@gc-digital-talent/helpers':
+        specifier: workspace:*
+        version: link:../helpers
       '@gc-digital-talent/jest-presets':
         specifier: workspace:*
         version: link:../jest-presets
+      '@gc-digital-talent/logger':
+        specifier: workspace:*
+        version: link:../logger
       '@types/react':
         specifier: ^18.3.2
         version: 18.3.2

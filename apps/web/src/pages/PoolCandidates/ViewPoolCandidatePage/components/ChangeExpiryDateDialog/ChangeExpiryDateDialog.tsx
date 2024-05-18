@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useMutation } from "urql";
 import { FormProvider, useForm } from "react-hook-form";
-import CalendarDaysIcon from "@heroicons/react/20/solid/CalendarDaysIcon";
 import { useIntl } from "react-intl";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -9,6 +8,11 @@ import { Button, Dialog } from "@gc-digital-talent/ui";
 import { DateInput } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
+import {
+  DATE_FORMAT_STRING,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 
 import applicationMessages from "~/messages/applicationMessages";
 import { isQualifiedStatus } from "~/utils/poolCandidate";
@@ -111,8 +115,12 @@ const ChangeExpiryDateDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button mode="inline" icon={CalendarDaysIcon}>
-          {title}
+        <Button mode="inline">
+          {formatDate({
+            date: parseDateTimeUtc(application.expiryDate),
+            formatString: DATE_FORMAT_STRING,
+            intl,
+          }) || title}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
