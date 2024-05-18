@@ -1134,4 +1134,84 @@ class PoolTest extends TestCase
         assertSame(1, count($draftRes->json('data.poolsPaginated.data')));
 
     }
+
+    /**
+     * @group paginated
+     */
+    public function testClassificationScope(): void
+    {
+        $AA1 = Pool::factory()->published()->create([
+            'classification_id' => Classification::factory()->create([
+                'group' => 'AA',
+                'level' => 1,
+            ]),
+        ]);
+
+        $AA2 = Pool::factory()->published()->create([
+            'classification_id' => Classification::factory()->create([
+                'group' => 'AA',
+                'level' => 2,
+            ]),
+        ]);
+
+        Pool::factory()->published()->create([
+            'classification_id' => Classification::factory()->create([
+                'group' => 'BB',
+                'level' => 1,
+            ]),
+        ]);
+
+        $query = /** @lang GraphQL */
+            '
+                query ScopePoolName($where: PoolFilterInput) {
+                    poolsPaginated(where: $where) {
+                        data {
+                            id
+                            classification {
+                                group
+                                level
+                            }
+                        }
+                    }
+                }
+            ';
+
+        $AA1Res = $this
+            ->actingAs($this->adminUser, 'api')
+            ->graphQL($query, [
+                'where' => [
+                    'classifications' => [['group' => 'AA', 'level' => 1]],
+                ],
+            ])->assertJsonFragment([
+                'id' => $AA1->id,
+                'classification' => ['group' => 'AA', 'level' => 1],
+            ]);
+
+        assertSame(1, count($AA1Res->json('data.poolsPaginated.data')));
+
+        $AARes = $this
+            ->actingAs($this->adminUser, 'api')
+            ->graphQL($query, [
+                'where' => [
+                    'classifications' => [
+                        ['group' => 'AA', 'level' => 1],
+                        ['group' => 'AA', 'level' => 2],
+                    ],
+                ],
+            ])->assertJsonFragment([
+                'data' => [
+                    [
+                        'id' => $AA1->id,
+                        'classification' => ['group' => 'AA', 'level' => 1],
+                    ],
+                    [
+                        'id' => $AA2->id,
+                        'classification' => ['group' => 'AA', 'level' => 2],
+                    ],
+                ],
+            ]);
+
+        assertSame(1, count($AA1Res->json('data.poolsPaginated.data')));
+
+    }
 }
