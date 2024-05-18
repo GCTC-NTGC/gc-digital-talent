@@ -1220,7 +1220,7 @@ class PoolTest extends TestCase
                 ],
             ]);
 
-        assertSame(2, count($AA1Res->json('data.poolsPaginated.data')));
+        assertSame(2, count($AARes->json('data.poolsPaginated.data')));
 
     }
 
