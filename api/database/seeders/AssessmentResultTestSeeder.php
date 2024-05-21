@@ -73,7 +73,7 @@ class AssessmentResultTestSeeder extends Seeder
             'pool_skill_id' => $dcmPoolSkills[1],
         ]);
 
-        $publishedPool = Pool::select('id')->where('name->en', 'IT-03 Published – Complex')->sole();
+        $publishedPool = Pool::select('id')->where('name->en', 'Published – Complex')->sole();
         $user1 = User::select('id')->where('first_name', 'Perfect')->sole();
         $poolCandidate1 = PoolCandidate::select('id')->where('user_id', $user1->id)->where('pool_id', $publishedPool->id)->sole();
         $assessmentStep = AssessmentStep::factory()->create([
