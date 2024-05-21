@@ -367,7 +367,7 @@ class ApplicantFilterTest extends TestCase
         $this->seed(SkillSeeder::class);
         $this->seed(PoolTestSeeder::class);
 
-        $community = Community::inRandomOrder()->first();
+        $community = Community::where('key', 'digital')->first();
         $pool = Pool::factory()
             ->published()
             ->candidatesAvailableInSearch()
@@ -439,6 +439,7 @@ class ApplicantFilterTest extends TestCase
         $request = PoolCandidateSearchRequest::factory()->make([
             'pool_candidate_filter_id' => null,
             'applicant_filter_id' => null,
+            'community_id' => $community->id,
         ]);
         $response = $this->graphQL(
             /** @lang GraphQL */
@@ -496,6 +497,9 @@ class ApplicantFilterTest extends TestCase
                             id
                         }
                         pools {
+                            id
+                        }
+                        community {
                             id
                         }
                     }
