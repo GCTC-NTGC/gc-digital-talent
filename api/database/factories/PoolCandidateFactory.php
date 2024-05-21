@@ -3,8 +3,10 @@
 namespace Database\Factories;
 
 use App\Enums\ApplicationStep;
+use App\Enums\ArmedForcesStatus;
 use App\Enums\AssessmentResultType;
 use App\Enums\CandidateRemovalReason;
+use App\Enums\ClaimVerificationResult;
 use App\Enums\EducationRequirementOption;
 use App\Enums\PoolCandidateStatus;
 use App\Models\AssessmentResult;
@@ -160,6 +162,23 @@ class PoolCandidateFactory extends Factory
                     'user_id' => $poolCandidate->user_id,
                 ]);
                 $poolCandidate->educationRequirementWorkExperiences()->sync([$experience->id]);
+            }
+
+            // claim verification
+            if (
+                $poolCandidate->user->armed_forces_status == ArmedForcesStatus::MEMBER->name ||
+                $poolCandidate->user->armed_forces_status == ArmedForcesStatus::VETERAN->name
+            ) {
+                $poolCandidate->update([
+                    'veteran_verification' => $this->faker->randomElement(array_column(ClaimVerificationResult::cases(), 'name')),
+                    'veteran_verification_expiry' => $this->faker->dateTimeBetween('6 months', '24 months'),
+                ]);
+            }
+            if ($poolCandidate->user->has_priority_entitlement) {
+                $poolCandidate->update([
+                    'priority_verification' => $this->faker->randomElement(array_column(ClaimVerificationResult::cases(), 'name')),
+                    'priority_verification_expiry' => $this->faker->dateTimeBetween('6 months', '24 months'),
+                ]);
             }
         });
     }
