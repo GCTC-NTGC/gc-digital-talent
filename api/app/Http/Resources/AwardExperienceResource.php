@@ -24,6 +24,7 @@ class AwardExperienceResource extends JsonResource
             'awardedScope' => $this->awarded_scope,
             'details' => $this->details,
             'skills' => SkillResource::collection($this->skills),
+            'user' => new UserStubResource($this->user),
         ];
     }
 }

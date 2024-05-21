@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
 
@@ -19,7 +18,7 @@ type LocationState = {
   selectedClassifications: Classification[];
 };
 
-const RequestPage = () => {
+export const Component = () => {
   const intl = useIntl();
   const location = useLocation();
   const state = location.state as LocationState;
@@ -64,4 +63,6 @@ const RequestPage = () => {
   );
 };
 
-export default RequestPage;
+Component.displayName = "RequestPage";
+
+export default Component;

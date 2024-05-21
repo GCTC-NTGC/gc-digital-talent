@@ -1,5 +1,5 @@
-import React from "react";
 import { useIntl } from "react-intl";
+import { ReactNode, JSX } from "react";
 
 import { GenericJobTitleKey } from "@gc-digital-talent/graphql";
 
@@ -20,7 +20,7 @@ const LevelOne = () => {
           description: "blurb describing IT-01",
         },
         {
-          abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+          abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
         },
       )}
     </Text>
@@ -40,7 +40,7 @@ const LevelTwo = () => {
           description: "blurb describing IT-02",
         },
         {
-          abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+          abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
         },
       )}
     </Text>
@@ -61,7 +61,7 @@ const LevelThreeLead = () => {
             description: "IT-03 description precursor",
           },
           {
-            abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+            abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
           },
         )}
       </Text>
@@ -74,7 +74,7 @@ const LevelThreeLead = () => {
             description: "IT-03 team lead path description",
           },
           {
-            abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+            abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
           },
         )}
       </Text>
@@ -96,7 +96,7 @@ const LevelThreeAdvisor = () => {
             description: "IT-03 description precursor",
           },
           {
-            abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+            abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
           },
         )}
       </Text>
@@ -109,7 +109,7 @@ const LevelThreeAdvisor = () => {
             description: "IT-03 advisor description",
           },
           {
-            abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+            abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
           },
         )}
       </Text>
@@ -131,7 +131,7 @@ const LevelFourManager = () => {
             description: "IT-04 description precursor",
           },
           {
-            abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+            abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
           },
         )}
       </Text>
@@ -144,7 +144,7 @@ const LevelFourManager = () => {
             description: "IT-04 manager path description",
           },
           {
-            abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+            abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
           },
         )}
       </Text>
@@ -166,7 +166,7 @@ const LevelFourAdvisor = (): JSX.Element => {
             description: "IT-04 description precursor",
           },
           {
-            abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+            abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
           },
         )}
       </Text>
@@ -180,7 +180,7 @@ const LevelFourAdvisor = (): JSX.Element => {
               "IT-04 senior advisor description precursor to work stream list",
           },
           {
-            abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+            abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
           },
         )}
       </Text>

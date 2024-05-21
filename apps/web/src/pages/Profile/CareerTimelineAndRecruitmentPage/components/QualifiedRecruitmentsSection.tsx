@@ -1,35 +1,46 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 
 import { HeadingRank, Link, Well } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import QualifiedRecruitmentCard from "~/components/QualifiedRecruitmentCard/QualifiedRecruitmentCard";
 import useRoutes from "~/hooks/useRoutes";
-import { Application } from "~/utils/applicationUtils";
 import { isQualifiedStatus } from "~/utils/poolCandidate";
 
+const QualifiedRecruitmentsCandidate_Fragment = graphql(/* GraphQL */ `
+  fragment QualifiedRecruitmentsCandidate on PoolCandidate {
+    id
+    status
+    ...QualifiedRecruitmentCard
+  }
+`);
+
 interface QualifiedRecruitmentsSectionProps {
-  applications?: Application[];
+  applicationsQuery: FragmentType<
+    typeof QualifiedRecruitmentsCandidate_Fragment
+  >[];
   headingLevel?: HeadingRank;
 }
 
 const QualifiedRecruitmentsSection = ({
-  applications,
+  applicationsQuery,
   headingLevel = "h3",
 }: QualifiedRecruitmentsSectionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const applications = getFragment(
+    QualifiedRecruitmentsCandidate_Fragment,
+    applicationsQuery,
+  );
 
-  const applicationsNotNull = applications?.filter(notEmpty) ?? [];
+  const applicationsNotNull = unpackMaybes([...applications]);
 
   const applicationsDisplay = applicationsNotNull.filter((application) =>
     isQualifiedStatus(application.status),
   );
 
-  const hasExperiences = applicationsDisplay.length >= 1;
-
-  return hasExperiences ? (
+  return applicationsDisplay.length >= 1 ? (
     <div
       data-h2-display="base(flex)"
       data-h2-flex-direction="base(column)"
@@ -39,7 +50,7 @@ const QualifiedRecruitmentsSection = ({
         <QualifiedRecruitmentCard
           headingLevel={headingLevel}
           key={application.id}
-          candidate={application}
+          candidateQuery={application}
         />
       ))}
     </div>

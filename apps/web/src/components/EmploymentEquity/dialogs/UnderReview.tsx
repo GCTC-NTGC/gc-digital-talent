@@ -1,10 +1,10 @@
-import React from "react";
 import { useIntl } from "react-intl";
+import { ReactNode } from "react";
 
 import { Link } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
 
-const actLink = (locale: string, chunks: React.ReactNode) => {
+const actLink = (locale: string, chunks: ReactNode) => {
   const href =
     locale === "en"
       ? "https://laws-lois.justice.gc.ca/eng/acts/e-5.401/"
@@ -15,7 +15,7 @@ const actLink = (locale: string, chunks: React.ReactNode) => {
     </Link>
   );
 };
-const reviewLink = (locale: string, chunks: React.ReactNode) => {
+const reviewLink = (locale: string, chunks: ReactNode) => {
   const href =
     locale === "en"
       ? "https://www.canada.ca/en/employment-social-development/corporate/portfolio/labour/programs/employment-equity/task-force.html"
@@ -42,8 +42,8 @@ const UnderReview = () => {
             "Text that appears in Employment equity dialogs explaining the act is under review.",
         },
         {
-          actLink: (chunks: React.ReactNode) => actLink(locale, chunks),
-          reviewLink: (chunks: React.ReactNode) => reviewLink(locale, chunks),
+          actLink: (chunks: ReactNode) => actLink(locale, chunks),
+          reviewLink: (chunks: ReactNode) => reviewLink(locale, chunks),
         },
       )}
     </p>

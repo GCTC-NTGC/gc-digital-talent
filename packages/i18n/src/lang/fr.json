@@ -23,10 +23,6 @@
     "defaultMessage": "Période déterminée",
     "description": "The pool candidate's status is Placed Term."
   },
-  "+U4KU4": {
-    "defaultMessage": "Cela m'oblige à faire les heures supplémentaires prévues.",
-    "description": "The operational requirement described as scheduled overtime."
-  },
   "+ZPD1J": {
     "defaultMessage": "Fermer le menu",
     "description": "Text label for button that closes side menu."
@@ -71,10 +67,6 @@
     "defaultMessage": "Pas dans les FAC",
     "description": "user is not in the CAF"
   },
-  "0Nz6aa": {
-    "defaultMessage": "Travailler des heures supplémentaires prévues",
-    "description": "The operational requirement described as scheduled overtime. (short-form for limited space)"
-  },
   "0OPWbJ": {
     "defaultMessage": "Vous avez déjà postulé dans ce bassin",
     "description": "Message displayed when a user attempts to apply to pool more than once"
@@ -106,10 +98,6 @@
   "17dZD4": {
     "defaultMessage": "Le candidat/la candidate sera informé(e) de toute modification apportée au présent formulaire.",
     "description": "Caption notifying the user about who can know about the results of form changes"
-  },
-  "1RTwS3": {
-    "defaultMessage": "nécessite que je fasse des <strong>heures supplémentaires planifiées</strong>.",
-    "description": "The operational requirement described as scheduled overtime."
   },
   "1Wbu+6": {
     "defaultMessage": "Premières Nations détenant le statut ",
@@ -415,6 +403,10 @@
     "defaultMessage": "Il y a une exigence linguistique manquante",
     "description": "Message displayed when user attempts to apply to a pool without the language requirement"
   },
+  "AAFkmX": {
+    "defaultMessage": "Date d'expiration",
+    "description": "Label for expiry Date"
+  },
   "ACO2Uz": {
     "defaultMessage": "erreur",
     "description": "Message for the error status"
@@ -570,6 +562,10 @@
   "GqmxO8": {
     "defaultMessage": "Termine demain, à {time}",
     "description": "Text displayed when relative date is tomorrow."
+  },
+  "Gv3lBS": {
+    "defaultMessage": "Votre demande n'a pas été complétée. Veuillez réessayer ou contactez notre équipe pour obtenir de l'aide.",
+    "description": "Message for Unauthorized or Request Rejected server response"
   },
   "Gx8qCK": {
     "defaultMessage": "À propos de moi",
@@ -859,10 +855,6 @@
     "defaultMessage": "Menu des options de bascule",
     "description": "Button text to toggle the combobox menu"
   },
-  "P1ajBo": {
-    "defaultMessage": "cela m'oblige à faire des heures supplémentaires à court préavis.",
-    "description": "The operational requirement described as overtime."
-  },
   "P6PD/I": {
     "defaultMessage": "Manitoba",
     "description": "Manitoba selection for province or territory input"
@@ -882,10 +874,6 @@
   "PMwqcS": {
     "defaultMessage": "La date doit être avant ou égale au {date}",
     "description": "Error message when a date was entered that is greater than the maximum required"
-  },
-  "Q3Pc71": {
-    "defaultMessage": "Il n’est pas possible de sauvegarder ce texte. Veillez à ce que le texte soit dépourvu de formatage ou de caractères spéciaux, et essayez de nouveau.",
-    "description": "Error message that there might be a special character."
   },
   "QRXLf/": {
     "defaultMessage": "Chargement des résultats...",
@@ -1115,10 +1103,6 @@
     "defaultMessage": "Facultatif",
     "description": "Displayed next to optional form inputs."
   },
-  "WYLjD1": {
-    "defaultMessage": "Travailler des heures supplémentaires à court préavis",
-    "description": "The operational requirement described as short notice overtime. (short-form for limited space)"
-  },
   "WcXADs": {
     "defaultMessage": "Anglais seulement",
     "description": "The language ability is English only."
@@ -1198,6 +1182,10 @@
   "YmboX1": {
     "defaultMessage": "{wordCount} / {wordLimit} mots",
     "description": "Message for words remaining before hitting the limit"
+  },
+  "YtV1mE": {
+    "defaultMessage": "Avertissement!",
+    "description": "A potentially dangerous action alert"
   },
   "YtwHjm": {
     "defaultMessage": "E (courant)",
@@ -1307,10 +1295,6 @@
     "defaultMessage": "Modérément développée",
     "description": "The behavioural skill level for intermediate"
   },
-  "cnFVR1": {
-    "defaultMessage": "m'oblige à faire des <strong>heures supplémentaires sans préavis</strong>.",
-    "description": "The operational requirement described as overtime."
-  },
   "coUese": {
     "defaultMessage": "Gestion de portefeuilles de projets de la TI",
     "description": "Pool Stream described as Project Portfolio Management."
@@ -1383,6 +1367,10 @@
     "defaultMessage": "Il semble y avoir une erreur dans cette liste.",
     "description": "Error message title for repeater component."
   },
+  "f5z4R/": {
+    "defaultMessage": "Imprimer",
+    "description": "Label for print button"
+  },
   "fAj9+G": {
     "defaultMessage": "Avril",
     "description": "Name of the fourth month"
@@ -1390,6 +1378,10 @@
   "fMcKtJ": {
     "defaultMessage": "Annuler et revenir en arrière",
     "description": "Text to cancel changes to a form"
+  },
+  "fO0cRR": {
+    "defaultMessage": "Vous devez supprimer un élément si vous voulez en ajouter un autre",
+    "description": "Message displayed when max items have been reached on repeater component."
   },
   "fUF8rg": {
     "defaultMessage": "Sélectionnez une option",
@@ -1450,10 +1442,6 @@
   "hWMUFx": {
     "defaultMessage": "cela m'oblige à faire des heures supplémentaires habituelles.",
     "description": "The operational requirement described as regular overtime."
-  },
-  "hd7hdn": {
-    "defaultMessage": "avertissement",
-    "description": "Message for the warning status"
   },
   "hpBnAk": {
     "defaultMessage": "Vous ne pouvez pas désarchiver un bassin à moins que son statut indique qu'il soit archivé.",
@@ -1559,6 +1547,10 @@
     "defaultMessage": "Nouvelle candidature",
     "description": "The pool candidate's status is New Application."
   },
+  "kQTtt9": {
+    "defaultMessage": "Enum introuvable",
+    "description": "Error message when human readable message not found"
+  },
   "kSQNt5": {
     "defaultMessage": "Études ou expérience insuffisantes pour satisfaire à l’exigence.",
     "description": "Option for justification when assessment decision is unsuccessful."
@@ -1571,10 +1563,6 @@
     "defaultMessage": "Un champ obligatoire est vide : Français – Votre incidence",
     "description": "Error message that Your Impact in French must be filled"
   },
-  "kwaeXP": {
-    "defaultMessage": "Disponibilité, volonté et capacité à faire des heures supplémentaires (à court terme)",
-    "description": "The operational requirement described as occasional overtime."
-  },
   "l+x5JF": {
     "defaultMessage": "L'une ou les deux étapes données ne peuvent être interchangées.",
     "description": "Error message that one of the assessment steps cannot have its sort order changed."
@@ -1586,14 +1574,6 @@
   "l4wLn9": {
     "defaultMessage": "Je suis un citoyen canadien.",
     "description": "declaring one to be a Canadian citizen"
-  },
-  "lDeaXK": {
-    "defaultMessage": "Disponibilité, volonté et capacité à faire des heures supplémentaires (planifiées)",
-    "description": "The operational requirement described as scheduled overtime."
-  },
-  "lFLEy2": {
-    "defaultMessage": "Vous devez supprimer un élément si vous voulez en ajouter un autre",
-    "description": "Message displayed when max items have been reached on repeater component."
   },
   "lXgeJr": {
     "defaultMessage": "Veuillez relier au moins une expérience du calendrier de carrière à chacune des exigences techniques requises, et veillez à ce que chaque compétence possède des détails sur la façon de s’en servir.",
@@ -1866,6 +1846,10 @@
   "u+NuHm": {
     "defaultMessage": "Retourner à mon profil",
     "description": "Link text for button to return to user profile"
+  },
+  "u/+Nrd": {
+    "defaultMessage": "Placement professionnel",
+    "description": "Label for job placement"
   },
   "uKlMuC": {
     "defaultMessage": "Questions de sélection (au moment de la candidature)",

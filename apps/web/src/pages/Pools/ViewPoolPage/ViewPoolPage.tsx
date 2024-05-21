@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import * as React from "react";
 import { useIntl } from "react-intl";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import { useQuery } from "urql";
@@ -36,6 +35,7 @@ import usePoolMutations from "~/hooks/usePoolMutations";
 import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
 import messages from "~/messages/adminMessages";
 import processMessages from "~/messages/processMessages";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import SubmitForPublishingDialog from "./components/SubmitForPublishingDialog";
 import DuplicateProcessDialog from "./components/DuplicateProcessDialog";
@@ -94,7 +94,7 @@ export const ViewPool = ({
   onArchive,
   onDuplicate,
   onUnarchive,
-}: ViewPoolProps): JSX.Element => {
+}: ViewPoolProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const { roleAssignments } = useAuthorization();
@@ -109,6 +109,8 @@ export const ViewPool = ({
     [ROLE_NAME.CommunityManager, ROLE_NAME.PlatformAdmin],
     roleAssignments,
   );
+  // Same roles can edit submitted advertisements
+  const canEdit = advertisementStatus !== "submitted" || canPublish;
 
   let closingDate = "";
   if (pool.closingDate) {
@@ -198,10 +200,12 @@ export const ViewPool = ({
               )}
             </p>
             <ProcessCard.Footer>
-              {advertisementStatus !== "submitted" && (
+              {canEdit && (
                 <Link
                   mode="inline"
-                  color="secondary"
+                  color={
+                    pool.status === PoolStatus.Published ? "error" : "secondary"
+                  }
                   href={paths.poolUpdate(pool.id)}
                 >
                   {intl.formatMessage({
@@ -215,7 +219,11 @@ export const ViewPool = ({
               <Link
                 mode="inline"
                 color="secondary"
-                href={paths.pool(pool.id)}
+                href={
+                  advertisementStatus === "submitted"
+                    ? paths.pool(pool.id)
+                    : paths.poolPreview(pool.id)
+                }
                 newTab
               >
                 {advertisementStatus === "submitted"
@@ -367,6 +375,14 @@ export const ViewPool = ({
               </p>
             )}
             <ProcessCard.Footer>
+              {pool.status === PoolStatus.Draft && canPublish && (
+                <PublishProcessDialog
+                  {...commonDialogProps}
+                  closingDate={pool.closingDate}
+                  onPublish={onPublish}
+                  isReadyToPublish={isReadyToPublish}
+                />
+              )}
               {!canPublish && pool.status === PoolStatus.Draft && (
                 <SubmitForPublishingDialog
                   isReadyToPublish={isReadyToPublish}
@@ -404,14 +420,6 @@ export const ViewPool = ({
                 <DeleteProcessDialog
                   {...commonDialogProps}
                   onDelete={onDelete}
-                />
-              )}
-              {pool.status === PoolStatus.Draft && canPublish && (
-                <PublishProcessDialog
-                  {...commonDialogProps}
-                  closingDate={pool.closingDate}
-                  onPublish={onPublish}
-                  isReadyToPublish={isReadyToPublish}
                 />
               )}
             </ProcessCard.Footer>
@@ -496,5 +504,20 @@ const ViewPoolPage = () => {
     </AdminContentWrapper>
   );
 };
+
+export const Component = () => (
+  <RequireAuth
+    roles={[
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.RequestResponder,
+      ROLE_NAME.CommunityManager,
+      ROLE_NAME.PlatformAdmin,
+    ]}
+  >
+    <ViewPoolPage />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminViewPoolPage";
 
 export default ViewPoolPage;

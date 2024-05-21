@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 import {
   IndigenousCommunity,
   UpdateUserAsUserMutation,
@@ -16,7 +18,7 @@ export type UserMutationPromise = Promise<
 export interface EquityDialogProps {
   isAdded: boolean;
   onSave: (value: boolean) => void;
-  children: React.ReactNode;
+  children: ReactNode;
   disabled?: boolean;
 }
 
@@ -29,6 +31,6 @@ export interface IndigenousDialogProps {
   indigenousCommunities: Array<IndigenousCommunity>;
   signature: string | undefined;
   onSave: (data: IndigenousUpdateProps) => void;
-  children: React.ReactNode;
+  children: ReactNode;
   disabled?: boolean;
 }

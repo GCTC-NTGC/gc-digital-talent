@@ -1,7 +1,4 @@
-import * as React from "react";
 import { defineMessage, useIntl } from "react-intl";
-import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
-import HandRaisedIcon from "@heroicons/react/24/outline/HandRaisedIcon";
 import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTriangleIcon";
 import { OperationContext, useQuery } from "urql";
 
@@ -11,9 +8,6 @@ import {
   Accordion,
   Heading,
   Sidebar,
-  CardBasic,
-  Button,
-  Link,
   Chip,
   Chips,
 } from "@gc-digital-talent/ui";
@@ -23,14 +17,12 @@ import {
   User,
   Scalars,
   Maybe,
-  Pool,
   graphql,
   ArmedForcesStatus,
   PoolCandidateSnapshotQuery,
   Department,
-  PoolCandidateStatus,
-  PoolSkillType,
 } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -44,24 +36,13 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import AssessmentResultsTable from "~/components/AssessmentResultsTable/AssessmentResultsTable";
 import ChangeStatusDialog from "~/pages/Users/UserInformationPage/components/ChangeStatusDialog";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import {
-  RECORD_DECISION_STATUSES,
-  REMOVED_STATUSES,
-  REVERT_DECISION_STATUSES,
-} from "~/constants/poolCandidate";
-import JobPlacementDialog from "~/components/PoolCandidatesTable/JobPlacementDialog";
-import { groupPoolSkillByType } from "~/utils/skillUtils";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import ErrorBoundary from "~/components/ErrorBoundary/ErrorBoundary";
 
 import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
 import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
 import ProfileDetails from "./components/ProfileDetails/ProfileDetails";
-import NotesDialog from "./components/MoreActions/NotesDialog";
-import FinalDecisionDialog from "./components/MoreActions/FinalDecisionDialog";
-import CandidateNavigation from "./components/CandidateNavigation/CandidateNavigation";
-import ChangeExpiryDateDialog from "./components/ChangeExpiryDateDialog/ChangeExpiryDateDialog";
-import RemoveCandidateDialog from "./components/RemoveCandidateDialog/RemoveCandidateDialog";
-import ReinstateCandidateDialog from "./components/ReinstateCandidateDialog/ReinstateCandidateDialog";
-import RevertFinalDecisionDialog from "./components/MoreActions/RevertFinalDecisionDialog";
+import MoreActions from "./components/MoreActions/MoreActions";
 
 const screeningAndAssessmentTitle = defineMessage({
   defaultMessage: "Screening and assessment",
@@ -72,14 +53,11 @@ const screeningAndAssessmentTitle = defineMessage({
 const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
   query PoolCandidateSnapshot($poolCandidateId: UUID!) {
     poolCandidate(id: $poolCandidateId) {
-      ...CandidateExpiryDateDialog
-      ...RemoveCandidateDialog
-      ...ReinstateCandidateDialog
-      ...RevertFinalDecisionDialog
-      ...JobPlacementDialog
+      ...MoreActions
       id
       status
       user {
+        ...ApplicationProfileDetails
         id
         firstName
         lastName
@@ -419,20 +397,6 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
         }
       }
     }
-    pools {
-      id
-      name {
-        en
-        fr
-      }
-      stream
-      classification {
-        id
-        group
-        level
-      }
-      status
-    }
     departments {
       id
       departmentNumber
@@ -446,13 +410,11 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
 
 export interface ViewPoolCandidateProps {
   poolCandidate: NonNullable<PoolCandidateSnapshotQuery["poolCandidate"]>;
-  pools: Pool[];
   departments: Department[];
 }
 
 export const ViewPoolCandidate = ({
   poolCandidate,
-  pools,
   departments,
 }: ViewPoolCandidateProps) => {
   const intl = useIntl();
@@ -474,11 +436,6 @@ export const ViewPoolCandidate = ({
     poolCandidate.user.lastName,
     intl,
   );
-
-  const skills = groupPoolSkillByType(poolCandidate.pool.poolSkills);
-
-  const isRemoved =
-    poolCandidate.status && REMOVED_STATUSES.includes(poolCandidate.status);
 
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
@@ -540,7 +497,7 @@ export const ViewPoolCandidate = ({
           </Chips>
         }
       >
-        <ProfileDetails user={poolCandidate.user} />
+        <ProfileDetails userQuery={poolCandidate.user} />
       </AdminHero>
       <AdminContentWrapper>
         <Sidebar.Wrapper>
@@ -562,88 +519,10 @@ export const ViewPoolCandidate = ({
                   "Description for more actions sidebar on view pool candidate page",
               })}
             </p>
-            <CardBasic
-              data-h2-display="base(flex)"
-              data-h2-flex-direction="base(column)"
-              data-h2-align-items="base(flex-start)"
-              data-h2-gap="base(x.5)"
-              data-h2-margin-bottom="base(x1)"
-            >
-              {poolCandidate.status &&
-                RECORD_DECISION_STATUSES.includes(poolCandidate.status) &&
-                !isRemoved && (
-                  <FinalDecisionDialog
-                    poolCandidateId={poolCandidate.id}
-                    poolCandidateStatus={poolCandidate.status}
-                    expiryDate={poolCandidate.expiryDate}
-                    essentialSkills={skills.get(PoolSkillType.Essential) ?? []}
-                    nonessentialSkills={
-                      skills.get(PoolSkillType.Nonessential) ?? []
-                    }
-                    assessmentResults={
-                      poolCandidate?.assessmentResults?.filter(notEmpty) ?? []
-                    }
-                  />
-                )}
-              {poolCandidate.status &&
-                REVERT_DECISION_STATUSES.includes(poolCandidate.status) && (
-                  <RevertFinalDecisionDialog
-                    revertFinalDecisionQuery={poolCandidate}
-                  />
-                )}
-              {poolCandidate.status &&
-                poolCandidate.status ===
-                  PoolCandidateStatus.QualifiedAvailable && (
-                  <JobPlacementDialog
-                    jobPlacementDialogQuery={poolCandidate}
-                    departments={departments}
-                    context="view"
-                  />
-                )}
-              {isRemoved ? (
-                <ReinstateCandidateDialog reinstateQuery={poolCandidate} />
-              ) : (
-                <>
-                  <RemoveCandidateDialog removalQuery={poolCandidate} />
-                  <ChangeExpiryDateDialog expiryDateQuery={poolCandidate} />
-                </>
-              )}
-              {/* TODO: Add "Remove" and "Re-instate" dialogs to Pool Candidate
-              page (#9198) */}
-              {false && (
-                <Button
-                  icon={HandRaisedIcon}
-                  type="button"
-                  color="primary"
-                  mode="inline"
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Remove candidate",
-                    id: "Aixzmb",
-                    description:
-                      "Button label for remove candidate on view pool candidate page",
-                  })}
-                </Button>
-              )}
-              <NotesDialog
-                poolCandidateId={poolCandidate.id}
-                notes={poolCandidate.notes}
-              />
-              <Link
-                href={paths.userProfile(poolCandidate.user.id)}
-                icon={UserCircleIcon}
-                type="button"
-                color="primary"
-                mode="inline"
-              >
-                {intl.formatMessage({
-                  defaultMessage: "View up-to-date profile",
-                  id: "mh7ndf",
-                  description:
-                    "Link label for view profile on view pool candidate page",
-                })}
-              </Link>
-            </CardBasic>
+            <MoreActions
+              poolCandidate={poolCandidate}
+              departments={departments}
+            />
             <div
               data-h2-display="base(flex)"
               data-h2-flex-direction="base(column)"
@@ -676,20 +555,8 @@ export const ViewPoolCandidate = ({
                 <ChangeStatusDialog
                   selectedCandidate={poolCandidate}
                   user={poolCandidate.user}
-                  pools={pools}
                 />
               </p>
-            </div>
-            <div
-              data-h2-display="base(flex)"
-              data-h2-flex-direction="base(column)"
-              data-h2-align-items="base(flex-start)"
-              data-h2-gap="base(x.5)"
-            >
-              <CandidateNavigation
-                candidateId={poolCandidate.id}
-                poolId={poolCandidate.pool.id}
-              />
             </div>
           </Sidebar.Sidebar>
           <Sidebar.Content>
@@ -705,11 +572,13 @@ export const ViewPoolCandidate = ({
             </div>
             {parsedSnapshot ? (
               <div data-h2-margin-top="base(x2)">
-                <ApplicationInformation
-                  poolQuery={poolCandidate.pool}
-                  snapshot={parsedSnapshot}
-                  application={snapshotCandidate}
-                />
+                <ErrorBoundary>
+                  <ApplicationInformation
+                    poolQuery={poolCandidate.pool}
+                    snapshot={parsedSnapshot}
+                    application={snapshotCandidate}
+                  />
+                </ErrorBoundary>
                 <div data-h2-margin="base(x2 0)">
                   <Accordion.Root type="single" mode="card" collapsible>
                     <Accordion.Item value="otherRecruitments">
@@ -722,17 +591,16 @@ export const ViewPoolCandidate = ({
                         })}
                       </Accordion.Trigger>
                       <Accordion.Content>
-                        <PoolStatusTable
-                          user={poolCandidate.user}
-                          pools={pools}
-                        />
+                        <PoolStatusTable user={poolCandidate.user} />
                       </Accordion.Content>
                     </Accordion.Item>
                   </Accordion.Root>
                 </div>
-                <CareerTimelineSection
-                  experiences={nonEmptyExperiences ?? []}
-                />
+                <ErrorBoundary>
+                  <CareerTimelineSection
+                    experiences={nonEmptyExperiences ?? []}
+                  />
+                </ErrorBoundary>
               </div>
             ) : (
               <NotFound
@@ -775,10 +643,9 @@ export const ViewPoolCandidatePage = () => {
 
   return (
     <Pending fetching={fetching} error={error}>
-      {data?.poolCandidate && data?.pools ? (
+      {data?.poolCandidate ? (
         <ViewPoolCandidate
           poolCandidate={data.poolCandidate}
-          pools={data.pools.filter(notEmpty)}
           departments={data.departments.filter(notEmpty)}
         />
       ) : (
@@ -798,5 +665,19 @@ export const ViewPoolCandidatePage = () => {
     </Pending>
   );
 };
+
+export const Component = () => (
+  <RequireAuth
+    roles={[
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.RequestResponder,
+      ROLE_NAME.PlatformAdmin,
+    ]}
+  >
+    <ViewPoolCandidatePage />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminViewPoolCandidatePage";
 
 export default ViewPoolCandidatePage;

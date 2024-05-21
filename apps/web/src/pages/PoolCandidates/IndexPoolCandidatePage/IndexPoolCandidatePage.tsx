@@ -1,4 +1,3 @@
-import React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 
@@ -9,12 +8,14 @@ import {
   CandidateSuspendedFilter,
   Scalars,
 } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
 import useRequiredParams from "~/hooks/useRequiredParams";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 type RouteParams = {
   poolId: Scalars["ID"]["output"];
@@ -183,5 +184,13 @@ export const IndexPoolCandidatePage = () => {
     </AdminContentWrapper>
   );
 };
+
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.PoolOperator, ROLE_NAME.RequestResponder]}>
+    <IndexPoolCandidatePage />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminPoolCandidatePage";
 
 export default IndexPoolCandidatePage;

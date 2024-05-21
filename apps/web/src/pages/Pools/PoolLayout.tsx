@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { Outlet } from "react-router-dom";
 import { useQuery } from "urql";
@@ -16,6 +16,7 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useCurrentPage from "~/hooks/useCurrentPage";
@@ -30,6 +31,7 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminHero from "~/components/Hero/AdminHero";
 import { PageNavInfo } from "~/types/pages";
 import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 export const PoolLayout_Fragment = graphql(/* GraphQL */ `
   fragment PoolLayout on Pool {
@@ -117,7 +119,7 @@ const PoolHeader = ({ poolQuery }: PoolHeaderProps) => {
     : getAdvertisementStatus(pool);
   const badge = getPoolCompletenessBadge(status);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (currentPage?.title) {
       announce(currentPage?.title);
     }
@@ -189,5 +191,20 @@ const PoolLayout = () => {
     </>
   );
 };
+
+export const Component = () => (
+  <RequireAuth
+    roles={[
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.RequestResponder,
+      ROLE_NAME.CommunityManager,
+      ROLE_NAME.PlatformAdmin,
+    ]}
+  >
+    <PoolLayout />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminPoolLayout";
 
 export default PoolLayout;

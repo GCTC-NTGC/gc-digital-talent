@@ -1,7 +1,6 @@
-import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 
-import { SupportPage } from "./SupportPage";
+import SupportPage from "./SupportPage";
 
 export default {
   component: SupportPage,

@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import StarIcon from "@heroicons/react/20/solid/StarIcon";
 
@@ -113,7 +112,7 @@ const ApplicationCareerTimelineEdit = ({
   );
 };
 
-const ApplicationCareerTimelineEditPage = () => {
+export const Component = () => {
   const { application } = useApplication();
   const { experienceId } = useRequiredParams<RouteParams>(
     ["experienceId", "applicationId"],
@@ -133,4 +132,4 @@ const ApplicationCareerTimelineEditPage = () => {
   );
 };
 
-export default ApplicationCareerTimelineEditPage;
+Component.displayName = "ApplicationCareerTimelineEditPage";

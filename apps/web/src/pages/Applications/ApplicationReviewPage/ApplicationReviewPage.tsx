@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
@@ -592,7 +591,7 @@ const ApplicationReview = ({
               >
                 <Button
                   type="submit"
-                  mode="solid"
+                  color="secondary"
                   value="continue"
                   disabled={mutating || isSubmitting}
                 >
@@ -614,7 +613,7 @@ const ApplicationReview = ({
   );
 };
 
-const ApplicationReviewPage = () => {
+export const Component = () => {
   const { application } = useApplication();
 
   const experiences: Experience[] = unpackMaybes(application.user.experiences);
@@ -626,4 +625,4 @@ const ApplicationReviewPage = () => {
   );
 };
 
-export default ApplicationReviewPage;
+Component.displayName = "ApplicationReviewPage";

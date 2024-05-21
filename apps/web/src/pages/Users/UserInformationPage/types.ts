@@ -1,9 +1,9 @@
-import { User, Pool } from "@gc-digital-talent/graphql";
+import { Department, UserInfoFragment } from "@gc-digital-talent/graphql";
 
 export interface BasicUserInformationProps {
-  user: User;
+  user: UserInfoFragment;
 }
 
 export interface UserInformationProps extends BasicUserInformationProps {
-  pools: Pool[];
+  departments?: Department[];
 }

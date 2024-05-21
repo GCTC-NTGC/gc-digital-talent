@@ -4,8 +4,8 @@ import BriefcaseIcon from "@heroicons/react/20/solid/BriefcaseIcon";
 import LightBulbIcon from "@heroicons/react/20/solid/LightBulbIcon";
 import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
-import React from "react";
 import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
+import { ReactNode } from "react";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { IconType } from "@gc-digital-talent/ui";
@@ -40,7 +40,7 @@ import experienceMessages from "../messages/experienceMessages";
  *
  * @param intl IntlShape
  * @param experienceType  ExperienceType
- * @returns Record<string, React.ReactNode>
+ * @returns Record<string, ReactNode>
  */
 export const getExperienceFormLabels = (
   intl: IntlShape,
@@ -334,18 +334,21 @@ export const formValuesToSubmitData = (
   };
 };
 
-export const isAwardExperience = (e: AnyExperience): e is AwardExperience =>
-  e.__typename === "AwardExperience";
+type SimpleAnyExperience = Omit<AnyExperience, "user">;
+
+export const isAwardExperience = (
+  e: SimpleAnyExperience,
+): e is AwardExperience => e.__typename === "AwardExperience";
 export const isCommunityExperience = (
-  e: AnyExperience,
+  e: SimpleAnyExperience,
 ): e is CommunityExperience => e.__typename === "CommunityExperience";
 export const isEducationExperience = (
-  e: AnyExperience,
+  e: SimpleAnyExperience,
 ): e is EducationExperience => e.__typename === "EducationExperience";
 export const isPersonalExperience = (
-  e: AnyExperience,
+  e: SimpleAnyExperience,
 ): e is PersonalExperience => e.__typename === "PersonalExperience";
-export const isWorkExperience = (e: AnyExperience): e is WorkExperience =>
+export const isWorkExperience = (e: SimpleAnyExperience): e is WorkExperience =>
   e.__typename === "WorkExperience";
 
 export const compareByDate = (e1: ExperienceForDate, e2: ExperienceForDate) => {
@@ -565,7 +568,7 @@ export const queryResultToDefaultValues = (
  * Get the name of any experience type
  *
  * @param AnyExperience experience
- * @return string|React.ReactNode
+ * @return string|ReactNode
  */
 export const getExperienceName = (
   experience: AnyExperience,
@@ -626,12 +629,12 @@ export const getExperienceName = (
  *
  * @param {AnyExperience} experience
  * @param {IntlShape} intl
- * @return {string|React.ReactNode}
+ * @return {string|ReactNode}
  */
 export const getExperienceDate = (
   experience: AnyExperience,
   intl: IntlShape,
-): undefined | React.ReactNode => {
+): undefined | ReactNode => {
   let dateString;
   if (!experience) {
     return dateString;
@@ -649,11 +652,11 @@ export const getExperienceDate = (
 
 type ExperienceInfo = {
   title: string;
-  titleHtml: React.ReactNode;
+  titleHtml: ReactNode;
   editPath?: string;
-  typeMessage: React.ReactNode;
+  typeMessage: ReactNode;
   icon: IconType;
-  date?: React.ReactNode;
+  date?: ReactNode;
 };
 
 type UseExperienceInfo = (experience: AnyExperience) => ExperienceInfo;

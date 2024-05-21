@@ -1,18 +1,21 @@
-import React from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { ReactNode, useEffect } from "react";
 
 import { useLogger } from "@gc-digital-talent/logger";
 import { Loading } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import {
+  RoleName,
+  useAuthentication,
+  useAuthorization,
+} from "@gc-digital-talent/auth";
 
-import useAuthentication from "../hooks/useAuthentication";
-import useAuthorization from "../hooks/useAuthorization";
-import { RoleName } from "../const";
+import useRoutes from "~/hooks/useRoutes";
 
 interface RequireAuthProps {
-  children: React.ReactNode;
+  children: ReactNode;
   roles: Array<RoleName>;
-  loginPath: string;
+  loginPath?: string;
 }
 
 const RequireAuth = ({
@@ -26,6 +29,8 @@ const RequireAuth = ({
   const { roleAssignments, isLoaded } = useAuthorization();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const paths = useRoutes();
+  const loginRedirectPath = loginPath ?? paths.login();
 
   const userRoleNames = roleAssignments
     ?.map((a) => a.role?.name)
@@ -37,7 +42,7 @@ const RequireAuth = ({
       userRoleNames?.includes(authorizedRoleName),
     );
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!loggedIn) {
       const loginSearchParams = new URLSearchParams();
       loginSearchParams.append("from", location.pathname);
@@ -45,7 +50,7 @@ const RequireAuth = ({
       if (personality) loginSearchParams.append("personality", personality);
       navigate(
         {
-          pathname: loginPath,
+          pathname: loginRedirectPath,
           search: loginSearchParams.toString(),
         },
         {
@@ -53,7 +58,7 @@ const RequireAuth = ({
         },
       );
     }
-  }, [location.pathname, loggedIn, loginPath, navigate, searchParams]);
+  }, [location.pathname, loggedIn, loginRedirectPath, navigate, searchParams]);
 
   // Prevent showing children while login redirect happens
   if (!loggedIn) {
@@ -73,7 +78,7 @@ const RequireAuth = ({
     });
   }
 
-  // Note: Need to return a React.ReactElement
+  // Note: Need to return a ReactElement
   // eslint-disable-next-line react/jsx-no-useless-fragment
   return <>{children}</>;
 };

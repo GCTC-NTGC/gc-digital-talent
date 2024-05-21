@@ -152,9 +152,9 @@ const formMessages = defineMessages({
   },
   repeaterDeleteItem: {
     defaultMessage: "Delete an item to add another",
-    id: "lFLEy2",
+    id: "fO0cRR",
     description:
-      "Message displayed when max items have been reached on reapter component.",
+      "Message displayed when max items have been reached on repeater component.",
   },
   repeaterAddItem: {
     defaultMessage: "Add a new item",

@@ -1,5 +1,4 @@
-import React from "react";
-import { faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker/locale/en";
 import { StoryFn } from "@storybook/react";
 
 import {
@@ -7,11 +6,13 @@ import {
   fakeTeams,
   fakeDepartments,
 } from "@gc-digital-talent/fake-data";
-import { PublishingGroup } from "@gc-digital-talent/graphql";
+import { PublishingGroup, makeFragmentData } from "@gc-digital-talent/graphql";
 
 import { QUALIFIED_STATUSES } from "~/constants/poolCandidate";
 
-import QualifiedRecruitmentCard from "./QualifiedRecruitmentCard";
+import QualifiedRecruitmentCard, {
+  QualifiedRecruitmentCard_Fragment,
+} from "./QualifiedRecruitmentCard";
 
 faker.seed(0);
 
@@ -47,14 +48,17 @@ const Template: StoryFn<typeof QualifiedRecruitmentCard> = () => {
             >
               <span>{`${poolCandidateStatus}  ${availability}`}</span>
               <QualifiedRecruitmentCard
-                candidate={{
-                  ...mockCandidate,
-                  status: poolCandidateStatus,
-                  suspendedAt:
-                    availability === "Available"
-                      ? null
-                      : faker.date.past().toISOString(),
-                }}
+                candidateQuery={makeFragmentData(
+                  {
+                    ...mockCandidate,
+                    status: poolCandidateStatus,
+                    suspendedAt:
+                      availability === "Available"
+                        ? null
+                        : faker.date.past().toISOString(),
+                  },
+                  QualifiedRecruitmentCard_Fragment,
+                )}
                 headingLevel="h2"
               />
             </div>

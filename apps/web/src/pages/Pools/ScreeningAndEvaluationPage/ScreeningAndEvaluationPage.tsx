@@ -1,16 +1,18 @@
-import React from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useClient, useQuery } from "urql";
 import { useIntl } from "react-intl";
 
 import { graphql, FragmentType, Scalars } from "@gc-digital-talent/graphql";
 import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AssessmentStepTracker, {
   AssessmentStepTracker_CandidateFragment,
 } from "~/components/AssessmentStepTracker/AssessmentStepTracker";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 type RouteParams = {
   poolId: Scalars["ID"]["input"];
@@ -67,9 +69,8 @@ const ScreeningAndEvaluationPage = () => {
   const { poolId } = useRequiredParams<RouteParams>("poolId");
   const client = useClient();
   const intl = useIntl();
-  const [fetchingCandidates, setFetchingCandidates] =
-    React.useState<boolean>(true);
-  const [candidates, setCandidates] = React.useState<
+  const [fetchingCandidates, setFetchingCandidates] = useState<boolean>(true);
+  const [candidates, setCandidates] = useState<
     FragmentType<typeof AssessmentStepTracker_CandidateFragment>[]
   >([]);
   const [{ data, fetching, error }] = useQuery({
@@ -82,7 +83,7 @@ const ScreeningAndEvaluationPage = () => {
   });
   const lastPage = data?.poolCandidatesPaginated.paginatorInfo.lastPage ?? 0;
 
-  const batchLoader = React.useCallback(async () => {
+  const batchLoader = useCallback(async () => {
     const batches = [];
 
     for (let i = 1; i <= lastPage; i += 1) {
@@ -114,7 +115,7 @@ const ScreeningAndEvaluationPage = () => {
     }
   }, [client, intl, lastPage, poolId]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (lastPage) {
       batchLoader().then((res) => {
         setCandidates(res);
@@ -140,5 +141,13 @@ const ScreeningAndEvaluationPage = () => {
     </AdminContentWrapper>
   );
 };
+
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.PoolOperator, ROLE_NAME.PlatformAdmin]}>
+    <ScreeningAndEvaluationPage />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminScreeningAndEvaluationPage";
 
 export default ScreeningAndEvaluationPage;

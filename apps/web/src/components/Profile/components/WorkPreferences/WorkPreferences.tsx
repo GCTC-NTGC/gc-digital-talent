@@ -1,4 +1,3 @@
-import React from "react";
 import HandThumbUpIcon from "@heroicons/react/24/outline/HandThumbUpIcon";
 import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";

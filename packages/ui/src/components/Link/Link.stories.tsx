@@ -1,4 +1,4 @@
-import React from "react";
+import { Fragment } from "react";
 import { StoryFn } from "@storybook/react";
 import InformationCircleIcon from "@heroicons/react/20/solid/InformationCircleIcon";
 
@@ -63,9 +63,9 @@ const Template: StoryFn<
       data-h2-grid-template-columns="base(1fr 1fr)"
     >
       {colors.map((color) => (
-        <React.Fragment key={`${color}`}>
+        <Fragment key={`${color}`}>
           {modes.map((mode) => (
-            <React.Fragment key={`${color}-${mode}`}>
+            <Fragment key={`${color}-${mode}`}>
               <div
                 {...(color === "white" && {
                   "data-h2-background-color": "base(black)",
@@ -113,9 +113,9 @@ const Template: StoryFn<
                 </Link>
                 <p>{`${mode} ${color} disabled`}</p>
               </div>
-            </React.Fragment>
+            </Fragment>
           ))}
-        </React.Fragment>
+        </Fragment>
       ))}
     </div>
   );

@@ -1,43 +1,55 @@
 /* eslint-disable import/no-duplicates */
 // known issue with date-fns and eslint https://github.com/date-fns/date-fns/issues/1756#issuecomment-624803874
-import * as React from "react";
 import { useIntl } from "react-intl";
 import FolderOpenIcon from "@heroicons/react/24/outline/FolderOpenIcon";
+import { ReactNode, ReactElement, useState } from "react";
 
 import { Accordion, Heading, Link, Well } from "@gc-digital-talent/ui";
-import { PoolCandidate } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import { isApplicationInProgress, notRemoved } from "~/utils/applicationUtils";
+import { isApplicationInProgress } from "~/utils/applicationUtils";
 import { PAGE_SECTION_ID as CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
 import ApplicationCard from "~/components/ApplicationCard/ApplicationCard";
 
-function buildLink(href: string, chunks: React.ReactNode): React.ReactElement {
+function buildLink(href: string, chunks: ReactNode): ReactElement {
   return <Link href={href}>{chunks}</Link>;
 }
 
-export type Application = Omit<PoolCandidate, "user">;
+export const TrackApplicationsCandidate_Fragment = graphql(/* GraphQL */ `
+  fragment TrackApplicationsCandidate on PoolCandidate {
+    ...ApplicationCard
+    id
+    status
+    pool {
+      id
+      closingDate
+    }
+  }
+`);
 
 interface TrackApplicationsProps {
-  applications: Application[];
+  applicationsQuery: FragmentType<typeof TrackApplicationsCandidate_Fragment>[];
 }
 
 type AccordionItems = Array<"in_progress" | "past" | "">;
 
-const TrackApplications = ({ applications }: TrackApplicationsProps) => {
+const TrackApplications = ({ applicationsQuery }: TrackApplicationsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const applications = getFragment(
+    TrackApplicationsCandidate_Fragment,
+    applicationsQuery,
+  );
 
   const inProgressApplications = applications.filter(isApplicationInProgress);
 
-  const pastApplications = applications
-    .filter((a) => {
-      return !isApplicationInProgress(a);
-    })
-    .filter(notRemoved);
+  const pastApplications = applications.filter((a) => {
+    return !isApplicationInProgress(a);
+  });
 
   const [currentAccordionItems, setCurrentAccordionItems] =
-    React.useState<AccordionItems>(["in_progress", "past"]); // start with both open
+    useState<AccordionItems>(["in_progress", "past"]); // start with both open
 
   return (
     <section>
@@ -76,7 +88,7 @@ const TrackApplications = ({ applications }: TrackApplicationsProps) => {
                 "Description for the track applications section on the applicant dashboard, paragraph two.",
             },
             {
-              a: (chunks: React.ReactNode) =>
+              a: (chunks: ReactNode) =>
                 buildLink(
                   paths.careerTimelineAndRecruitment({
                     section:
@@ -139,7 +151,7 @@ const TrackApplications = ({ applications }: TrackApplicationsProps) => {
                 inProgressApplications.map((activeRecruitment) => (
                   <ApplicationCard
                     key={activeRecruitment.id}
-                    application={activeRecruitment}
+                    poolCandidateQuery={activeRecruitment}
                   />
                 ))
               ) : (
@@ -212,7 +224,7 @@ const TrackApplications = ({ applications }: TrackApplicationsProps) => {
                 pastApplications.map((pastApplication) => (
                   <ApplicationCard
                     key={pastApplication.id}
-                    application={pastApplication}
+                    poolCandidateQuery={pastApplication}
                   />
                 ))
               ) : (

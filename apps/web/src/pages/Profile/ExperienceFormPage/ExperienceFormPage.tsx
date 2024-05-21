@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { defineMessage, useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -26,7 +26,7 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { useAuthorization } from "@gc-digital-talent/auth";
+import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import {
@@ -53,6 +53,7 @@ import {
   queryResultToDefaultValues,
 } from "~/utils/experienceUtils";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import ExperienceSkills from "./components/ExperienceSkills";
 
@@ -323,7 +324,7 @@ export const ExperienceForm = ({
     return handleUpdateExperience(data);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (action === "add-another" && isSubmitSuccessful) {
       // Help users out by focusing the first input after scrolling
       setFocus("experienceType");
@@ -647,5 +648,21 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
     </Pending>
   );
 };
+
+export const Create = () => (
+  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+    <ExperienceFormContainer />
+  </RequireAuth>
+);
+
+Create.displayName = "CreateExperienceFormPage";
+
+export const Edit = () => (
+  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+    <ExperienceFormContainer edit />
+  </RequireAuth>
+);
+
+Edit.displayName = "EditExperienceFormPage";
 
 export default ExperienceFormContainer;

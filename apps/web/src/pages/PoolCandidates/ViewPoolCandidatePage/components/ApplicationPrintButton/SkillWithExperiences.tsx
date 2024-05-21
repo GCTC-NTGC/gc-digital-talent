@@ -1,5 +1,5 @@
-import React from "react";
 import { useIntl } from "react-intl";
+import { ReactNode, JSX } from "react";
 
 import {
   commonMessages,
@@ -21,7 +21,7 @@ import {
   isWorkExperience,
 } from "~/utils/experienceUtils";
 
-const PageSection = ({ children }: { children: React.ReactNode }) => (
+const PageSection = ({ children }: { children: ReactNode }) => (
   <div
     data-h2-margin-bottom="base(2rem)"
     data-h2-display="base(block)"

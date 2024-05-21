@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 
 import { Checklist, FieldLabels } from "@gc-digital-talent/forms";

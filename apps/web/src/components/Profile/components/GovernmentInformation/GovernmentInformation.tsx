@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 import BuildingLibraryIcon from "@heroicons/react/24/outline/BuildingLibraryIcon";

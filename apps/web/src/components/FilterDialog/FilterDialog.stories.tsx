@@ -1,6 +1,5 @@
-import React from "react";
 import { StoryFn } from "@storybook/react";
-import { faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker/locale/en";
 import { action } from "@storybook/addon-actions";
 
 import { Checkbox, Combobox } from "@gc-digital-talent/forms";

@@ -1,4 +1,4 @@
-import React from "react";
+import { JSX } from "react";
 import { useIntl } from "react-intl";
 import CheckIcon from "@heroicons/react/24/solid/CheckCircleIcon";
 import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";

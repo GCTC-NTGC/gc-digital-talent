@@ -1,4 +1,3 @@
-import React from "react";
 import { IntlShape, useIntl } from "react-intl";
 import {
   Row,
@@ -11,6 +10,16 @@ import {
   Updater,
 } from "@tanstack/react-table";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
+import {
+  DetailedHTMLProps,
+  Dispatch,
+  HTMLAttributes,
+  MouseEventHandler,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 
 import { CheckButton, CheckButtonProps } from "@gc-digital-talent/forms";
 import {
@@ -21,12 +30,7 @@ import {
 } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-import {
-  ButtonClickEvent,
-  DatasetDownload,
-  DatasetPrint,
-  RowSelectDef,
-} from "./types";
+import { DatasetDownload, DatasetPrint, RowSelectDef } from "./types";
 import SpinnerIcon from "../../SpinnerIcon/SpinnerIcon";
 
 type BaseProps = Omit<
@@ -77,8 +81,8 @@ const Cell = <TData extends object>({ row, ...props }: CellProps<TData>) => (
   />
 );
 
-type DivHTMLProps = React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLDivElement>,
+type DivHTMLProps = DetailedHTMLProps<
+  HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 >;
 
@@ -113,8 +117,8 @@ const Section = (props: DivHTMLProps) => (
   />
 );
 
-type BulletProps = React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLSpanElement>,
+type BulletProps = DetailedHTMLProps<
+  HTMLAttributes<HTMLSpanElement>,
   HTMLSpanElement
 >;
 
@@ -145,7 +149,7 @@ interface ActionsProps {
   /** Number of rows that are currently selected */
   count: number;
   /** Callback when the clear button is clicked */
-  onClear: ButtonClickEvent;
+  onClear: MouseEventHandler;
   /** Enable print and pass the callback */
   print?: DatasetPrint;
   /** Enable the one or both (selection, all) download buttons */
@@ -383,9 +387,9 @@ type UseRowSelectionReturn = [
 export const useRowSelection = <T,>(
   rowSelect?: RowSelectDef<T>,
 ): UseRowSelectionReturn => {
-  const [rowSelection, setRowSelection] = React.useState<RowSelectionState>({});
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
-  const rowSelectionCallback = React.useCallback(
+  const rowSelectionCallback = useCallback(
     (newRowSelection: RowSelectionState) => {
       if (rowSelect?.onRowSelection) {
         const selectedRows = Object.keys(newRowSelection)
@@ -401,7 +405,7 @@ export const useRowSelection = <T,>(
   );
 
   const handleRowSelection = (
-    setter: React.Dispatch<React.SetStateAction<RowSelectionState>>,
+    setter: Dispatch<SetStateAction<RowSelectionState>>,
     updater: Updater<RowSelectionState>,
   ) => {
     if (updater instanceof Function) {
@@ -416,7 +420,7 @@ export const useRowSelection = <T,>(
   const setter = (updater: Updater<RowSelectionState>) =>
     handleRowSelection(setRowSelection, updater);
 
-  React.useEffect(() => {
+  useEffect(() => {
     rowSelectionCallback(rowSelection);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rowSelection]);

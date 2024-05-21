@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import isArray from "lodash/isArray";
@@ -9,7 +9,7 @@ import {
   getOperationalRequirement,
   getEmploymentDuration,
   EmploymentDuration,
-  OperationalRequirementV2,
+  OperationalRequirements,
 } from "@gc-digital-talent/i18n";
 
 import { NullSelection } from "~/types/searchRequest";
@@ -58,7 +58,7 @@ const accordionIds = {
 const AdvancedFilters = () => {
   const intl = useIntl();
   const { watch } = useFormContext();
-  const [openFilters, setOpenFilters] = React.useState<string[]>([]);
+  const [openFilters, setOpenFilters] = useState<string[]>([]);
   const [educationRequirement, employmentDuration, operationalRequirements] =
     watch([
       "educationRequirement",
@@ -110,14 +110,14 @@ const AdvancedFilters = () => {
     },
   ];
 
-  const operationalRequirementOptions = OperationalRequirementV2.map(
+  const operationalRequirementOptions = OperationalRequirements.map(
     (value) => ({
       value,
       label: intl.formatMessage(getOperationalRequirement(value)),
     }),
   );
 
-  const operationalRequirementOptionsShort = OperationalRequirementV2.map(
+  const operationalRequirementOptionsShort = OperationalRequirements.map(
     (value) => ({
       value,
       label: intl.formatMessage(getOperationalRequirement(value, "short")),

@@ -1,6 +1,5 @@
-import React from "react";
 import { StoryFn, Meta } from "@storybook/react";
-import { faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker/locale/en";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 

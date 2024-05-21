@@ -1,4 +1,4 @@
-import React from "react";
+import { Fragment } from "react";
 import { useIntl } from "react-intl";
 import { useLocation, Outlet, ScrollRestoration } from "react-router-dom";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
@@ -26,6 +26,8 @@ import * as micMessages from "~/lang/micCompiled.json";
 import SkipLink from "./SkipLink";
 import SitewideBanner from "./SitewideBanner";
 
+export { ErrorBoundary } from "./ErrorBoundary/ErrorBoundary";
+
 const messages: Map<string, Messages> = new Map([
   ["crg", crgMessages],
   ["crk", crkMessages],
@@ -49,7 +51,7 @@ const IAPSeo = () => {
   );
 };
 
-const Layout = () => {
+export const Component = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const location = useLocation();
@@ -74,7 +76,7 @@ const Layout = () => {
   return (
     <NestedLanguageProvider messages={messages}>
       <AnimatePresence>
-        <React.Fragment key={location.pathname}>
+        <Fragment key={location.pathname}>
           <Favicon locale={locale} project="iap" />
           <IAPSeo />
           <SkipLink />
@@ -97,10 +99,10 @@ const Layout = () => {
             </div>
           </div>
           <ScrollRestoration />
-        </React.Fragment>
+        </Fragment>
       </AnimatePresence>
     </NestedLanguageProvider>
   );
 };
 
-export default Layout;
+Component.displayName = "IAPLayout";

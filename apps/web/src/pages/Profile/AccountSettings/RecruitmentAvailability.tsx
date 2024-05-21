@@ -1,24 +1,49 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
+import { ReactNode } from "react";
 
-import { PoolCandidateStatus, User } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  PoolCandidateStatus,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Link, Well } from "@gc-digital-talent/ui";
 
 import ApplicationCard from "~/components/ApplicationCard/ApplicationCard";
 import useRoutes from "~/hooks/useRoutes";
 
-const inlineLink = (href: string, chunks: React.ReactNode) => (
+const inlineLink = (href: string, chunks: ReactNode) => (
   <Link href={href} color="black">
     {chunks}
   </Link>
 );
 
-const RecruitmentAvailability = ({ user }: { user: User }) => {
+const RecruitmentAvailabilityCandidate_Fragment = graphql(/* GraphQL */ `
+  fragment RecruitmentAvailabilityCandidate on PoolCandidate {
+    status
+    id
+    ...ApplicationCard
+  }
+`);
+
+interface RecruitmentAvailabilityProps {
+  candidatesQuery: FragmentType<
+    typeof RecruitmentAvailabilityCandidate_Fragment
+  >[];
+}
+
+const RecruitmentAvailability = ({
+  candidatesQuery,
+}: RecruitmentAvailabilityProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const applications = getFragment(
+    RecruitmentAvailabilityCandidate_Fragment,
+    candidatesQuery,
+  );
 
-  const activeApplications = unpackMaybes(user.poolCandidates).filter(
+  const activeApplications = unpackMaybes([...applications]).filter(
     ({ status }) =>
       status &&
       [
@@ -34,7 +59,7 @@ const RecruitmentAvailability = ({ user }: { user: User }) => {
   );
   return activeApplications.length > 0 ? (
     activeApplications.map((application) => (
-      <ApplicationCard key={application.id} application={application} />
+      <ApplicationCard key={application.id} poolCandidateQuery={application} />
     ))
   ) : (
     <Well data-h2-margin="base(x1 0)" data-h2-text-align="base(center)">
@@ -57,7 +82,7 @@ const RecruitmentAvailability = ({ user }: { user: User }) => {
               "Additional message displayed in recruitment availability when the user is not in any valid pools",
           },
           {
-            link: (chunks: React.ReactNode) =>
+            link: (chunks: ReactNode) =>
               inlineLink(paths.browsePools(), chunks),
           },
         )}

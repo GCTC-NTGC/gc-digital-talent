@@ -1,6 +1,6 @@
-import React from "react";
+import { HTMLProps } from "react";
 
-const RadiatingCircles = (props: React.HTMLProps<SVGSVGElement>) => (
+const RadiatingCircles = (props: HTMLProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"

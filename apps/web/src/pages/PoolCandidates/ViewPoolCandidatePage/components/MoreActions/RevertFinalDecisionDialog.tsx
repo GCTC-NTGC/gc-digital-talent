@@ -1,7 +1,6 @@
-import React from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
-import ArrowUturnLeftIcon from "@heroicons/react/24/outline/ArrowUturnLeftIcon";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import {
@@ -24,6 +23,7 @@ import {
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import FormChangeNotifyWell from "~/components/FormChangeNotifyWell/FormChangeNotifyWell";
+import { isDisqualifiedStatus, isQualifiedStatus } from "~/utils/poolCandidate";
 
 const RevertFinalDecision_Mutation = graphql(/* GraphQL */ `
   mutation RevertFinalDecision_Mutation($id: UUID!) {
@@ -54,7 +54,7 @@ const RevertFinalDecisionDialog = ({
   defaultOpen = false,
 }: RevertFinalDecisionDialogProps) => {
   const intl = useIntl();
-  const [isOpen, setIsOpen] = React.useState<boolean>(defaultOpen);
+  const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
   const [, executeMutation] = useMutation(RevertFinalDecision_Mutation);
   const { id, expiryDate, finalDecisionAt, status } = getFragment(
     RevertFinalDecisionDialog_Fragment,
@@ -94,20 +94,8 @@ const RevertFinalDecisionDialog = ({
       });
   };
 
-  let isQualified: boolean | null = null;
-  if (
-    status === PoolCandidateStatus.QualifiedAvailable ||
-    status === PoolCandidateStatus.Expired
-  ) {
-    isQualified = true;
-  }
-
-  if (
-    status === PoolCandidateStatus.ScreenedOutApplication ||
-    status === PoolCandidateStatus.ScreenedOutAssessment
-  ) {
-    isQualified = false;
-  }
+  const isQualified =
+    isQualifiedStatus(status) || status === PoolCandidateStatus.Expired;
 
   const finalDecisionDate = finalDecisionAt
     ? formatDate({
@@ -116,21 +104,23 @@ const RevertFinalDecisionDialog = ({
         intl,
       })
     : intl.formatMessage(commonMessages.notAvailable);
+
+  if (!isQualified || !isDisqualifiedStatus(status)) {
+    intl.formatMessage(commonMessages.notApplicable);
+  }
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
         <Button
-          icon={ArrowUturnLeftIcon}
           type="button"
-          color="primary"
+          color={isQualified ? "primary" : "error"}
           mode="inline"
         >
-          {intl.formatMessage({
-            defaultMessage: "Revert final decision",
-            id: "AGRCgy",
-            description:
-              "Button label for revert final decision on view pool candidate page",
-          })}
+          {isQualified ? (
+            <>{intl.formatMessage(poolCandidateMessages.qualified)}</>
+          ) : (
+            <>{intl.formatMessage(poolCandidateMessages.disqualified)}</>
+          )}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
@@ -194,18 +184,8 @@ const RevertFinalDecisionDialog = ({
             </p>
             <FormChangeNotifyWell />
           </div>
-          <Dialog.Footer data-h2-justify-content="base(flex-start)">
-            <Dialog.Close>
-              <Button type="button" color="primary" mode="inline">
-                {intl.formatMessage(formMessages.cancelGoBack)}
-              </Button>
-            </Dialog.Close>
-            <Button
-              type="submit"
-              color="primary"
-              mode="solid"
-              onClick={handleSubmit}
-            >
+          <Dialog.Footer>
+            <Button type="submit" color="secondary" onClick={handleSubmit}>
               {intl.formatMessage({
                 defaultMessage: "Revert decision and update status",
                 id: "QJi1ZQ",
@@ -213,6 +193,11 @@ const RevertFinalDecisionDialog = ({
                   "Button label to revert final decision on view pool candidate page",
               })}
             </Button>
+            <Dialog.Close>
+              <Button color="warning" mode="inline">
+                {intl.formatMessage(formMessages.cancelGoBack)}
+              </Button>
+            </Dialog.Close>
           </Dialog.Footer>
         </Dialog.Body>
       </Dialog.Content>

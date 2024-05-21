@@ -1,8 +1,8 @@
-import React from "react";
 import { useIntl, defineMessage } from "react-intl";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import { useQuery } from "urql";
+import { ReactNode } from "react";
 
 import {
   Link,
@@ -10,15 +10,17 @@ import {
   TableOfContents,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { User, graphql } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { useFeatureFlags } from "@gc-digital-talent/env";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
 import profileMessages from "~/messages/profileMessages";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import AccountManagement from "./AccountManagement";
 import RecruitmentAvailability from "./RecruitmentAvailability";
@@ -31,30 +33,7 @@ const AccountSettings_Query = graphql(/* GraphQL */ `
       ignoredEmailNotifications
       ignoredInAppNotifications
       poolCandidates {
-        id
-        status
-        archivedAt
-        submittedAt
-        suspendedAt
-        pool {
-          id
-          closingDate
-          name {
-            en
-            fr
-          }
-          publishingGroup
-          stream
-          classification {
-            id
-            group
-            level
-            name {
-              en
-              fr
-            }
-          }
-        }
+        ...RecruitmentAvailabilityCandidate
       }
     }
   }
@@ -67,7 +46,7 @@ export type SectionKey =
 
 type Section = {
   id: string;
-  title: React.ReactNode;
+  title: ReactNode;
 };
 
 const pageTitle = defineMessage({
@@ -83,7 +62,7 @@ const subTitle = defineMessage({
   description: "Subtitle for the account settings page.",
 });
 
-const inlineLink = (href: string, chunks: React.ReactNode) => (
+const inlineLink = (href: string, chunks: ReactNode) => (
   <Link href={href} color="black">
     {chunks}
   </Link>
@@ -251,12 +230,14 @@ const AccountSettingsPage = () => {
                           "Subtitle for recruitment availability section on account settings page.",
                       },
                       {
-                        link: (chunks: React.ReactNode) =>
+                        link: (chunks: ReactNode) =>
                           inlineLink(paths.profileAndApplications(), chunks),
                       },
                     )}
                   </p>
-                  <RecruitmentAvailability user={data?.me as User} />
+                  <RecruitmentAvailability
+                    candidatesQuery={unpackMaybes(data.me.poolCandidates)}
+                  />
                 </TableOfContents.Section>
               </TableOfContents.Content>
             </TableOfContents.Wrapper>
@@ -270,5 +251,13 @@ const AccountSettingsPage = () => {
     </Pending>
   );
 };
+
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+    <AccountSettingsPage />
+  </RequireAuth>
+);
+
+Component.displayName = "AccountSettingsPage";
 
 export default AccountSettingsPage;

@@ -2,7 +2,6 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import React from "react";
 import { createIntl, createIntlCache } from "react-intl";
 import { screen, fireEvent } from "@testing-library/react";
 

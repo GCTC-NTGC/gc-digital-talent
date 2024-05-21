@@ -1,4 +1,3 @@
-import * as React from "react";
 import { MessageDescriptor, defineMessage, useIntl } from "react-intl";
 import MegaphoneOutlineIcon from "@heroicons/react/24/outline/MegaphoneIcon";
 import MegaphoneSolidIcon from "@heroicons/react/24/solid/MegaphoneIcon";
@@ -8,12 +7,14 @@ import { SitewideAnnouncementInput, graphql } from "@gc-digital-talent/graphql";
 import { Pending, IconType } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import AdminHero from "~/components/Hero/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import SitewideAnnouncementSection from "./SitewideAnnouncementSection";
 
@@ -126,5 +127,13 @@ const AnnouncementsPage = () => {
     </>
   );
 };
+
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
+    <AnnouncementsPage />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminAnnouncementsPage";
 
 export default AnnouncementsPage;

@@ -1,5 +1,5 @@
-import React from "react";
 import { useIntl } from "react-intl";
+import { ReactNode } from "react";
 
 import {
   AlertDialog,
@@ -21,13 +21,13 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import authMessages from "~/messages/authMessages";
 
-const supportLink = (chunks: React.ReactNode, path: string) => (
+const supportLink = (chunks: ReactNode, path: string) => (
   <Link href={path} state={{ referrer: window.location.href }} color="black">
     {chunks}
   </Link>
 );
 
-const SignedOutPage = () => {
+export const Component = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const { loggedIn, logout } = useAuthentication();
@@ -82,7 +82,7 @@ const SignedOutPage = () => {
                   "Message displayed to a user after signing into a deleted account",
               },
               {
-                inlineLink: (chunks: React.ReactNode) =>
+                inlineLink: (chunks: ReactNode) =>
                   supportLink(chunks, paths.support()),
               },
             )}
@@ -204,19 +204,9 @@ const SignedOutPage = () => {
             })}
           </p>
           <AlertDialog.Footer>
-            <AlertDialog.Cancel>
-              <Link
-                color="primary"
-                mode="inline"
-                href={paths.profileAndApplications()}
-              >
-                {intl.formatMessage(commonMessages.cancel)}
-              </Link>
-            </AlertDialog.Cancel>
             <AlertDialog.Action>
               <Button
-                mode="solid"
-                color="primary"
+                color="secondary"
                 type="button"
                 onClick={() => {
                   logout();
@@ -225,6 +215,15 @@ const SignedOutPage = () => {
                 {intl.formatMessage(authMessages.signOut)}
               </Button>
             </AlertDialog.Action>
+            <AlertDialog.Cancel>
+              <Link
+                color="warning"
+                mode="inline"
+                href={paths.profileAndApplications()}
+              >
+                {intl.formatMessage(commonMessages.cancel)}
+              </Link>
+            </AlertDialog.Cancel>
           </AlertDialog.Footer>
         </AlertDialog.Content>
       </AlertDialog.Root>
@@ -232,4 +231,6 @@ const SignedOutPage = () => {
   );
 };
 
-export default SignedOutPage;
+Component.displayName = "SignedOutPage";
+
+export default Component;

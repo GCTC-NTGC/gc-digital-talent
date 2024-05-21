@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
 import InboxStackIcon from "@heroicons/react/24/outline/InboxStackIcon";
@@ -70,7 +69,7 @@ const CoreRequirementsSection = ({
   poolQuery,
   sectionMetadata,
   onSave,
-}: CoreRequirementsSectionProps): JSX.Element => {
+}: CoreRequirementsSectionProps) => {
   const intl = useIntl();
   const pool = getFragment(EditPoolCoreRequirements_Fragment, poolQuery);
   const isNull = hasAllEmptyFields(pool);

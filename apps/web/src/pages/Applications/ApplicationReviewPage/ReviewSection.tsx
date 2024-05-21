@@ -1,5 +1,5 @@
-import React from "react";
 import { useIntl } from "react-intl";
+import { ReactNode } from "react";
 
 import { Heading, Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -8,7 +8,7 @@ interface ReviewSectionProps {
   title: string;
   path: string;
   editLinkAriaLabel: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const ReviewSection = ({

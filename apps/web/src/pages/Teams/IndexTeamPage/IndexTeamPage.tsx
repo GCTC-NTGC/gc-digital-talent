@@ -1,15 +1,16 @@
-import React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import UsersOutlineIcon from "@heroicons/react/24/outline/UsersIcon";
 import UsersSolidIcon from "@heroicons/react/24/solid/UsersIcon";
 
 import { IconType } from "@gc-digital-talent/ui";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import AdminHero from "~/components/Hero/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import TeamTableApi from "./components/TeamTable/TeamTable";
 
@@ -59,5 +60,19 @@ const IndexTeamPage = () => {
     </>
   );
 };
+
+export const Component = () => (
+  <RequireAuth
+    roles={[
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.CommunityManager,
+      ROLE_NAME.PlatformAdmin,
+    ]}
+  >
+    <IndexTeamPage />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminIndexTeamPage";
 
 export default IndexTeamPage;

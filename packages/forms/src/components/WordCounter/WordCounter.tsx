@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { useWatch } from "react-hook-form";
 
@@ -20,7 +19,7 @@ const WordCounter = ({
   wordLimit,
   currentCount,
   ...rest
-}: WordCounterProps): React.ReactElement => {
+}: WordCounterProps) => {
   const intl = useIntl();
   const currentValue = useWatch({ name });
   const wordCount = currentCount ?? countNumberOfWords(currentValue);

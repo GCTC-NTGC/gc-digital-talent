@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import type { StoryFn, Meta } from "@storybook/react";
 import CheckIcon from "@heroicons/react/24/solid/CheckIcon";
 
@@ -28,8 +28,8 @@ const Check = () => (
 );
 
 const Template: StoryFn<typeof DropdownMenu.Root> = () => {
-  const [isOpen, setIsOpen] = React.useState<boolean>(true);
-  const [value, setValue] = React.useState<string>("");
+  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [value, setValue] = useState<string>("");
   return (
     <DropdownMenu.Root open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenu.Trigger>

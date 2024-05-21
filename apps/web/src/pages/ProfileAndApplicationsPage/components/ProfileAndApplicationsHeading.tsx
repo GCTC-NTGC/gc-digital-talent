@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
 import BriefcaseIcon from "@heroicons/react/20/solid/BriefcaseIcon";
@@ -9,8 +8,9 @@ import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
 import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
 import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
+import { ReactNode, ReactElement } from "react";
 
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   Alert,
   Link,
@@ -19,7 +19,7 @@ import {
   ScrollToLinkProps,
 } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
-import { AwardExperience } from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import Hero from "~/components/Hero/Hero";
 import useRoutes, {
@@ -47,13 +47,11 @@ import { PAGE_SECTION_ID as CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID } f
 import experienceMessages from "~/messages/experienceMessages";
 import { isQualifiedStatus } from "~/utils/poolCandidate";
 
-import { PartialUser } from "../types";
-
 function buildLink(
   href: string,
-  chunks: React.ReactNode,
+  chunks: ReactNode,
   color?: LinkProps["color"],
-): React.ReactElement {
+): ReactElement {
   return (
     <Link href={href} fontSize="h5" mode="text" color={color}>
       {chunks}
@@ -62,37 +60,75 @@ function buildLink(
 }
 function buildScrollToLink(
   to: string,
-  chunks: React.ReactNode,
+  chunks: ReactNode,
   color?: ScrollToLinkProps["color"],
   fontSize?: ScrollToLinkProps["fontSize"],
-): React.ReactElement {
+): ReactElement {
   return (
     <ScrollToLink to={to} mode="text" color={color} fontSize={fontSize}>
       {chunks}
     </ScrollToLink>
   );
 }
+
+export const DashboardHeadingUser_Fragment = graphql(/* GraphQL */ `
+  fragment DashboardHeadingUser on User {
+    id
+    firstName
+    locationPreferences
+    positionDuration
+    isGovEmployee
+    hasPriorityEntitlement
+    priorityNumber
+    lookingForEnglish
+    lookingForFrench
+    lookingForBilingual
+    firstOfficialLanguage
+    estimatedLanguageAbility
+    secondLanguageExamCompleted
+    secondLanguageExamValidity
+    writtenLevel
+    comprehensionLevel
+    verbalLevel
+    experiences {
+      id
+    }
+    poolCandidates {
+      id
+      status
+    }
+    userSkills {
+      id
+    }
+    topBehaviouralSkillsRanking {
+      id
+    }
+    topTechnicalSkillsRanking {
+      id
+    }
+    improveBehaviouralSkillsRanking {
+      id
+    }
+    improveTechnicalSkillsRanking {
+      id
+    }
+  }
+`);
+
 interface DashboardHeadingProps {
-  user: PartialUser;
+  userQuery: FragmentType<typeof DashboardHeadingUser_Fragment>;
 }
 
-const DashboardHeading = ({ user }: DashboardHeadingProps) => {
+const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const [searchParams, setSearchParams] = useSearchParams();
+  const user = getFragment(DashboardHeadingUser_Fragment, userQuery);
 
-  const notEmptyExperiences = user.experiences?.filter(notEmpty) ?? [];
-  const notEmptyApplications = user.poolCandidates?.filter(notEmpty) ?? [];
+  const notEmptyExperiences = unpackMaybes(user.experiences);
+  const notEmptyApplications = unpackMaybes(user.poolCandidates);
 
-  const awardExperiences =
-    notEmptyExperiences?.filter(isAwardExperience).map(
-      (award: AwardExperience) =>
-        ({
-          ...award,
-          startDate: award.awardedDate,
-          endDate: award.awardedDate,
-        }) as AwardExperience & { startDate: string; endDate: string },
-    ) || [];
+  const awardExperiences = notEmptyExperiences?.filter(isAwardExperience) || [];
   const communityExperiences =
     notEmptyExperiences?.filter(isCommunityExperience) || [];
   const educationExperiences =
@@ -142,17 +178,17 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
           description: "Subtitle for profile and applications hero",
         },
         {
-          a1: (chunks: React.ReactNode) =>
+          a1: (chunks: ReactNode) =>
             buildLink(paths.profile(), chunks, "whiteFixed"),
-          a2: (chunks: React.ReactNode) =>
+          a2: (chunks: ReactNode) =>
             buildLink(
               paths.careerTimelineAndRecruitment(),
               chunks,
               "whiteFixed",
             ),
-          a3: (chunks: React.ReactNode) =>
+          a3: (chunks: ReactNode) =>
             buildLink(paths.skillLibrary(), chunks, "whiteFixed"),
-          a4: (chunks: React.ReactNode) =>
+          a4: (chunks: ReactNode) =>
             buildScrollToLink(
               "track-applications-section",
               chunks,
@@ -209,7 +245,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
                   "Third paragraph for profile and applications notification welcoming an IAP user",
               },
               {
-                a: (chunks: React.ReactNode) =>
+                a: (chunks: ReactNode) =>
                   buildScrollToLink("track-applications-section", chunks),
               },
             )}
@@ -263,7 +299,7 @@ const DashboardHeading = ({ user }: DashboardHeadingProps) => {
                   "Third paragraph for profile and applications notification welcoming an IAP user",
               },
               {
-                a: (chunks: React.ReactNode) =>
+                a: (chunks: ReactNode) =>
                   buildScrollToLink("track-applications-section", chunks),
               },
             )}

@@ -1,7 +1,7 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import ChevronRightIcon from "@heroicons/react/20/solid/ChevronRightIcon";
+import { useState, ReactNode } from "react";
 
 import {
   Button,
@@ -21,7 +21,7 @@ import useLabels from "../useLabels";
 
 const PreambleSection = () => {
   const intl = useIntl();
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const labels = useLabels();
   const paths = useRoutes();
   return (
@@ -71,7 +71,7 @@ const PreambleSection = () => {
                   "An OCIO role in the _supporting the community_ section of the _digital services contracting questionnaire_",
               },
               {
-                link: (text: React.ReactNode) =>
+                link: (text: ReactNode) =>
                   buildExternalLink(
                     "https://www.gcpedia.gc.ca/wiki/CIO_Suite/Organizational_Models",
                     text,
@@ -210,7 +210,7 @@ const PreambleSection = () => {
                 "Paragraph one of the _requirements_ section of the _digital services contracting questionnaire_",
             },
             {
-              link: (chunks: React.ReactNode) =>
+              link: (chunks: ReactNode) =>
                 buildExternalLink(getDirectiveUrl(intl), chunks),
             },
           )}
@@ -225,7 +225,7 @@ const PreambleSection = () => {
                 "Paragraph two of the _requirements_ section of the _digital services contracting questionnaire_",
             },
             {
-              link: (chunks: React.ReactNode) =>
+              link: (chunks: ReactNode) =>
                 buildExternalLink(paths.search(), chunks),
             },
           )}
@@ -447,7 +447,7 @@ const PreambleSection = () => {
                       "Paragraph three of the _examples of contracts_ section of the _digital services contracting questionnaire_",
                   },
                   {
-                    link: (text: React.ReactNode) =>
+                    link: (text: ReactNode) =>
                       buildExternalLink(
                         "mailto:GCTalentGC@tbs-sct.gc.ca",
                         text,

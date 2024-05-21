@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import PencilIcon from "@heroicons/react/24/outline/PencilIcon";
@@ -45,7 +45,7 @@ const EditTeamRoleDialog = ({
   onEditRoles,
 }: EditTeamRoleDialogProps) => {
   const intl = useIntl();
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const userDisplayName = getFullNameHtml(user.firstName, user.lastName, intl);
   const teamDisplayName = getLocalizedName(team.displayName, intl);
 

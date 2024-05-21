@@ -1,16 +1,16 @@
-import React from "react";
+import { createContext, ReactNode, useMemo } from "react";
 
 import { getFeatureFlags, FeatureFlags } from "./utils";
 
-export const FeatureFlagContext = React.createContext(getFeatureFlags());
+export const FeatureFlagContext = createContext(getFeatureFlags());
 
 interface FeatureFlagProviderProps {
-  children: React.ReactNode;
+  children: ReactNode;
   flags?: FeatureFlags;
 }
 
 const FeatureFlagProvider = ({ children, flags }: FeatureFlagProviderProps) => {
-  const featureFlags: FeatureFlags = React.useMemo(
+  const featureFlags: FeatureFlags = useMemo(
     () => ({
       ...getFeatureFlags(),
       ...(flags ?? {}),

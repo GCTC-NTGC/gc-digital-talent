@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 
 import { Alert, Link } from "@gc-digital-talent/ui";
@@ -192,8 +191,8 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
   );
 };
 
-const ApplicationSuccessPage = () => (
+export const Component = () => (
   <ApplicationApi PageComponent={ApplicationSuccess} />
 );
 
-export default ApplicationSuccessPage;
+Component.displayName = "ApplicationSuccessPage";

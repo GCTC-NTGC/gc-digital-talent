@@ -1,28 +1,26 @@
 /* eslint-disable import/prefer-default-export */
-import * as React from "react";
 import { IntlShape } from "react-intl";
 
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { PoolCandidate } from "@gc-digital-talent/graphql";
+import { Maybe } from "@gc-digital-talent/graphql";
 
 import { formatSubmittedAt } from "~/utils/poolCandidate";
 
-type Application = Omit<PoolCandidate, "user">;
-
 export const getApplicationDeadlineMessage = (
-  application: Application,
   intl: IntlShape,
+  closingDate?: Maybe<string>,
+  submittedAt?: Maybe<string>,
 ) => {
-  if (!application.pool.closingDate) return null;
+  if (!closingDate) return null;
 
-  if (application.submittedAt) {
+  if (submittedAt) {
     const message = intl.formatMessage({
       defaultMessage: "Applied on",
       id: "BdsZwe",
       description: "Label for showing the submitted date of an application.",
     });
-    const date = formatSubmittedAt(application.submittedAt, intl);
+    const date = formatSubmittedAt(submittedAt, intl);
 
     return (
       <>
@@ -42,7 +40,7 @@ export const getApplicationDeadlineMessage = (
     },
     {
       closingDate: formatDate({
-        date: parseDateTimeUtc(application.pool.closingDate),
+        date: parseDateTimeUtc(closingDate),
         formatString: "PPP",
         intl,
         timeZone: "Canada/Pacific",

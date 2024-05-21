@@ -1,9 +1,9 @@
-import React from "react";
+import { ReactNode } from "react";
 import { useIntl } from "react-intl";
 
 export interface SkipLinkProps {
   href?: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 const SkipLink = ({ href = "#main", children }: SkipLinkProps) => {
