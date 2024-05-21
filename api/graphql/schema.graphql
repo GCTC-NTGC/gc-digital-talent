@@ -1184,6 +1184,17 @@ input UpdatePoolCandidateStatusInput {
   status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
 }
 
+input UpdatePoolCandidateClaimVerificationInput {
+  veteranVerification: ClaimVerificationResult
+    @rename(attribute: "veteran_verification")
+  veteranVerificationExpiry: Date
+    @rename(attribute: "veteran_verification_expiry")
+  priorityVerification: ClaimVerificationResult
+    @rename(attribute: "priority_verification")
+  priorityVerificationExpiry: Date
+    @rename(attribute: "priority_verification_expiry")
+}
+
 input PlaceCandidateInput {
   placementType: PlacementType!
   departmentId: UUID!
@@ -1730,6 +1741,10 @@ type Mutation {
       model: "PoolCandidate"
       injectArgs: true
     )
+  updatePoolCandidateClaimVerification(
+    id: UUID!
+    poolCandidate: UpdatePoolCandidateClaimVerificationInput! @spread
+  ): PoolCandidate @update @guard @canFind(ability: "updateNotes", find: "id")
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
     @update
     @guard

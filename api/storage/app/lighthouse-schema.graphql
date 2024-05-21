@@ -113,6 +113,7 @@ type Mutation {
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
   updatePoolCandidateStatus(id: UUID!, poolCandidate: UpdatePoolCandidateStatusInput!): PoolCandidate
   togglePoolCandidateBookmark(id: ID!): Boolean
+  updatePoolCandidateClaimVerification(id: UUID!, poolCandidate: UpdatePoolCandidateClaimVerificationInput!): PoolCandidate
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
   removeCandidate(id: UUID!, removalReason: CandidateRemovalReason!, removalReasonOther: String): PoolCandidate
   reinstateCandidate(id: UUID!): PoolCandidate
@@ -1026,6 +1027,13 @@ input UpdateClassificationInput {
 input UpdatePoolCandidateStatusInput {
   expiryDate: Date
   status: PoolCandidateStatus
+}
+
+input UpdatePoolCandidateClaimVerificationInput {
+  veteranVerification: ClaimVerificationResult
+  veteranVerificationExpiry: Date
+  priorityVerification: ClaimVerificationResult
+  priorityVerificationExpiry: Date
 }
 
 input PlaceCandidateInput {
