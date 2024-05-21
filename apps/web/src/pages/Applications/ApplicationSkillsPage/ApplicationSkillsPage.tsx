@@ -1,7 +1,7 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { ReactNode, useEffect } from "react";
 
 import {
   Button,
@@ -35,7 +35,7 @@ import { useApplicationContext } from "../ApplicationContext";
 import SkillDescriptionAccordion from "./components/SkillDescriptionAccordion";
 import useApplication from "../useApplication";
 
-const careerTimelineLink = (children: React.ReactNode, href: string) => (
+const careerTimelineLink = (children: ReactNode, href: string) => (
   <Link href={href}>{children}</Link>
 );
 
@@ -161,7 +161,7 @@ export const ApplicationSkills = ({
       });
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     setValue(
       "skillsMissingExperiences",
       isSkillsExperiencesIncomplete ? 1 : 0,
@@ -205,7 +205,7 @@ export const ApplicationSkills = ({
               "Lead in paragraph for adding experiences to a users skills",
           },
           {
-            careerTimelineLink: (chunks: React.ReactNode) =>
+            careerTimelineLink: (chunks: ReactNode) =>
               careerTimelineLink(
                 chunks,
                 paths.applicationCareerTimeline(application.id),
@@ -350,7 +350,7 @@ export const ApplicationSkills = ({
           >
             <Button
               type="submit"
-              mode="solid"
+              color="secondary"
               value="continue"
               disabled={mutating || isSubmitting}
               onClick={() => {

@@ -1,5 +1,4 @@
 /* eslint-disable import/no-duplicates */
-import React from "react";
 import { isAfter } from "date-fns/isAfter";
 import { isBefore } from "date-fns/isBefore";
 import { useQuery } from "urql";

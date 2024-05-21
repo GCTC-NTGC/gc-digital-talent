@@ -1,5 +1,5 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
+import { ReactNode } from "react";
 
 import {
   FragmentType,
@@ -13,7 +13,7 @@ import { Link, Well } from "@gc-digital-talent/ui";
 import ApplicationCard from "~/components/ApplicationCard/ApplicationCard";
 import useRoutes from "~/hooks/useRoutes";
 
-const inlineLink = (href: string, chunks: React.ReactNode) => (
+const inlineLink = (href: string, chunks: ReactNode) => (
   <Link href={href} color="black">
     {chunks}
   </Link>
@@ -82,7 +82,7 @@ const RecruitmentAvailability = ({
               "Additional message displayed in recruitment availability when the user is not in any valid pools",
           },
           {
-            link: (chunks: React.ReactNode) =>
+            link: (chunks: ReactNode) =>
               inlineLink(paths.browsePools(), chunks),
           },
         )}

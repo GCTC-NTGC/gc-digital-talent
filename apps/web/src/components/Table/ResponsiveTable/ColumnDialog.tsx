@@ -1,4 +1,4 @@
-import React from "react";
+import { useRef, useEffect } from "react";
 import { useIntl } from "react-intl";
 import { Table } from "@tanstack/react-table";
 import TableCellsIcon from "@heroicons/react/20/solid/TableCellsIcon";
@@ -25,11 +25,11 @@ interface ColumnDialogProps<TData> {
  */
 const ColumnDialog = <T extends object>({ table }: ColumnDialogProps<T>) => {
   const intl = useIntl();
-  const allColumnsRef = React.useRef<HTMLInputElement>(null);
+  const allColumnsRef = useRef<HTMLInputElement>(null);
   const indeterminate =
     table.getIsSomeColumnsVisible() && !table.getIsAllColumnsVisible();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (allColumnsRef.current) {
       allColumnsRef.current.indeterminate = indeterminate;
     }

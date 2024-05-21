@@ -1,4 +1,3 @@
-import React from "react";
 import orderBy from "lodash/orderBy";
 import { IntlShape } from "react-intl";
 

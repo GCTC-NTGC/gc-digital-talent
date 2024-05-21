@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { useIntl } from "react-intl";
 import { Controller, FieldError, useFormContext } from "react-hook-form";
 import isArray from "lodash/isArray";

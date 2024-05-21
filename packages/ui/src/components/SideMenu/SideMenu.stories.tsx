@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { StoryFn, Meta } from "@storybook/react";
 import HomeIcon from "@heroicons/react/24/outline/HomeIcon";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
@@ -45,7 +45,7 @@ export default {
 const TemplateSideMenu: StoryFn = (args) => {
   const intl = useIntl();
   const { isOpen: defaultOpen } = args;
-  const [isOpen, setOpen] = React.useState<boolean>(defaultOpen);
+  const [isOpen, setOpen] = useState<boolean>(defaultOpen);
 
   const handleToggle = () => {
     setOpen(!isOpen);

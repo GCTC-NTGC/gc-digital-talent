@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import * as React from "react";
 import { useIntl } from "react-intl";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import { useQuery } from "urql";
@@ -95,7 +94,7 @@ export const ViewPool = ({
   onArchive,
   onDuplicate,
   onUnarchive,
-}: ViewPoolProps): React.JSX.Element => {
+}: ViewPoolProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const { roleAssignments } = useAuthorization();
@@ -110,6 +109,8 @@ export const ViewPool = ({
     [ROLE_NAME.CommunityManager, ROLE_NAME.PlatformAdmin],
     roleAssignments,
   );
+  // Same roles can edit submitted advertisements
+  const canEdit = advertisementStatus !== "submitted" || canPublish;
 
   let closingDate = "";
   if (pool.closingDate) {
@@ -199,10 +200,12 @@ export const ViewPool = ({
               )}
             </p>
             <ProcessCard.Footer>
-              {advertisementStatus !== "submitted" && (
+              {canEdit && (
                 <Link
                   mode="inline"
-                  color="secondary"
+                  color={
+                    pool.status === PoolStatus.Published ? "error" : "secondary"
+                  }
                   href={paths.poolUpdate(pool.id)}
                 >
                   {intl.formatMessage({
@@ -216,7 +219,11 @@ export const ViewPool = ({
               <Link
                 mode="inline"
                 color="secondary"
-                href={paths.pool(pool.id)}
+                href={
+                  advertisementStatus === "submitted"
+                    ? paths.pool(pool.id)
+                    : paths.poolPreview(pool.id)
+                }
                 newTab
               >
                 {advertisementStatus === "submitted"
@@ -368,6 +375,14 @@ export const ViewPool = ({
               </p>
             )}
             <ProcessCard.Footer>
+              {pool.status === PoolStatus.Draft && canPublish && (
+                <PublishProcessDialog
+                  {...commonDialogProps}
+                  closingDate={pool.closingDate}
+                  onPublish={onPublish}
+                  isReadyToPublish={isReadyToPublish}
+                />
+              )}
               {!canPublish && pool.status === PoolStatus.Draft && (
                 <SubmitForPublishingDialog
                   isReadyToPublish={isReadyToPublish}
@@ -405,14 +420,6 @@ export const ViewPool = ({
                 <DeleteProcessDialog
                   {...commonDialogProps}
                   onDelete={onDelete}
-                />
-              )}
-              {pool.status === PoolStatus.Draft && canPublish && (
-                <PublishProcessDialog
-                  {...commonDialogProps}
-                  closingDate={pool.closingDate}
-                  onPublish={onPublish}
-                  isReadyToPublish={isReadyToPublish}
                 />
               )}
             </ProcessCard.Footer>

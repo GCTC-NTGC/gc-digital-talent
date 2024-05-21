@@ -1,4 +1,3 @@
-import React from "react";
 import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
 import { useIntl } from "react-intl";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";

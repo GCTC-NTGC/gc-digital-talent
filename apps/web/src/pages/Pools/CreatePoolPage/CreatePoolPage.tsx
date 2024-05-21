@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { defineMessage, useIntl } from "react-intl";
@@ -187,7 +186,7 @@ export const CreatePoolForm = ({
                     "Label/title for creating a recruitment process.",
                 })}
               />
-              <Link href={paths.poolTable()} mode="inline" color="quaternary">
+              <Link href={paths.poolTable()} mode="inline" color="warning">
                 {intl.formatMessage(formMessages.cancelGoBack)}
               </Link>
             </div>

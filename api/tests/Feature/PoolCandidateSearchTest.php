@@ -6,6 +6,7 @@ use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
 use App\Enums\PoolCandidateStatus;
 use App\Facades\Notify;
+use App\Models\Classification;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Team;
@@ -493,6 +494,127 @@ class PoolCandidateSearchTest extends TestCase
         ]);
     }
 
+    public function testPoolCandidatesSearchClassification(): void
+    {
+        // Create qualified right classification candidates
+        $classificationIT1 = Classification::factory()->create([
+            'group' => 'IT',
+            'level' => 1,
+        ]);
+        $poolIT1 = Pool::factory()->create([
+            'team_id' => $this->team->id,
+            'classification_id' => $classificationIT1->id,
+        ]);
+        PoolCandidate::factory()->count(5)->create([
+            'pool_id' => $poolIT1->id,
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => PoolCandidateStatus::PLACED_CASUAL->name,
+            'suspended_at' => null,
+        ]);
+
+        // Wrong classification candidates
+        $classificationIT2 = Classification::factory()->create([
+            'group' => 'IT',
+            'level' => 2,
+        ]);
+        $poolIT2 = Pool::factory()->create([
+            'team_id' => $this->team->id,
+            'classification_id' => $classificationIT2->id,
+        ]);
+        PoolCandidate::factory()->count(3)->create([
+            'pool_id' => $poolIT2->id,
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => PoolCandidateStatus::PLACED_CASUAL->name,
+            'suspended_at' => null,
+        ]);
+
+        PoolCandidate::factory()->create([
+            'pool_id' => $poolIT1->id,
+            'expiry_date' => config('constants.far_future_date'),
+            'pool_candidate_status' => PoolCandidateStatus::UNDER_ASSESSMENT->name,
+            'suspended_at' => null,
+        ]);
+
+        $query =
+            /** @lang GraphQL */
+            '
+            query poolCandidatesPaginated ($where: PoolCandidateSearchInput) {
+                poolCandidatesPaginated (
+                  where: $where) {
+                    paginatorInfo {
+                        count
+                    }
+                }
+            }
+        ';
+
+        // assert all 9 returned
+        $this->actingAs($this->teamUser, 'api')->graphQL(
+            $query,
+            [
+                'where' => [
+                    'appliedClassifications' => null,
+                ],
+            ]
+        )->assertJson([
+            'data' => [
+                'poolCandidatesPaginated' => [
+                    'paginatorInfo' => [
+                        'count' => 9,
+                    ],
+                ],
+            ],
+        ]);
+
+        // assert the 6 right classifications returned - regardless of qualified status
+        $this->actingAs($this->teamUser, 'api')->graphQL(
+            $query,
+            [
+                'where' => [
+                    'appliedClassifications' => [
+                        [
+                            'group' => 'IT',
+                            'level' => 1,
+                        ],
+                    ],
+                ],
+            ]
+        )->assertJson([
+            'data' => [
+                'poolCandidatesPaginated' => [
+                    'paginatorInfo' => [
+                        'count' => 6,
+                    ],
+                ],
+            ],
+        ]);
+
+        // assert the 5 qualified right classification candidates returned
+        $this->actingAs($this->teamUser, 'api')->graphQL(
+            $query,
+            [
+                'where' => [
+                    'applicantFilter' => [
+                        'qualifiedClassifications' => [
+                            [
+                                'group' => 'IT',
+                                'level' => 1,
+                            ],
+                        ],
+                    ],
+                ],
+            ]
+        )->assertJson([
+            'data' => [
+                'poolCandidatesPaginated' => [
+                    'paginatorInfo' => [
+                        'count' => 5,
+                    ],
+                ],
+            ],
+        ]);
+    }
+
     // test pool candidates  general search by notes
     public function testPoolCandidatesSearchByNotes()
     {
@@ -522,7 +644,7 @@ class PoolCandidateSearchTest extends TestCase
             $query,
             [
                 'where' => [
-                    'generalSearch' => ['test notes'],
+                    'generalSearch' => 'test notes',
                 ],
             ]
         )->assertJson([

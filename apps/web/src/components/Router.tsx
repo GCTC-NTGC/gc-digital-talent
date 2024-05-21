@@ -1,4 +1,3 @@
-import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { Locales, useLocale } from "@gc-digital-talent/i18n";
@@ -571,6 +570,13 @@ const createRoute = (locale: Locales) =>
                   ],
                 },
               ],
+            },
+            {
+              path: "pools/:poolId/preview",
+              lazy: () =>
+                import(
+                  "../pages/Pools/PoolAdvertisementPage/PoolAdvertisementPage"
+                ),
             },
             {
               path: "pool-candidates",

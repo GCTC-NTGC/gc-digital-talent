@@ -12,7 +12,7 @@ import fakeSearchRequests from "./fakeSearchRequests";
 import fakeSkillFamilies, { getStaticSkillFamilies } from "./fakeSkillFamilies";
 import fakeSkills, { getStaticSkills } from "./fakeSkills";
 import fakeTeams from "./fakeTeams";
-import fakeUsers, { fakeApplicants } from "./fakeUsers";
+import fakeUsers, { fakeApplicants, fakeUser } from "./fakeUsers";
 import fakeUserSkills from "./fakeUserSkills";
 
 // Faker Generated Data
@@ -33,6 +33,7 @@ export {
   fakeSkills,
   fakeTeams,
   fakeUsers,
+  fakeUser,
   fakeUserSkills,
 };
 

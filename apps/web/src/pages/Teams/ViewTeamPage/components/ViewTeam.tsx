@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 
 import { Chip, Chips } from "@gc-digital-talent/ui";

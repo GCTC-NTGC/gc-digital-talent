@@ -1,4 +1,3 @@
-import * as React from "react";
 import { defineMessage, useIntl } from "react-intl";
 
 import { navigationMessages } from "@gc-digital-talent/i18n";

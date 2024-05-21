@@ -1,7 +1,7 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { FieldErrors, FieldValues, useFormState } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
+import { ReactNode, forwardRef, ElementRef } from "react";
 
 import {
   Alert,
@@ -19,7 +19,7 @@ import type { FieldLabels } from "./BasicForm";
 import { flattenErrors } from "../utils";
 
 type FieldNameWithLabel = {
-  label: React.ReactNode;
+  label: ReactNode;
   name: string;
   index?: string;
 };
@@ -98,7 +98,7 @@ interface ErrorSummaryProps {
   show: boolean;
 }
 
-const supportLink = (chunks: React.ReactNode, locale: string) => (
+const supportLink = (chunks: ReactNode, locale: string) => (
   <Link
     href={`/${locale}/support`}
     state={{ referrer: window.location.href }}
@@ -108,68 +108,67 @@ const supportLink = (chunks: React.ReactNode, locale: string) => (
   </Link>
 );
 
-const ErrorSummary = React.forwardRef<
-  React.ElementRef<"div">,
-  ErrorSummaryProps
->(({ labels, show }, forwardedRef) => {
-  const intl = useIntl();
-  const locale = getLocale(intl);
-  const { errors } = useFormState();
+const ErrorSummary = forwardRef<ElementRef<"div">, ErrorSummaryProps>(
+  ({ labels, show }, forwardedRef) => {
+    const intl = useIntl();
+    const locale = getLocale(intl);
+    const { errors } = useFormState();
 
-  // Don't show if the form is valid
-  if (!errors || !show || !labels) return null;
+    // Don't show if the form is valid
+    if (!errors || !show || !labels) return null;
 
-  // Flatten the error object and get the label
-  const invalidFieldNames = addLabelsToErrors(errors, labels);
+    // Flatten the error object and get the label
+    const invalidFieldNames = addLabelsToErrors(errors, labels);
 
-  const handleErrorClick: ScrollLinkClickFunc = (e, target) => {
-    e.preventDefault();
-    const singleInputTypes = ["input", "select", "textarea"];
-    if (target) {
-      // The input is not part of a group so just focus it directly
-      if (singleInputTypes.includes(target.nodeName.toLocaleLowerCase())) {
-        target.focus();
-      } else {
-        // Find the input in a RadioGroup or CheckList and focus it
-        target.querySelector("input")?.focus();
+    const handleErrorClick: ScrollLinkClickFunc = (e, target) => {
+      e.preventDefault();
+      const singleInputTypes = ["input", "select", "textarea"];
+      if (target) {
+        // The input is not part of a group so just focus it directly
+        if (singleInputTypes.includes(target.nodeName.toLocaleLowerCase())) {
+          target.focus();
+        } else {
+          // Find the input in a RadioGroup or CheckList and focus it
+          target.querySelector("input")?.focus();
+        }
       }
-    }
-  };
+    };
 
-  return invalidFieldNames.length > 0 ? (
-    <Alert.Root type="error" ref={forwardedRef} tabIndex={-1}>
-      <Alert.Title>
-        {intl.formatMessage(errorMessages.summaryTitle)}
-      </Alert.Title>
-      <p>{intl.formatMessage(errorMessages.summaryDescription)}</p>
-      <ul data-h2-margin="base(x.5, 0, 0, 0)">
-        {invalidFieldNames.map((field) => {
-          return (
-            <li key={field.name}>
-              <ScrollToLink
-                to={field.name}
-                onScrollTo={handleErrorClick}
-                mode="text"
-                color="error"
-              >
-                {field.label}
-                {field.index ? ` ${field.index}` : null}
-              </ScrollToLink>
-              {intl.formatMessage(commonMessages.dividingColon)}
-              <ErrorMessage name={field.name} />
-            </li>
-          );
-        })}
-      </ul>
-      <Alert.Footer>
-        <p>
-          {intl.formatMessage(errorMessages.summaryContact, {
-            a: (chunks: React.ReactNode) => supportLink(chunks, locale),
+    return invalidFieldNames.length > 0 ? (
+      <Alert.Root type="error" ref={forwardedRef} tabIndex={-1}>
+        <Alert.Title>
+          {intl.formatMessage(errorMessages.summaryTitle)}
+        </Alert.Title>
+        <p>{intl.formatMessage(errorMessages.summaryDescription)}</p>
+        <ul data-h2-margin="base(x.5, 0, 0, 0)">
+          {invalidFieldNames.map((field) => {
+            return (
+              <li key={field.name}>
+                <ScrollToLink
+                  to={field.name}
+                  onScrollTo={handleErrorClick}
+                  mode="text"
+                  color="error"
+                >
+                  {field.label}
+                  {field.index ? ` ${field.index}` : null}
+                </ScrollToLink>
+                {intl.formatMessage(commonMessages.dividingColon)}
+                <ErrorMessage name={field.name} />
+              </li>
+            );
           })}
-        </p>
-      </Alert.Footer>
-    </Alert.Root>
-  ) : null;
-});
+        </ul>
+        <Alert.Footer>
+          <p>
+            {intl.formatMessage(errorMessages.summaryContact, {
+              a: (chunks: ReactNode) => supportLink(chunks, locale),
+            })}
+          </p>
+        </Alert.Footer>
+      </Alert.Root>
+    ) : null;
+  },
+);
 
 export default ErrorSummary;

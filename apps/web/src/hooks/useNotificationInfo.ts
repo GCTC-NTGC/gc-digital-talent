@@ -1,9 +1,10 @@
 import { IntlShape, useIntl } from "react-intl";
-import React from "react";
+import { ReactNode } from "react";
 
 import {
   ApplicationDeadlineApproachingNotification,
   ApplicationStatusChangedNotification,
+  NewJobPostedNotification,
   Notification,
 } from "@gc-digital-talent/graphql";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
@@ -17,7 +18,7 @@ import { GraphqlType } from "@gc-digital-talent/helpers";
 import useRoutes from "./useRoutes";
 
 type NotificationInfo = {
-  message: React.ReactNode;
+  message: ReactNode;
   label: string;
   href: string;
 };
@@ -120,6 +121,34 @@ const applicationStatusChangedNotificationToInfo = (
   };
 };
 
+function isNewJobPostedNotification(
+  notification: GraphqlType,
+): notification is NewJobPostedNotification {
+  return notification.__typename === "NewJobPostedNotification";
+}
+
+const newJobPostedNotificationToInfo = (
+  notification: NewJobPostedNotification,
+  paths: ReturnType<typeof useRoutes>,
+  intl: IntlShape,
+): NotificationInfo => {
+  return {
+    message: intl.formatMessage({
+      defaultMessage:
+        "A new opportunity is now available! Find out if this is a fit for you and apply.",
+      id: "OlSnME",
+      description: "Message for new job posted notification",
+    }),
+    href: notification.poolId ? paths.pool(notification.poolId) : "",
+    label: intl.formatMessage({
+      defaultMessage:
+        "A new opportunity is now available! Find out if this is a fit for you and apply.",
+      id: "Nm+j2a",
+      description: "Label for the new job posted notification",
+    }),
+  };
+};
+
 const useNotificationInfo = (
   notification: Notification & GraphqlType,
 ): NotificationInfo | null => {
@@ -141,6 +170,10 @@ const useNotificationInfo = (
       paths,
       intl,
     );
+  }
+
+  if (isNewJobPostedNotification(notification)) {
+    return newJobPostedNotificationToInfo(notification, paths, intl);
   }
 
   logger.warning(

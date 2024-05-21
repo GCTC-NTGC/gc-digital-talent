@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
@@ -61,7 +61,7 @@ const RecruitmentAvailabilityDialog = ({
   const [, executeMutation] = useMutation(
     RecruitmentAvailabilityChangeSuspendedAt_Mutation,
   );
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const isSuspended = !!candidate.suspendedAt;
   const title = poolTitle(intl, candidate.pool);
 
@@ -212,8 +212,8 @@ const RecruitmentAvailabilityDialog = ({
                   },
                 ]}
               />
-              <Dialog.Footer data-h2-justify-content="base(flex-start)">
-                <Button type="submit" disabled={isSubmitting}>
+              <Dialog.Footer>
+                <Button type="submit" disabled={isSubmitting} color="secondary">
                   {intl.formatMessage({
                     defaultMessage: "Save availability",
                     id: "nDm9dX",
@@ -222,7 +222,7 @@ const RecruitmentAvailabilityDialog = ({
                   })}
                 </Button>
                 <Dialog.Close>
-                  <Button mode="inline" color="secondary">
+                  <Button mode="inline" color="warning">
                     {intl.formatMessage(commonMessages.cancel)}
                   </Button>
                 </Dialog.Close>

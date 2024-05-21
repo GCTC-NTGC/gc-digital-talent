@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { useReactToPrint } from "react-to-print";
 import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
@@ -38,7 +38,7 @@ const UserProfilePrintButton = ({
 }: UserProfilePrintButtonProps) => {
   const intl = useIntl();
   const onBeforeGetContentResolve =
-    React.useRef<(value: void | PromiseLike<void>) => void>();
+    useRef<(value: void | PromiseLike<void>) => void>();
 
   const handleOnBeforeGetContent = (): Promise<void> => {
     return new Promise((resolve) => {

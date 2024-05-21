@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { StoryFn, Meta } from "@storybook/react";
 import type { CombinedError } from "urql";
 import isChromatic from "chromatic/isChromatic";
@@ -41,7 +41,7 @@ export default {
 } as Meta;
 
 const TemplatePending: StoryFn<PendingArgs> = (args) => {
-  const [isLoading, setLoading] = React.useState<boolean>(true);
+  const [isLoading, setLoading] = useState<boolean>(true);
 
   const { wait, error, notFound, pause } = args;
 
@@ -53,7 +53,7 @@ const TemplatePending: StoryFn<PendingArgs> = (args) => {
     : undefined;
 
   // Fake a network request
-  React.useEffect(() => {
+  useEffect(() => {
     if (wait) {
       setTimeout(() => {
         setLoading(false);

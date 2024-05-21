@@ -26,8 +26,10 @@
   "devDependencies": {
     "@formatjs/cli": "^6.2.10",
     "@gc-digital-talent/eslint-config": "workspace:*",
+    "@gc-digital-talent/helpers": "workspace:*",
+    "@gc-digital-talent/logger": "workspace:*",
     "@gc-digital-talent/jest-presets": "workspace:*",
-    "@types/react": "^18.3.1",
+    "@types/react": "^18.3.2",
     "cpy-cli": "^5.0.0",
     "eslint": "^8.57.0",
     "history": "^5.3.0",
@@ -36,9 +38,9 @@
     "json-stable-stringify": "^1.1.1",
     "react": "^18.3.1",
     "react-intl": "^6.6.6",
-    "react-router-dom": "^6.23.0",
+    "react-router-dom": "^6.23.1",
     "tsconfig": "workspace:*",
-    "tsx": "^4.9.3",
+    "tsx": "^4.10.2",
     "typescript": "^5.4.5",
     "yargs": "^17.7.2"
   }

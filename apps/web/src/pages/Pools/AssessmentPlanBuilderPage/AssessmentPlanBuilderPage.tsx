@@ -1,6 +1,6 @@
-import * as React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
+import { ReactNode } from "react";
 
 import {
   commonMessages,
@@ -184,7 +184,7 @@ export const AssessmentPlanBuilderPage = () => {
     ) ?? false;
 
   // figure out what content should be displayed
-  const content = (): React.ReactNode => {
+  const content = (): ReactNode => {
     if (queryData?.pool && authorizedToSeeThePage) {
       return (
         <AssessmentPlanBuilder

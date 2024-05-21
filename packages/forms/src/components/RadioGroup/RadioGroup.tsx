@@ -1,7 +1,7 @@
-import * as React from "react";
 import get from "lodash/get";
 import { FieldError, useFormContext } from "react-hook-form";
 import { useReducedMotion } from "framer-motion";
+import { ReactNode } from "react";
 
 import Field from "../Field";
 import type { CommonInputProps, HTMLFieldsetProps } from "../../types";
@@ -13,8 +13,8 @@ import getCheckboxRadioStyles from "../../utils/getCheckboxRadioStyles";
 
 export type Radio = {
   value: string | number;
-  label: string | React.ReactNode;
-  contentBelow?: React.ReactNode;
+  label: string | ReactNode;
+  contentBelow?: ReactNode;
 };
 
 type ColumnRange = 1 | 2 | 3 | 4;
@@ -24,7 +24,7 @@ export type RadioGroupProps = Omit<CommonInputProps, "id" | "label"> &
     /** Each input element will be given an id to match to its label, of the form `${idPrefix}-${value}` */
     idPrefix: string;
     /** Holds text for the legend associated with the RadioGroup fieldset. */
-    legend: React.ReactNode;
+    legend: ReactNode;
     /** A list of value and label representing the Radios shown.
      * The form will represent the data at `name` as a string containing the chosen value. */
     items: Radio[];

@@ -1183,6 +1183,10 @@
     "defaultMessage": "Pour toute question ou préoccupation concernant le questionnaire, veuillez contacter <link>Talents numériques du GC</link> pour obtenir de plus amples renseignements.",
     "description": "Paragraph four of the _instructions_ section of the _digital services contracting questionnaire_"
   },
+  "4lRUZt": {
+    "defaultMessage": "Vous êtes sur le point de modifier l’information publiée dans l’annonce suivante",
+    "description": "Warning message when attempting to update a published process advertisement"
+  },
   "4liNMy": {
     "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expériences à votre parcours professionnel.",
     "description": "Null state message for experiences section of the application review page."
@@ -1362,10 +1366,6 @@
   "5dhDA+": {
     "defaultMessage": "Rappelez-vous que, {skillName} est défini comme",
     "description": "Lead-in text to a skill description"
-  },
-  "5j409K": {
-    "defaultMessage": "Notes et commentaires",
-    "description": "Title for view notes dialog on view pool candidate page"
   },
   "5jFkhf": {
     "defaultMessage": "Erreur : Échec de la création de la classification",
@@ -2103,10 +2103,6 @@
     "defaultMessage": "Demande de renseignements",
     "description": "Heading for the request information section of the single search request view."
   },
-  "AGRCgy": {
-    "defaultMessage": "Annuler la décision finale",
-    "description": "Button label for revert final decision on view pool candidate page"
-  },
   "AJs1VQ": {
     "defaultMessage": "Question (FR)",
     "description": "Label for an French general question"
@@ -2194,10 +2190,6 @@
   "AinG8I": {
     "defaultMessage": "Sélectionnez « oui » si l’un des éléments ci-dessus s’applique.",
     "description": "Label for _is technological change_ field in the _digital services contracting questionnaire_"
-  },
-  "Aixzmb": {
-    "defaultMessage": "Supprimer le candidat",
-    "description": "Button label for remove candidate on view pool candidate page"
   },
   "AlRcyu": {
     "defaultMessage": "Gestion de portefeuilles de projets de la <abbreviation>TI</abbreviation>",
@@ -2495,6 +2487,10 @@
     "defaultMessage": "Cacher les exemples de « contrats de services numériques » où cette exigence s’applique",
     "description": "Button text to hide a specific qualified recruitment cards's skill assessments"
   },
+  "CTl5IT": {
+    "defaultMessage": "Modifier notes",
+    "description": "Button text to start editing pool candidate notes"
+  },
   "CU5XqI": {
     "defaultMessage": "Formulaire d’auto-déclaration des peuples autochtones",
     "description": "Page title for the self-declaration page"
@@ -2630,10 +2626,6 @@
   "DG4c6M": {
     "defaultMessage": "{status}<hidden> changer le statut pour {poolName}</hidden>",
     "description": "Button to change a users status in a pool - located in the table on view-user page"
-  },
-  "DHQasU": {
-    "defaultMessage": "Voir les notes",
-    "description": "Button label for view notes on view pool candidate page"
   },
   "DHfumB": {
     "defaultMessage": "Employé du gouvernement",
@@ -3538,10 +3530,6 @@
   "ISSs88": {
     "defaultMessage": "Supprimer le signet de {candidateName} du haut de la colonne.",
     "description": "Un-bookmark button label for applicant assessment tracking."
-  },
-  "ISuyAo": {
-    "defaultMessage": "Avertissement!",
-    "description": "Title for a warning message"
   },
   "IT6Djp": {
     "defaultMessage": "Les conditions d’emploi sélectionnées seront comparées à celles choisies par les candidats dans leur demande.",
@@ -4491,6 +4479,10 @@
     "defaultMessage": "Ajoutez, modifiez, et gérez les compétences de votre profil.",
     "description": "Page description for the skill library page"
   },
+  "Nm+j2a": {
+    "defaultMessage": "Un nouveau poste y est maintenant affiché! À vous de juger s’il vous convient et de présenter votre candidature.",
+    "description": "Label for the new job posted notification"
+  },
   "NuT+Rx": {
     "defaultMessage": "Procéder à la mise à jour du sujet",
     "description": "Heading label for update a user's subject form"
@@ -4630,6 +4622,10 @@
   "Ok+Ojl": {
     "defaultMessage": "{skill} est défini comme :",
     "description": "Heading for a specific skills definition"
+  },
+  "OlSnME": {
+    "defaultMessage": "Un nouveau poste y est maintenant affiché! À vous de juger s’il vous convient et de présenter votre candidature.",
+    "description": "Message for new job posted notification"
   },
   "OlZeZO": {
     "defaultMessage": "Sélectionnez une catégorie",
@@ -5195,10 +5191,6 @@
     "defaultMessage": "Ce programme élimine l’un des principaux obstacles à l’emploi en valorisant le potentiel d’une personne plutôt que son niveau de scolarité. Ce faisant, cette initiative contribue à combler les écarts en matière d’éducation, d’emploi et d’économie auxquelles sont confrontées les personnes autochtones du Canada.",
     "description": "Paragraph 3 of the 'About the program' section"
   },
-  "Rm4SuQ": {
-    "defaultMessage": "Sélectionnez un bassin",
-    "description": "Placeholder displayed on the pool field of the add user to pool dialog."
-  },
   "RmcS7J": {
     "defaultMessage": "Les comptes de médias sociaux ne sont pas des sites Web du gouvernement du Canada : ils constituent seulement un moyen de manifester la présence du gouvernement du Canada sur les plateformes des tiers fournisseurs de services.",
     "description": "Paragraph for comments and interaction section"
@@ -5354,6 +5346,10 @@
   "SgkkWp": {
     "defaultMessage": "Remplir et soumettre ce questionnaire au moment où un contrat de services numériques est soumis aux autorités ministérielles chargées de l’approvisionnement aux fins de traitement.",
     "description": "Paragraph one of the _instructions_ section of the _digital services contracting questionnaire_"
+  },
+  "SjISKL": {
+    "defaultMessage": "Indiquez la raison du changement.",
+    "description": "Help text for justifying updating published pool"
   },
   "SkV4+/": {
     "defaultMessage": "Numéro de suivi",
@@ -6169,6 +6165,10 @@
   "XDgkwV": {
     "defaultMessage": "Un homme autochtone travaille à un ordinateur.",
     "description": "Indigenous Apprenticeship man on computer image text alternative"
+  },
+  "XGztC+": {
+    "defaultMessage": "Raison du changement",
+    "description": "Heading for form to justify updating a published process"
   },
   "XJ/xK1": {
     "defaultMessage": "Consultez notre base de données pour trouver des talents entièrement qualifiés, prêts à être embauchés sans autre processus concurrentiel. Travaillez avec notre équipe pour mettre la dernière main à vos documents de ressources humaines afin que vous puissiez faire une offre et mettre les talents en place rapidement et facilement.",
@@ -7466,6 +7466,10 @@
     "defaultMessage": "Montrez aux gestionnaires les 10 compétences techniques qui représentent le mieux votre expertise et vos compétences. Vous pouvez modifier cette vitrine à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez à la vitrine qui ne sont pas déjà dans votre bibliothèque seront ajoutées automatiquement.",
     "description": "Page description for the top technical skills page"
   },
+  "e12pvi": {
+    "defaultMessage": "Profil",
+    "description": "Link label for view profile on view pool candidate page"
+  },
   "e1JW62": {
     "defaultMessage": "Les renseignements personnels recueillis par l’entremise de Talents numériques du GC sont utilisés aux fins des activités de dotation, de recrutement et la mobilité interne des talents au sein des institutions fédérales, conformément au <justiceLaws7Link>paragraphe 7(1)</justiceLaws7Link> de la Loi sur la gestion des finances publiques, aux paragraphes <justiceLaws15Link>15(1)</justiceLaws15Link>, <justiceLaws29Link>29</justiceLaws29Link> et <justiceLaws30Link>30 (1), (2), and (3)</justiceLaws30Link> de la Loi sur l’emploi dans la fonction publique et de l’article 5 de la Loi sur l’équité en matière d’emploi.",
     "description": "Paragraph for privacy policy page"
@@ -8278,10 +8282,6 @@
     "defaultMessage": "Veuillez envoyer votre curriculum vitae et votre lettre de présentation expliquant votre passion pour la TI et pourquoi vous souhaitez vous joindre au programme, à : <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Un membre de l’équipe communiquera avec vous dans 5 à 10 jours ouvrables.",
     "description": "First paragraph for apply now dialog"
   },
-  "i4171w": {
-    "defaultMessage": "Ajouter d’autres commentaires concernant cette demande. Ils ne seront visibles qu’aux gestionnaires responsables de ce processus.",
-    "description": "Subtitle for view notes dialog on view pool candidate page"
-  },
   "i4CKlO": {
     "defaultMessage": "Vous avez réussi! En signant votre nom ci-dessous, vous confirmez que :",
     "description": "Confirmation message before signature form on sign and submit page."
@@ -9042,10 +9042,6 @@
     "defaultMessage": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
     "description": "Question displayed when authenticated user lands on /logged-out."
   },
-  "mNYw+h": {
-    "defaultMessage": "Filtrage en cours",
-    "description": "Label for currently screening section on view pool candidate page"
-  },
   "mNfi9b": {
     "defaultMessage": "Sélectionnez le lieu géographique où le travail doit être effectué.",
     "description": "Label for _required work locations_ fieldset in the _digital services contracting questionnaire_"
@@ -9149,10 +9145,6 @@
   "mfBsJY": {
     "defaultMessage": "Que devront faire les apprentis dans le cadre du programme?",
     "description": "Learn more dialog question eight heading"
-  },
-  "mh7ndf": {
-    "defaultMessage": "Voir le profil à jour",
-    "description": "Link label for view profile on view pool candidate page"
   },
   "mhtcMd": {
     "defaultMessage": "La plupart des emplois dans la collectivité numérique n’exigent pas de diplôme. Modifiez cette information seulement si le poste nécessite un diplôme.",
@@ -9641,6 +9633,10 @@
   "pWoAv0": {
     "defaultMessage": "Le Programme d’apprentissage en TI pour les personnes autochtones est une initiative du gouvernement du Canada visant particulièrement les Premières Nations, les Inuits et les Métis. C’est un chemin vers un emploi dans la fonction publique fédérale pour les personnes autochtones qui ont une passion pour la technologie de l’information (TI).",
     "description": "First paragraph about the program"
+  },
+  "pXLPjN": {
+    "defaultMessage": "J’ai fait l’objet d’une évaluation par la Commission de la fonction publique dans ma deuxième langue officielle.",
+    "description": "Statement for completion of a Public Service Commission evaluation of a second official language"
   },
   "pXiwEH": {
     "defaultMessage": "Fermer immédiatement",
@@ -10869,10 +10865,6 @@
   "xj7X6V": {
     "defaultMessage": "J’ai lu le préambule.",
     "description": "Preamble confirmation statement of the _digital services contracting questionnaire_"
-  },
-  "xjZO11": {
-    "defaultMessage": "Sélectionnez d’autres bassins additionnels",
-    "description": "Placeholder displayed on the additional pools field of the change candidate status dialog."
   },
   "xkJAuq": {
     "defaultMessage": "Ajouter cette compétence",

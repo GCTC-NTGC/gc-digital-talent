@@ -1,4 +1,4 @@
-import React from "react";
+import { ReactNode } from "react";
 
 import Heading from "../../Heading";
 import { CardColor } from "./types";
@@ -6,8 +6,8 @@ import CardFlatLink, { CardFlatLinkProps } from "./CardFlatLink";
 
 export interface CardFlatProps {
   color: CardColor;
-  title: React.ReactNode;
-  children?: React.ReactNode;
+  title: ReactNode;
+  children?: ReactNode;
   links?: Array<
     Omit<CardFlatLinkProps, "color"> & {
       [key: `data-${string}`]: unknown;

@@ -1,15 +1,15 @@
-import React from "react";
+import { Fragment, ReactElement } from "react";
 
 import { ButtonLinkMode, IconType } from "../../types";
 
 interface IconWrapperProps {
-  children: React.ReactElement<IconType>;
+  children: ReactElement<IconType>;
   mode: ButtonLinkMode;
 }
 
 const IconWrapper = ({ mode, ...rest }: IconWrapperProps) => {
   // eslint-disable-next-line react/jsx-no-useless-fragment
-  if (mode !== "cta") return <React.Fragment {...rest} />;
+  if (mode !== "cta") return <Fragment {...rest} />;
 
   return (
     <span

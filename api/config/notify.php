@@ -32,6 +32,9 @@ return [
         'application_deadline_approaching_fr' => env('GCNOTIFY_TEMPLATE_APPLICATION_DEADLINE_APPROACHING_FR'),
         'application_status_changed_en' => env('GCNOTIFY_TEMPLATE_APPLICATION_STATUS_CHANGED_EN'),
         'application_status_changed_fr' => env('GCNOTIFY_TEMPLATE_APPLICATION_STATUS_CHANGED_FR'),
+        'new_job_posted_en' => env('GCNOTIFY_TEMPLATE_NEW_JOB_POSTED_EN'),
+        'new_job_posted_fr' => env('GCNOTIFY_TEMPLATE_NEW_JOB_POSTED_FR'),
+        'talent_request_submission_confirmation_enfr' => env('GCNOTIFY_TEMPLATE_TALENT_REQUEST_SUBMISSION_CONFIRMATION_ENFR'),
     ],
 
     /*

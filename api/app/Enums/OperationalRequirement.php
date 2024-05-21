@@ -12,8 +12,6 @@ enum OperationalRequirement
     case TRAVEL;
     case TRANSPORT_EQUIPMENT;
     case DRIVERS_LICENSE;
-    case OVERTIME_SCHEDULED;
-    case OVERTIME_SHORT_NOTICE;
     case OVERTIME_OCCASIONAL;
     case OVERTIME_REGULAR;
 }

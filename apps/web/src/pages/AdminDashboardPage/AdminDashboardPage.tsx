@@ -1,4 +1,3 @@
-import React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 import HomeOutlineIcon from "@heroicons/react/24/outline/HomeIcon";

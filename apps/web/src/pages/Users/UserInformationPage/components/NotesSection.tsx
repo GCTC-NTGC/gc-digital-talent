@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import isEmpty from "lodash/isEmpty";
 import { useMutation } from "urql";

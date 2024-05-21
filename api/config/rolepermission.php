@@ -237,6 +237,10 @@ return [
             'en' => 'Update unpublished Pools in this Team',
             'fr' => 'Mise à jour des bassins non publiés dans cette équipe',
         ],
+        'update-any-publishedPool' => [
+            'en' => 'Update published Pools',
+            'fr' => 'Mise à jour des bassins publiés',
+        ],
         'publish-team-pool' => [
             'en' => 'Publish Pools in this Team',
             'fr' => 'Publier des bassins dans cette équipe',
@@ -761,6 +765,9 @@ return [
             'pool' => [
                 'any' => ['view', 'publish'],
             ],
+            'publishedPool' => [
+                'any' => ['update'],
+            ],
             'teamMembers' => [
                 'any' => ['view'],
             ],
@@ -802,6 +809,9 @@ return [
             ],
             'pool' => [
                 'any' => ['view', 'publish'],
+            ],
+            'publishedPool' => [
+                'any' => ['update'],
             ],
             'application' => [
                 'any' => ['create'],

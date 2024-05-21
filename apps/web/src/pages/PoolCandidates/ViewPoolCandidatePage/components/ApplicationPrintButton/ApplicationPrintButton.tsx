@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { useReactToPrint } from "react-to-print";
 import PrinterIcon from "@heroicons/react/20/solid/PrinterIcon";
@@ -36,6 +36,7 @@ interface ApplicationPrintButtonProps {
   pool: FragmentType<typeof ApplicationPrintDocument_PoolFragment>;
   color: Color;
   mode: ButtonLinkMode;
+  buttonLabel?: string;
 }
 
 const ApplicationPrintButton = ({
@@ -43,6 +44,7 @@ const ApplicationPrintButton = ({
   pool,
   color,
   mode,
+  buttonLabel,
 }: ApplicationPrintButtonProps) => {
   const intl = useIntl();
 
@@ -79,7 +81,7 @@ const ApplicationPrintButton = ({
             utilityIcon={ChevronDownIcon}
             icon={PrinterIcon}
           >
-            {intl.formatMessage(printApplication)}
+            {buttonLabel ?? intl.formatMessage(printApplication)}
           </Button>
         </DropdownMenu.Trigger>
         <DropdownMenu.Content align="end" collisionPadding={2}>
