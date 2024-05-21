@@ -1,8 +1,8 @@
 import { NotificationFamily } from "@gc-digital-talent/graphql";
 
 export type UpdateNotificationInput = {
-  ignoredEmailNotifications: NotificationFamily[];
-  ignoredInAppNotifications: NotificationFamily[];
+  enabledEmailNotifications: NotificationFamily[];
+  enabledInAppNotifications: NotificationFamily[];
 };
 
 export type NotificationType = "email" | "inApp";
