@@ -119,7 +119,9 @@ class UserFactory extends Factory
             'accepted_operational_requirements' => $this->faker->optional->randomElements(array_column(OperationalRequirement::cases(), 'name'), 2),
             'gov_employee_type' => $isGovEmployee ? $this->faker->randomElement(GovEmployeeType::cases())->name : null,
             'citizenship' => $this->faker->randomElement(CitizenshipStatus::cases())->name,
-            'armed_forces_status' => $this->faker->randomElement(ArmedForcesStatus::cases())->name,
+            'armed_forces_status' => $this->faker->boolean() ?
+                ArmedForcesStatus::NON_CAF->name
+                : $this->faker->randomElement(ArmedForcesStatus::cases())->name,
             'has_priority_entitlement' => $hasPriorityEntitlement,
             'priority_number' => $hasPriorityEntitlement ? $this->faker->word() : null,
             'indigenous_declaration_signature' => $isDeclared ? $this->faker->firstName() : null,
