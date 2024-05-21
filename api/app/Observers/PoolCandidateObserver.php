@@ -27,15 +27,17 @@ class PoolCandidateObserver
         $newStatus = $poolCandidate->pool_candidate_status;
         if (config('feature.notifications')) {
             if (
-                // new status is a final
-                in_array($newStatus, PoolCandidateStatus::finalDecisionGroup()) ||
-                 // old status was a final
-                in_array($oldStatus, PoolCandidateStatus::finalDecisionGroup()) ||
-                 // new status is a removed
-                in_array($newStatus, PoolCandidateStatus::removedGroup()) ||
-                 // old status was a removed
-                in_array($oldStatus, PoolCandidateStatus::removedGroup())
-            ) {
+                ($oldStatus != $newStatus) &&
+                (
+                    // new status is a final
+                    in_array($newStatus, PoolCandidateStatus::finalDecisionGroup()) ||
+                     // old status was a final
+                    in_array($oldStatus, PoolCandidateStatus::finalDecisionGroup()) ||
+                     // new status is a removed
+                    in_array($newStatus, PoolCandidateStatus::removedGroup()) ||
+                     // old status was a removed
+                    in_array($oldStatus, PoolCandidateStatus::removedGroup())
+                )) {
                 try {
 
                     $poolCandidate->user->notify(new ApplicationStatusChanged(
