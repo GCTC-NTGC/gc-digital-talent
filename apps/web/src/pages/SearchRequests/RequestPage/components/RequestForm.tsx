@@ -40,6 +40,7 @@ import {
   graphql,
   FragmentType,
   getFragment,
+  PoolStream,
 } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
@@ -105,6 +106,13 @@ export const RequestFormDepartment_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+export const RequestFormCommunity_Fragment = graphql(/* GraphQL */ `
+  fragment RequestFormCommunity on Community {
+    id
+    key
+  }
+`);
+
 const PoolsInFilter_Query = graphql(/* GraphQL */ `
   query PoolsInFilter($includeIds: [UUID!]) {
     poolsPaginated(includeIds: $includeIds, first: 1000) {
@@ -131,6 +139,7 @@ export interface RequestFormProps {
   classificationsQuery: FragmentType<
     typeof RequestFormClassification_Fragment
   >[];
+  communitiesQuery: FragmentType<typeof RequestFormCommunity_Fragment>[];
   applicantFilter: Maybe<ApplicantFilterInput>;
   candidateCount: Maybe<number>;
   searchFormInitialValues?: SearchFormValues;
@@ -144,6 +153,7 @@ export const RequestForm = ({
   departmentsQuery,
   skills,
   classificationsQuery,
+  communitiesQuery,
   applicantFilter,
   candidateCount,
   selectedClassifications,
@@ -169,6 +179,10 @@ export const RequestForm = ({
     RequestFormDepartment_Fragment,
     departmentsQuery,
   );
+  const communities = getFragment(
+    RequestFormCommunity_Fragment,
+    communitiesQuery,
+  );
 
   const formMethods = useForm<FormValues>({
     defaultValues: getFromSessionStorage(cacheKey, {}),
@@ -185,6 +199,11 @@ export const RequestForm = ({
       values?.positionType === true
         ? PoolCandidateSearchPositionType.TeamLead
         : PoolCandidateSearchPositionType.IndividualContributor;
+    const qualifiedStreams = applicantFilter?.qualifiedStreams;
+    let community = communities.find((c) => c.key === "digital");
+    if (qualifiedStreams?.includes(PoolStream.AccessInformationPrivacy)) {
+      community = communities.find((c) => c.key === "atip");
+    }
 
     return {
       fullName: values.fullName ?? "",
@@ -196,6 +215,9 @@ export const RequestForm = ({
       additionalComments: values.additionalComments,
       hrAdvisorEmail: values.hrAdvisorEmail ?? "",
       wasEmpty: candidateCount === 0 && !state.allPools,
+      community: {
+        connect: community?.id ?? communities[0].id,
+      },
       applicantFilter: {
         create: {
           positionDuration:
@@ -208,7 +230,10 @@ export const RequestForm = ({
           equity: applicantFilter?.equity,
           languageAbility: applicantFilter?.languageAbility,
           operationalRequirements: applicantFilter?.operationalRequirements,
-          qualifiedStreams: applicantFilter?.qualifiedStreams,
+          qualifiedStreams,
+          community: {
+            connect: community?.id ?? communities[0].id,
+          },
           pools: {
             sync: applicantFilter?.pools
               ? applicantFilter?.pools?.filter(notEmpty).map(({ id }) => id)
@@ -654,6 +679,9 @@ const RequestForm_SearchRequestDataQuery = graphql(/* GraphQL */ `
     classifications {
       ...RequestFormClassification
     }
+    communities {
+      ...RequestFormCommunity
+    }
   }
 `);
 
@@ -699,6 +727,7 @@ const RequestFormApi = ({
         <RequestForm
           classificationsQuery={unpackMaybes(lookupData?.classifications)}
           departmentsQuery={unpackMaybes(lookupData?.departments)}
+          communitiesQuery={unpackMaybes(lookupData?.communities)}
           skills={skills}
           applicantFilter={applicantFilter}
           candidateCount={candidateCount}
