@@ -444,6 +444,7 @@ type ApplicantFilter {
   qualifiedClassifications: [Classification] @belongsToMany # Filters applicants based on the classifications pools they've qualified in.
   qualifiedStreams: [PoolStream] @rename(attribute: "qualified_streams") # Filters applicants based on the streams of the pools they've qualified in.
   pools: [Pool] @belongsToMany @canResolved(ability: "view")
+  community: Community @belongsTo
 }
 
 type PoolCandidateSearchRequest {
@@ -467,6 +468,7 @@ type PoolCandidateSearchRequest {
   positionType: PoolCandidateSearchPositionType
     @rename(attribute: "position_type")
   reason: PoolCandidateSearchRequestReason
+  community: Community @belongsTo
 }
 
 type SkillFamily {
@@ -1203,6 +1205,11 @@ input DepartmentBelongsToMany {
   sync: [ID!]
 }
 
+input CommunityBelongsTo {
+  connect: UUID
+  disconnect: Boolean
+}
+
 input CreateTeamInput {
   name: String!
     @rules(
@@ -1239,6 +1246,7 @@ input CreateApplicantFilterInput {
   armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
   qualifiedClassifications: ClassificationBelongsToMany
   qualifiedStreams: [PoolStream] @rename(attribute: "qualified_streams")
+  community: CommunityBelongsTo
 }
 
 input ApplicantFilterBelongsTo {
@@ -1249,6 +1257,7 @@ input CreatePoolCandidateSearchRequestInput {
   fullName: String! @rename(attribute: "full_name")
   email: Email!
   department: DepartmentBelongsTo!
+  community: CommunityBelongsTo!
   jobTitle: String! @rename(attribute: "job_title")
   additionalComments: String @rename(attribute: "additional_comments")
   hrAdvisorEmail: Email @rename(attribute: "hr_advisor_email")
