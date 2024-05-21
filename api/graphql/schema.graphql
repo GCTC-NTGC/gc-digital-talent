@@ -327,6 +327,20 @@ type PoolCandidate {
     @rename(attribute: "placed_at")
     @canRoot(ability: "viewStatus")
   placedDepartment: Department @belongsTo @canRoot(ability: "viewStatus")
+
+  # claim verification
+  veteranVerification: ClaimVerificationResult
+    @rename(attribute: "veteran_verification")
+    @canRoot(ability: "viewNotes")
+  veteranVerificationExpiry: Date
+    @rename(attribute: "veteran_verification_expiry")
+    @canRoot(ability: "viewNotes")
+  priorityVerification: ClaimVerificationResult
+    @rename(attribute: "priority_verification")
+    @canRoot(ability: "viewNotes")
+  priorityVerificationExpiry: Date
+    @rename(attribute: "priority_verification_expiry")
+    @canRoot(ability: "viewNotes")
 }
 
 type PoolCandidateWithSkillCount {

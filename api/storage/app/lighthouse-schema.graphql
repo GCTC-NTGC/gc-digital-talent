@@ -449,6 +449,10 @@ type PoolCandidate {
   finalDecisionAt: DateTime
   placedAt: DateTime
   placedDepartment: Department
+  veteranVerification: ClaimVerificationResult
+  veteranVerificationExpiry: Date
+  priorityVerification: ClaimVerificationResult
+  priorityVerificationExpiry: Date
 }
 
 type PoolCandidateWithSkillCount {
@@ -2064,6 +2068,12 @@ enum CitizenshipStatus {
   PERMANENT_RESIDENT
   CITIZEN
   OTHER
+}
+
+enum ClaimVerificationResult {
+  ACCEPTED
+  REJECTED
+  UNVERIFIED
 }
 
 enum ArmedForcesStatus {
