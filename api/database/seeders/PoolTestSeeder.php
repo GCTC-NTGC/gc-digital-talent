@@ -88,8 +88,8 @@ class PoolTestSeeder extends Seeder
             ->createOrGetExisting( // IT-02  - Simple
                 [
                     'name' => [
-                        'en' => 'IT-02  - Simple',
-                        'fr' => 'IT-02  - Simple',
+                        'en' => 'Ready to publish - Simple',
+                        'fr' => 'Prêt à publier - Simple',
                     ],
                     'classification_id' => Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 2)->sole()->id,
                     'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
@@ -108,8 +108,8 @@ class PoolTestSeeder extends Seeder
             ->withAssessments(5)
             ->createOrGetExisting([
                 'name' => [
-                    'en' => 'IT-03 Published – Complex',
-                    'fr' => 'IT-03 Publié – Complexe',
+                    'en' => 'Published – Complex',
+                    'fr' => 'Publié – Complexe',
                 ],
                 'classification_id' => Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 3)->sole()->id,
                 'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
@@ -127,8 +127,8 @@ class PoolTestSeeder extends Seeder
             ->withAssessments(5)
             ->createOrGetExisting([
                 'name' => [
-                    'en' => 'IT-04 Published - Simple',
-                    'fr' => 'IT-04 Publié - Simple',
+                    'en' => 'Published - Simple',
+                    'fr' => 'Publié - Simple',
                 ],
                 'classification_id' => Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 4)->sole()->id,
                 'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
@@ -147,8 +147,8 @@ class PoolTestSeeder extends Seeder
             ->createOrGetExisting(
                 [
                     'name' => [
-                        'en' => 'IT - 05 Closed - Simple',
-                        'fr' => 'IT - 05 Fermé - Simple',
+                        'en' => 'Closed - Simple',
+                        'fr' => 'Fermé - Simple',
                     ],
                     'classification_id' => Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 5)->sole()->id,
                     'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
@@ -168,8 +168,8 @@ class PoolTestSeeder extends Seeder
             ->createOrGetExisting(
                 [
                     'name' => [
-                        'en' => 'Ex-03 Complex',
-                        'fr' => 'Complexe Ex-03',
+                        'en' => 'Complex',
+                        'fr' => 'Ex-03',
                     ],
                     'classification_id' => Classification::select('id')->where('group', 'ilike', 'EC')->where('level', 3)->sole()->id,
                     'stream' => PoolStream::EXECUTIVE_GROUP->name,
@@ -189,8 +189,8 @@ class PoolTestSeeder extends Seeder
             ->withAssessments(5)
             ->createOrGetExisting([
                 'name' => [
-                    'en' => 'PM-01 – Simple',
-                    'fr' => 'PM-01 – Simple',
+                    'en' => 'Simple',
+                    'fr' => 'Simple',
                 ],
                 'classification_id' => Classification::select('id')->where('group', 'ilike', 'PM')->where('level', 1)->sole()->id,
                 'stream' => PoolStream::ACCESS_INFORMATION_PRIVACY->name,
