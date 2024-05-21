@@ -165,10 +165,7 @@ class PoolCandidateFactory extends Factory
             }
 
             // claim verification
-            if (
-                $poolCandidate->user->armed_forces_status == ArmedForcesStatus::MEMBER->name ||
-                $poolCandidate->user->armed_forces_status == ArmedForcesStatus::VETERAN->name
-            ) {
+            if ($poolCandidate->user->armed_forces_status == ArmedForcesStatus::VETERAN->name) {
                 $poolCandidate->update([
                     'veteran_verification' => $this->faker->randomElement(array_column(ClaimVerificationResult::cases(), 'name')),
                     'veteran_verification_expiry' => $this->faker->dateTimeBetween('6 months', '24 months'),

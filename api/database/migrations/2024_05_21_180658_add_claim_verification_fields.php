@@ -21,7 +21,7 @@ return new class extends Migration
         });
 
         PoolCandidate::whereHas('user', function (Builder $query) {
-            $query->whereIn('armed_forces_status', ['VETERAN', 'MEMBER']);
+            $query->where('armed_forces_status', 'VETERAN');
         })->update(['veteran_verification' => 'UNVERIFIED']);
         PoolCandidate::whereHas('user', function (Builder $query) {
             $query->where('has_priority_entitlement', true);
