@@ -6,6 +6,7 @@ use App\Enums\PoolCandidateSearchPositionType;
 use App\Enums\PoolCandidateSearchRequestReason;
 use App\Enums\PoolCandidateSearchStatus;
 use App\Models\ApplicantFilter;
+use App\Models\Community;
 use App\Models\Department;
 use App\Models\PoolCandidateSearchRequest;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -43,6 +44,7 @@ class PoolCandidateSearchRequestFactory extends Factory
             'manager_job_title' => $this->faker->jobTitle(),
             'position_type' => $this->faker->randomElement(PoolCandidateSearchPositionType::cases())->name,
             'reason' => $this->faker->randomElement(PoolCandidateSearchRequestReason::cases())->name,
+            'community_id' => Community::inRandomOrder()->first()->id,
         ];
     }
 
