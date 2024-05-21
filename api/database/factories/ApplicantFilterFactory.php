@@ -102,9 +102,9 @@ class ApplicantFilterFactory extends Factory
             $ATIP = Community::where('key', 'atip')->first();
             $digital = Community::where('key', 'digital')->first();
 
-            if (in_array(PoolStream::ACCESS_INFORMATION_PRIVACY->name, $stream) && $ATIP->id) {
+            if (in_array(PoolStream::ACCESS_INFORMATION_PRIVACY->name, $stream) && $ATIP?->id) {
                 $filter->community_id = $ATIP->id;
-            } elseif ($digital->id) {
+            } elseif ($digital?->id) {
                 $filter->community_id = $digital->id;
             }
 
