@@ -15,6 +15,7 @@ use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateRemovalReason;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
+use App\Enums\ClaimVerificationResult;
 use App\Enums\DirectiveForms\AdvertisementType;
 use App\Enums\DirectiveForms\AdvertisingPlatform;
 use App\Enums\DirectiveForms\ContractAuthority;
@@ -131,6 +132,15 @@ class GraphQLServiceProvider extends ServiceProvider
                 return new EnumType([
                     'name' => 'CitizenshipStatus',
                     'values' => array_column(CitizenshipStatus::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'ClaimVerificationResult',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'ClaimVerificationResult',
+                    'values' => array_column(ClaimVerificationResult::cases(), 'name'),
                 ]);
             }
         );
