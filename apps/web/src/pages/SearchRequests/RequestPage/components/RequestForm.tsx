@@ -329,6 +329,7 @@ export const RequestForm = ({
         })
         .filter(notEmpty) ?? [],
     pools: unpackMaybes(poolsData?.poolsPaginated.data),
+    community: communities.find((c) => c.id === applicantFilter?.community?.id),
   };
 
   return (
