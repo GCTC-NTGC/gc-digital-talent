@@ -163,11 +163,6 @@ class PoolCandidateTestSeeder extends Seeder
         foreach ($this->publishedPools as $pool) {
             // create a pool candidate in the pool
             PoolCandidate::factory()->for($user)->for($pool)
-                ->afterCreating(function (PoolCandidate $candidate) {
-                    if ($candidate->submitted_at) {
-                        $candidate->createSnapshot();
-                    }
-                })
                 ->create([
                     'pool_id' => $pool->id,
                     'user_id' => $user->id,
@@ -177,7 +172,6 @@ class PoolCandidateTestSeeder extends Seeder
                     'expiry_date' => $expiryDate,
                     'placed_department_id' => $placedDepartmentId,
                 ]);
-
         }
     }
 }
