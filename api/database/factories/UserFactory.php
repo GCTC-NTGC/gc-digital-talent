@@ -13,7 +13,6 @@ use App\Enums\NotificationFamily;
 use App\Enums\OperationalRequirement;
 use App\Enums\PositionDuration;
 use App\Enums\ProvinceOrTerritory;
-use App\Enums\SkillLevel;
 use App\Models\AwardExperience;
 use App\Models\Classification;
 use App\Models\CommunityExperience;
@@ -149,7 +148,7 @@ class UserFactory extends Factory
         $experience->syncSkills($syncDataExperience);
     }
 
-    public function withSkillsAndExperiences($count = 10, $skills=[])
+    public function withSkillsAndExperiences($count = 10, $skills = [])
     {
         if (empty($skills)) {
             $allSkills = Skill::select('id')->inRandomOrder()->take($count)->get();
