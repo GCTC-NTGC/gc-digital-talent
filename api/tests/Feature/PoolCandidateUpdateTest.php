@@ -5,6 +5,7 @@ use App\Enums\DisqualificationReason;
 use App\Enums\EducationRequirementOption;
 use App\Enums\PlacementType;
 use App\Enums\PoolCandidateStatus;
+use App\Facades\Notify;
 use App\Models\CommunityExperience;
 use App\Models\Department;
 use App\Models\EducationExperience;
@@ -69,7 +70,7 @@ class PoolCandidateUpdateTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
+        Notify::spy(); // don't send any notifications
         $this->seed(RolePermissionSeeder::class);
 
         $baseRoles = ['guest', 'base_user', 'applicant'];

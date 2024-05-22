@@ -320,6 +320,14 @@ type NewJobPostedNotification implements Notification {
   poolId: ID
 }
 
+type ApplicationStatusChangedNotification implements Notification {
+  id: ID!
+  readAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  poolName: LocalizedString
+}
+
 type UserPublicProfile {
   id: ID!
   email: Email
