@@ -45,6 +45,9 @@ class PoolApplicationTest extends TestCase
 
     protected $applicantUser;
 
+
+    protected $applicantWithoutSkills;
+
     protected $teamUser;
 
     protected $responderUser;
@@ -153,6 +156,12 @@ class PoolApplicationTest extends TestCase
             ->create([
                 'email' => 'team-user@test.com',
                 'sub' => 'team-user@test.com',
+            ]);
+        $this->applicantWithoutSkills = User::factory()
+            ->asApplicant()
+            ->create([
+                'email' => 'applicant-noskill@test.com',
+                'sub' => 'applicant-noskill@test.com',
             ]);
     }
 
@@ -418,15 +427,15 @@ class PoolApplicationTest extends TestCase
         ]);
 
         $newPoolCandidate = PoolCandidate::factory()->create([
-            'user_id' => $this->applicantUser->id,
+            'user_id' => $this->applicantWithoutSkills->id,
             'pool_id' => $newPool->id,
             'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
         ]);
-        $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
+        $educationExperience = WorkExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
         $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
 
         // assert user cannot submit application with missing essential skills
-        $this->actingAs($this->applicantUser, 'api')
+        $this->actingAs($this->applicantWithoutSkills, 'api')
             ->graphQL(
                 $this->submitMutationDocument,
                 [
@@ -441,12 +450,12 @@ class PoolApplicationTest extends TestCase
 
         // create another experience, then attach it to the user, and then connect the essential skill to it
         $secondExperience = AwardExperience::factory()->create([
-            'user_id' => $this->applicantUser->id,
+            'user_id' => $this->applicantWithoutSkills->id,
         ]);
         $secondExperience->syncSkills($newPool->essentialSkills);
 
         // assert user can now submit application as the essential skill is present
-        $this->actingAs($this->applicantUser, 'api')
+        $this->actingAs($this->applicantWithoutSkills, 'api')
             ->graphQL(
                 $this->submitMutationDocument,
                 [
