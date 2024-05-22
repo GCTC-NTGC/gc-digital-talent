@@ -453,7 +453,7 @@ type ApplicantFilter {
   qualifiedClassifications: [Classification] @belongsToMany # Filters applicants based on the classifications pools they've qualified in.
   qualifiedStreams: [PoolStream] @rename(attribute: "qualified_streams") # Filters applicants based on the streams of the pools they've qualified in.
   pools: [Pool] @belongsToMany @canResolved(ability: "view")
-  community: Community @belongsTo
+  community: Community @belongsTo # Currently does not affect search, scope needs to be added
 }
 
 type PoolCandidateSearchRequest {
@@ -678,6 +678,7 @@ input ApplicantFilterInput {
   qualifiedClassifications: [ClassificationFilterInput]
     @scope(name: "qualifiedClassifications") # Filters applicants based on the classification of pools they are currently qualified and available in.
   qualifiedStreams: [PoolStream] @scope(name: "qualifiedStreams") # Filters applicants based on the stream of pools they are currently qualified and available in.
+  community: IdInput
 }
 
 input PoolCandidateSearchInput {

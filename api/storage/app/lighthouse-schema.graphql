@@ -767,6 +767,7 @@ input ApplicantFilterInput {
   skillsIntersectional: [IdInput]
   qualifiedClassifications: [ClassificationFilterInput]
   qualifiedStreams: [PoolStream]
+  community: IdInput
 }
 
 input PoolCandidateSearchInput {

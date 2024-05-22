@@ -84,7 +84,7 @@ class ApplicantFilterTest extends TestCase
                 ];
             })->toArray(),
             'qualifiedStreams' => $filter->qualified_streams,
-
+            'community' => ['id' => $filter->community->id],
         ];
     }
 
@@ -101,7 +101,7 @@ class ApplicantFilterTest extends TestCase
             'sync' => $filter->qualifiedClassifications->pluck('id')->toArray(),
         ];
         $input['community'] = [
-            'connect' => $filter->community_id,
+            'connect' => $filter->community->id,
         ];
 
         return $input;
@@ -458,7 +458,7 @@ class ApplicantFilterTest extends TestCase
                     'department' => [
                         'connect' => $request->department_id,
                     ],
-                    'community_id' => [
+                    'community' => [
                         'connect' => $request->community_id,
                     ],
                     'jobTitle' => $request->job_title,
