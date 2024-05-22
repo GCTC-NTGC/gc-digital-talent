@@ -1055,8 +1055,7 @@ input DepartmentBelongsToMany {
 }
 
 input CommunityBelongsTo {
-  connect: UUID
-  disconnect: Boolean
+  connect: UUID!
 }
 
 input CreateTeamInput {
