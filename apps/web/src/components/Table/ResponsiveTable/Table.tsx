@@ -206,7 +206,11 @@ type ControlProps = DetailedHTMLProps<
 >;
 
 const Control = (props: ControlProps) => (
-  <div data-h2-width="base(100%) l-tablet(auto)" {...props} />
+  <div
+    data-h2-width="base(100%) p-tablet(auto)"
+    data-h2-order="base(0)"
+    {...props}
+  />
 );
 
 interface AddActionProps {
@@ -216,7 +220,11 @@ interface AddActionProps {
 const AddAction = ({ add }: AddActionProps) => (
   <>
     {add.linkProps && (
-      <Control data-h2-flex-shrink="base(1)">
+      <Control
+        data-h2-flex-shrink="base(1)"
+        data-h2-order="base(1)"
+        data-h2-margin-left="base(auto)"
+      >
         <Link
           icon={PlusCircleIcon}
           color="secondary"
@@ -242,24 +250,14 @@ const Controls = ({ children, add }: ControlsProps) => (
   <div
     data-h2-display="base(flex)"
     data-h2-align-items="base(flex-end)"
-    data-h2-flex-direction="base(column) l-tablet(row)"
-    data-h2-gap="base(x.25 0) l-tablet(0 x.25)"
+    data-h2-gap="base(x.25)"
     data-h2-margin-bottom="base(x1) l-tablet(x.25)"
-    data-h2-justify-content="base(space-between)"
+    data-h2-justify-content="base(flex-start)"
     data-h2-font-size="base(caption)"
+    data-h2-flex-wrap="base(wrap)"
   >
     {add && <AddAction add={add} />}
-    <div
-      data-h2-display="base(flex)"
-      data-h2-align-items="base(flex-end)"
-      data-h2-flex-direction="base(column) l-tablet(row)"
-      data-h2-gap="base(x.25 0) l-tablet(0 x.25)"
-      data-h2-flex-grow="base(1)"
-      data-h2-order="base(-1)"
-      data-h2-width="base(100%) l-tablet(auto)"
-    >
-      {children}
-    </div>
+    {children}
   </div>
 );
 
