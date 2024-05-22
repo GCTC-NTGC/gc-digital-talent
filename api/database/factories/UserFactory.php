@@ -130,50 +130,50 @@ class UserFactory extends Factory
         ];
     }
 
-   private function createExperienceAndSyncSkills($user, $skills)
-{
-    $experienceFactories = [
-        AwardExperience::factory(['user_id' => $user->id]),
-        CommunityExperience::factory(['user_id' => $user->id]),
-        EducationExperience::factory(['user_id' => $user->id]),
-        PersonalExperience::factory(['user_id' => $user->id]),
-        WorkExperience::factory(['user_id' => $user->id]),
-    ];
+    private function createExperienceAndSyncSkills($user, $skills)
+    {
+        $experienceFactories = [
+            AwardExperience::factory(['user_id' => $user->id]),
+            CommunityExperience::factory(['user_id' => $user->id]),
+            EducationExperience::factory(['user_id' => $user->id]),
+            PersonalExperience::factory(['user_id' => $user->id]),
+            WorkExperience::factory(['user_id' => $user->id]),
+        ];
 
-    $experience = $this->faker->randomElement($experienceFactories)->create();
-    $skillsForExperience = $this->faker->randomElements($skills, $this->faker->numberBetween(1, $skills->count()));
-    $syncDataExperience = array_map(function ($skill) {
-        return ['id' => $skill->id, 'details' => $this->faker->text()];
-    }, $skillsForExperience);
+        $experience = $this->faker->randomElement($experienceFactories)->create();
+        $skillsForExperience = $this->faker->randomElements($skills, $this->faker->numberBetween(1, $skills->count()));
+        $syncDataExperience = array_map(function ($skill) {
+            return ['id' => $skill->id, 'details' => $this->faker->text()];
+        }, $skillsForExperience);
 
-    $experience->syncSkills($syncDataExperience);
-}
+        $experience->syncSkills($syncDataExperience);
+    }
 
-public function withPoolSkillsAndExperiences($skills)
-{
-    return $this->afterCreating(function (User $user) use ($skills) {
-        foreach ($skills as $skill) {
-            $user->skills()->attach($skill['id'], ['skill_level' => SkillLevel::ADVANCED]);
-        }
-        $this->createExperienceAndSyncSkills($user, $skills);
-    });
-}
+    public function withPoolSkillsAndExperiences($skills)
+    {
+        return $this->afterCreating(function (User $user) use ($skills) {
+            foreach ($skills as $skill) {
+                $user->skills()->attach($skill['id'], ['skill_level' => SkillLevel::ADVANCED]);
+            }
+            $this->createExperienceAndSyncSkills($user, $skills);
+        });
+    }
 
-public function withSkillsAndExperiences($count = 10)
-{
-    $allSkills = Skill::select('id')->inRandomOrder()->take($count)->get();
+    public function withSkillsAndExperiences($count = 10)
+    {
+        $allSkills = Skill::select('id')->inRandomOrder()->take($count)->get();
 
-    return $this->afterCreating(function (User $user) use ($count, $allSkills) {
-        $skillSequence = $allSkills->shuffle()->map(fn ($skill) => ['skill_id' => $skill['id']])->toArray();
+        return $this->afterCreating(function (User $user) use ($count, $allSkills) {
+            $skillSequence = $allSkills->shuffle()->map(fn ($skill) => ['skill_id' => $skill['id']])->toArray();
 
-        $userSkills = UserSkill::factory($count)->for($user)
-            ->sequence(...$skillSequence)
-            ->create();
-        $skills = $userSkills->map(fn ($us) => $us->skill);
+            $userSkills = UserSkill::factory($count)->for($user)
+                ->sequence(...$skillSequence)
+                ->create();
+            $skills = $userSkills->map(fn ($us) => $us->skill);
 
-        $this->createExperienceAndSyncSkills($user, $skills);
-    });
-}
+            $this->createExperienceAndSyncSkills($user, $skills);
+        });
+    }
 
     /**
      * Is government employee.

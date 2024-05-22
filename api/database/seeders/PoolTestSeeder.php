@@ -26,7 +26,7 @@ class PoolTestSeeder extends Seeder
         $dcmTeamId = Team::where('name', 'digital-community-management')->sole()->id;
 
         // Function to create pools
-        $createPool = function($attributes, $skills, $questions, $assessmentSteps, $classificationGroup = null, $classificationLevel = null) use ($adminUserId, $dcmTeamId) {
+        $createPool = function ($attributes, $skills, $questions, $assessmentSteps, $classificationGroup = null, $classificationLevel = null) use ($adminUserId, $dcmTeamId) {
             $factory = Pool::factory()
                 ->withPoolSkills($skills[0], $skills[1])
                 ->withQuestions($questions[0], $questions[1]);
@@ -59,11 +59,11 @@ class PoolTestSeeder extends Seeder
         $createPool([
             'name' => [
                 'en' => 'IT Apprenticeship Program for Indigenous Peoples',
-                'fr' => 'Programme d’apprentissage en TI pour les personnes autochtones'
+                'fr' => 'Programme d’apprentissage en TI pour les personnes autochtones',
             ],
             'published_at' => config('constants.past_date'),
             'closing_date' => config('constants.far_future_date'),
-            'publishing_group' => PublishingGroup::IAP->name
+            'publishing_group' => PublishingGroup::IAP->name,
         ], [0, 0], [0, 0], [], null, null);
 
         // IT-01
@@ -71,7 +71,7 @@ class PoolTestSeeder extends Seeder
             'name' => ['en' => 'IT-01  - Draft Job', 'fr' => 'IT-01 - Ébauche de travail'],
             'published_at' => null,
             'closing_date' => config('constants.far_future_date'),
-            'publishing_group' => PublishingGroup::IT_JOBS->name
+            'publishing_group' => PublishingGroup::IT_JOBS->name,
         ], [0, 0], [0, 0], [], 'IT', 1);
 
         // IT-02
@@ -79,7 +79,7 @@ class PoolTestSeeder extends Seeder
             'name' => ['en' => 'Ready to publish - Simple', 'fr' => 'Prêt à publier - Simple'],
             'published_at' => null,
             'closing_date' => config('constants.far_future_date'),
-            'publishing_group' => PublishingGroup::IT_JOBS->name
+            'publishing_group' => PublishingGroup::IT_JOBS->name,
         ], [2, 2], [0, 1], [AssessmentStepType::TECHNICAL_EXAM_AT_SITE], 'IT', 2);
 
         // IT-03
@@ -87,12 +87,12 @@ class PoolTestSeeder extends Seeder
             'name' => ['en' => 'Published – Complex', 'fr' => 'Publié – Complexe'],
             'published_at' => config('constants.past_date'),
             'closing_date' => config('constants.far_future_date'),
-            'publishing_group' => PublishingGroup::IT_JOBS_ONGOING->name
+            'publishing_group' => PublishingGroup::IT_JOBS_ONGOING->name,
         ], [6, 6], [3, 3], [
             AssessmentStepType::TECHNICAL_EXAM_AT_SITE,
             AssessmentStepType::INTERVIEW_INDIVIDUAL,
             AssessmentStepType::INTERVIEW_GROUP,
-            AssessmentStepType::REFERENCE_CHECK
+            AssessmentStepType::REFERENCE_CHECK,
         ], 'IT', 3);
 
         // IT-04
@@ -100,7 +100,7 @@ class PoolTestSeeder extends Seeder
             'name' => ['en' => 'Published - Simple', 'fr' => 'Publié - Simple'],
             'published_at' => config('constants.past_date'),
             'closing_date' => now()->addMonths(6),
-            'publishing_group' => PublishingGroup::IT_JOBS->name
+            'publishing_group' => PublishingGroup::IT_JOBS->name,
         ], [2, 2], [0, 3], [AssessmentStepType::TECHNICAL_EXAM_AT_SITE], 'IT', 4);
 
         // IT-05
@@ -108,12 +108,12 @@ class PoolTestSeeder extends Seeder
             'name' => ['en' => 'Closed - Simple', 'fr' => 'Fermé - Simple'],
             'published_at' => config('constants.past_date'),
             'closing_date' => config('constants.past_date'),
-            'publishing_group' => PublishingGroup::IT_JOBS->name
+            'publishing_group' => PublishingGroup::IT_JOBS->name,
         ], [6, 6], [3, 3], [
             AssessmentStepType::TECHNICAL_EXAM_AT_SITE,
             AssessmentStepType::INTERVIEW_INDIVIDUAL,
             AssessmentStepType::INTERVIEW_GROUP,
-            AssessmentStepType::REFERENCE_CHECK
+            AssessmentStepType::REFERENCE_CHECK,
         ], 'IT', 5);
 
         // Ex-03 Complex
@@ -121,12 +121,12 @@ class PoolTestSeeder extends Seeder
             'name' => ['en' => 'Complex', 'fr' => 'Ex-03'],
             'published_at' => config('constants.past_date'),
             'closing_date' => config('constants.past_date'),
-            'publishing_group' => PublishingGroup::EXECUTIVE_JOBS->name
+            'publishing_group' => PublishingGroup::EXECUTIVE_JOBS->name,
         ], [6, 6], [3, 3], [
             AssessmentStepType::TECHNICAL_EXAM_AT_SITE,
             AssessmentStepType::INTERVIEW_INDIVIDUAL,
             AssessmentStepType::INTERVIEW_GROUP,
-            AssessmentStepType::REFERENCE_CHECK
+            AssessmentStepType::REFERENCE_CHECK,
         ], 'EC', 3);
 
         // PM-01
@@ -134,7 +134,7 @@ class PoolTestSeeder extends Seeder
             'name' => ['en' => 'Simple', 'fr' => 'Simple'],
             'published_at' => config('constants.past_date'),
             'closing_date' => now()->addMonths(6),
-            'publishing_group' => PublishingGroup::OTHER->name
+            'publishing_group' => PublishingGroup::OTHER->name,
         ], [2, 2], [0, 1], [AssessmentStepType::TECHNICAL_EXAM_AT_SITE], 'PM', 1);
     }
 }
