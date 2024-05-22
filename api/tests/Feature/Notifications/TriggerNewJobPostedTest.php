@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Notifications;
 
+use App\Enums\NotificationFamily;
 use App\Models\Pool;
 use App\Models\Team;
 use App\Models\User;
@@ -18,6 +19,8 @@ class TriggerNewJobPostedTest extends TestCase
     use RefreshDatabase;
     use RefreshesSchemaCache;
 
+    private $allNotificationFamilies;
+
     private User $adminUser;
 
     private User $regularUser;
@@ -31,20 +34,21 @@ class TriggerNewJobPostedTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
         Team::factory()->create();
 
+        $this->allNotificationFamilies = array_column(NotificationFamily::cases(), 'name');
         $this->adminUser = User::factory()
             ->asApplicant()
             ->asAdmin()
             ->create([
                 'sub' => 'adminUser',
-                'ignored_email_notifications' => [],
-                'ignored_in_app_notifications' => [],
+                'enabled_email_notifications' => $this->allNotificationFamilies,
+                'enabled_in_app_notifications' => $this->allNotificationFamilies,
             ]);
         $this->regularUser = User::factory()
             ->asApplicant()
             ->create([
                 'sub' => 'regularUser',
-                'ignored_email_notifications' => [],
-                'ignored_in_app_notifications' => [],
+                'enabled_email_notifications' => $this->allNotificationFamilies,
+                'enabled_in_app_notifications' => $this->allNotificationFamilies,
             ]);
     }
 

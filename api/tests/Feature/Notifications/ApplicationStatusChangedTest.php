@@ -23,12 +23,15 @@ class ApplicationStatusChangedTest extends TestCase
 
     private ApplicationStatusChanged $fixtureNotification;
 
+    private $allNotificationFamilies;
+
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->seed(RolePermissionSeeder::class);
 
+        $this->allNotificationFamilies = array_column(NotificationFamily::cases(), 'name');
         $this->fixtureNotification = new ApplicationStatusChanged(
             'poolNameEn',
             'poolNameFr',
@@ -40,8 +43,8 @@ class ApplicationStatusChangedTest extends TestCase
     {
         $user = User::factory()
             ->create([
-                'ignored_email_notifications' => [],
-                'ignored_in_app_notifications' => [],
+                'enabled_email_notifications' => $this->allNotificationFamilies,
+                'enabled_in_app_notifications' => $this->allNotificationFamilies,
             ]);
         assertEqualsCanonicalizing([GcNotifyEmailChannel::class, 'database'], $this->fixtureNotification->via($user));
     }
@@ -51,8 +54,8 @@ class ApplicationStatusChangedTest extends TestCase
     {
         $user = User::factory()
             ->create([
-                'ignored_email_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
-                'ignored_in_app_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
+                'enabled_email_notifications' => [NotificationFamily::JOB_ALERT->name],
+                'enabled_in_app_notifications' => [NotificationFamily::JOB_ALERT->name],
             ]);
         assertEquals([], $this->fixtureNotification->via($user));
     }
@@ -62,8 +65,8 @@ class ApplicationStatusChangedTest extends TestCase
     {
         $user = User::factory()
             ->create([
-                'ignored_email_notifications' => [],
-                'ignored_in_app_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
+                'enabled_email_notifications' => $this->allNotificationFamilies,
+                'enabled_in_app_notifications' => [NotificationFamily::JOB_ALERT->name],
             ]);
         assertEquals([GcNotifyEmailChannel::class], $this->fixtureNotification->via($user));
     }
@@ -73,8 +76,8 @@ class ApplicationStatusChangedTest extends TestCase
     {
         $user = User::factory()
             ->create([
-                'ignored_email_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
-                'ignored_in_app_notifications' => [],
+                'enabled_email_notifications' => [NotificationFamily::JOB_ALERT->name],
+                'enabled_in_app_notifications' => $this->allNotificationFamilies,
             ]);
         assertEquals(['database'], $this->fixtureNotification->via($user));
     }
@@ -89,8 +92,8 @@ class ApplicationStatusChangedTest extends TestCase
         $user = User::factory()
             ->create([
                 'email' => config('notify.smokeTest.emailAddress'),
-                'ignored_email_notifications' => [],
-                'ignored_in_app_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
+                'enabled_email_notifications' => $this->allNotificationFamilies,
+                'enabled_in_app_notifications' => [NotificationFamily::JOB_ALERT->name],
             ]);
 
         $user->notify($this->fixtureNotification);
@@ -144,8 +147,8 @@ class ApplicationStatusChangedTest extends TestCase
     {
         $user = User::factory()
             ->create([
-                'ignored_email_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
-                'ignored_in_app_notifications' => [],
+                'enabled_email_notifications' => [NotificationFamily::JOB_ALERT->name],
+                'enabled_in_app_notifications' => $this->allNotificationFamilies,
             ]);
 
         $user->notify($this->fixtureNotification);
