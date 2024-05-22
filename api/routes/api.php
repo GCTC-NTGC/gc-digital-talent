@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\UserGeneratedFilesController;
+use App\Http\Requests\EmailVerificationRequest;
+use App\Http\Requests\WorkEmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,3 +26,18 @@ Route::prefix('user-generated-files')
         // api/config/auth.php
             ->middleware('auth:api');
     });
+
+Route::prefix('verification')->group(function () {
+
+    Route::get('/email/{id}/{hash}', function (EmailVerificationRequest $request) {
+        $request->fulfill();
+
+        return redirect('/home');
+    })->name('verification.verify_email');
+
+    Route::get('/work-email/{id}/{hash}', function (WorkEmailVerificationRequest $request) {
+        $request->fulfill();
+
+        return redirect('/home');
+    })->name('verification.verify_work_email');
+})->middleware(['auth', 'signed']);
