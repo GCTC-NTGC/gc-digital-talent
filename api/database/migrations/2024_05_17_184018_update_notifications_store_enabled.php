@@ -7,25 +7,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    private $notificationFamilies = [
-        'APPLICATION_UPDATE',
-        'JOB_ALERT',
-    ];
-
-    private function invertFamilies(?string $row): string
-    {
-        $json = json_decode($row ?? '[]');
-        $value = [];
-
-        foreach ($json as $family) {
-            array_push($value, $family);
-        }
-
-        $inverted = array_diff($this->notificationFamilies, $value);
-
-        return json_encode(array_values($inverted));
-    }
-
     /**
      * Run the migrations.
      */
@@ -37,23 +18,21 @@ return new class extends Migration
             $table->jsonb('enabled_in_app_notifications')->nullable();
         });
 
-        $rows = DB::table('users')
-            ->select(DB::raw('ignored_email_notifications, ignored_in_app_notifications, id'))
-            ->get();
-
-        $rows->each(function ($row) {
-            $enabledEmail = $this->invertFamilies($row->ignored_email_notifications);
-            $enabledInApp = $this->invertFamilies($row->ignored_in_app_notifications);
-
-            DB::statement(<<<'SQL'
-                    UPDATE users
-                    SET     enabled_email_notifications = ?,
-                            enabled_in_app_notifications = ?
-                    WHERE  id = ?;
-                SQL,
-                [$enabledEmail, $enabledInApp, $row->id]
-            );
-        });
+        DB::table('users')
+            ->update([
+                'enabled_email_notifications' => DB::raw(<<<'SQL'
+                    to_jsonb(array_remove(array [
+                        case when ignored_email_notifications ?? 'APPLICATION_UPDATE' then null else 'APPLICATION_UPDATE' end,
+                        case when ignored_email_notifications ?? 'JOB_ALERT' then null else 'JOB_ALERT' end
+                    ], null))
+                SQL),
+                'enabled_in_app_notifications' => DB::raw(<<<'SQL'
+                    to_jsonb(array_remove(array [
+                        case when ignored_in_app_notifications ?? 'APPLICATION_UPDATE' then null else 'APPLICATION_UPDATE' end,
+                        case when ignored_in_app_notifications ?? 'JOB_ALERT' then null else 'JOB_ALERT' end
+                    ], null))
+              SQL),
+            ]);
 
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('ignored_email_notifications');
@@ -72,23 +51,21 @@ return new class extends Migration
             $table->jsonb('ignored_in_app_notifications')->nullable();
         });
 
-        $rows = DB::table('users')
-            ->select(DB::raw('enabled_email_notifications, enabled_in_app_notifications, id'))
-            ->get();
-
-        $rows->each(function ($row) {
-            $ignoredEmail = $this->invertFamilies($row->enabled_email_notifications);
-            $ignoredApp = $this->invertFamilies($row->enabled_in_app_notifications);
-
-            DB::statement(<<<'SQL'
-                    UPDATE users
-                    SET     ignored_email_notifications = ?,
-                            ignored_in_app_notifications = ?
-                    WHERE  id = ?;
-                SQL,
-                [$ignoredEmail, $ignoredApp, $row->id]
-            );
-        });
+        DB::table('users')
+            ->update([
+                'ignored_email_notifications' => DB::raw(<<<'SQL'
+                    to_jsonb(array_remove(array [
+                        case when enabled_email_notifications ?? 'APPLICATION_UPDATE' then null else 'APPLICATION_UPDATE' end,
+                        case when enabled_email_notifications ?? 'JOB_ALERT' then null else 'JOB_ALERT' end
+                    ], null))
+                SQL),
+                'ignored_in_app_notifications' => DB::raw(<<<'SQL'
+                    to_jsonb(array_remove(array [
+                        case when enabled_in_app_notifications ?? 'APPLICATION_UPDATE' then null else 'APPLICATION_UPDATE' end,
+                        case when enabled_in_app_notifications ?? 'JOB_ALERT' then null else 'JOB_ALERT' end
+                    ], null))
+              SQL),
+            ]);
 
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('enabled_email_notifications');
