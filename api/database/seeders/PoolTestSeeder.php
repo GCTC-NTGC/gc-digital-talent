@@ -20,6 +20,11 @@ class PoolTestSeeder extends Seeder
      */
     public function run()
     {
+
+        // Caching commonly used queries
+        $adminUserId = User::select('id')->where('email', 'admin@test.com')->sole()->id;
+        $dcmTeamId = Team::select('id')->where('name', 'digital-community-management')->sole()->id;
+
         // CMO Digital
         $createdPool = Pool::factory()
             ->withPoolSkills(4, 4)
@@ -30,11 +35,12 @@ class PoolTestSeeder extends Seeder
                     'en' => 'CMO Digital Careers',
                     'fr' => 'CMO Carrières Numériques',
                 ],
-                'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
-                'team_id' => Team::select('id')->where('name', 'digital-community-management')->sole()->id,
+                'user_id' => $adminUserId,
+                'team_id' => $dcmTeamId,
                 'published_at' => config('constants.past_date'),
                 'closing_date' => config('constants.far_future_date'),
                 'publishing_group' => PublishingGroup::IT_JOBS->name,
+                'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
             ]);
         $classificationIT01Id = Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 1)->sole()->id;
         $createdPool->classification_id = $classificationIT01Id;
@@ -53,11 +59,12 @@ class PoolTestSeeder extends Seeder
                         'en' => 'IT Apprenticeship Program for Indigenous Peoples',
                         'fr' => 'Programme d’apprentissage en TI pour les personnes autochtones',
                     ],
-                    'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
-                    'team_id' => Team::select('id')->where('name', 'digital-community-management')->sole()->id,
+                    'user_id' => $adminUserId,
+                    'team_id' => $dcmTeamId,
                     'published_at' => config('constants.past_date'),
                     'closing_date' => config('constants.far_future_date'),
                     'publishing_group' => PublishingGroup::IAP->name,
+                    'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
                 ],
             );
 
@@ -68,15 +75,17 @@ class PoolTestSeeder extends Seeder
             ->draft()
             ->createOrGetExisting([
                 'name' => [
-                    'en' => 'IT-01  - Draft Job',
-                    'fr' => 'IT-01 - Ébauche de travail',
+                    'en' => 'Draft Job',
+                    'fr' => 'Ébauche de travail',
                 ],
                 'classification_id' => Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 1)->sole()->id,
-                'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
-                'team_id' => Team::select('id')->where('name', 'digital-community-management')->sole()->id,
+                'user_id' => $adminUserId,
+                'team_id' => $dcmTeamId,
                 'published_at' => null,
                 'closing_date' => config('constants.far_future_date'),
                 'publishing_group' => PublishingGroup::IT_JOBS->name,
+                'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
+
             ]);
 
         // IT -02
@@ -92,11 +101,13 @@ class PoolTestSeeder extends Seeder
                         'fr' => 'Prêt à publier - Simple',
                     ],
                     'classification_id' => Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 2)->sole()->id,
-                    'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
-                    'team_id' => Team::select('id')->where('name', 'digital-community-management')->sole()->id,
+                    'user_id' => $adminUserId,
+                    'team_id' => $dcmTeamId,
                     'published_at' => null,
                     'closing_date' => config('constants.far_future_date'),
                     'publishing_group' => PublishingGroup::IT_JOBS->name,
+                    'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
+
                 ],
             );
 
@@ -112,11 +123,13 @@ class PoolTestSeeder extends Seeder
                     'fr' => 'Publié – Complexe',
                 ],
                 'classification_id' => Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 3)->sole()->id,
-                'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
-                'team_id' => Team::select('id')->where('name', 'digital-community-management')->sole()->id,
+                'user_id' => $adminUserId,
+                'team_id' => $dcmTeamId,
                 'published_at' => config('constants.past_date'),
                 'closing_date' => config('constants.far_future_date'),
                 'publishing_group' => PublishingGroup::IT_JOBS_ONGOING->name,
+                'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
+
             ]);
 
         //IT -04
@@ -131,11 +144,13 @@ class PoolTestSeeder extends Seeder
                     'fr' => 'Publié - Simple',
                 ],
                 'classification_id' => Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 4)->sole()->id,
-                'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
-                'team_id' => Team::select('id')->where('name', 'digital-community-management')->sole()->id,
+                'user_id' => $adminUserId,
+                'team_id' => $dcmTeamId,
                 'published_at' => config('constants.past_date'),
                 'closing_date' => now()->addMonths(6),
                 'publishing_group' => PublishingGroup::IT_JOBS->name,
+                'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
+
             ]);
 
         // IT - 05 Closed - Simple
@@ -151,11 +166,12 @@ class PoolTestSeeder extends Seeder
                         'fr' => 'Fermé - Simple',
                     ],
                     'classification_id' => Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 5)->sole()->id,
-                    'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
-                    'team_id' => Team::select('id')->where('name', 'digital-community-management')->sole()->id,
+                    'user_id' => $adminUserId,
+                    'team_id' => $dcmTeamId,
                     'published_at' => config('constants.past_date'),
                     'closing_date' => config('constants.past_date'),
                     'publishing_group' => PublishingGroup::IT_JOBS->name,
+                    'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
                 ],
             );
 
@@ -169,12 +185,12 @@ class PoolTestSeeder extends Seeder
                 [
                     'name' => [
                         'en' => 'Complex',
-                        'fr' => 'Ex-03',
+                        'fr' => 'complexe',
                     ],
-                    'classification_id' => Classification::select('id')->where('group', 'ilike', 'EC')->where('level', 3)->sole()->id,
+                    'classification_id' => Classification::select('id')->where('group', 'ilike', 'EX')->where('level', 3)->sole()->id,
                     'stream' => PoolStream::EXECUTIVE_GROUP->name,
-                    'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
-                    'team_id' => Team::select('id')->where('name', 'digital-community-management')->sole()->id,
+                    'user_id' => $adminUserId,
+                    'team_id' => $dcmTeamId,
                     'published_at' => config('constants.past_date'),
                     'closing_date' => config('constants.past_date'),
                     'publishing_group' => PublishingGroup::EXECUTIVE_JOBS->name,
@@ -194,8 +210,8 @@ class PoolTestSeeder extends Seeder
                 ],
                 'classification_id' => Classification::select('id')->where('group', 'ilike', 'PM')->where('level', 1)->sole()->id,
                 'stream' => PoolStream::ACCESS_INFORMATION_PRIVACY->name,
-                'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
-                'team_id' => Team::select('id')->where('name', 'digital-community-management')->sole()->id,
+                'user_id' => $adminUserId,
+                'team_id' => $dcmTeamId,
                 'published_at' => config('constants.past_date'),
                 'closing_date' => now()->addMonths(6),
                 'publishing_group' => PublishingGroup::OTHER->name,
