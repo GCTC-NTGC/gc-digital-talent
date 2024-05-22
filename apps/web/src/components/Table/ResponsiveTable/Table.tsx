@@ -207,7 +207,7 @@ type ControlProps = DetailedHTMLProps<
 
 const Control = (props: ControlProps) => (
   <div
-    data-h2-width="base(100%) p-tablet(auto)"
+    data-h2-width="base(100%) l-tablet(auto)"
     data-h2-order="base(0)"
     {...props}
   />
