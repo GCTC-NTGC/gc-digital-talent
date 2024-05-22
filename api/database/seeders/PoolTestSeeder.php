@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Enums\AssessmentStepType;
 use App\Enums\PoolLanguage;
 use App\Enums\PoolStream;
 use App\Enums\PublishingGroup;
@@ -21,126 +20,185 @@ class PoolTestSeeder extends Seeder
      */
     public function run()
     {
-        // Caching commonly used queries
-        $adminUserId = User::where('email', 'admin@test.com')->sole()->id;
-        $dcmTeamId = Team::where('name', 'digital-community-management')->sole()->id;
-
-        // Function to create pools
-        $createPool = function ($attributes, $skills, $questions, $assessmentSteps, $classificationGroup = null, $classificationLevel = null) use ($adminUserId, $dcmTeamId) {
-            $factory = Pool::factory()
-                ->withPoolSkills($skills[0], $skills[1])
-                ->withQuestions($questions[0], $questions[1]);
-
-            foreach ($assessmentSteps as $step) {
-                $factory = $factory->withAssessmentStep($step);
-            }
-
-            $attributes['user_id'] = $adminUserId;
-            $attributes['team_id'] = $dcmTeamId;
-
-            if ($classificationGroup && $classificationLevel) {
-                $attributes['classification_id'] = Classification::where('group', 'ilike', $classificationGroup)->where('level', $classificationLevel)->sole()->id;
-            }
-
-            $factory->createOrGetExisting($attributes);
-        };
-
         // CMO Digital
-        $createPool([
-            'name' => ['en' => 'CMO Digital Careers', 'fr' => 'CMO Carrières Numériques'],
-            'published_at' => config('constants.past_date'),
-            'closing_date' => config('constants.far_future_date'),
-            'publishing_group' => PublishingGroup::IT_JOBS->name,
-            'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
-            'advertisement_language' => PoolLanguage::VARIOUS->name,
-        ], [4, 4], [2, 2], [], 'IT', 1);
+        $createdPool = Pool::factory()
+            ->withPoolSkills(4, 4)
+            ->withQuestions(2, 2)
+            ->published()
+            ->createOrGetExisting([
+                'name' => [
+                    'en' => 'CMO Digital Careers',
+                    'fr' => 'CMO Carrières Numériques',
+                ],
+                'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
+                'team_id' => Team::select('id')->where('name', 'digital-community-management')->sole()->id,
+                'published_at' => config('constants.past_date'),
+                'closing_date' => config('constants.far_future_date'),
+                'publishing_group' => PublishingGroup::IT_JOBS->name,
+            ]);
+        $classificationIT01Id = Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 1)->sole()->id;
+        $createdPool->classification_id = $classificationIT01Id;
+        $createdPool->stream = PoolStream::BUSINESS_ADVISORY_SERVICES->name;
+        $createdPool->advertisement_language = PoolLanguage::VARIOUS->name;
+        $createdPool->save();
 
         // IAP
-        $createPool([
-            'name' => [
-                'en' => 'IT Apprenticeship Program for Indigenous Peoples',
-                'fr' => 'Programme d’apprentissage en TI pour les personnes autochtones',
-            ],
-            'published_at' => config('constants.past_date'),
-            'closing_date' => config('constants.far_future_date'),
-            'publishing_group' => PublishingGroup::IAP->name,
-        ], [0, 0], [0, 0], [], null, null);
+        Pool::factory()
+            ->withPoolSkills(0, 0)
+            ->withQuestions(0, 0)
+            ->draft()
+            ->createOrGetExisting(
+                [
+                    'name' => [
+                        'en' => 'IT Apprenticeship Program for Indigenous Peoples',
+                        'fr' => 'Programme d’apprentissage en TI pour les personnes autochtones',
+                    ],
+                    'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
+                    'team_id' => Team::select('id')->where('name', 'digital-community-management')->sole()->id,
+                    'published_at' => config('constants.past_date'),
+                    'closing_date' => config('constants.far_future_date'),
+                    'publishing_group' => PublishingGroup::IAP->name,
+                ],
+            );
 
-        // IT-01
-        $createPool([
-            'name' => ['en' => 'Draft Job', 'fr' => 'Ébauche de travail'],
-            'published_at' => null,
-            'closing_date' => config('constants.far_future_date'),
-            'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
-            'publishing_group' => PublishingGroup::IT_JOBS->name,
-        ], [0, 0], [0, 0], [], 'IT', 1);
+        // IT -01
+        Pool::factory()
+            ->withPoolSkills(0, 0)
+            ->withQuestions(0, 0)
+            ->draft()
+            ->createOrGetExisting([
+                'name' => [
+                    'en' => 'IT-01  - Draft Job',
+                    'fr' => 'IT-01 - Ébauche de travail',
+                ],
+                'classification_id' => Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 1)->sole()->id,
+                'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
+                'team_id' => Team::select('id')->where('name', 'digital-community-management')->sole()->id,
+                'published_at' => null,
+                'closing_date' => config('constants.far_future_date'),
+                'publishing_group' => PublishingGroup::IT_JOBS->name,
+            ]);
 
-        // IT-02
-        $createPool([
-            'name' => ['en' => 'Ready to publish - Simple', 'fr' => 'Prêt à publier - Simple'],
-            'published_at' => null,
-            'closing_date' => config('constants.far_future_date'),
-            'publishing_group' => PublishingGroup::IT_JOBS->name,
-            'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
-        ], [2, 2], [0, 1], [AssessmentStepType::TECHNICAL_EXAM_AT_SITE], 'IT', 2);
+        // IT -02
+        Pool::factory()
+            ->withPoolSkills(2, 2)
+            ->withQuestions(0, 1)
+            ->draft()
+            ->withAssessments(2)
+            ->createOrGetExisting( // IT-02  - Simple
+                [
+                    'name' => [
+                        'en' => 'Ready to publish - Simple',
+                        'fr' => 'Prêt à publier - Simple',
+                    ],
+                    'classification_id' => Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 2)->sole()->id,
+                    'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
+                    'team_id' => Team::select('id')->where('name', 'digital-community-management')->sole()->id,
+                    'published_at' => null,
+                    'closing_date' => config('constants.far_future_date'),
+                    'publishing_group' => PublishingGroup::IT_JOBS->name,
+                ],
+            );
 
-        // IT-03
-        $createPool([
-            'name' => ['en' => 'Published – Complex', 'fr' => 'Publié – Complexe'],
-            'published_at' => config('constants.past_date'),
-            'closing_date' => config('constants.far_future_date'),
-            'publishing_group' => PublishingGroup::IT_JOBS_ONGOING->name,
-            'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
+        // IT - 03
+        Pool::factory()
+            ->withPoolSkills(6, 6)
+            ->withQuestions(3, 3)
+            ->published()
+            ->withAssessments(5)
+            ->createOrGetExisting([
+                'name' => [
+                    'en' => 'Published – Complex',
+                    'fr' => 'Publié – Complexe',
+                ],
+                'classification_id' => Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 3)->sole()->id,
+                'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
+                'team_id' => Team::select('id')->where('name', 'digital-community-management')->sole()->id,
+                'published_at' => config('constants.past_date'),
+                'closing_date' => config('constants.far_future_date'),
+                'publishing_group' => PublishingGroup::IT_JOBS_ONGOING->name,
+            ]);
 
-        ], [6, 6], [3, 3], [
-            AssessmentStepType::TECHNICAL_EXAM_AT_SITE,
-            AssessmentStepType::INTERVIEW_INDIVIDUAL,
-            AssessmentStepType::INTERVIEW_GROUP,
-            AssessmentStepType::REFERENCE_CHECK,
-        ], 'IT', 3);
+        //IT -04
+        Pool::factory()
+            ->withPoolSkills(2, 2)
+            ->withQuestions(3, 3)
+            ->published()
+            ->withAssessments(5)
+            ->createOrGetExisting([
+                'name' => [
+                    'en' => 'Published - Simple',
+                    'fr' => 'Publié - Simple',
+                ],
+                'classification_id' => Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 4)->sole()->id,
+                'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
+                'team_id' => Team::select('id')->where('name', 'digital-community-management')->sole()->id,
+                'published_at' => config('constants.past_date'),
+                'closing_date' => now()->addMonths(6),
+                'publishing_group' => PublishingGroup::IT_JOBS->name,
+            ]);
 
-        // IT-04
-        $createPool([
-            'name' => ['en' => 'Published - Simple', 'fr' => 'Publié - Simple'],
-            'published_at' => config('constants.past_date'),
-            'closing_date' => now()->addMonths(6),
-            'publishing_group' => PublishingGroup::IT_JOBS->name,
-            'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
-        ], [2, 2], [0, 3], [AssessmentStepType::TECHNICAL_EXAM_AT_SITE], 'IT', 4);
-
-        // IT-05
-        $createPool([
-            'name' => ['en' => 'Closed - Simple', 'fr' => 'Fermé - Simple'],
-            'published_at' => config('constants.past_date'),
-            'closing_date' => config('constants.past_date'),
-            'publishing_group' => PublishingGroup::IT_JOBS->name,
-        ], [6, 6], [3, 3], [
-            AssessmentStepType::TECHNICAL_EXAM_AT_SITE,
-            AssessmentStepType::INTERVIEW_INDIVIDUAL,
-            AssessmentStepType::INTERVIEW_GROUP,
-            AssessmentStepType::REFERENCE_CHECK,
-        ], 'IT', 5);
+        // IT - 05 Closed - Simple
+        Pool::factory()
+            ->withPoolSkills(2, 2)
+            ->withQuestions(2, 1)
+            ->published()
+            ->withAssessments(5)
+            ->createOrGetExisting(
+                [
+                    'name' => [
+                        'en' => 'Closed - Simple',
+                        'fr' => 'Fermé - Simple',
+                    ],
+                    'classification_id' => Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 5)->sole()->id,
+                    'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
+                    'team_id' => Team::select('id')->where('name', 'digital-community-management')->sole()->id,
+                    'published_at' => config('constants.past_date'),
+                    'closing_date' => config('constants.past_date'),
+                    'publishing_group' => PublishingGroup::IT_JOBS->name,
+                ],
+            );
 
         // Ex-03 Complex
-        $createPool([
-            'name' => ['en' => 'Complex', 'fr' => 'Ex-03'],
-            'published_at' => config('constants.past_date'),
-            'closing_date' => config('constants.past_date'),
-            'publishing_group' => PublishingGroup::EXECUTIVE_JOBS->name,
-            'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name
-        ], [6, 6], [3, 3], [
-            AssessmentStepType::TECHNICAL_EXAM_AT_SITE,
-            AssessmentStepType::INTERVIEW_INDIVIDUAL,
-            AssessmentStepType::INTERVIEW_GROUP,
-            AssessmentStepType::REFERENCE_CHECK,
-        ], 'EC', 3);
+        Pool::factory()
+            ->withPoolSkills(6, 6)
+            ->withQuestions(3, 3)
+            ->published()
+            ->withAssessments(5)
+            ->createOrGetExisting(
+                [
+                    'name' => [
+                        'en' => 'Complex',
+                        'fr' => 'Ex-03',
+                    ],
+                    'classification_id' => Classification::select('id')->where('group', 'ilike', 'EC')->where('level', 3)->sole()->id,
+                    'stream' => PoolStream::EXECUTIVE_GROUP->name,
+                    'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
+                    'team_id' => Team::select('id')->where('name', 'digital-community-management')->sole()->id,
+                    'published_at' => config('constants.past_date'),
+                    'closing_date' => config('constants.past_date'),
+                    'publishing_group' => PublishingGroup::EXECUTIVE_JOBS->name,
+                ],
+            );
 
-        // PM-01
-        $createPool([
-            'name' => ['en' => 'Simple', 'fr' => 'Simple'],
-            'published_at' => config('constants.past_date'),
-            'closing_date' => now()->addMonths(6),
-            'publishing_group' => PublishingGroup::OTHER->name,
-        ], [2, 2], [0, 1], [AssessmentStepType::TECHNICAL_EXAM_AT_SITE], 'PM', 1);
+        // PM-01 – Simple
+        Pool::factory()
+            ->withPoolSkills(2, 2)
+            ->withQuestions(0, 1)
+            ->published()
+            ->withAssessments(5)
+            ->createOrGetExisting([
+                'name' => [
+                    'en' => 'Simple',
+                    'fr' => 'Simple',
+                ],
+                'classification_id' => Classification::select('id')->where('group', 'ilike', 'PM')->where('level', 1)->sole()->id,
+                'stream' => PoolStream::ACCESS_INFORMATION_PRIVACY->name,
+                'user_id' => User::select('id')->where('email', 'admin@test.com')->sole()->id,
+                'team_id' => Team::select('id')->where('name', 'digital-community-management')->sole()->id,
+                'published_at' => config('constants.past_date'),
+                'closing_date' => now()->addMonths(6),
+                'publishing_group' => PublishingGroup::OTHER->name,
+            ]);
     }
 }
