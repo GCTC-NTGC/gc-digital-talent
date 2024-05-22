@@ -416,7 +416,7 @@ class PoolApplicationTest extends TestCase
         // create an experience with no skills, then attach it to the user
         WorkExperience::factory()->create([
             'user_id' => $this->applicantUser->id,
-            
+
         ]);
 
         $newPoolCandidate = PoolCandidate::factory()->create([
@@ -424,6 +424,11 @@ class PoolApplicationTest extends TestCase
             'pool_id' => $newPool->id,
             'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
         ]);
+
+        // Refresh the data from the database to ensure it is correctly loaded
+        $this->applicantUser->refresh();
+        $newPool->refresh();
+        $newPoolCandidate->refresh();
 
         // assert user cannot submit application with missing essential skills
         $this->actingAs($this->applicantUser, 'api')
