@@ -6,7 +6,9 @@ import {
 } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
+import { SubmitHandler } from "react-hook-form";
+import isEqual from "lodash/isEqual";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
@@ -17,13 +19,16 @@ import {
   getPoolStream,
   getLocale,
 } from "@gc-digital-talent/i18n";
-import { graphql, Pool } from "@gc-digital-talent/graphql";
+import { graphql, Pool, PoolFilterInput } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import Table, {
   getTableStateFromSearchParams,
 } from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import { INITIAL_STATE } from "~/components/Table/ResponsiveTable/constants";
+import {
+  INITIAL_STATE,
+  SEARCH_PARAM_KEY,
+} from "~/components/Table/ResponsiveTable/constants";
 import { SearchState } from "~/components/Table/ResponsiveTable/types";
 import accessors from "~/components/Table/accessors";
 import cells from "~/components/Table/cells";
@@ -43,7 +48,10 @@ import {
   transformPoolInput,
   getTeamDisplayNameSort,
   getOrderByClause,
+  transformPoolFilterInputToFormValues,
+  transformFormValuesToFilterInput,
 } from "./helpers";
+import PoolFilterDialog, { FormValues } from "./PoolFilterDialog";
 
 const columnHelper = createColumnHelper<Pool>();
 
@@ -114,9 +122,10 @@ const PoolTable_Query = graphql(/* GraphQL */ `
 
 interface PoolTableProps {
   title: string;
+  initialFilterInput?: PoolFilterInput;
 }
 
-const PoolTable = ({ title }: PoolTableProps) => {
+const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
@@ -134,6 +143,16 @@ const PoolTable = ({ title }: PoolTableProps) => {
   );
   const [sortState, setSortState] = useState<SortingState | undefined>(
     initialState.sortState ?? [{ id: "createdDate", desc: false }],
+  );
+  const searchParams = new URLSearchParams(window.location.search);
+  const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
+  const initialFilters: PoolFilterInput = useMemo(
+    () => (filtersEncoded ? JSON.parse(filtersEncoded) : initialFilterInput),
+    [filtersEncoded, initialFilterInput],
+  );
+  const filterRef = useRef<PoolFilterInput | undefined>(initialFilters);
+  const [filterState, setFilterState] = useState<PoolFilterInput | undefined>(
+    initialFilters,
   );
 
   const handlePaginationStateChange = ({
@@ -158,6 +177,20 @@ const PoolTable = ({ title }: PoolTableProps) => {
       term: term ?? INITIAL_STATE.searchState.term,
       type: type ?? INITIAL_STATE.searchState.type,
     });
+  };
+
+  const handleFilterSubmit: SubmitHandler<FormValues> = (data) => {
+    setPaginationState((previous) => ({
+      ...previous,
+      pageIndex: 0,
+    }));
+    const transformedData: PoolFilterInput =
+      transformFormValuesToFilterInput(data);
+
+    setFilterState(transformedData);
+    if (!isEqual(transformedData, filterRef.current)) {
+      filterRef.current = transformedData;
+    }
   };
 
   const columns = [
@@ -299,7 +332,7 @@ const PoolTable = ({ title }: PoolTableProps) => {
   const [{ data, fetching }] = useQuery({
     query: PoolTable_Query,
     variables: {
-      where: transformPoolInput({ search: searchState }),
+      where: transformPoolInput({ search: searchState, filters: filterState }),
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
       orderByTeamDisplayName: getTeamDisplayNameSort(sortState, locale),
@@ -332,6 +365,19 @@ const PoolTable = ({ title }: PoolTableProps) => {
         internal: false,
         onSortChange: setSortState,
         initialState: defaultState.sortState,
+      }}
+      filter={{
+        initialState: initialFilterInput,
+        state: filterRef.current,
+        component: (
+          <PoolFilterDialog
+            onSubmit={handleFilterSubmit}
+            resetValues={transformPoolFilterInputToFormValues(
+              initialFilterInput,
+            )}
+            initialValues={transformPoolFilterInputToFormValues(initialFilters)}
+          />
+        ),
       }}
       pagination={{
         internal: false,

@@ -13,7 +13,7 @@ import adminMessages from "~/messages/adminMessages";
 import skillBrowserMessages from "~/components/SkillBrowser/messages";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
-import SkillTableApi from "./components/SkillTable";
+import SkillTable from "./components/SkillTable";
 
 export const pageSolidIcon: IconType = BoltSolidIcon;
 export const pageOutlineIcon: IconType = BoltOutlineIcon;
@@ -79,10 +79,11 @@ export const Component = () => {
             })}
           </p>
         </Alert.Root>
-        <SkillTableApi
+        <SkillTable
           title={formattedPageTitle}
           paginationState={{ ...INITIAL_STATE.paginationState, pageSize: 20 }}
           csvDownload
+          isPublic
         />
         <Well id="cant-find-a-skill" data-h2-margin-top="base(x3)">
           <Heading

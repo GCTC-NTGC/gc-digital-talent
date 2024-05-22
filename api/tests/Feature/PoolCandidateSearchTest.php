@@ -5,6 +5,7 @@ use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
 use App\Enums\PoolCandidateStatus;
+use App\Facades\Notify;
 use App\Models\Classification;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
@@ -35,7 +36,7 @@ class PoolCandidateSearchTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
+        Notify::spy(); // don't send any notifications
         $this->seed(RolePermissionSeeder::class);
 
         $this->bootRefreshesSchemaCache();

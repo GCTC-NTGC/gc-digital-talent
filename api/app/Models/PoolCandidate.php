@@ -273,15 +273,7 @@ class PoolCandidate extends Model
         }
 
         $query->whereHas('pool', function ($query) use ($classifications) {
-            $query->whereHas('classification', function ($query) use ($classifications) {
-                $query->where(function ($query) use ($classifications) {
-                    foreach ($classifications as $classification) {
-                        $query->orWhere(function ($query) use ($classification) {
-                            $query->where('group', $classification['group'])->where('level', $classification['level']);
-                        });
-                    }
-                });
-            });
+            Pool::scopeClassifications($query, $classifications);
         });
 
         return $query;

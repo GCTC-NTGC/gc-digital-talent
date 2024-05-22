@@ -103,22 +103,14 @@ class NotificationTest extends TestCase
     {
 
         $this->actingAs($this->candidateUser, 'api')
-            ->graphQL($this->queryNotifications)->assertJson([
-                'data' => [
-                    'notifications' => [
-                        'data' => [
-                            [
-                                'id' => $this->notification->id,
-                                'readAt' => null,
-                                'closingDate' => $this->closingDate->toDateString(),
-                                'poolCandidateId' => $this->poolCandidate->id,
-                                'poolName' => [
-                                    'en' => $this->pool->name['en'],
-                                    'fr' => $this->pool->name['fr'],
-                                ],
-                            ],
-                        ],
-                    ],
+            ->graphQL($this->queryNotifications)->assertJsonFragment([
+                'id' => $this->notification->id,
+                'readAt' => null,
+                'closingDate' => $this->closingDate->toDateString(),
+                'poolCandidateId' => $this->poolCandidate->id,
+                'poolName' => [
+                    'en' => $this->pool->name['en'],
+                    'fr' => $this->pool->name['fr'],
                 ],
             ]);
     }

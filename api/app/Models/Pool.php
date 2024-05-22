@@ -7,6 +7,7 @@ use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
 use App\Enums\SkillCategory;
 use App\GraphQL\Validators\PoolIsCompleteValidator;
+use App\Observers\PoolObserver;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -121,6 +122,31 @@ class Pool extends Model
         'classification_id',
         'closing_reason',
     ];
+
+    /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        Pool::observe(PoolObserver::class);
+    }
+
+    /**
+     * Boot function for using with User Events
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function (Pool $pool) {
+            $pool->assessmentSteps()->create([
+                'type' => AssessmentStepType::APPLICATION_SCREENING->name,
+                'sort_order' => 1,
+            ]);
+        });
+    }
 
     public function getActivitylogOptions(): LogOptions
     {
@@ -283,23 +309,6 @@ class Pool extends Model
         return true;
     }
 
-    /**
-     * Boot function for using with User Events
-     *
-     * @return void
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::created(function (Pool $pool) {
-            $pool->assessmentSteps()->create([
-                'type' => AssessmentStepType::APPLICATION_SCREENING->name,
-                'sort_order' => 1,
-            ]);
-        });
-    }
-
     public function scopeWasPublished(Builder $query)
     {
         $query->where('published_at', '<=', Carbon::now()->toDateTimeString());
@@ -334,19 +343,6 @@ class Pool extends Model
         if ($team) {
             $query->whereHas('team', function ($query) use ($team) {
                 Team::scopeDisplayName($query, $team);
-            });
-        }
-
-        return $query;
-    }
-
-    public static function scopeStreams(Builder $query, ?array $streams): Builder
-    {
-        if (! empty($streams)) {
-            $query->where(function ($query) use ($streams) {
-                foreach ($streams as $stream) {
-                    $query->orWhere('stream', $stream);
-                }
             });
         }
 
@@ -414,6 +410,43 @@ class Pool extends Model
                 });
             });
         }
+
+        return $query;
+    }
+
+    public static function scopePublishingGroups(Builder $query, ?array $publishingGroups): Builder
+    {
+        if (! empty($publishingGroups)) {
+            $query->whereIn('publishing_group', $publishingGroups);
+        }
+
+        return $query;
+    }
+
+    public static function scopeStreams(Builder $query, ?array $streams): Builder
+    {
+        if (! empty($streams)) {
+            $query->whereIn('stream', $streams);
+        }
+
+        return $query;
+    }
+
+    public static function scopeClassifications(Builder $query, ?array $classifications): Builder
+    {
+        if (empty($classifications)) {
+            return $query;
+        }
+
+        $query->whereHas('classification', function ($query) use ($classifications) {
+            $query->where(function ($query) use ($classifications) {
+                foreach ($classifications as $classification) {
+                    $query->orWhere(function ($query) use ($classification) {
+                        $query->where('group', $classification['group'])->where('level', $classification['level']);
+                    });
+                }
+            });
+        });
 
         return $query;
     }

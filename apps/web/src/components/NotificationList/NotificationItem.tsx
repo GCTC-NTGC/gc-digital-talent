@@ -54,6 +54,15 @@ const NotificationItem_Fragment = graphql(/* GraphQL */ `
       poolId
       poolCandidateId
     }
+    ... on ApplicationStatusChangedNotification {
+      poolName {
+        en
+        fr
+      }
+    }
+    ... on NewJobPostedNotification {
+      poolId
+    }
   }
 `);
 

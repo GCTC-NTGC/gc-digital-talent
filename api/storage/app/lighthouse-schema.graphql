@@ -312,6 +312,22 @@ type ApplicationDeadlineApproachingNotification implements Notification {
   poolCandidateId: ID
 }
 
+type NewJobPostedNotification implements Notification {
+  id: ID!
+  readAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  poolId: ID
+}
+
+type ApplicationStatusChangedNotification implements Notification {
+  id: ID!
+  readAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  poolName: LocalizedString
+}
+
 type UserPublicProfile {
   id: ID!
   email: Email
@@ -728,6 +744,8 @@ input PoolFilterInput {
   team: String
   streams: [PoolStream!]
   statuses: [PoolStatus!]
+  publishingGroups: [PublishingGroup!]
+  classifications: [ClassificationFilterInput!]
 }
 
 input PoolTeamDisplayNameOrderByInput {

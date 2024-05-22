@@ -145,6 +145,24 @@ type ApplicationDeadlineApproachingNotification implements Notification {
   poolCandidateId: ID
 }
 
+type NewJobPostedNotification implements Notification {
+  id: ID!
+  readAt: DateTime @rename(attribute: "read_at")
+  createdAt: DateTime! @rename(attribute: "created_at")
+  updatedAt: DateTime! @rename(attribute: "updated_at")
+
+  poolId: ID
+}
+
+type ApplicationStatusChangedNotification implements Notification {
+  id: ID!
+  readAt: DateTime @rename(attribute: "read_at")
+  createdAt: DateTime! @rename(attribute: "created_at")
+  updatedAt: DateTime! @rename(attribute: "updated_at")
+
+  poolName: LocalizedString
+}
+
 type UserPublicProfile @model(class: "\\App\\Models\\User") {
   id: ID!
   email: Email
@@ -634,6 +652,8 @@ input PoolFilterInput {
   team: String @scope
   streams: [PoolStream!] @scope
   statuses: [PoolStatus!] @scope
+  publishingGroups: [PublishingGroup!] @scope
+  classifications: [ClassificationFilterInput!] @scope
 }
 
 input PoolTeamDisplayNameOrderByInput {
