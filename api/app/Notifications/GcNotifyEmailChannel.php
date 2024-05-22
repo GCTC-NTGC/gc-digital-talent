@@ -22,7 +22,7 @@ class GcNotifyEmailChannel
             $message->messageVariables
         );
 
-        if (! $response->successful()) {
+        if (! is_null($response) && ! $response->successful()) {
             $firstApiErrorMessage = Arr::get($response->json(), 'errors.0.message');
             $errorMessage = 'Notification failed to send on GcNotifyEmailChannel. '.$firstApiErrorMessage.' ';
             Log::error($errorMessage);

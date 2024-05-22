@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Enums\LanguageAbility;
 use App\Enums\PoolCandidateSearchStatus;
 use App\Enums\PoolStream;
+use App\Facades\Notify;
 use App\Models\ApplicantFilter;
 use App\Models\Community;
 use App\Models\Pool;
@@ -37,7 +38,7 @@ class ApplicantFilterTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
+        Notify::spy(); // don't send any notifications
         $this->bootRefreshesSchemaCache();
 
         $this->seed(RolePermissionSeeder::class);
