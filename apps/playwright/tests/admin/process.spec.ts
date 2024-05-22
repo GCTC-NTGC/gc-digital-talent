@@ -5,8 +5,7 @@ import PoolPage from "~/fixtures/PoolPage";
 import TeamPage from "~/fixtures/TeamPage";
 import { getDCM } from "~/utils/teams";
 import { getClassifications } from "~/utils/classification";
-
-import { loginBySub } from "../../utils/auth";
+import { loginBySub } from "~/utils/auth";
 
 test.describe("Process", () => {
   const uniqueTestId = Date.now().valueOf();
