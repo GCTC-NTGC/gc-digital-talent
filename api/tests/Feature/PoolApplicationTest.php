@@ -431,7 +431,7 @@ class PoolApplicationTest extends TestCase
             'pool_id' => $newPool->id,
             'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
         ]);
-        $educationExperience = WorkExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
+        $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
         $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
 
         // assert user cannot submit application with missing essential skills
