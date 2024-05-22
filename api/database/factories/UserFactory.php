@@ -129,19 +129,35 @@ class UserFactory extends Factory
         ];
     }
 
-    public function withSkillsAndExperiences($count = 10)
+    private function createExperienceAndSyncSkills($user, $skills)
     {
+        $experienceFactories = [
+            AwardExperience::factory(['user_id' => $user->id]),
+            CommunityExperience::factory(['user_id' => $user->id]),
+            EducationExperience::factory(['user_id' => $user->id]),
+            PersonalExperience::factory(['user_id' => $user->id]),
+            WorkExperience::factory(['user_id' => $user->id]),
+        ];
+
+        $experience = $this->faker->randomElement($experienceFactories)->create();
+        $skillsForExperience = $this->faker->randomElements($skills, $this->faker->numberBetween(1, $skills->count()));
+        $syncDataExperience = array_map(function ($skill) {
+            return ['id' => $skill->id, 'details' => $this->faker->text()];
+        }, $skillsForExperience);
+
+        $experience->syncSkills($syncDataExperience);
+    }
+
+    public function withSkillsAndExperiences($count = 10, $skills = [])
+    {
+        if (empty($skills)) {
+            $allSkills = Skill::select('id')->inRandomOrder()->take($count)->get();
+        } else {
+            $allSkills = $skills;
+        }
         $allSkills = Skill::select('id')->inRandomOrder()->take($count)->get();
 
         return $this->afterCreating(function (User $user) use ($count, $allSkills) {
-            $experienceFactories = [
-                AwardExperience::factory(['user_id' => $user->id]),
-                CommunityExperience::factory(['user_id' => $user->id]),
-                EducationExperience::factory(['user_id' => $user->id]),
-                PersonalExperience::factory(['user_id' => $user->id]),
-                WorkExperience::factory(['user_id' => $user->id]),
-            ];
-
             $skillSequence = $allSkills->shuffle()->map(fn ($skill) => ['skill_id' => $skill['id']])->toArray();
 
             $userSkills = UserSkill::factory($count)->for($user)
@@ -149,20 +165,7 @@ class UserFactory extends Factory
                 ->create();
             $skills = $userSkills->map(fn ($us) => $us->skill);
 
-            // create two experiences and attach a random number of skills to each through experience_skill pivot
-            $experienceOne = $this->faker->randomElement($experienceFactories)->create();
-            $skillsForExperienceOne = $this->faker->randomElements($skills, $this->faker->numberBetween(1, $skills->count()));
-            $syncDataExperienceOne = array_map(function ($skill) {
-                return ['id' => $skill->id, 'details' => $this->faker->text()];
-            }, $skillsForExperienceOne);
-            $experienceOne->syncSkills($syncDataExperienceOne);
-
-            $experienceTwo = $this->faker->randomElement($experienceFactories)->create();
-            $skillsForExperienceTwo = $this->faker->randomElements($skills, $this->faker->numberBetween(1, $skills->count()));
-            $syncDataExperienceTwo = array_map(function ($skill) {
-                return ['id' => $skill->id, 'details' => $this->faker->text()];
-            }, $skillsForExperienceTwo);
-            $experienceTwo->syncSkills($syncDataExperienceTwo);
+            $this->createExperienceAndSyncSkills($user, $skills);
         });
     }
 
