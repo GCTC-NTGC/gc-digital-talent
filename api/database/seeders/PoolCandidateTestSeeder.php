@@ -158,7 +158,7 @@ class PoolCandidateTestSeeder extends Seeder
 
     }
 
-    public function applyToAllPools($user, $status, $expiryDate = null, $placedDepartmentId = null)
+    private function applyToAllPools($user, $status, $expiryDate = null, $placedDepartmentId = null)
     {
         foreach ($this->publishedPools as $pool) {
             // create a pool candidate in the pool
