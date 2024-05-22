@@ -292,8 +292,6 @@ class PoolFactory extends Factory
         });
     }
 
-
-
     /**
      * Create a new pool or get an existing pool based on the given attributes.
      *
