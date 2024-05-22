@@ -17,6 +17,7 @@ use App\Models\ScreeningQuestion;
 use App\Models\ScreeningQuestionResponse;
 use App\Models\Team;
 use App\Models\User;
+use App\Models\WorkExperience;
 use Carbon\Carbon;
 use Database\Helpers\ApiEnums;
 use Database\Seeders\ClassificationSeeder;
@@ -44,9 +45,6 @@ class PoolApplicationTest extends TestCase
     use WithFaker;
 
     protected $applicantUser;
-
-
-    protected $applicantWithoutSkills;
 
     protected $teamUser;
 
@@ -156,12 +154,6 @@ class PoolApplicationTest extends TestCase
             ->create([
                 'email' => 'team-user@test.com',
                 'sub' => 'team-user@test.com',
-            ]);
-        $this->applicantWithoutSkills = User::factory()
-            ->asApplicant()
-            ->create([
-                'email' => 'applicant-noskill@test.com',
-                'sub' => 'applicant-noskill@test.com',
             ]);
     }
 
@@ -422,20 +414,19 @@ class PoolApplicationTest extends TestCase
         ]);
 
         // create an experience with no skills, then attach it to the user
-        AwardExperience::factory()->create([
+        WorkExperience::factory()->create([
             'user_id' => $this->applicantUser->id,
+            
         ]);
 
         $newPoolCandidate = PoolCandidate::factory()->create([
-            'user_id' => $this->applicantWithoutSkills->id,
+            'user_id' => $this->applicantUser->id,
             'pool_id' => $newPool->id,
             'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
         ]);
-        $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
-        $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
 
         // assert user cannot submit application with missing essential skills
-        $this->actingAs($this->applicantWithoutSkills, 'api')
+        $this->actingAs($this->applicantUser, 'api')
             ->graphQL(
                 $this->submitMutationDocument,
                 [
@@ -448,14 +439,34 @@ class PoolApplicationTest extends TestCase
                 ]],
             ]);
 
-        // create another experience, then attach it to the user, and then connect the essential skill to it
-        $secondExperience = AwardExperience::factory()->create([
-            'user_id' => $this->applicantWithoutSkills->id,
+    }
+
+    public function testApplicationSubmitWithEssentialSkill(): void
+    {
+
+        // create a pool, attach one essential skill to it
+        $newPool = Pool::factory()->WithPoolSkills(1, 0)->create([
+            'closing_date' => Carbon::now()->addDays(1),
+            'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
         ]);
-        $secondExperience->syncSkills($newPool->essentialSkills);
+
+        $newPoolCandidate = PoolCandidate::factory()->create([
+            'user_id' => $this->applicantUser->id,
+            'pool_id' => $newPool->id,
+            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+        ]);
+
+        $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
+        $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
+
+        // create award experience, then attach it to the user, and then connect the essential skill to it
+        $awardExperience = AwardExperience::factory()->create([
+            'user_id' => $this->applicantUser->id,
+        ]);
+        $awardExperience->syncSkills($newPool->essentialSkills);
 
         // assert user can now submit application as the essential skill is present
-        $this->actingAs($this->applicantWithoutSkills, 'api')
+        $this->actingAs($this->applicantUser, 'api')
             ->graphQL(
                 $this->submitMutationDocument,
                 [
