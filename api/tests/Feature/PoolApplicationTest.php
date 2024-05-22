@@ -2,6 +2,7 @@
 
 use App\Enums\ArmedForcesStatus;
 use App\Enums\AssessmentStepType;
+use App\Enums\ClaimVerificationResult;
 use App\Enums\EducationRequirementOption;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolLanguage;
@@ -33,6 +34,7 @@ use Tests\UsesProtectedGraphqlEndpoint;
 
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertNotNull;
+use function PHPUnit\Framework\assertSame;
 
 class PoolApplicationTest extends TestCase
 {
@@ -1048,5 +1050,48 @@ class PoolApplicationTest extends TestCase
             )->assertJsonFragment([
                 'signature' => 'sign',
             ]);
+    }
+
+    public function testApplicationSubmissionClaimVerification(): void
+    {
+        $newPool = Pool::factory()->create([
+            'closing_date' => Carbon::now()->addDays(1),
+            'advertisement_language' => PoolLanguage::ENGLISH->name,
+        ]);
+        $newPool->essentialSkills()->sync([]);
+
+        // not veteran, has priority
+        $this->applicantUser->armed_forces_status = ArmedForcesStatus::MEMBER->name;
+        $this->applicantUser->has_priority_entitlement = true;
+        $this->applicantUser->priority_number = 'abc';
+        $this->applicantUser->save();
+
+        $newPoolCandidate = PoolCandidate::factory()->create([
+            'user_id' => $this->applicantUser->id,
+            'pool_id' => $newPool->id,
+            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'submitted_at' => null,
+        ]);
+
+        $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
+        $newPoolCandidate->education_requirement_option = EducationRequirementOption::EDUCATION->name;
+        $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
+        $newPoolCandidate->save();
+
+        $this->actingAs($this->applicantUser, 'api')
+            ->graphQL(
+                $this->submitMutationDocument,
+                [
+                    'id' => $newPoolCandidate->id,
+                    'sig' => 'sign',
+                ]
+            )->assertJsonFragment([
+                'signature' => 'sign',
+            ]);
+        $newPoolCandidate->refresh();
+
+        // assert verification defaults filled in upon submitting application
+        assertSame($newPoolCandidate->veteran_verification, null);
+        assertSame($newPoolCandidate->priority_verification, ClaimVerificationResult::UNVERIFIED->name);
     }
 }
