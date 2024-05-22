@@ -11,14 +11,8 @@ set -o nounset
 PHP_VERSION=$1
 
 # GitHub runner only includes one version of PHP that is not necesarrily the value of the assigned therefore the Personal Package Archive (PPA) is necessary.
-sudo add-apt-repository ppa:ondrej/php
+LC_ALL=C.UTF-8 sudo add-apt-repository ppa:ondrej/php
 sudo apt update
-sudo apt-get install php${PHP_VERSION}
-
-sudo update-alternatives --set php /usr/bin/php${PHP_VERSION}
-sudo update-alternatives --set phar /usr/bin/phar${PHP_VERSION}
-sudo update-alternatives --set phpdbg /usr/bin/phpdbg${PHP_VERSION}
-sudo update-alternatives --set php-cgi /usr/bin/php-cgi${PHP_VERSION}
-sudo update-alternatives --set phar.phar /usr/bin/phar.phar${PHP_VERSION}
+sudo apt-get install -y php${PHP_VERSION} php-mbstring php-xml php-pgsql php-zip php-curl php-bcmath php-gd
 
 php -version
