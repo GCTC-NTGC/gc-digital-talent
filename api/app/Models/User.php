@@ -951,7 +951,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     public static function scopeGeneralSearch(Builder $query, ?string $searchTerm): Builder
     {
         if ($searchTerm) {
-            $combinedSearchTerm = trim($searchTerm);
+            $combinedSearchTerm = trim(preg_replace('/\s{2,}/', ' ', $searchTerm));
 
             $query
                 // attach the tsquery to every row to use for filtering
