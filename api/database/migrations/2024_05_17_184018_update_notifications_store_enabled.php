@@ -1,6 +1,5 @@
 <?php
 
-use App\Enums\NotificationFamily;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
@@ -9,8 +8,8 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     private $notificationFamilies = [
-        NotificationFamily::APPLICATION_UPDATE->name,
-        NotificationFamily::JOB_ALERT->name,
+        'APPLICATION_UPDATE',
+        'JOB_ALERT',
     ];
 
     private function invertFamilies(?string $row): string
