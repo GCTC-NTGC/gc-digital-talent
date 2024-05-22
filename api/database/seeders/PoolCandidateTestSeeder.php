@@ -47,6 +47,7 @@ class PoolCandidateTestSeeder extends Seeder
                 'email' => 'perfect@test.com',
                 'sub' => 'perfect@test.com',
                 'has_priority_entitlement' => true,
+                'priority_number' => '123456789',
                 'citizenship' => CitizenshipStatus::CITIZEN->name,
             ]);
 
