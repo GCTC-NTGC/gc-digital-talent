@@ -68,9 +68,10 @@ class PoolTestSeeder extends Seeder
 
         // IT-01
         $createPool([
-            'name' => ['en' => 'IT-01  - Draft Job', 'fr' => 'IT-01 - Ébauche de travail'],
+            'name' => ['en' => 'Draft Job', 'fr' => 'Ébauche de travail'],
             'published_at' => null,
             'closing_date' => config('constants.far_future_date'),
+            'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
             'publishing_group' => PublishingGroup::IT_JOBS->name,
         ], [0, 0], [0, 0], [], 'IT', 1);
 
@@ -80,6 +81,7 @@ class PoolTestSeeder extends Seeder
             'published_at' => null,
             'closing_date' => config('constants.far_future_date'),
             'publishing_group' => PublishingGroup::IT_JOBS->name,
+            'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
         ], [2, 2], [0, 1], [AssessmentStepType::TECHNICAL_EXAM_AT_SITE], 'IT', 2);
 
         // IT-03
@@ -88,6 +90,8 @@ class PoolTestSeeder extends Seeder
             'published_at' => config('constants.past_date'),
             'closing_date' => config('constants.far_future_date'),
             'publishing_group' => PublishingGroup::IT_JOBS_ONGOING->name,
+            'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
+
         ], [6, 6], [3, 3], [
             AssessmentStepType::TECHNICAL_EXAM_AT_SITE,
             AssessmentStepType::INTERVIEW_INDIVIDUAL,
@@ -101,6 +105,7 @@ class PoolTestSeeder extends Seeder
             'published_at' => config('constants.past_date'),
             'closing_date' => now()->addMonths(6),
             'publishing_group' => PublishingGroup::IT_JOBS->name,
+            'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
         ], [2, 2], [0, 3], [AssessmentStepType::TECHNICAL_EXAM_AT_SITE], 'IT', 4);
 
         // IT-05
@@ -122,6 +127,7 @@ class PoolTestSeeder extends Seeder
             'published_at' => config('constants.past_date'),
             'closing_date' => config('constants.past_date'),
             'publishing_group' => PublishingGroup::EXECUTIVE_JOBS->name,
+            'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name
         ], [6, 6], [3, 3], [
             AssessmentStepType::TECHNICAL_EXAM_AT_SITE,
             AssessmentStepType::INTERVIEW_INDIVIDUAL,
