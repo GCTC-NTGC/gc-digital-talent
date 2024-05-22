@@ -113,6 +113,18 @@ class PoolFactory extends Factory
             ]);
     }
 
+    public function WithAssessmentStep(AssessmentStepType $type)
+    {
+        return $this->afterCreating(function (Pool $pool) use ($type) {
+
+            $step = $this->createAssessmentStep($pool, $type->name);
+            $poolSkillArray = $pool->poolSkills()->pluck('id')->toArray();
+            $step->poolSkills()->sync($poolSkillArray);
+
+            return $step;
+        });
+    }
+
     private function createAssessmentStepWithPoolSkills($pool, $type)
     {
         $step = $this->createAssessmentStep($pool, $type);
