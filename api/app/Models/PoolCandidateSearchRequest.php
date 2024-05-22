@@ -97,6 +97,11 @@ class PoolCandidateSearchRequest extends Model
         return $this->belongsTo(ApplicantFilter::class);
     }
 
+    public function community(): BelongsTo
+    {
+        return $this->belongsTo(Community::class);
+    }
+
     public static function scopeId(Builder $query, ?string $id)
     {
         if ($id) {

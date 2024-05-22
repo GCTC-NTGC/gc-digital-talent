@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Community
@@ -32,4 +33,20 @@ class Community extends Model
     ];
 
     public $guarded = [];
+
+    /**
+     * Search requests
+     */
+    public function poolCandidateSearchRequests(): HasMany
+    {
+        return $this->hasMany(PoolCandidateSearchRequest::class);
+    }
+
+    /**
+     * ApplicationFilters
+     */
+    public function applicantFilters(): HasMany
+    {
+        return $this->hasMany(ApplicantFilter::class);
+    }
 }

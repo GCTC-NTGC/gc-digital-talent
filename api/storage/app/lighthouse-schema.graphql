@@ -560,6 +560,7 @@ type ApplicantFilter {
   qualifiedClassifications: [Classification]
   qualifiedStreams: [PoolStream]
   pools: [Pool]
+  community: Community
 }
 
 type PoolCandidateSearchRequest {
@@ -580,6 +581,7 @@ type PoolCandidateSearchRequest {
   managerJobTitle: String
   positionType: PoolCandidateSearchPositionType
   reason: PoolCandidateSearchRequestReason
+  community: Community
 }
 
 type SkillFamily {
@@ -765,6 +767,7 @@ input ApplicantFilterInput {
   skillsIntersectional: [IdInput]
   qualifiedClassifications: [ClassificationFilterInput]
   qualifiedStreams: [PoolStream]
+  community: IdInput
 }
 
 input PoolCandidateSearchInput {
@@ -1060,6 +1063,10 @@ input DepartmentBelongsToMany {
   sync: [ID!]
 }
 
+input CommunityBelongsTo {
+  connect: UUID!
+}
+
 input CreateTeamInput {
   name: String!
   displayName: LocalizedStringInput
@@ -1089,6 +1096,7 @@ input CreateApplicantFilterInput {
   armedForcesStatus: ArmedForcesStatus
   qualifiedClassifications: ClassificationBelongsToMany
   qualifiedStreams: [PoolStream]
+  community: CommunityBelongsTo
 }
 
 input ApplicantFilterBelongsTo {
@@ -1099,6 +1107,7 @@ input CreatePoolCandidateSearchRequestInput {
   fullName: String!
   email: Email!
   department: DepartmentBelongsTo!
+  community: CommunityBelongsTo!
   jobTitle: String!
   additionalComments: String
   hrAdvisorEmail: Email
