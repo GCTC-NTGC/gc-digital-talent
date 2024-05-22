@@ -851,7 +851,7 @@ class PoolCandidateUpdateTest extends TestCase
                         'veteranVerification' => ClaimVerificationResult::ACCEPTED->name,
                         'veteranVerificationExpiry' => '',
                         'priorityVerification' => ClaimVerificationResult::ACCEPTED->name,
-                        'priorityVerificationExpiry' => '',
+                        'priorityVerificationExpiry' => '2099-01-01',
                     ],
                 ]
             )
@@ -877,6 +877,79 @@ class PoolCandidateUpdateTest extends TestCase
                 'veteranVerificationExpiry' => config('constants.far_future_date'),
                 'priorityVerification' => ClaimVerificationResult::REJECTED->name,
                 'priorityVerificationExpiry' => null,
+            ]);
+    }
+
+    public function testUpdatePoolCandidateClaimVerificationValidation(): void
+    {
+        $candidate = PoolCandidate::factory()->create([
+            'pool_id' => $this->teamPool->id,
+            'veteran_verification' => ClaimVerificationResult::UNVERIFIED->name,
+            'veteran_verification_expiry' => null,
+            'priority_verification' => ClaimVerificationResult::UNVERIFIED->name,
+            'priority_verification_expiry' => null,
+        ]);
+
+        $updateClaimVerificationDocument =
+            /** @lang GraphQL */
+            '
+        mutation updatePoolCandidateClaimVerification($id: UUID!, $poolCandidate: UpdatePoolCandidateClaimVerificationInput!) {
+            updatePoolCandidateClaimVerification (id: $id, poolCandidate: $poolCandidate){
+                id
+            }
+        }
+    ';
+
+        // veteran expiry not required, priority expiration not required, mutation successful
+        $this->actingAs($this->poolOperatorUser, 'api')
+            ->graphQL(
+                $updateClaimVerificationDocument,
+                [
+                    'id' => $candidate->id,
+                    'poolCandidate' => [
+                        'veteranVerification' => ClaimVerificationResult::ACCEPTED->name,
+                        'veteranVerificationExpiry' => null,
+                        'priorityVerification' => ClaimVerificationResult::REJECTED->name,
+                        'priorityVerificationExpiry' => null,
+                    ],
+                ]
+            )
+            ->assertJsonFragment([
+                'id' => $candidate->id,
+            ]);
+
+        // priority expiry is required, mutation fails
+        $this->actingAs($this->poolOperatorUser, 'api')
+            ->graphQL(
+                $updateClaimVerificationDocument,
+                [
+                    'id' => $candidate->id,
+                    'poolCandidate' => [
+                        'veteranVerification' => null,
+                        'veteranVerificationExpiry' => null,
+                        'priorityVerification' => ClaimVerificationResult::ACCEPTED->name,
+                        'priorityVerificationExpiry' => null,
+                    ],
+                ]
+            )
+            ->assertGraphQLErrorMessage('Validation failed for the field [updatePoolCandidateClaimVerification].');
+
+        // priority expiry included, succeeds
+        $this->actingAs($this->poolOperatorUser, 'api')
+            ->graphQL(
+                $updateClaimVerificationDocument,
+                [
+                    'id' => $candidate->id,
+                    'poolCandidate' => [
+                        'veteranVerification' => null,
+                        'veteranVerificationExpiry' => null,
+                        'priorityVerification' => ClaimVerificationResult::ACCEPTED->name,
+                        'priorityVerificationExpiry' => config('constants.far_future_date'),
+                    ],
+                ]
+            )
+            ->assertJsonFragment([
+                'id' => $candidate->id,
             ]);
     }
 }

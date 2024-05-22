@@ -1743,7 +1743,9 @@ type Mutation {
     )
   updatePoolCandidateClaimVerification(
     id: UUID!
-    poolCandidate: UpdatePoolCandidateClaimVerificationInput! @spread
+    poolCandidate: UpdatePoolCandidateClaimVerificationInput!
+      @rules(apply: ["App\\Rules\\PriorityVerificationExpiryRequirement"])
+      @spread
   ): PoolCandidate @update @guard @canFind(ability: "updateNotes", find: "id")
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
     @update
