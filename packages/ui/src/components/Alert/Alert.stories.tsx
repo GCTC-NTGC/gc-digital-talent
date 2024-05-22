@@ -1,4 +1,3 @@
-import React from "react";
 import BellIcon from "@heroicons/react/24/outline/BellIcon";
 import { Meta, StoryFn } from "@storybook/react";
 import { faker } from "@faker-js/faker/locale/en";

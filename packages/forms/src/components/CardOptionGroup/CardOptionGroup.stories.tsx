@@ -1,4 +1,3 @@
-import React from "react";
 import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import SolidHandThumbUpIcon from "@heroicons/react/24/solid/HandThumbUpIcon";

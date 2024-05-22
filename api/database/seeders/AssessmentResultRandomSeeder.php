@@ -43,20 +43,20 @@ class AssessmentResultRandomSeeder extends Seeder
             $poolSkillIds = $assessmentStep->pool->poolSkills()->pluck('id')->toArray();
             $poolCandidate =
                 PoolCandidate::where('pool_id', $assessmentStep->pool_id)->first() ??
-                PoolCandidate::factory()->create([
+                PoolCandidate::factory()->createQuietly([
                     'pool_id' => $assessmentStep->pool_id,
                 ]);
 
-            AssessmentResult::factory()->withResultType(AssessmentResultType::EDUCATION)->create([
+            AssessmentResult::factory()->withResultType(AssessmentResultType::EDUCATION)->createQuietly([
                 'assessment_step_id' => $assessmentStep->id,
                 'pool_candidate_id' => $poolCandidate->id,
             ]);
-            AssessmentResult::factory()->withResultType(AssessmentResultType::SKILL)->create([
+            AssessmentResult::factory()->withResultType(AssessmentResultType::SKILL)->createQuietly([
                 'assessment_step_id' => $assessmentStep->id,
                 'pool_candidate_id' => $poolCandidate->id,
                 'pool_skill_id' => count($poolSkillIds) > 0 ? $poolSkillIds[0] : null,
             ]);
-            AssessmentResult::factory()->withResultType(AssessmentResultType::SKILL)->create([
+            AssessmentResult::factory()->withResultType(AssessmentResultType::SKILL)->createQuietly([
                 'assessment_step_id' => $assessmentStep->id,
                 'pool_candidate_id' => $poolCandidate->id,
                 'pool_skill_id' => count($poolSkillIds) > 0 ? $poolSkillIds[1] : null,

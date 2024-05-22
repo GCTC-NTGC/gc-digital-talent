@@ -1,4 +1,3 @@
-import * as React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 

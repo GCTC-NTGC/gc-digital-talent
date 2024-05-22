@@ -1,4 +1,3 @@
-import React from "react";
 import type { StoryFn } from "@storybook/react";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";

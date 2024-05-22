@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { OperationContext, useQuery } from "urql";
 import ChartPieIcon from "@heroicons/react/24/outline/ChartPieIcon";

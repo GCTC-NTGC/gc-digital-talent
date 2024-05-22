@@ -9,6 +9,7 @@ use App\Enums\PoolStream;
 use App\Enums\PositionDuration;
 use App\Enums\PublishingGroup;
 use App\Enums\WorkRegion;
+use App\Facades\Notify;
 use App\Models\AwardExperience;
 use App\Models\Classification;
 use App\Models\Pool;
@@ -32,7 +33,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
+        Notify::spy(); // don't send any notifications
         $this->bootRefreshesSchemaCache();
 
         $this->seed(RolePermissionSeeder::class);

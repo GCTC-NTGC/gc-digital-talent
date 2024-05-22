@@ -1,4 +1,4 @@
-import React from "react";
+import { useRef, useEffect, useMemo } from "react";
 
 // Note: This is a generic type and can accept any
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -10,16 +10,13 @@ type GenericFunc = (...args: any[]) => any;
  * Ref: https://github.com/radix-ui/primitives/tree/main/packages/react/use-callback-ref
  */
 const useCallbackRef = <T extends GenericFunc>(callback: T | undefined): T => {
-  const callbackRef = React.useRef(callback);
+  const callbackRef = useRef(callback);
 
-  React.useEffect(() => {
+  useEffect(() => {
     callbackRef.current = callback;
   });
 
-  return React.useMemo(
-    () => ((...args) => callbackRef.current?.(...args)) as T,
-    [],
-  );
+  return useMemo(() => ((...args) => callbackRef.current?.(...args)) as T, []);
 };
 
 export default useCallbackRef;

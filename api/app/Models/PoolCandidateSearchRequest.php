@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\PoolCandidateSearchRequestObserver;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -50,6 +51,14 @@ class PoolCandidateSearchRequest extends Model
     protected $casts = [
         'request_status_changed_at' => 'datetime',
     ];
+
+    /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        PoolCandidateSearchRequest::observe(PoolCandidateSearchRequestObserver::class);
+    }
 
     public function getActivitylogOptions(): LogOptions
     {

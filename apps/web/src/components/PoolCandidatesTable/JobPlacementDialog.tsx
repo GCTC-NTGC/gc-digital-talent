@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "urql";
-import MapPinIcon from "@heroicons/react/24/outline/MapPinIcon";
 
 import {
   RadioGroup,
@@ -23,11 +22,12 @@ import {
   commonMessages,
   errorMessages,
   getPlacementType,
+  getPoolCandidateStatus,
 } from "@gc-digital-talent/i18n";
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 
-import { isQualifiedStatus, statusToJobPlacement } from "~/utils/poolCandidate";
+import { isNotPlacedStatus, isQualifiedStatus } from "~/utils/poolCandidate";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 export const PLACEMENT_TYPE_STATUSES = [
@@ -201,6 +201,17 @@ const JobPlacementDialog = ({
     })),
   ];
 
+  let label = intl.formatMessage(commonMessages.notAvailable);
+  if (status) {
+    if (isNotPlacedStatus(status)) {
+      label = intl.formatMessage(poolCandidateMessages.notPlaced);
+    }
+
+    if (status && PLACEMENT_TYPE_STATUSES.includes(status)) {
+      label = intl.formatMessage(getPoolCandidateStatus(status));
+    }
+  }
+
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
@@ -211,12 +222,11 @@ const JobPlacementDialog = ({
                 color: "black",
               }
             : {
-                icon: MapPinIcon,
                 color: "primary",
               })}
           data-h2-text-align="base(left)"
         >
-          {intl.formatMessage(statusToJobPlacement(status))}
+          {label}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
@@ -270,18 +280,16 @@ const JobPlacementDialog = ({
                   />
                 )}
               </div>
-              <Dialog.Footer data-h2-justify-content="base(flex-start)">
+              <Dialog.Footer>
                 <Submit
                   text={intl.formatMessage({
                     defaultMessage: "Save decision",
                     id: "DyHuZi",
                     description: "Submit message for job placement dialog",
                   })}
-                  color="primary"
-                  mode="solid"
                 />
                 <Dialog.Close>
-                  <Button color="tertiary" mode="inline">
+                  <Button color="warning" mode="inline">
                     {intl.formatMessage(commonMessages.cancel)}
                   </Button>
                 </Dialog.Close>

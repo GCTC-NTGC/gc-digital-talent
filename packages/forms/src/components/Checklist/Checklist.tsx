@@ -1,6 +1,6 @@
-import * as React from "react";
 import get from "lodash/get";
 import { FieldError, useFormContext } from "react-hook-form";
+import { ReactNode } from "react";
 
 import Checkbox from "../Checkbox";
 import Field from "../Field";
@@ -12,7 +12,7 @@ import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 
 export type CheckboxOption = {
   value: string | number;
-  label: string | React.ReactNode;
+  label: string | ReactNode;
 };
 
 export type ChecklistProps = Omit<CommonInputProps, "id" | "label"> &
@@ -20,7 +20,7 @@ export type ChecklistProps = Omit<CommonInputProps, "id" | "label"> &
     /** Each input element will be given an id to match to its label, of the form `${idPrefix}-${value}` */
     idPrefix: string;
     /** Holds text for the legend associated with the checklist fieldset. */
-    legend: React.ReactNode;
+    legend: ReactNode;
     /** A list of value and label representing the checkboxes shown.
      * The form will represent the data at `name` as an array containing the values of the checked boxes. */
     items: CheckboxOption[];

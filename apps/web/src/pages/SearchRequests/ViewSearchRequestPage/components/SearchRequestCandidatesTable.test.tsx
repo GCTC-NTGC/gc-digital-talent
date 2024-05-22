@@ -4,7 +4,6 @@
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import { screen, within } from "@testing-library/react";
-import React from "react";
 import { Provider as GraphqlProvider } from "urql";
 import { fromValue } from "wonka";
 import { faker } from "@faker-js/faker/locale/en";
@@ -13,6 +12,7 @@ import { renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import {
   fakeApplicantFilters,
   fakePoolCandidates,
+  fakePools,
   fakeSkills,
 } from "@gc-digital-talent/fake-data";
 
@@ -23,6 +23,7 @@ faker.seed(0);
 const mockApplicantFilters = fakeApplicantFilters();
 const mockPoolCandidates = fakePoolCandidates();
 const mockSkills = fakeSkills();
+const mockPools = fakePools(1);
 
 const mockPoolCandidatesWithSkillCount = mockPoolCandidates.map(
   (poolCandidate) => {
@@ -58,6 +59,10 @@ const mockClient = {
           paginatorInfo: mockPaginatorInfo,
         },
         skills: mockSkills,
+        poolsPaginated: {
+          data: [mockPools[0]],
+          paginatorInfo: mockPaginatorInfo,
+        },
       },
     }),
   // See: https://github.com/FormidableLabs/urql/discussions/2057#discussioncomment-1568874

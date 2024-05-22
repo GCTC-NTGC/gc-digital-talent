@@ -55,8 +55,7 @@ export function transformUserInput(
 
   return {
     // search bar
-    generalSearch:
-      searchBarTerm && !searchType ? searchBarTerm.split(",") : undefined,
+    generalSearch: searchBarTerm && !searchType ? searchBarTerm : undefined,
     email: searchType === "email" ? searchBarTerm : undefined,
     name: searchType === "name" ? searchBarTerm : undefined,
     telephone: searchType === "phone" ? searchBarTerm : undefined,

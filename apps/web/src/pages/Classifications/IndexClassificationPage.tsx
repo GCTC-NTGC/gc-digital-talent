@@ -1,4 +1,3 @@
-import React from "react";
 import { MessageDescriptor, defineMessage, useIntl } from "react-intl";
 import TagOutlineIcon from "@heroicons/react/24/outline/TagIcon";
 import TagSolidIcon from "@heroicons/react/24/solid/TagIcon";

@@ -1,8 +1,8 @@
-import * as React from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 import { useMutation } from "urql";
 import isEmpty from "lodash/isEmpty";
+import { ReactNode, useState } from "react";
 
 import {
   AssessmentDecision,
@@ -110,7 +110,7 @@ const AssessmentStepTypeSection = ({
   poolSkill,
   type,
 }: {
-  educationRequirementOption: React.ReactNode;
+  educationRequirementOption: ReactNode;
   poolSkill?: PoolSkill;
   type: DialogType;
 }) => {
@@ -254,7 +254,7 @@ const SupportingEvidence = ({
   const intl = useIntl();
   const contentHeadingLevel = incrementHeadingRank(headingAs);
   return (
-    <div>
+    <>
       <p data-h2-margin-bottom="base(x.5)">
         {intl.formatMessage({
           defaultMessage: "Supporting evidence:",
@@ -279,7 +279,7 @@ const SupportingEvidence = ({
           {intl.formatMessage(commonMessages.notFound)}
         </p>
       )}
-    </div>
+    </>
   );
 };
 
@@ -447,50 +447,40 @@ export const ScreeningDecisionDialog = ({
           {headers.title}
         </Dialog.Header>
         <Dialog.Body>
-          <div>
-            <AssessmentStepTypeSection
-              educationRequirementOption={educationRequirementOption}
-              poolSkill={poolSkill}
-              type={dialogType}
-            />
-            {dialogType === "SCREENING_QUESTIONS" ? (
-              <ScreeningQuestions poolCandidate={snapshotCandidate} />
-            ) : (
-              <SupportingEvidence experiences={experiences} skill={skill} />
-            )}
-            <div data-h2-margin="base(x1, 0)">
-              <BasicForm
-                onSubmit={onSubmit}
-                labels={labels}
-                options={{ defaultValues: initialValues || defaultValues }}
-              >
-                <ScreeningDecisionDialogForm dialogType={dialogType} />
-                <Dialog.Footer
-                  data-h2-display="base(flex)"
-                  data-h2-justify-content="base(flex-start)"
-                  data-h2-align-items="base(baseline)"
-                  data-h2-gap="base(x1)"
-                >
-                  <Submit
-                    color="secondary"
-                    data-h2-margin-top="base(x1)"
-                    text={intl.formatMessage({
-                      defaultMessage: "Save decision",
-                      id: "hQ2+aE",
-                      description:
-                        "Save button label for screening decision dialogs",
-                    })}
-                    isSubmittingText={intl.formatMessage(commonMessages.saving)}
-                  />
-                  <Dialog.Close>
-                    <Button type="button" mode="inline" color="quaternary">
-                      {intl.formatMessage(commonMessages.cancel)}
-                    </Button>
-                  </Dialog.Close>
-                </Dialog.Footer>
-              </BasicForm>
-            </div>
-          </div>
+          <AssessmentStepTypeSection
+            educationRequirementOption={educationRequirementOption}
+            poolSkill={poolSkill}
+            type={dialogType}
+          />
+          {dialogType === "SCREENING_QUESTIONS" ? (
+            <ScreeningQuestions poolCandidate={snapshotCandidate} />
+          ) : (
+            <SupportingEvidence experiences={experiences} skill={skill} />
+          )}
+          <BasicForm
+            onSubmit={onSubmit}
+            labels={labels}
+            options={{ defaultValues: initialValues || defaultValues }}
+          >
+            <ScreeningDecisionDialogForm dialogType={dialogType} />
+            <Dialog.Footer>
+              <Submit
+                color="secondary"
+                text={intl.formatMessage({
+                  defaultMessage: "Save decision",
+                  id: "hQ2+aE",
+                  description:
+                    "Save button label for screening decision dialogs",
+                })}
+                isSubmittingText={intl.formatMessage(commonMessages.saving)}
+              />
+              <Dialog.Close>
+                <Button type="button" mode="inline" color="warning">
+                  {intl.formatMessage(commonMessages.cancel)}
+                </Button>
+              </Dialog.Close>
+            </Dialog.Footer>
+          </BasicForm>
         </Dialog.Body>
       </Dialog.Content>
     </Dialog.Root>
@@ -531,7 +521,7 @@ const ScreeningDecisionDialogApi = ({
   educationRequirement?: boolean;
 }) => {
   const intl = useIntl();
-  const [isOpen, setOpen] = React.useState<boolean>(false);
+  const [isOpen, setOpen] = useState<boolean>(false);
 
   const assessmentResultId = assessmentResult?.id;
   const poolSkill = assessmentResult?.poolSkill ?? poolSkillToAssess;

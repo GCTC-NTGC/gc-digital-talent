@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { ReactNode, useRef } from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { useReactToPrint } from "react-to-print";
 
@@ -36,7 +36,7 @@ type RequestConfirmationParams = {
   requestId: Scalars["ID"]["output"];
 };
 
-const mailLink = (chunks: React.ReactNode) => (
+const mailLink = (chunks: ReactNode) => (
   <Link external href="mailto:recruitmentimit-recrutementgiti@tbs-sct.gc.ca">
     {chunks}
   </Link>
@@ -154,7 +154,7 @@ export const Component = () => {
             data-h2-gap="base(x1)"
             data-h2-flex-direction="base(row)"
           >
-            <Button mode="solid" color="primary" onClick={handlePrint}>
+            <Button mode="solid" color="secondary" onClick={handlePrint}>
               {intl.formatMessage({
                 defaultMessage: "Print this information",
                 id: "idu0MU",

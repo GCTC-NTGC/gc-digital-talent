@@ -1,7 +1,6 @@
-import React from "react";
+import { useState } from "react";
 import { useMutation } from "urql";
 import { FormProvider, useForm } from "react-hook-form";
-import CalendarDaysIcon from "@heroicons/react/20/solid/CalendarDaysIcon";
 import { useIntl } from "react-intl";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -9,6 +8,11 @@ import { Button, Dialog } from "@gc-digital-talent/ui";
 import { DateInput } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
+import {
+  DATE_FORMAT_STRING,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 
 import applicationMessages from "~/messages/applicationMessages";
 import { isQualifiedStatus } from "~/utils/poolCandidate";
@@ -46,7 +50,7 @@ const ChangeExpiryDateDialog = ({
   expiryDateQuery,
 }: ChangeExpiryDateDialogProps) => {
   const intl = useIntl();
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const application = getFragment(
     CandidateExpiryDateDialog_Fragment,
     expiryDateQuery,
@@ -111,8 +115,12 @@ const ChangeExpiryDateDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button mode="inline" icon={CalendarDaysIcon}>
-          {title}
+        <Button mode="inline">
+          {formatDate({
+            date: parseDateTimeUtc(application.expiryDate),
+            formatString: DATE_FORMAT_STRING,
+            intl,
+          }) || title}
         </Button>
       </Dialog.Trigger>
       <Dialog.Content>
@@ -137,8 +145,8 @@ const ChangeExpiryDateDialog = ({
                 })}
               />
               <FormChangeNotifyWell data-h2-margin-top="base(x1)" />
-              <Dialog.Footer data-h2-justify-content="base(flex-start)">
-                <Button type="submit" disabled={fetching}>
+              <Dialog.Footer>
+                <Button type="submit" color="secondary" disabled={fetching}>
                   {intl.formatMessage(applicationMessages.saveContinue)}
                 </Button>
                 <Dialog.Close>

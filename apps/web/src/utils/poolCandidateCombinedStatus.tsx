@@ -1,7 +1,8 @@
 import { defineMessage, defineMessages, MessageDescriptor } from "react-intl";
 
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { commonMessages, getOrThrowError } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { getOrThrowError } from "@gc-digital-talent/helpers";
 import {
   PoolCandidateStatus,
   Maybe,
@@ -66,6 +67,10 @@ const HIRED_LONG_TERM_STATUSES: CombinedStatus[] = [
 export const isHiredLongTermCombinedStatus = (
   status: Maybe<CombinedStatus> | undefined,
 ): boolean => (status ? HIRED_LONG_TERM_STATUSES.includes(status) : false);
+const REMOVED_STATUSES: CombinedStatus[] = ["REMOVED"];
+export const isRemovedCombinedStatus = (
+  status: Maybe<CombinedStatus> | undefined,
+): boolean => (status ? REMOVED_STATUSES.includes(status) : false);
 
 // Map combined statuses to their labels
 const combinedStatusLabels = defineMessages<CombinedStatus>({
@@ -160,8 +165,8 @@ const statusMap = new Map<PoolCandidateStatus, CombinedStatus>([
   [PoolCandidateStatus.DraftExpired, "DATE_PASSED"],
   [PoolCandidateStatus.ScreenedOutApplication, "SCREENED_OUT"],
   [PoolCandidateStatus.ScreenedOutAssessment, "SCREENED_OUT"],
-  [PoolCandidateStatus.ScreenedOutNotInterested, "SCREENED_OUT"],
-  [PoolCandidateStatus.ScreenedOutNotResponsive, "SCREENED_OUT"],
+  [PoolCandidateStatus.ScreenedOutNotInterested, "REMOVED"],
+  [PoolCandidateStatus.ScreenedOutNotResponsive, "REMOVED"],
   [PoolCandidateStatus.QualifiedAvailable, "READY_TO_HIRE"],
   [PoolCandidateStatus.QualifiedUnavailable, "PAUSED"],
   [PoolCandidateStatus.QualifiedWithdrew, "WITHDREW"],

@@ -8,6 +8,7 @@ use App\Enums\OperationalRequirement;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PositionDuration;
 use App\Enums\PublishingGroup;
+use App\Facades\Notify;
 use App\Models\AwardExperience;
 use App\Models\CommunityExperience;
 use App\Models\PersonalExperience;
@@ -35,7 +36,7 @@ class ApplicantTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
+        Notify::spy(); // don't send any notifications
         $this->seed(RolePermissionSeeder::class);
 
         $this->bootRefreshesSchemaCache();

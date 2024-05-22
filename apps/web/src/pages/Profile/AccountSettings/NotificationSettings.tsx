@@ -1,4 +1,3 @@
-import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
@@ -317,10 +316,7 @@ const NotificationSettings = ({
             ))}
           </div>
           <div data-h2-align-self="base(flex-start)">
-            <Submit
-              color="secondary"
-              text={intl.formatMessage(formMessages.saveChanges)}
-            />
+            <Submit text={intl.formatMessage(formMessages.saveChanges)} />
           </div>
         </CardBasic>
       </form>

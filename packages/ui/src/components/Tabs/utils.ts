@@ -1,3 +1,5 @@
+import { FocusEventHandler } from "react";
+
 export const commonTabStyles = {
   root: {
     "data-h2-max-width": "base(100%)",
@@ -72,7 +74,7 @@ export const commonTabStyles = {
  *
  * @param event
  */
-export const handleTabFocus: React.FocusEventHandler<HTMLElement> = (event) => {
+export const handleTabFocus: FocusEventHandler<HTMLElement> = (event) => {
   let target: HTMLElement = event.currentTarget;
   const list = target.closest(".Tabs__List");
   // Target could be in list.

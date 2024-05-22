@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 
 import { RadioGroup } from "@gc-digital-talent/forms";

@@ -1,5 +1,5 @@
-import React from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { ReactNode, useEffect } from "react";
 
 import { useLogger } from "@gc-digital-talent/logger";
 import { Loading } from "@gc-digital-talent/ui";
@@ -13,7 +13,7 @@ import {
 import useRoutes from "~/hooks/useRoutes";
 
 interface RequireAuthProps {
-  children: React.ReactNode;
+  children: ReactNode;
   roles: Array<RoleName>;
   loginPath?: string;
 }
@@ -42,7 +42,7 @@ const RequireAuth = ({
       userRoleNames?.includes(authorizedRoleName),
     );
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!loggedIn) {
       const loginSearchParams = new URLSearchParams();
       loginSearchParams.append("from", location.pathname);
@@ -78,7 +78,7 @@ const RequireAuth = ({
     });
   }
 
-  // Note: Need to return a React.ReactElement
+  // Note: Need to return a ReactElement
   // eslint-disable-next-line react/jsx-no-useless-fragment
   return <>{children}</>;
 };

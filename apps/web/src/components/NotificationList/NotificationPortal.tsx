@@ -1,4 +1,4 @@
-import React from "react";
+import { ReactNode } from "react";
 import { createPortal } from "react-dom";
 
 export const LOAD_MORE_ROOT_ID = "notification-load-more";
@@ -21,7 +21,7 @@ export const NotificationPortalContainers = ({
 interface NotificationPortalProps {
   containerId: string;
   inDialog?: boolean;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const NotificationPortal = ({

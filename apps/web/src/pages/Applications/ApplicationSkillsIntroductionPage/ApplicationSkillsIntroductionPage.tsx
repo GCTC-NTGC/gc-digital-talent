@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import SparklesIcon from "@heroicons/react/20/solid/SparklesIcon";
 
@@ -96,7 +95,7 @@ const ApplicationSkillsIntroduction = ({
         <Link
           href={paths.applicationSkills(application.id)}
           mode="solid"
-          color="primary"
+          color="secondary"
         >
           {intl.formatMessage({
             defaultMessage: "Let's get to it!",

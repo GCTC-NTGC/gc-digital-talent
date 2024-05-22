@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
@@ -592,7 +591,7 @@ const ApplicationReview = ({
               >
                 <Button
                   type="submit"
-                  mode="solid"
+                  color="secondary"
                   value="continue"
                   disabled={mutating || isSubmitting}
                 >

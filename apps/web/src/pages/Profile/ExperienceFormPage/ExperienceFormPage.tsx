@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { defineMessage, useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -324,7 +324,7 @@ export const ExperienceForm = ({
     return handleUpdateExperience(data);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (action === "add-another" && isSubmitSuccessful) {
       // Help users out by focusing the first input after scrolling
       setFocus("experienceType");

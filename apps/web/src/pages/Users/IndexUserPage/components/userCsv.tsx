@@ -176,7 +176,13 @@ export const getUserCsvHeaders = (intl: IntlShape) => [
   },
   {
     id: "secondLanguageExamCompleted",
-    displayName: getLabels(intl).secondLanguageExamCompletedLabel,
+    displayName: intl.formatMessage({
+      defaultMessage:
+        "I have completed a Public Service Commission evaluation of my second official language.",
+      id: "pXLPjN",
+      description:
+        "Statement for completion of a Public Service Commission evaluation of a second official language",
+    }),
   },
   {
     id: "secondLanguageExamValidity",

@@ -1,9 +1,9 @@
-import React from "react";
+import { useContext } from "react";
 
 import { FeatureFlagContext } from "./FeatureFlagProvider";
 
 const useFeatureFlags = () => {
-  return React.useContext(FeatureFlagContext);
+  return useContext(FeatureFlagContext);
 };
 
 export default useFeatureFlags;

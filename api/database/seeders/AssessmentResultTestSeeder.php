@@ -48,7 +48,7 @@ class AssessmentResultTestSeeder extends Seeder
         // specific pool
         $poolCandidate =
             PoolCandidate::where('pool_id', $pool->id)->first() ??
-            PoolCandidate::factory()->create([
+            PoolCandidate::factory()->createQuietly([
                 'pool_id' => $pool->id,
             ]);
         $dcmPoolSkills = $pool->poolSkills()->pluck('id')->toArray();

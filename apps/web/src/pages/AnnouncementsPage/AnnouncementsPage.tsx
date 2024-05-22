@@ -1,4 +1,3 @@
-import * as React from "react";
 import { MessageDescriptor, defineMessage, useIntl } from "react-intl";
 import MegaphoneOutlineIcon from "@heroicons/react/24/outline/MegaphoneIcon";
 import MegaphoneSolidIcon from "@heroicons/react/24/solid/MegaphoneIcon";

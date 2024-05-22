@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 
@@ -39,7 +39,7 @@ const GeneralQuestionDialog = ({
   disabled,
 }: GeneralQuestionDialogProps) => {
   const intl = useIntl();
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const question = getFragment(GeneralQuestionDialog_Fragment, questionQuery);
   const isUpdate = !!question;
   const methods = useForm<FormValues>({

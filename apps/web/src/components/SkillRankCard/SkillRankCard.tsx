@@ -1,5 +1,5 @@
-import React from "react";
 import { useIntl } from "react-intl";
+import { ReactNode } from "react";
 
 import { Heading, HeadingLevel, Link, Separator } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -9,8 +9,8 @@ import SkillRankListItem from "./SkillRankListItem";
 import NullMessage, { NullMessageProps } from "./NullMessage";
 
 interface SkillRankCardProps {
-  title: React.ReactNode;
-  description: React.ReactNode;
+  title: ReactNode;
+  description: ReactNode;
   userSkills: readonly SkillShowcase_UserSkillFragment[];
   titleAs?: HeadingLevel;
   editable?: boolean;

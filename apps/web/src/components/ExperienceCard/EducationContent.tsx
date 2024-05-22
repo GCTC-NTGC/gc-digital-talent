@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 
 import { commonMessages, getEducationStatus } from "@gc-digital-talent/i18n";

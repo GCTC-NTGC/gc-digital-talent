@@ -1,4 +1,3 @@
-import React from "react";
 import { createColumnHelper } from "@tanstack/react-table";
 import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
 import PauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";

@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import {
   createSearchParams,
   Outlet,
@@ -39,7 +39,7 @@ export const Component = () => {
   const paths = useRoutes();
   const isToCreateAccount = pathname !== paths.createAccount();
 
-  React.useEffect(() => {
+  useEffect(() => {
     /**
      * Check the following then redirect to welcome page
      *  - User Logged in
