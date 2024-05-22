@@ -24,11 +24,6 @@ return new class extends Migration
             $table->foreign('community_id')->references('id')->on('communities');
         });
 
-        $rows = DB::table('pool_candidate_search_requests')
-            ->join('applicant_filters', 'pool_candidate_search_requests.applicant_filter_id', 'applicant_filters.id')
-            ->select('pool_candidate_search_requests.id', 'applicant_filter_id', 'applicant_filters.qualified_streams')
-            ->get();
-
         $ATIP = DB::table('communities')
             ->select('id', 'key')
             ->where('key', 'atip')
@@ -39,30 +34,34 @@ return new class extends Migration
             ->where('key', 'digital')
             ->first();
 
-        $rows->each(function ($row) use ($ATIP, $digital) {
-            $streams = json_decode($row->qualified_streams);
-            $communityId = $digital->id;
+        DB::statement(<<<'SQL'
+            UPDATE applicant_filters
+            SET community_id = :community_id
+        SQL,
+            ['community_id' => $digital?->id]
+        );
 
-            if (in_array(PoolStream::ACCESS_INFORMATION_PRIVACY->name, $streams)) {
-                $communityId = $ATIP->id;
-            }
+        DB::statement(<<<'SQL'
+            UPDATE applicant_filters
+            SET community_id = :community_id
+            WHERE qualified_streams @> :stream
+        SQL,
+            [
+                'community_id' => $ATIP?->id,
+                'stream' => '"'.PoolStream::ACCESS_INFORMATION_PRIVACY->name.'"']
+        );
 
-            DB::statement(<<<'SQL'
-                    UPDATE  pool_candidate_search_requests
-                    SET     community_id = ?
-                    WHERE id = ?;
-                SQL,
-                [$communityId, $row->id]
-            );
+        DB::statement(<<<'SQL'
+            UPDATE pool_candidate_search_requests
+            SET community_id = :community_id
+        SQL, ['community_id' => $digital?->id]);
 
-            DB::statement(<<<'SQL'
-                    UPDATE  applicant_filters
-                    SET     community_id = ?
-                    WHERE id = ?;
-                SQL,
-                [$communityId, $row->applicant_filter_id]
-            );
-        });
+        DB::statement(<<<'SQL'
+            UPDATE pool_candidate_search_requests
+            SET community_id = af.community_id
+            FROM applicant_filters af
+            WHERE af.id = pool_candidate_search_requests.id
+        SQL);
 
         Schema::table('pool_candidate_search_requests', function (Blueprint $table) {
             $table->uuid('community_id')->nullable(false)->change();
