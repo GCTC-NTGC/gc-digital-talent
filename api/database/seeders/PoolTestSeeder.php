@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\AssessmentStepType;
 use App\Enums\PoolLanguage;
 use App\Enums\PoolStream;
 use App\Enums\PublishingGroup;
@@ -93,7 +94,7 @@ class PoolTestSeeder extends Seeder
             ->withPoolSkills(2, 2)
             ->withQuestions(0, 1)
             ->draft()
-            ->withAssessments(2)
+            ->withAssessmentStep(AssessmentStepType::TECHNICAL_EXAM_AT_SITE)
             ->createOrGetExisting( // IT-02  - Simple
                 [
                     'name' => [
@@ -116,7 +117,9 @@ class PoolTestSeeder extends Seeder
             ->withPoolSkills(6, 6)
             ->withQuestions(3, 3)
             ->published()
-            ->withAssessments(5)
+            ->withAssessmentStep(AssessmentStepType::INTERVIEW_INDIVIDUAL)
+            ->withAssessmentStep(AssessmentStepType::TECHNICAL_EXAM_AT_SITE)
+            ->withAssessmentStep(AssessmentStepType::REFERENCE_CHECK)
             ->createOrGetExisting([
                 'name' => [
                     'en' => 'Published – Complex',
@@ -137,7 +140,9 @@ class PoolTestSeeder extends Seeder
             ->withPoolSkills(2, 2)
             ->withQuestions(3, 3)
             ->published()
-            ->withAssessments(5)
+            ->withAssessmentStep(AssessmentStepType::INTERVIEW_INDIVIDUAL)
+            ->withAssessmentStep(AssessmentStepType::TECHNICAL_EXAM_AT_SITE)
+            ->withAssessmentStep(AssessmentStepType::REFERENCE_CHECK)
             ->createOrGetExisting([
                 'name' => [
                     'en' => 'Published - Simple',
@@ -158,7 +163,9 @@ class PoolTestSeeder extends Seeder
             ->withPoolSkills(2, 2)
             ->withQuestions(2, 1)
             ->published()
-            ->withAssessments(5)
+            ->withAssessmentStep(AssessmentStepType::INTERVIEW_INDIVIDUAL)
+            ->withAssessmentStep(AssessmentStepType::TECHNICAL_EXAM_AT_SITE)
+            ->withAssessmentStep(AssessmentStepType::REFERENCE_CHECK)
             ->createOrGetExisting(
                 [
                     'name' => [
@@ -180,7 +187,9 @@ class PoolTestSeeder extends Seeder
             ->withPoolSkills(6, 6)
             ->withQuestions(3, 3)
             ->published()
-            ->withAssessments(5)
+            ->withAssessmentStep(AssessmentStepType::INTERVIEW_INDIVIDUAL)
+            ->withAssessmentStep(AssessmentStepType::TECHNICAL_EXAM_AT_SITE)
+            ->withAssessmentStep(AssessmentStepType::REFERENCE_CHECK)
             ->createOrGetExisting(
                 [
                     'name' => [
@@ -202,7 +211,7 @@ class PoolTestSeeder extends Seeder
             ->withPoolSkills(2, 2)
             ->withQuestions(0, 1)
             ->published()
-            ->withAssessments(5)
+            ->withAssessmentStep(AssessmentStepType::TECHNICAL_EXAM_AT_SITE)
             ->createOrGetExisting([
                 'name' => [
                     'en' => 'Simple',

@@ -279,6 +279,21 @@ class PoolFactory extends Factory
         });
     }
 
+    // Add a single assessment step to the pool for the given assessment step type
+    public function WithAssessmentStep(AssessmentStepType $type)
+    {
+        return $this->afterCreating(function (Pool $pool) use ($type) {
+
+            $step = $this->createAssessmentStep($pool, $type->name);
+            $poolSkillArray = $pool->poolSkills()->pluck('id')->toArray();
+            $step->poolSkills()->sync($poolSkillArray);
+
+            return $step;
+        });
+    }
+
+
+
     /**
      * Create a new pool or get an existing pool based on the given attributes.
      *
