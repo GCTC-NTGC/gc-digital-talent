@@ -149,18 +149,13 @@ class UserFactory extends Factory
         $experience->syncSkills($syncDataExperience);
     }
 
-    public function withPoolSkillsAndExperiences($skills)
+    public function withSkillsAndExperiences($count = 10, $skills=[])
     {
-        return $this->afterCreating(function (User $user) use ($skills) {
-            foreach ($skills as $skill) {
-                $user->skills()->attach($skill['id'], ['skill_level' => SkillLevel::ADVANCED]);
-            }
-            $this->createExperienceAndSyncSkills($user, $skills);
-        });
-    }
-
-    public function withSkillsAndExperiences($count = 10)
-    {
+        if (empty($skills)) {
+            $allSkills = Skill::select('id')->inRandomOrder()->take($count)->get();
+        } else {
+            $allSkills = $skills;
+        }
         $allSkills = Skill::select('id')->inRandomOrder()->take($count)->get();
 
         return $this->afterCreating(function (User $user) use ($count, $allSkills) {
