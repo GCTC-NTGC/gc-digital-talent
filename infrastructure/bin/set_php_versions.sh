@@ -13,6 +13,6 @@ PHP_VERSION=$1
 # GitHub runner only includes one version of PHP that is not necesarrily the value of the assigned therefore the Personal Package Archive (PPA) is necessary.
 LC_ALL=C.UTF-8 sudo add-apt-repository ppa:ondrej/php
 sudo apt update
-sudo apt-get install -y php${PHP_VERSION} php-mbstring php-xml php-pgsql php-zip php-curl php-bcmath php-gd
+sudo apt-get install -y php${PHP_VERSION} php${PHP_VERSION}-mbstring php${PHP_VERSION}-xml php${PHP_VERSION}-pgsql php${PHP_VERSION}-zip php${PHP_VERSION}-curl php${PHP_VERSION}-bcmath php${PHP_VERSION}-gd
 
 php -version
