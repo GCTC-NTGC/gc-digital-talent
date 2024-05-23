@@ -12,18 +12,9 @@ use Illuminate\Support\Facades\Http;
  * GC Notify Client
  *
  * Interacts with the GC Notify API
- *
- * @property string $apiKey API Key for auth
  */
 class Client
 {
-    /**
-     * API Key
-     *
-     * @property string $apiKey API Key for auth
-     */
-    private $apiKey;
-
     /**
      * Base URL
      *
@@ -41,20 +32,6 @@ class Client
     const ENDPOINT_NOTIFICATION_SMS = '/v2/notifications/sms';
 
     const ENDPOINT_NOTIFICATION_BULK = '/v2/notifications/bulk';
-
-    /**
-     * Instantiate the class
-     */
-    public function __construct()
-    {
-        $config = config('notify.client');
-
-        if (! $config['apiKey']) {
-            throw new ApiKeyNotFoundException('GC Notify API key not found in config.');
-        }
-
-        $this->apiKey = $config['apiKey'];
-    }
 
     /**
      * Send Email
@@ -393,8 +370,14 @@ class Client
      */
     private function buildHeaders($additionalHeaders = [])
     {
+        $apiKey = config('notify.client.apiKey');
+
+        if (is_null($apiKey)) {
+            throw new ApiKeyNotFoundException('GC Notify API key not found in config.');
+        }
+
         $headers = [
-            'Authorization' => 'ApiKey-v1 '.$this->apiKey,
+            'Authorization' => 'ApiKey-v1 '.$apiKey,
             'Content-Type' => 'application/json',
             'Accept' => 'application/json',
         ];
