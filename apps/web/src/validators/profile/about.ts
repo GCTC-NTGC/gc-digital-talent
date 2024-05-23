@@ -47,6 +47,7 @@ export function hasEmptyRequiredFields({
   email,
   preferredLang,
   preferredLanguageForInterview,
+  preferredLanguageForExam,
   currentCity,
   currentProvince,
   citizenship,
@@ -59,7 +60,7 @@ export function hasEmptyRequiredFields({
     !telephone ||
     !preferredLang ||
     !preferredLanguageForInterview ||
-    !preferredLanguageForInterview ||
+    !preferredLanguageForExam ||
     !currentCity ||
     !currentProvince ||
     !citizenship ||
