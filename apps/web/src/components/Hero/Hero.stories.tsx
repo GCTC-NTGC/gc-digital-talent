@@ -1,4 +1,3 @@
-import React from "react";
 import { StoryFn, Meta } from "@storybook/react";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";

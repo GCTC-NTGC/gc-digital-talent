@@ -1,5 +1,5 @@
-import React from "react";
 import { useIntl } from "react-intl";
+import { ReactNode, JSX } from "react";
 
 import { Button, Dialog, Link, LinkProps } from "@gc-digital-talent/ui";
 
@@ -8,18 +8,14 @@ import useRoutes from "~/hooks/useRoutes";
 const generateLink = (
   href: LinkProps["href"],
   state: LinkProps["state"],
-  chunks: React.ReactNode,
+  chunks: ReactNode,
 ) => (
   <Link newTab external href={href} state={state}>
     {chunks}
   </Link>
 );
 
-const ClosingDateDialog = ({
-  title,
-}: {
-  title: React.ReactNode;
-}): React.JSX.Element => {
+const ClosingDateDialog = ({ title }: { title: ReactNode }): JSX.Element => {
   const intl = useIntl();
   const routes = useRoutes();
 
@@ -77,7 +73,7 @@ const ClosingDateDialog = ({
                   description: "Third paragraph for pool closing date dialog",
                 },
                 {
-                  link: (chunks: React.ReactNode) =>
+                  link: (chunks: ReactNode) =>
                     generateLink(
                       routes.support(),
                       { referrer: window.location.href },

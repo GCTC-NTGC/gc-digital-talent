@@ -64,8 +64,7 @@ import {
   getPublishingGroup,
   getAbbreviations,
   getIndigenousCommunity,
-  OperationalRequirementV1,
-  OperationalRequirementV2,
+  OperationalRequirements,
   GenericJobTitlesSorted,
   poolCandidatePriorities,
   getCandidateExpiryFilterStatus,
@@ -85,7 +84,6 @@ import {
   getPlacementType,
   getCandidateRemovalReason,
 } from "./messages/localizedConstants";
-import getOrThrowError from "./utils/error";
 import type { LocalizedArray } from "./utils/localize";
 import type { Locales, Messages } from "./types";
 
@@ -115,7 +113,6 @@ export {
   NestedLanguageProvider,
   useIntlLanguages,
   useLocale,
-  getOrThrowError,
 };
 
 export {
@@ -153,8 +150,7 @@ export {
   getPoolCandidatePriorities,
   getPublishingGroup,
   getIndigenousCommunity,
-  OperationalRequirementV1,
-  OperationalRequirementV2,
+  OperationalRequirements,
   GenericJobTitlesSorted,
   poolCandidatePriorities,
   getAbbreviations,

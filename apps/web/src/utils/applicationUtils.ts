@@ -190,9 +190,3 @@ export function isApplicationInProgress(a: {
     (isDraftStatus(a.status) && !poolIsExpired) || isToAssessStatus(a.status)
   );
 }
-
-export function notRemoved(a: {
-  status?: Maybe<PoolCandidateStatus>;
-}): boolean {
-  return a.status !== PoolCandidateStatus.Removed;
-}

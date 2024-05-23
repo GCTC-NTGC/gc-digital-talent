@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { StoryFn, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
@@ -22,7 +22,7 @@ export default {
 } as Meta;
 
 const Template: StoryFn<{ label: string }> = (args) => {
-  const [isChecked, setChecked] = React.useState<boolean>(false);
+  const [isChecked, setChecked] = useState<boolean>(false);
   const { label } = args;
 
   const handleCheck = () => {

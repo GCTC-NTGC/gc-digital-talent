@@ -1,4 +1,3 @@
-import React from "react";
 import { MessageDescriptor, defineMessage, useIntl } from "react-intl";
 import LightBulbOutlineIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import LightBulbSolidIcon from "@heroicons/react/24/solid/LightBulbIcon";

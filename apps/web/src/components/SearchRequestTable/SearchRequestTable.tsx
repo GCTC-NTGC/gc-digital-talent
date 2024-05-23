@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import { useRef, useMemo, useState } from "react";
 import {
   ColumnDef,
   PaginationState,
@@ -170,7 +170,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
     () => (filtersEncoded ? JSON.parse(filtersEncoded) : undefined),
     [filtersEncoded],
   );
-  const filterRef = React.useRef<PoolCandidateSearchRequestInput | undefined>(
+  const filterRef = useRef<PoolCandidateSearchRequestInput | undefined>(
     initialFilters,
   );
   const [paginationState, setPaginationState] = useState<PaginationState>(

@@ -1,4 +1,3 @@
-import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 
 import { experienceGenerators, fakeUsers } from "@gc-digital-talent/fake-data";

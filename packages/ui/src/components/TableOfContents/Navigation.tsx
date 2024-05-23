@@ -1,15 +1,15 @@
-import React from "react";
 import uniqueId from "lodash/uniqueId";
 import { useIntl } from "react-intl";
 import sortBy from "lodash/sortBy";
 import head from "lodash/head";
 import reverse from "lodash/reverse";
+import { HTMLProps, useEffect } from "react";
 
 import { commonMessages, uiMessages } from "@gc-digital-talent/i18n";
 
 import Sidebar from "../Sidebar/Sidebar";
 
-type NavigationProps = React.HTMLProps<HTMLDivElement>;
+type NavigationProps = HTMLProps<HTMLDivElement>;
 
 const isEntirelyOnScreen = (element: HTMLElement) => {
   const rect = element.getBoundingClientRect();
@@ -75,7 +75,7 @@ const Navigation = ({ children, ...rest }: NavigationProps) => {
     "data-h2-text-align": "base(left)",
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     highlightCurrentNavLink(); // Make sure this runs when page is first initialized
     document.addEventListener("scroll", highlightCurrentNavLink);
     return () => {

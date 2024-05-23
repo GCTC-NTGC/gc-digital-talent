@@ -2,16 +2,16 @@
  * @jest-environment jsdom
  */
 
-import React from "react";
 import { faker } from "@faker-js/faker/locale/en";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { ComponentPropsWithoutRef } from "react";
 
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 
 import Accordion from "./Accordion";
 
-type AccordionRootPrimitivePropsWithoutRef = React.ComponentPropsWithoutRef<
+type AccordionRootPrimitivePropsWithoutRef = ComponentPropsWithoutRef<
   typeof Accordion.Root
 >;
 

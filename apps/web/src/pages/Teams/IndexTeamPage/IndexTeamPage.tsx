@@ -1,4 +1,3 @@
-import React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import UsersOutlineIcon from "@heroicons/react/24/outline/UsersIcon";
 import UsersSolidIcon from "@heroicons/react/24/solid/UsersIcon";

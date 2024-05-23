@@ -1,8 +1,8 @@
-import React from "react";
+import { ReactNode } from "react";
 
 interface FieldDisplayProps {
-  label: React.ReactNode;
-  children?: React.ReactNode;
+  label: ReactNode;
+  children?: ReactNode;
   hasError?: boolean | null;
 }
 

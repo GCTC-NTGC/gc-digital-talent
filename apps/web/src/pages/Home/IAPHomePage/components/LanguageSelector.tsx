@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
 import CheckIcon from "@heroicons/react/24/solid/CheckIcon";

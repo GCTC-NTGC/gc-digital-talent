@@ -1,11 +1,11 @@
-import React from "react";
 import { useIntl } from "react-intl";
+import { ReactNode } from "react";
 
 import { Button, Dialog, Link } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { Maybe } from "@gc-digital-talent/graphql";
 
-const contactLink = (chunks: React.ReactNode) => (
+const contactLink = (chunks: ReactNode) => (
   <Link
     color="secondary"
     external
@@ -92,7 +92,7 @@ const SubmitForPublishingDialog = ({
                 "Description of what happens after a process is submitted for publishing",
             })}
           </p>
-          <Dialog.Footer data-h2-justify-content="base(flex-start)">
+          <Dialog.Footer>
             <Dialog.Close>
               <Button mode="inline" color="secondary">
                 {intl.formatMessage({

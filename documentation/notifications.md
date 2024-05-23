@@ -2,9 +2,8 @@
 
 Sometimes, it is necessary to communicate with our users outside of the application. In order to do that, we can send emails and SMS messages using [GC Notify](https://notification.canada.ca/). This is done on the server in the `api` Laravel project.
 
-> **Note**
-> It may be useful to read over the [GC Notify documentation](https://documentation.notification.canada.ca/)
-> to get a better understanding of how the client operates.
+> [!NOTE]
+> It may be useful to read the [GC Notify documentation](https://documentation.notification.canada.ca/) to get a better understanding of how the client operates.
 
 We do this using the `App\Notify\Client` via a facade (`App\Facades\Notify`). This is bound as a singleton to the the service container.
 

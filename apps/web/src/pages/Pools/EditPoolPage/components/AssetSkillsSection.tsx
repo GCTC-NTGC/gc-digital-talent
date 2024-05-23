@@ -1,4 +1,4 @@
-import * as React from "react";
+import { JSX } from "react";
 import { useIntl } from "react-intl";
 import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
 
@@ -34,7 +34,7 @@ const AssetSkillsSection = ({
   skills,
   sectionMetadata,
   poolSkillMutations,
-}: AssetSkillsSectionProps): React.JSX.Element => {
+}: AssetSkillsSectionProps): JSX.Element => {
   const intl = useIntl();
   const pool = getFragment(EditPoolSkills_Fragment, poolQuery);
   const emptyRequired = hasEmptyRequiredFields(pool);

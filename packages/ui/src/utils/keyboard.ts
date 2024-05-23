@@ -17,6 +17,6 @@ export const arrowKeys = Object.values(ARROW_KEY);
  * @param k {string}
  * @returns {boolean}
  */
-export function isArrowKey(k: React.KeyboardEvent["key"]): k is ArrowKey {
+export function isArrowKey(k: KeyboardEvent["key"]): k is ArrowKey {
   return arrowKeys.includes(k as ArrowKey);
 }

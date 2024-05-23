@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import { useForm } from "react-hook-form";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";

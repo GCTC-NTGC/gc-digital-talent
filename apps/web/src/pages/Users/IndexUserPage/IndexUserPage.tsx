@@ -1,4 +1,3 @@
-import React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import UserCircleOutlineIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import UserCircleSolidIcon from "@heroicons/react/24/solid/UserCircleIcon";

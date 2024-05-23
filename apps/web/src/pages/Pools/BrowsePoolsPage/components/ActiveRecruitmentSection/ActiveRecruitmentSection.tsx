@@ -1,4 +1,3 @@
-import React from "react";
 import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
 import { useIntl } from "react-intl";
 

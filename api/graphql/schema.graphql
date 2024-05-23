@@ -145,6 +145,24 @@ type ApplicationDeadlineApproachingNotification implements Notification {
   poolCandidateId: ID
 }
 
+type NewJobPostedNotification implements Notification {
+  id: ID!
+  readAt: DateTime @rename(attribute: "read_at")
+  createdAt: DateTime! @rename(attribute: "created_at")
+  updatedAt: DateTime! @rename(attribute: "updated_at")
+
+  poolId: ID
+}
+
+type ApplicationStatusChangedNotification implements Notification {
+  id: ID!
+  readAt: DateTime @rename(attribute: "read_at")
+  createdAt: DateTime! @rename(attribute: "created_at")
+  updatedAt: DateTime! @rename(attribute: "updated_at")
+
+  poolName: LocalizedString
+}
+
 type UserPublicProfile @model(class: "\\App\\Models\\User") {
   id: ID!
   email: Email
@@ -435,6 +453,7 @@ type ApplicantFilter {
   qualifiedClassifications: [Classification] @belongsToMany # Filters applicants based on the classifications pools they've qualified in.
   qualifiedStreams: [PoolStream] @rename(attribute: "qualified_streams") # Filters applicants based on the streams of the pools they've qualified in.
   pools: [Pool] @belongsToMany @canResolved(ability: "view")
+  community: Community @belongsTo # Currently does not affect search, scope needs to be added
 }
 
 type PoolCandidateSearchRequest {
@@ -458,6 +477,7 @@ type PoolCandidateSearchRequest {
   positionType: PoolCandidateSearchPositionType
     @rename(attribute: "position_type")
   reason: PoolCandidateSearchRequestReason
+  community: Community @belongsTo
 }
 
 type SkillFamily {
@@ -619,13 +639,28 @@ input UserFilterInput {
   telephone: String @scope
   email: String @scope
   name: String @scope
-  generalSearch: [String] @scope
+  generalSearch: String @scope
   roles: [ID] @scope(name: "roleAssignments")
   trashed: Trashed @trashed
 }
 
 input UserPublicProfileFilterInput {
   publicProfileSearch: String @scope
+}
+
+input PoolFilterInput {
+  generalSearch: String @scope
+  name: String @scope
+  team: String @scope
+  streams: [PoolStream!] @scope
+  statuses: [PoolStatus!] @scope
+  publishingGroups: [PublishingGroup!] @scope
+  classifications: [ClassificationFilterInput!] @scope
+}
+
+input PoolTeamDisplayNameOrderByInput {
+  locale: String!
+  order: SortOrder!
 }
 
 # Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
@@ -643,12 +678,13 @@ input ApplicantFilterInput {
   qualifiedClassifications: [ClassificationFilterInput]
     @scope(name: "qualifiedClassifications") # Filters applicants based on the classification of pools they are currently qualified and available in.
   qualifiedStreams: [PoolStream] @scope(name: "qualifiedStreams") # Filters applicants based on the stream of pools they are currently qualified and available in.
+  community: IdInput
 }
 
 input PoolCandidateSearchInput {
   applicantFilter: ApplicantFilterInput @spread
   email: String @scope
-  generalSearch: [String] @scope
+  generalSearch: String @scope
   name: String @scope
   notes: String @scope
   isGovEmployee: Boolean @scope
@@ -658,6 +694,10 @@ input PoolCandidateSearchInput {
   expiryStatus: CandidateExpiryFilter @scope(name: "expiryStatus")
   suspendedStatus: CandidateSuspendedFilter @scope(name: "suspendedStatus")
   publishingGroups: [PublishingGroup] @scope(name: "publishingGroups") # Filters applicants based on the publishing group of the pool
+  # Filters applicants based on the classification of all pools they are currently in.
+  # There is also a classification field as part of ApplicantFilterInput however it includes scoping for availability.
+  appliedClassifications: [ClassificationFilterInput]
+    @scope(name: "appliedClassifications")
 }
 
 input PoolCandidateSearchRequestInput {
@@ -746,6 +786,26 @@ type Query {
     @canModel(ability: "viewAnyPublished", model: "Pool")
   pools: [Pool]!
     @all(scopes: ["authorizedToView", "notArchived"])
+    @canResolved(ability: "view")
+    @deprecated(reason: "pools is deprecated. Use poolsPaginated instead.")
+  poolsPaginated(
+    includeIds: [UUID!] @in(key: "id")
+    excludeIds: [UUID!] @notIn(key: "id")
+    where: PoolFilterInput
+    orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput @scope
+    orderBy: _
+      @orderBy(
+        relations: [
+          { relation: "user", columns: ["first_name", "email"] }
+          { relation: "classification", columns: ["group", "level"] }
+        ]
+      )
+  ): [Pool]!
+    @paginate(
+      defaultCount: 10
+      maxCount: 1000
+      scopes: ["authorizedToView", "notArchived"]
+    )
     @canResolved(ability: "view")
   poolCandidate(id: UUID! @eq): PoolCandidate
     @find
@@ -1155,6 +1215,10 @@ input DepartmentBelongsToMany {
   sync: [ID!]
 }
 
+input CommunityBelongsTo {
+  connect: UUID!
+}
+
 input CreateTeamInput {
   name: String!
     @rules(
@@ -1191,6 +1255,7 @@ input CreateApplicantFilterInput {
   armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
   qualifiedClassifications: ClassificationBelongsToMany
   qualifiedStreams: [PoolStream] @rename(attribute: "qualified_streams")
+  community: CommunityBelongsTo
 }
 
 input ApplicantFilterBelongsTo {
@@ -1201,6 +1266,7 @@ input CreatePoolCandidateSearchRequestInput {
   fullName: String! @rename(attribute: "full_name")
   email: Email!
   department: DepartmentBelongsTo!
+  community: CommunityBelongsTo!
   jobTitle: String! @rename(attribute: "job_title")
   additionalComments: String @rename(attribute: "additional_comments")
   hrAdvisorEmail: Email @rename(attribute: "hr_advisor_email")
@@ -1438,6 +1504,17 @@ input UpdatePoolInput {
   opportunityLength: PoolOpportunityLength
     @rename(attribute: "opportunity_length")
   generalQuestions: UpdateGeneralQuestionsHasMany
+}
+
+input UpdatePublishedPoolInput @validator {
+  changeJustification: String! @rename(attribute: "change_justification")
+  yourImpact: LocalizedStringInput @rename(attribute: "your_impact")
+  keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
+  whatToExpect: LocalizedStringInput @rename(attribute: "what_to_expect")
+  specialNote: LocalizedStringInput @rename(attribute: "special_note")
+  whatToExpectAdmission: LocalizedStringInput
+    @rename(attribute: "what_to_expect_admission")
+  aboutUs: LocalizedStringInput @rename(attribute: "about_us")
 }
 
 input CreatePoolSkillInput {
@@ -1841,6 +1918,10 @@ type Mutation {
     @update
     @guard
     @canFind(ability: "updateDraft", find: "id")
+  updatePublishedPool(id: ID!, pool: UpdatePublishedPoolInput! @spread): Pool
+    @update
+    @guard
+    @canFind(ability: "updatePublished", find: "id")
   createPoolSkill(
     poolId: ID! @rename(attribute: "pool_id")
     skillId: ID! @rename(attribute: "skill_id")

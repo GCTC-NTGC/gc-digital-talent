@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import type { Args, Decorator } from "@storybook/react";
 import { StoryFn, Meta } from "@storybook/react";

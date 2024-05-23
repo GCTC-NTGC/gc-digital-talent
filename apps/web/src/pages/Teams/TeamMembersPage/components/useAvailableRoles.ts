@@ -1,5 +1,5 @@
 import { useQuery } from "urql";
-import React from "react";
+import { useMemo } from "react";
 
 import { Role, graphql } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -28,7 +28,7 @@ const useAvailableRoles = (): UseAvailableRolesReturn => {
     query: TeamMembers_AvailableRolesQuery,
   });
 
-  const roles: Role[] = React.useMemo(
+  const roles: Role[] = useMemo(
     () =>
       data?.roles
         ? data.roles.filter(notEmpty).filter((role) => role.isTeamBased)

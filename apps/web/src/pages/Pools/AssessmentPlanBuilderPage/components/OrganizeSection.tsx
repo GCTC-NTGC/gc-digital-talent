@@ -1,4 +1,4 @@
-import React from "react";
+import { useMemo, useState, useEffect } from "react";
 import { defineMessage, useIntl } from "react-intl";
 import sortBy from "lodash/sortBy";
 import { useMutation } from "urql";
@@ -84,13 +84,13 @@ const OrganizeSection = ({
 }: OrganizeSectionProps) => {
   const intl = useIntl();
   const pool = getFragment(OrganizeSectionPool_Fragment, poolQuery);
-  const initialSteps = React.useMemo(
+  const initialSteps = useMemo(
     () => sortBy(unpackMaybes(pool.assessmentSteps), (step) => step.sortOrder),
     [pool.assessmentSteps],
   );
-  const [steps, setSteps] = React.useState<AssessmentStep[]>(initialSteps);
+  const [steps, setSteps] = useState<AssessmentStep[]>(initialSteps);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setSteps(initialSteps);
   }, [initialSteps]);
 

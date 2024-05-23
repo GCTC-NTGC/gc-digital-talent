@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 
@@ -182,7 +182,7 @@ const CopyApplicationIdAction = ({
   id,
 }: CopyApplicationIdActionProps) => {
   const intl = useIntl();
-  const [linkCopied, setLinkCopied] = React.useState<boolean>(false);
+  const [linkCopied, setLinkCopied] = useState<boolean>(false);
   if (!show) {
     return null;
   }

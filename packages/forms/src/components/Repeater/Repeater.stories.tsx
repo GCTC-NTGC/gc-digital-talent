@@ -1,4 +1,3 @@
-import React from "react";
 import type { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { useFieldArray, useFormContext } from "react-hook-form";

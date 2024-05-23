@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { useFormState } from "react-hook-form";
 

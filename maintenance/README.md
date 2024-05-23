@@ -51,4 +51,5 @@ In order to compile and render UI for development, you have two options:
 - Allow the first compile to happen
 - Make some changes, watch it recompile, and your Storybook page should automatically refresh
 
-**Note:** Having trouble with Storybook `.cache` permissions? Try running `sudo chmod 777 -R node_modules/.cache` from the relevant workspace.
+> [!TIP]  
+> Having trouble with Storybook `.cache` permissions? Try running `sudo chmod 777 -R node_modules/.cache` from the relevant workspace.

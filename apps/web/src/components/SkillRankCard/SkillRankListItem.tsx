@@ -1,5 +1,5 @@
-import React from "react";
 import { useIntl } from "react-intl";
+import { Fragment, ReactNode } from "react";
 
 import { Link } from "@gc-digital-talent/ui";
 import {
@@ -13,7 +13,7 @@ import useRoutes from "~/hooks/useRoutes";
 
 interface SkillLinkProps {
   id?: Scalars["ID"]["output"];
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const SkillLink = ({ id, children }: SkillLinkProps) => {
@@ -45,7 +45,7 @@ const SkillRankListItem = ({
 }: SkillRankListItemProps) => {
   const intl = useIntl();
 
-  const NameWrapper = editable ? SkillLink : React.Fragment;
+  const NameWrapper = editable ? SkillLink : Fragment;
 
   return (
     <li data-h2-margin-bottom="base(x.25)">

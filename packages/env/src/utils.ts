@@ -8,6 +8,7 @@ function isStringTrue(str: string | undefined): boolean {
  * Retrieve an environment variable value from the window object
  */
 export const getRuntimeVariable = (name: string): string | undefined => {
+  if (typeof window === "undefined") return undefined;
   const windowWithConfig = window as unknown as HasServerConfig;
   // eslint-disable-next-line no-underscore-dangle
   return windowWithConfig.__SERVER_CONFIG__?.get(name);

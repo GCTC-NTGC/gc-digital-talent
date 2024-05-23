@@ -16,7 +16,7 @@ stages:
       - job: build_artifact
         displayName: Build artifact
         pool:
-          vmImage: ubuntu-20.04
+          vmImage: ubuntu-22.04
         steps:
           - checkout: self
             clean: true

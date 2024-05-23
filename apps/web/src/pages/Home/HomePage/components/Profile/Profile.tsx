@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import UserPlusIcon from "@heroicons/react/24/outline/UserPlusIcon";
 

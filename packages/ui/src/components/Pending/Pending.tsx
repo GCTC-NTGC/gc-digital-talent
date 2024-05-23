@@ -1,6 +1,6 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import type { CombinedError } from "urql";
+import { ReactNode, Suspense } from "react";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { isUuidError } from "@gc-digital-talent/helpers";
@@ -12,7 +12,7 @@ export interface PendingProps extends LoadingProps {
   fetching: boolean;
   error?: CombinedError;
   pause?: boolean;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const Pending = ({
@@ -22,7 +22,7 @@ const Pending = ({
   inline = false,
   pause = false,
   children,
-}: PendingProps): React.JSX.Element => {
+}: PendingProps) => {
   const intl = useIntl();
   if (fetching) {
     return (
@@ -44,7 +44,7 @@ const Pending = ({
   }
 
   return (
-    <React.Suspense
+    <Suspense
       fallback={
         <Loading inline={inline} live={live} pause={pause}>
           {intl.formatMessage(commonMessages.loadingTitle)}
@@ -52,7 +52,7 @@ const Pending = ({
       }
     >
       {children}
-    </React.Suspense>
+    </Suspense>
   );
 };
 

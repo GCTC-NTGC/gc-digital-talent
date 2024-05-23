@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
 
@@ -9,9 +8,7 @@ type WorkLocationDialogProps = {
   workLocation: string;
 };
 
-const WorkLocationDialog = ({
-  workLocation,
-}: WorkLocationDialogProps): React.JSX.Element => {
+const WorkLocationDialog = ({ workLocation }: WorkLocationDialogProps) => {
   const intl = useIntl();
 
   return (

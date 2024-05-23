@@ -1,6 +1,6 @@
-import React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
+import { ReactNode } from "react";
 
 import {
   CardBasic,
@@ -254,7 +254,7 @@ export const Component = () => {
                     "Title for Indigenous community job opportunities on Browse IT jobs page",
                 },
                 {
-                  abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+                  abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
                 },
               )}
               links={[
@@ -282,8 +282,7 @@ export const Component = () => {
                       "Summary for Indigenous community job opportunities on Browse IT jobs page",
                   },
                   {
-                    abbreviation: (text: React.ReactNode) =>
-                      wrapAbbr(text, intl),
+                    abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
                   },
                 )}
               </p>
@@ -314,8 +313,7 @@ export const Component = () => {
                       "Summary for to go to the search page on Browse IT jobs page",
                   },
                   {
-                    abbreviation: (text: React.ReactNode) =>
-                      wrapAbbr(text, intl),
+                    abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
                   },
                 )}
               </p>

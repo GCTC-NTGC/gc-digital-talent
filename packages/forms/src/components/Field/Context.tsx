@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Well, WellProps } from "@gc-digital-talent/ui";
 
 const Context = (props: Omit<WellProps, "fontSize">) => {

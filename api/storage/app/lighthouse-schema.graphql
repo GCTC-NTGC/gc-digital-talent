@@ -11,7 +11,7 @@ type Query {
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: UUID!): Pool
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
-  pools: [Pool]!
+  pools: [Pool]! @deprecated(reason: "pools is deprecated. Use poolsPaginated instead.")
   poolCandidate(id: UUID!): PoolCandidate
   poolCandidates(includeIds: [ID]!): [PoolCandidate]! @deprecated(reason: "poolCandidates is deprecated. Use poolCandidatesPaginated instead. Remove in #7656.")
   countPoolCandidatesByPool(where: ApplicantFilterInput): [CandidateSearchPoolResult!]!
@@ -56,6 +56,19 @@ type Query {
     "The offset from which items are returned."
     page: Int
   ): UserPublicProfilePaginator!
+  poolsPaginated(
+    includeIds: [UUID!]
+    excludeIds: [UUID!]
+    where: PoolFilterInput
+    orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput
+    orderBy: [QueryPoolsPaginatedOrderByRelationOrderByClause!]
+
+    "Limits number of fetched items. Maximum allowed value: 1000."
+    first: Int! = 10
+
+    "The offset from which items are returned."
+    page: Int
+  ): PoolPaginator!
   poolCandidatesPaginated(
     where: PoolCandidateSearchInput
     orderByPoolName: PoolCandidatePoolNameOrderByInput
@@ -141,6 +154,7 @@ type Mutation {
   createPool(userId: ID!, teamId: ID!, pool: CreatePoolInput!): Pool
   duplicatePool(id: ID!, teamId: ID!): Pool
   updatePool(id: ID!, pool: UpdatePoolInput!): Pool
+  updatePublishedPool(id: ID!, pool: UpdatePublishedPoolInput!): Pool
   createPoolSkill(poolId: ID!, skillId: ID!, poolSkill: CreatePoolSkillInput!): PoolSkill
   updatePoolSkill(id: ID!, poolSkill: UpdatePoolSkillInput!): PoolSkill
   deletePoolSkill(id: ID!): PoolSkill
@@ -296,6 +310,22 @@ type ApplicationDeadlineApproachingNotification implements Notification {
   poolName: LocalizedString
   poolId: ID
   poolCandidateId: ID
+}
+
+type NewJobPostedNotification implements Notification {
+  id: ID!
+  readAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  poolId: ID
+}
+
+type ApplicationStatusChangedNotification implements Notification {
+  id: ID!
+  readAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  poolName: LocalizedString
 }
 
 type UserPublicProfile {
@@ -530,6 +560,7 @@ type ApplicantFilter {
   qualifiedClassifications: [Classification]
   qualifiedStreams: [PoolStream]
   pools: [Pool]
+  community: Community
 }
 
 type PoolCandidateSearchRequest {
@@ -550,6 +581,7 @@ type PoolCandidateSearchRequest {
   managerJobTitle: String
   positionType: PoolCandidateSearchPositionType
   reason: PoolCandidateSearchRequestReason
+  community: Community
 }
 
 type SkillFamily {
@@ -699,13 +731,28 @@ input UserFilterInput {
   telephone: String
   email: String
   name: String
-  generalSearch: [String]
+  generalSearch: String
   roles: [ID]
   trashed: Trashed
 }
 
 input UserPublicProfileFilterInput {
   publicProfileSearch: String
+}
+
+input PoolFilterInput {
+  generalSearch: String
+  name: String
+  team: String
+  streams: [PoolStream!]
+  statuses: [PoolStatus!]
+  publishingGroups: [PublishingGroup!]
+  classifications: [ClassificationFilterInput!]
+}
+
+input PoolTeamDisplayNameOrderByInput {
+  locale: String!
+  order: SortOrder!
 }
 
 input ApplicantFilterInput {
@@ -720,12 +767,13 @@ input ApplicantFilterInput {
   skillsIntersectional: [IdInput]
   qualifiedClassifications: [ClassificationFilterInput]
   qualifiedStreams: [PoolStream]
+  community: IdInput
 }
 
 input PoolCandidateSearchInput {
   applicantFilter: ApplicantFilterInput
   email: String
-  generalSearch: [String]
+  generalSearch: String
   name: String
   notes: String
   isGovEmployee: Boolean
@@ -734,6 +782,7 @@ input PoolCandidateSearchInput {
   expiryStatus: CandidateExpiryFilter
   suspendedStatus: CandidateSuspendedFilter
   publishingGroups: [PublishingGroup]
+  appliedClassifications: [ClassificationFilterInput]
 }
 
 input PoolCandidateSearchRequestInput {
@@ -1014,6 +1063,10 @@ input DepartmentBelongsToMany {
   sync: [ID!]
 }
 
+input CommunityBelongsTo {
+  connect: UUID!
+}
+
 input CreateTeamInput {
   name: String!
   displayName: LocalizedStringInput
@@ -1043,6 +1096,7 @@ input CreateApplicantFilterInput {
   armedForcesStatus: ArmedForcesStatus
   qualifiedClassifications: ClassificationBelongsToMany
   qualifiedStreams: [PoolStream]
+  community: CommunityBelongsTo
 }
 
 input ApplicantFilterBelongsTo {
@@ -1053,6 +1107,7 @@ input CreatePoolCandidateSearchRequestInput {
   fullName: String!
   email: Email!
   department: DepartmentBelongsTo!
+  community: CommunityBelongsTo!
   jobTitle: String!
   additionalComments: String
   hrAdvisorEmail: Email
@@ -1266,6 +1321,16 @@ input UpdatePoolInput {
   publishingGroup: PublishingGroup
   opportunityLength: PoolOpportunityLength
   generalQuestions: UpdateGeneralQuestionsHasMany
+}
+
+input UpdatePublishedPoolInput {
+  changeJustification: String!
+  yourImpact: LocalizedStringInput
+  keyTasks: LocalizedStringInput
+  whatToExpect: LocalizedStringInput
+  specialNote: LocalizedStringInput
+  whatToExpectAdmission: LocalizedStringInput
+  aboutUs: LocalizedStringInput
 }
 
 input CreatePoolSkillInput {
@@ -1710,6 +1775,15 @@ type UserPublicProfilePaginator {
   data: [UserPublicProfile!]!
 }
 
+"A paginated list of Pool items."
+type PoolPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of Pool items."
+  data: [Pool!]!
+}
+
 "A paginated list of PoolCandidateWithSkillCount items."
 type PoolCandidateWithSkillCountPaginator {
   "Pagination information about the list of items."
@@ -1735,6 +1809,51 @@ type NotificationPaginator {
 
   "A list of Notification items."
   data: [Notification!]!
+}
+
+"Allowed column names for Query.poolsPaginated.orderBy."
+enum QueryPoolsPaginatedOrderByUserColumn {
+  FIRST_NAME
+  EMAIL
+}
+
+"Aggregate specification for Query.poolsPaginated.orderBy.user."
+input QueryPoolsPaginatedOrderByUser {
+  "The aggregate function to apply to the column."
+  aggregate: OrderByRelationWithColumnAggregateFunction!
+
+  "Name of the column to use."
+  column: QueryPoolsPaginatedOrderByUserColumn
+}
+
+"Allowed column names for Query.poolsPaginated.orderBy."
+enum QueryPoolsPaginatedOrderByClassificationColumn {
+  GROUP
+  LEVEL
+}
+
+"Aggregate specification for Query.poolsPaginated.orderBy.classification."
+input QueryPoolsPaginatedOrderByClassification {
+  "The aggregate function to apply to the column."
+  aggregate: OrderByRelationWithColumnAggregateFunction!
+
+  "Name of the column to use."
+  column: QueryPoolsPaginatedOrderByClassificationColumn
+}
+
+"Order by clause for Query.poolsPaginated.orderBy."
+input QueryPoolsPaginatedOrderByRelationOrderByClause {
+  "The column that is used for ordering."
+  column: String
+
+  "The direction that is used for ordering."
+  order: SortOrder!
+
+  "Aggregate specification."
+  user: QueryPoolsPaginatedOrderByUser
+
+  "Aggregate specification."
+  classification: QueryPoolsPaginatedOrderByClassification
 }
 
 "Allowed column names for Query.poolCandidatesPaginated.orderBy."
@@ -2114,8 +2233,6 @@ enum OperationalRequirement {
   TRAVEL
   TRANSPORT_EQUIPMENT
   DRIVERS_LICENSE
-  OVERTIME_SCHEDULED
-  OVERTIME_SHORT_NOTICE
   OVERTIME_OCCASIONAL
   OVERTIME_REGULAR
 }
@@ -2127,6 +2244,7 @@ enum GenericJobTitleKey {
   TECHNICAL_ADVISOR_IT03
   SENIOR_ADVISOR_IT04
   MANAGER_IT04
+  EXECUTIVE_EX03
 }
 
 enum PoolCandidateSearchStatus {
