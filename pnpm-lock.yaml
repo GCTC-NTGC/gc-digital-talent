@@ -686,8 +686,8 @@ importers:
         specifier: ^3.6.0
         version: 3.6.0
       downshift:
-        specifier: ^9.0.4
-        version: 9.0.4(react@18.3.1)
+        specifier: ^9.0.6
+        version: 9.0.6(react@18.3.1)
       framer-motion:
         specifier: ^11.2.3
         version: 11.2.3(react-dom@18.3.1)(react@18.3.1)
@@ -9612,8 +9612,8 @@ packages:
     resolution: {integrity: sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==}
     engines: {node: '>=12'}
 
-  /downshift@9.0.4(react@18.3.1):
-    resolution: {integrity: sha512-6XV/p6+4177d8e8dJ6PoLNSDG1bv52FL18yilKD06oZCb6dFG6f6dXcn3h0B1ggcrOkN3hIvL11Qt15Y5McbXw==}
+  /downshift@9.0.6(react@18.3.1):
+    resolution: {integrity: sha512-lkqWh0eb34XuH+3z3/BH/LGVRV7ur0rielSlxtlQKsjAFF/wc/c0wsM9phUGXyzK2g1QWHoNHQyc+vVAheI17Q==}
     peerDependencies:
       react: '>=16.12.0'
     dependencies:
