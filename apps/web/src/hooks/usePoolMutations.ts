@@ -225,8 +225,8 @@ const usePoolMutations = (returnPath?: string) => {
     );
   };
 
-  const publish = (id: string) => {
-    executePublishMutation({ id })
+  const publish = async (id: string) => {
+    await executePublishMutation({ id })
       .then((result) => {
         if (result.data?.publishPool) {
           navigateBack();

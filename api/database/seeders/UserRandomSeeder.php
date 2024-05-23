@@ -68,7 +68,7 @@ class UserRandomSeeder extends Seeder
                     $this->seedPoolCandidate($user, $pool);
                 }
             })
-            ->create();
+            ->createQuietly();
 
         // applicant@test.com bespoke seeding
         $applicant = User::where('sub', 'applicant@test.com')->sole();
@@ -140,7 +140,7 @@ class UserRandomSeeder extends Seeder
                     $this->seedPoolCandidate($user, $pool);
                 }
             })
-            ->create();
+            ->createQuietly();
     }
 
     private function seedPoolCandidate(User $user, Pool $pool)
@@ -152,7 +152,7 @@ class UserRandomSeeder extends Seeder
                     $candidate->createSnapshot();
                 }
             })
-            ->create();
+            ->createQuietly();
     }
 
     private function seedExperienceForPoolWithEssentialSkills(User $user, Pool $pool)
@@ -176,7 +176,7 @@ class UserRandomSeeder extends Seeder
             $experienceFactory->for($user)
                 ->afterCreating(function ($model) use ($data) {
                     $model->syncSkills($data);
-                })->create();
+                })->createQuietly();
         }
     }
 
@@ -189,6 +189,6 @@ class UserRandomSeeder extends Seeder
                     $candidate->createSnapshot();
                 }
             })
-            ->create();
+            ->createQuietly();
     }
 }

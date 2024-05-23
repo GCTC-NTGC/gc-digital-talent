@@ -19,6 +19,9 @@ const createSearchQuery = (parameters: Map<string, string>): string => {
   return `?${keyValuePairStrings.join("&")}`;
 };
 
+const createFragment = (identifier: string | null | undefined): string =>
+  identifier ? `#${identifier}` : "";
+
 const getRoutes = (lang: Locales) => {
   const baseUrl = path.join("/", lang);
   const adminUrl = path.join(baseUrl, "admin");
@@ -239,13 +242,18 @@ const getRoutes = (lang: Locales) => {
     profileAndApplications: (opts?: {
       fromIapDraft?: boolean;
       fromIapSuccess?: boolean;
+      fragmentIdentifier?: "track-applications-section";
     }) => {
       const searchParams = new Map<string, string>();
       if (opts?.fromIapDraft) searchParams.set(FromIapDraftQueryKey, "true");
       if (opts?.fromIapSuccess)
         searchParams.set(FromIapSuccessQueryKey, "true");
 
-      return applicantUrl + createSearchQuery(searchParams);
+      return (
+        applicantUrl +
+        createSearchQuery(searchParams) +
+        createFragment(opts?.fragmentIdentifier)
+      );
     },
 
     skillLibrary: () => path.join(applicantUrl, "skills"),

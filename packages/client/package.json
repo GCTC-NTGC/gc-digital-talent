@@ -26,14 +26,14 @@
     "graphql": "^16.8.1",
     "jwt-decode": "^4.0.0",
     "lodash": "^4.17.21",
-    "react-intl": "^6.6.6",
+    "react-intl": "^6.6.8",
     "urql": "^4.1.0"
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/jest-presets": "workspace:*",
     "@types/jest": "^29.5.12",
-    "@types/lodash": "^4.17.1",
+    "@types/lodash": "^4.17.4",
     "@types/node": "^20.12.12",
     "@types/react": "^18.3.2",
     "eslint": "^8.57.0",

@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 
 import {
   ApplicationDeadlineApproachingNotification,
+  ApplicationStatusChangedNotification,
   NewJobPostedNotification,
   Notification,
 } from "@gc-digital-talent/graphql";
@@ -77,6 +78,49 @@ const applicationDeadlineApproachingNotificationToInfo = (
   };
 };
 
+function isApplicationStatusChangedNotification(
+  notification: GraphqlType,
+): notification is ApplicationStatusChangedNotification {
+  return notification.__typename === "ApplicationStatusChangedNotification";
+}
+
+const applicationStatusChangedNotificationToInfo = (
+  notification: ApplicationStatusChangedNotification,
+  paths: ReturnType<typeof useRoutes>,
+  intl: IntlShape,
+): NotificationInfo => {
+  const poolNameLocalized = getLocalizedName(notification.poolName, intl);
+
+  return {
+    message: intl.formatMessage(
+      {
+        defaultMessage:
+          "The status of your application for {poolName} has been updated.",
+        id: "FSBogI",
+        description: "Message for application status changed notification",
+      },
+      {
+        poolName: poolNameLocalized,
+      },
+    ),
+    href: paths.profileAndApplications({
+      fragmentIdentifier: "track-applications-section",
+    }),
+    label: intl.formatMessage(
+      {
+        defaultMessage:
+          "The status of your application for {poolName} has been updated.",
+        id: "LHv3/N",
+        description:
+          "Label for the application deadline approaching notification",
+      },
+      {
+        poolName: poolNameLocalized,
+      },
+    ),
+  };
+};
+
 function isNewJobPostedNotification(
   notification: GraphqlType,
 ): notification is NewJobPostedNotification {
@@ -114,6 +158,14 @@ const useNotificationInfo = (
 
   if (isApplicationDeadlineApproachingNotification(notification)) {
     return applicationDeadlineApproachingNotificationToInfo(
+      notification,
+      paths,
+      intl,
+    );
+  }
+
+  if (isApplicationStatusChangedNotification(notification)) {
+    return applicationStatusChangedNotificationToInfo(
       notification,
       paths,
       intl,

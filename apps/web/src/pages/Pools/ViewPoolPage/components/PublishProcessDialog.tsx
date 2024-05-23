@@ -48,12 +48,6 @@ const PublishProcessDialog = ({
     });
   }
 
-  const handlePublish = async () => {
-    await onPublish().then(() => {
-      setIsOpen(false);
-    });
-  };
-
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
@@ -122,11 +116,7 @@ const PublishProcessDialog = ({
               )}
           </ul>
           <Dialog.Footer>
-            <Button
-              color="secondary"
-              onClick={handlePublish}
-              disabled={isFetching}
-            >
+            <Button color="secondary" onClick={onPublish} disabled={isFetching}>
               {title}
             </Button>
             <Dialog.Close>
