@@ -15,7 +15,10 @@ class SendNotificationsTest extends Command
      *
      * @var string
      */
-    protected $signature = 'send-notifications:test';
+    protected $signature = 'send-notifications:test
+                            {emailAddress : The email address of the user}
+                            {number=1}
+    ';
 
     /**
      * The console command description.
@@ -31,17 +34,16 @@ class SendNotificationsTest extends Command
      */
     public function handle()
     {
+        $emailAddress = $this->argument('emailAddress');
+        $numberOfMessages = $this->argument('number');
+
         $successCount = 0;
         $failureCount = 0;
 
-        $user = User::where('email', config('notify.smokeTest.emailAddress'))->first();
-        if ($user == null) {
-            $user = User::factory()->create(['email' => config('notify.smokeTest.emailAddress')]);
-            $user->save();
-        }
+        $user = User::where('email', $emailAddress)->sole();
 
         $notification = new Test('test', GcNotifyEmailChannel::class);
-        for ($i = 0; $i < 4; $i++) {
+        for ($i = 0; $i < $numberOfMessages; $i++) {
             try {
                 $user->notify($notification);
                 $successCount++;
