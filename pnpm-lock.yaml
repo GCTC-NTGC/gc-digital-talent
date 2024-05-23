@@ -74,7 +74,7 @@ importers:
     dependencies:
       '@axe-core/playwright':
         specifier: ^4.9.1
-        version: 4.9.1(playwright-core@1.44.0)
+        version: 4.9.1(playwright-core@1.44.1)
     devDependencies:
       '@gc-digital-talent/date-helpers':
         specifier: workspace:*
@@ -264,8 +264,8 @@ importers:
         specifier: ^3.5.9
         version: 3.5.9
       '@types/lodash':
-        specifier: ^4.17.1
-        version: 4.17.1
+        specifier: ^4.17.4
+        version: 4.17.4
       '@types/react':
         specifier: ^18.3.2
         version: 18.3.2
@@ -462,8 +462,8 @@ importers:
         specifier: ^29.5.12
         version: 29.5.12
       '@types/lodash':
-        specifier: ^4.17.1
-        version: 4.17.1
+        specifier: ^4.17.4
+        version: 4.17.4
       '@types/node':
         specifier: ^20.12.12
         version: 20.12.12
@@ -629,8 +629,8 @@ importers:
         specifier: workspace:*
         version: link:../eslint-config-custom
       '@types/lodash':
-        specifier: ^4.17.1
-        version: 4.17.1
+        specifier: ^4.17.4
+        version: 4.17.4
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
@@ -735,8 +735,8 @@ importers:
         specifier: ^29.5.12
         version: 29.5.12
       '@types/lodash':
-        specifier: ^4.17.1
-        version: 4.17.1
+        specifier: ^4.17.4
+        version: 4.17.4
       '@types/node':
         specifier: ^20.12.12
         version: 20.12.12
@@ -817,8 +817,8 @@ importers:
         specifier: workspace:*
         version: link:../eslint-config-custom
       '@types/lodash':
-        specifier: ^4.17.1
-        version: 4.17.1
+        specifier: ^4.17.4
+        version: 4.17.4
       '@types/react':
         specifier: ^18.3.2
         version: 18.3.2
@@ -1284,8 +1284,8 @@ importers:
         specifier: ^29.5.12
         version: 29.5.12
       '@types/lodash':
-        specifier: ^4.17.1
-        version: 4.17.1
+        specifier: ^4.17.4
+        version: 4.17.4
       '@types/react':
         specifier: ^18.3.2
         version: 18.3.2
@@ -1429,13 +1429,13 @@ packages:
       default-browser-id: 3.0.0
     dev: true
 
-  /@axe-core/playwright@4.9.1(playwright-core@1.44.0):
+  /@axe-core/playwright@4.9.1(playwright-core@1.44.1):
     resolution: {integrity: sha512-8m4WZbZq7/aq7ZY5IG8GqV+ZdvtGn/iJdom+wBg+iv/3BAOBIfNQtIu697a41438DzEEyptXWmC3Xl5Kx/o9/g==}
     peerDependencies:
       playwright-core: '>= 1.0.0'
     dependencies:
       axe-core: 4.9.1
-      playwright-core: 1.44.0
+      playwright-core: 1.44.1
     dev: false
 
   /@babel/code-frame@7.24.2:
@@ -5556,7 +5556,7 @@ packages:
       '@storybook/preview-api': 8.1.2
       '@storybook/theming': 8.1.2(react-dom@18.3.1)(react@18.3.1)
       '@storybook/types': 8.1.2
-      '@types/lodash': 4.17.1
+      '@types/lodash': 4.17.4
       color-convert: 2.0.1
       dequal: 2.0.3
       lodash: 4.17.21
@@ -6893,8 +6893,8 @@ packages:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
     dev: true
 
-  /@types/lodash@4.17.1:
-    resolution: {integrity: sha512-X+2qazGS3jxLAIz5JDXDzglAF3KpijdhFxlf/V1+hEsOUc+HnWi81L/uv/EvGuV90WY+7mPGFCUDGfQC3Gj95Q==}
+  /@types/lodash@4.17.4:
+    resolution: {integrity: sha512-wYCP26ZLxaT3R39kiN2+HcJ4kTd3U1waI/cY7ivWYqFP6pW3ZNpvi6Wd6PHZx7T/t8z0vlkXMg3QYLa7DZ/IJQ==}
     dev: true
 
   /@types/mdx@2.0.11:
@@ -13799,6 +13799,13 @@ packages:
     resolution: {integrity: sha512-ZTbkNpFfYcGWohvTTl+xewITm7EOuqIqex0c7dNZ+aXsbrLj0qI8XlGKfPpipjm0Wny/4Lt4CJsWJk1stVS5qQ==}
     engines: {node: '>=16'}
     hasBin: true
+    dev: true
+
+  /playwright-core@1.44.1:
+    resolution: {integrity: sha512-wh0JWtYTrhv1+OSsLPgFzGzt67Y7BE/ZS3jEqgGBlp2ppp1ZDj8c+9IARNW4dwf1poq5MgHreEM2KV/GuR4cFA==}
+    engines: {node: '>=16'}
+    hasBin: true
+    dev: false
 
   /playwright@1.44.0:
     resolution: {integrity: sha512-F9b3GUCLQ3Nffrfb6dunPOkE5Mh68tR7zN32L4jCk4FjQamgesGay7/dAAe1WaMEGV04DkdJfcJzjoCKygUaRQ==}
