@@ -113,6 +113,7 @@ stages:
             displayName: "Run playwright tests"
             env:
               CI: "true"
+              BASE_URL: "https://dev-talentcloud.tbs-sct.gc.ca"
           - task: AzureCLI@2
             displayName: "Copy Playwright Results to Storage"
             condition: always()
