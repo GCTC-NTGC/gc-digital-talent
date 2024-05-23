@@ -571,8 +571,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0(eslint@8.57.0)(typescript@5.4.5)
       eslint-plugin-formatjs:
-        specifier: ^4.13.1
-        version: 4.13.1(eslint@8.57.0)
+        specifier: ^4.13.3
+        version: 4.13.3(eslint@8.57.0)
       eslint-plugin-import:
         specifier: ^2.29.1
         version: 2.29.1(@typescript-eslint/parser@7.10.0)(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0)
@@ -3245,6 +3245,23 @@ packages:
       ts-jest: 29.1.2(@babel/core@7.24.5)(esbuild@0.20.2)(jest@29.7.0)(typescript@5.4.5)
       tslib: 2.6.2
       typescript: 5.4.5
+
+  /@formatjs/ts-transformer@3.13.14:
+    resolution: {integrity: sha512-TP/R54lxQ9Drzzimxrrt6yBT/xBofTgYl5wSTpyKe3Aq9vIBVcFmS6EOqycj0X34KGu3EpDPGO0ng8ZQZGLIFg==}
+    peerDependencies:
+      ts-jest: '>=27'
+    peerDependenciesMeta:
+      ts-jest:
+        optional: true
+    dependencies:
+      '@formatjs/icu-messageformat-parser': 2.7.8
+      '@types/json-stable-stringify': 1.0.36
+      '@types/node': 17.0.45
+      chalk: 4.1.2
+      json-stable-stringify: 1.1.1
+      tslib: 2.6.2
+      typescript: 5.4.5
+    dev: true
 
   /@graphql-codegen/add@5.0.2(graphql@16.8.1):
     resolution: {integrity: sha512-ouBkSvMFUhda5VoKumo/ZvsZM9P5ZTyDsI8LW18VxSNWOjrTeLXBWHG8Gfaai0HwhflPtCYVABbriEcOmrRShQ==}
@@ -10088,13 +10105,13 @@ packages:
       regexpp: 3.2.0
     dev: true
 
-  /eslint-plugin-formatjs@4.13.1(eslint@8.57.0):
-    resolution: {integrity: sha512-QYXgrBYLwEcqN4Vvis18es1JFAY+6YAkjpyNmTZzAMpithZm9U7z6eWUD4gqFainWlk8cFKvkOOvSyQ4/LUgVA==}
+  /eslint-plugin-formatjs@4.13.3(eslint@8.57.0):
+    resolution: {integrity: sha512-4j3IVwaLEXblnvH2/ZIOZwc9zaaZf2+zyn/b8oLJRt6kMCTu2rIs4UsIxy5nBRYZzsBSh7k34JJ5/ngGtJ3kYw==}
     peerDependencies:
       eslint: 7 || 8
     dependencies:
-      '@formatjs/icu-messageformat-parser': 2.7.6
-      '@formatjs/ts-transformer': 3.13.12(ts-jest@29.1.2)
+      '@formatjs/icu-messageformat-parser': 2.7.8
+      '@formatjs/ts-transformer': 3.13.14
       '@types/eslint': 8.56.3
       '@types/picomatch': 2.3.3
       '@typescript-eslint/utils': 6.21.0(eslint@8.57.0)(typescript@5.4.5)
