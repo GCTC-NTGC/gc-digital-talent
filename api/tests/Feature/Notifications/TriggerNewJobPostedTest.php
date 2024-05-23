@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Notifications;
 
+use App\Enums\NotificationFamily;
 use App\Models\Pool;
 use App\Models\Team;
 use App\Models\User;
@@ -36,15 +37,15 @@ class TriggerNewJobPostedTest extends TestCase
             ->asAdmin()
             ->create([
                 'sub' => 'adminUser',
-                'ignored_email_notifications' => [],
-                'ignored_in_app_notifications' => [],
+                'enabled_email_notifications' => [NotificationFamily::JOB_ALERT->name],
+                'enabled_in_app_notifications' => [NotificationFamily::JOB_ALERT->name],
             ]);
         $this->regularUser = User::factory()
             ->asApplicant()
             ->create([
                 'sub' => 'regularUser',
-                'ignored_email_notifications' => [],
-                'ignored_in_app_notifications' => [],
+                'enabled_email_notifications' => [NotificationFamily::JOB_ALERT->name],
+                'enabled_in_app_notifications' => [NotificationFamily::JOB_ALERT->name],
             ]);
     }
 

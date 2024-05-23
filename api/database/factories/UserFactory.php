@@ -61,6 +61,10 @@ class UserFactory extends Factory
             $examLevels = true;
         }
 
+        $availableNotificationFamilies = array_filter(array_column(NotificationFamily::cases(), 'name'), function ($family) {
+            return $family !== NotificationFamily::SYSTEM_MESSAGE->name;
+        });
+
         return [
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
@@ -124,8 +128,8 @@ class UserFactory extends Factory
             'priority_number' => $hasPriorityEntitlement ? $this->faker->word() : null,
             'indigenous_declaration_signature' => $isDeclared ? $this->faker->firstName() : null,
             'indigenous_communities' => $isDeclared ? [$this->faker->randomElement(IndigenousCommunity::cases())->name] : [],
-            'ignored_email_notifications' => $this->faker->optional->randomElements(array_column(NotificationFamily::cases(), 'name'), null),
-            'ignored_in_app_notifications' => $this->faker->optional->randomElements(array_column(NotificationFamily::cases(), 'name'), null),
+            'enabled_email_notifications' => $this->faker->optional->randomElements($availableNotificationFamilies, null),
+            'enabled_in_app_notifications' => $this->faker->optional->randomElements($availableNotificationFamilies, null),
         ];
     }
 

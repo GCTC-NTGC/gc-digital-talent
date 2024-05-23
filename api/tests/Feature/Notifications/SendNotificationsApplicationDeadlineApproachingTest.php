@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Notifications;
 
+use App\Enums\NotificationFamily;
 use App\Enums\PoolCandidateStatus;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
@@ -56,8 +57,8 @@ class SendNotificationsApplicationDeadlineApproachingTest extends TestCase
         $user = User::factory()
             ->create(
                 [
-                    'ignored_email_notifications' => [],
-                    'ignored_in_app_notifications' => [],
+                    'enabled_email_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
+                    'enabled_in_app_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
                 ]
             );
         PoolCandidate::factory()
@@ -93,8 +94,8 @@ class SendNotificationsApplicationDeadlineApproachingTest extends TestCase
         $user = User::factory()
             ->create(
                 [
-                    'ignored_email_notifications' => [],
-                    'ignored_in_app_notifications' => [],
+                    'enabled_email_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
+                    'enabled_in_app_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
                 ]
             );
         PoolCandidate::factory()
@@ -128,8 +129,8 @@ class SendNotificationsApplicationDeadlineApproachingTest extends TestCase
         $user = User::factory()
             ->create(
                 [
-                    'ignored_email_notifications' => [],
-                    'ignored_in_app_notifications' => [],
+                    'enabled_email_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
+                    'enabled_in_app_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
                 ]
             );
         PoolCandidate::factory()
