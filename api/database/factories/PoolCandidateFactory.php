@@ -167,7 +167,7 @@ class PoolCandidateFactory extends Factory
             // claim verification
             if ($poolCandidate->user->armed_forces_status == ArmedForcesStatus::VETERAN->name) {
                 $vetVerification = $this->faker->randomElement(array_column(ClaimVerificationResult::cases(), 'name'));
-                $vetExpiryBoolean = $vetVerification != ClaimVerificationResult::UNVERIFIED->name && $this->faker->boolean();
+                $vetExpiryBoolean = $vetVerification == ClaimVerificationResult::ACCEPTED->name && $this->faker->boolean();
 
                 $poolCandidate->update([
                     'veteran_verification' => $vetVerification,
@@ -175,9 +175,12 @@ class PoolCandidateFactory extends Factory
                 ]);
             }
             if ($poolCandidate->user->has_priority_entitlement) {
+                $priorityVerification = $this->faker->randomElement(array_column(ClaimVerificationResult::cases(), 'name'));
+                $priorityExpiryBoolean = $priorityVerification == ClaimVerificationResult::ACCEPTED->name;
+
                 $poolCandidate->update([
-                    'priority_verification' => $this->faker->randomElement(array_column(ClaimVerificationResult::cases(), 'name')),
-                    'priority_verification_expiry' => $this->faker->dateTimeBetween('6 months', '24 months'),
+                    'priority_verification' => $priorityVerification,
+                    'priority_verification_expiry' => $priorityExpiryBoolean ? $this->faker->dateTimeBetween('6 months', '24 months') : null,
                 ]);
             }
         });
