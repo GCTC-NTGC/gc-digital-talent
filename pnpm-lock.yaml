@@ -894,8 +894,8 @@ importers:
         specifier: workspace:*
         version: link:../tsconfig
       tsx:
-        specifier: ^4.10.2
-        version: 4.10.2
+        specifier: ^4.10.5
+        version: 4.10.5
       typescript:
         specifier: ^5.4.5
         version: 5.4.5
@@ -11023,6 +11023,12 @@ packages:
       resolve-pkg-maps: 1.0.0
     dev: true
 
+  /get-tsconfig@4.7.5:
+    resolution: {integrity: sha512-ZCuZCnlqNzjb4QprAzXKdpp/gh6KTxSJuw3IBsPnV/7fV4NxC9ckB+vPTt8w7fJA0TaSD7c55BR47JD6MEDyDw==}
+    dependencies:
+      resolve-pkg-maps: 1.0.0
+    dev: true
+
   /getos@3.2.1:
     resolution: {integrity: sha512-U56CfOK17OKgTVqozZjUKNdkfEv6jk5WISBJ8SHoagjE6L69zOwl3Z+O8myjY9MEW3i2HPWQBt/LTbCgcC973Q==}
     dependencies:
@@ -16062,13 +16068,13 @@ packages:
       typescript: 5.4.5
     dev: true
 
-  /tsx@4.10.2:
-    resolution: {integrity: sha512-gOfACgv1ElsIjvt7Fp0rMJKGnMGjox0JfGOfX3kmZCV/yZumaNqtHGKBXt1KgaYS9KjDOmqGeI8gHk/W7kWVZg==}
+  /tsx@4.10.5:
+    resolution: {integrity: sha512-twDSbf7Gtea4I2copqovUiNTEDrT8XNFXsuHpfGbdpW/z9ZW4fTghzzhAG0WfrCuJmJiOEY1nLIjq4u3oujRWQ==}
     engines: {node: '>=18.0.0'}
     hasBin: true
     dependencies:
       esbuild: 0.20.2
-      get-tsconfig: 4.7.3
+      get-tsconfig: 4.7.5
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
