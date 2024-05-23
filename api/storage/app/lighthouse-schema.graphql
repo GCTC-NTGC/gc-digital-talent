@@ -113,6 +113,7 @@ type Mutation {
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
   updatePoolCandidateStatus(id: UUID!, poolCandidate: UpdatePoolCandidateStatusInput!): PoolCandidate
   togglePoolCandidateBookmark(id: ID!): Boolean
+  updatePoolCandidateClaimVerification(id: UUID!, poolCandidate: UpdatePoolCandidateClaimVerificationInput!): PoolCandidate
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
   removeCandidate(id: UUID!, removalReason: CandidateRemovalReason!, removalReasonOther: String): PoolCandidate
   reinstateCandidate(id: UUID!): PoolCandidate
@@ -177,7 +178,7 @@ type Mutation {
   markNotificationAsUnread(id: UUID!): Notification
   deleteNotification(id: UUID!): Notification
   markAllNotificationsAsRead: [Notification]
-  updateIgnoredNotifications(ignoredEmailNotifications: [NotificationFamily], ignoredInAppNotifications: [NotificationFamily]): User
+  updateEnabledNotifications(enabledEmailNotifications: [NotificationFamily], enabledInAppNotifications: [NotificationFamily]): User
   createUserSkill(userId: UUID!, skillId: UUID!, userSkill: CreateUserSkillInput): UserSkill
   updateUserSkill(id: UUID!, userSkill: UpdateUserSkillInput): UserSkill
   updateUserSkillRankings(userId: UUID!, userSkillRanking: UpdateUserSkillRankingsInput!): User
@@ -290,8 +291,8 @@ type User {
   isProfileComplete: Boolean
   priorityWeight: Int
   authInfo: UserAuthInfo
-  ignoredEmailNotifications: [NotificationFamily]
-  ignoredInAppNotifications: [NotificationFamily]
+  enabledEmailNotifications: [NotificationFamily]
+  enabledInAppNotifications: [NotificationFamily]
 }
 
 interface Notification {
@@ -457,6 +458,10 @@ type PoolCandidate {
   finalDecisionAt: DateTime
   placedAt: DateTime
   placedDepartment: Department
+  veteranVerification: ClaimVerificationResult
+  veteranVerificationExpiry: Date
+  priorityVerification: ClaimVerificationResult
+  priorityVerificationExpiry: Date
 }
 
 type PoolCandidateWithSkillCount {
@@ -1033,6 +1038,13 @@ input UpdateClassificationInput {
 input UpdatePoolCandidateStatusInput {
   expiryDate: Date
   status: PoolCandidateStatus
+}
+
+input UpdatePoolCandidateClaimVerificationInput {
+  veteranVerification: ClaimVerificationResult
+  veteranVerificationExpiry: Date
+  priorityVerification: ClaimVerificationResult
+  priorityVerificationExpiry: Date
 }
 
 input PlaceCandidateInput {
@@ -2081,6 +2093,12 @@ enum CitizenshipStatus {
   PERMANENT_RESIDENT
   CITIZEN
   OTHER
+}
+
+enum ClaimVerificationResult {
+  ACCEPTED
+  REJECTED
+  UNVERIFIED
 }
 
 enum ArmedForcesStatus {

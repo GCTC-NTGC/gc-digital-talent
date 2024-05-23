@@ -120,10 +120,10 @@ type User {
   # authorization and roles
   authInfo: UserAuthInfo @self
   # site options
-  ignoredEmailNotifications: [NotificationFamily]
-    @rename(attribute: "ignored_email_notifications")
-  ignoredInAppNotifications: [NotificationFamily]
-    @rename(attribute: "ignored_in_app_notifications")
+  enabledEmailNotifications: [NotificationFamily]
+    @rename(attribute: "enabled_email_notifications")
+  enabledInAppNotifications: [NotificationFamily]
+    @rename(attribute: "enabled_in_app_notifications")
 }
 
 interface Notification {
@@ -336,6 +336,20 @@ type PoolCandidate {
     @rename(attribute: "placed_at")
     @canRoot(ability: "viewStatus")
   placedDepartment: Department @belongsTo @canRoot(ability: "viewStatus")
+
+  # claim verification
+  veteranVerification: ClaimVerificationResult
+    @rename(attribute: "veteran_verification")
+    @canRoot(ability: "viewNotes")
+  veteranVerificationExpiry: Date
+    @rename(attribute: "veteran_verification_expiry")
+    @canRoot(ability: "viewNotes")
+  priorityVerification: ClaimVerificationResult
+    @rename(attribute: "priority_verification")
+    @canRoot(ability: "viewNotes")
+  priorityVerificationExpiry: Date
+    @rename(attribute: "priority_verification_expiry")
+    @canRoot(ability: "viewNotes")
 }
 
 type PoolCandidateWithSkillCount {
@@ -1182,6 +1196,17 @@ input UpdatePoolCandidateStatusInput {
   status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
 }
 
+input UpdatePoolCandidateClaimVerificationInput {
+  veteranVerification: ClaimVerificationResult
+    @rename(attribute: "veteran_verification")
+  veteranVerificationExpiry: Date
+    @rename(attribute: "veteran_verification_expiry")
+  priorityVerification: ClaimVerificationResult
+    @rename(attribute: "priority_verification")
+  priorityVerificationExpiry: Date
+    @rename(attribute: "priority_verification_expiry")
+}
+
 input PlaceCandidateInput {
   placementType: PlacementType!
   departmentId: UUID!
@@ -1734,6 +1759,12 @@ type Mutation {
       model: "PoolCandidate"
       injectArgs: true
     )
+  updatePoolCandidateClaimVerification(
+    id: UUID!
+    poolCandidate: UpdatePoolCandidateClaimVerificationInput!
+      @rules(apply: ["App\\Rules\\PriorityVerificationExpiryRequirement"])
+      @spread
+  ): PoolCandidate @update @guard @canFind(ability: "updateNotes", find: "id")
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
     @update
     @guard
@@ -2008,9 +2039,9 @@ type Mutation {
   markNotificationAsUnread(id: UUID!): Notification @guard
   deleteNotification(id: UUID!): Notification @guard
   markAllNotificationsAsRead: [Notification] @guard
-  updateIgnoredNotifications(
-    ignoredEmailNotifications: [NotificationFamily]
-    ignoredInAppNotifications: [NotificationFamily]
+  updateEnabledNotifications(
+    enabledEmailNotifications: [NotificationFamily]
+    enabledInAppNotifications: [NotificationFamily]
   ): User @guard @validator
   # UserSkill mutations
   createUserSkill(
