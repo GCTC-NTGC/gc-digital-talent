@@ -216,8 +216,8 @@ importers:
         specifier: ^8.4.1
         version: 8.4.1
       '@formatjs/cli':
-        specifier: ^6.2.10
-        version: 6.2.10
+        specifier: ^6.2.12
+        version: 6.2.12
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config-custom
@@ -846,8 +846,8 @@ importers:
         version: link:../graphql
     devDependencies:
       '@formatjs/cli':
-        specifier: ^6.2.10
-        version: 6.2.10
+        specifier: ^6.2.12
+        version: 6.2.12
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config-custom
@@ -3081,15 +3081,15 @@ packages:
     resolution: {integrity: sha512-9TANp6GPoMtYzQdt54kfAyMmz1+osLlXdg2ENroU7zzrtflTLrrC/lgrIfaSe+Wu0b89GKccT7vxXA0MoAIO+Q==}
     dev: false
 
-  /@formatjs/cli@6.2.10:
-    resolution: {integrity: sha512-JdFw5oqPNB4qahie2Mcg6yXxyUJouN60OaEaejjMtGsgoPbFjS7X/9/Nj5vW+rAUTi0UNbOW+JPW9XNx6EuoHw==}
+  /@formatjs/cli@6.2.12:
+    resolution: {integrity: sha512-bt1NEgkeYN8N9zWcpsPu3fZ57vv+biA+NtIQBlyOZnCp1bcvh+vNTXvmwF4C5qxqDtCylpOIb3yi3Ktgp4v0JQ==}
     engines: {node: '>= 16'}
     hasBin: true
     peerDependencies:
       '@glimmer/env': ^0.1.7
-      '@glimmer/reference': ^0.91.1
-      '@glimmer/syntax': ^0.91.1
-      '@glimmer/validator': ^0.91.1
+      '@glimmer/reference': ^0.91.1 || ^0.92.0
+      '@glimmer/syntax': ^0.92.0
+      '@glimmer/validator': ^0.92.0
       '@vue/compiler-core': ^3.4.0
       content-tag: ^2.0.1
       ember-template-recast: ^6.1.4
