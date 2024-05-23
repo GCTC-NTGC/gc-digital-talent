@@ -73,8 +73,8 @@ importers:
   apps/playwright:
     dependencies:
       '@axe-core/playwright':
-        specifier: ^4.9.0
-        version: 4.9.0(playwright-core@1.44.0)
+        specifier: ^4.9.1
+        version: 4.9.1(playwright-core@1.44.0)
     devDependencies:
       '@gc-digital-talent/date-helpers':
         specifier: workspace:*
@@ -1429,8 +1429,8 @@ packages:
       default-browser-id: 3.0.0
     dev: true
 
-  /@axe-core/playwright@4.9.0(playwright-core@1.44.0):
-    resolution: {integrity: sha512-Q1Lz75dNsX38jof+aev7RficDMdH/HLOLySkDdXR0fUoeFcLdw4UNgDO2CNNP4CTpoesEdfYRdd6VmDXjhBgbA==}
+  /@axe-core/playwright@4.9.1(playwright-core@1.44.0):
+    resolution: {integrity: sha512-8m4WZbZq7/aq7ZY5IG8GqV+ZdvtGn/iJdom+wBg+iv/3BAOBIfNQtIu697a41438DzEEyptXWmC3Xl5Kx/o9/g==}
     peerDependencies:
       playwright-core: '>= 1.0.0'
     dependencies:
