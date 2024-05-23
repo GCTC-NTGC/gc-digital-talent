@@ -17,5 +17,12 @@ class PriorityVerificationExpiryRequirement implements ValidationRule
         if ($value['priorityVerification'] == ClaimVerificationResult::ACCEPTED->name && ! $value['priorityVerificationExpiry']) {
             $fail('AcceptedPriorityRequiresExpiry');
         }
+
+        // in any non-ACCEPTED cases no expiration should be present
+        if (($value['veteranVerification'] != ClaimVerificationResult::ACCEPTED->name && ! is_null($value['veteranVerificationExpiry'])) ||
+        ($value['priorityVerification'] != ClaimVerificationResult::ACCEPTED->name && ! is_null($value['priorityVerificationExpiry']))
+        ) {
+            $fail('NoExpirationForThisResult');
+        }
     }
 }
