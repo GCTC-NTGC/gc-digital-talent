@@ -19,8 +19,6 @@ class TriggerNewJobPostedTest extends TestCase
     use RefreshDatabase;
     use RefreshesSchemaCache;
 
-    private $allNotificationFamilies;
-
     private User $adminUser;
 
     private User $regularUser;
@@ -34,21 +32,20 @@ class TriggerNewJobPostedTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
         Team::factory()->create();
 
-        $this->allNotificationFamilies = array_column(NotificationFamily::cases(), 'name');
         $this->adminUser = User::factory()
             ->asApplicant()
             ->asAdmin()
             ->create([
                 'sub' => 'adminUser',
-                'enabled_email_notifications' => $this->allNotificationFamilies,
-                'enabled_in_app_notifications' => $this->allNotificationFamilies,
+                'enabled_email_notifications' => [NotificationFamily::JOB_ALERT->name],
+                'enabled_in_app_notifications' => [NotificationFamily::JOB_ALERT->name],
             ]);
         $this->regularUser = User::factory()
             ->asApplicant()
             ->create([
                 'sub' => 'regularUser',
-                'enabled_email_notifications' => $this->allNotificationFamilies,
-                'enabled_in_app_notifications' => $this->allNotificationFamilies,
+                'enabled_email_notifications' => [NotificationFamily::JOB_ALERT->name],
+                'enabled_in_app_notifications' => [NotificationFamily::JOB_ALERT->name],
             ]);
     }
 

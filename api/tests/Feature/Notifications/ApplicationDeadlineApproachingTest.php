@@ -22,15 +22,11 @@ class ApplicationDeadlineApproachingTest extends TestCase
 
     private ApplicationDeadlineApproaching $fixtureNotification;
 
-    private $allNotificationFamilies;
-
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->seed(RolePermissionSeeder::class);
-
-        $this->allNotificationFamilies = array_column(NotificationFamily::cases(), 'name');
 
         $this->fixtureNotification = new ApplicationDeadlineApproaching(
             Carbon::parse('2999-12-31'),
@@ -46,8 +42,8 @@ class ApplicationDeadlineApproachingTest extends TestCase
     {
         $user = User::factory()
             ->create([
-                'enabled_email_notifications' => $this->allNotificationFamilies,
-                'enabled_in_app_notifications' => $this->allNotificationFamilies,
+                'enabled_email_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
+                'enabled_in_app_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
             ]);
         assertEqualsCanonicalizing([GcNotifyEmailChannel::class, 'database'], $this->fixtureNotification->via($user));
     }
@@ -68,7 +64,7 @@ class ApplicationDeadlineApproachingTest extends TestCase
     {
         $user = User::factory()
             ->create([
-                'enabled_email_notifications' => $this->allNotificationFamilies,
+                'enabled_email_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
                 'enabled_in_app_notifications' => [NotificationFamily::JOB_ALERT->name],
             ]);
         assertEquals([GcNotifyEmailChannel::class], $this->fixtureNotification->via($user));
@@ -80,7 +76,7 @@ class ApplicationDeadlineApproachingTest extends TestCase
         $user = User::factory()
             ->create([
                 'enabled_email_notifications' => [NotificationFamily::JOB_ALERT->name],
-                'enabled_in_app_notifications' => $this->allNotificationFamilies,
+                'enabled_in_app_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
             ]);
         assertEquals(['database'], $this->fixtureNotification->via($user));
     }
@@ -95,7 +91,7 @@ class ApplicationDeadlineApproachingTest extends TestCase
         $user = User::factory()
             ->create([
                 'email' => config('notify.smokeTest.emailAddress'),
-                'enabled_email_notifications' => $this->allNotificationFamilies,
+                'enabled_email_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
                 'enabled_in_app_notifications' => [NotificationFamily::JOB_ALERT->name],
             ]);
 
@@ -153,7 +149,7 @@ class ApplicationDeadlineApproachingTest extends TestCase
         $user = User::factory()
             ->create([
                 'enabled_email_notifications' => [NotificationFamily::JOB_ALERT->name],
-                'enabled_in_app_notifications' => $this->allNotificationFamilies,
+                'enabled_in_app_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
             ]);
 
         $user->notify($this->fixtureNotification);

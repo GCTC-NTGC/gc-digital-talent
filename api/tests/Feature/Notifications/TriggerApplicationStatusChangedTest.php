@@ -20,8 +20,6 @@ class TriggerApplicationStatusChangedTest extends TestCase
 
     protected User $user;
 
-    private $allNotificationFamilies;
-
     protected function setUp(): void
     {
         parent::setUp();
@@ -30,10 +28,9 @@ class TriggerApplicationStatusChangedTest extends TestCase
 
         $this->seed(RolePermissionSeeder::class);
 
-        $this->allNotificationFamilies = array_column(NotificationFamily::cases(), 'name');
         $this->user = User::factory()->create([
-            'enabled_email_notifications' => $this->allNotificationFamilies,
-            'enabled_in_app_notifications' => $this->allNotificationFamilies,
+            'enabled_email_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
+            'enabled_in_app_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
         ]);
 
     }

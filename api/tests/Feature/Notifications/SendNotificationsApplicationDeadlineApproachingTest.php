@@ -22,8 +22,6 @@ class SendNotificationsApplicationDeadlineApproachingTest extends TestCase
 {
     use RefreshDatabase;
 
-    private $allNotificationFamilies;
-
     protected function setUp(): void
     {
         parent::setUp();
@@ -31,8 +29,6 @@ class SendNotificationsApplicationDeadlineApproachingTest extends TestCase
         Notification::fake();
 
         $this->seed(RolePermissionSeeder::class);
-
-        $this->allNotificationFamilies = array_column(NotificationFamily::cases(), 'name');
 
     }
 
@@ -61,8 +57,8 @@ class SendNotificationsApplicationDeadlineApproachingTest extends TestCase
         $user = User::factory()
             ->create(
                 [
-                    'enabled_email_notifications' => $this->allNotificationFamilies,
-                    'enabled_in_app_notifications' => $this->allNotificationFamilies,
+                    'enabled_email_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
+                    'enabled_in_app_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
                 ]
             );
         PoolCandidate::factory()
@@ -98,8 +94,8 @@ class SendNotificationsApplicationDeadlineApproachingTest extends TestCase
         $user = User::factory()
             ->create(
                 [
-                    'enabled_email_notifications' => $this->allNotificationFamilies,
-                    'enabled_in_app_notifications' => $this->allNotificationFamilies,
+                    'enabled_email_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
+                    'enabled_in_app_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
                 ]
             );
         PoolCandidate::factory()
@@ -133,8 +129,8 @@ class SendNotificationsApplicationDeadlineApproachingTest extends TestCase
         $user = User::factory()
             ->create(
                 [
-                    'enabled_email_notifications' => $this->allNotificationFamilies,
-                    'enabled_in_app_notifications' => $this->allNotificationFamilies,
+                    'enabled_email_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
+                    'enabled_in_app_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
                 ]
             );
         PoolCandidate::factory()

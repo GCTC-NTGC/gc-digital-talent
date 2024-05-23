@@ -35,8 +35,6 @@ class NotificationTest extends TestCase
 
     protected $poolCandidate;
 
-    private $allNotificationFamilies;
-
     protected $queryNotifications = /** GraphQL */ '
         query Notifications($where: NotificationFilterInput) {
             notifications(where: $where) {
@@ -65,8 +63,6 @@ class NotificationTest extends TestCase
         $this->seed(SkillSeeder::class);
         $this->seed(RolePermissionSeeder::class);
 
-        $this->allNotificationFamilies = array_column(NotificationFamily::cases(), 'name');
-
         $this->pool = Pool::factory()
             ->published()
             ->create();
@@ -77,7 +73,10 @@ class NotificationTest extends TestCase
                 'email' => 'candidate-user@test.com',
                 'sub' => 'candidate-user@test.com',
                 'enabled_email_notifications' => [NotificationFamily::JOB_ALERT->name],
-                'enabled_in_app_notifications' => $this->allNotificationFamilies,
+                'enabled_in_app_notifications' => [
+                    NotificationFamily::APPLICATION_UPDATE->name,
+                    NotificationFamily::JOB_ALERT->name,
+                ],
             ]);
 
         $this->poolCandidate = PoolCandidate::factory()->create([
