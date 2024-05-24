@@ -131,7 +131,9 @@ class PoolCandidate extends Model
             // Seems to work without this but not sure why
             if ($model->user()->exists() && $model->isDirty('notes')) {
                 $model->user->loadMissing('searchIndex');
-                $model->user->searchIndex->searchable();
+                if (! empty($model->user->searchIndex)) {
+                    $model->user->searchIndex->searchable();
+                }
             }
         });
     }

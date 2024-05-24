@@ -289,7 +289,10 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         }
         // If this User instance continues to be used, ensure the in-memory instance has the updated skills.
         $this->refresh();
-        $this->searchIndex->searchable();
+        $this->loadMissing('searchIndex');
+        if (! empty($this->searchIndex)) {
+            $this->searchIndex->searchable();
+        }
     }
 
     public function getFullName(?bool $anonymous = false)
