@@ -63,8 +63,7 @@ class Experience extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class)
-            ->select(User::getSelectableColumns());
+        return $this->belongsTo(User::class);
     }
 
     public function userSkills(): BelongsToMany
@@ -191,7 +190,7 @@ class Experience extends Model
 
         static::saving(function ($experience) {
             $user = $experience->user;
-            $user->loadMissing('searchIndex');
+            $user?->loadMissing('searchIndex');
             if ($user && ! empty($user->searchIndex)) {
                 $user->searchIndex->searchable();
             }

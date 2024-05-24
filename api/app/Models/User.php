@@ -95,54 +95,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     use Searchable;
     use SoftDeletes;
 
-    protected static $selectableColumns = [
-        'id',
-        'email',
-        'first_name',
-        'last_name',
-        'telephone',
-        'sub',
-        'preferred_lang',
-        'current_province',
-        'current_city',
-        'looking_for_english',
-        'looking_for_french',
-        'looking_for_bilingual',
-        'first_official_language',
-        'second_language_exam_completed',
-        'second_language_exam_validity',
-        'comprehension_level',
-        'written_level',
-        'verbal_level',
-        'estimated_language_ability',
-        'is_gov_employee',
-        'has_priority_entitlement',
-        'priority_number',
-        'department',
-        'current_classification',
-        'citizenship',
-        'armed_forces_status',
-        'is_woman',
-        'has_disability',
-        'is_visible_minority',
-        'has_diploma',
-        'location_preferences',
-        'location_exemptions',
-        'position_duration',
-        'accepted_operational_requirements',
-        'gov_employee_type',
-        'priority_weight',
-        'indigenous_declaration_signature',
-        'indigenous_communities',
-        'preferred_language_for_interview',
-        'preferred_language_for_exam',
-        'deleted_at',
-        'enabled_email_notifications',
-        'enabled_in_app_notifications',
-        'created_at',
-        'updated_at',
-    ];
-
     protected $keyType = 'string';
 
     protected $casts = [
@@ -160,11 +112,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     ];
 
     protected $hidden = [];
-
-    public static function getSelectableColumns()
-    {
-        return self::$selectableColumns;
-    }
 
     public function searchableOptions()
     {
