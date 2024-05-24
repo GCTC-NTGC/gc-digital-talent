@@ -13,6 +13,7 @@ use App\Enums\PoolCandidateStatus;
 use App\Enums\PositionDuration;
 use App\Notifications\VerifyEmail;
 use App\Notifications\VerifyWorkEmail;
+use App\Observers\UserObserver;
 use App\Traits\EnrichedNotifiable;
 use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
@@ -617,6 +618,14 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             $newEmail = $user->email.'-restored-at-'.Carbon::now()->format('Y-m-d');
             $user->update(['email' => $newEmail]);
         });
+    }
+
+    /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        User::observe(UserObserver::class);
     }
 
     // Search filters
