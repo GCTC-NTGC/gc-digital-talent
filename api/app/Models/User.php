@@ -11,10 +11,14 @@ use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PositionDuration;
+use App\Notifications\VerifyEmail;
+use App\Notifications\VerifyWorkEmail;
+use App\Observers\UserObserver;
 use App\Traits\EnrichedNotifiable;
 use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -80,8 +84,11 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property string $preferred_language_for_exam
  * @property array $enabled_email_notifications
  * @property array $enabled_in_app_notifications
+ * @property Illuminate\Support\Carbon email_verified_at
+ * @property string work_email
+ * @property Illuminate\Support\Carbon work_email_verified_at
  */
-class User extends Model implements Authenticatable, HasLocalePreference, LaratrustUser
+class User extends Model implements Authenticatable, HasLocalePreference, LaratrustUser, MustVerifyEmail
 {
     use AuthenticatableTrait;
     use Authorizable;
@@ -138,6 +145,9 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         'deleted_at',
         'enabled_email_notifications',
         'enabled_in_app_notifications',
+        'email_verified_at',
+        'work_email',
+        'work_email_verified_at',
         'created_at',
         'updated_at',
     ];
@@ -608,6 +618,14 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             $newEmail = $user->email.'-restored-at-'.Carbon::now()->format('Y-m-d');
             $user->update(['email' => $newEmail]);
         });
+    }
+
+    /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        User::observe(UserObserver::class);
     }
 
     // Search filters
@@ -1210,5 +1228,67 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         }
 
         return $query;
+    }
+
+    /**
+     * Determine if the user has verified their email address.
+     *
+     * @return bool
+     */
+    public function hasVerifiedEmail()
+    {
+        return ! is_null($this->email_verified_at);
+    }
+
+    public function hasVerifiedWorkEmail()
+    {
+        return ! is_null($this->work_email_verified_at);
+    }
+
+    /**
+     * Mark the given user's email as verified.
+     *
+     * @return bool
+     */
+    public function markEmailAsVerified()
+    {
+        $this->email_verified_at = Carbon::now();
+    }
+
+    public function markWorkEmailAsVerified()
+    {
+        $this->work_email_verified_at = Carbon::now();
+    }
+
+    /**
+     * Send the email verification notification.
+     *
+     * @return void
+     */
+    public function sendEmailVerificationNotification()
+    {
+        $message = new VerifyEmail();
+        $this->notify($message);
+    }
+
+    public function sendWorkEmailVerificationNotification()
+    {
+        $message = new VerifyWorkEmail();
+        $this->notify($message);
+    }
+
+    /**
+     * Get the email address that should be used for verification.
+     *
+     * @return string
+     */
+    public function getEmailForVerification()
+    {
+        return $this->email;
+    }
+
+    public function getWorkEmailForVerification()
+    {
+        return $this->work_email;
     }
 }
