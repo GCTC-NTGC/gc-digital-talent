@@ -1196,7 +1196,7 @@ input UpdatePoolCandidateStatusInput {
   status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
 }
 
-input UpdatePoolCandidateClaimVerificationInput {
+input UpdatePoolCandidateClaimVerificationInput @validator {
   veteranVerification: ClaimVerificationResult
     @rename(attribute: "veteran_verification")
   veteranVerificationExpiry: Date
@@ -1761,9 +1761,7 @@ type Mutation {
     )
   updatePoolCandidateClaimVerification(
     id: UUID!
-    poolCandidate: UpdatePoolCandidateClaimVerificationInput!
-      @rules(apply: ["App\\Rules\\PriorityVerificationExpiryRequirement"])
-      @spread
+    poolCandidate: UpdatePoolCandidateClaimVerificationInput! @spread
   ): PoolCandidate @update @guard @canFind(ability: "updateNotes", find: "id")
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
     @update

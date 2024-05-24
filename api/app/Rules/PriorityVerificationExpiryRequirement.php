@@ -13,16 +13,20 @@ class PriorityVerificationExpiryRequirement implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        // an accepted status for priority verification must be attached to a non-null expiration
-        if ($value['priorityVerification'] == ClaimVerificationResult::ACCEPTED->name && ! $value['priorityVerificationExpiry']) {
-            $fail('AcceptedPriorityRequiresExpiry');
+        if (isset($value['priorityVerification'])) {
+            // an accepted status for priority verification must be attached to a non-null expiration
+            if ($value['priorityVerification'] == ClaimVerificationResult::ACCEPTED->name && ! isset($value['priorityVerificationExpiry'])) {
+                $fail('AcceptedPriorityRequiresExpiry');
+            }
         }
 
-        // in any non-ACCEPTED cases no expiration should be present
-        if (($value['veteranVerification'] != ClaimVerificationResult::ACCEPTED->name && ! is_null($value['veteranVerificationExpiry'])) ||
-        ($value['priorityVerification'] != ClaimVerificationResult::ACCEPTED->name && ! is_null($value['priorityVerificationExpiry']))
-        ) {
-            $fail('NoExpirationForThisResult');
+        if (isset($value['veteranVerification'])) {
+            // in any non-ACCEPTED cases no expiration should be present
+            if (($value['veteranVerification'] != ClaimVerificationResult::ACCEPTED->name && ! isset($value['veteranVerificationExpiry'])) ||
+            ($value['priorityVerification'] != ClaimVerificationResult::ACCEPTED->name && ! isset($value['priorityVerificationExpiry']))
+            ) {
+                $fail('NoExpirationForThisResult');
+            }
         }
     }
 }

@@ -6,6 +6,7 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import ClaimRow from "./ClaimRow";
 import { priorityTitle, veteranTitle } from "./messages";
+import ClaimVerificationDialog from "./ClaimVerificationDialog";
 
 interface ClaimSeparatorProps {
   show: boolean;
@@ -19,6 +20,10 @@ const ClaimSeparator = ({ show }: ClaimSeparatorProps) => {
 
 const ClaimVerification_Fragment = graphql(/* GraphQL */ `
   fragment ClaimVerification on PoolCandidate {
+    id
+    user {
+      priorityNumber
+    }
     veteranVerification
     veteranVerificationExpiry
     priorityVerification
@@ -68,7 +73,13 @@ const ClaimVerification = ({ verificationQuery }: ClaimVerificationProps) => {
             result={claimVerification.priorityVerification}
             title={intl.formatMessage(priorityTitle)}
           >
-            <div />
+            <ClaimVerificationDialog
+              context="priority"
+              priorityNumber={claimVerification.user.priorityNumber}
+              id={claimVerification.id}
+              result={claimVerification.priorityVerification}
+              expiry={claimVerification.priorityVerificationExpiry}
+            />
           </ClaimRow>
           <ClaimSeparator show={hasBothClaims} />
           <ClaimRow
@@ -76,7 +87,12 @@ const ClaimVerification = ({ verificationQuery }: ClaimVerificationProps) => {
             result={claimVerification.veteranVerification}
             title={intl.formatMessage(veteranTitle)}
           >
-            <div />
+            <ClaimVerificationDialog
+              context="veteran"
+              id={claimVerification.id}
+              result={claimVerification.veteranVerification}
+              expiry={claimVerification.veteranVerificationExpiry}
+            />
           </ClaimRow>
         </>
       ) : (

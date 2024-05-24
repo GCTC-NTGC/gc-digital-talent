@@ -10,7 +10,10 @@ import {
   Scalars,
 } from "@gc-digital-talent/graphql";
 import { Heading } from "@gc-digital-talent/ui";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import {
+  formDateStringToDate,
+  formatDate,
+} from "@gc-digital-talent/date-helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 interface VerificationMessageProps {
@@ -29,8 +32,8 @@ const VerificationMessage = ({ result, expiry }: VerificationMessageProps) => {
   if (result === ClaimVerificationResult.Accepted) {
     const expiryDate = expiry
       ? formatDate({
-          date: parseDateTimeUtc(expiry),
-          formatString: "MMMM d, YYYY",
+          date: formDateStringToDate(expiry),
+          formatString: "MMMM d, yyyy",
           intl,
         })
       : intl.formatMessage(commonMessages.notProvided);
