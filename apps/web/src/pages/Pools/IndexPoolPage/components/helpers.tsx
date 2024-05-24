@@ -1,14 +1,17 @@
 import { IntlShape } from "react-intl";
 import { SortingState } from "@tanstack/react-table";
+import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
 
 import {
   Locales,
+  commonMessages,
   getLocalizedName,
   getPoolStream,
 } from "@gc-digital-talent/i18n";
 import { Link, Chip } from "@gc-digital-talent/ui";
 import {
   Classification,
+  FragmentType,
   LocalizedString,
   Maybe,
   OrderByRelationWithColumnAggregateFunction,
@@ -16,6 +19,7 @@ import {
   PoolFilterInput,
   PoolTeamDisplayNameOrderByInput,
   QueryPoolsPaginatedOrderByClassificationColumn,
+  QueryPoolsPaginatedOrderByPoolBookmarksColumn,
   QueryPoolsPaginatedOrderByRelationOrderByClause,
   QueryPoolsPaginatedOrderByUserColumn,
   SortOrder,
@@ -26,6 +30,7 @@ import { getFullNameHtml } from "~/utils/nameUtils";
 import { SearchState } from "~/components/Table/ResponsiveTable/types";
 
 import { FormValues } from "./PoolFilterDialog";
+import PoolBookmark, { PoolBookmark_Fragment } from "./PoolBookmark";
 
 export function poolNameAccessor(pool: Pool, intl: IntlShape) {
   const name = getLocalizedName(pool.name, intl);
@@ -193,6 +198,16 @@ export function getOrderByClause(
     // ["status", "status"],
   ]);
 
+  const poolBookmarksOrderByClause: QueryPoolsPaginatedOrderByRelationOrderByClause =
+    {
+      column: undefined,
+      order: SortOrder.Asc,
+      poolBookmarks: {
+        aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+        column: "CREATED_AT" as QueryPoolsPaginatedOrderByPoolBookmarksColumn,
+      },
+    };
+
   const sortingRule = sortingRules?.find((rule) => {
     const columnName = columnMap.get(rule.id);
     return !!columnName;
@@ -203,6 +218,7 @@ export function getOrderByClause(
 
   if (sortingRule && sortingRule.id === "classification") {
     return [
+      poolBookmarksOrderByClause,
       {
         column: undefined,
         order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
@@ -225,6 +241,7 @@ export function getOrderByClause(
   if (sortingRule && ["ownerName", "ownerEmail"].includes(sortingRule.id)) {
     const columnName = columnMap.get(sortingRule.id);
     return [
+      poolBookmarksOrderByClause,
       {
         column: undefined,
         order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
@@ -239,6 +256,7 @@ export function getOrderByClause(
   if (sortingRule) {
     const columnName = columnMap.get(sortingRule.id);
     return [
+      poolBookmarksOrderByClause,
       {
         column: columnName,
         order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
@@ -248,6 +266,7 @@ export function getOrderByClause(
   }
 
   return [
+    poolBookmarksOrderByClause,
     {
       column: "created_at",
       order: SortOrder.Asc,
@@ -296,3 +315,18 @@ export function transformPoolFilterInputToFormValues(
     ),
   };
 }
+
+export const poolBookmarkCell = (
+  owner: FragmentType<typeof PoolBookmark_Fragment>,
+  poolId: string,
+  poolName?: Maybe<LocalizedString>,
+) => {
+  return <PoolBookmark user={owner} poolId={poolId} poolName={poolName} />;
+};
+
+export const poolBookmarkHeader = (intl: IntlShape) => (
+  <BookmarkIcon
+    data-h2-width="base(x1)"
+    aria-label={intl.formatMessage(commonMessages.bookmark)}
+  />
+);
