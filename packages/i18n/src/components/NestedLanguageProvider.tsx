@@ -1,13 +1,13 @@
-import React from "react";
 import { IntlProvider, useIntl } from "react-intl";
 import { useSearchParams } from "react-router-dom";
+import { ReactNode, JSX } from "react";
 
 import { Messages } from "../types";
 import defaultRichTextElements from "./richTextElements";
 
 interface NestedLanguageProvider {
   messages: Map<string, Messages>;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 /**

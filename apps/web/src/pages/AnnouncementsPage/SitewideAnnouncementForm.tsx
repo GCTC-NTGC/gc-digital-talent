@@ -1,4 +1,3 @@
-import * as React from "react";
 import { FormProvider, ValidateResult, useForm } from "react-hook-form";
 import { defineMessage, useIntl } from "react-intl";
 

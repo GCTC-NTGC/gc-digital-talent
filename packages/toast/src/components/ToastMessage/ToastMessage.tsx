@@ -1,7 +1,7 @@
-import React from "react";
+import { ReactNode } from "react";
 
 interface ToastMessageProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const ToastMessage = ({ children }: ToastMessageProps) => (

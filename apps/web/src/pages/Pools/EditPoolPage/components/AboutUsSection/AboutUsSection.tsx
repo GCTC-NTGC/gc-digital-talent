@@ -1,4 +1,4 @@
-import * as React from "react";
+import { JSX } from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
@@ -23,14 +23,19 @@ import {
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import processMessages from "~/messages/processMessages";
+import useCanUserEditPool from "~/hooks/useCanUserEditPool";
 
 import { useEditPoolContext } from "../EditPoolContext";
-import { SectionProps } from "../../types";
+import { PublishedEditableSectionProps, SectionProps } from "../../types";
 import Display from "./Display";
 import ActionWrapper from "../ActionWrapper";
+import UpdatePublishedProcessDialog, {
+  type FormValues as UpdateFormValues,
+} from "../UpdatePublishedProcessDialog/UpdatePublishedProcessDialog";
 
 export const EditPoolAboutUs_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolAboutUs on Pool {
+    ...UpdatePublishedProcessDialog
     id
     status
     aboutUs {
@@ -50,7 +55,8 @@ export type AboutUsSubmitData = Pick<UpdatePoolInput, "aboutUs">;
 type AboutUsSectionProps = SectionProps<
   AboutUsSubmitData,
   FragmentType<typeof EditPoolAboutUs_Fragment>
->;
+> &
+  PublishedEditableSectionProps;
 
 const TEXT_AREA_MAX_WORDS_EN = 100;
 const TEXT_AREA_MAX_WORDS_FR = TEXT_AREA_MAX_WORDS_EN + 30;
@@ -59,10 +65,12 @@ const AboutUsSection = ({
   poolQuery,
   sectionMetadata,
   onSave,
+  onUpdatePublished,
 }: AboutUsSectionProps): JSX.Element => {
   const intl = useIntl();
   const pool = getFragment(EditPoolAboutUs_Fragment, poolQuery);
   const isNull = hasAllEmptyFields(pool);
+  const canEdit = useCanUserEditPool(pool.status);
   const { isSubmitting } = useEditPoolContext();
   const { isEditing, setIsEditing, icon } = useToggleSectionInfo({
     isNull,
@@ -79,7 +87,13 @@ const AboutUsSection = ({
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(pool),
   });
-  const { handleSubmit } = methods;
+  const { handleSubmit, watch } = methods;
+  const values = watch();
+
+  const onSuccess = (formValues: FormValues) => {
+    methods.reset(formValues, { keepDirty: true });
+    setIsEditing(false);
+  };
 
   const handleSave = async (formValues: FormValues) => {
     return onSave({
@@ -88,17 +102,19 @@ const AboutUsSection = ({
         fr: formValues.aboutUsFr ?? "",
       },
     })
-      .then(() => {
-        methods.reset(formValues, {
-          keepDirty: false,
-        });
-        setIsEditing(false);
-      })
+      .then(() => onSuccess(formValues))
       .catch(() => methods.reset(formValues));
   };
 
-  // disabled unless status is draft
-  const formDisabled = pool.status !== PoolStatus.Draft;
+  const handleUpdatePublished = async (formValues: UpdateFormValues) => {
+    await onUpdatePublished({
+      ...formValues,
+      aboutUs: {
+        en: values.aboutUsEn,
+        fr: values.aboutUsFr,
+      },
+    }).then(() => onSuccess({ ...values }));
+  };
 
   const subtitle = intl.formatMessage({
     defaultMessage:
@@ -122,7 +138,7 @@ const AboutUsSection = ({
         data-h2-font-weight="base(700)"
         toggle={
           <ToggleForm.LabelledTrigger
-            disabled={formDisabled}
+            disabled={!canEdit}
             sectionTitle={sectionMetadata.title}
           />
         }
@@ -151,24 +167,20 @@ const AboutUsSection = ({
                   id="aboutUsEn"
                   label={intl.formatMessage(processMessages.aboutUsEn)}
                   name="aboutUsEn"
-                  {...(!formDisabled && {
-                    wordLimit: TEXT_AREA_MAX_WORDS_EN,
-                  })}
-                  readOnly={formDisabled}
+                  wordLimit={TEXT_AREA_MAX_WORDS_EN}
+                  readOnly={!canEdit}
                 />
                 <RichTextInput
                   id="aboutUsFr"
                   label={intl.formatMessage(processMessages.aboutUsFr)}
                   name="aboutUsFr"
-                  {...(!formDisabled && {
-                    wordLimit: TEXT_AREA_MAX_WORDS_FR,
-                  })}
-                  readOnly={formDisabled}
+                  wordLimit={TEXT_AREA_MAX_WORDS_FR}
+                  readOnly={!canEdit}
                 />
               </div>
 
               <ActionWrapper>
-                {!formDisabled && (
+                {canEdit && pool.status === PoolStatus.Draft && (
                   <Submit
                     text={intl.formatMessage(formMessages.saveChanges)}
                     aria-label={intl.formatMessage({
@@ -179,6 +191,12 @@ const AboutUsSection = ({
                     color="secondary"
                     mode="solid"
                     isSubmitting={isSubmitting}
+                  />
+                )}{" "}
+                {canEdit && pool.status === PoolStatus.Published && (
+                  <UpdatePublishedProcessDialog
+                    poolQuery={pool}
+                    onUpdatePublished={handleUpdatePublished}
                   />
                 )}
                 <ToggleSection.Close>

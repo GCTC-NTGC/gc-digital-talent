@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import UserPlusIcon from "@heroicons/react/24/outline/UserPlusIcon";
 
@@ -43,7 +42,7 @@ const Profile = () => {
         <Link
           color="quinary"
           mode="cta"
-          href={paths.myProfile()}
+          href={paths.profile()}
           icon={UserPlusIcon}
         >
           {intl.formatMessage({

@@ -50,7 +50,10 @@ import Link, {
 import Loading, { type LoadingProps } from "./components/Loading";
 import NavTabs from "./components/Tabs/NavTabs";
 import NotFound, { ThrowNotFound } from "./components/NotFound";
-import Pending, { type PendingProps } from "./components/Pending";
+import Pending, {
+  type PendingProps,
+  LoadingErrorMessage,
+} from "./components/Pending";
 import ScrollArea from "./components/ScrollArea";
 import Separator from "./components/Separator";
 import SideMenu, {
@@ -150,6 +153,7 @@ export {
   MenuLink,
   NavTabs,
   Loading,
+  LoadingErrorMessage,
   Pending,
   NotFound,
   ThrowNotFound,

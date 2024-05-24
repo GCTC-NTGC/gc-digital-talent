@@ -1,6 +1,6 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
+import { ReactNode, JSX } from "react";
 
 import { Button } from "@gc-digital-talent/ui";
 import { getIndigenousCommunity } from "@gc-digital-talent/i18n";
@@ -19,8 +19,8 @@ interface EquityOptionProps {
   option: EquityGroup;
   // Note: Just defining the func signature
   onSave: (data: IndigenousUpdateProps) => void;
-  title: React.ReactNode;
-  description?: React.ReactNode;
+  title: ReactNode;
+  description?: ReactNode;
   disabled?: boolean;
 }
 

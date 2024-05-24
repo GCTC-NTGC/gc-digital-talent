@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import type { Args, Decorator } from "@storybook/react";
 import { StoryFn, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker/locale/en";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 

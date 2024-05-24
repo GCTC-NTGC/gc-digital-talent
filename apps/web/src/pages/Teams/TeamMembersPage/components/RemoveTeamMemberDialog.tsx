@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
 import { useMutation } from "urql";
@@ -32,7 +32,7 @@ const RemoveTeamMemberDialog = ({
     UpdateUserTeamRoles_Mutation,
   );
 
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleRemove = async () => {
     await executeMutation({
@@ -128,19 +128,14 @@ const RemoveTeamMemberDialog = ({
             {intl.formatMessage(uiMessages.confirmContinue)}
           </p>
           <Dialog.Footer>
+            <Button color="error" onClick={handleRemove} disabled={fetching}>
+              {fetching ? intl.formatMessage(commonMessages.saving) : label}
+            </Button>
             <Dialog.Close>
-              <Button color="secondary">
+              <Button color="warning" mode="inline">
                 {intl.formatMessage(formMessages.cancelGoBack)}
               </Button>
             </Dialog.Close>
-            <Button
-              mode="solid"
-              color="error"
-              onClick={handleRemove}
-              disabled={fetching}
-            >
-              {fetching ? intl.formatMessage(commonMessages.saving) : label}
-            </Button>
           </Dialog.Footer>
         </Dialog.Body>
       </Dialog.Content>

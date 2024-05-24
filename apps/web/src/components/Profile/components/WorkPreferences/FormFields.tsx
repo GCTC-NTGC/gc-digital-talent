@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 
 import {
@@ -8,7 +7,7 @@ import {
   enumToOptionsWorkRegionSorted,
 } from "@gc-digital-talent/forms";
 import {
-  OperationalRequirementV2,
+  OperationalRequirements,
   errorMessages,
   getOperationalRequirement,
   getWorkRegionsDetailed,
@@ -62,7 +61,7 @@ const FormFields = ({ labels }: FormFieldProps) => {
           legend={labels.acceptedOperationalRequirements}
           name="acceptedOperationalRequirements"
           id="acceptedOperationalRequirements"
-          items={OperationalRequirementV2.map((value) => ({
+          items={OperationalRequirements.map((value) => ({
             value,
             label: intl.formatMessage(
               getOperationalRequirement(value, "firstPerson"),

@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import pick from "lodash/pick";
 import upperCase from "lodash/upperCase";
@@ -21,6 +20,7 @@ import {
   FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -30,6 +30,7 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminHero from "~/components/Hero/AdminHero";
 import adminMessages from "~/messages/adminMessages";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 export const ClassificationForm_Fragment = graphql(/* GraphQL */ `
   fragment ClassificationForm on Classification {
@@ -338,5 +339,13 @@ const UpdateClassification = () => {
     </>
   );
 };
+
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
+    <UpdateClassification />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminUpdateClassificationPage";
 
 export default UpdateClassification;

@@ -7,6 +7,7 @@ use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
 use App\Enums\SkillCategory;
 use App\GraphQL\Validators\PoolIsCompleteValidator;
+use App\Observers\PoolObserver;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -41,6 +42,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $publishing_group
  * @property string $opportunity_length
  * @property string $closing_reason
+ * @property string $change_justification
  * @property string $team_id
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
@@ -120,6 +122,31 @@ class Pool extends Model
         'classification_id',
         'closing_reason',
     ];
+
+    /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        Pool::observe(PoolObserver::class);
+    }
+
+    /**
+     * Boot function for using with User Events
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function (Pool $pool) {
+            $pool->assessmentSteps()->create([
+                'type' => AssessmentStepType::APPLICATION_SCREENING->name,
+                'sort_order' => 1,
+            ]);
+        });
+    }
 
     public function getActivitylogOptions(): LogOptions
     {
@@ -282,24 +309,7 @@ class Pool extends Model
         return true;
     }
 
-    /**
-     * Boot function for using with User Events
-     *
-     * @return void
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::created(function (Pool $pool) {
-            $pool->assessmentSteps()->create([
-                'type' => AssessmentStepType::APPLICATION_SCREENING->name,
-                'sort_order' => 1,
-            ]);
-        });
-    }
-
-    public function scopeWasPublished(Builder $query, ?array $args)
+    public function scopeWasPublished(Builder $query)
     {
         $query->where('published_at', '<=', Carbon::now()->toDateTimeString());
 
@@ -314,8 +324,156 @@ class Pool extends Model
         return $query;
     }
 
+    public static function scopeName(Builder $query, ?string $name): Builder
+    {
+        if ($name) {
+            $query->where(function ($query) use ($name) {
+                $term = sprintf('%%%s%%', $name);
+
+                return $query->where('name->en', 'ilike', $term)
+                    ->orWhere('name->fr', 'ilike', $term);
+            });
+        }
+
+        return $query;
+    }
+
+    public static function scopeTeam(Builder $query, ?string $team): Builder
+    {
+        if ($team) {
+            $query->whereHas('team', function ($query) use ($team) {
+                Team::scopeDisplayName($query, $team);
+            });
+        }
+
+        return $query;
+    }
+
+    public static function scopeNotArchived(Builder $query)
+    {
+        $query->where(function ($query) {
+            $query->whereNull('archived_at')
+                ->orWhere('archived_at', '>', Carbon::now());
+        });
+
+        return $query;
+    }
+
+    public static function scopeNotClosed(Builder $query): Builder
+    {
+        $query->where(function ($query) {
+            $query->whereNull('closing_date')->orWhere('closing_date', '>', Carbon::now());
+        });
+
+        return $query;
+    }
+
+    public static function scopeStatuses(Builder $query, ?array $statuses): Builder
+    {
+        if (! empty($statuses)) {
+
+            $query->where(function ($query) use ($statuses) {
+
+                if (in_array(PoolStatus::ARCHIVED->name, $statuses)) {
+                    $query->orWhere('archived_at', '<=', Carbon::now());
+                }
+
+                if (in_array(PoolStatus::CLOSED->name, $statuses)) {
+                    $query->orWhere('closing_date', '<=', Carbon::now());
+                }
+
+                if (in_array(PoolStatus::PUBLISHED->name, $statuses)) {
+                    $query->orWhere(function ($query) {
+                        $query->where('published_at', '<=', Carbon::now());
+                        self::scopeNotClosed($query);
+                        self::scopeNotArchived($query);
+                    });
+                }
+
+                if (in_array(PoolStatus::DRAFT->name, $statuses)) {
+                    $query->orWhereNull('published_at');
+                }
+            });
+        }
+
+        return $query;
+    }
+
+    public static function scopeGeneralSearch(Builder $query, ?string $term): Builder
+    {
+        if ($term) {
+            $query->where(function ($query) use ($term) {
+                self::scopeName($query, $term);
+
+                $query->orWhere(function ($query) use ($term) {
+                    self::scopeTeam($query, $term);
+                });
+            });
+        }
+
+        return $query;
+    }
+
+    public static function scopePublishingGroups(Builder $query, ?array $publishingGroups): Builder
+    {
+        if (! empty($publishingGroups)) {
+            $query->whereIn('publishing_group', $publishingGroups);
+        }
+
+        return $query;
+    }
+
+    public static function scopeStreams(Builder $query, ?array $streams): Builder
+    {
+        if (! empty($streams)) {
+            $query->whereIn('stream', $streams);
+        }
+
+        return $query;
+    }
+
+    public static function scopeClassifications(Builder $query, ?array $classifications): Builder
+    {
+        if (empty($classifications)) {
+            return $query;
+        }
+
+        $query->whereHas('classification', function ($query) use ($classifications) {
+            $query->where(function ($query) use ($classifications) {
+                foreach ($classifications as $classification) {
+                    $query->orWhere(function ($query) use ($classification) {
+                        $query->where('group', $classification['group'])->where('level', $classification['level']);
+                    });
+                }
+            });
+        });
+
+        return $query;
+    }
+
+    /**
+     * Custom sort to handle issues with how laravel aliases
+     * aggregate selects and orderBys for json fields in `lighthouse-php`
+     *
+     * The column used in the orderBy is `table_aggregate_column->property`
+     * But is actually aliased to snake case `table_aggregate_columnproperty`
+     */
+    public function scopeOrderByTeamDisplayName(Builder $query, ?array $args): Builder
+    {
+        extract($args);
+
+        if ($order && $locale) {
+            $query = $query->withMax('team', 'display_name->'.$locale)->orderBy('team_max_display_name'.$locale, $order);
+        }
+
+        return $query;
+
+    }
+
     public function scopeAuthorizedToView(Builder $query)
     {
+
+        /** @var \App\Models\User */
         $user = Auth::user();
 
         if (! $user) {
@@ -347,16 +505,6 @@ class Pool extends Model
                 return $query;
             });
         }
-
-        return $query;
-    }
-
-    public function scopeNotArchived(Builder $query)
-    {
-        $query->where(function ($query) {
-            $query->whereNull('archived_at');
-            $query->orWhere('archived_at', '>', Carbon::now()->toDateTimeString());
-        });
 
         return $query;
     }

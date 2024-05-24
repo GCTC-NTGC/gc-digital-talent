@@ -1,9 +1,9 @@
-import React from "react";
 import { m, useReducedMotion } from "framer-motion";
+import { HTMLProps, ReactNode } from "react";
 
-export interface LoadingProps extends React.HTMLProps<HTMLDivElement> {
+export interface LoadingProps extends HTMLProps<HTMLDivElement> {
   inline?: boolean;
-  children?: React.ReactNode;
+  children?: ReactNode;
   /** Pause the animation */
   pause?: boolean;
   /**
@@ -27,7 +27,7 @@ const Loading = ({
   live,
   children,
   ...rest
-}: LoadingProps): JSX.Element => {
+}: LoadingProps) => {
   const shouldReduceMotion = useReducedMotion();
   const inlineWrapper = {
     inline: {

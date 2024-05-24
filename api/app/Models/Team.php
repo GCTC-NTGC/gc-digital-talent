@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -11,7 +12,7 @@ use Laratrust\Models\Team as LaratrustTeam;
  * Class Team
  *
  * @property string $id
- * @property string $name
+ * @property string $displayName
  * @property string $contact_email
  * @property array $display_name
  * @property array $description
@@ -50,5 +51,19 @@ class Team extends LaratrustTeam
     public function roleAssignments(): HasMany
     {
         return $this->hasMany(RoleAssignment::class);
+    }
+
+    public static function scopeDisplayName(Builder $query, ?string $displayName): Builder
+    {
+        if ($displayName) {
+            $query->where(function ($query) use ($displayName) {
+                $term = sprintf('%%%s%%', $displayName);
+
+                return $query->where('display_name->en', 'ilike', $term)
+                    ->orWhere('display_name->fr', 'ilike', $term);
+            });
+        }
+
+        return $query;
     }
 }

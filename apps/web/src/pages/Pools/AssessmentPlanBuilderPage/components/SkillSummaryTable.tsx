@@ -1,4 +1,4 @@
-import React from "react";
+import { JSX } from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { IntlShape, useIntl } from "react-intl";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
@@ -139,6 +139,45 @@ const plannedAssessmentCell = (
   );
 };
 
+interface RequirementTypeCellProps {
+  poolSkill: PoolSkill;
+  intl: IntlShape;
+}
+
+const assessmentStepCell = (
+  poolSkill: PoolSkill,
+  assessmentStep: AssessmentStep,
+  intl: IntlShape,
+): JSX.Element | null => {
+  // return early with specific message for certain combination
+  if (
+    poolSkill.skill?.category === SkillCategory.Behavioural &&
+    assessmentStep.type === AssessmentStepType.ApplicationScreening
+  ) {
+    return <span>{intl.formatMessage(commonMessages.notApplicable)}</span>;
+  }
+
+  if (
+    assessmentStep.poolSkills?.some(
+      (assessmentStepPoolSkill) => assessmentStepPoolSkill?.id === poolSkill.id,
+    )
+  ) {
+    return CheckIconElement(poolSkill.skill, assessmentStep.type);
+  }
+  return null;
+};
+
+const requirementTypeCell = ({ poolSkill, intl }: RequirementTypeCellProps) => {
+  if (!poolSkill.type) return null;
+  return poolSkill.type === PoolSkillType.Essential ? (
+    <span data-h2-color="base(primary.darker)" data-h2-font-weight="base(700)">
+      {intl.formatMessage(getPoolSkillType(poolSkill.type))}
+    </span>
+  ) : (
+    <span>{intl.formatMessage(getPoolSkillType(poolSkill.type))}</span>
+  );
+};
+
 const SkillSummaryTable = ({
   title,
   poolSkillsQuery,
@@ -154,45 +193,6 @@ const SkillSummaryTable = ({
     assessmentStepsQuery,
   );
 
-  const requirementTypeCell = (poolSkill: PoolSkill): JSX.Element | null => {
-    if (poolSkill?.type) {
-      return poolSkill.type === PoolSkillType.Essential ? (
-        <span
-          data-h2-color="base(primary.darker)"
-          data-h2-font-weight="base(700)"
-        >
-          {intl.formatMessage(getPoolSkillType(poolSkill.type))}
-        </span>
-      ) : (
-        <span>{intl.formatMessage(getPoolSkillType(poolSkill.type))}</span>
-      );
-    }
-    return null;
-  };
-
-  const assessmentStepCell = (
-    poolSkill: PoolSkill,
-    assessmentStep: AssessmentStep,
-  ): JSX.Element | null => {
-    // return early with specific message for certain combination
-    if (
-      poolSkill.skill?.category === SkillCategory.Behavioural &&
-      assessmentStep.type === AssessmentStepType.ApplicationScreening
-    ) {
-      return <span>{intl.formatMessage(commonMessages.notApplicable)}</span>;
-    }
-
-    if (
-      assessmentStep.poolSkills?.some(
-        (assessmentStepPoolSkill) =>
-          assessmentStepPoolSkill?.id === poolSkill.id,
-      )
-    ) {
-      return CheckIconElement(poolSkill.skill, assessmentStep.type);
-    }
-    return null;
-  };
-
   const initialColumns = [
     columnHelper.accessor((row) => getLocalizedName(row.skill?.name, intl), {
       id: "skillName",
@@ -207,9 +207,9 @@ const SkillSummaryTable = ({
       id: "plannedAssessment",
       header: intl.formatMessage({
         defaultMessage: "Number of assessments",
-        id: "7nuHuz",
+        id: "9t56Ev",
         description:
-          "Title for a column that displays the numer of assessments planned for a skill.",
+          "Title for a column that displays the number of assessments planned for a skill.",
       }),
       cell: ({ row: { original: poolSkill } }) =>
         cells.jsx(plannedAssessmentCell(poolSkill, assessmentSteps, intl)),
@@ -225,7 +225,7 @@ const SkillSummaryTable = ({
       }),
       enableHiding: false,
       cell: ({ row: { original: poolSkill } }) =>
-        cells.jsx(requirementTypeCell(poolSkill)),
+        cells.jsx(requirementTypeCell({ poolSkill, intl })),
     }),
     columnHelper.accessor(
       (row) =>
@@ -257,7 +257,7 @@ const SkillSummaryTable = ({
       id: assessmentStep.type ?? assessmentStep.id,
       header: headerName,
       cell: ({ row: { original: poolSkill } }) =>
-        cells.jsx(assessmentStepCell(poolSkill, assessmentStep)),
+        cells.jsx(assessmentStepCell(poolSkill, assessmentStep, intl)),
       enableHiding: false,
     });
     columns = [...columns, newColumn];

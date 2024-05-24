@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import {
   createSearchParams,
   Outlet,
@@ -26,7 +26,8 @@ const CreateAccount_EmailQuery = graphql(/** GraphQL */ `
  * saved an email, redirect them to the
  * `/create-account` page
  */
-const CreateAccountRedirect = () => {
+// eslint-disable-next-line import/prefer-default-export
+export const Component = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { loggedIn } = useAuthentication();
@@ -38,7 +39,7 @@ const CreateAccountRedirect = () => {
   const paths = useRoutes();
   const isToCreateAccount = pathname !== paths.createAccount();
 
-  React.useEffect(() => {
+  useEffect(() => {
     /**
      * Check the following then redirect to welcome page
      *  - User Logged in
@@ -71,4 +72,4 @@ const CreateAccountRedirect = () => {
   return <Outlet />;
 };
 
-export default CreateAccountRedirect;
+Component.displayName = "CreateAccountRedirect";

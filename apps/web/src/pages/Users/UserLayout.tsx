@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { Outlet } from "react-router-dom";
 import UserIcon from "@heroicons/react/24/outline/UserIcon";
@@ -8,6 +7,7 @@ import { useQuery } from "urql";
 
 import { ThrowNotFound, Pending, Alert } from "@gc-digital-talent/ui";
 import { User, graphql } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -16,6 +16,7 @@ import useCurrentPage from "~/hooks/useCurrentPage";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import { PageNavInfo } from "~/types/pages";
 import AdminHero from "~/components/Hero/AdminHero";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 type PageNavKeys = "profile" | "info" | "edit";
 
@@ -147,5 +148,19 @@ const UserLayout = () => {
     </>
   );
 };
+
+export const Component = () => (
+  <RequireAuth
+    roles={[
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.RequestResponder,
+      ROLE_NAME.PlatformAdmin,
+    ]}
+  >
+    <UserLayout />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminUserLayout";
 
 export default UserLayout;

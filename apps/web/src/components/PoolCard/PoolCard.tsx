@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
@@ -27,14 +26,13 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
 import useRoutes from "~/hooks/useRoutes";
+import { filterPoolSkillsByType } from "~/utils/skillUtils";
 
 import IconLabel from "./IconLabel";
-import { filterPoolSkillsByType } from "../../utils/skillUtils";
 
 export const PoolCard_Fragment = graphql(/* GraphQL */ `
   fragment PoolCard on Pool {
@@ -91,6 +89,10 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
   const locale = getLocale(intl);
   const paths = useRoutes();
   const pool = getFragment(PoolCard_Fragment, poolQuery);
+  const essentialSkills = filterPoolSkillsByType(
+    pool.poolSkills,
+    PoolSkillType.Essential,
+  );
 
   const classificationAbbr = pool.classification
     ? wrapAbbr(
@@ -99,10 +101,6 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
       )
     : "";
   const salaryRange = getSalaryRange(locale, pool.classification);
-  const essentialSkills = filterPoolSkillsByType(
-    unpackMaybes(pool.poolSkills),
-    PoolSkillType.Essential,
-  );
 
   const notAvailableAbbr = intl.formatMessage({
     defaultMessage: "N/A",

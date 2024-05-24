@@ -1,8 +1,8 @@
-import React from "react";
+import { useState, useMemo } from "react";
 import debounce from "lodash/debounce";
 import type { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker/locale/en";
 
 import { getStaticSkills } from "@gc-digital-talent/fake-data";
 import { allModes } from "@gc-digital-talent/storybook-helpers";
@@ -41,13 +41,10 @@ export default {
 
 const Template: StoryFn<ComboboxType> = (args) => {
   const { mockSearch, defaultValue, options, fetching, ...rest } = args;
-  const [isSearching, setIsSearching] = React.useState<boolean>(
-    fetching ?? false,
-  );
-  const [filteredOptions, setFilteredOptions] =
-    React.useState<Option[]>(options);
+  const [isSearching, setIsSearching] = useState<boolean>(fetching ?? false);
+  const [filteredOptions, setFilteredOptions] = useState<Option[]>(options);
 
-  const handleSearch = React.useMemo(() => {
+  const handleSearch = useMemo(() => {
     return mockSearch
       ? (term: string) => {
           setIsSearching(true);

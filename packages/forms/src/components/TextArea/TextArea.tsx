@@ -1,7 +1,7 @@
-import * as React from "react";
 import get from "lodash/get";
 import { FieldError, useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { DetailedHTMLProps, TextareaHTMLAttributes, FocusEvent } from "react";
 
 import { errorMessages } from "@gc-digital-talent/i18n";
 
@@ -14,8 +14,8 @@ import useFieldStateStyles from "../../hooks/useFieldStateStyles";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import useInputStyles from "../../hooks/useInputStyles";
 
-export type TextAreaProps = React.DetailedHTMLProps<
-  React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+export type TextAreaProps = DetailedHTMLProps<
+  TextareaHTMLAttributes<HTMLTextAreaElement>,
   HTMLTextAreaElement
 > &
   CommonInputProps & {
@@ -62,7 +62,7 @@ const TextArea = ({
     },
   });
 
-  const normalizeInput = (e: React.FocusEvent<HTMLTextAreaElement>) => {
+  const normalizeInput = (e: FocusEvent<HTMLTextAreaElement>) => {
     let inputValue = e.target.value;
     if (whitespaceTrim) {
       inputValue = inputValue.trim();

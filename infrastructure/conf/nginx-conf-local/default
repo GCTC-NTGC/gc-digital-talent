@@ -19,7 +19,7 @@ server {
     listen [::]:8080;
     root /home/site/wwwroot;
     index  index.php index.html index.htm;
-    #server_name localhost;
+    server_name localhost;
     gzip_static on;
     absolute_redirect off;
 
@@ -46,6 +46,15 @@ server {
     location = /fr/applicant/dashboard { return 301 /fr/applicant/profile-and-applications$is_args$args; }
     location = /en/privacy-notice { return 301 /en/privacy-policy$is_args$args; }
     location = /fr/privacy-notice { return 301 /fr/privacy-policy$is_args$args; }
+    location = /en/talent/profile { return 301 /en/applicant$is_args$args; }
+    location = /fr/talent/profile { return 301 /fr/applicant$is_args$args; }
+    location = /en/applicant/profile-and-applications { return 301 /en/applicant$is_args$args; }
+    location = /fr/applicant/profile-and-applications { return 301 /fr/applicant$is_args$args; }
+    location = /en/applicant/profile-and-applications/skills { return 301 /en/applicant/skills$is_args$args; }
+    location = /fr/applicant/profile-and-applications/skills { return 301 /fr/applicant/skills$is_args$args; }
+    location = /en/applicant/profile-and-applications/skills/showcase { return 301 /en/applicant/skills/showcase$is_args$args; }
+    location = /fr/applicant/profile-and-applications/skills/showcase { return 301 /fr/applicant/skills/showcase$is_args$args; }
+    location ~ ^/(en|fr)/users/(.+)(/|$) { return 301 /$1/applicant$is_args$args; }
 
     # Permanent redirect for IAP french vanity url
     location = /apprentis-autochtone-ti { return 301 /fr/indigenous-it-apprentice$is_args$args; }
@@ -60,13 +69,6 @@ server {
         proxy_set_header X-Forwarded-Proto http;
         proxy_set_header Host localhost:8000;
         break;
-    }
-
-    # Disable .git directory
-    location ~ /\.git {
-        deny all;
-        access_log off;
-        log_not_found off;
     }
 
     # handle special cases

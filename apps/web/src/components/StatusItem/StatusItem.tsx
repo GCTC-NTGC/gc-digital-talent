@@ -1,4 +1,3 @@
-import * as React from "react";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
 import ExclamationTriangleIcon from "@heroicons/react/20/solid/ExclamationTriangleIcon";

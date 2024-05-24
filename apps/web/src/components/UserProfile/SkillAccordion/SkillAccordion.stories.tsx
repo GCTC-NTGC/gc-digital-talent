@@ -1,4 +1,3 @@
-import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 
 import { Accordion } from "@gc-digital-talent/ui";

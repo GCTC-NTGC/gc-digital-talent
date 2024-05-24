@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import {
   FieldValues,
@@ -9,6 +8,7 @@ import {
   DefaultValues,
 } from "react-hook-form";
 import AdjustmentsVerticalIcon from "@heroicons/react/20/solid/AdjustmentsVerticalIcon";
+import { ReactNode, useState } from "react";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -28,7 +28,7 @@ type FilterDialogProps<TFieldValues extends FieldValues> = {
   // Values to reset to (removing URL state)
   resetValues: CommonFilterDialogProps<TFieldValues>["resetValues"];
   defaultOpen?: boolean;
-  children: React.ReactNode;
+  children: ReactNode;
   /** Modify the filter count in the button (most commonly used for hidden filters) */
   modifyFilterCount?: number;
 };
@@ -41,7 +41,7 @@ const FilterDialog = <TFieldValues extends FieldValues>({
   modifyFilterCount,
   defaultOpen = false,
 }: FilterDialogProps<TFieldValues>) => {
-  const [isOpen, setIsOpen] = React.useState<boolean>(defaultOpen);
+  const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
   const intl = useIntl();
   const defaultValues =
     options?.defaultValues ??
@@ -56,9 +56,9 @@ const FilterDialog = <TFieldValues extends FieldValues>({
     formState: { isSubmitting },
   } = methods;
   // Spreading removes the `ReadOnly` type
-  const [activeFilters, setActiveFilters] = React.useState<
-    Partial<TFieldValues>
-  >({ ...options?.defaultValues });
+  const [activeFilters, setActiveFilters] = useState<Partial<TFieldValues>>({
+    ...options?.defaultValues,
+  });
   const filterCount = Object.values(activeFilters ?? {}).filter((value) => {
     if (Array.isArray(value)) {
       return value.length > 0;
@@ -100,6 +100,7 @@ const FilterDialog = <TFieldValues extends FieldValues>({
         <Button
           color="quaternary"
           type="button"
+          block
           icon={AdjustmentsVerticalIcon}
           {...(filterCount > 0 && {
             counter: filterCount + (modifyFilterCount ?? 0),
@@ -133,8 +134,16 @@ const FilterDialog = <TFieldValues extends FieldValues>({
             <form onSubmit={methods.handleSubmit(handleSubmit)}>
               {children}
               <Dialog.Footer>
+                <Button type="submit" color="secondary" disabled={isSubmitting}>
+                  {intl.formatMessage({
+                    description:
+                      "Submit button within the search filter dialog",
+                    defaultMessage: "Show results",
+                    id: "V4+lDw",
+                  })}
+                </Button>
                 <Button
-                  color="secondary"
+                  color="warning"
                   mode="inline"
                   type="reset"
                   onClick={handleClear}
@@ -144,14 +153,6 @@ const FilterDialog = <TFieldValues extends FieldValues>({
                       "Button text to reset table filters to the default values",
                     defaultMessage: "Reset filters",
                     id: "ROfrit",
-                  })}
-                </Button>
-                <Button type="submit" color="primary" disabled={isSubmitting}>
-                  {intl.formatMessage({
-                    description:
-                      "Submit button within the search filter dialog",
-                    defaultMessage: "Show results",
-                    id: "V4+lDw",
                   })}
                 </Button>
               </Dialog.Footer>

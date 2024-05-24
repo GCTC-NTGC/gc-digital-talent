@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\PoolCandidateSearchRequestObserver;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -51,6 +52,14 @@ class PoolCandidateSearchRequest extends Model
         'request_status_changed_at' => 'datetime',
     ];
 
+    /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        PoolCandidateSearchRequest::observe(PoolCandidateSearchRequestObserver::class);
+    }
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
@@ -86,6 +95,11 @@ class PoolCandidateSearchRequest extends Model
     public function applicantFilter(): BelongsTo
     {
         return $this->belongsTo(ApplicantFilter::class);
+    }
+
+    public function community(): BelongsTo
+    {
+        return $this->belongsTo(Community::class);
     }
 
     public static function scopeId(Builder $query, ?string $id)

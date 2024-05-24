@@ -87,6 +87,18 @@ class GenericJobTitleSeeder extends Seeder
                 ],
 
             ],
+            [
+                'key' => GenericJobTitleKey::EXECUTIVE_EX03->name,
+                'name' => [
+                    'en' => 'Digital Leaders',
+                    'fr' => 'Chefs de file du numérique',
+                ],
+                'classification' => [
+                    'group' => 'EX',
+                    'level' => 3,
+                ],
+
+            ],
         ];
 
         foreach ($genericJobTitles as $genericJobTitle) {
@@ -97,7 +109,6 @@ class GenericJobTitleSeeder extends Seeder
                 'group' => $genericJobTitle['classification']['group'],
                 'level' => $genericJobTitle['classification']['level'],
             ])->sole()->id;
-
             $finalValue = array_merge($genericJobTitle, ['classification_id' => $classificationId]);
             unset($finalValue['classification']);
             GenericJobTitle::updateOrCreate($identifier, $finalValue);

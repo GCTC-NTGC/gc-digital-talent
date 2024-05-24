@@ -1,4 +1,3 @@
-import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
@@ -19,8 +18,8 @@ import { dataValuesToFormValues, formValuesToData } from "./utils";
 import { FormValues } from "./types";
 
 export type UpdateNotificationInput = {
-  ignoredEmailNotifications?: [NotificationFamily];
-  ignoredInAppNotifications?: [NotificationFamily];
+  enabledEmailNotifications?: [NotificationFamily];
+  enabledInAppNotifications?: [NotificationFamily];
 };
 
 interface NotificationChecklistProps {
@@ -165,37 +164,37 @@ const NotificationChecklist = ({
 };
 
 interface NotificationSettingsProps {
-  ignoredEmailNotifications: NotificationFamily[];
-  ignoredInAppNotifications: NotificationFamily[];
+  enabledEmailNotifications: NotificationFamily[];
+  enabledInAppNotifications: NotificationFamily[];
 }
 
-const UpdateIgnoredNotifications_Mutation = graphql(/* GraphQL */ `
-  mutation updateIgnoredNotifications(
-    $ignoredEmailNotifications: [NotificationFamily]
-    $ignoredInAppNotifications: [NotificationFamily]
+const UpdateEnabledNotifications_Mutation = graphql(/* GraphQL */ `
+  mutation UpdateEnabledNotifications(
+    $enabledEmailNotifications: [NotificationFamily]
+    $enabledInAppNotifications: [NotificationFamily]
   ) {
-    updateIgnoredNotifications(
-      ignoredEmailNotifications: $ignoredEmailNotifications
-      ignoredInAppNotifications: $ignoredInAppNotifications
+    updateEnabledNotifications(
+      enabledEmailNotifications: $enabledEmailNotifications
+      enabledInAppNotifications: $enabledInAppNotifications
     ) {
       id
-      ignoredEmailNotifications
-      ignoredInAppNotifications
+      enabledEmailNotifications
+      enabledInAppNotifications
     }
   }
 `);
 
 const NotificationSettings = ({
-  ignoredEmailNotifications,
-  ignoredInAppNotifications,
+  enabledEmailNotifications,
+  enabledInAppNotifications,
 }: NotificationSettingsProps) => {
   const intl = useIntl();
-  const [, executeMutation] = useMutation(UpdateIgnoredNotifications_Mutation);
+  const [, executeMutation] = useMutation(UpdateEnabledNotifications_Mutation);
 
   const methods = useForm<FormValues>({
     defaultValues: dataValuesToFormValues({
-      ignoredEmailNotifications,
-      ignoredInAppNotifications,
+      enabledEmailNotifications,
+      enabledInAppNotifications,
     }),
   });
 
@@ -218,7 +217,7 @@ const NotificationSettings = ({
     const data = formValuesToData(values);
     await executeMutation(data)
       .then((result) => {
-        if (result.data?.updateIgnoredNotifications) {
+        if (result.data?.updateEnabledNotifications) {
           toast.success(
             intl.formatMessage({
               defaultMessage: "Successfully updated settings",
@@ -317,10 +316,7 @@ const NotificationSettings = ({
             ))}
           </div>
           <div data-h2-align-self="base(flex-start)">
-            <Submit
-              color="secondary"
-              text={intl.formatMessage(formMessages.saveChanges)}
-            />
+            <Submit text={intl.formatMessage(formMessages.saveChanges)} />
           </div>
         </CardBasic>
       </form>

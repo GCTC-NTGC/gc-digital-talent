@@ -1,6 +1,6 @@
-import React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
+import { ReactNode } from "react";
 
 import {
   CardBasic,
@@ -65,7 +65,7 @@ const subTitle = defineMessage({
   description: "Subtitle for the browse IT jobs page",
 });
 
-export const BrowsePools = () => {
+export const Component = () => {
   const { mode } = useTheme();
   const intl = useIntl();
   const { loggedIn } = useAuthentication();
@@ -107,7 +107,7 @@ export const BrowsePools = () => {
     activeRecruitmentPools.length || ongoingRecruitmentPools.length;
 
   const profileLink = {
-    href: loggedIn ? paths.myProfile() : paths.login(),
+    href: loggedIn ? paths.profile() : paths.login(),
     label: loggedIn
       ? intl.formatMessage({
           defaultMessage: "Update my profile",
@@ -254,7 +254,7 @@ export const BrowsePools = () => {
                     "Title for Indigenous community job opportunities on Browse IT jobs page",
                 },
                 {
-                  abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+                  abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
                 },
               )}
               links={[
@@ -282,8 +282,7 @@ export const BrowsePools = () => {
                       "Summary for Indigenous community job opportunities on Browse IT jobs page",
                   },
                   {
-                    abbreviation: (text: React.ReactNode) =>
-                      wrapAbbr(text, intl),
+                    abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
                   },
                 )}
               </p>
@@ -314,8 +313,7 @@ export const BrowsePools = () => {
                       "Summary for to go to the search page on Browse IT jobs page",
                   },
                   {
-                    abbreviation: (text: React.ReactNode) =>
-                      wrapAbbr(text, intl),
+                    abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
                   },
                 )}
               </p>
@@ -328,4 +326,6 @@ export const BrowsePools = () => {
   );
 };
 
-export default BrowsePools;
+Component.displayName = "BrowsePoolsPage";
+
+export default Component;

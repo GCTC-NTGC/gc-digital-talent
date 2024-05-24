@@ -1,8 +1,8 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import debounce from "lodash/debounce";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import ChevronDownIcon from "@heroicons/react/20/solid/ChevronDownIcon";
+import { ChangeEvent, useCallback, useMemo, useRef, useState } from "react";
 
 import { Button, DropdownMenu } from "@gc-digital-talent/ui";
 import { useCommonInputStyles, Field } from "@gc-digital-talent/forms";
@@ -30,22 +30,18 @@ const SearchForm = <T,>({
   overrideAllTableMsg,
 }: SearchFormProps<T>) => {
   const intl = useIntl();
-  const searchRef = React.useRef<HTMLInputElement | null>(null);
+  const searchRef = useRef<HTMLInputElement | null>(null);
   const styles = useCommonInputStyles();
   const initialColumn =
     state?.type && searchBy
       ? searchBy.find((column) => column.value === state?.type)
       : undefined;
 
-  const [column, setColumn] = React.useState<SearchColumn | undefined>(
-    initialColumn,
-  );
-  const [searchTerm, setSearchTerm] = React.useState<string | undefined>(
-    state?.term,
-  );
+  const [column, setColumn] = useState<SearchColumn | undefined>(initialColumn);
+  const [searchTerm, setSearchTerm] = useState<string | undefined>(state?.term);
   const showDropdown = searchBy && searchBy.length;
 
-  const updateTable = React.useCallback(
+  const updateTable = useCallback(
     (newState: SearchState) => {
       table.resetPageIndex(true); // Go to first page when searching
       if (newState.type && newState.type !== "") {
@@ -68,8 +64,8 @@ const SearchForm = <T,>({
     [onChange, table],
   );
 
-  const handleChange = React.useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
       e.preventDefault();
       setSearchTerm(e.target.value);
       updateTable({
@@ -92,7 +88,7 @@ const SearchForm = <T,>({
     }
   };
 
-  const debouncedChangeHandler = React.useMemo(
+  const debouncedChangeHandler = useMemo(
     () => debounce(handleChange, 300),
     [handleChange],
   );
@@ -115,7 +111,7 @@ const SearchForm = <T,>({
   const allTableMsg = overrideAllTableMsg ?? defaultAllTableMsg;
 
   return (
-    <div data-h2-width="base(100%) l-tablet(auto)">
+    <div data-h2-width="base(100%) laptop(auto)">
       <Field.Label
         htmlFor={id}
         data-h2-display="base(inline-block)"
@@ -123,10 +119,7 @@ const SearchForm = <T,>({
       >
         {label}
       </Field.Label>
-      <div
-        data-h2-display="base(flex)"
-        data-h2-width="base(100%) l-tablet(auto)"
-      >
+      <div data-h2-display="base(flex)" data-h2-width="base(100%) laptop(auto)">
         {showDropdown ? (
           <DropdownMenu.Root>
             <DropdownMenu.Trigger>
@@ -193,11 +186,11 @@ const SearchForm = <T,>({
             data-h2-border-color="base(gray) base:focus-visible(focus)"
             data-h2-margin-left="base(0)"
             data-h2-padding="base(x.5 x1.5 x.5 x.5)"
-            data-h2-width="base(100%) l-tablet(auto)"
+            data-h2-width="base(100%) laptop(auto)"
             {...(showDropdown
               ? {
                   "data-h2-radius": "base(0, s, s, 0)",
-                  "data-h2-border-left-color": "l-tablet(transparent)",
+                  "data-h2-border-left-color": "laptop(transparent)",
                 }
               : {
                   "data-h2-radius": "base(s)",

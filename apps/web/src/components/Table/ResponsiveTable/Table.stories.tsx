@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { StoryFn, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import {
@@ -172,12 +172,12 @@ InitialState.args = {
 };
 
 const ServerSideTemplate: StoryFn<typeof Table<User>> = (args) => {
-  const [isLoading, setLoading] = React.useState<boolean>(false);
-  const [searchState, setSearchState] = React.useState<SearchState>({
+  const [isLoading, setLoading] = useState<boolean>(false);
+  const [searchState, setSearchState] = useState<SearchState>({
     term: "",
     type: "",
   });
-  const [, setRowSelection] = React.useState<User[]>([]);
+  const [, setRowSelection] = useState<User[]>([]);
 
   const handleSearchChange = async (newSearchState: SearchState) => {
     setLoading(true);

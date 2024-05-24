@@ -1,5 +1,5 @@
-import React from "react";
 import { useIntl } from "react-intl";
+import { ReactNode } from "react";
 
 import {
   Button,
@@ -33,7 +33,7 @@ interface SkillTreeProps {
   hideConnectButton?: boolean;
   hideEdit?: boolean;
   showDisclaimer?: boolean;
-  disclaimerMessage?: React.ReactNode;
+  disclaimerMessage?: ReactNode;
 }
 
 const SkillTree = ({

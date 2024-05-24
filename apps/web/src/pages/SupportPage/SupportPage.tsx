@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 
 import { useTheme } from "@gc-digital-talent/theme";
@@ -20,7 +19,7 @@ const getFlourishStyles = (isTop: boolean) => ({
     : "base(auto, auto, 0, 0)",
 });
 
-export const SupportPage = () => {
+export const Component = () => {
   const { mode } = useTheme();
   const intl = useIntl();
   const paths = useRoutes();
@@ -80,4 +79,6 @@ export const SupportPage = () => {
   );
 };
 
-export default SupportPage;
+Component.displayName = "SupportPage";
+
+export default Component;

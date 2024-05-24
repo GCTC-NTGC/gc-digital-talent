@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import upperCase from "lodash/upperCase";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -9,6 +8,7 @@ import { Input, Select, Submit } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
 import { graphql, CreateClassificationInput } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -17,6 +17,7 @@ import { pageTitle as indexClassificationPageTitle } from "~/pages/Classificatio
 import AdminHero from "~/components/Hero/AdminHero";
 import adminMessages from "~/messages/adminMessages";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 type FormValues = CreateClassificationInput;
 interface CreateClassificationFormProps {
@@ -251,5 +252,13 @@ const CreateClassification = () => {
     </>
   );
 };
+
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
+    <CreateClassification />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminCreateClassificationPage";
 
 export default CreateClassification;

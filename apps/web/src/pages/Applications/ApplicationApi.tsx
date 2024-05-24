@@ -1,4 +1,4 @@
-import React from "react";
+import { JSX } from "react";
 
 import { PoolCandidate } from "@gc-digital-talent/graphql";
 

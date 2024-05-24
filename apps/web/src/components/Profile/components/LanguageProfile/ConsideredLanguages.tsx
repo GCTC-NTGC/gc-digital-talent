@@ -1,6 +1,6 @@
-import React from "react";
 import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { ReactNode, useEffect } from "react";
 
 import {
   RadioGroup,
@@ -9,6 +9,7 @@ import {
   Checkbox,
 } from "@gc-digital-talent/forms";
 import {
+  Locales,
   errorMessages,
   getEvaluatedLanguageAbility,
   getLanguage,
@@ -29,6 +30,37 @@ const EvaluatedAbilityItemsSortOrder = [
   EvaluatedLanguageAbility.NotAssessed,
 ];
 
+const languageEvaluationPageLink = (msg: ReactNode, locale: Locales) => {
+  return (
+    <Link
+      newTab
+      external
+      href={
+        locale === "en"
+          ? "https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service.html"
+          : "https://www.canada.ca/fr/commission-fonction-publique/services/evaluation-langue-seconde.html"
+      }
+    >
+      {msg}
+    </Link>
+  );
+};
+
+const selfAssessmentLink = (msg: ReactNode, locale: Locales) => {
+  return (
+    <Link
+      newTab
+      external
+      href={
+        locale === "en"
+          ? "https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service/self-assessment-tests.html"
+          : "https://www.canada.ca/fr/commission-fonction-publique/services/evaluation-langue-seconde/tests-autoevaluation.html"
+      }
+    >
+      {msg}
+    </Link>
+  );
+};
 interface ConsideredLanguagesProps {
   labels: FieldLabels;
 }
@@ -37,38 +69,6 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const { watch, resetField } = useFormContext();
-
-  const languageEvaluationPageLink = (msg: React.ReactNode) => {
-    return (
-      <Link
-        newTab
-        external
-        href={
-          locale === "en"
-            ? "https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service.html"
-            : "https://www.canada.ca/fr/commission-fonction-publique/services/evaluation-langue-seconde.html"
-        }
-      >
-        {msg}
-      </Link>
-    );
-  };
-
-  const selfAssessmentLink = (msg: React.ReactNode) => {
-    return (
-      <Link
-        newTab
-        external
-        href={
-          locale === "en"
-            ? "https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service/self-assessment-tests.html"
-            : "https://www.canada.ca/fr/commission-fonction-publique/services/evaluation-langue-seconde/tests-autoevaluation.html"
-        }
-      >
-        {msg}
-      </Link>
-    );
-  };
 
   // hooks to watch, needed for conditional rendering
   const [consideredLanguages, secondLanguageExamCompleted] = watch([
@@ -95,7 +95,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
   /**
    * Reset un-rendered fields
    */
-  React.useEffect(() => {
+  useEffect(() => {
     const resetDirtyField = (name: string) => {
       resetField(name, { keepDirty: false });
     };
@@ -180,7 +180,8 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
               "Context message for estimated language ability in language information form.",
           },
           {
-            languageEvaluationPageLink,
+            languageEvaluationPageLink: (chunks: ReactNode) =>
+              languageEvaluationPageLink(chunks, locale),
           },
         )}
       />
@@ -211,7 +212,8 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
                   "Context message for exam validity in language information form.",
               },
               {
-                selfAssessmentLink,
+                selfAssessmentLink: (chunks: ReactNode) =>
+                  selfAssessmentLink(chunks, locale),
               },
             )}
           />

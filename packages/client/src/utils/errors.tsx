@@ -1,7 +1,7 @@
-import React from "react";
 import { GraphQLError } from "graphql";
 import { CombinedError } from "urql";
 import { IntlShape } from "react-intl";
+import { ReactNode } from "react";
 
 import { tryFindMessageDescriptor } from "@gc-digital-talent/i18n";
 
@@ -56,7 +56,7 @@ export const extractValidationMessageKeys = (
 export const buildValidationErrorMessageNode = (
   errorMessages: Array<string>,
   intl: IntlShape,
-): React.ReactNode => {
+): ReactNode => {
   const localizedMessages = errorMessages.map((errorMessage) => {
     const localizedMessageDescriptor = tryFindMessageDescriptor(errorMessage);
     if (localizedMessageDescriptor) {

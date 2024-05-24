@@ -1,8 +1,8 @@
-import * as React from "react";
+import { forwardRef } from "react";
 
 import { IconType } from "@gc-digital-talent/ui";
 
-const EducationWorkIcon: IconType = React.forwardRef(() => (
+const EducationWorkIcon: IconType = forwardRef(() => (
   <svg
     width="77"
     height="29"

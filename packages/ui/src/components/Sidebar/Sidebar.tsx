@@ -1,7 +1,7 @@
-import React from "react";
+import { HTMLProps, ReactNode } from "react";
 
-export interface SidebarProps extends React.HTMLProps<HTMLElement> {
-  children: React.ReactNode;
+export interface SidebarProps extends HTMLProps<HTMLElement> {
+  children: ReactNode;
 }
 
 const Sidebar = ({ children, ...rest }: SidebarProps) => (

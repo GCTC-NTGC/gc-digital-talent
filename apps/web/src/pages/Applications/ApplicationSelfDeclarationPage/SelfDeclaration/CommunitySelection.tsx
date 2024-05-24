@@ -1,6 +1,6 @@
-import React from "react";
 import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { ReactNode, useState, useEffect, useId } from "react";
 
 import {
   FieldLabels,
@@ -20,7 +20,7 @@ import CommunityIcon from "./CommunityIcon";
 import CommunityChips from "./CommunityChips";
 
 interface RowProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const Row = ({ children }: RowProps) => (
@@ -40,9 +40,8 @@ interface CommunityListProps {
 
 export const CommunityList = ({ labels }: CommunityListProps) => {
   const intl = useIntl();
-  const [isAlertOpen, setIsAlertOpen] = React.useState<boolean>(false);
-  const [hasDismissedAlert, setHasDismissedAlert] =
-    React.useState<boolean>(false);
+  const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
+  const [hasDismissedAlert, setHasDismissedAlert] = useState<boolean>(false);
   const { watch, setValue, resetField, setError, clearErrors, formState } =
     useFormContext();
 
@@ -53,12 +52,12 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
 
   const isOtherAndHasCommunity = hasCommunityAndOther(communitiesValue);
 
-  React.useEffect(() => {
+  useEffect(() => {
     // Is not represented and has at least on other community selected
     setIsAlertOpen(!!(isOtherAndHasCommunity && !hasDismissedAlert));
   }, [isOtherAndHasCommunity, setIsAlertOpen, hasDismissedAlert]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (
       communitiesValue.includes("status") &&
       communitiesValue.includes("nonStatus")
@@ -77,7 +76,7 @@ export const CommunityList = ({ labels }: CommunityListProps) => {
       clearErrors("firstNationsCustom");
     }
   }, [clearErrors, communitiesValue, intl, setError]);
-  const customAlertId = React.useId();
+  const customAlertId = useId();
 
   const handleAlertDismiss = () => {
     setIsAlertOpen(false);

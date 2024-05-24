@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import CalculatorIcon from "@heroicons/react/24/outline/CalculatorIcon";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
@@ -10,25 +9,28 @@ import { Pending, TableOfContents, ThrowNotFound } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
+  Department,
   FragmentType,
-  Pool,
   Scalars,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import adminMessages from "~/messages/adminMessages";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import AboutSection from "./components/AboutSection";
 import CandidateStatusSection from "./components/CandidateStatusSection";
 import NotesSection from "./components/NotesSection";
 import EmploymentEquitySection from "./components/EmploymentEquitySection";
 
-const UserInfo_Fragment = graphql(/* GraphQL */ `
+export const UserInfo_Fragment = graphql(/* GraphQL */ `
   fragment UserInfo on User {
+    ...UserCandidatesTableRow
     id
     email
     firstName
@@ -55,6 +57,7 @@ const UserInfo_Fragment = graphql(/* GraphQL */ `
     govEmployeeType
     hasPriorityEntitlement
     priorityNumber
+    priorityWeight
     locationPreferences
     locationExemptions
     positionDuration
@@ -70,6 +73,16 @@ const UserInfo_Fragment = graphql(/* GraphQL */ `
       expiryDate
       notes
       suspendedAt
+      submittedAt
+      isBookmarked
+      placedDepartment {
+        id
+        departmentNumber
+        name {
+          en
+          fr
+        }
+      }
       user {
         id
       }
@@ -255,10 +268,13 @@ const UserInfo_Fragment = graphql(/* GraphQL */ `
 
 interface UserInformationProps {
   userQuery: FragmentType<typeof UserInfo_Fragment>;
-  pools: Pool[];
+  departments: Department[];
 }
 
-const UserInformation = ({ userQuery, pools }: UserInformationProps) => {
+export const UserInformation = ({
+  userQuery,
+  departments,
+}: UserInformationProps) => {
   const intl = useIntl();
   const user = getFragment(UserInfo_Fragment, userQuery);
 
@@ -282,7 +298,7 @@ const UserInformation = ({ userQuery, pools }: UserInformationProps) => {
           "Title of the 'Candidate status' section of the view-user page",
       }),
       titleIcon: CalculatorIcon,
-      content: <CandidateStatusSection user={user} pools={pools} />,
+      content: <CandidateStatusSection user={user} departments={departments} />,
     },
     {
       id: "notes",
@@ -340,19 +356,14 @@ const UserInformation_Query = graphql(/* GraphQL */ `
     user(id: $id, trashed: WITH) {
       ...UserInfo
     }
-    pools {
+
+    departments {
       id
+      departmentNumber
       name {
         en
         fr
       }
-      stream
-      classification {
-        id
-        group
-        level
-      }
-      status
     }
   }
 `);
@@ -370,7 +381,7 @@ const UserInformationPage = () => {
   });
 
   const user = data?.user;
-  const pools = unpackMaybes(data?.pools);
+  const departments = unpackMaybes(data?.departments);
 
   return (
     <AdminContentWrapper>
@@ -382,8 +393,8 @@ const UserInformationPage = () => {
         })}
       />
       <Pending fetching={fetching} error={error}>
-        {user && pools ? (
-          <UserInformation userQuery={user} pools={pools} />
+        {user ? (
+          <UserInformation userQuery={user} departments={departments} />
         ) : (
           <ThrowNotFound />
         )}
@@ -391,5 +402,19 @@ const UserInformationPage = () => {
     </AdminContentWrapper>
   );
 };
+
+export const Component = () => (
+  <RequireAuth
+    roles={[
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.RequestResponder,
+      ROLE_NAME.PlatformAdmin,
+    ]}
+  >
+    <UserInformationPage />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminUserInformationPage";
 
 export default UserInformationPage;

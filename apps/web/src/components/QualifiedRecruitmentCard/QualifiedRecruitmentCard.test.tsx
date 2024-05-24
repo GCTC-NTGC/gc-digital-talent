@@ -3,7 +3,6 @@
  */
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
-import React from "react";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
 
@@ -13,18 +12,25 @@ import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
-import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
+import {
+  PoolCandidateStatus,
+  makeFragmentData,
+} from "@gc-digital-talent/graphql";
 
 import QualifiedRecruitmentCard, {
   QualifiedRecruitmentCardProps,
+  QualifiedRecruitmentCard_Fragment,
 } from "./QualifiedRecruitmentCard";
 
 const mockApplication = fakePoolCandidates()[0];
 const defaultProps = {
-  candidate: {
-    ...mockApplication,
-    expiryDate: FAR_FUTURE_DATE,
-  },
+  candidateQuery: makeFragmentData(
+    {
+      ...mockApplication,
+      expiryDate: FAR_FUTURE_DATE,
+    },
+    QualifiedRecruitmentCard_Fragment,
+  ),
 };
 
 const mockClient = {
@@ -49,11 +55,14 @@ describe("QualifiedRecruitmentCard", () => {
   it("PLACED_CASUAL and UN-SUSPENDED", async () => {
     renderCard({
       ...defaultProps,
-      candidate: {
-        ...mockApplication,
-        status: PoolCandidateStatus.PlacedCasual,
-        suspendedAt: null,
-      },
+      candidateQuery: makeFragmentData(
+        {
+          ...mockApplication,
+          status: PoolCandidateStatus.PlacedCasual,
+          suspendedAt: null,
+        },
+        QualifiedRecruitmentCard_Fragment,
+      ),
     });
 
     expect(screen.getByText(/hired \(casual\)/i)).toBeInTheDocument();
@@ -80,11 +89,14 @@ describe("QualifiedRecruitmentCard", () => {
   it("PLACED_CASUAL and SUSPENDED", async () => {
     renderCard({
       ...defaultProps,
-      candidate: {
-        ...mockApplication,
-        status: PoolCandidateStatus.PlacedCasual,
-        suspendedAt: FAR_PAST_DATE,
-      },
+      candidateQuery: makeFragmentData(
+        {
+          ...mockApplication,
+          status: PoolCandidateStatus.PlacedCasual,
+          suspendedAt: FAR_PAST_DATE,
+        },
+        QualifiedRecruitmentCard_Fragment,
+      ),
     });
 
     expect(screen.getByText(/hired \(casual\)/i)).toBeInTheDocument();
@@ -111,11 +123,14 @@ describe("QualifiedRecruitmentCard", () => {
   it("PLACED_INDETERMINATE and UN-SUSPENDED", async () => {
     renderCard({
       ...defaultProps,
-      candidate: {
-        ...mockApplication,
-        status: PoolCandidateStatus.PlacedIndeterminate,
-        suspendedAt: null,
-      },
+      candidateQuery: makeFragmentData(
+        {
+          ...mockApplication,
+          status: PoolCandidateStatus.PlacedIndeterminate,
+          suspendedAt: null,
+        },
+        QualifiedRecruitmentCard_Fragment,
+      ),
     });
 
     expect(screen.getByText(/hired \(indeterminate\)/i)).toBeInTheDocument();
@@ -142,11 +157,14 @@ describe("QualifiedRecruitmentCard", () => {
   it("PLACED_INDETERMINATE and SUSPENDED", async () => {
     renderCard({
       ...defaultProps,
-      candidate: {
-        ...mockApplication,
-        status: PoolCandidateStatus.PlacedIndeterminate,
-        suspendedAt: FAR_PAST_DATE,
-      },
+      candidateQuery: makeFragmentData(
+        {
+          ...mockApplication,
+          status: PoolCandidateStatus.PlacedIndeterminate,
+          suspendedAt: FAR_PAST_DATE,
+        },
+        QualifiedRecruitmentCard_Fragment,
+      ),
     });
 
     expect(screen.getByText(/hired \(indeterminate\)/i)).toBeInTheDocument();
@@ -173,11 +191,14 @@ describe("QualifiedRecruitmentCard", () => {
   it("PLACED_TERM and UN-SUSPENDED", async () => {
     renderCard({
       ...defaultProps,
-      candidate: {
-        ...mockApplication,
-        status: PoolCandidateStatus.PlacedTerm,
-        suspendedAt: null,
-      },
+      candidateQuery: makeFragmentData(
+        {
+          ...mockApplication,
+          status: PoolCandidateStatus.PlacedTerm,
+          suspendedAt: null,
+        },
+        QualifiedRecruitmentCard_Fragment,
+      ),
     });
 
     expect(screen.getByText(/hired \(term\)/i)).toBeInTheDocument();
@@ -204,11 +225,14 @@ describe("QualifiedRecruitmentCard", () => {
   it("PLACED_TERM and SUSPENDED", async () => {
     renderCard({
       ...defaultProps,
-      candidate: {
-        ...mockApplication,
-        status: PoolCandidateStatus.PlacedTerm,
-        suspendedAt: FAR_PAST_DATE,
-      },
+      candidateQuery: makeFragmentData(
+        {
+          ...mockApplication,
+          status: PoolCandidateStatus.PlacedTerm,
+          suspendedAt: FAR_PAST_DATE,
+        },
+        QualifiedRecruitmentCard_Fragment,
+      ),
     });
 
     expect(screen.getByText(/hired \(term\)/i)).toBeInTheDocument();
@@ -235,11 +259,14 @@ describe("QualifiedRecruitmentCard", () => {
   it("QUALIFIED_AVAILABLE and UN-SUSPENDED", async () => {
     renderCard({
       ...defaultProps,
-      candidate: {
-        ...mockApplication,
-        status: PoolCandidateStatus.QualifiedAvailable,
-        suspendedAt: null,
-      },
+      candidateQuery: makeFragmentData(
+        {
+          ...mockApplication,
+          status: PoolCandidateStatus.QualifiedAvailable,
+          suspendedAt: null,
+        },
+        QualifiedRecruitmentCard_Fragment,
+      ),
     });
 
     expect(screen.getByText(/ready to hire/i)).toBeInTheDocument();
@@ -257,11 +284,14 @@ describe("QualifiedRecruitmentCard", () => {
   it("QUALIFIED_AVAILABLE and SUSPENDED", async () => {
     renderCard({
       ...defaultProps,
-      candidate: {
-        ...mockApplication,
-        status: PoolCandidateStatus.QualifiedAvailable,
-        suspendedAt: FAR_PAST_DATE,
-      },
+      candidateQuery: makeFragmentData(
+        {
+          ...mockApplication,
+          status: PoolCandidateStatus.QualifiedAvailable,
+          suspendedAt: FAR_PAST_DATE,
+        },
+        QualifiedRecruitmentCard_Fragment,
+      ),
     });
 
     expect(screen.getByText(/not interested/i)).toBeInTheDocument();
@@ -281,11 +311,14 @@ describe("QualifiedRecruitmentCard", () => {
   it("QUALIFIED_UNAVAILABLE and UN-SUSPENDED", async () => {
     renderCard({
       ...defaultProps,
-      candidate: {
-        ...mockApplication,
-        status: PoolCandidateStatus.QualifiedUnavailable,
-        suspendedAt: null,
-      },
+      candidateQuery: makeFragmentData(
+        {
+          ...mockApplication,
+          status: PoolCandidateStatus.QualifiedUnavailable,
+          suspendedAt: null,
+        },
+        QualifiedRecruitmentCard_Fragment,
+      ),
     });
 
     expect(screen.getByText(/paused/i)).toBeInTheDocument();
@@ -312,11 +345,14 @@ describe("QualifiedRecruitmentCard", () => {
   it("QUALIFIED_UNAVAILABLE and SUSPENDED", async () => {
     renderCard({
       ...defaultProps,
-      candidate: {
-        ...mockApplication,
-        status: PoolCandidateStatus.QualifiedUnavailable,
-        suspendedAt: FAR_PAST_DATE,
-      },
+      candidateQuery: makeFragmentData(
+        {
+          ...mockApplication,
+          status: PoolCandidateStatus.QualifiedUnavailable,
+          suspendedAt: FAR_PAST_DATE,
+        },
+        QualifiedRecruitmentCard_Fragment,
+      ),
     });
 
     expect(screen.getByText(/paused/i)).toBeInTheDocument();
@@ -343,11 +379,14 @@ describe("QualifiedRecruitmentCard", () => {
   it("QUALIFIED_WITHDREW and UN-SUSPENDED", async () => {
     renderCard({
       ...defaultProps,
-      candidate: {
-        ...mockApplication,
-        status: PoolCandidateStatus.QualifiedWithdrew,
-        suspendedAt: null,
-      },
+      candidateQuery: makeFragmentData(
+        {
+          ...mockApplication,
+          status: PoolCandidateStatus.QualifiedWithdrew,
+          suspendedAt: null,
+        },
+        QualifiedRecruitmentCard_Fragment,
+      ),
     });
 
     expect(screen.getByText(/withdrew/i)).toBeInTheDocument();
@@ -374,11 +413,14 @@ describe("QualifiedRecruitmentCard", () => {
   it("QUALIFIED_WITHDREW and SUSPENDED", async () => {
     renderCard({
       ...defaultProps,
-      candidate: {
-        ...mockApplication,
-        status: PoolCandidateStatus.QualifiedWithdrew,
-        suspendedAt: FAR_PAST_DATE,
-      },
+      candidateQuery: makeFragmentData(
+        {
+          ...mockApplication,
+          status: PoolCandidateStatus.QualifiedWithdrew,
+          suspendedAt: FAR_PAST_DATE,
+        },
+        QualifiedRecruitmentCard_Fragment,
+      ),
     });
 
     expect(screen.getByText(/withdrew/i)).toBeInTheDocument();
@@ -405,11 +447,14 @@ describe("QualifiedRecruitmentCard", () => {
   it("EXPIRED and UN-SUSPENDED", async () => {
     renderCard({
       ...defaultProps,
-      candidate: {
-        ...mockApplication,
-        status: PoolCandidateStatus.Expired,
-        suspendedAt: null,
-      },
+      candidateQuery: makeFragmentData(
+        {
+          ...mockApplication,
+          status: PoolCandidateStatus.Expired,
+          suspendedAt: null,
+        },
+        QualifiedRecruitmentCard_Fragment,
+      ),
     });
 
     expect(screen.getByText(/expired/i)).toBeInTheDocument();
@@ -436,11 +481,14 @@ describe("QualifiedRecruitmentCard", () => {
   it("EXPIRED and SUSPENDED", async () => {
     renderCard({
       ...defaultProps,
-      candidate: {
-        ...mockApplication,
-        status: PoolCandidateStatus.Expired,
-        suspendedAt: FAR_PAST_DATE,
-      },
+      candidateQuery: makeFragmentData(
+        {
+          ...mockApplication,
+          status: PoolCandidateStatus.Expired,
+          suspendedAt: FAR_PAST_DATE,
+        },
+        QualifiedRecruitmentCard_Fragment,
+      ),
     });
 
     expect(screen.getByText(/expired/i)).toBeInTheDocument();

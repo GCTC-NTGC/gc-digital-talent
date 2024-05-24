@@ -1,11 +1,11 @@
-import React from "react";
 import { useIntl } from "react-intl";
+import { ReactNode } from "react";
 
 import { Link } from "@gc-digital-talent/ui";
 
 import { wrapAbbr } from "~/utils/nameUtils";
 
-const contactLink = (chunks: React.ReactNode) => (
+const contactLink = (chunks: ReactNode) => (
   <Link
     color="secondary"
     external
@@ -29,7 +29,7 @@ const HelpLink = () => {
         },
         {
           link: contactLink,
-          abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+          abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
         },
       )}
     </p>

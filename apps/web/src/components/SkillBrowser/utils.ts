@@ -1,4 +1,5 @@
 import { IntlShape } from "react-intl";
+import { ReactNode } from "react";
 
 import { Option } from "@gc-digital-talent/forms";
 import { Skill, SkillCategory, SkillFamily } from "@gc-digital-talent/graphql";
@@ -18,11 +19,11 @@ export const defaultFormValues: FormValues = {
 };
 
 interface SkillBrowserDialogMessages {
-  trigger: React.ReactNode;
-  title: React.ReactNode;
-  subtitle: React.ReactNode;
-  submit: React.ReactNode;
-  selected: (skillName: string) => React.ReactNode;
+  trigger: ReactNode;
+  title: ReactNode;
+  subtitle: ReactNode;
+  submit: ReactNode;
+  selected: (skillName: string) => ReactNode;
 }
 
 type GetSkillBrowserDialogMessagesArgs = {

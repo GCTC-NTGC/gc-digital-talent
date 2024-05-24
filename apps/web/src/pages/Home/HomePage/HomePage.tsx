@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 
 import SEO from "~/components/SEO/SEO";
@@ -6,7 +5,7 @@ import SEO from "~/components/SEO/SEO";
 import { About, Featured, Hero, Opportunities, Profile } from "./components";
 import type { HeroProps } from "./components/Hero/Hero";
 
-const HomePage = ({ defaultImage }: HeroProps) => {
+export const Component = ({ defaultImage }: HeroProps) => {
   const intl = useIntl();
 
   return (
@@ -33,4 +32,6 @@ const HomePage = ({ defaultImage }: HeroProps) => {
   );
 };
 
-export default HomePage;
+Component.displayName = "HomePage";
+
+export default Component;

@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
@@ -27,7 +27,7 @@ const meta: Meta<typeof ViewPool> = {
 export default meta;
 
 const Template: StoryFn<typeof ViewPool> = (args) => {
-  const [isFetching, setIsFetching] = React.useState<boolean>(false);
+  const [isFetching, setIsFetching] = useState<boolean>(false);
 
   const wait = async <T,>(name: string, data?: T): Promise<void> => {
     action(name)(data);

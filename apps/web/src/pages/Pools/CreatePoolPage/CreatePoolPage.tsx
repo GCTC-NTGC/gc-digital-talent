@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { defineMessage, useIntl } from "react-intl";
@@ -23,6 +22,7 @@ import {
   FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import SEO from "~/components/SEO/SEO";
@@ -30,6 +30,7 @@ import useRoutes from "~/hooks/useRoutes";
 import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
 import AdminHero from "~/components/Hero/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 const CreatePoolClassification_Fragment = graphql(/* GraphQL */ `
   fragment CreatePoolClassification on Classification {
@@ -185,7 +186,7 @@ export const CreatePoolForm = ({
                     "Label/title for creating a recruitment process.",
                 })}
               />
-              <Link href={paths.poolTable()} mode="inline" color="quaternary">
+              <Link href={paths.poolTable()} mode="inline" color="warning">
                 {intl.formatMessage(formMessages.cancelGoBack)}
               </Link>
             </div>
@@ -321,5 +322,13 @@ const CreatePoolPage = () => {
     </>
   );
 };
+
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.PoolOperator]}>
+    <CreatePoolPage />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminCreatePoolPage";
 
 export default CreatePoolPage;

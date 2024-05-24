@@ -3,7 +3,6 @@
  */
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
-import React from "react";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
 
@@ -13,16 +12,25 @@ import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
-import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
+import {
+  PoolCandidateStatus,
+  makeFragmentData,
+} from "@gc-digital-talent/graphql";
 
 import { PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
 
-import ApplicationCard, { ApplicationCardProps } from "./ApplicationCard";
+import ApplicationCard, {
+  ApplicationCardProps,
+  ApplicationCard_Fragment,
+} from "./ApplicationCard";
 
 const mockApplication = fakePoolCandidates()[0];
 
 const defaultProps = {
-  application: mockApplication,
+  poolCandidateQuery: makeFragmentData(
+    mockApplication,
+    ApplicationCard_Fragment,
+  ),
   onDelete: jest.fn(),
 };
 
@@ -48,14 +56,17 @@ describe("ApplicationCard", () => {
   it("should have proper action links if the application is in draft", async () => {
     renderCard({
       ...defaultProps,
-      application: {
-        ...mockApplication,
-        status: PoolCandidateStatus.Draft,
-        pool: {
-          ...mockApplication.pool,
-          closingDate: FAR_FUTURE_DATE,
+      poolCandidateQuery: makeFragmentData(
+        {
+          ...mockApplication,
+          status: PoolCandidateStatus.Draft,
+          pool: {
+            ...mockApplication.pool,
+            closingDate: FAR_FUTURE_DATE,
+          },
         },
-      },
+        ApplicationCard_Fragment,
+      ),
     });
     const links = screen.queryAllByRole("link");
     expect(links).toHaveLength(3);
@@ -68,12 +79,15 @@ describe("ApplicationCard", () => {
   it("should have proper label and action links if placed/hired in pool", async () => {
     renderCard({
       ...defaultProps,
-      application: {
-        ...mockApplication,
-        status: PoolCandidateStatus.PlacedCasual,
-        expiryDate: FAR_FUTURE_DATE,
-        suspendedAt: new Date().toUTCString(),
-      },
+      poolCandidateQuery: makeFragmentData(
+        {
+          ...mockApplication,
+          status: PoolCandidateStatus.PlacedCasual,
+          expiryDate: FAR_FUTURE_DATE,
+          suspendedAt: new Date().toUTCString(),
+        },
+        ApplicationCard_Fragment,
+      ),
     });
 
     const links = screen.queryAllByRole("link");
@@ -108,11 +122,14 @@ describe("ApplicationCard", () => {
   it("should have proper label if the application is draft but the pool is expired", async () => {
     renderCard({
       ...defaultProps,
-      application: {
-        ...mockApplication,
-        status: PoolCandidateStatus.DraftExpired,
-        expiryDate: FAR_PAST_DATE,
-      },
+      poolCandidateQuery: makeFragmentData(
+        {
+          ...mockApplication,
+          status: PoolCandidateStatus.DraftExpired,
+          expiryDate: FAR_PAST_DATE,
+        },
+        ApplicationCard_Fragment,
+      ),
     });
     const links = screen.queryAllByRole("link");
     expect(links).toHaveLength(3);

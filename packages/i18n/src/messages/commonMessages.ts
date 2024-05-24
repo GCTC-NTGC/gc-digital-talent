@@ -109,11 +109,6 @@ const commonMessages = defineMessages({
     id: "99cWuv",
     description: "Message for the success status",
   },
-  warning: {
-    defaultMessage: "warning",
-    id: "hd7hdn",
-    description: "Message for the warning status",
-  },
   dividingColon: {
     defaultMessage: ": ",
     id: "i3Jl6C",
@@ -238,6 +233,31 @@ const commonMessages = defineMessages({
     defaultMessage: "Return",
     id: "VV8TA5",
     description: "An action to go back to a previous location",
+  },
+  important: {
+    defaultMessage: "Important",
+    id: "IKGhHj",
+    description: "Important note or caption",
+  },
+  print: {
+    defaultMessage: "Print",
+    id: "f5z4R/",
+    description: "Label for print button",
+  },
+  expiryDate: {
+    defaultMessage: "Expiry date",
+    id: "AAFkmX",
+    description: "Label for expiry Date",
+  },
+  jobPlacement: {
+    defaultMessage: "Job placement",
+    id: "u/+Nrd",
+    description: "Label for job placement",
+  },
+  warning: {
+    defaultMessage: "Warning!",
+    id: "YtV1mE",
+    description: "A potentially dangerous action alert",
   },
 });
 

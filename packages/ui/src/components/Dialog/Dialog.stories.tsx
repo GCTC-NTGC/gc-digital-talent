@@ -1,6 +1,5 @@
-import React from "react";
 import type { StoryFn, Meta } from "@storybook/react";
-import { faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker/locale/en";
 
 import {
   OverlayOrDialogDecorator,
@@ -38,7 +37,7 @@ const Template: StoryFn<typeof Dialog.Root> = () => (
         <p>{faker.lorem.sentences(3)}</p>
         <Dialog.Footer>
           <Dialog.Close>
-            <Button color="primary">Close</Button>
+            <Button color="secondary">Close</Button>
           </Dialog.Close>
         </Dialog.Footer>
       </Dialog.Body>

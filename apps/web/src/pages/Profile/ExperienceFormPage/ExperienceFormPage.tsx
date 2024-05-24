@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { defineMessage, useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -26,6 +26,7 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import {
@@ -52,6 +53,7 @@ import {
   queryResultToDefaultValues,
 } from "~/utils/experienceUtils";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import ExperienceSkills from "./components/ExperienceSkills";
 
@@ -194,7 +196,7 @@ export const ExperienceForm = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const returnPath = paths.careerTimelineAndRecruitment(userId || "");
+  const returnPath = paths.careerTimelineAndRecruitment();
   const experience = getFragment(
     ExperienceFormExperience_Fragment,
     experienceQuery,
@@ -322,7 +324,7 @@ export const ExperienceForm = ({
     return handleUpdateExperience(data);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (action === "add-another" && isSubmitSuccessful) {
       // Help users out by focusing the first input after scrolling
       setFocus("experienceType");
@@ -356,9 +358,7 @@ export const ExperienceForm = ({
               description:
                 "Display text for add experience form in breadcrumbs",
             }),
-        url: experience
-          ? paths.editExperience(userId, experienceType, experience.id)
-          : "#",
+        url: experience ? paths.editExperience(experience.id) : "#",
       },
     ],
   });
@@ -607,7 +607,8 @@ export interface ExperienceFormContainerProps {
 
 const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
   const intl = useIntl();
-  const { experienceId, userId } = useParams<RouteParams>();
+  const { userAuthInfo } = useAuthorization();
+  const { experienceId } = useParams<RouteParams>();
   const { state } = useLocation();
 
   const [{ data, fetching, error }] = useQuery({
@@ -632,7 +633,7 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
           experienceId={experienceId || ""}
           experienceType={experienceType}
           skillsQuery={skills}
-          userId={userId || ""}
+          userId={userAuthInfo?.id || ""}
         />
       ) : (
         <ThrowNotFound
@@ -647,5 +648,21 @@ const ExperienceFormContainer = ({ edit }: ExperienceFormContainerProps) => {
     </Pending>
   );
 };
+
+export const Create = () => (
+  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+    <ExperienceFormContainer />
+  </RequireAuth>
+);
+
+Create.displayName = "CreateExperienceFormPage";
+
+export const Edit = () => (
+  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+    <ExperienceFormContainer edit />
+  </RequireAuth>
+);
+
+Edit.displayName = "EditExperienceFormPage";
 
 export default ExperienceFormContainer;

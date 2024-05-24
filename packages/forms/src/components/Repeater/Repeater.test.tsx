@@ -1,7 +1,6 @@
 /**
  * @jest-environment jsdom
  */
-import React from "react";
 import "@testing-library/jest-dom";
 import { screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -12,6 +11,7 @@ import {
   useFormContext,
 } from "react-hook-form";
 import type { FieldValues, SubmitHandler } from "react-hook-form";
+import { ReactNode } from "react";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 
@@ -88,7 +88,7 @@ const RepeaterWrapper = ({
 interface FormProps {
   onSubmit: SubmitHandler<FieldValues>;
   defaultValues: FieldValues;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const Form = ({ onSubmit, defaultValues, children }: FormProps) => {

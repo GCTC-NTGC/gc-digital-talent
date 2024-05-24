@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Enums\PoolCandidateSearchPositionType;
 use App\Enums\PoolCandidateSearchRequestReason;
 use App\Enums\PoolCandidateStatus;
+use App\Models\Community;
 use App\Models\Department;
 use App\Models\Pool;
 use App\Models\User;
@@ -154,6 +155,7 @@ class ActivityLogTest extends TestCase
     {
         $testPool = Pool::factory()->published()->create();
         $testDepartment = Department::factory()->create();
+        $testCommunity = Community::factory()->create();
         Activity::truncate();
 
         $this->actingAs($this->adminUser, 'api')->graphQL(
@@ -203,6 +205,9 @@ class ActivityLogTest extends TestCase
                     'department' => [
                         'connect' => $testDepartment->id,
                     ],
+                    'community' => [
+                        'connect' => $testCommunity->id,
+                    ],
                     'jobTitle' => 'CEO',
                     'managerJobTitle' => 'Manager',
                     'positionType' => PoolCandidateSearchPositionType::INDIVIDUAL_CONTRIBUTOR->name,
@@ -210,6 +215,9 @@ class ActivityLogTest extends TestCase
                     'applicantFilter' => [
                         'create' => [
                             'hasDiploma' => true,
+                            'community' => [
+                                'connect' => $testCommunity->id,
+                            ],
                         ],
                     ],
                 ],

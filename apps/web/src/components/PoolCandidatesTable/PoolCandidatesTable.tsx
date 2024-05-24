@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useMemo, useRef } from "react";
 import { useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 import {
@@ -17,6 +17,7 @@ import {
   errorMessages,
   getLanguage,
   getLocale,
+  getLocalizedName,
   getPoolCandidatePriorities,
   getPoolCandidateStatus,
 } from "@gc-digital-talent/i18n";
@@ -30,6 +31,7 @@ import {
   Maybe,
   PoolCandidateWithSkillCount,
   PublishingGroup,
+  FragmentType,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -59,10 +61,8 @@ import {
   candidateNameCell,
   currentLocationAccessor,
   finalDecisionCell,
-  jobPlacementCell,
   notesCell,
   priorityCell,
-  statusCell,
   transformFormValuesToFilterState,
   transformPoolCandidateSearchInputToFormValues,
   getSortOrder,
@@ -78,11 +78,16 @@ import {
   getPoolCandidateCsvData,
   getPoolCandidateCsvHeaders,
 } from "./poolCandidateCsv";
+import {
+  JobPlacementDialog_Fragment,
+  jobPlacementDialogAccessor,
+} from "./JobPlacementDialog";
+import { PoolCandidate_BookmarkFragment } from "../CandidateBookmark/CandidateBookmark";
 
 const columnHelper = createColumnHelper<PoolCandidateWithSkillCount>();
 
-const CandidatesTableSkills_Query = graphql(/* GraphQL */ `
-  query CandidatesTableSkills {
+const CandidatesTable_Query = graphql(/* GraphQL */ `
+  query CandidatesTable_Query {
     skills {
       id
       key
@@ -112,6 +117,14 @@ const CandidatesTableSkills_Query = graphql(/* GraphQL */ `
         }
       }
     }
+    departments {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
   }
 `);
 
@@ -133,7 +146,9 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
       data {
         id
         poolCandidate {
+          ...JobPlacementDialog
           id
+          ...PoolCandidate_Bookmark
           pool {
             id
             name {
@@ -295,23 +310,23 @@ const PoolCandidatesTable = ({
   const paths = useRoutes();
   const initialState = getTableStateFromSearchParams(defaultState);
   const client = useClient();
-  const [isSelecting, setIsSelecting] = React.useState<boolean>(false);
-  const [selectingFor, setSelectingFor] = React.useState<SelectingFor>(null);
-  const [selectedCandidates, setSelectedCandidates] = React.useState<
-    PoolCandidate[]
-  >([]);
+  const [isSelecting, setIsSelecting] = useState<boolean>(false);
+  const [selectingFor, setSelectingFor] = useState<SelectingFor>(null);
+  const [selectedCandidates, setSelectedCandidates] = useState<PoolCandidate[]>(
+    [],
+  );
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
-  const initialFilters: PoolCandidateSearchInput = React.useMemo(
+  const initialFilters: PoolCandidateSearchInput = useMemo(
     () => (filtersEncoded ? JSON.parse(filtersEncoded) : initialFilterInput),
     [filtersEncoded, initialFilterInput],
   );
 
-  const filterRef = React.useRef<PoolCandidateSearchInput | undefined>(
+  const filterRef = useRef<PoolCandidateSearchInput | undefined>(
     initialFilters,
   );
 
-  const [paginationState, setPaginationState] = React.useState<PaginationState>(
+  const [paginationState, setPaginationState] = useState<PaginationState>(
     initialState.paginationState
       ? {
           ...initialState.paginationState,
@@ -322,15 +337,15 @@ const PoolCandidatesTable = ({
 
   const { selectedRows, setSelectedRows } = useSelectedRows<string>([]);
 
-  const [searchState, setSearchState] = React.useState<SearchState>(
+  const [searchState, setSearchState] = useState<SearchState>(
     initialState.searchState ?? INITIAL_STATE.searchState,
   );
 
-  const [sortState, setSortState] = React.useState<SortingState | undefined>(
+  const [sortState, setSortState] = useState<SortingState | undefined>(
     initialState.sortState ?? [{ id: "submitted_at", desc: true }],
   );
 
-  const [filterState, setFilterState] = React.useState<
+  const [filterState, setFilterState] = useState<
     PoolCandidateSearchInput | undefined
   >(initialFilters);
 
@@ -387,8 +402,7 @@ const PoolCandidatesTable = ({
     }
     return {
       // search bar
-      generalSearch:
-        searchBarTerm && !searchType ? searchBarTerm.split(",") : undefined,
+      generalSearch: searchBarTerm && !searchType ? searchBarTerm : undefined,
       email: searchType === "email" ? searchBarTerm : undefined,
       name: searchType === "name" ? searchBarTerm : undefined,
       notes: searchType === "notes" ? searchBarTerm : undefined,
@@ -404,6 +418,7 @@ const PoolCandidatesTable = ({
       suspendedStatus: fancyFilterState?.suspendedStatus,
       isGovEmployee: fancyFilterState?.isGovEmployee,
       publishingGroups: fancyFilterState?.publishingGroups,
+      appliedClassifications: fancyFilterState?.appliedClassifications,
     };
   };
 
@@ -422,18 +437,24 @@ const PoolCandidatesTable = ({
     },
   });
 
-  const filteredData: Array<PoolCandidateWithSkillCount> = React.useMemo(() => {
+  const filteredData: Array<PoolCandidateWithSkillCount> = useMemo(() => {
     const poolCandidates = data?.poolCandidatesPaginated.data ?? [];
     return poolCandidates.filter(notEmpty);
   }, [data?.poolCandidatesPaginated.data]);
 
-  const [{ data: allSkillsData, fetching: fetchingSkills }] = useQuery({
-    query: CandidatesTableSkills_Query,
+  const candidateIdsFromFilterData = filteredData.map(
+    (iterator) => iterator.poolCandidate.id,
+  );
+
+  const [{ data: tableData, fetching: fetchingTableData }] = useQuery({
+    query: CandidatesTable_Query,
   });
-  const allSkills = unpackMaybes(allSkillsData?.skills);
+  const allSkills = unpackMaybes(tableData?.skills);
   const filteredSkillIds = filterState?.applicantFilter?.skills
     ?.filter(notEmpty)
     .map((skill) => skill.id);
+
+  const departments = unpackMaybes(tableData?.departments);
 
   const isPoolCandidate = (
     candidate: Error | PoolCandidate | null,
@@ -512,7 +533,12 @@ const PoolCandidatesTable = ({
               row: {
                 original: { poolCandidate },
               },
-            }) => bookmarkCell(poolCandidate),
+            }) =>
+              bookmarkCell(
+                poolCandidate as FragmentType<
+                  typeof PoolCandidate_BookmarkFragment
+                >,
+              ),
             meta: {
               shrink: true,
               hideMobileHeader: true,
@@ -530,7 +556,13 @@ const PoolCandidatesTable = ({
           row: {
             original: { poolCandidate },
           },
-        }) => candidateNameCell(poolCandidate, paths, intl),
+        }) =>
+          candidateNameCell(
+            poolCandidate,
+            paths,
+            intl,
+            candidateIdsFromFilterData,
+          ),
         meta: {
           isRowTitle: true,
         },
@@ -555,24 +587,6 @@ const PoolCandidatesTable = ({
             },
           ),
         ]),
-    columnHelper.accessor(
-      ({ poolCandidate: { status } }) =>
-        intl.formatMessage(
-          status ? getPoolCandidateStatus(status) : commonMessages.notFound,
-        ),
-      {
-        id: "status",
-        header: intl.formatMessage(commonMessages.status),
-        cell: ({
-          row: {
-            original: { poolCandidate },
-          },
-        }) => statusCell(poolCandidate.status, intl),
-        meta: {
-          hideMobileHeader: true,
-        },
-      },
-    ),
     columnHelper.accessor(
       ({ poolCandidate: { user } }) =>
         intl.formatMessage(
@@ -623,11 +637,23 @@ const PoolCandidatesTable = ({
         header: intl.formatMessage(tableMessages.jobPlacement),
         cell: ({
           row: {
-            original: {
-              poolCandidate: { status },
-            },
+            original: { poolCandidate },
           },
-        }) => jobPlacementCell(intl, status),
+        }) =>
+          jobPlacementDialogAccessor(
+            poolCandidate as FragmentType<typeof JobPlacementDialog_Fragment>,
+            departments,
+          ),
+        enableSorting: false,
+      },
+    ),
+    columnHelper.accessor(
+      (row) =>
+        getLocalizedName(row.poolCandidate.placedDepartment?.name, intl, true),
+      {
+        id: "placedDepartment",
+        header: intl.formatMessage(tableMessages.placedDepartment),
+        enableColumnFilter: false,
         enableSorting: false,
       },
     ),
@@ -663,7 +689,7 @@ const PoolCandidatesTable = ({
         ),
       },
     ),
-    columnHelper.display({
+    columnHelper.accessor("skillCount", {
       id: "skillCount",
       header: intl.formatMessage(tableMessages.skillCount),
       cell: ({
@@ -727,7 +753,7 @@ const PoolCandidatesTable = ({
       caption={title}
       data={filteredData}
       columns={columns}
-      isLoading={fetching || fetchingSkills}
+      isLoading={fetching || fetchingTableData}
       hiddenColumnIds={hiddenColumnIds}
       search={{
         internal: false,

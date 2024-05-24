@@ -1,7 +1,7 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { ReactNode, useEffect } from "react";
 
 import {
   Button,
@@ -17,13 +17,14 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   ApplicationStep,
   Experience,
+  PoolSkillType,
   SkillCategory,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import applicationMessages from "~/messages/applicationMessages";
 import { GetPageNavInfo } from "~/types/applicationStep";
-import { categorizeSkill } from "~/utils/skillUtils";
+import { categorizeSkill, groupPoolSkillByType } from "~/utils/skillUtils";
 import { AnyExperience } from "~/types/experience";
 import { isIncomplete } from "~/validators/profile/skillRequirements";
 import SkillTree from "~/components/SkillTree/SkillTree";
@@ -34,7 +35,7 @@ import { useApplicationContext } from "../ApplicationContext";
 import SkillDescriptionAccordion from "./components/SkillDescriptionAccordion";
 import useApplication from "../useApplication";
 
-const careerTimelineLink = (children: React.ReactNode, href: string) => (
+const careerTimelineLink = (children: ReactNode, href: string) => (
   <Link href={href}>{children}</Link>
 );
 
@@ -94,11 +95,12 @@ export const ApplicationSkills = ({
     stepOrdinal: currentStepOrdinal,
   });
   const instructionsPath = paths.applicationSkillsIntro(application.id);
+  const poolSkillsByType = groupPoolSkillByType(application.pool.poolSkills);
   const categorizedEssentialSkills = categorizeSkill(
-    application.pool.essentialSkills,
+    poolSkillsByType.get(PoolSkillType.Essential),
   );
   const categorizedOptionalSkills = categorizeSkill(
-    application.pool.nonessentialSkills,
+    poolSkillsByType.get(PoolSkillType.Nonessential),
   );
   const [{ fetching: mutating }, executeMutation] =
     useUpdateApplicationMutation();
@@ -159,7 +161,7 @@ export const ApplicationSkills = ({
       });
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     setValue(
       "skillsMissingExperiences",
       isSkillsExperiencesIncomplete ? 1 : 0,
@@ -203,7 +205,7 @@ export const ApplicationSkills = ({
               "Lead in paragraph for adding experiences to a users skills",
           },
           {
-            careerTimelineLink: (chunks: React.ReactNode) =>
+            careerTimelineLink: (chunks: ReactNode) =>
               careerTimelineLink(
                 chunks,
                 paths.applicationCareerTimeline(application.id),
@@ -348,7 +350,7 @@ export const ApplicationSkills = ({
           >
             <Button
               type="submit"
-              mode="solid"
+              color="secondary"
               value="continue"
               disabled={mutating || isSubmitting}
               onClick={() => {
@@ -370,7 +372,7 @@ export const ApplicationSkills = ({
   );
 };
 
-const ApplicationSkillsPage = () => {
+export const Component = () => {
   const { application } = useApplication();
 
   const experiences: Experience[] = unpackMaybes(application.user.experiences);
@@ -381,4 +383,5 @@ const ApplicationSkillsPage = () => {
     <ThrowNotFound />
   );
 };
-export default ApplicationSkillsPage;
+
+Component.displayName = "ApplicationSkillsPage";

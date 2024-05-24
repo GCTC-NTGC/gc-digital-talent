@@ -1,4 +1,3 @@
-import React from "react";
 import { m, useReducedMotion } from "framer-motion";
 import ArrowPathIcon from "@heroicons/react/20/solid/ArrowPathIcon";
 

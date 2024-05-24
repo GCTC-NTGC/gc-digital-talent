@@ -1,4 +1,3 @@
-import React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 
@@ -9,12 +8,14 @@ import {
   CandidateSuspendedFilter,
   Scalars,
 } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
 import useRequiredParams from "~/hooks/useRequiredParams";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 type RouteParams = {
   poolId: Scalars["ID"]["output"];
@@ -78,56 +79,36 @@ const IndexPoolCandidatePage_Query = graphql(/* GraphQL */ `
         en
         fr
       }
-      essentialSkills {
+      poolSkills {
         id
-        key
-        name {
-          en
-          fr
-        }
-        description {
-          en
-          fr
-        }
-        category
-        families {
+        type
+        skill {
           id
           key
-          description {
-            en
-            fr
-          }
           name {
             en
             fr
           }
-        }
-      }
-      nonessentialSkills {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        description {
-          en
-          fr
-        }
-        category
-        families {
-          id
-          key
           description {
             en
             fr
           }
-          name {
-            en
-            fr
+          category
+          families {
+            id
+            key
+            description {
+              en
+              fr
+            }
+            name {
+              en
+              fr
+            }
           }
         }
       }
+
       isRemote
       location {
         en
@@ -203,5 +184,13 @@ export const IndexPoolCandidatePage = () => {
     </AdminContentWrapper>
   );
 };
+
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.PoolOperator, ROLE_NAME.RequestResponder]}>
+    <IndexPoolCandidatePage />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminPoolCandidatePage";
 
 export default IndexPoolCandidatePage;

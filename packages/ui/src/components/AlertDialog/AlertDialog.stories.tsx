@@ -1,4 +1,3 @@
-import React from "react";
 import type { StoryFn, Meta } from "@storybook/react";
 
 import {
@@ -38,16 +37,16 @@ const Template: StoryFn<typeof AlertDialog.Root> = ({ defaultOpen }) => (
         confirmations.
       </AlertDialog.Description>
       <AlertDialog.Footer>
-        <AlertDialog.Cancel>
-          <Button color="secondary" mode="inline">
-            Cancel
-          </Button>
-        </AlertDialog.Cancel>
         <AlertDialog.Action>
-          <Button color="primary" mode="solid">
+          <Button color="secondary" mode="solid">
             Action
           </Button>
         </AlertDialog.Action>
+        <AlertDialog.Cancel>
+          <Button color="warning" mode="inline">
+            Cancel
+          </Button>
+        </AlertDialog.Cancel>
       </AlertDialog.Footer>
     </AlertDialog.Content>
   </AlertDialog.Root>

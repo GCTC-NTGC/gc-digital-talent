@@ -1,15 +1,15 @@
-import React from "react";
+import { ReactNode, useEffect, useRef } from "react";
 
 import { Flourish, Heading, type HeadingRef } from "@gc-digital-talent/ui";
 
 import AdminSubNav, { AdminSubNavProps } from "./AdminSubNav";
 
 interface AdminHeroProps {
-  title: React.ReactNode;
-  subtitle?: React.ReactNode;
+  title: ReactNode;
+  subtitle?: ReactNode;
   nav?: AdminSubNavProps;
-  contentRight?: React.ReactNode;
-  children?: React.ReactNode;
+  contentRight?: ReactNode;
+  children?: ReactNode;
 }
 
 const AdminHero = ({
@@ -19,10 +19,10 @@ const AdminHero = ({
   contentRight,
   children,
 }: AdminHeroProps) => {
-  const headingRef = React.useRef<HeadingRef>(null);
+  const headingRef = useRef<HeadingRef>(null);
 
   // Focus heading on page load for assistive technologies
-  React.useEffect(() => {
+  useEffect(() => {
     if (headingRef.current) {
       headingRef.current.focus();
     }

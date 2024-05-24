@@ -1,6 +1,5 @@
-import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
-import { faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker/locale/en";
 
 import {
   getStaticSkills,

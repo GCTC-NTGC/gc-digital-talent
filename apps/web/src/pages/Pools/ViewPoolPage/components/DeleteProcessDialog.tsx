@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import TrashIcon from "@heroicons/react/24/solid/TrashIcon";
 
@@ -16,7 +16,7 @@ const DeleteProcessDialog = ({
   isFetching,
   onDelete,
 }: DeleteProcessDialogProps) => {
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const intl = useIntl();
 
   const title = intl.formatMessage({
@@ -63,14 +63,8 @@ const DeleteProcessDialog = ({
                 "Text explaining what will happen when deleting a process",
             })}
           </p>
-          <Dialog.Footer data-h2-justify-content="base(flex-start)">
-            <Dialog.Close>
-              <Button color="secondary" mode="inline">
-                {intl.formatMessage(formMessages.cancelGoBack)}
-              </Button>
-            </Dialog.Close>
+          <Dialog.Footer>
             <Button
-              mode="solid"
               color="error"
               onClick={handleDelete}
               icon={TrashIcon}
@@ -78,6 +72,11 @@ const DeleteProcessDialog = ({
             >
               {title}
             </Button>
+            <Dialog.Close>
+              <Button color="warning" mode="inline">
+                {intl.formatMessage(formMessages.cancelGoBack)}
+              </Button>
+            </Dialog.Close>
           </Dialog.Footer>
         </Dialog.Body>
       </Dialog.Content>

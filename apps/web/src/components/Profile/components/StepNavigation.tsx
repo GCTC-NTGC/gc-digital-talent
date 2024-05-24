@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
@@ -166,8 +165,7 @@ const StepNavigation = ({
         >
           <Button
             type="submit"
-            color="primary"
-            mode="solid"
+            color="secondary"
             {...actionProps}
             value="continue"
             onClick={() => setValue("action", "continue")}

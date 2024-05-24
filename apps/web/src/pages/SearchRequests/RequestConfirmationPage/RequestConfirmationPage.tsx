@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { ReactNode, useRef } from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { useReactToPrint } from "react-to-print";
 
@@ -25,6 +25,7 @@ const pageTitle = defineMessage({
   id: "DcpFle",
   description: "Page title for the request confirmation page.",
 });
+
 const subTitle = defineMessage({
   defaultMessage: "Your request was submitted successfully.",
   id: "rVgBGi",
@@ -35,13 +36,13 @@ type RequestConfirmationParams = {
   requestId: Scalars["ID"]["output"];
 };
 
-const mailLink = (chunks: React.ReactNode) => (
+const mailLink = (chunks: ReactNode) => (
   <Link external href="mailto:recruitmentimit-recrutementgiti@tbs-sct.gc.ca">
     {chunks}
   </Link>
 );
 
-const RequestConfirmationPage = () => {
+export const Component = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const { requestId } =
@@ -153,7 +154,7 @@ const RequestConfirmationPage = () => {
             data-h2-gap="base(x1)"
             data-h2-flex-direction="base(row)"
           >
-            <Button mode="solid" color="primary" onClick={handlePrint}>
+            <Button mode="solid" color="secondary" onClick={handlePrint}>
               {intl.formatMessage({
                 defaultMessage: "Print this information",
                 id: "idu0MU",
@@ -181,4 +182,6 @@ const RequestConfirmationPage = () => {
   );
 };
 
-export default RequestConfirmationPage;
+Component.displayName = "RequestConfirmationPage";
+
+export default Component;
