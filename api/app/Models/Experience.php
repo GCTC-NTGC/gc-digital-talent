@@ -192,14 +192,14 @@ class Experience extends Model
         static::saving(function ($experience) {
             $user = $experience->user;
             if ($user) {
-                $user->searchable();
+                $user->searchIndex->searchable();
             }
         });
 
         static::deleted(function ($experience) {
             $user = $experience->user;
             if ($user) {
-                $user->searchable();
+                $user->searchIndex->searchable();
             }
         });
     }
