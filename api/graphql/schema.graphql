@@ -43,6 +43,9 @@ type User {
   firstName: String @rename(attribute: "first_name")
   lastName: String @rename(attribute: "last_name")
   email: Email
+  emailVerifiedAt: DateTime @rename(attribute: "email_verified_at")
+  workEmail: Email
+  workEmailVerifiedAt: DateTime @rename(attribute: "work_email_verified_at")
   telephone: PhoneNumber
   preferredLang: Language @rename(attribute: "preferred_lang")
   preferredLanguageForInterview: Language
@@ -2102,6 +2105,8 @@ type Mutation {
   updateSitewideAnnouncement(
     sitewideAnnouncementInput: SitewideAnnouncementInput! @spread
   ): SitewideAnnouncement @guard
+
+  verifyEmail(code: String!): User @guard
 }
 
 #import directiveForms.graphql
