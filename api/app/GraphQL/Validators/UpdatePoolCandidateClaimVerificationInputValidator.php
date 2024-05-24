@@ -3,6 +3,7 @@
 namespace App\GraphQL\Validators;
 
 use App\Enums\ClaimVerificationResult;
+use Database\Helpers\ApiErrorEnums;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -27,6 +28,18 @@ final class UpdatePoolCandidateClaimVerificationInputValidator extends Validator
                 'nullable',
                 Rule::when($veteranAccepted, ['after:today']),
             ],
+        ];
+    }
+
+    /**
+     * Return the messages
+     */
+    public function messages(): array
+    {
+        return [
+            'priorityVerificationExpiry.required' => ApiErrorEnums::EXPIRY_DATE_REQUIRED,
+            'priorityVerificationExpiry.after' => ApiErrorEnums::EXPIRY_DATE_AFTER_TODAY,
+            'veteranVerificationExpiry.after' => ApiErrorEnums::EXPIRY_DATE_AFTER_TODAY,
         ];
     }
 }
