@@ -124,6 +124,9 @@ type User {
     @rename(attribute: "ignored_email_notifications")
   ignoredInAppNotifications: [NotificationFamily]
     @rename(attribute: "ignored_in_app_notifications")
+
+  # Bookmarks
+  poolBookmarks: [Pool] @belongsToMany
 }
 
 interface Notification {
@@ -793,6 +796,7 @@ type Query {
     orderBy: _
       @orderBy(
         relations: [
+          { relation: "poolBookmarks", columns: ["created_at"] }
           { relation: "user", columns: ["first_name", "email"] }
           { relation: "classification", columns: ["group", "level"] }
         ]
@@ -1913,6 +1917,13 @@ type Mutation {
     @update
     @guard
     @canFind(ability: "updatePublished", find: "id")
+  togglePoolUserBookmark(
+    userId: UUID! @rename(attribute: "user_id")
+    poolId: UUID! @rename(attribute: "pool_id")
+  ): Pool
+    @guard
+    @canFind(ability: "view", find: "pool_id", model: "Pool", injectArgs: true)
+
   createPoolSkill(
     poolId: ID! @rename(attribute: "pool_id")
     skillId: ID! @rename(attribute: "skill_id")
