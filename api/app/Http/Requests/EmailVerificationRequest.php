@@ -2,22 +2,29 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Validator;
 
+// based on Illuminate\Foundation\Auth\EmailVerificationRequest
 class EmailVerificationRequest extends FormRequest
 {
+    // We're not gating this behind auth so we'll just record the request user and go with that.
+    protected User $requestedUser;
+
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        if (! hash_equals((string) $this->user()->getKey(), (string) $this->route('id'))) {
+        $this->requestedUser = User::find((string) $this->route('id'));
+
+        if (is_null($this->requestedUser)) {
             return false;
         }
 
-        if (! hash_equals(sha1($this->user()->getEmailForVerification()), (string) $this->route('hash'))) {
+        if (! hash_equals(sha1($this->requestedUser->getEmailForVerification()), (string) $this->route('hash'))) {
             return false;
         }
 
@@ -43,10 +50,11 @@ class EmailVerificationRequest extends FormRequest
      */
     public function fulfill()
     {
-        if (! $this->user()->hasVerifiedEmail()) {
-            $this->user()->markEmailAsVerified();
+        if (! $this->requestedUser->hasVerifiedEmail()) {
+            $this->requestedUser->markEmailAsVerified();
+            $this->requestedUser->save();
 
-            event(new Verified($this->user()));
+            event(new Verified($this->requestedUser));
         }
     }
 

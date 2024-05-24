@@ -48,7 +48,7 @@ class VerifyEmail extends Notification implements CanBeSentViaGcNotifyEmail
                 config('notify.templates.verify_email_en'),
                 $notifiable->getEmailForVerification(),
                 [
-                    'verification link' => config('app.url').$verificationUrl,
+                    'verification link' => $verificationUrl,
                 ]
             );
         } else {

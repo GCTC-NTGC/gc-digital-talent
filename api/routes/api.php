@@ -40,4 +40,4 @@ Route::prefix('verification')->group(function () {
 
         return redirect('/home');
     })->name('verification.verify_work_email');
-})->middleware(['auth', 'signed']);
+})->middleware(['signed']);
