@@ -105,20 +105,26 @@ class KeywordSearchTest extends TestCase
             'last_name' => 'philip',
         ]);
 
-        // verify when search by the user full name , the deleted user's id has not been returned
-        $this->assertEmpty(User::search('user' & 'deleted')->get()->pluck('id'));
-
-        // verify when search by user first name, the result count is omitting the soft deleted user
-        $this->assertEquals(
-            2,
-            User::search('user')->get()->count()
-        );
-
-        // verify when search by user first name, it doesn't return the soft deleted user
-        $this->assertNotEquals(
-            [$user2->id],
-            User::search('user')->get()->pluck('id')->toArray()
-        );
+        // assert that the deleted user's id is not returned
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+            query getUsersPaginated($where: UserFilterInput) {
+                usersPaginated(where: $where) {
+                    data {
+                        id
+                    }
+                }
+            }
+        ', [
+                'where' => [
+                    'generalSearch' => 'user',
+                ],
+            ])->assertJsonFragment([
+                'id' => $user1->id,
+            ])->assertJsonFragment([
+                'id' => $user3->id,
+            ])->assertJsonCount(2, 'data.usersPaginated.data');
     }
 
     // Test user can be edited and searched by the changed value
