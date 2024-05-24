@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Support\Facades\Auth;
@@ -156,67 +157,37 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     protected $fillable = [
         'email',
         'sub',
-        'searchable',
     ];
 
-    protected $hidden = [
-        'searchable',
-    ];
+    protected $hidden = [];
 
     public static function getSelectableColumns()
     {
         return self::$selectableColumns;
     }
 
-    /**
-     * Get the indexable data array for the model.
-     *
-     * @return array<string, mixed>
-     */
-    public function toSearchableArray(): array
+    public function searchableOptions()
     {
-        $this->loadMissing([
-            'poolCandidates',
-            'workExperiences',
-            'educationExperiences',
-            'personalExperiences',
-            'communityExperiences',
-            'awardExperiences',
-        ]);
+        return [
+            // You may want to store the index outside of the Model table
+            // In that case let the engine know by setting this parameter to true.
+            'external' => true,
+            // If you don't want scout to maintain the index for you
+            // You can turn it off either for a Model or globally
+            'maintain_index' => false,
+        ];
+    }
 
-        $result = collect([
-            $this->email, $this->first_name, $this->last_name, $this->telephone, $this->current_province, $this->current_city,
-            $this->poolCandidates->pluck('notes'),
-            $this->workExperiences->pluck('role'),
-            $this->workExperiences->pluck('organization'),
-            $this->workExperiences->pluck('division'),
-            $this->workExperiences->pluck('details'),
-            $this->educationExperiences->pluck('thesis_title'),
-            $this->educationExperiences->pluck('institution'),
-            $this->educationExperiences->pluck('details'),
-            $this->educationExperiences->pluck('area_of_study'),
-            $this->personalExperiences->pluck('title'),
-            $this->personalExperiences->pluck('description'),
-            $this->personalExperiences->pluck('details'),
-            $this->communityExperiences->pluck('title'),
-            $this->communityExperiences->pluck('organization'),
-            $this->communityExperiences->pluck('project'),
-            $this->communityExperiences->pluck('details'),
-            $this->awardExperiences->pluck('title'),
-            $this->awardExperiences->pluck('details'),
-            $this->awardExperiences->pluck('issued_by'),
-        ])
-            ->flatten()
-            ->reject(function ($value) {
-                return is_null($value) || $value === '';
-            })->toArray();
+    public function searchableAdditionalArray()
+    {
+        return [
+            'user_id' => $this->id,
+        ];
+    }
 
-        if (! $result) {
-            // SQL query doesn't handle empty arrays for some reason?
-            $result = [' '];
-        }
-
-        return $result;
+    public function searchIndex(): HasOne
+    {
+        return $this->hasOne(SearchIndex::class);
     }
 
     public function getActivitylogOptions(): LogOptions
@@ -318,7 +289,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         }
         // If this User instance continues to be used, ensure the in-memory instance has the updated skills.
         $this->refresh();
-        $this->searchable();
+        $this->searchIndex->searchable();
     }
 
     public function getFullName(?bool $anonymous = false)
@@ -582,7 +553,11 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     {
         parent::boot();
         static::created(function (User $user) {
-            $user->searchable();
+            SearchIndex::create(['user_id' => $user->id]);
+            $user->searchIndex->searchable();
+        });
+        static::updated(function (User $user) {
+            $user->searchIndex->searchable();
         });
         static::deleting(function (User $user) {
             // We only need to run this if the user is being soft deleted
@@ -595,8 +570,8 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 // Modify the email to allow it to be used for another user
                 $newEmail = $user->email.'-deleted-at-'.Carbon::now()->format('Y-m-d');
                 $user->update(['email' => $newEmail]);
+                $user->searchIndex->searchable();
             }
-            $user->searchable();
         });
 
         static::restoring(function (User $user) {
@@ -954,6 +929,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             $combinedSearchTerm = trim(preg_replace('/\s{2,}/', ' ', $searchTerm));
 
             $query
+                ->join('search_indices', 'users.id', '=', 'search_indices.user_id')
                 // attach the tsquery to every row to use for filtering
                 ->crossJoinSub(function ($query) use ($combinedSearchTerm) {
                     $query->selectRaw(
@@ -962,11 +938,12 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                     );
                 }, 'calculations')
                 // filter rows against the tsquery
-                ->whereColumn('searchable', '@@', 'calculations.tsquery')
+                ->whereColumn('search_indices.searchable', '@@', 'calculations.tsquery')
                 // add the calculated rank column to allow for ordering by text search rank
-                ->addSelect(DB::raw('ts_rank(searchable, calculations.tsquery) AS rank'))
+                ->addSelect(DB::raw('ts_rank(search_indices.searchable, calculations.tsquery) AS rank'))
                 // Now that we have added a column, query builder no longer will add a * to the select.  Add all possible columns manually.
-                ->addSelect(self::$selectableColumns);
+                ->addSelect(['users.*'])
+                ->from('users');
 
             // negation setup
             preg_match_all('/(^|\s)[-!][^\s]+\b/', $combinedSearchTerm, $negationMatches);
