@@ -67,7 +67,7 @@ class VerifyEmail extends Notification implements CanBeSentViaGcNotifyEmail
         $token = [
             'user_id' => $notifiable->id,
             'field' => 'email',
-            'value' => $notifiable->email,
+            'value' => $notifiable->getEmailForVerification(),
         ];
 
         $expirySeconds = 60 * 60 * 6;

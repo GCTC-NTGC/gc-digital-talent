@@ -44,7 +44,7 @@ type User {
   lastName: String @rename(attribute: "last_name")
   email: Email
   emailVerifiedAt: DateTime @rename(attribute: "email_verified_at")
-  workEmail: Email
+  workEmail: Email @rename(attribute: "work_email")
   workEmailVerifiedAt: DateTime @rename(attribute: "work_email_verified_at")
   telephone: PhoneNumber
   preferredLang: Language @rename(attribute: "preferred_lang")

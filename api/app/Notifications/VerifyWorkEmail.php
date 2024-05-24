@@ -5,12 +5,10 @@ namespace App\Notifications;
 use App\Enums\Language;
 use App\Models\User;
 use App\Notifications\Messages\GcNotifyEmailMessage;
-use Carbon\Carbon;
 use Error;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Cache;
 
 // based on Illuminate\Auth\Notifications\VerifyEmail.php
 class VerifyWorkEmail extends Notification implements CanBeSentViaGcNotifyEmail
@@ -40,7 +38,7 @@ class VerifyWorkEmail extends Notification implements CanBeSentViaGcNotifyEmail
     public function toGcNotifyEmail(User $notifiable): GcNotifyEmailMessage
     {
         $locale = $this->locale ?? $notifiable->preferredLocale();
-        $verificationUrl = $this->verificationUrl($notifiable);
+        $verificationCode = $this->createVerificationCode($notifiable);
 
         if ($locale == Language::EN->value) {
             // English notification
@@ -48,7 +46,7 @@ class VerifyWorkEmail extends Notification implements CanBeSentViaGcNotifyEmail
                 config('notify.templates.verify_email_en'),
                 $notifiable->getWorkEmailForVerification(),
                 [
-                    'verification link' => $verificationUrl,
+                    'verification code' => $verificationCode,
                 ]
             );
         } else {
@@ -59,20 +57,36 @@ class VerifyWorkEmail extends Notification implements CanBeSentViaGcNotifyEmail
     }
 
     /**
-     * Get the verification URL for the given notifiable.
+     * Get the verification code for the given notifiable.
      *
      * @param  App\Models\User  $notifiable
      * @return string
      */
-    protected function verificationUrl(User $notifiable)
+    protected function createVerificationCode(User $notifiable)
     {
-        return URL::temporarySignedRoute(
-            'verification.verify_work_email',
-            Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)),
-            [
-                'id' => $notifiable->getKey(),
-                'hash' => sha1($notifiable->getWorkEmailForVerification()),
-            ]
-        );
+        $token = [
+            'user_id' => $notifiable->id,
+            'field' => 'work_email',
+            'value' => $notifiable->getWorkEmailForVerification(),
+        ];
+
+        $expirySeconds = 60 * 60 * 6;
+        $wasStored = false;
+        $code = (string) null;
+
+        for ($attemptNumber = 0; $attemptNumber < 4; $attemptNumber++) {
+            $code = random_int(1000, 9999);
+            $key = 'email-verification-'.$code;
+            $wasStored = Cache::add($key, $token, $expirySeconds);
+            if ($wasStored) {
+                break;
+            }
+        }
+
+        if (! $wasStored || is_null($code)) {
+            throw new Error('Failed to store token');
+        }
+
+        return $code;
     }
 }
