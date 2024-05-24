@@ -163,6 +163,11 @@ class Pool extends Model
             ->select(User::getSelectableColumns());
     }
 
+    public function poolBookmarks(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'pool_user_bookmarks', "pool_id", "user_id")->withTimestamps();
+    }
+
     public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class);
