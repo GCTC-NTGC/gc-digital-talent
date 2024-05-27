@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -473,6 +474,41 @@ class Pool extends Model
 
         return $query;
 
+    }
+
+    public function scopeOrderByPoolBookmarks(Builder $query, ?array $args): Builder
+    {
+        extract($args);
+
+        /** @var \App\Models\User */
+        $user = Auth::user();
+
+        // order the pools so that the bookmarks connected to current user sticks to the top
+        if ($order && $user) {
+            // $query->orderBy(function ($q) use ($order, $user) {
+            //     $q->select('created_at')
+            //         ->from('pool_user_bookmarks')
+            //         ->whereColumn('pool_id', 'pools.id')
+            //         ->orderBy('created_at', $order);
+            // }, $order);
+
+            // $query->orderBy($user->select('pool_user_bookmarks.created_at')
+            //     ->join('pool_user_bookmarks', 'pool_user_bookmarks.user_id', '=', 'users.id')
+            //     ->whereColumn('pool_user_bookmarks.pool_id', 'pools.id')
+            //     ->latest('pool_user_bookmarks.created_at')
+            //     ->take(1)
+            // );
+
+            $query->orderBy(function ($q) use ($order, $user) {
+                $user->select('pool_user_bookmarks.created_at')
+                ->join('pool_user_bookmarks', 'pool_user_bookmarks.user_id', '=', 'users.id')
+                ->whereColumn('pool_user_bookmarks.pool_id', 'pools.id')
+                ->latest('pool_user_bookmarks.created_at')
+                ->take(1);
+            });
+        }
+
+        return $query;
     }
 
     public function scopeAuthorizedToView(Builder $query)

@@ -16,10 +16,10 @@ import {
   Maybe,
   OrderByRelationWithColumnAggregateFunction,
   Pool,
+  PoolBookmarksOrderByInput,
   PoolFilterInput,
   PoolTeamDisplayNameOrderByInput,
   QueryPoolsPaginatedOrderByClassificationColumn,
-  QueryPoolsPaginatedOrderByPoolBookmarksColumn,
   QueryPoolsPaginatedOrderByRelationOrderByClause,
   QueryPoolsPaginatedOrderByUserColumn,
   SortOrder,
@@ -195,30 +195,32 @@ export function getOrderByClause(
     ["updatedDate", "updated_at"],
     ["classification", "classification"],
     ["team", "team"],
+    ["poolBookmarks", "poolBookmarks"],
     // ["status", "status"],
   ]);
 
-  const poolBookmarksOrderByClause: QueryPoolsPaginatedOrderByRelationOrderByClause =
-    {
-      column: undefined,
-      order: SortOrder.Asc,
-      poolBookmarks: {
-        aggregate: OrderByRelationWithColumnAggregateFunction.Max,
-        column: "CREATED_AT" as QueryPoolsPaginatedOrderByPoolBookmarksColumn,
-      },
-    };
+  // const poolBookmarksOrderByClause: QueryPoolsPaginatedOrderByRelationOrderByClause =
+  //   {
+  //     column: undefined,
+  //     order: SortOrder.Asc,
+  //     poolBookmarks: {
+  //       aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+  //       column: "CREATED_AT" as QueryPoolsPaginatedOrderByPoolBookmarksColumn,
+  //     },
+  //   };
 
   const sortingRule = sortingRules?.find((rule) => {
     const columnName = columnMap.get(rule.id);
     return !!columnName;
   });
 
+  // PoolBookmarks is handled by another arg
+  if (sortingRule?.id === "poolBookmarks") return undefined;
   // Team is handled by another arg
   if (sortingRule?.id === "team") return undefined;
 
   if (sortingRule && sortingRule.id === "classification") {
     return [
-      poolBookmarksOrderByClause,
       {
         column: undefined,
         order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
@@ -241,7 +243,6 @@ export function getOrderByClause(
   if (sortingRule && ["ownerName", "ownerEmail"].includes(sortingRule.id)) {
     const columnName = columnMap.get(sortingRule.id);
     return [
-      poolBookmarksOrderByClause,
       {
         column: undefined,
         order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
@@ -256,7 +257,6 @@ export function getOrderByClause(
   if (sortingRule) {
     const columnName = columnMap.get(sortingRule.id);
     return [
-      poolBookmarksOrderByClause,
       {
         column: columnName,
         order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
@@ -266,7 +266,6 @@ export function getOrderByClause(
   }
 
   return [
-    poolBookmarksOrderByClause,
     {
       column: "created_at",
       order: SortOrder.Asc,
@@ -286,6 +285,13 @@ export function getTeamDisplayNameSort(
   return {
     locale: locale ?? "en",
     order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+  };
+}
+
+export function getPoolBookmarkSort(): PoolBookmarksOrderByInput | undefined {
+  return {
+    column: "poolBookmarks",
+    order: SortOrder.Asc,
   };
 }
 

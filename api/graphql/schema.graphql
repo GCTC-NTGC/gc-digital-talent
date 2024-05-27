@@ -664,6 +664,11 @@ input PoolTeamDisplayNameOrderByInput {
   order: SortOrder!
 }
 
+input PoolBookmarksOrderByInput {
+  column: String!
+  order: SortOrder!
+}
+
 # Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
 input ApplicantFilterInput {
   equity: EquitySelectionsInput @scope
@@ -792,11 +797,12 @@ type Query {
     includeIds: [UUID!] @in(key: "id")
     excludeIds: [UUID!] @notIn(key: "id")
     where: PoolFilterInput
+    orderByPoolBookmarks: PoolBookmarksOrderByInput @scope
     orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput @scope
     orderBy: _
       @orderBy(
         relations: [
-          { relation: "poolBookmarks", columns: ["created_at"] }
+          # { relation: "poolBookmarks", columns: ["created_at"] }
           { relation: "user", columns: ["first_name", "email"] }
           { relation: "classification", columns: ["group", "level"] }
         ]

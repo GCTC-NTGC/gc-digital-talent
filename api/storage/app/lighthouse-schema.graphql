@@ -60,6 +60,7 @@ type Query {
     includeIds: [UUID!]
     excludeIds: [UUID!]
     where: PoolFilterInput
+    orderByPoolBookmarks: PoolBookmarksOrderByInput
     orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput
     orderBy: [QueryPoolsPaginatedOrderByRelationOrderByClause!]
 
@@ -335,7 +336,6 @@ type UserPublicProfile {
   email: Email
   firstName: String
   lastName: String
-  poolBookmarks: [Pool]
 }
 
 type GeneralQuestion {
@@ -753,6 +753,11 @@ input PoolFilterInput {
 
 input PoolTeamDisplayNameOrderByInput {
   locale: String!
+  order: SortOrder!
+}
+
+input PoolBookmarksOrderByInput {
+  column: String!
   order: SortOrder!
 }
 
@@ -1806,20 +1811,6 @@ type NotificationPaginator {
 }
 
 "Allowed column names for Query.poolsPaginated.orderBy."
-enum QueryPoolsPaginatedOrderByPoolBookmarksColumn {
-  CREATED_AT
-}
-
-"Aggregate specification for Query.poolsPaginated.orderBy.poolBookmarks."
-input QueryPoolsPaginatedOrderByPoolBookmarks {
-  "The aggregate function to apply to the column."
-  aggregate: OrderByRelationWithColumnAggregateFunction!
-
-  "Name of the column to use."
-  column: QueryPoolsPaginatedOrderByPoolBookmarksColumn
-}
-
-"Allowed column names for Query.poolsPaginated.orderBy."
 enum QueryPoolsPaginatedOrderByUserColumn {
   FIRST_NAME
   EMAIL
@@ -1856,9 +1847,6 @@ input QueryPoolsPaginatedOrderByRelationOrderByClause {
 
   "The direction that is used for ordering."
   order: SortOrder!
-
-  "Aggregate specification."
-  poolBookmarks: QueryPoolsPaginatedOrderByPoolBookmarks
 
   "Aggregate specification."
   user: QueryPoolsPaginatedOrderByUser
