@@ -503,7 +503,7 @@ class Pool extends Model
                 ->join('pool_user_bookmarks', 'pool_user_bookmarks.user_id', '=', 'users.id')
                 ->where('pool_user_bookmarks.user_id', $user->id)
                 ->whereColumn('pool_user_bookmarks.pool_id', 'pools.id')
-                ->latest('pool_user_bookmarks.created_at')
+                ->orderBy('pool_user_bookmarks.created_at', $order)
                 ->take(1)
             );
         }
