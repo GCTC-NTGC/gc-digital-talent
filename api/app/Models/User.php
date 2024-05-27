@@ -156,16 +156,30 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     protected $fillable = [
         'email',
         'sub',
-        'searchable',
     ];
 
-    protected $hidden = [
-        'searchable',
-    ];
+    protected $hidden = [];
 
     public static function getSelectableColumns()
     {
         return self::$selectableColumns;
+    }
+
+    public function searchableOptions()
+    {
+        return [
+            // You may want to store the index outside of the Model table
+            // In that case let the engine know by setting this parameter to true.
+            'external' => true,
+            // If you don't want scout to maintain the index for you
+            // You can turn it off either for a Model or globally
+            'maintain_index' => true,
+        ];
+    }
+
+    public function searchableAs(): string
+    {
+        return 'user_search_indices';
     }
 
     /**
