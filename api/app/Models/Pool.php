@@ -501,6 +501,7 @@ class Pool extends Model
 
             $query->orderBy($user->select('pool_user_bookmarks.created_at')
                 ->join('pool_user_bookmarks', 'pool_user_bookmarks.user_id', '=', 'users.id')
+                ->where('pool_user_bookmarks.user_id', $user->id)
                 ->whereColumn('pool_user_bookmarks.pool_id', 'pools.id')
                 ->latest('pool_user_bookmarks.created_at')
                 ->take(1)
