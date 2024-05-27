@@ -89,7 +89,10 @@ const ClaimVerificationDialog = ({
         }
       : {
           veteranVerification: data.result,
-          veteranVerificationExpiry: data?.expiry ?? null,
+          veteranVerificationExpiry:
+            data.result === ClaimVerificationResult.Accepted
+              ? data?.expiry
+              : null,
         };
 
     executeMutation({
