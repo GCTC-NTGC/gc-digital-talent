@@ -499,13 +499,12 @@ class Pool extends Model
             //     ->take(1)
             // );
 
-            $query->orderBy(function ($q) use ($order, $user) {
-                $user->select('pool_user_bookmarks.created_at')
+            $query->orderBy($user->select('pool_user_bookmarks.created_at')
                 ->join('pool_user_bookmarks', 'pool_user_bookmarks.user_id', '=', 'users.id')
                 ->whereColumn('pool_user_bookmarks.pool_id', 'pools.id')
                 ->latest('pool_user_bookmarks.created_at')
-                ->take(1);
-            });
+                ->take(1)
+            );
         }
 
         return $query;
