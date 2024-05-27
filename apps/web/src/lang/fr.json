@@ -3491,9 +3491,9 @@
     "defaultMessage": "<strong>Non</strong>, c’est une compétence que j’ai utilisée dans le passé.",
     "description": "Option for when a skill was only used in the past"
   },
-  "IDNjBI": {
+  "+2PPS3": {
     "defaultMessage": "Statut de priorité",
-    "description": "Priority entitlement label"
+    "description": "Title for priority status"
   },
   "IEkhMc": {
     "defaultMessage": "Prénom",

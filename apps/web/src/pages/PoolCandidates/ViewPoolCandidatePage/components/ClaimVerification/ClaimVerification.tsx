@@ -4,8 +4,9 @@ import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircle
 import { Heading, Separator, Well } from "@gc-digital-talent/ui";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
+import profileMessages from "~/messages/profileMessages";
+
 import ClaimRow from "./ClaimRow";
-import { priorityTitle, veteranTitle } from "./messages";
 import ClaimVerificationDialog from "./ClaimVerificationDialog";
 
 interface ClaimSeparatorProps {
@@ -71,7 +72,7 @@ const ClaimVerification = ({ verificationQuery }: ClaimVerificationProps) => {
           <ClaimRow
             expiry={claimVerification.priorityVerificationExpiry}
             result={claimVerification.priorityVerification}
-            title={intl.formatMessage(priorityTitle)}
+            title={intl.formatMessage(profileMessages.priorityStatus)}
           >
             <ClaimVerificationDialog
               context="priority"
@@ -85,7 +86,7 @@ const ClaimVerification = ({ verificationQuery }: ClaimVerificationProps) => {
           <ClaimRow
             expiry={claimVerification.veteranVerificationExpiry}
             result={claimVerification.veteranVerification}
-            title={intl.formatMessage(veteranTitle)}
+            title={intl.formatMessage(profileMessages.veteranStatus)}
           >
             <ClaimVerificationDialog
               context="veteran"

@@ -16,7 +16,7 @@ import { DateInput, RadioGroup } from "@gc-digital-talent/forms";
 import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
-import { priorityTitle, veteranTitle } from "./messages";
+import profileMessages from "~/messages/profileMessages";
 
 type FormValues = {
   result: ClaimVerificationResult;
@@ -118,7 +118,9 @@ const ClaimVerificationDialog = ({
       .catch(handleError);
   };
 
-  const title = intl.formatMessage(isPriority ? priorityTitle : veteranTitle);
+  const title = intl.formatMessage(
+    isPriority ? profileMessages.priorityStatus : profileMessages.veteranStatus,
+  );
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
