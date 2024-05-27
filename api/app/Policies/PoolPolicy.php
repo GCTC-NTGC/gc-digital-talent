@@ -45,7 +45,7 @@ class PoolPolicy
 
             // Load team only when needed to check if team owns draft.
             $pool->loadMissing('team');
-            if ($user->isAbleTo('view-team-pool', $pool->team)) {
+            if ($user->isAbleTo('view-team-draftPool', $pool->team)) {
                 return true;
             }
         }
@@ -80,7 +80,7 @@ class PoolPolicy
 
             // Confirm the user can create pools for the team
             if (! is_null($team)) {
-                if ($user->isAbleTo('create-team-pool', $team)) {
+                if ($user->isAbleTo('create-team-draftPool', $team)) {
                     return true;
                 }
             } else {
@@ -103,7 +103,7 @@ class PoolPolicy
         $existing = Pool::findOrFail($request['id']);
 
         // Confirm the user can create pools for the team
-        if ($user->isAbleTo('create-team-pool', $existing->team)) {
+        if ($user->isAbleTo('create-team-draftPool', $existing->team)) {
             return true;
         } else {
             return Response::deny('Cannot duplicate a pool for that team.');
@@ -145,7 +145,7 @@ class PoolPolicy
         if ($pool->getStatusAttribute() === PoolStatus::DRAFT->name) {
             // The closing date must be greater than today's date at the end of day.
             if ($pool->closing_date && $pool->closing_date > Carbon::now()->endOfDay()) {
-                if ($user->isAbleTo('publish-any-pool')) {
+                if ($user->isAbleTo('publish-any-draftPool')) {
                     return true;
                 }
             } else {
@@ -167,7 +167,7 @@ class PoolPolicy
     {
         $pool->loadMissing('team');
 
-        return $user->isAbleTo('update-team-poolClosingDate', $pool->team);
+        return $user->isAbleTo('update-team-publishedPool', $pool->team);
     }
 
     /**
@@ -179,7 +179,7 @@ class PoolPolicy
     {
         $pool->loadMissing('team');
 
-        return $user->isAbleTo('update-team-poolClosingDate', $pool->team);
+        return $user->isAbleTo('update-team-publishedPool', $pool->team);
     }
 
     /**
@@ -211,7 +211,9 @@ class PoolPolicy
     {
         $pool->loadMissing('team');
 
-        return $user->isAbleTo('archive-team-pool', $pool->team);
+        // TODO: should this check for non-draft status?
+
+        return $user->isAbleTo('archive-team-publishedPool', $pool->team);
     }
 
     /**

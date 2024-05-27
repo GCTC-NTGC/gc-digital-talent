@@ -117,7 +117,7 @@ class RolePermissionTest extends TestCase
         $this->assertTrue($this->user->isAbleTo([
             'view-own-application',
             'view-own-applicationStatus',
-            'submit-own-application',
+            'submit-own-draftApplication',
             'create-own-draftApplication',
             'delete-own-draftApplication',
             'archive-own-submittedApplication',
@@ -142,10 +142,10 @@ class RolePermissionTest extends TestCase
         );
 
         $permissionsToCheck = [
-            'view-team-pool',
-            'create-team-pool',
+            'view-team-draftPool',
+            'create-team-draftPool',
             'update-team-draftPool',
-            'update-team-poolClosingDate',
+            'update-team-publishedPool',
             'delete-team-draftPool',
             'view-team-submittedApplication',
             'view-team-applicationStatus',
@@ -233,7 +233,7 @@ class RolePermissionTest extends TestCase
             'update-any-userSub',
             'delete-any-user',
             'view-any-pool',
-            'publish-any-pool',
+            'publish-any-draftPool',
             'create-any-application',
             'view-any-teamMembers',
             'create-any-team',
@@ -259,7 +259,7 @@ class RolePermissionTest extends TestCase
         $permissionsToCheck = [
             'view-any-userBasicInfo',
             'view-any-pool',
-            'publish-any-pool',
+            'publish-any-draftPool',
             'view-any-teamMembers',
             'create-any-team',
             'update-any-team',
@@ -290,7 +290,7 @@ class RolePermissionTest extends TestCase
         $this->user->addRole($guestRole);
 
         $guestPermission = 'view-any-skill';
-        $teamPermission = 'view-team-pool';
+        $teamPermission = 'view-team-draftPool';
 
         // This should be true because even though the role is associated with a team context, we're asking about the permission outside of a team context.
         // NOTE: this will fail if team_strict_check is true in the laratrust config.
