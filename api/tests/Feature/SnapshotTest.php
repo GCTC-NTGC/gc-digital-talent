@@ -130,6 +130,7 @@ class SnapshotTest extends TestCase
         $poolCandidate = PoolCandidate::factory()->create([
             'user_id' => $user->id,
             'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'pool_id' => Pool::factory()->withPoolSkills(5, 5),
         ]);
 
         // collect skills attached to the Pool

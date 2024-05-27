@@ -7,11 +7,13 @@ use App\Enums\PoolCandidateSearchStatus;
 use App\Enums\PoolStream;
 use App\Facades\Notify;
 use App\Models\ApplicantFilter;
+use App\Models\Community;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\PoolCandidateSearchRequest;
 use App\Models\User;
 use Database\Seeders\ClassificationSeeder;
+use Database\Seeders\CommunitySeeder;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\GenericJobTitleSeeder;
 use Database\Seeders\PoolTestSeeder;
@@ -82,6 +84,7 @@ class ApplicantFilterTest extends TestCase
                 ];
             })->toArray(),
             'qualifiedStreams' => $filter->qualified_streams,
+            'community' => ['id' => $filter->community->id],
         ];
     }
 
@@ -96,6 +99,9 @@ class ApplicantFilterTest extends TestCase
         ];
         $input['qualifiedClassifications'] = [
             'sync' => $filter->qualifiedClassifications->pluck('id')->toArray(),
+        ];
+        $input['community'] = [
+            'connect' => $filter->community->id,
         ];
 
         return $input;
@@ -165,6 +171,14 @@ class ApplicantFilterTest extends TestCase
      */
     public function testFactoryRelationships()
     {
+
+        // Before we add relationships, we need to seed the related values
+        $this->seed(ClassificationSeeder::class);
+        $this->seed(CommunitySeeder::class);
+        $this->seed(SkillFamilySeeder::class);
+        $this->seed(SkillSeeder::class);
+        $this->seed(PoolTestSeeder::class);
+
         // By default, factory doesn't add relationships.
         $filter = ApplicantFilter::factory()->create();
 
@@ -172,18 +186,13 @@ class ApplicantFilterTest extends TestCase
         $this->assertEquals(0, $filter->skills()->count());
         $this->assertEquals(0, $filter->pools()->count());
 
-        // Before we add relationships, we need to seed the related values
-        $this->seed(ClassificationSeeder::class);
-        $this->seed(SkillFamilySeeder::class);
-        $this->seed(SkillSeeder::class);
-        $this->seed(PoolTestSeeder::class);
-
         $filters = ApplicantFilter::factory()->withRelationships()->count(10)->create();
         $this->assertEquals(10, $filters->count());
         foreach ($filters as $filter) {
             $this->assertGreaterThan(0, $filter->classifications()->count());
             $this->assertGreaterThan(0, $filter->skills()->count());
             $this->assertGreaterThan(0, $filter->pools()->count());
+            $this->assertGreaterThan(0, $filter->community()->count());
         }
     }
 
@@ -195,6 +204,7 @@ class ApplicantFilterTest extends TestCase
         // Before we add relationships, we need to seed the related values
         $this->seed(DepartmentSeeder::class);
         $this->seed(ClassificationSeeder::class);
+        $this->seed(CommunitySeeder::class);
         $this->seed(SkillFamilySeeder::class);
         $this->seed(SkillSeeder::class);
         $this->seed(PoolTestSeeder::class);
@@ -232,6 +242,9 @@ class ApplicantFilterTest extends TestCase
                                 fr
                             }
                         }
+                        community {
+                            id
+                        }
                     }
                 }
             }
@@ -262,6 +275,7 @@ class ApplicantFilterTest extends TestCase
         }
 
         $response->assertJsonFragment(['qualifiedStreams' => $filter->qualified_streams]);
+        $response->assertJsonFragment(['community' => ['id' => $filter->community_id]]);
     }
 
     /**
@@ -271,6 +285,7 @@ class ApplicantFilterTest extends TestCase
     {
         // Seed everything required
         $this->seed(DepartmentSeeder::class);
+        $this->seed(CommunitySeeder::class);
         $this->seed(ClassificationSeeder::class);
         $this->seed(SkillFamilySeeder::class);
         $this->seed(SkillSeeder::class);
@@ -308,6 +323,9 @@ class ApplicantFilterTest extends TestCase
                     'department' => [
                         'connect' => $request->department_id,
                     ],
+                    'community' => [
+                        'connect' => $request->community_id,
+                    ],
                     'jobTitle' => $request->job_title,
                     'managerJobTitle' => $request->manager_job_title,
                     'positionType' => $request->position_type,
@@ -344,11 +362,13 @@ class ApplicantFilterTest extends TestCase
         // Seed everything used in generating Users
         $this->seed(DepartmentSeeder::class);
         $this->seed(ClassificationSeeder::class);
+        $this->seed(CommunitySeeder::class);
         $this->seed(GenericJobTitleSeeder::class);
         $this->seed(SkillFamilySeeder::class);
         $this->seed(SkillSeeder::class);
         $this->seed(PoolTestSeeder::class);
 
+        $community = Community::where('key', 'digital')->first();
         $pool = Pool::factory()
             ->published()
             ->candidatesAvailableInSearch()
@@ -386,6 +406,7 @@ class ApplicantFilterTest extends TestCase
                 'language_ability' => $filterLanguage,
                 'location_preferences' => $candidate->user->location_preferences,
                 'operational_requirements' => $candidate->user->accepted_operational_requirements,
+                'community_id' => $community->id,
             ]
         );
         $filter->qualifiedClassifications()->saveMany([$pool->classification]);
@@ -419,6 +440,7 @@ class ApplicantFilterTest extends TestCase
         $request = PoolCandidateSearchRequest::factory()->make([
             'pool_candidate_filter_id' => null,
             'applicant_filter_id' => null,
+            'community_id' => $community->id,
         ]);
         $response = $this->graphQL(
             /** @lang GraphQL */
@@ -435,6 +457,9 @@ class ApplicantFilterTest extends TestCase
                     'email' => $request->email,
                     'department' => [
                         'connect' => $request->department_id,
+                    ],
+                    'community' => [
+                        'connect' => $request->community_id,
                     ],
                     'jobTitle' => $request->job_title,
                     'managerJobTitle' => $request->manager_job_title,
@@ -473,6 +498,9 @@ class ApplicantFilterTest extends TestCase
                             id
                         }
                         pools {
+                            id
+                        }
+                        community {
                             id
                         }
                     }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
@@ -59,6 +60,11 @@ class ApplicantFilter extends Model
     public function pools(): BelongsToMany
     {
         return $this->belongsToMany(Pool::class, 'applicant_filter_pool');
+    }
+
+    public function community(): BelongsTo
+    {
+        return $this->belongsTo(Community::class);
     }
 
     /* these fields are factored out into a sub-object by this accessor to mirror the way they are queried */

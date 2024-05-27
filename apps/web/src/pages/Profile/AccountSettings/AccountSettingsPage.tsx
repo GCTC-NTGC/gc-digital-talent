@@ -30,8 +30,8 @@ const AccountSettings_Query = graphql(/* GraphQL */ `
   query AccountSettings {
     me {
       id
-      ignoredEmailNotifications
-      ignoredInAppNotifications
+      enabledEmailNotifications
+      enabledInAppNotifications
       poolCandidates {
         ...RecruitmentAvailabilityCandidate
       }
@@ -77,11 +77,11 @@ const AccountSettingsPage = () => {
     query: AccountSettings_Query,
   });
 
-  const ignoredEmailNotifications = unpackMaybes(
-    data?.me?.ignoredEmailNotifications,
+  const enabledEmailNotifications = unpackMaybes(
+    data?.me?.enabledEmailNotifications,
   );
-  const ignoredInAppNotifications = unpackMaybes(
-    data?.me?.ignoredInAppNotifications,
+  const enabledInAppNotifications = unpackMaybes(
+    data?.me?.enabledInAppNotifications,
   );
 
   const formattedPageTitle = intl.formatMessage(pageTitle);
@@ -203,8 +203,8 @@ const AccountSettingsPage = () => {
                       })}
                     </p>
                     <NotificationSettings
-                      ignoredEmailNotifications={ignoredEmailNotifications}
-                      ignoredInAppNotifications={ignoredInAppNotifications}
+                      enabledEmailNotifications={enabledEmailNotifications}
+                      enabledInAppNotifications={enabledInAppNotifications}
                     />
                   </TableOfContents.Section>
                 )}

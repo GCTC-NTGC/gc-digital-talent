@@ -257,7 +257,7 @@ class AssessmentResultTest extends TestCase
         ]);
 
         // unrelated models
-        $randomPool = Pool::factory()->create();
+        $randomPool = Pool::factory()->withPoolSkills(2, 2)->withQuestions(2, 2)->create();
         $randomAssessmentStep = AssessmentStep::factory()->create([
             'pool_id' => $randomPool->id,
         ]);

@@ -3,8 +3,10 @@
 namespace Database\Factories;
 
 use App\Enums\ApplicationStep;
+use App\Enums\ArmedForcesStatus;
 use App\Enums\AssessmentResultType;
 use App\Enums\CandidateRemovalReason;
+use App\Enums\ClaimVerificationResult;
 use App\Enums\EducationRequirementOption;
 use App\Enums\PoolCandidateStatus;
 use App\Models\AssessmentResult;
@@ -160,6 +162,26 @@ class PoolCandidateFactory extends Factory
                     'user_id' => $poolCandidate->user_id,
                 ]);
                 $poolCandidate->educationRequirementWorkExperiences()->sync([$experience->id]);
+            }
+
+            // claim verification
+            if ($poolCandidate->user->armed_forces_status == ArmedForcesStatus::VETERAN->name) {
+                $vetVerification = $this->faker->randomElement(array_column(ClaimVerificationResult::cases(), 'name'));
+                $vetExpiryBoolean = $vetVerification == ClaimVerificationResult::ACCEPTED->name && $this->faker->boolean();
+
+                $poolCandidate->update([
+                    'veteran_verification' => $vetVerification,
+                    'veteran_verification_expiry' => $vetExpiryBoolean ? $this->faker->dateTimeBetween('6 months', '24 months') : null,
+                ]);
+            }
+            if ($poolCandidate->user->has_priority_entitlement) {
+                $priorityVerification = $this->faker->randomElement(array_column(ClaimVerificationResult::cases(), 'name'));
+                $priorityExpiryBoolean = $priorityVerification == ClaimVerificationResult::ACCEPTED->name;
+
+                $poolCandidate->update([
+                    'priority_verification' => $priorityVerification,
+                    'priority_verification_expiry' => $priorityExpiryBoolean ? $this->faker->dateTimeBetween('6 months', '24 months') : null,
+                ]);
             }
         });
     }

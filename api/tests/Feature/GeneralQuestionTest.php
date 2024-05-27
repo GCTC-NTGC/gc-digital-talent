@@ -51,7 +51,7 @@ class GeneralQuestionTest extends TestCase
         $this->team = Team::factory()->create([
             'name' => $this->teamName,
         ]);
-        $this->pool = Pool::factory()->draft()->create([
+        $this->pool = Pool::factory()->draft()->WithPoolSkills(2, 2)->WithQuestions(3, 1)->create([
             'team_id' => $this->team->id,
         ]); // this seeds 3 questions onto the pool
         $this->teamUser = User::factory()

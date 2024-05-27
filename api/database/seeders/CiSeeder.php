@@ -19,6 +19,7 @@ class CiSeeder extends Seeder
             GenericJobTitleSeeder::class,
             SkillFamilySeeder::class,
             SkillSeeder::class,
+            CommunitySeeder::class,
             TeamSeeder::class,
 
             // convenient test data

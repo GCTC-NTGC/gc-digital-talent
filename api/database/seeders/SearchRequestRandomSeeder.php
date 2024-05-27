@@ -16,11 +16,15 @@ class SearchRequestRandomSeeder extends Seeder
      */
     public function run()
     {
+
+        $applicantFilter = ApplicantFilter::factory()->sparse()->withRelationships(true)->create();
+
         // Create some SearchRequests
         PoolCandidateSearchRequest::factory()
             ->count(50)
             ->createQuietly([
-                'applicant_filter_id' => ApplicantFilter::factory()->sparse()->withRelationships(true),
+                'community_id' => $applicantFilter->community_id,
+                'applicant_filter_id' => $applicantFilter->id,
             ]);
     }
 }

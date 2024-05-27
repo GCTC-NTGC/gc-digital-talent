@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             // convenient test data
             UserTestSeeder::class,
             PoolTestSeeder::class,
+            PoolCandidateTestSeeder::class,
             AssessmentResultTestSeeder::class,
 
             // random data to fill it out

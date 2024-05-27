@@ -4,9 +4,11 @@ namespace Tests\Feature;
 
 use App\Enums\PoolCandidateSearchPositionType;
 use App\Enums\PoolCandidateSearchRequestReason;
+use App\Models\Community;
 use App\Models\Department;
 use App\Models\PoolCandidateSearchRequest;
 use App\Models\User;
+use Database\Seeders\CommunitySeeder;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -100,14 +102,21 @@ class PoolCandidateSearchRequestTest extends TestCase
     public function testMutationCreatePassesWithApplicantFilter()
     {
         $this->seed(DepartmentSeeder::class);
+        $this->seed(CommunitySeeder::class);
 
         $this->runCreateMutation([
             'department' => [
                 'connect' => Department::inRandomOrder()->first()->id,
             ],
+            'community' => [
+                'connect' => Community::inRandomOrder()->first()->id,
+            ],
             'applicantFilter' => [
                 'create' => [
                     'hasDiploma' => true,
+                    'community' => [
+                        'connect' => Community::inRandomOrder()->first()->id,
+                    ],
                 ],
             ],
         ])->assertJson(function (AssertableJson $json) {

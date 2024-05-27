@@ -72,8 +72,11 @@ class NotificationTest extends TestCase
             ->create([
                 'email' => 'candidate-user@test.com',
                 'sub' => 'candidate-user@test.com',
-                'ignored_email_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
-                'ignored_in_app_notifications' => [],
+                'enabled_email_notifications' => [NotificationFamily::JOB_ALERT->name],
+                'enabled_in_app_notifications' => [
+                    NotificationFamily::APPLICATION_UPDATE->name,
+                    NotificationFamily::JOB_ALERT->name,
+                ],
             ]);
 
         $this->poolCandidate = PoolCandidate::factory()->create([
@@ -302,34 +305,34 @@ class NotificationTest extends TestCase
         }
     }
 
-    public function testIgnoredNotificationsMutation(): void
+    public function testEnabledNotificationsMutation(): void
     {
         // Ignoring the SYSTEM_MESSAGE family is not allowed
         $response = $this->actingAs($this->candidateUser, 'api')
             ->graphQL(/** @lang GraphQL */ '
-                mutation updateIgnoredNotifications($ignoredEmailNotifications: [NotificationFamily]) {
-                    updateIgnoredNotifications(ignoredEmailNotifications: $ignoredEmailNotifications) {
+                mutation updateEnabledNotifications($enabledEmailNotifications: [NotificationFamily]) {
+                    updateEnabledNotifications(enabledEmailNotifications: $enabledEmailNotifications) {
                         id
-                        ignoredEmailNotifications
+                        enabledEmailNotifications
                     }
                 }
-            ', ['ignoredEmailNotifications' => [NotificationFamily::SYSTEM_MESSAGE->name]])
-            ->assertGraphQLValidationError('ignoredEmailNotifications.0', 'NotIgnorableNotificationFamily');
+            ', ['enabledEmailNotifications' => [NotificationFamily::SYSTEM_MESSAGE->name]])
+            ->assertGraphQLValidationError('enabledEmailNotifications.0', 'CannotEnableNotificationFamily');
 
-        // Other families can be ignored
+        // Other families can be enabled
         $response = $this->actingAs($this->candidateUser, 'api')
             ->graphQL(/** @lang GraphQL */ '
-                mutation ignoreNotifications($ignoredEmailNotifications: [NotificationFamily]) {
-                    updateIgnoredNotifications(ignoredEmailNotifications: $ignoredEmailNotifications) {
+                mutation ignoreNotifications($enabledEmailNotifications: [NotificationFamily]) {
+                    updateEnabledNotifications(enabledEmailNotifications: $enabledEmailNotifications) {
                         id
-                        ignoredEmailNotifications
+                        enabledEmailNotifications
                     }
                 }
             ', [
-                'ignoredEmailNotifications' => [NotificationFamily::APPLICATION_UPDATE->name, NotificationFamily::JOB_ALERT->name],
+                'enabledEmailNotifications' => [NotificationFamily::APPLICATION_UPDATE->name, NotificationFamily::JOB_ALERT->name],
             ]);
 
-        $updatedIgnoreList = $response->json('data.updateIgnoredNotifications.ignoredEmailNotifications');
+        $updatedIgnoreList = $response->json('data.updateEnabledNotifications.enabledEmailNotifications');
 
         $this->assertNotNull($updatedIgnoreList);
     }
