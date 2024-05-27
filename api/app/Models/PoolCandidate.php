@@ -122,22 +122,6 @@ class PoolCandidate extends Model
         PoolCandidate::observe(PoolCandidateObserver::class);
     }
 
-    public static function boot()
-    {
-        parent::boot();
-
-        static::updating(function ($model) {
-            // Check if the 'notes' attribute is being updated and if so, update the searchable user model
-            // Seems to work without this but not sure why
-            if ($model->user()->exists() && $model->isDirty('notes')) {
-                $model->user->loadMissing('searchIndex');
-                if (! empty($model->user->searchIndex)) {
-                    $model->user->searchIndex->searchable();
-                }
-            }
-        });
-    }
-
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()

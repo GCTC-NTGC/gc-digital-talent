@@ -184,27 +184,6 @@ class Experience extends Model
         $this->refresh();
     }
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::saving(function ($experience) {
-            $user = $experience->user;
-            $user?->loadMissing('searchIndex');
-            if ($user && ! empty($user->searchIndex)) {
-                $user->searchIndex->searchable();
-            }
-        });
-
-        static::deleted(function ($experience) {
-            $user = $experience->user;
-            $user->loadMissing('searchIndex');
-            if ($user && ! empty($user->searchIndex)) {
-                $user->searchIndex->searchable();
-            }
-        });
-    }
-
     public function getDateRange(): string
     {
         if ($this->attributes['experience_type'] === AwardExperience::class) {
