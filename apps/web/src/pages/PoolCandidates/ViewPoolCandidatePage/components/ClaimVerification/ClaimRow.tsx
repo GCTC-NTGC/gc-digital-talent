@@ -14,7 +14,6 @@ import {
   formDateStringToDate,
   formatDate,
 } from "@gc-digital-talent/date-helpers";
-import { commonMessages } from "@gc-digital-talent/i18n";
 
 interface VerificationMessageProps {
   result: ClaimVerificationResult;
@@ -31,18 +30,31 @@ const VerificationMessage = ({ result, expiry }: VerificationMessageProps) => {
 
   if (result === ClaimVerificationResult.Accepted) {
     const expiryDate = expiry
-      ? formatDate({
-          date: formDateStringToDate(expiry),
-          formatString: "MMMM d, yyyy",
-          intl,
-        })
-      : intl.formatMessage(commonMessages.notProvided);
+      ? intl.formatMessage(
+          {
+            defaultMessage: "expires on {expiryDate}",
+            id: "Ymzxgl",
+            description: "Message part for expiry date",
+          },
+          {
+            expiryDate: formatDate({
+              date: formDateStringToDate(expiry),
+              formatString: "MMMM d, yyyy",
+              intl,
+            }),
+          },
+        )
+      : intl.formatMessage({
+          defaultMessage: "no expiration provided",
+          id: "xSSp8E",
+          description:
+            "Message for when an expiration date has not been provided",
+        });
 
     message = intl.formatMessage(
       {
-        defaultMessage:
-          "This claim has been verified, expires on {expiryDate}.",
-        id: "1o5PUq",
+        defaultMessage: "This claim has been verified, {expiryDate}.",
+        id: "w8K6dD",
         description: "Message when a claim as been verified",
       },
       {
