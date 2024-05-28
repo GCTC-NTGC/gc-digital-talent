@@ -100,6 +100,7 @@ const FilterDialog = <TFieldValues extends FieldValues>({
         <Button
           color="quaternary"
           type="button"
+          block
           icon={AdjustmentsVerticalIcon}
           {...(filterCount > 0 && {
             counter: filterCount + (modifyFilterCount ?? 0),

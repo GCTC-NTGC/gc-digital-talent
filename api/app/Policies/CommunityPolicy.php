@@ -15,7 +15,7 @@ class CommunityPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny()
+    public function viewAny(?User $user)
     {
         return true;
     }

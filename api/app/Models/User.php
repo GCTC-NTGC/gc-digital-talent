@@ -78,8 +78,8 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property array $indigenous_communities
  * @property string $preferred_language_for_interview
  * @property string $preferred_language_for_exam
- * @property array $ignored_email_notifications
- * @property array $ignored_in_app_notifications
+ * @property array $enabled_email_notifications
+ * @property array $enabled_in_app_notifications
  */
 class User extends Model implements Authenticatable, HasLocalePreference, LaratrustUser
 {
@@ -136,8 +136,8 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         'preferred_language_for_interview',
         'preferred_language_for_exam',
         'deleted_at',
-        'ignored_email_notifications',
-        'ignored_in_app_notifications',
+        'enabled_email_notifications',
+        'enabled_in_app_notifications',
         'created_at',
         'updated_at',
     ];
@@ -149,8 +149,8 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         'accepted_operational_requirements' => 'array',
         'position_duration' => 'array',
         'indigenous_communities' => 'array',
-        'ignored_email_notifications' => 'array',
-        'ignored_in_app_notifications' => 'array',
+        'enabled_email_notifications' => 'array',
+        'enabled_in_app_notifications' => 'array',
     ];
 
     protected $fillable = [
@@ -951,7 +951,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     public static function scopeGeneralSearch(Builder $query, ?string $searchTerm): Builder
     {
         if ($searchTerm) {
-            $combinedSearchTerm = trim($searchTerm);
+            $combinedSearchTerm = trim(preg_replace('/\s{2,}/', ' ', $searchTerm));
 
             $query
                 // attach the tsquery to every row to use for filtering

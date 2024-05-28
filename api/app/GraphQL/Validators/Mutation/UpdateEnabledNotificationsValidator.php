@@ -6,7 +6,7 @@ use App\Enums\NotificationFamily;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
-final class UpdateIgnoredNotificationsValidator extends Validator
+final class UpdateEnabledNotificationsValidator extends Validator
 {
     /**
      * Return the validation rules.
@@ -15,21 +15,21 @@ final class UpdateIgnoredNotificationsValidator extends Validator
      */
     public function rules(): array
     {
-        // only some notification families can be ignored
+        // only some notification families can be enabled
         $validFamilies = [NotificationFamily::APPLICATION_UPDATE->name, NotificationFamily::JOB_ALERT->name];
 
         return [
-            'ignoredEmailNotifications' => ['array'],
-            'ignoredEmailNotifications.*' => ['distinct', Rule::in($validFamilies)],
-            'ignoredInAppNotifications' => ['array'],
-            'ignoredInAppNotifications.*' => ['distinct', Rule::in($validFamilies)],
+            'enabledEmailNotifications' => ['array'],
+            'enabledEmailNotifications.*' => ['distinct', Rule::in($validFamilies)],
+            'enabledInAppNotifications' => ['array'],
+            'enabledInAppNotifications.*' => ['distinct', Rule::in($validFamilies)],
         ];
     }
 
     public function messages(): array
     {
         return [
-            'in' => 'NotIgnorableNotificationFamily',
+            'in' => 'CannotEnableNotificationFamily',
         ];
     }
 }

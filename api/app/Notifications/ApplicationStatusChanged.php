@@ -32,11 +32,11 @@ class ApplicationStatusChanged extends Notification implements CanBeSentViaGcNot
         $notificationFamily = NotificationFamily::APPLICATION_UPDATE->name;
         $enabledChannels = [];
 
-        if (! in_array($notificationFamily, $notifiable->ignored_email_notifications ?? [])) {
+        if (in_array($notificationFamily, $notifiable->enabled_email_notifications ?? [])) {
             array_push($enabledChannels, GcNotifyEmailChannel::class);
         }
 
-        if (! in_array($notificationFamily, $notifiable->ignored_in_app_notifications ?? [])) {
+        if (in_array($notificationFamily, $notifiable->enabled_in_app_notifications ?? [])) {
             array_push($enabledChannels, 'database');
         }
 

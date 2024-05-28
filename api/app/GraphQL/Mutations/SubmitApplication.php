@@ -3,6 +3,8 @@
 namespace App\GraphQL\Mutations;
 
 use App\Enums\ApplicationStep;
+use App\Enums\ArmedForcesStatus;
+use App\Enums\ClaimVerificationResult;
 use App\Enums\PoolCandidateStatus;
 use App\GraphQL\Validators\Mutation\SubmitApplicationValidator;
 use App\Models\PoolCandidate;
@@ -21,7 +23,7 @@ final class SubmitApplication
     {
         // grab the specific application
         // submit to validator the PoolCandidate model
-        $application = PoolCandidate::find($args['id']);
+        $application = PoolCandidate::find($args['id'])->load('user');
         $submitValidator = new SubmitApplicationValidator($application);
         // We haven't saved the signature yet, so manually add it to the array
         $application['signature'] = $args['signature'];
@@ -36,6 +38,14 @@ final class SubmitApplication
         $application->submitted_at = $dateNow;
         $application->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
         $application->setInsertSubmittedStepAttribute(ApplicationStep::REVIEW_AND_SUBMIT->name);
+
+        // claim verification
+        if ($application->user->armed_forces_status == ArmedForcesStatus::VETERAN->name) {
+            $application->veteran_verification = ClaimVerificationResult::UNVERIFIED->name;
+        }
+        if ($application->user->has_priority_entitlement) {
+            $application->priority_verification = ClaimVerificationResult::UNVERIFIED->name;
+        }
 
         // need to save application before setting application snapshot since fields have yet to be saved to the database.
         $application->save();

@@ -290,7 +290,7 @@ class AssessmentStepTest extends TestCase
     public function testScreeningQuestionsAndSkills(): void
     {
         Skill::factory()->count(3)->create();
-        $testPool = Pool::factory()->draft()->create([
+        $testPool = Pool::factory()->draft()->WithPoolSkills(2, 2)->WithQuestions(2, 2)->create([
             'team_id' => $this->team->id,
         ]);
         $screeningQuestion = $testPool->screeningQuestions[0]; // first factory created question
@@ -369,7 +369,7 @@ class AssessmentStepTest extends TestCase
     public function testScreeningQuestionsCreatingAssessmentStep(): void
     {
         Skill::factory()->count(3)->create();
-        $testPool = Pool::factory()->draft()->create([
+        $testPool = Pool::factory()->draft()->withPoolSkills(2, 2)->withQuestions(2, 2)->create([
             'team_id' => $this->team->id,
         ]);
         AssessmentStep::truncate();

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Notifications;
 
+use App\Enums\NotificationFamily;
 use App\Enums\PoolCandidateStatus;
 use App\Models\PoolCandidate;
 use App\Models\User;
@@ -28,8 +29,8 @@ class TriggerApplicationStatusChangedTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
 
         $this->user = User::factory()->create([
-            'ignored_email_notifications' => [],
-            'ignored_in_app_notifications' => [],
+            'enabled_email_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
+            'enabled_in_app_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
         ]);
 
     }
