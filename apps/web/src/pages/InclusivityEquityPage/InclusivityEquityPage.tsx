@@ -55,8 +55,8 @@ export const Component = () => {
     description: "Title for the websites inclusivity and equity page",
   });
 
-  const sections: Section[] = [
-    {
+  const sections: Record<string, Section> = {
+    importance: {
       id: "importance",
       title: intl.formatMessage({
         defaultMessage: "The importance of self-declaration",
@@ -64,7 +64,7 @@ export const Component = () => {
         description: "Title for self-declaration section",
       }),
     },
-    {
+    howDataIsUsed: {
       id: "how-data-is-used",
       title: intl.formatMessage({
         defaultMessage: "How self-declaration data is used",
@@ -72,7 +72,7 @@ export const Component = () => {
         description: "Title for how self-declaration data is used section",
       }),
     },
-    {
+    commitment: {
       id: "commitment",
       title: intl.formatMessage({
         defaultMessage: "The GC Digital Talent team's commitment",
@@ -80,7 +80,7 @@ export const Component = () => {
         description: "Title for our commitment to inclusivity and equity",
       }),
     },
-  ];
+  };
 
   const crumbs = useBreadcrumbs({
     crumbs: [
@@ -107,7 +107,7 @@ export const Component = () => {
         <TableOfContents.Wrapper data-h2-margin-top="base(x3)">
           <TableOfContents.Navigation>
             <TableOfContents.List>
-              {sections.map((section) => (
+              {Object.values(sections).map((section) => (
                 <TableOfContents.ListItem key={section.id}>
                   <TableOfContents.AnchorLink id={section.id}>
                     {section.title}
@@ -117,14 +117,14 @@ export const Component = () => {
             </TableOfContents.List>
           </TableOfContents.Navigation>
           <TableOfContents.Content>
-            <TableOfContents.Section id={sections[0].id}>
+            <TableOfContents.Section id={sections.importance.id}>
               <TableOfContents.Heading
                 size="h3"
                 icon={LightBulbIcon}
                 color="primary"
                 data-h2-margin-top="base(0)"
               >
-                {sections[0].title}
+                {sections.importance.title}
               </TableOfContents.Heading>
             </TableOfContents.Section>
             <Text>
@@ -171,13 +171,13 @@ export const Component = () => {
                 description: "Paragraph 4, importance of self-declaration",
               })}
             </Text>
-            <TableOfContents.Section id={sections[1].id}>
+            <TableOfContents.Section id={sections.howDataIsUsed.id}>
               <TableOfContents.Heading
                 size="h3"
                 icon={AdjustmentsHorizontalIcon}
                 color="secondary"
               >
-                {sections[1].title}
+                {sections.howDataIsUsed.title}
               </TableOfContents.Heading>
               <Text>
                 {intl.formatMessage({
@@ -226,13 +226,13 @@ export const Component = () => {
                 </li>
               </ul>
             </TableOfContents.Section>
-            <TableOfContents.Section id={sections[2].id}>
+            <TableOfContents.Section id={sections.commitment.id}>
               <TableOfContents.Heading
                 size="h3"
                 icon={HandRaisedIcon}
                 color="tertiary"
               >
-                {sections[2].title}
+                {sections.commitment.title}
               </TableOfContents.Heading>
               <Text>
                 {intl.formatMessage({
