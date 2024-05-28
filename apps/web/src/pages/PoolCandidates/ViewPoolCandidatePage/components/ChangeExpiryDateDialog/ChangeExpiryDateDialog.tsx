@@ -10,8 +10,8 @@ import { toast } from "@gc-digital-talent/toast";
 import { errorMessages, formMessages } from "@gc-digital-talent/i18n";
 import {
   DATE_FORMAT_STRING,
+  formDateStringToDate,
   formatDate,
-  parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
 
 import applicationMessages from "~/messages/applicationMessages";
@@ -117,7 +117,7 @@ const ChangeExpiryDateDialog = ({
       <Dialog.Trigger>
         <Button mode="inline">
           {formatDate({
-            date: parseDateTimeUtc(application.expiryDate),
+            date: formDateStringToDate(application.expiryDate),
             formatString: DATE_FORMAT_STRING,
             intl,
           }) || title}
