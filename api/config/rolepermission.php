@@ -63,11 +63,10 @@ return [
         'user' => 'user',
         'userBasicInfo' => 'userBasicInfo',
         'userSub' => 'userSub',
-        'userAccountSettings' => 'userAccountSettings', // TODO: reconsider
         'applicantProfile' => 'applicantProfile',
         'draftPool' => 'draftPool',
         'publishedPool' => 'publishedPool',
-        'pool' => 'pool', // TODO: remove?
+        'pool' => 'pool',
         'assessmentPlan' => 'assessmentPlan',
         'application' => 'application',
         'draftApplication' => 'draftApplication',
@@ -428,6 +427,10 @@ return [
             'en' => 'Update the decision of Applications submitted to this Team\'s Pools',
             'fr' => 'Mettre à jour la décision des candidatures soumises aux bassins de cette équipe.',
         ],
+        'view-any-applicationPlacement' => [
+            'en' => 'View the placement of any submitted Application',
+            'fr' => 'Consulter le placement de n\'importe quelle candidature soumise',
+        ],
         'view-team-applicationPlacement' => [
             'en' => 'View the placement of Applications submitted to this Team\'s Pools',
             'fr' => 'Consulter le placement des candidatures soumises aux bassins de cette équipe.',
@@ -611,7 +614,7 @@ return [
             'en' => 'View the members of any pool',
             'fr' => 'Voir les membres de n\'importe quel bassin',
         ],
-        'view-team-draftPoolTeamMembers' => [
+        'view-team-poolTeamMembers' => [
             'en' => 'View the members of this pool, or of this community\'s pools',
             'fr' => 'Voir les membres de ce bassin, ou des bassins de cette communauté',
         ],
@@ -945,7 +948,7 @@ return [
                 'any' => ['view'],
             ],
             'draftPool' => [
-                'any' => ['view', 'publish'],
+                'any' => ['publish'],
             ],
             'publishedPool' => [
                 'any' => ['update'],
@@ -1116,7 +1119,7 @@ return [
                 'any' => ['view'],
             ],
             'pool' => [
-                'any' => ['view', 'publish'], // TODO: remove publish any pool permission
+                'any' => ['view'],
             ],
             'publishedPool' => [
                 'any' => ['update'], // TODO: remove update any pool permission

@@ -233,7 +233,6 @@ class RolePermissionTest extends TestCase
             'update-any-userSub',
             'delete-any-user',
             'view-any-pool',
-            'publish-any-draftPool',
             'create-any-application',
             'view-any-teamMembers',
             'create-any-team',

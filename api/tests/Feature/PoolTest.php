@@ -560,7 +560,7 @@ class PoolTest extends TestCase
         $pool->setEssentialPoolSkills([$skill1->id, $skill2->id]);
 
         // assert cannot publish due to soft deleted essential skill $skill2
-        $this->actingAs($this->adminUser, 'api')->graphQL(
+        $this->actingAs($this->communityManager, 'api')->graphQL(
             /** @lang GraphQL */
             '
                 mutation PublishPool($id: ID!) {
@@ -578,7 +578,7 @@ class PoolTest extends TestCase
         $pool->setEssentialPoolSkills([$skill1->id]);
 
         // assert can now publish with $skill2 removed
-        $this->actingAs($this->adminUser, 'api')->graphQL(
+        $this->actingAs($this->communityManager, 'api')->graphQL(
             /** @lang GraphQL */
             '
                         mutation PublishPool($id: ID!) {
@@ -848,7 +848,7 @@ class PoolTest extends TestCase
         }
 
         // assert cannot publish due to the one pool skill lacking an assessment
-        $this->actingAs($this->adminUser, 'api')->graphQL(
+        $this->actingAs($this->communityManager, 'api')->graphQL(
             /** @lang GraphQL */
             '
                         mutation PublishPool($id: ID!) {
@@ -869,7 +869,7 @@ class PoolTest extends TestCase
         }
 
         // assert successful now that all pool skills have an assessment
-        $this->actingAs($this->adminUser, 'api')->graphQL(
+        $this->actingAs($this->communityManager, 'api')->graphQL(
             /** @lang GraphQL */
             '
                                 mutation PublishPool($id: ID!) {
