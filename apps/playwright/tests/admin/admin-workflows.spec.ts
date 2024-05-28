@@ -20,7 +20,7 @@ test.describe("Admin workflows", () => {
     await loginBySub(appPage.page, "admin@test.com");
   });
 
-  test("Searching for user and reviewing the profile", async ({ appPage }) => {
+  test("Search for user and review profile", async ({ appPage }) => {
     await goToUsersPage(appPage);
     await searchForUser(appPage, "Applicant");
 
@@ -40,7 +40,7 @@ test.describe("Admin workflows", () => {
     ).toBeVisible();
   });
 
-  test("Searching for a user and editing the phone number", async ({
+  test("Search for user and edit phone number", async ({
     appPage,
   }) => {
     await loginBySub(appPage.page, "admin@test.com");
@@ -81,7 +81,7 @@ test.describe("Admin workflows", () => {
     ).toBeVisible();
   });
 
-  test("Downloading a user as CSV", async ({ appPage }) => {
+  test("Download user as CSV", async ({ appPage }) => {
     await loginBySub(appPage.page, "admin@test.com");
     await goToUsersPage(appPage);
     await searchForUser(appPage, "Applicant");
@@ -96,7 +96,7 @@ test.describe("Admin workflows", () => {
     expect(download.suggestedFilename()).toContain("users");
   });
 
-  test("Filtering users table", async ({ appPage }) => {
+  test("Filter users table", async ({ appPage }) => {
     await loginBySub(appPage.page, "admin@test.com");
     await goToUsersPage(appPage);
 
