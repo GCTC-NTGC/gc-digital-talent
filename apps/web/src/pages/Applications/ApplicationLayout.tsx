@@ -1,13 +1,14 @@
-import React from "react";
 import { useIntl, defineMessage } from "react-intl";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import flatMap from "lodash/flatMap";
 import { OperationContext, useQuery } from "urql";
+import { useEffect } from "react";
 
 import { TableOfContents, Stepper, Loading } from "@gc-digital-talent/ui";
 import { empty, isUuidError, notEmpty } from "@gc-digital-talent/helpers";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero/Hero";
@@ -22,6 +23,7 @@ import {
   getNextStepToSubmit,
   isOnDisabledPage,
 } from "~/utils/applicationUtils";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import StepDisabledPage from "./StepDisabledPage/StepDisabledPage";
 import ApplicationContextProvider from "./ApplicationContext";
@@ -104,7 +106,7 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
 
   // If we cannot find the current page, redirect to the first step
   // that has not been submitted yet, or the last step
-  React.useEffect(() => {
+  useEffect(() => {
     if (empty(currentPage)) {
       navigate(nextStepToSubmit.mainPage.link.url, {
         replace: true,
@@ -185,7 +187,7 @@ const Application_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const ApplicationLayout = () => {
+const Layout = () => {
   const id = useApplicationId();
   const intl = useIntl();
   const [{ data, fetching, error, stale }] = useQuery({
@@ -217,4 +219,12 @@ const ApplicationLayout = () => {
   );
 };
 
-export default ApplicationLayout;
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+    <Layout />
+  </RequireAuth>
+);
+
+Component.displayName = "ApplicationLayout";
+
+export default Component;

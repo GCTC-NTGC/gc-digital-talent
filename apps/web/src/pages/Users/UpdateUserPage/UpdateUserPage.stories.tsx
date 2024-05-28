@@ -1,4 +1,3 @@
-import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 
 import { fakeUsers, fakeTeams, fakeRoles } from "@gc-digital-talent/fake-data";
@@ -20,7 +19,6 @@ const userData = {
 
 export default {
   component: UpdateUserPage,
-  title: "Pages/Update User Page",
   parameters: {
     defaultPath: {
       path: "/en/admin/users/:userId/edit",

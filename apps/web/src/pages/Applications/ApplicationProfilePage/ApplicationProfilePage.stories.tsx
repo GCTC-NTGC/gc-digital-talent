@@ -1,4 +1,3 @@
-import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
@@ -9,7 +8,6 @@ const fakeApplication = fakePoolCandidates()[0];
 
 export default {
   component: ApplicationProfile,
-  title: "Pages/Application/Profile",
   args: {
     application: fakeApplication,
     user: fakeApplication.user,

@@ -1,11 +1,11 @@
-import React, { ReactElement } from "react";
+import { HTMLProps, ReactElement } from "react";
 import isArray from "lodash/isArray";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import { ChipProps } from "./Chip";
 
-type ChipsProps = Omit<React.HTMLProps<HTMLUListElement>, "children"> & {
+type ChipsProps = Omit<HTMLProps<HTMLUListElement>, "children"> & {
   children:
     | ReactElement<ChipProps>
     | Array<ReactElement<ChipProps> | null>

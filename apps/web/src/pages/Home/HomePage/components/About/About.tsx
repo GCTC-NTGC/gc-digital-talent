@@ -1,15 +1,15 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
+import { ReactNode } from "react";
 
 import { CardFlat, Heading } from "@gc-digital-talent/ui";
-import { useLocale } from "@gc-digital-talent/i18n";
+import { getLocale } from "@gc-digital-talent/i18n";
 
 import { wrapAbbr } from "~/utils/nameUtils";
 
 const About = () => {
   const intl = useIntl();
-  const { locale } = useLocale();
+  const locale = getLocale(intl);
   return (
     <div
       data-h2-background="base(home-footer-linear)"
@@ -77,8 +77,7 @@ const About = () => {
                         "Description of the Office of the Chief Information Officer",
                     },
                     {
-                      abbreviation: (text: React.ReactNode) =>
-                        wrapAbbr(text, intl),
+                      abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
                     },
                   )}
                 </p>
@@ -117,8 +116,7 @@ const About = () => {
                         "Description for the Digital Community Management",
                     },
                     {
-                      abbreviation: (text: React.ReactNode) =>
-                        wrapAbbr(text, intl),
+                      abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
                     },
                   )}
                 </p>
@@ -155,8 +153,7 @@ const About = () => {
                         "Description of how the platform was created.",
                     },
                     {
-                      abbreviation: (text: React.ReactNode) =>
-                        wrapAbbr(text, intl),
+                      abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
                     },
                   )}
                 </p>

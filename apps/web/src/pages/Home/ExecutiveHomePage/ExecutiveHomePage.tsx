@@ -1,4 +1,3 @@
-import React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
 import PuzzlePieceIcon from "@heroicons/react/24/outline/PuzzlePieceIcon";
@@ -119,7 +118,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
             >
               {pools.map((pool) => (
                 <li key={pool.id}>
-                  <PoolCard pool={pool} />
+                  <PoolCard poolQuery={pool} />
                 </li>
               ))}
             </ul>
@@ -314,7 +313,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
           <Link
             color="quinary"
             mode="cta"
-            href={paths.myProfile()}
+            href={paths.profile()}
             icon={UserPlusIcon}
           >
             {intl.formatMessage({
@@ -502,99 +501,15 @@ const ExecutiveHomePage_Query = graphql(/* GraphQL */ `
   query ExecutiveHomePage($closingAfter: DateTime) {
     publishedPools(closingAfter: $closingAfter) {
       id
-      name {
-        en
-        fr
-      }
-      closingDate
-      status
-      language
-      securityClearance
-      classification {
-        id
-        group
-        level
-        name {
-          en
-          fr
-        }
-        minSalary
-        maxSalary
-        genericJobTitles {
-          id
-          key
-          name {
-            en
-            fr
-          }
-        }
-      }
-      yourImpact {
-        en
-        fr
-      }
-      keyTasks {
-        en
-        fr
-      }
-      essentialSkills {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        category
-        families {
-          id
-          key
-          description {
-            en
-            fr
-          }
-          name {
-            en
-            fr
-          }
-        }
-      }
-      nonessentialSkills {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        category
-        families {
-          id
-          key
-          description {
-            en
-            fr
-          }
-          name {
-            en
-            fr
-          }
-        }
-      }
-      isRemote
-      location {
-        en
-        fr
-      }
-      stream
-      processNumber
-      publishedAt
       publishingGroup
+      ...PoolCard
     }
   }
 `);
 
 const now = nowUTCDateTime();
 
-const HomePageApi = () => {
+export const Component = () => {
   const [{ data, fetching, error }] = useQuery({
     query: ExecutiveHomePage_Query,
     variables: { closingAfter: now }, // pass current dateTime into query argument
@@ -612,4 +527,4 @@ const HomePageApi = () => {
   );
 };
 
-export default HomePageApi;
+Component.displayName = "ExecutiveHomePage";

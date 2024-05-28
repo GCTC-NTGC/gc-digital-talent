@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-useless-fragment */
-import React from "react";
+import { JSX } from "react";
 
 import { Link, LinkProps } from "@gc-digital-talent/ui";
 

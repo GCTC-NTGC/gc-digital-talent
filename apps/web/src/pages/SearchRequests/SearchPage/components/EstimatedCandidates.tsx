@@ -1,10 +1,10 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
+import { ReactNode } from "react";
 
 import { Loading, ScrollToLink } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
-const testId = (chunks: React.ReactNode) => (
+const testId = (chunks: ReactNode) => (
   <span data-testid="candidateCount">{chunks}</span>
 );
 interface CandidateMessageProps {
@@ -45,8 +45,9 @@ const CandidateMessage = ({ candidateCount }: CandidateMessageProps) => {
       </p>
       <p data-h2-font-weight="base(700)" data-h2-margin="base(x.5 0)">
         {intl.formatMessage({
-          defaultMessage: "We may be able to help!",
-          id: "xAfVa9",
+          defaultMessage:
+            "However, we have candidates in our talent database who haven't been assessed yet but may meet your needs.",
+          id: "llGBZI",
           description:
             "Heading for helping user if no candidates matched the filters chosen.",
         })}
@@ -121,8 +122,8 @@ const EstimatedCandidates = ({
                     })
                   : intl.formatMessage({
                       defaultMessage:
-                        "Submit an empty request and tell us more in the comments.",
-                      id: "W/cZp2",
+                        "Submit an empty request and we will try to help.",
+                      id: "9qzCX/",
                       description:
                         "Link text to scroll to the submit button when no candidates were found",
                     })}

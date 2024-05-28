@@ -15,6 +15,7 @@ use App\Traits\EnrichedNotifiable;
 use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -77,10 +78,10 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property array $indigenous_communities
  * @property string $preferred_language_for_interview
  * @property string $preferred_language_for_exam
- * @property array $ignored_email_notifications
- * @property array $ignored_in_app_notifications
+ * @property array $enabled_email_notifications
+ * @property array $enabled_in_app_notifications
  */
-class User extends Model implements Authenticatable, LaratrustUser
+class User extends Model implements Authenticatable, HasLocalePreference, LaratrustUser
 {
     use AuthenticatableTrait;
     use Authorizable;
@@ -135,8 +136,8 @@ class User extends Model implements Authenticatable, LaratrustUser
         'preferred_language_for_interview',
         'preferred_language_for_exam',
         'deleted_at',
-        'ignored_email_notifications',
-        'ignored_in_app_notifications',
+        'enabled_email_notifications',
+        'enabled_in_app_notifications',
         'created_at',
         'updated_at',
     ];
@@ -148,8 +149,8 @@ class User extends Model implements Authenticatable, LaratrustUser
         'accepted_operational_requirements' => 'array',
         'position_duration' => 'array',
         'indigenous_communities' => 'array',
-        'ignored_email_notifications' => 'array',
-        'ignored_in_app_notifications' => 'array',
+        'enabled_email_notifications' => 'array',
+        'enabled_in_app_notifications' => 'array',
     ];
 
     protected $fillable = [
@@ -224,6 +225,14 @@ class User extends Model implements Authenticatable, LaratrustUser
             ->logOnly(['*'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();
+    }
+
+    /**
+     * Get the user's preferred locale.
+     */
+    public function preferredLocale(): string
+    {
+        return $this->preferred_lang;
     }
 
     public function pools(): HasMany
@@ -487,13 +496,10 @@ class User extends Model implements Authenticatable, LaratrustUser
             'not_accepted' => [],
         ];
         foreach ($operationalRequirements as $requirement) {
-            // Note: Scheduled overtime is legacy
-            if ($requirement !== OperationalRequirement::OVERTIME_SCHEDULED->name && $requirement !== OperationalRequirement::OVERTIME_SHORT_NOTICE->name) {
-                if (in_array($requirement, $this->accepted_operational_requirements ?? [])) {
-                    $preferences['accepted'][] = $requirement;
-                } else {
-                    $preferences['not_accepted'][] = $requirement;
-                }
+            if (in_array($requirement, $this->accepted_operational_requirements ?? [])) {
+                $preferences['accepted'][] = $requirement;
+            } else {
+                $preferences['not_accepted'][] = $requirement;
             }
         }
 
@@ -781,6 +787,24 @@ class User extends Model implements Authenticatable, LaratrustUser
     }
 
     /**
+     * Scopes the query to only return users in a pool with one of the specified classifications.
+     * If $classifications is empty, this scope will be ignored.
+     *
+     * @param  array|null  $classifications  Each classification is an object with a group and a level field.
+     */
+    public static function scopeAppliedClassifications(Builder $query, ?array $classifications): Builder
+    {
+        if (empty($classifications)) {
+            return $query;
+        }
+        $query->whereHas('poolCandidates', function ($query) use ($classifications) {
+            PoolCandidate::scopeAppliedClassifications($query, $classifications);
+        });
+
+        return $query;
+    }
+
+    /**
      * Scopes the query to only return users who are available in a pool with one of the specified classifications.
      * If $classifications is empty, this scope will be ignored.
      *
@@ -924,10 +948,10 @@ class User extends Model implements Authenticatable, LaratrustUser
         return $query;
     }
 
-    public static function scopeGeneralSearch(Builder $query, ?array $searchTerms): Builder
+    public static function scopeGeneralSearch(Builder $query, ?string $searchTerm): Builder
     {
-        if ($searchTerms && is_array($searchTerms)) {
-            $combinedSearchTerm = implode('&', array_map('trim', $searchTerms));
+        if ($searchTerm) {
+            $combinedSearchTerm = trim(preg_replace('/\s{2,}/', ' ', $searchTerm));
 
             $query
                 // attach the tsquery to every row to use for filtering

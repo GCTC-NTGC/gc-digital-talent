@@ -1,7 +1,7 @@
-import React from "react";
 import { useIntl } from "react-intl";
+import { HTMLProps, ReactNode } from "react";
 
-import { Link, Heading, HeadingLevel } from "@gc-digital-talent/ui";
+import { Link, Heading, HeadingLevel, CardBasic } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
 
 import applicationMessages from "~/messages/applicationMessages";
@@ -13,13 +13,13 @@ import {
   postSecondaryLink,
 } from "~/pages/Applications/ApplicationEducationPage/utils";
 
-type TextProps = React.HTMLProps<HTMLParagraphElement>;
+type TextProps = HTMLProps<HTMLParagraphElement>;
 
 const Text = (props: TextProps) => (
   <p data-h2-margin="base(x.5, 0)" {...props} />
 );
 
-const Wrapper = (props: React.HTMLProps<HTMLDivElement>) => (
+const Wrapper = (props: HTMLProps<HTMLDivElement>) => (
   <div
     data-h2-display="base(grid)"
     data-h2-grid-template-columns="base(1fr) l-tablet(1fr 1fr)"
@@ -28,19 +28,8 @@ const Wrapper = (props: React.HTMLProps<HTMLDivElement>) => (
     {...props}
   />
 );
-const Card = (props: React.HTMLProps<HTMLDivElement>) => (
-  <div
-    data-h2-background-color="base(foreground)"
-    data-h2-radius="base(rounded)"
-    data-h2-padding="base(x1.25)"
-    data-h2-shadow="base(s)"
-    data-h2-position="base(relative)"
-    data-h2-z-index="base(1)"
-    {...props}
-  />
-);
 
-const Or = (props: React.HTMLProps<HTMLDivElement>) => {
+const Or = (props: HTMLProps<HTMLDivElement>) => {
   const intl = useIntl();
   return (
     <span
@@ -88,7 +77,7 @@ const EducationRequirements = ({
   const intl = useIntl();
   const locale = getLocale(intl);
 
-  const qualityStandardsLink = (chunks: React.ReactNode) => {
+  const qualityStandardsLink = (chunks: ReactNode) => {
     const href =
       locale === "en"
         ? "https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/core.html#rpsi"
@@ -104,7 +93,7 @@ const EducationRequirements = ({
     case "EX":
       return (
         <Wrapper data-h2-grid-template-columns="base(1fr) l-tablet(1fr 1fr 1fr)">
-          <Card>
+          <CardBasic>
             <Heading
               level={headingAs}
               size="h6"
@@ -119,12 +108,12 @@ const EducationRequirements = ({
             </Heading>
             <Text>
               {intl.formatMessage(applicationMessages.professionalDesignation, {
-                link: (msg: React.ReactNode) => eligibilityLink(msg, locale),
+                link: (msg: ReactNode) => eligibilityLink(msg, locale),
               })}
             </Text>
-          </Card>
+          </CardBasic>
           <Or data-h2-left="l-tablet(33%)" />
-          <Card>
+          <CardBasic>
             <Heading
               level={headingAs}
               size="h6"
@@ -139,12 +128,12 @@ const EducationRequirements = ({
             </Heading>
             <Text>
               {intl.formatMessage(applicationMessages.appliedWorkExpEXGroup, {
-                link: (msg: React.ReactNode) => acceptableLink(msg, locale),
+                link: (msg: ReactNode) => acceptableLink(msg, locale),
               })}
             </Text>
-          </Card>
+          </CardBasic>
           <Or data-h2-left="l-tablet(67%)" />
-          <Card>
+          <CardBasic>
             <Heading
               level={headingAs}
               size="h6"
@@ -159,25 +148,25 @@ const EducationRequirements = ({
             </Heading>
             <Text>
               {intl.formatMessage(applicationMessages.graduationWithDegree, {
-                degreeLink: (msg: React.ReactNode) => degreeLink(msg, locale),
-                postSecondaryLink: (msg: React.ReactNode) =>
+                degreeLink: (msg: ReactNode) => degreeLink(msg, locale),
+                postSecondaryLink: (msg: ReactNode) =>
                   postSecondaryLink(msg, locale),
               })}
             </Text>
             <Text>
               {intl.formatMessage(applicationMessages.foreignDegree, {
-                foreignDegreeLink: (msg: React.ReactNode) =>
+                foreignDegreeLink: (msg: ReactNode) =>
                   foreignDegreeLink(msg, locale),
               })}
             </Text>
-          </Card>
+          </CardBasic>
         </Wrapper>
       );
     case "AS":
     case "PM":
       return (
         <Wrapper>
-          <Card>
+          <CardBasic>
             <Heading
               level={headingAs}
               size="h6"
@@ -193,9 +182,9 @@ const EducationRequirements = ({
             <Text>
               {intl.formatMessage(applicationMessages.appliedWorkExpPMGroup)}
             </Text>
-          </Card>
+          </CardBasic>
           <Or />
-          <Card>
+          <CardBasic>
             <Heading
               level={headingAs}
               size="h6"
@@ -208,13 +197,13 @@ const EducationRequirements = ({
                 applicationMessages.secondarySchoolDescription,
               )}
             </Text>
-          </Card>
+          </CardBasic>
         </Wrapper>
       );
     case "EC":
       return (
         <Wrapper>
-          <Card>
+          <CardBasic>
             <Heading level={headingAs} size="h6" data-h2-margin-top="base(0)">
               {intl.formatMessage(
                 applicationMessages.educationRequirementECJustEducationHeading,
@@ -225,9 +214,9 @@ const EducationRequirements = ({
                 applicationMessages.educationRequirementECJustEducationDescription,
               )}
             </Text>
-          </Card>
+          </CardBasic>
           <Or />
-          <Card>
+          <CardBasic>
             <Heading level={headingAs} size="h6" data-h2-margin-top="base(0)">
               {intl.formatMessage(
                 applicationMessages.educationRequirementECEducationPlusHeading,
@@ -238,13 +227,13 @@ const EducationRequirements = ({
                 applicationMessages.educationRequirementECEducationPlusDescription,
               )}
             </Text>
-          </Card>
+          </CardBasic>
         </Wrapper>
       );
     default:
       return (
         <Wrapper>
-          <Card>
+          <CardBasic>
             <Heading
               level={headingAs}
               size="h6"
@@ -272,9 +261,9 @@ const EducationRequirements = ({
               <li>{intl.formatMessage(applicationMessages.formalEducation)}</li>
               <li>{intl.formatMessage(applicationMessages.otherExperience)}</li>
             </ul>
-          </Card>
+          </CardBasic>
           <Or />
-          <Card>
+          <CardBasic>
             <Heading
               level={headingAs}
               size="h6"
@@ -310,7 +299,7 @@ const EducationRequirements = ({
                     },
                   )}
             </Text>
-          </Card>
+          </CardBasic>
         </Wrapper>
       );
   }

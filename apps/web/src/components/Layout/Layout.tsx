@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { Outlet, ScrollRestoration, useSearchParams } from "react-router-dom";
 
@@ -12,7 +11,7 @@ import {
 import {
   commonMessages,
   navigationMessages,
-  useLocale,
+  getLocale,
 } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -30,9 +29,11 @@ import LogoutButton from "./LogoutButton";
 import SitewideBanner from "./SitewideBanner";
 import SkipLink from "./SkipLink";
 
-const Layout = () => {
+export { ErrorBoundary } from "./ErrorBoundary/ErrorBoundary";
+
+export const Component = () => {
   const intl = useIntl();
-  const { locale } = useLocale();
+  const locale = getLocale(intl);
   const paths = useRoutes();
   useLayoutTheme("default");
 
@@ -153,4 +154,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+Component.displayName = "Layout";

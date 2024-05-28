@@ -1,4 +1,3 @@
-import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 
 import { fakeSkillFamilies } from "@gc-digital-talent/fake-data";
@@ -9,7 +8,6 @@ const mockSkillFamilies = fakeSkillFamilies();
 
 export default {
   component: SkillFamilyTable,
-  title: "Tables/Skill Family Table",
 } as Meta<typeof SkillFamilyTable>;
 
 const Template: StoryFn<typeof SkillFamilyTable> = (args) => {

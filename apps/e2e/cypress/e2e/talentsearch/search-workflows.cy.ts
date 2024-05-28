@@ -14,7 +14,7 @@ import { createApplicant, addRolesToUser } from "../../support/userHelpers";
 
 describe("Talent Search Workflow Tests", () => {
   beforeEach(() => {
-    cy.intercept("POST", "/graphql", (req) => {
+    cy.intercept("POST", "**/graphql", (req) => {
       aliasQuery(req, "CandidateCount");
       aliasQuery(req, "SearchForm");
       aliasMutation(req, "RequestForm_CreateRequest");
@@ -151,6 +151,8 @@ describe("Talent Search Workflow Tests", () => {
       });
     });
 
+    // Ensure anonymous users can complete the workflow
+    cy.logout();
     cy.visit("/en/search");
 
     // first request is without any filters

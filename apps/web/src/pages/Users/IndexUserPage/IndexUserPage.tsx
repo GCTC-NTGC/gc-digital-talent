@@ -1,15 +1,16 @@
-import React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import UserCircleOutlineIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import UserCircleSolidIcon from "@heroicons/react/24/solid/UserCircleIcon";
 
 import { IconType } from "@gc-digital-talent/ui";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRoutes from "~/hooks/useRoutes";
 import AdminHero from "~/components/Hero/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import UserTable from "./components/UserTable";
 
@@ -59,5 +60,19 @@ export const IndexUserPage = () => {
     </>
   );
 };
+
+export const Component = () => (
+  <RequireAuth
+    roles={[
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.RequestResponder,
+      ROLE_NAME.PlatformAdmin,
+    ]}
+  >
+    <IndexUserPage />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminIndexUserPage";
 
 export default IndexUserPage;

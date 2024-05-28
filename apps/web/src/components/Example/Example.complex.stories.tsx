@@ -1,16 +1,17 @@
-import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
+import { ComponentProps } from "react";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Example from "./Example";
 
-type PagePropsAndCustomArgs = React.ComponentProps<typeof Example> & {
+type PagePropsAndCustomArgs = ComponentProps<typeof Example> & {
   footer?: string;
 };
 
 const meta = {
   component: Example,
+
   render: ({ footer, ...args }) => (
     <>
       <Example {...args} />
@@ -42,7 +43,7 @@ export default meta;
 
 type Story = StoryObj<PagePropsAndCustomArgs>;
 
-export const CustomFooter: Story = {
+export const Default: Story = {
   args: {
     footer: "CustomFooterText",
     color: "primary",

@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useMemo } from "react";
 import { useIntl } from "react-intl";
 
 import {
@@ -7,8 +7,9 @@ import {
   HeadingRank,
   Link,
   Button,
+  Well,
 } from "@gc-digital-talent/ui";
-import { getLocale } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 import { AwardExperience, Experience } from "@gc-digital-talent/graphql";
 
 import {
@@ -43,7 +44,7 @@ const ExperienceSection = ({
   const intl = useIntl();
   const locale = getLocale(intl);
 
-  const awardExperiences = React.useMemo(
+  const awardExperiences = useMemo(
     () =>
       experiences
         ?.filter(isAwardExperience)
@@ -59,27 +60,27 @@ const ExperienceSection = ({
     [experiences],
   );
 
-  const communityExperiences = React.useMemo(
+  const communityExperiences = useMemo(
     () => experiences?.filter(isCommunityExperience).sort(compareByDate) || [],
     [experiences],
   );
 
-  const educationExperiences = React.useMemo(
+  const educationExperiences = useMemo(
     () => experiences?.filter(isEducationExperience).sort(compareByDate) || [],
     [experiences],
   );
 
-  const personalExperiences = React.useMemo(
+  const personalExperiences = useMemo(
     () => experiences?.filter(isPersonalExperience).sort(compareByDate) || [],
     [experiences],
   );
 
-  const workExperiences = React.useMemo(
+  const workExperiences = useMemo(
     () => experiences?.filter(isWorkExperience).sort(compareByDate) || [],
     [experiences],
   );
 
-  const allExperiences = React.useMemo(
+  const allExperiences = useMemo(
     () => [
       ...awardExperiences,
       ...communityExperiences,
@@ -100,7 +101,7 @@ const ExperienceSection = ({
   const { isExpanded, hasExpanded, toggleAllExpanded, toggleExpandedItem } =
     useControlledCollapsibleGroup(sortedByDate.map(({ id }) => id));
 
-  const allSkills = React.useMemo(
+  const allSkills = useMemo(
     () => invertSkillExperienceTree(allExperiences),
     [allExperiences],
   );
@@ -170,6 +171,7 @@ const ExperienceSection = ({
               onOpenChange={() => toggleExpandedItem(experience.id)}
               isOpen={isExpanded(experience.id)}
               experience={experience}
+              showEdit={false}
               editParam={editParam}
             />
           ))}
@@ -193,25 +195,25 @@ const ExperienceSection = ({
               />
             ))}
           </Accordion.Root>
-        ) : null}
+        ) : (
+          <Well>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "No skills have been linked to any experiences.",
+                id: "23/pqm",
+                description:
+                  "Null state for when no skills have been linked to any experiences",
+              })}
+            </p>
+          </Well>
+        )}
       </Tabs.Content>
     </Tabs.Root>
   ) : (
-    <div
-      data-h2-background-color="base(background.dark)"
-      data-h2-border="base(1px solid background.darker)"
-      data-h2-padding="base(x1)"
-      data-h2-radius="base(s)"
-    >
+    <Well>
       {!editPath ? (
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "No information has been provided",
-            id: "4Xa7Pd",
-            description:
-              "Message on Admin side when user not filled Experience section.",
-          })}
-        </p>
+        <p>{intl.formatMessage(commonMessages.noInformationProvided)}</p>
       ) : (
         <>
           <p data-h2-padding="base(0, 0, x1, 0)">
@@ -233,7 +235,7 @@ const ExperienceSection = ({
           </p>
         </>
       )}
-    </div>
+    </Well>
   );
 };
 

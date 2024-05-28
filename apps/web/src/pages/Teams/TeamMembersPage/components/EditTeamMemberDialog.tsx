@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import PencilIcon from "@heroicons/react/24/outline/PencilIcon";
@@ -34,7 +34,7 @@ const EditTeamMemberDialog = ({ user, team }: EditTeamMemberDialogProps) => {
   const intl = useIntl();
   const { roles, fetching } = useAvailableRoles();
   const [, executeMutation] = useMutation(UpdateUserTeamRoles_Mutation);
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const methods = useForm<TeamMemberFormValues>({
     defaultValues: {
@@ -189,21 +189,16 @@ const EditTeamMemberDialog = ({ user, team }: EditTeamMemberDialogProps) => {
                 />
               </div>
               <Dialog.Footer>
-                <Dialog.Close>
-                  <Button color="secondary">
-                    {intl.formatMessage(formMessages.cancelGoBack)}
-                  </Button>
-                </Dialog.Close>
-                <Button
-                  mode="solid"
-                  color="secondary"
-                  type="submit"
-                  disabled={isSubmitting}
-                >
+                <Button color="secondary" type="submit" disabled={isSubmitting}>
                   {isSubmitting
                     ? intl.formatMessage(commonMessages.saving)
                     : intl.formatMessage(formMessages.saveChanges)}
                 </Button>
+                <Dialog.Close>
+                  <Button color="warning" mode="inline">
+                    {intl.formatMessage(formMessages.cancelGoBack)}
+                  </Button>
+                </Dialog.Close>
               </Dialog.Footer>
             </form>
           </FormProvider>

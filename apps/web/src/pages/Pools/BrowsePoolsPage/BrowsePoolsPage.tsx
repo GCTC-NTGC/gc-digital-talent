@@ -1,8 +1,15 @@
-import React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
+import { ReactNode } from "react";
 
-import { CardFlat, Flourish, Pending } from "@gc-digital-talent/ui";
+import {
+  CardBasic,
+  CardFlat,
+  Flourish,
+  Heading,
+  Link,
+  Pending,
+} from "@gc-digital-talent/ui";
 import { useTheme } from "@gc-digital-talent/theme";
 import { useAuthentication } from "@gc-digital-talent/auth";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
@@ -12,6 +19,7 @@ import {
   PoolStatus,
   PublishingGroup,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
@@ -23,7 +31,6 @@ import flourishTopLight from "~/assets/img/browse_top_light.webp";
 import flourishBottomLight from "~/assets/img/browse_bottom_light.webp";
 import flourishTopDark from "~/assets/img/browse_top_dark.webp";
 import flourishBottomDark from "~/assets/img/browse_bottom_dark.webp";
-import CallToActionCard from "~/components/CallToActionCard/CallToActionCard";
 
 import OngoingRecruitmentSection from "./components/OngoingRecruitmentSection/OngoingRecruitmentSection";
 import ActiveRecruitmentSection from "./components/ActiveRecruitmentSection/ActiveRecruitmentSection";
@@ -41,92 +48,9 @@ const BrowsePoolsPage_Query = graphql(/* GraphQL */ `
   query BrowsePoolsPage($closingAfter: DateTime) {
     publishedPools(closingAfter: $closingAfter) {
       id
-      name {
-        en
-        fr
-      }
-      closingDate
-      status
-      language
-      securityClearance
-      classification {
-        id
-        group
-        level
-        name {
-          en
-          fr
-        }
-        minSalary
-        maxSalary
-        genericJobTitles {
-          id
-          key
-          name {
-            en
-            fr
-          }
-        }
-      }
-      yourImpact {
-        en
-        fr
-      }
-      keyTasks {
-        en
-        fr
-      }
-      essentialSkills {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        category
-        families {
-          id
-          key
-          description {
-            en
-            fr
-          }
-          name {
-            en
-            fr
-          }
-        }
-      }
-      nonessentialSkills {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        category
-        families {
-          id
-          key
-          description {
-            en
-            fr
-          }
-          name {
-            en
-            fr
-          }
-        }
-      }
-      isRemote
-      location {
-        en
-        fr
-      }
-      stream
-      processNumber
-      publishedAt
       publishingGroup
+      status
+      ...ActiveRecruitmentSectionPool
     }
     ...OngoingRecruitmentSection
   }
@@ -141,7 +65,7 @@ const subTitle = defineMessage({
   description: "Subtitle for the browse IT jobs page",
 });
 
-export const BrowsePools = () => {
+export const Component = () => {
   const { mode } = useTheme();
   const intl = useIntl();
   const { loggedIn } = useAuthentication();
@@ -152,11 +76,7 @@ export const BrowsePools = () => {
     variables: { closingAfter: now }, // pass current dateTime into query argument
   });
 
-  const pools =
-    data?.publishedPools.filter(
-      (pool) => typeof pool !== `undefined` && !!pool,
-    ) ?? [];
-
+  const pools = unpackMaybes(data?.publishedPools);
   const title = intl.formatMessage(navigationMessages.browseJobs);
   const formattedSubTitle = intl.formatMessage(subTitle);
 
@@ -187,7 +107,7 @@ export const BrowsePools = () => {
     activeRecruitmentPools.length || ongoingRecruitmentPools.length;
 
   const profileLink = {
-    href: loggedIn ? paths.myProfile() : paths.login(),
+    href: loggedIn ? paths.profile() : paths.login(),
     label: loggedIn
       ? intl.formatMessage({
           defaultMessage: "Update my profile",
@@ -231,7 +151,7 @@ export const BrowsePools = () => {
           style={{ zIndex: 1 }}
         >
           <div>
-            <ActiveRecruitmentSection pools={activeRecruitmentPools} />
+            <ActiveRecruitmentSection poolsQuery={activeRecruitmentPools} />
           </div>
           {ongoingRecruitmentPools.length > 0 && (
             <div>
@@ -241,44 +161,67 @@ export const BrowsePools = () => {
               />
             </div>
           )}
-          <CallToActionCard
-            heading={
-              areOpportunitiesShowing
-                ? intl.formatMessage({
-                    defaultMessage: "More opportunities are coming soon!",
-                    id: "g+JcDC",
-                    description:
-                      "Heading for message about upcoming opportunities",
-                  })
-                : intl.formatMessage({
-                    defaultMessage:
-                      "No opportunities are available right now, but more are coming soon!",
-                    id: "xHjgXz",
-                    description:
-                      "Text displayed when there are no pool advertisements to display",
-                  })
-            }
-            link={profileLink}
-            data-h2-margin="base(x1, 0, 0, 0)"
-          >
-            <p>
-              {loggedIn
-                ? intl.formatMessage({
-                    defaultMessage:
-                      "We're posting new opportunities all the time. By keeping your profile up to date, you'll be able to submit applications lightning fast when the time comes.",
-                    id: "9SZDCq",
-                    description:
-                      "Text describing upcoming opportunities instructing users to update a profile when signed in",
-                  })
-                : intl.formatMessage({
-                    defaultMessage:
-                      "We're posting new opportunities all the time. By starting your profile now, you'll be able to submit applications lightning fast when the time comes.",
-                    id: "3sbLPV",
-                    description:
-                      "Text describing upcoming opportunities instructing users to create a profile when anonymous",
-                  })}
-            </p>
-          </CallToActionCard>
+          <CardBasic data-h2-margin="base(x1, 0, 0, 0)">
+            <div
+              data-h2-display="p-tablet(flex)"
+              data-h2-gap="base(x3)"
+              data-h2-align-items="base(center)"
+              data-h2-justify-content="base(space-between)"
+            >
+              <div>
+                <Heading
+                  level="h2"
+                  size="h6"
+                  data-h2-margin="base(0, 0, x.5, 0)"
+                >
+                  {areOpportunitiesShowing
+                    ? intl.formatMessage({
+                        defaultMessage: "More opportunities are coming soon!",
+                        id: "g+JcDC",
+                        description:
+                          "Heading for message about upcoming opportunities",
+                      })
+                    : intl.formatMessage({
+                        defaultMessage:
+                          "No opportunities are available right now, but more are coming soon!",
+                        id: "xHjgXz",
+                        description:
+                          "Text displayed when there are no pool advertisements to display",
+                      })}
+                </Heading>
+                <p>
+                  {loggedIn
+                    ? intl.formatMessage({
+                        defaultMessage:
+                          "We're posting new opportunities all the time. By keeping your profile up to date, you'll be able to submit applications lightning fast when the time comes.",
+                        id: "9SZDCq",
+                        description:
+                          "Text describing upcoming opportunities instructing users to update a profile when signed in",
+                      })
+                    : intl.formatMessage({
+                        defaultMessage:
+                          "We're posting new opportunities all the time. By starting your profile now, you'll be able to submit applications lightning fast when the time comes.",
+                        id: "3sbLPV",
+                        description:
+                          "Text describing upcoming opportunities instructing users to create a profile when anonymous",
+                      })}
+                </p>
+              </div>
+              <div
+                data-h2-margin="base(x1, 0, 0, 0) p-tablet(0)"
+                data-h2-flex-shrink="base(0)"
+              >
+                <Link
+                  color="secondary"
+                  mode="solid"
+                  href={profileLink.href}
+                  style={{ whiteSpace: "nowrap" }}
+                >
+                  {profileLink.label}
+                </Link>
+              </div>
+            </div>
+          </CardBasic>
         </div>
         <img
           alt=""
@@ -311,7 +254,7 @@ export const BrowsePools = () => {
                     "Title for Indigenous community job opportunities on Browse IT jobs page",
                 },
                 {
-                  abbreviation: (text: React.ReactNode) => wrapAbbr(text, intl),
+                  abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
                 },
               )}
               links={[
@@ -339,8 +282,7 @@ export const BrowsePools = () => {
                       "Summary for Indigenous community job opportunities on Browse IT jobs page",
                   },
                   {
-                    abbreviation: (text: React.ReactNode) =>
-                      wrapAbbr(text, intl),
+                    abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
                   },
                 )}
               </p>
@@ -371,8 +313,7 @@ export const BrowsePools = () => {
                       "Summary for to go to the search page on Browse IT jobs page",
                   },
                   {
-                    abbreviation: (text: React.ReactNode) =>
-                      wrapAbbr(text, intl),
+                    abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
                   },
                 )}
               </p>
@@ -385,4 +326,6 @@ export const BrowsePools = () => {
   );
 };
 
-export default BrowsePools;
+Component.displayName = "BrowsePoolsPage";
+
+export default Component;

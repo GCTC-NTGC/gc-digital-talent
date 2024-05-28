@@ -5,10 +5,14 @@ namespace Database\Seeders;
 use App\Enums\SkillLevel;
 use App\Enums\WhenSkillUsed;
 use App\Models\AwardExperience;
+use App\Models\CommunityExperience;
+use App\Models\EducationExperience;
+use App\Models\PersonalExperience;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
 use App\Models\UserSkill;
+use App\Models\WorkExperience;
 use Faker\Generator;
 use Illuminate\Container\Container;
 use Illuminate\Database\Seeder;
@@ -57,17 +61,19 @@ class UserRandomSeeder extends Seeder
 
                 // create a pool candidate in the pool - are they suspended?
                 if (rand(0, 4) == 4) {
+                    $this->seedExperienceForPoolWithEssentialSkills($user, $pool);
                     $this->seedSuspendedCandidate($user, $pool);
                 } else {
+                    $this->seedExperienceForPoolWithEssentialSkills($user, $pool);
                     $this->seedPoolCandidate($user, $pool);
                 }
             })
-            ->create();
+            ->createQuietly();
 
         // applicant@test.com bespoke seeding
         $applicant = User::where('sub', 'applicant@test.com')->sole();
         $this->seedPoolCandidate($applicant, $publishedPools->random());
-        $this->seedAwardExperienceForPool($applicant, $digitalTalentPool);
+        $this->seedExperienceForPoolWithEssentialSkills($applicant, $digitalTalentPool);
         $applicantUserSkills = $applicant->userSkills;
         foreach ($applicantUserSkills as $applicantUserSkill) {
             if ($this->faker->boolean(75)) {
@@ -127,12 +133,14 @@ class UserRandomSeeder extends Seeder
                 $pool = $this->faker->boolean(25) ? $digitalTalentPool : $publishedPools->random();
                 // create a pool candidate in the pool - are they suspended?
                 if (rand(0, 4) == 4) {
+                    $this->seedExperienceForPoolWithEssentialSkills($user, $pool);
                     $this->seedSuspendedCandidate($user, $pool);
                 } else {
+                    $this->seedExperienceForPoolWithEssentialSkills($user, $pool);
                     $this->seedPoolCandidate($user, $pool);
                 }
             })
-            ->create();
+            ->createQuietly();
     }
 
     private function seedPoolCandidate(User $user, Pool $pool)
@@ -144,22 +152,31 @@ class UserRandomSeeder extends Seeder
                     $candidate->createSnapshot();
                 }
             })
-            ->create();
+            ->createQuietly();
     }
 
-    private function seedAwardExperienceForPool(User $user, Pool $pool)
+    private function seedExperienceForPoolWithEssentialSkills(User $user, Pool $pool)
     {
-        // attach an award experience to a given user that has all the essential skills of a given pool
+        $experienceFactories = [
+            AwardExperience::factory(),
+            CommunityExperience::factory(),
+            EducationExperience::factory(),
+            PersonalExperience::factory(),
+            WorkExperience::factory(),
+        ];
+
+        // attach an experience to a given user that has all the essential skills of a given pool
         $essentialSkillIds = $pool->essentialSkills()->pluck('skills.id');
 
         if ($essentialSkillIds->isNotEmpty()) {
             $data = $essentialSkillIds->map(function ($id) {
                 return ['id' => $id, 'details' => $this->faker->text()];
             });
-            AwardExperience::factory()->for($user)
+            $experienceFactory = $this->faker->randomElement($experienceFactories);
+            $experienceFactory->for($user)
                 ->afterCreating(function ($model) use ($data) {
                     $model->syncSkills($data);
-                })->create();
+                })->createQuietly();
         }
     }
 
@@ -172,6 +189,6 @@ class UserRandomSeeder extends Seeder
                     $candidate->createSnapshot();
                 }
             })
-            ->create();
+            ->createQuietly();
     }
 }

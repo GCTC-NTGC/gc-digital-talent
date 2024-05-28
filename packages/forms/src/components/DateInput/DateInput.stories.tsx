@@ -1,6 +1,6 @@
 /* eslint-disable import/no-duplicates */
 // known issue with date-fns and eslint https://github.com/date-fns/date-fns/issues/1756#issuecomment-624803874
-import React from "react";
+import { useState, useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import { StoryFn } from "@storybook/react";
@@ -16,6 +16,7 @@ import {
 import { Pool } from "@gc-digital-talent/graphql";
 import { Pending } from "@gc-digital-talent/ui";
 import { fakePools } from "@gc-digital-talent/fake-data";
+import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Form from "../BasicForm";
 import Submit from "../Submit";
@@ -25,7 +26,6 @@ import DateInput, { DateInputProps } from "./DateInput";
 
 export default {
   component: DateInput,
-  title: "Form/Date Input",
   args: {
     name: "date",
     id: "date",
@@ -46,8 +46,6 @@ export default {
   },
 };
 
-const themes = ["light", "dark"];
-
 type DateInputArgs = typeof DateInput;
 type DefaultValueDateInputArgs = DateInputArgs & {
   defaultValue?: string;
@@ -56,37 +54,35 @@ type DefaultValueDateInputArgs = DateInputArgs & {
 const Template: StoryFn<DefaultValueDateInputArgs> = (args) => {
   const { defaultValue, ...rest } = args;
   return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-grid-template-columns="base(100%) l-tablet(50% 50%)"
+    <Form
+      options={{
+        mode: "onSubmit",
+        defaultValues: defaultValue
+          ? {
+              [rest.name]: defaultValue,
+            }
+          : undefined,
+      }}
+      onSubmit={(data) => action("Submit Form")(data)}
     >
-      {themes.map((theme) => (
-        <div data-h2={theme} key={theme}>
-          <div data-h2-background="base(background)" data-h2-padding="base(x2)">
-            <Form
-              options={{
-                mode: "onSubmit",
-                defaultValues: defaultValue
-                  ? {
-                      [rest.name]: defaultValue,
-                    }
-                  : undefined,
-              }}
-              onSubmit={(data) => action("Submit Form")(data)}
-            >
-              <DateInput {...rest} />
-              <p data-h2-margin-top="base(x1)">
-                <Submit />
-              </p>
-            </Form>
-          </div>
-        </div>
-      ))}
-    </div>
+      <DateInput {...rest} />
+      <p data-h2-margin-top="base(x1)">
+        <Submit />
+      </p>
+    </Form>
   );
 };
 
 export const Default = Template.bind({});
+Default.parameters = {
+  chromatic: {
+    modes: {
+      light: allModes.light,
+      "light mobile": allModes["light mobile"],
+      dark: allModes.dark,
+    },
+  },
+};
 
 export const WithDefaultValue = Template.bind({});
 WithDefaultValue.args = {
@@ -146,30 +142,15 @@ const ValidationDependantInputs = ({
   );
 };
 
-const ValidationDependantTemplate: StoryFn<DateInputArgs> = (args) => {
-  return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-grid-template-columns="base(100%) l-tablet(50% 50%)"
-    >
-      {themes.map((theme) => (
-        <div data-h2={theme} key={theme}>
-          <div data-h2-background="base(background)" data-h2-padding="base(x2)">
-            <Form
-              options={{ mode: "onSubmit" }}
-              onSubmit={(data) => action("Submit Form")(data)}
-            >
-              <ValidationDependantInputs {...args} />
-              <p data-h2-margin="base(x1, 0, 0, 0)">
-                <Submit />
-              </p>
-            </Form>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-};
+const ValidationDependantTemplate: StoryFn<DateInputArgs> = (args) => (
+  <Form
+    options={{ mode: "onSubmit" }}
+    onSubmit={(data) => action("Submit Form")(data)}
+  >
+    <ValidationDependantInputs {...args} />
+    <Submit data-h2-margin="base(x1, 0, 0, 0)" />
+  </Form>
+);
 
 export const SecondComesAfterFirst = ValidationDependantTemplate.bind({});
 
@@ -192,27 +173,16 @@ const RenderDependantInput = ({ name }: Pick<DateInputProps, "name">) => {
 const RenderDependantTemplate: StoryFn<DateInputArgs> = (args) => {
   const { name, ...rest } = args;
   return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-grid-template-columns="base(100%) l-tablet(50% 50%)"
+    <Form
+      options={{ mode: "onSubmit" }}
+      onSubmit={(data) => action("Submit Form")(data)}
     >
-      {themes.map((theme) => (
-        <div data-h2={theme} key={theme}>
-          <div data-h2-background="base(background)" data-h2-padding="base(x2)">
-            <Form
-              options={{ mode: "onSubmit" }}
-              onSubmit={(data) => action("Submit Form")(data)}
-            >
-              <DateInput name={name} {...rest} />
-              <RenderDependantInput name={name} />
-              <p data-h2-margin="base(x1, 0, 0, 0)">
-                <Submit />
-              </p>
-            </Form>
-          </div>
-        </div>
-      ))}
-    </div>
+      <DateInput name={name} {...rest} />
+      <RenderDependantInput name={name} />
+      <p data-h2-margin="base(x1, 0, 0, 0)">
+        <Submit />
+      </p>
+    </Form>
   );
 };
 
@@ -225,10 +195,10 @@ type AsyncArgs = DateInputProps & {
 const AsyncTemplate: StoryFn<AsyncArgs> = (args) => {
   const intl = useIntl();
   const { mockQuery, ...rest } = args;
-  const [fetching, setFetching] = React.useState<boolean>(false);
-  const [pool, setPool] = React.useState<Pool | null>(null);
+  const [fetching, setFetching] = useState<boolean>(false);
+  const [pool, setPool] = useState<Pool | null>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setFetching(true);
     mockQuery()
       .then((res: Pool) => {
@@ -240,39 +210,28 @@ const AsyncTemplate: StoryFn<AsyncArgs> = (args) => {
   }, [mockQuery]);
 
   return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-grid-template-columns="base(100%) l-tablet(50% 50%)"
-    >
-      {themes.map((theme) => (
-        <div data-h2={theme} key={theme}>
-          <div data-h2-background="base(background)" data-h2-padding="base(x2)">
-            <Pending fetching={fetching}>
-              <Form
-                options={{
-                  mode: "onSubmit",
-                  defaultValues: {
-                    [rest.name]: pool?.closingDate
-                      ? formatDate({
-                          date: parseISO(pool?.closingDate),
-                          formatString: DATE_FORMAT_STRING,
-                          intl,
-                        })
-                      : undefined,
-                  },
-                }}
-                onSubmit={(data) => action("Submit Form")(data)}
-              >
-                <DateInput {...rest} />
-                <p data-h2-margin="base(x1, 0, 0, 0)">
-                  <Submit />
-                </p>
-              </Form>
-            </Pending>
-          </div>
-        </div>
-      ))}
-    </div>
+    <Pending fetching={fetching}>
+      <Form
+        options={{
+          mode: "onSubmit",
+          defaultValues: {
+            [rest.name]: pool?.closingDate
+              ? formatDate({
+                  date: parseISO(pool?.closingDate),
+                  formatString: DATE_FORMAT_STRING,
+                  intl,
+                })
+              : undefined,
+          },
+        }}
+        onSubmit={(data) => action("Submit Form")(data)}
+      >
+        <DateInput {...rest} />
+        <p data-h2-margin="base(x1, 0, 0, 0)">
+          <Submit />
+        </p>
+      </Form>
+    </Pending>
   );
 };
 

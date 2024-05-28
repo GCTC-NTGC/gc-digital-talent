@@ -2,7 +2,6 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import React from "react";
 import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
 import { screen, within } from "@testing-library/react";
@@ -13,12 +12,15 @@ import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   AssessmentDecision,
   PoolCandidateStatus,
+  makeFragmentData,
 } from "@gc-digital-talent/graphql";
 
 import { NO_DECISION } from "~/utils/assessmentResults";
 
 import AssessmentStepTracker, {
   AssessmentStepTrackerProps,
+  AssessmentStepTracker_CandidateFragment,
+  AssessmentStepTracker_PoolFragment,
 } from "./AssessmentStepTracker";
 import {
   groupPoolCandidatesByStep,
@@ -51,7 +53,15 @@ const defaultFilters: ResultFilters = {
 
 // This should always make the component visible
 const defaultProps: AssessmentStepTrackerProps = {
-  pool: poolWithAssessmentSteps,
+  fetching: false,
+  candidateQuery: unpackMaybes(poolWithAssessmentSteps.poolCandidates).map(
+    (candidate) =>
+      makeFragmentData(candidate, AssessmentStepTracker_CandidateFragment),
+  ),
+  poolQuery: makeFragmentData(
+    poolWithAssessmentSteps,
+    AssessmentStepTracker_PoolFragment,
+  ),
 };
 const mockClient = {
   executeQuery: jest.fn(() => pipe(fromValue({}), delay(0))),

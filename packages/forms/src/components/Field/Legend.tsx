@@ -1,9 +1,9 @@
-import React from "react";
+import { DetailedHTMLProps, HTMLAttributes } from "react";
 
 import Required from "./Required";
 
-export type LegendProps = React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLLegendElement>,
+export type LegendProps = DetailedHTMLProps<
+  HTMLAttributes<HTMLLegendElement>,
   HTMLLegendElement
 > & {
   required?: boolean;

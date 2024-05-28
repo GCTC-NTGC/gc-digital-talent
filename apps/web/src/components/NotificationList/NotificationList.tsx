@@ -1,4 +1,3 @@
-import React from "react";
 import { useSearchParams } from "react-router-dom";
 
 import { graphql } from "@gc-digital-talent/graphql";
@@ -113,7 +112,7 @@ const NotificationList = ({
           );
         })}
       </ul>
-      <NotificationPortal.Containers />
+      <NotificationPortal.Containers inDialog={inDialog} />
     </>
   );
 };

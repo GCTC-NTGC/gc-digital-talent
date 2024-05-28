@@ -1,13 +1,13 @@
 /* eslint-disable import/no-duplicates */
-import React from "react";
 import { isAfter } from "date-fns/isAfter";
 import { isBefore } from "date-fns/isBefore";
 import { useQuery } from "urql";
+import { useIntl } from "react-intl";
 
 import { graphql } from "@gc-digital-talent/graphql";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { Alert } from "@gc-digital-talent/ui";
-import { useLocale } from "@gc-digital-talent/i18n";
+import { getLocale } from "@gc-digital-talent/i18n";
 import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
 
 const SitewideBanner_Query = graphql(/* GraphQL */ `
@@ -29,7 +29,8 @@ const SitewideBanner_Query = graphql(/* GraphQL */ `
 `);
 
 const SitewideBanner = () => {
-  const { locale } = useLocale();
+  const intl = useIntl();
+  const locale = getLocale(intl);
 
   const [{ data }] = useQuery({
     query: SitewideBanner_Query,

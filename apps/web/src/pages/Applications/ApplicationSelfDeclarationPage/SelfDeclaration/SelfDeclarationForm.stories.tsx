@@ -1,4 +1,3 @@
-import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
@@ -12,7 +11,6 @@ const mockApplication = fakePoolCandidates(1)[0];
 
 export default {
   component: ApplicationSelfDeclaration,
-  title: "Application/Self-Declaration",
 } as Meta<typeof ApplicationSelfDeclaration>;
 
 const Template: StoryFn<typeof ApplicationSelfDeclaration> = () => (

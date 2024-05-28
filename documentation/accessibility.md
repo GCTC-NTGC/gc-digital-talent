@@ -32,7 +32,8 @@ In the following example, we have a `<nav>` element where we capture an `onKeyDo
 
 ## E2E Testing
 
-_Note:_ This may change but should remain similar.
+> [!NOTE]  
+> This may change but should remain similar.
 
 ### `cypress-axe`
 

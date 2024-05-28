@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { useQuery } from "urql";
 
@@ -138,7 +138,7 @@ const SkillMatchDialog = ({
   const intl = useIntl();
   const filteredSkillsTotal = filteredSkills.length;
 
-  const [isOpen, setOpen] = React.useState(false);
+  const [isOpen, setOpen] = useState(false);
 
   if (filteredSkills.length === 0)
     return (

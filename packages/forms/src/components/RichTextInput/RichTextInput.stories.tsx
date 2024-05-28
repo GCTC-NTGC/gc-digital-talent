@@ -1,8 +1,9 @@
-import React from "react";
+import { useState } from "react";
 import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
 import { Heading } from "@gc-digital-talent/ui";
+import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Form from "../BasicForm";
 import Submit from "../Submit";
@@ -22,7 +23,6 @@ const defaultContent = `
 
 export default {
   component: RichTextInput,
-  title: "Form/Rich Text",
   args: {
     name: "richText",
     id: "rich-text",
@@ -35,59 +35,48 @@ type DefaultValueRichTextInputArgs = RichTextInputArgs & {
   defaultValue?: string;
 };
 
-const themes = ["light", "dark"];
-
 const Template: StoryFn<DefaultValueRichTextInputArgs> = (args) => {
   const { defaultValue, ...rest } = args;
-  const [output, setOutput] = React.useState<string>(
+  const [output, setOutput] = useState<string>(
     defaultValue ? String(defaultValue) : "",
   );
   return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-grid-template-columns="base(100%) l-tablet(50% 50%)"
-    >
-      {themes.map((theme) => (
-        <div data-h2={theme} key={theme}>
-          <div data-h2-background="base(background)" data-h2-padding="base(x2)">
-            <Form
-              options={{
-                mode: "onSubmit",
-                defaultValues: defaultValue
-                  ? {
-                      [rest.name]: defaultValue,
-                    }
-                  : undefined,
-              }}
-              onSubmit={(data) => {
-                action("Submit Form")(data);
-                setOutput(String(data.richText));
-              }}
-            >
-              <RichTextInput {...rest} />
-              <p data-h2-margin="base(x1, 0)">
-                <Submit />
-              </p>
-            </Form>
-            <Heading
-              size="h6"
-              data-h2-color="base(black)"
-              data-h2-font-weight="base(700)"
-            >
-              Preview
-            </Heading>
-            <div
-              data-h2-radius="base(s)"
-              data-h2-padding="base(x1)"
-              data-h2-shadow="base(larger)"
-              data-h2-background-color="base(foreground)"
-            >
-              <RichTextRenderer node={htmlToRichTextJSON(output)} />
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
+    <>
+      <Form
+        options={{
+          mode: "onSubmit",
+          defaultValues: defaultValue
+            ? {
+                [rest.name]: defaultValue,
+              }
+            : undefined,
+        }}
+        onSubmit={(data) => {
+          action("Submit Form")(data);
+          setOutput(String(data.richText));
+        }}
+      >
+        <RichTextInput {...rest} />
+        <p data-h2-margin="base(x1, 0)">
+          <Submit />
+        </p>
+      </Form>
+      <Heading
+        size="h6"
+        data-h2-color="base(black)"
+        data-h2-font-weight="base(700)"
+      >
+        Preview
+      </Heading>
+      <div
+        data-h2-radius="base(s)"
+        data-h2-padding="base(x1)"
+        data-h2-shadow="base(larger)"
+        data-h2-background-color="base(foreground)"
+      >
+        <RichTextRenderer node={htmlToRichTextJSON(output)} />
+      </div>
+    </>
   );
 };
 
@@ -96,6 +85,15 @@ export const Default = Template.bind({});
 export const DefaultValue = Template.bind({});
 DefaultValue.args = {
   defaultValue: defaultContent,
+};
+DefaultValue.parameters = {
+  chromatic: {
+    modes: {
+      light: allModes.light,
+      "light mobile": allModes["light mobile"],
+      dark: allModes.dark,
+    },
+  },
 };
 
 export const Required = Template.bind({});

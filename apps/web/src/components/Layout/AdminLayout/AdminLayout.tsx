@@ -1,8 +1,8 @@
-import React from "react";
-import { Outlet, ScrollRestoration } from "react-router-dom";
+import { Outlet, ScrollRestoration, useLocation } from "react-router-dom";
 import { useIntl } from "react-intl";
 import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
+import { HTMLProps, forwardRef, useEffect } from "react";
 
 import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 import { useLocalStorage } from "@gc-digital-talent/storage";
@@ -14,8 +14,9 @@ import {
   SideMenuContentWrapper,
   SideMenuItem,
 } from "@gc-digital-talent/ui";
-import { uiMessages, useLocale } from "@gc-digital-talent/i18n";
+import { uiMessages, getLocale } from "@gc-digital-talent/i18n";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { useLogger } from "@gc-digital-talent/logger";
 
 import Footer from "~/components/Footer/Footer";
 import Header from "~/components/Header/Header";
@@ -71,16 +72,17 @@ import {
   adminPageTitle as skillPageTitle,
   pageOutlineIcon as skillPageIcon,
 } from "~/pages/Skills/SkillPage";
+import useErrorMessages from "~/hooks/useErrorMessages";
 
 import SitewideBanner from "../SitewideBanner";
 import SkipLink from "../SkipLink";
 import SignInOrSignOut from "./SignInOrSignOut";
 
-interface OpenMenuButtonProps extends React.HTMLProps<HTMLButtonElement> {
+interface OpenMenuButtonProps extends HTMLProps<HTMLButtonElement> {
   show: boolean;
 }
 
-const OpenMenuButton = React.forwardRef<
+const OpenMenuButton = forwardRef<
   HTMLButtonElement,
   Omit<OpenMenuButtonProps, "ref">
 >(({ children, onClick, show }, ref) =>
@@ -105,9 +107,9 @@ const OpenMenuButton = React.forwardRef<
   ) : null,
 );
 
-const AdminLayout = () => {
+export const Component = () => {
   const intl = useIntl();
-  const { locale } = useLocale();
+  const locale = getLocale(intl);
   const paths = useRoutes();
   useLayoutTheme("default");
   const isSmallScreen = useIsSmallScreen();
@@ -118,7 +120,7 @@ const AdminLayout = () => {
     "digitaltalent-menustate",
     true,
   );
-  React.useEffect(() => {
+  useEffect(() => {
     if (isSmallScreen) {
       setMenuOpen(false); // collapse menu if window resized to small
     }
@@ -353,4 +355,40 @@ const AdminLayout = () => {
   );
 };
 
-export default AdminLayout;
+export const ErrorBoundary = () => {
+  const location = useLocation();
+  const error = useErrorMessages();
+  const logger = useLogger();
+
+  logger.notice(
+    JSON.stringify({
+      message: "ErrorPage triggered",
+      pathname: location.pathname,
+      error,
+    }),
+  );
+
+  return (
+    <div data-h2-margin="base(x3, 0)">
+      <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+        <div data-h2-flex-grid="base(flex-start, x3)">
+          <div data-h2-flex-item="base(1of1)" data-h2-text-align="base(center)">
+            <h3
+              data-h2-font-size="base(h4, 1.3)"
+              data-h2-font-weight="base(700)"
+              data-h2-margin="base(0, 0, x1, 0)"
+            >
+              {error.messages.title}
+            </h3>
+            {error.messages.body}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+Component.displayName = "AdminLayout";
+ErrorBoundary.displayName = "AdminErrorBoundary";
+
+export default Component;

@@ -1,8 +1,13 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { flexRender } from "@tanstack/react-table";
 import type { Header, Cell } from "@tanstack/react-table";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
+import {
+  DetailedHTMLProps,
+  HTMLAttributes,
+  TableHTMLAttributes,
+  ReactNode,
+} from "react";
 
 import { Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -12,8 +17,8 @@ import styles, { getCellStyles } from "./styles";
 import { AddDef } from "./types";
 import { getColumnHeader } from "./utils";
 
-type WrapperProps = React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLDivElement>,
+type WrapperProps = DetailedHTMLProps<
+  HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 >;
 
@@ -30,8 +35,8 @@ const Wrapper = ({ children, ...rest }: WrapperProps) => (
   </div>
 );
 
-type TableProps = React.DetailedHTMLProps<
-  React.TableHTMLAttributes<HTMLTableElement>,
+type TableProps = DetailedHTMLProps<
+  TableHTMLAttributes<HTMLTableElement>,
   HTMLTableElement
 >;
 
@@ -48,24 +53,21 @@ const Table = ({ children, ...rest }: TableProps) => (
   </table>
 );
 
-type CaptionProps = React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLElement>,
-  HTMLElement
->;
+type CaptionProps = DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>;
 
 const Caption = (props: CaptionProps) => (
   <caption data-h2-visually-hidden="base(invisible)" {...props} />
 );
 
-type HeadProps = React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLTableSectionElement>,
+type HeadProps = DetailedHTMLProps<
+  HTMLAttributes<HTMLTableSectionElement>,
   HTMLTableSectionElement
 >;
 
 const Head = (props: HeadProps) => <thead {...props} />;
 
-type BodyProps = React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLTableSectionElement>,
+type BodyProps = DetailedHTMLProps<
+  HTMLAttributes<HTMLTableSectionElement>,
   HTMLTableSectionElement
 >;
 
@@ -80,8 +82,8 @@ const Body = (props: BodyProps) => (
   />
 );
 
-type RowProps = React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLTableRowElement>,
+type RowProps = DetailedHTMLProps<
+  HTMLAttributes<HTMLTableRowElement>,
   HTMLTableRowElement
 >;
 
@@ -108,8 +110,8 @@ const Row = (props: RowProps) => (
   />
 );
 
-type CellHTMLProps = React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLTableCellElement>,
+type CellHTMLProps = DetailedHTMLProps<
+  HTMLAttributes<HTMLTableCellElement>,
   HTMLTableCellElement
 >;
 
@@ -198,13 +200,17 @@ const Cell = <T,>({ cell, ...rest }: CellProps<T>) => {
   );
 };
 
-type ControlProps = React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLDivElement>,
+type ControlProps = DetailedHTMLProps<
+  HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
 >;
 
 const Control = (props: ControlProps) => (
-  <div data-h2-width="base(100%) l-tablet(auto)" {...props} />
+  <div
+    data-h2-width="base(100%) l-tablet(auto)"
+    data-h2-order="base(0)"
+    {...props}
+  />
 );
 
 interface AddActionProps {
@@ -214,7 +220,11 @@ interface AddActionProps {
 const AddAction = ({ add }: AddActionProps) => (
   <>
     {add.linkProps && (
-      <Control data-h2-flex-shrink="base(1)">
+      <Control
+        data-h2-flex-shrink="base(1)"
+        data-h2-order="base(1)"
+        data-h2-margin-left="base(auto)"
+      >
         <Link
           icon={PlusCircleIcon}
           color="secondary"
@@ -232,7 +242,7 @@ const AddAction = ({ add }: AddActionProps) => (
 );
 
 interface ControlsProps {
-  children: React.ReactNode;
+  children: ReactNode;
   add?: AddDef;
 }
 
@@ -240,24 +250,14 @@ const Controls = ({ children, add }: ControlsProps) => (
   <div
     data-h2-display="base(flex)"
     data-h2-align-items="base(flex-end)"
-    data-h2-flex-direction="base(column) l-tablet(row)"
-    data-h2-gap="base(x.25 0) l-tablet(0 x.25)"
+    data-h2-gap="base(x.25)"
     data-h2-margin-bottom="base(x1) l-tablet(x.25)"
-    data-h2-justify-content="base(space-between)"
+    data-h2-justify-content="base(flex-start)"
     data-h2-font-size="base(caption)"
+    data-h2-flex-wrap="base(wrap)"
   >
     {add && <AddAction add={add} />}
-    <div
-      data-h2-display="base(flex)"
-      data-h2-align-items="base(flex-end)"
-      data-h2-flex-direction="base(column) l-tablet(row)"
-      data-h2-gap="base(x.25 0) l-tablet(0 x.25)"
-      data-h2-flex-grow="base(1)"
-      data-h2-order="base(-1)"
-      data-h2-width="base(100%) l-tablet(auto)"
-    >
-      {children}
-    </div>
+    {children}
   </div>
 );
 

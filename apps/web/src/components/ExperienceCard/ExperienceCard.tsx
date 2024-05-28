@@ -1,8 +1,8 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import isArray from "lodash/isArray";
 import isBoolean from "lodash/isBoolean";
 import ChevronRightIcon from "@heroicons/react/20/solid/ChevronRightIcon";
+import { ReactNode } from "react";
 
 import {
   Collapsible,
@@ -51,10 +51,10 @@ interface ExperienceCardProps {
   editPath?: string;
   editMode?: EditMode;
   // Allows passing in a link to view a specific experience
-  view?: React.ReactNode;
+  view?: ReactNode;
   onSave?: () => void;
   linkTo?: Skill;
-  editTrigger?: React.ReactNode;
+  editTrigger?: ReactNode;
   onOpenChange?: (isOpen: boolean) => void;
   isOpen?: boolean;
 }

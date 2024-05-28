@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, Fragment } from "react";
 import { useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 
@@ -8,6 +8,7 @@ import {
   Maybe,
   Pool,
   PoolCandidate,
+  PoolSkillType,
   Scalars,
   SkillCategory,
   User,
@@ -28,7 +29,7 @@ import GovernmentInformationDisplay from "~/components/Profile/components/Govern
 import LanguageProfileDisplay from "~/components/Profile/components/LanguageProfile/Display";
 import PersonalInformationDisplay from "~/components/Profile/components/PersonalInformation/Display";
 import WorkPreferencesDisplay from "~/components/Profile/components/WorkPreferences/Display";
-import { categorizeSkill } from "~/utils/skillUtils";
+import { categorizeSkill, groupPoolSkillByType } from "~/utils/skillUtils";
 import applicationMessages from "~/messages/applicationMessages";
 import processMessages from "~/messages/processMessages";
 
@@ -39,33 +40,21 @@ import SkillDisplay from "./SkillDisplay";
 
 const ApplicationInformation_PoolFragment = graphql(/* GraphQL */ `
   fragment ApplicationInformation_PoolFragment on Pool {
-    essentialSkills {
+    poolSkills {
       id
-      key
-      category
-      name {
-        en
-        fr
+      skill {
+        id
+        key
+        category
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
       }
-      description {
-        en
-        fr
-      }
-      ...SkillWithExperiences_SkillFragment
-    }
-    nonessentialSkills {
-      id
-      key
-      category
-      name {
-        en
-        fr
-      }
-      description {
-        en
-        fr
-      }
-      ...SkillWithExperiences_SkillFragment
     }
     ...ApplicationPrintDocument_PoolFragment
   }
@@ -96,16 +85,20 @@ interface ApplicationInformationProps {
       })
     | null;
   snapshot: User;
+  defaultOpen?: boolean;
 }
 
 const ApplicationInformation = ({
   poolQuery,
   snapshot,
   application,
+  defaultOpen = false,
 }: ApplicationInformationProps) => {
   const intl = useIntl();
   const pool = getFragment(ApplicationInformation_PoolFragment, poolQuery);
-  const [openSections, setOpenSections] = React.useState<string[]>([]);
+  const [openSections, setOpenSections] = useState<string[]>(
+    defaultOpen ? Object.values(SECTION_KEY) : [],
+  );
   const hasOpenSections = openSections.length > 0;
 
   const toggleSections = () => {
@@ -121,11 +114,16 @@ const ApplicationInformation = ({
     application?.screeningQuestionResponses ?? [],
   );
 
-  const categorizedEssentialSkills = categorizeSkill(pool.essentialSkills);
+  const skills = groupPoolSkillByType(pool?.poolSkills);
+  const categorizedEssentialSkills = categorizeSkill(
+    skills.get(PoolSkillType.Essential),
+  );
   const technicalEssentialSkills = unpackMaybes(
     categorizedEssentialSkills[SkillCategory.Technical],
   );
-  const categorizedAssetSkills = categorizeSkill(pool.nonessentialSkills);
+  const categorizedAssetSkills = categorizeSkill(
+    skills.get(PoolSkillType.Nonessential),
+  );
   const technicalAssetSkills = unpackMaybes(
     categorizedAssetSkills[SkillCategory.Technical],
   );
@@ -227,7 +225,7 @@ const ApplicationInformation = ({
             </Accordion.Trigger>
             <Accordion.Content>
               {screeningQuestionResponses.map((response, index) => (
-                <React.Fragment key={response.id}>
+                <Fragment key={response.id}>
                   <Heading
                     level="h4"
                     size="h6"
@@ -242,7 +240,7 @@ const ApplicationInformation = ({
                     )}
                   </Heading>
                   <p>{response.answer}</p>
-                </React.Fragment>
+                </Fragment>
               ))}
             </Accordion.Content>
           </Accordion.Item>
@@ -254,7 +252,7 @@ const ApplicationInformation = ({
             </Accordion.Trigger>
             <Accordion.Content>
               {generalQuestionResponses.map((response, index) => (
-                <React.Fragment key={response.id}>
+                <Fragment key={response.id}>
                   <Heading
                     level="h4"
                     size="h6"
@@ -266,7 +264,7 @@ const ApplicationInformation = ({
                     {getLocalizedName(response.generalQuestion?.question, intl)}
                   </Heading>
                   <p>{response.answer}</p>
-                </React.Fragment>
+                </Fragment>
               ))}
             </Accordion.Content>
           </Accordion.Item>

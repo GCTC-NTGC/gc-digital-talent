@@ -27,7 +27,6 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * Class PoolCandidate
  *
  * @property string $id
- * @property string $cmo_identifier
  * @property Illuminate\Support\Carbon $expiry_date
  * @property Illuminate\Support\Carbon $archived_at
  * @property Illuminate\Support\Carbon $submitted_at
@@ -48,6 +47,10 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property Illuminate\Support\Carbon $removed_at
  * @property string $removal_reason
  * @property string $removal_reason_other
+ * @property string $veteran_verification
+ * @property Illuminate\Support\Carbon $veteran_verification_expiry
+ * @property string $priority_verification
+ * @property Illuminate\Support\Carbon $priority_verification_expiry
  */
 class PoolCandidate extends Model
 {
@@ -73,6 +76,8 @@ class PoolCandidate extends Model
         'placed_at' => 'datetime',
         'final_decision_at' => 'datetime',
         'removed_at' => 'datetime',
+        'veteran_verification_expiry' => 'date',
+        'priority_verification_expiry' => 'date',
     ];
 
     /**
@@ -92,6 +97,10 @@ class PoolCandidate extends Model
         'pool_candidate_status',
         'submitted_steps',
         'education_requirement_option',
+        'veteran_verification',
+        'veteran_verification_expiry',
+        'priority_verification',
+        'priority_verification_expiry',
     ];
 
     protected $touches = ['user'];
@@ -262,6 +271,25 @@ class PoolCandidate extends Model
     }
 
     /**
+     * Scopes the query to return PoolCandidates in a pool with one of the specified classifications.
+     * If $classifications is empty, this scope will be ignored.
+     *
+     * @param  array|null  $classifications  Each classification is an object with a group and a level field.
+     */
+    public static function scopeAppliedClassifications(Builder $query, ?array $classifications): Builder
+    {
+        if (empty($classifications)) {
+            return $query;
+        }
+
+        $query->whereHas('pool', function ($query) use ($classifications) {
+            Pool::scopeClassifications($query, $classifications);
+        });
+
+        return $query;
+    }
+
+    /**
      * Scopes the query to only return PoolCandidates who are available in a pool with one of the specified classifications.
      * If $classifications is empty, this scope will be ignored.
      *
@@ -274,25 +302,10 @@ class PoolCandidate extends Model
         }
 
         // Ensure the PoolCandidates are qualified and available.
-        $query->where(function ($query) {
-            $query->whereDate('pool_candidates.expiry_date', '>=', Carbon::now())->orWhereNull('expiry_date'); // Where the PoolCandidate is not expired
-        })
-            ->whereIn('pool_candidates.pool_candidate_status', PoolCandidateStatus::qualifiedEquivalentGroup()) // Where the PoolCandidate is accepted into the pool and not already placed.
-            ->where(function ($query) {
-                $query->where('suspended_at', '>=', Carbon::now())->orWhereNull('suspended_at'); // Where the candidate has not suspended their candidacy in the pool
-            })
-            // Now ensure the PoolCandidate is in a pool with the right classification
-            ->whereHas('pool', function ($query) use ($classifications) {
-                $query->whereHas('classification', function ($query) use ($classifications) {
-                    $query->where(function ($query) use ($classifications) {
-                        foreach ($classifications as $classification) {
-                            $query->orWhere(function ($query) use ($classification) {
-                                $query->where('group', $classification['group'])->where('level', $classification['level']);
-                            });
-                        }
-                    });
-                });
-            });
+        $query = self::scopeAvailable($query);
+
+        // Now ensure the PoolCandidate is in a pool with the right classification
+        $query = self::scopeAppliedClassifications($query, $classifications);
 
         return $query;
     }
@@ -406,15 +419,15 @@ class PoolCandidate extends Model
         return $query;
     }
 
-    public function scopeGeneralSearch(Builder $query, ?array $searchTerms): Builder
+    public function scopeGeneralSearch(Builder $query, ?string $searchTerm): Builder
     {
-        if (empty($searchTerms)) {
+        if (empty($searchTerm)) {
             return $query;
         }
 
-        $query->where(function ($query) use ($searchTerms) {
-            $query->whereHas('user', function ($query) use ($searchTerms) {
-                User::scopeGeneralSearch($query, $searchTerms);
+        $query->where(function ($query) use ($searchTerm) {
+            $query->whereHas('user', function ($query) use ($searchTerm) {
+                User::scopeGeneralSearch($query, $searchTerm);
             });
         });
 
@@ -586,14 +599,19 @@ class PoolCandidate extends Model
             'currentClassification',
             'awardExperiences',
             'awardExperiences.skills',
+            'awardExperiences.user',
             'communityExperiences',
             'communityExperiences.skills',
+            'communityExperiences.user',
             'educationExperiences',
             'educationExperiences.skills',
+            'educationExperiences.user',
             'personalExperiences',
             'personalExperiences.skills',
+            'personalExperiences.user',
             'workExperiences',
             'workExperiences.skills',
+            'workExperiences.user',
             'poolCandidates',
             'poolCandidates.pool',
             'poolCandidates.pool.classification',
@@ -611,13 +629,10 @@ class PoolCandidate extends Model
 
         // collect skills attached to the Pool to pass into resource collection
         $pool = Pool::with([
-            'essentialSkills',
-            'nonessentialSkills',
+            'poolSkills',
             'classification',
         ])->findOrFail($this->pool_id);
-        $essentialSkillIds = $pool->essentialSkills()->pluck('skills.id')->toArray();
-        $nonessentialSkillIds = $pool->nonessentialSkills()->pluck('skills.id')->toArray();
-        $poolSkillIds = array_merge($essentialSkillIds, $nonessentialSkillIds);
+        $poolSkillIds = $pool->poolSkills()->pluck('skill_id')->toArray();
 
         $profile = new UserResource($user);
         $profile = $profile->poolSkillIds($poolSkillIds);
@@ -819,36 +834,43 @@ class PoolCandidate extends Model
             'userSkills.skill',
             'awardExperiences',
             'awardExperiences.skills',
+            'awardExperiences.user',
             'communityExperiences',
             'communityExperiences.skills',
+            'communityExperiences.user',
             'educationExperiences',
             'educationExperiences.skills',
+            'educationExperiences.user',
             'personalExperiences',
             'personalExperiences.skills',
+            'personalExperiences.user',
             'workExperiences',
             'workExperiences.skills',
+            'workExperiences.user',
             'poolCandidates',
             'poolCandidates.pool',
             'poolCandidates.pool.classification',
+            'poolCandidates.pool.classification.genericJobTitles',
             'poolCandidates.educationRequirementAwardExperiences.skills',
+            'poolCandidates.educationRequirementAwardExperiences.user',
             'poolCandidates.educationRequirementCommunityExperiences.skills',
+            'poolCandidates.educationRequirementCommunityExperiences.user',
             'poolCandidates.educationRequirementEducationExperiences.skills',
+            'poolCandidates.educationRequirementEducationExperiences.user',
             'poolCandidates.educationRequirementPersonalExperiences.skills',
+            'poolCandidates.educationRequirementPersonalExperiences.user',
             'poolCandidates.educationRequirementWorkExperiences.skills',
+            'poolCandidates.educationRequirementWorkExperiences.user',
             'poolCandidates.generalQuestionResponses',
             'poolCandidates.generalQuestionResponses.generalQuestion',
             'poolCandidates.screeningQuestionResponses',
             'poolCandidates.screeningQuestionResponses.screeningQuestion',
+            'poolCandidates.user',
         ])->findOrFail($this->user_id);
 
         // collect skills attached to the Pool to pass into resource collection
-        $pool = Pool::with([
-            'essentialSkills',
-            'nonessentialSkills',
-        ])->findOrFail($this->pool_id);
-        $essentialSkillIds = $pool->essentialSkills()->pluck('skills.id')->toArray();
-        $nonessentialSkillIds = $pool->nonessentialSkills()->pluck('skills.id')->toArray();
-        $poolSkillIds = array_merge($essentialSkillIds, $nonessentialSkillIds);
+        $pool = Pool::with(['poolSkills'])->findOrFail($this->pool_id);
+        $poolSkillIds = $pool->poolSkills()->pluck('skill_id')->toArray();
 
         // filter out any non-applicable PoolCandidate models attached to User
         $poolCandidateCollection = $user->poolCandidates;

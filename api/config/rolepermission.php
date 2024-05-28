@@ -83,6 +83,7 @@ return [
         'assessmentPlan' => 'assessmentPlan',
         'assessmentResult' => 'assessmentResult',
         'announcement' => 'announcement',
+        'community' => 'community',
     ],
 
     /*
@@ -235,6 +236,10 @@ return [
         'update-team-draftPool' => [
             'en' => 'Update unpublished Pools in this Team',
             'fr' => 'Mise à jour des bassins non publiés dans cette équipe',
+        ],
+        'update-any-publishedPool' => [
+            'en' => 'Update published Pools',
+            'fr' => 'Mise à jour des bassins publiés',
         ],
         'publish-team-pool' => [
             'en' => 'Publish Pools in this Team',
@@ -476,6 +481,11 @@ return [
             'en' => 'Update any announcement',
             'fr' => 'Mise à jour de toute annonce',
         ],
+
+        'view-any-community' => [
+            'en' => 'View any community',
+            'fr' => 'Voir toutes les communautés',
+        ],
     ],
 
     /*
@@ -626,6 +636,9 @@ return [
             'announcement' => [
                 'any' => ['view'],
             ],
+            'community' => [
+                'any' => ['view'],
+            ],
         ],
 
         'base_user' => [
@@ -663,6 +676,9 @@ return [
                 'any' => ['view'],
             ],
             'announcement' => [
+                'any' => ['view'],
+            ],
+            'community' => [
                 'any' => ['view'],
             ],
         ],
@@ -749,6 +765,9 @@ return [
             'pool' => [
                 'any' => ['view', 'publish'],
             ],
+            'publishedPool' => [
+                'any' => ['update'],
+            ],
             'teamMembers' => [
                 'any' => ['view'],
             ],
@@ -790,6 +809,9 @@ return [
             ],
             'pool' => [
                 'any' => ['view', 'publish'],
+            ],
+            'publishedPool' => [
+                'any' => ['update'],
             ],
             'application' => [
                 'any' => ['create'],

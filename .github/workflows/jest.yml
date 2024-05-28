@@ -3,10 +3,6 @@ name: Jest
 on:
   push:
     branches: [main]
-    paths:
-      - .github/workflows/*jest*.yml
-      - apps/**
-      - packages/**
   pull_request:
     paths:
       - .github/workflows/*jest*.yml
@@ -27,7 +23,7 @@ jobs:
         id: cpu-cores
 
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v3
+      - uses: pnpm/action-setup@v4
         with:
           version: ${{ env.PNPM_VERSION }}
       - name: Use Node.js

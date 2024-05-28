@@ -1,4 +1,4 @@
-import React, { AriaAttributes } from "react";
+import { useState, useRef, useEffect, AriaAttributes } from "react";
 
 type AriaLive = AriaAttributes["aria-live"];
 
@@ -16,10 +16,10 @@ const useAriaLive: UseAriaLive = (
   ariaLive: AriaLive = "polite",
   add = true,
 ) => {
-  const [ariaLiveAttr, setAriaLiveAttr] = React.useState<AriaLive>("off");
-  const isSet = React.useRef<boolean>(false);
+  const [ariaLiveAttr, setAriaLiveAttr] = useState<AriaLive>("off");
+  const isSet = useRef<boolean>(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isSet.current) {
       setAriaLiveAttr(ariaLive);
       isSet.current = add;

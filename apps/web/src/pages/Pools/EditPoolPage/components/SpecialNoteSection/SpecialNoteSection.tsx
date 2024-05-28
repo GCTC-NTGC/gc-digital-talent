@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
@@ -7,20 +6,39 @@ import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import { Checkbox, RichTextInput, Submit } from "@gc-digital-talent/forms";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import {
-  PoolStatus,
   LocalizedString,
   Pool,
   UpdatePoolInput,
+  graphql,
+  FragmentType,
+  getFragment,
+  PoolStatus,
 } from "@gc-digital-talent/graphql";
 
 import { hasAllEmptyFields } from "~/validators/process/specialNote";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
+import useCanUserEditPool from "~/hooks/useCanUserEditPool";
 
 import { useEditPoolContext } from "../EditPoolContext";
-import { SectionProps } from "../../types";
+import { PublishedEditableSectionProps, SectionProps } from "../../types";
 import Display from "./Display";
 import ActionWrapper from "../ActionWrapper";
+import UpdatePublishedProcessDialog, {
+  type FormValues as UpdateFormValues,
+} from "../UpdatePublishedProcessDialog/UpdatePublishedProcessDialog";
+
+const EditPoolSpecialNote_Fragment = graphql(/* GraphQL */ `
+  fragment EditPoolSpecialNote on Pool {
+    ...UpdatePublishedProcessDialog
+    id
+    status
+    specialNote {
+      en
+      fr
+    }
+  }
+`);
 
 type FormValues = {
   hasSpecialNote: boolean;
@@ -30,18 +48,25 @@ type FormValues = {
 
 export type SpecialNoteSubmitData = Pick<UpdatePoolInput, "specialNote">;
 
-type SpecialNoteSectionProps = SectionProps<SpecialNoteSubmitData>;
+type SpecialNoteSectionProps = SectionProps<
+  SpecialNoteSubmitData,
+  FragmentType<typeof EditPoolSpecialNote_Fragment>
+> &
+  PublishedEditableSectionProps;
 
 const TEXT_AREA_MAX_WORDS_EN = 100;
 const TEXT_AREA_MAX_WORDS_FR = TEXT_AREA_MAX_WORDS_EN + 30;
 
 const SpecialNoteSection = ({
-  pool,
+  poolQuery,
   sectionMetadata,
   onSave,
-}: SpecialNoteSectionProps): JSX.Element => {
+  onUpdatePublished,
+}: SpecialNoteSectionProps) => {
   const intl = useIntl();
+  const pool = getFragment(EditPoolSpecialNote_Fragment, poolQuery);
   const isNull = hasAllEmptyFields(pool);
+  const canEdit = useCanUserEditPool(pool.status);
   const { isSubmitting } = useEditPoolContext();
   const { isEditing, setIsEditing, icon } = useToggleSectionInfo({
     isNull,
@@ -62,7 +87,16 @@ const SpecialNoteSection = ({
     defaultValues: dataToFormValues(pool),
   });
   const { handleSubmit, watch } = methods;
-  const watchHasSpecialNote = watch("hasSpecialNote");
+  const [watchHasSpecialNote, specialNoteEn, specialNoteFr] = watch([
+    "hasSpecialNote",
+    "specialNoteEn",
+    "specialNoteFr",
+  ]);
+
+  const onSuccess = (formValues: FormValues) => {
+    methods.reset(formValues, { keepDirty: false });
+    setIsEditing(false);
+  };
 
   const handleSave = async (formValues: FormValues) => {
     return onSave({
@@ -73,17 +107,27 @@ const SpecialNoteSection = ({
           }
         : null, // Save data if confirmation box (hasSpecialNote) is selected
     })
-      .then(() => {
-        methods.reset(formValues, {
-          keepDirty: false,
-        });
-        setIsEditing(false);
-      })
+      .then(() => onSuccess(formValues))
       .catch(() => methods.reset(formValues));
   };
 
-  // disabled unless status is draft
-  const formDisabled = pool.status !== PoolStatus.Draft;
+  const handleUpdatePublished = async (formValues: UpdateFormValues) => {
+    await onUpdatePublished({
+      ...formValues,
+      specialNote: watchHasSpecialNote
+        ? {
+            en: specialNoteEn,
+            fr: specialNoteFr,
+          }
+        : null,
+    }).then(() => {
+      onSuccess({
+        hasSpecialNote: watchHasSpecialNote,
+        specialNoteEn,
+        specialNoteFr,
+      });
+    });
+  };
 
   const subtitle = intl.formatMessage({
     defaultMessage:
@@ -106,7 +150,7 @@ const SpecialNoteSection = ({
         size="h3"
         toggle={
           <ToggleForm.LabelledTrigger
-            disabled={formDisabled}
+            disabled={!canEdit}
             sectionTitle={sectionMetadata.title}
           />
         }
@@ -143,7 +187,7 @@ const SpecialNoteSection = ({
                     description:
                       "Checkbox selection that confirms need for a special note on edit page.",
                   })}
-                  disabled={formDisabled}
+                  disabled={!canEdit}
                 />
               </div>
               {watchHasSpecialNote && (
@@ -162,10 +206,8 @@ const SpecialNoteSection = ({
                         "Label for the English - Special note for this process textarea on edit pool page.",
                     })}
                     name="specialNoteEn"
-                    {...(!formDisabled && {
-                      wordLimit: TEXT_AREA_MAX_WORDS_EN,
-                    })}
-                    readOnly={formDisabled}
+                    wordLimit={TEXT_AREA_MAX_WORDS_EN}
+                    readOnly={!canEdit}
                   />
                   <RichTextInput
                     id="whatToExpectFr"
@@ -176,16 +218,14 @@ const SpecialNoteSection = ({
                         "Label for the French - Special note for this process textarea in the edit pool page.",
                     })}
                     name="specialNoteFr"
-                    {...(!formDisabled && {
-                      wordLimit: TEXT_AREA_MAX_WORDS_FR,
-                    })}
-                    readOnly={formDisabled}
+                    wordLimit={TEXT_AREA_MAX_WORDS_FR}
+                    readOnly={!canEdit}
                   />
                 </div>
               )}
 
               <ActionWrapper>
-                {!formDisabled && (
+                {canEdit && pool.status === PoolStatus.Draft && (
                   <Submit
                     text={intl.formatMessage(formMessages.saveChanges)}
                     aria-label={intl.formatMessage({
@@ -197,6 +237,12 @@ const SpecialNoteSection = ({
                     color="secondary"
                     mode="solid"
                     isSubmitting={isSubmitting}
+                  />
+                )}
+                {canEdit && pool.status === PoolStatus.Published && (
+                  <UpdatePublishedProcessDialog
+                    poolQuery={pool}
+                    onUpdatePublished={handleUpdatePublished}
                   />
                 )}
                 <ToggleSection.Close>

@@ -9,6 +9,7 @@ use App\Enums\PositionDuration;
 use App\Enums\WorkRegion;
 use App\Models\ApplicantFilter;
 use App\Models\Classification;
+use App\Models\Community;
 use App\Models\Pool;
 use App\Models\Skill;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -29,6 +30,8 @@ class ApplicantFilterFactory extends Factory
      */
     public function definition()
     {
+        $community = Community::first();
+
         return [
             'has_diploma' => $this->faker->boolean(),
             'has_disability' => $this->faker->boolean(),
@@ -45,6 +48,7 @@ class ApplicantFilterFactory extends Factory
                 array_column(OperationalRequirement::cases(), 'name'),
                 $this->faker->numberBetween(1, 4)
             ),
+            'community_id' => $community ? $community->id : Community::factory()->create()->id,
         ];
     }
 
@@ -94,6 +98,16 @@ class ApplicantFilterFactory extends Factory
             $stream = (empty($pools) || count($pools) === 0) ? $this->faker->randomElements(
                 array_column(PoolStream::cases(), 'name'),
             ) : [$pools[0]->stream];
+
+            $ATIP = Community::where('key', 'atip')->first();
+            $digital = Community::where('key', 'digital')->first();
+
+            if (in_array(PoolStream::ACCESS_INFORMATION_PRIVACY->name, $stream) && $ATIP?->id) {
+                $filter->community_id = $ATIP->id;
+            } elseif ($digital?->id) {
+                $filter->community_id = $digital->id;
+            }
+
             $filter->qualified_streams = $stream;
             $filter->save();
         });

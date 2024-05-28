@@ -1,4 +1,3 @@
-import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 
 import {
@@ -25,7 +24,6 @@ const mockPaginatorInfo = {
 
 export default {
   component: UserTable,
-  title: "Tables/User Table",
   parameters: {
     apiResponses: {
       UsersPaginated: {

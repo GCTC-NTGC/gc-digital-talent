@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 
 import { Heading } from "@gc-digital-talent/ui";
@@ -22,6 +21,29 @@ import {
 } from "~/utils/experienceUtils";
 import { getDateRange } from "~/utils/dateUtils";
 
+interface SkillListProps {
+  skills?: Maybe<Skill[]>;
+}
+
+const SkillList = ({ skills }: SkillListProps) => {
+  const intl = useIntl();
+
+  if (!skills) return null;
+
+  return (
+    <ul>
+      {skills?.map((skill) => (
+        <li key={skill.id}>
+          {getLocalizedName(skill.name, intl)}
+          {skill.experienceSkillRecord?.details
+            ? ` - ${skill.experienceSkillRecord?.details}`
+            : ""}
+        </li>
+      ))}
+    </ul>
+  );
+};
+
 interface ExperienceItemProps {
   experience: Experience;
 }
@@ -41,22 +63,6 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
       intl,
     });
   };
-
-  const renderSkills = (skills: Maybe<Skill[]> | undefined) =>
-    skills ? (
-      <ul>
-        {skills?.map((skill) => (
-          <li key={skill.id}>
-            {getLocalizedName(skill.name, intl)}
-            {skill.experienceSkillRecord?.details
-              ? ` - ${skill.experienceSkillRecord?.details}`
-              : ""}
-          </li>
-        ))}
-      </ul>
-    ) : (
-      ""
-    );
 
   let content = null;
   let dateRange = null;
@@ -93,7 +99,7 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
           {intl.formatMessage(commonMessages.dividingColon)}
           {experience.details}
         </p>
-        {renderSkills(experience.skills)}
+        <SkillList skills={experience.skills} />
       </>
     );
   }
@@ -112,7 +118,7 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
           {intl.formatMessage(commonMessages.dividingColon)}
           {experience.details}
         </p>
-        {renderSkills(experience.skills)}
+        <SkillList skills={experience.skills} />
       </>
     );
   }
@@ -145,7 +151,7 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
           {intl.formatMessage(commonMessages.dividingColon)}
           {experience.details}
         </p>
-        {renderSkills(experience.skills)}
+        <SkillList skills={experience.skills} />
       </>
     );
   }
@@ -169,7 +175,7 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
           {intl.formatMessage(commonMessages.dividingColon)}
           {experience.details}
         </p>
-        {renderSkills(experience.skills)}
+        <SkillList skills={experience.skills} />
       </>
     );
   }
@@ -188,7 +194,7 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
           {intl.formatMessage(commonMessages.dividingColon)}
           {experience.details}
         </p>
-        {renderSkills(experience.skills)}
+        <SkillList skills={experience.skills} />
       </>
     );
   }

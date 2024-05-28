@@ -21,11 +21,13 @@ class DatabaseSeeder extends Seeder
             GenericJobTitleSeeder::class,
             SkillFamilySeeder::class,
             SkillSeeder::class,
+            CommunitySeeder::class,
             TeamSeeder::class,
 
             // convenient test data
             UserTestSeeder::class,
             PoolTestSeeder::class,
+            PoolCandidateTestSeeder::class,
             AssessmentResultTestSeeder::class,
 
             // random data to fill it out

@@ -1,6 +1,6 @@
-import React from "react";
+import { useMemo } from "react";
 import { Meta, StoryFn } from "@storybook/react";
-import { faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker/locale/en";
 
 import {
   AuthorizationContext,
@@ -10,6 +10,7 @@ import {
   ROLE_NAME,
   RoleName,
 } from "@gc-digital-talent/auth";
+import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import AdminLayout from "./AdminLayout";
 
@@ -22,7 +23,6 @@ type AdminLayoutArgs = {
 
 export default {
   component: AdminLayout,
-  title: "Components/Layout/Admin Layout",
   args: {
     loggedIn: true,
     roles: availableRoles,
@@ -33,6 +33,11 @@ export default {
       options: availableRoles,
     },
   },
+  chromatic: {
+    modes: {
+      light: allModes.light,
+    },
+  },
 } as Meta<AdminLayoutArgs>;
 
 const Template: StoryFn<AdminLayoutArgs> = (args) => {
@@ -40,14 +45,14 @@ const Template: StoryFn<AdminLayoutArgs> = (args) => {
   const authenticationState = useAuthentication();
   const authorizationState = useAuthorization();
 
-  const mockAuthenticationState = React.useMemo(
+  const mockAuthenticationState = useMemo(
     () => ({
       ...authenticationState,
       loggedIn,
     }),
     [loggedIn, authenticationState],
   );
-  const mockAuthorizationState = React.useMemo(
+  const mockAuthorizationState = useMemo(
     () => ({
       ...authorizationState,
       roleAssignments: roles.map((roleName) => ({

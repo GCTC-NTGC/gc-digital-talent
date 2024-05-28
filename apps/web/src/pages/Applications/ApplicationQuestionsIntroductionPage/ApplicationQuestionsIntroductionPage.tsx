@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
@@ -92,7 +91,7 @@ const ApplicationQuestionsIntroduction = ({
         data-h2-align-items="base(flex-start) l-tablet(center)"
       >
         <Link
-          color="primary"
+          color="secondary"
           mode="solid"
           href={paths.applicationQuestions(application.id)}
         >
@@ -114,8 +113,8 @@ const ApplicationQuestionsIntroduction = ({
   );
 };
 
-const ApplicationQuestionsIntroductionPage = () => (
+export const Component = () => (
   <ApplicationApi PageComponent={ApplicationQuestionsIntroduction} />
 );
 
-export default ApplicationQuestionsIntroductionPage;
+Component.displayName = "ApplicationQuestionsIntroductionPage";

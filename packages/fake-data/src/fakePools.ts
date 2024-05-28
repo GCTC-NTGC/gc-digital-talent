@@ -1,4 +1,4 @@
-import { faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker/locale/en";
 import pick from "lodash/pick";
 
 import {
@@ -107,8 +107,6 @@ const generatePool = (
     publishedAt: faker.date
       .between({ from: FAR_PAST_DATE, to: PAST_DATE })
       .toISOString(),
-    essentialSkills,
-    nonessentialSkills,
     poolSkills,
     securityClearance: faker.helpers.arrayElement(
       Object.values(SecurityStatus),

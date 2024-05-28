@@ -1,4 +1,3 @@
-import React from "react";
 import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
@@ -13,7 +12,6 @@ const mockSkills = getStaticSkills();
 
 export default {
   component: SkillBrowser,
-  title: "Components/Skill Browser/Inline",
   args: {
     skills: mockSkills,
     name: "skills",

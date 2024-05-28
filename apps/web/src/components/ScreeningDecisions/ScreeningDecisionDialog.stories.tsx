@@ -1,4 +1,3 @@
-import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
@@ -38,7 +37,6 @@ const profileSnapshot: User = {
     {
       ...poolCandidate,
       educationRequirementOption:
-        // eslint-disable-next-line no-underscore-dangle
         experience.__typename === "EducationExperience"
           ? EducationRequirementOption.Education
           : EducationRequirementOption.AppliedWork,
@@ -91,7 +89,6 @@ poolCandidate.profileSnapshot = JSON.stringify(profileSnapshot);
 
 export default {
   component: ScreeningDecisionDialog,
-  title: "Components/Screening Decisions/ScreeningDecisionDialog",
   decorators: [OverlayOrDialogDecorator],
   args: {
     assessmentStep,
@@ -157,8 +154,6 @@ WithInitialValues.args = {
     assessmentDecisionLevel: AssessmentDecisionLevel.AboveAndBeyondRequired,
     skillDecisionNotes:
       "This applicant went above and beyond our expectations.",
-    assessmentNotes: undefined,
-    otherJustificationNotes: undefined,
   },
   isOpen: true,
 };

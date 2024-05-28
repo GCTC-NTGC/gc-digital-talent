@@ -1,10 +1,10 @@
-import React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 
 import { TableOfContents, ThrowNotFound, Pending } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
@@ -19,7 +19,7 @@ import WorkPreferences from "~/components/Profile/components/WorkPreferences/Wor
 import LanguageProfile from "~/components/Profile/components/LanguageProfile/LanguageProfile";
 import GovernmentInformation from "~/components/Profile/components/GovernmentInformation/GovernmentInformation";
 import DiversityEquityInclusion from "~/components/Profile/components/DiversityEquityInclusion/DiversityEquityInclusion";
-import AccountAndPrivacy from "~/components/Profile/components/AccountAndPrivacy/AccountAndPrivacy";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 const ProfileUpdateUser_Mutation = graphql(/* GraphQL */ `
   mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
@@ -97,7 +97,10 @@ const subTitle = defineMessage({
   description: "subtitle for the profile page",
 });
 
-export const UserProfile_Fragment = graphql(/* GraphQL */ `
+// export text for testing
+// should match the getProfile query from api/app/GraphQL/Mutations/PoolCandidateSnapshot.graphql
+// eslint-disable-next-line camelcase
+export const UserProfile_FragmentText = /* GraphQL */ `
   fragment UserProfile on User {
     id
     authInfo {
@@ -173,6 +176,7 @@ export const UserProfile_Fragment = graphql(/* GraphQL */ `
       }
     }
     experiences {
+      # profileExperience fragment
       id
       __typename
       user {
@@ -280,6 +284,7 @@ export const UserProfile_Fragment = graphql(/* GraphQL */ `
       }
       educationRequirementOption
       educationRequirementExperiences {
+        # profileExperience fragment
         id
         __typename
         details
@@ -370,7 +375,9 @@ export const UserProfile_Fragment = graphql(/* GraphQL */ `
       }
     }
   }
-`);
+`;
+
+export const UserProfile_Fragment = graphql(UserProfile_FragmentText);
 
 export interface ProfilePageProps {
   userQuery: FragmentType<typeof UserProfile_Fragment>;
@@ -392,7 +399,7 @@ export const ProfileForm = ({ userQuery }: ProfilePageProps) => {
       },
       {
         label: formattedPageTitle,
-        url: paths.profile(user.id),
+        url: paths.profile(),
       },
     ],
   });
@@ -454,13 +461,6 @@ export const ProfileForm = ({ userQuery }: ProfilePageProps) => {
                   {intl.formatMessage(getSectionTitle("language"))}
                 </TableOfContents.AnchorLink>
               </TableOfContents.ListItem>
-              <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink
-                  id={PAGE_SECTION_ID.ACCOUNT_AND_PRIVACY}
-                >
-                  {intl.formatMessage(getSectionTitle("account"))}
-                </TableOfContents.AnchorLink>
-              </TableOfContents.ListItem>
             </TableOfContents.List>
           </TableOfContents.Navigation>
           <TableOfContents.Content data-h2-padding-top="base(x3)">
@@ -490,12 +490,6 @@ export const ProfileForm = ({ userQuery }: ProfilePageProps) => {
               data-h2-padding-top="base(x3)"
             >
               <LanguageProfile {...sectionProps} />
-            </TableOfContents.Section>
-            <TableOfContents.Section
-              id={PAGE_SECTION_ID.ACCOUNT_AND_PRIVACY}
-              data-h2-padding-top="base(x3)"
-            >
-              <AccountAndPrivacy {...sectionProps} />
             </TableOfContents.Section>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
@@ -528,5 +522,13 @@ const ProfilePage = () => {
     </Pending>
   );
 };
+
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+    <ProfilePage />
+  </RequireAuth>
+);
+
+Component.displayName = "ProfilePage";
 
 export default ProfilePage;

@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { StoryFn, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import {
@@ -12,6 +12,7 @@ import {
 import { matchStringCaseDiacriticInsensitive as match } from "@gc-digital-talent/forms";
 import { fakeUsers } from "@gc-digital-talent/fake-data";
 import { Language, User } from "@gc-digital-talent/graphql";
+import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Table from "./ResponsiveTable";
 import Selection from "./RowSelection";
@@ -94,7 +95,6 @@ const download: DatasetDownload = {
 
 export default {
   component: Table,
-  title: "Tables/Responsive Table",
   args: {
     data: mockUsers,
     columns,
@@ -106,19 +106,7 @@ export default {
   },
 } as Meta<typeof Table<User>>;
 
-const themes = ["light", "dark"];
-
-const Template: StoryFn<typeof Table<User>> = (args) => (
-  <div data-h2-display="base(grid)" data-h2-grid-template-columns="base(100%)">
-    {themes.map((theme) => (
-      <div data-h2={theme} key={theme}>
-        <div data-h2-background="base(background)" data-h2-padding="base(x2)">
-          <Table {...args} />
-        </div>
-      </div>
-    ))}
-  </div>
-);
+const Template: StoryFn<typeof Table<User>> = (args) => <Table {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
@@ -131,6 +119,15 @@ Default.args = {
   },
   search: {
     ...defaultSearchProps,
+  },
+};
+Default.parameters = {
+  chromatic: {
+    modes: {
+      light: allModes.light,
+      "light mobile": allModes["light mobile"],
+      dark: allModes.dark,
+    },
   },
 };
 
@@ -175,12 +172,12 @@ InitialState.args = {
 };
 
 const ServerSideTemplate: StoryFn<typeof Table<User>> = (args) => {
-  const [isLoading, setLoading] = React.useState<boolean>(false);
-  const [searchState, setSearchState] = React.useState<SearchState>({
+  const [isLoading, setLoading] = useState<boolean>(false);
+  const [searchState, setSearchState] = useState<SearchState>({
     term: "",
     type: "",
   });
-  const [, setRowSelection] = React.useState<User[]>([]);
+  const [, setRowSelection] = useState<User[]>([]);
 
   const handleSearchChange = async (newSearchState: SearchState) => {
     setLoading(true);
@@ -222,32 +219,21 @@ const ServerSideTemplate: StoryFn<typeof Table<User>> = (args) => {
   });
 
   return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-grid-template-columns="base(100%)"
-    >
-      {themes.map((theme) => (
-        <div data-h2={theme} key={theme}>
-          <div data-h2-background="base(background)" data-h2-padding="base(x2)">
-            <Table
-              {...args}
-              isLoading={isLoading}
-              data={filteredData}
-              rowSelect={{
-                getRowId: (row) => row.id,
-                onRowSelection: handleRowSelection,
-                cell: rowSelectCell,
-              }}
-              search={{
-                ...defaultSearchProps,
-                internal: false,
-                onChange: handleSearchChange,
-              }}
-            />
-          </div>
-        </div>
-      ))}
-    </div>
+    <Table
+      {...args}
+      isLoading={isLoading}
+      data={filteredData}
+      rowSelect={{
+        getRowId: (row) => row.id,
+        onRowSelection: handleRowSelection,
+        cell: rowSelectCell,
+      }}
+      search={{
+        ...defaultSearchProps,
+        internal: false,
+        onChange: handleSearchChange,
+      }}
+    />
   );
 };
 

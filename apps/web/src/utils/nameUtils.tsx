@@ -1,5 +1,5 @@
-import React from "react";
 import { IntlShape } from "react-intl";
+import { ReactNode } from "react";
 
 import { commonMessages, getAbbreviations } from "@gc-digital-talent/i18n";
 
@@ -69,7 +69,7 @@ export const getFullNameHtml = (
   firstName: string | null | undefined,
   lastName: string | null | undefined,
   intl: IntlShape,
-): React.ReactNode => {
+): ReactNode => {
   if (!firstName && !lastName) {
     return (
       <span data-h2-font-style="base(italic)">
@@ -127,20 +127,16 @@ export const splitAndJoin = (text: string, split?: string, join?: string) =>
  * @param intl   react-intl object
  * @param title  abbreviation title
  *
- * @returns jsx.element
+ * @returns JSX.Element
  */
-export const wrapAbbr = (
-  text: React.ReactNode,
-  intl: IntlShape,
-  title?: string,
-): JSX.Element => {
+export const wrapAbbr = (text: ReactNode, intl: IntlShape, title?: string) => {
   const fallbackTitle = intl.formatMessage({
     id: "MuWdei",
     defaultMessage: "Abbreviation not found.",
     description:
       "Message shown to user when the abbreviation text is not found.",
   });
-  const stringifyText = text && text.toString(); // grabs text from React.ReactNode (is there a better way to get text from React.ReactNode type?)
+  const stringifyText = text && text.toString(); // grabs text from ReactNode (is there a better way to get text from ReactNode type?)
   if (typeof stringifyText !== "string") {
     return (
       <abbr title={fallbackTitle}>
@@ -149,8 +145,8 @@ export const wrapAbbr = (
     );
   }
   switch (stringifyText) {
-    // Regex that matches all IT(en)/TI(fr) classifications with levels
-    case stringifyText.match(/[IT][TI]-0\d/)?.input:
+    // Regex that matches all IT classifications with levels
+    case stringifyText.match(/[IT]-0\d/)?.input:
       return (
         <abbr title={intl.formatMessage(getAbbreviations("IT"))}>
           <span aria-label={splitAndJoin(stringifyText.replace("-0", ""))}>
@@ -158,15 +154,15 @@ export const wrapAbbr = (
           </span>
         </abbr>
       );
-    // Regex that matches all IT(en)/TI(fr) classifications
+    // Regex that matches all IT(en)/TI(fr)
     case stringifyText.match(/[IT][TI]/)?.input:
       return (
         <abbr title={intl.formatMessage(getAbbreviations("IT"))}>
           <span aria-label={splitAndJoin(stringifyText)}>{text}</span>
         </abbr>
       );
-    // Regex that matches all AS(en)/SA(fr) classifications with levels
-    case stringifyText.match(/[AS][SA]-0\d/)?.input:
+    // Regex that matches all AS classifications with levels
+    case stringifyText.match(/[AS]-0\d/)?.input:
       return (
         <abbr title={intl.formatMessage(getAbbreviations("AS"))}>
           <span aria-label={splitAndJoin(stringifyText.replace("-0", ""))}>
@@ -174,8 +170,7 @@ export const wrapAbbr = (
           </span>
         </abbr>
       );
-    // Regex that matches all AS(en)/SA(fr) classifications
-    case stringifyText.match(/[AS][SA]/)?.input:
+    case stringifyText.match("AS")?.input:
       return (
         <abbr title={intl.formatMessage(getAbbreviations("AS"))}>
           <span aria-label={splitAndJoin(stringifyText)}>{text}</span>

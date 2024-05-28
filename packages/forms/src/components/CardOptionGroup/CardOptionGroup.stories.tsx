@@ -1,8 +1,9 @@
-import React from "react";
 import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import SolidHandThumbUpIcon from "@heroicons/react/24/solid/HandThumbUpIcon";
 import OutlineHandThumbUpIcon from "@heroicons/react/24/outline/HandThumbUpIcon";
+
+import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Form from "../BasicForm";
 import Submit from "../Submit";
@@ -10,10 +11,15 @@ import CardOptionGroup, { CardOption } from "./CardOptionGroup";
 
 export default {
   component: CardOptionGroup,
-  title: "Form/CardOptionGroup",
+  parameters: {
+    chromatic: {
+      modes: {
+        light: allModes.light,
+        dark: allModes.dark,
+      },
+    },
+  },
 };
-
-const themes = ["light", "dark"];
 
 const colors: Array<CardOption["selectedIconColor"]> = [
   "primary",
@@ -29,31 +35,15 @@ const colors: Array<CardOption["selectedIconColor"]> = [
 
 const TemplateCardOptionGroup: StoryFn<typeof CardOptionGroup> = (args) => {
   return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-grid-template-columns="base(1fr 1fr)"
-    >
-      {themes.map((theme) => (
-        <div
-          data-h2={theme}
-          data-h2-background="base(background)"
-          data-h2-padding="base(x2)"
-          key={theme}
-        >
-          <Form onSubmit={action("Submit Form")}>
-            <CardOptionGroup
-              {...args}
-              name={theme}
-              idPrefix={theme}
-              rules={{ required: "This field is required" }}
-            />
-            <p data-h2-margin-top="base(x1)">
-              <Submit />
-            </p>
-          </Form>
-        </div>
-      ))}
-    </div>
+    <Form onSubmit={action("Submit Form")}>
+      <CardOptionGroup
+        {...args}
+        rules={{ required: "This field is required" }}
+      />
+      <p data-h2-margin-top="base(x1)">
+        <Submit />
+      </p>
+    </Form>
   );
 };
 

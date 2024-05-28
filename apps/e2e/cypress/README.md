@@ -64,10 +64,8 @@ cy.findByRole("button", { name: /Non-existing Button Text/i }).should(
 cy.findByLabelText(/Label text/i, { timeout: 7000 }).should("exist");
 ```
 
-Note: `get*()` queries are not available, as they're not compatible with how
-Cypress works by default.
-
-See official documentation linked above for examples.
+> [!NOTE]  
+> `get*()` queries are not available, as they are not compatible with how Cypress works by default.
 
 ## Commands
 

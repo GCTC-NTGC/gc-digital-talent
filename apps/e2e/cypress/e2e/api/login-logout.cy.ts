@@ -35,7 +35,7 @@ function justPastExpiry(accessToken: string): Date {
 describe("Login and logout", () => {
   // Prepare to intercept/detect relevant GraphQL requests.
   beforeEach(() => {
-    cy.intercept("POST", "/graphql", (req) => {
+    cy.intercept("POST", "**/graphql", (req) => {
       aliasQuery(req, "authorizationQuery");
     });
   });
@@ -78,7 +78,7 @@ describe("Login and logout", () => {
     // If you log in as a deleted user you end up on the "user deleted" page.
     it("will show a message when logged in as a deleted user", () => {
       // stub the "user deleted" API response
-      cy.intercept("POST", "/graphql", (req) => {
+      cy.intercept("POST", "**/graphql", (req) => {
         if (hasOperationName(req, "authorizationQuery")) {
           // Declare the alias from the initial intercept in the beforeEach
           req.alias = "gqlauthorizationQueryQuery";
@@ -122,9 +122,7 @@ describe("Login and logout", () => {
           const tokens = retrieveTokenSetFromStorage(browserWindow);
           cy.clock(justPastExpiry(tokens.access_token)).then(() => {
             cy.intercept({ pathname: "/refresh*", times: 1 }).as("refresh1");
-            cy.visit(
-              "http://localhost:8000/en/applicant/profile-and-applications",
-            );
+            cy.visit("http://localhost:8000/en/applicant");
           });
           cy.wrap(tokens).as("firstTokenSet");
         });
@@ -163,7 +161,7 @@ describe("Login and logout", () => {
     // When you have two tabs open, a refresh in one will allow the second tab to make an API call with the new tokens and no refresh.
     it("can share the refresh", () => {
       cy.loginBySubject(testUserSubject).then(() => {
-        cy.visit("http://localhost:8000/en/applicant/profile-and-applications");
+        cy.visit("http://localhost:8000/en/applicant");
       });
 
       cy.findByRole("heading", {
@@ -211,9 +209,7 @@ describe("Login and logout", () => {
           const tokens = retrieveTokenSetFromStorage(browserWindow);
           cy.clock(justPastExpiry(tokens.access_token)).then(() => {
             cy.intercept({ pathname: "/refresh*", times: 1 }).as("refresh1");
-            cy.visit(
-              "http://localhost:8000/en/applicant/profile-and-applications",
-            );
+            cy.visit("http://localhost:8000/en/applicant");
           });
           cy.wrap(tokens).as("firstTokenSet");
         });
@@ -365,7 +361,7 @@ describe("Login and logout", () => {
     // Bug in app prevents this test from completing: #9188
     it("will affect all tabs when logged out", () => {
       cy.loginBySubject(testUserSubject);
-      cy.visit("/en/applicant/profile-and-applications");
+      cy.visit("/en/applicant");
 
       // confirm login
       cy.findByRole("heading", {

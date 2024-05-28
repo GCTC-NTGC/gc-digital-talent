@@ -1,7 +1,9 @@
-import React from "react";
 import type { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker/locale/en";
+import { useState, FormEvent, ChangeEventHandler } from "react";
+
+import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import CardRepeater from "./CardRepeater";
 import { useCardRepeaterContext } from "./CardRepeaterProvider";
@@ -12,7 +14,6 @@ faker.seed(0);
 
 export default {
   component: CardRepeater.Root,
-  title: "Components/Card Repeater",
 };
 
 type CardItem = {
@@ -27,10 +28,10 @@ type EditDialogProps = {
 
 const EditDialog = ({ item, index }: EditDialogProps) => {
   const { update } = useCardRepeaterContext();
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
-  const [value, setValue] = React.useState<string>(item.value);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [value, setValue] = useState<string>(item.value);
 
-  const edit = (event: React.FormEvent) => {
+  const edit = (event: FormEvent) => {
     event.preventDefault();
     const newItem = {
       ...item,
@@ -41,7 +42,7 @@ const EditDialog = ({ item, index }: EditDialogProps) => {
     setIsOpen(false);
   };
 
-  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     setValue(event.currentTarget.value);
   };
 
@@ -80,7 +81,7 @@ type RemoveDialogProps = {
 
 const RemoveDialog = ({ item, index }: RemoveDialogProps) => {
   const { remove } = useCardRepeaterContext();
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const Remove = () => {
     action("Remove")(item);
@@ -110,10 +111,10 @@ const RemoveDialog = ({ item, index }: RemoveDialogProps) => {
 
 const AddDialog = () => {
   const { append } = useCardRepeaterContext();
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
-  const [value, setValue] = React.useState<string>("");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [value, setValue] = useState<string>("");
 
-  const add = (event: React.FormEvent) => {
+  const add = (event: FormEvent) => {
     event.preventDefault();
     const item = {
       id: faker.string.uuid(),
@@ -125,7 +126,7 @@ const AddDialog = () => {
     setIsOpen(false);
   };
 
-  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     setValue(event.currentTarget.value);
   };
 
@@ -157,11 +158,9 @@ const AddDialog = () => {
   );
 };
 
-const themes = ["light", "dark"];
-
 const Template: StoryFn<typeof CardRepeater.Root<CardItem>> = (args) => {
   const { items: itemsArg } = args;
-  const [items, setItems] = React.useState<CardItem[]>(itemsArg ?? []);
+  const [items, setItems] = useState<CardItem[]>(itemsArg ?? []);
 
   const handleUpdate = (newItems: CardItem[]) => {
     action("update")(newItems);
@@ -169,34 +168,23 @@ const Template: StoryFn<typeof CardRepeater.Root<CardItem>> = (args) => {
   };
 
   return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-grid-template-columns="base(100%) l-tablet(50% 50%)"
+    <CardRepeater.Root<CardItem>
+      {...args}
+      items={items}
+      onUpdate={handleUpdate}
+      add={<AddDialog />}
     >
-      {themes.map((theme) => (
-        <div data-h2={theme} key={theme}>
-          <div data-h2-background="base(background)" data-h2-padding="base(x2)">
-            <CardRepeater.Root<CardItem>
-              {...args}
-              items={items}
-              onUpdate={handleUpdate}
-              add={<AddDialog />}
-            >
-              {items.map((item, index) => (
-                <CardRepeater.Card
-                  key={item.id}
-                  index={index}
-                  edit={<EditDialog item={item} index={index} />}
-                  remove={<RemoveDialog item={item} index={index} />}
-                >
-                  {item.value}
-                </CardRepeater.Card>
-              ))}
-            </CardRepeater.Root>
-          </div>
-        </div>
+      {items.map((item, index) => (
+        <CardRepeater.Card
+          key={item.id}
+          index={index}
+          edit={<EditDialog item={item} index={index} />}
+          remove={<RemoveDialog item={item} index={index} />}
+        >
+          {item.value}
+        </CardRepeater.Card>
       ))}
-    </div>
+    </CardRepeater.Root>
   );
 };
 
@@ -227,32 +215,40 @@ const defaultItems = [
   },
 ];
 
-export const WithItems = Template.bind({});
-WithItems.args = {
+export const Default = Template.bind({});
+Default.parameters = {
+  chromatic: {
+    modes: {
+      light: allModes.light,
+      dark: allModes.dark,
+    },
+  },
+};
+Default.args = {
   items: defaultItems,
 };
 
 export const MaxItems = Template.bind({});
 MaxItems.args = {
-  ...WithItems.args,
+  ...Default.args,
   max: 6,
 };
 
 export const HiddenIndex = Template.bind({});
 HiddenIndex.args = {
-  ...WithItems.args,
+  ...Default.args,
   hideIndex: true,
 };
 
 export const Disabled = Template.bind({});
 Disabled.args = {
-  ...WithItems.args,
+  ...Default.args,
   disabled: true,
 };
 
 export const Locked = Template.bind({});
 Locked.args = {
-  ...WithItems.args,
+  ...Default.args,
   moveDisabledIndexes: [1],
   editDisabledIndexes: [2],
   removeDisabledIndexes: [3],

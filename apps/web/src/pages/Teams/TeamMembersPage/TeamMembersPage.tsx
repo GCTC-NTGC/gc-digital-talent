@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useMemo } from "react";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
@@ -19,6 +19,7 @@ import {
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import AddTeamMemberDialog from "./components/AddTeamMemberDialog";
 import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
@@ -40,7 +41,7 @@ const TeamMembers = ({ teamQuery }: TeamMembersProps) => {
     roleAssignments,
   );
 
-  const members: TeamMember[] = React.useMemo(
+  const members: TeamMember[] = useMemo(
     () => groupRoleAssignmentsByUser(team.roleAssignments || []),
     [team.roleAssignments],
   );
@@ -94,7 +95,7 @@ const TeamMembers = ({ teamQuery }: TeamMembersProps) => {
     ];
   }
 
-  const data = React.useMemo(() => members.filter(notEmpty), [members]);
+  const data = useMemo(() => members.filter(notEmpty), [members]);
 
   return (
     <>
@@ -159,5 +160,19 @@ const TeamMembersPage = () => {
     </AdminContentWrapper>
   );
 };
+
+export const Component = () => (
+  <RequireAuth
+    roles={[
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.CommunityManager,
+      ROLE_NAME.PlatformAdmin,
+    ]}
+  >
+    <TeamMembersPage />
+  </RequireAuth>
+);
+
+Component.displayName = "AdminTeamMembersPage";
 
 export default TeamMembersPage;

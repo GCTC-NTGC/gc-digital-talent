@@ -1,30 +1,37 @@
 /**
  * @jest-environment jsdom
  */
-import React from "react";
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
-import { PoolStatus, Pool, PublishingGroup } from "@gc-digital-talent/graphql";
+import {
+  PoolStatus,
+  PublishingGroup,
+  makeFragmentData,
+} from "@gc-digital-talent/graphql";
 
 import ActiveRecruitmentSection, {
+  ActiveRecruitmentSectionPool_Fragment,
   ActiveRecruitmentSectionProps,
 } from "./ActiveRecruitmentSection";
 
-const publishedPool: Pool = {
-  id: "publishedPool",
-  publishingGroup: PublishingGroup.ItJobs,
-  status: PoolStatus.Published,
-};
+const publishedPool = makeFragmentData(
+  {
+    id: "publishedPool",
+    publishingGroup: PublishingGroup.ItJobs,
+    status: PoolStatus.Published,
+  },
+  ActiveRecruitmentSectionPool_Fragment,
+);
 
-const renderBrowsePoolsPage = ({ pools }: ActiveRecruitmentSectionProps) =>
-  renderWithProviders(<ActiveRecruitmentSection pools={pools} />);
+const renderBrowsePoolsPage = ({ poolsQuery }: ActiveRecruitmentSectionProps) =>
+  renderWithProviders(<ActiveRecruitmentSection poolsQuery={poolsQuery} />);
 
 describe("BrowsePoolsPage", () => {
   it("should have no accessibility errors", async () => {
     const { container } = renderBrowsePoolsPage({
-      pools: [publishedPool],
+      poolsQuery: [publishedPool],
     });
     await axeTest(container);
   });
@@ -58,7 +65,7 @@ describe("BrowsePoolsPage", () => {
 
     renderBrowsePoolsPage({
       // pass data to the page in an intentionally reversed order
-      pools: [publishedSecond, publishedFirst, closesFirst],
+      poolsQuery: [publishedSecond, publishedFirst, closesFirst],
     });
 
     // find the rendered links

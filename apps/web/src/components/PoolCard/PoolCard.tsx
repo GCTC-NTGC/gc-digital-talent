@@ -1,10 +1,16 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 import CalendarIcon from "@heroicons/react/24/outline/CalendarIcon";
 
-import { Heading, HeadingRank, Link, Chip, Chips } from "@gc-digital-talent/ui";
+import {
+  Heading,
+  HeadingRank,
+  Link,
+  Chip,
+  Chips,
+  CardBasic,
+} from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import {
   getLocale,
@@ -12,33 +18,81 @@ import {
   localizeSalaryRange,
   commonMessages,
 } from "@gc-digital-talent/i18n";
-import { Pool } from "@gc-digital-talent/graphql";
+import {
+  Classification,
+  FragmentType,
+  Maybe,
+  PoolSkillType,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
 import useRoutes from "~/hooks/useRoutes";
+import { filterPoolSkillsByType } from "~/utils/skillUtils";
 
 import IconLabel from "./IconLabel";
 
-const getSalaryRange = (pool: Pool, locale: string) => {
-  if (!pool.classification) return null;
+export const PoolCard_Fragment = graphql(/* GraphQL */ `
+  fragment PoolCard on Pool {
+    id
+    stream
+    closingDate
+    name {
+      en
+      fr
+    }
+    classification {
+      id
+      group
+      level
+      minSalary
+      maxSalary
+    }
+    poolSkills {
+      id
+      type
+      skill {
+        id
+        category
+        key
+        name {
+          en
+          fr
+        }
+      }
+    }
+  }
+`);
+
+const getSalaryRange = (
+  locale: string,
+  classification?: Maybe<Classification>,
+) => {
+  if (!classification) return null;
 
   return localizeSalaryRange(
-    pool.classification.minSalary,
-    pool.classification.maxSalary,
+    classification.minSalary,
+    classification.maxSalary,
     locale,
   );
 };
 
 export interface PoolCardProps {
-  pool: Pool;
+  poolQuery: FragmentType<typeof PoolCard_Fragment>;
   headingLevel?: HeadingRank;
 }
 
-const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
+const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
+  const pool = getFragment(PoolCard_Fragment, poolQuery);
+  const essentialSkills = filterPoolSkillsByType(
+    pool.poolSkills,
+    PoolSkillType.Essential,
+  );
 
   const classificationAbbr = pool.classification
     ? wrapAbbr(
@@ -46,7 +100,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
         intl,
       )
     : "";
-  const salaryRange = getSalaryRange(pool, locale);
+  const salaryRange = getSalaryRange(locale, pool.classification);
 
   const notAvailableAbbr = intl.formatMessage({
     defaultMessage: "N/A",
@@ -55,13 +109,10 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
   });
 
   return (
-    <div
-      data-h2-background-color="base(foreground)"
-      data-h2-shadow="base(larger)"
+    <CardBasic
       data-h2-margin-top="base(x1)"
       data-h2-padding="base(x1) p-tablet(x2, x2, x2, x6.5)"
       data-h2-position="base(relative)"
-      data-h2-radius="base(rounded)"
     >
       <div
         data-h2-background-color="base(secondary)"
@@ -187,9 +238,9 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
               })}
             />
           </div>
-          {pool.essentialSkills?.length ? (
+          {essentialSkills.length ? (
             <Chips>
-              {pool.essentialSkills.map((skill) => (
+              {essentialSkills.map((skill) => (
                 <Chip key={skill.id} color="secondary">
                   {getLocalizedName(skill.name, intl)}
                 </Chip>
@@ -225,7 +276,7 @@ const PoolCard = ({ pool, headingLevel = "h3" }: PoolCardProps) => {
           )}
         </div>
       </div>
-    </div>
+    </CardBasic>
   );
 };
 

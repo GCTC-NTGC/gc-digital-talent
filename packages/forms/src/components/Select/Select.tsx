@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { DetailedHTMLProps, SelectHTMLAttributes, useMemo } from "react";
 import { FieldError, useFormContext } from "react-hook-form";
 import get from "lodash/get";
 
@@ -11,8 +11,8 @@ import useInputStyles from "../../hooks/useInputStyles";
 import { alphaSortOptions } from "../../utils";
 
 export type SelectProps = CommonInputProps &
-  React.DetailedHTMLProps<
-    React.SelectHTMLAttributes<HTMLSelectElement>,
+  DetailedHTMLProps<
+    SelectHTMLAttributes<HTMLSelectElement>,
     HTMLSelectElement
   > & {
     /** List of options and/or optgroups for the select element. */

@@ -1,8 +1,8 @@
 import path from "path-browserify";
+import { useIntl } from "react-intl";
 
-import { useLocale, Locales } from "@gc-digital-talent/i18n";
+import { Locales, getLocale } from "@gc-digital-talent/i18n";
 
-import { ExperienceType } from "~/types/experience";
 import { PageSectionId as UserProfilePageSectionId } from "~/components/UserProfile/constants";
 import { PageSectionId as CareerTimelineAndRecruitmentPageSectionId } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
 
@@ -19,17 +19,14 @@ const createSearchQuery = (parameters: Map<string, string>): string => {
   return `?${keyValuePairStrings.join("&")}`;
 };
 
+const createFragment = (identifier: string | null | undefined): string =>
+  identifier ? `#${identifier}` : "";
+
 const getRoutes = (lang: Locales) => {
   const baseUrl = path.join("/", lang);
   const adminUrl = path.join(baseUrl, "admin");
   const applicantUrl = path.join(baseUrl, "applicant");
-  const showcase = path.join(
-    applicantUrl,
-    "profile-and-applications",
-    "skills",
-    "showcase",
-  );
-  const userUrl = (userId: string) => path.join(baseUrl, "users", userId);
+  const showcase = path.join(applicantUrl, "skills", "showcase");
 
   return {
     // Main Routes
@@ -65,6 +62,8 @@ const getRoutes = (lang: Locales) => {
       path.join(adminUrl, "pools", poolId, "plan"),
     screeningAndEvaluation: (poolId: string) =>
       path.join(adminUrl, "pools", poolId, "screening"),
+    poolPreview: (poolId: string) =>
+      path.join(adminUrl, "pools", poolId, "preview"),
 
     // Admin - Pool Candidates
     poolCandidates: () => path.join(adminUrl, "pool-candidates"),
@@ -155,8 +154,6 @@ const getRoutes = (lang: Locales) => {
       path.join(baseUrl, "browse", "pools", poolId, "create-application"),
 
     // Applications
-    applications: (userId: string) =>
-      path.join(userUrl(userId), "applications"),
     application: (applicationId: string) =>
       path.join(baseUrl, "applications", applicationId),
 
@@ -224,50 +221,28 @@ const getRoutes = (lang: Locales) => {
       path.join(baseUrl, "applications", applicationId, "success"),
 
     // Profile Routes
-    profile: (userId: string, section?: UserProfilePageSectionId) => {
+    profile: (section?: UserProfilePageSectionId) => {
       const fragment = section ? `#${section}` : "";
-      return path.join(userUrl(userId), "personal-information") + fragment;
+      return path.join(applicantUrl, "personal-information") + fragment;
     },
-    myProfile: () => path.join(baseUrl, "users", "me"),
 
     // Career timeline and recruitment Routes
-    careerTimelineAndRecruitment: (
-      userId: string,
-      opts?: {
-        section?: CareerTimelineAndRecruitmentPageSectionId;
-      },
-    ) => {
+    careerTimelineAndRecruitment: (opts?: {
+      section?: CareerTimelineAndRecruitmentPageSectionId;
+    }) => {
       const fragment = opts?.section ? `#${opts.section}` : "";
-      return `${path.join(
-        userUrl(userId),
-        "personal-information",
-        "career-timeline",
-      )}${fragment}`;
+      return `${path.join(applicantUrl, "career-timeline")}${fragment}`;
     },
-    editExperience: (
-      userId: string,
-      type: ExperienceType,
-      experienceId: string,
-    ) =>
-      path.join(
-        userUrl(userId),
-        "personal-information",
-        "career-timeline",
-        experienceId,
-        "edit",
-      ),
-    createExperience: (userId: string) =>
-      path.join(
-        userUrl(userId),
-        "personal-information",
-        "career-timeline",
-        "create",
-      ),
+    editExperience: (experienceId: string) =>
+      path.join(applicantUrl, "career-timeline", experienceId, "edit"),
+    createExperience: () =>
+      path.join(applicantUrl, "career-timeline", "create"),
 
     // Profile and Applications
     profileAndApplications: (opts?: {
       fromIapDraft?: boolean;
       fromIapSuccess?: boolean;
+      fragmentIdentifier?: "track-applications-section";
     }) => {
       const searchParams = new Map<string, string>();
       if (opts?.fromIapDraft) searchParams.set(FromIapDraftQueryKey, "true");
@@ -275,16 +250,16 @@ const getRoutes = (lang: Locales) => {
         searchParams.set(FromIapSuccessQueryKey, "true");
 
       return (
-        path.join(applicantUrl, "profile-and-applications") +
-        createSearchQuery(searchParams)
+        applicantUrl +
+        createSearchQuery(searchParams) +
+        createFragment(opts?.fragmentIdentifier)
       );
     },
 
-    skillLibrary: () =>
-      path.join(applicantUrl, "profile-and-applications", "skills"),
+    skillLibrary: () => path.join(applicantUrl, "skills"),
     skillShowcase: () => path.join(showcase),
     editUserSkill: (skillId: string) =>
-      path.join(applicantUrl, "profile-and-applications", "skills", skillId),
+      path.join(applicantUrl, "skills", skillId),
     topBehaviouralSkills: () => path.join(showcase, "top-5-behavioural-skills"),
     topTechnicalSkills: () => path.join(showcase, "top-10-technical-skills"),
     improveBehaviouralSkills: () =>
@@ -304,6 +279,9 @@ const getRoutes = (lang: Locales) => {
         "digital-services-contracting-questionnaire",
       ),
 
+    // Account Settings
+    accountSettings: () => path.join(applicantUrl, "settings"),
+
     /**
      * Deprecated
      *
@@ -315,7 +293,8 @@ const getRoutes = (lang: Locales) => {
 };
 
 const useRoutes = () => {
-  const { locale } = useLocale();
+  const intl = useIntl();
+  const locale = getLocale(intl);
 
   return getRoutes(locale);
 };

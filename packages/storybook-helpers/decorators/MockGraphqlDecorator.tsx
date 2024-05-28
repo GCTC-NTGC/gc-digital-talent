@@ -1,4 +1,3 @@
-import React from "react";
 import { Provider as GraphqlProvider } from "urql";
 import { Client } from "@urql/core";
 import { fromValue, pipe, delay } from "wonka";

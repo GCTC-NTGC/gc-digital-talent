@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
@@ -140,7 +139,7 @@ export const ApplicationProfile = ({
   );
 };
 
-const ApplicationProfilePage = () => {
+export const Component = () => {
   const { application } = useApplication();
 
   return application?.pool && application.user ? (
@@ -150,4 +149,4 @@ const ApplicationProfilePage = () => {
   );
 };
 
-export default ApplicationProfilePage;
+Component.displayName = "ApplicationProfilePage";

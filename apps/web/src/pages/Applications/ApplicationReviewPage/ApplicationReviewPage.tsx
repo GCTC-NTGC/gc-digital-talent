@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
@@ -15,13 +14,22 @@ import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
 import { Input } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
-import { Experience, SkillCategory, graphql } from "@gc-digital-talent/graphql";
+import {
+  Experience,
+  PoolSkillType,
+  SkillCategory,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
 import { ExperienceForDate } from "~/types/experience";
-import { categorizeSkill } from "~/utils/skillUtils";
+import {
+  categorizeSkill,
+  filterPoolSkillsByType,
+  poolSkillsToSkills,
+} from "~/utils/skillUtils";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import SkillTree from "~/components/SkillTree/SkillTree";
 import processMessages from "~/messages/processMessages";
@@ -156,8 +164,12 @@ const ApplicationReview = ({
       : [];
 
   const categorizedEssentialSkills = categorizeSkill(
-    application.pool.essentialSkills,
+    filterPoolSkillsByType(
+      application.pool.poolSkills,
+      PoolSkillType.Essential,
+    ),
   );
+  const allSkills = poolSkillsToSkills(application.pool.poolSkills);
 
   const screeningQuestions =
     application.pool.screeningQuestions?.filter(notEmpty) || [];
@@ -258,11 +270,7 @@ const ApplicationReview = ({
                 key={experience.id}
                 experience={experience}
                 headingLevel="h4"
-                showSkills={[
-                  ...(application.pool.essentialSkills?.filter(notEmpty) ?? []),
-                  ...(application.pool.nonessentialSkills?.filter(notEmpty) ??
-                    []),
-                ]}
+                showSkills={allSkills}
                 showEdit={false}
               />
             ))
@@ -323,11 +331,7 @@ const ApplicationReview = ({
                 key={experience.id}
                 experience={experience}
                 headingLevel="h4"
-                showSkills={[
-                  ...(application.pool.essentialSkills?.filter(notEmpty) ?? []),
-                  ...(application.pool.nonessentialSkills?.filter(notEmpty) ??
-                    []),
-                ]}
+                showSkills={allSkills}
                 showEdit={false}
               />
             ))
@@ -587,7 +591,7 @@ const ApplicationReview = ({
               >
                 <Button
                   type="submit"
-                  mode="solid"
+                  color="secondary"
                   value="continue"
                   disabled={mutating || isSubmitting}
                 >
@@ -609,7 +613,7 @@ const ApplicationReview = ({
   );
 };
 
-const ApplicationReviewPage = () => {
+export const Component = () => {
   const { application } = useApplication();
 
   const experiences: Experience[] = unpackMaybes(application.user.experiences);
@@ -621,4 +625,4 @@ const ApplicationReviewPage = () => {
   );
 };
 
-export default ApplicationReviewPage;
+Component.displayName = "ApplicationReviewPage";

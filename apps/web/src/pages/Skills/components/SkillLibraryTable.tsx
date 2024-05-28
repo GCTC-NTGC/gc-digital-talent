@@ -1,4 +1,3 @@
-import React from "react";
 import { useIntl, IntlShape } from "react-intl";
 import {
   ColumnDef,

@@ -8,6 +8,7 @@ function isStringTrue(str: string | undefined): boolean {
  * Retrieve an environment variable value from the window object
  */
 export const getRuntimeVariable = (name: string): string | undefined => {
+  if (typeof window === "undefined") return undefined;
   const windowWithConfig = window as unknown as HasServerConfig;
   // eslint-disable-next-line no-underscore-dangle
   return windowWithConfig.__SERVER_CONFIG__?.get(name);
@@ -41,6 +42,7 @@ export const checkFeatureFlag = (name: string): boolean => {
 export const getFeatureFlags = () => ({
   directiveForms: checkFeatureFlag("FEATURE_DIRECTIVE_FORMS"),
   notifications: checkFeatureFlag("FEATURE_NOTIFICATIONS"),
+  protectedApi: checkFeatureFlag("FEATURE_PROTECTED_API"),
 });
 
 export type FeatureFlags = ReturnType<typeof getFeatureFlags>;

@@ -3,8 +3,10 @@
 namespace Database\Factories;
 
 use App\Enums\ApplicationStep;
+use App\Enums\ArmedForcesStatus;
 use App\Enums\AssessmentResultType;
 use App\Enums\CandidateRemovalReason;
+use App\Enums\ClaimVerificationResult;
 use App\Enums\EducationRequirementOption;
 use App\Enums\PoolCandidateStatus;
 use App\Models\AssessmentResult;
@@ -36,17 +38,7 @@ class PoolCandidateFactory extends Factory
      */
     public function definition()
     {
-        $relevantStatusesForFinalDecision = [
-            PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
-            PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
-            PoolCandidateStatus::QUALIFIED_WITHDREW->name,
-            PoolCandidateStatus::PLACED_CASUAL->name,
-            PoolCandidateStatus::PLACED_TERM->name,
-            PoolCandidateStatus::PLACED_INDETERMINATE->name,
-            PoolCandidateStatus::EXPIRED->name,
-            PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
-            PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
-        ];
+        $relevantStatusesForFinalDecision = PoolCandidateStatus::finalDecisionGroup();
         $placedStatuses = PoolCandidateStatus::placedGroup();
         $placedDepartmentId = Department::inRandomOrder()
             ->limit(1)
@@ -55,7 +47,6 @@ class PoolCandidateFactory extends Factory
         $removedStatuses = PoolCandidateStatus::removedGroup();
 
         return [
-            'cmo_identifier' => $this->faker->word(),
             'expiry_date' => $this->faker->dateTimeBetween('-1 years', '3 years'),
             'pool_candidate_status' => $this->faker->boolean() ?
                 $this->faker->randomElement([PoolCandidateStatus::QUALIFIED_AVAILABLE, PoolCandidateStatus::PLACED_CASUAL])->name :
@@ -171,6 +162,26 @@ class PoolCandidateFactory extends Factory
                     'user_id' => $poolCandidate->user_id,
                 ]);
                 $poolCandidate->educationRequirementWorkExperiences()->sync([$experience->id]);
+            }
+
+            // claim verification
+            if ($poolCandidate->user->armed_forces_status == ArmedForcesStatus::VETERAN->name) {
+                $vetVerification = $this->faker->randomElement(array_column(ClaimVerificationResult::cases(), 'name'));
+                $vetExpiryBoolean = $vetVerification == ClaimVerificationResult::ACCEPTED->name && $this->faker->boolean();
+
+                $poolCandidate->update([
+                    'veteran_verification' => $vetVerification,
+                    'veteran_verification_expiry' => $vetExpiryBoolean ? $this->faker->dateTimeBetween('6 months', '24 months') : null,
+                ]);
+            }
+            if ($poolCandidate->user->has_priority_entitlement) {
+                $priorityVerification = $this->faker->randomElement(array_column(ClaimVerificationResult::cases(), 'name'));
+                $priorityExpiryBoolean = $priorityVerification == ClaimVerificationResult::ACCEPTED->name;
+
+                $poolCandidate->update([
+                    'priority_verification' => $priorityVerification,
+                    'priority_verification_expiry' => $priorityExpiryBoolean ? $this->faker->dateTimeBetween('6 months', '24 months') : null,
+                ]);
             }
         });
     }

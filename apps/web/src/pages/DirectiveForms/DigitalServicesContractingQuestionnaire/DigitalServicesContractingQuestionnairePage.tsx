@@ -1,4 +1,3 @@
-import React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -7,19 +6,21 @@ import { useMutation, useQuery } from "urql";
 import { Link, Pending, TableOfContents } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { BasicForm } from "@gc-digital-talent/forms";
-import { useLocale } from "@gc-digital-talent/i18n";
+import { getLocale } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import {
   Department,
   DigitalContractingQuestionnaireInput,
   Skill,
 } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import Hero from "~/components/Hero";
 import contractingEn from "~/assets/documents/Digital_Contracting_Questionnaire_EN.docx";
 import contractingFr from "~/assets/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import { pageTitle as directiveHomePageTitle } from "../../DirectivePage/DirectivePage";
 import { getSectionTitle, PAGE_SECTION_ID } from "./navigation";
@@ -56,7 +57,7 @@ export const DigitalServicesContractingQuestionnaire = ({
   defaultValues,
 }: DigitalServicesContractingQuestionnaireProps) => {
   const intl = useIntl();
-  const localeState = useLocale();
+  const locale = getLocale(intl);
   const paths = useRoutes();
 
   const crumbs = useBreadcrumbs({
@@ -118,7 +119,7 @@ export const DigitalServicesContractingQuestionnaire = ({
               color="secondary"
               block
               external
-              href={localeState.locale === "fr" ? contractingFr : contractingEn}
+              href={locale === "fr" ? contractingFr : contractingEn}
             >
               {intl.formatMessage({
                 defaultMessage: "Download a copy of this form",
@@ -210,5 +211,13 @@ const DigitalServicesContractingQuestionnairePage = () => {
     </Pending>
   );
 };
+
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
+    <DigitalServicesContractingQuestionnairePage />
+  </RequireAuth>
+);
+
+Component.displayName = "DigitalServicesContractingQuestionnairePage";
 
 export default DigitalServicesContractingQuestionnairePage;

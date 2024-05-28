@@ -1,3 +1,10 @@
+/**
+ * This file contains utility functions for working with applications on the Applicant side,
+ * particularly for the multi-step application process,
+ * and also for how applications are displayed in the applicant dashboard.
+ *
+ * For utilities general to the PoolCandidate object, or specific to the Admin side, see ./poolCandidates.ts
+ */
 import { IntlShape } from "react-intl";
 import { isPast } from "date-fns/isPast";
 
@@ -23,6 +30,8 @@ import successPageInfo from "~/pages/Applications/successStep/successStepInfo";
 import skillsStepInfo from "~/pages/Applications/skillsStep/skillsStepInfo";
 import { isIAPPool } from "~/utils/poolUtils";
 import careerTimelineStepInfo from "~/pages/Applications/careerTimelineStep/careerTimelineStepInfo";
+
+import { isDraftStatus, isToAssessStatus } from "./poolCandidate";
 
 type GetApplicationPagesArgs = {
   paths: ReturnType<typeof useRoutes>;
@@ -165,32 +174,19 @@ export function applicationStepsToStepperArgs(
 
 export type Application = Omit<PoolCandidate, "user">;
 
-export function isApplicationInProgress(a: Application): boolean {
-  const isExpired = a.pool.closingDate
+/**
+ * Returns true if the application is
+ * - a draft which still may be submitted (ie pool has not closed)
+ * - OR has been submitted but is still in assessment
+ */
+export function isApplicationInProgress(a: {
+  status?: Maybe<PoolCandidateStatus>;
+  pool: { closingDate?: Maybe<string> };
+}): boolean {
+  const poolIsExpired = a.pool.closingDate
     ? isPast(parseDateTimeUtc(a.pool.closingDate))
-    : false;
+    : false; // If it doesn't have a closing date it can't be expired
   return (
-    (!isExpired && a.status === PoolCandidateStatus.Draft) ||
-    a.status === PoolCandidateStatus.NewApplication ||
-    a.status === PoolCandidateStatus.ApplicationReview ||
-    a.status === PoolCandidateStatus.UnderAssessment ||
-    a.status === PoolCandidateStatus.ScreenedIn
+    (isDraftStatus(a.status) && !poolIsExpired) || isToAssessStatus(a.status)
   );
-}
-
-export function isApplicationQualifiedRecruitment(a: Application): boolean {
-  return (
-    a.status === PoolCandidateStatus.QualifiedAvailable ||
-    a.status === PoolCandidateStatus.QualifiedUnavailable ||
-    a.status === PoolCandidateStatus.QualifiedWithdrew ||
-    a.status === PoolCandidateStatus.PlacedTentative ||
-    a.status === PoolCandidateStatus.PlacedCasual ||
-    a.status === PoolCandidateStatus.PlacedTerm ||
-    a.status === PoolCandidateStatus.PlacedIndeterminate ||
-    a.status === PoolCandidateStatus.Expired
-  );
-}
-
-export function notRemoved(a: Application): boolean {
-  return a.status !== PoolCandidateStatus.Removed;
 }

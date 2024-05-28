@@ -2,17 +2,15 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import React from "react";
 import { screen } from "@testing-library/react";
+import { ComponentPropsWithoutRef } from "react";
 
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 
 import Stepper from "./Stepper";
 import { defaultSteps } from "./testUtils";
 
-const renderStepper = (
-  props: React.ComponentPropsWithoutRef<typeof Stepper>,
-) => {
+const renderStepper = (props: ComponentPropsWithoutRef<typeof Stepper>) => {
   return renderWithProviders(<Stepper {...props} />);
 };
 

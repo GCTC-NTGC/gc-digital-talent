@@ -152,9 +152,9 @@ const formMessages = defineMessages({
   },
   repeaterDeleteItem: {
     defaultMessage: "Delete an item to add another",
-    id: "lFLEy2",
+    id: "fO0cRR",
     description:
-      "Message displayed when max items have been reached on reapter component.",
+      "Message displayed when max items have been reached on repeater component.",
   },
   repeaterAddItem: {
     defaultMessage: "Add a new item",
@@ -204,6 +204,13 @@ const formMessages = defineMessages({
     id: "sbmUVq",
     description:
       "Prompt text for a user selecting an employment equity group for their profile",
+  },
+  candidateNotify: {
+    defaultMessage:
+      "The candidate will be notified of any changes made in this form.",
+    id: "17dZD4",
+    description:
+      "Caption notifying the user about who can know about the results of form changes",
   },
 });
 

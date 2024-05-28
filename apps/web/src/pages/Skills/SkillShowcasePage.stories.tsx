@@ -1,4 +1,3 @@
-import React from "react";
 import { StoryFn, Meta } from "@storybook/react";
 
 import { fakeUserSkills, fakeSkills } from "@gc-digital-talent/fake-data";
@@ -11,7 +10,6 @@ const mockUserSkills = fakeUserSkills(23);
 
 export default {
   component: SkillShowcase,
-  title: "Pages/Skill Showcase Page",
 } as Meta;
 
 const Template: StoryFn<typeof SkillShowcase> = (args) => {

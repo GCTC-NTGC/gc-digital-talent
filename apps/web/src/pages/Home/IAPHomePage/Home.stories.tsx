@@ -1,4 +1,3 @@
-import React from "react";
 import type { Meta, StoryFn } from "@storybook/react";
 
 import {
@@ -33,7 +32,6 @@ const messages: Map<string, Messages> = new Map([
 export default {
   component: Home,
   decorators: [MockGraphqlDecorator],
-  title: "Pages/Home Page/IAP",
   parameters: {
     apiResponsesConfig: {
       latency: {

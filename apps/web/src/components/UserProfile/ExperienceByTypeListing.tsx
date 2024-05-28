@@ -1,10 +1,10 @@
-import * as React from "react";
 import BookOpenIcon from "@heroicons/react/24/solid/BookOpenIcon";
 import BriefcaseIcon from "@heroicons/react/24/solid/BriefcaseIcon";
 import LightBulbIcon from "@heroicons/react/24/solid/LightBulbIcon";
 import StarIcon from "@heroicons/react/24/solid/StarIcon";
 import UserGroupIcon from "@heroicons/react/24/solid/UserGroupIcon";
 import { useIntl } from "react-intl";
+import { ReactNode } from "react";
 
 import { Button, HeadingRank } from "@gc-digital-talent/ui";
 import { AwardExperience, Experience } from "@gc-digital-talent/graphql";
@@ -34,7 +34,7 @@ const ExperienceByType = ({
 }: {
   title: string;
   headingLevel?: HeadingRank;
-  icon: React.ReactNode;
+  icon: ReactNode;
   experiences: Experience[];
   editParam?: string;
   isExperienceOpen: (id: string) => boolean;
@@ -64,6 +64,7 @@ const ExperienceByType = ({
               experience={experience}
               headingLevel={headingLevel}
               editParam={editParam}
+              showEdit={false}
             />
           ))}
         </div>

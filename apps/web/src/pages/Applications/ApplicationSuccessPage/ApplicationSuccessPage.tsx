@@ -1,8 +1,7 @@
-import React from "react";
 import { useIntl } from "react-intl";
 
 import { Alert, Link } from "@gc-digital-talent/ui";
-import { useLocale } from "@gc-digital-talent/i18n";
+import { getLocale } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -42,7 +41,7 @@ export const getPageInfo: GetPageNavInfo = ({ application, paths, intl }) => {
 
 const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
-  const { locale } = useLocale();
+  const locale = getLocale(intl);
   const paths = useRoutes();
   const { currentStepOrdinal, isIAP } = useApplicationContext();
   const pageInfo = getPageInfo({
@@ -111,7 +110,7 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
         )}
         <li data-h2-margin-bottom="base(x.25)">
           <Link
-            href={paths.myProfile()}
+            href={paths.profile()}
             data-h2-display="base(inline-block)"
             data-h2-text-align="base(left)"
             data-h2-vertical-align="base(top)"
@@ -192,8 +191,8 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
   );
 };
 
-const ApplicationSuccessPage = () => (
+export const Component = () => (
   <ApplicationApi PageComponent={ApplicationSuccess} />
 );
 
-export default ApplicationSuccessPage;
+Component.displayName = "ApplicationSuccessPage";

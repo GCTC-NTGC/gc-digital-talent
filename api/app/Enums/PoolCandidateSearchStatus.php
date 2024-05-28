@@ -9,4 +9,5 @@ enum PoolCandidateSearchStatus
     case WAITING;
     case DONE;
     case DONE_NO_CANDIDATES;
+    case NOT_COMPLIANT;
 }

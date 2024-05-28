@@ -3,14 +3,13 @@
  */
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
-import React from "react";
 import { Provider as GraphqlProvider } from "urql";
 import { fromValue } from "wonka";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { Pool, PoolStatus, PublishingGroup } from "@gc-digital-talent/graphql";
 
-import { BrowsePools } from "./BrowsePoolsPage";
+import BrowsePools from "./BrowsePoolsPage";
 
 const publishedItJobsPool: Pool = {
   id: "publishedItJobsPool",

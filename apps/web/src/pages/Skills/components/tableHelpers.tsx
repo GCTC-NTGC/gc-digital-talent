@@ -1,4 +1,3 @@
-import React from "react";
 import { IntlShape } from "react-intl";
 
 import {
@@ -8,7 +7,7 @@ import {
   getLocalizedArray,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Chip, Chips } from "@gc-digital-talent/ui";
+import { Spoiler } from "@gc-digital-talent/ui";
 import {
   Maybe,
   Skill,
@@ -33,12 +32,10 @@ export function skillFamiliesCell(
     ?.filter(notEmpty)
     .sort()
     .map((family) => (
-      <Chip color="primary" key={family?.key}>
-        {getLocalizedName(family.name, intl)}
-      </Chip>
+      <li key={family?.key}>{getLocalizedName(family.name, intl)}</li>
     ));
 
-  return families ? <Chips>{families}</Chips> : null;
+  return families ? <ul>{families}</ul> : null;
 }
 
 export function familiesAccessor(skill: Skill, intl: IntlShape) {
@@ -51,4 +48,27 @@ export function familiesAccessor(skill: Skill, intl: IntlShape) {
 
 export function keywordsAccessor(skill: Skill, intl: IntlShape) {
   return getLocalizedArray(skill.keywords as LocalizedArray, intl);
+}
+
+export function descriptionCell(
+  intl: IntlShape,
+  name: string,
+  description?: Maybe<string>,
+) {
+  return description ? (
+    <Spoiler
+      text={description}
+      linkSuffix={intl.formatMessage(
+        {
+          defaultMessage: "description for {name}",
+          id: "aq2pSe",
+          description:
+            "Link text suffix to read more of the description for a skill",
+        },
+        {
+          name,
+        },
+      )}
+    />
+  ) : null;
 }

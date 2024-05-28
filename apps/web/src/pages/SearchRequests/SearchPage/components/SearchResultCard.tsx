@@ -1,16 +1,17 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
+import { ReactNode, Fragment } from "react";
 
 import { Button, Link, Separator } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Pool } from "@gc-digital-talent/graphql";
+import { Pool, PoolSkillType } from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
+import { filterPoolSkillsByType } from "~/utils/skillUtils";
 
-const testId = (text: React.ReactNode) => (
+const testId = (text: ReactNode) => (
   <span data-testid="candidateCount">{text}</span>
 );
 
@@ -27,6 +28,10 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
   const departments = pool?.team?.departments
     ?.filter(notEmpty)
     .map((department) => getLocalizedName(department.name, intl));
+  const essentialSkills = filterPoolSkillsByType(
+    pool.poolSkills,
+    PoolSkillType.Essential,
+  );
 
   return (
     <article
@@ -112,14 +117,14 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
         data-h2-gap="base(0, x.5)"
         data-h2-font-size="base(caption)"
       >
-        {pool?.essentialSkills && pool?.essentialSkills.length > 0
-          ? pool.essentialSkills.map((skill, index) => (
-              <React.Fragment key={skill.id}>
+        {essentialSkills.length > 0
+          ? essentialSkills.map((skill, index) => (
+              <Fragment key={skill.id}>
                 {index !== 0 && <span aria-hidden>&bull;</span>}
                 <span key={skill.id} data-h2-color="base(black.light)">
                   {getLocalizedName(skill?.name, intl)}
                 </span>
-              </React.Fragment>
+              </Fragment>
             ))
           : null}
       </p>

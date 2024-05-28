@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Facades\Notify;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Team;
@@ -45,7 +46,7 @@ class PoolCandidatePolicyTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
+        Notify::spy(); // don't send any notifications
         $this->seed(RolePermissionSeeder::class);
 
         $this->guestUser = User::factory()

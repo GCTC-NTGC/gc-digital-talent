@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
@@ -41,7 +41,7 @@ export const UpdateSearchRequestForm = ({
   handleUpdateSearchRequest,
 }: UpdateSearchRequestFormProps) => {
   const intl = useIntl();
-  const [isSaving, setIsSaving] = React.useState<boolean>(false);
+  const [isSaving, setIsSaving] = useState<boolean>(false);
   const paths = useRoutes();
   const methods = useForm<FormValues>({
     defaultValues: initialSearchRequest,
@@ -168,7 +168,6 @@ export const UpdateSearchRequestForm = ({
             />
             <div data-h2-text-align="base(right)">
               <Submit
-                color="primary"
                 disabled={isSaving}
                 isSubmitting={isSaving}
                 text={intl.formatMessage({
@@ -228,7 +227,6 @@ export const UpdateSearchRequestForm = ({
                 data-h2-padding-top="base(x.5)"
               >
                 <Submit
-                  color="primary"
                   disabled={isSaving}
                   isSubmitting={isSaving}
                   text={intl.formatMessage({
@@ -250,7 +248,7 @@ export const UpdateSearchRequestForm = ({
         </FormProvider>
       </div>
       <div>
-        <Link href={navigateTo} mode="inline" color="secondary">
+        <Link href={navigateTo} mode="inline" color="warning">
           {intl.formatMessage({
             defaultMessage: "Back to requests",
             id: "O8nHiQ",

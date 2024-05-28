@@ -1,12 +1,10 @@
-import React from "react";
 import { useIntl } from "react-intl";
 
 import {
   commonMessages,
   getLanguageRequirement,
-  getLocalizedName,
   getSecurityClearance,
-  useLocale,
+  getLocale,
 } from "@gc-digital-talent/i18n";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
@@ -16,22 +14,11 @@ import { DisplayProps } from "../../types";
 
 const Display = ({ pool, subtitle }: DisplayProps) => {
   const intl = useIntl();
-  const { locale } = useLocale();
+  const locale = getLocale(intl);
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   const { language, securityClearance, location, isRemote } = pool;
 
   const hasLocation = !!(isRemote || (location && location[locale]));
-  let locationRequirement: string | boolean = false;
-  if (isRemote || location) {
-    locationRequirement = isRemote
-      ? intl.formatMessage({
-          defaultMessage: "Remote, hybrid or on-site",
-          id: "swESO/",
-          description:
-            "Location requirement when a pool advertisement is remote",
-        })
-      : getLocalizedName(location, intl);
-  }
 
   return (
     <>
@@ -39,7 +26,15 @@ const Display = ({ pool, subtitle }: DisplayProps) => {
       <div
         data-h2-display="base(grid)"
         data-h2-gap="base(x1)"
-        data-h2-grid-template-columns="p-tablet(repeat(2, 1fr)) l-tablet(repeat(3, 1fr))"
+        {...(location && location[locale]
+          ? {
+              "data-h2-grid-template-columns":
+                "p-tablet(repeat(2, 1fr)) l-tablet(repeat(4, 1fr))",
+            }
+          : {
+              "data-h2-grid-template-columns":
+                "p-tablet(repeat(2, 1fr)) l-tablet(repeat(3, 1fr))",
+            })}
       >
         <ToggleForm.FieldDisplay
           hasError={!language}
@@ -57,12 +52,34 @@ const Display = ({ pool, subtitle }: DisplayProps) => {
             ? intl.formatMessage(getSecurityClearance(securityClearance))
             : notProvided}
         </ToggleForm.FieldDisplay>
-        <ToggleForm.FieldDisplay
-          hasError={!hasLocation}
-          label={intl.formatMessage(processMessages.location)}
-        >
-          {locationRequirement || notProvided}
-        </ToggleForm.FieldDisplay>
+        {isRemote ? (
+          <ToggleForm.FieldDisplay
+            hasError={!hasLocation}
+            label={intl.formatMessage(processMessages.location)}
+          >
+            {intl.formatMessage({
+              defaultMessage: "Remote, hybrid or on-site",
+              id: "swESO/",
+              description:
+                "Location requirement when a pool advertisement is remote",
+            }) || notProvided}
+          </ToggleForm.FieldDisplay>
+        ) : (
+          <>
+            <ToggleForm.FieldDisplay
+              hasError={!hasLocation}
+              label={intl.formatMessage(processMessages.locationEn)}
+            >
+              {location?.en || notProvided}
+            </ToggleForm.FieldDisplay>
+            <ToggleForm.FieldDisplay
+              hasError={!hasLocation}
+              label={intl.formatMessage(processMessages.locationFr)}
+            >
+              {location?.fr || notProvided}
+            </ToggleForm.FieldDisplay>
+          </>
+        )}
       </div>
     </>
   );

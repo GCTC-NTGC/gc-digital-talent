@@ -1,4 +1,4 @@
-import React from "react";
+import { Fragment } from "react";
 import { useIntl } from "react-intl";
 import { useLocation, Outlet, ScrollRestoration } from "react-router-dom";
 import { ApplicationInsights } from "@microsoft/applicationinsights-web";
@@ -7,8 +7,8 @@ import { AnimatePresence } from "framer-motion";
 import {
   NestedLanguageProvider,
   Messages,
-  useLocale,
   commonMessages,
+  getLocale,
 } from "@gc-digital-talent/i18n";
 import { getRuntimeVariable } from "@gc-digital-talent/env";
 import { useAuthentication, useAuthorization } from "@gc-digital-talent/auth";
@@ -25,6 +25,8 @@ import * as micMessages from "~/lang/micCompiled.json";
 
 import SkipLink from "./SkipLink";
 import SitewideBanner from "./SitewideBanner";
+
+export { ErrorBoundary } from "./ErrorBoundary/ErrorBoundary";
 
 const messages: Map<string, Messages> = new Map([
   ["crg", crgMessages],
@@ -49,8 +51,9 @@ const IAPSeo = () => {
   );
 };
 
-const Layout = () => {
-  const { locale } = useLocale();
+export const Component = () => {
+  const intl = useIntl();
+  const locale = getLocale(intl);
   const location = useLocation();
   const { userAuthInfo } = useAuthorization();
   const { loggedIn } = useAuthentication();
@@ -73,7 +76,7 @@ const Layout = () => {
   return (
     <NestedLanguageProvider messages={messages}>
       <AnimatePresence>
-        <React.Fragment key={location.pathname}>
+        <Fragment key={location.pathname}>
           <Favicon locale={locale} project="iap" />
           <IAPSeo />
           <SkipLink />
@@ -96,10 +99,10 @@ const Layout = () => {
             </div>
           </div>
           <ScrollRestoration />
-        </React.Fragment>
+        </Fragment>
       </AnimatePresence>
     </NestedLanguageProvider>
   );
 };
 
-export default Layout;
+Component.displayName = "IAPLayout";

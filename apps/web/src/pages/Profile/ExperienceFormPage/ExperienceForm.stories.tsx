@@ -1,4 +1,3 @@
-import React from "react";
 import type { Meta, StoryFn } from "@storybook/react";
 
 import { getStaticSkills } from "@gc-digital-talent/fake-data";
@@ -16,7 +15,6 @@ const skillFragments = skillData.map((skill) =>
 
 export default {
   component: ExperienceForm,
-  title: "Forms/Experience Form",
   args: {
     experienceType: "award",
     skillsQuery: skillFragments,

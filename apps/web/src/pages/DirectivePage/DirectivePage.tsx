@@ -1,16 +1,16 @@
-import React from "react";
 import { defineMessage, useIntl } from "react-intl";
 import MapIcon from "@heroicons/react/24/outline/MapIcon";
 import ChartPieIcon from "@heroicons/react/24/outline/ChartPieIcon";
 import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 import MagnifyingGlassCircleIcon from "@heroicons/react/24/outline/MagnifyingGlassCircleIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
+import { ReactNode } from "react";
 
 import { Heading, Link, Accordion, CardFlat } from "@gc-digital-talent/ui";
 import {
   Locales,
   navigationMessages,
-  useLocale,
+  getLocale,
 } from "@gc-digital-talent/i18n";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 
@@ -29,7 +29,7 @@ import contractingFr from "~/assets/documents/Questionnaire_d'octroi_de_contrats
 import getFormLinks from "./utils";
 import Resources from "./Resources";
 
-const policyLink = (locale: Locales, chunks: React.ReactNode) => (
+const policyLink = (locale: Locales, chunks: ReactNode) => (
   <Link
     newTab
     external
@@ -43,7 +43,7 @@ const policyLink = (locale: Locales, chunks: React.ReactNode) => (
   </Link>
 );
 
-const contactLink = (chunks: React.ReactNode) => (
+const contactLink = (chunks: ReactNode) => (
   <Link external href="mailto:GCTalentGC@tbs-sct.gc.ca">
     {chunks}
   </Link>
@@ -55,9 +55,9 @@ export const pageTitle = defineMessage({
   description: "Title for the digital talent directive page",
 });
 
-const DirectivePage = () => {
+export const Component = () => {
   const intl = useIntl();
-  const { locale } = useLocale();
+  const locale = getLocale(intl);
   const paths = useRoutes();
   const { directiveForms: directiveFormsFlag } = useFeatureFlags();
 
@@ -203,8 +203,7 @@ const DirectivePage = () => {
                   "First paragraph describing the directive on digital talent",
               },
               {
-                policyLink: (chunks: React.ReactNode) =>
-                  policyLink(locale, chunks),
+                policyLink: (chunks: ReactNode) => policyLink(locale, chunks),
               },
             )}
           </p>
@@ -478,4 +477,6 @@ const DirectivePage = () => {
   );
 };
 
-export default DirectivePage;
+Component.displayName = "DirectivePage";
+
+export default Component;

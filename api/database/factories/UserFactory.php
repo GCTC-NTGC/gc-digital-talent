@@ -61,6 +61,10 @@ class UserFactory extends Factory
             $examLevels = true;
         }
 
+        $availableNotificationFamilies = array_filter(array_column(NotificationFamily::cases(), 'name'), function ($family) {
+            return $family !== NotificationFamily::SYSTEM_MESSAGE->name;
+        });
+
         return [
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
@@ -119,38 +123,55 @@ class UserFactory extends Factory
             'accepted_operational_requirements' => $this->faker->optional->randomElements(array_column(OperationalRequirement::cases(), 'name'), 2),
             'gov_employee_type' => $isGovEmployee ? $this->faker->randomElement(GovEmployeeType::cases())->name : null,
             'citizenship' => $this->faker->randomElement(CitizenshipStatus::cases())->name,
-            'armed_forces_status' => $this->faker->randomElement(ArmedForcesStatus::cases())->name,
+            'armed_forces_status' => $this->faker->boolean() ?
+                ArmedForcesStatus::NON_CAF->name
+                : $this->faker->randomElement(ArmedForcesStatus::cases())->name,
             'has_priority_entitlement' => $hasPriorityEntitlement,
             'priority_number' => $hasPriorityEntitlement ? $this->faker->word() : null,
             'indigenous_declaration_signature' => $isDeclared ? $this->faker->firstName() : null,
             'indigenous_communities' => $isDeclared ? [$this->faker->randomElement(IndigenousCommunity::cases())->name] : [],
-            'ignored_email_notifications' => $this->faker->optional->randomElements(array_column(NotificationFamily::cases(), 'name'), null),
-            'ignored_in_app_notifications' => $this->faker->optional->randomElements(array_column(NotificationFamily::cases(), 'name'), null),
+            'enabled_email_notifications' => $this->faker->optional->randomElements($availableNotificationFamilies, null),
+            'enabled_in_app_notifications' => $this->faker->optional->randomElements($availableNotificationFamilies, null),
         ];
     }
 
-    public function withSkillsAndExperiences($count = 10)
+    private function createExperienceAndSyncSkills($user, $skills)
     {
         $experienceFactories = [
-            AwardExperience::factory(),
-            CommunityExperience::factory(),
-            EducationExperience::factory(),
-            PersonalExperience::factory(),
-            WorkExperience::factory(),
+            AwardExperience::factory(['user_id' => $user->id]),
+            CommunityExperience::factory(['user_id' => $user->id]),
+            EducationExperience::factory(['user_id' => $user->id]),
+            PersonalExperience::factory(['user_id' => $user->id]),
+            WorkExperience::factory(['user_id' => $user->id]),
         ];
+
+        $experience = $this->faker->randomElement($experienceFactories)->create();
+        $skillsForExperience = $this->faker->randomElements($skills, $this->faker->numberBetween(1, $skills->count()));
+        $syncDataExperience = array_map(function ($skill) {
+            return ['id' => $skill->id, 'details' => $this->faker->text()];
+        }, $skillsForExperience);
+
+        $experience->syncSkills($syncDataExperience);
+    }
+
+    public function withSkillsAndExperiences($count = 10, $skills = [])
+    {
+        if (empty($skills)) {
+            $allSkills = Skill::select('id')->inRandomOrder()->take($count)->get();
+        } else {
+            $allSkills = $skills;
+        }
         $allSkills = Skill::select('id')->inRandomOrder()->take($count)->get();
 
-        return $this->afterCreating(function (User $user) use ($count, $experienceFactories, $allSkills) {
+        return $this->afterCreating(function (User $user) use ($count, $allSkills) {
             $skillSequence = $allSkills->shuffle()->map(fn ($skill) => ['skill_id' => $skill['id']])->toArray();
 
             $userSkills = UserSkill::factory($count)->for($user)
                 ->sequence(...$skillSequence)
                 ->create();
             $skills = $userSkills->map(fn ($us) => $us->skill);
-            $experienceFactory = $this->faker->randomElement($experienceFactories);
-            $experienceFactory->count($count)->for($user)->afterCreating(function ($experience) use ($skills) {
-                $experience->skills()->sync($this->faker->randomElements($skills, $this->faker->numberBetween(1, $skills->count())));
-            });
+
+            $this->createExperienceAndSyncSkills($user, $skills);
         });
     }
 

@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
@@ -11,6 +10,9 @@ import {
   LocalizedString,
   Pool,
   UpdatePoolInput,
+  graphql,
+  FragmentType,
+  getFragment,
 } from "@gc-digital-talent/graphql";
 
 import {
@@ -19,11 +21,27 @@ import {
 } from "~/validators/process/keyTasks";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
+import useUserCanEditPool from "~/hooks/useCanUserEditPool";
 
 import { useEditPoolContext } from "../EditPoolContext";
-import { SectionProps } from "../../types";
+import { PublishedEditableSectionProps, SectionProps } from "../../types";
 import Display from "./Display";
 import ActionWrapper from "../ActionWrapper";
+import UpdatePublishedProcessDialog, {
+  type FormValues as UpdateFormValues,
+} from "../UpdatePublishedProcessDialog/UpdatePublishedProcessDialog";
+
+const EditPoolKeyTasks_Fragment = graphql(/* GraphQL */ `
+  fragment EditPoolKeyTasks on Pool {
+    ...UpdatePublishedProcessDialog
+    id
+    status
+    keyTasks {
+      en
+      fr
+    }
+  }
+`);
 
 type FormValues = {
   YourWorkEn?: LocalizedString["en"];
@@ -32,19 +50,26 @@ type FormValues = {
 
 export type WorkTasksSubmitData = Pick<UpdatePoolInput, "keyTasks">;
 
-type WorkTasksSectionProps = SectionProps<WorkTasksSubmitData>;
+type WorkTasksSectionProps = SectionProps<
+  WorkTasksSubmitData,
+  FragmentType<typeof EditPoolKeyTasks_Fragment>
+> &
+  PublishedEditableSectionProps;
 
 const TEXT_AREA_MAX_WORDS_EN = 400;
 const TEXT_AREA_MAX_WORDS_FR = TEXT_AREA_MAX_WORDS_EN + 100;
 
 const WorkTasksSection = ({
-  pool,
+  poolQuery,
   sectionMetadata,
   onSave,
-}: WorkTasksSectionProps): JSX.Element => {
+  onUpdatePublished,
+}: WorkTasksSectionProps) => {
   const intl = useIntl();
+  const pool = getFragment(EditPoolKeyTasks_Fragment, poolQuery);
   const isNull = hasAllEmptyFields(pool);
   const emptyRequired = hasEmptyRequiredFields(pool);
+  const canEdit = useUserCanEditPool(pool.status);
   const { isSubmitting } = useEditPoolContext();
   const { isEditing, setIsEditing, icon } = useToggleSectionInfo({
     isNull,
@@ -60,7 +85,14 @@ const WorkTasksSection = ({
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(pool),
   });
-  const { handleSubmit } = methods;
+  const { handleSubmit, watch } = methods;
+  const values = watch();
+
+  const onSuccess = (formValues: FormValues) => {
+    methods.reset(formValues, { keepDirty: true });
+    setIsEditing(false);
+  };
+
   const handleSave = async (formValues: FormValues) => {
     return onSave({
       keyTasks: {
@@ -68,17 +100,19 @@ const WorkTasksSection = ({
         fr: formValues.YourWorkFr,
       },
     })
-      .then(() => {
-        methods.reset(formValues, {
-          keepDirty: false,
-        });
-        setIsEditing(false);
-      })
+      .then(() => onSuccess(formValues))
       .catch(() => methods.reset(formValues));
   };
 
-  // disabled unless status is draft
-  const formDisabled = pool.status !== PoolStatus.Draft;
+  const handleUpdatePublished = async (formValues: UpdateFormValues) => {
+    await onUpdatePublished({
+      ...formValues,
+      keyTasks: {
+        en: values.YourWorkEn,
+        fr: values.YourWorkFr,
+      },
+    }).then(() => onSuccess({ ...values }));
+  };
 
   const subtitle = intl.formatMessage({
     defaultMessage:
@@ -101,7 +135,7 @@ const WorkTasksSection = ({
         size="h4"
         toggle={
           <ToggleForm.LabelledTrigger
-            disabled={formDisabled}
+            disabled={!canEdit}
             sectionTitle={sectionMetadata.title}
           />
         }
@@ -132,8 +166,8 @@ const WorkTasksSection = ({
                       "Label for the English - Your Work textarea in the edit pool page.",
                   })}
                   name="YourWorkEn"
-                  {...(!formDisabled && { wordLimit: TEXT_AREA_MAX_WORDS_EN })}
-                  readOnly={formDisabled}
+                  wordLimit={TEXT_AREA_MAX_WORDS_EN}
+                  readOnly={!canEdit}
                 />
                 <RichTextInput
                   id="YourWorkFr"
@@ -144,13 +178,13 @@ const WorkTasksSection = ({
                       "Label for the French - Your Work textarea in the edit pool page.",
                   })}
                   name="YourWorkFr"
-                  {...(!formDisabled && { wordLimit: TEXT_AREA_MAX_WORDS_FR })}
-                  readOnly={formDisabled}
+                  wordLimit={TEXT_AREA_MAX_WORDS_FR}
+                  readOnly={!canEdit}
                 />
               </div>
 
               <ActionWrapper>
-                {!formDisabled && (
+                {canEdit && pool.status === PoolStatus.Draft && (
                   <Submit
                     text={intl.formatMessage(formMessages.saveChanges)}
                     aria-label={intl.formatMessage({
@@ -162,6 +196,12 @@ const WorkTasksSection = ({
                     color="secondary"
                     mode="solid"
                     isSubmitting={isSubmitting}
+                  />
+                )}
+                {canEdit && pool.status === PoolStatus.Published && (
+                  <UpdatePublishedProcessDialog
+                    poolQuery={pool}
+                    onUpdatePublished={handleUpdatePublished}
                   />
                 )}
                 <ToggleSection.Close>

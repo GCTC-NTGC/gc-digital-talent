@@ -1,9 +1,9 @@
-import React from "react";
 import CpuChipIcon from "@heroicons/react/24/outline/CpuChipIcon";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
+import { Fragment, ReactNode, useEffect, useState } from "react";
 
 import {
   Accordion,
@@ -23,25 +23,27 @@ import {
   Pool,
   getFragment,
   FragmentType,
+  PoolSkillType,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
 
 import messages from "../../messages";
+import { filterPoolSkillsByType } from "../../../../../utils/skillUtils";
 
 // the shape of the data model to populate this component
 interface StreamViewModel {
   key: PoolStream;
-  title: React.ReactNode;
-  label: React.ReactNode;
-  summary: React.ReactNode;
+  title: ReactNode;
+  label: ReactNode;
+  summary: ReactNode;
   classifications: {
     key: string;
-    title: React.ReactNode;
-    description: React.ReactNode;
+    title: ReactNode;
+    description: ReactNode;
     pool: Pool | undefined;
-    applyMessage: React.ReactNode;
+    applyMessage: ReactNode;
   }[];
 }
 
@@ -80,11 +82,14 @@ const streamIsRecommended = (
   stream: StreamViewModel,
   userSkillIds: Skill["id"][],
 ): boolean =>
-  stream.classifications.some((classification) =>
-    classification.pool?.essentialSkills?.every((skill) =>
-      userSkillIds.includes(skill.id),
-    ),
-  );
+  stream.classifications.some((classification) => {
+    const essentialSkills = filterPoolSkillsByType(
+      classification.pool?.poolSkills,
+      PoolSkillType.Essential,
+    );
+
+    return essentialSkills.every((skill) => userSkillIds.includes(skill.id));
+  });
 
 const OngoingRecruitmentSection_QueryFragment = graphql(/* GraphQL */ `
   fragment OngoingRecruitmentSection on Query {
@@ -115,7 +120,7 @@ const OngoingRecruitmentSection = ({
   /**
    * Scroll to this section if there is a hash and ID that matches
    */
-  React.useEffect(() => {
+  useEffect(() => {
     if (hash) {
       const target = document.getElementById(hash.substring(1));
       if (target) {
@@ -129,7 +134,7 @@ const OngoingRecruitmentSection = ({
   }, [hash]);
 
   // is either a PoolStream or has a value of "ALL" which is the default and matches with no filtering
-  const [quickFilterStream, setQuickFilterStream] = React.useState<
+  const [quickFilterStream, setQuickFilterStream] = useState<
     PoolStream | "ALL"
   >("ALL");
 
@@ -144,7 +149,7 @@ const OngoingRecruitmentSection = ({
     .map(getId);
   const mySkillIds = uniqueItems(mySkillIdsWithDuplicates ?? []);
 
-  const abbreviation = (text: React.ReactNode) => wrapAbbr(text, intl);
+  const abbreviation = (text: ReactNode) => wrapAbbr(text, intl);
 
   // this great big object is all the data to populate the accordions
   const streams: StreamViewModel[] = [
@@ -1052,7 +1057,7 @@ const OngoingRecruitmentSection = ({
           <DropdownMenu.Content data-h2-padding="base(0)">
             <div data-h2-padding="base(x.5, x1, x.5, x.5)">
               <DropdownMenu.RadioGroup value={quickFilterStream}>
-                <React.Fragment key="ALL">
+                <Fragment key="ALL">
                   <DropdownMenu.RadioItem
                     value="ALL"
                     onSelect={() => {
@@ -1070,9 +1075,9 @@ const OngoingRecruitmentSection = ({
                       })}
                     </span>
                   </DropdownMenu.RadioItem>
-                </React.Fragment>
+                </Fragment>
                 {options.map((option, index) => (
-                  <React.Fragment key={option.value}>
+                  <Fragment key={option.value}>
                     <DropdownMenu.RadioItem
                       value={option.value}
                       onSelect={() => {
@@ -1086,7 +1091,7 @@ const OngoingRecruitmentSection = ({
                     </DropdownMenu.RadioItem>
 
                     {index + 1 < options.length && <DropdownMenu.Separator />}
-                  </React.Fragment>
+                  </Fragment>
                 ))}
               </DropdownMenu.RadioGroup>
             </div>

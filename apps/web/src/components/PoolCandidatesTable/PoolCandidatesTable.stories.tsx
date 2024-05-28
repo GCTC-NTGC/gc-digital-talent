@@ -1,5 +1,4 @@
-import React from "react";
-import { faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker/locale/en";
 import { StoryFn, Meta } from "@storybook/react";
 
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
@@ -34,7 +33,6 @@ const mockPaginatorInfo = {
 };
 
 export default {
-  title: "Tables/Pool Candidates Table",
   component: PoolCandidatesTable,
   parameters: {
     apiResponses: {

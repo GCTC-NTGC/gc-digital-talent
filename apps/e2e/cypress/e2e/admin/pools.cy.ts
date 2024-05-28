@@ -46,7 +46,7 @@ describe("Pools", () => {
   };
 
   beforeEach(() => {
-    cy.intercept("POST", "/graphql", (req) => {
+    cy.intercept("POST", "**/graphql", (req) => {
       aliasQuery(req, "EditPoolPage");
       aliasQuery(req, "CreatePoolPage");
       aliasQuery(req, "ViewPoolPage");
@@ -299,6 +299,15 @@ describe("Pools", () => {
     cy.findAllByRole("link", { name: /test pool en/i })
       .first()
       .click();
+
+    cy.findAllByRole("link", { name: /preview advertisement/i })
+      .first()
+      .invoke("attr", "target", "_self") // https://medium.com/@anshita.bhasin/how-to-handle-opening-of-a-new-tab-in-cypress-f995d7152b80
+      .click();
+
+    cy.findByRole("heading", { name: /employment details/i })
+      .should("exist")
+      .and("be.visible");
   });
 
   /**

@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
 // Note: Disable camelcase since variables are being used by API
-import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { defineMessage, useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
 import { useQuery } from "urql";
+import { ReactNode, useState } from "react";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Input, Submit, TextArea, Select } from "@gc-digital-talent/forms";
@@ -35,7 +35,7 @@ interface SupportFormSuccessProps {
   onFormToggle: (show: boolean) => void;
 }
 
-const anchorTag = (chunks: React.ReactNode) => (
+const anchorTag = (chunks: ReactNode) => (
   // Toast is not within the IntlProvider, can't use Link component.
   // eslint-disable-next-line react/forbid-elements
   <a href={`mailto:${TALENTSEARCH_SUPPORT_EMAIL}`}>{chunks}</a>
@@ -83,7 +83,6 @@ const SupportFormSuccess = ({ onFormToggle }: SupportFormSuccessProps) => {
       </p> */}
       <Button
         color="secondary"
-        mode="solid"
         onClick={() => {
           onFormToggle(true);
         }}
@@ -237,7 +236,7 @@ const SupportForm = ({
               trackUnsaved={false}
             />
             <div data-h2-align-self="base(flex-start)">
-              <Submit color="secondary" />
+              <Submit />
             </div>
           </form>
         </FormProvider>
@@ -326,7 +325,7 @@ const SupportFormApi = () => {
   const [{ data, fetching, error }] = useQuery({
     query: SupportFormUser_Query,
   });
-  const [showSupportForm, setShowSupportForm] = React.useState(true);
+  const [showSupportForm, setShowSupportForm] = useState(true);
 
   return (
     <Pending fetching={fetching} error={error}>

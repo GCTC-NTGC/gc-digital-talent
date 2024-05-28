@@ -1,4 +1,3 @@
-import React from "react";
 import { StoryFn, Meta } from "@storybook/react";
 
 import { fakeDepartments } from "@gc-digital-talent/fake-data";
@@ -16,7 +15,6 @@ const departmentFragments = mockDepartments.map((department) =>
 
 export default {
   component: DepartmentTable,
-  title: "Tables/Department Table",
 } as Meta<typeof DepartmentTable>;
 
 const Template: StoryFn<typeof DepartmentTable> = (args) => {

@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useFormContext, useWatch } from "react-hook-form";
 
@@ -27,7 +27,7 @@ const PersonalFields = ({ labels }: SubExperienceFormProps) => {
   const watchStartDate = useWatch({ name: "startDate" });
   const watchDescription = useWatch({ name: "experienceDescription" });
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (watchDescription !== defaultValues?.experienceDescription) {
       setValue("disclaimer", false);
     }

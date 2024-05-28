@@ -33,6 +33,11 @@ class ClassificationSeeder extends Seeder
             'name' => ['en' => 'Economics and Social Science Services', 'fr' => 'économique et services de sciences sociales'],
         ];
 
+        $exGroup = [
+            'group' => 'EX',
+            'name' => ['en' => 'Executive', 'fr' => 'Cadre'],
+        ];
+
         $classifications = [
             // IT classifications 01-05.
             array_merge(
@@ -236,6 +241,14 @@ class ClassificationSeeder extends Seeder
                     'level' => 8,
                     'min_salary' => 132754,
                     'max_salary' => 151729,
+                ]
+            ),
+            array_merge(
+                $exGroup,
+                [
+                    'level' => 3,
+                    'min_salary' => 169165,
+                    'max_salary' => 198939,
                 ]
             ),
         ];

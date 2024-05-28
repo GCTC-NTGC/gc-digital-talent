@@ -1,5 +1,3 @@
-import React from "react";
-
 import { TreeView } from "@gc-digital-talent/ui";
 import { Experience } from "@gc-digital-talent/graphql";
 
