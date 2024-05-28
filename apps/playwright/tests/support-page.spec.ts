@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { expect, test } from "~/fixtures";
 
 test.describe("Support page", () => {
   test.describe("Support page", () => {
@@ -7,6 +7,14 @@ test.describe("Support page", () => {
       await expect(
         page.getByRole("heading", { name: "Contact and support", level: 1 }),
       ).toBeVisible();
+    });
+    test("has no accessibility violations", async ({
+      appPage,
+      makeAxeBuilder,
+    }) => {
+      await appPage.page.goto("/en/support");
+      const accessibilityScanResults = await makeAxeBuilder().analyze();
+      expect(accessibilityScanResults.violations).toEqual([]);
     });
   });
   test.describe("Support form", () => {
