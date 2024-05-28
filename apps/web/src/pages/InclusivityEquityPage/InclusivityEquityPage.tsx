@@ -186,7 +186,7 @@ export const Component = () => {
                   description: "Paragraph 1, how self-declaration data is used",
                   id: "1evugI",
                 })}
-              </Text>{" "}
+              </Text>
               <Text>
                 {intl.formatMessage({
                   defaultMessage:
@@ -214,7 +214,7 @@ export const Component = () => {
                     description:
                       "List item 2, how self-declaration data is used",
                   })}
-                </li>{" "}
+                </li>
                 <li>
                   {intl.formatMessage({
                     defaultMessage:
