@@ -782,7 +782,7 @@ class PoolTest extends TestCase
             ]);
 
         // Note: Default factory has no pool skills attached to Screening question step
-        $this->actingAs($this->adminUser, 'api')->graphQL(
+        $this->actingAs($this->communityManager, 'api')->graphQL(
             /** @lang GraphQL */
             '
                         mutation PublishPool($id: ID!) {
@@ -803,7 +803,7 @@ class PoolTest extends TestCase
         }
 
         // assert can now publish as all steps have attached skills
-        $this->actingAs($this->adminUser, 'api')->graphQL(
+        $this->actingAs($this->communityManager, 'api')->graphQL(
             /** @lang GraphQL */
             '
                         mutation PublishPool($id: ID!) {

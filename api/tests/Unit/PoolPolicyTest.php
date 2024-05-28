@@ -101,19 +101,19 @@ class PoolPolicyTest extends TestCase
     }
 
     /**
-     * Assert that only platform admins may view any pool
+     * Assert that only platform admins and community managers may view any pool
      *
      * @return void
      */
     public function testViewAny()
     {
         $this->assertTrue($this->adminUser->can('viewAny', Pool::class));
+        $this->assertTrue($this->communityManagerUser->can('viewAny', Pool::class));
 
         $this->assertFalse($this->guestUser->can('viewAny', Pool::class));
         $this->assertFalse($this->applicantUser->can('viewAny', Pool::class));
         $this->assertFalse($this->poolOperatorUser->can('viewAny', Pool::class));
         $this->assertFalse($this->requestResponderUser->can('viewAny', Pool::class));
-        $this->assertFalse($this->communityManagerUser->can('viewAny', Pool::class));
     }
 
     /**
