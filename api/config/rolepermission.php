@@ -388,6 +388,10 @@ return [
             'en' => 'View the assessment of Applications submitted to this Team\'s Pools',
             'fr' => 'Consulter l\'évaluation des candidatures soumises aux bassins de cette équipe.',
         ],
+        'update-any-applicationAssessment' => [
+            'en' => 'Update the assessment of any submitted Application',
+            'fr' => 'Mettre à jour l\'évaluation de n\'importe quelle candidature soumise',
+        ],
         'update-team-applicationAssessment' => [
             'en' => 'Update the assessment of Applications submitted to this Team\'s Pools',
             'fr' => 'Mettre à jour l\'évaluation des candidatures soumises aux bassins de cette équipe.',
