@@ -1,0 +1,32 @@
+services:
+  postgres:
+    image: postgres:12.15
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password1234
+    volumes:
+      - ./infrastructure/db:/docker-entrypoint-initdb.d/
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  api:
+    build:
+      context: ./api
+      dockerfile: dev.Dockerfile
+    volumes:
+      - ./api:/var/www/html
+    ports:
+      - "8001:8000"
+
+  web:
+    build:
+      context: ./apps/web
+      dockerfile: dev.Dockerfile
+    volumes:
+      - ./apps/web:/var/www/html
+    ports:
+      - "8000:8000"
+
+volumes:
+  pgdata:
