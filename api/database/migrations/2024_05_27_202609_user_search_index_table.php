@@ -23,13 +23,12 @@ return new class extends Migration
         DB::statement('CREATE INDEX users_searchable_index ON user_search_indices USING GIN(searchable)');
 
         // copy existing values before dropping column
-        $users = DB::table('users')->select(['id', 'searchable'])->get();
-        foreach ($users as $user) {
-            DB::table('user_search_indices')->insert([
-                'id' => $user->id,
-                'searchable' => $user->searchable,
-            ]);
-        }
+        DB::statement(
+            <<<'SQL'
+                insert into user_search_indices (id, searchable)
+                select id, searchable from users
+                SQL
+        );
 
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('searchable');
@@ -45,12 +44,15 @@ return new class extends Migration
         DB::statement('ALTER TABLE users ADD COLUMN searchable TSVECTOR');
         DB::statement('CREATE INDEX users_searchable_index ON users USING GIN(searchable)');
 
-        $searchIndexes = DB::table('user_search_indices')->select(['id', 'searchable'])->get();
-        foreach ($searchIndexes as $searchIndex) {
-            DB::table('users')->where('id', $searchIndex->id)->update([
-                'searchable' => $searchIndex->searchable,
-            ]);
-        }
+        // copy existing values before dropping table
+        DB::statement(
+            <<<'SQL'
+                UPDATE users AS a
+                SET searchable = b.searchable
+                FROM user_search_indices AS b
+                WHERE a.id = b.id
+                SQL
+        );
 
         Schema::dropIfExists('user_search_indices');
     }
