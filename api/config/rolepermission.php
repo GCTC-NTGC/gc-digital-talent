@@ -74,7 +74,6 @@ return [
         'applicationAssessment' => 'applicationAssessment', // new
         'applicationDecision' => 'applicationDecision', // new
         'applicationPlacement' => 'applicationPlacement', //new
-        'applicationNotes' => 'applicationNotes', // TODO: remove - replaced with applicationAssessment
         'applicationStatus' => 'applicationStatus', // TODO: remove - replaced with applicationAssessment and applicationDecision
         'assessmentResult' => 'assessmentResult', // TODO: remove - replaced with applicationAssessment
         'applicantCount' => 'applicantCount',
@@ -343,24 +342,6 @@ return [
         'suspend-own-submittedApplication' => [
             'en' => 'Suspend or un-suspend Own Submitted Application',
             'fr' => 'Suspendre ou débloquer sa propre candidature présentée',
-        ],
-
-        // TODO: remove applicationNotes permissions
-        'view-team-applicationNotes' => [
-            'en' => 'View the notes of Applications submitted to this Team\'s Pools',
-            'fr' => 'Consulter les notes des candidatures soumises aux bassins de cette équipe.',
-        ],
-        'view-any-applicationNotes' => [
-            'en' => 'View the notes of any submitted Application',
-            'fr' => 'Consulter les notes de n\'importe quel candidature soumise',
-        ],
-        'update-team-applicationNotes' => [
-            'en' => 'Update the notes of Applications submitted to this Team\'s Pools',
-            'fr' => 'Mettre à jour les notes des demandes soumises aux bassins de cette équipe.',
-        ],
-        'update-any-applicationNotes' => [
-            'en' => 'Update the notes of any submitted Applications',
-            'fr' => 'Mettre à jour les notes des demandes soumises aux bassins de cette équipe.',
         ],
 
         // TODO: remove assessmentResult permissions
@@ -896,7 +877,7 @@ return [
             'applicationStatus' => [
                 'team' => ['view', 'update'],
             ],
-            'applicationNotes' => [
+            'applicationAssessment' => [
                 'team' => ['view', 'update'],
             ],
             'teamMembers' => [
@@ -923,7 +904,7 @@ return [
             'applicationStatus' => [
                 'any' => ['view', 'update'],
             ],
-            'applicationNotes' => [
+            'applicationAssessment' => [
                 'any' => ['view', 'update'],
             ],
             'searchRequest' => [

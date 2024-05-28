@@ -199,32 +199,32 @@ class PoolCandidatePolicy
     // bookmarking and notes share permissions
     public function updateBookmark(User $user, PoolCandidate $poolCandidate)
     {
-        if ($user->isAbleTo('update-any-applicationNotes')) {
+        if ($user->isAbleTo('update-any-applicationAssessment')) {
             return true;
         }
         $poolCandidate->loadMissing('pool.team');
 
-        return $user->isAbleTo('update-team-applicationNotes', $poolCandidate->pool->team);
+        return $user->isAbleTo('update-team-applicationAssessment', $poolCandidate->pool->team);
     }
 
     public function viewNotes(User $user, PoolCandidate $poolCandidate)
     {
-        if ($user->isAbleTo('view-any-applicationNotes')) {
+        if ($user->isAbleTo('view-any-applicationAssessment')) {
             return true;
         }
         $poolCandidate->loadMissing('pool.team');
 
-        return $user->isAbleTo('view-team-applicationNotes', $poolCandidate->pool->team);
+        return $user->isAbleTo('view-team-applicationAssessment', $poolCandidate->pool->team);
     }
 
     public function updateNotes(User $user, PoolCandidate $poolCandidate)
     {
-        if ($user->isAbleTo('update-any-applicationNotes')) {
+        if ($user->isAbleTo('update-any-applicationAssessment')) {
             return true;
         }
         $poolCandidate->loadMissing('pool.team');
 
-        return $user->isAbleTo('update-team-applicationNotes', $poolCandidate->pool->team);
+        return $user->isAbleTo('update-team-applicationAssessment', $poolCandidate->pool->team);
     }
 
     /**
