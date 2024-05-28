@@ -41,7 +41,7 @@ test.describe("Pool candidates", () => {
   test.beforeAll(async ({ adminPage, browser }) => {
     const poolPage = new PoolPage(adminPage.page);
     const skills = await getSkills();
-    const technicalSKill = skills.find(
+    const technicalSkill = skills.find(
       (skill) => skill.category === SkillCategory.Technical,
     );
     const createdUser = await adminPage.createUser({
@@ -66,8 +66,8 @@ test.describe("Pool candidates", () => {
             skills: {
               sync: [
                 {
-                  details: `Test Skill ${technicalSKill.name.en}`,
-                  id: technicalSKill.id,
+                  details: `Test Skill ${technicalSkill.name.en}`,
+                  id: technicalSkill.id,
                 },
               ],
             },
@@ -105,7 +105,7 @@ test.describe("Pool candidates", () => {
       publishingGroup: PublishingGroup.ItJobs,
       opportunityLength: PoolOpportunityLength.Various,
     });
-    await poolPage.createPoolSkill(createdPool.id, technicalSKill.id, {
+    await poolPage.createPoolSkill(createdPool.id, technicalSkill.id, {
       type: PoolSkillType.Essential,
       requiredLevel: SkillLevel.Beginner,
     });
