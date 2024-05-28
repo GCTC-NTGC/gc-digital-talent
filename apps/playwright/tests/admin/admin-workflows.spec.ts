@@ -40,9 +40,7 @@ test.describe("Admin workflows", () => {
     ).toBeVisible();
   });
 
-  test("Search for user and edit phone number", async ({
-    appPage,
-  }) => {
+  test("Search for user and edit phone number", async ({ appPage }) => {
     await loginBySub(appPage.page, "admin@test.com");
     await goToUsersPage(appPage);
     await searchForUser(appPage, "Applicant");
