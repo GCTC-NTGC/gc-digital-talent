@@ -63,8 +63,7 @@ class Experience extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class)
-            ->select(User::getSelectableColumns());
+        return $this->belongsTo(User::class);
     }
 
     public function userSkills(): BelongsToMany
