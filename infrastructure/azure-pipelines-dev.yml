@@ -100,6 +100,9 @@ stages:
           - script: pnpm install --no-frozen-lockfile
             displayName: "Install Node.js dependencies"
 
+          - script: pnpm run build
+            displayName: "Build dependencies"
+
           - script: npx playwright install
             displayName: "Install Playwright browsers"
 
