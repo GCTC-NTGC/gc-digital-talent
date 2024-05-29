@@ -61,3 +61,15 @@ export const REVERT_DECISION_STATUSES = [
   PoolCandidateStatus.QualifiedAvailable,
   PoolCandidateStatus.Expired,
 ];
+
+/** Applicant facing */
+export const INACTIVE_STATUSES = [
+  PoolCandidateStatus.QualifiedUnavailable,
+  PoolCandidateStatus.QualifiedWithdrew,
+];
+
+export const SCREENED_OUT_STATUSES = [
+  PoolCandidateStatus.ScreenedOutNotInterested,
+  PoolCandidateStatus.ScreenedOutNotResponsive,
+  PoolCandidateStatus.Removed,
+];
