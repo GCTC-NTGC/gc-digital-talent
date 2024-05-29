@@ -1,3 +1,5 @@
+# docker-compose -f docker-compose.dev.yml up --detach --build
+
 services:
   postgres:
     image: postgres:12.15
@@ -21,12 +23,16 @@ services:
 
   web:
     build:
-      context: ./apps/web
-      dockerfile: dev.Dockerfile
+      context: ./
+      dockerfile: apps/web/dev.Dockerfile
     volumes:
-      - ./apps/web:/var/www/html
+      - ./:/var/www/html
+      - nodemodules:/var/www/html/node_modules
     ports:
       - "8000:8000"
+    environment:
+      - PNPM_HOME=/tmp/pnpm
 
 volumes:
   pgdata:
+  nodemodules:
