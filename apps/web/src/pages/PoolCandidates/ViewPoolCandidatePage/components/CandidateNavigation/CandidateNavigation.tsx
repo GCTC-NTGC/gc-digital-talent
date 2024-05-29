@@ -64,6 +64,7 @@ const CandidateNavigation = ({
           icon={ArrowLeftCircleIcon}
           aria-label={intl.formatMessage(messages.previousCandidate)}
           {...commonLinkProps}
+          data-h2-display="base(flex)"
         />
       )}
       <div data-h2-text-align="base(center)" data-h2-grid-column="base(2)">
@@ -87,6 +88,7 @@ const CandidateNavigation = ({
           icon={ArrowRightCircleIcon}
           aria-label={intl.formatMessage(messages.nextCandidate)}
           {...commonLinkProps}
+          data-h2-display="base(flex)"
         />
       )}
     </div>
