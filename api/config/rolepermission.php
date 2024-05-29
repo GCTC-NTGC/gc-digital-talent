@@ -57,7 +57,7 @@ return [
     'resources' => [
         'classification' => 'classification',
         'department' => 'department',
-        'genericJobTitle' => 'genericJobTitle', // TODO: remove?
+        'genericJobTitle' => 'genericJobTitle',
         'skill' => 'skill',
         'skillFamily' => 'skillFamily',
         'user' => 'user',
@@ -71,28 +71,28 @@ return [
         'application' => 'application',
         'draftApplication' => 'draftApplication',
         'submittedApplication' => 'submittedApplication',
-        'applicationAssessment' => 'applicationAssessment', // new
-        'applicationDecision' => 'applicationDecision', // new
-        'applicationPlacement' => 'applicationPlacement', //new
-        'applicationStatus' => 'applicationStatus', // TODO: remove - to be replaced by applicationAssessment and applicationDecision. update-status can be removed in Community cleanup. view-status may need to wait for larger status migration.
+        'applicationAssessment' => 'applicationAssessment',
+        'applicationDecision' => 'applicationDecision',
+        'applicationPlacement' => 'applicationPlacement',
+        'applicationStatus' => 'applicationStatus', // TODO: remove - to be replaced by applicationAssessment and applicationDecision, but can't be fully removed until after #8671.
         'applicantCount' => 'applicantCount',
         'searchRequest' => 'searchRequest',
         'role' => 'role',
         'announcement' => 'announcement',
         'community' => 'community',
-        'poolTeamMembers' => 'poolTeamMembers',  // new
-        'communityTeamMembers' => 'communityTeamMembers', //new
+        'poolTeamMembers' => 'poolTeamMembers',
+        'communityTeamMembers' => 'communityTeamMembers',
 
-        // All new
         'platformAdminMembership' => 'platformAdminMembership',
         'communityAdminMembership' => 'communityAdminMembership',
         'communityRecruiterMembership' => 'communityRecruiterMembership',
         'processOperatorMembership' => 'processOperatorMembership',
 
-        'teamMembers' => 'teamMembers', // TODO: remove - replaced by more specific poolTeamMembers and communityTeamMebers
-        'team' => 'team', // TODO: remove when Teams are removed
+        'teamMembers' => 'teamMembers', // TODO: remove - replaced by more specific poolTeamMembers and communityTeamMembers during #10368 (Post-communities cleanup)
+        'team' => 'team', // TODO: remove when Teams are removed during #10368 (Post-communities cleanup)
+        'teamRole' => 'teamRole', // TODO: remove - replaced by specific membership resources. Remove during #10368 (Post-communities cleanup)
+
         'directiveForm' => 'directiveForm',
-        'teamRole' => 'teamRole', // TODO: remove - replaced by specific membership resources
     ],
 
     /*
@@ -301,7 +301,7 @@ return [
             'fr' => 'Modifier le plan d\'évaluation (étapes de l\'évaluation) pour les pools gérés par votre équipe uniquement.',
         ],
 
-        'create-any-application' => [ // TODO: remove
+        'create-any-application' => [
             'en' => 'Add any user to any Pool, skipping the draft and submission process',
             'fr' => 'Ajoutez n\'importe quel utilisateur à n\'importe quel pool, en sautant le processus de rédaction et de soumission.',
         ],
@@ -342,7 +342,6 @@ return [
             'fr' => 'Suspendre ou débloquer sa propre candidature présentée',
         ],
 
-        // TODO: remove applicationStatus permissions
         'view-own-applicationStatus' => [
             'en' => 'View the status of my own Applications',
             'fr' => 'Consulter le statut de mes propres candidatures',
@@ -396,6 +395,10 @@ return [
             'en' => 'Update the decision of Applications submitted to this Team\'s Pools',
             'fr' => 'Mettre à jour la décision des candidatures soumises aux bassins de cette équipe.',
         ],
+        'update-any-applicationDecision' => [
+            'en' => 'Update the decision of any submitted Application',
+            'fr' => 'Mettre à jour la décision de n\'importe quelle candidature soumise',
+        ],
         'view-any-applicationPlacement' => [
             'en' => 'View the placement of any submitted Application',
             'fr' => 'Consulter le placement de n\'importe quelle candidature soumise',
@@ -412,7 +415,10 @@ return [
             'en' => 'Update the placement of Applications submitted to this Team\'s Pools',
             'fr' => 'Mettre à jour le placement des candidatures soumises aux bassins de cette équipe.',
         ],
-
+        'update-any-applicationPlacement' => [
+            'en' => 'Update the placement of any submitted Application',
+            'fr' => 'Mettre à jour le placement de n\'importe quelle candidature soumise',
+        ],
         'view-any-applicantCount' => [
             'en' => 'View the count result of any filter-Applicant query',
             'fr' => 'Visualiser le résultat du comptage de n\'importe quelle requête filtre-demandeur',
@@ -447,7 +453,6 @@ return [
             'fr' => 'Supprimer n\'import quelle demande de recherche',
         ],
 
-        // TODO: remove team permissions
         'view-any-team' => [
             'en' => 'View Any Team',
             'fr' => 'Visionner toute équipe',
@@ -481,7 +486,6 @@ return [
             'en' => 'View Any Role',
             'fr' => 'Visionner tout rôle',
         ],
-        // TODO: remove role permissions other than view-any-role
         'assign-any-role' => [
             'en' => 'Assign any Role to any User',
             'fr' => 'Attribuer n\'importe quel rôle à n\'importe quel utilisateur',
@@ -647,7 +651,7 @@ return [
             'is_team_based' => false,
         ],
 
-        // TODO: remove in communities cleanup
+        // TODO: remove during #10368 (Post-communities cleanup)
         'pool_operator' => [
             'display_name' => [
                 'en' => 'Pool Operator',
@@ -660,7 +664,7 @@ return [
             'is_team_based' => true,
         ],
 
-        // TODO: remove in communities cleanup
+        // TODO: remove during #10368 (Post-communities cleanup)
         'request_responder' => [
             'display_name' => [
                 'en' => 'Request Responder',
@@ -673,7 +677,7 @@ return [
             'is_team_based' => false,
         ],
 
-        // TODO: remove in communities cleanup
+        // TODO: remove during #10368 (Post-communities cleanup)
         'community_manager' => [
             'display_name' => [
                 'en' => 'Community Manager',
@@ -823,7 +827,7 @@ return [
             'searchRequest' => [
                 'any' => ['create'],
             ],
-            'team' => [ // TODO: remove
+            'team' => [
                 'any' => ['view'],
             ],
             'announcement' => [
@@ -841,7 +845,7 @@ return [
             'submittedApplication' => [
                 'own' => ['archive', 'suspend'],
             ],
-            'applicationStatus' => [ // TODO: remove applicationStatus permissions
+            'applicationStatus' => [
                 'own' => ['view'],
             ],
             'applicationDecision' => [
@@ -1091,7 +1095,7 @@ return [
                 'any' => ['create', 'view', 'update', 'delete'],
             ],
             'user' => [
-                'any' => ['create', 'view', 'update', 'delete'], // TODO: remove update and create
+                'any' => ['create', 'view', 'update', 'delete'], // TODO: remove update and create during #10368 (Post-communities cleanup)
             ],
             'userSub' => [
                 'any' => ['update'],
@@ -1106,13 +1110,13 @@ return [
                 'any' => ['view'],
             ],
             'publishedPool' => [
-                'any' => ['update'], // TODO: remove update any pool permission
+                'any' => ['update'], // TODO: remove update any pool permission during #10368 (Post-communities cleanup)
             ],
             'assessmentPlan' => [
                 'any' => ['view'],
             ],
             'application' => [
-                'any' => ['create'], // TODO: remove create any application permission
+                'any' => ['create'], // TODO: remove create any application permission during #10368 (Post-communities cleanup)
             ],
             'submittedApplication' => [
                 'any' => ['view'],
@@ -1132,14 +1136,14 @@ return [
             'searchRequest' => [
                 'any' => ['view'],
             ],
-            'teamMembers' => [ // TODO: remove teamMembers permissions
+            'teamMembers' => [
                 'any' => ['view'],
             ],
-            'team' => [ // TODO: remove team permissions
+            'team' => [
                 'any' => ['view', 'create', 'update', 'delete'],
             ],
             'role' => [
-                'any' => ['view', 'assign'], // TODO: remove assign role permissions
+                'any' => ['view', 'assign'],
             ],
             'directiveForm' => [
                 'any' => ['create', 'view', 'update', 'delete'],
