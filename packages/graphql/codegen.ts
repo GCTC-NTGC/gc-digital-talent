@@ -3,10 +3,10 @@ import { CodegenConfig } from "@graphql-codegen/cli";
 const config: CodegenConfig = {
   schema: "../../api/storage/app/lighthouse-schema.graphql",
   documents: [
-    "../**/*.tsx",
-    "../../apps/**/src/**/*.tsx",
-    "../../apps/**/src/**/*.ts",
-    "../../apps/**/cypress/**/*.ts",
+    "../auth/src/**/*.tsx",
+    "../../apps/web/src/**/*.tsx",
+    "../../apps/web/src/**/*.ts",
+    "../../apps/e2e/cypress/**/*.ts",
   ],
   ignoreNoDocuments: true,
   generates: {
@@ -27,7 +27,6 @@ const config: CodegenConfig = {
       },
     },
   },
-  hooks: { afterAllFileWrite: ["prettier --write"] },
 };
 
 export default config;
