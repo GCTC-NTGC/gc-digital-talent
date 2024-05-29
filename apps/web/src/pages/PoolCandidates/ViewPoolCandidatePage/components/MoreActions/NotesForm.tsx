@@ -56,7 +56,7 @@ const Display = ({ notes }: { notes?: Maybe<string> }) => {
         <div
           data-h2-margin-top="base(x.5)"
           data-h2-max-height="base(10rem)"
-          data-h2-overflow-y="base(scroll)"
+          data-h2-overflow-y="base(auto)"
         >
           {notes || intl.formatMessage(commonMessages.notProvided)}
         </div>
