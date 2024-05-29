@@ -2,10 +2,7 @@
 
 namespace App\Notifications;
 
-use App\Facades\Notify;
-use Error;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Log;
+use App\Jobs\GcNotifyApiRequest;
 
 class GcNotifyEmailChannel
 {
@@ -16,18 +13,6 @@ class GcNotifyEmailChannel
     {
         $message = $notification->toGcNotifyEmail($notifiable);
 
-        $response = Notify::sendEmail(
-            $message->emailAddress,
-            $message->templateId,
-            $message->messageVariables
-        );
-
-        if (! is_null($response) && ! $response->successful()) {
-            $firstApiErrorMessage = Arr::get($response->json(), 'errors.0.message');
-            $errorMessage = 'Notification failed to send on GcNotifyEmailChannel. '.$firstApiErrorMessage.' ';
-            Log::error($errorMessage);
-            Log::debug($response->body());
-            throw new Error($errorMessage);
-        }
+        GcNotifyApiRequest::dispatch($message);
     }
 }
