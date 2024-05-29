@@ -10,7 +10,7 @@ const UPDATE_MUTATION = "UpdatePool";
 test.describe.configure({ mode: "serial" });
 test.describe("Process actions", () => {
   const uniqueTestId = Date.now().valueOf();
-  const POOL_TITLE = `Test pool ${uniqueTestId}`;
+  const PROCESS_TITLE = `Test process ${uniqueTestId}`;
 
   test("Should create a new pool", async ({ adminPage }) => {
     await adminPage.page.goto("/en/admin/pools");
@@ -52,11 +52,11 @@ test.describe("Process actions", () => {
 
     await adminPage.page
       .getByRole("textbox", { name: /job title \(en\)/i })
-      .fill(`${POOL_TITLE} (EN)`);
+      .fill(`${PROCESS_TITLE} (EN)`);
 
     await adminPage.page
       .getByRole("textbox", { name: /job title \(fr\)/i })
-      .fill(`${POOL_TITLE} (FR)`);
+      .fill(`${PROCESS_TITLE} (FR)`);
 
     await adminPage.page
       .getByRole("combobox", { name: /length of opportunity/i })
@@ -171,7 +171,7 @@ test.describe("Process actions", () => {
     await adminPage.waitForGraphqlResponse("PoolTable");
 
     await adminPage.page
-      .getByRole("link", { name: new RegExp(POOL_TITLE, "i") })
+      .getByRole("link", { name: new RegExp(PROCESS_TITLE, "i") })
       .click();
 
     await adminPage.page
@@ -219,7 +219,7 @@ test.describe("Process actions", () => {
 
     // Preview advertisement
     await adminPage.page
-      .getByRole("link", { name: new RegExp(POOL_TITLE, "i") })
+      .getByRole("link", { name: new RegExp(PROCESS_TITLE, "i") })
       .click();
 
     const newTabPromise = adminPage.page.waitForEvent("popup");
@@ -245,7 +245,7 @@ test.describe("Process actions", () => {
     await adminPage.waitForGraphqlResponse("PoolTable");
 
     await adminPage.page
-      .getByRole("link", { name: new RegExp(POOL_TITLE, "i") })
+      .getByRole("link", { name: new RegExp(PROCESS_TITLE, "i") })
       .click();
     await adminPage.waitForGraphqlResponse("ViewPoolPage");
 
