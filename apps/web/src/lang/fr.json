@@ -240,7 +240,7 @@
     "description": "Title for the 'planning and reporting' IT work stream"
   },
   "/SLyVF": {
-    "defaultMessage": "Les analystes (<abbreviation>TI-02</abbreviation>) fournissent des services techniques, des conseils, des analyses et de la recherche dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les analystes de la <abbreviation>TI</abbreviation> se retrouvent dans tous les volets de travail.",
+    "defaultMessage": "Les analystes (<abbreviation>IT-02</abbreviation>) fournissent des services techniques, des conseils, des analyses et de la recherche dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les analystes de la <abbreviation>TI</abbreviation> se retrouvent dans tous les volets de travail.",
     "description": "blurb describing IT-02"
   },
   "/Sobod": {
@@ -784,7 +784,7 @@
     "description": "Subtitle for the assessment plan builder"
   },
   "2aBKgf": {
-    "defaultMessage": "Il y a deux types d'employés du <abbreviation>TI-04</abbreviation> : ceux qui suivent un cheminement en gestion et les contributeurs individuels.",
+    "defaultMessage": "Il y a deux types d'employés du <abbreviation>IT-04</abbreviation> : ceux qui suivent un cheminement en gestion et les contributeurs individuels.",
     "description": "IT-04 description precursor"
   },
   "2aE/gp": {
@@ -1183,6 +1183,10 @@
     "defaultMessage": "Pour toute question ou préoccupation concernant le questionnaire, veuillez contacter <link>Talents numériques du GC</link> pour obtenir de plus amples renseignements.",
     "description": "Paragraph four of the _instructions_ section of the _digital services contracting questionnaire_"
   },
+  "4lRUZt": {
+    "defaultMessage": "Vous êtes sur le point de modifier l’information publiée dans l’annonce suivante",
+    "description": "Warning message when attempting to update a published process advertisement"
+  },
   "4liNMy": {
     "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expériences à votre parcours professionnel.",
     "description": "Null state message for experiences section of the application review page."
@@ -1362,10 +1366,6 @@
   "5dhDA+": {
     "defaultMessage": "Rappelez-vous que, {skillName} est défini comme",
     "description": "Lead-in text to a skill description"
-  },
-  "5j409K": {
-    "defaultMessage": "Notes et commentaires",
-    "description": "Title for view notes dialog on view pool candidate page"
   },
   "5jFkhf": {
     "defaultMessage": "Erreur : Échec de la création de la classification",
@@ -1708,11 +1708,11 @@
     "description": "Success message after submission for the application review page."
   },
   "7wcfnG": {
-    "defaultMessage": "Il y a deux types d'employés du <abbreviation>TI-03</abbreviation> : ceux qui suivent un cheminement en gestion et les contributeurs individuels.",
+    "defaultMessage": "Il y a deux types d'employés du <abbreviation>IT-03</abbreviation> : ceux qui suivent un cheminement en gestion et les contributeurs individuels.",
     "description": "IT-03 description precursor"
   },
   "7xDPj5": {
-    "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers techniques en <abbreviation>TI</abbreviation> (<abbreviation>TI-03</abbreviation>) fournissent des conseils techniques spécialisés, des recommandations et du soutien sur les solutions et les services dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les conseillers techniques en <abbreviation>TI</abbreviation> se trouvent dans tous les volets de travail.",
+    "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers techniques en <abbreviation>TI</abbreviation> (<abbreviation>IT-03</abbreviation>) fournissent des conseils techniques spécialisés, des recommandations et du soutien sur les solutions et les services dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les conseillers techniques en <abbreviation>TI</abbreviation> se trouvent dans tous les volets de travail.",
     "description": "IT-03 advisor description"
   },
   "80DOGy": {
@@ -2103,10 +2103,6 @@
     "defaultMessage": "Demande de renseignements",
     "description": "Heading for the request information section of the single search request view."
   },
-  "AGRCgy": {
-    "defaultMessage": "Annuler la décision finale",
-    "description": "Button label for revert final decision on view pool candidate page"
-  },
   "AJs1VQ": {
     "defaultMessage": "Question (FR)",
     "description": "Label for an French general question"
@@ -2194,10 +2190,6 @@
   "AinG8I": {
     "defaultMessage": "Sélectionnez « oui » si l’un des éléments ci-dessus s’applique.",
     "description": "Label for _is technological change_ field in the _digital services contracting questionnaire_"
-  },
-  "Aixzmb": {
-    "defaultMessage": "Supprimer le candidat",
-    "description": "Button label for remove candidate on view pool candidate page"
   },
   "AlRcyu": {
     "defaultMessage": "Gestion de portefeuilles de projets de la <abbreviation>TI</abbreviation>",
@@ -2495,6 +2487,10 @@
     "defaultMessage": "Cacher les exemples de « contrats de services numériques » où cette exigence s’applique",
     "description": "Button text to hide a specific qualified recruitment cards's skill assessments"
   },
+  "CTl5IT": {
+    "defaultMessage": "Modifier notes",
+    "description": "Button text to start editing pool candidate notes"
+  },
   "CU5XqI": {
     "defaultMessage": "Formulaire d’auto-déclaration des peuples autochtones",
     "description": "Page title for the self-declaration page"
@@ -2630,10 +2626,6 @@
   "DG4c6M": {
     "defaultMessage": "{status}<hidden> changer le statut pour {poolName}</hidden>",
     "description": "Button to change a users status in a pool - located in the table on view-user page"
-  },
-  "DHQasU": {
-    "defaultMessage": "Voir les notes",
-    "description": "Button label for view notes on view pool candidate page"
   },
   "DHfumB": {
     "defaultMessage": "Employé du gouvernement",
@@ -3051,6 +3043,10 @@
     "defaultMessage": "Option d’exigence sélectionnée :",
     "description": "Header for selected requirement option in education requirement screening decision dialog."
   },
+  "FSBogI": {
+    "defaultMessage": "Vous avez postulé à {poolName} sur Talents numériques du GC. L’état d’avancement de votre demande a été modifié. Pour voir son nouvel état, veuillez consulter votre profil.",
+    "description": "Message for application status changed notification"
+  },
   "FSlrKF": {
     "defaultMessage": "Erreur : Impossible de mettre à jour le statut du candidat du bassin",
     "description": "Message displayed when an error occurs while an admin updates a pool candidate"
@@ -3336,7 +3332,7 @@
     "description": "Label for _solicitation procedure_ fieldset in the _digital services contracting questionnaire_"
   },
   "GtZyhK": {
-    "defaultMessage": "Technicien (<abbreviation>TI-01</abbreviation>)",
+    "defaultMessage": "Technicien (<abbreviation>IT-01</abbreviation>)",
     "description": "Title for the 'IT-01 Technician' classification"
   },
   "GtrrJ3": {
@@ -3464,7 +3460,7 @@
     "description": "Context for _work requirement description_ textbox in the _digital services contracting questionnaire_"
   },
   "I/fGUN": {
-    "defaultMessage": "Analyste (<abbreviation>TI-02</abbreviation>)",
+    "defaultMessage": "Analyste (<abbreviation>IT-02</abbreviation>)",
     "description": "Title for the 'IT-02 Analyst' classification"
   },
   "I2CtZJ": {
@@ -3534,10 +3530,6 @@
   "ISSs88": {
     "defaultMessage": "Supprimer le signet de {candidateName} du haut de la colonne.",
     "description": "Un-bookmark button label for applicant assessment tracking."
-  },
-  "ISuyAo": {
-    "defaultMessage": "Avertissement!",
-    "description": "Title for a warning message"
   },
   "IT6Djp": {
     "defaultMessage": "Les conditions d’emploi sélectionnées seront comparées à celles choisies par les candidats dans leur demande.",
@@ -4000,7 +3992,7 @@
     "description": "Essential criteria heading"
   },
   "KpNUo0": {
-    "defaultMessage": "Gestionnaires et conseillers principaux (<abbreviation>TI-04</abbreviation>)",
+    "defaultMessage": "Gestionnaires et conseillers principaux (<abbreviation>IT-04</abbreviation>)",
     "description": "Title for the 'IT-04 Manager' classification"
   },
   "KqAp09": {
@@ -4094,6 +4086,10 @@
   "LGSw+f": {
     "defaultMessage": "Tous les apprentis seront appuyés par des pairs et des mentors soigneusement sélectionnés. Les apprentis seront également invités à se joindre à un Réseau d’apprentissage pour les Autochtones, où ils auront des occasions de communiquer avec d’autres employés autochtones du gouvernement du Canada et avec d’autres apprentis autochtones qui participent à ce programme.",
     "description": "Learn more dialog question two paragraph two"
+  },
+  "LHv3/N": {
+    "defaultMessage": "Vous avez postulé à {poolName} sur Talents numériques du GC. L’état d’avancement de votre demande a été modifié. Pour voir son nouvel état, veuillez consulter votre profil.",
+    "description": "Label for the application deadline approaching notification"
   },
   "LIhwJ+": {
     "defaultMessage": "Menu du compte",
@@ -4456,7 +4452,7 @@
     "description": "Title displayed on the User table Candidate Name column."
   },
   "NeR+6V": {
-    "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux en <abbreviation>TI</abbreviation> (<abbreviation>TI-04</abbreviation>) fournissent des conseils techniques et une orientation stratégique d'experts dans leur domaine d'expertise en matière de fourniture de solutions et de services à des clients internes ou externes et à des intervenants.",
+    "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers principaux en <abbreviation>TI</abbreviation> (<abbreviation>IT-04</abbreviation>) fournissent des conseils techniques et une orientation stratégique d'experts dans leur domaine d'expertise en matière de fourniture de solutions et de services à des clients internes ou externes et à des intervenants.",
     "description": "IT-04 senior advisor description precursor to work stream list"
   },
   "NeY5Ac": {
@@ -4482,6 +4478,10 @@
   "NlYIHM": {
     "defaultMessage": "Ajoutez, modifiez, et gérez les compétences de votre profil.",
     "description": "Page description for the skill library page"
+  },
+  "Nm+j2a": {
+    "defaultMessage": "Un nouveau poste y est maintenant affiché! À vous de juger s’il vous convient et de présenter votre candidature.",
+    "description": "Label for the new job posted notification"
   },
   "NuT+Rx": {
     "defaultMessage": "Procéder à la mise à jour du sujet",
@@ -4622,6 +4622,10 @@
   "Ok+Ojl": {
     "defaultMessage": "{skill} est défini comme :",
     "description": "Heading for a specific skills definition"
+  },
+  "OlSnME": {
+    "defaultMessage": "Un nouveau poste y est maintenant affiché! À vous de juger s’il vous convient et de présenter votre candidature.",
+    "description": "Message for new job posted notification"
   },
   "OlZeZO": {
     "defaultMessage": "Sélectionnez une catégorie",
@@ -5187,10 +5191,6 @@
     "defaultMessage": "Ce programme élimine l’un des principaux obstacles à l’emploi en valorisant le potentiel d’une personne plutôt que son niveau de scolarité. Ce faisant, cette initiative contribue à combler les écarts en matière d’éducation, d’emploi et d’économie auxquelles sont confrontées les personnes autochtones du Canada.",
     "description": "Paragraph 3 of the 'About the program' section"
   },
-  "Rm4SuQ": {
-    "defaultMessage": "Sélectionnez un bassin",
-    "description": "Placeholder displayed on the pool field of the add user to pool dialog."
-  },
   "RmcS7J": {
     "defaultMessage": "Les comptes de médias sociaux ne sont pas des sites Web du gouvernement du Canada : ils constituent seulement un moyen de manifester la présence du gouvernement du Canada sur les plateformes des tiers fournisseurs de services.",
     "description": "Paragraph for comments and interaction section"
@@ -5236,7 +5236,7 @@
     "description": "introduction to the skill summary section in the assessment plan builder"
   },
   "S02Y/P": {
-    "defaultMessage": "Chefs d’équipe et conseillers techniques (<abbreviation>TI-03</abbreviation>)",
+    "defaultMessage": "Chefs d’équipe et conseillers techniques (<abbreviation>IT-03</abbreviation>)",
     "description": "Title for the 'IT-03 Advisor' classification"
   },
   "S2if5C": {
@@ -5346,6 +5346,10 @@
   "SgkkWp": {
     "defaultMessage": "Remplir et soumettre ce questionnaire au moment où un contrat de services numériques est soumis aux autorités ministérielles chargées de l’approvisionnement aux fins de traitement.",
     "description": "Paragraph one of the _instructions_ section of the _digital services contracting questionnaire_"
+  },
+  "SjISKL": {
+    "defaultMessage": "Indiquez la raison du changement.",
+    "description": "Help text for justifying updating published pool"
   },
   "SkV4+/": {
     "defaultMessage": "Numéro de suivi",
@@ -6162,6 +6166,10 @@
     "defaultMessage": "Un homme autochtone travaille à un ordinateur.",
     "description": "Indigenous Apprenticeship man on computer image text alternative"
   },
+  "XGztC+": {
+    "defaultMessage": "Raison du changement",
+    "description": "Heading for form to justify updating a published process"
+  },
   "XJ/xK1": {
     "defaultMessage": "Consultez notre base de données pour trouver des talents entièrement qualifiés, prêts à être embauchés sans autre processus concurrentiel. Travaillez avec notre équipe pour mettre la dernière main à vos documents de ressources humaines afin que vous puissiez faire une offre et mettre les talents en place rapidement et facilement.",
     "description": "Description for the digital government talent search"
@@ -6419,7 +6427,7 @@
     "description": "Message displayed to user after experience fails to be deleted."
   },
   "YVuyjO": {
-    "defaultMessage": "<strong>Cheminement en gestion</strong> : les gestionnaires de la <abbreviation>TI</abbreviation> (<abbreviation>TI-04</abbreviation>) sont responsables de la gestion du développement et de la prestation des services et des activités de <abbreviation>TI</abbreviation> par l'entremise de chefs d'équipe subalternes, de conseillers techniques et d'équipes de projet, pour la prestation des services aux clients et aux intervenants. Les gestionnaires de la <abbreviation>TI</abbreviation> se trouvent dans tous les volets de travail.",
+    "defaultMessage": "<strong>Cheminement en gestion</strong> : les gestionnaires de la <abbreviation>TI</abbreviation> (<abbreviation>IT-04</abbreviation>) sont responsables de la gestion du développement et de la prestation des services et des activités de <abbreviation>TI</abbreviation> par l'entremise de chefs d'équipe subalternes, de conseillers techniques et d'équipes de projet, pour la prestation des services aux clients et aux intervenants. Les gestionnaires de la <abbreviation>TI</abbreviation> se trouvent dans tous les volets de travail.",
     "description": "IT-04 manager path description"
   },
   "YW3A7H": {
@@ -6833,6 +6841,10 @@
   "amxWPg": {
     "defaultMessage": "Votre numéro de suivi pour cette demande est : <strong>{requestId}</strong>",
     "description": "Message to the user about the ID of their request for referencing the request"
+  },
+  "aq2pSe": {
+    "defaultMessage": "description pour {name}",
+    "description": "Link text suffix to read more of the description for a skill"
   },
   "aqkSW2": {
     "defaultMessage": "Inscrivez-vous plutôt",
@@ -7457,6 +7469,10 @@
   "e0QYLO": {
     "defaultMessage": "Montrez aux gestionnaires les 10 compétences techniques qui représentent le mieux votre expertise et vos compétences. Vous pouvez modifier cette vitrine à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez à la vitrine qui ne sont pas déjà dans votre bibliothèque seront ajoutées automatiquement.",
     "description": "Page description for the top technical skills page"
+  },
+  "e12pvi": {
+    "defaultMessage": "Profil",
+    "description": "Link label for view profile on view pool candidate page"
   },
   "e1JW62": {
     "defaultMessage": "Les renseignements personnels recueillis par l’entremise de Talents numériques du GC sont utilisés aux fins des activités de dotation, de recrutement et la mobilité interne des talents au sein des institutions fédérales, conformément au <justiceLaws7Link>paragraphe 7(1)</justiceLaws7Link> de la Loi sur la gestion des finances publiques, aux paragraphes <justiceLaws15Link>15(1)</justiceLaws15Link>, <justiceLaws29Link>29</justiceLaws29Link> et <justiceLaws30Link>30 (1), (2), and (3)</justiceLaws30Link> de la Loi sur l’emploi dans la fonction publique et de l’article 5 de la Loi sur l’équité en matière d’emploi.",
@@ -8270,10 +8286,6 @@
     "defaultMessage": "Veuillez envoyer votre curriculum vitae et votre lettre de présentation expliquant votre passion pour la TI et pourquoi vous souhaitez vous joindre au programme, à : <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Un membre de l’équipe communiquera avec vous dans 5 à 10 jours ouvrables.",
     "description": "First paragraph for apply now dialog"
   },
-  "i4171w": {
-    "defaultMessage": "Ajouter d’autres commentaires concernant cette demande. Ils ne seront visibles qu’aux gestionnaires responsables de ce processus.",
-    "description": "Subtitle for view notes dialog on view pool candidate page"
-  },
   "i4CKlO": {
     "defaultMessage": "Vous avez réussi! En signant votre nom ci-dessous, vous confirmez que :",
     "description": "Confirmation message before signature form on sign and submit page."
@@ -8467,7 +8479,7 @@
     "description": "Heading for total matching candidates across a certain number of pools in results section of search page."
   },
   "j3OROA": {
-    "defaultMessage": "Les techniciens (<abbreviation>TI-01</abbreviation>) fournissent un soutien technique pour l'élaboration, la mise en œuvre, l'intégration et la maintenance de la prestation de services aux clients et aux intervenants",
+    "defaultMessage": "Les techniciens (<abbreviation>IT-01</abbreviation>) fournissent un soutien technique pour l'élaboration, la mise en œuvre, l'intégration et la maintenance de la prestation de services aux clients et aux intervenants",
     "description": "blurb describing IT-01"
   },
   "j3WBqJ": {
@@ -9034,10 +9046,6 @@
     "defaultMessage": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
     "description": "Question displayed when authenticated user lands on /logged-out."
   },
-  "mNYw+h": {
-    "defaultMessage": "Filtrage en cours",
-    "description": "Label for currently screening section on view pool candidate page"
-  },
   "mNfi9b": {
     "defaultMessage": "Sélectionnez le lieu géographique où le travail doit être effectué.",
     "description": "Label for _required work locations_ fieldset in the _digital services contracting questionnaire_"
@@ -9141,10 +9149,6 @@
   "mfBsJY": {
     "defaultMessage": "Que devront faire les apprentis dans le cadre du programme?",
     "description": "Learn more dialog question eight heading"
-  },
-  "mh7ndf": {
-    "defaultMessage": "Voir le profil à jour",
-    "description": "Link label for view profile on view pool candidate page"
   },
   "mhtcMd": {
     "defaultMessage": "La plupart des emplois dans la collectivité numérique n’exigent pas de diplôme. Modifiez cette information seulement si le poste nécessite un diplôme.",
@@ -9907,7 +9911,7 @@
     "description": "Label displayed on the create a skill form description (English) field."
   },
   "rKUVdL": {
-    "defaultMessage": "Veuillez communiquer avec l’équipe <a>{name} </a> par courriel, si vous avez <strong>des questions</strong> ou <strong>si vous avez besoin de mesures d’adaptation </strong> tout au long de ce processus.",
+    "defaultMessage": "Veuillez communiquer avec l’équipe <a>{name}</a> par courriel, si vous avez <strong>des questions</strong> ou <strong>si vous avez besoin de mesures d’adaptation</strong> tout au long de ce processus.",
     "description": "Opening sentence asking if accommodations are needed"
   },
   "rLd5cC": {
@@ -10195,7 +10199,7 @@
     "description": "Label displayed on Personal Experience form for learning description section"
   },
   "t+WUYM": {
-    "defaultMessage": "<strong>Cheminement en gestion</strong> : Chefs d'équipe de la <abbreviation>TI</abbreviation> (<abbreviation>TI-03</abbreviation>) sont chargés de superviser le travail et les équipes de projet pour les services et les opérations de la <abbreviation>TI</abbreviation> dans leur domaine d'expertise afin de soutenir la prestation de services aux clients et aux intervenants. Les chefs d'équipe de la <abbreviation>TI</abbreviation> se trouvent dans tous les volets de travail.",
+    "defaultMessage": "<strong>Cheminement en gestion</strong> : Chefs d'équipe de la <abbreviation>TI</abbreviation> (<abbreviation>IT-03</abbreviation>) sont chargés de superviser le travail et les équipes de projet pour les services et les opérations de la <abbreviation>TI</abbreviation> dans leur domaine d'expertise afin de soutenir la prestation de services aux clients et aux intervenants. Les chefs d'équipe de la <abbreviation>TI</abbreviation> se trouvent dans tous les volets de travail.",
     "description": "IT-03 team lead path description"
   },
   "t28EG0": {
@@ -10865,10 +10869,6 @@
   "xj7X6V": {
     "defaultMessage": "J’ai lu le préambule.",
     "description": "Preamble confirmation statement of the _digital services contracting questionnaire_"
-  },
-  "xjZO11": {
-    "defaultMessage": "Sélectionnez d’autres bassins additionnels",
-    "description": "Placeholder displayed on the additional pools field of the change candidate status dialog."
   },
   "xkJAuq": {
     "defaultMessage": "Ajouter cette compétence",

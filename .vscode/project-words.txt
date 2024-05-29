@@ -72,6 +72,7 @@ Timeframe
 tiptap
 toastify
 tsquery
+tsvector
 Typenames
 Unencrypted
 urql

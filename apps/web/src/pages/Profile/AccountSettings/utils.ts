@@ -10,8 +10,8 @@ const inputNameToFamilyMap: Record<keyof FormValues, NotificationFamily> = {
 
 export const formValuesToData = (values: FormValues) => {
   const data: UpdateNotificationInput = {
-    ignoredEmailNotifications: [],
-    ignoredInAppNotifications: [],
+    enabledEmailNotifications: [],
+    enabledInAppNotifications: [],
   };
 
   const keys = Object.keys(values) as Array<keyof FormValues>;
@@ -19,18 +19,18 @@ export const formValuesToData = (values: FormValues) => {
     const family = inputNameToFamilyMap[key];
     const enabledTypes = values[key];
 
-    // System messages cannot be ignored
+    // System messages cannot be enabled
     if (family && family !== NotificationFamily.SystemMessage) {
-      if (!enabledTypes.includes("email")) {
-        data.ignoredEmailNotifications = [
-          ...data.ignoredEmailNotifications,
+      if (enabledTypes.includes("email")) {
+        data.enabledEmailNotifications = [
+          ...data.enabledEmailNotifications,
           family,
         ];
       }
 
-      if (!enabledTypes.includes("inApp")) {
-        data.ignoredInAppNotifications = [
-          ...data.ignoredInAppNotifications,
+      if (enabledTypes.includes("inApp")) {
+        data.enabledInAppNotifications = [
+          ...data.enabledInAppNotifications,
           family,
         ];
       }
@@ -40,39 +40,39 @@ export const formValuesToData = (values: FormValues) => {
   return data;
 };
 
-type IgnoredNotifications = {
-  ignoredEmailNotifications: NotificationFamily[];
-  ignoredInAppNotifications: NotificationFamily[];
+type EnabledNotifications = {
+  enabledEmailNotifications: NotificationFamily[];
+  enabledInAppNotifications: NotificationFamily[];
 };
 
-const getIgnoredNotificationFamilyValue = (
+const getEnabledNotificationFamilyValue = (
   {
-    ignoredEmailNotifications,
-    ignoredInAppNotifications,
-  }: IgnoredNotifications,
+    enabledEmailNotifications,
+    enabledInAppNotifications,
+  }: EnabledNotifications,
   family: NotificationFamily,
 ): NotificationType[] => {
   let values: NotificationType[] = [];
-  if (!ignoredEmailNotifications.includes(family)) {
+  if (enabledEmailNotifications.includes(family)) {
     values = [...values, "email"];
   }
-  if (!ignoredInAppNotifications.includes(family)) {
+  if (enabledInAppNotifications.includes(family)) {
     values = [...values, "inApp"];
   }
   return values;
 };
 
 export const dataValuesToFormValues = (
-  ignoredNotifications: IgnoredNotifications,
+  enabledNotifications: EnabledNotifications,
 ) => {
   return {
     systemMessages: ["email", "inApp"],
-    applicationUpdates: getIgnoredNotificationFamilyValue(
-      ignoredNotifications,
+    applicationUpdates: getEnabledNotificationFamilyValue(
+      enabledNotifications,
       NotificationFamily.ApplicationUpdate,
     ),
-    jobAlerts: getIgnoredNotificationFamilyValue(
-      ignoredNotifications,
+    jobAlerts: getEnabledNotificationFamilyValue(
+      enabledNotifications,
       NotificationFamily.JobAlert,
     ),
   } satisfies FormValues;

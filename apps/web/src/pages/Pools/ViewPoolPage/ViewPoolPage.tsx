@@ -109,6 +109,8 @@ export const ViewPool = ({
     [ROLE_NAME.CommunityManager, ROLE_NAME.PlatformAdmin],
     roleAssignments,
   );
+  // Same roles can edit submitted advertisements
+  const canEdit = advertisementStatus !== "submitted" || canPublish;
 
   let closingDate = "";
   if (pool.closingDate) {
@@ -198,10 +200,12 @@ export const ViewPool = ({
               )}
             </p>
             <ProcessCard.Footer>
-              {advertisementStatus !== "submitted" && (
+              {canEdit && (
                 <Link
                   mode="inline"
-                  color="secondary"
+                  color={
+                    pool.status === PoolStatus.Published ? "error" : "secondary"
+                  }
                   href={paths.poolUpdate(pool.id)}
                 >
                   {intl.formatMessage({
@@ -215,7 +219,11 @@ export const ViewPool = ({
               <Link
                 mode="inline"
                 color="secondary"
-                href={paths.pool(pool.id)}
+                href={
+                  advertisementStatus === "submitted"
+                    ? paths.pool(pool.id)
+                    : paths.poolPreview(pool.id)
+                }
                 newTab
               >
                 {advertisementStatus === "submitted"

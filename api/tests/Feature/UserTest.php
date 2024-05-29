@@ -7,6 +7,7 @@ use App\Enums\OperationalRequirement;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PositionDuration;
 use App\Enums\WorkRegion;
+use App\Facades\Notify;
 use App\Models\AwardExperience;
 use App\Models\CommunityExperience;
 use App\Models\EducationExperience;
@@ -41,6 +42,7 @@ class UserTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        Notify::spy(); // don't send any notifications
         $this->bootRefreshesSchemaCache();
         // Run necessary seeders
         $this->seed(ClassificationSeeder::class);
@@ -409,9 +411,15 @@ class UserTest extends TestCase
     public function testFilterByCandidateExpiryDate(): void
     {
         // myPool will be people we're querying for and should be returned
-        $myPool = Pool::factory()->create(['name' => 'myPool']);
+        $myPool = Pool::factory()->create(['name' => [
+            'en' => 'myPool',
+            'fr' => 'myPool',
+        ]]);
         // otherPool will be people we're not querying for and should not be returned
-        $otherPool = Pool::factory()->create(['name' => 'otherPool']);
+        $otherPool = Pool::factory()->create(['name' => [
+            'en' => 'otherPool',
+            'fr' => 'otherPool',
+        ]]);
 
         // Create some valid users in myPool, AVAILABLE status to ensure filter by pool only changes off expiry date in this test
         PoolCandidate::factory()->count(4)->create([
@@ -766,7 +774,7 @@ class UserTest extends TestCase
         User::factory()->count(5)->create([
             'accepted_operational_requirements' => null,
         ]);
-        $operationalRequirement1 = OperationalRequirement::OVERTIME_SCHEDULED->name;
+        $operationalRequirement1 = OperationalRequirement::OVERTIME_REGULAR->name;
         $operationalRequirement2 = OperationalRequirement::SHIFT_WORK->name;
         $operationalRequirement3 = OperationalRequirement::ON_CALL->name;
 

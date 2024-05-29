@@ -5,6 +5,7 @@ use App\Enums\AssessmentDecisionLevel;
 use App\Enums\AssessmentResultJustification;
 use App\Enums\AssessmentResultType;
 use App\Enums\PoolSkillType;
+use App\Facades\Notify;
 use App\Models\AssessmentResult;
 use App\Models\AssessmentStep;
 use App\Models\Pool;
@@ -38,6 +39,7 @@ class AssessmentResultTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        Notify::spy(); // don't send any notifications
         $this->seed(RolePermissionSeeder::class);
         $this->bootRefreshesSchemaCache();
         $this->team = Team::factory()->create();
@@ -255,7 +257,7 @@ class AssessmentResultTest extends TestCase
         ]);
 
         // unrelated models
-        $randomPool = Pool::factory()->create();
+        $randomPool = Pool::factory()->withPoolSkills(2, 2)->withQuestions(2, 2)->create();
         $randomAssessmentStep = AssessmentStep::factory()->create([
             'pool_id' => $randomPool->id,
         ]);

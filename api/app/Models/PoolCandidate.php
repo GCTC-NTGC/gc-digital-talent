@@ -47,6 +47,10 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property Illuminate\Support\Carbon $removed_at
  * @property string $removal_reason
  * @property string $removal_reason_other
+ * @property string $veteran_verification
+ * @property Illuminate\Support\Carbon $veteran_verification_expiry
+ * @property string $priority_verification
+ * @property Illuminate\Support\Carbon $priority_verification_expiry
  */
 class PoolCandidate extends Model
 {
@@ -72,6 +76,8 @@ class PoolCandidate extends Model
         'placed_at' => 'datetime',
         'final_decision_at' => 'datetime',
         'removed_at' => 'datetime',
+        'veteran_verification_expiry' => 'date',
+        'priority_verification_expiry' => 'date',
     ];
 
     /**
@@ -91,6 +97,10 @@ class PoolCandidate extends Model
         'pool_candidate_status',
         'submitted_steps',
         'education_requirement_option',
+        'veteran_verification',
+        'veteran_verification_expiry',
+        'priority_verification',
+        'priority_verification_expiry',
     ];
 
     protected $touches = ['user'];
@@ -136,10 +146,7 @@ class PoolCandidate extends Model
 
     public function user(): BelongsTo
     {
-        // avoid selecting searchable column from user table
-        return $this->belongsTo(User::class)
-            ->select(User::getSelectableColumns())
-            ->withTrashed();
+        return $this->belongsTo(User::class)->withTrashed();
     }
 
     public function pool(): BelongsTo
@@ -273,15 +280,7 @@ class PoolCandidate extends Model
         }
 
         $query->whereHas('pool', function ($query) use ($classifications) {
-            $query->whereHas('classification', function ($query) use ($classifications) {
-                $query->where(function ($query) use ($classifications) {
-                    foreach ($classifications as $classification) {
-                        $query->orWhere(function ($query) use ($classification) {
-                            $query->where('group', $classification['group'])->where('level', $classification['level']);
-                        });
-                    }
-                });
-            });
+            Pool::scopeClassifications($query, $classifications);
         });
 
         return $query;

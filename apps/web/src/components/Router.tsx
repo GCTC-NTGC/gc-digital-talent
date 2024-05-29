@@ -572,6 +572,13 @@ const createRoute = (locale: Locales) =>
               ],
             },
             {
+              path: "pools/:poolId/preview",
+              lazy: () =>
+                import(
+                  "../pages/Pools/PoolAdvertisementPage/PoolAdvertisementPage"
+                ),
+            },
+            {
               path: "pool-candidates",
               lazy: () =>
                 import(

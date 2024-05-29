@@ -75,6 +75,16 @@ export const DashboardHeadingUser_Fragment = graphql(/* GraphQL */ `
   fragment DashboardHeadingUser on User {
     id
     firstName
+    lastName
+    email
+    telephone
+    preferredLang
+    preferredLanguageForInterview
+    preferredLanguageForExam
+    currentCity
+    currentProvince
+    citizenship
+    armedForcesStatus
     locationPreferences
     positionDuration
     isGovEmployee

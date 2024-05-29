@@ -6,11 +6,10 @@ import { useMutation } from "urql";
 import { Button, Dialog, Heading } from "@gc-digital-talent/ui";
 import { DateInput, RadioGroup, Submit } from "@gc-digital-talent/forms";
 import {
-  AssessmentResult,
   DisqualificationReason,
-  Maybe,
-  PoolCandidateStatus,
-  Skill,
+  FragmentType,
+  PoolSkillType,
+  getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
@@ -20,10 +19,53 @@ import {
   formMessages,
 } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import FormChangeNotifyWell from "~/components/FormChangeNotifyWell/FormChangeNotifyWell";
+import { groupPoolSkillByType } from "~/utils/skillUtils";
 
 import AssessmentSummary from "./components/AssessmentSummary";
+
+export const FinalDecisionDialog_Fragment = graphql(/* GraphQL */ `
+  fragment FinalDecisionDialog on PoolCandidate {
+    id
+    status
+    expiryDate
+    pool {
+      poolSkills {
+        id
+        type
+        requiredLevel
+        skill {
+          id
+          key
+          category
+          name {
+            en
+            fr
+          }
+        }
+      }
+    }
+    assessmentResults {
+      id
+      assessmentDecision
+      assessmentResultType
+      poolSkill {
+        id
+        skill {
+          id
+          key
+          category
+          name {
+            en
+            fr
+          }
+        }
+      }
+    }
+  }
+`);
 
 const PoolCandidate_QualifyCandidateMutation = graphql(/* GraphQL */ `
   mutation PoolCandidate_QualifyCandidateMutation(
@@ -58,24 +100,19 @@ type FormValues = {
 };
 
 interface FinalDecisionDialogProps {
-  poolCandidateId: string;
-  poolCandidateStatus: Maybe<PoolCandidateStatus> | undefined;
-  expiryDate?: Maybe<string> | undefined;
-  essentialSkills: Skill[];
-  nonessentialSkills: Skill[];
-  assessmentResults: AssessmentResult[];
+  poolCandidate: FragmentType<typeof FinalDecisionDialog_Fragment>;
   defaultOpen?: boolean;
 }
 
 const FinalDecisionDialog = ({
-  poolCandidateId,
-  expiryDate,
-  essentialSkills,
-  nonessentialSkills,
-  assessmentResults,
+  poolCandidate: poolCandidateQuery,
   defaultOpen = false,
 }: FinalDecisionDialogProps) => {
   const intl = useIntl();
+  const poolCandidate = getFragment(
+    FinalDecisionDialog_Fragment,
+    poolCandidateQuery,
+  );
   const todayDate = new Date();
   const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
   const [, executeQualifyMutation] = useMutation(
@@ -87,8 +124,8 @@ const FinalDecisionDialog = ({
 
   const methods = useForm<FormValues>({
     defaultValues: {
-      expiryDate: expiryDate
-        ? new Date(expiryDate).toISOString().split("T")[0]
+      expiryDate: poolCandidate.expiryDate
+        ? new Date(poolCandidate.expiryDate).toISOString().split("T")[0]
         : "",
     },
   });
@@ -111,7 +148,7 @@ const FinalDecisionDialog = ({
   ) => {
     if (values.finalAssessmentDecision === "qualified" && values.expiryDate) {
       await executeQualifyMutation({
-        id: poolCandidateId,
+        id: poolCandidate.id,
         expiryDate: values.expiryDate,
       })
         .then((result) => {
@@ -137,7 +174,7 @@ const FinalDecisionDialog = ({
       values.disqualifiedDecision
     ) {
       await executeDisqualifyMutation({
-        id: poolCandidateId,
+        id: poolCandidate.id,
         reason:
           values.disqualifiedDecision === "application"
             ? DisqualificationReason.ScreenedOutApplication
@@ -166,10 +203,16 @@ const FinalDecisionDialog = ({
     }
   };
 
+  const skills = groupPoolSkillByType(poolCandidate.pool.poolSkills);
+  const essentialSkills = skills.get(PoolSkillType.Essential) ?? [];
+  const nonessentialSkills = skills.get(PoolSkillType.Nonessential) ?? [];
+  const assessmentResults =
+    poolCandidate?.assessmentResults?.filter(notEmpty) ?? [];
+
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
-        <Button type="button" color="primary" mode="solid">
+        <Button type="button" color="secondary" mode="solid">
           {intl.formatMessage({
             defaultMessage: "Record final decision",
             id: "ngHHmI",

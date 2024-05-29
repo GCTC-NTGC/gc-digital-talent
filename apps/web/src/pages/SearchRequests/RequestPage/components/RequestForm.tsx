@@ -40,6 +40,7 @@ import {
   graphql,
   FragmentType,
   getFragment,
+  PoolStream,
 } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
@@ -105,13 +106,40 @@ export const RequestFormDepartment_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+export const RequestFormCommunity_Fragment = graphql(/* GraphQL */ `
+  fragment RequestFormCommunity on Community {
+    id
+    key
+  }
+`);
+
+const PoolsInFilter_Query = graphql(/* GraphQL */ `
+  query PoolsInFilter($includeIds: [UUID!]) {
+    poolsPaginated(includeIds: $includeIds, first: 1000) {
+      data {
+        id
+        name {
+          en
+          fr
+        }
+        classification {
+          id
+          group
+          level
+        }
+        stream
+      }
+    }
+  }
+`);
+
 export interface RequestFormProps {
   departmentsQuery: FragmentType<typeof RequestFormDepartment_Fragment>[];
   skills: Skill[];
   classificationsQuery: FragmentType<
     typeof RequestFormClassification_Fragment
   >[];
-  pools: Pool[];
+  communitiesQuery: FragmentType<typeof RequestFormCommunity_Fragment>[];
   applicantFilter: Maybe<ApplicantFilterInput>;
   candidateCount: Maybe<number>;
   searchFormInitialValues?: SearchFormValues;
@@ -125,7 +153,7 @@ export const RequestForm = ({
   departmentsQuery,
   skills,
   classificationsQuery,
-  pools,
+  communitiesQuery,
   applicantFilter,
   candidateCount,
   selectedClassifications,
@@ -137,6 +165,12 @@ export const RequestForm = ({
   const cacheKey = "ts-createRequest";
   const location = useLocation();
   const state = location.state as BrowserHistoryState;
+  const [{ data: poolsData }] = useQuery({
+    query: PoolsInFilter_Query,
+    variables: {
+      includeIds: unpackMaybes(applicantFilter?.pools).map(({ id }) => id),
+    },
+  });
   const classifications = getFragment(
     RequestFormClassification_Fragment,
     classificationsQuery,
@@ -144,6 +178,10 @@ export const RequestForm = ({
   const departments = getFragment(
     RequestFormDepartment_Fragment,
     departmentsQuery,
+  );
+  const communities = getFragment(
+    RequestFormCommunity_Fragment,
+    communitiesQuery,
   );
 
   const formMethods = useForm<FormValues>({
@@ -161,6 +199,11 @@ export const RequestForm = ({
       values?.positionType === true
         ? PoolCandidateSearchPositionType.TeamLead
         : PoolCandidateSearchPositionType.IndividualContributor;
+    const qualifiedStreams = applicantFilter?.qualifiedStreams;
+    let community = communities.find((c) => c.key === "digital");
+    if (qualifiedStreams?.includes(PoolStream.AccessInformationPrivacy)) {
+      community = communities.find((c) => c.key === "atip");
+    }
 
     return {
       fullName: values.fullName ?? "",
@@ -172,6 +215,9 @@ export const RequestForm = ({
       additionalComments: values.additionalComments,
       hrAdvisorEmail: values.hrAdvisorEmail ?? "",
       wasEmpty: candidateCount === 0 && !state.allPools,
+      community: {
+        connect: community?.id ?? communities[0].id,
+      },
       applicantFilter: {
         create: {
           positionDuration:
@@ -184,7 +230,10 @@ export const RequestForm = ({
           equity: applicantFilter?.equity,
           languageAbility: applicantFilter?.languageAbility,
           operationalRequirements: applicantFilter?.operationalRequirements,
-          qualifiedStreams: applicantFilter?.qualifiedStreams,
+          qualifiedStreams,
+          community: {
+            connect: community?.id ?? communities[0].id,
+          },
           pools: {
             sync: applicantFilter?.pools
               ? applicantFilter?.pools?.filter(notEmpty).map(({ id }) => id)
@@ -279,13 +328,8 @@ export const RequestForm = ({
           });
         })
         .filter(notEmpty) ?? [],
-    pools: applicantFilter?.pools
-      ?.map((poolId) => {
-        return pools.find((pool) => {
-          return pool && poolId && pool.id === poolId.id;
-        });
-      })
-      .filter(notEmpty),
+    pools: unpackMaybes(poolsData?.poolsPaginated.data),
+    community: communities.find((c) => c.id === applicantFilter?.community?.id),
   };
 
   return (
@@ -636,18 +680,8 @@ const RequestForm_SearchRequestDataQuery = graphql(/* GraphQL */ `
     classifications {
       ...RequestFormClassification
     }
-    pools {
-      id
-      name {
-        en
-        fr
-      }
-      classification {
-        id
-        group
-        level
-      }
-      stream
+    communities {
+      ...RequestFormCommunity
     }
   }
 `);
@@ -669,7 +703,6 @@ const RequestFormApi = ({
   });
 
   const skills: Skill[] = lookupData?.skills.filter(notEmpty) ?? [];
-  const pools: Pool[] = lookupData?.pools.filter(notEmpty) ?? [];
 
   const [, executeMutation] = useMutation(RequestForm_CreateRequestMutation);
   const handleCreatePoolCandidateSearchRequest = (
@@ -695,8 +728,8 @@ const RequestFormApi = ({
         <RequestForm
           classificationsQuery={unpackMaybes(lookupData?.classifications)}
           departmentsQuery={unpackMaybes(lookupData?.departments)}
+          communitiesQuery={unpackMaybes(lookupData?.communities)}
           skills={skills}
-          pools={pools}
           applicantFilter={applicantFilter}
           candidateCount={candidateCount}
           searchFormInitialValues={searchFormInitialValues}

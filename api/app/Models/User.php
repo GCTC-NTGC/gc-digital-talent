@@ -78,8 +78,8 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property array $indigenous_communities
  * @property string $preferred_language_for_interview
  * @property string $preferred_language_for_exam
- * @property array $ignored_email_notifications
- * @property array $ignored_in_app_notifications
+ * @property array $enabled_email_notifications
+ * @property array $enabled_in_app_notifications
  */
 class User extends Model implements Authenticatable, HasLocalePreference, LaratrustUser
 {
@@ -94,54 +94,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     use Searchable;
     use SoftDeletes;
 
-    protected static $selectableColumns = [
-        'id',
-        'email',
-        'first_name',
-        'last_name',
-        'telephone',
-        'sub',
-        'preferred_lang',
-        'current_province',
-        'current_city',
-        'looking_for_english',
-        'looking_for_french',
-        'looking_for_bilingual',
-        'first_official_language',
-        'second_language_exam_completed',
-        'second_language_exam_validity',
-        'comprehension_level',
-        'written_level',
-        'verbal_level',
-        'estimated_language_ability',
-        'is_gov_employee',
-        'has_priority_entitlement',
-        'priority_number',
-        'department',
-        'current_classification',
-        'citizenship',
-        'armed_forces_status',
-        'is_woman',
-        'has_disability',
-        'is_visible_minority',
-        'has_diploma',
-        'location_preferences',
-        'location_exemptions',
-        'position_duration',
-        'accepted_operational_requirements',
-        'gov_employee_type',
-        'priority_weight',
-        'indigenous_declaration_signature',
-        'indigenous_communities',
-        'preferred_language_for_interview',
-        'preferred_language_for_exam',
-        'deleted_at',
-        'ignored_email_notifications',
-        'ignored_in_app_notifications',
-        'created_at',
-        'updated_at',
-    ];
-
     protected $keyType = 'string';
 
     protected $casts = [
@@ -149,23 +101,32 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         'accepted_operational_requirements' => 'array',
         'position_duration' => 'array',
         'indigenous_communities' => 'array',
-        'ignored_email_notifications' => 'array',
-        'ignored_in_app_notifications' => 'array',
+        'enabled_email_notifications' => 'array',
+        'enabled_in_app_notifications' => 'array',
     ];
 
     protected $fillable = [
         'email',
         'sub',
-        'searchable',
     ];
 
-    protected $hidden = [
-        'searchable',
-    ];
+    protected $hidden = [];
 
-    public static function getSelectableColumns()
+    public function searchableOptions()
     {
-        return self::$selectableColumns;
+        return [
+            // You may want to store the index outside of the Model table
+            // In that case let the engine know by setting this parameter to true.
+            'external' => true,
+            // If you don't want scout to maintain the index for you
+            // You can turn it off either for a Model or globally
+            'maintain_index' => true,
+        ];
+    }
+
+    public function searchableAs(): string
+    {
+        return 'user_search_indices';
     }
 
     /**
@@ -496,13 +457,10 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             'not_accepted' => [],
         ];
         foreach ($operationalRequirements as $requirement) {
-            // Note: Scheduled overtime is legacy
-            if ($requirement !== OperationalRequirement::OVERTIME_SCHEDULED->name && $requirement !== OperationalRequirement::OVERTIME_SHORT_NOTICE->name) {
-                if (in_array($requirement, $this->accepted_operational_requirements ?? [])) {
-                    $preferences['accepted'][] = $requirement;
-                } else {
-                    $preferences['not_accepted'][] = $requirement;
-                }
+            if (in_array($requirement, $this->accepted_operational_requirements ?? [])) {
+                $preferences['accepted'][] = $requirement;
+            } else {
+                $preferences['not_accepted'][] = $requirement;
             }
         }
 
@@ -954,9 +912,10 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     public static function scopeGeneralSearch(Builder $query, ?string $searchTerm): Builder
     {
         if ($searchTerm) {
-            $combinedSearchTerm = trim($searchTerm);
+            $combinedSearchTerm = trim(preg_replace('/\s{2,}/', ' ', $searchTerm));
 
             $query
+                ->join('user_search_indices', 'users.id', '=', 'user_search_indices.id')
                 // attach the tsquery to every row to use for filtering
                 ->crossJoinSub(function ($query) use ($combinedSearchTerm) {
                     $query->selectRaw(
@@ -965,11 +924,12 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                     );
                 }, 'calculations')
                 // filter rows against the tsquery
-                ->whereColumn('searchable', '@@', 'calculations.tsquery')
+                ->whereColumn('user_search_indices.searchable', '@@', 'calculations.tsquery')
                 // add the calculated rank column to allow for ordering by text search rank
-                ->addSelect(DB::raw('ts_rank(searchable, calculations.tsquery) AS rank'))
+                ->addSelect(DB::raw('ts_rank(user_search_indices.searchable, calculations.tsquery) AS rank'))
                 // Now that we have added a column, query builder no longer will add a * to the select.  Add all possible columns manually.
-                ->addSelect(self::$selectableColumns);
+                ->addSelect(['users.*'])
+                ->from('users');
 
             // negation setup
             preg_match_all('/(^|\s)[-!][^\s]+\b/', $combinedSearchTerm, $negationMatches);

@@ -12,6 +12,7 @@ return [
     */
     'client' => [
         'apiKey' => env('GCNOTIFY_API_KEY'),
+        'max_requests_per_minute' => env('GCNOTIFY_MAX_REQUESTS_PER_MINUTE', 1000),
     ],
 
     /*
@@ -30,6 +31,11 @@ return [
         'test_bulk_sms' => env('GCNOTIFY_TEMPLATE_TEST_BULK_SMS'),
         'application_deadline_approaching_en' => env('GCNOTIFY_TEMPLATE_APPLICATION_DEADLINE_APPROACHING_EN'),
         'application_deadline_approaching_fr' => env('GCNOTIFY_TEMPLATE_APPLICATION_DEADLINE_APPROACHING_FR'),
+        'application_status_changed_en' => env('GCNOTIFY_TEMPLATE_APPLICATION_STATUS_CHANGED_EN'),
+        'application_status_changed_fr' => env('GCNOTIFY_TEMPLATE_APPLICATION_STATUS_CHANGED_FR'),
+        'new_job_posted_en' => env('GCNOTIFY_TEMPLATE_NEW_JOB_POSTED_EN'),
+        'new_job_posted_fr' => env('GCNOTIFY_TEMPLATE_NEW_JOB_POSTED_FR'),
+        'talent_request_submission_confirmation_enfr' => env('GCNOTIFY_TEMPLATE_TALENT_REQUEST_SUBMISSION_CONFIRMATION_ENFR'),
     ],
 
     /*

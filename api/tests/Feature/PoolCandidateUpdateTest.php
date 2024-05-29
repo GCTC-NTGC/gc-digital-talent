@@ -1,10 +1,13 @@
 <?php
 
+use App\Enums\ArmedForcesStatus;
 use App\Enums\CandidateRemovalReason;
+use App\Enums\ClaimVerificationResult;
 use App\Enums\DisqualificationReason;
 use App\Enums\EducationRequirementOption;
 use App\Enums\PlacementType;
 use App\Enums\PoolCandidateStatus;
+use App\Facades\Notify;
 use App\Models\CommunityExperience;
 use App\Models\Department;
 use App\Models\EducationExperience;
@@ -69,7 +72,7 @@ class PoolCandidateUpdateTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
+        Notify::spy(); // don't send any notifications
         $this->seed(RolePermissionSeeder::class);
 
         $baseRoles = ['guest', 'base_user', 'applicant'];
@@ -807,5 +810,163 @@ class PoolCandidateUpdateTest extends TestCase
                 ->graphQL($this->reinstateMutationDocument, ['id' => $candidate->id])
                 ->assertGraphQLErrorMessage('CandidateUnexpectedStatus');
         }
+    }
+
+    public function testUpdatePoolCandidateClaimVerification(): void
+    {
+        $user = User::factory()->create([
+            'armed_forces_status' => ArmedForcesStatus::VETERAN->name,
+            'has_priority_entitlement' => true,
+
+        ]);
+        $candidate = PoolCandidate::factory()->create([
+            'user_id' => $user->id,
+            'pool_id' => $this->teamPool->id,
+            'veteran_verification' => ClaimVerificationResult::UNVERIFIED->name,
+            'veteran_verification_expiry' => null,
+            'priority_verification' => ClaimVerificationResult::UNVERIFIED->name,
+            'priority_verification_expiry' => null,
+        ]);
+
+        $updateClaimVerificationDocument =
+            /** @lang GraphQL */
+            '
+        mutation updatePoolCandidateClaimVerification($id: UUID!, $poolCandidate: UpdatePoolCandidateClaimVerificationInput!) {
+            updatePoolCandidateClaimVerification (id: $id, poolCandidate: $poolCandidate){
+                id
+                veteranVerification
+                veteranVerificationExpiry
+                priorityVerification
+                priorityVerificationExpiry
+            }
+        }
+    ';
+
+        // user can't update own claim
+        $this->actingAs($user, 'api')
+            ->graphQL(
+                $updateClaimVerificationDocument,
+                [
+                    'id' => $candidate->id,
+                    'poolCandidate' => [
+                        'veteranVerification' => ClaimVerificationResult::ACCEPTED->name,
+                        'veteranVerificationExpiry' => '',
+                        'priorityVerification' => ClaimVerificationResult::ACCEPTED->name,
+                        'priorityVerificationExpiry' => '2099-01-01',
+                    ],
+                ]
+            )
+            ->assertGraphQLErrorMessage($this->unauthorizedMessage);
+
+        // operator successfully updates claim verification
+        $this->actingAs($this->poolOperatorUser, 'api')
+            ->graphQL(
+                $updateClaimVerificationDocument,
+                [
+                    'id' => $candidate->id,
+                    'poolCandidate' => [
+                        'veteranVerification' => ClaimVerificationResult::ACCEPTED->name,
+                        'veteranVerificationExpiry' => config('constants.far_future_date'),
+                        'priorityVerification' => ClaimVerificationResult::REJECTED->name,
+                        'priorityVerificationExpiry' => '',
+                    ],
+                ]
+            )
+            ->assertJsonFragment([
+                'id' => $candidate->id,
+                'veteranVerification' => ClaimVerificationResult::ACCEPTED->name,
+                'veteranVerificationExpiry' => config('constants.far_future_date'),
+                'priorityVerification' => ClaimVerificationResult::REJECTED->name,
+                'priorityVerificationExpiry' => null,
+            ]);
+    }
+
+    public function testUpdatePoolCandidateClaimVerificationValidation(): void
+    {
+        $candidate = PoolCandidate::factory()->create([
+            'pool_id' => $this->teamPool->id,
+            'veteran_verification' => ClaimVerificationResult::UNVERIFIED->name,
+            'veteran_verification_expiry' => null,
+            'priority_verification' => ClaimVerificationResult::UNVERIFIED->name,
+            'priority_verification_expiry' => null,
+        ]);
+
+        $updateClaimVerificationDocument =
+            /** @lang GraphQL */
+            '
+        mutation updatePoolCandidateClaimVerification($id: UUID!, $poolCandidate: UpdatePoolCandidateClaimVerificationInput!) {
+            updatePoolCandidateClaimVerification (id: $id, poolCandidate: $poolCandidate){
+                id
+            }
+        }
+    ';
+
+        // veteran expiry not required, priority expiration not required, mutation successful
+        $this->actingAs($this->poolOperatorUser, 'api')
+            ->graphQL(
+                $updateClaimVerificationDocument,
+                [
+                    'id' => $candidate->id,
+                    'poolCandidate' => [
+                        'veteranVerification' => ClaimVerificationResult::ACCEPTED->name,
+                        'veteranVerificationExpiry' => null,
+                        'priorityVerification' => ClaimVerificationResult::REJECTED->name,
+                        'priorityVerificationExpiry' => null,
+                    ],
+                ]
+            )
+            ->assertJsonFragment([
+                'id' => $candidate->id,
+            ]);
+
+        // priority expiry is required, mutation fails
+        $this->actingAs($this->poolOperatorUser, 'api')
+            ->graphQL(
+                $updateClaimVerificationDocument,
+                [
+                    'id' => $candidate->id,
+                    'poolCandidate' => [
+                        'veteranVerification' => null,
+                        'veteranVerificationExpiry' => null,
+                        'priorityVerification' => ClaimVerificationResult::ACCEPTED->name,
+                        'priorityVerificationExpiry' => null,
+                    ],
+                ]
+            )
+            ->assertGraphQLErrorMessage('Validation failed for the field [updatePoolCandidateClaimVerification].');
+
+        // priority expiry included, succeeds
+        $this->actingAs($this->poolOperatorUser, 'api')
+            ->graphQL(
+                $updateClaimVerificationDocument,
+                [
+                    'id' => $candidate->id,
+                    'poolCandidate' => [
+                        'veteranVerification' => null,
+                        'veteranVerificationExpiry' => null,
+                        'priorityVerification' => ClaimVerificationResult::ACCEPTED->name,
+                        'priorityVerificationExpiry' => config('constants.far_future_date'),
+                    ],
+                ]
+            )
+            ->assertJsonFragment([
+                'id' => $candidate->id,
+            ]);
+
+        // rejected does not need an expiry date, mutation fails
+        $this->actingAs($this->poolOperatorUser, 'api')
+            ->graphQL(
+                $updateClaimVerificationDocument,
+                [
+                    'id' => $candidate->id,
+                    'poolCandidate' => [
+                        'veteranVerification' => null,
+                        'veteranVerificationExpiry' => null,
+                        'priorityVerification' => ClaimVerificationResult::REJECTED->name,
+                        'priorityVerificationExpiry' => config('constants.far_future_date'),
+                    ],
+                ]
+            )
+            ->assertGraphQLErrorMessage('Validation failed for the field [updatePoolCandidateClaimVerification].');
     }
 }

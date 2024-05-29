@@ -23,7 +23,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
-  OperationalRequirementV2,
+  OperationalRequirements,
   commonMessages,
   getCandidateExpiryFilterStatus,
   getCandidateSuspendedFilterStatus,
@@ -39,12 +39,13 @@ import {
   poolCandidatePriorities,
 } from "@gc-digital-talent/i18n";
 
+import adminMessages from "~/messages/adminMessages";
+
 import FilterDialog, {
   CommonFilterDialogProps,
 } from "../FilterDialog/FilterDialog";
-import adminMessages from "../../messages/adminMessages";
-import { getShortPoolTitleLabel } from "../../utils/poolUtils";
 import { FormValues } from "./types";
+import PoolFilterInput from "../PoolFilterInput/PoolFilterInput";
 
 const context: Partial<OperationContext> = {
   additionalTypenames: ["Skill", "SkillFamily"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
@@ -56,20 +57,6 @@ const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
     classifications {
       group
       level
-    }
-    pools {
-      id
-      name {
-        en
-        fr
-      }
-      publishingGroup
-      classification {
-        id
-        group
-        level
-      }
-      stream
     }
     skills {
       id
@@ -99,7 +86,6 @@ const PoolCandidateFilterDialog = ({
   });
 
   const classifications = unpackMaybes(data?.classifications);
-  const pools = unpackMaybes(data?.pools);
   const skills = unpackMaybes(data?.skills);
 
   const equityOption = (value: string, message: MessageDescriptor) => ({
@@ -125,17 +111,7 @@ const PoolCandidateFilterDialog = ({
           <HiddenInput name="pools" />
         ) : (
           <div data-h2-grid-column="l-tablet(span 3)">
-            <Combobox
-              id="pools"
-              name="pools"
-              {...{ fetching }}
-              isMulti
-              label={intl.formatMessage(adminMessages.pools)}
-              options={pools.map((pool) => ({
-                value: pool.id,
-                label: getShortPoolTitleLabel(intl, pool),
-              }))}
-            />
+            <PoolFilterInput />
           </div>
         )}
 
@@ -222,7 +198,7 @@ const PoolCandidateFilterDialog = ({
           idPrefix="operationalRequirement"
           name="operationalRequirement"
           legend={intl.formatMessage(navigationMessages.workPreferences)}
-          items={OperationalRequirementV2.map((value) => ({
+          items={OperationalRequirements.map((value) => ({
             value,
             label: intl.formatMessage(
               getOperationalRequirement(value, "short"),

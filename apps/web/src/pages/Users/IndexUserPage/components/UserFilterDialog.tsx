@@ -3,7 +3,7 @@ import { OperationContext, useQuery } from "urql";
 
 import {
   EmploymentDuration,
-  OperationalRequirementV2,
+  OperationalRequirements,
   commonMessages,
   getEmploymentDuration,
   getLanguageAbility,
@@ -31,7 +31,7 @@ import FilterDialog, {
   CommonFilterDialogProps,
 } from "~/components/FilterDialog/FilterDialog";
 import adminMessages from "~/messages/adminMessages";
-import { getShortPoolTitleLabel } from "~/utils/poolUtils";
+import PoolFilterInput from "~/components/PoolFilterInput/PoolFilterInput";
 
 import ROLES_TO_HIDE_USERS_TABLE from "./constants";
 
@@ -64,23 +64,6 @@ const UserFilterData_Query = graphql(/* GraphQL */ `
       }
       category
     }
-    pools {
-      id
-      name {
-        en
-        fr
-      }
-      classification {
-        id
-        name {
-          en
-          fr
-        }
-        group
-        level
-      }
-      stream
-    }
     roles {
       id
       name
@@ -106,7 +89,6 @@ const UserFilterDialog = ({
     context,
   });
 
-  const pools = unpackMaybes(data?.pools);
   const skills = unpackMaybes(data?.skills);
   const roles = unpackMaybes(data?.roles);
 
@@ -121,17 +103,7 @@ const UserFilterDialog = ({
         data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
       >
         <div data-h2-grid-column="l-tablet(span 2)">
-          <Combobox
-            id="pools"
-            name="pools"
-            {...{ fetching }}
-            isMulti
-            label={intl.formatMessage(adminMessages.pools)}
-            options={pools.map((pool) => ({
-              value: pool.id,
-              label: getShortPoolTitleLabel(intl, pool),
-            }))}
-          />
+          <PoolFilterInput />
         </div>
         <div
           data-h2-display="base(flex)"
@@ -241,7 +213,7 @@ const UserFilterDialog = ({
             idPrefix="operationalRequirement"
             name="operationalRequirement"
             legend={intl.formatMessage(navigationMessages.workPreferences)}
-            items={OperationalRequirementV2.map((value) => ({
+            items={OperationalRequirements.map((value) => ({
               value,
               label: intl.formatMessage(
                 getOperationalRequirement(value, "short"),

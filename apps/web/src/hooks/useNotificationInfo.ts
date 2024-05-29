@@ -3,6 +3,8 @@ import { ReactNode } from "react";
 
 import {
   ApplicationDeadlineApproachingNotification,
+  ApplicationStatusChangedNotification,
+  NewJobPostedNotification,
   Notification,
 } from "@gc-digital-talent/graphql";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
@@ -76,6 +78,77 @@ const applicationDeadlineApproachingNotificationToInfo = (
   };
 };
 
+function isApplicationStatusChangedNotification(
+  notification: GraphqlType,
+): notification is ApplicationStatusChangedNotification {
+  return notification.__typename === "ApplicationStatusChangedNotification";
+}
+
+const applicationStatusChangedNotificationToInfo = (
+  notification: ApplicationStatusChangedNotification,
+  paths: ReturnType<typeof useRoutes>,
+  intl: IntlShape,
+): NotificationInfo => {
+  const poolNameLocalized = getLocalizedName(notification.poolName, intl);
+
+  return {
+    message: intl.formatMessage(
+      {
+        defaultMessage:
+          "The status of your application for {poolName} has been updated.",
+        id: "FSBogI",
+        description: "Message for application status changed notification",
+      },
+      {
+        poolName: poolNameLocalized,
+      },
+    ),
+    href: paths.profileAndApplications({
+      fragmentIdentifier: "track-applications-section",
+    }),
+    label: intl.formatMessage(
+      {
+        defaultMessage:
+          "The status of your application for {poolName} has been updated.",
+        id: "LHv3/N",
+        description:
+          "Label for the application deadline approaching notification",
+      },
+      {
+        poolName: poolNameLocalized,
+      },
+    ),
+  };
+};
+
+function isNewJobPostedNotification(
+  notification: GraphqlType,
+): notification is NewJobPostedNotification {
+  return notification.__typename === "NewJobPostedNotification";
+}
+
+const newJobPostedNotificationToInfo = (
+  notification: NewJobPostedNotification,
+  paths: ReturnType<typeof useRoutes>,
+  intl: IntlShape,
+): NotificationInfo => {
+  return {
+    message: intl.formatMessage({
+      defaultMessage:
+        "A new opportunity is now available! Find out if this is a fit for you and apply.",
+      id: "OlSnME",
+      description: "Message for new job posted notification",
+    }),
+    href: notification.poolId ? paths.pool(notification.poolId) : "",
+    label: intl.formatMessage({
+      defaultMessage:
+        "A new opportunity is now available! Find out if this is a fit for you and apply.",
+      id: "Nm+j2a",
+      description: "Label for the new job posted notification",
+    }),
+  };
+};
+
 const useNotificationInfo = (
   notification: Notification & GraphqlType,
 ): NotificationInfo | null => {
@@ -89,6 +162,18 @@ const useNotificationInfo = (
       paths,
       intl,
     );
+  }
+
+  if (isApplicationStatusChangedNotification(notification)) {
+    return applicationStatusChangedNotificationToInfo(
+      notification,
+      paths,
+      intl,
+    );
+  }
+
+  if (isNewJobPostedNotification(notification)) {
+    return newJobPostedNotificationToInfo(notification, paths, intl);
   }
 
   logger.warning(
