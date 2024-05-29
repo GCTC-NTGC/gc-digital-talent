@@ -2,8 +2,13 @@ import { test, expect } from "~/fixtures";
 
 const UPDATE_MUTATION = "UpdatePool";
 
+/**
+ * Actions associated with processes
+ *
+ * Note: Separate so they can be run in serial mode
+ */
 test.describe.configure({ mode: "serial" });
-test.describe("Pools", () => {
+test.describe("Process actions", () => {
   const uniqueTestId = Date.now().valueOf();
   const POOL_TITLE = `Test pool ${uniqueTestId}`;
 

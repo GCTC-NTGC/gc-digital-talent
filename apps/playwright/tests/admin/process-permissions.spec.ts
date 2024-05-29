@@ -7,7 +7,7 @@ import { getDCM } from "~/utils/teams";
 import { getClassifications } from "~/utils/classification";
 import { loginBySub } from "~/utils/auth";
 
-test.describe("Process", () => {
+test.describe("Process permissions", () => {
   const uniqueTestId = Date.now().valueOf();
   const unassociatedSub = `playwright.sub.unassociated.${uniqueTestId}`;
   const unassociatedPoolManagerEmail = `${unassociatedSub}@example.org`;
