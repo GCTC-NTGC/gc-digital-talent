@@ -95,7 +95,7 @@ export const isSuspendedStatus = (
 ): boolean => {
   const isSuspended = suspendedAt && new Date() > parseDateTimeUtc(suspendedAt);
 
-  return !!(isSuspended && PoolCandidateStatus.QualifiedAvailable);
+  return !!(isSuspended && status === PoolCandidateStatus.QualifiedAvailable);
 };
 
 export const getRecruitmentType = (
