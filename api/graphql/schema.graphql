@@ -328,7 +328,7 @@ type PoolCandidate {
   # record of decision
   assessmentResults: [AssessmentResult]
     @hasMany
-    @canRoot(ability: "viewAssessmentResults")
+    @canRoot(ability: "viewAssessment")
   finalDecisionAt: DateTime
     @rename(attribute: "final_decision_at")
     @canRoot(ability: "viewStatus")
@@ -1744,39 +1744,39 @@ type Mutation {
     removalReasonOther: String
   ): PoolCandidate
     @guard
-    @canFind(ability: "updateStatus", find: "id", injectArgs: true)
+    @canFind(ability: "updateDecision", find: "id", injectArgs: true)
   reinstateCandidate(id: UUID!): PoolCandidate
     @guard
-    @canFind(ability: "updateStatus", find: "id", injectArgs: true)
+    @canFind(ability: "updateDecision", find: "id", injectArgs: true)
   deletePoolCandidate(id: ID! @whereKey): PoolCandidate
     @delete
     @guard
     @canFind(ability: "delete", find: "id")
   qualifyCandidate(id: UUID!, expiryDate: Date!): PoolCandidate
     @guard
-    @canFind(ability: "updateStatus", find: "id", injectArgs: true)
+    @canFind(ability: "updateDecision", find: "id", injectArgs: true)
     @validator(class: "App\\GraphQL\\Validators\\QualifyCandidateValidator")
   disqualifyCandidate(
     id: UUID!
     reason: DisqualificationReason!
   ): PoolCandidate
     @guard
-    @canFind(ability: "updateStatus", find: "id", injectArgs: true)
+    @canFind(ability: "updateDecision", find: "id", injectArgs: true)
     @validator(class: "App\\GraphQL\\Validators\\DisqualifyCandidateValidator")
   revertFinalDecision(id: UUID!): PoolCandidate
     @guard
-    @canFind(ability: "updateStatus", find: "id", injectArgs: true)
+    @canFind(ability: "updateDecision", find: "id", injectArgs: true)
     @validator(class: "App\\GraphQL\\Validators\\RevertFinalDecisionValidator")
   placeCandidate(
     id: UUID!
     placeCandidate: PlaceCandidateInput! @spread
   ): PoolCandidate
     @guard
-    @canFind(ability: "updateStatus", find: "id", injectArgs: true)
+    @canFind(ability: "updatePlacement", find: "id", injectArgs: true)
     @validator(class: "App\\GraphQL\\Validators\\PlaceCandidateValidator")
   revertPlaceCandidate(id: UUID!): PoolCandidate
     @guard
-    @canFind(ability: "updateStatus", find: "id", injectArgs: true)
+    @canFind(ability: "updatePlacement", find: "id", injectArgs: true)
     @validator(class: "App\\GraphQL\\Validators\\RevertPlaceCandidateValidator")
 
   createClassification(

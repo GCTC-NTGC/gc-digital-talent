@@ -74,8 +74,7 @@ return [
         'applicationAssessment' => 'applicationAssessment', // new
         'applicationDecision' => 'applicationDecision', // new
         'applicationPlacement' => 'applicationPlacement', //new
-        'applicationStatus' => 'applicationStatus', // TODO: remove - replaced with applicationAssessment and applicationDecision
-        'assessmentResult' => 'assessmentResult', // TODO: remove - replaced with applicationAssessment
+        'applicationStatus' => 'applicationStatus', // TODO: remove - to be replaced by applicationAssessment and applicationDecision. update-status can be removed in Community cleanup. view-status may need to wait for larger status migration.
         'applicantCount' => 'applicantCount',
         'searchRequest' => 'searchRequest',
         'role' => 'role',
@@ -89,7 +88,6 @@ return [
         'communityAdminMembership' => 'communityAdminMembership',
         'communityRecruiterMembership' => 'communityRecruiterMembership',
         'processOperatorMembership' => 'processOperatorMembership',
-
 
         'teamMembers' => 'teamMembers', // TODO: remove - replaced by more specific poolTeamMembers and communityTeamMebers
         'team' => 'team', // TODO: remove when Teams are removed
@@ -342,20 +340,6 @@ return [
         'suspend-own-submittedApplication' => [
             'en' => 'Suspend or un-suspend Own Submitted Application',
             'fr' => 'Suspendre ou débloquer sa propre candidature présentée',
-        ],
-
-        // TODO: remove assessmentResult permissions
-        'view-any-assessmentResult' => [
-            'en' => 'View assessment results for any pool',
-            'fr' => 'Voir les résultats de l\'évaluation pour n\'importe quel bassin',
-        ],
-        'view-team-assessmentResult' => [
-            'en' => 'View assessment results for pools run by your team only',
-            'fr' => 'Visualiser les résultats des évaluations pour les pools gérés par votre équipe uniquement',
-        ],
-        'update-team-assessmentResult' => [
-            'en' => 'Mutate assessment result objects',
-            'fr' => 'Modifier les objets de résultats d\'évaluation',
         ],
 
         // TODO: remove applicationStatus permissions
@@ -884,6 +868,12 @@ return [
             'applicationAssessment' => [
                 'team' => ['view', 'update'],
             ],
+            'applicationDecision' => [
+                'team' => ['view', 'update'],
+            ],
+            'applicationPlacement' => [
+                'team' => ['view', 'update'],
+            ],
             'teamMembers' => [
                 'team' => ['view'],
             ],
@@ -894,9 +884,6 @@ return [
                 'team' => ['view'],
             ],
             'assessmentPlan' => [
-                'team' => ['view', 'update'],
-            ],
-            'assessmentResult' => [
                 'team' => ['view', 'update'],
             ],
         ],
@@ -911,6 +898,12 @@ return [
             'applicationAssessment' => [
                 'any' => ['view', 'update'],
             ],
+            'applicationDecision' => [
+                'any' => ['view', 'update'],
+            ],
+            'applicationPlacement' => [
+                'any' => ['view', 'update'],
+            ],
             'searchRequest' => [
                 'any' => ['view', 'update', 'delete'],
             ],
@@ -918,9 +911,6 @@ return [
                 'any' => ['view'],
             ],
             'assessmentPlan' => [
-                'any' => ['view'],
-            ],
-            'assessmentResult' => [
                 'any' => ['view'],
             ],
         ],
@@ -965,6 +955,9 @@ return [
             'submittedApplication' => [
                 'team' => ['view'],
             ],
+            'applicationStatus' => [
+                'team' => ['view'],
+            ],
             'applicationAssessment' => [
                 'team' => ['view', 'update'],
             ],
@@ -996,6 +989,9 @@ return [
                 'team' => ['view', 'update'],
             ],
             'submittedApplication' => [
+                'team' => ['view'],
+            ],
+            'applicationStatus' => [
                 'team' => ['view'],
             ],
             'applicationAssessment' => [
@@ -1042,6 +1038,9 @@ return [
             ],
             'submittedApplication' => [
                 'team' => ['view'],
+            ],
+            'applicationStatus' => [
+                'team' => ['view']
             ],
             'applicationAssessment' => [
                 'team' => ['view', 'update'],
@@ -1112,14 +1111,14 @@ return [
             'assessmentPlan' => [
                 'any' => ['view'],
             ],
-            'assessmentResult' => [ // TODO: remove assessmentResult permissions
-                'any' => ['view'],
-            ],
             'application' => [
                 'any' => ['create'], // TODO: remove create any application permission
             ],
             'submittedApplication' => [
                 'any' => ['view'],
+            ],
+            'applicationStatus' => [
+                'any' => ['view']
             ],
             'applicationAssessment' => [
                 'any' => ['view'],

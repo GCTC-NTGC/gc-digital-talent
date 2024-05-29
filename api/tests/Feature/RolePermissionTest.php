@@ -154,8 +154,6 @@ class RolePermissionTest extends TestCase
             'update-team-applicationAssessment',
             'view-team-teamMembers',
             'view-team-applicantProfile',
-            'view-team-assessmentResult',
-            'update-team-assessmentResult',
             'view-team-assessmentPlan',
             'update-team-assessmentPlan',
         ];
@@ -189,7 +187,6 @@ class RolePermissionTest extends TestCase
             'update-any-searchRequest',
             'delete-any-searchRequest',
             'view-any-assessmentPlan',
-            'view-any-assessmentResult',
         ];
 
         $this->assertTrue($this->user->hasRole('request_responder'));
@@ -239,7 +236,7 @@ class RolePermissionTest extends TestCase
             'update-any-team',
             'delete-any-team',
             'assign-any-role',
-            'view-any-assessmentResult',
+            'view-any-applicationAssessment',
         ], true));
 
         $this->cleanup();
