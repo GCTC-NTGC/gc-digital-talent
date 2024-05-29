@@ -17,7 +17,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -166,7 +165,7 @@ class Pool extends Model
 
     public function poolBookmarks(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'pool_user_bookmarks', "pool_id", "user_id")->withTimestamps();
+        return $this->belongsToMany(User::class, 'pool_user_bookmarks', 'pool_id', 'user_id')->withTimestamps();
     }
 
     public function team(): BelongsTo
@@ -485,26 +484,13 @@ class Pool extends Model
 
         // order the pools so that the bookmarks connected to current user sticks to the top
         if ($order && $user) {
-            // $query->orderBy(function ($q) use ($order, $user) {
-            //     $q->select('created_at')
-            //         ->from('pool_user_bookmarks')
-            //         ->whereColumn('pool_id', 'pools.id')
-            //         ->orderBy('created_at', $order);
-            // }, $order);
-
-            // $query->orderBy($user->select('pool_user_bookmarks.created_at')
-            //     ->join('pool_user_bookmarks', 'pool_user_bookmarks.user_id', '=', 'users.id')
-            //     ->whereColumn('pool_user_bookmarks.pool_id', 'pools.id')
-            //     ->latest('pool_user_bookmarks.created_at')
-            //     ->take(1)
-            // );
-
-            $query->orderBy($user->select('pool_user_bookmarks.created_at')
-                ->join('pool_user_bookmarks', 'pool_user_bookmarks.user_id', '=', 'users.id')
-                ->where('pool_user_bookmarks.user_id', $user->id)
-                ->whereColumn('pool_user_bookmarks.pool_id', 'pools.id')
-                ->orderBy('pool_user_bookmarks.created_at', $order)
-                ->take(1)
+            $query->orderBy(
+                $user->select('pool_user_bookmarks.created_at')
+                    ->join('pool_user_bookmarks', 'pool_user_bookmarks.user_id', '=', 'users.id')
+                    ->where('pool_user_bookmarks.user_id', $user->id)
+                    ->whereColumn('pool_user_bookmarks.pool_id', 'pools.id')
+                    ->orderBy('pool_user_bookmarks.created_at', $order)
+                    ->take(1)
             );
         }
 
