@@ -12,6 +12,7 @@ return [
     */
     'client' => [
         'apiKey' => env('GCNOTIFY_API_KEY'),
+        'max_requests_per_minute' => env('GCNOTIFY_MAX_REQUESTS_PER_MINUTE', 1000),
     ],
 
     /*
