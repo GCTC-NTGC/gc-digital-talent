@@ -51,7 +51,7 @@
     "@tanstack/react-table": "^8.17.3",
     "dataloader": "^2.2.2",
     "date-fns": "^3.6.0",
-    "framer-motion": "^11.2.6",
+    "framer-motion": "^11.2.9",
     "graphql": "^16.8.1",
     "lodash": "^4.17.21",
     "path-browserify": "^1.0.1",
@@ -65,8 +65,8 @@
     "urql": "^4.1.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.24.5",
-    "@babel/preset-env": "^7.24.5",
+    "@babel/core": "^7.24.6",
+    "@babel/preset-env": "^7.24.6",
     "@babel/preset-react": "^7.23.3",
     "@faker-js/faker": "^8.4.1",
     "@formatjs/cli": "^6.2.12",
@@ -87,7 +87,7 @@
     "@types/jest": "^29.5.12",
     "@types/jest-axe": "^3.5.9",
     "@types/lodash": "^4.17.4",
-    "@types/react": "^18.3.2",
+    "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "babel-plugin-formatjs": "^10.5.16",
     "core-js": "^3.37.1",
