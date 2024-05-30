@@ -27,7 +27,7 @@ services:
       dockerfile: apps/web/dev.Dockerfile
     volumes:
       - ./:/var/www/html
-      - nodemodules:/var/www/html/node_modules
+      - pnpmhome:/tmp/pnpm
     ports:
       - "8000:8000"
     environment:
@@ -35,4 +35,4 @@ services:
 
 volumes:
   pgdata:
-  nodemodules:
+  pnpmhome:
