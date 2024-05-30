@@ -46,28 +46,40 @@ const PoolCandidate_UpdateNotesMutation = graphql(/* GraphQL */ `
 
 const Display = ({ notes }: { notes?: Maybe<string> }) => {
   const intl = useIntl();
-
+  const hasNotes = !!notes;
   return (
     <>
       <ToggleForm.FieldDisplay
         hasError={false}
         label={intl.formatMessage(adminMessages.notes)}
       >
-        <div
-          data-h2-margin-top="base(x.5)"
-          data-h2-max-height="base(10rem)"
-          data-h2-overflow-y="base(auto)"
-        >
-          {notes || intl.formatMessage(commonMessages.notProvided)}
-        </div>
+        {hasNotes && (
+          <div
+            data-h2-margin-top="base(x.5)"
+            data-h2-max-height="base(10rem)"
+            data-h2-overflow-y="base(auto)"
+          >
+            {notes}
+          </div>
+        )}
       </ToggleForm.FieldDisplay>
-      <ToggleForm.Trigger data-h2-margin-top="base(x.5)">
-        {intl.formatMessage({
-          defaultMessage: "Edit notes",
-          id: "CTl5IT",
-          description: "Button text to start editing pool candidate notes",
-        })}
-      </ToggleForm.Trigger>
+      {hasNotes ? (
+        <ToggleForm.Trigger data-h2-margin-top="base(x.5)">
+          {intl.formatMessage({
+            defaultMessage: "Edit notes",
+            id: "CTl5IT",
+            description: "Button text to start editing pool candidate notes",
+          })}
+        </ToggleForm.Trigger>
+      ) : (
+        <ToggleForm.Trigger data-h2-margin-top="base(x.5)">
+          {intl.formatMessage({
+            defaultMessage: "Add notes",
+            id: "w0IA+c",
+            description: "Button text to start adding pool candidate notes",
+          })}
+        </ToggleForm.Trigger>
+      )}
     </>
   );
 };

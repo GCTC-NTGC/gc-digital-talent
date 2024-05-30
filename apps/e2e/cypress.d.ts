@@ -34,18 +34,6 @@ declare global {
        */
 
       /**
-       * Custom command to run a specific eloquent factory
-       * @param {string} modelName - Name of the model for the factory
-       * @param {string} state - Any state to be applied to the factory
-       * @param {string} attributes - Specific attributes to be overridden (JSON)
-       * @example cy.callEloquentFactory('Pool', 'published', '{"name": { "en": "Test (EN)", "fr": "Test (FR)" }}')
-       */
-      callEloquentFactory(
-        modelName: string,
-        state: string,
-        attributes: string,
-      ): Promise<any>;
-      /**
        * Custom command to set the current locale.
        * @param {string} locale - The new locale to set
        * @example cy.setLocale('fr')

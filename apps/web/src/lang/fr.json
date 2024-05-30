@@ -31,6 +31,10 @@
     "defaultMessage": "À propos du programme",
     "description": "Title of the 'About the program' section"
   },
+  "+EINSB": {
+    "defaultMessage": "Traiter en priorité les demandes des candidats visés par l’équité en matière d’emploi;",
+    "description": "List item 2, how self-declaration data is used"
+  },
   "+G/4Zs": {
     "defaultMessage": "Le <crtcLink>Conseil de la radiodiffusion et des télécommunications canadiennes</crtcLink> (CRTC) traite les plaintes liées à la radiodiffusion et aux télécommunications en vertu de la <crtcActLink>Loi sur le Conseil de la radiodiffusion et des télécommunications canadiennes</crtcActLink>.",
     "description": "Description of complaints to the Canadian Radio-television and Telecommunications Commission"
@@ -330,6 +334,10 @@
   "/rmunL": {
     "defaultMessage": "En fonction des besoins",
     "description": "As and when needed personnel other requirement"
+  },
+  "/ry9OC": {
+    "defaultMessage": "Dans l’ensemble, l’autodéclaration favorise la transparence, la responsabilisation et la diversité dans l’embauche.",
+    "description": "Paragraph 4, importance of self-declaration"
   },
   "/sBGov": {
     "defaultMessage": "Question {number}",
@@ -667,6 +675,10 @@
     "defaultMessage": "Les visiteurs doivent également savoir que l’information offerte par les sites autres que ceux du gouvernement du Canada, accessibles à l’aide des liens de ce site Web, n’est pas assujettie à la <privacyActLink>Loi sur la protection des renseignements personnels</privacyActLink> ni à la <langActLink>Loi sur les langues officielles</langActLink> et pourrait ne pas être accessible aux personnes handicapées. Il est probable que l’information offerte ne soit disponible que dans les langues employées dans les sites en question. En ce qui a trait aux renseignements personnels, nous invitons les visiteurs à consulter les politiques de ces sites Web non gouvernementaux en matière de protection des renseignements personnels avant de fournir leurs renseignements personnels.",
     "description": "Paragraph two describing linking to gov section"
   },
+  "1evugI": {
+    "defaultMessage": "Si vous choisissez de vous autodéclarer dans votre profil, ces renseignements sont utilisés de façon agrégée pour obtenir des renseignements sur la façon dont le gouvernement du Canada peut bâtir des pratiques plus inclusives. Dans ces données agrégées, vos renseignements personnels sont protégés et seules les moyennes collectives sont visibles à l’extérieur de la plateforme.",
+    "description": "Paragraph 1, how self-declaration data is used"
+  },
   "1fMzyo": {
     "defaultMessage": "Afficher les candidatures antérieures ({applicationCount})",
     "description": "Heading for past applications accordion on profile and applications."
@@ -838,6 +850,10 @@
   "2lNHxh": {
     "defaultMessage": "Ajouter un nouveau rôle",
     "description": "Label for the form to add a role to a user"
+  },
+  "2ly5G8": {
+    "defaultMessage": "L’autodéclaration aide notre équipe à mieux comprendre le bassin de candidats. Connaître la diversité du bassin de candidats aide l’équipe de recrutement et les gestionnaires d’embauche de Talents numériques du GC à éliminer les obstacles et à rendre notre processus plus inclusif. Cela nous permet également de suivre les progrès réalisés par rapport aux objectifs en matière de diversité et de veiller à ce que les groupes sous-représentés aient des possibilités équitables.",
+    "description": "Paragraph 3, importance of self-declaration"
   },
   "2m5USi": {
     "defaultMessage": "Utilisez le bouton \"Modifier\" pour commencer. ",
@@ -1243,6 +1259,10 @@
     "defaultMessage": "Poursuivre avec cette application<hidden> {name}</hidden>",
     "description": "Link text to continue a specific application"
   },
+  "51BAr3": {
+    "defaultMessage": "Découvrez comment notre équipe utilise les renseignements sur l’équité en matière d’emploi pour façonner l’équité et la diversité en matière d’embauche.",
+    "description": "Subtitle for the inclusivity and equity page"
+  },
   "52MYM4": {
     "defaultMessage": "Sélectionnez toutes les autres exigences qui s’appliquent.",
     "description": "Label for _other requirements_ fieldset in the _digital services contracting questionnaire_"
@@ -1366,6 +1386,10 @@
   "5dhDA+": {
     "defaultMessage": "Rappelez-vous que, {skillName} est défini comme",
     "description": "Lead-in text to a skill description"
+  },
+  "5i2G4O": {
+    "defaultMessage": "Notre équipe s’engage à s’informer en permanence sur la manière dont la plateforme et ses processus de recrutement façonnent l’équité et la diversité dans l’embauche. Nous utilisons ce que nous apprenons pour concevoir des améliorations aux caractéristiques et de nouvelles fonctionnalités, et pour peaufiner les efforts de recrutement afin de mieux soutenir une expérience inclusive pour tous.",
+    "description": "Paragraph 3, our commitment to inclusivity and equity"
   },
   "5jFkhf": {
     "defaultMessage": "Erreur : Échec de la création de la classification",
@@ -1674,6 +1698,10 @@
   "7mb9oA": {
     "defaultMessage": "<strong>Note :</strong> Les résultats tiendront compte de tout candidat qui correspond à <strong>l’une ou plusieurs</strong> des régions sélectionnées",
     "description": "Context for the work region/location preferences filter in the search form."
+  },
+  "7mdPUJ": {
+    "defaultMessage": "Comment les données d’autodéclaration sont-elles utilisées?",
+    "description": "Title for how self-declaration data is used section"
   },
   "7nxtBm": {
     "defaultMessage": "Il s’agit du carrefour de l’administrateur de la plateforme des talents numériques du GC à partir d’où il est possible de gérer, trier et recruter le talent pour le GC.",
@@ -4267,6 +4295,10 @@
     "defaultMessage": "Lieu de travail",
     "description": "Title for work location section on summary of filters section"
   },
+  "MXZ8Ms": {
+    "defaultMessage": "Si vous êtes membre d’un <link>groupe visé par l’équité en matière d’emploi</link>, vous pouvez choisir de vous autodéclarer lorsque vous créez votre profil.",
+    "description": "Paragraph 1, importance of self-declaration"
+  },
   "MZChNU": {
     "defaultMessage": "Diplômés et talents avancés",
     "description": "Title of the 'Graduates and advanced talent' section"
@@ -4711,6 +4743,10 @@
     "defaultMessage": "15 millions de dollars à 25 millions de dollars",
     "description": "Contract value range between fifteen-million and twenty-five-million"
   },
+  "PCypnL": {
+    "defaultMessage": "Inclusion et équité",
+    "description": "Title for the websites inclusivity and equity page"
+  },
   "PD7anu": {
     "defaultMessage": "Courriel du conseiller/ère en RH",
     "description": "Title for the HR advisor email block in the manager info section of the single search request view."
@@ -4862,6 +4898,10 @@
   "Q83U92": {
     "defaultMessage": "<strong>Il semble que vous n’ayez pas encore ajouté d’expériences à votre parcours professionnel.</strong>",
     "description": "Alert message informing user to add experience in application education page."
+  },
+  "Q8hjGZ": {
+    "defaultMessage": "La fourniture de renseignements dans Talents numériques du GC est facultative. Si vous partagez vos renseignements personnels, Talents numériques du GC <link>s’engage à les protéger</link>.",
+    "description": "Paragraph 2, importance of self-declaration"
   },
   "Q9c+Kg": {
     "defaultMessage": "Rechercher et ajouter une compétence à votre vitrine",
@@ -5110,6 +5150,10 @@
   "RIi/3q": {
     "defaultMessage": "Pour nous joindre",
     "description": "Title for Contact us action"
+  },
+  "RJlpxV": {
+    "defaultMessage": "Vous pouvez en apprendre davantage sur la façon dont notre équipe utilise les renseignements sur l’équité en matière d’emploi pour façonner l’équité et la diversité en matière d’embauche en lisant notre <inclusivityLink>déclaration sur l’inclusion et l’équité</inclusivityLink>. Nous fournissons également une <accessibilityLink>déclaration sur l’accessibilité</accessibilityLink> qui décrit comment la plateforme prend en compte et met en œuvre les pratiques exemplaires en matière d’accessibilité.",
+    "description": "Information on commitment to diversity, equity, and inclusion"
   },
   "RJtGM5": {
     "defaultMessage": "PM-02 : Analyste subalterne",
@@ -5523,6 +5567,10 @@
     "defaultMessage": "Des représentants du service à la clientèle sont disponibles pour vous aider par téléphone toute l'année, 24 heures sur 24, 7 jours sur 7.",
     "description": "GCKey answer for who to contact about GCKey, contact availability"
   },
+  "TpSJAv": {
+    "defaultMessage": "En savoir plus sur <accessibilityLink>l’engagement de l’équipe en faveur de l’accessibilité</accessibilityLink> et nos premiers travaux de <researchLink>recherche et développement</researchLink> sur la création d’une plateforme inclusive.",
+    "description": "Paragraph 3, our commitment to inclusivity and equity"
+  },
   "Tq0ZKw": {
     "defaultMessage": "Votre interaction avec le gouvernement du Canada sur les médias sociaux est en partie régie par les modalités de services ou d’utilisation des tiers fournisseurs de plateformes de médias sociaux concernés, ainsi que par les modalités présentées ci-dessous. Le gouvernement du Canada n’a aucun contrôle sur les modalités de service ou d’utilisation des fournisseurs de plateformes de médias sociaux, d’où l’importance pour vous d’en prendre connaissance.",
     "description": "Paragraph describing social media section"
@@ -5587,6 +5635,10 @@
     "defaultMessage": "À l’exception de quelques compétences comportementales très particulières, seuls des renseignements techniques sont recueillis auprès des candidats dans la candidature initiale. Cela signifie que lors de votre examen, vous ne verrez que les données d’expérience relatives aux compétences techniques et à quelques compétences comportementales précises. Deux raisons expliquent ce choix.",
     "description": "First paragraph of first answer of the Frequently Asked Questions for logging in"
   },
+  "UCv0X2": {
+    "defaultMessage": "L’engagement de l’équipe de Talents numériques du GC",
+    "description": "Title for our commitment to inclusivity and equity"
+  },
   "UDHGGA": {
     "defaultMessage": "Bientôt, les postulants pourront présenter leur demande à l’aide d’un outil interactif en ligne qui sera disponible à partir du présent site Web. Voici ce sur quoi nous travaillons :",
     "description": "Description of how the indigenous talent portal will work"
@@ -5614,10 +5666,6 @@
   "UNMEfB": {
     "defaultMessage": "Processus de recrutement des cadres",
     "description": "Heading for the executive opportunities"
-  },
-  "UOHEw1": {
-    "defaultMessage": "Vous pouvez en savoir plus sur notre engagement envers l'équité et l'inclusion en lisant notre énoncé sur l'inclusion. Nous fournissons également un énoncé sur l'accessibilité qui décrit la manière dont la plateforme prend en compte et met en œuvre les pratiques exemplaires en matière d'accessibilité.",
-    "description": "Information on commitment to diversity, equity, and inclusion"
   },
   "UOeiIa": {
     "defaultMessage": "Autochtone selon la définition de ce programme",
@@ -5681,6 +5729,10 @@
   "UrsGGK": {
     "defaultMessage": "{areaOfStudy} à {institution}",
     "description": "Study at institution"
+  },
+  "UuAN//": {
+    "defaultMessage": "Chez Talents numériques du GC, nous reconnaissons que les gens acquièrent des compétences grâce à différents parcours de vie. Il existe de nombreuses façons d’acquérir les qualifications nécessaires pour un emploi.",
+    "description": "Paragraph 1, our commitment to inclusivity and equity"
   },
   "UvKDXK": {
     "defaultMessage": "Voici une liste des utilisateurs actifs ainsi que certains de leurs renseignements.",
@@ -7513,6 +7565,10 @@
   "e8tJXk": {
     "defaultMessage": "IT-05 : Directeur(trice) ou Stratège principal(e)",
     "description": "IT-05 classification label including titles"
+  },
+  "e9FxXq": {
+    "defaultMessage": "Déterminer les personnes qui pourraient être admissibles à des possibilités particulières dans les organisations où un groupe visé par l’équité en matière d’emploi est sous-représenté;",
+    "description": "List item 1, how self-declaration data is used"
   },
   "eCK3Ng": {
     "defaultMessage": "Accepter les temporaires",
@@ -9982,6 +10038,10 @@
     "defaultMessage": "Les définitions de chaque possibilité de lieu de travail sont présentées ici",
     "description": "Lead-in text to definitions of different work location terminology"
   },
+  "rmmLVI": {
+    "defaultMessage": "Sélectionner un membre d’un groupe visé par l’équité en matière d’emploi par nomination, si plusieurs candidats qualifiés sont disponibles.",
+    "description": "List item 3, how self-declaration data is used"
+  },
   "rtzp80": {
     "defaultMessage": "Dressez la liste des compétences, de la formation ou de l’expérience précises requises pour effectuer le travail demandé.",
     "description": "Context for _qualification requirement_ textbox in the _digital services contracting questionnaire_"
@@ -10065,6 +10125,10 @@
   "sICXeM": {
     "defaultMessage": "Date d'expiration",
     "description": "Label displayed on the date field of the add user to pool dialog"
+  },
+  "sJYWPi": {
+    "defaultMessage": "L’importance de l’autodéclaration",
+    "description": "Title for self-declaration section"
   },
   "sKAo0/": {
     "defaultMessage": "Envoyer le formulaire du plan pour les talents",
@@ -10458,6 +10522,10 @@
     "defaultMessage": "Prénom",
     "description": "CSV Header, First Name column"
   },
+  "ukcsxj": {
+    "defaultMessage": "Si vous choisissez de vous autodéclarer dans votre profil et que vous postulez un emploi chez Talents numériques du GC, ces renseignements peuvent être utilisés à n’importe quelle étape du processus d’emploi, de la demande initiale à l’évaluation en passant par la nomination. Les gestionnaires d’embauche ou l’équipe de recrutement de Talents numériques du GC pourraient utiliser ces renseignements",
+    "description": "Paragraph 2, how self-declaration data is used"
+  },
   "uoX7ou": {
     "defaultMessage": "Cette page est accessible en langues autochtones",
     "description": "Text displayed as label for Indigenous languages selector"
@@ -10601,6 +10669,10 @@
   "w/qZsH": {
     "defaultMessage": "Classification",
     "description": "Label displayed on the pool form classification field."
+  },
+  "w0IA+c": {
+    "defaultMessage": "Ajouter des notes",
+    "description": "Button text to start adding pool candidate notes"
   },
   "w1/0Cd": {
     "defaultMessage": "Diplôme exigé",
@@ -10985,6 +11057,10 @@
   "yGyjXK": {
     "defaultMessage": "Sélectionnez la langue dans laquelle le travail sera effectué et livré.",
     "description": "Label for _required work languages_ fieldset in the _digital services contracting questionnaire_"
+  },
+  "yJb1d/": {
+    "defaultMessage": "Nous nous efforçons de créer une expérience de recrutement où vous sentez que vos expériences et vos compétences diversifiées sont appréciées. Même tout le monde ne décrochera pas son emploi de rêve immédiatement, nous voulons que vous ayez l’occasion de présenter votre histoire d’une manière qui maximise vos chances de réussite.",
+    "description": "Paragraph 2, our commitment to inclusivity and equity"
   },
   "yJnGeT": {
     "defaultMessage": "Choisissez le critère auquel vous répondez.",
