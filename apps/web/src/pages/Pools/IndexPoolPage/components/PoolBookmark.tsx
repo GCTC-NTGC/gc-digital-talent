@@ -24,8 +24,8 @@ export const PoolBookmark_Fragment = graphql(/* GraphQL */ `
 `);
 
 const TogglePoolUserBookmark_Mutation = graphql(/* GraphQL */ `
-  mutation TogglePoolUserBookmark_Mutation($userId: UUID!, $poolId: UUID!) {
-    togglePoolUserBookmark(userId: $userId, poolId: $poolId) {
+  mutation TogglePoolUserBookmark_Mutation($poolId: UUID!) {
+    togglePoolUserBookmark(poolId: $poolId) {
       id
     }
   }
@@ -54,7 +54,6 @@ const PoolBookmark = ({
   const toggleBookmark = async () => {
     if (user.id && poolId) {
       await executeToggleBookmarkMutation({
-        userId: user.id,
         poolId,
       })
         .then((res) => {
