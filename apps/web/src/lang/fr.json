@@ -2271,6 +2271,10 @@
     "defaultMessage": "À moins d’avis contraire, il est interdit de reproduire le contenu de ce site, en totalité ou en partie, à des fins de diffusion commerciale sans avoir obtenu au préalable la permission écrite de l’administrateur du droit d’auteur. Si vous souhaitez obtenir les droits de reproduction du contenu du gouvernement du Canada du présent site à des fins commerciales, écrivez aux :",
     "description": "Commercial reproduction list description in ownership and usage section"
   },
+  "BB0opI": {
+    "defaultMessage": "Supprimer le signet de {name} du haut de la colonne.",
+    "description": "Un-bookmark button label for pool table tracking."
+  },
   "BCBPYT": {
     "defaultMessage": "Il n’y a aucun résultat de candidats à cette étape.",
     "description": "Message displayed when no candidates are being assessed in a step"
@@ -3446,6 +3450,10 @@
   "HwPuG0": {
     "defaultMessage": "Date d'expiration mise à jour avec succès",
     "description": "Toast for successful expiry date update on view-user page"
+  },
+  "HxZIwt": {
+    "defaultMessage": "Mettre {name} en signet au haut de la colonne.",
+    "description": "Bookmark button label for pool table tracking."
   },
   "Hy2UdW": {
     "defaultMessage": "Vous êtes sur le point de retirer un rôle de l’utilisateur suivant : <strong>{userName}</strong>",
@@ -8905,6 +8913,10 @@
   "lYLIe5": {
     "defaultMessage": "Indiquer si ce contrat est soumis à des accords commerciaux",
     "description": "Label for _trade agreement_ fieldset in the _digital services contracting questionnaire_"
+  },
+  "lZ8lct": {
+    "defaultMessage": "Process mis en signet.",
+    "description": "Alert displayed to the user when they mark a pool as bookmarked."
   },
   "lZwkcR": {
     "defaultMessage": "Étapes à suivre pour créer votre compte CléGC",

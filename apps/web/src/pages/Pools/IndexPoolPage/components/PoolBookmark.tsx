@@ -62,8 +62,8 @@ const PoolBookmark = ({
             if (!isBookmarked) {
               toast.success(
                 intl.formatMessage({
-                  defaultMessage: "Pool successfully bookmarked.",
-                  id: "SUEUSD",
+                  defaultMessage: "Process successfully bookmarked.",
+                  id: "lZ8lct",
 
                   description:
                     "Alert displayed to the user when they mark a pool as bookmarked.",
@@ -72,8 +72,8 @@ const PoolBookmark = ({
             } else {
               toast.success(
                 intl.formatMessage({
-                  defaultMessage: "Pool's bookmark removed successfully.",
-                  id: "w8bMwT",
+                  defaultMessage: "Process's bookmark removed successfully.",
+                  id: "g4F/WB",
 
                   description:
                     "Alert displayed to the user when they un-mark a pool as bookmarked.",
@@ -85,8 +85,8 @@ const PoolBookmark = ({
         .catch(() => {
           toast.error(
             intl.formatMessage({
-              defaultMessage: "Error: failed to update a pool's bookmark.",
-              id: "8TFnIB",
+              defaultMessage: "Error: failed to update a process's bookmark.",
+              id: "mzgZQs",
               description:
                 "Alert displayed to the user when failing to (un-)bookmark a pool.",
             }),
