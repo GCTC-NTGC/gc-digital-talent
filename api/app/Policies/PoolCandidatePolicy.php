@@ -233,6 +233,7 @@ class PoolCandidatePolicy
             return true;
         }
         $poolCandidate->loadMissing('pool.team');
+
         return $user->isAbleTo('view-team-applicationAssessment', $poolCandidate->pool->team);
     }
 
@@ -242,6 +243,7 @@ class PoolCandidatePolicy
             return true;
         }
         $poolCandidate->loadMissing('pool.team');
+
         return $user->isAbleTo('update-team-applicationAssessment', $poolCandidate->pool->team);
     }
 
@@ -251,6 +253,7 @@ class PoolCandidatePolicy
             return true;
         }
         $poolCandidate->loadMissing('pool.team');
+
         return $user->isAbleTo('view-team-applicationDecision', $poolCandidate->pool->team);
     }
 
@@ -260,6 +263,7 @@ class PoolCandidatePolicy
             return true;
         }
         $poolCandidate->loadMissing('pool.team');
+
         return $user->isAbleTo('update-team-applicationDecision', $poolCandidate->pool->team);
     }
 
@@ -269,6 +273,7 @@ class PoolCandidatePolicy
             return true;
         }
         $poolCandidate->loadMissing('pool.team');
+
         return $user->isAbleTo('view-team-applicationPlacement', $poolCandidate->pool->team);
     }
 
@@ -278,6 +283,7 @@ class PoolCandidatePolicy
             return true;
         }
         $poolCandidate->loadMissing('pool.team');
+
         return $user->isAbleTo('update-team-applicationPlacement', $poolCandidate->pool->team);
     }
 }

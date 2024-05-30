@@ -709,7 +709,7 @@ return [
             ],
             'description' => [
                 'en' => 'Can create new posters within their community and assign Process Operators to them. Can do anything Process Operators can do, on posters in their community. Can view the profiles of any user who has applied to a community process. Can view and respond to requests to the community.',
-                'fr' => 'Peut créer de nouvelles affiches dans sa communauté et y affecter des opérateurs de processus. Ils peuvent faire tout ce que les opérateurs de processus peuvent faire sur les affiches de leur communauté. Ils peuvent consulter le profil de tout utilisateur ayant participé à un processus communautaire. Ils peuvent consulter les demandes adressées à la communauté et y répondre.'
+                'fr' => 'Peut créer de nouvelles affiches dans sa communauté et y affecter des opérateurs de processus. Ils peuvent faire tout ce que les opérateurs de processus peuvent faire sur les affiches de leur communauté. Ils peuvent consulter le profil de tout utilisateur ayant participé à un processus communautaire. Ils peuvent consulter les demandes adressées à la communauté et y répondre.',
             ],
             'is_team_based' => true,
         ],
@@ -1005,7 +1005,7 @@ return [
                 'team' => ['view', 'update'],
             ],
             'applicationPlacement' => [
-                'team' => ['view','update'],
+                'team' => ['view', 'update'],
             ],
             'searchRequest' => [
                 'any' => ['view', 'update', 'delete'],
@@ -1044,7 +1044,7 @@ return [
                 'team' => ['view'],
             ],
             'applicationStatus' => [
-                'team' => ['view']
+                'team' => ['view'],
             ],
             'applicationAssessment' => [
                 'team' => ['view', 'update'],
@@ -1053,7 +1053,7 @@ return [
                 'team' => ['view', 'update'],
             ],
             'applicationPlacement' => [
-                'team' => ['view','update'],
+                'team' => ['view', 'update'],
             ],
             'searchRequest' => [
                 'any' => ['view', 'update', 'delete'],
@@ -1122,7 +1122,7 @@ return [
                 'any' => ['view'],
             ],
             'applicationStatus' => [
-                'any' => ['view']
+                'any' => ['view'],
             ],
             'applicationAssessment' => [
                 'any' => ['view'],
