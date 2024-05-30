@@ -1,6 +1,6 @@
 # Usage:
 # setup_all          # setup all the components
-# refresh_all        # setup all the components
+# refresh_all        # refresh all the components
 # make setup_api     # build the Laravel backend
 # make refresh_api   # refresh the Laravel backend
 # make setup_web     # build the React frontend
