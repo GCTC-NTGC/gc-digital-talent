@@ -36,4 +36,16 @@ test.describe("Applicant redirects", () => {
       /\/en\/applicant\/skills\/showcase/,
     );
   });
+
+  test("Redirects /users/me", async ({ applicantPage }) => {
+    await applicantPage.page.goto("/en/users/me");
+
+    await expect(applicantPage.page.url()).toMatch(/\/en\/applicant/);
+  });
+
+  test("Redirects /talent/search", async ({ appPage }) => {
+    await appPage.page.goto("/en/talent/search");
+
+    await expect(appPage.page.url()).toMatch(/\/en\/search/);
+  });
 });
