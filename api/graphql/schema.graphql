@@ -1973,7 +1973,6 @@ type Mutation {
     @canFind(ability: "updatePublished", find: "id")
   togglePoolUserBookmark(poolId: UUID! @rename(attribute: "pool_id")): Pool
     @guard
-    @inject(context: "user.id", name: "user_id")
     @canFind(ability: "view", find: "pool_id", model: "Pool", injectArgs: true)
 
   createPoolSkill(
