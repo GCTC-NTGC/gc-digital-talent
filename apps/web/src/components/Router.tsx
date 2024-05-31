@@ -50,6 +50,11 @@ const createRoute = (locale: Locales) =>
                 ),
             },
             {
+              path: "inclusivity-equity",
+              lazy: () =>
+                import("../pages/InclusivityEquityPage/InclusivityEquityPage"),
+            },
+            {
               path: "directive-on-digital-talent",
               children: [
                 {

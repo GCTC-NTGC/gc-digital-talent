@@ -4,7 +4,7 @@
  *
  * For utilities specific to the Applicant-side UI, see ./applicationUtils.ts
  */
-import { IntlShape, MessageDescriptor } from "react-intl";
+import { IntlShape, MessageDescriptor, defineMessages } from "react-intl";
 import { isPast } from "date-fns/isPast";
 import sortBy from "lodash/sortBy";
 import { ReactNode } from "react";
@@ -31,7 +31,11 @@ import {
   PoolCandidateStatus,
   PublishingGroup,
 } from "@gc-digital-talent/graphql";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  getOrThrowError,
+  notEmpty,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import {
@@ -42,6 +46,8 @@ import {
   PLACED_STATUSES,
   NOT_PLACED_STATUSES,
   DRAFT_STATUSES,
+  INACTIVE_STATUSES,
+  SCREENED_OUT_STATUSES,
 } from "~/constants/poolCandidate";
 
 import { isOngoingPublishingGroup } from "./poolUtils";
@@ -74,6 +80,23 @@ export const isPlacedStatus = (
 export const isNotPlacedStatus = (
   status: Maybe<PoolCandidateStatus> | undefined,
 ): boolean => (status ? NOT_PLACED_STATUSES.includes(status) : false);
+
+export const isScreenedOutStatus = (
+  status: Maybe<PoolCandidateStatus> | undefined,
+): boolean => (status ? SCREENED_OUT_STATUSES.includes(status) : false);
+
+export const isInactiveStatus = (
+  status: Maybe<PoolCandidateStatus> | undefined,
+): boolean => (status ? INACTIVE_STATUSES.includes(status) : false);
+
+export const isSuspendedStatus = (
+  status: Maybe<PoolCandidateStatus> | undefined,
+  suspendedAt: PoolCandidate["suspendedAt"],
+): boolean => {
+  const isSuspended = suspendedAt && new Date() > parseDateTimeUtc(suspendedAt);
+
+  return !!(isSuspended && status === PoolCandidateStatus.QualifiedAvailable);
+};
 
 export const getRecruitmentType = (
   publishingGroup: Maybe<PublishingGroup> | undefined,
@@ -540,3 +563,155 @@ export const getCandidateStatusChip = (
     color: getFinalDecisionChipColor(candidate.status),
   };
 };
+
+/* Applicant facing statuses */
+
+// Map combined statuses to their labels
+const combinedStatusLabels = defineMessages({
+  DRAFT: {
+    defaultMessage: "Continue draft",
+    id: "pf3KKo",
+    description: "Link text to continue a application draft",
+  },
+  RECEIVED: {
+    defaultMessage: "Application received",
+    id: "4TmwRU",
+    description: "Status for an application that has been submitted",
+  },
+  UNDER_REVIEW: {
+    defaultMessage: "Application under review",
+    id: "aagbij",
+    description: "Status for an application that is being reviewed",
+  },
+  PENDING_SKILLS: {
+    defaultMessage: "Application pending assessment",
+    id: "UZWLKn",
+    description: "Status for an application that is having skills reviewed",
+  },
+  ASSESSMENT: {
+    defaultMessage: "Application pending assessment",
+    id: "9Pxjw5",
+    description:
+      "Status for an application that where applicant is being assessed",
+  },
+  DATE_PASSED: {
+    defaultMessage: "Submission date passed",
+    id: "13fSK+",
+    description:
+      "Status for an application that where the recruitment has expired",
+  },
+  EXPIRED: {
+    defaultMessage: "Expired",
+    id: "GIC6EK",
+    description: "Expired status",
+  },
+  HIRED_CASUAL: {
+    defaultMessage: "Hired (Casual)",
+    id: "0YZeO0",
+    description:
+      "Status for an application that has been hired with a casual contract",
+  },
+  NOT_INTERESTED: {
+    defaultMessage: "Not interested",
+    id: "c+6rQB",
+    description: "Status for when the user has suspended an application",
+  },
+  HIRED_INDETERMINATE: {
+    defaultMessage: "Hired (Indeterminate)",
+    id: "/Sobod",
+    description:
+      "Status for an application that has been hired with an indeterminate contract",
+  },
+  HIRED_TERM: {
+    defaultMessage: "Hired (Term)",
+    id: "VplMpm",
+    description:
+      "Status for an application that has been hired with a term contract",
+  },
+  READY_TO_HIRE: {
+    defaultMessage: "Ready to hire",
+    id: "9gpVCX",
+    description: "Status for an application where user user is ready to hire",
+  },
+  PAUSED: {
+    defaultMessage: "Paused",
+    id: "KA/hfo",
+    description:
+      "Status for an application to an advertisement that is unavailable",
+  },
+  WITHDREW: {
+    defaultMessage: "Withdrew",
+    id: "C+hP/v",
+    description: "Status for an application that has been withdrawn",
+  },
+  REMOVED: commonMessages.removed,
+  SCREENED_OUT: commonMessages.screenedOut,
+});
+
+// Map pool candidate statuses to their regular combined statuses
+export const statusMap = new Map<PoolCandidateStatus, MessageDescriptor>([
+  [PoolCandidateStatus.Draft, combinedStatusLabels.DRAFT],
+  [PoolCandidateStatus.NewApplication, combinedStatusLabels.RECEIVED],
+  [PoolCandidateStatus.ApplicationReview, combinedStatusLabels.UNDER_REVIEW],
+  [PoolCandidateStatus.ScreenedIn, combinedStatusLabels.PENDING_SKILLS],
+  [PoolCandidateStatus.UnderAssessment, combinedStatusLabels.ASSESSMENT],
+  [PoolCandidateStatus.DraftExpired, combinedStatusLabels.DATE_PASSED],
+  [
+    PoolCandidateStatus.ScreenedOutApplication,
+    combinedStatusLabels.SCREENED_OUT,
+  ],
+  [
+    PoolCandidateStatus.ScreenedOutAssessment,
+    combinedStatusLabels.SCREENED_OUT,
+  ],
+  [PoolCandidateStatus.ScreenedOutNotInterested, combinedStatusLabels.REMOVED],
+  [PoolCandidateStatus.ScreenedOutNotResponsive, combinedStatusLabels.REMOVED],
+  [PoolCandidateStatus.QualifiedAvailable, combinedStatusLabels.READY_TO_HIRE],
+  [PoolCandidateStatus.QualifiedUnavailable, combinedStatusLabels.PAUSED],
+  [PoolCandidateStatus.QualifiedWithdrew, combinedStatusLabels.WITHDREW],
+  [PoolCandidateStatus.PlacedTentative, combinedStatusLabels.READY_TO_HIRE],
+  [PoolCandidateStatus.PlacedCasual, combinedStatusLabels.HIRED_CASUAL],
+  [PoolCandidateStatus.PlacedTerm, combinedStatusLabels.HIRED_TERM],
+  [
+    PoolCandidateStatus.PlacedIndeterminate,
+    combinedStatusLabels.HIRED_INDETERMINATE,
+  ],
+  [PoolCandidateStatus.Expired, combinedStatusLabels.EXPIRED],
+  [PoolCandidateStatus.Removed, combinedStatusLabels.REMOVED],
+]);
+
+// Map pool candidate statuses to their suspended combined statuses
+const suspendedStatusMap = new Map<PoolCandidateStatus, MessageDescriptor>([
+  [PoolCandidateStatus.QualifiedAvailable, combinedStatusLabels.NOT_INTERESTED],
+]);
+
+/**
+ * Derived a combined status from the pool candidate status and the suspendedAt timestamp
+ *
+ * @param status  pool candidate status
+ * @param suspendedAt  The timestamp for the user to suspend the pool candidate.  If suspended the label may be different.
+ * @returns MessageDescriptor | null    Returns the derived status label
+ */
+export const derivedStatusLabel = (
+  status: Maybe<PoolCandidateStatus> | undefined,
+  suspendedAt: PoolCandidate["suspendedAt"],
+): MessageDescriptor | null => {
+  if (!status) return null;
+  const isSuspended = suspendedAt && new Date() > parseDateTimeUtc(suspendedAt);
+
+  const combinedStatus =
+    isSuspended && suspendedStatusMap.has(status)
+      ? suspendedStatusMap.get(status) // special suspended label
+      : statusMap.get(status); // regular label
+
+  return combinedStatus ?? null;
+};
+
+export const getCombinedStatusLabel = (
+  statusLabelKey: keyof typeof combinedStatusLabels,
+): MessageDescriptor =>
+  getOrThrowError(
+    combinedStatusLabels,
+    statusLabelKey,
+    `Invalid statusLabelKey '${statusLabelKey}'`,
+  );
