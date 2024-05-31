@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Enums\ApplicationStep;
+use App\Enums\ArmedForcesStatus;
 use App\Enums\CitizenshipStatus;
 use App\Enums\PoolCandidateStatus;
 use App\Models\Pool;
@@ -64,6 +65,7 @@ class PoolCandidateTestSeeder extends Seeder
                 'email' => 'veteran@test.com',
                 'sub' => 'veteran@test.com',
                 'citizenship' => CitizenshipStatus::CITIZEN->name,
+                'armed_forces_status' => ArmedForcesStatus::VETERAN->name,
             ]);
 
         // 3- Try-hard Not a veteran
@@ -79,6 +81,7 @@ class PoolCandidateTestSeeder extends Seeder
                 'email' => 'try-hard@test.com',
                 'sub' => 'try-hard@test.com',
                 'citizenship' => CitizenshipStatus::PERMANENT_RESIDENT->name,
+                'armed_forces_status' => null,
             ]);
 
         //4- Absent Canadian
