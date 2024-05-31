@@ -17,6 +17,7 @@ class SendNotificationsSystem extends Command
      * @var string
      */
     protected $signature = 'send-notifications:system
+                            {viewGroup : The group of views to render the notification with}
                             {emailAddress? : The email address of the user to send to}';
 
     /**
@@ -36,7 +37,7 @@ class SendNotificationsSystem extends Command
         $successCount = 0;
         $failureCount = 0;
 
-        $viewGroup = 'notification_announcement';
+        $viewGroup = $this->argument('viewGroup');
 
         // find the views in api/resources/views/
         $emailSubjectEn = $viewGroup.'.email_subject_en';
@@ -73,7 +74,7 @@ class SendNotificationsSystem extends Command
             // no email address provided - will send to everyone
             $confirmedEveryone = $this->confirm('This will send the notification to every user.  Do you wish to continue?');
             if (! $confirmedEveryone) {
-                $this->info('Abort');
+                $this->warn('Abort');
 
                 return Command::SUCCESS;
             }
