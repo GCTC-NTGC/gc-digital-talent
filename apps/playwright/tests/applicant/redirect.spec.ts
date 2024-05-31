@@ -43,9 +43,15 @@ test.describe("Applicant redirects", () => {
     await expect(applicantPage.page.url()).toMatch(/\/en\/applicant/);
   });
 
-  test("Redirects /talent/search", async ({ appPage }) => {
+  test("Redirects /en/talent/search", async ({ appPage }) => {
     await appPage.page.goto("/en/talent/search");
 
     await expect(appPage.page.url()).toMatch(/\/en\/search/);
+  });
+
+  test("Redirects /fr/talent/search", async ({ appPage }) => {
+    await appPage.page.goto("/fr/talent/search");
+
+    await expect(appPage.page.url()).toMatch(/\/fr\/search/);
   });
 });
