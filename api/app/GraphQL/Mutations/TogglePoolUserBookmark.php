@@ -3,7 +3,6 @@
 namespace App\GraphQL\Mutations;
 
 use App\Models\Pool;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 final class TogglePoolUserBookmark
