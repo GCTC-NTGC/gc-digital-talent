@@ -20,6 +20,7 @@ import {
   PoolStream,
   PublishingGroup,
   WorkRegion,
+  PriorityWeight,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
@@ -31,12 +32,12 @@ import {
   getLanguageAbility,
   getLocalizedName,
   getOperationalRequirement,
+  getPoolCandidatePriorities,
   getPoolCandidateStatus,
   getPoolStream,
   getPublishingGroup,
   getWorkRegion,
   navigationMessages,
-  poolCandidatePriorities,
 } from "@gc-digital-talent/i18n";
 
 import adminMessages from "~/messages/adminMessages";
@@ -154,13 +155,9 @@ const PoolCandidateFilterDialog = ({
           idPrefix="priorityWeight"
           name="priorityWeight"
           legend={intl.formatMessage(adminMessages.category)}
-          items={Object.keys(poolCandidatePriorities).map((key) => ({
-            value: Number(key),
-            label: intl.formatMessage(
-              poolCandidatePriorities[
-                Number(key) as keyof typeof poolCandidatePriorities
-              ],
-            ),
+          items={enumToOptions(PriorityWeight).map(({ value }) => ({
+            value,
+            label: intl.formatMessage(getPoolCandidatePriorities(value)),
           }))}
         />
         <Combobox
