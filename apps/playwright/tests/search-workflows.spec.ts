@@ -11,13 +11,12 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import { test, expect } from "~/fixtures";
-
-import { getSkills } from "../utils/skills";
-import { getDCM } from "../utils/teams";
-import { getClassifications } from "../utils/classification";
-import PoolPage from "../fixtures/PoolPage";
-import ApplicationPage from "../fixtures/ApplicationPage";
-import { loginBySub } from "../utils/auth";
+import { getSkills } from "~/utils/skills";
+import { getDCM } from "~/utils/teams";
+import { getClassifications } from "~/utils/classification";
+import PoolPage from "~/fixtures/PoolPage";
+import ApplicationPage from "~/fixtures/ApplicationPage";
+import { loginBySub } from "~/utils/auth";
 
 test.describe("Talent search", () => {
   const uniqueTestId = Date.now().valueOf();
