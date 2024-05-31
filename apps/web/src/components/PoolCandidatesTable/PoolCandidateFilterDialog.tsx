@@ -155,7 +155,12 @@ const PoolCandidateFilterDialog = ({
           idPrefix="priorityWeight"
           name="priorityWeight"
           legend={intl.formatMessage(adminMessages.category)}
-          items={enumToOptions(PriorityWeight).map(({ value }) => ({
+          items={enumToOptions(PriorityWeight, [
+            PriorityWeight.PriorityEntitlement,
+            PriorityWeight.Veteran,
+            PriorityWeight.CitizenOrPermanentResident,
+            PriorityWeight.Other,
+          ]).map(({ value }) => ({
             value,
             label: intl.formatMessage(getPoolCandidatePriorities(value)),
           }))}
