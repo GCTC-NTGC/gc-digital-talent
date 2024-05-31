@@ -199,16 +199,6 @@ export function getOrderByClause(
     // ["status", "status"],
   ]);
 
-  // const poolBookmarksOrderByClause: QueryPoolsPaginatedOrderByRelationOrderByClause =
-  //   {
-  //     column: undefined,
-  //     order: SortOrder.Asc,
-  //     poolBookmarks: {
-  //       aggregate: OrderByRelationWithColumnAggregateFunction.Max,
-  //       column: "CREATED_AT" as QueryPoolsPaginatedOrderByPoolBookmarksColumn,
-  //     },
-  //   };
-
   const sortingRule = sortingRules?.find((rule) => {
     const columnName = columnMap.get(rule.id);
     return !!columnName;
