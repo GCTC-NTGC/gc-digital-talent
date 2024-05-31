@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\PoolCandidateStatus;
+use App\Enums\PriorityWeight;
 use App\Enums\PublishingGroup;
 use App\Http\Resources\UserResource;
 use App\Observers\PoolCandidateObserver;
@@ -652,9 +653,9 @@ class PoolCandidate extends Model
                     foreach ($priorityWeights as $index => $priorityWeight) {
                         if ($index === 0) {
                             // First iteration must use where instead of orWhere, as seen in filterWorkRegions
-                            $query->where('priority_weight', $priorityWeight);
+                            $query->where('priority_weight', PriorityWeight::weight($priorityWeight));
                         } else {
-                            $query->orWhere('priority_weight', $priorityWeight);
+                            $query->orWhere('priority_weight', PriorityWeight::weight($priorityWeight));
                         }
                     }
                 });
