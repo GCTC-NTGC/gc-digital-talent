@@ -2,10 +2,8 @@
 
 use App\Enums\NotificationFamily;
 use App\Models\Notification;
-use App\Models\Pool;
-use App\Models\PoolCandidate;
 use App\Models\User;
-use App\Notifications\ApplicationDeadlineApproaching;
+use App\Notifications\Test;
 use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\GenericJobTitleSeeder;
 use Database\Seeders\RolePermissionSeeder;
@@ -27,13 +25,7 @@ class NotificationTest extends TestCase
 
     protected $notification;
 
-    protected $closingDate;
-
-    protected $pool;
-
     protected $candidateUser;
-
-    protected $poolCandidate;
 
     protected $queryNotifications = /** GraphQL */ '
         query Notifications($where: NotificationFilterInput) {
@@ -41,11 +33,8 @@ class NotificationTest extends TestCase
                 data {
                     id
                     readAt
-                    ... on ApplicationDeadlineApproachingNotification {
-                        closingDate
-                        poolName { en fr }
-                        poolId
-                        poolCandidateId
+                    ... on TestNotification {
+                        name
                     }
                 }
             }
@@ -63,10 +52,6 @@ class NotificationTest extends TestCase
         $this->seed(SkillSeeder::class);
         $this->seed(RolePermissionSeeder::class);
 
-        $this->pool = Pool::factory()
-            ->published()
-            ->create();
-
         $this->candidateUser = User::factory()
             ->asApplicant()
             ->create([
@@ -79,21 +64,7 @@ class NotificationTest extends TestCase
                 ],
             ]);
 
-        $this->poolCandidate = PoolCandidate::factory()->create([
-            'user_id' => $this->candidateUser->id,
-            'pool_id' => $this->pool->id,
-        ]);
-
-        $this->closingDate = Carbon::parse(config('constants.far_future_date'));
-        $this->candidateUser->notify(
-            new ApplicationDeadlineApproaching(
-                $this->closingDate,
-                $this->pool->name['en'],
-                $this->pool->name['fr'],
-                $this->pool->id,
-                $this->poolCandidate->id,
-            )
-        );
+        $this->candidateUser->notify(new Test('test', 'database'));
 
         $this->notification = $this->candidateUser->unreadNotifications()->first();
     }
@@ -102,14 +73,15 @@ class NotificationTest extends TestCase
     {
 
         $this->actingAs($this->candidateUser, 'api')
-            ->graphQL($this->queryNotifications)->assertJsonFragment([
-                'id' => $this->notification->id,
-                'readAt' => null,
-                'closingDate' => $this->closingDate->toDateString(),
-                'poolCandidateId' => $this->poolCandidate->id,
-                'poolName' => [
-                    'en' => $this->pool->name['en'],
-                    'fr' => $this->pool->name['fr'],
+            ->graphQL($this->queryNotifications)->assertJson([
+                'data' => [
+                    'notifications' => [
+                        'data' => [
+                            [
+                                'name' => 'test',
+                            ],
+                        ],
+                    ],
                 ],
             ]);
     }
@@ -176,38 +148,15 @@ class NotificationTest extends TestCase
     public function testReadAllNotifications(): void
     {
 
-        $this->candidateUser->notify(
-            new ApplicationDeadlineApproaching(
-                new Carbon('2030-01-01'),
-                $this->pool->name['en'],
-                $this->pool->name['fr'],
-                $this->pool->id,
-                $this->poolCandidate->id,
-            )
-        );
-        $this->candidateUser->notify(
-            new ApplicationDeadlineApproaching(
-                new Carbon('2030-02-01'),
-                $this->pool->name['en'],
-                $this->pool->name['fr'],
-                $this->pool->id,
-                $this->poolCandidate->id,
-
-            )
-        );
+        $this->candidateUser->notify(new Test('test1', 'database'));
+        $this->candidateUser->notify(new Test('test2', 'database'));
 
         $response = $this->actingAs($this->candidateUser, 'api')
             ->graphQL($this->queryNotifications);
 
         // Confirm they exist as unread first
-        $response->assertJsonFragment([
-            'closingDate' => '2030-01-01',
-            'readAt' => null,
-        ]);
-        $response->assertJsonFragment([
-            'closingDate' => '2030-02-01',
-            'readAt' => null,
-        ]);
+        $response->assertJsonFragment(['name' => 'test1']);
+        $response->assertJsonFragment(['name' => 'test2']);
 
         $response = $this->actingAs($this->candidateUser, 'api')
             ->graphQL(/** @lang GraphQL */ '
@@ -225,25 +174,8 @@ class NotificationTest extends TestCase
 
     public function testOnlyUnreadQuery()
     {
-        $this->candidateUser->notify(
-            new ApplicationDeadlineApproaching(
-                new Carbon('2030-01-01'),
-                $this->pool->name['en'],
-                $this->pool->name['fr'],
-                $this->pool->id,
-                $this->poolCandidate->id,
-            )
-        );
-
-        $this->candidateUser->notify(
-            new ApplicationDeadlineApproaching(
-                new Carbon('2030-02-01'),
-                $this->pool->name['en'],
-                $this->pool->name['fr'],
-                $this->pool->id,
-                $this->poolCandidate->id,
-            )
-        );
+        $this->candidateUser->notify(new Test('test1', 'database'));
+        $this->candidateUser->notify(new Test('test2', 'database'));
 
         $this->candidateUser->notifications()->first()->markAsRead();
 
@@ -265,15 +197,7 @@ class NotificationTest extends TestCase
 
     public function testDateRangeFilter()
     {
-        $this->candidateUser->notify(
-            new ApplicationDeadlineApproaching(
-                new Carbon('2030-01-01'),
-                $this->pool->name['en'],
-                $this->pool->name['fr'],
-                $this->pool->id,
-                $this->poolCandidate->id,
-            )
-        );
+        $this->candidateUser->notify(new Test('test1', 'database'));
 
         $pastDate = new Carbon(config('constants.past_date'));
         $this->candidateUser->notifications()->first()->update([

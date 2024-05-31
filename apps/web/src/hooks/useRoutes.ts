@@ -48,6 +48,7 @@ const getRoutes = (lang: Locales) => {
     manager: () => path.join(baseUrl, "manager"),
     executive: () => path.join(baseUrl, "executive"),
     skills: () => path.join(baseUrl, "skills"),
+    inclusivityEquity: () => path.join(baseUrl, "inclusivity-equity"),
 
     // Admin
     adminDashboard: () => adminUrl,

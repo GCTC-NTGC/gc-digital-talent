@@ -25,7 +25,10 @@ export async function loginBySub(page: Page, sub: string) {
     async (resp) => {
       if (await resp.url()?.includes("/graphql")) {
         const reqJson = await resp.request()?.postDataJSON();
-        return reqJson.operationName === "ProfileAndApplicationsApplicant";
+        return (
+          reqJson.operationName === "ProfileAndApplicationsApplicant" ||
+          reqJson.operationName === "CreateAccount_Query"
+        );
       }
 
       return false;
