@@ -238,6 +238,7 @@ type Pool {
   publishedAt: DateTime @rename(attribute: "published_at")
   archivedAt: DateTime @rename(attribute: "archived_at")
   isComplete: Boolean
+  assessmentPlanIsComplete: Boolean
   assessmentSteps: [AssessmentStep]
     @hasMany
     @canRoot(ability: "viewAssessmentPlan")
