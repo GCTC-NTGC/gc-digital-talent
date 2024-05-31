@@ -337,6 +337,15 @@ type ApplicationStatusChangedNotification implements Notification {
   poolName: LocalizedString
 }
 
+type SystemNotification implements Notification {
+  id: ID!
+  readAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  message: LocalizedString
+  href: LocalizedString
+}
+
 type UserPublicProfile {
   id: ID!
   email: Email

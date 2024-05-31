@@ -172,6 +172,16 @@ type ApplicationStatusChangedNotification implements Notification {
   poolName: LocalizedString
 }
 
+type SystemNotification implements Notification {
+  id: ID!
+  readAt: DateTime @rename(attribute: "read_at")
+  createdAt: DateTime! @rename(attribute: "created_at")
+  updatedAt: DateTime! @rename(attribute: "updated_at")
+
+  message: LocalizedString
+  href: LocalizedString
+}
+
 type UserPublicProfile @model(class: "\\App\\Models\\User") {
   id: ID!
   email: Email
