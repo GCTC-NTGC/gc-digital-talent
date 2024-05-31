@@ -81,7 +81,7 @@ class PoolCandidateTestSeeder extends Seeder
                 'email' => 'try-hard@test.com',
                 'sub' => 'try-hard@test.com',
                 'citizenship' => CitizenshipStatus::PERMANENT_RESIDENT->name,
-                'armed_forces_status' => null,
+                'armed_forces_status' => ArmedForcesStatus::NON_CAF->name,
             ]);
 
         //4- Absent Canadian
