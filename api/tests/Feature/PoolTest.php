@@ -767,7 +767,6 @@ class PoolTest extends TestCase
 
     public function testAssessmentStepValidation(): void
     {
-
         Classification::factory()->create();
         Skill::factory()->count(5)->create([
             'category' => SkillCategory::TECHNICAL->name,
@@ -781,7 +780,29 @@ class PoolTest extends TestCase
                 'published_at' => null,
             ]);
 
+        // assessment plan marked as incomplete due to steps missing skills
+        $this->actingAs($this->adminUser, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+            query pool($id: UUID!) {
+                pool(id: $id) {
+                    assessmentPlanIsComplete
+                }
+            }
+            ',
+            [
+                'id' => $completePool->id,
+            ]
+        )->assertJson([
+            'data' => [
+                'pool' => [
+                    'assessmentPlanIsComplete' => false,
+                ],
+            ],
+        ]);
+
         // Note: Default factory has no pool skills attached to Screening question step
+        // assert cannot publish due to assessment steps missing skills
         $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
@@ -801,6 +822,27 @@ class PoolTest extends TestCase
         foreach ($completePool->assessmentSteps as $assessmentStep) {
             $assessmentStep->poolSkills()->sync($completePool->poolSkills->pluck('id')->toArray());
         }
+
+        // assessment plan now marked as complete
+        $this->actingAs($this->adminUser, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+                    query pool($id: UUID!) {
+                        pool(id: $id) {
+                            assessmentPlanIsComplete
+                        }
+                    }
+                    ',
+            [
+                'id' => $completePool->id,
+            ]
+        )->assertJson([
+            'data' => [
+                'pool' => [
+                    'assessmentPlanIsComplete' => true,
+                ],
+            ],
+        ]);
 
         // assert can now publish as all steps have attached skills
         $this->actingAs($this->adminUser, 'api')->graphQL(
@@ -847,6 +889,27 @@ class PoolTest extends TestCase
             $assessmentStep->poolSkills()->sync([$completePool->poolSkills[0]->id]);
         }
 
+        // assessment plan marked as incomplete due to pool skills missing steps
+        $this->actingAs($this->adminUser, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+                    query pool($id: UUID!) {
+                        pool(id: $id) {
+                            assessmentPlanIsComplete
+                        }
+                    }
+                    ',
+            [
+                'id' => $completePool->id,
+            ]
+        )->assertJson([
+            'data' => [
+                'pool' => [
+                    'assessmentPlanIsComplete' => false,
+                ],
+            ],
+        ]);
+
         // assert cannot publish due to the one pool skill lacking an assessment
         $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
@@ -867,6 +930,27 @@ class PoolTest extends TestCase
         foreach ($completePool->assessmentSteps as $assessmentStep) {
             $assessmentStep->poolSkills()->sync($completePool->poolSkills->pluck('id')->toArray());
         }
+
+        // assessment plan now marked as complete
+        $this->actingAs($this->adminUser, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+                            query pool($id: UUID!) {
+                                pool(id: $id) {
+                                    assessmentPlanIsComplete
+                                }
+                            }
+                            ',
+            [
+                'id' => $completePool->id,
+            ]
+        )->assertJson([
+            'data' => [
+                'pool' => [
+                    'assessmentPlanIsComplete' => true,
+                ],
+            ],
+        ]);
 
         // assert successful now that all pool skills have an assessment
         $this->actingAs($this->adminUser, 'api')->graphQL(
