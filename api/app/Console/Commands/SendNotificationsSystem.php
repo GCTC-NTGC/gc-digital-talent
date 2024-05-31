@@ -16,7 +16,8 @@ class SendNotificationsSystem extends Command
      *
      * @var string
      */
-    protected $signature = 'send-notifications:system';
+    protected $signature = 'send-notifications:system
+                            {emailAddress? : The email address of the user to send to}';
 
     /**
      * The console command description.
@@ -62,27 +63,42 @@ class SendNotificationsSystem extends Command
             }
         });
 
-        $user = User::where('sub', 'applicant@test.com')->sole();
+        $singleEmailAddress = $this->argument('emailAddress');
+        if (! is_null($singleEmailAddress)) {
+            // single email address provided
+            $recipientUsers = [
+                User::where('email', $singleEmailAddress)->sole(),
+            ];
+        } else {
+            // no email address provided - will send to everyone
+            $confirmedEveryone = $this->confirm('This will send the notification to every user.  Do you wish to continue?');
+            if (! $confirmedEveryone) {
+                $this->info('Abort');
 
-        // foreach (User::all() as $user) {
-        try {
-            $notification = new SystemNotification(
-                $emailSubjectEn = $emailSubjectEn,
-                $emailSubjectFr = $emailSubjectFr,
-                $emailContentEn = $emailContentEn,
-                $emailContentFr = $emailContentFr,
-                $inAppMessageEn = $inAppMessageEn,
-                $inAppMessageFr = $inAppMessageFr,
-                $inAppHrefEn = $inAppHrefEn,
-                $inAppHrefFr = $inAppHrefFr,
-            );
-            $user->notify($notification);
-            $successCount++;
-        } catch (Throwable $e) {
-            $this->error($e->getMessage());
-            $failureCount++;
+                return Command::SUCCESS;
+            }
+            $recipientUsers = User::all()->all();
         }
-        // }
+
+        foreach ($recipientUsers as $user) {
+            try {
+                $notification = new SystemNotification(
+                    $emailSubjectEn = $emailSubjectEn,
+                    $emailSubjectFr = $emailSubjectFr,
+                    $emailContentEn = $emailContentEn,
+                    $emailContentFr = $emailContentFr,
+                    $inAppMessageEn = $inAppMessageEn,
+                    $inAppMessageFr = $inAppMessageFr,
+                    $inAppHrefEn = $inAppHrefEn,
+                    $inAppHrefFr = $inAppHrefFr,
+                );
+                $user->notify($notification);
+                $successCount++;
+            } catch (Throwable $e) {
+                $this->error($e->getMessage());
+                $failureCount++;
+            }
+        }
 
         $this->info("Success: $successCount Failure: $failureCount");
         if ($failureCount > 0) {
