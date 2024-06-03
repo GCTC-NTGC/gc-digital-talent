@@ -185,10 +185,15 @@ type ScreeningQuestion {
   sortOrder: Int @rename(attribute: "sort_order")
 }
 
-type Pool {
+interface HasRoleAssignments {
+  roleAssignments: [RoleAssignment!]
+}
+
+type Pool implements HasRoleAssignments {
   id: ID!
   owner: UserPublicProfile @belongsTo(relation: "user")
   team: Team @belongsTo @canModel(ability: "viewAny")
+  newTeam: Team @belongsTo @canModel(ability: "viewAny") # Newer polymorphic team relationship
   name: LocalizedString
   classification: Classification @belongsTo
   operationalRequirements: [OperationalRequirement]
@@ -233,6 +238,7 @@ type Pool {
     @hasMany
     @canRoot(ability: "viewAssessmentPlan")
   poolSkills(type: PoolSkillType @where): [PoolSkill] @hasMany
+  roleAssignments: [RoleAssignment!] @hasManyThrough
 }
 
 type GeneralQuestionResponse {
@@ -382,14 +388,16 @@ type Department {
   teams: [Team] @belongsToMany @canModel(ability: "viewAny")
 }
 
-type Community {
+type Community implements HasRoleAssignments {
   id: ID!
   key: String!
   name: LocalizedString
   description: LocalizedString
+  team: Team @morphOne @canModel(ability: "viewAny")
+  roleAssignments: [RoleAssignment!] @hasManyThrough
 }
 
-type Team {
+type Team implements HasRoleAssignments {
   id: ID!
   name: String! # represents a unique key for a team
   displayName: LocalizedString @rename(attribute: "display_name")
@@ -397,6 +405,7 @@ type Team {
   departments: [Department] @belongsToMany
   contactEmail: Email @rename(attribute: "contact_email")
   pools: [Pool] @hasMany @canResolved(ability: "view")
+  teamable: HasRoleAssignments @morphTo
   roleAssignments: [RoleAssignment!]
     @hasMany
     @canRoot(ability: "viewTeamMembers")
@@ -417,6 +426,7 @@ type Role {
 type RoleAssignment {
   id: ID!
   role: Role @belongsTo
+  teamable: HasRoleAssignments # Returns the related team, if it has a teamable returns that instead
   team: Team @belongsTo
   user: UserPublicProfile @morphTo
 }
