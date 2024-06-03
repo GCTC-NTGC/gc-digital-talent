@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 /**
  * Class Community
@@ -48,5 +50,17 @@ class Community extends Model
     public function applicantFilters(): HasMany
     {
         return $this->hasMany(ApplicantFilter::class);
+    }
+
+    public function team(): MorphOne
+    {
+        return $this->morphOne(Team::class, 'teamable');
+    }
+
+    public function roleAssignments(): HasManyThrough
+    {
+        // I think this only works because we use UUIDs
+        // There might be a better way to do this
+        return $this->hasManyThrough(RoleAssignment::class, Team::class, 'teamable_id');
     }
 }

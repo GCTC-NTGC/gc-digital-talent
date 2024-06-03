@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -166,6 +168,18 @@ class Pool extends Model
     public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class);
+    }
+
+    public function newTeam(): MorphOne
+    {
+        return $this->morphOne(Team::class, 'teamable');
+    }
+
+    public function roleAssignments(): HasManyThrough
+    {
+        // I think this only works because we use UUIDs
+        // There might be a better way to do this
+        return $this->hasManyThrough(RoleAssignment::class, Team::class, 'teamable_id');
     }
 
     public function classification(): BelongsTo
