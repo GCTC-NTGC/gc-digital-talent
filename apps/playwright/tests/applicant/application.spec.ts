@@ -124,7 +124,6 @@ test.describe("Application", () => {
     // Welcome page - step one
     await expectOnStep(application.page, 1);
     await application.page.getByRole("button", { name: /let's go/i }).click();
-    // await application.waitForGraphqlResponse("Application");
 
     // Review profile page - step two
     await expectOnStep(application.page, 2);
