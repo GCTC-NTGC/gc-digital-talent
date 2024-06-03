@@ -1744,8 +1744,10 @@ type Mutation {
     @restore
     @guard
     @canFind(ability: "restore", find: "id")
-  verifyUserEmail(id: ID!): User
-    @update
+  SendUserEmailVerification(id: ID!): User
+    @guard
+    @canFind(ability: "update", find: "id")
+  verifyUserEmail(id: ID!, code: String!): User
     @guard
     @canFind(ability: "update", find: "id")
 

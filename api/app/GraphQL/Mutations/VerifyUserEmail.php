@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Models\User;
 use GraphQL\Error\Error;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 
 final class VerifyUserEmail
@@ -15,9 +15,7 @@ final class VerifyUserEmail
      */
     public function __invoke($_, array $args)
     {
-        /** @var \App\Models\User */
-        $user = Auth::user();
-
+        $user = User::find($args['id']);
         $providedCode = $args['code'];
         $normalizedCode = trim(strtoupper($providedCode));
 
