@@ -198,6 +198,7 @@ test.describe("Talent search", () => {
       appPage.page.getByText(
         new RegExp(
           `${classification.group}-0${classification.level}: search pool`,
+          "i",
         ),
       ),
     ).toBeVisible();
