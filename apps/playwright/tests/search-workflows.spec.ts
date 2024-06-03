@@ -4,6 +4,8 @@ import { Page } from "@playwright/test";
 import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 import {
   Classification,
+  EstimatedLanguageAbility,
+  OperationalRequirement,
   PoolCandidateStatus,
   Skill,
   SkillCategory,
@@ -43,6 +45,12 @@ test.describe("Talent search", () => {
       email: `${sub}@example.org`,
       sub,
       isWoman: true,
+      lookingForFrench: true,
+      lookingForBilingual: true,
+      estimatedLanguageAbility: EstimatedLanguageAbility.Intermediate,
+      acceptedOperationalRequirements: [
+        OperationalRequirement.OvertimeOccasional,
+      ],
       personalExperiences: {
         create: [
           {
@@ -137,7 +145,6 @@ test.describe("Talent search", () => {
     });
 
     await streamFilter.selectOption({ label: "Database Management" });
-
     await expectNoCandidate(appPage.page);
 
     await streamFilter.selectOption({
@@ -163,6 +170,26 @@ test.describe("Talent search", () => {
     await skillFilter.fill(`${skill.name.en}`);
     await skillFilter.press("ArrowDown");
     await skillFilter.press("Enter");
+
+    await appPage.page.getByRole("radio", { name: /french only/i }).click();
+
+    await appPage.page
+      .getByRole("button", { name: /expand all advanced filters/i })
+      .click();
+
+    await appPage.page
+      .getByRole("radio", {
+        name: /required diploma from post-secondary institution/i,
+      })
+      .click();
+
+    await appPage.page
+      .getByRole("radio", { name: /indeterminate duration/i })
+      .click();
+
+    await appPage.page
+      .getByRole("checkbox", { name: /overtime \(occasionally\)/i })
+      .click();
 
     await expect(poolCard).toBeVisible();
 
@@ -209,6 +236,15 @@ test.describe("Talent search", () => {
 
     await expect(
       appPage.page.getByText(new RegExp(skill.name.en)),
+    ).toBeVisible();
+
+    await expect(appPage.page.getByText(/required diploma/i)).toBeVisible();
+    await expect(appPage.page.getByText(/french only/i)).toBeVisible();
+    await expect(
+      appPage.page.getByText(/indeterminate duration/i),
+    ).toBeVisible();
+    await expect(
+      appPage.page.getByText(/overtime \(occasionally\)/i),
     ).toBeVisible();
 
     await expect(appPage.page.getByText(/woman/i)).toBeVisible();
