@@ -310,4 +310,13 @@ class PoolFactory extends Factory
 
         return $this->create($attributes);
     }
+
+    // Add a team with at least one member to the pool
+    public function withTeamMembers()
+    {
+        return $this->afterCreating(function (Pool $pool) {
+            $team = Team::factory()->withTeamMembers()->create();
+            $team->teamable()->associate($pool)->save();
+        });
+    }
 }

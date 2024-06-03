@@ -30,6 +30,7 @@ class PoolTestSeeder extends Seeder
         $createdPool = Pool::factory()
             ->withPoolSkills(4, 4)
             ->withQuestions(2, 2)
+            ->withTeamMembers()
             ->published()
             ->createOrGetExisting([
                 'name' => [
@@ -73,6 +74,7 @@ class PoolTestSeeder extends Seeder
         Pool::factory()
             ->withPoolSkills(0, 0)
             ->withQuestions(0, 0)
+            ->withTeamMembers()
             ->draft()
             ->createOrGetExisting([
                 'name' => [
@@ -116,6 +118,7 @@ class PoolTestSeeder extends Seeder
         Pool::factory()
             ->withPoolSkills(6, 6)
             ->withQuestions(3, 3)
+            ->withTeamMembers()
             ->published()
             ->withAssessmentStep(AssessmentStepType::INTERVIEW_INDIVIDUAL)
             ->withAssessmentStep(AssessmentStepType::TECHNICAL_EXAM_AT_SITE)
@@ -162,6 +165,7 @@ class PoolTestSeeder extends Seeder
         Pool::factory()
             ->withPoolSkills(2, 2)
             ->withQuestions(2, 1)
+            ->withTeamMembers()
             ->published()
             ->withAssessmentStep(AssessmentStepType::INTERVIEW_INDIVIDUAL)
             ->withAssessmentStep(AssessmentStepType::TECHNICAL_EXAM_AT_SITE)
@@ -210,6 +214,7 @@ class PoolTestSeeder extends Seeder
         Pool::factory()
             ->withPoolSkills(2, 2)
             ->withQuestions(0, 1)
+            ->withTeamMembers()
             ->published()
             ->withAssessmentStep(AssessmentStepType::TECHNICAL_EXAM_AT_SITE)
             ->createOrGetExisting([

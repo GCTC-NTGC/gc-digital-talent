@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Department;
 use App\Models\Team;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TeamFactory extends Factory
@@ -38,6 +39,13 @@ class TeamFactory extends Factory
         return $this->afterCreating(function (Team $team) {
             $departments = Department::inRandomOrder()->limit(2)->get();
             $team->departments()->saveMany($departments);
+        });
+    }
+
+    public function withTeamMembers($count = 1)
+    {
+        return $this->afterCreating(function (Team $team) use ($count) {
+            User::factory()->asPoolOperator($team->name)->count($count)->create();
         });
     }
 }
