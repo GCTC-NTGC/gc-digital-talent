@@ -196,7 +196,9 @@ test.describe("Talent search", () => {
 
     await expect(
       appPage.page.getByText(
-        new RegExp(`${classification.group}-0${classification.level}`),
+        new RegExp(
+          `${classification.group}-0${classification.level}: search pool`,
+        ),
       ),
     ).toBeVisible();
 
