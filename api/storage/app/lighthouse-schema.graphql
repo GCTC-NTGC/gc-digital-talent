@@ -110,6 +110,7 @@ type Mutation {
   updateUserRoles(updateUserRolesInput: UpdateUserRolesInput!): UserAuthInfo
   deleteUser(id: ID!): User
   restoreUser(id: ID!): User
+  verifyUserEmail(id: ID!): User
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
   updatePoolCandidateStatus(id: UUID!, poolCandidate: UpdatePoolCandidateStatusInput!): PoolCandidate
   togglePoolCandidateBookmark(id: ID!): Boolean
@@ -242,6 +243,7 @@ type User {
   firstName: String
   lastName: String
   email: Email
+  emailVerifiedAt: DateTime
   telephone: PhoneNumber
   preferredLang: Language
   preferredLanguageForInterview: Language
