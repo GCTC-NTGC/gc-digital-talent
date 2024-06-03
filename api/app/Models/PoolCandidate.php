@@ -825,6 +825,10 @@ class PoolCandidate extends Model
 
     public function setApplicationSnapshot()
     {
+        if (! is_null($this->profile_snapshot)) {
+            return null;
+        }
+
         $user = User::with([
             'department',
             'currentClassification',
