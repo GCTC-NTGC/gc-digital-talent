@@ -243,7 +243,7 @@ const ScreeningDecisionDialogForm = ({
             rules={
               otherReasonSelected
                 ? { required: intl.formatMessage(errorMessages.required) }
-                : {}
+                : { required: undefined }
             }
           />
         </div>
