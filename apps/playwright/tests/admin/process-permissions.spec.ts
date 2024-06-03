@@ -8,16 +8,19 @@ import { getClassifications } from "~/utils/classification";
 import { loginBySub } from "~/utils/auth";
 
 test.describe("Process permissions", () => {
-  const uniqueTestId = Date.now().valueOf();
-  const unassociatedSub = `playwright.sub.unassociated.${uniqueTestId}`;
-  const unassociatedPoolManagerEmail = `${unassociatedSub}@example.org`;
-  const associatedSub = `playwright.sub.associated.${uniqueTestId}`;
-  const associatedPoolManagerEmail = `${associatedSub}@example.org`;
-  const poolName = `pool auth test ${uniqueTestId}`;
+  let associatedSub;
+  let unassociatedSub;
+  let poolName;
 
   let pool: Pool;
 
   test.beforeAll(async ({ adminPage }) => {
+    const uniqueTestId = Date.now().valueOf();
+    unassociatedSub = `playwright.sub.unassociated.${uniqueTestId}`;
+    const unassociatedPoolManagerEmail = `${unassociatedSub}@example.org`;
+    associatedSub = `playwright.sub.associated.${uniqueTestId}`;
+    const associatedPoolManagerEmail = `${associatedSub}@example.org`;
+    poolName = `pool auth test ${uniqueTestId}`;
     const poolPage = new PoolPage(adminPage.page);
     const teamPage = new TeamPage(adminPage.page);
 
