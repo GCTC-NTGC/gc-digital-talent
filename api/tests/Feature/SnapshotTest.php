@@ -19,6 +19,7 @@ use Tests\UsesProtectedGraphqlEndpoint;
 
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertNotNull;
+use function PHPUnit\Framework\assertSame;
 
 class SnapshotTest extends TestCase
 {
@@ -166,5 +167,28 @@ class SnapshotTest extends TestCase
         $intersectedArray = array_intersect($unusedSkillIds, $snapshotSkillIds);
         $intersectedArrayLength = count($intersectedArray);
         assertEquals($intersectedArrayLength, 0);
+    }
+
+    public function testSetApplicationSnapshotDoesNotOverwrite()
+    {
+        // non-null snapshot value set
+        $user = User::factory()
+            ->asApplicant()
+            ->create();
+        $pool = Pool::factory()->published()->create();
+        $poolCandidate = PoolCandidate::factory()->create([
+            'user_id' => $user->id,
+            'pool_id' => $pool->id,
+            'profile_snapshot' => ['snapshot' => 'set'],
+        ]);
+
+        $poolCandidate->setApplicationSnapshot();
+        $poolCandidate->save();
+
+        $updatedPoolCandidate = PoolCandidate::findOrFail($poolCandidate->id);
+        $snapshot = $updatedPoolCandidate->profile_snapshot;
+
+        // snapshot field unchanged
+        assertSame(['snapshot' => 'set'], $snapshot);
     }
 }
