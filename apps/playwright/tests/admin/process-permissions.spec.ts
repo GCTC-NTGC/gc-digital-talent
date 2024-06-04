@@ -8,10 +8,10 @@ import { getClassifications } from "~/utils/classification";
 import { loginBySub } from "~/utils/auth";
 
 test.describe("Process permissions", () => {
+  let associatedSub;
+  let unassociatedSub;
+  let poolName;
   let pool: Pool;
-  let poolName: string;
-  let associatedSub: string;
-  let unassociatedSub: string;
 
   test.beforeAll(async ({ adminPage }) => {
     const uniqueTestId = Date.now().valueOf();

@@ -3,6 +3,7 @@ import { type Page } from "@playwright/test";
 import {
   EducationRequirementOption,
   PoolCandidate,
+  PoolCandidateStatus,
 } from "@gc-digital-talent/graphql";
 
 import AppPage from "./AppPage";
@@ -10,6 +11,7 @@ import {
   Test_CreateApplicationMutationDocument,
   Test_SubmitApplicationMutationDocument,
   Test_UpdateApplicationMutationDocument,
+  Test_UpdateApplicationStatusMutationDocument,
 } from "../utils/applications";
 import { GraphQLResponse } from "../utils/graphql";
 
@@ -113,11 +115,13 @@ class ApplicationPage extends AppPage {
   }
 
   async submit() {
-    this.page
+    await this.page
       .getByRole("textbox", { name: /your full name/i })
       .fill("Signature");
 
-    this.page.getByRole("button", { name: /submit my application/i }).click();
+    await this.page
+      .getByRole("button", { name: /submit my application/i })
+      .click();
   }
 
   /**
@@ -161,6 +165,22 @@ class ApplicationPage extends AppPage {
     }).then(
       (res: GraphQLResponse<"submitApplication", PoolCandidate>) =>
         res.submitApplication,
+    );
+  }
+
+  /**
+   * Update status of an application using graphql API
+   */
+  async updateStatusGraphql(
+    id: string,
+    status: PoolCandidateStatus,
+  ): Promise<PoolCandidate> {
+    return this.graphqlRequest(Test_UpdateApplicationStatusMutationDocument, {
+      id,
+      input: { status },
+    }).then(
+      (res: GraphQLResponse<"updatePoolCandidateStatus", PoolCandidate>) =>
+        res.updatePoolCandidateStatus,
     );
   }
 }

@@ -45,13 +45,13 @@ test.describe("Admin workflows", () => {
     await goToUsersPage(appPage);
     await searchForUser(appPage, "Applicant");
 
-    appPage.page.getByRole("link", { name: /edit applicant/i }).click();
-    appPage.waitForGraphqlResponse("UpdateUserData");
+    await appPage.page.getByRole("link", { name: /edit applicant/i }).click();
+    await appPage.waitForGraphqlResponse("UpdateUserData");
 
     await appPage.page
       .getByRole("textbox", { name: /telephone/i })
       .fill("+10123456789");
-    appPage.page
+    await appPage.page
       .getByRole("button", { name: /submit/i })
       .first()
       .click();

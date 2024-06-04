@@ -23,7 +23,8 @@
     "axe-core": "^4.9.1",
     "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
-    "eslint-plugin-playwright": "^1.6.2"
+    "eslint-plugin-playwright": "^1.6.2",
+    "typescript-eslint": "^7.12.0"
   },
   "dependencies": {
     "@axe-core/playwright": "^4.9.1"
