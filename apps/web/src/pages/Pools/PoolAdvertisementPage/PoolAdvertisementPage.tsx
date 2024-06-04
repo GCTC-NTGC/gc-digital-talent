@@ -20,6 +20,7 @@ import {
   Well,
   CardBasic,
   Button,
+  Separator,
 } from "@gc-digital-talent/ui";
 import {
   getLocale,
@@ -1212,6 +1213,23 @@ export const PoolPoster = ({
               </Text>
               <ApplicationLink {...applicationLinkProps} />
             </TableOfContents.Section>
+            {pool.processNumber && (
+              <>
+                <Separator orientation="horizontal" space="sm" decorative />
+                <p
+                  data-h2-text-align="base(right)"
+                  data-h2-color="base(black.light)"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Selection process number",
+                    id: "LdlxBV",
+                    description: "Label for a process number",
+                  })}
+                  {intl.formatMessage(commonMessages.dividingColon)}
+                  {pool.processNumber}
+                </p>
+              </>
+            )}
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
       </div>
