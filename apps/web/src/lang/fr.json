@@ -1,4 +1,8 @@
 {
+  "+2PPS3": {
+    "defaultMessage": "Statut de priorité",
+    "description": "Title for priority status"
+  },
   "+5+rJS": {
     "defaultMessage": "Veuillez partager comment d’autres événements de vie vous ont aidé à grandir et à perfectionner vos compétences, y compris votre famille, vos passe-temps, de même que vos activités hors-horaire. ",
     "description": "Description for personal experience section"
@@ -370,6 +374,10 @@
   "04smVa": {
     "defaultMessage": "Recrutement ciblé",
     "description": "Label for an targeting (active) qualified recruitment"
+  },
+  "06xcoU": {
+    "defaultMessage": "Le candidat n’a pas d’autres renseignements qui doivent être vérifiés.",
+    "description": "Message for when a candidate has no claims to be verified"
   },
   "07p+1J": {
     "defaultMessage": "Avez-vous d'autres questions? N'hésitez pas à <link> communiquer avec notre équipe</link> pour obtenir de plus amples renseignements. ",
@@ -887,6 +895,10 @@
     "defaultMessage": "Paramètres du compte",
     "description": "Title for the account settings page"
   },
+  "2sxe4b": {
+    "defaultMessage": "Passez en revue les renseignements fournis pour vous assurer qu’ils sont exacts et à jour.",
+    "description": "Lead-in text for verifying a candidates claims"
+  },
   "2wzOfY": {
     "defaultMessage": "Exécuter un processus de recrutement",
     "description": "Heading for the contact section to run a recruitment process"
@@ -1010,6 +1022,10 @@
   "3jfmAz": {
     "defaultMessage": "Arrangement en matière d'approvisionnement",
     "description": "Supply arrangement contract instrument"
+  },
+  "3jpTNK": {
+    "defaultMessage": "Cette revendication a été vérifiée",
+    "description": "Label for the verified claim option"
   },
   "3owqTQ": {
     "defaultMessage": "Veuillez utiliser uniquement des lettres minuscules et des traits de soulignement.",
@@ -1807,6 +1823,10 @@
     "defaultMessage": "Raison pour la recherche de talent",
     "description": "Form header for filling in the reason why the user is submitting the request."
   },
+  "8HMXsd": {
+    "defaultMessage": "Erreur : impossible de mettre à jour la vérification des revendications",
+    "description": "Error message for updating a candidates claim verification"
+  },
   "8IIIER": {
     "defaultMessage": "<strong>Je possède un diplôme d’études secondaires ou l’équivalent (p. ex., formation Générale). </strong>",
     "description": "Radio group option for education requirement filter in IAP application education form."
@@ -2082,6 +2102,10 @@
   "9pdtnR": {
     "defaultMessage": "Vous n'êtes pas inscrit à titre d'employé actuel du gouvernement.",
     "description": "Message indicating the user is not marked in the system as being federally employed currently"
+  },
+  "9q6fZo": {
+    "defaultMessage": "Cette revendication ne s’applique pas à ce processus",
+    "description": "Label for the rejected claim option"
   },
   "9qzCX/": {
     "defaultMessage": "Veuillez soumettre une demande vide et nous essayerons de vous aider.",
@@ -3375,6 +3399,10 @@
     "defaultMessage": "Vous avez des questions? <link>Contactez-nous</link>.",
     "description": "Fourth paragraph for pool deadlines dialog"
   },
+  "H+g+uL": {
+    "defaultMessage": "Date d’expiration du statut prioritaire",
+    "description": "Label for a priority status claim expiration date"
+  },
   "H/aUwM": {
     "defaultMessage": "Vous êtes un cadre supérieur de la collectivité du numérique du GC et vous êtes à la recherche de talents, contactez notre équipe afin d’obtenir des recommandations, une liste de candidats préqualifiés ainsi que leurs profils.",
     "description": "Description for the digital government executive talent search"
@@ -3518,10 +3546,6 @@
   "ID6PLP": {
     "defaultMessage": "<strong>Non</strong>, c’est une compétence que j’ai utilisée dans le passé.",
     "description": "Option for when a skill was only used in the past"
-  },
-  "IDNjBI": {
-    "defaultMessage": "Statut de priorité",
-    "description": "Priority entitlement label"
   },
   "IEkhMc": {
     "defaultMessage": "Prénom",
@@ -4767,6 +4791,10 @@
     "defaultMessage": "Lieu précis (français)",
     "description": "Label for a pool advertisements specific French Location"
   },
+  "PNWDpo": {
+    "defaultMessage": "Modifier<hidden> {claim}</hidden>",
+    "description": "Button text for editing verification of candidate claim"
+  },
   "PNtGco": {
     "defaultMessage": "Évaluées ultérieurement",
     "description": "Message displayed for behavioural skills telling users at what point it will be assessed"
@@ -4918,6 +4946,14 @@
   "QF/z5s": {
     "defaultMessage": "Copier {title} l'URL dans le presse-papiers",
     "description": "Button text to copy a specific qualified recruitment's ID"
+  },
+  "QG9Tcs": {
+    "defaultMessage": "Date d’expiration du statut de vétéran",
+    "description": "Label for a veteran status claim expiration date"
+  },
+  "QGKWJ5": {
+    "defaultMessage": "Ce candidat a revendiqué un <strong>statut prioritaire</strong> et a soumis le numéro suivant : <strong>{priorityNumber}</strong>.",
+    "description": "Message for a candidates priority status claim"
   },
   "QISMlC": {
     "defaultMessage": "Titre spécifique (anglais)",
@@ -6534,6 +6570,10 @@
     "defaultMessage": "Aucune expérience trouvée.",
     "description": "Message displayed when no experience is found for experience form."
   },
+  "YiDdh6": {
+    "defaultMessage": "Cette revendication n’est pas vérifiée.",
+    "description": "Message when a claim as yet to be verified"
+  },
   "Yik/xN": {
     "defaultMessage": "Type de personnel",
     "description": "Label for _type of resource_ fieldset in the _digital services contracting questionnaire_"
@@ -6553,6 +6593,10 @@
   "YmWKlv": {
     "defaultMessage": "Classification",
     "description": "Label for a process' classification"
+  },
+  "Ymzxgl": {
+    "defaultMessage": "arrive à échéance le {expiryDate}",
+    "description": "Message part for expiry date"
   },
   "YoIRbn": {
     "defaultMessage": "Autochtone",
@@ -6741,6 +6785,10 @@
   "ZuFBx5": {
     "defaultMessage": "Débutant <gray>- Je possède des compétences de base en lecture, écriture et communication verbale.</gray>",
     "description": "Message for the beginner language ability option"
+  },
+  "ZvrwDW": {
+    "defaultMessage": "Examinez et vérifiez le statut prioritaire du candidat",
+    "description": "Subtitle for verifying a candidate's priority claim"
   },
   "ZyA0CC": {
     "defaultMessage": "Les principales compétences du candidat",
@@ -7041,6 +7089,10 @@
   "bkAzZm": {
     "defaultMessage": "Titre du poste (FR)",
     "description": "Label for a pool advertisements specific French title"
+  },
+  "blGYmQ": {
+    "defaultMessage": "Autres renseignements",
+    "description": "Heading for additional information"
   },
   "blvpQr": {
     "defaultMessage": "Ces notifications sont obligatoires et comprennent la vérification de l'adresse électronique et d'autres communications importantes.",
@@ -7797,6 +7849,10 @@
   "fPIZn9": {
     "defaultMessage": "Détails additionnels",
     "description": "Label displayed on experience form/card for additional details input/section"
+  },
+  "fPnIUP": {
+    "defaultMessage": "Cette revendication ne s’applique pas à ce processus.",
+    "description": "Message when a claim does not apply to the specific process"
   },
   "fPy7Mg": {
     "defaultMessage": "Le français - Votre impact",
@@ -9806,6 +9862,10 @@
     "defaultMessage": " Description de l’expérience",
     "description": "Label displayed on Personal Experience form for experience description input"
   },
+  "q70oUn": {
+    "defaultMessage": "Actuellement non vérifié",
+    "description": "Label for the unverified claim option"
+  },
   "qA8+f5": {
     "defaultMessage": "En attente",
     "description": "Message displayed when candidate was unsuccessful but put on hold"
@@ -10242,6 +10302,10 @@
     "defaultMessage": "Je suis un membre des Premières Nations.",
     "description": "Text for the option to self-declare as a status first nations"
   },
+  "ssSdOn": {
+    "defaultMessage": "Ce candidat a revendiqué le <strong>statut de vétéran</strong>.",
+    "description": "Message for a candidates veteran status claim"
+  },
   "swESO/": {
     "defaultMessage": "À distance, hybride ou sur site",
     "description": "Location requirement when a pool advertisement is remote"
@@ -10289,6 +10353,10 @@
   "tBGvoD": {
     "defaultMessage": "Nous vous remercions de votre intérêt dans ce programme. Nous attendons de vos nouvelles avec impatience!",
     "description": "Third paragraph for apply now dialog"
+  },
+  "tBxdBY": {
+    "defaultMessage": "Examinez et vérifiez le statut de vétéran du candidat",
+    "description": "Subtitle for verifying a candidate's veteran claim"
   },
   "tD99Wf": {
     "defaultMessage": "Sélectionnez une classification",
@@ -10465,6 +10533,10 @@
   "uIWFvk": {
     "defaultMessage": "Vous êtes à l’affût des possibilités découlant de ce recrutement.",
     "description": "Message displayed when a user is appearing in a recruitment"
+  },
+  "uIzewF": {
+    "defaultMessage": "Mise à jour réussie de la vérification de la revendication",
+    "description": "Success message when updating a candidates claim verification"
   },
   "uJ1rk3": {
     "defaultMessage": "Il existe trois groupes distincts de peuples autochtones qui sont reconnus par la Constitution canadienne. On vous demandera de confirmer au(x)quel(s) de vous appartenez par l’entremise de la Formulaire d’autodéclaration à l’intention des peuples autochtones.",
@@ -10714,6 +10786,10 @@
     "defaultMessage": "Compétences essentielles",
     "description": "Title for the required skills snapshot section"
   },
+  "w8K6dD": {
+    "defaultMessage": "Cette demande a été vérifiée, {expiryDate}.",
+    "description": "Message when a claim as been verified"
+  },
   "wCf/XC": {
     "defaultMessage": "À propos de ce rôle",
     "description": "Title for basic information"
@@ -10905,6 +10981,10 @@
   "xQfIcL": {
     "defaultMessage": "Consultez notre nouveau Portail de données sur les talents numériques pour connaître des tendances, des pistes de réflexion et des idées afin de renforcer vos propres stratégies de planification des talents et de recrutement.",
     "description": "Description for the digital talent data portal"
+  },
+  "xSSp8E": {
+    "defaultMessage": "aucune date d’échéance fournie",
+    "description": "Message for when an expiration date has not been provided"
   },
   "xXwUGs": {
     "defaultMessage": "Directive sur les talents numériques",
