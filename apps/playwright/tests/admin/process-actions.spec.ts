@@ -171,6 +171,11 @@ test.describe("Process actions", () => {
     await adminPage.waitForGraphqlResponse("PoolTable");
 
     await adminPage.page
+      .getByRole("textbox", { name: /search processes/i })
+      .fill(PROCESS_TITLE);
+    await adminPage.waitForGraphqlResponse("PoolTable");
+
+    await adminPage.page
       .getByRole("link", { name: new RegExp(PROCESS_TITLE, "i") })
       .click();
 
