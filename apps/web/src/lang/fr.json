@@ -4167,6 +4167,10 @@
     "defaultMessage": "4. Suivez le processus de vérification de l’adresse de courriel. <strong>Un code unique</strong> vous sera envoyé par courriel et vous devrez le saisir dans la CléGC.",
     "description": "Text for fourth sign up -> create step."
   },
+  "LdlxBV": {
+    "defaultMessage": "Numéro du processus de sélection",
+    "description": "Label for a process number"
+  },
   "Ldzk4k": {
     "defaultMessage": "Critères constituent un atout",
     "description": "Asset criteria heading"
