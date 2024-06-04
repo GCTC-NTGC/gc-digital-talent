@@ -3,8 +3,8 @@
 namespace App\GraphQL\Mutations;
 
 use App\Models\User;
-use GraphQL\Error\Error;
 use Illuminate\Support\Facades\Cache;
+use Nuwave\Lighthouse\Exceptions\ValidationException;
 
 final class VerifyUserEmail
 {
@@ -22,20 +22,19 @@ final class VerifyUserEmail
         $key = 'email-verification-'.$user->id;
         $token = Cache::get($key);
 
-        if (is_null($token)) {
-            throw new Error('Token not found');
+        if (
+            ! is_null($token) &&
+            $token['code'] == $normalizedCode &&
+            $token['field'] == 'email' &&
+            $token['value'] == $user->getEmailForVerification()
+        ) {
+            $isValid = true;
+        } else {
+            $isValid = false;
         }
 
-        if ($token['code'] != $normalizedCode) {
-            throw new Error('Bad code');
-        }
-
-        if ($token['field'] != 'email') {
-            throw new Error('Unexpected field');
-        }
-
-        if ($user->getEmailForVerification() != $token['value']) {
-            throw new Error('Token value invalid');
+        if (! $isValid) {
+            throw ValidationException::withMessages(['VERIFICATION_FAILED']);
         }
 
         // by now, token seems good
