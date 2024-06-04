@@ -6542,6 +6542,10 @@
     "defaultMessage": "Classification",
     "description": "Label for a process' classification"
   },
+  "Ymzxgl": {
+    "defaultMessage": "arrive à échéance le {expiryDate}",
+    "description": "Message part for expiry date"
+  },
   "YoIRbn": {
     "defaultMessage": "Autochtone",
     "description": "Title for Indigenous"
@@ -10706,6 +10710,10 @@
     "defaultMessage": "Compétences essentielles",
     "description": "Title for the required skills snapshot section"
   },
+  "w8K6dD": {
+    "defaultMessage": "Cette demande a été vérifiée, {expiryDate}.",
+    "description": "Message when a claim as been verified"
+  },
   "wCf/XC": {
     "defaultMessage": "À propos de ce rôle",
     "description": "Title for basic information"
@@ -10897,6 +10905,10 @@
   "xQfIcL": {
     "defaultMessage": "Consultez notre nouveau Portail de données sur les talents numériques pour connaître des tendances, des pistes de réflexion et des idées afin de renforcer vos propres stratégies de planification des talents et de recrutement.",
     "description": "Description for the digital talent data portal"
+  },
+  "xSSp8E": {
+    "defaultMessage": "aucune date d’échéance fournie",
+    "description": "Message for when an expiration date has not been provided"
   },
   "xXwUGs": {
     "defaultMessage": "Directive sur les talents numériques",
