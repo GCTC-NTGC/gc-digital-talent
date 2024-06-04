@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import CheckIcon from "@heroicons/react/24/outline/CheckIcon";
@@ -88,6 +88,9 @@ const ScreeningDecisionDialogForm = ({
     Array.isArray(watchJustifications) &&
     watchJustifications.includes(AssessmentResultJustification.FailedOther);
 
+  const hasPageBeenRendered = useRef({
+    pageRendered: false,
+  });
   /**
    * Reset un-rendered fields
    */
@@ -100,7 +103,6 @@ const ScreeningDecisionDialogForm = ({
     if (isAssessmentDecisionNotSure) {
       resetDirtyField("justifications");
       resetDirtyField("assessmentDecisionLevel");
-      resetDirtyField("skillDecisionNotes");
     }
 
     if (isAssessmentDecisionSuccessful) {
@@ -111,22 +113,23 @@ const ScreeningDecisionDialogForm = ({
 
     if (isAssessmentDecisionUnSuccessful) {
       resetDirtyField("assessmentDecisionLevel");
-      resetDirtyField("skillDecisionNotes");
-      resetDirtyField("justifications");
+      if (hasPageBeenRendered.current.pageRendered) {
+        resetDirtyField("justifications");
+      }
     }
 
     if (isAssessmentOnHold) {
       resetDirtyField("assessmentDecisionLevel");
-      resetDirtyField("skillDecisionNotes");
       setValue("justifications", [AssessmentResultJustification.FailedOther]);
+      hasPageBeenRendered.current.pageRendered = true;
     }
   }, [
-    resetField,
+    educationRequirementSelected,
     isAssessmentDecisionSuccessful,
     isAssessmentDecisionUnSuccessful,
     isAssessmentDecisionNotSure,
     isAssessmentOnHold,
-    educationRequirementSelected,
+    resetField,
     setValue,
   ]);
 
