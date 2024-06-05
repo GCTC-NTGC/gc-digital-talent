@@ -1,8 +1,5 @@
 import { useIntl } from "react-intl";
-import IdentificationOutlineIcon from "@heroicons/react/24/outline/IdentificationIcon";
-import IdentificationSolidIcon from "@heroicons/react/24/solid/IdentificationIcon";
 
-import { IconType } from "@gc-digital-talent/ui";
 import {
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
@@ -17,9 +14,6 @@ import AdminHero from "~/components/Hero/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
-
-export const pageOutlineIcon: IconType = IdentificationOutlineIcon;
-export const pageSolidIcon: IconType = IdentificationSolidIcon;
 
 export const AllPoolCandidatesPage = () => {
   const intl = useIntl();

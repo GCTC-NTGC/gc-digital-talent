@@ -1,10 +1,8 @@
 import { useIntl } from "react-intl";
-import MegaphoneOutlineIcon from "@heroicons/react/24/outline/MegaphoneIcon";
-import MegaphoneSolidIcon from "@heroicons/react/24/solid/MegaphoneIcon";
 import { useQuery, useMutation } from "urql";
 
 import { SitewideAnnouncementInput, graphql } from "@gc-digital-talent/graphql";
-import { Pending, IconType } from "@gc-digital-talent/ui";
+import { Pending } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
@@ -58,9 +56,6 @@ const UpdateSitewideAnnouncement_Mutation = graphql(/* GraphQL */ `
     }
   }
 `);
-
-export const pageOutlineIcon: IconType = MegaphoneOutlineIcon;
-export const pageSolidIcon: IconType = MegaphoneSolidIcon;
 
 // To help the URQL cache work
 // Keep the reference stable.

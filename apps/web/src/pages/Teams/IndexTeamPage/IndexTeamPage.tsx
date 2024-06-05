@@ -1,8 +1,5 @@
 import { defineMessage, useIntl } from "react-intl";
-import UsersOutlineIcon from "@heroicons/react/24/outline/UsersIcon";
-import UsersSolidIcon from "@heroicons/react/24/solid/UsersIcon";
 
-import { IconType } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -21,9 +18,6 @@ const subTitle = defineMessage({
   id: "i4TGiO",
   description: "Descriptive text about the list of teams in the admin portal.",
 });
-
-export const pageOutlineIcon: IconType = UsersOutlineIcon;
-export const pageSolidIcon: IconType = UsersSolidIcon;
 
 const IndexTeamPage = () => {
   const intl = useIntl();

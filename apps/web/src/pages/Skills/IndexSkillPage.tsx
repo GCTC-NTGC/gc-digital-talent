@@ -1,8 +1,5 @@
 import { useIntl } from "react-intl";
-import LightBulbOutlineIcon from "@heroicons/react/24/outline/LightBulbIcon";
-import LightBulbSolidIcon from "@heroicons/react/24/solid/LightBulbIcon";
 
-import { IconType } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
@@ -14,9 +11,6 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 
 import SkillTableApi from "./components/SkillTable";
-
-export const pageSolidIcon: IconType = LightBulbSolidIcon;
-export const pageOutlineIcon: IconType = LightBulbOutlineIcon;
 
 export const IndexSkillPage = () => {
   const intl = useIntl();

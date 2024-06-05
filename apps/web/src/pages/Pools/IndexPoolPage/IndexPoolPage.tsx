@@ -1,8 +1,5 @@
 import { useIntl } from "react-intl";
-import SquaresPlusOutlineIcon from "@heroicons/react/24/outline/SquaresPlusIcon";
-import SquaresPlusSolidIcon from "@heroicons/react/24/solid/SquaresPlusIcon";
 
-import { IconType } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -14,9 +11,6 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 
 import PoolTableApi from "./components/PoolTable";
-
-export const pageOutlineIcon: IconType = SquaresPlusOutlineIcon;
-export const pageSolidIcon: IconType = SquaresPlusSolidIcon;
 
 export const PoolPage = () => {
   const intl = useIntl();

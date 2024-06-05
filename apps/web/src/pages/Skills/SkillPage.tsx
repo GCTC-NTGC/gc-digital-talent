@@ -1,9 +1,7 @@
 import { defineMessage, useIntl } from "react-intl";
-import BoltOutlineIcon from "@heroicons/react/24/outline/BoltIcon";
-import BoltSolidIcon from "@heroicons/react/24/solid/BoltIcon";
 import { ReactNode } from "react";
 
-import { Alert, Heading, IconType, Link, Well } from "@gc-digital-talent/ui";
+import { Alert, Heading, Link, Well } from "@gc-digital-talent/ui";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -14,9 +12,6 @@ import skillBrowserMessages from "~/components/SkillBrowser/messages";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
 import SkillTable from "./components/SkillTable";
-
-export const pageSolidIcon: IconType = BoltSolidIcon;
-export const pageOutlineIcon: IconType = BoltOutlineIcon;
 
 const suggestionLink = (chunks: ReactNode, href: string) => (
   <Link href={href} state={{ referrer: window.location.href }}>

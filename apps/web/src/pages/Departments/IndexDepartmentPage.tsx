@@ -1,8 +1,5 @@
 import { useIntl } from "react-intl";
-import BuildingOffice2OutlineIcon from "@heroicons/react/24/outline/BuildingOffice2Icon";
-import BuildingOffice2SolidIcon from "@heroicons/react/24/solid/BuildingOffice2Icon";
 
-import { IconType } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
@@ -14,9 +11,6 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 
 import DepartmentTableApi from "./components/DepartmentTable";
-
-export const pageOutlineIcon: IconType = BuildingOffice2OutlineIcon;
-export const pageSolidIcon: IconType = BuildingOffice2SolidIcon;
 
 export const DepartmentPage = () => {
   const intl = useIntl();

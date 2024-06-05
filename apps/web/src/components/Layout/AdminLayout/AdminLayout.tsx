@@ -25,18 +25,7 @@ import useRoutes from "~/hooks/useRoutes";
 import useLayoutTheme from "~/hooks/useLayoutTheme";
 import { checkRole } from "~/utils/teamUtils";
 import pageTitles from "~/messages/pageTitles";
-import { pageOutlineIcon as indexPoolPageIcon } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
-import { pageOutlineIcon as allPoolCandidatesPageIcon } from "~/pages/PoolCandidates/AllPoolCandidatesPage/AllPoolCandidatesPage";
-import { pageOutlineIcon as indexSearchRequestPageIcon } from "~/pages/SearchRequests/IndexSearchRequestPage/IndexSearchRequestPage";
-import { pageOutlineIcon as indexTeamPageIcon } from "~/pages/Teams/IndexTeamPage/IndexTeamPage";
-import { pageOutlineIcon as indexUserPageIcon } from "~/pages/Users/IndexUserPage/IndexUserPage";
-import { pageOutlineIcon as adminDashboardPageIcon } from "~/pages/AdminDashboardPage/AdminDashboardPage";
-import { pageOutlineIcon as indexClassificationPageIcon } from "~/pages/Classifications/IndexClassificationPage";
-import { pageOutlineIcon as indexDepartmentPageIcon } from "~/pages/Departments/IndexDepartmentPage";
-import { pageOutlineIcon as indexSkillPageIcon } from "~/pages/Skills/IndexSkillPage";
-import { pageOutlineIcon as indexSkillFamilyPageIcon } from "~/pages/SkillFamilies/IndexSkillFamilyPage";
-import { pageOutlineIcon as announcementsPageIcon } from "~/pages/AnnouncementsPage/AnnouncementsPage";
-import { pageOutlineIcon as skillPageIcon } from "~/pages/Skills/SkillPage";
+import pageIcons from "~/utils/pageIcons";
 import useErrorMessages from "~/hooks/useErrorMessages";
 
 import SitewideBanner from "../SitewideBanner";
@@ -139,7 +128,7 @@ export const Component = () => {
           ) && (
             <SideMenuItem
               href={paths.adminDashboard()}
-              icon={adminDashboardPageIcon}
+              icon={pageIcons.dashboard.outline}
             >
               {intl.formatMessage(pageTitles.dashboard)}
             </SideMenuItem>
@@ -161,7 +150,7 @@ export const Component = () => {
             ) && (
               <SideMenuItem
                 href={paths.poolCandidates()}
-                icon={allPoolCandidatesPageIcon}
+                icon={pageIcons.poolCandidates.outline}
               >
                 {intl.formatMessage(pageTitles.candidateSearch)}
               </SideMenuItem>
@@ -174,7 +163,10 @@ export const Component = () => {
               ],
               roleAssignments,
             ) && (
-              <SideMenuItem href={paths.poolTable()} icon={indexPoolPageIcon}>
+              <SideMenuItem
+                href={paths.poolTable()}
+                icon={pageIcons.processes.outline}
+              >
                 {intl.formatMessage(pageTitles.processes)}
               </SideMenuItem>
             )}
@@ -186,7 +178,10 @@ export const Component = () => {
               ],
               roleAssignments,
             ) && (
-              <SideMenuItem href={paths.teamTable()} icon={indexTeamPageIcon}>
+              <SideMenuItem
+                href={paths.teamTable()}
+                icon={pageIcons.teams.outline}
+              >
                 {intl.formatMessage(pageTitles.teams)}
               </SideMenuItem>
             )}
@@ -199,7 +194,10 @@ export const Component = () => {
               ],
               roleAssignments,
             ) && (
-              <SideMenuItem href={paths.skills()} icon={skillPageIcon}>
+              <SideMenuItem
+                href={paths.skills()}
+                icon={pageIcons.skillsList.outline}
+              >
                 {intl.formatMessage(pageTitles.skillsList)}
               </SideMenuItem>
             )}
@@ -214,7 +212,7 @@ export const Component = () => {
             {checkRole([ROLE_NAME.RequestResponder], roleAssignments) && (
               <SideMenuItem
                 href={paths.searchRequestTable()}
-                icon={indexSearchRequestPageIcon}
+                icon={pageIcons.talentRequests.outline}
               >
                 {intl.formatMessage(pageTitles.talentRequests)}
               </SideMenuItem>
@@ -235,14 +233,17 @@ export const Component = () => {
               ],
               roleAssignments,
             ) && (
-              <SideMenuItem href={paths.userTable()} icon={indexUserPageIcon}>
+              <SideMenuItem
+                href={paths.userTable()}
+                icon={pageIcons.users.outline}
+              >
                 {intl.formatMessage(pageTitles.users)}
               </SideMenuItem>
             )}
             {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
               <SideMenuItem
                 href={paths.classificationTable()}
-                icon={indexClassificationPageIcon}
+                icon={pageIcons.classifications.outline}
               >
                 {intl.formatMessage(pageTitles.classifications)}
               </SideMenuItem>
@@ -250,20 +251,23 @@ export const Component = () => {
             {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
               <SideMenuItem
                 href={paths.departmentTable()}
-                icon={indexDepartmentPageIcon}
+                icon={pageIcons.departments.outline}
               >
                 {intl.formatMessage(pageTitles.departments)}
               </SideMenuItem>
             )}
             {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
-              <SideMenuItem href={paths.skillTable()} icon={indexSkillPageIcon}>
+              <SideMenuItem
+                href={paths.skillTable()}
+                icon={pageIcons.skillsEditor.outline}
+              >
                 {intl.formatMessage(pageTitles.skillsEditor)}
               </SideMenuItem>
             )}
             {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
               <SideMenuItem
                 href={paths.skillFamilyTable()}
-                icon={indexSkillFamilyPageIcon}
+                icon={pageIcons.skillFamilies.outline}
               >
                 {intl.formatMessage(pageTitles.skillFamilies)}
               </SideMenuItem>
@@ -271,7 +275,7 @@ export const Component = () => {
             {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
               <SideMenuItem
                 href={paths.announcements()}
-                icon={announcementsPageIcon}
+                icon={pageIcons.announcements.outline}
               >
                 {intl.formatMessage(pageTitles.announcements)}
               </SideMenuItem>

@@ -1,8 +1,5 @@
 import { useIntl } from "react-intl";
-import CloudOutlineIcon from "@heroicons/react/24/outline/CloudIcon";
-import CloudSolidIcon from "@heroicons/react/24/solid/CloudIcon";
 
-import { IconType } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import AdminHero from "~/components/Hero/AdminHero";
@@ -14,9 +11,6 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 
 import SkillFamilyTableApi from "./components/SkillFamilyTable";
-
-export const pageOutlineIcon: IconType = CloudOutlineIcon;
-export const pageSolidIcon: IconType = CloudSolidIcon;
 
 const IndexSkillFamilyPage = () => {
   const intl = useIntl();

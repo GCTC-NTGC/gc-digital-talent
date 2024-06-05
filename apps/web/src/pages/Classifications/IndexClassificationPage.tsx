@@ -1,8 +1,5 @@
 import { useIntl } from "react-intl";
-import TagOutlineIcon from "@heroicons/react/24/outline/TagIcon";
-import TagSolidIcon from "@heroicons/react/24/solid/TagIcon";
 
-import { IconType } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
@@ -14,9 +11,6 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 
 import ClassificationTableApi from "./components/ClassificationTable";
-
-export const pageOutlineIcon: IconType = TagOutlineIcon;
-export const pageSolidIcon: IconType = TagSolidIcon;
 
 export const IndexClassificationPage = () => {
   const intl = useIntl();

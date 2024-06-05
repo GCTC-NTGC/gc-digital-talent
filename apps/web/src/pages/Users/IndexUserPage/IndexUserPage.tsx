@@ -1,8 +1,5 @@
 import { defineMessage, useIntl } from "react-intl";
-import UserCircleOutlineIcon from "@heroicons/react/24/outline/UserCircleIcon";
-import UserCircleSolidIcon from "@heroicons/react/24/solid/UserCircleIcon";
 
-import { IconType } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
@@ -21,9 +18,6 @@ export const subTitle = defineMessage({
   id: "UvKDXK",
   description: "Descriptive text about the list of users in the admin portal.",
 });
-
-export const pageOutlineIcon: IconType = UserCircleOutlineIcon;
-export const pageSolidIcon: IconType = UserCircleSolidIcon;
 
 export const IndexUserPage = () => {
   const intl = useIntl();
