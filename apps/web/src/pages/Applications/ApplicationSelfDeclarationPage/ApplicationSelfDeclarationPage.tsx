@@ -24,9 +24,9 @@ import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
 import { getSelfDeclarationLabels } from "~/components/SelfDeclaration/utils";
-import SelfDeclarationDialog from "~/pages/Home/IAPHomePage/components/Dialog/SelfDeclarationDialog";
-import VerificationDialog from "~/pages/Home/IAPHomePage/components/Dialog/VerificationDialog";
-import DefinitionDialog from "~/pages/Home/IAPHomePage/components/Dialog/DefinitionDialog";
+import SelfDeclarationDialog from "~/components/IAPDialog/SelfDeclarationDialog";
+import VerificationDialog from "~/components/IAPDialog/VerificationDialog";
+import DefinitionDialog from "~/components/IAPDialog/DefinitionDialog";
 import { wrapAbbr } from "~/utils/nameUtils";
 import {
   apiCommunitiesToFormValuesWithYesNo as apiCommunitiesToFormValues,

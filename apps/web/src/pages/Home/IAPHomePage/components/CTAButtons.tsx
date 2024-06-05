@@ -1,4 +1,5 @@
-import { ApplyDialog, LearnDialog } from "./Dialog";
+import { ApplyDialog, LearnDialog } from "~/components/IAPDialog";
+
 import ApplyLink from "./ApplyLink";
 
 interface CTAButtonsProps {

@@ -28,12 +28,13 @@ import sash from "~/assets/img/sash.webp";
 import lowerBack from "~/assets/img/lower-back.webp";
 import iconWatermark from "~/assets/img/icon-watermark.svg";
 import indigenousWoman from "~/assets/img/indigenous-woman.webp";
+import { ApplyDialog, RequirementDialog } from "~/components/IAPDialog";
+import Heading from "~/components/IAPHeading/Heading";
+import AccommodationsDialog from "~/components/IAPDialog/AccommodationsDialog";
 
 import Banner from "./components/Banner";
 import Card from "./components/Card";
 import CTAButtons from "./components/CTAButtons";
-import { ApplyDialog, RequirementDialog } from "./components/Dialog";
-import Heading from "./components/Heading";
 import LanguageSelector from "./components/LanguageSelector";
 import Step from "./components/Step";
 import Quote from "./components/Quote";
@@ -47,7 +48,6 @@ import {
   TrendingUp,
   Triangle,
 } from "./components/Svg";
-import AccommodationsDialog from "./components/Dialog/AccommodationsDialog";
 
 const mailLink = (chunks: ReactNode) => (
   <Link external href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca">
