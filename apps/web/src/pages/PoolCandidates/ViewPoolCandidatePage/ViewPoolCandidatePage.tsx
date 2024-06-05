@@ -34,7 +34,7 @@ import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import AssessmentResultsTable from "~/components/AssessmentResultsTable/AssessmentResultsTable";
-import ChangeStatusDialog from "~/pages/Users/UserInformationPage/components/ChangeStatusDialog";
+import ChangeStatusDialog from "~/components/CandidateDialog/ChangeStatusDialog";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import ErrorBoundary from "~/components/ErrorBoundary/ErrorBoundary";
