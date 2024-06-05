@@ -20,7 +20,7 @@ import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 
-import { PAGE_SECTION_ID, titles } from "../constants";
+import { PAGE_SECTION_ID, titles } from "~/constants/sections/careerTimeline";
 import CareerTimelineSection from "./CareerTimelineSection";
 import QualifiedRecruitmentsSection from "./QualifiedRecruitmentsSection";
 
