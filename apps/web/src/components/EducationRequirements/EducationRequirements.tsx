@@ -11,7 +11,7 @@ import {
   eligibilityLink,
   foreignDegreeLink,
   postSecondaryLink,
-} from "~/pages/Applications/ApplicationEducationPage/utils";
+} from "~/utils/educationUtils";
 
 type TextProps = HTMLProps<HTMLParagraphElement>;
 
