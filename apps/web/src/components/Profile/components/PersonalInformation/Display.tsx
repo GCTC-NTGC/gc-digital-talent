@@ -10,6 +10,8 @@ import {
   getProvinceOrTerritory,
 } from "@gc-digital-talent/i18n";
 
+import profileMessages from "~/messages/profileMessages";
+
 import FieldDisplay from "../FieldDisplay";
 import DisplayColumn from "../DisplayColumn";
 import { PartialUser } from "./types";
@@ -155,11 +157,7 @@ const Display = ({
       </div>
       <FieldDisplay
         hasError={empty(armedForcesStatus)}
-        label={intl.formatMessage({
-          defaultMessage: "Veteran status",
-          id: "OVWo88",
-          description: "Title for Veteran status",
-        })}
+        label={intl.formatMessage(profileMessages.veteranStatus)}
         data-h2-padding-top="base(x1)"
       >
         {armedForcesStatus !== null && armedForcesStatus !== undefined

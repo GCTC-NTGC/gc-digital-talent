@@ -43,6 +43,7 @@ import CareerTimelineSection from "./components/CareerTimelineSection/CareerTime
 import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
 import ProfileDetails from "./components/ProfileDetails/ProfileDetails";
 import MoreActions from "./components/MoreActions/MoreActions";
+import ClaimVerification from "./components/ClaimVerification/ClaimVerification";
 
 const screeningAndAssessmentTitle = defineMessage({
   defaultMessage: "Screening and assessment",
@@ -54,6 +55,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
   query PoolCandidateSnapshot($poolCandidateId: UUID!) {
     poolCandidate(id: $poolCandidateId) {
       ...MoreActions
+      ...ClaimVerification
       id
       status
       user {
@@ -570,6 +572,7 @@ export const ViewPoolCandidate = ({
               </Heading>
               <AssessmentResultsTable poolCandidate={poolCandidate} />
             </div>
+            <ClaimVerification verificationQuery={poolCandidate} />
             {parsedSnapshot ? (
               <div data-h2-margin-top="base(x2)">
                 <ErrorBoundary>
