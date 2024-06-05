@@ -8,8 +8,13 @@ import { Cookie, Page, expect } from "@playwright/test";
  *
  * @param {Page} page
  * @param {String} sub
+ * @param {Boolean} notAuthorized
  */
-export async function loginBySub(page: Page, sub: string) {
+export async function loginBySub(
+  page: Page,
+  sub: string,
+  notAuthorized: boolean,
+) {
   await page.goto("/en/login-info");
   await expect(
     page.getByRole("heading", { name: /sign in using gckey/i }),
@@ -21,7 +26,12 @@ export async function loginBySub(page: Page, sub: string) {
   await page.getByPlaceholder("Enter any user/subject").fill(sub);
   await page.getByRole("button", { name: /sign-in/i }).click();
   await expect(
-    page.getByRole("heading", { name: /welcome/i, level: 1 }),
+    page.getByRole(
+      "heading",
+      notAuthorized
+        ? { name: "Sorry, you are not authorized to view this page.", level: 1 }
+        : { name: /welcome/i, level: 1 },
+    ),
   ).toBeVisible();
 }
 

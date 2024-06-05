@@ -86,7 +86,7 @@ test.describe("Process permissions", () => {
   });
 
   test("Platform admin can view", async ({ appPage }) => {
-    await loginBySub(appPage.page, "admin@test.com");
+    await loginBySub(appPage.page, "admin@test.com", false);
 
     await appPage.page.goto(`/en/admin/pools/${pool.id}`);
     await appPage.waitForGraphqlResponse("PoolLayout");
@@ -99,7 +99,7 @@ test.describe("Process permissions", () => {
   });
 
   test("Community manager can view", async ({ appPage }) => {
-    await loginBySub(appPage.page, "community@test.com");
+    await loginBySub(appPage.page, "community@test.com", false);
 
     await appPage.page.goto(`/en/admin/pools/${pool.id}`);
     await appPage.waitForGraphqlResponse("PoolLayout");
@@ -112,7 +112,7 @@ test.describe("Process permissions", () => {
   });
 
   test("Associated pool manager can view", async ({ appPage }) => {
-    await loginBySub(appPage.page, associatedSub);
+    await loginBySub(appPage.page, associatedSub, false);
 
     await appPage.page.goto(`/en/admin/pools/${pool.id}`);
     await appPage.waitForGraphqlResponse("PoolLayout");
@@ -125,7 +125,7 @@ test.describe("Process permissions", () => {
   });
 
   test("Unassociated pool manager cannot view", async ({ appPage }) => {
-    await loginBySub(appPage.page, unassociatedSub);
+    await loginBySub(appPage.page, unassociatedSub, false);
 
     await appPage.page.goto(`/en/admin/pools/${pool.id}`);
 
@@ -137,7 +137,7 @@ test.describe("Process permissions", () => {
   });
 
   test("Request responder cannot view", async ({ appPage }) => {
-    await loginBySub(appPage.page, "request@test.com");
+    await loginBySub(appPage.page, "request@test.com", false);
 
     await appPage.page.goto(`/en/admin/pools/${pool.id}`);
 
