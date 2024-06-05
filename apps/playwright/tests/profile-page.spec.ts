@@ -12,7 +12,7 @@ test.describe("Profile Page", () => {
     test("Render not authorized message for /en/applicant", async ({
       appPage,
     }) => {
-      await loginBySub(appPage.page, "noroles@test.com");
+      await loginBySub(appPage.page, "noroles@test.com", true);
       await appPage.page.goto("/en/applicant");
       expect(appPage.page.url()).toMatch(/\/en\/applicant/);
       await expect(
@@ -25,7 +25,7 @@ test.describe("Profile Page", () => {
     test("Render not authorized message for /en/applicant/personal-information", async ({
       appPage,
     }) => {
-      await loginBySub(appPage.page, "noroles@test.com");
+      await loginBySub(appPage.page, "noroles@test.com", true);
       await appPage.page.goto("/en/applicant/personal-information");
       expect(appPage.page.url()).toMatch(
         /\/en\/applicant\/personal-information/,
@@ -40,7 +40,7 @@ test.describe("Profile Page", () => {
     test("Render not authorized message for /en/applicant/career-timeline", async ({
       appPage,
     }) => {
-      await loginBySub(appPage.page, "noroles@test.com");
+      await loginBySub(appPage.page, "noroles@test.com", true);
       await appPage.page.goto("/en/applicant/career-timeline");
       expect(appPage.page.url()).toMatch(/\/en\/applicant\/career-timeline/);
       await expect(

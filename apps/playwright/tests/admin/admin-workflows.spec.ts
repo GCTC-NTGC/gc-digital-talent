@@ -17,7 +17,7 @@ const goToUsersPage = async (appPage: AppPage) => {
 
 test.describe("Admin workflows", () => {
   test.beforeEach(async ({ appPage }) => {
-    await loginBySub(appPage.page, "admin@test.com");
+    await loginBySub(appPage.page, "admin@test.com", false);
   });
 
   test("Search for user and review profile", async ({ appPage }) => {
@@ -41,7 +41,7 @@ test.describe("Admin workflows", () => {
   });
 
   test("Search for user and edit phone number", async ({ appPage }) => {
-    await loginBySub(appPage.page, "admin@test.com");
+    await loginBySub(appPage.page, "admin@test.com", false);
     await goToUsersPage(appPage);
     await searchForUser(appPage, "Applicant");
 
@@ -80,7 +80,7 @@ test.describe("Admin workflows", () => {
   });
 
   test("Download user as CSV", async ({ appPage }) => {
-    await loginBySub(appPage.page, "admin@test.com");
+    await loginBySub(appPage.page, "admin@test.com", false);
     await goToUsersPage(appPage);
     await searchForUser(appPage, "Applicant");
 
@@ -95,7 +95,7 @@ test.describe("Admin workflows", () => {
   });
 
   test("Filter users table", async ({ appPage }) => {
-    await loginBySub(appPage.page, "admin@test.com");
+    await loginBySub(appPage.page, "admin@test.com", false);
     await goToUsersPage(appPage);
 
     await appPage.page.getByRole("button", { name: /filters/i }).click();

@@ -93,7 +93,7 @@ test.describe("Talent search", () => {
     const context = await browser.newContext();
     const page = await context.newPage();
     const applicationPage = new ApplicationPage(page, createdPool.id);
-    await loginBySub(applicationPage.page, sub);
+    await loginBySub(applicationPage.page, sub, false);
     const applicationUser: User = await applicationPage.getMe();
     const application = await applicationPage.createGraphql(
       createdUser.id,
@@ -110,7 +110,7 @@ test.describe("Talent search", () => {
       adminAppPage,
       createdPool.id,
     );
-    await loginBySub(adminAppPage, "admin@test.com");
+    await loginBySub(adminAppPage, "admin@test.com", false);
     await adminApplicationPage.updateStatusGraphql(
       application.id,
       PoolCandidateStatus.QualifiedAvailable,
