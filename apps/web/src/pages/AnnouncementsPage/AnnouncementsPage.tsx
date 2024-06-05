@@ -1,4 +1,4 @@
-import { MessageDescriptor, defineMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import MegaphoneOutlineIcon from "@heroicons/react/24/outline/MegaphoneIcon";
 import MegaphoneSolidIcon from "@heroicons/react/24/solid/MegaphoneIcon";
 import { useQuery, useMutation } from "urql";
@@ -15,6 +15,7 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import AdminHero from "~/components/Hero/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import pageTitles from "~/messages/pageTitles";
 
 import SitewideAnnouncementSection from "./SitewideAnnouncementSection";
 
@@ -58,11 +59,6 @@ const UpdateSitewideAnnouncement_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-export const pageTitle: MessageDescriptor = defineMessage({
-  defaultMessage: "Announcements",
-  id: "ll9u08",
-  description: "Page title for the announcements page",
-});
 export const pageOutlineIcon: IconType = MegaphoneOutlineIcon;
 export const pageSolidIcon: IconType = MegaphoneSolidIcon;
 
@@ -73,7 +69,7 @@ const context = { additionalTypenames: ["SitewideAnnouncement"] };
 const AnnouncementsPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  const formattedPageTitle = intl.formatMessage(pageTitle);
+  const formattedPageTitle = intl.formatMessage(pageTitles.announcements);
 
   const [{ data: initialData, fetching: queryFetching, error: queryError }] =
     useQuery({

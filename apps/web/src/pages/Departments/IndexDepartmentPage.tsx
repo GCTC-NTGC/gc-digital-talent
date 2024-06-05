@@ -1,4 +1,4 @@
-import { MessageDescriptor, defineMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import BuildingOffice2OutlineIcon from "@heroicons/react/24/outline/BuildingOffice2Icon";
 import BuildingOffice2SolidIcon from "@heroicons/react/24/solid/BuildingOffice2Icon";
 
@@ -11,21 +11,17 @@ import useRoutes from "~/hooks/useRoutes";
 import AdminHero from "~/components/Hero/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import pageTitles from "~/messages/pageTitles";
 
 import DepartmentTableApi from "./components/DepartmentTable";
 
-export const pageTitle: MessageDescriptor = defineMessage({
-  defaultMessage: "Departments",
-  id: "+d/NdU",
-  description: "Title for departments",
-});
 export const pageOutlineIcon: IconType = BuildingOffice2OutlineIcon;
 export const pageSolidIcon: IconType = BuildingOffice2SolidIcon;
 
 export const DepartmentPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  const formattedPageTitle = intl.formatMessage(pageTitle);
+  const formattedPageTitle = intl.formatMessage(pageTitles.departments);
 
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [

@@ -11,14 +11,10 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import AdminHero from "~/components/Hero/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import pageTitles from "~/messages/pageTitles";
 
 import TeamTableApi from "./components/TeamTable/TeamTable";
 
-export const pageTitle = defineMessage({
-  defaultMessage: "Teams",
-  id: "Ezh14X",
-  description: "Title for the index team page",
-});
 const subTitle = defineMessage({
   defaultMessage:
     "The following is a table of teams along with their details. You can also create a new team or edit existing ones.",
@@ -33,7 +29,7 @@ const IndexTeamPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
 
-  const formattedPageTitle = intl.formatMessage(pageTitle);
+  const formattedPageTitle = intl.formatMessage(pageTitles.teams);
   const formattedSubTitle = intl.formatMessage(subTitle);
 
   const navigationCrumbs = useBreadcrumbs({

@@ -24,11 +24,6 @@ const suggestionLink = (chunks: ReactNode, href: string) => (
   </Link>
 );
 
-export const adminPageTitle = defineMessage({
-  defaultMessage: "Skills list",
-  id: "J6atIv",
-  description: "Link text for explore skills page",
-});
 const pageTitle = defineMessage(adminMessages.skills);
 const pageSubtitle = defineMessage({
   defaultMessage: "Explore all the skills on our site.",

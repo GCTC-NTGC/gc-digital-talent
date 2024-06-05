@@ -31,8 +31,8 @@ import adminMessages from "~/messages/adminMessages";
 import FilterBlock from "~/components/SearchRequestFilters/FilterBlock";
 import AdminHero from "~/components/Hero/AdminHero";
 import SEO from "~/components/SEO/SEO";
-import { pageTitle as indexSearchRequestPageTitle } from "~/pages/SearchRequests/IndexSearchRequestPage/IndexSearchRequestPage";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import pageTitles from "~/messages/pageTitles";
 
 import SingleSearchRequestTableApi from "./SearchRequestCandidatesTable";
 import UpdateSearchRequest from "./UpdateSearchRequest";
@@ -362,7 +362,7 @@ export const ViewSearchRequest = ({
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
       {
-        label: intl.formatMessage(indexSearchRequestPageTitle),
+        label: intl.formatMessage(pageTitles.talentRequests),
         url: routes.searchRequestTable(),
       },
       {

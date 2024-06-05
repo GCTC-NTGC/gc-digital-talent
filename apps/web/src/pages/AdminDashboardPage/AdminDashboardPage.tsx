@@ -8,58 +8,27 @@ import { useAuthorization, hasRole, ROLE_NAME } from "@gc-digital-talent/auth";
 import { User, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
+import pageTitles from "~/messages/pageTitles";
 import SEO from "~/components/SEO/SEO";
 import { getFullNameHtml } from "~/utils/nameUtils";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import AdminHero from "~/components/Hero/AdminHero";
-import {
-  pageTitle as indexPoolPageTitle,
-  pageSolidIcon as indexPoolPageIcon,
-} from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
-import {
-  pageTitle as allPoolCandidatesPageTitle,
-  pageSolidIcon as allPoolCandidatesPageIcon,
-} from "~/pages/PoolCandidates/AllPoolCandidatesPage/AllPoolCandidatesPage";
-import {
-  pageTitle as indexSearchRequestPageTitle,
-  pageSolidIcon as indexSearchRequestPageIcon,
-} from "~/pages/SearchRequests/IndexSearchRequestPage/IndexSearchRequestPage";
-import {
-  pageTitle as indexTeamPageTitle,
-  pageSolidIcon as indexTeamPageIcon,
-} from "~/pages/Teams/IndexTeamPage/IndexTeamPage";
-import {
-  pageTitle as indexUserPageTitle,
-  pageSolidIcon as indexUserPageIcon,
-} from "~/pages/Users/IndexUserPage/IndexUserPage";
+import { pageSolidIcon as indexPoolPageIcon } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
+import { pageSolidIcon as allPoolCandidatesPageIcon } from "~/pages/PoolCandidates/AllPoolCandidatesPage/AllPoolCandidatesPage";
+import { pageSolidIcon as indexSearchRequestPageIcon } from "~/pages/SearchRequests/IndexSearchRequestPage/IndexSearchRequestPage";
+import { pageSolidIcon as indexTeamPageIcon } from "~/pages/Teams/IndexTeamPage/IndexTeamPage";
+import { pageSolidIcon as indexUserPageIcon } from "~/pages/Users/IndexUserPage/IndexUserPage";
 import { pageSolidIcon as indexClassificationPageIcon } from "~/pages/Classifications/IndexClassificationPage";
 import { pageSolidIcon as indexDepartmentPageIcon } from "~/pages/Departments/IndexDepartmentPage";
-import {
-  pageTitle as indexSkillPageTitle,
-  pageSolidIcon as indexSkillPageIcon,
-} from "~/pages/Skills/IndexSkillPage";
-import {
-  pageTitle as indexSkillFamilyPageTitle,
-  pageSolidIcon as indexSkillFamilyPageIcon,
-} from "~/pages/SkillFamilies/IndexSkillFamilyPage";
-import {
-  pageTitle as announcementsPageTitle,
-  pageSolidIcon as announcementsPageIcon,
-} from "~/pages/AnnouncementsPage/AnnouncementsPage";
-import {
-  adminPageTitle as skillPageTitle,
-  pageSolidIcon as skillPageIcon,
-} from "~/pages/Skills/SkillPage";
+import { pageSolidIcon as indexSkillPageIcon } from "~/pages/Skills/IndexSkillPage";
+import { pageSolidIcon as indexSkillFamilyPageIcon } from "~/pages/SkillFamilies/IndexSkillFamilyPage";
+import { pageSolidIcon as announcementsPageIcon } from "~/pages/AnnouncementsPage/AnnouncementsPage";
+import { pageSolidIcon as skillPageIcon } from "~/pages/Skills/SkillPage";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import LinkWell from "./components/LinkWell";
 
-export const pageTitle = defineMessage({
-  defaultMessage: "Dashboard",
-  id: "ArwIQV",
-  description: "Title for dashboard",
-});
 const subTitle = defineMessage({
   defaultMessage:
     "This is the administrator hub of the GC Digital Talent platform, manage, sort and recruit talent to the GoC.",
@@ -81,7 +50,7 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
   return (
     <>
       <SEO
-        title={intl.formatMessage(pageTitle)}
+        title={intl.formatMessage(pageTitles.dashboard)}
         description={intl.formatMessage(subTitle)}
       />
       <AdminHero
@@ -131,17 +100,17 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
               })}
               links={[
                 {
-                  label: intl.formatMessage(indexPoolPageTitle),
+                  label: intl.formatMessage(pageTitles.processes),
                   href: adminRoutes.poolTable(),
                   icon: indexPoolPageIcon,
                 },
                 {
-                  label: intl.formatMessage(allPoolCandidatesPageTitle),
+                  label: intl.formatMessage(pageTitles.candidateSearch),
                   href: adminRoutes.poolCandidates(),
                   icon: allPoolCandidatesPageIcon,
                 },
                 {
-                  label: intl.formatMessage(indexUserPageTitle),
+                  label: intl.formatMessage(pageTitles.users),
                   href: adminRoutes.userTable(),
                   icon: indexUserPageIcon,
                 },
@@ -156,7 +125,7 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                   icon: indexTeamPageIcon,
                 },
                 {
-                  label: intl.formatMessage(skillPageTitle),
+                  label: intl.formatMessage(pageTitles.skillsList),
                   href: adminRoutes.skills(),
                   icon: skillPageIcon,
                 },
@@ -172,17 +141,17 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
               })}
               links={[
                 {
-                  label: intl.formatMessage(indexSearchRequestPageTitle),
+                  label: intl.formatMessage(pageTitles.talentRequests),
                   href: adminRoutes.searchRequestTable(),
                   icon: indexSearchRequestPageIcon,
                 },
                 {
-                  label: intl.formatMessage(allPoolCandidatesPageTitle),
+                  label: intl.formatMessage(pageTitles.candidateSearch),
                   href: adminRoutes.poolCandidates(),
                   icon: allPoolCandidatesPageIcon,
                 },
                 {
-                  label: intl.formatMessage(indexUserPageTitle),
+                  label: intl.formatMessage(pageTitles.users),
                   href: adminRoutes.userTable(),
                   icon: indexUserPageIcon,
                 },
@@ -198,12 +167,12 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
               })}
               links={[
                 {
-                  label: intl.formatMessage(indexPoolPageTitle),
+                  label: intl.formatMessage(pageTitles.processes),
                   href: adminRoutes.poolTable(),
                   icon: indexPoolPageIcon,
                 },
                 {
-                  label: intl.formatMessage(indexTeamPageTitle),
+                  label: intl.formatMessage(pageTitles.teams),
                   href: adminRoutes.teamTable(),
                   icon: indexTeamPageIcon,
                 },
@@ -219,12 +188,12 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
               })}
               links={[
                 {
-                  label: intl.formatMessage(indexUserPageTitle),
+                  label: intl.formatMessage(pageTitles.users),
                   href: adminRoutes.userTable(),
                   icon: indexUserPageIcon,
                 },
                 {
-                  label: intl.formatMessage(indexTeamPageTitle),
+                  label: intl.formatMessage(pageTitles.teams),
                   href: adminRoutes.teamTable(),
                   icon: indexTeamPageIcon,
                 },
@@ -239,12 +208,12 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                   icon: indexDepartmentPageIcon,
                 },
                 {
-                  label: intl.formatMessage(indexSkillPageTitle),
+                  label: intl.formatMessage(pageTitles.skillsEditor),
                   href: adminRoutes.skillTable(),
                   icon: indexSkillPageIcon,
                 },
                 {
-                  label: intl.formatMessage(indexSkillFamilyPageTitle),
+                  label: intl.formatMessage(pageTitles.skillFamilies),
                   href: adminRoutes.skillFamilyTable(),
                   icon: indexSkillFamilyPageIcon,
                 },
@@ -259,7 +228,7 @@ const DashboardPage = ({ currentUser }: DashboardPageProps) => {
                   icon: indexClassificationPageIcon,
                 },
                 {
-                  label: intl.formatMessage(announcementsPageTitle),
+                  label: intl.formatMessage(pageTitles.announcements),
                   href: adminRoutes.announcements(),
                   icon: announcementsPageIcon,
                 },

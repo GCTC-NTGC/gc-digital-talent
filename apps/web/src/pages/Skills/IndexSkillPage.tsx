@@ -1,4 +1,4 @@
-import { MessageDescriptor, defineMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import LightBulbOutlineIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import LightBulbSolidIcon from "@heroicons/react/24/solid/LightBulbIcon";
 
@@ -11,14 +11,10 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import AdminHero from "~/components/Hero/AdminHero";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import pageTitles from "~/messages/pageTitles";
 
 import SkillTableApi from "./components/SkillTable";
 
-export const pageTitle: MessageDescriptor = defineMessage({
-  defaultMessage: "Skills editor",
-  id: "8ioBIZ",
-  description: "Title for skills editor",
-});
 export const pageSolidIcon: IconType = LightBulbSolidIcon;
 export const pageOutlineIcon: IconType = LightBulbOutlineIcon;
 
@@ -26,7 +22,7 @@ export const IndexSkillPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
 
-  const formattedPageTitle = intl.formatMessage(pageTitle);
+  const formattedPageTitle = intl.formatMessage(pageTitles.skillsEditor);
 
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [

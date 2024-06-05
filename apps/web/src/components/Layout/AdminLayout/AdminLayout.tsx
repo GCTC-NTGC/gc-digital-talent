@@ -24,54 +24,19 @@ import SEO, { Favicon } from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useLayoutTheme from "~/hooks/useLayoutTheme";
 import { checkRole } from "~/utils/teamUtils";
-import {
-  pageTitle as indexPoolPageTitle,
-  pageOutlineIcon as indexPoolPageIcon,
-} from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
-import {
-  pageTitle as allPoolCandidatesPageTitle,
-  pageOutlineIcon as allPoolCandidatesPageIcon,
-} from "~/pages/PoolCandidates/AllPoolCandidatesPage/AllPoolCandidatesPage";
-import {
-  pageTitle as indexSearchRequestPageTitle,
-  pageOutlineIcon as indexSearchRequestPageIcon,
-} from "~/pages/SearchRequests/IndexSearchRequestPage/IndexSearchRequestPage";
-import {
-  pageTitle as indexTeamPageTitle,
-  pageOutlineIcon as indexTeamPageIcon,
-} from "~/pages/Teams/IndexTeamPage/IndexTeamPage";
-import {
-  pageTitle as indexUserPageTitle,
-  pageOutlineIcon as indexUserPageIcon,
-} from "~/pages/Users/IndexUserPage/IndexUserPage";
-import {
-  pageTitle as adminDashboardPageTitle,
-  pageOutlineIcon as adminDashboardPageIcon,
-} from "~/pages/AdminDashboardPage/AdminDashboardPage";
-import {
-  pageTitle as indexClassificationPageTitle,
-  pageOutlineIcon as indexClassificationPageIcon,
-} from "~/pages/Classifications/IndexClassificationPage";
-import {
-  pageTitle as indexDepartmentPageTitle,
-  pageOutlineIcon as indexDepartmentPageIcon,
-} from "~/pages/Departments/IndexDepartmentPage";
-import {
-  pageTitle as indexSkillPageTitle,
-  pageOutlineIcon as indexSkillPageIcon,
-} from "~/pages/Skills/IndexSkillPage";
-import {
-  pageTitle as indexSkillFamilyPageTitle,
-  pageOutlineIcon as indexSkillFamilyPageIcon,
-} from "~/pages/SkillFamilies/IndexSkillFamilyPage";
-import {
-  pageTitle as announcementsPageTitle,
-  pageOutlineIcon as announcementsPageIcon,
-} from "~/pages/AnnouncementsPage/AnnouncementsPage";
-import {
-  adminPageTitle as skillPageTitle,
-  pageOutlineIcon as skillPageIcon,
-} from "~/pages/Skills/SkillPage";
+import pageTitles from "~/messages/pageTitles";
+import { pageOutlineIcon as indexPoolPageIcon } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
+import { pageOutlineIcon as allPoolCandidatesPageIcon } from "~/pages/PoolCandidates/AllPoolCandidatesPage/AllPoolCandidatesPage";
+import { pageOutlineIcon as indexSearchRequestPageIcon } from "~/pages/SearchRequests/IndexSearchRequestPage/IndexSearchRequestPage";
+import { pageOutlineIcon as indexTeamPageIcon } from "~/pages/Teams/IndexTeamPage/IndexTeamPage";
+import { pageOutlineIcon as indexUserPageIcon } from "~/pages/Users/IndexUserPage/IndexUserPage";
+import { pageOutlineIcon as adminDashboardPageIcon } from "~/pages/AdminDashboardPage/AdminDashboardPage";
+import { pageOutlineIcon as indexClassificationPageIcon } from "~/pages/Classifications/IndexClassificationPage";
+import { pageOutlineIcon as indexDepartmentPageIcon } from "~/pages/Departments/IndexDepartmentPage";
+import { pageOutlineIcon as indexSkillPageIcon } from "~/pages/Skills/IndexSkillPage";
+import { pageOutlineIcon as indexSkillFamilyPageIcon } from "~/pages/SkillFamilies/IndexSkillFamilyPage";
+import { pageOutlineIcon as announcementsPageIcon } from "~/pages/AnnouncementsPage/AnnouncementsPage";
+import { pageOutlineIcon as skillPageIcon } from "~/pages/Skills/SkillPage";
 import useErrorMessages from "~/hooks/useErrorMessages";
 
 import SitewideBanner from "../SitewideBanner";
@@ -176,7 +141,7 @@ export const Component = () => {
               href={paths.adminDashboard()}
               icon={adminDashboardPageIcon}
             >
-              {intl.formatMessage(adminDashboardPageTitle)}
+              {intl.formatMessage(pageTitles.dashboard)}
             </SideMenuItem>
           )}
           <SideMenuCategory
@@ -198,7 +163,7 @@ export const Component = () => {
                 href={paths.poolCandidates()}
                 icon={allPoolCandidatesPageIcon}
               >
-                {intl.formatMessage(allPoolCandidatesPageTitle)}
+                {intl.formatMessage(pageTitles.candidateSearch)}
               </SideMenuItem>
             )}
             {checkRole(
@@ -210,7 +175,7 @@ export const Component = () => {
               roleAssignments,
             ) && (
               <SideMenuItem href={paths.poolTable()} icon={indexPoolPageIcon}>
-                {intl.formatMessage(indexPoolPageTitle)}
+                {intl.formatMessage(pageTitles.processes)}
               </SideMenuItem>
             )}
             {checkRole(
@@ -222,7 +187,7 @@ export const Component = () => {
               roleAssignments,
             ) && (
               <SideMenuItem href={paths.teamTable()} icon={indexTeamPageIcon}>
-                {intl.formatMessage(indexTeamPageTitle)}
+                {intl.formatMessage(pageTitles.teams)}
               </SideMenuItem>
             )}
             {checkRole(
@@ -235,7 +200,7 @@ export const Component = () => {
               roleAssignments,
             ) && (
               <SideMenuItem href={paths.skills()} icon={skillPageIcon}>
-                {intl.formatMessage(skillPageTitle)}
+                {intl.formatMessage(pageTitles.skillsList)}
               </SideMenuItem>
             )}
           </SideMenuCategory>
@@ -251,7 +216,7 @@ export const Component = () => {
                 href={paths.searchRequestTable()}
                 icon={indexSearchRequestPageIcon}
               >
-                {intl.formatMessage(indexSearchRequestPageTitle)}
+                {intl.formatMessage(pageTitles.talentRequests)}
               </SideMenuItem>
             )}
           </SideMenuCategory>
@@ -271,7 +236,7 @@ export const Component = () => {
               roleAssignments,
             ) && (
               <SideMenuItem href={paths.userTable()} icon={indexUserPageIcon}>
-                {intl.formatMessage(indexUserPageTitle)}
+                {intl.formatMessage(pageTitles.users)}
               </SideMenuItem>
             )}
             {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
@@ -279,7 +244,7 @@ export const Component = () => {
                 href={paths.classificationTable()}
                 icon={indexClassificationPageIcon}
               >
-                {intl.formatMessage(indexClassificationPageTitle)}
+                {intl.formatMessage(pageTitles.classifications)}
               </SideMenuItem>
             )}
             {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
@@ -287,12 +252,12 @@ export const Component = () => {
                 href={paths.departmentTable()}
                 icon={indexDepartmentPageIcon}
               >
-                {intl.formatMessage(indexDepartmentPageTitle)}
+                {intl.formatMessage(pageTitles.departments)}
               </SideMenuItem>
             )}
             {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
               <SideMenuItem href={paths.skillTable()} icon={indexSkillPageIcon}>
-                {intl.formatMessage(indexSkillPageTitle)}
+                {intl.formatMessage(pageTitles.skillsEditor)}
               </SideMenuItem>
             )}
             {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
@@ -300,7 +265,7 @@ export const Component = () => {
                 href={paths.skillFamilyTable()}
                 icon={indexSkillFamilyPageIcon}
               >
-                {intl.formatMessage(indexSkillFamilyPageTitle)}
+                {intl.formatMessage(pageTitles.skillFamilies)}
               </SideMenuItem>
             )}
             {checkRole([ROLE_NAME.PlatformAdmin], roleAssignments) && (
@@ -308,7 +273,7 @@ export const Component = () => {
                 href={paths.announcements()}
                 icon={announcementsPageIcon}
               >
-                {intl.formatMessage(announcementsPageTitle)}
+                {intl.formatMessage(pageTitles.announcements)}
               </SideMenuItem>
             )}
           </SideMenuCategory>

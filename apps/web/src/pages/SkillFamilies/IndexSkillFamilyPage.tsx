@@ -1,4 +1,4 @@
-import { MessageDescriptor, defineMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import CloudOutlineIcon from "@heroicons/react/24/outline/CloudIcon";
 import CloudSolidIcon from "@heroicons/react/24/solid/CloudIcon";
 
@@ -11,14 +11,10 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import pageTitles from "~/messages/pageTitles";
 
 import SkillFamilyTableApi from "./components/SkillFamilyTable";
 
-export const pageTitle: MessageDescriptor = defineMessage({
-  defaultMessage: "Skill families",
-  id: "0E9hiS",
-  description: "Title for skill families",
-});
 export const pageOutlineIcon: IconType = CloudOutlineIcon;
 export const pageSolidIcon: IconType = CloudSolidIcon;
 
@@ -26,7 +22,7 @@ const IndexSkillFamilyPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
 
-  const formattedPageTitle = intl.formatMessage(pageTitle);
+  const formattedPageTitle = intl.formatMessage(pageTitles.skillFamilies);
 
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [

@@ -25,12 +25,12 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import { pageTitle as indexClassificationPageTitle } from "~/pages/Classifications/IndexClassificationPage";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminHero from "~/components/Hero/AdminHero";
 import adminMessages from "~/messages/adminMessages";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import pageTitles from "~/messages/pageTitles";
 
 export const ClassificationForm_Fragment = graphql(/* GraphQL */ `
   fragment ClassificationForm on Classification {
@@ -276,7 +276,7 @@ const UpdateClassification = () => {
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
       {
-        label: intl.formatMessage(indexClassificationPageTitle),
+        label: intl.formatMessage(pageTitles.classifications),
         url: routes.classificationTable(),
       },
       ...(classificationId
@@ -296,11 +296,7 @@ const UpdateClassification = () => {
     isAdmin: true,
   });
 
-  const pageTitle = intl.formatMessage({
-    defaultMessage: "Update classification",
-    id: "OCmMDP",
-    description: "Page title for the edit classification page",
-  });
+  const pageTitle = intl.formatMessage(pageTitles.classifications);
 
   return (
     <>
