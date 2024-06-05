@@ -10,6 +10,7 @@ import { empty } from "@gc-digital-talent/helpers";
 import { GovEmployeeType } from "@gc-digital-talent/graphql";
 
 import { wrapAbbr } from "~/utils/nameUtils";
+import profileMessages from "~/messages/profileMessages";
 
 import FieldDisplay from "../FieldDisplay";
 import { PartialUser } from "./types";
@@ -105,11 +106,7 @@ const Display = ({
       )}
       <FieldDisplay
         hasError={empty(hasPriorityEntitlement)}
-        label={intl.formatMessage({
-          defaultMessage: "Priority status",
-          id: "IDNjBI",
-          description: "Priority entitlement label",
-        })}
+        label={intl.formatMessage(profileMessages.priorityStatus)}
       >
         {empty(hasPriorityEntitlement) ? notProvided : priorityMessage}
       </FieldDisplay>
