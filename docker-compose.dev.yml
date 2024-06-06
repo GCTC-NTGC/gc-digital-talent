@@ -28,51 +28,9 @@ services:
       dockerfile: apps/web/dev.Dockerfile
     volumes:
       - ./:/var/www/html
-      - pnpmhome:/tmp/pnpm
-      - nodemodules1:/var/www/html/node_modules
-      - nodemodules1.5:/var/www/html/apps/web/node_modules
-      - nodemodules2:/var/www/html/packages/app-insights/node_modules
-      - nodemodules3:/var/www/html/packages/auth/node_modules
-      - nodemodules4:/var/www/html/packages/client/node_modules
-      - nodemodules5:/var/www/html/packages/date-helpers/node_modules
-      - nodemodules6:/var/www/html/packages/env/node_modules
-      - nodemodules7:/var/www/html/packages/fake-data/node_modules
-      - nodemodules8:/var/www/html/packages/forms/node_modules
-      - nodemodules9:/var/www/html/packages/graphql/node_modules
-      - nodemodules10:/var/www/html/packages/helpers/node_modules
-      - nodemodules11:/var/www/html/packages/i18n/node_modules
-      - nodemodules12:/var/www/html/packages/jest-helpers/node_modules
-      - nodemodules13:/var/www/html/packages/logger/node_modules
-      - nodemodules14:/var/www/html/packages/storage/node_modules
-      - nodemodules15:/var/www/html/packages/storybook-helpers/node_modules
-      - nodemodules16:/var/www/html/packages/theme/node_modules
-      - nodemodules17:/var/www/html/packages/toast/node_modules
-      - nodemodules18:/var/www/html/packages/ui/node_modules
-      - nodemodules19:/var/www/html/packages/webpack-config/node_modules
     ports:
       - "8000:8000"
 
 volumes:
   pgdata:
   phpvendor:
-  pnpmhome:
-  nodemodules1:
-  nodemodules1.5:
-  nodemodules2:
-  nodemodules3:
-  nodemodules4:
-  nodemodules5:
-  nodemodules6:
-  nodemodules7:
-  nodemodules8:
-  nodemodules9:
-  nodemodules10:
-  nodemodules11:
-  nodemodules12:
-  nodemodules13:
-  nodemodules14:
-  nodemodules15:
-  nodemodules16:
-  nodemodules17:
-  nodemodules18:
-  nodemodules19:
