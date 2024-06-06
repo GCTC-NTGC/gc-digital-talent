@@ -3,6 +3,7 @@ FROM node:20.11.0
 WORKDIR /var/www/html
 
 RUN npm install --location=global pnpm@8.15
+RUN pnpm config set store-dir /tmp/pnpm
 
 COPY \
     apps/web \
@@ -19,4 +20,4 @@ COPY \
 RUN pnpm install
 
 CMD cd apps/web && npx webpack serve --config webpack.dev.js
-# CMD sleep infinity
+#  CMD sleep infinity
