@@ -20,12 +20,12 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import { pageTitle as indexDepartmentPageTitle } from "~/pages/Departments/IndexDepartmentPage";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminHero from "~/components/Hero/AdminHero";
 import adminMessages from "~/messages/adminMessages";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import pageTitles from "~/messages/pageTitles";
 
 export const DepartmentForm_Fragment = graphql(/* GraphQL */ `
   fragment DepartmentForm on Department {
@@ -194,7 +194,7 @@ const UpdateDepartmentPage = () => {
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
       {
-        label: intl.formatMessage(indexDepartmentPageTitle),
+        label: intl.formatMessage(pageTitles.departments),
         url: routes.departmentTable(),
       },
       ...(departmentId

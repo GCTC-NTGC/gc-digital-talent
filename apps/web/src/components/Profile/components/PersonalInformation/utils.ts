@@ -9,6 +9,8 @@ import {
   User,
 } from "@gc-digital-talent/graphql";
 
+import profileMessages from "~/messages/profileMessages";
+
 import { FormValues, PartialUser } from "./types";
 
 export const getLabels = (intl: IntlShape) => ({
@@ -59,11 +61,7 @@ export const getLabels = (intl: IntlShape) => ({
     id: "7DUfu+",
     description: "Legend text for citizenship status",
   }),
-  armedForcesStatus: intl.formatMessage({
-    defaultMessage: "Veteran status",
-    id: "OVWo88",
-    description: "Title for Veteran status",
-  }),
+  armedForcesStatus: intl.formatMessage(profileMessages.veteranStatus),
 });
 
 export const dataToFormValues = (data?: PartialUser | null): FormValues => ({

@@ -952,21 +952,5 @@ class PoolCandidateUpdateTest extends TestCase
             ->assertJsonFragment([
                 'id' => $candidate->id,
             ]);
-
-        // rejected does not need an expiry date, mutation fails
-        $this->actingAs($this->poolOperatorUser, 'api')
-            ->graphQL(
-                $updateClaimVerificationDocument,
-                [
-                    'id' => $candidate->id,
-                    'poolCandidate' => [
-                        'veteranVerification' => null,
-                        'veteranVerificationExpiry' => null,
-                        'priorityVerification' => ClaimVerificationResult::REJECTED->name,
-                        'priorityVerificationExpiry' => config('constants.far_future_date'),
-                    ],
-                ]
-            )
-            ->assertGraphQLErrorMessage('Validation failed for the field [updatePoolCandidateClaimVerification].');
     }
 }

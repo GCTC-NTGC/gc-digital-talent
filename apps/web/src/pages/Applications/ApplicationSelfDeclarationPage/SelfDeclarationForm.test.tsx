@@ -9,7 +9,7 @@ import { pipe, fromValue, delay } from "wonka";
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
 
-import { ApplicationSelfDeclaration } from "../ApplicationSelfDeclarationPage";
+import { ApplicationSelfDeclaration } from "./ApplicationSelfDeclarationPage";
 
 const mockClient = {
   executeQuery: jest.fn(() => pipe(fromValue({}), delay(0))),

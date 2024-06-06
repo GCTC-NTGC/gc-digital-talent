@@ -23,12 +23,12 @@ import { isEducationExperience } from "~/utils/experienceUtils";
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
 import { ExperienceForDate } from "~/types/experience";
+import { getEducationRequirementOptions } from "~/utils/educationUtils";
 
 import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
 import { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import LinkCareerTimeline from "./LinkCareerTimeline";
-import { getEducationRequirementOptions } from "./utils";
 import useApplication from "../useApplication";
 
 type PageAction = "continue" | "cancel";

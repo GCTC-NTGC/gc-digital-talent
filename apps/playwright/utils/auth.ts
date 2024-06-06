@@ -1,4 +1,4 @@
-import { Cookie, Page } from "@playwright/test";
+import { Cookie, Page, expect } from "@playwright/test";
 
 /**
  * Login by sub
@@ -8,35 +8,31 @@ import { Cookie, Page } from "@playwright/test";
  *
  * @param {Page} page
  * @param {String} sub
+ * @param {Boolean} notAuthorized
  */
-export async function loginBySub(page: Page, sub: string) {
-  await page.goto("/login-info");
+export async function loginBySub(
+  page: Page,
+  sub: string,
+  notAuthorized: boolean,
+) {
+  await page.goto("/en/login-info");
+  await expect(
+    page.getByRole("heading", { name: /sign in using gckey/i }),
+  ).toBeVisible();
   await page
     .getByRole("link", { name: /continue to gckey and sign in/i })
     .first()
     .click();
   await page.getByPlaceholder("Enter any user/subject").fill(sub);
   await page.getByRole("button", { name: /sign-in/i }).click();
-  /**
-   * Note: Fixes an issue where the URL was redirecting some of the time
-   * We should probably improve this to not reply on a specific operation name.
-   */
-  await page.waitForResponse(
-    async (resp) => {
-      if (await resp.url()?.includes("/graphql")) {
-        const reqJson = await resp.request()?.postDataJSON();
-        return (
-          reqJson.operationName === "ProfileAndApplicationsApplicant" ||
-          reqJson.operationName === "CreateAccount_Query"
-        );
-      }
-
-      return false;
-    },
-    {
-      timeout: 120 * 1000,
-    },
-  );
+  await expect(
+    page.getByRole(
+      "heading",
+      notAuthorized
+        ? { name: "Sorry, you are not authorized to view this page.", level: 1 }
+        : { name: /welcome/i, level: 1 },
+    ),
+  ).toBeVisible();
 }
 
 export type AuthCookies = {

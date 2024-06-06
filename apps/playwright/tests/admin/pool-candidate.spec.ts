@@ -114,7 +114,7 @@ test.describe("Pool candidates", () => {
     const context = await browser.newContext();
     const page = await context.newPage();
     const applicationPage = new ApplicationPage(page, createdPool.id);
-    await loginBySub(applicationPage.page, sub);
+    await loginBySub(applicationPage.page, sub, false);
     const applicationUser: User = await applicationPage.getMe();
     const application = await applicationPage.createGraphql(
       createdUser.id,
