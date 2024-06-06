@@ -18,12 +18,11 @@ import cells from "~/components/Table/cells";
 import { normalizedText } from "~/components/Table/sortingFns";
 import { getShortPoolTitleLabel } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
-import { viewTeamLinkCell } from "~/pages/Pools/IndexPoolPage/components/helpers";
 import processMessages from "~/messages/processMessages";
 import adminMessages from "~/messages/adminMessages";
 
 import accessors from "../Table/accessors";
-import { expiryCell, statusCell } from "./cells";
+import { expiryCell, statusCell, viewTeamLinkCell } from "./cells";
 import sortStatus from "./sortStatus";
 
 const isSuspended = (suspendedAt: PoolCandidate["suspendedAt"]): boolean => {

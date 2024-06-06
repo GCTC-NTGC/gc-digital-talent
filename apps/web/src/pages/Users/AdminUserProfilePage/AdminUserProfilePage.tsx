@@ -16,8 +16,7 @@ import AdminAboutUserSection from "~/components/AdminAboutUserSection/AdminAbout
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-
-import SingleUserProfilePrintButton from "./components/SingleUserProfilePrintButton";
+import SingleUserProfilePrintButton from "~/components/PrintButton/SingleUserProfilePrintButton";
 
 const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
   fragment AdminUserProfileUser on User {

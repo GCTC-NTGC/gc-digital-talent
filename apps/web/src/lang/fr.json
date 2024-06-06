@@ -4595,10 +4595,6 @@
     "defaultMessage": "Bienvenue sur la plateforme des talents numériques du GC. Vous pouvez désormais vous connecter à votre profil à l'aide du nom d'utilisateur et du mot de passe de CléGC.",
     "description": "Message for successful sign in alert in create account page"
   },
-  "OCmMDP": {
-    "defaultMessage": "Modifier - classification",
-    "description": "Page title for the edit classification page"
-  },
   "OCrKtT": {
     "defaultMessage": "Compétences techniques requises",
     "description": "Heading for required technical skills section"

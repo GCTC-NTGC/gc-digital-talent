@@ -7,7 +7,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { Scalars } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import { PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
+import { PAGE_SECTION_ID } from "~/constants/sections/careerTimeline";
 
 interface ActionProps {
   show: boolean;

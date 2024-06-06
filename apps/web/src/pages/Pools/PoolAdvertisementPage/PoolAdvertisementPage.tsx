@@ -64,10 +64,10 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import { sortPoolSkillsBySkillCategory } from "~/utils/skillUtils";
-
 import ApplicationLink, {
   ApplicationLinkProps,
-} from "./components/ApplicationLink";
+} from "~/components/ApplicationLink/ApplicationLink";
+
 import Text from "./components/Text";
 import SkillAccordion from "./components/SkillAccordion";
 import DataRow from "./components/DataRow";
