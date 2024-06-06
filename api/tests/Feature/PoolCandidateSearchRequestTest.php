@@ -101,6 +101,7 @@ class PoolCandidateSearchRequestTest extends TestCase
      */
     public function testMutationCreatePassesWithApplicantFilter()
     {
+        $this->seed(RolePermissionSeeder::class);
         $this->seed(DepartmentSeeder::class);
         $this->seed(CommunitySeeder::class);
 
