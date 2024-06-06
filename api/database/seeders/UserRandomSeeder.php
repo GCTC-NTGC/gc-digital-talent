@@ -150,7 +150,6 @@ class UserRandomSeeder extends Seeder
             ->afterCreating(function (PoolCandidate $candidate) {
                 if ($candidate->submitted_at) {
                     $candidate->setApplicationSnapshot();
-                    $candidate->save();
                 }
             })
             ->createQuietly();
@@ -188,7 +187,6 @@ class UserRandomSeeder extends Seeder
             ->afterCreating(function (PoolCandidate $candidate) {
                 if ($candidate->submitted_at) {
                     $candidate->setApplicationSnapshot();
-                    $candidate->save();
                 }
             })
             ->createQuietly();

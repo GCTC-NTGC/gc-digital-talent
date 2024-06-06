@@ -70,7 +70,6 @@ class SnapshotTest extends TestCase
         assertNotNull($expectedSnapshot);
 
         $poolCandidate->setApplicationSnapshot();
-        $poolCandidate->save();
 
         // get the just-created snapshot
         $actualSnapshot = $this->actingAs($user, 'api')->graphQL(
@@ -148,7 +147,6 @@ class SnapshotTest extends TestCase
 
         // submit the application, re-grab the model so as to access profile_snapshot
         $poolCandidate->setApplicationSnapshot();
-        $poolCandidate->save();
         $updatedPoolCandidate = PoolCandidate::findOrFail($poolCandidate->id);
         $snapshot = $updatedPoolCandidate->profile_snapshot;
 
@@ -183,7 +181,6 @@ class SnapshotTest extends TestCase
         ]);
 
         $poolCandidate->setApplicationSnapshot();
-        $poolCandidate->save();
 
         $updatedPoolCandidate = PoolCandidate::findOrFail($poolCandidate->id);
         $snapshot = $updatedPoolCandidate->profile_snapshot;

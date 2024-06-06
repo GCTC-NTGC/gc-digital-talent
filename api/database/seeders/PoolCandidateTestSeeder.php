@@ -168,7 +168,6 @@ class PoolCandidateTestSeeder extends Seeder
             PoolCandidate::factory()->for($user)->for($pool)
                 ->afterCreating(function (PoolCandidate $candidate) {
                     $candidate->setApplicationSnapshot();
-                    $candidate->save();
                 })
                 ->create([
                     'pool_id' => $pool->id,

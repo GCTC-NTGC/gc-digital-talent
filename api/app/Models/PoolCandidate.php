@@ -831,5 +831,6 @@ class PoolCandidate extends Model
         $profile = $profile->poolSkillIds($poolSkillIds);
 
         $this->profile_snapshot = $profile;
+        $this->save();
     }
 }
