@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
 
-import Heading from "../Heading";
+import Heading from "../IAPHeading/Heading";
 import CloseButton from "./CloseButton";
 import { BasicDialogProps } from "./types";
 

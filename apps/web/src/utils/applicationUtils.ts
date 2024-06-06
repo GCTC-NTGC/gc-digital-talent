@@ -5,78 +5,20 @@
  *
  * For utilities general to the PoolCandidate object, or specific to the Admin side, see ./poolCandidates.ts
  */
-import { IntlShape } from "react-intl";
 import { isPast } from "date-fns/isPast";
 
 import { StepType } from "@gc-digital-talent/ui";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import {
-  Application_PoolCandidateFragment,
   PoolCandidateStatus,
   ApplicationStep,
   Maybe,
   PoolCandidate,
 } from "@gc-digital-talent/graphql";
 
-import useRoutes from "~/hooks/useRoutes";
 import { ApplicationStepInfo } from "~/types/applicationStep";
-import welcomeStepInfo from "~/pages/Applications/welcomeStep/welcomeStepInfo";
-import selfDeclarationStepInfo from "~/pages/Applications/selfDeclarationStep/selfDeclarationStepInfo";
-import reviewStepInfo from "~/pages/Applications/reviewStep/reviewStepInfo";
-import questionsStepInfo from "~/pages/Applications/questionsStep/questionsStepInfo";
-import educationStepInfo from "~/pages/Applications/educationStep/educationStepInfo";
-import profileStepInfo from "~/pages/Applications/profileStep/profileStepInfo";
-import successPageInfo from "~/pages/Applications/successStep/successStepInfo";
-import skillsStepInfo from "~/pages/Applications/skillsStep/skillsStepInfo";
-import { isIAPPool } from "~/utils/poolUtils";
-import careerTimelineStepInfo from "~/pages/Applications/careerTimelineStep/careerTimelineStepInfo";
 
 import { isDraftStatus, isToAssessStatus } from "./poolCandidate";
-
-type GetApplicationPagesArgs = {
-  paths: ReturnType<typeof useRoutes>;
-  intl: IntlShape;
-  application: Application_PoolCandidateFragment;
-  experienceId?: string;
-};
-
-// Dynamically build the list of application steps for this application
-export const getApplicationSteps = ({
-  paths,
-  intl,
-  application,
-  experienceId,
-}: GetApplicationPagesArgs): Array<ApplicationStepInfo> => {
-  const showQuestionStep =
-    application.pool.generalQuestions?.length ||
-    application.pool.screeningQuestions?.length;
-
-  // build the order of step functions to call
-  const stepInfoFunctions = [
-    welcomeStepInfo,
-    ...(isIAPPool(application.pool) ? [selfDeclarationStepInfo] : []),
-    profileStepInfo,
-    careerTimelineStepInfo,
-    educationStepInfo,
-    skillsStepInfo,
-    ...(showQuestionStep ? [questionsStepInfo] : []),
-    reviewStepInfo,
-    successPageInfo,
-  ];
-
-  // call the functions with their dynamic ordinal
-  const stepInfos = stepInfoFunctions.map((func, index) =>
-    func({
-      paths,
-      intl,
-      application,
-      resourceId: experienceId,
-      stepOrdinal: index + 1,
-    }),
-  );
-
-  return stepInfos;
-};
 
 // Filter the prerequisite list by steps present in this application and then figure out if any are missing from the submitted steps
 const missingPrerequisitesFromThisApplication = (

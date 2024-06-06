@@ -24,7 +24,7 @@ test.describe("User information", () => {
     visitingUserSub: string,
     userToVisit: User,
   ) => {
-    await loginBySub(appPage.page, visitingUserSub);
+    await loginBySub(appPage.page, visitingUserSub, false);
     await appPage.page.goto(`/en/admin/users/${userToVisit.id}`);
     await appPage.waitForGraphqlResponse("UserName");
   };
@@ -89,7 +89,7 @@ test.describe("User information", () => {
   });
 
   test("Applicant cannot access", async ({ appPage }) => {
-    await loginBySub(appPage.page, "applicant@test.com");
+    await loginBySub(appPage.page, "applicant@test.com", false);
     await appPage.page.goto(`/en/admin/users/${user.id}`);
     await appPage.waitForGraphqlResponse("authorizationQuery");
     await expect(
@@ -121,7 +121,7 @@ test.describe("User information", () => {
     const context = await browser.newContext();
     const page = await context.newPage();
     const dcmApplicationPage = new ApplicationPage(page, dcmPool.id);
-    await loginBySub(dcmApplicationPage.page, sub);
+    await loginBySub(dcmApplicationPage.page, sub, false);
     const applicationUser: User = await dcmApplicationPage.getMe();
     const dcmApplication = await dcmApplicationPage.createGraphql(
       user.id,
