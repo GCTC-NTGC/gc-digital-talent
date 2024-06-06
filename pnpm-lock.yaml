@@ -1074,9 +1074,6 @@ importers:
       '@storybook/addon-essentials':
         specifier: ^8.1.6
         version: 8.1.6(@types/react@18.3.3)(prettier@3.3.1)(react-dom@18.3.1)(react@18.3.1)
-      '@storybook/addon-links':
-        specifier: ^8.1.6
-        version: 8.1.6(react@18.3.1)
       '@storybook/addon-themes':
         specifier: ^8.1.6
         version: 8.1.6
@@ -5673,20 +5670,6 @@ packages:
     resolution: {integrity: sha512-QT95TS4OT0SJJVz/1m038COUdS2yWukQOwyq2rCgSM6nU3OHOPf/CldDK4Sdch7Z4jV9kRdRS0Pu4FB5SV+uOw==}
     dependencies:
       '@storybook/global': 5.0.0
-    dev: true
-
-  /@storybook/addon-links@8.1.6(react@18.3.1):
-    resolution: {integrity: sha512-EuSXoK+tpApjW08ZiC4yE9ePdJkIu36AFPJHA6FVierVU31klW+cbFqps88JpmALZkrlf+pzKf3uBIGLrkBSAw==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
-    peerDependenciesMeta:
-      react:
-        optional: true
-    dependencies:
-      '@storybook/csf': 0.1.7
-      '@storybook/global': 5.0.0
-      react: 18.3.1
-      ts-dedent: 2.2.0
     dev: true
 
   /@storybook/addon-measure@8.1.6:
