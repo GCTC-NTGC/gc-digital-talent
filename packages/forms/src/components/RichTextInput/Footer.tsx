@@ -1,4 +1,4 @@
-import WordCounter from "../WordCounter";
+import WordCounter from "../WordCounter/WordCounter";
 
 interface FooterProps {
   name: string;

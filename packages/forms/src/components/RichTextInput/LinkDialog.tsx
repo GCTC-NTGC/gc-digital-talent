@@ -12,8 +12,8 @@ import {
 } from "@gc-digital-talent/i18n";
 import { sanitizeUrl } from "@gc-digital-talent/helpers";
 
-import Input from "../Input";
-import Checkbox from "../Checkbox";
+import Input from "../Input/Input";
+import Checkbox from "../Checkbox/Checkbox";
 import MenuButton from "./MenuButton";
 
 const validLinkRegex =

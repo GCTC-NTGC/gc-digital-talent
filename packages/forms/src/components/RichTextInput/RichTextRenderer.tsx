@@ -3,7 +3,7 @@ import { JSX } from "react";
 
 import { Link, LinkProps } from "@gc-digital-talent/ui";
 
-import { RenderMap, Node, NodeRenderer } from "./types";
+import { RenderMap, Node, NodeRenderer } from "../../types";
 
 const NoNode: NodeRenderer = ({ children }) => {
   return <>{children}</>;

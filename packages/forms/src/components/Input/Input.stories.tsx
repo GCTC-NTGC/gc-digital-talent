@@ -4,10 +4,8 @@ import { action } from "@storybook/addon-actions";
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Form from "../BasicForm";
-import Submit from "../Submit";
-
-import Input from ".";
-import type { InputProps } from ".";
+import Submit from "../Submit/Submit";
+import Input, { type InputProps } from "./Input";
 
 export default {
   component: Input,

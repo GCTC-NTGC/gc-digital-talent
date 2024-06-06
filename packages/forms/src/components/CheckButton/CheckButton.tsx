@@ -5,8 +5,6 @@ import MinusIcon from "@heroicons/react/24/outline/MinusIcon";
 import { formMessages } from "@gc-digital-talent/i18n";
 import { IconType } from "@gc-digital-talent/ui";
 
-import "./check-button.css";
-
 const borderMap = {
   black: {
     "data-h2-border": "base(1px solid black)",
@@ -57,9 +55,10 @@ const CheckButton = ({
 
   return (
     <button
-      className="check-button"
       type="button"
       onClick={handleClick}
+      data-h2-border="base(none)"
+      data-h2-cursor="base(pointer)"
       data-h2-padding="base(x.25)"
       data-h2-radius="base(s)"
       data-h2-display="base(inline-flex)"
@@ -71,16 +70,16 @@ const CheckButton = ({
           : intl.formatMessage(formMessages.selectCheck, { label })}
       </span>
       <span
-        className="check-button__inner"
         data-h2-padding="base(x.125)"
         data-h2-radius="base(input)"
         data-h2-background-color="base(foreground)"
         {...borderMap[color]}
       >
         <Icon
-          className="check-button__icon"
+          data-h2-height="base(0.75rem)"
           data-h2-display="base(block)"
           data-h2-stroke-width="base(3)"
+          data-h2-width="base(0.75rem)"
         />
       </span>
     </button>

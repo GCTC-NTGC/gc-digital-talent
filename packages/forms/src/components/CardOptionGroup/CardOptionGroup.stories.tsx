@@ -6,7 +6,7 @@ import OutlineHandThumbUpIcon from "@heroicons/react/24/outline/HandThumbUpIcon"
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Form from "../BasicForm";
-import Submit from "../Submit";
+import Submit from "../Submit/Submit";
 import CardOptionGroup, { CardOption } from "./CardOptionGroup";
 
 export default {

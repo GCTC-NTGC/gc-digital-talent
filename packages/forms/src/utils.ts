@@ -14,8 +14,7 @@ import { Locales, commonMessages, getLocale } from "@gc-digital-talent/i18n";
 import { getId, unpackMaybes } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
 
-import { Node } from "./components/RichTextInput/types";
-import { OptGroupOrOption } from "./types";
+import { OptGroupOrOption, Node } from "./types";
 
 /**
  * Filters out empty data from data response, and returns list of ids.

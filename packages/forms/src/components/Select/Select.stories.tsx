@@ -8,11 +8,9 @@ import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Form from "../BasicForm";
-import Submit from "../Submit";
-import Select from "./Select";
+import Submit from "../Submit/Submit";
+import Select, { type SelectProps } from "./Select";
 import { OptGroup, Option } from "../../types";
-
-import type { SelectProps } from ".";
 
 export default {
   component: Select,

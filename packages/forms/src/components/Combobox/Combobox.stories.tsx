@@ -8,8 +8,8 @@ import { getStaticSkills } from "@gc-digital-talent/fake-data";
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import BasicForm from "../BasicForm";
-import Submit from "../Submit";
-import Combobox, { ComboboxProps } from "./Combobox";
+import Submit from "../Submit/Submit";
+import Combobox, { type ComboboxProps } from "./Combobox";
 import { Option } from "./types";
 
 faker.seed(0);
