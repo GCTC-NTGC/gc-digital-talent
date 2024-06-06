@@ -1,6 +1,8 @@
 import { pipe, tap } from "wonka";
 import type { Exchange } from "@urql/core";
 
+import { getRuntimeVariable } from "@gc-digital-talent/env";
+
 const privilegedPaths = [
   "/admin",
   "/en/admin",
@@ -9,7 +11,7 @@ const privilegedPaths = [
   "/en/directive-on-digital-talent",
   "/fr/directive-on-digital-talent",
 ];
-const protectedUrl = process.env.API_PROTECTED_URI ?? "";
+const protectedUrl = getRuntimeVariable("API_PROTECTED_URI");
 
 // A custom exchange that changes to the protected endpoint depending on the current location
 
@@ -27,7 +29,7 @@ const protectedEndpointExchange: Exchange =
         if (isPrivilegedLocation) {
           // we're updating the operation on the fly
           // eslint-disable-next-line no-param-reassign
-          op.context.url = protectedUrl;
+          op.context.url = protectedUrl ?? "";
         }
       }),
       forward,
