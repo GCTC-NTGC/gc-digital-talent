@@ -1,14 +1,14 @@
 #!/bin/env node
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-console */
-const fs = require("fs");
-const path = require("path");
+import fs from "node:fs";
+import path from "node:path";
 
-const yargs = require("yargs");
-const yaml = require("js-yaml");
-const stringify = require("json-stable-stringify"); // provides sorted output
+import yargs from "yargs/yargs";
+import yaml from "js-yaml";
+import stringify from "json-stable-stringify"; // provides sorted output
 
-const { argv } = yargs(process.argv.slice(2))
+const argv = yargs(process.argv.slice(2))
   .option("dir", {
     demandOption: false,
     describe: "path to the current working directory",
@@ -46,7 +46,8 @@ const { argv } = yargs(process.argv.slice(2))
       "path to json file containing an array of keys which are expected to be identical in fr and en",
     string: true,
   })
-  .help();
+  .help()
+  .parseSync();
 
 /**
  * Loads data from a json or yml file as a js object or array.
@@ -63,10 +64,10 @@ const readDataFile = (
   }
   const ext = path.extname(filename);
   if (ext === ".json") {
-    return JSON.parse(fs.readFileSync(filename));
+    return JSON.parse(fs.readFileSync(filename, "utf8"));
   }
   if (ext === ".yml" || ext === ".yaml") {
-    return yaml.load(fs.readFileSync(filename));
+    return yaml.load(fs.readFileSync(filename, "utf8"));
   }
   // For unknown file types, throw error
   throw new Error(
@@ -75,16 +76,16 @@ const readDataFile = (
 };
 
 // Change directory if it was passed
-const { dir } = argv;
-if (dir) {
-  process.chdir(dir);
+if (argv.dir) {
+  process.chdir(argv.dir);
 }
 
 // First read all relevant files and convert to js objects.
 const en = readDataFile(argv.en, {});
 const frOriginal = readDataFile(argv.fr, {});
-const whitelist = readDataFile(argv.whitelist, []);
-const frNew = readDataFile(argv["merge-fr"], {});
+const whitelist = readDataFile(argv?.whitelist ?? "", []);
+const mergeFr = argv?.["merge-fr"] ?? "";
+const frNew = readDataFile(mergeFr, {});
 
 // This variable is used to track changes that may need to be made to fr.json. That way, we only update the file once, at the end.
 let outputFr = { ...frOriginal, ...frNew };
