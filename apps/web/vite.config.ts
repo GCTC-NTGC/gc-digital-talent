@@ -76,6 +76,7 @@ export default defineConfig({
   assetsInclude: ["**/*.docx", "**/*.pdf", "**/*.pptx"],
   define: {
     API_URI: JSON.stringify(process.env.API_URI),
+    API_PROTECTED_URI: JSON.stringify(process.env.API_PROTECTED_URI),
     BUILD_DATE: JSON.stringify(new Date()),
     API_SUPPORT_ENDPOINT: process.env.API_SUPPORT_ENDPOINT
       ? JSON.stringify(process.env.API_SUPPORT_ENDPOINT)
