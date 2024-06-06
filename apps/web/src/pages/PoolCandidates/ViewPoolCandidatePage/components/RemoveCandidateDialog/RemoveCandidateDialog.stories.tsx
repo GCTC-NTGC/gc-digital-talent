@@ -15,7 +15,6 @@ const mockCandidateFragment = makeFragmentData(
 );
 
 const meta = {
-  title: "Components/Remove Candidate Dialog",
   component: RemoveCandidateDialog,
   decorators: [OverlayOrDialogDecorator],
   args: {

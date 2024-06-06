@@ -19,8 +19,6 @@ const mockSkills = getStaticSkills();
 
 const meta: Meta<typeof PersonnelRequirementFieldset> = {
   component: PersonnelRequirementFieldset,
-  title:
-    "Pages/Directive On Digital Talent/Digital Services Contracting Questionnaire/Personnel Requirement Fieldset",
   args: {
     skills: mockSkills,
     fieldsetName: "fakeField",

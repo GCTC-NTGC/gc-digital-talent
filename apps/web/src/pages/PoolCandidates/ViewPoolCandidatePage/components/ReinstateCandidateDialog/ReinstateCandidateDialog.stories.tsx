@@ -15,7 +15,6 @@ const mockCandidateFragment = makeFragmentData(
 );
 
 const meta = {
-  title: "Components/Reinstate Candidate Dialog",
   component: ReinstateCandidateDialog,
   decorators: [OverlayOrDialogDecorator],
   args: {
