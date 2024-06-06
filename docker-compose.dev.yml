@@ -18,6 +18,7 @@ services:
       dockerfile: dev.Dockerfile
     volumes:
       - ./api:/var/www/html
+      - phpvendor:/var/www/html/vendor
     ports:
       - "8001:8000"
 
@@ -36,3 +37,4 @@ services:
 volumes:
   pgdata:
   pnpmhome:
+  phpvendor:

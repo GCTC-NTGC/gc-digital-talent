@@ -14,7 +14,6 @@ COPY \
     packages \
     pnpm-lock.yaml \
     pnpm-workspace.yaml \
-    .turbo \
     turbo.json \
     ./
 RUN pnpm install
