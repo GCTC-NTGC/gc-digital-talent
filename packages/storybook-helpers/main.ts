@@ -18,15 +18,11 @@ if (sbApp) {
 
 const main: StorybookConfig = {
   stories,
-  // staticDirs: ["../src/assets"],
+  staticDirs: ["../src/assets"],
   addons: [
     "@storybook/addon-a11y",
-    "@storybook/addon-actions",
-    "@storybook/addon-controls",
-    "@storybook/addon-links",
     "@storybook/addon-themes",
-    "@storybook/addon-toolbars",
-    "@storybook/addon-viewport",
+    "@storybook/addon-essentials",
     "storybook-react-intl",
   ],
   core: {
@@ -35,14 +31,6 @@ const main: StorybookConfig = {
   framework: {
     name: "@storybook/react-vite",
     options: {},
-  },
-  docs: {
-    autodocs: false,
-  },
-  typescript: {
-    // Enables the `react-docgen-typescript` parser.
-    // See https://storybook.js.org/docs/api/main-config-typescript for more information about this option.
-    reactDocgen: "react-docgen-typescript",
   },
 };
 
