@@ -585,59 +585,6 @@ class PoolCandidate extends Model
         return $candidateStatus;
     }
 
-    public function createSnapshot()
-    {
-        if ($this->profile_snapshot) {
-            return null;
-        }
-
-        $user = User::with([
-            'department',
-            'currentClassification',
-            'awardExperiences',
-            'awardExperiences.skills',
-            'awardExperiences.user',
-            'communityExperiences',
-            'communityExperiences.skills',
-            'communityExperiences.user',
-            'educationExperiences',
-            'educationExperiences.skills',
-            'educationExperiences.user',
-            'personalExperiences',
-            'personalExperiences.skills',
-            'personalExperiences.user',
-            'workExperiences',
-            'workExperiences.skills',
-            'workExperiences.user',
-            'poolCandidates',
-            'poolCandidates.pool',
-            'poolCandidates.pool.classification',
-            'poolCandidates.educationRequirementAwardExperiences.skills',
-            'poolCandidates.educationRequirementCommunityExperiences.skills',
-            'poolCandidates.educationRequirementEducationExperiences.skills',
-            'poolCandidates.educationRequirementPersonalExperiences.skills',
-            'poolCandidates.educationRequirementWorkExperiences.skills',
-            'poolCandidates.generalQuestionResponses',
-            'poolCandidates.generalQuestionResponses.generalQuestion',
-            'poolCandidates.screeningQuestionResponses',
-            'poolCandidates.screeningQuestionResponses.screeningQuestion',
-        ])->findOrFail($this->user_id);
-        $profile = new UserResource($user);
-
-        // collect skills attached to the Pool to pass into resource collection
-        $pool = Pool::with([
-            'poolSkills',
-            'classification',
-        ])->findOrFail($this->pool_id);
-        $poolSkillIds = $pool->poolSkills()->pluck('skill_id')->toArray();
-
-        $profile = new UserResource($user);
-        $profile = $profile->poolSkillIds($poolSkillIds);
-
-        $this->profile_snapshot = $profile;
-        $this->save();
-    }
-
     public function scopePriorityWeight(Builder $query, ?array $priorityWeights): Builder
     {
         if (empty($priorityWeights)) {
@@ -825,6 +772,10 @@ class PoolCandidate extends Model
 
     public function setApplicationSnapshot()
     {
+        if (! is_null($this->profile_snapshot)) {
+            return null;
+        }
+
         $user = User::with([
             'department',
             'currentClassification',
@@ -880,5 +831,6 @@ class PoolCandidate extends Model
         $profile = $profile->poolSkillIds($poolSkillIds);
 
         $this->profile_snapshot = $profile;
+        $this->save();
     }
 }
