@@ -7,7 +7,6 @@ const VersionLink = () => {
   const intl = useIntl();
   let content;
   let url;
-  console.log({ VERSION, COMMIT_HASH });
   if (VERSION) {
     content = VERSION;
     url = `https://github.com/GCTC-NTGC/gc-digital-talent/releases/tag/${VERSION}`;
