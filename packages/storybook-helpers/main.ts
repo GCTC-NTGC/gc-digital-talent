@@ -32,6 +32,14 @@ const main: StorybookConfig = {
     name: "@storybook/react-vite",
     options: {},
   },
+  // Weird fix that I do not fully understand
+  // REF: https://stackoverflow.com/questions/77540892/chromatic-github-action-is-failing
+  viteFinal(config) {
+    config.plugins = (config.plugins ?? []).filter(
+      (plugin) => plugin && "name" in plugin && plugin.name !== "vite:dts",
+    );
+    return config;
+  },
 };
 
 export default main;
