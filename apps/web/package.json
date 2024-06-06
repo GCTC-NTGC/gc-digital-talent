@@ -19,7 +19,7 @@
     "lint:fix": "eslint ./src --fix --ext .js,.ts,.jsx,.tsx",
     "prettier": "prettier --write ./src/js",
     "production": "pnpm run build",
-    "build-storybook": "storybook build",
+    "build-storybook": "NODE_OPTIONS=--max_old_space_size=12000 storybook build",
     "storybook": "storybook dev -p 6006",
     "storybook:design-system": "SB_APP=design storybook dev -p 6006",
     "storybook:web": "SB_APP=web storybook dev -p 6006",
