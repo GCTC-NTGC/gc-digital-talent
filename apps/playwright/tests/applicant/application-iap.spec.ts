@@ -168,6 +168,7 @@ test.describe("IAP Application", () => {
     // Review career timeline page - step four
     await expectOnStep(application.page, 4);
     await application.page.getByRole("link", { name: /let's go/i }).click();
+    await application.page.waitForURL(/career-timeline$/);
 
     // Quit application and confirm draft message
     const applicationUrl = application.page.url();
