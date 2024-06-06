@@ -17,7 +17,11 @@ COPY \
     pnpm-workspace.yaml \
     turbo.json \
     ./
-RUN pnpm install
+RUN \
+    pnpm install && \
+    pnpm intl-extract && \
+    pnpm intl-compile && \
+    pnpm codegen
 
 CMD cd apps/web && npx webpack serve --config webpack.dev.js
 #  CMD sleep infinity
