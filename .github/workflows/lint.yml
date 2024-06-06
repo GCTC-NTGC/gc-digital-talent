@@ -39,6 +39,11 @@ jobs:
       - name: Add postgres extension pgcrypto # not included with postgres 12
         run: docker run --rm --network ${{ job.container.network }} postgres:12.15 sh -c "PGPASSWORD=password1234 exec psql -h postgres -d gctalent -p 5432 -U postgres -t -c 'CREATE EXTENSION IF NOT EXISTS pgcrypto';"
 
+      - name: "Copy .env"
+        working-directory: "./apps/web"
+        run: |
+          cp .env.example .env
+
       - uses: pnpm/action-setup@v4
         with:
           version: ${{ env.PNPM_VERSION }}
