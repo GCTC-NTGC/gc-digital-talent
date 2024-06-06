@@ -1,4 +1,4 @@
-import { type Page } from "@playwright/test";
+import { type Page, expect } from "@playwright/test";
 
 import { Test_MeQueryDocument } from "~/utils/user";
 import { FeatureFlags, getFeatureFlagConfig } from "~/utils/featureFlags";
@@ -18,8 +18,10 @@ class AppPage {
   }
 
   async gotoHome(locale: "en" | "fr" = "en") {
-    // Timeout is for Firefox having issues with this navigation
-    await this.page.goto(`/${locale}`, { timeout: 120 * 1000 });
+    await this.page.goto(`/${locale}`);
+    await expect(
+      this.page.getByRole("heading", { name: /digital talent/i, level: 1 }),
+    ).toBeVisible();
   }
 
   /**
@@ -37,7 +39,6 @@ class AppPage {
     isPrivileged: boolean = true,
   ) {
     await this.gotoHome();
-    await this.waitForGraphqlResponse("authorizationQuery");
     const tokens = await getAuthTokens(this.page);
     const url = isPrivileged ? "/admin/graphql" : "/graphql";
     const res = await this.page.request.post(url, {
@@ -62,19 +63,14 @@ class AppPage {
    * @param operationName
    */
   async waitForGraphqlResponse(operationName: string) {
-    await this.page.waitForResponse(
-      async (resp) => {
-        if (await resp.url()?.includes("/graphql")) {
-          const reqJson = await resp.request()?.postDataJSON();
-          return reqJson.operationName === operationName;
-        }
+    await this.page.waitForResponse(async (resp) => {
+      if (await resp.url()?.includes("/graphql")) {
+        const reqJson = await resp.request()?.postDataJSON();
+        return reqJson.operationName === operationName;
+      }
 
-        return false;
-      },
-      {
-        timeout: 120 * 1000,
-      },
-    );
+      return false;
+    });
   }
 
   /**

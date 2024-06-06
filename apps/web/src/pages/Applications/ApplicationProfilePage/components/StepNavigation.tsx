@@ -17,10 +17,10 @@ import {
   hasEmptyRequiredFields as hasEmptyDEIRequiredFields,
   PartialUser as DeiUser,
 } from "~/validators/profile/diversityEquityInclusion";
-import { useApplicationContext } from "~/pages/Applications/ApplicationContext";
-import useUpdateApplicationMutation from "~/pages/Applications/useUpdateApplicationMutation";
+import { useProfileFormContext } from "~/components/Profile/components/ProfileFormContext";
 
-import { useProfileFormContext } from "./ProfileFormContext";
+import useUpdateApplicationMutation from "../../useUpdateApplicationMutation";
+import { useApplicationContext } from "../../ApplicationContext";
 
 type ProfileActionFormValues = {
   action: "continue" | "quit";

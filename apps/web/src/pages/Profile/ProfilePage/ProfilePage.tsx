@@ -13,7 +13,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import SEO from "~/components/SEO/SEO";
 import PersonalInformation from "~/components/Profile/components/PersonalInformation/PersonalInformation";
 import { SectionProps } from "~/components/Profile/types";
-import { PAGE_SECTION_ID } from "~/components/UserProfile/constants";
+import { PAGE_SECTION_ID } from "~/constants/sections/userProfile";
 import { getSectionTitle } from "~/components/Profile/utils";
 import WorkPreferences from "~/components/Profile/components/WorkPreferences/WorkPreferences";
 import LanguageProfile from "~/components/Profile/components/LanguageProfile/LanguageProfile";

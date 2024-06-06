@@ -115,11 +115,13 @@ class ApplicationPage extends AppPage {
   }
 
   async submit() {
-    this.page
+    await this.page
       .getByRole("textbox", { name: /your full name/i })
       .fill("Signature");
 
-    this.page.getByRole("button", { name: /submit my application/i }).click();
+    await this.page
+      .getByRole("button", { name: /submit my application/i })
+      .click();
   }
 
   /**

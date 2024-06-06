@@ -5,7 +5,7 @@ import { loginBySub } from "../../utils/auth";
 test.describe("Create account", () => {
   test("New user goes to create account then profile", async ({ appPage }) => {
     const uniqueTestId = Date.now().valueOf();
-    await loginBySub(appPage.page, String(uniqueTestId));
+    await loginBySub(appPage.page, String(uniqueTestId), false);
     await appPage.page.goto("/en/applicant");
 
     await expect(

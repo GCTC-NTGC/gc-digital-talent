@@ -12,11 +12,11 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
-import { pageTitle as indexDepartmentPageTitle } from "~/pages/Departments/IndexDepartmentPage";
 import AdminHero from "~/components/Hero/AdminHero";
 import adminMessages from "~/messages/adminMessages";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import pageTitles from "~/messages/pageTitles";
 
 type FormValues = CreateDepartmentInput;
 
@@ -143,7 +143,7 @@ const CreateDepartmentPage = () => {
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
       {
-        label: intl.formatMessage(indexDepartmentPageTitle),
+        label: intl.formatMessage(pageTitles.departments),
         url: routes.departmentTable(),
       },
       {

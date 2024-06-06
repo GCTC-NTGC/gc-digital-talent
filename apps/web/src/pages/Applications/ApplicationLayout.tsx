@@ -19,7 +19,6 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import { poolTitle, isIAPPool } from "~/utils/poolUtils";
 import {
   applicationStepsToStepperArgs,
-  getApplicationSteps,
   getNextStepToSubmit,
   isOnDisabledPage,
 } from "~/utils/applicationUtils";
@@ -30,6 +29,7 @@ import ApplicationContextProvider from "./ApplicationContext";
 import useApplicationId from "./useApplicationId";
 import { ContextType } from "./useApplication";
 import Application_PoolCandidateFragment from "./fragment";
+import { getApplicationSteps } from "./utils";
 
 type RouteParams = {
   experienceId: string;
