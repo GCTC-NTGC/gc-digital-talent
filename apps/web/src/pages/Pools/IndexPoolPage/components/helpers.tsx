@@ -189,6 +189,7 @@ export function getOrderByClause(
     ["name", "name"],
     ["publishingGroup", "publishing_group"],
     ["stream", "stream"],
+    ["processNumber", "process_number"],
     ["ownerName", "FIRST_NAME"],
     ["ownerEmail", "EMAIL"],
     ["createdDate", "created_at"],

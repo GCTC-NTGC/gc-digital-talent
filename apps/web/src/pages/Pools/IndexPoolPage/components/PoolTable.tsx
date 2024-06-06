@@ -95,6 +95,7 @@ const PoolTable_Query = graphql(/* GraphQL */ `
         id
         stream
         publishingGroup
+        processNumber
         status
         createdDate
         updatedDate
@@ -318,6 +319,10 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
         header: intl.formatMessage(commonMessages.status),
       },
     ),
+    columnHelper.accessor("processNumber", {
+      id: "processNumber",
+      header: intl.formatMessage(processMessages.processNumber),
+    }),
     columnHelper.accessor(
       (row) => getLocalizedName(row.team?.displayName, intl, true),
       {

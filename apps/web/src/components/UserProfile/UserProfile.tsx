@@ -18,6 +18,8 @@ import {
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import type { User } from "@gc-digital-talent/graphql";
 
+import { PAGE_SECTION_ID } from "~/constants/sections/userProfile";
+
 import ExperienceSection from "./ExperienceSection";
 import AboutSection from "./ProfileSections/AboutSection";
 import DiversityEquityInclusionSection from "./ProfileSections/DiversityEquityInclusionSection";
@@ -26,7 +28,6 @@ import LanguageInformationSection from "./ProfileSections/LanguageInformationSec
 import WorkLocationSection from "./ProfileSections/WorkLocationSection";
 import WorkPreferencesSection from "./ProfileSections/WorkPreferencesSection";
 import SkillShowcaseSection from "./SkillShowcaseSection";
-import { PAGE_SECTION_ID } from "./constants";
 
 interface SectionControl {
   isVisible: boolean;

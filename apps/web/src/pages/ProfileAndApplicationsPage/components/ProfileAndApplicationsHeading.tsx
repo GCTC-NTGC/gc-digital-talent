@@ -42,8 +42,8 @@ import {
 } from "~/utils/experienceUtils";
 import StatusItem from "~/components/StatusItem/StatusItem";
 import HeroCard from "~/components/HeroCard/HeroCard";
-import { PAGE_SECTION_ID as PROFILE_PAGE_SECTION_ID } from "~/components/UserProfile/constants";
-import { PAGE_SECTION_ID as CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
+import { PAGE_SECTION_ID as PROFILE_PAGE_SECTION_ID } from "~/constants/sections/userProfile";
+import { PAGE_SECTION_ID as CAREER_TIMELINE_AND_RECRUITMENTS_PAGE_SECTION_ID } from "~/constants/sections/careerTimeline";
 import experienceMessages from "~/messages/experienceMessages";
 import { isQualifiedStatus } from "~/utils/poolCandidate";
 

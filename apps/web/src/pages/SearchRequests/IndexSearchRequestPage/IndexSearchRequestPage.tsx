@@ -1,8 +1,5 @@
-import { MessageDescriptor, defineMessage, useIntl } from "react-intl";
-import PaperAirplaneOutlineIcon from "@heroicons/react/24/outline/PaperAirplaneIcon";
-import PaperAirplaneSolidIcon from "@heroicons/react/24/solid/PaperAirplaneIcon";
+import { useIntl } from "react-intl";
 
-import { IconType } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
@@ -12,20 +9,13 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import AdminHero from "~/components/Hero/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-
-export const pageTitle: MessageDescriptor = defineMessage({
-  defaultMessage: "Talent requests",
-  id: "3NW70Q",
-  description: "Title for the index search request page",
-});
-export const pageOutlineIcon: IconType = PaperAirplaneOutlineIcon;
-export const pageSolidIcon: IconType = PaperAirplaneSolidIcon;
+import pageTitles from "~/messages/pageTitles";
 
 export const IndexSearchRequestPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
 
-  const formattedPageTitle = intl.formatMessage(pageTitle);
+  const formattedPageTitle = intl.formatMessage(pageTitles.talentRequests);
 
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
