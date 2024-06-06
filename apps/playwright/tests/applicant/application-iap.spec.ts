@@ -26,14 +26,14 @@ import { loginBySub } from "~/utils/auth";
 import PoolPage from "~/fixtures/PoolPage";
 import ApplicationPage from "~/fixtures/ApplicationPage";
 
-test.describe("Application", () => {
+test.describe("IAP Application", () => {
   const uniqueTestId = Date.now().valueOf();
   const sub = `playwright.sub.${uniqueTestId}`;
   let pool: Pool;
 
   async function expectOnStep(page: Page, step: number) {
     await expect(
-      page.getByRole("heading", { name: new RegExp(`step ${step} of 7`, "i") }),
+      page.getByRole("heading", { name: new RegExp(`step ${step} of 8`, "i") }),
     ).toBeVisible();
 
     await expect(
@@ -75,6 +75,7 @@ test.describe("Application", () => {
         en: "Playwright Test Pool EN",
         fr: "Playwright Test Pool FR",
       },
+      publishingGroup: PublishingGroup.Iap,
       stream: PoolStream.BusinessAdvisoryServices,
       closingDate: `${FAR_FUTURE_DATE} 00:00:00`,
       yourImpact: {
@@ -89,7 +90,6 @@ test.describe("Application", () => {
         fr: "test location FR",
       },
       isRemote: true,
-      publishingGroup: PublishingGroup.ItJobs,
       opportunityLength: PoolOpportunityLength.Various,
       generalQuestions: {
         create: [
@@ -119,45 +119,71 @@ test.describe("Application", () => {
     const application = new ApplicationPage(appPage.page, pool.id);
     await loginBySub(application.page, sub, false);
 
-    await application.create();
+    await application.page.goto("/en/indigenous-it-apprentice");
+    await application.waitForGraphqlResponse("IAPHomePage_Query");
+
+    await application.page
+      .getByRole("link", { name: /apply now/i })
+      .first()
+      .click();
+    await application.waitForGraphqlResponse("Application");
 
     // Welcome page - step one
     await expectOnStep(application.page, 1);
     await application.page.getByRole("button", { name: /let's go/i }).click();
+    // await application.waitForGraphqlResponse("Application");
 
-    // Review profile page - step two
+    // Self-declaration - step two
     await expectOnStep(application.page, 2);
+    // Don't affirm
+    await application.page
+      .getByRole("radio", { name: /i am not a member of an indigenous group/i })
+      .click();
+    await expect(
+      application.page.getByRole("button", { name: /sign and continue/i }),
+    ).toBeHidden();
+    // Affirm
+    await application.page
+      .getByRole("radio", { name: /i affirm that i am first nations/i })
+      .click();
+    await application.page
+      .getByRole("checkbox", { name: /i am first nations/i })
+      .click();
+    await application.page
+      .getByRole("radio", { name: /i am status first nations/i })
+      .click();
+    await application.page
+      .getByRole("textbox", { name: /signature/i })
+      .fill("Indigenous user");
+    await application.page
+      .getByRole("button", { name: /sign and continue/i })
+      .click();
+    await application.waitForGraphqlResponse("Application");
+
+    // Review profile page - step three
+    await expectOnStep(application.page, 3);
     await application.saveAndContinue();
     await application.waitForGraphqlResponse("Application");
 
-    // Review career timeline page - step three
-    await expectOnStep(application.page, 3);
+    // Review career timeline page - step four
+    await expectOnStep(application.page, 4);
+    await application.page.getByRole("link", { name: /let's go/i }).click();
+    await application.page.waitForURL(/career-timeline$/);
 
-    // Attempt skipping to review
-    const currentUrl = application.page.url();
-    const hackedUrl = currentUrl.replace(
-      "career-timeline/introduction",
-      "review",
-    );
-    await application.page.goto(hackedUrl);
-    await expect(
-      application.page.getByText(/uh oh, it looks like you jumped ahead!/i),
-    ).toBeVisible();
+    // Quit application and confirm draft message
+    const applicationUrl = application.page.url();
     await application.page
-      .getByRole("link", { name: /return to the last step i was working on/i })
+      .getByRole("link", { name: /save and quit for now/i })
       .click();
-    await expectOnStep(application.page, 3);
     await expect(
-      application.page.getByRole("heading", {
-        name: /create your career timeline/i,
-      }),
+      application.page.getByText(
+        /are you looking for your application to the IT apprenticeship program for indigenous peoples/i,
+      ),
     ).toBeVisible();
-    // can't skip with the stepper
-    await expect(
-      application.page.getByRole("link", { name: /review and submit/i }),
-    ).toBeDisabled();
+    await application.page.goto(applicationUrl);
 
-    // Quit trying to skip and continue step three honestly
+    // Continue on with application
+
     await expect(
       application.page.getByText(
         /you don’t have any career timeline experiences yet./i,
@@ -183,22 +209,22 @@ test.describe("Application", () => {
     await application.saveAndContinue();
     await application.waitForGraphqlResponse("Application");
 
-    // Education experience page - step four
-    await expectOnStep(application.page, 4);
+    // Education experience page - step five
+    await expectOnStep(application.page, 5);
     await application.saveAndContinue();
     await expect(
       application.page.getByText(/this field is required/i),
     ).toBeVisible();
     await application.page
-      .getByRole("radio", { name: /i meet the 2-year post-secondary option/i })
+      .getByRole("radio", { name: /high school diploma/i })
       .click();
     await application.page
       .getByRole("checkbox", { name: /qa testing at playwright university/i })
       .click();
     await application.saveAndContinue();
 
-    // Skills requirement page - step five
-    await expectOnStep(application.page, 5);
+    // Skills requirement page - step six
+    await expectOnStep(application.page, 6);
     await application.page
       .getByRole("link", { name: /let's get to it/i })
       .click();
@@ -225,8 +251,8 @@ test.describe("Application", () => {
     ).toBeHidden();
     await application.saveAndContinue();
 
-    // Screening questions page - step six
-    await expectOnStep(application.page, 6);
+    // Screening questions page - step seven
+    await expectOnStep(application.page, 7);
     await application.page.getByRole("link", { name: /i'm ready/i }).click();
     await application.saveAndContinue();
     await expect(
@@ -235,8 +261,8 @@ test.describe("Application", () => {
     await application.answerQuestion(1);
     await application.saveAndContinue();
 
-    // Review page - step seven
-    await expectOnStep(application.page, 7);
+    // Review page - step eight
+    await expectOnStep(application.page, 8);
     // Screening question response
     await expect(
       application.page.getByText(
@@ -270,6 +296,11 @@ test.describe("Application", () => {
       application.page.getByRole("heading", {
         name: /we successfully received your application/i,
       }),
+    ).toBeVisible();
+    await expect(
+      application.page.getByText(
+        /thank you for your interest in becoming an it apprentice/i,
+      ),
     ).toBeVisible();
     await expect(
       application.page.getByRole("link", {
