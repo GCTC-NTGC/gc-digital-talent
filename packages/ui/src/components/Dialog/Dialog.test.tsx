@@ -10,9 +10,8 @@ import { ComponentPropsWithoutRef } from "react";
 
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 
-import Button from "../Button";
-
-import Dialog from ".";
+import Button from "../Button/Button";
+import Dialog from "./Dialog";
 
 type DialogRootPrimitivePropsWithoutRef = ComponentPropsWithoutRef<
   typeof Dialog.Root

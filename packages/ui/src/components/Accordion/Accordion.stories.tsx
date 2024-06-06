@@ -8,7 +8,7 @@ import { ComponentPropsWithoutRef, useState } from "react";
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Accordion from "./Accordion";
-import Button from "../Button";
+import Button from "../Button/Button";
 
 const { Item, Trigger, Content, Root } = Accordion;
 

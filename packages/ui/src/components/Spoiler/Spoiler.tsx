@@ -3,8 +3,8 @@ import { useIntl } from "react-intl";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
-import Button from "../Button";
-import Collapsible from "../Collapsible";
+import Button from "../Button/Button";
+import Collapsible from "../Collapsible/Collapsible";
 
 export interface SpoilerProps {
   // Accessible name for the "read more" button

@@ -3,7 +3,8 @@ import { useIntl } from "react-intl";
 import { uiMessages } from "@gc-digital-talent/i18n";
 import { Maybe } from "@gc-digital-talent/graphql";
 
-import Heading, { HeadingLevel } from "../Heading";
+import Heading from "../Heading/Heading";
+import type { HeadingLevel } from "../Heading/types";
 import Step from "./Step";
 import { StepState, StepType } from "./types";
 

@@ -1,5 +1,4 @@
 import { HTMLProps, ReactElement } from "react";
-import isArray from "lodash/isArray";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -21,7 +20,7 @@ const Chips = ({ children, ...rest }: ChipsProps) => (
     data-h2-padding="base(0)"
     {...rest}
   >
-    {isArray(children) ? (
+    {Array.isArray(children) ? (
       children.filter(notEmpty).map((child) => <li key={child.key}>{child}</li>)
     ) : (
       <li>{children}</li>

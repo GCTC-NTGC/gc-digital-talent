@@ -14,7 +14,7 @@ import {
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
-import Separator from "../Separator";
+import Separator from "../Separator/Separator";
 
 const StyledOverlay = forwardRef<
   ElementRef<typeof DialogPrimitive.Overlay>,
@@ -284,5 +284,7 @@ const Dialog = {
   BaseContent: StyledContent,
   Portal: DialogPrimitive.Portal,
 };
+
+export { DialogPrimitive };
 
 export default Dialog;

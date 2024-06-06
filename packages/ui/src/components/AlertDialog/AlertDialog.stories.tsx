@@ -5,7 +5,7 @@ import {
   allModes,
 } from "@gc-digital-talent/storybook-helpers";
 
-import Button from "../Button";
+import Button from "../Button/Button";
 import AlertDialog from "./AlertDialog";
 
 export default {

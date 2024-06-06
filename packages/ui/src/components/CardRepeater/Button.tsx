@@ -6,7 +6,7 @@ import { ComponentPropsWithoutRef, forwardRef } from "react";
 
 import { formMessages } from "@gc-digital-talent/i18n";
 
-import Button from "../Button";
+import Button from "../Button/Button";
 import { useCardRepeaterContext } from "./CardRepeaterProvider";
 
 type Animation = "none" | "translate-up" | "translate-down";

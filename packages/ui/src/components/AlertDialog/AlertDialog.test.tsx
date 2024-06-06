@@ -8,7 +8,7 @@ import { ComponentPropsWithoutRef } from "react";
 
 import { renderWithProviders, axeTest } from "@gc-digital-talent/jest-helpers";
 
-import Button from "../Button";
+import Button from "../Button/Button";
 import AlertDialog from "./AlertDialog";
 
 type AlertDialogRootPrimitivePropsWithoutRef = ComponentPropsWithoutRef<

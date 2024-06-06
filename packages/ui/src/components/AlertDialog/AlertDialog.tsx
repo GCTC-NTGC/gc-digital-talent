@@ -9,7 +9,7 @@ import {
   ReactNode,
 } from "react";
 
-import Separator from "../Separator";
+import Separator from "../Separator/Separator";
 
 const StyledOverlay = forwardRef<
   ElementRef<typeof AlertDialogPrimitive.Overlay>,

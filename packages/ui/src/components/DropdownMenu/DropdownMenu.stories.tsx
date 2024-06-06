@@ -7,7 +7,7 @@ import {
   allModes,
 } from "@gc-digital-talent/storybook-helpers";
 
-import Button from "../Button";
+import Button from "../Button/Button";
 import DropdownMenu from "./DropdownMenu";
 
 export default {

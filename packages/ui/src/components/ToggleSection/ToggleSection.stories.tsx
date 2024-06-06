@@ -2,7 +2,7 @@ import type { StoryFn, Meta } from "@storybook/react";
 import AcademicCapIcon from "@heroicons/react/24/solid/AcademicCapIcon";
 import { action } from "@storybook/addon-actions";
 
-import Button from "../Button";
+import Button from "../Button/Button";
 import ToggleSection from "./ToggleSection";
 
 const Toggle = () => {

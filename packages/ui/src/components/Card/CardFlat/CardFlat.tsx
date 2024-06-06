@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import Heading from "../../Heading";
+import Heading from "../../Heading/Heading";
 import { CardColor } from "./types";
 import CardFlatLink, { CardFlatLinkProps } from "./CardFlatLink";
 

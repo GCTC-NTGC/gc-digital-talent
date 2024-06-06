@@ -14,7 +14,7 @@ import {
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
-import Separator from "../Separator";
+import Separator from "../Separator/Separator";
 import {
   styleMap,
   iconStyleMap,

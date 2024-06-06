@@ -16,8 +16,8 @@ import {
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-import Collapsible from "../Collapsible";
-import Counter from "../Button/Counter";
+import Collapsible from "../Collapsible/Collapsible";
+import Counter from "../Counter/Counter";
 import useControllableState from "../../hooks/useControllableState";
 import { BoardProvider, useBoardContext } from "./BoardProvider";
 import { findColumns } from "./utils";

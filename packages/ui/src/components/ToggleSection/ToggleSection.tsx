@@ -13,7 +13,7 @@ import {
   ReactElement,
 } from "react";
 
-import Heading, { HeadingProps } from "../Heading";
+import Heading, { HeadingProps } from "../Heading/Heading";
 import useControllableState from "../../hooks/useControllableState";
 import {
   ToggleSectionProvider,

@@ -4,7 +4,7 @@
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import { forwardRef, ElementRef, ComponentPropsWithoutRef } from "react";
 
-import { ButtonProps } from "../Button";
+import { ButtonProps } from "../Button/Button";
 import getFontColor from "../../utils/button/getButtonFontColor";
 import getBackgroundColor from "../../utils/button/getButtonBackgroundColor";
 import getBaseStyle from "../../utils/button/getButtonBaseStyle";

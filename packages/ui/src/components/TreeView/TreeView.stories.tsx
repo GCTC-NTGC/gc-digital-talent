@@ -1,11 +1,11 @@
 import { Meta, StoryFn } from "@storybook/react";
 import { faker } from "@faker-js/faker/locale/en";
 
-import Button from "../Button";
-import Accordion from "../Accordion";
-import Alert from "../Alert";
+import Button from "../Button/Button";
+import Accordion from "../Accordion/Accordion";
+import Alert from "../Alert/Alert";
 import TreeView from "./TreeView";
-import { CardBasic } from "../Card";
+import CardBasic from "../Card/CardBasic/CardBasic";
 
 faker.seed(0);
 

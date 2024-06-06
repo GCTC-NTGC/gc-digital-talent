@@ -2,7 +2,7 @@ import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { faker } from "@faker-js/faker/locale/en";
 
-import Button from "../Button";
+import Button from "../Button/Button";
 
 import TableOfContents from ".";
 

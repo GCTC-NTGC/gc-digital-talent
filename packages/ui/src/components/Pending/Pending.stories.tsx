@@ -5,7 +5,7 @@ import isChromatic from "chromatic/isChromatic";
 
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 
-import NotFound from "../NotFound";
+import NotFound from "../NotFound/NotFound";
 import Pending, { PendingProps } from "./Pending";
 
 type PendingArgs = Omit<PendingProps, "error"> & {

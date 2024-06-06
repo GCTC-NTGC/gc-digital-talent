@@ -11,7 +11,7 @@ import { useIntl } from "react-intl";
 import { uiMessages } from "@gc-digital-talent/i18n";
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
-import Button from "../Button";
+import Button from "../Button/Button";
 import SideMenuComponent from "./SideMenu";
 import SideMenuItem, {
   SideMenuButton,

@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 
 import { StepState } from "./types";
 import { linkStyleMap, getIconFromState, messageMap } from "./utils";
-import Link from "../Link";
+import Link from "../Link/Link";
 
 interface StepLinkProps {
   children: ReactNode;

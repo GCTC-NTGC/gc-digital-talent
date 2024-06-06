@@ -1,7 +1,7 @@
 import omit from "lodash/omit";
 import { ReactNode } from "react";
 
-import Link, { type LinkProps } from "../../Link";
+import Link, { type LinkProps } from "../../Link/Link";
 import { CardColor } from "./types";
 
 export interface CardFlatLinkProps extends Omit<LinkProps, "color"> {

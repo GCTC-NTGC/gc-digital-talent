@@ -5,7 +5,7 @@ import { DetailedHTMLProps, HTMLAttributes } from "react";
 import { uiMessages } from "@gc-digital-talent/i18n";
 
 import { ButtonLinkMode, IconType } from "../../types";
-import Counter from "../Button/Counter";
+import Counter from "../Counter/Counter";
 
 interface IconTextProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> {

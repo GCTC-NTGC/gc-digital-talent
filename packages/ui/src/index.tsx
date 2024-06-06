@@ -1,5 +1,3 @@
-import * as DialogPrimitive from "@radix-ui/react-dialog";
-
 import {
   Color,
   HeadingRank,
@@ -7,55 +5,52 @@ import {
   IconProps,
   ButtonLinkMode,
 } from "./types";
-import Accordion from "./components/Accordion";
-import Alert, { type AlertProps } from "./components/Alert";
-import AlertDialog from "./components/AlertDialog";
+import Accordion from "./components/Accordion/Accordion";
+import Alert, { type AlertProps } from "./components/Alert/Alert";
+import AlertDialog from "./components/AlertDialog/AlertDialog";
 import Announcer, { useAnnouncer } from "./components/Announcer/Announcer";
-import Button, { type ButtonProps } from "./components/Button";
-import Counter from "./components/Button/Counter";
-import Breadcrumbs, { type BreadcrumbsProps } from "./components/Breadcrumbs";
+import Button, { type ButtonProps } from "./components/Button/Button";
+import Counter from "./components/Counter/Counter";
+import Breadcrumbs, {
+  type BreadcrumbsProps,
+} from "./components/Breadcrumbs/Breadcrumbs";
 import Board from "./components/Board/Board";
-import {
-  CardBasic,
-  CardFlat,
+import CardBasic, {
   type CardBasicProps,
+} from "./components/Card/CardBasic/CardBasic";
+import CardFlat, {
   type CardFlatProps,
-} from "./components/Card";
+} from "./components/Card/CardFlat/CardFlat";
 import CardRepeater, {
   useCardRepeaterContext,
 } from "./components/CardRepeater/CardRepeater";
 import Chip, { type ChipProps } from "./components/Chip/Chip";
 import Chips from "./components/Chip/Chips";
-import Collapsible from "./components/Collapsible";
+import Collapsible from "./components/Collapsible/Collapsible";
 import DefinitionList from "./components/DefinitionList/DefinitionList";
-import Dialog from "./components/Dialog";
-import DropdownMenu from "./components/DropdownMenu";
-import Flourish from "./components/Flourish";
-import Heading, {
-  HeadingProps,
-  HeadingLevel,
-  HeadingRef,
-} from "./components/Heading";
+import Dialog, { DialogPrimitive } from "./components/Dialog/Dialog";
+import DropdownMenu from "./components/DropdownMenu/DropdownMenu";
+import Flourish from "./components/Flourish/Flourish";
+import Heading, { HeadingProps } from "./components/Heading/Heading";
+import type { HeadingLevel, HeadingRef } from "./components/Heading/types";
 import { headingStyles } from "./components/Heading/styles";
-import Link, {
-  DownloadCsv,
-  ScrollToLink,
-  MenuLink,
+import DownloadCsv, {
   type DownloadCsvProps,
-  type LinkProps,
+} from "./components/Link/DownloadCsv";
+import ScrollToLink, {
   type ScrollToLinkProps,
   type ScrollLinkClickFunc,
-  type MenuLinkProps,
-} from "./components/Link";
-import Loading, { type LoadingProps } from "./components/Loading";
+} from "./components/Link/ScrollToLink";
+import MenuLink, { type MenuLinkProps } from "./components/Link/MenuLink";
+import Link, { type LinkProps } from "./components/Link/Link";
+import Loading, { type LoadingProps } from "./components/Loading/Loading";
+import LoadingErrorMessage from "./components/Pending/ErrorMessage";
 import NavTabs from "./components/Tabs/NavTabs";
-import NotFound, { ThrowNotFound } from "./components/NotFound";
-import Pending, {
-  type PendingProps,
-  LoadingErrorMessage,
-} from "./components/Pending";
-import ScrollArea from "./components/ScrollArea";
-import Separator from "./components/Separator";
+import NotFound from "./components/NotFound/NotFound";
+import ThrowNotFound from "./components/NotFound/ThrowNotFound";
+import Pending, { type PendingProps } from "./components/Pending/Pending";
+import ScrollArea from "./components/ScrollArea/ScrollArea";
+import Separator from "./components/Separator/Separator";
 import SideMenu, {
   ExternalSideMenuItem,
   SideMenuButton,
@@ -78,11 +73,11 @@ import TableOfContents, {
   TocListProps,
   TocSidebarProps,
 } from "./components/TableOfContents";
-import Tabs from "./components/Tabs";
-import ToggleGroup from "./components/ToggleGroup";
+import Tabs from "./components/Tabs/Tabs";
+import ToggleGroup from "./components/ToggleGroup/ToggleGroup";
 import ToggleSection from "./components/ToggleSection/ToggleSection";
-import TreeView from "./components/TreeView";
-import Well, { WellProps } from "./components/Well";
+import TreeView from "./components/TreeView/TreeView";
+import Well, { WellProps } from "./components/Well/Well";
 import { incrementHeadingRank, decrementHeadingRank } from "./utils";
 import useControllableState from "./hooks/useControllableState";
 
@@ -142,7 +137,6 @@ export {
   Counter,
   DefinitionList,
   Dialog,
-  /* Re-exporting primitive for custom solutions */
   DialogPrimitive,
   DropdownMenu,
   Flourish,
