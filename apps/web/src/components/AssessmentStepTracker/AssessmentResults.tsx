@@ -11,11 +11,11 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
+import useRoutes from "~/hooks/useRoutes";
 
 import CandidateBookmark, {
   PoolCandidate_BookmarkFragment,
 } from "../CandidateBookmark/CandidateBookmark";
-import useRoutes from "../../hooks/useRoutes";
 import {
   CandidateAssessmentResult,
   getDecisionInfo,
