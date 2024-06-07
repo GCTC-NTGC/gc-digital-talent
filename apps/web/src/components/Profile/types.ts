@@ -2,12 +2,11 @@ import { FieldLabels } from "@gc-digital-talent/forms";
 import {
   Maybe,
   Pool,
+  PoolCandidate,
   UpdateUserAsUserInput,
   UpdateUserAsUserMutation,
   User,
 } from "@gc-digital-talent/graphql";
-
-import { ApplicationPageProps } from "~/pages/Applications/ApplicationApi";
 
 export type SectionKey =
   | "personal"
@@ -20,7 +19,7 @@ export type SectionKey =
 export interface SectionProps {
   user: User;
   isUpdating?: boolean;
-  application?: ApplicationPageProps["application"];
+  application?: PoolCandidate;
   onUpdate: (
     id: string,
     user: UpdateUserAsUserInput,

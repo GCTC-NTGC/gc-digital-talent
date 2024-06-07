@@ -5,7 +5,7 @@ import { CHROMATIC_VIEWPORTS } from "@gc-digital-talent/storybook-helpers";
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
 import { IndigenousCommunity } from "@gc-digital-talent/graphql";
 
-import { ApplicationSelfDeclaration } from "../ApplicationSelfDeclarationPage";
+import { ApplicationSelfDeclaration } from "./ApplicationSelfDeclarationPage";
 
 const mockApplication = fakePoolCandidates(1)[0];
 

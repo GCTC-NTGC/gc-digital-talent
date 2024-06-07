@@ -105,43 +105,38 @@ module.exports = {
     "no-restricted-imports": [
       "error",
       {
-        name: "lodash",
-        message:
-          "Please import the individual function, not the entire library.",
-      },
-      {
-        name: "date-fns",
-        message:
-          "Please import the individual function, not the entire library.",
-      },
-      {
-        name: "date-fns-tz",
-        message:
-          "Please import the individual function, not the entire library.",
-      },
-      {
-        name: "@heroicons/react/24/outline",
-        message: "Please import the individual icons, not the entire set.",
-      },
-      {
-        name: "@heroicons/react/24/solid",
-        message: "Please import the individual icons, not the entire set.",
-      },
-      {
-        name: "@heroicons/react/20/outline",
-        message: "Please import the individual icons, not the entire set.",
-      },
-      {
-        name: "@heroicons/react/20/solid",
-        message: "Please import the individual icons, not the entire set.",
-      },
-      {
-        name: "jpg",
-        message: "Please use WebP as the image format.",
-      },
-      {
-        name: "png",
-        message: "Please use WebP as the image format.",
+        patterns: [
+          {
+            group: ["lodash", "!lodash/"],
+            message: "Please import the individual function, not the entire library.",
+          },
+          {
+            group: ["date-fns", "date-fns-tz", "!date-fns/", "!date-fns-tz/"],
+            message: "Please import the individual function, not the entire library.",
+          },
+          {
+            group: [
+              "@heroicons/react/24/outline",
+              "@heroicons/react/24/solid",
+              "@heroicons/react/20/outline",
+              "@heroicons/react/20/solid",
+
+              "!@heroicons/react/24/outline/",
+              "!@heroicons/react/24/solid/",
+              "!@heroicons/react/20/outline/",
+              "!@heroicons/react/20/solid/"
+            ],
+            message: "Please import the individual icons, not the entire set.",
+          },
+          {
+            group: ["*.jpg", "*.png"],
+            message: "Please use WebP as the image format.",
+          },
+          {
+            group: ["~/pages"],
+            message: "Please move to central location."
+          }
+        ]
       },
     ],
     "react/forbid-elements": [1, { forbid: ["a", "hr"] }],

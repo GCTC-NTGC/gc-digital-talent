@@ -52,7 +52,7 @@ final class SubmitApplication
 
         $application->setApplicationSnapshot();
 
-        $application->save();
+        $application->refresh();
 
         return $application;
     }
