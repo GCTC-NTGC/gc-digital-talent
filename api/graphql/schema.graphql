@@ -247,7 +247,9 @@ type Pool implements HasRoleAssignments {
     @hasMany
     @canRoot(ability: "viewAssessmentPlan")
   poolSkills(type: PoolSkillType @where): [PoolSkill] @hasMany
-  roleAssignments: [RoleAssignment!] @hasManyThrough
+  roleAssignments: [RoleAssignment!]
+    @hasManyThrough
+    @canRoot(ability: "viewTeamMembers")
 }
 
 type GeneralQuestionResponse {
@@ -403,7 +405,9 @@ type Community implements HasRoleAssignments {
   name: LocalizedString
   description: LocalizedString
   team: Team @morphOne @canModel(ability: "viewAny")
-  roleAssignments: [RoleAssignment!] @hasManyThrough
+  roleAssignments: [RoleAssignment!]
+    @hasManyThrough
+    @canRoot(ability: "viewTeamMembers")
 }
 
 type Team implements HasRoleAssignments {

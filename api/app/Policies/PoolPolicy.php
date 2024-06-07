@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class PoolPolicy
 {
@@ -228,5 +229,17 @@ class PoolPolicy
         $pool->loadMissing('team');
 
         return $user->isAbleTo('view-team-assessmentPlan', $pool->team);
+    }
+
+    /**
+     * Determine whether the user can view the team members of a specific pools team
+     *
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewTeamMembers(User $user, Pool $pool)
+    {
+        $pool->loadMissing('newTeam');
+
+        return $user->isAbleTo('view-any-teamMembers') || $user->isAbleTo('view-team-teamMembers', $pool->newTeam);
     }
 }
