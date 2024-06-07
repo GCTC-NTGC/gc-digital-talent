@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import CheckIcon from "@heroicons/react/24/outline/CheckIcon";
@@ -84,13 +84,7 @@ const ScreeningDecisionDialogForm = ({
       AssessmentResultJustification.EducationAcceptedCombinationEducationWorkExperience ||
     watchJustifications ===
       AssessmentResultJustification.EducationAcceptedWorkExperienceEquivalency;
-  const otherReasonSelected =
-    Array.isArray(watchJustifications) &&
-    watchJustifications.includes(AssessmentResultJustification.FailedOther);
 
-  const hasPageBeenRendered = useRef({
-    pageRendered: false,
-  });
   /**
    * Reset un-rendered fields
    */
@@ -113,15 +107,11 @@ const ScreeningDecisionDialogForm = ({
 
     if (isAssessmentDecisionUnSuccessful) {
       resetDirtyField("assessmentDecisionLevel");
-      if (hasPageBeenRendered.current.pageRendered) {
-        resetDirtyField("justifications");
-      }
     }
 
     if (isAssessmentOnHold) {
       resetDirtyField("assessmentDecisionLevel");
-      setValue("justifications", [AssessmentResultJustification.FailedOther]);
-      hasPageBeenRendered.current.pageRendered = true;
+      setValue("justifications", []);
     }
   }, [
     educationRequirementSelected,
@@ -244,7 +234,7 @@ const ScreeningDecisionDialogForm = ({
             wordLimit={TEXT_AREA_MAX_WORDS}
             label={labels.decisionNotes}
             rules={
-              otherReasonSelected
+              isAssessmentOnHold
                 ? { required: intl.formatMessage(errorMessages.required) }
                 : { required: undefined }
             }
