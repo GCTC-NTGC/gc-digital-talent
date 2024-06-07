@@ -1,6 +1,7 @@
 import { IntlShape } from "react-intl";
 
 import {
+  AssessmentDecision,
   AssessmentResult,
   AssessmentResultJustification,
   AssessmentResultType,
@@ -41,10 +42,15 @@ export type FormValuesToApiUpdateInputArgs = {
 // If justification is for education requirement assessment, it is just a string, need to tuck it into an array
 const justificationsConverted = (
   justifications: FormValues["justifications"],
-) =>
-  justifications && !Array.isArray(justifications)
+  assessmentDecision: FormValues["assessmentDecision"],
+) => {
+  if (assessmentDecision === AssessmentDecision.Hold) {
+    return [AssessmentResultJustification.FailedOther];
+  }
+  return justifications && !Array.isArray(justifications)
     ? [justifications]
     : justifications;
+};
 
 export function convertFormValuesToApiCreateInput({
   formValues,
@@ -67,7 +73,8 @@ export function convertFormValuesToApiCreateInput({
       assessmentDecision === NO_DECISION ? null : assessmentDecision,
     assessmentDecisionLevel,
     assessmentResultType,
-    justifications: justificationsConverted(justifications) ?? undefined,
+    justifications:
+      justificationsConverted(justifications, assessmentDecision) ?? undefined,
     poolSkillId,
     skillDecisionNotes,
   };
@@ -90,7 +97,8 @@ export function convertFormValuesToApiUpdateInput({
       assessmentDecision === NO_DECISION ? null : assessmentDecision,
     assessmentDecisionLevel,
     assessmentResultType,
-    justifications: justificationsConverted(justifications) ?? undefined,
+    justifications:
+      justificationsConverted(justifications, assessmentDecision) ?? undefined,
     skillDecisionNotes,
   };
 }

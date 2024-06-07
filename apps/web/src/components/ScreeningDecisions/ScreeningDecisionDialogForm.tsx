@@ -84,9 +84,6 @@ const ScreeningDecisionDialogForm = ({
       AssessmentResultJustification.EducationAcceptedCombinationEducationWorkExperience ||
     watchJustifications ===
       AssessmentResultJustification.EducationAcceptedWorkExperienceEquivalency;
-  const otherReasonSelected =
-    Array.isArray(watchJustifications) &&
-    watchJustifications.includes(AssessmentResultJustification.FailedOther);
 
   /**
    * Reset un-rendered fields
@@ -100,7 +97,6 @@ const ScreeningDecisionDialogForm = ({
     if (isAssessmentDecisionNotSure) {
       resetDirtyField("justifications");
       resetDirtyField("assessmentDecisionLevel");
-      resetDirtyField("skillDecisionNotes");
     }
 
     if (isAssessmentDecisionSuccessful) {
@@ -111,22 +107,19 @@ const ScreeningDecisionDialogForm = ({
 
     if (isAssessmentDecisionUnSuccessful) {
       resetDirtyField("assessmentDecisionLevel");
-      resetDirtyField("skillDecisionNotes");
-      resetDirtyField("justifications");
     }
 
     if (isAssessmentOnHold) {
       resetDirtyField("assessmentDecisionLevel");
-      resetDirtyField("skillDecisionNotes");
-      setValue("justifications", [AssessmentResultJustification.FailedOther]);
+      setValue("justifications", []);
     }
   }, [
-    resetField,
+    educationRequirementSelected,
     isAssessmentDecisionSuccessful,
     isAssessmentDecisionUnSuccessful,
     isAssessmentDecisionNotSure,
     isAssessmentOnHold,
-    educationRequirementSelected,
+    resetField,
     setValue,
   ]);
 
@@ -241,9 +234,9 @@ const ScreeningDecisionDialogForm = ({
             wordLimit={TEXT_AREA_MAX_WORDS}
             label={labels.decisionNotes}
             rules={
-              otherReasonSelected
+              isAssessmentOnHold
                 ? { required: intl.formatMessage(errorMessages.required) }
-                : {}
+                : { required: undefined }
             }
           />
         </div>

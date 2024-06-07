@@ -115,9 +115,7 @@ const AssessmentResultsTable = ({
       assessmentStep: AssessmentStep,
     ) => {
       const type = assessmentStep.type ?? null;
-      const id =
-        getAssessmentStepType(type ?? "unknownType").id ??
-        uniqueId("results-table-column");
+      const id = uniqueId("results-table-column");
       const status = columnStatus(assessmentStep, [
         ...educationResults,
         ...assessmentResults,
