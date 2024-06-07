@@ -1011,6 +1011,10 @@
     "defaultMessage": "Date de réception",
     "description": "Title displayed on the Pool Candidates table Date Received column."
   },
+  "3eeKdd": {
+    "defaultMessage": "De quelle façon avez-vous démontré cette compétence dans ce rôle?",
+    "description": "Question for clarifying skill details"
+  },
   "3f9P13": {
     "defaultMessage": "En tant qu'employé, quel est votre statut d'emploi?",
     "description": "Employee Status in Government Info Form"
