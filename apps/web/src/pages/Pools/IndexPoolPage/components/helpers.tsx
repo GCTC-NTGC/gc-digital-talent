@@ -4,7 +4,6 @@ import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
 
 import {
   Locales,
-  commonMessages,
   getLocalizedName,
   getPoolStream,
 } from "@gc-digital-talent/i18n";
@@ -28,6 +27,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 import { SearchState } from "~/components/Table/ResponsiveTable/types";
+import tableMessages from "~/components/PoolCandidatesTable/tableMessages";
 
 import { FormValues } from "./PoolFilterDialog";
 import PoolBookmark, { PoolBookmark_Fragment } from "./PoolBookmark";
@@ -324,6 +324,6 @@ export const poolBookmarkCell = (
 export const poolBookmarkHeader = (intl: IntlShape) => (
   <BookmarkIcon
     data-h2-width="base(x1)"
-    aria-label={intl.formatMessage(commonMessages.bookmark)}
+    aria-label={intl.formatMessage(tableMessages.bookmark)}
   />
 );

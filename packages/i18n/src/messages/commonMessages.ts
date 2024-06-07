@@ -259,11 +259,6 @@ const commonMessages = defineMessages({
     id: "YtV1mE",
     description: "A potentially dangerous action alert",
   },
-  bookmark: {
-    defaultMessage: "Bookmarked",
-    id: "M1PMBt",
-    description: "Title displayed on the table bookmark column",
-  },
 });
 
 export default commonMessages;

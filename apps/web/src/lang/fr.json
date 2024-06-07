@@ -7982,6 +7982,10 @@
     "defaultMessage": "Une partie du contenu de ce site pourrait faire l’objet du droit d’auteur d’une tierce partie. Lorsque des informations sont produites et que le gouvernement du Canada n’est pas le détenteur des droits d’auteur, le contenu est protégé par la <copyrightLink>Loi sur le droit d’auteur</copyrightLink> et des ententes internationales. Les détails relatifs au droit d’auteur figurent sur les pages pertinentes.",
     "description": "Commercial reproduction list description in ownership and usage section"
   },
+  "g4F/WB": {
+    "defaultMessage": "Favoris du processus retirés.",
+    "description": "Alert displayed to the user when they un-mark a pool as bookmarked."
+  },
   "g54x1Z": {
     "defaultMessage": "Analyste P M 4",
     "description": "PM-04 classification aria label including titles"
@@ -9329,6 +9333,10 @@
   "myEzIh": {
     "defaultMessage": "Ce formulaire vous permet d’ajouter une nouvelle expérience à votre parcours professionnel. Commencez par sélectionner le type d’expérience que vous souhaitez ajouter. Si vous avez besoin de plus d’informations sur ce qu’un certain type d’expérience peut inclure, agrandissez les informations ci-dessous pour voir des exemples.",
     "description": "Instructions on how to add an experience to your career timeline"
+  },
+  "mzgZQs": {
+    "defaultMessage": "Échec : les favoris du processus demeurent inchangés.",
+    "description": "Alert displayed to the user when failing to (un-)bookmark a pool."
   },
   "n+/HPL": {
     "defaultMessage": "Autres processus",
