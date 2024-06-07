@@ -61,6 +61,7 @@ use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
 use App\Enums\PoolStream;
 use App\Enums\PositionDuration;
+use App\Enums\PriorityWeight;
 use App\Enums\ProvinceOrTerritory;
 use App\Enums\PublishingGroup;
 use App\Enums\SecurityStatus;
@@ -677,6 +678,16 @@ class GraphQLServiceProvider extends ServiceProvider
                 return new EnumType([
                     'name' => 'CandidateRemovalReason',
                     'values' => array_column(CandidateRemovalReason::cases(), 'name'),
+                ]);
+            }
+        );
+
+        $typeRegistry->registerLazy(
+            'PriorityWeight',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'PriorityWeight',
+                    'values' => array_column(PriorityWeight::cases(), 'name'),
                 ]);
             }
         );

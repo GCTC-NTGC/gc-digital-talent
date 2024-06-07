@@ -39,6 +39,7 @@ import {
   PoolOpportunityLength,
   PlacementType,
   CandidateRemovalReason,
+  PriorityWeight,
 } from "@gc-digital-talent/graphql";
 import { hasKey } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
@@ -1577,22 +1578,22 @@ export const getSecurityClearance = (
   );
 
 export const poolCandidatePriorities = defineMessages({
-  10: {
+  [PriorityWeight.PriorityEntitlement]: {
     defaultMessage: "Priority Entitlement",
     id: "j1p7LR",
     description: "Priority text for users with priority entitlement",
   },
-  20: {
+  [PriorityWeight.Veteran]: {
     defaultMessage: "Veteran",
     id: "oU8C65",
     description: "Priority text for veterans",
   },
-  30: {
+  [PriorityWeight.CitizenOrPermanentResident]: {
     defaultMessage: "Citizen or Resident",
     id: "oMyc4e",
     description: "Priority text for citizens of canada",
   },
-  40: commonMessages.other,
+  [PriorityWeight.Other]: commonMessages.other,
 });
 
 export const getPoolCandidatePriorities = (

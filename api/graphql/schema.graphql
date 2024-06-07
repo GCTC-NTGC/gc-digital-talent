@@ -712,7 +712,7 @@ input PoolCandidateSearchInput {
   name: String @scope
   notes: String @scope
   isGovEmployee: Boolean @scope
-  priorityWeight: [Int] @scope(name: "priorityWeight")
+  priorityWeight: [PriorityWeight] @scope(name: "priorityWeight")
   poolCandidateStatus: [PoolCandidateStatus]
     @scope(name: "poolCandidateStatuses")
   expiryStatus: CandidateExpiryFilter @scope(name: "expiryStatus")
