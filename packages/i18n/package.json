@@ -29,7 +29,7 @@
     "@gc-digital-talent/helpers": "workspace:*",
     "@gc-digital-talent/logger": "workspace:*",
     "@gc-digital-talent/jest-presets": "workspace:*",
-    "@types/react": "^18.3.2",
+    "@types/react": "^18.3.3",
     "cpy-cli": "^5.0.0",
     "eslint": "^8.57.0",
     "history": "^5.3.0",
@@ -40,7 +40,7 @@
     "react-intl": "^6.6.8",
     "react-router-dom": "^6.23.1",
     "tsconfig": "workspace:*",
-    "tsx": "^4.10.5",
+    "tsx": "^4.11.2",
     "typescript": "^5.4.5",
     "yargs": "^17.7.2"
   }

@@ -41,7 +41,7 @@ import {
 } from "~/components/Table/ResponsiveTable/constants";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
-import UserProfilePrintButton from "~/pages/Users/AdminUserProfilePage/components/UserProfilePrintButton";
+import UserProfilePrintButton from "~/components/PrintButton/UserProfilePrintButton";
 import useSelectedRows from "~/hooks/useSelectedRows";
 import Table, {
   getTableStateFromSearchParams,
@@ -49,6 +49,7 @@ import Table, {
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
+import { getPriorityWeight } from "~/utils/poolCandidate";
 
 import skillMatchDialogAccessor from "./SkillMatchDialog";
 import tableMessages from "./tableMessages";
@@ -591,7 +592,7 @@ const PoolCandidatesTable = ({
       ({ poolCandidate: { user } }) =>
         intl.formatMessage(
           user.priorityWeight
-            ? getPoolCandidatePriorities(user.priorityWeight)
+            ? getPoolCandidatePriorities(getPriorityWeight(user.priorityWeight))
             : commonMessages.notFound,
         ),
       {

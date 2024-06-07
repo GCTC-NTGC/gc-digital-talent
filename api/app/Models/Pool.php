@@ -160,9 +160,7 @@ class Pool extends Model
 
     public function user(): BelongsTo
     {
-        // avoid selecting searchable column from user table
-        return $this->belongsTo(User::class)
-            ->select(User::getSelectableColumns());
+        return $this->belongsTo(User::class);
     }
 
     public function team(): BelongsTo
@@ -352,6 +350,15 @@ class Pool extends Model
         return $query;
     }
 
+    public static function scopeProcessNumber(Builder $query, ?string $number): Builder
+    {
+        if ($number) {
+            $query->where('process_number', 'ilike', sprintf('%%%s%%', $number));
+        }
+
+        return $query;
+    }
+
     public static function scopeTeam(Builder $query, ?string $team): Builder
     {
         if ($team) {
@@ -421,6 +428,8 @@ class Pool extends Model
 
                 $query->orWhere(function ($query) use ($term) {
                     self::scopeTeam($query, $term);
+                })->orWhere(function ($query) use ($term) {
+                    self::scopeProcessNumber($query, $term);
                 });
             });
         }

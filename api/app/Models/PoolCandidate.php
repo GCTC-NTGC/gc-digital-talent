@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\PoolCandidateStatus;
+use App\Enums\PriorityWeight;
 use App\Enums\PublishingGroup;
 use App\Http\Resources\UserResource;
 use App\Observers\PoolCandidateObserver;
@@ -146,10 +147,7 @@ class PoolCandidate extends Model
 
     public function user(): BelongsTo
     {
-        // avoid selecting searchable column from user table
-        return $this->belongsTo(User::class)
-            ->select(User::getSelectableColumns())
-            ->withTrashed();
+        return $this->belongsTo(User::class)->withTrashed();
     }
 
     public function pool(): BelongsTo
@@ -588,59 +586,6 @@ class PoolCandidate extends Model
         return $candidateStatus;
     }
 
-    public function createSnapshot()
-    {
-        if ($this->profile_snapshot) {
-            return null;
-        }
-
-        $user = User::with([
-            'department',
-            'currentClassification',
-            'awardExperiences',
-            'awardExperiences.skills',
-            'awardExperiences.user',
-            'communityExperiences',
-            'communityExperiences.skills',
-            'communityExperiences.user',
-            'educationExperiences',
-            'educationExperiences.skills',
-            'educationExperiences.user',
-            'personalExperiences',
-            'personalExperiences.skills',
-            'personalExperiences.user',
-            'workExperiences',
-            'workExperiences.skills',
-            'workExperiences.user',
-            'poolCandidates',
-            'poolCandidates.pool',
-            'poolCandidates.pool.classification',
-            'poolCandidates.educationRequirementAwardExperiences.skills',
-            'poolCandidates.educationRequirementCommunityExperiences.skills',
-            'poolCandidates.educationRequirementEducationExperiences.skills',
-            'poolCandidates.educationRequirementPersonalExperiences.skills',
-            'poolCandidates.educationRequirementWorkExperiences.skills',
-            'poolCandidates.generalQuestionResponses',
-            'poolCandidates.generalQuestionResponses.generalQuestion',
-            'poolCandidates.screeningQuestionResponses',
-            'poolCandidates.screeningQuestionResponses.screeningQuestion',
-        ])->findOrFail($this->user_id);
-        $profile = new UserResource($user);
-
-        // collect skills attached to the Pool to pass into resource collection
-        $pool = Pool::with([
-            'poolSkills',
-            'classification',
-        ])->findOrFail($this->pool_id);
-        $poolSkillIds = $pool->poolSkills()->pluck('skill_id')->toArray();
-
-        $profile = new UserResource($user);
-        $profile = $profile->poolSkillIds($poolSkillIds);
-
-        $this->profile_snapshot = $profile;
-        $this->save();
-    }
-
     public function scopePriorityWeight(Builder $query, ?array $priorityWeights): Builder
     {
         if (empty($priorityWeights)) {
@@ -655,9 +600,9 @@ class PoolCandidate extends Model
                     foreach ($priorityWeights as $index => $priorityWeight) {
                         if ($index === 0) {
                             // First iteration must use where instead of orWhere, as seen in filterWorkRegions
-                            $query->where('priority_weight', $priorityWeight);
+                            $query->where('priority_weight', PriorityWeight::weight($priorityWeight));
                         } else {
-                            $query->orWhere('priority_weight', $priorityWeight);
+                            $query->orWhere('priority_weight', PriorityWeight::weight($priorityWeight));
                         }
                     }
                 });
@@ -828,6 +773,10 @@ class PoolCandidate extends Model
 
     public function setApplicationSnapshot()
     {
+        if (! is_null($this->profile_snapshot)) {
+            return null;
+        }
+
         $user = User::with([
             'department',
             'currentClassification',
@@ -883,5 +832,6 @@ class PoolCandidate extends Model
         $profile = $profile->poolSkillIds($poolSkillIds);
 
         $this->profile_snapshot = $profile;
+        $this->save();
     }
 }

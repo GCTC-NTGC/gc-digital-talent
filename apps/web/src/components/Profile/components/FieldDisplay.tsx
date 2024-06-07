@@ -14,7 +14,7 @@ const FieldDisplay = ({
   label,
   children,
   hasError,
-  context,
+  context = "default",
   ...rest
 }: FieldDisplayProps) => {
   const intl = useIntl();

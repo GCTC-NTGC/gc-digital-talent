@@ -3,8 +3,8 @@ import { useIntl } from "react-intl";
 
 import { Locales, getLocale } from "@gc-digital-talent/i18n";
 
-import { PageSectionId as UserProfilePageSectionId } from "~/components/UserProfile/constants";
-import { PageSectionId as CareerTimelineAndRecruitmentPageSectionId } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
+import { PageSectionId as UserProfilePageSectionId } from "~/constants/sections/userProfile";
+import { PageSectionId as CareerTimelineAndRecruitmentPageSectionId } from "~/constants/sections/careerTimeline";
 
 export const FromIapDraftQueryKey = "fromIapDraft";
 export const FromIapSuccessQueryKey = "fromIapSuccess";
@@ -48,6 +48,7 @@ const getRoutes = (lang: Locales) => {
     manager: () => path.join(baseUrl, "manager"),
     executive: () => path.join(baseUrl, "executive"),
     skills: () => path.join(baseUrl, "skills"),
+    inclusivityEquity: () => path.join(baseUrl, "inclusivity-equity"),
 
     // Admin
     adminDashboard: () => adminUrl,

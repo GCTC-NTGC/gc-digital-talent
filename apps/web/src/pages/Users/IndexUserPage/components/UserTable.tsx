@@ -37,6 +37,7 @@ import {
 } from "~/components/Table/ResponsiveTable/constants";
 import accessors from "~/components/Table/accessors";
 import useSelectedRows from "~/hooks/useSelectedRows";
+import UserProfilePrintButton from "~/components/PrintButton/UserProfilePrintButton";
 
 import {
   UsersTable_SelectUsersQuery,
@@ -46,7 +47,6 @@ import {
   transformUserFilterInputToFormValues,
   transformUserInput,
 } from "./utils";
-import UserProfilePrintButton from "../../AdminUserProfilePage/components/UserProfilePrintButton";
 import UserFilterDialog, { FormValues } from "./UserFilterDialog";
 import { getUserCsvData, getUserCsvHeaders } from "./userCsv";
 

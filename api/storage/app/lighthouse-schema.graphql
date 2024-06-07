@@ -302,6 +302,14 @@ interface Notification {
   updatedAt: DateTime!
 }
 
+type TestNotification implements Notification {
+  id: ID!
+  readAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String
+}
+
 type ApplicationDeadlineApproachingNotification implements Notification {
   id: ID!
   readAt: DateTime
@@ -761,6 +769,7 @@ input PoolFilterInput {
   team: String
   streams: [PoolStream!]
   statuses: [PoolStatus!]
+  processNumber: String
   publishingGroups: [PublishingGroup!]
   classifications: [ClassificationFilterInput!]
 }
@@ -792,7 +801,7 @@ input PoolCandidateSearchInput {
   name: String
   notes: String
   isGovEmployee: Boolean
-  priorityWeight: [Int]
+  priorityWeight: [PriorityWeight]
   poolCandidateStatus: [PoolCandidateStatus]
   expiryStatus: CandidateExpiryFilter
   suspendedStatus: CandidateSuspendedFilter
@@ -2577,5 +2586,12 @@ enum NotificationFamily {
 enum CandidateRemovalReason {
   REQUESTED_TO_BE_WITHDRAWN
   NOT_RESPONSIVE
+  OTHER
+}
+
+enum PriorityWeight {
+  PRIORITY_ENTITLEMENT
+  VETERAN
+  CITIZEN_OR_PERMANENT_RESIDENT
   OTHER
 }
