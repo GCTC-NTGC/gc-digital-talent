@@ -8,10 +8,10 @@ import sortBy from "lodash/sortBy";
 import { IconType } from "@gc-digital-talent/ui";
 import {
   PoolCandidate,
-  ArmedForcesStatus,
   AssessmentDecision,
   Maybe,
   AssessmentStep,
+  ClaimVerificationResult,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
@@ -104,11 +104,19 @@ const getDecisionValue = (decision: NullableDecision) => {
   return decisionOrder.indexOf(decision ?? NO_DECISION);
 };
 const getPriorityValue = (result: CandidateAssessmentResult) => {
-  return Number(result.poolCandidate?.user.hasPriorityEntitlement);
+  return Number(
+    result.poolCandidate.priorityVerification ===
+      ClaimVerificationResult.Accepted ||
+      result.poolCandidate.priorityVerification ===
+        ClaimVerificationResult.Unverified,
+  );
 };
 const getVeteranValue = (result: CandidateAssessmentResult) => {
   return Number(
-    result.poolCandidate?.user.armedForcesStatus === ArmedForcesStatus.Veteran,
+    result.poolCandidate.veteranVerification ===
+      ClaimVerificationResult.Accepted ||
+      result.poolCandidate.veteranVerification ===
+        ClaimVerificationResult.Unverified,
   );
 };
 const compareLastNames = (
