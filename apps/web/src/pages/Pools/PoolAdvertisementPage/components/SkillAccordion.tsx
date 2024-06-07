@@ -163,18 +163,21 @@ const SkillAccordion = ({ poolSkillQuery, required }: SkillAccordionProps) => {
             {getLocalizedName(poolSkill.skill.description, intl)}
           </p>
         )}
-        <p>
-          <span data-h2-font-weight="base(700)">
-            {intl.formatMessage({
-              defaultMessage: "Level definition",
-              id: "fqa45V",
-              description: "Label for the definition of a specific skill level",
-            }) + intl.formatMessage(commonMessages.dividingColon)}
-          </span>
-          {definitionAndLevel
-            ? intl.formatMessage(definitionAndLevel.definition)
-            : intl.formatMessage(commonMessages.notFound)}
-        </p>
+        {poolSkill.requiredLevel && (
+          <p>
+            <span data-h2-font-weight="base(700)">
+              {intl.formatMessage({
+                defaultMessage: "Level definition",
+                id: "fqa45V",
+                description:
+                  "Label for the definition of a specific skill level",
+              }) + intl.formatMessage(commonMessages.dividingColon)}
+            </span>
+            {definitionAndLevel
+              ? intl.formatMessage(definitionAndLevel.definition)
+              : intl.formatMessage(commonMessages.notFound)}
+          </p>
+        )}
       </Accordion.Content>
     </Accordion.Item>
   );
