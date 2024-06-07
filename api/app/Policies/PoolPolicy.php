@@ -9,7 +9,6 @@ use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Log;
 
 class PoolPolicy
 {

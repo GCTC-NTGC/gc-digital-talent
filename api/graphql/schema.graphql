@@ -418,7 +418,7 @@ type Team implements HasRoleAssignments {
   departments: [Department] @belongsToMany
   contactEmail: Email @rename(attribute: "contact_email")
   pools: [Pool] @hasMany @canResolved(ability: "view")
-  teamable: HasRoleAssignments @morphTo
+  teamable: HasRoleAssignments @morphTo @canRoot(ability: "viewTeamable")
   roleAssignments: [RoleAssignment!]
     @hasMany
     @canRoot(ability: "viewTeamMembers")
