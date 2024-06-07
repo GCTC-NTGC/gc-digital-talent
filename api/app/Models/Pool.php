@@ -499,7 +499,6 @@ class Pool extends Model
                     ->where('pool_user_bookmarks.user_id', $user->id)
                     ->whereColumn('pool_user_bookmarks.pool_id', 'pools.id')
                     ->orderBy('pool_user_bookmarks.created_at', $order)
-                    ->take(1)
             );
         }
 

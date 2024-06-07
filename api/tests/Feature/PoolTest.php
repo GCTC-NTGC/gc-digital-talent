@@ -1300,4 +1300,72 @@ class PoolTest extends TestCase
                 'message' => 'Variable "$pool" got invalid value {"aboutUs":{"en":"About us EN","fr":"About us FR"}}; Field "changeJustification" of required type "String!" was not provided.',
             ]);
     }
+
+    /**
+     * @group paginated
+     */
+    public function testPoolBookmarksScope(): void
+    {
+        $pool1 = Pool::factory()->create();
+        $pool2 = Pool::factory()->withBookmark($this->adminUser->id)->create();
+        $pool3 = Pool::factory()->create();
+
+        $query = /** @lang GraphQL */
+        '
+            query ScopePoolBookmark($where: PoolFilterInput, $orderBy: [QueryPoolsPaginatedOrderByRelationOrderByClause!], $orderByPoolBookmarks: PoolBookmarksOrderByInput) {
+                poolsPaginated(where: $where, orderBy: $orderBy, orderByPoolBookmarks: $orderByPoolBookmarks) {
+                    data {
+                        id
+                        createdDate
+                    }
+                }
+            }
+        ';
+        $vars = [
+            'where' => [],
+            'orderByPoolBookmarks' => [
+                'column' => 'poolBookmarks',
+                'order' => 'ASC',
+            ],
+            'orderBy' => [
+                [
+                    'column' => 'created_at',
+                    'order' => 'ASC',
+                ],
+            ],
+        ];
+
+        $this
+            ->actingAs($this->adminUser, 'api')
+            ->graphql($query, $vars)
+            ->assertJson([
+                'data' => [
+                    'poolsPaginated' => [
+                        'data' => [
+                            ['id' => $pool2->id], // Bookmarked
+                            ['id' => $pool1->id],
+                            ['id' => $pool3->id],
+                        ],
+                    ],
+                ],
+            ]);
+
+        // Add another bookmark
+        $pool4 = Pool::factory()->withBookmark($this->adminUser->id)->create();
+        $this
+            ->actingAs($this->adminUser, 'api')
+            ->graphql($query, $vars)
+            ->assertJson([
+                'data' => [
+                    'poolsPaginated' => [
+                        'data' => [
+                            ['id' => $pool2->id], // Bookmarked
+                            ['id' => $pool4->id], // Bookmarked
+                            ['id' => $pool1->id],
+                            ['id' => $pool3->id],
+                        ],
+                    ],
+                ],
+            ]);
+    }
 }
