@@ -43,9 +43,6 @@ class SupportController extends Controller
         if (config('freshdesk.api.product_id')) {
             $parameters['product_id'] = (int) config('freshdesk.api.product_id');
         }
-        if (config('freshdesk.api.email_config_id')) {
-            $parameters['email_config_id'] = (int) config('freshdesk.api.email_config_id');
-        }
         $response = Http::withBasicAuth(config('freshdesk.api.key'), 'X')
             ->post(
                 config('freshdesk.api.tickets_endpoint'),
