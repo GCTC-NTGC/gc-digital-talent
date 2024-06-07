@@ -106,11 +106,15 @@ export const ViewPool = ({
   const assessmentBadge = getPoolCompletenessBadge(assessmentStatus);
   const processBadge = getProcessStatusBadge(pool.status);
   const canPublish = checkRole(
-    [ROLE_NAME.CommunityManager, ROLE_NAME.PlatformAdmin],
+    [ROLE_NAME.CommunityManager], // TODO: add CommunityAdmin role when it is defined
     roleAssignments,
   );
   // Same roles can edit submitted advertisements
   const canEdit = advertisementStatus !== "submitted" || canPublish;
+  const canDuplicate = checkRole(
+    [ROLE_NAME.PoolOperator], // TODO: add CommunityAdmin and CommunityRecruiter roles when they are defined
+    roleAssignments,
+  );
 
   let closingDate = "";
   if (pool.closingDate) {
@@ -390,15 +394,16 @@ export const ViewPool = ({
               )}
               {[PoolStatus.Closed, PoolStatus.Published].includes(
                 pool.status ?? PoolStatus.Draft,
-              ) && (
-                <ChangeDateDialog
-                  {...commonDialogProps}
-                  closingDate={pool.closingDate}
-                  onExtend={onExtend}
-                  onClose={onClose}
-                />
-              )}
-              {checkRole([ROLE_NAME.PoolOperator], roleAssignments) && (
+              ) &&
+                canPublish && (
+                  <ChangeDateDialog
+                    {...commonDialogProps}
+                    closingDate={pool.closingDate}
+                    onExtend={onExtend}
+                    onClose={onClose}
+                  />
+                )}
+              {canDuplicate && (
                 <DuplicateProcessDialog
                   {...commonDialogProps}
                   onDuplicate={onDuplicate}

@@ -283,6 +283,10 @@ return [
             'en' => 'Archive the pools in this team',
             'fr' => 'Archiver les pools de cette équipe',
         ],
+        'archive-any-publishedPool' => [
+            'en' => 'Archive any published pool',
+            'fr' => 'Archiver n\'import quel bassin publié',
+        ],
 
         'view-any-assessmentPlan' => [
             'en' => 'View the assessment plan (assessment steps) for any pool.',
@@ -860,9 +864,6 @@ return [
             'draftPool' => [
                 'team' => ['create', 'view', 'update', 'delete'],
             ],
-            'publishedPool' => [
-                'team' => ['update', 'archive'],
-            ],
             'submittedApplication' => [
                 'team' => ['view'],
             ],
@@ -930,7 +931,7 @@ return [
                 'any' => ['publish'],
             ],
             'publishedPool' => [
-                'any' => ['update'],
+                'any' => ['update', 'archive'],
             ],
             'teamMembers' => [
                 'any' => ['view'],
