@@ -11,6 +11,7 @@ import {
   AssessmentResult,
   AssessmentResultType,
   AssessmentStepType,
+  ClaimVerificationResult,
   Pool,
   PoolCandidate,
   PoolCandidateStatus,
@@ -50,6 +51,7 @@ export const priorityEntitlementCandidate: PoolCandidate = {
   },
   isBookmarked: false,
   assessmentResults: [getAssessmentResult()],
+  priorityVerification: ClaimVerificationResult.Accepted,
 };
 export const armedForcesCandidate: PoolCandidate = {
   ...fakeCandidates[1],
@@ -63,6 +65,7 @@ export const armedForcesCandidate: PoolCandidate = {
   },
   isBookmarked: false,
   assessmentResults: [getAssessmentResult()],
+  veteranVerification: ClaimVerificationResult.Accepted,
 };
 export const bookmarkedCandidate: PoolCandidate = {
   ...fakeCandidates[2],
