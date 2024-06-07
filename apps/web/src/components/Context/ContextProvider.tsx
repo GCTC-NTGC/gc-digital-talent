@@ -33,7 +33,7 @@ const ContextContainer = ({ messages, children }: ContextContainerProps) => (
           <LanguageProvider messages={messages}>
             <Toast />
             <ThemeProvider>
-              <ClientProvider url={API_URI}>
+              <ClientProvider>
                 <AppInsightsProvider>
                   <AuthorizationProvider>
                     <LazyMotion features={loadFeatures}>
