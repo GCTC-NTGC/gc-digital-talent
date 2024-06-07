@@ -203,3 +203,98 @@ export const filterDisqualifiedTestData: PoolCandidate[] = [
     assessmentResults: [{ id: "123" }],
   },
 ];
+
+// claim verification test data
+const priorityEntitlementAccepted: PoolCandidate = {
+  ...fakeCandidates[0],
+  id: "priority-entitlement-accepted",
+  user: {
+    ...fakeCandidates[0].user,
+    firstName: "accepted",
+    lastName: "priority",
+    hasPriorityEntitlement: true,
+    armedForcesStatus: ArmedForcesStatus.NonCaf,
+  },
+  isBookmarked: false,
+  assessmentResults: [getAssessmentResult()],
+  priorityVerification: ClaimVerificationResult.Accepted,
+};
+const priorityEntitlementUnverified: PoolCandidate = {
+  ...fakeCandidates[1],
+  id: "priority-entitlement-unverified",
+  user: {
+    ...fakeCandidates[1].user,
+    firstName: "unverified",
+    lastName: "priority",
+    hasPriorityEntitlement: true,
+    armedForcesStatus: ArmedForcesStatus.NonCaf,
+  },
+  isBookmarked: false,
+  assessmentResults: [getAssessmentResult()],
+  priorityVerification: ClaimVerificationResult.Unverified,
+};
+const priorityEntitlementRejected: PoolCandidate = {
+  ...fakeCandidates[2],
+  id: "priority-entitlement-rejected",
+  user: {
+    ...fakeCandidates[2].user,
+    firstName: "rejected",
+    lastName: "priority",
+    hasPriorityEntitlement: true,
+    armedForcesStatus: ArmedForcesStatus.NonCaf,
+  },
+  isBookmarked: false,
+  assessmentResults: [getAssessmentResult()],
+  priorityVerification: ClaimVerificationResult.Rejected,
+};
+const veteranAccepted: PoolCandidate = {
+  ...fakeCandidates[3],
+  id: "veteran-accepted",
+  user: {
+    ...fakeCandidates[3].user,
+    firstName: "accepted",
+    lastName: "veteran",
+    hasPriorityEntitlement: false,
+    armedForcesStatus: ArmedForcesStatus.Veteran,
+  },
+  isBookmarked: false,
+  assessmentResults: [getAssessmentResult()],
+  veteranVerification: ClaimVerificationResult.Accepted,
+};
+const veteranUnverified: PoolCandidate = {
+  ...fakeCandidates[4],
+  id: "veteran-unverified",
+  user: {
+    ...fakeCandidates[4].user,
+    firstName: "unverified",
+    lastName: "veteran",
+    hasPriorityEntitlement: false,
+    armedForcesStatus: ArmedForcesStatus.Veteran,
+  },
+  isBookmarked: false,
+  assessmentResults: [getAssessmentResult()],
+  veteranVerification: ClaimVerificationResult.Unverified,
+};
+const veteranRejected: PoolCandidate = {
+  ...fakeCandidates[5],
+  id: "veteran-rejected",
+  user: {
+    ...fakeCandidates[5].user,
+    firstName: "rejected",
+    lastName: "veteran",
+    hasPriorityEntitlement: false,
+    armedForcesStatus: ArmedForcesStatus.Veteran,
+  },
+  isBookmarked: false,
+  assessmentResults: [getAssessmentResult()],
+  veteranVerification: ClaimVerificationResult.Rejected,
+};
+
+export const claimVerificationTestData = [
+  priorityEntitlementAccepted,
+  priorityEntitlementUnverified,
+  priorityEntitlementRejected,
+  veteranAccepted,
+  veteranUnverified,
+  veteranRejected,
+];
