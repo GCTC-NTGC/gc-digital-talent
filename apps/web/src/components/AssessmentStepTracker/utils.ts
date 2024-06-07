@@ -12,6 +12,7 @@ import {
   Maybe,
   AssessmentStep,
   ClaimVerificationResult,
+  AssessmentStepTracker_CandidateFragment,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
@@ -32,7 +33,7 @@ import {
 } from "~/utils/poolCandidate";
 
 export type CandidateAssessmentResult = {
-  poolCandidate: PoolCandidate;
+  poolCandidate: AssessmentStepTracker_CandidateFragment;
   decision: NullableDecision;
 };
 
