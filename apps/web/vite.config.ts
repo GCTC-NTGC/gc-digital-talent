@@ -4,7 +4,6 @@ import childProcess from "child_process";
 import dotenv from "dotenv";
 import react from "@vitejs/plugin-react";
 import { createHtmlPlugin } from "vite-plugin-html";
-
 import { defineConfig } from "vite";
 
 dotenv.config({ path: "./.env" });
@@ -41,8 +40,8 @@ const gitCommand = (command: string) => {
 };
 
 const gitVersionPlugin = () => {
-  let version;
-  let commitHash;
+  let version: string | undefined;
+  let commitHash: string | undefined;
   if (gitCommand("--version")) {
     version = gitCommand("describe --abbrev=0");
     commitHash = gitCommand("rev-parse --short HEAD");
@@ -63,6 +62,18 @@ export default defineConfig({
   publicDir: "./public",
   build: {
     outDir: "./dist",
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          appInsights: [
+            "@microsoft/applicationinsights-react-js",
+            "@microsoft/applicationinsights-web",
+          ],
+          react: ["react", "react-dom"],
+          router: ["react-router", "react-router-dom"],
+        },
+      },
+    },
   },
   server: {
     port: 3000,
