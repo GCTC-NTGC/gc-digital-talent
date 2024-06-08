@@ -52,6 +52,8 @@ type User {
   currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
   currentCity: String @rename(attribute: "current_city")
   citizenship: CitizenshipStatus
+  adminCitizenship: LocalizedString @rename(attribute: "admin_citizenship")
+  profileCitizenship: LocalizedString @rename(attribute: "profile_citizenship")
   armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
 
   # Language

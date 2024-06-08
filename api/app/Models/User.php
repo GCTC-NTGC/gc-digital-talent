@@ -347,6 +347,16 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         }
     }
 
+    public function getAdminCitizenshipAttribute()
+    {
+        return CitizenshipStatus::localizedString($this->citizenship, 'admin');
+    }
+
+    public function getProfileCitizenshipAttribute()
+    {
+        return CitizenshipStatus::localizedString($this->citizenship, 'profile');
+    }
+
     public function getLookingForLanguage()
     {
         if ($this->looking_for_bilingual) {
