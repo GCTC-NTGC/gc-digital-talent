@@ -7,18 +7,19 @@ use Illuminate\Support\Str;
 
 trait HasLocalization
 {
-    abstract public static function getLangFilename(?string $key): string;
+    abstract public static function getLangFilename(): string;
 
     public static function caseKey(string $case)
     {
         return Str::lower(constant("self::$case")->name);
     }
 
-    public static function localizedString(string $value, ?string $fileKey)
+    public static function localizedString(string $value, ?string $intermediaryKey)
     {
         $key = sprintf(
-            '%s.%s',
-            self::getLangFilename($fileKey),
+            '%s%s.%s',
+            self::getLangFilename(),
+            $intermediaryKey ? '.'.$intermediaryKey : '',
             self::caseKey($value)
         );
 

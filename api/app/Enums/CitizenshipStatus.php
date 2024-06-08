@@ -12,9 +12,9 @@ enum CitizenshipStatus
     case CITIZEN;
     case OTHER;
 
-    public static function getLangFilename(?string $fileKey = 'profile'): string
+    public static function getLangFilename(): string
     {
 
-        return 'citizenship_status.'.$fileKey;
+        return 'citizenship_status';
     }
 }
