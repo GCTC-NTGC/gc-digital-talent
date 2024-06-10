@@ -151,7 +151,7 @@ const LanguageRequirementDialog = ({
                 <Heading
                   level={headingLevel}
                   size="h6"
-                  data-h2-margin="base(0, 0, x.5, 0)"
+                  data-h2-margin="base(0, 0, x.25, 0)"
                 >
                   {intl.formatMessage({
                     defaultMessage:
@@ -170,7 +170,7 @@ const LanguageRequirementDialog = ({
                   }) + intl.formatMessage(commonMessages.dividingColon)}
                 </p>
               </div>
-              <ul data-h2-display="base(grid)" data-h2-gap="base(x1)">
+              <ul data-h2-display="base(grid)" data-h2-gap="base(x.5)">
                 {languageProfilesList.map((item) => (
                   <li key={uniqueId()}>
                     <p
@@ -188,7 +188,7 @@ const LanguageRequirementDialog = ({
               <Heading
                 level={headingLevel}
                 size="h6"
-                data-h2-margin="base(0, 0, x.5, 0)"
+                data-h2-margin="base(0, 0, x.25, 0)"
               >
                 {intl.formatMessage({
                   defaultMessage: "Bilingual positions",
@@ -196,7 +196,7 @@ const LanguageRequirementDialog = ({
                   description: "Sub-heading for language requirements dialog",
                 })}
               </Heading>
-              <div data-h2-display="base(grid)" data-h2-gap="base(x1)">
+              <div data-h2-display="base(grid)" data-h2-gap="base(x.5)">
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
@@ -236,7 +236,7 @@ const LanguageRequirementDialog = ({
               <Heading
                 level={headingLevel}
                 size="h6"
-                data-h2-margin="base(0, 0, x.5, 0)"
+                data-h2-margin="base(0, 0, x.25, 0)"
               >
                 {intl.formatMessage({
                   defaultMessage: "Second language proficiency",
@@ -246,8 +246,8 @@ const LanguageRequirementDialog = ({
               </Heading>
               <div
                 data-h2-display="base(grid)"
-                data-h2-gap="base(x1)"
-                data-h2-margin-bottom="base(x1)"
+                data-h2-gap="base(x.5)"
+                data-h2-margin-bottom="base(x.5)"
               >
                 <p>
                   {intl.formatMessage({
@@ -287,8 +287,8 @@ const LanguageRequirementDialog = ({
               </div>
               <div
                 data-h2-display="base(grid)"
-                data-h2-gap="base(x1)"
-                data-h2-margin-bottom="base(x1)"
+                data-h2-gap="base(x.5)"
+                data-h2-margin-bottom="base(x.5)"
               >
                 <p>
                   {intl.formatMessage({
@@ -328,8 +328,8 @@ const LanguageRequirementDialog = ({
               </div>
               <div
                 data-h2-display="base(grid)"
-                data-h2-gap="base(x1)"
-                data-h2-margin="base(x1.5)"
+                data-h2-gap="base(x.5)"
+                data-h2-margin-bottom="base(x1.5)"
               >
                 <p>
                   {intl.formatMessage({
@@ -359,7 +359,7 @@ const LanguageRequirementDialog = ({
                   })}
                 </p>
               </div>
-              <div data-h2-display="base(grid)" data-h2-gap="base(x1)">
+              <div data-h2-display="base(grid)" data-h2-gap="base(x.5)">
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
