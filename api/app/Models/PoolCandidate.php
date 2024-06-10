@@ -780,7 +780,7 @@ class PoolCandidate extends Model
                 ->orderByRaw('
                     CASE
                     WHEN priority_verification=\'ACCEPTED\' OR priority_verification=\'UNVERIFIED\' then 30
-                    WHEN veteran_verification=\'ACCEPTED\' OR veteran_verification=\'UNVERIFIED\' then 20
+                    WHEN (veteran_verification=\'ACCEPTED\' OR veteran_verification=\'UNVERIFIED\') AND (priority_verification IS NULL OR priority_verification=\'REJECTED\') then 20
                     else 10
                     END
                     DESC');
@@ -790,7 +790,7 @@ class PoolCandidate extends Model
                 ->orderByRaw('
                     CASE
                     WHEN priority_verification=\'ACCEPTED\' OR priority_verification=\'UNVERIFIED\' then 30
-                    WHEN veteran_verification=\'ACCEPTED\' OR veteran_verification=\'UNVERIFIED\' then 20
+                    WHEN (veteran_verification=\'ACCEPTED\' OR veteran_verification=\'UNVERIFIED\') AND (priority_verification IS NULL OR priority_verification=\'REJECTED\') then 20
                     else 10
                     END
                     ASC');

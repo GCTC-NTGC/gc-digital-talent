@@ -800,15 +800,15 @@ class PoolCandidateTest extends TestCase
             'veteran_verification' => null,
             'submitted_at' => config('constants.past_date'),
         ]);
-        $unverifiedPriority = PoolCandidate::factory()->create(
+        $unverifiedPriorityAndAcceptedVeteran = PoolCandidate::factory()->create(
             [
                 'pool_id' => $poolOne,
             ],
         );
-        $unverifiedPriority->update([
+        $unverifiedPriorityAndAcceptedVeteran->update([
             'is_bookmarked' => false,
             'priority_verification' => ClaimVerificationResult::UNVERIFIED->name,
-            'veteran_verification' => null,
+            'veteran_verification' => ClaimVerificationResult::ACCEPTED->name,
             'submitted_at' => config('constants.past_date'),
         ]);
         $acceptedVeteran = PoolCandidate::factory()->create(
@@ -834,6 +834,8 @@ class PoolCandidateTest extends TestCase
             'submitted_at' => config('constants.past_date'),
         ]);
 
+        // assert in both cases that veteran + priority treated as priority
+
         // assert sorting by bookmarked then DESCENDING category
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($query, [
@@ -847,7 +849,7 @@ class PoolCandidateTest extends TestCase
                                 'id' => $bookmarkedAcceptedPriority->id,
                             ],
                             [
-                                'id' => $unverifiedPriority->id,
+                                'id' => $unverifiedPriorityAndAcceptedVeteran->id,
                             ],
                             [
                                 'id' => $acceptedVeteran->id,
@@ -879,7 +881,7 @@ class PoolCandidateTest extends TestCase
                                 'id' => $acceptedVeteran->id,
                             ],
                             [
-                                'id' => $unverifiedPriority->id,
+                                'id' => $unverifiedPriorityAndAcceptedVeteran->id,
                             ],
                         ],
                     ],
