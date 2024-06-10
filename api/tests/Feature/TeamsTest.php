@@ -1,9 +1,12 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Models\Department;
 use App\Models\Team;
 use App\Models\User;
 use Database\Seeders\DepartmentSeeder;
+use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;

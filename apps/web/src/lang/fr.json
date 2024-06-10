@@ -1011,6 +1011,10 @@
     "defaultMessage": "Date de réception",
     "description": "Title displayed on the Pool Candidates table Date Received column."
   },
+  "3eeKdd": {
+    "defaultMessage": "De quelle façon avez-vous démontré cette compétence dans ce rôle?",
+    "description": "Question for clarifying skill details"
+  },
   "3f9P13": {
     "defaultMessage": "En tant qu'employé, quel est votre statut d'emploi?",
     "description": "Employee Status in Government Info Form"
@@ -5115,6 +5119,10 @@
     "defaultMessage": "Commencer à rédiger une demande d'emploi",
     "description": "Title for the apply now section of a pool advertisement"
   },
+  "Qxl9Ec": {
+    "defaultMessage": "Afin d’écourter le processus de demande, l’information n’est recueillie que sur certaines compétences particulières à l’étape de la demande. Celles-ci sont identifiées individuellement sous le nom de la compétence en se servant de la mention « Évaluées à l’étape initiale de la demande ». D’autres évaluations suivront plus tard au cours de votre processus de demande si elle s’avère réussie. Ces évaluations supplémentaires peuvent être menées sur toutes les compétences obligatoires ou facultatives.",
+    "description": "Descriptive text about how skills are used during the application process"
+  },
   "QzU2SL": {
     "defaultMessage": "Veuillez remplir toute l’information relative à l'annonce avant de la publier.",
     "description": "Error message displayed when user attempts to publish an incomplete advertisement"
@@ -6169,10 +6177,6 @@
   "Wpj2OY": {
     "defaultMessage": "« Je suis membre d’une Première Nation »",
     "description": "Text for the option to self-declare as first nations"
-  },
-  "WppiY9": {
-    "defaultMessage": "Afin d’écourter le processus de demande, l’information n’est recueillie que sur certaines compétences particulières à l’étape de la demande. Celles-ci sont identifiées individuellement sous le nom de la compétence en se servant de la mention « Évaluées à l’étape initiale de la demande ». D’autres évaluations suivront plus tard au cours de votre processus de demande si elle s’avère réussie.",
-    "description": "Descriptive text about how skills are used during the application process"
   },
   "WqOnFF": {
     "defaultMessage": "Autres commentaires",

@@ -149,7 +149,7 @@ class UserRandomSeeder extends Seeder
         PoolCandidate::factory()->for($user)->for($pool)
             ->afterCreating(function (PoolCandidate $candidate) {
                 if ($candidate->submitted_at) {
-                    $candidate->createSnapshot();
+                    $candidate->setApplicationSnapshot();
                 }
             })
             ->createQuietly();
@@ -186,7 +186,7 @@ class UserRandomSeeder extends Seeder
         PoolCandidate::factory()->suspended()->for($user)->for($pool)
             ->afterCreating(function (PoolCandidate $candidate) {
                 if ($candidate->submitted_at) {
-                    $candidate->createSnapshot();
+                    $candidate->setApplicationSnapshot();
                 }
             })
             ->createQuietly();

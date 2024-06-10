@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Enums\ArmedForcesStatus;
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
@@ -12,6 +14,7 @@ use App\Models\PoolCandidate;
 use App\Models\Team;
 use App\Models\User;
 use Carbon\Carbon;
+use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
