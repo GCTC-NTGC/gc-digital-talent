@@ -1,11 +1,14 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Console\Commands\HardDeleteOldUsers;
 use App\Models\PoolCandidate;
 use App\Models\User;
 use App\Models\UserSkill;
 use App\Models\WorkExperience;
 use Carbon\Carbon;
+use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
 use Tests\TestCase;
