@@ -31,6 +31,7 @@ type Query {
   teams: [Team]!
   roles: [Role]!
   sitewideAnnouncement: SitewideAnnouncement
+  localizedEnumStrings(enumName: String!, intermediaryKey: String): [LocalizedEnumString!]
   digitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
   digitalContractingQuestionnaires: [DigitalContractingQuestionnaire!]!
   departmentSpecificRecruitmentProcessForm(id: UUID!): DepartmentSpecificRecruitmentProcessForm
@@ -716,6 +717,11 @@ type AwardExperience implements Experience {
 
 type ExperienceSkillRecord {
   details: String
+}
+
+type LocalizedEnumString {
+  value: String!
+  label: LocalizedString!
 }
 
 input ClassificationFilterInput {

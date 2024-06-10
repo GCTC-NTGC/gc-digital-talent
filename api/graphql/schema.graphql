@@ -636,6 +636,11 @@ type ExperienceSkillRecord {
   details: String
 }
 
+type LocalizedEnumString {
+  value: String!
+  label: LocalizedString!
+}
+
 input ClassificationFilterInput {
   group: String!
   level: Int!
@@ -916,6 +921,12 @@ type Query {
     @paginate(defaultCount: 10, scopes: ["authorizedToView"])
 
   sitewideAnnouncement: SitewideAnnouncement
+
+  localizedEnumStrings(
+    enumName: String!
+      @rules(apply: ["required", "App\\Rules\\LocalizedEnumExists"])
+    intermediaryKey: String
+  ): [LocalizedEnumString!]
 }
 
 input ClassificationBelongsTo {
