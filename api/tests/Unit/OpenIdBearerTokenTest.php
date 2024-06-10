@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Unit;
+
 use App\Services\OpenIdBearerTokenService;
 use Illuminate\Support\Facades\Http;
 use Lcobucci\Clock\FrozenClock;
@@ -12,9 +14,9 @@ class OpenIdBearerTokenTest extends TestCase
      */
     protected $service_provider;
 
-    protected DateTimeImmutable $now;
+    protected \DateTimeImmutable $now;
 
-    protected DateInterval $allowableClockSkew;
+    protected \DateInterval $allowableClockSkew;
 
     const fakeRootUrl = 'http://test.com';
 
@@ -40,8 +42,8 @@ class OpenIdBearerTokenTest extends TestCase
         // generate keys and tokens for testing at https://jwt.io/#debugger-io
         // make sure you set algorithm to RS256
 
-        $this->now = new DateTimeImmutable('2020-01-01 00:02:00', new DateTimeZone('UTC'));
-        $this->allowableClockSkew = DateInterval::createFromDateString('4 minutes');
+        $this->now = new \DateTimeImmutable('2020-01-01 00:02:00', new \DateTimeZone('UTC'));
+        $this->allowableClockSkew = \DateInterval::createFromDateString('4 minutes');
         $this->service_provider = new OpenIdBearerTokenService(
             self::fakeConfigUrl,
             new FrozenClock($this->now),
@@ -87,7 +89,7 @@ class OpenIdBearerTokenTest extends TestCase
      */
     public function testRejectsEmptyToken()
     {
-        $this->expectException(Exception::class);
+        $this->expectException(\Exception::class);
         $token = '';
         $this->service_provider->validateAndGetClaims($token);
     }
@@ -98,7 +100,7 @@ class OpenIdBearerTokenTest extends TestCase
      */
     public function testRejectsNonsenseToken()
     {
-        $this->expectException(Exception::class);
+        $this->expectException(\Exception::class);
         $token = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
         $this->service_provider->validateAndGetClaims($token);
     }
@@ -109,7 +111,7 @@ class OpenIdBearerTokenTest extends TestCase
      */
     public function testRejectsIncorrectIssuer()
     {
-        $this->expectException(Exception::class);
+        $this->expectException(\Exception::class);
         $token = 'eyJraWQiOiJrZXkxIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaXNzIjoiaHR0cDovL3dyb25nZG9tYWluLmNvbSIsImV4cCI6MjE0NzQ4MzY0NywiaWF0IjowfQ.xtr4Xolvxryi6_vMLquynGmbi0v925e6wC5hPUYgUXxVXaiZ8IoMHW5hR7sG916ZrsE52IRZXKWXv8sbebUdiavJVav94nyRJTtcp24FoefB_yLck930xZgHLSl5WmqMf7jhy8OBhBIgVCNQY9kj2BzAgrqJ0RCY-9F95unwSPfQHm9rryILY2DlgduReoDIpO1u1E-Lwyw3rVt-hKChsyP1tcc1GyVXNFPfd3YyeAO6Mez6yV8mcTAnsHdrYSrp8XHTbEb5tmF3QQQR-WjftmAMFjq1UA0e70WjfKh0ZNzHMCJt2W0ElWIL8pkliop68Y-STNqZnZStemq0PaRfX1jhfek-To6J1UfuAfiiYjaJoCoOxECdY_xb0UCyLLcG-g2roAeqKQgrEp7PCbjdXE8Xe_e4Yc4gNWDidOoV0vqrxx05h1KCmIy8u1W8xbdXTOVH39yIt7_JKWM_g8ySO5x0fQHdIqgNgW5CWPoYel45k23bnfqq7bOCIULj3SeKMrrP-WBAWaJs0Z6noKql08HcQYOFoqaYPj8wFF1T4IzVyYbcOxWY_L9pAzxU19WOa01Me2oDA9SCBKGszZMgYVEkayL40J0MB5qpMYjR9x-Dd1xifyr9zlNEy7-jlOyM6BopZrovWbIEI1w1XqqCmXQoXfxhD3ZYrSbX5k6l-bc';
         /** analyze token at https://jwt.io/
         {
@@ -133,7 +135,7 @@ class OpenIdBearerTokenTest extends TestCase
      */
     public function testRejectsExpiredToken()
     {
-        $this->expectException(Exception::class);
+        $this->expectException(\Exception::class);
         $token = 'eyJraWQiOiJrZXkxIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaXNzIjoiaHR0cDovL3Rlc3QuY29tIiwiZXhwIjoxLCJpYXQiOjB9.hfY-0wyAaBL9GDysfc33VMou1pEuGbbwL6oSKzjLdBUtZ5-x--ROaFgUf4NbnSYR7erSggsGMq9Z15gtZVRnYNu1n2QiLYq3mhh83peBH0zdhAB7K_GO_Tpe6dswMGg0esgcp4odH1mlxHYb2RzHkAbYbrYeCYvG537HcoTXFhfltFHpZq7nVMxxbLC0QnSkDSO0vUfyYXiFBe-s5Jxb3UMuStpdPpvrl3OtCh7i-P91BJl5RFN1h7Xd6je1qwcYhQi6aKrPex9sXbdQ3ywzYmxCSHMmIGtYGpbNf_A9WdDKe2SMUW9Q6XWrWCuvTM-SEGUsV1ezrncn21CZfPUREQ_wl7wEdYo2R2W6Ybhgw4Wu0hJEsRxPfP-oNAV4HsVzOh2XRVVYrJ-Y0v_ij6JprDovddXNHFhB4ITeLbB0lSN1pA2qFvPySvPwfNcMNCK5cNY0WVfJmPjgrlxSPCMOIjlCJIaIkPj2QxWbdsMeiASXCKPvrmCiTsrbzxydPprrL6pbdNE_ILPsyf0DpCitMvKtGBmtgr3hv-XP3pjOm2To_bspp-R59Z2pYA_Rav0HdqCPpTC6MZBsf-oF3CSzYviMAxFDq20DUPflT9mzcLGmPtmCVshjfQJ1i9iH55S7TWAhDGT50rVGUje0ZSFVDU1nFYThcVZqb787BN417x8';
         /** analyze token at https://jwt.io/
         {
@@ -157,7 +159,7 @@ class OpenIdBearerTokenTest extends TestCase
      */
     public function testRejectsFutureToken()
     {
-        $this->expectException(Exception::class);
+        $this->expectException(\Exception::class);
         $token = 'eyJraWQiOiJrZXkxIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaXNzIjoiaHR0cDovL3Rlc3QuY29tIiwiZXhwIjoyMTQ3NDgzNjQ3LCJpYXQiOjIxNDc0ODM2NDZ9.NGbN9gRz_duLXrziyFc3tg_8YtebqWUR0iuoiUElCi3KNOlJjvwPERUWbhYfEgx-FmN7u-FfGjgZoIsK9i745IxHvgunaP3xbZlq-M2FGRd2gMNMMX7n1hnrtuNR43ULmAMleU5ps8l4ey4-FjJCBHoRK0tG_BLkzdbbh-eqU16StIDwzfeJblMUFk78j7gKHS0g15udkNwXm2YawxlqH8ihCf3Ty0E3Jedpmo83L67EI5VKNy2ab7lauEk1xvJUoteUK0ugwpYMPm54LPXYUeWPXI2JpzdlNNZkPdlAhaM3nVPHrYBAPWdWPR83E9R4svc5anva73TtOnDH_8blb3dFkHKTdANbRLWv8kkFL-QogY4sJazzn_v61ZgjS5Q7tqXrQgim6_7871-bbdDO6zYGIQnDWecCXqMJLrXjkkRhs8-euEsXmZm5LaSIEcHSb05XU2rgb6LwFeKdQE7DuZcVWJ0gEFI_13ciOOe1ltFWbUhSppHSfiQ320H3lldlIHuh_gDLWTjyWcCffveV_I3fUF2E0z83926hvwycPH3qcRVyOz5lr_o6SaH8ogmFnhNea-qIgQX-Uo3MZVeiVHKmthiod-p_lF8xMLAao--z_cfPxSe7YC4yBehfRQW3Hnzo13D9M9avHUtNxAEfy89naaTa6LO8GK8EZlHndtU';
         /** analyze token at https://jwt.io/
         {
@@ -181,7 +183,7 @@ class OpenIdBearerTokenTest extends TestCase
      */
     public function testRejectsTokenSignedWithDifferentKey()
     {
-        $this->expectException(Exception::class);
+        $this->expectException(\Exception::class);
         // this token actually signed with key2
         $token = 'eyJraWQiOiJrZXkxIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaXNzIjoiaHR0cDovL3Rlc3QuY29tIiwiZXhwIjoyMTQ3NDgzNjQ3LCJpYXQiOjB9.o-gz2gQSJ7frAfJq6H9DYWqxPmeptsbnAKUJpg7V5OdJVV3cmN5S4Ask0B9RoutlFix8jjBX0tYksyCxJ97Rz2wcFZNh_FpDyE9oQ3xgApfnHzerIiyfpxYWIzg-LWixuObha2aLN15CwxfBoFACbZ0SN_PeXkw9NWGmy_FUAmoLbf6K1NYmZY85eqGvyOifXf8VFXMFj0Wd0XlH1fR_dXiUn7oud_9FDIrTfr9eWXRriRleQTGcnkTns7VnddXp6qo6NQchcIvejg1L4Zukpe_YZ37T2fQUDR6ctRGeZj1qmNKHTiUUfiiMoHAfBz0Hx9EW_BTaasUWt0kbv8Xym26bwg-UXj4v6GA2YcwimPHi4rhs6bKOfgNiNqllqkF7Xf-Q86GDicaiV_kuP8JQa68svv4NdUCyfY9AVsV19PjoPClQdKzqSZtl1Ng9i6CujHNzCsqZDHZvvfhHHFlVovLJZjKEX5hQas6SdBV5pjPkJCC-Kwiin9NJb4l-nVIBkRvt5DRbXNF2xQDloQPPhSrJcT6TF2kaMbKOxMbXJ9aOnMLraAoXaImWlYc3JTiGotvovmtv5gPjs2Q_9-AuuQIkhluy2NF-pXuKMtcZB0qopsC8pG_6JhsE9NE8sgWxDeXOW6FC5tY7hix3bocy5oDN3kxUZ-dLhtR6d7eBulc';
         /** analyze token at https://jwt.io/
@@ -249,7 +251,7 @@ class OpenIdBearerTokenTest extends TestCase
         }
          */
         $this->setIntrospectionResponse(false);
-        $this->expectException(Exception::class);
+        $this->expectException(\Exception::class);
         $claims = $this->service_provider->validateAndGetClaims($token);
     }
 }

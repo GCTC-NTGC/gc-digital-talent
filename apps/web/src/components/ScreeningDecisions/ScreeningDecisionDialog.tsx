@@ -460,7 +460,9 @@ export const ScreeningDecisionDialog = ({
           <BasicForm
             onSubmit={onSubmit}
             labels={labels}
-            options={{ defaultValues: initialValues || defaultValues }}
+            options={{
+              defaultValues: initialValues || defaultValues,
+            }}
           >
             <ScreeningDecisionDialogForm dialogType={dialogType} />
             <Dialog.Footer>

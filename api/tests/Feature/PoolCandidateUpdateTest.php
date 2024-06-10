@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Enums\ArmedForcesStatus;
 use App\Enums\CandidateRemovalReason;
 use App\Enums\ClaimVerificationResult;
