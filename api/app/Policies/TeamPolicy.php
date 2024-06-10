@@ -98,6 +98,6 @@ class TeamPolicy
             return true;
         }
 
-        return ($user->can('view', $team->teamable));
+        return $user->can('view', $team->teamable);
     }
 }
