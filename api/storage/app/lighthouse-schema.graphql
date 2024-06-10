@@ -250,8 +250,8 @@ type User {
   currentProvince: ProvinceOrTerritory
   currentCity: String
   citizenship: CitizenshipStatus
-  adminCitizenship: LocalizedString
-  profileCitizenship: LocalizedString
+  adminCitizenship: LocalizedEnumString
+  profileCitizenship: LocalizedEnumString
   armedForcesStatus: ArmedForcesStatus
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
