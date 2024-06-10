@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Models\AwardExperience;
 use App\Models\ExperienceSkill;
 use App\Models\Skill;
