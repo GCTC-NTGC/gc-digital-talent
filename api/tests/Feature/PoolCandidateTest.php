@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\CitizenshipStatus;
 use App\Enums\ClaimVerificationResult;
 use App\Enums\PoolCandidateStatus;
 use App\Facades\Notify;
@@ -794,6 +795,7 @@ class PoolCandidateTest extends TestCase
         $bookmarkedAcceptedPriority = PoolCandidate::factory()->create(
             [
                 'pool_id' => $poolOne,
+                'user_id' => User::factory()->create(['citizenship' => CitizenshipStatus::CITIZEN->name]),
             ],
         );
         $bookmarkedAcceptedPriority->update([
@@ -805,6 +807,7 @@ class PoolCandidateTest extends TestCase
         $unverifiedPriorityAndAcceptedVeteran = PoolCandidate::factory()->create(
             [
                 'pool_id' => $poolOne,
+                'user_id' => User::factory()->create(['citizenship' => CitizenshipStatus::CITIZEN->name]),
             ],
         );
         $unverifiedPriorityAndAcceptedVeteran->update([
@@ -816,6 +819,7 @@ class PoolCandidateTest extends TestCase
         $acceptedVeteran = PoolCandidate::factory()->create(
             [
                 'pool_id' => $poolOne,
+                'user_id' => User::factory()->create(['citizenship' => CitizenshipStatus::CITIZEN->name]),
             ],
         );
         $acceptedVeteran->update([
@@ -824,19 +828,33 @@ class PoolCandidateTest extends TestCase
             'veteran_verification' => ClaimVerificationResult::ACCEPTED->name,
             'submitted_at' => config('constants.past_date'),
         ]);
-        $rejectedVeteran = PoolCandidate::factory()->create(
+        $rejectedVeteranCitizenOther = PoolCandidate::factory()->create(
             [
                 'pool_id' => $poolOne,
+                'user_id' => User::factory()->create(['citizenship' => CitizenshipStatus::OTHER->name]),
             ],
         );
-        $rejectedVeteran->update([
+        $rejectedVeteranCitizenOther->update([
             'is_bookmarked' => false,
             'priority_verification' => null,
             'veteran_verification' => ClaimVerificationResult::REJECTED->name,
             'submitted_at' => config('constants.past_date'),
         ]);
+        $citizenOnly = PoolCandidate::factory()->create(
+            [
+                'pool_id' => $poolOne,
+                'user_id' => User::factory()->create(['citizenship' => CitizenshipStatus::CITIZEN->name]),
+            ],
+        );
+        $citizenOnly->update([
+            'is_bookmarked' => false,
+            'priority_verification' => null,
+            'veteran_verification' => null,
+            'submitted_at' => config('constants.past_date'),
+        ]);
 
         // assert in both cases that veteran + priority treated as priority
+        // priority > veteran > citizen/permanent resident > rest
 
         // assert sorting by bookmarked then DESCENDING category
         $this->actingAs($this->adminUser, 'api')
@@ -857,7 +875,10 @@ class PoolCandidateTest extends TestCase
                                 'id' => $acceptedVeteran->id,
                             ],
                             [
-                                'id' => $rejectedVeteran->id,
+                                'id' => $citizenOnly->id,
+                            ],
+                            [
+                                'id' => $rejectedVeteranCitizenOther->id,
                             ],
                         ],
                     ],
@@ -877,7 +898,10 @@ class PoolCandidateTest extends TestCase
                                 'id' => $bookmarkedAcceptedPriority->id,
                             ],
                             [
-                                'id' => $rejectedVeteran->id,
+                                'id' => $rejectedVeteranCitizenOther->id,
+                            ],
+                            [
+                                'id' => $citizenOnly->id,
                             ],
                             [
                                 'id' => $acceptedVeteran->id,

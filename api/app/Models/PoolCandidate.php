@@ -776,21 +776,27 @@ class PoolCandidate extends Model
     {
         if ($sortOrder && $sortOrder == 'DESC') {
             $query
+                ->join('users', 'users.id', '=', 'pool_candidates.user_id')
+                ->select('users.citizenship', 'pool_candidates.*')
                 ->orderBy('is_bookmarked', 'DESC')
                 ->orderByRaw('
                     CASE
-                    WHEN priority_verification=\'ACCEPTED\' OR priority_verification=\'UNVERIFIED\' then 30
-                    WHEN (veteran_verification=\'ACCEPTED\' OR veteran_verification=\'UNVERIFIED\') AND (priority_verification IS NULL OR priority_verification=\'REJECTED\') then 20
+                    WHEN priority_verification=\'ACCEPTED\' OR priority_verification=\'UNVERIFIED\' then 40
+                    WHEN (veteran_verification=\'ACCEPTED\' OR veteran_verification=\'UNVERIFIED\') AND (priority_verification IS NULL OR priority_verification=\'REJECTED\') then 30
+                    WHEN (users.citizenship=\'CITIZEN\' OR users.citizenship=\'PERMANENT_RESIDENT\') AND (priority_verification IS NULL OR priority_verification=\'REJECTED\') AND (veteran_verification IS NULL OR veteran_verification=\'REJECTED\') then 20
                     else 10
                     END
                     DESC');
         } elseif ($sortOrder && $sortOrder == 'ASC') {
             $query
+                ->join('users', 'users.id', '=', 'pool_candidates.user_id')
+                ->select('users.citizenship', 'pool_candidates.*')
                 ->orderBy('is_bookmarked', 'DESC')
                 ->orderByRaw('
                     CASE
-                    WHEN priority_verification=\'ACCEPTED\' OR priority_verification=\'UNVERIFIED\' then 30
-                    WHEN (veteran_verification=\'ACCEPTED\' OR veteran_verification=\'UNVERIFIED\') AND (priority_verification IS NULL OR priority_verification=\'REJECTED\') then 20
+                    WHEN priority_verification=\'ACCEPTED\' OR priority_verification=\'UNVERIFIED\' then 40
+                    WHEN (veteran_verification=\'ACCEPTED\' OR veteran_verification=\'UNVERIFIED\') AND (priority_verification IS NULL OR priority_verification=\'REJECTED\') then 30
+                    WHEN (users.citizenship=\'CITIZEN\' OR users.citizenship=\'PERMANENT_RESIDENT\') AND (priority_verification IS NULL OR priority_verification=\'REJECTED\') AND (veteran_verification IS NULL OR veteran_verification=\'REJECTED\') then 20
                     else 10
                     END
                     ASC');
