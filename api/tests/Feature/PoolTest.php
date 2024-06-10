@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Enums\PoolStatus;
 use App\Enums\PoolStream;
 use App\Enums\PublishingGroup;

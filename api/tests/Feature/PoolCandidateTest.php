@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Enums\PoolCandidateStatus;
 use App\Facades\Notify;
 use App\Models\AwardExperience;

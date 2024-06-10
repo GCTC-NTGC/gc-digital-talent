@@ -49,6 +49,7 @@ import Table, {
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
+import { getPriorityWeight } from "~/utils/poolCandidate";
 
 import skillMatchDialogAccessor from "./SkillMatchDialog";
 import tableMessages from "./tableMessages";
@@ -591,7 +592,7 @@ const PoolCandidatesTable = ({
       ({ poolCandidate: { user } }) =>
         intl.formatMessage(
           user.priorityWeight
-            ? getPoolCandidatePriorities(user.priorityWeight)
+            ? getPoolCandidatePriorities(getPriorityWeight(user.priorityWeight))
             : commonMessages.notFound,
         ),
       {

@@ -11,6 +11,7 @@ import {
   OperationalRequirement,
   PoolCandidateStatus,
   PositionDuration,
+  PriorityWeight,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 
@@ -55,6 +56,15 @@ export function stringToEnumPoolCandidateStatus(
     )
   ) {
     return selection as PoolCandidateStatus;
+  }
+  return undefined;
+}
+
+export function stringToEnumPriorityWeight(
+  selection: string,
+): PriorityWeight | undefined {
+  if (Object.values(PriorityWeight).includes(selection as PriorityWeight)) {
+    return selection as PriorityWeight;
   }
   return undefined;
 }

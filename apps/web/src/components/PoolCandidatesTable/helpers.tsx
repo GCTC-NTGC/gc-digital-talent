@@ -39,6 +39,7 @@ import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import {
   getCandidateStatusChip,
+  getPriorityWeight,
   statusToJobPlacement,
 } from "~/utils/poolCandidate";
 import {
@@ -48,6 +49,7 @@ import {
   stringToEnumLocation,
   stringToEnumOperational,
   stringToEnumPoolCandidateStatus,
+  stringToEnumPriorityWeight,
 } from "~/utils/userUtils";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
@@ -70,12 +72,18 @@ export const priorityCell = (
         data-h2-color="base(primary.darker)"
         data-h2-font-weight="base(700)"
       >
-        {intl.formatMessage(getPoolCandidatePriorities(priority))}
+        {intl.formatMessage(
+          getPoolCandidatePriorities(getPriorityWeight(priority)),
+        )}
       </span>
     );
   }
   return (
-    <span>{intl.formatMessage(getPoolCandidatePriorities(priority))}</span>
+    <span>
+      {intl.formatMessage(
+        getPoolCandidatePriorities(getPriorityWeight(priority)),
+      )}
+    </span>
   );
 };
 
@@ -776,9 +784,11 @@ export function transformFormValuesToFilterState(
         return stringToEnumPoolCandidateStatus(status);
       })
       .filter(notEmpty),
-    priorityWeight: data.priorityWeight.map((priority) => {
-      return Number(priority);
-    }),
+    priorityWeight: data.priorityWeight
+      .map((priorityWeight) => {
+        return stringToEnumPriorityWeight(priorityWeight);
+      })
+      .filter(notEmpty),
     expiryStatus: data.expiryStatus
       ? stringToEnumCandidateExpiry(data.expiryStatus)
       : undefined,

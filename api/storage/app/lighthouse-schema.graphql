@@ -799,7 +799,7 @@ input PoolCandidateSearchInput {
   name: String
   notes: String
   isGovEmployee: Boolean
-  priorityWeight: [Int]
+  priorityWeight: [PriorityWeight]
   poolCandidateStatus: [PoolCandidateStatus]
   expiryStatus: CandidateExpiryFilter
   suspendedStatus: CandidateSuspendedFilter
@@ -2584,5 +2584,12 @@ enum NotificationFamily {
 enum CandidateRemovalReason {
   REQUESTED_TO_BE_WITHDRAWN
   NOT_RESPONSIVE
+  OTHER
+}
+
+enum PriorityWeight {
+  PRIORITY_ENTITLEMENT
+  VETERAN
+  CITIZEN_OR_PERMANENT_RESIDENT
   OTHER
 }

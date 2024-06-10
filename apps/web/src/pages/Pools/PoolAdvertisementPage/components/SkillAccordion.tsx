@@ -45,11 +45,13 @@ const Context = ({ required }: ContextProps) => {
 };
 
 interface AccordionSubtitleProps {
+  isSkillLevelAvailable: boolean;
   skillLevelItem: string;
   screeningTime: string;
 }
 
 const AccordionSubtitle = ({
+  isSkillLevelAvailable,
   skillLevelItem,
   screeningTime,
 }: AccordionSubtitleProps) => (
@@ -62,8 +64,12 @@ const AccordionSubtitle = ({
     data-h2-flex-direction="base(column) p-tablet(row)"
     data-h2-gap="base(x.5)"
   >
-    <span>{skillLevelItem}</span>
-    <span data-h2-display="base(none) p-tablet(inline)">&bull;</span>
+    {isSkillLevelAvailable && (
+      <>
+        <span>{skillLevelItem}</span>
+        <span data-h2-display="base(none) p-tablet(inline)">&bull;</span>
+      </>
+    )}
     <span>{screeningTime}</span>
   </span>
 );
@@ -136,6 +142,7 @@ const SkillAccordion = ({ poolSkillQuery, required }: SkillAccordionProps) => {
         context={<Context required={required} />}
         subtitle={
           <AccordionSubtitle
+            isSkillLevelAvailable={!!poolSkill.requiredLevel}
             skillLevelItem={skillLevelItem}
             screeningTime={screeningTime}
           />
@@ -156,18 +163,21 @@ const SkillAccordion = ({ poolSkillQuery, required }: SkillAccordionProps) => {
             {getLocalizedName(poolSkill.skill.description, intl)}
           </p>
         )}
-        <p>
-          <span data-h2-font-weight="base(700)">
-            {intl.formatMessage({
-              defaultMessage: "Level definition",
-              id: "fqa45V",
-              description: "Label for the definition of a specific skill level",
-            }) + intl.formatMessage(commonMessages.dividingColon)}
-          </span>
-          {definitionAndLevel
-            ? intl.formatMessage(definitionAndLevel.definition)
-            : intl.formatMessage(commonMessages.notFound)}
-        </p>
+        {poolSkill.requiredLevel && (
+          <p>
+            <span data-h2-font-weight="base(700)">
+              {intl.formatMessage({
+                defaultMessage: "Level definition",
+                id: "fqa45V",
+                description:
+                  "Label for the definition of a specific skill level",
+              }) + intl.formatMessage(commonMessages.dividingColon)}
+            </span>
+            {definitionAndLevel
+              ? intl.formatMessage(definitionAndLevel.definition)
+              : intl.formatMessage(commonMessages.notFound)}
+          </p>
+        )}
       </Accordion.Content>
     </Accordion.Item>
   );
