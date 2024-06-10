@@ -494,11 +494,10 @@ class Pool extends Model
         // order the pools so that the bookmarks connected to current user sticks to the top
         if ($order && $user) {
             $query->orderBy(
-                $user->select('pool_user_bookmarks.created_at')
+                $user->selectRaw('1')
                     ->join('pool_user_bookmarks', 'pool_user_bookmarks.user_id', '=', 'users.id')
                     ->where('pool_user_bookmarks.user_id', $user->id)
                     ->whereColumn('pool_user_bookmarks.pool_id', 'pools.id')
-                    ->orderBy('pool_user_bookmarks.created_at', $order)
             );
         }
 
