@@ -75,6 +75,7 @@ import GenericJobTitleAccordion from "./components/GenericJobTitleAccordion";
 import DeadlineDialog from "./components/DeadlineDialog";
 import WorkLocationDialog from "./components/WorkLocationDialog";
 import SkillLevelDialog from "./components/SkillLevelDialog";
+import LanguageRequirementDialog from "./components/LanguageRequirementDialog";
 
 type SectionContent = {
   id: string;
@@ -724,26 +725,7 @@ export const PoolPoster = ({
                     }) + intl.formatMessage(commonMessages.dividingColon)
                   }
                   value={languageRequirement}
-                  suffix={
-                    <Link
-                      newTab
-                      external
-                      color="secondary"
-                      mode="icon_only"
-                      icon={InformationCircleIcon}
-                      href={
-                        locale === "fr"
-                          ? "https://www.canada.ca/fr/commission-fonction-publique/services/evaluation-langue-seconde.html"
-                          : "https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service.html"
-                      }
-                      aria-label={`${intl.formatMessage({
-                        defaultMessage: "Learn more about language testing",
-                        id: "Swde4t",
-                        description:
-                          "Link text for language testing information",
-                      })} ${intl.formatMessage(uiMessages.newTab)}`}
-                    />
-                  }
+                  suffix={<LanguageRequirementDialog />}
                 />
                 <DataRow
                   label={
