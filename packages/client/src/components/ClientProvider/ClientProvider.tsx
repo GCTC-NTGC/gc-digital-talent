@@ -33,7 +33,7 @@ import {
 import specialErrorExchange from "../../exchanges/specialErrorExchange";
 import protectedEndpointExchange from "../../exchanges/protectedEndpointExchange";
 
-const apiUri = process.env.API_URI ?? "http://localhost:8000/graphql";
+const apiUri = process.env.API_URI ?? "";
 
 const isTokenKnownToBeExpired = (accessToken: string | null): boolean => {
   let tokenIsKnownToBeExpired = false;
