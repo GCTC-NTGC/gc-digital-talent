@@ -9,7 +9,8 @@ const privilegedPaths = [
   "/en/directive-on-digital-talent",
   "/fr/directive-on-digital-talent",
 ];
-const protectedUrl = API_PROTECTED_URI ?? "";
+const protectedUrl =
+  typeof API_PROTECTED_URI !== "undefined" ? API_PROTECTED_URI : "";
 
 // A custom exchange that changes to the protected endpoint depending on the current location
 
