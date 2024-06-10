@@ -102,6 +102,7 @@ class PoolCandidate extends Model
         'veteran_verification_expiry',
         'priority_verification',
         'priority_verification_expiry',
+        'is_bookmarked',
     ];
 
     protected $touches = ['user'];
