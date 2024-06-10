@@ -771,6 +771,33 @@ class PoolCandidate extends Model
 
     }
 
+    public function scopeOrderByClaimVerification(Builder $query, ?string $sortOrder)
+    {
+        if ($sortOrder && $sortOrder == 'DESC') {
+            $query
+                ->orderBy('is_bookmarked', 'DESC')
+                ->orderByRaw('
+                    CASE
+                    WHEN priority_verification=\'ACCEPTED\' OR priority_verification=\'UNVERIFIED\' then 30
+                    WHEN veteran_verification=\'ACCEPTED\' OR veteran_verification=\'UNVERIFIED\' then 20
+                    else 10
+                    END
+                    DESC');
+        } elseif ($sortOrder && $sortOrder == 'ASC') {
+            $query
+                ->orderBy('is_bookmarked', 'DESC')
+                ->orderByRaw('
+                    CASE
+                    WHEN priority_verification=\'ACCEPTED\' OR priority_verification=\'UNVERIFIED\' then 30
+                    WHEN veteran_verification=\'ACCEPTED\' OR veteran_verification=\'UNVERIFIED\' then 20
+                    else 10
+                    END
+                    ASC');
+        }
+
+        return $query;
+    }
+
     public function setApplicationSnapshot()
     {
         if (! is_null($this->profile_snapshot)) {

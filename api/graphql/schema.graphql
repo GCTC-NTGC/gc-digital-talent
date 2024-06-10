@@ -845,6 +845,7 @@ type Query {
   poolCandidatesPaginated(
     where: PoolCandidateSearchInput
     orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
+    orderByClaimVerification: SortOrder @scope
     orderBy: _
       @orderBy(
         relations: [

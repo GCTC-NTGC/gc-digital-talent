@@ -72,6 +72,7 @@ type Query {
   poolCandidatesPaginated(
     where: PoolCandidateSearchInput
     orderByPoolName: PoolCandidatePoolNameOrderByInput
+    orderByClaimVerification: SortOrder
     orderBy: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
