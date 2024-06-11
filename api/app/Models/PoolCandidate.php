@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
+use App\Enums\CitizenshipStatus;
+use App\Enums\ClaimVerificationResult;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PriorityWeight;
 use App\Enums\PublishingGroup;
@@ -604,6 +606,48 @@ class PoolCandidate extends Model
                             $query->where('priority_weight', PriorityWeight::weight($priorityWeight));
                         } else {
                             $query->orWhere('priority_weight', PriorityWeight::weight($priorityWeight));
+                        }
+                    }
+                });
+        });
+
+        return $query;
+    }
+
+    public function scopeCandidateCategory(Builder $query, ?array $priorityWeights): Builder
+    {
+        if (empty($priorityWeights)) {
+            return $query;
+        }
+
+        $query->whereExists(function ($query) use ($priorityWeights) {
+            $query->select('id')
+                ->from('users')
+                ->whereColumn('users.id', 'pool_candidates.user_id')
+                ->where(function ($query) use ($priorityWeights) {
+                    foreach ($priorityWeights as $index => $priorityWeight) {
+                        switch ($priorityWeight) {
+                            case PriorityWeight::PRIORITY_ENTITLEMENT->name:
+                                $query->orWhereIn('priority_verification',
+                                    [ClaimVerificationResult::ACCEPTED->name, ClaimVerificationResult::UNVERIFIED->name]
+                                );
+                                break;
+
+                            case PriorityWeight::VETERAN->name:
+                                $query->orWhereIn('veteran_verification',
+                                    [ClaimVerificationResult::ACCEPTED->name, ClaimVerificationResult::UNVERIFIED->name]
+                                );
+                                break;
+
+                            case PriorityWeight::CITIZEN_OR_PERMANENT_RESIDENT->name:
+                                $query->orWhereIn('citizenship',
+                                    [CitizenshipStatus::CITIZEN->name, CitizenshipStatus::PERMANENT_RESIDENT->name]
+                                );
+                                break;
+
+                            case PriorityWeight::OTHER->name:
+                                $query->orWhere('citizenship', CitizenshipStatus::OTHER->name);
+                                break;
                         }
                     }
                 });
