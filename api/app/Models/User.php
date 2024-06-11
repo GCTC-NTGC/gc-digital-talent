@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
@@ -199,6 +200,11 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     public function pools(): HasMany
     {
         return $this->hasMany(Pool::class);
+    }
+
+    public function poolBookmarks(): BelongsToMany
+    {
+        return $this->belongsToMany(Pool::class, 'pool_user_bookmarks', 'user_id', 'pool_id')->withTimestamps();
     }
 
     public function poolCandidates(): HasMany

@@ -30,6 +30,7 @@ class PoolTestSeeder extends Seeder
         $createdPool = Pool::factory()
             ->withPoolSkills(4, 4)
             ->withQuestions(2, 2)
+            ->withBookmark($adminUserId)
             ->published()
             ->createOrGetExisting([
                 'name' => [
@@ -73,6 +74,7 @@ class PoolTestSeeder extends Seeder
         Pool::factory()
             ->withPoolSkills(0, 0)
             ->withQuestions(0, 0)
+            ->withBookmark($adminUserId)
             ->draft()
             ->createOrGetExisting([
                 'name' => [
