@@ -161,6 +161,11 @@ class Pool extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function poolBookmarks(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'pool_user_bookmarks', 'pool_id', 'user_id')->withTimestamps();
+    }
+
     public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class);
@@ -477,6 +482,26 @@ class Pool extends Model
 
         return $query;
 
+    }
+
+    public function scopeOrderByPoolBookmarks(Builder $query, ?array $args): Builder
+    {
+        extract($args);
+
+        /** @var \App\Models\User */
+        $user = Auth::user();
+
+        // order the pools so that the bookmarks connected to current user sticks to the top
+        if ($order && $user) {
+            $query->orderBy(
+                $user->selectRaw('1')
+                    ->join('pool_user_bookmarks', 'pool_user_bookmarks.user_id', '=', 'users.id')
+                    ->where('pool_user_bookmarks.user_id', $user->id)
+                    ->whereColumn('pool_user_bookmarks.pool_id', 'pools.id')
+            );
+        }
+
+        return $query;
     }
 
     public function scopeAuthorizedToView(Builder $query)

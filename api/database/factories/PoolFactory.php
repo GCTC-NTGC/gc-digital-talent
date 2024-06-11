@@ -310,4 +310,14 @@ class PoolFactory extends Factory
 
         return $this->create($attributes);
     }
+
+    // Add a pool bookmark attached to user
+    public function withBookmark(string $user_id)
+    {
+        return $this->afterCreating(function (Pool $pool) use ($user_id) {
+            $pool->poolBookmarks()->attach($user_id);
+
+            return $pool;
+        });
+    }
 }

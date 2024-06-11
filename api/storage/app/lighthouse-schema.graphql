@@ -60,6 +60,7 @@ type Query {
     includeIds: [UUID!]
     excludeIds: [UUID!]
     where: PoolFilterInput
+    orderByPoolBookmarks: PoolBookmarksOrderByInput
     orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput
     orderBy: [QueryPoolsPaginatedOrderByRelationOrderByClause!]
 
@@ -156,6 +157,7 @@ type Mutation {
   duplicatePool(id: ID!, teamId: ID!): Pool
   updatePool(id: ID!, pool: UpdatePoolInput!): Pool
   updatePublishedPool(id: ID!, pool: UpdatePublishedPoolInput!): Pool
+  togglePoolUserBookmark(poolId: UUID!): Pool
   createPoolSkill(poolId: ID!, skillId: ID!, poolSkill: CreatePoolSkillInput!): PoolSkill
   updatePoolSkill(id: ID!, poolSkill: UpdatePoolSkillInput!): PoolSkill
   deletePoolSkill(id: ID!): PoolSkill
@@ -293,6 +295,7 @@ type User {
   authInfo: UserAuthInfo
   enabledEmailNotifications: [NotificationFamily]
   enabledInAppNotifications: [NotificationFamily]
+  poolBookmarks: [Pool]
 }
 
 interface Notification {
@@ -766,6 +769,11 @@ input PoolFilterInput {
 
 input PoolTeamDisplayNameOrderByInput {
   locale: String!
+  order: SortOrder!
+}
+
+input PoolBookmarksOrderByInput {
+  column: String!
   order: SortOrder!
 }
 
