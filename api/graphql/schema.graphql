@@ -288,6 +288,16 @@ type AssessmentResult {
   skillDecisionNotes: String @rename(attribute: "skill_decision_notes")
 }
 
+type AssessmentStepDecision {
+  step: UUID!
+  decision: AssessmentDecision
+}
+
+type AssessmentResultStatus {
+  decisions: [AssessmentStepDecision]
+  currentStep: Int
+}
+
 type PoolSkill {
   id: ID!
   type: PoolSkillType
@@ -341,6 +351,8 @@ type PoolCandidate {
   assessmentResults: [AssessmentResult]
     @hasMany
     @canRoot(ability: "viewAssessmentResults")
+  assessmentStatus: AssessmentResultStatus
+    @rename(attribute: "computed_assessment_status")
   finalDecisionAt: DateTime
     @rename(attribute: "final_decision_at")
     @canRoot(ability: "viewStatus")
