@@ -2,15 +2,20 @@
 
 namespace App\Models;
 
+use App\Enums\AssessmentDecision;
+use App\Enums\AssessmentResultType;
+use App\Enums\AssessmentStepType;
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\PoolCandidateStatus;
+use App\Enums\PoolSkillType;
 use App\Enums\PriorityWeight;
 use App\Enums\PublishingGroup;
 use App\Http\Resources\UserResource;
 use App\Observers\PoolCandidateObserver;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -833,5 +838,113 @@ class PoolCandidate extends Model
 
         $this->profile_snapshot = $profile;
         $this->save();
+    }
+
+    public function computeDecisionsPerAssessmentStep()
+    {
+        $decisions = [];
+        $this->load([
+            'pool.assessmentSteps',
+            'assessmentResults',
+        ]);
+
+        foreach ($this->pool->assessmentSteps as $step) {
+            $stepId = $step->id;
+            $hasFailure = false;
+            $hasOnHold = false;
+            $hasToAssess = false;
+
+            $stepResults = $this->assessmentResults()->where('assessment_step_id', $stepId);
+            if (! $stepResults->count()) {
+                $decisions[$stepId] = null;
+
+                continue;
+            }
+
+            // Check assessed essential skills on this step
+            $essentialSkillAssessments = $stepResults->whereHas('assessmentStep', function ($query) {
+                $query->whereHas('poolSkills', function ($query) {
+                    $query->where('type', PoolSkillType::ESSENTIAL->name);
+                });
+            });
+
+            if (! $essentialSkillAssessments) {
+                $decisions[$stepId] = null;
+
+                continue;
+            }
+
+            foreach ($essentialSkillAssessments as $essentialSkillAssessment) {
+                $decision = $essentialSkillAssessment->assessment_decision;
+                if (! $decision) {
+                    $hasToAssess = true;
+
+                    continue;
+                }
+
+                switch ($decision) {
+                    case AssessmentDecision::HOLD->name:
+                        $hasOnHold = true;
+                        break;
+                    case AssessmentDecision::UNSUCCESSFUL->name:
+                        $hasFailure = true;
+                        break;
+                    default:
+                }
+            }
+
+            // Check for education requirement if is application screening step
+            if ($step->type === AssessmentStepType::APPLICATION_SCREENING->name) {
+                $educationResults = $stepResults->where('assessment_result_type', AssessmentResultType::EDUCATION->name)->get();
+
+                if (! $educationResults) {
+                    $decision[$stepId] = null;
+
+                    continue;
+                }
+
+                foreach ($educationResults as $educationResult) {
+                    $decision = $educationResult->assessment_decision;
+                    if (! $decision) {
+                        $hasToAssess = true;
+
+                        continue;
+                    }
+
+                    switch ($decision) {
+                        case AssessmentDecision::HOLD->name:
+                            $hasOnHold = true;
+                            break;
+                        case AssessmentDecision::UNSUCCESSFUL->name:
+                            $hasFailure = true;
+                            break;
+                        default:
+                    }
+                }
+            }
+
+            if ($hasFailure) {
+                $decisions[$stepId] = AssessmentDecision::UNSUCCESSFUL->name;
+
+                continue;
+            }
+
+            if ($hasToAssess) {
+                $decisions[$stepId] = null;
+
+                continue;
+            }
+
+            if ($hasOnHold) {
+                $decisions[$stepId] = AssessmentDecision::HOLD->name;
+
+                continue;
+            }
+
+            $decisions[$stepId] = AssessmentDecision::SUCCESSFUL->name;
+
+        }
+
+        return $decisions;
     }
 }
