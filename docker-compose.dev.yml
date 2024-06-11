@@ -17,7 +17,7 @@ services:
       context: ./api
       dockerfile: dev.Dockerfile
     volumes:
-      - ./api:/var/www/html
+      - ./api:/home/site/wwwroot
     ports:
       - "8001:8001"
 
