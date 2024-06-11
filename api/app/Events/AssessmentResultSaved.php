@@ -5,7 +5,6 @@ namespace App\Events;
 use App\Models\AssessmentResult;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Log;
 
 class AssessmentResultSaved
 {
@@ -16,7 +15,5 @@ class AssessmentResultSaved
      */
     public function __construct(public AssessmentResult $result)
     {
-        //
-        Log::debug($result);
     }
 }
