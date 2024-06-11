@@ -441,7 +441,6 @@ type AssessmentStepDecision {
 
 type AssessmentResultStatus {
   decisions: [AssessmentStepDecision]
-  status: AssessmentStatus
   currentStep: Int
 }
 
@@ -2604,10 +2603,4 @@ enum PriorityWeight {
   VETERAN
   CITIZEN_OR_PERMANENT_RESIDENT
   OTHER
-}
-
-enum AssessmentStatus {
-  TO_ASSESS
-  DISQUALIFIED
-  QUALIFIED
 }
