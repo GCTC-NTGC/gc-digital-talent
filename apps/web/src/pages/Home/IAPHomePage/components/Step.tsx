@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import Heading from "./Heading";
+import Heading from "~/components/IAPHeading/Heading";
 
 interface StepProps {
   position: string;

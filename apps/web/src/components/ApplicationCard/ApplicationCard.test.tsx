@@ -17,7 +17,7 @@ import {
   makeFragmentData,
 } from "@gc-digital-talent/graphql";
 
-import { PAGE_SECTION_ID } from "~/pages/Profile/CareerTimelineAndRecruitmentPage/constants";
+import { PAGE_SECTION_ID } from "~/constants/sections/careerTimeline";
 
 import ApplicationCard, {
   ApplicationCardProps,

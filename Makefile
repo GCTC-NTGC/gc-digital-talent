@@ -36,5 +36,8 @@ artisan:
 watch:
 	docker-compose run -w /var/www/html --rm maintenance pnpm run watch
 
+lint-php:
+	$(DOCKER_EXEC) "vendor/bin/pint --test"
+
 queue-work:
 	$(DOCKER_EXEC) "runuser -u www-data -- php /home/site/wwwroot/api/artisan queue:work"

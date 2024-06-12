@@ -23,6 +23,16 @@ const messages = defineMessages({
     description:
       "Message displayed to user after user is updated successfully.",
   },
+  veteranStatus: {
+    defaultMessage: "Veteran status",
+    id: "OVWo88",
+    description: "Title for Veteran status",
+  },
+  priorityStatus: {
+    defaultMessage: "Priority status",
+    id: "+2PPS3",
+    description: "Title for priority status",
+  },
 });
 
 export default messages;

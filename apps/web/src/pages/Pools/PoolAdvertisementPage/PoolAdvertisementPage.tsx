@@ -20,6 +20,7 @@ import {
   Well,
   CardBasic,
   Button,
+  Separator,
 } from "@gc-digital-talent/ui";
 import {
   getLocale,
@@ -63,10 +64,10 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import { sortPoolSkillsBySkillCategory } from "~/utils/skillUtils";
-
 import ApplicationLink, {
   ApplicationLinkProps,
-} from "./components/ApplicationLink";
+} from "~/components/ApplicationLink/ApplicationLink";
+
 import Text from "./components/Text";
 import SkillAccordion from "./components/SkillAccordion";
 import DataRow from "./components/DataRow";
@@ -864,8 +865,8 @@ export const PoolPoster = ({
               <Text>
                 {intl.formatMessage({
                   defaultMessage:
-                    'To make the application process shorter, information is only collected on specific skills during the application stage. These are each identified under the skill name using "Assessed during initial application". Additional assessments will follow later if your application is successful.',
-                  id: "WppiY9",
+                    'To make the application process shorter, information is only collected on specific skills during the application stage. These are each identified under the skill name using "Assessed during initial application". Additional assessments will follow later if your application is successful. These additional assessments may be conducted on any of the required or optional skills.',
+                  id: "Qxl9Ec",
                   description:
                     "Descriptive text about how skills are used during the application process",
                 })}
@@ -1212,6 +1213,23 @@ export const PoolPoster = ({
               </Text>
               <ApplicationLink {...applicationLinkProps} />
             </TableOfContents.Section>
+            {pool.processNumber && (
+              <>
+                <Separator orientation="horizontal" space="sm" decorative />
+                <p
+                  data-h2-text-align="base(right)"
+                  data-h2-color="base(black.light)"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Selection process number",
+                    id: "LdlxBV",
+                    description: "Label for a process number",
+                  })}
+                  {intl.formatMessage(commonMessages.dividingColon)}
+                  {pool.processNumber}
+                </p>
+              </>
+            )}
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
       </div>

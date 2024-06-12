@@ -19,7 +19,13 @@ import {
   getPoolStream,
   getLocale,
 } from "@gc-digital-talent/i18n";
-import { graphql, Pool, PoolFilterInput } from "@gc-digital-talent/graphql";
+import {
+  FragmentType,
+  getFragment,
+  graphql,
+  Pool,
+  PoolFilterInput,
+} from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import Table, {
@@ -50,26 +56,36 @@ import {
   getOrderByClause,
   transformPoolFilterInputToFormValues,
   transformFormValuesToFilterInput,
+  poolBookmarkHeader,
+  poolBookmarkCell,
+  getPoolBookmarkSort,
 } from "./helpers";
 import PoolFilterDialog, { FormValues } from "./PoolFilterDialog";
+import { PoolBookmark_Fragment } from "./PoolBookmark";
 
 const columnHelper = createColumnHelper<Pool>();
 
 const defaultState = {
   ...INITIAL_STATE,
-  sortState: [{ id: "createdAt", desc: false }],
+  sortState: [{ id: "createdDate", desc: false }],
 };
 
 const PoolTable_Query = graphql(/* GraphQL */ `
   query PoolTable(
     $where: PoolFilterInput
+    $orderByPoolBookmarks: PoolBookmarksOrderByInput
     $orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput
     $orderBy: [QueryPoolsPaginatedOrderByRelationOrderByClause!]
     $first: Int
     $page: Int
   ) {
+    me {
+      id
+      ...PoolBookmark
+    }
     poolsPaginated(
       where: $where
+      orderByPoolBookmarks: $orderByPoolBookmarks
       orderByTeamDisplayName: $orderByTeamDisplayName
       orderBy: $orderBy
       first: $first
@@ -79,6 +95,7 @@ const PoolTable_Query = graphql(/* GraphQL */ `
         id
         stream
         publishingGroup
+        processNumber
         status
         createdDate
         updatedDate
@@ -193,11 +210,49 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
     }
   };
 
+  const [{ data, fetching }] = useQuery({
+    query: PoolTable_Query,
+    variables: {
+      where: transformPoolInput({ search: searchState, filters: filterState }),
+      page: paginationState.pageIndex,
+      first: paginationState.pageSize,
+      orderByPoolBookmarks: getPoolBookmarkSort(),
+      orderByTeamDisplayName: getTeamDisplayNameSort(sortState, locale),
+      orderBy: sortState ? getOrderByClause(sortState) : undefined,
+    },
+  });
+
+  const filteredData = useMemo(
+    () => unpackMaybes(data?.poolsPaginated.data),
+    [data?.poolsPaginated.data],
+  );
+
+  const user = getFragment(PoolBookmark_Fragment, data?.me);
+
   const columns = [
     columnHelper.accessor("id", {
       id: "id",
       enableColumnFilter: false,
       header: intl.formatMessage(adminMessages.id),
+    }),
+    columnHelper.display({
+      id: "poolBookmark",
+      header: () => poolBookmarkHeader(intl),
+      enableHiding: false,
+      cell: ({
+        row: {
+          original: { id, name },
+        },
+      }) =>
+        poolBookmarkCell(
+          user as FragmentType<typeof PoolBookmark_Fragment>,
+          id,
+          name,
+        ),
+      meta: {
+        shrink: true,
+        hideMobileHeader: true,
+      },
     }),
     columnHelper.accessor((row) => poolNameAccessor(row, intl), {
       id: "name",
@@ -264,6 +319,10 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
         header: intl.formatMessage(commonMessages.status),
       },
     ),
+    columnHelper.accessor("processNumber", {
+      id: "processNumber",
+      header: intl.formatMessage(processMessages.processNumber),
+    }),
     columnHelper.accessor(
       (row) => getLocalizedName(row.team?.displayName, intl, true),
       {
@@ -328,22 +387,6 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       }) => cells.date(updatedDate, intl),
     }),
   ] as ColumnDef<Pool>[];
-
-  const [{ data, fetching }] = useQuery({
-    query: PoolTable_Query,
-    variables: {
-      where: transformPoolInput({ search: searchState, filters: filterState }),
-      page: paginationState.pageIndex,
-      first: paginationState.pageSize,
-      orderByTeamDisplayName: getTeamDisplayNameSort(sortState, locale),
-      orderBy: sortState ? getOrderByClause(sortState) : undefined,
-    },
-  });
-
-  const filteredData = useMemo(
-    () => unpackMaybes(data?.poolsPaginated.data),
-    [data?.poolsPaginated.data],
-  );
 
   return (
     <Table<Pool>

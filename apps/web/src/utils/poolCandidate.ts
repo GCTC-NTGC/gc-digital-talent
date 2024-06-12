@@ -30,6 +30,7 @@ import {
   Maybe,
   PoolCandidateStatus,
   PublishingGroup,
+  PriorityWeight,
 } from "@gc-digital-talent/graphql";
 import {
   getOrThrowError,
@@ -715,3 +716,19 @@ export const getCombinedStatusLabel = (
     statusLabelKey,
     `Invalid statusLabelKey '${statusLabelKey}'`,
   );
+
+export const getPriorityWeight = (priorityWeight: number): PriorityWeight => {
+  if (priorityWeight === 10) {
+    return PriorityWeight.PriorityEntitlement;
+  }
+
+  if (priorityWeight === 20) {
+    return PriorityWeight.Veteran;
+  }
+
+  if (priorityWeight === 30) {
+    return PriorityWeight.CitizenOrPermanentResident;
+  }
+
+  return PriorityWeight.Other;
+};

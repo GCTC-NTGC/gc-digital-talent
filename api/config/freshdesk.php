@@ -59,18 +59,5 @@ return [
         |
         */
         'product_id' => env('FRESHDESK_API_PRODUCT_ID', ''),
-        /*
-        |--------------------------------------------------------------------------
-        | Freshdesk
-        |--------------------------------------------------------------------------
-        |
-        | This can be left empty.
-        | If the product_id is given and email_config_id is not given,
-        | the product's primary email_config_id will be set.
-        |
-        | Example: 1234567890
-        |
-        */
-        'email_config_id' => env('FRESHDESK_API_EMAIL_CONFIG_ID', ''),
     ],
 ];

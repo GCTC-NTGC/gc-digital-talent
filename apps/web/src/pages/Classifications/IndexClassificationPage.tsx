@@ -1,8 +1,5 @@
-import { MessageDescriptor, defineMessage, useIntl } from "react-intl";
-import TagOutlineIcon from "@heroicons/react/24/outline/TagIcon";
-import TagSolidIcon from "@heroicons/react/24/solid/TagIcon";
+import { useIntl } from "react-intl";
 
-import { IconType } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
@@ -11,22 +8,15 @@ import useRoutes from "~/hooks/useRoutes";
 import AdminHero from "~/components/Hero/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import pageTitles from "~/messages/pageTitles";
 
 import ClassificationTableApi from "./components/ClassificationTable";
-
-export const pageTitle: MessageDescriptor = defineMessage({
-  defaultMessage: "Classifications",
-  id: "kvpRgN",
-  description: "Title for classifications",
-});
-export const pageOutlineIcon: IconType = TagOutlineIcon;
-export const pageSolidIcon: IconType = TagSolidIcon;
 
 export const IndexClassificationPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
 
-  const formattedPageTitle = intl.formatMessage(pageTitle);
+  const formattedPageTitle = intl.formatMessage(pageTitles.classifications);
 
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [

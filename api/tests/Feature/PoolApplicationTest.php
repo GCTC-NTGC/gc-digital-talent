@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Enums\ArmedForcesStatus;
 use App\Enums\AssessmentStepType;
 use App\Enums\ClaimVerificationResult;

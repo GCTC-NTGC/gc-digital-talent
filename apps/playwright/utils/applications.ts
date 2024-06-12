@@ -24,3 +24,16 @@ export const Test_UpdateApplicationMutationDocument = /* GraphQL */ `
     }
   }
 `;
+
+export const Test_UpdateApplicationStatusMutationDocument = /* GraphQL */ `
+  mutation Test_UpdateApplicationStatus(
+    $id: UUID!
+    $input: UpdatePoolCandidateStatusInput!
+  ) {
+    updatePoolCandidateStatus(id: $id, poolCandidate: $input) {
+      id
+      expiryDate
+      status
+    }
+  }
+`;

@@ -31,18 +31,19 @@ import PoolStatusTable from "~/components/PoolStatusTable/PoolStatusTable";
 import AdminHero from "~/components/Hero/AdminHero";
 import { getCandidateStatusChip } from "~/utils/poolCandidate";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
-import { pageTitle as indexPoolPageTitle } from "~/pages/Pools/IndexPoolPage/IndexPoolPage";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import AssessmentResultsTable from "~/components/AssessmentResultsTable/AssessmentResultsTable";
-import ChangeStatusDialog from "~/pages/Users/UserInformationPage/components/ChangeStatusDialog";
+import ChangeStatusDialog from "~/components/CandidateDialog/ChangeStatusDialog";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import ErrorBoundary from "~/components/ErrorBoundary/ErrorBoundary";
+import pageTitles from "~/messages/pageTitles";
 
 import CareerTimelineSection from "./components/CareerTimelineSection/CareerTimelineSection";
 import ApplicationInformation from "./components/ApplicationInformation/ApplicationInformation";
 import ProfileDetails from "./components/ProfileDetails/ProfileDetails";
 import MoreActions from "./components/MoreActions/MoreActions";
+import ClaimVerification from "./components/ClaimVerification/ClaimVerification";
 
 const screeningAndAssessmentTitle = defineMessage({
   defaultMessage: "Screening and assessment",
@@ -54,6 +55,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
   query PoolCandidateSnapshot($poolCandidateId: UUID!) {
     poolCandidate(id: $poolCandidateId) {
       ...MoreActions
+      ...ClaimVerification
       id
       status
       user {
@@ -440,7 +442,7 @@ export const ViewPoolCandidate = ({
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [
       {
-        label: intl.formatMessage(indexPoolPageTitle),
+        label: intl.formatMessage(pageTitles.processes),
         url: paths.poolTable(),
       },
       {
@@ -570,6 +572,7 @@ export const ViewPoolCandidate = ({
               </Heading>
               <AssessmentResultsTable poolCandidate={poolCandidate} />
             </div>
+            <ClaimVerification verificationQuery={poolCandidate} />
             {parsedSnapshot ? (
               <div data-h2-margin-top="base(x2)">
                 <ErrorBoundary>

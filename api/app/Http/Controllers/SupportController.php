@@ -17,6 +17,13 @@ class SupportController extends Controller
                 'apiResponse' => 'Missing parameters',
             ], 500);
         }
+        // string values available from type field via /api/v2/ticket_fields.
+        $type_map =
+        [
+            'question' => 'Question',
+            'bug' => 'Bug',
+            'feedback' => 'Feedback',
+        ];
         $parameters = [
             'description' => $request->input('description'),
             'subject' => $request->input('subject'),
@@ -25,6 +32,7 @@ class SupportController extends Controller
             'priority' => 1, // Required by Freshdesk API. Priority of the ticket. The default value is 1.
             'status' => 2, // Required by Freshdesk API. Status of the ticket. The default value is 2.
             'tags' => [config('freshdesk.api.ticket_tag')],
+            'type' => array_key_exists($request->input('subject'), $type_map) ? $type_map[$request->input('subject')] : null,
         ];
         if ($request->input('previous_url')) {
             $parameters['custom_fields']['cf_page_url'] = (string) $request->input('previous_url');
@@ -34,9 +42,6 @@ class SupportController extends Controller
         }
         if (config('freshdesk.api.product_id')) {
             $parameters['product_id'] = (int) config('freshdesk.api.product_id');
-        }
-        if (config('freshdesk.api.email_config_id')) {
-            $parameters['email_config_id'] = (int) config('freshdesk.api.email_config_id');
         }
         $response = Http::withBasicAuth(config('freshdesk.api.key'), 'X')
             ->post(

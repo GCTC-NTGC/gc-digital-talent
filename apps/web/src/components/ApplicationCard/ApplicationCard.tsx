@@ -18,7 +18,7 @@ import {
   getShortPoolTitleLabel,
 } from "~/utils/poolUtils";
 import { getStatusChipInfo } from "~/components/QualifiedRecruitmentCard/utils";
-import ApplicationLink from "~/pages/Pools/PoolAdvertisementPage/components/ApplicationLink";
+import ApplicationLink from "~/components/ApplicationLink/ApplicationLink";
 
 import ApplicationActions from "./ApplicationActions";
 import { getApplicationDeadlineMessage } from "./utils";
