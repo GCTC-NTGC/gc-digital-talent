@@ -863,11 +863,12 @@ class PoolCandidate extends Model
             }
 
             // Check assessed essential skills on this step
-            $essentialSkillAssessments = $stepResults->whereHas('assessmentStep', function ($query) {
-                $query->whereHas('poolSkills', function ($query) {
-                    $query->where('type', PoolSkillType::ESSENTIAL->name);
+            $essentialSkillAssessments = $stepResults
+                ->filter(function ($result) {
+                    return $result->assessmentStep->poolSkills->contains(function ($poolSkill) {
+                        return $poolSkill->type === PoolSkillType::ESSENTIAL->name;
+                    });
                 });
-            });
 
             if (! $essentialSkillAssessments) {
                 $decisions[$stepId] = null;
