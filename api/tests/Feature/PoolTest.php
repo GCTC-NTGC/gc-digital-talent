@@ -963,19 +963,19 @@ class PoolTest extends TestCase
                     poolsPaginated(where: $where) {
                         data {
                             id
-                            team { id name }
+                            legacyTeam { id name }
                         }
                     }
                 }
             ',
             [
                 'where' => [
-                    'team' => $this->team->display_name['en'],
+                    'legacyTeam' => $this->team->display_name['en'],
                 ],
             ]
         )->assertJsonFragment([
             'id' => $toBeFound->id,
-            'team' => [
+            'legacyTeam' => [
                 'id' => $this->team->id,
                 'name' => $this->team->name,
             ],

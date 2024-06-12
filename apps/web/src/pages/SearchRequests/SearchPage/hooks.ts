@@ -75,7 +75,7 @@ const CandidateCount_Query = graphql(/* GraphQL */ `
             category
           }
         }
-        team {
+        legacyTeam {
           id
           name
           displayName {

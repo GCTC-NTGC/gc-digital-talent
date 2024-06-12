@@ -23,7 +23,7 @@ const mockCandidate = {
   ...mockCandidates[0],
   pool: {
     ...mockCandidates[0].pool,
-    team: mockTeams[0],
+    legacyTeam: mockTeams[0],
     publishingGroup: PublishingGroup.ItJobs,
     publishedAt: faker.date.past().toISOString(),
   },

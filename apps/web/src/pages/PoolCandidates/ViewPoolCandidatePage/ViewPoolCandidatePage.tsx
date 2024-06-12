@@ -96,7 +96,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
             }
             stream
             publishingGroup
-            team {
+            legacyTeam {
               id
               name
               displayName {

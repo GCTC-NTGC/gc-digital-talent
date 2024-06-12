@@ -195,7 +195,7 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
-    team {
+    legacyTeam {
       id
       name
       contactEmail
@@ -298,7 +298,7 @@ export const PoolPoster = ({
     ),
   );
 
-  const contactEmail = pool.team?.contactEmail;
+  const contactEmail = pool.legacyTeam?.contactEmail;
 
   const canApply = !!(pool?.status === PoolStatus.Published);
 
@@ -1123,7 +1123,10 @@ export const PoolPoster = ({
                         {
                           a: (chunks: ReactNode) =>
                             anchorTag(chunks, contactEmail),
-                          name: getLocalizedName(pool.team?.displayName, intl),
+                          name: getLocalizedName(
+                            pool.legacyTeam?.displayName,
+                            intl,
+                          ),
                         },
                       )}
                     </Text>

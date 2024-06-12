@@ -48,7 +48,7 @@ export const QualifiedRecruitmentCard_Fragment = graphql(/* GraphQL */ `
         group
         level
       }
-      team {
+      legacyTeam {
         id
         name
         departments {
@@ -100,7 +100,7 @@ const QualifiedRecruitmentCard = ({
   } = getQualifiedRecruitmentInfo(candidate, intl);
 
   const departments = joinDepartments(
-    candidate.pool?.team?.departments ?? [],
+    candidate.pool?.legacyTeam?.departments ?? [],
     intl,
   );
 

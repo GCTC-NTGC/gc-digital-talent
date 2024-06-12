@@ -46,8 +46,8 @@ class PoolCandidatePolicy
                 return true;
             }
 
-            $poolCandidate->loadMissing('pool.team');
-            $candidatePoolTeam = $poolCandidate->pool->team;
+            $poolCandidate->loadMissing('pool.legacyTeam');
+            $candidatePoolTeam = $poolCandidate->pool->legacyTeam;
             if ($user->isAbleTo('view-team-submittedApplication', $candidatePoolTeam)) {
                 return true;
             }
@@ -175,9 +175,9 @@ class PoolCandidatePolicy
         if ($user->isAbleTo('view-any-applicationStatus')) {
             return true;
         }
-        $poolCandidate->loadMissing('pool.team');
+        $poolCandidate->loadMissing('pool.legacyTeam');
 
-        return $user->isAbleTo('view-team-applicationStatus', $poolCandidate->pool->team);
+        return $user->isAbleTo('view-team-applicationStatus', $poolCandidate->pool->legacyTeam);
     }
 
     /**
@@ -191,9 +191,9 @@ class PoolCandidatePolicy
         if ($user->isAbleTo('update-any-applicationStatus')) {
             return true;
         }
-        $poolCandidate->loadMissing('pool.team');
+        $poolCandidate->loadMissing('pool.legacyTeam');
 
-        return $user->isAbleTo('update-team-applicationStatus', $poolCandidate->pool->team);
+        return $user->isAbleTo('update-team-applicationStatus', $poolCandidate->pool->legacyTeam);
     }
 
     // bookmarking and notes share permissions
@@ -202,9 +202,9 @@ class PoolCandidatePolicy
         if ($user->isAbleTo('update-any-applicationNotes')) {
             return true;
         }
-        $poolCandidate->loadMissing('pool.team');
+        $poolCandidate->loadMissing('pool.legacyTeam');
 
-        return $user->isAbleTo('update-team-applicationNotes', $poolCandidate->pool->team);
+        return $user->isAbleTo('update-team-applicationNotes', $poolCandidate->pool->legacyTeam);
     }
 
     public function viewNotes(User $user, PoolCandidate $poolCandidate)
@@ -212,9 +212,9 @@ class PoolCandidatePolicy
         if ($user->isAbleTo('view-any-applicationNotes')) {
             return true;
         }
-        $poolCandidate->loadMissing('pool.team');
+        $poolCandidate->loadMissing('pool.legacyTeam');
 
-        return $user->isAbleTo('view-team-applicationNotes', $poolCandidate->pool->team);
+        return $user->isAbleTo('view-team-applicationNotes', $poolCandidate->pool->legacyTeam);
     }
 
     public function updateNotes(User $user, PoolCandidate $poolCandidate)
@@ -222,9 +222,9 @@ class PoolCandidatePolicy
         if ($user->isAbleTo('update-any-applicationNotes')) {
             return true;
         }
-        $poolCandidate->loadMissing('pool.team');
+        $poolCandidate->loadMissing('pool.legacyTeam');
 
-        return $user->isAbleTo('update-team-applicationNotes', $poolCandidate->pool->team);
+        return $user->isAbleTo('update-team-applicationNotes', $poolCandidate->pool->legacyTeam);
     }
 
     /**
@@ -238,8 +238,8 @@ class PoolCandidatePolicy
         if ($user->isAbleTo('view-any-assessmentResult')) {
             return true;
         }
-        $poolCandidate->loadMissing('pool.team');
+        $poolCandidate->loadMissing('pool.legacyTeam');
 
-        return $user->isAbleTo('view-team-assessmentResult', $poolCandidate->pool->team);
+        return $user->isAbleTo('view-team-assessmentResult', $poolCandidate->pool->legacyTeam);
     }
 }

@@ -43,8 +43,8 @@ class PoolSkillPolicy
             return true;
         }
 
-        $poolSkill->loadMissing('pool.team');
+        $poolSkill->loadMissing('pool.legacyTeam');
 
-        return $user->isAbleTo('view-team-assessmentPlan', $poolSkill->pool->team);
+        return $user->isAbleTo('view-team-assessmentPlan', $poolSkill->pool->legacyTeam);
     }
 }

@@ -77,7 +77,7 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
         }
         stream
         publishingGroup
-        team {
+        legacyTeam {
           id
           name
           displayName {

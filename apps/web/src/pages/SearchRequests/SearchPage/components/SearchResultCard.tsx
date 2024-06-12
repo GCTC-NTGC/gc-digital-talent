@@ -25,7 +25,7 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
   const { register, setValue } = useFormContext();
   const poolSubmitProps = register("pool");
   const paths = useRoutes();
-  const departments = pool?.team?.departments
+  const departments = pool?.legacyTeam?.departments
     ?.filter(notEmpty)
     .map((department) => getLocalizedName(department.name, intl));
   const essentialSkills = filterPoolSkillsByType(
@@ -63,8 +63,8 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
               description: "Team and department of pool",
             },
             {
-              team: pool?.team
-                ? getLocalizedName(pool.team.displayName, intl)
+              team: pool?.legacyTeam
+                ? getLocalizedName(pool.legacyTeam.displayName, intl)
                 : intl.formatMessage({
                     defaultMessage: "Digital Community Management Team",
                     id: "S82O61",

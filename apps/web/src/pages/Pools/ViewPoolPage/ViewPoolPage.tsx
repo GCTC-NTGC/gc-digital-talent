@@ -438,7 +438,7 @@ const ViewPoolPage_Query = graphql(/* GraphQL */ `
   query ViewPoolPage($id: UUID!) {
     pool(id: $id) {
       ...ViewPool
-      team {
+      legacyTeam {
         id
         name
       }
@@ -469,7 +469,10 @@ const ViewPoolPage = () => {
               return mutations.close(poolId, reason);
             }}
             onDuplicate={async () => {
-              return mutations.duplicate(poolId, data?.pool?.team?.id || "");
+              return mutations.duplicate(
+                poolId,
+                data?.pool?.legacyTeam?.id || "",
+              );
             }}
             onArchive={async () => {
               return mutations.archive(poolId);

@@ -1129,7 +1129,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                     $query->whereHas('pool', function (Builder $query) use ($teamIds) {
                         return $query
                             ->where('submitted_at', '<=', Carbon::now()->toDateTimeString())
-                            ->whereHas('team', function (Builder $query) use ($teamIds) {
+                            ->whereHas('legacyTeam', function (Builder $query) use ($teamIds) {
                                 return $query->whereIn('id', $teamIds);
                             });
                     });

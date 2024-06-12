@@ -134,7 +134,7 @@ export const CareerTimelineApplication_Fragment = graphql(/* GraphQL */ `
         maxSalary
       }
 
-      team {
+      legacyTeam {
         id
         name
         departments {

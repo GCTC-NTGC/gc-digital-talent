@@ -24,11 +24,11 @@ class AssessmentStepPolicy
     {
         if (array_key_exists('pool_id', $request)) {
             $poolId = $request['pool_id'];
-            $pool = Pool::with('team')->find($poolId);
+            $pool = Pool::with('legacyTeam')->find($poolId);
 
             if (! is_null($pool)) {
                 if ($pool->getStatusAttribute() === PoolStatus::DRAFT->name
-                    && $user->isAbleTo('update-team-draftPool', $pool->team)) {
+                    && $user->isAbleTo('update-team-draftPool', $pool->legacyTeam)) {
                     return true;
                 }
             } else {
@@ -48,10 +48,10 @@ class AssessmentStepPolicy
      */
     public function update(User $user, AssessmentStep $assessmentStep)
     {
-        $assessmentStep->loadMissing('pool.team');
+        $assessmentStep->loadMissing('pool.legacyTeam');
 
         return $assessmentStep->pool->getStatusAttribute() === PoolStatus::DRAFT->name
-        && $user->isAbleTo('update-team-draftPool', $assessmentStep->pool->team);
+        && $user->isAbleTo('update-team-draftPool', $assessmentStep->pool->legacyTeam);
     }
 
     /**
@@ -65,9 +65,9 @@ class AssessmentStepPolicy
             return true;
         }
 
-        $assessmentStep->loadMissing('pool.team');
+        $assessmentStep->loadMissing('pool.legacyTeam');
 
-        return $user->isAbleTo('view-team-assessmentPlan', $assessmentStep->pool->team);
+        return $user->isAbleTo('view-team-assessmentPlan', $assessmentStep->pool->legacyTeam);
     }
 
     /**
@@ -81,8 +81,8 @@ class AssessmentStepPolicy
             return true;
         }
 
-        $assessmentStep->loadMissing('pool.team');
+        $assessmentStep->loadMissing('pool.legacyTeam');
 
-        return $user->isAbleTo('view-team-assessmentResult', $assessmentStep->pool->team);
+        return $user->isAbleTo('view-team-assessmentResult', $assessmentStep->pool->legacyTeam);
     }
 }
