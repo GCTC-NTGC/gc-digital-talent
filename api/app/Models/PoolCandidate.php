@@ -880,13 +880,11 @@ class PoolCandidate extends Model
 
             foreach ($essentialSkillAssessments as $essentialSkillAssessment) {
                 $decision = $essentialSkillAssessment->assessment_decision;
-                if (! $decision) {
-                    $hasToAssess = true;
-
-                    continue;
-                }
 
                 switch ($decision) {
+                    case null:
+                        $hasToAssess = true;
+                        break;
                     case AssessmentDecision::HOLD->name:
                         $hasOnHold = true;
                         break;
@@ -909,13 +907,10 @@ class PoolCandidate extends Model
 
                 foreach ($educationResults as $educationResult) {
                     $decision = $educationResult->assessment_decision;
-                    if (! $decision) {
-                        $hasToAssess = true;
-
-                        continue;
-                    }
-
                     switch ($decision) {
+                        case null:
+                            $hasToAssess = true;
+                            break;
                         case AssessmentDecision::HOLD->name:
                             $hasOnHold = true;
                             break;
