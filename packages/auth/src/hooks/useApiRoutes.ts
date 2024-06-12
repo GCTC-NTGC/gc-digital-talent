@@ -1,11 +1,9 @@
-import path from "path-browserify";
-
 interface ApiRoutes {
   login: (from?: string, locale?: string) => string;
   refreshAccessToken: () => string;
 }
 
-const apiRoot = (): string => "/";
+const apiHost = (): string => "http://localhost:8001";
 
 const apiRoutes = {
   login: (from?: string, locale?: string): string => {
@@ -14,12 +12,14 @@ const apiRoutes = {
     if (locale) searchTerms.push(`locale=${encodeURI(locale)}`);
     const searchString = searchTerms.join("&");
 
-    const url =
-      path.join(apiRoot(), "login") + (searchString ? `?${searchString}` : "");
+    // eslint-disable-next-line prefer-template
+    const loginPath = "login" + (searchString ? `?${searchString}` : "");
 
-    return url;
+    const url = new URL(loginPath, apiHost());
+
+    return url.toString();
   },
-  refreshAccessToken: (): string => path.join(apiRoot(), "refresh"),
+  refreshAccessToken: (): string => new URL("refresh", apiHost()).toString(),
 };
 
 export default apiRoutes;
