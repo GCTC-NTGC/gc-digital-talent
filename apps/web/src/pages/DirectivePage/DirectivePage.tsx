@@ -43,12 +43,6 @@ const policyLink = (locale: Locales, chunks: ReactNode) => (
   </Link>
 );
 
-const contactLink = (chunks: ReactNode) => (
-  <Link external href="mailto:GCTalentGC@tbs-sct.gc.ca">
-    {chunks}
-  </Link>
-);
-
 export const pageTitle = defineMessage({
   defaultMessage: "Directive on Digital Talent",
   id: "xXwUGs",
@@ -215,20 +209,6 @@ export const Component = () => {
               description:
                 "Second paragraph describing the directive on digital talent",
             })}
-          </p>
-          <p>
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "Want to coordinate a presentation for your department? <contactLink>Contact us</contactLink>.",
-                id: "TmDejD",
-                description:
-                  "Third paragraph describing the directive on digital talent",
-              },
-              {
-                contactLink,
-              },
-            )}
           </p>
           <p>
             <Link color="primary" mode="solid" href={directiveUrl} external>
