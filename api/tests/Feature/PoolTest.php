@@ -1276,14 +1276,10 @@ class PoolTest extends TestCase
                 ],
             ]);
 
-        // Platform admins can edit
+        // Platform admins cannot edit
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($mutation, $vars)
-            ->assertExactJson([
-                'data' => [
-                    'updatePublishedPool' => ['id' => $pool->id],
-                ],
-            ]);
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
 
         // Cannot update without justification
         $this->actingAs($this->adminUser, 'api')
