@@ -57,7 +57,7 @@ class ComputeFinalDecisionAndCurrentStep
         }
 
         $candidate->computed_assessment_status = [
-            'current_step' => $currentStep,
+            'currentStep' => $currentStep,
             'decisions' => $decisions,
         ];
 

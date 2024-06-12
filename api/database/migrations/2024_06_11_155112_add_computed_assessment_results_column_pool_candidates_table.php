@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::table('pool_candidates', function (Blueprint $table) {
             $table->jsonb('computed_assessment_status')->nullable()->default(json_encode([
                 'decisions' => [],
-                'current_step' => 1,
+                'currentStep' => 1,
             ]));
         });
     }
