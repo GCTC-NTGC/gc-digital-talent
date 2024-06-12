@@ -435,7 +435,7 @@ type AssessmentResult {
 }
 
 type AssessmentStepDecision {
-  step: UUID!
+  step: AssessmentStep!
   decision: AssessmentDecision
 }
 

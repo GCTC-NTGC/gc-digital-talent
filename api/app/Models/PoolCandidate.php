@@ -854,7 +854,7 @@ class PoolCandidate extends Model
             $hasOnHold = false;
             $hasToAssess = false;
 
-            $stepResults = $this->assessmentResults()->where('assessment_step_id', $stepId);
+            $stepResults = $this->assessmentResults->where('assessment_step_id', $stepId);
             if (! $stepResults->count()) {
                 $decisions[$stepId] = null;
 
