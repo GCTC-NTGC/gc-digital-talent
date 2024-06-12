@@ -846,6 +846,7 @@ class PoolCandidate extends Model
         $this->load([
             'pool.assessmentSteps',
             'assessmentResults',
+            'assessmentResults.assessmentStep.poolSkills',
         ]);
 
         foreach ($this->pool->assessmentSteps as $step) {
