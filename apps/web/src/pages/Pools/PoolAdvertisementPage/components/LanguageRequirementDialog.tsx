@@ -97,29 +97,6 @@ const LanguageRequirementDialog = ({
   const intl = useIntl();
   const locale = getLocale(intl);
 
-  const languageProfilesList = [
-    {
-      title: languageProfiles.frenchEssential,
-      description: languageProfileDescriptions.frenchEssential,
-    },
-    {
-      title: languageProfiles.englishEssential,
-      description: languageProfileDescriptions.englishEssential,
-    },
-    {
-      title: languageProfiles.bilingualIntermediate,
-      description: languageProfileDescriptions.bilingualIntermediate,
-    },
-    {
-      title: languageProfiles.bilingualAdvanced,
-      description: languageProfileDescriptions.bilingualAdvanced,
-    },
-    {
-      title: languageProfiles.various,
-      description: languageProfileDescriptions.various,
-    },
-  ];
-
   return (
     <Dialog.Root>
       <Dialog.Trigger>
@@ -170,19 +147,59 @@ const LanguageRequirementDialog = ({
                   }) + intl.formatMessage(commonMessages.dividingColon)}
                 </p>
               </div>
-              <ul data-h2-display="base(grid)" data-h2-gap="base(x.5)">
-                {languageProfilesList.map((item) => (
-                  <li key={uniqueId()}>
-                    <p
-                      data-h2-color="base(primary)"
+            <dl data-h2-display="base(grid)" data-h2-gap="base(x.5)">
+              <dt
+                data-h2-color="base(primary.dark)"
+                data-h2-font-weight="base(bold)"
+              >
+                {intl.formatMessage(languageProfiles.englishEssential)}
+              </dt>
+              <dd>
+                {intl.formatMessage(
+                  languageProfileDescriptions.englishEssential,
+                )}
+              </dd>
+              <dt
+                data-h2-color="base(primary.dark)"
+                data-h2-font-weight="base(bold)"
+              >
+                {intl.formatMessage(languageProfiles.frenchEssential)}
+              </dt>
+              <dd>
+                {intl.formatMessage(
+                  languageProfileDescriptions.frenchEssential,
+                )}
+              </dd>
+              <dt
+                data-h2-color="base(primary.dark)"
+                data-h2-font-weight="base(bold)"
+              >
+                {intl.formatMessage(languageProfiles.bilingualIntermediate)}
+              </dt>
+              <dd>
+                {intl.formatMessage(
+                  languageProfileDescriptions.bilingualIntermediate,
+                )}
+              </dd>
+              <dt
+                data-h2-color="base(primary.dark)"
+                data-h2-font-weight="base(bold)"
+              >
+                {intl.formatMessage(languageProfiles.bilingualAdvanced)}
+              </dt>
+              <dd>
+                {intl.formatMessage(
+                  languageProfileDescriptions.bilingualAdvanced,
+                )}
+              </dd>
+              <dt
+                data-h2-color="base(primary.dark)"
                       data-h2-font-weight="base(bold)"
                     >
-                      {intl.formatMessage(item.title)}
-                    </p>
-                    <p>{intl.formatMessage(item.description)}</p>
-                  </li>
-                ))}
-              </ul>
+                {intl.formatMessage(languageProfiles.various)}
+              </dt>
+              <dd>{intl.formatMessage(languageProfileDescriptions.various)}</dd>
+            </dl>
             </div>
             <div>
               <Heading
