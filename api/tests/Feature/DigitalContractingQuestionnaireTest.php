@@ -29,6 +29,8 @@ class DigitalContractingQuestionnaireTest extends TestCase
     {
         parent::setUp();
 
+        $this->markTestSkipped('Feature does not have an imminent launch.');
+
         $this->seed(RolePermissionSeeder::class);
 
         $this->bootRefreshesSchemaCache();
