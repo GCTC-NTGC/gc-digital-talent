@@ -295,7 +295,7 @@ type AssessmentStepDecision {
 
 type AssessmentResultStatus {
   decisions: [AssessmentStepDecision]
-  currentStep: Int
+  currentStep: Int # Starts at 1, null indicates all steps successful
 }
 
 type PoolSkill {
