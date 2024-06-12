@@ -50,6 +50,15 @@ export const priorityEntitlementCandidate: PoolCandidate = {
   },
   isBookmarked: false,
   assessmentResults: [getAssessmentResult()],
+  assessmentStatus: {
+    currentStep: 2,
+    decisions: [
+      {
+        step: requiredAssessment.id,
+        decision: AssessmentDecision.Successful,
+      },
+    ],
+  },
 };
 export const armedForcesCandidate: PoolCandidate = {
   ...fakeCandidates[1],
@@ -63,6 +72,15 @@ export const armedForcesCandidate: PoolCandidate = {
   },
   isBookmarked: false,
   assessmentResults: [getAssessmentResult()],
+  assessmentStatus: {
+    currentStep: 2,
+    decisions: [
+      {
+        step: requiredAssessment.id,
+        decision: AssessmentDecision.Successful,
+      },
+    ],
+  },
 };
 export const bookmarkedCandidate: PoolCandidate = {
   ...fakeCandidates[2],
@@ -76,6 +94,15 @@ export const bookmarkedCandidate: PoolCandidate = {
   },
   isBookmarked: true,
   assessmentResults: [getAssessmentResult()],
+  assessmentStatus: {
+    currentStep: 2,
+    decisions: [
+      {
+        step: requiredAssessment.id,
+        decision: AssessmentDecision.Successful,
+      },
+    ],
+  },
 };
 export const unassessedCandidate: PoolCandidate = {
   ...fakeCandidates[3],
@@ -99,12 +126,25 @@ export const unassessedCandidate: PoolCandidate = {
       },
     },
   ],
+  assessmentStatus: {
+    currentStep: 1,
+    decisions: [],
+  },
 };
 export const lastByFirstName: PoolCandidate = {
   ...fakeCandidates[4],
   id: "last-by-first-name",
   isBookmarked: false,
   assessmentResults: [getAssessmentResult()],
+  assessmentStatus: {
+    currentStep: 2,
+    decisions: [
+      {
+        step: requiredAssessment.id,
+        decision: AssessmentDecision.Successful,
+      },
+    ],
+  },
   user: {
     id: faker.string.uuid(),
     firstName: "BB",
@@ -118,6 +158,15 @@ export const firstByName: PoolCandidate = {
   id: "first-by-name",
   isBookmarked: false,
   assessmentResults: [getAssessmentResult()],
+  assessmentStatus: {
+    currentStep: 2,
+    decisions: [
+      {
+        step: requiredAssessment.id,
+        decision: AssessmentDecision.Successful,
+      },
+    ],
+  },
   user: {
     id: faker.string.uuid(),
     firstName: "AA",
@@ -130,6 +179,15 @@ export const secondLastByStatus: PoolCandidate = {
   id: "second-last-by-status",
   isBookmarked: false,
   assessmentResults: [getAssessmentResult(AssessmentDecision.Hold)],
+  assessmentStatus: {
+    currentStep: 1,
+    decisions: [
+      {
+        step: requiredAssessment.id,
+        decision: AssessmentDecision.Hold,
+      },
+    ],
+  },
   user: {
     id: faker.string.uuid(),
     firstName: "on",
@@ -143,6 +201,15 @@ export const lastByStatus: PoolCandidate = {
   id: "last-by-status",
   isBookmarked: false,
   assessmentResults: [getAssessmentResult(AssessmentDecision.Unsuccessful)],
+  assessmentStatus: {
+    currentStep: 1,
+    decisions: [
+      {
+        step: requiredAssessment.id,
+        decision: AssessmentDecision.Unsuccessful,
+      },
+    ],
+  },
   user: {
     id: faker.string.uuid(),
     firstName: "not",
