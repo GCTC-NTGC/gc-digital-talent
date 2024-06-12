@@ -92,7 +92,7 @@ type LanguageRequirementDialogProps = {
 };
 
 const LanguageRequirementDialog = ({
-  headingLevel,
+  headingLevel = "h3",
 }: LanguageRequirementDialogProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
