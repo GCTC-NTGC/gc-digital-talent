@@ -57,6 +57,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property Illuminate\Support\Carbon $veteran_verification_expiry
  * @property string $priority_verification
  * @property Illuminate\Support\Carbon $priority_verification_expiry
+ * @property array $computed_assessment_status
  */
 class PoolCandidate extends Model
 {
@@ -84,6 +85,7 @@ class PoolCandidate extends Model
         'removed_at' => 'datetime',
         'veteran_verification_expiry' => 'date',
         'priority_verification_expiry' => 'date',
+        'computed_assessment_status' => 'array',
     ];
 
     /**
@@ -897,10 +899,10 @@ class PoolCandidate extends Model
 
             // Check for education requirement if is application screening step
             if ($step->type === AssessmentStepType::APPLICATION_SCREENING->name) {
-                $educationResults = $stepResults->where('assessment_result_type', AssessmentResultType::EDUCATION->name)->get();
+                $educationResults = $stepResults->where('assessment_result_type', AssessmentResultType::EDUCATION->name);
 
                 if (! $educationResults) {
-                    $decision[$stepId] = null;
+                    $decisions[$stepId] = null;
 
                     continue;
                 }
