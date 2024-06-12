@@ -35,3 +35,6 @@ artisan:
 
 watch:
 	docker-compose run -w /var/www/html --rm maintenance pnpm run watch
+
+lint-php:
+	$(DOCKER_EXEC) "vendor/bin/pint --test"

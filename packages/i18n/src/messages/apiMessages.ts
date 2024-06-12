@@ -406,6 +406,11 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       description:
         "Message displayed when user attempts to submit a form without at least one personnel requirement",
     },
+    VERIFICATION_FAILED: {
+      defaultMessage: "Verification failed.",
+      id: "XFFFCu",
+      description: "Error message that the verification was not successful.",
+    },
   },
 );
 

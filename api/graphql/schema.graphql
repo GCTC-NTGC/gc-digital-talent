@@ -43,6 +43,7 @@ type User {
   firstName: String @rename(attribute: "first_name")
   lastName: String @rename(attribute: "last_name")
   email: Email
+  emailVerifiedAt: DateTime @rename(attribute: "email_verified_at")
   telephone: PhoneNumber
   preferredLang: Language @rename(attribute: "preferred_lang")
   preferredLanguageForInterview: Language
@@ -124,6 +125,9 @@ type User {
     @rename(attribute: "enabled_email_notifications")
   enabledInAppNotifications: [NotificationFamily]
     @rename(attribute: "enabled_in_app_notifications")
+
+  # Bookmarks
+  poolBookmarks: [Pool] @belongsToMany
 }
 
 interface Notification {
@@ -688,6 +692,11 @@ input PoolTeamDisplayNameOrderByInput {
   order: SortOrder!
 }
 
+input PoolBookmarksOrderByInput {
+  column: String!
+  order: SortOrder!
+}
+
 # Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
 input ApplicantFilterInput {
   equity: EquitySelectionsInput @scope
@@ -817,6 +826,7 @@ type Query {
     includeIds: [UUID!] @in(key: "id")
     excludeIds: [UUID!] @notIn(key: "id")
     where: PoolFilterInput
+    orderByPoolBookmarks: PoolBookmarksOrderByInput @scope
     orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput @scope
     orderBy: _
       @orderBy(
@@ -1745,6 +1755,12 @@ type Mutation {
     @restore
     @guard
     @canFind(ability: "restore", find: "id")
+  SendUserEmailVerification(id: ID!): User
+    @guard
+    @canFind(ability: "update", find: "id")
+  verifyUserEmail(id: ID!, code: String!): User
+    @guard
+    @canFind(ability: "update", find: "id")
 
   # poolCandidate mutations
   createPoolCandidateAsAdmin(
@@ -1962,6 +1978,10 @@ type Mutation {
     @update
     @guard
     @canFind(ability: "updatePublished", find: "id")
+  togglePoolUserBookmark(poolId: UUID! @rename(attribute: "pool_id")): Pool
+    @guard
+    @canFind(ability: "view", find: "pool_id", model: "Pool", injectArgs: true)
+
   createPoolSkill(
     poolId: ID! @rename(attribute: "pool_id")
     skillId: ID! @rename(attribute: "skill_id")
