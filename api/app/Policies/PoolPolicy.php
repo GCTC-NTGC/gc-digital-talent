@@ -167,7 +167,7 @@ class PoolPolicy
     {
         $pool->loadMissing('team');
 
-        return $user->isAbleTo('update-team-publishedPool', $pool->team);
+        return $user->isAbleTo('update-any-publishedPool') || $user->isAbleTo('update-team-publishedPool', $pool->team);
     }
 
     /**
@@ -179,7 +179,7 @@ class PoolPolicy
     {
         $pool->loadMissing('team');
 
-        return $user->isAbleTo('update-team-publishedPool', $pool->team);
+        return $user->isAbleTo('update-any-publishedPool') || $user->isAbleTo('update-team-publishedPool', $pool->team);
     }
 
     /**

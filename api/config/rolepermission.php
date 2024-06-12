@@ -864,6 +864,9 @@ return [
             'draftPool' => [
                 'team' => ['create', 'view', 'update', 'delete'],
             ],
+            'publishedPool' => [
+                'team' => ['archive']
+            ],
             'submittedApplication' => [
                 'team' => ['view'],
             ],
@@ -1109,9 +1112,6 @@ return [
             ],
             'pool' => [
                 'any' => ['view'],
-            ],
-            'publishedPool' => [
-                'any' => ['update'], // TODO: remove update any pool permission during #10368 (Post-communities cleanup)
             ],
             'assessmentPlan' => [
                 'any' => ['view'],
