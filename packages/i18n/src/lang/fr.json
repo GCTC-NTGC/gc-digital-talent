@@ -1139,6 +1139,10 @@
     "defaultMessage": "Lien",
     "description": "Label for adding a link in the rich text editor"
   },
+  "XFFFCu": {
+    "defaultMessage": "Vérification échouée.",
+    "description": "Error message that the verification was not successful."
+  },
   "XNDPQM": {
     "defaultMessage": "Un champ obligatoire est vide : Date de fin",
     "description": "Error message that the pool advertisement must have an expiry date."

@@ -11,6 +11,8 @@ use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PositionDuration;
+use App\Notifications\VerifyEmail;
+use App\Observers\UserObserver;
 use App\Traits\EnrichedNotifiable;
 use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
@@ -20,6 +22,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
@@ -38,6 +41,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  *
  * @property string $id
  * @property string $email
+ * @property Illuminate\Support\Carbon email_verified_at
  * @property string $sub
  * @property string $first_name
  * @property string $last_name
@@ -199,6 +203,11 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     public function pools(): HasMany
     {
         return $this->hasMany(Pool::class);
+    }
+
+    public function poolBookmarks(): BelongsToMany
+    {
+        return $this->belongsToMany(Pool::class, 'pool_user_bookmarks', 'user_id', 'pool_id')->withTimestamps();
     }
 
     public function poolCandidates(): HasMany
@@ -569,6 +578,14 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             $newEmail = $user->email.'-restored-at-'.Carbon::now()->format('Y-m-d');
             $user->update(['email' => $newEmail]);
         });
+    }
+
+    /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        User::observe(UserObserver::class);
     }
 
     // Search filters
@@ -1173,5 +1190,46 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         }
 
         return $query;
+    }
+
+    /**
+     * Determine if the user has verified their email address.
+     *
+     * @return bool
+     */
+    public function hasVerifiedEmail()
+    {
+        return ! is_null($this->email_verified_at);
+    }
+
+    /**
+     * Mark the given user's email as verified.
+     *
+     * @return bool
+     */
+    public function markEmailAsVerified()
+    {
+        $this->email_verified_at = Carbon::now();
+    }
+
+    /**
+     * Send the email verification notification.
+     *
+     * @return void
+     */
+    public function sendEmailVerificationNotification()
+    {
+        $message = new VerifyEmail();
+        $this->notify($message);
+    }
+
+    /**
+     * Get the email address that should be used for verification.
+     *
+     * @return string
+     */
+    public function getEmailForVerification()
+    {
+        return $this->email;
     }
 }

@@ -31,6 +31,7 @@ class PoolTestSeeder extends Seeder
             ->withPoolSkills(4, 4)
             ->withQuestions(2, 2)
             ->withTeamMembers()
+            ->withBookmark($adminUserId)
             ->published()
             ->createOrGetExisting([
                 'name' => [
@@ -75,6 +76,7 @@ class PoolTestSeeder extends Seeder
             ->withPoolSkills(0, 0)
             ->withQuestions(0, 0)
             ->withTeamMembers()
+            ->withBookmark($adminUserId)
             ->draft()
             ->createOrGetExisting([
                 'name' => [

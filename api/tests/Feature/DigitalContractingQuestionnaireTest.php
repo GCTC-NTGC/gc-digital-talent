@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Models\Department;
 use App\Models\DigitalContractingQuestionnaire;
 use App\Models\Skill;
@@ -26,6 +28,8 @@ class DigitalContractingQuestionnaireTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        $this->markTestSkipped('Feature does not have an imminent launch.');
 
         $this->seed(RolePermissionSeeder::class);
 

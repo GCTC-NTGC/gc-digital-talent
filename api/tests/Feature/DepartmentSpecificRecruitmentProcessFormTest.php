@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Models\Department;
 use App\Models\DepartmentSpecificRecruitmentProcessForm;
 use App\Models\Skill;

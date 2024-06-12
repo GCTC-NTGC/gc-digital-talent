@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Enums\SkillLevel;
 use App\Enums\WhenSkillUsed;
 use App\Models\ExperienceSkill;
@@ -8,6 +10,7 @@ use App\Models\User;
 use App\Models\UserSkill;
 use App\Models\WorkExperience;
 use Carbon\Carbon;
+use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Testing\Fluent\AssertableJson;
