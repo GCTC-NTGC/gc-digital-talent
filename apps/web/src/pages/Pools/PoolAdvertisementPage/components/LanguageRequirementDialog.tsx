@@ -376,8 +376,8 @@ const LanguageRequirementDialog = ({
                       external
                       href={
                         locale === "fr"
-                          ? "https://www.canada.ca/fr/commission-fonction-publique/services/evaluation-langue-seconde.html"
-                          : "https://www.canada.ca/fr/commission-fonction-publique/services/evaluation-langue-seconde/tests-autoevaluation.html"
+                          ? "https://www.canada.ca/fr/secretariat-conseil-tresor/services/dotation/normes-qualification/relatives-langues-officielles.html"
+                          : "https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/relation-official-languages.html"
                       }
                     >
                       {intl.formatMessage({
