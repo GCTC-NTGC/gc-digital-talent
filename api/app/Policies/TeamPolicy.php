@@ -94,10 +94,7 @@ class TeamPolicy
     {
         $team->loadMissing('teamable');
 
-        if (is_null($team->teamable)) {
-            return true;
-        }
-
-        return $user->can('view', $team->teamable);
+        // Allow any user to see if there is no teamable
+        return is_null($team->teamable) || $user->can('view', $team->teamable);
     }
 }
