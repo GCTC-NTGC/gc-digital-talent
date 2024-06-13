@@ -18,8 +18,8 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import Hero from "~/components/Hero";
-import contractingEn from "~/assets/documents/Digital_Contracting_Questionnaire_EN.docx";
-import contractingFr from "~/assets/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx";
+import contractingEn from "~/assets/documents/Digital_Contracting_Questionnaire_EN.docx?url";
+import contractingFr from "~/assets/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx?url";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import { pageTitle as directiveHomePageTitle } from "../../DirectivePage/DirectivePage";

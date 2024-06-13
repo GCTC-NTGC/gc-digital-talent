@@ -23,8 +23,8 @@ import {
   YesNoUnsure,
 } from "@gc-digital-talent/graphql";
 
-import talentPlanEn from "~/assets/documents/Forward_Talent_Plan_EN.docx";
-import talentPlanFr from "~/assets/documents/Plan_prospectif_sur_les_talents_FR.docx";
+import talentPlanEn from "~/assets/documents/Forward_Talent_Plan_EN.docx?url";
+import talentPlanFr from "~/assets/documents/Plan_prospectif_sur_les_talents_FR.docx?url";
 
 import {
   buildExternalLink,
