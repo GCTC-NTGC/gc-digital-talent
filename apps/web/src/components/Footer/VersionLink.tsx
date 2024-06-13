@@ -7,10 +7,10 @@ const VersionLink = () => {
   const intl = useIntl();
   let content;
   let url;
-  if (VERSION) {
+  if (typeof VERSION !== "undefined") {
     content = VERSION;
     url = `https://github.com/GCTC-NTGC/gc-digital-talent/releases/tag/${VERSION}`;
-  } else if (COMMIT_HASH) {
+  } else if (typeof COMMIT_HASH !== "undefined") {
     content = COMMIT_HASH;
     url = `https://github.com/GCTC-NTGC/gc-digital-talent/commit/${COMMIT_HASH}`;
   }
