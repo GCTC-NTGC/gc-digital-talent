@@ -6,6 +6,7 @@ use App\Enums\AssessmentStepType;
 use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
 use App\Enums\SkillCategory;
+use App\GraphQL\Validators\AssessmentPlanIsCompleteValidator;
 use App\GraphQL\Validators\PoolIsCompleteValidator;
 use App\Observers\PoolObserver;
 use Carbon\Carbon;
@@ -342,6 +343,24 @@ class Pool extends Model
         $validator = Validator::make($pool->toArray(),
             $poolCompleteValidation->rules(),
             $poolCompleteValidation->messages()
+        );
+
+        if ($validator->fails()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    // is the assessment plan for the pool considered "complete"
+    public function getAssessmentPlanIsCompleteAttribute()
+    {
+        $pool = $this->load(['assessmentSteps', 'poolSkills']);
+
+        $planCompletionValidation = new AssessmentPlanIsCompleteValidator;
+        $validator = Validator::make($pool->toArray(),
+            $planCompletionValidation->rules(),
+            $planCompletionValidation->messages()
         );
 
         if ($validator->fails()) {

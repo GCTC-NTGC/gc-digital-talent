@@ -73,6 +73,7 @@ type Query {
   poolCandidatesPaginated(
     where: PoolCandidateSearchInput
     orderByPoolName: PoolCandidatePoolNameOrderByInput
+    orderByClaimVerification: SortOrder
     orderBy: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
@@ -401,6 +402,7 @@ type Pool implements HasRoleAssignments {
   publishedAt: DateTime
   archivedAt: DateTime
   isComplete: Boolean
+  assessmentPlanIsComplete: Boolean
   assessmentSteps: [AssessmentStep]
   poolSkills(type: PoolSkillType): [PoolSkill]
   roleAssignments: [RoleAssignment!]

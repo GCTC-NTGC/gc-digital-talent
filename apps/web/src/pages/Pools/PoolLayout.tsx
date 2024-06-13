@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { Outlet } from "react-router-dom";
-import { useQuery } from "urql";
+import { OperationContext, useQuery } from "urql";
 
 import {
   Pending,
@@ -161,6 +161,10 @@ const PoolHeader = ({ poolQuery }: PoolHeaderProps) => {
   );
 };
 
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["AssessmentStep", "PoolSkill"],
+};
+
 const PoolLayout_Query = graphql(/* GraphQL */ `
   query PoolLayout($poolId: UUID!) {
     pool(id: $poolId) {
@@ -180,6 +184,7 @@ const PoolLayout = () => {
     variables: {
       poolId,
     },
+    context,
   });
 
   return (
