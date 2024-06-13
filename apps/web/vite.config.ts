@@ -94,7 +94,6 @@ export default defineConfig({
       "~": path.resolve(__dirname, "src"),
     },
   },
-  assetsInclude: ["**/*.docx", "**/*.pdf", "**/*.pptx"],
   define: {
     API_HOST: JSON.stringify(process.env.API_HOST),
     API_URI: JSON.stringify(process.env.API_URI),
