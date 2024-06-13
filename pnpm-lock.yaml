@@ -266,6 +266,9 @@ importers:
       core-js:
         specifier: ^3.37.1
         version: 3.37.1
+      dotenv:
+        specifier: ^16.4.5
+        version: 16.4.5
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
