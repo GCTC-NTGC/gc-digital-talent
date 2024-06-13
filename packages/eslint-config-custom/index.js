@@ -14,8 +14,8 @@ module.exports = {
   ignorePatterns: [
     "index.js",
     ".eslintrc",
-    ".eslintrc.js",
-    "webpack.*.js",
+    ".eslintrc.cjs",
+    "vite.*.ts",
     "tsconfig.json",
     "CssStub.js",
     ".turbo",

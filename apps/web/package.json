@@ -77,7 +77,6 @@
     "@gc-digital-talent/jest-helpers": "workspace:*",
     "@gc-digital-talent/jest-presets": "workspace:*",
     "@gc-digital-talent/storybook-helpers": "workspace:*",
-    "@gc-digital-talent/webpack-config": "workspace:*",
     "@hydrogen-css/hydrogen": "2.0.5",
     "@parcel/watcher": "^2.4.1",
     "@storybook/addon-actions": "^8.1.6",
@@ -95,7 +94,6 @@
     "core-js": "^3.37.1",
     "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
-    "hydrogen-webpack-plugin": "workspace:*",
     "jest": "^29.7.0",
     "jest-axe": "^8.0.0",
     "jest-fail-on-console": "^3.3.0",
@@ -105,9 +103,6 @@
     "tsconfig": "workspace:*",
     "typescript": "^5.4.5",
     "vite": "^5.1.6",
-    "vite-plugin-html": "^3.2.2",
-    "webpack": "^5.90.3",
-    "webpack-cli": "^5.1.4",
-    "webpack-merge": "^5.10.0"
+    "vite-plugin-html": "^3.2.2"
   }
 }
