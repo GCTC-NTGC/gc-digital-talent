@@ -621,11 +621,11 @@ class PoolCandidate extends Model
         }
 
         $query->whereExists(function ($query) use ($priorityWeights) {
-            $query->select('id')
+            $query->selectRaw('null')
                 ->from('users')
                 ->whereColumn('users.id', 'pool_candidates.user_id')
                 ->where(function ($query) use ($priorityWeights) {
-                    foreach ($priorityWeights as $index => $priorityWeight) {
+                    foreach ($priorityWeights as $priorityWeight) {
                         switch ($priorityWeight) {
                             case PriorityWeight::PRIORITY_ENTITLEMENT->name:
                                 $query->orWhereIn('priority_verification',
@@ -818,32 +818,31 @@ class PoolCandidate extends Model
 
     public function scopeOrderByClaimVerification(Builder $query, ?string $sortOrder)
     {
+        $orderWithoutDirection = '
+                    CASE
+                    WHEN priority_verification=\'ACCEPTED\' OR priority_verification=\'UNVERIFIED\' then 40
+                    WHEN (veteran_verification=\'ACCEPTED\' OR veteran_verification=\'UNVERIFIED\') AND (priority_verification IS NULL OR priority_verification=\'REJECTED\') then 30
+                    WHEN (users.citizenship=\'CITIZEN\' OR users.citizenship=\'PERMANENT_RESIDENT\') AND (priority_verification IS NULL OR priority_verification=\'REJECTED\') AND (veteran_verification IS NULL OR veteran_verification=\'REJECTED\') then 20
+                    else 10
+                    END';
+
         if ($sortOrder && $sortOrder == 'DESC') {
+            $order = $orderWithoutDirection.' DESC';
+
             $query
                 ->join('users', 'users.id', '=', 'pool_candidates.user_id')
                 ->select('users.citizenship', 'pool_candidates.*')
                 ->orderBy('is_bookmarked', 'DESC')
-                ->orderByRaw('
-                    CASE
-                    WHEN priority_verification=\'ACCEPTED\' OR priority_verification=\'UNVERIFIED\' then 40
-                    WHEN (veteran_verification=\'ACCEPTED\' OR veteran_verification=\'UNVERIFIED\') AND (priority_verification IS NULL OR priority_verification=\'REJECTED\') then 30
-                    WHEN (users.citizenship=\'CITIZEN\' OR users.citizenship=\'PERMANENT_RESIDENT\') AND (priority_verification IS NULL OR priority_verification=\'REJECTED\') AND (veteran_verification IS NULL OR veteran_verification=\'REJECTED\') then 20
-                    else 10
-                    END
-                    DESC');
+                ->orderByRaw($order);
+
         } elseif ($sortOrder && $sortOrder == 'ASC') {
+            $order = $orderWithoutDirection.' ASC';
+
             $query
                 ->join('users', 'users.id', '=', 'pool_candidates.user_id')
                 ->select('users.citizenship', 'pool_candidates.*')
                 ->orderBy('is_bookmarked', 'DESC')
-                ->orderByRaw('
-                    CASE
-                    WHEN priority_verification=\'ACCEPTED\' OR priority_verification=\'UNVERIFIED\' then 40
-                    WHEN (veteran_verification=\'ACCEPTED\' OR veteran_verification=\'UNVERIFIED\') AND (priority_verification IS NULL OR priority_verification=\'REJECTED\') then 30
-                    WHEN (users.citizenship=\'CITIZEN\' OR users.citizenship=\'PERMANENT_RESIDENT\') AND (priority_verification IS NULL OR priority_verification=\'REJECTED\') AND (veteran_verification IS NULL OR veteran_verification=\'REJECTED\') then 20
-                    else 10
-                    END
-                    ASC');
+                ->orderByRaw($order);
         }
 
         return $query;
