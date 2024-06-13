@@ -45,9 +45,10 @@ jobs:
           php-version: "8.2"
           extensions: bcmath
 
-      - name: Install composer dependencies
+      - name: Install api dependencies
         working-directory: api
         run: |
+          sudo apt-get install --yes --no-install-recommends postgresql-client
           cp .env.example .env
           composer install --prefer-dist --no-scripts
 
