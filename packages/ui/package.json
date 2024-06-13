@@ -33,7 +33,7 @@
     "@radix-ui/react-tabs": "^1.0.3",
     "@radix-ui/react-toggle": "^1.0.2",
     "@radix-ui/react-toggle-group": "^1.0.3",
-    "chromatic": "^11.5.3",
+    "chromatic": "^11.5.4",
     "framer-motion": "^11.2.10",
     "lodash": "^4.17.21",
     "react-csv-downloader": "^3.1.0",
