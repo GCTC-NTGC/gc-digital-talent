@@ -1,5 +1,5 @@
 import { defineMessage, useIntl } from "react-intl";
-import { useQuery } from "urql";
+import { OperationContext, useQuery } from "urql";
 import { ReactNode } from "react";
 
 import {
@@ -46,6 +46,10 @@ const pageSubtitle = defineMessage({
   id: "2ZjclP",
   description: "Subtitle for the assessment plan builder",
 });
+
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["AssessmentStep", "PoolSkill"],
+};
 
 const AssessmentPlanBuilderPool_Fragment = graphql(/* GraphQL */ `
   fragment AssessmentPlanBuilderPool on Pool {
@@ -170,6 +174,7 @@ export const AssessmentPlanBuilderPage = () => {
     useQuery({
       query: AssessmentPlanBuilderPage_Query,
       variables: { poolId },
+      context,
     });
 
   // RequireAuth in router can't check team roles
