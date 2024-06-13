@@ -46,8 +46,8 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0(axe-core@4.9.1)(cypress@13.11.0)
       cypress-terminal-report:
-        specifier: ^6.0.2
-        version: 6.0.2(cypress@13.11.0)
+        specifier: ^6.1.0
+        version: 6.1.0(cypress@13.11.0)
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
@@ -9232,8 +9232,8 @@ packages:
       cypress: 13.11.0
     dev: true
 
-  /cypress-terminal-report@6.0.2(cypress@13.11.0):
-    resolution: {integrity: sha512-zkH/kvVlwtgxLkSOIA7pydicY3JsDDbiUEt8tAGboeHmEmX5vqzIvPvaVPfvfuA7yO6HNgnZUtAE2VOqDBt/HA==}
+  /cypress-terminal-report@6.1.0(cypress@13.11.0):
+    resolution: {integrity: sha512-IC72OQvzZsTlkr3XcnIBF6VXOYUbhivJmdpCg8mywObW297SgEyMLz8V3+lz9LopOuW9cyJ15AolhA8r0bVeSA==}
     peerDependencies:
       cypress: '>=10.0.0'
     dependencies:
