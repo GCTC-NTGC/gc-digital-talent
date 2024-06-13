@@ -31,8 +31,9 @@ import {
   PoolCandidateStatus,
   PublishingGroup,
   PriorityWeight,
+  AssessmentFinalDecision,
 } from "@gc-digital-talent/graphql";
-import { getOrThrowError, unpackMaybes } from "@gc-digital-talent/helpers";
+import { getOrThrowError } from "@gc-digital-talent/helpers";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import {
@@ -334,10 +335,9 @@ const statusToChipMessageMapping: Record<
  */
 const computeInAssessmentStatusChip = (
   candidate: PoolCandidate,
-  steps: AssessmentStep[],
   intl: IntlShape,
 ): StatusChip => {
-  if (steps.length === 0) {
+  if (!candidate?.assessmentStatus?.finalDecision) {
     // This escape hatch mostly applies to Pools created before Record of Decision.
     return {
       label: intl.formatMessage(poolCandidateMessages.toAssess),
@@ -345,12 +345,10 @@ const computeInAssessmentStatusChip = (
     };
   }
 
-  const isUnsuccessful = unpackMaybes(
-    candidate?.assessmentStatus?.decisions,
-  ).some(
-    (stepDecision) => stepDecision.decision === AssessmentDecision.Unsuccessful,
-  );
-  if (isUnsuccessful) {
+  if (
+    candidate?.assessmentStatus?.finalDecision ===
+    AssessmentFinalDecision.Disqualified
+  ) {
     return {
       label:
         intl.formatMessage(poolCandidateMessages.disqualified) +
@@ -401,11 +399,10 @@ type StatusChip = {
 
 export const getCandidateStatusChip = (
   candidate: PoolCandidate,
-  steps: AssessmentStep[],
   intl: IntlShape,
 ): StatusChip => {
   if (isToAssessStatus(candidate.status)) {
-    return computeInAssessmentStatusChip(candidate, steps, intl);
+    return computeInAssessmentStatusChip(candidate, intl);
   }
   const messages =
     statusToChipMessageMapping[

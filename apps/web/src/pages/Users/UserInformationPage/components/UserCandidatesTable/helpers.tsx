@@ -14,11 +14,9 @@ import {
   PoolCandidateStatus,
   CandidateSuspendedFilter,
   Maybe,
-  AssessmentStep,
   Pool,
 } from "@gc-digital-talent/graphql";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import CandidateBookmark, {
   PoolCandidate_BookmarkFragment,
@@ -167,13 +165,8 @@ export const notesCell = (
 export const finalDecisionCell = (
   intl: IntlShape,
   poolCandidate: PoolCandidate,
-  poolAssessmentSteps: AssessmentStep[],
 ) => {
-  const { color, label } = getCandidateStatusChip(
-    poolCandidate,
-    unpackMaybes(poolAssessmentSteps),
-    intl,
-  );
+  const { color, label } = getCandidateStatusChip(poolCandidate, intl);
   return <Chip color={color}>{label}</Chip>;
 };
 

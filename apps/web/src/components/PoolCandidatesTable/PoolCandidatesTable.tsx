@@ -162,28 +162,10 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               level
             }
             stream
-            # TODO: assessmentSteps and assessmentResults can be removed if status computations are moved to backend #8960
-            assessmentSteps {
-              id
-              type
-              sortOrder
-              poolSkills {
-                id
-                type
-              }
-            }
           }
-          assessmentResults {
-            id
-            assessmentStep {
-              id
-            }
-            poolSkill {
-              id
-              type
-            }
-            assessmentResultType
-            assessmentDecision
+          assessmentStatus {
+            currentStep
+            finalDecision
           }
           user {
             # Personal info
@@ -619,12 +601,7 @@ const PoolCandidatesTable = ({
           row: {
             original: { poolCandidate },
           },
-        }) =>
-          finalDecisionCell(
-            intl,
-            poolCandidate,
-            unpackMaybes(poolCandidate?.pool?.assessmentSteps),
-          ),
+        }) => finalDecisionCell(intl, poolCandidate),
         enableSorting: false,
       },
     ),

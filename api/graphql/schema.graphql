@@ -294,7 +294,8 @@ type AssessmentStepDecision {
 }
 
 type AssessmentResultStatus {
-  decisions: [AssessmentStepDecision]
+  stepDecisions: [AssessmentStepDecision]
+  finalDecision: AssessmentFinalDecision
   currentStep: Int # Starts at 1, null indicates all steps successful
 }
 

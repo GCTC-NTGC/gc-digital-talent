@@ -400,10 +400,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
       }
       assessmentStatus {
         currentStep
-        decisions {
-          decision
-          step
-        }
+        finalDecision
       }
     }
     departments {
@@ -434,11 +431,7 @@ export const ViewPoolCandidate = ({
     ?.filter(notEmpty)
     .find(({ id }) => id === poolCandidate.id);
   const nonEmptyExperiences = unpackMaybes(parsedSnapshot?.experiences);
-  const statusChip = getCandidateStatusChip(
-    poolCandidate,
-    unpackMaybes(poolCandidate.pool.assessmentSteps),
-    intl,
-  );
+  const statusChip = getCandidateStatusChip(poolCandidate, intl);
 
   const candidateName = getFullNameLabel(
     poolCandidate.user.firstName,

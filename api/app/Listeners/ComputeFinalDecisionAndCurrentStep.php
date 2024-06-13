@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Enums\AssessmentDecision;
+use App\Enums\AssessmentFinalDecision;
 use App\Events\AssessmentResultSaved;
 
 class ComputeFinalDecisionAndCurrentStep
@@ -49,16 +50,27 @@ class ComputeFinalDecisionAndCurrentStep
         }
 
         $decisions = [];
+        $containsDisqualified = false;
+        $finalDecision = AssessmentFinalDecision::TO_ASSESS->name;
         foreach ($decisionsPerStep as $stepId => $decision) {
             $decisions[] = [
                 'step' => $stepId,
                 'decision' => $decision,
             ];
+            if ($decision === AssessmentDecision::UNSUCCESSFUL->name) {
+                $containsDisqualified = true;
+            }
+        }
+
+        // Null step indicates the candidate passed all steps
+        if (is_null($currentStep)) {
+            $finalDecision = AssessmentFinalDecision::QUALIFIED->name;
         }
 
         $candidate->computed_assessment_status = [
             'currentStep' => $currentStep,
-            'decisions' => $decisions,
+            'stepDecisions' => $decisions,
+            'finalDecision' => $containsDisqualified ? AssessmentFinalDecision::DISQUALIFIED->name : $finalDecision,
         ];
 
         $candidate->save();

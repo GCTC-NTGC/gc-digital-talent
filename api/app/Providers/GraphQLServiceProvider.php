@@ -6,6 +6,7 @@ use App\Enums\ApplicationStep;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\AssessmentDecision;
 use App\Enums\AssessmentDecisionLevel;
+use App\Enums\AssessmentFinalDecision;
 use App\Enums\AssessmentResultJustification;
 use App\Enums\AssessmentResultType;
 use App\Enums\AssessmentStepType;
@@ -688,6 +689,16 @@ class GraphQLServiceProvider extends ServiceProvider
                 return new EnumType([
                     'name' => 'PriorityWeight',
                     'values' => array_column(PriorityWeight::cases(), 'name'),
+                ]);
+            }
+        );
+
+        $typeRegistry->registerLazy(
+            'AssessmentFinalDecision',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'AssessmentFinalDecision',
+                    'values' => array_column(AssessmentFinalDecision::cases(), 'name'),
                 ]);
             }
         );
