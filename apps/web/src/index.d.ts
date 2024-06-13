@@ -7,3 +7,8 @@ declare module "*.doc";
 declare module "*.docx";
 declare module "*.webp";
 declare module "*.pptx";
+
+// Hydrogen
+
+declare module "@hydrogen-css/hydrogen/lib/watch";
+declare module "@hydrogen-css/hydrogen/lib/build";

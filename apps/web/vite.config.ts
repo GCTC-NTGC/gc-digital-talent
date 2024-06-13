@@ -4,7 +4,10 @@ import childProcess from "child_process";
 import dotenv from "dotenv";
 import react from "@vitejs/plugin-react";
 import { createHtmlPlugin } from "vite-plugin-html";
-import { defineConfig } from "vite";
+import { Plugin, defineConfig } from "vite";
+
+import { hydrogen_build } from "@hydrogen-css/hydrogen/lib/build";
+import { hydrogen_watch } from "@hydrogen-css/hydrogen/lib/watch";
 
 dotenv.config({ path: "./.env" });
 
@@ -58,6 +61,23 @@ const gitVersionPlugin = () => {
   };
 };
 
+const hydrogenPlugin = (): Plugin[] => [
+  {
+    name: "hydrogen-vite-plugin:serve",
+    apply: "serve",
+    buildStart() {
+      hydrogen_watch();
+    },
+  },
+  {
+    name: "hydrogen-vite-plugin:build",
+    apply: "build",
+    buildStart() {
+      hydrogen_build();
+    },
+  },
+];
+
 export default defineConfig({
   publicDir: "./public",
   build: {
@@ -102,6 +122,7 @@ export default defineConfig({
       include: "**/*.{tsx}",
     }),
     gitVersionPlugin(),
+    hydrogenPlugin(),
     createHtmlPlugin({
       entry: "src/main.tsx",
       inject: {

@@ -1,2 +1,2 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+// eslint-disable-next-line import/no-unresolved
 import "@testing-library/jest-dom/extend-expect";
