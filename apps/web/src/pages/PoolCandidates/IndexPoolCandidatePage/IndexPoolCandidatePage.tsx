@@ -124,7 +124,7 @@ const IndexPoolCandidatePage_Query = graphql(/* GraphQL */ `
           fr
         }
       }
-      legacyTeam {
+      team {
         id
         name
         contactEmail

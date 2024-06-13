@@ -170,7 +170,7 @@ class Pool extends Model
 
     public function legacyTeam(): BelongsTo
     {
-        return $this->belongsTo(Team::class, "team_id");
+        return $this->belongsTo(Team::class);
     }
 
     public function team(): MorphOne
@@ -389,10 +389,10 @@ class Pool extends Model
         return $query;
     }
 
-    public static function scopeLegacyTeam(Builder $query, ?string $team): Builder
+    public static function scopeTeam(Builder $query, ?string $team): Builder
     {
         if ($team) {
-            $query->whereHas('legacyTeam', function ($query) use ($team) {
+            $query->whereHas('team', function ($query) use ($team) {
                 Team::scopeDisplayName($query, $team);
             });
         }
@@ -510,15 +510,13 @@ class Pool extends Model
      *
      * The column used in the orderBy is `table_aggregate_column->property`
      * But is actually aliased to snake case `table_aggregate_columnproperty`
-     *
-     * Note: Operates on the legacy team relation
      */
     public function scopeOrderByTeamDisplayName(Builder $query, ?array $args): Builder
     {
         extract($args);
 
         if ($order && $locale) {
-            $query = $query->withMax('legacyTeam', 'display_name->'.$locale)->orderBy('legacy_team_max_display_name'.$locale, $order);
+            $query = $query->withMax('team', 'display_name->'.$locale)->orderBy('team_max_display_name'.$locale, $order);
         }
 
         return $query;
@@ -568,7 +566,7 @@ class Pool extends Model
                         }
                     }
 
-                    $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
+                    $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
                         return $query->whereIn('id', $teamIds);
                     });
                 }

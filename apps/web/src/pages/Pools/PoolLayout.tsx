@@ -44,7 +44,7 @@ export const PoolLayout_Fragment = graphql(/* GraphQL */ `
       en
       fr
     }
-    legacyTeam {
+    team {
       id
       name
       displayName {
@@ -107,8 +107,8 @@ const PoolHeader = ({ poolQuery }: PoolHeaderProps) => {
   const pages = useAdminPoolPages(intl, pool);
   const currentPage = useCurrentPage<PageNavKeys>(pages);
 
-  const subTitle = pool.legacyTeam
-    ? getLocalizedName(pool.legacyTeam?.displayName, intl)
+  const subTitle = pool.team
+    ? getLocalizedName(pool.team?.displayName, intl)
     : currentPage?.subtitle;
 
   const heroTitleValue = heroTitle({ currentPage, intl, pool });

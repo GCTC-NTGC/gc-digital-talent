@@ -60,7 +60,7 @@ const PoolStatusTable = ({ user }: PoolStatusTableProps) => {
       }),
     }),
     columnHelper.accessor(
-      (row) => getLocalizedName(row.pool.legacyTeam?.displayName, intl, true),
+      (row) => getLocalizedName(row.pool.team?.displayName, intl, true),
       {
         id: "team",
         header: intl.formatMessage(adminMessages.team),
@@ -68,11 +68,9 @@ const PoolStatusTable = ({ user }: PoolStatusTableProps) => {
         cell: ({ row: { original: poolCandidate } }) =>
           viewTeamLinkCell(
             paths.teamView(
-              poolCandidate.pool.legacyTeam?.id
-                ? poolCandidate.pool.legacyTeam?.id
-                : "",
+              poolCandidate.pool.team?.id ? poolCandidate.pool.team?.id : "",
             ),
-            poolCandidate.pool.legacyTeam?.displayName,
+            poolCandidate.pool.team?.displayName,
             intl,
           ),
       },

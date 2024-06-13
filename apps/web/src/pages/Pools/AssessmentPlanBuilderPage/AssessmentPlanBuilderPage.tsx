@@ -137,7 +137,7 @@ const AssessmentPlanBuilderPage_Query = graphql(/* GraphQL */ `
     # the existing data of the pool to edit
     pool(id: $poolId) {
       ...AssessmentPlanBuilderPool
-      legacyTeam {
+      team {
         id
         name
       }
@@ -178,7 +178,7 @@ export const AssessmentPlanBuilderPage = () => {
       (authorizedRoleAssignment) =>
         (authorizedRoleAssignment.role?.name === ROLE_NAME.PoolOperator &&
           authorizedRoleAssignment.team?.name ===
-            queryData?.pool?.legacyTeam?.name) ||
+            queryData?.pool?.team?.name) ||
         authorizedRoleAssignment.role?.name === ROLE_NAME.CommunityManager ||
         authorizedRoleAssignment.role?.name === ROLE_NAME.PlatformAdmin,
     ) ?? false;

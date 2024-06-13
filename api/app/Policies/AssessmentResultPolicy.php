@@ -22,9 +22,9 @@ class AssessmentResultPolicy
             return true;
         }
 
-        $assessmentResult->loadMissing('assessmentStep.pool.legacyTeam');
+        $assessmentResult->loadMissing('assessmentStep.pool.team');
 
-        return $user->isAbleTo('view-team-assessmentResult', $assessmentResult->assessmentStep->pool->legacyTeam);
+        return $user->isAbleTo('view-team-assessmentResult', $assessmentResult->assessmentStep->pool->team);
     }
 
     /**
@@ -37,9 +37,9 @@ class AssessmentResultPolicy
     public function create(User $user, $request)
     {
         if (array_key_exists('assessment_step_id', $request)) {
-            $parentAssessmentStep = AssessmentStep::with('pool.legacyTeam')->find($request['assessment_step_id']);
+            $parentAssessmentStep = AssessmentStep::with('pool.team')->find($request['assessment_step_id']);
 
-            return $user->isAbleTo('update-team-assessmentResult', $parentAssessmentStep->pool->legacyTeam);
+            return $user->isAbleTo('update-team-assessmentResult', $parentAssessmentStep->pool->team);
         }
 
         return false;
@@ -52,8 +52,8 @@ class AssessmentResultPolicy
      */
     public function update(User $user, AssessmentResult $assessmentResult)
     {
-        $assessmentResult->loadMissing('assessmentStep.pool.legacyTeam');
+        $assessmentResult->loadMissing('assessmentStep.pool.team');
 
-        return $user->isAbleTo('update-team-assessmentResult', $assessmentResult->assessmentStep->pool->legacyTeam);
+        return $user->isAbleTo('update-team-assessmentResult', $assessmentResult->assessmentStep->pool->team);
     }
 }

@@ -108,7 +108,7 @@ const PoolTable_Query = graphql(/* GraphQL */ `
           group
           level
         }
-        legacyTeam {
+        team {
           id
           name
           displayName {
@@ -324,14 +324,14 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       header: intl.formatMessage(processMessages.processNumber),
     }),
     columnHelper.accessor(
-      (row) => getLocalizedName(row.legacyTeam?.displayName, intl, true),
+      (row) => getLocalizedName(row.team?.displayName, intl, true),
       {
         id: "team",
         header: intl.formatMessage(adminMessages.team),
         cell: ({ row: { original: pool } }) =>
           viewTeamLinkCell(
-            paths.teamView(pool.legacyTeam?.id ? pool.legacyTeam?.id : ""),
-            pool.legacyTeam?.displayName,
+            paths.teamView(pool.team?.id ? pool.team?.id : ""),
+            pool.team?.displayName,
             intl,
           ),
       },

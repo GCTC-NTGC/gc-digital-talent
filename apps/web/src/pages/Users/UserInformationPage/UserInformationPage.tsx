@@ -99,7 +99,7 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
         }
         stream
         publishingGroup
-        legacyTeam {
+        team {
           id
           name
           displayName {

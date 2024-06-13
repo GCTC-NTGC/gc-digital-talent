@@ -10,7 +10,7 @@ const mockTeams = fakeTeams();
 const mockPoolsWithTeam = mockPools.flatMap((pool) => {
   return mockTeams.map((team) => ({
     ...pool,
-    legacyTeam: {
+    team: {
       id: team.id,
       name: team.name,
       displayName: team.displayName,

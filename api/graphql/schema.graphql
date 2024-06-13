@@ -205,8 +205,8 @@ interface HasRoleAssignments {
 type Pool implements HasRoleAssignments {
   id: ID!
   owner: UserPublicProfile @belongsTo(relation: "user")
-  legacyTeam: Team @belongsTo @canModel(ability: "viewAny")
-  team: Team @belongsTo @canModel(ability: "viewAny") # Newer polymorphic team relationship
+  team: Team @belongsTo @canModel(ability: "viewAny")
+  newTeam: Team @belongsTo @canModel(ability: "viewAny") # Newer polymorphic team relationship
   name: LocalizedString
   classification: Classification @belongsTo
   operationalRequirements: [OperationalRequirement]
@@ -692,7 +692,7 @@ input UserPublicProfileFilterInput {
 input PoolFilterInput {
   generalSearch: String @scope
   name: String @scope
-  team: String @scope(name: "legacyTeam")
+  team: String @scope
   streams: [PoolStream!] @scope
   statuses: [PoolStatus!] @scope
   processNumber: String @scope
