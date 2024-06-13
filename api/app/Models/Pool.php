@@ -6,6 +6,7 @@ use App\Enums\AssessmentStepType;
 use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
 use App\Enums\SkillCategory;
+use App\GraphQL\Validators\AssessmentPlanIsCompleteValidator;
 use App\GraphQL\Validators\PoolIsCompleteValidator;
 use App\Observers\PoolObserver;
 use Carbon\Carbon;
@@ -161,6 +162,11 @@ class Pool extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function poolBookmarks(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'pool_user_bookmarks', 'pool_id', 'user_id')->withTimestamps();
+    }
+
     public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class);
@@ -298,6 +304,24 @@ class Pool extends Model
         $validator = Validator::make($pool->toArray(),
             $poolCompleteValidation->rules(),
             $poolCompleteValidation->messages()
+        );
+
+        if ($validator->fails()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    // is the assessment plan for the pool considered "complete"
+    public function getAssessmentPlanIsCompleteAttribute()
+    {
+        $pool = $this->load(['assessmentSteps', 'poolSkills']);
+
+        $planCompletionValidation = new AssessmentPlanIsCompleteValidator;
+        $validator = Validator::make($pool->toArray(),
+            $planCompletionValidation->rules(),
+            $planCompletionValidation->messages()
         );
 
         if ($validator->fails()) {
@@ -477,6 +501,26 @@ class Pool extends Model
 
         return $query;
 
+    }
+
+    public function scopeOrderByPoolBookmarks(Builder $query, ?array $args): Builder
+    {
+        extract($args);
+
+        /** @var \App\Models\User */
+        $user = Auth::user();
+
+        // order the pools so that the bookmarks connected to current user sticks to the top
+        if ($order && $user) {
+            $query->orderBy(
+                $user->selectRaw('1')
+                    ->join('pool_user_bookmarks', 'pool_user_bookmarks.user_id', '=', 'users.id')
+                    ->where('pool_user_bookmarks.user_id', $user->id)
+                    ->whereColumn('pool_user_bookmarks.pool_id', 'pools.id')
+            );
+        }
+
+        return $query;
     }
 
     public function scopeAuthorizedToView(Builder $query)

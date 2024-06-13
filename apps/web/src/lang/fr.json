@@ -2327,6 +2327,10 @@
     "defaultMessage": "À moins d’avis contraire, il est interdit de reproduire le contenu de ce site, en totalité ou en partie, à des fins de diffusion commerciale sans avoir obtenu au préalable la permission écrite de l’administrateur du droit d’auteur. Si vous souhaitez obtenir les droits de reproduction du contenu du gouvernement du Canada du présent site à des fins commerciales, écrivez aux :",
     "description": "Commercial reproduction list description in ownership and usage section"
   },
+  "BB0opI": {
+    "defaultMessage": "Supprimer le signet de {name} du haut de la colonne.",
+    "description": "Un-bookmark button label for pool table tracking."
+  },
   "BCBPYT": {
     "defaultMessage": "Il n’y a aucun résultat de candidats à cette étape.",
     "description": "Message displayed when no candidates are being assessed in a step"
@@ -3506,6 +3510,10 @@
   "HwPuG0": {
     "defaultMessage": "Date d'expiration mise à jour avec succès",
     "description": "Toast for successful expiry date update on view-user page"
+  },
+  "HxZIwt": {
+    "defaultMessage": "Mettre {name} en signet au haut de la colonne.",
+    "description": "Bookmark button label for pool table tracking."
   },
   "Hy2UdW": {
     "defaultMessage": "Vous êtes sur le point de retirer un rôle de l’utilisateur suivant : <strong>{userName}</strong>",
@@ -5119,6 +5127,10 @@
     "defaultMessage": "Commencer à rédiger une demande d'emploi",
     "description": "Title for the apply now section of a pool advertisement"
   },
+  "Qxl9Ec": {
+    "defaultMessage": "Afin d’écourter le processus de demande, l’information n’est recueillie que sur certaines compétences particulières à l’étape de la demande. Celles-ci sont identifiées individuellement sous le nom de la compétence en se servant de la mention « Évaluées à l’étape initiale de la demande ». D’autres évaluations suivront plus tard au cours de votre processus de demande si elle s’avère réussie. Ces évaluations supplémentaires peuvent être menées sur toutes les compétences obligatoires ou facultatives.",
+    "description": "Descriptive text about how skills are used during the application process"
+  },
   "QzU2SL": {
     "defaultMessage": "Veuillez remplir toute l’information relative à l'annonce avant de la publier.",
     "description": "Error message displayed when user attempts to publish an incomplete advertisement"
@@ -5594,10 +5606,6 @@
   "Tjd942": {
     "defaultMessage": "Solutions logicielles de la <abbreviation>TI</abbreviation>",
     "description": "Title for the 'software solutions' IT work stream"
-  },
-  "TmDejD": {
-    "defaultMessage": "Vous souhaitez coordonner une présentation pour votre ministère? <contactLink>Contactez-nous</contactLink>.",
-    "description": "Third paragraph describing the directive on digital talent"
   },
   "TomxAe": {
     "defaultMessage": "{time} le {date}",
@@ -6173,10 +6181,6 @@
   "Wpj2OY": {
     "defaultMessage": "« Je suis membre d’une Première Nation »",
     "description": "Text for the option to self-declare as first nations"
-  },
-  "WppiY9": {
-    "defaultMessage": "Afin d’écourter le processus de demande, l’information n’est recueillie que sur certaines compétences particulières à l’étape de la demande. Celles-ci sont identifiées individuellement sous le nom de la compétence en se servant de la mention « Évaluées à l’étape initiale de la demande ». D’autres évaluations suivront plus tard au cours de votre processus de demande si elle s’avère réussie.",
-    "description": "Descriptive text about how skills are used during the application process"
   },
   "WqOnFF": {
     "defaultMessage": "Autres commentaires",
@@ -7978,6 +7982,10 @@
     "defaultMessage": "Une partie du contenu de ce site pourrait faire l’objet du droit d’auteur d’une tierce partie. Lorsque des informations sont produites et que le gouvernement du Canada n’est pas le détenteur des droits d’auteur, le contenu est protégé par la <copyrightLink>Loi sur le droit d’auteur</copyrightLink> et des ententes internationales. Les détails relatifs au droit d’auteur figurent sur les pages pertinentes.",
     "description": "Commercial reproduction list description in ownership and usage section"
   },
+  "g4F/WB": {
+    "defaultMessage": "Favoris du processus retirés.",
+    "description": "Alert displayed to the user when they un-mark a pool as bookmarked."
+  },
   "g54x1Z": {
     "defaultMessage": "Analyste P M 4",
     "description": "PM-04 classification aria label including titles"
@@ -9022,6 +9030,10 @@
     "defaultMessage": "Indiquer si ce contrat est soumis à des accords commerciaux",
     "description": "Label for _trade agreement_ fieldset in the _digital services contracting questionnaire_"
   },
+  "lZ8lct": {
+    "defaultMessage": "Process mis en signet.",
+    "description": "Alert displayed to the user when they mark a pool as bookmarked."
+  },
   "lZwkcR": {
     "defaultMessage": "Étapes à suivre pour créer votre compte CléGC",
     "description": "Subtitle for a section explaining the create steps"
@@ -9321,6 +9333,10 @@
   "myEzIh": {
     "defaultMessage": "Ce formulaire vous permet d’ajouter une nouvelle expérience à votre parcours professionnel. Commencez par sélectionner le type d’expérience que vous souhaitez ajouter. Si vous avez besoin de plus d’informations sur ce qu’un certain type d’expérience peut inclure, agrandissez les informations ci-dessous pour voir des exemples.",
     "description": "Instructions on how to add an experience to your career timeline"
+  },
+  "mzgZQs": {
+    "defaultMessage": "Échec : les favoris du processus demeurent inchangés.",
+    "description": "Alert displayed to the user when failing to (un-)bookmark a pool."
   },
   "n+/HPL": {
     "defaultMessage": "Autres processus",

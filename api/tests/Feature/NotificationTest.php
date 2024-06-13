@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Enums\NotificationFamily;
 use App\Models\Notification;
 use App\Models\User;

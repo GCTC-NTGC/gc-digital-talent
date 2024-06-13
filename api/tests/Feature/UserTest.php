@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\IndigenousCommunity;
 use App\Enums\LanguageAbility;

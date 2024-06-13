@@ -1,10 +1,13 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Exceptions\AuthenticationException;
 use App\Models\Role;
 use App\Models\User;
 use App\Providers\AuthServiceProvider;
 use App\Services\OpenIdBearerTokenService;
+use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Lcobucci\JWT\Token\DataSet;
 use Lcobucci\JWT\Validation\ConstraintViolation;
@@ -35,10 +38,10 @@ class AuthServiceProviderTest extends TestCase
     {
         parent::setUp();
 
-        $this->mockAuthProvider = Mockery::mock();
+        $this->mockAuthProvider = \Mockery::mock();
         $this->mockAuthProvider->shouldReceive('viaRequest');
 
-        $this->mockApp = Mockery::mock(ArrayAccess::class);
+        $this->mockApp = \Mockery::mock(\ArrayAccess::class);
         $this->mockApp
             ->shouldReceive('offsetGet')
             ->with('auth')
@@ -54,7 +57,7 @@ class AuthServiceProviderTest extends TestCase
     public function testAuthenticationExceptionWithInvalidToken()
     {
         $fakeToken = 'fake-token';
-        $mockTokenService = Mockery::mock(OpenIdBearerTokenService::class);
+        $mockTokenService = \Mockery::mock(OpenIdBearerTokenService::class);
         $mockTokenService->shouldReceive('validateAndGetClaims')
             ->with($fakeToken)
             ->andThrow(new RequiredConstraintsViolated('mock error', [
@@ -76,10 +79,10 @@ class AuthServiceProviderTest extends TestCase
     public function testAuthenticationExceptionOnTokenValidation()
     {
         $fakeToken = 'fake-token';
-        $mockTokenService = Mockery::mock(OpenIdBearerTokenService::class);
+        $mockTokenService = \Mockery::mock(OpenIdBearerTokenService::class);
         $mockTokenService->shouldReceive('validateAndGetClaims')
             ->with($fakeToken)
-            ->andThrow(new Error);
+            ->andThrow(new \Error);
 
         try {
             $this->provider->resolveUserOrAbort($fakeToken, $mockTokenService);
@@ -102,10 +105,10 @@ class AuthServiceProviderTest extends TestCase
 
         // DataSet is a final class, and so we need to use it as a proxied partial mock.
         // See: https://docs.mockery.io/en/latest/reference/final_methods_classes.html#dealing-with-final-classes-methods
-        $mockClaims = Mockery::mock(new DataSet(['sub' => $testSub], ''));
+        $mockClaims = \Mockery::mock(new DataSet(['sub' => $testSub], ''));
 
         $fakeToken = 'fake-token';
-        $mockTokenService = Mockery::mock(OpenIdBearerTokenService::class);
+        $mockTokenService = \Mockery::mock(OpenIdBearerTokenService::class);
         $mockTokenService->shouldReceive('validateAndGetClaims')
             ->with($fakeToken)
             ->andReturn($mockClaims);
@@ -140,10 +143,10 @@ class AuthServiceProviderTest extends TestCase
         $testSub = 'test-sub';
         $testRoles = ['TEST'];
 
-        $mockClaims = Mockery::mock(new DataSet(['sub' => $testSub], ''));
+        $mockClaims = \Mockery::mock(new DataSet(['sub' => $testSub], ''));
 
         $fakeToken = 'fake-token';
-        $mockTokenService = Mockery::mock(OpenIdBearerTokenService::class);
+        $mockTokenService = \Mockery::mock(OpenIdBearerTokenService::class);
         $mockTokenService->shouldReceive('validateAndGetClaims')
             ->with($fakeToken)
             ->andReturn($mockClaims);
