@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
-import * as messages from "~/lang/frCompiled.json";
+import messages from "~/lang/frCompiled.json";
 import ContextContainer from "~/components/Context/ContextProvider";
 import Router from "~/components/Router";
 import "~/assets/css/app.css";

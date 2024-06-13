@@ -1,5 +1,5 @@
 import type { Messages } from "../types";
-import * as CommonFrench from "../lang/frCompiled.json";
+import CommonFrench from "../lang/frCompiled.json";
 
 const useIntlLanguages = (
   locale: string | null,
