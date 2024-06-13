@@ -43,6 +43,7 @@ type User {
   firstName: String @rename(attribute: "first_name")
   lastName: String @rename(attribute: "last_name")
   email: Email
+  emailVerifiedAt: DateTime @rename(attribute: "email_verified_at")
   telephone: PhoneNumber
   preferredLang: Language @rename(attribute: "preferred_lang")
   preferredLanguageForInterview: Language
@@ -241,6 +242,7 @@ type Pool {
   publishedAt: DateTime @rename(attribute: "published_at")
   archivedAt: DateTime @rename(attribute: "archived_at")
   isComplete: Boolean
+  assessmentPlanIsComplete: Boolean
   assessmentSteps: [AssessmentStep]
     @hasMany
     @canRoot(ability: "viewAssessmentPlan")
@@ -1766,6 +1768,12 @@ type Mutation {
     @restore
     @guard
     @canFind(ability: "restore", find: "id")
+  SendUserEmailVerification(id: ID!): User
+    @guard
+    @canFind(ability: "update", find: "id")
+  verifyUserEmail(id: ID!, code: String!): User
+    @guard
+    @canFind(ability: "update", find: "id")
 
   # poolCandidate mutations
   createPoolCandidateAsAdmin(

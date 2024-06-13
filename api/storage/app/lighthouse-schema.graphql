@@ -111,6 +111,8 @@ type Mutation {
   updateUserRoles(updateUserRolesInput: UpdateUserRolesInput!): UserAuthInfo
   deleteUser(id: ID!): User
   restoreUser(id: ID!): User
+  SendUserEmailVerification(id: ID!): User
+  verifyUserEmail(id: ID!, code: String!): User
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
   updatePoolCandidateStatus(id: UUID!, poolCandidate: UpdatePoolCandidateStatusInput!): PoolCandidate
   togglePoolCandidateBookmark(id: ID!): Boolean
@@ -244,6 +246,7 @@ type User {
   firstName: String
   lastName: String
   email: Email
+  emailVerifiedAt: DateTime
   telephone: PhoneNumber
   preferredLang: Language
   preferredLanguageForInterview: Language
@@ -394,6 +397,7 @@ type Pool {
   publishedAt: DateTime
   archivedAt: DateTime
   isComplete: Boolean
+  assessmentPlanIsComplete: Boolean
   assessmentSteps: [AssessmentStep]
   poolSkills(type: PoolSkillType): [PoolSkill]
 }
