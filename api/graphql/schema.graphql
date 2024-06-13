@@ -205,8 +205,7 @@ interface HasRoleAssignments {
 type Pool implements HasRoleAssignments {
   id: ID!
   owner: UserPublicProfile @belongsTo(relation: "user")
-  team: Team @belongsTo @canModel(ability: "viewAny")
-  newTeam: Team @belongsTo @canModel(ability: "viewAny") # Newer polymorphic team relationship
+  team: Team @belongsTo(attribute: "legacyTeam") @canModel(ability: "viewAny")
   name: LocalizedString
   classification: Classification @belongsTo
   operationalRequirements: [OperationalRequirement]
@@ -408,7 +407,6 @@ type Community implements HasRoleAssignments {
   key: String!
   name: LocalizedString
   description: LocalizedString
-  team: Team @morphOne @canModel(ability: "viewAny")
   roleAssignments: [RoleAssignment!]
     @hasManyThrough
     @canRoot(ability: "viewTeamMembers")

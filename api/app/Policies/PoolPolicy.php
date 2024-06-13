@@ -44,8 +44,8 @@ class PoolPolicy
             }
 
             // Load team only when needed to check if team owns draft.
-            $pool->loadMissing('team');
-            if ($user->isAbleTo('view-team-pool', $pool->team)) {
+            $pool->loadMissing('legacyTeam');
+            if ($user->isAbleTo('view-team-pool', $pool->legacyTeam)) {
                 return true;
             }
         }
@@ -117,10 +117,10 @@ class PoolPolicy
      */
     public function updateDraft(User $user, Pool $pool)
     {
-        $pool->loadMissing('team');
+        $pool->loadMissing('legacyTeam');
 
         return $pool->getStatusAttribute() === PoolStatus::DRAFT->name
-            && $user->isAbleTo('update-team-draftPool', $pool->team);
+            && $user->isAbleTo('update-team-draftPool', $pool->legacyTeam);
     }
 
     /**
@@ -165,9 +165,9 @@ class PoolPolicy
      */
     public function changePoolClosingDate(User $user, Pool $pool)
     {
-        $pool->loadMissing('team');
+        $pool->loadMissing('legacyTeam');
 
-        return $user->isAbleTo('update-team-poolClosingDate', $pool->team);
+        return $user->isAbleTo('update-team-poolClosingDate', $pool->legacyTeam);
     }
 
     /**
@@ -177,9 +177,9 @@ class PoolPolicy
      */
     public function closePool(User $user, Pool $pool)
     {
-        $pool->loadMissing('team');
+        $pool->loadMissing('legacyTeam');
 
-        return $user->isAbleTo('update-team-poolClosingDate', $pool->team);
+        return $user->isAbleTo('update-team-poolClosingDate', $pool->legacyTeam);
     }
 
     /**
@@ -190,9 +190,9 @@ class PoolPolicy
     public function deleteDraft(User $user, Pool $pool)
     {
         if ($pool->getStatusAttribute() === PoolStatus::DRAFT->name) {
-            $pool->loadMissing('team');
+            $pool->loadMissing('legacyTeam');
 
-            if ($user->isAbleTo('delete-team-draftPool', $pool->team)) {
+            if ($user->isAbleTo('delete-team-draftPool', $pool->legacyTeam)) {
                 return true;
             }
         } else {
@@ -209,9 +209,9 @@ class PoolPolicy
      */
     public function archiveAndUnarchive(User $user, Pool $pool)
     {
-        $pool->loadMissing('team');
+        $pool->loadMissing('legacyTeam');
 
-        return $user->isAbleTo('archive-team-pool', $pool->team);
+        return $user->isAbleTo('archive-team-pool', $pool->legacyTeam);
     }
 
     /**
@@ -225,9 +225,9 @@ class PoolPolicy
             return true;
         }
 
-        $pool->loadMissing('team');
+        $pool->loadMissing('legacyTeam');
 
-        return $user->isAbleTo('view-team-assessmentPlan', $pool->team);
+        return $user->isAbleTo('view-team-assessmentPlan', $pool->legacyTeam);
     }
 
     /**
@@ -237,8 +237,8 @@ class PoolPolicy
      */
     public function viewTeamMembers(User $user, Pool $pool)
     {
-        $pool->loadMissing('newTeam');
+        $pool->loadMissing('team');
 
-        return $user->isAbleTo('view-any-teamMembers') || $user->isAbleTo('view-team-teamMembers', $pool->newTeam);
+        return $user->isAbleTo('view-any-teamMembers') || $user->isAbleTo('view-team-teamMembers', $pool->team);
     }
 }
