@@ -95,7 +95,7 @@
     "eslint": "^8.57.0",
     "hydrogen-webpack-plugin": "workspace:*",
     "jest": "^29.7.0",
-    "jest-axe": "^8.0.0",
+    "jest-axe": "^9.0.0",
     "jest-fail-on-console": "^3.3.0",
     "jest-diff": "^29.7.0",
     "prettier": "^3.3.1",
