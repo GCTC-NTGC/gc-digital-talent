@@ -14,6 +14,10 @@ import { useLogger } from "@gc-digital-talent/logger";
 import { User, graphql } from "@gc-digital-talent/graphql";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
+import {
+  API_SUPPORT_ENDPOINT,
+  TALENTSEARCH_SUPPORT_EMAIL,
+} from "~/constants/talentSearchConstants";
 
 export type FormValues = {
   user_id: string;

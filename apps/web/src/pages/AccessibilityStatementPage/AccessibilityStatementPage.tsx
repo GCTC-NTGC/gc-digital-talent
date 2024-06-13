@@ -9,6 +9,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
 import heroImg from "~/assets/img/accessibility-statement-header.webp";
+import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
 
 const digitalStandardsLink = (locale: Locales, chunks: ReactNode) => (
   <Link
