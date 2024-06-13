@@ -1029,8 +1029,8 @@ importers:
         specifier: ^5.0.4
         version: 5.0.4(graphql@16.8.2)
       chromatic:
-        specifier: ^11.5.3
-        version: 11.5.3
+        specifier: ^11.5.4
+        version: 11.5.4
       framer-motion:
         specifier: ^11.2.10
         version: 11.2.10(react-dom@18.3.1)(react@18.3.1)
@@ -1229,8 +1229,8 @@ importers:
         specifier: ^1.0.3
         version: 1.0.4(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)
       chromatic:
-        specifier: ^11.5.3
-        version: 11.5.3
+        specifier: ^11.5.4
+        version: 11.5.4
       framer-motion:
         specifier: ^11.2.10
         version: 11.2.10(react-dom@18.3.1)(react@18.3.1)
@@ -8685,8 +8685,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /chromatic@11.5.3:
-    resolution: {integrity: sha512-EtDDXA4OdhsjE0IuLr5AZvOX+ZYXgqdRPtdTAQrM3nImjlteQ5biBmdEEEcdAXDTPU881rEUaUIy2owecB0wYg==}
+  /chromatic@11.5.4:
+    resolution: {integrity: sha512-+J+CopeUSyGUIQJsU6X7CfvSmeVBs0j6LZ9AgF4+XTjI4pFmUiUXsTc00rH9x9W1jCppOaqDXv2kqJJXGDK3mA==}
     hasBin: true
     peerDependencies:
       '@chromatic-com/cypress': ^0.*.* || ^1.0.0
