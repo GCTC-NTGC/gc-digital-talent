@@ -227,6 +227,31 @@ class Pool extends Model
     }
 
     /**
+     * Attach the users to the related team creating one if there isn't already
+     *
+     * @param string|array  $userId - Id of the user or users to attach the role to
+     * @return void
+     */
+    public function addProcessOperators(string|array $userId)
+    {
+        $team = $this->team()->firstOrCreate([], [
+            'name' => "pool-".$this->id,
+        ]);
+
+        if (is_array($userId)) {
+            foreach ($userId as $singleUserId) {
+                $user = User::find($singleUserId);
+                // $user->addRole('process_operator', $team->name);
+                $user->addRole('pool_operator', $team->name);
+            }
+        } else {
+            $user = User::find($userId);
+            // $user->addRole('process_operator', $team->name);
+            $user->addRole('pool_operator', $team->name);
+        }
+    }
+
+    /**
      * Sync the essential skills in pool_skill
      *
      * @param  $skillIds  - array of skill ids

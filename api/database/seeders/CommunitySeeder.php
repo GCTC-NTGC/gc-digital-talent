@@ -32,14 +32,14 @@ class CommunitySeeder extends Seeder
         ];
 
         foreach ($communities as $community) {
-            Community::factory()
-                ->withTeamMembers()
-                ->createOrGetExisting(
-                    [
-                        'key' => $community['key'],
-                        'name' => $community['name'],
-                    ]
-                );
+            Community::updateOrCreate(
+                [
+                    'key' => $community['key'],
+                ],
+                [
+                    'name' => $community['name'],
+                ]
+            );
         }
     }
 }

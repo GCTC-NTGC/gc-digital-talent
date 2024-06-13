@@ -41,11 +41,4 @@ class TeamFactory extends Factory
             $team->departments()->saveMany($departments);
         });
     }
-
-    public function withTeamMembers($count = 1)
-    {
-        return $this->afterCreating(function (Team $team) use ($count) {
-            User::factory()->asPoolOperator($team->name)->count($count)->create();
-        });
-    }
 }

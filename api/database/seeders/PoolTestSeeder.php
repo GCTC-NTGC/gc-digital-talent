@@ -24,15 +24,16 @@ class PoolTestSeeder extends Seeder
 
         // Caching commonly used queries
         $adminUserId = User::select('id')->where('email', 'admin@test.com')->sole()->id;
+        $processOperatorUserId = User::select('id')->where('email', 'process@test.com')->sole()->id;
         $dcmTeamId = Team::select('id')->where('name', 'digital-community-management')->sole()->id;
 
         // CMO Digital
         $createdPool = Pool::factory()
             ->withPoolSkills(4, 4)
             ->withQuestions(2, 2)
-            ->withTeamMembers()
             ->withBookmark($adminUserId)
             ->published()
+            ->withProcessOperators([$processOperatorUserId])
             ->createOrGetExisting([
                 'name' => [
                     'en' => 'CMO Digital Careers',
@@ -56,6 +57,7 @@ class PoolTestSeeder extends Seeder
             ->withPoolSkills(0, 0)
             ->withQuestions(0, 0)
             ->draft()
+            ->withProcessOperators([$processOperatorUserId])
             ->createOrGetExisting(
                 [
                     'name' => [
@@ -75,7 +77,6 @@ class PoolTestSeeder extends Seeder
         Pool::factory()
             ->withPoolSkills(0, 0)
             ->withQuestions(0, 0)
-            ->withTeamMembers()
             ->withBookmark($adminUserId)
             ->draft()
             ->createOrGetExisting([
@@ -120,7 +121,6 @@ class PoolTestSeeder extends Seeder
         Pool::factory()
             ->withPoolSkills(6, 6)
             ->withQuestions(3, 3)
-            ->withTeamMembers()
             ->published()
             ->withAssessmentStep(AssessmentStepType::INTERVIEW_INDIVIDUAL)
             ->withAssessmentStep(AssessmentStepType::TECHNICAL_EXAM_AT_SITE)
@@ -167,7 +167,6 @@ class PoolTestSeeder extends Seeder
         Pool::factory()
             ->withPoolSkills(2, 2)
             ->withQuestions(2, 1)
-            ->withTeamMembers()
             ->published()
             ->withAssessmentStep(AssessmentStepType::INTERVIEW_INDIVIDUAL)
             ->withAssessmentStep(AssessmentStepType::TECHNICAL_EXAM_AT_SITE)
@@ -216,7 +215,6 @@ class PoolTestSeeder extends Seeder
         Pool::factory()
             ->withPoolSkills(2, 2)
             ->withQuestions(0, 1)
-            ->withTeamMembers()
             ->published()
             ->withAssessmentStep(AssessmentStepType::TECHNICAL_EXAM_AT_SITE)
             ->createOrGetExisting([

@@ -321,12 +321,23 @@ class PoolFactory extends Factory
         });
     }
 
-    // Add a team with at least one member to the pool
-    public function withTeamMembers()
+    /**
+     * Attach the users to the related pool.
+     * Creates a new user if no userIds passed in.
+     *
+     * @param array|null  $userIds - Id of the users to attach the role to
+     * @return void
+     */
+    public function withProcessOperators(array|null $userIds = null)
     {
-        return $this->afterCreating(function (Pool $pool) {
-            $team = Team::factory()->withTeamMembers()->create();
-            $team->teamable()->associate($pool)->save();
+        return $this->afterCreating(function (Pool $pool) use ($userIds) {
+            if (is_null($userIds) || count($userIds) === 0) {
+                $pool->addProcessOperators(User::factory()->create()->id);
+            } else {
+                foreach ($userIds as $userId) {
+                    $pool->addProcessOperators($userId);
+                }
+            }
         });
     }
 }

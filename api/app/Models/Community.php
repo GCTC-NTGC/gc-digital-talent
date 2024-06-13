@@ -63,4 +63,54 @@ class Community extends Model
         // There might be a better way to do this
         return $this->hasManyThrough(RoleAssignment::class, Team::class, 'teamable_id');
     }
+
+    /**
+     * Attach the users to the related team creating one if there isn't already
+     *
+     * @param string|array  $userId - Id of the user or users to attach the role to
+     * @return void
+     */
+    public function addCommunityRecruiter(string|array $userId)
+    {
+        $team = $this->team()->firstOrCreate([], [
+            'name' => "community-".$this->id,
+        ]);
+
+        if (is_array($userId)) {
+            foreach ($userId as $singleUserId) {
+                $user = User::find($singleUserId);
+                // $user->addRole('community_recruiter', $team->name);
+                $user->addRole('pool_operator', $team->name);
+            }
+        } else {
+            $user = User::find($userId);
+            // $user->addRole('community_recruiter', $team->name);
+            $user->addRole('pool_operator', $team->name);
+        }
+    }
+
+    /**
+     * Attach the users to the related team creating one if there isn't already
+     *
+     * @param string|array  $userId - Id of the user or users to attach the role to
+     * @return void
+     */
+    public function addCommunityAdmin(string|array $userId)
+    {
+        $team = $this->team()->firstOrCreate([], [
+            'name' => "community-".$this->id,
+        ]);
+
+        if (is_array($userId)) {
+            foreach ($userId as $singleUserId) {
+                $user = User::find($singleUserId);
+                // $user->addRole('community_admin', $team->name);
+                $user->addRole('pool_operator', $team->name);
+            }
+        } else {
+            $user = User::find($userId);
+            // $user->addRole('community_admin', $team->name);
+            $user->addRole('pool_operator', $team->name);
+        }
+    }
 }
