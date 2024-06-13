@@ -7,6 +7,8 @@ use App\Enums\AssessmentResultType;
 use App\Enums\AssessmentStepType;
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
+use App\Enums\CitizenshipStatus;
+use App\Enums\ClaimVerificationResult;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolSkillType;
 use App\Enums\PriorityWeight;
@@ -108,6 +110,7 @@ class PoolCandidate extends Model
         'veteran_verification_expiry',
         'priority_verification',
         'priority_verification_expiry',
+        'is_bookmarked',
     ];
 
     protected $touches = ['user'];
@@ -617,6 +620,48 @@ class PoolCandidate extends Model
         return $query;
     }
 
+    public function scopeCandidateCategory(Builder $query, ?array $priorityWeights): Builder
+    {
+        if (empty($priorityWeights)) {
+            return $query;
+        }
+
+        $query->whereExists(function ($query) use ($priorityWeights) {
+            $query->selectRaw('null')
+                ->from('users')
+                ->whereColumn('users.id', 'pool_candidates.user_id')
+                ->where(function ($query) use ($priorityWeights) {
+                    foreach ($priorityWeights as $priorityWeight) {
+                        switch ($priorityWeight) {
+                            case PriorityWeight::PRIORITY_ENTITLEMENT->name:
+                                $query->orWhereIn('priority_verification',
+                                    [ClaimVerificationResult::ACCEPTED->name, ClaimVerificationResult::UNVERIFIED->name]
+                                );
+                                break;
+
+                            case PriorityWeight::VETERAN->name:
+                                $query->orWhereIn('veteran_verification',
+                                    [ClaimVerificationResult::ACCEPTED->name, ClaimVerificationResult::UNVERIFIED->name]
+                                );
+                                break;
+
+                            case PriorityWeight::CITIZEN_OR_PERMANENT_RESIDENT->name:
+                                $query->orWhereIn('citizenship',
+                                    [CitizenshipStatus::CITIZEN->name, CitizenshipStatus::PERMANENT_RESIDENT->name]
+                                );
+                                break;
+
+                            case PriorityWeight::OTHER->name:
+                                $query->orWhere('citizenship', CitizenshipStatus::OTHER->name);
+                                break;
+                        }
+                    }
+                });
+        });
+
+        return $query;
+    }
+
     public static function scopePositionDuration(Builder $query, ?array $positionDuration): Builder
     {
 
@@ -775,6 +820,38 @@ class PoolCandidate extends Model
 
         return $query;
 
+    }
+
+    public function scopeOrderByClaimVerification(Builder $query, ?string $sortOrder)
+    {
+        $orderWithoutDirection = '
+                    CASE
+                    WHEN priority_verification=\'ACCEPTED\' OR priority_verification=\'UNVERIFIED\' then 40
+                    WHEN (veteran_verification=\'ACCEPTED\' OR veteran_verification=\'UNVERIFIED\') AND (priority_verification IS NULL OR priority_verification=\'REJECTED\') then 30
+                    WHEN (users.citizenship=\'CITIZEN\' OR users.citizenship=\'PERMANENT_RESIDENT\') AND (priority_verification IS NULL OR priority_verification=\'REJECTED\') AND (veteran_verification IS NULL OR veteran_verification=\'REJECTED\') then 20
+                    else 10
+                    END';
+
+        if ($sortOrder && $sortOrder == 'DESC') {
+            $order = $orderWithoutDirection.' DESC';
+
+            $query
+                ->join('users', 'users.id', '=', 'pool_candidates.user_id')
+                ->select('users.citizenship', 'pool_candidates.*')
+                ->orderBy('is_bookmarked', 'DESC')
+                ->orderByRaw($order);
+
+        } elseif ($sortOrder && $sortOrder == 'ASC') {
+            $order = $orderWithoutDirection.' ASC';
+
+            $query
+                ->join('users', 'users.id', '=', 'pool_candidates.user_id')
+                ->select('users.citizenship', 'pool_candidates.*')
+                ->orderBy('is_bookmarked', 'DESC')
+                ->orderByRaw($order);
+        }
+
+        return $query;
     }
 
     public function setApplicationSnapshot()

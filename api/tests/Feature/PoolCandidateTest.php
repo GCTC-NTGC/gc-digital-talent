@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Enums\CitizenshipStatus;
+use App\Enums\ClaimVerificationResult;
 use App\Enums\PoolCandidateStatus;
 use App\Facades\Notify;
 use App\Models\AwardExperience;
@@ -773,5 +775,143 @@ class PoolCandidateTest extends TestCase
                 ],
             ]);
 
+    }
+
+    public function testOrderByClaimVerification(): void
+    {
+        $query =
+            /** @lang GraphQL */
+            '
+            query PoolCandidates($orderByClaimVerification: SortOrder) {
+                poolCandidatesPaginated(orderByClaimVerification: $orderByClaimVerification) {
+                    data {
+                        id
+                    }
+                }
+            }
+        ';
+
+        $poolOne = Pool::factory()->published()->create();
+        $bookmarkedAcceptedPriority = PoolCandidate::factory()->create(
+            [
+                'pool_id' => $poolOne,
+                'user_id' => User::factory()->create(['citizenship' => CitizenshipStatus::CITIZEN->name]),
+            ],
+        );
+        $bookmarkedAcceptedPriority->update([
+            'is_bookmarked' => true,
+            'priority_verification' => ClaimVerificationResult::ACCEPTED->name,
+            'veteran_verification' => null,
+            'submitted_at' => config('constants.past_date'),
+        ]);
+        $unverifiedPriorityAndAcceptedVeteran = PoolCandidate::factory()->create(
+            [
+                'pool_id' => $poolOne,
+                'user_id' => User::factory()->create(['citizenship' => CitizenshipStatus::CITIZEN->name]),
+            ],
+        );
+        $unverifiedPriorityAndAcceptedVeteran->update([
+            'is_bookmarked' => false,
+            'priority_verification' => ClaimVerificationResult::UNVERIFIED->name,
+            'veteran_verification' => ClaimVerificationResult::ACCEPTED->name,
+            'submitted_at' => config('constants.past_date'),
+        ]);
+        $acceptedVeteran = PoolCandidate::factory()->create(
+            [
+                'pool_id' => $poolOne,
+                'user_id' => User::factory()->create(['citizenship' => CitizenshipStatus::CITIZEN->name]),
+            ],
+        );
+        $acceptedVeteran->update([
+            'is_bookmarked' => false,
+            'priority_verification' => null,
+            'veteran_verification' => ClaimVerificationResult::ACCEPTED->name,
+            'submitted_at' => config('constants.past_date'),
+        ]);
+        $rejectedVeteranCitizenOther = PoolCandidate::factory()->create(
+            [
+                'pool_id' => $poolOne,
+                'user_id' => User::factory()->create(['citizenship' => CitizenshipStatus::OTHER->name]),
+            ],
+        );
+        $rejectedVeteranCitizenOther->update([
+            'is_bookmarked' => false,
+            'priority_verification' => null,
+            'veteran_verification' => ClaimVerificationResult::REJECTED->name,
+            'submitted_at' => config('constants.past_date'),
+        ]);
+        $citizenOnly = PoolCandidate::factory()->create(
+            [
+                'pool_id' => $poolOne,
+                'user_id' => User::factory()->create(['citizenship' => CitizenshipStatus::CITIZEN->name]),
+            ],
+        );
+        $citizenOnly->update([
+            'is_bookmarked' => false,
+            'priority_verification' => null,
+            'veteran_verification' => null,
+            'submitted_at' => config('constants.past_date'),
+        ]);
+
+        // assert in both cases that veteran + priority treated as priority
+        // priority > veteran > citizen/permanent resident > rest
+
+        // assert sorting by bookmarked then DESCENDING category
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($query, [
+                'orderByClaimVerification' => 'DESC',
+            ])
+            ->assertJson([
+                'data' => [
+                    'poolCandidatesPaginated' => [
+                        'data' => [
+                            [
+                                'id' => $bookmarkedAcceptedPriority->id,
+                            ],
+                            [
+                                'id' => $unverifiedPriorityAndAcceptedVeteran->id,
+                            ],
+                            [
+                                'id' => $acceptedVeteran->id,
+                            ],
+                            [
+                                'id' => $citizenOnly->id,
+                            ],
+                            [
+                                'id' => $rejectedVeteranCitizenOther->id,
+                            ],
+                        ],
+                    ],
+                ],
+            ]);
+
+        // assert sorting by bookmarked first but then ASCENDING category
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($query, [
+                'orderByClaimVerification' => 'ASC',
+            ])
+            ->assertJson([
+                'data' => [
+                    'poolCandidatesPaginated' => [
+                        'data' => [
+                            [
+                                'id' => $bookmarkedAcceptedPriority->id,
+                            ],
+                            [
+                                'id' => $rejectedVeteranCitizenOther->id,
+                            ],
+                            [
+                                'id' => $citizenOnly->id,
+                            ],
+                            [
+                                'id' => $acceptedVeteran->id,
+                            ],
+                            [
+                                'id' => $unverifiedPriorityAndAcceptedVeteran->id,
+                            ],
+                        ],
+                    ],
+                ],
+            ]);
     }
 }

@@ -735,7 +735,7 @@ input PoolCandidateSearchInput {
   name: String @scope
   notes: String @scope
   isGovEmployee: Boolean @scope
-  priorityWeight: [PriorityWeight] @scope(name: "priorityWeight")
+  priorityWeight: [PriorityWeight] @scope(name: "candidateCategory")
   poolCandidateStatus: [PoolCandidateStatus]
     @scope(name: "poolCandidateStatuses")
   expiryStatus: CandidateExpiryFilter @scope(name: "expiryStatus")
@@ -869,6 +869,7 @@ type Query {
   poolCandidatesPaginated(
     where: PoolCandidateSearchInput
     orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
+    orderByClaimVerification: SortOrder @scope
     orderBy: _
       @orderBy(
         relations: [
