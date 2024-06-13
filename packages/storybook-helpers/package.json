@@ -16,7 +16,7 @@
     "@urql/core": "^5.0.3",
     "chromatic": "^11.5.3",
     "framer-motion": "^11.2.10",
-    "graphql": "^16.8.1",
+    "graphql": "^16.8.2",
     "lodash": "^4.17.21",
     "react-helmet-async": "^2.0.5",
     "react-router-dom": "^6.23.1",
