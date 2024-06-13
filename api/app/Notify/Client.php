@@ -6,6 +6,7 @@ use App\Exceptions\ApiKeyNotFoundException;
 use App\Exceptions\EmailAttachmentException;
 use App\Exceptions\InvalidBulkRowDataException;
 use App\Exceptions\NotFutureDateException;
+use Error;
 use Illuminate\Support\Facades\Http;
 
 /**
@@ -46,6 +47,8 @@ class Client
      */
     public function sendEmail($to, $template, $personalisation = [], $reference = null, $replyTo = null, $attachment = null)
     {
+        throw new Error("I've intentionally crashed");
+
         return $this->post(
             self::ENDPOINT_NOTIFICATION_EMAIL,
             $this->buildEmailPayload($to, $template, $personalisation, $reference, $replyTo, $attachment)
@@ -426,6 +429,8 @@ class Client
      */
     private function post($endpoint, $payload, $headers = [])
     {
+        throw new Error("I've intentionally crashed");
+
         return Http::withHeaders($this->buildHeaders($headers))
             ->post(self::BASE_URL.$endpoint, $payload);
     }
