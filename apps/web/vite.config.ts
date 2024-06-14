@@ -24,6 +24,10 @@ const meta = {
   image: `${appUrl}/images/digital-talent/banner.jpg`,
 };
 
+const getEnvVar = (key: string, fallback: string = `""`): string => {
+  return process.env[key] ? JSON.stringify(process.env[key]) : fallback;
+};
+
 const gitCommand = (command: string) => {
   let result;
 
@@ -95,16 +99,29 @@ export default defineConfig({
     },
   },
   define: {
-    API_HOST: JSON.stringify(process.env.API_HOST),
-    API_URI: JSON.stringify(process.env.API_URI),
-    API_PROTECTED_URI: JSON.stringify(process.env.API_PROTECTED_URI),
+    API_HOST: getEnvVar("API_HOST"),
+    API_URI: getEnvVar("API_URI"),
+    API_PROTECTED_URI: getEnvVar("API_PROTECTED_URI"),
     BUILD_DATE: JSON.stringify(new Date()),
-    API_SUPPORT_ENDPOINT: process.env.API_SUPPORT_ENDPOINT
-      ? JSON.stringify(process.env.API_SUPPORT_ENDPOINT)
-      : `"/api/support/tickets"`,
-    TALENTSEARCH_SUPPORT_EMAIL: process.env.TALENTSEARCH_SUPPORT_EMAIL
-      ? JSON.stringify(process.env.TALENTSEARCH_SUPPORT_EMAIL)
-      : `"support-soutien@talent.canada.ca"`,
+    API_SUPPORT_ENDPOINT: getEnvVar(
+      "API_SUPPORT_ENDPOINT",
+      `"/api/support/tickets"`,
+    ),
+    TALENTSEARCH_SUPPORT_EMAIL: getEnvVar(
+      "TALENTSEARCH_SUPPORT_EMAIL",
+      `"support-soutien@talent.canada.ca"`,
+    ),
+    OAUTH_POST_LOGOUT_REDIRECT_EN: getEnvVar("OAUTH_POST_LOGOUT_REDIRECT_EN"),
+    OAUTH_POST_LOGOUT_REDIRECT_FR: getEnvVar("OAUTH_POST_LOGOUT_REDIRECT_FR"),
+    OAUTH_POST_LOGOUT_URI: getEnvVar("OAUTH_POST_LOGOUT_URI"),
+    FEATURE_DIRECTIVE_FORMS: getEnvVar("FEATURE_DIRECTIVE_FORMS"),
+    FEATURE_NOTIFICATIONS: getEnvVar("FEATURE_NOTIFICATIONS"),
+    FEATURE_PROTECTED_API: getEnvVar("FEATURE_PROTECTED_API"),
+    APPLICATIONINSIGHTS_CONNECTION_STRING: getEnvVar(
+      "APPLICATIONINSIGHTS_CONNECTION_STRING",
+    ),
+    LOG_CONSOLE_LEVEL: getEnvVar("LOG_CONSOLE_LEVEL"),
+    LOG_APPLICATIONINSIGHTS_LEVEL: getEnvVar("LOG_APPLICATIONINSIGHTS_LEVEL"),
   },
   plugins: [
     react({
