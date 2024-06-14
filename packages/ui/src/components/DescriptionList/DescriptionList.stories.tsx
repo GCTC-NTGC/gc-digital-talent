@@ -6,7 +6,7 @@ import DevicePhoneMobileIcon from "@heroicons/react/24/solid/DevicePhoneMobileIc
 import EnvelopeIcon from "@heroicons/react/24/solid/EnvelopeIcon";
 import { faker } from "@faker-js/faker/locale/en";
 
-import DefinitionList from "./DefinitionList";
+import DefinitionList from "./DescriptionList";
 
 faker.seed(0);
 

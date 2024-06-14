@@ -41,7 +41,7 @@ interface ItemProps {
   children: ReactNode;
   color?: Color;
   titleProps?: GenericHTMLProps;
-  definitionProps?: GenericHTMLProps;
+  descriptionProps?: GenericHTMLProps;
 }
 
 const Item = ({
@@ -49,7 +49,7 @@ const Item = ({
   Icon,
   children,
   titleProps,
-  definitionProps,
+  descriptionProps,
   color = "primary",
 }: ItemProps) => {
   return (
@@ -76,7 +76,7 @@ const Item = ({
           : {
               "data-h2-margin": "base(0, 0, x.5, 0)",
             })}
-        {...definitionProps}
+        {...descriptionProps}
       >
         {children}
       </dd>
