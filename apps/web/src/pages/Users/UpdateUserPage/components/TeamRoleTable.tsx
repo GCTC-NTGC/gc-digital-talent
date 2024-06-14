@@ -50,6 +50,15 @@ const TeamRoleTable = ({
   const intl = useIntl();
   const routes = useRoutes();
 
+  const teamRoles = availableRoles.filter(
+    (role) =>
+      role.isTeamBased &&
+      !["community_admin", "community_recruiter", "process_operator"].includes(
+        // These roles are meant to be connected to different kinds of Teams.
+        role.name,
+      ),
+  );
+
   const handleEditRoles = useCallback(
     async (values: UpdateUserRolesInput) => {
       return onUpdateUserRoles(values);
@@ -66,7 +75,7 @@ const TeamRoleTable = ({
         description: "Title displayed for the team table actions column",
       }),
       cell: ({ row: { original: teamAssignment } }) =>
-        teamActionCell(teamAssignment, user, handleEditRoles, availableRoles),
+        teamActionCell(teamAssignment, user, handleEditRoles, teamRoles),
     }),
     columnHelper.accessor(
       (teamAssignment) =>
@@ -164,7 +173,7 @@ const TeamRoleTable = ({
           component: (
             <AddTeamRoleDialog
               user={user}
-              availableRoles={availableRoles}
+              availableRoles={teamRoles}
               onAddRoles={handleEditRoles}
             />
           ),

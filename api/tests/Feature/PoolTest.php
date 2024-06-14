@@ -562,7 +562,7 @@ class PoolTest extends TestCase
         $pool->setEssentialPoolSkills([$skill1->id, $skill2->id]);
 
         // assert cannot publish due to soft deleted essential skill $skill2
-        $this->actingAs($this->adminUser, 'api')->graphQL(
+        $this->actingAs($this->communityManager, 'api')->graphQL(
             /** @lang GraphQL */
             '
                 mutation PublishPool($id: ID!) {
@@ -580,7 +580,7 @@ class PoolTest extends TestCase
         $pool->setEssentialPoolSkills([$skill1->id]);
 
         // assert can now publish with $skill2 removed
-        $this->actingAs($this->adminUser, 'api')->graphQL(
+        $this->actingAs($this->communityManager, 'api')->graphQL(
             /** @lang GraphQL */
             '
                         mutation PublishPool($id: ID!) {
@@ -805,7 +805,7 @@ class PoolTest extends TestCase
 
         // Note: Default factory has no pool skills attached to Screening question step
         // assert cannot publish due to assessment steps missing skills
-        $this->actingAs($this->adminUser, 'api')->graphQL(
+        $this->actingAs($this->communityManager, 'api')->graphQL(
             /** @lang GraphQL */
             '
                         mutation PublishPool($id: ID!) {
@@ -826,7 +826,28 @@ class PoolTest extends TestCase
         }
 
         // assessment plan now marked as complete
-        $this->actingAs($this->adminUser, 'api')->graphQL(
+        $this->actingAs($this->communityManager, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+                    query pool($id: UUID!) {
+                        pool(id: $id) {
+                            assessmentPlanIsComplete
+                        }
+                    }
+                    ',
+            [
+                'id' => $completePool->id,
+            ]
+        )->assertJson([
+            'data' => [
+                'pool' => [
+                    'assessmentPlanIsComplete' => true,
+                ],
+            ],
+        ]);
+
+        // assessment plan now marked as complete
+        $this->actingAs($this->communityManager, 'api')->graphQL(
             /** @lang GraphQL */
             '
                     query pool($id: UUID!) {
@@ -847,7 +868,7 @@ class PoolTest extends TestCase
         ]);
 
         // assert can now publish as all steps have attached skills
-        $this->actingAs($this->adminUser, 'api')->graphQL(
+        $this->actingAs($this->communityManager, 'api')->graphQL(
             /** @lang GraphQL */
             '
                         mutation PublishPool($id: ID!) {
@@ -912,8 +933,29 @@ class PoolTest extends TestCase
             ],
         ]);
 
-        // assert cannot publish due to the one pool skill lacking an assessment
+        // assessment plan marked as incomplete due to pool skills missing steps
         $this->actingAs($this->adminUser, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+                    query pool($id: UUID!) {
+                        pool(id: $id) {
+                            assessmentPlanIsComplete
+                        }
+                    }
+                    ',
+            [
+                'id' => $completePool->id,
+            ]
+        )->assertJson([
+            'data' => [
+                'pool' => [
+                    'assessmentPlanIsComplete' => false,
+                ],
+            ],
+        ]);
+
+        // assert cannot publish due to the one pool skill lacking an assessment
+        $this->actingAs($this->communityManager, 'api')->graphQL(
             /** @lang GraphQL */
             '
                         mutation PublishPool($id: ID!) {
@@ -954,8 +996,29 @@ class PoolTest extends TestCase
             ],
         ]);
 
-        // assert successful now that all pool skills have an assessment
+        // assessment plan now marked as complete
         $this->actingAs($this->adminUser, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+                            query pool($id: UUID!) {
+                                pool(id: $id) {
+                                    assessmentPlanIsComplete
+                                }
+                            }
+                            ',
+            [
+                'id' => $completePool->id,
+            ]
+        )->assertJson([
+            'data' => [
+                'pool' => [
+                    'assessmentPlanIsComplete' => true,
+                ],
+            ],
+        ]);
+
+        // assert successful now that all pool skills have an assessment
+        $this->actingAs($this->communityManager, 'api')->graphQL(
             /** @lang GraphQL */
             '
                                 mutation PublishPool($id: ID!) {
@@ -1362,14 +1425,10 @@ class PoolTest extends TestCase
                 ],
             ]);
 
-        // Platform admins can edit
+        // Platform admins cannot edit
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($mutation, $vars)
-            ->assertExactJson([
-                'data' => [
-                    'updatePublishedPool' => ['id' => $pool->id],
-                ],
-            ]);
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
 
         // Cannot update without justification
         $this->actingAs($this->adminUser, 'api')
