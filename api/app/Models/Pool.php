@@ -588,9 +588,6 @@ class Pool extends Model
                     $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
                         return $query->whereIn('id', $teamIds);
                     });
-                    $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
-                        return $query->whereIn('id', $teamIds);
-                    });
                 }
 
                 if ($user->isAbleTo('view-any-publishedPool')) {
