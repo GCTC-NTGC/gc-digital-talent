@@ -205,7 +205,7 @@ interface HasRoleAssignments {
 type Pool implements HasRoleAssignments {
   id: ID!
   owner: UserPublicProfile @belongsTo(relation: "user")
-  team: Team @belongsTo(attribute: "legacyTeam") @canModel(ability: "viewAny")
+  team: Team @belongsTo(relation: "legacyTeam") @canModel(ability: "viewAny")
   name: LocalizedString
   classification: Classification @belongsTo
   operationalRequirements: [OperationalRequirement]
