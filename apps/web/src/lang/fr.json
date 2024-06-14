@@ -5607,10 +5607,6 @@
     "defaultMessage": "Solutions logicielles de la <abbreviation>TI</abbreviation>",
     "description": "Title for the 'software solutions' IT work stream"
   },
-  "TmDejD": {
-    "defaultMessage": "Vous souhaitez coordonner une présentation pour votre ministère? <contactLink>Contactez-nous</contactLink>.",
-    "description": "Third paragraph describing the directive on digital talent"
-  },
   "TomxAe": {
     "defaultMessage": "{time} le {date}",
     "description": "A datetime formatted as a certain time on a certain date"

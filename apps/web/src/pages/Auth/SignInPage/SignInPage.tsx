@@ -240,7 +240,7 @@ export const Component = () => {
                   </Accordion.Trigger>
                   <Accordion.Content>
                     <p>
-                      {intl.formatMessage(gckeyMessages.questionAuthCodes, {
+                      {intl.formatMessage(gckeyMessages.answerAuthCodes, {
                         helpLink: (chunks: ReactNode) =>
                           helpLink(chunks, paths.support()),
                       })}
