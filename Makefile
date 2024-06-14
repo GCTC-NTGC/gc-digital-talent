@@ -2,6 +2,7 @@
 
 DOCKER_RUN=docker-compose run --rm maintenance bash
 DOCKER_EXEC=docker-compose exec -w /home/site/wwwroot/api webserver sh -c
+DOCKER_PNPM=docker-compose run -w /var/www/html --rm maintenance pnpm
 
 up:
 	docker-compose up --build --detach
@@ -34,4 +35,8 @@ artisan:
 	$(DOCKER_EXEC) "php artisan $(CMD)"
 
 watch:
-	docker-compose run -w /var/www/html --rm maintenance pnpm run watch
+	$(DOCKER_PNPM) run watch
+
+lint:
+	$(DOCKER_EXEC) "php ./vendor/bin/pint"
+	$(DOCKER_PNPM) lint
