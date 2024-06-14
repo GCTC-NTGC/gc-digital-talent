@@ -726,7 +726,7 @@ class PoolCandidate extends Model
             return $query->where('id', null);
         }
 
-        if (! $user->isAbleTo('view-any-application')) {
+        if (! $user->isAbleTo('view-any-submittedApplication')) {
             $query->where(function (Builder $query) use ($user) {
                 if ($user->isAbleTo('view-any-submittedApplication')) {
                     $query->orWhere('submitted_at', '<=', Carbon::now()->toDateTimeString());

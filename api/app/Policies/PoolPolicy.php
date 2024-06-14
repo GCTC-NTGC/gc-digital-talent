@@ -211,8 +211,6 @@ class PoolPolicy
     {
         $pool->loadMissing('team');
 
-        // TODO: should this check for non-draft status?
-
         return $user->isAbleTo('archive-team-publishedPool', $pool->team);
     }
 

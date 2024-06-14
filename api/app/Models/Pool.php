@@ -483,12 +483,12 @@ class Pool extends Model
         if (! $user->isAbleTo('view-any-pool')) {
             $query->where(function (Builder $query) use ($user) {
 
-                if ($user->isAbleTo('view-team-pool')) {
+                if ($user->isAbleTo('view-team-draftPool')) {
                     // Only add teams the user can view pools in to the query for `whereHAs`
                     $teams = $user->rolesTeams()->get();
                     $teamIds = [];
                     foreach ($teams as $team) {
-                        if ($user->isAbleTo('view-team-pool', $team)) {
+                        if ($user->isAbleTo('view-team-draftPool', $team)) {
                             $teamIds[] = $team->id;
                         }
                     }
