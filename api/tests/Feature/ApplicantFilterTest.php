@@ -20,6 +20,7 @@ use Database\Seeders\PoolTestSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
+use Database\Seeders\TeamSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
@@ -42,6 +43,8 @@ class ApplicantFilterTest extends TestCase
         $this->bootRefreshesSchemaCache();
 
         $this->seed(RolePermissionSeeder::class);
+        $this->seed(DepartmentSeeder::class);
+        $this->seed(TeamSeeder::class);
 
         // Create super user we run tests as
         // Note: this extra user does change the results of a couple queries
@@ -114,8 +117,6 @@ class ApplicantFilterTest extends TestCase
      */
     public function testQueryApplicantFilter()
     {
-        $this->seed(DepartmentSeeder::class);
-
         $filter = ApplicantFilter::factory()->create();
         $request = PoolCandidateSearchRequest::factory()->create([
             'applicant_filter_id' => $filter->id,
@@ -202,7 +203,6 @@ class ApplicantFilterTest extends TestCase
     public function testQueryRelationships()
     {
         // Before we add relationships, we need to seed the related values
-        $this->seed(DepartmentSeeder::class);
         $this->seed(ClassificationSeeder::class);
         $this->seed(CommunitySeeder::class);
         $this->seed(SkillFamilySeeder::class);
@@ -284,7 +284,6 @@ class ApplicantFilterTest extends TestCase
     public function testCanCreateARequest()
     {
         // Seed everything required
-        $this->seed(DepartmentSeeder::class);
         $this->seed(CommunitySeeder::class);
         $this->seed(ClassificationSeeder::class);
         $this->seed(SkillFamilySeeder::class);
@@ -360,7 +359,6 @@ class ApplicantFilterTest extends TestCase
     public function testFilterCanBeStoredAndRetrievedWithoutChangingResults()
     {
         // Seed everything used in generating Users
-        $this->seed(DepartmentSeeder::class);
         $this->seed(ClassificationSeeder::class);
         $this->seed(CommunitySeeder::class);
         $this->seed(GenericJobTitleSeeder::class);
