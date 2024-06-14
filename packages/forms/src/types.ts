@@ -11,6 +11,8 @@ import {
   Merge,
 } from "react-hook-form";
 
+export type FieldLabels = Record<string, ReactNode>;
+
 export type FieldState = "unset" | "invalid" | "dirty";
 
 export type StyleRecord = Record<string, string>;

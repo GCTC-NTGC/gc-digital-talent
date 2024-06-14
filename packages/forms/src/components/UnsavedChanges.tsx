@@ -5,7 +5,7 @@ import { Alert, ScrollToLink } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-import type { FieldLabels } from "./BasicForm";
+import type { FieldLabels } from "../types";
 
 interface UnsavedChangesProps {
   labels?: FieldLabels;
