@@ -86,15 +86,10 @@ const languageProfileDescriptions = defineMessages({
   },
 });
 
-type LanguageRequirementDialogProps = {
-  headingLevel?: HeadingProps["level"];
-};
-
-const LanguageRequirementDialog = ({
-  headingLevel = "h3",
-}: LanguageRequirementDialogProps) => {
+const LanguageRequirementDialog = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const headingLevel: HeadingProps["level"] = "h3";
 
   return (
     <Dialog.Root>
