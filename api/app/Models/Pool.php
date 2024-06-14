@@ -603,4 +603,12 @@ class Pool extends Model
     {
         return self::$selectableColumns;
     }
+
+    /**
+     * Get the department that owns the pool.
+     */
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
 }

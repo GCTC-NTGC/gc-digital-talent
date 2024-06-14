@@ -67,4 +67,12 @@ class Department extends Model
 
         return $query;
     }
+
+    /**
+     * Get the pools for the department.
+     */
+    public function pools()
+    {
+        return $this->hasMany(Pool::class);
+    }
 }
