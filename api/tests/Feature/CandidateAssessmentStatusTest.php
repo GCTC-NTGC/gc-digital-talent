@@ -6,9 +6,12 @@ use App\Enums\AssessmentDecision;
 use App\Enums\AssessmentFinalDecision;
 use App\Enums\AssessmentResultType;
 use App\Enums\PoolSkillType;
+use App\Enums\SkillCategory;
 use App\Models\AssessmentResult;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
+use App\Models\PoolSkill;
+use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
@@ -206,8 +209,15 @@ class CandidateAssessmentStatusTest extends TestCase
 
     public function testUnsuccessfulEssentialSkillDisqualifies(): void
     {
+        $technicalSkill = Skill::factory()->create([
+            'category' => SkillCategory::TECHNICAL->name,
+        ]);
+        $testPoolSkill = PoolSkill::create([
+            'pool_id' => $this->pool->id,
+            'skill_id' => $technicalSkill->id,
+            'type' => PoolSkillType::ESSENTIAL->name,
+        ]);
         $stepOne = $this->pool->assessmentSteps->where('sort_order', 1)->first();
-        $skill = $this->pool->poolSkills->where('type', PoolSkillType::ESSENTIAL->name)->first();
 
         AssessmentResult::factory()
             ->withResultType(AssessmentResultType::SKILL)
@@ -215,7 +225,7 @@ class CandidateAssessmentStatusTest extends TestCase
                 'assessment_step_id' => $stepOne->id,
                 'pool_candidate_id' => $this->candidate->id,
                 'assessment_decision' => AssessmentDecision::UNSUCCESSFUL->name,
-                'pool_skill_id' => $skill->id,
+                'pool_skill_id' => $testPoolSkill->id,
             ]);
 
         $this->actingAs($this->adminUser, 'api')

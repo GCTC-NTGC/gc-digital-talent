@@ -27,7 +27,7 @@ class PoolSkill extends Model
 
     protected $keyType = 'string';
 
-    protected $fillable = ['skill_id', 'type', 'required_skill_level'];
+    protected $fillable = ['pool_id', 'skill_id', 'type', 'required_skill_level'];
 
     protected static function boot()
     {
