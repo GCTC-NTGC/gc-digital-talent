@@ -230,13 +230,13 @@ class Pool extends Model
     /**
      * Attach the users to the related team creating one if there isn't already
      *
-     * @param string|array  $userId - Id of the user or users to attach the role to
+     * @param  string|array  $userId  - Id of the user or users to attach the role to
      * @return void
      */
     public function addProcessOperators(string|array $userId)
     {
         $team = $this->team()->firstOrCreate([], [
-            'name' => "pool-".$this->id,
+            'name' => 'pool-'.$this->id,
         ]);
 
         if (is_array($userId)) {
