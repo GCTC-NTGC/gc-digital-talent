@@ -1,5 +1,6 @@
 import { IntlShape } from "react-intl";
 import { SortingState } from "@tanstack/react-table";
+import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
 
 import {
   Locales,
@@ -9,10 +10,12 @@ import {
 import { Link, Chip } from "@gc-digital-talent/ui";
 import {
   Classification,
+  FragmentType,
   LocalizedString,
   Maybe,
   OrderByRelationWithColumnAggregateFunction,
   Pool,
+  PoolBookmarksOrderByInput,
   PoolFilterInput,
   PoolTeamDisplayNameOrderByInput,
   QueryPoolsPaginatedOrderByClassificationColumn,
@@ -24,8 +27,10 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 import { SearchState } from "~/components/Table/ResponsiveTable/types";
+import tableMessages from "~/components/PoolCandidatesTable/tableMessages";
 
 import { FormValues } from "./PoolFilterDialog";
+import PoolBookmark, { PoolBookmark_Fragment } from "./PoolBookmark";
 
 export function poolNameAccessor(pool: Pool, intl: IntlShape) {
   const name = getLocalizedName(pool.name, intl);
@@ -184,12 +189,14 @@ export function getOrderByClause(
     ["name", "name"],
     ["publishingGroup", "publishing_group"],
     ["stream", "stream"],
+    ["processNumber", "process_number"],
     ["ownerName", "FIRST_NAME"],
     ["ownerEmail", "EMAIL"],
     ["createdDate", "created_at"],
     ["updatedDate", "updated_at"],
     ["classification", "classification"],
     ["team", "team"],
+    ["poolBookmarks", "poolBookmarks"],
     // ["status", "status"],
   ]);
 
@@ -198,6 +205,8 @@ export function getOrderByClause(
     return !!columnName;
   });
 
+  // PoolBookmarks is handled by another arg
+  if (sortingRule?.id === "poolBookmarks") return undefined;
   // Team is handled by another arg
   if (sortingRule?.id === "team") return undefined;
 
@@ -270,6 +279,13 @@ export function getTeamDisplayNameSort(
   };
 }
 
+export function getPoolBookmarkSort(): PoolBookmarksOrderByInput | undefined {
+  return {
+    column: "poolBookmarks",
+    order: SortOrder.Asc,
+  };
+}
+
 export function transformFormValuesToFilterInput(
   data: FormValues,
 ): PoolFilterInput {
@@ -296,3 +312,18 @@ export function transformPoolFilterInputToFormValues(
     ),
   };
 }
+
+export const poolBookmarkCell = (
+  owner: FragmentType<typeof PoolBookmark_Fragment>,
+  poolId: string,
+  poolName?: Maybe<LocalizedString>,
+) => {
+  return <PoolBookmark user={owner} poolId={poolId} poolName={poolName} />;
+};
+
+export const poolBookmarkHeader = (intl: IntlShape) => (
+  <BookmarkIcon
+    data-h2-width="base(x1)"
+    aria-label={intl.formatMessage(tableMessages.bookmark)}
+  />
+);

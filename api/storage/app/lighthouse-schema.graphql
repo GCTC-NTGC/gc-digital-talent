@@ -60,6 +60,7 @@ type Query {
     includeIds: [UUID!]
     excludeIds: [UUID!]
     where: PoolFilterInput
+    orderByPoolBookmarks: PoolBookmarksOrderByInput
     orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput
     orderBy: [QueryPoolsPaginatedOrderByRelationOrderByClause!]
 
@@ -72,6 +73,7 @@ type Query {
   poolCandidatesPaginated(
     where: PoolCandidateSearchInput
     orderByPoolName: PoolCandidatePoolNameOrderByInput
+    orderByClaimVerification: SortOrder
     orderBy: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
@@ -110,9 +112,12 @@ type Mutation {
   updateUserRoles(updateUserRolesInput: UpdateUserRolesInput!): UserAuthInfo
   deleteUser(id: ID!): User
   restoreUser(id: ID!): User
+  SendUserEmailVerification(id: ID!): User
+  verifyUserEmail(id: ID!, code: String!): User
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
   updatePoolCandidateStatus(id: UUID!, poolCandidate: UpdatePoolCandidateStatusInput!): PoolCandidate
   togglePoolCandidateBookmark(id: ID!): Boolean
+  updatePoolCandidateClaimVerification(id: UUID!, poolCandidate: UpdatePoolCandidateClaimVerificationInput!): PoolCandidate
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
   removeCandidate(id: UUID!, removalReason: CandidateRemovalReason!, removalReasonOther: String): PoolCandidate
   reinstateCandidate(id: UUID!): PoolCandidate
@@ -155,6 +160,7 @@ type Mutation {
   duplicatePool(id: ID!, teamId: ID!): Pool
   updatePool(id: ID!, pool: UpdatePoolInput!): Pool
   updatePublishedPool(id: ID!, pool: UpdatePublishedPoolInput!): Pool
+  togglePoolUserBookmark(poolId: UUID!): Pool
   createPoolSkill(poolId: ID!, skillId: ID!, poolSkill: CreatePoolSkillInput!): PoolSkill
   updatePoolSkill(id: ID!, poolSkill: UpdatePoolSkillInput!): PoolSkill
   deletePoolSkill(id: ID!): PoolSkill
@@ -241,6 +247,7 @@ type User {
   firstName: String
   lastName: String
   email: Email
+  emailVerifiedAt: DateTime
   telephone: PhoneNumber
   preferredLang: Language
   preferredLanguageForInterview: Language
@@ -292,6 +299,7 @@ type User {
   authInfo: UserAuthInfo
   enabledEmailNotifications: [NotificationFamily]
   enabledInAppNotifications: [NotificationFamily]
+  poolBookmarks: [Pool]
 }
 
 interface Notification {
@@ -299,6 +307,14 @@ interface Notification {
   readAt: DateTime
   createdAt: DateTime!
   updatedAt: DateTime!
+}
+
+type TestNotification implements Notification {
+  id: ID!
+  readAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String
 }
 
 type ApplicationDeadlineApproachingNotification implements Notification {
@@ -382,6 +398,7 @@ type Pool {
   publishedAt: DateTime
   archivedAt: DateTime
   isComplete: Boolean
+  assessmentPlanIsComplete: Boolean
   assessmentSteps: [AssessmentStep]
   poolSkills(type: PoolSkillType): [PoolSkill]
 }
@@ -457,6 +474,10 @@ type PoolCandidate {
   finalDecisionAt: DateTime
   placedAt: DateTime
   placedDepartment: Department
+  veteranVerification: ClaimVerificationResult
+  veteranVerificationExpiry: Date
+  priorityVerification: ClaimVerificationResult
+  priorityVerificationExpiry: Date
 }
 
 type PoolCandidateWithSkillCount {
@@ -746,12 +767,18 @@ input PoolFilterInput {
   team: String
   streams: [PoolStream!]
   statuses: [PoolStatus!]
+  processNumber: String
   publishingGroups: [PublishingGroup!]
   classifications: [ClassificationFilterInput!]
 }
 
 input PoolTeamDisplayNameOrderByInput {
   locale: String!
+  order: SortOrder!
+}
+
+input PoolBookmarksOrderByInput {
+  column: String!
   order: SortOrder!
 }
 
@@ -777,7 +804,7 @@ input PoolCandidateSearchInput {
   name: String
   notes: String
   isGovEmployee: Boolean
-  priorityWeight: [Int]
+  priorityWeight: [PriorityWeight]
   poolCandidateStatus: [PoolCandidateStatus]
   expiryStatus: CandidateExpiryFilter
   suspendedStatus: CandidateSuspendedFilter
@@ -1033,6 +1060,13 @@ input UpdateClassificationInput {
 input UpdatePoolCandidateStatusInput {
   expiryDate: Date
   status: PoolCandidateStatus
+}
+
+input UpdatePoolCandidateClaimVerificationInput {
+  veteranVerification: ClaimVerificationResult
+  veteranVerificationExpiry: Date
+  priorityVerification: ClaimVerificationResult
+  priorityVerificationExpiry: Date
 }
 
 input PlaceCandidateInput {
@@ -2083,6 +2117,12 @@ enum CitizenshipStatus {
   OTHER
 }
 
+enum ClaimVerificationResult {
+  ACCEPTED
+  REJECTED
+  UNVERIFIED
+}
+
 enum ArmedForcesStatus {
   VETERAN
   MEMBER
@@ -2549,5 +2589,12 @@ enum NotificationFamily {
 enum CandidateRemovalReason {
   REQUESTED_TO_BE_WITHDRAWN
   NOT_RESPONSIVE
+  OTHER
+}
+
+enum PriorityWeight {
+  PRIORITY_ENTITLEMENT
+  VETERAN
+  CITIZEN_OR_PERMANENT_RESIDENT
   OTHER
 }

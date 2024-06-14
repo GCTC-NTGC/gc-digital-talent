@@ -45,7 +45,7 @@ import {
 import { toast } from "@gc-digital-talent/toast";
 
 import { getExperienceSkills } from "~/utils/skillUtils";
-import { getEducationRequirementOptions } from "~/pages/Applications/ApplicationEducationPage/utils";
+import { getEducationRequirementOptions } from "~/utils/educationUtils";
 import { isIAPPool } from "~/utils/poolUtils";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
@@ -460,7 +460,9 @@ export const ScreeningDecisionDialog = ({
           <BasicForm
             onSubmit={onSubmit}
             labels={labels}
-            options={{ defaultValues: initialValues || defaultValues }}
+            options={{
+              defaultValues: initialValues || defaultValues,
+            }}
           >
             <ScreeningDecisionDialogForm dialogType={dialogType} />
             <Dialog.Footer>

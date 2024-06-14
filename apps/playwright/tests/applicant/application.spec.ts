@@ -117,14 +117,13 @@ test.describe("Application", () => {
 
   test("Can submit application", async ({ appPage }) => {
     const application = new ApplicationPage(appPage.page, pool.id);
-    await loginBySub(application.page, sub);
+    await loginBySub(application.page, sub, false);
 
     await application.create();
 
     // Welcome page - step one
     await expectOnStep(application.page, 1);
     await application.page.getByRole("button", { name: /let's go/i }).click();
-    // await application.waitForGraphqlResponse("Application");
 
     // Review profile page - step two
     await expectOnStep(application.page, 2);

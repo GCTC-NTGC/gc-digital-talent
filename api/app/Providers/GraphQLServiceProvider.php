@@ -15,6 +15,7 @@ use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateRemovalReason;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
+use App\Enums\ClaimVerificationResult;
 use App\Enums\DirectiveForms\AdvertisementType;
 use App\Enums\DirectiveForms\AdvertisingPlatform;
 use App\Enums\DirectiveForms\ContractAuthority;
@@ -60,6 +61,7 @@ use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
 use App\Enums\PoolStream;
 use App\Enums\PositionDuration;
+use App\Enums\PriorityWeight;
 use App\Enums\ProvinceOrTerritory;
 use App\Enums\PublishingGroup;
 use App\Enums\SecurityStatus;
@@ -131,6 +133,15 @@ class GraphQLServiceProvider extends ServiceProvider
                 return new EnumType([
                     'name' => 'CitizenshipStatus',
                     'values' => array_column(CitizenshipStatus::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'ClaimVerificationResult',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'ClaimVerificationResult',
+                    'values' => array_column(ClaimVerificationResult::cases(), 'name'),
                 ]);
             }
         );
@@ -667,6 +678,16 @@ class GraphQLServiceProvider extends ServiceProvider
                 return new EnumType([
                     'name' => 'CandidateRemovalReason',
                     'values' => array_column(CandidateRemovalReason::cases(), 'name'),
+                ]);
+            }
+        );
+
+        $typeRegistry->registerLazy(
+            'PriorityWeight',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'PriorityWeight',
+                    'values' => array_column(PriorityWeight::cases(), 'name'),
                 ]);
             }
         );

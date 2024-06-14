@@ -41,7 +41,7 @@ import {
 } from "~/components/Table/ResponsiveTable/constants";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
-import UserProfilePrintButton from "~/pages/Users/AdminUserProfilePage/components/UserProfilePrintButton";
+import UserProfilePrintButton from "~/components/PrintButton/UserProfilePrintButton";
 import useSelectedRows from "~/hooks/useSelectedRows";
 import Table, {
   getTableStateFromSearchParams,
@@ -49,6 +49,7 @@ import Table, {
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
+import { getPriorityWeight } from "~/utils/poolCandidate";
 
 import skillMatchDialogAccessor from "./SkillMatchDialog";
 import tableMessages from "./tableMessages";
@@ -68,6 +69,7 @@ import {
   getSortOrder,
   processCell,
   getPoolNameSort,
+  getClaimVerificationSort,
 } from "./helpers";
 import { rowSelectCell } from "../Table/ResponsiveTable/RowSelection";
 import { normalizedText } from "../Table/sortingFns";
@@ -135,6 +137,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
     $page: Int
     $poolNameSortingInput: PoolCandidatePoolNameOrderByInput
     $sortingInput: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
+    $orderByClaimVerification: SortOrder
   ) {
     poolCandidatesPaginated(
       where: $where
@@ -142,6 +145,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
       page: $page
       orderByPoolName: $poolNameSortingInput
       orderBy: $sortingInput
+      orderByClaimVerification: $orderByClaimVerification
     ) {
       data {
         id
@@ -433,7 +437,16 @@ const PoolCandidatesTable = ({
       page: paginationState.pageIndex,
       first: paginationState.pageSize,
       poolNameSortingInput: getPoolNameSort(sortState, locale),
-      sortingInput: getSortOrder(sortState, filterState, doNotUseBookmark),
+      sortingInput: getSortOrder(
+        sortState,
+        filterState,
+        doNotUseBookmark,
+        currentPool,
+      ),
+      orderByClaimVerification: getClaimVerificationSort(
+        sortState,
+        currentPool,
+      ),
     },
   });
 
@@ -591,7 +604,7 @@ const PoolCandidatesTable = ({
       ({ poolCandidate: { user } }) =>
         intl.formatMessage(
           user.priorityWeight
-            ? getPoolCandidatePriorities(user.priorityWeight)
+            ? getPoolCandidatePriorities(getPriorityWeight(user.priorityWeight))
             : commonMessages.notFound,
         ),
       {

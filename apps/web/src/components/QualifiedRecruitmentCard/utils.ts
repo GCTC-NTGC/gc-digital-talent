@@ -17,16 +17,13 @@ import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import { poolTitle } from "~/utils/poolUtils";
 import { Application } from "~/utils/applicationUtils";
 import {
-  deriveCombinedStatus,
-  getCombinedStatusLabel,
-  isHiredCombinedStatus,
-  isReadyToHireCombinedStatus,
-  isExpiredCombinedStatus,
-  isInactiveCombinedStatus,
-  isErrorCombinedStatus,
-  isSuspendedCombinedStatus,
-  isRemovedCombinedStatus,
-} from "~/utils/poolCandidateCombinedStatus";
+  derivedStatusLabel,
+  isInactiveStatus,
+  isNotPlacedStatus,
+  isPlacedStatus,
+  isScreenedOutStatus,
+  isSuspendedStatus,
+} from "~/utils/poolCandidate";
 
 export const joinDepartments = (
   departments: Maybe<Maybe<Pick<Department, "name">>[]>,
@@ -50,49 +47,34 @@ export const getStatusChipInfo = (
   suspendedAt: PoolCandidate["suspendedAt"],
   intl: IntlShape,
 ): StatusChipInfo => {
-  const combinedStatus = deriveCombinedStatus(status, suspendedAt);
-  const combinedStatusLabel = combinedStatus
-    ? getCombinedStatusLabel(combinedStatus)
-    : null;
-  const text = combinedStatusLabel
-    ? intl.formatMessage(combinedStatusLabel)
-    : "";
+  const statusLabelMessage = derivedStatusLabel(status, suspendedAt);
+  const text = statusLabelMessage ? intl.formatMessage(statusLabelMessage) : "";
 
-  if (isReadyToHireCombinedStatus(combinedStatus)) {
+  if (isNotPlacedStatus(status)) {
     return {
       color: "success",
       text,
       icon: ShieldCheckIcon,
     };
   }
-  if (isHiredCombinedStatus(combinedStatus)) {
+  if (isPlacedStatus(status)) {
     return {
       color: "secondary",
       text,
     };
   }
-  if (
-    isExpiredCombinedStatus(combinedStatus) ||
-    isRemovedCombinedStatus(combinedStatus)
-  ) {
+  if (status === PoolCandidateStatus.Expired || isScreenedOutStatus(status)) {
     return {
       color: "black",
       text,
     };
   }
-  if (isInactiveCombinedStatus(combinedStatus)) {
+  if (isInactiveStatus(status)) {
     return {
       color: "warning",
       text,
     };
   }
-  if (isErrorCombinedStatus(combinedStatus)) {
-    return {
-      color: "error",
-      text,
-    };
-  }
-
   return {
     color: "primary",
     text,
@@ -109,9 +91,7 @@ const getAvailabilityInfo = (
   { status, suspendedAt }: Application,
   intl: IntlShape,
 ): AvailabilityInfo => {
-  const combinedStatus = deriveCombinedStatus(status, suspendedAt);
-
-  if (isExpiredCombinedStatus(combinedStatus)) {
+  if (status === PoolCandidateStatus.Expired) {
     return {
       icon: null,
       color: {},
@@ -120,7 +100,7 @@ const getAvailabilityInfo = (
     };
   }
 
-  if (isHiredCombinedStatus(combinedStatus)) {
+  if (isPlacedStatus(status)) {
     return {
       icon: null,
       color: {},
@@ -129,7 +109,7 @@ const getAvailabilityInfo = (
     };
   }
 
-  if (isSuspendedCombinedStatus(combinedStatus)) {
+  if (isSuspendedStatus(status, suspendedAt)) {
     return {
       icon: NoSymbolIcon,
       color: {
@@ -140,7 +120,7 @@ const getAvailabilityInfo = (
     };
   }
 
-  if (isInactiveCombinedStatus(combinedStatus)) {
+  if (isInactiveStatus(status)) {
     return {
       icon: null,
       color: {},

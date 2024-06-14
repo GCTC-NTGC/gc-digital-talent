@@ -160,6 +160,49 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       description: "Error message that a given pool skill is not valid.",
     },
 
+    // RoD assorted
+    ExpiryDateRequired: {
+      defaultMessage: "Expiry date is missing. Enter a date.",
+      id: "mcL1kc",
+      description: "Error message that an expiry date must be added",
+    },
+    ExpiryDateAfterToday: {
+      defaultMessage: "Expiry date must be after today. Enter a valid date.",
+      id: "k8IB9g",
+      description: "Error message that an expiry date must be in the future",
+    },
+    InvalidStatusForQualification: {
+      defaultMessage:
+        "An error occurred during qualification. Contact support if this problem persists.",
+      id: "or2gwQ",
+      description: "Error message that qualifying a candidate failed",
+    },
+    InvalidStatusForDisqualification: {
+      defaultMessage:
+        "An error occurred during disqualification. Contact support if this problem persists.",
+      id: "IxWjU1",
+      description: "Error message that disqualifying a candidate failed",
+    },
+    InvalidStatusForRevertFinalDecision: {
+      defaultMessage:
+        "An error occurred while reverting final decision. Contact support if this problem persists.",
+      id: "556RGm",
+      description:
+        "Error message that reverting the final decision for a candidate failed",
+    },
+    InvalidStatusForPlacing: {
+      defaultMessage:
+        "An error occurred while placing the candidate. Contact support if this problem persists.",
+      id: "8kUa5H",
+      description: "Error message that placing a candidate failed",
+    },
+    CandidateNotPlaced: {
+      defaultMessage:
+        "An error occurred while placing the candidate. Contact support if this problem persists.",
+      id: "8kUa5H",
+      description: "Error message that placing a candidate failed",
+    },
+
     // pool updating
     UpdatePoolClosingDateFuture: {
       defaultMessage: "The pool must have a closing date after today.",
@@ -362,6 +405,11 @@ export const apiMessages: { [key: string]: MessageDescriptor } = defineMessages(
       id: "2KDa14",
       description:
         "Message displayed when user attempts to submit a form without at least one personnel requirement",
+    },
+    VERIFICATION_FAILED: {
+      defaultMessage: "Verification failed.",
+      id: "XFFFCu",
+      description: "Error message that the verification was not successful.",
     },
   },
 );

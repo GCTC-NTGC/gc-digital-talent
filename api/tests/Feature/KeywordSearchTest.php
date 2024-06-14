@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Models\AwardExperience;
 use App\Models\CommunityExperience;
 use App\Models\EducationExperience;
@@ -898,6 +900,68 @@ class KeywordSearchTest extends TestCase
             ', [
                 'where' => [
                     'generalSearch' => 'bob jone',
+                ],
+            ])->assertJsonFragment([
+                'id' => $user1->id,
+            ])->assertJsonFragment([
+                'id' => $user2->id,
+            ])->assertJsonCount(2, 'data.usersPaginated.data');
+    }
+
+    public function testUserSearchMultiSpacing()
+    {
+        $user1 = User::factory()->create([
+            'first_name' => 'john',
+            'last_name' => 'smith',
+            'email' => 'john@test.com',
+            'current_city' => 'abc',
+        ]);
+        $user2 = User::factory()->create([
+            'first_name' => 'bob',
+            'last_name' => 'johnson',
+            'email' => 'bob@test.com',
+            'current_city' => 'efg',
+        ]);
+        $user3 = User::factory()->create([
+            'first_name' => 'jones',
+            'last_name' => 'hall',
+            'email' => 'johnson@test.com',
+            'current_city' => 'hij',
+        ]);
+
+        // search operators unaffected by multiple spaces being present, two users returned regardless of spacing
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+                 query getUsersPaginated($where: UserFilterInput) {
+                     usersPaginated(where: $where) {
+                         data {
+                             id
+                         }
+                     }
+                 }
+             ', [
+                'where' => [
+                    'generalSearch' => '"johnson" OR john@',
+                ],
+            ])->assertJsonFragment([
+                'id' => $user1->id,
+            ])->assertJsonFragment([
+                'id' => $user2->id,
+            ])->assertJsonCount(2, 'data.usersPaginated.data');
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+                 query getUsersPaginated($where: UserFilterInput) {
+                     usersPaginated(where: $where) {
+                         data {
+                             id
+                         }
+                     }
+                 }
+             ', [
+                'where' => [
+                    'generalSearch' => '  "johnson"    OR     john@     ',
                 ],
             ])->assertJsonFragment([
                 'id' => $user1->id,

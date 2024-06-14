@@ -45,10 +45,10 @@ class NotifyTest extends TestCase
      */
     public function testEmail()
     {
-        $this->checkKey('notify.templates.test_email', 'Email template not found.');
+        $this->checkKey('notify.templates.test_email', 'Email template ID not found.');
 
         $response = Notify::sendEmail(
-            'simulate-delivered@notification.canada.ca',
+            config('notify.smokeTest.emailAddress'),
             $this->templates['test_email'],
             ['name' => $this->username]
         );
@@ -63,10 +63,10 @@ class NotifyTest extends TestCase
      */
     public function testSms()
     {
-        $this->checkKey('notify.templates.test_sms', 'Email template not found.');
+        $this->checkKey('notify.templates.test_sms', 'SMS template ID not found.');
 
         $response = Notify::sendSms(
-            '+16132532222',
+            config('notify.smokeTest.phoneNumber'),
             $this->templates['test_sms'],
             ['name' => $this->username]
         );
@@ -83,32 +83,32 @@ class NotifyTest extends TestCase
     {
         $this->markTestSkipped('Prevent hitting the server.');
 
-        $this->checkKey('notify.templates.test_bulk_sms', 'Email template not found.');
+        $this->checkKey('notify.templates.test_sms', 'SMS template ID not found.');
 
         $response = Notify::sendBulkSms(
             $this->bulkName,
             [
                 [
-                    'phone_number' => '+16132532222',
+                    'phone_number' => config('notify.smokeTest.phoneNumber'),
                     'personalisation' => [
                         'name' => $this->username.' 1',
                     ],
                 ],
                 [
-                    'phone_number' => '+16132532223',
+                    'phone_number' => config('notify.smokeTest.phoneNumber2'),
                     'personalisation' => [
                         'name' => $this->username.' 2',
                     ],
                 ],
                 [
-                    'phone_number' => '+16132532224',
+                    'phone_number' => config('notify.smokeTest.phoneNumber3'),
                     'personalisation' => [
                         'name' => $this->username.' 3',
                     ],
                 ],
 
             ],
-            $this->templates['test_bulk_sms']
+            $this->templates['test_sms']
         );
 
         $this->assertBulkResponseSuccess($response);
@@ -121,34 +121,34 @@ class NotifyTest extends TestCase
      */
     public function testBulkEmail()
     {
-        $this->markTestSkipped('Prevent hitting the server.');
+        $this->markTestSkipped('Bulk send doesn\'t work with team API keys.');
 
-        $this->checkKey('notify.templates.test_bulk_email', 'Email template not found.');
+        $this->checkKey('notify.templates.test_email', 'Email template ID not found.');
 
         $response = Notify::sendBulkEmail(
             $this->bulkName,
             [
                 [
-                    'email' => 'simulate-delivered@notification.canada.ca',
+                    'email' => config('notify.smokeTest.emailAddress'),
                     'personalisation' => [
                         'name' => $this->username.' 1',
                     ],
                 ],
                 [
-                    'email' => 'simulate-delivered-2@notification.canada.ca',
+                    'email' => config('notify.smokeTest.emailAddress2'),
                     'personalisation' => [
                         'name' => $this->username.' 2',
                     ],
                 ],
                 [
-                    'email' => 'simulate-delivered-3@notification.canada.ca',
+                    'email' => config('notify.smokeTest.emailAddress3'),
                     'personalisation' => [
                         'name' => $this->username.' 3',
                     ],
                 ],
 
             ],
-            $this->templates['test_bulk_email']
+            $this->templates['test_email']
         );
 
         $this->assertBulkResponseSuccess($response);

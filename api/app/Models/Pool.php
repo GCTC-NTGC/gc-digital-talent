@@ -6,6 +6,7 @@ use App\Enums\AssessmentStepType;
 use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
 use App\Enums\SkillCategory;
+use App\GraphQL\Validators\AssessmentPlanIsCompleteValidator;
 use App\GraphQL\Validators\PoolIsCompleteValidator;
 use App\Observers\PoolObserver;
 use Carbon\Carbon;
@@ -158,9 +159,12 @@ class Pool extends Model
 
     public function user(): BelongsTo
     {
-        // avoid selecting searchable column from user table
-        return $this->belongsTo(User::class)
-            ->select(User::getSelectableColumns());
+        return $this->belongsTo(User::class);
+    }
+
+    public function poolBookmarks(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'pool_user_bookmarks', 'pool_id', 'user_id')->withTimestamps();
     }
 
     public function team(): BelongsTo
@@ -309,6 +313,24 @@ class Pool extends Model
         return true;
     }
 
+    // is the assessment plan for the pool considered "complete"
+    public function getAssessmentPlanIsCompleteAttribute()
+    {
+        $pool = $this->load(['assessmentSteps', 'poolSkills']);
+
+        $planCompletionValidation = new AssessmentPlanIsCompleteValidator;
+        $validator = Validator::make($pool->toArray(),
+            $planCompletionValidation->rules(),
+            $planCompletionValidation->messages()
+        );
+
+        if ($validator->fails()) {
+            return false;
+        }
+
+        return true;
+    }
+
     public function scopeWasPublished(Builder $query)
     {
         $query->where('published_at', '<=', Carbon::now()->toDateTimeString());
@@ -333,6 +355,15 @@ class Pool extends Model
                 return $query->where('name->en', 'ilike', $term)
                     ->orWhere('name->fr', 'ilike', $term);
             });
+        }
+
+        return $query;
+    }
+
+    public static function scopeProcessNumber(Builder $query, ?string $number): Builder
+    {
+        if ($number) {
+            $query->where('process_number', 'ilike', sprintf('%%%s%%', $number));
         }
 
         return $query;
@@ -407,6 +438,8 @@ class Pool extends Model
 
                 $query->orWhere(function ($query) use ($term) {
                     self::scopeTeam($query, $term);
+                })->orWhere(function ($query) use ($term) {
+                    self::scopeProcessNumber($query, $term);
                 });
             });
         }
@@ -468,6 +501,26 @@ class Pool extends Model
 
         return $query;
 
+    }
+
+    public function scopeOrderByPoolBookmarks(Builder $query, ?array $args): Builder
+    {
+        extract($args);
+
+        /** @var \App\Models\User */
+        $user = Auth::user();
+
+        // order the pools so that the bookmarks connected to current user sticks to the top
+        if ($order && $user) {
+            $query->orderBy(
+                $user->selectRaw('1')
+                    ->join('pool_user_bookmarks', 'pool_user_bookmarks.user_id', '=', 'users.id')
+                    ->where('pool_user_bookmarks.user_id', $user->id)
+                    ->whereColumn('pool_user_bookmarks.pool_id', 'pools.id')
+            );
+        }
+
+        return $query;
     }
 
     public function scopeAuthorizedToView(Builder $query)

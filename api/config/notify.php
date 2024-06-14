@@ -12,6 +12,7 @@ return [
     */
     'client' => [
         'apiKey' => env('GCNOTIFY_API_KEY'),
+        'max_requests_per_minute' => env('GCNOTIFY_MAX_REQUESTS_PER_MINUTE', 1000),
     ],
 
     /*
@@ -35,6 +36,8 @@ return [
         'new_job_posted_en' => env('GCNOTIFY_TEMPLATE_NEW_JOB_POSTED_EN'),
         'new_job_posted_fr' => env('GCNOTIFY_TEMPLATE_NEW_JOB_POSTED_FR'),
         'talent_request_submission_confirmation_enfr' => env('GCNOTIFY_TEMPLATE_TALENT_REQUEST_SUBMISSION_CONFIRMATION_ENFR'),
+        'verify_email_en' => env('GCNOTIFY_TEMPLATE_VERIFY_EMAIL_EN'),
+        'verify_email_fr' => env('GCNOTIFY_TEMPLATE_VERIFY_EMAIL_FR'),
     ],
 
     /*

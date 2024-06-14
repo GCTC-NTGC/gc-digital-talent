@@ -1,10 +1,14 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Enums\ArmedForcesStatus;
 use App\Enums\AssessmentStepType;
+use App\Enums\ClaimVerificationResult;
 use App\Enums\EducationRequirementOption;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolLanguage;
+use App\Enums\SkillCategory;
 use App\Facades\Notify;
 use App\Models\AssessmentStep;
 use App\Models\AwardExperience;
@@ -15,6 +19,7 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\ScreeningQuestion;
 use App\Models\ScreeningQuestionResponse;
+use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
 use App\Models\WorkExperience;
@@ -35,6 +40,7 @@ use Tests\UsesProtectedGraphqlEndpoint;
 
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertNotNull;
+use function PHPUnit\Framework\assertSame;
 
 class PoolApplicationTest extends TestCase
 {
@@ -405,7 +411,7 @@ class PoolApplicationTest extends TestCase
             );
     }
 
-    public function testApplicationSubmitSkills(): void
+    public function testApplicationSubmitWithoutEssentialTechnicalSkills(): void
     {
         // create a pool, attach one essential skill to it
         $newPool = Pool::factory()->WithPoolSkills(1, 0)->create([
@@ -413,10 +419,13 @@ class PoolApplicationTest extends TestCase
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
         ]);
 
+        // technical essential skills are required
+        $technicalSkill = Skill::factory()->create(['category' => SkillCategory::TECHNICAL->name]);
+        $newPool->setEssentialPoolSkills([$technicalSkill->id]);
+
         // create an experience with no skills, then attach it to the user
         WorkExperience::factory()->create([
             'user_id' => $this->applicantUser->id,
-
         ]);
 
         $newPoolCandidate = PoolCandidate::factory()->create([
@@ -443,17 +452,19 @@ class PoolApplicationTest extends TestCase
                     'message' => ApiEnums::POOL_CANDIDATE_MISSING_ESSENTIAL_SKILLS,
                 ]],
             ]);
-
     }
 
-    public function testApplicationSubmitWithEssentialSkill(): void
+    public function testApplicationSubmitWithEssentialTechnicalSkills(): void
     {
-
         // create a pool, attach one essential skill to it
         $newPool = Pool::factory()->WithPoolSkills(1, 0)->create([
             'closing_date' => Carbon::now()->addDays(1),
             'advertisement_language' => PoolLanguage::ENGLISH->name, // avoid language requirements
         ]);
+
+        // technical essential skills are required
+        $technicalSkill = Skill::factory()->create(['category' => SkillCategory::TECHNICAL->name]);
+        $newPool->setEssentialPoolSkills([$technicalSkill->id]);
 
         $newPoolCandidate = PoolCandidate::factory()->create([
             'user_id' => $this->applicantUser->id,
@@ -1074,5 +1085,48 @@ class PoolApplicationTest extends TestCase
             )->assertJsonFragment([
                 'signature' => 'sign',
             ]);
+    }
+
+    public function testApplicationSubmissionClaimVerification(): void
+    {
+        $newPool = Pool::factory()->create([
+            'closing_date' => Carbon::now()->addDays(1),
+            'advertisement_language' => PoolLanguage::ENGLISH->name,
+        ]);
+        $newPool->essentialSkills()->sync([]);
+
+        // not veteran, has priority
+        $this->applicantUser->armed_forces_status = ArmedForcesStatus::MEMBER->name;
+        $this->applicantUser->has_priority_entitlement = true;
+        $this->applicantUser->priority_number = 'abc';
+        $this->applicantUser->save();
+
+        $newPoolCandidate = PoolCandidate::factory()->create([
+            'user_id' => $this->applicantUser->id,
+            'pool_id' => $newPool->id,
+            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'submitted_at' => null,
+        ]);
+
+        $educationExperience = EducationExperience::factory()->create(['user_id' => $newPoolCandidate->user_id]);
+        $newPoolCandidate->education_requirement_option = EducationRequirementOption::EDUCATION->name;
+        $newPoolCandidate->educationRequirementEducationExperiences()->sync([$educationExperience->id]);
+        $newPoolCandidate->save();
+
+        $this->actingAs($this->applicantUser, 'api')
+            ->graphQL(
+                $this->submitMutationDocument,
+                [
+                    'id' => $newPoolCandidate->id,
+                    'sig' => 'sign',
+                ]
+            )->assertJsonFragment([
+                'signature' => 'sign',
+            ]);
+        $newPoolCandidate->refresh();
+
+        // assert verification defaults filled in upon submitting application
+        assertSame($newPoolCandidate->veteran_verification, null);
+        assertSame($newPoolCandidate->priority_verification, ClaimVerificationResult::UNVERIFIED->name);
     }
 }

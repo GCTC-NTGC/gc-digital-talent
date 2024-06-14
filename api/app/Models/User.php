@@ -11,6 +11,8 @@ use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PositionDuration;
+use App\Notifications\VerifyEmail;
+use App\Observers\UserObserver;
 use App\Traits\EnrichedNotifiable;
 use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
@@ -20,6 +22,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\Access\Authorizable;
@@ -38,6 +41,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  *
  * @property string $id
  * @property string $email
+ * @property Illuminate\Support\Carbon email_verified_at
  * @property string $sub
  * @property string $first_name
  * @property string $last_name
@@ -94,54 +98,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     use Searchable;
     use SoftDeletes;
 
-    protected static $selectableColumns = [
-        'id',
-        'email',
-        'first_name',
-        'last_name',
-        'telephone',
-        'sub',
-        'preferred_lang',
-        'current_province',
-        'current_city',
-        'looking_for_english',
-        'looking_for_french',
-        'looking_for_bilingual',
-        'first_official_language',
-        'second_language_exam_completed',
-        'second_language_exam_validity',
-        'comprehension_level',
-        'written_level',
-        'verbal_level',
-        'estimated_language_ability',
-        'is_gov_employee',
-        'has_priority_entitlement',
-        'priority_number',
-        'department',
-        'current_classification',
-        'citizenship',
-        'armed_forces_status',
-        'is_woman',
-        'has_disability',
-        'is_visible_minority',
-        'has_diploma',
-        'location_preferences',
-        'location_exemptions',
-        'position_duration',
-        'accepted_operational_requirements',
-        'gov_employee_type',
-        'priority_weight',
-        'indigenous_declaration_signature',
-        'indigenous_communities',
-        'preferred_language_for_interview',
-        'preferred_language_for_exam',
-        'deleted_at',
-        'enabled_email_notifications',
-        'enabled_in_app_notifications',
-        'created_at',
-        'updated_at',
-    ];
-
     protected $keyType = 'string';
 
     protected $casts = [
@@ -156,16 +112,25 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     protected $fillable = [
         'email',
         'sub',
-        'searchable',
     ];
 
-    protected $hidden = [
-        'searchable',
-    ];
+    protected $hidden = [];
 
-    public static function getSelectableColumns()
+    public function searchableOptions()
     {
-        return self::$selectableColumns;
+        return [
+            // You may want to store the index outside of the Model table
+            // In that case let the engine know by setting this parameter to true.
+            'external' => true,
+            // If you don't want scout to maintain the index for you
+            // You can turn it off either for a Model or globally
+            'maintain_index' => true,
+        ];
+    }
+
+    public function searchableAs(): string
+    {
+        return 'user_search_indices';
     }
 
     /**
@@ -238,6 +203,11 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     public function pools(): HasMany
     {
         return $this->hasMany(Pool::class);
+    }
+
+    public function poolBookmarks(): BelongsToMany
+    {
+        return $this->belongsToMany(Pool::class, 'pool_user_bookmarks', 'user_id', 'pool_id')->withTimestamps();
     }
 
     public function poolCandidates(): HasMany
@@ -610,6 +580,14 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         });
     }
 
+    /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        User::observe(UserObserver::class);
+    }
+
     // Search filters
 
     /**
@@ -951,9 +929,10 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     public static function scopeGeneralSearch(Builder $query, ?string $searchTerm): Builder
     {
         if ($searchTerm) {
-            $combinedSearchTerm = trim($searchTerm);
+            $combinedSearchTerm = trim(preg_replace('/\s{2,}/', ' ', $searchTerm));
 
             $query
+                ->join('user_search_indices', 'users.id', '=', 'user_search_indices.id')
                 // attach the tsquery to every row to use for filtering
                 ->crossJoinSub(function ($query) use ($combinedSearchTerm) {
                     $query->selectRaw(
@@ -962,11 +941,12 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                     );
                 }, 'calculations')
                 // filter rows against the tsquery
-                ->whereColumn('searchable', '@@', 'calculations.tsquery')
+                ->whereColumn('user_search_indices.searchable', '@@', 'calculations.tsquery')
                 // add the calculated rank column to allow for ordering by text search rank
-                ->addSelect(DB::raw('ts_rank(searchable, calculations.tsquery) AS rank'))
+                ->addSelect(DB::raw('ts_rank(user_search_indices.searchable, calculations.tsquery) AS rank'))
                 // Now that we have added a column, query builder no longer will add a * to the select.  Add all possible columns manually.
-                ->addSelect(self::$selectableColumns);
+                ->addSelect(['users.*'])
+                ->from('users');
 
             // negation setup
             preg_match_all('/(^|\s)[-!][^\s]+\b/', $combinedSearchTerm, $negationMatches);
@@ -1210,5 +1190,46 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         }
 
         return $query;
+    }
+
+    /**
+     * Determine if the user has verified their email address.
+     *
+     * @return bool
+     */
+    public function hasVerifiedEmail()
+    {
+        return ! is_null($this->email_verified_at);
+    }
+
+    /**
+     * Mark the given user's email as verified.
+     *
+     * @return bool
+     */
+    public function markEmailAsVerified()
+    {
+        $this->email_verified_at = Carbon::now();
+    }
+
+    /**
+     * Send the email verification notification.
+     *
+     * @return void
+     */
+    public function sendEmailVerificationNotification()
+    {
+        $message = new VerifyEmail();
+        $this->notify($message);
+    }
+
+    /**
+     * Get the email address that should be used for verification.
+     *
+     * @return string
+     */
+    public function getEmailForVerification()
+    {
+        return $this->email;
     }
 }

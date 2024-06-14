@@ -247,6 +247,10 @@
     "defaultMessage": "Avancé",
     "description": "The technical skill level for expert"
   },
+  "556RGm": {
+    "defaultMessage": "Une erreur s’est produite au moment d’annuler la décision finale. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
+    "description": "Error message that reverting the final decision for a candidate failed"
+  },
   "5LQuV9": {
     "defaultMessage": "Île-du-Prince-Édouard",
     "description": "Prince Edward Island selection for province or territory input"
@@ -346,6 +350,10 @@
   "8WC+Ty": {
     "defaultMessage": "La date limite de soumission est passée.",
     "description": "Message displayed when a closing date has passed."
+  },
+  "8kUa5H": {
+    "defaultMessage": "Une erreur s’est produite au moment de placer le candidat. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
+    "description": "Error message that placing a candidate failed"
   },
   "8stxoN": {
     "defaultMessage": "Télétravail",
@@ -556,7 +564,7 @@
     "description": "Error Message displayed when the user passes some given character or letter limit."
   },
   "Glb1Te": {
-    "defaultMessage": "Diriger",
+    "defaultMessage": "Principal",
     "description": "The technical skill level for lead"
   },
   "GqmxO8": {
@@ -638,6 +646,10 @@
   "IlPyP8": {
     "defaultMessage": "Vous devez remédier aux erreurs suivantes avant de soumettre le formulaire :",
     "description": "Message indicating which errors the form has"
+  },
+  "IxWjU1": {
+    "defaultMessage": "Une erreur s’est produite pendant la disqualification. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
+    "description": "Error message that disqualifying a candidate failed"
   },
   "J+0v2z": {
     "defaultMessage": "Par ordre de titre (alphabétiquement)",
@@ -1127,6 +1139,10 @@
     "defaultMessage": "Lien",
     "description": "Label for adding a link in the rich text editor"
   },
+  "XFFFCu": {
+    "defaultMessage": "Vérification échouée.",
+    "description": "Error message that the verification was not successful."
+  },
   "XNDPQM": {
     "defaultMessage": "Un champ obligatoire est vide : Date de fin",
     "description": "Error message that the pool advertisement must have an expiry date."
@@ -1535,6 +1551,10 @@
     "defaultMessage": "Termine aujourd’hui, à {time}",
     "description": "Text displayed when relative date is today."
   },
+  "k8IB9g": {
+    "defaultMessage": "La date d’expiration doit être postérieure à aujourd’hui. Veuillez saisir une date valide.",
+    "description": "Error message that an expiry date must be in the future"
+  },
   "kDw+xr": {
     "defaultMessage": "Chaque compétence doit être incluse dans une évaluation",
     "description": "Error message that the pool advertisement skills are lacking an assessment"
@@ -1611,6 +1631,10 @@
     "defaultMessage": "Autre motif",
     "description": "Option for other reason to remove candidate"
   },
+  "mcL1kc": {
+    "defaultMessage": "La date d’expiration n’est pas indiquée. Veuillez saisir une date.",
+    "description": "Error message that an expiry date must be added"
+  },
   "mhZmff": {
     "defaultMessage": "La demande doit être soumise.",
     "description": "Error message that the given application must already be submitted."
@@ -1686,6 +1710,10 @@
   "oXrkBM": {
     "defaultMessage": "Groupe de la direction",
     "description": "Full name of abbreviation for EX"
+  },
+  "or2gwQ": {
+    "defaultMessage": "Une erreur s’est produite pendant la qualification. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
+    "description": "Error message that qualifying a candidate failed"
   },
   "ovtI5X": {
     "defaultMessage": "Transport de matériel jusqu'à 20 kg",

@@ -1,8 +1,5 @@
-import { MessageDescriptor, defineMessage, useIntl } from "react-intl";
-import IdentificationOutlineIcon from "@heroicons/react/24/outline/IdentificationIcon";
-import IdentificationSolidIcon from "@heroicons/react/24/solid/IdentificationIcon";
+import { useIntl } from "react-intl";
 
-import { IconType } from "@gc-digital-talent/ui";
 import {
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
@@ -16,20 +13,13 @@ import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWr
 import AdminHero from "~/components/Hero/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-
-export const pageTitle: MessageDescriptor = defineMessage({
-  defaultMessage: "Candidate search",
-  id: "i16C7G",
-  description: "Title for the all pool candidates page",
-});
-export const pageOutlineIcon: IconType = IdentificationOutlineIcon;
-export const pageSolidIcon: IconType = IdentificationSolidIcon;
+import pageTitles from "~/messages/pageTitles";
 
 export const AllPoolCandidatesPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
 
-  const formattedPageTitle = intl.formatMessage(pageTitle);
+  const formattedPageTitle = intl.formatMessage(pageTitles.candidateSearch);
 
   const navigationCrumbs = useBreadcrumbs({
     crumbs: [

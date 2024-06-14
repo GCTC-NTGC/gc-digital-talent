@@ -157,7 +157,7 @@ class AssessmentResultTestSeeder extends Seeder
             $publishedPool->poolSkills()->pluck('id')->toArray(),
             $assessmentStep,
             null,
-            [AssessmentResultJustification::SKILL_FAILED_INSUFFICIENTLY_DEMONSTRATED],
+            [AssessmentResultJustification::SKILL_FAILED_INSUFFICIENTLY_DEMONSTRATED->name],
             AssessmentDecision::HOLD->name,
             assessmentResultType::SKILL);
 
@@ -185,13 +185,15 @@ class AssessmentResultTestSeeder extends Seeder
         $assessmentDecision,
         $assessmentResultType)
     {
+        $nullJustifications = $assessmentDecision === AssessmentDecision::HOLD->name || is_null($assessmentDecision);
+
         if ($assessmentResultType == null) {
             $assessmentResultType = AssessmentResultType::SKILL;
         } elseif ($assessmentResultType == AssessmentResultType::EDUCATION) {
             AssessmentResult::factory()->withResultType($assessmentResultType)->create([
                 'assessment_step_id' => $assessmentStep->id,
                 'pool_candidate_id' => $poolCandidate->id,
-                'justifications' => json_encode($justifications),
+                'justifications' => $nullJustifications ? null : $justifications,
                 'assessment_decision' => $assessmentDecision,
             ]);
         } else {
@@ -201,7 +203,7 @@ class AssessmentResultTestSeeder extends Seeder
                     'pool_candidate_id' => $poolCandidate->id,
                     'pool_skill_id' => $poolSkill,
                     'assessment_decision_level' => $level,
-                    'justifications' => json_encode($justifications),
+                    'justifications' => $nullJustifications ? null : $justifications,
                     'assessment_decision' => $assessmentDecision,
                 ]);
             }

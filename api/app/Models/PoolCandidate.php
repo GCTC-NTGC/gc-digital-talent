@@ -4,7 +4,10 @@ namespace App\Models;
 
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
+use App\Enums\CitizenshipStatus;
+use App\Enums\ClaimVerificationResult;
 use App\Enums\PoolCandidateStatus;
+use App\Enums\PriorityWeight;
 use App\Enums\PublishingGroup;
 use App\Http\Resources\UserResource;
 use App\Observers\PoolCandidateObserver;
@@ -47,6 +50,10 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property Illuminate\Support\Carbon $removed_at
  * @property string $removal_reason
  * @property string $removal_reason_other
+ * @property string $veteran_verification
+ * @property Illuminate\Support\Carbon $veteran_verification_expiry
+ * @property string $priority_verification
+ * @property Illuminate\Support\Carbon $priority_verification_expiry
  */
 class PoolCandidate extends Model
 {
@@ -72,6 +79,8 @@ class PoolCandidate extends Model
         'placed_at' => 'datetime',
         'final_decision_at' => 'datetime',
         'removed_at' => 'datetime',
+        'veteran_verification_expiry' => 'date',
+        'priority_verification_expiry' => 'date',
     ];
 
     /**
@@ -91,6 +100,11 @@ class PoolCandidate extends Model
         'pool_candidate_status',
         'submitted_steps',
         'education_requirement_option',
+        'veteran_verification',
+        'veteran_verification_expiry',
+        'priority_verification',
+        'priority_verification_expiry',
+        'is_bookmarked',
     ];
 
     protected $touches = ['user'];
@@ -136,10 +150,7 @@ class PoolCandidate extends Model
 
     public function user(): BelongsTo
     {
-        // avoid selecting searchable column from user table
-        return $this->belongsTo(User::class)
-            ->select(User::getSelectableColumns())
-            ->withTrashed();
+        return $this->belongsTo(User::class)->withTrashed();
     }
 
     public function pool(): BelongsTo
@@ -578,59 +589,6 @@ class PoolCandidate extends Model
         return $candidateStatus;
     }
 
-    public function createSnapshot()
-    {
-        if ($this->profile_snapshot) {
-            return null;
-        }
-
-        $user = User::with([
-            'department',
-            'currentClassification',
-            'awardExperiences',
-            'awardExperiences.skills',
-            'awardExperiences.user',
-            'communityExperiences',
-            'communityExperiences.skills',
-            'communityExperiences.user',
-            'educationExperiences',
-            'educationExperiences.skills',
-            'educationExperiences.user',
-            'personalExperiences',
-            'personalExperiences.skills',
-            'personalExperiences.user',
-            'workExperiences',
-            'workExperiences.skills',
-            'workExperiences.user',
-            'poolCandidates',
-            'poolCandidates.pool',
-            'poolCandidates.pool.classification',
-            'poolCandidates.educationRequirementAwardExperiences.skills',
-            'poolCandidates.educationRequirementCommunityExperiences.skills',
-            'poolCandidates.educationRequirementEducationExperiences.skills',
-            'poolCandidates.educationRequirementPersonalExperiences.skills',
-            'poolCandidates.educationRequirementWorkExperiences.skills',
-            'poolCandidates.generalQuestionResponses',
-            'poolCandidates.generalQuestionResponses.generalQuestion',
-            'poolCandidates.screeningQuestionResponses',
-            'poolCandidates.screeningQuestionResponses.screeningQuestion',
-        ])->findOrFail($this->user_id);
-        $profile = new UserResource($user);
-
-        // collect skills attached to the Pool to pass into resource collection
-        $pool = Pool::with([
-            'poolSkills',
-            'classification',
-        ])->findOrFail($this->pool_id);
-        $poolSkillIds = $pool->poolSkills()->pluck('skill_id')->toArray();
-
-        $profile = new UserResource($user);
-        $profile = $profile->poolSkillIds($poolSkillIds);
-
-        $this->profile_snapshot = $profile;
-        $this->save();
-    }
-
     public function scopePriorityWeight(Builder $query, ?array $priorityWeights): Builder
     {
         if (empty($priorityWeights)) {
@@ -645,9 +603,51 @@ class PoolCandidate extends Model
                     foreach ($priorityWeights as $index => $priorityWeight) {
                         if ($index === 0) {
                             // First iteration must use where instead of orWhere, as seen in filterWorkRegions
-                            $query->where('priority_weight', $priorityWeight);
+                            $query->where('priority_weight', PriorityWeight::weight($priorityWeight));
                         } else {
-                            $query->orWhere('priority_weight', $priorityWeight);
+                            $query->orWhere('priority_weight', PriorityWeight::weight($priorityWeight));
+                        }
+                    }
+                });
+        });
+
+        return $query;
+    }
+
+    public function scopeCandidateCategory(Builder $query, ?array $priorityWeights): Builder
+    {
+        if (empty($priorityWeights)) {
+            return $query;
+        }
+
+        $query->whereExists(function ($query) use ($priorityWeights) {
+            $query->selectRaw('null')
+                ->from('users')
+                ->whereColumn('users.id', 'pool_candidates.user_id')
+                ->where(function ($query) use ($priorityWeights) {
+                    foreach ($priorityWeights as $priorityWeight) {
+                        switch ($priorityWeight) {
+                            case PriorityWeight::PRIORITY_ENTITLEMENT->name:
+                                $query->orWhereIn('priority_verification',
+                                    [ClaimVerificationResult::ACCEPTED->name, ClaimVerificationResult::UNVERIFIED->name]
+                                );
+                                break;
+
+                            case PriorityWeight::VETERAN->name:
+                                $query->orWhereIn('veteran_verification',
+                                    [ClaimVerificationResult::ACCEPTED->name, ClaimVerificationResult::UNVERIFIED->name]
+                                );
+                                break;
+
+                            case PriorityWeight::CITIZEN_OR_PERMANENT_RESIDENT->name:
+                                $query->orWhereIn('citizenship',
+                                    [CitizenshipStatus::CITIZEN->name, CitizenshipStatus::PERMANENT_RESIDENT->name]
+                                );
+                                break;
+
+                            case PriorityWeight::OTHER->name:
+                                $query->orWhere('citizenship', CitizenshipStatus::OTHER->name);
+                                break;
                         }
                     }
                 });
@@ -816,8 +816,44 @@ class PoolCandidate extends Model
 
     }
 
+    public function scopeOrderByClaimVerification(Builder $query, ?string $sortOrder)
+    {
+        $orderWithoutDirection = '
+                    CASE
+                    WHEN priority_verification=\'ACCEPTED\' OR priority_verification=\'UNVERIFIED\' then 40
+                    WHEN (veteran_verification=\'ACCEPTED\' OR veteran_verification=\'UNVERIFIED\') AND (priority_verification IS NULL OR priority_verification=\'REJECTED\') then 30
+                    WHEN (users.citizenship=\'CITIZEN\' OR users.citizenship=\'PERMANENT_RESIDENT\') AND (priority_verification IS NULL OR priority_verification=\'REJECTED\') AND (veteran_verification IS NULL OR veteran_verification=\'REJECTED\') then 20
+                    else 10
+                    END';
+
+        if ($sortOrder && $sortOrder == 'DESC') {
+            $order = $orderWithoutDirection.' DESC';
+
+            $query
+                ->join('users', 'users.id', '=', 'pool_candidates.user_id')
+                ->select('users.citizenship', 'pool_candidates.*')
+                ->orderBy('is_bookmarked', 'DESC')
+                ->orderByRaw($order);
+
+        } elseif ($sortOrder && $sortOrder == 'ASC') {
+            $order = $orderWithoutDirection.' ASC';
+
+            $query
+                ->join('users', 'users.id', '=', 'pool_candidates.user_id')
+                ->select('users.citizenship', 'pool_candidates.*')
+                ->orderBy('is_bookmarked', 'DESC')
+                ->orderByRaw($order);
+        }
+
+        return $query;
+    }
+
     public function setApplicationSnapshot()
     {
+        if (! is_null($this->profile_snapshot)) {
+            return null;
+        }
+
         $user = User::with([
             'department',
             'currentClassification',
@@ -873,5 +909,6 @@ class PoolCandidate extends Model
         $profile = $profile->poolSkillIds($poolSkillIds);
 
         $this->profile_snapshot = $profile;
+        $this->save();
     }
 }

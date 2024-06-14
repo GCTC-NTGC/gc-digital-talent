@@ -6,6 +6,7 @@ module.exports = {
   ],
   ignorePatterns: ["tsconfig.json", "test-results/**", "playwright-report/**", ".auth/**"],
   rules: {
+    "@typescript-eslint/no-floating-promises": "error",
     "playwright/expect-expect": [
       "error",
       {

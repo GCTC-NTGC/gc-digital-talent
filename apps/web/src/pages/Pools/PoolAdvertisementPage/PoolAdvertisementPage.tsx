@@ -20,6 +20,7 @@ import {
   Well,
   CardBasic,
   Button,
+  Separator,
 } from "@gc-digital-talent/ui";
 import {
   getLocale,
@@ -63,10 +64,10 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import { sortPoolSkillsBySkillCategory } from "~/utils/skillUtils";
-
 import ApplicationLink, {
   ApplicationLinkProps,
-} from "./components/ApplicationLink";
+} from "~/components/ApplicationLink/ApplicationLink";
+
 import Text from "./components/Text";
 import SkillAccordion from "./components/SkillAccordion";
 import DataRow from "./components/DataRow";
@@ -90,6 +91,10 @@ const anchorTag = (chunks: ReactNode, email?: Maybe<string>) => {
     chunks
   );
 };
+
+const internalLink = (href: string, chunks: ReactNode) => (
+  <Link href={href}>{chunks}</Link>
+);
 
 const standardsLink = (locale: Locales, chunks: ReactNode) => (
   <Link
@@ -860,8 +865,8 @@ export const PoolPoster = ({
               <Text>
                 {intl.formatMessage({
                   defaultMessage:
-                    'To make the application process shorter, information is only collected on specific skills during the application stage. These are each identified under the skill name using "Assessed during initial application". Additional assessments will follow later if your application is successful.',
-                  id: "WppiY9",
+                    'To make the application process shorter, information is only collected on specific skills during the application stage. These are each identified under the skill name using "Assessed during initial application". Additional assessments will follow later if your application is successful. These additional assessments may be conducted on any of the required or optional skills.',
+                  id: "Qxl9Ec",
                   description:
                     "Descriptive text about how skills are used during the application process",
                 })}
@@ -1064,33 +1069,37 @@ export const PoolPoster = ({
                     ))}
                   </>
                 ) : null}
-                {
-                  // TODO: restore this accordion when Equity Statement page exists https://github.com/GCTC-NTGC/design-gc-digital-talent/issues/45
-                  false && (
-                    <Accordion.Item value={moreInfoAccordions.dei}>
-                      <Accordion.Trigger as="h3">
-                        {intl.formatMessage({
+                <Accordion.Item value={moreInfoAccordions.dei}>
+                  <Accordion.Trigger as="h3">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        '"How are equity and inclusion considered in this recruitment process?"',
+                      id: "WPJAiw",
+                      description:
+                        "Button text to toggle the accordion for diversity, equity, and inclusion",
+                    })}
+                  </Accordion.Trigger>
+                  <Accordion.Content>
+                    <Text data-h2-margin="base(0)">
+                      {intl.formatMessage(
+                        {
                           defaultMessage:
-                            '"How are equity and inclusion considered in this recruitment process?"',
-                          id: "WPJAiw",
+                            "You can learn more about how our team uses employment equity information to shape equity and diversity in hiring by reading our <inclusivityLink>Inclusivity and equity statement</inclusivityLink>. We also provide an <accessibilityLink>Accessibility statement</accessibilityLink> that outline how the platform considers and implements accessible best practices.",
+                          id: "RJlpxV",
                           description:
-                            "Button text to toggle the accordion for diversity, equity, and inclusion",
-                        })}
-                      </Accordion.Trigger>
-                      <Accordion.Content>
-                        <Text data-h2-margin="base(0)">
-                          {intl.formatMessage({
-                            defaultMessage:
-                              "You can learn more about our commitment to equity and inclusion by reading our Inclusivity statement. We also provide an Accessibility statement that outlines how the platform considers and implements accessible best practices.",
-                            id: "UOHEw1",
-                            description:
-                              "Information on commitment to diversity, equity, and inclusion",
-                          })}
-                        </Text>
-                      </Accordion.Content>
-                    </Accordion.Item>
-                  )
-                }
+                            "Information on commitment to diversity, equity, and inclusion",
+                        },
+                        {
+                          accessibilityLink: (chunks: ReactNode) =>
+                            internalLink(paths.accessibility(), chunks),
+                          inclusivityLink: (chunks: ReactNode) =>
+                            internalLink(paths.inclusivityEquity(), chunks),
+                        },
+                      )}
+                    </Text>
+                  </Accordion.Content>
+                </Accordion.Item>
+
                 <Accordion.Item value={moreInfoAccordions.accommodations}>
                   <Accordion.Trigger as="h3">
                     {intl.formatMessage({
@@ -1204,6 +1213,23 @@ export const PoolPoster = ({
               </Text>
               <ApplicationLink {...applicationLinkProps} />
             </TableOfContents.Section>
+            {pool.processNumber && (
+              <>
+                <Separator orientation="horizontal" space="sm" decorative />
+                <p
+                  data-h2-text-align="base(right)"
+                  data-h2-color="base(black.light)"
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Selection process number",
+                    id: "LdlxBV",
+                    description: "Label for a process number",
+                  })}
+                  {intl.formatMessage(commonMessages.dividingColon)}
+                  {pool.processNumber}
+                </p>
+              </>
+            )}
           </TableOfContents.Content>
         </TableOfContents.Wrapper>
       </div>

@@ -43,6 +43,7 @@ type User {
   firstName: String @rename(attribute: "first_name")
   lastName: String @rename(attribute: "last_name")
   email: Email
+  emailVerifiedAt: DateTime @rename(attribute: "email_verified_at")
   telephone: PhoneNumber
   preferredLang: Language @rename(attribute: "preferred_lang")
   preferredLanguageForInterview: Language
@@ -124,6 +125,9 @@ type User {
     @rename(attribute: "enabled_email_notifications")
   enabledInAppNotifications: [NotificationFamily]
     @rename(attribute: "enabled_in_app_notifications")
+
+  # Bookmarks
+  poolBookmarks: [Pool] @belongsToMany
 }
 
 interface Notification {
@@ -131,6 +135,15 @@ interface Notification {
   readAt: DateTime @rename(attribute: "read_at")
   createdAt: DateTime! @rename(attribute: "created_at")
   updatedAt: DateTime! @rename(attribute: "updated_at")
+}
+
+type TestNotification implements Notification {
+  id: ID!
+  readAt: DateTime @rename(attribute: "read_at")
+  createdAt: DateTime! @rename(attribute: "created_at")
+  updatedAt: DateTime! @rename(attribute: "updated_at")
+
+  name: String
 }
 
 type ApplicationDeadlineApproachingNotification implements Notification {
@@ -229,6 +242,7 @@ type Pool {
   publishedAt: DateTime @rename(attribute: "published_at")
   archivedAt: DateTime @rename(attribute: "archived_at")
   isComplete: Boolean
+  assessmentPlanIsComplete: Boolean
   assessmentSteps: [AssessmentStep]
     @hasMany
     @canRoot(ability: "viewAssessmentPlan")
@@ -336,6 +350,20 @@ type PoolCandidate {
     @rename(attribute: "placed_at")
     @canRoot(ability: "viewStatus")
   placedDepartment: Department @belongsTo @canRoot(ability: "viewStatus")
+
+  # claim verification
+  veteranVerification: ClaimVerificationResult
+    @rename(attribute: "veteran_verification")
+    @canRoot(ability: "viewNotes")
+  veteranVerificationExpiry: Date
+    @rename(attribute: "veteran_verification_expiry")
+    @canRoot(ability: "viewNotes")
+  priorityVerification: ClaimVerificationResult
+    @rename(attribute: "priority_verification")
+    @canRoot(ability: "viewNotes")
+  priorityVerificationExpiry: Date
+    @rename(attribute: "priority_verification_expiry")
+    @canRoot(ability: "viewNotes")
 }
 
 type PoolCandidateWithSkillCount {
@@ -654,12 +682,18 @@ input PoolFilterInput {
   team: String @scope
   streams: [PoolStream!] @scope
   statuses: [PoolStatus!] @scope
+  processNumber: String @scope
   publishingGroups: [PublishingGroup!] @scope
   classifications: [ClassificationFilterInput!] @scope
 }
 
 input PoolTeamDisplayNameOrderByInput {
   locale: String!
+  order: SortOrder!
+}
+
+input PoolBookmarksOrderByInput {
+  column: String!
   order: SortOrder!
 }
 
@@ -688,7 +722,7 @@ input PoolCandidateSearchInput {
   name: String @scope
   notes: String @scope
   isGovEmployee: Boolean @scope
-  priorityWeight: [Int] @scope(name: "priorityWeight")
+  priorityWeight: [PriorityWeight] @scope(name: "candidateCategory")
   poolCandidateStatus: [PoolCandidateStatus]
     @scope(name: "poolCandidateStatuses")
   expiryStatus: CandidateExpiryFilter @scope(name: "expiryStatus")
@@ -792,6 +826,7 @@ type Query {
     includeIds: [UUID!] @in(key: "id")
     excludeIds: [UUID!] @notIn(key: "id")
     where: PoolFilterInput
+    orderByPoolBookmarks: PoolBookmarksOrderByInput @scope
     orderByTeamDisplayName: PoolTeamDisplayNameOrderByInput @scope
     orderBy: _
       @orderBy(
@@ -821,6 +856,7 @@ type Query {
   poolCandidatesPaginated(
     where: PoolCandidateSearchInput
     orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
+    orderByClaimVerification: SortOrder @scope
     orderBy: _
       @orderBy(
         relations: [
@@ -1180,6 +1216,17 @@ input UpdateClassificationInput {
 input UpdatePoolCandidateStatusInput {
   expiryDate: Date @rename(attribute: "expiry_date")
   status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
+}
+
+input UpdatePoolCandidateClaimVerificationInput @validator {
+  veteranVerification: ClaimVerificationResult
+    @rename(attribute: "veteran_verification")
+  veteranVerificationExpiry: Date
+    @rename(attribute: "veteran_verification_expiry")
+  priorityVerification: ClaimVerificationResult
+    @rename(attribute: "priority_verification")
+  priorityVerificationExpiry: Date
+    @rename(attribute: "priority_verification_expiry")
 }
 
 input PlaceCandidateInput {
@@ -1709,6 +1756,12 @@ type Mutation {
     @restore
     @guard
     @canFind(ability: "restore", find: "id")
+  SendUserEmailVerification(id: ID!): User
+    @guard
+    @canFind(ability: "update", find: "id")
+  verifyUserEmail(id: ID!, code: String!): User
+    @guard
+    @canFind(ability: "update", find: "id")
 
   # poolCandidate mutations
   createPoolCandidateAsAdmin(
@@ -1734,6 +1787,10 @@ type Mutation {
       model: "PoolCandidate"
       injectArgs: true
     )
+  updatePoolCandidateClaimVerification(
+    id: UUID!
+    poolCandidate: UpdatePoolCandidateClaimVerificationInput! @spread
+  ): PoolCandidate @update @guard @canFind(ability: "updateNotes", find: "id")
   updatePoolCandidateNotes(id: UUID!, notes: String): PoolCandidate
     @update
     @guard
@@ -1922,6 +1979,10 @@ type Mutation {
     @update
     @guard
     @canFind(ability: "updatePublished", find: "id")
+  togglePoolUserBookmark(poolId: UUID! @rename(attribute: "pool_id")): Pool
+    @guard
+    @canFind(ability: "view", find: "pool_id", model: "Pool", injectArgs: true)
+
   createPoolSkill(
     poolId: ID! @rename(attribute: "pool_id")
     skillId: ID! @rename(attribute: "skill_id")
