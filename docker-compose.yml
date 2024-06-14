@@ -101,10 +101,9 @@ services:
       JSON_CONFIG_PATH: /app/conf/mock-oauth2-server.json
       # Uncomment for direct access without proxy.
       # We override default port 8080 sincer already used by adminer container.
-      #SERVER_PORT: 8081
-    # Uncomment for direct access without proxy.
-    #ports:
-    #  - 8081:8081
+      SERVER_PORT: 8002
+    ports:
+      - 8002:8002
     #hostname: auth.talent.canada.test
 
 volumes:
