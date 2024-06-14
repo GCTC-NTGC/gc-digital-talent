@@ -865,7 +865,7 @@ return [
                 'team' => ['create', 'view', 'update', 'delete'],
             ],
             'publishedPool' => [
-                'team' => ['archive']
+                'team' => ['archive'],
             ],
             'submittedApplication' => [
                 'team' => ['view'],

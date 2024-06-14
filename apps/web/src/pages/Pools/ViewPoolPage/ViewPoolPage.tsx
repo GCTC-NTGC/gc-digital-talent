@@ -106,13 +106,34 @@ export const ViewPool = ({
   const assessmentBadge = getPoolCompletenessBadge(assessmentStatus);
   const processBadge = getProcessStatusBadge(pool.status);
   const canPublish = checkRole(
-    [ROLE_NAME.CommunityManager], // TODO: add CommunityAdmin role when it is defined
+    [ROLE_NAME.CommunityManager, ROLE_NAME.CommunityAdmin],
     roleAssignments,
   );
-  // Same roles can edit submitted advertisements
+  // Editing a published pool is restricted to same roles who can publish it in the first place.
   const canEdit = advertisementStatus !== "submitted" || canPublish;
   const canDuplicate = checkRole(
-    [ROLE_NAME.PoolOperator], // TODO: add CommunityAdmin and CommunityRecruiter roles when they are defined
+    [
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.CommunityAdmin,
+    ],
+    roleAssignments,
+  );
+  const canArchive = checkRole(
+    [
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.CommunityManager,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.CommunityAdmin,
+    ],
+    roleAssignments,
+  );
+  const canDelete = checkRole(
+    [
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.CommunityAdmin,
+    ],
     roleAssignments,
   );
 
@@ -409,19 +430,19 @@ export const ViewPool = ({
                   onDuplicate={onDuplicate}
                 />
               )}
-              {pool.status === PoolStatus.Closed && (
+              {pool.status === PoolStatus.Closed && canArchive && (
                 <ArchiveProcessDialog
                   {...commonDialogProps}
                   onArchive={onArchive}
                 />
               )}
-              {pool.status === PoolStatus.Archived && (
+              {pool.status === PoolStatus.Archived && canArchive && (
                 <UnarchiveProcessDialog
                   {...commonDialogProps}
                   onUnarchive={onUnarchive}
                 />
               )}
-              {pool.status === PoolStatus.Draft && (
+              {pool.status === PoolStatus.Draft && canDelete && (
                 <DeleteProcessDialog
                   {...commonDialogProps}
                   onDelete={onDelete}
