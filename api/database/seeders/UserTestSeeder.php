@@ -105,7 +105,6 @@ class UserTestSeeder extends Seeder
 
         User::factory()
             ->asApplicant()
-            ->withSkillsAndExperiences()
             ->asGovEmployee()
             ->create([
                 'first_name' => 'Process',
@@ -117,7 +116,6 @@ class UserTestSeeder extends Seeder
         User::factory()
             ->asApplicant()
             ->asCommunityRecruiter([$digitalCommunityId, $atipCommunityId])
-            ->withSkillsAndExperiences()
             ->asGovEmployee()
             ->create([
                 'first_name' => 'Community',
@@ -129,7 +127,6 @@ class UserTestSeeder extends Seeder
         User::factory()
             ->asApplicant()
             ->asCommunityAdmin([$digitalCommunityId, $atipCommunityId])
-            ->withSkillsAndExperiences()
             ->asGovEmployee()
             ->create([
                 'first_name' => 'Community',
