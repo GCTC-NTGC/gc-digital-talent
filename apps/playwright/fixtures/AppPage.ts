@@ -66,7 +66,7 @@ class AppPage {
     await this.page.waitForResponse(async (resp) => {
       if (await resp.url()?.includes("/graphql")) {
         const reqJson = await resp.request()?.postDataJSON();
-        return reqJson.operationName === operationName;
+        return reqJson?.operationName === operationName;
       }
 
       return false;
