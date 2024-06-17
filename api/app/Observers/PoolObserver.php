@@ -40,7 +40,7 @@ class PoolObserver
                         $user->notify($notification);
                     } catch (Throwable $e) {
                         // best-effort: log and continue
-                        Log::error('Failed to send "new job posted" notification to ['.$user->id.']');
+                        Log::error('Failed to send "new job posted" notification to ['.$user->id.'] '.$e->getMessage());
                     }
                 });
             }

@@ -46,7 +46,7 @@ class PoolCandidateObserver
                     ));
                 } catch (Throwable $e) {
                     // best-effort: log and continue
-                    Log::error('Failed to send "application status changed" notification to ['.$poolCandidate->id.']');
+                    Log::error('Failed to send "application status changed" notification to ['.$poolCandidate->id.'] '.$e->getMessage());
                 }
             }
         }
