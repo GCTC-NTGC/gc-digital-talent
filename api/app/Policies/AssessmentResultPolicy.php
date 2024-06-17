@@ -18,13 +18,13 @@ class AssessmentResultPolicy
      */
     public function view(User $user, AssessmentResult $assessmentResult)
     {
-        if ($user->isAbleTo('view-any-assessmentResult')) {
+        if ($user->isAbleTo('view-any-applicationAssessment')) {
             return true;
         }
 
         $assessmentResult->loadMissing('assessmentStep.pool.legacyTeam');
 
-        return $user->isAbleTo('view-team-assessmentResult', $assessmentResult->assessmentStep->pool->legacyTeam);
+        return $user->isAbleTo('view-team-applicationAssessment', $assessmentResult->assessmentStep->pool->legacyTeam);
     }
 
     /**
@@ -39,7 +39,7 @@ class AssessmentResultPolicy
         if (array_key_exists('assessment_step_id', $request)) {
             $parentAssessmentStep = AssessmentStep::with('pool.legacyTeam')->find($request['assessment_step_id']);
 
-            return $user->isAbleTo('update-team-assessmentResult', $parentAssessmentStep->pool->legacyTeam);
+            return $user->isAbleTo('update-team-applicationAssessment', $parentAssessmentStep->pool->legacyTeam);
         }
 
         return false;
@@ -54,6 +54,6 @@ class AssessmentResultPolicy
     {
         $assessmentResult->loadMissing('assessmentStep.pool.legacyTeam');
 
-        return $user->isAbleTo('update-team-assessmentResult', $assessmentResult->assessmentStep->pool->legacyTeam);
+        return $user->isAbleTo('update-team-applicationAssessment', $assessmentResult->assessmentStep->pool->legacyTeam);
     }
 }

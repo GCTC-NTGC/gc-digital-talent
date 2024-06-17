@@ -77,12 +77,12 @@ class AssessmentStepPolicy
      */
     public function viewAssessmentResults(User $user, AssessmentStep $assessmentStep)
     {
-        if ($user->isAbleTo('view-any-assessmentResult')) {
+        if ($user->isAbleTo('view-any-applicationAssessment')) {
             return true;
         }
 
         $assessmentStep->loadMissing('pool.legacyTeam');
 
-        return $user->isAbleTo('view-team-assessmentResult', $assessmentStep->pool->legacyTeam);
+        return $user->isAbleTo('view-team-applicationAssessment', $assessmentStep->pool->legacyTeam);
     }
 }
