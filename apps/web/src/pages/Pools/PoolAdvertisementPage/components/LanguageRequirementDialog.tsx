@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 
 import {
   Button,
+  DescriptionList,
   Dialog,
   Heading,
   HeadingProps,
@@ -116,86 +117,65 @@ const LanguageRequirementDialog = () => {
           })}
         </Dialog.Header>
         <Dialog.Body>
-          <div
-            data-h2-display="base(grid)"
-            data-h2-gap="base(x1)"
-            data-h2-margin-bottom="base(x1)"
-          >
-            <div>
-              <Heading
-                level={headingLevel}
-                size="h6"
-                data-h2-margin-top="base(0)"
+          <div>
+            <Heading
+              level={headingLevel}
+              size="h6"
+              data-h2-margin-top="base(0)"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Language requirements on GC Digital Talent",
+                id: "h1UJ1Q",
+                description: "Sub-heading for language requirements dialog",
+              })}
+            </Heading>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "These are the language profiles that you can find on GC Digital Talent",
+                id: "sry9Wl",
+                description:
+                  "Language profiles list for language requirements dialog",
+              }) + intl.formatMessage(commonMessages.dividingColon)}
+            </p>
+
+            <DescriptionList.Root>
+              <DescriptionList.Item
+                title={intl.formatMessage(languageProfiles.englishEssential)}
               >
-                {intl.formatMessage({
-                  defaultMessage: "Language requirements on GC Digital Talent",
-                  id: "h1UJ1Q",
-                  description: "Sub-heading for language requirements dialog",
-                })}
-              </Heading>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "These are the language profiles that you can find on GC Digital Talent",
-                  id: "sry9Wl",
-                  description:
-                    "Language profiles list for language requirements dialog",
-                }) + intl.formatMessage(commonMessages.dividingColon)}
-              </p>
-            </div>
-            <dl data-h2-display="base(grid)" data-h2-gap="base(x.5)">
-              <dt
-                data-h2-color="base(primary.dark)"
-                data-h2-font-weight="base(bold)"
-              >
-                {intl.formatMessage(languageProfiles.englishEssential)}
-              </dt>
-              <dd>
                 {intl.formatMessage(
                   languageProfileDescriptions.englishEssential,
                 )}
-              </dd>
-              <dt
-                data-h2-color="base(primary.dark)"
-                data-h2-font-weight="base(bold)"
+              </DescriptionList.Item>
+              <DescriptionList.Item
+                title={intl.formatMessage(languageProfiles.frenchEssential)}
               >
-                {intl.formatMessage(languageProfiles.frenchEssential)}
-              </dt>
-              <dd>
                 {intl.formatMessage(
                   languageProfileDescriptions.frenchEssential,
                 )}
-              </dd>
-              <dt
-                data-h2-color="base(primary.dark)"
-                data-h2-font-weight="base(bold)"
+              </DescriptionList.Item>
+              <DescriptionList.Item
+                title={intl.formatMessage(
+                  languageProfiles.bilingualIntermediate,
+                )}
               >
-                {intl.formatMessage(languageProfiles.bilingualIntermediate)}
-              </dt>
-              <dd>
                 {intl.formatMessage(
                   languageProfileDescriptions.bilingualIntermediate,
                 )}
-              </dd>
-              <dt
-                data-h2-color="base(primary.dark)"
-                data-h2-font-weight="base(bold)"
+              </DescriptionList.Item>
+              <DescriptionList.Item
+                title={intl.formatMessage(languageProfiles.bilingualAdvanced)}
               >
-                {intl.formatMessage(languageProfiles.bilingualAdvanced)}
-              </dt>
-              <dd>
                 {intl.formatMessage(
                   languageProfileDescriptions.bilingualAdvanced,
                 )}
-              </dd>
-              <dt
-                data-h2-color="base(primary.dark)"
-                data-h2-font-weight="base(bold)"
+              </DescriptionList.Item>
+              <DescriptionList.Item
+                title={intl.formatMessage(languageProfiles.various)}
               >
-                {intl.formatMessage(languageProfiles.various)}
-              </dt>
-              <dd>{intl.formatMessage(languageProfileDescriptions.various)}</dd>
-            </dl>
+                {intl.formatMessage(languageProfileDescriptions.various)}
+              </DescriptionList.Item>
+            </DescriptionList.Root>
           </div>
           <div data-h2-margin-bottom="base(x1)">
             <Heading

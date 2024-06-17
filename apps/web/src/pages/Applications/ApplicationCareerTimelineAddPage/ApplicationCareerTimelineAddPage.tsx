@@ -5,7 +5,7 @@ import BookOpenIcon from "@heroicons/react/20/solid/BookOpenIcon";
 import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
 import LightBulbIcon from "@heroicons/react/20/solid/LightBulbIcon";
 
-import { Accordion, DefinitionList, Heading } from "@gc-digital-talent/ui";
+import { Accordion, DescriptionList, Heading } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -110,8 +110,8 @@ const ApplicationCareerTimelineAdd = ({
                   "Lead-in text for the list of experience type definitions",
               })}
             </p>
-            <DefinitionList.Root>
-              <DefinitionList.Item
+            <DescriptionList.Root>
+              <DescriptionList.Item
                 Icon={BriefcaseIcon}
                 title={intl.formatMessage(experienceMessages.work)}
               >
@@ -121,8 +121,8 @@ const ApplicationCareerTimelineAdd = ({
                   id: "GNHnrr",
                   description: "Description for work experience section",
                 })}
-              </DefinitionList.Item>
-              <DefinitionList.Item
+              </DescriptionList.Item>
+              <DescriptionList.Item
                 Icon={BookOpenIcon}
                 title={intl.formatMessage(experienceMessages.education)}
               >
@@ -132,8 +132,8 @@ const ApplicationCareerTimelineAdd = ({
                   id: "VW3KlZ",
                   description: "Description for education experience section",
                 })}
-              </DefinitionList.Item>
-              <DefinitionList.Item
+              </DescriptionList.Item>
+              <DescriptionList.Item
                 Icon={UserGroupIcon}
                 title={intl.formatMessage(experienceMessages.community)}
               >
@@ -143,8 +143,8 @@ const ApplicationCareerTimelineAdd = ({
                   id: "a1Cych",
                   description: "Description for community experience section",
                 })}
-              </DefinitionList.Item>
-              <DefinitionList.Item
+              </DescriptionList.Item>
+              <DescriptionList.Item
                 Icon={LightBulbIcon}
                 title={intl.formatMessage(experienceMessages.personal)}
               >
@@ -154,8 +154,8 @@ const ApplicationCareerTimelineAdd = ({
                   id: "+5+rJS",
                   description: "Description for personal experience section",
                 })}
-              </DefinitionList.Item>
-              <DefinitionList.Item
+              </DescriptionList.Item>
+              <DescriptionList.Item
                 Icon={StarIcon}
                 title={intl.formatMessage(experienceMessages.award)}
               >
@@ -165,8 +165,8 @@ const ApplicationCareerTimelineAdd = ({
                   id: "IWJ/Qi",
                   description: "Description for award experience section",
                 })}
-              </DefinitionList.Item>
-            </DefinitionList.Root>
+              </DescriptionList.Item>
+            </DescriptionList.Root>
           </Accordion.Content>
         </Accordion.Item>
       </Accordion.Root>
