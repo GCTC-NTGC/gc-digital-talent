@@ -1,4 +1,5 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "~/fixtures";
+import { getAuthTokens, jumpPastExpiryDate, loginBySub } from "~/utils/auth";
 
 test.describe("Login and logout", () => {
   test("log in", async ({ page }) => {
@@ -83,5 +84,40 @@ test.describe("Login and logout", () => {
         level: 2,
       }),
     ).toBeVisible();
+  });
+  test("refresh the token", async ({ page, fakeClock }) => {
+    const requestPromise = page.waitForRequest(
+      (request) =>
+        request.url().includes("/refresh") && request.method() === "GET",
+    );
+
+    await loginBySub(page, "applicant@test.com", false);
+
+    // time travel to when the tokens expire before trying to navigate
+    const tokenSet1 = await getAuthTokens(page);
+    fakeClock.setSystemTime(jumpPastExpiryDate(tokenSet1.accessToken));
+
+    const request = await requestPromise;
+    await page.goto("/en/applicant");
+    const refreshToken = await new URL(request.url()).searchParams.get(
+      "refresh_token",
+    );
+
+    // expect an immediate refresh
+    expect(tokenSet1.refreshToken).toEqual(refreshToken);
+
+    const tokenSet2 = await getAuthTokens(page);
+    // get ready to catch the first API request after refresh1
+    const authorization = await page
+      .waitForRequest(async (req) => {
+        if (req.url()?.includes("/graphql")) {
+          const reqJson = await req.postDataJSON();
+          return typeof reqJson.operationName !== "undefined";
+        }
+        return false;
+      })
+      .then((res) => res.headerValue("authorization"));
+    // make sure it uses the second access token
+    expect(authorization).toEqual(`Bearer ${tokenSet2.accessToken}`);
   });
 });
