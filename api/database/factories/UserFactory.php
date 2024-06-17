@@ -324,11 +324,11 @@ class UserFactory extends Factory
             if (is_array($communityId)) {
                 foreach ($communityId as $singleCommunityId) {
                     $community = Community::find($singleCommunityId);
-                    $community->addCommunityRecruiter($user->id);
+                    $community->addCommunityRecruiters($user->id);
                 }
             } else {
                 $community = Community::find($communityId);
-                $community->addCommunityRecruiter($user->id);
+                $community->addCommunityRecruiters($user->id);
             }
         });
     }
@@ -345,11 +345,11 @@ class UserFactory extends Factory
             if (is_array($communityId)) {
                 foreach ($communityId as $singleCommunityId) {
                     $community = Community::find($singleCommunityId);
-                    $community->addCommunityAdmin($user->id);
+                    $community->addCommunityAdmins($user->id);
                 }
             } else {
                 $community = Community::find($communityId);
-                $community->addCommunityAdmin($user->id);
+                $community->addCommunityAdmins($user->id);
             }
         });
     }

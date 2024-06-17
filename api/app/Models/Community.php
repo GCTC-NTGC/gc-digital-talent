@@ -70,7 +70,7 @@ class Community extends Model
      * @param  string|array  $userId  - Id of the user or users to attach the role to
      * @return void
      */
-    public function addCommunityRecruiter(string|array $userId)
+    public function addCommunityRecruiters(string|array $userId)
     {
         $team = $this->team()->firstOrCreate([], [
             'name' => 'community-'.$this->id,
@@ -93,7 +93,7 @@ class Community extends Model
      * @param  string|array  $userId  - Id of the user or users to attach the role to
      * @return void
      */
-    public function addCommunityAdmin(string|array $userId)
+    public function addCommunityAdmins(string|array $userId)
     {
         $team = $this->team()->firstOrCreate([], [
             'name' => 'community-'.$this->id,
