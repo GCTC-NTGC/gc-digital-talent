@@ -46,4 +46,42 @@ test.describe("Login and logout", () => {
         );
       });
   });
+  // If you log in as a deleted user you end up on the "user deleted" page.
+  test("show a message when logged in as a deleted user", async ({ page }) => {
+    // stub the "user deleted" API response.
+    // the auth response will indicate the user was deleted.
+    await page.route("**/graphql", async (route) => {
+      const reqJson = await route.request()?.postDataJSON();
+      if (reqJson.operationName === "1authorizationQuery") {
+        const body = JSON.stringify({
+          data: { myAuth: null },
+          errors: [
+            {
+              message: `Login as deleted user: applicant@test.com`,
+              extensions: {
+                reason: "user_deleted",
+              },
+            },
+          ],
+        });
+        await route.fulfill({ body });
+      }
+    });
+    // start login process
+    await page.goto("/login");
+    await page.locator("input[name=username]").fill("applicant@test.com");
+    await page
+      .getByRole("button", {
+        name: "Sign-in",
+      })
+      .click();
+
+    // eventually, we should get to the "user deleted page"
+    await expect(
+      page.getByRole("heading", {
+        name: "Warning alert: User account deleted",
+        level: 2,
+      }),
+    ).toBeVisible();
+  });
 });
