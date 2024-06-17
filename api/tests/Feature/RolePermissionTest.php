@@ -117,7 +117,9 @@ class RolePermissionTest extends TestCase
         $this->assertTrue($this->user->isAbleTo([
             'view-own-application',
             'view-own-applicationStatus',
-            'submit-own-application',
+            'view-own-applicationDecision',
+            'view-own-applicationPlacement',
+            'submit-own-draftApplication',
             'create-own-draftApplication',
             'delete-own-draftApplication',
             'archive-own-submittedApplication',
@@ -142,20 +144,21 @@ class RolePermissionTest extends TestCase
         );
 
         $permissionsToCheck = [
-            'view-team-pool',
-            'create-team-pool',
+            'view-team-draftPool',
+            'create-team-draftPool',
             'update-team-draftPool',
-            'update-team-poolClosingDate',
             'delete-team-draftPool',
             'view-team-submittedApplication',
             'view-team-applicationStatus',
             'update-team-applicationStatus',
-            'view-team-applicationNotes',
-            'update-team-applicationNotes',
+            'view-team-applicationAssessment',
+            'update-team-applicationAssessment',
+            'view-team-applicationDecision',
+            'update-team-applicationDecision',
+            'view-team-applicationPlacement',
+            'update-team-applicationPlacement',
             'view-team-teamMembers',
             'view-team-applicantProfile',
-            'view-team-assessmentResult',
-            'update-team-assessmentResult',
             'view-team-assessmentPlan',
             'update-team-assessmentPlan',
         ];
@@ -183,13 +186,16 @@ class RolePermissionTest extends TestCase
             'view-any-submittedApplication',
             'view-any-applicationStatus',
             'update-any-applicationStatus',
-            'view-any-applicationNotes',
-            'update-any-applicationNotes',
+            'view-any-applicationAssessment',
+            'update-any-applicationAssessment',
+            'view-any-applicationDecision',
+            'view-any-applicationPlacement',
+            'update-any-applicationDecision',
+            'update-any-applicationPlacement',
             'view-any-searchRequest',
             'update-any-searchRequest',
             'delete-any-searchRequest',
             'view-any-assessmentPlan',
-            'view-any-assessmentResult',
         ];
 
         $this->assertTrue($this->user->hasRole('request_responder'));
@@ -212,35 +218,58 @@ class RolePermissionTest extends TestCase
         $this->assertTrue($this->user->hasRole('platform_admin'));
         $this->assertTrue($this->user->isAbleTo([
             'create-any-classification',
+            'view-any-classification',
             'update-any-classification',
             'delete-any-classification',
             'create-any-department',
+            'view-any-department',
             'update-any-department',
             'delete-any-department',
             'create-any-genericJobTitle',
+            'view-any-genericJobTitle',
             'update-any-genericJobTitle',
             'delete-any-genericJobTitle',
             'create-any-skill',
+            'view-any-skill',
             'update-any-skill',
             'delete-any-skill',
             'create-any-skillFamily',
+            'view-any-skillFamily',
             'update-any-skillFamily',
             'delete-any-skillFamily',
+            'create-any-community',
+            'view-any-community',
+            'update-any-community',
+            'delete-any-community',
             'create-any-user',
             'view-any-user',
             'view-any-userBasicInfo',
             'update-any-user',
             'update-any-userSub',
             'delete-any-user',
+            'view-any-applicantProfile',
             'view-any-pool',
-            'publish-any-pool',
+            'view-any-assessmentPlan',
             'create-any-application',
             'view-any-teamMembers',
             'create-any-team',
             'update-any-team',
             'delete-any-team',
             'assign-any-role',
-            'view-any-assessmentResult',
+            'view-any-submittedApplication',
+            'view-any-applicationStatus',
+            'view-any-applicationAssessment',
+            'view-any-applicationDecision',
+            'view-any-applicationPlacement',
+            'view-any-searchRequest',
+            'view-any-announcement',
+            'update-any-announcement',
+            'update-any-platformAdminMembership',
+            'update-any-communityRecruiterMembership',
+            'update-any-communityAdminMembership',
+            'update-any-processOperatorMembership',
+            'view-any-communityTeamMembers',
+            'view-any-poolTeamMembers',
         ], true));
 
         $this->cleanup();
@@ -259,7 +288,7 @@ class RolePermissionTest extends TestCase
         $permissionsToCheck = [
             'view-any-userBasicInfo',
             'view-any-pool',
-            'publish-any-pool',
+            'publish-any-draftPool',
             'view-any-teamMembers',
             'create-any-team',
             'update-any-team',
@@ -290,7 +319,7 @@ class RolePermissionTest extends TestCase
         $this->user->addRole($guestRole);
 
         $guestPermission = 'view-any-skill';
-        $teamPermission = 'view-team-pool';
+        $teamPermission = 'view-team-draftPool';
 
         // This should be true because even though the role is associated with a team context, we're asking about the permission outside of a team context.
         // NOTE: this will fail if team_strict_check is true in the laratrust config.

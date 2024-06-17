@@ -106,11 +106,36 @@ export const ViewPool = ({
   const assessmentBadge = getPoolCompletenessBadge(assessmentStatus);
   const processBadge = getProcessStatusBadge(pool.status);
   const canPublish = checkRole(
-    [ROLE_NAME.CommunityManager, ROLE_NAME.PlatformAdmin],
+    [ROLE_NAME.CommunityManager, ROLE_NAME.CommunityAdmin],
     roleAssignments,
   );
-  // Same roles can edit submitted advertisements
+  // Editing a published pool is restricted to same roles who can publish it in the first place.
   const canEdit = advertisementStatus !== "submitted" || canPublish;
+  const canDuplicate = checkRole(
+    [
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.CommunityAdmin,
+    ],
+    roleAssignments,
+  );
+  const canArchive = checkRole(
+    [
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.CommunityManager,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.CommunityAdmin,
+    ],
+    roleAssignments,
+  );
+  const canDelete = checkRole(
+    [
+      ROLE_NAME.PoolOperator,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.CommunityAdmin,
+    ],
+    roleAssignments,
+  );
 
   let closingDate = "";
   if (pool.closingDate) {
@@ -390,33 +415,34 @@ export const ViewPool = ({
               )}
               {[PoolStatus.Closed, PoolStatus.Published].includes(
                 pool.status ?? PoolStatus.Draft,
-              ) && (
-                <ChangeDateDialog
-                  {...commonDialogProps}
-                  closingDate={pool.closingDate}
-                  onExtend={onExtend}
-                  onClose={onClose}
-                />
-              )}
-              {checkRole([ROLE_NAME.PoolOperator], roleAssignments) && (
+              ) &&
+                canPublish && (
+                  <ChangeDateDialog
+                    {...commonDialogProps}
+                    closingDate={pool.closingDate}
+                    onExtend={onExtend}
+                    onClose={onClose}
+                  />
+                )}
+              {canDuplicate && (
                 <DuplicateProcessDialog
                   {...commonDialogProps}
                   onDuplicate={onDuplicate}
                 />
               )}
-              {pool.status === PoolStatus.Closed && (
+              {pool.status === PoolStatus.Closed && canArchive && (
                 <ArchiveProcessDialog
                   {...commonDialogProps}
                   onArchive={onArchive}
                 />
               )}
-              {pool.status === PoolStatus.Archived && (
+              {pool.status === PoolStatus.Archived && canArchive && (
                 <UnarchiveProcessDialog
                   {...commonDialogProps}
                   onUnarchive={onUnarchive}
                 />
               )}
-              {pool.status === PoolStatus.Draft && (
+              {pool.status === PoolStatus.Draft && canDelete && (
                 <DeleteProcessDialog
                   {...commonDialogProps}
                   onDelete={onDelete}

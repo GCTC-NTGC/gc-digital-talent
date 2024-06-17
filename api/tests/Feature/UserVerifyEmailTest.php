@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Feature;
+
 use App\Facades\Notify;
 use App\Models\User;
 use App\Notifications\VerifyEmail;
