@@ -22,9 +22,10 @@ class AssessmentResultPolicy
             return true;
         }
 
-        $assessmentResult->loadMissing('assessmentStep.pool.legacyTeam');
+        $assessmentResult->loadMissing(['assessmentStep.pool.team', 'assessmentStep.pool.legacyTeam']);
 
-        return $user->isAbleTo('view-team-applicationAssessment', $assessmentResult->assessmentStep->pool->legacyTeam);
+        return $user->isAbleTo('view-team-applicationAssessment', $assessmentResult->assessmentStep->pool->team)
+                || $user->isAbleTo('view-team-applicationAssessment', $assessmentResult->assessmentStep->pool->legacyTeam);
     }
 
     /**
@@ -37,9 +38,10 @@ class AssessmentResultPolicy
     public function create(User $user, $request)
     {
         if (array_key_exists('assessment_step_id', $request)) {
-            $parentAssessmentStep = AssessmentStep::with('pool.legacyTeam')->find($request['assessment_step_id']);
+            $parentAssessmentStep = AssessmentStep::with(['pool.team', 'pool.legacyTeam'])->find($request['assessment_step_id']);
 
-            return $user->isAbleTo('update-team-applicationAssessment', $parentAssessmentStep->pool->legacyTeam);
+            return $user->isAbleTo('update-team-applicationAssessment', $parentAssessmentStep->pool->team)
+                    || $user->isAbleTo('update-team-applicationAssessment', $parentAssessmentStep->pool->legacyTeam);
         }
 
         return false;
@@ -52,8 +54,9 @@ class AssessmentResultPolicy
      */
     public function update(User $user, AssessmentResult $assessmentResult)
     {
-        $assessmentResult->loadMissing('assessmentStep.pool.legacyTeam');
+        $assessmentResult->loadMissing(['assessmentStep.pool.team', 'assessmentStep.pool.legacyTeam']);
 
-        return $user->isAbleTo('update-team-applicationAssessment', $assessmentResult->assessmentStep->pool->legacyTeam);
+        return $user->isAbleTo('update-team-applicationAssessment', $assessmentResult->assessmentStep->pool->team)
+                || $user->isAbleTo('update-team-applicationAssessment', $assessmentResult->assessmentStep->pool->legacyTeam);
     }
 }
