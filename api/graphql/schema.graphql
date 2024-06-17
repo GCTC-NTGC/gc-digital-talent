@@ -264,7 +264,7 @@ type Pool implements HasRoleAssignments {
   roleAssignments: [RoleAssignment!]
     @hasManyThrough
     @canRoot(ability: "viewTeamMembers")
-  department: Department @belongsTo
+  department: Department @belongsTo @canQuery(ability: "view")
 }
 
 type GeneralQuestionResponse {
@@ -412,7 +412,9 @@ type Department {
   departmentNumber: Int! @rename(attribute: "department_number")
   name: LocalizedString!
   teams: [Team] @belongsToMany @canModel(ability: "viewAny")
-  pools: [Pool] @hasMany
+  pools: [Pool]
+    @hasMany(scopes: ["authorizedToView"])
+    @canResolved(ability: "view")
 }
 
 type Community implements HasRoleAssignments {
