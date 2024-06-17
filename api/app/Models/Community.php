@@ -79,13 +79,11 @@ class Community extends Model
         if (is_array($userId)) {
             foreach ($userId as $singleUserId) {
                 $user = User::find($singleUserId);
-                // $user->addRole('community_recruiter', $team->name);
-                $user->addRole('pool_operator', $team->name);
+                $user->addRole('community_recruiter', $team->name);
             }
         } else {
             $user = User::find($userId);
-            // $user->addRole('community_recruiter', $team->name);
-            $user->addRole('pool_operator', $team->name);
+            $user->addRole('community_recruiter', $team->name);
         }
     }
 
@@ -104,13 +102,11 @@ class Community extends Model
         if (is_array($userId)) {
             foreach ($userId as $singleUserId) {
                 $user = User::find($singleUserId);
-                // $user->addRole('community_admin', $team->name);
-                $user->addRole('pool_operator', $team->name);
+                $user->addRole('community_admin', $team->name);
             }
         } else {
             $user = User::find($userId);
-            // $user->addRole('community_admin', $team->name);
-            $user->addRole('pool_operator', $team->name);
+            $user->addRole('community_admin', $team->name);
         }
     }
 }

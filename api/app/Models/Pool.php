@@ -242,13 +242,11 @@ class Pool extends Model
         if (is_array($userId)) {
             foreach ($userId as $singleUserId) {
                 $user = User::find($singleUserId);
-                // $user->addRole('process_operator', $team->name);
-                $user->addRole('pool_operator', $team->name);
+                $user->addRole('process_operator', $team->name);
             }
         } else {
             $user = User::find($userId);
-            // $user->addRole('process_operator', $team->name);
-            $user->addRole('pool_operator', $team->name);
+            $user->addRole('process_operator', $team->name);
         }
     }
 
