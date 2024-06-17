@@ -2,6 +2,7 @@ import { useIntl } from "react-intl";
 
 import {
   commonMessages,
+  getLocalizedName,
   getPoolOpportunityLength,
   getPoolStream,
   getPublishingGroup,
@@ -18,6 +19,7 @@ const Display = ({ pool }: DisplayProps) => {
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   const {
     classification,
+    department,
     stream,
     name,
     processNumber,
@@ -38,6 +40,12 @@ const Display = ({ pool }: DisplayProps) => {
         {classification
           ? getClassificationName(classification, intl)
           : notProvided}
+      </ToggleForm.FieldDisplay>
+      <ToggleForm.FieldDisplay
+        hasError={!department}
+        label={intl.formatMessage(processMessages.department)}
+      >
+        {department ? getLocalizedName(department.name, intl) : notProvided}
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay
         hasError={!stream}

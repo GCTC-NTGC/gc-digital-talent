@@ -11,6 +11,11 @@ const messages = defineMessages({
     id: "YmWKlv",
     description: "Label for a process' classification",
   },
+  department: {
+    defaultMessage: "Department",
+    id: "JwGARz",
+    description: "Label for a process' department",
+  },
   stream: {
     defaultMessage: "Stream",
     id: "9pYlYz",
