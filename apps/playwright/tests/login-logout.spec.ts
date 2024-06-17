@@ -52,7 +52,7 @@ test.describe("Login and logout", () => {
     // the auth response will indicate the user was deleted.
     await page.route("**/graphql", async (route) => {
       const reqJson = await route.request()?.postDataJSON();
-      if (reqJson.operationName === "1authorizationQuery") {
+      if (reqJson.operationName === "authorizationQuery") {
         const body = JSON.stringify({
           data: { myAuth: null },
           errors: [
