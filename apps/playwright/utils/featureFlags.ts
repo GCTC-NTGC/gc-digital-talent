@@ -18,5 +18,5 @@ export function getFeatureFlagConfig(flags: Partial<FeatureFlags>) {
     }
   });
 
-  return `${body} window.__SERVER_CONFIG__ = data; console.log(data);`;
+  return `${body} window.__SERVER_CONFIG__ = data;`;
 }
