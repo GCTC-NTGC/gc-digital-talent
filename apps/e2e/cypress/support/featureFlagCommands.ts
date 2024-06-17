@@ -15,3 +15,7 @@ const overrideFeatureFlags = (flags: Record<string, boolean | null>) => {
 
   return `${map} window.__SERVER_CONFIG__ = data`;
 };
+
+Cypress.Commands.add("overrideFeatureFlags", (flags) => {
+  cy.intercept("GET", "/config.js", overrideFeatureFlags(flags));
+});
