@@ -23,6 +23,9 @@ final class PoolIsCompleteValidator extends Validator
         $endOfDay = Carbon::now()->endOfDay();
 
         return [
+            // initial creation requirements
+            'department_id' => ['required', 'uuid', 'exists:departments,id'],
+
             // Pool name and classification
             'name.en' => ['string'],
             'name.fr' => ['string'],
