@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
-import { Button, Link } from "@gc-digital-talent/ui";
+import { Button, Link, useAnnouncer } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -20,12 +20,21 @@ const NotificationActions = ({
 }: NotificationActionsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const { announce } = useAnnouncer();
 
   const [{ fetching: markingAllAsRead }, executeMarkAllAsReadMutation] =
     useMutation(MarkAllNotificationsAsRead_Mutation);
 
   const handleMarkAllNotificationsAsRead = () => {
     executeMarkAllAsReadMutation({}).then(() => {
+      announce(
+        intl.formatMessage({
+          defaultMessage: "Notifications marked as read successfully.",
+          id: "7tAIPo",
+          description:
+            "Message announced to assistive technology when notifications marked as read",
+        }),
+      );
       onRead?.();
     });
   };
