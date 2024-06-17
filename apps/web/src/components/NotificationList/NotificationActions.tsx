@@ -26,17 +26,28 @@ const NotificationActions = ({
     useMutation(MarkAllNotificationsAsRead_Mutation);
 
   const handleMarkAllNotificationsAsRead = () => {
-    executeMarkAllAsReadMutation({}).then(() => {
-      announce(
-        intl.formatMessage({
-          defaultMessage: "Notifications marked as read successfully.",
-          id: "7tAIPo",
-          description:
-            "Message announced to assistive technology when notifications marked as read",
-        }),
-      );
-      onRead?.();
-    });
+    executeMarkAllAsReadMutation({})
+      .then(() => {
+        announce(
+          intl.formatMessage({
+            defaultMessage: "Notifications marked as read successfully.",
+            id: "7tAIPo",
+            description:
+              "Message announced to assistive technology when notifications marked as read",
+          }),
+        );
+        onRead?.();
+      })
+      .catch(() => {
+        announce(
+          intl.formatMessage({
+            defaultMessage: "Error: could not mark notifications as read.",
+            id: "lpx9/e",
+            description:
+              "Message announced to assistive technology when error occurred making notifications as read",
+          }),
+        );
+      });
   };
 
   return (
