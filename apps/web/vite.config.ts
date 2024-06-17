@@ -83,6 +83,7 @@ export default defineConfig({
             "@microsoft/applicationinsights-react-js",
             "@microsoft/applicationinsights-web",
           ],
+          framer: ["framer-motion"],
           react: ["react", "react-dom"],
           router: ["react-router", "react-router-dom"],
         },
