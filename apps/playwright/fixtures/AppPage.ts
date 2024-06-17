@@ -79,9 +79,8 @@ class AppPage {
    * @returns void
    */
   async overrideFeatureFlags(flags: FeatureFlags) {
-    await this.page.route("**/config.js", (route) =>
-      route.fulfill({ body: getFeatureFlagConfig(flags) }),
-    );
+    const content = getFeatureFlagConfig(flags);
+    await this.page.addInitScript({ content });
   }
 
   async getMe() {

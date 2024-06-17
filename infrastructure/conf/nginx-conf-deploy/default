@@ -71,11 +71,6 @@ server {
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         fastcgi_index index.php;
     }
-    # find the web config in the writable home root - run time variables
-    location = /config.js {
-        add_header Cache-Control "public, max-age=60"; # 1 minute - to distrubute variable changes
-        alias /home/site/config-web.js;
-    }
 
     # api
     location = /graphql {
