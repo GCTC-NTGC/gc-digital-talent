@@ -46,6 +46,7 @@ export const dataToFormValues = (initialData: Pool): FormValues => ({
 export type PoolNameSubmitData = Pick<
   UpdatePoolInput,
   | "classification"
+  | "department"
   | "name"
   | "stream"
   | "processNumber"
@@ -59,6 +60,11 @@ export const formValuesToSubmitData = (
   classification: formValues.classification
     ? {
         connect: formValues.classification,
+      }
+    : undefined,
+  department: formValues.department
+    ? {
+        connect: formValues.department,
       }
     : undefined,
   stream: formValues.stream ? formValues.stream : undefined,

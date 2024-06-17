@@ -22,6 +22,7 @@ export function isInNullState({
 
 export function hasEmptyRequiredFields({
   classification,
+  department,
   stream,
   name,
   processNumber,
@@ -30,6 +31,7 @@ export function hasEmptyRequiredFields({
 }: Pool): boolean {
   return !!(
     !classification ||
+    !department ||
     !stream ||
     !name?.en ||
     !name?.fr ||

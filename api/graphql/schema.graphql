@@ -1546,6 +1546,7 @@ input UpdatePoolInput {
   # Pool name and classification
   name: LocalizedStringInput
   classification: ClassificationBelongsTo
+  department: DepartmentBelongsTo
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
   # Closing date

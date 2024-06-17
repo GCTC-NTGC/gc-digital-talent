@@ -1472,6 +1472,7 @@ input SyncScreeningQuestionsInput {
 input UpdatePoolInput {
   name: LocalizedStringInput
   classification: ClassificationBelongsTo
+  department: DepartmentBelongsTo
   stream: PoolStream
   processNumber: String
   closingDate: DateTime
