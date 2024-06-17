@@ -38,6 +38,8 @@ return [
         'talent_request_submission_confirmation_enfr' => env('GCNOTIFY_TEMPLATE_TALENT_REQUEST_SUBMISSION_CONFIRMATION_ENFR'),
         'verify_email_en' => env('GCNOTIFY_TEMPLATE_VERIFY_EMAIL_EN'),
         'verify_email_fr' => env('GCNOTIFY_TEMPLATE_VERIFY_EMAIL_FR'),
+        'system_notification_en' => env('GCNOTIFY_TEMPLATE_SYSTEM_NOTIFICATION_EN'),
+        'system_notification_fr' => env('GCNOTIFY_TEMPLATE_SYSTEM_NOTIFICATION_FR'),
     ],
 
     /*
