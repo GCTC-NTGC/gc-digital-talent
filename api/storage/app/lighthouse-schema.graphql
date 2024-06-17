@@ -1443,6 +1443,7 @@ input GenericJobTitleBelongsToMany {
 
 input CreatePoolInput {
   classification: ClassificationBelongsTo
+  department: DepartmentBelongsTo!
 }
 
 input CreateGeneralQuestionInput {

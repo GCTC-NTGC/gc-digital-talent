@@ -607,7 +607,7 @@ class Pool extends Model
     /**
      * Get the department that owns the pool.
      */
-    public function department()
+    public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class);
     }
