@@ -56,11 +56,6 @@ export const test = base.extend<AppFixtures>({
 
     await use(makeAxeBuilder);
   },
-  fakeClock: async ({}, use) => {
-    const clock = sinon.useFakeTimers();
-    await use(clock);
-    clock.restore();
-  },
 });
 
 export { expect } from "@playwright/test";

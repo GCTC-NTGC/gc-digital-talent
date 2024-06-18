@@ -1,7 +1,16 @@
 import { test, expect } from "~/fixtures";
 import { getAuthTokens, jumpPastExpiryDate, loginBySub } from "~/utils/auth";
+import ClockHelper from "~/utils/clock";
 
 test.describe("Login and logout", () => {
+  let clockHelper: ClockHelper;
+
+  test.beforeEach(async ({ page, context }) => {
+    // Arrange
+    clockHelper = new ClockHelper(page, context);
+    await clockHelper.setupFakeTimers();
+  });
+
   test("log in", async ({ page }) => {
     const requestPromise = page.waitForRequest(
       (request) =>
@@ -85,7 +94,7 @@ test.describe("Login and logout", () => {
       }),
     ).toBeVisible();
   });
-  test("refresh the token", async ({ page, fakeClock }) => {
+  test("refresh the token", async ({ page }) => {
     const requestPromise = page.waitForRequest(
       (request) =>
         request.url().includes("/refresh") && request.method() === "GET",
@@ -95,7 +104,7 @@ test.describe("Login and logout", () => {
 
     // time travel to when the tokens expire before trying to navigate
     const tokenSet1 = await getAuthTokens(page);
-    fakeClock.setSystemTime(jumpPastExpiryDate(tokenSet1.accessToken));
+    await clockHelper.jumpTo(jumpPastExpiryDate(tokenSet1.accessToken));
 
     const request = await requestPromise;
     await page.goto("/en/applicant");
