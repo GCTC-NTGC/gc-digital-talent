@@ -129,4 +129,34 @@ test.describe("Login and logout", () => {
     // make sure it uses the second access token
     expect(authorization).toEqual(`Bearer ${tokenSet2.accessToken}`);
   });
+
+  // When you have two tabs open, a refresh in one will allow the second tab to make an API call with the new tokens and no refresh.
+  test("share the refresh", async ({ page, context }) => {
+    await loginBySub(page, "applicant@test.com", false);
+    await page.goto("/en/applicant");
+
+    // simulate a refresh in a second tab by logging in with a different set of tokens
+    const pageTwo = await context.newPage();
+    await loginBySub(pageTwo, "applicant@test.com", false);
+    const tokenSet1 = await getAuthTokens(pageTwo);
+
+    // not important, just need an API request to occur
+    await page.goto("/en/applicant/profile");
+
+    // get ready to catch the next graphql request
+    await page
+      .waitForRequest(async (req) => {
+        if (req.url()?.includes("/graphql")) {
+          const reqJson = await req.postDataJSON();
+          return typeof reqJson.operationName !== "undefined";
+        }
+        return false;
+      })
+      .then(async (request) => {
+        // make sure it uses the access token
+        expect(request.headers().authorization).toEqual(
+          `Bearer ${tokenSet1.accessToken}`,
+        );
+      });
+  });
 });
