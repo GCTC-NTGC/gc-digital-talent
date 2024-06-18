@@ -1,6 +1,11 @@
 import { defineMessages } from "react-intl";
 
 const errorMessages = defineMessages({
+  error: {
+    defaultMessage: "Error",
+    id: "ra+8d1",
+    description: "Generic error message",
+  },
   required: {
     // These errors must be passed to react-hook-form as error messages, and it only expects strings.
     // However, when we use rich text elements like `<hidden>`, formatMessage will return ReactNode.

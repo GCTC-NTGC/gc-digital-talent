@@ -1739,6 +1739,10 @@
     "defaultMessage": "Signer et continuer",
     "description": "Button text to submit the Indigenous self-declaration form."
   },
+  "7tAIPo": {
+    "defaultMessage": "Notifications marquées comme lues avec succès.",
+    "description": "Message announced to assistive technology when notifications marked as read"
+  },
   "7tdU/G": {
     "defaultMessage": "Erreur : échec de votre suppression des résultats de recherche.",
     "description": "Alert displayed to the user when application card dialog fails."
@@ -5196,7 +5200,7 @@
     "description": "IT-03 classification label including titles"
   },
   "RHwGy2": {
-    "defaultMessage": "Erreur: la publication du processus a échoué",
+    "defaultMessage": "Erreur : la publication du processus a échoué",
     "description": "Message displayed to user after pool fails to get publish."
   },
   "RIi/3q": {
@@ -10121,6 +10125,10 @@
   "rmmLVI": {
     "defaultMessage": "Sélectionner un membre d’un groupe visé par l’équité en matière d’emploi par nomination, si plusieurs candidats qualifiés sont disponibles.",
     "description": "List item 3, how self-declaration data is used"
+  },
+  "rmsF/w": {
+    "defaultMessage": "impossible de marquer les notifications comme lues.",
+    "description": "Message announced to assistive technology when error occurred making notifications as read"
   },
   "rtzp80": {
     "defaultMessage": "Dressez la liste des compétences, de la formation ou de l’expérience précises requises pour effectuer le travail demandé.",

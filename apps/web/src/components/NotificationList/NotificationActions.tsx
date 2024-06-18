@@ -1,7 +1,8 @@
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
-import { Button, Link } from "@gc-digital-talent/ui";
+import { Button, Link, useAnnouncer } from "@gc-digital-talent/ui";
+import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -20,14 +21,36 @@ const NotificationActions = ({
 }: NotificationActionsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const { announce } = useAnnouncer();
 
   const [{ fetching: markingAllAsRead }, executeMarkAllAsReadMutation] =
     useMutation(MarkAllNotificationsAsRead_Mutation);
 
   const handleMarkAllNotificationsAsRead = () => {
-    executeMarkAllAsReadMutation({}).then(() => {
-      onRead?.();
-    });
+    executeMarkAllAsReadMutation({})
+      .then(() => {
+        announce(
+          intl.formatMessage({
+            defaultMessage: "Notifications marked as read successfully.",
+            id: "7tAIPo",
+            description:
+              "Message announced to assistive technology when notifications marked as read",
+          }),
+        );
+        onRead?.();
+      })
+      .catch(() => {
+        announce(
+          intl.formatMessage(errorMessages.error) +
+            intl.formatMessage(commonMessages.dividingColon) +
+            intl.formatMessage({
+              defaultMessage: "could not mark notifications as read.",
+              id: "rmsF/w",
+              description:
+                "Message announced to assistive technology when error occurred making notifications as read",
+            }),
+        );
+      });
   };
 
   return (
