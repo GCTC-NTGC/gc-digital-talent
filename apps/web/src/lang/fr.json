@@ -1739,6 +1739,10 @@
     "defaultMessage": "Signer et continuer",
     "description": "Button text to submit the Indigenous self-declaration form."
   },
+  "7tAIPo": {
+    "defaultMessage": "Notifications marquées comme lues avec succès.",
+    "description": "Message announced to assistive technology when notifications marked as read"
+  },
   "7tdU/G": {
     "defaultMessage": "Erreur : échec de votre suppression des résultats de recherche.",
     "description": "Alert displayed to the user when application card dialog fails."
@@ -9073,6 +9077,10 @@
   "loDwKe": {
     "defaultMessage": "À propos du Portail des talents autochtones",
     "description": "Talent Portal information heading"
+  },
+  "lpx9/e": {
+    "defaultMessage": "Erreur: impossible de marquer les notifications comme lues.",
+    "description": "Message announced to assistive technology when error occurred making notifications as read"
   },
   "lr6PWk": {
     "defaultMessage": "Si vous n’avez pas encore d’application d’authentification, vous devrez en télécharger une. Des fournisseurs numériques comme Google Authenticator et Microsoft Authenticator offrent des applications d’authentification. Quelle que soit l’application que vous choisissez, veillez à ce qu’elle provienne d’un fournisseur réputé.",
