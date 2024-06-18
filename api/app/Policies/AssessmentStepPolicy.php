@@ -28,8 +28,8 @@ class AssessmentStepPolicy
 
             if (! is_null($pool)) {
                 $isDraft = $pool->getStatusAttribute() === PoolStatus::DRAFT->name;
-                $teamPermission = !is_null($pool->team) && $user->isAbleTo('update-team-draftPool', $pool->team);
-                $legacyTeamPermission = !is_null($pool->legacyTeam) && $user->isAbleTo('update-team-draftPool', $pool->legacyTeam);
+                $teamPermission = ! is_null($pool->team) && $user->isAbleTo('update-team-draftPool', $pool->team);
+                $legacyTeamPermission = ! is_null($pool->legacyTeam) && $user->isAbleTo('update-team-draftPool', $pool->legacyTeam);
 
                 if ($isDraft && ($teamPermission || $legacyTeamPermission)) {
                     return true;
@@ -53,8 +53,8 @@ class AssessmentStepPolicy
     {
         $assessmentStep->loadMissing(['pool.team', 'pool.legacyTeam']);
 
-        $teamPermission = !is_null($assessmentStep->pool->team) && $user->isAbleTo('update-team-draftPool', $assessmentStep->pool->team);
-        $legacyTeamPermission = !is_null($assessmentStep->pool->legacyTeam) && $user->isAbleTo('update-team-draftPool', $assessmentStep->pool->legacyTeam);
+        $teamPermission = ! is_null($assessmentStep->pool->team) && $user->isAbleTo('update-team-draftPool', $assessmentStep->pool->team);
+        $legacyTeamPermission = ! is_null($assessmentStep->pool->legacyTeam) && $user->isAbleTo('update-team-draftPool', $assessmentStep->pool->legacyTeam);
 
         return $assessmentStep->pool->getStatusAttribute() === PoolStatus::DRAFT->name
         && ($teamPermission || $legacyTeamPermission);
@@ -73,8 +73,8 @@ class AssessmentStepPolicy
 
         $assessmentStep->loadMissing(['pool.team', 'pool.legacyTeam']);
 
-        $teamPermission = !is_null($assessmentStep->pool->team) && $user->isAbleTo('view-team-assessmentPlan', $assessmentStep->pool->team);
-        $legacyTeamPermission = !is_null($assessmentStep->pool->legacyTeam) && $user->isAbleTo('view-team-assessmentPlan', $assessmentStep->pool->legacyTeam);
+        $teamPermission = ! is_null($assessmentStep->pool->team) && $user->isAbleTo('view-team-assessmentPlan', $assessmentStep->pool->team);
+        $legacyTeamPermission = ! is_null($assessmentStep->pool->legacyTeam) && $user->isAbleTo('view-team-assessmentPlan', $assessmentStep->pool->legacyTeam);
 
         return $teamPermission || $legacyTeamPermission;
     }
@@ -92,8 +92,8 @@ class AssessmentStepPolicy
 
         $assessmentStep->loadMissing(['pool.team', 'pool.legacyTeam']);
 
-        $teamPermission = !is_null($assessmentStep->pool->team) && $user->isAbleTo('view-team-applicationAssessment', $assessmentStep->pool->team);
-        $legacyTeamPermission = !is_null($assessmentStep->pool->legacyTeam) && $user->isAbleTo('view-team-applicationAssessment', $assessmentStep->pool->legacyTeam);
+        $teamPermission = ! is_null($assessmentStep->pool->team) && $user->isAbleTo('view-team-applicationAssessment', $assessmentStep->pool->team);
+        $legacyTeamPermission = ! is_null($assessmentStep->pool->legacyTeam) && $user->isAbleTo('view-team-applicationAssessment', $assessmentStep->pool->legacyTeam);
 
         return $teamPermission || $legacyTeamPermission;
     }
