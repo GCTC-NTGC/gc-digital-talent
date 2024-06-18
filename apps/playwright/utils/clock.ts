@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 // Playwright as of now has no built in functionality to be able to alter time, mock time etc
 // Hence using Sinon JS
 import { BrowserContext, Page } from "@playwright/test";
@@ -34,7 +35,6 @@ class ClockHelper {
   // Simulate the passage of time
   async advanceTime(milliseconds: number): Promise<void> {
     await this.page.evaluate((ms) => {
-      // eslint-disable-next-line no-underscore-dangle
       window.__clock.tick(ms);
     }, milliseconds);
   }
@@ -42,9 +42,14 @@ class ClockHelper {
   async jumpTo(date: Date): Promise<void> {
     await this.page.evaluate((d) => {
       const diff = Math.abs(d.valueOf() - new Date().valueOf());
-      // eslint-disable-next-line no-underscore-dangle
       window.__clock.tick(diff);
     }, date);
+  }
+
+  async restore(): Promise<void> {
+    await this.page.evaluate(() => {
+      window.__clock.restore();
+    });
   }
 }
 
