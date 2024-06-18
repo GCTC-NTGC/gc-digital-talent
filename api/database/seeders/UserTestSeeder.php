@@ -105,6 +105,7 @@ class UserTestSeeder extends Seeder
 
         User::factory()
             ->asApplicant()
+            ->asProcessOperator('pool-cmo-digital-careers')
             ->asGovEmployee()
             ->create([
                 'first_name' => 'Process',

@@ -34,6 +34,15 @@ class TeamSeeder extends Seeder
                 'contact_email' => 'edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca',
                 'department_ids' => [Department::select('id')->where('name->en', 'Employment and Social Development (Department of)')->sole()->id],
             ],
+            [
+                'name' => 'pool-cmo-digital-careers',
+                'display_name' => [
+                    'en' => 'CMO Digital Careers team en',
+                    'fr' => 'CMO Digital Careers team fr',
+                ],
+                'contact_email' => 'gctalent-talentgc@support-soutien.gc.ca',
+                'department_ids' => [Department::select('id')->where('name->en', 'Treasury Board Secretariat')->sole()->id],
+            ],
         ];
 
         foreach ($teams as $team) {
