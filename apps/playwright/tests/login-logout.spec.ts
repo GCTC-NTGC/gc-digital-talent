@@ -266,4 +266,39 @@ test.describe("Login and logout", () => {
       expect(searchParamIdTokenHint).toEqual(tokenSet.idToken);
     });
   });
+  // If token validation fails the user is immediately logged out.
+  test("log out when token validation fails", async ({ page }) => {
+    // start login process
+    await loginBySub(page, "applicant@test.com", false);
+
+    // simulate the API indicating the token is inactive
+    await page.route("**/graphql", async (route) => {
+      const reqJson = await route.request()?.postDataJSON();
+      if (reqJson.operationName === "authorizationQuery") {
+        const body = JSON.stringify({
+          data: { myAuth: null },
+          errors: [
+            {
+              message: `Mock token validation message`,
+              extensions: {
+                reason: "token_validation",
+              },
+            },
+          ],
+        });
+        await route.fulfill({ body });
+      }
+    });
+
+    // try to visit a page
+    await page.goto("/en/");
+
+    // expect a session end and logout
+    await expect(
+      page.getByRole("heading", {
+        name: "See you next time!",
+        level: 1,
+      }),
+    ).toBeVisible();
+  });
 });
