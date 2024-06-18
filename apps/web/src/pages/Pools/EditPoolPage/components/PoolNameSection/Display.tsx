@@ -69,7 +69,7 @@ const Display = ({ pool }: DisplayProps) => {
       >
         <ToggleForm.FieldDisplay
           hasError={!department}
-          label={intl.formatMessage(processMessages.department)}
+          label={intl.formatMessage(commonMessages.department)}
         >
           {department ? getLocalizedName(department.name, intl) : notProvided}
         </ToggleForm.FieldDisplay>

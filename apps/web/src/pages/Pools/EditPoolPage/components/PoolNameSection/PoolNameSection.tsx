@@ -247,12 +247,7 @@ const PoolNameSection = ({
               >
                 <Select
                   id="department"
-                  label={intl.formatMessage({
-                    defaultMessage: "Department",
-                    id: "g84Yop",
-                    description:
-                      "Label displayed on the pool form department field.",
-                  })}
+                  label={intl.formatMessage(commonMessages.department)}
                   name="department"
                   nullSelection={intl.formatMessage(
                     uiMessages.nullSelectionOption,
