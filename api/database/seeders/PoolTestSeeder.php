@@ -24,7 +24,7 @@ class PoolTestSeeder extends Seeder
 
         // Caching commonly used queries
         $adminUserId = User::select('id')->where('email', 'admin@test.com')->sole()->id;
-        $cmoTeam = Team::where('name', 'pool-cmo-digital-careers')->first();
+        $processOperatorUser = User::select('id')->where('email', 'process@test.com')->first();
         $dcmTeamId = Team::select('id')->where('name', 'digital-community-management')->sole()->id;
 
         // CMO Digital
@@ -49,8 +49,8 @@ class PoolTestSeeder extends Seeder
         $createdPool->classification_id = $classificationIT01Id;
         $createdPool->stream = PoolStream::BUSINESS_ADVISORY_SERVICES->name;
         $createdPool->advertisement_language = PoolLanguage::VARIOUS->name;
-        if (! is_null($cmoTeam)) {
-            $createdPool->team()->save($cmoTeam);
+        if (! is_null($processOperatorUser)) {
+            $createdPool->addProcessOperators([$processOperatorUser->id]);
         }
         $createdPool->save();
 

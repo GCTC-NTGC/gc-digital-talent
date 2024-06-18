@@ -294,18 +294,20 @@ class UserFactory extends Factory
     /**
      * Attach the process operator role to a user after creation.
      *
-     * @param  string|array  $team  Name of the team or teams to attach the role to
+     * @param  string|array  $poolId  Id of the pool or pools to attach the role to
      * @return $this
      */
-    public function asProcessOperator(string|array $team)
+    public function asProcessOperator(string|array $poolId)
     {
-        return $this->afterCreating(function (User $user) use ($team) {
-            if (is_array($team)) {
-                foreach ($team as $singleTeam) {
-                    $user->addRole('process_operator', $singleTeam);
+        return $this->afterCreating(function (User $user) use ($poolId) {
+            if (is_array($poolId)) {
+                foreach ($poolId as $singlePoolId) {
+                    $pool = Pool::find($singlePoolId);
+                    $pool->addProcessOperators($user->id);
                 }
             } else {
-                $user->addRole('process_operator', $team);
+                $pool = Pool::find($poolId);
+                $pool->addProcessOperators($user->id);
             }
         });
     }
