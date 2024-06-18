@@ -6,39 +6,39 @@ import DevicePhoneMobileIcon from "@heroicons/react/24/solid/DevicePhoneMobileIc
 import EnvelopeIcon from "@heroicons/react/24/solid/EnvelopeIcon";
 import { faker } from "@faker-js/faker/locale/en";
 
-import DefinitionList from "./DefinitionList";
+import DescriptionList from "./DescriptionList";
 
 faker.seed(0);
 
 export default {
-  component: DefinitionList.Root,
-} as Meta<typeof DefinitionList.Root>;
+  component: DescriptionList.Root,
+} as Meta<typeof DescriptionList.Root>;
 
-const Template: StoryFn<typeof DefinitionList.Root> = (args) => {
+const Template: StoryFn<typeof DescriptionList.Root> = (args) => {
   const { children } = args;
 
-  return <DefinitionList.Root>{children}</DefinitionList.Root>;
+  return <DescriptionList.Root>{children}</DescriptionList.Root>;
 };
 
 export const Default = Template.bind({});
 Default.args = {
   children: (
     <>
-      <DefinitionList.Item title="Item One">
+      <DescriptionList.Item title="Item One">
         {faker.lorem.sentence()}
-      </DefinitionList.Item>
-      <DefinitionList.Item title="Item Two" color="secondary">
+      </DescriptionList.Item>
+      <DescriptionList.Item title="Item Two" color="secondary">
         {faker.lorem.sentence()}
-      </DefinitionList.Item>
-      <DefinitionList.Item title="Item Three" color="tertiary">
+      </DescriptionList.Item>
+      <DescriptionList.Item title="Item Three" color="tertiary">
         {faker.lorem.sentence()}
-      </DefinitionList.Item>
-      <DefinitionList.Item title="Item Three" color="quaternary">
+      </DescriptionList.Item>
+      <DescriptionList.Item title="Item Three" color="quaternary">
         {faker.lorem.sentence()}
-      </DefinitionList.Item>
-      <DefinitionList.Item title="Item Three" color="quinary">
+      </DescriptionList.Item>
+      <DescriptionList.Item title="Item Three" color="quinary">
         {faker.lorem.sentence()}
-      </DefinitionList.Item>
+      </DescriptionList.Item>
     </>
   ),
 };
@@ -47,33 +47,33 @@ export const WithIcon = Template.bind({});
 WithIcon.args = {
   children: (
     <>
-      <DefinitionList.Item title="Item One" Icon={AcademicCapIcon}>
+      <DescriptionList.Item title="Item One" Icon={AcademicCapIcon}>
         {faker.lorem.sentence()}
-      </DefinitionList.Item>
-      <DefinitionList.Item
+      </DescriptionList.Item>
+      <DescriptionList.Item
         title="Item Two"
         Icon={BackspaceIcon}
         color="secondary"
       >
         {faker.lorem.sentence()}
-      </DefinitionList.Item>
-      <DefinitionList.Item title="Item Three" Icon={CakeIcon} color="tertiary">
+      </DescriptionList.Item>
+      <DescriptionList.Item title="Item Three" Icon={CakeIcon} color="tertiary">
         {faker.lorem.sentence()}
-      </DefinitionList.Item>
-      <DefinitionList.Item
+      </DescriptionList.Item>
+      <DescriptionList.Item
         title="Item Three"
         Icon={DevicePhoneMobileIcon}
         color="quaternary"
       >
         {faker.lorem.sentence()}
-      </DefinitionList.Item>
-      <DefinitionList.Item
+      </DescriptionList.Item>
+      <DescriptionList.Item
         title="Item Three"
         Icon={EnvelopeIcon}
         color="quinary"
       >
         {faker.lorem.sentence()}
-      </DefinitionList.Item>
+      </DescriptionList.Item>
     </>
   ),
 };
