@@ -301,4 +301,37 @@ test.describe("Login and logout", () => {
       }),
     ).toBeVisible();
   });
+  // Logout appears to make all logged in tabs
+  test("all tabs logged out", async ({ context }) => {
+    const pageOne = await context.newPage();
+    const pageTwo = await context.newPage();
+    await loginBySub(pageOne, "applicant@test.com", false);
+
+    // visit somewhere in second page context
+    await pageTwo.goto("/en/");
+
+    // confirm login in first page context
+    await expect(
+      pageOne.getByRole("heading", {
+        name: "Welcome back, Applicant",
+        level: 1,
+      }),
+    ).toBeVisible();
+
+    // simulate logged out in first page context
+    await pageOne.evaluate(() =>
+      window.localStorage.removeItem("access_token"),
+    );
+    await pageOne.evaluate(() =>
+      window.localStorage.removeItem("refresh_token"),
+    );
+
+    // forcibly logged out
+    await expect(
+      pageTwo.getByRole("heading", {
+        name: "See you next time!",
+        level: 1,
+      }),
+    ).toBeVisible();
+  });
 });
