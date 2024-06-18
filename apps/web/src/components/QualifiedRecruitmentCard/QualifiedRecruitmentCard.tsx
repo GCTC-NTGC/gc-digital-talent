@@ -27,7 +27,7 @@ import { categorizeSkill, filterPoolSkillsByType } from "~/utils/skillUtils";
 import { getRecruitmentType } from "~/utils/poolCandidate";
 
 import RecruitmentAvailabilityDialog from "../RecruitmentAvailabilityDialog/RecruitmentAvailabilityDialog";
-import { getQualifiedRecruitmentInfo, joinDepartments } from "./utils";
+import { getQualifiedRecruitmentInfo } from "./utils";
 
 export const QualifiedRecruitmentCard_Fragment = graphql(/* GraphQL */ `
   fragment QualifiedRecruitmentCard on PoolCandidate {
@@ -48,16 +48,12 @@ export const QualifiedRecruitmentCard_Fragment = graphql(/* GraphQL */ `
         group
         level
       }
-      team {
+      department {
         id
-        name
-        departments {
-          id
-          departmentNumber
-          name {
-            en
-            fr
-          }
+        departmentNumber
+        name {
+          en
+          fr
         }
       }
       poolSkills {
@@ -99,10 +95,7 @@ const QualifiedRecruitmentCard = ({
     availability: { icon: AvailabilityIcon, ...availability },
   } = getQualifiedRecruitmentInfo(candidate, intl);
 
-  const departments = joinDepartments(
-    candidate.pool?.team?.departments ?? [],
-    intl,
-  );
+  const department = getLocalizedName(candidate.pool?.department?.name, intl);
 
   // NOTE: Until we store assessed skills, we will just be displayed all essential skills
   const essentialSkills = filterPoolSkillsByType(
@@ -222,13 +215,13 @@ const QualifiedRecruitmentCard = ({
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "The following skills were assessed by {departments}",
-                id: "VwVXYb",
+                  "The following skills were assessed by {department}",
+                id: "hgRyDs",
                 description:
                   "Lead in text describing the skills assessed for a qualified recruitment",
               },
               {
-                departments,
+                department,
               },
             )}
           </Heading>

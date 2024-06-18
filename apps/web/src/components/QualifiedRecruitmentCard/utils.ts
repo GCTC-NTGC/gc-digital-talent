@@ -25,17 +25,6 @@ import {
   isSuspendedStatus,
 } from "~/utils/poolCandidate";
 
-export const joinDepartments = (
-  departments: Maybe<Maybe<Pick<Department, "name">>[]>,
-  intl: IntlShape,
-) => {
-  return (
-    departments
-      ?.map((department) => getLocalizedName(department?.name, intl))
-      ?.join(", ") ?? ""
-  );
-};
-
 type StatusChipInfo = {
   color: Color;
   text: ReactNode;
