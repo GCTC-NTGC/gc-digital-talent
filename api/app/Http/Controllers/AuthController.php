@@ -36,7 +36,7 @@ class AuthController extends Controller
         );
 
         $request->session()->put(
-            'dev',
+            'devServer',
             $request->input('devServer')
         );
 
@@ -124,10 +124,9 @@ class AuthController extends Controller
             $from = null;
         } // Does not start with / so it's not a relative url. Don't want an open redirect vulnerability. Throw it away.
 
-        $isDevServer =
         $appUrl = config('app.url');
         $postLoginRedirect = config('oauth.post_login_redirect');
-        if ($request->session()->pull('dev')) {
+        if ($request->session()->pull('devServer')) {
             $appUrl = config('app.dev_url');
             $postLoginRedirect = config('oauth.dev_post_login_redirect');
         }
