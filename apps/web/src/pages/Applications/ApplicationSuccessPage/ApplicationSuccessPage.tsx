@@ -151,8 +151,8 @@ const ApplicationSuccess = ({ application }: ApplicationPageProps) => {
         <Link
           href={
             locale === "fr"
-              ? "https://forms-formulaires.alpha.canada.ca/fr/id/cluk67skq014qyq819p40237j"
-              : "https://forms-formulaires.alpha.canada.ca/en/id/cluk67skq014qyq819p40237j"
+              ? "https://forms-formulaires.alpha.canada.ca/fr/id/clxdlhisr00c89erejoc7purn"
+              : "https://forms-formulaires.alpha.canada.ca/en/id/clxdlhisr00c89erejoc7purn"
           }
           color="secondary"
           mode="solid"
