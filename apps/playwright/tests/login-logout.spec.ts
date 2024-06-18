@@ -159,4 +159,87 @@ test.describe("Login and logout", () => {
         );
       });
   });
+  // will log in, do a token refresh, and do a second token refresh from that
+  test("chain two refreshes", async ({ page }) => {
+    const requestPromise = page.waitForRequest(
+      (request) =>
+        request.url().includes("/refresh") && request.method() === "GET",
+    );
+    await loginBySub(page, "applicant@test.com", false);
+
+    // step 1
+    // time travel to when the tokens expire before trying to navigate
+    const tokenSet1 = await getAuthTokens(page);
+    await clockHelper.jumpTo(jumpPastExpiryDate(tokenSet1.accessToken));
+
+    const request = await requestPromise;
+    await page.goto("/en/applicant");
+    const refreshToken = await new URL(request.url()).searchParams.get(
+      "refresh_token",
+    );
+    // expect an immediate refresh
+    expect(tokenSet1.refreshToken).toEqual(refreshToken);
+
+    // step 2
+    // time travel to when the tokens expire before trying to navigate
+    const tokenSet2 = await getAuthTokens(page);
+    await clockHelper.restore();
+    await clockHelper.jumpTo(jumpPastExpiryDate(tokenSet2.accessToken));
+
+    // expect a first refresh to get second tokens
+    const request2 = await requestPromise;
+    await page.goto("/en/applicant");
+    const refreshToken2 = await new URL(request2.url()).searchParams.get(
+      "refresh_token",
+    );
+    // expect an immediate refresh
+    expect(tokenSet2.refreshToken).toEqual(refreshToken2);
+
+    // get ready to catch the next graphql request
+    await page
+      .waitForRequest(async (req) => {
+        if (req.url()?.includes("/graphql")) {
+          const reqJson = await req.postDataJSON();
+          return typeof reqJson.operationName !== "undefined";
+        }
+        return false;
+      })
+      .then(async (req) => {
+        // make sure it uses the second access token
+        expect(req.headers().authorization).toEqual(
+          `Bearer ${tokenSet2.accessToken}`,
+        );
+      });
+
+    // step 3
+    // time travel to when the tokens expire before trying to navigate
+    const tokenSet3 = await getAuthTokens(page);
+    await clockHelper.restore();
+    await clockHelper.jumpTo(jumpPastExpiryDate(tokenSet3.accessToken));
+
+    // expect a first refresh to get third tokens
+    const request3 = await requestPromise;
+    await page.goto("/en/applicant");
+    const refreshToken3 = await new URL(request3.url()).searchParams.get(
+      "refresh_token",
+    );
+    // expect an immediate refresh
+    expect(tokenSet3.refreshToken).toEqual(refreshToken3);
+
+    // get ready to catch the next graphql request
+    await page
+      .waitForRequest(async (req) => {
+        if (req.url()?.includes("/graphql")) {
+          const reqJson = await req.postDataJSON();
+          return typeof reqJson.operationName !== "undefined";
+        }
+        return false;
+      })
+      .then(async (req) => {
+        // make sure it uses the third access token
+        expect(req.headers().authorization).toEqual(
+          `Bearer ${tokenSet3.accessToken}`,
+        );
+      });
+  });
 });
