@@ -72,7 +72,7 @@ const hydrogenPlugin = (): Plugin => ({
   },
 });
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   publicDir: "./public",
   build: {
     outDir: "./dist",
@@ -108,6 +108,7 @@ export default defineConfig({
     },
   },
   define: {
+    IS_DEV_SERVER: command === "serve",
     API_HOST: getEnvVar("API_HOST"),
     API_URI: getEnvVar("API_URI"),
     API_PROTECTED_URI: getEnvVar("API_PROTECTED_URI"),
@@ -227,4 +228,4 @@ export default defineConfig({
       },
     }),
   ],
-});
+}));

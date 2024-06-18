@@ -85,6 +85,7 @@ return [
      * Where is the user redirected to after login if it is not in the login request.
      */
     'post_login_redirect' => env('OAUTH_POST_LOGIN_REDIRECT'),
+    'dev_post_login_redirect' => env('DEV_OAUTH_POST_LOGIN_REDIRECT'),
 
     /**
      * How many times should requests to the OAUTH server be retried when there are errors

@@ -3,6 +3,9 @@ interface ApiRoutes {
   refreshAccessToken: () => string;
 }
 
+const isDevServer =
+  typeof IS_DEV_SERVER !== "undefined" ? IS_DEV_SERVER : false;
+
 const apiHost =
   typeof API_HOST !== "undefined" ? API_HOST : "http://localhost:8000";
 
@@ -11,6 +14,7 @@ const apiRoutes = {
     const searchTerms: string[] = [];
     if (from) searchTerms.push(`from=${encodeURI(from)}`);
     if (locale) searchTerms.push(`locale=${encodeURI(locale)}`);
+    if (isDevServer) searchTerms.push(`devServer=${encodeURI("true")}`);
     const searchString = searchTerms.join("&");
 
     const loginPath = `login${searchString ? `?${searchString}` : ""}`;
