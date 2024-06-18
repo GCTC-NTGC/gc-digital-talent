@@ -1,22 +1,61 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
+import { FormProvider, useForm } from "react-hook-form";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
-import { formMessages } from "@gc-digital-talent/i18n";
+import {
+  errorMessages,
+  formMessages,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
+import { Option, Select } from "@gc-digital-talent/forms";
+import {
+  FragmentType,
+  Scalars,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 import { ProcessDialogProps } from "./types";
 
+export const DuplicatePoolDepartment_Fragment = graphql(/* GraphQL */ `
+  fragment DuplicatePoolDepartment on Department {
+    id
+    departmentNumber
+    name {
+      en
+      fr
+    }
+  }
+`);
+
+type FormValues = {
+  department: Scalars["ID"]["output"] | undefined;
+};
+
 type DuplicateProcessDialogProps = ProcessDialogProps & {
-  onDuplicate: () => Promise<void>;
+  departmentsQuery: FragmentType<typeof DuplicatePoolDepartment_Fragment>[];
+  onDuplicate: (opts: {
+    department: Scalars["ID"]["output"] | undefined;
+  }) => Promise<void>;
 };
 
 const DuplicateProcessDialog = ({
   poolName,
   isFetching,
   onDuplicate,
+  departmentsQuery,
 }: DuplicateProcessDialogProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const intl = useIntl();
+  const departments = getFragment(
+    DuplicatePoolDepartment_Fragment,
+    departmentsQuery,
+  );
+  const departmentOptions: Option[] = departments.map(({ id, name }) => ({
+    value: id,
+    label: getLocalizedName(name, intl),
+  }));
 
   const title = intl.formatMessage({
     defaultMessage: "Duplicate process",
@@ -24,8 +63,16 @@ const DuplicateProcessDialog = ({
     description: "Title to duplicate a process",
   });
 
-  const handleDuplicate = async () => {
-    await onDuplicate().then(() => {
+  const methods = useForm<FormValues>({
+    defaultValues: {
+      department: "",
+    },
+  });
+
+  const { handleSubmit } = methods;
+
+  const handleDuplicate = async (values: FormValues) => {
+    await onDuplicate(values).then(() => {
       setIsOpen(false);
     });
   };
@@ -53,43 +100,81 @@ const DuplicateProcessDialog = ({
               },
             )}
           </p>
-          <p data-h2-margin="base(x1, 0)">
-            {intl.formatMessage({
-              id: "NivtzV",
-              defaultMessage:
-                "This will create a new process and copy all existing information.",
-              description:
-                "Text explaining what will happen when duplicating a process",
-            })}
-          </p>
-          <p data-h2-margin="base(x1, 0)">
-            {intl.formatMessage({
-              id: "3Rad8l",
-              defaultMessage:
-                "Do you wish to continue? This will navigate away from this page.",
-              description:
-                "Text explaining what will happen after duplicating a pool and confirming the action",
-            })}
-          </p>
+          <FormProvider {...methods}>
+            <form onSubmit={handleSubmit(handleDuplicate)}>
+              <p data-h2-margin-bottom="base(x1)">
+                {intl.formatMessage({
+                  id: "9XaTwh",
+                  defaultMessage:
+                    "Specify the following information for this new recruitment:",
+                  description:
+                    "Text prompting for input when duplicating a process",
+                })}
+              </p>
+              <div data-h2-margin-bottom="base(x1)">
+                <div
+                  data-h2-display="base(flex)"
+                  data-h2-flex-direction="base(column)"
+                  data-h2-gap="base(x1 0)"
+                >
+                  <Select
+                    id="department"
+                    label={intl.formatMessage({
+                      defaultMessage: "Parent department",
+                      id: "D/Ymty",
+                      description:
+                        "Label displayed on the pool form department field.",
+                    })}
+                    name="department"
+                    nullSelection={intl.formatMessage({
+                      defaultMessage: "Select a department",
+                      id: "uWbX45",
+                      description:
+                        "Placeholder displayed on the pool form department field.",
+                    })}
+                    options={departmentOptions}
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                    }}
+                  />
+                </div>
+              </div>
 
-          <Dialog.Footer>
-            <Button
-              color="secondary"
-              onClick={handleDuplicate}
-              disabled={isFetching}
-            >
-              {intl.formatMessage({
-                defaultMessage: "Duplicate and view new process",
-                id: "RZIivj",
-                description: "Button text to duplicate a process",
-              })}
-            </Button>
-            <Dialog.Close>
-              <Button color="warning" mode="inline">
-                {intl.formatMessage(formMessages.cancelGoBack)}
-              </Button>
-            </Dialog.Close>
-          </Dialog.Footer>
+              <p data-h2-margin="base(x1, 0)">
+                {intl.formatMessage({
+                  id: "NivtzV",
+                  defaultMessage:
+                    "This will create a new process and copy all existing information.",
+                  description:
+                    "Text explaining what will happen when duplicating a process",
+                })}
+              </p>
+              <p data-h2-margin="base(x1, 0)">
+                {intl.formatMessage({
+                  id: "3Rad8l",
+                  defaultMessage:
+                    "Do you wish to continue? This will navigate away from this page.",
+                  description:
+                    "Text explaining what will happen after duplicating a pool and confirming the action",
+                })}
+              </p>
+
+              <Dialog.Footer>
+                <Button color="secondary" disabled={isFetching} type="submit">
+                  {intl.formatMessage({
+                    defaultMessage: "Duplicate and view new process",
+                    id: "RZIivj",
+                    description: "Button text to duplicate a process",
+                  })}
+                </Button>
+                <Dialog.Close>
+                  <Button color="warning" mode="inline">
+                    {intl.formatMessage(formMessages.cancelGoBack)}
+                  </Button>
+                </Dialog.Close>
+              </Dialog.Footer>
+            </form>
+          </FormProvider>
         </Dialog.Body>
       </Dialog.Content>
     </Dialog.Root>

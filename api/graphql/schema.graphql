@@ -1519,6 +1519,10 @@ input CreatePoolInput {
   department: DepartmentBelongsTo!
 }
 
+input DuplicatePoolInput {
+  departmentId: ID
+}
+
 input CreateGeneralQuestionInput {
   question: LocalizedStringInput!
   sortOrder: Int @rename(attribute: "sort_order")
@@ -1996,9 +2000,11 @@ type Mutation {
     teamId: ID! @rename(attribute: "team_id")
     pool: CreatePoolInput! @spread
   ): Pool @create @guard @canModel(ability: "create", injectArgs: true)
-  duplicatePool(id: ID!, teamId: ID! @rename(attribute: "team_id")): Pool
-    @guard
-    @canModel(ability: "duplicate", injectArgs: true)
+  duplicatePool(
+    id: ID!
+    teamId: ID! @rename(attribute: "team_id")
+    pool: DuplicatePoolInput! @spread
+  ): Pool @guard @canModel(ability: "duplicate", injectArgs: true)
   updatePool(id: ID!, pool: UpdatePoolInput! @spread): Pool
     @update
     @guard

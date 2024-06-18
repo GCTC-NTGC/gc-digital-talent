@@ -18,6 +18,7 @@ import {
   PoolStatus,
   Scalars,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -38,7 +39,9 @@ import processMessages from "~/messages/processMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import SubmitForPublishingDialog from "./components/SubmitForPublishingDialog";
-import DuplicateProcessDialog from "./components/DuplicateProcessDialog";
+import DuplicateProcessDialog, {
+  DuplicatePoolDepartment_Fragment,
+} from "./components/DuplicateProcessDialog";
 import ArchiveProcessDialog from "./components/ArchiveProcessDialog";
 import UnarchiveProcessDialog from "./components/UnArchiveProcessDialog";
 import DeleteProcessDialog from "./components/DeleteProcessDialog";
@@ -74,18 +77,22 @@ export const ViewPool_Fragment = graphql(/* GraphQL */ `
 
 export interface ViewPoolProps {
   poolQuery: FragmentType<typeof ViewPool_Fragment>;
+  departmentsQuery: FragmentType<typeof DuplicatePoolDepartment_Fragment>[];
   isFetching: boolean;
   onPublish: () => Promise<void>;
   onDelete: () => Promise<void>;
   onExtend: (closingDate: Scalars["DateTime"]["output"]) => Promise<void>;
   onClose: (reason: string) => Promise<void>;
   onArchive: () => Promise<void>;
-  onDuplicate: () => Promise<void>;
+  onDuplicate: (opts: {
+    department: Scalars["ID"]["output"] | undefined;
+  }) => Promise<void>;
   onUnarchive: () => Promise<void>;
 }
 
 export const ViewPool = ({
   poolQuery,
+  departmentsQuery,
   isFetching,
   onPublish,
   onDelete,
@@ -427,6 +434,7 @@ export const ViewPool = ({
               {canDuplicate && (
                 <DuplicateProcessDialog
                   {...commonDialogProps}
+                  departmentsQuery={departmentsQuery}
                   onDuplicate={onDuplicate}
                 />
               )}
@@ -469,6 +477,9 @@ const ViewPoolPage_Query = graphql(/* GraphQL */ `
         name
       }
     }
+    departments {
+      ...DuplicatePoolDepartment
+    }
   }
 `);
 
@@ -487,6 +498,7 @@ const ViewPoolPage = () => {
         {poolId && data?.pool ? (
           <ViewPool
             poolQuery={data.pool}
+            departmentsQuery={unpackMaybes(data?.departments)}
             isFetching={isFetching}
             onExtend={async (newClosingDate: string) => {
               return mutations.extend(poolId, newClosingDate);
@@ -494,8 +506,12 @@ const ViewPoolPage = () => {
             onClose={async (reason: string) => {
               return mutations.close(poolId, reason);
             }}
-            onDuplicate={async () => {
-              return mutations.duplicate(poolId, data?.pool?.team?.id || "");
+            onDuplicate={async ({ department }) => {
+              return mutations.duplicate(
+                poolId,
+                data?.pool?.team?.id || "",
+                department,
+              );
             }}
             onArchive={async () => {
               return mutations.archive(poolId);
