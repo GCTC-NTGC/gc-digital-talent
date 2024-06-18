@@ -201,21 +201,6 @@ const PoolNameSection = ({
                   disabled={formDisabled}
                 />
                 <Select
-                  id="department"
-                  label={intl.formatMessage({
-                    defaultMessage: "Department",
-                    id: "g84Yop",
-                    description:
-                      "Label displayed on the pool form department field.",
-                  })}
-                  name="department"
-                  nullSelection={intl.formatMessage(
-                    uiMessages.nullSelectionOption,
-                  )}
-                  options={getDepartmentOptions(departments, intl)}
-                  disabled={formDisabled}
-                />
-                <Select
                   id="stream"
                   label={intl.formatMessage({
                     defaultMessage: "Work stream",
@@ -260,6 +245,21 @@ const PoolNameSection = ({
                 data-h2-gap="base(x1)"
                 data-h2-margin-bottom="base(x1)"
               >
+                <Select
+                  id="department"
+                  label={intl.formatMessage({
+                    defaultMessage: "Department",
+                    id: "g84Yop",
+                    description:
+                      "Label displayed on the pool form department field.",
+                  })}
+                  name="department"
+                  nullSelection={intl.formatMessage(
+                    uiMessages.nullSelectionOption,
+                  )}
+                  options={getDepartmentOptions(departments, intl)}
+                  disabled={formDisabled}
+                />
                 <Select
                   id="opportunityLength"
                   name="opportunityLength"

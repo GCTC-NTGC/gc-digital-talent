@@ -28,44 +28,51 @@ const Display = ({ pool }: DisplayProps) => {
   } = pool;
 
   return (
-    <div
-      data-h2-display="base(grid)"
-      data-h2-gap="base(x1)"
-      data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
-    >
-      <ToggleForm.FieldDisplay
-        hasError={!classification}
-        label={intl.formatMessage(processMessages.classification)}
+    <>
+      <div
+        data-h2-display="base(grid)"
+        data-h2-gap="base(x1)"
+        data-h2-grid-template-columns="p-tablet(repeat(2, 1fr))"
+        data-h2-margin-bottom="base(x1)"
       >
-        {classification
-          ? getClassificationName(classification, intl)
-          : notProvided}
-      </ToggleForm.FieldDisplay>
-      <ToggleForm.FieldDisplay
-        hasError={!department}
-        label={intl.formatMessage(processMessages.department)}
+        <ToggleForm.FieldDisplay
+          hasError={!classification}
+          label={intl.formatMessage(processMessages.classification)}
+        >
+          {classification
+            ? getClassificationName(classification, intl)
+            : notProvided}
+        </ToggleForm.FieldDisplay>
+        <ToggleForm.FieldDisplay
+          hasError={!stream}
+          label={intl.formatMessage(processMessages.stream)}
+        >
+          {stream ? intl.formatMessage(getPoolStream(stream)) : notProvided}
+        </ToggleForm.FieldDisplay>
+        <ToggleForm.FieldDisplay
+          hasError={!name?.en}
+          label={intl.formatMessage(processMessages.titleEn)}
+        >
+          {name?.en || notProvided}
+        </ToggleForm.FieldDisplay>
+        <ToggleForm.FieldDisplay
+          hasError={!name?.fr}
+          label={intl.formatMessage(processMessages.titleFr)}
+        >
+          {name?.fr || notProvided}
+        </ToggleForm.FieldDisplay>
+      </div>
+      <div
+        data-h2-display="base(grid)"
+        data-h2-gap="base(x1)"
+        data-h2-margin-bottom="base(x1)"
       >
-        {department ? getLocalizedName(department.name, intl) : notProvided}
-      </ToggleForm.FieldDisplay>
-      <ToggleForm.FieldDisplay
-        hasError={!stream}
-        label={intl.formatMessage(processMessages.stream)}
-      >
-        {stream ? intl.formatMessage(getPoolStream(stream)) : notProvided}
-      </ToggleForm.FieldDisplay>
-      <ToggleForm.FieldDisplay
-        hasError={!name?.en}
-        label={intl.formatMessage(processMessages.titleEn)}
-      >
-        {name?.en || notProvided}
-      </ToggleForm.FieldDisplay>
-      <ToggleForm.FieldDisplay
-        hasError={!name?.fr}
-        label={intl.formatMessage(processMessages.titleFr)}
-      >
-        {name?.fr || notProvided}
-      </ToggleForm.FieldDisplay>
-      <div data-h2-display="base(grid)" data-h2-gap="base(x1)">
+        <ToggleForm.FieldDisplay
+          hasError={!department}
+          label={intl.formatMessage(processMessages.department)}
+        >
+          {department ? getLocalizedName(department.name, intl) : notProvided}
+        </ToggleForm.FieldDisplay>
         <ToggleForm.FieldDisplay
           hasError={!opportunityLength}
           label={intl.formatMessage(processMessages.opportunityLength)}
@@ -89,7 +96,7 @@ const Display = ({ pool }: DisplayProps) => {
             : notProvided}
         </ToggleForm.FieldDisplay>
       </div>
-    </div>
+    </>
   );
 };
 
