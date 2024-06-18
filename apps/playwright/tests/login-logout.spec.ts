@@ -129,7 +129,6 @@ test.describe("Login and logout", () => {
     // make sure it uses the second access token
     expect(authorization).toEqual(`Bearer ${tokenSet2.accessToken}`);
   });
-
   // When you have two tabs open, a refresh in one will allow the second tab to make an API call with the new tokens and no refresh.
   test("share the refresh", async ({ page, context }) => {
     await loginBySub(page, "applicant@test.com", false);
@@ -241,5 +240,30 @@ test.describe("Login and logout", () => {
           `Bearer ${tokenSet3.accessToken}`,
         );
       });
+  });
+  test("log out", async ({ page }) => {
+    const requestPromise = page.waitForRequest(
+      (request) =>
+        request.url().includes("/oxauth/endsession") &&
+        request.method() === "GET",
+    );
+
+    // start login process
+    await loginBySub(page, "applicant@test.com", false);
+    const tokenSet = await getAuthTokens(page);
+
+    // start logout process
+    await page.goto("/en/logged-out");
+    await page.getByRole("button", { name: "Sign out" }).click();
+
+    await requestPromise.then(async (req) => {
+      const url = new URL(req.url());
+      const searchParamPostLogoutRedirectUri = url.searchParams.get(
+        "post_logout_redirect_uri",
+      );
+      const searchParamIdTokenHint = url.searchParams.get("id_token_hint");
+      expect(searchParamPostLogoutRedirectUri).toBeDefined();
+      expect(searchParamIdTokenHint).toEqual(tokenSet.idToken);
+    });
   });
 });
