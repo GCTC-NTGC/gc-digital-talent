@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Community;
+use App\Models\Pool;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -105,6 +106,7 @@ class UserTestSeeder extends Seeder
 
         User::factory()
             ->asApplicant()
+            ->asProcessOperator(Pool::factory()->create()->id)
             ->asGovEmployee()
             ->create([
                 'first_name' => 'Process',
