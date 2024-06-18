@@ -105,7 +105,7 @@ class PoolCandidatePolicy
      */
     public function submit(User $user, PoolCandidate $poolCandidate)
     {
-        return $user->id === $poolCandidate->user_id;
+        return $user->id === $poolCandidate->user_id && $user->isAbleTo('submit-own-draftApplication');
     }
 
     /**
