@@ -248,20 +248,28 @@ class CandidateAssessmentStatusTest extends TestCase
             ]);
     }
 
-    public function testHoldAllQualifies(): void
+    public function testFinalStepHoldStillNeedsAssessment(): void
     {
 
         $steps = $this->pool->assessmentSteps;
 
-        foreach ($steps as $step) {
-            AssessmentResult::factory()
-                ->withResultType(AssessmentResultType::EDUCATION)
-                ->create([
-                    'assessment_step_id' => $step->id,
-                    'pool_candidate_id' => $this->candidate->id,
-                    'assessment_decision' => AssessmentDecision::HOLD->name,
-                ]);
-        }
+        AssessmentResult::factory()
+            ->withResultType(AssessmentResultType::EDUCATION)
+            ->create([
+                'assessment_step_id' => $steps[0]->id,
+
+                'pool_candidate_id' => $this->candidate->id,
+                'assessment_decision' => AssessmentDecision::SUCCESSFUL->name,
+            ]);
+
+        AssessmentResult::factory()
+            ->withResultType(AssessmentResultType::EDUCATION)
+            ->create([
+                'assessment_step_id' => $steps[1]->id,
+
+                'pool_candidate_id' => $this->candidate->id,
+                'assessment_decision' => AssessmentDecision::HOLD->name,
+            ]);
 
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($this->query, $this->queryVars)
@@ -272,14 +280,14 @@ class CandidateAssessmentStatusTest extends TestCase
                             'stepDecisions' => [
                                 [
                                     'step' => $steps[0]->id,
-                                    'decision' => AssessmentDecision::HOLD->name,
+                                    'decision' => AssessmentDecision::SUCCESSFUL->name,
                                 ],
                                 [
                                     'step' => $steps[1]->id,
                                     'decision' => AssessmentDecision::HOLD->name,
                                 ],
                             ],
-                            'finalDecision' => AssessmentFinalDecision::QUALIFIED->name,
+                            'finalDecision' => AssessmentFinalDecision::TO_ASSESS->name,
                             'currentStep' => null,
                         ],
                     ],

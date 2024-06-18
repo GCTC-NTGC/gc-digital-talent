@@ -64,7 +64,10 @@ class ComputeFinalDecisionAndCurrentStep
 
         // Null step indicates the candidate passed all steps
         if (is_null($currentStep)) {
-            $finalDecision = AssessmentFinalDecision::QUALIFIED->name;
+            $lastStepDecision = end($decisions);
+            if ($lastStepDecision['decision'] !== AssessmentDecision::HOLD->name) {
+                $finalDecision = AssessmentFinalDecision::QUALIFIED->name;
+            }
         }
 
         $candidate->computed_assessment_status = [
