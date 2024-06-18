@@ -5200,7 +5200,7 @@
     "description": "IT-03 classification label including titles"
   },
   "RHwGy2": {
-    "defaultMessage": "Erreur: la publication du processus a échoué",
+    "defaultMessage": "Erreur : la publication du processus a échoué",
     "description": "Message displayed to user after pool fails to get publish."
   },
   "RIi/3q": {
@@ -9078,10 +9078,6 @@
     "defaultMessage": "À propos du Portail des talents autochtones",
     "description": "Talent Portal information heading"
   },
-  "lpx9/e": {
-    "defaultMessage": "Erreur: impossible de marquer les notifications comme lues.",
-    "description": "Message announced to assistive technology when error occurred making notifications as read"
-  },
   "lr6PWk": {
     "defaultMessage": "Si vous n’avez pas encore d’application d’authentification, vous devrez en télécharger une. Des fournisseurs numériques comme Google Authenticator et Microsoft Authenticator offrent des applications d’authentification. Quelle que soit l’application que vous choisissez, veillez à ce qu’elle provienne d’un fournisseur réputé.",
     "description": "Copy explaining mfa apps"
@@ -10129,6 +10125,10 @@
   "rmmLVI": {
     "defaultMessage": "Sélectionner un membre d’un groupe visé par l’équité en matière d’emploi par nomination, si plusieurs candidats qualifiés sont disponibles.",
     "description": "List item 3, how self-declaration data is used"
+  },
+  "rmsF/w": {
+    "defaultMessage": "impossible de marquer les notifications comme lues.",
+    "description": "Message announced to assistive technology when error occurred making notifications as read"
   },
   "rtzp80": {
     "defaultMessage": "Dressez la liste des compétences, de la formation ou de l’expérience précises requises pour effectuer le travail demandé.",

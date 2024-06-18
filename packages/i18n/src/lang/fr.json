@@ -1771,6 +1771,10 @@
     "defaultMessage": "Durée indéterminée (permanente)",
     "description": "Duration that is permanent"
   },
+  "ra+8d1": {
+    "defaultMessage": "Erreur",
+    "description": "Generic error message"
+  },
   "rbhjTC": {
     "defaultMessage": "Bibliothèque des compétences",
     "description": "Name of the skill library page"

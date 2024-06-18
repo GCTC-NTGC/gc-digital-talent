@@ -2,6 +2,7 @@ import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
 import { Button, Link, useAnnouncer } from "@gc-digital-talent/ui";
+import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -40,12 +41,14 @@ const NotificationActions = ({
       })
       .catch(() => {
         announce(
-          intl.formatMessage({
-            defaultMessage: "Error: could not mark notifications as read.",
-            id: "lpx9/e",
-            description:
-              "Message announced to assistive technology when error occurred making notifications as read",
-          }),
+          intl.formatMessage(errorMessages.error) +
+            intl.formatMessage(commonMessages.dividingColon) +
+            intl.formatMessage({
+              defaultMessage: "could not mark notifications as read.",
+              id: "rmsF/w",
+              description:
+                "Message announced to assistive technology when error occurred making notifications as read",
+            }),
         );
       });
   };
