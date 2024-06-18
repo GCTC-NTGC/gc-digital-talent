@@ -8,6 +8,7 @@
     "bmewburn.vscode-intelephense-client",
     "ms-azuretools.vscode-docker",
     "deque-systems.vscode-axe-linter",
-    "open-southeners.laravel-pint"
+    "open-southeners.laravel-pint",
+    "ms-playwright.playwright"
   ]
 }
