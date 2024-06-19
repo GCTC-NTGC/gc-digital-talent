@@ -25,6 +25,7 @@ import { getClassifications } from "~/utils/classification";
 import { loginBySub } from "~/utils/auth";
 import PoolPage from "~/fixtures/PoolPage";
 import ApplicationPage from "~/fixtures/ApplicationPage";
+import { getDepartments } from "~/utils/departments";
 
 test.describe("Application", () => {
   const uniqueTestId = Date.now().valueOf();
@@ -65,9 +66,13 @@ test.describe("Application", () => {
     ]);
     const team = await getDCM();
     const classifications = await getClassifications();
+    const departments = await getDepartments();
     const createdPool = await poolPage.createPool(createdUser.id, team.id, {
       classification: {
         connect: classifications[0].id,
+      },
+      department: {
+        connect: departments[0].id,
       },
     });
     await poolPage.updatePool(createdPool.id, {

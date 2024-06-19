@@ -10,6 +10,7 @@ import { getDCM } from "~/utils/teams";
 import { getClassifications } from "~/utils/classification";
 import PoolPage from "~/fixtures/PoolPage";
 import ApplicationPage from "~/fixtures/ApplicationPage";
+import { getDepartments } from "~/utils/departments";
 
 import AppPage from "../../fixtures/AppPage";
 
@@ -108,6 +109,7 @@ test.describe("User information", () => {
 
     const dcm = await getDCM();
     const classifications = await getClassifications();
+    const departments = await getDepartments();
 
     const poolPage = new PoolPage(adminPage.page);
     const dcmPool = await poolPage.createAndPublishPool({
@@ -115,6 +117,7 @@ test.describe("User information", () => {
       teamId: dcm.id,
       name: `Playwright DCM Pool ${uniqueTestId}`,
       classification: classifications[0],
+      department: departments[0],
       skill,
     });
 

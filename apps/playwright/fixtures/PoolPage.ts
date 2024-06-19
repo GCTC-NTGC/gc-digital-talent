@@ -2,6 +2,7 @@ import {
   Classification,
   CreatePoolInput,
   CreatePoolSkillInput,
+  Department,
   Pool,
   PoolLanguage,
   PoolOpportunityLength,
@@ -31,6 +32,7 @@ type CreateAndPublishPoolArgs = {
   teamId: string;
   name: string;
   classification: Classification;
+  department: Department;
   skill: Skill;
 };
 
@@ -90,10 +92,12 @@ class PoolPage extends AppPage {
     teamId,
     name,
     classification,
+    department,
     skill,
   }: CreateAndPublishPoolArgs): Promise<Pool> {
     let pool = await this.createPool(userId, teamId, {
       classification: { connect: classification.id },
+      department: { connect: department.id },
     });
 
     pool = await this.updatePool(pool.id, {

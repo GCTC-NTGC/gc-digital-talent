@@ -27,6 +27,7 @@ import { loginBySub } from "~/utils/auth";
 import { getSkills } from "~/utils/skills";
 import { getDCM } from "~/utils/teams";
 import { getClassifications } from "~/utils/classification";
+import { getDepartments } from "~/utils/departments";
 
 const LOCALIZED_STRING = {
   en: "test EN",
@@ -84,9 +85,13 @@ test.describe("Pool candidates", () => {
     ]);
     const team = await getDCM();
     const classifications = await getClassifications();
+    const departments = await getDepartments();
     const createdPool = await poolPage.createPool(createdUser.id, team.id, {
       classification: {
         connect: classifications[0].id,
+      },
+      department: {
+        connect: departments[0].id,
       },
     });
     await poolPage.updatePool(createdPool.id, {

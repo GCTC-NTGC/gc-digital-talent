@@ -6,6 +6,7 @@ import TeamPage from "~/fixtures/TeamPage";
 import { getDCM } from "~/utils/teams";
 import { getClassifications } from "~/utils/classification";
 import { loginBySub } from "~/utils/auth";
+import { getDepartments } from "~/utils/departments";
 
 test.describe("Process permissions", () => {
   let associatedSub;
@@ -65,12 +66,16 @@ test.describe("Process permissions", () => {
     );
 
     const classifications = await getClassifications();
+    const departments = await getDepartments();
     const createdPool = await poolPage.createPool(
       associatedPoolManager.id,
       team.id,
       {
         classification: {
           connect: classifications[0].id,
+        },
+        department: {
+          connect: departments[0].id,
         },
       },
     );
