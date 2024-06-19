@@ -1380,6 +1380,89 @@ class PoolTest extends TestCase
     }
 
     /**
+     * @group paginated
+     */
+    public function testCanAdminScope(): void
+    {
+        // two published pools
+        $teamPool = Pool::factory()->published()->create([
+            'team_id' => $this->team,
+        ]);
+        Pool::factory()->published()->create([
+            'team_id' => Team::factory()->create(),
+        ]);
+
+        $query = /** @lang GraphQL */
+            '
+                query poolsPaginated($where: PoolFilterInput) {
+                    poolsPaginated(where: $where) {
+                        data {
+                            id
+                        }
+                    }
+                }
+            ';
+
+        $totalPoolsCount = count(Pool::all());
+        assertSame(2, $totalPoolsCount);
+
+        // admin sees both pools when true
+        $adminQuery = $this
+            ->actingAs($this->adminUser, 'api')
+            ->graphQL($query, [
+                'where' => [
+                    'canAdmin' => true,
+                ],
+            ]);
+        assertSame(2, count($adminQuery->json('data.poolsPaginated.data')));
+
+        // pool operator sees the one team pool when true
+        $poolOperatorQuery = $this
+            ->actingAs($this->poolOperator, 'api')
+            ->graphQL($query, [
+                'where' => [
+                    'canAdmin' => true,
+                ],
+            ])->assertJsonFragment(['id' => $teamPool->id]);
+        assertSame(1, count($poolOperatorQuery->json('data.poolsPaginated.data')));
+
+        // base user sees zero pools when true
+        $userQuery = $this
+            ->actingAs($this->baseUser, 'api')
+            ->graphQL($query, [
+                'where' => [
+                    'canAdmin' => true,
+                ],
+            ]);
+        assertSame(0, count($userQuery->json('data.poolsPaginated.data')));
+
+        // anonymous sees zero pools when true
+        $anonymousQuery = $this
+            ->graphQL($query, [
+                'where' => [
+                    'canAdmin' => true,
+                ],
+            ]);
+        assertSame(0, count($anonymousQuery->json('data.poolsPaginated.data')));
+
+        // empty query returns both pools for anonymous
+        $emptyQuery = $this
+            ->graphQL($query, [
+                'where' => [],
+            ]);
+        assertSame(2, count($emptyQuery->json('data.poolsPaginated.data')));
+
+        // false returns both pools for anonymous
+        $falseQuery = $this
+            ->graphQL($query, [
+                'where' => [
+                    'canAdmin' => false,
+                ],
+            ]);
+        assertSame(2, count($falseQuery->json('data.poolsPaginated.data')));
+    }
+
+    /**
      * Test updating a published pool
      *
      * @group editing
