@@ -23,6 +23,7 @@ import {
   PoolSkillType,
   PoolSkill,
   SkillLevel,
+  Department,
 } from "@gc-digital-talent/graphql";
 
 import fakeScreeningQuestions from "./fakeScreeningQuestions";
@@ -33,11 +34,13 @@ import fakeSkillFamilies from "./fakeSkillFamilies";
 import fakeSkills from "./fakeSkills";
 import toLocalizedString from "./fakeLocalizedString";
 import fakeAssessmentSteps from "./fakeAssessmentSteps";
+import fakeDepartments from "./fakeDepartments";
 
 const generatePool = (
   users: User[],
   skills: Skill[],
   classifications: Classification[],
+  departments: Department[],
   englishName = "",
   frenchName = "",
   essentialSkillCount = -1,
@@ -92,6 +95,7 @@ const generatePool = (
       fr: frenchName || `${faker.company.catchPhrase()} FR`,
     },
     classification: faker.helpers.arrayElement<Classification>(classifications),
+    department: faker.helpers.arrayElement<Department>(departments),
     keyTasks: toLocalizedString(faker.lorem.paragraphs()),
     stream: faker.helpers.arrayElement<PoolStream>(Object.values(PoolStream)),
     processNumber: faker.helpers.maybe(() => faker.lorem.word()),
@@ -133,6 +137,7 @@ export default (
   numToGenerate = 10,
   skills = fakeSkills(100, fakeSkillFamilies(6)),
   classifications = fakeClassifications(),
+  departments = fakeDepartments(),
   essentialSkillCount = -1,
 ): Pool[] => {
   const users = fakeUsers();
@@ -145,6 +150,7 @@ export default (
           users,
           skills,
           classifications,
+          departments,
           "CMO",
           "CMO",
           essentialSkillCount,
@@ -154,7 +160,7 @@ export default (
           users,
           skills,
           classifications,
-
+          departments,
           "IT Apprenticeship Program for Indigenous Peoples",
           "Programme d’apprentissage en TI pour les personnes autochtones",
           essentialSkillCount,
@@ -164,6 +170,7 @@ export default (
           users,
           skills,
           classifications,
+          departments,
           "",
           "",
           essentialSkillCount,

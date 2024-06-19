@@ -5,6 +5,7 @@ import { action } from "@storybook/addon-actions";
 import {
   fakeSkillFamilies,
   fakeClassifications,
+  fakeDepartments,
   fakeSkills,
   fakePools,
 } from "@gc-digital-talent/fake-data";
@@ -21,13 +22,15 @@ import {
 } from "./EditPoolPage";
 
 const classifications = fakeClassifications();
+const departments = fakeDepartments();
 const skills = fakeSkills(100, fakeSkillFamilies(10));
-const pool = fakePools(1, skills, classifications)[0];
+const pool = fakePools(1, skills, classifications, departments)[0];
 
 export default {
   component: EditPoolForm,
   args: {
     classifications,
+    departments,
     skills,
     onSave: action("onSave"),
     onPublish: action("onPublish"),
