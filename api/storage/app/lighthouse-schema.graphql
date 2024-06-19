@@ -31,6 +31,7 @@ type Query {
   teams: [Team]!
   roles: [Role]!
   sitewideAnnouncement: SitewideAnnouncement
+  localizedEnumStrings(enumName: String!): [LocalizedEnumString!]
   digitalContractingQuestionnaire(id: UUID!): DigitalContractingQuestionnaire
   digitalContractingQuestionnaires: [DigitalContractingQuestionnaire!]!
   departmentSpecificRecruitmentProcessForm(id: UUID!): DepartmentSpecificRecruitmentProcessForm
@@ -229,6 +230,11 @@ scalar UUID
 type LocalizedString {
   en: String
   fr: String
+}
+
+type LocalizedEnumString {
+  value: String!
+  label: LocalizedString!
 }
 
 type UserAuthInfo {

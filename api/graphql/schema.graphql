@@ -25,6 +25,11 @@ type LocalizedString {
   fr: String
 }
 
+type LocalizedEnumString {
+  value: String!
+  label: LocalizedString!
+}
+
 type UserAuthInfo {
   id: UUID!
   sub: String
@@ -948,6 +953,11 @@ type Query {
     @paginate(defaultCount: 10, scopes: ["authorizedToView"])
 
   sitewideAnnouncement: SitewideAnnouncement
+
+  localizedEnumStrings(
+    enumName: String!
+      @rules(apply: ["required", "App\\Rules\\LocalizedEnumExists"])
+  ): [LocalizedEnumString!]
 }
 
 input ClassificationBelongsTo {
