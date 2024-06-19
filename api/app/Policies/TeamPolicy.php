@@ -84,4 +84,17 @@ class TeamPolicy
     {
         return $user->isAbleTo('assign-any-role') || $user->isAbleTo('assign-any-teamRole') || $user->isAbleTo('assign-team-role', $team);
     }
+
+    /**
+     * Determine whether the user can view the teams Teamable
+     *
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewTeamable(User $user, Team $team)
+    {
+        $team->loadMissing('teamable');
+
+        // Allow any user to see if there is no teamable
+        return is_null($team->teamable) || $user->can('view', $team->teamable);
+    }
 }

@@ -99,7 +99,7 @@ test.describe("Process permissions", () => {
   });
 
   test("Community manager can view", async ({ appPage }) => {
-    await loginBySub(appPage.page, "community@test.com", false);
+    await loginBySub(appPage.page, "legacy-community@test.com", false);
 
     await appPage.page.goto(`/en/admin/pools/${pool.id}`);
     await appPage.waitForGraphqlResponse("PoolLayout");

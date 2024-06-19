@@ -15,10 +15,12 @@ use App\Enums\PositionDuration;
 use App\Enums\ProvinceOrTerritory;
 use App\Models\AwardExperience;
 use App\Models\Classification;
+use App\Models\Community;
 use App\Models\CommunityExperience;
 use App\Models\Department;
 use App\Models\EducationExperience;
 use App\Models\PersonalExperience;
+use App\Models\Pool;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\UserSkill;
@@ -286,6 +288,69 @@ class UserFactory extends Factory
     {
         return $this->afterCreating(function (User $user) {
             $user->addRole('platform_admin');
+        });
+    }
+
+    /**
+     * Attach the process operator role to a user after creation.
+     *
+     * @param  string|array  $poolId  Id of the pool or pools to attach the role to
+     * @return $this
+     */
+    public function asProcessOperator(string|array $poolId)
+    {
+        return $this->afterCreating(function (User $user) use ($poolId) {
+            if (is_array($poolId)) {
+                foreach ($poolId as $singlePoolId) {
+                    $pool = Pool::find($singlePoolId);
+                    $pool->addProcessOperators($user->id);
+                }
+            } else {
+                $pool = Pool::find($poolId);
+                $pool->addProcessOperators($user->id);
+            }
+        });
+    }
+
+    /**
+     * Attach the community recruiter role to a user after creation.
+     *
+     * @param  string|array  $communityId  Id of the community or communities to attach the role to
+     * @return $this
+     */
+    public function asCommunityRecruiter(string|array $communityId)
+    {
+        return $this->afterCreating(function (User $user) use ($communityId) {
+            if (is_array($communityId)) {
+                foreach ($communityId as $singleCommunityId) {
+                    $community = Community::find($singleCommunityId);
+                    $community->addCommunityRecruiters($user->id);
+                }
+            } else {
+                $community = Community::find($communityId);
+                $community->addCommunityRecruiters($user->id);
+            }
+        });
+    }
+
+    /**
+     * Attach the community admin role to a user after creation.
+     *
+     * @param  string|array  $communityId  Id of the community or communities to attach the role to
+     * @return $this
+     */
+    public function asCommunityAdmin(string|array $communityId)
+    {
+        return $this->afterCreating(function (User $user) use ($communityId) {
+            if (is_array($communityId)) {
+                foreach ($communityId as $singleCommunityId) {
+                    $community = Community::find($singleCommunityId);
+                    $community->addCommunityAdmins($user->id);
+                }
+            } else {
+                $community = Community::find($communityId);
+                $community->addCommunityAdmins($user->id);
+            }
         });
     }
 }
