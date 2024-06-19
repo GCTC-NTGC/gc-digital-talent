@@ -32,6 +32,8 @@ class CandidateAssessmentStatusTest extends TestCase
 
     protected $pool;
 
+    protected $poolSkill;
+
     protected $adminUser;
 
     protected $candidate;
@@ -75,6 +77,10 @@ class CandidateAssessmentStatusTest extends TestCase
             ->create([
                 'team_id' => $team->id,
             ]);
+
+        $this->poolSkill = $this->pool->poolSkills
+            ->where('type', PoolSkillType::ESSENTIAL->name)
+            ->first();
 
         $this->adminUser = User::factory()
             ->asApplicant()
@@ -121,6 +127,7 @@ class CandidateAssessmentStatusTest extends TestCase
                 'assessment_step_id' => $stepOne->id,
                 'pool_candidate_id' => $this->candidate->id,
                 'assessment_decision' => AssessmentDecision::SUCCESSFUL->name,
+                'pool_skill_id' => $this->poolSkill->id,
             ]);
 
         $this->actingAs($this->adminUser, 'api')
@@ -185,6 +192,7 @@ class CandidateAssessmentStatusTest extends TestCase
                 'assessment_step_id' => $stepOne->id,
                 'pool_candidate_id' => $this->candidate->id,
                 'assessment_decision' => AssessmentDecision::UNSUCCESSFUL->name,
+                'pool_skill_id' => $this->poolSkill->id,
             ]);
 
         $this->actingAs($this->adminUser, 'api')
@@ -257,18 +265,18 @@ class CandidateAssessmentStatusTest extends TestCase
             ->withResultType(AssessmentResultType::EDUCATION)
             ->create([
                 'assessment_step_id' => $steps[0]->id,
-
                 'pool_candidate_id' => $this->candidate->id,
                 'assessment_decision' => AssessmentDecision::SUCCESSFUL->name,
+                'pool_skill_id' => $this->poolSkill->id,
             ]);
 
         AssessmentResult::factory()
             ->withResultType(AssessmentResultType::EDUCATION)
             ->create([
                 'assessment_step_id' => $steps[1]->id,
-
                 'pool_candidate_id' => $this->candidate->id,
                 'assessment_decision' => AssessmentDecision::HOLD->name,
+                'pool_skill_id' => $this->poolSkill->id,
             ]);
 
         $this->actingAs($this->adminUser, 'api')
@@ -297,9 +305,7 @@ class CandidateAssessmentStatusTest extends TestCase
 
     public function testSucceedsAllQualifies(): void
     {
-
         $steps = $this->pool->assessmentSteps;
-        $skill = $this->pool->poolSkills->where('type', PoolSkillType::ESSENTIAL->name)->first();
 
         AssessmentResult::factory()
             ->withResultType(AssessmentResultType::EDUCATION)
@@ -307,6 +313,7 @@ class CandidateAssessmentStatusTest extends TestCase
                 'assessment_step_id' => $steps[0]->id,
                 'pool_candidate_id' => $this->candidate->id,
                 'assessment_decision' => AssessmentDecision::SUCCESSFUL->name,
+                'pool_skill_id' => $this->poolSkill->id,
             ]);
 
         AssessmentResult::factory()
@@ -315,7 +322,7 @@ class CandidateAssessmentStatusTest extends TestCase
                 'assessment_step_id' => $steps[1]->id,
                 'pool_candidate_id' => $this->candidate->id,
                 'assessment_decision' => AssessmentDecision::SUCCESSFUL->name,
-                'pool_skill_id' => $skill->id,
+                'pool_skill_id' => $this->poolSkill->id,
             ]);
 
         $this->actingAs($this->adminUser, 'api')
