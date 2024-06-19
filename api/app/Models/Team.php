@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Laratrust\Models\Team as LaratrustTeam;
 
 /**
@@ -45,6 +46,11 @@ class Team extends LaratrustTeam
     public function pools(): HasMany
     {
         return $this->hasMany(Pool::class);
+    }
+
+    public function teamable(): MorphTo
+    {
+        return $this->morphTo();
     }
 
     // A relationship to the custom roleAssignments pivot model
