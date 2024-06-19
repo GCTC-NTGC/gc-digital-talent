@@ -923,8 +923,9 @@ class PoolCandidate extends Model
         $decisions = [];
         $this->load([
             'pool.assessmentSteps',
+            'pool.assessmentSteps.poolSkills',
             'assessmentResults',
-            'assessmentResults.assessmentStep.poolSkills',
+            'assessmentResults.poolSkill',
         ]);
 
         foreach ($this->pool->assessmentSteps as $step) {
@@ -940,34 +941,38 @@ class PoolCandidate extends Model
                 continue;
             }
 
-            // Check assessed essential skills on this step
-            $essentialSkillAssessments = $stepResults
-                ->filter(function ($result) {
-                    return $result->assessmentStep->poolSkills->contains(function ($poolSkill) {
-                        return $poolSkill->type === PoolSkillType::ESSENTIAL->name;
+            $hasEssentialSkillsToAssess = $step->poolSkills->contains(function ($poolSkill) {
+                return $poolSkill->type === PoolSkillType::ESSENTIAL->name;
+            });
+
+            if ($hasEssentialSkillsToAssess) {
+                // Check assessed essential skills on this step
+                $essentialSkillAssessments = $stepResults
+                    ->filter(function ($result) {
+                        return $result->poolSkill?->type === PoolSkillType::ESSENTIAL->name;
                     });
-                });
 
-            if (! $essentialSkillAssessments) {
-                $decisions[$stepId] = null;
+                if ($essentialSkillAssessments->isEmpty()) {
+                    $decisions[$stepId] = null;
 
-                continue;
-            }
+                    continue;
+                }
 
-            foreach ($essentialSkillAssessments as $essentialSkillAssessment) {
-                $decision = $essentialSkillAssessment->assessment_decision;
+                foreach ($essentialSkillAssessments as $essentialSkillAssessment) {
+                    $decision = $essentialSkillAssessment->assessment_decision;
 
-                switch ($decision) {
-                    case null:
-                        $hasToAssess = true;
-                        break;
-                    case AssessmentDecision::HOLD->name:
-                        $hasOnHold = true;
-                        break;
-                    case AssessmentDecision::UNSUCCESSFUL->name:
-                        $hasFailure = true;
-                        break;
-                    default:
+                    switch ($decision) {
+                        case null:
+                            $hasToAssess = true;
+                            break;
+                        case AssessmentDecision::HOLD->name:
+                            $hasOnHold = true;
+                            break;
+                        case AssessmentDecision::UNSUCCESSFUL->name:
+                            $hasFailure = true;
+                            break;
+                        default:
+                    }
                 }
             }
 
