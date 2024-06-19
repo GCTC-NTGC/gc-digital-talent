@@ -160,6 +160,7 @@ class CandidateAssessmentStatusTest extends TestCase
                 'assessment_step_id' => $stepOne->id,
                 'pool_candidate_id' => $this->candidate->id,
                 'assessment_decision' => AssessmentDecision::HOLD->name,
+                'pool_skill_id' => $this->poolSkill->id,
             ]);
 
         $this->actingAs($this->adminUser, 'api')
@@ -296,7 +297,7 @@ class CandidateAssessmentStatusTest extends TestCase
                                 ],
                             ],
                             'finalDecision' => AssessmentFinalDecision::TO_ASSESS->name,
-                            'currentStep' => null,
+                            'currentStep' => 2,
                         ],
                     ],
                 ],

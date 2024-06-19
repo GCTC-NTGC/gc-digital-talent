@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\AssessmentDecision;
+use App\Enums\AssessmentFinalDecision;
 use App\Enums\AssessmentResultType;
 use App\Enums\AssessmentStepType;
 use App\Enums\CandidateExpiryFilter;
@@ -24,6 +25,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Expression;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -918,9 +920,10 @@ class PoolCandidate extends Model
         $this->save();
     }
 
-    public function computeDecisionsPerAssessmentStep()
+    public function computeAssessmentStatus()
     {
         $decisions = [];
+        $currentStep = 1;
         $this->load([
             'pool.assessmentSteps',
             'pool.assessmentSteps.poolSkills',
@@ -935,9 +938,7 @@ class PoolCandidate extends Model
             $hasToAssess = false;
 
             $stepResults = $this->assessmentResults->where('assessment_step_id', $stepId);
-            if (! $stepResults->count()) {
-                $decisions[$stepId] = null;
-
+            if ($stepResults->isEmpty()) {
                 continue;
             }
 
@@ -953,7 +954,11 @@ class PoolCandidate extends Model
                     });
 
                 if ($essentialSkillAssessments->isEmpty()) {
-                    $decisions[$stepId] = null;
+
+                    $decisions[] = [
+                        'step' => $stepId,
+                        'decision' => null,
+                    ];
 
                     continue;
                 }
@@ -981,7 +986,10 @@ class PoolCandidate extends Model
                 $educationResults = $stepResults->where('assessment_result_type', AssessmentResultType::EDUCATION->name);
 
                 if (! $educationResults) {
-                    $decisions[$stepId] = null;
+                    $decisions[] = [
+                        'step' => $stepId,
+                        'decision' => null,
+                    ];
 
                     continue;
                 }
@@ -1004,27 +1012,69 @@ class PoolCandidate extends Model
             }
 
             if ($hasFailure) {
-                $decisions[$stepId] = AssessmentDecision::UNSUCCESSFUL->name;
+                $decisions[] = [
+                    'step' => $stepId,
+                    'decision' => AssessmentDecision::UNSUCCESSFUL->name,
+                ];
 
                 continue;
             }
 
             if ($hasToAssess) {
-                $decisions[$stepId] = null;
+                $decisions[] = [
+                    'step' => $stepId,
+                    'decision' => null,
+                ];
 
                 continue;
             }
+
+            // Candidate has been assessed and was not unsuccessful so continue to next step
+            $currentStep++;
 
             if ($hasOnHold) {
-                $decisions[$stepId] = AssessmentDecision::HOLD->name;
+                $decisions[] = [
+                    'step' => $stepId,
+                    'decision' => AssessmentDecision::HOLD->name,
+                ];
 
                 continue;
             }
 
-            $decisions[$stepId] = AssessmentDecision::SUCCESSFUL->name;
-
+            $decisions[] = [
+                'step' => $stepId,
+                'decision' => AssessmentDecision::SUCCESSFUL->name,
+            ];
         }
 
-        return $decisions;
+        $totalSteps = $this->pool->assessmentSteps->count();
+        $finalDecision = AssessmentFinalDecision::TO_ASSESS->name;
+
+        if ($currentStep > $totalSteps) {
+            $lastStepDecision = end($decisions);
+            if ($lastStepDecision['decision'] !== AssessmentDecision::HOLD->name) {
+                $finalDecision = AssessmentFinalDecision::QUALIFIED->name;
+                $currentStep = null;
+            }
+        } else {
+            $unsuccessfulDecisions = Arr::where($decisions, function ($stepDecision) {
+                return $stepDecision['decision'] === AssessmentDecision::UNSUCCESSFUL->name;
+            });
+            if (! empty($unsuccessfulDecisions)) {
+                $finalDecision = AssessmentFinalDecision::DISQUALIFIED->name;
+            }
+        }
+
+        // While unlikely, current step could go over.
+        // So, set it back to total steps
+        if ($currentStep > $totalSteps) {
+            $currentStep = $totalSteps;
+        }
+
+        return [
+            'currentStep' => $currentStep,
+            'finalDecision' => $finalDecision,
+            'stepDecisions' => $decisions,
+        ];
     }
 }
