@@ -50,6 +50,13 @@ exports[`message files should have no changes to duplicate strings 1`] = `
       "À propos de ce rôle",
       "Au sujet de ce rôle"
     ]
-  }
+  },
+  {
+    "en": "Application",
+    "fr": [
+      "Candidature",
+      "La demande"
+    ]
+  },
 ]"
 `;
