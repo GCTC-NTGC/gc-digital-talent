@@ -548,7 +548,7 @@ class Pool extends Model
                         }
                     }
 
-                    $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
+                    $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
                         return $query->whereIn('id', $teamIds);
                     });
                 } else {
