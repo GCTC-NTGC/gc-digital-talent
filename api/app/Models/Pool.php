@@ -485,7 +485,7 @@ class Pool extends Model
     }
 
     /**
-     * Filter for pools the user is allowed to view admin information for
+     * Filter for pools the user is allowed to view admin information for, based around assessment plan permissions
      */
     public static function scopeCanAdmin(Builder $query, ?bool $canAdmin): Builder
     {
@@ -494,6 +494,10 @@ class Pool extends Model
         }
 
         $user = Auth::user();
+
+        if (is_null($user)) {
+            return $query->where('id', null);
+        }
 
         if (! $user->isAbleTo('view-any-assessmentPlan')) {
             $query->where(function (Builder $query) use ($user) {
@@ -510,6 +514,8 @@ class Pool extends Model
                     $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
                         return $query->whereIn('id', $teamIds);
                     });
+                } else {
+                    return $query->where('id', null); // when the user can't see any assessment plans
                 }
             }
             );
