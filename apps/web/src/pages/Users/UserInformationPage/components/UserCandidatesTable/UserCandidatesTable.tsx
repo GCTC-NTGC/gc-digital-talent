@@ -172,7 +172,11 @@ const UserCandidatesTable = ({
         id: "finalDecision",
         header: intl.formatMessage(tableMessages.finalDecision),
         cell: ({ row: { original: poolCandidate } }) =>
-          finalDecisionCell(intl, poolCandidate),
+          finalDecisionCell(
+            poolCandidate.status,
+            poolCandidate.assessmentStatus,
+            intl,
+          ),
         enableSorting: false,
       },
     ),

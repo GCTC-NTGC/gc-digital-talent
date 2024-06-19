@@ -31,6 +31,7 @@ import {
   ProvinceOrTerritory,
   SortOrder,
   FragmentType,
+  AssessmentResultStatus,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -203,10 +204,15 @@ export const currentLocationAccessor = (
   )}`;
 
 export const finalDecisionCell = (
+  status: Maybe<PoolCandidateStatus> | undefined,
+  assessmentStatus: Maybe<AssessmentResultStatus> | undefined,
   intl: IntlShape,
-  poolCandidate: PoolCandidate,
 ) => {
-  const { color, label } = getCandidateStatusChip(poolCandidate, intl);
+  const { color, label } = getCandidateStatusChip(
+    status,
+    assessmentStatus,
+    intl,
+  );
   return <Chip color={color}>{label}</Chip>;
 };
 

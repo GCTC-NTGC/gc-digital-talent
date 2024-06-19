@@ -32,6 +32,7 @@ import {
   PublishingGroup,
   PriorityWeight,
   AssessmentFinalDecision,
+  AssessmentResultStatus,
 } from "@gc-digital-talent/graphql";
 import { getOrThrowError } from "@gc-digital-talent/helpers";
 
@@ -334,10 +335,10 @@ const statusToChipMessageMapping: Record<
  * since the candidate may or may not be ready for a final decision.
  */
 const computeInAssessmentStatusChip = (
-  candidate: PoolCandidate,
+  assessmentStatus: Maybe<AssessmentResultStatus> | undefined,
   intl: IntlShape,
 ): StatusChip => {
-  if (!candidate?.assessmentStatus?.finalDecision) {
+  if (!assessmentStatus?.finalDecision) {
     // This escape hatch mostly applies to Pools created before Record of Decision.
     return {
       label: intl.formatMessage(poolCandidateMessages.toAssess),
@@ -346,8 +347,7 @@ const computeInAssessmentStatusChip = (
   }
 
   if (
-    candidate?.assessmentStatus?.finalDecision ===
-    AssessmentFinalDecision.Disqualified
+    assessmentStatus?.finalDecision === AssessmentFinalDecision.Disqualified
   ) {
     return {
       label:
@@ -359,9 +359,9 @@ const computeInAssessmentStatusChip = (
   }
 
   const currentStep =
-    typeof candidate.assessmentStatus?.currentStep === "undefined"
+    typeof assessmentStatus?.currentStep === "undefined"
       ? 1
-      : candidate.assessmentStatus.currentStep;
+      : assessmentStatus.currentStep;
 
   // currentStep of null means that the candidate has passed all steps and is tentatively qualified!
   if (currentStep === null) {
@@ -398,16 +398,15 @@ type StatusChip = {
 };
 
 export const getCandidateStatusChip = (
-  candidate: PoolCandidate,
+  status: Maybe<PoolCandidateStatus> | undefined,
+  assessmentStatus: Maybe<AssessmentResultStatus> | undefined,
   intl: IntlShape,
 ): StatusChip => {
-  if (isToAssessStatus(candidate.status)) {
-    return computeInAssessmentStatusChip(candidate, intl);
+  if (isToAssessStatus(status)) {
+    return computeInAssessmentStatusChip(assessmentStatus, intl);
   }
   const messages =
-    statusToChipMessageMapping[
-      candidate.status ?? PoolCandidateStatus.NewApplication
-    ];
+    statusToChipMessageMapping[status ?? PoolCandidateStatus.NewApplication];
   const label = Array.isArray(messages)
     ? messages.reduce(
         (combined, item) => combined + intl.formatMessage(item),
@@ -416,7 +415,7 @@ export const getCandidateStatusChip = (
     : intl.formatMessage(messages);
   return {
     label,
-    color: getFinalDecisionChipColor(candidate.status),
+    color: getFinalDecisionChipColor(status),
   };
 };
 

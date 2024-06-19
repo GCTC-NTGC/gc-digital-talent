@@ -611,9 +611,11 @@ const PoolCandidatesTable = ({
         header: intl.formatMessage(tableMessages.finalDecision),
         cell: ({
           row: {
-            original: { poolCandidate },
+            original: {
+              poolCandidate: { status, assessmentStatus },
+            },
           },
-        }) => finalDecisionCell(intl, poolCandidate),
+        }) => finalDecisionCell(status, assessmentStatus, intl),
         enableSorting: false,
       },
     ),

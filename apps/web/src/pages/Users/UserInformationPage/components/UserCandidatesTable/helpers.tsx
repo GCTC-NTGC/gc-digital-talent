@@ -15,6 +15,7 @@ import {
   CandidateSuspendedFilter,
   Maybe,
   Pool,
+  AssessmentResultStatus,
 } from "@gc-digital-talent/graphql";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
@@ -163,10 +164,15 @@ export const notesCell = (
   ) : null;
 
 export const finalDecisionCell = (
+  status: Maybe<PoolCandidateStatus> | undefined,
+  assessmentStatus: Maybe<AssessmentResultStatus> | undefined,
   intl: IntlShape,
-  poolCandidate: PoolCandidate,
 ) => {
-  const { color, label } = getCandidateStatusChip(poolCandidate, intl);
+  const { color, label } = getCandidateStatusChip(
+    status,
+    assessmentStatus,
+    intl,
+  );
   return <Chip color={color}>{label}</Chip>;
 };
 

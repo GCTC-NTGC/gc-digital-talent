@@ -431,7 +431,11 @@ export const ViewPoolCandidate = ({
     ?.filter(notEmpty)
     .find(({ id }) => id === poolCandidate.id);
   const nonEmptyExperiences = unpackMaybes(parsedSnapshot?.experiences);
-  const statusChip = getCandidateStatusChip(poolCandidate, intl);
+  const statusChip = getCandidateStatusChip(
+    poolCandidate.status,
+    poolCandidate.assessmentStatus,
+    intl,
+  );
 
   const candidateName = getFullNameLabel(
     poolCandidate.user.firstName,
