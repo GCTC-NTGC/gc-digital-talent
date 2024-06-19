@@ -30,6 +30,7 @@ import {
 } from "~/components/PoolCandidatesTable/JobPlacementDialog";
 import cells from "~/components/Table/cells";
 import accessors from "~/components/Table/accessors";
+import { getPriorityWeight } from "~/utils/poolCandidate";
 
 import {
   bookmarkCell,
@@ -159,7 +160,7 @@ const UserCandidatesTable = ({
       () =>
         intl.formatMessage(
           user.priorityWeight
-            ? getPoolCandidatePriorities(user.priorityWeight)
+            ? getPoolCandidatePriorities(getPriorityWeight(user.priorityWeight))
             : commonMessages.notFound,
         ),
       {
