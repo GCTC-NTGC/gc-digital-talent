@@ -71,14 +71,23 @@ use App\Enums\WhenSkillUsed;
 use App\Enums\WorkRegion;
 use App\GraphQL\Operators\PostgreSQLOperator;
 use GraphQL\Type\Definition\EnumType;
+use GraphQL\Type\Definition\ObjectType;
 use Illuminate\Support\ServiceProvider;
 use Nuwave\Lighthouse\Schema\TypeRegistry;
 use Nuwave\Lighthouse\WhereConditions\Operator;
 
 class GraphQLServiceProvider extends ServiceProvider
 {
+    protected $localizedEnums = [
+        ArmedForcesStatus::class,
+        CitizenshipStatus::class,
+        EstimatedLanguageAbility::class,
+        Language::class,
+    ];
+
     public function boot(TypeRegistry $typeRegistry): void
     {
+
         $typeRegistry->registerLazy(
             'Language',
             static function (): EnumType {
@@ -691,6 +700,24 @@ class GraphQLServiceProvider extends ServiceProvider
                 ]);
             }
         );
+
+        foreach ($this->localizedEnums as $enum) {
+            $name = class_basename($enum);
+
+            if (method_exists($enum, 'localizedString')) {
+                $typeRegistry->register(
+                    new ObjectType([
+                        'name' => 'Localized'.$name,
+                        'fields' => function () use ($typeRegistry, $name): array {
+                            return [
+                                'value' => $typeRegistry->get($name),
+                                'label' => $typeRegistry->get('LocalizedString'),
+                            ];
+                        },
+                    ])
+                );
+            }
+        }
     }
 
     public function register(): void

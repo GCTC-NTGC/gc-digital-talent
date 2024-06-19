@@ -50,14 +50,14 @@ type User {
   email: Email
   emailVerifiedAt: DateTime @rename(attribute: "email_verified_at")
   telephone: PhoneNumber
-  preferredLang: Language @rename(attribute: "preferred_lang")
-  preferredLanguageForInterview: Language
-    @rename(attribute: "preferred_language_for_interview")
-  preferredLanguageForExam: Language
-    @rename(attribute: "preferred_language_for_exam")
+  preferredLang: LocalizedLanguage @localizeEnum(attribute: "preferred_lang")
+  preferredLanguageForInterview: LocalizedLanguage
+    @localizeEnum(attribute: "preferred_language_for_interview")
+  preferredLanguageForExam: LocalizedLanguage
+    @localizeEnum(attribute: "preferred_language_for_exam")
   currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
   currentCity: String @rename(attribute: "current_city")
-  citizenship: CitizenshipStatus
+  citizenship: LocalizedCitizenshipStatus @localizeEnum
   armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
 
   # Language
@@ -73,8 +73,8 @@ type User {
     @rename(attribute: "comprehension_level")
   writtenLevel: EvaluatedLanguageAbility @rename(attribute: "written_level")
   verbalLevel: EvaluatedLanguageAbility @rename(attribute: "verbal_level")
-  estimatedLanguageAbility: EstimatedLanguageAbility
-    @rename(attribute: "estimated_language_ability")
+  estimatedLanguageAbility: LocalizedEstimatedLanguageAbility
+    @localizeEnum(attribute: "estimated_language_ability")
 
   # Gov info
   isGovEmployee: Boolean @rename(attribute: "is_gov_employee")

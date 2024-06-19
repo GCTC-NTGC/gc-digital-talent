@@ -1,3 +1,23 @@
+type LocalizedArmedForcesStatus {
+  value: ArmedForcesStatus
+  label: LocalizedString
+}
+
+type LocalizedCitizenshipStatus {
+  value: CitizenshipStatus
+  label: LocalizedString
+}
+
+type LocalizedEstimatedLanguageAbility {
+  value: EstimatedLanguageAbility
+  label: LocalizedString
+}
+
+type LocalizedLanguage {
+  value: Language
+  label: LocalizedString
+}
+
 type Query {
   myAuth: UserAuthInfo
   me: User
@@ -255,12 +275,12 @@ type User {
   email: Email
   emailVerifiedAt: DateTime
   telephone: PhoneNumber
-  preferredLang: Language
-  preferredLanguageForInterview: Language
-  preferredLanguageForExam: Language
+  preferredLang: LocalizedLanguage
+  preferredLanguageForInterview: LocalizedLanguage
+  preferredLanguageForExam: LocalizedLanguage
   currentProvince: ProvinceOrTerritory
   currentCity: String
-  citizenship: CitizenshipStatus
+  citizenship: LocalizedCitizenshipStatus
   armedForcesStatus: ArmedForcesStatus
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
@@ -271,7 +291,7 @@ type User {
   comprehensionLevel: EvaluatedLanguageAbility
   writtenLevel: EvaluatedLanguageAbility
   verbalLevel: EvaluatedLanguageAbility
-  estimatedLanguageAbility: EstimatedLanguageAbility
+  estimatedLanguageAbility: LocalizedEstimatedLanguageAbility
   isGovEmployee: Boolean
   govEmployeeType: GovEmployeeType
   currentClassification: Classification

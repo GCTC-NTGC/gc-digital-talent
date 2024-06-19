@@ -11,7 +11,10 @@ trait HasLocalization
 
     public static function caseKey(string $case)
     {
-        return Str::lower(constant("self::$case")->name);
+        // Some backed enums are not uppercase
+        $enumCase = strtoupper($case);
+
+        return Str::lower(constant("self::$enumCase")->name);
     }
 
     public static function localizedString(string $value)
