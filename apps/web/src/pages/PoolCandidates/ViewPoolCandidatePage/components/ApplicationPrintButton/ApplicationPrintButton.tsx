@@ -19,12 +19,6 @@ import ApplicationPrintDocument, {
 } from "./ApplicationPrintDocument";
 import ProfileDocument from "../../../../../components/ProfileDocument/ProfileDocument";
 
-const documentTitle = defineMessage({
-  defaultMessage: "Application snapshot",
-  id: "ipsXat",
-  description: "Document title for printing a user's application snapshot.",
-});
-
 const printApplication = defineMessage({
   defaultMessage: "Print application",
   id: "0pDCvX",
@@ -50,24 +44,38 @@ const ApplicationPrintButton = ({
 
   const commonArgs = {
     pageStyle: printStyles,
-    documentTitle: intl.formatMessage(documentTitle),
   };
 
   const applicationRef = useRef(null);
   const handleApplicationPrint = useReactToPrint({
     content: () => applicationRef.current,
+    documentTitle: intl.formatMessage({
+      defaultMessage: "Application",
+      id: "bN9qA1",
+      description: "Document title for application",
+    }),
     ...commonArgs,
   });
 
   const fullProfileRef = useRef(null);
   const handleFullPrint = useReactToPrint({
     content: () => fullProfileRef.current,
+    documentTitle: intl.formatMessage({
+      defaultMessage: "Full profile",
+      id: "fuMeUp",
+      description: "Document title for full profile",
+    }),
     ...commonArgs,
   });
 
   const anonymousProfileRef = useRef(null);
   const handleAnonymousPrint = useReactToPrint({
     content: () => anonymousProfileRef.current,
+    documentTitle: intl.formatMessage({
+      defaultMessage: "Profile without contact information",
+      id: "53zIgk",
+      description: "Document title for anonymous profile",
+    }),
     ...commonArgs,
   });
 
