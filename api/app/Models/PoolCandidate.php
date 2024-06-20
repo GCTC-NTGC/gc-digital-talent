@@ -954,13 +954,7 @@ class PoolCandidate extends Model
                     });
 
                 if ($essentialSkillAssessments->isEmpty()) {
-
-                    $decisions[] = [
-                        'step' => $stepId,
-                        'decision' => null,
-                    ];
-
-                    continue;
+                    $hasToAssess = true;
                 }
 
                 foreach ($essentialSkillAssessments as $essentialSkillAssessment) {
@@ -986,12 +980,7 @@ class PoolCandidate extends Model
                 $educationResults = $stepResults->where('assessment_result_type', AssessmentResultType::EDUCATION->name);
 
                 if (! $educationResults) {
-                    $decisions[] = [
-                        'step' => $stepId,
-                        'decision' => null,
-                    ];
-
-                    continue;
+                    $hasToAssess = true;
                 }
 
                 foreach ($educationResults as $educationResult) {

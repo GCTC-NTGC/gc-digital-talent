@@ -349,4 +349,38 @@ class CandidateAssessmentStatusTest extends TestCase
                 ],
             ]);
     }
+
+    public function testFailedEssentialSkillMissingEducation()
+    {
+        $steps = $this->pool->assessmentSteps;
+
+        AssessmentResult::factory()
+            ->withResultType(AssessmentResultType::SKILL)
+            ->create([
+                'assessment_step_id' => $steps[0]->id,
+                'pool_candidate_id' => $this->candidate->id,
+                'assessment_decision' => AssessmentDecision::UNSUCCESSFUL->name,
+                'pool_skill_id' => $this->poolSkill->id,
+            ]);
+
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($this->query, $this->queryVars)
+            ->assertJson([
+                'data' => [
+                    'poolCandidate' => [
+                        'assessmentStatus' => [
+                            'currentStep' => 1,
+                            'finalDecision' => AssessmentFinalDecision::DISQUALIFIED->name,
+                            'stepDecisions' => [
+                                [
+                                    'step' => $steps[0]->id,
+                                    'decision' => AssessmentDecision::UNSUCCESSFUL->name,
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ]);
+
+    }
 }
