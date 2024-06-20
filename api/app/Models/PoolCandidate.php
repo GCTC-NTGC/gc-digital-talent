@@ -938,13 +938,27 @@ class PoolCandidate extends Model
             $hasToAssess = false;
 
             $stepResults = $this->assessmentResults->where('assessment_step_id', $stepId);
-            if ($stepResults->isEmpty()) {
-                continue;
-            }
-
             $hasEssentialSkillsToAssess = $step->poolSkills->contains(function ($poolSkill) {
                 return $poolSkill->type === PoolSkillType::ESSENTIAL->name;
             });
+
+            // If no essential skills are to be assessed
+            // and not on application screening (requires education assessment)
+            // then it is an automatic pass
+            if (! $hasEssentialSkillsToAssess && $step->type !== AssessmentStepType::APPLICATION_SCREENING->name) {
+                $decisions[] = [
+                    'step' => $stepId,
+                    'decision' => AssessmentDecision::SUCCESSFUL->name,
+                ];
+
+                $currentStep++;
+
+                continue;
+            }
+
+            if ($stepResults->isEmpty()) {
+                continue;
+            }
 
             if ($hasEssentialSkillsToAssess) {
                 // Check assessed essential skills on this step

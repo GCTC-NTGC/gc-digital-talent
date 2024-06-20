@@ -31,6 +31,8 @@ class CandidateAssessmentStatusTest extends TestCase
     use RefreshesSchemaCache;
     use UsesProtectedGraphqlEndpoint;
 
+    protected $team;
+
     protected $pool;
 
     protected $poolSkill;
@@ -67,14 +69,14 @@ class CandidateAssessmentStatusTest extends TestCase
             RolePermissionSeeder::class,
         ]);
 
-        $team = Team::factory()->create([
+        $this->team = Team::factory()->create([
             'name' => 'assessment-status',
         ]);
 
         $this->pool = Pool::factory()
             ->published()
             ->create([
-                'team_id' => $team->id,
+                'team_id' => $this->team->id,
             ]);
 
         $technicalSkill = Skill::where('category', SkillCategory::TECHNICAL->name)->first();
@@ -384,6 +386,71 @@ class CandidateAssessmentStatusTest extends TestCase
                                 [
                                     'step' => $steps[0]->id,
                                     'decision' => AssessmentDecision::UNSUCCESSFUL->name,
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ]);
+
+    }
+
+    public function testNoEssentialSkillOrEducationIsSuccess()
+    {
+
+        $pool = Pool::factory()
+            ->published()
+            ->create([
+                'team_id' => $this->team->id,
+            ]);
+
+        $technicalSkill = Skill::where('category', SkillCategory::TECHNICAL->name)->first();
+        $poolSkill = PoolSkill::create([
+            'pool_id' => $pool->id,
+            'skill_id' => $technicalSkill->id,
+            'type' => PoolSkillType::NONESSENTIAL->name,
+        ]);
+
+        $candidate = PoolCandidate::factory()->create([
+            'pool_id' => $pool->id,
+            'submitted_at' => config('constants.past_date'),
+            'expiry_date' => config('constants.far_future_date'),
+        ]);
+
+        $stepOne = $pool->assessmentSteps->first();
+
+        $stepTwo = AssessmentStep::factory()
+            ->afterCreating(function (AssessmentStep $step) use ($poolSkill) {
+                $step->poolSkills()->sync([$poolSkill->id]);
+            })->create([
+                'pool_id' => $pool->id,
+            ]);
+
+        AssessmentResult::factory()
+            ->withResultType(AssessmentResultType::EDUCATION)
+            ->create([
+                'assessment_step_id' => $stepOne->id,
+                'pool_candidate_id' => $candidate->id,
+                'assessment_decision' => AssessmentDecision::SUCCESSFUL->name,
+                'pool_skill_id' => $poolSkill->id,
+            ]);
+
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($this->query, ['id' => $candidate->id])
+            ->assertJson([
+                'data' => [
+                    'poolCandidate' => [
+                        'assessmentStatus' => [
+                            'currentStep' => null,
+                            'overallAssessmentStatus' => OverallAssessmentStatus::QUALIFIED->name,
+                            'assessmentStepStatuses' => [
+                                [
+                                    'step' => $stepOne->id,
+                                    'decision' => AssessmentDecision::SUCCESSFUL->name,
+                                ],
+                                [
+                                    'step' => $stepTwo->id,
+                                    'decision' => AssessmentDecision::SUCCESSFUL->name,
                                 ],
                             ],
                         ],
