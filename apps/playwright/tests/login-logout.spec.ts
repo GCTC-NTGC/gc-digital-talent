@@ -164,35 +164,27 @@ test.describe("Login and logout", () => {
       (request) =>
         request.url().includes("/refresh") && request.method() === "GET",
     );
+
+    // log in
     await loginBySub(page, "applicant@test.com", false);
 
-    // step 1
-    // time travel to when the tokens expire before trying to navigate
+    // get auth tokens set 1
     const tokenSet1 = await getAuthTokens(page);
+    // time travel to when the tokens from token set 1 expire before trying to navigate
     await clockHelper.jumpTo(jumpPastExpiryDate(tokenSet1.accessToken));
 
     const request = await requestPromise;
+    // navigate to a page
     await page.goto("/en/applicant");
-    const refreshToken = await new URL(request.url()).searchParams.get(
+    // get refresh token 1 from request 1 URL
+    const refreshToken1 = await new URL(request.url()).searchParams.get(
       "refresh_token",
     );
-    // expect an immediate refresh
-    expect(tokenSet1.refreshToken).toEqual(refreshToken);
+    // expect refresh token from token set 1 to match refresh token 1 from request 1 URL
+    expect(tokenSet1.refreshToken).toEqual(refreshToken1);
 
-    // step 2
-    // time travel to when the tokens expire before trying to navigate
+    // get auth tokens set 2
     const tokenSet2 = await getAuthTokens(page);
-    await clockHelper.restore();
-    await clockHelper.jumpTo(jumpPastExpiryDate(tokenSet2.accessToken));
-
-    // expect a first refresh to get second tokens
-    const request2 = await requestPromise;
-    await page.goto("/en/applicant");
-    const refreshToken2 = await new URL(request2.url()).searchParams.get(
-      "refresh_token",
-    );
-    // expect an immediate refresh
-    expect(tokenSet2.refreshToken).toEqual(refreshToken2);
 
     // get ready to catch the next graphql request
     await page
@@ -210,20 +202,23 @@ test.describe("Login and logout", () => {
         );
       });
 
-    // step 3
-    // time travel to when the tokens expire before trying to navigate
-    const tokenSet3 = await getAuthTokens(page);
+    // reset clock
     await clockHelper.restore();
-    await clockHelper.jumpTo(jumpPastExpiryDate(tokenSet3.accessToken));
+    // time travel to when the tokens from token set 2 expire before trying to navigate
+    await clockHelper.jumpTo(jumpPastExpiryDate(tokenSet2.accessToken));
 
-    // expect a first refresh to get third tokens
-    const request3 = await requestPromise;
+    const request2 = await requestPromise;
+    // navigate to a page
     await page.goto("/en/applicant");
-    const refreshToken3 = await new URL(request3.url()).searchParams.get(
+    // get refresh token 2 from request URL
+    const refreshToken2 = await new URL(request2.url()).searchParams.get(
       "refresh_token",
     );
-    // expect an immediate refresh
-    expect(tokenSet3.refreshToken).toEqual(refreshToken3);
+    // expect refresh token from token set 2 to match refresh token 2 from request 2 URL
+    expect(tokenSet2.refreshToken).toEqual(refreshToken2);
+
+    // get auth tokens set 3
+    const tokenSet3 = await getAuthTokens(page);
 
     // get ready to catch the next graphql request
     await page
@@ -240,6 +235,21 @@ test.describe("Login and logout", () => {
           `Bearer ${tokenSet3.accessToken}`,
         );
       });
+
+    // reset clock
+    await clockHelper.restore();
+    // time travel to when the tokens from token set 3 expire before trying to navigate
+    await clockHelper.jumpTo(jumpPastExpiryDate(tokenSet3.accessToken));
+
+    const request3 = await requestPromise;
+    // navigate to a page
+    await page.goto("/en/applicant");
+    // get refresh token 3 from request URL
+    const refreshToken3 = await new URL(request3.url()).searchParams.get(
+      "refresh_token",
+    );
+    // expect refresh token from token set 3 to match refresh token 3 from request 3 URL
+    expect(tokenSet3.refreshToken).toEqual(refreshToken3);
   });
   test("log out", async ({ page }) => {
     const requestPromise = page.waitForRequest(
