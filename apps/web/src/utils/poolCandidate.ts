@@ -31,7 +31,7 @@ import {
   PoolCandidateStatus,
   PublishingGroup,
   PriorityWeight,
-  AssessmentFinalDecision,
+  OverallAssessmentStatus,
   AssessmentResultStatus,
 } from "@gc-digital-talent/graphql";
 import { getOrThrowError } from "@gc-digital-talent/helpers";
@@ -338,7 +338,7 @@ const computeInAssessmentStatusChip = (
   assessmentStatus: Maybe<AssessmentResultStatus> | undefined,
   intl: IntlShape,
 ): StatusChip => {
-  if (!assessmentStatus?.finalDecision) {
+  if (!assessmentStatus?.overallAssessmentStatus) {
     // This escape hatch mostly applies to Pools created before Record of Decision.
     return {
       label: intl.formatMessage(poolCandidateMessages.toAssess),
@@ -347,7 +347,8 @@ const computeInAssessmentStatusChip = (
   }
 
   if (
-    assessmentStatus?.finalDecision === AssessmentFinalDecision.Disqualified
+    assessmentStatus?.overallAssessmentStatus ===
+    OverallAssessmentStatus.Disqualified
   ) {
     return {
       label:

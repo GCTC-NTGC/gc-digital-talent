@@ -445,8 +445,8 @@ type AssessmentStepDecision {
 }
 
 type AssessmentResultStatus {
-  stepDecisions: [AssessmentStepDecision]
-  finalDecision: AssessmentFinalDecision
+  assessmentStepStatuses: [AssessmentStepDecision]
+  overallAssessmentStatus: OverallAssessmentStatus
   currentStep: Int
 }
 
@@ -2611,7 +2611,7 @@ enum PriorityWeight {
   OTHER
 }
 
-enum AssessmentFinalDecision {
+enum OverallAssessmentStatus {
   TO_ASSESS
   DISQUALIFIED
   QUALIFIED

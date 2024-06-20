@@ -46,7 +46,7 @@ export const AssessmentStepTracker_CandidateFragment = graphql(/* GraphQL */ `
     }
     assessmentStatus {
       currentStep
-      stepDecisions {
+      assessmentStepStatuses {
         decision
         step
       }

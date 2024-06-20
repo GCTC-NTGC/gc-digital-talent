@@ -400,7 +400,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
       }
       assessmentStatus {
         currentStep
-        finalDecision
+        overallAssessmentStatus
       }
     }
     departments {

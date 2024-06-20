@@ -168,7 +168,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
           }
           assessmentStatus {
             currentStep
-            finalDecision
+            overallAssessmentStatus
           }
           user {
             # Personal info

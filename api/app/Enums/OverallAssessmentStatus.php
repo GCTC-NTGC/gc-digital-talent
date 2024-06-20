@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum AssessmentFinalDecision
+enum OverallAssessmentStatus
 {
     case TO_ASSESS;
     case DISQUALIFIED;

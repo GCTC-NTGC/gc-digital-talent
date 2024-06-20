@@ -57,7 +57,7 @@ const UserCandidatesTableRow_Fragment = graphql(/* GraphQL */ `
       notes
       assessmentStatus {
         currentStep
-        finalDecision
+        overallAssessmentStatus
       }
       placedDepartment {
         id

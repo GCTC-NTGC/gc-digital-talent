@@ -10,7 +10,7 @@ import {
 } from "@gc-digital-talent/fake-data";
 import {
   AssessmentDecision,
-  AssessmentFinalDecision,
+  OverallAssessmentStatus,
   AssessmentResult,
   AssessmentResultType,
   AssessmentStep,
@@ -60,8 +60,8 @@ const makeAssessmentResult = (
 export const candidateFullyQualifiedExceptMissingEducation: PoolCandidate = {
   ...fakeCandidates[0],
   assessmentStatus: {
-    stepDecisions: [],
-    finalDecision: AssessmentFinalDecision.ToAssess,
+    assessmentStepStatuses: [],
+    overallAssessmentStatus: OverallAssessmentStatus.ToAssess,
     currentStep: 1,
   },
   assessmentResults: [
@@ -76,7 +76,7 @@ export const candidateFullyQualifiedExceptMissingEducation: PoolCandidate = {
 export const candidateFullyQualified: PoolCandidate = {
   ...fakeCandidates[1],
   assessmentStatus: {
-    finalDecision: AssessmentFinalDecision.Qualified,
+    overallAssessmentStatus: OverallAssessmentStatus.Qualified,
     currentStep: null,
   },
   assessmentResults: [
@@ -97,7 +97,7 @@ export const candidateFullyQualified: PoolCandidate = {
 export const candidateQualifiedExceptHoldOnMiddleAssessment: PoolCandidate = {
   ...fakeCandidates[2],
   assessmentStatus: {
-    finalDecision: AssessmentFinalDecision.Qualified,
+    overallAssessmentStatus: OverallAssessmentStatus.Qualified,
     currentStep: null,
   },
   assessmentResults: [
@@ -124,8 +124,8 @@ export const candidateQualifiedExceptHoldOnMiddleAssessment: PoolCandidate = {
 export const candidateQualifiedExceptHoldOnFinalAssessment: PoolCandidate = {
   ...fakeCandidates[3],
   assessmentStatus: {
-    stepDecisions: [],
-    finalDecision: AssessmentFinalDecision.Qualified,
+    assessmentStepStatuses: [],
+    overallAssessmentStatus: OverallAssessmentStatus.Qualified,
     currentStep: 3,
   },
   assessmentResults: [
@@ -152,11 +152,11 @@ export const candidateQualifiedExceptHoldOnFinalAssessment: PoolCandidate = {
 export const candidateUnfinishedFinalAssessment: PoolCandidate = {
   ...fakeCandidates[4],
   assessmentStatus: {
-    stepDecisions: fakePoolAssessmentSteps.flatMap((step) => ({
+    assessmentStepStatuses: fakePoolAssessmentSteps.flatMap((step) => ({
       step: step.id,
       decision: null,
     })),
-    finalDecision: AssessmentFinalDecision.ToAssess,
+    overallAssessmentStatus: OverallAssessmentStatus.ToAssess,
     currentStep: 3,
   },
   assessmentResults: [
@@ -183,8 +183,8 @@ export const candidateUnfinishedFinalAssessment: PoolCandidate = {
 export const candidateHoldOnMiddleStepAndNoResultsOnFinalStep: PoolCandidate = {
   ...fakeCandidates[5],
   assessmentStatus: {
-    stepDecisions: [],
-    finalDecision: AssessmentFinalDecision.ToAssess,
+    assessmentStepStatuses: [],
+    overallAssessmentStatus: OverallAssessmentStatus.ToAssess,
     currentStep: 3,
   },
   assessmentResults: [
@@ -213,11 +213,11 @@ export const candidateHoldOnMiddleStepAndNoResultsOnFinalStep: PoolCandidate = {
 export const candidateOneFailingAssessment: PoolCandidate = {
   ...fakeCandidates[6],
   assessmentStatus: {
-    stepDecisions: fakePoolAssessmentSteps.flatMap((step) => ({
+    assessmentStepStatuses: fakePoolAssessmentSteps.flatMap((step) => ({
       step: step.id,
       decision: AssessmentDecision.Unsuccessful,
     })),
-    finalDecision: AssessmentFinalDecision.Disqualified,
+    overallAssessmentStatus: OverallAssessmentStatus.Disqualified,
     currentStep: 1,
   },
   assessmentResults: [

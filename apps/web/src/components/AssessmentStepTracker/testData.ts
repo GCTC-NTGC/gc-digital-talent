@@ -8,7 +8,7 @@ import {
 import {
   ArmedForcesStatus,
   AssessmentDecision,
-  AssessmentFinalDecision,
+  OverallAssessmentStatus,
   AssessmentResult,
   AssessmentResultType,
   AssessmentStepType,
@@ -55,7 +55,7 @@ export const priorityEntitlementCandidate: PoolCandidate = {
   priorityVerification: ClaimVerificationResult.Accepted,
   assessmentStatus: {
     currentStep: 2,
-    stepDecisions: [
+    assessmentStepStatuses: [
       {
         step: requiredAssessment.id,
         decision: AssessmentDecision.Successful,
@@ -78,7 +78,7 @@ export const armedForcesCandidate: PoolCandidate = {
   veteranVerification: ClaimVerificationResult.Accepted,
   assessmentStatus: {
     currentStep: 2,
-    stepDecisions: [
+    assessmentStepStatuses: [
       {
         step: requiredAssessment.id,
         decision: AssessmentDecision.Successful,
@@ -100,7 +100,7 @@ export const bookmarkedCandidate: PoolCandidate = {
   assessmentResults: [getAssessmentResult()],
   assessmentStatus: {
     currentStep: 2,
-    stepDecisions: [
+    assessmentStepStatuses: [
       {
         step: requiredAssessment.id,
         decision: AssessmentDecision.Successful,
@@ -132,7 +132,7 @@ export const unassessedCandidate: PoolCandidate = {
   ],
   assessmentStatus: {
     currentStep: 1,
-    stepDecisions: [],
+    assessmentStepStatuses: [],
   },
 };
 export const lastByFirstName: PoolCandidate = {
@@ -142,7 +142,7 @@ export const lastByFirstName: PoolCandidate = {
   assessmentResults: [getAssessmentResult()],
   assessmentStatus: {
     currentStep: 2,
-    stepDecisions: [
+    assessmentStepStatuses: [
       {
         step: requiredAssessment.id,
         decision: AssessmentDecision.Successful,
@@ -164,7 +164,7 @@ export const firstByName: PoolCandidate = {
   assessmentResults: [getAssessmentResult()],
   assessmentStatus: {
     currentStep: 2,
-    stepDecisions: [
+    assessmentStepStatuses: [
       {
         step: requiredAssessment.id,
         decision: AssessmentDecision.Successful,
@@ -185,7 +185,7 @@ export const secondLastByStatus: PoolCandidate = {
   assessmentResults: [getAssessmentResult(AssessmentDecision.Hold)],
   assessmentStatus: {
     currentStep: 1,
-    stepDecisions: [
+    assessmentStepStatuses: [
       {
         step: requiredAssessment.id,
         decision: AssessmentDecision.Hold,
@@ -207,8 +207,8 @@ export const lastByStatus: PoolCandidate = {
   assessmentResults: [getAssessmentResult(AssessmentDecision.Unsuccessful)],
   assessmentStatus: {
     currentStep: 1,
-    finalDecision: AssessmentFinalDecision.Disqualified,
-    stepDecisions: [
+    overallAssessmentStatus: OverallAssessmentStatus.Disqualified,
+    assessmentStepStatuses: [
       {
         step: requiredAssessment.id,
         decision: AssessmentDecision.Unsuccessful,

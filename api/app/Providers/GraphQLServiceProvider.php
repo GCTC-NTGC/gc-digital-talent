@@ -6,7 +6,6 @@ use App\Enums\ApplicationStep;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\AssessmentDecision;
 use App\Enums\AssessmentDecisionLevel;
-use App\Enums\AssessmentFinalDecision;
 use App\Enums\AssessmentResultJustification;
 use App\Enums\AssessmentResultType;
 use App\Enums\AssessmentStepType;
@@ -51,6 +50,7 @@ use App\Enums\Language;
 use App\Enums\LanguageAbility;
 use App\Enums\NotificationFamily;
 use App\Enums\OperationalRequirement;
+use App\Enums\OverallAssessmentStatus;
 use App\Enums\PlacementType;
 use App\Enums\PoolCandidateSearchPositionType;
 use App\Enums\PoolCandidateSearchRequestReason;
@@ -694,11 +694,11 @@ class GraphQLServiceProvider extends ServiceProvider
         );
 
         $typeRegistry->registerLazy(
-            'AssessmentFinalDecision',
+            'OverallAssessmentStatus',
             static function (): EnumType {
                 return new EnumType([
-                    'name' => 'AssessmentFinalDecision',
-                    'values' => array_column(AssessmentFinalDecision::cases(), 'name'),
+                    'name' => 'OverallAssessmentStatus',
+                    'values' => array_column(OverallAssessmentStatus::cases(), 'name'),
                 ]);
             }
         );

@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\AssessmentFinalDecision;
+use App\Enums\OverallAssessmentStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,8 +14,8 @@ return new class extends Migration
     {
         Schema::table('pool_candidates', function (Blueprint $table) {
             $table->jsonb('computed_assessment_status')->nullable()->default(json_encode([
-                'stepDecisions' => [],
-                'finalDecision' => AssessmentFinalDecision::TO_ASSESS->name,
+                'assessmentStepStatuses' => [],
+                'overallAssessmentStatus' => OverallAssessmentStatus::TO_ASSESS->name,
                 'currentStep' => 1,
             ]));
         });

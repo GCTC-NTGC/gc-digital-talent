@@ -3,8 +3,8 @@
 namespace Tests\Feature;
 
 use App\Enums\AssessmentDecision;
-use App\Enums\AssessmentFinalDecision;
 use App\Enums\AssessmentResultType;
+use App\Enums\OverallAssessmentStatus;
 use App\Enums\PoolSkillType;
 use App\Enums\SkillCategory;
 use App\Models\AssessmentResult;
@@ -46,8 +46,8 @@ class CandidateAssessmentStatusTest extends TestCase
             poolCandidate(id: $id) {
                 assessmentStatus {
                     currentStep
-                    finalDecision
-                    stepDecisions {
+                    overallAssessmentStatus
+                    assessmentStepStatuses {
                         step
                         decision
                     }
@@ -108,8 +108,8 @@ class CandidateAssessmentStatusTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'assessmentStatus' => [
-                            'stepDecisions' => [],
-                            'finalDecision' => AssessmentFinalDecision::TO_ASSESS->name,
+                            'assessmentStepStatuses' => [],
+                            'overallAssessmentStatus' => OverallAssessmentStatus::TO_ASSESS->name,
                             'currentStep' => 1,
                         ],
                     ],
@@ -136,13 +136,13 @@ class CandidateAssessmentStatusTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'assessmentStatus' => [
-                            'stepDecisions' => [
+                            'assessmentStepStatuses' => [
                                 [
                                     'step' => $stepOne->id,
                                     'decision' => AssessmentDecision::SUCCESSFUL->name,
                                 ],
                             ],
-                            'finalDecision' => AssessmentFinalDecision::TO_ASSESS->name,
+                            'overallAssessmentStatus' => OverallAssessmentStatus::TO_ASSESS->name,
                             'currentStep' => 2,
                         ],
                     ],
@@ -169,13 +169,13 @@ class CandidateAssessmentStatusTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'assessmentStatus' => [
-                            'stepDecisions' => [
+                            'assessmentStepStatuses' => [
                                 [
                                     'step' => $stepOne->id,
                                     'decision' => AssessmentDecision::HOLD->name,
                                 ],
                             ],
-                            'finalDecision' => AssessmentFinalDecision::TO_ASSESS->name,
+                            'overallAssessmentStatus' => OverallAssessmentStatus::TO_ASSESS->name,
                             'currentStep' => 2,
                         ],
                     ],
@@ -202,13 +202,13 @@ class CandidateAssessmentStatusTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'assessmentStatus' => [
-                            'stepDecisions' => [
+                            'assessmentStepStatuses' => [
                                 [
                                     'step' => $stepOne->id,
                                     'decision' => AssessmentDecision::UNSUCCESSFUL->name,
                                 ],
                             ],
-                            'finalDecision' => AssessmentFinalDecision::DISQUALIFIED->name,
+                            'overallAssessmentStatus' => OverallAssessmentStatus::DISQUALIFIED->name,
                             'currentStep' => 1,
                         ],
                     ],
@@ -243,13 +243,13 @@ class CandidateAssessmentStatusTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'assessmentStatus' => [
-                            'stepDecisions' => [
+                            'assessmentStepStatuses' => [
                                 [
                                     'step' => $stepOne->id,
                                     'decision' => AssessmentDecision::UNSUCCESSFUL->name,
                                 ],
                             ],
-                            'finalDecision' => AssessmentFinalDecision::DISQUALIFIED->name,
+                            'overallAssessmentStatus' => OverallAssessmentStatus::DISQUALIFIED->name,
                             'currentStep' => 1,
                         ],
                     ],
@@ -286,7 +286,7 @@ class CandidateAssessmentStatusTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'assessmentStatus' => [
-                            'stepDecisions' => [
+                            'assessmentStepStatuses' => [
                                 [
                                     'step' => $steps[0]->id,
                                     'decision' => AssessmentDecision::SUCCESSFUL->name,
@@ -296,7 +296,7 @@ class CandidateAssessmentStatusTest extends TestCase
                                     'decision' => AssessmentDecision::HOLD->name,
                                 ],
                             ],
-                            'finalDecision' => AssessmentFinalDecision::TO_ASSESS->name,
+                            'overallAssessmentStatus' => OverallAssessmentStatus::TO_ASSESS->name,
                             'currentStep' => 2,
                         ],
                     ],
@@ -332,7 +332,7 @@ class CandidateAssessmentStatusTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'assessmentStatus' => [
-                            'stepDecisions' => [
+                            'assessmentStepStatuses' => [
                                 [
                                     'step' => $steps[0]->id,
                                     'decision' => AssessmentDecision::SUCCESSFUL->name,
@@ -342,7 +342,7 @@ class CandidateAssessmentStatusTest extends TestCase
                                     'decision' => AssessmentDecision::SUCCESSFUL->name,
                                 ],
                             ],
-                            'finalDecision' => AssessmentFinalDecision::QUALIFIED->name,
+                            'overallAssessmentStatus' => OverallAssessmentStatus::QUALIFIED->name,
                             'currentStep' => null,
                         ],
                     ],
@@ -370,8 +370,8 @@ class CandidateAssessmentStatusTest extends TestCase
                     'poolCandidate' => [
                         'assessmentStatus' => [
                             'currentStep' => 1,
-                            'finalDecision' => AssessmentFinalDecision::DISQUALIFIED->name,
-                            'stepDecisions' => [
+                            'overallAssessmentStatus' => OverallAssessmentStatus::DISQUALIFIED->name,
+                            'assessmentStepStatuses' => [
                                 [
                                     'step' => $steps[0]->id,
                                     'decision' => AssessmentDecision::UNSUCCESSFUL->name,

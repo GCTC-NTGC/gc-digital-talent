@@ -3,13 +3,13 @@
 namespace App\Models;
 
 use App\Enums\AssessmentDecision;
-use App\Enums\AssessmentFinalDecision;
 use App\Enums\AssessmentResultType;
 use App\Enums\AssessmentStepType;
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
 use App\Enums\ClaimVerificationResult;
+use App\Enums\OverallAssessmentStatus;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolSkillType;
 use App\Enums\PriorityWeight;
@@ -1037,12 +1037,12 @@ class PoolCandidate extends Model
         }
 
         $totalSteps = $this->pool->assessmentSteps->count();
-        $finalDecision = AssessmentFinalDecision::TO_ASSESS->name;
+        $overallAssessmentStatus = OverallAssessmentStatus::TO_ASSESS->name;
 
         if ($currentStep > $totalSteps) {
             $lastStepDecision = end($decisions);
             if ($lastStepDecision['decision'] !== AssessmentDecision::HOLD->name) {
-                $finalDecision = AssessmentFinalDecision::QUALIFIED->name;
+                $overallAssessmentStatus = OverallAssessmentStatus::QUALIFIED->name;
                 $currentStep = null;
             }
         } else {
@@ -1050,7 +1050,7 @@ class PoolCandidate extends Model
                 return $stepDecision['decision'] === AssessmentDecision::UNSUCCESSFUL->name;
             });
             if (! empty($unsuccessfulDecisions)) {
-                $finalDecision = AssessmentFinalDecision::DISQUALIFIED->name;
+                $overallAssessmentStatus = OverallAssessmentStatus::DISQUALIFIED->name;
             }
         }
 
@@ -1062,8 +1062,8 @@ class PoolCandidate extends Model
 
         return [
             'currentStep' => $currentStep,
-            'finalDecision' => $finalDecision,
-            'stepDecisions' => $decisions,
+            'overallAssessmentStatus' => $overallAssessmentStatus,
+            'assessmentStepStatuses' => $decisions,
         ];
     }
 }

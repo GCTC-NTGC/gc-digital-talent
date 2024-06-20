@@ -200,9 +200,10 @@ export const groupPoolCandidatesByStep = (
             : true; // Null step indicates user passed all steps
         })
         .map((candidate) => {
-          const stepDecision = candidate.assessmentStatus?.stepDecisions?.find(
-            (decision) => decision?.step === step.id,
-          );
+          const stepDecision =
+            candidate.assessmentStatus?.assessmentStepStatuses?.find(
+              (decision) => decision?.step === step.id,
+            );
 
           return {
             poolCandidate: candidate,

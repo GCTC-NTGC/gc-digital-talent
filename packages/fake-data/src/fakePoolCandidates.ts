@@ -10,7 +10,7 @@ import {
   Pool,
   User,
   EducationRequirementOption,
-  AssessmentFinalDecision,
+  OverallAssessmentStatus,
 } from "@gc-digital-talent/graphql";
 
 import fakeExperiences from "./fakeExperiences";
@@ -58,8 +58,8 @@ const generatePoolCandidate = (pools: Pool[], users: User[]): PoolCandidate => {
     generalQuestionResponses,
     screeningQuestionResponses,
     assessmentStatus: {
-      stepDecisions: [],
-      finalDecision: AssessmentFinalDecision.ToAssess,
+      assessmentStepStatuses: [],
+      overallAssessmentStatus: OverallAssessmentStatus.ToAssess,
       currentStep: 1,
     },
     finalDecisionAt: faker.date
