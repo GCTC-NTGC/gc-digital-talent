@@ -173,7 +173,7 @@ export function transformPoolInput({
     return undefined;
   }
 
-  const filtersWithCanAdmin: PoolFilterInput = { ...filters, canAdmin: true }; // activate scopeCanAdmin
+  const filtersWithCanAdmin: PoolFilterInput = { ...filters, canAdmin: true }; // activate scopeAuthorizedToViewAsAdmin
 
   return {
     ...filtersWithCanAdmin,

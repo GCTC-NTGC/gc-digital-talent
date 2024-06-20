@@ -524,7 +524,7 @@ class Pool extends Model
     /**
      * Filter for pools the user is allowed to view admin information for, based around assessment plan permissions
      */
-    public static function scopeCanAdmin(Builder $query, ?bool $canAdmin): Builder
+    public static function scopeAuthorizedToViewAsAdmin(Builder $query, ?bool $canAdmin): Builder
     {
         if (empty($canAdmin)) {
             return $query;

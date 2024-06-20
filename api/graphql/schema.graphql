@@ -707,7 +707,7 @@ input PoolFilterInput {
   processNumber: String @scope
   publishingGroups: [PublishingGroup!] @scope
   classifications: [ClassificationFilterInput!] @scope
-  canAdmin: Boolean @scope
+  canAdmin: Boolean @scope(name: "authorizedToViewAsAdmin")
 }
 
 input PoolTeamDisplayNameOrderByInput {
