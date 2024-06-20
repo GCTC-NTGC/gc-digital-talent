@@ -7,9 +7,7 @@ use Nuwave\Lighthouse\Validation\Validator;
 
 final class RolesInputValidator extends Validator
 {
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * Return the validation rules.

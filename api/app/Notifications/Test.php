@@ -17,8 +17,7 @@ class Test extends Notification implements CanBeSentViaGcNotifyEmail
     public function __construct(
         public string $name,
         public string $channel
-    ) {
-    }
+    ) {}
 
     /**
      * Get the notification's delivery channels.
