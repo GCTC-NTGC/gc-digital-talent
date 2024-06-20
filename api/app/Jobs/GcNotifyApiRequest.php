@@ -47,8 +47,7 @@ class GcNotifyApiRequest implements ShouldQueue
      */
     public function __construct(
         public GcNotifyEmailMessage $message
-    ) {
-    }
+    ) {}
 
     /**
      * Execute the job.

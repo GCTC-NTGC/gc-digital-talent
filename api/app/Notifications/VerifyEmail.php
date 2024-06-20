@@ -18,9 +18,7 @@ class VerifyEmail extends Notification implements CanBeSentViaGcNotifyEmail
     /**
      * Create a new notification instance.
      */
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * Get the notification's delivery channels.

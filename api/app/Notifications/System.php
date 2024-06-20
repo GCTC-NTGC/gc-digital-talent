@@ -25,8 +25,7 @@ class System extends Notification implements CanBeSentViaGcNotifyEmail
         public string $inAppMessageFr,
         public string $inAppHrefEn,
         public string $inAppHrefFr,
-    ) {
-    }
+    ) {}
 
     /**
      * Get the notification's delivery channels.
