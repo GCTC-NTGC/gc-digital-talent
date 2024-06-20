@@ -23,8 +23,7 @@ class ApplicationDeadlineApproaching extends Notification implements CanBeSentVi
         public string $poolNameFr,
         public string $poolId,
         public string $poolCandidateId,
-    ) {
-    }
+    ) {}
 
     /**
      * Get the notification's delivery channels.
