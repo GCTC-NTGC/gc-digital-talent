@@ -19,8 +19,7 @@ class ApplicationStatusChanged extends Notification implements CanBeSentViaGcNot
     public function __construct(
         public string $poolNameEn,
         public string $poolNameFr,
-    ) {
-    }
+    ) {}
 
     /**
      * Get the notification's delivery channels.

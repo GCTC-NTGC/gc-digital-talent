@@ -12,7 +12,5 @@ class GcNotifyEmailMessage
     public function __construct(
         public string $templateId,
         public string $emailAddress,
-        public array $messageVariables)
-    {
-    }
+        public array $messageVariables) {}
 }
