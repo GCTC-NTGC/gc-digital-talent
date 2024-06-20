@@ -157,6 +157,7 @@ const NotificationItem = ({
           data-h2-grid-template-columns="base(x.5 1fr)"
           data-h2-grid-template-rows="base(auto auto)"
           data-h2-gap="base(x.25)"
+          data-h2-width="base(100%)"
         >
           <div
             data-h2-font-size="base(copy)"
@@ -181,6 +182,8 @@ const NotificationItem = ({
             data-h2-display="base(flex)"
             data-h2-align-items="base(flex-start)"
             data-h2-gap="base(x.25)"
+            data-h2-justify-content="base(space-between)"
+            data-h2-width="base(100%)"
           >
             <LinkWrapper inDialog={inDialog}>
               <BaseLink

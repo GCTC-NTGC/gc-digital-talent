@@ -27,7 +27,7 @@ import CardRepeater, {
 import Chip, { type ChipProps } from "./components/Chip/Chip";
 import Chips from "./components/Chip/Chips";
 import Collapsible from "./components/Collapsible";
-import DefinitionList from "./components/DefinitionList/DefinitionList";
+import DescriptionList from "./components/DescriptionList/DescriptionList";
 import Dialog from "./components/Dialog";
 import DropdownMenu from "./components/DropdownMenu";
 import Flourish from "./components/Flourish";
@@ -140,7 +140,7 @@ export {
   Chip,
   Collapsible,
   Counter,
-  DefinitionList,
+  DescriptionList,
   Dialog,
   /* Re-exporting primitive for custom solutions */
   DialogPrimitive,
