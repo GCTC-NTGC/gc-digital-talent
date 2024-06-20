@@ -39,6 +39,7 @@ import {
 import adminMessages from "~/messages/adminMessages";
 import processMessages from "~/messages/processMessages";
 import { groupPoolSkillByType, poolSkillsToSkills } from "~/utils/skillUtils";
+import { getPriorityWeight } from "~/utils/poolCandidate";
 
 import { getLabels } from "../Profile/components/LanguageProfile/utils";
 
@@ -53,6 +54,7 @@ export const getPoolCandidateCsvData = (
       submittedAt,
       archivedAt,
       expiryDate,
+      suspendedAt,
       educationRequirementOption,
       educationRequirementExperiences,
       generalQuestionResponses,
@@ -67,8 +69,23 @@ export const getPoolCandidateCsvData = (
           ? intl.formatMessage(getPoolCandidateStatus(status as string))
           : "",
         priority: user.priorityWeight
-          ? intl.formatMessage(getPoolCandidatePriorities(user.priorityWeight))
+          ? intl.formatMessage(
+              getPoolCandidatePriorities(
+                getPriorityWeight(user.priorityWeight),
+              ),
+            )
           : "",
+        availability: suspendedAt
+          ? intl.formatMessage({
+              defaultMessage: "Inactive",
+              id: "u5UAJn",
+              description: "Status message if the application is suspended",
+            })
+          : intl.formatMessage({
+              defaultMessage: "Active",
+              id: "4L9rHO",
+              description: "Status message if the application is not suspended",
+            }),
         notes: sanitizeCSVString(notes),
         dateReceived: submittedAt || "",
         expiryDate: expiryDate || "",
