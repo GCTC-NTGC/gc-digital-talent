@@ -787,6 +787,7 @@ input PoolFilterInput {
   processNumber: String
   publishingGroups: [PublishingGroup!]
   classifications: [ClassificationFilterInput!]
+  canAdmin: Boolean
 }
 
 input PoolTeamDisplayNameOrderByInput {
