@@ -320,4 +320,24 @@ class PoolFactory extends Factory
             return $pool;
         });
     }
+
+    /**
+     * Attach the users to the related pool.
+     * Creates a new user if no userIds passed in.
+     *
+     * @param  array|null  $userIds  - Id of the users to attach the role to
+     * @return void
+     */
+    public function withProcessOperators(?array $userIds = null)
+    {
+        return $this->afterCreating(function (Pool $pool) use ($userIds) {
+            if (is_null($userIds) || count($userIds) === 0) {
+                $pool->addProcessOperators(User::factory()->create()->id);
+            } else {
+                foreach ($userIds as $userId) {
+                    $pool->addProcessOperators($userId);
+                }
+            }
+        });
+    }
 }

@@ -344,6 +344,15 @@ type ApplicationStatusChangedNotification implements Notification {
   poolName: LocalizedString
 }
 
+type SystemNotification implements Notification {
+  id: ID!
+  readAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  message: LocalizedString
+  href: LocalizedString
+}
+
 type UserPublicProfile {
   id: ID!
   email: Email
@@ -365,7 +374,11 @@ type ScreeningQuestion {
   sortOrder: Int
 }
 
-type Pool {
+interface HasRoleAssignments {
+  roleAssignments: [RoleAssignment!]
+}
+
+type Pool implements HasRoleAssignments {
   id: ID!
   owner: UserPublicProfile
   team: Team
@@ -401,6 +414,7 @@ type Pool {
   assessmentPlanIsComplete: Boolean
   assessmentSteps: [AssessmentStep]
   poolSkills(type: PoolSkillType): [PoolSkill]
+  roleAssignments: [RoleAssignment!]
 }
 
 type GeneralQuestionResponse {
@@ -522,14 +536,15 @@ type Department {
   teams: [Team]
 }
 
-type Community {
+type Community implements HasRoleAssignments {
   id: ID!
   key: String!
   name: LocalizedString
   description: LocalizedString
+  roleAssignments: [RoleAssignment!]
 }
 
-type Team {
+type Team implements HasRoleAssignments {
   id: ID!
   name: String!
   displayName: LocalizedString
@@ -537,6 +552,7 @@ type Team {
   departments: [Department]
   contactEmail: Email
   pools: [Pool]
+  teamable: HasRoleAssignments
   roleAssignments: [RoleAssignment!]
 }
 
@@ -552,6 +568,7 @@ type Role {
 type RoleAssignment {
   id: ID!
   role: Role
+  teamable: HasRoleAssignments
   team: Team
   user: UserPublicProfile
 }

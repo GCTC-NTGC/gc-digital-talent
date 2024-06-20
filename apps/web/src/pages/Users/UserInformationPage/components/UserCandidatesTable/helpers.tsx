@@ -27,6 +27,7 @@ import tableMessages from "~/components/PoolCandidatesTable/tableMessages";
 import useRoutes from "~/hooks/useRoutes";
 import {
   getCandidateStatusChip,
+  getPriorityWeight,
   statusToJobPlacement,
 } from "~/utils/poolCandidate";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
@@ -81,12 +82,18 @@ export const priorityCell = (
         data-h2-color="base(primary.darker)"
         data-h2-font-weight="base(700)"
       >
-        {intl.formatMessage(getPoolCandidatePriorities(priority))}
+        {intl.formatMessage(
+          getPoolCandidatePriorities(getPriorityWeight(priority)),
+        )}
       </span>
     );
   }
   return (
-    <span>{intl.formatMessage(getPoolCandidatePriorities(priority))}</span>
+    <span>
+      {intl.formatMessage(
+        getPoolCandidatePriorities(getPriorityWeight(priority)),
+      )}
+    </span>
   );
 };
 

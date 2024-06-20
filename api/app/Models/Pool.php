@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -167,9 +169,21 @@ class Pool extends Model
         return $this->belongsToMany(User::class, 'pool_user_bookmarks', 'pool_id', 'user_id')->withTimestamps();
     }
 
-    public function team(): BelongsTo
+    public function legacyTeam(): BelongsTo
     {
-        return $this->belongsTo(Team::class);
+        return $this->belongsTo(Team::class, 'team_id');
+    }
+
+    public function team(): MorphOne
+    {
+        return $this->morphOne(Team::class, 'teamable');
+    }
+
+    public function roleAssignments(): HasManyThrough
+    {
+        // I think this only works because we use UUIDs
+        // There might be a better way to do this
+        return $this->hasManyThrough(RoleAssignment::class, Team::class, 'teamable_id');
     }
 
     public function classification(): BelongsTo
@@ -211,6 +225,29 @@ class Pool extends Model
     public function assessmentSteps(): HasMany
     {
         return $this->hasMany(AssessmentStep::class);
+    }
+
+    /**
+     * Attach the users to the related team creating one if there isn't already
+     *
+     * @param  string|array  $userId  - Id of the user or users to attach the role to
+     * @return void
+     */
+    public function addProcessOperators(string|array $userId)
+    {
+        $team = $this->team()->firstOrCreate([], [
+            'name' => 'pool-'.$this->id,
+        ]);
+
+        if (is_array($userId)) {
+            foreach ($userId as $singleUserId) {
+                $user = User::find($singleUserId);
+                $user->addRole('process_operator', $team->name);
+            }
+        } else {
+            $user = User::find($userId);
+            $user->addRole('process_operator', $team->name);
+        }
     }
 
     /**
@@ -372,7 +409,7 @@ class Pool extends Model
     public static function scopeTeam(Builder $query, ?string $team): Builder
     {
         if ($team) {
-            $query->whereHas('team', function ($query) use ($team) {
+            $query->whereHas('legacyTeam', function ($query) use ($team) {
                 Team::scopeDisplayName($query, $team);
             });
         }
@@ -496,7 +533,7 @@ class Pool extends Model
         extract($args);
 
         if ($order && $locale) {
-            $query = $query->withMax('team', 'display_name->'.$locale)->orderBy('team_max_display_name'.$locale, $order);
+            $query = $query->withMax('legacyTeam', 'display_name->'.$locale)->orderBy('legacy_team_max_display_name'.$locale, $order);
         }
 
         return $query;
@@ -537,7 +574,7 @@ class Pool extends Model
             $query->where(function (Builder $query) use ($user) {
 
                 if ($user->isAbleTo('view-team-draftPool')) {
-                    // Only add teams the user can view pools in to the query for `whereHAs`
+                    // Only add teams the user can view pools in to the query for `whereHas`
                     $teams = $user->rolesTeams()->get();
                     $teamIds = [];
                     foreach ($teams as $team) {
@@ -546,7 +583,7 @@ class Pool extends Model
                         }
                     }
 
-                    $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
+                    $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
                         return $query->whereIn('id', $teamIds);
                     });
                 }

@@ -176,6 +176,16 @@ type ApplicationStatusChangedNotification implements Notification {
   poolName: LocalizedString
 }
 
+type SystemNotification implements Notification {
+  id: ID!
+  readAt: DateTime @rename(attribute: "read_at")
+  createdAt: DateTime! @rename(attribute: "created_at")
+  updatedAt: DateTime! @rename(attribute: "updated_at")
+
+  message: LocalizedString
+  href: LocalizedString
+}
+
 type UserPublicProfile @model(class: "\\App\\Models\\User") {
   id: ID!
   email: Email
@@ -198,10 +208,14 @@ type ScreeningQuestion {
   sortOrder: Int @rename(attribute: "sort_order")
 }
 
-type Pool {
+interface HasRoleAssignments {
+  roleAssignments: [RoleAssignment!]
+}
+
+type Pool implements HasRoleAssignments {
   id: ID!
   owner: UserPublicProfile @belongsTo(relation: "user")
-  team: Team @belongsTo @canModel(ability: "viewAny")
+  team: Team @belongsTo(relation: "legacyTeam") @canModel(ability: "viewAny")
   name: LocalizedString
   classification: Classification @belongsTo
   operationalRequirements: [OperationalRequirement]
@@ -247,6 +261,9 @@ type Pool {
     @hasMany
     @canRoot(ability: "viewAssessmentPlan")
   poolSkills(type: PoolSkillType @where): [PoolSkill] @hasMany
+  roleAssignments: [RoleAssignment!]
+    @hasManyThrough
+    @canRoot(ability: "viewTeamMembers")
 }
 
 type GeneralQuestionResponse {
@@ -409,14 +426,17 @@ type Department {
   teams: [Team] @belongsToMany @canModel(ability: "viewAny")
 }
 
-type Community {
+type Community implements HasRoleAssignments {
   id: ID!
   key: String!
   name: LocalizedString
   description: LocalizedString
+  roleAssignments: [RoleAssignment!]
+    @hasManyThrough
+    @canRoot(ability: "viewTeamMembers")
 }
 
-type Team {
+type Team implements HasRoleAssignments {
   id: ID!
   name: String! # represents a unique key for a team
   displayName: LocalizedString @rename(attribute: "display_name")
@@ -424,6 +444,7 @@ type Team {
   departments: [Department] @belongsToMany
   contactEmail: Email @rename(attribute: "contact_email")
   pools: [Pool] @hasMany @canResolved(ability: "view")
+  teamable: HasRoleAssignments @morphTo @canRoot(ability: "viewTeamable")
   roleAssignments: [RoleAssignment!]
     @hasMany
     @canRoot(ability: "viewTeamMembers")
@@ -444,6 +465,7 @@ type Role {
 type RoleAssignment {
   id: ID!
   role: Role @belongsTo
+  teamable: HasRoleAssignments # Returns the related team, if it has a teamable returns that instead
   team: Team @belongsTo
   user: UserPublicProfile @morphTo
 }

@@ -1,4 +1,4 @@
-.PHONY: up down setup clean-modules refresh refresh-frontend refresh-api seed-fresh migrate artisan
+.PHONY: up down setup clean-modules refresh refresh-frontend refresh-api seed-fresh migrate artisan queue-work
 
 DOCKER_RUN=docker-compose run --rm maintenance bash
 DOCKER_EXEC=docker-compose exec -w /home/site/wwwroot/api webserver sh -c
@@ -44,3 +44,6 @@ lint:
 
 lint-php:
 	$(DOCKER_EXEC) "vendor/bin/pint --test"
+
+queue-work:
+	$(DOCKER_EXEC) "runuser -u www-data -- php /home/site/wwwroot/api/artisan queue:work"

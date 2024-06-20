@@ -32,6 +32,22 @@ class RoleAssignment extends Model
         return $this->belongsTo(Team::class);
     }
 
+    /* Return the related team, if it has a teamable return that instead */
+    public function getTeamableAttribute()
+    {
+        $this->loadMissing('team', 'team.teamable');
+
+        if (is_null($this->team)) {
+            return null;
+        }
+
+        if (is_null($this->team->teamable)) {
+            return $this->team;
+        }
+
+        return $this->team->teamable;
+    }
+
     public function user(): MorphTo
     {
         return $this->morphTo('user')->select([
