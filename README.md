@@ -7,7 +7,7 @@ The GC Digital Talent app is divided into multiple services, each treated as its
 - [`/api`](/api/README.md), API service
 - `/apps`, frontend applications
 - `/packages`, npm packages used within `/apps`
-- `/apps/e2e`, e2e testing with Playwright
+- `/apps/playwright`, e2e testing with Playwright
 - [`/tc-report`](/tc-report/README.md), static content, mostly the Talent Cloud report, generated with Jekyll
 - [`/infrastructure`](/infrastructure/README.md), support files for the docker infrastructure to run the project
   - includes a mock OAuth server (only used for local development environments)
