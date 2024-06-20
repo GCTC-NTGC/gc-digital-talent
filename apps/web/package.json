@@ -92,7 +92,7 @@
     "babel-plugin-formatjs": "^10.5.16",
     "core-js": "^3.37.1",
     "dotenv": "^16.4.5",
-    "eslint": "^8.57.0",
+    "eslint": "^9.5.0",
     "hydrogen-webpack-plugin": "workspace:*",
     "jest": "^29.7.0",
     "jest-axe": "^9.0.0",
