@@ -154,6 +154,6 @@ server {
     # for all other uris, serve SPA index with no caching
     location / {
         add_header Cache-Control "no-cache, max-age=0"; # no-caching - can cause chunk-not-found on rebuild
-        try_files /apps/web/dist/index.html =404;
+        try_files /home/site/index.html =404;
     }
 }
