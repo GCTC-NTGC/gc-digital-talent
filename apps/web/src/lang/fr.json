@@ -1,4 +1,8 @@
 {
+  "++a1ZY": {
+    "defaultMessage": "Il n’est pas nécessaire d’avoir atteint le niveau de compétences en langue seconde avant de poser sa candidature à un poste bilingue. On vous demandera de passer un test dans le cadre de la procédure d’embauche.",
+    "description": "Description for bilingual positions in language requirements dialog"
+  },
   "+2PPS3": {
     "defaultMessage": "Statut de priorité",
     "description": "Title for priority status"
@@ -18,6 +22,10 @@
   "+7v9Dq": {
     "defaultMessage": "Sauvegarder et ajouter un autre",
     "description": "Text for save button and add another button on experience form."
+  },
+  "+7yxK0": {
+    "defaultMessage": "Exigences linguistiques et compétences en langue seconde",
+    "description": "Heading for the pool language requirements dialog"
   },
   "+AUFyC": {
     "defaultMessage": "Apprentissage personnel",
@@ -58,6 +66,10 @@
   "+K/smr": {
     "defaultMessage": "Compétence",
     "description": "Label for the skill select field"
+  },
+  "+MCd8X": {
+    "defaultMessage": "La Commission de la fonction publique (CFP) est responsable de l’ensemble des évaluations en langue seconde pour les offres d’emploi du gouvernement du Canada. Vous pouvez en savoir plus sur ce sujet sur le site Web de la CFP",
+    "description": "PSC second language evaluations list for language requirements dialog"
   },
   "+O6J4u": {
     "defaultMessage": "(Aucun sélectionné)",
@@ -119,6 +131,10 @@
     "defaultMessage": "Modifier ces renseignements<hidden> pour {title}</hidden>",
     "description": "Text label for button to edit employment equity category in profile."
   },
+  "+fSWpK": {
+    "defaultMessage": "Dans la pratique, la plupart des postes bilingues sont soit de niveau intermédiaire (BBB), soit avancé (CBC).",
+    "description": "Description for second language proficiency on language requirement dialog"
+  },
   "+hRCVl": {
     "defaultMessage": "Sélectionnez une catégorie",
     "description": "Placeholder displayed on the skill family form category field."
@@ -142,6 +158,10 @@
   "+mCsoW": {
     "defaultMessage": "Demande d’état mise à jour!",
     "description": "Message displayed to user after the request status is successfully updated."
+  },
+  "+o1lWq": {
+    "defaultMessage": "Ce poste requiert de pouvoir travailler en français. Il incombe au gestionnaire de l’embauche de déterminer si vous répondez à cette exigence linguistique.",
+    "description": "French essential language requirement description"
   },
   "+rZvoD": {
     "defaultMessage": "1. Sélectionnez l’option d’<strong>inscription</strong> à partir de la page d’accueil. Elle <strong>se trouve après la section d’ouverture de séance</strong>.",
@@ -663,6 +683,10 @@
     "defaultMessage": "Créer<hidden> le ministère</hidden>",
     "description": "Breadcrumb title for the create department page link."
   },
+  "1XsXrt": {
+    "defaultMessage": "Lecture (ou compréhension écrite))",
+    "description": "Proficiency level related skill on language requirements dialog"
+  },
   "1ZQP80": {
     "defaultMessage": "« Je déclare que les renseignements fournis sont exacts »",
     "description": "Truth list item for sign and submit section of application review page."
@@ -838,6 +862,10 @@
   "2f1kN5": {
     "defaultMessage": "Aidez les gestionnaires à comprendre vos occasions potentielles d’apprentissage de compétences techniques.",
     "description": "Page description for the improve technical skills page"
+  },
+  "2hc9V9": {
+    "defaultMessage": "Expression orale (ou compétence orale))",
+    "description": "Proficiency level related skill on language requirements dialog"
   },
   "2iCpAL": {
     "defaultMessage": "Énoncé sur l’accessibilité",
@@ -1286,6 +1314,14 @@
   "52MYM4": {
     "defaultMessage": "Sélectionnez toutes les autres exigences qui s’appliquent.",
     "description": "Label for _other requirements_ fieldset in the _digital services contracting questionnaire_"
+  },
+  "53MCSe": {
+    "defaultMessage": "Si vous posez votre candidature à un poste bilingue, vous devez réussir les tests linguistiques avant l’embauche. Si le poste est bilingue, le gestionnaire ne peut pas embaucher une personne qui ne possède pas les compétences requises de la langue seconde, quelles que soient les autres qualifications de la personne candidate ou son rendement au concours. Si un emploi bilingue vous intéresse, mais que vous n’êtes pas bilingue, nous vous encourageons vivement à poser votre candidature à d’autres offres d’emploi sur la plateforme correspondant à vos compétences linguistiques.",
+    "description": "Description for bilingual positions in language requirements dialog"
+  },
+  "53zIgk": {
+    "defaultMessage": "Profil sans les coordonnées",
+    "description": "Document title for anonymous profile"
   },
   "55Me4a": {
     "defaultMessage": "Titre (Français)",
@@ -1738,6 +1774,10 @@
   "7rSh+m": {
     "defaultMessage": "Signer et continuer",
     "description": "Button text to submit the Indigenous self-declaration form."
+  },
+  "7tAIPo": {
+    "defaultMessage": "Notifications marquées comme lues avec succès.",
+    "description": "Message announced to assistive technology when notifications marked as read"
   },
   "7tdU/G": {
     "defaultMessage": "Erreur : échec de votre suppression des résultats de recherche.",
@@ -2246,6 +2286,10 @@
   "AinG8I": {
     "defaultMessage": "Sélectionnez « oui » si l’un des éléments ci-dessus s’applique.",
     "description": "Label for _is technological change_ field in the _digital services contracting questionnaire_"
+  },
+  "AjVbZs": {
+    "defaultMessage": "Bilingue avancé (CBC)",
+    "description": "Bilingual advanced language requirement"
   },
   "AlRcyu": {
     "defaultMessage": "Gestion de portefeuilles de projets de la <abbreviation>TI</abbreviation>",
@@ -2803,6 +2847,10 @@
     "defaultMessage": "Erreur : l’étape de la sauvegarde de l’évaluation a échoué.",
     "description": "Message displayed to user after assessment step fails to be saved."
   },
+  "DoZebI": {
+    "defaultMessage": "\"B\" indique un niveau intermédiaire.",
+    "description": "Proficiency level on language requirements dialog"
+  },
   "DqM+mu": {
     "defaultMessage": "Erreur : Le désarchivage du processus a échoué",
     "description": "Message displayed to user after pool fails to get un-archived."
@@ -2938,6 +2986,10 @@
   "EVkmeA": {
     "defaultMessage": "Modifier les principales compétences comportementales",
     "description": "Link text for editing a users top behavioural skills"
+  },
+  "EWq+u3": {
+    "defaultMessage": "Évaluation des langues officielles dans le processus de nomination",
+    "description": "Link to second language evaluations PSC info page on language requirements dialog"
   },
   "EWvBgF": {
     "defaultMessage": "Questions générales {index}",
@@ -3415,6 +3467,10 @@
     "defaultMessage": "Vous êtes un cadre supérieur de la collectivité du numérique du GC et vous êtes à la recherche de talents, contactez notre équipe afin d’obtenir des recommandations, une liste de candidats préqualifiés ainsi que leurs profils.",
     "description": "Description for the digital government executive talent search"
   },
+  "H0h1Vn": {
+    "defaultMessage": "Anglais essentiel",
+    "description": "English essential language requirement"
+  },
   "H1wLfA": {
     "defaultMessage": "Sélectionnez une province ou un territoire",
     "description": "Placeholder displayed on the About Me form province or territory field."
@@ -3458,6 +3514,10 @@
   "HHtv+9": {
     "defaultMessage": "Postuler à des emplois de gestionnaire",
     "description": "Title for the feature about finding manager jobs"
+  },
+  "HJTr0Q": {
+    "defaultMessage": "Les compétences en langue seconde sont également déterminées pour les compétences connexes",
+    "description": "Second language proficiency related skills list for language requirements dialog"
   },
   "HMm2S4": {
     "defaultMessage": "1 million de dollars à 2,5 millions de dollars",
@@ -3666,6 +3726,10 @@
   "Ilot3b": {
     "defaultMessage": "Que se passe-t-il après lorsqu’une personne achève le programme de 24 mois?",
     "description": "Learn more dialog question three heading"
+  },
+  "IlvS9l": {
+    "defaultMessage": "Ce poste requiert de pouvoir travailler en anglais. Il incombe au gestionnaire de l’embauche de déterminer si vous répondez à cette exigence linguistique.",
+    "description": "English essential language requirement description"
   },
   "ImTMRk": {
     "defaultMessage": "Mettez à jour et passez en revue vos renseignements personnels, vos coordonnées et vos préférences.",
@@ -4363,6 +4427,10 @@
     "defaultMessage": "Modifier votre parcours professionnel",
     "description": "Edit link text for career timeline section of the application review page."
   },
+  "MgK9E0": {
+    "defaultMessage": "Divers",
+    "description": "Various language requirement"
+  },
   "MgLLHd": {
     "defaultMessage": "Demande élevée",
     "description": "Talent portal strategy item 1 heading"
@@ -4370,6 +4438,10 @@
   "Mi+AuD": {
     "defaultMessage": "Processus",
     "description": "Title for the index pool page"
+  },
+  "MmTWYV": {
+    "defaultMessage": "Exigences linguistiques pour les personnes candidates",
+    "description": "Link to second language evaluations PSC info page on language requirements dialog"
   },
   "MotQKq": {
     "defaultMessage": "Tâches de travail (français)",
@@ -4811,6 +4883,10 @@
     "defaultMessage": "Évaluées ultérieurement",
     "description": "Message displayed for behavioural skills telling users at what point it will be assessed"
   },
+  "POj+1M": {
+    "defaultMessage": "Normes de qualification en matière de langues officielles",
+    "description": "Link to second language evaluations PSC info page on language requirements dialog"
+  },
   "POvUB0": {
     "defaultMessage": "En plus du soutien prévu dans la directive elle-même, consultez les orientations sur la mise en place d’un soutien en ressources humaines pour les talents numériques.",
     "description": "Lead-in text for the directive guidance document"
@@ -5196,7 +5272,7 @@
     "description": "IT-03 classification label including titles"
   },
   "RHwGy2": {
-    "defaultMessage": "Erreur: la publication du processus a échoué",
+    "defaultMessage": "Erreur : la publication du processus a échoué",
     "description": "Message displayed to user after pool fails to get publish."
   },
   "RIi/3q": {
@@ -5462,10 +5538,6 @@
   "SoKPAb": {
     "defaultMessage": "Date d'expiration du candidat",
     "description": "Label displayed on the pool candidate application form expiry date field."
-  },
-  "Swde4t": {
-    "defaultMessage": "En apprendre davantage sur les tests de langue",
-    "description": "Link text for language testing information"
   },
   "Swq+OD": {
     "defaultMessage": "Toute durée",
@@ -6138,6 +6210,10 @@
     "defaultMessage": "Approvisionnement",
     "description": "Label for _procurement_ option in _authorities involved_ fieldset in the _digital services contracting questionnaire_"
   },
+  "WhHVMt": {
+    "defaultMessage": "Se renseigner sur le fonctionnement des exigences linguistiques.",
+    "description": "Info button label for pool language requirements details."
+  },
   "WhQFXx": {
     "defaultMessage": "Combien d’évaluations devrais-je inclure?",
     "description": "first question in the organize section in the assessment plan builder"
@@ -6229,6 +6305,10 @@
   "X28mdy": {
     "defaultMessage": "Cote de fiabilité approfondie",
     "description": "Enhanced reliability screening level"
+  },
+  "X3PC+9": {
+    "defaultMessage": "Ce poste exige le bilinguisme et une évaluation en langue seconde. On approfondit ces sujets dans la section suivante sur les postes bilingues.",
+    "description": "Bilingual advanced language requirement description"
   },
   "X3bPom": {
     "defaultMessage": "Octroi de contrat pour des services numériques",
@@ -6354,6 +6434,10 @@
     "defaultMessage": "Répondre à la forte demande de talents autochtones en TI.",
     "description": "Talent portal strategy item 1 content"
   },
+  "XhiQW6": {
+    "defaultMessage": "Ce poste exige le bilinguisme et une évaluation en langue seconde. On approfondit ces sujets dans la section suivante sur les postes bilingues.",
+    "description": "Bilingual intermediate language requirement description"
+  },
   "Xhq/96": {
     "defaultMessage": "11 à 30",
     "description": "Contract FTE range between eleven and thirty"
@@ -6446,6 +6530,10 @@
     "defaultMessage": "Visitez votre démonstration",
     "description": "Link text to the skill showcase page."
   },
+  "Y555u5": {
+    "defaultMessage": "Bilingue intermédiaire (BBB)",
+    "description": "Bilingual intermediate language requirement"
+  },
   "Y5Z216": {
     "defaultMessage": "d’indiquer le titre complet du contenu reproduit, ainsi que son auteur (s’il y a lieu)",
     "description": "Non commercial reproduction list item"
@@ -6525,6 +6613,10 @@
   "YVuyjO": {
     "defaultMessage": "<strong>Cheminement en gestion</strong> : les gestionnaires de la <abbreviation>TI</abbreviation> (<abbreviation>IT-04</abbreviation>) sont responsables de la gestion du développement et de la prestation des services et des activités de <abbreviation>TI</abbreviation> par l'entremise de chefs d'équipe subalternes, de conseillers techniques et d'équipes de projet, pour la prestation des services aux clients et aux intervenants. Les gestionnaires de la <abbreviation>TI</abbreviation> se trouvent dans tous les volets de travail.",
     "description": "IT-04 manager path description"
+  },
+  "YW+ZVh": {
+    "defaultMessage": "Pour évaluer vos compétences en langue seconde, vous devrez subir une évaluation de chacune des trois compétences. Après chaque évaluation, vous obtiendrez un code de trois lettres indiquant le niveau de compétence que vous avez démontré pour cette compétence.",
+    "description": "Description for second language proficiency on language requirement dialog"
   },
   "YW3A7H": {
     "defaultMessage": "Si vous décidez d’ajouter cette compétence à votre profil ultérieurement :",
@@ -7054,6 +7146,10 @@
     "defaultMessage": "Une fois que vous avez trouvé une compétence, nous vous demandons de donner une évaluation honnête de votre niveau d’expérience approximatif. Ce niveau sera communiqué aux gestionnaires recruteurs conjointement avec toute évaluation officielle des compétences par le gouvernement du Canada, ce qui facilitera une compréhension plus globale de vos capacités.",
     "description": "Help text for providing a skill level"
   },
+  "bN9qA1": {
+    "defaultMessage": "La demande",
+    "description": "Document title for application"
+  },
   "bOA3EH": {
     "defaultMessage": "Employé du gouvernement",
     "description": "Label for the government employee field"
@@ -7458,6 +7554,10 @@
     "defaultMessage": "Femme autochtone portant un chandail rouge et travaillant sur un portable.",
     "description": "Indigenous Apprenticeship woman on laptop image text alternative"
   },
+  "dYejJH": {
+    "defaultMessage": "Les exigences linguistiques des postes bilingues sont résumées au moyen de l’une des lettres pour chacune des compétences. La première lettre renvoie au niveau requis pour la <strong>Lecture</strong>, la deuxième pour <strong>l’écriture</strong> et la troisième pour  <strong>l’expression orale</strong>.",
+    "description": "Description for second language proficiency on language requirement dialog"
+  },
   "db3ZDX": {
     "defaultMessage": "Bon retour!",
     "description": "Heading at the top of the sign in page for applicant profiles"
@@ -7629,6 +7729,10 @@
   "e9FxXq": {
     "defaultMessage": "Déterminer les personnes qui pourraient être admissibles à des possibilités particulières dans les organisations où un groupe visé par l’équité en matière d’emploi est sous-représenté;",
     "description": "List item 1, how self-declaration data is used"
+  },
+  "e9jncy": {
+    "defaultMessage": "\"C\" est le niveau le plus élevé et il s’agit d’un niveau avancé.",
+    "description": "Proficiency level on language requirements dialog"
   },
   "eCK3Ng": {
     "defaultMessage": "Accepter les temporaires",
@@ -7882,6 +7986,10 @@
     "defaultMessage": "Sélectionnez votre ministère ou organisme",
     "description": "Label for _department / agency_ field in the _digital services contracting questionnaire_"
   },
+  "fSeYdG": {
+    "defaultMessage": "Connaissance de l’autre langue officielle",
+    "description": "Sub-heading for language requirements dialog"
+  },
   "fVAMSw": {
     "defaultMessage": "Soumettez des commentaires",
     "description": "Support form subject field feedback option label"
@@ -7942,9 +8050,17 @@
     "defaultMessage": "Présenter sa candidature pour les opportunités de chefs d’équipe et conseillers<hidden> {name}</hidden>",
     "description": "Invitation to apply for the 'IT-03 Advisor' classification"
   },
+  "fuMeUp": {
+    "defaultMessage": "Profil au complet",
+    "description": "Document title for full profile"
+  },
   "fvsYkj": {
     "defaultMessage": "Qu’est-ce que j’apprendrai dans le cadre de ce programme d’apprentissage?",
     "description": "What applicants will learn sections heading"
+  },
+  "fwDXW8": {
+    "defaultMessage": "L’évaluation de la langue seconde dans la fonction publique fédérale",
+    "description": "Link to second language evaluations PSC info page on language requirements dialog"
   },
   "fxPLAl": {
     "defaultMessage": "Modification du profil linguistique",
@@ -8177,6 +8293,10 @@
   "h0Mrq9": {
     "defaultMessage": "<strong>technologie de l’information</strong>",
     "description": "List item of experiences required in application education page."
+  },
+  "h1UJ1Q": {
+    "defaultMessage": "Exigences linguistiques sur la plateforme Talents numériques du GC",
+    "description": "Sub-heading for language requirements dialog"
   },
   "h2h7Df": {
     "defaultMessage": "Exigences relatives aux compétences",
@@ -8438,6 +8558,10 @@
     "defaultMessage": "Bureau de la dirigeante principale de l’information",
     "description": "Title for the Office of the Chief Information Officer"
   },
+  "i9ovz7": {
+    "defaultMessage": "Postes bilingues",
+    "description": "Sub-heading for language requirements dialog"
+  },
   "iA1BBF": {
     "defaultMessage": "Ce volet comprend la fourniture de conseils spécialisés en matière de TI, ainsi que la collaboration avec les clients ou les fournisseurs, afin d’acquérir et de maintenir les ressources en <abbreviation>TI</abbreviation> qui soutiennent les opérations du GC.",
     "description": "Title for the 'business line advisory services' IT work stream"
@@ -8549,6 +8673,10 @@
   "ilZlfH": {
     "defaultMessage": "{count, plural, =0 {0 demandes} =1 {1 demande} other {# demandes}}",
     "description": "The number of applicants to a specific process"
+  },
+  "imNqyO": {
+    "defaultMessage": "Rédaction (ou expression écrite))",
+    "description": "Proficiency level related skill on language requirements dialog"
   },
   "inxVq8": {
     "defaultMessage": "Vous êtes sur le point de supprimer le nom d'utilisateur suivant de la plateforme :",
@@ -8922,6 +9050,10 @@
     "defaultMessage": "Classifications",
     "description": "Title for classifications"
   },
+  "kvxHHl": {
+    "defaultMessage": "Français essentiel",
+    "description": "French essential language requirement"
+  },
   "kzd/yK": {
     "defaultMessage": "Dans votre fuseau horaire actuel, ceci veut dire que les demandes seront acceptées jusqu’à :",
     "description": "Third paragraph for pool deadlines dialog"
@@ -9133,6 +9265,10 @@
   "mEvIF8": {
     "defaultMessage": "Appuyer la collectivité du numérique du CG",
     "description": "Heading for the Supporting The Community section on the digital services contracting questionnaire"
+  },
+  "mF1SAO": {
+    "defaultMessage": "Plusieurs postes devraient être dotés dans le cadre de ce processus. Vous pouvez vous inscrire à ce processus si vous répondez à l’un des profils linguistiques précédents.",
+    "description": "Various language requirement description"
   },
   "mF9apF": {
     "defaultMessage": "Utiliser la présente section pour finaliser la décision ayant trait à la demande du/de la candidat(e) une fois que vous aurez effectué toutes les vérifications nécessaires.",
@@ -9894,6 +10030,10 @@
     "defaultMessage": "Cette liste vous permet de spécifier <strong>jusqu’à 3 compétences comportementales ou « générales »</strong> que vous vous efforcez activement de développer et d’améliorer grâce à votre expérience ou à des occasions de perfectionnement.",
     "description": "Description of a users behavioural skills to improve"
   },
+  "qD0lyZ": {
+    "defaultMessage": "Le niveau \"A\" est le niveau le moins élevé en matière de bilinguisme et indique un niveau débutant.",
+    "description": "Proficiency level on language requirements dialog"
+  },
   "qEvJjr": {
     "defaultMessage": "Afin de garantir que le programme reste accessible aux peuples autochtones du Canada, vous devez remplir le formulaire d’auto-déclaration des peuples autochtones et confirmer que vous êtes membre d’une ou plusieurs des communautés autochtones du Canada.",
     "description": "Paragraph three for the self-declaration explanation dialog"
@@ -10122,6 +10262,10 @@
     "defaultMessage": "Sélectionner un membre d’un groupe visé par l’équité en matière d’emploi par nomination, si plusieurs candidats qualifiés sont disponibles.",
     "description": "List item 3, how self-declaration data is used"
   },
+  "rmsF/w": {
+    "defaultMessage": "impossible de marquer les notifications comme lues.",
+    "description": "Message announced to assistive technology when error occurred making notifications as read"
+  },
   "rtzp80": {
     "defaultMessage": "Dressez la liste des compétences, de la formation ou de l’expérience précises requises pour effectuer le travail demandé.",
     "description": "Context for _qualification requirement_ textbox in the _digital services contracting questionnaire_"
@@ -10286,6 +10430,10 @@
     "defaultMessage": "Compétences que vous souhaitez améliorer",
     "description": "Title for the skills to improve section of a users skill showcase"
   },
+  "sgt8f7": {
+    "defaultMessage": "Le gouvernement du Canada utilise des codes alphabétiques pour décrire les compétences en langue seconde. On compte trois niveaux de compétence pour les qualifications générales",
+    "description": "Language proficiency list for language requirements dialog"
+  },
   "siF4qC": {
     "defaultMessage": "Le plan a-t-il été mis à jour lors de l’entrée en vigueur du contrat?",
     "description": "Label for _digital initiative plan updated_ fieldset in the _digital services contracting questionnaire_"
@@ -10317,6 +10465,10 @@
   "srZlRP": {
     "defaultMessage": "Exigences en matière de personnel",
     "description": "Heading for the personnel requirements section on the digital services contracting questionnaire"
+  },
+  "sry9Wl": {
+    "defaultMessage": "Voici les profils linguistiques que vous pouvez trouver sur la plateforme Talents numériques du GC",
+    "description": "Language profiles list for language requirements dialog"
   },
   "ssJxrj": {
     "defaultMessage": "Je suis un membre des Premières Nations.",
@@ -10949,6 +11101,10 @@
   "x2/qvf": {
     "defaultMessage": "Afficher les évaluations des compétences de {title}",
     "description": "Button text to show a specific qualified recruitment cards's skill assessments"
+  },
+  "x20cWU": {
+    "defaultMessage": "Essayez les tests <link>d’auto-évaluation </link> pour vous faire une idée de votre niveau actuel.",
+    "description": "Description for bilingual positions in language requirements dialog"
   },
   "x45gSl": {
     "defaultMessage": "Un membre de l'équipe du Bureau des initiatives autochtones communiquera avec vous sous peu.",

@@ -46,9 +46,10 @@ class PoolCandidatePolicy
                 return true;
             }
 
-            $poolCandidate->loadMissing('pool.team');
-            $candidatePoolTeam = $poolCandidate->pool->team;
-            if ($user->isAbleTo('view-team-submittedApplication', $candidatePoolTeam)) {
+            $poolCandidate->loadMissing(['pool.team', 'pool.legacyTeam']);
+            $teamPermission = ! is_null($poolCandidate->pool->team) && $user->isAbleTo('view-team-submittedApplication', $poolCandidate->pool->team);
+            $legacyTeamPermission = ! is_null($poolCandidate->pool->legacyTeam) && $user->isAbleTo('view-team-submittedApplication', $poolCandidate->pool->legacyTeam);
+            if ($teamPermission || $legacyTeamPermission) {
                 return true;
             }
         }
@@ -105,7 +106,7 @@ class PoolCandidatePolicy
      */
     public function submit(User $user, PoolCandidate $poolCandidate)
     {
-        return $user->id === $poolCandidate->user_id && $user->isAbleTo('submit-own-application');
+        return $user->id === $poolCandidate->user_id && $user->isAbleTo('submit-own-draftApplication');
     }
 
     /**
@@ -175,9 +176,11 @@ class PoolCandidatePolicy
         if ($user->isAbleTo('view-any-applicationStatus')) {
             return true;
         }
-        $poolCandidate->loadMissing('pool.team');
+        $poolCandidate->loadMissing(['pool.team', 'pool.legacyTeam']);
+        $teamPermission = ! is_null($poolCandidate->pool->team) && $user->isAbleTo('view-team-applicationStatus', $poolCandidate->pool->team);
+        $legacyTeamPermission = ! is_null($poolCandidate->pool->legacyTeam) && $user->isAbleTo('view-team-applicationStatus', $poolCandidate->pool->legacyTeam);
 
-        return $user->isAbleTo('view-team-applicationStatus', $poolCandidate->pool->team);
+        return $teamPermission || $legacyTeamPermission;
     }
 
     /**
@@ -191,55 +194,119 @@ class PoolCandidatePolicy
         if ($user->isAbleTo('update-any-applicationStatus')) {
             return true;
         }
-        $poolCandidate->loadMissing('pool.team');
+        $poolCandidate->loadMissing(['pool.team', 'pool.legacyTeam']);
+        $teamPermission = ! is_null($poolCandidate->pool->team) && $user->isAbleTo('update-team-applicationStatus', $poolCandidate->pool->team);
+        $legacyTeamPermission = ! is_null($poolCandidate->pool->legacyTeam) && $user->isAbleTo('update-team-applicationStatus', $poolCandidate->pool->legacyTeam);
 
-        return $user->isAbleTo('update-team-applicationStatus', $poolCandidate->pool->team);
+        return $teamPermission || $legacyTeamPermission;
     }
 
     // bookmarking and notes share permissions
     public function updateBookmark(User $user, PoolCandidate $poolCandidate)
     {
-        if ($user->isAbleTo('update-any-applicationNotes')) {
+        if ($user->isAbleTo('update-any-applicationAssessment')) {
             return true;
         }
-        $poolCandidate->loadMissing('pool.team');
+        $poolCandidate->loadMissing(['pool.team', 'pool.legacyTeam']);
+        $teamPermission = ! is_null($poolCandidate->pool->team) && $user->isAbleTo('update-team-applicationAssessment', $poolCandidate->pool->team);
+        $legacyTeamPermission = ! is_null($poolCandidate->pool->legacyTeam) && $user->isAbleTo('update-team-applicationAssessment', $poolCandidate->pool->legacyTeam);
 
-        return $user->isAbleTo('update-team-applicationNotes', $poolCandidate->pool->team);
+        return $teamPermission || $legacyTeamPermission;
     }
 
     public function viewNotes(User $user, PoolCandidate $poolCandidate)
     {
-        if ($user->isAbleTo('view-any-applicationNotes')) {
+        if ($user->isAbleTo('view-any-applicationAssessment')) {
             return true;
         }
-        $poolCandidate->loadMissing('pool.team');
+        $poolCandidate->loadMissing(['pool.team', 'pool.legacyTeam']);
+        $teamPermission = ! is_null($poolCandidate->pool->team) && $user->isAbleTo('view-team-applicationAssessment', $poolCandidate->pool->team);
+        $legacyTeamPermission = ! is_null($poolCandidate->pool->legacyTeam) && $user->isAbleTo('view-team-applicationAssessment', $poolCandidate->pool->legacyTeam);
 
-        return $user->isAbleTo('view-team-applicationNotes', $poolCandidate->pool->team);
+        return $teamPermission || $legacyTeamPermission;
     }
 
     public function updateNotes(User $user, PoolCandidate $poolCandidate)
     {
-        if ($user->isAbleTo('update-any-applicationNotes')) {
+        if ($user->isAbleTo('update-any-applicationAssessment')) {
             return true;
         }
-        $poolCandidate->loadMissing('pool.team');
+        $poolCandidate->loadMissing(['pool.team', 'pool.legacyTeam']);
+        $teamPermission = ! is_null($poolCandidate->pool->team) && $user->isAbleTo('update-team-applicationAssessment', $poolCandidate->pool->team);
+        $legacyTeamPermission = ! is_null($poolCandidate->pool->legacyTeam) && $user->isAbleTo('update-team-applicationAssessment', $poolCandidate->pool->legacyTeam);
 
-        return $user->isAbleTo('update-team-applicationNotes', $poolCandidate->pool->team);
+        return $teamPermission || $legacyTeamPermission;
     }
 
-    /**
-     * NOTE: this logic must be kept up to date with AssessmentResultPolicy->view, but may be used
-     *       to check for permission to view all of a candidate's results with one function call, where convenient.
-     *
-     * @return void
-     */
-    public function viewAssessmentResults(User $user, PoolCandidate $poolCandidate)
+    public function viewAssessment(User $user, PoolCandidate $poolCandidate)
     {
-        if ($user->isAbleTo('view-any-assessmentResult')) {
+        if ($user->isAbleTo('view-any-applicationAssessment')) {
             return true;
         }
-        $poolCandidate->loadMissing('pool.team');
+        $poolCandidate->loadMissing(['pool.team', 'pool.legacyTeam']);
+        $teamPermission = ! is_null($poolCandidate->pool->team) && $user->isAbleTo('view-team-applicationAssessment', $poolCandidate->pool->team);
+        $legacyTeamPermission = ! is_null($poolCandidate->pool->legacyTeam) && $user->isAbleTo('view-team-applicationAssessment', $poolCandidate->pool->legacyTeam);
 
-        return $user->isAbleTo('view-team-assessmentResult', $poolCandidate->pool->team);
+        return $teamPermission || $legacyTeamPermission;
+    }
+
+    public function updateAssessment(User $user, PoolCandidate $poolCandidate)
+    {
+        if ($user->isAbleTo('update-any-applicationAssessment')) {
+            return true;
+        }
+        $poolCandidate->loadMissing(['pool.team', 'pool.legacyTeam']);
+        $teamPermission = ! is_null($poolCandidate->pool->team) && $user->isAbleTo('update-team-applicationAssessment', $poolCandidate->pool->team);
+        $legacyTeamPermission = ! is_null($poolCandidate->pool->legacyTeam) && $user->isAbleTo('update-team-applicationAssessment', $poolCandidate->pool->legacyTeam);
+
+        return $teamPermission || $legacyTeamPermission;
+    }
+
+    public function viewDecision(User $user, PoolCandidate $poolCandidate)
+    {
+        if ($user->isAbleTo('view-any-applicationDecision')) {
+            return true;
+        }
+        $poolCandidate->loadMissing(['pool.team', 'pool.legacyTeam']);
+        $teamPermission = ! is_null($poolCandidate->pool->team) && $user->isAbleTo('view-team-applicationDecision', $poolCandidate->pool->team);
+        $legacyTeamPermission = ! is_null($poolCandidate->pool->legacyTeam) && $user->isAbleTo('view-team-applicationDecision', $poolCandidate->pool->legacyTeam);
+
+        return $teamPermission || $legacyTeamPermission;
+    }
+
+    public function updateDecision(User $user, PoolCandidate $poolCandidate)
+    {
+        if ($user->isAbleTo('update-any-applicationDecision')) {
+            return true;
+        }
+        $poolCandidate->loadMissing(['pool.team', 'pool.legacyTeam']);
+        $teamPermission = ! is_null($poolCandidate->pool->team) && $user->isAbleTo('update-team-applicationDecision', $poolCandidate->pool->team);
+        $legacyTeamPermission = ! is_null($poolCandidate->pool->legacyTeam) && $user->isAbleTo('update-team-applicationDecision', $poolCandidate->pool->legacyTeam);
+
+        return $teamPermission || $legacyTeamPermission;
+    }
+
+    public function viewPlacement(User $user, PoolCandidate $poolCandidate)
+    {
+        if ($user->isAbleTo('view-any-applicationPlacement')) {
+            return true;
+        }
+        $poolCandidate->loadMissing(['pool.team', 'pool.legacyTeam']);
+        $teamPermission = ! is_null($poolCandidate->pool->team) && $user->isAbleTo('view-team-applicationPlacement', $poolCandidate->pool->team);
+        $legacyTeamPermission = ! is_null($poolCandidate->pool->legacyTeam) && $user->isAbleTo('view-team-applicationPlacement', $poolCandidate->pool->legacyTeam);
+
+        return $teamPermission || $legacyTeamPermission;
+    }
+
+    public function updatePlacement(User $user, PoolCandidate $poolCandidate)
+    {
+        if ($user->isAbleTo('update-any-applicationPlacement')) {
+            return true;
+        }
+        $poolCandidate->loadMissing(['pool.team', 'pool.legacyTeam']);
+        $teamPermission = ! is_null($poolCandidate->pool->team) && $user->isAbleTo('update-team-applicationPlacement', $poolCandidate->pool->team);
+        $legacyTeamPermission = ! is_null($poolCandidate->pool->legacyTeam) && $user->isAbleTo('update-team-applicationPlacement', $poolCandidate->pool->legacyTeam);
+
+        return $teamPermission || $legacyTeamPermission;
     }
 }

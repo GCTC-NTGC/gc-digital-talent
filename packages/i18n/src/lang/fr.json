@@ -564,7 +564,7 @@
     "description": "Error Message displayed when the user passes some given character or letter limit."
   },
   "Glb1Te": {
-    "defaultMessage": "Diriger",
+    "defaultMessage": "Principal",
     "description": "The technical skill level for lead"
   },
   "GqmxO8": {
@@ -1770,6 +1770,10 @@
   "rYodJu": {
     "defaultMessage": "Durée indéterminée (permanente)",
     "description": "Duration that is permanent"
+  },
+  "ra+8d1": {
+    "defaultMessage": "Erreur",
+    "description": "Generic error message"
   },
   "rbhjTC": {
     "defaultMessage": "Bibliothèque des compétences",

@@ -9,8 +9,8 @@ global-components:
   MenuLink: a
   ScrollToLink: a
   SkipLink: a
-  DefinitionList.Root: dl
-  DefinitionList.Item: dt
+  DescriptionList.Root: dl
+  DescriptionList.Item: dt
   Heading: h*
   Separator: hr
   Step: a

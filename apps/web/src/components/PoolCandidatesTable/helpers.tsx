@@ -357,8 +357,15 @@ export function getSortOrder(
   sortingRules?: SortingState,
   filterState?: PoolCandidateSearchInput,
   doNotUseBookmark?: boolean,
+  currentPool?: Maybe<Pool>,
 ): QueryPoolCandidatesPaginatedOrderByRelationOrderByClause[] {
   const hasProcess = sortingRules?.find((rule) => rule.id === "process");
+
+  // handle sort in orderByClaimVerification
+  if (!!sortingRules?.find((rule) => rule.id === "priority") && !!currentPool) {
+    return [];
+  }
+
   return [
     ...(doNotUseBookmark
       ? []
@@ -368,6 +375,21 @@ export function getSortOrder(
       ? [transformSortStateToOrderByClause(sortingRules, filterState)]
       : []),
   ];
+}
+
+export function getClaimVerificationSort(
+  sortingState?: SortingState,
+  currentPool?: Maybe<Pool>,
+): Maybe<SortOrder> | undefined {
+  if (!!currentPool && !!sortingState?.find((rule) => rule.id === "priority")) {
+    // sort only triggers off category sort and current pool -> then no sorting is done in getSortOrder
+    const sortOrder = sortingState.find((rule) => rule.id === "priority");
+    if (sortOrder) {
+      return sortOrder.desc ? SortOrder.Desc : SortOrder.Asc;
+    }
+  }
+
+  return undefined;
 }
 
 export function getPoolNameSort(

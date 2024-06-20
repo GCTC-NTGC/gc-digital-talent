@@ -20,8 +20,7 @@ class NewJobPosted extends Notification implements CanBeSentViaGcNotifyEmail
         public string $poolNameEn,
         public string $poolNameFr,
         public string $poolId,
-    ) {
-    }
+    ) {}
 
     /**
      * Get the notification's delivery channels.

@@ -74,7 +74,7 @@ jobs:
         run: pnpm install
 
       - name: "Run Cypress tests: all"
-        uses: cypress-io/github-action@v6.7.0
+        uses: cypress-io/github-action@v6.7.1
         with:
           install: true
           spec: "**/*.cy.ts"

@@ -1,5 +1,6 @@
 import { test as base } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+import * as sinon from "sinon";
 
 import auth from "~/constants/auth";
 
@@ -16,6 +17,7 @@ type AppFixtures = {
   applicantPage: ApplicantPage;
   // Axe test builder
   makeAxeBuilder: () => AxeBuilder;
+  fakeClock: sinon.SinonFakeTimers;
 };
 
 // Extend base text with our fixtures
@@ -55,4 +57,5 @@ export const test = base.extend<AppFixtures>({
     await use(makeAxeBuilder);
   },
 });
+
 export { expect } from "@playwright/test";

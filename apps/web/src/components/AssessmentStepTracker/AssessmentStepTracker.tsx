@@ -31,6 +31,8 @@ export const AssessmentStepTracker_CandidateFragment = graphql(/* GraphQL */ `
   fragment AssessmentStepTracker_Candidate on PoolCandidate {
     id
     isBookmarked
+    priorityVerification
+    veteranVerification
     status
     pool {
       id

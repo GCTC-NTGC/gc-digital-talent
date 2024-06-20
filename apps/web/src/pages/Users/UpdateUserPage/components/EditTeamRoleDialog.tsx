@@ -106,6 +106,14 @@ const EditTeamRoleDialog = ({
 
   const roleOptions = allRoles
     .filter((role) => role.isTeamBased)
+    .filter(
+      (role) =>
+        ![
+          "community_admin",
+          "community_recruiter",
+          "process_operator",
+        ].includes(role.name),
+    ) // These roles are meant to be connected to different kinds of Teams.
     .map((role) => ({
       label: getLocalizedName(role.displayName, intl),
       value: role.id,

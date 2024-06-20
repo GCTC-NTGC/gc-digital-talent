@@ -28,10 +28,12 @@ import {
   filterResults,
   ResultFilters,
   filterAlreadyDisqualified,
+  CandidateAssessmentResult,
 } from "./utils";
 import {
   armedForcesCandidate,
   bookmarkedCandidate,
+  claimVerificationTestData,
   filterDisqualifiedTestData,
   firstByName,
   lastByFirstName,
@@ -396,5 +398,36 @@ describe("AssessmentStepTracker", () => {
         candidate.status === PoolCandidateStatus.ScreenedOutApplication,
     );
     expect(attemptToFindFilteredCandidate.length).toEqual(0);
+  });
+
+  it("should sort candidates by claim verification values", () => {
+    const candidates = claimVerificationTestData;
+    expect(candidates.length).toEqual(6);
+
+    // type wiggle
+    const typeMappedCandidates: CandidateAssessmentResult[] = candidates.map(
+      (candidate) => {
+        return {
+          poolCandidate: candidate,
+          decision: "noDecision",
+        };
+      },
+    );
+    const sortedCandidates = sortResultsAndAddOrdinal(typeMappedCandidates);
+
+    // assert accepted and unverified precede rejected
+    expect(sortedCandidates.length).toEqual(6);
+    expect(sortedCandidates[0].poolCandidate.id).toEqual(
+      "priority-entitlement-accepted",
+    );
+    expect(sortedCandidates[1].poolCandidate.id).toEqual(
+      "priority-entitlement-unverified",
+    );
+    expect(sortedCandidates[2].poolCandidate.id).toEqual("veteran-accepted");
+    expect(sortedCandidates[3].poolCandidate.id).toEqual("veteran-unverified");
+    expect(sortedCandidates[4].poolCandidate.id).toEqual(
+      "priority-entitlement-rejected",
+    );
+    expect(sortedCandidates[5].poolCandidate.id).toEqual("veteran-rejected");
   });
 });

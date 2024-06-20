@@ -41,7 +41,7 @@ interface ItemProps {
   children: ReactNode;
   color?: Color;
   titleProps?: GenericHTMLProps;
-  definitionProps?: GenericHTMLProps;
+  descriptionProps?: GenericHTMLProps;
 }
 
 const Item = ({
@@ -49,21 +49,24 @@ const Item = ({
   Icon,
   children,
   titleProps,
-  definitionProps,
+  descriptionProps,
   color = "primary",
 }: ItemProps) => {
   return (
     <>
       <dt
-        data-h2-display="base(flex)"
-        data-h2-align-items="base(center)"
-        data-h2-gap="base(0, x.5)"
+        data-h2-display="base(list-item)"
         data-h2-font-weight="base(700)"
         {...colorMap[color]}
         {...titleProps}
       >
         {Icon && (
-          <Icon data-h2-width="base(x.75)" data-h2-height="base(x.75)" />
+          <Icon
+            data-h2-width="base(x.75)"
+            data-h2-height="base(x.75)"
+            data-h2-margin-right="base(x.5)"
+            data-h2-vertical-align="base(sub)"
+          />
         )}
         <span>{title}</span>
       </dt>
@@ -71,12 +74,12 @@ const Item = ({
         data-h2-display="base(block)"
         {...(Icon
           ? {
-              "data-h2-margin": "base(0, 0, x.5, calc(x.75 + x.5))",
+              "data-h2-margin": "base(0, 0, x.5, x1)",
             }
           : {
-              "data-h2-margin": "base(0, 0, x.5, 0)",
+              "data-h2-margin": "base(0, 0, x.5, calc(x.75 + x.15))",
             })}
-        {...definitionProps}
+        {...descriptionProps}
       >
         {children}
       </dd>
@@ -95,7 +98,13 @@ interface RootProps
 }
 
 const Root = ({ children, ...rest }: RootProps) => (
-  <dl data-h2-margin="base(x1, 0)" {...rest}>
+  <dl
+    data-h2-margin="base(x1, 0)"
+    data-h2-padding-left="base(x1)"
+    data-h2-list-style-type="base(disc)"
+    data-h2-list-style-position="base(inside)"
+    {...rest}
+  >
     {children}
   </dl>
 );

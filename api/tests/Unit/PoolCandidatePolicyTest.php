@@ -159,7 +159,7 @@ class PoolCandidatePolicyTest extends TestCase
     /**
      * Assert that the following can view a submitted pool candidate:
      *
-     * owner, pool operator, request responder
+     * owner, pool operator, request responder, platform admin
      *
      * @return void
      */
@@ -171,8 +171,8 @@ class PoolCandidatePolicyTest extends TestCase
         $this->assertTrue($this->candidateUser->can('view', $this->poolCandidate));
         $this->assertTrue($this->poolOperatorUser->can('view', $this->poolCandidate));
         $this->assertTrue($this->requestResponderUser->can('view', $this->poolCandidate));
+        $this->assertTrue($this->adminUser->can('view', $this->poolCandidate));
 
-        $this->assertFalse($this->adminUser->can('view', $this->poolCandidate));
         $this->assertFalse($this->communityManagerUser->can('view', $this->poolCandidate));
         $this->assertFalse($this->guestUser->can('view', $this->poolCandidate));
         $this->assertFalse($this->applicantUser->can('view', $this->poolCandidate));

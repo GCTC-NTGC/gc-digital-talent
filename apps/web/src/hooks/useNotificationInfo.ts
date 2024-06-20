@@ -6,6 +6,7 @@ import {
   ApplicationStatusChangedNotification,
   NewJobPostedNotification,
   Notification,
+  SystemNotification,
 } from "@gc-digital-talent/graphql";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import {
@@ -149,6 +150,23 @@ const newJobPostedNotificationToInfo = (
   };
 };
 
+function isSystemNotification(
+  notification: GraphqlType,
+): notification is SystemNotification {
+  return notification.__typename === "SystemNotification";
+}
+
+const systemNotificationToInfo = (
+  notification: SystemNotification,
+  intl: IntlShape,
+): NotificationInfo => {
+  return {
+    message: getLocalizedName(notification.message, intl),
+    href: getLocalizedName(notification.href, intl),
+    label: getLocalizedName(notification.message, intl),
+  };
+};
+
 const useNotificationInfo = (
   notification: Notification & GraphqlType,
 ): NotificationInfo | null => {
@@ -174,6 +192,10 @@ const useNotificationInfo = (
 
   if (isNewJobPostedNotification(notification)) {
     return newJobPostedNotificationToInfo(notification, paths, intl);
+  }
+
+  if (isSystemNotification(notification)) {
+    return systemNotificationToInfo(notification, intl);
   }
 
   logger.warning(
