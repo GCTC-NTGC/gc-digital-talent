@@ -22,7 +22,7 @@
     "@gc-digital-talent/logger": "workspace:*",
     "@gc-digital-talent/storage": "workspace:*",
     "@gc-digital-talent/ui": "workspace:*",
-    "@heroicons/react": "^2.1.3",
+    "@heroicons/react": "^2.1.4",
     "@hookform/error-message": "^2.0.1",
     "@tiptap/extension-character-count": "^2.4.0",
     "@tiptap/extension-link": "^2.4.0",
