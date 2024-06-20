@@ -1597,7 +1597,7 @@ export const poolCandidatePriorities = defineMessages({
 });
 
 export const getPoolCandidatePriorities = (
-  priorityWeight: string | number,
+  priorityWeight: string,
 ): MessageDescriptor =>
   getOrDisplayError(
     poolCandidatePriorities,
