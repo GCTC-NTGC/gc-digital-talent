@@ -1,13 +1,13 @@
 # Welcome to the GC Digital Talent monorepo
 
-[![Lighthouse PHP](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/lighthouse-php.yml/badge.svg)](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/lighthouse-php.yml) [![CodeQL](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/codeql-analysis.yml) [![Jest](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/jest.yml/badge.svg)](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/jest.yml) [![Lint](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/lint.yml/badge.svg)](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/lint.yml) [![PHPUnit](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/phpunit.yml/badge.svg)](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/phpunit.yml) [![Cypress](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/cypress.yml/badge.svg)](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/cypress.yml) [![Playwright](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/playwright.yml/badge.svg)](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/playwright.yml) [![Translations](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/translations.yml/badge.svg?branch=main)](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/translations.yml) [![codecov](https://codecov.io/github/GCTC-NTGC/gc-digital-talent/graph/badge.svg?token=GL1BG06350)](https://codecov.io/github/GCTC-NTGC/gc-digital-talent)
+[![Lighthouse PHP](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/lighthouse-php.yml/badge.svg)](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/lighthouse-php.yml) [![CodeQL](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/codeql-analysis.yml) [![Jest](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/jest.yml/badge.svg)](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/jest.yml) [![Lint](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/lint.yml/badge.svg)](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/lint.yml) [![PHPUnit](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/phpunit.yml/badge.svg)](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/phpunit.yml) [![Playwright](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/playwright.yml/badge.svg)](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/playwright.yml) [![Translations](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/translations.yml/badge.svg?branch=main)](https://github.com/GCTC-NTGC/gc-digital-talent/actions/workflows/translations.yml) [![codecov](https://codecov.io/github/GCTC-NTGC/gc-digital-talent/graph/badge.svg?token=GL1BG06350)](https://codecov.io/github/GCTC-NTGC/gc-digital-talent)
 
 The GC Digital Talent app is divided into multiple services, each treated as its own sub-project:
 
 - [`/api`](/api/README.md), API service
 - `/apps`, frontend applications
 - `/packages`, npm packages used within `/apps`
-- [`/apps/e2e`](/apps/e2e/cypress/README.md), e2e testing with Cypress
+- `/apps/e2e`, e2e testing with Playwright
 - [`/tc-report`](/tc-report/README.md), static content, mostly the Talent Cloud report, generated with Jekyll
 - [`/infrastructure`](/infrastructure/README.md), support files for the docker infrastructure to run the project
   - includes a mock OAuth server (only used for local development environments)
@@ -30,8 +30,7 @@ We do several types of testing: (internal documentation linked when available)
 - _visual regression_ testing
   - **Storybook** (ReactJS components)
     - Check the [example component directory](apps/web/src/components/Example/) for more examples.
-- _end-to-end_ testing with **Cypress** (full app in-browser)
-  - See [`apps/e2e/cypress/README.md`](/apps/e2e/cypress/README.md): custom commands, usage tips, plugins, etc.
+- _end-to-end_ testing with **Playwright** (full app in-browser)
 - security checks (aka _security regression_ testing)
   - CodeQL (JavaScript, TypeScript)
 
