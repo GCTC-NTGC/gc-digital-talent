@@ -8,6 +8,7 @@ use App\Enums\OverallAssessmentStatus;
 use App\Enums\PoolSkillType;
 use App\Enums\SkillCategory;
 use App\Models\AssessmentResult;
+use App\Models\AssessmentStep;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\PoolSkill;
@@ -71,16 +72,24 @@ class CandidateAssessmentStatusTest extends TestCase
         ]);
 
         $this->pool = Pool::factory()
-            ->withPoolSkills(1, 0)
-            ->withAssessments()
             ->published()
             ->create([
                 'team_id' => $team->id,
             ]);
 
-        $this->poolSkill = $this->pool->poolSkills
-            ->where('type', PoolSkillType::ESSENTIAL->name)
-            ->first();
+        $technicalSkill = Skill::where('category', SkillCategory::TECHNICAL->name)->first();
+        $this->poolSkill = PoolSkill::create([
+            'pool_id' => $this->pool->id,
+            'skill_id' => $technicalSkill->id,
+            'type' => PoolSkillType::ESSENTIAL->name,
+        ]);
+
+        AssessmentStep::factory()
+            ->afterCreating(function (AssessmentStep $step) {
+                $step->poolSkills()->sync([$this->poolSkill->id]);
+            })->create([
+               'pool_id' => $this->pool->id,
+            ]);
 
         $this->adminUser = User::factory()
             ->asApplicant()
@@ -272,7 +281,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ]);
 
         AssessmentResult::factory()
-            ->withResultType(AssessmentResultType::EDUCATION)
+            ->withResultType(AssessmentResultType::SKILL)
             ->create([
                 'assessment_step_id' => $steps[1]->id,
                 'pool_candidate_id' => $this->candidate->id,
