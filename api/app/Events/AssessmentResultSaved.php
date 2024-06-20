@@ -13,7 +13,5 @@ class AssessmentResultSaved
     /**
      * Create a new event instance.
      */
-    public function __construct(public AssessmentResult $result)
-    {
-    }
+    public function __construct(public AssessmentResult $result) {}
 }

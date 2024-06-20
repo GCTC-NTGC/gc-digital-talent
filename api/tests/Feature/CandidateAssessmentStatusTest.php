@@ -88,7 +88,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ->afterCreating(function (AssessmentStep $step) {
                 $step->poolSkills()->sync([$this->poolSkill->id]);
             })->create([
-               'pool_id' => $this->pool->id,
+                'pool_id' => $this->pool->id,
             ]);
 
         $this->adminUser = User::factory()
