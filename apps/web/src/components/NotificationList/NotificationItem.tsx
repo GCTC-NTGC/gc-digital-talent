@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import { Link as BaseLink, useNavigate } from "react-router-dom";
 import EllipsisVerticalIcon from "@heroicons/react/20/solid/EllipsisVerticalIcon";
 import { useMutation } from "urql";
-import { ReactNode, MouseEvent } from "react";
+import { ReactNode, MouseEvent, useEffect } from "react";
 
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
@@ -80,12 +80,14 @@ interface NotificationItemProps {
   /** The actual notification type */
   notification: FragmentType<typeof NotificationItem_Fragment>;
   inDialog?: boolean;
+  focusRef?: React.MutableRefObject<HTMLAnchorElement | null>;
   onRead?: () => void;
 }
 
 const NotificationItem = ({
   notification: notificationQuery,
   inDialog,
+  focusRef,
   onRead,
 }: NotificationItemProps) => {
   const intl = useIntl();
@@ -102,6 +104,10 @@ const NotificationItem = ({
   );
   const [{ fetching: markingAsUnread }, executeMarkAsUnreadMutation] =
     useMutation(MarkNotificationAsUnread_Mutation);
+
+  useEffect(() => {
+    if (focusRef) focusRef.current?.focus();
+  }, [focusRef]);
 
   if (!info) return null;
 
@@ -188,6 +194,7 @@ const NotificationItem = ({
             <LinkWrapper inDialog={inDialog}>
               <BaseLink
                 to={info.href}
+                ref={focusRef}
                 onClick={handleLinkClicked}
                 data-h2-text-decoration="base(none)"
                 data-h2-color="base:hover(secondary.darker)"
