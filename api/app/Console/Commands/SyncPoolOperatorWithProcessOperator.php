@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\Models\Pool;
 use App\Models\Role;
-use App\Models\RoleAssignment;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Console\Command;
@@ -48,26 +47,11 @@ class SyncPoolOperatorWithProcessOperator extends Command
             // collect the pools per team then build an id array to sync
             $uniquePoolIdsToSync = Pool::whereIn('team_id', $poolOperatorTeams)->get()->pluck('id')->unique()->toArray();
 
-            // run through each pool id
+            // go through each pool and add a process operator
             foreach ($uniquePoolIdsToSync as $poolId) {
-                // create or fetch the pool teamable
-                $poolTeam = Team::firstOrCreate(
-                    [
-                        'name' => 'pool'.'-'.$poolId,
-                        'teamable_id' => $poolId,
-                        'teamable_type' => 'App\Models\Pool',
-                    ],
-                );
 
-                // finally, attach the user as process operator to the teamable
-                RoleAssignment::firstOrCreate(
-                    [
-                        'role_id' => $processOperatorRole->id,
-                        'user_id' => $poolUser->id,
-                        'user_type' => 'App\Models\User',
-                        'team_id' => $poolTeam->id,
-                    ]
-                );
+                $pool = Pool::findOrFail($poolId);
+                $pool->addProcessOperators($poolUser->id);
             }
         }
 
