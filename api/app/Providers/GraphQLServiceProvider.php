@@ -50,6 +50,7 @@ use App\Enums\Language;
 use App\Enums\LanguageAbility;
 use App\Enums\NotificationFamily;
 use App\Enums\OperationalRequirement;
+use App\Enums\OverallAssessmentStatus;
 use App\Enums\PlacementType;
 use App\Enums\PoolCandidateSearchPositionType;
 use App\Enums\PoolCandidateSearchRequestReason;
@@ -733,6 +734,16 @@ class GraphQLServiceProvider extends ServiceProvider
                 return new EnumType([
                     'name' => 'PriorityWeight',
                     'values' => array_column(PriorityWeight::cases(), 'name'),
+                ]);
+            }
+        );
+
+        $typeRegistry->registerLazy(
+            'OverallAssessmentStatus',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'OverallAssessmentStatus',
+                    'values' => array_column(OverallAssessmentStatus::cases(), 'name'),
                 ]);
             }
         );

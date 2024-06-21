@@ -649,6 +649,17 @@ type AssessmentResult {
   skillDecisionNotes: String
 }
 
+type AssessmentStepDecision {
+  step: UUID!
+  decision: AssessmentDecision
+}
+
+type AssessmentResultStatus {
+  assessmentStepStatuses: [AssessmentStepDecision]
+  overallAssessmentStatus: OverallAssessmentStatus
+  currentStep: Int
+}
+
 type PoolSkill {
   id: ID!
   type: PoolSkillType
@@ -681,6 +692,7 @@ type PoolCandidate {
   educationRequirementOption: LocalizedEducationRequirementOption
   educationRequirementExperiences: [Experience]
   assessmentResults: [AssessmentResult]
+  assessmentStatus: AssessmentResultStatus
   finalDecisionAt: DateTime
   placedAt: DateTime
   placedDepartment: Department
@@ -983,6 +995,7 @@ input PoolFilterInput {
   processNumber: String
   publishingGroups: [PublishingGroup!]
   classifications: [ClassificationFilterInput!]
+  canAdmin: Boolean
 }
 
 input PoolTeamDisplayNameOrderByInput {
@@ -2810,4 +2823,10 @@ enum PriorityWeight {
   VETERAN
   CITIZEN_OR_PERMANENT_RESIDENT
   OTHER
+}
+
+enum OverallAssessmentStatus {
+  TO_ASSESS
+  DISQUALIFIED
+  QUALIFIED
 }

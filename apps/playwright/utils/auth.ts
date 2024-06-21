@@ -1,4 +1,5 @@
 import { Cookie, Page, expect } from "@playwright/test";
+import { JwtPayload, jwtDecode } from "jwt-decode";
 
 /**
  * Login by sub
@@ -84,4 +85,20 @@ export async function getAuthTokens(page: Page): Promise<AuthTokens> {
   }));
 
   return tokens;
+}
+
+/**
+ * Jump past expiry date
+ *
+ * Jump to one second past the
+ * expiry point of a token
+ *
+ * @param accessToken
+ * @returns {Date}
+ */
+//
+export function jumpPastExpiryDate(accessToken: string): Date {
+  const decodedAccessToken = jwtDecode<JwtPayload>(accessToken);
+  const newDate = new Date((decodedAccessToken.exp + 1) * 1000);
+  return newDate;
 }

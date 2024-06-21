@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 import { useSearchParams } from "react-router-dom";
+import { useRef } from "react";
 
 import { Scalars, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -80,13 +81,18 @@ const NotificationListPage = ({
     !fetching &&
     exclude.length === 0;
 
+  const firstNewNotification = useRef<HTMLAnchorElement>(null);
+
   return (
     <>
       {notifications.length > 0 ? (
         <>
-          {notifications.map((notification) => (
+          {notifications.map((notification, index) => (
             <NotificationItem
               key={notification.id}
+              focusRef={
+                index === 0 && page !== 1 ? firstNewNotification : undefined
+              }
               notification={notification}
               inDialog={inDialog}
               onRead={onRead}

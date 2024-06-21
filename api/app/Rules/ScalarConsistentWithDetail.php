@@ -33,9 +33,7 @@ class ScalarConsistentWithDetail implements DataAwareRule, ValidationRule
      *
      * @return void
      */
-    public function __construct(private string $element, private string $detailFieldName)
-    {
-    }
+    public function __construct(private string $element, private string $detailFieldName) {}
 
     /**
      * Run the validation rule.
