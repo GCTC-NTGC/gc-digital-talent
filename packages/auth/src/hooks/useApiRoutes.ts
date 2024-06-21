@@ -1,3 +1,5 @@
+import path from "path-browserify";
+
 interface ApiRoutes {
   login: (from?: string, locale?: string) => string;
   refreshAccessToken: () => string;
@@ -6,8 +8,7 @@ interface ApiRoutes {
 const isDevServer =
   typeof IS_DEV_SERVER !== "undefined" ? IS_DEV_SERVER : false;
 
-const apiHost =
-  typeof API_HOST !== "undefined" ? API_HOST : "http://localhost:8000";
+const apiHost = API_HOST === "" ? undefined : API_HOST;
 
 const apiRoutes = {
   login: (from?: string, locale?: string): string => {
@@ -19,13 +20,15 @@ const apiRoutes = {
 
     const loginPath = `login${searchString ? `?${searchString}` : ""}`;
 
-    const url = new URL(loginPath, apiHost);
+    const url = apiHost
+      ? new URL(loginPath, apiHost)
+      : path.join("/", "login") + (searchString ? `?${searchString}` : "");
 
     return url.toString();
   },
-  refreshAccessToken: (): string => new URL("refresh", apiHost).toString(),
+  refreshAccessToken: (): string =>
+    apiHost ? new URL("refresh", apiHost).toString() : "/refresh",
 };
-
 export default apiRoutes;
 
 /**
