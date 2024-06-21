@@ -155,6 +155,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
           ...PoolCandidate_Bookmark
           pool {
             id
+            processNumber
             name {
               en
               fr

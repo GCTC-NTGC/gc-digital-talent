@@ -114,6 +114,7 @@ export const processCell = (
   intl: IntlShape,
 ) => {
   const poolName = getFullPoolTitleLabel(intl, pool);
+
   return (
     <Link
       href={paths.poolView(pool.id)}
@@ -123,7 +124,7 @@ export const processCell = (
         poolName
       }
     >
-      {poolName}
+      {poolName} {pool.processNumber}
     </Link>
   );
 };

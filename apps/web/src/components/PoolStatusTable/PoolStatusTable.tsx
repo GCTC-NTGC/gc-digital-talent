@@ -51,7 +51,10 @@ const PoolStatusTable = ({ user }: PoolStatusTableProps) => {
       sortingFn: normalizedText,
       enableHiding: false,
       cell: ({ row: { original: candidate }, getValue }) =>
-        cells.view(paths.poolView(candidate.pool.id), getValue()),
+        cells.view(
+          paths.poolView(candidate.pool.id),
+          `${getValue()} ${candidate.pool.processNumber}`,
+        ),
       header: intl.formatMessage({
         defaultMessage: "Pool",
         id: "icYqDt",
