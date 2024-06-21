@@ -1,6 +1,7 @@
 {
   "name": "@gc-digital-talent/logger",
   "license": "AGPL-3.0",
+  "type": "module",
   "version": "1.0.0",
   "types": "./src/index.ts",
   "exports": {

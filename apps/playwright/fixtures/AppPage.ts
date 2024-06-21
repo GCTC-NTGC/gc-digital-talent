@@ -66,7 +66,7 @@ class AppPage {
     await this.page.waitForResponse(async (resp) => {
       if (await resp.url()?.includes("/graphql")) {
         const reqJson = await resp.request()?.postDataJSON();
-        return reqJson.operationName === operationName;
+        return reqJson?.operationName === operationName;
       }
 
       return false;
@@ -79,9 +79,8 @@ class AppPage {
    * @returns void
    */
   async overrideFeatureFlags(flags: FeatureFlags) {
-    await this.page.route("**/config.js", (route) =>
-      route.fulfill({ body: getFeatureFlagConfig(flags) }),
-    );
+    const content = getFeatureFlagConfig(flags);
+    await this.page.addInitScript({ content });
   }
 
   async getMe() {
