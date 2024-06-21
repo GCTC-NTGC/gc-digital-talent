@@ -957,6 +957,11 @@ class PoolCandidate extends Model
             }
 
             if ($stepResults->isEmpty()) {
+                $decisions[] = [
+                    'step' => $stepId,
+                    'decision' => null,
+                ];
+
                 continue;
             }
 
@@ -1035,7 +1040,14 @@ class PoolCandidate extends Model
             }
 
             // Candidate has been assessed and was not unsuccessful so continue to next step
-            $currentStep++;
+
+            $previousStepsNotPassed = Arr::where($decisions, function ($decision) {
+                return is_null($decision['decision']) ||
+                    $decision['decision'] === AssessmentDecision::UNSUCCESSFUL->name;
+            });
+            if (! $previousStepsNotPassed) {
+                $currentStep++;
+            }
 
             if ($hasOnHold) {
                 $decisions[] = [

@@ -467,4 +467,41 @@ class CandidateAssessmentStatusTest extends TestCase
             ]);
 
     }
+
+    public function testOutOfOrderAssessmentsDoNotIncrementStep()
+    {
+        $steps = $this->pool->assessmentSteps;
+
+        AssessmentResult::factory()
+            ->withResultType(AssessmentResultType::SKILL)
+            ->create([
+                'assessment_step_id' => $steps[1]->id,
+                'pool_candidate_id' => $this->candidate->id,
+                'assessment_decision' => AssessmentDecision::SUCCESSFUL->name,
+                'pool_skill_id' => $this->poolSkill->id,
+            ]);
+
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($this->query, $this->queryVars)
+            ->assertJson([
+                'data' => [
+                    'poolCandidate' => [
+                        'assessmentStatus' => [
+                            'currentStep' => 1,
+                            'overallAssessmentStatus' => OverallAssessmentStatus::TO_ASSESS->name,
+                            'assessmentStepStatuses' => [
+                                [
+                                    'step' => $steps[0]->id,
+                                    'decision' => null,
+                                ],
+                                [
+                                    'step' => $steps[1]->id,
+                                    'decision' => AssessmentDecision::SUCCESSFUL->name,
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ]);
+    }
 }
