@@ -586,7 +586,8 @@ const PoolCandidatesTable = ({
       ? []
       : [
           columnHelper.accessor(
-            ({ poolCandidate: { pool } }) => getFullPoolTitleLabel(intl, pool),
+            ({ poolCandidate: { pool } }) =>
+              `${getFullPoolTitleLabel(intl, pool)} ${pool.processNumber}`,
             {
               id: "process",
               header: intl.formatMessage(processMessages.process),
