@@ -8,7 +8,8 @@ interface ApiRoutes {
 const isDevServer =
   typeof IS_DEV_SERVER !== "undefined" ? IS_DEV_SERVER : false;
 
-const apiHost = API_HOST === "" ? undefined : API_HOST;
+const apiHost =
+  typeof API_HOST === "undefined" || API_HOST === "" ? undefined : API_HOST;
 
 const apiRoutes = {
   login: (from?: string, locale?: string): string => {
