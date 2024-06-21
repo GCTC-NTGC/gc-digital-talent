@@ -3,8 +3,68 @@ type LocalizedArmedForcesStatus {
   label: LocalizedString
 }
 
+type LocalizedAssessmentDecision {
+  value: AssessmentDecision
+  label: LocalizedString
+}
+
+type LocalizedAssessmentDecisionLevel {
+  value: AssessmentDecisionLevel
+  label: LocalizedString
+}
+
+type LocalizedAssessmentResultJustification {
+  value: AssessmentResultJustification
+  label: LocalizedString
+}
+
+type LocalizedAssessmentStepType {
+  value: AssessmentStepType
+  label: LocalizedString
+}
+
+type LocalizedAwardedScope {
+  value: AwardedScope
+  label: LocalizedString
+}
+
+type LocalizedAwardedTo {
+  value: AwardedTo
+  label: LocalizedString
+}
+
+type LocalizedCandidateExpiryFilter {
+  value: CandidateExpiryFilter
+  label: LocalizedString
+}
+
+type LocalizedCandidateRemovalReason {
+  value: CandidateRemovalReason
+  label: LocalizedString
+}
+
+type LocalizedCandidateSuspendedFilter {
+  value: CandidateSuspendedFilter
+  label: LocalizedString
+}
+
 type LocalizedCitizenshipStatus {
   value: CitizenshipStatus
+  label: LocalizedString
+}
+
+type LocalizedEducationRequirementOption {
+  value: EducationRequirementOption
+  label: LocalizedString
+}
+
+type LocalizedEducationStatus {
+  value: EducationStatus
+  label: LocalizedString
+}
+
+type LocalizedEducationType {
+  value: EducationType
   label: LocalizedString
 }
 
@@ -13,8 +73,118 @@ type LocalizedEstimatedLanguageAbility {
   label: LocalizedString
 }
 
+type LocalizedEvaluatedLanguageAbility {
+  value: EvaluatedLanguageAbility
+  label: LocalizedString
+}
+
+type LocalizedGenericJobTitleKey {
+  value: GenericJobTitleKey
+  label: LocalizedString
+}
+
+type LocalizedGovEmployeeType {
+  value: GovEmployeeType
+  label: LocalizedString
+}
+
+type LocalizedIndigenousCommunity {
+  value: IndigenousCommunity
+  label: LocalizedString
+}
+
 type LocalizedLanguage {
   value: Language
+  label: LocalizedString
+}
+
+type LocalizedLanguageAbility {
+  value: LanguageAbility
+  label: LocalizedString
+}
+
+type LocalizedOperationalRequirement {
+  value: OperationalRequirement
+  label: LocalizedString
+}
+
+type LocalizedPlacementType {
+  value: PlacementType
+  label: LocalizedString
+}
+
+type LocalizedPoolCandidateSearchPositionType {
+  value: PoolCandidateSearchPositionType
+  label: LocalizedString
+}
+
+type LocalizedPoolCandidateSearchRequestReason {
+  value: PoolCandidateSearchRequestReason
+  label: LocalizedString
+}
+
+type LocalizedPoolCandidateSearchStatus {
+  value: PoolCandidateSearchStatus
+  label: LocalizedString
+}
+
+type LocalizedPoolCandidateStatus {
+  value: PoolCandidateStatus
+  label: LocalizedString
+}
+
+type LocalizedPoolLanguage {
+  value: PoolLanguage
+  label: LocalizedString
+}
+
+type LocalizedPoolOpportunityLength {
+  value: PoolOpportunityLength
+  label: LocalizedString
+}
+
+type LocalizedPoolStatus {
+  value: PoolStatus
+  label: LocalizedString
+}
+
+type LocalizedPoolStream {
+  value: PoolStream
+  label: LocalizedString
+}
+
+type LocalizedPriorityWeight {
+  value: PriorityWeight
+  label: LocalizedString
+}
+
+type LocalizedProvinceOrTerritory {
+  value: ProvinceOrTerritory
+  label: LocalizedString
+}
+
+type LocalizedPublishingGroup {
+  value: PublishingGroup
+  label: LocalizedString
+}
+
+type LocalizedSecurityStatus {
+  value: SecurityStatus
+  label: LocalizedString
+}
+
+type LocalizedSkillCategory {
+  value: SkillCategory
+  label: LocalizedString
+}
+
+type LocalizedSkillLevel {
+  value: SkillLevel
+  label: LocalizedString
+}
+
+type LocalizedWorkRegion {
+  value: WorkRegion
   label: LocalizedString
 }
 
@@ -278,22 +448,22 @@ type User {
   preferredLang: LocalizedLanguage
   preferredLanguageForInterview: LocalizedLanguage
   preferredLanguageForExam: LocalizedLanguage
-  currentProvince: ProvinceOrTerritory
+  currentProvince: LocalizedProvinceOrTerritory
   currentCity: String
   citizenship: LocalizedCitizenshipStatus
-  armedForcesStatus: ArmedForcesStatus
+  armedForcesStatus: LocalizedArmedForcesStatus
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
-  firstOfficialLanguage: Language
+  firstOfficialLanguage: LocalizedLanguage
   secondLanguageExamCompleted: Boolean
   secondLanguageExamValidity: Boolean
-  comprehensionLevel: EvaluatedLanguageAbility
-  writtenLevel: EvaluatedLanguageAbility
-  verbalLevel: EvaluatedLanguageAbility
+  comprehensionLevel: LocalizedEvaluatedLanguageAbility
+  writtenLevel: LocalizedEvaluatedLanguageAbility
+  verbalLevel: LocalizedEvaluatedLanguageAbility
   estimatedLanguageAbility: LocalizedEstimatedLanguageAbility
   isGovEmployee: Boolean
-  govEmployeeType: GovEmployeeType
+  govEmployeeType: LocalizedGovEmployeeType
   currentClassification: Classification
   department: Department
   hasPriorityEntitlement: Boolean
@@ -301,12 +471,12 @@ type User {
   isWoman: Boolean
   hasDisability: Boolean
   isVisibleMinority: Boolean
-  indigenousCommunities: [IndigenousCommunity]
+  indigenousCommunities: [LocalizedIndigenousCommunity]
   indigenousDeclarationSignature: String
   hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
-  locationPreferences: [WorkRegion]
+  locationPreferences: [LocalizedWorkRegion]
   locationExemptions: String
-  acceptedOperationalRequirements: [OperationalRequirement]
+  acceptedOperationalRequirements: [LocalizedOperationalRequirement]
   positionDuration: [PositionDuration]
   poolCandidates: [PoolCandidate]
   experiences: [Experience]
@@ -410,7 +580,7 @@ type Pool implements HasRoleAssignments {
   team: Team
   name: LocalizedString
   classification: Classification
-  operationalRequirements: [OperationalRequirement]
+  operationalRequirements: [LocalizedOperationalRequirement]
   poolCandidates: [PoolCandidate]
   poolCandidatesCount: Int
   keyTasks: LocalizedString
@@ -421,13 +591,13 @@ type Pool implements HasRoleAssignments {
   aboutUs: LocalizedString
   isRemote: Boolean
   location: LocalizedString
-  securityClearance: SecurityStatus
-  language: PoolLanguage
-  status: PoolStatus
-  stream: PoolStream
+  securityClearance: LocalizedSecurityStatus
+  language: LocalizedPoolLanguage
+  status: LocalizedPoolStatus
+  stream: LocalizedPoolStream
   processNumber: String
-  publishingGroup: PublishingGroup
-  opportunityLength: PoolOpportunityLength
+  publishingGroup: LocalizedPublishingGroup
+  opportunityLength: LocalizedPoolOpportunityLength
   createdDate: DateTime
   updatedDate: DateTime
   generalQuestions: [GeneralQuestion]
@@ -459,7 +629,7 @@ type ScreeningQuestionResponse {
 type AssessmentStep {
   id: ID!
   pool: Pool
-  type: AssessmentStepType
+  type: LocalizedAssessmentStepType
   sortOrder: Int
   title: LocalizedString
   poolSkills: [PoolSkill]
@@ -473,9 +643,9 @@ type AssessmentResult {
   poolCandidate: PoolCandidate
   poolSkill: PoolSkill
   assessmentResultType: AssessmentResultType
-  assessmentDecision: AssessmentDecision
-  justifications: [AssessmentResultJustification]
-  assessmentDecisionLevel: AssessmentDecisionLevel
+  assessmentDecision: LocalizedAssessmentDecision
+  justifications: [LocalizedAssessmentResultJustification]
+  assessmentDecisionLevel: LocalizedAssessmentDecisionLevel
   skillDecisionNotes: String
 }
 
@@ -492,7 +662,7 @@ type PoolCandidate {
   pool: Pool!
   user: User!
   expiryDate: Date
-  status: PoolCandidateStatus
+  status: LocalizedPoolCandidateStatus
   statusWeight: Int
   notes: String
   archivedAt: DateTime
@@ -501,14 +671,14 @@ type PoolCandidate {
   deletedDate: DateTime
   isBookmarked: Boolean
   removedAt: DateTime
-  removalReason: CandidateRemovalReason
+  removalReason: LocalizedCandidateRemovalReason
   removalReasonOther: String
   profileSnapshot: JSON
   signature: String
   submittedSteps: [ApplicationStep!]
   generalQuestionResponses: [GeneralQuestionResponse]
   screeningQuestionResponses: [ScreeningQuestionResponse]
-  educationRequirementOption: EducationRequirementOption
+  educationRequirementOption: LocalizedEducationRequirementOption
   educationRequirementExperiences: [Experience]
   assessmentResults: [AssessmentResult]
   finalDecisionAt: DateTime
@@ -538,7 +708,7 @@ type Classification {
 
 type GenericJobTitle {
   id: ID!
-  key: GenericJobTitleKey!
+  key: LocalizedGenericJobTitleKey!
   name: LocalizedString
   classification: Classification
 }
@@ -606,9 +776,9 @@ type PoolCandidateFilter {
   classifications: [Classification]
   hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
   equity: EquitySelections
-  languageAbility: LanguageAbility
-  operationalRequirements: [OperationalRequirement]
-  workRegions: [WorkRegion]
+  languageAbility: LocalizedLanguageAbility
+  operationalRequirements: [LocalizedOperationalRequirement]
+  workRegions: [LocalizedWorkRegion]
   pools: [Pool]
 }
 
@@ -616,13 +786,13 @@ type ApplicantFilter {
   id: ID!
   hasDiploma: Boolean @deprecated(reason: "hasDiploma to be replaced")
   equity: EquitySelections
-  languageAbility: LanguageAbility
-  operationalRequirements: [OperationalRequirement]
-  locationPreferences: [WorkRegion]
+  languageAbility: LocalizedLanguageAbility
+  operationalRequirements: [LocalizedOperationalRequirement]
+  locationPreferences: [LocalizedWorkRegion]
   positionDuration: [PositionDuration]
   skills: [Skill]
   qualifiedClassifications: [Classification]
-  qualifiedStreams: [PoolStream]
+  qualifiedStreams: [LocalizedPoolStream]
   pools: [Pool]
   community: Community
 }
@@ -636,15 +806,15 @@ type PoolCandidateSearchRequest {
   additionalComments: String
   hrAdvisorEmail: Email
   requestedDate: DateTime
-  status: PoolCandidateSearchStatus
+  status: LocalizedPoolCandidateSearchStatus
   statusChangedAt: DateTime
   adminNotes: String
   poolCandidateFilter: PoolCandidateFilter @deprecated(reason: "Replaced by applicantFilter")
   applicantFilter: ApplicantFilter
   wasEmpty: Boolean
   managerJobTitle: String
-  positionType: PoolCandidateSearchPositionType
-  reason: PoolCandidateSearchRequestReason
+  positionType: LocalizedPoolCandidateSearchPositionType
+  reason: LocalizedPoolCandidateSearchRequestReason
   community: Community
 }
 
@@ -662,7 +832,7 @@ type Skill {
   name: LocalizedString!
   description: LocalizedString
   keywords: SkillKeywords
-  category: SkillCategory!
+  category: LocalizedSkillCategory!
   families: [SkillFamily!]
   experienceSkillRecord: ExperienceSkillRecord
 }
@@ -741,8 +911,8 @@ type EducationExperience implements Experience {
   thesisTitle: String
   startDate: Date
   endDate: Date
-  type: EducationType
-  status: EducationStatus
+  type: LocalizedEducationType
+  status: LocalizedEducationStatus
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
@@ -755,8 +925,8 @@ type AwardExperience implements Experience {
   title: String
   issuedBy: String
   awardedDate: Date
-  awardedTo: AwardedTo
-  awardedScope: AwardedScope
+  awardedTo: LocalizedAwardedTo
+  awardedScope: LocalizedAwardedScope
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord

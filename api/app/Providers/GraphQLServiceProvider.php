@@ -106,6 +106,7 @@ class GraphQLServiceProvider extends ServiceProvider
         PoolCandidateSearchPositionType::class,
         PoolCandidateSearchRequestReason::class,
         PoolCandidateSearchStatus::class,
+        PoolCandidateStatus::class,
         PoolLanguage::class,
         PoolOpportunityLength::class,
         PoolSkill::class,
