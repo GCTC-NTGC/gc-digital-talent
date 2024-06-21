@@ -46,17 +46,7 @@ class SyncPoolOperatorWithProcessOperator extends Command
             $poolOperatorTeams = ($poolOperatorRoleAssignments->pluck('team_id')->unique()->toArray());
 
             // collect the pools per team then build an id array to sync
-            $poolIdsToSync = [];
-            foreach ($poolOperatorTeams as $teamId) {
-                $teamsPools = Pool::whereHas('legacyTeam', function ($query) use ($teamId) {
-                    $query->where('team_id', $teamId);
-                })->get();
-
-                $teamPoolsId = $teamsPools->pluck('id')->unique()->toArray();
-                array_push($poolIdsToSync, ...$teamPoolsId);
-            }
-
-            $uniquePoolIdsToSync = array_unique($poolIdsToSync);
+            $uniquePoolIdsToSync = Pool::whereIn('team_id', $poolOperatorTeams)->get()->pluck('id')->unique()->toArray();
 
             // run through each pool id
             foreach ($uniquePoolIdsToSync as $poolId) {
