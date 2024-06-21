@@ -109,7 +109,7 @@ export default defineConfig(({ command }) => ({
   },
   define: {
     IS_DEV_SERVER: command === "serve",
-    API_HOST: getEnvVar("API_HOST"),
+    API_HOST: getEnvVar("API_HOST", JSON.stringify(process.env.APP_URL)),
     API_URI: getEnvVar("API_URI"),
     API_PROTECTED_URI: getEnvVar("API_PROTECTED_URI"),
     BUILD_DATE: JSON.stringify(new Date()),
