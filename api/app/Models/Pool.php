@@ -224,7 +224,7 @@ class Pool extends Model
 
     public function assessmentSteps(): HasMany
     {
-        return $this->hasMany(AssessmentStep::class);
+        return $this->hasMany(AssessmentStep::class)->orderBy('sort_order', 'ASC');
     }
 
     /**
