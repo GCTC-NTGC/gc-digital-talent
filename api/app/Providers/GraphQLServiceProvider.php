@@ -70,6 +70,7 @@ use App\Enums\SkillLevel;
 use App\Enums\WhenSkillUsed;
 use App\Enums\WorkRegion;
 use App\GraphQL\Operators\PostgreSQLOperator;
+use App\Models\PoolSkill;
 use GraphQL\Type\Definition\EnumType;
 use GraphQL\Type\Definition\ObjectType;
 use Illuminate\Support\ServiceProvider;
@@ -80,9 +81,43 @@ class GraphQLServiceProvider extends ServiceProvider
 {
     protected $localizedEnums = [
         ArmedForcesStatus::class,
+        AssessmentDecision::class,
+        AssessmentDecisionLevel::class,
+        AssessmentResultJustification::class,
+        AssessmentStepType::class,
+        AwardedScope::class,
+        AwardedTo::class,
+        CandidateExpiryFilter::class,
+        CandidateRemovalReason::class,
+        CandidateSuspendedFilter::class,
         CitizenshipStatus::class,
+        EducationRequirementOption::class,
+        EducationStatus::class,
+        EducationType::class,
         EstimatedLanguageAbility::class,
+        EvaluatedLanguageAbility::class,
+        GenericJobTitleKey::class,
+        GovEmployeeType::class,
+        IndigenousCommunity::class,
         Language::class,
+        LanguageAbility::class,
+        OperationalRequirement::class,
+        PlacementType::class,
+        PoolCandidateSearchPositionType::class,
+        PoolCandidateSearchRequestReason::class,
+        PoolCandidateSearchStatus::class,
+        PoolLanguage::class,
+        PoolOpportunityLength::class,
+        PoolSkill::class,
+        PoolStatus::class,
+        PoolStream::class,
+        PriorityWeight::class,
+        ProvinceOrTerritory::class,
+        PublishingGroup::class,
+        SecurityStatus::class,
+        SkillCategory::class,
+        SkillLevel::class,
+        WorkRegion::class,
     ];
 
     public function boot(TypeRegistry $typeRegistry): void
