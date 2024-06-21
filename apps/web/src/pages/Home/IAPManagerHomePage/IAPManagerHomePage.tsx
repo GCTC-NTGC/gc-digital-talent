@@ -16,8 +16,6 @@ import section2FlourishImg from "~/assets/img/IAPManager-Section-02-flourish.web
 import testimonials from "~/assets/img/IAPManager-Testimonials.webp";
 import section5Img from "~/assets/img/IAPManager-Section-05.webp";
 import section5FlourishImg from "~/assets/img/IAPManager-Section-05-flourish.webp";
-import packageEnDoc from "~/assets/documents/Manager package - ITAPIP.pptx";
-import packageFrDoc from "~/assets/documents/Trousse du gestionnaire - PATIPA.pptx";
 
 import { CloseQuote, OpenQuote, Triangle } from "../IAPHomePage/components/Svg";
 import TopRightFrame from "./components/Svg/TopRightFrame";
@@ -169,7 +167,11 @@ export const Component = () => {
               external
               mode="cta"
               icon={ArrowDownTrayIcon}
-              href={locale === "en" ? packageEnDoc : packageFrDoc}
+              href={
+                locale === "en"
+                  ? "/documents/Manager package - ITAPIP.pptx"
+                  : "/documents/Trousse du gestionnaire - PATIPA.pptx"
+              }
               color="primary"
               data-h2-text-align="base(center)"
             >
@@ -300,7 +302,11 @@ export const Component = () => {
                   <Link
                     mode="solid"
                     external
-                    href={locale === "en" ? packageEnDoc : packageFrDoc}
+                    href={
+                      locale === "en"
+                        ? "/documents/Manager package - ITAPIP.pptx"
+                        : "/documents/Trousse du gestionnaire - PATIPA.pptx"
+                    }
                     color="primary"
                     data-h2-text-align="base(center)"
                   >
@@ -689,7 +695,11 @@ export const Component = () => {
                   <Link
                     mode="solid"
                     external
-                    href={locale === "en" ? packageEnDoc : packageFrDoc}
+                    href={
+                      locale === "en"
+                        ? "/documents/Manager package - ITAPIP.pptx"
+                        : "/documents/Trousse du gestionnaire - PATIPA.pptx"
+                    }
                     color="secondary"
                     data-h2-text-align="base(center)"
                   >

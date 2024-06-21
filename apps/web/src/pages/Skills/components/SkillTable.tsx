@@ -27,7 +27,7 @@ import {
   INITIAL_STATE,
   SEARCH_PARAM_KEY,
 } from "~/components/Table/ResponsiveTable/constants";
-import * as messages from "~/lang/frCompiled.json";
+import messages from "~/lang/frCompiled.json";
 
 import {
   categoryAccessor,

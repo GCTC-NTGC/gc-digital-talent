@@ -39,7 +39,7 @@ test.describe("Login and logout", () => {
       .waitForResponse(async (resp) => {
         if (resp.url()?.includes("/graphql")) {
           const reqJson = await resp.request()?.postDataJSON();
-          return reqJson.operationName === "authorizationQuery";
+          return reqJson?.operationName === "authorizationQuery";
         }
         return false;
       })

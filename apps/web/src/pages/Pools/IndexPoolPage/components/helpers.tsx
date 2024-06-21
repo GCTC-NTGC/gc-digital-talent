@@ -173,8 +173,10 @@ export function transformPoolInput({
     return undefined;
   }
 
+  const filtersWithCanAdmin: PoolFilterInput = { ...filters, canAdmin: true }; // activate scopeAuthorizedToViewAsAdmin
+
   return {
-    ...filters,
+    ...filtersWithCanAdmin,
     generalSearch: !!search.term && !search.type ? search.term : undefined,
     name: search.type === "name" ? search.term : undefined,
     team: search.type === "type" ? search.term : undefined,
