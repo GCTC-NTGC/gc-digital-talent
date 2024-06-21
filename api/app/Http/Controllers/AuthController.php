@@ -35,6 +35,11 @@ class AuthController extends Controller
             $request->input('from')
         );
 
+        $request->session()->put(
+            'devServer',
+            $request->input('devServer')
+        );
+
         $requestedLocale = $request->input('locale');
         if (strcasecmp($requestedLocale, 'en') == 0) {
             $ui_locales = 'en-CA en';
@@ -119,7 +124,14 @@ class AuthController extends Controller
             $from = null;
         } // Does not start with / so it's not a relative url. Don't want an open redirect vulnerability. Throw it away.
 
-        $navigateToUri = strlen($from) > 0 ? config('app.url').$from : config('oauth.post_login_redirect');
+        $appUrl = config('app.url');
+        $postLoginRedirect = config('oauth.post_login_redirect');
+        if ($request->session()->pull('devServer')) {
+            $appUrl = config('app.dev_url');
+            $postLoginRedirect = config('oauth.dev_post_login_redirect');
+        }
+
+        $navigateToUri = strlen($from) > 0 ? $appUrl.$from : $postLoginRedirect;
 
         return redirect($navigateToUri.'?'.$query);
     }

@@ -7,12 +7,12 @@ const VersionLink = () => {
   const intl = useIntl();
   let content;
   let url;
-  if (process.env.VERSION) {
-    content = process.env.VERSION;
-    url = `https://github.com/GCTC-NTGC/gc-digital-talent/releases/tag/${process.env.VERSION}`;
-  } else if (process.env.COMMIT_HASH) {
-    content = process.env.COMMIT_HASH;
-    url = `https://github.com/GCTC-NTGC/gc-digital-talent/commit/${process.env.COMMIT_HASH}`;
+  if (typeof VERSION !== "undefined") {
+    content = VERSION;
+    url = `https://github.com/GCTC-NTGC/gc-digital-talent/releases/tag/${VERSION}`;
+  } else if (typeof COMMIT_HASH !== "undefined") {
+    content = COMMIT_HASH;
+    url = `https://github.com/GCTC-NTGC/gc-digital-talent/commit/${COMMIT_HASH}`;
   }
 
   if (!content) {

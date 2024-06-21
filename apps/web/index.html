@@ -2,11 +2,8 @@
 <html lang="en" data-h2>
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title><%= htmlWebpackPlugin.options.title %></title>
-
+    <title><%= title %></title>
     <link
       rel="icon"
       href="/images/digital-talent/favicon.ico"
@@ -68,18 +65,70 @@
   </head>
   <body>
     <div
-      id="app"
+      id="root"
       data-h2-color="base(black)"
       data-h2-background="base(background)"
       data-h2-font-family="base(sans)"
     ></div>
-    <script src="<%= htmlWebpackPlugin.files.publicPath %>config.js"></script>
-    <noscript
-      >It looks like JavaScript is disabled in your browser settings or
-      unsupported by the browser itself. JavaScript is required to view this
-      application.<br />Il semblerait que la fonction JavaScript soit désactivée
-      ou non prise en charge dans votre navigateur comme tel. Il est nécessaire
-      d’avoir JavaScript pour consulter cette application.</noscript
-    >
+    <script>
+      const filterUnusable = (value) =>
+        !value.startsWith("$") && value.length > 0 ? value : undefined;
+      if (!window.__SERVER_CONFIG__) {
+        const data = new Map([
+          // auth settings
+          [
+            "OAUTH_POST_LOGOUT_REDIRECT_EN",
+            filterUnusable("$OAUTH_POST_LOGOUT_REDIRECT_EN") ??
+              "<%= OAUTH_POST_LOGOUT_REDIRECT_EN %>",
+          ],
+          [
+            "OAUTH_POST_LOGOUT_REDIRECT_FR",
+            filterUnusable("$OAUTH_POST_LOGOUT_REDIRECT_FR") ??
+              "<%= OAUTH_POST_LOGOUT_REDIRECT_FR %>",
+          ],
+          [
+            "OAUTH_LOGOUT_URI",
+            filterUnusable("$OAUTH_LOGOUT_URI") ?? "<%= OAUTH_LOGOUT_URI %>",
+          ],
+
+          // Feature flags
+          [
+            "FEATURE_DIRECTIVE_FORMS",
+            filterUnusable("$FEATURE_DIRECTIVE_FORMS") ??
+              "<%= FEATURE_DIRECTIVE_FORMS %>",
+          ],
+          [
+            "FEATURE_NOTIFICATIONS",
+            filterUnusable("$FEATURE_NOTIFICATIONS") ??
+              "<%= FEATURE_NOTIFICATIONS %>",
+          ],
+          [
+            "FEATURE_PROTECTED_API",
+            filterUnusable("$FEATURE_PROTECTED_API") ??
+              "<%= FEATURE_PROTECTED_API %>",
+          ],
+
+          // Azure application insights not used in dev
+          [
+            "APPLICATIONINSIGHTS_CONNECTION_STRING",
+            filterUnusable("$APPLICATIONINSIGHTS_CONNECTION_STRING"),
+          ],
+
+          // Logging levels
+          [
+            "LOG_CONSOLE_LEVEL",
+            filterUnusable("$LOG_CONSOLE_LEVEL") ?? "<%= LOG_CONSOLE_LEVEL %>",
+          ],
+          [
+            "LOG_APPLICATIONINSIGHTS_LEVEL",
+            filterUnusable("$LOG_APPLICATIONINSIGHTS_LEVEL") ??
+              "<%= LOG_APPLICATIONINSIGHTS_LEVEL %>",
+          ],
+        ]);
+
+        window.__SERVER_CONFIG__ = data;
+      }
+    </script>
+    <%- noScript %>
   </body>
 </html>

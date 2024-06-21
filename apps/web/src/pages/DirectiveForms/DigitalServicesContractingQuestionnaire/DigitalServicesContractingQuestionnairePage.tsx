@@ -18,8 +18,6 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import Hero from "~/components/Hero";
-import contractingEn from "~/assets/documents/Digital_Contracting_Questionnaire_EN.docx";
-import contractingFr from "~/assets/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import { pageTitle as directiveHomePageTitle } from "../../DirectivePage/DirectivePage";
@@ -119,7 +117,11 @@ export const DigitalServicesContractingQuestionnaire = ({
               color="secondary"
               block
               external
-              href={locale === "fr" ? contractingFr : contractingEn}
+              href={
+                locale === "fr"
+                  ? "/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx"
+                  : "/documents/Digital_Contracting_Questionnaire_EN.docx"
+              }
             >
               {intl.formatMessage({
                 defaultMessage: "Download a copy of this form",
