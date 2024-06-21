@@ -120,7 +120,7 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
             })}
           </p>
           <p>
-            {user.currentCity},{" "}
+            {user.currentCity ? `${user.currentCity}, ` : ""}
             {user.currentProvince
               ? intl.formatMessage(
                   getProvinceOrTerritory(user.currentProvince as string),
