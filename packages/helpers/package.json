@@ -1,7 +1,8 @@
 {
   "name": "@gc-digital-talent/helpers",
   "license": "AGPL-3.0",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "type": "module",
   "types": "./src/index.tsx",
   "exports": {
     ".": "./src/index.tsx"

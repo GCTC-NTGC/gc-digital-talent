@@ -10,7 +10,7 @@ export function getFeatureFlagConfig(flags: Partial<FeatureFlags>) {
   });
   const env = { ...parsed, ...flags };
 
-  let body = `const data = new Map();`;
+  let body = `let data = new Map();`;
   Object.keys(env).forEach((key) => {
     const value = env[key];
     if (typeof value !== "undefined") {

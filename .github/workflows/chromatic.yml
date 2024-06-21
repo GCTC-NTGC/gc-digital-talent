@@ -30,6 +30,11 @@ jobs:
           # Chromatic requires full git history.
           fetch-depth: 0
 
+      - name: "Copy .env"
+        working-directory: "./apps/web"
+        run: |
+          cp .env.example .env
+
       - uses: pnpm/action-setup@v4
         with:
           version: ${{ env.PNPM_VERSION }}
