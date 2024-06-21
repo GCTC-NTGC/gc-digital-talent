@@ -453,6 +453,17 @@ type AssessmentResult {
   skillDecisionNotes: String
 }
 
+type AssessmentStepDecision {
+  step: UUID!
+  decision: AssessmentDecision
+}
+
+type AssessmentResultStatus {
+  assessmentStepStatuses: [AssessmentStepDecision]
+  overallAssessmentStatus: OverallAssessmentStatus
+  currentStep: Int
+}
+
 type PoolSkill {
   id: ID!
   type: PoolSkillType
@@ -485,6 +496,7 @@ type PoolCandidate {
   educationRequirementOption: EducationRequirementOption
   educationRequirementExperiences: [Experience]
   assessmentResults: [AssessmentResult]
+  assessmentStatus: AssessmentResultStatus
   finalDecisionAt: DateTime
   placedAt: DateTime
   placedDepartment: Department
@@ -2615,4 +2627,10 @@ enum PriorityWeight {
   VETERAN
   CITIZEN_OR_PERMANENT_RESIDENT
   OTHER
+}
+
+enum OverallAssessmentStatus {
+  TO_ASSESS
+  DISQUALIFIED
+  QUALIFIED
 }
