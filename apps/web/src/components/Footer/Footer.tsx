@@ -116,9 +116,7 @@ const Footer = ({ width }: FooterProps) => {
                         "Header for the date of the last modification of the site",
                     },
                     {
-                      modifiedDate: new Date(
-                        process.env.BUILD_DATE ?? "1970-01-01",
-                      )
+                      modifiedDate: new Date(BUILD_DATE ?? "1970-01-01")
                         .toISOString()
                         .slice(0, 10),
                     },
