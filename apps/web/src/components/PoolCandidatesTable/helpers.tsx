@@ -30,10 +30,10 @@ import {
   PoolCandidateStatus,
   ProvinceOrTerritory,
   SortOrder,
-  AssessmentStep,
   FragmentType,
+  AssessmentResultStatus,
 } from "@gc-digital-talent/graphql";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -204,13 +204,13 @@ export const currentLocationAccessor = (
   )}`;
 
 export const finalDecisionCell = (
+  status: Maybe<PoolCandidateStatus> | undefined,
+  assessmentStatus: Maybe<AssessmentResultStatus> | undefined,
   intl: IntlShape,
-  poolCandidate: PoolCandidate,
-  poolAssessmentSteps: AssessmentStep[],
 ) => {
   const { color, label } = getCandidateStatusChip(
-    poolCandidate,
-    unpackMaybes(poolAssessmentSteps),
+    status,
+    assessmentStatus,
     intl,
   );
   return <Chip color={color}>{label}</Chip>;

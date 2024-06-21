@@ -44,17 +44,11 @@ export const AssessmentStepTracker_CandidateFragment = graphql(/* GraphQL */ `
       armedForcesStatus
       hasPriorityEntitlement
     }
-    assessmentResults {
-      id
-      assessmentStep {
-        id
-      }
-      assessmentDecision
-      assessmentDecisionLevel
-      assessmentResultType
-      poolSkill {
-        id
-        type
+    assessmentStatus {
+      currentStep
+      assessmentStepStatuses {
+        decision
+        step
       }
     }
   }
