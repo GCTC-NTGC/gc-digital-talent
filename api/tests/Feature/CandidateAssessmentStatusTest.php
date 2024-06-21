@@ -138,6 +138,14 @@ class CandidateAssessmentStatusTest extends TestCase
                 'assessment_step_id' => $stepOne->id,
                 'pool_candidate_id' => $this->candidate->id,
                 'assessment_decision' => AssessmentDecision::SUCCESSFUL->name,
+            ]);
+
+        AssessmentResult::factory()
+            ->withResultType(AssessmentResultType::SKILL)
+            ->create([
+                'assessment_step_id' => $stepOne->id,
+                'pool_candidate_id' => $this->candidate->id,
+                'assessment_decision' => AssessmentDecision::SUCCESSFUL->name,
                 'pool_skill_id' => $this->poolSkill->id,
             ]);
 

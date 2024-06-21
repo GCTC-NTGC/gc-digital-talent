@@ -961,10 +961,12 @@ class PoolCandidate extends Model
             }
 
             if ($hasEssentialSkillsToAssess) {
+
                 // Check assessed essential skills on this step
                 $essentialSkillAssessments = $stepResults
                     ->filter(function ($result) {
-                        return $result->poolSkill?->type === PoolSkillType::ESSENTIAL->name;
+                        return $result->poolSkill?->type === PoolSkillType::ESSENTIAL->name &&
+                            $result->assessment_result_type !== AssessmentResultType::EDUCATION;
                     });
 
                 if ($essentialSkillAssessments->isEmpty()) {
