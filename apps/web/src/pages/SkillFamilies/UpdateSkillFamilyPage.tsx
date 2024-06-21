@@ -54,7 +54,9 @@ export const UpdateSkillFamilySkill_Fragment = graphql(/* GraphQL */ `
       en
       fr
     }
-    category
+    category {
+      value
+    }
   }
 `);
 
@@ -73,7 +75,9 @@ export const UpdateSkillFamily_Fragment = graphql(/* GraphQL */ `
     skills {
       id
       key
-      category
+      category {
+        value
+      }
       name {
         en
         fr

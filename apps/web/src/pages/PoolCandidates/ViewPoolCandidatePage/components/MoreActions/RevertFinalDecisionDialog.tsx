@@ -38,7 +38,9 @@ export const RevertFinalDecisionDialog_Fragment = graphql(/* GraphQL */ `
     id
     expiryDate
     finalDecisionAt
-    status
+    status {
+      value
+    }
   }
 `);
 

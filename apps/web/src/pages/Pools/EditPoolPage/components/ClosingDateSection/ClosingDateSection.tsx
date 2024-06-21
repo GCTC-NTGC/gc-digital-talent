@@ -41,7 +41,9 @@ const dialog = (chunks: ReactNode) => <ClosingDateDialog title={chunks} />;
 const EditPoolClosingDate_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolClosingDate on Pool {
     id
-    status
+    status {
+      value
+    }
     closingDate
   }
 `);

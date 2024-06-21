@@ -11,7 +11,9 @@ import { isQualifiedStatus } from "~/utils/poolCandidate";
 const QualifiedRecruitmentsCandidate_Fragment = graphql(/* GraphQL */ `
   fragment QualifiedRecruitmentsCandidate on PoolCandidate {
     id
-    status
+    status {
+      value
+    }
     ...QualifiedRecruitmentCard
   }
 `);

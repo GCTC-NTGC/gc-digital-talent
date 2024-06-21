@@ -37,7 +37,9 @@ export const EditPoolAboutUs_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolAboutUs on Pool {
     ...UpdatePublishedProcessDialog
     id
-    status
+    status {
+      value
+    }
     aboutUs {
       en
       fr

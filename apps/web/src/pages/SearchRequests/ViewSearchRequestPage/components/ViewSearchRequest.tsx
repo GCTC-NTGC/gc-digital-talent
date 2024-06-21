@@ -232,8 +232,12 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
     jobTitle
     managerJobTitle
     hrAdvisorEmail
-    positionType
-    reason
+    positionType {
+      value
+    }
+    reason {
+      value
+    }
     wasEmpty
     additionalComments
     poolCandidateFilter {
@@ -254,9 +258,15 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
         isVisibleMinority
         isWoman
       }
-      languageAbility
-      operationalRequirements
-      workRegions
+      languageAbility {
+        value
+      }
+      operationalRequirements {
+        value
+      }
+      workRegions {
+        value
+      }
       pools {
         id
         name {
@@ -268,11 +278,15 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
           group
           level
         }
-        stream
+        stream {
+          value
+        }
       }
     }
     requestedDate
-    status
+    status {
+      value
+    }
     statusChangedAt
     adminNotes
     applicantFilter {
@@ -284,9 +298,15 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
         isVisibleMinority
         isWoman
       }
-      languageAbility
-      operationalRequirements
-      locationPreferences
+      languageAbility {
+        value
+      }
+      operationalRequirements {
+        value
+      }
+      locationPreferences {
+        value
+      }
       positionDuration
       skills {
         id
@@ -295,7 +315,9 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
           en
           fr
         }
-        category
+        category {
+          value
+        }
       }
       pools {
         id
@@ -303,7 +325,9 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
           en
           fr
         }
-        stream
+        stream {
+          value
+        }
         classification {
           id
           group
@@ -319,7 +343,9 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
         group
         level
       }
-      qualifiedStreams
+      qualifiedStreams {
+        value
+      }
     }
   }
 `);

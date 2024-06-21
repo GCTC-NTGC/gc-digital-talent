@@ -52,7 +52,9 @@ const UserCandidatesTableRow_Fragment = graphql(/* GraphQL */ `
     poolCandidates {
       id
       isBookmarked
-      status
+      status {
+        value
+      }
       submittedAt
       suspendedAt
       notes
@@ -72,7 +74,9 @@ const UserCandidatesTableRow_Fragment = graphql(/* GraphQL */ `
         id
         assessmentSteps {
           id
-          type
+          type {
+            value
+          }
           sortOrder
           title {
             en

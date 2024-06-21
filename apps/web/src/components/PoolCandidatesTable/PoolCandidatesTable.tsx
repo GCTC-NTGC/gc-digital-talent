@@ -105,7 +105,9 @@ const CandidatesTable_Query = graphql(/* GraphQL */ `
         en
         fr
       }
-      category
+      category {
+        value
+      }
       families {
         id
         key
@@ -164,7 +166,9 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               group
               level
             }
-            stream
+            stream {
+              value
+            }
           }
           assessmentStatus {
             currentStep
@@ -177,29 +181,53 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
             firstName
             lastName
             telephone
-            preferredLang
-            preferredLanguageForInterview
-            preferredLanguageForExam
+            preferredLang {
+              value
+            }
+            preferredLanguageForInterview {
+              value
+            }
+            preferredLanguageForExam {
+              value
+            }
             currentCity
-            currentProvince
-            citizenship
-            armedForcesStatus
+            currentProvince {
+              value
+            }
+            citizenship {
+              value
+            }
+            armedForcesStatus {
+              value
+            }
 
             # Language
             lookingForEnglish
             lookingForFrench
             lookingForBilingual
-            firstOfficialLanguage
+            firstOfficialLanguage {
+              value
+            }
             secondLanguageExamCompleted
             secondLanguageExamValidity
-            comprehensionLevel
-            writtenLevel
-            verbalLevel
-            estimatedLanguageAbility
+            comprehensionLevel {
+              value
+            }
+            writtenLevel {
+              value
+            }
+            verbalLevel {
+              value
+            }
+            estimatedLanguageAbility {
+              value
+            }
 
             # Gov info
             isGovEmployee
-            govEmployeeType
+            govEmployeeType {
+              value
+            }
             currentClassification {
               id
               group
@@ -224,20 +252,28 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
             isWoman
             isVisibleMinority
             hasDisability
-            indigenousCommunities
+            indigenousCommunities {
+              value
+            }
             indigenousDeclarationSignature
 
             # Applicant info
             hasDiploma
-            locationPreferences
+            locationPreferences {
+              value
+            }
             locationExemptions
-            acceptedOperationalRequirements
+            acceptedOperationalRequirements {
+              value
+            }
             positionDuration
             priorityWeight
           }
           isBookmarked
           expiryDate
-          status
+          status {
+            value
+          }
           submittedAt
           notes
           archivedAt

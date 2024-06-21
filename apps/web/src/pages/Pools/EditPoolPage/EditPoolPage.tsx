@@ -97,15 +97,27 @@ export const EditPool_Fragment = graphql(/* GraphQL */ `
     ...EditPoolYourImpact
 
     id
-    stream
+    stream {
+      value
+    }
     processNumber
-    publishingGroup
-    opportunityLength
+    publishingGroup {
+      value
+    }
+    opportunityLength {
+      value
+    }
     closingDate
-    language
-    securityClearance
+    language {
+      value
+    }
+    securityClearance {
+      value
+    }
     publishedAt
-    status
+    status {
+      value
+    }
     location {
       en
       fr
@@ -125,7 +137,9 @@ export const EditPool_Fragment = graphql(/* GraphQL */ `
       requiredLevel
       skill {
         id
-        category
+        category {
+          value
+        }
         key
         name {
           en
@@ -644,7 +658,9 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
   query EditPoolPage($poolId: UUID!) {
     # the existing data of the pool to edit
     pool(id: $poolId) {
-      status
+      status {
+        value
+      }
       ...EditPool
     }
 
@@ -669,7 +685,9 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
         en
         fr
       }
-      category
+      category {
+        value
+      }
       families {
         id
         key

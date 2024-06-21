@@ -38,7 +38,9 @@ const CandidateExpiryDateDialog_Fragment = graphql(/* GraphQL */ `
   fragment CandidateExpiryDateDialog on PoolCandidate {
     id
     expiryDate
-    status
+    status {
+      value
+    }
   }
 `);
 

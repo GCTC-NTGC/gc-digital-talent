@@ -44,11 +44,19 @@ import ActionWrapper from "../ActionWrapper";
 const EditPoolName_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolName on Pool {
     id
-    status
+    status {
+      value
+    }
     processNumber
-    publishingGroup
-    opportunityLength
-    stream
+    publishingGroup {
+      value
+    }
+    opportunityLength {
+      value
+    }
+    stream {
+      value
+    }
     classification {
       id
       group

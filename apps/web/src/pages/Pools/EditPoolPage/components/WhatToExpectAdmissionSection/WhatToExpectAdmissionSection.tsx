@@ -35,7 +35,9 @@ const EditPoolWhatToExpectAdmission_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolWhatToExpectAdmission on Pool {
     ...UpdatePublishedProcessDialog
     id
-    status
+    status {
+      value
+    }
     whatToExpectAdmission {
       en
       fr

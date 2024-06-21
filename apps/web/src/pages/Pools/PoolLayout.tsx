@@ -37,7 +37,9 @@ export const PoolLayout_Fragment = graphql(/* GraphQL */ `
   fragment PoolLayout on Pool {
     ...AssessmentPlanStatus
     id
-    stream
+    stream {
+      value
+    }
     publishedAt
     isComplete
     name {

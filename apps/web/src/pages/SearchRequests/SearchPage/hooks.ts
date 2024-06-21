@@ -56,7 +56,9 @@ const CandidateCount_Query = graphql(/* GraphQL */ `
           en
           fr
         }
-        stream
+        stream {
+          value
+        }
         classification {
           id
           group
@@ -72,7 +74,9 @@ const CandidateCount_Query = graphql(/* GraphQL */ `
               en
               fr
             }
-            category
+            category {
+              value
+            }
           }
         }
         team {

@@ -30,7 +30,9 @@ export const ReinstateCandidateDialog_Fragment = graphql(/* GraphQL */ `
   fragment ReinstateCandidateDialog on PoolCandidate {
     id
     removedAt
-    removalReason
+    removalReason {
+      value
+    }
   }
 `);
 

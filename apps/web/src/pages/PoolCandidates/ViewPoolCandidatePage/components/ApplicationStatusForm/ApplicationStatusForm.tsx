@@ -235,7 +235,9 @@ const ApplicationStatusForm_Mutation = graphql(/* GraphQL */ `
     updatePoolCandidateStatus(id: $id, poolCandidate: $input) {
       id
       expiryDate
-      status
+      status {
+        value
+      }
     }
     updatePoolCandidateNotes(id: $id, notes: $notes) {
       id
@@ -248,7 +250,9 @@ const ApplicationStatusForm_PoolCandidateFragment = graphql(/* GraphQL */ `
   fragment ApplicationStatusForm_PoolCandidateFragment on PoolCandidate {
     id
     expiryDate
-    status
+    status {
+      value
+    }
     notes
     pool {
       id
@@ -256,8 +260,12 @@ const ApplicationStatusForm_PoolCandidateFragment = graphql(/* GraphQL */ `
         en
         fr
       }
-      stream
-      publishingGroup
+      stream {
+        value
+      }
+      publishingGroup {
+        value
+      }
       classification {
         id
         group

@@ -45,7 +45,9 @@ const RemoveCandidate_Mutation = graphql(/* GraphQL */ `
 export const RemoveCandidateDialog_Fragment = graphql(/* GraphQL */ `
   fragment RemoveCandidateDialog on PoolCandidate {
     id
-    removalReason
+    removalReason {
+      value
+    }
     removalReasonOther
   }
 `);

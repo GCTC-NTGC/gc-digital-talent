@@ -52,7 +52,9 @@ export const MoreActions_Fragment = graphql(/* GraphQL */ `
       firstName
       lastName
     }
-    status
+    status {
+      value
+    }
     expiryDate
     profileSnapshot
   }

@@ -119,7 +119,9 @@ export const UpdateUserSkillSkill_Fragment = graphql(/* GraphQL */ `
   fragment UpdateUserSkillSkill on Skill {
     id
     key
-    category
+    category {
+      value
+    }
     name {
       en
       fr
@@ -143,8 +145,12 @@ export const UpdateUserSkillExperience_Fragment = graphql(/* GraphQL */ `
       title
       issuedBy
       awardedDate
-      awardedTo
-      awardedScope
+      awardedTo {
+        value
+      }
+      awardedScope {
+        value
+      }
     }
     ... on CommunityExperience {
       title
@@ -159,8 +165,12 @@ export const UpdateUserSkillExperience_Fragment = graphql(/* GraphQL */ `
       thesisTitle
       startDate
       endDate
-      type
-      status
+      type {
+        value
+      }
+      status {
+        value
+      }
     }
     ... on PersonalExperience {
       title
@@ -191,7 +201,9 @@ export const UpdateUserSkill_Fragment = graphql(/* GraphQL */ `
     skill {
       id
       key
-      category
+      category {
+        value
+      }
       name {
         en
         fr
@@ -208,8 +220,12 @@ export const UpdateUserSkill_Fragment = graphql(/* GraphQL */ `
         title
         issuedBy
         awardedDate
-        awardedTo
-        awardedScope
+        awardedTo {
+          value
+        }
+        awardedScope {
+          value
+        }
       }
       ... on CommunityExperience {
         title
@@ -224,8 +240,12 @@ export const UpdateUserSkill_Fragment = graphql(/* GraphQL */ `
         thesisTitle
         startDate
         endDate
-        type
-        status
+        type {
+          value
+        }
+        status {
+          value
+        }
       }
       ... on PersonalExperience {
         title
@@ -243,7 +263,9 @@ export const UpdateUserSkill_Fragment = graphql(/* GraphQL */ `
       skills {
         id
         key
-        category
+        category {
+          value
+        }
         name {
           en
           fr

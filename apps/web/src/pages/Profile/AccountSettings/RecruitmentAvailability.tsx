@@ -21,7 +21,9 @@ const inlineLink = (href: string, chunks: ReactNode) => (
 
 const RecruitmentAvailabilityCandidate_Fragment = graphql(/* GraphQL */ `
   fragment RecruitmentAvailabilityCandidate on PoolCandidate {
-    status
+    status {
+      value
+    }
     id
     ...ApplicationCard
   }

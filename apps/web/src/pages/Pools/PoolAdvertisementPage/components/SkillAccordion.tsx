@@ -81,7 +81,9 @@ const PoolSkillAccordion_Fragment = graphql(/* GraphQL */ `
     skill {
       id
       key
-      category
+      category {
+        value
+      }
       name {
         en
         fr

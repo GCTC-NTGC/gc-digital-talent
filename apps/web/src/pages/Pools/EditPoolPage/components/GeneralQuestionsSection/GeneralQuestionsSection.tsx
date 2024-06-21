@@ -29,7 +29,9 @@ const MAX_GENERAL_QUESTIONS = 10;
 const EditPoolGeneralQuestions_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolGeneralQuestions on Pool {
     id
-    status
+    status {
+      value
+    }
     generalQuestions {
       id
       sortOrder

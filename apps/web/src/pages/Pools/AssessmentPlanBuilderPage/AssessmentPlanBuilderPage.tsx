@@ -62,7 +62,9 @@ const AssessmentPlanBuilderPool_Fragment = graphql(/* GraphQL */ `
       type
       skill {
         id
-        category
+        category {
+          value
+        }
         key
         name {
           en

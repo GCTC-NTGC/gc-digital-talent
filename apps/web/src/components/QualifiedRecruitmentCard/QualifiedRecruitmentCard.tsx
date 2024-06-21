@@ -33,12 +33,18 @@ export const QualifiedRecruitmentCard_Fragment = graphql(/* GraphQL */ `
   fragment QualifiedRecruitmentCard on PoolCandidate {
     ...RecruitmentAvailabilityDialog
     id
-    status
+    status {
+      value
+    }
     suspendedAt
     pool {
       id
-      stream
-      publishingGroup
+      stream {
+        value
+      }
+      publishingGroup {
+        value
+      }
       name {
         en
         fr
@@ -64,7 +70,9 @@ export const QualifiedRecruitmentCard_Fragment = graphql(/* GraphQL */ `
         id
         skill {
           id
-          category
+          category {
+            value
+          }
           key
           name {
             en

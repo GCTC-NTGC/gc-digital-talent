@@ -35,7 +35,9 @@ const EditPoolYourImpact_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolYourImpact on Pool {
     ...UpdatePublishedProcessDialog
     id
-    status
+    status {
+      value
+    }
     yourImpact {
       en
       fr

@@ -62,7 +62,9 @@ const UserFilterData_Query = graphql(/* GraphQL */ `
         en
         fr
       }
-      category
+      category {
+        value
+      }
     }
     roles {
       id

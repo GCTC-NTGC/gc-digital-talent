@@ -49,9 +49,15 @@ import ActionWrapper from "../ActionWrapper";
 const EditPoolCoreRequirements_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolCoreRequirements on Pool {
     id
-    status
-    language
-    securityClearance
+    status {
+      value
+    }
+    language {
+      value
+    }
+    securityClearance {
+      value
+    }
     isRemote
     location {
       en

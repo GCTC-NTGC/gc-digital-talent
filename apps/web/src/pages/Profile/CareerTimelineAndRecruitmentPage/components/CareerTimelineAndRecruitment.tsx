@@ -53,7 +53,9 @@ export const CareerTimelineExperience_Fragment = graphql(/* GraphQL */ `
         en
         fr
       }
-      category
+      category {
+        value
+      }
       experienceSkillRecord {
         details
       }
@@ -62,8 +64,12 @@ export const CareerTimelineExperience_Fragment = graphql(/* GraphQL */ `
       title
       issuedBy
       awardedDate
-      awardedTo
-      awardedScope
+      awardedTo {
+        value
+      }
+      awardedScope {
+        value
+      }
     }
     ... on CommunityExperience {
       title
@@ -78,8 +84,12 @@ export const CareerTimelineExperience_Fragment = graphql(/* GraphQL */ `
       thesisTitle
       startDate
       endDate
-      type
-      status
+      type {
+        value
+      }
+      status {
+        value
+      }
     }
     ... on PersonalExperience {
       title
@@ -101,7 +111,9 @@ export const CareerTimelineApplication_Fragment = graphql(/* GraphQL */ `
   fragment CareerTimelineApplication on PoolCandidate {
     ...QualifiedRecruitmentsCandidate
     id
-    status
+    status {
+      value
+    }
     archivedAt
     submittedAt
     suspendedAt
@@ -112,8 +124,12 @@ export const CareerTimelineApplication_Fragment = graphql(/* GraphQL */ `
         en
         fr
       }
-      publishingGroup
-      stream
+      publishingGroup {
+        value
+      }
+      stream {
+        value
+      }
       classification {
         id
         group
@@ -124,7 +140,9 @@ export const CareerTimelineApplication_Fragment = graphql(/* GraphQL */ `
         }
         genericJobTitles {
           id
-          key
+          key {
+            value
+          }
           name {
             en
             fr

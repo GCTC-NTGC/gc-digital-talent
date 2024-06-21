@@ -49,12 +49,18 @@ export const ViewPool_Fragment = graphql(/* GraphQL */ `
   fragment ViewPool on Pool {
     ...AssessmentPlanStatus
     id
-    publishingGroup
+    publishingGroup {
+      value
+    }
     isComplete
-    status
+    status {
+      value
+    }
     closingDate
     processNumber
-    stream
+    stream {
+      value
+    }
     poolCandidatesCount
     classification {
       id

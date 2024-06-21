@@ -502,7 +502,9 @@ const ExecutiveHomePage_Query = graphql(/* GraphQL */ `
   query ExecutiveHomePage($closingAfter: DateTime) {
     publishedPools(closingAfter: $closingAfter) {
       id
-      publishingGroup
+      publishingGroup {
+        value
+      }
       ...PoolCard
     }
   }

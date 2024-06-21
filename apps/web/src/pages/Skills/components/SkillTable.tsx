@@ -76,7 +76,9 @@ const SkillTableSkills_Query = graphql(/* GraphQL */ `
     skills {
       id
       key
-      category
+      category {
+        value
+      }
       name {
         en
         fr

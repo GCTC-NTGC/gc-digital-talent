@@ -90,9 +90,15 @@ const UsersPaginated_Query = graphql(/* GraphQL */ `
         firstName
         lastName
         telephone
-        preferredLang
-        preferredLanguageForInterview
-        preferredLanguageForExam
+        preferredLang {
+          value
+        }
+        preferredLanguageForInterview {
+          value
+        }
+        preferredLanguageForExam {
+          value
+        }
         createdDate
         updatedDate
         authInfo {

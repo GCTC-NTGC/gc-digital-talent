@@ -36,7 +36,9 @@ export const SkillSummaryTablePoolSkill_Fragment = graphql(/* GraphQL */ `
     skill {
       id
       key
-      category
+      category {
+        value
+      }
       name {
         en
         fr
@@ -48,7 +50,9 @@ export const SkillSummaryTablePoolSkill_Fragment = graphql(/* GraphQL */ `
 export const SkillSummaryTableAssessmentStep_Fragment = graphql(/* GraphQL */ `
   fragment SkillSummaryTableAssessmentStep on AssessmentStep {
     id
-    type
+    type {
+      value
+    }
     sortOrder
     title {
       en

@@ -29,7 +29,9 @@ import AssessmentSummary from "./components/AssessmentSummary";
 export const FinalDecisionDialog_Fragment = graphql(/* GraphQL */ `
   fragment FinalDecisionDialog on PoolCandidate {
     id
-    status
+    status {
+      value
+    }
     expiryDate
     pool {
       poolSkills {
@@ -39,7 +41,9 @@ export const FinalDecisionDialog_Fragment = graphql(/* GraphQL */ `
         skill {
           id
           key
-          category
+          category {
+            value
+          }
           name {
             en
             fr
@@ -49,14 +53,18 @@ export const FinalDecisionDialog_Fragment = graphql(/* GraphQL */ `
     }
     assessmentResults {
       id
-      assessmentDecision
+      assessmentDecision {
+        value
+      }
       assessmentResultType
       poolSkill {
         id
         skill {
           id
           key
-          category
+          category {
+            value
+          }
           name {
             en
             fr
@@ -74,7 +82,9 @@ const PoolCandidate_QualifyCandidateMutation = graphql(/* GraphQL */ `
   ) {
     qualifyCandidate(id: $id, expiryDate: $expiryDate) {
       id
-      status
+      status {
+        value
+      }
       expiryDate
     }
   }
@@ -87,7 +97,9 @@ const PoolCandidate_DisqualifyCandidateMutation = graphql(/* GraphQL */ `
   ) {
     disqualifyCandidate(id: $id, reason: $reason) {
       id
-      status
+      status {
+        value
+      }
       expiryDate
     }
   }

@@ -126,7 +126,9 @@ const SearchRequestTable_Query = graphql(/* GraphQL */ `
             group
             level
           }
-          qualifiedStreams
+          qualifiedStreams {
+            value
+          }
         }
         department {
           id
@@ -141,9 +143,13 @@ const SearchRequestTable_Query = graphql(/* GraphQL */ `
         id
         jobTitle
         managerJobTitle
-        positionType
+        positionType {
+          value
+        }
         requestedDate
-        status
+        status {
+          value
+        }
         statusChangedAt
         wasEmpty
       }

@@ -25,39 +25,71 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
     firstName
     lastName
     telephone
-    citizenship
-    armedForcesStatus
-    preferredLang
-    preferredLanguageForInterview
-    preferredLanguageForExam
-    currentProvince
+    citizenship {
+      value
+    }
+    armedForcesStatus {
+      value
+    }
+    preferredLang {
+      value
+    }
+    preferredLanguageForInterview {
+      value
+    }
+    preferredLanguageForExam {
+      value
+    }
+    currentProvince {
+      value
+    }
     currentCity
     lookingForEnglish
     lookingForFrench
     lookingForBilingual
-    firstOfficialLanguage
+    firstOfficialLanguage {
+      value
+    }
     secondLanguageExamCompleted
     secondLanguageExamValidity
-    comprehensionLevel
-    writtenLevel
-    verbalLevel
-    estimatedLanguageAbility
+    comprehensionLevel {
+      value
+    }
+    writtenLevel {
+      value
+    }
+    verbalLevel {
+      value
+    }
+    estimatedLanguageAbility {
+      value
+    }
     isGovEmployee
-    govEmployeeType
+    govEmployeeType {
+      value
+    }
     hasPriorityEntitlement
     priorityNumber
-    locationPreferences
+    locationPreferences {
+      value
+    }
     locationExemptions
     positionDuration
-    acceptedOperationalRequirements
-    indigenousCommunities
+    acceptedOperationalRequirements {
+      value
+    }
+    indigenousCommunities {
+      value
+    }
     indigenousDeclarationSignature
     hasDisability
     isVisibleMinority
     isWoman
     poolCandidates {
       id
-      status
+      status {
+        value
+      }
       expiryDate
       notes
       suspendedAt
@@ -75,8 +107,12 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
           group
           level
         }
-        stream
-        publishingGroup
+        stream {
+          value
+        }
+        publishingGroup {
+          value
+        }
         team {
           id
           name
@@ -127,7 +163,9 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
           en
           fr
         }
-        category
+        category {
+          value
+        }
         experienceSkillRecord {
           details
         }
@@ -136,8 +174,12 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
         title
         issuedBy
         awardedDate
-        awardedTo
-        awardedScope
+        awardedTo {
+          value
+        }
+        awardedScope {
+          value
+        }
       }
       ... on CommunityExperience {
         title
@@ -152,8 +194,12 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
         thesisTitle
         startDate
         endDate
-        type
-        status
+        type {
+          value
+        }
+        status {
+          value
+        }
       }
       ... on PersonalExperience {
         title
@@ -177,7 +223,9 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
       skill {
         id
         key
-        category
+        category {
+          value
+        }
         name {
           en
           fr
@@ -195,7 +243,9 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
       skill {
         id
         key
-        category
+        category {
+          value
+        }
         name {
           en
           fr
@@ -213,7 +263,9 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
       skill {
         id
         key
-        category
+        category {
+          value
+        }
         name {
           en
           fr
@@ -231,7 +283,9 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
       skill {
         id
         key
-        category
+        category {
+          value
+        }
         name {
           en
           fr

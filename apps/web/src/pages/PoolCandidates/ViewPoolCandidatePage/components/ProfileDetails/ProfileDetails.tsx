@@ -12,13 +12,23 @@ import { Link, Well } from "@gc-digital-talent/ui";
 const ApplicationProfileDetails_Fragment = graphql(/* GraphQL */ `
   fragment ApplicationProfileDetails on User {
     currentCity
-    currentProvince
+    currentProvince {
+      value
+    }
     telephone
     email
-    citizenship
-    preferredLang
-    preferredLanguageForInterview
-    preferredLanguageForExam
+    citizenship {
+      value
+    }
+    preferredLang {
+      value
+    }
+    preferredLanguageForInterview {
+      value
+    }
+    preferredLanguageForExam {
+      value
+    }
   }
 `);
 

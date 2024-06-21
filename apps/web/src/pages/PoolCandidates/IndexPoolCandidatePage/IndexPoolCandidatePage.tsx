@@ -39,11 +39,19 @@ const IndexPoolCandidatePage_Query = graphql(/* GraphQL */ `
         en
         fr
       }
-      stream
+      stream {
+        value
+      }
       closingDate
-      status
-      language
-      securityClearance
+      status {
+        value
+      }
+      language {
+        value
+      }
+      securityClearance {
+        value
+      }
       classification {
         id
         group
@@ -56,7 +64,9 @@ const IndexPoolCandidatePage_Query = graphql(/* GraphQL */ `
         maxSalary
         genericJobTitles {
           id
-          key
+          key {
+            value
+          }
           name {
             en
             fr
@@ -93,7 +103,9 @@ const IndexPoolCandidatePage_Query = graphql(/* GraphQL */ `
             en
             fr
           }
-          category
+          category {
+            value
+          }
           families {
             id
             key
@@ -114,9 +126,13 @@ const IndexPoolCandidatePage_Query = graphql(/* GraphQL */ `
         en
         fr
       }
-      stream
+      stream {
+        value
+      }
       processNumber
-      publishingGroup
+      publishingGroup {
+        value
+      }
       generalQuestions {
         id
         question {

@@ -34,13 +34,17 @@ const ApplicationCardDelete_Mutation = graphql(/* GraphQL */ `
 export const ApplicationCard_Fragment = graphql(/* GraphQL */ `
   fragment ApplicationCard on PoolCandidate {
     id
-    status
+    status {
+      value
+    }
     suspendedAt
     submittedAt
     pool {
       id
       closingDate
-      stream
+      stream {
+        value
+      }
       name {
         en
         fr

@@ -86,7 +86,9 @@ export const ApplicationPrintDocument_PoolFragment = graphql(/* GraphQL */ `
       type
       skill {
         id
-        category
+        category {
+          value
+        }
         key
         name {
           en

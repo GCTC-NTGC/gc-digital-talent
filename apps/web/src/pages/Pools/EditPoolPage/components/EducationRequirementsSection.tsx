@@ -39,8 +39,12 @@ const scrollToLink = (chunks: ReactNode, to: string) => (
 const EditPoolEducationRequirements_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolEducationRequirements on Pool {
     id
-    status
-    publishingGroup
+    status {
+      value
+    }
+    publishingGroup {
+      value
+    }
     classification {
       id
       group

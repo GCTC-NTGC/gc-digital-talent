@@ -20,7 +20,9 @@ export const TrackApplicationsCandidate_Fragment = graphql(/* GraphQL */ `
   fragment TrackApplicationsCandidate on PoolCandidate {
     ...ApplicationCard
     id
-    status
+    status {
+      value
+    }
     pool {
       id
       closingDate

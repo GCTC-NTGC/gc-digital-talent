@@ -49,7 +49,9 @@ const Application_UpdateSelfDeclarationMutation = graphql(/* GraphQL */ `
   ) {
     updateUserAsUser(id: $userId, user: $userInput) {
       id
-      indigenousCommunities
+      indigenousCommunities {
+        value
+      }
       indigenousDeclarationSignature
     }
     updateApplication(id: $applicationId, application: $applicationInput) {

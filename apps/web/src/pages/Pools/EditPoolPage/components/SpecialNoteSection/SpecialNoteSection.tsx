@@ -32,7 +32,9 @@ const EditPoolSpecialNote_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolSpecialNote on Pool {
     ...UpdatePublishedProcessDialog
     id
-    status
+    status {
+      value
+    }
     specialNote {
       en
       fr

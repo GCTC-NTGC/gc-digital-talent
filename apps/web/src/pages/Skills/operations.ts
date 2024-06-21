@@ -11,7 +11,9 @@ export const CreateUserSkill_Mutation = graphql(/* GraphQL */ `
       skillLevel
       skill {
         id
-        category
+        category {
+          value
+        }
         name {
           en
           fr
@@ -32,7 +34,9 @@ export const UpdateUserSkill_Mutation = graphql(/* GraphQL */ `
       skillLevel
       skill {
         id
-        category
+        category {
+          value
+        }
         name {
           en
           fr
@@ -100,7 +104,9 @@ export const UserSkills_Query = graphql(/* GraphQL */ `
         skill {
           id
           key
-          category
+          category {
+            value
+          }
           name {
             en
             fr
@@ -117,7 +123,9 @@ export const UserSkills_Query = graphql(/* GraphQL */ `
     skills {
       id
       key
-      category
+      category {
+        value
+      }
       name {
         en
         fr

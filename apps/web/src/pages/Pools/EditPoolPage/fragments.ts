@@ -4,7 +4,9 @@ import { graphql } from "@gc-digital-talent/graphql";
 export const EditPoolSkills_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolSkills on Pool {
     id
-    status
+    status {
+      value
+    }
     poolSkills {
       id
       type
@@ -12,7 +14,9 @@ export const EditPoolSkills_Fragment = graphql(/* GraphQL */ `
       skill {
         id
         key
-        category
+        category {
+          value
+        }
         name {
           en
           fr

@@ -35,7 +35,9 @@ const EditPoolKeyTasks_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolKeyTasks on Pool {
     ...UpdatePublishedProcessDialog
     id
-    status
+    status {
+      value
+    }
     keyTasks {
       en
       fr

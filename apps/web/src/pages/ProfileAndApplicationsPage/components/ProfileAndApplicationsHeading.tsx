@@ -78,14 +78,28 @@ export const DashboardHeadingUser_Fragment = graphql(/* GraphQL */ `
     lastName
     email
     telephone
-    preferredLang
-    preferredLanguageForInterview
-    preferredLanguageForExam
+    preferredLang {
+      value
+    }
+    preferredLanguageForInterview {
+      value
+    }
+    preferredLanguageForExam {
+      value
+    }
     currentCity
-    currentProvince
-    citizenship
-    armedForcesStatus
-    locationPreferences
+    currentProvince {
+      value
+    }
+    citizenship {
+      value
+    }
+    armedForcesStatus {
+      value
+    }
+    locationPreferences {
+      value
+    }
     positionDuration
     isGovEmployee
     hasPriorityEntitlement
@@ -93,19 +107,31 @@ export const DashboardHeadingUser_Fragment = graphql(/* GraphQL */ `
     lookingForEnglish
     lookingForFrench
     lookingForBilingual
-    firstOfficialLanguage
-    estimatedLanguageAbility
+    firstOfficialLanguage {
+      value
+    }
+    estimatedLanguageAbility {
+      value
+    }
     secondLanguageExamCompleted
     secondLanguageExamValidity
-    writtenLevel
-    comprehensionLevel
-    verbalLevel
+    writtenLevel {
+      value
+    }
+    comprehensionLevel {
+      value
+    }
+    verbalLevel {
+      value
+    }
     experiences {
       id
     }
     poolCandidates {
       id
-      status
+      status {
+        value
+      }
     }
     userSkills {
       id

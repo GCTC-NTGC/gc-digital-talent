@@ -34,7 +34,9 @@ const SkillMatchDialog_Query = graphql(/* GraphQL */ `
             en
             fr
           }
-          category
+          category {
+            value
+          }
           experienceSkillRecord {
             details
           }
@@ -43,8 +45,12 @@ const SkillMatchDialog_Query = graphql(/* GraphQL */ `
           title
           issuedBy
           awardedDate
-          awardedTo
-          awardedScope
+          awardedTo {
+            value
+          }
+          awardedScope {
+            value
+          }
         }
         ... on CommunityExperience {
           title
@@ -59,8 +65,12 @@ const SkillMatchDialog_Query = graphql(/* GraphQL */ `
           thesisTitle
           startDate
           endDate
-          type
-          status
+          type {
+            value
+          }
+          status {
+            value
+          }
         }
         ... on PersonalExperience {
           title

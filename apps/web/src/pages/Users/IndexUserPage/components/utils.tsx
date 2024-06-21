@@ -173,34 +173,62 @@ export const UsersTable_SelectUsersQuery = graphql(/* GraphQL */ `
       firstName
       lastName
       telephone
-      preferredLang
-      preferredLanguageForInterview
-      preferredLanguageForExam
+      preferredLang {
+        value
+      }
+      preferredLanguageForInterview {
+        value
+      }
+      preferredLanguageForExam {
+        value
+      }
       lookingForEnglish
       lookingForFrench
       lookingForBilingual
-      firstOfficialLanguage
+      firstOfficialLanguage {
+        value
+      }
       secondLanguageExamCompleted
       secondLanguageExamValidity
-      comprehensionLevel
-      writtenLevel
-      verbalLevel
-      estimatedLanguageAbility
+      comprehensionLevel {
+        value
+      }
+      writtenLevel {
+        value
+      }
+      verbalLevel {
+        value
+      }
+      estimatedLanguageAbility {
+        value
+      }
       isGovEmployee
-      govEmployeeType
+      govEmployeeType {
+        value
+      }
       hasPriorityEntitlement
       priorityNumber
-      locationPreferences
+      locationPreferences {
+        value
+      }
       locationExemptions
       positionDuration
-      acceptedOperationalRequirements
+      acceptedOperationalRequirements {
+        value
+      }
       isWoman
-      indigenousCommunities
+      indigenousCommunities {
+        value
+      }
       indigenousDeclarationSignature
       isVisibleMinority
       hasDisability
-      citizenship
-      armedForcesStatus
+      citizenship {
+        value
+      }
+      armedForcesStatus {
+        value
+      }
       department {
         id
         departmentNumber
@@ -241,7 +269,9 @@ export const UsersTable_SelectUsersQuery = graphql(/* GraphQL */ `
             en
             fr
           }
-          category
+          category {
+            value
+          }
           experienceSkillRecord {
             details
           }
@@ -250,8 +280,12 @@ export const UsersTable_SelectUsersQuery = graphql(/* GraphQL */ `
           title
           issuedBy
           awardedDate
-          awardedTo
-          awardedScope
+          awardedTo {
+            value
+          }
+          awardedScope {
+            value
+          }
         }
         ... on CommunityExperience {
           title
@@ -266,8 +300,12 @@ export const UsersTable_SelectUsersQuery = graphql(/* GraphQL */ `
           thesisTitle
           startDate
           endDate
-          type
-          status
+          type {
+            value
+          }
+          status {
+            value
+          }
         }
         ... on PersonalExperience {
           title
@@ -284,7 +322,9 @@ export const UsersTable_SelectUsersQuery = graphql(/* GraphQL */ `
         }
       }
       poolCandidates {
-        status
+        status {
+          value
+        }
         expiryDate
         user {
           id
@@ -295,7 +335,9 @@ export const UsersTable_SelectUsersQuery = graphql(/* GraphQL */ `
             en
             fr
           }
-          stream
+          stream {
+            value
+          }
           classification {
             id
             group
@@ -312,7 +354,9 @@ export const UsersTable_SelectUsersQuery = graphql(/* GraphQL */ `
         skill {
           id
           key
-          category
+          category {
+            value
+          }
           name {
             en
             fr
@@ -330,7 +374,9 @@ export const UsersTable_SelectUsersQuery = graphql(/* GraphQL */ `
         skill {
           id
           key
-          category
+          category {
+            value
+          }
           name {
             en
             fr
@@ -348,7 +394,9 @@ export const UsersTable_SelectUsersQuery = graphql(/* GraphQL */ `
         skill {
           id
           key
-          category
+          category {
+            value
+          }
           name {
             en
             fr
@@ -366,7 +414,9 @@ export const UsersTable_SelectUsersQuery = graphql(/* GraphQL */ `
         skill {
           id
           key
-          category
+          category {
+            value
+          }
           name {
             en
             fr

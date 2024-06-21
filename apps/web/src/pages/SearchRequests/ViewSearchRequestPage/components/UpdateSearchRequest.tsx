@@ -271,7 +271,9 @@ const UpdateSearchRequest_Mutation = graphql(/* GraphQL */ `
       poolCandidateSearchRequest: $poolCandidateSearchRequest
     ) {
       id
-      status
+      status {
+        value
+      }
       adminNotes
     }
   }

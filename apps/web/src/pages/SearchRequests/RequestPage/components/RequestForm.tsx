@@ -127,7 +127,9 @@ const PoolsInFilter_Query = graphql(/* GraphQL */ `
           group
           level
         }
-        stream
+        stream {
+          value
+        }
       }
     }
   }
@@ -675,7 +677,9 @@ const RequestForm_SearchRequestDataQuery = graphql(/* GraphQL */ `
         en
         fr
       }
-      category
+      category {
+        value
+      }
     }
     classifications {
       ...RequestFormClassification

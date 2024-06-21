@@ -48,8 +48,12 @@ const BrowsePoolsPage_Query = graphql(/* GraphQL */ `
   query BrowsePoolsPage($closingAfter: DateTime) {
     publishedPools(closingAfter: $closingAfter) {
       id
-      publishingGroup
-      status
+      publishingGroup {
+        value
+      }
+      status {
+        value
+      }
       ...ActiveRecruitmentSectionPool
     }
     ...OngoingRecruitmentSection

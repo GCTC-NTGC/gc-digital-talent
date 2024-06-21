@@ -25,7 +25,9 @@ export const DigitalServicesContractingQuestionnairePageData_Query = graphql(
           en
           fr
         }
-        category
+        category {
+          value
+        }
         families {
           id
           key

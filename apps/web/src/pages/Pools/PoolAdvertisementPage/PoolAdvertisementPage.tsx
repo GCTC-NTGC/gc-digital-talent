@@ -118,12 +118,22 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
       en
       fr
     }
-    stream
+    stream {
+      value
+    }
     closingDate
-    status
-    language
-    securityClearance
-    opportunityLength
+    status {
+      value
+    }
+    language {
+      value
+    }
+    securityClearance {
+      value
+    }
+    opportunityLength {
+      value
+    }
     classification {
       id
       group
@@ -136,7 +146,9 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
       maxSalary
       genericJobTitles {
         id
-        key
+        key {
+          value
+        }
         name {
           en
           fr
@@ -173,7 +185,9 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
       skill {
         id
         key
-        category
+        category {
+          value
+        }
         name {
           en
           fr
@@ -186,9 +200,13 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
       en
       fr
     }
-    stream
+    stream {
+      value
+    }
     processNumber
-    publishingGroup
+    publishingGroup {
+      value
+    }
     generalQuestions {
       id
       question {
@@ -1252,7 +1270,9 @@ const PoolAdvertisementPage_Query = graphql(/* GraphQL */ `
     pool(id: $id) {
       ...PoolAdvertisement
       id
-      status
+      status {
+        value
+      }
     }
   }
 `);

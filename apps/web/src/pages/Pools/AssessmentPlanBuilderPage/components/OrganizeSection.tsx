@@ -48,21 +48,27 @@ const OrganizeSection_SwapMutation = graphql(/* GraphQL */ `
 const OrganizeSectionPool_Fragment = graphql(/* GraphQL */ `
   fragment OrganizeSectionPool on Pool {
     id
-    status
+    status {
+      value
+    }
     ...AssessmentStepCardPool
     poolSkills {
       ...AssessmentDetailsDialogPoolSkill
     }
     assessmentSteps {
       id
-      type
+      type {
+        value
+      }
       sortOrder
       poolSkills {
         id
         skill {
           id
           key
-          category
+          category {
+            value
+          }
           name {
             en
             fr

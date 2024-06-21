@@ -57,26 +57,42 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
       ...MoreActions
       ...ClaimVerification
       id
-      status
+      status {
+        value
+      }
       user {
         ...ApplicationProfileDetails
         id
         firstName
         lastName
         currentCity
-        currentProvince
+        currentProvince {
+          value
+        }
         telephone
         email
-        citizenship
-        preferredLang
-        preferredLanguageForInterview
-        preferredLanguageForExam
+        citizenship {
+          value
+        }
+        preferredLang {
+          value
+        }
+        preferredLanguageForInterview {
+          value
+        }
+        preferredLanguageForExam {
+          value
+        }
         hasPriorityEntitlement
-        armedForcesStatus
+        armedForcesStatus {
+          value
+        }
         priorityWeight
         poolCandidates {
           id
-          status
+          status {
+            value
+          }
           expiryDate
           notes
           suspendedAt
@@ -94,8 +110,12 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
               group
               level
             }
-            stream
-            publishingGroup
+            stream {
+              value
+            }
+            publishingGroup {
+              value
+            }
             team {
               id
               name
@@ -122,7 +142,9 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
               en
               fr
             }
-            category
+            category {
+              value
+            }
           }
           skillLevel
         }
@@ -145,7 +167,9 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
               en
               fr
             }
-            category
+            category {
+              value
+            }
             experienceSkillRecord {
               details
             }
@@ -154,8 +178,12 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
             title
             issuedBy
             awardedDate
-            awardedTo
-            awardedScope
+            awardedTo {
+              value
+            }
+            awardedScope {
+              value
+            }
             details
           }
           ... on CommunityExperience {
@@ -172,8 +200,12 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
             thesisTitle
             startDate
             endDate
-            type
-            status
+            type {
+              value
+            }
+            status {
+              value
+            }
             details
           }
           ... on PersonalExperience {
@@ -205,8 +237,12 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
           title
           issuedBy
           awardedDate
-          awardedTo
-          awardedScope
+          awardedTo {
+            value
+          }
+          awardedScope {
+            value
+          }
           details
         }
         ... on CommunityExperience {
@@ -223,8 +259,12 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
           thesisTitle
           startDate
           endDate
-          type
-          status
+          type {
+            value
+          }
+          status {
+            value
+          }
           details
         }
         ... on PersonalExperience {
@@ -243,7 +283,9 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
           details
         }
       }
-      educationRequirementOption
+      educationRequirementOption {
+        value
+      }
       profileSnapshot
       notes
       signature
@@ -255,7 +297,9 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
           en
           fr
         }
-        stream
+        stream {
+          value
+        }
         classification {
           id
           group
@@ -273,7 +317,9 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
               en
               fr
             }
-            category
+            category {
+              value
+            }
             families {
               id
               key
@@ -297,7 +343,9 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
             en
             fr
           }
-          type
+          type {
+            value
+          }
           sortOrder
           poolSkills {
             id
@@ -318,7 +366,9 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
               fr
             }
             id
-            category
+            category {
+              value
+            }
             key
           }
         }
@@ -352,25 +402,37 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
                   en
                   fr
                 }
-                category
+                category {
+                  value
+                }
               }
               skillLevel
             }
           }
         }
-        assessmentDecision
-        assessmentDecisionLevel
+        assessmentDecision {
+          value
+        }
+        assessmentDecisionLevel {
+          value
+        }
         assessmentResultType
         assessmentStep {
           id
-          type
+          type {
+            value
+          }
           title {
             en
             fr
           }
         }
-        justifications
-        assessmentDecisionLevel
+        justifications {
+          value
+        }
+        assessmentDecisionLevel {
+          value
+        }
         skillDecisionNotes
         poolSkill {
           id
@@ -379,7 +441,9 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
           skill {
             id
             key
-            category
+            category {
+              value
+            }
             name {
               en
               fr
