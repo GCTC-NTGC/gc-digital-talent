@@ -2099,10 +2099,6 @@
     "defaultMessage": "Services d’orientation",
     "description": "Button text to open section describing referrals services"
   },
-  "9XaTwh": {
-    "defaultMessage": "Préciser l’information suivante en vue du nouveau recrutement :",
-    "description": "Text prompting for input when duplicating a process"
-  },
   "9c/MAZ": {
     "defaultMessage": "Salaire minimal",
     "description": "Title displayed for the Classification table Minimum Salary column."
@@ -4038,6 +4034,10 @@
   "KKXJFE": {
     "defaultMessage": "Fiabilité",
     "description": "Reliability screening level"
+  },
+  "KP50uT": {
+    "defaultMessage": "Préciser l’information suivante en vue du nouveau recrutement",
+    "description": "Text prompting for input when duplicating a process"
   },
   "KS1jGw": {
     "defaultMessage": "Bâtissez votre carrière numérique",

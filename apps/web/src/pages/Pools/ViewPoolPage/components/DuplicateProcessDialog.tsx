@@ -4,6 +4,7 @@ import { FormProvider, useForm } from "react-hook-form";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import {
+  commonMessages,
   errorMessages,
   formMessages,
   getLocalizedName,
@@ -104,12 +105,13 @@ const DuplicateProcessDialog = ({
             <form onSubmit={handleSubmit(handleDuplicate)}>
               <p data-h2-margin-bottom="base(x1)">
                 {intl.formatMessage({
-                  id: "9XaTwh",
+                  id: "KP50uT",
                   defaultMessage:
-                    "Specify the following information for this new recruitment:",
+                    "Specify the following information for this new recruitment",
                   description:
                     "Text prompting for input when duplicating a process",
                 })}
+                {intl.formatMessage(commonMessages.dividingColon)}
               </p>
               <div data-h2-margin-bottom="base(x1)">
                 <div
