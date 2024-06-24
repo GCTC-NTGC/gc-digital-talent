@@ -2099,6 +2099,10 @@
     "defaultMessage": "Services d’orientation",
     "description": "Button text to open section describing referrals services"
   },
+  "9XaTwh": {
+    "defaultMessage": "Préciser l’information suivante en vue du nouveau recrutement :",
+    "description": "Text prompting for input when duplicating a process"
+  },
   "9c/MAZ": {
     "defaultMessage": "Salaire minimal",
     "description": "Title displayed for the Classification table Minimum Salary column."
@@ -2682,6 +2686,10 @@
   "CzK1qY": {
     "defaultMessage": "Supprimé",
     "description": "Label for the trashed field"
+  },
+  "D/Ymty": {
+    "defaultMessage": "Ministère d’attache",
+    "description": "Label displayed on the pool form department field."
   },
   "D1ZXOz": {
     "defaultMessage": "Langue des postes pour lesquels vous souhaitez être pris en considération",
@@ -10749,6 +10757,10 @@
   "uSdcX4": {
     "defaultMessage": "Le statut de candidat du bassin a été mis à jour avec succès",
     "description": "Message displayed when a pool candidate has been updated by and admin"
+  },
+  "uWbX45": {
+    "defaultMessage": "Choisir un ministère",
+    "description": "Placeholder displayed on the pool form department field."
   },
   "uWdGeZ": {
     "defaultMessage": "Expérience professionnelle",
