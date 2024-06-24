@@ -623,10 +623,6 @@
     "defaultMessage": "Supprimer cette expérience",
     "description": "Button to remove the link between experience and skill"
   },
-  "1GWQal": {
-    "defaultMessage": "Vous n’avez toujours pas indiqué votre collectivité! <pledgeLink>Veuillez l’entrer ici.</pledgeLink>",
-    "description": "The text displayed if the user has selected as indigenous but not selected a community yet."
-  },
   "1HPhji": {
     "defaultMessage": "Filtres",
     "description": "Text label for button to open filter dialog on admin tables."
@@ -1015,10 +1011,6 @@
     "defaultMessage": "Demandes de talents",
     "description": "Title for the index search request page"
   },
-  "3R3jKp": {
-    "defaultMessage": "Modifier {title}",
-    "description": "Link to edit object"
-  },
   "3Rad8l": {
     "defaultMessage": "Souhaitez-vous poursuivre? Ceci vous éloignera de cette page-ci.",
     "description": "Text explaining what will happen after duplicating a pool and confirming the action"
@@ -1062,10 +1054,6 @@
   "3owqTQ": {
     "defaultMessage": "Veuillez utiliser uniquement des lettres minuscules et des traits de soulignement.",
     "description": "Description for rule pattern on key field"
-  },
-  "3pox8N": {
-    "defaultMessage": "Modifiez vos options d'informations gouvernementales.",
-    "description": "Link text to edit government information on profile."
   },
   "3rbRfI": {
     "defaultMessage": "Vous recevrez un suivi sur votre demande dans 5 à 10 jours ouvrables.",
@@ -1982,10 +1970,6 @@
   "91b+W0": {
     "defaultMessage": "Niveau exigé",
     "description": "Required skill level column header for tables"
-  },
-  "92hwzj": {
-    "defaultMessage": "Statut de citoyenneté :",
-    "description": "Citizenship status label"
   },
   "93zCaS": {
     "defaultMessage": "Reflète la spécialisation nécessaire ",
@@ -3079,10 +3063,6 @@
     "defaultMessage": "Vous vous êtes déconnecté(e) de la plateforme avec succès",
     "description": "Title for the alert displayed after a user signs out"
   },
-  "F3/88e": {
-    "defaultMessage": "Modifier les options de votre lieu de travail.",
-    "description": "Link text to edit work location on profile"
-  },
   "F4RHJu": {
     "defaultMessage": "Il manque des renseignements obligatoires sur la langue",
     "description": "Error message displayed when a users language information is incomplete"
@@ -3282,10 +3262,6 @@
   "G1jegJ": {
     "defaultMessage": "Veuillez remplir toutes les zones obligatoires avant de continuer",
     "description": "Error message displayed when user attempts to submit incomplete profile"
-  },
-  "G3K1/H": {
-    "defaultMessage": "Vous n'avez pas été identifié comme membre de groupes visés par l'équité en matière d'emploi.",
-    "description": "Message indicating the user has not been marked as part of an equity group"
   },
   "G4fR8L": {
     "defaultMessage": "<strong>Téléimprimeur :</strong> 1-888-643-3304",
@@ -3971,10 +3947,6 @@
     "defaultMessage": "Choisir un bassin :",
     "description": "Second section of text on the add user to pool dialog"
   },
-  "K4O5hP": {
-    "defaultMessage": "Vous vous êtes identifié(e) en tant que membre d’un groupe d’équité en matière d’emploi.<strong> Vous pouvez ajouter d’autres groupes d’équité en matière d’emploi à votre profil en modifiant la présente section, s’ils s’appliquent à vous.</strong>",
-    "description": "Final paragraph in the employment equity profile section"
-  },
   "K6Tzh1": {
     "defaultMessage": "Relier votre parcours professionnel",
     "description": "Heading for checklist section in application education page."
@@ -4182,10 +4154,6 @@
   "L8k+lC": {
     "defaultMessage": "Précédent",
     "description": "Back button located next to the submit button on the request form."
-  },
-  "L9AGk7": {
-    "defaultMessage": "Modifiez vos options à propos de moi.",
-    "description": "Link text to edit about me section on profile."
   },
   "L9IkrB": {
     "defaultMessage": "Que puis-je faire si mes codes d'authentification ne sont plus acceptés?",
@@ -4835,10 +4803,6 @@
     "defaultMessage": "Oiseau-mouche en plein vol, qui représente le messager de la joie au sein de plusieurs communautés autochtones",
     "description": "Description of a decorative image of a hummingbird"
   },
-  "P6EhD6": {
-    "defaultMessage": "Modifiez vos options concernant la diversité, l’équité et l’inclusion",
-    "description": "Link text to edit diversity, equity, and inclusion information on profile."
-  },
   "P6jGb4": {
     "defaultMessage": "Veuillez préciser les exigences linguistiques",
     "description": "Label for _other official language requirement_ fieldset in the _digital services contracting questionnaire_"
@@ -5439,17 +5403,9 @@
     "defaultMessage": "Équipe de gestion de la collectivité du numérique",
     "description": "Default team for pool"
   },
-  "S9lNLG": {
-    "defaultMessage": "Modifiez vos options d'informations linguistiques",
-    "description": "Link text to edit language information on profile."
-  },
   "SARjte": {
     "defaultMessage": "Modifier le statut",
     "description": "title for change status dialog on view-user page"
-  },
-  "SCCX7B": {
-    "defaultMessage": "Vous n'avez pas encore ajouté de renseignements ici.",
-    "description": "Message for when no data exists for the section"
   },
   "SEdLz1": {
     "defaultMessage": "Lien établi avec l’expérience!",
@@ -7066,10 +7022,6 @@
     "defaultMessage": "Contactez-nous pour nous faire part de votre rétroaction ou d'un problème.",
     "description": "Subtitle for the Support page"
   },
-  "azOv8A": {
-    "defaultMessage": "Téléphone :",
-    "description": "Phone label and colon"
-  },
   "azdo5+": {
     "defaultMessage": "Modifier - famille",
     "description": "Page title for the skill family edit page"
@@ -7121,10 +7073,6 @@
   "bDnBF9": {
     "defaultMessage": "Création d’une réserve de talents numériques préqualifiés à l’échelle du gouvernement, en fonction des besoins des ministères",
     "description": "A reason to collect this data in the _why collect this data_ section of the _digital services contracting questionnaire_"
-  },
-  "bEwwY/": {
-    "defaultMessage": "Langue de communication préférée :",
-    "description": "Preferred Language for communication purposes label and colon"
   },
   "bF/ZqD": {
     "defaultMessage": "Les techniciens fournissent un soutien technique dans le développement, la mise en place, l’intégration et la maintenance de la fourniture de services aux clients et aux intervenants.",
@@ -7293,10 +7241,6 @@
   "c0SFYY": {
     "defaultMessage": "Si vous ne trouvez toujours pas une compétence, il est possible qu’elle n’ait pas encore été ajoutée à notre bibliothèque. Nous enrichissons constamment notre liste de compétences et serions ravis de connaître votre avis. <a>Faites-nous part de vos suggestions</a>.",
     "description": "Help text to tell users to change their filters to find a skill"
-  },
-  "c39xT8": {
-    "defaultMessage": "Modifier les options de votre expérience.",
-    "description": "Link text to edit experience information on profile."
   },
   "c4R8FH": {
     "defaultMessage": "<link>L'Ambition numérique</link>, publiée en 2022, donne des directives sur la façon d'accroître la représentation des groupes sous-représentés en ayant recours à des programmes tels le Programme d'apprentissage en TI pour les personnes autochtones.",
@@ -7749,10 +7693,6 @@
   "eEXEtz": {
     "defaultMessage": "Télécharger le guide sur la mise en œuvre pour les conseillers en RH (texte clair)",
     "description": "Aria label for download guidance for human resources plain text link."
-  },
-  "eFCDP4": {
-    "defaultMessage": "Modifiez vos options de préférences de travail.",
-    "description": "Link text to edit work preferences on profile"
   },
   "eFNBND": {
     "defaultMessage": "Architecture intégrée de la <abbreviation>TI</abbreviation>",
@@ -9466,10 +9406,6 @@
     "defaultMessage": "Candidat(e) precedent(e)",
     "description": "Link label to view previous candidate on view pool candidate page"
   },
-  "mtFK6A": {
-    "defaultMessage": "Courriel :",
-    "description": "Email label and colon"
-  },
   "mxOuYK": {
     "defaultMessage": "Télécharger CSV",
     "description": "Text label for button to download a csv file of items in a table."
@@ -10317,10 +10253,6 @@
   "s/BI/4": {
     "defaultMessage": "Au fil des ans, des centaines de candidats de différents groupes et niveaux ont été nominés aux tables rondes en gestion des talents; EXposition ciblant les cadres supérieurs et Prolonger EXposition se concentrant sur les candidats de groupes et niveaux EX équivalents et EX moins un.  Les nominations sont compilées dans la base de données en gestion des talents numériques. Cette base de données constitue la source principale de données lorsque les organisations veulent d'obtenir des références tout au long de l'année.",
     "description": "Description of identifying digital talents"
-  },
-  "s1h7Mc": {
-    "defaultMessage": "Lieu actuel :",
-    "description": "Current Location label and colon"
   },
   "s3JBjM": {
     "defaultMessage": "Le processus a été archivé avec succès!",
