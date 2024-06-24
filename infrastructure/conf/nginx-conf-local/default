@@ -102,11 +102,6 @@ server {
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         fastcgi_index index.php;
     }
-    # for sharing runtime env variables with client code
-    location = /config.js {
-        # add_header Cache-Control "public, max-age=60"; # 1 minute - to distrubute variable changes
-        alias /home/site/wwwroot/apps/web/dist/config.js; # technically this would get caught the main assets block, but this mirrors prod conf
-    }
 
     # api
     location = /graphql {

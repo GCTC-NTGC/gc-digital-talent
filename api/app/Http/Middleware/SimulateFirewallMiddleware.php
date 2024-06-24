@@ -15,9 +15,7 @@ class SimulateFirewallMiddleware
         "\u{202F}", // https://symbl.cc/en/202F/
     ];
 
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * @return mixed Any kind of response

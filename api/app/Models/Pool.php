@@ -226,7 +226,7 @@ class Pool extends Model
 
     public function assessmentSteps(): HasMany
     {
-        return $this->hasMany(AssessmentStep::class);
+        return $this->hasMany(AssessmentStep::class)->orderBy('sort_order', 'ASC');
     }
 
     /**
@@ -519,6 +519,46 @@ class Pool extends Model
                 }
             });
         });
+
+        return $query;
+    }
+
+    /**
+     * Filter for pools the user is allowed to view admin information for, based around assessment plan permissions
+     */
+    public static function scopeAuthorizedToViewAsAdmin(Builder $query, ?bool $canAdmin): Builder
+    {
+        if (empty($canAdmin)) {
+            return $query;
+        }
+
+        $user = Auth::user();
+
+        if (is_null($user)) {
+            return $query->where('id', null);
+        }
+
+        if (! $user->isAbleTo('view-any-assessmentPlan')) {
+            $query->where(function (Builder $query) use ($user) {
+                if ($user->isAbleTo('view-team-assessmentPlan')) {
+                    // Only add teams the user can view pools in to the query for `whereHas`
+                    $teams = $user->rolesTeams()->get();
+                    $teamIds = [];
+                    foreach ($teams as $team) {
+                        if ($user->isAbleTo('view-team-assessmentPlan', $team)) {
+                            $teamIds[] = $team->id;
+                        }
+                    }
+
+                    $query->orWhereHas('legacyTeam', function (Builder $query) use ($teamIds) {
+                        return $query->whereIn('id', $teamIds);
+                    });
+                } else {
+                    return $query->where('id', null); // when the user can't see any assessment plans
+                }
+            }
+            );
+        }
 
         return $query;
     }

@@ -1,4 +1,0 @@
-{
-  "plugins": ["cypress"],
-  "extends": ["@gc-digital-talent/eslint-config", "plugin:cypress/recommended"],
-}

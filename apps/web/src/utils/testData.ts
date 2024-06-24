@@ -11,6 +11,7 @@ import {
 } from "@gc-digital-talent/fake-data";
 import {
   AssessmentDecision,
+  OverallAssessmentStatus,
   AssessmentResult,
   AssessmentResultType,
   AssessmentStep,
@@ -60,6 +61,11 @@ const makeAssessmentResult = (
 
 export const candidateFullyQualifiedExceptMissingEducation: PoolCandidate = {
   ...fakeCandidates[0],
+  assessmentStatus: {
+    assessmentStepStatuses: [],
+    overallAssessmentStatus: OverallAssessmentStatus.ToAssess,
+    currentStep: 1,
+  },
   assessmentResults: [
     ...fakePoolAssessmentSteps.flatMap((step) =>
       step.poolSkills?.map((poolSkill) =>
@@ -71,6 +77,10 @@ export const candidateFullyQualifiedExceptMissingEducation: PoolCandidate = {
 
 export const candidateFullyQualified: PoolCandidate = {
   ...fakeCandidates[1],
+  assessmentStatus: {
+    overallAssessmentStatus: OverallAssessmentStatus.Qualified,
+    currentStep: null,
+  },
   assessmentResults: [
     ...fakePoolAssessmentSteps.flatMap((step) =>
       step.poolSkills?.map((poolSkill) =>
@@ -88,6 +98,10 @@ export const candidateFullyQualified: PoolCandidate = {
 
 export const candidateQualifiedExceptHoldOnMiddleAssessment: PoolCandidate = {
   ...fakeCandidates[2],
+  assessmentStatus: {
+    overallAssessmentStatus: OverallAssessmentStatus.Qualified,
+    currentStep: null,
+  },
   assessmentResults: [
     ...fakePoolAssessmentSteps.flatMap((step, index) =>
       step.poolSkills?.map((poolSkill) =>
@@ -111,6 +125,11 @@ export const candidateQualifiedExceptHoldOnMiddleAssessment: PoolCandidate = {
 
 export const candidateQualifiedExceptHoldOnFinalAssessment: PoolCandidate = {
   ...fakeCandidates[3],
+  assessmentStatus: {
+    assessmentStepStatuses: [],
+    overallAssessmentStatus: OverallAssessmentStatus.Qualified,
+    currentStep: 3,
+  },
   assessmentResults: [
     ...fakePoolAssessmentSteps.flatMap((step, index) =>
       step.poolSkills?.map((poolSkill) =>
@@ -134,6 +153,14 @@ export const candidateQualifiedExceptHoldOnFinalAssessment: PoolCandidate = {
 
 export const candidateUnfinishedFinalAssessment: PoolCandidate = {
   ...fakeCandidates[4],
+  assessmentStatus: {
+    assessmentStepStatuses: fakePoolAssessmentSteps.flatMap((step) => ({
+      step: step.id,
+      decision: null,
+    })),
+    overallAssessmentStatus: OverallAssessmentStatus.ToAssess,
+    currentStep: 3,
+  },
   assessmentResults: [
     ...fakePoolAssessmentSteps.flatMap((step, stepIndex) =>
       step.poolSkills?.map((poolSkill, skillIndex) =>
@@ -157,6 +184,11 @@ export const candidateUnfinishedFinalAssessment: PoolCandidate = {
 
 export const candidateHoldOnMiddleStepAndNoResultsOnFinalStep: PoolCandidate = {
   ...fakeCandidates[5],
+  assessmentStatus: {
+    assessmentStepStatuses: [],
+    overallAssessmentStatus: OverallAssessmentStatus.ToAssess,
+    currentStep: 3,
+  },
   assessmentResults: [
     ...fakePoolAssessmentSteps
       .slice(0, 2)
@@ -182,6 +214,14 @@ export const candidateHoldOnMiddleStepAndNoResultsOnFinalStep: PoolCandidate = {
 
 export const candidateOneFailingAssessment: PoolCandidate = {
   ...fakeCandidates[6],
+  assessmentStatus: {
+    assessmentStepStatuses: fakePoolAssessmentSteps.flatMap((step) => ({
+      step: step.id,
+      decision: AssessmentDecision.Unsuccessful,
+    })),
+    overallAssessmentStatus: OverallAssessmentStatus.Disqualified,
+    currentStep: 1,
+  },
   assessmentResults: [
     ...fakePoolAssessmentSteps.flatMap((step, stepIndex) =>
       step.poolSkills?.map((poolSkill, skillIndex) =>

@@ -17,8 +17,7 @@ class TalentRequestSubmissionConfirmation extends Notification implements CanBeS
      */
     public function __construct(
         public string $trackingNumber,
-    ) {
-    }
+    ) {}
 
     /**
      * Get the notification's delivery channels.

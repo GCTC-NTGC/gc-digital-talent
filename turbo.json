@@ -17,8 +17,6 @@
         "../../api/storage/app/lighthouse-schema.graphql",
         "../../packages/**/src/**/*.ts",
         "../../packages/**/src/**/*.tsx",
-        "../../apps/e2e/**/src/**/*.ts",
-        "../../apps/e2e/**/src/**/*.tsx",
         "src/**/*.ts",
         "src/**/*.tsx"
       ],
@@ -89,14 +87,7 @@
     "clean": {
       "cache": false
     },
-    "e2e": {},
-    "e2e:open": {},
     "e2e:playwright": {},
-    "e2e:run": {},
-    "e2e:run:all": {
-      "dependsOn": ["^e2e:run:all"]
-    },
-    "e2e:run:inspect": {},
     "lint": {
       "inputs": [
         "../../packages/eslint-config-custom/index.js",

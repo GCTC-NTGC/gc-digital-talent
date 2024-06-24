@@ -1,7 +1,6 @@
 import {
   PropsWithChildren,
   ReactElement,
-  ReactNode,
   useEffect,
   useMemo,
   useRef,
@@ -27,8 +26,7 @@ import {
 import ErrorSummary from "./ErrorSummary";
 import UnsavedChanges from "./UnsavedChanges";
 import { flattenErrors } from "../utils";
-
-export type FieldLabels = Record<string, ReactNode>;
+import { FieldLabels } from "../types";
 
 /**
  * Basic Form Props

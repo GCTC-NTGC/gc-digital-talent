@@ -1,41 +1,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable prefer-destructuring */
-import type { StorybookConfig } from "@storybook/react-webpack5";
-
-const path = require("path");
-
-const HydrogenPlugin = require("hydrogen-webpack-plugin");
-const TsTransformer = require("@formatjs/ts-transformer");
-
-const transform = TsTransformer.transform;
-
-// This uses ts-loader to inject generated ids into react-intl messages.
-const reactIntlTransformRule = {
-  test: /\.tsx?$/,
-  loader: "ts-loader",
-  options: {
-    getCustomTransformers() {
-      return {
-        before: [
-          transform({
-            overrideIdFn: "[sha512:contenthash:base64:6]",
-            preserveWhitespace: true,
-          }),
-        ],
-      };
-    },
-  },
-  exclude: /node_modules/,
-};
-
-const staticDocumentsRule = {
-  test: /\.(pdf|doc|docx|pptx)$/i,
-  type: "asset/resource",
-  generator: {
-    filename: "documents/[name][ext]",
-  },
-};
+import type { StorybookConfig } from "@storybook/react-vite";
 
 const webStories = "../src/**/*.stories.@(js|jsx|ts|tsx|mdx)";
 const designStories =
@@ -55,54 +21,23 @@ const main: StorybookConfig = {
   staticDirs: ["../src/assets"],
   addons: [
     "@storybook/addon-a11y",
-    "@storybook/addon-actions",
-    "@storybook/addon-controls",
-    "@storybook/addon-links",
     "@storybook/addon-themes",
-    "@storybook/addon-toolbars",
-    "@storybook/addon-viewport",
-    "@storybook/addon-webpack5-compiler-swc",
+    "@storybook/addon-essentials",
     "storybook-react-intl",
   ],
+  core: {
+    builder: "@storybook/builder-vite",
+  },
   framework: {
-    name: "@storybook/react-webpack5",
-    options: { builder: { useSWC: true } },
+    name: "@storybook/react-vite",
+    options: {},
   },
-  docs: {
-    autodocs: false,
-  },
-  typescript: {
-    reactDocgen: "react-docgen-typescript",
-    reactDocgenTypescriptOptions: {
-      compilerOptions: {
-        allowSyntheticDefaultImports: false,
-        esModuleInterop: false,
-      },
-    },
-  },
-  webpackFinal: async (config) => {
-    // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
-    // You can change the configuration based on that.
-    // 'PRODUCTION' is used when building the static version of storybook.
-
-    config.resolve?.extensions?.push(".tsx", ".ts");
-    config.module?.rules?.push(reactIntlTransformRule, staticDocumentsRule);
-    if (config.resolve?.alias) {
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        "~": path.resolve(__dirname, "../../apps/web/src/"),
-      };
-    }
-
-    config.plugins?.push(
-      new HydrogenPlugin({
-        outputFile: path.resolve(
-          __dirname,
-          "../../apps/web/src/assets/css/hydrogen.css",
-        ),
-      }),
+  // Weird fix that I do not fully understand
+  // REF: https://stackoverflow.com/questions/77540892/chromatic-github-action-is-failing
+  viteFinal(config) {
+    config.plugins = (config.plugins ?? []).filter(
+      (plugin) => plugin && "name" in plugin && plugin.name !== "vite:dts",
     );
-
     return config;
   },
 };

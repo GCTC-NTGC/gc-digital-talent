@@ -10,6 +10,7 @@ import {
   Pool,
   User,
   EducationRequirementOption,
+  OverallAssessmentStatus,
 } from "@gc-digital-talent/graphql";
 
 import fakeExperiences from "./fakeExperiences";
@@ -56,6 +57,11 @@ const generatePoolCandidate = (pools: Pool[], users: User[]): PoolCandidate => {
     isBookmarked: faker.datatype.boolean(0.2),
     generalQuestionResponses,
     screeningQuestionResponses,
+    assessmentStatus: {
+      assessmentStepStatuses: [],
+      overallAssessmentStatus: OverallAssessmentStatus.ToAssess,
+      currentStep: 1,
+    },
     finalDecisionAt: faker.date
       .between({ from: FAR_PAST_DATE, to: FAR_FUTURE_DATE })
       .toISOString()

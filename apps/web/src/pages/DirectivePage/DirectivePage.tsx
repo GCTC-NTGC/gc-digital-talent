@@ -17,14 +17,6 @@ import { useFeatureFlags } from "@gc-digital-talent/env";
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
-import talentPlanEn from "~/assets/documents/Forward_Talent_Plan_EN.docx";
-import talentPlanFr from "~/assets/documents/Plan_prospectif_sur_les_talents_FR.docx";
-import recruitmentEn from "~/assets/documents/Digital_Recruitment_Template_EN.docx";
-import recruitmentFr from "~/assets/documents/Modele_de_recrutement_numerique_FR.docx";
-import guidanceEn from "~/assets/documents/Enabling_Conditions_Guidance_EN.docx";
-import guidanceFr from "~/assets/documents/Orientation_sur_les_conditions_habilitantes_FR.docx";
-import contractingEn from "~/assets/documents/Digital_Contracting_Questionnaire_EN.docx";
-import contractingFr from "~/assets/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx";
 
 import getFormLinks from "./utils";
 import Resources from "./Resources";
@@ -78,8 +70,8 @@ export const Component = () => {
   const departmentFormLinks = getFormLinks({
     intl,
     files: {
-      en: recruitmentEn,
-      fr: recruitmentFr,
+      en: "/documents/Digital_Recruitment_Template_EN.docx",
+      fr: "/documents/Modele_de_recrutement_numerique_FR.docx",
     },
     formName: intl.formatMessage({
       defaultMessage: "Department-Specific Recruitment",
@@ -115,8 +107,8 @@ export const Component = () => {
     : getFormLinks({
         intl,
         files: {
-          en: contractingEn,
-          fr: contractingFr,
+          en: "/documents/Digital_Contracting_Questionnaire_EN.docx",
+          fr: "/documents/Questionnaire_d'octroi_de_contrats_numeriques_FR.docx",
         },
         formName: intl.formatMessage({
           defaultMessage: "Digital Services Contracting",
@@ -128,8 +120,8 @@ export const Component = () => {
   const talentPlanFormLinks = getFormLinks({
     intl,
     files: {
-      en: talentPlanEn,
-      fr: talentPlanFr,
+      en: "/documents/Forward_Talent_Plan_EN.docx",
+      fr: "/documents/Plan_prospectif_sur_les_talents_FR.docx",
     },
     formName: intl.formatMessage({
       defaultMessage: "Forward Talent Plan",
@@ -353,7 +345,11 @@ export const Component = () => {
                       color="primary"
                       mode="solid"
                       data-h2-padding="base(x.5, x1)"
-                      href={locale === "en" ? guidanceEn : guidanceFr}
+                      href={
+                        locale === "en"
+                          ? "/documents/Enabling_Conditions_Guidance_EN.docx"
+                          : "/documents/Orientation_sur_les_conditions_habilitantes_FR.docx"
+                      }
                       download
                     >
                       {intl.formatMessage({
