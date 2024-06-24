@@ -8,4 +8,7 @@ return [
     'active' => 'Actif',
     'all' => 'Tous',
     'draft' => 'Ébauche',
+    'beginner' => 'Débutant',
+    'intermediate' => 'Intermédiaire',
+    'advanced' => 'Avancé',
 ];
