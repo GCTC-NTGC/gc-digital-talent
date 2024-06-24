@@ -7,7 +7,7 @@
       "~/*": ["./*"]
     }
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "vite.config.ts", "globals.d.ts", "*.cjs"],
   "exclude": [
     ".turbo",
     "node_modules",

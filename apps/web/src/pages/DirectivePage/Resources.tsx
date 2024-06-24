@@ -7,25 +7,9 @@ import { CardBasic, Heading, Link } from "@gc-digital-talent/ui";
 import { uiMessages, getLocale } from "@gc-digital-talent/i18n";
 
 import decisionTree from "~/assets/img/Directive_landing_page_graphics_R1-02.webp";
-import decisionTreePdfEn from "~/assets/documents/Decision_Tree_PDF_EN.pdf";
-import decisionTreePdfFr from "~/assets/documents/Arbre_decisionnel_PDF_FR.pdf";
-import decisionTreeDocxEn from "~/assets/documents/Decision_Tree_Text_EN.docx";
-import decisionTreeDocxFr from "~/assets/documents/Arbre_decisionnel_texte_FR.docx";
 import managers from "~/assets/img/Managers_image.webp";
-import guidanceManagerPdfEn from "~/assets/documents/Guidance_Manager_PDF_EN.pdf";
-import guidanceManagerPdfFr from "~/assets/documents/Orientation_gestionnaire_PDF_FR.pdf";
-import guidanceManagerDocxEn from "~/assets/documents/Guidance_Manager_text_EN.docx";
-import guidanceManagerDocxFr from "~/assets/documents/Orientation_gestionnaire_texte_FR.docx";
 import hr from "~/assets/img/Human_resources_image.webp";
-import hrPdfEn from "~/assets/documents/Guidance_HR_PDF_EN.pdf";
-import hrPdfFr from "~/assets/documents/Orientation_RH_PDF_FR.pdf";
-import hrDocxEn from "~/assets/documents/Guidance_HR_text_EN.docx";
-import hrDocxFr from "~/assets/documents/Orientation_RH_texte_FR.docx";
 import procurement from "~/assets/img/Procurement_officer_image.webp";
-import procurementPdfEn from "~/assets/documents/Guidance_Procurement_PDF_EN.pdf";
-import procurementPdfFr from "~/assets/documents/Orientation_approvisionnement_PDF_FR.pdf";
-import procurementDocxEn from "~/assets/documents/Guidance_Procurement_text_EN.docx";
-import procurementDocxFr from "~/assets/documents/Orientation_approvisionnement_texte_FR.docx";
 
 const Resources = () => {
   const intl = useIntl();
@@ -85,7 +69,11 @@ const Resources = () => {
               block
               external
               download
-              href={locale === "en" ? decisionTreePdfEn : decisionTreePdfFr}
+              href={
+                locale === "en"
+                  ? "/documents/Decision_Tree_PDF_EN.pdf"
+                  : "/documents/Arbre_decisionnel_PDF_FR.pdf"
+              }
               data-h2-margin="base(0, 0, x1, 0)"
             >
               {intl.formatMessage({
@@ -102,7 +90,11 @@ const Resources = () => {
               block
               external
               download
-              href={locale === "en" ? decisionTreeDocxEn : decisionTreeDocxFr}
+              href={
+                locale === "en"
+                  ? "/documents/Decision_Tree_Text_EN.docx"
+                  : "/documents/Arbre_decisionnel_texte_FR.docx"
+              }
             >
               {intl.formatMessage({
                 defaultMessage:
@@ -195,8 +187,8 @@ const Resources = () => {
                   download
                   href={
                     locale === "en"
-                      ? guidanceManagerPdfEn
-                      : guidanceManagerPdfFr
+                      ? "/documents/Guidance_Manager_PDF_EN.pdf"
+                      : "/documents/Orientation_gestionnaire_PDF_FR.pdf"
                   }
                   aria-label={intl.formatMessage({
                     defaultMessage:
@@ -226,8 +218,8 @@ const Resources = () => {
                   })}
                   href={
                     locale === "en"
-                      ? guidanceManagerDocxEn
-                      : guidanceManagerDocxFr
+                      ? "/documents/Guidance_Manager_text_EN.docx"
+                      : "/documents/Orientation_gestionnaire_texte_FR.docx"
                   }
                   icon={ArrowDownOnSquareIcon}
                   data-h2-justify-content="base(flex-start)"
@@ -301,7 +293,11 @@ const Resources = () => {
                     description:
                       "Aria label for download guidance for human resources pdf link.",
                   })}
-                  href={locale === "en" ? hrPdfEn : hrPdfFr}
+                  href={
+                    locale === "en"
+                      ? "/documents/Guidance_HR_PDF_EN.pdf"
+                      : "/documents/Orientation_RH_PDF_FR.pdf"
+                  }
                   icon={ArrowDownOnSquareIcon}
                   data-h2-margin="base(x1, 0, x1, 0)"
                   data-h2-justify-content="base(flex-start)"
@@ -321,7 +317,11 @@ const Resources = () => {
                     description:
                       "Aria label for download guidance for human resources plain text link.",
                   })}
-                  href={locale === "en" ? hrDocxEn : hrDocxFr}
+                  href={
+                    locale === "en"
+                      ? "/documents/Guidance_HR_text_EN.docx"
+                      : "/documents/Orientation_RH_texte_FR.docx"
+                  }
                   icon={ArrowDownOnSquareIcon}
                   data-h2-justify-content="base(flex-start)"
                 >
@@ -388,7 +388,11 @@ const Resources = () => {
                   block
                   external
                   download
-                  href={locale === "en" ? procurementPdfEn : procurementPdfFr}
+                  href={
+                    locale === "en"
+                      ? "/documents/Guidance_Procurement_PDF_EN.pdf"
+                      : "/documents/Orientation_approvisionnement_PDF_FR.pdf"
+                  }
                   aria-label={intl.formatMessage({
                     defaultMessage:
                       "Download the implementation guidance for procurement officers (PDF)",
@@ -415,7 +419,11 @@ const Resources = () => {
                     description:
                       "Aria label for download guidance for procurement officers plain text link.",
                   })}
-                  href={locale === "en" ? procurementDocxEn : procurementDocxFr}
+                  href={
+                    locale === "en"
+                      ? "/documents/Guidance_Procurement_text_EN.docx"
+                      : "/documents/Orientation_approvisionnement_texte_FR.docx"
+                  }
                   icon={ArrowDownOnSquareIcon}
                   data-h2-justify-content="base(flex-start)"
                 >

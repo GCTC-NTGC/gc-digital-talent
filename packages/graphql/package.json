@@ -8,7 +8,7 @@
   },
   "scripts": {
     "codegen": "graphql-codegen --config codegen.ts",
-    "watch": "pnpm run codegen -- --watch"
+    "watch": "pnpm run codegen --watch"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.2",
