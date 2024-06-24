@@ -32,17 +32,9 @@ In the following example, we have a `<nav>` element where we capture an `onKeyDo
 
 ## E2E Testing
 
-> [!NOTE]  
-> This may change but should remain similar.
+### `@axe-core/playwright`
 
-### `cypress-axe`
-
-We are doing automated a11y testing in our E2E testing with [`cypress-axe`](https://www.npmjs.com/package/cypress-axe). When writing tests your cypress tests, it is considered best practice to add `cy.checkA11y()` when changing the state of the application. Some examples (non-exhaustive) of when to check a11y with cypress are:
-
-- Initial loading of a page/component
-- After navigating to a new page
-- After opening a modal
-- After submitting a form (check errors/validation messages)
+We are doing automated a11y testing in our E2E testing with [`@axe-core/playwright`](https://www.npmjs.com/package/@axe-core/playwright). When writing tests with Playwright, refer to the [Playwright documentation](https://playwright.dev/docs/accessibility-testing) on best practices for a11y.
 
 ### Automated Audits
 
