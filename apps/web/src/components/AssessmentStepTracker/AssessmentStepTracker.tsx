@@ -73,7 +73,9 @@ export const AssessmentStepTracker_PoolFragment = graphql(/* GraphQL */ `
       sortOrder
       poolSkills {
         id
-        type
+        type {
+          value
+        }
       }
     }
   }

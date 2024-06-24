@@ -1,15 +1,17 @@
 import { useIntl } from "react-intl";
 
-import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
+import {
+  notEmpty,
+  uniqueItems,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
 import { Chip, Chips } from "@gc-digital-talent/ui";
 import {
   getEmploymentDuration,
-  getLanguageAbility,
   getOperationalRequirement,
-  getWorkRegion,
   getLocale,
-  getPoolStream,
   commonMessages,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import {
   ApplicantFilter,
@@ -138,15 +140,19 @@ const ApplicantFilters = ({
     operationalRequirementIds.map((id) =>
       intl.formatMessage(getOperationalRequirement(id)),
     );
-  const languageAbility: string = applicantFilter?.languageAbility
-    ? intl.formatMessage(getLanguageAbility(applicantFilter?.languageAbility))
+  const languageAbility: string = applicantFilter?.languageAbility?.label
+    ? getLocalizedName(applicantFilter.languageAbility.label, intl)
     : intl.formatMessage(commonMessages.anyLanguage);
 
-  const workLocationIds: string[] =
-    (applicantFilter?.locationPreferences as string[]) ?? [];
-  const workLocations: string[] | undefined = workLocationIds.map((id) =>
-    intl.formatMessage(getWorkRegion(id)),
-  );
+  const workLocations = unpackMaybes(
+    applicantFilter?.locationPreferences?.flatMap(
+      (workRegion) => workRegion?.label,
+    ),
+  ).map((label) => getLocalizedName(label, intl));
+
+  const streams = unpackMaybes(
+    applicantFilter?.qualifiedStreams?.flatMap((stream) => stream?.label),
+  ).map((label) => getLocalizedName(label, intl));
 
   return (
     <section data-h2-flex-grid="base(flex-start, x2, x.5)">
@@ -181,11 +187,7 @@ const ApplicantFilters = ({
           />
           <FilterBlock
             title={intl.formatMessage(processMessages.stream)}
-            content={
-              applicantFilter?.qualifiedStreams?.map((stream) => {
-                return intl.formatMessage(getPoolStream(stream as string));
-              }) ?? []
-            }
+            content={streams}
           />
           <FilterBlock
             title={intl.formatMessage(
@@ -305,7 +307,7 @@ const SearchRequestFilters = ({
     : [];
 
   const streams = pools?.map((pool) =>
-    pool.stream ? intl.formatMessage(getPoolStream(pool.stream)) : "",
+    pool.stream?.label ? getLocalizedName(pool.stream.label, intl) : "",
   );
 
   // eslint-disable-next-line deprecation/deprecation
@@ -370,15 +372,15 @@ const SearchRequestFilters = ({
     operationalRequirementIds.map((id) =>
       intl.formatMessage(getOperationalRequirement(id)),
     );
-  const workLocationIds: string[] =
-    (poolCandidateFilter?.workRegions as string[]) ?? [];
-  const workLocations: string[] | undefined = workLocationIds.map((id) =>
-    intl.formatMessage(getWorkRegion(id)),
+
+  const workLocations = unpackMaybes(
+    poolCandidateFilter?.workRegions
+      ?.flatMap((workRegion) => workRegion?.label)
+      .map((label) => getLocalizedName(label, intl)),
   );
-  const languageAbility: string = poolCandidateFilter?.languageAbility
-    ? intl.formatMessage(
-        getLanguageAbility(poolCandidateFilter?.languageAbility),
-      )
+
+  const languageAbility = poolCandidateFilter?.languageAbility?.label
+    ? getLocalizedName(poolCandidateFilter.languageAbility.label, intl)
     : intl.formatMessage(commonMessages.anyLanguage);
 
   return (

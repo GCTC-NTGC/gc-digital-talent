@@ -349,12 +349,16 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
           sortOrder
           poolSkills {
             id
-            type
+            type {
+              value
+            }
           }
         }
         poolSkills {
           id
-          type
+          type {
+            value
+          }
           requiredLevel
           skill {
             name {
@@ -436,7 +440,9 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
         skillDecisionNotes
         poolSkill {
           id
-          type
+          type {
+            value
+          }
           requiredLevel
           skill {
             id

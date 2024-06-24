@@ -36,7 +36,9 @@ export const FinalDecisionDialog_Fragment = graphql(/* GraphQL */ `
     pool {
       poolSkills {
         id
-        type
+        type {
+          value
+        }
         requiredLevel
         skill {
           id

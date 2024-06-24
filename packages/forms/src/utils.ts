@@ -5,12 +5,18 @@ import StarterKit from "@tiptap/starter-kit";
 import { FieldErrors, FieldValues } from "react-hook-form";
 
 import {
+  LocalizedEnumString,
   LocalizedString,
   Maybe,
   Scalars,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
-import { Locales, commonMessages, getLocale } from "@gc-digital-talent/i18n";
+import {
+  Locales,
+  commonMessages,
+  getLocale,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
 import { getId, unpackMaybes } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
 
@@ -26,6 +32,8 @@ export const unpackIds = (
   data?: Maybe<Array<Maybe<{ id: string }> | undefined>>,
 ): string[] => unpackMaybes<{ id: string }>(data).map(getId);
 
+type Option = { value: string; label: string };
+
 /**
  * Converts a string enum to a list of options for select input.
  * @param list - Then string enum to convert to options
@@ -35,7 +43,7 @@ export const unpackIds = (
 export function enumToOptions(
   list: Record<string, string>,
   sortOrder?: string[],
-): { value: string; label: string }[] {
+): Option[] {
   const entries = Object.entries(list);
   if (sortOrder) {
     entries.sort((a, b) => {
@@ -64,6 +72,22 @@ export function enumToOptions(
     [],
   );
   return options;
+}
+
+/**
+ * Localized enum to options
+ *
+ * Converts a localized enum to a
+ * field options array
+ */
+export function localizedEnumToOptions(
+  list: Maybe<LocalizedEnumString>[] | undefined | null,
+  intl: IntlShape,
+): Option[] {
+  return unpackMaybes(list).map(({ value, label }) => ({
+    value,
+    label: getLocalizedName(label, intl),
+  }));
 }
 
 /**

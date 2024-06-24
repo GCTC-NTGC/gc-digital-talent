@@ -14,10 +14,7 @@ import {
   parseDateTimeUtc,
   relativeClosingDate,
 } from "@gc-digital-talent/date-helpers";
-import {
-  commonMessages,
-  getPoolCandidateStatus,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Color } from "@gc-digital-talent/ui";
 import {
   AssessmentDecision,
@@ -33,6 +30,7 @@ import {
   PriorityWeight,
   OverallAssessmentStatus,
   AssessmentResultStatus,
+  LocalizedPoolCandidateStatus,
 } from "@gc-digital-talent/graphql";
 import { getOrThrowError } from "@gc-digital-talent/helpers";
 
@@ -164,7 +162,7 @@ export const getResultsDecision = (
   }
 
   const requiredSkillAssessments = step.poolSkills?.filter(
-    (poolSkill) => poolSkill?.type === PoolSkillType.Essential,
+    (poolSkill) => poolSkill?.type?.value === PoolSkillType.Essential,
   );
 
   requiredSkillAssessments?.forEach((skillAssessment) => {
@@ -178,7 +176,7 @@ export const getResultsDecision = (
     }
 
     assessmentResults.forEach((assessmentResult) => {
-      switch (assessmentResult.assessmentDecision) {
+      switch (assessmentResult.assessmentDecision?.value) {
         case null:
         case undefined:
           hasToAssess = true;
@@ -195,7 +193,7 @@ export const getResultsDecision = (
   });
 
   // Check for Education requirement if this is an ApplicationScreening step
-  if (step.type === AssessmentStepType.ApplicationScreening) {
+  if (step.type?.value === AssessmentStepType.ApplicationScreening) {
     const educationResults = stepResults.filter(
       (result) =>
         result.assessmentResultType === AssessmentResultType.Education,
@@ -208,7 +206,7 @@ export const getResultsDecision = (
       if (result.assessmentDecision === null) {
         hasToAssess = true;
       }
-      switch (result.assessmentDecision) {
+      switch (result.assessmentDecision?.value) {
         case null:
           hasToAssess = true;
           break;
@@ -265,18 +263,21 @@ const getFinalDecisionChipColor = (
   return "white";
 };
 
-export const statusToJobPlacement = (status?: Maybe<PoolCandidateStatus>) => {
+export const statusToJobPlacement = (
+  status: Maybe<LocalizedPoolCandidateStatus> | undefined | null,
+  intl: IntlShape,
+): string => {
   if (status) {
-    if (isNotPlacedStatus(status)) {
-      return poolCandidateMessages.notPlaced;
+    if (isNotPlacedStatus(status.value)) {
+      return intl.formatMessage(poolCandidateMessages.notPlaced);
     }
 
-    if (isPlacedStatus(status)) {
-      return getPoolCandidateStatus(status);
+    if (isPlacedStatus(status.value)) {
+      return getLocalizedName(status.label, intl);
     }
   }
 
-  return commonMessages.notAvailable;
+  return intl.formatMessage(commonMessages.notAvailable);
 };
 
 // Note: By setting the explicit Record<PoolCandidateStatus, x> type, Typescript will actually error if we forget a status!

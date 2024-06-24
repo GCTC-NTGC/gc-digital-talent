@@ -83,7 +83,9 @@ export const ApplicationPrintDocument_PoolFragment = graphql(/* GraphQL */ `
     id
     poolSkills {
       id
-      type
+      type {
+        value
+      }
       skill {
         id
         category {

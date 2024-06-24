@@ -73,7 +73,9 @@ export const ViewPool_Fragment = graphql(/* GraphQL */ `
     }
     poolSkills {
       id
-      type
+      type {
+        value
+      }
     }
   }
 `);

@@ -213,7 +213,9 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
       }
       poolSkills {
         id
-        type
+        type {
+          value
+        }
         skill {
           id
           key

@@ -2,26 +2,23 @@ import { IntlShape } from "react-intl";
 
 import {
   getLocalizedName,
-  getSkillCategory,
   LocalizedArray,
   getLocalizedArray,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Spoiler } from "@gc-digital-talent/ui";
 import {
+  LocalizedSkillCategory,
   Maybe,
   Skill,
-  SkillCategory,
   SkillFamily,
 } from "@gc-digital-talent/graphql";
 
 export function categoryAccessor(
-  category: Maybe<SkillCategory>,
+  category: Maybe<LocalizedSkillCategory>,
   intl: IntlShape,
 ) {
-  return category
-    ? intl.formatMessage(getSkillCategory(category as string))
-    : "";
+  return category?.label ? getLocalizedName(category.label, intl) : "";
 }
 
 export function skillFamiliesCell(

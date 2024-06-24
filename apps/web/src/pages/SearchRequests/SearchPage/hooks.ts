@@ -66,7 +66,9 @@ const CandidateCount_Query = graphql(/* GraphQL */ `
         }
         poolSkills(type: ESSENTIAL) {
           id
-          type
+          type {
+            value
+          }
           skill {
             id
             key

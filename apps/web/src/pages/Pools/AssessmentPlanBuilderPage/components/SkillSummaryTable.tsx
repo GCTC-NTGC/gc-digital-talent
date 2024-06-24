@@ -32,7 +32,9 @@ import { assessmentStepDisplayName } from "../utils";
 export const SkillSummaryTablePoolSkill_Fragment = graphql(/* GraphQL */ `
   fragment SkillSummaryPoolSkill on PoolSkill {
     id
-    type
+    type {
+      value
+    }
     skill {
       id
       key

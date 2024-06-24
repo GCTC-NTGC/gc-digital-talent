@@ -54,7 +54,9 @@ export const PoolCard_Fragment = graphql(/* GraphQL */ `
     }
     poolSkills {
       id
-      type
+      type {
+        value
+      }
       skill {
         id
         category {

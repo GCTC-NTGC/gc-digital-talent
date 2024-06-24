@@ -15,7 +15,7 @@ import {
   objectsToSortedOptions,
 } from "@gc-digital-talent/forms";
 import { Heading, Link, Pending, Separator } from "@gc-digital-talent/ui";
-import { errorMessages, getSearchRequestReason } from "@gc-digital-talent/i18n";
+import { errorMessages } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import {

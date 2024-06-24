@@ -5,6 +5,10 @@ import {
 import lazyRetry from "./utils/lazyRetry";
 import normalizeString from "./utils/normalizeString";
 import sanitizeUrl from "./utils/sanitizeUrl";
+import {
+  sortLocalizedEvaluatedLanguageAbility,
+  sortWorkRegions,
+} from "./utils/sortEnum";
 import isUuidError from "./utils/uuid";
 import {
   assertUnreachable,
@@ -23,6 +27,7 @@ import {
   groupBy,
   pickMap,
   unpackMaybes,
+  localizedEnumHasValue,
 } from "./utils/util";
 import useIsSmallScreen from "./hooks/useIsSmallScreen";
 import { GraphqlType } from "./types/graphql";
@@ -51,5 +56,8 @@ export {
   groupBy,
   pickMap,
   unpackMaybes,
+  localizedEnumHasValue,
+  sortLocalizedEvaluatedLanguageAbility,
+  sortWorkRegions,
 };
 export type { GraphqlType };

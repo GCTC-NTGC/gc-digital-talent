@@ -15,6 +15,9 @@ import {
   Maybe,
   Pool,
   PositionDuration,
+  LocalizedWorkRegion,
+  WorkRegion,
+  LocalizedEnumString,
 } from "@gc-digital-talent/graphql";
 
 import { FormValues, NullSelection } from "~/types/searchRequest";
@@ -235,3 +238,25 @@ export const formValuesToData = (
       : [],
   };
 };
+
+const sortedWorkRegions: (string | undefined | null)[] = [
+  WorkRegion.Telework,
+  WorkRegion.NationalCapital,
+  WorkRegion.Atlantic,
+  WorkRegion.Quebec,
+  WorkRegion.Ontario,
+  WorkRegion.North,
+  WorkRegion.Prairie,
+  WorkRegion.BritishColumbia,
+  undefined,
+  null,
+];
+
+export function sortWorkRegions(
+  workRegions: LocalizedEnumString[],
+): LocalizedEnumString[] {
+  return workRegions.sort(
+    (a, b) =>
+      sortedWorkRegions.indexOf(a.value) - sortedWorkRegions.indexOf(b.value),
+  );
+}

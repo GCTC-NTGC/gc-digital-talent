@@ -1,6 +1,10 @@
 import pick from "lodash/pick";
 
-import { InputMaybe, Maybe } from "@gc-digital-talent/graphql";
+import {
+  InputMaybe,
+  LocalizedEnumString,
+  Maybe,
+} from "@gc-digital-talent/graphql";
 
 export function identity<T>(value: T): T {
   return value;
@@ -182,4 +186,17 @@ export function pickMap<T, K extends keyof T>(
   return unpackMaybes(list).map(
     (item) => pick(item, keys) as Pick<T, K>, // I think this type coercion is safe? But I'm not sure why its not the default...
   );
+}
+
+/**
+ * Ensure localized enum string
+ * contains a value
+ *
+ * @param localizedEnum
+ * @returns boolean
+ */
+export function localizedEnumHasValue(
+  localizedEnum: LocalizedEnumString,
+): boolean {
+  return !!localizedEnum.value;
 }

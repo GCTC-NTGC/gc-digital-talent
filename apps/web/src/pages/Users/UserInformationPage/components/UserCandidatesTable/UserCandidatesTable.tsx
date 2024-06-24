@@ -84,7 +84,9 @@ const UserCandidatesTableRow_Fragment = graphql(/* GraphQL */ `
           }
           poolSkills {
             id
-            type
+            type {
+              value
+            }
             requiredLevel
           }
         }

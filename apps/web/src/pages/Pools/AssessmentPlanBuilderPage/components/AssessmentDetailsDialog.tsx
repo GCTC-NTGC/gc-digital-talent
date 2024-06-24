@@ -95,7 +95,9 @@ const AssessmentDetailsDialog_ScreeningQuestionMutation = graphql(
 const AssessmentDetailsDialogPoolSkill_Fragment = graphql(/* GraphQL */ `
   fragment AssessmentDetailsDialogPoolSkill on PoolSkill {
     id
-    type
+    type {
+      value
+    }
     skill {
       id
       category {

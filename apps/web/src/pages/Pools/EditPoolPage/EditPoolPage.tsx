@@ -133,7 +133,9 @@ export const EditPool_Fragment = graphql(/* GraphQL */ `
     }
     poolSkills {
       id
-      type
+      type {
+        value
+      }
       requiredLevel
       skill {
         id

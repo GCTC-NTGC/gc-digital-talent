@@ -11,8 +11,6 @@ import {
   Locales,
   commonMessages,
   getLocalizedName,
-  getPoolStatus,
-  getPoolStream,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
 import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
@@ -29,8 +27,10 @@ import {
   Maybe,
   Classification,
   Pool,
-  PoolStream,
   PoolOpportunityLength,
+  LocalizedPoolStream,
+  LocalizedPoolStatus,
+  LocalizedString,
 } from "@gc-digital-talent/graphql";
 
 import { PageNavInfo } from "~/types/pages";
@@ -89,12 +89,12 @@ export const isAdvertisementVisible = (
   );
 };
 
-export function isIAPPool(pool: Maybe<Pool>): boolean {
-  return pool?.publishingGroup === PublishingGroup.Iap;
+export function isIAPPool(publishingGroup?: Maybe<PublishingGroup>): boolean {
+  return publishingGroup === PublishingGroup.Iap;
 }
 
-export function isExecPool(pool: Maybe<Pool>): boolean {
-  return pool?.publishingGroup === PublishingGroup.ExecutiveJobs;
+export function isExecPool(publishingGroup?: Maybe<PublishingGroup>): boolean {
+  return publishingGroup === PublishingGroup.ExecutiveJobs;
 }
 
 interface formatClassificationStringProps {
@@ -111,7 +111,7 @@ export const formatClassificationString = ({
 interface formattedPoolPosterTitleProps {
   title: Maybe<string> | undefined;
   classification: Maybe<Classification> | undefined;
-  stream?: Maybe<PoolStream>;
+  stream?: Maybe<LocalizedPoolStream>;
   short?: boolean;
   intl: IntlShape;
 }
@@ -126,9 +126,7 @@ export const formattedPoolPosterTitle = ({
   html: ReactNode;
   label: string;
 } => {
-  const streamString = stream
-    ? `${intl.formatMessage(getPoolStream(stream))}`
-    : "";
+  const streamString = stream ? getLocalizedName(stream.label, intl) : "";
   const groupAndLevel = classification
     ? formatClassificationString(classification)
     : null ?? "";
@@ -190,7 +188,7 @@ export const poolTitle = (
 
   const specificTitle = getLocalizedName(pool?.name, intl);
 
-  if (isIAPPool(pool)) {
+  if (isIAPPool(pool.publishingGroup?.value)) {
     return {
       html: specificTitle,
       label: specificTitle,
@@ -392,7 +390,7 @@ export const getAdvertisementStatus = (
 
 type StatusBadge = {
   color: Color;
-  label: MessageDescriptor;
+  label?: MessageDescriptor | Maybe<LocalizedString>;
   icon?: IconType;
 };
 
@@ -426,15 +424,15 @@ export const getPoolCompletenessBadge = (completeness: PoolCompleteness) => {
 };
 
 export const getProcessStatusBadge = (
-  status?: Maybe<PoolStatus>,
+  status: LocalizedPoolStatus,
 ): StatusBadge => {
   const statusBadge: StatusBadge = {
     color: "black",
-    label: getPoolStatus(status ?? PoolStatus.Draft),
+    label: status.label,
     icon: LockClosedIcon,
   };
 
-  if (status === PoolStatus.Draft) {
+  if (status.value === PoolStatus.Draft) {
     return {
       ...statusBadge,
       color: "warning",
@@ -442,7 +440,7 @@ export const getProcessStatusBadge = (
     };
   }
 
-  if (status === PoolStatus.Published) {
+  if (status.value === PoolStatus.Published) {
     return {
       label: poolMessages.open,
       color: "primary",

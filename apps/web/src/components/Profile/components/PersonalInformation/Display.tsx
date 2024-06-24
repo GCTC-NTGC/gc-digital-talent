@@ -6,8 +6,7 @@ import {
   commonMessages,
   getArmedForcesStatusesProfile,
   getCitizenshipStatusesProfile,
-  getLanguage,
-  getProvinceOrTerritory,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 
 import profileMessages from "~/messages/profileMessages";
@@ -81,8 +80,8 @@ const Display = ({
               description: "Legend text for communication language preference",
             })}
           >
-            {preferredLang
-              ? intl.formatMessage(getLanguage(preferredLang))
+            {preferredLang?.label
+              ? getLocalizedName(preferredLang.label, intl)
               : notProvided}
           </FieldDisplay>
         </DisplayColumn>
@@ -116,8 +115,8 @@ const Display = ({
                 "Legend text for spoken interview language preference for interviews",
             })}
           >
-            {preferredLanguageForInterview
-              ? intl.formatMessage(getLanguage(preferredLanguageForInterview))
+            {preferredLanguageForInterview?.label
+              ? getLocalizedName(preferredLanguageForInterview.label, intl)
               : notProvided}
           </FieldDisplay>
         </DisplayColumn>
@@ -136,8 +135,8 @@ const Display = ({
               description: "Label for current province or territory field",
             })}
           >
-            {currentProvince
-              ? intl.formatMessage(getProvinceOrTerritory(currentProvince))
+            {currentProvince?.label
+              ? getLocalizedName(currentProvince.label, intl)
               : notProvided}
           </FieldDisplay>
           <FieldDisplay
@@ -149,8 +148,8 @@ const Display = ({
                 "Legend text for written exam language preference for exams",
             })}
           >
-            {preferredLanguageForExam
-              ? intl.formatMessage(getLanguage(preferredLanguageForExam))
+            {preferredLanguageForExam?.label
+              ? getLocalizedName(preferredLanguageForExam.label, intl)
               : notProvided}
           </FieldDisplay>
         </DisplayColumn>
@@ -160,9 +159,9 @@ const Display = ({
         label={intl.formatMessage(profileMessages.veteranStatus)}
         data-h2-padding-top="base(x1)"
       >
-        {armedForcesStatus !== null && armedForcesStatus !== undefined
+        {armedForcesStatus?.value
           ? intl.formatMessage(
-              getArmedForcesStatusesProfile(armedForcesStatus, false),
+              getArmedForcesStatusesProfile(armedForcesStatus.value, false),
             )
           : notProvided}
       </FieldDisplay>
@@ -175,8 +174,8 @@ const Display = ({
         })}
         data-h2-padding-top="base(x1)"
       >
-        {citizenship
-          ? intl.formatMessage(getCitizenshipStatusesProfile(citizenship))
+        {citizenship?.value
+          ? intl.formatMessage(getCitizenshipStatusesProfile(citizenship.value))
           : notProvided}
       </FieldDisplay>
     </>
