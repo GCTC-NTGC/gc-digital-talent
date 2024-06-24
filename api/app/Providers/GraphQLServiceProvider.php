@@ -111,6 +111,7 @@ class GraphQLServiceProvider extends ServiceProvider
         PoolLanguage::class,
         PoolOpportunityLength::class,
         PoolSkill::class,
+        PoolSkillType::class,
         PoolStatus::class,
         PoolStream::class,
         PriorityWeight::class,

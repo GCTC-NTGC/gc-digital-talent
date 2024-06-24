@@ -335,7 +335,7 @@ type AssessmentResultStatus {
 
 type PoolSkill {
   id: ID!
-  type: PoolSkillType
+  type: LocalizedPoolSkillType @localizeEnum
   requiredLevel: SkillLevel @rename(attribute: "required_skill_level")
   skill: Skill @belongsTo
   assessmentSteps: [AssessmentStep]

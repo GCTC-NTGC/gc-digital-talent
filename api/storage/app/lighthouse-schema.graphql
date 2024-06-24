@@ -143,6 +143,11 @@ type LocalizedPoolOpportunityLength {
   label: LocalizedString
 }
 
+type LocalizedPoolSkillType {
+  value: PoolSkillType
+  label: LocalizedString
+}
+
 type LocalizedPoolStatus {
   value: PoolStatus
   label: LocalizedString
@@ -662,7 +667,7 @@ type AssessmentResultStatus {
 
 type PoolSkill {
   id: ID!
-  type: PoolSkillType
+  type: LocalizedPoolSkillType
   requiredLevel: SkillLevel
   skill: Skill
   assessmentSteps: [AssessmentStep]
