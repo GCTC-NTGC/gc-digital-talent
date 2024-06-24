@@ -56,14 +56,9 @@ const UserCandidatesTableRow_Fragment = graphql(/* GraphQL */ `
       submittedAt
       suspendedAt
       notes
-      assessmentResults {
-        id
-        assessmentStep {
-          id
-        }
-        assessmentResultType
-        assessmentDecision
-        assessmentDecisionLevel
+      assessmentStatus {
+        currentStep
+        overallAssessmentStatus
       }
       placedDepartment {
         id
@@ -179,9 +174,9 @@ const UserCandidatesTable = ({
         header: intl.formatMessage(tableMessages.finalDecision),
         cell: ({ row: { original: poolCandidate } }) =>
           finalDecisionCell(
+            poolCandidate.status,
+            poolCandidate.assessmentStatus,
             intl,
-            poolCandidate,
-            unpackMaybes(poolCandidate?.pool?.assessmentSteps),
           ),
         enableSorting: false,
       },

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\AssessmentResultSaved;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -45,6 +46,15 @@ class AssessmentResult extends Model
      * @var array
      */
     protected $fillable = [];
+
+    /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'saved' => AssessmentResultSaved::class,
+    ];
 
     public function getActivitylogOptions(): LogOptions
     {

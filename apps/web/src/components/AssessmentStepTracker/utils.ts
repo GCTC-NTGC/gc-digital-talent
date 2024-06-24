@@ -25,9 +25,6 @@ import { NO_DECISION, NullableDecision } from "~/utils/assessmentResults";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import {
   ResultDecisionCounts,
-  determineCandidateStatusPerStep,
-  determineCurrentStepPerCandidate,
-  getDecisionCountForEachStep,
   isDisqualifiedStatus,
   isRemovedStatus,
 } from "~/utils/poolCandidate";
@@ -175,6 +172,13 @@ export const sortResultsAndAddOrdinal = (
   });
 };
 
+const filterCandidatesByDecision = (
+  results: CandidateAssessmentResult[],
+  assessmentDecision: NullableDecision | null,
+) => {
+  return results.filter((result) => result.decision === assessmentDecision);
+};
+
 type StepWithGroupedCandidates = {
   step: AssessmentStep;
   resultCounts?: ResultDecisionCounts;
@@ -186,55 +190,48 @@ export const groupPoolCandidatesByStep = (
   candidates: PoolCandidate[],
 ): StepWithGroupedCandidates[] => {
   const orderedSteps = sortBy(steps, (step) => step.sortOrder);
-  const candidateResults = determineCandidateStatusPerStep(
-    candidates,
-    orderedSteps,
-  );
-  const candidateCurrentSteps = determineCurrentStepPerCandidate(
-    candidateResults,
-    steps,
-  );
-  const stepCounts = getDecisionCountForEachStep(
-    steps,
-    candidateResults,
-    candidateCurrentSteps,
-  );
 
   const stepsWithGroupedCandidates: StepWithGroupedCandidates[] =
     orderedSteps.map((step, index) => {
-      const resultCounts = stepCounts.get(step.id);
-
-      const stepCandidates = Array.from(candidateResults.keys()).filter(
-        (candidateId) => {
-          const currentStep = candidateCurrentSteps.get(candidateId);
-          if (typeof currentStep === "undefined") return false;
-          return (
-            currentStep === null ||
-            currentStep >= index ||
-            candidateResults.get(candidateId)?.get(step.id) !== NO_DECISION
-          );
-        },
-      );
-
-      const results: CandidateAssessmentResult[] = stepCandidates
-        .map((id) => {
-          const poolCandidate = candidates.find(
-            (candidate) => candidate.id === id,
-          );
-          const decisions = candidateResults.get(id);
-          return poolCandidate
-            ? {
-                poolCandidate,
-                decision: decisions?.get(step.id) ?? NO_DECISION,
-              }
-            : undefined;
+      const stepCandidates = candidates
+        .filter((candidate) => {
+          return candidate.assessmentStatus?.currentStep
+            ? index + 1 <= candidate.assessmentStatus?.currentStep
+            : true; // Null step indicates user passed all steps
         })
-        .filter(notEmpty);
+        .map((candidate) => {
+          const stepDecision =
+            candidate.assessmentStatus?.assessmentStepStatuses?.find(
+              (decision) => decision?.step === step.id,
+            );
+
+          return {
+            poolCandidate: candidate,
+            decision: (stepDecision?.decision
+              ? stepDecision.decision
+              : NO_DECISION) as NullableDecision,
+          };
+        });
 
       return {
         step,
-        resultCounts,
-        results,
+        results: stepCandidates,
+        resultCounts: {
+          [NO_DECISION]: filterCandidatesByDecision(stepCandidates, null)
+            .length,
+          [AssessmentDecision.Hold]: filterCandidatesByDecision(
+            stepCandidates,
+            AssessmentDecision.Hold,
+          ).length,
+          [AssessmentDecision.Successful]: filterCandidatesByDecision(
+            stepCandidates,
+            AssessmentDecision.Successful,
+          ).length,
+          [AssessmentDecision.Unsuccessful]: filterCandidatesByDecision(
+            stepCandidates,
+            AssessmentDecision.Unsuccessful,
+          ).length,
+        },
       };
     });
 
