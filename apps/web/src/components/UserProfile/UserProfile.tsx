@@ -104,8 +104,7 @@ const UserProfile = ({ user, headingLevel = "h2" }: UserProfileProps) => {
             <TableOfContents.Heading
               as={headingLevel}
               icon={UserIcon}
-              data-h2-margin-top="base(0)"
-              data-h2-margin-bottom="base(x1)"
+              data-h2-margin="base(0 0 x1 0)"
             >
               {intl.formatMessage(navigationMessages.aboutMe)}
             </TableOfContents.Heading>
@@ -115,7 +114,7 @@ const UserProfile = ({ user, headingLevel = "h2" }: UserProfileProps) => {
             <TableOfContents.Heading
               as={headingLevel}
               icon={UserCircleIcon}
-              data-h2-margin-bottom="base(x1)"
+              data-h2-margin="base(x1.5 0 x1 0)"
             >
               {intl.formatMessage(navigationMessages.diversityEquityInclusion)}
             </TableOfContents.Heading>
@@ -125,7 +124,7 @@ const UserProfile = ({ user, headingLevel = "h2" }: UserProfileProps) => {
             <TableOfContents.Heading
               as={headingLevel}
               icon={ChatBubbleLeftRightIcon}
-              data-h2-margin-bottom="base(x1)"
+              data-h2-margin="base(x1.5 0 x1 0)"
             >
               {intl.formatMessage(navigationMessages.languageInformation)}
             </TableOfContents.Heading>
@@ -135,7 +134,7 @@ const UserProfile = ({ user, headingLevel = "h2" }: UserProfileProps) => {
             <TableOfContents.Heading
               as={headingLevel}
               icon={BuildingLibraryIcon}
-              data-h2-margin-bottom="base(x1)"
+              data-h2-margin="base(x1.5 0 x1 0)"
             >
               {intl.formatMessage(navigationMessages.governmentInformation)}
             </TableOfContents.Heading>
@@ -145,7 +144,7 @@ const UserProfile = ({ user, headingLevel = "h2" }: UserProfileProps) => {
             <TableOfContents.Heading
               as={headingLevel}
               icon={MapPinIcon}
-              data-h2-margin-bottom="base(x1)"
+              data-h2-margin="base(x1.5 0 x1 0)"
             >
               {intl.formatMessage(navigationMessages.workLocation)}
             </TableOfContents.Heading>
@@ -155,7 +154,7 @@ const UserProfile = ({ user, headingLevel = "h2" }: UserProfileProps) => {
             <TableOfContents.Heading
               as={headingLevel}
               icon={HandThumbUpIcon}
-              data-h2-margin-bottom="base(x1)"
+              data-h2-margin="base(x1.5 0 x1 0)"
             >
               {intl.formatMessage(navigationMessages.workPreferences)}
             </TableOfContents.Heading>
@@ -167,7 +166,7 @@ const UserProfile = ({ user, headingLevel = "h2" }: UserProfileProps) => {
             <TableOfContents.Heading
               as={headingLevel}
               icon={BoltIcon}
-              data-h2-margin-bottom="base(x1)"
+              data-h2-margin="base(x1.5 0 x1 0)"
             >
               {intl.formatMessage(
                 navigationMessages.careerTimelineAndRecruitment,
@@ -182,7 +181,7 @@ const UserProfile = ({ user, headingLevel = "h2" }: UserProfileProps) => {
             <TableOfContents.Heading
               as={headingLevel}
               icon={BoltIcon}
-              data-h2-margin-bottom="base(x1)"
+              data-h2-margin="base(x1.5 0 x1 0)"
             >
               {intl.formatMessage(navigationMessages.skillShowcase)}
             </TableOfContents.Heading>
