@@ -23,9 +23,6 @@ import {
   YesNoUnsure,
 } from "@gc-digital-talent/graphql";
 
-import talentPlanEn from "~/assets/documents/Forward_Talent_Plan_EN.docx";
-import talentPlanFr from "~/assets/documents/Plan_prospectif_sur_les_talents_FR.docx";
-
 import {
   buildExternalLink,
   enumToOptions,
@@ -380,7 +377,10 @@ const GeneralInformationSection = ({
                 {
                   link1: (chunks: ReactNode) => {
                     const locale = getLocale(intl);
-                    const url = locale === "en" ? talentPlanEn : talentPlanFr;
+                    const url =
+                      locale === "en"
+                        ? "/documents/Forward_Talent_Plan_EN.docx"
+                        : "/documents/Plan_prospectif_sur_les_talents_FR.docx";
                     return buildExternalLink(url, chunks);
                   },
                   link2: (chunks: ReactNode) =>

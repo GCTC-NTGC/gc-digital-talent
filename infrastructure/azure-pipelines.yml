@@ -36,9 +36,6 @@ jobs:
           API_URI: /graphql
           API_PROTECTED_URI: /admin/graphql
           ADMIN_APP_DIR: /admin
-          # We don't need Cypress in this environment, and so this avoid permission errors of installing it.
-          # See: https://docs.cypress.io/guides/getting-started/installing-cypress#Skipping-installation
-          CYPRESS_INSTALL_BINARY: 0
 
       - task: CopyFiles@2
         displayName: "Copy files to staging directory"

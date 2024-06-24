@@ -5,12 +5,6 @@ dist
 # Hydrogen logging
 hydrogen-logs
 
-# Cypress artifacts
-apps/e2e/cypress/screenshots
-apps/e2e/cypress/videos
-apps/e2e/cypress/reporters
-apps/e2e/cypress/downloads
-
 .jekyll-cache
 .turbo
 .env
