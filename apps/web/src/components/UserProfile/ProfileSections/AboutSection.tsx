@@ -23,56 +23,52 @@ const AboutSection = ({
   const intl = useIntl();
 
   return (
-    <div data-h2-flex-item="base(1of1) p-tablet(3of4)">
-      <Well>
-        {(!!firstName || !!lastName) && (
-          <p>
-            {intl.formatMessage({
-              defaultMessage: "Name:",
-              id: "DAmLhV",
-              description: "Name label and colon",
-            })}{" "}
-            <span data-h2-font-weight="base(700)">
-              {getFullNameHtml(firstName, lastName, intl)}
-            </span>
-          </p>
+    <Well>
+      {(!!firstName || !!lastName) && (
+        <p>
+          {intl.formatMessage({
+            defaultMessage: "Name:",
+            id: "DAmLhV",
+            description: "Name label and colon",
+          })}{" "}
+          <span data-h2-font-weight="base(700)">
+            {getFullNameHtml(firstName, lastName, intl)}
+          </span>
+        </p>
+      )}
+      {!firstName &&
+        !lastName &&
+        !citizenship &&
+        armedForcesStatus === null && (
+          <p>{intl.formatMessage(commonMessages.noInformationProvided)}</p>
         )}
-        {!firstName &&
-          !lastName &&
-          !citizenship &&
-          armedForcesStatus === null && (
-            <p>{intl.formatMessage(commonMessages.noInformationProvided)}</p>
-          )}
-        {armedForcesStatus !== null && armedForcesStatus !== undefined && (
-          <p>
-            {intl.formatMessage({
-              defaultMessage: "Member of CAF:",
-              id: "Md/cQS",
-              description: "Veteran/member label",
-            })}{" "}
-            <span data-h2-font-weight="base(700)">
-              {intl.formatMessage(
-                getArmedForcesStatusesAdmin(armedForcesStatus),
-              )}
-            </span>
-          </p>
-        )}
-        {citizenship ? (
-          <p>
-            {intl.formatMessage({
-              defaultMessage: "Citizenship:",
-              id: "GiODgs",
-              description: "Citizenship label",
-            })}{" "}
-            <span data-h2-font-weight="base(700)">
-              {intl.formatMessage(getCitizenshipStatusesAdmin(citizenship))}
-            </span>
-          </p>
-        ) : (
-          ""
-        )}
-      </Well>
-    </div>
+      {armedForcesStatus !== null && armedForcesStatus !== undefined && (
+        <p>
+          {intl.formatMessage({
+            defaultMessage: "Member of CAF:",
+            id: "Md/cQS",
+            description: "Veteran/member label",
+          })}{" "}
+          <span data-h2-font-weight="base(700)">
+            {intl.formatMessage(getArmedForcesStatusesAdmin(armedForcesStatus))}
+          </span>
+        </p>
+      )}
+      {citizenship ? (
+        <p>
+          {intl.formatMessage({
+            defaultMessage: "Citizenship:",
+            id: "GiODgs",
+            description: "Citizenship label",
+          })}{" "}
+          <span data-h2-font-weight="base(700)">
+            {intl.formatMessage(getCitizenshipStatusesAdmin(citizenship))}
+          </span>
+        </p>
+      ) : (
+        ""
+      )}
+    </Well>
   );
 };
 
