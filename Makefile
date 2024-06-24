@@ -46,4 +46,4 @@ lint-php:
 	$(DOCKER_API) "vendor/bin/pint --test"
 
 queue-work:
-	$(DOCKER_API) "runuser -u www-data -- php /home/site/wwwroot/api/artisan queue:work"
+	docker-compose exec sh -c "runuser -u www-data -- php /home/site/wwwroot/api/artisan queue:work"
