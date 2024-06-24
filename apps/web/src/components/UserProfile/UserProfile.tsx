@@ -101,150 +101,91 @@ const UserProfile = ({ user, headingLevel = "h2" }: UserProfileProps) => {
         </TableOfContents.Navigation>
         <TableOfContents.Content>
           <TableOfContents.Section id={PAGE_SECTION_ID.ABOUT}>
-            <div data-h2-padding="base(x2, 0, x1, 0)">
-              <div data-h2-flex-grid="base(center, x2, x1)">
-                <div
-                  data-h2-flex-item="base(1of1) p-tablet(fill)"
-                  data-h2-text-align="base(center) p-tablet(left)"
-                >
-                  <TableOfContents.Heading
-                    as={headingLevel}
-                    icon={UserIcon}
-                    data-h2-margin-top="base(0)"
-                  >
-                    {intl.formatMessage(navigationMessages.aboutMe)}
-                  </TableOfContents.Heading>
-                </div>
-              </div>
-            </div>
+            <TableOfContents.Heading
+              as={headingLevel}
+              icon={UserIcon}
+              data-h2-margin-top="base(0)"
+              data-h2-margin-bottom="base(x1)"
+            >
+              {intl.formatMessage(navigationMessages.aboutMe)}
+            </TableOfContents.Heading>
             <AboutSection user={user} />
           </TableOfContents.Section>
           <TableOfContents.Section id={PAGE_SECTION_ID.DEI}>
-            <div data-h2-padding="base(x2, 0, x1, 0)">
-              <div data-h2-flex-grid="base(center, x2, x1)">
-                <div
-                  data-h2-flex-item="base(1of1) p-tablet(fill)"
-                  data-h2-text-align="base(center) p-tablet(left)"
-                >
-                  <TableOfContents.Heading
-                    as={headingLevel}
-                    icon={UserCircleIcon}
-                  >
-                    {intl.formatMessage(
-                      navigationMessages.diversityEquityInclusion,
-                    )}
-                  </TableOfContents.Heading>
-                </div>
-              </div>
-            </div>
+            <TableOfContents.Heading
+              as={headingLevel}
+              icon={UserCircleIcon}
+              data-h2-margin-bottom="base(x1)"
+            >
+              {intl.formatMessage(navigationMessages.diversityEquityInclusion)}
+            </TableOfContents.Heading>
             <DiversityEquityInclusionSection user={user} />
           </TableOfContents.Section>
           <TableOfContents.Section id={PAGE_SECTION_ID.LANGUAGE}>
-            <div data-h2-padding="base(x2, 0, x1, 0)">
-              <div data-h2-flex-grid="base(center, x2, x1)">
-                <div
-                  data-h2-flex-item="base(1of1) p-tablet(fill)"
-                  data-h2-text-align="base(center) p-tablet(left)"
-                >
-                  <TableOfContents.Heading
-                    as={headingLevel}
-                    icon={ChatBubbleLeftRightIcon}
-                  >
-                    {intl.formatMessage(navigationMessages.languageInformation)}
-                  </TableOfContents.Heading>
-                </div>
-              </div>
-            </div>
+            <TableOfContents.Heading
+              as={headingLevel}
+              icon={ChatBubbleLeftRightIcon}
+              data-h2-margin-bottom="base(x1)"
+            >
+              {intl.formatMessage(navigationMessages.languageInformation)}
+            </TableOfContents.Heading>
             <LanguageInformationSection user={user} />
           </TableOfContents.Section>
           <TableOfContents.Section id={PAGE_SECTION_ID.GOVERNMENT}>
-            <div data-h2-padding="base(x2, 0, x1, 0)">
-              <div data-h2-flex-grid="base(center, x2, x1)">
-                <div
-                  data-h2-flex-item="base(1of1) p-tablet(fill)"
-                  data-h2-text-align="base(center) p-tablet(left)"
-                >
-                  <TableOfContents.Heading
-                    as={headingLevel}
-                    icon={BuildingLibraryIcon}
-                  >
-                    {intl.formatMessage(
-                      navigationMessages.governmentInformation,
-                    )}
-                  </TableOfContents.Heading>
-                </div>
-              </div>
-            </div>
+            <TableOfContents.Heading
+              as={headingLevel}
+              icon={BuildingLibraryIcon}
+              data-h2-margin-bottom="base(x1)"
+            >
+              {intl.formatMessage(navigationMessages.governmentInformation)}
+            </TableOfContents.Heading>
             <GovernmentInformationSection user={user} />
           </TableOfContents.Section>
           <TableOfContents.Section id={PAGE_SECTION_ID.WORK_LOCATION}>
-            <div data-h2-padding="base(x2, 0, x1, 0)">
-              <div data-h2-flex-grid="base(center, x2, x1)">
-                <div
-                  data-h2-flex-item="base(1of1) p-tablet(fill)"
-                  data-h2-text-align="base(center) p-tablet(left)"
-                >
-                  <TableOfContents.Heading as={headingLevel} icon={MapPinIcon}>
-                    {intl.formatMessage(navigationMessages.workLocation)}
-                  </TableOfContents.Heading>
-                </div>
-              </div>
-            </div>
+            <TableOfContents.Heading
+              as={headingLevel}
+              icon={MapPinIcon}
+              data-h2-margin-bottom="base(x1)"
+            >
+              {intl.formatMessage(navigationMessages.workLocation)}
+            </TableOfContents.Heading>
             <WorkLocationSection user={user} />
           </TableOfContents.Section>
           <TableOfContents.Section id={PAGE_SECTION_ID.WORK_PREFERENCES}>
-            <div data-h2-padding="base(x2, 0, x1, 0)">
-              <div data-h2-flex-grid="base(center, x2, x1)">
-                <div
-                  data-h2-flex-item="base(1of1) p-tablet(fill)"
-                  data-h2-text-align="base(center) p-tablet(left)"
-                >
-                  <TableOfContents.Heading
-                    as={headingLevel}
-                    icon={HandThumbUpIcon}
-                  >
-                    {intl.formatMessage(navigationMessages.workPreferences)}
-                  </TableOfContents.Heading>
-                </div>
-              </div>
-            </div>
+            <TableOfContents.Heading
+              as={headingLevel}
+              icon={HandThumbUpIcon}
+              data-h2-margin-bottom="base(x1)"
+            >
+              {intl.formatMessage(navigationMessages.workPreferences)}
+            </TableOfContents.Heading>
             <WorkPreferencesSection user={user} />
           </TableOfContents.Section>
           <TableOfContents.Section
             id={PAGE_SECTION_ID.CAREER_TIMELINE_AND_RECRUITMENT}
           >
-            <div data-h2-padding="base(x2, 0, x1, 0)">
-              <div data-h2-flex-grid="base(center, x2, x1)">
-                <div
-                  data-h2-flex-item="base(1of1) p-tablet(fill)"
-                  data-h2-text-align="base(center) p-tablet(left)"
-                >
-                  <TableOfContents.Heading as={headingLevel} icon={BoltIcon}>
-                    {intl.formatMessage(
-                      navigationMessages.careerTimelineAndRecruitment,
-                    )}
-                  </TableOfContents.Heading>
-                </div>
-              </div>
-            </div>
+            <TableOfContents.Heading
+              as={headingLevel}
+              icon={BoltIcon}
+              data-h2-margin-bottom="base(x1)"
+            >
+              {intl.formatMessage(
+                navigationMessages.careerTimelineAndRecruitment,
+              )}
+            </TableOfContents.Heading>
             <ExperienceSection
               headingLevel={contentHeadingLevel}
               experiences={experiences?.filter(notEmpty)}
             />
           </TableOfContents.Section>
           <TableOfContents.Section id={PAGE_SECTION_ID.SKILL_SHOWCASE}>
-            <div data-h2-padding="base(x2, 0, x1, 0)">
-              <div data-h2-flex-grid="base(center, x2, x1)">
-                <div
-                  data-h2-flex-item="base(1of1) p-tablet(fill)"
-                  data-h2-text-align="base(center) p-tablet(left)"
-                >
-                  <TableOfContents.Heading as={headingLevel} icon={BoltIcon}>
-                    {intl.formatMessage(navigationMessages.skillShowcase)}
-                  </TableOfContents.Heading>
-                </div>
-              </div>
-            </div>
+            <TableOfContents.Heading
+              as={headingLevel}
+              icon={BoltIcon}
+              data-h2-margin-bottom="base(x1)"
+            >
+              {intl.formatMessage(navigationMessages.skillShowcase)}
+            </TableOfContents.Heading>
             <SkillShowcaseSection
               headingLevel={contentHeadingLevel}
               topTechnicalSkillsRanking={
