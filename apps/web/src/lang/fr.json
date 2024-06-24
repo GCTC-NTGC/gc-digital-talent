@@ -10758,10 +10758,6 @@
     "defaultMessage": "Le statut de candidat du bassin a été mis à jour avec succès",
     "description": "Message displayed when a pool candidate has been updated by and admin"
   },
-  "uWbX45": {
-    "defaultMessage": "Choisir un ministère",
-    "description": "Placeholder displayed on the pool form department field."
-  },
   "uWdGeZ": {
     "defaultMessage": "Expérience professionnelle",
     "description": "Experience count column header for the skill library table"

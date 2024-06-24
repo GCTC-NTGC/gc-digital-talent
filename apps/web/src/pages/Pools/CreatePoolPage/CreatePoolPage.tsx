@@ -208,9 +208,9 @@ export const CreatePoolForm = ({
               name="department"
               nullSelection={intl.formatMessage({
                 defaultMessage: "Select a department",
-                id: "uWbX45",
+                id: "y827h2",
                 description:
-                  "Placeholder displayed on the pool form department field.",
+                  "Null selection for department select input in the request form.",
               })}
               options={departmentOptions}
               rules={{
