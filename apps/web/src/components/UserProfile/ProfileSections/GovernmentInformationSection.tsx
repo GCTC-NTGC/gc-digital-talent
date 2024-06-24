@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import { Link, Well } from "@gc-digital-talent/ui";
+import { Well } from "@gc-digital-talent/ui";
 import { enumToOptions } from "@gc-digital-talent/forms";
 import {
   commonMessages,
@@ -10,18 +10,8 @@ import {
 import { User, GovEmployeeType } from "@gc-digital-talent/graphql";
 
 import { wrapAbbr } from "~/utils/nameUtils";
-import {
-  hasAllEmptyFields,
-  hasEmptyRequiredFields,
-} from "~/validators/profile/governmentInformation";
 
-const GovernmentInformationSection = ({
-  user,
-  editPath,
-}: {
-  user: User;
-  editPath?: string;
-}) => {
+const GovernmentInformationSection = ({ user }: { user: User }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const govEmployeeTypeId =
@@ -108,7 +98,7 @@ const GovernmentInformationSection = ({
             )}
         </div>
       )}
-      {user.isGovEmployee === false && editPath && (
+      {user.isGovEmployee === false && (
         <div data-h2-flex-grid="base(flex-start, x2, x1)">
           <div data-h2-flex-item="base(1of1)">
             <p>
@@ -123,8 +113,7 @@ const GovernmentInformationSection = ({
           </div>
         </div>
       )}
-
-      {user.isGovEmployee === false && !editPath && (
+      {user.isGovEmployee === false && (
         <div data-h2-flex-grid="base(flex-start, x2, x1)">
           <div data-h2-flex-item="base(1of1)">
             <p>
@@ -138,7 +127,6 @@ const GovernmentInformationSection = ({
           </div>
         </div>
       )}
-
       {user.hasPriorityEntitlement !== null && (
         <div
           data-h2-flex-grid="base(flex-start, x2, x1)"
@@ -189,50 +177,14 @@ const GovernmentInformationSection = ({
           )}
         </div>
       )}
-      {hasAllEmptyFields(user) && editPath && (
+
+      {user.isGovEmployee === null && user.hasPriorityEntitlement === null && (
         <div data-h2-flex-grid="base(flex-start, x2, x1)">
           <div data-h2-flex-item="base(1of1)">
-            <p>
-              {intl.formatMessage({
-                defaultMessage: "You haven't added any information here yet.",
-                id: "SCCX7B",
-                description: "Message for when no data exists for the section",
-              })}
-            </p>
+            <p>{intl.formatMessage(commonMessages.noInformationProvided)}</p>
           </div>
         </div>
       )}
-
-      {hasEmptyRequiredFields(user) && editPath && (
-        <div
-          data-h2-flex-grid="base(flex-start, x2, x1)"
-          data-h2-padding="base(x1, 0, 0, 0)"
-        >
-          <div data-h2-flex-item="base(1of1)">
-            <p>
-              {intl.formatMessage(commonMessages.requiredFieldsMissing)}{" "}
-              <Link href={editPath}>
-                {intl.formatMessage({
-                  defaultMessage: "Edit your government information options.",
-                  id: "3pox8N",
-                  description:
-                    "Link text to edit government information on profile.",
-                })}
-              </Link>
-            </p>
-          </div>
-        </div>
-      )}
-
-      {user.isGovEmployee === null &&
-        user.hasPriorityEntitlement === null &&
-        !editPath && (
-          <div data-h2-flex-grid="base(flex-start, x2, x1)">
-            <div data-h2-flex-item="base(1of1)">
-              <p>{intl.formatMessage(commonMessages.noInformationProvided)}</p>
-            </div>
-          </div>
-        )}
     </Well>
   );
 };

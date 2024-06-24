@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "types": ["cypress", "node"],
+    "types": ["node"],
     "module": "ES2020",
     "moduleResolution": "Bundler"
   },

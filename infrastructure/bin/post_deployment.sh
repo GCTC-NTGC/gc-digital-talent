@@ -108,7 +108,7 @@ else
 fi
 
 # Environment config variable substitutions
-if /home/site/wwwroot/infrastructure/bin/substitute_file.sh /home/site/wwwroot/apps/web/dist/config.js /home/site/config-web.js; then
+if /home/site/wwwroot/infrastructure/bin/substitute_file.sh /home/site/wwwroot/apps/web/dist/index.html /home/site/index.html; then
     add_section_block ":white_check_mark: Copy config for web *successful*."
 else
     add_section_block ":X: Copy config for web *failed*. $MENTION"

@@ -179,26 +179,20 @@ const createRoute = (locale: Locales) =>
                     },
                     {
                       path: "create",
-                      async lazy() {
-                        const { Create } = await import(
-                          "../pages/Profile/ExperienceFormPage/ExperienceFormPage"
-                        );
-
-                        return { Component: Create };
-                      },
+                      lazy: () =>
+                        import(
+                          "../pages/Profile/ExperienceFormPage/CreateExperienceFormPage"
+                        ),
                     },
                     {
                       path: ":experienceId",
                       children: [
                         {
                           path: "edit",
-                          async lazy() {
-                            const { Edit } = await import(
-                              "../pages/Profile/ExperienceFormPage/ExperienceFormPage"
-                            );
-
-                            return { Component: Edit };
-                          },
+                          lazy: () =>
+                            import(
+                              "../pages/Profile/ExperienceFormPage/EditExperienceFormPage"
+                            ),
                         },
                       ],
                     },

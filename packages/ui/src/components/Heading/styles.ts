@@ -1,5 +1,5 @@
 import { Color } from "../../types";
-import type { HeadingLevel } from "./Heading";
+import type { HeadingLevel } from "./types";
 
 export const headingStyles: Record<HeadingLevel, Record<string, string>> = {
   h1: {

@@ -32,8 +32,7 @@ import {
 } from "../../utils/errors";
 import specialErrorExchange from "../../exchanges/specialErrorExchange";
 import protectedEndpointExchange from "../../exchanges/protectedEndpointExchange";
-
-const apiUri = process.env.API_URI ?? "http://localhost:8000/graphql";
+import { apiHost, apiUri } from "../../constants";
 
 const isTokenKnownToBeExpired = (accessToken: string | null): boolean => {
   let tokenIsKnownToBeExpired = false;
@@ -69,7 +68,7 @@ const ClientProvider = ({
     return (
       client ??
       createClient({
-        url: apiUri,
+        url: `${apiHost}${apiUri}`,
         requestPolicy: "cache-and-network",
         exchanges: [
           cacheExchange,
