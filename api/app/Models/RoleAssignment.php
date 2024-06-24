@@ -22,6 +22,15 @@ class RoleAssignment extends Model
 
     protected $keyType = 'string';
 
+    public $timestamps = false;
+
+    protected $fillable = [
+        'role_id',
+        'user_id',
+        'user_type',
+        'team_id',
+    ];
+
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
