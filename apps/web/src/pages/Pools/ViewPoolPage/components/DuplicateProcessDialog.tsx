@@ -114,32 +114,26 @@ const DuplicateProcessDialog = ({
                 {intl.formatMessage(commonMessages.dividingColon)}
               </p>
               <div data-h2-margin-bottom="base(x1)">
-                <div
-                  data-h2-display="base(flex)"
-                  data-h2-flex-direction="base(column)"
-                  data-h2-gap="base(x1 0)"
-                >
-                  <Select
-                    id="department"
-                    label={intl.formatMessage({
-                      defaultMessage: "Parent department",
-                      id: "D/Ymty",
-                      description:
-                        "Label displayed on the pool form department field.",
-                    })}
-                    name="department"
-                    nullSelection={intl.formatMessage({
-                      defaultMessage: "Select a department",
-                      id: "uWbX45",
-                      description:
-                        "Placeholder displayed on the pool form department field.",
-                    })}
-                    options={departmentOptions}
-                    rules={{
-                      required: intl.formatMessage(errorMessages.required),
-                    }}
-                  />
-                </div>
+                <Select
+                  id="department"
+                  label={intl.formatMessage({
+                    defaultMessage: "Parent department",
+                    id: "D/Ymty",
+                    description:
+                      "Label displayed on the pool form department field.",
+                  })}
+                  name="department"
+                  nullSelection={intl.formatMessage({
+                    defaultMessage: "Select a department",
+                    id: "uWbX45",
+                    description:
+                      "Placeholder displayed on the pool form department field.",
+                  })}
+                  options={departmentOptions}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
+                />
               </div>
 
               <p data-h2-margin="base(x1, 0)">
