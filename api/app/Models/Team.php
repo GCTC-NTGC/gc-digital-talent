@@ -34,6 +34,8 @@ class Team extends LaratrustTeam
     protected $fillable = [
         'name',
         'display_name',
+        'teamable_id',
+        'teamable_type',
     ];
 
     public $guarded = [];
