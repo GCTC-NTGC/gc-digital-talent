@@ -110,24 +110,27 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
             )}
           </p>
         </div>
-        <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
-          <p data-h2-font-weight="base(700)">
-            {intl.formatMessage({
-              defaultMessage: "Current Location:",
-              id: "DMdCkf",
-              description:
-                "Display text for the current location field on users",
-            })}
-          </p>
-          <p>
-            {user.currentCity ? `${user.currentCity}, ` : ""}
-            {user.currentProvince
-              ? intl.formatMessage(
-                  getProvinceOrTerritory(user.currentProvince as string),
-                )
-              : ""}
-          </p>
-        </div>
+        {(user.currentCity || user.currentProvince) && (
+          <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
+            <p data-h2-font-weight="base(700)">
+              {intl.formatMessage({
+                defaultMessage: "Current Location:",
+                id: "DMdCkf",
+                description:
+                  "Display text for the current location field on users",
+              })}
+            </p>
+            <p>
+              {user.currentCity ? user.currentCity : ""}
+              {user.currentCity && user.currentProvince ? ", " : ""}
+              {user.currentProvince
+                ? intl.formatMessage(
+                    getProvinceOrTerritory(user.currentProvince as string),
+                  )
+                : ""}
+            </p>
+          </div>
+        )}
         <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
           <p data-h2-font-weight="base(700)">
             {intl.formatMessage({
