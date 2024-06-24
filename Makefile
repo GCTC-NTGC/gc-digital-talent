@@ -40,7 +40,6 @@ watch:
 lint:
 	$(DOCKER_API) "php ./vendor/bin/pint"
 	$(DOCKER_PNPM) lint
-	docker-compose run -w /var/www/html --rm maintenance pnpm run watch
 
 lint-php:
 	$(DOCKER_API) "vendor/bin/pint --test"
