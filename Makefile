@@ -1,7 +1,7 @@
 .PHONY: up down setup clean-modules refresh refresh-frontend refresh-api seed-fresh migrate artisan queue-work
 
 DOCKER_RUN=docker-compose run --rm maintenance bash
-DOCKER_API=docker-compose run -w /var/www/html/api maintenance sh -c
+DOCKER_API=docker-compose run --rm -w /var/www/html/api maintenance sh -c
 DOCKER_PNPM=docker-compose run -w /var/www/html --rm maintenance pnpm
 
 up:
