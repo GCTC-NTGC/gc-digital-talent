@@ -1,6 +1,7 @@
 {
   "name": "@gc-digital-talent/i18n",
   "license": "AGPL-3.0",
+  "type": "module",
   "version": "1.0.0",
   "types": "./src/index.tsx",
   "exports": {
@@ -40,7 +41,7 @@
     "react-intl": "^6.6.8",
     "react-router-dom": "^6.23.1",
     "tsconfig": "workspace:*",
-    "tsx": "^4.15.4",
+    "tsx": "^4.15.6",
     "typescript": "^5.4.5",
     "yargs": "^17.7.2"
   }

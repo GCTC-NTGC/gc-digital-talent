@@ -374,7 +374,11 @@ type ScreeningQuestion {
   sortOrder: Int
 }
 
-type Pool {
+interface HasRoleAssignments {
+  roleAssignments: [RoleAssignment!]
+}
+
+type Pool implements HasRoleAssignments {
   id: ID!
   owner: UserPublicProfile
   team: Team
@@ -410,6 +414,7 @@ type Pool {
   assessmentPlanIsComplete: Boolean
   assessmentSteps: [AssessmentStep]
   poolSkills(type: PoolSkillType): [PoolSkill]
+  roleAssignments: [RoleAssignment!]
 }
 
 type GeneralQuestionResponse {
@@ -448,6 +453,17 @@ type AssessmentResult {
   skillDecisionNotes: String
 }
 
+type AssessmentStepDecision {
+  step: UUID!
+  decision: AssessmentDecision
+}
+
+type AssessmentResultStatus {
+  assessmentStepStatuses: [AssessmentStepDecision]
+  overallAssessmentStatus: OverallAssessmentStatus
+  currentStep: Int
+}
+
 type PoolSkill {
   id: ID!
   type: PoolSkillType
@@ -480,6 +496,7 @@ type PoolCandidate {
   educationRequirementOption: EducationRequirementOption
   educationRequirementExperiences: [Experience]
   assessmentResults: [AssessmentResult]
+  assessmentStatus: AssessmentResultStatus
   finalDecisionAt: DateTime
   placedAt: DateTime
   placedDepartment: Department
@@ -519,14 +536,15 @@ type Department {
   teams: [Team]
 }
 
-type Community {
+type Community implements HasRoleAssignments {
   id: ID!
   key: String!
   name: LocalizedString
   description: LocalizedString
+  roleAssignments: [RoleAssignment!]
 }
 
-type Team {
+type Team implements HasRoleAssignments {
   id: ID!
   name: String!
   displayName: LocalizedString
@@ -534,6 +552,7 @@ type Team {
   departments: [Department]
   contactEmail: Email
   pools: [Pool]
+  teamable: HasRoleAssignments
   roleAssignments: [RoleAssignment!]
 }
 
@@ -549,6 +568,7 @@ type Role {
 type RoleAssignment {
   id: ID!
   role: Role
+  teamable: HasRoleAssignments
   team: Team
   user: UserPublicProfile
 }
@@ -779,6 +799,7 @@ input PoolFilterInput {
   processNumber: String
   publishingGroups: [PublishingGroup!]
   classifications: [ClassificationFilterInput!]
+  canAdmin: Boolean
 }
 
 input PoolTeamDisplayNameOrderByInput {
@@ -2606,4 +2627,10 @@ enum PriorityWeight {
   VETERAN
   CITIZEN_OR_PERMANENT_RESIDENT
   OTHER
+}
+
+enum OverallAssessmentStatus {
+  TO_ASSESS
+  DISQUALIFIED
+  QUALIFIED
 }

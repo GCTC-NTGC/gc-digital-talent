@@ -31,10 +31,43 @@ class CommunityFactory extends Factory
         ];
     }
 
-    // public function configure()
-    // {
-    //     return $this->afterCreating(function (Community $community) {
-    //         // fill in later
-    //     });
-    // }
+    /**
+     * Attach the users to the related community as recruiters.
+     * Creates a new user if no userIds passed in.
+     *
+     * @param  array|null  $userIds  - Id of the users to attach the role to
+     * @return void
+     */
+    public function withCommunityRecruiters(?array $userIds = null)
+    {
+        return $this->afterCreating(function (Community $community) use ($userIds) {
+            if (is_null($userIds) || count($userIds) === 0) {
+                $community->addCommunityRecruiters(Community::factory()->create()->id);
+            } else {
+                foreach ($userIds as $userId) {
+                    $community->addCommunityRecruiters($userId);
+                }
+            }
+        });
+    }
+
+    /**
+     * Attach the users to the related community as admins.
+     * Creates a new user if no userIds passed in.
+     *
+     * @param  array|null  $userIds  - Id of the users to attach the role to
+     * @return void
+     */
+    public function withCommunityAdmins(?array $userIds = null)
+    {
+        return $this->afterCreating(function (Community $community) use ($userIds) {
+            if (is_null($userIds) || count($userIds) === 0) {
+                $community->addCommunityAdmins(Community::factory()->create()->id);
+            } else {
+                foreach ($userIds as $userId) {
+                    $community->addCommunityAdmins($userId);
+                }
+            }
+        });
+    }
 }

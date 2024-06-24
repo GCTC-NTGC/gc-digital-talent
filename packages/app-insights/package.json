@@ -2,6 +2,7 @@
   "name": "@gc-digital-talent/app-insights",
   "license": "AGPL-3.0",
   "version": "1.0.0",
+  "type": "module",
   "types": "./src/index.tsx",
   "exports": {
     ".": "./src/index.tsx"

@@ -8,7 +8,7 @@ import UserGroupIcon from "@heroicons/react/20/solid/UserGroupIcon";
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 import PlusCircleIcon from "@heroicons/react/24/outline/PlusCircleIcon";
 
-import { Accordion, DefinitionList, Heading } from "@gc-digital-talent/ui";
+import { Accordion, DescriptionList, Heading } from "@gc-digital-talent/ui";
 
 import experienceMessages from "~/messages/experienceMessages";
 
@@ -108,8 +108,8 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
                       "Lead-in text for the list of experience type definitions",
                   })}
                 </p>
-                <DefinitionList.Root>
-                  <DefinitionList.Item
+                <DescriptionList.Root>
+                  <DescriptionList.Item
                     Icon={BriefcaseIcon}
                     title={intl.formatMessage(experienceMessages.work)}
                   >
@@ -119,8 +119,8 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
                       id: "GNHnrr",
                       description: "Description for work experience section",
                     })}
-                  </DefinitionList.Item>
-                  <DefinitionList.Item
+                  </DescriptionList.Item>
+                  <DescriptionList.Item
                     Icon={BookOpenIcon}
                     title={intl.formatMessage(experienceMessages.education)}
                   >
@@ -131,8 +131,8 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
                       description:
                         "Description for education experience section",
                     })}
-                  </DefinitionList.Item>
-                  <DefinitionList.Item
+                  </DescriptionList.Item>
+                  <DescriptionList.Item
                     Icon={UserGroupIcon}
                     title={intl.formatMessage(experienceMessages.community)}
                   >
@@ -143,8 +143,8 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
                       description:
                         "Description for community experience section",
                     })}
-                  </DefinitionList.Item>
-                  <DefinitionList.Item
+                  </DescriptionList.Item>
+                  <DescriptionList.Item
                     Icon={LightBulbIcon}
                     title={intl.formatMessage(experienceMessages.personal)}
                   >
@@ -155,8 +155,8 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
                       description:
                         "Description for personal experience section",
                     })}
-                  </DefinitionList.Item>
-                  <DefinitionList.Item
+                  </DescriptionList.Item>
+                  <DescriptionList.Item
                     Icon={StarIcon}
                     title={intl.formatMessage(experienceMessages.award)}
                   >
@@ -166,8 +166,8 @@ const ExperienceHeading = ({ edit }: ExperienceHeadingProps) => {
                       id: "5RCDqA",
                       description: "Description for award experience section",
                     })}
-                  </DefinitionList.Item>
-                </DefinitionList.Root>
+                  </DescriptionList.Item>
+                </DescriptionList.Root>
               </Accordion.Content>
             </Accordion.Item>
           </Accordion.Root>

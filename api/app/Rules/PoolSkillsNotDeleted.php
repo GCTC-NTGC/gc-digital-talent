@@ -9,9 +9,7 @@ use Illuminate\Contracts\Validation\ValidationRule;
 
 class PoolSkillsNotDeleted implements ValidationRule
 {
-    public function __construct(private array $skillsIds)
-    {
-    }
+    public function __construct(private array $skillsIds) {}
 
     /**
      * Run the validation rule.

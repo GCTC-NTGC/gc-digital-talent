@@ -15,7 +15,7 @@ import {
   getLocale,
 } from "@gc-digital-talent/i18n";
 
-import type { FieldLabels } from "./BasicForm";
+import type { FieldLabels } from "../types";
 import { flattenErrors } from "../utils";
 
 type FieldNameWithLabel = {

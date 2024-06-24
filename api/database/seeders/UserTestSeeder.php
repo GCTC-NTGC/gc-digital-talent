@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Community;
+use App\Models\Pool;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -16,6 +18,9 @@ class UserTestSeeder extends Seeder
     public function run()
     {
         // Note: to manually promote a Sign In Canada user to admin, refer to instructions in documentation/sign-in-canada.md.
+
+        $digitalCommunityId = Community::select('id')->where('key', 'digital')->sole()->id;
+        $atipCommunityId = Community::select('id')->where('key', 'atip')->sole()->id;
 
         // shared auth users for testing
         User::factory()
@@ -53,8 +58,8 @@ class UserTestSeeder extends Seeder
             ->create([
                 'first_name' => 'Community',
                 'last_name' => 'Manager',
-                'email' => 'community@test.com',
-                'sub' => 'community@test.com',
+                'email' => 'legacy-community@test.com',
+                'sub' => 'legacy-community@test.com',
             ]);
 
         User::factory()
@@ -97,6 +102,39 @@ class UserTestSeeder extends Seeder
                 'last_name' => 'Test',
                 'email' => 'noroles@test.com',
                 'sub' => 'noroles@test.com',
+            ]);
+
+        User::factory()
+            ->asApplicant()
+            ->asProcessOperator(Pool::factory()->create()->id)
+            ->asGovEmployee()
+            ->create([
+                'first_name' => 'Process',
+                'last_name' => 'Operator',
+                'email' => 'process@test.com',
+                'sub' => 'process@test.com',
+            ]);
+
+        User::factory()
+            ->asApplicant()
+            ->asCommunityRecruiter([$digitalCommunityId, $atipCommunityId])
+            ->asGovEmployee()
+            ->create([
+                'first_name' => 'Community',
+                'last_name' => 'Recruiter',
+                'email' => 'recruiter@test.com',
+                'sub' => 'recruiter@test.com',
+            ]);
+
+        User::factory()
+            ->asApplicant()
+            ->asCommunityAdmin([$digitalCommunityId, $atipCommunityId])
+            ->asGovEmployee()
+            ->create([
+                'first_name' => 'Community',
+                'last_name' => 'Admin',
+                'email' => 'community@test.com',
+                'sub' => 'community@test.com',
             ]);
     }
 }

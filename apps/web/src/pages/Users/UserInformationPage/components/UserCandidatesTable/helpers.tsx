@@ -14,11 +14,10 @@ import {
   PoolCandidateStatus,
   CandidateSuspendedFilter,
   Maybe,
-  AssessmentStep,
   Pool,
+  AssessmentResultStatus,
 } from "@gc-digital-talent/graphql";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import CandidateBookmark, {
   PoolCandidate_BookmarkFragment,
@@ -28,6 +27,7 @@ import tableMessages from "~/components/PoolCandidatesTable/tableMessages";
 import useRoutes from "~/hooks/useRoutes";
 import {
   getCandidateStatusChip,
+  getPriorityWeight,
   statusToJobPlacement,
 } from "~/utils/poolCandidate";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
@@ -82,12 +82,18 @@ export const priorityCell = (
         data-h2-color="base(primary.darker)"
         data-h2-font-weight="base(700)"
       >
-        {intl.formatMessage(getPoolCandidatePriorities(priority))}
+        {intl.formatMessage(
+          getPoolCandidatePriorities(getPriorityWeight(priority)),
+        )}
       </span>
     );
   }
   return (
-    <span>{intl.formatMessage(getPoolCandidatePriorities(priority))}</span>
+    <span>
+      {intl.formatMessage(
+        getPoolCandidatePriorities(getPriorityWeight(priority)),
+      )}
+    </span>
   );
 };
 
@@ -165,13 +171,13 @@ export const notesCell = (
   ) : null;
 
 export const finalDecisionCell = (
+  status: Maybe<PoolCandidateStatus> | undefined,
+  assessmentStatus: Maybe<AssessmentResultStatus> | undefined,
   intl: IntlShape,
-  poolCandidate: PoolCandidate,
-  poolAssessmentSteps: AssessmentStep[],
 ) => {
   const { color, label } = getCandidateStatusChip(
-    poolCandidate,
-    unpackMaybes(poolAssessmentSteps),
+    status,
+    assessmentStatus,
     intl,
   );
   return <Chip color={color}>{label}</Chip>;
