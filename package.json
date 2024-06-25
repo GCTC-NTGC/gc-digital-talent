@@ -7,6 +7,7 @@
     "node": ">=20.11.0",
     "pnpm": ">=8.15.0"
   },
+  "packageManager": "pnpm@8.15.7",
   "workspaces": [
     "apps/*",
     "packages/*"
