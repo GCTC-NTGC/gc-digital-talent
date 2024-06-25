@@ -7,15 +7,11 @@ import PoolTable from "./PoolTable";
 const mockPools = fakePools();
 const mockTeams = fakeTeams();
 
-const mockPoolsWithTeam = mockPools.flatMap((pool) => {
-  return mockTeams.map((team) => ({
+const mockPoolsWithTeam = mockPools.flatMap((pool, index) => {
+  return {
     ...pool,
-    team: {
-      id: team.id,
-      name: team.name,
-      displayName: team.displayName,
-    },
-  }));
+    team: mockTeams[index],
+  };
 });
 
 const mockPaginatorInfo = {
@@ -36,8 +32,11 @@ const meta = {
       PoolTable: {
         data: {
           poolsPaginated: {
-            data: [...mockPoolsWithTeam.slice(0, 4)],
+            data: [...mockPoolsWithTeam.slice(0, 3)],
             paginatorInfo: mockPaginatorInfo,
+          },
+          me: {
+            poolBookmarks: [mockPoolsWithTeam[0]],
           },
         },
       },
