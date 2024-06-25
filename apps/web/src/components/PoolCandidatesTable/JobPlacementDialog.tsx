@@ -28,8 +28,7 @@ import { toast } from "@gc-digital-talent/toast";
 
 import { isNotPlacedStatus, isQualifiedStatus } from "~/utils/poolCandidate";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
-
-import { sortPlacementType } from "../../utils/localizedEnumUtils";
+import { sortPlacementType } from "~/utils/localizedEnumUtils";
 
 export const PLACEMENT_TYPE_STATUSES = [
   PoolCandidateStatus.PlacedCasual,

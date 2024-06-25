@@ -20,10 +20,11 @@ import { NullSelection } from "~/types/searchRequest";
 import { formatClassificationString } from "~/utils/poolUtils";
 import SkillBrowser from "~/components/SkillBrowser/SkillBrowser";
 import processMessages from "~/messages/processMessages";
+import { sortWorkRegion } from "~/utils/localizedEnumUtils";
 
 import FilterBlock from "./FilterBlock";
 import AdvancedFilters from "./AdvancedFilters";
-import { getClassificationLabel, sortWorkRegions } from "../utils";
+import { getClassificationLabel } from "../utils";
 import { classificationAriaLabels, classificationLabels } from "../labels";
 
 const SearchRequestOptions_Query = graphql(/* GraphQL */ `
@@ -78,7 +79,7 @@ const FormFields = ({ classifications, skills }: FormFieldsProps) => {
     intl,
   );
   const streamOptions = localizedEnumToOptions(data?.poolStreams, intl);
-  const sortedWorkRegions = sortWorkRegions(unpackMaybes(data?.workRegions));
+  const sortedWorkRegions = sortWorkRegion(unpackMaybes(data?.workRegions));
   const workRegionOptions = localizedEnumToOptions(sortedWorkRegions, intl);
 
   return (

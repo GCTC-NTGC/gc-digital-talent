@@ -20,16 +20,13 @@ import {
 } from "@gc-digital-talent/i18n";
 
 import adminMessages from "~/messages/adminMessages";
+import { sortPriorityWeight, sortWorkRegion } from "~/utils/localizedEnumUtils";
 
 import FilterDialog, {
   CommonFilterDialogProps,
 } from "../FilterDialog/FilterDialog";
 import { FormValues } from "./types";
 import PoolFilterInput from "../PoolFilterInput/PoolFilterInput";
-import {
-  sortPriorityWeight,
-  sortWorkRegion,
-} from "../../utils/localizedEnumUtils";
 
 const context: Partial<OperationContext> = {
   additionalTypenames: ["Skill", "SkillFamily"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas

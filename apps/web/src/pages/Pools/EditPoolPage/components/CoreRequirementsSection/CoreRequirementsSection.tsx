@@ -27,6 +27,10 @@ import {
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import processMessages from "~/messages/processMessages";
+import {
+  sortPoolLanguage,
+  sortSecurityStatus,
+} from "~/utils/localizedEnumUtils";
 
 import { useEditPoolContext } from "../EditPoolContext";
 import { SectionProps } from "../../types";
@@ -39,10 +43,6 @@ import {
   formValuesToSubmitData,
 } from "./utils";
 import ActionWrapper from "../ActionWrapper";
-import {
-  sortPoolLanguage,
-  sortSecurityStatus,
-} from "../../../../../utils/localizedEnumUtils";
 
 const EditPoolCoreRequirements_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolCoreRequirements on Pool {

@@ -15,11 +15,10 @@ import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { graphql } from "@gc-digital-talent/graphql";
 
 import { SubExperienceFormProps } from "~/types/experience";
-
 import {
   sortEducationStatus,
   sortEducationType,
-} from "../../utils/localizedEnumUtils";
+} from "~/utils/localizedEnumUtils";
 
 const EducationOptions_Query = graphql(/* GraphQL */ `
   query EducationOptions {

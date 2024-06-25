@@ -30,6 +30,7 @@ import {
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import processMessages from "~/messages/processMessages";
+import { sortOpportunityLength } from "~/utils/localizedEnumUtils";
 
 import { useEditPoolContext } from "../EditPoolContext";
 import Display from "./Display";
@@ -43,7 +44,6 @@ import {
 } from "./utils";
 import { SectionProps } from "../../types";
 import ActionWrapper from "../ActionWrapper";
-import { sortOpportunityLength } from "../../../../../utils/localizedEnumUtils";
 
 const EditPoolName_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolName on Pool {

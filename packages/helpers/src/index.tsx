@@ -5,10 +5,6 @@ import {
 import lazyRetry from "./utils/lazyRetry";
 import normalizeString from "./utils/normalizeString";
 import sanitizeUrl from "./utils/sanitizeUrl";
-import {
-  sortLocalizedEvaluatedLanguageAbility,
-  sortWorkRegions,
-} from "./utils/sortEnum";
 import isUuidError from "./utils/uuid";
 import {
   assertUnreachable,
@@ -57,7 +53,5 @@ export {
   pickMap,
   unpackMaybes,
   localizedEnumHasValue,
-  sortLocalizedEvaluatedLanguageAbility,
-  sortWorkRegions,
 };
 export type { GraphqlType };

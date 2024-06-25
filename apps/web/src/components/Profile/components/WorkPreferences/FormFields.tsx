@@ -14,9 +14,10 @@ import {
 } from "@gc-digital-talent/i18n";
 import { graphql } from "@gc-digital-talent/graphql";
 
+import { sortWorkRegion } from "~/utils/localizedEnumUtils";
+
 import { FormFieldProps } from "../../types";
 import useDirtyFields from "../../hooks/useDirtyFields";
-import { sortWorkRegion } from "../../../../utils/localizedEnumUtils";
 
 const WorkPreferencesOptions_Query = graphql(/* GraphQL */ `
   query WorkPreferencesOptions {

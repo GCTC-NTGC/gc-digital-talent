@@ -12,7 +12,8 @@ import {
 import { Locales, errorMessages, getLocale } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
 import { graphql } from "@gc-digital-talent/graphql";
-import { sortLocalizedEvaluatedLanguageAbility } from "@gc-digital-talent/helpers";
+
+import { sortEvaluatedLanguageAbility } from "~/utils/localizedEnumUtils";
 
 import { getEstimatedAbilityOptions, getExamValidityOptions } from "./utils";
 
@@ -86,7 +87,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
   ]);
 
   const evaluatedAbilityItems = localizedEnumToOptions(
-    sortLocalizedEvaluatedLanguageAbility(data?.evaluatedLanguageAbilities),
+    sortEvaluatedLanguageAbility(data?.evaluatedLanguageAbilities),
     intl,
   );
 

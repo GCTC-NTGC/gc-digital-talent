@@ -6,6 +6,7 @@ import {
   CandidateRemovalReason,
   EducationStatus,
   EducationType,
+  EvaluatedLanguageAbility,
   LocalizedEnumString,
   LocalizedString,
   Maybe,
@@ -150,6 +151,23 @@ export function sortEducationStatus(educationStatuses?: MaybeLocalizedEnums) {
       EducationStatus.DidNotComplete,
     ],
     educationStatuses,
+  );
+}
+
+export function sortEvaluatedLanguageAbility(
+  evaluatedLanguageAbilities?: MaybeLocalizedEnums,
+) {
+  return sortLocalizedEnums(
+    [
+      EvaluatedLanguageAbility.P,
+      EvaluatedLanguageAbility.E,
+      EvaluatedLanguageAbility.C,
+      EvaluatedLanguageAbility.B,
+      EvaluatedLanguageAbility.A,
+      EvaluatedLanguageAbility.X,
+      EvaluatedLanguageAbility.NotAssessed,
+    ],
+    evaluatedLanguageAbilities,
   );
 }
 
