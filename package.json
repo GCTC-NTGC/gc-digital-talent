@@ -43,6 +43,7 @@
   },
   "devDependencies": {
     "@hydrogen-css/hydrogen": "2.0.5",
-    "turbo": "^1.13.3"
-  }
+    "turbo": "^2.0.5"
+  },
+  "packageManager": "pnpm@8.15.7"
 }
