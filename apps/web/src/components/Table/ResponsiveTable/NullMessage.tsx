@@ -25,12 +25,10 @@ const NullMessage = ({ title, description }: NullMessageProps) => {
 
   return (
     <Well data-h2-margin="base(x1 0)" data-h2-text-align="base(center)">
-      <Heading data-h2-margin-top="base(0)" data-h2-font-size="base(copy)">
+      <Heading data-h2-margin="base(0)" data-h2-font-size="base(copy)">
         {title || intl.formatMessage(tableMessages.noItemsTitle)}
       </Heading>
-      <p>
-        {description || intl.formatMessage(tableMessages.noItemsDescription)}
-      </p>
+      {description && <p data-h2-margin-top="base(x1)">{description}</p>}
     </Well>
   );
 };
