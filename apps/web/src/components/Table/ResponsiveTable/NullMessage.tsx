@@ -26,8 +26,8 @@ const NullMessage = ({ title, description }: NullMessageProps) => {
       <Heading data-h2-margin-top="base(0)" data-h2-font-size="base(copy)">
         {title ||
           intl.formatMessage({
-            defaultMessage: "There aren't any items here yet.",
-            id: "H5kSPB",
+            defaultMessage: "There aren't any items here.",
+            id: "84XrK+",
             description: "Default message for an empty table",
           })}
       </Heading>

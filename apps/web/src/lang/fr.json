@@ -1819,6 +1819,10 @@
     "defaultMessage": "J'envisagerais d'accepter un emploi qui...",
     "description": "Legend for optional work preferences check list in work preferences form"
   },
+  "84XrK+": {
+    "defaultMessage": "On ne trouve aucun élément ici.",
+    "description": "Default message for an empty table"
+  },
   "84rSVg": {
     "defaultMessage": "Permettre une croissance dans le cadre de sa portée de recrutement, en ciblant d’autres domaines professionnels à l’avenir.",
     "description": "Talent portal strategy item 2 content"
@@ -3462,10 +3466,6 @@
   "H5EXEi": {
     "defaultMessage": "En savoir plus sur cette possibilité et commencer à rédiger une demande d'emploi.",
     "description": "Subtitle for a pool advertisement page"
-  },
-  "H5kSPB": {
-    "defaultMessage": "On ne trouve aucun élément jusqu’à présent.",
-    "description": "Default message for an empty table"
   },
   "H8cs1r": {
     "defaultMessage": "Services consultatifs auprès des secteurs d’activité de la <abbreviation>TI</abbreviation>",
