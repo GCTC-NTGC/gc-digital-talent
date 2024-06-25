@@ -62,6 +62,10 @@ jobs:
           node-version-file: ".nvmrc"
           cache: pnpm
 
+      # Fix some issue with cache in setup-node
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
       - name: Install Playwright Browsers
         run: npx playwright install chromium webkit --with-deps
 
