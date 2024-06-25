@@ -18,7 +18,6 @@ import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
 import { normalizedText } from "~/components/Table/sortingFns";
 import adminMessages from "~/messages/adminMessages";
-import tableMessages from "~/components/Table/tableMessages";
 
 import { MyRoleTeam } from "./types";
 import {
@@ -160,7 +159,11 @@ export const TeamTable = ({
         },
       }}
       nullMessage={{
-        description: intl.formatMessage(tableMessages.noItemsDescription),
+        description: intl.formatMessage({
+          defaultMessage: 'Use the "Create Team" button to get started.',
+          id: "+zSc5y",
+          description: "Instructions for adding a team item.",
+        }),
       }}
     />
   );

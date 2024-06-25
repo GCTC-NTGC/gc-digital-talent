@@ -9,7 +9,6 @@ import { UpdateUserRolesInput, Role, User } from "@gc-digital-talent/graphql";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
-import tableMessages from "~/components/Table/tableMessages";
 
 import { UpdateUserRolesFunc } from "../types";
 import AddIndividualRoleDialog from "./AddIndividualRoleDialog";
@@ -102,7 +101,11 @@ const IndividualRoleTable = ({
           ),
         }}
         nullMessage={{
-          description: intl.formatMessage(tableMessages.noItemsDescription),
+          description: intl.formatMessage({
+            defaultMessage: 'Use the "Add new role" button to get started.',
+            id: "WCOVvw",
+            description: "Instructions for adding a role to a user.",
+          }),
         }}
       />
     </>

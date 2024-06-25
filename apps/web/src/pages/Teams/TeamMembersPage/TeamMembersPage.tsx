@@ -20,7 +20,6 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import tableMessages from "~/components/Table/tableMessages";
 
 import AddTeamMemberDialog from "./components/AddTeamMemberDialog";
 import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
@@ -126,10 +125,14 @@ const TeamMembers = ({ teamQuery }: TeamMembersProps) => {
           add: {
             component: <AddTeamMemberDialog team={team} members={members} />,
           },
+          nullMessage: {
+            description: intl.formatMessage({
+              defaultMessage: 'Use the "Add new member" button to get started.',
+              id: "SfbDLA",
+              description: "Instructions for adding a member to a team.",
+            }),
+          },
         })}
-        nullMessage={{
-          description: intl.formatMessage(tableMessages.noItemsDescription),
-        }}
       />
     </>
   );

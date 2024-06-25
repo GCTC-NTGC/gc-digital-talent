@@ -40,7 +40,6 @@ import accessors from "~/components/Table/accessors";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
 import processMessages from "~/messages/processMessages";
-import tableMessages from "~/components/Table/tableMessages";
 
 import {
   classificationAccessor,
@@ -442,7 +441,11 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
         },
       }}
       nullMessage={{
-        description: intl.formatMessage(tableMessages.noItemsDescription),
+        description: intl.formatMessage({
+          defaultMessage: 'Use the "Create process" button to get started.',
+          id: "07sCDh",
+          description: "Instructions for adding a process item.",
+        }),
       }}
     />
   );

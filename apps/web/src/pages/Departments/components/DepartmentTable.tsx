@@ -17,7 +17,6 @@ import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
 import { normalizedText } from "~/components/Table/sortingFns";
-import tableMessages from "~/components/Table/tableMessages";
 
 const columnHelper = createColumnHelper<Department>();
 
@@ -113,7 +112,11 @@ export const DepartmentTable = ({
         },
       }}
       nullMessage={{
-        description: intl.formatMessage(tableMessages.noItemsDescription),
+        description: intl.formatMessage({
+          defaultMessage: 'Use the "Create Department" button to get started.',
+          id: "yat9wx",
+          description: "Instructions for adding a department item.",
+        }),
       }}
     />
   );

@@ -17,7 +17,6 @@ import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
 import adminMessages from "~/messages/adminMessages";
-import tableMessages from "~/components/Table/tableMessages";
 
 import { TeamAssignment, UpdateUserRolesFunc } from "../types";
 import AddTeamRoleDialog from "./AddTeamRoleDialog";
@@ -180,7 +179,12 @@ const TeamRoleTable = ({
           ),
         }}
         nullMessage={{
-          description: intl.formatMessage(tableMessages.noItemsDescription),
+          description: intl.formatMessage({
+            defaultMessage:
+              'Use the "Add new membership" button to get started.',
+            id: "/pbxol",
+            description: "Instructions for adding team membership to a user.",
+          }),
         }}
       />
     </>
