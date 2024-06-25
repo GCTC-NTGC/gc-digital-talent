@@ -28,6 +28,7 @@ import {
   SEARCH_PARAM_KEY,
 } from "~/components/Table/ResponsiveTable/constants";
 import messages from "~/lang/frCompiled.json";
+import tableMessages from "~/components/Table/tableMessages";
 
 import {
   categoryAccessor,
@@ -300,6 +301,9 @@ const SkillTable = ({
             }
           : undefined
       }
+      nullMessage={{
+        description: intl.formatMessage(tableMessages.noItemsDescription),
+      }}
       filter={{
         state: filterState,
         component: (

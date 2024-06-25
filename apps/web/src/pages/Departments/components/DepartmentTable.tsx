@@ -17,6 +17,7 @@ import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
 import { normalizedText } from "~/components/Table/sortingFns";
+import tableMessages from "~/components/Table/tableMessages";
 
 const columnHelper = createColumnHelper<Department>();
 
@@ -110,6 +111,9 @@ export const DepartmentTable = ({
           }),
           from: currentUrl,
         },
+      }}
+      nullMessage={{
+        description: intl.formatMessage(tableMessages.noItemsDescription),
       }}
     />
   );

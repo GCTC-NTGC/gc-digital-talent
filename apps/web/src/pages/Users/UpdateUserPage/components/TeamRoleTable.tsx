@@ -17,6 +17,7 @@ import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
 import adminMessages from "~/messages/adminMessages";
+import tableMessages from "~/components/Table/tableMessages";
 
 import { TeamAssignment, UpdateUserRolesFunc } from "../types";
 import AddTeamRoleDialog from "./AddTeamRoleDialog";
@@ -177,6 +178,9 @@ const TeamRoleTable = ({
               onAddRoles={handleEditRoles}
             />
           ),
+        }}
+        nullMessage={{
+          description: intl.formatMessage(tableMessages.noItemsDescription),
         }}
       />
     </>

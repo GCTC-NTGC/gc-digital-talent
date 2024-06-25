@@ -18,6 +18,7 @@ import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
 import { normalizedText } from "~/components/Table/sortingFns";
 import adminMessages from "~/messages/adminMessages";
+import tableMessages from "~/components/Table/tableMessages";
 
 import { MyRoleTeam } from "./types";
 import {
@@ -157,6 +158,9 @@ export const TeamTable = ({
           }),
           from: currentUrl,
         },
+      }}
+      nullMessage={{
+        description: intl.formatMessage(tableMessages.noItemsDescription),
       }}
     />
   );

@@ -9,6 +9,7 @@ import { UpdateUserRolesInput, Role, User } from "@gc-digital-talent/graphql";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
+import tableMessages from "~/components/Table/tableMessages";
 
 import { UpdateUserRolesFunc } from "../types";
 import AddIndividualRoleDialog from "./AddIndividualRoleDialog";
@@ -99,6 +100,9 @@ const IndividualRoleTable = ({
               onAddRoles={handleAddRoles}
             />
           ),
+        }}
+        nullMessage={{
+          description: intl.formatMessage(tableMessages.noItemsDescription),
         }}
       />
     </>

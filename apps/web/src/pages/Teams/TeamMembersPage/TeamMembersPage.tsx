@@ -20,6 +20,7 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import tableMessages from "~/components/Table/tableMessages";
 
 import AddTeamMemberDialog from "./components/AddTeamMemberDialog";
 import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
@@ -126,6 +127,9 @@ const TeamMembers = ({ teamQuery }: TeamMembersProps) => {
             component: <AddTeamMemberDialog team={team} members={members} />,
           },
         })}
+        nullMessage={{
+          description: intl.formatMessage(tableMessages.noItemsDescription),
+        }}
       />
     </>
   );

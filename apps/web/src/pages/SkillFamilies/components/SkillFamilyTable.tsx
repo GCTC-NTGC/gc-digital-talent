@@ -13,6 +13,7 @@ import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
 import { normalizedText } from "~/components/Table/sortingFns";
+import tableMessages from "~/components/Table/tableMessages";
 
 const columnHelper = createColumnHelper<SkillFamily>();
 
@@ -107,6 +108,9 @@ export const SkillFamilyTable = ({
           }),
           from: currentUrl,
         },
+      }}
+      nullMessage={{
+        description: intl.formatMessage(tableMessages.noItemsDescription),
       }}
     />
   );
