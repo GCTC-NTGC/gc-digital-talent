@@ -7298,10 +7298,6 @@
     "defaultMessage": "Candidature",
     "description": "Label for the application link column"
   },
-  "cIqhQK": {
-    "defaultMessage": "Il n'y a aucun élément à afficher.",
-    "description": "Message when there is no data to display in a table"
-  },
   "cL3OoZ": {
     "defaultMessage": "Notification non lue",
     "description": "Link text to show unread notifications"
