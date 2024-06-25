@@ -41,6 +41,7 @@ class UserRoleTest extends TestCase
             ->asApplicant()
             ->asRequestResponder()
             ->asAdmin()
+            ->asCommunityManager()
             ->create([
                 'email' => 'admin-user@test.com',
                 'sub' => 'admin-user@test.com',
@@ -205,8 +206,8 @@ class UserRoleTest extends TestCase
     // Create a user with an old role.  Assert that the admin can remove the old role and add the new role.
     public function testAdminCanAddAndRemoveNonTeamRoleToUser()
     {
-        $oldRole = Role::factory()->create(['is_team_based' => false]);
-        $newRole = Role::factory()->create(['is_team_based' => false]);
+        $oldRole = Role::where('name', 'guest')->sole();
+        $newRole = Role::where('name', 'base_user')->sole();
         $user = User::factory()->create()->syncRoles([$oldRole]);
 
         $this->actingAs($this->adminUser, 'api')->graphQL(
@@ -249,8 +250,8 @@ class UserRoleTest extends TestCase
     // Create a user with an old role.  Assert that the admin can remove the old role and add the new role, now with teams!
     public function testAdminCanAddAndRemoveTeamRoleToUser()
     {
-        $oldRole = Role::factory()->create(['is_team_based' => true]);
-        $newRole = Role::factory()->create(['is_team_based' => true]);
+        $oldRole = Role::where('name', 'pool_operator')->sole();
+        $newRole = Role::where('name', 'process_operator')->sole();
         $oldTeam = Team::factory()->create();
         $newTeam = Team::factory()->create();
         $user = User::factory()->create()->syncRoles([$oldRole], $oldTeam);
