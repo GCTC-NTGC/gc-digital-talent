@@ -66,12 +66,12 @@ AddTeamMemberDialogProps) => {
 
   const handleSave = async (formValues: TeamMemberFormValues) => {
     await executeMutation({
-      teamRoleAssignments: {
+      updateUserRolesInput: {
         userId: formValues.userId,
-        teamId: formValues.teamId,
-        roleAssignments: {
+        roleAssignmentsInput: {
           attach: {
             roles: formValues.roles,
+            team: formValues.teamId,
           },
         },
       },

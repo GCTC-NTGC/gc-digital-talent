@@ -178,7 +178,7 @@ type Mutation {
   createTeam(team: CreateTeamInput!): Team
   updateTeam(id: UUID!, team: UpdateTeamInput!): Team
   deleteTeam(id: UUID!): Team
-  updateUserTeamRoles(teamRoleAssignments: UpdateUserTeamRolesInput!): Team
+  updateUserTeamRoles(teamRoleAssignments: UpdateUserTeamRolesInput!): Team @deprecated(reason: "use updateUserRoles")
   markNotificationAsRead(id: UUID!): Notification
   markNotificationAsUnread(id: UUID!): Notification
   deleteNotification(id: UUID!): Notification

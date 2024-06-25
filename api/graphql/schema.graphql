@@ -2109,7 +2109,10 @@ type Mutation {
     @canFind(ability: "delete", find: "id")
   updateUserTeamRoles(
     teamRoleAssignments: UpdateUserTeamRolesInput! @spread
-  ): Team @guard @canFind(ability: "assignTeamMembers", find: "teamId")
+  ): Team
+    @guard
+    @canFind(ability: "assignTeamMembers", find: "teamId")
+    @deprecated(reason: "use updateUserRoles")
 
   # Notifications
   markNotificationAsRead(id: UUID!): Notification @guard # can only affect notifications belonging to the logged-in user

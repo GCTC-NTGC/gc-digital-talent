@@ -35,6 +35,7 @@ const EditTeamMemberDialog = ({ user, team }: EditTeamMemberDialogProps) => {
   const { roles, fetching } = useAvailableRoles();
   const [, executeMutation] = useMutation(UpdateUserTeamRoles_Mutation);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const initialRolesIds = user.roles.map((role) => role.id);
 
   const methods = useForm<TeamMemberFormValues>({
     defaultValues: {
@@ -42,7 +43,7 @@ const EditTeamMemberDialog = ({ user, team }: EditTeamMemberDialogProps) => {
       userDisplay: user.id,
       teamId: team.id,
       teamDisplay: team.id,
-      roles: user.roles.map((role) => role.id),
+      roles: initialRolesIds,
     },
   });
 
@@ -52,14 +53,29 @@ const EditTeamMemberDialog = ({ user, team }: EditTeamMemberDialogProps) => {
   } = methods;
 
   const handleSave = async (formValues: TeamMemberFormValues) => {
+    const rolesToAttach = formValues.roles.filter(
+      (role) => !initialRolesIds.includes(role),
+    );
+    const rolesToDetach = initialRolesIds.filter(
+      (role) => !formValues.roles.includes(role),
+    );
+
     await executeMutation({
-      teamRoleAssignments: {
+      updateUserRolesInput: {
         userId: formValues.userId,
-        teamId: formValues.teamId,
-        roleAssignments: {
-          attach: {
-            roles: formValues.roles,
-          },
+        roleAssignmentsInput: {
+          attach: rolesToAttach.length
+            ? {
+                roles: rolesToAttach,
+                team: team.id,
+              }
+            : undefined,
+          detach: rolesToDetach.length
+            ? {
+                roles: rolesToDetach,
+                team: team.id,
+              }
+            : undefined,
         },
       },
     })
