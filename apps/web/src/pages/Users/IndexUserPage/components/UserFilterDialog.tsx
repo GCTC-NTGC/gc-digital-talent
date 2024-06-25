@@ -2,14 +2,8 @@ import { useIntl } from "react-intl";
 import { OperationContext, useQuery } from "urql";
 
 import {
-  EmploymentDuration,
-  OperationalRequirements,
   commonMessages,
-  getEmploymentDuration,
-  getLanguageAbility,
   getLocalizedName,
-  getOperationalRequirement,
-  getWorkRegion,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
 import {
@@ -17,21 +11,17 @@ import {
   Checklist,
   Combobox,
   Select,
-  enumToOptions,
-  enumToOptionsWorkRegionSorted,
+  localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import {
-  LanguageAbility,
-  WorkRegion,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import FilterDialog, {
   CommonFilterDialogProps,
 } from "~/components/FilterDialog/FilterDialog";
 import adminMessages from "~/messages/adminMessages";
 import PoolFilterInput from "~/components/PoolFilterInput/PoolFilterInput";
+import { sortWorkRegion } from "~/utils/localizedEnumUtils";
 
 import ROLES_TO_HIDE_USERS_TABLE from "./constants";
 
@@ -70,6 +60,36 @@ const UserFilterData_Query = graphql(/* GraphQL */ `
       id
       name
       displayName {
+        en
+        fr
+      }
+    }
+    languageAbilities: localizedEnumStrings(enumName: "LanguageAbility") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    operationalRequirements: localizedEnumStrings(
+      enumName: "OperationalRequirement"
+    ) {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    employmentDurations: localizedEnumStrings(enumName: "EmploymentDuration") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    workRegions: localizedEnumStrings(enumName: "WorkRegion") {
+      value
+      label {
         en
         fr
       }
@@ -122,10 +142,7 @@ const UserFilterDialog = ({
               id: "iUAe/2",
               description: "Label for language ability field",
             })}
-            options={enumToOptions(LanguageAbility).map(({ value }) => ({
-              value,
-              label: intl.formatMessage(getLanguageAbility(value)),
-            }))}
+            options={localizedEnumToOptions(data?.languageAbilities, intl)}
           />
           <Select
             id="employmentDuration"
@@ -141,20 +158,15 @@ const UserFilterDialog = ({
               id: "2ingb6",
               description: "Label for the employment duration field",
             })}
-            options={enumToOptions(EmploymentDuration).map(({ value }) => ({
-              value,
-              label: intl.formatMessage(getEmploymentDuration(value, "short")),
-            }))}
+            options={localizedEnumToOptions(data?.employmentDurations, intl)}
           />
           <Checklist
             idPrefix="workRegion"
             name="workRegion"
             legend={intl.formatMessage(navigationMessages.workLocation)}
-            items={enumToOptionsWorkRegionSorted(WorkRegion).map(
-              ({ value }) => ({
-                value,
-                label: intl.formatMessage(getWorkRegion(value)),
-              }),
+            items={localizedEnumToOptions(
+              sortWorkRegion(data?.workRegions),
+              intl,
             )}
           />
         </div>
@@ -215,12 +227,7 @@ const UserFilterDialog = ({
             idPrefix="operationalRequirement"
             name="operationalRequirement"
             legend={intl.formatMessage(navigationMessages.workPreferences)}
-            items={OperationalRequirements.map((value) => ({
-              value,
-              label: intl.formatMessage(
-                getOperationalRequirement(value, "short"),
-              ),
-            }))}
+            items={localizedEnumToOptions(data?.operationalRequirements, intl)}
           />
         </div>
         <div data-h2-grid-column="l-tablet(span 2)">

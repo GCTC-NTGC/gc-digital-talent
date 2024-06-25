@@ -9,7 +9,6 @@ import {
   LocalizedString,
   Maybe,
   Scalars,
-  WorkRegion,
 } from "@gc-digital-talent/graphql";
 import {
   Locales,
@@ -200,24 +199,6 @@ export const objectsToSortedOptions = (
       label: name?.[locale] ?? intl.formatMessage(commonMessages.notFound),
     }));
 };
-
-// Special Cases
-
-// enumToOptions special case, sort by specific WorkRegion by default, reusable function
-export function enumToOptionsWorkRegionSorted(
-  list: Record<string, string>,
-): { value: string; label: string }[] {
-  return enumToOptions(list, [
-    WorkRegion.Telework,
-    WorkRegion.NationalCapital,
-    WorkRegion.Atlantic,
-    WorkRegion.Quebec,
-    WorkRegion.Ontario,
-    WorkRegion.North,
-    WorkRegion.Prairie,
-    WorkRegion.BritishColumbia,
-  ]);
-}
 
 export function htmlToRichTextJSON(html: string): Node {
   return generateJSON(html, [StarterKit, Link]) as Node;

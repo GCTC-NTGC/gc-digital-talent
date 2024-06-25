@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
 import { useWatch } from "react-hook-form";
+import { useQuery } from "urql";
 
 import {
   Checkbox,
@@ -7,22 +8,42 @@ import {
   DateInput,
   Input,
   Select,
-  enumToOptions,
+  localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
-import {
-  errorMessages,
-  getEducationStatus,
-  getEducationType,
-  uiMessages,
-} from "@gc-digital-talent/i18n";
+import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
-import { EducationStatus, EducationType } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import { SubExperienceFormProps } from "~/types/experience";
+
+import {
+  sortEducationStatus,
+  sortEducationType,
+} from "../../utils/localizedEnumUtils";
+
+const EducationOptions_Query = graphql(/* GraphQL */ `
+  query EducationOptions {
+    educationTypes: localizedEnumStrings(enumName: "EducationType") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    educationStatuses: localizedEnumStrings(enumName: "EducationStatus") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+  }
+`);
 
 const EducationFields = ({ labels }: SubExperienceFormProps) => {
   const intl = useIntl();
   const todayDate = new Date();
+  const [{ data }] = useQuery({ query: EducationOptions_Query });
   // to toggle whether End Date is required, the state of the Current Role checkbox must be monitored and have to adjust the form accordingly
   const isCurrent = useWatch({ name: "currentRole" });
   // ensuring end date isn't before the start date, using this as a minimum value
@@ -40,19 +61,10 @@ const EducationFields = ({ labels }: SubExperienceFormProps) => {
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
-            options={enumToOptions(EducationType, [
-              EducationType.Diploma,
-              EducationType.BachelorsDegree,
-              EducationType.MastersDegree,
-              EducationType.Phd,
-              EducationType.PostDoctoralFellowship,
-              EducationType.OnlineCourse,
-              EducationType.Certification,
-              EducationType.Other,
-            ]).map(({ value }) => ({
-              value,
-              label: intl.formatMessage(getEducationType(value)),
-            }))}
+            options={localizedEnumToOptions(
+              sortEducationType(data?.educationTypes),
+              intl,
+            )}
           />
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
@@ -96,16 +108,10 @@ const EducationFields = ({ labels }: SubExperienceFormProps) => {
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
-            options={enumToOptions(EducationStatus, [
-              EducationStatus.SuccessCredential,
-              EducationStatus.SuccessNoCredential,
-              EducationStatus.InProgress,
-              EducationStatus.Audited,
-              EducationStatus.DidNotComplete,
-            ]).map(({ value }) => ({
-              value,
-              label: intl.formatMessage(getEducationStatus(value)),
-            }))}
+            options={localizedEnumToOptions(
+              sortEducationStatus(data?.educationStatuses),
+              intl,
+            )}
           />
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">

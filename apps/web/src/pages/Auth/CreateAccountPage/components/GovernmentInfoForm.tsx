@@ -2,10 +2,10 @@ import { IntlShape, useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import uniqBy from "lodash/uniqBy";
 import { ReactNode, useEffect } from "react";
+import { useQuery } from "urql";
 
 import {
   errorMessages,
-  getGovEmployeeType,
   getLocale,
   getLocalizedName,
   uiMessages,
@@ -14,9 +14,9 @@ import {
   Input,
   RadioGroup,
   Select,
-  enumToOptions,
   objectsToSortedOptions,
   FieldLabels,
+  localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import { empty, notEmpty } from "@gc-digital-talent/helpers";
 import { Link } from "@gc-digital-talent/ui";
@@ -25,6 +25,7 @@ import {
   UpdateUserAsUserInput,
   GovEmployeeType,
   Department,
+  graphql,
 } from "@gc-digital-talent/graphql";
 
 import { splitAndJoin } from "~/utils/nameUtils";
@@ -184,6 +185,18 @@ export const getGovernmentInfoLabels = (intl: IntlShape) => ({
   }),
 });
 
+const GovernmentInfoFormOptions_Query = graphql(/* GraphQL */ `
+  query GovernmentInfoFormOptions {
+    employeeTypes: localizedEnumStrings(enumName: "GovEmployeeType") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 interface GovernmentInfoFormFieldsProps {
   departments: Department[];
   classifications: Classification[];
@@ -198,6 +211,7 @@ export const GovernmentInfoFormFields = ({
 }: GovernmentInfoFormFieldsProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const [{ data }] = useQuery({ query: GovernmentInfoFormOptions_Query });
   const { watch, resetField } = useFormContext();
   // hooks to watch, needed for conditional rendering
   const [govEmployee, govEmployeeStatus, groupSelection, priorityEntitlement] =
@@ -349,10 +363,7 @@ export const GovernmentInfoFormFields = ({
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
-            items={enumToOptions(GovEmployeeType).map(({ value }) => ({
-              value,
-              label: intl.formatMessage(getGovEmployeeType(value)),
-            }))}
+            items={localizedEnumToOptions(data?.employeeTypes, intl)}
           />
         </>
       )}

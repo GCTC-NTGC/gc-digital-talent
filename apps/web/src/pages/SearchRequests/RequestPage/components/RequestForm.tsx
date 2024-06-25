@@ -11,7 +11,7 @@ import {
   Select,
   Submit,
   TextArea,
-  enumToOptions,
+  localizedEnumToOptions,
   objectsToSortedOptions,
 } from "@gc-digital-talent/forms";
 import { Heading, Link, Pending, Separator } from "@gc-digital-talent/ui";
@@ -35,7 +35,6 @@ import {
   ApplicantFilter,
   ApplicantFilterInput,
   PoolCandidateSearchPositionType,
-  PoolCandidateSearchRequestReason,
   type RequestForm_CreateRequestMutation as CreateRequestMutation,
   graphql,
   FragmentType,
@@ -50,6 +49,10 @@ import {
   BrowserHistoryState,
   FormValues as SearchFormValues,
 } from "~/types/searchRequest";
+import {
+  enumInputToLocalizedEnum,
+  sortPoolCandidateSearchRequestReason,
+} from "~/utils/localizedEnumUtils";
 
 const directiveLink = (chunks: ReactNode, href: string) => (
   <Link href={href} newTab>
@@ -135,6 +138,50 @@ const PoolsInFilter_Query = graphql(/* GraphQL */ `
   }
 `);
 
+const RequestOptions_Query = graphql(/* GraphQL */ `
+  query RequestOptions {
+    requestReasons: localizedEnumStrings(
+      enumName: "PoolCandidateSearchRequestReason"
+    ) {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    languageAbilities: localizedEnumStrings(enumName: "LanguageAbility") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    workRegions: localizedEnumStrings(enumName: "WorkRegion") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    operationalRequirements: localizedEnumStrings(
+      enumName: "OperationalRequirement"
+    ) {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    streams: localizedEnumStrings(enumName: "PoolStream") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 export interface RequestFormProps {
   departmentsQuery: FragmentType<typeof RequestFormDepartment_Fragment>[];
   skills: Skill[];
@@ -167,6 +214,9 @@ export const RequestForm = ({
   const cacheKey = "ts-createRequest";
   const location = useLocation();
   const state = location.state as BrowserHistoryState;
+  const [{ data: optionsData }] = useQuery({
+    query: RequestOptions_Query,
+  });
   const [{ data: poolsData }] = useQuery({
     query: PoolsInFilter_Query,
     variables: {
@@ -311,6 +361,28 @@ export const RequestForm = ({
     __typename: "ApplicantFilter",
     id: "", // Set Id to empty string since the PoolCandidateSearchRequest doesn't exist yet.
     ...applicantFilter,
+    languageAbility: enumInputToLocalizedEnum(
+      applicantFilter?.languageAbility,
+      optionsData?.languageAbilities,
+    ),
+    locationPreferences: unpackMaybes(
+      applicantFilter?.locationPreferences?.map((workRegion) =>
+        enumInputToLocalizedEnum(workRegion, optionsData?.workRegions),
+      ),
+    ),
+    operationalRequirements: unpackMaybes(
+      applicantFilter?.operationalRequirements?.map((requirement) =>
+        enumInputToLocalizedEnum(
+          requirement,
+          optionsData?.operationalRequirements,
+        ),
+      ),
+    ),
+    qualifiedStreams: unpackMaybes(
+      applicantFilter?.qualifiedStreams?.map((stream) =>
+        enumInputToLocalizedEnum(stream, optionsData?.streams),
+      ),
+    ),
     qualifiedClassifications:
       applicantFilter?.qualifiedClassifications
         ?.map((qualifiedClassification) => {
@@ -469,15 +541,10 @@ export const RequestForm = ({
                 "Legend for the options related to the reason for submitting a request.",
             })}
             rules={{ required: intl.formatMessage(errorMessages.required) }}
-            items={enumToOptions(PoolCandidateSearchRequestReason, [
-              PoolCandidateSearchRequestReason.ImmediateHire,
-              PoolCandidateSearchRequestReason.UpcomingNeed,
-              PoolCandidateSearchRequestReason.GeneralInterest,
-              PoolCandidateSearchRequestReason.UpcomingNeed,
-            ]).map(({ value }) => ({
-              value,
-              label: intl.formatMessage(getSearchRequestReason(value)),
-            }))}
+            items={localizedEnumToOptions(
+              sortPoolCandidateSearchRequestReason(optionsData?.requestReasons),
+              intl,
+            )}
           />
           <p data-h2-margin="base(x1 0)">
             {intl.formatMessage(

@@ -8,15 +8,10 @@ import {
   Input,
   RadioGroup,
   Select,
-  enumToOptions,
+  localizedEnumToOptions,
   objectsToSortedOptions,
 } from "@gc-digital-talent/forms";
-import {
-  errorMessages,
-  getGovEmployeeType,
-  uiMessages,
-  getLocale,
-} from "@gc-digital-talent/i18n";
+import { errorMessages, uiMessages, getLocale } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
   FragmentType,
@@ -63,17 +58,33 @@ export const GovernmentInfoClassification_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+export const GovernmentInfoEmployeeTypes_Fragment = graphql(/* GraphQL */ `
+  fragment GovernmentInfoEmployeeTypes on Query {
+    employeeTypes: localizedEnumStrings(enumName: "GovEmployeeType") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 interface FormFieldsProps {
   departmentsQuery: FragmentType<typeof GovernmentInfoDepartment_Fragment>[];
   classificationsQuery: FragmentType<
     typeof GovernmentInfoClassification_Fragment
   >[];
+  employeeTypesQuery?: FragmentType<
+    typeof GovernmentInfoEmployeeTypes_Fragment
+  >;
   labels: FieldLabels;
 }
 
 const FormFields = ({
   departmentsQuery,
   classificationsQuery,
+  employeeTypesQuery,
   labels,
 }: FormFieldsProps) => {
   const intl = useIntl();
@@ -85,6 +96,10 @@ const FormFields = ({
   const classifications = getFragment(
     GovernmentInfoClassification_Fragment,
     classificationsQuery,
+  );
+  const employeeTypesData = getFragment(
+    GovernmentInfoEmployeeTypes_Fragment,
+    employeeTypesQuery,
   );
   useDirtyFields("government");
   const { watch, resetField } = useFormContext();
@@ -202,10 +217,10 @@ const FormFields = ({
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
-            items={enumToOptions(GovEmployeeType).map(({ value }) => ({
-              value,
-              label: intl.formatMessage(getGovEmployeeType(value)),
-            }))}
+            items={localizedEnumToOptions(
+              employeeTypesData?.employeeTypes,
+              intl,
+            )}
           />
         </>
       )}

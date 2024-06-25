@@ -2,7 +2,7 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import CalendarIcon from "@heroicons/react/24/outline/CalendarIcon";
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
-import { useMutation } from "urql";
+import { useMutation, useQuery } from "urql";
 
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -10,14 +10,10 @@ import {
   Select,
   Submit,
   TextArea,
-  enumToOptions,
+  localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import { Heading, Well } from "@gc-digital-talent/ui";
-import {
-  getPoolCandidateStatus,
-  commonMessages,
-  formMessages,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { emptyToNull } from "@gc-digital-talent/helpers";
 import {
@@ -34,10 +30,22 @@ import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import adminMessages from "~/messages/adminMessages";
 
 type FormValues = {
-  status?: PoolCandidate["status"];
+  status?: PoolCandidateStatus;
   notes?: PoolCandidate["notes"];
   expiryDate?: PoolCandidate["expiryDate"];
 };
+
+const ApplicationStatusFormOptions_Query = graphql(/* GraphQL */ `
+  query ApplicationStatusFormOptions {
+    statuses: localizedEnumStrings(enumName: "PoolCandidateStatus") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+  }
+`);
 
 export interface ApplicationStatusFormProps {
   isSubmitting: boolean;
@@ -51,9 +59,10 @@ export const ApplicationStatusForm = ({
   isSubmitting,
 }: ApplicationStatusFormProps) => {
   const intl = useIntl();
+  const [{ data }] = useQuery({ query: ApplicationStatusFormOptions_Query });
   const methods = useForm<FormValues>({
     defaultValues: {
-      status: application.status ?? undefined,
+      status: application.status?.value ?? undefined,
       notes: application.notes ?? "",
       expiryDate: application.expiryDate
         ? strToFormDate(application.expiryDate)
@@ -87,15 +96,13 @@ export const ApplicationStatusForm = ({
     });
   };
 
-  const allowedStatuses = enumToOptions(PoolCandidateStatus).filter(
-    ({ value }) => {
-      return (
-        value !== PoolCandidateStatus.Draft &&
-        value !== PoolCandidateStatus.DraftExpired &&
-        value !== PoolCandidateStatus.Expired
-      );
-    },
-  );
+  const allowedStatuses = data?.statuses?.filter((status) => {
+    return (
+      status?.value !== PoolCandidateStatus.Draft &&
+      status?.value !== PoolCandidateStatus.DraftExpired &&
+      status?.value !== PoolCandidateStatus.Expired
+    );
+  });
 
   return (
     <div data-h2-width="base(100%)">
@@ -152,10 +159,7 @@ export const ApplicationStatusForm = ({
                       id: "VMhVyJ",
                       description: "Placeholder text for the pool status field",
                     })}
-                    options={allowedStatuses.map(({ value }) => ({
-                      value,
-                      label: intl.formatMessage(getPoolCandidateStatus(value)),
-                    }))}
+                    options={localizedEnumToOptions(allowedStatuses, intl)}
                   />
                   <DateInput
                     id="expiryDate"

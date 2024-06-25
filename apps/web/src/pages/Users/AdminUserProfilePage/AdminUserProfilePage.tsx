@@ -65,7 +65,10 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
     }
     isGovEmployee
     govEmployeeType {
-      value
+      label {
+        en
+        fr
+      }
     }
     hasPriorityEntitlement
     priorityNumber

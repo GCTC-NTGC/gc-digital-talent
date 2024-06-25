@@ -10,22 +10,14 @@ import {
 } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
-  getArmedForcesStatusesAdmin,
-  getCitizenshipStatusesAdmin,
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
-  getIndigenousCommunity,
-  getLanguage,
   getLocale,
+  getLocalizedName,
   getOperationalRequirement,
-  getProvinceOrTerritory,
-  getSimpleGovEmployeeType,
-  getWorkRegion,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import { enumToOptions } from "@gc-digital-talent/forms";
 import {
-  GovEmployeeType,
   OperationalRequirement,
   PositionDuration,
   User,
@@ -100,14 +92,9 @@ const ProfileDocument = forwardRef<HTMLDivElement, ProfileDocumentProps>(
                 const result: User =
                   "user" in initialResult ? initialResult.user : initialResult;
 
-                const govEmployeeTypeId =
-                  enumToOptions(GovEmployeeType).find(
-                    (govEmployeeType) =>
-                      govEmployeeType.value === result.govEmployeeType,
-                  )?.value || "";
                 const regionPreferencesSquished =
                   result.locationPreferences?.map((region) =>
-                    region ? intl.formatMessage(getWorkRegion(region)) : "",
+                    getLocalizedName(region?.label, intl),
                   );
                 const regionPreferences = regionPreferencesSquished
                   ? insertBetween(", ", regionPreferencesSquished)
@@ -117,15 +104,8 @@ const ProfileDocument = forwardRef<HTMLDivElement, ProfileDocumentProps>(
                   result.acceptedOperationalRequirements
                     ? result.acceptedOperationalRequirements.map(
                         (opRequirement) => (
-                          <li key={opRequirement}>
-                            {opRequirement
-                              ? intl.formatMessage(
-                                  getOperationalRequirement(
-                                    opRequirement,
-                                    "firstPerson",
-                                  ),
-                                )
-                              : ""}
+                          <li key={opRequirement?.value}>
+                            {getLocalizedName(opRequirement?.label, intl)}
                           </li>
                         ),
                       )
@@ -143,8 +123,8 @@ const ProfileDocument = forwardRef<HTMLDivElement, ProfileDocumentProps>(
                 const unselectedOperationalArray =
                   operationalRequirementsSubsetV2.filter(
                     (requirement) =>
-                      !result.acceptedOperationalRequirements?.includes(
-                        requirement,
+                      !result.acceptedOperationalRequirements?.some(
+                        (req) => req?.value === requirement,
                       ),
                   );
                 const unacceptedOperationalArray = unselectedOperationalArray
@@ -164,7 +144,7 @@ const ProfileDocument = forwardRef<HTMLDivElement, ProfileDocumentProps>(
 
                 const nonLegacyIndigenousCommunities =
                   unpackMaybes(result.indigenousCommunities).filter(
-                    (c) => c !== IndigenousCommunity.LegacyIsIndigenous,
+                    (c) => c.value !== IndigenousCommunity.LegacyIsIndigenous,
                   ) || [];
 
                 return (
@@ -227,8 +207,9 @@ const ProfileDocument = forwardRef<HTMLDivElement, ProfileDocumentProps>(
                               })}
                               {intl.formatMessage(commonMessages.dividingColon)}
                               {result.currentCity},{" "}
-                              {intl.formatMessage(
-                                getProvinceOrTerritory(result.currentProvince),
+                              {getLocalizedName(
+                                result.currentProvince.label,
+                                intl,
                               )}
                             </p>
                           )}
@@ -240,8 +221,9 @@ const ProfileDocument = forwardRef<HTMLDivElement, ProfileDocumentProps>(
                                 description: "Label for communication language",
                               })}
                               {intl.formatMessage(commonMessages.dividingColon)}
-                              {intl.formatMessage(
-                                getLanguage(result.preferredLang),
+                              {getLocalizedName(
+                                result.preferredLang.label,
+                                intl,
                               )}
                             </p>
                           )}
@@ -254,10 +236,9 @@ const ProfileDocument = forwardRef<HTMLDivElement, ProfileDocumentProps>(
                                   "Label for spoken interview language",
                               })}
                               {intl.formatMessage(commonMessages.dividingColon)}
-                              {intl.formatMessage(
-                                getLanguage(
-                                  result.preferredLanguageForInterview,
-                                ),
+                              {getLocalizedName(
+                                result.preferredLanguageForInterview.label,
+                                intl,
                               )}
                             </p>
                           )}
@@ -269,8 +250,9 @@ const ProfileDocument = forwardRef<HTMLDivElement, ProfileDocumentProps>(
                                 description: "Label for written exam language",
                               })}
                               {intl.formatMessage(commonMessages.dividingColon)}
-                              {intl.formatMessage(
-                                getLanguage(result.preferredLanguageForExam),
+                              {getLocalizedName(
+                                result.preferredLanguageForExam.label,
+                                intl,
                               )}
                             </p>
                           )}
@@ -299,10 +281,9 @@ const ProfileDocument = forwardRef<HTMLDivElement, ProfileDocumentProps>(
                                 description: "Veteran/member label",
                               })}
                               {intl.formatMessage(commonMessages.dividingColon)}
-                              {intl.formatMessage(
-                                getArmedForcesStatusesAdmin(
-                                  result.armedForcesStatus,
-                                ),
+                              {getLocalizedName(
+                                result.armedForcesStatus.label,
+                                intl,
                               )}
                             </p>
                           )}
@@ -314,9 +295,7 @@ const ProfileDocument = forwardRef<HTMLDivElement, ProfileDocumentProps>(
                               description: "Citizenship label",
                             })}
                             {intl.formatMessage(commonMessages.dividingColon)}
-                            {intl.formatMessage(
-                              getCitizenshipStatusesAdmin(result.citizenship),
-                            )}
+                            {getLocalizedName(result.citizenship.label, intl)}
                           </p>
                         ) : (
                           intl.formatMessage(commonMessages.notProvided)
@@ -364,8 +343,9 @@ const ProfileDocument = forwardRef<HTMLDivElement, ProfileDocumentProps>(
                                 "Label for applicant's employment type",
                             })}
                             {intl.formatMessage(commonMessages.dividingColon)}
-                            {intl.formatMessage(
-                              getSimpleGovEmployeeType(govEmployeeTypeId),
+                            {getLocalizedName(
+                              result.govEmployeeType.label,
+                              intl,
                             )}
                           </p>
                         )}
@@ -591,11 +571,10 @@ const ProfileDocument = forwardRef<HTMLDivElement, ProfileDocumentProps>(
                                           ? nonLegacyIndigenousCommunities.map(
                                               (community) => {
                                                 return (
-                                                  <li key={community}>
-                                                    {intl.formatMessage(
-                                                      getIndigenousCommunity(
-                                                        community,
-                                                      ),
+                                                  <li key={community.value}>
+                                                    {getLocalizedName(
+                                                      community.label,
+                                                      intl,
                                                     )}
                                                   </li>
                                                 );

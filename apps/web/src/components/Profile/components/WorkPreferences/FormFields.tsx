@@ -1,24 +1,38 @@
 import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
 import {
   Checklist,
   RadioGroup,
   TextArea,
-  enumToOptionsWorkRegionSorted,
+  localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import {
   OperationalRequirements,
   errorMessages,
   getOperationalRequirement,
-  getWorkRegionsDetailed,
 } from "@gc-digital-talent/i18n";
-import { WorkRegion } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import { FormFieldProps } from "../../types";
 import useDirtyFields from "../../hooks/useDirtyFields";
+import { sortWorkRegion } from "../../../../utils/localizedEnumUtils";
+
+const WorkPreferencesOptions_Query = graphql(/* GraphQL */ `
+  query WorkPreferencesOptions {
+    workRegions: localizedEnumStrings(enumName: "WorkRegion") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+  }
+`);
 
 const FormFields = ({ labels }: FormFieldProps) => {
   const intl = useIntl();
+  const [{ data }] = useQuery({ query: WorkPreferencesOptions_Query });
   useDirtyFields("work");
 
   return (
@@ -75,10 +89,10 @@ const FormFields = ({ labels }: FormFieldProps) => {
           legend={labels.locationPreferences}
           name="locationPreferences"
           id="locationPreferences"
-          items={enumToOptionsWorkRegionSorted(WorkRegion).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getWorkRegionsDetailed(value)),
-          }))}
+          items={localizedEnumToOptions(
+            sortWorkRegion(data?.workRegions),
+            intl,
+          )}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}

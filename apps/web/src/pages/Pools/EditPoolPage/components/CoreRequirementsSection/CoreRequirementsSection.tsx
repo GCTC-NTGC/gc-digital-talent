@@ -2,6 +2,7 @@ import { useIntl } from "react-intl";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
 import InboxStackIcon from "@heroicons/react/24/outline/InboxStackIcon";
 import isEmpty from "lodash/isEmpty";
+import { useQuery } from "urql";
 
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import {
@@ -9,18 +10,11 @@ import {
   RadioGroup,
   Select,
   Submit,
-  enumToOptions,
+  localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
-import {
-  commonMessages,
-  formMessages,
-  getLanguageRequirement,
-  getSecurityClearance,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import {
   PoolStatus,
-  PoolLanguage,
-  SecurityStatus,
   graphql,
   FragmentType,
   getFragment,
@@ -45,6 +39,10 @@ import {
   formValuesToSubmitData,
 } from "./utils";
 import ActionWrapper from "../ActionWrapper";
+import {
+  sortPoolLanguage,
+  sortSecurityStatus,
+} from "../../../../../utils/localizedEnumUtils";
 
 const EditPoolCoreRequirements_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolCoreRequirements on Pool {
@@ -66,6 +64,25 @@ const EditPoolCoreRequirements_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+const CoreRequirementOptions_Query = graphql(/* GraphQL */ `
+  query CoreRequirementOptions {
+    languages: localizedEnumStrings(enumName: "PoolLanguage") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    securityStatuses: localizedEnumStrings(enumName: "SecurityStatus") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 type CoreRequirementsSectionProps = SectionProps<
   CoreRequirementsSubmitData,
   FragmentType<typeof EditPoolCoreRequirements_Fragment>
@@ -77,6 +94,7 @@ const CoreRequirementsSection = ({
   onSave,
 }: CoreRequirementsSectionProps) => {
   const intl = useIntl();
+  const [{ data }] = useQuery({ query: CoreRequirementOptions_Query });
   const pool = getFragment(EditPoolCoreRequirements_Fragment, poolQuery);
   const isNull = hasAllEmptyFields(pool);
   const emptyRequired = hasEmptyRequiredFields(pool);
@@ -111,7 +129,7 @@ const CoreRequirementsSection = ({
   };
 
   // disabled unless status is draft
-  const formDisabled = pool.status !== PoolStatus.Draft;
+  const formDisabled = pool.status?.value !== PoolStatus.Draft;
 
   const subtitle = intl.formatMessage({
     defaultMessage:
@@ -251,16 +269,10 @@ const CoreRequirementsSection = ({
                       id: "7pCluO",
                       description: "Placeholder for language requirement field",
                     })}
-                    options={enumToOptions(PoolLanguage, [
-                      PoolLanguage.Various,
-                      PoolLanguage.English,
-                      PoolLanguage.French,
-                      PoolLanguage.BilingualIntermediate,
-                      PoolLanguage.BilingualAdvanced,
-                    ]).map(({ value }) => ({
-                      value,
-                      label: intl.formatMessage(getLanguageRequirement(value)),
-                    }))}
+                    options={localizedEnumToOptions(
+                      sortPoolLanguage(data?.languages),
+                      intl,
+                    )}
                     disabled={formDisabled}
                     data-h2-width="base(100%)"
                   />
@@ -275,14 +287,10 @@ const CoreRequirementsSection = ({
                       id: "PVo1xK",
                       description: "Placeholder for security requirement field",
                     })}
-                    options={enumToOptions(SecurityStatus, [
-                      SecurityStatus.Reliability,
-                      SecurityStatus.Secret,
-                      SecurityStatus.TopSecret,
-                    ]).map(({ value }) => ({
-                      value,
-                      label: intl.formatMessage(getSecurityClearance(value)),
-                    }))}
+                    options={localizedEnumToOptions(
+                      sortSecurityStatus(data?.securityStatuses),
+                      intl,
+                    )}
                     disabled={formDisabled}
                     data-h2-width="base(100%)"
                   />

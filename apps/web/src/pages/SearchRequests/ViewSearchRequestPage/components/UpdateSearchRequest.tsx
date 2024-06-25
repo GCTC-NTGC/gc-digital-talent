@@ -2,31 +2,39 @@ import { useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
-import { useMutation } from "urql";
+import { useMutation, useQuery } from "urql";
 
 import { Heading, Link } from "@gc-digital-talent/ui";
 import {
   Select,
   Submit,
   TextArea,
-  enumToOptions,
+  localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
-import {
-  commonMessages,
-  getPoolCandidateSearchStatus,
-  uiMessages,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, uiMessages } from "@gc-digital-talent/i18n";
 import {
   PoolCandidateSearchRequest,
-  PoolCandidateSearchStatus,
   UpdatePoolCandidateSearchRequestInput,
   graphql,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
+import { sortPoolCandidateSearchStatus } from "~/utils/localizedEnumUtils";
 
 type FormValues = UpdatePoolCandidateSearchRequestInput;
+
+const UpdateSearchRequestOptions_Query = graphql(/* GraphQL */ `
+  query UpdateSearchRequestOptions {
+    statuses: localizedEnumStrings(enumName: "PoolCandidateSearchStatus") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+  }
+`);
 
 interface UpdateSearchRequestFormProps {
   initialSearchRequest: PoolCandidateSearchRequest;
@@ -43,17 +51,21 @@ export const UpdateSearchRequestForm = ({
   const intl = useIntl();
   const [isSaving, setIsSaving] = useState<boolean>(false);
   const paths = useRoutes();
+  const [{ data }] = useQuery({ query: UpdateSearchRequestOptions_Query });
   const methods = useForm<FormValues>({
-    defaultValues: initialSearchRequest,
+    defaultValues: {
+      ...initialSearchRequest,
+      status: initialSearchRequest.status?.value,
+    },
   });
   const { handleSubmit } = methods;
 
   const handleSaveNotes: SubmitHandler<FormValues> = async (
-    data: FormValues,
+    values: FormValues,
   ) => {
     setIsSaving(true);
     return handleUpdateSearchRequest(initialSearchRequest.id, {
-      adminNotes: data.adminNotes,
+      adminNotes: values.adminNotes,
     })
       .then(() => {
         // HACK: This marks the field as clean after
@@ -61,7 +73,7 @@ export const UpdateSearchRequestForm = ({
         // submitted in the traditional sense
         methods.resetField("adminNotes", {
           keepDirty: false,
-          defaultValue: data.adminNotes,
+          defaultValue: values.adminNotes,
         });
         toast.success(
           intl.formatMessage({
@@ -88,11 +100,11 @@ export const UpdateSearchRequestForm = ({
   };
 
   const handleSaveStatus: SubmitHandler<FormValues> = async (
-    data: FormValues,
+    values: FormValues,
   ) => {
     setIsSaving(true);
     return handleUpdateSearchRequest(initialSearchRequest.id, {
-      status: data.status,
+      status: values.status,
     })
       .then(() => {
         // HACK: This marks the field as clean after
@@ -100,7 +112,7 @@ export const UpdateSearchRequestForm = ({
         // submitted in the traditional sense
         methods.resetField("status", {
           keepDirty: false,
-          defaultValue: data.status,
+          defaultValue: values.status,
         });
         toast.success(
           intl.formatMessage({
@@ -208,18 +220,10 @@ export const UpdateSearchRequestForm = ({
                   uiMessages.nullSelectionOption,
                 )}
                 label={intl.formatMessage(commonMessages.status)}
-                options={enumToOptions(PoolCandidateSearchStatus, [
-                  PoolCandidateSearchStatus.New,
-                  PoolCandidateSearchStatus.InProgress,
-                  PoolCandidateSearchStatus.Waiting,
-                  PoolCandidateSearchStatus.Done,
-                  PoolCandidateSearchStatus.DoneNoCandidates,
-                ]).map(({ value }) => ({
-                  value,
-                  label: intl.formatMessage(
-                    getPoolCandidateSearchStatus(value),
-                  ),
-                }))}
+                options={localizedEnumToOptions(
+                  sortPoolCandidateSearchStatus(data?.statuses),
+                  intl,
+                )}
                 doNotSort
               />
               <div
@@ -294,7 +298,10 @@ const UpdateSearchRequest = ({
       poolCandidateSearchRequest: data,
     }).then((result) => {
       if (result.data?.updatePoolCandidateSearchRequest) {
-        return result.data.updatePoolCandidateSearchRequest;
+        return {
+          ...result.data.updatePoolCandidateSearchRequest,
+          status: result.data.updatePoolCandidateSearchRequest.status?.value,
+        };
       }
       return Promise.reject(result.error);
     });

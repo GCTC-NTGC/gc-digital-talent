@@ -2,17 +2,21 @@ import { JSX } from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import TagIcon from "@heroicons/react/24/outline/TagIcon";
+import { useQuery } from "urql";
 
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   formMessages,
-  getPublishingGroup,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import { Input, Select, Submit, enumToOptions } from "@gc-digital-talent/forms";
 import {
-  PublishingGroup,
+  Input,
+  Select,
+  Submit,
+  localizedEnumToOptions,
+} from "@gc-digital-talent/forms";
+import {
   PoolStatus,
   FragmentType,
   getFragment,
@@ -36,11 +40,10 @@ import {
   formValuesToSubmitData,
   getClassificationOptions,
   getDepartmentOptions,
-  getOpportunityLengthOptions,
-  getStreamOptions,
 } from "./utils";
 import { SectionProps } from "../../types";
 import ActionWrapper from "../ActionWrapper";
+import { sortOpportunityLength } from "../../../../../utils/localizedEnumUtils";
 
 const EditPoolName_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolName on Pool {
@@ -101,6 +104,34 @@ export const PoolDepartment_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+const PoolNameOptions_Query = graphql(/* GraphQL */ `
+  query PoolNameOptions {
+    publishingGroups: localizedEnumStrings(enumName: "PublishingGroup") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    streams: localizedEnumStrings(enumName: "PoolStream") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    opportunityLengths: localizedEnumStrings(
+      enumName: "PoolOpportunityLength"
+    ) {
+      value
+      label {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 type PoolNameSectionProps = SectionProps<
   PoolNameSubmitData,
   FragmentType<typeof EditPoolName_Fragment>
@@ -117,6 +148,7 @@ const PoolNameSection = ({
   onSave,
 }: PoolNameSectionProps): JSX.Element => {
   const intl = useIntl();
+  const [{ data }] = useQuery({ query: PoolNameOptions_Query });
   const pool = getFragment(EditPoolName_Fragment, poolQuery);
   const isNull = isInNullState(pool);
   const emptyRequired = hasEmptyRequiredFields(pool);
@@ -149,7 +181,7 @@ const PoolNameSection = ({
   };
 
   // disabled unless status is draft
-  const formDisabled = pool.status !== PoolStatus.Draft;
+  const formDisabled = pool.status?.value !== PoolStatus.Draft;
 
   const subtitle = intl.formatMessage({
     defaultMessage:
@@ -220,7 +252,7 @@ const PoolNameSection = ({
                   nullSelection={intl.formatMessage(
                     uiMessages.nullSelectionOption,
                   )}
-                  options={getStreamOptions(intl)}
+                  options={localizedEnumToOptions(data?.streams, intl)}
                   disabled={formDisabled}
                 />
                 <Input
@@ -270,7 +302,10 @@ const PoolNameSection = ({
                   nullSelection={intl.formatMessage(
                     uiMessages.nullSelectionOption,
                   )}
-                  options={getOpportunityLengthOptions(intl)}
+                  options={localizedEnumToOptions(
+                    sortOpportunityLength(data?.opportunityLengths),
+                    intl,
+                  )}
                   disabled={formDisabled}
                   doNotSort
                 />
@@ -301,16 +336,7 @@ const PoolNameSection = ({
                     id: "Y0WLp5",
                     description: "Placeholder for publishing group field",
                   })}
-                  options={enumToOptions(PublishingGroup).map(({ value }) => ({
-                    value,
-                    label: intl.formatMessage(getPublishingGroup(value)),
-                    ariaLabel: intl
-                      .formatMessage(getPublishingGroup(value))
-                      .replace(
-                        intl.locale === "en" ? "IT" : "TI",
-                        intl.locale === "en" ? "I T" : "T I",
-                      ),
-                  }))}
+                  options={localizedEnumToOptions(data?.publishingGroups, intl)}
                   disabled={formDisabled}
                 />
               </div>

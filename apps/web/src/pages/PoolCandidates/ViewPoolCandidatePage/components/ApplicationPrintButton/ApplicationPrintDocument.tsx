@@ -5,30 +5,21 @@ import { ReactNode, forwardRef } from "react";
 import { Heading } from "@gc-digital-talent/ui";
 import {
   insertBetween,
+  localizedEnumHasValue,
   notEmpty,
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
-  getArmedForcesStatusesAdmin,
-  getCitizenshipStatusesAdmin,
-  getEducationRequirementOption,
   getEmploymentEquityGroup,
   getEmploymentEquityStatement,
-  getIndigenousCommunity,
-  getLanguage,
   getLocale,
   getLocalizedName,
   getOperationalRequirement,
-  getProvinceOrTerritory,
-  getSimpleGovEmployeeType,
-  getWorkRegion,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import { enumToOptions } from "@gc-digital-talent/forms";
 import {
   graphql,
-  GovEmployeeType,
   OperationalRequirement,
   PositionDuration,
   User,
@@ -149,26 +140,21 @@ const ApplicationPrintDocument = forwardRef<
   );
 
   // massage user data for display
-  const govEmployeeTypeId =
-    enumToOptions(GovEmployeeType).find(
-      (govEmployeeType) => govEmployeeType.value === user.govEmployeeType,
-    )?.value || "";
+
   const regionPreferencesSquished = user.locationPreferences?.map((region) =>
-    region ? intl.formatMessage(getWorkRegion(region)) : "",
+    getLocalizedName(region?.label, intl),
   );
   const regionPreferences = regionPreferencesSquished
     ? insertBetween(", ", regionPreferencesSquished)
     : "";
   const acceptedOperationalArray = user.acceptedOperationalRequirements
-    ? user.acceptedOperationalRequirements.map((opRequirement) => (
-        <li key={opRequirement}>
-          {opRequirement
-            ? intl.formatMessage(
-                getOperationalRequirement(opRequirement, "firstPerson"),
-              )
-            : ""}
-        </li>
-      ))
+    ? unpackMaybes(user.acceptedOperationalRequirements)
+        .filter(localizedEnumHasValue)
+        .map((opRequirement) => (
+          <li key={opRequirement.value}>
+            {getLocalizedName(opRequirement.label, intl)}
+          </li>
+        ))
     : null;
   const anyCriteriaSelected = !isEmpty(acceptedOperationalArray);
   const operationalRequirementsSubsetV2 = [
@@ -182,7 +168,9 @@ const ApplicationPrintDocument = forwardRef<
   ];
   const unselectedOperationalArray = operationalRequirementsSubsetV2.filter(
     (requirement) =>
-      !user.acceptedOperationalRequirements?.includes(requirement),
+      !user.acceptedOperationalRequirements?.some(
+        (accepted) => accepted?.value === requirement,
+      ),
   );
   const unacceptedOperationalArray = unselectedOperationalArray
     ? unselectedOperationalArray.map((opRequirement) => (
@@ -197,10 +185,8 @@ const ApplicationPrintDocument = forwardRef<
     : null;
   const nonLegacyIndigenousCommunities =
     unpackMaybes(user.indigenousCommunities).filter(
-      (c) => c !== IndigenousCommunity.LegacyIsIndigenous,
+      (c) => c.value !== IndigenousCommunity.LegacyIsIndigenous,
     ) || [];
-
-  const classificationGroup = relevantPoolCandidate?.pool.classification?.group;
 
   return (
     <div style={{ display: "none" }}>
@@ -246,11 +232,10 @@ const ApplicationPrintDocument = forwardRef<
                     })}
                     {intl.formatMessage(commonMessages.dividingColon)}
                     {relevantPoolCandidate.educationRequirementOption
-                      ? intl.formatMessage(
-                          getEducationRequirementOption(
-                            relevantPoolCandidate.educationRequirementOption,
-                            classificationGroup,
-                          ),
+                      ? getLocalizedName(
+                          relevantPoolCandidate.educationRequirementOption
+                            .label,
+                          intl,
                         )
                       : intl.formatMessage(commonMessages.notAvailable)}
                   </p>
@@ -408,9 +393,7 @@ const ApplicationPrintDocument = forwardRef<
                     })}
                     {intl.formatMessage(commonMessages.dividingColon)}
                     {user.currentCity},{" "}
-                    {intl.formatMessage(
-                      getProvinceOrTerritory(user.currentProvince),
-                    )}
+                    {getLocalizedName(user.currentProvince.label, intl)}
                   </p>
                 )}
                 {user.preferredLang && (
@@ -421,7 +404,7 @@ const ApplicationPrintDocument = forwardRef<
                       description: "Label for communication language",
                     })}
                     {intl.formatMessage(commonMessages.dividingColon)}
-                    {intl.formatMessage(getLanguage(user.preferredLang))}
+                    {getLocalizedName(user.preferredLang.label, intl)}
                   </p>
                 )}
                 {user.preferredLanguageForInterview && (
@@ -432,8 +415,9 @@ const ApplicationPrintDocument = forwardRef<
                       description: "Label for spoken interview language",
                     })}
                     {intl.formatMessage(commonMessages.dividingColon)}
-                    {intl.formatMessage(
-                      getLanguage(user.preferredLanguageForInterview),
+                    {getLocalizedName(
+                      user.preferredLanguageForInterview.label,
+                      intl,
                     )}
                   </p>
                 )}
@@ -445,8 +429,9 @@ const ApplicationPrintDocument = forwardRef<
                       description: "Label for written exam language",
                     })}
                     {intl.formatMessage(commonMessages.dividingColon)}
-                    {intl.formatMessage(
-                      getLanguage(user.preferredLanguageForExam),
+                    {getLocalizedName(
+                      user.preferredLanguageForExam.label,
+                      intl,
                     )}
                   </p>
                 )}
@@ -465,9 +450,7 @@ const ApplicationPrintDocument = forwardRef<
                       description: "Veteran/member label",
                     })}
                     {intl.formatMessage(commonMessages.dividingColon)}
-                    {intl.formatMessage(
-                      getArmedForcesStatusesAdmin(user.armedForcesStatus),
-                    )}
+                    {getLocalizedName(user.armedForcesStatus.label, intl)}
                   </p>
                 )}
               {user.citizenship ? (
@@ -478,9 +461,7 @@ const ApplicationPrintDocument = forwardRef<
                     description: "Citizenship label",
                   })}
                   {intl.formatMessage(commonMessages.dividingColon)}
-                  {intl.formatMessage(
-                    getCitizenshipStatusesAdmin(user.citizenship),
-                  )}
+                  {getLocalizedName(user.citizenship.label, intl)}
                 </p>
               ) : (
                 intl.formatMessage(commonMessages.notProvided)
@@ -523,9 +504,7 @@ const ApplicationPrintDocument = forwardRef<
                     description: "Label for applicant's employment type",
                   })}
                   {intl.formatMessage(commonMessages.dividingColon)}
-                  {intl.formatMessage(
-                    getSimpleGovEmployeeType(govEmployeeTypeId),
-                  )}
+                  {getLocalizedName(user.govEmployeeType.label, intl)}
                 </p>
               )}
               {user.isGovEmployee &&
@@ -727,17 +706,18 @@ const ApplicationPrintDocument = forwardRef<
                             )}
                             <ul>
                               {nonLegacyIndigenousCommunities.length > 0
-                                ? nonLegacyIndigenousCommunities.map(
-                                    (community) => {
+                                ? nonLegacyIndigenousCommunities
+                                    .filter(localizedEnumHasValue)
+                                    .map((community) => {
                                       return (
-                                        <li key={community}>
-                                          {intl.formatMessage(
-                                            getIndigenousCommunity(community),
+                                        <li key={community.value}>
+                                          {getLocalizedName(
+                                            community.label,
+                                            intl,
                                           )}
                                         </li>
                                       );
-                                    },
-                                  )
+                                    })
                                 : ""}
                             </ul>
                           </li>

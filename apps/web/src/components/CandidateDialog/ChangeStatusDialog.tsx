@@ -2,16 +2,16 @@ import { useState } from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import zipWith from "lodash/zipWith";
-import { useMutation } from "urql";
+import { useMutation, useQuery } from "urql";
 
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { Select, enumToOptions } from "@gc-digital-talent/forms";
+import { Select, localizedEnumToOptions } from "@gc-digital-talent/forms";
 import {
   commonMessages,
   errorMessages,
   formMessages,
-  getPoolCandidateStatus,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
@@ -19,8 +19,8 @@ import {
   User,
   Pool,
   PoolCandidate,
-  PoolCandidateStatus,
   UpdatePoolCandidateStatusInput,
+  graphql,
 } from "@gc-digital-talent/graphql";
 
 import PoolFilterInput from "~/components/PoolFilterInput/PoolFilterInput";
@@ -31,6 +31,20 @@ import {
 } from "~/utils/poolUtils";
 
 import UpdatePoolCandidateStatus_Mutation from "./mutation";
+
+const PoolCandidateStatuses_Query = graphql(/* GraphQL */ `
+  query PoolCandidateStatuses {
+    poolCandidateStatuses: localizedEnumStrings(
+      enumName: "PoolCandidateStatus"
+    ) {
+      value
+      label {
+        en
+        fr
+      }
+    }
+  }
+`);
 
 type FormValues = {
   status: PoolCandidate["status"];
@@ -49,6 +63,7 @@ const ChangeStatusDialog = ({
   const intl = useIntl();
   const [open, setOpen] = useState(false);
   const methods = useForm<FormValues>();
+  const [{ data }] = useQuery({ query: PoolCandidateStatuses_Query });
 
   const [{ fetching }, executeMutation] = useMutation(
     UpdatePoolCandidateStatus_Mutation,
@@ -102,7 +117,7 @@ const ChangeStatusDialog = ({
     // fire off all the mutations
     const promises = poolCandidatesToUpdate.map((poolCandidate) => {
       return requestMutation(poolCandidate.id, {
-        status: formValues.status,
+        status: formValues.status?.value,
       });
     });
 
@@ -181,9 +196,7 @@ const ChangeStatusDialog = ({
                   "Button to change a users status in a pool - located in the table on view-user page",
               },
               {
-                status: intl.formatMessage(
-                  getPoolCandidateStatus(selectedCandidate.status as string),
-                ),
+                status: getLocalizedName(selectedCandidate.status?.label, intl),
                 poolName: getShortPoolTitleLabel(intl, selectedCandidate?.pool),
               },
             )}
@@ -250,11 +263,9 @@ const ChangeStatusDialog = ({
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
-                  options={enumToOptions(PoolCandidateStatus).map(
-                    ({ value }) => ({
-                      value,
-                      label: intl.formatMessage(getPoolCandidateStatus(value)),
-                    }),
+                  options={localizedEnumToOptions(
+                    data?.poolCandidateStatuses,
+                    intl,
                   )}
                 />
               </div>

@@ -502,7 +502,7 @@ export const ViewPoolCandidate = ({
     .find(({ id }) => id === poolCandidate.id);
   const nonEmptyExperiences = unpackMaybes(parsedSnapshot?.experiences);
   const statusChip = getCandidateStatusChip(
-    poolCandidate.status,
+    poolCandidate.status?.value,
     poolCandidate.assessmentStatus,
     intl,
   );
@@ -559,7 +559,7 @@ export const ViewPoolCandidate = ({
                 })}
               </Chip>
             ) : null}
-            {poolCandidate.user.armedForcesStatus ===
+            {poolCandidate.user.armedForcesStatus?.value ===
               ArmedForcesStatus.Veteran ||
             poolCandidate.user.priorityWeight === 20 ? (
               <Chip key="veteran" color="black">

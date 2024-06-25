@@ -1,10 +1,6 @@
 import pick from "lodash/pick";
 
-import {
-  InputMaybe,
-  LocalizedEnumString,
-  Maybe,
-} from "@gc-digital-talent/graphql";
+import { InputMaybe, Maybe } from "@gc-digital-talent/graphql";
 
 export function identity<T>(value: T): T {
   return value;
@@ -195,8 +191,10 @@ export function pickMap<T, K extends keyof T>(
  * @param localizedEnum
  * @returns boolean
  */
-export function localizedEnumHasValue(
-  localizedEnum: LocalizedEnumString,
-): boolean {
+export function localizedEnumHasValue<
+  T extends {
+    value?: Maybe<unknown> | undefined;
+  },
+>(localizedEnum: T): boolean {
   return !!localizedEnum.value;
 }

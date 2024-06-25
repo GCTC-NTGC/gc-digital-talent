@@ -1,5 +1,17 @@
 import { graphql } from "@gc-digital-talent/graphql";
 
+export const SkillFormOptions_Query = graphql(/* GraphQL */ `
+  query SkillFormOptions {
+    categories: localizedEnumStrings(enumName: "SkillCategory") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 export const CreateUserSkill_Mutation = graphql(/* GraphQL */ `
   mutation CreateUserSkill(
     $userId: UUID!

@@ -10,14 +10,10 @@ import {
   TextArea,
   Submit,
   Combobox,
-  enumToOptions,
   Select,
+  localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
-import {
-  getLocale,
-  errorMessages,
-  getSkillCategory,
-} from "@gc-digital-talent/i18n";
+import { getLocale, errorMessages } from "@gc-digital-talent/i18n";
 import { keyStringRegex, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Pending } from "@gc-digital-talent/ui";
 import {
@@ -38,6 +34,8 @@ import { parseKeywords } from "~/utils/skillUtils";
 import AdminHero from "~/components/Hero/AdminHero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+
+import { SkillFormOptions_Query } from "./operations";
 
 type Option<V> = { value: V; label: string };
 
@@ -73,6 +71,7 @@ export const CreateSkillForm = ({
   const locale = getLocale(intl);
   const navigate = useNavigate();
   const paths = useRoutes();
+  const [{ data }] = useQuery({ query: SkillFormOptions_Query });
   const methods = useForm<FormValues>();
   const { handleSubmit } = methods;
   const sortedFamilies = sortBy(families, (family) => {
@@ -93,8 +92,8 @@ export const CreateSkillForm = ({
   const { state } = useLocation();
   const navigateTo = state?.from ?? paths.skillTable();
 
-  const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    return handleCreateSkill(formValuesToSubmitData(data))
+  const onSubmit: SubmitHandler<FormValues> = async (values: FormValues) => {
+    return handleCreateSkill(formValuesToSubmitData(values))
       .then(() => {
         navigate(navigateTo);
         toast.success(
@@ -256,10 +255,7 @@ export const CreateSkillForm = ({
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
-            options={enumToOptions(SkillCategory).map(({ value }) => ({
-              value,
-              label: intl.formatMessage(getSkillCategory(value)),
-            }))}
+            options={localizedEnumToOptions(data?.categories, intl)}
           />
           <Combobox
             id="families"
