@@ -48,10 +48,11 @@ const EditTeamRoleDialog = ({
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const userDisplayName = getFullNameHtml(user.firstName, user.lastName, intl);
   const teamDisplayName = getLocalizedName(team.displayName, intl);
+  const initialRolesIds = initialRoles.map((role) => role.id);
 
   const methods = useForm<FormValues>({
     defaultValues: {
-      roles: initialRoles.map((role) => role.id),
+      roles: initialRolesIds,
     },
   });
 
@@ -61,13 +62,28 @@ const EditTeamRoleDialog = ({
   } = methods;
 
   const handleEditRoles = async (formValues: FormValues) => {
+    const rolesToAttach = formValues.roles.filter(
+      (role) => !initialRolesIds.includes(role),
+    );
+    const rolesToDetach = initialRolesIds.filter(
+      (role) => !formValues.roles.includes(role),
+    );
+
     return onEditRoles({
       userId: user.id,
       roleAssignmentsInput: {
-        sync: {
-          roles: formValues.roles,
-          team: team.id,
-        },
+        attach: rolesToAttach.length
+          ? {
+              roles: rolesToAttach,
+              team: team.id,
+            }
+          : undefined,
+        detach: rolesToDetach.length
+          ? {
+              roles: rolesToDetach,
+              team: team.id,
+            }
+          : undefined,
       },
     })
       .then(() => {

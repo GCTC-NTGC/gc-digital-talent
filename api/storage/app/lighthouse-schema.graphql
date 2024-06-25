@@ -1457,7 +1457,6 @@ input RolesInput {
 input RoleAssignmentHasMany {
   attach: RolesInput
   detach: RolesInput
-  sync: RolesInput
 }
 
 input RolesForTeamInput {

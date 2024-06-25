@@ -1679,7 +1679,6 @@ input RolesInput
 input RoleAssignmentHasMany {
   attach: RolesInput
   detach: RolesInput
-  sync: RolesInput
 }
 
 # This input only accepts Team-Based roles. It is assumed that a team id will be provided at a higher level of input.
