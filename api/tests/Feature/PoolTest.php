@@ -7,6 +7,7 @@ use App\Enums\PoolStream;
 use App\Enums\PublishingGroup;
 use App\Enums\SkillCategory;
 use App\Models\Classification;
+use App\Models\Department;
 use App\Models\Pool;
 use App\Models\PoolSkill;
 use App\Models\Skill;
@@ -1595,5 +1596,33 @@ class PoolTest extends TestCase
                     ],
                 ],
             ]);
+    }
+
+    public function testCanViewDepartment()
+    {
+        $department = Department::factory()->create();
+
+        // a published pool should be visible to a regular user
+        $publishedPool = Pool::factory()
+            ->published()
+            ->for($this->adminUser)
+            ->for($department)
+            ->create();
+
+        $response = $this->actingAs($this->baseUser, 'api')
+            ->graphQL(
+                /** @lang GraphQL */ '
+                query Get($id: UUID!) {
+                    pool(id: $id) {
+                        department {
+                            id
+                        }
+                    }
+                } ', ['id' => $publishedPool->id]
+            );
+
+        $response->assertJsonFragment([
+            'department' => ['id' => $department->id],
+        ]);
     }
 }

@@ -2667,6 +2667,10 @@
     "defaultMessage": "Supprimé",
     "description": "Label for the trashed field"
   },
+  "D/Ymty": {
+    "defaultMessage": "Ministère d’attache",
+    "description": "Label displayed on the pool form department field."
+  },
   "D1ZXOz": {
     "defaultMessage": "Langue des postes pour lesquels vous souhaitez être pris en considération",
     "description": "Legend for considered position languages check list in language information form"
@@ -3859,6 +3863,10 @@
     "defaultMessage": "Information sur l'employé(e) du gouvernement",
     "description": "Title for the government employee information section"
   },
+  "Jfl1o+": {
+    "defaultMessage": "Processus exécuté par {team} à {department}",
+    "description": "Team and department of pool"
+  },
   "JgdijS": {
     "defaultMessage": "Afficher {pageSize}",
     "description": "Button text to change the number of items that show up on each page"
@@ -3998,6 +4006,10 @@
   "KKXJFE": {
     "defaultMessage": "Fiabilité",
     "description": "Reliability screening level"
+  },
+  "KP50uT": {
+    "defaultMessage": "Préciser l’information suivante en vue du nouveau recrutement",
+    "description": "Text prompting for input when duplicating a process"
   },
   "KS1jGw": {
     "defaultMessage": "Bâtissez votre carrière numérique",
@@ -6026,10 +6038,6 @@
     "defaultMessage": "Maintenant que vous avez sélectionné une compétence, veuillez indiquer le niveau auquel les candidats devront se trouver.",
     "description": "Help text for setting required skill levels"
   },
-  "VwVXYb": {
-    "defaultMessage": "Les compétences suivantes ont été évaluées par {departments}",
-    "description": "Lead in text describing the skills assessed for a qualified recruitment"
-  },
   "VxJ5Dz": {
     "defaultMessage": "Membres de l’équipe",
     "description": "Title for the list of team members page"
@@ -7638,10 +7646,6 @@
     "defaultMessage": "Examiner et consigner les résultats de {candidateName} concernant \"{skillName}\" au \"{skillLevel}\" niveau.",
     "description": "Subtitle for education requirement screening decision dialog."
   },
-  "e2qUId": {
-    "defaultMessage": "Processus exécuté par {team} à {departments}",
-    "description": "Team and department of pool"
-  },
   "e3BCAd": {
     "defaultMessage": "Autres considérations relatives aux opérations non énumérées",
     "description": "Other operations consideration"
@@ -8385,6 +8389,10 @@
   "heME90": {
     "defaultMessage": "Si « {choice} » est choisi comme justification principale, vous devez vérifier auprès du BDPI qu’aucun talent préqualifié n’est disponible dans une <link>bassin de talents coordonnée par le BDPI</link>.  Inclure le numéro de suivi de la demande de recherche de talents numériques GC dans ce questionnaire.",
     "description": "introduction paragraph 1 to needing more information about the talent search"
+  },
+  "hgRyDs": {
+    "defaultMessage": "Les compétences suivantes ont été évaluées par {department}",
+    "description": "Lead in text describing the skills assessed for a qualified recruitment"
   },
   "hgxH8y": {
     "defaultMessage": "Groupe",

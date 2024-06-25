@@ -35,6 +35,7 @@ import {
   dataToFormValues,
   formValuesToSubmitData,
   getClassificationOptions,
+  getDepartmentOptions,
   getOpportunityLengthOptions,
   getStreamOptions,
 } from "./utils";
@@ -53,6 +54,14 @@ const EditPoolName_Fragment = graphql(/* GraphQL */ `
       id
       group
       level
+    }
+    department {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
     }
     name {
       en
@@ -73,16 +82,29 @@ export const PoolClassification_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+export const PoolDepartment_Fragment = graphql(/* GraphQL */ `
+  fragment PoolDepartment on Department {
+    id
+    departmentNumber
+    name {
+      en
+      fr
+    }
+  }
+`);
+
 type PoolNameSectionProps = SectionProps<
   PoolNameSubmitData,
   FragmentType<typeof EditPoolName_Fragment>
 > & {
   classificationsQuery: FragmentType<typeof PoolClassification_Fragment>[];
+  departmentsQuery: FragmentType<typeof PoolDepartment_Fragment>[];
 };
 
 const PoolNameSection = ({
   poolQuery,
   classificationsQuery,
+  departmentsQuery,
   sectionMetadata,
   onSave,
 }: PoolNameSectionProps): JSX.Element => {
@@ -100,6 +122,7 @@ const PoolNameSection = ({
     PoolClassification_Fragment,
     classificationsQuery,
   );
+  const departments = getFragment(PoolDepartment_Fragment, departmentsQuery);
 
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(pool),
@@ -222,6 +245,16 @@ const PoolNameSection = ({
                 data-h2-gap="base(x1)"
                 data-h2-margin-bottom="base(x1)"
               >
+                <Select
+                  id="department"
+                  label={intl.formatMessage(commonMessages.department)}
+                  name="department"
+                  nullSelection={intl.formatMessage(
+                    uiMessages.nullSelectionOption,
+                  )}
+                  options={getDepartmentOptions(departments, intl)}
+                  disabled={formDisabled}
+                />
                 <Select
                   id="opportunityLength"
                   name="opportunityLength"
