@@ -74,6 +74,7 @@ const EmailVerification = ({
         data-h2-margin="base(0)"
         Icon={CheckBadgeIcon}
         color="primary"
+        data-h2-text-align="base(center) p-tablet(left)"
       >
         {intl.formatMessage({
           defaultMessage: "Verify your contact email",
@@ -112,25 +113,23 @@ const EmailVerification = ({
           <div
             data-h2-margin-top="base(x1)"
             data-h2-display="base(flex)"
+            data-h2-flex-direction="base(column) p-tablet(row)"
             data-h2-align-items="base(center)"
             data-h2-gap="base(x1)"
           >
-            <Submit />
-            {skipUrl ? (
-              <Link color="secondary" mode="inline" href={skipUrl}>
-                {intl.formatMessage({
-                  defaultMessage: "Skip for now",
-                  id: "eoIad5",
-                  description: "label for skip button",
-                })}
-              </Link>
-            ) : null}
-            <div data-h2-flex-grow="base(2)" data-h2-text-align="base(end)">
+            <div
+              data-h2-text-align="base(center)"
+              data-h2-order="base(1) p-tablet(2)"
+            >
               {intl.formatMessage({
                 defaultMessage: "Didn’t receive a code?",
                 id: "MvD/iS",
                 description: "intro to request a new code",
-              })}{" "}
+              })}
+              <span data-h2-white-space="base(pre) p-tablet(normal)">
+                {/* conditional newline */}
+                {"\n"}
+              </span>
               <Button
                 type="button" // doesn't participate in the form
                 mode="inline"
@@ -144,6 +143,27 @@ const EmailVerification = ({
                 })}
               </Button>
             </div>
+            <Submit data-h2-order="base(2) p-tablet(1)" />
+            {skipUrl ? (
+              <Link
+                color="secondary"
+                mode="inline"
+                href={skipUrl}
+                data-h2-order="base(2) p-tablet(1)"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Skip for now",
+                  id: "eoIad5",
+                  description: "label for skip button",
+                })}
+              </Link>
+            ) : null}
+            <div
+              data-h2-flex-grow="base(1) p-tablet(2)"
+              data-h2-display="base(none) p-tablet(block)"
+              data-h2-order="base(2) p-tablet(1)"
+            />
+            {/* conditional spacer */}
           </div>
         </form>
       </FormProvider>
