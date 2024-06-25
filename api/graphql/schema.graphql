@@ -279,6 +279,7 @@ type Pool implements HasRoleAssignments {
   roleAssignments: [RoleAssignment!]
     @hasManyThrough
     @canRoot(ability: "viewTeamMembers")
+  department: Department @belongsTo @canQuery(ability: "view")
 }
 
 type GeneralQuestionResponse {
@@ -439,6 +440,9 @@ type Department {
   departmentNumber: Int! @rename(attribute: "department_number")
   name: LocalizedString!
   teams: [Team] @belongsToMany @canModel(ability: "viewAny")
+  pools: [Pool]
+    @hasMany(scopes: ["authorizedToView"])
+    @canResolved(ability: "view")
 }
 
 type Community implements HasRoleAssignments {
@@ -1551,6 +1555,11 @@ input GenericJobTitleBelongsToMany {
 
 input CreatePoolInput {
   classification: ClassificationBelongsTo
+  department: DepartmentBelongsTo!
+}
+
+input DuplicatePoolInput {
+  departmentId: ID
 }
 
 input CreateGeneralQuestionInput {
@@ -1580,6 +1589,7 @@ input UpdatePoolInput {
   # Pool name and classification
   name: LocalizedStringInput
   classification: ClassificationBelongsTo
+  department: DepartmentBelongsTo
   stream: PoolStream
   processNumber: String @rename(attribute: "process_number")
   # Closing date
@@ -2029,9 +2039,11 @@ type Mutation {
     teamId: ID! @rename(attribute: "team_id")
     pool: CreatePoolInput! @spread
   ): Pool @create @guard @canModel(ability: "create", injectArgs: true)
-  duplicatePool(id: ID!, teamId: ID! @rename(attribute: "team_id")): Pool
-    @guard
-    @canModel(ability: "duplicate", injectArgs: true)
+  duplicatePool(
+    id: ID!
+    teamId: ID! @rename(attribute: "team_id")
+    pool: DuplicatePoolInput! @spread
+  ): Pool @guard @canModel(ability: "duplicate", injectArgs: true)
   updatePool(id: ID!, pool: UpdatePoolInput! @spread): Pool
     @update
     @guard

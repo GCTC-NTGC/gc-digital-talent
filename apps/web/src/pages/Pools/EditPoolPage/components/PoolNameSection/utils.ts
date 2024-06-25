@@ -16,12 +16,14 @@ import {
   PoolStream,
   PublishingGroup,
   UpdatePoolInput,
+  Department,
 } from "@gc-digital-talent/graphql";
 
 import { sortedOpportunityLengths } from "~/utils/poolUtils";
 
 export type FormValues = {
   classification?: Classification["id"];
+  department?: Department["id"];
   stream?: PoolStream;
   specificTitleEn?: LocalizedString["en"];
   specificTitleFr?: LocalizedString["fr"];
@@ -32,6 +34,7 @@ export type FormValues = {
 
 export const dataToFormValues = (initialData: Pool): FormValues => ({
   classification: initialData.classification?.id ?? "",
+  department: initialData.department?.id ?? "",
   stream: initialData.stream ?? undefined,
   specificTitleEn: initialData.name?.en ?? "",
   specificTitleFr: initialData.name?.fr ?? "",
@@ -43,6 +46,7 @@ export const dataToFormValues = (initialData: Pool): FormValues => ({
 export type PoolNameSubmitData = Pick<
   UpdatePoolInput,
   | "classification"
+  | "department"
   | "name"
   | "stream"
   | "processNumber"
@@ -56,6 +60,11 @@ export const formValuesToSubmitData = (
   classification: formValues.classification
     ? {
         connect: formValues.classification,
+      }
+    : undefined,
+  department: formValues.department
+    ? {
+        connect: formValues.department,
       }
     : undefined,
   stream: formValues.stream ? formValues.stream : undefined,
@@ -79,6 +88,16 @@ export const getClassificationOptions = (
   return classifications.filter(notEmpty).map(({ id, group, level, name }) => ({
     value: id,
     label: `${group}-0${level} (${getLocalizedName(name, intl)})`,
+  }));
+};
+
+export const getDepartmentOptions = (
+  departments: readonly Department[],
+  intl: IntlShape,
+): Option[] => {
+  return departments.filter(notEmpty).map(({ id, name }) => ({
+    value: id,
+    label: getLocalizedName(name, intl),
   }));
 };
 

@@ -5,10 +5,8 @@ import ShieldCheckIcon from "@heroicons/react/20/solid/ShieldCheckIcon";
 import { ReactNode } from "react";
 
 import { Color, IconType } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   PoolCandidate,
-  Department,
   Maybe,
   PoolCandidateStatus,
 } from "@gc-digital-talent/graphql";
@@ -24,17 +22,6 @@ import {
   isScreenedOutStatus,
   isSuspendedStatus,
 } from "~/utils/poolCandidate";
-
-export const joinDepartments = (
-  departments: Maybe<Maybe<Pick<Department, "name">>[]>,
-  intl: IntlShape,
-) => {
-  return (
-    departments
-      ?.map((department) => getLocalizedName(department?.name, intl))
-      ?.join(", ") ?? ""
-  );
-};
 
 type StatusChipInfo = {
   color: Color;

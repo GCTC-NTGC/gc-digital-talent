@@ -515,10 +515,6 @@
     "defaultMessage": "Non disponible",
     "description": "Message displayed when specific information is not available"
   },
-  "EdAaI7": {
-    "defaultMessage": "Il manque des champs <red>obligatoires</red>.",
-    "description": "Message that there are required fields missing"
-  },
   "ErrpJC": {
     "defaultMessage": "Chargement...",
     "description": "Text for a component which can't be rendered yet because a data load is in progress."

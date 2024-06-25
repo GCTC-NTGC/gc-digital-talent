@@ -88,13 +88,13 @@ const CandidateCount_Query = graphql(/* GraphQL */ `
             en
             fr
           }
-          departments {
-            id
-            departmentNumber
-            name {
-              en
-              fr
-            }
+        }
+        department {
+          id
+          departmentNumber
+          name {
+            en
+            fr
           }
         }
       }

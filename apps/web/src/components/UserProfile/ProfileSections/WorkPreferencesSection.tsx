@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import isEmpty from "lodash/isEmpty";
 
-import { Link, Well } from "@gc-digital-talent/ui";
+import { Well } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   getOperationalRequirement,
@@ -12,18 +12,9 @@ import {
   PositionDuration,
 } from "@gc-digital-talent/graphql";
 
-import {
-  hasAllEmptyFields,
-  hasEmptyRequiredFields,
-} from "~/validators/profile/workPreferences";
+import { hasAllEmptyFields } from "~/validators/profile/workPreferences";
 
-const WorkPreferencesSection = ({
-  user,
-  editPath,
-}: {
-  user: User;
-  editPath?: string;
-}) => {
+const WorkPreferencesSection = ({ user }: { user: User }) => {
   const intl = useIntl();
   const { acceptedOperationalRequirements, positionDuration } = user;
 
@@ -74,34 +65,6 @@ const WorkPreferencesSection = ({
   return (
     <Well>
       <div data-h2-flex-grid="base(flex-start, x2, x1)">
-        {hasEmptyRequiredFields(user) && (
-          <>
-            <div data-h2-flex-item="base(1of1)">
-              <p>
-                {intl.formatMessage({
-                  defaultMessage: "You haven't added any information here yet.",
-                  id: "SCCX7B",
-                  description:
-                    "Message for when no data exists for the section",
-                })}
-              </p>
-            </div>
-            <div data-h2-flex-item="base(1of1)">
-              <p>
-                {intl.formatMessage(commonMessages.requiredFieldsMissing)}{" "}
-                <Link href={editPath}>
-                  {intl.formatMessage({
-                    defaultMessage: "Edit your work preference options.",
-                    id: "eFCDP4",
-                    description:
-                      "Link text to edit work preferences on profile",
-                  })}
-                </Link>
-              </p>
-            </div>
-          </>
-        )}
-
         {positionDuration &&
           positionDuration.includes(PositionDuration.Temporary) && (
             <div data-h2-flex-item="base(1of1)">
@@ -199,23 +162,7 @@ const WorkPreferencesSection = ({
           </div>
         )}
 
-        {!anyCriteriaSelected && editPath && (
-          <div data-h2-flex-item="base(1of1)">
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "I would <strong>not consider</strong> accepting a job that:",
-                id: "TwSvmH",
-                description: "would not accept job line before a list",
-              })}
-            </p>
-            <ul data-h2-padding="base(0, 0, 0, x1)">
-              {unacceptedOperationalArray}
-            </ul>
-          </div>
-        )}
-
-        {hasAllEmptyFields(user) && !editPath && (
+        {hasAllEmptyFields(user) && (
           <div data-h2-flex-item="base(1of1)">
             <p>{intl.formatMessage(commonMessages.noInformationProvided)}</p>
           </div>

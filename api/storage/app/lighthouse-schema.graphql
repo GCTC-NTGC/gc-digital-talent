@@ -353,7 +353,7 @@ type Mutation {
   deleteEducationExperience(id: ID!): EducationExperience
   deleteAwardExperience(id: ID!): AwardExperience
   createPool(userId: ID!, teamId: ID!, pool: CreatePoolInput!): Pool
-  duplicatePool(id: ID!, teamId: ID!): Pool
+  duplicatePool(id: ID!, teamId: ID!, pool: DuplicatePoolInput!): Pool
   updatePool(id: ID!, pool: UpdatePoolInput!): Pool
   updatePublishedPool(id: ID!, pool: UpdatePublishedPoolInput!): Pool
   togglePoolUserBookmark(poolId: UUID!): Pool
@@ -616,6 +616,7 @@ type Pool implements HasRoleAssignments {
   assessmentSteps: [AssessmentStep]
   poolSkills(type: PoolSkillType): [PoolSkill]
   roleAssignments: [RoleAssignment!]
+  department: Department
 }
 
 type GeneralQuestionResponse {
@@ -735,6 +736,7 @@ type Department {
   departmentNumber: Int!
   name: LocalizedString!
   teams: [Team]
+  pools: [Pool]
 }
 
 type Community implements HasRoleAssignments {
@@ -1541,6 +1543,11 @@ input GenericJobTitleBelongsToMany {
 
 input CreatePoolInput {
   classification: ClassificationBelongsTo
+  department: DepartmentBelongsTo!
+}
+
+input DuplicatePoolInput {
+  departmentId: ID
 }
 
 input CreateGeneralQuestionInput {
@@ -1569,6 +1576,7 @@ input SyncScreeningQuestionsInput {
 input UpdatePoolInput {
   name: LocalizedStringInput
   classification: ClassificationBelongsTo
+  department: DepartmentBelongsTo
   stream: PoolStream
   processNumber: String
   closingDate: DateTime

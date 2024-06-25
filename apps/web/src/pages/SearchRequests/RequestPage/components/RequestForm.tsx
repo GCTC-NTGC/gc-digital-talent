@@ -202,9 +202,9 @@ export const RequestForm = ({
         ? PoolCandidateSearchPositionType.TeamLead
         : PoolCandidateSearchPositionType.IndividualContributor;
     const qualifiedStreams = applicantFilter?.qualifiedStreams;
-    let community = communities.find((c) => c.key === "digital");
+    let community = communities?.find((c) => c.key === "digital");
     if (qualifiedStreams?.includes(PoolStream.AccessInformationPrivacy)) {
-      community = communities.find((c) => c.key === "atip");
+      community = communities?.find((c) => c.key === "atip");
     }
 
     return {
@@ -331,7 +331,9 @@ export const RequestForm = ({
         })
         .filter(notEmpty) ?? [],
     pools: unpackMaybes(poolsData?.poolsPaginated.data),
-    community: communities.find((c) => c.id === applicantFilter?.community?.id),
+    community: communities?.find(
+      (c) => c.id === applicantFilter?.community?.id,
+    ),
   };
 
   return (
