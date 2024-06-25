@@ -60,9 +60,11 @@ const Footer = ({ width }: FooterProps) => {
       }),
     },
   ];
+
   let footerWidth = {
     "data-h2-container": "base(center, large, x1) p-tablet(center, large, x2)",
   };
+
   if (width === "full") {
     footerWidth = {
       "data-h2-container": "base(center, full, x1) p-tablet(center, full, x2)",
