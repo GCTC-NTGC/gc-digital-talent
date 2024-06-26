@@ -1,4 +1,5 @@
 import { StoryFn } from "@storybook/react";
+import { action } from "@storybook/addon-actions";
 
 import Toast from "@gc-digital-talent/toast";
 
@@ -20,6 +21,6 @@ const Template: StoryFn<typeof EmailVerification> = (args) => {
 export const ContactEmail = Template.bind({});
 ContactEmail.args = {
   emailAddress: "example@example.org",
-  successUrl: "/example/success",
-  skipUrl: "/example/skip",
+  onSkip: action("onSkip"),
+  onVerificationSuccess: action("onVerificationSuccess"),
 };

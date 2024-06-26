@@ -1,15 +1,15 @@
 import { useIntl } from "react-intl";
 import CheckBadgeIcon from "@heroicons/react/24/outline/CheckBadgeIcon";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { useMutation } from "urql";
 
-import { Button, Heading, Link } from "@gc-digital-talent/ui";
+import { Button, Heading } from "@gc-digital-talent/ui";
 import { Input, Submit } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import { graphql } from "@gc-digital-talent/graphql";
 import { useLogger } from "@gc-digital-talent/logger";
+import { useAuthorization } from "@gc-digital-talent/auth";
 
 const SendUserEmailVerification_Mutation = graphql(/* GraphQL */ `
   mutation SendUserEmailVerification($id: ID!) {
@@ -36,19 +36,20 @@ type FormValues = {
 interface EmailVerificationProps {
   // The email address that the code was sent to.  Displayed to the user.
   emailAddress: string;
-  // Where the user is navigated if verification is successful.
-  successUrl: string;
-  // Where is user navigated if they choose to skip.  Skip button removed if prop not provided.
-  skipUrl?: string;
+  // Event if verification is successful.
+  onVerificationSuccess: () => void;
+  // Event if they choose to skip.  Skip button removed if prop not provided.
+  onSkip?: () => void;
 }
 
 const EmailVerification = ({
   emailAddress,
-  successUrl,
-  skipUrl,
+  onVerificationSuccess,
+  onSkip,
 }: EmailVerificationProps) => {
   const intl = useIntl();
   const logger = useLogger();
+  const { userAuthInfo } = useAuthorization();
   const [, executeSendEmailMutation] = useMutation(
     SendUserEmailVerification_Mutation,
   );
@@ -56,11 +57,10 @@ const EmailVerification = ({
     VerifyUserEmail_Mutation,
   );
   const methods = useForm<FormValues>({});
-  const navigate = useNavigate();
 
   const requestACode = async () => {
     executeSendEmailMutation({
-      id: "0",
+      id: userAuthInfo?.id,
     })
       .then((result) => {
         if (!result.data?.sendUserEmailVerification?.id) {
@@ -75,15 +75,14 @@ const EmailVerification = ({
 
   const submitHandler: SubmitHandler<FormValues> = async (data: FormValues) => {
     executeVerifyUserEmailMutation({
-      id: "0",
+      id: userAuthInfo?.id,
       code: data.verificationCode,
     })
       .then((result) => {
         if (!result.data?.verifyUserEmail?.id) {
           throw new Error("Verify code error");
         }
-        console.debug(`navigating to ${successUrl}`);
-        navigate(successUrl);
+        onVerificationSuccess();
       })
       .catch(() => {
         toast.error(
@@ -101,10 +100,22 @@ const EmailVerification = ({
             <p>
               {intl.formatMessage({
                 defaultMessage:
-                  "Please review the code and try entering it again. If you're still having trouble, try sending a new code using the link provided. Send a new code.",
-                id: "NFQurH",
+                  "Please review the code and try entering it again. If you're still having trouble, try sending a new code using the link provided.",
+                id: "ywk++k",
                 description: "Error message when the code is not valid.",
-              })}
+              })}{" "}
+              <Button
+                type="button"
+                mode="inline"
+                color="black"
+                onClick={requestACode}
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Send a new code.",
+                  id: "8P9Rjx",
+                  description: "Button text to send a new code",
+                })}
+              </Button>
             </p>
           </>,
         );
@@ -194,11 +205,12 @@ const EmailVerification = ({
               </Button>
             </div>
             <Submit data-h2-order="base(2) p-tablet(1)" />
-            {skipUrl ? (
-              <Link
+            {onSkip ? (
+              <Button
+                type="button"
                 color="secondary"
                 mode="inline"
-                href={skipUrl}
+                onClick={onSkip}
                 data-h2-order="base(2) p-tablet(1)"
               >
                 {intl.formatMessage({
@@ -206,7 +218,7 @@ const EmailVerification = ({
                   id: "eoIad5",
                   description: "label for skip button",
                 })}
-              </Link>
+              </Button>
             ) : null}
             <div
               data-h2-flex-grow="base(1) p-tablet(2)"
