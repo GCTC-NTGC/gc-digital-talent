@@ -11,7 +11,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import CareerTimelineAndRecruitment from "./components/CareerTimelineAndRecruitment";
 
-const CareerTimelineExperiences_Query = graphql(/* GraphQL */ `
+export const CareerTimelineExperiences_Query = graphql(/* GraphQL */ `
   query CareerTimelineExperiences($id: UUID!) {
     user(id: $id) {
       id

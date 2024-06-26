@@ -38,7 +38,7 @@ export type ExperienceForDate =
   | PersonalExperience
   | WorkExperience;
 
-const CareerTimelineExperience_Fragment = graphql(/* GraphQL */ `
+export const CareerTimelineExperience_Fragment = graphql(/* GraphQL */ `
   fragment CareerTimelineExperience on Experience {
     id
     details

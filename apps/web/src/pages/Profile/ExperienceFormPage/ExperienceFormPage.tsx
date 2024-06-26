@@ -85,7 +85,7 @@ type FormValues = ExperienceFormValues<AllExperienceFormValues> & {
   action: FormAction;
 };
 
-const ExperienceFormSkill_Fragment = graphql(/* GraphQL */ `
+export const ExperienceFormSkill_Fragment = graphql(/* GraphQL */ `
   fragment ExperienceFormSkill on Skill {
     id
     key
