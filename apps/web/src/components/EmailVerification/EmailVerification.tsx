@@ -29,11 +29,27 @@ const VerifyUserEmail_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
+const getTitle = (
+  emailType: NonNullable<EmailVerificationProps["emailType"]>,
+) => {
+  switch (emailType) {
+    // presumably we'll have more than one type eventually
+    case "contact":
+    default:
+      return {
+        defaultMessage: "Verify your contact email",
+        id: "TguSOt",
+        description: "Heading for email verification form",
+      };
+  }
+};
+
 type FormValues = {
   verificationCode: string;
 };
 
 interface EmailVerificationProps {
+  emailType?: "contact";
   // The email address that the code was sent to.  Displayed to the user.
   emailAddress: string;
   // Event if verification is successful.
@@ -43,6 +59,7 @@ interface EmailVerificationProps {
 }
 
 const EmailVerification = ({
+  emailType = "contact",
   emailAddress,
   onVerificationSuccess,
   onSkip,
@@ -137,11 +154,7 @@ const EmailVerification = ({
         color="primary"
         data-h2-text-align="base(center) p-tablet(left)"
       >
-        {intl.formatMessage({
-          defaultMessage: "Verify your contact email",
-          id: "TguSOt",
-          description: "Heading for email verification form",
-        })}
+        {intl.formatMessage(getTitle(emailType))}
       </Heading>
       <p>
         {intl.formatMessage(

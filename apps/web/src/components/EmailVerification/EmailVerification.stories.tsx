@@ -20,6 +20,7 @@ const Template: StoryFn<typeof EmailVerification> = (args) => {
 
 export const ContactEmail = Template.bind({});
 ContactEmail.args = {
+  emailType: "contact",
   emailAddress: "example@example.org",
   onSkip: action("onSkip"),
   onVerificationSuccess: action("onVerificationSuccess"),
