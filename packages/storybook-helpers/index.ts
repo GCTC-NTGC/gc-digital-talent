@@ -1,5 +1,3 @@
-import { ToastDecorator } from "@gc-digital-talent/toast";
-
 import ContainerDecorator from "./decorators/ContainerDecorator";
 import FeatureFlagDecorator from "./decorators/FeatureFlagDecorator";
 import HelmetDecorator from "./decorators/HelmetDecorator";
@@ -20,7 +18,6 @@ export {
   ReducedMotionDecorator,
   RouterDecorator,
   ThemeDecorator,
-  ToastDecorator,
   THEMES,
   VIEWPORT,
   VIEWPORTS,
