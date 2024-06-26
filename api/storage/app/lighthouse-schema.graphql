@@ -1,196 +1,196 @@
 type LocalizedArmedForcesStatus {
-  value: ArmedForcesStatus
-  label: LocalizedString
+  value: ArmedForcesStatus!
+  label: LocalizedString!
 }
 
 type LocalizedAssessmentDecision {
-  value: AssessmentDecision
-  label: LocalizedString
+  value: AssessmentDecision!
+  label: LocalizedString!
 }
 
 type LocalizedAssessmentDecisionLevel {
-  value: AssessmentDecisionLevel
-  label: LocalizedString
+  value: AssessmentDecisionLevel!
+  label: LocalizedString!
 }
 
 type LocalizedAssessmentResultJustification {
-  value: AssessmentResultJustification
-  label: LocalizedString
+  value: AssessmentResultJustification!
+  label: LocalizedString!
 }
 
 type LocalizedAssessmentStepType {
-  value: AssessmentStepType
-  label: LocalizedString
+  value: AssessmentStepType!
+  label: LocalizedString!
 }
 
 type LocalizedAwardedScope {
-  value: AwardedScope
-  label: LocalizedString
+  value: AwardedScope!
+  label: LocalizedString!
 }
 
 type LocalizedAwardedTo {
-  value: AwardedTo
-  label: LocalizedString
+  value: AwardedTo!
+  label: LocalizedString!
 }
 
 type LocalizedCandidateExpiryFilter {
-  value: CandidateExpiryFilter
-  label: LocalizedString
+  value: CandidateExpiryFilter!
+  label: LocalizedString!
 }
 
 type LocalizedCandidateRemovalReason {
-  value: CandidateRemovalReason
-  label: LocalizedString
+  value: CandidateRemovalReason!
+  label: LocalizedString!
 }
 
 type LocalizedCandidateSuspendedFilter {
-  value: CandidateSuspendedFilter
-  label: LocalizedString
+  value: CandidateSuspendedFilter!
+  label: LocalizedString!
 }
 
 type LocalizedCitizenshipStatus {
-  value: CitizenshipStatus
-  label: LocalizedString
+  value: CitizenshipStatus!
+  label: LocalizedString!
 }
 
 type LocalizedEducationRequirementOption {
-  value: EducationRequirementOption
-  label: LocalizedString
+  value: EducationRequirementOption!
+  label: LocalizedString!
 }
 
 type LocalizedEducationStatus {
-  value: EducationStatus
-  label: LocalizedString
+  value: EducationStatus!
+  label: LocalizedString!
 }
 
 type LocalizedEducationType {
-  value: EducationType
-  label: LocalizedString
+  value: EducationType!
+  label: LocalizedString!
 }
 
 type LocalizedEstimatedLanguageAbility {
-  value: EstimatedLanguageAbility
-  label: LocalizedString
+  value: EstimatedLanguageAbility!
+  label: LocalizedString!
 }
 
 type LocalizedEvaluatedLanguageAbility {
-  value: EvaluatedLanguageAbility
-  label: LocalizedString
+  value: EvaluatedLanguageAbility!
+  label: LocalizedString!
 }
 
 type LocalizedGenericJobTitleKey {
-  value: GenericJobTitleKey
-  label: LocalizedString
+  value: GenericJobTitleKey!
+  label: LocalizedString!
 }
 
 type LocalizedGovEmployeeType {
-  value: GovEmployeeType
-  label: LocalizedString
+  value: GovEmployeeType!
+  label: LocalizedString!
 }
 
 type LocalizedIndigenousCommunity {
-  value: IndigenousCommunity
-  label: LocalizedString
+  value: IndigenousCommunity!
+  label: LocalizedString!
 }
 
 type LocalizedLanguage {
-  value: Language
-  label: LocalizedString
+  value: Language!
+  label: LocalizedString!
 }
 
 type LocalizedLanguageAbility {
-  value: LanguageAbility
-  label: LocalizedString
+  value: LanguageAbility!
+  label: LocalizedString!
 }
 
 type LocalizedOperationalRequirement {
-  value: OperationalRequirement
-  label: LocalizedString
+  value: OperationalRequirement!
+  label: LocalizedString!
 }
 
 type LocalizedPlacementType {
-  value: PlacementType
-  label: LocalizedString
+  value: PlacementType!
+  label: LocalizedString!
 }
 
 type LocalizedPoolCandidateSearchPositionType {
-  value: PoolCandidateSearchPositionType
-  label: LocalizedString
+  value: PoolCandidateSearchPositionType!
+  label: LocalizedString!
 }
 
 type LocalizedPoolCandidateSearchRequestReason {
-  value: PoolCandidateSearchRequestReason
-  label: LocalizedString
+  value: PoolCandidateSearchRequestReason!
+  label: LocalizedString!
 }
 
 type LocalizedPoolCandidateSearchStatus {
-  value: PoolCandidateSearchStatus
-  label: LocalizedString
+  value: PoolCandidateSearchStatus!
+  label: LocalizedString!
 }
 
 type LocalizedPoolCandidateStatus {
-  value: PoolCandidateStatus
-  label: LocalizedString
+  value: PoolCandidateStatus!
+  label: LocalizedString!
 }
 
 type LocalizedPoolLanguage {
-  value: PoolLanguage
-  label: LocalizedString
+  value: PoolLanguage!
+  label: LocalizedString!
 }
 
 type LocalizedPoolOpportunityLength {
-  value: PoolOpportunityLength
-  label: LocalizedString
+  value: PoolOpportunityLength!
+  label: LocalizedString!
 }
 
 type LocalizedPoolSkillType {
-  value: PoolSkillType
-  label: LocalizedString
+  value: PoolSkillType!
+  label: LocalizedString!
 }
 
 type LocalizedPoolStatus {
-  value: PoolStatus
-  label: LocalizedString
+  value: PoolStatus!
+  label: LocalizedString!
 }
 
 type LocalizedPoolStream {
-  value: PoolStream
-  label: LocalizedString
+  value: PoolStream!
+  label: LocalizedString!
 }
 
 type LocalizedPriorityWeight {
-  value: PriorityWeight
-  label: LocalizedString
+  value: PriorityWeight!
+  label: LocalizedString!
 }
 
 type LocalizedProvinceOrTerritory {
-  value: ProvinceOrTerritory
-  label: LocalizedString
+  value: ProvinceOrTerritory!
+  label: LocalizedString!
 }
 
 type LocalizedPublishingGroup {
-  value: PublishingGroup
-  label: LocalizedString
+  value: PublishingGroup!
+  label: LocalizedString!
 }
 
 type LocalizedSecurityStatus {
-  value: SecurityStatus
-  label: LocalizedString
+  value: SecurityStatus!
+  label: LocalizedString!
 }
 
 type LocalizedSkillCategory {
-  value: SkillCategory
-  label: LocalizedString
+  value: SkillCategory!
+  label: LocalizedString!
 }
 
 type LocalizedSkillLevel {
-  value: SkillLevel
-  label: LocalizedString
+  value: SkillLevel!
+  label: LocalizedString!
 }
 
 type LocalizedWorkRegion {
-  value: WorkRegion
-  label: LocalizedString
+  value: WorkRegion!
+  label: LocalizedString!
 }
 
 type Query {
