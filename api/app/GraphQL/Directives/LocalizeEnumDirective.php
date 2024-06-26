@@ -48,7 +48,7 @@ GRAPHQL;
 
             return [
                 'value' => $result,
-                'label' => $enum::localizedString($result),
+                'label' => ! is_null($result) ? $enum::localizedString($result) : null,
             ];
         });
     }
