@@ -178,6 +178,14 @@ const TeamRoleTable = ({
             />
           ),
         }}
+        nullMessage={{
+          description: intl.formatMessage({
+            defaultMessage:
+              'Use the "Add new membership" button to get started.',
+            id: "/pbxol",
+            description: "Instructions for adding team membership to a user.",
+          }),
+        }}
       />
     </>
   );

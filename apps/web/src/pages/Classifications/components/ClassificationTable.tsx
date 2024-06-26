@@ -157,6 +157,14 @@ export const ClassificationTable = ({
           from: currentUrl,
         },
       }}
+      nullMessage={{
+        description: intl.formatMessage({
+          defaultMessage:
+            'Use the "Create Classification" button to get started.',
+          id: "Tl2FNA",
+          description: "Instructions for adding a classification item.",
+        }),
+      }}
     />
   );
 };
