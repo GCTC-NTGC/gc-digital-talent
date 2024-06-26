@@ -24,11 +24,11 @@ import {
   FragmentType,
   PoolSkillType,
 } from "@gc-digital-talent/graphql";
+import { getLocalizedEnumStringByValue } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
 import { filterPoolSkillsByType } from "~/utils/skillUtils";
-import { getLocalizedEnumStringByValue } from "~/utils/localizedEnumUtils";
 
 import messages from "../../messages";
 

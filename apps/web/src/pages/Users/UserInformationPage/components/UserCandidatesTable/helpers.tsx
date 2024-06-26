@@ -1,7 +1,12 @@
 import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
 import { IntlShape } from "react-intl";
 
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getLocalizedName,
+  MaybeLocalizedEnums,
+  getLocalizedEnumStringByValue,
+} from "@gc-digital-talent/i18n";
 import { Chip, Link, Spoiler } from "@gc-digital-talent/ui";
 import {
   FragmentType,
@@ -28,11 +33,6 @@ import {
 } from "~/utils/poolCandidate";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
-
-import {
-  MaybeLocalizedEnums,
-  getLocalizedEnumStringByValue,
-} from "../../../../../utils/localizedEnumUtils";
 
 export const candidateNameCell = (
   firstName: Maybe<string> | undefined,

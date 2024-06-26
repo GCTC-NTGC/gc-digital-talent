@@ -8,12 +8,16 @@ import {
   DATE_SEGMENT,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
-import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
+import {
+  errorMessages,
+  uiMessages,
+  sortAwardedScope,
+  sortAwardedTo,
+} from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { graphql } from "@gc-digital-talent/graphql";
 
 import { SubExperienceFormProps } from "~/types/experience";
-import { sortAwardedScope, sortAwardedTo } from "~/utils/localizedEnumUtils";
 
 const AwardOptions_Query = graphql(/* GraphQL */ `
   query AwardOptions {

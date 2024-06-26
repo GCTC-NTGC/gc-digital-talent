@@ -17,10 +17,11 @@ import {
   getEmploymentEquityGroup,
   getLocalizedName,
   navigationMessages,
+  sortPriorityWeight,
+  sortWorkRegion,
 } from "@gc-digital-talent/i18n";
 
 import adminMessages from "~/messages/adminMessages";
-import { sortPriorityWeight, sortWorkRegion } from "~/utils/localizedEnumUtils";
 
 import FilterDialog, {
   CommonFilterDialogProps,

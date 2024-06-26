@@ -9,11 +9,14 @@ import {
   Checkbox,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
-import { Locales, errorMessages, getLocale } from "@gc-digital-talent/i18n";
+import {
+  Locales,
+  errorMessages,
+  getLocale,
+  sortEvaluatedLanguageAbility,
+} from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
 import { graphql } from "@gc-digital-talent/graphql";
-
-import { sortEvaluatedLanguageAbility } from "~/utils/localizedEnumUtils";
 
 import { getEstimatedAbilityOptions, getExamValidityOptions } from "./utils";
 

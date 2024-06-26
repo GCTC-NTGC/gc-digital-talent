@@ -20,13 +20,11 @@ import {
   commonMessages,
   errorMessages,
   formMessages,
+  getLocalizedEnumStringByValue,
+  sortCandidateRemovalReason,
 } from "@gc-digital-talent/i18n";
 
 import FormChangeNotifyWell from "~/components/FormChangeNotifyWell/FormChangeNotifyWell";
-import {
-  getLocalizedEnumStringByValue,
-  sortCandidateRemovalReason,
-} from "~/utils/localizedEnumUtils";
 
 type FormValues = {
   removalReason?: CandidateRemovalReason;

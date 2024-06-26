@@ -9,6 +9,7 @@ import {
   commonMessages,
   formMessages,
   uiMessages,
+  sortOpportunityLength,
 } from "@gc-digital-talent/i18n";
 import {
   Input,
@@ -30,7 +31,6 @@ import {
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import processMessages from "~/messages/processMessages";
-import { sortOpportunityLength } from "~/utils/localizedEnumUtils";
 
 import { useEditPoolContext } from "../EditPoolContext";
 import Display from "./Display";

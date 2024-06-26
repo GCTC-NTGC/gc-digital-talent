@@ -15,7 +15,11 @@ import {
   objectsToSortedOptions,
 } from "@gc-digital-talent/forms";
 import { Heading, Link, Pending, Separator } from "@gc-digital-talent/ui";
-import { errorMessages } from "@gc-digital-talent/i18n";
+import {
+  errorMessages,
+  enumInputToLocalizedEnum,
+  sortPoolCandidateSearchRequestReason,
+} from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -49,10 +53,6 @@ import {
   BrowserHistoryState,
   FormValues as SearchFormValues,
 } from "~/types/searchRequest";
-import {
-  enumInputToLocalizedEnum,
-  sortPoolCandidateSearchRequestReason,
-} from "~/utils/localizedEnumUtils";
 
 const directiveLink = (chunks: ReactNode, href: string) => (
   <Link href={href} newTab>

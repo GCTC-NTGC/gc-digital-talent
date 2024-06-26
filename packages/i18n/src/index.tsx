@@ -47,6 +47,27 @@ import {
   getSkillLevelMessages,
 } from "./messages/localizedConstants";
 import type { LocalizedArray } from "./utils/localize";
+import {
+  type MaybeLocalizedEnums,
+  type GenericLocalizedEnum,
+  enumInputToLocalizedEnum,
+  getLocalizedEnumByValue,
+  getLocalizedEnumStringByValue,
+  sortAwardedScope,
+  sortAwardedTo,
+  sortCandidateRemovalReason,
+  sortEducationStatus,
+  sortEducationType,
+  sortWorkRegion,
+  sortEvaluatedLanguageAbility,
+  sortOpportunityLength,
+  sortPlacementType,
+  sortPoolCandidateSearchRequestReason,
+  sortPoolCandidateSearchStatus,
+  sortPoolLanguage,
+  sortPriorityWeight,
+  sortSecurityStatus,
+} from "./utils/enum";
 import type { Locales, Messages } from "./types";
 
 export {
@@ -75,6 +96,23 @@ export {
   NestedLanguageProvider,
   useIntlLanguages,
   useLocale,
+  getLocalizedEnumByValue,
+  getLocalizedEnumStringByValue,
+  enumInputToLocalizedEnum,
+  sortAwardedScope,
+  sortAwardedTo,
+  sortCandidateRemovalReason,
+  sortEducationStatus,
+  sortEducationType,
+  sortWorkRegion,
+  sortEvaluatedLanguageAbility,
+  sortOpportunityLength,
+  sortPlacementType,
+  sortPoolCandidateSearchRequestReason,
+  sortPoolCandidateSearchStatus,
+  sortPoolLanguage,
+  sortPriorityWeight,
+  sortSecurityStatus,
 };
 
 export {
@@ -96,5 +134,11 @@ export {
   getSkillLevelMessages,
 };
 
-export type { Locales, Messages, LocalizedArray };
+export type {
+  Locales,
+  Messages,
+  LocalizedArray,
+  MaybeLocalizedEnums,
+  GenericLocalizedEnum,
+};
 export { fr };

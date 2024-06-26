@@ -12,6 +12,7 @@ import {
   commonMessages,
   errorMessages,
   getEmploymentEquityGroup,
+  sortWorkRegion,
 } from "@gc-digital-talent/i18n";
 import { Classification, Skill, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -20,7 +21,6 @@ import { NullSelection } from "~/types/searchRequest";
 import { formatClassificationString } from "~/utils/poolUtils";
 import SkillBrowser from "~/components/SkillBrowser/SkillBrowser";
 import processMessages from "~/messages/processMessages";
-import { sortWorkRegion } from "~/utils/localizedEnumUtils";
 
 import FilterBlock from "./FilterBlock";
 import AdvancedFilters from "./AdvancedFilters";

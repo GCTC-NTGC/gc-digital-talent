@@ -14,7 +14,10 @@ import {
   Separator,
   incrementHeadingRank,
 } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  getLocalizedName,
+  getLocalizedEnumStringByValue,
+} from "@gc-digital-talent/i18n";
 import {
   PoolSkillType,
   FragmentType,
@@ -28,7 +31,6 @@ import { getRecruitmentType } from "~/utils/poolCandidate";
 
 import RecruitmentAvailabilityDialog from "../RecruitmentAvailabilityDialog/RecruitmentAvailabilityDialog";
 import { getQualifiedRecruitmentInfo } from "./utils";
-import { getLocalizedEnumStringByValue } from "../../utils/localizedEnumUtils";
 
 export const QualifiedRecruitmentCard_Fragment = graphql(/* GraphQL */ `
   fragment QualifiedRecruitmentCard on PoolCandidate {

@@ -18,27 +18,14 @@ import {
   PriorityWeight,
   SecurityStatus,
   WorkRegion,
-  graphql,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
 
-// eslint-disable-next-line import/prefer-default-export
-export const SkillCategoryStrings_Fragment = graphql(/* GraphQL */ `
-  fragment SkillCategoryStrings on Query {
-    skillCategories: localizedEnumStrings(enumName: "SkillCategory") {
-      value
-      label {
-        en
-        fr
-      }
-    }
-  }
-`);
+import { getLocalizedName } from "./localize";
 
 export type MaybeLocalizedEnums = Maybe<Maybe<LocalizedEnumString>[]>;
 
-type GenericLocalizedEnum<T> = {
+export type GenericLocalizedEnum<T> = {
   value: T;
   label: LocalizedString;
 };

@@ -12,7 +12,12 @@ import {
   Submit,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
-import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  formMessages,
+  sortPoolLanguage,
+  sortSecurityStatus,
+} from "@gc-digital-talent/i18n";
 import {
   PoolStatus,
   graphql,
@@ -27,10 +32,6 @@ import {
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import processMessages from "~/messages/processMessages";
-import {
-  sortPoolLanguage,
-  sortSecurityStatus,
-} from "~/utils/localizedEnumUtils";
 
 import { useEditPoolContext } from "../EditPoolContext";
 import { SectionProps } from "../../types";

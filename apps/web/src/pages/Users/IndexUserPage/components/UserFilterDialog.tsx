@@ -5,6 +5,7 @@ import {
   commonMessages,
   getLocalizedName,
   navigationMessages,
+  sortWorkRegion,
 } from "@gc-digital-talent/i18n";
 import {
   Checkbox,
@@ -21,7 +22,6 @@ import FilterDialog, {
 } from "~/components/FilterDialog/FilterDialog";
 import adminMessages from "~/messages/adminMessages";
 import PoolFilterInput from "~/components/PoolFilterInput/PoolFilterInput";
-import { sortWorkRegion } from "~/utils/localizedEnumUtils";
 
 import ROLES_TO_HIDE_USERS_TABLE from "./constants";
 

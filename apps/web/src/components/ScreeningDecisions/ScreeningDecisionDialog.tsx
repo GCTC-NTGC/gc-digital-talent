@@ -38,6 +38,7 @@ import {
   getLocalizedName,
   getSkillLevelDefinition,
   getSkillLevelName,
+  getLocalizedEnumStringByValue,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
@@ -56,7 +57,6 @@ import {
   convertFormValuesToApiUpdateInput,
   FormValues,
 } from "./utils";
-import { getLocalizedEnumStringByValue } from "../../utils/localizedEnumUtils";
 
 const getSkillLevelMessage = (
   poolSkill: PoolSkill | undefined,

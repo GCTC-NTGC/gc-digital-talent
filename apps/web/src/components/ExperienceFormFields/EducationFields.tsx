@@ -10,15 +10,16 @@ import {
   Select,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
-import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
+import {
+  errorMessages,
+  uiMessages,
+  sortEducationStatus,
+  sortEducationType,
+} from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { graphql } from "@gc-digital-talent/graphql";
 
 import { SubExperienceFormProps } from "~/types/experience";
-import {
-  sortEducationStatus,
-  sortEducationType,
-} from "~/utils/localizedEnumUtils";
 
 const EducationOptions_Query = graphql(/* GraphQL */ `
   query EducationOptions {

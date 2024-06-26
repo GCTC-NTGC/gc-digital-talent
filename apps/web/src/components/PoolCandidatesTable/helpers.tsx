@@ -6,6 +6,8 @@ import {
   Locales,
   commonMessages,
   getLocalizedName,
+  MaybeLocalizedEnums,
+  getLocalizedEnumStringByValue,
 } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { Link, Chip, Spoiler } from "@gc-digital-talent/ui";
@@ -48,10 +50,6 @@ import {
 } from "~/utils/userUtils";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
-import {
-  MaybeLocalizedEnums,
-  getLocalizedEnumStringByValue,
-} from "~/utils/localizedEnumUtils";
 
 import { FormValues } from "./types";
 import tableMessages from "./tableMessages";

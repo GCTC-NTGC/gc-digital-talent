@@ -20,10 +20,12 @@ import {
   AssessmentResultJustification,
   graphql,
 } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getLocalizedEnumStringByValue,
+} from "@gc-digital-talent/i18n";
 
 import { NO_DECISION } from "~/utils/assessmentResults";
-import { getLocalizedEnumStringByValue } from "~/utils/localizedEnumUtils";
 
 import OutlineEducationIcon from "./Icons/outline/EducationIcon";
 import SolidEducationIcon from "./Icons/solid/EducationIcon";

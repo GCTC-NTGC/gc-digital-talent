@@ -12,7 +12,11 @@ import {
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
-import { commonMessages, uiMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  uiMessages,
+  sortPoolCandidateSearchStatus,
+} from "@gc-digital-talent/i18n";
 import {
   PoolCandidateSearchRequest,
   UpdatePoolCandidateSearchRequestInput,
@@ -20,7 +24,6 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import { sortPoolCandidateSearchStatus } from "~/utils/localizedEnumUtils";
 
 type FormValues = UpdatePoolCandidateSearchRequestInput;
 

@@ -22,13 +22,13 @@ import {
   commonMessages,
   errorMessages,
   getLocalizedName,
+  sortPlacementType,
 } from "@gc-digital-talent/i18n";
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 
 import { isNotPlacedStatus, isQualifiedStatus } from "~/utils/poolCandidate";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
-import { sortPlacementType } from "~/utils/localizedEnumUtils";
 
 export const PLACEMENT_TYPE_STATUSES = [
   PoolCandidateStatus.PlacedCasual,
