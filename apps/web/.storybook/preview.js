@@ -1,7 +1,6 @@
 import {
   ContainerDecorator,
   FeatureFlagDecorator,
-  ToastDecorator,
   HelmetDecorator,
   MockGraphqlDecorator,
   ReducedMotionDecorator,
@@ -9,6 +8,7 @@ import {
   ThemeDecorator,
   VIEWPORTS,
 } from "@gc-digital-talent/storybook-helpers";
+import { ToastDecorator } from "@gc-digital-talent/toast";
 import { richTextElements as defaultRichTextElements } from "@gc-digital-talent/i18n";
 
 import frCommonCompiled from "@gc-digital-talent/i18n/frCompiled.json";
