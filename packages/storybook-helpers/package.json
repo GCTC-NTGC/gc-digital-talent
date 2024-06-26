@@ -12,6 +12,7 @@
   "dependencies": {
     "@gc-digital-talent/env": "workspace:*",
     "@gc-digital-talent/theme": "workspace:*",
+    "@gc-digital-talent/toast": "workspace:*",
     "@storybook/react": "^8.1.10",
     "@urql/core": "^5.0.4",
     "chromatic": "^11.5.4",

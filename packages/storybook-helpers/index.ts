@@ -6,6 +6,7 @@ import OverlayOrDialogDecorator from "./decorators/OverlayOrDialogDecorator";
 import ReducedMotionDecorator from "./decorators/ReducedMotionDecorator";
 import RouterDecorator from "./decorators/RouterDecorator";
 import ThemeDecorator, { THEMES } from "./decorators/ThemeDecorator";
+import ToastDecorator from "./decorators/ToastDecorator";
 import allModes from "./modes";
 import { CHROMATIC_VIEWPORTS, VIEWPORTS, VIEWPORT } from "./viewports";
 
@@ -18,6 +19,7 @@ export {
   ReducedMotionDecorator,
   RouterDecorator,
   ThemeDecorator,
+  ToastDecorator,
   THEMES,
   VIEWPORT,
   VIEWPORTS,

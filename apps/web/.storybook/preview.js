@@ -1,6 +1,7 @@
 import {
   ContainerDecorator,
   FeatureFlagDecorator,
+  ToastDecorator,
   HelmetDecorator,
   MockGraphqlDecorator,
   ReducedMotionDecorator,
@@ -62,6 +63,7 @@ export const parameters = {
 export const decorators = [
   FeatureFlagDecorator,
   HelmetDecorator,
+  ToastDecorator,
   ReducedMotionDecorator,
   MockGraphqlDecorator,
   ThemeDecorator,
