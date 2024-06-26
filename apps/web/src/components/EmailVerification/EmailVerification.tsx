@@ -1,3 +1,4 @@
+import { useState, useEffect, useReducer } from "react";
 import { useIntl } from "react-intl";
 import CheckBadgeIcon from "@heroicons/react/24/outline/CheckBadgeIcon";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -44,6 +45,8 @@ const getTitle = (
   }
 };
 
+const CODE_REQUEST_THROTTLE_DELAY_MS = 1000 * 60;
+
 type FormValues = {
   verificationCode: string;
 };
@@ -75,6 +78,28 @@ const EmailVerification = ({
   );
   const methods = useForm<FormValues>({});
 
+  const [noCodeRequestUntil, setNoCodeRequestUntil] = useState<number>(0);
+  const msUntilCanRequestACode = Math.max(0, noCodeRequestUntil - Date.now());
+  const canRequestACode = msUntilCanRequestACode === 0;
+  const [, forceUpdate] = useReducer((x) => x + 1, 0); // https://legacy.reactjs.org/docs/hooks-faq.html#is-there-something-like-forceupdate
+
+  // if we can't send a code yet, set a timer for the point at which we can
+  useEffect(() => {
+    if (msUntilCanRequestACode > 0) {
+      const interval = setInterval(() => {
+        forceUpdate();
+      }, msUntilCanRequestACode);
+
+      return () => {
+        clearInterval(interval);
+      };
+    }
+
+    return () => {
+      // nothing to clean up if we're not waiting for an interval
+    };
+  }, [msUntilCanRequestACode]);
+
   const requestACode = async () => {
     executeSendEmailMutation({
       id: userAuthInfo?.id,
@@ -83,11 +108,12 @@ const EmailVerification = ({
         if (!result.data?.sendUserEmailVerification?.id) {
           throw new Error("Send email error");
         }
+        logger.debug("A code was sent");
+        setNoCodeRequestUntil(Date.now() + CODE_REQUEST_THROTTLE_DELAY_MS);
       })
       .catch(() => {
         toast.error(intl.formatMessage(errorMessages.error));
       });
-    logger.debug("A code was sent");
   };
 
   const submitHandler: SubmitHandler<FormValues> = async (data: FormValues) => {
@@ -117,22 +143,33 @@ const EmailVerification = ({
             <p>
               {intl.formatMessage({
                 defaultMessage:
-                  "Please review the code and try entering it again. If you're still having trouble, try sending a new code using the link provided.",
-                id: "ywk++k",
+                  "Please review the code and try entering it again.",
+                id: "vm9mFv",
                 description: "Error message when the code is not valid.",
-              })}{" "}
-              <Button
-                type="button"
-                mode="inline"
-                color="black"
-                onClick={requestACode}
-              >
-                {intl.formatMessage({
-                  defaultMessage: "Send a new code.",
-                  id: "8P9Rjx",
-                  description: "Button text to send a new code",
-                })}
-              </Button>
+              })}
+              {canRequestACode ? (
+                <>
+                  {" "}
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "If you're still having trouble, try sending a new code using the link provided.",
+                    id: "NAobki",
+                    description: "Instructions to send another code",
+                  })}{" "}
+                  <Button
+                    type="button"
+                    mode="inline"
+                    color="black"
+                    onClick={requestACode}
+                  >
+                    {intl.formatMessage({
+                      defaultMessage: "Send a new code.",
+                      id: "8P9Rjx",
+                      description: "Button text to send a new code",
+                    })}
+                  </Button>
+                </>
+              ) : null}
             </p>
           </>,
         );
@@ -191,32 +228,34 @@ const EmailVerification = ({
             data-h2-align-items="base(center)"
             data-h2-gap="base(x1)"
           >
-            <div
-              data-h2-text-align="base(center)"
-              data-h2-order="base(1) p-tablet(2)"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Didn’t receive a code?",
-                id: "MvD/iS",
-                description: "intro to request a new code",
-              })}
-              <span data-h2-white-space="base(pre) p-tablet(normal)">
-                {/* conditional newline */}
-                {"\n"}
-              </span>
-              <Button
-                type="button" // doesn't participate in the form
-                mode="inline"
-                color="black"
-                onClick={requestACode}
+            {canRequestACode ? (
+              <div
+                data-h2-text-align="base(center)"
+                data-h2-order="base(1) p-tablet(2)"
               >
                 {intl.formatMessage({
-                  defaultMessage: "Send another one.",
-                  id: "hx8mTr",
-                  description: "button to request a new code",
+                  defaultMessage: "Didn’t receive a code?",
+                  id: "MvD/iS",
+                  description: "intro to request a new code",
                 })}
-              </Button>
-            </div>
+                <span data-h2-white-space="base(pre) p-tablet(normal)">
+                  {/* conditional newline */}
+                  {"\n"}
+                </span>
+                <Button
+                  type="button" // doesn't participate in the form
+                  mode="inline"
+                  color="black"
+                  onClick={requestACode}
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Send another one.",
+                    id: "hx8mTr",
+                    description: "button to request a new code",
+                  })}
+                </Button>
+              </div>
+            ) : null}
             <Submit data-h2-order="base(2) p-tablet(1)" />
             {onSkip ? (
               <Button
