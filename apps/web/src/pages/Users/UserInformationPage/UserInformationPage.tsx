@@ -37,61 +37,106 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
     lastName
     telephone
     citizenship {
-      value
+      label {
+        en
+        fr
+      }
     }
     armedForcesStatus {
-      value
+      label {
+        en
+        fr
+      }
     }
     preferredLang {
-      value
+      label {
+        en
+        fr
+      }
     }
     preferredLanguageForInterview {
-      value
+      label {
+        en
+        fr
+      }
     }
     preferredLanguageForExam {
-      value
+      label {
+        en
+        fr
+      }
     }
     currentProvince {
-      value
+      label {
+        en
+        fr
+      }
     }
     currentCity
     lookingForEnglish
     lookingForFrench
     lookingForBilingual
     firstOfficialLanguage {
-      value
+      label {
+        en
+        fr
+      }
     }
     secondLanguageExamCompleted
     secondLanguageExamValidity
     comprehensionLevel {
-      value
+      label {
+        en
+        fr
+      }
     }
     writtenLevel {
-      value
+      label {
+        en
+        fr
+      }
     }
     verbalLevel {
-      value
+      label {
+        en
+        fr
+      }
     }
     estimatedLanguageAbility {
-      value
+      label {
+        en
+        fr
+      }
     }
     isGovEmployee
     govEmployeeType {
-      value
+      label {
+        en
+        fr
+      }
     }
     hasPriorityEntitlement
     priorityNumber
     priorityWeight
     locationPreferences {
-      value
+      label {
+        en
+        fr
+      }
     }
     locationExemptions
     positionDuration
     acceptedOperationalRequirements {
-      value
+      label {
+        en
+        fr
+      }
     }
     indigenousCommunities {
-      value
+      label {
+        en
+        fr
+      }
     }
     indigenousDeclarationSignature
     hasDisability

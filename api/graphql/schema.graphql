@@ -130,6 +130,7 @@ type User {
   # Profile Status
   isProfileComplete: Boolean
   priorityWeight: Int @rename(attribute: "priority_weight")
+  priority: LocalizedPriorityWeight @localizeEnum
   # authorization and roles
   authInfo: UserAuthInfo @self
   # site options

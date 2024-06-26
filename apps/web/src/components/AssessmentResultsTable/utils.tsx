@@ -11,11 +11,7 @@ import {
   AssessmentStep,
   AssessmentStepType,
 } from "@gc-digital-talent/graphql";
-import {
-  getAssessmentDecision,
-  getAssessmentStepType,
-  commonMessages,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import { getResultsDecision } from "~/utils/poolCandidate";
@@ -160,10 +156,9 @@ export const buildColumn = ({
       const assessmentResult = assessmentResults.find(
         (ar) => ar.assessmentStep?.id === assessmentStep.id,
       );
-      return intl.formatMessage(
-        assessmentResult?.assessmentDecision
-          ? getAssessmentDecision(assessmentResult?.assessmentDecision)
-          : commonMessages.notFound,
+      return getLocalizedName(
+        assessmentResult?.assessmentDecision?.label,
+        intl,
       );
     },
     {
@@ -176,7 +171,8 @@ export const buildColumn = ({
       }) => {
         // Check if the pool skill (row) is associated with the assessment step (column)
         const isEducationRequirement =
-          assessmentStep.type === AssessmentStepType.ApplicationScreening &&
+          assessmentStep.type?.value ===
+            AssessmentStepType.ApplicationScreening &&
           (poolSkill === undefined || poolSkill === null);
 
         // Check if an assessmentResult already exists on the assessment step, if show update dialog
@@ -199,6 +195,7 @@ export const buildColumn = ({
         const hasPoolSkill = assessmentStep.poolSkills?.find(
           (ps) => ps?.id === poolSkill?.id,
         );
+
         if (hasPoolSkill) {
           return cells.jsx(
             <Dialog
@@ -208,6 +205,7 @@ export const buildColumn = ({
             />,
           );
         }
+
         return (
           <span data-h2-visually-hidden="l-tablet(invisible)">
             {intl.formatMessage(commonMessages.notApplicable)}
@@ -215,12 +213,8 @@ export const buildColumn = ({
         );
       },
       meta: {
-        mobileHeader: intl.formatMessage(
-          getAssessmentStepType(assessmentStep.type ?? "unknownType"),
-        ),
-        columnDialogHeader: intl.formatMessage(
-          getAssessmentStepType(assessmentStep.type ?? "unknownType"),
-        ),
+        mobileHeader: getLocalizedName(assessmentStep.type?.label, intl),
+        columnDialogHeader: getLocalizedName(assessmentStep.type?.label, intl),
       },
     },
   ) as AssessmentTableRowColumn;

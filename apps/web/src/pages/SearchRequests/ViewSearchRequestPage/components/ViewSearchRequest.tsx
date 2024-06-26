@@ -4,10 +4,7 @@ import { useQuery } from "urql";
 import {
   getLocale,
   commonMessages,
-  getPoolCandidateSearchStatus,
   getLocalizedName,
-  getPoolCandidateSearchPositionType,
-  getSearchRequestReason,
 } from "@gc-digital-talent/i18n";
 import {
   Pending,
@@ -181,8 +178,8 @@ const ManagerInfo = ({
                 <FilterBlock
                   title={intl.formatMessage(commonMessages.status)}
                   content={
-                    status
-                      ? intl.formatMessage(getPoolCandidateSearchStatus(status))
+                    status?.label
+                      ? getLocalizedName(status.label, intl)
                       : intl.formatMessage(commonMessages.notApplicable)
                   }
                 />
@@ -233,10 +230,16 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
     managerJobTitle
     hrAdvisorEmail
     positionType {
-      value
+      label {
+        en
+        fr
+      }
     }
     reason {
-      value
+      label {
+        en
+        fr
+      }
     }
     wasEmpty
     additionalComments
@@ -459,9 +462,7 @@ export const ViewSearchRequest = ({
                 id: "enffKD",
                 description: "Label for the reason for submitting the request.",
               })}
-              content={
-                reason ? intl.formatMessage(getSearchRequestReason(reason)) : ""
-              }
+              content={getLocalizedName(reason?.label, intl, true)}
             />
             <Separator space="sm" data-h2-margin-top="base(0)" />
             <SearchRequestFilters filters={abstractFilter} />
@@ -489,10 +490,8 @@ export const ViewSearchRequest = ({
                       description: "Label for an opportunity's position type.",
                     })}
                     content={
-                      positionType
-                        ? intl.formatMessage(
-                            getPoolCandidateSearchPositionType(positionType),
-                          )
+                      positionType?.label
+                        ? getLocalizedName(positionType.label, intl)
                         : intl.formatMessage(adminMessages.noneProvided)
                     }
                   />

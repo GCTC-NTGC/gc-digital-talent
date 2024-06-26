@@ -497,6 +497,7 @@ type User {
   improveBehaviouralSkillsRanking: [UserSkill]
   isProfileComplete: Boolean
   priorityWeight: Int
+  priority: LocalizedPriorityWeight
   authInfo: UserAuthInfo
   enabledEmailNotifications: [NotificationFamily]
   enabledInAppNotifications: [NotificationFamily]

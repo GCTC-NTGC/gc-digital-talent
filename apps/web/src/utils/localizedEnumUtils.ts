@@ -36,7 +36,7 @@ export const SkillCategoryStrings_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-type MaybeLocalizedEnums = Maybe<Maybe<LocalizedEnumString>[]>;
+export type MaybeLocalizedEnums = Maybe<Maybe<LocalizedEnumString>[]>;
 
 type GenericLocalizedEnum<T> = {
   value: T;
@@ -53,7 +53,7 @@ export function getLocalizedEnumByValue(
 }
 
 export function getLocalizedEnumStringByValue(
-  value: string,
+  value: Maybe<string> | undefined,
   localizedEnumArray: MaybeLocalizedEnums | undefined,
   intl: IntlShape,
   emptyNotFound: boolean = false,

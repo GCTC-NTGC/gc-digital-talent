@@ -14,7 +14,7 @@ import {
   Separator,
   incrementHeadingRank,
 } from "@gc-digital-talent/ui";
-import { getLocalizedName, getSkillCategory } from "@gc-digital-talent/i18n";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   PoolSkillType,
   FragmentType,
@@ -28,6 +28,7 @@ import { getRecruitmentType } from "~/utils/poolCandidate";
 
 import RecruitmentAvailabilityDialog from "../RecruitmentAvailabilityDialog/RecruitmentAvailabilityDialog";
 import { getQualifiedRecruitmentInfo } from "./utils";
+import { getLocalizedEnumStringByValue } from "../../utils/localizedEnumUtils";
 
 export const QualifiedRecruitmentCard_Fragment = graphql(/* GraphQL */ `
   fragment QualifiedRecruitmentCard on PoolCandidate {
@@ -80,19 +81,39 @@ export const QualifiedRecruitmentCard_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+const QualifiedRecruitmentCardCategories_Fragment = graphql(/* GraphQL */ `
+  fragment QualifiedRequirementCardCategories on Query {
+    categories: localizedEnumStrings(enumName: "SkillCategory") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 export interface QualifiedRecruitmentCardProps {
   candidateQuery: FragmentType<typeof QualifiedRecruitmentCard_Fragment>;
+  categoriesQuery: FragmentType<
+    typeof QualifiedRecruitmentCardCategories_Fragment
+  >;
   headingLevel?: HeadingRank;
 }
 
 const QualifiedRecruitmentCard = ({
   candidateQuery,
+  categoriesQuery,
   headingLevel = "h2",
 }: QualifiedRecruitmentCardProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [linkCopied, setLinkCopied] = useState<boolean>(false);
   const contentHeadingLevel = incrementHeadingRank(headingLevel);
+  const categoryData = getFragment(
+    QualifiedRecruitmentCardCategories_Fragment,
+    categoriesQuery,
+  );
   const candidate = getFragment(
     QualifiedRecruitmentCard_Fragment,
     candidateQuery,
@@ -148,7 +169,7 @@ const QualifiedRecruitmentCard = ({
         data-h2-color="base(secondary.darker)"
         data-h2-margin="base(x.25 0 x1 0)"
       >
-        {getRecruitmentType(candidate.pool.publishingGroup, intl)}
+        {getRecruitmentType(candidate.pool.publishingGroup?.value, intl)}
       </p>
       <Collapsible.Root open={isOpen} onOpenChange={setIsOpen}>
         <Collapsible.Trigger asChild>
@@ -243,8 +264,10 @@ const QualifiedRecruitmentCard = ({
                 data-h2-font-weight="base(700)"
                 color="secondary"
               >
-                {intl.formatMessage(
-                  getSkillCategory(SkillCategory.Behavioural),
+                {getLocalizedEnumStringByValue(
+                  SkillCategory.Behavioural,
+                  categoryData.categories,
+                  intl,
                 )}
               </Heading>
               <ul
@@ -268,7 +291,11 @@ const QualifiedRecruitmentCard = ({
                 data-h2-font-weight="base(700)"
                 color="secondary"
               >
-                {intl.formatMessage(getSkillCategory(SkillCategory.Technical))}
+                {getLocalizedEnumStringByValue(
+                  SkillCategory.Technical,
+                  categoryData.categories,
+                  intl,
+                )}
               </Heading>
               <ul
                 data-h2-display="base(grid)"

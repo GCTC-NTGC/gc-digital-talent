@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
-import { useMutation } from "urql";
+import { useMutation, useQuery } from "urql";
 import { ReactNode, useState, useEffect } from "react";
 
 import { Button, Chip, Chips, Dialog, Well } from "@gc-digital-talent/ui";
@@ -9,7 +9,6 @@ import {
   errorMessages,
   getLocalizedName,
   uiMessages,
-  getAssessmentStepType,
 } from "@gc-digital-talent/i18n";
 import {
   Select,
@@ -18,9 +17,9 @@ import {
   TextArea,
   Checklist,
   CheckboxOption,
-  Option,
   Field,
   alphaSortOptions,
+  localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -115,6 +114,31 @@ const AssessmentDetailsDialogPoolSkill_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+const AssessmentDetailsDialogOptions_Query = graphql(/* GraphQL */ `
+  query AssessmentDetailsDialogOptions {
+    assessmentStepTypes: localizedEnumStrings(enumName: "AssessmentStepType") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+  }
+`);
+
+const allowedStepTypes = [
+  // can't manually choose or edit application screening step
+  AssessmentStepType.ScreeningQuestionsAtApplication,
+  AssessmentStepType.TechnicalExamAtSite,
+  AssessmentStepType.TechnicalExamAtHome,
+  AssessmentStepType.PscExam,
+  AssessmentStepType.InterviewGroup,
+  AssessmentStepType.InterviewIndividual,
+  AssessmentStepType.InterviewFollowup,
+  AssessmentStepType.ReferenceCheck,
+  AssessmentStepType.AdditionalAssessment,
+];
+
 type DialogMode = "regular" | "screening_question";
 type DialogAction = "create" | "update";
 
@@ -163,6 +187,9 @@ const AssessmentDetailsDialog = ({
   onError,
 }: AssessmentDetailsDialogProps) => {
   const intl = useIntl();
+  const [{ data: stringsData }] = useQuery({
+    query: AssessmentDetailsDialogOptions_Query,
+  });
   const allPoolSkills = getFragment(
     AssessmentDetailsDialogPoolSkill_Fragment,
     poolSkillsQuery,
@@ -403,7 +430,7 @@ const AssessmentDetailsDialog = ({
 
   const assessedSkillsItems: AssessedSkillsItems = allPoolSkills.reduce(
     (assessedSkills: AssessedSkillsItems, poolSkill: PoolSkill) => {
-      if (poolSkill.type === PoolSkillType.Essential) {
+      if (poolSkill.type?.value === PoolSkillType.Essential) {
         return {
           essentialSkillItems: [
             ...assessedSkills.essentialSkillItems,
@@ -413,7 +440,7 @@ const AssessmentDetailsDialog = ({
         };
       }
 
-      if (poolSkill.type === PoolSkillType.Nonessential) {
+      if (poolSkill.type?.value === PoolSkillType.Nonessential) {
         return {
           assetSkills: [
             ...assessedSkills.assetSkills,
@@ -431,36 +458,22 @@ const AssessmentDetailsDialog = ({
     },
   );
 
-  const assessmentStepTypeOptions = [
-    // can't manually choose or edit application screening step
-    AssessmentStepType.ScreeningQuestionsAtApplication,
-    AssessmentStepType.TechnicalExamAtSite,
-    AssessmentStepType.TechnicalExamAtHome,
-    AssessmentStepType.PscExam,
-    AssessmentStepType.InterviewGroup,
-    AssessmentStepType.InterviewIndividual,
-    AssessmentStepType.InterviewFollowup,
-    AssessmentStepType.ReferenceCheck,
-    AssessmentStepType.AdditionalAssessment,
-  ]
-    .filter(
-      (stepType) =>
-        !disallowStepTypes.some(
-          (disallowStepType) => disallowStepType === stepType,
-        ),
-    )
-    .map<Option>((stepType) => ({
-      value: stepType,
-      label: intl.formatMessage(getAssessmentStepType(stepType)),
-    }));
-
+  const assessmentStepTypeOptions = localizedEnumToOptions(
+    stringsData?.assessmentStepTypes?.filter((stepType) => {
+      const value = (stepType.value ?? "") as AssessmentStepType;
+      return (
+        allowedStepTypes.includes(value) && !disallowStepTypes.includes(value)
+      );
+    }),
+    intl,
+  );
   const dialogBusy =
     updateAssessmentStepFetching ||
     createAssessmentStepFetching ||
     createOrUpdateScreeningQuestionAssessmentStepMutationFetching;
 
   const missingEssentialSkills = allPoolSkills
-    .filter((poolSkill) => poolSkill.type === PoolSkillType.Essential)
+    .filter((poolSkill) => poolSkill.type?.value === PoolSkillType.Essential)
     .filter(({ assessmentSteps }) => {
       const steps = unpackMaybes(assessmentSteps);
 
@@ -530,10 +543,7 @@ const AssessmentDetailsDialog = ({
                     required: intl.formatMessage(errorMessages.required),
                   }}
                   disabled={dialogAction === "update"}
-                  options={assessmentStepTypeOptions.map(({ value }) => ({
-                    value,
-                    label: intl.formatMessage(getAssessmentStepType(value)),
-                  }))}
+                  options={assessmentStepTypeOptions}
                   doNotSort
                 />
 

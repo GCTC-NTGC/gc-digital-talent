@@ -5,10 +5,7 @@ import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
 import {
   Locales,
   commonMessages,
-  getCandidateSuspendedFilterStatus,
-  getLanguage,
-  getPoolCandidatePriorities,
-  getProvinceOrTerritory,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { Link, Chip, Spoiler } from "@gc-digital-talent/ui";
@@ -28,20 +25,18 @@ import {
   Language,
   PoolCandidate,
   PoolCandidateStatus,
-  ProvinceOrTerritory,
   SortOrder,
   FragmentType,
   AssessmentResultStatus,
+  LocalizedEnumString,
+  LocalizedProvinceOrTerritory,
+  LocalizedPriorityWeight,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
-import {
-  getCandidateStatusChip,
-  getPriorityWeight,
-  statusToJobPlacement,
-} from "~/utils/poolCandidate";
+import { getCandidateStatusChip } from "~/utils/poolCandidate";
 import {
   stringToEnumCandidateExpiry,
   stringToEnumCandidateSuspended,
@@ -53,6 +48,10 @@ import {
 } from "~/utils/userUtils";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
+import {
+  MaybeLocalizedEnums,
+  getLocalizedEnumStringByValue,
+} from "~/utils/localizedEnumUtils";
 
 import { FormValues } from "./types";
 import tableMessages from "./tableMessages";
@@ -61,30 +60,24 @@ import CandidateBookmark, {
 } from "../CandidateBookmark/CandidateBookmark";
 
 export const priorityCell = (
-  priority: number | null | undefined,
+  priorityWeight: number | null | undefined,
+  priority: Maybe<LocalizedPriorityWeight> | undefined,
   intl: IntlShape,
 ) => {
   if (!priority) return null;
+  const label = getLocalizedName(priority.label, intl);
 
-  if (priority === 10 || priority === 20) {
+  if (priorityWeight === 10 || priorityWeight === 20) {
     return (
       <span
         data-h2-color="base(primary.darker)"
         data-h2-font-weight="base(700)"
       >
-        {intl.formatMessage(
-          getPoolCandidatePriorities(getPriorityWeight(priority)),
-        )}
+        {label}
       </span>
     );
   }
-  return (
-    <span>
-      {intl.formatMessage(
-        getPoolCandidatePriorities(getPriorityWeight(priority)),
-      )}
-    </span>
-  );
+  return <span>{label}</span>;
 };
 
 export const candidateNameCell = (
@@ -128,33 +121,40 @@ export const processCell = (
   );
 };
 
+// suspended_at is a time, must output ACTIVE or SUSPENDED strings for column viewing and sorting
+const getSuspendedStatus = (
+  suspendedTime: Date,
+  currentTime: Date,
+): CandidateSuspendedFilter => {
+  if (suspendedTime >= currentTime) {
+    return CandidateSuspendedFilter.Active;
+  }
+  return CandidateSuspendedFilter.Suspended;
+};
+
 export const candidacyStatusAccessor = (
   suspendedAt: string | null | undefined,
+  suspendedStatusStrings: MaybeLocalizedEnums | undefined,
   intl: IntlShape,
 ) => {
-  // suspended_at is a time, must output ACTIVE or SUSPENDED strings for column viewing and sorting
-  const getSuspendedStatus = (
-    suspendedTime: Date,
-    currentTime: Date,
-  ): CandidateSuspendedFilter => {
-    if (suspendedTime >= currentTime) {
-      return CandidateSuspendedFilter.Active;
-    }
-    return CandidateSuspendedFilter.Suspended;
-  };
-
   if (suspendedAt) {
     const parsedSuspendedTime = parseDateTimeUtc(suspendedAt);
     const currentTime = new Date();
-    return intl.formatMessage(
-      getCandidateSuspendedFilterStatus(
-        getSuspendedStatus(parsedSuspendedTime, currentTime),
-      ),
+    const suspendedStatus = getSuspendedStatus(
+      parsedSuspendedTime,
+      currentTime,
+    );
+    return getLocalizedEnumStringByValue(
+      suspendedStatus,
+      suspendedStatusStrings,
+      intl,
     );
   }
 
-  return intl.formatMessage(
-    getCandidateSuspendedFilterStatus(CandidateSuspendedFilter.Active),
+  return getLocalizedEnumStringByValue(
+    CandidateSuspendedFilter.Active,
+    suspendedStatusStrings,
+    intl,
   );
 };
 
@@ -183,25 +183,18 @@ export const notesCell = (candidate: PoolCandidate, intl: IntlShape) =>
 // callbacks extracted to separate function to stabilize memoized component
 export const preferredLanguageAccessor = (
   language: Language | null | undefined,
+  languageStrings: Maybe<LocalizedEnumString>[] | undefined,
   intl: IntlShape,
 ) => (
-  <span>
-    {intl.formatMessage(
-      language ? getLanguage(language) : commonMessages.notFound,
-    )}
-  </span>
+  <span>{getLocalizedEnumStringByValue(language, languageStrings, intl)}</span>
 );
 
 export const currentLocationAccessor = (
   city: string | null | undefined,
-  province: ProvinceOrTerritory | null | undefined,
+  province: LocalizedProvinceOrTerritory | null | undefined,
   intl: IntlShape,
 ) =>
-  `${city || intl.formatMessage(commonMessages.notFound)}, ${intl.formatMessage(
-    province
-      ? getProvinceOrTerritory(province as string)
-      : commonMessages.notFound,
-  )}`;
+  `${city || intl.formatMessage(commonMessages.notFound)}, ${getLocalizedName(province?.label, intl)}`;
 
 export const finalDecisionCell = (
   status: Maybe<PoolCandidateStatus> | undefined,
@@ -214,13 +207,6 @@ export const finalDecisionCell = (
     intl,
   );
   return <Chip color={color}>{label}</Chip>;
-};
-
-export const jobPlacementCell = (
-  intl: IntlShape,
-  status?: Maybe<PoolCandidateStatus>,
-) => {
-  return <span>{intl.formatMessage(statusToJobPlacement(status))}</span>;
 };
 
 export const bookmarkCell = (

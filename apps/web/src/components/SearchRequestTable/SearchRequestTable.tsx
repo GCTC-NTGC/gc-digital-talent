@@ -10,12 +10,8 @@ import { SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
 import { useQuery } from "urql";
 
-import { notEmpty } from "@gc-digital-talent/helpers";
-import {
-  commonMessages,
-  getLocalizedName,
-  getPoolStream,
-} from "@gc-digital-talent/i18n";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   InputMaybe,
   PoolCandidateSearchRequestInput,
@@ -34,7 +30,6 @@ import {
   detailsCell,
   jobTitleCell,
   notesCell,
-  statusCell,
 } from "./components/helpers";
 import cells from "../Table/cells";
 import accessors from "../Table/accessors";
@@ -244,23 +239,29 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
       },
     ),
     columnHelper.accessor(
-      (row) =>
-        row.applicantFilter?.qualifiedStreams
-          ?.filter(notEmpty)
-          .map((stream) => intl.formatMessage(getPoolStream(stream)))
-          .join(","),
+      ({ applicantFilter }) =>
+        unpackMaybes(
+          applicantFilter?.qualifiedStreams?.map((stream) =>
+            getLocalizedName(stream?.label, intl),
+          ),
+        ).join(","),
       {
         id: "stream",
         header: intl.formatMessage(processMessages.stream),
         enableColumnFilter: false,
         enableSorting: false,
-        cell: ({ row: { original: row } }) =>
+        cell: ({
+          row: {
+            original: { applicantFilter },
+          },
+        }) =>
           cells.commaList({
             list:
-              row.applicantFilter?.qualifiedStreams
-                ?.filter(notEmpty)
-                .map((stream) => intl.formatMessage(getPoolStream(stream))) ??
-              [],
+              unpackMaybes(
+                applicantFilter?.qualifiedStreams?.map((stream) =>
+                  getLocalizedName(stream?.label, intl, true),
+                ),
+              ) ?? [],
           }),
       },
     ),
@@ -286,13 +287,14 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
         enableSorting: false,
       },
     ),
-    columnHelper.accessor("status", {
-      id: "status",
-      header: intl.formatMessage(commonMessages.status),
-      enableColumnFilter: false,
-      cell: ({ row: { original: searchRequest } }) =>
-        statusCell(searchRequest.status, intl),
-    }),
+    columnHelper.accessor(
+      ({ status }) => getLocalizedName(status?.label, intl, true),
+      {
+        id: "status",
+        header: intl.formatMessage(commonMessages.status),
+        enableColumnFilter: false,
+      },
+    ),
     columnHelper.accessor(
       ({ requestedDate }) => accessors.date(requestedDate),
       {

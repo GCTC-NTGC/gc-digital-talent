@@ -15,9 +15,6 @@ import {
   Maybe,
   Pool,
   PositionDuration,
-  LocalizedWorkRegion,
-  WorkRegion,
-  LocalizedEnumString,
 } from "@gc-digital-talent/graphql";
 
 import { FormValues, NullSelection } from "~/types/searchRequest";

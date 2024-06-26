@@ -15,7 +15,6 @@ import {
 } from "@gc-digital-talent/ui";
 import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 import { getId, notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
-import { getPoolStream } from "@gc-digital-talent/i18n";
 import {
   graphql,
   PoolStream,
@@ -28,9 +27,10 @@ import {
 
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
+import { filterPoolSkillsByType } from "~/utils/skillUtils";
+import { getLocalizedEnumStringByValue } from "~/utils/localizedEnumUtils";
 
 import messages from "../../messages";
-import { filterPoolSkillsByType } from "../../../../../utils/skillUtils";
 
 // the shape of the data model to populate this component
 interface StreamViewModel {
@@ -66,7 +66,7 @@ const selectPoolForSection = (
       .find(
         (p) =>
           // must match section stream
-          p.stream === stream &&
+          p.stream?.value === stream &&
           // must include section classification group and level
           !!(
             p.classification?.group === group &&
@@ -99,6 +99,13 @@ const OngoingRecruitmentSection_QueryFragment = graphql(/* GraphQL */ `
         skills {
           id
         }
+      }
+    }
+    streams: localizedEnumStrings(enumName: "PoolStream") {
+      value
+      label {
+        en
+        fr
       }
     }
   }
@@ -1051,7 +1058,11 @@ const OngoingRecruitmentSection = ({
                     id: "XnvXtO",
                     description: "All",
                   })
-                : intl.formatMessage(getPoolStream(quickFilterStream))}
+                : getLocalizedEnumStringByValue(
+                    quickFilterStream,
+                    data?.streams,
+                    intl,
+                  )}
             </Button>
           </DropdownMenu.Trigger>
           <DropdownMenu.Content data-h2-padding="base(0)">

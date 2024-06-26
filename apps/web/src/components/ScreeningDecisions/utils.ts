@@ -2,7 +2,7 @@ import { IntlShape } from "react-intl";
 
 import {
   AssessmentDecision,
-  AssessmentResult,
+  AssessmentDecisionLevel,
   AssessmentResultJustification,
   AssessmentResultType,
   CreateAssessmentResultInput,
@@ -14,15 +14,13 @@ import { commonMessages, getSkillLevelName } from "@gc-digital-talent/i18n";
 
 import { NO_DECISION } from "~/utils/assessmentResults";
 
+type MaybeJustification = Maybe<AssessmentResultJustification>;
+
 export type FormValues = {
-  assessmentDecision:
-    | AssessmentResult["assessmentDecision"]
-    | typeof NO_DECISION;
-  justifications:
-    | AssessmentResult["justifications"]
-    | AssessmentResultJustification;
-  assessmentDecisionLevel: AssessmentResult["assessmentDecisionLevel"];
-  skillDecisionNotes: AssessmentResult["skillDecisionNotes"];
+  assessmentDecision?: Maybe<AssessmentDecision | typeof NO_DECISION>;
+  justifications?: MaybeJustification[] | MaybeJustification;
+  assessmentDecisionLevel?: Maybe<AssessmentDecisionLevel>;
+  skillDecisionNotes?: Maybe<string>;
 };
 
 export type FormValuesToApiCreateInputArgs = {
@@ -107,12 +105,12 @@ export function getLocalizedSkillLevel(
   userSkill: UserSkill | undefined,
   intl: IntlShape,
 ): string {
-  if (!userSkill || !userSkill.skill || !userSkill.skillLevel) {
+  if (!userSkill || !userSkill.skill.category.value || !userSkill.skillLevel) {
     return intl.formatMessage(commonMessages.notFound);
   }
 
   return intl.formatMessage(
-    getSkillLevelName(userSkill.skillLevel, userSkill.skill.category),
+    getSkillLevelName(userSkill.skillLevel, userSkill.skill.category.value),
   );
 }
 
