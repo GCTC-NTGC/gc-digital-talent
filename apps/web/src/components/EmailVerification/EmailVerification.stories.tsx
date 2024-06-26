@@ -1,8 +1,6 @@
 import { StoryFn } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
-import Toast from "@gc-digital-talent/toast";
-
 import EmailVerification from "./EmailVerification";
 
 export default {
@@ -10,12 +8,7 @@ export default {
 };
 
 const Template: StoryFn<typeof EmailVerification> = (args) => {
-  return (
-    <>
-      <EmailVerification {...args} />
-      <Toast />
-    </>
-  );
+  return <EmailVerification {...args} />;
 };
 
 export const ContactEmail = Template.bind({});
