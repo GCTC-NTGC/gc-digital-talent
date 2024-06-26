@@ -2,11 +2,32 @@ import { useIntl } from "react-intl";
 import CheckBadgeIcon from "@heroicons/react/24/outline/CheckBadgeIcon";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "urql";
 
 import { Button, Heading, Link } from "@gc-digital-talent/ui";
 import { Input, Submit } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
+import { graphql } from "@gc-digital-talent/graphql";
+import { useLogger } from "@gc-digital-talent/logger";
+
+const SendUserEmailVerification_Mutation = graphql(/* GraphQL */ `
+  mutation SendUserEmailVerification($id: ID!) {
+    sendUserEmailVerification(id: $id) {
+      id
+      emailVerifiedAt
+    }
+  }
+`);
+
+const VerifyUserEmail_Mutation = graphql(/* GraphQL */ `
+  mutation VerifyUserEmail($id: ID!, $code: String!) {
+    verifyUserEmail(id: $id, code: $code) {
+      id
+      emailVerifiedAt
+    }
+  }
+`);
 
 type FormValues = {
   verificationCode: string;
@@ -27,38 +48,67 @@ const EmailVerification = ({
   skipUrl,
 }: EmailVerificationProps) => {
   const intl = useIntl();
+  const logger = useLogger();
+  const [, executeSendEmailMutation] = useMutation(
+    SendUserEmailVerification_Mutation,
+  );
+  const [, executeVerifyUserEmailMutation] = useMutation(
+    VerifyUserEmail_Mutation,
+  );
   const methods = useForm<FormValues>({});
   const navigate = useNavigate();
 
   const requestACode = async () => {
-    await new Promise((resolve) => {
-      setTimeout(resolve, 3000);
-    });
-    console.debug("A code was sent");
+    executeSendEmailMutation({
+      id: "0",
+    })
+      .then((result) => {
+        if (!result.data?.sendUserEmailVerification?.id) {
+          throw new Error("Send email error");
+        }
+      })
+      .catch(() => {
+        toast.error(intl.formatMessage(errorMessages.error));
+      });
+    logger.debug("A code was sent");
   };
 
   const submitHandler: SubmitHandler<FormValues> = async (data: FormValues) => {
-    try {
-      await new Promise((resolve) => {
-        setTimeout(resolve, 3000);
+    executeVerifyUserEmailMutation({
+      id: "0",
+      code: data.verificationCode,
+    })
+      .then((result) => {
+        if (!result.data?.verifyUserEmail?.id) {
+          throw new Error("Verify code error");
+        }
+        console.debug(`navigating to ${successUrl}`);
+        navigate(successUrl);
+      })
+      .catch(() => {
+        toast.error(
+          <>
+            <p>
+              <strong>
+                {intl.formatMessage({
+                  defaultMessage: "The code entered was incorrect.",
+                  id: "2xBxZ9",
+                  description:
+                    "Title for error message when the code is not valid.",
+                })}
+              </strong>
+            </p>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Please review the code and try entering it again. If you're still having trouble, try sending a new code using the link provided. Send a new code.",
+                id: "NFQurH",
+                description: "Error message when the code is not valid.",
+              })}
+            </p>
+          </>,
+        );
       });
-      console.debug(`navigating to ${successUrl}`);
-      navigate(successUrl);
-    } catch (e) {
-      console.debug(
-        intl.formatMessage({
-          defaultMessage: "The code entered was incorrect.",
-          id: "2xBxZ9",
-          description: "Title for error message when the code is not valid.",
-        }),
-        intl.formatMessage({
-          defaultMessage:
-            "Please review the code and try entering it again. If you're still having trouble, try sending a new code using the link provided. Send a new code.",
-          id: "NFQurH",
-          description: "Error message when the code is not valid.",
-        }),
-      );
-    }
   };
 
   return (
