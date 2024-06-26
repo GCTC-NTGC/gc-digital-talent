@@ -50,7 +50,7 @@ export const TeamTable_TeamFragment = graphql(/* GraphQL */ `
   }
 `);
 
-export type TeamTableFragment = FragmentType<typeof TeamTable_TeamFragment>[];
+type TeamTableFragment = FragmentType<typeof TeamTable_TeamFragment>[];
 
 export interface TeamTableProps {
   teamsQuery: TeamTableFragment;

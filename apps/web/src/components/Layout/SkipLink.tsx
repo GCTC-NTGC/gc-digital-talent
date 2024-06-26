@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { useIntl } from "react-intl";
 
-export interface SkipLinkProps {
+interface SkipLinkProps {
   href?: string;
   children?: ReactNode;
 }

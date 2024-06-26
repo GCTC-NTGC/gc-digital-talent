@@ -27,9 +27,7 @@ const Item = forwardRef<
   />
 ));
 
-export type RootProps = ComponentPropsWithoutRef<
-  typeof ToggleGroupPrimitive.Root
-> & {
+type RootProps = ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Root> & {
   label?: ReactNode;
 };
 

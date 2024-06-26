@@ -242,20 +242,3 @@ export const candidateOneFailingAssessment: PoolCandidate = {
 };
 
 export const candidateNoAssessments: PoolCandidate = fakeCandidates[7];
-
-export const testCandidates = [
-  candidateFullyQualified,
-  candidateFullyQualifiedExceptMissingEducation,
-  candidateQualifiedExceptHoldOnFinalAssessment,
-  candidateQualifiedExceptHoldOnMiddleAssessment,
-  candidateHoldOnMiddleStepAndNoResultsOnFinalStep,
-  candidateUnfinishedFinalAssessment,
-  candidateOneFailingAssessment,
-  candidateNoAssessments,
-];
-
-export const poolWithAssessmentSteps = {
-  ...fakePool,
-  assessmentSteps: fakePoolAssessmentSteps,
-  poolCandidates: testCandidates,
-};

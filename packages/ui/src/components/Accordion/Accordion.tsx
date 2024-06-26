@@ -11,12 +11,9 @@ import {
 } from "react";
 
 import type { HeadingRank, IconType } from "../../types";
-import { AccordionMode } from "./types";
 
-export type RootProps = ComponentPropsWithoutRef<
-  typeof AccordionPrimitive.Root
-> & {
-  mode?: AccordionMode;
+type RootProps = ComponentPropsWithoutRef<typeof AccordionPrimitive.Root> & {
+  mode?: "card" | "simple";
   size?: "sm" | "md" | "lg";
 };
 
@@ -142,7 +139,7 @@ const Item = forwardRef<
   />
 ));
 
-export interface AccordionHeaderProps
+interface AccordionHeaderProps
   extends ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger> {
   as?: HeadingRank | "p";
   icon?: IconType;

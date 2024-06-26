@@ -11,7 +11,7 @@ import { TeamMember } from "~/utils/teamUtils";
 import EditTeamMemberDialog from "./components/EditTeamMemberDialog";
 import RemoveTeamMemberDialog from "./components/RemoveTeamMemberDialog";
 
-export function orderRoles(roles: Array<Role>, intl: IntlShape) {
+function orderRoles(roles: Array<Role>, intl: IntlShape) {
   return orderBy(roles, ({ displayName }) => {
     const value = getLocalizedName(displayName, intl);
 

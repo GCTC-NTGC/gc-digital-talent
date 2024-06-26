@@ -19,7 +19,7 @@ import {
   TALENTSEARCH_SUPPORT_EMAIL,
 } from "~/constants/talentSearchConstants";
 
-export type FormValues = {
+type FormValues = {
   user_id: string;
   name: string;
   email: string;
@@ -343,5 +343,4 @@ const SupportFormApi = () => {
   );
 };
 
-export const SupportFormComponent = SupportForm;
 export default SupportFormApi;

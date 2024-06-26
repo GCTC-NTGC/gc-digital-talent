@@ -2,7 +2,7 @@ import { defineMessages } from "react-intl";
 
 import { GeneralQuestion, UpdatePoolInput } from "@gc-digital-talent/graphql";
 
-export type QuestionDialogAction = "save" | "delete";
+type QuestionDialogAction = "save" | "delete";
 
 export type FormValues = {
   id: string;
@@ -28,9 +28,7 @@ export type GeneralQuestionsSubmit = (
   submitData: GeneralQuestionsSubmitData,
 ) => Promise<void>;
 
-export const questionToSubmitData = (
-  question: GeneralQuestion["question"],
-) => ({
+const questionToSubmitData = (question: GeneralQuestion["question"]) => ({
   en: question?.en ?? "",
   fr: question?.fr ?? "",
 });

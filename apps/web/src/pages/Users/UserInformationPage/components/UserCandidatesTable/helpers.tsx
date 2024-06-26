@@ -28,7 +28,6 @@ import useRoutes from "~/hooks/useRoutes";
 import {
   getCandidateStatusChip,
   getPriorityWeight,
-  statusToJobPlacement,
 } from "~/utils/poolCandidate";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
@@ -181,11 +180,4 @@ export const finalDecisionCell = (
     intl,
   );
   return <Chip color={color}>{label}</Chip>;
-};
-
-export const jobPlacementCell = (
-  intl: IntlShape,
-  status?: Maybe<PoolCandidateStatus>,
-) => {
-  return <span>{intl.formatMessage(statusToJobPlacement(status))}</span>;
 };

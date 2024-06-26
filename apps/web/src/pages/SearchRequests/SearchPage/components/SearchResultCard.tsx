@@ -15,7 +15,7 @@ const testId = (text: ReactNode) => (
   <span data-testid="candidateCount">{text}</span>
 );
 
-export interface SearchResultCardProps {
+interface SearchResultCardProps {
   candidateCount: number;
   pool: Pool;
 }

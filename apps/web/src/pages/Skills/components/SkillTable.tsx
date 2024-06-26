@@ -38,9 +38,9 @@ import {
 import SkillFilterDialog, { FormValues } from "./SkillFilterDialog";
 import { getSkillCsvData, getSkillCsvHeaders } from "./skillCsv";
 
-export type SkillFilterInput = FormValues;
+type SkillFilterInput = FormValues;
 
-export function stringToEnumSkillCategory(
+function stringToEnumSkillCategory(
   selection: string,
 ): SkillCategory | undefined {
   if (Object.values(SkillCategory).includes(selection as SkillCategory)) {
@@ -49,7 +49,7 @@ export function stringToEnumSkillCategory(
   return undefined;
 }
 
-export function transformFormValuesToSkillFilterInput(
+function transformFormValuesToSkillFilterInput(
   data: FormValues,
 ): SkillFilterInput {
   return {
@@ -60,7 +60,7 @@ export function transformFormValuesToSkillFilterInput(
   };
 }
 
-export function transformSkillFilterInputToFormValues(
+function transformSkillFilterInputToFormValues(
   input: SkillFilterInput | undefined,
 ): FormValues {
   return {

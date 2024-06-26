@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-export type SignPostProps = {
+type SignPostProps = {
   title: string;
   introduction?: ReactNode;
 };

@@ -2,7 +2,7 @@ import { DetailedHTMLProps, ButtonHTMLAttributes, forwardRef } from "react";
 
 type Animation = "none" | "translate-up" | "translate-down";
 
-export type ActionButtonProps = DetailedHTMLProps<
+type ActionButtonProps = DetailedHTMLProps<
   ButtonHTMLAttributes<HTMLButtonElement>,
   HTMLButtonElement
 > & {

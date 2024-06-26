@@ -38,7 +38,7 @@ export type ExperienceForDate =
   | PersonalExperience
   | WorkExperience;
 
-export const CareerTimelineExperience_Fragment = graphql(/* GraphQL */ `
+const CareerTimelineExperience_Fragment = graphql(/* GraphQL */ `
   fragment CareerTimelineExperience on Experience {
     id
     details
@@ -97,7 +97,7 @@ export const CareerTimelineExperience_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-export const CareerTimelineApplication_Fragment = graphql(/* GraphQL */ `
+const CareerTimelineApplication_Fragment = graphql(/* GraphQL */ `
   fragment CareerTimelineApplication on PoolCandidate {
     ...QualifiedRecruitmentsCandidate
     id

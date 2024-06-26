@@ -33,7 +33,7 @@ export function getDirectiveUrl(intl: IntlShape): string {
 export const OTHER_ID = "OTHER";
 
 // custom type guard for enum value
-export function isEnumValue<T extends object>(
+function isEnumValue<T extends object>(
   typeObject: T,
   value: unknown,
 ): value is T[keyof T] {
