@@ -111,6 +111,13 @@ export const DepartmentTable = ({
           from: currentUrl,
         },
       }}
+      nullMessage={{
+        description: intl.formatMessage({
+          defaultMessage: 'Use the "Create Department" button to get started.',
+          id: "yat9wx",
+          description: "Instructions for adding a department item.",
+        }),
+      }}
     />
   );
 };

@@ -13,6 +13,7 @@ use App\Enums\SecurityStatus;
 use App\Enums\SkillLevel;
 use App\Models\AssessmentStep;
 use App\Models\Classification;
+use App\Models\Department;
 use App\Models\GeneralQuestion;
 use App\Models\Pool;
 use App\Models\ScreeningQuestion;
@@ -62,12 +63,21 @@ class PoolFactory extends Factory
 
         $name = $this->faker->unique()->company();
 
+        $departmentId = Department::inRandomOrder()
+            ->limit(1)
+            ->pluck('id')
+            ->first();
+        if (is_null($departmentId)) {
+            $departmentId = Department::factory()->create()->id;
+        }
+
         // this is essentially the draft state
         return [
             'name' => ['en' => $name, 'fr' => $name],
             'user_id' => $adminUserId,
             'team_id' => $teamId,
             'classification_id' => $classification->id,
+            'department_id' => $departmentId,
         ];
     }
 

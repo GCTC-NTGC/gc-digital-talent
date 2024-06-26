@@ -36,8 +36,20 @@ const main: StorybookConfig = {
   // REF: https://stackoverflow.com/questions/77540892/chromatic-github-action-is-failing
   viteFinal(config) {
     config.plugins = (config.plugins ?? []).filter(
-      (plugin) => plugin && "name" in plugin && plugin.name !== "vite:dts",
+      (plugin) =>
+        plugin &&
+        "name" in plugin &&
+        plugin.name !== "vite:dts" &&
+        // Filter out git version plugin to hardcode for
+        // Stable snapshots
+        plugin.name !== "git-version",
     );
+    config.define = {
+      ...config.define,
+      // Hardcode vars for stable snapshots
+      BUILD_DATE: JSON.stringify("1970-01-01"),
+      VERSION: JSON.stringify("v1.0.0"),
+    };
     return config;
   },
 };

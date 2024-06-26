@@ -34,7 +34,7 @@ jobs:
       COMPOSE_DOCKER_CLI_BUILD: 1
       # Use buildkit to speed up docker command
       DOCKER_BUILDKIT: 1
-      PNPM_VERSION: "8.15.0"
+      PNPM_VERSION: "8.15.7"
     steps:
       # See: https://github.com/satackey/action-docker-layer-caching/issues/139#issuecomment-1007316528
       - name: reclaim space on runner
@@ -61,6 +61,10 @@ jobs:
         with:
           node-version-file: ".nvmrc"
           cache: pnpm
+
+      # Fix some issue with cache in setup-node
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Install Playwright Browsers
         run: npx playwright install chromium webkit --with-deps

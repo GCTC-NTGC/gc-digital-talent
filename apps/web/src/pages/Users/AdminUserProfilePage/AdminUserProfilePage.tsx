@@ -12,7 +12,6 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import UserProfile from "~/components/UserProfile";
-import AdminAboutUserSection from "~/components/AdminAboutUserSection/AdminAboutUserSection";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
@@ -262,23 +261,7 @@ export const AdminUserProfile = ({ userQuery }: AdminUserProfileProps) => {
           mode="solid"
         />
       </div>
-      <UserProfile
-        user={user}
-        headingLevel="h3"
-        sections={{
-          about: {
-            isVisible: true,
-            override: <AdminAboutUserSection user={user} />,
-          },
-          language: { isVisible: true },
-          government: { isVisible: true },
-          workLocation: { isVisible: true },
-          workPreferences: { isVisible: true },
-          employmentEquity: { isVisible: true },
-          careerTimelineAndRecruitment: { isVisible: true },
-          skillShowcase: { isVisible: true },
-        }}
-      />
+      <UserProfile user={user} headingLevel="h3" />
     </>
   );
 };

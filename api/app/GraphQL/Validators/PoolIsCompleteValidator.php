@@ -27,6 +27,7 @@ final class PoolIsCompleteValidator extends Validator
             'name.en' => ['string'],
             'name.fr' => ['string'],
             'classification_id' => ['required', 'uuid', 'exists:classifications,id'],
+            'department_id' => ['required', 'uuid', 'exists:departments,id'],
             'stream' => ['required', 'string'],
             'opportunity_length' => ['required', 'string'],
 

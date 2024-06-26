@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Department;
+use App\Models\Pool;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -201,5 +202,41 @@ class DepartmentTest extends TestCase
         $this->actingAs($this->adminUser, 'api')
             ->graphQL($mutation, $variables)
             ->assertJsonFragment(['id' => $this->toBeDeleted->id]);
+    }
+
+    public function testCanViewPools()
+    {
+        // a draft pool shouldn't be visible to a regular user
+        $draftPool = Pool::factory()
+            ->draft()
+            ->for($this->adminUser)
+            ->for($this->department)
+            ->create();
+
+        // a published pool should be visible to a regular user
+        $publishedPool = Pool::factory()
+            ->published()
+            ->for($this->adminUser)
+            ->for($this->department)
+            ->create();
+
+        $response = $this->actingAs($this->baseUser, 'api')
+            ->graphQL(
+                /** @lang GraphQL */ '
+                query Get($id: UUID!) {
+                    department(id: $id) {
+                        pools {
+                            id
+                        }
+                    }
+                } ', ['id' => $this->department->id]
+            );
+
+        $response->assertJsonFragment([
+            'pools' => [
+                ['id' => $publishedPool->id],
+            ],
+        ]);
+
     }
 }

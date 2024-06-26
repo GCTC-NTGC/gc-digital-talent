@@ -133,17 +133,12 @@ const CareerTimelineApplication_Fragment = graphql(/* GraphQL */ `
         minSalary
         maxSalary
       }
-
-      team {
+      department {
         id
-        name
-        departments {
-          id
-          departmentNumber
-          name {
-            en
-            fr
-          }
+        departmentNumber
+        name {
+          en
+          fr
         }
       }
     }

@@ -28,6 +28,10 @@ test.describe("Process actions", () => {
       .selectOption({ label: "Digital Community Management" });
 
     await adminPage.page
+      .getByRole("combobox", { name: /parent department/i })
+      .selectOption({ label: "Treasury Board Secretariat" });
+
+    await adminPage.page
       .getByRole("button", { name: /create process/i })
       .click();
     await adminPage.waitForGraphqlResponse("CreatePool");

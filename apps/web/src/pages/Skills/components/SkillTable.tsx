@@ -300,6 +300,13 @@ const SkillTable = ({
             }
           : undefined
       }
+      nullMessage={{
+        description: intl.formatMessage({
+          defaultMessage: 'Use the "Create skill" button to get started.',
+          id: "0jwdac",
+          description: "Instructions for adding a skill item.",
+        }),
+      }}
       filter={{
         state: filterState,
         component: (

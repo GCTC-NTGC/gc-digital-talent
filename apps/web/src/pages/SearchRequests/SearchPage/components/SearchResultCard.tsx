@@ -4,7 +4,6 @@ import { ReactNode, Fragment } from "react";
 
 import { Button, Link, Separator } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
 import { Pool, PoolSkillType } from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
@@ -25,9 +24,6 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
   const { register, setValue } = useFormContext();
   const poolSubmitProps = register("pool");
   const paths = useRoutes();
-  const departments = pool?.team?.departments
-    ?.filter(notEmpty)
-    .map((department) => getLocalizedName(department.name, intl));
   const essentialSkills = filterPoolSkillsByType(
     pool.poolSkills,
     PoolSkillType.Essential,
@@ -58,8 +54,8 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
         <span>
           {intl.formatMessage(
             {
-              defaultMessage: "Process run by {team} at {departments}",
-              id: "e2qUId",
+              defaultMessage: "Process run by {team} at {department}",
+              id: "Jfl1o+",
               description: "Team and department of pool",
             },
             {
@@ -70,8 +66,8 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
                     id: "S82O61",
                     description: "Default team for pool",
                   }),
-              departments: departments
-                ? departments.join(", ")
+              department: pool?.department
+                ? getLocalizedName(pool.department.name, intl)
                 : intl.formatMessage({
                     defaultMessage: "Treasury Board of Canada Secretariat",
                     id: "SZ2DsZ",

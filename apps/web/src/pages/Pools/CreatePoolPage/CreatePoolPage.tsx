@@ -44,9 +44,20 @@ const CreatePoolClassification_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+const CreatePoolDepartment_Fragment = graphql(/* GraphQL */ `
+  fragment CreatePoolDepartment on Department {
+    id
+    name {
+      en
+      fr
+    }
+  }
+`);
+
 type FormValues = {
   classification: string;
   team: string;
+  department: string;
 };
 
 interface CreatePoolFormProps {
@@ -54,6 +65,7 @@ interface CreatePoolFormProps {
   classificationsQuery: FragmentType<
     typeof CreatePoolClassification_Fragment
   >[];
+  departmentsQuery: FragmentType<typeof CreatePoolDepartment_Fragment>[];
   handleCreatePool: (
     userId: string,
     teamId: string,
@@ -65,6 +77,7 @@ interface CreatePoolFormProps {
 export const CreatePoolForm = ({
   userId,
   classificationsQuery,
+  departmentsQuery,
   handleCreatePool,
   teamsArray,
 }: CreatePoolFormProps) => {
@@ -77,11 +90,18 @@ export const CreatePoolForm = ({
     CreatePoolClassification_Fragment,
     classificationsQuery,
   );
+  const departments = getFragment(
+    CreatePoolDepartment_Fragment,
+    departmentsQuery,
+  );
 
   // submission section, and navigate to edit the created pool
   const formValuesToSubmitData = (values: FormValues): CreatePoolInput => ({
     classification: {
       connect: values.classification,
+    },
+    department: {
+      connect: values.department,
     },
   });
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
@@ -122,6 +142,11 @@ export const CreatePoolForm = ({
   const teamOptions: Option[] = teamsArray.map(({ id, displayName }) => ({
     value: id,
     label: getLocalizedName(displayName, intl),
+  }));
+
+  const departmentOptions: Option[] = departments.map(({ id, name }) => ({
+    value: id,
+    label: getLocalizedName(name, intl),
   }));
 
   return (
@@ -168,6 +193,26 @@ export const CreatePoolForm = ({
                 description: "Placeholder displayed for team selection input.",
               })}
               options={teamOptions}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <Select
+              id="department"
+              label={intl.formatMessage({
+                defaultMessage: "Parent department",
+                id: "D/Ymty",
+                description:
+                  "Label displayed on the pool form department field.",
+              })}
+              name="department"
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a department",
+                id: "y827h2",
+                description:
+                  "Null selection for department select input in the request form.",
+              })}
+              options={departmentOptions}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -234,6 +279,9 @@ const CreatePoolPage_Query = graphql(/* GraphQL */ `
     }
     classifications {
       ...CreatePoolClassification
+    }
+    departments {
+      ...CreatePoolDepartment
     }
   }
 `);
@@ -314,6 +362,7 @@ const CreatePoolPage = () => {
           <CreatePoolForm
             userId={data?.me?.id ?? ""}
             classificationsQuery={unpackMaybes(data?.classifications)}
+            departmentsQuery={unpackMaybes(data?.departments)}
             handleCreatePool={handleCreatePool}
             teamsArray={teamsArray}
           />

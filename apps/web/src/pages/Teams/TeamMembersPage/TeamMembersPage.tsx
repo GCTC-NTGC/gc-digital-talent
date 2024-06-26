@@ -125,6 +125,13 @@ const TeamMembers = ({ teamQuery }: TeamMembersProps) => {
           add: {
             component: <AddTeamMemberDialog team={team} members={members} />,
           },
+          nullMessage: {
+            description: intl.formatMessage({
+              defaultMessage: 'Use the "Add new member" button to get started.',
+              id: "SfbDLA",
+              description: "Instructions for adding a member to a team.",
+            }),
+          },
         })}
       />
     </>

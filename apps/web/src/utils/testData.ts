@@ -3,6 +3,7 @@ import { faker } from "@faker-js/faker/locale/en";
 import {
   fakeAssessmentSteps,
   fakeClassifications,
+  fakeDepartments,
   fakePoolCandidates,
   fakePools,
   fakeSkillFamilies,
@@ -28,6 +29,7 @@ const fakePool = fakePools(
   1,
   fakeSkills(20, fakeSkillFamilies(6)),
   fakeClassifications(),
+  fakeDepartments(),
   3,
 )[0];
 // make three assessment steps which assess all the pool skills
