@@ -1620,16 +1620,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v10.48.13",
+            "version": "v10.48.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "2c6816d697a4362c09c066118addda251b70b98a"
+                "reference": "27cb4736bb7e60a5311ec73160068dfbcf98336b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/2c6816d697a4362c09c066118addda251b70b98a",
-                "reference": "2c6816d697a4362c09c066118addda251b70b98a",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/27cb4736bb7e60a5311ec73160068dfbcf98336b",
+                "reference": "27cb4736bb7e60a5311ec73160068dfbcf98336b",
                 "shasum": ""
             },
             "require": {
@@ -1823,7 +1823,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2024-06-18T16:46:35+00:00"
+            "time": "2024-06-21T10:06:42+00:00"
         },
         {
             "name": "laravel/prompts",
@@ -3416,16 +3416,16 @@
         },
         {
             "name": "nuwave/lighthouse",
-            "version": "v6.38.0",
+            "version": "v6.38.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nuwave/lighthouse.git",
-                "reference": "d15b988aaf18938d39d58ac0bb9c155928b409db"
+                "reference": "16ffb6f45207b7cb25697730694b14887f736421"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/d15b988aaf18938d39d58ac0bb9c155928b409db",
-                "reference": "d15b988aaf18938d39d58ac0bb9c155928b409db",
+                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/16ffb6f45207b7cb25697730694b14887f736421",
+                "reference": "16ffb6f45207b7cb25697730694b14887f736421",
                 "shasum": ""
             },
             "require": {
@@ -3546,7 +3546,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2024-06-19T10:13:56+00:00"
+            "time": "2024-06-21T10:12:39+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",
@@ -8229,16 +8229,16 @@
         },
         {
             "name": "webonyx/graphql-php",
-            "version": "v15.12.4",
+            "version": "v15.12.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webonyx/graphql-php.git",
-                "reference": "4ddba1634c4c2d09c39623d6c13fa550588ed8b1"
+                "reference": "7bcd31d1dcf67781ed5cb493b22c519c539c05e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webonyx/graphql-php/zipball/4ddba1634c4c2d09c39623d6c13fa550588ed8b1",
-                "reference": "4ddba1634c4c2d09c39623d6c13fa550588ed8b1",
+                "url": "https://api.github.com/repos/webonyx/graphql-php/zipball/7bcd31d1dcf67781ed5cb493b22c519c539c05e6",
+                "reference": "7bcd31d1dcf67781ed5cb493b22c519c539c05e6",
                 "shasum": ""
             },
             "require": {
@@ -8291,7 +8291,7 @@
             ],
             "support": {
                 "issues": "https://github.com/webonyx/graphql-php/issues",
-                "source": "https://github.com/webonyx/graphql-php/tree/v15.12.4"
+                "source": "https://github.com/webonyx/graphql-php/tree/v15.12.5"
             },
             "funding": [
                 {
@@ -8299,7 +8299,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-06-19T13:54:11+00:00"
+            "time": "2024-06-23T11:30:58+00:00"
         }
     ],
     "packages-dev": [
