@@ -842,6 +842,7 @@ input PoolCandidateSearchInput {
   suspendedStatus: CandidateSuspendedFilter
   publishingGroups: [PublishingGroup]
   appliedClassifications: [ClassificationFilterInput]
+  processNumber: String
 }
 
 input PoolCandidateSearchRequestInput {

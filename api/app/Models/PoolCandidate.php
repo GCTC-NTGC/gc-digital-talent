@@ -1094,4 +1094,18 @@ class PoolCandidate extends Model
             'assessmentStepStatuses' => $decisions,
         ];
     }
+
+    public function scopeProcessNumber(Builder $query, ?string $processNumber): Builder
+    {
+        // Early return if no publishing groups were supplied
+        if (empty($processNumber)) {
+            return $query;
+        }
+
+        $query = $query->whereHas('pool', function ($query) use ($processNumber) {
+            $query->where('process_number', 'ilike', "%$processNumber%");
+        });
+
+        return $query;
+    }
 }

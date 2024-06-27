@@ -393,6 +393,7 @@ const PoolCandidatesTable = ({
       email: searchType === "email" ? searchBarTerm : undefined,
       name: searchType === "name" ? searchBarTerm : undefined,
       notes: searchType === "notes" ? searchBarTerm : undefined,
+      processNumber: searchType === "processNumber" ? searchBarTerm : undefined,
 
       // from fancy filter
       applicantFilter: {
@@ -568,8 +569,7 @@ const PoolCandidatesTable = ({
       ? []
       : [
           columnHelper.accessor(
-            ({ poolCandidate: { pool } }) =>
-              `${getFullPoolTitleLabel(intl, pool)} ${pool.processNumber}`,
+            ({ poolCandidate: { pool } }) => getFullPoolTitleLabel(intl, pool),
             {
               id: "process",
               header: intl.formatMessage(processMessages.process),
@@ -584,6 +584,10 @@ const PoolCandidatesTable = ({
             },
           ),
         ]),
+    columnHelper.accessor(({ poolCandidate: { pool } }) => pool.processNumber, {
+      id: "processNumber",
+      header: intl.formatMessage(processMessages.processNumber),
+    }),
     columnHelper.accessor(
       ({ poolCandidate: { user } }) =>
         intl.formatMessage(

@@ -51,16 +51,17 @@ const PoolStatusTable = ({ user }: PoolStatusTableProps) => {
       sortingFn: normalizedText,
       enableHiding: false,
       cell: ({ row: { original: candidate }, getValue }) =>
-        cells.view(
-          paths.poolView(candidate.pool.id),
-          `${getValue()} ${candidate.pool.processNumber}`,
-        ),
+        cells.view(paths.poolView(candidate.pool.id), getValue()),
       header: intl.formatMessage({
         defaultMessage: "Pool",
         id: "icYqDt",
         description:
           "Title of the 'Pool' column for the table on view-user page",
       }),
+    }),
+    columnHelper.accessor(({ pool }) => pool.processNumber, {
+      id: "processNumber",
+      header: intl.formatMessage(processMessages.processNumber),
     }),
     columnHelper.accessor(
       (row) => getLocalizedName(row.pool.team?.displayName, intl, true),

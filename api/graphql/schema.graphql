@@ -772,6 +772,7 @@ input PoolCandidateSearchInput {
   # There is also a classification field as part of ApplicantFilterInput however it includes scoping for availability.
   appliedClassifications: [ClassificationFilterInput]
     @scope(name: "appliedClassifications")
+  processNumber: String @scope(name: "processNumber")
 }
 
 input PoolCandidateSearchRequestInput {
