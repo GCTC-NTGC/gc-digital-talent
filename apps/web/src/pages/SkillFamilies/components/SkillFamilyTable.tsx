@@ -108,6 +108,14 @@ export const SkillFamilyTable = ({
           from: currentUrl,
         },
       }}
+      nullMessage={{
+        description: intl.formatMessage({
+          defaultMessage:
+            'Use the "Create Skill Family" button to get started.',
+          id: "zp1ShM",
+          description: "Instructions for adding a skill family item.",
+        }),
+      }}
     />
   );
 };

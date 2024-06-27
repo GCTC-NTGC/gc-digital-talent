@@ -191,6 +191,10 @@
     "defaultMessage": "Voir {name} <hidden>{hiddenLabel}</hidden>",
     "description": "Title displayed for the View Item column."
   },
+  "+zSc5y": {
+    "defaultMessage": "Utilisez le bouton \"Créer une équipe\" pour commencer.",
+    "description": "Instructions for adding a team item."
+  },
   "/+naWC": {
     "defaultMessage": "À évaluer",
     "description": "Message displayed when candidate has yet to be assessed at a specific assessment step"
@@ -230,10 +234,6 @@
   "/DCykA": {
     "defaultMessage": "J'envisagerais d'accepter un emploi d'une durée de...",
     "description": "Legend Text for required work preferences options in work preferences form"
-  },
-  "/GIL9l": {
-    "defaultMessage": "Ajoutez un élément pour commencer en cliquant sur le bouton afficher « Ajouter un nouvel élément ».",
-    "description": "Default description for an empty table"
   },
   "/I7wrY": {
     "defaultMessage": "Lier des compétences en vedette",
@@ -351,6 +351,10 @@
     "defaultMessage": "Statut du bassin de candidats",
     "description": "Label for the current applications pool status"
   },
+  "/pbxol": {
+    "defaultMessage": "Utilisez le bouton \"Ajouter une nouvelle adhésion\" pour commencer.",
+    "description": "Instructions for adding team membership to a user."
+  },
   "/qN7tM": {
     "defaultMessage": "Expérience supprimée",
     "description": "Message displayed to user after experience deleted."
@@ -402,6 +406,10 @@
   "07p+1J": {
     "defaultMessage": "Avez-vous d'autres questions? N'hésitez pas à <link> communiquer avec notre équipe</link> pour obtenir de plus amples renseignements. ",
     "description": "Third paragraph for pool closing date dialog"
+  },
+  "07sCDh": {
+    "defaultMessage": "Utilisez le bouton \"Créer un processus\" pour commencer.",
+    "description": "Instructions for adding a process item."
   },
   "08rkLr": {
     "defaultMessage": "Durée de la possibilité",
@@ -530,6 +538,10 @@
   "0jV7Rn": {
     "defaultMessage": "Complet",
     "description": "Simplified status label for a complete process advertisement or assessment"
+  },
+  "0jwdac": {
+    "defaultMessage": "Utilisez le bouton \"Créer une compétence\" pour commencer.",
+    "description": "Instructions for adding a skill item."
   },
   "0k6j4V": {
     "defaultMessage": "Tâches de travail (anglais)",
@@ -1818,6 +1830,10 @@
   "82Oe0C": {
     "defaultMessage": "J'envisagerais d'accepter un emploi qui...",
     "description": "Legend for optional work preferences check list in work preferences form"
+  },
+  "84XrK+": {
+    "defaultMessage": "On ne trouve aucun élément ici.",
+    "description": "Default message for an empty table"
   },
   "84rSVg": {
     "defaultMessage": "Permettre une croissance dans le cadre de sa portée de recrutement, en ciblant d’autres domaines professionnels à l’avenir.",
@@ -3462,10 +3478,6 @@
   "H5EXEi": {
     "defaultMessage": "En savoir plus sur cette possibilité et commencer à rédiger une demande d'emploi.",
     "description": "Subtitle for a pool advertisement page"
-  },
-  "H5kSPB": {
-    "defaultMessage": "On ne trouve aucun élément jusqu’à présent.",
-    "description": "Default message for an empty table"
   },
   "H8cs1r": {
     "defaultMessage": "Services consultatifs auprès des secteurs d’activité de la <abbreviation>TI</abbreviation>",
@@ -5479,6 +5491,10 @@
     "defaultMessage": "Vous recevrez des candidats qui ont :",
     "description": "Title for the candidate list in the 'Indigenous talent ready for IT apprenticeships' section"
   },
+  "SfbDLA": {
+    "defaultMessage": "Utilisez le bouton \"Ajouter un nouveau membre\" pour commencer.",
+    "description": "Instructions for adding a member to a team."
+  },
   "SfhT1q": {
     "defaultMessage": "Acquérir de l'expérience en matière d'embauche",
     "description": "Title to get hiring experience"
@@ -5646,6 +5662,10 @@
   "Tjd942": {
     "defaultMessage": "Solutions logicielles de la <abbreviation>TI</abbreviation>",
     "description": "Title for the 'software solutions' IT work stream"
+  },
+  "Tl2FNA": {
+    "defaultMessage": "Utilisez le bouton \"Créer une classification\" pour commencer.",
+    "description": "Instructions for adding a classification item."
   },
   "TomxAe": {
     "defaultMessage": "{time} le {date}",
@@ -6085,6 +6105,10 @@
   "WAcWqh": {
     "defaultMessage": "{title} évaluation - {skillName}",
     "description": "Header for application screening decision dialog."
+  },
+  "WCOVvw": {
+    "defaultMessage": "Utilisez le bouton \"Ajouter un nouveau rôle\" pour commencer.",
+    "description": "Instructions for adding a role to a user."
   },
   "WDKT2K": {
     "defaultMessage": "Qu'est-ce qu'une CléGC?",
@@ -7273,10 +7297,6 @@
   "cF8idC": {
     "defaultMessage": "Candidature",
     "description": "Label for the application link column"
-  },
-  "cIqhQK": {
-    "defaultMessage": "Il n'y a aucun élément à afficher.",
-    "description": "Message when there is no data to display in a table"
   },
   "cL3OoZ": {
     "defaultMessage": "Notification non lue",
@@ -11302,6 +11322,10 @@
     "defaultMessage": "Un code d’identification de dossier personnel (CIDP)",
     "description": "Item 4 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section"
   },
+  "yat9wx": {
+    "defaultMessage": "Utilisez le bouton \"Créer un ministère\" pour commencer.",
+    "description": "Instructions for adding a department item."
+  },
   "ybzxmU": {
     "defaultMessage": "Membre des FAC",
     "description": "Veteran/member label"
@@ -11477,6 +11501,10 @@
   "znuDvD": {
     "defaultMessage": "Sélectionner des compétences dans votre bibliothèque ou en ajouter de toutes nouvelles.",
     "description": "Subtitle for the find a skill dialog within the skill showcase"
+  },
+  "zp1ShM": {
+    "defaultMessage": "Utilisez le bouton \"Créer une famille de compétences\" pour commencer.",
+    "description": "Instructions for adding a skill family item."
   },
   "zp8FqH": {
     "defaultMessage": "Vos réponses aux  <strong>questions de présélection seront évaluées</strong> dans le cadre de votre demande d'emploi. Veillez donc à consacrer à chaque question le temps et la réflexion nécessaires pour donner une réponse qui vous reflète réellement votre identité et votre expérience.",

@@ -444,6 +444,13 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
           }),
         },
       }}
+      nullMessage={{
+        description: intl.formatMessage({
+          defaultMessage: 'Use the "Create process" button to get started.',
+          id: "07sCDh",
+          description: "Instructions for adding a process item.",
+        }),
+      }}
     />
   );
 };

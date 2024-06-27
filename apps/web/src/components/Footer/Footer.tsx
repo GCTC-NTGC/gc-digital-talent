@@ -70,6 +70,7 @@ const Footer = ({ width }: FooterProps) => {
       "data-h2-container": "base(center, full, x1) p-tablet(center, full, x2)",
     };
   }
+
   return (
     <footer
       data-h2-background-color="base(foreground) base:dark(white)"

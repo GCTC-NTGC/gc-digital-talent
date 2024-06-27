@@ -1565,8 +1565,8 @@ class PoolTest extends TestCase
      */
     public function testPoolBookmarksScope(): void
     {
-        $pool1 = Pool::factory()->create();
-        $pool2 = Pool::factory()->withBookmark($this->adminUser->id)->create();
+        $pool1 = Pool::factory(['created_at' => config('constants.past_date')])->create();
+        $pool2 = Pool::factory(['created_at' => config('constants.past_date')])->withBookmark($this->adminUser->id)->create();
         $pool3 = Pool::factory()->create();
 
         $query = /** @lang GraphQL */

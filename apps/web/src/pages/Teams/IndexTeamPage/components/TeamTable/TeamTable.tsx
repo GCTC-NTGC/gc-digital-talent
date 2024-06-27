@@ -158,6 +158,13 @@ export const TeamTable = ({
           from: currentUrl,
         },
       }}
+      nullMessage={{
+        description: intl.formatMessage({
+          defaultMessage: 'Use the "Create Team" button to get started.',
+          id: "+zSc5y",
+          description: "Instructions for adding a team item.",
+        }),
+      }}
     />
   );
 };
