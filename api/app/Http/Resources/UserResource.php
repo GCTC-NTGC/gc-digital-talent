@@ -2,6 +2,10 @@
 
 namespace App\Http\Resources;
 
+use App\Enums\EstimatedLanguageAbility;
+use App\Enums\EvaluatedLanguageAbility;
+use App\Enums\Language;
+use App\Enums\ProvinceOrTerritory;
 use App\Models\Department;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -57,10 +61,10 @@ class UserResource extends JsonResource
             'lastName' => $this->last_name,
             'email' => $this->email,
             'telephone' => $this->telephone,
-            'preferredLang' => $this->preferred_lang ? strtoupper($this->preferred_lang) : null,
-            'preferredLanguageForInterview' => $this->preferred_language_for_interview ? strtoupper($this->preferred_language_for_interview) : null,
-            'preferredLanguageForExam' => $this->preferred_language_for_exam ? strtoupper($this->preferred_language_for_exam) : null,
-            'currentProvince' => $this->current_province,
+            'preferredLang' => $this->preferred_lang ? Language::localizedString($this->preferred_lang) : null,
+            'preferredLanguageForInterview' => $this->preferred_language_for_interview ? Language::localizedString($this->preferred_language_for_interview) : null,
+            'preferredLanguageForExam' => $this->preferred_language_for_exam ? Language::localizedString($this->preferred_language_for_exam) : null,
+            'currentProvince' => $this->current_province ? ProvinceOrTerritory::localizedString($this->current_province) : null,
             'currentCity' => $this->current_city,
             'citizenship' => $this->citizenship,
             'armedForcesStatus' => $this->armed_forces_status,
@@ -68,13 +72,13 @@ class UserResource extends JsonResource
             'lookingForFrench' => $this->looking_for_french,
             'lookingForBilingual' => $this->looking_for_bilingual,
             'firstOfficialLanguage' => $this->first_official_language ?
-                strtoupper($this->first_official_language) : null,
+                Language::localizedString($this->first_official_language) : null,
             'secondLanguageExamCompleted' => $this->second_language_exam_completed,
             'secondLanguageExamValidity' => $this->second_language_exam_validity,
-            'comprehensionLevel' => $this->comprehension_level,
-            'writtenLevel' => $this->written_level,
-            'verbalLevel' => $this->verbal_level,
-            'estimatedLanguageAbility' => $this->estimated_language_ability,
+            'comprehensionLevel' => $this->comprehension_level ? EvaluatedLanguageAbility::localizedString($this->comprehension_level) : null,
+            'writtenLevel' => $this->written_level ? EvaluatedLanguageAbility::localizedString($this->written_level) : null,
+            'verbalLevel' => $this->verbal_level ? EvaluatedLanguageAbility::localizedString($this->verbal_level) : null,
+            'estimatedLanguageAbility' => $this->estimated_language_ability ? EstimatedLanguageAbility::localizedString($this->estimated_language_ability) : null,
             'isGovEmployee' => $this->is_gov_employee,
             'hasPriorityEntitlement' => $this->has_priority_entitlement,
             'govEmployeeType' => $this->gov_employee_type,

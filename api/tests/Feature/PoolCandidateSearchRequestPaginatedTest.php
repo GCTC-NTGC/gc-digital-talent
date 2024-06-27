@@ -65,7 +65,7 @@ class PoolCandidateSearchRequestPaginatedTest extends TestCase
                 data
                     {
                         id
-                        status
+                        status { value }
                     }
                 paginatorInfo
                     {
