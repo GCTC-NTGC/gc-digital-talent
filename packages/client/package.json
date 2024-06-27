@@ -24,7 +24,7 @@
     "@gc-digital-talent/env": "workspace:*",
     "@urql/core": "^5.0.4",
     "@urql/exchange-auth": "^2.2.0",
-    "graphql": "^16.8.2",
+    "graphql": "^16.9.0",
     "jwt-decode": "^4.0.0",
     "lodash": "^4.17.21",
     "react-intl": "^6.6.8",
