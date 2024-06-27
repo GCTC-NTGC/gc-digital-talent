@@ -1,14 +1,14 @@
 import {
-  User,
   Language,
   ProvinceOrTerritory,
   WorkRegion,
   PositionDuration,
   CitizenshipStatus,
   ArmedForcesStatus,
+  CreateUserInput,
 } from "@gc-digital-talent/graphql";
 
-export const defaultUser: Partial<User> = {
+export const defaultUser: Partial<CreateUserInput> = {
   // required
   firstName: "Playwright",
   lastName: "User",

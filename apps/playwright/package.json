@@ -11,7 +11,8 @@
     "e2e:playwright:webkit": "pnpm exec playwright test --project=webkit",
     "e2e:playwright:report": "pnpm exec playwright show-report",
     "lint": "eslint \"constants/**\" \"fixtures/**\" \"tests/**\" \"utils/**\" --ext .js,.ts,.jsx,.tsx",
-    "lint:fix": "eslint ./ --fix --ext .js,.ts,.jsx,.tsx"
+    "lint:fix": "eslint ./ --fix --ext .js,.ts,.jsx,.tsx",
+    "tsc": "tsc --project tsconfig.json --noEmit"
   },
   "devDependencies": {
     "@gc-digital-talent/date-helpers": "workspace:*",

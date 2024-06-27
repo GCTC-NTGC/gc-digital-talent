@@ -40,7 +40,7 @@ test.describe("Talent search", () => {
     const poolPage = new PoolPage(adminPage.page);
     const skills = await getSkills();
     const technicalSkill = skills.find(
-      (s) => s.category === SkillCategory.Technical,
+      (s) => s.category.value === SkillCategory.Technical,
     );
     skill = technicalSkill;
 
