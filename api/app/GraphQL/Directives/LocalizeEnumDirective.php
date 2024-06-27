@@ -46,10 +46,25 @@ GRAPHQL;
                 throw new DefinitionException($exceptionMessage);
             }
 
-            return [
-                'value' => $result,
-                'label' => ! is_null($result) ? $enum::localizedString($result) : null,
-            ];
+            if (is_array($result)) {
+                return array_map(function ($singleResult) use ($enum) {
+                    return $this->transformResult($singleResult, $enum);
+                }, $result);
+            }
+
+            return $this->transformResult($result, $enum);
         });
+    }
+
+    protected function transformResult(mixed $result, string $enum)
+    {
+        if (is_null($result)) {
+            return null;
+        }
+
+        return [
+            'value' => $result,
+            'label' => $enum::localizedString($result),
+        ];
     }
 }
