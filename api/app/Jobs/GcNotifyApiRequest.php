@@ -15,6 +15,7 @@ use Illuminate\Queue\Middleware\ThrottlesExceptions;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class GcNotifyApiRequest implements ShouldQueue
 {
@@ -29,9 +30,9 @@ class GcNotifyApiRequest implements ShouldQueue
     {
         return [
             (new GcNotifyRateLimited),
-            (new ThrottlesExceptions(10, 5))
+            (new ThrottlesExceptions(3, 10))
                 ->byJob()
-                ->backoff(5),
+                ->backoff(4),
         ];
     }
 
@@ -66,6 +67,14 @@ class GcNotifyApiRequest implements ShouldQueue
             $errorMessage = 'Notification failed to send on GcNotifyEmailChannel. '.$firstApiErrorMessage.' ';
             Log::error($errorMessage);
             Log::debug($response->body());
+
+            // Sometimes, it's not worth retrying
+            if (Str::startsWith($firstApiErrorMessage, 'Can’t send to this recipient using a team-only API key')) {
+                $this->fail();
+
+                return;
+            }
+
             throw new Exception($errorMessage);
         }
     }
