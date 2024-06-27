@@ -2,7 +2,9 @@ import { useIntl } from "react-intl";
 import { OperationContext, useQuery } from "urql";
 
 import {
+  EmploymentDuration,
   commonMessages,
+  getEmploymentDuration,
   getLocalizedName,
   navigationMessages,
   sortWorkRegion,
@@ -12,6 +14,7 @@ import {
   Checklist,
   Combobox,
   Select,
+  enumToOptions,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -74,13 +77,6 @@ const UserFilterData_Query = graphql(/* GraphQL */ `
     operationalRequirements: localizedEnumStrings(
       enumName: "OperationalRequirement"
     ) {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    employmentDurations: localizedEnumStrings(enumName: "EmploymentDuration") {
       value
       label {
         en
@@ -158,7 +154,10 @@ const UserFilterDialog = ({
               id: "2ingb6",
               description: "Label for the employment duration field",
             })}
-            options={localizedEnumToOptions(data?.employmentDurations, intl)}
+            options={enumToOptions(EmploymentDuration).map(({ value }) => ({
+              value,
+              label: intl.formatMessage(getEmploymentDuration(value, "short")),
+            }))}
           />
           <Checklist
             idPrefix="workRegion"

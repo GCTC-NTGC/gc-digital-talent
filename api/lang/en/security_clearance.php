@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'reliability' => 'Reliability',
+    'reliability' => 'Reliability or higher',
     'secret' => 'Secret or higher',
     'top_secret' => 'Top secret',
 ];
