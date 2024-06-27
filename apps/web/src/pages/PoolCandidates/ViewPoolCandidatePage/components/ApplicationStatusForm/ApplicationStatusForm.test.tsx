@@ -4,7 +4,10 @@
 import "@testing-library/jest-dom";
 import { fireEvent, screen, waitFor } from "@testing-library/react";
 
-import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
+import {
+  fakePoolCandidates,
+  toLocalizedEnum,
+} from "@gc-digital-talent/fake-data";
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
 
@@ -56,7 +59,7 @@ describe("ApplicationStatusForm", () => {
       ...defaultProps,
       application: {
         ...mockApplication,
-        status: PoolCandidateStatus.QualifiedAvailable, // The Draft, DraftExpired, and Expired statuses are not valid options
+        status: toLocalizedEnum(PoolCandidateStatus.QualifiedAvailable), // The Draft, DraftExpired, and Expired statuses are not valid options
       },
       onSubmit: mockSubmit,
     });

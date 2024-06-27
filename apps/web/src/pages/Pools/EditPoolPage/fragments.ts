@@ -6,11 +6,19 @@ export const EditPoolSkills_Fragment = graphql(/* GraphQL */ `
     id
     status {
       value
+      label {
+        en
+        fr
+      }
     }
     poolSkills {
       id
       type {
         value
+        label {
+          en
+          fr
+        }
       }
       requiredLevel
       skill {
@@ -18,6 +26,10 @@ export const EditPoolSkills_Fragment = graphql(/* GraphQL */ `
         key
         category {
           value
+          label {
+            en
+            fr
+          }
         }
         name {
           en

@@ -38,7 +38,9 @@ export const getApplicationSteps = ({
   // build the order of step functions to call
   const stepInfoFunctions = [
     welcomeStepInfo,
-    ...(isIAPPool(application.pool) ? [selfDeclarationStepInfo] : []),
+    ...(isIAPPool(application.pool.publishingGroup?.value)
+      ? [selfDeclarationStepInfo]
+      : []),
     profileStepInfo,
     careerTimelineStepInfo,
     educationStepInfo,

@@ -16,8 +16,8 @@ import {
   Pool,
   AssessmentResultStatus,
   Scalars,
-  LocalizedPriorityWeight,
   LocalizedPoolCandidateStatus,
+  LocalizedString,
 } from "@gc-digital-talent/graphql";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
@@ -74,11 +74,11 @@ export const bookmarkHeader = (intl: IntlShape) => (
 
 export const priorityCell = (
   priorityWeight: number | null | undefined,
-  priority: Maybe<LocalizedPriorityWeight> | undefined,
+  priority: Maybe<LocalizedString> | undefined,
   intl: IntlShape,
 ) => {
-  if (!priority?.label || !priorityWeight) return null;
-  const label = getLocalizedName(priority.label, intl);
+  if (!priority || !priorityWeight) return null;
+  const label = getLocalizedName(priority, intl);
 
   if (priorityWeight === 10 || priorityWeight === 20) {
     return (

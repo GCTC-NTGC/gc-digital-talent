@@ -41,16 +41,32 @@ const IndexPoolCandidatePage_Query = graphql(/* GraphQL */ `
       }
       stream {
         value
+        label {
+          en
+          fr
+        }
       }
       closingDate
       status {
         value
+        label {
+          en
+          fr
+        }
       }
       language {
         value
+        label {
+          en
+          fr
+        }
       }
       securityClearance {
         value
+        label {
+          en
+          fr
+        }
       }
       classification {
         id
@@ -66,6 +82,10 @@ const IndexPoolCandidatePage_Query = graphql(/* GraphQL */ `
           id
           key {
             value
+            label {
+              en
+              fr
+            }
           }
           name {
             en
@@ -93,6 +113,10 @@ const IndexPoolCandidatePage_Query = graphql(/* GraphQL */ `
         id
         type {
           value
+          label {
+            en
+            fr
+          }
         }
         skill {
           id
@@ -107,6 +131,10 @@ const IndexPoolCandidatePage_Query = graphql(/* GraphQL */ `
           }
           category {
             value
+            label {
+              en
+              fr
+            }
           }
           families {
             id
@@ -130,10 +158,18 @@ const IndexPoolCandidatePage_Query = graphql(/* GraphQL */ `
       }
       stream {
         value
+        label {
+          en
+          fr
+        }
       }
       processNumber
       publishingGroup {
         value
+        label {
+          en
+          fr
+        }
       }
       generalQuestions {
         id

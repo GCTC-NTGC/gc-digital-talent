@@ -3,6 +3,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import {
   fakeDepartments,
   fakePoolCandidates,
+  toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 import {
@@ -19,7 +20,7 @@ const departments = fakeDepartments();
 const placedData = makeFragmentData(
   {
     id: fakedCandidate.id,
-    status: PoolCandidateStatus.PlacedCasual,
+    status: toLocalizedEnum(PoolCandidateStatus.PlacedCasual),
     placedDepartment: departments[0],
   },
   JobPlacementDialog_Fragment,
@@ -27,7 +28,7 @@ const placedData = makeFragmentData(
 const notPlacedData = makeFragmentData(
   {
     id: fakedCandidate.id,
-    status: PoolCandidateStatus.QualifiedAvailable,
+    status: toLocalizedEnum(PoolCandidateStatus.QualifiedAvailable),
     placedDepartment: departments[0],
   },
   JobPlacementDialog_Fragment,

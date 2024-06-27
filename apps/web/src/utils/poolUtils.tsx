@@ -30,7 +30,6 @@ import {
   PoolOpportunityLength,
   LocalizedPoolStream,
   LocalizedPoolStatus,
-  LocalizedString,
 } from "@gc-digital-talent/graphql";
 
 import { PageNavInfo } from "~/types/pages";
@@ -390,7 +389,7 @@ export const getAdvertisementStatus = (
 
 type StatusBadge = {
   color: Color;
-  label?: MessageDescriptor | Maybe<LocalizedString>;
+  label?: MessageDescriptor | string;
   icon?: IconType;
 };
 
@@ -424,15 +423,16 @@ export const getPoolCompletenessBadge = (completeness: PoolCompleteness) => {
 };
 
 export const getProcessStatusBadge = (
-  status: LocalizedPoolStatus,
+  status: Maybe<LocalizedPoolStatus> | undefined,
+  intl: IntlShape,
 ): StatusBadge => {
   const statusBadge: StatusBadge = {
     color: "black",
-    label: status.label,
+    label: getLocalizedName(status?.label, intl),
     icon: LockClosedIcon,
   };
 
-  if (status.value === PoolStatus.Draft) {
+  if (status?.value === PoolStatus.Draft) {
     return {
       ...statusBadge,
       color: "warning",
@@ -440,9 +440,9 @@ export const getProcessStatusBadge = (
     };
   }
 
-  if (status.value === PoolStatus.Published) {
+  if (status?.value === PoolStatus.Published) {
     return {
-      label: poolMessages.open,
+      label: intl.formatMessage(poolMessages.open),
       color: "primary",
       icon: RocketLaunchIcon,
     };

@@ -43,6 +43,10 @@ const EditPoolClosingDate_Fragment = graphql(/* GraphQL */ `
     id
     status {
       value
+      label {
+        en
+        fr
+      }
     }
     closingDate
   }
@@ -119,7 +123,7 @@ const ClosingDateSection = ({
   };
 
   // disabled unless status is draft
-  const formDisabled = pool.status !== PoolStatus.Draft;
+  const formDisabled = pool.status?.value !== PoolStatus.Draft;
 
   const subtitle = intl.formatMessage(
     {

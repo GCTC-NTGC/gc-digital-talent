@@ -79,7 +79,7 @@ const GeneralQuestionsSection = ({
 
   // disabled unless status is draft
   const formDisabled =
-    pool.status !== PoolStatus.Draft || isUpdating || isSubmitting;
+    pool.status?.value !== PoolStatus.Draft || isUpdating || isSubmitting;
 
   return (
     <>

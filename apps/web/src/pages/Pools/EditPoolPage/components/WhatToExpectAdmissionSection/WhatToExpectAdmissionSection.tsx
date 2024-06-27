@@ -37,6 +37,10 @@ const EditPoolWhatToExpectAdmission_Fragment = graphql(/* GraphQL */ `
     id
     status {
       value
+      label {
+        en
+        fr
+      }
     }
     whatToExpectAdmission {
       en
@@ -73,7 +77,7 @@ const WhatToExpectAdmissionSection = ({
   const intl = useIntl();
   const pool = getFragment(EditPoolWhatToExpectAdmission_Fragment, poolQuery);
   const isNull = hasAllEmptyFields(pool);
-  const canEdit = useCanUserEditPool(pool.status);
+  const canEdit = useCanUserEditPool(pool.status?.value);
   const { isSubmitting } = useEditPoolContext();
   const { isEditing, setIsEditing, icon } = useToggleSectionInfo({
     isNull,
@@ -188,7 +192,7 @@ const WhatToExpectAdmissionSection = ({
               </div>
 
               <ActionWrapper>
-                {canEdit && pool.status === PoolStatus.Draft && (
+                {canEdit && pool.status?.value === PoolStatus.Draft && (
                   <Submit
                     text={intl.formatMessage(formMessages.saveChanges)}
                     aria-label={intl.formatMessage({
@@ -202,7 +206,7 @@ const WhatToExpectAdmissionSection = ({
                     isSubmitting={isSubmitting}
                   />
                 )}
-                {canEdit && pool.status === PoolStatus.Published && (
+                {canEdit && pool.status?.value === PoolStatus.Published && (
                   <UpdatePublishedProcessDialog
                     poolQuery={pool}
                     onUpdatePublished={handleUpdatePublished}

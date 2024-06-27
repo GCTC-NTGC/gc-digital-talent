@@ -8,15 +8,15 @@ import {
   getCitizenshipStatusesProfile,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
+import { User } from "@gc-digital-talent/graphql";
 
 import profileMessages from "~/messages/profileMessages";
 
 import FieldDisplay from "../FieldDisplay";
 import DisplayColumn from "../DisplayColumn";
-import { PartialUser } from "./types";
 
 interface DisplayProps {
-  user: PartialUser;
+  user: User;
 }
 
 const Display = ({

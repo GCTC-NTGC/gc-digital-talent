@@ -103,6 +103,10 @@ export const ExperienceFormSkill_Fragment = graphql(/* GraphQL */ `
     }
     category {
       value
+      label {
+        en
+        fr
+      }
     }
     families {
       id
@@ -135,6 +139,10 @@ export const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
       }
       category {
         value
+        label {
+          en
+          fr
+        }
       }
       experienceSkillRecord {
         details
@@ -146,9 +154,17 @@ export const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
       awardedDate
       awardedTo {
         value
+        label {
+          en
+          fr
+        }
       }
       awardedScope {
         value
+        label {
+          en
+          fr
+        }
       }
     }
     ... on CommunityExperience {
@@ -166,9 +182,17 @@ export const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
       endDate
       type {
         value
+        label {
+          en
+          fr
+        }
       }
       status {
         value
+        label {
+          en
+          fr
+        }
       }
     }
     ... on PersonalExperience {

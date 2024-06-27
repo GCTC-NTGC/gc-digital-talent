@@ -77,10 +77,33 @@ const UserCandidatesTableRow_Fragment = graphql(/* GraphQL */ `
       }
       pool {
         id
+        stream {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        publishingGroup {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        classification {
+          id
+          group
+          level
+        }
         assessmentSteps {
           id
           type {
             value
+            label {
+              en
+              fr
+            }
           }
           sortOrder
           title {
@@ -91,6 +114,10 @@ const UserCandidatesTableRow_Fragment = graphql(/* GraphQL */ `
             id
             type {
               value
+              label {
+                en
+                fr
+              }
             }
             requiredLevel
           }
@@ -188,7 +215,8 @@ const UserCandidatesTable = ({
       {
         id: "priority",
         header: intl.formatMessage(adminMessages.category),
-        cell: () => priorityCell(user.priorityWeight, user.priority, intl),
+        cell: () =>
+          priorityCell(user.priorityWeight, user.priority?.label, intl),
       },
     ),
     columnHelper.accessor(

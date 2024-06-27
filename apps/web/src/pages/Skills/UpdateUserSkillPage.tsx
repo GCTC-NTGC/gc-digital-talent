@@ -26,6 +26,7 @@ import { toast } from "@gc-digital-talent/toast";
 import {
   FragmentType,
   Scalars,
+  SkillCategory,
   SkillLevel,
   WhenSkillUsed,
   getFragment,
@@ -121,6 +122,10 @@ export const UpdateUserSkillSkill_Fragment = graphql(/* GraphQL */ `
     key
     category {
       value
+      label {
+        en
+        fr
+      }
     }
     name {
       en
@@ -203,6 +208,10 @@ export const UpdateUserSkill_Fragment = graphql(/* GraphQL */ `
       key
       category {
         value
+        label {
+          en
+          fr
+        }
       }
       name {
         en
@@ -222,9 +231,17 @@ export const UpdateUserSkill_Fragment = graphql(/* GraphQL */ `
         awardedDate
         awardedTo {
           value
+          label {
+            en
+            fr
+          }
         }
         awardedScope {
           value
+          label {
+            en
+            fr
+          }
         }
       }
       ... on CommunityExperience {
@@ -242,9 +259,17 @@ export const UpdateUserSkill_Fragment = graphql(/* GraphQL */ `
         endDate
         type {
           value
+          label {
+            en
+            fr
+          }
         }
         status {
           value
+          label {
+            en
+            fr
+          }
         }
       }
       ... on PersonalExperience {
@@ -265,6 +290,10 @@ export const UpdateUserSkill_Fragment = graphql(/* GraphQL */ `
         key
         category {
           value
+          label {
+            en
+            fr
+          }
         }
         name {
           en
@@ -529,7 +558,9 @@ export const UpdateUserSkillForm = ({
                   data-h2-gap="base(x1 0)"
                   data-h2-margin="base(x1, 0, x2, 0)"
                 >
-                  <UserSkillFormFields category={skill.category} />
+                  <UserSkillFormFields
+                    category={skill.category.value ?? SkillCategory.Technical}
+                  />
                   <div
                     data-h2-display="base(flex)"
                     data-h2-flex-wrap="base(wrap)"

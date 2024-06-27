@@ -34,6 +34,10 @@ const EditPoolSpecialNote_Fragment = graphql(/* GraphQL */ `
     id
     status {
       value
+      label {
+        en
+        fr
+      }
     }
     specialNote {
       en
@@ -68,7 +72,7 @@ const SpecialNoteSection = ({
   const intl = useIntl();
   const pool = getFragment(EditPoolSpecialNote_Fragment, poolQuery);
   const isNull = hasAllEmptyFields(pool);
-  const canEdit = useCanUserEditPool(pool.status);
+  const canEdit = useCanUserEditPool(pool.status?.value);
   const { isSubmitting } = useEditPoolContext();
   const { isEditing, setIsEditing, icon } = useToggleSectionInfo({
     isNull,
@@ -227,7 +231,7 @@ const SpecialNoteSection = ({
               )}
 
               <ActionWrapper>
-                {canEdit && pool.status === PoolStatus.Draft && (
+                {canEdit && pool.status?.value === PoolStatus.Draft && (
                   <Submit
                     text={intl.formatMessage(formMessages.saveChanges)}
                     aria-label={intl.formatMessage({
@@ -241,7 +245,7 @@ const SpecialNoteSection = ({
                     isSubmitting={isSubmitting}
                   />
                 )}
-                {canEdit && pool.status === PoolStatus.Published && (
+                {canEdit && pool.status?.value === PoolStatus.Published && (
                   <UpdatePublishedProcessDialog
                     poolQuery={pool}
                     onUpdatePublished={handleUpdatePublished}

@@ -72,6 +72,22 @@ export function enumInputToLocalizedEnum<T extends string>(
     : undefined;
 }
 
+export function localizedEnumToInput<T>(
+  localizedEnum?: Maybe<GenericLocalizedEnum<T>>,
+): Maybe<T> | undefined {
+  return localizedEnum?.value;
+}
+
+export function localizedEnumArrayToInput<T>(
+  localizedEnumArray?: Maybe<Maybe<GenericLocalizedEnum<T>>[]>,
+): Maybe<Maybe<T>[] | undefined> | undefined {
+  return unpackMaybes(
+    localizedEnumArray?.map((localizedEnum) =>
+      localizedEnumToInput(localizedEnum),
+    ),
+  );
+}
+
 export function sortAwardedTo(awardTo?: MaybeLocalizedEnums) {
   return sortLocalizedEnums(
     [

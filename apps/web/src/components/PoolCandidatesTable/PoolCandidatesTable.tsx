@@ -103,6 +103,10 @@ const CandidatesTable_Query = graphql(/* GraphQL */ `
       }
       category {
         value
+        label {
+          en
+          fr
+        }
       }
       families {
         id
@@ -164,6 +168,10 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
             }
             stream {
               value
+              label {
+                en
+                fr
+              }
             }
           }
           assessmentStatus {
@@ -179,22 +187,46 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
             telephone
             preferredLang {
               value
+              label {
+                en
+                fr
+              }
             }
             preferredLanguageForInterview {
               value
+              label {
+                en
+                fr
+              }
             }
             preferredLanguageForExam {
               value
+              label {
+                en
+                fr
+              }
             }
             currentCity
             currentProvince {
               value
+              label {
+                en
+                fr
+              }
             }
             citizenship {
               value
+              label {
+                en
+                fr
+              }
             }
             armedForcesStatus {
               value
+              label {
+                en
+                fr
+              }
             }
 
             # Language
@@ -203,26 +235,50 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
             lookingForBilingual
             firstOfficialLanguage {
               value
+              label {
+                en
+                fr
+              }
             }
             secondLanguageExamCompleted
             secondLanguageExamValidity
             comprehensionLevel {
               value
+              label {
+                en
+                fr
+              }
             }
             writtenLevel {
               value
+              label {
+                en
+                fr
+              }
             }
             verbalLevel {
               value
+              label {
+                en
+                fr
+              }
             }
             estimatedLanguageAbility {
               value
+              label {
+                en
+                fr
+              }
             }
 
             # Gov info
             isGovEmployee
             govEmployeeType {
               value
+              label {
+                en
+                fr
+              }
             }
             currentClassification {
               id
@@ -250,6 +306,10 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
             hasDisability
             indigenousCommunities {
               value
+              label {
+                en
+                fr
+              }
             }
             indigenousDeclarationSignature
 
@@ -257,10 +317,18 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
             hasDiploma
             locationPreferences {
               value
+              label {
+                en
+                fr
+              }
             }
             locationExemptions
             acceptedOperationalRequirements {
               value
+              label {
+                en
+                fr
+              }
             }
             positionDuration
             priorityWeight
@@ -276,6 +344,10 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
           expiryDate
           status {
             value
+            label {
+              en
+              fr
+            }
           }
           submittedAt
           notes

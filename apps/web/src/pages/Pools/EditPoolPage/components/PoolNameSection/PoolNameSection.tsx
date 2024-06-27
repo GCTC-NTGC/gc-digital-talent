@@ -50,16 +50,32 @@ const EditPoolName_Fragment = graphql(/* GraphQL */ `
     id
     status {
       value
+      label {
+        en
+        fr
+      }
     }
     processNumber
     publishingGroup {
       value
+      label {
+        en
+        fr
+      }
     }
     opportunityLength {
       value
+      label {
+        en
+        fr
+      }
     }
     stream {
       value
+      label {
+        en
+        fr
+      }
     }
     classification {
       id

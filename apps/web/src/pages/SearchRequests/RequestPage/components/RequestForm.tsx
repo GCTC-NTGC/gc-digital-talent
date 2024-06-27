@@ -132,6 +132,10 @@ const PoolsInFilter_Query = graphql(/* GraphQL */ `
         }
         stream {
           value
+          label {
+            en
+            fr
+          }
         }
       }
     }
@@ -748,6 +752,10 @@ const RequestForm_SearchRequestDataQuery = graphql(/* GraphQL */ `
       }
       category {
         value
+        label {
+          en
+          fr
+        }
       }
     }
     classifications {
@@ -775,7 +783,7 @@ const RequestFormApi = ({
     query: RequestForm_SearchRequestDataQuery,
   });
 
-  const skills: Skill[] = lookupData?.skills.filter(notEmpty) ?? [];
+  const skills: Skill[] = unpackMaybes(lookupData?.skills);
 
   const [, executeMutation] = useMutation(RequestForm_CreateRequestMutation);
   const handleCreatePoolCandidateSearchRequest = (

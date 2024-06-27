@@ -1,6 +1,9 @@
 import type { Meta, StoryFn } from "@storybook/react";
 
-import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
+import {
+  fakePoolCandidates,
+  toLocalizedEnum,
+} from "@gc-digital-talent/fake-data";
 import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 import {
   PoolCandidateStatus,
@@ -16,7 +19,7 @@ const mockApplications = fakePoolCandidates(20);
 const applications = Object.values(PoolCandidateStatus).map((status, index) => {
   return {
     ...mockApplications[index],
-    status,
+    status: toLocalizedEnum(status),
     archivedAt: null,
     pool: {
       ...mockApplications[index].pool,
@@ -42,9 +45,9 @@ const Template: StoryFn<typeof ApplicationCard> = () => {
             key={`${application.id}-${application.status}-${application.archivedAt}`}
           >
             <h2 data-h2-margin="base(x1, 0, x0.5, 0)">
-              {isExpired(application.status, application.expiryDate) &&
+              {isExpired(application.status.value, application.expiryDate) &&
                 "(EXPIRED)"}
-              {application.status}
+              {application.status.value}
             </h2>
             <ApplicationCard
               poolCandidateQuery={makeFragmentData(

@@ -45,12 +45,24 @@ export const UpdateUserData_Query = graphql(/* GraphQL */ `
       telephone
       preferredLang {
         value
+        label {
+          en
+          fr
+        }
       }
       preferredLanguageForInterview {
         value
+        label {
+          en
+          fr
+        }
       }
       preferredLanguageForExam {
         value
+        label {
+          en
+          fr
+        }
       }
     }
   }

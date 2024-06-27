@@ -376,7 +376,8 @@ export const ScreeningDecisionDialog = ({
     classificationGroup,
     isIAPPool(poolCandidate.pool.publishingGroup?.value),
   ).find(
-    (option) => option.value === snapshotCandidate?.educationRequirementOption,
+    (option) =>
+      option.value === snapshotCandidate?.educationRequirementOption?.value,
   )?.label;
 
   const defaultValues: FormValues = {

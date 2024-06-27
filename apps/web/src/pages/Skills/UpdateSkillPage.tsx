@@ -86,6 +86,10 @@ export const UpdateSkill_Fragment = graphql(/* GraphQL */ `
     }
     category {
       value
+      label {
+        en
+        fr
+      }
     }
     families {
       id

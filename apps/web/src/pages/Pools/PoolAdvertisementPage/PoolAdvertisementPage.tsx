@@ -115,6 +115,7 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
       fr
     }
     stream {
+      value
       label {
         en
         fr
@@ -129,18 +130,21 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
       }
     }
     language {
+      value
       label {
         en
         fr
       }
     }
     securityClearance {
+      value
       label {
         en
         fr
       }
     }
     opportunityLength {
+      value
       label {
         en
         fr
@@ -160,6 +164,10 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
         id
         key {
           value
+          label {
+            en
+            fr
+          }
         }
         name {
           en
@@ -195,12 +203,20 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
       id
       type {
         value
+        label {
+          en
+          fr
+        }
       }
       skill {
         id
         key
         category {
           value
+          label {
+            en
+            fr
+          }
         }
         name {
           en
@@ -215,6 +231,7 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
       fr
     }
     stream {
+      value
       label {
         en
         fr
@@ -223,6 +240,10 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
     processNumber
     publishingGroup {
       value
+      label {
+        en
+        fr
+      }
     }
     generalQuestions {
       id

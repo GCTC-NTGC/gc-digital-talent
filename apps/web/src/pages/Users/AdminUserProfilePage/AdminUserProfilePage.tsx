@@ -26,21 +26,45 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
     telephone
     citizenship {
       value
+      label {
+        en
+        fr
+      }
     }
     armedForcesStatus {
       value
+      label {
+        en
+        fr
+      }
     }
     preferredLang {
       value
+      label {
+        en
+        fr
+      }
     }
     preferredLanguageForInterview {
       value
+      label {
+        en
+        fr
+      }
     }
     preferredLanguageForExam {
       value
+      label {
+        en
+        fr
+      }
     }
     currentProvince {
       value
+      label {
+        en
+        fr
+      }
     }
     currentCity
     lookingForEnglish
@@ -48,23 +72,44 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
     lookingForBilingual
     firstOfficialLanguage {
       value
+      label {
+        en
+        fr
+      }
     }
     secondLanguageExamCompleted
     secondLanguageExamValidity
     comprehensionLevel {
       value
+      label {
+        en
+        fr
+      }
     }
     writtenLevel {
       value
+      label {
+        en
+        fr
+      }
     }
     verbalLevel {
       value
+      label {
+        en
+        fr
+      }
     }
     estimatedLanguageAbility {
       value
+      label {
+        en
+        fr
+      }
     }
     isGovEmployee
     govEmployeeType {
+      value
       label {
         en
         fr
@@ -74,14 +119,26 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
     priorityNumber
     locationPreferences {
       value
+      label {
+        en
+        fr
+      }
     }
     locationExemptions
     positionDuration
     acceptedOperationalRequirements {
       value
+      label {
+        en
+        fr
+      }
     }
     indigenousCommunities {
       value
+      label {
+        en
+        fr
+      }
     }
     indigenousDeclarationSignature
     hasDisability
@@ -91,6 +148,10 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
       id
       status {
         value
+        label {
+          en
+          fr
+        }
       }
       expiryDate
       notes
@@ -111,9 +172,17 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
         }
         stream {
           value
+          label {
+            en
+            fr
+          }
         }
         publishingGroup {
           value
+          label {
+            en
+            fr
+          }
         }
         team {
           id
@@ -167,6 +236,10 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
         }
         category {
           value
+          label {
+            en
+            fr
+          }
         }
         experienceSkillRecord {
           details
@@ -178,9 +251,17 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
         awardedDate
         awardedTo {
           value
+          label {
+            en
+            fr
+          }
         }
         awardedScope {
           value
+          label {
+            en
+            fr
+          }
         }
       }
       ... on CommunityExperience {
@@ -198,9 +279,17 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
         endDate
         type {
           value
+          label {
+            en
+            fr
+          }
         }
         status {
           value
+          label {
+            en
+            fr
+          }
         }
       }
       ... on PersonalExperience {
@@ -227,6 +316,10 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
         key
         category {
           value
+          label {
+            en
+            fr
+          }
         }
         name {
           en
@@ -247,6 +340,10 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
         key
         category {
           value
+          label {
+            en
+            fr
+          }
         }
         name {
           en
@@ -267,6 +364,10 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
         key
         category {
           value
+          label {
+            en
+            fr
+          }
         }
         name {
           en
@@ -287,6 +388,10 @@ const AdminUserProfileUser_Fragment = graphql(/* GraphQL */ `
         key
         category {
           value
+          label {
+            en
+            fr
+          }
         }
         name {
           en

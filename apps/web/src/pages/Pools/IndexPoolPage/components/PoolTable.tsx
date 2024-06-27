@@ -92,13 +92,25 @@ const PoolTable_Query = graphql(/* GraphQL */ `
         id
         stream {
           value
+          label {
+            en
+            fr
+          }
         }
         publishingGroup {
           value
+          label {
+            en
+            fr
+          }
         }
         processNumber
         status {
           value
+          label {
+            en
+            fr
+          }
         }
         createdDate
         updatedDate

@@ -9,6 +9,7 @@ import {
   fakePoolSkills,
   fakeSkills,
   fakeUserSkills,
+  toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
 import {
   AssessmentDecision,
@@ -36,10 +37,11 @@ const profileSnapshot: User = {
   poolCandidates: [
     {
       ...poolCandidate,
-      educationRequirementOption:
+      educationRequirementOption: toLocalizedEnum(
         experience.__typename === "EducationExperience"
           ? EducationRequirementOption.Education
           : EducationRequirementOption.AppliedWork,
+      ),
       screeningQuestionResponses: [
         {
           id: "494effde-1168-44e1-8130-9775af800975",

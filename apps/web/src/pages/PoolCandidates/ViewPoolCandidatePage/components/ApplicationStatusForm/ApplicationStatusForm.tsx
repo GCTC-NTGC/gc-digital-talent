@@ -256,6 +256,10 @@ const ApplicationStatusForm_PoolCandidateFragment = graphql(/* GraphQL */ `
     expiryDate
     status {
       value
+      label {
+        en
+        fr
+      }
     }
     notes
     pool {
@@ -266,9 +270,17 @@ const ApplicationStatusForm_PoolCandidateFragment = graphql(/* GraphQL */ `
       }
       stream {
         value
+        label {
+          en
+          fr
+        }
       }
       publishingGroup {
         value
+        label {
+          en
+          fr
+        }
       }
       classification {
         id

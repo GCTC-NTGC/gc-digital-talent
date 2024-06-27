@@ -92,12 +92,24 @@ const UsersPaginated_Query = graphql(/* GraphQL */ `
         telephone
         preferredLang {
           value
+          label {
+            en
+            fr
+          }
         }
         preferredLanguageForInterview {
           value
+          label {
+            en
+            fr
+          }
         }
         preferredLanguageForExam {
           value
+          label {
+            en
+            fr
+          }
         }
         createdDate
         updatedDate

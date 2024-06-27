@@ -504,6 +504,10 @@ const ExecutiveHomePage_Query = graphql(/* GraphQL */ `
       id
       publishingGroup {
         value
+        label {
+          en
+          fr
+        }
       }
       ...PoolCard
     }
@@ -520,7 +524,10 @@ export const Component = () => {
 
   const filteredPools =
     data?.publishedPools.filter(
-      (pool) => typeof pool !== `undefined` && !!pool && isExecPool(pool),
+      (pool) =>
+        typeof pool !== `undefined` &&
+        !!pool &&
+        isExecPool(pool.publishingGroup?.value),
     ) ?? [];
 
   return (

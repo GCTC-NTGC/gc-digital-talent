@@ -1,6 +1,10 @@
 import { Meta, StoryFn } from "@storybook/react";
 
-import { fakePoolCandidates, fakeUsers } from "@gc-digital-talent/fake-data";
+import {
+  fakePoolCandidates,
+  fakeUsers,
+  toLocalizedEnum,
+} from "@gc-digital-talent/fake-data";
 import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 import {
   PoolCandidateStatus,
@@ -30,7 +34,7 @@ const expiredApplications = fakePoolCandidates(5).map((application) => ({
   expiryDate: FAR_PAST_DATE,
 }));
 
-mockApplications[0].status = PoolCandidateStatus.Draft;
+mockApplications[0].status = toLocalizedEnum(PoolCandidateStatus.Draft);
 
 export default {
   component: ProfileAndApplications,

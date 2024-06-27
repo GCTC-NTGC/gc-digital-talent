@@ -123,6 +123,10 @@ const SearchRequestTable_Query = graphql(/* GraphQL */ `
           }
           qualifiedStreams {
             value
+            label {
+              en
+              fr
+            }
           }
         }
         department {
@@ -140,10 +144,18 @@ const SearchRequestTable_Query = graphql(/* GraphQL */ `
         managerJobTitle
         positionType {
           value
+          label {
+            en
+            fr
+          }
         }
         requestedDate
         status {
           value
+          label {
+            en
+            fr
+          }
         }
         statusChangedAt
         wasEmpty

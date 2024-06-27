@@ -37,36 +37,42 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
     lastName
     telephone
     citizenship {
+      value
       label {
         en
         fr
       }
     }
     armedForcesStatus {
+      value
       label {
         en
         fr
       }
     }
     preferredLang {
+      value
       label {
         en
         fr
       }
     }
     preferredLanguageForInterview {
+      value
       label {
         en
         fr
       }
     }
     preferredLanguageForExam {
+      value
       label {
         en
         fr
       }
     }
     currentProvince {
+      value
       label {
         en
         fr
@@ -77,6 +83,7 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
     lookingForFrench
     lookingForBilingual
     firstOfficialLanguage {
+      value
       label {
         en
         fr
@@ -85,24 +92,28 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
     secondLanguageExamCompleted
     secondLanguageExamValidity
     comprehensionLevel {
+      value
       label {
         en
         fr
       }
     }
     writtenLevel {
+      value
       label {
         en
         fr
       }
     }
     verbalLevel {
+      value
       label {
         en
         fr
       }
     }
     estimatedLanguageAbility {
+      value
       label {
         en
         fr
@@ -110,6 +121,7 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
     }
     isGovEmployee
     govEmployeeType {
+      value
       label {
         en
         fr
@@ -119,6 +131,7 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
     priorityNumber
     priorityWeight
     locationPreferences {
+      value
       label {
         en
         fr
@@ -127,12 +140,14 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
     locationExemptions
     positionDuration
     acceptedOperationalRequirements {
+      value
       label {
         en
         fr
       }
     }
     indigenousCommunities {
+      value
       label {
         en
         fr
@@ -146,6 +161,10 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
       id
       status {
         value
+        label {
+          en
+          fr
+        }
       }
       expiryDate
       notes
@@ -176,9 +195,17 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
         }
         stream {
           value
+          label {
+            en
+            fr
+          }
         }
         publishingGroup {
           value
+          label {
+            en
+            fr
+          }
         }
         team {
           id
@@ -232,6 +259,10 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
         }
         category {
           value
+          label {
+            en
+            fr
+          }
         }
         experienceSkillRecord {
           details
@@ -263,9 +294,17 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
         endDate
         type {
           value
+          label {
+            en
+            fr
+          }
         }
         status {
           value
+          label {
+            en
+            fr
+          }
         }
       }
       ... on PersonalExperience {
@@ -292,6 +331,10 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
         key
         category {
           value
+          label {
+            en
+            fr
+          }
         }
         name {
           en
@@ -312,6 +355,10 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
         key
         category {
           value
+          label {
+            en
+            fr
+          }
         }
         name {
           en
@@ -332,6 +379,10 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
         key
         category {
           value
+          label {
+            en
+            fr
+          }
         }
         name {
           en
@@ -352,6 +403,10 @@ export const UserInfo_Fragment = graphql(/* GraphQL */ `
         key
         category {
           value
+          label {
+            en
+            fr
+          }
         }
         name {
           en

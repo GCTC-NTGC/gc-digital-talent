@@ -35,6 +35,10 @@ export const AssessmentStepTracker_CandidateFragment = graphql(/* GraphQL */ `
     veteranVerification
     status {
       value
+      label {
+        en
+        fr
+      }
     }
     pool {
       id
@@ -45,6 +49,10 @@ export const AssessmentStepTracker_CandidateFragment = graphql(/* GraphQL */ `
       lastName
       armedForcesStatus {
         value
+        label {
+          en
+          fr
+        }
       }
       hasPriorityEntitlement
     }
@@ -69,12 +77,20 @@ export const AssessmentStepTracker_PoolFragment = graphql(/* GraphQL */ `
       }
       type {
         value
+        label {
+          en
+          fr
+        }
       }
       sortOrder
       poolSkills {
         id
         type {
           value
+          label {
+            en
+            fr
+          }
         }
       }
     }
@@ -141,7 +157,7 @@ const AssessmentStepTracker = ({
                   </Well>
                 ) : (
                   <AssessmentResults
-                    stepType={step.type}
+                    stepType={step.type?.value}
                     stepName={
                       stepNumber +
                       intl.formatMessage(commonMessages.dividingColon) +

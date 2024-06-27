@@ -37,6 +37,10 @@ const EditPoolKeyTasks_Fragment = graphql(/* GraphQL */ `
     id
     status {
       value
+      label {
+        en
+        fr
+      }
     }
     keyTasks {
       en
@@ -71,7 +75,7 @@ const WorkTasksSection = ({
   const pool = getFragment(EditPoolKeyTasks_Fragment, poolQuery);
   const isNull = hasAllEmptyFields(pool);
   const emptyRequired = hasEmptyRequiredFields(pool);
-  const canEdit = useUserCanEditPool(pool.status);
+  const canEdit = useUserCanEditPool(pool.status?.value);
   const { isSubmitting } = useEditPoolContext();
   const { isEditing, setIsEditing, icon } = useToggleSectionInfo({
     isNull,
@@ -186,7 +190,7 @@ const WorkTasksSection = ({
               </div>
 
               <ActionWrapper>
-                {canEdit && pool.status === PoolStatus.Draft && (
+                {canEdit && pool.status?.value === PoolStatus.Draft && (
                   <Submit
                     text={intl.formatMessage(formMessages.saveChanges)}
                     aria-label={intl.formatMessage({
@@ -200,7 +204,7 @@ const WorkTasksSection = ({
                     isSubmitting={isSubmitting}
                   />
                 )}
-                {canEdit && pool.status === PoolStatus.Published && (
+                {canEdit && pool.status?.value === PoolStatus.Published && (
                   <UpdatePublishedProcessDialog
                     poolQuery={pool}
                     onUpdatePublished={handleUpdatePublished}

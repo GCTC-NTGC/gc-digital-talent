@@ -100,24 +100,48 @@ export const EditPool_Fragment = graphql(/* GraphQL */ `
     id
     stream {
       value
+      label {
+        en
+        fr
+      }
     }
     processNumber
     publishingGroup {
       value
+      label {
+        en
+        fr
+      }
     }
     opportunityLength {
       value
+      label {
+        en
+        fr
+      }
     }
     closingDate
     language {
       value
+      label {
+        en
+        fr
+      }
     }
     securityClearance {
       value
+      label {
+        en
+        fr
+      }
     }
     publishedAt
     status {
       value
+      label {
+        en
+        fr
+      }
     }
     location {
       en
@@ -136,12 +160,20 @@ export const EditPool_Fragment = graphql(/* GraphQL */ `
       id
       type {
         value
+        label {
+          en
+          fr
+        }
       }
       requiredLevel
       skill {
         id
         category {
           value
+          label {
+            en
+            fr
+          }
         }
         key
         name {
@@ -666,6 +698,10 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
     pool(id: $poolId) {
       status {
         value
+        label {
+          en
+          fr
+        }
       }
       ...EditPool
     }
@@ -698,6 +734,10 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
       }
       category {
         value
+        label {
+          en
+          fr
+        }
       }
       families {
         id

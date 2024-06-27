@@ -80,25 +80,53 @@ export const DashboardHeadingUser_Fragment = graphql(/* GraphQL */ `
     telephone
     preferredLang {
       value
+      label {
+        en
+        fr
+      }
     }
     preferredLanguageForInterview {
       value
+      label {
+        en
+        fr
+      }
     }
     preferredLanguageForExam {
       value
+      label {
+        en
+        fr
+      }
     }
     currentCity
     currentProvince {
       value
+      label {
+        en
+        fr
+      }
     }
     citizenship {
       value
+      label {
+        en
+        fr
+      }
     }
     armedForcesStatus {
       value
+      label {
+        en
+        fr
+      }
     }
     locationPreferences {
       value
+      label {
+        en
+        fr
+      }
     }
     positionDuration
     isGovEmployee
@@ -109,20 +137,40 @@ export const DashboardHeadingUser_Fragment = graphql(/* GraphQL */ `
     lookingForBilingual
     firstOfficialLanguage {
       value
+      label {
+        en
+        fr
+      }
     }
     estimatedLanguageAbility {
       value
+      label {
+        en
+        fr
+      }
     }
     secondLanguageExamCompleted
     secondLanguageExamValidity
     writtenLevel {
       value
+      label {
+        en
+        fr
+      }
     }
     comprehensionLevel {
       value
+      label {
+        en
+        fr
+      }
     }
     verbalLevel {
       value
+      label {
+        en
+        fr
+      }
     }
     experiences {
       id
@@ -131,6 +179,10 @@ export const DashboardHeadingUser_Fragment = graphql(/* GraphQL */ `
       id
       status {
         value
+        label {
+          en
+          fr
+        }
       }
     }
     userSkills {
@@ -490,7 +542,7 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
             })}
             itemCount={
               notEmptyApplications.filter((application) =>
-                isQualifiedStatus(application.status),
+                isQualifiedStatus(application.status?.value),
               ).length
             }
             icon={ShieldCheckIcon}

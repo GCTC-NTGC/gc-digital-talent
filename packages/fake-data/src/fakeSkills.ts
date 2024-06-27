@@ -49,7 +49,11 @@ const generateSkill = (
 };
 
 export const getStaticSkills = (): Skill[] =>
-  staticSkills.data.skills as Skill[];
+  staticSkills.data.skills.map((skill) => ({
+    ...skill,
+    // TO DO: Regenerate static data to no need this
+    category: toLocalizedEnum(skill.category),
+  })) as Skill[];
 
 export default (
   numToGenerate = 10,

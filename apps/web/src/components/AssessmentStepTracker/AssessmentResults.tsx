@@ -139,7 +139,7 @@ const AssessmentResult = ({
           {result.poolCandidate.user.hasPriorityEntitlement && (
             <Priority type="entitlement" />
           )}
-          {result.poolCandidate.user.armedForcesStatus ===
+          {result.poolCandidate.user.armedForcesStatus?.value ===
             ArmedForcesStatus.Veteran && <Priority type="veteran" />}
           <Icon {...iconStyles} {...colorStyle} aria-label={name} />
         </span>

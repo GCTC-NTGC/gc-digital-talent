@@ -25,6 +25,10 @@ const UpdatePublishedProcessDialog_Fragment = graphql(/* GraphQL */ `
     id
     stream {
       value
+      label {
+        en
+        fr
+      }
     }
     name {
       en

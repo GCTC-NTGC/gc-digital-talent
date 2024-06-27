@@ -11,46 +11,94 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
       telephone
       preferredLang {
         value
+        label {
+          en
+          fr
+        }
       }
       preferredLanguageForInterview {
         value
+        label {
+          en
+          fr
+        }
       }
       preferredLanguageForExam {
         value
+        label {
+          en
+          fr
+        }
       }
       currentProvince {
         value
+        label {
+          en
+          fr
+        }
       }
       currentCity
       citizenship {
         value
+        label {
+          en
+          fr
+        }
       }
       lookingForEnglish
       lookingForFrench
       lookingForBilingual
       firstOfficialLanguage {
         value
+        label {
+          en
+          fr
+        }
       }
       secondLanguageExamCompleted
       secondLanguageExamValidity
       comprehensionLevel {
         value
+        label {
+          en
+          fr
+        }
       }
       writtenLevel {
         value
+        label {
+          en
+          fr
+        }
       }
       verbalLevel {
         value
+        label {
+          en
+          fr
+        }
       }
       estimatedLanguageAbility {
         value
+        label {
+          en
+          fr
+        }
       }
       isGovEmployee
       govEmployeeType {
         value
+        label {
+          en
+          fr
+        }
       }
       armedForcesStatus {
         value
+        label {
+          en
+          fr
+        }
       }
       hasPriorityEntitlement
       priorityNumber
@@ -76,16 +124,28 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
       hasDisability
       indigenousCommunities {
         value
+        label {
+          en
+          fr
+        }
       }
       indigenousDeclarationSignature
       isVisibleMinority
       hasDiploma
       locationPreferences {
         value
+        label {
+          en
+          fr
+        }
       }
       locationExemptions
       acceptedOperationalRequirements {
         value
+        label {
+          en
+          fr
+        }
       }
       positionDuration
       experiences {
@@ -101,6 +161,10 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
           key
           category {
             value
+            label {
+              en
+              fr
+            }
           }
           name {
             en
@@ -136,9 +200,17 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
           awardedDate
           awardedTo {
             value
+            label {
+              en
+              fr
+            }
           }
           awardedScope {
             value
+            label {
+              en
+              fr
+            }
           }
         }
         ... on CommunityExperience {
@@ -156,9 +228,17 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
           endDate
           type {
             value
+            label {
+              en
+              fr
+            }
           }
           status {
             value
+            label {
+              en
+              fr
+            }
           }
         }
         ... on PersonalExperience {
@@ -184,13 +264,25 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
       }
       stream {
         value
+        label {
+          en
+          fr
+        }
       }
       closingDate
       publishingGroup {
         value
+        label {
+          en
+          fr
+        }
       }
       language {
         value
+        label {
+          en
+          fr
+        }
       }
       classification {
         id
@@ -204,6 +296,10 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
           id
           key {
             value
+            label {
+              en
+              fr
+            }
           }
           name {
             en
@@ -215,12 +311,20 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
         id
         type {
           value
+          label {
+            en
+            fr
+          }
         }
         skill {
           id
           key
           category {
             value
+            label {
+              en
+              fr
+            }
           }
           name {
             en
@@ -268,6 +372,10 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
     }
     educationRequirementOption {
       value
+      label {
+        en
+        fr
+      }
     }
     educationRequirementExperiences {
       id
@@ -283,9 +391,17 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
         awardedDate
         awardedTo {
           value
+          label {
+            en
+            fr
+          }
         }
         awardedScope {
           value
+          label {
+            en
+            fr
+          }
         }
         details
       }
@@ -305,9 +421,17 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
         endDate
         type {
           value
+          label {
+            en
+            fr
+          }
         }
         status {
           value
+          label {
+            en
+            fr
+          }
         }
         details
       }

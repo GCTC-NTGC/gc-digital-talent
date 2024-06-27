@@ -36,6 +36,10 @@ export const ApplicationCard_Fragment = graphql(/* GraphQL */ `
     id
     status {
       value
+      label {
+        en
+        fr
+      }
     }
     suspendedAt
     submittedAt
@@ -44,6 +48,10 @@ export const ApplicationCard_Fragment = graphql(/* GraphQL */ `
       closingDate
       stream {
         value
+        label {
+          en
+          fr
+        }
       }
       name {
         en
@@ -72,13 +80,13 @@ const ApplicationCard = ({
   const application = getFragment(ApplicationCard_Fragment, poolCandidateQuery);
 
   // Conditionals for card actions
-  const applicationIsDraft = isDraft(application.status);
+  const applicationIsDraft = isDraft(application.status?.value);
   const recruitmentIsExpired = isExpired(
-    application.status,
+    application.status?.value,
     application.pool.closingDate,
   );
   const isDraftExpired = applicationIsDraft && recruitmentIsExpired;
-  const isApplicantQualified = isQualifiedStatus(application.status);
+  const isApplicantQualified = isQualifiedStatus(application.status?.value);
 
   // We don't get DraftExpired status from the API, so we need to check if the draft is expired ourselves
   const statusChip = isDraftExpired
@@ -87,7 +95,11 @@ const ApplicationCard = ({
         application.suspendedAt,
         intl,
       )
-    : getStatusChipInfo(application.status, application.suspendedAt, intl);
+    : getStatusChipInfo(
+        application.status?.value,
+        application.suspendedAt,
+        intl,
+      );
 
   const applicationDeadlineMessage = getApplicationDeadlineMessage(
     intl,

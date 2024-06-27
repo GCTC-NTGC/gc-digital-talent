@@ -22,6 +22,10 @@ export const TrackApplicationsCandidate_Fragment = graphql(/* GraphQL */ `
     id
     status {
       value
+      label {
+        en
+        fr
+      }
     }
     pool {
       id

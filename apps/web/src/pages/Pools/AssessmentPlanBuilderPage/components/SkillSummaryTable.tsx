@@ -29,12 +29,20 @@ export const SkillSummaryTablePoolSkill_Fragment = graphql(/* GraphQL */ `
     id
     type {
       value
+      label {
+        en
+        fr
+      }
     }
     skill {
       id
       key
       category {
         value
+        label {
+          en
+          fr
+        }
       }
       name {
         en
@@ -49,6 +57,10 @@ export const SkillSummaryTableAssessmentStep_Fragment = graphql(/* GraphQL */ `
     id
     type {
       value
+      label {
+        en
+        fr
+      }
     }
     sortOrder
     title {

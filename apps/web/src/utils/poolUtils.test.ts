@@ -4,7 +4,10 @@
 
 import { createIntl, createIntlCache } from "react-intl";
 
-import { fakeClassifications } from "@gc-digital-talent/fake-data";
+import {
+  fakeClassifications,
+  toLocalizedEnum,
+} from "@gc-digital-talent/fake-data";
 import { PoolStream } from "@gc-digital-talent/graphql";
 
 import { formattedPoolPosterTitle } from "./poolUtils";
@@ -21,7 +24,7 @@ describe("poolUtils tests", () => {
     const baseInputs = {
       title: "Web Developer",
       classification: fakeClassifications()[0],
-      stream: PoolStream.SoftwareSolutions,
+      stream: toLocalizedEnum(PoolStream.SoftwareSolutions),
       intl,
     };
     test("should combine title, classification and stream if all are provided", () => {

@@ -41,9 +41,17 @@ const EditPoolEducationRequirements_Fragment = graphql(/* GraphQL */ `
     id
     status {
       value
+      label {
+        en
+        fr
+      }
     }
     publishingGroup {
       value
+      label {
+        en
+        fr
+      }
     }
     classification {
       id
@@ -131,7 +139,7 @@ const EducationRequirementsSection = ({
         </Well>
       ) : (
         <EducationRequirements
-          isIAP={pool.publishingGroup === PublishingGroup.Iap}
+          isIAP={pool.publishingGroup?.value === PublishingGroup.Iap}
           classificationGroup={classificationGroup}
         />
       )}

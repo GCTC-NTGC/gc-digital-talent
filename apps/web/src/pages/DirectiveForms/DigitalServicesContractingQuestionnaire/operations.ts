@@ -27,6 +27,10 @@ export const DigitalServicesContractingQuestionnairePageData_Query = graphql(
         }
         category {
           value
+          label {
+            en
+            fr
+          }
         }
         families {
           id

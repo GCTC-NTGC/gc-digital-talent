@@ -138,48 +138,96 @@ export const UserProfile_FragmentText = /* GraphQL */ `
     telephone
     preferredLang {
       value
+      label {
+        en
+        fr
+      }
     }
     preferredLanguageForInterview {
       value
+      label {
+        en
+        fr
+      }
     }
     preferredLanguageForExam {
       value
+      label {
+        en
+        fr
+      }
     }
     currentProvince {
       value
+      label {
+        en
+        fr
+      }
     }
     currentCity
     citizenship {
       value
+      label {
+        en
+        fr
+      }
     }
     armedForcesStatus {
       value
+      label {
+        en
+        fr
+      }
     }
     lookingForEnglish
     lookingForFrench
     lookingForBilingual
     firstOfficialLanguage {
       value
+      label {
+        en
+        fr
+      }
     }
     secondLanguageExamCompleted
     secondLanguageExamValidity
     comprehensionLevel {
       value
+      label {
+        en
+        fr
+      }
     }
     writtenLevel {
       value
+      label {
+        en
+        fr
+      }
     }
     verbalLevel {
       value
+      label {
+        en
+        fr
+      }
     }
     estimatedLanguageAbility {
       value
+      label {
+        en
+        fr
+      }
     }
     isGovEmployee
     hasPriorityEntitlement
     priorityNumber
     govEmployeeType {
       value
+      label {
+        en
+        fr
+      }
     }
     department {
       id
@@ -202,16 +250,28 @@ export const UserProfile_FragmentText = /* GraphQL */ `
     hasDisability
     indigenousCommunities {
       value
+      label {
+        en
+        fr
+      }
     }
     indigenousDeclarationSignature
     isVisibleMinority
     hasDiploma
     locationPreferences {
       value
+      label {
+        en
+        fr
+      }
     }
     locationExemptions
     acceptedOperationalRequirements {
       value
+      label {
+        en
+        fr
+      }
     }
     positionDuration
     userSkills {
@@ -229,6 +289,10 @@ export const UserProfile_FragmentText = /* GraphQL */ `
         }
         category {
           value
+          label {
+            en
+            fr
+          }
         }
       }
     }
@@ -258,6 +322,10 @@ export const UserProfile_FragmentText = /* GraphQL */ `
         }
         category {
           value
+          label {
+            en
+            fr
+          }
         }
         experienceSkillRecord {
           details
@@ -269,9 +337,17 @@ export const UserProfile_FragmentText = /* GraphQL */ `
         awardedDate
         awardedTo {
           value
+          label {
+            en
+            fr
+          }
         }
         awardedScope {
           value
+          label {
+            en
+            fr
+          }
         }
       }
       ... on CommunityExperience {
@@ -289,9 +365,17 @@ export const UserProfile_FragmentText = /* GraphQL */ `
         endDate
         type {
           value
+          label {
+            en
+            fr
+          }
         }
         status {
           value
+          label {
+            en
+            fr
+          }
         }
       }
       ... on PersonalExperience {
@@ -317,6 +401,10 @@ export const UserProfile_FragmentText = /* GraphQL */ `
       }
       status {
         value
+        label {
+          en
+          fr
+        }
       }
       expiryDate
       signature
@@ -332,6 +420,10 @@ export const UserProfile_FragmentText = /* GraphQL */ `
         }
         stream {
           value
+          label {
+            en
+            fr
+          }
         }
         classification {
           id
@@ -345,6 +437,10 @@ export const UserProfile_FragmentText = /* GraphQL */ `
             id
             key {
               value
+              label {
+                en
+                fr
+              }
             }
             name {
               en
@@ -357,6 +453,10 @@ export const UserProfile_FragmentText = /* GraphQL */ `
       }
       educationRequirementOption {
         value
+        label {
+          en
+          fr
+        }
       }
       educationRequirementExperiences {
         # profileExperience fragment
@@ -384,6 +484,10 @@ export const UserProfile_FragmentText = /* GraphQL */ `
           }
           category {
             value
+            label {
+              en
+              fr
+            }
           }
           experienceSkillRecord {
             details
@@ -395,9 +499,17 @@ export const UserProfile_FragmentText = /* GraphQL */ `
           awardedDate
           awardedTo {
             value
+            label {
+              en
+              fr
+            }
           }
           awardedScope {
             value
+            label {
+              en
+              fr
+            }
           }
         }
         ... on CommunityExperience {
@@ -415,9 +527,17 @@ export const UserProfile_FragmentText = /* GraphQL */ `
           endDate
           type {
             value
+            label {
+              en
+              fr
+            }
           }
           status {
             value
+            label {
+              en
+              fr
+            }
           }
         }
         ... on PersonalExperience {

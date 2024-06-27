@@ -258,6 +258,10 @@ const SearchForm_Query = graphql(/* GraphQL */ `
       }
       stream {
         value
+        label {
+          en
+          fr
+        }
       }
     }
     skills {
@@ -269,6 +273,10 @@ const SearchForm_Query = graphql(/* GraphQL */ `
       }
       category {
         value
+        label {
+          en
+          fr
+        }
       }
       description {
         en

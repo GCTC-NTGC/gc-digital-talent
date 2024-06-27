@@ -3,6 +3,7 @@ import fakeAssessmentSteps from "./fakeAssessmentSteps";
 import fakeClassifications from "./fakeClassifications";
 import fakeDepartments from "./fakeDepartments";
 import fakeExperiences, { experienceGenerators } from "./fakeExperiences";
+import toLocalizedEnum from "./fakeLocalizedEnum";
 import fakeApplicantFilters from "./fakeApplicantFilters";
 import fakePoolCandidates from "./fakePoolCandidates";
 import fakePools from "./fakePools";
@@ -35,6 +36,7 @@ export {
   fakeUsers,
   fakeUser,
   fakeUserSkills,
+  toLocalizedEnum,
 };
 
 // Static Data

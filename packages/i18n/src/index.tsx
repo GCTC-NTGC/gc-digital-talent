@@ -67,6 +67,8 @@ import {
   sortPoolLanguage,
   sortPriorityWeight,
   sortSecurityStatus,
+  localizedEnumToInput,
+  localizedEnumArrayToInput,
 } from "./utils/enum";
 import type { Locales, Messages } from "./types";
 
@@ -99,6 +101,8 @@ export {
   getLocalizedEnumByValue,
   getLocalizedEnumStringByValue,
   enumInputToLocalizedEnum,
+  localizedEnumToInput,
+  localizedEnumArrayToInput,
   sortAwardedScope,
   sortAwardedTo,
   sortCandidateRemovalReason,

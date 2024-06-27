@@ -134,8 +134,11 @@ const ApplicantFilters = ({
         ]
       : []),
   ];
-  const operationalRequirementIds: string[] =
-    (applicantFilter?.operationalRequirements as string[]) ?? [];
+
+  const operationalRequirementIds = unpackMaybes(
+    applicantFilter?.operationalRequirements?.flatMap((req) => req?.value),
+  );
+
   const operationalRequirements: string[] | undefined =
     operationalRequirementIds.map((id) =>
       intl.formatMessage(getOperationalRequirement(id)),
@@ -366,8 +369,13 @@ const SearchRequestFilters = ({
         ]
       : []),
   ];
-  const operationalRequirementIds: string[] =
-    (poolCandidateFilter?.operationalRequirements as string[]) ?? [];
+
+  const operationalRequirementIds = unpackMaybes(
+    poolCandidateFilter?.operationalRequirements?.flatMap((req) => req?.value),
+  );
+
+  console.log(operationalRequirementIds);
+
   const operationalRequirements: string[] | undefined =
     operationalRequirementIds.map((id) =>
       intl.formatMessage(getOperationalRequirement(id)),

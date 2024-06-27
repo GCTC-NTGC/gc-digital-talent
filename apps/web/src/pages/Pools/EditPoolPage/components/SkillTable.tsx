@@ -146,7 +146,7 @@ const SkillTable = ({
       (skill) =>
         skill.requiredLevel
           ? intl.formatMessage(
-              getSkillLevelName(skill.requiredLevel, skill.category),
+              getSkillLevelName(skill.requiredLevel, skill.category.value),
             )
           : intl.formatMessage(commonMessages.notFound),
       {

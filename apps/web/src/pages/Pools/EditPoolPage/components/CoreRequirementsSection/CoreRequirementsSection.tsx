@@ -50,12 +50,24 @@ const EditPoolCoreRequirements_Fragment = graphql(/* GraphQL */ `
     id
     status {
       value
+      label {
+        en
+        fr
+      }
     }
     language {
       value
+      label {
+        en
+        fr
+      }
     }
     securityClearance {
       value
+      label {
+        en
+        fr
+      }
     }
     isRemote
     location {

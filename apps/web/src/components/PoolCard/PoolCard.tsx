@@ -39,6 +39,10 @@ export const PoolCard_Fragment = graphql(/* GraphQL */ `
     id
     stream {
       value
+      label {
+        en
+        fr
+      }
     }
     closingDate
     name {
@@ -56,11 +60,19 @@ export const PoolCard_Fragment = graphql(/* GraphQL */ `
       id
       type {
         value
+        label {
+          en
+          fr
+        }
       }
       skill {
         id
         category {
           value
+          label {
+            en
+            fr
+          }
         }
         key
         name {

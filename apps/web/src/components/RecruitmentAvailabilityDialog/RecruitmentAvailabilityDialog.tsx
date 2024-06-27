@@ -34,6 +34,10 @@ const RecruitmentAvailabilityDialog_Fragment = graphql(/* GraphQL */ `
       id
       stream {
         value
+        label {
+          en
+          fr
+        }
       }
       name {
         en

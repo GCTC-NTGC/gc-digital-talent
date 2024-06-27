@@ -49,7 +49,7 @@ const EssentialSkillsSection = ({
     .filter(notEmpty)
     .filter(
       (poolSkill) =>
-        poolSkill.type === PoolSkillType.Essential && poolSkill.skill,
+        poolSkill.type?.value === PoolSkillType.Essential && poolSkill.skill,
     );
 
   const essentialSkills: (Skill & {
@@ -57,7 +57,11 @@ const EssentialSkillsSection = ({
     requiredLevel?: SkillLevel;
   })[] = essentialPoolSkills.map((poolSkill) => {
     return {
-      category: poolSkill.skill?.category ?? SkillCategory.Technical,
+      // Note: This is ugly and should be cleaned up
+      category: poolSkill.skill?.category ?? {
+        value: SkillCategory.Technical,
+        label: { en: undefined, fr: undefined },
+      },
       description: poolSkill.skill?.description,
       id: poolSkill.skill?.id ?? poolSkill.id,
       key: poolSkill.skill?.key,
@@ -91,7 +95,7 @@ const EssentialSkillsSection = ({
   };
 
   // disabled unless status is draft
-  const formDisabled = pool.status !== PoolStatus.Draft;
+  const formDisabled = pool.status?.value !== PoolStatus.Draft;
 
   const subtitle = intl.formatMessage({
     defaultMessage:

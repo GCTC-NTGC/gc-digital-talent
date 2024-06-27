@@ -31,6 +31,10 @@ export const FinalDecisionDialog_Fragment = graphql(/* GraphQL */ `
     id
     status {
       value
+      label {
+        en
+        fr
+      }
     }
     expiryDate
     pool {
@@ -38,6 +42,10 @@ export const FinalDecisionDialog_Fragment = graphql(/* GraphQL */ `
         id
         type {
           value
+          label {
+            en
+            fr
+          }
         }
         requiredLevel
         skill {
@@ -45,6 +53,10 @@ export const FinalDecisionDialog_Fragment = graphql(/* GraphQL */ `
           key
           category {
             value
+            label {
+              en
+              fr
+            }
           }
           name {
             en
@@ -57,6 +69,10 @@ export const FinalDecisionDialog_Fragment = graphql(/* GraphQL */ `
       id
       assessmentDecision {
         value
+        label {
+          en
+          fr
+        }
       }
       assessmentResultType
       poolSkill {
@@ -66,6 +82,10 @@ export const FinalDecisionDialog_Fragment = graphql(/* GraphQL */ `
           key
           category {
             value
+            label {
+              en
+              fr
+            }
           }
           name {
             en

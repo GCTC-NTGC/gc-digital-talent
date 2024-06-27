@@ -20,6 +20,7 @@ import Hero from "~/components/Hero/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import { PAGE_SECTION_ID, titles } from "~/constants/sections/careerTimeline";
+import { QualifiedRecruitmentCardCategories_Fragment } from "~/components/QualifiedRecruitmentCard/QualifiedRecruitmentCard";
 
 import CareerTimelineSection from "./CareerTimelineSection";
 import QualifiedRecruitmentsSection from "./QualifiedRecruitmentsSection";
@@ -55,6 +56,10 @@ export const CareerTimelineExperience_Fragment = graphql(/* GraphQL */ `
       }
       category {
         value
+        label {
+          en
+          fr
+        }
       }
       experienceSkillRecord {
         details
@@ -66,9 +71,17 @@ export const CareerTimelineExperience_Fragment = graphql(/* GraphQL */ `
       awardedDate
       awardedTo {
         value
+        label {
+          en
+          fr
+        }
       }
       awardedScope {
         value
+        label {
+          en
+          fr
+        }
       }
     }
     ... on CommunityExperience {
@@ -86,9 +99,17 @@ export const CareerTimelineExperience_Fragment = graphql(/* GraphQL */ `
       endDate
       type {
         value
+        label {
+          en
+          fr
+        }
       }
       status {
         value
+        label {
+          en
+          fr
+        }
       }
     }
     ... on PersonalExperience {
@@ -167,11 +188,15 @@ interface CareerTimelineAndRecruitmentProps {
   userId: string;
   experiencesQuery: FragmentType<typeof CareerTimelineExperience_Fragment>[];
   applicationsQuery: FragmentType<typeof CareerTimelineApplication_Fragment>[];
+  categoriesQuery: FragmentType<
+    typeof QualifiedRecruitmentCardCategories_Fragment
+  >;
 }
 
 const CareerTimelineAndRecruitment = ({
   experiencesQuery,
   applicationsQuery,
+  categoriesQuery,
   userId,
 }: CareerTimelineAndRecruitmentProps) => {
   const intl = useIntl();
@@ -287,6 +312,7 @@ const CareerTimelineAndRecruitment = ({
               </p>
               <QualifiedRecruitmentsSection
                 applicationsQuery={[...applications]}
+                categoriesQuery={categoriesQuery}
               />
             </TableOfContents.Section>
           </TableOfContents.Content>

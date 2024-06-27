@@ -134,6 +134,10 @@ const SkillFamilies_Query = graphql(/* GraphQL */ `
         }
         category {
           value
+          label {
+            en
+            fr
+          }
         }
       }
     }

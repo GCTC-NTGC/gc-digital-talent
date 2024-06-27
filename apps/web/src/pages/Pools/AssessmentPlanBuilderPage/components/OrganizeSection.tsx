@@ -50,6 +50,10 @@ const OrganizeSectionPool_Fragment = graphql(/* GraphQL */ `
     id
     status {
       value
+      label {
+        en
+        fr
+      }
     }
     ...AssessmentStepCardPool
     poolSkills {
@@ -59,6 +63,10 @@ const OrganizeSectionPool_Fragment = graphql(/* GraphQL */ `
       id
       type {
         value
+        label {
+          en
+          fr
+        }
       }
       sortOrder
       poolSkills {
@@ -68,6 +76,10 @@ const OrganizeSectionPool_Fragment = graphql(/* GraphQL */ `
           key
           category {
             value
+            label {
+              en
+              fr
+            }
           }
           name {
             en
@@ -113,7 +125,7 @@ const OrganizeSection = ({
 
   const disabledIndexes = steps
     .map((step, index) => {
-      return step.type === AssessmentStepType.ApplicationScreening
+      return step.type?.value === AssessmentStepType.ApplicationScreening
         ? index
         : undefined;
     })
@@ -193,7 +205,8 @@ const OrganizeSection = ({
   const moveDisabledIndexes = [0];
   // screening question step optionally exists
   const indexOfScreeningQuestionStep = steps.findIndex(
-    (step) => step.type === AssessmentStepType.ScreeningQuestionsAtApplication,
+    (step) =>
+      step.type?.value === AssessmentStepType.ScreeningQuestionsAtApplication,
   );
   // screening question can never be moved
   if (indexOfScreeningQuestionStep >= 0) {
@@ -201,7 +214,7 @@ const OrganizeSection = ({
   }
 
   const formDisabled =
-    pool.status !== PoolStatus.Draft ||
+    pool.status?.value !== PoolStatus.Draft ||
     deleteFetching ||
     swapFetching ||
     pageLoading;

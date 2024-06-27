@@ -38,15 +38,27 @@ export const QualifiedRecruitmentCard_Fragment = graphql(/* GraphQL */ `
     id
     status {
       value
+      label {
+        en
+        fr
+      }
     }
     suspendedAt
     pool {
       id
       stream {
         value
+        label {
+          en
+          fr
+        }
       }
       publishingGroup {
         value
+        label {
+          en
+          fr
+        }
       }
       name {
         en
@@ -71,6 +83,10 @@ export const QualifiedRecruitmentCard_Fragment = graphql(/* GraphQL */ `
           id
           category {
             value
+            label {
+              en
+              fr
+            }
           }
           key
           name {
@@ -83,21 +99,23 @@ export const QualifiedRecruitmentCard_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-const QualifiedRecruitmentCardCategories_Fragment = graphql(/* GraphQL */ `
-  fragment QualifiedRequirementCardCategories on Query {
-    categories: localizedEnumStrings(enumName: "SkillCategory") {
-      value
-      label {
-        en
-        fr
+export const QualifiedRecruitmentCardCategories_Fragment = graphql(
+  /* GraphQL */ `
+    fragment QualifiedRequirementCardCategories on Query {
+      categories: localizedEnumStrings(enumName: "SkillCategory") {
+        value
+        label {
+          en
+          fr
+        }
       }
     }
-  }
-`);
+  `,
+);
 
 export interface QualifiedRecruitmentCardProps {
   candidateQuery: FragmentType<typeof QualifiedRecruitmentCard_Fragment>;
-  categoriesQuery: FragmentType<
+  categoriesQuery?: FragmentType<
     typeof QualifiedRecruitmentCardCategories_Fragment
   >;
   headingLevel?: HeadingRank;
@@ -268,7 +286,7 @@ const QualifiedRecruitmentCard = ({
               >
                 {getLocalizedEnumStringByValue(
                   SkillCategory.Behavioural,
-                  categoryData.categories,
+                  categoryData?.categories,
                   intl,
                 )}
               </Heading>
@@ -295,7 +313,7 @@ const QualifiedRecruitmentCard = ({
               >
                 {getLocalizedEnumStringByValue(
                   SkillCategory.Technical,
-                  categoryData.categories,
+                  categoryData?.categories,
                   intl,
                 )}
               </Heading>

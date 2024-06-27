@@ -118,6 +118,10 @@ export const UserSkills_Query = graphql(/* GraphQL */ `
           key
           category {
             value
+            label {
+              en
+              fr
+            }
           }
           name {
             en
@@ -137,6 +141,10 @@ export const UserSkills_Query = graphql(/* GraphQL */ `
       key
       category {
         value
+        label {
+          en
+          fr
+        }
       }
       name {
         en

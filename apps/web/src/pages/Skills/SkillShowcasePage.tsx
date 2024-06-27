@@ -43,6 +43,10 @@ export const SkillShowcase_UserSkillFragment = graphql(/* GraphQL */ `
       key
       category {
         value
+        label {
+          en
+          fr
+        }
       }
       name {
         en

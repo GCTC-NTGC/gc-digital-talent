@@ -230,12 +230,14 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
     managerJobTitle
     hrAdvisorEmail
     positionType {
+      value
       label {
         en
         fr
       }
     }
     reason {
+      value
       label {
         en
         fr
@@ -263,12 +265,24 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
       }
       languageAbility {
         value
+        label {
+          en
+          fr
+        }
       }
       operationalRequirements {
         value
+        label {
+          en
+          fr
+        }
       }
       workRegions {
         value
+        label {
+          en
+          fr
+        }
       }
       pools {
         id
@@ -283,12 +297,20 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
         }
         stream {
           value
+          label {
+            en
+            fr
+          }
         }
       }
     }
     requestedDate
     status {
       value
+      label {
+        en
+        fr
+      }
     }
     statusChangedAt
     adminNotes
@@ -303,12 +325,24 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
       }
       languageAbility {
         value
+        label {
+          en
+          fr
+        }
       }
       operationalRequirements {
         value
+        label {
+          en
+          fr
+        }
       }
       locationPreferences {
         value
+        label {
+          en
+          fr
+        }
       }
       positionDuration
       skills {
@@ -320,6 +354,10 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
         }
         category {
           value
+          label {
+            en
+            fr
+          }
         }
       }
       pools {
@@ -330,6 +368,10 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
         }
         stream {
           value
+          label {
+            en
+            fr
+          }
         }
         classification {
           id
@@ -348,6 +390,10 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
       }
       qualifiedStreams {
         value
+        label {
+          en
+          fr
+        }
       }
     }
   }

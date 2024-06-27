@@ -58,6 +58,10 @@ const CandidateCount_Query = graphql(/* GraphQL */ `
         }
         stream {
           value
+          label {
+            en
+            fr
+          }
         }
         classification {
           id
@@ -68,6 +72,10 @@ const CandidateCount_Query = graphql(/* GraphQL */ `
           id
           type {
             value
+            label {
+              en
+              fr
+            }
           }
           skill {
             id
@@ -78,6 +86,10 @@ const CandidateCount_Query = graphql(/* GraphQL */ `
             }
             category {
               value
+              label {
+                en
+                fr
+              }
             }
           }
         }

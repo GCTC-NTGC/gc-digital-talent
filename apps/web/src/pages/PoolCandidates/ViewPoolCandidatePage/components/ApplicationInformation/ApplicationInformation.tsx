@@ -47,6 +47,10 @@ const ApplicationInformation_PoolFragment = graphql(/* GraphQL */ `
         key
         category {
           value
+          label {
+            en
+            fr
+          }
         }
         name {
           en

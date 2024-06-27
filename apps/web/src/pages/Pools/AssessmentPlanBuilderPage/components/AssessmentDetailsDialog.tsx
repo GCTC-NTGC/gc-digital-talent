@@ -96,11 +96,19 @@ const AssessmentDetailsDialogPoolSkill_Fragment = graphql(/* GraphQL */ `
     id
     type {
       value
+      label {
+        en
+        fr
+      }
     }
     skill {
       id
       category {
         value
+        label {
+          en
+          fr
+        }
       }
       key
       name {

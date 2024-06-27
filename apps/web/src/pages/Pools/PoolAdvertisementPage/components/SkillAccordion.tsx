@@ -107,7 +107,10 @@ const SkillAccordion = ({ poolSkillQuery, required }: SkillAccordionProps) => {
   if (!poolSkill.skill) return null;
 
   const definitionAndLevel = poolSkill.requiredLevel
-    ? getSkillLevelMessages(poolSkill.requiredLevel, poolSkill.skill.category)
+    ? getSkillLevelMessages(
+        poolSkill.requiredLevel,
+        poolSkill.skill.category.value,
+      )
     : null;
 
   const skillLevel = definitionAndLevel
@@ -123,7 +126,7 @@ const SkillAccordion = ({ poolSkillQuery, required }: SkillAccordionProps) => {
   } ${skillLevel}`}`;
 
   const screeningTime =
-    poolSkill.skill.category === SkillCategory.Technical
+    poolSkill.skill.category.value === SkillCategory.Technical
       ? intl.formatMessage({
           defaultMessage: "Assessed during initial application",
           id: "gLNQYB",

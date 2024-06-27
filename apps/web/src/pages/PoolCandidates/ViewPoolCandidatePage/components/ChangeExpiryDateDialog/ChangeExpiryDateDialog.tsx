@@ -70,7 +70,10 @@ const ChangeExpiryDateDialog = ({
 
   const { handleSubmit } = methods;
 
-  if (!application.expiryDate || !isQualifiedStatus(application.status)) {
+  if (
+    !application.expiryDate ||
+    !isQualifiedStatus(application.status?.value)
+  ) {
     return null;
   }
 

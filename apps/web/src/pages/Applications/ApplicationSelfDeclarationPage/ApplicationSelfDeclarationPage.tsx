@@ -419,7 +419,9 @@ export const Component = () => {
   return application && application?.user ? (
     <ApplicationSelfDeclaration
       application={application}
-      indigenousCommunities={resolvedIndigenousCommunities}
+      indigenousCommunities={resolvedIndigenousCommunities?.map(
+        (community) => community.value,
+      )}
       signature={application.user.indigenousDeclarationSignature ?? null}
       onSubmit={handleSubmit}
     />
