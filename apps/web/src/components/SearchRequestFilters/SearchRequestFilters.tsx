@@ -374,8 +374,6 @@ const SearchRequestFilters = ({
     poolCandidateFilter?.operationalRequirements?.flatMap((req) => req?.value),
   );
 
-  console.log(operationalRequirementIds);
-
   const operationalRequirements: string[] | undefined =
     operationalRequirementIds.map((id) =>
       intl.formatMessage(getOperationalRequirement(id)),
