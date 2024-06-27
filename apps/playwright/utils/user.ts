@@ -66,7 +66,9 @@ export const Test_MeQueryDocument = /* GraphQL */ `
             en
             fr
           }
-          category
+          category {
+            value
+          }
           experienceSkillRecord {
             details
           }
