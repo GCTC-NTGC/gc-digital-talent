@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
-import { AnimatePresence, m } from "framer-motion";
+import { AnimatePresence, m, usePresence } from "framer-motion";
 import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
 import BellAlertIconSm from "@heroicons/react/20/solid/BellAlertIcon";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
@@ -22,6 +22,7 @@ import notificationMessages from "~/messages/notificationMessages";
 
 import UnreadAlertBellIcon from "./UnreadAlertBellIcon";
 import NotificationList from "../NotificationList/NotificationList";
+import { UseQueryExecute } from "urql";
 
 const Overlay = m(DialogPrimitive.Overlay);
 
@@ -37,6 +38,123 @@ const NotificationCount_Query = graphql(/* GraphQL */ `
   }
 `);
 
+const DialogPortalWithPresence = ({
+  executeQuery,
+}: {
+  executeQuery: UseQueryExecute;
+}) => {
+  const intl = useIntl();
+  const paths = useRoutes();
+  const [isPresent] = usePresence();
+  const [render, setRender] = useState<boolean>(isPresent);
+  useEffect(() => {
+    if (isPresent) {
+      setRender(true);
+    } else {
+      setTimeout(() => setRender(false), 200); // let animation complete before removal
+    }
+  }, [isPresent]);
+
+  return render ? (
+    <Dialog.Portal forceMount>
+      <Overlay
+        forceMount
+        initial={{ opacity: 0.3 }}
+        animate={{ opacity: 0.3 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.2 }}
+        data-h2-background-color="base:all(black)"
+        data-h2-position="base(fixed)"
+        data-h2-location="base(0)"
+        data-h2-z-index="base(8)"
+      />
+      <DialogPrimitive.Content forceMount asChild>
+        <m.div
+          initial={{ x: "100%", scale: 0.95 }}
+          animate={{ x: 0, scale: 1 }}
+          exit={{ x: "100%", scale: 0.95 }}
+          transition={{ duration: 0.2, ease: "easeInOut" }}
+          data-h2-background-color="base(foreground)"
+          data-h2-color="base(black)"
+          data-h2-font-family="base(sans)"
+          data-h2-max-width="base(95vw)"
+          data-h2-width="base(x18)"
+          data-h2-overflow-y="base(auto)"
+          data-h2-position="base(fixed)"
+          data-h2-top="base(0)"
+          data-h2-right="base(0)"
+          data-h2-bottom="base(0)"
+          data-h2-margin="base(x.5 x.5 x.5 auto)"
+          data-h2-radius="base(s)"
+          data-h2-shadow="base(0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .5))"
+          data-h2-z-index="base(9)"
+        >
+          <div data-h2-padding="base(x1)">
+            <div
+              data-h2-display="base(flex)"
+              data-h2-align-items="base(center)"
+              data-h2-justify-content="base(space-between)"
+              data-h2-gap="base(x.25 0)"
+              data-h2-margin-bottom="base(x.5)"
+            >
+              <Heading
+                level="h2"
+                size="h5"
+                color="primary"
+                Icon={BellAlertIcon}
+                data-h2-margin="base(0)"
+                data-h2-line-height="base(1)"
+              >
+                {intl.formatMessage(notificationMessages.title)}
+              </Heading>
+              <div data-h2-display="base(flex)" data-h2-gap="base(x.25 0)">
+                <Dialog.Close asChild>
+                  <Button
+                    mode="icon_only"
+                    color="black"
+                    icon={XMarkIcon}
+                    aria-label={intl.formatMessage({
+                      defaultMessage: "Close notifications",
+                      id: "J1n6QO",
+                      description:
+                        "Button text to close the notifications dialog",
+                    })}
+                  />
+                </Dialog.Close>
+              </div>
+            </div>
+            <p>
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "Welcome to your notification panel. Click or tap a notification to be taken to the relevant page. Use the <icon></icon> icon to mark a specific notification as read, pin it, or delete it.",
+                  id: "koUnRG",
+                  description: "Instructions on how to manage notifications",
+                },
+                {
+                  icon: () => ellipsis(),
+                },
+              )}
+            </p>
+          </div>
+          <NotificationList live inDialog limit={30} onRead={executeQuery} />
+          <p data-h2-margin="base(x.5 x1)">
+            <DialogPrimitive.Close asChild>
+              <Link href={paths.notifications()} mode="solid" color="secondary">
+                {intl.formatMessage({
+                  defaultMessage: "View all notifications",
+                  id: "/lVSP/",
+                  description: "Link text for the notifications page",
+                })}
+              </Link>
+            </DialogPrimitive.Close>
+          </p>
+        </m.div>
+      </DialogPrimitive.Content>
+    </Dialog.Portal>
+  ) : null;
+};
+
 const ellipsis = () => (
   <EllipsisVerticalIcon
     data-h2-width="base(x.75)"
@@ -46,7 +164,6 @@ const ellipsis = () => (
 
 const NotificationDialog = () => {
   const intl = useIntl();
-  const paths = useRoutes();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const [{ data }, executeQuery] = usePollingQuery(
@@ -72,115 +189,9 @@ const NotificationDialog = () => {
       </DialogPrimitive.Trigger>
       <AnimatePresence initial={false}>
         {isOpen && (
-          <Dialog.Portal forceMount>
-            <Overlay
-              forceMount
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.3 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              data-h2-background-color="base:all(black)"
-              data-h2-position="base(fixed)"
-              data-h2-location="base(0)"
-              data-h2-z-index="base(8)"
-            />
-            <DialogPrimitive.Content forceMount asChild>
-              <m.div
-                initial={{ x: "100%", scale: 0.95 }}
-                animate={{ x: 0, scale: 1 }}
-                exit={{ x: "100%", scale: 0.95 }}
-                transition={{ duration: 0.2, ease: "easeInOut" }}
-                data-h2-background-color="base(foreground)"
-                data-h2-color="base(black)"
-                data-h2-font-family="base(sans)"
-                data-h2-max-width="base(95vw)"
-                data-h2-width="base(x18)"
-                data-h2-overflow-y="base(auto)"
-                data-h2-position="base(fixed)"
-                data-h2-top="base(0)"
-                data-h2-right="base(0)"
-                data-h2-bottom="base(0)"
-                data-h2-margin="base(x.5 x.5 x.5 auto)"
-                data-h2-radius="base(s)"
-                data-h2-shadow="base(0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .5))"
-                data-h2-z-index="base(9)"
-              >
-                <div data-h2-padding="base(x1)">
-                  <div
-                    data-h2-display="base(flex)"
-                    data-h2-align-items="base(center)"
-                    data-h2-justify-content="base(space-between)"
-                    data-h2-gap="base(x.25 0)"
-                    data-h2-margin-bottom="base(x.5)"
-                  >
-                    <Heading
-                      level="h2"
-                      size="h5"
-                      color="primary"
-                      Icon={BellAlertIcon}
-                      data-h2-margin="base(0)"
-                      data-h2-line-height="base(1)"
-                    >
-                      {intl.formatMessage(notificationMessages.title)}
-                    </Heading>
-                    <div
-                      data-h2-display="base(flex)"
-                      data-h2-gap="base(x.25 0)"
-                    >
-                      <Dialog.Close asChild>
-                        <Button
-                          mode="icon_only"
-                          color="black"
-                          icon={XMarkIcon}
-                          aria-label={intl.formatMessage({
-                            defaultMessage: "Close notifications",
-                            id: "J1n6QO",
-                            description:
-                              "Button text to close the notifications dialog",
-                          })}
-                        />
-                      </Dialog.Close>
-                    </div>
-                  </div>
-                  <p>
-                    {intl.formatMessage(
-                      {
-                        defaultMessage:
-                          "Welcome to your notification panel. Click or tap a notification to be taken to the relevant page. Use the <icon></icon> icon to mark a specific notification as read, pin it, or delete it.",
-                        id: "koUnRG",
-                        description:
-                          "Instructions on how to manage notifications",
-                      },
-                      {
-                        icon: () => ellipsis(),
-                      },
-                    )}
-                  </p>
-                </div>
-                <NotificationList
-                  live
-                  inDialog
-                  limit={30}
-                  onRead={executeQuery}
-                />
-                <p data-h2-margin="base(x.5 x1)">
-                  <DialogPrimitive.Close asChild>
-                    <Link
-                      href={paths.notifications()}
-                      mode="solid"
-                      color="secondary"
-                    >
-                      {intl.formatMessage({
-                        defaultMessage: "View all notifications",
-                        id: "/lVSP/",
-                        description: "Link text for the notifications page",
-                      })}
-                    </Link>
-                  </DialogPrimitive.Close>
-                </p>
-              </m.div>
-            </DialogPrimitive.Content>
-          </Dialog.Portal>
+          <DialogPortalWithPresence
+            executeQuery={executeQuery}
+          ></DialogPortalWithPresence>
         )}
       </AnimatePresence>
     </DialogPrimitive.Root>
