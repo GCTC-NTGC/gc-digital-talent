@@ -51,7 +51,7 @@ type FormValues = {
   verificationCode: string;
 };
 
-interface EmailVerificationProps {
+export interface EmailVerificationProps {
   emailType?: "contact";
   // The email address that the code was sent to.  Displayed to the user.
   emailAddress: string;
