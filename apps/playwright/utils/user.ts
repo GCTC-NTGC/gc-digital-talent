@@ -77,8 +77,12 @@ export const Test_MeQueryDocument = /* GraphQL */ `
           title
           issuedBy
           awardedDate
-          awardedTo
-          awardedScope
+          awardedTo {
+            value
+          }
+          awardedScope {
+            value
+          }
         }
         ... on CommunityExperience {
           title
@@ -93,8 +97,12 @@ export const Test_MeQueryDocument = /* GraphQL */ `
           thesisTitle
           startDate
           endDate
-          type
-          status
+          type {
+            value
+          }
+          status {
+            value
+          }
         }
         ... on PersonalExperience {
           title
