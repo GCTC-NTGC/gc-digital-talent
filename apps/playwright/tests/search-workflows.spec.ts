@@ -4,6 +4,7 @@ import { Page } from "@playwright/test";
 import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 import {
   Classification,
+  Department,
   EstimatedLanguageAbility,
   OperationalRequirement,
   PoolCandidateStatus,
@@ -19,12 +20,14 @@ import { getClassifications } from "~/utils/classification";
 import PoolPage from "~/fixtures/PoolPage";
 import ApplicationPage from "~/fixtures/ApplicationPage";
 import { loginBySub } from "~/utils/auth";
+import { getDepartments } from "~/utils/departments";
 
 test.describe("Talent search", () => {
   const uniqueTestId = Date.now().valueOf();
   const sub = `playwright.sub.${uniqueTestId}`;
   const poolName = `Search pool ${uniqueTestId}`;
   let classification: Classification;
+  let department: Department;
   let skill: Skill;
 
   const expectNoCandidate = async (page: Page) => {
@@ -79,13 +82,15 @@ test.describe("Talent search", () => {
     const team = await getDCM();
     const classifications = await getClassifications();
     classification = classifications[0];
-
+    const departments = await getDepartments();
+    department = departments[0];
     const adminUser = await adminPage.getMe();
     // Accepted pool
     const createdPool = await poolPage.createAndPublishPool({
       userId: adminUser.id,
       teamId: team.id,
       classification,
+      department,
       skill: technicalSkill,
       name: poolName,
     });

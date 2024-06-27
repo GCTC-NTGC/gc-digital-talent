@@ -23,7 +23,7 @@ jobs:
     if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-22.04
     env:
-      PNPM_VERSION: "8.15.0"
+      PNPM_VERSION: "8.15.7"
     steps:
       - uses: actions/checkout@v4
         with:

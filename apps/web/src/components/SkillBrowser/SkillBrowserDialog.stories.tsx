@@ -3,7 +3,6 @@ import { action } from "@storybook/addon-actions";
 import { faker } from "@faker-js/faker/locale/en";
 
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
-import Toast from "@gc-digital-talent/toast";
 import { getStaticSkills } from "@gc-digital-talent/fake-data";
 import { Skill } from "@gc-digital-talent/graphql";
 
@@ -29,12 +28,7 @@ const Template: StoryFn<typeof SkillBrowserDialog> = (args) => {
     });
   };
 
-  return (
-    <>
-      <SkillBrowserDialog {...args} onSave={handleSave} />
-      <Toast />
-    </>
-  );
+  return <SkillBrowserDialog {...args} onSave={handleSave} />;
 };
 
 export const Default = Template.bind({});

@@ -13,20 +13,7 @@ export default {
 } as Meta;
 
 const TemplateUserProfile: StoryFn<User> = (args) => {
-  return (
-    <UserProfile
-      user={args}
-      sections={{
-        about: { isVisible: true },
-        language: { isVisible: true },
-        government: { isVisible: true },
-        workLocation: { isVisible: true },
-        workPreferences: { isVisible: true },
-        employmentEquity: { isVisible: true },
-        careerTimelineAndRecruitment: { isVisible: true },
-      }}
-    />
-  );
+  return <UserProfile user={args} headingLevel="h3" />;
 };
 
 export const Default = TemplateUserProfile.bind({});

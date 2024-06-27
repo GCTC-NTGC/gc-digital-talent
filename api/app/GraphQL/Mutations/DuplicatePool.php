@@ -23,6 +23,10 @@ final class DuplicatePool
             'closing_date' => null,
             'published_at' => null,
         ]);
+        if (! is_null($args['departmentId'])) {
+            $newPool->department()->associate($args['departmentId']);
+        }
+
         $newPool->save();
 
         $newPool->setEssentialPoolSkills($pool->essentialSkills->pluck('id'));

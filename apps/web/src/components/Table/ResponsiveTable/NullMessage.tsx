@@ -3,6 +3,8 @@ import { ReactNode } from "react";
 
 import { Heading, Well } from "@gc-digital-talent/ui";
 
+import tableMessages from "../tableMessages";
+
 export interface NullMessageProps {
   /** Heading for the message */
   title?: ReactNode;
@@ -23,23 +25,10 @@ const NullMessage = ({ title, description }: NullMessageProps) => {
 
   return (
     <Well data-h2-margin="base(x1 0)" data-h2-text-align="base(center)">
-      <Heading data-h2-margin-top="base(0)" data-h2-font-size="base(copy)">
-        {title ||
-          intl.formatMessage({
-            defaultMessage: "There aren't any items here yet.",
-            id: "H5kSPB",
-            description: "Default message for an empty table",
-          })}
+      <Heading data-h2-margin="base(0)" data-h2-font-size="base(copy)">
+        {title || intl.formatMessage(tableMessages.noItemsTitle)}
       </Heading>
-      <p>
-        {description ||
-          intl.formatMessage({
-            defaultMessage:
-              'Get started by adding an item using the "Add a new item" button provided.',
-            id: "/GIL9l",
-            description: "Default description for an empty table",
-          })}
-      </p>
+      {description && <p data-h2-margin-top="base(x1)">{description}</p>}
     </Well>
   );
 };

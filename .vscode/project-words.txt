@@ -64,6 +64,7 @@ subcomponents
 subquery
 TALENTSEARCH
 tanstack
+teamable
 TELEWORK
 Telework
 testid

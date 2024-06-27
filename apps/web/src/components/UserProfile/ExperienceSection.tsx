@@ -5,7 +5,6 @@ import {
   Accordion,
   Tabs,
   HeadingRank,
-  Link,
   Button,
   Well,
 } from "@gc-digital-talent/ui";
@@ -31,13 +30,11 @@ import ExperienceByTypeListing from "./ExperienceByTypeListing";
 interface ExperienceSectionProps {
   experiences?: Experience[];
   editParam?: string;
-  editPath?: string;
   headingLevel?: HeadingRank;
 }
 
 const ExperienceSection = ({
   experiences,
-  editPath,
   editParam,
   headingLevel = "h3",
 }: ExperienceSectionProps) => {
@@ -212,29 +209,7 @@ const ExperienceSection = ({
     </Tabs.Root>
   ) : (
     <Well>
-      {!editPath ? (
-        <p>{intl.formatMessage(commonMessages.noInformationProvided)}</p>
-      ) : (
-        <>
-          <p data-h2-padding="base(0, 0, x1, 0)">
-            {intl.formatMessage({
-              defaultMessage: "You haven't added any information here yet.",
-              id: "SCCX7B",
-              description: "Message for when no data exists for the section",
-            })}
-          </p>
-          <p>
-            <Link mode="inline" href={editPath}>
-              {intl.formatMessage({
-                defaultMessage: "Edit your experience options.",
-                id: "c39xT8",
-                description:
-                  "Link text to edit experience information on profile.",
-              })}
-            </Link>
-          </p>
-        </>
-      )}
+      <p>{intl.formatMessage(commonMessages.noInformationProvided)}</p>
     </Well>
   );
 };
