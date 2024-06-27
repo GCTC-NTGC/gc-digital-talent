@@ -100,6 +100,13 @@ const IndividualRoleTable = ({
             />
           ),
         }}
+        nullMessage={{
+          description: intl.formatMessage({
+            defaultMessage: 'Use the "Add new role" button to get started.',
+            id: "WCOVvw",
+            description: "Instructions for adding a role to a user.",
+          }),
+        }}
       />
     </>
   );
