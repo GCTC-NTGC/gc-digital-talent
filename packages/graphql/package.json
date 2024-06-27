@@ -16,7 +16,7 @@
     "@parcel/watcher": "^2.4.1",
     "graphql": "^16.8.2",
     "tsconfig": "workspace:*",
-    "typescript": "^5.4.5",
+    "typescript": "^5.5.2",
     "urql": "^4.1.0"
   }
 }
