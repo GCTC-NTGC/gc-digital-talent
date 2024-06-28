@@ -588,6 +588,7 @@ const PoolCandidatesTable = ({
             {
               id: "processNumber",
               header: intl.formatMessage(processMessages.processNumber),
+              sortingFn: normalizedText,
             },
           ),
         ]),
