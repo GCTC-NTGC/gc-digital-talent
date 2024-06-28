@@ -30,6 +30,7 @@ import {
   SortOrder,
   FragmentType,
   AssessmentResultStatus,
+  QueryPoolCandidatesPaginatedOrderByPoolColumn,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -232,6 +233,7 @@ function transformSortStateToOrderByClause(
     ["status", "status_weight"],
     ["notes", "notes"],
     ["skillCount", "skillCount"],
+    ["processNumber", "PROCESS_NUMBER"],
   ]);
 
   const sortingRule = sortingRules?.find((rule) => {
@@ -250,6 +252,18 @@ function transformSortStateToOrderByClause(
       column: columnName,
       order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
       user: undefined,
+    };
+  }
+
+  if (sortingRule && ["processNumber"].includes(sortingRule.id)) {
+    const columnName = columnMap.get(sortingRule.id);
+    return {
+      column: undefined,
+      order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+      pool: {
+        aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+        column: columnName as QueryPoolCandidatesPaginatedOrderByPoolColumn,
+      },
     };
   }
 

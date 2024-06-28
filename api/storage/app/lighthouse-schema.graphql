@@ -842,6 +842,7 @@ input PoolCandidateSearchInput {
   suspendedStatus: CandidateSuspendedFilter
   publishingGroups: [PublishingGroup]
   appliedClassifications: [ClassificationFilterInput]
+  processNumber: String
 }
 
 input PoolCandidateSearchRequestInput {
@@ -1948,6 +1949,20 @@ input QueryPoolCandidatesPaginatedOrderByUser {
   column: QueryPoolCandidatesPaginatedOrderByUserColumn
 }
 
+"Allowed column names for Query.poolCandidatesPaginated.orderBy."
+enum QueryPoolCandidatesPaginatedOrderByPoolColumn {
+  PROCESS_NUMBER
+}
+
+"Aggregate specification for Query.poolCandidatesPaginated.orderBy.pool."
+input QueryPoolCandidatesPaginatedOrderByPool {
+  "The aggregate function to apply to the column."
+  aggregate: OrderByRelationWithColumnAggregateFunction!
+
+  "Name of the column to use."
+  column: QueryPoolCandidatesPaginatedOrderByPoolColumn
+}
+
 "Order by clause for Query.poolCandidatesPaginated.orderBy."
 input QueryPoolCandidatesPaginatedOrderByRelationOrderByClause {
   "The column that is used for ordering."
@@ -1958,6 +1973,9 @@ input QueryPoolCandidatesPaginatedOrderByRelationOrderByClause {
 
   "Aggregate specification."
   user: QueryPoolCandidatesPaginatedOrderByUser
+
+  "Aggregate specification."
+  pool: QueryPoolCandidatesPaginatedOrderByPool
 }
 
 "Directions for ordering a list of records."

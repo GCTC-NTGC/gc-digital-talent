@@ -125,6 +125,7 @@ class Pool extends Model
         'advertisement_language',
         'classification_id',
         'closing_reason',
+        'process_number',
         'department_id',
     ];
 
