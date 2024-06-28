@@ -85,6 +85,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
           }
           pool {
             id
+            processNumber
             name {
               en
               fr

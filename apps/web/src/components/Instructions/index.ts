@@ -1,5 +1,5 @@
-import { InstructionList, InstructionListProps } from "./InstructionList";
-import { InstructionStep, InstructionStepProps } from "./InstructionStep";
+import InstructionList from "./InstructionList";
+import InstructionStep from "./InstructionStep";
 
 const Instructions = {
   Step: InstructionStep,
@@ -7,4 +7,3 @@ const Instructions = {
 };
 
 export default Instructions;
-export type { InstructionListProps, InstructionStepProps };

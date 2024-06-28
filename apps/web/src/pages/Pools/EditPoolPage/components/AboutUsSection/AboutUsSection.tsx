@@ -33,7 +33,7 @@ import UpdatePublishedProcessDialog, {
   type FormValues as UpdateFormValues,
 } from "../UpdatePublishedProcessDialog/UpdatePublishedProcessDialog";
 
-export const EditPoolAboutUs_Fragment = graphql(/* GraphQL */ `
+const EditPoolAboutUs_Fragment = graphql(/* GraphQL */ `
   fragment EditPoolAboutUs on Pool {
     ...UpdatePublishedProcessDialog
     id

@@ -1,16 +1,12 @@
 import flatMap from "lodash/flatMap";
 import uniqBy from "lodash/uniqBy";
-import { IntlShape } from "react-intl";
 
-import { getLocale } from "@gc-digital-talent/i18n";
-import { matchStringCaseDiacriticInsensitive } from "@gc-digital-talent/forms";
 import {
   notEmpty,
   uniqueItems,
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
 import {
-  UserSkill,
   SkillLevel,
   Experience,
   Maybe,
@@ -97,17 +93,6 @@ export function filterSkillsByCategory(
     .filter(notEmpty);
 }
 
-export function filterUserSkillsByCategory(
-  userSkills: Maybe<Array<UserSkill>>,
-  category: SkillCategory,
-) {
-  return userSkills
-    ?.filter((userSkill) => {
-      return userSkill.skill.category === category;
-    })
-    .filter(notEmpty);
-}
-
 export function categorizeSkill(
   skills: Maybe<Array<Skill>> | undefined,
 ): Record<SkillCategory, Maybe<Array<Skill> | undefined>> {
@@ -123,44 +108,6 @@ export function categorizeSkill(
   };
 }
 
-export function categorizeUserSkill(
-  userSkills: Maybe<Array<UserSkill>>,
-): Record<SkillCategory, Maybe<Array<UserSkill> | undefined>> {
-  return {
-    [SkillCategory.Technical]: filterUserSkillsByCategory(
-      userSkills,
-      SkillCategory.Technical,
-    ),
-    [SkillCategory.Behavioural]: filterUserSkillsByCategory(
-      userSkills,
-      SkillCategory.Behavioural,
-    ),
-  };
-}
-
-export function filterSkillsByNameOrKeywords(
-  skills: Array<Skill>,
-  searchQuery: string,
-  intl: IntlShape,
-) {
-  const locale = getLocale(intl);
-
-  const matchedSkills = skills
-    .filter((skill) => {
-      return (
-        matchStringCaseDiacriticInsensitive(
-          searchQuery,
-          skill.name[locale] ?? "",
-        ) ||
-        skill.keywords?.[locale]?.some((keyword) => {
-          return matchStringCaseDiacriticInsensitive(searchQuery, keyword);
-        })
-      );
-    })
-    .filter(notEmpty);
-  return matchedSkills;
-}
-
 export const getMissingSkills = (required: Skill[], added?: Skill[]) => {
   return !added?.length
     ? required
@@ -171,38 +118,6 @@ export const getMissingSkills = (required: Skill[], added?: Skill[]) => {
             addedSkill.experienceSkillRecord?.details,
         );
       });
-};
-
-/**
- * Differentiate Missing Skills
- *
- * Determines if a skill is missing or present but
- * simply missing details
- *
- * @param missingSkills Skill[] Array of skills that are missing from the application
- * @param addedSkills Skill[] Array of skills added to a users profile
- * @returns [skills: Skill[], details: Skill[]] Tuple where first index is the skills
- *          That are completely missing and second index are the skills that are present
- *          but missing details
- */
-export const differentiateMissingSkills = (
-  missingSkills: Skill[],
-  addedSkills?: Skill[],
-) => {
-  const skills: Skill[] = [];
-  const details: Skill[] = [];
-
-  missingSkills.forEach((skill) => {
-    const addedSkill = addedSkills?.find((added) => added.id === skill.id);
-
-    if (addedSkill && !addedSkill.experienceSkillRecord?.details) {
-      details.push(skill);
-    } else {
-      skills.push(skill);
-    }
-  });
-
-  return [skills, details];
 };
 
 /**
@@ -282,23 +197,6 @@ export const parseKeywords = (
 };
 
 const categoryOrder = [SkillCategory.Technical, SkillCategory.Behavioural];
-
-/**
- * Sort skills by category
- *
- * Technical first, behavioural second
- *
- * @param skills Skill[]
- * @returns Skill[]
- */
-export const sortSkillsByCategory = (skills: Skill[]): Skill[] => {
-  return skills.sort((skillA, skillB) => {
-    return (
-      categoryOrder.indexOf(skillA.category) -
-      categoryOrder.indexOf(skillB.category)
-    );
-  });
-};
 
 /**
  * Sort poolSkills collection by category of attached skill

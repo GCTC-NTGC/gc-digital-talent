@@ -59,6 +59,10 @@ const PoolStatusTable = ({ user }: PoolStatusTableProps) => {
           "Title of the 'Pool' column for the table on view-user page",
       }),
     }),
+    columnHelper.accessor(({ pool }) => pool.processNumber, {
+      id: "processNumber",
+      header: intl.formatMessage(processMessages.processNumber),
+    }),
     columnHelper.accessor(
       (row) => getLocalizedName(row.pool.team?.displayName, intl, true),
       {

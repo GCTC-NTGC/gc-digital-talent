@@ -49,7 +49,10 @@ import Table, {
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
-import { getPriorityWeight } from "~/utils/poolCandidate";
+import {
+  getPriorityWeight,
+  priorityWeightAfterVerification,
+} from "~/utils/poolCandidate";
 
 import skillMatchDialogAccessor from "./SkillMatchDialog";
 import tableMessages from "./tableMessages";
@@ -155,6 +158,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
           ...PoolCandidate_Bookmark
           pool {
             id
+            processNumber
             name {
               en
               fr
@@ -242,6 +246,8 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
           notes
           archivedAt
           suspendedAt
+          priorityVerification
+          veteranVerification
         }
         skillCount
       }
@@ -392,6 +398,7 @@ const PoolCandidatesTable = ({
       email: searchType === "email" ? searchBarTerm : undefined,
       name: searchType === "name" ? searchBarTerm : undefined,
       notes: searchType === "notes" ? searchBarTerm : undefined,
+      processNumber: searchType === "processNumber" ? searchBarTerm : undefined,
 
       // from fancy filter
       applicantFilter: {
@@ -581,12 +588,28 @@ const PoolCandidatesTable = ({
               }) => processCell(pool, paths, intl),
             },
           ),
+          columnHelper.accessor(
+            ({ poolCandidate: { pool } }) => pool.processNumber,
+            {
+              id: "processNumber",
+              header: intl.formatMessage(processMessages.processNumber),
+              sortingFn: normalizedText,
+            },
+          ),
         ]),
     columnHelper.accessor(
-      ({ poolCandidate: { user } }) =>
+      ({ poolCandidate }) =>
         intl.formatMessage(
-          user.priorityWeight
-            ? getPoolCandidatePriorities(getPriorityWeight(user.priorityWeight))
+          poolCandidate.user.priorityWeight
+            ? getPoolCandidatePriorities(
+                getPriorityWeight(
+                  priorityWeightAfterVerification(
+                    poolCandidate.user.priorityWeight,
+                    poolCandidate.priorityVerification,
+                    poolCandidate.veteranVerification,
+                  ),
+                ),
+              )
             : commonMessages.notFound,
         ),
       {
@@ -594,11 +617,19 @@ const PoolCandidatesTable = ({
         header: intl.formatMessage(adminMessages.category),
         cell: ({
           row: {
-            original: {
-              poolCandidate: { user },
-            },
+            original: { poolCandidate },
           },
-        }) => priorityCell(user.priorityWeight, intl),
+        }) =>
+          priorityCell(
+            poolCandidate.user.priorityWeight
+              ? priorityWeightAfterVerification(
+                  poolCandidate.user.priorityWeight,
+                  poolCandidate.priorityVerification,
+                  poolCandidate.veteranVerification,
+                )
+              : null,
+            intl,
+          ),
       },
     ),
     columnHelper.accessor(

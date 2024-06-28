@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-export type Color = "primary" | "secondary";
+type Color = "primary" | "secondary";
 
 type StyleRecord = Record<string, string>;
 const backgroundMap = new Map<Color, StyleRecord>([

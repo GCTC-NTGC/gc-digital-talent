@@ -1,7 +1,6 @@
 import { IntlShape } from "react-intl";
 
 import { Link, Chip, Spoiler, Chips } from "@gc-digital-talent/ui";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
@@ -12,7 +11,6 @@ import {
   Maybe,
   PoolCandidateSearchRequest,
   PoolCandidateSearchStatus,
-  Scalars,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -48,21 +46,6 @@ export function classificationsCell(
   ) : (
     intl.formatMessage(commonMessages.notProvided)
   );
-}
-
-export function dateCell(
-  date: Maybe<Scalars["DateTime"]["output"]>,
-  intl: IntlShape,
-) {
-  return date ? (
-    <span>
-      {formatDate({
-        date: parseDateTimeUtc(date),
-        formatString: "PPP p",
-        intl,
-      })}
-    </span>
-  ) : null;
 }
 
 export const jobTitleCell = (
@@ -125,11 +108,3 @@ export const statusCell = (
   status
     ? intl.formatMessage(getPoolCandidateSearchStatus(status as string))
     : "";
-
-export function viewCell(url: string, label: Maybe<string>, intl: IntlShape) {
-  return (
-    <Link href={url} color="black">
-      {label || intl.formatMessage(commonMessages.noNameProvided)}
-    </Link>
-  );
-}

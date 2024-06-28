@@ -87,7 +87,7 @@ export type FilterDef<TFilterState = object> = {
   component: ReactNode;
 };
 
-export type AddLinkProps = {
+type AddLinkProps = {
   label: ReactNode;
   href: string;
   from?: string;

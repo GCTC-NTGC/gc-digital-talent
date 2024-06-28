@@ -106,7 +106,7 @@ export const RequestFormDepartment_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-export const RequestFormCommunity_Fragment = graphql(/* GraphQL */ `
+const RequestFormCommunity_Fragment = graphql(/* GraphQL */ `
   fragment RequestFormCommunity on Community {
     id
     key
