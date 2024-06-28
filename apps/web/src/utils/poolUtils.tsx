@@ -23,7 +23,6 @@ import {
   Maybe,
   Classification,
   Pool,
-  PoolOpportunityLength,
   LocalizedPoolStream,
   LocalizedPoolStatus,
 } from "@gc-digital-talent/graphql";
@@ -495,11 +494,3 @@ export const getClassificationSalaryRangeUrl = (
 
   return null;
 };
-
-export const sortedOpportunityLengths = [
-  PoolOpportunityLength.TermSixMonths,
-  PoolOpportunityLength.TermOneYear,
-  PoolOpportunityLength.TermTwoYears,
-  PoolOpportunityLength.Indeterminate,
-  PoolOpportunityLength.Various,
-];

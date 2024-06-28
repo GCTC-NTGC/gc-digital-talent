@@ -137,21 +137,6 @@ export const getLookingForLanguage = (
 };
 
 /**
- * Converts possible Employee Type
- * to a string
- *
- * @param type  User["govEmployeeType"]
- * @param intl react-intl object
- * @returns string The employee type
- */
-export const employeeTypeToString = (
-  type: User["govEmployeeType"],
-  intl: IntlShape,
-) => {
-  return type?.label ? getLocalizedName(type.label, intl) : "";
-};
-
-/**
  * Converts a possible location preference
  * to a string
  *

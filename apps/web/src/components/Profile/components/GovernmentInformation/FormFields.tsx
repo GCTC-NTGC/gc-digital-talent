@@ -58,7 +58,7 @@ export const GovernmentInfoClassification_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-export const GovernmentInfoEmployeeTypes_Fragment = graphql(/* GraphQL */ `
+const GovernmentInfoEmployeeTypes_Fragment = graphql(/* GraphQL */ `
   fragment GovernmentInfoEmployeeTypes on Query {
     employeeTypes: localizedEnumStrings(enumName: "GovEmployeeType") {
       value
