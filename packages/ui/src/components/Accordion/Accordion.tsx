@@ -11,9 +11,10 @@ import {
 } from "react";
 
 import type { HeadingRank, IconType } from "../../types";
+import { AccordionMode } from "./types";
 
 type RootProps = ComponentPropsWithoutRef<typeof AccordionPrimitive.Root> & {
-  mode?: "card" | "simple";
+  mode?: AccordionMode;
   size?: "sm" | "md" | "lg";
 };
 
