@@ -583,11 +583,14 @@ const PoolCandidatesTable = ({
               }) => processCell(pool, paths, intl),
             },
           ),
+          columnHelper.accessor(
+            ({ poolCandidate: { pool } }) => pool.processNumber,
+            {
+              id: "processNumber",
+              header: intl.formatMessage(processMessages.processNumber),
+            },
+          ),
         ]),
-    columnHelper.accessor(({ poolCandidate: { pool } }) => pool.processNumber, {
-      id: "processNumber",
-      header: intl.formatMessage(processMessages.processNumber),
-    }),
     columnHelper.accessor(
       ({ poolCandidate: { user } }) =>
         intl.formatMessage(
