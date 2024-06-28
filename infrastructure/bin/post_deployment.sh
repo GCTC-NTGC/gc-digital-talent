@@ -28,7 +28,7 @@ fi
 BLOCKS="{ \"type\": \"header\", \"text\": { \"type\": \"plain_text\", \"text\": \"Post-deployment script was run\" } }"
 
 # Install packages from repository
-if apt-get update && apt-get install -y supervisor cron; then
+if apt-get update && apt-get install --yes --no-install-recommends supervisor cron postgresql-client; then
     add_section_block ":white_check_mark: Install packages from repository *successful*."
 else
     add_section_block ":X: Install packages from repository *failed*. $MENTION"

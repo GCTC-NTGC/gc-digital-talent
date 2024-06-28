@@ -26,6 +26,7 @@ import {
   PriorityWeight,
   OverallAssessmentStatus,
   AssessmentResultStatus,
+  ClaimVerificationResult,
 } from "@gc-digital-talent/graphql";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
@@ -541,4 +542,28 @@ export const getPriorityWeight = (priorityWeight: number): PriorityWeight => {
   }
 
   return PriorityWeight.Other;
+};
+
+export const priorityWeightAfterVerification = (
+  priorityWeight: number,
+  priorityVerification: ClaimVerificationResult | null | undefined,
+  veteranVerification: ClaimVerificationResult | null | undefined,
+): number => {
+  // Priority
+  if (
+    priorityWeight === 10 &&
+    priorityVerification === ClaimVerificationResult.Rejected
+  ) {
+    return 30;
+  }
+
+  // Veteran
+  if (
+    priorityWeight === 20 &&
+    veteranVerification === ClaimVerificationResult.Rejected
+  ) {
+    return 30;
+  }
+
+  return priorityWeight;
 };
