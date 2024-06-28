@@ -6,7 +6,7 @@ module.exports = {
     // this package does not have a translation script
     "formatjs/blocklist-elements": ["error", ["literal"]],
     "import/no-unused-modules": (() => {
-      // Trigger warning on CI only
+      // Trigger warning on CI only, because of performance issues locally
       if (process.env.CI) {
         return [
           1,

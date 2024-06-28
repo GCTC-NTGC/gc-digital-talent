@@ -10,7 +10,7 @@ module.exports = {
   },
   rules: {
     "import/no-unused-modules": (() => {
-      // Trigger warning on CI only
+      // Trigger warning on CI only, because of performance issues locally
       if (process.env.CI) {
         return [
           1,
