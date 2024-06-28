@@ -817,8 +817,8 @@ importers:
         specifier: workspace:*
         version: link:../tsconfig
       tsx:
-        specifier: ^4.15.7
-        version: 4.15.7
+        specifier: ^4.15.8
+        version: 4.15.8
       typescript:
         specifier: ^5.5.2
         version: 5.5.2
@@ -14572,8 +14572,8 @@ packages:
       typescript: 5.5.2
     dev: true
 
-  /tsx@4.15.7:
-    resolution: {integrity: sha512-u3H0iSFDZM3za+VxkZ1kywdCeHCn+8/qHQS1MNoO2sONDgD95HlWtt8aB23OzeTmFP9IU4/8bZUdg58Uu5J4cg==}
+  /tsx@4.15.8:
+    resolution: {integrity: sha512-B8dMlbbkZPW0GQ7wafyy2TGXyoGYW0IURfWkM1h/WzgG5lxxRoeDU2VbMURmmjwGaCsoKROVTLmQQPe/s2TnLw==}
     engines: {node: '>=18.0.0'}
     hasBin: true
     dependencies:
