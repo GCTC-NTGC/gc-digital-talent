@@ -1,16 +1,10 @@
 import { test, expect } from "~/fixtures";
 import { getAuthTokens, jumpPastExpiryDate, loginBySub } from "~/utils/auth";
-import ClockHelper from "~/utils/clock";
 
 test.describe("Login and logout", () => {
-  let clockHelper: ClockHelper;
-
-  test.beforeEach(async ({ page, context }) => {
-    // Arrange
-    clockHelper = new ClockHelper(page, context);
-    await clockHelper.setupFakeTimers();
+  test.beforeEach(async ({ page }) => {
+    await page.clock.setSystemTime(Date.now());
   });
-
   test("log in", async ({ page }) => {
     const requestPromise = page.waitForRequest(
       (request) =>
@@ -104,7 +98,7 @@ test.describe("Login and logout", () => {
 
     // time travel to when the tokens expire before trying to navigate
     const tokenSet1 = await getAuthTokens(page);
-    await clockHelper.jumpTo(jumpPastExpiryDate(tokenSet1.accessToken));
+    await page.clock.setSystemTime(jumpPastExpiryDate(tokenSet1.accessToken));
 
     const request = await requestPromise;
     await page.goto("/en/applicant");
@@ -171,7 +165,7 @@ test.describe("Login and logout", () => {
     // get auth tokens set 1
     const tokenSet1 = await getAuthTokens(page);
     // time travel to when the tokens from token set 1 expire before trying to navigate
-    await clockHelper.jumpTo(jumpPastExpiryDate(tokenSet1.accessToken));
+    await page.clock.setSystemTime(jumpPastExpiryDate(tokenSet1.accessToken));
 
     const request = await requestPromise;
     // navigate to a page
@@ -203,9 +197,9 @@ test.describe("Login and logout", () => {
       });
 
     // reset clock
-    await clockHelper.restore();
+    await page.clock.setSystemTime(Date.now());
     // time travel to when the tokens from token set 2 expire before trying to navigate
-    await clockHelper.jumpTo(jumpPastExpiryDate(tokenSet2.accessToken));
+    await page.clock.setSystemTime(jumpPastExpiryDate(tokenSet2.accessToken));
 
     const request2 = await requestPromise;
     // navigate to a page
@@ -237,9 +231,9 @@ test.describe("Login and logout", () => {
       });
 
     // reset clock
-    await clockHelper.restore();
+    await page.clock.setSystemTime(Date.now());
     // time travel to when the tokens from token set 3 expire before trying to navigate
-    await clockHelper.jumpTo(jumpPastExpiryDate(tokenSet3.accessToken));
+    await page.clock.setSystemTime(jumpPastExpiryDate(tokenSet3.accessToken));
 
     const request3 = await requestPromise;
     // navigate to a page
