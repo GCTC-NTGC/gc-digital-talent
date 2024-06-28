@@ -1,6 +1,4 @@
 import {
-  UpdateUserAsAdminInput,
-  UpdateUserAsAdminMutation,
   DeleteUserMutation,
   Team,
   Role,
@@ -15,10 +13,6 @@ export type UpdateUserRolesFunc = (
 export type DeleteUserFunc = (
   id: string,
 ) => Promise<DeleteUserMutation["deleteUser"]>;
-
-export type UpdateUserHandler = (
-  submitData: UpdateUserAsAdminInput,
-) => Promise<UpdateUserAsAdminMutation["updateUserAsAdmin"]>;
 
 export type TeamAssignment = {
   team: Team;

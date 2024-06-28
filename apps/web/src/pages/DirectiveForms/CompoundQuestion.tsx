@@ -2,7 +2,7 @@ import { ReactElement, ReactNode, useId, cloneElement } from "react";
 
 import { useLogger } from "@gc-digital-talent/logger";
 
-export type CompoundQuestionProps = {
+type CompoundQuestionProps = {
   title?: string;
   introduction?: ReactElement | ReactNode | string;
   inputElement: ReactElement;

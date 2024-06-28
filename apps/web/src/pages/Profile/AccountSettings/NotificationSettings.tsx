@@ -17,11 +17,6 @@ import { toast } from "@gc-digital-talent/toast";
 import { dataValuesToFormValues, formValuesToData } from "./utils";
 import { FormValues } from "./types";
 
-export type UpdateNotificationInput = {
-  enabledEmailNotifications?: [NotificationFamily];
-  enabledInAppNotifications?: [NotificationFamily];
-};
-
 interface NotificationChecklistProps {
   id: string;
   name: string;

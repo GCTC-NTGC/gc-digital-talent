@@ -20,12 +20,7 @@ module.exports = {
     ecmaVersion: 2020,
     sourceType: "module",
   },
-  plugins: [
-    "react",
-    "react-hooks",
-    "formatjs",
-    "jsx-a11y",
-  ],
+  plugins: ["react", "react-hooks", "formatjs", "jsx-a11y"],
   rules: {
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
@@ -108,11 +103,13 @@ module.exports = {
         patterns: [
           {
             group: ["lodash", "!lodash/"],
-            message: "Please import the individual function, not the entire library.",
+            message:
+              "Please import the individual function, not the entire library.",
           },
           {
             group: ["date-fns", "date-fns-tz", "!date-fns/", "!date-fns-tz/"],
-            message: "Please import the individual function, not the entire library.",
+            message:
+              "Please import the individual function, not the entire library.",
           },
           {
             group: [
@@ -124,7 +121,7 @@ module.exports = {
               "!@heroicons/react/24/outline/",
               "!@heroicons/react/24/solid/",
               "!@heroicons/react/20/outline/",
-              "!@heroicons/react/20/solid/"
+              "!@heroicons/react/20/solid/",
             ],
             message: "Please import the individual icons, not the entire set.",
           },
@@ -134,9 +131,9 @@ module.exports = {
           },
           {
             group: ["~/pages"],
-            message: "Please move to central location."
-          }
-        ]
+            message: "Please move to central location.",
+          },
+        ],
       },
     ],
     "react/forbid-elements": [1, { forbid: ["a", "hr"] }],
@@ -149,8 +146,8 @@ module.exports = {
       },
       {
         selector: "CallExpression[callee.name='useLocale']",
-        message: "Please use getLocale instead."
-      }
+        message: "Please use getLocale instead.",
+      },
     ],
   },
 };

@@ -97,7 +97,7 @@ export const CareerTimelineExperience_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-export const CareerTimelineApplication_Fragment = graphql(/* GraphQL */ `
+const CareerTimelineApplication_Fragment = graphql(/* GraphQL */ `
   fragment CareerTimelineApplication on PoolCandidate {
     ...QualifiedRecruitmentsCandidate
     id

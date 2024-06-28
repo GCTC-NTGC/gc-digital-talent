@@ -73,7 +73,7 @@ const OrganizeSectionPool_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-export interface OrganizeSectionProps {
+interface OrganizeSectionProps {
   poolQuery: FragmentType<typeof OrganizeSectionPool_Fragment>;
   pageIsLoading: boolean;
 }

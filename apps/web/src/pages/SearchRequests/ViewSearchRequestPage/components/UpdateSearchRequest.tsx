@@ -36,7 +36,7 @@ interface UpdateSearchRequestFormProps {
   ) => Promise<FormValues>;
 }
 
-export const UpdateSearchRequestForm = ({
+const UpdateSearchRequestForm = ({
   initialSearchRequest,
   handleUpdateSearchRequest,
 }: UpdateSearchRequestFormProps) => {

@@ -26,7 +26,7 @@ const SkillSummarySectionPool_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-export interface SkillSummarySectionProps {
+interface SkillSummarySectionProps {
   poolQuery: FragmentType<typeof SkillSummarySectionPool_Fragment>;
 }
 

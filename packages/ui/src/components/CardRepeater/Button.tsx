@@ -11,7 +11,7 @@ import { useCardRepeaterContext } from "./CardRepeaterProvider";
 
 type Animation = "none" | "translate-up" | "translate-down";
 
-export type ActionButtonProps = ComponentPropsWithoutRef<typeof Button> & {
+type ActionButtonProps = ComponentPropsWithoutRef<typeof Button> & {
   animation?: Animation;
 };
 

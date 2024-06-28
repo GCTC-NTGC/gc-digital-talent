@@ -17,7 +17,7 @@ import {
   isPersonalExperience,
 } from "~/utils/experienceUtils";
 
-export interface EducationRequirementExperienceProps {
+interface EducationRequirementExperienceProps {
   experience:
     | AwardExperience
     | CommunityExperience

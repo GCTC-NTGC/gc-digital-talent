@@ -11,7 +11,7 @@ import { normalizeString } from "@gc-digital-talent/helpers";
  * @param {string} strB
  * @returns {number}
  */
-export const compareNormalized = (strA: string, strB: string): number => {
+const compareNormalized = (strA: string, strB: string): number => {
   const a = normalizeString(strA);
   const b = normalizeString(strB);
 
@@ -20,7 +20,7 @@ export const compareNormalized = (strA: string, strB: string): number => {
   return a > b ? 1 : -1;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, import/prefer-default-export
 export const normalizedText: SortingFn<any> = (rowA, rowB, columnId) => {
   return compareNormalized(rowA.getValue(columnId), rowB.getValue(columnId));
 };
