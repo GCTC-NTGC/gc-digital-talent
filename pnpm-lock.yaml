@@ -534,8 +534,8 @@ importers:
         specifier: ^6.2.2
         version: 6.2.2(eslint@8.57.0)(typescript@5.5.2)
       eslint-plugin-turbo:
-        specifier: ^2.0.5
-        version: 2.0.5(eslint@8.57.0)
+        specifier: ^2.0.6
+        version: 2.0.6(eslint@8.57.0)
       prettier:
         specifier: ^3.3.2
         version: 3.3.2
@@ -9626,8 +9626,8 @@ packages:
       - typescript
     dev: true
 
-  /eslint-plugin-turbo@2.0.5(eslint@8.57.0):
-    resolution: {integrity: sha512-nCTXZdaKmdRybBdjnMrDFG+ppLc9toUqB01Hf0pfhkQw8OoC29oJIVPsCSvuL/W58RKD02CNEUrwnVt57t36IQ==}
+  /eslint-plugin-turbo@2.0.6(eslint@8.57.0):
+    resolution: {integrity: sha512-yGnpMvyBxI09ZrF5bGpaniBz57MiExTCsRnNxP+JnbMFD+xU3jG3ukRzehVol8LYNdC/G7E4HoH+x7OEpoSGAQ==}
     peerDependencies:
       eslint: '>6.6.0'
     dependencies:
