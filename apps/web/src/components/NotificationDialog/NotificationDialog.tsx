@@ -5,6 +5,7 @@ import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
 import BellAlertIconSm from "@heroicons/react/20/solid/BellAlertIcon";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import EllipsisVerticalIcon from "@heroicons/react/20/solid/EllipsisVerticalIcon";
+import { UseQueryExecute } from "urql";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { graphql } from "@gc-digital-talent/graphql";
@@ -22,7 +23,6 @@ import notificationMessages from "~/messages/notificationMessages";
 
 import UnreadAlertBellIcon from "./UnreadAlertBellIcon";
 import NotificationList from "../NotificationList/NotificationList";
-import { UseQueryExecute } from "urql";
 
 const Overlay = m(DialogPrimitive.Overlay);
 
@@ -37,6 +37,13 @@ const NotificationCount_Query = graphql(/* GraphQL */ `
     }
   }
 `);
+
+const ellipsis = () => (
+  <EllipsisVerticalIcon
+    data-h2-width="base(x.75)"
+    data-h2-vertical-align="base(middle)"
+  />
+);
 
 const DialogPortalWithPresence = ({
   executeQuery,
@@ -155,13 +162,6 @@ const DialogPortalWithPresence = ({
   ) : null;
 };
 
-const ellipsis = () => (
-  <EllipsisVerticalIcon
-    data-h2-width="base(x.75)"
-    data-h2-vertical-align="base(middle)"
-  />
-);
-
 const NotificationDialog = () => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -188,11 +188,7 @@ const NotificationDialog = () => {
         />
       </DialogPrimitive.Trigger>
       <AnimatePresence initial={false}>
-        {isOpen && (
-          <DialogPortalWithPresence
-            executeQuery={executeQuery}
-          ></DialogPortalWithPresence>
-        )}
+        {isOpen && <DialogPortalWithPresence executeQuery={executeQuery} />}
       </AnimatePresence>
     </DialogPrimitive.Root>
   );
