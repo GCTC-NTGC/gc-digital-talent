@@ -63,12 +63,15 @@ const ClientProvider = ({
   useEffect(() => {
     authRef.current = authContext;
   }, [authContext]);
-
+  const clientUrl = `${apiHost}${apiUri}`;
+  console.error(
+    `apiHost is ${apiHost}, apiUri is ${apiUri}, clientUrl is ${clientUrl}`,
+  );
   const internalClient = useMemo(() => {
     return (
       client ??
       createClient({
-        url: `${apiHost}${apiUri}`,
+        url: clientUrl,
         requestPolicy: "cache-and-network",
         exchanges: [
           cacheExchange,
