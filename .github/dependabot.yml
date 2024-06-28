@@ -14,6 +14,13 @@ updates:
       day: "thursday"
     open-pull-requests-limit: 50
     groups:
+      radix:
+        patterns:
+          - "@radix-ui*"
+        update-types:
+          - "major"
+          - "minor"
+          - "patch"
       storybook:
         patterns:
           - "@storybook*"
