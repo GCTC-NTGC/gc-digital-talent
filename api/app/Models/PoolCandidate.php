@@ -1097,7 +1097,7 @@ class PoolCandidate extends Model
 
     public function scopeProcessNumber(Builder $query, ?string $processNumber): Builder
     {
-        // Early return if no publishing groups were supplied
+        // Early return if no process number was supplied
         if (empty($processNumber)) {
             return $query;
         }
