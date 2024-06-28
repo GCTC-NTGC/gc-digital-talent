@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Enums\Language;
+use App\Enums\OperationalRequirement;
 use App\Enums\PoolCandidateStatus;
 use App\Models\AwardExperience;
 use App\Models\Pool;
@@ -43,9 +45,6 @@ class SnapshotTest extends TestCase
      */
     public function testCreateSnapshot()
     {
-        // TO DO: Come back and remove once snapshot handled
-        $this->markTestSkipped();
-
         $snapshotQuery = file_get_contents(base_path('app/GraphQL/Mutations/PoolCandidateSnapshot.graphql'), true);
         $user = User::factory()
             ->asApplicant()
@@ -190,5 +189,55 @@ class SnapshotTest extends TestCase
 
         // snapshot field unchanged
         assertSame(['snapshot' => 'set'], $snapshot);
+    }
+
+    public function testLocalizingLegacyEnums()
+    {
+        // non-null snapshot value set
+        $user = User::factory()
+            ->asApplicant()
+            ->create();
+        $pool = Pool::factory()->published()->create();
+        $poolCandidate = PoolCandidate::factory()->create([
+            'user_id' => $user->id,
+            'pool_id' => $pool->id,
+            'profile_snapshot' => [
+                // Single enum
+                'preferredLang' => Language::EN->name,
+                // Array based enum
+                'acceptedOperationalRequirements' => [
+                    OperationalRequirement::DRIVERS_LICENSE->name,
+                    // Confirm does not double parse
+                    [
+                        'value' => OperationalRequirement::ON_CALL->name,
+                        'label' => OperationalRequirement::localizedString(
+                            OperationalRequirement::ON_CALL->name
+                        ),
+                    ],
+                ],
+            ],
+        ]);
+
+        $snapshot = $poolCandidate->profile_snapshot;
+
+        // snapshot contains localized enums
+        assertSame([
+            // Single enum
+            'preferredLang' => [
+                'value' => Language::EN->name,
+                'label' => Language::localizedString(Language::EN->name),
+            ],
+            // Array based enum
+            'acceptedOperationalRequirements' => [
+                [
+                    'value' => OperationalRequirement::DRIVERS_LICENSE->name,
+                    'label' => OperationalRequirement::localizedString(OperationalRequirement::DRIVERS_LICENSE->name),
+                ],
+                [
+                    'value' => OperationalRequirement::ON_CALL->name,
+                    'label' => OperationalRequirement::localizedString(OperationalRequirement::ON_CALL->name),
+                ],
+            ],
+        ], $snapshot);
     }
 }
