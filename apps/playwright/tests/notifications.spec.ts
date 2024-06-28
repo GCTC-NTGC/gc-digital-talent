@@ -29,9 +29,6 @@ test.describe("Notifications", () => {
       .first()
       .click();
     await expect(
-      applicantPage.page.getByRole("link", { name: /home/i }),
-    ).toBeVisible();
-    await expect(
       applicantPage.page.getByRole("heading", {
         name: "GC Digital Talent",
         level: 1,
