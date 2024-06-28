@@ -1194,4 +1194,18 @@ class PoolCandidate extends Model
             'assessmentStepStatuses' => $decisions,
         ];
     }
+
+    public function scopeProcessNumber(Builder $query, ?string $processNumber): Builder
+    {
+        // Early return if no process number was supplied
+        if (empty($processNumber)) {
+            return $query;
+        }
+
+        $query = $query->whereHas('pool', function ($query) use ($processNumber) {
+            $query->where('process_number', 'ilike', "%$processNumber%");
+        });
+
+        return $query;
+    }
 }

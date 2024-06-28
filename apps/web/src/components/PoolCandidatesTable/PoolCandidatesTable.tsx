@@ -158,6 +158,7 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
           ...PoolCandidate_Bookmark
           pool {
             id
+            processNumber
             name {
               en
               fr
@@ -537,6 +538,7 @@ const PoolCandidatesTable = ({
       email: searchType === "email" ? searchBarTerm : undefined,
       name: searchType === "name" ? searchBarTerm : undefined,
       notes: searchType === "notes" ? searchBarTerm : undefined,
+      processNumber: searchType === "processNumber" ? searchBarTerm : undefined,
 
       // from fancy filter
       applicantFilter: {
@@ -724,6 +726,14 @@ const PoolCandidatesTable = ({
                   },
                 },
               }) => processCell(pool, paths, intl),
+            },
+          ),
+          columnHelper.accessor(
+            ({ poolCandidate: { pool } }) => pool.processNumber,
+            {
+              id: "processNumber",
+              header: intl.formatMessage(processMessages.processNumber),
+              sortingFn: normalizedText,
             },
           ),
         ]),
