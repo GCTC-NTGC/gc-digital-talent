@@ -7,7 +7,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import adminMessages from "~/messages/adminMessages";
 
-export const ViewTeamPage_TeamFragment = graphql(/* GraphQL */ `
+const ViewTeamPage_TeamFragment = graphql(/* GraphQL */ `
   fragment ViewTeamPage_Team on Team {
     id
     name

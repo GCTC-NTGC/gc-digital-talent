@@ -78,33 +78,6 @@ export function classificationAccessor(
     : "";
 }
 
-export function classificationSortFn(rowA: Pool, rowB: Pool) {
-  // passing in sortType to override default sort
-  const rowAGroup =
-    rowA.classification && rowA.classification ? rowA.classification.group : "";
-  const rowBGroup =
-    rowB.classification && rowB.classification ? rowB.classification.group : "";
-  const rowALevel =
-    rowA.classification && rowA.classification ? rowA.classification.level : 0;
-  const rowBLevel =
-    rowB.classification && rowB.classification ? rowB.classification.level : 0;
-
-  if (rowAGroup.toLowerCase() > rowBGroup.toLowerCase()) {
-    return 1;
-  }
-  if (rowAGroup.toLowerCase() < rowBGroup.toLowerCase()) {
-    return -1;
-  }
-  // if groups identical then sort by level
-  if (rowALevel > rowBLevel) {
-    return 1;
-  }
-  if (rowALevel < rowBLevel) {
-    return -1;
-  }
-  return 0;
-}
-
 export function classificationCell(
   classification: Maybe<Classification> | undefined,
 ) {

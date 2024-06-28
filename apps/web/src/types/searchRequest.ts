@@ -9,7 +9,6 @@ import {
 
 export const NullSelection = "NULL_SELECTION";
 
-export type Option<V> = { value: V; label: string };
 export type FormValues = Pick<
   ApplicantFilterInput,
   "locationPreferences" | "operationalRequirements"

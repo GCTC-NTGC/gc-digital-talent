@@ -22,7 +22,7 @@ export type SectionIcon = {
 
 type GetToggleSectionIconFn = (args: GetToggleSectionIconArgs) => SectionIcon;
 
-export const getToggleSectionIcon: GetToggleSectionIconFn = ({
+const getToggleSectionIcon: GetToggleSectionIconFn = ({
   isEditing,
   fallback = InformationCircleIcon,
   completed,

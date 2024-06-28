@@ -31,7 +31,7 @@ const bilingualEvaluations = defineMessages({
   [BilingualEvaluation.NotCompleted]: commonMessages.no,
 });
 
-export const getBilingualEvaluation = (
+const getBilingualEvaluation = (
   bilingualEvaluationId: string | number,
 ): MessageDescriptor =>
   getOrThrowError(

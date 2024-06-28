@@ -1,10 +1,10 @@
 import { ReactNode } from "react";
 
-export interface InstructionListProps {
+interface InstructionListProps {
   children: ReactNode;
 }
 
-export const InstructionList = ({ children }: InstructionListProps) => {
+const InstructionList = ({ children }: InstructionListProps) => {
   return (
     <ol
       data-h2-display="base(grid)"
@@ -16,3 +16,5 @@ export const InstructionList = ({ children }: InstructionListProps) => {
     </ol>
   );
 };
+
+export default InstructionList;

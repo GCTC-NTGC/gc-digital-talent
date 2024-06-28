@@ -347,10 +347,6 @@
     "defaultMessage": "Diplôme d’études postsecondaires exigé",
     "description": "Education level message when candidate has a diploma found on the request page."
   },
-  "/pHz5L": {
-    "defaultMessage": "Statut du bassin de candidats",
-    "description": "Label for the current applications pool status"
-  },
   "/pbxol": {
     "defaultMessage": "Utilisez le bouton \"Ajouter une nouvelle adhésion\" pour commencer.",
     "description": "Instructions for adding team membership to a user."
@@ -1346,10 +1342,6 @@
   "5C8xs4": {
     "defaultMessage": "Sélectionnez une équipe",
     "description": "Placeholder text for team selection input"
-  },
-  "5CIYu4": {
-    "defaultMessage": "Veuillez sélectionner une famille de compétences pour continuer.",
-    "description": "Help text to tell users to select a skill before submitting"
   },
   "5CONbw": {
     "defaultMessage": "Date d’attribution",
@@ -5519,10 +5511,6 @@
     "defaultMessage": "Nous vous inviterons à créer un profil qui sera sauvegardé et présenté comme étant votre demande.",
     "description": "How it works, step 2 content sentence 2"
   },
-  "SoKPAb": {
-    "defaultMessage": "Date d'expiration du candidat",
-    "description": "Label displayed on the pool candidate application form expiry date field."
-  },
   "Swq+OD": {
     "defaultMessage": "Toute durée",
     "description": "Option label for allowing any employment duration"
@@ -5946,10 +5934,6 @@
     "defaultMessage": "Sélectionnez les compétences que vous recherchez chez les candidats. Les personnes souhaitant déposer leur candidature devront disposer des compétences sélectionnées ici. Pour accroître la diversité des candidatures, essayez de limiter le nombre de compétences choisies.",
     "description": "Describes selecting essentials skills for a process."
   },
-  "VMhVyJ": {
-    "defaultMessage": "Sélectionnez un statut",
-    "description": "Placeholder text for the pool status field"
-  },
   "VN6uCI": {
     "defaultMessage": "Ces compétences essentielles ont été évaluées dans le cadre du processus :",
     "description": "Text showing the essentials skills assessed during the process"
@@ -6001,10 +5985,6 @@
   "VcOlXA": {
     "defaultMessage": "Énoncé de confidentialité",
     "description": "Label for the privacy link in the Footer."
-  },
-  "VeiXJP": {
-    "defaultMessage": "Aucune des compétences n’est jointe.",
-    "description": "Informing that a section is empty of any associated asset skills."
   },
   "Vf+lsG": {
     "defaultMessage": "Nom de l’équipe (Français)",

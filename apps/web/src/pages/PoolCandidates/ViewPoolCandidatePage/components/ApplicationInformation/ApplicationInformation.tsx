@@ -34,9 +34,9 @@ import applicationMessages from "~/messages/applicationMessages";
 import processMessages from "~/messages/processMessages";
 
 import ApplicationPrintButton from "../ApplicationPrintButton/ApplicationPrintButton";
-import { SECTION_KEY } from "./types";
 import EducationRequirementsDisplay from "./EducationRequirementsDisplay";
 import SkillDisplay from "./SkillDisplay";
+import { SECTION_KEY } from "./types";
 
 const ApplicationInformation_PoolFragment = graphql(/* GraphQL */ `
   fragment ApplicationInformation_PoolFragment on Pool {

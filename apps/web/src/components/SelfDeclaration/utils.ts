@@ -52,7 +52,7 @@ export const hasCommunityAndOther = (selectedCommunities?: Array<string>) => {
   );
 };
 
-export const getCommunityLabels = (intl: IntlShape) =>
+const getCommunityLabels = (intl: IntlShape) =>
   new Map([
     [
       "status",

@@ -24,13 +24,11 @@ import {
   QueryPoolCandidatesPaginatedOrderByRelationOrderByClause,
   QueryPoolCandidatesPaginatedOrderByUserColumn,
   CandidateSuspendedFilter,
-  Language,
   PoolCandidate,
   PoolCandidateStatus,
   SortOrder,
   FragmentType,
   AssessmentResultStatus,
-  LocalizedEnumString,
   LocalizedProvinceOrTerritory,
   LocalizedPriorityWeight,
 } from "@gc-digital-talent/graphql";
@@ -178,15 +176,6 @@ export const notesCell = (candidate: PoolCandidate, intl: IntlShape) =>
     />
   ) : null;
 
-// callbacks extracted to separate function to stabilize memoized component
-export const preferredLanguageAccessor = (
-  language: Language | null | undefined,
-  languageStrings: Maybe<LocalizedEnumString>[] | undefined,
-  intl: IntlShape,
-) => (
-  <span>{getLocalizedEnumStringByValue(language, languageStrings, intl)}</span>
-);
-
 export const currentLocationAccessor = (
   city: string | null | undefined,
   province: LocalizedProvinceOrTerritory | null | undefined,
@@ -220,39 +209,7 @@ export const bookmarkHeader = (intl: IntlShape) => (
   />
 );
 
-// row(s) are becoming selected or deselected
-// if row is null then toggle all rows on the page simultaneously
-type RowSelectedEvent<T> = {
-  row?: T;
-  setSelected: boolean;
-};
-
-// pass in the event and setSelectedRows will be called with the right set of rows
-export function handleRowSelectedChange<T>(
-  allRows: T[],
-  selectedRows: T[],
-  setSelectedRows: (rows: T[]) => void,
-  { row, setSelected }: RowSelectedEvent<T>,
-): void {
-  if (row && setSelected) {
-    // row is provided, add row to selected list
-    setSelectedRows([...selectedRows, row]);
-  }
-  if (row && !setSelected) {
-    // row is provided, remove row from selected list
-    setSelectedRows(selectedRows.filter((r) => r !== row));
-  }
-  if (!row && setSelected) {
-    // row not provided, add all rows to selected list
-    setSelectedRows([...allRows]);
-  }
-  if (!row && !setSelected) {
-    // row not provided, remove all rows from selected list
-    setSelectedRows([]);
-  }
-}
-
-export function transformSortStateToOrderByClause(
+function transformSortStateToOrderByClause(
   sortingRules?: SortingState,
   filterState?: PoolCandidateSearchInput,
 ): QueryPoolCandidatesPaginatedOrderByRelationOrderByClause {

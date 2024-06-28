@@ -1,10 +1,6 @@
 import { IntlShape } from "react-intl";
 
-import {
-  getLocalizedName,
-  LocalizedArray,
-  getLocalizedArray,
-} from "@gc-digital-talent/i18n";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Spoiler } from "@gc-digital-talent/ui";
 import {
@@ -41,10 +37,6 @@ export function familiesAccessor(skill: Skill, intl: IntlShape) {
     .filter(notEmpty)
     .sort()
     .join(", ");
-}
-
-export function keywordsAccessor(skill: Skill, intl: IntlShape) {
-  return getLocalizedArray(skill.keywords as LocalizedArray, intl);
 }
 
 export function descriptionCell(

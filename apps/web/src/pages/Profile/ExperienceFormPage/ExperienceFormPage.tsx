@@ -123,7 +123,7 @@ export const ExperienceFormSkill_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-export const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
+const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
   fragment ExperienceFormExperience on Experience {
     id
     details
@@ -636,7 +636,7 @@ type RouteParams = {
   experienceType: ExperienceType;
   experienceId: Scalars["ID"]["output"];
 };
-export interface ExperienceFormContainerProps {
+interface ExperienceFormContainerProps {
   edit?: boolean;
 }
 

@@ -48,9 +48,7 @@ export const UpdateTeamPage_TeamFragment = graphql(/* GraphQL */ `
   }
 `);
 
-export type UpdateTeamPageFragment = FragmentType<
-  typeof UpdateTeamPage_TeamFragment
->;
+type UpdateTeamPageFragment = FragmentType<typeof UpdateTeamPage_TeamFragment>;
 
 type FormValues = {
   displayName?: Maybe<LocalizedStringInput>;

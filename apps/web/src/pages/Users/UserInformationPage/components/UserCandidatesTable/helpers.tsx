@@ -16,7 +16,6 @@ import {
   Pool,
   AssessmentResultStatus,
   Scalars,
-  LocalizedPoolCandidateStatus,
   LocalizedString,
 } from "@gc-digital-talent/graphql";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
@@ -27,10 +26,7 @@ import CandidateBookmark, {
 import { getFullNameLabel } from "~/utils/nameUtils";
 import tableMessages from "~/components/PoolCandidatesTable/tableMessages";
 import useRoutes from "~/hooks/useRoutes";
-import {
-  getCandidateStatusChip,
-  statusToJobPlacement,
-} from "~/utils/poolCandidate";
+import { getCandidateStatusChip } from "~/utils/poolCandidate";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
 
@@ -184,11 +180,4 @@ export const finalDecisionCell = (
     intl,
   );
   return <Chip color={color}>{label}</Chip>;
-};
-
-export const jobPlacementCell = (
-  intl: IntlShape,
-  status?: Maybe<LocalizedPoolCandidateStatus>,
-) => {
-  return <span>{statusToJobPlacement(status, intl)}</span>;
 };

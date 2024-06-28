@@ -81,7 +81,7 @@ const getCurrentClassification = (
     : "";
 };
 
-export const durationSelectionToEnum = (
+const durationSelectionToEnum = (
   selection: string | null,
 ): PositionDuration[] | null => {
   if (selection && selection === EmploymentDuration.Term) {

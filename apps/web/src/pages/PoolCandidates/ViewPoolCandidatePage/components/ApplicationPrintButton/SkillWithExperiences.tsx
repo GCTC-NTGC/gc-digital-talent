@@ -209,7 +209,7 @@ const ExperienceListForSkill = ({
   return null;
 };
 
-export interface SkillWithExperiencesProps {
+interface SkillWithExperiencesProps {
   skill: Skill;
   experiences: Experience[];
 }

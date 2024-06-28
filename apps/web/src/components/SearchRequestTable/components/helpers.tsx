@@ -1,14 +1,12 @@
 import { IntlShape } from "react-intl";
 
 import { Link, Chip, Spoiler, Chips } from "@gc-digital-talent/ui";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   Classification,
   Maybe,
   PoolCandidateSearchRequest,
-  Scalars,
 } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -44,21 +42,6 @@ export function classificationsCell(
   ) : (
     intl.formatMessage(commonMessages.notProvided)
   );
-}
-
-export function dateCell(
-  date: Maybe<Scalars["DateTime"]["output"]>,
-  intl: IntlShape,
-) {
-  return date ? (
-    <span>
-      {formatDate({
-        date: parseDateTimeUtc(date),
-        formatString: "PPP p",
-        intl,
-      })}
-    </span>
-  ) : null;
 }
 
 export const jobTitleCell = (

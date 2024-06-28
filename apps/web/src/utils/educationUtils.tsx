@@ -9,18 +9,6 @@ import { EducationRequirementOption } from "@gc-digital-talent/graphql";
 
 import applicationMessages from "~/messages/applicationMessages";
 
-export const qualityStandardsLink = (chunks: ReactNode, locale: Locales) => {
-  const href =
-    locale === "en"
-      ? "https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/core.html#rpsi"
-      : "https://www.canada.ca/fr/secretariat-conseil-tresor/services/dotation/normes-qualification/centrale.html#eepr";
-  return (
-    <Link href={href} newTab external>
-      {chunks}
-    </Link>
-  );
-};
-
 export const foreignDegreeLink = (chunks: ReactNode, locale: Locales) => {
   const href =
     locale === "en"
@@ -74,6 +62,18 @@ export const acceptableLink = (chunks: ReactNode, locale: Locales) => {
     locale === "en"
       ? "https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/core.html#acce"
       : "https://www.canada.ca/fr/secretariat-conseil-tresor/services/dotation/normes-qualification/centrale.html#acc";
+  return (
+    <Link href={href} newTab external>
+      {chunks}
+    </Link>
+  );
+};
+
+const qualityStandardsLink = (chunks: ReactNode, locale: Locales) => {
+  const href =
+    locale === "en"
+      ? "https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/core.html#rpsi"
+      : "https://www.canada.ca/fr/secretariat-conseil-tresor/services/dotation/normes-qualification/centrale.html#eepr";
   return (
     <Link href={href} newTab external>
       {chunks}

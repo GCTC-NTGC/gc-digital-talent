@@ -141,7 +141,7 @@ const UserCandidatesTableStrings_Query = graphql(/* GraphQL */ `
   }
 `);
 
-export interface UserCandidatesTableProps {
+interface UserCandidatesTableProps {
   userQuery: FragmentType<typeof UserCandidatesTableRow_Fragment>;
   departments: Department[];
   title: string;

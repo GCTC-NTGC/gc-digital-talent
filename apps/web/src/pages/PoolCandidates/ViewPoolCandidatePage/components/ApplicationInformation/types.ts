@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/prefer-default-export
 export const SECTION_KEY = {
   CONTACT: "contact",
   SCREENING: "screening",
@@ -11,5 +12,3 @@ export const SECTION_KEY = {
   DEI: "dei",
   SIGNATURE: "signature",
 } as const;
-
-export type SectionKey = (typeof SECTION_KEY)[keyof typeof SECTION_KEY];

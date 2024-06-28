@@ -75,7 +75,7 @@ export const SkillSummaryTableAssessmentStep_Fragment = graphql(/* GraphQL */ `
 
 const columnHelper = createColumnHelper<PoolSkill>();
 
-export interface SkillSummaryTableProps {
+interface SkillSummaryTableProps {
   poolSkillsQuery: FragmentType<typeof SkillSummaryTablePoolSkill_Fragment>[];
   assessmentStepsQuery: FragmentType<
     typeof SkillSummaryTableAssessmentStep_Fragment

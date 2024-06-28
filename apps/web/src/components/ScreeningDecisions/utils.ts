@@ -8,9 +8,7 @@ import {
   CreateAssessmentResultInput,
   Maybe,
   UpdateAssessmentResultInput,
-  UserSkill,
 } from "@gc-digital-talent/graphql";
-import { commonMessages, getSkillLevelName } from "@gc-digital-talent/i18n";
 
 import { NO_DECISION } from "~/utils/assessmentResults";
 
@@ -23,7 +21,7 @@ export type FormValues = {
   skillDecisionNotes?: Maybe<string>;
 };
 
-export type FormValuesToApiCreateInputArgs = {
+type FormValuesToApiCreateInputArgs = {
   formValues: FormValues;
   assessmentStepId: string;
   poolCandidateId: string;
@@ -31,7 +29,7 @@ export type FormValuesToApiCreateInputArgs = {
   assessmentResultType: AssessmentResultType;
 };
 
-export type FormValuesToApiUpdateInputArgs = {
+type FormValuesToApiUpdateInputArgs = {
   formValues: FormValues;
   assessmentResultId: string;
   assessmentResultType: AssessmentResultType;
@@ -99,19 +97,6 @@ export function convertFormValuesToApiUpdateInput({
       justificationsConverted(justifications, assessmentDecision) ?? undefined,
     skillDecisionNotes,
   };
-}
-
-export function getLocalizedSkillLevel(
-  userSkill: UserSkill | undefined,
-  intl: IntlShape,
-): string {
-  if (!userSkill || !userSkill.skill.category.value || !userSkill.skillLevel) {
-    return intl.formatMessage(commonMessages.notFound);
-  }
-
-  return intl.formatMessage(
-    getSkillLevelName(userSkill.skillLevel, userSkill.skill.category.value),
-  );
 }
 
 export const educationJustificationContext = (

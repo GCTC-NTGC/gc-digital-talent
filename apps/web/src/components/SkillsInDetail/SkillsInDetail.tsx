@@ -8,7 +8,7 @@ import { getLocale, errorMessages } from "@gc-digital-talent/i18n";
 
 import type { FormSkills } from "~/types/experience";
 
-export interface SkillsInDetailProps {
+interface SkillsInDetailProps {
   skills: FormSkills;
   onDelete: (id: string) => void;
 }
