@@ -46,6 +46,7 @@ import Table, {
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
+import { priorityWeightAfterVerification } from "~/utils/poolCandidate";
 
 import skillMatchDialogAccessor from "./SkillMatchDialog";
 import tableMessages from "./tableMessages";
@@ -353,6 +354,8 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
           notes
           archivedAt
           suspendedAt
+          priorityVerification
+          veteranVerification
         }
         skillCount
       }
@@ -732,11 +735,20 @@ const PoolCandidatesTable = ({
         header: intl.formatMessage(adminMessages.category),
         cell: ({
           row: {
-            original: {
-              poolCandidate: { user },
-            },
+            original: { poolCandidate },
           },
-        }) => priorityCell(user.priorityWeight, user.priority, intl),
+        }) =>
+          priorityCell(
+            poolCandidate.user.priorityWeight
+              ? priorityWeightAfterVerification(
+                  poolCandidate.user.priorityWeight,
+                  poolCandidate.priorityVerification,
+                  poolCandidate.veteranVerification,
+                )
+              : null,
+            poolCandidate.user.priority,
+            intl,
+          ),
       },
     ),
     columnHelper.accessor(

@@ -8,6 +8,7 @@ import {
   ArmedForcesStatus,
   AssessmentStepType,
   FragmentType,
+  ClaimVerificationResult,
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -136,11 +137,15 @@ const AssessmentResult = ({
           data-h2-align-items="base(center)"
           data-h2-gap="base(0 x.125)"
         >
-          {result.poolCandidate.user.hasPriorityEntitlement && (
-            <Priority type="entitlement" />
-          )}
+          {result.poolCandidate.user.hasPriorityEntitlement &&
+            result.poolCandidate.priorityVerification !==
+              ClaimVerificationResult.Rejected && (
+              <Priority type="entitlement" />
+            )}
           {result.poolCandidate.user.armedForcesStatus?.value ===
-            ArmedForcesStatus.Veteran && <Priority type="veteran" />}
+            ArmedForcesStatus.Veteran &&
+            result.poolCandidate.veteranVerification !==
+              ClaimVerificationResult.Rejected && <Priority type="veteran" />}
           <Icon {...iconStyles} {...colorStyle} aria-label={name} />
         </span>
       </div>
