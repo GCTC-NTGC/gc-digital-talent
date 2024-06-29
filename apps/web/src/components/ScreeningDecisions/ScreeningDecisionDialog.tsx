@@ -38,7 +38,6 @@ import {
   getLocalizedName,
   getSkillLevelDefinition,
   getSkillLevelName,
-  getLocalizedEnumStringByValue,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
@@ -285,27 +284,9 @@ const SupportingEvidence = ({
   );
 };
 
-const ScreeningDecisionDialogStrings_Query = graphql(`
-  query ScreeningDecisionDialogStrings {
-    decisions: localizedEnumStrings(enumName: "AssessmentDecision") {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    decisionLevels: localizedEnumStrings(enumName: "AssessmentDecisionLevel") {
-      value
-      label {
-        en
-        fr
-      }
-    }
-  }
-`);
-
 interface ScreeningDecisionDialogProps {
   assessmentStep: AssessmentStep;
+  assessmentResult?: AssessmentResult;
   poolCandidate: PoolCandidate;
   hasBeenAssessed: boolean;
   poolSkill?: PoolSkill;
@@ -318,6 +299,7 @@ interface ScreeningDecisionDialogProps {
 
 export const ScreeningDecisionDialog = ({
   assessmentStep,
+  assessmentResult,
   poolCandidate,
   hasBeenAssessed,
   poolSkill,
@@ -329,9 +311,6 @@ export const ScreeningDecisionDialog = ({
 }: ScreeningDecisionDialogProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const [{ data: stringData }] = useQuery({
-    query: ScreeningDecisionDialogStrings_Query,
-  });
   const dialogType = useDialogType(
     educationRequirement ? undefined : assessmentStep,
   );
@@ -426,9 +405,8 @@ export const ScreeningDecisionDialog = ({
               ) : (
                 <>
                   <>
-                    {getLocalizedEnumStringByValue(
-                      initialValues?.assessmentDecision,
-                      stringData?.decisions,
+                    {getLocalizedName(
+                      assessmentResult?.assessmentDecision?.label,
                       intl,
                     )}
                   </>
@@ -439,9 +417,8 @@ export const ScreeningDecisionDialog = ({
                       data-h2-text-decoration="base(none)"
                       data-h2-display="base(block)"
                     >
-                      {getLocalizedEnumStringByValue(
-                        initialValues.assessmentDecisionLevel,
-                        stringData?.decisionLevels,
+                      {getLocalizedName(
+                        assessmentResult?.assessmentDecisionLevel?.label,
                         intl,
                       )}
                     </span>
@@ -645,6 +622,7 @@ const ScreeningDecisionDialogApi = ({
       onOpenChanged={setOpen}
       poolCandidate={poolCandidate}
       assessmentStep={assessmentStep}
+      assessmentResult={assessmentResult}
       poolSkill={poolSkill}
       initialValues={initialValues}
       hasBeenAssessed={hasBeenAssessed}

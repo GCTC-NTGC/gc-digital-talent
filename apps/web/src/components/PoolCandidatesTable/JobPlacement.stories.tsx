@@ -2,11 +2,16 @@ import { Meta, StoryObj } from "@storybook/react";
 
 import {
   fakeDepartments,
+  fakeLocalizedEnum,
   fakePoolCandidates,
   toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
-import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 import {
+  MockGraphqlDecorator,
+  OverlayOrDialogDecorator,
+} from "@gc-digital-talent/storybook-helpers";
+import {
+  PlacementType,
   PoolCandidateStatus,
   makeFragmentData,
 } from "@gc-digital-talent/graphql";
@@ -36,10 +41,19 @@ const notPlacedData = makeFragmentData(
 
 export default {
   component: JobPlacementDialog,
-  decorators: [OverlayOrDialogDecorator],
+  decorators: [OverlayOrDialogDecorator, MockGraphqlDecorator],
   args: {
     departments,
     defaultOpen: true,
+  },
+  parameters: {
+    apiResponses: {
+      JobPlacementOptions: {
+        data: {
+          placementTypes: fakeLocalizedEnum(PlacementType),
+        },
+      },
+    },
   },
 } as Meta;
 
