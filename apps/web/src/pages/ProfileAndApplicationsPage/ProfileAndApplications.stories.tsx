@@ -1,6 +1,7 @@
 import { Meta, StoryFn } from "@storybook/react";
 
 import {
+  fakeLocalizedEnum,
   fakePoolCandidates,
   fakeUsers,
   toLocalizedEnum,
@@ -23,7 +24,7 @@ const activeApplications = Object.values(PoolCandidateStatus).map(
   (status, index) => {
     return {
       ...mockApplications[index],
-      status,
+      status: toLocalizedEnum(status),
       archivedAt: null,
     };
   },

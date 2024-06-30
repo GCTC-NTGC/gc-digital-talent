@@ -200,6 +200,7 @@ export const buildColumn = ({
           return cells.jsx(
             <Dialog
               assessmentStep={assessmentStep}
+              assessmentResult={assessmentResult}
               poolCandidate={poolCandidate}
               poolSkillToAssess={poolSkill}
             />,

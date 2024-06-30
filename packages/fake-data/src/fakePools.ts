@@ -24,6 +24,7 @@ import {
   PoolSkill,
   SkillLevel,
   Department,
+  PoolOpportunityLength,
 } from "@gc-digital-talent/graphql";
 
 import fakeScreeningQuestions from "./fakeScreeningQuestions";
@@ -123,6 +124,9 @@ const generatePool = (
     poolSkills,
     securityClearance: toLocalizedEnum(
       faker.helpers.arrayElement(Object.values(SecurityStatus)),
+    ),
+    opportunityLength: toLocalizedEnum(
+      faker.helpers.arrayElement(Object.values(PoolOpportunityLength)),
     ),
     yourImpact: toLocalizedString(faker.lorem.paragraphs()),
     generalQuestions: faker.helpers.arrayElements<GeneralQuestion>(
