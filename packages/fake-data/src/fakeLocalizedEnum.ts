@@ -21,8 +21,8 @@ type EnumCase = "pascal" | "screaming_snake";
 
 function toLocalizedEnum<T extends string>(
   value: T,
-  enumCase: EnumCase = "screaming_snake",
   delimeter?: string | RegExp,
+  enumCase: EnumCase = "screaming_snake",
 ): GenericLocalizedEnum<T> {
   return {
     value: enumCase === "pascal" ? pascalToScreamingSnake(value) : value,
@@ -34,7 +34,7 @@ type EnumType = { [k: number]: string };
 
 export function fakeLocalizedEnum<T extends EnumType>(enumerable: T) {
   return Object.keys(enumerable).map((key) =>
-    toLocalizedEnum(key, "pascal", pascalSplitRegex),
+    toLocalizedEnum(key, pascalSplitRegex, "pascal"),
   );
 }
 

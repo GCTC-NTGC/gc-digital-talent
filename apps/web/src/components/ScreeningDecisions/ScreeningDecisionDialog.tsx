@@ -1,6 +1,6 @@
 import { IntlShape, useIntl } from "react-intl";
 import { SubmitHandler } from "react-hook-form";
-import { useMutation, useQuery } from "urql";
+import { useMutation } from "urql";
 import isEmpty from "lodash/isEmpty";
 import { ReactNode, useState } from "react";
 

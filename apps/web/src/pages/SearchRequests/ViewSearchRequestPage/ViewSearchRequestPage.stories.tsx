@@ -8,9 +8,9 @@ import {
   allModes,
   MockGraphqlDecorator,
 } from "@gc-digital-talent/storybook-helpers";
+import { PoolCandidateSearchStatus } from "@gc-digital-talent/graphql";
 
 import { ViewSearchRequest } from "./components/ViewSearchRequest";
-import { PoolCandidateSearchStatus } from "@gc-digital-talent/graphql";
 
 const mockSearchRequests = fakeSearchRequests();
 

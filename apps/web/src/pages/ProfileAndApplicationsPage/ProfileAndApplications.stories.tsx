@@ -1,7 +1,6 @@
 import { Meta, StoryFn } from "@storybook/react";
 
 import {
-  fakeLocalizedEnum,
   fakePoolCandidates,
   fakeUsers,
   toLocalizedEnum,
