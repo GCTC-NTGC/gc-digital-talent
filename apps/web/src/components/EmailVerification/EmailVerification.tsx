@@ -230,16 +230,16 @@ const EmailVerification = ({
               <div
                 data-h2-text-align="base(center)"
                 data-h2-order="base(1) p-tablet(2)"
+                data-h2-margin-left="p-tablet(auto)"
+                data-h2-display="base(flex)"
+                data-h2-flex-direction="base(column) p-tablet(row)"
+                data-h2-gap="p-tablet(0 1ch)"
               >
                 {intl.formatMessage({
                   defaultMessage: "Didn’t receive a code?",
                   id: "MvD/iS",
                   description: "intro to request a new code",
                 })}
-                <span data-h2-white-space="base(pre) p-tablet(normal)">
-                  {/* conditional newline */}
-                  {"\n"}
-                </span>
                 <Button
                   type="button" // doesn't participate in the form
                   mode="inline"
@@ -270,12 +270,6 @@ const EmailVerification = ({
                 })}
               </Button>
             ) : null}
-            <div
-              data-h2-flex-grow="base(1) p-tablet(2)"
-              data-h2-display="base(none) p-tablet(block)"
-              data-h2-order="base(2) p-tablet(1)"
-            />
-            {/* conditional spacer */}
           </div>
         </form>
       </FormProvider>
