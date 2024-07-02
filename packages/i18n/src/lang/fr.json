@@ -99,6 +99,10 @@
     "defaultMessage": "Le candidat/la candidate sera informé(e) de toute modification apportée au présent formulaire.",
     "description": "Caption notifying the user about who can know about the results of form changes"
   },
+  "1UX8RD": {
+    "defaultMessage": "Address courriel de correspondance",
+    "description": "Title for contact email address"
+  },
   "1Wbu+6": {
     "defaultMessage": "Premières Nations détenant le statut ",
     "description": "The indigenous community for status First Nations"
@@ -1322,10 +1326,6 @@
   "dIZ4oj": {
     "defaultMessage": "m'exige de <strong>transporter, soulever et installer des équipements pesant jusqu'à 20 kg</strong>.",
     "description": "The operational requirement described as transport equipment up to 20kg."
-  },
-  "dJd5/f": {
-    "defaultMessage": "Courriel",
-    "description": "Title for email"
   },
   "dRvWzH": {
     "defaultMessage": "Baccalauréat",

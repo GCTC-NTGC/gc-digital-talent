@@ -13,7 +13,11 @@ import {
 } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
-import { errorMessages, getLanguage } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  errorMessages,
+  getLanguage,
+} from "@gc-digital-talent/i18n";
 import { emptyToNull, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   graphql,
@@ -110,12 +114,7 @@ export const CreateAccountForm = ({
       description:
         "Label displayed for the last name field in create account form.",
     }),
-    email: intl.formatMessage({
-      defaultMessage: "Which email do you like to be contacted at?",
-      id: "MTwQ3S",
-      description:
-        "Label displayed for the email field in create account form.",
-    }),
+    email: intl.formatMessage(commonMessages.email),
     preferredLang: intl.formatMessage({
       defaultMessage: "What is your preferred contact language?",
       id: "0ScnOT",
