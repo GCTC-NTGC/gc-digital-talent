@@ -47,7 +47,7 @@ const CareerTimelineSection = ({
     <>
       <div
         data-h2-flex-grid="base(center, x1, x1)"
-        data-h2-margin-bottom="base(x.5)"
+        data-h2-padding-bottom="base(x.5)"
       >
         <ExperienceSortAndFilter
           initialFormValues={sortAndFilterValues}
