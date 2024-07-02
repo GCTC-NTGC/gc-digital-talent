@@ -33,9 +33,11 @@ export default {
       options: availableRoles,
     },
   },
-  chromatic: {
-    modes: {
-      light: allModes.light,
+  parameters: {
+    chromatic: {
+      modes: {
+        light: allModes.light,
+      },
     },
   },
 } as Meta<AdminLayoutArgs>;

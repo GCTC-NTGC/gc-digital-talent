@@ -13,10 +13,12 @@ import DropdownMenu from "./DropdownMenu";
 export default {
   component: DropdownMenu.Root,
   decorators: [OverlayOrDialogDecorator],
-  chromatic: {
-    modes: {
-      light: allModes.light,
-      dark: allModes.dark,
+  parameters: {
+    chromatic: {
+      modes: {
+        light: allModes.light,
+        dark: allModes.dark,
+      },
     },
   },
 } as Meta;
