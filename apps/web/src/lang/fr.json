@@ -1871,10 +1871,6 @@
     "defaultMessage": "<strong>Je possède un diplôme d’études secondaires ou l’équivalent (p. ex., formation Générale). </strong>",
     "description": "Radio group option for education requirement filter in IAP application education form."
   },
-  "8JYRed": {
-    "defaultMessage": "Il n'y a pas encore de notifications ici.",
-    "description": "Title for the no notifications message"
-  },
   "8L9eJ3": {
     "defaultMessage": "Le gouvernement du Canada ne se prononcera pas sur des questions de partisanerie ou de politique, et il ne répondra pas aux questions qui contreviennent aux règles énoncées dans cet avis.",
     "description": "Paragraph for comments and interaction section"
@@ -1970,10 +1966,6 @@
   "90E1fF": {
     "defaultMessage": "(Ordre croissant)",
     "description": "Message added to indicate a table column is sorted in ascending order"
-  },
-  "91KsMq": {
-    "defaultMessage": "Au fur et à mesure que vous recevrez des notifications, elles apparaîtront ici et seront automatiquement classées pour indiquer si vous y avez donné suite, ou si vous les avez épinglées.",
-    "description": "Explanation of how the list of notifications work"
   },
   "91b+W0": {
     "defaultMessage": "Niveau exigé",
@@ -8973,10 +8965,6 @@
   "kkZZfT": {
     "defaultMessage": "Il ne faut pas oublier que cette possibilité requiert ce qui suit",
     "description": "First paragraph for the pool work location dialog"
-  },
-  "koUnRG": {
-    "defaultMessage": "Bienvenue à votre panneau des notifications. Cliquez ou tapez sur une notification pour consulter la page pertinente. Servez-vous de l’icône <icon></icon> pour marquer une notification en particulier comme étant lue, pour l’épingler ou la supprimer.",
-    "description": "Instructions on how to manage notifications"
   },
   "kqOTFT": {
     "defaultMessage": "Niveau de compréhension",
