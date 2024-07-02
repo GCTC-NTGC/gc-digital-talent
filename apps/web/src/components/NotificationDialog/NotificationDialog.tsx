@@ -113,16 +113,18 @@ const NotificationDialog = () => {
                     data-h2-gap="base(x.25 0)"
                     data-h2-margin-bottom="base(x.5)"
                   >
-                    <Heading
-                      level="h2"
-                      size="h5"
-                      color="primary"
-                      Icon={BellAlertIcon}
-                      data-h2-margin="base(0)"
-                      data-h2-line-height="base(1)"
-                    >
-                      {intl.formatMessage(notificationMessages.title)}
-                    </Heading>
+                    <DialogPrimitive.Title asChild>
+                      <Heading
+                        level="h2"
+                        size="h5"
+                        color="primary"
+                        Icon={BellAlertIcon}
+                        data-h2-margin="base(0)"
+                        data-h2-line-height="base(1)"
+                      >
+                        {intl.formatMessage(notificationMessages.title)}
+                      </Heading>
+                    </DialogPrimitive.Title>
                     <div
                       data-h2-display="base(flex)"
                       data-h2-gap="base(x.25 0)"
@@ -142,20 +144,22 @@ const NotificationDialog = () => {
                       </Dialog.Close>
                     </div>
                   </div>
-                  <p>
-                    {intl.formatMessage(
-                      {
-                        defaultMessage:
-                          "Welcome to your notification panel. Click or tap a notification to be taken to the relevant page. Use the <icon></icon> icon to mark a specific notification as read, pin it, or delete it.",
-                        id: "koUnRG",
-                        description:
-                          "Instructions on how to manage notifications",
-                      },
-                      {
-                        icon: () => ellipsis(),
-                      },
-                    )}
-                  </p>
+                  <DialogPrimitive.Description asChild>
+                    <p>
+                      {intl.formatMessage(
+                        {
+                          defaultMessage:
+                            "Welcome to your notification panel. Click or tap a notification to be taken to the relevant page. Use the <icon></icon> icon to mark a specific notification as read, pin it, or delete it.",
+                          id: "koUnRG",
+                          description:
+                            "Instructions on how to manage notifications",
+                        },
+                        {
+                          icon: () => ellipsis(),
+                        },
+                      )}
+                    </p>
+                  </DialogPrimitive.Description>
                 </div>
                 <NotificationList
                   live
