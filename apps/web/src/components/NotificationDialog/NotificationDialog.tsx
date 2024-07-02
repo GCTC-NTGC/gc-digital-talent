@@ -54,12 +54,19 @@ const DialogPortalWithPresence = ({
   const paths = useRoutes();
   const [isPresent] = usePresence();
   const [render, setRender] = useState<boolean>(isPresent);
+
   useEffect(() => {
+    let timerId: ReturnType<typeof setTimeout>;
+
     if (isPresent) {
       setRender(true);
     } else {
-      setTimeout(() => setRender(false), 200); // let animation complete before removal
+      // let animation complete before removal
+      timerId = setTimeout(() => {
+        setRender(false);
+      }, 200);
     }
+    return () => clearTimeout(timerId);
   }, [isPresent]);
 
   return render ? (
