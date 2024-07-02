@@ -1,4 +1,4 @@
-import { useState, useEffect, useReducer } from "react";
+import { useState, useEffect } from "react";
 import { useIntl } from "react-intl";
 import CheckBadgeIcon from "@heroicons/react/24/outline/CheckBadgeIcon";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -78,27 +78,19 @@ const EmailVerification = ({
   );
   const methods = useForm<FormValues>({});
 
-  const [noCodeRequestUntil, setNoCodeRequestUntil] = useState<number>(0);
-  const msUntilCanRequestACode = Math.max(0, noCodeRequestUntil - Date.now());
-  const canRequestACode = msUntilCanRequestACode === 0;
-  const [, forceUpdate] = useReducer((x) => x + 1, 0); // https://legacy.reactjs.org/docs/hooks-faq.html#is-there-something-like-forceupdate
+  const [canRequestACode, setCanRequestACode] = useState<boolean>(true);
 
-  // if we can't send a code yet, set a timer for the point at which we can
   useEffect(() => {
-    if (msUntilCanRequestACode > 0) {
-      const interval = setInterval(() => {
-        forceUpdate();
-      }, msUntilCanRequestACode);
+    let timerId: ReturnType<typeof setTimeout>;
 
-      return () => {
-        clearInterval(interval);
-      };
+    if (!canRequestACode) {
+      timerId = setTimeout(() => {
+        setCanRequestACode(true);
+      }, CODE_REQUEST_THROTTLE_DELAY_MS);
     }
 
-    return () => {
-      // nothing to clean up if we're not waiting for an interval
-    };
-  }, [msUntilCanRequestACode]);
+    return () => clearTimeout(timerId);
+  }, [canRequestACode]);
 
   const requestACode = async () => {
     executeSendEmailMutation({
@@ -109,7 +101,7 @@ const EmailVerification = ({
           throw new Error("Send email error");
         }
         logger.debug("A code was sent");
-        setNoCodeRequestUntil(Date.now() + CODE_REQUEST_THROTTLE_DELAY_MS);
+        setCanRequestACode(false);
       })
       .catch(() => {
         toast.error(intl.formatMessage(errorMessages.error));
