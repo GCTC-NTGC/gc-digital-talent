@@ -3,6 +3,8 @@
 namespace App\Policies;
 
 use App\Models\PoolCandidate;
+use App\Models\Role;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -80,11 +82,72 @@ class UserPolicy
     /**
      * Determine whether the user can update roles.
      *
+     * @param  UpdateUserRolesInput  $args
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function updateRoles(User $user)
+    public function updateRoles(User $user, $args)
     {
-        return $user->isAbleTo('assign-any-role');
+        $targetUserId = isset($args['id']) ? $args['id'] : null;
+        $attachRoles = isset($args['roleAssignmentsInput']) && isset($args['roleAssignmentsInput']['attach']) ?
+            $args['roleAssignmentsInput']['attach'] : null;
+        $detachRoles = isset($args['roleAssignmentsInput']) && isset($args['roleAssignmentsInput']['detach']) ?
+            $args['roleAssignmentsInput']['detach'] : null;
+
+        if (is_null($targetUserId)) {
+            return false;
+        }
+
+        // adding or removing team based roles
+        if (isset($attachRoles['team']) || isset($detachRoles['team'])) {
+
+            if ($attachRoles && isset($attachRoles['roles']) && isset($attachRoles['team'])) {
+                $rolesArray = $attachRoles['roles'];
+
+                // check every role being operated on and only return true if none failed
+                foreach ($rolesArray as $roleId) {
+                    if (! $this->teamAbleToCheck($user, $roleId, $attachRoles['team'])) {
+                        return false;
+                    }
+                }
+            }
+
+            if ($detachRoles && isset($detachRoles['roles']) && isset($detachRoles['team'])) {
+                $rolesArray = $detachRoles['roles'];
+
+                // check every role being operated on and only return true if none failed
+                foreach ($rolesArray as $roleId) {
+                    if (! $this->teamAbleToCheck($user, $roleId, $detachRoles['team'])) {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        // adding or removing individual roles
+        if (empty($attachRoles['team']) && empty($detachRoles['team'])) {
+
+            $rolesArray = [];
+            if ($attachRoles && isset($attachRoles['roles'])) {
+                $rolesArray = [...$rolesArray, ...$attachRoles['roles']];
+            }
+            if ($detachRoles && isset($detachRoles['roles'])) {
+                $rolesArray = [...$rolesArray, ...$detachRoles['roles']];
+            }
+
+            // check every role being operated on and only return true if none failed
+            foreach ($rolesArray as $roleId) {
+                if (! $this->individualAbleToCheck($user, $roleId)) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        // default to reject
+        return false;
     }
 
     /**
@@ -117,5 +180,58 @@ class UserPolicy
                 return $query->whereIn('team_id', $teamIds);
             })
             ->exists();
+    }
+
+    /*******************  ROLE CHECKING  *******************/
+
+    /**
+     * Function to check if the acting user can update a team based role
+     *
+     * @return bool
+     */
+    protected function teamAbleToCheck(User $actor, string $roleId, string $teamId)
+    {
+        $role = Role::findOrFail($roleId);
+        $team = Team::findOrFail($teamId);
+
+        switch ($role->name) {
+            case 'pool_operator':
+                return $actor->isAbleTo('assign-any-teamRole');
+            case 'process_operator':
+                return $actor->isAbleTo('update-any-processOperatorMembership') || $actor->isAbleTo('update-team-processOperatorMembership', $team);
+            case 'community_recruiter':
+                return $actor->isAbleTo('update-any-communityRecruiterMembership ') || $actor->isAbleTo('update-team-communityRecruiterMembership ', $team);
+            case 'community_admin':
+                return $actor->isAbleTo('update-any-communityAdminMembership ') || $actor->isAbleTo('update-team-communityAdminMembership ', $team);
+        }
+
+        return false; // reject unknown roles
+    }
+
+    /**
+     * Function to check if the acting user can update an individual role
+     *
+     * @return bool
+     */
+    protected function individualAbleToCheck(User $actor, string $roleId)
+    {
+        $role = Role::findOrFail($roleId);
+
+        switch ($role->name) {
+            case 'guest':
+                return $actor->isAbleTo('assign-any-role');
+            case 'base_user':
+                return $actor->isAbleTo('assign-any-role');
+            case 'applicant':
+                return $actor->isAbleTo('assign-any-role');
+            case 'request_responder':
+                return $actor->isAbleTo('assign-any-role');
+            case 'community_manager':
+                return $actor->isAbleTo('assign-any-role');
+            case 'platform_admin':
+                return $actor->isAbleTo('update-any-platformAdminMembership ');
+        }
+
+        return false; // reject unknown roles
     }
 }

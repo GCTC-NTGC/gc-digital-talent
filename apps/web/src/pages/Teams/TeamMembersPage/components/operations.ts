@@ -2,18 +2,27 @@ import { graphql } from "@gc-digital-talent/graphql";
 
 // eslint-disable-next-line import/prefer-default-export
 export const UpdateUserTeamRoles_Mutation = graphql(/* GraphQL */ `
-  mutation UpdateUserTeamRoles(
-    $teamRoleAssignments: UpdateUserTeamRolesInput!
-  ) {
-    updateUserTeamRoles(teamRoleAssignments: $teamRoleAssignments) {
+  mutation UpdateUserRoles($updateUserRolesInput: UpdateUserRolesInput!) {
+    updateUserRoles(updateUserRolesInput: $updateUserRolesInput) {
+      id
       roleAssignments {
+        id
         role {
-          name
-        }
-        user {
           id
-          firstName
-          lastName
+          name
+          isTeamBased
+          displayName {
+            en
+            fr
+          }
+        }
+        team {
+          id
+          name
+          displayName {
+            en
+            fr
+          }
         }
       }
     }
