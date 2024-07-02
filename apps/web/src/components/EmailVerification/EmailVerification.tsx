@@ -130,15 +130,13 @@ const EmailVerification = ({
       .catch(() => {
         toast.error(
           <>
-            <p>
-              <strong>
-                {intl.formatMessage({
-                  defaultMessage: "The code entered was incorrect.",
-                  id: "2xBxZ9",
-                  description:
-                    "Title for error message when the code is not valid.",
-                })}
-              </strong>
+            <p data-h2-font-weight="base(700)">
+              {intl.formatMessage({
+                defaultMessage: "The code entered was incorrect.",
+                id: "2xBxZ9",
+                description:
+                  "Title for error message when the code is not valid.",
+              })}
             </p>
             <p>
               {intl.formatMessage({
