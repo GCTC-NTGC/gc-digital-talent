@@ -939,6 +939,10 @@
     "defaultMessage": "Exécuter un processus de recrutement",
     "description": "Heading for the contact section to run a recruitment process"
   },
+  "2xBxZ9": {
+    "defaultMessage": "Le code saisi est incorrect.",
+    "description": "Title for error message when the code is not valid."
+  },
   "2yXxyQ": {
     "defaultMessage": "« ... inclut les personnes dont le genre déclaré est celui de femme. Cela inclut les femmes cisgenres (cis) et les femmes transgenres (trans). »",
     "description": "Definition of the Woman category from the StatsCan 'Classification of gender' page."
@@ -1894,6 +1898,10 @@
   "8Otaw9": {
     "defaultMessage": "Ministère {departmentId} introuvable.",
     "description": "Message displayed for department not found."
+  },
+  "8P9Rjx": {
+    "defaultMessage": "Envoyer un nouveau code.",
+    "description": "Button text to send a new code"
   },
   "8PhWBd": {
     "defaultMessage": "Lancement",
@@ -4395,6 +4403,10 @@
     "defaultMessage": "Si vous êtes membre d’un <link>groupe visé par l’équité en matière d’emploi</link>, vous pouvez choisir de vous autodéclarer lorsque vous créez votre profil.",
     "description": "Paragraph 1, importance of self-declaration"
   },
+  "MZ0uNW": {
+    "defaultMessage": "Veuillez vérifier votre courriel en saisissant le code à 6 caractères qui vous a été envoyé {emailAddress}.",
+    "description": "instructions for email verification form"
+  },
   "MZChNU": {
     "defaultMessage": "Diplômés et talents avancés",
     "description": "Title of the 'Graduates and advanced talent' section"
@@ -4467,6 +4479,10 @@
     "defaultMessage": "Groupe et classification actuels :",
     "description": "Field label before government employment group and level, followed by colon"
   },
+  "MvD/iS": {
+    "defaultMessage": "Vous n'avez pas reçu de code ?",
+    "description": "intro to request a new code"
+  },
   "Mxu+IY": {
     "defaultMessage": "Inconnu",
     "description": "Contract start timeframe is unknown"
@@ -4518,6 +4534,10 @@
   "N87bC7": {
     "defaultMessage": "Titre de la thèse",
     "description": "Label displayed on education form for thesis title input"
+  },
+  "NAobki": {
+    "defaultMessage": "Si vous rencontrez toujours des difficultés, essayez d'envoyer un nouveau code en utilisant le lien fourni.",
+    "description": "Instructions to send another code"
   },
   "NDkViv": {
     "defaultMessage": "L’un des facteurs suivants a-t-il une influence sur la décision d’établir un contrat?",
@@ -5542,6 +5562,10 @@
   "T+fhB+": {
     "defaultMessage": "Décision finale annulée",
     "description": "Message displayed when a pool candidate final decision has been updated by an admin"
+  },
+  "T+ypau": {
+    "defaultMessage": "Code de vérification",
+    "description": "label for verification code input"
   },
   "T0JO/F": {
     "defaultMessage": "Description du travail requis",
@@ -7818,6 +7842,10 @@
     "defaultMessage": "Paramètres mis à jour avec succès",
     "description": "Message displayed when applicant updated their notification settings."
   },
+  "eoIad5": {
+    "defaultMessage": "Sauter cette étape pour l'instant",
+    "description": "label for skip button"
+  },
   "eozWFc": {
     "defaultMessage": "Filtres avancés",
     "description": "Title for the additional filters"
@@ -8461,6 +8489,10 @@
   "hwVlzN": {
     "defaultMessage": "\"À quoi devrais-je m’attendre si je réussis ce processus?\"",
     "description": "Button text to toggle the accordion for what to expect after admission"
+  },
+  "hx8mTr": {
+    "defaultMessage": "Envoyer un autre code.",
+    "description": "button to request a new code"
   },
   "hxaIWa": {
     "defaultMessage": "Ministères et organismes",
@@ -10857,6 +10889,10 @@
   "vkAhEM": {
     "defaultMessage": "Se connecter à l’aide de CléGC",
     "description": "Page title for the sign in page for applicant profiles"
+  },
+  "vm9mFv": {
+    "defaultMessage": "Veuillez passer en revue le code et essayer de le saisir à nouveau.",
+    "description": "Error message when the code is not valid."
   },
   "vmj/E4": {
     "defaultMessage": "Je souhaite être pris en considération pour des postes en anglais",
