@@ -34,7 +34,7 @@ const GenericJobTitleAccordion = ({
         )}
       </Accordion.Trigger>
       <Accordion.Content>
-        <ClassificationDefinition name={genericJobTitle.key} />
+        <ClassificationDefinition name={genericJobTitle.key.value} />
       </Accordion.Content>
     </Accordion.Item>
   );

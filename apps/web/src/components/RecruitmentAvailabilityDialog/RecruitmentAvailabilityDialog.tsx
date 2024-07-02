@@ -32,7 +32,13 @@ const RecruitmentAvailabilityDialog_Fragment = graphql(/* GraphQL */ `
     suspendedAt
     pool {
       id
-      stream
+      stream {
+        value
+        label {
+          en
+          fr
+        }
+      }
       name {
         en
         fr

@@ -4,21 +4,21 @@ import {
   CHROMATIC_VIEWPORTS,
   MockGraphqlDecorator,
 } from "@gc-digital-talent/storybook-helpers";
-import { fakePools } from "@gc-digital-talent/fake-data";
+import { fakePools, toLocalizedEnum } from "@gc-digital-talent/fake-data";
 import { PoolStatus, PublishingGroup } from "@gc-digital-talent/graphql";
 
 import BrowsePools from "./BrowsePoolsPage";
 
 const mockPools = fakePools(3).map((advert) => ({
   ...advert,
-  publishingGroup: PublishingGroup.ItJobs,
-  status: PoolStatus.Published,
+  publishingGroup: toLocalizedEnum(PublishingGroup.ItJobs),
+  status: toLocalizedEnum(PoolStatus.Published),
 }));
 
 const mockPoolsOngoing = fakePools(2).map((advert) => ({
   ...advert,
-  publishingGroup: PublishingGroup.ItJobsOngoing,
-  status: PoolStatus.Published,
+  publishingGroup: toLocalizedEnum(PublishingGroup.ItJobsOngoing),
+  status: toLocalizedEnum(PoolStatus.Published),
 }));
 
 export default {

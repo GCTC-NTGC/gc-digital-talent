@@ -8,12 +8,13 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import fakeSkills from "./fakeSkills";
+import toLocalizedEnum from "./fakeLocalizedEnum";
 
 const generatePoolSkill = (): PoolSkill => {
   return {
     id: faker.string.uuid(),
-    type: faker.helpers.arrayElement<PoolSkillType>(
-      Object.values(PoolSkillType),
+    type: toLocalizedEnum(
+      faker.helpers.arrayElement<PoolSkillType>(Object.values(PoolSkillType)),
     ),
     requiredLevel: faker.helpers.arrayElement<SkillLevel>(
       Object.values(SkillLevel),

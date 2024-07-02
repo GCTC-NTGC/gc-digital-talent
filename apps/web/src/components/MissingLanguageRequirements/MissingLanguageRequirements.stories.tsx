@@ -1,6 +1,10 @@
 import { StoryFn, Meta } from "@storybook/react";
 
-import { fakePools, fakeUsers } from "@gc-digital-talent/fake-data";
+import {
+  fakePools,
+  fakeUsers,
+  toLocalizedEnum,
+} from "@gc-digital-talent/fake-data";
 import { User, Pool, PoolLanguage } from "@gc-digital-talent/graphql";
 
 import MissingLanguageRequirements from "./MissingLanguageRequirements";
@@ -15,7 +19,7 @@ const unilingualUser: User = {
 };
 const bilingualPool: Pool = {
   ...fakePools(1)[0],
-  language: PoolLanguage.BilingualAdvanced,
+  language: toLocalizedEnum(PoolLanguage.BilingualAdvanced),
 };
 
 export default {

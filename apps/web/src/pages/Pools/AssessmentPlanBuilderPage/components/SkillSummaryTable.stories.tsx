@@ -5,6 +5,7 @@ import {
   fakePools,
   fakeSkillFamilies,
   fakeSkills,
+  toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
 import {
   AssessmentStep,
@@ -55,40 +56,40 @@ const poolSkillsArray: PoolSkill[] = [
   {
     id: "poolSkill1",
     skill: technicalSkill1,
-    type: PoolSkillType.Essential,
+    type: toLocalizedEnum(PoolSkillType.Essential),
     assessmentSteps: [
       {
         id: "assessmentStep1",
-        type: AssessmentStepType.ApplicationScreening,
+        type: toLocalizedEnum(AssessmentStepType.ApplicationScreening),
       },
     ],
   },
   {
     id: "poolSkill2",
     skill: technicalSkill2,
-    type: PoolSkillType.Essential,
+    type: toLocalizedEnum(PoolSkillType.Essential),
     assessmentSteps: [
       {
         id: "assessmentStep1",
-        type: AssessmentStepType.ApplicationScreening,
+        type: toLocalizedEnum(AssessmentStepType.ApplicationScreening),
       },
     ],
   },
   {
     id: "poolSkill3",
     skill: behaviouralSkill3,
-    type: PoolSkillType.Nonessential,
+    type: toLocalizedEnum(PoolSkillType.Nonessential),
     assessmentSteps: [
       {
         id: "assessmentStep2",
-        type: AssessmentStepType.ReferenceCheck,
+        type: toLocalizedEnum(AssessmentStepType.ReferenceCheck),
       },
     ],
   },
   {
     id: "orphanPoolSkill",
     skill: behaviouralSkill4,
-    type: PoolSkillType.Nonessential,
+    type: toLocalizedEnum(PoolSkillType.Nonessential),
     assessmentSteps: [],
   },
 ];
@@ -100,16 +101,16 @@ const assessmentStepsArray: AssessmentStep[] = [
     poolSkills: [
       {
         id: "poolSkill1",
-        type: PoolSkillType.Essential,
+        type: toLocalizedEnum(PoolSkillType.Essential),
       },
       {
         id: "poolSkill2",
-        type: PoolSkillType.Essential,
+        type: toLocalizedEnum(PoolSkillType.Essential),
       },
     ],
     sortOrder: 1,
     title: { en: "Application Screening EN", fr: "Application Screening FR" },
-    type: AssessmentStepType.ApplicationScreening,
+    type: toLocalizedEnum(AssessmentStepType.ApplicationScreening),
   },
   {
     id: "assessmentStep2",
@@ -117,12 +118,12 @@ const assessmentStepsArray: AssessmentStep[] = [
     poolSkills: [
       {
         id: "poolSkill3",
-        type: PoolSkillType.Nonessential,
+        type: toLocalizedEnum(PoolSkillType.Nonessential),
       },
     ],
     sortOrder: 2,
     title: { en: "Reference EN", fr: "Reference FR" },
-    type: AssessmentStepType.ReferenceCheck,
+    type: toLocalizedEnum(AssessmentStepType.ReferenceCheck),
   },
 ];
 

@@ -2,8 +2,12 @@
 
 namespace App\Enums;
 
+use App\Traits\HasLocalization;
+
 enum AwardedScope
 {
+    use HasLocalization;
+
     case INTERNATIONAL;
     case NATIONAL;
     case PROVINCIAL;
@@ -11,4 +15,9 @@ enum AwardedScope
     case COMMUNITY;
     case ORGANIZATIONAL;
     case SUB_ORGANIZATIONAL;
+
+    public static function getLangFilename(): string
+    {
+        return 'awarded_scope';
+    }
 }

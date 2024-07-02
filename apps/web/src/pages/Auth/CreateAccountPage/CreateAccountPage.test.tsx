@@ -4,13 +4,15 @@
 import "@testing-library/jest-dom";
 import { fireEvent, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { Provider as GraphqlProvider } from "urql";
+import { pipe, fromValue, delay } from "wonka";
 
 import {
   fakeClassifications,
   fakeDepartments,
 } from "@gc-digital-talent/fake-data";
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
-import { makeFragmentData } from "@gc-digital-talent/graphql";
+import { Language, makeFragmentData } from "@gc-digital-talent/graphql";
 
 import {
   CreateAccountForm,
@@ -22,10 +24,30 @@ const mockDepartments = fakeDepartments();
 const mockClassifications = fakeClassifications();
 const mockSave = jest.fn();
 
+const mockClient = {
+  executeQuery: jest.fn(() => pipe(fromValue({}), delay(0))),
+};
+
 const mockFragmentData = makeFragmentData(
   {
     departments: mockDepartments,
     classifications: mockClassifications,
+    languages: [
+      {
+        value: Language.En,
+        label: {
+          en: "English",
+          fr: "",
+        },
+      },
+      {
+        value: Language.Fr,
+        label: {
+          en: "French",
+          fr: "",
+        },
+      },
+    ],
   },
   CreateAccount_QueryFragment,
 );
@@ -35,10 +57,12 @@ const renderCreateAccountForm = ({
   handleCreateAccount,
 }: CreateAccountFormProps) =>
   renderWithProviders(
-    <CreateAccountForm
-      query={query}
-      handleCreateAccount={handleCreateAccount}
-    />,
+    <GraphqlProvider value={mockClient}>
+      <CreateAccountForm
+        query={query}
+        handleCreateAccount={handleCreateAccount}
+      />
+    </GraphqlProvider>,
   );
 
 describe("Create Account Form tests", () => {

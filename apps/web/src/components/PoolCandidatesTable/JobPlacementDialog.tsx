@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { useMutation } from "urql";
+import { useMutation, useQuery } from "urql";
 
 import {
   RadioGroup,
   Select,
   Submit,
-  enumToOptions,
+  localizedEnumToOptions,
   objectsToSortedOptions,
 } from "@gc-digital-talent/forms";
 import {
@@ -21,8 +21,8 @@ import {
 import {
   commonMessages,
   errorMessages,
-  getPlacementType,
-  getPoolCandidateStatus,
+  getLocalizedName,
+  sortPlacementType,
 } from "@gc-digital-talent/i18n";
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
@@ -59,10 +59,28 @@ const RevertPlaceCandidate_Mutation = graphql(/* GraphQL */ `
 export const JobPlacementDialog_Fragment = graphql(/* GraphQL */ `
   fragment JobPlacementDialog on PoolCandidate {
     id
-    status
+    status {
+      value
+      label {
+        en
+        fr
+      }
+    }
     placedDepartment {
       id
       name {
+        en
+        fr
+      }
+    }
+  }
+`);
+
+const JobPlacementOptions_Query = graphql(/* GraphQL */ `
+  query JobPlacementOptions {
+    placementTypes: localizedEnumStrings(enumName: "PlacementType") {
+      value
+      label {
         en
         fr
       }
@@ -90,6 +108,7 @@ const JobPlacementDialog = ({
 }: JobPlacementDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
+  const [{ data }] = useQuery({ query: JobPlacementOptions_Query });
   const [, executePlacedCandidate] = useMutation(PlaceCandidate_Mutation);
   const [, executeRevertPlacedCandidate] = useMutation(
     RevertPlaceCandidate_Mutation,
@@ -102,8 +121,8 @@ const JobPlacementDialog = ({
   } = getFragment(JobPlacementDialog_Fragment, jobPlacementDialogQuery);
 
   const placementType =
-    status && PLACEMENT_TYPE_STATUSES.includes(status)
-      ? (status as unknown as PlacementType)
+    status?.value && PLACEMENT_TYPE_STATUSES.includes(status?.value)
+      ? (status.value as unknown as PlacementType)
       : "NOT_PLACED";
 
   const methods = useForm<FormValues>({
@@ -113,7 +132,7 @@ const JobPlacementDialog = ({
     },
   });
 
-  if (!isQualifiedStatus(status)) {
+  if (!isQualifiedStatus(status?.value)) {
     return <span>{intl.formatMessage(commonMessages.notAvailable)}</span>;
   }
 
@@ -190,25 +209,17 @@ const JobPlacementDialog = ({
       value: "NOT_PLACED",
       label: intl.formatMessage(poolCandidateMessages.notPlaced),
     },
-    ...enumToOptions(PlacementType, [
-      PlacementType.PlacedTentative,
-      PlacementType.PlacedCasual,
-      PlacementType.PlacedTerm,
-      PlacementType.PlacedIndeterminate,
-    ]).map(({ value }) => ({
-      value,
-      label: intl.formatMessage(getPlacementType(value)),
-    })),
+    ...localizedEnumToOptions(sortPlacementType(data?.placementTypes), intl),
   ];
 
   let label = intl.formatMessage(commonMessages.notAvailable);
   if (status) {
-    if (isNotPlacedStatus(status)) {
+    if (isNotPlacedStatus(status.value)) {
       label = intl.formatMessage(poolCandidateMessages.notPlaced);
     }
 
-    if (status && PLACEMENT_TYPE_STATUSES.includes(status)) {
-      label = intl.formatMessage(getPoolCandidateStatus(status));
+    if (status.value && PLACEMENT_TYPE_STATUSES.includes(status.value)) {
+      label = getLocalizedName(status.label, intl);
     }
   }
 

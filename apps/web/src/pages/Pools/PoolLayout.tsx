@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { Outlet } from "react-router-dom";
 import { OperationContext, useQuery } from "urql";
+import isString from "lodash/isString";
 
 import {
   Pending,
@@ -37,7 +38,13 @@ export const PoolLayout_Fragment = graphql(/* GraphQL */ `
   fragment PoolLayout on Pool {
     ...AssessmentPlanStatus
     id
-    stream
+    stream {
+      value
+      label {
+        en
+        fr
+      }
+    }
     publishedAt
     isComplete
     name {
@@ -150,9 +157,12 @@ const PoolHeader = ({ poolQuery }: PoolHeaderProps) => {
         }
         contentRight={
           (currentPage?.link.url.includes("edit") ||
-            currentPage?.link.url.includes("plan")) && (
+            currentPage?.link.url.includes("plan")) &&
+          badge.label && (
             <Chip color={badge.color} data-h2-flex-shrink="base(0)">
-              {intl.formatMessage(badge.label)}
+              {isString(badge.label)
+                ? badge.label
+                : intl.formatMessage(badge.label)}
             </Chip>
           )
         }

@@ -3,17 +3,12 @@ import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { IntlShape, useIntl } from "react-intl";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 
-import {
-  commonMessages,
-  getAssessmentStepType,
-  getLocalizedName,
-  getPoolSkillType,
-  getSkillCategory,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   AssessmentStep,
   AssessmentStepType,
   FragmentType,
+  LocalizedAssessmentStepType,
   Maybe,
   PoolSkill,
   PoolSkillType,
@@ -32,11 +27,23 @@ import { assessmentStepDisplayName } from "../utils";
 export const SkillSummaryTablePoolSkill_Fragment = graphql(/* GraphQL */ `
   fragment SkillSummaryPoolSkill on PoolSkill {
     id
-    type
+    type {
+      value
+      label {
+        en
+        fr
+      }
+    }
     skill {
       id
       key
-      category
+      category {
+        value
+        label {
+          en
+          fr
+        }
+      }
       name {
         en
         fr
@@ -48,7 +55,13 @@ export const SkillSummaryTablePoolSkill_Fragment = graphql(/* GraphQL */ `
 export const SkillSummaryTableAssessmentStep_Fragment = graphql(/* GraphQL */ `
   fragment SkillSummaryTableAssessmentStep on AssessmentStep {
     id
-    type
+    type {
+      value
+      label {
+        en
+        fr
+      }
+    }
     sortOrder
     title {
       en
@@ -72,7 +85,7 @@ interface SkillSummaryTableProps {
 
 const CheckIconElement = (
   skill: Skill | null | undefined,
-  assessmentStepType: Maybe<AssessmentStepType> | undefined,
+  assessmentStepType: Maybe<LocalizedAssessmentStepType> | undefined,
 ): JSX.Element | null => {
   const intl = useIntl();
   if (!skill) {
@@ -80,10 +93,9 @@ const CheckIconElement = (
   }
   const { name } = skill;
   const localizedName = getLocalizedName(name, intl);
-  const assessmentStepTypeLocalized = intl.formatMessage(
-    assessmentStepType
-      ? getAssessmentStepType(assessmentStepType)
-      : commonMessages.nameNotLoaded,
+  const assessmentStepTypeLocalized = getLocalizedName(
+    assessmentStepType?.label,
+    intl,
   );
 
   return (
@@ -151,8 +163,8 @@ const assessmentStepCell = (
 ): JSX.Element | null => {
   // return early with specific message for certain combination
   if (
-    poolSkill.skill?.category === SkillCategory.Behavioural &&
-    assessmentStep.type === AssessmentStepType.ApplicationScreening
+    poolSkill.skill?.category.value === SkillCategory.Behavioural &&
+    assessmentStep.type?.value === AssessmentStepType.ApplicationScreening
   ) {
     return <span>{intl.formatMessage(commonMessages.notApplicable)}</span>;
   }
@@ -169,12 +181,12 @@ const assessmentStepCell = (
 
 const requirementTypeCell = ({ poolSkill, intl }: RequirementTypeCellProps) => {
   if (!poolSkill.type) return null;
-  return poolSkill.type === PoolSkillType.Essential ? (
+  return poolSkill.type.value === PoolSkillType.Essential ? (
     <span data-h2-color="base(primary.darker)" data-h2-font-weight="base(700)">
-      {intl.formatMessage(getPoolSkillType(poolSkill.type))}
+      {getLocalizedName(poolSkill.type.label, intl)}
     </span>
   ) : (
-    <span>{intl.formatMessage(getPoolSkillType(poolSkill.type))}</span>
+    <span>{getLocalizedName(poolSkill.type.label, intl)}</span>
   );
 };
 
@@ -228,10 +240,7 @@ const SkillSummaryTable = ({
         cells.jsx(requirementTypeCell({ poolSkill, intl })),
     }),
     columnHelper.accessor(
-      (row) =>
-        row.skill
-          ? intl.formatMessage(getSkillCategory(row.skill.category))
-          : "",
+      ({ skill }) => getLocalizedName(skill?.category.label, intl),
       {
         id: "skillCategory",
         header: intl.formatMessage({
@@ -254,7 +263,7 @@ const SkillSummaryTable = ({
   sortedAssessmentSteps.forEach((assessmentStep) => {
     const headerName = assessmentStepDisplayName(assessmentStep, intl);
     const newColumn = columnHelper.display({
-      id: assessmentStep.type ?? assessmentStep.id,
+      id: assessmentStep.type?.value ?? assessmentStep.id,
       header: headerName,
       cell: ({ row: { original: poolSkill } }) =>
         cells.jsx(assessmentStepCell(poolSkill, assessmentStep, intl)),

@@ -1,12 +1,6 @@
 import { useIntl } from "react-intl";
 
-import {
-  commonMessages,
-  getLocalizedName,
-  getPoolOpportunityLength,
-  getPoolStream,
-  getPublishingGroup,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import { getClassificationName } from "~/utils/poolUtils";
@@ -47,7 +41,7 @@ const Display = ({ pool }: DisplayProps) => {
           hasError={!stream}
           label={intl.formatMessage(processMessages.stream)}
         >
-          {stream ? intl.formatMessage(getPoolStream(stream)) : notProvided}
+          {getLocalizedName(stream?.label, intl)}
         </ToggleForm.FieldDisplay>
         <ToggleForm.FieldDisplay
           hasError={!name?.en}
@@ -77,9 +71,7 @@ const Display = ({ pool }: DisplayProps) => {
           hasError={!opportunityLength}
           label={intl.formatMessage(processMessages.opportunityLength)}
         >
-          {opportunityLength
-            ? intl.formatMessage(getPoolOpportunityLength(opportunityLength))
-            : notProvided}
+          {getLocalizedName(opportunityLength?.label, intl)}
         </ToggleForm.FieldDisplay>
         <ToggleForm.FieldDisplay
           hasError={!processNumber}
@@ -91,9 +83,7 @@ const Display = ({ pool }: DisplayProps) => {
           hasError={!publishingGroup}
           label={intl.formatMessage(processMessages.publishingGroup)}
         >
-          {publishingGroup
-            ? intl.formatMessage(getPublishingGroup(publishingGroup))
-            : notProvided}
+          {getLocalizedName(publishingGroup?.label, intl)}
         </ToggleForm.FieldDisplay>
       </div>
     </>

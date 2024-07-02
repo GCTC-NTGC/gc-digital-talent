@@ -11,7 +11,7 @@ export function hasInvalidRequiredFields({
   closingDate,
   status,
 }: Pool): boolean {
-  if (status === PoolStatus.Draft && closingDate) {
+  if (status?.value === PoolStatus.Draft && closingDate) {
     return isPast(parseDateTimeUtc(closingDate));
   }
 

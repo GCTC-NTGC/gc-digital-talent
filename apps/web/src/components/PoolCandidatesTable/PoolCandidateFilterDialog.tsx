@@ -8,36 +8,17 @@ import {
   HiddenInput,
   RadioGroup,
   Select,
-  enumToOptions,
-  enumToOptionsWorkRegionSorted,
+  localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
-import {
-  graphql,
-  CandidateExpiryFilter,
-  CandidateSuspendedFilter,
-  LanguageAbility,
-  PoolCandidateStatus,
-  PoolStream,
-  PublishingGroup,
-  WorkRegion,
-  PriorityWeight,
-} from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
-  OperationalRequirements,
   commonMessages,
-  getCandidateExpiryFilterStatus,
-  getCandidateSuspendedFilterStatus,
   getEmploymentEquityGroup,
-  getLanguageAbility,
   getLocalizedName,
-  getOperationalRequirement,
-  getPoolCandidatePriorities,
-  getPoolCandidateStatus,
-  getPoolStream,
-  getPublishingGroup,
-  getWorkRegion,
   navigationMessages,
+  sortPriorityWeight,
+  sortWorkRegion,
 } from "@gc-digital-talent/i18n";
 
 import adminMessages from "~/messages/adminMessages";
@@ -62,6 +43,73 @@ const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
     skills {
       id
       name {
+        en
+        fr
+      }
+    }
+    operationalRequirements: localizedEnumStrings(
+      enumName: "OperationalRequirement"
+    ) {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    publishingGroups: localizedEnumStrings(enumName: "PublishingGroup") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    priorityWeights: localizedEnumStrings(enumName: "PriorityWeight") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    streams: localizedEnumStrings(enumName: "PoolStream") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    statuses: localizedEnumStrings(enumName: "PoolCandidateStatus") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    workRegions: localizedEnumStrings(enumName: "WorkRegion") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    expiryFilters: localizedEnumStrings(enumName: "CandidateExpiryFilter") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    suspendedFilters: localizedEnumStrings(
+      enumName: "CandidateSuspendedFilter"
+    ) {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    languageAbilities: localizedEnumStrings(enumName: "LanguageAbility") {
+      value
+      label {
         en
         fr
       }
@@ -120,16 +168,7 @@ const PoolCandidateFilterDialog = ({
           idPrefix="publishingGroups"
           name="publishingGroups"
           legend={intl.formatMessage(adminMessages.publishingGroups)}
-          items={enumToOptions(PublishingGroup).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getPublishingGroup(value)),
-            ariaLabel: intl
-              .formatMessage(getPublishingGroup(value))
-              .replace(
-                intl.locale === "en" ? "IT" : "TI",
-                intl.locale === "en" ? "I T" : "T I",
-              ),
-          }))}
+          items={localizedEnumToOptions(data?.publishingGroups, intl)}
         />
         <Checklist
           idPrefix="equity"
@@ -155,15 +194,10 @@ const PoolCandidateFilterDialog = ({
           idPrefix="priorityWeight"
           name="priorityWeight"
           legend={intl.formatMessage(adminMessages.category)}
-          items={enumToOptions(PriorityWeight, [
-            PriorityWeight.PriorityEntitlement,
-            PriorityWeight.Veteran,
-            PriorityWeight.CitizenOrPermanentResident,
-            PriorityWeight.Other,
-          ]).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getPoolCandidatePriorities(value)),
-          }))}
+          items={localizedEnumToOptions(
+            sortPriorityWeight(data?.priorityWeights),
+            intl,
+          )}
         />
         <Combobox
           id="classifications"
@@ -181,40 +215,29 @@ const PoolCandidateFilterDialog = ({
           name="stream"
           isMulti
           label={intl.formatMessage(adminMessages.streams)}
-          options={enumToOptions(PoolStream).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getPoolStream(value)),
-          }))}
+          options={localizedEnumToOptions(data?.streams, intl)}
         />
         <Combobox
           id="poolCandidateStatus"
           name="poolCandidateStatus"
           isMulti
           label={intl.formatMessage(commonMessages.status)}
-          options={enumToOptions(PoolCandidateStatus).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getPoolCandidateStatus(value)),
-          }))}
+          options={localizedEnumToOptions(data?.statuses, intl)}
         />
         <Checklist
           idPrefix="operationalRequirement"
           name="operationalRequirement"
           legend={intl.formatMessage(navigationMessages.workPreferences)}
-          items={OperationalRequirements.map((value) => ({
-            value,
-            label: intl.formatMessage(
-              getOperationalRequirement(value, "short"),
-            ),
-          }))}
+          items={localizedEnumToOptions(data?.operationalRequirements, intl)}
         />
         <Checklist
           idPrefix="workRegion"
           name="workRegion"
           legend={intl.formatMessage(navigationMessages.workLocation)}
-          items={enumToOptionsWorkRegionSorted(WorkRegion).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getWorkRegion(value)),
-          }))}
+          items={localizedEnumToOptions(
+            sortWorkRegion(data?.workRegions),
+            intl,
+          )}
         />
         <div
           data-h2-display="base(flex)"
@@ -229,10 +252,7 @@ const PoolCandidateFilterDialog = ({
               description: "Label for the expiry status field",
               id: "HDiUEc",
             })}
-            items={enumToOptions(CandidateExpiryFilter).map(({ value }) => ({
-              value,
-              label: intl.formatMessage(getCandidateExpiryFilterStatus(value)),
-            }))}
+            items={localizedEnumToOptions(data?.expiryFilters, intl)}
           />
           <RadioGroup
             idPrefix="suspendedStatus"
@@ -242,12 +262,7 @@ const PoolCandidateFilterDialog = ({
               description: "Label for the candidacy status field",
               id: "NxrKpM",
             })}
-            items={enumToOptions(CandidateSuspendedFilter).map(({ value }) => ({
-              value,
-              label: intl.formatMessage(
-                getCandidateSuspendedFilterStatus(value),
-              ),
-            }))}
+            items={localizedEnumToOptions(data?.suspendedFilters, intl)}
           />
         </div>
         <Checkbox
@@ -271,10 +286,7 @@ const PoolCandidateFilterDialog = ({
               id: "iUAe/2",
               description: "Label for language ability field",
             })}
-            options={enumToOptions(LanguageAbility).map(({ value }) => ({
-              value,
-              label: intl.formatMessage(getLanguageAbility(value)),
-            }))}
+            options={localizedEnumToOptions(data?.languageAbilities, intl)}
           />
         </div>
         <div data-h2-grid-column="l-tablet(span 3)">

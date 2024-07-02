@@ -78,14 +78,56 @@ export const DashboardHeadingUser_Fragment = graphql(/* GraphQL */ `
     lastName
     email
     telephone
-    preferredLang
-    preferredLanguageForInterview
-    preferredLanguageForExam
+    preferredLang {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    preferredLanguageForInterview {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    preferredLanguageForExam {
+      value
+      label {
+        en
+        fr
+      }
+    }
     currentCity
-    currentProvince
-    citizenship
-    armedForcesStatus
-    locationPreferences
+    currentProvince {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    citizenship {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    armedForcesStatus {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    locationPreferences {
+      value
+      label {
+        en
+        fr
+      }
+    }
     positionDuration
     isGovEmployee
     hasPriorityEntitlement
@@ -93,19 +135,55 @@ export const DashboardHeadingUser_Fragment = graphql(/* GraphQL */ `
     lookingForEnglish
     lookingForFrench
     lookingForBilingual
-    firstOfficialLanguage
-    estimatedLanguageAbility
+    firstOfficialLanguage {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    estimatedLanguageAbility {
+      value
+      label {
+        en
+        fr
+      }
+    }
     secondLanguageExamCompleted
     secondLanguageExamValidity
-    writtenLevel
-    comprehensionLevel
-    verbalLevel
+    writtenLevel {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    comprehensionLevel {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    verbalLevel {
+      value
+      label {
+        en
+        fr
+      }
+    }
     experiences {
       id
     }
     poolCandidates {
       id
-      status
+      status {
+        value
+        label {
+          en
+          fr
+        }
+      }
     }
     userSkills {
       id
@@ -464,7 +542,7 @@ const DashboardHeading = ({ userQuery }: DashboardHeadingProps) => {
             })}
             itemCount={
               notEmptyApplications.filter((application) =>
-                isQualifiedStatus(application.status),
+                isQualifiedStatus(application.status?.value),
               ).length
             }
             icon={ShieldCheckIcon}

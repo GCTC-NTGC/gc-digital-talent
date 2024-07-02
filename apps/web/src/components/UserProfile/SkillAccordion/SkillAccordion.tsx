@@ -4,11 +4,8 @@ import { useIntl } from "react-intl";
 import { Accordion, HeadingRank } from "@gc-digital-talent/ui";
 import {
   getLocale,
-  getAwardedScope,
-  getAwardedTo,
-  getEducationStatus,
-  getEducationType,
   commonMessages,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import {
   Skill,
@@ -129,14 +126,14 @@ const SkillAccordion = ({
         ) : (
           ""
         )}
-        {type && status ? (
+        {type?.label && status?.label ? (
           <p>
-            {intl.formatMessage(getEducationType(type))}{" "}
+            {getLocalizedName(type.label, intl)}{" "}
             <span
               data-h2-color="base(primary.darker)"
               data-h2-font-style="base(italic)"
             >
-              {intl.formatMessage(getEducationStatus(status))}
+              {getLocalizedName(status.label, intl)}
             </span>
           </p>
         ) : (
@@ -185,18 +182,18 @@ const SkillAccordion = ({
             {formattedDate(awardedDate, intl)}
           </p>
         )}
-        {awardedTo && (
+        {awardedTo?.label && (
           <p>
             {experienceFormLabels.awardedTo}
             {intl.formatMessage(commonMessages.dividingColon)}
-            {intl.formatMessage(getAwardedTo(awardedTo))}
+            {getLocalizedName(awardedTo.label, intl)}
           </p>
         )}
-        {awardedScope && (
+        {awardedScope?.label && (
           <p>
             {experienceFormLabels.awardedScope}
             {intl.formatMessage(commonMessages.dividingColon)}
-            {intl.formatMessage(getAwardedScope(awardedScope))}
+            {getLocalizedName(awardedScope.label, intl)}
           </p>
         )}
         {justification && <p>{justification}</p>}

@@ -1,11 +1,6 @@
 import { MessageDescriptor, defineMessages, useIntl } from "react-intl";
 
-import {
-  commonMessages,
-  getEvaluatedLanguageAbility,
-  getLanguage,
-  getLanguageProficiency,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { getOrThrowError } from "@gc-digital-talent/helpers";
 
 import { getEvaluatedLanguageLevels } from "~/utils/userUtils";
@@ -191,10 +186,8 @@ const Display = ({
                 })}
                 context={context}
               >
-                {estimatedLanguageAbility
-                  ? intl.formatMessage(
-                      getLanguageProficiency(estimatedLanguageAbility),
-                    )
+                {estimatedLanguageAbility.label
+                  ? getLocalizedName(estimatedLanguageAbility.label, intl)
                   : notProvided}
               </FieldDisplay>
             )}
@@ -207,18 +200,16 @@ const Display = ({
                 label={labels.firstOfficialLanguage}
                 context={context}
               >
-                {firstOfficialLanguage
-                  ? intl.formatMessage(getLanguage(firstOfficialLanguage))
+                {firstOfficialLanguage?.label
+                  ? getLocalizedName(firstOfficialLanguage.label, intl)
                   : notProvided}
               </FieldDisplay>
               <FieldDisplay
                 label={labels.estimatedLanguageAbility}
                 context={context}
               >
-                {estimatedLanguageAbility
-                  ? intl.formatMessage(
-                      getLanguageProficiency(estimatedLanguageAbility),
-                    )
+                {estimatedLanguageAbility?.label
+                  ? getLocalizedName(estimatedLanguageAbility.label, intl)
                   : notProvided}
               </FieldDisplay>
               {secondLanguageExamCompleted ? (
@@ -249,24 +240,18 @@ const Display = ({
                       label={labels.comprehensionLevel}
                       context={context}
                     >
-                      {comprehensionLevel
-                        ? intl.formatMessage(
-                            getEvaluatedLanguageAbility(comprehensionLevel),
-                          )
+                      {comprehensionLevel?.label
+                        ? getLocalizedName(comprehensionLevel.label, intl)
                         : notProvided}
                     </FieldDisplay>
                     <FieldDisplay label={labels.writtenLevel} context={context}>
-                      {writtenLevel
-                        ? intl.formatMessage(
-                            getEvaluatedLanguageAbility(writtenLevel),
-                          )
+                      {writtenLevel?.label
+                        ? getLocalizedName(writtenLevel.label, intl)
                         : notProvided}
                     </FieldDisplay>
                     <FieldDisplay label={labels.verbalLevel} context={context}>
-                      {verbalLevel
-                        ? intl.formatMessage(
-                            getEvaluatedLanguageAbility(verbalLevel),
-                          )
+                      {verbalLevel?.label
+                        ? getLocalizedName(verbalLevel.label, intl)
                         : notProvided}
                     </FieldDisplay>
                   </div>

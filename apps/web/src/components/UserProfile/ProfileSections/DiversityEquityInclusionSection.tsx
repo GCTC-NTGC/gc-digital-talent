@@ -5,7 +5,7 @@ import { Well } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   getEmploymentEquityStatement,
-  getIndigenousCommunity,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { User, IndigenousCommunity } from "@gc-digital-talent/graphql";
 
@@ -22,7 +22,7 @@ const DiversityEquityInclusionSection = ({ user }: { user: User }) => {
     user;
   const nonLegacyIndigenousCommunities =
     unpackMaybes(indigenousCommunities).filter(
-      (c) => c !== IndigenousCommunity.LegacyIsIndigenous,
+      (c) => c.value !== IndigenousCommunity.LegacyIsIndigenous,
     ) || [];
 
   return (
@@ -69,10 +69,8 @@ const DiversityEquityInclusionSection = ({ user }: { user: User }) => {
                       {nonLegacyIndigenousCommunities.length > 0 ? (
                         nonLegacyIndigenousCommunities.map((community) => {
                           return (
-                            <li key={community}>
-                              {intl.formatMessage(
-                                getIndigenousCommunity(community),
-                              )}
+                            <li key={community.value}>
+                              {getLocalizedName(community.label, intl)}
                             </li>
                           );
                         })
@@ -96,7 +94,7 @@ const DiversityEquityInclusionSection = ({ user }: { user: User }) => {
                   data-h2-flex-shrink="base(0)"
                 >
                   {nonLegacyIndigenousCommunities.map((community) => {
-                    switch (community) {
+                    switch (community.value) {
                       case IndigenousCommunity.StatusFirstNations:
                       case IndigenousCommunity.NonStatusFirstNations:
                         return (

@@ -5,6 +5,7 @@ import {
   fakeSkills,
   fakeUsers,
   fakeUserSkills,
+  toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
 import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
 import { makeFragmentData, SkillCategory } from "@gc-digital-talent/graphql";
@@ -48,7 +49,7 @@ TechnicalSkill.args = {
   skillQuery: makeFragmentData(
     {
       ...mockSkill,
-      category: SkillCategory.Technical,
+      category: toLocalizedEnum(SkillCategory.Technical),
     },
     UpdateUserSkillSkill_Fragment,
   ),
@@ -59,7 +60,7 @@ BehaviouralSkill.args = {
   skillQuery: makeFragmentData(
     {
       ...mockSkill,
-      category: SkillCategory.Behavioural,
+      category: toLocalizedEnum(SkillCategory.Behavioural),
     },
     UpdateUserSkillSkill_Fragment,
   ),

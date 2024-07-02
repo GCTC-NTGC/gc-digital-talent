@@ -15,7 +15,13 @@ export const getSkills = async (): Promise<Skill[]> => {
       skills {
         id
         key
-        category
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
         name {
           en
           fr

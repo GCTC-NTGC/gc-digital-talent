@@ -1,7 +1,14 @@
 import { Meta, StoryFn } from "@storybook/react";
 
-import { fakeSearchRequests } from "@gc-digital-talent/fake-data";
-import { allModes } from "@gc-digital-talent/storybook-helpers";
+import {
+  fakeLocalizedEnum,
+  fakeSearchRequests,
+} from "@gc-digital-talent/fake-data";
+import {
+  allModes,
+  MockGraphqlDecorator,
+} from "@gc-digital-talent/storybook-helpers";
+import { PoolCandidateSearchStatus } from "@gc-digital-talent/graphql";
 
 import { ViewSearchRequest } from "./components/ViewSearchRequest";
 
@@ -9,6 +16,7 @@ const mockSearchRequests = fakeSearchRequests();
 
 export default {
   component: ViewSearchRequest,
+  decorators: [MockGraphqlDecorator],
   args: {
     searchRequestQuery: mockSearchRequests[0],
   },
@@ -17,6 +25,13 @@ export default {
       modes: {
         light: allModes.light,
         "light mobile": allModes["light mobile"],
+      },
+    },
+    apiResponses: {
+      UpdateSearchRequestOptions: {
+        data: {
+          statuses: fakeLocalizedEnum(PoolCandidateSearchStatus),
+        },
       },
     },
   },

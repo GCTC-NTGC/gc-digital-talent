@@ -33,7 +33,9 @@ export const Test_UpdateApplicationStatusMutationDocument = /* GraphQL */ `
     updatePoolCandidateStatus(id: $id, poolCandidate: $input) {
       id
       expiryDate
-      status
+      status {
+        value
+      }
     }
   }
 `;

@@ -13,7 +13,7 @@ import {
 import {
   commonMessages,
   formMessages,
-  getCandidateRemovalReason,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 
 import FormChangeNotifyWell from "~/components/FormChangeNotifyWell/FormChangeNotifyWell";
@@ -30,7 +30,12 @@ export const ReinstateCandidateDialog_Fragment = graphql(/* GraphQL */ `
   fragment ReinstateCandidateDialog on PoolCandidate {
     id
     removedAt
-    removalReason
+    removalReason {
+      label {
+        en
+        fr
+      }
+    }
   }
 `);
 
@@ -123,11 +128,7 @@ const ReinstateCandidateDialog = ({
             })}
             {intl.formatMessage(commonMessages.dividingColon)}
             <span data-h2-font-weight="base(700)">
-              {intl.formatMessage(
-                candidate.removalReason
-                  ? getCandidateRemovalReason(candidate.removalReason)
-                  : commonMessages.notProvided,
-              )}
+              {getLocalizedName(candidate.removalReason?.label, intl)}
             </span>
           </p>
           <p data-h2-margin="base(x1 0)">

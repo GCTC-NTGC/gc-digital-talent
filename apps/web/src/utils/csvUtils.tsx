@@ -3,24 +3,18 @@ import { IntlShape } from "react-intl";
 import {
   Locales,
   commonMessages,
-  getIndigenousCommunity,
   getLocalizedName,
-  getOperationalRequirement,
-  getSimpleGovEmployeeType,
-  getWorkRegion,
 } from "@gc-digital-talent/i18n";
-import { enumToOptions } from "@gc-digital-talent/forms";
 import {
   empty,
   insertBetween,
   notEmpty,
   uniqueItems,
+  unpackMaybes,
 } from "@gc-digital-talent/helpers";
 import {
   User,
-  GovEmployeeType,
   Skill,
-  IndigenousCommunity,
   Maybe,
   Experience,
   GeneralQuestionResponse,
@@ -143,28 +137,6 @@ export const getLookingForLanguage = (
 };
 
 /**
- * Converts possible Employee Type
- * to a string
- *
- * @param type  User["govEmployeeType"]
- * @param intl react-intl object
- * @returns string The employee type
- */
-export const employeeTypeToString = (
-  type: User["govEmployeeType"],
-  intl: IntlShape,
-) => {
-  const govEmployeeTypeId =
-    enumToOptions(GovEmployeeType).find(
-      (govEmployeeType) => govEmployeeType.value === type,
-    )?.value || null;
-
-  return govEmployeeTypeId
-    ? intl.formatMessage(getSimpleGovEmployeeType(govEmployeeTypeId))
-    : "";
-};
-
-/**
  * Converts a possible location preference
  * to a string
  *
@@ -173,20 +145,18 @@ export const employeeTypeToString = (
  * @returns string
  */
 export const getLocationPreference = (
-  preference: User["locationPreferences"],
+  preferences: User["locationPreferences"],
   intl: IntlShape,
 ) => {
-  const squishedPreference = preference
-    ?.map((region) =>
-      region ? intl.formatMessage(getWorkRegion(region)) : undefined,
-    )
-    .filter(notEmpty);
+  const squishedPreference = unpackMaybes(
+    preferences?.flatMap((pref) => pref?.label),
+  ).map((label) => getLocalizedName(label, intl));
 
   if (!squishedPreference) {
     return "";
   }
 
-  return listOrEmptyString(squishedPreference.filter(notEmpty));
+  return listOrEmptyString(squishedPreference);
 };
 
 /**
@@ -201,17 +171,11 @@ export const getOperationalRequirements = (
   requirements: User["acceptedOperationalRequirements"],
   intl: IntlShape,
 ) => {
-  const accepted = requirements
-    ?.map((req) =>
-      req ? intl.formatMessage(getOperationalRequirement(req)) : undefined,
-    )
-    .filter(notEmpty);
+  const accepted = unpackMaybes(
+    requirements?.flatMap((requirement) => requirement?.label),
+  ).map((label) => getLocalizedName(label, intl));
 
-  if (!accepted) {
-    return "";
-  }
-
-  return listOrEmptyString(accepted.filter(notEmpty));
+  return listOrEmptyString(accepted);
 };
 
 /**
@@ -410,17 +374,14 @@ export const getGeneralQuestionResponses = (
  * @param IndigenousCommunity[]
  */
 export const getIndigenousCommunities = (
-  communities: Maybe<Maybe<IndigenousCommunity>[]> | undefined,
+  communities: User["indigenousCommunities"],
   intl: IntlShape,
 ) => {
-  const communityNames = communities
-    ?.filter(notEmpty)
-    ?.filter(
-      (community) => community !== IndigenousCommunity.LegacyIsIndigenous,
-    )
-    .map((community) => intl.formatMessage(getIndigenousCommunity(community)));
+  const communityNames = unpackMaybes(
+    communities?.flatMap((community) => community?.label),
+  ).map((label) => getLocalizedName(label, intl));
 
-  return communityNames?.join(", ") || "";
+  return listOrEmptyString(communityNames);
 };
 
 /**

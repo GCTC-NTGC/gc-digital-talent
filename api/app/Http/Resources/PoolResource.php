@@ -2,10 +2,14 @@
 
 namespace App\Http\Resources;
 
+use App\Enums\PoolStream;
+use App\Traits\HasLocalizedEnums;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PoolResource extends JsonResource
 {
+    use HasLocalizedEnums;
+
     /**
      * Transform the resource into an array.
      *
@@ -17,7 +21,7 @@ class PoolResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'stream' => $this->stream,
+            'stream' => $this->localizeEnum($this->stream, PoolStream::class),
             'classification' => (new ClassificationResource($this->classification)),
             'closingDate' => $this->closing_date,
         ];

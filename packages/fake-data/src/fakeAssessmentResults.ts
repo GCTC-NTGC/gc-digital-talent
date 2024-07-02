@@ -11,6 +11,8 @@ import {
   AssessmentResultJustification,
 } from "@gc-digital-talent/graphql";
 
+import toLocalizedEnum from "./fakeLocalizedEnum";
+
 const generateAssessmentResult = (
   amount: number,
   assessmentStep?: Maybe<AssessmentStep>,
@@ -19,19 +21,24 @@ const generateAssessmentResult = (
   return {
     id: faker.string.uuid(),
     assessmentStep,
-    assessmentDecision: faker.helpers.arrayElement<AssessmentDecision>(
-      Object.values(AssessmentDecision),
+    assessmentDecision: toLocalizedEnum(
+      faker.helpers.arrayElement<AssessmentDecision>(
+        Object.values(AssessmentDecision),
+      ),
     ),
-    assessmentDecisionLevel:
+    assessmentDecisionLevel: toLocalizedEnum(
       faker.helpers.arrayElement<AssessmentDecisionLevel>(
         Object.values(AssessmentDecisionLevel),
       ),
+    ),
     assessmentResultType: faker.helpers.arrayElement<AssessmentResultType>(
       Object.values(AssessmentResultType),
     ),
-    justifications: faker.helpers.arrayElements<AssessmentResultJustification>(
-      Object.values(AssessmentResultJustification),
-    ),
+    justifications: faker.helpers
+      .arrayElements<AssessmentResultJustification>(
+        Object.values(AssessmentResultJustification),
+      )
+      .map((justification) => toLocalizedEnum(justification)),
     poolSkill,
     skillDecisionNotes: "skillDecisionNotes",
   };

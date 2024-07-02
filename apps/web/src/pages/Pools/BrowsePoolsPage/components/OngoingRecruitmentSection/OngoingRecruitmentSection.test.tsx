@@ -13,6 +13,7 @@ import {
   PoolStream,
   PublishingGroup,
 } from "@gc-digital-talent/graphql";
+import { toLocalizedEnum } from "@gc-digital-talent/fake-data";
 
 import OngoingRecruitmentSection, {
   OngoingRecruitmentSectionProps,
@@ -20,9 +21,9 @@ import OngoingRecruitmentSection, {
 
 const publishedPool: Pool = {
   id: "publishedPool",
-  publishingGroup: PublishingGroup.ItJobsOngoing,
-  status: PoolStatus.Published,
-  stream: PoolStream.BusinessAdvisoryServices,
+  publishingGroup: toLocalizedEnum(PublishingGroup.ItJobsOngoing),
+  status: toLocalizedEnum(PoolStatus.Published),
+  stream: toLocalizedEnum(PoolStream.BusinessAdvisoryServices),
   classification: { id: "it-01", group: "IT", level: 1 },
 };
 

@@ -16,6 +16,7 @@ import {
   PersonnelScreeningLevel,
   PersonnelTeleworkOption,
   Skill,
+  SkillCategory,
   SkillLevel,
 } from "@gc-digital-talent/graphql";
 
@@ -169,7 +170,10 @@ const PersonnelRequirementFieldset = ({
           ? selectedSkillModel?.families[0]
           : null;
         const skillLevel = selectedSkillModel
-          ? getSkillLevelName(requirement.level, selectedSkillModel.category)
+          ? getSkillLevelName(
+              requirement.level,
+              selectedSkillModel.category.value ?? SkillCategory.Technical,
+            )
           : commonMessages.notFound;
         const skillName = getLocalizedName(selectedSkillModel?.name, intl);
         return (
@@ -224,7 +228,9 @@ const PersonnelRequirementFieldset = ({
                   initialState={{
                     skill: requirement.skillId,
                     skillLevel: stringToEnum(SkillLevel, requirement.level),
-                    category: selectedSkillModel?.category,
+                    category:
+                      selectedSkillModel?.category.value ??
+                      SkillCategory.Technical,
                     family: selectedSkillFamilyModel?.id,
                   }}
                 />

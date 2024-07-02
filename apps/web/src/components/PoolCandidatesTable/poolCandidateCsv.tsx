@@ -2,17 +2,9 @@ import { IntlShape } from "react-intl";
 
 import { DownloadCsvProps } from "@gc-digital-talent/ui";
 import {
-  getArmedForcesStatusesAdmin,
-  getCitizenshipStatusesAdmin,
-  getLanguage,
-  getLanguageProficiency,
-  getPoolCandidatePriorities,
-  getPoolCandidateStatus,
-  getProvinceOrTerritory,
   getLocale,
   getEducationRequirementOption,
   getLocalizedName,
-  getEvaluatedLanguageAbility,
   commonMessages,
 } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -26,7 +18,6 @@ import {
 
 import {
   yesOrNo,
-  employeeTypeToString,
   getLocationPreference,
   getOperationalRequirements,
   flattenExperiencesToSkills,
@@ -39,7 +30,6 @@ import {
 import adminMessages from "~/messages/adminMessages";
 import processMessages from "~/messages/processMessages";
 import { groupPoolSkillByType, poolSkillsToSkills } from "~/utils/skillUtils";
-import { getPriorityWeight } from "~/utils/poolCandidate";
 
 import { getLabels } from "../Profile/components/LanguageProfile/utils";
 
@@ -65,16 +55,8 @@ export const getPoolCandidateCsvData = (
       const poolSkills = poolSkillsToSkills(poolAd.poolSkills);
 
       return {
-        status: status
-          ? intl.formatMessage(getPoolCandidateStatus(status as string))
-          : "",
-        priority: user.priorityWeight
-          ? intl.formatMessage(
-              getPoolCandidatePriorities(
-                getPriorityWeight(user.priorityWeight),
-              ),
-            )
-          : "",
+        status: getLocalizedName(status?.label, intl, true),
+        priority: getLocalizedName(user.priority?.label, intl, true),
         availability: suspendedAt
           ? intl.formatMessage({
               defaultMessage: "Inactive",
@@ -93,41 +75,43 @@ export const getPoolCandidateCsvData = (
         firstName: sanitizeCSVString(user.firstName),
         lastName: sanitizeCSVString(user.lastName),
         email: sanitizeCSVString(user.email),
-        preferredCommunicationLanguage: user.preferredLang
-          ? intl.formatMessage(getLanguage(user.preferredLang as string))
-          : "",
-        preferredLanguageForInterview: user.preferredLanguageForInterview
-          ? intl.formatMessage(
-              getLanguage(user.preferredLanguageForInterview as string),
-            )
-          : "",
-        preferredLanguageForExam: user.preferredLanguageForExam
-          ? intl.formatMessage(
-              getLanguage(user.preferredLanguageForExam as string),
-            )
-          : "",
+        preferredCommunicationLanguage: getLocalizedName(
+          user.preferredLang?.label,
+          intl,
+          true,
+        ),
+        preferredLanguageForInterview: getLocalizedName(
+          user.preferredLanguageForInterview?.label,
+          intl,
+          true,
+        ),
+        preferredLanguageForExam: getLocalizedName(
+          user.preferredLanguageForExam?.label,
+          intl,
+          true,
+        ),
         currentCity: user.currentCity || "",
-        currentProvince: user.currentProvince
-          ? intl.formatMessage(
-              getProvinceOrTerritory(user.currentProvince as string),
-            )
-          : "",
-        armedForcesStatus: user.armedForcesStatus
-          ? intl.formatMessage(
-              getArmedForcesStatusesAdmin(user.armedForcesStatus),
-            )
-          : "",
-        citizenship: user.citizenship
-          ? intl.formatMessage(getCitizenshipStatusesAdmin(user.citizenship))
-          : "",
-        comprehensionLevel: user.comprehensionLevel
-          ? intl.formatMessage(
-              getEvaluatedLanguageAbility(user.comprehensionLevel),
-            )
-          : "",
-        firstOfficialLanguage: user.firstOfficialLanguage
-          ? intl.formatMessage(getLanguage(user.firstOfficialLanguage))
-          : "",
+        currentProvince: getLocalizedName(
+          user.currentProvince?.label,
+          intl,
+          true,
+        ),
+        armedForcesStatus: getLocalizedName(
+          user.armedForcesStatus?.label,
+          intl,
+          true,
+        ),
+        citizenship: getLocalizedName(user.citizenship?.label, intl, true),
+        comprehensionLevel: getLocalizedName(
+          user.comprehensionLevel?.label,
+          intl,
+          true,
+        ),
+        firstOfficialLanguage: getLocalizedName(
+          user.firstOfficialLanguage?.label,
+          intl,
+          true,
+        ),
         secondLanguageExamCompleted: yesOrNo(
           user.secondLanguageExamCompleted,
           intl,
@@ -136,24 +120,22 @@ export const getPoolCandidateCsvData = (
           user.secondLanguageExamValidity,
           intl,
         ),
-        writtenLevel: user.writtenLevel
-          ? intl.formatMessage(getEvaluatedLanguageAbility(user.writtenLevel))
-          : "",
-        verbalLevel: user.verbalLevel
-          ? intl.formatMessage(getEvaluatedLanguageAbility(user.verbalLevel))
-          : "",
-        estimatedLanguageAbility: user.estimatedLanguageAbility
-          ? intl.formatMessage(
-              getLanguageProficiency(user.estimatedLanguageAbility),
-            )
-          : "",
+        writtenLevel: getLocalizedName(user.writtenLevel?.label, intl, true),
+        verbalLevel: getLocalizedName(user.verbalLevel?.label, intl, true),
+        estimatedLanguageAbility: getLocalizedName(
+          user.estimatedLanguageAbility?.label,
+          intl,
+          true,
+        ),
         isGovEmployee: yesOrNo(user.isGovEmployee, intl),
         hasPriorityEntitlement: yesOrNo(user.hasPriorityEntitlement, intl),
         priorityNumber: sanitizeCSVString(user.priorityNumber),
         department: getLocalizedName(user.department?.name, intl, true),
-        govEmployeeType: user.govEmployeeType
-          ? employeeTypeToString(user.govEmployeeType, intl)
-          : "",
+        govEmployeeType: getLocalizedName(
+          user.govEmployeeType?.label,
+          intl,
+          true,
+        ),
         currentClassification: user.currentClassification
           ? `${user.currentClassification.group}-${user.currentClassification.level}`
           : "",
@@ -177,10 +159,10 @@ export const getPoolCandidateCsvData = (
         ),
         isVisibleMinority: yesOrNo(user.isVisibleMinority, intl),
         hasDisability: yesOrNo(user.hasDisability, intl),
-        educationRequirementOption: educationRequirementOption
+        educationRequirementOption: educationRequirementOption?.value
           ? intl.formatMessage(
               getEducationRequirementOption(
-                educationRequirementOption,
+                educationRequirementOption.value,
                 user.currentClassification?.group,
               ),
             )

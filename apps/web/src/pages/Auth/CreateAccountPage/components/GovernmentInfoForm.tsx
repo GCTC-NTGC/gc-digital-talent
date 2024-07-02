@@ -14,9 +14,9 @@ import {
   Input,
   RadioGroup,
   Select,
-  enumToOptions,
   objectsToSortedOptions,
   FieldLabels,
+  enumToOptions,
 } from "@gc-digital-talent/forms";
 import { empty, notEmpty } from "@gc-digital-talent/helpers";
 import { Link } from "@gc-digital-talent/ui";
@@ -183,7 +183,6 @@ export const getGovernmentInfoLabels = (intl: IntlShape) => ({
     description: "Label for priority number input",
   }),
 });
-
 interface GovernmentInfoFormFieldsProps {
   departments: Department[];
   classifications: Classification[];

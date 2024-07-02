@@ -42,7 +42,7 @@ import UnsavedChanges from "./components/UnsavedChanges";
 import {
   unpackIds,
   enumToOptions,
-  enumToOptionsWorkRegionSorted,
+  localizedEnumToOptions,
   getValues,
   escapeAString,
   matchStringCaseDiacriticInsensitive,
@@ -115,7 +115,7 @@ export type {
 export {
   unpackIds,
   enumToOptions,
-  enumToOptionsWorkRegionSorted,
+  localizedEnumToOptions,
   getValues,
   escapeAString,
   matchStringCaseDiacriticInsensitive,

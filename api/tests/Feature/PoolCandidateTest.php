@@ -110,7 +110,7 @@ class PoolCandidateTest extends TestCase
             '
             query poolCandidate($id: UUID!) {
                 poolCandidate(id: $id) {
-                    status
+                    status { value }
                 }
             }
         ';
@@ -177,7 +177,9 @@ class PoolCandidateTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'status' => PoolCandidateStatus::PLACED_CASUAL->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::PLACED_CASUAL->name,
+                        ],
                     ],
                 ],
             ]);
@@ -217,7 +219,9 @@ class PoolCandidateTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'status' => PoolCandidateStatus::NEW_APPLICATION->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::NEW_APPLICATION->name,
+                        ],
                     ],
                 ],
             ]);
@@ -237,7 +241,9 @@ class PoolCandidateTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'status' => PoolCandidateStatus::APPLICATION_REVIEW->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::APPLICATION_REVIEW->name,
+                        ],
                     ],
                 ],
             ]);
@@ -555,7 +561,7 @@ class PoolCandidateTest extends TestCase
         '
             query poolCandidate($id: UUID!) {
                 poolCandidate(id: $id) {
-                    status
+                    status { value }
                 }
             }
          ';
@@ -566,7 +572,9 @@ class PoolCandidateTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'status' => $candidate->pool_candidate_status,
+                        'status' => [
+                            'value' => $candidate->pool_candidate_status,
+                        ],
                     ],
                 ],
             ]);
@@ -577,7 +585,9 @@ class PoolCandidateTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'status' => $candidate->pool_candidate_status,
+                        'status' => [
+                            'value' => $candidate->pool_candidate_status,
+                        ],
                     ],
                 ],
             ]);
@@ -588,7 +598,9 @@ class PoolCandidateTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'status' => $candidate->pool_candidate_status,
+                        'status' => [
+                            'value' => $candidate->pool_candidate_status,
+                        ],
                     ],
                 ],
             ]);
@@ -599,7 +611,9 @@ class PoolCandidateTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'status' => $candidate->pool_candidate_status,
+                        'status' => [
+                            'value' => $candidate->pool_candidate_status,
+                        ],
                     ],
                 ],
             ]);

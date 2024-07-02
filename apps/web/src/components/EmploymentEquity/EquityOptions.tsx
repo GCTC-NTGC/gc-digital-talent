@@ -10,7 +10,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import {
-  IndigenousCommunity,
+  LocalizedIndigenousCommunity,
   Maybe,
   UpdateUserAsUserInput,
 } from "@gc-digital-talent/graphql";
@@ -23,7 +23,7 @@ import IndigenousEquityOption from "./IndigenousEquityOption";
 
 interface EquityOptionsProps {
   hasDisability?: Maybe<boolean>;
-  indigenousCommunities?: Maybe<Array<Maybe<IndigenousCommunity>>>;
+  indigenousCommunities?: Maybe<Array<Maybe<LocalizedIndigenousCommunity>>>;
   indigenousDeclarationSignature?: Maybe<string>;
   isVisibleMinority?: Maybe<boolean>;
   isWoman?: Maybe<boolean>;

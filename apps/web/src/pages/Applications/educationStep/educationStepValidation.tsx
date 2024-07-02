@@ -16,12 +16,12 @@ const stepHasError = (
   return (
     !application.educationRequirementOption ||
     !application.educationRequirementExperiences ||
-    ((application.educationRequirementOption ===
+    ((application.educationRequirementOption.value ===
       EducationRequirementOption.AppliedWork ||
-      application.educationRequirementOption ===
+      application.educationRequirementOption.value ===
         EducationRequirementOption.ProfessionalDesignation) &&
       application.educationRequirementExperiences.length === 0) ||
-    (application.educationRequirementOption ===
+    (application.educationRequirementOption.value ===
       EducationRequirementOption.Education &&
       application.educationRequirementExperiences.filter((experience) =>
         isEducationExperience(experience as ExperienceForDate),

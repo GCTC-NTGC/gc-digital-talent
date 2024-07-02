@@ -26,6 +26,7 @@ import { toast } from "@gc-digital-talent/toast";
 import {
   FragmentType,
   Scalars,
+  SkillCategory,
   SkillLevel,
   WhenSkillUsed,
   getFragment,
@@ -119,7 +120,13 @@ export const UpdateUserSkillSkill_Fragment = graphql(/* GraphQL */ `
   fragment UpdateUserSkillSkill on Skill {
     id
     key
-    category
+    category {
+      value
+      label {
+        en
+        fr
+      }
+    }
     name {
       en
       fr
@@ -143,8 +150,12 @@ export const UpdateUserSkillExperience_Fragment = graphql(/* GraphQL */ `
       title
       issuedBy
       awardedDate
-      awardedTo
-      awardedScope
+      awardedTo {
+        value
+      }
+      awardedScope {
+        value
+      }
     }
     ... on CommunityExperience {
       title
@@ -159,8 +170,12 @@ export const UpdateUserSkillExperience_Fragment = graphql(/* GraphQL */ `
       thesisTitle
       startDate
       endDate
-      type
-      status
+      type {
+        value
+      }
+      status {
+        value
+      }
     }
     ... on PersonalExperience {
       title
@@ -191,7 +206,13 @@ export const UpdateUserSkill_Fragment = graphql(/* GraphQL */ `
     skill {
       id
       key
-      category
+      category {
+        value
+        label {
+          en
+          fr
+        }
+      }
       name {
         en
         fr
@@ -208,8 +229,20 @@ export const UpdateUserSkill_Fragment = graphql(/* GraphQL */ `
         title
         issuedBy
         awardedDate
-        awardedTo
-        awardedScope
+        awardedTo {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        awardedScope {
+          value
+          label {
+            en
+            fr
+          }
+        }
       }
       ... on CommunityExperience {
         title
@@ -224,8 +257,20 @@ export const UpdateUserSkill_Fragment = graphql(/* GraphQL */ `
         thesisTitle
         startDate
         endDate
-        type
-        status
+        type {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        status {
+          value
+          label {
+            en
+            fr
+          }
+        }
       }
       ... on PersonalExperience {
         title
@@ -243,7 +288,13 @@ export const UpdateUserSkill_Fragment = graphql(/* GraphQL */ `
       skills {
         id
         key
-        category
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
         name {
           en
           fr
@@ -507,7 +558,9 @@ export const UpdateUserSkillForm = ({
                   data-h2-gap="base(x1 0)"
                   data-h2-margin="base(x1, 0, x2, 0)"
                 >
-                  <UserSkillFormFields category={skill.category} />
+                  <UserSkillFormFields
+                    category={skill.category.value ?? SkillCategory.Technical}
+                  />
                   <div
                     data-h2-display="base(flex)"
                     data-h2-flex-wrap="base(wrap)"

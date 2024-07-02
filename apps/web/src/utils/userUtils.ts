@@ -1,12 +1,11 @@
 import { IntlShape } from "react-intl";
 import { ReactNode } from "react";
 
-import { getEvaluatedLanguageAbility } from "@gc-digital-talent/i18n";
 import {
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
-  EvaluatedLanguageAbility,
   LanguageAbility,
+  LocalizedEvaluatedLanguageAbility,
   Maybe,
   OperationalRequirement,
   PoolCandidateStatus,
@@ -14,6 +13,7 @@ import {
   PriorityWeight,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 // convert string type to Enum types for various selections
 export function stringToEnumLanguage(
@@ -110,19 +110,15 @@ export function durationToEnumPositionDuration(
 
 export const getEvaluatedLanguageLevels = (
   intl: IntlShape,
-  comprehensionLevel: Maybe<EvaluatedLanguageAbility> | undefined,
-  writtenLevel: Maybe<EvaluatedLanguageAbility> | undefined,
-  verbalLevel: Maybe<EvaluatedLanguageAbility> | undefined,
+  comprehensionLevel: Maybe<LocalizedEvaluatedLanguageAbility> | undefined,
+  writtenLevel: Maybe<LocalizedEvaluatedLanguageAbility> | undefined,
+  verbalLevel: Maybe<LocalizedEvaluatedLanguageAbility> | undefined,
 ): ReactNode => {
   return [
-    comprehensionLevel
-      ? intl.formatMessage(getEvaluatedLanguageAbility(comprehensionLevel))
+    comprehensionLevel?.label
+      ? getLocalizedName(comprehensionLevel.label, intl)
       : "",
-    writtenLevel
-      ? intl.formatMessage(getEvaluatedLanguageAbility(writtenLevel))
-      : "",
-    verbalLevel
-      ? intl.formatMessage(getEvaluatedLanguageAbility(verbalLevel))
-      : "",
+    writtenLevel?.label ? getLocalizedName(writtenLevel.label, intl) : "",
+    verbalLevel?.label ? getLocalizedName(verbalLevel.label, intl) : "",
   ].join(", ");
 };

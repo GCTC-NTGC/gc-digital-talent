@@ -148,7 +148,7 @@ export const dataToFormValues = (
 
   let stream = data?.qualifiedStreams?.filter(notEmpty)[0];
   if (selectedPool?.stream) {
-    stream = selectedPool.stream;
+    stream = selectedPool.stream.value;
   }
 
   return {
@@ -230,7 +230,7 @@ export const formValuesToData = (
           .filter(
             (pool) =>
               values.stream === "" || // If a stream hasn't been selected yet, do not filter out any pools.
-              pool.stream === values.stream,
+              pool.stream?.value === values.stream,
           )
       : [],
   };

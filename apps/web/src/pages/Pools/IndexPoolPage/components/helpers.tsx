@@ -2,11 +2,7 @@ import { IntlShape } from "react-intl";
 import { SortingState } from "@tanstack/react-table";
 import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
 
-import {
-  Locales,
-  getLocalizedName,
-  getPoolStream,
-} from "@gc-digital-talent/i18n";
+import { Locales, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Link, Chip } from "@gc-digital-talent/ui";
 import {
   Classification,
@@ -34,9 +30,7 @@ import PoolBookmark, { PoolBookmark_Fragment } from "./PoolBookmark";
 
 export function poolNameAccessor(pool: Pool, intl: IntlShape) {
   const name = getLocalizedName(pool.name, intl);
-  return `${name.toLowerCase()} ${
-    pool.stream ? intl.formatMessage(getPoolStream(pool.stream)) : ""
-  }`;
+  return `${name.toLowerCase()} ${getLocalizedName(pool.stream?.label, intl, true)}`;
 }
 
 export function viewCell(url: string, pool: Pool, intl: IntlShape) {

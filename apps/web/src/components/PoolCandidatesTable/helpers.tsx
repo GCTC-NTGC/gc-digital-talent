@@ -5,9 +5,9 @@ import BookmarkIcon from "@heroicons/react/24/outline/BookmarkIcon";
 import {
   Locales,
   commonMessages,
-  getCandidateSuspendedFilterStatus,
-  getPoolCandidatePriorities,
-  getProvinceOrTerritory,
+  getLocalizedName,
+  MaybeLocalizedEnums,
+  getLocalizedEnumStringByValue,
 } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { Link, Chip, Spoiler } from "@gc-digital-talent/ui";
@@ -26,20 +26,18 @@ import {
   CandidateSuspendedFilter,
   PoolCandidate,
   PoolCandidateStatus,
-  ProvinceOrTerritory,
   SortOrder,
   FragmentType,
   AssessmentResultStatus,
+  LocalizedProvinceOrTerritory,
+  LocalizedPriorityWeight,
   QueryPoolCandidatesPaginatedOrderByPoolColumn,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
-import {
-  getCandidateStatusChip,
-  getPriorityWeight,
-} from "~/utils/poolCandidate";
+import { getCandidateStatusChip } from "~/utils/poolCandidate";
 import {
   stringToEnumCandidateExpiry,
   stringToEnumCandidateSuspended,
@@ -59,30 +57,24 @@ import CandidateBookmark, {
 } from "../CandidateBookmark/CandidateBookmark";
 
 export const priorityCell = (
-  priority: number | null | undefined,
+  priorityWeight: number | null | undefined,
+  priority: Maybe<LocalizedPriorityWeight> | undefined,
   intl: IntlShape,
 ) => {
   if (!priority) return null;
+  const label = getLocalizedName(priority.label, intl);
 
-  if (priority === 10 || priority === 20) {
+  if (priorityWeight === 10 || priorityWeight === 20) {
     return (
       <span
         data-h2-color="base(primary.darker)"
         data-h2-font-weight="base(700)"
       >
-        {intl.formatMessage(
-          getPoolCandidatePriorities(getPriorityWeight(priority)),
-        )}
+        {label}
       </span>
     );
   }
-  return (
-    <span>
-      {intl.formatMessage(
-        getPoolCandidatePriorities(getPriorityWeight(priority)),
-      )}
-    </span>
-  );
+  return <span>{label}</span>;
 };
 
 export const candidateNameCell = (
@@ -126,33 +118,40 @@ export const processCell = (
   );
 };
 
+// suspended_at is a time, must output ACTIVE or SUSPENDED strings for column viewing and sorting
+const getSuspendedStatus = (
+  suspendedTime: Date,
+  currentTime: Date,
+): CandidateSuspendedFilter => {
+  if (suspendedTime >= currentTime) {
+    return CandidateSuspendedFilter.Active;
+  }
+  return CandidateSuspendedFilter.Suspended;
+};
+
 export const candidacyStatusAccessor = (
   suspendedAt: string | null | undefined,
+  suspendedStatusStrings: MaybeLocalizedEnums | undefined,
   intl: IntlShape,
 ) => {
-  // suspended_at is a time, must output ACTIVE or SUSPENDED strings for column viewing and sorting
-  const getSuspendedStatus = (
-    suspendedTime: Date,
-    currentTime: Date,
-  ): CandidateSuspendedFilter => {
-    if (suspendedTime >= currentTime) {
-      return CandidateSuspendedFilter.Active;
-    }
-    return CandidateSuspendedFilter.Suspended;
-  };
-
   if (suspendedAt) {
     const parsedSuspendedTime = parseDateTimeUtc(suspendedAt);
     const currentTime = new Date();
-    return intl.formatMessage(
-      getCandidateSuspendedFilterStatus(
-        getSuspendedStatus(parsedSuspendedTime, currentTime),
-      ),
+    const suspendedStatus = getSuspendedStatus(
+      parsedSuspendedTime,
+      currentTime,
+    );
+    return getLocalizedEnumStringByValue(
+      suspendedStatus,
+      suspendedStatusStrings,
+      intl,
     );
   }
 
-  return intl.formatMessage(
-    getCandidateSuspendedFilterStatus(CandidateSuspendedFilter.Active),
+  return getLocalizedEnumStringByValue(
+    CandidateSuspendedFilter.Active,
+    suspendedStatusStrings,
+    intl,
   );
 };
 
@@ -180,14 +179,10 @@ export const notesCell = (candidate: PoolCandidate, intl: IntlShape) =>
 
 export const currentLocationAccessor = (
   city: string | null | undefined,
-  province: ProvinceOrTerritory | null | undefined,
+  province: LocalizedProvinceOrTerritory | null | undefined,
   intl: IntlShape,
 ) =>
-  `${city || intl.formatMessage(commonMessages.notFound)}, ${intl.formatMessage(
-    province
-      ? getProvinceOrTerritory(province as string)
-      : commonMessages.notFound,
-  )}`;
+  `${city || intl.formatMessage(commonMessages.notFound)}, ${getLocalizedName(province?.label, intl)}`;
 
 export const finalDecisionCell = (
   status: Maybe<PoolCandidateStatus> | undefined,
@@ -377,7 +372,9 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
             en
             fr
           }
-          stream
+          stream {
+            value
+          }
           classification {
             id
             name {
@@ -398,7 +395,9 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
                 en
                 fr
               }
-              category
+              category {
+                value
+              }
             }
           }
         }
@@ -408,37 +407,67 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
           firstName
           lastName
           telephone
-          preferredLang
-          preferredLanguageForInterview
-          preferredLanguageForExam
+          preferredLang {
+            value
+          }
+          preferredLanguageForInterview {
+            value
+          }
+          preferredLanguageForExam {
+            value
+          }
           lookingForEnglish
           lookingForFrench
           lookingForBilingual
-          firstOfficialLanguage
+          firstOfficialLanguage {
+            value
+          }
           secondLanguageExamCompleted
           secondLanguageExamValidity
-          comprehensionLevel
-          writtenLevel
-          verbalLevel
-          estimatedLanguageAbility
+          comprehensionLevel {
+            value
+          }
+          writtenLevel {
+            value
+          }
+          verbalLevel {
+            value
+          }
+          estimatedLanguageAbility {
+            value
+          }
           isGovEmployee
-          govEmployeeType
+          govEmployeeType {
+            value
+          }
           hasPriorityEntitlement
           priorityNumber
           priorityWeight
-          locationPreferences
+          locationPreferences {
+            value
+          }
           locationExemptions
           positionDuration
-          acceptedOperationalRequirements
+          acceptedOperationalRequirements {
+            value
+          }
           isWoman
-          indigenousCommunities
+          indigenousCommunities {
+            value
+          }
           indigenousDeclarationSignature
           isVisibleMinority
           hasDisability
-          citizenship
-          armedForcesStatus
+          citizenship {
+            value
+          }
+          armedForcesStatus {
+            value
+          }
           currentCity
-          currentProvince
+          currentProvince {
+            value
+          }
           topTechnicalSkillsRanking {
             id
             user {
@@ -447,7 +476,9 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
             skill {
               id
               key
-              category
+              category {
+                value
+              }
               name {
                 en
                 fr
@@ -465,7 +496,9 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
             skill {
               id
               key
-              category
+              category {
+                value
+              }
               name {
                 en
                 fr
@@ -483,7 +516,9 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
             skill {
               id
               key
-              category
+              category {
+                value
+              }
               name {
                 en
                 fr
@@ -501,7 +536,9 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
             skill {
               id
               key
-              category
+              category {
+                value
+              }
               name {
                 en
                 fr
@@ -551,7 +588,9 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
                 en
                 fr
               }
-              category
+              category {
+                value
+              }
               experienceSkillRecord {
                 details
               }
@@ -560,8 +599,12 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
               title
               issuedBy
               awardedDate
-              awardedTo
-              awardedScope
+              awardedTo {
+                value
+              }
+              awardedScope {
+                value
+              }
             }
             ... on CommunityExperience {
               title
@@ -576,8 +619,12 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
               thesisTitle
               startDate
               endDate
-              type
-              status
+              type {
+                value
+              }
+              status {
+                value
+              }
             }
             ... on PersonalExperience {
               title
@@ -594,7 +641,9 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
             }
           }
         }
-        educationRequirementOption
+        educationRequirementOption {
+          value
+        }
         educationRequirementExperiences {
           id
           __typename
@@ -618,7 +667,9 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
               en
               fr
             }
-            category
+            category {
+              value
+            }
             experienceSkillRecord {
               details
             }
@@ -627,8 +678,12 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
             title
             issuedBy
             awardedDate
-            awardedTo
-            awardedScope
+            awardedTo {
+              value
+            }
+            awardedScope {
+              value
+            }
           }
           ... on CommunityExperience {
             title
@@ -643,8 +698,12 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
             thesisTitle
             startDate
             endDate
-            type
-            status
+            type {
+              value
+            }
+            status {
+              value
+            }
           }
           ... on PersonalExperience {
             title
@@ -672,7 +731,9 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
           }
         }
         expiryDate
-        status
+        status {
+          value
+        }
         submittedAt
         notes
         archivedAt

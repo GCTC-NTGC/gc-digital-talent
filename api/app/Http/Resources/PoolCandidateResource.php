@@ -2,10 +2,15 @@
 
 namespace App\Http\Resources;
 
+use App\Enums\EducationRequirementOption;
+use App\Enums\PoolCandidateStatus;
+use App\Traits\HasLocalizedEnums;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PoolCandidateResource extends JsonResource
 {
+    use HasLocalizedEnums;
+
     /**
      * Transform the resource into an array.
      *
@@ -29,10 +34,10 @@ class PoolCandidateResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'status' => $this->pool_candidate_status,
+            'status' => $this->localizeEnum($this->pool_candidate_status, PoolCandidateStatus::class),
             'expiryDate' => date('Y-m-d', strtotime($this->expiry_date)),
             'pool' => (new PoolResource($this->pool)),
-            'educationRequirementOption' => $this->education_requirement_option,
+            'educationRequirementOption' => $this->localizeEnum($this->education_requirement_option, EducationRequirementOption::class),
             'educationRequirementExperiences' => $collection,
             'signature' => $this->signature,
             'screeningQuestionResponses' => ScreeningQuestionResponseResource::collection($this->screeningQuestionResponses),

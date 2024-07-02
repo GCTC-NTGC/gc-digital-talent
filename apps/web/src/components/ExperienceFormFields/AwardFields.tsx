@@ -1,26 +1,47 @@
 import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
 import {
   DateInput,
   Input,
   Select,
-  enumToOptions,
   DATE_SEGMENT,
+  localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import {
   errorMessages,
-  getAwardedScope,
-  getAwardedTo,
   uiMessages,
+  sortAwardedScope,
+  sortAwardedTo,
 } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
-import { AwardedScope, AwardedTo } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import { SubExperienceFormProps } from "~/types/experience";
+
+const AwardOptions_Query = graphql(/* GraphQL */ `
+  query AwardOptions {
+    awardedTo: localizedEnumStrings(enumName: "AwardedTo") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    awardedScopes: localizedEnumStrings(enumName: "AwardedScope") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+  }
+`);
 
 const AwardFields = ({ labels }: SubExperienceFormProps) => {
   const intl = useIntl();
   const todayDate = new Date();
+  const [{ data }] = useQuery({ query: AwardOptions_Query });
 
   return (
     <div data-h2-margin="base(x.5, 0, 0, 0)" data-h2-max-width="base(50rem)">
@@ -46,15 +67,10 @@ const AwardFields = ({ labels }: SubExperienceFormProps) => {
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
-            options={enumToOptions(AwardedTo, [
-              AwardedTo.Me,
-              AwardedTo.MyTeam,
-              AwardedTo.MyProject,
-              AwardedTo.MyOrganization,
-            ]).map(({ value }) => ({
-              value,
-              label: intl.formatMessage(getAwardedTo(value)),
-            }))}
+            options={localizedEnumToOptions(
+              sortAwardedTo(data?.awardedTo),
+              intl,
+            )}
           />
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2)">
@@ -75,18 +91,10 @@ const AwardFields = ({ labels }: SubExperienceFormProps) => {
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
-            options={enumToOptions(AwardedScope, [
-              AwardedScope.International,
-              AwardedScope.National,
-              AwardedScope.Provincial,
-              AwardedScope.Local,
-              AwardedScope.Community,
-              AwardedScope.Organizational,
-              AwardedScope.SubOrganizational,
-            ]).map(({ value }) => ({
-              value,
-              label: intl.formatMessage(getAwardedScope(value)),
-            }))}
+            options={localizedEnumToOptions(
+              sortAwardedScope(data?.awardedScopes),
+              intl,
+            )}
           />
         </div>
         <div data-h2-flex-item="base(1of1)">

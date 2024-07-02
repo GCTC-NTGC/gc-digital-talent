@@ -1,6 +1,13 @@
 import { Meta, StoryFn } from "@storybook/react";
 
-import { fakeUsers, fakeTeams, fakeRoles } from "@gc-digital-talent/fake-data";
+import {
+  fakeUsers,
+  fakeTeams,
+  fakeRoles,
+  fakeLocalizedEnum,
+} from "@gc-digital-talent/fake-data";
+import { Language } from "@gc-digital-talent/graphql";
+import { OperationalRequirements } from "@gc-digital-talent/i18n";
 
 import UpdateUserPage from "./UpdateUserPage";
 
@@ -33,6 +40,12 @@ export default {
       AddTeamRoleName: {
         data: {
           teams: teamsData,
+        },
+      },
+      UpdateUserOptions: {
+        data: {
+          languages: fakeLocalizedEnum(Language),
+          operationalRequirements: fakeLocalizedEnum(OperationalRequirements),
         },
       },
     },

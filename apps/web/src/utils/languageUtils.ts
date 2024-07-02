@@ -11,8 +11,8 @@ const isMissingLookingForBilingual = (
 ): boolean => {
   const userLookingForBilingual = !!user?.lookingForBilingual;
   const poolNeedsBilingual =
-    pool?.language === PoolLanguage.BilingualIntermediate ||
-    pool?.language === PoolLanguage.BilingualAdvanced;
+    pool?.language?.value === PoolLanguage.BilingualIntermediate ||
+    pool?.language?.value === PoolLanguage.BilingualAdvanced;
 
   if (poolNeedsBilingual && !userLookingForBilingual) return true;
 

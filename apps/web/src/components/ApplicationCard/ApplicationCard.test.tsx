@@ -7,7 +7,10 @@ import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
-import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
+import {
+  fakePoolCandidates,
+  toLocalizedEnum,
+} from "@gc-digital-talent/fake-data";
 import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
@@ -59,7 +62,7 @@ describe("ApplicationCard", () => {
       poolCandidateQuery: makeFragmentData(
         {
           ...mockApplication,
-          status: PoolCandidateStatus.Draft,
+          status: toLocalizedEnum(PoolCandidateStatus.Draft),
           pool: {
             ...mockApplication.pool,
             closingDate: FAR_FUTURE_DATE,
@@ -82,7 +85,7 @@ describe("ApplicationCard", () => {
       poolCandidateQuery: makeFragmentData(
         {
           ...mockApplication,
-          status: PoolCandidateStatus.PlacedCasual,
+          status: toLocalizedEnum(PoolCandidateStatus.PlacedCasual),
           expiryDate: FAR_FUTURE_DATE,
           suspendedAt: new Date().toUTCString(),
         },
@@ -125,7 +128,7 @@ describe("ApplicationCard", () => {
       poolCandidateQuery: makeFragmentData(
         {
           ...mockApplication,
-          status: PoolCandidateStatus.DraftExpired,
+          status: toLocalizedEnum(PoolCandidateStatus.DraftExpired),
           expiryDate: FAR_PAST_DATE,
         },
         ApplicationCard_Fragment,

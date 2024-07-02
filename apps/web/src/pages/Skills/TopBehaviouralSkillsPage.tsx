@@ -154,14 +154,14 @@ const TopBehaviouralSkillsPage = () => {
   const userSkills = data?.me?.userSkills?.filter(notEmpty);
   const behaviouralSkills = data?.skills
     .filter(notEmpty)
-    .filter((skill) => skill.category === SkillCategory.Behavioural);
+    .filter((skill) => skill.category.value === SkillCategory.Behavioural);
 
   const initialSkills: FormValues = {
     userSkills:
       userSkills
         ?.filter(
           (userSkill) =>
-            userSkill.skill.category === SkillCategory.Behavioural &&
+            userSkill.skill.category.value === SkillCategory.Behavioural &&
             userSkill.topSkillsRank,
         )
         .sort(
@@ -172,7 +172,7 @@ const TopBehaviouralSkillsPage = () => {
             skill: userSkill.skill.id,
             skillLevel: userSkill.skillLevel ?? undefined,
             whenSkillUsed: userSkill.whenSkillUsed ?? undefined,
-            category: userSkill.skill.category,
+            category: userSkill.skill.category.value,
           };
         }) ?? [],
   };

@@ -2,13 +2,7 @@ import { useIntl } from "react-intl";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import uniqueId from "lodash/uniqueId";
 
-import {
-  commonMessages,
-  getLocale,
-  getLocalizedName,
-  getAssessmentStepType,
-  getPoolSkillType,
-} from "@gc-digital-talent/i18n";
+import { getLocale, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   AssessmentResult,
   AssessmentResultType,
@@ -77,15 +71,15 @@ const AssessmentResultsTable = ({
     })
     .sort((a, b) => {
       if (
-        a.poolSkill.type === PoolSkillType.Essential &&
-        b.poolSkill.type === PoolSkillType.Nonessential
+        a.poolSkill.type?.value === PoolSkillType.Essential &&
+        b.poolSkill.type?.value === PoolSkillType.Nonessential
       ) {
         return -1;
       }
 
       if (
-        a.poolSkill.type === PoolSkillType.Nonessential &&
-        b.poolSkill.type === PoolSkillType.Essential
+        a.poolSkill.type?.value === PoolSkillType.Nonessential &&
+        b.poolSkill.type?.value === PoolSkillType.Essential
       ) {
         return 1;
       }
@@ -114,14 +108,14 @@ const AssessmentResultsTable = ({
       accumulator: ColumnDef<AssessmentTableRow>[],
       assessmentStep: AssessmentStep,
     ) => {
-      const type = assessmentStep.type ?? null;
+      const type = assessmentStep.type?.value ?? null;
       const id = uniqueId("results-table-column");
       const status = columnStatus(assessmentStep, [
         ...educationResults,
         ...assessmentResults,
       ]);
       const header = columnHeader(
-        intl.formatMessage(getAssessmentStepType(type ?? "unknownType")),
+        getLocalizedName(assessmentStep.type?.label, intl),
         status,
         type,
         intl,
@@ -161,13 +155,7 @@ const AssessmentResultsTable = ({
                   {getLocalizedName(original.poolSkill?.skill?.name, intl)}{" "}
                 </span>
                 <span>
-                  (
-                  {intl.formatMessage(
-                    original.poolSkill?.type
-                      ? getPoolSkillType(original.poolSkill.type)
-                      : commonMessages.notFound,
-                  )}
-                  )
+                  ({getLocalizedName(original.poolSkill.type?.label, intl)})
                 </span>
                 {/* TODO: ADD PoolSkill.skillLevel here --> {original.poolSkill.type === PoolSkillType.Essential && <span>{intl.formatMessage(getTechnicalSkillLevel(original.poolSkill.skillLevel))}</span> */}
               </>

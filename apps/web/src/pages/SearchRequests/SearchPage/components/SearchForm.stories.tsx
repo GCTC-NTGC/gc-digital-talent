@@ -5,8 +5,14 @@ import {
   getStaticSkills,
   fakeClassifications,
   fakePools,
+  fakeLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
 import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
+import {
+  LanguageAbility,
+  PoolStream,
+  WorkRegion,
+} from "@gc-digital-talent/graphql";
 
 import { SearchForm } from "./SearchForm";
 
@@ -27,9 +33,22 @@ export default {
   },
 } as Meta<typeof SearchForm>;
 
+const SearchRequestOptions = {
+  data: {
+    poolStreams: fakeLocalizedEnum(PoolStream),
+    languageAbilities: fakeLocalizedEnum(LanguageAbility),
+    workRegions: fakeLocalizedEnum(WorkRegion),
+  },
+};
+
 const Template: StoryFn<typeof SearchForm> = (args) => <SearchForm {...args} />;
 
 export const Default = Template.bind({});
+Default.parameters = {
+  apiResponses: {
+    SearchRequestOptions,
+  },
+};
 
 export const WithResults = Template.bind({});
 WithResults.parameters = {
@@ -49,5 +68,6 @@ WithResults.parameters = {
         })),
       },
     },
+    SearchRequestOptions,
   },
 };

@@ -2,18 +2,13 @@ import { IntlShape } from "react-intl";
 
 import type { DownloadCsvProps } from "@gc-digital-talent/ui";
 import {
-  getArmedForcesStatusesAdmin,
-  getCitizenshipStatusesAdmin,
-  getLanguageProficiency,
   getLocale,
-  getEvaluatedLanguageAbility,
   commonMessages,
-  getLanguage,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { User, PositionDuration } from "@gc-digital-talent/graphql";
 
 import {
-  employeeTypeToString,
   flattenExperiencesToSkills,
   getIndigenousCommunities,
   getLocationPreference,
@@ -62,42 +57,38 @@ export const getUserCsvData = (users: User[], intl: IntlShape) => {
     }) => ({
       firstName: sanitizeCSVString(firstName),
       lastName: sanitizeCSVString(lastName),
-      armedForcesStatus: armedForcesStatus
-        ? intl.formatMessage(getArmedForcesStatusesAdmin(armedForcesStatus))
-        : "",
-      citizenship: citizenship
-        ? intl.formatMessage(getCitizenshipStatusesAdmin(citizenship))
-        : "",
+      armedForcesStatus: getLocalizedName(armedForcesStatus?.label, intl, true),
+      citizenship: getLocalizedName(citizenship?.label, intl, true),
       language: getLookingForLanguage(
         lookingForEnglish,
         lookingForFrench,
         lookingForBilingual,
         intl,
       ),
-      firstOfficialLanguage: firstOfficialLanguage
-        ? intl.formatMessage(getLanguage(firstOfficialLanguage))
-        : "",
+      firstOfficialLanguage: getLocalizedName(
+        firstOfficialLanguage?.label,
+        intl,
+        true,
+      ),
       secondLanguageExamCompleted: yesOrNo(secondLanguageExamCompleted, intl),
       secondLanguageExamValidity: yesOrNo(secondLanguageExamValidity, intl),
-      comprehensionLevel: comprehensionLevel
-        ? intl.formatMessage(getEvaluatedLanguageAbility(comprehensionLevel))
-        : "",
-      writtenLevel: writtenLevel
-        ? intl.formatMessage(getEvaluatedLanguageAbility(writtenLevel))
-        : "",
-      verbalLevel: verbalLevel
-        ? intl.formatMessage(getEvaluatedLanguageAbility(verbalLevel))
-        : "",
-      estimatedLanguageAbility: estimatedLanguageAbility
-        ? intl.formatMessage(getLanguageProficiency(estimatedLanguageAbility))
-        : "",
+      comprehensionLevel: getLocalizedName(
+        comprehensionLevel?.label,
+        intl,
+        true,
+      ),
+      writtenLevel: getLocalizedName(writtenLevel?.label, intl, true),
+      verbalLevel: getLocalizedName(verbalLevel?.label, intl, true),
+      estimatedLanguageAbility: getLocalizedName(
+        estimatedLanguageAbility?.label,
+        intl,
+        true,
+      ),
       isGovEmployee: yesOrNo(isGovEmployee, intl),
       hasPriorityEntitlement: yesOrNo(hasPriorityEntitlement, intl),
       priorityNumber: sanitizeCSVString(priorityNumber),
       department: sanitizeCSVString(department?.name[locale]),
-      govEmployeeType: govEmployeeType
-        ? employeeTypeToString(govEmployeeType, intl)
-        : "",
+      govEmployeeType: getLocalizedName(govEmployeeType?.label, intl, true),
       currentClassification: currentClassification
         ? `${currentClassification.group}-${currentClassification.level}`
         : "",

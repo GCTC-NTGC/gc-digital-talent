@@ -256,7 +256,13 @@ const SearchForm_Query = graphql(/* GraphQL */ `
         group
         level
       }
-      stream
+      stream {
+        value
+        label {
+          en
+          fr
+        }
+      }
     }
     skills {
       id
@@ -265,7 +271,13 @@ const SearchForm_Query = graphql(/* GraphQL */ `
         en
         fr
       }
-      category
+      category {
+        value
+        label {
+          en
+          fr
+        }
+      }
       description {
         en
         fr

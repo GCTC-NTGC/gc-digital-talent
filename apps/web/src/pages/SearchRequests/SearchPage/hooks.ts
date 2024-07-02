@@ -56,7 +56,13 @@ const CandidateCount_Query = graphql(/* GraphQL */ `
           en
           fr
         }
-        stream
+        stream {
+          value
+          label {
+            en
+            fr
+          }
+        }
         classification {
           id
           group
@@ -64,7 +70,13 @@ const CandidateCount_Query = graphql(/* GraphQL */ `
         }
         poolSkills(type: ESSENTIAL) {
           id
-          type
+          type {
+            value
+            label {
+              en
+              fr
+            }
+          }
           skill {
             id
             key
@@ -72,7 +84,13 @@ const CandidateCount_Query = graphql(/* GraphQL */ `
               en
               fr
             }
-            category
+            category {
+              value
+              label {
+                en
+                fr
+              }
+            }
           }
         }
         team {

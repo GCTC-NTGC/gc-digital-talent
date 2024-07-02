@@ -21,10 +21,10 @@ const WorkPreferencesSection = ({ user }: { user: User }) => {
   // generate array of accepted operational requirements
   const acceptedOperationalArray = acceptedOperationalRequirements
     ? acceptedOperationalRequirements.map((opRequirement) => (
-        <li key={opRequirement}>
+        <li key={opRequirement?.value}>
           {opRequirement
             ? intl.formatMessage(
-                getOperationalRequirement(opRequirement, "firstPerson"),
+                getOperationalRequirement(opRequirement.value, "firstPerson"),
               )
             : ""}
         </li>
@@ -46,7 +46,10 @@ const WorkPreferencesSection = ({ user }: { user: User }) => {
 
   // requirements that have not been selected made into an array
   const unselectedOperationalArray = operationalRequirementsSubsetV2.filter(
-    (requirement) => !acceptedOperationalRequirements?.includes(requirement),
+    (requirement) =>
+      !acceptedOperationalRequirements?.some(
+        (req) => req?.value === requirement,
+      ),
   );
 
   // generate list of unaccepted operational requirements

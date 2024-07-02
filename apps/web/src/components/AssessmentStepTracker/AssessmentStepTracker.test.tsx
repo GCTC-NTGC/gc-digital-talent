@@ -395,7 +395,7 @@ describe("AssessmentStepTracker", () => {
     expect(filteredCandidates.length).toEqual(2);
     const attemptToFindFilteredCandidate = filteredCandidates.filter(
       (candidate) =>
-        candidate.status === PoolCandidateStatus.ScreenedOutApplication,
+        candidate.status?.value === PoolCandidateStatus.ScreenedOutApplication,
     );
     expect(attemptToFindFilteredCandidate.length).toEqual(0);
   });

@@ -106,7 +106,7 @@ const ApplicationEducation = ({
     defaultValues: {
       // Only show default values if applicant has previously submitted data.
       ...(application.educationRequirementOption && {
-        educationRequirement: application.educationRequirementOption,
+        educationRequirement: application.educationRequirementOption.value,
       }),
       ...(application.educationRequirementExperiences && {
         educationRequirementExperiences:

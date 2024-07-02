@@ -4,14 +4,18 @@ import { HeadingRank, Link, Well } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
-import QualifiedRecruitmentCard from "~/components/QualifiedRecruitmentCard/QualifiedRecruitmentCard";
+import QualifiedRecruitmentCard, {
+  QualifiedRecruitmentCardCategories_Fragment,
+} from "~/components/QualifiedRecruitmentCard/QualifiedRecruitmentCard";
 import useRoutes from "~/hooks/useRoutes";
 import { isQualifiedStatus } from "~/utils/poolCandidate";
 
 const QualifiedRecruitmentsCandidate_Fragment = graphql(/* GraphQL */ `
   fragment QualifiedRecruitmentsCandidate on PoolCandidate {
     id
-    status
+    status {
+      value
+    }
     ...QualifiedRecruitmentCard
   }
 `);
@@ -20,11 +24,15 @@ interface QualifiedRecruitmentsSectionProps {
   applicationsQuery: FragmentType<
     typeof QualifiedRecruitmentsCandidate_Fragment
   >[];
+  categoriesQuery: FragmentType<
+    typeof QualifiedRecruitmentCardCategories_Fragment
+  >;
   headingLevel?: HeadingRank;
 }
 
 const QualifiedRecruitmentsSection = ({
   applicationsQuery,
+  categoriesQuery,
   headingLevel = "h3",
 }: QualifiedRecruitmentsSectionProps) => {
   const intl = useIntl();
@@ -37,7 +45,7 @@ const QualifiedRecruitmentsSection = ({
   const applicationsNotNull = unpackMaybes([...applications]);
 
   const applicationsDisplay = applicationsNotNull.filter((application) =>
-    isQualifiedStatus(application.status),
+    isQualifiedStatus(application.status?.value),
   );
 
   return applicationsDisplay.length >= 1 ? (
@@ -51,6 +59,7 @@ const QualifiedRecruitmentsSection = ({
           headingLevel={headingLevel}
           key={application.id}
           candidateQuery={application}
+          categoriesQuery={categoriesQuery}
         />
       ))}
     </div>

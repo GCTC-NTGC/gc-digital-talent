@@ -2,8 +2,12 @@
 
 namespace App\Enums;
 
+use App\Traits\HasLocalization;
+
 enum EvaluatedLanguageAbility
 {
+    use HasLocalization;
+
     case X;
     case A;
     case B;
@@ -11,4 +15,9 @@ enum EvaluatedLanguageAbility
     case E;
     case P;
     case NOT_ASSESSED;
+
+    public static function getLangFilename(): string
+    {
+        return 'evaluated_language_ability';
+    }
 }

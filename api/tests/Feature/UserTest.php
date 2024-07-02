@@ -82,9 +82,9 @@ class UserTest extends TestCase
                     lastName
                     email
                     telephone
-                    preferredLang
-                    preferredLanguageForInterview
-                    preferredLanguageForExam
+                    preferredLang { value }
+                    preferredLanguageForInterview { value }
+                    preferredLanguageForExam { value }
                 }
             }
         ',
@@ -124,9 +124,9 @@ class UserTest extends TestCase
                     lastName
                     email
                     telephone
-                    preferredLang
-                    preferredLanguageForInterview
-                    preferredLanguageForExam
+                    preferredLang { value }
+                    preferredLanguageForInterview { value }
+                    preferredLanguageForExam { value }
                 }
             }
         ',
@@ -2389,7 +2389,9 @@ class UserTest extends TestCase
             '
             mutation updateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!){
                 updateUserAsUser(id: $id, user: $user) {
-                    indigenousCommunities
+                    indigenousCommunities {
+                        value
+                    }
                 }
             }
         ';
@@ -2405,7 +2407,9 @@ class UserTest extends TestCase
                     ],
                 ]
             )
-            ->assertJsonFragment(['indigenousCommunities' => [IndigenousCommunity::STATUS_FIRST_NATIONS->name]]);
+            ->assertJsonFragment(['indigenousCommunities' => [[
+                'value' => IndigenousCommunity::STATUS_FIRST_NATIONS->name,
+            ]]]);
         $this->actingAs($applicant, 'api')
             ->graphQL(
                 $updateUserAsUser,
@@ -2416,7 +2420,9 @@ class UserTest extends TestCase
                     ],
                 ]
             )
-            ->assertJsonFragment(['indigenousCommunities' => [IndigenousCommunity::NON_STATUS_FIRST_NATIONS->name]]);
+            ->assertJsonFragment(['indigenousCommunities' => [[
+                'value' => IndigenousCommunity::NON_STATUS_FIRST_NATIONS->name,
+            ]]]);
         $this->actingAs($applicant, 'api')
             ->graphQL(
                 $updateUserAsUser,

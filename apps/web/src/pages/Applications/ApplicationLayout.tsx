@@ -52,7 +52,7 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
     experienceId,
   });
   const title = poolTitle(intl, application.pool);
-  const isIAP = isIAPPool(application.pool);
+  const isIAP = isIAPPool(application.pool.publishingGroup?.value);
 
   const pageTitle = defineMessage({
     defaultMessage: "Apply to {poolName}",

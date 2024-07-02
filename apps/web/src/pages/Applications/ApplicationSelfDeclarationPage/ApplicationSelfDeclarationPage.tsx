@@ -49,7 +49,9 @@ const Application_UpdateSelfDeclarationMutation = graphql(/* GraphQL */ `
   ) {
     updateUserAsUser(id: $userId, user: $userInput) {
       id
-      indigenousCommunities
+      indigenousCommunities {
+        value
+      }
       indigenousDeclarationSignature
     }
     updateApplication(id: $applicationId, application: $applicationInput) {
@@ -417,7 +419,9 @@ export const Component = () => {
   return application && application?.user ? (
     <ApplicationSelfDeclaration
       application={application}
-      indigenousCommunities={resolvedIndigenousCommunities}
+      indigenousCommunities={resolvedIndigenousCommunities?.map(
+        (community) => community.value,
+      )}
       signature={application.user.indigenousDeclarationSignature ?? null}
       onSubmit={handleSubmit}
     />

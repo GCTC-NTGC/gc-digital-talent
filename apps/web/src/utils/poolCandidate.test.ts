@@ -40,9 +40,8 @@ describe("PoolCandidate utils", () => {
         PoolCandidateStatus.PlacedIndeterminate,
       ];
       statuses.forEach((status) => {
-        candidate.status = status;
         const { label, color } = getCandidateStatusChip(
-          candidate.status,
+          status,
           candidate.assessmentStatus,
           intl,
         );
@@ -57,9 +56,8 @@ describe("PoolCandidate utils", () => {
         PoolCandidateStatus.ScreenedOutAssessment,
       ];
       statuses.forEach((status) => {
-        candidate.status = status;
         const { label, color } = getCandidateStatusChip(
-          candidate.status,
+          status,
           candidate.assessmentStatus,
           intl,
         );
@@ -69,27 +67,24 @@ describe("PoolCandidate utils", () => {
     });
 
     it('should return "Removed" in black color for removed statuses, along with reason for removal', () => {
-      candidate.status = PoolCandidateStatus.ScreenedOutNotInterested;
       let chip = getCandidateStatusChip(
-        candidate.status,
+        PoolCandidateStatus.ScreenedOutNotInterested,
         candidate.assessmentStatus,
         intl,
       );
       expect(chip.label).toBe("Removed: To assess");
       expect(chip.color).toBe("black");
 
-      candidate.status = PoolCandidateStatus.ScreenedOutNotResponsive;
       chip = getCandidateStatusChip(
-        candidate.status,
+        PoolCandidateStatus.ScreenedOutNotResponsive,
         candidate.assessmentStatus,
         intl,
       );
       expect(chip.label).toBe("Removed: To assess");
       expect(chip.color).toBe("black");
 
-      candidate.status = PoolCandidateStatus.QualifiedUnavailable;
       chip = getCandidateStatusChip(
-        candidate.status,
+        PoolCandidateStatus.QualifiedUnavailable,
         candidate.assessmentStatus,
         intl,
       );
@@ -97,18 +92,16 @@ describe("PoolCandidate utils", () => {
       expect(chip.color).toBe("black");
       expect(chip.color).toBe("black");
 
-      candidate.status = PoolCandidateStatus.Removed;
       chip = getCandidateStatusChip(
-        candidate.status,
+        PoolCandidateStatus.Removed,
         candidate.assessmentStatus,
         intl,
       );
       expect(chip.label).toBe("Removed"); // This status was only for legacy candidates, and its hard to interpret exact reason
       expect(chip.color).toBe("black");
 
-      candidate.status = PoolCandidateStatus.Expired;
       chip = getCandidateStatusChip(
-        candidate.status,
+        PoolCandidateStatus.Expired,
         candidate.assessmentStatus,
         intl,
       );
@@ -118,7 +111,7 @@ describe("PoolCandidate utils", () => {
     describe("Candidates in assessment", () => {
       it('should return "Qualified: Pending decision" and success color for candidates with an assessment status who have passed all AssessmentSteps', () => {
         const chip = getCandidateStatusChip(
-          candidateFullyQualified.status,
+          candidateFullyQualified.status?.value,
           candidateFullyQualified.assessmentStatus,
           intl,
         );
@@ -127,7 +120,7 @@ describe("PoolCandidate utils", () => {
       });
       it('should return "Qualified: Pending decision" and success color for candidates with a Hold status on a middle step, and qualified otherwise', () => {
         const chip = getCandidateStatusChip(
-          candidateQualifiedExceptHoldOnMiddleAssessment.status,
+          candidateQualifiedExceptHoldOnMiddleAssessment.status?.value,
           candidateQualifiedExceptHoldOnMiddleAssessment.assessmentStatus,
           intl,
         );
@@ -136,7 +129,7 @@ describe("PoolCandidate utils", () => {
       });
       it('should return "To assess: Step 1" with warning color for candidates missing education assessment', () => {
         const chip = getCandidateStatusChip(
-          candidateFullyQualifiedExceptMissingEducation.status,
+          candidateFullyQualifiedExceptMissingEducation.status?.value,
           candidateFullyQualifiedExceptMissingEducation.assessmentStatus,
           intl,
         );
@@ -145,7 +138,7 @@ describe("PoolCandidate utils", () => {
       });
       it('should return "To assess: Step 1" with warning color for candidates with no assessments', () => {
         const chip = getCandidateStatusChip(
-          candidateNoAssessments.status,
+          candidateNoAssessments.status?.value,
           candidateNoAssessments.assessmentStatus,
           intl,
         );
@@ -154,7 +147,7 @@ describe("PoolCandidate utils", () => {
       });
       it('should return "To assess: Step 3" with warning color for candidate qualified except for hold on final (third) step', () => {
         const chip = getCandidateStatusChip(
-          candidateQualifiedExceptHoldOnFinalAssessment.status,
+          candidateQualifiedExceptHoldOnFinalAssessment.status?.value,
           candidateQualifiedExceptHoldOnFinalAssessment.assessmentStatus,
           intl,
         );
@@ -163,7 +156,7 @@ describe("PoolCandidate utils", () => {
       });
       it('should return "To assess: Step 3" with warning color for candidate with incomplete final (third) step', () => {
         let chip = getCandidateStatusChip(
-          candidateHoldOnMiddleStepAndNoResultsOnFinalStep.status,
+          candidateHoldOnMiddleStepAndNoResultsOnFinalStep.status?.value,
           candidateHoldOnMiddleStepAndNoResultsOnFinalStep.assessmentStatus,
           intl,
         );
@@ -171,7 +164,7 @@ describe("PoolCandidate utils", () => {
         expect(chip.color).toBe("warning");
 
         chip = getCandidateStatusChip(
-          candidateUnfinishedFinalAssessment.status,
+          candidateUnfinishedFinalAssessment.status?.value,
           candidateUnfinishedFinalAssessment.assessmentStatus,
           intl,
         );
@@ -180,7 +173,7 @@ describe("PoolCandidate utils", () => {
       });
       it('should return "Disqualified: Pending decision" with error color for candidate with any one unsuccessful step', () => {
         const chip = getCandidateStatusChip(
-          candidateOneFailingAssessment.status,
+          candidateOneFailingAssessment.status?.value,
           candidateOneFailingAssessment.assessmentStatus,
           intl,
         );

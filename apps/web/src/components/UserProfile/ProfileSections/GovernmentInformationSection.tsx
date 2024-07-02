@@ -1,23 +1,19 @@
 import { useIntl } from "react-intl";
 
 import { Well } from "@gc-digital-talent/ui";
-import { enumToOptions } from "@gc-digital-talent/forms";
 import {
   commonMessages,
-  getGovEmployeeType,
   getLocale,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import { User, GovEmployeeType } from "@gc-digital-talent/graphql";
+import { User } from "@gc-digital-talent/graphql";
 
 import { wrapAbbr } from "~/utils/nameUtils";
 
 const GovernmentInformationSection = ({ user }: { user: User }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const govEmployeeTypeId =
-    enumToOptions(GovEmployeeType).find(
-      (govEmployeeType) => govEmployeeType.value === user.govEmployeeType,
-    )?.value || "";
+
   return (
     <Well>
       {user.isGovEmployee && (
@@ -70,7 +66,7 @@ const GovernmentInformationSection = ({ user }: { user: User }) => {
                   })}
                 </span>
                 <span data-h2-font-weight="base(700)">
-                  {intl.formatMessage(getGovEmployeeType(govEmployeeTypeId))}
+                  {getLocalizedName(user.govEmployeeType.label, intl)}
                 </span>
               </p>
             </div>

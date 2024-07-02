@@ -1,13 +1,7 @@
 import { useIntl } from "react-intl";
 
-import { enumToOptions } from "@gc-digital-talent/forms";
-import {
-  commonMessages,
-  getGovEmployeeType,
-  getLocalizedName,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { empty } from "@gc-digital-talent/helpers";
-import { GovEmployeeType } from "@gc-digital-talent/graphql";
 
 import { wrapAbbr } from "~/utils/nameUtils";
 import profileMessages from "~/messages/profileMessages";
@@ -30,10 +24,6 @@ const Display = ({
   },
 }: DisplayProps) => {
   const intl = useIntl();
-  const govEmployeeTypeId =
-    enumToOptions(GovEmployeeType).find(
-      (type) => type.value === govEmployeeType,
-    )?.value || "";
 
   const notProvided = intl.formatMessage(commonMessages.notProvided);
 
@@ -85,8 +75,7 @@ const Display = ({
               description: "Employment type label",
             })}
           >
-            {govEmployeeTypeId &&
-              intl.formatMessage(getGovEmployeeType(govEmployeeTypeId))}
+            {getLocalizedName(govEmployeeType?.label, intl)}
           </FieldDisplay>
           <FieldDisplay
             label={intl.formatMessage({

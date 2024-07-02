@@ -1233,7 +1233,7 @@ class ApplicantTest extends TestCase
             query poolCandidate($id: UUID!) {
                 poolCandidate(id: $id) {
                     statusWeight
-                    status
+                    status { value }
                 }
             }
         ';
@@ -1246,7 +1246,9 @@ class ApplicantTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'statusWeight' => 10,
-                        'status' => PoolCandidateStatus::DRAFT->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::DRAFT->name,
+                        ],
                     ],
                 ],
             ]);
@@ -1262,7 +1264,9 @@ class ApplicantTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'statusWeight' => 20,
-                        'status' => PoolCandidateStatus::DRAFT_EXPIRED->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::DRAFT_EXPIRED->name,
+                        ],
                     ],
                 ],
             ]);
@@ -1279,7 +1283,9 @@ class ApplicantTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'statusWeight' => 30,
-                        'status' => PoolCandidateStatus::NEW_APPLICATION->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::NEW_APPLICATION->name,
+                        ],
                     ],
                 ],
             ]);
@@ -1294,7 +1300,9 @@ class ApplicantTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'statusWeight' => 40,
-                        'status' => PoolCandidateStatus::APPLICATION_REVIEW->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::APPLICATION_REVIEW->name,
+                        ],
                     ],
                 ],
             ]);
@@ -1309,7 +1317,9 @@ class ApplicantTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'statusWeight' => 50,
-                        'status' => PoolCandidateStatus::SCREENED_IN->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::SCREENED_IN->name,
+                        ],
                     ],
                 ],
             ]);
@@ -1324,7 +1334,9 @@ class ApplicantTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'statusWeight' => 60,
-                        'status' => PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
+                        ],
                     ],
                 ],
             ]);
@@ -1339,7 +1351,9 @@ class ApplicantTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'statusWeight' => 70,
-                        'status' => PoolCandidateStatus::UNDER_ASSESSMENT->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::UNDER_ASSESSMENT->name,
+                        ],
                     ],
                 ],
             ]);
@@ -1354,7 +1368,9 @@ class ApplicantTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'statusWeight' => 80,
-                        'status' => PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
+                        ],
                     ],
                 ],
             ]);
@@ -1369,7 +1385,9 @@ class ApplicantTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'statusWeight' => 90,
-                        'status' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::QUALIFIED_AVAILABLE->name,
+                        ],
                     ],
                 ],
             ]);
@@ -1384,7 +1402,9 @@ class ApplicantTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'statusWeight' => 100,
-                        'status' => PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name,
+                        ],
                     ],
                 ],
             ]);
@@ -1399,7 +1419,9 @@ class ApplicantTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'statusWeight' => 110,
-                        'status' => PoolCandidateStatus::QUALIFIED_WITHDREW->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::QUALIFIED_WITHDREW->name,
+                        ],
                     ],
                 ],
             ]);
@@ -1414,7 +1436,9 @@ class ApplicantTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'statusWeight' => 120,
-                        'status' => PoolCandidateStatus::PLACED_CASUAL->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::PLACED_CASUAL->name,
+                        ],
                     ],
                 ],
             ]);
@@ -1429,7 +1453,9 @@ class ApplicantTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'statusWeight' => 130,
-                        'status' => PoolCandidateStatus::PLACED_TERM->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::PLACED_TERM->name,
+                        ],
                     ],
                 ],
             ]);
@@ -1444,7 +1470,9 @@ class ApplicantTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'statusWeight' => 140,
-                        'status' => PoolCandidateStatus::PLACED_INDETERMINATE->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::PLACED_INDETERMINATE->name,
+                        ],
                     ],
                 ],
             ]);
@@ -1459,7 +1487,9 @@ class ApplicantTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'statusWeight' => 150,
-                        'status' => PoolCandidateStatus::EXPIRED->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::EXPIRED->name,
+                        ],
                     ],
                 ],
             ]);
@@ -1474,7 +1504,9 @@ class ApplicantTest extends TestCase
                 'data' => [
                     'poolCandidate' => [
                         'statusWeight' => 160,
-                        'status' => PoolCandidateStatus::REMOVED->name,
+                        'status' => [
+                            'value' => PoolCandidateStatus::REMOVED->name,
+                        ],
                     ],
                 ],
             ]);

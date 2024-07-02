@@ -5,22 +5,23 @@ import { OperationContext, useMutation, useQuery } from "urql";
 import pick from "lodash/pick";
 
 import { toast } from "@gc-digital-talent/toast";
-import { Select, Submit, Input, enumToOptions } from "@gc-digital-talent/forms";
 import {
-  errorMessages,
-  commonMessages,
-  getLanguage,
-} from "@gc-digital-talent/i18n";
+  Select,
+  Submit,
+  Input,
+  localizedEnumToOptions,
+} from "@gc-digital-talent/forms";
+import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
 import { emptyToNull, unpackMaybes } from "@gc-digital-talent/helpers";
 import { NotFound, Pending, Heading } from "@gc-digital-talent/ui";
 import {
   UpdateUserRolesInput,
   UpdateUserSubInput,
-  Language,
   Scalars,
   UpdateUserAsAdminInput,
   UpdateUserAsAdminMutation,
   User,
+  graphql,
 } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
@@ -29,6 +30,7 @@ import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import adminMessages from "~/messages/adminMessages";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import UserRoleTable from "./components/IndividualRoleTable";
 import TeamRoleTable from "./components/TeamRoleTable";
@@ -41,7 +43,27 @@ import {
   UpdateUserRoles_Mutation,
   UpdateUserSub_Mutation,
 } from "./operations";
-import RequireAuth from "../../../components/RequireAuth/RequireAuth";
+
+const UpdateUserOptions_Query = graphql(/* GraphQL */ `
+  query UpdateUserOptions {
+    languages: localizedEnumStrings(enumName: "Language") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    operationalRequirements: localizedEnumStrings(
+      enumName: "OperationalRequirement"
+    ) {
+      value
+      label {
+        en
+        fr
+      }
+    }
+  }
+`);
 
 type FormValues = Pick<
   UpdateUserAsAdminInput,
@@ -68,6 +90,7 @@ export const UpdateUserForm = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
+  const [{ data }] = useQuery({ query: UpdateUserOptions_Query });
 
   const formValuesToSubmitData = (
     values: FormValues,
@@ -80,8 +103,22 @@ export const UpdateUserForm = ({
     email: emptyToNull(values.email),
   });
 
-  const dataToFormValues = (data: User): FormValues => ({
-    ...data,
+  const dataToFormValues = ({
+    email,
+    firstName,
+    lastName,
+    telephone,
+    preferredLang,
+    preferredLanguageForExam,
+    preferredLanguageForInterview,
+  }: User): FormValues => ({
+    email,
+    firstName,
+    lastName,
+    telephone,
+    preferredLang: preferredLang?.value,
+    preferredLanguageForExam: preferredLanguageForExam?.value,
+    preferredLanguageForInterview: preferredLanguageForInterview?.value,
   });
 
   const methods = useForm<FormValues>({
@@ -92,8 +129,8 @@ export const UpdateUserForm = ({
   const { state } = useLocation();
   const navigateTo = state?.from ?? paths.userTable();
 
-  const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    await handleUpdateUser(initialUser.id, formValuesToSubmitData(data))
+  const onSubmit: SubmitHandler<FormValues> = async (values: FormValues) => {
+    await handleUpdateUser(initialUser.id, formValuesToSubmitData(values))
       .then(() => {
         navigate(navigateTo);
         toast.success(
@@ -116,6 +153,8 @@ export const UpdateUserForm = ({
         );
       });
   };
+
+  const languageOptions = localizedEnumToOptions(data?.languages, intl);
 
   return (
     <section data-h2-container="base(left, s)">
@@ -179,10 +218,7 @@ export const UpdateUserForm = ({
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
-            options={enumToOptions(Language).map(({ value }) => ({
-              value,
-              label: intl.formatMessage(getLanguage(value)),
-            }))}
+            options={languageOptions}
           />
           <Select
             id="preferredLanguageForInterview"
@@ -201,10 +237,7 @@ export const UpdateUserForm = ({
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
-            options={enumToOptions(Language).map(({ value }) => ({
-              value,
-              label: intl.formatMessage(getLanguage(value)),
-            }))}
+            options={languageOptions}
           />
           <Select
             id="preferredLanguageForExam"
@@ -223,10 +256,7 @@ export const UpdateUserForm = ({
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
-            options={enumToOptions(Language).map(({ value }) => ({
-              value,
-              label: intl.formatMessage(getLanguage(value)),
-            }))}
+            options={languageOptions}
           />
           <div data-h2-align-self="base(flex-start)">
             <Submit />

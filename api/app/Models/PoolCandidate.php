@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ArmedForcesStatus;
 use App\Enums\AssessmentDecision;
 use App\Enums\AssessmentResultType;
 use App\Enums\AssessmentStepType;
@@ -9,15 +10,25 @@ use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
 use App\Enums\ClaimVerificationResult;
+use App\Enums\EducationRequirementOption;
+use App\Enums\EstimatedLanguageAbility;
+use App\Enums\EvaluatedLanguageAbility;
+use App\Enums\GovEmployeeType;
+use App\Enums\Language;
+use App\Enums\OperationalRequirement;
 use App\Enums\OverallAssessmentStatus;
 use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolSkillType;
+use App\Enums\PositionDuration;
 use App\Enums\PriorityWeight;
+use App\Enums\ProvinceOrTerritory;
 use App\Enums\PublishingGroup;
+use App\Enums\WorkRegion;
 use App\Http\Resources\UserResource;
 use App\Observers\PoolCandidateObserver;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -29,6 +40,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use RecursiveArrayIterator;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -918,6 +930,94 @@ class PoolCandidate extends Model
 
         $this->profile_snapshot = $profile;
         $this->save();
+    }
+
+    /**
+     * Transform an enum value from the snapshot
+     * into a localized enum if it already isn't one.
+     */
+    private function parseSnapshotEnum(mixed $value, $enum): mixed
+    {
+
+        if (method_exists($enum, 'localizedString')) {
+            if (is_string($value)) {
+                return [
+                    'value' => $value,
+                    'label' => $enum::localizedString($value),
+                ];
+            }
+        }
+
+        return $value;
+    }
+
+    /**
+     * Iterate through the snapshot and transform
+     * non-localized enum values into their localized
+     * version.
+     *
+     * NOTE: This is to handle legacy snapshots
+     */
+    private function parseSnapshotRecursive(RecursiveArrayIterator $rai, array $accumulator, $enumMap)
+    {
+        foreach ($rai as $k => $v) {
+            if (array_key_exists($k, $enumMap)) {
+                $enum = $enumMap[$k];
+                if (is_array($v) && array_is_list($v)) {
+                    $accumulator[$k] = array_map(function ($item) use ($enum) {
+                        return $this->parseSnapshotEnum($item, $enum);
+                    }, $v);
+                } else {
+                    $accumulator[$k] = $this->parseSnapshotEnum($v, $enum);
+                }
+            } else {
+                if ($rai->hasChildren()) {
+                    $accumulator[$k] = $this->parseSnapshotRecursive($rai->getChildren(), [], $enumMap);
+                } else {
+                    $accumulator[$k] = $v;
+                }
+            }
+        }
+
+        return $accumulator;
+    }
+
+    protected function profileSnapshot(): Attribute
+    {
+        return Attribute::make(
+            get: function (?string $value) {
+                if (! $value) {
+                    return null;
+                }
+
+                $snapshot = json_decode($value, true);
+                $enumMap = [
+                    'acceptedOperationalRequirements' => OperationalRequirement::class,
+                    'armedForcesStatus' => ArmedForcesStatus::class,
+                    'citizenship' => CitizenshipStatus::class,
+                    'comprehensionLevel' => EvaluatedLanguageAbility::class,
+                    'currentProvince' => ProvinceOrTerritory::class,
+                    'educationRequirementOption' => EducationRequirementOption::class,
+                    'estimatedLanguageAbility' => EstimatedLanguageAbility::class,
+                    'firstOfficialLanguage' => Language::class,
+                    'govEmployeeType' => GovEmployeeType::class,
+                    'locationPreferences' => WorkRegion::class,
+                    'positionDuration' => PositionDuration::class,
+                    'preferredLang' => Language::class,
+                    'preferredLanguageForInterview' => Language::class,
+                    'preferredLanguageForExam' => Language::class,
+                    'verbalLevel' => EvaluatedLanguageAbility::class,
+                    'writtenLevel' => EvaluatedLanguageAbility::class,
+                ];
+
+                $iterator = new RecursiveArrayIterator($snapshot);
+
+                $parsedSnapshot = [];
+                $parsedSnapshot = $this->parseSnapshotRecursive($iterator, $parsedSnapshot, $enumMap);
+
+                return $parsedSnapshot;
+            }
+        );
     }
 
     public function computeAssessmentStatus()

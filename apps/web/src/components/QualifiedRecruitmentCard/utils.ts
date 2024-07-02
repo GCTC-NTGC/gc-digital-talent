@@ -78,7 +78,7 @@ const getAvailabilityInfo = (
   { status, suspendedAt }: Application,
   intl: IntlShape,
 ): AvailabilityInfo => {
-  if (status === PoolCandidateStatus.Expired) {
+  if (status?.value === PoolCandidateStatus.Expired) {
     return {
       icon: null,
       color: {},
@@ -87,7 +87,7 @@ const getAvailabilityInfo = (
     };
   }
 
-  if (isPlacedStatus(status)) {
+  if (isPlacedStatus(status?.value)) {
     return {
       icon: null,
       color: {},
@@ -96,7 +96,7 @@ const getAvailabilityInfo = (
     };
   }
 
-  if (isSuspendedStatus(status, suspendedAt)) {
+  if (isSuspendedStatus(status?.value, suspendedAt)) {
     return {
       icon: NoSymbolIcon,
       color: {
@@ -107,7 +107,7 @@ const getAvailabilityInfo = (
     };
   }
 
-  if (isInactiveStatus(status)) {
+  if (isInactiveStatus(status?.value)) {
     return {
       icon: null,
       color: {},
@@ -141,7 +141,7 @@ export const getQualifiedRecruitmentInfo = (
 ): QualifiedRecruitmentInfo => {
   return {
     statusChip: getStatusChipInfo(
-      candidate.status,
+      candidate.status?.value,
       candidate.suspendedAt,
       intl,
     ),

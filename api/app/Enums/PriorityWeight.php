@@ -2,8 +2,12 @@
 
 namespace App\Enums;
 
+use App\Traits\HasLocalization;
+
 enum PriorityWeight
 {
+    use HasLocalization;
+
     case PRIORITY_ENTITLEMENT;
     case VETERAN;
     case CITIZEN_OR_PERMANENT_RESIDENT;
@@ -17,5 +21,10 @@ enum PriorityWeight
             self::CITIZEN_OR_PERMANENT_RESIDENT->name => 30,
             self::OTHER->name => 40
         };
+    }
+
+    public static function getLangFilename(): string
+    {
+        return 'priority_weight';
     }
 }

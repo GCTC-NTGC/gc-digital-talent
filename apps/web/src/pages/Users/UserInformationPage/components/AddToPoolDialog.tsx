@@ -43,7 +43,9 @@ const AddToPoolDialog_Mutation = graphql(/* GraphQL */ `
         id
       }
       expiryDate
-      status
+      status {
+        value
+      }
     }
   }
 `);
@@ -53,8 +55,20 @@ const AvailablePoolsToAddTo_Query = graphql(/* GraphQL */ `
     poolsPaginated(where: $where, excludeIds: $excludeIds, first: 1000) {
       data {
         id
-        publishingGroup
-        stream
+        publishingGroup {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        stream {
+          value
+          label {
+            en
+            fr
+          }
+        }
         name {
           en
           fr

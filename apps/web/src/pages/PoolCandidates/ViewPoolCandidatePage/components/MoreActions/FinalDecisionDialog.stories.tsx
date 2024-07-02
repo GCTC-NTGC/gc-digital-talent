@@ -4,6 +4,7 @@ import {
   fakePoolCandidates,
   fakePools,
   fakeSkills,
+  toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 import {
@@ -39,12 +40,12 @@ const candidateAssessmentResults: AssessmentResult[] = [
   {
     id: "education-result",
     assessmentResultType: AssessmentResultType.Education,
-    assessmentDecision: AssessmentDecision.Successful,
+    assessmentDecision: toLocalizedEnum(AssessmentDecision.Successful),
   },
   {
     id: "skill-0-assessment-1",
     assessmentResultType: AssessmentResultType.Skill,
-    assessmentDecision: AssessmentDecision.Unsuccessful,
+    assessmentDecision: toLocalizedEnum(AssessmentDecision.Unsuccessful),
     poolSkill: {
       id: "poolSkill-1",
       skill: {
@@ -58,7 +59,7 @@ const candidateAssessmentResults: AssessmentResult[] = [
   {
     id: "skill-0-assessment-2",
     assessmentResultType: AssessmentResultType.Skill,
-    assessmentDecision: AssessmentDecision.Successful,
+    assessmentDecision: toLocalizedEnum(AssessmentDecision.Successful),
     poolSkill: {
       id: "poolSkill-1",
       skill: {
@@ -72,7 +73,7 @@ const candidateAssessmentResults: AssessmentResult[] = [
   {
     id: "skill-1-assessment-1",
     assessmentResultType: AssessmentResultType.Skill,
-    assessmentDecision: AssessmentDecision.Successful,
+    assessmentDecision: toLocalizedEnum(AssessmentDecision.Successful),
     poolSkill: {
       id: "poolSkill-2",
       skill: {
@@ -86,7 +87,7 @@ const candidateAssessmentResults: AssessmentResult[] = [
   {
     id: "skill-2-assessment-1",
     assessmentResultType: AssessmentResultType.Skill,
-    assessmentDecision: AssessmentDecision.Hold,
+    assessmentDecision: toLocalizedEnum(AssessmentDecision.Hold),
     poolSkill: {
       id: "poolSkill-3",
       skill: {

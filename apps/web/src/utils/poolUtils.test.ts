@@ -4,7 +4,10 @@
 
 import { createIntl, createIntlCache } from "react-intl";
 
-import { fakeClassifications } from "@gc-digital-talent/fake-data";
+import {
+  fakeClassifications,
+  toLocalizedEnum,
+} from "@gc-digital-talent/fake-data";
 import { PoolStream } from "@gc-digital-talent/graphql";
 
 import { formattedPoolPosterTitle } from "./poolUtils";
@@ -21,12 +24,12 @@ describe("poolUtils tests", () => {
     const baseInputs = {
       title: "Web Developer",
       classification: fakeClassifications()[0],
-      stream: PoolStream.SoftwareSolutions,
+      stream: toLocalizedEnum(PoolStream.SoftwareSolutions),
       intl,
     };
     test("should combine title, classification and stream if all are provided", () => {
       expect(formattedPoolPosterTitle(baseInputs).label).toBe(
-        "Web Developer (IT-01 Software Solutions)",
+        "Web Developer (IT-01 Software solutions EN)",
       );
     });
     test("should just be classification and stream in brackets if title is empty, null or undefined", () => {
@@ -35,19 +38,19 @@ describe("poolUtils tests", () => {
           ...baseInputs,
           title: null,
         }).label,
-      ).toBe("(IT-01 Software Solutions)");
+      ).toBe("(IT-01 Software solutions EN)");
       expect(
         formattedPoolPosterTitle({
           ...baseInputs,
           title: undefined,
         }).label,
-      ).toBe("(IT-01 Software Solutions)");
+      ).toBe("(IT-01 Software solutions EN)");
       expect(
         formattedPoolPosterTitle({
           ...baseInputs,
           title: "",
         }).label,
-      ).toBe("(IT-01 Software Solutions)");
+      ).toBe("(IT-01 Software solutions EN)");
     });
     test("should just be ignore classification if it is null or undefined", () => {
       expect(
@@ -55,13 +58,13 @@ describe("poolUtils tests", () => {
           ...baseInputs,
           classification: null,
         }).label,
-      ).toBe("Web Developer (Software Solutions)");
+      ).toBe("Web Developer (Software solutions EN)");
       expect(
         formattedPoolPosterTitle({
           ...baseInputs,
           classification: undefined,
         }).label,
-      ).toBe("Web Developer (Software Solutions)");
+      ).toBe("Web Developer (Software solutions EN)");
     });
     test("should just be ignore stream if it is null or undefined", () => {
       expect(

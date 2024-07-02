@@ -12,11 +12,8 @@ import isEqual from "lodash/isEqual";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
-  getPoolStatus,
   commonMessages,
   getLocalizedName,
-  getPublishingGroup,
-  getPoolStream,
   getLocale,
 } from "@gc-digital-talent/i18n";
 import {
@@ -93,10 +90,28 @@ const PoolTable_Query = graphql(/* GraphQL */ `
     ) {
       data {
         id
-        stream
-        publishingGroup
+        stream {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        publishingGroup {
+          value
+          label {
+            en
+            fr
+          }
+        }
         processNumber
-        status
+        status {
+          value
+          label {
+            en
+            fr
+          }
+        }
         createdDate
         updatedDate
         name {
@@ -277,10 +292,7 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
         classificationCell(pool.classification),
     }),
     columnHelper.accessor(
-      (row) =>
-        intl.formatMessage(
-          row.stream ? getPoolStream(row.stream) : commonMessages.notFound,
-        ),
+      ({ stream }) => getLocalizedName(stream?.label, intl),
       {
         id: "stream",
         // TO DO: Move to filters
@@ -293,12 +305,7 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       },
     ),
     columnHelper.accessor(
-      (row) =>
-        intl.formatMessage(
-          row.publishingGroup
-            ? getPublishingGroup(row.publishingGroup)
-            : commonMessages.notFound,
-        ),
+      ({ publishingGroup }) => getLocalizedName(publishingGroup?.label, intl),
       {
         id: "publishingGroup",
         header: intl.formatMessage(processMessages.publishingGroup),
@@ -306,10 +313,7 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       },
     ),
     columnHelper.accessor(
-      (row) =>
-        intl.formatMessage(
-          row.status ? getPoolStatus(row.status) : commonMessages.notFound,
-        ),
+      ({ status }) => getLocalizedName(status?.label, intl),
       {
         id: "status",
         // TO DO: Reenable when scope is added

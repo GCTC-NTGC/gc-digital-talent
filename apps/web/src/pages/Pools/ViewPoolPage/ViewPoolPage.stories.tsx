@@ -7,6 +7,7 @@ import {
   fakePools,
   fakeSkillFamilies,
   fakeSkills,
+  toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
 import {
   FAR_FUTURE_DATE,
@@ -60,7 +61,7 @@ DraftCompleteProcess.args = {
     {
       ...pool,
       publishedAt: null,
-      status: PoolStatus.Draft,
+      status: toLocalizedEnum(PoolStatus.Draft),
       isComplete: true,
     },
     ViewPool_Fragment,
@@ -73,7 +74,7 @@ DraftIncompleteProcess.args = {
     {
       ...pool,
       publishedAt: null,
-      status: PoolStatus.Draft,
+      status: toLocalizedEnum(PoolStatus.Draft),
       isComplete: false,
     },
     ViewPool_Fragment,
@@ -86,7 +87,7 @@ PublishedProcess.args = {
     {
       ...pool,
       publishedAt: FAR_PAST_DATE,
-      status: PoolStatus.Published,
+      status: toLocalizedEnum(PoolStatus.Published),
       closingDate: FAR_FUTURE_DATE,
     },
     ViewPool_Fragment,
@@ -99,7 +100,7 @@ ExpiredProcess.args = {
     {
       ...pool,
       publishedAt: FAR_PAST_DATE,
-      status: PoolStatus.Closed,
+      status: toLocalizedEnum(PoolStatus.Closed),
       closingDate: FAR_PAST_DATE,
     },
     ViewPool_Fragment,
@@ -112,7 +113,7 @@ ArchivedProcess.args = {
     {
       ...pool,
       publishedAt: FAR_PAST_DATE,
-      status: PoolStatus.Archived,
+      status: toLocalizedEnum(PoolStatus.Archived),
       closingDate: FAR_PAST_DATE,
     },
     ViewPool_Fragment,

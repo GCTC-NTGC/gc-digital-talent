@@ -1,6 +1,10 @@
 import { Meta, StoryFn } from "@storybook/react";
 
-import { fakeExperiences, fakeApplicants } from "@gc-digital-talent/fake-data";
+import {
+  fakeExperiences,
+  fakeApplicants,
+  toLocalizedEnum,
+} from "@gc-digital-talent/fake-data";
 import { User, IndigenousCommunity } from "@gc-digital-talent/graphql";
 
 import UserProfile from "./UserProfile";
@@ -21,7 +25,9 @@ export const Null = TemplateUserProfile.bind({});
 
 Default.args = {
   ...fakeUserArray[4],
-  indigenousCommunities: [IndigenousCommunity.LegacyIsIndigenous],
+  indigenousCommunities: [
+    toLocalizedEnum(IndigenousCommunity.LegacyIsIndigenous),
+  ],
   experiences: fakeExperiences(5),
 };
 Null.args = {

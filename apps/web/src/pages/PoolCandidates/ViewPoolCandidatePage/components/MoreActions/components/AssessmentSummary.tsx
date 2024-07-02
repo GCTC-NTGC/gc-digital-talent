@@ -129,13 +129,15 @@ const skillAssessmentResultCalculator = (
     (result) => result.poolSkill?.skill?.id === skill.id,
   );
   const successful = applicableAssessmentResults.filter(
-    (result) => result.assessmentDecision === AssessmentDecision.Successful,
+    (result) =>
+      result.assessmentDecision?.value === AssessmentDecision.Successful,
   ).length;
   const unsuccessful = applicableAssessmentResults.filter(
-    (result) => result.assessmentDecision === AssessmentDecision.Unsuccessful,
+    (result) =>
+      result.assessmentDecision?.value === AssessmentDecision.Unsuccessful,
   ).length;
   const hold = applicableAssessmentResults.filter(
-    (result) => result.assessmentDecision === AssessmentDecision.Hold,
+    (result) => result.assessmentDecision?.value === AssessmentDecision.Hold,
   ).length;
   return {
     successful,
@@ -158,13 +160,13 @@ const AssessmentSummary = ({
   );
   if (
     educationAssessmentResult[0] &&
-    educationAssessmentResult[0].assessmentDecision ===
+    educationAssessmentResult[0].assessmentDecision?.value ===
       AssessmentDecision.Successful
   ) {
     educationAssessmentResultDecision = AssessmentDecision.Successful;
   } else if (
     educationAssessmentResult[0] &&
-    educationAssessmentResult[0].assessmentDecision ===
+    educationAssessmentResult[0].assessmentDecision?.value ===
       AssessmentDecision.Unsuccessful
   ) {
     educationAssessmentResultDecision = AssessmentDecision.Unsuccessful;

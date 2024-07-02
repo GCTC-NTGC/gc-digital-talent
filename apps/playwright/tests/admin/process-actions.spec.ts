@@ -39,6 +39,7 @@ test.describe("Process actions", () => {
       /recruitment process created successfully/i,
     );
     await adminPage.waitForGraphqlResponse("EditPoolPage");
+    await adminPage.waitForGraphqlResponse("CoreRequirementOptions");
     await expect(
       adminPage.page.getByRole("heading", {
         name: /advertisement information/i,

@@ -1,34 +1,24 @@
 import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { ReactNode, useEffect } from "react";
+import { useQuery } from "urql";
 
 import {
   RadioGroup,
   FieldLabels,
-  enumToOptions,
   Checkbox,
+  localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import {
   Locales,
   errorMessages,
-  getEvaluatedLanguageAbility,
-  getLanguage,
   getLocale,
+  sortEvaluatedLanguageAbility,
 } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
-import { EvaluatedLanguageAbility, Language } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import { getEstimatedAbilityOptions, getExamValidityOptions } from "./utils";
-
-const EvaluatedAbilityItemsSortOrder = [
-  EvaluatedLanguageAbility.P,
-  EvaluatedLanguageAbility.E,
-  EvaluatedLanguageAbility.C,
-  EvaluatedLanguageAbility.B,
-  EvaluatedLanguageAbility.A,
-  EvaluatedLanguageAbility.X,
-  EvaluatedLanguageAbility.NotAssessed,
-];
 
 const languageEvaluationPageLink = (msg: ReactNode, locale: Locales) => {
   return (
@@ -61,6 +51,28 @@ const selfAssessmentLink = (msg: ReactNode, locale: Locales) => {
     </Link>
   );
 };
+
+const LanguageProfileOptions_Query = graphql(/* GraphQL */ `
+  query LanguageProfileOptions {
+    evaluatedLanguageAbilities: localizedEnumStrings(
+      enumName: "EvaluatedLanguageAbility"
+    ) {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    languages: localizedEnumStrings(enumName: "Language") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 interface ConsideredLanguagesProps {
   labels: FieldLabels;
 }
@@ -68,6 +80,7 @@ interface ConsideredLanguagesProps {
 const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const [{ data }] = useQuery({ query: LanguageProfileOptions_Query });
   const { watch, resetField } = useFormContext();
 
   // hooks to watch, needed for conditional rendering
@@ -76,13 +89,10 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
     "secondLanguageExamCompleted",
   ]);
 
-  const evaluatedAbilityItems = enumToOptions(
-    EvaluatedLanguageAbility,
-    EvaluatedAbilityItemsSortOrder,
-  ).map(({ value }) => ({
-    value,
-    label: intl.formatMessage(getEvaluatedLanguageAbility(value)),
-  }));
+  const evaluatedAbilityItems = localizedEnumToOptions(
+    sortEvaluatedLanguageAbility(data?.evaluatedLanguageAbilities),
+    intl,
+  );
 
   const estimatedAbilityItems = getEstimatedAbilityOptions(intl);
 
@@ -148,10 +158,7 @@ const ConsideredLanguages = ({ labels }: ConsideredLanguagesProps) => {
         rules={{
           required: intl.formatMessage(errorMessages.required),
         }}
-        items={enumToOptions(Language).map(({ value }) => ({
-          value,
-          label: intl.formatMessage(getLanguage(value)),
-        }))}
+        items={localizedEnumToOptions(data?.languages, intl)}
       />
       <p>
         {intl.formatMessage({

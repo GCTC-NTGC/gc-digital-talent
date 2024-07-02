@@ -75,14 +75,17 @@ const Display = ({
         {acceptedRequirements?.length ? (
           <ul>
             {acceptedRequirements.map((requirement) => (
-              <li key={requirement}>
+              <li key={requirement.value}>
                 {`${intl.formatMessage({
                   defaultMessage: "I would accept a job that",
                   id: "sTzKQs",
                   description:
                     "Start of sentence describing a users accepted working condition",
                 })} ${intl.formatMessage(
-                  getOperationalRequirement(requirement, "firstPersonNoBold"),
+                  getOperationalRequirement(
+                    requirement.value,
+                    "firstPersonNoBold",
+                  ),
                 )}`}
               </li>
             ))}
@@ -102,14 +105,14 @@ const Display = ({
         {locations?.length ? (
           <ul>
             {locations.map((location) => (
-              <li key={location}>
+              <li key={location.value}>
                 {`${intl.formatMessage({
                   defaultMessage: "I am willing to work in the",
                   id: "cS73MC",
                   description:
                     "Start of sentence describing a users accepted work regions",
                 })} ${intl.formatMessage(
-                  getWorkRegionsDetailed(location, false),
+                  getWorkRegionsDetailed(location.value, false),
                 )}.`}
               </li>
             ))}

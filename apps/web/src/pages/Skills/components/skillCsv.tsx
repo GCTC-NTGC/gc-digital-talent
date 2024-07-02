@@ -1,7 +1,6 @@
 import { IntlShape } from "react-intl";
 
 import { DownloadCsvProps } from "@gc-digital-talent/ui";
-import { getSkillCategory } from "@gc-digital-talent/i18n";
 import { Skill } from "@gc-digital-talent/graphql";
 
 import { getSkillFamilies } from "~/utils/csvUtils";
@@ -17,11 +16,11 @@ export const getSkillCsvData = (
       return {
         id,
         nameEn: name.en,
-        categoryEn: intlEn.formatMessage(getSkillCategory(category)),
+        categoryEn: category.label?.en,
         skillFamiliesEn: getSkillFamilies(families, intlEn),
         descriptionEn: description?.en || "",
         nameFr: name.fr,
-        categoryFr: intlFr.formatMessage(getSkillCategory(category)),
+        categoryFr: category.label?.fr,
         skillFamiliesFr: getSkillFamilies(families, intlFr),
         descriptionFr: description?.fr || "",
       };

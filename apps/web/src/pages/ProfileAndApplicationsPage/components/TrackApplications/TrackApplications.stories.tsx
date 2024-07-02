@@ -1,6 +1,9 @@
 import type { Meta, StoryFn } from "@storybook/react";
 
-import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
+import {
+  fakePoolCandidates,
+  toLocalizedEnum,
+} from "@gc-digital-talent/fake-data";
 import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
@@ -22,7 +25,7 @@ const activeRecruitments = Object.values(PoolCandidateStatus)
     return makeFragmentData(
       {
         ...mockApplications[index],
-        status,
+        status: toLocalizedEnum(status),
         archivedAt: null,
         expiryDate: FAR_FUTURE_DATE,
       },

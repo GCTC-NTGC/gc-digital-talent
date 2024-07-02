@@ -8,6 +8,7 @@ import {
   fakePools,
   fakeSkillFamilies,
   fakeSkills,
+  toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
 import {
   AssessmentDecision,
@@ -41,7 +42,7 @@ const fakePoolAssessmentSteps = fakeAssessmentSteps(3).map((step) => {
 });
 const fakeCandidates = fakePoolCandidates(8).map((candidate) => ({
   ...candidate,
-  status: faker.helpers.arrayElement(TO_ASSESS_STATUSES),
+  status: toLocalizedEnum(faker.helpers.arrayElement(TO_ASSESS_STATUSES)),
 }));
 
 const makeAssessmentResult = (
@@ -50,7 +51,7 @@ const makeAssessmentResult = (
   decision: AssessmentDecision | undefined,
 ): AssessmentResult => ({
   id: faker.string.uuid(),
-  assessmentDecision: decision,
+  assessmentDecision: decision ? toLocalizedEnum(decision) : undefined,
   assessmentResultType:
     poolSkill === null
       ? AssessmentResultType.Education

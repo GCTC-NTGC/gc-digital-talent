@@ -118,14 +118,16 @@ class PoolTest extends TestCase
             '
         query pool {
             pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11") {
-                status
+                status { value }
             }
         }
     '
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => PoolStatus::PUBLISHED->name,
+                    'status' => [
+                        'value' => PoolStatus::PUBLISHED->name,
+                    ],
                 ],
             ],
         ]);
@@ -136,14 +138,16 @@ class PoolTest extends TestCase
             '
         query pool {
             pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
-                status
+                status { value }
             }
         }
     '
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => PoolStatus::CLOSED->name,
+                    'status' => [
+                        'value' => PoolStatus::CLOSED->name,
+                    ],
                 ],
             ],
         ]);
@@ -154,14 +158,16 @@ class PoolTest extends TestCase
             '
         query pool {
             pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13") {
-                status
+                status { value }
             }
         }
     '
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => PoolStatus::DRAFT->name,
+                    'status' => [
+                        'value' => PoolStatus::DRAFT->name,
+                    ],
                 ],
             ],
         ]);
@@ -172,14 +178,16 @@ class PoolTest extends TestCase
             '
         query pool {
             pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14") {
-                status
+                status { value }
             }
         }
     '
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => PoolStatus::DRAFT->name,
+                    'status' => [
+                        'value' => PoolStatus::DRAFT->name,
+                    ],
                 ],
             ],
         ]);
@@ -190,14 +198,16 @@ class PoolTest extends TestCase
             '
         query pool {
             pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a15") {
-                status
+                status { value }
             }
         }
     '
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => PoolStatus::ARCHIVED->name,
+                    'status' => [
+                        'value' => PoolStatus::ARCHIVED->name,
+                    ],
                 ],
             ],
         ]);
@@ -226,14 +236,16 @@ class PoolTest extends TestCase
             '
         query pool {
             pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11") {
-                status
+                status { value }
             }
         }
     '
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => PoolStatus::PUBLISHED->name,
+                    'status' => [
+                        'value' => PoolStatus::PUBLISHED->name,
+                    ],
                 ],
             ],
         ]);
@@ -244,14 +256,16 @@ class PoolTest extends TestCase
             '
         query pool {
             pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
-                status
+                status { value }
             }
         }
     '
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => PoolStatus::CLOSED->name,
+                    'status' => [
+                        'value' => PoolStatus::CLOSED->name,
+                    ],
                 ],
             ],
         ]);
@@ -478,7 +492,7 @@ class PoolTest extends TestCase
             '
                 mutation ArchivePool($id: ID!) {
                     archivePool(id: $id) {
-                        status
+                        status { value }
                     }
                 }
         ',
@@ -486,7 +500,7 @@ class PoolTest extends TestCase
                 'id' => $pool->id,
             ]
         )
-            ->assertJsonFragment(['status' => PoolStatus::ARCHIVED->name]);
+            ->assertJsonFragment(['status' => ['value' => PoolStatus::ARCHIVED->name]]);
     }
 
     public function testCantArchiveActive(): void
@@ -498,7 +512,7 @@ class PoolTest extends TestCase
             '
                 mutation ArchivePool($id: ID!) {
                     archivePool(id: $id) {
-                        status
+                        status { value }
                     }
                 }
         ',
@@ -518,7 +532,7 @@ class PoolTest extends TestCase
             '
                 mutation UnarchivePool($id: ID!) {
                     unarchivePool(id: $id) {
-                        status
+                        status { value }
                     }
                 }
         ',
@@ -526,7 +540,9 @@ class PoolTest extends TestCase
                 'id' => $pool->id,
             ]
         )
-            ->assertJsonFragment(['status' => PoolStatus::CLOSED->name]);
+            ->assertJsonFragment(['status' => [
+                'value' => PoolStatus::CLOSED->name,
+            ]]);
     }
 
     public function testCantUnarchiveClosed(): void
@@ -538,7 +554,7 @@ class PoolTest extends TestCase
             '
                 mutation UnarchivePool($id: ID!) {
                     unarchivePool(id: $id) {
-                        status
+                        status { value }
                     }
                 }
         ',
@@ -1157,7 +1173,7 @@ class PoolTest extends TestCase
                     poolsPaginated(where: $where) {
                         data {
                             id
-                            stream
+                            stream { value }
                         }
                     }
                 }
@@ -1174,11 +1190,15 @@ class PoolTest extends TestCase
             'data' => [
                 [
                     'id' => $ATIP->id,
-                    'stream' => PoolStream::ACCESS_INFORMATION_PRIVACY->name,
+                    'stream' => [
+                        'value' => PoolStream::ACCESS_INFORMATION_PRIVACY->name,
+                    ],
                 ],
                 [
                     'id' => $BAS->id,
-                    'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
+                    'stream' => [
+                        'value' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
+                    ],
                 ],
             ],
         ]);
@@ -1209,7 +1229,7 @@ class PoolTest extends TestCase
                     poolsPaginated(where: $where) {
                         data {
                             id
-                            publishingGroup
+                            publishingGroup { value }
                         }
                     }
                 }
@@ -1226,11 +1246,15 @@ class PoolTest extends TestCase
             'data' => [
                 [
                     'id' => $IT->id,
-                    'publishingGroup' => PublishingGroup::IT_JOBS->name,
+                    'publishingGroup' => [
+                        'value' => PublishingGroup::IT_JOBS->name,
+                    ],
                 ],
                 [
                     'id' => $IAP->id,
-                    'publishingGroup' => PublishingGroup::IAP->name,
+                    'publishingGroup' => [
+                        'value' => PublishingGroup::IAP->name,
+                    ],
                 ],
             ],
         ]);
@@ -1253,7 +1277,7 @@ class PoolTest extends TestCase
                     poolsPaginated(where: $where) {
                         data {
                             id
-                            status
+                            status { value }
                         }
                     }
                 }
@@ -1267,7 +1291,9 @@ class PoolTest extends TestCase
                 ],
             ])->assertJsonFragment([
                 'id' => $closed->id,
-                'status' => PoolStatus::CLOSED->name,
+                'status' => [
+                    'value' => PoolStatus::CLOSED->name,
+                ],
             ]);
 
         assertSame(1, count($closedRes->json('data.poolsPaginated.data')));
@@ -1280,7 +1306,9 @@ class PoolTest extends TestCase
                 ],
             ])->assertJsonFragment([
                 'id' => $published->id,
-                'status' => PoolStatus::PUBLISHED->name,
+                'status' => [
+                    'value' => PoolStatus::PUBLISHED->name,
+                ],
             ]);
 
         assertSame(1, count($publishedRes->json('data.poolsPaginated.data')));
@@ -1293,7 +1321,9 @@ class PoolTest extends TestCase
                 ],
             ])->assertJsonFragment([
                 'id' => $draft->id,
-                'status' => PoolStatus::DRAFT->name,
+                'status' => [
+                    'value' => PoolStatus::DRAFT->name,
+                ],
             ]);
 
         assertSame(1, count($draftRes->json('data.poolsPaginated.data')));

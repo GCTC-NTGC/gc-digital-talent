@@ -2,8 +2,12 @@
 
 namespace App\Enums;
 
+use App\Traits\HasLocalization;
+
 enum AssessmentResultJustification
 {
+    use HasLocalization;
+
     case EDUCATION_ACCEPTED_INFORMATION;
     case EDUCATION_ACCEPTED_WORK_EXPERIENCE_EQUIVALENCY;
     case EDUCATION_ACCEPTED_COMBINATION_EDUCATION_WORK_EXPERIENCE;
@@ -35,5 +39,10 @@ enum AssessmentResultJustification
             AssessmentResultJustification::FAILED_NOT_ENOUGH_INFORMATION,
             AssessmentResultJustification::FAILED_OTHER,
         ];
+    }
+
+    public static function getLangFilename(): string
+    {
+        return 'assessment_result_justification';
     }
 }

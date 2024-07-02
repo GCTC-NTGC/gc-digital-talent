@@ -4,8 +4,9 @@ import { action } from "@storybook/addon-actions";
 import {
   fakeClassifications,
   fakeDepartments,
+  fakeLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
-import { makeFragmentData } from "@gc-digital-talent/graphql";
+import { Language, makeFragmentData } from "@gc-digital-talent/graphql";
 
 import {
   CreateAccountForm,
@@ -18,6 +19,7 @@ const mockFragmentData = makeFragmentData(
   {
     departments,
     classifications,
+    languages: fakeLocalizedEnum(Language),
   },
   CreateAccount_QueryFragment,
 );

@@ -5,7 +5,7 @@ import "@testing-library/jest-dom";
 import { Provider as GraphqlProvider } from "urql";
 import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { never } from "wonka";
+import { never, fromValue } from "wonka";
 
 import { fakeSkills } from "@gc-digital-talent/fake-data";
 import {
@@ -13,7 +13,11 @@ import {
   renderWithProviders,
   updateDate,
 } from "@gc-digital-talent/jest-helpers";
-import { makeFragmentData } from "@gc-digital-talent/graphql";
+import {
+  AwardedScope,
+  AwardedTo,
+  makeFragmentData,
+} from "@gc-digital-talent/graphql";
 
 import type { ExperienceType } from "~/types/experience";
 
@@ -27,9 +31,17 @@ const mockUserId = "user-id";
 const mockSkills = fakeSkills(50);
 const mockClient = {
   executeMutation: jest.fn(() => never),
-  // See: https://github.com/FormidableLabs/urql/discussions/2057#discussioncomment-1568874
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-} as any;
+  executeQuery: jest.fn(() =>
+    fromValue({
+      data: {
+        awardedTo: [{ value: AwardedTo.Me, label: { en: "Me", fr: "Me" } }],
+        awardedScopes: [
+          { value: AwardedScope.Local, label: { en: "Local", fr: "Local" } },
+        ],
+      },
+    }),
+  ),
+};
 
 const skillFragments = mockSkills.map((skill) =>
   makeFragmentData(skill, ExperienceFormSkill_Fragment),
