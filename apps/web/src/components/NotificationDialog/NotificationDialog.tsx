@@ -4,7 +4,6 @@ import { AnimatePresence, m, usePresence } from "framer-motion";
 import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
 import BellAlertIconSm from "@heroicons/react/20/solid/BellAlertIcon";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
-import EllipsisVerticalIcon from "@heroicons/react/20/solid/EllipsisVerticalIcon";
 import { UseQueryExecute } from "urql";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -37,13 +36,6 @@ const NotificationCount_Query = graphql(/* GraphQL */ `
     }
   }
 `);
-
-const ellipsis = () => (
-  <EllipsisVerticalIcon
-    data-h2-width="base(x.75)"
-    data-h2-vertical-align="base(middle)"
-  />
-);
 
 const DialogPortalWithPresence = ({
   executeQuery,
