@@ -254,6 +254,11 @@ const commonMessages = defineMessages({
     id: "YtV1mE",
     description: "A potentially dangerous action alert",
   },
+  noExperiencesOfType: {
+    defaultMessage: "You haven’t added any experiences of that type.",
+    id: "nMX0n8",
+    description: "Message to user when no experiences of that type exist.",
+  },
 });
 
 export default commonMessages;
