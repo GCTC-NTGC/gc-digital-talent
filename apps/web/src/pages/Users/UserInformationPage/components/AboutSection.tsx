@@ -31,11 +31,8 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
           <p data-h2-font-weight="base(700)">
-            {intl.formatMessage({
-              defaultMessage: "Contact email address:",
-              id: "83ujdI",
-              description: "Display text for the contact email field on users",
-            })}
+            {intl.formatMessage(commonMessages.email)}
+            {intl.formatMessage(commonMessages.dividingColon)}
           </p>
           <p>{user.email}</p>
         </div>

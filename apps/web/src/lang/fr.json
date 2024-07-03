@@ -1827,10 +1827,6 @@
     "defaultMessage": "J'envisagerais d'accepter un emploi qui...",
     "description": "Legend for optional work preferences check list in work preferences form"
   },
-  "83ujdI": {
-    "defaultMessage": "Address courriel de correspondance :",
-    "description": "Display text for the contact email field on users"
-  },
   "84XrK+": {
     "defaultMessage": "On ne trouve aucun élément ici.",
     "description": "Default message for an empty table"
