@@ -43,7 +43,7 @@
     "tsc": "turbo run tsc"
   },
   "devDependencies": {
-    "@hydrogen-css/hydrogen": "2.0.5",
+    "@hydrogen-css/hydrogen": "github:hydrogen-css/hydrogen#2.1.0",
     "turbo": "^2.0.6"
   }
 }
