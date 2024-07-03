@@ -91,7 +91,7 @@ export const Component = () => {
         subtitle={formattedSubTitle}
         crumbs={crumbs}
       />
-      <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
         <Alert.Root type="success" live={false} data-h2-margin="base(x3, 0)">
           <Alert.Title>
             {intl.formatMessage({

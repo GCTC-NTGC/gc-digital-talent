@@ -173,7 +173,7 @@ export const UpdateSkillFamilyForm = ({
   }));
 
   return (
-    <section data-h2-container="base(left, s)">
+    <section data-h2-wrapper="base(left, s)">
       <Heading level="h1" size="h2">
         {intl.formatMessage({
           defaultMessage: "Update Skill Family",

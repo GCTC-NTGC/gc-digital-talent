@@ -414,7 +414,7 @@ export const PoolPoster = ({
       <SEO title={poolTitle} description={formattedSubTitle} />
       <Hero title={poolTitle} subtitle={formattedSubTitle} crumbs={links} />
       <div
-        data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
+        data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
         data-h2-margin-top="base(x3)"
       >
         <TableOfContents.Wrapper>

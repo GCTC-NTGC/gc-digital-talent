@@ -133,7 +133,7 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
         subtitle={currentPage?.subtitle}
       />
       <div
-        data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
+        data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
         data-h2-margin-top="base(x3)"
       >
         <TableOfContents.Wrapper>

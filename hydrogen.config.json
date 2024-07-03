@@ -241,56 +241,6 @@
           }
         }
       ],
-      "containers": [
-        {
-          "key": "s",
-          "default": {
-            "max_width": "39rem"
-          }
-        },
-        {
-          "key": "small",
-          "default": {
-            "max_width": "39rem"
-          }
-        },
-        {
-          "key": "m",
-          "default": {
-            "max_width": "60rem"
-          }
-        },
-        {
-          "key": "medium",
-          "default": {
-            "max_width": "60rem"
-          }
-        },
-        {
-          "key": "l",
-          "default": {
-            "max_width": "80rem"
-          }
-        },
-        {
-          "key": "large",
-          "default": {
-            "max_width": "70rem"
-          }
-        },
-        {
-          "key": "full",
-          "default": {
-            "max_width": "none"
-          }
-        },
-        {
-          "key": "iap-home",
-          "default": {
-            "max_width": "70rem"
-          }
-        }
-      ],
       "fonts": [
         {
           "key": "sans",
@@ -544,7 +494,57 @@
           }
         }
       ],
-      "transitions": {}
+      "transitions": {},
+      "wrappers": [
+        {
+          "key": "s",
+          "default": {
+            "max_width": "39rem"
+          }
+        },
+        {
+          "key": "small",
+          "default": {
+            "max_width": "39rem"
+          }
+        },
+        {
+          "key": "m",
+          "default": {
+            "max_width": "60rem"
+          }
+        },
+        {
+          "key": "medium",
+          "default": {
+            "max_width": "60rem"
+          }
+        },
+        {
+          "key": "l",
+          "default": {
+            "max_width": "80rem"
+          }
+        },
+        {
+          "key": "large",
+          "default": {
+            "max_width": "70rem"
+          }
+        },
+        {
+          "key": "full",
+          "default": {
+            "max_width": "none"
+          }
+        },
+        {
+          "key": "iap-home",
+          "default": {
+            "max_width": "70rem"
+          }
+        }
+      ]
     },
     {
       "key": "iap",

@@ -430,7 +430,7 @@ export const ProfileForm = ({ userQuery }: ProfilePageProps) => {
         subtitle={formattedSubTitle}
         crumbs={crumbs}
       />
-      <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+      <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
         <TableOfContents.Wrapper>
           <TableOfContents.Navigation data-h2-padding-top="base(x3)">
             <TableOfContents.List>

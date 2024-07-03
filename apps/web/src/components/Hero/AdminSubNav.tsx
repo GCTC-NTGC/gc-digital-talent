@@ -21,7 +21,7 @@ const AdminSubNav = ({ mode, items }: AdminSubNavProps) => {
 
   return (
     <NavTabs.Root>
-      <NavTabs.List data-h2-container="base(center, full, x1) base(center, full, x2)">
+      <NavTabs.List data-h2-wrapper="base(center, full, x1) base(center, full, x2)">
         {items.map((item) => (
           <NavTabs.Item key={item.url}>
             <NavTabs.Link href={item.url}>{item.label}</NavTabs.Link>

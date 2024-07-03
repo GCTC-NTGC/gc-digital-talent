@@ -159,7 +159,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
         data-h2-position="base(relative)"
         data-h2-z-index="base(3)"
       >
-        <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2) laptop(center, large, x3)">
+        <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2) laptop(center, large, x3)">
           <Heading
             level="h2"
             size="h3"
