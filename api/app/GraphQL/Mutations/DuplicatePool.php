@@ -13,12 +13,12 @@ final class DuplicatePool
      */
     public function __invoke($_, array $args)
     {
-        $pool = Pool::find($args['id']);
+        $pool = Pool::with('poolSkills.skill')->find($args['id']);
 
         $newPool = $pool->replicate()->fill([
             'name' => [
-                'en' => $pool->name['en'].' (copy)',
-                'fr' => $pool->name['fr'].' (copie)',
+                'en' => $pool->name['en'] . ' (copy)',
+                'fr' => $pool->name['fr'] . ' (copie)',
             ],
             'closing_date' => null,
             'published_at' => null,
@@ -29,8 +29,17 @@ final class DuplicatePool
 
         $newPool->save();
 
-        $newPool->setEssentialPoolSkills($pool->essentialSkills->pluck('id'));
-        $newPool->setNonessentialPoolSkills($pool->nonessentialSkills->pluck('id'));
+        $skillsToSync = [];
+        foreach ($pool->poolSkills as $poolSkill) {
+            $skillsToSync[] = [
+                'skill_id' => $poolSkill->skill->id,
+                'type' => $poolSkill->type,
+                'required_skill_level' => $poolSkill->required_skill_level
+            ];
+        }
+
+        $newPool->poolSkills()->createMany($skillsToSync);
+        $newPool->syncApplicationScreeningStepPoolSkills();
 
         foreach ($pool->generalQuestions as $generalQuestion) {
             $newQuestion = $generalQuestion->replicate();
