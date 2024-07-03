@@ -132,7 +132,7 @@
     "description": "Text label for button to edit employment equity category in profile."
   },
   "+fSWpK": {
-    "defaultMessage": "Dans la pratique, la plupart des postes bilingues sont soit de niveau intermédiaire (BBB), soit avancé (CBC).",
+    "defaultMessage": "Dans la pratique, la plupart des postes bilingues sont soit de niveau intermédiaire (B B B), soit avancé (C B C).",
     "description": "Description for second language proficiency on language requirement dialog"
   },
   "+hRCVl": {
@@ -2280,7 +2280,7 @@
     "description": "Label for _is technological change_ field in the _digital services contracting questionnaire_"
   },
   "AjVbZs": {
-    "defaultMessage": "Bilingue avancé (CBC)",
+    "defaultMessage": "Bilingue avancé (C B C)",
     "description": "Bilingual advanced language requirement"
   },
   "AlRcyu": {
@@ -6515,7 +6515,7 @@
     "description": "Link text to the skill showcase page."
   },
   "Y555u5": {
-    "defaultMessage": "Bilingue intermédiaire (BBB)",
+    "defaultMessage": "Bilingue intermédiaire (B B B)",
     "description": "Bilingual intermediate language requirement"
   },
   "Y5Z216": {
