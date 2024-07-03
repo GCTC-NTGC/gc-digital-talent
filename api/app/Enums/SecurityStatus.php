@@ -14,6 +14,6 @@ enum SecurityStatus
 
     public static function getLangFilename(): string
     {
-        return 'security_clearance';
+        return 'security_status';
     }
 }
