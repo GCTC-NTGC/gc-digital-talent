@@ -13,6 +13,7 @@ trait HasLocalizedEnums
             if ($value) {
                 Log::warning("$enum is not localized.");
             }
+
             return $value;
         }
 
