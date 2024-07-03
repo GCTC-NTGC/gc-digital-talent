@@ -10,7 +10,7 @@ importers:
     devDependencies:
       '@hydrogen-css/hydrogen':
         specifier: github:hydrogen-css/hydrogen#2.1.0
-        version: https://codeload.github.com/hydrogen-css/hydrogen/tar.gz/384112691dee83463143dcd14608b1eeaa683b4b(typescript@5.5.3)
+        version: https://codeload.github.com/hydrogen-css/hydrogen/tar.gz/91b49a5f395b68bf07d164ead21717a0e553faab(typescript@5.5.3)
       turbo:
         specifier: ^2.0.6
         version: 2.0.6
@@ -180,7 +180,7 @@ importers:
         version: link:../../packages/storybook-helpers
       '@hydrogen-css/hydrogen':
         specifier: github:hydrogen-css/hydrogen#2.1.0
-        version: https://codeload.github.com/hydrogen-css/hydrogen/tar.gz/384112691dee83463143dcd14608b1eeaa683b4b(typescript@5.5.3)
+        version: https://codeload.github.com/hydrogen-css/hydrogen/tar.gz/91b49a5f395b68bf07d164ead21717a0e553faab(typescript@5.5.3)
       '@storybook/addon-actions':
         specifier: ^8.1.11
         version: 8.1.11
@@ -2597,8 +2597,8 @@ packages:
     resolution: {integrity: sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==}
     deprecated: Use @eslint/object-schema instead
 
-  '@hydrogen-css/hydrogen@https://codeload.github.com/hydrogen-css/hydrogen/tar.gz/384112691dee83463143dcd14608b1eeaa683b4b':
-    resolution: {tarball: https://codeload.github.com/hydrogen-css/hydrogen/tar.gz/384112691dee83463143dcd14608b1eeaa683b4b}
+  '@hydrogen-css/hydrogen@https://codeload.github.com/hydrogen-css/hydrogen/tar.gz/91b49a5f395b68bf07d164ead21717a0e553faab':
+    resolution: {tarball: https://codeload.github.com/hydrogen-css/hydrogen/tar.gz/91b49a5f395b68bf07d164ead21717a0e553faab}
     version: 2.1.0
     engines: {node: '>=14.18.1', npm: '>=8.11.0'}
     hasBin: true
@@ -10632,7 +10632,7 @@ snapshots:
 
   '@humanwhocodes/object-schema@2.0.3': {}
 
-  '@hydrogen-css/hydrogen@https://codeload.github.com/hydrogen-css/hydrogen/tar.gz/384112691dee83463143dcd14608b1eeaa683b4b(typescript@5.5.3)':
+  '@hydrogen-css/hydrogen@https://codeload.github.com/hydrogen-css/hydrogen/tar.gz/91b49a5f395b68bf07d164ead21717a0e553faab(typescript@5.5.3)':
     dependencies:
       '@webref/css': 6.13.0(css-tree@2.3.1)
       autoprefixer: 10.4.19(postcss@8.4.39)
