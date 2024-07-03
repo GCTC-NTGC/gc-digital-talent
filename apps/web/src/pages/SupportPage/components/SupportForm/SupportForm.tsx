@@ -8,7 +8,11 @@ import { ReactNode, useState } from "react";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Input, Submit, TextArea, Select } from "@gc-digital-talent/forms";
-import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  errorMessages,
+  uiMessages,
+} from "@gc-digital-talent/i18n";
 import { Heading, Pending, Button } from "@gc-digital-talent/ui";
 import { useLogger } from "@gc-digital-talent/logger";
 import { User, graphql } from "@gc-digital-talent/graphql";
@@ -174,11 +178,7 @@ const SupportForm = ({
               id="email"
               name="email"
               type="email"
-              label={intl.formatMessage({
-                defaultMessage: "Your email",
-                id: "szLvj0",
-                description: "Support form email field label",
-              })}
+              label={intl.formatMessage(commonMessages.email)}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
