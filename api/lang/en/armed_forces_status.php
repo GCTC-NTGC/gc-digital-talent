@@ -3,5 +3,5 @@
 return [
     'veteran' => 'Veteran',
     'member' => 'Member',
-    'non_caf' => 'Not in the CAF'
+    'non_caf' => 'Not in the CAF',
 ];
