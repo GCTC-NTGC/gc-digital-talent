@@ -143,18 +143,13 @@ const NotificationDialog = () => {
                     </div>
                   </div>
                   <p>
-                    {intl.formatMessage(
-                      {
-                        defaultMessage:
-                          "Welcome to your notification panel. Click or activate a notification to be taken to the relevant page. Each notification can be marked as read or deleted.",
-                        id: "qek0N+",
-                        description:
-                          "Instructions on how to manage notifications",
-                      },
-                      {
-                        icon: () => ellipsis(),
-                      },
-                    )}
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Welcome to your notification panel. Click or activate a notification to be taken to the relevant page. Each notification can be marked as read or deleted.",
+                      id: "qek0N+",
+                      description:
+                        "Instructions on how to manage notifications",
+                    })}
                   </p>
                 </div>
                 <NotificationList
