@@ -158,7 +158,15 @@ class OpenIdBearerTokenService
                 ]);
 
             if ($response->failed()) {
-                Log::error('Failed when GETting the introspection verification in verifyJwtWithIntrospection');
+                $errorCode = $response->json('error');
+                $isNormalErrorCode = $errorCode == 'access_denied';
+
+                $errorMessageToLog = 'Failed when GETting the introspection verification in verifyJwtWithIntrospection '.$errorCode;
+                if (! $isNormalErrorCode) {
+                    Log::error($errorMessageToLog);
+                } else {
+                    Log::debug($errorMessageToLog);
+                }
                 Log::debug((string) $response->getBody());
                 throw new Exception('Failed to get introspection');
             }
