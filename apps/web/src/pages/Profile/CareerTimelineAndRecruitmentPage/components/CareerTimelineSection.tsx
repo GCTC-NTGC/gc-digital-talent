@@ -4,6 +4,7 @@ import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 
 import { HeadingRank, Link, Well } from "@gc-digital-talent/ui";
 import { Experience } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSortAndFilter, {
@@ -42,6 +43,7 @@ const CareerTimelineSection = ({
   );
 
   const hasExperiences = experiences && experiences.length >= 1;
+  const hasExperiencesByType = experienceList && experienceList.length > 0;
 
   return (
     <>
@@ -78,14 +80,20 @@ const CareerTimelineSection = ({
           data-h2-flex-direction="base(column)"
           data-h2-gap="base(x.5 0)"
         >
-          {experienceList.map((experience) => (
-            <ExperienceCard
-              headingLevel={headingLevel}
-              key={experience.id}
-              experience={experience}
-              editParam={editParam}
-            />
-          ))}
+          {hasExperiencesByType ? (
+            experienceList.map((experience) => (
+              <ExperienceCard
+                headingLevel={headingLevel}
+                key={experience.id}
+                experience={experience}
+                editParam={editParam}
+              />
+            ))
+          ) : (
+            <Well data-h2-text-align="base(center)">
+              <p>{intl.formatMessage(commonMessages.noExperiencesOfType)}</p>
+            </Well>
+          )}
         </div>
       ) : (
         <Well data-h2-text-align="base(center)">
