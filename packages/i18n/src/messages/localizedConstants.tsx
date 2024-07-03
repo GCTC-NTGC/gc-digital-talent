@@ -276,6 +276,115 @@ export const getEmploymentDuration = (
   );
 };
 
+const languageAbilities = defineMessages({
+  [LanguageAbility.English]: {
+    defaultMessage: "English only",
+    id: "WcXADs",
+    description: "The language ability is English only.",
+  },
+  [LanguageAbility.French]: {
+    defaultMessage: "French only",
+    id: "wT3L9C",
+    description: "The language ability is French only.",
+  },
+  [LanguageAbility.Bilingual]: {
+    defaultMessage: "Bilingual (English and French)",
+    id: "janplU",
+    description: "The language ability is bilingual - both English and French.",
+  },
+});
+
+export const getLanguageAbility = (
+  languageAbilityId: string | number,
+): MessageDescriptor =>
+  getOrDisplayError(
+    languageAbilities,
+    languageAbilityId,
+    `Invalid Language Ability '${languageAbilityId}'`,
+  );
+
+const languageRequirements = defineMessages({
+  [PoolLanguage.BilingualAdvanced]: {
+    defaultMessage: "Bilingual advanced (C B C)",
+    id: "0HBAWr",
+    description: "The language requirement is bilingual advanced.",
+  },
+  [PoolLanguage.BilingualIntermediate]: {
+    defaultMessage: "Bilingual intermediate (B B B)",
+    id: "RNxcWC",
+    description: "The language requirement is bilingual intermediate.",
+  },
+  [PoolLanguage.English]: {
+    defaultMessage: "English only",
+    id: "5owc3a",
+    description: "The language requirement is English only.",
+  },
+  [PoolLanguage.French]: {
+    defaultMessage: "French only",
+    id: "ZWR/F3",
+    description: "The language requirement is French only.",
+  },
+  [PoolLanguage.Various]: {
+    defaultMessage: "Various (English or French)",
+    id: "ziaV/E",
+    description: "The language requirement is various.",
+  },
+});
+
+export const getLanguageRequirement = (
+  languageRequirementId: string | number,
+): MessageDescriptor =>
+  getOrDisplayError(
+    languageRequirements,
+    languageRequirementId,
+    `Invalid Language Requirement '${languageRequirementId}'`,
+  );
+
+const workRegions = defineMessages({
+  [WorkRegion.Atlantic]: {
+    defaultMessage: "Atlantic (NB, NS, PE and NL)",
+    id: "yBi2pM",
+    description: "The work region of Canada described as Atlantic.",
+  },
+  [WorkRegion.BritishColumbia]: {
+    defaultMessage: "British Columbia",
+    id: "wCft6M",
+    description: "The work region of Canada described as British Columbia.",
+  },
+  [WorkRegion.NationalCapital]: {
+    defaultMessage: "National Capital Region (Ottawa/Gatineau)",
+    id: "c/o/E4",
+    description: "The work region of Canada described as National Capital.",
+  },
+  [WorkRegion.North]: {
+    defaultMessage: "Northern (NU, NT, YT)",
+    id: "w4vHfG",
+    description: "The work region of Canada described as North.",
+  },
+  [WorkRegion.Ontario]: {
+    defaultMessage: "Ontario (excluding Ottawa area)",
+    id: "iUCkxX",
+    description:
+      "The work region of Canada described as Ontario, excluding Ottawa.",
+  },
+  [WorkRegion.Prairie]: {
+    defaultMessage: "Prairies (AB, SK, MB)",
+    id: "U4Gfow",
+    description: "The work region of Canada described as Prairies.",
+  },
+  [WorkRegion.Quebec]: {
+    defaultMessage: "Quebec (excluding Gatineau area)",
+    id: "vDulgp",
+    description:
+      "The work region of Canada described as Quebec, excluding Gatineau.",
+  },
+  [WorkRegion.Telework]: {
+    defaultMessage: "Telework",
+    id: "8stxoN",
+    description: "The work region of Canada described as Telework.",
+  },
+});
+
 const workRegionsDetailed = defineMessages({
   [WorkRegion.Telework]: {
     defaultMessage:
