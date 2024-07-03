@@ -43,14 +43,6 @@
     "defaultMessage": "Diversité, équité et inclusion",
     "description": "Name of Diversity, equity, and inclusion page"
   },
-  "0HBAWr": {
-    "defaultMessage": "Bilingue avancé (C B C)",
-    "description": "The language requirement is bilingual advanced."
-  },
-  "0LjLgD": {
-    "defaultMessage": "Pas dans les FAC",
-    "description": "user is not in the CAF"
-  },
   "0OPWbJ": {
     "defaultMessage": "Vous avez déjà postulé dans ce bassin",
     "description": "Message displayed when a user attempts to apply to pool more than once"
@@ -507,18 +499,6 @@
     "defaultMessage": "Modifier la séquence de {from} à {to}",
     "description": "Button text for moving an item from one position to another"
   },
-  "NWQ4Rj": {
-    "defaultMessage": "Non réussi",
-    "description": "Did not complete selection for education status input"
-  },
-  "NhJY9U": {
-    "defaultMessage": "Supérieur au niveau requis",
-    "description": "Option for skill assessment decision level."
-  },
-  "NtxfWk": {
-    "defaultMessage": "Garde 24/7",
-    "description": "The operational requirement described as 24/7 on-call. (short-form for limited space)"
-  },
   "OBQ8b9": {
     "defaultMessage": "(s'ouvre dans un nouvel onglet)",
     "description": "Text that appears in links that open in a new tab."
@@ -586,30 +566,6 @@
   "QtzRCh": {
     "defaultMessage": "Statut",
     "description": "Title for status"
-  },
-  "R0pQGQ": {
-    "defaultMessage": "Chef d'équipe",
-    "description": "The position type is a team lead."
-  },
-  "RNxcWC": {
-    "defaultMessage": "Bilingue intermédiaire (B B B)",
-    "description": "The language requirement is bilingual intermediate."
-  },
-  "RQGy+0": {
-    "defaultMessage": "Publiée",
-    "description": "Published pool advertisement status"
-  },
-  "RQTXLS": {
-    "defaultMessage": "Niveau 4 : conseiller principal",
-    "description": "The name of the Senior advisor role."
-  },
-  "RRSGnD": {
-    "defaultMessage": "Travailler des quarts de travail",
-    "description": "The operational requirement described as shift work. (short-form for limited space)"
-  },
-  "RaypPP": {
-    "defaultMessage": "Anglais",
-    "description": "The language English."
   },
   "RgCSri": {
     "defaultMessage": "J'affirme que je suis membre d'une Première Nation (inscrit ou non inscrit), Inuk (Inuit) ou Métis.",
@@ -1010,10 +966,6 @@
   "kDw+xr": {
     "defaultMessage": "Chaque compétence doit être incluse dans une évaluation",
     "description": "Error message that the pool advertisement skills are lacking an assessment"
-  },
-  "kMh3VV": {
-    "defaultMessage": "Nouvelle candidature",
-    "description": "The pool candidate's status is New Application."
   },
   "kQTtt9": {
     "defaultMessage": "Enum introuvable",
