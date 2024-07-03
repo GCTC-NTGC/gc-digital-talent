@@ -52,11 +52,7 @@ class PoolTest extends TestCase
         parent::setUp();
         $this->bootRefreshesSchemaCache();
 
-        $this->seed([
-            RolePermissionSeeder::class,
-            SkillFamilySeeder::class,
-            SkillSeeder::class,
-        ]);
+        $this->seed(RolePermissionSeeder::class);
 
         $this->team = Team::factory()->create([
             'name' => 'pool-application-test-team',
@@ -1645,6 +1641,10 @@ class PoolTest extends TestCase
 
     public function testDuplicatePool()
     {
+        $this->seed([
+            SkillFamilySeeder::class,
+            SkillSeeder::class,
+        ]);
 
         $department = Department::factory()->create();
 
