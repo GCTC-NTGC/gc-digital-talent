@@ -374,6 +374,10 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
           }
           stream {
             value
+            label {
+              en
+              fr
+            }
           }
           classification {
             id
@@ -397,6 +401,10 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
               }
               category {
                 value
+                label {
+                  en
+                  fr
+                }
               }
             }
           }
@@ -407,66 +415,133 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
           firstName
           lastName
           telephone
+          priority {
+            value
+            label {
+              en
+              fr
+            }
+          }
           preferredLang {
             value
+            label {
+              en
+              fr
+            }
           }
           preferredLanguageForInterview {
             value
+            label {
+              en
+              fr
+            }
           }
           preferredLanguageForExam {
             value
+            label {
+              en
+              fr
+            }
           }
           lookingForEnglish
           lookingForFrench
           lookingForBilingual
           firstOfficialLanguage {
             value
+            label {
+              en
+              fr
+            }
           }
           secondLanguageExamCompleted
           secondLanguageExamValidity
           comprehensionLevel {
             value
+            label {
+              en
+              fr
+            }
           }
           writtenLevel {
             value
+            label {
+              en
+              fr
+            }
           }
           verbalLevel {
             value
+            label {
+              en
+              fr
+            }
           }
           estimatedLanguageAbility {
             value
+            label {
+              en
+              fr
+            }
           }
           isGovEmployee
           govEmployeeType {
             value
+            label {
+              en
+              fr
+            }
           }
           hasPriorityEntitlement
           priorityNumber
           priorityWeight
           locationPreferences {
             value
+            label {
+              en
+              fr
+            }
           }
           locationExemptions
           positionDuration
           acceptedOperationalRequirements {
             value
+            label {
+              en
+              fr
+            }
           }
           isWoman
           indigenousCommunities {
             value
+            label {
+              en
+              fr
+            }
           }
           indigenousDeclarationSignature
           isVisibleMinority
           hasDisability
           citizenship {
             value
+            label {
+              en
+              fr
+            }
           }
           armedForcesStatus {
             value
+            label {
+              en
+              fr
+            }
           }
           currentCity
           currentProvince {
             value
+            label {
+              en
+              fr
+            }
           }
           topTechnicalSkillsRanking {
             id
@@ -478,6 +553,10 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
               key
               category {
                 value
+                label {
+                  en
+                  fr
+                }
               }
               name {
                 en
@@ -498,6 +577,10 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
               key
               category {
                 value
+                label {
+                  en
+                  fr
+                }
               }
               name {
                 en
@@ -518,6 +601,10 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
               key
               category {
                 value
+                label {
+                  en
+                  fr
+                }
               }
               name {
                 en
@@ -538,6 +625,10 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
               key
               category {
                 value
+                label {
+                  en
+                  fr
+                }
               }
               name {
                 en
@@ -590,6 +681,10 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
               }
               category {
                 value
+                label {
+                  en
+                  fr
+                }
               }
               experienceSkillRecord {
                 details
@@ -601,9 +696,17 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
               awardedDate
               awardedTo {
                 value
+                label {
+                  en
+                  fr
+                }
               }
               awardedScope {
                 value
+                label {
+                  en
+                  fr
+                }
               }
             }
             ... on CommunityExperience {
@@ -621,9 +724,17 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
               endDate
               type {
                 value
+                label {
+                  en
+                  fr
+                }
               }
               status {
                 value
+                label {
+                  en
+                  fr
+                }
               }
             }
             ... on PersonalExperience {
@@ -643,6 +754,10 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
         }
         educationRequirementOption {
           value
+          label {
+            en
+            fr
+          }
         }
         educationRequirementExperiences {
           id
@@ -680,9 +795,17 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
             awardedDate
             awardedTo {
               value
+              label {
+                en
+                fr
+              }
             }
             awardedScope {
               value
+              label {
+                en
+                fr
+              }
             }
           }
           ... on CommunityExperience {
@@ -700,9 +823,17 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
             endDate
             type {
               value
+              label {
+                en
+                fr
+              }
             }
             status {
               value
+              label {
+                en
+                fr
+              }
             }
           }
           ... on PersonalExperience {
@@ -733,6 +864,10 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
         expiryDate
         status {
           value
+          label {
+            en
+            fr
+          }
         }
         submittedAt
         notes
