@@ -21,7 +21,7 @@ import adminMessages from "~/messages/adminMessages";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 
-export const NotesForm_Fragment = graphql(/* Graphql */ `
+const NotesForm_Fragment = graphql(/* Graphql */ `
   fragment NotesForm on PoolCandidate {
     id
     notes

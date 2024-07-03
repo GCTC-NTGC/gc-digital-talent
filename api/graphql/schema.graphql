@@ -772,6 +772,7 @@ input PoolCandidateSearchInput {
   # There is also a classification field as part of ApplicantFilterInput however it includes scoping for availability.
   appliedClassifications: [ClassificationFilterInput]
     @scope(name: "appliedClassifications")
+  processNumber: String @scope(name: "processNumber")
 }
 
 input PoolCandidateSearchRequestInput {
@@ -912,6 +913,7 @@ type Query {
               "current_city"
             ]
           }
+          { relation: "pool", columns: ["process_number"] }
         ]
       )
   ): [PoolCandidateWithSkillCount]!
@@ -1801,7 +1803,7 @@ type Mutation {
     @restore
     @guard
     @canFind(ability: "restore", find: "id")
-  SendUserEmailVerification(id: ID!): User
+  sendUserEmailVerification(id: ID!): User
     @guard
     @canFind(ability: "update", find: "id")
   verifyUserEmail(id: ID!, code: String!): User

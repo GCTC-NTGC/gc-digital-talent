@@ -32,7 +32,7 @@ const invalidDateTimeMessage = defineMessage({
     "Instructions to enter the date in the API DateTime scalar format",
 });
 
-export type FormValues = {
+type FormValues = {
   isEnabled: Scalars["Boolean"]["input"];
   publishDate: Scalars["DateTime"]["input"];
   expiryDate: Scalars["DateTime"]["input"];

@@ -22,7 +22,6 @@ import NullMessage, { NullMessageProps } from "./NullMessage";
 import RowSelection, {
   getRowSelectionColumn,
   useRowSelection,
-  rowSelectCell,
 } from "./RowSelection";
 import useControlledTableState, {
   getTableStateFromSearchParams,
@@ -40,7 +39,7 @@ import type {
   SearchState,
   SortDef,
 } from "./types";
-import { getColumnHeader, sortingStateToOrderByClause } from "./utils";
+import { getColumnHeader } from "./utils";
 
 interface TableProps<TData, TFilters> {
   /** Accessible name for the table */
@@ -403,8 +402,4 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
 };
 
 export default ResponsiveTable;
-export {
-  getTableStateFromSearchParams,
-  rowSelectCell,
-  sortingStateToOrderByClause,
-};
+export { getTableStateFromSearchParams };

@@ -4,14 +4,14 @@ import { ReactNode } from "react";
 
 import { useTheme } from "@gc-digital-talent/theme";
 
-export interface InstructionStepProps {
+interface InstructionStepProps {
   image: string;
   imageDark?: string;
   includeArrow?: boolean;
   children: ReactNode;
 }
 
-export const InstructionStep = ({
+const InstructionStep = ({
   image,
   imageDark,
   includeArrow = true,
@@ -62,3 +62,5 @@ export const InstructionStep = ({
     </li>
   );
 };
+
+export default InstructionStep;

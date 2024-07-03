@@ -24,7 +24,7 @@ export const THEMES: Record<ThemeKey, Record<ThemeMode, string>> = {
   },
 };
 
-export interface WithThemeFromHydrogenConfig {
+interface WithThemeFromHydrogenConfig {
   themes: Record<string, string>;
   defaultTheme: string;
 }

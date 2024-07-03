@@ -4,7 +4,7 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import { PoolCompleteness } from "~/types/pool";
 
-export const AssessmentPlanStatus_Fragment = graphql(/* GraphQL */ `
+const AssessmentPlanStatus_Fragment = graphql(/* GraphQL */ `
   fragment AssessmentPlanStatus on Pool {
     assessmentPlanIsComplete
     publishedAt

@@ -17,10 +17,6 @@ import {
 } from "@gc-digital-talent/i18n";
 import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import {
-  parseDateTimeUtc,
-  relativeClosingDate,
-} from "@gc-digital-talent/date-helpers";
 import { Color, IconType } from "@gc-digital-talent/ui";
 import {
   PublishingGroup,
@@ -466,33 +462,6 @@ export function getClassificationName(
   const nameStr = getLocalizedName(name, intl);
   return `${groupLevelStr} (${nameStr})`;
 }
-
-type FormattedClosingDates = {
-  local?: string;
-  pacific?: string;
-};
-
-export const formatClosingDate = (
-  closingDate: Pool["closingDate"],
-  intl: IntlShape,
-): FormattedClosingDates => {
-  if (closingDate) {
-    const closingDateObject = parseDateTimeUtc(closingDate);
-    return {
-      local: relativeClosingDate({
-        closingDate: closingDateObject,
-        intl,
-      }),
-      pacific: relativeClosingDate({
-        closingDate: closingDateObject,
-        intl,
-        timeZone: "Canada/Pacific",
-      }),
-    };
-  }
-
-  return {};
-};
 
 export const getClassificationSalaryRangeUrl = (
   locale: Locales,

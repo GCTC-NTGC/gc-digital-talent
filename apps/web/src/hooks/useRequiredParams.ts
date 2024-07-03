@@ -11,10 +11,10 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 
 import invariant from "~/utils/invariant";
 
-export const uuidRegEx =
+const uuidRegEx =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/;
 
-export const isUUID = (str: string): boolean => {
+const isUUID = (str: string): boolean => {
   return !!str.match(uuidRegEx);
 };
 

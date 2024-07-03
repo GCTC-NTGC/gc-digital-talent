@@ -1,5 +1,4 @@
 import { MessageDescriptor, defineMessage, useIntl } from "react-intl";
-import MegaphoneOutlineIcon from "@heroicons/react/24/outline/MegaphoneIcon";
 import MegaphoneSolidIcon from "@heroicons/react/24/solid/MegaphoneIcon";
 
 import {
@@ -34,13 +33,12 @@ const hasAllEmptyFields = (
   !apiData?.message.en &&
   !apiData?.message.fr;
 
-export const sectionTitle: MessageDescriptor = defineMessage({
+const sectionTitle: MessageDescriptor = defineMessage({
   defaultMessage: "Sitewide announcement",
   id: "gChYmW",
   description: "Page title for the update sitewide announcement page",
 });
-export const sectionOutlineIcon: IconType = MegaphoneOutlineIcon;
-export const sectionSolidIcon: IconType = MegaphoneSolidIcon;
+const sectionSolidIcon: IconType = MegaphoneSolidIcon;
 
 interface SitewideAnnouncementSectionProps {
   initialData: SitewideAnnouncement | null | undefined;

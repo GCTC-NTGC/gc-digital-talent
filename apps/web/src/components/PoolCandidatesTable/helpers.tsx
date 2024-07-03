@@ -6,7 +6,6 @@ import {
   Locales,
   commonMessages,
   getCandidateSuspendedFilterStatus,
-  getLanguage,
   getPoolCandidatePriorities,
   getProvinceOrTerritory,
 } from "@gc-digital-talent/i18n";
@@ -25,13 +24,13 @@ import {
   QueryPoolCandidatesPaginatedOrderByRelationOrderByClause,
   QueryPoolCandidatesPaginatedOrderByUserColumn,
   CandidateSuspendedFilter,
-  Language,
   PoolCandidate,
   PoolCandidateStatus,
   ProvinceOrTerritory,
   SortOrder,
   FragmentType,
   AssessmentResultStatus,
+  QueryPoolCandidatesPaginatedOrderByPoolColumn,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -40,7 +39,6 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import {
   getCandidateStatusChip,
   getPriorityWeight,
-  statusToJobPlacement,
 } from "~/utils/poolCandidate";
 import {
   stringToEnumCandidateExpiry,
@@ -180,18 +178,6 @@ export const notesCell = (candidate: PoolCandidate, intl: IntlShape) =>
     />
   ) : null;
 
-// callbacks extracted to separate function to stabilize memoized component
-export const preferredLanguageAccessor = (
-  language: Language | null | undefined,
-  intl: IntlShape,
-) => (
-  <span>
-    {intl.formatMessage(
-      language ? getLanguage(language) : commonMessages.notFound,
-    )}
-  </span>
-);
-
 export const currentLocationAccessor = (
   city: string | null | undefined,
   province: ProvinceOrTerritory | null | undefined,
@@ -216,13 +202,6 @@ export const finalDecisionCell = (
   return <Chip color={color}>{label}</Chip>;
 };
 
-export const jobPlacementCell = (
-  intl: IntlShape,
-  status?: Maybe<PoolCandidateStatus>,
-) => {
-  return <span>{intl.formatMessage(statusToJobPlacement(status))}</span>;
-};
-
 export const bookmarkCell = (
   candidate: FragmentType<typeof PoolCandidate_BookmarkFragment>,
 ) => {
@@ -236,39 +215,7 @@ export const bookmarkHeader = (intl: IntlShape) => (
   />
 );
 
-// row(s) are becoming selected or deselected
-// if row is null then toggle all rows on the page simultaneously
-type RowSelectedEvent<T> = {
-  row?: T;
-  setSelected: boolean;
-};
-
-// pass in the event and setSelectedRows will be called with the right set of rows
-export function handleRowSelectedChange<T>(
-  allRows: T[],
-  selectedRows: T[],
-  setSelectedRows: (rows: T[]) => void,
-  { row, setSelected }: RowSelectedEvent<T>,
-): void {
-  if (row && setSelected) {
-    // row is provided, add row to selected list
-    setSelectedRows([...selectedRows, row]);
-  }
-  if (row && !setSelected) {
-    // row is provided, remove row from selected list
-    setSelectedRows(selectedRows.filter((r) => r !== row));
-  }
-  if (!row && setSelected) {
-    // row not provided, add all rows to selected list
-    setSelectedRows([...allRows]);
-  }
-  if (!row && !setSelected) {
-    // row not provided, remove all rows from selected list
-    setSelectedRows([]);
-  }
-}
-
-export function transformSortStateToOrderByClause(
+function transformSortStateToOrderByClause(
   sortingRules?: SortingState,
   filterState?: PoolCandidateSearchInput,
 ): QueryPoolCandidatesPaginatedOrderByRelationOrderByClause {
@@ -286,6 +233,7 @@ export function transformSortStateToOrderByClause(
     ["status", "status_weight"],
     ["notes", "notes"],
     ["skillCount", "skillCount"],
+    ["processNumber", "PROCESS_NUMBER"],
   ]);
 
   const sortingRule = sortingRules?.find((rule) => {
@@ -304,6 +252,18 @@ export function transformSortStateToOrderByClause(
       column: columnName,
       order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
       user: undefined,
+    };
+  }
+
+  if (sortingRule && ["processNumber"].includes(sortingRule.id)) {
+    const columnName = columnMap.get(sortingRule.id);
+    return {
+      column: undefined,
+      order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
+      pool: {
+        aggregate: OrderByRelationWithColumnAggregateFunction.Max,
+        column: columnName as QueryPoolCandidatesPaginatedOrderByPoolColumn,
+      },
     };
   }
 

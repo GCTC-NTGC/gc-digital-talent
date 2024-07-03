@@ -428,13 +428,13 @@ export const getLanguageAbility = (
 
 const languageRequirements = defineMessages({
   [PoolLanguage.BilingualAdvanced]: {
-    defaultMessage: "Bilingual advanced",
-    id: "kKdcZT",
+    defaultMessage: "Bilingual advanced (C B C)",
+    id: "0HBAWr",
     description: "The language requirement is bilingual advanced.",
   },
   [PoolLanguage.BilingualIntermediate]: {
-    defaultMessage: "Bilingual intermediate",
-    id: "O+MHnP",
+    defaultMessage: "Bilingual intermediate (B B B)",
+    id: "RNxcWC",
     description: "The language requirement is bilingual intermediate.",
   },
   [PoolLanguage.English]: {

@@ -9,15 +9,8 @@ import { isPast } from "date-fns/isPast";
 import sortBy from "lodash/sortBy";
 import { ReactNode } from "react";
 
-import {
-  formatDate,
-  parseDateTimeUtc,
-  relativeClosingDate,
-} from "@gc-digital-talent/date-helpers";
-import {
-  commonMessages,
-  getPoolCandidateStatus,
-} from "@gc-digital-talent/i18n";
+import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { Color } from "@gc-digital-talent/ui";
 import {
   AssessmentDecision,
@@ -35,7 +28,6 @@ import {
   AssessmentResultStatus,
   ClaimVerificationResult,
 } from "@gc-digital-talent/graphql";
-import { getOrThrowError } from "@gc-digital-talent/helpers";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import {
@@ -120,18 +112,6 @@ export const isExpired = (
     return true;
   }
   return expirationDate ? isPast(parseDateTimeUtc(expirationDate)) : false;
-};
-
-export const formatClosingDate = (
-  closingDate: Maybe<string>,
-  intl: IntlShape,
-): string => {
-  return closingDate
-    ? relativeClosingDate({
-        closingDate: parseDateTimeUtc(closingDate),
-        intl,
-      })
-    : "";
 };
 
 export const formatSubmittedAt = (
@@ -238,8 +218,6 @@ export const getResultsDecision = (
 };
 
 export type ResultDecisionCounts = Record<NullableDecision, number>;
-export type PoolCandidateId = string;
-export type AssessmentStepId = string;
 
 export const getOrderedSteps = (assessmentSteps: AssessmentStep[]) =>
   sortBy(assessmentSteps, (step) => step.sortOrder);
@@ -264,20 +242,6 @@ const getFinalDecisionChipColor = (
   }
 
   return "white";
-};
-
-export const statusToJobPlacement = (status?: Maybe<PoolCandidateStatus>) => {
-  if (status) {
-    if (isNotPlacedStatus(status)) {
-      return poolCandidateMessages.notPlaced;
-    }
-
-    if (isPlacedStatus(status)) {
-      return getPoolCandidateStatus(status);
-    }
-  }
-
-  return commonMessages.notAvailable;
 };
 
 // Note: By setting the explicit Record<PoolCandidateStatus, x> type, Typescript will actually error if we forget a status!
@@ -506,7 +470,7 @@ const combinedStatusLabels = defineMessages({
 });
 
 // Map pool candidate statuses to their regular combined statuses
-export const statusMap = new Map<PoolCandidateStatus, MessageDescriptor>([
+const statusMap = new Map<PoolCandidateStatus, MessageDescriptor>([
   [PoolCandidateStatus.Draft, combinedStatusLabels.DRAFT],
   [PoolCandidateStatus.NewApplication, combinedStatusLabels.RECEIVED],
   [PoolCandidateStatus.ApplicationReview, combinedStatusLabels.UNDER_REVIEW],
@@ -563,15 +527,6 @@ export const derivedStatusLabel = (
 
   return combinedStatus ?? null;
 };
-
-export const getCombinedStatusLabel = (
-  statusLabelKey: keyof typeof combinedStatusLabels,
-): MessageDescriptor =>
-  getOrThrowError(
-    combinedStatusLabels,
-    statusLabelKey,
-    `Invalid statusLabelKey '${statusLabelKey}'`,
-  );
 
 export const getPriorityWeight = (priorityWeight: number): PriorityWeight => {
   if (priorityWeight === 10) {

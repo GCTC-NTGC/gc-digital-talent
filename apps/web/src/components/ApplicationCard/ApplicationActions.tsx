@@ -278,7 +278,7 @@ const VisitCareerTimelineAction = ({ show, title }: ActionProps) => {
   );
 };
 
-export interface DeleteActionProps extends ActionProps {
+interface DeleteActionProps extends ActionProps {
   onDelete: () => void;
 }
 

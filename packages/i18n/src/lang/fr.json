@@ -63,6 +63,10 @@
     "defaultMessage": "Diversité, équité et inclusion",
     "description": "Name of Diversity, equity, and inclusion page"
   },
+  "0HBAWr": {
+    "defaultMessage": "Bilingue avancé (C B C)",
+    "description": "The language requirement is bilingual advanced."
+  },
   "0LjLgD": {
     "defaultMessage": "Pas dans les FAC",
     "description": "user is not in the CAF"
@@ -98,6 +102,10 @@
   "17dZD4": {
     "defaultMessage": "Le candidat/la candidate sera informé(e) de toute modification apportée au présent formulaire.",
     "description": "Caption notifying the user about who can know about the results of form changes"
+  },
+  "1UX8RD": {
+    "defaultMessage": "Address courriel de correspondance",
+    "description": "Title for contact email address"
   },
   "1Wbu+6": {
     "defaultMessage": "Premières Nations détenant le statut ",
@@ -831,10 +839,6 @@
     "defaultMessage": "Garde 24/7",
     "description": "The operational requirement described as 24/7 on-call. (short-form for limited space)"
   },
-  "O+MHnP": {
-    "defaultMessage": "Bilingue intermédiaire",
-    "description": "The language requirement is bilingual intermediate."
-  },
   "OBQ8b9": {
     "defaultMessage": "(s'ouvre dans un nouvel onglet)",
     "description": "Text that appears in links that open in a new tab."
@@ -922,6 +926,10 @@
   "R0pQGQ": {
     "defaultMessage": "Chef d'équipe",
     "description": "The position type is a team lead."
+  },
+  "RNxcWC": {
+    "defaultMessage": "Bilingue intermédiaire (B B B)",
+    "description": "The language requirement is bilingual intermediate."
   },
   "RQGy+0": {
     "defaultMessage": "Publiée",
@@ -1323,10 +1331,6 @@
     "defaultMessage": "m'exige de <strong>transporter, soulever et installer des équipements pesant jusqu'à 20 kg</strong>.",
     "description": "The operational requirement described as transport equipment up to 20kg."
   },
-  "dJd5/f": {
-    "defaultMessage": "Courriel",
-    "description": "Title for email"
-  },
   "dRvWzH": {
     "defaultMessage": "Baccalauréat",
     "description": "Bachelor's Degree selection for education type input"
@@ -1554,10 +1558,6 @@
   "kDw+xr": {
     "defaultMessage": "Chaque compétence doit être incluse dans une évaluation",
     "description": "Error message that the pool advertisement skills are lacking an assessment"
-  },
-  "kKdcZT": {
-    "defaultMessage": "Bilingue avancé",
-    "description": "The language requirement is bilingual advanced."
   },
   "kMh3VV": {
     "defaultMessage": "Nouvelle candidature",

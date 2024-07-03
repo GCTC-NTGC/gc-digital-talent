@@ -25,7 +25,7 @@ test.describe("Create account", () => {
 
     await appPage.page
       .getByRole("textbox", {
-        name: /which email do you like to be contacted at/i,
+        name: /contact email address/i,
       })
       .fill(`playwright.${uniqueTestId}@example.org`);
 
