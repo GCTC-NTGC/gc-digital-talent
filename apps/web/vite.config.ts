@@ -110,17 +110,15 @@ export default defineConfig(({ command }) => ({
   define: {
     IS_DEV_SERVER: command === "serve",
     API_HOST: getEnvVar("API_HOST"),
-    API_URI: getEnvVar("API_URI"),
-    API_PROTECTED_URI: getEnvVar("API_PROTECTED_URI"),
+
+    // Vite requires build-time env variables to have the VITE_ prefix
+    API_URI: getEnvVar("VITE_API_URI"),
+    API_PROTECTED_URI: getEnvVar("VITE_API_PROTECTED_URI"),
     BUILD_DATE: JSON.stringify(new Date()),
-    API_SUPPORT_ENDPOINT: getEnvVar(
-      "API_SUPPORT_ENDPOINT",
-      `"/api/support/tickets"`,
-    ),
-    TALENTSEARCH_SUPPORT_EMAIL: getEnvVar(
-      "TALENTSEARCH_SUPPORT_EMAIL",
-      `"support-soutien@talent.canada.ca"`,
-    ),
+    API_SUPPORT_ENDPOINT: getEnvVar("VITE_API_SUPPORT_ENDPOINT"),
+    TALENTSEARCH_SUPPORT_EMAIL: getEnvVar("VITE_TALENTSEARCH_SUPPORT_EMAIL"),
+
+    // run-time variables
     OAUTH_POST_LOGOUT_REDIRECT_EN: getEnvVar("OAUTH_POST_LOGOUT_REDIRECT_EN"),
     OAUTH_POST_LOGOUT_REDIRECT_FR: getEnvVar("OAUTH_POST_LOGOUT_REDIRECT_FR"),
     OAUTH_LOGOUT_URI: getEnvVar("OAUTH_LOGOUT_URI"),
