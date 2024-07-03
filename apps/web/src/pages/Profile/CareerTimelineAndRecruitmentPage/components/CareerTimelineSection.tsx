@@ -42,8 +42,8 @@ const CareerTimelineSection = ({
     intl,
   );
 
-  const hasExperiences = experiences && experiences.length >= 1;
-  const hasExperiencesByType = experienceList && experienceList.length > 0;
+  const hasExperiences = !!experiences?.length;
+  const hasExperiencesByType = !!experienceList.length;
 
   return (
     <>

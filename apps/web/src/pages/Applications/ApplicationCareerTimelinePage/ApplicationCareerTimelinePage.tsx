@@ -203,7 +203,7 @@ export const ApplicationCareerTimeline = ({
     return deriveExperienceType(e);
   });
   const hasSomeExperience = !!experiences.length;
-  const hasExperiencesByType = experienceList && experienceList.length > 0;
+  const hasExperiencesByType = !!experienceList.length;
 
   const handleSubmit = async () => {
     executeMutation({
