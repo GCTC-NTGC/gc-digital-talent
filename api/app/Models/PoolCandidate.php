@@ -156,7 +156,6 @@ class PoolCandidate extends Model
             if ($model->user()->exists() && $model->isDirty('notes')) {
                 $model->user()->searchable();
             }
-
         });
     }
 
@@ -185,7 +184,8 @@ class PoolCandidate extends Model
 
     public function generalQuestionResponses(): HasMany
     {
-        return $this->hasMany(GeneralQuestionResponse::class)->select(['id',
+        return $this->hasMany(GeneralQuestionResponse::class)->select([
+            'id',
             'pool_candidate_id',
             'general_question_id',
             'answer',
@@ -648,19 +648,22 @@ class PoolCandidate extends Model
                     foreach ($priorityWeights as $priorityWeight) {
                         switch ($priorityWeight) {
                             case PriorityWeight::PRIORITY_ENTITLEMENT->name:
-                                $query->orWhereIn('priority_verification',
+                                $query->orWhereIn(
+                                    'priority_verification',
                                     [ClaimVerificationResult::ACCEPTED->name, ClaimVerificationResult::UNVERIFIED->name]
                                 );
                                 break;
 
                             case PriorityWeight::VETERAN->name:
-                                $query->orWhereIn('veteran_verification',
+                                $query->orWhereIn(
+                                    'veteran_verification',
                                     [ClaimVerificationResult::ACCEPTED->name, ClaimVerificationResult::UNVERIFIED->name]
                                 );
                                 break;
 
                             case PriorityWeight::CITIZEN_OR_PERMANENT_RESIDENT->name:
-                                $query->orWhereIn('citizenship',
+                                $query->orWhereIn(
+                                    'citizenship',
                                     [CitizenshipStatus::CITIZEN->name, CitizenshipStatus::PERMANENT_RESIDENT->name]
                                 );
                                 break;
@@ -833,7 +836,6 @@ class PoolCandidate extends Model
         }
 
         return $query;
-
     }
 
     public function scopeOrderByClaimVerification(Builder $query, ?string $sortOrder)
@@ -854,7 +856,6 @@ class PoolCandidate extends Model
                 ->select('users.citizenship', 'pool_candidates.*')
                 ->orderBy('is_bookmarked', 'DESC')
                 ->orderByRaw($order);
-
         } elseif ($sortOrder && $sortOrder == 'ASC') {
             $order = $orderWithoutDirection.' ASC';
 
@@ -956,7 +957,9 @@ class PoolCandidate extends Model
      * non-localized enum values into their localized
      * version.
      *
-     * NOTE: This is to handle legacy snapshots
+     * NOTE: This is to handle legacy snapshots.
+     * We can remove this once we are no longer using non-localized
+     * enums in the snapshots.
      */
     private function parseSnapshotRecursive(RecursiveArrayIterator $rai, array $accumulator, $enumMap)
     {
