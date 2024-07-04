@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
 import { empty } from "@gc-digital-talent/helpers";
-import { Link } from "@gc-digital-talent/ui";
+import { Button, Chip, Link } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   getArmedForcesStatusesProfile,
@@ -62,14 +62,31 @@ const Display = ({
       >
         {lastName || notProvided}
       </FieldDisplay>
-      <FieldDisplay
-        hasError={!email}
-        label={intl.formatMessage(commonMessages.email)}
+      <div
         data-h2-grid-column-start="p-tablet(1)"
         data-h2-grid-column-end="p-tablet(span 2) l-tablet(span 3)"
+        data-h2-display="base(flex)"
+        data-h2-flex-direction="base(row)"
+        data-h2-gap="base(x0.5)"
+        data-h2-align-items="base(end)"
       >
-        {email || notProvided}
-      </FieldDisplay>
+        <FieldDisplay
+          hasError={!email}
+          label={intl.formatMessage(commonMessages.email)}
+          data-h2-margin="base(x.15)" // line up with chip
+        >
+          {email || notProvided}
+        </FieldDisplay>
+        <Chip color="error">unverified</Chip>
+        <Button
+          type="button"
+          mode="inline"
+          color="error"
+          data-h2-margin="base(x.15)" // line up with chip
+        >
+          verify now
+        </Button>
+      </div>
       <FieldDisplay
         hasError={!telephone}
         label={intl.formatMessage(commonMessages.telephone)}
