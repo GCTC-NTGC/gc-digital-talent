@@ -21,6 +21,7 @@ import {
   PoolCandidate,
   UpdatePoolCandidateStatusInput,
   graphql,
+  PoolCandidateStatus,
 } from "@gc-digital-talent/graphql";
 
 import PoolFilterInput from "~/components/PoolFilterInput/PoolFilterInput";
@@ -47,7 +48,7 @@ const PoolCandidateStatuses_Query = graphql(/* GraphQL */ `
 `);
 
 type FormValues = {
-  status: PoolCandidate["status"];
+  status: PoolCandidateStatus;
   additionalPools?: Pool["id"][];
 };
 
@@ -117,7 +118,7 @@ const ChangeStatusDialog = ({
     // fire off all the mutations
     const promises = poolCandidatesToUpdate.map((poolCandidate) => {
       return requestMutation(poolCandidate.id, {
-        status: formValues.status?.value,
+        status: formValues.status,
       });
     });
 
