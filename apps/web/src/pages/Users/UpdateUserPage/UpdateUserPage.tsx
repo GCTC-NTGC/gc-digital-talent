@@ -53,15 +53,6 @@ const UpdateUserOptions_Query = graphql(/* GraphQL */ `
         fr
       }
     }
-    operationalRequirements: localizedEnumStrings(
-      enumName: "OperationalRequirement"
-    ) {
-      value
-      label {
-        en
-        fr
-      }
-    }
   }
 `);
 
