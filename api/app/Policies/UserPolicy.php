@@ -97,57 +97,42 @@ class UserPolicy
             return false;
         }
 
-        // adding or removing team based roles
-        if (isset($attachRoles['team']) || isset($detachRoles['team'])) {
+        if (! empty($attachRoles)) {
 
-            if ($attachRoles && isset($attachRoles['roles']) && isset($attachRoles['team'])) {
-                $rolesArray = $attachRoles['roles'];
+            foreach ($attachRoles as $roleInput) {
 
-                // check every role being operated on and only return true if none failed
-                foreach ($rolesArray as $roleId) {
-                    if (! $this->teamAbleToCheck($user, $roleId, $attachRoles['team'])) {
+                // loop through each element and check
+                if (isset($roleInput['teamId'])) {
+                    if (! $this->teamAbleToCheck($user, $roleInput['roleId'], $roleInput['teamId'])) {
+                        return false;
+                    }
+                } else {
+                    if (! $this->individualAbleToCheck($user, $roleInput['roleId'])) {
                         return false;
                     }
                 }
             }
+        }
 
-            if ($detachRoles && isset($detachRoles['roles']) && isset($detachRoles['team'])) {
-                $rolesArray = $detachRoles['roles'];
+        if (! empty($detachRoles)) {
 
-                // check every role being operated on and only return true if none failed
-                foreach ($rolesArray as $roleId) {
-                    if (! $this->teamAbleToCheck($user, $roleId, $detachRoles['team'])) {
+            foreach ($detachRoles as $roleInput) {
+
+                // loop through each element and check
+                if (isset($roleInput['teamId'])) {
+                    if (! $this->teamAbleToCheck($user, $roleInput['roleId'], $roleInput['teamId'])) {
+                        return false;
+                    }
+                } else {
+                    if (! $this->individualAbleToCheck($user, $roleInput['roleId'])) {
                         return false;
                     }
                 }
             }
-
-            return true;
         }
 
-        // adding or removing individual roles
-        if (empty($attachRoles['team']) && empty($detachRoles['team'])) {
-
-            $rolesArray = [];
-            if ($attachRoles && isset($attachRoles['roles'])) {
-                $rolesArray = [...$rolesArray, ...$attachRoles['roles']];
-            }
-            if ($detachRoles && isset($detachRoles['roles'])) {
-                $rolesArray = [...$rolesArray, ...$detachRoles['roles']];
-            }
-
-            // check every role being operated on and only return true if none failed
-            foreach ($rolesArray as $roleId) {
-                if (! $this->individualAbleToCheck($user, $roleId)) {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        // default to reject
-        return false;
+        // nothing failed
+        return true;
     }
 
     /**
