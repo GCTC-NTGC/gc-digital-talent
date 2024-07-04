@@ -148,8 +148,8 @@ importers:
         specifier: ^6.6.8
         version: 6.6.8(react@18.3.1)(typescript@5.5.2)
       react-router-dom:
-        specifier: ^6.24.0
-        version: 6.24.0(react-dom@18.3.1)(react@18.3.1)
+        specifier: ^6.24.1
+        version: 6.24.1(react-dom@18.3.1)(react@18.3.1)
       react-to-print:
         specifier: ^2.15.1
         version: 2.15.1(react-dom@18.3.1)(react@18.3.1)
@@ -315,8 +315,8 @@ importers:
         specifier: ^1.0.1
         version: 1.0.1
       react-router-dom:
-        specifier: ^6.24.0
-        version: 6.24.0(react-dom@18.3.1)(react@18.3.1)
+        specifier: ^6.24.1
+        version: 6.24.1(react-dom@18.3.1)(react@18.3.1)
       urql:
         specifier: ^4.1.0
         version: 4.1.0(@urql/core@5.0.4)(react@18.3.1)
@@ -811,8 +811,8 @@ importers:
         specifier: ^6.6.8
         version: 6.6.8(react@18.3.1)(typescript@5.5.2)
       react-router-dom:
-        specifier: ^6.24.0
-        version: 6.24.0(react-dom@18.3.1)(react@18.3.1)
+        specifier: ^6.24.1
+        version: 6.24.1(react-dom@18.3.1)(react@18.3.1)
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -841,8 +841,8 @@ importers:
         specifier: ^6.6.8
         version: 6.6.8(react@18.3.1)(typescript@5.5.2)
       react-router-dom:
-        specifier: ^6.24.0
-        version: 6.24.0(react-dom@18.3.1)(react@18.3.1)
+        specifier: ^6.24.1
+        version: 6.24.1(react-dom@18.3.1)(react@18.3.1)
     devDependencies:
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
@@ -964,8 +964,8 @@ importers:
         specifier: ^2.0.5
         version: 2.0.5(react@18.3.1)
       react-router-dom:
-        specifier: ^6.24.0
-        version: 6.24.0(react-dom@18.3.1)(react@18.3.1)
+        specifier: ^6.24.1
+        version: 6.24.1(react-dom@18.3.1)(react@18.3.1)
       urql:
         specifier: ^4.1.0
         version: 4.1.0(@urql/core@5.0.4)(react@18.3.1)
@@ -1164,8 +1164,8 @@ importers:
         specifier: ^2.5.10
         version: 2.5.10(@types/react@18.3.3)(react@18.3.1)
       react-router-dom:
-        specifier: ^6.24.0
-        version: 6.24.0(react-dom@18.3.1)(react@18.3.1)
+        specifier: ^6.24.1
+        version: 6.24.1(react-dom@18.3.1)(react@18.3.1)
       urql:
         specifier: ^4.1.0
         version: 4.1.0(@urql/core@5.0.4)(react@18.3.1)
@@ -5354,8 +5354,8 @@ packages:
     resolution: {integrity: sha512-dyHY+sMF0ihPus3O27ODd4+agdHMEmuRdyiZJ2CCWjPV5UFmn17ZbElvk6WOGVE4rdCJKZQCrPV2BcikOMLUGQ==}
     dev: false
 
-  /@remix-run/router@1.17.0:
-    resolution: {integrity: sha512-2D6XaHEVvkCn682XBnipbJjgZUU7xjLtA4dGJRBVUKpEaDYOZMENZoZjAOSb7qirxt5RupjzZxz4fK2FO+EFPw==}
+  /@remix-run/router@1.17.1:
+    resolution: {integrity: sha512-mCOMec4BKd6BRGBZeSnGiIgwsbLGp3yhVqAD8H+PxiRNEHgDpZb8J1TnrSDlg97t0ySKMQJTHCWBCmBpSmkF6Q==}
     engines: {node: '>=14.0.0'}
 
   /@repeaterjs/repeater@3.0.6:
@@ -13485,25 +13485,25 @@ packages:
       use-callback-ref: 1.3.2(@types/react@18.3.3)(react@18.3.1)
       use-sidecar: 1.1.2(@types/react@18.3.3)(react@18.3.1)
 
-  /react-router-dom@6.24.0(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-960sKuau6/yEwS8e+NVEidYQb1hNjAYM327gjEyXlc6r3Skf2vtwuJ2l7lssdegD2YjoKG5l8MsVyeTDlVeY8g==}
+  /react-router-dom@6.24.1(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-U19KtXqooqw967Vw0Qcn5cOvrX5Ejo9ORmOtJMzYWtCT4/WOfFLIZGGsVLxcd9UkBO0mSTZtXqhZBsWlHr7+Sg==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       react: '>=16.8'
       react-dom: '>=16.8'
     dependencies:
-      '@remix-run/router': 1.17.0
+      '@remix-run/router': 1.17.1
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
-      react-router: 6.24.0(react@18.3.1)
+      react-router: 6.24.1(react@18.3.1)
 
-  /react-router@6.24.0(react@18.3.1):
-    resolution: {integrity: sha512-sQrgJ5bXk7vbcC4BxQxeNa5UmboFm35we1AFK0VvQaz9g0LzxEIuLOhHIoZ8rnu9BO21ishGeL9no1WB76W/eg==}
+  /react-router@6.24.1(react@18.3.1):
+    resolution: {integrity: sha512-PTXFXGK2pyXpHzVo3rR9H7ip4lSPZZc0bHG5CARmj65fTT6qG7sTngmb6lcYu1gf3y/8KxORoy9yn59pGpCnpg==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       react: '>=16.8'
     dependencies:
-      '@remix-run/router': 1.17.0
+      '@remix-run/router': 1.17.1
       react: 18.3.1
 
   /react-style-singleton@2.2.1(@types/react@18.3.3)(react@18.3.1):
