@@ -8,6 +8,7 @@ import {
   getLocalizedName,
   MaybeLocalizedEnums,
   getLocalizedEnumStringByValue,
+  getLocalizedEnumByValue,
 } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { Link, Chip, Spoiler } from "@gc-digital-talent/ui";
@@ -30,8 +31,8 @@ import {
   FragmentType,
   AssessmentResultStatus,
   LocalizedProvinceOrTerritory,
-  LocalizedPriorityWeight,
   QueryPoolCandidatesPaginatedOrderByPoolColumn,
+  PriorityWeight,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -58,11 +59,27 @@ import CandidateBookmark, {
 
 export const priorityCell = (
   priorityWeight: number | null | undefined,
-  priority: Maybe<LocalizedPriorityWeight> | undefined,
+  priorities: MaybeLocalizedEnums | undefined,
   intl: IntlShape,
 ) => {
+  let priority: PriorityWeight | null = null;
+  switch (priorityWeight) {
+    case 10:
+      priority = PriorityWeight.PriorityEntitlement;
+      break;
+    case 20:
+      priority = PriorityWeight.Veteran;
+      break;
+    case 30:
+      priority = PriorityWeight.CitizenOrPermanentResident;
+      break;
+    default:
+    // null
+  }
+
   if (!priority) return null;
-  const label = getLocalizedName(priority.label, intl);
+
+  const label = getLocalizedEnumStringByValue(priority, priorities, intl);
 
   if (priorityWeight === 10 || priorityWeight === 20) {
     return (

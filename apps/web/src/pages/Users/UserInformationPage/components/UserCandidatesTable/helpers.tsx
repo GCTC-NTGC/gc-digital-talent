@@ -17,6 +17,7 @@ import {
   AssessmentResultStatus,
   Scalars,
   LocalizedString,
+  PriorityWeight,
 } from "@gc-digital-talent/graphql";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
@@ -70,11 +71,27 @@ export const bookmarkHeader = (intl: IntlShape) => (
 
 export const priorityCell = (
   priorityWeight: number | null | undefined,
-  priority: Maybe<LocalizedString> | undefined,
+  priorities: MaybeLocalizedEnums | undefined,
   intl: IntlShape,
 ) => {
-  if (!priority || !priorityWeight) return null;
-  const label = getLocalizedName(priority, intl);
+  let priority: PriorityWeight | null = null;
+  switch (priorityWeight) {
+    case 10:
+      priority = PriorityWeight.PriorityEntitlement;
+      break;
+    case 20:
+      priority = PriorityWeight.Veteran;
+      break;
+    case 30:
+      priority = PriorityWeight.CitizenOrPermanentResident;
+      break;
+    default:
+    // null
+  }
+
+  if (!priority) return null;
+
+  const label = getLocalizedEnumStringByValue(priority, priorities, intl);
 
   if (priorityWeight === 10 || priorityWeight === 20) {
     return (

@@ -138,6 +138,13 @@ const UserCandidatesTableStrings_Query = graphql(/* GraphQL */ `
         fr
       }
     }
+    priorities: localizedEnumStrings(enumName: "PriorityWeight") {
+      value
+      label {
+        en
+        fr
+      }
+    }
   }
 `);
 
@@ -216,7 +223,7 @@ const UserCandidatesTable = ({
         id: "priority",
         header: intl.formatMessage(adminMessages.category),
         cell: () =>
-          priorityCell(user.priorityWeight, user.priority?.label, intl),
+          priorityCell(user.priorityWeight, stringsData?.priorities, intl),
       },
     ),
     columnHelper.accessor(

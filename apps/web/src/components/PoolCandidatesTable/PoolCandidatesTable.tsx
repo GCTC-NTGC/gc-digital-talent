@@ -399,6 +399,13 @@ const PoolCandidatesTableStrings_Query = graphql(/* GraphQL */ `
         fr
       }
     }
+    priorities: localizedEnumStrings(enumName: "PriorityWeight") {
+      value
+      label {
+        en
+        fr
+      }
+    }
   }
 `);
 
@@ -756,7 +763,7 @@ const PoolCandidatesTable = ({
                   poolCandidate.veteranVerification,
                 )
               : null,
-            poolCandidate.user.priority,
+            stringData?.priorities,
             intl,
           ),
       },
