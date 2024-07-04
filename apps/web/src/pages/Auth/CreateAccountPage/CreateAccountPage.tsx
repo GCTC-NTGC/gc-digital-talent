@@ -13,7 +13,7 @@ import {
 } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
-import { errorMessages } from "@gc-digital-talent/i18n";
+import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
 import { emptyToNull, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   graphql,
