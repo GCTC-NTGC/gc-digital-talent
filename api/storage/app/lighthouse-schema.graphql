@@ -443,7 +443,7 @@ type User {
   firstName: String
   lastName: String
   email: Email
-  emailVerifiedAt: DateTime
+  isEmailVerified: Boolean
   telephone: PhoneNumber
   preferredLang: LocalizedLanguage
   preferredLanguageForInterview: LocalizedLanguage
