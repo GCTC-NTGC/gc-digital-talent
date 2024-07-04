@@ -1672,15 +1672,15 @@ input PoolSkillBelongsToMany {
   sync: [UUID!]!
 }
 
-input RolesInput
-  @validator(class: "App\\GraphQL\\Validators\\RolesInputValidator") {
-  roles: [ID!]!
-  team: ID
+input RoleInput {
+  roleId: ID!
+  teamId: ID
 }
 
-input RoleAssignmentHasMany {
-  attach: RolesInput
-  detach: RolesInput
+input RoleAssignmentHasMany
+  @validator(class: "App\\GraphQL\\Validators\\RoleInputValidator") {
+  attach: [RoleInput]
+  detach: [RoleInput]
 }
 
 # This input only accepts Team-Based roles. It is assumed that a team id will be provided at a higher level of input.
