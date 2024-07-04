@@ -1683,7 +1683,7 @@ class PoolTest extends TestCase
         $originalValues = Arr::only($original->toArray(), $keysToPluck);
         $duplicatedValues = Arr::only($duplicated->toArray(), $keysToPluck);
 
-        $this->assertEquals($originalvalues, $duplicatdValues);
+        $this->assertEquals($originalValues, $duplicatedValues);
 
         $originalSkills = array_map([$this, 'filterSkillKeys'], $original->poolSkills->toArray());
         $duplicatedSkills = array_map([$this, 'filterSkillKeys'], $duplicated->poolSkills->toArray());
