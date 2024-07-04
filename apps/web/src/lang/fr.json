@@ -132,7 +132,7 @@
     "description": "Text label for button to edit employment equity category in profile."
   },
   "+fSWpK": {
-    "defaultMessage": "Dans la pratique, la plupart des postes bilingues sont soit de niveau intermédiaire (BBB), soit avancé (CBC).",
+    "defaultMessage": "Dans la pratique, la plupart des postes bilingues sont soit de niveau intermédiaire (B B B), soit avancé (C B C).",
     "description": "Description for second language proficiency on language requirement dialog"
   },
   "+hRCVl": {
@@ -1026,10 +1026,6 @@
   "3Rad8l": {
     "defaultMessage": "Souhaitez-vous poursuivre? Ceci vous éloignera de cette page-ci.",
     "description": "Text explaining what will happen after duplicating a pool and confirming the action"
-  },
-  "3UkIDo": {
-    "defaultMessage": "Courriel :",
-    "description": "Display text for the email field on users"
   },
   "3W/NbE": {
     "defaultMessage": "Sélectionné(e)",
@@ -2288,7 +2284,7 @@
     "description": "Label for _is technological change_ field in the _digital services contracting questionnaire_"
   },
   "AjVbZs": {
-    "defaultMessage": "Bilingue avancé (CBC)",
+    "defaultMessage": "Bilingue avancé (C B C)",
     "description": "Bilingual advanced language requirement"
   },
   "AlRcyu": {
@@ -4375,10 +4371,6 @@
     "defaultMessage": "Cette liste permet au candidat de préciser <strong>jusqu’à 5 compétences techniques </strong> pour lesquelles ils souhaitent recevoir une formation.",
     "description": "Description of a users technical skills to be improved for admins"
   },
-  "MTwQ3S": {
-    "defaultMessage": "À quel courriel souhaitez-vous être contacté(e)?",
-    "description": "Label displayed for the email field in create account form."
-  },
   "MUwxzr": {
     "defaultMessage": "Faisons maintenant le lien entre vos expériences et les compétences essentielles pour ce poste. Il s’agit de l’étape la plus importante du processus de candidature. Comme pour l’étape d’expérience et d’études minimales, si vous avez besoin d’ajouter ou de modifier une expérience dans votre parcours professionnel, vous pouvez le faire en revenant à l’<careerTimelineLink>étape du parcours professionnel</careerTimelineLink> dans le formulaire de candidature.",
     "description": "Lead in paragraph for adding experiences to a users skills"
@@ -4926,10 +4918,6 @@
   "PerY/b": {
     "defaultMessage": "Reproduction non commerciale",
     "description": "Non commercial reproduction list in ownership and usage section"
-  },
-  "PhrOLp": {
-    "defaultMessage": "Courriel de la personne-ressource",
-    "description": "Label for the French team display name input"
   },
   "Pi5icf": {
     "defaultMessage": "Gérer un critère de compétences",
@@ -6523,7 +6511,7 @@
     "description": "Link text to the skill showcase page."
   },
   "Y555u5": {
-    "defaultMessage": "Bilingue intermédiaire (BBB)",
+    "defaultMessage": "Bilingue intermédiaire (B B B)",
     "description": "Bilingual intermediate language requirement"
   },
   "Y5Z216": {
@@ -8062,10 +8050,6 @@
     "defaultMessage": "Groupes de publication",
     "description": "Title for publishing groups"
   },
-  "g1++nq": {
-    "defaultMessage": "Adresse de courriel personnelle",
-    "description": "Label for email field"
-  },
   "g2We9g": {
     "defaultMessage": "Une partie du contenu de ce site pourrait faire l’objet du droit d’auteur d’une tierce partie. Lorsque des informations sont produites et que le gouvernement du Canada n’est pas le détenteur des droits d’auteur, le contenu est protégé par la <copyrightLink>Loi sur le droit d’auteur</copyrightLink> et des ententes internationales. Les détails relatifs au droit d’auteur figurent sur les pages pertinentes.",
     "description": "Commercial reproduction list description in ownership and usage section"
@@ -9486,10 +9470,6 @@
     "defaultMessage": "Enregistrer la disponibilité",
     "description": "Button text to save availability in a recruitment"
   },
-  "nGNj5Q": {
-    "defaultMessage": "Courriel de la personne-ressource",
-    "description": "Contact email"
-  },
   "nIJlba": {
     "defaultMessage": "Obtention réussie d’un diplôme d’études secondaires ou un équivalent du GED.",
     "description": "Message under radio button in IAP application education page."
@@ -10461,10 +10441,6 @@
   "sycoGU": {
     "defaultMessage": "Pas nécessairement. La plupart des possibilités d’apprentissage peuvent être réalisées en travaillant de la maison, pourvu qu’il y ait une connexion à Internet. Certains postes ont des exigences propres à l’emplacement. Nous accordons une importance à la famille et à la communauté, et nous encourageons les gens à se joindre à notre famille sans avoir à quitter la leur, et à faire partie de notre communauté tout en restant dans la leur. Parlez à votre gestionnaire d’embauche de votre situation ou de vos préférences, et nous ferons de notre mieux pour travailler avec vous afin de trouver une solution appropriée.",
     "description": "Learn more dialog question six paragraph one"
-  },
-  "szLvj0": {
-    "defaultMessage": "Votre courriel",
-    "description": "Support form email field label"
   },
   "szVmh/": {
     "defaultMessage": "Description de l’apprentissage",
