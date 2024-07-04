@@ -75,6 +75,10 @@
     "defaultMessage": "Le candidat/la candidate sera informé(e) de toute modification apportée au présent formulaire.",
     "description": "Caption notifying the user about who can know about the results of form changes"
   },
+  "1UX8RD": {
+    "defaultMessage": "Address courriel de correspondance",
+    "description": "Title for contact email address"
+  },
   "1Wq7Pf": {
     "defaultMessage": "Juin",
     "description": "Name of the sixth month"
@@ -814,10 +818,6 @@
   "dIZ4oj": {
     "defaultMessage": "m'exige de <strong>transporter, soulever et installer des équipements pesant jusqu'à 20 kg</strong>.",
     "description": "The operational requirement described as transport equipment up to 20kg."
-  },
-  "dJd5/f": {
-    "defaultMessage": "Courriel",
-    "description": "Title for email"
   },
   "dXiRk8": {
     "defaultMessage": "Capacité démontrée à accomplir de façon constante des tâches de faible complexité sous une supervision minimale et des tâches de complexité modérée sous une forte supervision ou un mentorat direct. Généralement associée à des postes juniors ou de niveau d’entrée.",
