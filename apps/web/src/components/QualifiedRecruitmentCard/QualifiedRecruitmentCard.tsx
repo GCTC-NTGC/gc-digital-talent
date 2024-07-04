@@ -79,6 +79,13 @@ export const QualifiedRecruitmentCard_Fragment = graphql(/* GraphQL */ `
       }
       poolSkills {
         id
+        type {
+          value
+          label {
+            en
+            fr
+          }
+        }
         skill {
           id
           category {
