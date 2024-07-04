@@ -1793,6 +1793,7 @@ type Mutation {
   updateUserRoles(
     updateUserRolesInput: UpdateUserRolesInput! @spread
   ): UserAuthInfo
+    @guard
     @update(model: "User")
     @canModel(ability: "updateRoles", model: "User", injectArgs: true)
   deleteUser(id: ID! @whereKey): User
