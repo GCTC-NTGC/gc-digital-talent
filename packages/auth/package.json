@@ -25,7 +25,7 @@
     "@gc-digital-talent/i18n": "workspace:*",
     "jwt-decode": "^4.0.0",
     "path-browserify": "^1.0.1",
-    "react-router-dom": "^6.24.0",
+    "react-router-dom": "^6.24.1",
     "urql": "^4.1.0"
   },
   "devDependencies": {
