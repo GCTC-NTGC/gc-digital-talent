@@ -8,7 +8,6 @@ import {
   getLocalizedName,
   MaybeLocalizedEnums,
   getLocalizedEnumStringByValue,
-  getLocalizedEnumByValue,
 } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { Link, Chip, Spoiler } from "@gc-digital-talent/ui";

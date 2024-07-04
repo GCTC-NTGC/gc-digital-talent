@@ -3,7 +3,6 @@ import { IntlShape } from "react-intl";
 
 import {
   commonMessages,
-  getLocalizedName,
   MaybeLocalizedEnums,
   getLocalizedEnumStringByValue,
 } from "@gc-digital-talent/i18n";
@@ -16,7 +15,6 @@ import {
   Pool,
   AssessmentResultStatus,
   Scalars,
-  LocalizedString,
   PriorityWeight,
 } from "@gc-digital-talent/graphql";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
