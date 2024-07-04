@@ -18,11 +18,9 @@ import {
   sortPoolCandidateSearchStatus,
 } from "@gc-digital-talent/i18n";
 import {
-  FragmentType,
   LocalizedEnumString,
   PoolCandidateSearchRequest,
   UpdatePoolCandidateSearchRequestInput,
-  getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -302,11 +300,11 @@ const UpdateSearchRequest = ({
   });
   const handleUpdateSearchRequest = (
     id: string,
-    data: UpdatePoolCandidateSearchRequestInput,
+    values: UpdatePoolCandidateSearchRequestInput,
   ) =>
     executeMutation({
       id,
-      poolCandidateSearchRequest: data,
+      poolCandidateSearchRequest: values,
     }).then((result) => {
       if (result.data?.updatePoolCandidateSearchRequest) {
         return {
