@@ -755,7 +755,7 @@ class GraphQLServiceProvider extends ServiceProvider
             if (method_exists($enum, 'localizedString')) {
                 $typeRegistry->register(
                     new ObjectType([
-                        'name' => 'Localized' . $name,
+                        'name' => 'Localized'.$name,
                         'fields' => function () use ($typeRegistry, $name): array {
                             return [
                                 'value' => Type::nonNull($typeRegistry->get($name)),

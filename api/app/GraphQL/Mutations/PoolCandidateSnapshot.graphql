@@ -310,13 +310,7 @@ query getProfile($userId: UUID!) {
           }
           genericJobTitles {
             id
-            key {
-              value
-              label {
-                en
-                fr
-              }
-            }
+            key
             name {
               en
               fr
