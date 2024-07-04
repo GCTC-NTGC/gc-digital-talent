@@ -38,7 +38,7 @@ return new class extends Migration
 
         // now that it's filled, make non-nullable
         Schema::table('pools', function (Blueprint $table) {
-            $table->uuid('department_id')->nullable(false)->change();
+            $table->uuid('department_id')->nullable(false)->change();  // TODO, double-check when upgrading to Laravel 11
         });
     }
 
