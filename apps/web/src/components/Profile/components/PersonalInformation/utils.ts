@@ -51,11 +51,7 @@ export const getLabels = (intl: IntlShape) => ({
     id: "dssZUt",
     description: "Label for surname field",
   }),
-  email: intl.formatMessage({
-    defaultMessage: "Personal email",
-    id: "g1++nq",
-    description: "Label for email field",
-  }),
+  email: intl.formatMessage(commonMessages.email),
   citizenship: intl.formatMessage({
     defaultMessage: "Citizenship status",
     id: "7DUfu+",

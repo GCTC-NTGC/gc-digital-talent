@@ -117,12 +117,7 @@ export const CreateAccountForm = ({
       description:
         "Label displayed for the last name field in create account form.",
     }),
-    email: intl.formatMessage({
-      defaultMessage: "Which email do you like to be contacted at?",
-      id: "MTwQ3S",
-      description:
-        "Label displayed for the email field in create account form.",
-    }),
+    email: intl.formatMessage(commonMessages.email),
     preferredLang: intl.formatMessage({
       defaultMessage: "What is your preferred contact language?",
       id: "0ScnOT",
