@@ -4,7 +4,7 @@ import { useIntl } from "react-intl";
 import { useLocation } from "react-router-dom";
 import { useMutation, useQuery } from "urql";
 
-import { Heading, Link } from "@gc-digital-talent/ui";
+import { Heading, Link, Loading } from "@gc-digital-talent/ui";
 import {
   Select,
   Submit,
@@ -18,29 +18,22 @@ import {
   sortPoolCandidateSearchStatus,
 } from "@gc-digital-talent/i18n";
 import {
+  FragmentType,
+  LocalizedEnumString,
   PoolCandidateSearchRequest,
   UpdatePoolCandidateSearchRequestInput,
+  getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 
 type FormValues = UpdatePoolCandidateSearchRequestInput;
 
-const UpdateSearchRequestOptions_Query = graphql(/* GraphQL */ `
-  query UpdateSearchRequestOptions {
-    statuses: localizedEnumStrings(enumName: "PoolCandidateSearchStatus") {
-      value
-      label {
-        en
-        fr
-      }
-    }
-  }
-`);
-
 interface UpdateSearchRequestFormProps {
   initialSearchRequest: PoolCandidateSearchRequest;
+  statuses: LocalizedEnumString[];
   handleUpdateSearchRequest: (
     id: string,
     data: FormValues,
@@ -49,12 +42,12 @@ interface UpdateSearchRequestFormProps {
 
 const UpdateSearchRequestForm = ({
   initialSearchRequest,
+  statuses,
   handleUpdateSearchRequest,
 }: UpdateSearchRequestFormProps) => {
   const intl = useIntl();
   const [isSaving, setIsSaving] = useState<boolean>(false);
   const paths = useRoutes();
-  const [{ data }] = useQuery({ query: UpdateSearchRequestOptions_Query });
   const methods = useForm<FormValues>({
     defaultValues: {
       ...initialSearchRequest,
@@ -224,7 +217,7 @@ const UpdateSearchRequestForm = ({
                 )}
                 label={intl.formatMessage(commonMessages.status)}
                 options={localizedEnumToOptions(
-                  sortPoolCandidateSearchStatus(data?.statuses),
+                  sortPoolCandidateSearchStatus(statuses),
                   intl,
                 )}
                 doNotSort
@@ -286,12 +279,27 @@ const UpdateSearchRequest_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
+const UpdateSearchRequestOptions_Query = graphql(/* GraphQL */ `
+  query UpdateSearchRequestOptions {
+    statuses: localizedEnumStrings(enumName: "PoolCandidateSearchStatus") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 const UpdateSearchRequest = ({
   initialSearchRequest,
 }: {
   initialSearchRequest: PoolCandidateSearchRequest;
 }) => {
   const [, executeMutation] = useMutation(UpdateSearchRequest_Mutation);
+  const [{ data, fetching }] = useQuery({
+    query: UpdateSearchRequestOptions_Query,
+  });
   const handleUpdateSearchRequest = (
     id: string,
     data: UpdatePoolCandidateSearchRequestInput,
@@ -309,9 +317,12 @@ const UpdateSearchRequest = ({
       return Promise.reject(result.error);
     });
 
+  if (fetching) return <Loading inline />;
+
   return (
     <UpdateSearchRequestForm
       initialSearchRequest={initialSearchRequest}
+      statuses={unpackMaybes(data?.statuses)}
       handleUpdateSearchRequest={handleUpdateSearchRequest}
     />
   );
