@@ -431,7 +431,7 @@ type Classification {
 
 type GenericJobTitle {
   id: ID!
-  key: LocalizedGenericJobTitleKey! @localizeEnum
+  key: GenericJobTitleKey!
   name: LocalizedString
   classification: Classification @belongsTo
 }

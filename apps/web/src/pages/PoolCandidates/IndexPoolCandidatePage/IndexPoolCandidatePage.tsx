@@ -80,13 +80,7 @@ const IndexPoolCandidatePage_Query = graphql(/* GraphQL */ `
         maxSalary
         genericJobTitles {
           id
-          key {
-            value
-            label {
-              en
-              fr
-            }
-          }
+          key
           name {
             en
             fr

@@ -161,9 +161,7 @@ const CareerTimelineApplication_Fragment = graphql(/* GraphQL */ `
         }
         genericJobTitles {
           id
-          key {
-            value
-          }
+          key
           name {
             en
             fr

@@ -52,9 +52,7 @@ const CreateApplicationApplications_Query = graphql(/* GraphQL */ `
             }
             genericJobTitles {
               id
-              key {
-                value
-              }
+              key
               name {
                 en
                 fr

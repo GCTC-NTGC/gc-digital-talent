@@ -294,13 +294,7 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
         }
         genericJobTitles {
           id
-          key {
-            value
-            label {
-              en
-              fr
-            }
-          }
+          key
           name {
             en
             fr

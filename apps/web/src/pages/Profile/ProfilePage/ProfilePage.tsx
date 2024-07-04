@@ -435,13 +435,7 @@ export const UserProfile_FragmentText = /* GraphQL */ `
           }
           genericJobTitles {
             id
-            key {
-              value
-              label {
-                en
-                fr
-              }
-            }
+            key
             name {
               en
               fr

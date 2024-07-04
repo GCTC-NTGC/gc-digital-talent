@@ -78,11 +78,6 @@ type LocalizedEvaluatedLanguageAbility {
   label: LocalizedString!
 }
 
-type LocalizedGenericJobTitleKey {
-  value: GenericJobTitleKey!
-  label: LocalizedString!
-}
-
 type LocalizedGovEmployeeType {
   value: GovEmployeeType!
   label: LocalizedString!
@@ -727,7 +722,7 @@ type Classification {
 
 type GenericJobTitle {
   id: ID!
-  key: LocalizedGenericJobTitleKey!
+  key: GenericJobTitleKey!
   name: LocalizedString
   classification: Classification
 }
