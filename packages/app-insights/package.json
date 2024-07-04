@@ -15,7 +15,7 @@
   "dependencies": {
     "@gc-digital-talent/env": "workspace:*",
     "@microsoft/applicationinsights-react-js": "^17.2.0",
-    "@microsoft/applicationinsights-web": "^3.2.2"
+    "@microsoft/applicationinsights-web": "^3.3.0"
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",

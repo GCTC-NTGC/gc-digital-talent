@@ -49,7 +49,7 @@
     "@gc-digital-talent/toast": "workspace:*",
     "@gc-digital-talent/ui": "workspace:*",
     "@heroicons/react": "^2.1.4",
-    "@microsoft/applicationinsights-web": "^3.2.2",
+    "@microsoft/applicationinsights-web": "^3.3.0",
     "@tanstack/react-table": "^8.19.2",
     "dataloader": "^2.2.2",
     "date-fns": "^3.6.0",
