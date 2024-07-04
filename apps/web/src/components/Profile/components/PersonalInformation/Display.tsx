@@ -1,5 +1,8 @@
+import { useMutation } from "urql";
 import { useIntl } from "react-intl";
 
+import { graphql, User } from "@gc-digital-talent/graphql";
+import { toast } from "@gc-digital-talent/toast";
 import { empty } from "@gc-digital-talent/helpers";
 import { Button, Chip, Link } from "@gc-digital-talent/ui";
 import {
@@ -8,11 +11,19 @@ import {
   getCitizenshipStatusesProfile,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import { User } from "@gc-digital-talent/graphql";
+import { useAuthorization } from "@gc-digital-talent/auth";
 
 import profileMessages from "~/messages/profileMessages";
 
 import FieldDisplay from "../FieldDisplay";
+
+const SendVerificationEmail_Mutation = graphql(/* GraphQL */ `
+  mutation SendVerificationEmail($id: ID!) {
+    sendUserEmailVerification(id: $id) {
+      id
+    }
+  }
+`);
 
 interface DisplayProps {
   user: User;
@@ -36,6 +47,26 @@ const Display = ({
 }: DisplayProps) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
+  const { userAuthInfo } = useAuthorization();
+
+  const [{ fetching: mutationSubmitting }, executeSendEmailMutation] =
+    useMutation(SendVerificationEmail_Mutation);
+
+  const handleVerifyNowClick = () => {
+    executeSendEmailMutation({
+      id: userAuthInfo?.id,
+    })
+      .then((result) => {
+        if (result.data?.sendUserEmailVerification?.id) {
+          console.debug("successfully requested email");
+        } else {
+          throw new Error("Failed to submit");
+        }
+      })
+      .catch(() => {
+        toast.error(intl.formatMessage(commonMessages.error));
+      });
+  };
 
   return (
     <div
@@ -102,8 +133,15 @@ const Display = ({
               mode="inline"
               color="error"
               data-h2-margin="base(x.15)" // line up with chip
+              onClick={handleVerifyNowClick}
+              disabled={mutationSubmitting}
             >
-              verify now
+              {intl.formatMessage({
+                defaultMessage: "Verify now",
+                id: "ADPfNp",
+                description:
+                  "Button to start the email address verification process",
+              })}
             </Button>
           </>
         )}
