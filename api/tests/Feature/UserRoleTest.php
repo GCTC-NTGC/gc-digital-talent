@@ -226,10 +226,10 @@ class UserRoleTest extends TestCase
                     'userId' => $user->id,
                     'roleAssignmentsInput' => [
                         'attach' => [
-                            'roles' => [$newRole->id],
+                            ['roleId' => $newRole->id],
                         ],
                         'detach' => [
-                            'roles' => [$oldRole->id],
+                            ['roleId' => $oldRole->id],
                         ],
                     ],
                 ],
@@ -273,12 +273,16 @@ class UserRoleTest extends TestCase
                     'userId' => $user->id,
                     'roleAssignmentsInput' => [
                         'attach' => [
-                            'roles' => [$newRole->id],
-                            'team' => $newTeam->id,
+                            [
+                                'roleId' => $newRole->id,
+                                'teamId' => $newTeam->id,
+                            ],
                         ],
                         'detach' => [
-                            'roles' => [$oldRole->id],
-                            'team' => $oldTeam->id,
+                            [
+                                'roleId' => $oldRole->id,
+                                'teamId' => $oldTeam->id,
+                            ],
                         ],
                     ],
                 ],
@@ -315,8 +319,10 @@ class UserRoleTest extends TestCase
                     'userId' => $user->id,
                     'roleAssignmentsInput' => [
                         'attach' => [
-                            'roles' => [$role->id],
-                            'team' => $team->id,
+                            [
+                                'roleId' => $role->id,
+                                'teamId' => $team->id,
+                            ],
                         ],
                     ],
                 ],
@@ -351,7 +357,9 @@ class UserRoleTest extends TestCase
                     'userId' => $user->id,
                     'roleAssignmentsInput' => [
                         'attach' => [
-                            'roles' => [$role->id],
+                            [
+                                'roleId' => $role->id,
+                            ],
                         ],
                     ],
                 ],
@@ -460,12 +468,16 @@ class UserRoleTest extends TestCase
                     'userId' => $otherUser->id,
                     'roleAssignmentsInput' => [
                         'attach' => [
-                            'roles' => [$newRole->id],
-                            'team' => $newTeam->id,
+                            [
+                                'roleId' => $newRole->id,
+                                'teamId' => $newTeam->id,
+                            ],
                         ],
                         'detach' => [
-                            'roles' => [$oldRole->id],
-                            'team' => $oldTeam->id,
+                            [
+                                'roleId' => $oldRole->id,
+                                'teamId' => $oldTeam->id,
+                            ],
                         ],
                     ],
                 ],
@@ -498,12 +510,16 @@ class UserRoleTest extends TestCase
                     'userId' => $this->baseUser->id,
                     'roleAssignmentsInput' => [
                         'attach' => [
-                            'roles' => [$newRole->id],
-                            'team' => $newTeam->id,
+                            [
+                                'roleId' => $newRole->id,
+                                'teamId' => $newTeam->id,
+                            ],
                         ],
                         'detach' => [
-                            'roles' => [$oldRole->id],
-                            'team' => $oldTeam->id,
+                            [
+                                'roleId' => $oldRole->id,
+                                'teamId' => $oldTeam->id,
+                            ],
                         ],
                     ],
                 ],

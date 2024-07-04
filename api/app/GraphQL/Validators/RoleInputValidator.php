@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Rules\RoleTeamConsistent;
 use Nuwave\Lighthouse\Validation\Validator;
 
 final class RoleInputValidator extends Validator
@@ -19,8 +20,14 @@ final class RoleInputValidator extends Validator
             'attach.*.roleId' => [
                 'distinct',
             ],
+            'attach.*' => [
+                new RoleTeamConsistent(),
+            ],
             'detach.*.roleId' => [
                 'distinct',
+            ],
+            'detach.*' => [
+                new RoleTeamConsistent(),
             ],
         ];
     }
