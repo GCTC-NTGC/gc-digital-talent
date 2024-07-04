@@ -29,8 +29,9 @@ class GcNotifyApiRequest implements ShouldQueue
     {
         return [
             (new GcNotifyRateLimited),
-            (new ThrottlesExceptions(10, 5))
-                ->backoff(5),
+            (new ThrottlesExceptions(3, 10))
+                ->byJob()
+                ->backoff(4),
         ];
     }
 
