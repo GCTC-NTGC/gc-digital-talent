@@ -19,7 +19,7 @@ importers:
     dependencies:
       '@axe-core/playwright':
         specifier: ^4.9.1
-        version: 4.9.1(playwright-core@1.44.1)
+        version: 4.9.1(playwright-core@1.45.0)
     devDependencies:
       '@gc-digital-talent/date-helpers':
         specifier: workspace:*
@@ -142,8 +142,8 @@ importers:
         specifier: ^2.0.5
         version: 2.0.5(react@18.3.1)
       react-hook-form:
-        specifier: ^7.52.0
-        version: 7.52.0(react@18.3.1)
+        specifier: ^7.52.1
+        version: 7.52.1(react@18.3.1)
       react-intl:
         specifier: ^6.6.8
         version: 6.6.8(react@18.3.1)(typescript@5.5.2)
@@ -602,7 +602,7 @@ importers:
         version: 2.1.4(react@18.3.1)
       '@hookform/error-message':
         specifier: ^2.0.1
-        version: 2.0.1(react-dom@18.3.1)(react-hook-form@7.52.0)(react@18.3.1)
+        version: 2.0.1(react-dom@18.3.1)(react-hook-form@7.52.1)(react@18.3.1)
       '@tiptap/extension-character-count':
         specifier: ^2.4.0
         version: 2.4.0(@tiptap/core@2.4.0)(@tiptap/pm@2.4.0)
@@ -689,8 +689,8 @@ importers:
         specifier: ^18.3.1
         version: 18.3.1
       react-hook-form:
-        specifier: ^7.52.0
-        version: 7.52.0(react@18.3.1)
+        specifier: ^7.52.1
+        version: 7.52.1(react@18.3.1)
       react-intl:
         specifier: ^6.6.8
         version: 6.6.8(react@18.3.1)(typescript@5.5.2)
@@ -1299,13 +1299,13 @@ packages:
       default-browser-id: 3.0.0
     dev: true
 
-  /@axe-core/playwright@4.9.1(playwright-core@1.44.1):
+  /@axe-core/playwright@4.9.1(playwright-core@1.45.0):
     resolution: {integrity: sha512-8m4WZbZq7/aq7ZY5IG8GqV+ZdvtGn/iJdom+wBg+iv/3BAOBIfNQtIu697a41438DzEEyptXWmC3Xl5Kx/o9/g==}
     peerDependencies:
       playwright-core: '>= 1.0.0'
     dependencies:
       axe-core: 4.9.1
-      playwright-core: 1.44.1
+      playwright-core: 1.45.0
     dev: false
 
   /@babel/code-frame@7.24.7:
@@ -3894,7 +3894,7 @@ packages:
       react: 18.3.1
     dev: false
 
-  /@hookform/error-message@2.0.1(react-dom@18.3.1)(react-hook-form@7.52.0)(react@18.3.1):
+  /@hookform/error-message@2.0.1(react-dom@18.3.1)(react-hook-form@7.52.1)(react@18.3.1):
     resolution: {integrity: sha512-U410sAr92xgxT1idlu9WWOVjndxLdgPUHEB8Schr27C9eh7/xUnITWpCMF93s+lGiG++D4JnbSnrb5A21AdSNg==}
     peerDependencies:
       react: '>=16.8.0'
@@ -3903,7 +3903,7 @@ packages:
     dependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
-      react-hook-form: 7.52.0(react@18.3.1)
+      react-hook-form: 7.52.1(react@18.3.1)
     dev: false
 
   /@humanwhocodes/config-array@0.11.14:
@@ -12824,17 +12824,10 @@ packages:
     dependencies:
       find-up: 5.0.0
 
-  /playwright-core@1.44.1:
-    resolution: {integrity: sha512-wh0JWtYTrhv1+OSsLPgFzGzt67Y7BE/ZS3jEqgGBlp2ppp1ZDj8c+9IARNW4dwf1poq5MgHreEM2KV/GuR4cFA==}
-    engines: {node: '>=16'}
-    hasBin: true
-    dev: false
-
   /playwright-core@1.45.0:
     resolution: {integrity: sha512-lZmHlFQ0VYSpAs43dRq1/nJ9G/6SiTI7VPqidld9TDefL9tX87bTKExWZZUF5PeRyqtXqd8fQi2qmfIedkwsNQ==}
     engines: {node: '>=18'}
     hasBin: true
-    dev: true
 
   /playwright@1.45.0:
     resolution: {integrity: sha512-4z3ac3plDfYzGB6r0Q3LF8POPR20Z8D0aXcxbJvmfMgSSq1hkcgvFRXJk9rUq5H/MJ0Ktal869hhOdI/zUTeLA==}
@@ -13297,8 +13290,8 @@ packages:
       shallowequal: 1.1.0
     dev: false
 
-  /react-hook-form@7.52.0(react@18.3.1):
-    resolution: {integrity: sha512-mJX506Xc6mirzLsmXUJyqlAI3Kj9Ph2RhplYhUVffeOQSnubK2uVqBFOBJmvKikvbFV91pxVXmDiR+QMF19x6A==}
+  /react-hook-form@7.52.1(react@18.3.1):
+    resolution: {integrity: sha512-uNKIhaoICJ5KQALYZ4TOaOLElyM+xipord+Ha3crEFhTntdLvWZqVY49Wqd/0GiVCA/f9NjemLeiNPjG7Hpurg==}
     engines: {node: '>=12.22.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
