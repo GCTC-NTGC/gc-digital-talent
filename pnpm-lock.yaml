@@ -10,7 +10,7 @@ importers:
     devDependencies:
       '@hydrogen-css/hydrogen':
         specifier: github:hydrogen-css/hydrogen#2.1.0
-        version: github.com/hydrogen-css/hydrogen/91b49a5f395b68bf07d164ead21717a0e553faab(typescript@5.5.3)
+        version: github.com/hydrogen-css/hydrogen/3f8e4348a7014e113768779bc917ceee80d8de09(typescript@5.5.3)
       turbo:
         specifier: ^2.0.6
         version: 2.0.6
@@ -122,7 +122,7 @@ importers:
         version: 3.6.0
       framer-motion:
         specifier: ^11.2.12
-        version: 11.2.12(react-dom@18.3.1)(react@18.3.1)
+        version: 11.2.13(react-dom@18.3.1)(react@18.3.1)
       graphql:
         specifier: ^16.9.0
         version: 16.9.0
@@ -180,7 +180,7 @@ importers:
         version: link:../../packages/storybook-helpers
       '@hydrogen-css/hydrogen':
         specifier: github:hydrogen-css/hydrogen#2.1.0
-        version: github.com/hydrogen-css/hydrogen/91b49a5f395b68bf07d164ead21717a0e553faab(typescript@5.5.3)
+        version: github.com/hydrogen-css/hydrogen/3f8e4348a7014e113768779bc917ceee80d8de09(typescript@5.5.3)
       '@storybook/addon-actions':
         specifier: ^8.1.11
         version: 8.1.11
@@ -623,7 +623,7 @@ importers:
         version: 9.0.6(react@18.3.1)
       framer-motion:
         specifier: ^11.2.12
-        version: 11.2.12(react-dom@18.3.1)(react@18.3.1)
+        version: 11.2.13(react-dom@18.3.1)(react@18.3.1)
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -953,7 +953,7 @@ importers:
         version: 11.5.4
       framer-motion:
         specifier: ^11.2.12
-        version: 11.2.12(react-dom@18.3.1)(react@18.3.1)
+        version: 11.2.13(react-dom@18.3.1)(react@18.3.1)
       graphql:
         specifier: ^16.9.0
         version: 16.9.0
@@ -1147,7 +1147,7 @@ importers:
         version: 11.5.4
       framer-motion:
         specifier: ^11.2.12
-        version: 11.2.12(react-dom@18.3.1)(react@18.3.1)
+        version: 11.2.13(react-dom@18.3.1)(react@18.3.1)
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -3582,8 +3582,8 @@ packages:
       - supports-color
     dev: true
 
-  /@graphql-tools/delegate@10.0.12(graphql@16.9.0):
-    resolution: {integrity: sha512-o4qCmxwKW0VlnPVALQ5WeLZnPkBQXsuOZmeWEMCU2lHVLsvVhLcDdo/wjoFpdVkyUd5FRKL82ntYSY9qHhVb6Q==}
+  /@graphql-tools/delegate@10.0.13(graphql@16.9.0):
+    resolution: {integrity: sha512-9l7cwrHQFbvR6zhZOKYABa3ffqgyV51gNglammupXhptE3Z94p6A6hP0hLw7GHErkm6MiQINl3VBVpFJDlrZuQ==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
@@ -3618,9 +3618,9 @@ packages:
       '@types/ws': 8.5.10
       graphql: 16.9.0
       graphql-ws: 5.16.0(graphql@16.9.0)
-      isomorphic-ws: 5.0.0(ws@8.17.1)
+      isomorphic-ws: 5.0.0(ws@8.18.0)
       tslib: 2.6.3
-      ws: 8.17.1
+      ws: 8.18.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -3653,9 +3653,9 @@ packages:
       '@graphql-tools/utils': 10.2.3(graphql@16.9.0)
       '@types/ws': 8.5.10
       graphql: 16.9.0
-      isomorphic-ws: 5.0.0(ws@8.17.1)
+      isomorphic-ws: 5.0.0(ws@8.18.0)
       tslib: 2.6.3
-      ws: 8.17.1
+      ws: 8.18.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -3869,7 +3869,7 @@ packages:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
       '@ardatan/sync-fetch': 0.0.1
-      '@graphql-tools/delegate': 10.0.12(graphql@16.9.0)
+      '@graphql-tools/delegate': 10.0.13(graphql@16.9.0)
       '@graphql-tools/executor-graphql-ws': 1.1.2(graphql@16.9.0)
       '@graphql-tools/executor-http': 1.0.9(graphql@16.9.0)
       '@graphql-tools/executor-legacy-ws': 1.0.6(graphql@16.9.0)
@@ -3878,10 +3878,10 @@ packages:
       '@types/ws': 8.5.10
       '@whatwg-node/fetch': 0.9.18
       graphql: 16.9.0
-      isomorphic-ws: 5.0.0(ws@8.17.1)
+      isomorphic-ws: 5.0.0(ws@8.18.0)
       tslib: 2.6.3
       value-or-promise: 1.0.12
-      ws: 8.17.1
+      ws: 8.18.0
     transitivePeerDependencies:
       - '@types/node'
       - bufferutil
@@ -3908,7 +3908,7 @@ packages:
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
-      '@graphql-tools/delegate': 10.0.12(graphql@16.9.0)
+      '@graphql-tools/delegate': 10.0.13(graphql@16.9.0)
       '@graphql-tools/schema': 10.0.4(graphql@16.9.0)
       '@graphql-tools/utils': 10.2.3(graphql@16.9.0)
       graphql: 16.9.0
@@ -6023,7 +6023,7 @@ packages:
       util: 0.12.5
       util-deprecate: 1.0.2
       watchpack: 2.4.1
-      ws: 8.17.1
+      ws: 8.18.0
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -10217,8 +10217,8 @@ packages:
     resolution: {integrity: sha512-X8cqMLLie7KsNUDSdzeN8FYK9rEt4Dt67OsG/DNGnYTSDBG4uFAJFBnUeiV+zCVAvwFy56IjM9sH51jVaEhNxw==}
     dev: true
 
-  /flow-parser@0.238.3:
-    resolution: {integrity: sha512-hNUhucq8V6KWSX1skXUS3vnDmrRNuKWzDvEVK5b+n97uMF32zj2y8pmcLDQEqlY5u926B0GYGWT/3XhwDJfLOQ==}
+  /flow-parser@0.239.0:
+    resolution: {integrity: sha512-U5dgOsS6cg4FGNzzTD/zHRDM4bliL6laUgD0LUCSMzI2zEfKMnRV2/wgDv8nKmO2Z1R8ri5pE1YoldmrSV7FOw==}
     engines: {node: '>=0.4.0'}
     dev: true
 
@@ -10259,8 +10259,8 @@ packages:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
     dev: true
 
-  /framer-motion@11.2.12(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-lCjkV4nA9rWOy2bhR4RZzkp2xpB++kFmUZ6D44V9VQaxk+JDmbDd5lq+u58DjJIIllE8AZEXp9OG/TyDN4FB/w==}
+  /framer-motion@11.2.13(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-AyIeegfkXlkX1lWEudRYsJlC+0A59cE8oFK9IsN9bUQzxLwcvN3AEaYaznkELiWlHC7a0eD7pxsYQo7BC05S5A==}
     peerDependencies:
       '@emotion/is-prop-valid': '*'
       react: ^18.0.0
@@ -11261,12 +11261,12 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /isomorphic-ws@5.0.0(ws@8.17.1):
+  /isomorphic-ws@5.0.0(ws@8.18.0):
     resolution: {integrity: sha512-muId7Zzn9ywDsyXgTIafTry2sV3nySZeUDe6YedVd1Hvuuep5AsIlqK+XefWpYTyJG5e503F2xIuT2lcU6rCSw==}
     peerDependencies:
       ws: '*'
     dependencies:
-      ws: 8.17.1
+      ws: 8.18.0
     dev: true
 
   /isstream@0.1.2:
@@ -11832,7 +11832,7 @@ packages:
       '@babel/register': 7.24.6(@babel/core@7.24.7)
       babel-core: 7.0.0-bridge.0(@babel/core@7.24.7)
       chalk: 4.1.2
-      flow-parser: 0.238.3
+      flow-parser: 0.239.0
       graceful-fs: 4.2.11
       micromatch: 4.0.7
       neo-async: 2.6.2
@@ -11877,7 +11877,7 @@ packages:
       whatwg-encoding: 2.0.0
       whatwg-mimetype: 3.0.0
       whatwg-url: 11.0.0
-      ws: 8.17.1
+      ws: 8.18.0
       xml-name-validator: 4.0.0
     transitivePeerDependencies:
       - bufferutil
@@ -15997,8 +15997,8 @@ packages:
       signal-exit: 4.1.0
     dev: true
 
-  /ws@8.17.1:
-    resolution: {integrity: sha512-6XQFvXTkbfUOZOKKILFG1PDK2NDQs4azKQl26T0YS5CxqWLgXajbPZ+h4gZekJyRqFU8pvnbAbbs/3TgRPy+GQ==}
+  /ws@8.18.0:
+    resolution: {integrity: sha512-8VbfWfHLbbwu3+N6OKsOMpBdT4kXPDDB9cJk2bJ6mh9ucxdlnNvH1e+roYkKmN9Nxw2yjz7VzeO9oOz2zJ04Pw==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1
@@ -16094,9 +16094,9 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
-  github.com/hydrogen-css/hydrogen/91b49a5f395b68bf07d164ead21717a0e553faab(typescript@5.5.3):
-    resolution: {tarball: https://codeload.github.com/hydrogen-css/hydrogen/tar.gz/91b49a5f395b68bf07d164ead21717a0e553faab}
-    id: github.com/hydrogen-css/hydrogen/91b49a5f395b68bf07d164ead21717a0e553faab
+  github.com/hydrogen-css/hydrogen/3f8e4348a7014e113768779bc917ceee80d8de09(typescript@5.5.3):
+    resolution: {tarball: https://codeload.github.com/hydrogen-css/hydrogen/tar.gz/3f8e4348a7014e113768779bc917ceee80d8de09}
+    id: github.com/hydrogen-css/hydrogen/3f8e4348a7014e113768779bc917ceee80d8de09
     name: '@hydrogen-css/hydrogen'
     version: 2.1.0
     engines: {node: '>=14.18.1', npm: '>=8.11.0'}
