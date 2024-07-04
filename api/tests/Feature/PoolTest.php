@@ -1680,8 +1680,8 @@ class PoolTest extends TestCase
         // Check exact copied values
         $keysToPluck = ['operational_requirements', 'key_tasks', 'your_impact', 'security_clearance', 'advertisement_language', 'is_remote', 'what_to_expect', 'special_note', 'opportunity_length', 'what_to_expect_admission', 'about_us', 'classification_id'];
 
-        $originalvalues = Arr::only($original->toArray(), $keysToPluck);
-        $duplicatdValues = Arr::only($duplicated->toArray(), $keysToPluck);
+        $originalValues = Arr::only($original->toArray(), $keysToPluck);
+        $duplicatedValues = Arr::only($duplicated->toArray(), $keysToPluck);
 
         $this->assertEquals($originalvalues, $duplicatdValues);
 
