@@ -42,7 +42,7 @@
     "react-router-dom": "^6.24.1",
     "tsconfig": "workspace:*",
     "tsx": "^4.16.2",
-    "typescript": "^5.5.2",
+    "typescript": "^5.5.3",
     "yargs": "^17.7.2"
   }
 }
