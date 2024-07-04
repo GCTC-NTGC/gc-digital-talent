@@ -19,7 +19,7 @@ importers:
     dependencies:
       '@axe-core/playwright':
         specifier: ^4.9.1
-        version: 4.9.1(playwright-core@1.44.1)
+        version: 4.9.1(playwright-core@1.45.0)
     devDependencies:
       '@gc-digital-talent/date-helpers':
         specifier: workspace:*
@@ -817,8 +817,8 @@ importers:
         specifier: workspace:*
         version: link:../tsconfig
       tsx:
-        specifier: ^4.15.8
-        version: 4.16.0
+        specifier: ^4.16.2
+        version: 4.16.2
       typescript:
         specifier: ^5.5.2
         version: 5.5.2
@@ -1299,13 +1299,13 @@ packages:
       default-browser-id: 3.0.0
     dev: true
 
-  /@axe-core/playwright@4.9.1(playwright-core@1.44.1):
+  /@axe-core/playwright@4.9.1(playwright-core@1.45.0):
     resolution: {integrity: sha512-8m4WZbZq7/aq7ZY5IG8GqV+ZdvtGn/iJdom+wBg+iv/3BAOBIfNQtIu697a41438DzEEyptXWmC3Xl5Kx/o9/g==}
     peerDependencies:
       playwright-core: '>= 1.0.0'
     dependencies:
       axe-core: 4.9.1
-      playwright-core: 1.44.1
+      playwright-core: 1.45.0
     dev: false
 
   /@babel/code-frame@7.24.7:
@@ -12824,17 +12824,10 @@ packages:
     dependencies:
       find-up: 5.0.0
 
-  /playwright-core@1.44.1:
-    resolution: {integrity: sha512-wh0JWtYTrhv1+OSsLPgFzGzt67Y7BE/ZS3jEqgGBlp2ppp1ZDj8c+9IARNW4dwf1poq5MgHreEM2KV/GuR4cFA==}
-    engines: {node: '>=16'}
-    hasBin: true
-    dev: false
-
   /playwright-core@1.45.0:
     resolution: {integrity: sha512-lZmHlFQ0VYSpAs43dRq1/nJ9G/6SiTI7VPqidld9TDefL9tX87bTKExWZZUF5PeRyqtXqd8fQi2qmfIedkwsNQ==}
     engines: {node: '>=18'}
     hasBin: true
-    dev: true
 
   /playwright@1.45.0:
     resolution: {integrity: sha512-4z3ac3plDfYzGB6r0Q3LF8POPR20Z8D0aXcxbJvmfMgSSq1hkcgvFRXJk9rUq5H/MJ0Ktal869hhOdI/zUTeLA==}
@@ -14579,8 +14572,8 @@ packages:
       typescript: 5.5.2
     dev: true
 
-  /tsx@4.16.0:
-    resolution: {integrity: sha512-MPgN+CuY+4iKxGoJNPv+1pyo5YWZAQ5XfsyobUG+zoKG7IkvCPLZDEyoIb8yLS2FcWci1nlxAqmvPlFWD5AFiQ==}
+  /tsx@4.16.2:
+    resolution: {integrity: sha512-C1uWweJDgdtX2x600HjaFaucXTilT7tgUZHbOE4+ypskZ1OP8CRCSDkCxG6Vya9EwaFIVagWwpaVAn5wzypaqQ==}
     engines: {node: '>=18.0.0'}
     hasBin: true
     dependencies:
