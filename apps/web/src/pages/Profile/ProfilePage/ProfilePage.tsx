@@ -135,6 +135,7 @@ export const UserProfile_FragmentText = /* GraphQL */ `
     firstName
     lastName
     email
+    isEmailVerified
     telephone
     preferredLang {
       value

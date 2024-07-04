@@ -16,7 +16,7 @@ const SendUserEmailVerification_Mutation = graphql(/* GraphQL */ `
   mutation SendUserEmailVerification($id: ID!) {
     sendUserEmailVerification(id: $id) {
       id
-      emailVerifiedAt
+      isEmailVerified
     }
   }
 `);
@@ -25,7 +25,7 @@ const VerifyUserEmail_Mutation = graphql(/* GraphQL */ `
   mutation VerifyUserEmail($id: ID!, $code: String!) {
     verifyUserEmail(id: $id, code: $code) {
       id
-      emailVerifiedAt
+      isEmailVerified
     }
   }
 `);

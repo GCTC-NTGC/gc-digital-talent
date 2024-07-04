@@ -23,6 +23,7 @@ const Display = ({
     firstName,
     lastName,
     email,
+    isEmailVerified,
     telephone,
     preferredLang,
     preferredLanguageForInterview,
@@ -77,15 +78,35 @@ const Display = ({
         >
           {email || notProvided}
         </FieldDisplay>
-        <Chip color="error">unverified</Chip>
-        <Button
-          type="button"
-          mode="inline"
-          color="error"
-          data-h2-margin="base(x.15)" // line up with chip
-        >
-          verify now
-        </Button>
+        {isEmailVerified ? (
+          <Chip color="success">
+            {intl.formatMessage({
+              defaultMessage: "Verified",
+              id: "GMglI5",
+              description:
+                "The email address has been verified to be owned by user",
+            })}
+          </Chip>
+        ) : (
+          <>
+            <Chip color="error">
+              {intl.formatMessage({
+                defaultMessage: "Unverified",
+                id: "tUIvbq",
+                description:
+                  "The email address has not been verified to be owned by user",
+              })}
+            </Chip>
+            <Button
+              type="button"
+              mode="inline"
+              color="error"
+              data-h2-margin="base(x.15)" // line up with chip
+            >
+              verify now
+            </Button>
+          </>
+        )}
       </div>
       <FieldDisplay
         hasError={!telephone}
