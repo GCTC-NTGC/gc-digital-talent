@@ -210,6 +210,7 @@ type ScreeningQuestion {
 
 interface HasRoleAssignments {
   roleAssignments: [RoleAssignment!]
+  teamId: ID! # Used to assign roles associated with this resource using the updateUserRoles mutation.
 }
 
 type Pool implements HasRoleAssignments {
