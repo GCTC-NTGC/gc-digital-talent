@@ -8,8 +8,8 @@ faker.seed();
 
 const pascalSplitRegex = /(?=[A-Z])/;
 
-function enumToString(value: string, delimeter: string | RegExp = "_") {
-  const string = value.split(delimeter).join(" ").toLowerCase();
+function enumToString(value: string, delimiter: string | RegExp = "_") {
+  const string = value.split(delimiter).join(" ").toLowerCase();
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
@@ -21,12 +21,12 @@ type EnumCase = "pascal" | "screaming_snake";
 
 function toLocalizedEnum<T extends string>(
   value: T,
-  delimeter?: string | RegExp,
+  delimiter?: string | RegExp,
   enumCase: EnumCase = "screaming_snake",
 ): GenericLocalizedEnum<T> {
   return {
     value: enumCase === "pascal" ? pascalToScreamingSnake(value) : value,
-    label: toLocalizedString(enumToString(value, delimeter)),
+    label: toLocalizedString(enumToString(value, delimiter)),
   };
 }
 
