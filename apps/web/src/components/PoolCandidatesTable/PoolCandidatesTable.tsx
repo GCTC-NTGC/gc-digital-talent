@@ -15,11 +15,8 @@ import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   errorMessages,
-  getLanguage,
   getLocale,
   getLocalizedName,
-  getPoolCandidatePriorities,
-  getPoolCandidateStatus,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -49,10 +46,7 @@ import Table, {
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
-import {
-  getPriorityWeight,
-  priorityWeightAfterVerification,
-} from "~/utils/poolCandidate";
+import { priorityWeightAfterVerification } from "~/utils/poolCandidate";
 
 import skillMatchDialogAccessor from "./SkillMatchDialog";
 import tableMessages from "./tableMessages";
@@ -108,7 +102,13 @@ const CandidatesTable_Query = graphql(/* GraphQL */ `
         en
         fr
       }
-      category
+      category {
+        value
+        label {
+          en
+          fr
+        }
+      }
       families {
         id
         key
@@ -168,7 +168,13 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
               group
               level
             }
-            stream
+            stream {
+              value
+              label {
+                en
+                fr
+              }
+            }
           }
           assessmentStatus {
             currentStep
@@ -181,29 +187,101 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
             firstName
             lastName
             telephone
-            preferredLang
-            preferredLanguageForInterview
-            preferredLanguageForExam
+            preferredLang {
+              value
+              label {
+                en
+                fr
+              }
+            }
+            preferredLanguageForInterview {
+              value
+              label {
+                en
+                fr
+              }
+            }
+            preferredLanguageForExam {
+              value
+              label {
+                en
+                fr
+              }
+            }
             currentCity
-            currentProvince
-            citizenship
-            armedForcesStatus
+            currentProvince {
+              value
+              label {
+                en
+                fr
+              }
+            }
+            citizenship {
+              value
+              label {
+                en
+                fr
+              }
+            }
+            armedForcesStatus {
+              value
+              label {
+                en
+                fr
+              }
+            }
 
             # Language
             lookingForEnglish
             lookingForFrench
             lookingForBilingual
-            firstOfficialLanguage
+            firstOfficialLanguage {
+              value
+              label {
+                en
+                fr
+              }
+            }
             secondLanguageExamCompleted
             secondLanguageExamValidity
-            comprehensionLevel
-            writtenLevel
-            verbalLevel
-            estimatedLanguageAbility
+            comprehensionLevel {
+              value
+              label {
+                en
+                fr
+              }
+            }
+            writtenLevel {
+              value
+              label {
+                en
+                fr
+              }
+            }
+            verbalLevel {
+              value
+              label {
+                en
+                fr
+              }
+            }
+            estimatedLanguageAbility {
+              value
+              label {
+                en
+                fr
+              }
+            }
 
             # Gov info
             isGovEmployee
-            govEmployeeType
+            govEmployeeType {
+              value
+              label {
+                en
+                fr
+              }
+            }
             currentClassification {
               id
               group
@@ -228,20 +306,51 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
             isWoman
             isVisibleMinority
             hasDisability
-            indigenousCommunities
+            indigenousCommunities {
+              value
+              label {
+                en
+                fr
+              }
+            }
             indigenousDeclarationSignature
 
             # Applicant info
             hasDiploma
-            locationPreferences
+            locationPreferences {
+              value
+              label {
+                en
+                fr
+              }
+            }
             locationExemptions
-            acceptedOperationalRequirements
+            acceptedOperationalRequirements {
+              value
+              label {
+                en
+                fr
+              }
+            }
             positionDuration
             priorityWeight
+            priority {
+              value
+              label {
+                en
+                fr
+              }
+            }
           }
           isBookmarked
           expiryDate
-          status
+          status {
+            value
+            label {
+              en
+              fr
+            }
+          }
           submittedAt
           notes
           archivedAt
@@ -260,6 +369,41 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
         lastPage
         perPage
         total
+      }
+    }
+  }
+`);
+
+const PoolCandidatesTableStrings_Query = graphql(/* GraphQL */ `
+  query PoolCandidatesTableStrings {
+    suspendedStatuses: localizedEnumStrings(
+      enumName: "CandidateSuspendedFilter"
+    ) {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    languages: localizedEnumStrings(enumName: "Language") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    provinces: localizedEnumStrings(enumName: "ProvinceOrTerritory") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    priorities: localizedEnumStrings(enumName: "PriorityWeight") {
+      value
+      label {
+        en
+        fr
       }
     }
   }
@@ -302,6 +446,9 @@ const PoolCandidatesTable = ({
   const paths = useRoutes();
   const initialState = getTableStateFromSearchParams(defaultState);
   const client = useClient();
+  const [{ data: stringData }] = useQuery({
+    query: PoolCandidatesTableStrings_Query,
+  });
   const [isSelecting, setIsSelecting] = useState<boolean>(false);
   const [selectingFor, setSelectingFor] = useState<SelectingFor>(null);
   const [selectedCandidates, setSelectedCandidates] = useState<PoolCandidate[]>(
@@ -598,20 +745,8 @@ const PoolCandidatesTable = ({
           ),
         ]),
     columnHelper.accessor(
-      ({ poolCandidate }) =>
-        intl.formatMessage(
-          poolCandidate.user.priorityWeight
-            ? getPoolCandidatePriorities(
-                getPriorityWeight(
-                  priorityWeightAfterVerification(
-                    poolCandidate.user.priorityWeight,
-                    poolCandidate.priorityVerification,
-                    poolCandidate.veteranVerification,
-                  ),
-                ),
-              )
-            : commonMessages.notFound,
-        ),
+      ({ poolCandidate: { user } }) =>
+        getLocalizedName(user.priority?.label, intl),
       {
         id: "priority",
         header: intl.formatMessage(adminMessages.category),
@@ -628,15 +763,13 @@ const PoolCandidatesTable = ({
                   poolCandidate.veteranVerification,
                 )
               : null,
+            stringData?.priorities,
             intl,
           ),
       },
     ),
     columnHelper.accessor(
-      ({ poolCandidate: { status } }) =>
-        intl.formatMessage(
-          status ? getPoolCandidateStatus(status) : commonMessages.notFound,
-        ),
+      ({ poolCandidate: { status } }) => getLocalizedName(status?.label, intl),
       {
         id: "finalDecision",
         header: intl.formatMessage(tableMessages.finalDecision),
@@ -646,15 +779,12 @@ const PoolCandidatesTable = ({
               poolCandidate: { status, assessmentStatus },
             },
           },
-        }) => finalDecisionCell(status, assessmentStatus, intl),
+        }) => finalDecisionCell(status?.value, assessmentStatus, intl),
         enableSorting: false,
       },
     ),
     columnHelper.accessor(
-      ({ poolCandidate: { status } }) =>
-        intl.formatMessage(
-          status ? getPoolCandidateStatus(status) : commonMessages.notFound,
-        ),
+      ({ poolCandidate: { status } }) => getLocalizedName(status?.label, intl),
       {
         id: "jobPlacement",
         header: intl.formatMessage(tableMessages.jobPlacement),
@@ -682,7 +812,11 @@ const PoolCandidatesTable = ({
     ),
     columnHelper.accessor(
       ({ poolCandidate }) =>
-        candidacyStatusAccessor(poolCandidate.suspendedAt, intl),
+        candidacyStatusAccessor(
+          poolCandidate.suspendedAt,
+          stringData?.suspendedStatuses,
+          intl,
+        ),
       {
         id: "candidacyStatus",
         header: intl.formatMessage(tableMessages.candidacyStatus),
@@ -700,11 +834,7 @@ const PoolCandidatesTable = ({
     }),
     columnHelper.accessor(
       ({ poolCandidate: { user } }) =>
-        intl.formatMessage(
-          user.preferredLang
-            ? getLanguage(user.preferredLang)
-            : commonMessages.notFound,
-        ),
+        getLocalizedName(user.preferredLang?.label, intl),
       {
         id: "preferredLang",
         header: intl.formatMessage(

@@ -1,10 +1,6 @@
 import { useIntl } from "react-intl";
 
-import {
-  commonMessages,
-  getAwardedScope,
-  getAwardedTo,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { AwardExperience } from "@gc-digital-talent/graphql";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
@@ -18,6 +14,8 @@ const AwardContent = ({
 }: ContentProps<AwardExperience>) => {
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
+  const notAvailable = intl.formatMessage(commonMessages.notAvailable);
+
   return (
     <div
       data-h2-display="base(grid)"
@@ -29,9 +27,9 @@ const AwardContent = ({
         headingLevel={headingLevel}
         data-h2-border-right="l-tablet(1px solid gray.lighter)"
       >
-        {intl.formatMessage(
-          awardedTo ? getAwardedTo(awardedTo) : commonMessages.notAvailable,
-        )}
+        {awardedTo?.label
+          ? getLocalizedName(awardedTo.label, intl)
+          : notAvailable}
       </ContentSection>
       <ContentSection
         title={experienceFormLabels.issuedBy}
@@ -44,11 +42,9 @@ const AwardContent = ({
         title={experienceFormLabels.awardedScope}
         headingLevel={headingLevel}
       >
-        {intl.formatMessage(
-          awardedScope
-            ? getAwardedScope(awardedScope)
-            : commonMessages.notAvailable,
-        )}
+        {awardedScope?.label
+          ? getLocalizedName(awardedScope.label, intl)
+          : notAvailable}
       </ContentSection>
     </div>
   );

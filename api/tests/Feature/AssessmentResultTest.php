@@ -85,8 +85,8 @@ class AssessmentResultTest extends TestCase
             updateAssessmentResult(updateAssessmentResult: $updateAssessmentResult) {
                 id
                 assessmentResultType
-                assessmentDecision
-                justifications
+                assessmentDecision { value }
+                justifications { value }
             }
         }
     ';
@@ -206,8 +206,12 @@ class AssessmentResultTest extends TestCase
             )
             ->assertJsonFragment([
                 'assessmentResultType' => AssessmentResultType::EDUCATION->name,
-                'assessmentDecision' => AssessmentDecision::UNSUCCESSFUL->name,
-                'justifications' => [AssessmentResultJustification::EDUCATION_FAILED_NOT_RELEVANT->name],
+                'assessmentDecision' => [
+                    'value' => AssessmentDecision::UNSUCCESSFUL->name,
+                ],
+                'justifications' => [[
+                    'value' => AssessmentResultJustification::EDUCATION_FAILED_NOT_RELEVANT->name,
+                ]],
             ]);
     }
 

@@ -3,6 +3,8 @@ import {
   LocalizedString,
   Maybe,
   Pool,
+  PoolLanguage,
+  SecurityStatus,
   UpdatePoolInput,
 } from "@gc-digital-talent/graphql";
 
@@ -20,16 +22,16 @@ const getLocationOption = (isRemote: Maybe<boolean> | undefined) => {
 };
 
 export type FormValues = {
-  languageRequirement: Pool["language"];
-  securityRequirement: Pool["securityClearance"];
+  languageRequirement?: PoolLanguage;
+  securityRequirement?: SecurityStatus;
   locationOption: LocationOption;
   specificLocationEn?: LocalizedString["en"];
   specificLocationFr?: LocalizedString["fr"];
 };
 
 export const dataToFormValues = (initialData: Pool): FormValues => ({
-  languageRequirement: initialData.language,
-  securityRequirement: initialData.securityClearance,
+  languageRequirement: initialData.language?.value,
+  securityRequirement: initialData.securityClearance?.value,
   locationOption: getLocationOption(initialData.isRemote),
   specificLocationEn: initialData.location?.en,
   specificLocationFr: initialData.location?.fr,

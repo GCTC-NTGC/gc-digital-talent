@@ -50,7 +50,7 @@ const ApplicationContextProvider = ({
   const { setKey } = useTheme();
   const state = useMemo(
     () => ({
-      isIAP: isIAPPool(application.pool),
+      isIAP: isIAPPool(application.pool.publishingGroup?.value),
       followingPageUrl,
       currentStepOrdinal,
       classificationGroup: application.pool.classification?.group,
@@ -60,7 +60,7 @@ const ApplicationContextProvider = ({
 
   useEffect(() => {
     const themeCheck = setTimeout(() => {
-      if (isIAPPool(application.pool)) {
+      if (isIAPPool(application.pool.publishingGroup?.value)) {
         setKey("iap");
       }
     }, 10);

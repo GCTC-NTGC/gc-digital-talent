@@ -71,15 +71,61 @@ use App\Enums\SkillLevel;
 use App\Enums\WhenSkillUsed;
 use App\Enums\WorkRegion;
 use App\GraphQL\Operators\PostgreSQLOperator;
+use App\Models\PoolSkill;
 use GraphQL\Type\Definition\EnumType;
+use GraphQL\Type\Definition\ObjectType;
+use GraphQL\Type\Definition\Type;
 use Illuminate\Support\ServiceProvider;
 use Nuwave\Lighthouse\Schema\TypeRegistry;
 use Nuwave\Lighthouse\WhereConditions\Operator;
 
 class GraphQLServiceProvider extends ServiceProvider
 {
+    protected $localizedEnums = [
+        ArmedForcesStatus::class,
+        AssessmentDecision::class,
+        AssessmentDecisionLevel::class,
+        AssessmentResultJustification::class,
+        AssessmentStepType::class,
+        AwardedScope::class,
+        AwardedTo::class,
+        CandidateExpiryFilter::class,
+        CandidateRemovalReason::class,
+        CandidateSuspendedFilter::class,
+        CitizenshipStatus::class,
+        EducationRequirementOption::class,
+        EducationStatus::class,
+        EducationType::class,
+        EstimatedLanguageAbility::class,
+        EvaluatedLanguageAbility::class,
+        GovEmployeeType::class,
+        IndigenousCommunity::class,
+        Language::class,
+        LanguageAbility::class,
+        OperationalRequirement::class,
+        PlacementType::class,
+        PoolCandidateSearchPositionType::class,
+        PoolCandidateSearchRequestReason::class,
+        PoolCandidateSearchStatus::class,
+        PoolCandidateStatus::class,
+        PoolLanguage::class,
+        PoolOpportunityLength::class,
+        PoolSkill::class,
+        PoolSkillType::class,
+        PoolStatus::class,
+        PoolStream::class,
+        PriorityWeight::class,
+        ProvinceOrTerritory::class,
+        PublishingGroup::class,
+        SecurityStatus::class,
+        SkillCategory::class,
+        SkillLevel::class,
+        WorkRegion::class,
+    ];
+
     public function boot(TypeRegistry $typeRegistry): void
     {
+
         $typeRegistry->registerLazy(
             'Language',
             static function (): EnumType {
@@ -702,6 +748,24 @@ class GraphQLServiceProvider extends ServiceProvider
                 ]);
             }
         );
+
+        foreach ($this->localizedEnums as $enum) {
+            $name = class_basename($enum);
+
+            if (method_exists($enum, 'localizedString')) {
+                $typeRegistry->register(
+                    new ObjectType([
+                        'name' => 'Localized'.$name,
+                        'fields' => function () use ($typeRegistry, $name): array {
+                            return [
+                                'value' => Type::nonNull($typeRegistry->get($name)),
+                                'label' => Type::nonNull($typeRegistry->get('LocalizedString')),
+                            ];
+                        },
+                    ])
+                );
+            }
+        }
     }
 
     public function register(): void

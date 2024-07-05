@@ -42,4 +42,9 @@ class ApiErrorEnums
     const INVALID_STATUS_PLACING = 'InvalidStatusForPlacing';
 
     const CANDIDATE_NOT_PLACED = 'CandidateNotPlaced';
+
+    // Localized Enums
+    const ENUM_NOT_FOUND = 'EnumNotFound';
+
+    const ENUM_NOT_LOCALIZED = 'EnumNotLocalized';
 }

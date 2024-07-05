@@ -8,6 +8,7 @@ import {
   formMessages,
   getEmploymentEquityGroup,
 } from "@gc-digital-talent/i18n";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getSelfDeclarationLabels } from "~/components/SelfDeclaration/utils";
 import { CommunityList } from "~/components/SelfDeclaration/CommunitySelection";
@@ -36,7 +37,11 @@ const IndigenousDialog = ({
   const intl = useIntl();
   const methods = useForm<FormValuesWithSignature>({
     defaultValues: {
-      ...apiCommunitiesToFormValues(indigenousCommunities),
+      ...apiCommunitiesToFormValues(
+        unpackMaybes(
+          indigenousCommunities.flatMap((community) => community.value),
+        ),
+      ),
       signature,
     },
   });

@@ -7,7 +7,10 @@ import { Provider as GraphqlProvider } from "urql";
 import { pipe, fromValue, delay } from "wonka";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
-import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
+import {
+  fakePoolCandidates,
+  toLocalizedEnum,
+} from "@gc-digital-talent/fake-data";
 import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
@@ -58,7 +61,7 @@ describe("QualifiedRecruitmentCard", () => {
       candidateQuery: makeFragmentData(
         {
           ...mockApplication,
-          status: PoolCandidateStatus.PlacedCasual,
+          status: toLocalizedEnum(PoolCandidateStatus.PlacedCasual),
           suspendedAt: null,
         },
         QualifiedRecruitmentCard_Fragment,
@@ -92,7 +95,7 @@ describe("QualifiedRecruitmentCard", () => {
       candidateQuery: makeFragmentData(
         {
           ...mockApplication,
-          status: PoolCandidateStatus.PlacedCasual,
+          status: toLocalizedEnum(PoolCandidateStatus.PlacedCasual),
           suspendedAt: FAR_PAST_DATE,
         },
         QualifiedRecruitmentCard_Fragment,
@@ -126,7 +129,7 @@ describe("QualifiedRecruitmentCard", () => {
       candidateQuery: makeFragmentData(
         {
           ...mockApplication,
-          status: PoolCandidateStatus.PlacedIndeterminate,
+          status: toLocalizedEnum(PoolCandidateStatus.PlacedIndeterminate),
           suspendedAt: null,
         },
         QualifiedRecruitmentCard_Fragment,
@@ -160,7 +163,7 @@ describe("QualifiedRecruitmentCard", () => {
       candidateQuery: makeFragmentData(
         {
           ...mockApplication,
-          status: PoolCandidateStatus.PlacedIndeterminate,
+          status: toLocalizedEnum(PoolCandidateStatus.PlacedIndeterminate),
           suspendedAt: FAR_PAST_DATE,
         },
         QualifiedRecruitmentCard_Fragment,
@@ -194,7 +197,7 @@ describe("QualifiedRecruitmentCard", () => {
       candidateQuery: makeFragmentData(
         {
           ...mockApplication,
-          status: PoolCandidateStatus.PlacedTerm,
+          status: toLocalizedEnum(PoolCandidateStatus.PlacedTerm),
           suspendedAt: null,
         },
         QualifiedRecruitmentCard_Fragment,
@@ -228,7 +231,7 @@ describe("QualifiedRecruitmentCard", () => {
       candidateQuery: makeFragmentData(
         {
           ...mockApplication,
-          status: PoolCandidateStatus.PlacedTerm,
+          status: toLocalizedEnum(PoolCandidateStatus.PlacedTerm),
           suspendedAt: FAR_PAST_DATE,
         },
         QualifiedRecruitmentCard_Fragment,
@@ -262,7 +265,7 @@ describe("QualifiedRecruitmentCard", () => {
       candidateQuery: makeFragmentData(
         {
           ...mockApplication,
-          status: PoolCandidateStatus.QualifiedAvailable,
+          status: toLocalizedEnum(PoolCandidateStatus.QualifiedAvailable),
           suspendedAt: null,
         },
         QualifiedRecruitmentCard_Fragment,
@@ -287,7 +290,7 @@ describe("QualifiedRecruitmentCard", () => {
       candidateQuery: makeFragmentData(
         {
           ...mockApplication,
-          status: PoolCandidateStatus.QualifiedAvailable,
+          status: toLocalizedEnum(PoolCandidateStatus.QualifiedAvailable),
           suspendedAt: FAR_PAST_DATE,
         },
         QualifiedRecruitmentCard_Fragment,
@@ -314,7 +317,7 @@ describe("QualifiedRecruitmentCard", () => {
       candidateQuery: makeFragmentData(
         {
           ...mockApplication,
-          status: PoolCandidateStatus.QualifiedUnavailable,
+          status: toLocalizedEnum(PoolCandidateStatus.QualifiedUnavailable),
           suspendedAt: null,
         },
         QualifiedRecruitmentCard_Fragment,
@@ -348,7 +351,7 @@ describe("QualifiedRecruitmentCard", () => {
       candidateQuery: makeFragmentData(
         {
           ...mockApplication,
-          status: PoolCandidateStatus.QualifiedUnavailable,
+          status: toLocalizedEnum(PoolCandidateStatus.QualifiedUnavailable),
           suspendedAt: FAR_PAST_DATE,
         },
         QualifiedRecruitmentCard_Fragment,
@@ -382,7 +385,7 @@ describe("QualifiedRecruitmentCard", () => {
       candidateQuery: makeFragmentData(
         {
           ...mockApplication,
-          status: PoolCandidateStatus.QualifiedWithdrew,
+          status: toLocalizedEnum(PoolCandidateStatus.QualifiedWithdrew),
           suspendedAt: null,
         },
         QualifiedRecruitmentCard_Fragment,
@@ -416,7 +419,7 @@ describe("QualifiedRecruitmentCard", () => {
       candidateQuery: makeFragmentData(
         {
           ...mockApplication,
-          status: PoolCandidateStatus.QualifiedWithdrew,
+          status: toLocalizedEnum(PoolCandidateStatus.QualifiedWithdrew),
           suspendedAt: FAR_PAST_DATE,
         },
         QualifiedRecruitmentCard_Fragment,
@@ -450,7 +453,7 @@ describe("QualifiedRecruitmentCard", () => {
       candidateQuery: makeFragmentData(
         {
           ...mockApplication,
-          status: PoolCandidateStatus.Expired,
+          status: toLocalizedEnum(PoolCandidateStatus.Expired),
           suspendedAt: null,
         },
         QualifiedRecruitmentCard_Fragment,
@@ -484,7 +487,7 @@ describe("QualifiedRecruitmentCard", () => {
       candidateQuery: makeFragmentData(
         {
           ...mockApplication,
-          status: PoolCandidateStatus.Expired,
+          status: toLocalizedEnum(PoolCandidateStatus.Expired),
           suspendedAt: FAR_PAST_DATE,
         },
         QualifiedRecruitmentCard_Fragment,

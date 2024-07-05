@@ -1,4 +1,10 @@
-import { User } from "@gc-digital-talent/graphql";
+import {
+  EstimatedLanguageAbility,
+  EvaluatedLanguageAbility,
+  Language,
+  Maybe,
+  User,
+} from "@gc-digital-talent/graphql";
 
 export type PartialUser = Pick<
   User,
@@ -14,15 +20,13 @@ export type PartialUser = Pick<
   | "secondLanguageExamValidity"
 >;
 
-export type FormValues = Pick<
-  User,
-  | "comprehensionLevel"
-  | "writtenLevel"
-  | "verbalLevel"
-  | "estimatedLanguageAbility"
-  | "firstOfficialLanguage"
-  | "secondLanguageExamCompleted"
-> & {
+export type FormValues = {
+  comprehensionLevel?: Maybe<EvaluatedLanguageAbility>;
+  writtenLevel?: Maybe<EvaluatedLanguageAbility>;
+  verbalLevel?: Maybe<EvaluatedLanguageAbility>;
+  estimatedLanguageAbility?: Maybe<EstimatedLanguageAbility>;
+  firstOfficialLanguage?: Maybe<Language>;
+  secondLanguageExamCompleted?: Maybe<boolean>;
   consideredPositionLanguages: string[];
   secondLanguageExamValidity?: "currently_valid" | "expired" | null;
 };

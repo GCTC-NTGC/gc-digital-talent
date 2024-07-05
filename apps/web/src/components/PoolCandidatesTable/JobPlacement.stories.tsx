@@ -2,10 +2,16 @@ import { Meta, StoryObj } from "@storybook/react";
 
 import {
   fakeDepartments,
+  fakeLocalizedEnum,
   fakePoolCandidates,
+  toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
-import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 import {
+  MockGraphqlDecorator,
+  OverlayOrDialogDecorator,
+} from "@gc-digital-talent/storybook-helpers";
+import {
+  PlacementType,
   PoolCandidateStatus,
   makeFragmentData,
 } from "@gc-digital-talent/graphql";
@@ -19,7 +25,7 @@ const departments = fakeDepartments();
 const placedData = makeFragmentData(
   {
     id: fakedCandidate.id,
-    status: PoolCandidateStatus.PlacedCasual,
+    status: toLocalizedEnum(PoolCandidateStatus.PlacedCasual),
     placedDepartment: departments[0],
   },
   JobPlacementDialog_Fragment,
@@ -27,7 +33,7 @@ const placedData = makeFragmentData(
 const notPlacedData = makeFragmentData(
   {
     id: fakedCandidate.id,
-    status: PoolCandidateStatus.QualifiedAvailable,
+    status: toLocalizedEnum(PoolCandidateStatus.QualifiedAvailable),
     placedDepartment: departments[0],
   },
   JobPlacementDialog_Fragment,
@@ -35,10 +41,19 @@ const notPlacedData = makeFragmentData(
 
 export default {
   component: JobPlacementDialog,
-  decorators: [OverlayOrDialogDecorator],
+  decorators: [OverlayOrDialogDecorator, MockGraphqlDecorator],
   args: {
     departments,
     defaultOpen: true,
+  },
+  parameters: {
+    apiResponses: {
+      JobPlacementOptions: {
+        data: {
+          placementTypes: fakeLocalizedEnum(PlacementType),
+        },
+      },
+    },
   },
 } as Meta;
 
