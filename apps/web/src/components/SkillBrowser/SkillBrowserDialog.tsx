@@ -12,7 +12,7 @@ import {
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { Skill } from "@gc-digital-talent/graphql";
+import { Skill, SkillCategory } from "@gc-digital-talent/graphql";
 
 import SkillDetails from "./SkillDetails";
 import SkillSelection from "./SkillSelection";
@@ -160,12 +160,18 @@ const SkillBrowserDialog = ({
               />
               {selectedSkill && shouldShowDetails && (
                 <SkillDetails
-                  category={selectedSkill.category}
+                  category={
+                    selectedSkill.category.value ?? SkillCategory.Technical
+                  }
                   context={context}
                 />
               )}
               {selectedSkill && context === "pool" && (
-                <SkillDetailsPool category={selectedSkill.category} />
+                <SkillDetailsPool
+                  category={
+                    selectedSkill.category.value ?? SkillCategory.Technical
+                  }
+                />
               )}
               <Dialog.Footer>
                 <Button

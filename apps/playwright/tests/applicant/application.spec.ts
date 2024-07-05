@@ -108,7 +108,8 @@ test.describe("Application", () => {
 
     await poolPage.createPoolSkill(
       createdPool.id,
-      skills.find((skill) => skill.category === SkillCategory.Technical).id,
+      skills.find((skill) => skill.category.value === SkillCategory.Technical)
+        .id,
       {
         type: PoolSkillType.Essential,
         requiredLevel: SkillLevel.Beginner,

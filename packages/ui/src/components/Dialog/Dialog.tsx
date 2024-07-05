@@ -90,6 +90,7 @@ interface DialogProps extends DialogPrimitiveContentProps {
   container?: HTMLElement;
   wide?: boolean;
   closeLabel?: string;
+  hasSubtitle?: boolean;
 }
 
 type DialogPrimitiveContentProps = ComponentPropsWithoutRef<
@@ -101,7 +102,14 @@ const Content = forwardRef<
   DialogProps
 >(
   (
-    { container, closeLabel, wide = false, children, ...props },
+    {
+      container,
+      closeLabel,
+      children,
+      wide = false,
+      hasSubtitle = false,
+      ...props
+    },
     forwardedRef,
   ) => {
     const intl = useIntl();
@@ -118,6 +126,9 @@ const Content = forwardRef<
               : {
                   "data-h2-max-width": "base(x32)",
                 })}
+            {...(!hasSubtitle && {
+              "aria-describedby": undefined,
+            })}
             {...props}
           >
             <StyledClose>

@@ -11,7 +11,7 @@ import {
 
 import profileMessages from "~/messages/profileMessages";
 
-import { FormValues, PartialUser } from "./types";
+import { FormValues } from "./types";
 
 export const getLabels = (intl: IntlShape) => ({
   preferredLang: intl.formatMessage({
@@ -60,18 +60,18 @@ export const getLabels = (intl: IntlShape) => ({
   armedForcesStatus: intl.formatMessage(profileMessages.veteranStatus),
 });
 
-export const dataToFormValues = (data?: PartialUser | null): FormValues => ({
-  preferredLang: data?.preferredLang,
-  preferredLanguageForInterview: data?.preferredLanguageForInterview,
-  preferredLanguageForExam: data?.preferredLanguageForExam,
-  currentProvince: data?.currentProvince,
+export const dataToFormValues = (data?: User | null): FormValues => ({
+  preferredLang: data?.preferredLang?.value,
+  preferredLanguageForInterview: data?.preferredLanguageForInterview?.value,
+  preferredLanguageForExam: data?.preferredLanguageForExam?.value,
+  currentProvince: data?.currentProvince?.value,
   currentCity: data?.currentCity,
   telephone: data?.telephone,
   firstName: data?.firstName,
   lastName: data?.lastName,
   email: data?.email,
-  citizenship: data?.citizenship,
-  armedForcesStatus: data?.armedForcesStatus,
+  citizenship: data?.citizenship?.value,
+  armedForcesStatus: data?.armedForcesStatus?.value,
 });
 
 export const formValuesToSubmitData = (

@@ -4,6 +4,7 @@ import { UniqueEnforcer } from "enforce-unique";
 import { Skill, SkillCategory, SkillFamily } from "@gc-digital-talent/graphql";
 
 import staticSkills from "./skills.json";
+import toLocalizedEnum from "./fakeLocalizedEnum";
 
 const generateSkill = (
   skillFamilies: SkillFamily[],
@@ -32,12 +33,10 @@ const generateSkill = (
       en: keywordsEN,
       fr: keywordsFR,
     },
-    category:
+    category: toLocalizedEnum(
       overrideCategory ??
-      faker.helpers.arrayElement<SkillCategory>([
-        SkillCategory.Behavioural,
-        SkillCategory.Technical,
-      ]),
+        faker.helpers.arrayElement<SkillCategory>(Object.values(SkillCategory)),
+    ),
     families: skillFamilies.length
       ? faker.helpers.arrayElements<SkillFamily>(skillFamilies)
       : ([] as SkillFamily[]),
@@ -50,7 +49,11 @@ const generateSkill = (
 };
 
 export const getStaticSkills = (): Skill[] =>
-  staticSkills.data.skills as Skill[];
+  staticSkills.data.skills.map((skill) => ({
+    ...skill,
+    // TO DO: Regenerate static data to no need this
+    category: toLocalizedEnum(skill.category),
+  })) as Skill[];
 
 export default (
   numToGenerate = 10,

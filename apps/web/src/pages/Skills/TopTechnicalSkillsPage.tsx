@@ -158,14 +158,14 @@ const TopTechnicalSkillsPage = () => {
   const userSkills = data?.me?.userSkills?.filter(notEmpty);
   const technicalSkills = data?.skills
     .filter(notEmpty)
-    .filter((skill) => skill.category === SkillCategory.Technical);
+    .filter((skill) => skill.category.value === SkillCategory.Technical);
 
   const initialSkills: FormValues = {
     userSkills:
       userSkills
         ?.filter(
           (userSkill) =>
-            userSkill.skill.category === SkillCategory.Technical &&
+            userSkill.skill.category.value === SkillCategory.Technical &&
             userSkill.topSkillsRank,
         )
         .sort(
@@ -176,7 +176,7 @@ const TopTechnicalSkillsPage = () => {
             skill: userSkill.skill.id,
             skillLevel: userSkill.skillLevel ?? undefined,
             whenSkillUsed: userSkill.whenSkillUsed ?? undefined,
-            category: userSkill.skill.category,
+            category: userSkill.skill.category.value,
           };
         }) ?? [],
   };

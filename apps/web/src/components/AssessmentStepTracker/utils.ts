@@ -15,11 +15,7 @@ import {
   AssessmentStepTracker_CandidateFragment,
 } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import {
-  commonMessages,
-  getAssessmentStepType,
-  getLocalizedName,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
 import { NO_DECISION, NullableDecision } from "~/utils/assessmentResults";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
@@ -289,8 +285,8 @@ export const filterAlreadyDisqualified = (
   const filteredResult = candidates.filter(
     (candidate) =>
       !(
-        (isDisqualifiedStatus(candidate.status) ||
-          isRemovedStatus(candidate.status)) &&
+        (isDisqualifiedStatus(candidate.status?.value) ||
+          isRemovedStatus(candidate.status?.value)) &&
         (candidate.assessmentResults ? candidate.assessmentResults : [])
           .length === 0
       ),
@@ -308,7 +304,7 @@ export const generateStepName = (
     return titleLocalized;
   }
   if (step.type) {
-    return intl.formatMessage(getAssessmentStepType(step.type));
+    return getLocalizedName(step.type.label, intl);
   }
   return intl.formatMessage(commonMessages.notAvailable);
 };

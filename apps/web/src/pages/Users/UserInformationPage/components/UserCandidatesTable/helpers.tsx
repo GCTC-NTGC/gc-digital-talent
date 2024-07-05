@@ -3,19 +3,19 @@ import { IntlShape } from "react-intl";
 
 import {
   commonMessages,
-  getCandidateSuspendedFilterStatus,
-  getPoolCandidatePriorities,
+  MaybeLocalizedEnums,
+  getLocalizedEnumStringByValue,
 } from "@gc-digital-talent/i18n";
 import { Chip, Link, Spoiler } from "@gc-digital-talent/ui";
 import {
-  PoolCandidate,
   FragmentType,
-  User,
   PoolCandidateStatus,
   CandidateSuspendedFilter,
   Maybe,
   Pool,
   AssessmentResultStatus,
+  Scalars,
+  PriorityWeight,
 } from "@gc-digital-talent/graphql";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
@@ -25,24 +25,22 @@ import CandidateBookmark, {
 import { getFullNameLabel } from "~/utils/nameUtils";
 import tableMessages from "~/components/PoolCandidatesTable/tableMessages";
 import useRoutes from "~/hooks/useRoutes";
-import {
-  getCandidateStatusChip,
-  getPriorityWeight,
-} from "~/utils/poolCandidate";
+import { getCandidateStatusChip } from "~/utils/poolCandidate";
 import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
 
 export const candidateNameCell = (
-  user: User,
-  candidate: PoolCandidate,
+  firstName: Maybe<string> | undefined,
+  lastName: Maybe<string> | undefined,
+  candidateId: Scalars["UUID"]["output"],
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
   tableCandidateIds?: string[],
 ) => {
-  const candidateName = getFullNameLabel(user.firstName, user.lastName, intl);
+  const candidateName = getFullNameLabel(firstName, lastName, intl);
   return (
     <Link
-      href={paths.poolCandidateApplication(candidate.id)}
+      href={paths.poolCandidateApplication(candidateId)}
       state={{ candidateIds: tableCandidateIds, stepName: null }}
     >
       {candidateName}
@@ -70,30 +68,40 @@ export const bookmarkHeader = (intl: IntlShape) => (
 );
 
 export const priorityCell = (
-  priority: number | null | undefined,
+  priorityWeight: number | null | undefined,
+  priorities: MaybeLocalizedEnums | undefined,
   intl: IntlShape,
 ) => {
+  let priority: PriorityWeight | null = null;
+  switch (priorityWeight) {
+    case 10:
+      priority = PriorityWeight.PriorityEntitlement;
+      break;
+    case 20:
+      priority = PriorityWeight.Veteran;
+      break;
+    case 30:
+      priority = PriorityWeight.CitizenOrPermanentResident;
+      break;
+    default:
+    // null
+  }
+
   if (!priority) return null;
 
-  if (priority === 10 || priority === 20) {
+  const label = getLocalizedEnumStringByValue(priority, priorities, intl);
+
+  if (priorityWeight === 10 || priorityWeight === 20) {
     return (
       <span
         data-h2-color="base(primary.darker)"
         data-h2-font-weight="base(700)"
       >
-        {intl.formatMessage(
-          getPoolCandidatePriorities(getPriorityWeight(priority)),
-        )}
+        {label}
       </span>
     );
   }
-  return (
-    <span>
-      {intl.formatMessage(
-        getPoolCandidatePriorities(getPriorityWeight(priority)),
-      )}
-    </span>
-  );
+  return <span>{label}</span>;
 };
 
 export const processCell = (
@@ -116,33 +124,40 @@ export const processCell = (
   );
 };
 
+// suspended_at is a time, must output ACTIVE or SUSPENDED strings for column viewing and sorting
+const getSuspendedStatus = (
+  suspendedTime: Date,
+  currentTime: Date,
+): CandidateSuspendedFilter => {
+  if (suspendedTime >= currentTime) {
+    return CandidateSuspendedFilter.Active;
+  }
+  return CandidateSuspendedFilter.Suspended;
+};
+
 export const candidacyStatusAccessor = (
   suspendedAt: string | null | undefined,
+  suspendedStatusStrings: MaybeLocalizedEnums | undefined,
   intl: IntlShape,
 ) => {
-  // suspended_at is a time, must output ACTIVE or SUSPENDED strings for column viewing and sorting
-  const getSuspendedStatus = (
-    suspendedTime: Date,
-    currentTime: Date,
-  ): CandidateSuspendedFilter => {
-    if (suspendedTime >= currentTime) {
-      return CandidateSuspendedFilter.Active;
-    }
-    return CandidateSuspendedFilter.Suspended;
-  };
-
   if (suspendedAt) {
     const parsedSuspendedTime = parseDateTimeUtc(suspendedAt);
     const currentTime = new Date();
-    return intl.formatMessage(
-      getCandidateSuspendedFilterStatus(
-        getSuspendedStatus(parsedSuspendedTime, currentTime),
-      ),
+    const suspendedStatus = getSuspendedStatus(
+      parsedSuspendedTime,
+      currentTime,
+    );
+    return getLocalizedEnumStringByValue(
+      suspendedStatus,
+      suspendedStatusStrings,
+      intl,
     );
   }
 
-  return intl.formatMessage(
-    getCandidateSuspendedFilterStatus(CandidateSuspendedFilter.Active),
+  return getLocalizedEnumStringByValue(
+    CandidateSuspendedFilter.Active,
+    suspendedStatusStrings,
+    intl,
   );
 };
 

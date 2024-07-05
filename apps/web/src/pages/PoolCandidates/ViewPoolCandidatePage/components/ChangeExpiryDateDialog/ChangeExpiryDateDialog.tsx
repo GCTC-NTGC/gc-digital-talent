@@ -38,7 +38,9 @@ const CandidateExpiryDateDialog_Fragment = graphql(/* GraphQL */ `
   fragment CandidateExpiryDateDialog on PoolCandidate {
     id
     expiryDate
-    status
+    status {
+      value
+    }
   }
 `);
 
@@ -68,7 +70,10 @@ const ChangeExpiryDateDialog = ({
 
   const { handleSubmit } = methods;
 
-  if (!application.expiryDate || !isQualifiedStatus(application.status)) {
+  if (
+    !application.expiryDate ||
+    !isQualifiedStatus(application.status?.value)
+  ) {
     return null;
   }
 

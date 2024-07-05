@@ -15,6 +15,7 @@ import {
   fakePools,
   fakeSkills,
 } from "@gc-digital-talent/fake-data";
+import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
 
 import SingleSearchRequestTableApi from "./SearchRequestCandidatesTable";
 
@@ -63,11 +64,26 @@ const mockClient = {
           data: [mockPools[0]],
           paginatorInfo: mockPaginatorInfo,
         },
+        suspendedStatuses: [],
+        languages: [],
+        provinces: [],
+        statuses: [
+          {
+            value: PoolCandidateStatus.PlacedCasual,
+            label: { en: "Placed casual", fr: "Placed casual" },
+          },
+          {
+            value: PoolCandidateStatus.QualifiedAvailable,
+            label: { en: "Qualified available", fr: "Qualified available" },
+          },
+          {
+            value: PoolCandidateStatus.PlacedTentative,
+            label: { en: "Offer in progress", fr: "Offer in progress" },
+          },
+        ],
       },
     }),
-  // See: https://github.com/FormidableLabs/urql/discussions/2057#discussioncomment-1568874
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-} as any;
+};
 
 const render = () => {
   return renderWithProviders(

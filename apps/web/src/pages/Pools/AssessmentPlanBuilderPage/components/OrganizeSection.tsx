@@ -48,21 +48,39 @@ const OrganizeSection_SwapMutation = graphql(/* GraphQL */ `
 const OrganizeSectionPool_Fragment = graphql(/* GraphQL */ `
   fragment OrganizeSectionPool on Pool {
     id
-    status
+    status {
+      value
+      label {
+        en
+        fr
+      }
+    }
     ...AssessmentStepCardPool
     poolSkills {
       ...AssessmentDetailsDialogPoolSkill
     }
     assessmentSteps {
       id
-      type
+      type {
+        value
+        label {
+          en
+          fr
+        }
+      }
       sortOrder
       poolSkills {
         id
         skill {
           id
           key
-          category
+          category {
+            value
+            label {
+              en
+              fr
+            }
+          }
           name {
             en
             fr
@@ -107,7 +125,7 @@ const OrganizeSection = ({
 
   const disabledIndexes = steps
     .map((step, index) => {
-      return step.type === AssessmentStepType.ApplicationScreening
+      return step.type?.value === AssessmentStepType.ApplicationScreening
         ? index
         : undefined;
     })
@@ -187,7 +205,8 @@ const OrganizeSection = ({
   const moveDisabledIndexes = [0];
   // screening question step optionally exists
   const indexOfScreeningQuestionStep = steps.findIndex(
-    (step) => step.type === AssessmentStepType.ScreeningQuestionsAtApplication,
+    (step) =>
+      step.type?.value === AssessmentStepType.ScreeningQuestionsAtApplication,
   );
   // screening question can never be moved
   if (indexOfScreeningQuestionStep >= 0) {
@@ -195,7 +214,7 @@ const OrganizeSection = ({
   }
 
   const formDisabled =
-    pool.status !== PoolStatus.Draft ||
+    pool.status?.value !== PoolStatus.Draft ||
     deleteFetching ||
     swapFetching ||
     pageLoading;

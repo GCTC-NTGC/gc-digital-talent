@@ -1,13 +1,7 @@
 import { useIntl } from "react-intl";
 
 import { Heading } from "@gc-digital-talent/ui";
-import {
-  commonMessages,
-  getAwardedScope,
-  getAwardedTo,
-  getEducationStatus,
-  getLocalizedName,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Skill, Experience, Maybe } from "@gc-digital-talent/graphql";
 
 import {
@@ -74,11 +68,7 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
         <p>
           {experienceLabels.awardedTo}
           {intl.formatMessage(commonMessages.dividingColon)}
-          {intl.formatMessage(
-            experience.awardedTo
-              ? getAwardedTo(experience.awardedTo)
-              : commonMessages.notAvailable,
-          )}
+          {getLocalizedName(experience.awardedTo?.label, intl)}
         </p>
         <p>
           {experienceLabels.issuedBy}
@@ -88,11 +78,7 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
         <p data-h2-margin-bottom="base(x1)">
           {experienceLabels.awardedScope}
           {intl.formatMessage(commonMessages.dividingColon)}
-          {intl.formatMessage(
-            experience.awardedScope
-              ? getAwardedScope(experience.awardedScope)
-              : commonMessages.notAvailable,
-          )}
+          {getLocalizedName(experience.awardedScope?.label, intl)}
         </p>
         <p>
           {experienceLabels.details}
@@ -135,11 +121,7 @@ const ExperienceItem = ({ experience }: ExperienceItemProps) => {
         <p>
           {experienceLabels.educationStatus}
           {intl.formatMessage(commonMessages.dividingColon)}
-          {intl.formatMessage(
-            experience.status
-              ? getEducationStatus(experience.status)
-              : commonMessages.notAvailable,
-          )}
+          {getLocalizedName(experience.status?.label, intl)}
         </p>
         <p data-h2-margin-bottom="base(x1)">
           {experienceLabels.thesisTitle}

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { defineMessage, useIntl } from "react-intl";
-import { useMutation } from "urql";
+import { useMutation, useQuery } from "urql";
 import { FormProvider, useForm } from "react-hook-form";
 
 import {
@@ -10,13 +10,18 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 import { Button, Dialog } from "@gc-digital-talent/ui";
-import { RadioGroup, TextArea, enumToOptions } from "@gc-digital-talent/forms";
+import {
+  RadioGroup,
+  TextArea,
+  localizedEnumToOptions,
+} from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
   errorMessages,
   formMessages,
-  getCandidateRemovalReason,
+  getLocalizedEnumStringByValue,
+  sortCandidateRemovalReason,
 } from "@gc-digital-talent/i18n";
 
 import FormChangeNotifyWell from "~/components/FormChangeNotifyWell/FormChangeNotifyWell";
@@ -45,8 +50,22 @@ const RemoveCandidate_Mutation = graphql(/* GraphQL */ `
 export const RemoveCandidateDialog_Fragment = graphql(/* GraphQL */ `
   fragment RemoveCandidateDialog on PoolCandidate {
     id
-    removalReason
+    removalReason {
+      value
+    }
     removalReasonOther
+  }
+`);
+
+const RemoveCandidateOptions_Query = graphql(/* GraphQL */ `
+  query RemoveCandidateOptions {
+    removalReasons: localizedEnumStrings(enumName: "CandidateRemovalReason") {
+      value
+      label {
+        en
+        fr
+      }
+    }
   }
 `);
 
@@ -67,24 +86,25 @@ const RemoveCandidateDialog = ({
 }: RemoveCandidateDialogProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
+  const [{ data }] = useQuery({ query: RemoveCandidateOptions_Query });
   const candidate = getFragment(RemoveCandidateDialog_Fragment, removalQuery);
 
   const [{ fetching }, removeCandidate] = useMutation(RemoveCandidate_Mutation);
 
   const methods = useForm<FormValues>({
     defaultValues: {
-      removalReason: candidate.removalReason ?? undefined,
+      removalReason: candidate.removalReason?.value ?? undefined,
       removalReasonOther: candidate.removalReasonOther ?? undefined,
     },
   });
 
   const removalReason = methods.watch("removalReason");
 
-  const submitHandler = async (data: FormValues) => {
+  const submitHandler = async (values: FormValues) => {
     await removeCandidate({
       id: candidate.id,
-      removalReason: data.removalReason ?? CandidateRemovalReason.Other,
-      removalReasonOther: data.removalReasonOther ?? "",
+      removalReason: values.removalReason ?? CandidateRemovalReason.Other,
+      removalReasonOther: values.removalReasonOther ?? "",
     })
       .then((res) => {
         if (res.data?.removeCandidate?.id) {
@@ -148,14 +168,10 @@ const RemoveCandidateDialog = ({
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
-                  items={enumToOptions(CandidateRemovalReason, [
-                    CandidateRemovalReason.RequestedToBeWithdrawn,
-                    CandidateRemovalReason.NotResponsive,
-                    CandidateRemovalReason.Other,
-                  ]).map(({ value }) => ({
-                    value,
-                    label: intl.formatMessage(getCandidateRemovalReason(value)),
-                  }))}
+                  items={localizedEnumToOptions(
+                    sortCandidateRemovalReason(data?.removalReasons),
+                    intl,
+                  )}
                 />
                 {removalReason === CandidateRemovalReason.Other && (
                   <TextArea
@@ -164,8 +180,10 @@ const RemoveCandidateDialog = ({
                     rules={{
                       required: intl.formatMessage(errorMessages.required),
                     }}
-                    label={intl.formatMessage(
-                      getCandidateRemovalReason(CandidateRemovalReason.Other),
+                    label={getLocalizedEnumStringByValue(
+                      CandidateRemovalReason.Other,
+                      data?.removalReasons,
+                      intl,
                     )}
                   />
                 )}

@@ -1,20 +1,10 @@
 import { useIntl } from "react-intl";
 import { OperationContext, useQuery } from "urql";
 
-import { Combobox, enumToOptions } from "@gc-digital-talent/forms";
-import {
-  commonMessages,
-  getLocalizedName,
-  getPoolCandidateSearchStatus,
-  getPoolStream,
-} from "@gc-digital-talent/i18n";
+import { Combobox, localizedEnumToOptions } from "@gc-digital-talent/forms";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import {
-  PoolCandidateSearchStatus,
-  PoolStream,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import adminMessages from "~/messages/adminMessages";
 import FilterDialog, {
@@ -53,6 +43,22 @@ const SearchRequestFilterData_Query = graphql(/* GraphQL */ `
     }
     classifications {
       ...RequestFilterClassification
+    }
+    searchStatuses: localizedEnumStrings(
+      enumName: "PoolCandidateSearchStatus"
+    ) {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    streams: localizedEnumStrings(enumName: "PoolStream") {
+      value
+      label {
+        en
+        fr
+      }
     }
   }
 `);
@@ -101,16 +107,8 @@ const SearchRequestFilterDialog = ({
           isMulti
           label={intl.formatMessage(commonMessages.status)}
           doNotSort
-          options={enumToOptions(PoolCandidateSearchStatus, [
-            PoolCandidateSearchStatus.New,
-            PoolCandidateSearchStatus.InProgress,
-            PoolCandidateSearchStatus.Waiting,
-            PoolCandidateSearchStatus.Done,
-            PoolCandidateSearchStatus.DoneNoCandidates,
-          ]).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getPoolCandidateSearchStatus(value)),
-          }))}
+          fetching={fetching}
+          options={localizedEnumToOptions(data?.searchStatuses, intl)}
         />
         <Combobox
           id="departments"
@@ -139,10 +137,7 @@ const SearchRequestFilterDialog = ({
           name="streams"
           isMulti
           label={intl.formatMessage(adminMessages.streams)}
-          options={enumToOptions(PoolStream).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getPoolStream(value)),
-          }))}
+          options={localizedEnumToOptions(data?.streams, intl)}
         />
       </div>
     </FilterDialog>

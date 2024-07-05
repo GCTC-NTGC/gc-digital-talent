@@ -30,13 +30,15 @@ const sortStatus: SortingFnOption<PoolCandidate> = (
   { original: b },
 ) => {
   const aPosition = sortOrder.indexOf(
-    a.status ?? PoolCandidateStatus.Expired, // if status undefined fallback to treating as last status in ordering
+    a.status?.value ?? PoolCandidateStatus.Expired, // if status undefined fallback to treating as last status in ordering
   );
-  const bPosition = sortOrder.indexOf(b.status ?? PoolCandidateStatus.Expired);
+  const bPosition = sortOrder.indexOf(
+    b.status?.value ?? PoolCandidateStatus.Expired,
+  );
   if (aPosition >= 0 && bPosition >= 0)
     return (
-      sortOrder.indexOf(a.status ?? PoolCandidateStatus.Expired) -
-      sortOrder.indexOf(b.status ?? PoolCandidateStatus.Expired)
+      sortOrder.indexOf(a.status?.value ?? PoolCandidateStatus.Expired) -
+      sortOrder.indexOf(b.status?.value ?? PoolCandidateStatus.Expired)
     );
   if (aPosition >= 0 && bPosition < 0) return -1;
   if (aPosition < 0 && bPosition >= 0) return 1;

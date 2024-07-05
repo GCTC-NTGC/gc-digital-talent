@@ -37,7 +37,13 @@ import IconLabel from "./IconLabel";
 export const PoolCard_Fragment = graphql(/* GraphQL */ `
   fragment PoolCard on Pool {
     id
-    stream
+    stream {
+      value
+      label {
+        en
+        fr
+      }
+    }
     closingDate
     name {
       en
@@ -52,10 +58,22 @@ export const PoolCard_Fragment = graphql(/* GraphQL */ `
     }
     poolSkills {
       id
-      type
+      type {
+        value
+        label {
+          en
+          fr
+        }
+      }
       skill {
         id
-        category
+        category {
+          value
+          label {
+            en
+            fr
+          }
+        }
         key
         name {
           en

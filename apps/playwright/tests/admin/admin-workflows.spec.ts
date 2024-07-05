@@ -47,6 +47,7 @@ test.describe("Admin workflows", () => {
 
     await appPage.page.getByRole("link", { name: /edit applicant/i }).click();
     await appPage.waitForGraphqlResponse("UpdateUserData");
+    await appPage.waitForGraphqlResponse("UpdateUserOptions");
 
     await appPage.page
       .getByRole("textbox", { name: /telephone/i })

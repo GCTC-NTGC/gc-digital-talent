@@ -1,12 +1,7 @@
 import { useIntl } from "react-intl";
 import { ReactNode, JSX } from "react";
 
-import {
-  commonMessages,
-  getAwardedTo,
-  getEducationStatus,
-  getLocalizedName,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { Experience, Scalars, Skill } from "@gc-digital-talent/graphql";
 
 import { getExperienceSkills } from "~/utils/skillUtils";
@@ -74,8 +69,8 @@ const ExperienceListForSkill = ({
         <p>
           {experienceFormLabels.awardedTo}
           {intl.formatMessage(commonMessages.dividingColon)}
-          {awardedTo
-            ? intl.formatMessage(getAwardedTo(awardedTo))
+          {awardedTo?.label
+            ? getLocalizedName(awardedTo.label, intl)
             : intl.formatMessage(commonMessages.notAvailable)}
         </p>
         <p>
@@ -139,8 +134,8 @@ const ExperienceListForSkill = ({
         <p>
           {experienceFormLabels.educationStatus}
           {intl.formatMessage(commonMessages.dividingColon)}
-          {status
-            ? intl.formatMessage(getEducationStatus(status))
+          {status?.label
+            ? getLocalizedName(status.label, intl)
             : intl.formatMessage(commonMessages.notAvailable)}
         </p>
         <p>

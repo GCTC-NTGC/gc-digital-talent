@@ -76,7 +76,13 @@ const SkillTableSkills_Query = graphql(/* GraphQL */ `
     skills {
       id
       key
-      category
+      category {
+        value
+        label {
+          en
+          fr
+        }
+      }
       name {
         en
         fr
@@ -244,9 +250,9 @@ const SkillTable = ({
     if (filterState?.skillCategories)
       filteredData = filteredData?.filter(
         (skill) =>
-          skill.category ===
+          skill.category.value ===
           filterState.skillCategories?.find(
-            (category) => category === skill.category,
+            (category) => category === skill.category.value,
           ),
       );
 

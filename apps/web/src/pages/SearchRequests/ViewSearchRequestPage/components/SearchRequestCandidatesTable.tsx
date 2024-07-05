@@ -15,6 +15,10 @@ import {
   CandidateSuspendedFilter,
   CandidateExpiryFilter,
 } from "@gc-digital-talent/graphql";
+import {
+  localizedEnumArrayToInput,
+  localizedEnumToInput,
+} from "@gc-digital-talent/i18n";
 
 import PoolCandidatesTable from "~/components/PoolCandidatesTable/PoolCandidatesTable";
 import adminMessages from "~/messages/adminMessages";
@@ -59,13 +63,13 @@ const transformApplicantFilterToPoolCandidateSearchInput = (
   const mapping: MappingType = {
     equity: omitIdAndTypename,
     hasDiploma: identity,
-    languageAbility: identity,
-    locationPreferences: identity,
-    operationalRequirements: identity,
+    languageAbility: localizedEnumToInput,
+    locationPreferences: localizedEnumArrayToInput,
+    operationalRequirements: localizedEnumArrayToInput,
     pools: (pools) => pools?.filter(notEmpty).map(pickId),
     skills: (skills) => skills?.filter(notEmpty).map(pickId),
     positionDuration: identity,
-    qualifiedStreams: identity,
+    qualifiedStreams: localizedEnumArrayToInput,
   };
 
   const emptyFilter: ApplicantFilterInput = {};

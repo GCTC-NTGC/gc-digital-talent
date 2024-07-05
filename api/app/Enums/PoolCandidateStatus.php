@@ -2,8 +2,12 @@
 
 namespace App\Enums;
 
+use App\Traits\HasLocalization;
+
 enum PoolCandidateStatus
 {
+    use HasLocalization;
+
     case DRAFT;
     case DRAFT_EXPIRED;
     case NEW_APPLICATION;
@@ -68,5 +72,10 @@ enum PoolCandidateStatus
             PoolCandidateStatus::SCREENED_OUT_APPLICATION->name,
             PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name,
         ];
+    }
+
+    public static function getLangFilename(): string
+    {
+        return 'pool_candidate_status';
     }
 }

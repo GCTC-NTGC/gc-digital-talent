@@ -53,7 +53,7 @@ test.describe("User information", () => {
     sub = `playwright.sub.${uniqueTestId}`;
     const skills = await getSkills();
     const firstTechnicalSkill = skills.find(
-      (s) => s.category === SkillCategory.Technical,
+      (s) => s.category.value === SkillCategory.Technical,
     );
 
     const createdUser = await adminPage.createUser({
