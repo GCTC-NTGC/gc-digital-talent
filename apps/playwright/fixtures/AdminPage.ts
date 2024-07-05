@@ -28,15 +28,15 @@ class AdminPage extends AppPage {
     const roleIds = allRoles.roles
       .filter((role) => roles.includes(role.name))
       .map((role) => role.id);
+    const roleInputArray = roleIds.map((role) => {
+      return { roleId: role, teamId: team };
+    });
 
     await this.graphqlRequest(Test_UpdateUserRolesMutationDocument, {
       updateUserRolesInput: {
         userId,
         roleAssignmentsInput: {
-          attach: {
-            roles: roleIds,
-            team,
-          },
+          attach: roleInputArray,
         },
       },
     });
