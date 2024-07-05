@@ -30,6 +30,14 @@ export type GenericLocalizedEnum<T> = {
   label: LocalizedString;
 };
 
+/**
+ * Retrieve the full localized enum from an array
+ * of them based of a value
+ *
+ * @param value - The value of the enum case
+ * @param localizedEnumArray - Array of localized enums strings
+ * @returns The full localized enum found, or null
+ */
 export function getLocalizedEnumByValue(
   value: Maybe<string> | undefined,
   localizedEnumArray: MaybeLocalizedEnums | undefined,
@@ -39,6 +47,15 @@ export function getLocalizedEnumByValue(
   );
 }
 
+/**
+ * Get the current locale string of an enum by value
+ *
+ * @param value - The value of the enum case
+ * @param localizedEnumArray - Array of localized enum strings
+ * @param intl react-intl object
+ * @param [emptyNotFound=false] - If true, return empty string when not found instead of message
+ * @returns string
+ */
 export function getLocalizedEnumStringByValue(
   value: Maybe<string> | undefined,
   localizedEnumArray: MaybeLocalizedEnums | undefined,
@@ -52,6 +69,14 @@ export function getLocalizedEnumStringByValue(
   );
 }
 
+/**
+ * Sorts an array of localized enums
+ * based on a sorted array of values
+ *
+ * @param orderArray - Array with target sorting of values
+ * @param localizedEnumArray  - Array of localized enums to be sorted
+ * @returns The sorted array of localized enums
+ */
 function sortLocalizedEnums(
   orderArray: string[],
   localizedEnumArray?: MaybeLocalizedEnums,
@@ -61,6 +86,13 @@ function sortLocalizedEnums(
   );
 }
 
+/**
+ * Converts an a form input value to a typecast localized enum
+ *
+ * @param input - The input value
+ * @param localizedEnumArray - Array of localized enum strings
+ * @returns The found localized enum
+ */
 export function enumInputToLocalizedEnum<T extends string>(
   input: Maybe<T> | undefined,
   localizedEnumArray?: MaybeLocalizedEnums,
@@ -72,12 +104,24 @@ export function enumInputToLocalizedEnum<T extends string>(
     : undefined;
 }
 
+/**
+ * Get the value from a localized enum for graphql inputs
+ *
+ * @param localizedEnum - The localized enum
+ * @returns string
+ */
 export function localizedEnumToInput<T>(
   localizedEnum?: Maybe<GenericLocalizedEnum<T>>,
 ): Maybe<T> | undefined {
   return localizedEnum?.value;
 }
 
+/**
+ * Converts an array of localized enums to grpahql input values
+ *
+ * @param localizedEnumArray - Array of localized enums
+ * @returns Input values
+ */
 export function localizedEnumArrayToInput<T>(
   localizedEnumArray?: Maybe<Maybe<GenericLocalizedEnum<T>>[]>,
 ): Maybe<Maybe<T>[] | undefined> | undefined {
