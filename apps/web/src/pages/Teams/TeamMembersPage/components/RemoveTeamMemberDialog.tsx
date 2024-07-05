@@ -11,7 +11,10 @@ import {
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { TeamMembersPage_TeamFragment as TeamMembersPageTeamFragmentType } from "@gc-digital-talent/graphql";
+import {
+  RoleInput,
+  TeamMembersPage_TeamFragment as TeamMembersPageTeamFragmentType,
+} from "@gc-digital-talent/graphql";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { TeamMember } from "~/utils/teamUtils";
@@ -33,16 +36,16 @@ const RemoveTeamMemberDialog = ({
   );
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const roleInputArray: RoleInput[] = user.roles.map((role) => {
+    return { roleId: role.id, teamId: team.id };
+  });
 
   const handleRemove = async () => {
     await executeMutation({
       updateUserRolesInput: {
         userId: user.id,
         roleAssignmentsInput: {
-          detach: {
-            roles: user.roles.map((role) => role.id),
-            team: team.id,
-          },
+          detach: roleInputArray,
         },
       },
     })

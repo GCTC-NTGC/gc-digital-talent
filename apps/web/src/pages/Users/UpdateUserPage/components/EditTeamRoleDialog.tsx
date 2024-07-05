@@ -19,6 +19,7 @@ import {
   User,
   Team,
   Scalars,
+  RoleInput,
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
@@ -65,25 +66,21 @@ const EditTeamRoleDialog = ({
     const rolesToAttach = formValues.roles.filter(
       (role) => !initialRolesIds.includes(role),
     );
+    const rolesToAttachArray: RoleInput[] = rolesToAttach.map((role) => {
+      return { roleId: role };
+    });
     const rolesToDetach = initialRolesIds.filter(
       (role) => !formValues.roles.includes(role),
     );
+    const rolesToDetachArray: RoleInput[] = rolesToDetach.map((role) => {
+      return { roleId: role };
+    });
 
     return onEditRoles({
       userId: user.id,
       roleAssignmentsInput: {
-        attach: rolesToAttach.length
-          ? {
-              roles: rolesToAttach,
-              team: team.id,
-            }
-          : undefined,
-        detach: rolesToDetach.length
-          ? {
-              roles: rolesToDetach,
-              team: team.id,
-            }
-          : undefined,
+        attach: rolesToAttachArray.length ? rolesToAttachArray : undefined,
+        detach: rolesToDetachArray.length ? rolesToDetachArray : undefined,
       },
     })
       .then(() => {

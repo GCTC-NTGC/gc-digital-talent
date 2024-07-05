@@ -14,7 +14,10 @@ import {
   getLocalizedName,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import { TeamMembersPage_TeamFragment as TeamMembersPageTeamFragmentType } from "@gc-digital-talent/graphql";
+import {
+  RoleInput,
+  TeamMembersPage_TeamFragment as TeamMembersPageTeamFragmentType,
+} from "@gc-digital-talent/graphql";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import { TeamMember } from "~/utils/teamUtils";
@@ -56,26 +59,22 @@ const EditTeamMemberDialog = ({ user, team }: EditTeamMemberDialogProps) => {
     const rolesToAttach = formValues.roles.filter(
       (role) => !initialRolesIds.includes(role),
     );
+    const rolesToAttachArray: RoleInput[] = rolesToAttach.map((role) => {
+      return { roleId: role, teamId: team.id };
+    });
     const rolesToDetach = initialRolesIds.filter(
       (role) => !formValues.roles.includes(role),
     );
+    const rolesToDetachArray: RoleInput[] = rolesToDetach.map((role) => {
+      return { roleId: role, teamId: team.id };
+    });
 
     await executeMutation({
       updateUserRolesInput: {
         userId: formValues.userId,
         roleAssignmentsInput: {
-          attach: rolesToAttach.length
-            ? {
-                roles: rolesToAttach,
-                team: team.id,
-              }
-            : undefined,
-          detach: rolesToDetach.length
-            ? {
-                roles: rolesToDetach,
-                team: team.id,
-              }
-            : undefined,
+          attach: rolesToAttachArray.length ? rolesToAttachArray : undefined,
+          detach: rolesToDetachArray.length ? rolesToDetachArray : undefined,
         },
       },
     })
