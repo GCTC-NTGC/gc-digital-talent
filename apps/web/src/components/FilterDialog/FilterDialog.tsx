@@ -114,7 +114,7 @@ const FilterDialog = <TFieldValues extends FieldValues>({
           })}
         </Button>
       </Dialog.Trigger>
-      <Dialog.Content wide>
+      <Dialog.Content wide hasSubtitle>
         <Dialog.Header
           subtitle={intl.formatMessage({
             defaultMessage:

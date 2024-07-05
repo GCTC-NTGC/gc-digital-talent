@@ -22,7 +22,7 @@ const DefaultChildren = () => (
     <Dialog.Trigger>
       <Button>Open Dialog</Button>
     </Dialog.Trigger>
-    <Dialog.Content>
+    <Dialog.Content hasSubtitle>
       <Dialog.Header subtitle="Dialog Subtitle">Dialog Title</Dialog.Header>
       <Dialog.Body>
         <p>{faker.lorem.sentences(3)}</p>
@@ -103,7 +103,7 @@ describe("Dialog", () => {
           <Dialog.Trigger>
             <Button icon={PlusIcon}>Open Dialog</Button>
           </Dialog.Trigger>
-          <Dialog.Content>
+          <Dialog.Content hasSubtitle>
             <Dialog.Header subtitle="Dialog Subtitle">
               Dialog Title
             </Dialog.Header>
