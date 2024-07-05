@@ -470,7 +470,7 @@ const AssessmentDetailsDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
       <Dialog.Trigger>{trigger}</Dialog.Trigger>
-      <Dialog.Content>
+      <Dialog.Content hasSubtitle>
         <Dialog.Header
           subtitle={intl.formatMessage({
             defaultMessage: "Provide additional details about this assessment",

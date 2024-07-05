@@ -23,7 +23,7 @@
     "nuwave/lighthouse": "^6.15",
     "phpoffice/phpspreadsheet": "^2.0",
     "phpoffice/phpword": "^1.2",
-    "santigarcor/laratrust": "^8.0",
+    "santigarcor/laratrust": "^8.3.0",
     "spatie/laravel-activitylog": "^4.7",
     "staudenmeir/eloquent-has-many-deep": "^1.18",
     "web-token/jwt-library": "^3.3"

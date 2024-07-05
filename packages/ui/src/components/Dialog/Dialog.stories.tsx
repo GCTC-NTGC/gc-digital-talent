@@ -29,7 +29,7 @@ const Template: StoryFn<typeof Dialog.Root> = () => (
     <Dialog.Trigger>
       <Button>Open Dialog</Button>
     </Dialog.Trigger>
-    <Dialog.Content>
+    <Dialog.Content hasSubtitle>
       <Dialog.Header subtitle="A dialog is a window overlaid on either the primary window or another dialog window.">
         Basic Dialog
       </Dialog.Header>

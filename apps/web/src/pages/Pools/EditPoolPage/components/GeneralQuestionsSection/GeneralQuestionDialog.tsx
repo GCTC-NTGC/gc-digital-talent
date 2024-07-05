@@ -93,7 +93,7 @@ const GeneralQuestionDialog = ({
           </CardRepeater.Add>
         )}
       </Dialog.Trigger>
-      <Dialog.Content>
+      <Dialog.Content hasSubtitle>
         <Dialog.Header
           subtitle={intl.formatMessage({
             defaultMessage:

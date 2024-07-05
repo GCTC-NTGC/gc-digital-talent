@@ -72,6 +72,15 @@ type UserPublicProfilePaginator {
   data: [UserPublicProfile!]!
 }
 
+"A paginated list of Pool items."
+type PoolPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of Pool items."
+  data: [Pool!]!
+}
+
 "A paginated list of PoolCandidateWithSkillCount items."
 type PoolCandidateWithSkillCountPaginator {
   "Pagination information about the list of items."
@@ -99,6 +108,51 @@ type NotificationPaginator {
   data: [Notification!]!
 }
 
+"Allowed column names for Query.poolsPaginated.orderBy."
+enum QueryPoolsPaginatedOrderByUserColumn {
+  FIRST_NAME
+  EMAIL
+}
+
+"Aggregate specification for Query.poolsPaginated.orderBy.user."
+input QueryPoolsPaginatedOrderByUser {
+  "The aggregate function to apply to the column."
+  aggregate: OrderByRelationWithColumnAggregateFunction!
+
+  "Name of the column to use."
+  column: QueryPoolsPaginatedOrderByUserColumn
+}
+
+"Allowed column names for Query.poolsPaginated.orderBy."
+enum QueryPoolsPaginatedOrderByClassificationColumn {
+  GROUP
+  LEVEL
+}
+
+"Aggregate specification for Query.poolsPaginated.orderBy.classification."
+input QueryPoolsPaginatedOrderByClassification {
+  "The aggregate function to apply to the column."
+  aggregate: OrderByRelationWithColumnAggregateFunction!
+
+  "Name of the column to use."
+  column: QueryPoolsPaginatedOrderByClassificationColumn
+}
+
+"Order by clause for Query.poolsPaginated.orderBy."
+input QueryPoolsPaginatedOrderByRelationOrderByClause {
+  "The column that is used for ordering."
+  column: String
+
+  "The direction that is used for ordering."
+  order: SortOrder!
+
+  "Aggregate specification."
+  user: QueryPoolsPaginatedOrderByUser
+
+  "Aggregate specification."
+  classification: QueryPoolsPaginatedOrderByClassification
+}
+
 "Allowed column names for Query.poolCandidatesPaginated.orderBy."
 enum QueryPoolCandidatesPaginatedOrderByUserColumn {
   PRIORITY_WEIGHT
@@ -119,6 +173,20 @@ input QueryPoolCandidatesPaginatedOrderByUser {
   column: QueryPoolCandidatesPaginatedOrderByUserColumn
 }
 
+"Allowed column names for Query.poolCandidatesPaginated.orderBy."
+enum QueryPoolCandidatesPaginatedOrderByPoolColumn {
+  PROCESS_NUMBER
+}
+
+"Aggregate specification for Query.poolCandidatesPaginated.orderBy.pool."
+input QueryPoolCandidatesPaginatedOrderByPool {
+  "The aggregate function to apply to the column."
+  aggregate: OrderByRelationWithColumnAggregateFunction!
+
+  "Name of the column to use."
+  column: QueryPoolCandidatesPaginatedOrderByPoolColumn
+}
+
 "Order by clause for Query.poolCandidatesPaginated.orderBy."
 input QueryPoolCandidatesPaginatedOrderByRelationOrderByClause {
   "The column that is used for ordering."
@@ -129,6 +197,9 @@ input QueryPoolCandidatesPaginatedOrderByRelationOrderByClause {
 
   "Aggregate specification."
   user: QueryPoolCandidatesPaginatedOrderByUser
+
+  "Aggregate specification."
+  pool: QueryPoolCandidatesPaginatedOrderByPool
 }
 
 "Directions for ordering a list of records."
@@ -304,12 +375,6 @@ enum GovEmployeeType {
   INDETERMINATE
 }
 
-enum BilingualEvaluation {
-  COMPLETED_ENGLISH
-  COMPLETED_FRENCH
-  NOT_COMPLETED
-}
-
 enum EvaluatedLanguageAbility {
   X
   A
@@ -330,6 +395,12 @@ enum CitizenshipStatus {
   PERMANENT_RESIDENT
   CITIZEN
   OTHER
+}
+
+enum ClaimVerificationResult {
+  ACCEPTED
+  REJECTED
+  UNVERIFIED
 }
 
 enum ArmedForcesStatus {
@@ -378,6 +449,11 @@ enum PoolStatus {
   ARCHIVED
 }
 
+enum DisqualificationReason {
+  SCREENED_OUT_APPLICATION
+  SCREENED_OUT_ASSESSMENT
+}
+
 enum PoolCandidateStatus {
   DRAFT
   DRAFT_EXPIRED
@@ -398,6 +474,13 @@ enum PoolCandidateStatus {
   PLACED_INDETERMINATE
   EXPIRED
   REMOVED
+}
+
+enum PlacementType {
+  PLACED_TENTATIVE
+  PLACED_CASUAL
+  PLACED_TERM
+  PLACED_INDETERMINATE
 }
 
 enum SecurityStatus {
@@ -470,8 +553,6 @@ enum OperationalRequirement {
   TRAVEL
   TRANSPORT_EQUIPMENT
   DRIVERS_LICENSE
-  OVERTIME_SCHEDULED
-  OVERTIME_SHORT_NOTICE
   OVERTIME_OCCASIONAL
   OVERTIME_REGULAR
 }
@@ -483,6 +564,7 @@ enum GenericJobTitleKey {
   TECHNICAL_ADVISOR_IT03
   SENIOR_ADVISOR_IT04
   MANAGER_IT04
+  EXECUTIVE_EX03
 }
 
 enum PoolCandidateSearchStatus {
@@ -491,6 +573,7 @@ enum PoolCandidateSearchStatus {
   WAITING
   DONE
   DONE_NO_CANDIDATES
+  NOT_COMPLIANT
 }
 
 enum PoolCandidateSearchPositionType {
@@ -783,8 +866,23 @@ enum NotificationFamily {
   JOB_ALERT
 }
 
-enum NotificationType {
-  PoolCandidateStatusChanged
+enum CandidateRemovalReason {
+  REQUESTED_TO_BE_WITHDRAWN
+  NOT_RESPONSIVE
+  OTHER
+}
+
+enum PriorityWeight {
+  PRIORITY_ENTITLEMENT
+  VETERAN
+  CITIZEN_OR_PERMANENT_RESIDENT
+  OTHER
+}
+
+enum OverallAssessmentStatus {
+  TO_ASSESS
+  DISQUALIFIED
+  QUALIFIED
 }
 
 "A GraphQL Schema defines the capabilities of a GraphQL server. It exposes all available types and directives on the server, as well as the entry points for query, mutation, and subscription operations."
