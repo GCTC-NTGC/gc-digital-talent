@@ -376,7 +376,7 @@ type ScreeningQuestion {
 
 interface HasRoleAssignments {
   roleAssignments: [RoleAssignment!]
-  teamId: ID!
+  teamId: ID
 }
 
 type Pool implements HasRoleAssignments {
