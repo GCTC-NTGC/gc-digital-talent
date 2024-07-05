@@ -89,8 +89,7 @@ class ExperienceTest extends TestCase
         );
         // Assert that the experience  from query with all three skills, and that the pivot details work correctly.
         $response->assertJson(fn (AssertableJson $json) => $json->has('data.user.workExperiences.0', fn (AssertableJson $json) => $json->where('id', $experience->id)
-            ->has('skills', 3)
-            ->has('skills.0', fn (AssertableJson $json) => $json->where('id', $userSkills[0]->skill_id)
+            ->has('skills', 3, fn (AssertableJson $json) => $json->where('id', $userSkills[0]->skill_id)
                 ->where('experienceSkillRecord.details', 'first skill')
             )
         )
