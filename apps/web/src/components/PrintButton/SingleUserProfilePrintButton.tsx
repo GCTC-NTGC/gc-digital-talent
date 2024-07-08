@@ -10,10 +10,12 @@ import {
   Color,
   DropdownMenu,
 } from "@gc-digital-talent/ui";
-import { User } from "@gc-digital-talent/graphql";
+import { FragmentType } from "@gc-digital-talent/graphql";
 
 import printStyles from "~/styles/printStyles";
-import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
+import ProfileDocument, {
+  ProfileDocument_Fragment,
+} from "~/components/ProfileDocument/ProfileDocument";
 
 const documentTitle = defineMessage({
   defaultMessage: "Candidate profile",
@@ -22,7 +24,7 @@ const documentTitle = defineMessage({
 });
 
 interface SingleUserProfilePrintButtonProps {
-  users: User[];
+  users: FragmentType<typeof ProfileDocument_Fragment>[];
   color: Color;
   mode: ButtonLinkMode;
 }
@@ -85,8 +87,12 @@ const SingleUserProfilePrintButton = ({
           </DropdownMenu.Item>
         </DropdownMenu.Content>
       </DropdownMenu.Root>
-      <ProfileDocument anonymous results={users} ref={anonymousComponentRef} />
-      <ProfileDocument results={users} ref={fullComponentRef} />
+      <ProfileDocument
+        anonymous
+        userQuery={users}
+        ref={anonymousComponentRef}
+      />
+      <ProfileDocument userQuery={users} ref={fullComponentRef} />
     </>
   );
 };
