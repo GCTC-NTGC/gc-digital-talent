@@ -87,6 +87,17 @@ export const applicationScreeningStep: AssessmentStep = {
   sortOrder: 1,
   poolSkills: [...essentialPoolSkills, ...nonEssentialPoolSkills],
 };
+const applicationScreeningResults: AssessmentResult[] = [
+  getAssessmentResult(applicationScreeningStep, undefined, undefined),
+  getAssessmentResult(applicationScreeningStep, undefined, undefined),
+  getAssessmentResult(
+    applicationScreeningStep,
+    AssessmentResultType.Skill,
+    AssessmentDecision.Successful,
+    AssessmentDecisionLevel.AboveAndBeyondRequired,
+    essentialPoolSkills[1],
+  ),
+];
 
 const experience = fakeExperiences(1)[0];
 const experiencePoolSkill = fakePoolSkills(1)[0];
@@ -100,6 +111,15 @@ export const screeningQuestionsStep: AssessmentStep = {
   sortOrder: 2,
   poolSkills: [essentialPoolSkills[1], nonEssentialPoolSkills[0]],
 };
+const screeningQuestionsResults: AssessmentResult[] = [
+  getAssessmentResult(
+    screeningQuestionsStep,
+    AssessmentResultType.Skill,
+    AssessmentDecision.Unsuccessful,
+    undefined,
+    essentialPoolSkills[1],
+  ),
+];
 
 /* Reference check step data (Hold status) */
 export const referenceCheckStep: AssessmentStep = {
@@ -109,6 +129,15 @@ export const referenceCheckStep: AssessmentStep = {
   sortOrder: 4,
   poolSkills: [essentialPoolSkills[0]],
 };
+const referenceCheckResults: AssessmentResult[] = [
+  getAssessmentResult(
+    referenceCheckStep,
+    AssessmentResultType.Skill,
+    AssessmentDecision.Hold,
+    undefined,
+    essentialPoolSkills[0],
+  ),
+];
 
 /* Interview group step data (successful status) */
 export const interviewGroupStep: AssessmentStep = {
@@ -118,6 +147,22 @@ export const interviewGroupStep: AssessmentStep = {
   sortOrder: 3,
   poolSkills: [...essentialPoolSkills],
 };
+const interviewGroupResults: AssessmentResult[] = [
+  getAssessmentResult(
+    interviewGroupStep,
+    AssessmentResultType.Skill,
+    AssessmentDecision.Successful,
+    AssessmentDecisionLevel.AboveAndBeyondRequired,
+    essentialPoolSkills[0],
+  ),
+  getAssessmentResult(
+    interviewGroupStep,
+    AssessmentResultType.Skill,
+    AssessmentDecision.Successful,
+    AssessmentDecisionLevel.AtRequired,
+    essentialPoolSkills[1],
+  ),
+];
 
 // eslint-disable-next-line import/prefer-default-export
 export const testPoolCandidate: PoolCandidate = {

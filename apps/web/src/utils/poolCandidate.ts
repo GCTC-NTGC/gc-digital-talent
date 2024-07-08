@@ -13,19 +13,14 @@ import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Color } from "@gc-digital-talent/ui";
 import {
-  AssessmentDecision,
-  AssessmentResult,
-  AssessmentResultType,
-  AssessmentStep,
-  AssessmentStepType,
-  PoolCandidate,
-  PoolSkillType,
   Maybe,
+  PoolCandidate,
   PoolCandidateStatus,
   PublishingGroup,
   OverallAssessmentStatus,
   AssessmentResultStatus,
   ClaimVerificationResult,
+  AssessmentStep,
 } from "@gc-digital-talent/graphql";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
@@ -42,7 +37,7 @@ import {
 } from "~/constants/poolCandidate";
 
 import { isOngoingPublishingGroup } from "./poolUtils";
-import { NO_DECISION, NullableDecision } from "./assessmentResults";
+import { NullableDecision } from "./assessmentResults";
 
 export const isDisqualifiedStatus = (
   status: Maybe<PoolCandidateStatus> | undefined,
