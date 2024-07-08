@@ -179,6 +179,10 @@ class UserPolicy
         $role = Role::findOrFail($roleId);
         $team = Team::findOrFail($teamId);
 
+        if ($actor->isAbleTo('assign-any-role') || $actor->isAbleTo('assign-any-teamRole')) {
+            return true;
+        }
+
         switch ($role->name) {
             case 'pool_operator':
                 return $actor->isAbleTo('assign-any-teamRole');
