@@ -494,6 +494,12 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
         }
         ...ApplicationInformation_PoolFragment
       }
+      assessmentStatus {
+        assessmentStepStatuses {
+          step
+          decision
+        }
+      }
       assessmentResults {
         id
         poolCandidate {

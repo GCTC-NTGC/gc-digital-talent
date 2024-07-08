@@ -110,10 +110,11 @@ const AssessmentResultsTable = ({
     ) => {
       const type = assessmentStep.type?.value ?? null;
       const id = uniqueId("results-table-column");
-      const status = columnStatus(assessmentStep, [
-        ...educationResults,
-        ...assessmentResults,
-      ]);
+      const status = columnStatus(
+        assessmentStep,
+        poolCandidate.assessmentStatus,
+      );
+
       const header = columnHeader(
         getLocalizedName(assessmentStep.type?.label, intl),
         status,

@@ -8,6 +8,7 @@ import { IntlShape } from "react-intl";
 import {
   AssessmentDecision,
   AssessmentResult,
+  AssessmentResultStatus,
   AssessmentStep,
   AssessmentStepType,
 } from "@gc-digital-talent/graphql";
@@ -106,12 +107,12 @@ export const columnHeader = (
 
 export const columnStatus = (
   assessmentStep: AssessmentStep,
-  assessmentResults?: AssessmentResult[],
+  assessmentStatus?: AssessmentResultStatus,
 ): ColumnStatus => {
-  const assessmentDecisionResult = getResultsDecision(
-    assessmentStep,
-    assessmentResults,
-  );
+  const assessmentDecisionResult =
+    assessmentStatus?.assessmentStepStatuses?.find(
+      (stepStatus) => stepStatus?.step === assessmentStep.id,
+    )?.decision ?? NO_DECISION;
 
   switch (assessmentDecisionResult) {
     case AssessmentDecision.Unsuccessful:
