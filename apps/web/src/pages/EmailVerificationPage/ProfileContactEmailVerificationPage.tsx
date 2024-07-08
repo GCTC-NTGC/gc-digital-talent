@@ -48,6 +48,10 @@ const ProfileContactEmailVerificationPage = () => {
     navigate(paths.profile());
   };
 
+  const handleSkip = (): void => {
+    navigate(paths.profile());
+  };
+
   return (
     <>
       <Hero
@@ -69,6 +73,7 @@ const ProfileContactEmailVerificationPage = () => {
             emailAddress={emailAddress}
             onVerificationSuccess={handleVerificationSuccess}
             emailType="contact"
+            onSkip={handleSkip}
           />
         </div>
       </div>
