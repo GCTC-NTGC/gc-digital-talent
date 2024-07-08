@@ -25,7 +25,7 @@ class AdminPage extends AppPage {
 
   async addRolesToUser(userId: string, roles: string[], team?: string) {
     const allRoles = await this.graphqlRequest(Test_RolesQueryDocument);
-    const roleInputArray  = allRoles.roles
+    const roleInputArray = allRoles.roles
       .filter((role) => roles.includes(role.name))
       .map((role) => {
         return { roleId: role.id, teamId: team };
