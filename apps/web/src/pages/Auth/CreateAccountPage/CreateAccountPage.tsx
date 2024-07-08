@@ -9,11 +9,11 @@ import {
   Input,
   RadioGroup,
   Submit,
-  enumToOptions,
+  localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
-import { errorMessages, getLanguage } from "@gc-digital-talent/i18n";
+import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
 import { emptyToNull, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   graphql,
@@ -76,6 +76,13 @@ export const CreateAccount_QueryFragment = graphql(/** GraphQL */ `
       minSalary
       maxSalary
     }
+    languages: localizedEnumStrings(enumName: "Language") {
+      value
+      label {
+        en
+        fr
+      }
+    }
   }
 `);
 
@@ -110,12 +117,7 @@ export const CreateAccountForm = ({
       description:
         "Label displayed for the last name field in create account form.",
     }),
-    email: intl.formatMessage({
-      defaultMessage: "Which email do you like to be contacted at?",
-      id: "MTwQ3S",
-      description:
-        "Label displayed for the email field in create account form.",
-    }),
+    email: intl.formatMessage(commonMessages.email),
     preferredLang: intl.formatMessage({
       defaultMessage: "What is your preferred contact language?",
       id: "0ScnOT",
@@ -252,10 +254,7 @@ export const CreateAccountForm = ({
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
-                  items={enumToOptions(Language).map(({ value }) => ({
-                    value,
-                    label: intl.formatMessage(getLanguage(value)),
-                  }))}
+                  items={localizedEnumToOptions(result?.languages, intl)}
                   defaultSelected={Language.En}
                 />
                 <p data-h2-margin="base(x1, 0, x.5, 0)">

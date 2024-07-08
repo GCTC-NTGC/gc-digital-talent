@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import {
   fakeDepartments,
   fakePoolCandidates,
+  toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 import {
@@ -24,7 +25,10 @@ const profileSnapshot: User = {
 fakeCandidate.profileSnapshot = JSON.stringify(profileSnapshot);
 
 const getData = (status: PoolCandidateStatus) =>
-  makeFragmentData({ ...fakeCandidate, status }, MoreActions_Fragment);
+  makeFragmentData(
+    { ...fakeCandidate, status: toLocalizedEnum(status) },
+    MoreActions_Fragment,
+  );
 
 const ReactRouterDecorator: Decorator<Args> = (Story) => {
   const navigate = useNavigate();

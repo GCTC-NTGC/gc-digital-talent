@@ -3,12 +3,14 @@ import { isAfter } from "date-fns/isAfter";
 import { isBefore } from "date-fns/isBefore";
 import { useQuery } from "urql";
 import { useIntl } from "react-intl";
+import { lazy, Suspense } from "react";
 
 import { graphql } from "@gc-digital-talent/graphql";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { Alert } from "@gc-digital-talent/ui";
+import { Loading } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
-import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
+
+const BannerContent = lazy(() => import("./BannerContent"));
 
 const SitewideBanner_Query = graphql(/* GraphQL */ `
   query SitewideBanner {
@@ -66,22 +68,9 @@ const SitewideBanner = () => {
 
   return (
     showMaintenanceBanner && (
-      <div
-        data-h2-background-color="base(foreground) base:dark(white)"
-        data-h2-padding="base(x1, 0)"
-      >
-        <div data-h2-container="base(center, large, x1)">
-          <Alert.Root
-            type="warning"
-            live
-            data-h2-shadow="base(none)"
-            data-h2-margin="base(0, -x1, 0, -x1)"
-          >
-            <Alert.Title>{title}</Alert.Title>
-            <RichTextRenderer node={htmlToRichTextJSON(message)} />
-          </Alert.Root>
-        </div>
-      </div>
+      <Suspense fallback={<Loading inline />}>
+        <BannerContent title={title} message={message} />
+      </Suspense>
     )
   );
 };

@@ -25,8 +25,20 @@ const PoolFilter_Query = graphql(/* GraphQL */ `
     ) {
       data {
         id
-        publishingGroup
-        stream
+        publishingGroup {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        stream {
+          value
+          label {
+            en
+            fr
+          }
+        }
         name {
           en
           fr

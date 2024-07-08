@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import { Combobox, enumToOptions } from "@gc-digital-talent/forms";
+import { Combobox, localizedEnumToOptions } from "@gc-digital-talent/forms";
 import {
   PoolStatus,
   PoolStream,
@@ -10,12 +10,7 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import {
-  commonMessages,
-  getPoolStatus,
-  getPoolStream,
-  getPublishingGroup,
-} from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import FilterDialog, {
   CommonFilterDialogProps,
@@ -34,6 +29,27 @@ const PoolFilterDialog_Query = graphql(/* GraphQL */ `
     classifications {
       group
       level
+    }
+    publishingGroups: localizedEnumStrings(enumName: "PublishingGroup") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    statuses: localizedEnumStrings(enumName: "PoolStatus") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    streams: localizedEnumStrings(enumName: "PoolStream") {
+      value
+      label {
+        en
+        fr
+      }
     }
   }
 `);
@@ -62,32 +78,24 @@ const PoolFilterDialog = ({
           id="publishingGroups"
           name="publishingGroups"
           isMulti
+          fetching={fetching}
           label={intl.formatMessage(adminMessages.publishingGroups)}
-          options={enumToOptions(PublishingGroup).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getPublishingGroup(value)),
-          }))}
-        />{" "}
+          options={localizedEnumToOptions(data?.publishingGroups, intl)}
+        />
         <Combobox
           id="statuses"
           name="statuses"
           isMulti
           label={intl.formatMessage(commonMessages.status)}
-          options={enumToOptions(PoolStatus).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getPoolStatus(value)),
-          }))}
+          options={localizedEnumToOptions(data?.statuses, intl)}
         />
         <Combobox
           id="streams"
           name="streams"
           isMulti
           label={intl.formatMessage(adminMessages.streams)}
-          options={enumToOptions(PoolStream).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getPoolStream(value)),
-          }))}
-        />{" "}
+          options={localizedEnumToOptions(data?.streams, intl)}
+        />
         <Combobox
           id="classifications"
           name="classifications"

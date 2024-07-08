@@ -4,6 +4,7 @@ import {
   PositionDuration,
   UpdateUserAsUserInput,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { FormValues, PartialUser } from "./types";
 
@@ -43,8 +44,12 @@ export const dataToFormValues = (data: PartialUser): FormValues => {
     wouldAcceptTemporary: data.positionDuration
       ? boolToString(data.positionDuration.includes(PositionDuration.Temporary))
       : undefined,
-    acceptedOperationalRequirements: data.acceptedOperationalRequirements,
-    locationPreferences: data.locationPreferences,
+    acceptedOperationalRequirements: unpackMaybes(
+      data.acceptedOperationalRequirements?.map((req) => req?.value),
+    ),
+    locationPreferences: unpackMaybes(
+      data.locationPreferences?.map((pref) => pref?.value),
+    ),
     locationExemptions: data.locationExemptions,
   };
 };

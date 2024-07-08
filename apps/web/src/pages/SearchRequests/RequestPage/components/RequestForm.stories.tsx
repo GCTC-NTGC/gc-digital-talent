@@ -5,17 +5,23 @@ import {
   fakeApplicantFilters,
   fakeClassifications,
   fakeDepartments,
+  fakeLocalizedEnum,
   fakePools,
   fakeSkills,
 } from "@gc-digital-talent/fake-data";
 import {
   CreatePoolCandidateSearchRequestInput,
+  LanguageAbility,
   makeFragmentData,
+  PoolCandidateSearchRequestReason,
+  PoolStream,
+  WorkRegion,
 } from "@gc-digital-talent/graphql";
 import {
   MockGraphqlDecorator,
   allModes,
 } from "@gc-digital-talent/storybook-helpers";
+import { OperationalRequirements } from "@gc-digital-talent/i18n";
 
 import {
   RequestForm,
@@ -76,6 +82,15 @@ export default {
           poolsPaginated: {
             data: [pools[0]],
           },
+        },
+      },
+      RequestOptions: {
+        data: {
+          requestReasons: fakeLocalizedEnum(PoolCandidateSearchRequestReason),
+          languageAbilities: fakeLocalizedEnum(LanguageAbility),
+          workRegions: fakeLocalizedEnum(WorkRegion),
+          operationalRequirements: fakeLocalizedEnum(OperationalRequirements),
+          streams: fakeLocalizedEnum(PoolStream),
         },
       },
     },

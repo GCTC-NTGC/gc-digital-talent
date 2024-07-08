@@ -16,7 +16,10 @@ use App\Models\User;
 use Carbon\Carbon;
 use Database\Helpers\ApiErrorEnums;
 use Database\Seeders\RolePermissionSeeder;
+use Database\Seeders\SkillFamilySeeder;
+use Database\Seeders\SkillSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Arr;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
@@ -118,14 +121,16 @@ class PoolTest extends TestCase
             '
         query pool {
             pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11") {
-                status
+                status { value }
             }
         }
     '
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => PoolStatus::PUBLISHED->name,
+                    'status' => [
+                        'value' => PoolStatus::PUBLISHED->name,
+                    ],
                 ],
             ],
         ]);
@@ -136,14 +141,16 @@ class PoolTest extends TestCase
             '
         query pool {
             pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
-                status
+                status { value }
             }
         }
     '
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => PoolStatus::CLOSED->name,
+                    'status' => [
+                        'value' => PoolStatus::CLOSED->name,
+                    ],
                 ],
             ],
         ]);
@@ -154,14 +161,16 @@ class PoolTest extends TestCase
             '
         query pool {
             pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13") {
-                status
+                status { value }
             }
         }
     '
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => PoolStatus::DRAFT->name,
+                    'status' => [
+                        'value' => PoolStatus::DRAFT->name,
+                    ],
                 ],
             ],
         ]);
@@ -172,14 +181,16 @@ class PoolTest extends TestCase
             '
         query pool {
             pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14") {
-                status
+                status { value }
             }
         }
     '
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => PoolStatus::DRAFT->name,
+                    'status' => [
+                        'value' => PoolStatus::DRAFT->name,
+                    ],
                 ],
             ],
         ]);
@@ -190,14 +201,16 @@ class PoolTest extends TestCase
             '
         query pool {
             pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a15") {
-                status
+                status { value }
             }
         }
     '
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => PoolStatus::ARCHIVED->name,
+                    'status' => [
+                        'value' => PoolStatus::ARCHIVED->name,
+                    ],
                 ],
             ],
         ]);
@@ -226,14 +239,16 @@ class PoolTest extends TestCase
             '
         query pool {
             pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11") {
-                status
+                status { value }
             }
         }
     '
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => PoolStatus::PUBLISHED->name,
+                    'status' => [
+                        'value' => PoolStatus::PUBLISHED->name,
+                    ],
                 ],
             ],
         ]);
@@ -244,14 +259,16 @@ class PoolTest extends TestCase
             '
         query pool {
             pool(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
-                status
+                status { value }
             }
         }
     '
         )->assertJson([
             'data' => [
                 'pool' => [
-                    'status' => PoolStatus::CLOSED->name,
+                    'status' => [
+                        'value' => PoolStatus::CLOSED->name,
+                    ],
                 ],
             ],
         ]);
@@ -478,7 +495,7 @@ class PoolTest extends TestCase
             '
                 mutation ArchivePool($id: ID!) {
                     archivePool(id: $id) {
-                        status
+                        status { value }
                     }
                 }
         ',
@@ -486,7 +503,7 @@ class PoolTest extends TestCase
                 'id' => $pool->id,
             ]
         )
-            ->assertJsonFragment(['status' => PoolStatus::ARCHIVED->name]);
+            ->assertJsonFragment(['status' => ['value' => PoolStatus::ARCHIVED->name]]);
     }
 
     public function testCantArchiveActive(): void
@@ -498,7 +515,7 @@ class PoolTest extends TestCase
             '
                 mutation ArchivePool($id: ID!) {
                     archivePool(id: $id) {
-                        status
+                        status { value }
                     }
                 }
         ',
@@ -518,7 +535,7 @@ class PoolTest extends TestCase
             '
                 mutation UnarchivePool($id: ID!) {
                     unarchivePool(id: $id) {
-                        status
+                        status { value }
                     }
                 }
         ',
@@ -526,7 +543,9 @@ class PoolTest extends TestCase
                 'id' => $pool->id,
             ]
         )
-            ->assertJsonFragment(['status' => PoolStatus::CLOSED->name]);
+            ->assertJsonFragment(['status' => [
+                'value' => PoolStatus::CLOSED->name,
+            ]]);
     }
 
     public function testCantUnarchiveClosed(): void
@@ -538,7 +557,7 @@ class PoolTest extends TestCase
             '
                 mutation UnarchivePool($id: ID!) {
                     unarchivePool(id: $id) {
-                        status
+                        status { value }
                     }
                 }
         ',
@@ -672,8 +691,8 @@ class PoolTest extends TestCase
     public function testPoolIsCompleteAccessor(): void
     {
         $queryPool =
-        /** @lang GraphQL */
-        '
+            /** @lang GraphQL */
+            '
             query pool($id: UUID!){
                 pool(id :$id) {
                     isComplete
@@ -726,8 +745,8 @@ class PoolTest extends TestCase
     public function testPoolIsCompleteAccessorSkillLevel(): void
     {
         $queryPool =
-        /** @lang GraphQL */
-        '
+            /** @lang GraphQL */
+            '
             query pool($id: UUID!){
                 pool(id :$id) {
                     isComplete
@@ -1074,7 +1093,8 @@ class PoolTest extends TestCase
             'name' => ['en' => 'Not EN', 'fr' => 'Not FR'],
         ]);
 
-        $res = $this->graphQL(/** @lang GraphQL */
+        $res = $this->graphQL(
+            /** @lang GraphQL */
             '
                 query ScopePoolName($where: PoolFilterInput) {
                     poolsPaginated(where: $where) {
@@ -1107,7 +1127,8 @@ class PoolTest extends TestCase
             'team_id' => Team::factory()->create(),
         ]);
 
-        $res = $this->graphQL(/** @lang GraphQL */
+        $res = $this->graphQL(
+            /** @lang GraphQL */
             '
                 query ScopePoolName($where: PoolFilterInput) {
                     poolsPaginated(where: $where) {
@@ -1151,13 +1172,14 @@ class PoolTest extends TestCase
             'stream' => PoolStream::DATABASE_MANAGEMENT->name,
         ]);
 
-        $res = $this->graphQL(/** @lang GraphQL */
+        $res = $this->graphQL(
+            /** @lang GraphQL */
             '
                 query ScopePoolName($where: PoolFilterInput) {
                     poolsPaginated(where: $where) {
                         data {
                             id
-                            stream
+                            stream { value }
                         }
                     }
                 }
@@ -1174,11 +1196,15 @@ class PoolTest extends TestCase
             'data' => [
                 [
                     'id' => $ATIP->id,
-                    'stream' => PoolStream::ACCESS_INFORMATION_PRIVACY->name,
+                    'stream' => [
+                        'value' => PoolStream::ACCESS_INFORMATION_PRIVACY->name,
+                    ],
                 ],
                 [
                     'id' => $BAS->id,
-                    'stream' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
+                    'stream' => [
+                        'value' => PoolStream::BUSINESS_ADVISORY_SERVICES->name,
+                    ],
                 ],
             ],
         ]);
@@ -1203,13 +1229,14 @@ class PoolTest extends TestCase
             'publishing_group' => PublishingGroup::EXECUTIVE_JOBS->name,
         ]);
 
-        $res = $this->graphQL(/** @lang GraphQL */
+        $res = $this->graphQL(
+            /** @lang GraphQL */
             '
                 query ScopePoolName($where: PoolFilterInput) {
                     poolsPaginated(where: $where) {
                         data {
                             id
-                            publishingGroup
+                            publishingGroup { value }
                         }
                     }
                 }
@@ -1226,11 +1253,15 @@ class PoolTest extends TestCase
             'data' => [
                 [
                     'id' => $IT->id,
-                    'publishingGroup' => PublishingGroup::IT_JOBS->name,
+                    'publishingGroup' => [
+                        'value' => PublishingGroup::IT_JOBS->name,
+                    ],
                 ],
                 [
                     'id' => $IAP->id,
-                    'publishingGroup' => PublishingGroup::IAP->name,
+                    'publishingGroup' => [
+                        'value' => PublishingGroup::IAP->name,
+                    ],
                 ],
             ],
         ]);
@@ -1247,13 +1278,14 @@ class PoolTest extends TestCase
         $published = Pool::factory()->published()->create();
         $draft = Pool::factory()->create();
 
-        $query = /** @lang GraphQL */
+        $query =
+            /** @lang GraphQL */
             '
                 query ScopePoolName($where: PoolFilterInput) {
                     poolsPaginated(where: $where) {
                         data {
                             id
-                            status
+                            status { value }
                         }
                     }
                 }
@@ -1267,7 +1299,9 @@ class PoolTest extends TestCase
                 ],
             ])->assertJsonFragment([
                 'id' => $closed->id,
-                'status' => PoolStatus::CLOSED->name,
+                'status' => [
+                    'value' => PoolStatus::CLOSED->name,
+                ],
             ]);
 
         assertSame(1, count($closedRes->json('data.poolsPaginated.data')));
@@ -1280,7 +1314,9 @@ class PoolTest extends TestCase
                 ],
             ])->assertJsonFragment([
                 'id' => $published->id,
-                'status' => PoolStatus::PUBLISHED->name,
+                'status' => [
+                    'value' => PoolStatus::PUBLISHED->name,
+                ],
             ]);
 
         assertSame(1, count($publishedRes->json('data.poolsPaginated.data')));
@@ -1293,11 +1329,12 @@ class PoolTest extends TestCase
                 ],
             ])->assertJsonFragment([
                 'id' => $draft->id,
-                'status' => PoolStatus::DRAFT->name,
+                'status' => [
+                    'value' => PoolStatus::DRAFT->name,
+                ],
             ]);
 
         assertSame(1, count($draftRes->json('data.poolsPaginated.data')));
-
     }
 
     /**
@@ -1326,7 +1363,8 @@ class PoolTest extends TestCase
             ]),
         ]);
 
-        $query = /** @lang GraphQL */
+        $query =
+            /** @lang GraphQL */
             '
                 query ScopePoolName($where: PoolFilterInput) {
                     poolsPaginated(where: $where) {
@@ -1377,7 +1415,6 @@ class PoolTest extends TestCase
             ]);
 
         assertSame(2, count($AARes->json('data.poolsPaginated.data')));
-
     }
 
     /**
@@ -1393,7 +1430,8 @@ class PoolTest extends TestCase
             'team_id' => Team::factory()->create(),
         ]);
 
-        $query = /** @lang GraphQL */
+        $query =
+            /** @lang GraphQL */
             '
                 query poolsPaginated($where: PoolFilterInput) {
                     poolsPaginated(where: $where) {
@@ -1479,7 +1517,9 @@ class PoolTest extends TestCase
                 'team_id' => $this->team,
             ]);
 
-        $mutation = /** GraphQL */ '
+        $mutation =
+            /** GraphQL */
+            '
             mutation UpdatePublishedPool($id: ID!, $pool: UpdatePublishedPoolInput!) {
                 updatePublishedPool(id: $id, pool: $pool) {
                     id
@@ -1539,8 +1579,9 @@ class PoolTest extends TestCase
         $pool2 = Pool::factory(['created_at' => config('constants.past_date')])->withBookmark($this->adminUser->id)->create();
         $pool3 = Pool::factory()->create();
 
-        $query = /** @lang GraphQL */
-        '
+        $query =
+            /** @lang GraphQL */
+            '
             query ScopePoolBookmark($where: PoolFilterInput, $orderBy: [QueryPoolsPaginatedOrderByRelationOrderByClause!], $orderByPoolBookmarks: PoolBookmarksOrderByInput) {
                 poolsPaginated(where: $where, orderBy: $orderBy, orderByPoolBookmarks: $orderByPoolBookmarks) {
                     data {
@@ -1611,18 +1652,77 @@ class PoolTest extends TestCase
 
         $response = $this->actingAs($this->baseUser, 'api')
             ->graphQL(
-                /** @lang GraphQL */ '
+                /** @lang GraphQL */
+                '
                 query Get($id: UUID!) {
                     pool(id: $id) {
                         department {
                             id
                         }
                     }
-                } ', ['id' => $publishedPool->id]
+                } ',
+                ['id' => $publishedPool->id]
             );
 
         $response->assertJsonFragment([
             'department' => ['id' => $department->id],
         ]);
+    }
+
+    public function testDuplicatePool()
+    {
+        $this->seed([
+            SkillFamilySeeder::class,
+            SkillSeeder::class,
+        ]);
+
+        $department = Department::factory()->create();
+
+        $original = Pool::factory()
+            ->draft()
+            ->for($this->poolOperator)
+            ->withPoolSkills(3, 3)
+            ->create();
+
+        $response = $this->actingAs($this->poolOperator, 'api')
+            ->graphQL(
+                /** @lang GraphQL */
+                '
+                mutation Duplicate($id: ID!, $teamId: ID!, $pool: DuplicatePoolInput!) {
+                    duplicatePool(id: $id, teamId: $teamId, pool: $pool) {
+                        id
+                    }
+                }',
+                [
+                    'id' => $original->id,
+                    'teamId' => $this->team->id,
+                    'pool' => ['departmentId' => $department->id],
+                ]
+            );
+
+        $responseJson = $response->json();
+
+        $duplicated = Pool::with('poolSkills.skill')->find($responseJson['data']['duplicatePool']['id']);
+
+        $this->assertStringContainsString($original->name['en'], $duplicated->name['en']);
+        $this->assertStringContainsString($original->name['fr'], $duplicated->name['fr']);
+
+        // Check exact copied values
+        $keysToPluck = ['operational_requirements', 'key_tasks', 'your_impact', 'security_clearance', 'advertisement_language', 'is_remote', 'what_to_expect', 'special_note', 'opportunity_length', 'what_to_expect_admission', 'about_us', 'classification_id'];
+
+        $originalValues = Arr::only($original->toArray(), $keysToPluck);
+        $duplicatedValues = Arr::only($duplicated->toArray(), $keysToPluck);
+
+        $this->assertEquals($originalValues, $duplicatedValues);
+
+        $originalSkills = array_map([$this, 'filterSkillKeys'], $original->poolSkills->toArray());
+        $duplicatedSkills = array_map([$this, 'filterSkillKeys'], $duplicated->poolSkills->toArray());
+
+        $this->assertEquals($originalSkills, $duplicatedSkills);
+    }
+
+    private function filterSkillKeys(array $poolSkill)
+    {
+        return Arr::only($poolSkill, ['type', 'required_skill_level', 'skill_id']);
     }
 }

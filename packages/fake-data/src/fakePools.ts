@@ -24,6 +24,7 @@ import {
   PoolSkill,
   SkillLevel,
   Department,
+  PoolOpportunityLength,
 } from "@gc-digital-talent/graphql";
 
 import fakeScreeningQuestions from "./fakeScreeningQuestions";
@@ -35,6 +36,7 @@ import fakeSkills from "./fakeSkills";
 import toLocalizedString from "./fakeLocalizedString";
 import fakeAssessmentSteps from "./fakeAssessmentSteps";
 import fakeDepartments from "./fakeDepartments";
+import toLocalizedEnum from "./fakeLocalizedEnum";
 
 const generatePool = (
   users: User[],
@@ -68,7 +70,7 @@ const generatePool = (
         requiredLevel: faker.helpers.arrayElement<SkillLevel>(
           Object.values(SkillLevel),
         ),
-        type: PoolSkillType.Essential,
+        type: toLocalizedEnum(PoolSkillType.Essential),
       };
     }),
     ...nonessentialSkills.map((skill) => {
@@ -78,7 +80,7 @@ const generatePool = (
         requiredLevel: faker.helpers.arrayElement<SkillLevel>(
           Object.values(SkillLevel),
         ),
-        type: PoolSkillType.Nonessential,
+        type: toLocalizedEnum(PoolSkillType.Nonessential),
       };
     }),
   ];
@@ -97,14 +99,22 @@ const generatePool = (
     classification: faker.helpers.arrayElement<Classification>(classifications),
     department: faker.helpers.arrayElement<Department>(departments),
     keyTasks: toLocalizedString(faker.lorem.paragraphs()),
-    stream: faker.helpers.arrayElement<PoolStream>(Object.values(PoolStream)),
+    stream: toLocalizedEnum(
+      faker.helpers.arrayElement<PoolStream>(Object.values(PoolStream)),
+    ),
     processNumber: faker.helpers.maybe(() => faker.lorem.word()),
     publishingGroup: faker.helpers.maybe(() =>
-      faker.helpers.arrayElement(Object.values(PublishingGroup)),
+      toLocalizedEnum(
+        faker.helpers.arrayElement(Object.values(PublishingGroup)),
+      ),
     ),
-    language: faker.helpers.arrayElement(Object.values(PoolLanguage)),
+    language: toLocalizedEnum(
+      faker.helpers.arrayElement(Object.values(PoolLanguage)),
+    ),
     location: toLocalizedString(faker.location.city()),
-    status: faker.helpers.arrayElement(Object.values(PoolStatus)),
+    status: toLocalizedEnum(
+      faker.helpers.arrayElement(Object.values(PoolStatus)),
+    ),
     closingDate: faker.date
       .between({ from: FAR_PAST_DATE, to: FAR_FUTURE_DATE })
       .toISOString(),
@@ -112,8 +122,11 @@ const generatePool = (
       .between({ from: FAR_PAST_DATE, to: PAST_DATE })
       .toISOString(),
     poolSkills,
-    securityClearance: faker.helpers.arrayElement(
-      Object.values(SecurityStatus),
+    securityClearance: toLocalizedEnum(
+      faker.helpers.arrayElement(Object.values(SecurityStatus)),
+    ),
+    opportunityLength: toLocalizedEnum(
+      faker.helpers.arrayElement(Object.values(PoolOpportunityLength)),
     ),
     yourImpact: toLocalizedString(faker.lorem.paragraphs()),
     generalQuestions: faker.helpers.arrayElements<GeneralQuestion>(

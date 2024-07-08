@@ -10,7 +10,12 @@ import { useMutation } from "urql";
 import { getLocalizedName, getSkillLevelName } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
 import { useAuthorization } from "@gc-digital-talent/auth";
-import { Skill, SkillLevel, UserSkill } from "@gc-digital-talent/graphql";
+import {
+  Skill,
+  SkillCategory,
+  SkillLevel,
+  UserSkill,
+} from "@gc-digital-talent/graphql";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
@@ -130,7 +135,12 @@ const SkillLibraryTable = ({
         },
       }: UserSkillCell) =>
         skillLevel
-          ? intl.formatMessage(getSkillLevelName(skillLevel, category))
+          ? intl.formatMessage(
+              getSkillLevelName(
+                skillLevel,
+                category.value ?? SkillCategory.Technical,
+              ),
+            )
           : null,
       enableHiding: false,
       enableColumnFilter: false,

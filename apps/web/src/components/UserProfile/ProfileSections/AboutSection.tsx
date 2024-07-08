@@ -1,11 +1,7 @@
 import { useIntl } from "react-intl";
 
 import { Well } from "@gc-digital-talent/ui";
-import {
-  commonMessages,
-  getArmedForcesStatusesAdmin,
-  getCitizenshipStatusesAdmin,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { User } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
@@ -50,7 +46,7 @@ const AboutSection = ({
             description: "Veteran/member label",
           })}{" "}
           <span data-h2-font-weight="base(700)">
-            {intl.formatMessage(getArmedForcesStatusesAdmin(armedForcesStatus))}
+            {getLocalizedName(armedForcesStatus.label, intl)}
           </span>
         </p>
       )}
@@ -62,7 +58,7 @@ const AboutSection = ({
             description: "Citizenship label",
           })}{" "}
           <span data-h2-font-weight="base(700)">
-            {intl.formatMessage(getCitizenshipStatusesAdmin(citizenship))}
+            {getLocalizedName(citizenship.label, intl)}
           </span>
         </p>
       ) : (

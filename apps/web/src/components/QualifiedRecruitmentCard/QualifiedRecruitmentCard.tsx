@@ -14,7 +14,10 @@ import {
   Separator,
   incrementHeadingRank,
 } from "@gc-digital-talent/ui";
-import { getLocalizedName, getSkillCategory } from "@gc-digital-talent/i18n";
+import {
+  getLocalizedName,
+  getLocalizedEnumStringByValue,
+} from "@gc-digital-talent/i18n";
 import {
   PoolSkillType,
   FragmentType,
@@ -33,12 +36,30 @@ export const QualifiedRecruitmentCard_Fragment = graphql(/* GraphQL */ `
   fragment QualifiedRecruitmentCard on PoolCandidate {
     ...RecruitmentAvailabilityDialog
     id
-    status
+    status {
+      value
+      label {
+        en
+        fr
+      }
+    }
     suspendedAt
     pool {
       id
-      stream
-      publishingGroup
+      stream {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      publishingGroup {
+        value
+        label {
+          en
+          fr
+        }
+      }
       name {
         en
         fr
@@ -58,9 +79,22 @@ export const QualifiedRecruitmentCard_Fragment = graphql(/* GraphQL */ `
       }
       poolSkills {
         id
+        type {
+          value
+          label {
+            en
+            fr
+          }
+        }
         skill {
           id
-          category
+          category {
+            value
+            label {
+              en
+              fr
+            }
+          }
           key
           name {
             en
@@ -72,19 +106,41 @@ export const QualifiedRecruitmentCard_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+export const QualifiedRecruitmentCardCategories_Fragment = graphql(
+  /* GraphQL */ `
+    fragment QualifiedRequirementCardCategories on Query {
+      categories: localizedEnumStrings(enumName: "SkillCategory") {
+        value
+        label {
+          en
+          fr
+        }
+      }
+    }
+  `,
+);
+
 export interface QualifiedRecruitmentCardProps {
   candidateQuery: FragmentType<typeof QualifiedRecruitmentCard_Fragment>;
+  categoriesQuery?: FragmentType<
+    typeof QualifiedRecruitmentCardCategories_Fragment
+  >;
   headingLevel?: HeadingRank;
 }
 
 const QualifiedRecruitmentCard = ({
   candidateQuery,
+  categoriesQuery,
   headingLevel = "h2",
 }: QualifiedRecruitmentCardProps) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [linkCopied, setLinkCopied] = useState<boolean>(false);
   const contentHeadingLevel = incrementHeadingRank(headingLevel);
+  const categoryData = getFragment(
+    QualifiedRecruitmentCardCategories_Fragment,
+    categoriesQuery,
+  );
   const candidate = getFragment(
     QualifiedRecruitmentCard_Fragment,
     candidateQuery,
@@ -140,7 +196,7 @@ const QualifiedRecruitmentCard = ({
         data-h2-color="base(secondary.darker)"
         data-h2-margin="base(x.25 0 x1 0)"
       >
-        {getRecruitmentType(candidate.pool.publishingGroup, intl)}
+        {getRecruitmentType(candidate.pool.publishingGroup?.value, intl)}
       </p>
       <Collapsible.Root open={isOpen} onOpenChange={setIsOpen}>
         <Collapsible.Trigger asChild>
@@ -235,8 +291,10 @@ const QualifiedRecruitmentCard = ({
                 data-h2-font-weight="base(700)"
                 color="secondary"
               >
-                {intl.formatMessage(
-                  getSkillCategory(SkillCategory.Behavioural),
+                {getLocalizedEnumStringByValue(
+                  SkillCategory.Behavioural,
+                  categoryData?.categories,
+                  intl,
                 )}
               </Heading>
               <ul
@@ -260,7 +318,11 @@ const QualifiedRecruitmentCard = ({
                 data-h2-font-weight="base(700)"
                 color="secondary"
               >
-                {intl.formatMessage(getSkillCategory(SkillCategory.Technical))}
+                {getLocalizedEnumStringByValue(
+                  SkillCategory.Technical,
+                  categoryData?.categories,
+                  intl,
+                )}
               </Heading>
               <ul
                 data-h2-display="base(grid)"

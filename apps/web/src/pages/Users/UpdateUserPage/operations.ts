@@ -43,9 +43,27 @@ export const UpdateUserData_Query = graphql(/* GraphQL */ `
       firstName
       lastName
       telephone
-      preferredLang
-      preferredLanguageForInterview
-      preferredLanguageForExam
+      preferredLang {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      preferredLanguageForInterview {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      preferredLanguageForExam {
+        value
+        label {
+          en
+          fr
+        }
+      }
     }
   }
 `);
@@ -62,22 +80,40 @@ export const UpdateUserAsAdmin_Mutation = graphql(/* GraphQL */ `
       firstName
       lastName
       telephone
-      currentProvince
+      currentProvince {
+        value
+      }
       currentCity
 
-      preferredLang
-      preferredLanguageForInterview
-      preferredLanguageForExam
+      preferredLang {
+        value
+      }
+      preferredLanguageForInterview {
+        value
+      }
+      preferredLanguageForExam {
+        value
+      }
       lookingForEnglish
       lookingForFrench
       lookingForBilingual
-      firstOfficialLanguage
+      firstOfficialLanguage {
+        value
+      }
       secondLanguageExamCompleted
       secondLanguageExamValidity
-      comprehensionLevel
-      writtenLevel
-      verbalLevel
-      estimatedLanguageAbility
+      comprehensionLevel {
+        value
+      }
+      writtenLevel {
+        value
+      }
+      verbalLevel {
+        value
+      }
+      estimatedLanguageAbility {
+        value
+      }
 
       isGovEmployee
       hasPriorityEntitlement
@@ -105,13 +141,19 @@ export const UpdateUserAsAdmin_Mutation = graphql(/* GraphQL */ `
       isWoman
       hasDisability
       isVisibleMinority
-      indigenousCommunities
+      indigenousCommunities {
+        value
+      }
       indigenousDeclarationSignature
 
       hasDiploma
-      locationPreferences
+      locationPreferences {
+        value
+      }
       locationExemptions
-      acceptedOperationalRequirements
+      acceptedOperationalRequirements {
+        value
+      }
       positionDuration
     }
   }

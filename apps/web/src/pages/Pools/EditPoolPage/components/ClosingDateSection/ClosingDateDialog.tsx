@@ -26,7 +26,7 @@ const ClosingDateDialog = ({ title }: { title: ReactNode }): JSX.Element => {
           {title}
         </Button>
       </Dialog.Trigger>
-      <Dialog.Content>
+      <Dialog.Content hasSubtitle>
         <Dialog.Header
           subtitle={intl.formatMessage({
             defaultMessage:

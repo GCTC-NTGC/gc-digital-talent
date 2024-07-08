@@ -68,7 +68,7 @@ const columns = [
     },
   }),
   columnHelper.accessor(
-    (row) => (row.preferredLang === Language.Fr ? "French" : "English"),
+    (row) => (row.preferredLang?.value === Language.Fr ? "French" : "English"),
     {
       id: "preferredCommunication",
       header: "Preferred Communication Language",

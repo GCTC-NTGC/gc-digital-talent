@@ -150,7 +150,15 @@ class AuthController extends Controller
                 'refresh_token' => $refreshToken,
             ]);
         if ($response->failed()) {
-            Log::error('Failed when POSTing to the token URI in refresh');
+            $errorCode = $response->json('error');
+            $isNormalErrorCode = $errorCode == 'invalid_grant';
+
+            $errorMessageToLog = 'Failed when POSTing to the token URI in refresh '.$errorCode;
+            if (! $isNormalErrorCode) {
+                Log::error($errorMessageToLog);
+            } else {
+                Log::debug($errorMessageToLog);
+            }
             Log::debug((string) $response->getBody());
 
             return response('Failed to get token', 400);

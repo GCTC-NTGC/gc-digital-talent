@@ -23,7 +23,7 @@ export function hasEmptyRequiredFields(
   applicant: PartialUser,
   pool?: Maybe<Pool>,
 ): boolean {
-  if (!(pool?.publishingGroup === PublishingGroup.Iap)) {
+  if (!(pool?.publishingGroup?.value === PublishingGroup.Iap)) {
     return false;
   }
   return !(

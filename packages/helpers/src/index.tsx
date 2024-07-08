@@ -23,6 +23,7 @@ import {
   groupBy,
   pickMap,
   unpackMaybes,
+  localizedEnumHasValue,
 } from "./utils/util";
 import useIsSmallScreen from "./hooks/useIsSmallScreen";
 import { GraphqlType } from "./types/graphql";
@@ -51,5 +52,6 @@ export {
   groupBy,
   pickMap,
   unpackMaybes,
+  localizedEnumHasValue,
 };
 export type { GraphqlType };

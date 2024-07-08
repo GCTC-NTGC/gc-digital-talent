@@ -2,13 +2,7 @@ import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { isPast } from "date-fns/isPast";
 
-import {
-  commonMessages,
-  getLocalizedName,
-  getPoolCandidateStatus,
-  getPoolStream,
-  getPublishingGroup,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { PoolCandidate, User } from "@gc-digital-talent/graphql";
@@ -80,12 +74,8 @@ const PoolStatusTable = ({ user }: PoolStatusTableProps) => {
       },
     ),
     columnHelper.accessor(
-      (row) =>
-        intl.formatMessage(
-          row.pool.publishingGroup
-            ? getPublishingGroup(row.pool.publishingGroup)
-            : commonMessages.notFound,
-        ),
+      ({ pool: { publishingGroup } }) =>
+        getLocalizedName(publishingGroup?.label, intl),
       {
         id: "publishingGroup",
         sortingFn: normalizedText,
@@ -93,7 +83,7 @@ const PoolStatusTable = ({ user }: PoolStatusTableProps) => {
       },
     ),
     columnHelper.accessor(
-      (row) => intl.formatMessage(getPoolCandidateStatus(row.status as string)),
+      ({ status }) => getLocalizedName(status?.label, intl),
       {
         id: "status",
         enableHiding: false,
@@ -126,12 +116,7 @@ const PoolStatusTable = ({ user }: PoolStatusTableProps) => {
       },
     ),
     columnHelper.accessor(
-      (row) =>
-        intl.formatMessage(
-          row.pool.stream
-            ? getPoolStream(row.pool.stream)
-            : commonMessages.notAvailable,
-        ),
+      ({ pool: { stream } }) => getLocalizedName(stream?.label, intl),
       {
         id: "application",
         enableHiding: false,

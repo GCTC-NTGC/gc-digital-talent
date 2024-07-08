@@ -14,7 +14,7 @@ import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
   errorMessages,
-  getLanguage,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import { User, UserFilterInput, graphql } from "@gc-digital-talent/graphql";
@@ -90,9 +90,27 @@ const UsersPaginated_Query = graphql(/* GraphQL */ `
         firstName
         lastName
         telephone
-        preferredLang
-        preferredLanguageForInterview
-        preferredLanguageForExam
+        preferredLang {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        preferredLanguageForInterview {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        preferredLanguageForExam {
+          value
+          label {
+            en
+            fr
+          }
+        }
         createdDate
         updatedDate
         authInfo {
@@ -235,17 +253,16 @@ const UserTable = ({ title }: UserTableProps) => {
       header: intl.formatMessage(commonMessages.telephone),
       cell: ({ getValue }) => cells.phone(getValue()),
     }),
-    columnHelper.accessor("preferredLang", {
-      id: "preferredLang",
-      enableColumnFilter: false,
-      header: intl.formatMessage(commonMessages.preferredCommunicationLanguage),
-      cell: ({
-        row: {
-          original: { preferredLang },
-        },
-      }) =>
-        preferredLang ? intl.formatMessage(getLanguage(preferredLang)) : null,
-    }),
+    columnHelper.accessor(
+      ({ preferredLang }) => getLocalizedName(preferredLang?.label, intl),
+      {
+        id: "preferredLang",
+        enableColumnFilter: false,
+        header: intl.formatMessage(
+          commonMessages.preferredCommunicationLanguage,
+        ),
+      },
+    ),
     columnHelper.display({
       id: "edit",
       header: intl.formatMessage(commonMessages.edit),

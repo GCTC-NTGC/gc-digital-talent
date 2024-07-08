@@ -167,7 +167,7 @@ class SkillTest extends TestCase
                         en
                         fr
                     }
-                    category
+                    category { value }
                 }
             }
         ';
@@ -209,7 +209,7 @@ class SkillTest extends TestCase
                         en
                         fr
                     }
-                    category
+                    category { value }
                 }
             }
         ';

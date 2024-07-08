@@ -1,14 +1,14 @@
 import {
-  User,
   Language,
   ProvinceOrTerritory,
   WorkRegion,
   PositionDuration,
   CitizenshipStatus,
   ArmedForcesStatus,
+  CreateUserInput,
 } from "@gc-digital-talent/graphql";
 
-export const defaultUser: Partial<User> = {
+export const defaultUser: Partial<CreateUserInput> = {
   // required
   firstName: "Playwright",
   lastName: "User",
@@ -66,7 +66,9 @@ export const Test_MeQueryDocument = /* GraphQL */ `
             en
             fr
           }
-          category
+          category {
+            value
+          }
           experienceSkillRecord {
             details
           }
@@ -75,8 +77,12 @@ export const Test_MeQueryDocument = /* GraphQL */ `
           title
           issuedBy
           awardedDate
-          awardedTo
-          awardedScope
+          awardedTo {
+            value
+          }
+          awardedScope {
+            value
+          }
         }
         ... on CommunityExperience {
           title
@@ -91,8 +97,12 @@ export const Test_MeQueryDocument = /* GraphQL */ `
           thesisTitle
           startDate
           endDate
-          type
-          status
+          type {
+            value
+          }
+          status {
+            value
+          }
         }
         ... on PersonalExperience {
           title

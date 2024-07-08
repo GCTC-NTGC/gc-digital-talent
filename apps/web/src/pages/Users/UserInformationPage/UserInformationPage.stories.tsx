@@ -5,6 +5,7 @@ import {
   fakeDepartments,
   fakePools,
   fakeUser,
+  toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
 import {
   PoolCandidate,
@@ -39,8 +40,10 @@ const poolCandidates: PoolCandidate[] = [
       .toISOString()
       .substring(0, 10),
     isBookmarked: faker.datatype.boolean(0.2),
-    status: faker.helpers.arrayElement<PoolCandidateStatus>(
-      Object.values(PoolCandidateStatus),
+    status: toLocalizedEnum(
+      faker.helpers.arrayElement<PoolCandidateStatus>(
+        Object.values(PoolCandidateStatus),
+      ),
     ),
     suspendedAt: faker.helpers.arrayElement([null, new Date().toISOString()]),
     finalDecisionAt: faker.helpers.arrayElement([
@@ -59,8 +62,10 @@ const poolCandidates: PoolCandidate[] = [
       .toISOString()
       .substring(0, 10),
     isBookmarked: faker.datatype.boolean(0.2),
-    status: faker.helpers.arrayElement<PoolCandidateStatus>(
-      Object.values(PoolCandidateStatus),
+    status: toLocalizedEnum(
+      faker.helpers.arrayElement<PoolCandidateStatus>(
+        Object.values(PoolCandidateStatus),
+      ),
     ),
     suspendedAt: faker.helpers.arrayElement([null, new Date().toISOString()]),
     finalDecisionAt: faker.helpers.arrayElement([
@@ -79,8 +84,10 @@ const poolCandidates: PoolCandidate[] = [
       .toISOString()
       .substring(0, 10),
     isBookmarked: faker.datatype.boolean(0.2),
-    status: faker.helpers.arrayElement<PoolCandidateStatus>(
-      Object.values(PoolCandidateStatus),
+    status: toLocalizedEnum(
+      faker.helpers.arrayElement<PoolCandidateStatus>(
+        Object.values(PoolCandidateStatus),
+      ),
     ),
     suspendedAt: faker.helpers.arrayElement([null, new Date().toISOString()]),
     finalDecisionAt: faker.helpers.arrayElement([

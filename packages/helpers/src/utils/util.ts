@@ -183,3 +183,18 @@ export function pickMap<T, K extends keyof T>(
     (item) => pick(item, keys) as Pick<T, K>, // I think this type coercion is safe? But I'm not sure why its not the default...
   );
 }
+
+/**
+ * Ensure localized enum string
+ * contains a value
+ *
+ * @param localizedEnum
+ * @returns boolean
+ */
+export function localizedEnumHasValue<
+  T extends {
+    value?: Maybe<unknown> | undefined;
+  },
+>(localizedEnum: T): boolean {
+  return !!localizedEnum.value;
+}

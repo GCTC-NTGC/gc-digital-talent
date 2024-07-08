@@ -43,7 +43,7 @@ test.describe("Pool candidates", () => {
     const poolPage = new PoolPage(adminPage.page);
     const skills = await getSkills();
     const technicalSkill = skills.find(
-      (skill) => skill.category === SkillCategory.Technical,
+      (skill) => skill.category.value === SkillCategory.Technical,
     );
     const createdUser = await adminPage.createUser({
       email: `${sub}@example.org`,

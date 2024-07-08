@@ -25,6 +25,11 @@ type LocalizedString {
   fr: String
 }
 
+type LocalizedEnumString {
+  value: String!
+  label: LocalizedString!
+}
+
 type UserAuthInfo {
   id: UUID!
   sub: String
@@ -45,35 +50,41 @@ type User {
   email: Email
   emailVerifiedAt: DateTime @rename(attribute: "email_verified_at")
   telephone: PhoneNumber
-  preferredLang: Language @rename(attribute: "preferred_lang")
-  preferredLanguageForInterview: Language
-    @rename(attribute: "preferred_language_for_interview")
-  preferredLanguageForExam: Language
-    @rename(attribute: "preferred_language_for_exam")
-  currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
+  preferredLang: LocalizedLanguage @localizeEnum(attribute: "preferred_lang")
+  preferredLanguageForInterview: LocalizedLanguage
+    @localizeEnum(attribute: "preferred_language_for_interview")
+  preferredLanguageForExam: LocalizedLanguage
+    @localizeEnum(attribute: "preferred_language_for_exam")
+  currentProvince: LocalizedProvinceOrTerritory
+    @localizeEnum(attribute: "current_province")
   currentCity: String @rename(attribute: "current_city")
-  citizenship: CitizenshipStatus
-  armedForcesStatus: ArmedForcesStatus @rename(attribute: "armed_forces_status")
+  citizenship: LocalizedCitizenshipStatus @localizeEnum
+  armedForcesStatus: LocalizedArmedForcesStatus
+    @localizeEnum(attribute: "armed_forces_status")
 
   # Language
   lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
   lookingForFrench: Boolean @rename(attribute: "looking_for_french")
   lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
-  firstOfficialLanguage: Language @rename(attribute: "first_official_language")
+  firstOfficialLanguage: LocalizedLanguage
+    @localizeEnum(attribute: "first_official_language")
   secondLanguageExamCompleted: Boolean
     @rename(attribute: "second_language_exam_completed")
   secondLanguageExamValidity: Boolean
     @rename(attribute: "second_language_exam_validity")
-  comprehensionLevel: EvaluatedLanguageAbility
-    @rename(attribute: "comprehension_level")
-  writtenLevel: EvaluatedLanguageAbility @rename(attribute: "written_level")
-  verbalLevel: EvaluatedLanguageAbility @rename(attribute: "verbal_level")
-  estimatedLanguageAbility: EstimatedLanguageAbility
-    @rename(attribute: "estimated_language_ability")
+  comprehensionLevel: LocalizedEvaluatedLanguageAbility
+    @localizeEnum(attribute: "comprehension_level")
+  writtenLevel: LocalizedEvaluatedLanguageAbility
+    @localizeEnum(attribute: "written_level")
+  verbalLevel: LocalizedEvaluatedLanguageAbility
+    @localizeEnum(attribute: "verbal_level")
+  estimatedLanguageAbility: LocalizedEstimatedLanguageAbility
+    @localizeEnum(attribute: "estimated_language_ability")
 
   # Gov info
   isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
-  govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
+  govEmployeeType: LocalizedGovEmployeeType
+    @localizeEnum(attribute: "gov_employee_type")
   currentClassification: Classification @belongsTo # Users current classification
   department: Department @belongsTo
   hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
@@ -83,8 +94,8 @@ type User {
   isWoman: Boolean @rename(attribute: "is_woman")
   hasDisability: Boolean @rename(attribute: "has_disability")
   isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
-  indigenousCommunities: [IndigenousCommunity]
-    @rename(attribute: "indigenous_communities")
+  indigenousCommunities: [LocalizedIndigenousCommunity]
+    @localizeEnum(attribute: "indigenous_communities")
   indigenousDeclarationSignature: String
     @rename(attribute: "indigenous_declaration_signature")
 
@@ -92,10 +103,11 @@ type User {
   hasDiploma: Boolean
     @rename(attribute: "has_diploma")
     @deprecated(reason: "hasDiploma to be replaced")
-  locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
+  locationPreferences: [LocalizedWorkRegion]
+    @localizeEnum(attribute: "location_preferences")
   locationExemptions: String @rename(attribute: "location_exemptions")
-  acceptedOperationalRequirements: [OperationalRequirement]
-    @rename(attribute: "accepted_operational_requirements")
+  acceptedOperationalRequirements: [LocalizedOperationalRequirement]
+    @localizeEnum(attribute: "accepted_operational_requirements")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
 
   # Pool info
@@ -118,6 +130,7 @@ type User {
   # Profile Status
   isProfileComplete: Boolean
   priorityWeight: Int @rename(attribute: "priority_weight")
+  priority: LocalizedPriorityWeight @localizeEnum
   # authorization and roles
   authInfo: UserAuthInfo @self
   # site options
@@ -218,8 +231,8 @@ type Pool implements HasRoleAssignments {
   team: Team @belongsTo(relation: "legacyTeam") @canModel(ability: "viewAny")
   name: LocalizedString
   classification: Classification @belongsTo
-  operationalRequirements: [OperationalRequirement]
-    @rename(attribute: "operational_requirements")
+  operationalRequirements: [LocalizedOperationalRequirement]
+    @localizeEnum(attribute: "operational_requirements")
   poolCandidates: [PoolCandidate]
     @hasMany(relation: "publishedPoolCandidates", scopes: ["authorizedToView"])
     @canResolved(ability: "view")
@@ -235,14 +248,17 @@ type Pool implements HasRoleAssignments {
   aboutUs: LocalizedString @rename(attribute: "about_us")
   isRemote: Boolean @rename(attribute: "is_remote")
   location: LocalizedString @rename(attribute: "advertisement_location")
-  securityClearance: SecurityStatus @rename(attribute: "security_clearance")
-  language: PoolLanguage @rename(attribute: "advertisement_language")
-  status: PoolStatus @rename(attribute: "status")
-  stream: PoolStream
+  securityClearance: LocalizedSecurityStatus
+    @localizeEnum(attribute: "security_clearance")
+  language: LocalizedPoolLanguage
+    @localizeEnum(attribute: "advertisement_language")
+  status: LocalizedPoolStatus @localizeEnum(attribute: "status")
+  stream: LocalizedPoolStream @localizeEnum
   processNumber: String @rename(attribute: "process_number")
-  publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
-  opportunityLength: PoolOpportunityLength
-    @rename(attribute: "opportunity_length")
+  publishingGroup: LocalizedPublishingGroup
+    @localizeEnum(attribute: "publishing_group")
+  opportunityLength: LocalizedPoolOpportunityLength
+    @localizeEnum(attribute: "opportunity_length")
   createdDate: DateTime @rename(attribute: "created_at")
   updatedDate: DateTime @rename(attribute: "updated_at")
   generalQuestions: [GeneralQuestion]
@@ -283,7 +299,7 @@ type ScreeningQuestionResponse {
 type AssessmentStep {
   id: ID!
   pool: Pool @belongsTo
-  type: AssessmentStepType
+  type: LocalizedAssessmentStepType @localizeEnum
   sortOrder: Int @rename(attribute: "sort_order")
   title: LocalizedString
   poolSkills: [PoolSkill] @belongsToMany
@@ -300,11 +316,11 @@ type AssessmentResult {
   poolSkill: PoolSkill @belongsTo
   assessmentResultType: AssessmentResultType
     @rename(attribute: "assessment_result_type")
-  assessmentDecision: AssessmentDecision
-    @rename(attribute: "assessment_decision")
-  justifications: [AssessmentResultJustification]
-  assessmentDecisionLevel: AssessmentDecisionLevel
-    @rename(attribute: "assessment_decision_level")
+  assessmentDecision: LocalizedAssessmentDecision
+    @localizeEnum(attribute: "assessment_decision")
+  justifications: [LocalizedAssessmentResultJustification] @localizeEnum
+  assessmentDecisionLevel: LocalizedAssessmentDecisionLevel
+    @localizeEnum(attribute: "assessment_decision_level")
   skillDecisionNotes: String @rename(attribute: "skill_decision_notes")
 }
 
@@ -321,7 +337,7 @@ type AssessmentResultStatus {
 
 type PoolSkill {
   id: ID!
-  type: PoolSkillType
+  type: LocalizedPoolSkillType @localizeEnum
   requiredLevel: SkillLevel @rename(attribute: "required_skill_level")
   skill: Skill @belongsTo
   assessmentSteps: [AssessmentStep]
@@ -336,8 +352,8 @@ type PoolCandidate {
   # Expiry date for this candidate being in the pool.
   expiryDate: Date @rename(attribute: "expiry_date")
 
-  status: PoolCandidateStatus
-    @rename(attribute: "pool_candidate_status")
+  status: LocalizedPoolCandidateStatus
+    @localizeEnum(attribute: "pool_candidate_status")
     @canRoot(ability: "viewStatus")
   statusWeight: Int
     @rename(attribute: "status_weight")
@@ -353,8 +369,8 @@ type PoolCandidate {
   removedAt: DateTime
     @rename(attribute: "removed_at")
     @canRoot(ability: "viewStatus")
-  removalReason: CandidateRemovalReason
-    @rename(attribute: "removal_reason")
+  removalReason: LocalizedCandidateRemovalReason
+    @localizeEnum(attribute: "removal_reason")
     @canRoot(ability: "viewStatus")
   removalReasonOther: String
     @rename(attribute: "removal_reason_other")
@@ -365,8 +381,8 @@ type PoolCandidate {
   submittedSteps: [ApplicationStep!] @rename(attribute: "submitted_steps")
   generalQuestionResponses: [GeneralQuestionResponse] @hasMany
   screeningQuestionResponses: [ScreeningQuestionResponse] @hasMany
-  educationRequirementOption: EducationRequirementOption
-    @rename(attribute: "education_requirement_option") # associated experiences to fulfill this called educationRequirementExperiences
+  educationRequirementOption: LocalizedEducationRequirementOption
+    @localizeEnum(attribute: "education_requirement_option") # associated experiences to fulfill this called educationRequirementExperiences
   educationRequirementExperiences: [Experience] @belongsToMany
   # record of decision
   assessmentResults: [AssessmentResult]
@@ -496,10 +512,11 @@ type PoolCandidateFilter {
     @rename(attribute: "has_diploma")
     @deprecated(reason: "hasDiploma to be replaced")
   equity: EquitySelections
-  languageAbility: LanguageAbility @rename(attribute: "language_ability")
-  operationalRequirements: [OperationalRequirement]
-    @rename(attribute: "operational_requirements")
-  workRegions: [WorkRegion] @rename(attribute: "work_regions")
+  languageAbility: LocalizedLanguageAbility
+    @localizeEnum(attribute: "language_ability")
+  operationalRequirements: [LocalizedOperationalRequirement]
+    @localizeEnum(attribute: "operational_requirements")
+  workRegions: [LocalizedWorkRegion] @localizeEnum(attribute: "work_regions")
   pools: [Pool] @belongsToMany @canResolved(ability: "view")
 }
 
@@ -510,15 +527,18 @@ type ApplicantFilter {
     @rename(attribute: "has_diploma")
     @deprecated(reason: "hasDiploma to be replaced")
   equity: EquitySelections
-  languageAbility: LanguageAbility @rename(attribute: "language_ability")
-  operationalRequirements: [OperationalRequirement]
-    @rename(attribute: "operational_requirements")
-  locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
+  languageAbility: LocalizedLanguageAbility
+    @localizeEnum(attribute: "language_ability")
+  operationalRequirements: [LocalizedOperationalRequirement]
+    @localizeEnum(attribute: "operational_requirements")
+  locationPreferences: [LocalizedWorkRegion]
+    @localizeEnum(attribute: "location_preferences")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
   skills: [Skill] @belongsToMany
   # request creation connects to qualifiedClassifications
   qualifiedClassifications: [Classification] @belongsToMany # Filters applicants based on the classifications pools they've qualified in.
-  qualifiedStreams: [PoolStream] @rename(attribute: "qualified_streams") # Filters applicants based on the streams of the pools they've qualified in.
+  qualifiedStreams: [LocalizedPoolStream]
+    @localizeEnum(attribute: "qualified_streams") # Filters applicants based on the streams of the pools they've qualified in.
   pools: [Pool] @belongsToMany @canResolved(ability: "view")
   community: Community @belongsTo # Currently does not affect search, scope needs to be added
 }
@@ -532,7 +552,8 @@ type PoolCandidateSearchRequest {
   additionalComments: String @rename(attribute: "additional_comments")
   hrAdvisorEmail: Email @rename(attribute: "hr_advisor_email")
   requestedDate: DateTime @rename(attribute: "created_at")
-  status: PoolCandidateSearchStatus @rename(attribute: "request_status")
+  status: LocalizedPoolCandidateSearchStatus
+    @localizeEnum(attribute: "request_status")
   statusChangedAt: DateTime @rename(attribute: "request_status_changed_at")
   adminNotes: String @rename(attribute: "admin_notes")
   poolCandidateFilter: PoolCandidateFilter
@@ -541,9 +562,9 @@ type PoolCandidateSearchRequest {
   applicantFilter: ApplicantFilter @belongsTo
   wasEmpty: Boolean @rename(attribute: "was_empty")
   managerJobTitle: String @rename(attribute: "manager_job_title")
-  positionType: PoolCandidateSearchPositionType
-    @rename(attribute: "position_type")
-  reason: PoolCandidateSearchRequestReason
+  positionType: LocalizedPoolCandidateSearchPositionType
+    @localizeEnum(attribute: "position_type")
+  reason: LocalizedPoolCandidateSearchRequestReason @localizeEnum
   community: Community @belongsTo
 }
 
@@ -561,7 +582,7 @@ type Skill {
   name: LocalizedString!
   description: LocalizedString
   keywords: SkillKeywords
-  category: SkillCategory!
+  category: LocalizedSkillCategory! @localizeEnum
   families: [SkillFamily!] @belongsToMany
 
   # ExperienceSkillRecord is the pivot data and may only be queried when Skill is nested in an Experience (eg. experience->skill->experienceSkillRecord). Querying for it otherwise will just return null.
@@ -649,8 +670,8 @@ type EducationExperience implements Experience {
   thesisTitle: String @rename(attribute: "thesis_title")
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
-  type: EducationType
-  status: EducationStatus
+  type: LocalizedEducationType @localizeEnum
+  status: LocalizedEducationStatus @localizeEnum
   details: String
   skills: [Skill!] @hasMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
@@ -664,8 +685,8 @@ type AwardExperience implements Experience {
   title: String
   issuedBy: String @rename(attribute: "issued_by")
   awardedDate: Date @rename(attribute: "awarded_date")
-  awardedTo: AwardedTo @rename(attribute: "awarded_to")
-  awardedScope: AwardedScope @rename(attribute: "awarded_scope")
+  awardedTo: LocalizedAwardedTo @localizeEnum(attribute: "awarded_to")
+  awardedScope: LocalizedAwardedScope @localizeEnum(attribute: "awarded_scope")
   details: String
   skills: [Skill!] @hasMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
@@ -968,6 +989,11 @@ type Query {
     @paginate(defaultCount: 10, scopes: ["authorizedToView"])
 
   sitewideAnnouncement: SitewideAnnouncement
+
+  localizedEnumStrings(
+    enumName: String!
+      @rules(apply: ["required", "App\\Rules\\LocalizedEnumExists"])
+  ): [LocalizedEnumString!]
 }
 
 input ClassificationBelongsTo {

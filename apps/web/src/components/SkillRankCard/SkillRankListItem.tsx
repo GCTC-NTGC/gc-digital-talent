@@ -64,7 +64,9 @@ const SkillRankListItem = ({
             data-h2-color="base(black.light)"
             data-h2-flex-shrink="base(0)"
           >
-            {intl.formatMessage(getSkillLevelName(skillLevel, skill.category))}
+            {intl.formatMessage(
+              getSkillLevelName(skillLevel, skill.category.value),
+            )}
           </span>
         ) : (
           <span

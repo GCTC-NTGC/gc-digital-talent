@@ -68,7 +68,7 @@ const AssessmentStepCard = ({
     (question) => question.sortOrder,
   );
   const isApplicationScreening =
-    assessmentStep.type === AssessmentStepType.ApplicationScreening;
+    assessmentStep.type?.value === AssessmentStepType.ApplicationScreening;
 
   const handleMove = (from: number, to: number) => {
     move(from, to);
@@ -90,7 +90,7 @@ const AssessmentStepCard = ({
           initialValues={{
             id: assessmentStep.id,
             poolId: pool.id,
-            typeOfAssessment: assessmentStep.type,
+            typeOfAssessment: assessmentStep.type?.value,
             assessmentTitleEn: assessmentStep?.title?.en,
             assessmentTitleFr: assessmentStep?.title?.fr,
             assessedSkills:
@@ -159,7 +159,7 @@ const AssessmentStepCard = ({
         </Well>
       )}
 
-      {assessmentStep.type ===
+      {assessmentStep.type?.value ===
       AssessmentStepType.ScreeningQuestionsAtApplication ? (
         <Accordion.Root
           type="multiple"

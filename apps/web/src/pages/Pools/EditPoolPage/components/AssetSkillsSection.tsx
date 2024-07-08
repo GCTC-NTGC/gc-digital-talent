@@ -49,7 +49,7 @@ const AssetSkillsSection = ({
     .filter(notEmpty)
     .filter(
       (poolSkill) =>
-        poolSkill.type === PoolSkillType.Nonessential && poolSkill.skill,
+        poolSkill.type?.value === PoolSkillType.Nonessential && poolSkill.skill,
     );
 
   const nonessentialSkills: (Skill & {
@@ -57,7 +57,11 @@ const AssetSkillsSection = ({
     requiredLevel?: SkillLevel;
   })[] = nonessentialPoolSkills.map((poolSkill) => {
     return {
-      category: poolSkill.skill?.category ?? SkillCategory.Technical,
+      // Note: We need to clean these types up
+      category: poolSkill.skill?.category ?? {
+        value: SkillCategory.Technical,
+        label: { en: undefined, fr: undefined },
+      },
       description: poolSkill.skill?.description,
       id: poolSkill.skill?.id ?? poolSkill.id,
       key: poolSkill.skill?.key,
@@ -91,7 +95,7 @@ const AssetSkillsSection = ({
   };
 
   // disabled unless status is draft
-  const formDisabled = pool.status !== PoolStatus.Draft;
+  const formDisabled = pool.status?.value !== PoolStatus.Draft;
 
   const subtitle = intl.formatMessage({
     defaultMessage:
