@@ -226,19 +226,13 @@ const getRoutes = (lang: Locales) => {
       const fragment = section ? `#${section}` : "";
       return path.join(applicantUrl, "personal-information") + fragment;
     },
-    profileEmailVerification: (opts?: {
-      emailAddress?: string | null;
-      emailAddressType?: string;
-    }) => {
+    verifyContactEmail: (opts?: { emailAddress?: string | null }) => {
       const searchParams = new Map<string, string>();
       if (opts?.emailAddress) {
         searchParams.set("emailAddress", opts.emailAddress);
       }
-      if (opts?.emailAddressType) {
-        searchParams.set("emailAddressType", opts.emailAddressType);
-      }
       return (
-        path.join(applicantUrl, "personal-information", "email-verification") +
+        path.join(applicantUrl, "verify-contact-email") +
         createSearchQuery(searchParams)
       );
     },

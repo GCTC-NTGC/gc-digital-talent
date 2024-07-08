@@ -164,20 +164,8 @@ const createRoute = (locale: Locales) =>
                 },
                 {
                   path: "personal-information",
-                  children: [
-                    {
-                      index: true,
-                      lazy: () =>
-                        import("../pages/Profile/ProfilePage/ProfilePage"),
-                    },
-                    {
-                      path: "email-verification",
-                      lazy: () =>
-                        import(
-                          "../pages/EmailVerificationPage/ProfileEmailVerificationPage"
-                        ),
-                    },
-                  ],
+                  lazy: () =>
+                    import("../pages/Profile/ProfilePage/ProfilePage"),
                 },
                 {
                   path: "career-timeline",
@@ -256,6 +244,13 @@ const createRoute = (locale: Locales) =>
                       ],
                     },
                   ],
+                },
+                {
+                  path: "verify-contact-email",
+                  lazy: () =>
+                    import(
+                      "../pages/EmailVerificationPage/ProfileContactEmailVerificationPage"
+                    ),
                 },
               ],
             },

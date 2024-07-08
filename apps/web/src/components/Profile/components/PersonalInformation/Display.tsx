@@ -64,9 +64,8 @@ const Display = ({
       .then((result) => {
         if (result.data?.sendUserEmailVerification) {
           navigate(
-            routes.profileEmailVerification({
+            routes.verifyContactEmail({
               emailAddress: result.data.sendUserEmailVerification.email,
-              emailAddressType: "contact",
             }),
           );
         } else {

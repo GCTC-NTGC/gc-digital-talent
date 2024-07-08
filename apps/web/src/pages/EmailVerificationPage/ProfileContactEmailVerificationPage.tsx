@@ -3,7 +3,6 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { toast } from "@gc-digital-talent/toast";
 
 // importing from a shared file, not the page itself
 // eslint-disable-next-line no-restricted-imports
@@ -13,10 +12,6 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import EmailVerification from "~/components/EmailVerification/EmailVerification";
-import {
-  EmailAddressType,
-  isEmailAddressType,
-} from "~/components/EmailVerification/types";
 
 import messages from "./messages";
 
@@ -24,19 +19,13 @@ const { pageTitle } = profilePageMessages;
 
 const { subTitle } = profilePageMessages;
 
-const ProfileEmailVerificationPage = () => {
+const ProfileContactEmailVerificationPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
 
   const [searchParams] = useSearchParams();
   const emailAddress = searchParams.get("emailAddress");
-  const emailAddressType = searchParams.get("emailAddressType");
-
-  const parsedEmailAddressType: EmailAddressType | undefined =
-    !!emailAddressType && isEmailAddressType(emailAddressType)
-      ? emailAddressType
-      : undefined;
 
   const crumbs = useBreadcrumbs({
     crumbs: [
@@ -50,19 +39,12 @@ const ProfileEmailVerificationPage = () => {
       },
       {
         label: intl.formatMessage(messages.pageBreadcrumb),
-        url: paths.profileEmailVerification(),
+        url: paths.verifyContactEmail(),
       },
     ],
   });
 
   const handleVerificationSuccess = (): void => {
-    toast.success(
-      intl.formatMessage({
-        defaultMessage: "Verified",
-        id: "GMglI5",
-        description: "The email address has been verified to be owned by user",
-      }),
-    );
     navigate(paths.profile());
   };
 
@@ -86,7 +68,7 @@ const ProfileEmailVerificationPage = () => {
           <EmailVerification
             emailAddress={emailAddress}
             onVerificationSuccess={handleVerificationSuccess}
-            emailType={parsedEmailAddressType}
+            emailType="contact"
           />
         </div>
       </div>
@@ -96,10 +78,10 @@ const ProfileEmailVerificationPage = () => {
 
 export const Component = () => (
   <RequireAuth roles={[ROLE_NAME.Applicant]}>
-    <ProfileEmailVerificationPage />
+    <ProfileContactEmailVerificationPage />
   </RequireAuth>
 );
 
-Component.displayName = "ProfileEmailVerificationPage";
+Component.displayName = "ProfileContactEmailVerificationPage";
 
-export default ProfileEmailVerificationPage;
+export default ProfileContactEmailVerificationPage;

@@ -12,8 +12,6 @@ import { graphql } from "@gc-digital-talent/graphql";
 import { useLogger } from "@gc-digital-talent/logger";
 import { useAuthorization } from "@gc-digital-talent/auth";
 
-import { EmailAddressType } from "./types";
-
 const SendUserEmailVerification_Mutation = graphql(/* GraphQL */ `
   mutation SendUserEmailVerification($id: ID!) {
     sendUserEmailVerification(id: $id) {
@@ -54,7 +52,7 @@ type FormValues = {
 };
 
 export interface EmailVerificationProps {
-  emailType?: EmailAddressType;
+  emailType?: "contact";
   // The email address that the code was sent to.  Displayed to the user.
   emailAddress?: string | null;
   // Event if verification is successful.
