@@ -1567,6 +1567,10 @@
     "defaultMessage": "la cybersécurité;",
     "description": "An example in the _examples of contracts_ section of the _digital services contracting questionnaire_"
   },
+  "6cr+Qy": {
+    "defaultMessage": "Vous n’avez pas de nouvelles notifications.",
+    "description": "Title for the no notifications message"
+  },
   "6eCvv1": {
     "defaultMessage": "Postes bilingues (français et anglais)",
     "description": "Bilingual Positions message"
@@ -7438,6 +7442,10 @@
     "defaultMessage": "Courriel du gouvernement",
     "description": "Title for the government email block in the manager info section of the single search request view."
   },
+  "d4aLWc": {
+    "defaultMessage": "Revenez ici pour recevoir des alertes sur une variété d’activités sur la plateforme, y compris des offres d’emploi, de nouvelles fonctionnalités et plus encore.",
+    "description": "Explanation of how the list of notifications work"
+  },
   "d4r7rO": {
     "defaultMessage": "Afficher ou masquer les colonnes",
     "description": "Button text to open the dialog for disabling or enabling column display"
@@ -10049,6 +10057,10 @@
   "qeD2p/": {
     "defaultMessage": "Titre du prix",
     "description": "Label displayed on award form for award title input"
+  },
+  "qek0N+": {
+    "defaultMessage": "Bienvenue dans votre panneau de notification. Cliquez ou activez une notification pour accéder à la page concernée. Chaque notification peut être marquée comme lue ou supprimée.",
+    "description": "Instructions on how to manage notifications"
   },
   "qhws/V": {
     "defaultMessage": "Erreur : l'archivage du processus a échoué",
