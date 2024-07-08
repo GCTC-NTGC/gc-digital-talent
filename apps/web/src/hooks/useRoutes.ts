@@ -226,6 +226,13 @@ const getRoutes = (lang: Locales) => {
       const fragment = section ? `#${section}` : "";
       return path.join(applicantUrl, "personal-information") + fragment;
     },
+    profileEmailVerification: () => {
+      return path.join(
+        applicantUrl,
+        "personal-information",
+        "email-verification",
+      );
+    },
 
     // Career timeline and recruitment Routes
     careerTimelineAndRecruitment: (opts?: {

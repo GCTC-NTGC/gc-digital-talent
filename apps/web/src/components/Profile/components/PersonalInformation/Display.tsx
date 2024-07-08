@@ -1,5 +1,6 @@
 import { useMutation } from "urql";
 import { useIntl } from "react-intl";
+import { useNavigate } from "react-router-dom";
 
 import { graphql, User } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
@@ -14,6 +15,7 @@ import {
 import { useAuthorization } from "@gc-digital-talent/auth";
 
 import profileMessages from "~/messages/profileMessages";
+import useRoutes from "~/hooks/useRoutes";
 
 import FieldDisplay from "../FieldDisplay";
 
@@ -48,6 +50,8 @@ const Display = ({
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   const { userAuthInfo } = useAuthorization();
+  const navigate = useNavigate();
+  const routes = useRoutes();
 
   const [{ fetching: mutationSubmitting }, executeSendEmailMutation] =
     useMutation(SendVerificationEmail_Mutation);
@@ -58,7 +62,7 @@ const Display = ({
     })
       .then((result) => {
         if (result.data?.sendUserEmailVerification?.id) {
-          console.debug("successfully requested email");
+          navigate(routes.profileEmailVerification());
         } else {
           throw new Error("Failed to submit");
         }

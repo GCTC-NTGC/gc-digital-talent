@@ -164,8 +164,20 @@ const createRoute = (locale: Locales) =>
                 },
                 {
                   path: "personal-information",
-                  lazy: () =>
-                    import("../pages/Profile/ProfilePage/ProfilePage"),
+                  children: [
+                    {
+                      index: true,
+                      lazy: () =>
+                        import("../pages/Profile/ProfilePage/ProfilePage"),
+                    },
+                    {
+                      path: "email-verification",
+                      lazy: () =>
+                        import(
+                          "../pages/EmailVerificationPage/ProfileEmailVerificationPage"
+                        ),
+                    },
+                  ],
                 },
                 {
                   path: "career-timeline",
