@@ -67,13 +67,13 @@ const EditTeamRoleDialog = ({
       (role) => !initialRolesIds.includes(role),
     );
     const rolesToAttachArray: RoleInput[] = rolesToAttach.map((role) => {
-      return { roleId: role };
+      return { roleId: role, teamId: team.id };
     });
     const rolesToDetach = initialRolesIds.filter(
       (role) => !formValues.roles.includes(role),
     );
     const rolesToDetachArray: RoleInput[] = rolesToDetach.map((role) => {
-      return { roleId: role };
+      return { roleId: role, teamId: team.id };
     });
 
     return onEditRoles({
