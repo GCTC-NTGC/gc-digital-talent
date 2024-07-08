@@ -16,6 +16,7 @@ import { toast } from "@gc-digital-talent/toast";
 import { Input } from "@gc-digital-talent/forms";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Experience, ApplicationStep } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 import { GetPageNavInfo } from "~/types/applicationStep";
@@ -202,6 +203,7 @@ export const ApplicationCareerTimeline = ({
     return deriveExperienceType(e);
   });
   const hasSomeExperience = !!experiences.length;
+  const hasExperiencesByType = !!experienceList.length;
 
   const handleSubmit = async () => {
     executeMutation({
@@ -350,20 +352,26 @@ export const ApplicationCareerTimeline = ({
           data-h2-flex-direction="base(column)"
           data-h2-gap="base(x.5 0)"
         >
-          {experienceList.map((experience) => {
-            return (
-              <ExperienceCard
-                key={experience.id}
-                experience={experience}
-                headingLevel="h3"
-                showSkills={false}
-                editPath={paths.applicationCareerTimelineEdit(
-                  application.id,
-                  experience.id,
-                )}
-              />
-            );
-          })}
+          {hasExperiencesByType ? (
+            experienceList.map((experience) => {
+              return (
+                <ExperienceCard
+                  key={experience.id}
+                  experience={experience}
+                  headingLevel="h3"
+                  showSkills={false}
+                  editPath={paths.applicationCareerTimelineEdit(
+                    application.id,
+                    experience.id,
+                  )}
+                />
+              );
+            })
+          ) : (
+            <Well data-h2-text-align="base(center)">
+              <p>{intl.formatMessage(commonMessages.noExperiencesOfType)}</p>
+            </Well>
+          )}
         </div>
       ) : (
         <Well>

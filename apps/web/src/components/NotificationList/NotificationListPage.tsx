@@ -113,16 +113,16 @@ const NotificationListPage = ({
           >
             <p data-h2-font-weight="base(700)" data-h2-margin-bottom="base(x1)">
               {intl.formatMessage({
-                defaultMessage: "There aren't any notifications here.",
-                id: "8JYRed",
+                defaultMessage: "You don't have any new notifications.",
+                id: "6cr+Qy",
                 description: "Title for the no notifications message",
               })}
             </p>
             <p>
               {intl.formatMessage({
                 defaultMessage:
-                  "As you receive notifications, they'll appear here and automatically be categorized on whether you've actioned or pinned them.",
-                id: "91KsMq",
+                  "Check back here for alerts about a variety of activities on the platform, including job opportunities, new features, and more.",
+                id: "d4aLWc",
                 description:
                   "Explanation of how the list of notifications work",
               })}
