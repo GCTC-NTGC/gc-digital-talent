@@ -250,7 +250,7 @@ class UserRoleTest extends TestCase
     // Create a user with an old role.  Assert that the admin can remove the old role and add the new role, now with teams!
     public function testAdminCanAddAndRemoveTeamRoleToUser()
     {
-        $oldRole = Role::where('name', 'pool_operator')->sole();
+        $oldRole = Role::where('name', 'process_operator')->sole();
         $newRole = Role::where('name', 'process_operator')->sole();
         $oldTeam = Team::factory()->create();
         $newTeam = Team::factory()->create();
