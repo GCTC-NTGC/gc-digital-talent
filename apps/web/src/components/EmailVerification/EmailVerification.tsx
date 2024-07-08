@@ -184,18 +184,19 @@ const EmailVerification = ({
         {intl.formatMessage(getTitle(emailType))}
       </Heading>
       <p>
-        {emailAddress &&
-          intl.formatMessage(
-            {
-              defaultMessage:
-                "Please verify your email address by entering the 6 character code that has been sent to {emailAddress}.",
-              id: "MZ0uNW",
-              description: "instructions for email verification form",
-            },
-            {
-              emailAddress,
-            },
-          )}
+        {emailAddress
+          ? intl.formatMessage(
+              {
+                defaultMessage:
+                  "Please verify your email address by entering the 6 character code that has been sent to {emailAddress}.",
+                id: "MZ0uNW",
+                description: "instructions for email verification form",
+              },
+              {
+                emailAddress,
+              },
+            )
+          : null}
       </p>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(submitHandler)}>
