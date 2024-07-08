@@ -226,11 +226,20 @@ const getRoutes = (lang: Locales) => {
       const fragment = section ? `#${section}` : "";
       return path.join(applicantUrl, "personal-information") + fragment;
     },
-    profileEmailVerification: () => {
-      return path.join(
-        applicantUrl,
-        "personal-information",
-        "email-verification",
+    profileEmailVerification: (opts?: {
+      emailAddress?: string | null;
+      emailAddressType?: string;
+    }) => {
+      const searchParams = new Map<string, string>();
+      if (opts?.emailAddress) {
+        searchParams.set("emailAddress", opts.emailAddress);
+      }
+      if (opts?.emailAddressType) {
+        searchParams.set("emailAddressType", opts.emailAddressType);
+      }
+      return (
+        path.join(applicantUrl, "personal-information", "email-verification") +
+        createSearchQuery(searchParams)
       );
     },
 

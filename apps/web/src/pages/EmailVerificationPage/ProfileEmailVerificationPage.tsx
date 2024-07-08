@@ -1,7 +1,9 @@
 import { useIntl } from "react-intl";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
-import { navigationMessages, getLocale } from "@gc-digital-talent/i18n";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { toast } from "@gc-digital-talent/toast";
 
 // importing from a shared file, not the page itself
 // eslint-disable-next-line no-restricted-imports
@@ -10,6 +12,11 @@ import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import EmailVerification from "~/components/EmailVerification/EmailVerification";
+import {
+  EmailAddressType,
+  isEmailAddressType,
+} from "~/components/EmailVerification/types";
 
 import messages from "./messages";
 
@@ -19,8 +26,17 @@ const { subTitle } = profilePageMessages;
 
 const ProfileEmailVerificationPage = () => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const paths = useRoutes();
+  const navigate = useNavigate();
+
+  const [searchParams] = useSearchParams();
+  const emailAddress = searchParams.get("emailAddress");
+  const emailAddressType = searchParams.get("emailAddressType");
+
+  const parsedEmailAddressType: EmailAddressType | undefined =
+    !!emailAddressType && isEmailAddressType(emailAddressType)
+      ? emailAddressType
+      : undefined;
 
   const crumbs = useBreadcrumbs({
     crumbs: [
@@ -39,6 +55,17 @@ const ProfileEmailVerificationPage = () => {
     ],
   });
 
+  const handleVerificationSuccess = (): void => {
+    toast.success(
+      intl.formatMessage({
+        defaultMessage: "Verified",
+        id: "GMglI5",
+        description: "The email address has been verified to be owned by user",
+      }),
+    );
+    navigate(paths.profile());
+  };
+
   return (
     <>
       <Hero
@@ -46,11 +73,22 @@ const ProfileEmailVerificationPage = () => {
         subtitle={intl.formatMessage(subTitle)}
         crumbs={crumbs}
       />
-      <div data-h2-padding="base(x3, 0)">
+      <div
+        data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
+        data-h2-padding="base(x1, 0)"
+      >
         <div
-          data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
-          data-h2-margin="base:children[p:not(:first-child), ul](x1, 0, 0, 0)"
-        />
+          data-h2-padding="base(x2) "
+          data-h2-background-color="base(white) base:dark(background)"
+          data-h2-radius="p-tablet(rounded)"
+          data-h2-shadow="base(large)"
+        >
+          <EmailVerification
+            emailAddress={emailAddress}
+            onVerificationSuccess={handleVerificationSuccess}
+            emailType={parsedEmailAddressType}
+          />
+        </div>
       </div>
     </>
   );

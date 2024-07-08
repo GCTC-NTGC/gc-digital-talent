@@ -12,6 +12,8 @@ import { graphql } from "@gc-digital-talent/graphql";
 import { useLogger } from "@gc-digital-talent/logger";
 import { useAuthorization } from "@gc-digital-talent/auth";
 
+import { EmailAddressType } from "./types";
+
 const SendUserEmailVerification_Mutation = graphql(/* GraphQL */ `
   mutation SendUserEmailVerification($id: ID!) {
     sendUserEmailVerification(id: $id) {
@@ -52,9 +54,9 @@ type FormValues = {
 };
 
 export interface EmailVerificationProps {
-  emailType?: "contact";
+  emailType?: EmailAddressType;
   // The email address that the code was sent to.  Displayed to the user.
-  emailAddress: string;
+  emailAddress?: string | null;
   // Event if verification is successful.
   onVerificationSuccess: () => void;
   // Event if they choose to skip.  Skip button removed if prop not provided.
@@ -184,17 +186,18 @@ const EmailVerification = ({
         {intl.formatMessage(getTitle(emailType))}
       </Heading>
       <p>
-        {intl.formatMessage(
-          {
-            defaultMessage:
-              "Please verify your email address by entering the 6 character code that has been sent to {emailAddress}.",
-            id: "MZ0uNW",
-            description: "instructions for email verification form",
-          },
-          {
-            emailAddress,
-          },
-        )}
+        {emailAddress &&
+          intl.formatMessage(
+            {
+              defaultMessage:
+                "Please verify your email address by entering the 6 character code that has been sent to {emailAddress}.",
+              id: "MZ0uNW",
+              description: "instructions for email verification form",
+            },
+            {
+              emailAddress,
+            },
+          )}
       </p>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(submitHandler)}>

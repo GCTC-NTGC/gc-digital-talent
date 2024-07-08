@@ -23,6 +23,7 @@ const SendVerificationEmail_Mutation = graphql(/* GraphQL */ `
   mutation SendVerificationEmail($id: ID!) {
     sendUserEmailVerification(id: $id) {
       id
+      email
     }
   }
 `);
@@ -61,8 +62,13 @@ const Display = ({
       id: userAuthInfo?.id,
     })
       .then((result) => {
-        if (result.data?.sendUserEmailVerification?.id) {
-          navigate(routes.profileEmailVerification());
+        if (result.data?.sendUserEmailVerification) {
+          navigate(
+            routes.profileEmailVerification({
+              emailAddress: result.data.sendUserEmailVerification.email,
+              emailAddressType: "contact",
+            }),
+          );
         } else {
           throw new Error("Failed to submit");
         }
