@@ -112,7 +112,7 @@ const AssessmentResultsTable = ({
       const id = uniqueId("results-table-column");
       const status = columnStatus(
         assessmentStep,
-        poolCandidate.assessmentStatus,
+        poolCandidate?.assessmentStatus,
       );
 
       const header = columnHeader(
