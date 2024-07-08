@@ -41,7 +41,7 @@
     "react-dom": "^18.2.0",
     "react-focus-lock": "^2.12.1",
     "react-remove-scroll": "^2.5.10",
-    "react-router-dom": "^6.24.0",
+    "react-router-dom": "^6.24.1",
     "urql": "^4.1.0"
   },
   "devDependencies": {
@@ -64,8 +64,8 @@
     "jest": "^29.7.0",
     "react": "^18.3.1",
     "react-intl": "^6.6.8",
-    "react-router-dom": "^6.24.0",
+    "react-router-dom": "^6.24.1",
     "tsconfig": "workspace:*",
-    "typescript": "^5.5.2"
+    "typescript": "^5.5.3"
   }
 }

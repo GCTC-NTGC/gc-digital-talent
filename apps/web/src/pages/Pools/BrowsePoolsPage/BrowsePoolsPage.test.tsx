@@ -8,37 +8,38 @@ import { fromValue } from "wonka";
 
 import { axeTest, renderWithProviders } from "@gc-digital-talent/jest-helpers";
 import { Pool, PoolStatus, PublishingGroup } from "@gc-digital-talent/graphql";
+import { toLocalizedEnum } from "@gc-digital-talent/fake-data";
 
 import BrowsePools from "./BrowsePoolsPage";
 
 const publishedItJobsPool: Pool = {
   id: "publishedItJobsPool",
-  publishingGroup: PublishingGroup.ItJobs,
-  status: PoolStatus.Published,
+  publishingGroup: toLocalizedEnum(PublishingGroup.ItJobs),
+  status: toLocalizedEnum(PoolStatus.Published),
 };
 
 const expiredItJobsPool: Pool = {
   id: "expiredItJobsPool",
-  publishingGroup: PublishingGroup.ItJobs,
-  status: PoolStatus.Closed,
+  publishingGroup: toLocalizedEnum(PublishingGroup.ItJobs),
+  status: toLocalizedEnum(PoolStatus.Closed),
 };
 
 const archivedItJobsPool: Pool = {
   id: "archivedItJobsPool",
-  publishingGroup: PublishingGroup.ItJobs,
-  status: PoolStatus.Archived,
+  publishingGroup: toLocalizedEnum(PublishingGroup.ItJobs),
+  status: toLocalizedEnum(PoolStatus.Archived),
 };
 
 const publishedExecJobsPool: Pool = {
   id: "publishedExecJobsPool",
-  publishingGroup: PublishingGroup.ExecutiveJobs,
-  status: PoolStatus.Published,
+  publishingGroup: toLocalizedEnum(PublishingGroup.ExecutiveJobs),
+  status: toLocalizedEnum(PoolStatus.Published),
 };
 
 const publishedIAPJobsPool: Pool = {
   id: "publishedIAPJobsPool",
-  publishingGroup: PublishingGroup.Iap,
-  status: PoolStatus.Published,
+  publishingGroup: toLocalizedEnum(PublishingGroup.Iap),
+  status: toLocalizedEnum(PoolStatus.Published),
 };
 
 describe("BrowsePoolsPage", () => {

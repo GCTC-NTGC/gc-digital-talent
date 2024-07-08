@@ -4,6 +4,7 @@ import {
   fakeAssessmentSteps,
   fakePoolCandidates,
   fakePools,
+  toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
 import {
   ArmedForcesStatus,
@@ -27,15 +28,16 @@ const fakeCandidates = fakePoolCandidates(8);
 
 const requiredAssessment = {
   ...fakePoolAssessmentSteps[0],
-  type: AssessmentStepType.ApplicationScreening,
+  type: toLocalizedEnum(AssessmentStepType.ApplicationScreening),
 };
 
 const getAssessmentResult = (
   decision?: AssessmentDecision | null,
 ): AssessmentResult => ({
   id: faker.string.uuid(),
-  assessmentDecision:
-    typeof decision === "undefined" ? AssessmentDecision.Successful : decision,
+  assessmentDecision: toLocalizedEnum(
+    !decision ? AssessmentDecision.Successful : decision,
+  ),
   assessmentResultType: AssessmentResultType.Education,
   assessmentStep: requiredAssessment,
 });
@@ -48,7 +50,7 @@ export const priorityEntitlementCandidate: PoolCandidate = {
     firstName: "priority",
     lastName: "entitlement",
     hasPriorityEntitlement: true,
-    armedForcesStatus: ArmedForcesStatus.NonCaf,
+    armedForcesStatus: toLocalizedEnum(ArmedForcesStatus.NonCaf),
   },
   isBookmarked: false,
   assessmentResults: [getAssessmentResult()],
@@ -71,7 +73,7 @@ export const armedForcesCandidate: PoolCandidate = {
     firstName: "armed",
     lastName: "forces",
     hasPriorityEntitlement: false,
-    armedForcesStatus: ArmedForcesStatus.Veteran,
+    armedForcesStatus: toLocalizedEnum(ArmedForcesStatus.Veteran),
   },
   isBookmarked: false,
   assessmentResults: [getAssessmentResult()],
@@ -94,7 +96,7 @@ export const bookmarkedCandidate: PoolCandidate = {
     firstName: "bookmarked",
     lastName: "candidate",
     hasPriorityEntitlement: false,
-    armedForcesStatus: ArmedForcesStatus.NonCaf,
+    armedForcesStatus: toLocalizedEnum(ArmedForcesStatus.NonCaf),
   },
   isBookmarked: true,
   assessmentResults: [getAssessmentResult()],
@@ -116,7 +118,7 @@ export const unassessedCandidate: PoolCandidate = {
     firstName: "unassessed",
     lastName: "candidate",
     hasPriorityEntitlement: false,
-    armedForcesStatus: ArmedForcesStatus.NonCaf,
+    armedForcesStatus: toLocalizedEnum(ArmedForcesStatus.NonCaf),
   },
   isBookmarked: false,
   assessmentResults: [
@@ -126,7 +128,7 @@ export const unassessedCandidate: PoolCandidate = {
       assessmentResultType: AssessmentResultType.Skill,
       poolSkill: {
         id: faker.string.uuid(),
-        type: PoolSkillType.Nonessential,
+        type: toLocalizedEnum(PoolSkillType.Nonessential),
       },
     },
   ],
@@ -154,7 +156,7 @@ export const lastByFirstName: PoolCandidate = {
     firstName: "BB",
     lastName: "AA",
     hasPriorityEntitlement: false,
-    armedForcesStatus: ArmedForcesStatus.NonCaf,
+    armedForcesStatus: toLocalizedEnum(ArmedForcesStatus.NonCaf),
   },
 };
 export const firstByName: PoolCandidate = {
@@ -175,7 +177,7 @@ export const firstByName: PoolCandidate = {
     id: faker.string.uuid(),
     firstName: "AA",
     hasPriorityEntitlement: false,
-    armedForcesStatus: ArmedForcesStatus.NonCaf,
+    armedForcesStatus: toLocalizedEnum(ArmedForcesStatus.NonCaf),
   },
 };
 export const secondLastByStatus: PoolCandidate = {
@@ -197,7 +199,7 @@ export const secondLastByStatus: PoolCandidate = {
     firstName: "on",
     lastName: "hold",
     hasPriorityEntitlement: false,
-    armedForcesStatus: ArmedForcesStatus.NonCaf,
+    armedForcesStatus: toLocalizedEnum(ArmedForcesStatus.NonCaf),
   },
 };
 export const lastByStatus: PoolCandidate = {
@@ -220,7 +222,7 @@ export const lastByStatus: PoolCandidate = {
     firstName: "not",
     lastName: "successful",
     hasPriorityEntitlement: false,
-    armedForcesStatus: ArmedForcesStatus.NonCaf,
+    armedForcesStatus: toLocalizedEnum(ArmedForcesStatus.NonCaf),
   },
 };
 
@@ -256,19 +258,19 @@ export const filterDisqualifiedTestData: PoolCandidate[] = [
   {
     ...fakeCandidates[0],
     user: fakeCandidates[0].user,
-    status: PoolCandidateStatus.ScreenedOutApplication,
+    status: toLocalizedEnum(PoolCandidateStatus.ScreenedOutApplication),
     assessmentResults: [],
   },
   {
     ...fakeCandidates[1],
     user: fakeCandidates[1].user,
-    status: PoolCandidateStatus.NewApplication,
+    status: toLocalizedEnum(PoolCandidateStatus.NewApplication),
     assessmentResults: [],
   },
   {
     ...fakeCandidates[2],
     user: fakeCandidates[2].user,
-    status: PoolCandidateStatus.ScreenedOutAssessment,
+    status: toLocalizedEnum(PoolCandidateStatus.ScreenedOutAssessment),
     assessmentResults: [{ id: "123" }],
   },
 ];
@@ -282,7 +284,7 @@ const priorityEntitlementAccepted: PoolCandidate = {
     firstName: "accepted",
     lastName: "priority",
     hasPriorityEntitlement: true,
-    armedForcesStatus: ArmedForcesStatus.NonCaf,
+    armedForcesStatus: toLocalizedEnum(ArmedForcesStatus.NonCaf),
   },
   isBookmarked: false,
   assessmentResults: [getAssessmentResult()],
@@ -296,7 +298,7 @@ const priorityEntitlementUnverified: PoolCandidate = {
     firstName: "unverified",
     lastName: "priority",
     hasPriorityEntitlement: true,
-    armedForcesStatus: ArmedForcesStatus.NonCaf,
+    armedForcesStatus: toLocalizedEnum(ArmedForcesStatus.NonCaf),
   },
   isBookmarked: false,
   assessmentResults: [getAssessmentResult()],
@@ -310,7 +312,7 @@ const priorityEntitlementRejected: PoolCandidate = {
     firstName: "rejected",
     lastName: "priority",
     hasPriorityEntitlement: true,
-    armedForcesStatus: ArmedForcesStatus.NonCaf,
+    armedForcesStatus: toLocalizedEnum(ArmedForcesStatus.NonCaf),
   },
   isBookmarked: false,
   assessmentResults: [getAssessmentResult()],
@@ -324,7 +326,7 @@ const veteranAccepted: PoolCandidate = {
     firstName: "accepted",
     lastName: "veteran",
     hasPriorityEntitlement: false,
-    armedForcesStatus: ArmedForcesStatus.Veteran,
+    armedForcesStatus: toLocalizedEnum(ArmedForcesStatus.Veteran),
   },
   isBookmarked: false,
   assessmentResults: [getAssessmentResult()],
@@ -338,7 +340,7 @@ const veteranUnverified: PoolCandidate = {
     firstName: "unverified",
     lastName: "veteran",
     hasPriorityEntitlement: false,
-    armedForcesStatus: ArmedForcesStatus.Veteran,
+    armedForcesStatus: toLocalizedEnum(ArmedForcesStatus.Veteran),
   },
   isBookmarked: false,
   assessmentResults: [getAssessmentResult()],
@@ -352,7 +354,7 @@ const veteranRejected: PoolCandidate = {
     firstName: "rejected",
     lastName: "veteran",
     hasPriorityEntitlement: false,
-    armedForcesStatus: ArmedForcesStatus.Veteran,
+    armedForcesStatus: toLocalizedEnum(ArmedForcesStatus.Veteran),
   },
   isBookmarked: false,
   assessmentResults: [getAssessmentResult()],

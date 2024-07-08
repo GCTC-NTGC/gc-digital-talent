@@ -34,13 +34,10 @@ import { BasicForm, Submit } from "@gc-digital-talent/forms";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
-  getAssessmentStepType,
   getLocale,
   getLocalizedName,
   getSkillLevelDefinition,
   getSkillLevelName,
-  getAssessmentDecisionLevel,
-  getTableAssessmentDecision,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
@@ -65,9 +62,12 @@ const getSkillLevelMessage = (
   intl: IntlShape,
 ): string => {
   let skillLevel = "";
-  if (poolSkill?.requiredLevel && poolSkill.skill) {
+  if (poolSkill?.requiredLevel && poolSkill.skill?.category.value) {
     skillLevel = intl.formatMessage(
-      getSkillLevelName(poolSkill.requiredLevel, poolSkill.skill.category),
+      getSkillLevelName(
+        poolSkill.requiredLevel,
+        poolSkill.skill.category.value,
+      ),
     );
   }
   return skillLevel;
@@ -171,7 +171,8 @@ const AssessmentStepTypeSection = ({
                     </p>
                   </div>
                   <div>
-                    {poolSkill?.requiredLevel && poolSkill.skill ? (
+                    {poolSkill?.requiredLevel &&
+                    poolSkill.skill?.category.value ? (
                       <>
                         <p
                           data-h2-margin-bottom="base(x1)"
@@ -183,7 +184,7 @@ const AssessmentStepTypeSection = ({
                           {intl.formatMessage(
                             getSkillLevelDefinition(
                               poolSkill.requiredLevel,
-                              poolSkill.skill.category,
+                              poolSkill.skill.category.value,
                             ),
                           )}
                         </p>
@@ -285,6 +286,7 @@ const SupportingEvidence = ({
 
 interface ScreeningDecisionDialogProps {
   assessmentStep: AssessmentStep;
+  assessmentResult?: AssessmentResult;
   poolCandidate: PoolCandidate;
   hasBeenAssessed: boolean;
   poolSkill?: PoolSkill;
@@ -297,6 +299,7 @@ interface ScreeningDecisionDialogProps {
 
 export const ScreeningDecisionDialog = ({
   assessmentStep,
+  assessmentResult,
   poolCandidate,
   hasBeenAssessed,
   poolSkill,
@@ -321,11 +324,9 @@ export const ScreeningDecisionDialog = ({
 
   const headers = useHeaders({
     type: dialogType,
-    title: intl.formatMessage(
-      assessmentStep?.type
-        ? getAssessmentStepType(assessmentStep?.type)
-        : commonMessages.notApplicable,
-    ),
+    title: assessmentStep?.type
+      ? getLocalizedName(assessmentStep?.type.label, intl)
+      : intl.formatMessage(commonMessages.notApplicable),
     customTitle: getLocalizedName(assessmentStep?.title, intl, true),
     candidateName: parsedSnapshot?.firstName,
     skillName: getLocalizedName(skill?.name, intl),
@@ -352,9 +353,10 @@ export const ScreeningDecisionDialog = ({
     intl,
     locale,
     classificationGroup,
-    isIAPPool(poolCandidate.pool),
+    isIAPPool(poolCandidate.pool.publishingGroup?.value),
   ).find(
-    (option) => option.value === snapshotCandidate?.educationRequirementOption,
+    (option) =>
+      option.value === snapshotCandidate?.educationRequirementOption?.value,
   )?.label;
 
   const defaultValues: FormValues = {
@@ -367,11 +369,11 @@ export const ScreeningDecisionDialog = ({
   const triggerColor = (): Color => {
     if (
       initialValues?.assessmentDecision === AssessmentDecision.Unsuccessful &&
-      poolSkill?.type === PoolSkillType.Nonessential
+      poolSkill?.type?.value === PoolSkillType.Nonessential
     )
       return "black";
     if (!hasBeenAssessed)
-      return poolSkill?.type === PoolSkillType.Nonessential &&
+      return poolSkill?.type?.value === PoolSkillType.Nonessential &&
         !experienceAttachedToSkill
         ? "black"
         : "warning";
@@ -403,12 +405,9 @@ export const ScreeningDecisionDialog = ({
               ) : (
                 <>
                   <>
-                    {intl.formatMessage(
-                      initialValues?.assessmentDecision
-                        ? getTableAssessmentDecision(
-                            initialValues.assessmentDecision,
-                          )
-                        : commonMessages.notFound,
+                    {getLocalizedName(
+                      assessmentResult?.assessmentDecision?.label,
+                      intl,
                     )}
                   </>
                   {initialValues?.assessmentDecision ===
@@ -418,12 +417,9 @@ export const ScreeningDecisionDialog = ({
                       data-h2-text-decoration="base(none)"
                       data-h2-display="base(block)"
                     >
-                      {intl.formatMessage(
-                        initialValues?.assessmentDecisionLevel
-                          ? getAssessmentDecisionLevel(
-                              initialValues.assessmentDecisionLevel,
-                            )
-                          : commonMessages.notFound,
+                      {getLocalizedName(
+                        assessmentResult?.assessmentDecisionLevel?.label,
+                        intl,
                       )}
                     </span>
                   ) : null}
@@ -433,7 +429,7 @@ export const ScreeningDecisionDialog = ({
           ) : (
             <>
               {intl.formatMessage(
-                poolSkill?.type === PoolSkillType.Nonessential &&
+                poolSkill?.type?.value === PoolSkillType.Nonessential &&
                   !experienceAttachedToSkill
                   ? poolCandidateMessages.unclaimed
                   : poolCandidateMessages.toAssess,
@@ -442,7 +438,7 @@ export const ScreeningDecisionDialog = ({
           )}
         </Button>
       </Dialog.Trigger>
-      <Dialog.Content>
+      <Dialog.Content hasSubtitle>
         <Dialog.Header subtitle={headers.subtitle}>
           {headers.title}
         </Dialog.Header>
@@ -534,25 +530,30 @@ const ScreeningDecisionDialogApi = ({
   const hasBeenAssessed = !!assessmentResultId;
   let assessmentDecision: Maybe<AssessmentDecision> | "noDecision" | undefined;
   if (hasBeenAssessed) {
-    assessmentDecision = assessmentResult?.assessmentDecision || "noDecision";
+    assessmentDecision =
+      assessmentResult?.assessmentDecision?.value || "noDecision";
   } else {
-    assessmentDecision = assessmentResult?.assessmentDecision;
+    assessmentDecision = assessmentResult?.assessmentDecision?.value;
   }
 
   const initialValues: FormValues = {
     assessmentDecision,
-    assessmentDecisionLevel: assessmentResult?.assessmentDecisionLevel,
+    assessmentDecisionLevel: assessmentResult?.assessmentDecisionLevel?.value,
     justifications: assessmentResult?.justifications?.some(
       (justification) =>
-        justification ===
+        justification?.value ===
           AssessmentResultJustification.EducationAcceptedInformation ||
-        justification ===
+        justification?.value ===
           AssessmentResultJustification.EducationAcceptedCombinationEducationWorkExperience ||
-        justification ===
+        justification?.value ===
           AssessmentResultJustification.EducationAcceptedWorkExperienceEquivalency,
     )
-      ? assessmentResult.justifications[0]
-      : assessmentResult?.justifications,
+      ? assessmentResult.justifications[0]?.value
+      : unpackMaybes(
+          assessmentResult?.justifications?.flatMap(
+            (justification) => justification?.value,
+          ),
+        ),
     skillDecisionNotes: assessmentResult?.skillDecisionNotes,
   };
 
@@ -621,6 +622,7 @@ const ScreeningDecisionDialogApi = ({
       onOpenChanged={setOpen}
       poolCandidate={poolCandidate}
       assessmentStep={assessmentStep}
+      assessmentResult={assessmentResult}
       poolSkill={poolSkill}
       initialValues={initialValues}
       hasBeenAssessed={hasBeenAssessed}

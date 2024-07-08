@@ -15,6 +15,7 @@ import {
 import fakeSkills from "./fakeSkills";
 import fakeClassifications from "./fakeClassifications";
 import fakePools from "./fakePools";
+import toLocalizedEnum from "./fakeLocalizedEnum";
 
 const generateApplicantFilters = (
   classifications: Classification[],
@@ -33,24 +34,25 @@ const generateApplicantFilters = (
       hasDisability: faker.datatype.boolean(),
     },
     hasDiploma: faker.datatype.boolean(),
-    languageAbility: faker.helpers.arrayElement<LanguageAbility>(
-      Object.values(LanguageAbility),
-    ),
-    locationPreferences: faker.helpers.arrayElements<WorkRegion>(
-      Object.values(WorkRegion),
-    ),
-    operationalRequirements:
-      faker.helpers.arrayElements<OperationalRequirement>(
-        operationalRequirements,
+    languageAbility: toLocalizedEnum(
+      faker.helpers.arrayElement<LanguageAbility>(
+        Object.values(LanguageAbility),
       ),
+    ),
+
+    locationPreferences: faker.helpers
+      .arrayElements<WorkRegion>(Object.values(WorkRegion))
+      .map((req) => toLocalizedEnum(req)),
+    operationalRequirements: faker.helpers
+      .arrayElements<OperationalRequirement>(operationalRequirements)
+      .map((req) => toLocalizedEnum(req)),
     positionDuration: faker.helpers.arrayElements<PositionDuration>(
       Object.values(PositionDuration),
     ),
     skills,
-    qualifiedStreams: faker.helpers.arrayElements<PoolStream>(
-      Object.values(PoolStream),
-      1,
-    ),
+    qualifiedStreams: faker.helpers
+      .arrayElements<PoolStream>(Object.values(PoolStream), 1)
+      .map((stream) => toLocalizedEnum(stream)),
   };
 };
 

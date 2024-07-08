@@ -7,7 +7,9 @@ const UpdatePoolCandidateStatus_Mutation = graphql(/* GraphQL */ `
   ) {
     updatePoolCandidateStatus(id: $id, poolCandidate: $poolCandidate) {
       expiryDate
-      status
+      status {
+        value
+      }
     }
   }
 `);

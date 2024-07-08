@@ -21,7 +21,9 @@ const inlineLink = (href: string, chunks: ReactNode) => (
 
 const RecruitmentAvailabilityCandidate_Fragment = graphql(/* GraphQL */ `
   fragment RecruitmentAvailabilityCandidate on PoolCandidate {
-    status
+    status {
+      value
+    }
     id
     ...ApplicationCard
   }
@@ -55,7 +57,7 @@ const RecruitmentAvailability = ({
         PoolCandidateStatus.PlacedIndeterminate,
         PoolCandidateStatus.PlacedTerm,
         PoolCandidateStatus.Expired, // if the status is expired, they need to have been qualified first.
-      ].includes(status),
+      ].includes(status.value),
   );
   return activeApplications.length > 0 ? (
     activeApplications.map((application) => (

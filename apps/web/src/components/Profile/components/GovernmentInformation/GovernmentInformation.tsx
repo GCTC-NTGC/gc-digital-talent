@@ -30,6 +30,7 @@ import Display from "./Display";
 
 const GovernmentInformationFormData_Query = graphql(/* GraphQL */ `
   query GetProfileFormOptions {
+    ...GovernmentInfoEmployeeTypes
     departments {
       ...GovernmentInfoDepartment
     }
@@ -142,6 +143,7 @@ const GovernmentInformation = ({
               labels={labels}
               departmentsQuery={unpackMaybes(data?.departments)}
               classificationsQuery={unpackMaybes(data?.classifications)}
+              employeeTypesQuery={data}
             />
             <FormActions isUpdating={isUpdating} />
           </BasicForm>

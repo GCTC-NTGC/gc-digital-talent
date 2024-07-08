@@ -1,13 +1,7 @@
 import { useIntl } from "react-intl";
 
 import { Link, Well } from "@gc-digital-talent/ui";
-import {
-  commonMessages,
-  getArmedForcesStatusesAdmin,
-  getCitizenshipStatusesAdmin,
-  getLanguage,
-  getProvinceOrTerritory,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 
@@ -31,11 +25,8 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
           <p data-h2-font-weight="base(700)">
-            {intl.formatMessage({
-              defaultMessage: "Email:",
-              id: "3UkIDo",
-              description: "Display text for the email field on users",
-            })}
+            {intl.formatMessage(commonMessages.email)}
+            {intl.formatMessage(commonMessages.dividingColon)}
           </p>
           <p>{user.email}</p>
         </div>
@@ -48,11 +39,7 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
                 "Display text for the preferred communication language field on users",
             })}
           </p>
-          <p>
-            {user.preferredLang
-              ? intl.formatMessage(getLanguage(user.preferredLang as string))
-              : ""}
-          </p>
+          <p>{getLocalizedName(user.preferredLang?.label, intl)}</p>
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
           <p data-h2-font-weight="base(700)">
@@ -64,11 +51,11 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
             {intl.formatMessage(commonMessages.dividingColon)}
           </p>
           <p>
-            {user.preferredLanguageForInterview
-              ? intl.formatMessage(
-                  getLanguage(user.preferredLanguageForInterview as string),
-                )
-              : ""}
+            {getLocalizedName(
+              user.preferredLanguageForInterview?.label,
+              intl,
+              true,
+            )}
           </p>
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
@@ -81,11 +68,7 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
             {intl.formatMessage(commonMessages.dividingColon)}
           </p>
           <p>
-            {user.preferredLanguageForExam
-              ? intl.formatMessage(
-                  getLanguage(user.preferredLanguageForExam as string),
-                )
-              : ""}
+            {getLocalizedName(user.preferredLanguageForExam?.label, intl, true)}
           </p>
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
@@ -122,12 +105,8 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
             </p>
             <p>
               {user.currentCity ? user.currentCity : ""}
-              {user.currentCity && user.currentProvince ? ", " : ""}
-              {user.currentProvince
-                ? intl.formatMessage(
-                    getProvinceOrTerritory(user.currentProvince as string),
-                  )
-                : ""}
+              {user.currentCity && user.currentProvince?.label ? ", " : ""}
+              {getLocalizedName(user.currentProvince?.label, intl, true)}
             </p>
           </div>
         )}
@@ -139,14 +118,9 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
               description: "label for CAF status",
             })}
           </p>
-          {user.armedForcesStatus !== null &&
-            user.armedForcesStatus !== undefined && (
-              <p>
-                {intl.formatMessage(
-                  getArmedForcesStatusesAdmin(user.armedForcesStatus),
-                )}
-              </p>
-            )}
+          {user.armedForcesStatus?.label && (
+            <p>{getLocalizedName(user.armedForcesStatus.label, intl)}</p>
+          )}
         </div>
         <div data-h2-flex-item="base(1of1) p-tablet(1of2) desktop(1of3)">
           <p data-h2-font-weight="base(700)">
@@ -156,13 +130,7 @@ const AboutSection = ({ user }: BasicUserInformationProps) => {
               description: "label for citizenship status",
             })}
           </p>
-          <p>
-            {user.citizenship
-              ? intl.formatMessage(
-                  getCitizenshipStatusesAdmin(user.citizenship),
-                )
-              : ""}
-          </p>
+          <p>{getLocalizedName(user.citizenship?.label, intl, true)}</p>
         </div>
       </div>
     </Well>

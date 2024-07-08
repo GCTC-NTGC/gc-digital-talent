@@ -2,6 +2,7 @@
 import { useIntl } from "react-intl";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import { useQuery } from "urql";
+import isString from "lodash/isString";
 
 import { Pending, NotFound, Link, Heading, Chip } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -52,12 +53,30 @@ export const ViewPool_Fragment = graphql(/* GraphQL */ `
   fragment ViewPool on Pool {
     ...AssessmentPlanStatus
     id
-    publishingGroup
+    publishingGroup {
+      value
+      label {
+        en
+        fr
+      }
+    }
     isComplete
-    status
+    status {
+      value
+      label {
+        en
+        fr
+      }
+    }
     closingDate
     processNumber
-    stream
+    stream {
+      value
+      label {
+        en
+        fr
+      }
+    }
     poolCandidatesCount
     classification {
       id
@@ -70,7 +89,13 @@ export const ViewPool_Fragment = graphql(/* GraphQL */ `
     }
     poolSkills {
       id
-      type
+      type {
+        value
+        label {
+          en
+          fr
+        }
+      }
     }
   }
 `);
@@ -111,7 +136,7 @@ export const ViewPool = ({
   const advertisementBadge = getPoolCompletenessBadge(advertisementStatus);
   const assessmentStatus = getAssessmentPlanStatus(pool);
   const assessmentBadge = getPoolCompletenessBadge(assessmentStatus);
-  const processBadge = getProcessStatusBadge(pool.status);
+  const processBadge = getProcessStatusBadge(pool.status, intl);
   const canPublish = checkRole(
     [ROLE_NAME.CommunityManager, ROLE_NAME.CommunityAdmin],
     roleAssignments,
@@ -206,12 +231,16 @@ export const ViewPool = ({
                     "Title for advertisement information of a process",
                 })}
               </Heading>
-              <Chip
-                color={advertisementBadge.color}
-                data-h2-flex-shrink="base(0)"
-              >
-                {intl.formatMessage(advertisementBadge.label)}
-              </Chip>
+              {advertisementBadge.label && (
+                <Chip
+                  color={advertisementBadge.color}
+                  data-h2-flex-shrink="base(0)"
+                >
+                  {isString(advertisementBadge.label)
+                    ? advertisementBadge.label
+                    : intl.formatMessage(advertisementBadge.label)}
+                </Chip>
+              )}
             </ProcessCard.Header>
             <p data-h2-margin="base(x1 0)">
               {intl.formatMessage({
@@ -236,7 +265,9 @@ export const ViewPool = ({
                 <Link
                   mode="inline"
                   color={
-                    pool.status === PoolStatus.Published ? "error" : "secondary"
+                    pool.status?.value === PoolStatus.Published
+                      ? "error"
+                      : "secondary"
                   }
                   href={paths.poolUpdate(pool.id)}
                 >
@@ -279,9 +310,16 @@ export const ViewPool = ({
               <Heading level="h3" size="h6" data-h2-margin="base(0)">
                 {intl.formatMessage(messages.assessmentPlan)}
               </Heading>
-              <Chip color={assessmentBadge.color} data-h2-flex-shrink="base(0)">
-                {intl.formatMessage(assessmentBadge.label)}
-              </Chip>
+              {assessmentBadge.label && (
+                <Chip
+                  color={assessmentBadge.color}
+                  data-h2-flex-shrink="base(0)"
+                >
+                  {isString(assessmentBadge.label)
+                    ? assessmentBadge.label
+                    : intl.formatMessage(assessmentBadge.label)}
+                </Chip>
+              )}
             </ProcessCard.Header>
             <p data-h2-margin="base(x1 0)">
               {intl.formatMessage({
@@ -324,15 +362,19 @@ export const ViewPool = ({
                     "Title for card for actions related to changing the status of a process",
                 })}
               </Heading>
-              <Chip
-                color={processBadge.color}
-                icon={processBadge.icon}
-                data-h2-flex-shrink="base(0)"
-              >
-                {intl.formatMessage(processBadge.label)}
-              </Chip>
+              {processBadge.label && (
+                <Chip
+                  color={processBadge.color}
+                  icon={processBadge.icon}
+                  data-h2-flex-shrink="base(0)"
+                >
+                  {isString(processBadge.label)
+                    ? processBadge.label
+                    : intl.formatMessage(processBadge.label)}
+                </Chip>
+              )}
             </ProcessCard.Header>
-            {pool.status === PoolStatus.Published && (
+            {pool.status?.value === PoolStatus.Published && (
               <p data-h2-margin="base(x1 0)">
                 {intl.formatMessage(
                   {
@@ -349,7 +391,7 @@ export const ViewPool = ({
               </p>
             )}
             {[PoolStatus.Archived, PoolStatus.Closed].includes(
-              pool.status ?? PoolStatus.Draft,
+              pool.status?.value ?? PoolStatus.Draft,
             ) && (
               <p data-h2-margin="base(x1 0)">
                 {intl.formatMessage(
@@ -366,7 +408,7 @@ export const ViewPool = ({
                 )}
               </p>
             )}
-            {pool.status === PoolStatus.Draft ? (
+            {pool.status?.value === PoolStatus.Draft ? (
               <>
                 <p data-h2-margin="base(x1 0)">
                   {intl.formatMessage({
@@ -407,7 +449,7 @@ export const ViewPool = ({
               </p>
             )}
             <ProcessCard.Footer>
-              {pool.status === PoolStatus.Draft && canPublish && (
+              {pool.status?.value === PoolStatus.Draft && canPublish && (
                 <PublishProcessDialog
                   {...commonDialogProps}
                   closingDate={pool.closingDate}
@@ -415,13 +457,13 @@ export const ViewPool = ({
                   isReadyToPublish={isReadyToPublish}
                 />
               )}
-              {!canPublish && pool.status === PoolStatus.Draft && (
+              {!canPublish && pool.status?.value === PoolStatus.Draft && (
                 <SubmitForPublishingDialog
                   isReadyToPublish={isReadyToPublish}
                 />
               )}
               {[PoolStatus.Closed, PoolStatus.Published].includes(
-                pool.status ?? PoolStatus.Draft,
+                pool.status?.value ?? PoolStatus.Draft,
               ) &&
                 canPublish && (
                   <ChangeDateDialog
@@ -438,19 +480,19 @@ export const ViewPool = ({
                   onDuplicate={onDuplicate}
                 />
               )}
-              {pool.status === PoolStatus.Closed && canArchive && (
+              {pool.status?.value === PoolStatus.Closed && canArchive && (
                 <ArchiveProcessDialog
                   {...commonDialogProps}
                   onArchive={onArchive}
                 />
               )}
-              {pool.status === PoolStatus.Archived && canArchive && (
+              {pool.status?.value === PoolStatus.Archived && canArchive && (
                 <UnarchiveProcessDialog
                   {...commonDialogProps}
                   onUnarchive={onUnarchive}
                 />
               )}
-              {pool.status === PoolStatus.Draft && canDelete && (
+              {pool.status?.value === PoolStatus.Draft && canDelete && (
                 <DeleteProcessDialog
                   {...commonDialogProps}
                   onDelete={onDelete}

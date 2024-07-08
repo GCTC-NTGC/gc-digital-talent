@@ -137,7 +137,7 @@ const ClaimVerificationDialog = ({
           )}
         </Button>
       </Dialog.Trigger>
-      <Dialog.Content>
+      <Dialog.Content hasSubtitle>
         <Dialog.Header
           subtitle={
             isPriority

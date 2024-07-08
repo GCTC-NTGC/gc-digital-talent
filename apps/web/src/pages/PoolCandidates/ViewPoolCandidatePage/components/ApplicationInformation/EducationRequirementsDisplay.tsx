@@ -36,7 +36,7 @@ const EducationRequirementsDisplay = ({
             educationRequirementOption: intl.formatMessage(
               application?.educationRequirementOption
                 ? getEducationRequirementOption(
-                    application.educationRequirementOption,
+                    application.educationRequirementOption.value,
                     classificationGroup,
                   )
                 : commonMessages.notAvailable,

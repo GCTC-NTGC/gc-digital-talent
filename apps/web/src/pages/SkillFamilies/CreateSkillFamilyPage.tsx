@@ -225,7 +225,13 @@ const SkillFamilySkills_Query = graphql(/* GraphQL */ `
         en
         fr
       }
-      category
+      category {
+        value
+        label {
+          en
+          fr
+        }
+      }
     }
   }
 `);

@@ -89,7 +89,7 @@ export function filterSkillsByCategory(
   category: SkillCategory,
 ) {
   return skills
-    ?.filter((skill) => skill.category === category)
+    ?.filter((skill) => skill.category.value === category)
     .filter(notEmpty);
 }
 
@@ -212,8 +212,12 @@ export const sortPoolSkillsBySkillCategory = <T extends PoolSkill[]>(
   return poolSkills.sort((poolSkillA, poolSkillB) => {
     if (poolSkillA?.skill?.category && poolSkillB?.skill?.category) {
       return (
-        categoryOrder.indexOf(poolSkillA.skill.category) -
-        categoryOrder.indexOf(poolSkillB.skill.category)
+        categoryOrder.indexOf(
+          poolSkillA.skill.category.value ?? SkillCategory.Behavioural,
+        ) -
+        categoryOrder.indexOf(
+          poolSkillB.skill.category.value ?? SkillCategory.Behavioural,
+        )
       );
     }
     return 0;
@@ -232,7 +236,7 @@ export const filterPoolSkillsByType = (
   poolSkillType: PoolSkillType,
 ): Skill[] => {
   const skills = unpackMaybes(poolSkills)
-    .filter((poolSkill) => poolSkill.type === poolSkillType)
+    .filter((poolSkill) => poolSkill.type?.value === poolSkillType)
     .map((poolSkill) => poolSkill.skill);
   return unpackMaybes(skills);
 };
@@ -242,11 +246,11 @@ export function groupPoolSkillByType(
 ): Map<PoolSkillType, Array<Skill>> {
   return unpackMaybes(poolSkills).reduce((map, poolSkill) => {
     const { type, skill } = poolSkill;
-    if (type && skill) {
-      if (!map.has(type)) {
-        map.set(type, []);
+    if (type?.value && skill) {
+      if (!map.has(type.value)) {
+        map.set(type.value, []);
       }
-      map.get(type)?.push(skill);
+      map.get(type.value)?.push(skill);
     }
     return map;
   }, new Map<PoolSkillType, Array<Skill>>());

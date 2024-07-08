@@ -39,6 +39,7 @@ test.describe("Process actions", () => {
       /recruitment process created successfully/i,
     );
     await adminPage.waitForGraphqlResponse("EditPoolPage");
+    await adminPage.waitForGraphqlResponse("CoreRequirementOptions");
     await expect(
       adminPage.page.getByRole("heading", {
         name: /advertisement information/i,
@@ -107,7 +108,7 @@ test.describe("Process actions", () => {
 
     await adminPage.page
       .getByRole("combobox", { name: /language requirement/i })
-      .selectOption({ label: "Bilingual intermediate" });
+      .selectOption({ label: "Bilingual intermediate (B B B)" });
 
     await adminPage.page
       .getByRole("combobox", { name: /security requirement/i })

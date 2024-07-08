@@ -110,6 +110,19 @@ class ApplicantFilterTest extends TestCase
         return $input;
     }
 
+    protected function filterEnumToInput(array $filter, string $enumKey)
+    {
+
+        $input = [];
+        if (isset($filter[$enumKey])) {
+            foreach ($filter[$enumKey] as $localizedEnum) {
+                $input[] = $localizedEnum['value'];
+            }
+        }
+
+        return $input;
+    }
+
     /**
      * Test that querying an applicantFilter returns with correct attributes.
      *
@@ -136,9 +149,9 @@ class ApplicantFilterTest extends TestCase
                             isIndigenous
                             isVisibleMinority
                         }
-                        languageAbility
-                        operationalRequirements
-                        locationPreferences
+                        languageAbility { value }
+                        operationalRequirements { value }
+                        locationPreferences { value }
                         positionDuration
                     }
                 }
@@ -149,6 +162,30 @@ class ApplicantFilterTest extends TestCase
                 'id' => $request->id,
             ]
         );
+
+        $expectedOperationalRequirements = [];
+        if ($filter->operational_requirements) {
+            foreach ($filter->operational_requirements as $requirement) {
+                $expectedOperationalRequirements[] = [
+                    'value' => $requirement,
+                ];
+            }
+        } else {
+            $expectedOperationalRequirements = null;
+        }
+        $expectedLocationPreferences = [];
+        if ($filter->location_preferences) {
+            foreach ($filter->location_preferences as $preference) {
+                if ($preference) {
+                    $expectedLocationPreferences[] = [
+                        'value' => $preference,
+                    ];
+                }
+            }
+        } else {
+            $expectedLocationPreferences = null;
+        }
+
         $response->assertJsonFragment([
             'applicantFilter' => [
                 'id' => $filter->id,
@@ -159,9 +196,11 @@ class ApplicantFilterTest extends TestCase
                     'isIndigenous' => $filter->is_indigenous,
                     'isVisibleMinority' => $filter->is_visible_minority,
                 ],
-                'languageAbility' => $filter->language_ability,
-                'operationalRequirements' => $filter->operational_requirements,
-                'locationPreferences' => $filter->location_preferences,
+                'languageAbility' => [
+                    'value' => $filter->language_ability,
+                ],
+                'operationalRequirements' => $expectedOperationalRequirements,
+                'locationPreferences' => $expectedLocationPreferences,
                 'positionDuration' => $filter->position_duration,
             ],
         ]);
@@ -234,7 +273,7 @@ class ApplicantFilterTest extends TestCase
                                 fr
                             }
                         }
-                        qualifiedStreams
+                        qualifiedStreams { value }
                         qualifiedClassifications {
                             id
                             name {
@@ -274,7 +313,9 @@ class ApplicantFilterTest extends TestCase
             $response->assertJsonFragment(['id' => $skill->id, 'name' => $skill->name]);
         }
 
-        $response->assertJsonFragment(['qualifiedStreams' => $filter->qualified_streams]);
+        $response->assertJsonFragment(['qualifiedStreams' => [[
+            'value' => $filter->qualified_streams[0],
+        ]]]);
         $response->assertJsonFragment(['community' => ['id' => $filter->community_id]]);
     }
 
@@ -306,9 +347,9 @@ class ApplicantFilterTest extends TestCase
                     fullName
                     jobTitle
                     managerJobTitle
-                    positionType
-                    status
-                    reason
+                    positionType { value }
+                    status { value }
+                    reason { value }
                     department {
                         id
                     }
@@ -342,9 +383,15 @@ class ApplicantFilterTest extends TestCase
                     'fullName' => $request->full_name,
                     'jobTitle' => $request->job_title,
                     'managerJobTitle' => $request->manager_job_title,
-                    'positionType' => $request->position_type,
-                    'reason' => $request->reason,
-                    'status' => PoolCandidateSearchStatus::NEW->name,
+                    'positionType' => [
+                        'value' => $request->position_type,
+                    ],
+                    'reason' => [
+                        'value' => $request->reason,
+                    ],
+                    'status' => [
+                        'value' => PoolCandidateSearchStatus::NEW->name,
+                    ],
                     'department' => [
                         'id' => $request->department_id,
                     ],
@@ -483,11 +530,11 @@ class ApplicantFilterTest extends TestCase
                             isIndigenous
                             isVisibleMinority
                         }
-                        languageAbility
-                        locationPreferences
-                        operationalRequirements
+                        languageAbility { value }
+                        locationPreferences { value }
+                        operationalRequirements { value }
                         positionDuration
-                        qualifiedStreams
+                        qualifiedStreams { value }
                         qualifiedClassifications {
                             group
                             level
@@ -510,6 +557,10 @@ class ApplicantFilterTest extends TestCase
             ]
         );
         $retrievedFilter = $response->json('data.poolCandidateSearchRequest.applicantFilter');
+
+        $retrievedFilter['locationPreferences'] = $this->filterEnumToInput($retrievedFilter, 'locationPreferences');
+        $retrievedFilter['operationalRequirements'] = $this->filterEnumToInput($retrievedFilter, 'operationalRequirements');
+        $retrievedFilter['qualifiedStreams'] = $this->filterEnumToInput($retrievedFilter, 'qualifiedStreams');
 
         // Now use the retrieved filter to get the same count
         $response = $this->graphQL(

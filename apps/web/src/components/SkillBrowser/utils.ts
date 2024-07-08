@@ -274,7 +274,9 @@ export const getFilteredSkills: GetFilteredSkills = ({
     );
   }
   if (category && category !== "all") {
-    return skills.filter((currentSkill) => currentSkill.category === category);
+    return skills.filter(
+      (currentSkill) => currentSkill.category.value === category,
+    );
   }
 
   // neither is set so return all skills

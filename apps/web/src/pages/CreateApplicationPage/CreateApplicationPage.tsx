@@ -27,7 +27,9 @@ const CreateApplicationApplications_Query = graphql(/* GraphQL */ `
       id
       poolCandidates {
         id
-        status
+        status {
+          value
+        }
         archivedAt
         submittedAt
         pool {
@@ -37,7 +39,9 @@ const CreateApplicationApplications_Query = graphql(/* GraphQL */ `
             en
             fr
           }
-          stream
+          stream {
+            value
+          }
           classification {
             id
             group

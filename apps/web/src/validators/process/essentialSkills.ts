@@ -11,7 +11,8 @@ export function hasEmptyRequiredFields({ poolSkills }: Pool): boolean {
   const poolSkillsUnpacked = unpackMaybes(poolSkills);
   const essentialSkillsLackingLevels = poolSkillsUnpacked.filter(
     (poolSkill) =>
-      poolSkill.type === PoolSkillType.Essential && !poolSkill.requiredLevel,
+      poolSkill.type?.value === PoolSkillType.Essential &&
+      !poolSkill.requiredLevel,
   );
   const essentialSkills = filterPoolSkillsByType(
     poolSkillsUnpacked,

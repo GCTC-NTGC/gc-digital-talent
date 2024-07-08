@@ -10,10 +10,10 @@ import { isPast } from "date-fns/isPast";
 import { StepType } from "@gc-digital-talent/ui";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import {
-  PoolCandidateStatus,
   ApplicationStep,
   Maybe,
   PoolCandidate,
+  LocalizedPoolCandidateStatus,
 } from "@gc-digital-talent/graphql";
 
 import { ApplicationStepInfo } from "~/types/applicationStep";
@@ -122,13 +122,14 @@ export type Application = Omit<PoolCandidate, "user">;
  * - OR has been submitted but is still in assessment
  */
 export function isApplicationInProgress(a: {
-  status?: Maybe<PoolCandidateStatus>;
+  status?: Maybe<LocalizedPoolCandidateStatus>;
   pool: { closingDate?: Maybe<string> };
 }): boolean {
   const poolIsExpired = a.pool.closingDate
     ? isPast(parseDateTimeUtc(a.pool.closingDate))
     : false; // If it doesn't have a closing date it can't be expired
   return (
-    (isDraftStatus(a.status) && !poolIsExpired) || isToAssessStatus(a.status)
+    (isDraftStatus(a.status?.value) && !poolIsExpired) ||
+    isToAssessStatus(a.status?.value)
   );
 }
