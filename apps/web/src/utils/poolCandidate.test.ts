@@ -5,9 +5,16 @@ import "@testing-library/jest-dom";
 import { createIntl, createIntlCache } from "react-intl";
 
 import { fakePoolCandidates } from "@gc-digital-talent/fake-data";
-import { PoolCandidateStatus } from "@gc-digital-talent/graphql";
+import {
+  CitizenshipStatus,
+  ClaimVerificationResult,
+  PoolCandidateStatus,
+} from "@gc-digital-talent/graphql";
 
-import { getCandidateStatusChip } from "./poolCandidate";
+import {
+  getCandidateStatusChip,
+  priorityWeightAfterVerification,
+} from "./poolCandidate";
 import {
   candidateFullyQualified,
   candidateFullyQualifiedExceptMissingEducation,
@@ -179,6 +186,69 @@ describe("PoolCandidate utils", () => {
         );
         expect(chip.label).toBe("Disqualified: Pending decision");
         expect(chip.color).toBe("error");
+      });
+    });
+
+    describe("Test priorityWeightAfterVerification()", () => {
+      it("should return the correct weight", () => {
+        const acceptedPriorityAndAcceptedVeteran =
+          priorityWeightAfterVerification(
+            10,
+            ClaimVerificationResult.Accepted,
+            ClaimVerificationResult.Accepted,
+            CitizenshipStatus.Citizen,
+          );
+        expect(acceptedPriorityAndAcceptedVeteran).toEqual(10);
+
+        const failedPriorityAndAcceptedVeteran =
+          priorityWeightAfterVerification(
+            10,
+            ClaimVerificationResult.Rejected,
+            ClaimVerificationResult.Accepted,
+            CitizenshipStatus.Citizen,
+          );
+        expect(failedPriorityAndAcceptedVeteran).toEqual(20);
+
+        const failedPriorityAndFailedVeteran = priorityWeightAfterVerification(
+          10,
+          ClaimVerificationResult.Rejected,
+          ClaimVerificationResult.Rejected,
+          CitizenshipStatus.Citizen,
+        );
+        expect(failedPriorityAndFailedVeteran).toEqual(30);
+
+        const onlyAResident = priorityWeightAfterVerification(
+          30,
+          null,
+          null,
+          CitizenshipStatus.PermanentResident,
+        );
+        expect(onlyAResident).toEqual(30);
+
+        const failedPriorityOther = priorityWeightAfterVerification(
+          10,
+          ClaimVerificationResult.Rejected,
+          null,
+          CitizenshipStatus.Other,
+        );
+        expect(failedPriorityOther).toEqual(40);
+
+        const failedPriorityFailedVeteranOther =
+          priorityWeightAfterVerification(
+            10,
+            ClaimVerificationResult.Rejected,
+            ClaimVerificationResult.Rejected,
+            CitizenshipStatus.Other,
+          );
+        expect(failedPriorityFailedVeteranOther).toEqual(40);
+
+        const priorityClaimButAllNull = priorityWeightAfterVerification(
+          10,
+          null,
+          null,
+          null,
+        );
+        expect(priorityClaimButAllNull).toEqual(40);
       });
     });
   });
