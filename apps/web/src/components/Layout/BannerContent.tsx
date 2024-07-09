@@ -11,7 +11,7 @@ const BannerContent = ({ title, message }: BannerContentProps) => (
     data-h2-background-color="base(foreground) base:dark(white)"
     data-h2-padding="base(x1, 0)"
   >
-    <div data-h2-container="base(center, large, x1)">
+    <div data-h2-wrapper="base(center, large, x1)">
       <Alert.Root
         type="warning"
         live
