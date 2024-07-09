@@ -1223,7 +1223,13 @@ class PoolCandidate extends Model
         $decision = null;
 
         if (in_array($status, PoolCandidateStatus::toAssessGroup())) {
-            $decision = match ($this->computed_assessment_status['overallAssessmentStatus']) {
+            $assessmentStatus = $this->computed_assessment_status;
+            $overallStatus = null;
+            if (isset($assessmentStatus['overallAssessmentStatus'])) {
+                $overallStatus = $assessmentStatus['overallAssessmentStatus'];
+            }
+
+            $decision = match ($overallStatus) {
                 OverallAssessmentStatus::QUALIFIED->name => FinalDecision::QUALIFIED_PENDING->name,
                 OverallAssessmentStatus::DISQUALIFIED->name => FinalDecision::DISQUALIFIED_PENDING->name,
                 default => FinalDecision::TO_ASSESS->name
