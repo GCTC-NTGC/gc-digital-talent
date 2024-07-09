@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       '@hydrogen-css/hydrogen':
-        specifier: github:hydrogen-css/hydrogen#2.1.0
-        version: github.com/hydrogen-css/hydrogen/3f8e4348a7014e113768779bc917ceee80d8de09(typescript@5.5.3)
+        specifier: 2.1.0
+        version: 2.1.0(typescript@5.5.3)
       turbo:
         specifier: ^2.0.6
         version: 2.0.6
@@ -179,8 +179,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/storybook-helpers
       '@hydrogen-css/hydrogen':
-        specifier: github:hydrogen-css/hydrogen#2.1.0
-        version: github.com/hydrogen-css/hydrogen/3f8e4348a7014e113768779bc917ceee80d8de09(typescript@5.5.3)
+        specifier: 2.1.0
+        version: 2.1.0(typescript@5.5.3)
       '@storybook/addon-actions':
         specifier: ^8.1.11
         version: 8.1.11
@@ -3967,6 +3967,33 @@ packages:
   /@humanwhocodes/object-schema@2.0.3:
     resolution: {integrity: sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==}
     deprecated: Use @eslint/object-schema instead
+    dev: true
+
+  /@hydrogen-css/hydrogen@2.1.0(typescript@5.5.3):
+    resolution: {integrity: sha512-QOazUU0HvXn6xdobTCh1o/saANU20nrkxBsDQB+vOX1MCK8y91XpVqzRWNrOJHnsNG0GbGvxpx4E3JBRVI/Qfw==}
+    engines: {node: '>=14.18.1', npm: '>=8.11.0'}
+    hasBin: true
+    dependencies:
+      '@webref/css': 6.13.0(css-tree@2.3.1)
+      autoprefixer: 10.4.19(postcss@8.4.39)
+      browserslist: 4.23.1
+      chokidar: 3.6.0
+      color: 4.2.3
+      colors: 1.4.0
+      css-tree: 2.3.1
+      cssnano: 7.0.3(postcss@8.4.39)
+      cssnano-preset-default: 7.0.3(postcss@8.4.39)
+      glob: 10.4.2
+      lightningcss: 1.25.1
+      lodash.clonedeep: 4.5.0
+      postcss: 8.4.39
+      prompt: 1.3.0
+      stylelint: 16.6.1(typescript@5.5.3)
+      stylelint-config-standard: 36.0.1(stylelint@16.6.1)
+      yargs: 17.7.2
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
     dev: true
 
   /@isaacs/cliui@8.0.2:
@@ -16096,33 +16123,3 @@ packages:
   /yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
-
-  github.com/hydrogen-css/hydrogen/3f8e4348a7014e113768779bc917ceee80d8de09(typescript@5.5.3):
-    resolution: {tarball: https://codeload.github.com/hydrogen-css/hydrogen/tar.gz/3f8e4348a7014e113768779bc917ceee80d8de09}
-    id: github.com/hydrogen-css/hydrogen/3f8e4348a7014e113768779bc917ceee80d8de09
-    name: '@hydrogen-css/hydrogen'
-    version: 2.1.0
-    engines: {node: '>=14.18.1', npm: '>=8.11.0'}
-    hasBin: true
-    dependencies:
-      '@webref/css': 6.13.0(css-tree@2.3.1)
-      autoprefixer: 10.4.19(postcss@8.4.39)
-      browserslist: 4.23.1
-      chokidar: 3.6.0
-      color: 4.2.3
-      colors: 1.4.0
-      css-tree: 2.3.1
-      cssnano: 7.0.3(postcss@8.4.39)
-      cssnano-preset-default: 7.0.3(postcss@8.4.39)
-      glob: 10.4.2
-      lightningcss: 1.25.1
-      lodash.clonedeep: 4.5.0
-      postcss: 8.4.39
-      prompt: 1.3.0
-      stylelint: 16.6.1(typescript@5.5.3)
-      stylelint-config-standard: 36.0.1(stylelint@16.6.1)
-      yargs: 17.7.2
-    transitivePeerDependencies:
-      - supports-color
-      - typescript
-    dev: true
