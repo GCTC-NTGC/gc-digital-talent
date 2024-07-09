@@ -47,6 +47,10 @@ final class SubmitApplication
             $application->priority_verification = ClaimVerificationResult::UNVERIFIED->name;
         }
 
+        $finalDecicion = $application->computeFinalDecision();
+        $application->computed_final_decision = $finalDecicion['decision'];
+        $application->computed_final_decision_weight = $finalDecicion['weight'];
+
         // need to save application before setting application snapshot since fields have yet to be saved to the database.
         $application->save();
 

@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Enums\PoolCandidateStatus;
+use App\Events\CandidateStatusChanged;
 use App\Models\PoolCandidate;
 use App\Notifications\ApplicationStatusChanged;
 use Illuminate\Support\Facades\Log;
@@ -15,7 +16,7 @@ class PoolCandidateObserver
      */
     public function created(PoolCandidate $poolCandidate): void
     {
-        //
+        CandidateStatusChanged::dispatchIf($poolCandidate->pool_candidate_status, $poolCandidate);
     }
 
     /**
@@ -25,6 +26,7 @@ class PoolCandidateObserver
     {
         $oldStatus = $poolCandidate->getOriginal('pool_candidate_status');
         $newStatus = $poolCandidate->pool_candidate_status;
+
         if (config('feature.notifications')) {
             if (
                 ($oldStatus != $newStatus) &&

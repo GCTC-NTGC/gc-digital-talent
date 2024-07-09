@@ -3,8 +3,9 @@
 namespace App\Listeners;
 
 use App\Events\AssessmentResultSaved;
+use App\Events\CandidateStatusChanged;
 
-class ComputeFinalDecisionAndCurrentStep
+class ComputeCandidateAssessmentStatus
 {
     /**
      * Create the event listener.
@@ -32,6 +33,8 @@ class ComputeFinalDecisionAndCurrentStep
         $candidate->computed_assessment_status = $assessmentStatus;
 
         $candidate->save();
+
+        CandidateStatusChanged::dispatch($candidate);
 
     }
 }

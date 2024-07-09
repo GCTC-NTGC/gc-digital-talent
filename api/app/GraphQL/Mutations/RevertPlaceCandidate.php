@@ -19,6 +19,11 @@ final class RevertPlaceCandidate
         $candidate->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
         $candidate->placed_at = null;
         $candidate->placed_department_id = null;
+
+        $finalDecicion = $candidate->computeFinalDecision();
+        $candidate->computed_final_decision = $finalDecicion['decision'];
+        $candidate->computed_final_decision_weight = $finalDecicion['weight'];
+
         $candidate->save();
 
         return $candidate;
