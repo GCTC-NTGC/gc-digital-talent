@@ -43,6 +43,7 @@ use App\Enums\EducationStatus;
 use App\Enums\EducationType;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\EvaluatedLanguageAbility;
+use App\Enums\FinalDecision;
 use App\Enums\GenericJobTitleKey;
 use App\Enums\GovEmployeeType;
 use App\Enums\IndigenousCommunity;
@@ -98,6 +99,7 @@ class GraphQLServiceProvider extends ServiceProvider
         EducationType::class,
         EstimatedLanguageAbility::class,
         EvaluatedLanguageAbility::class,
+        FinalDecision::class,
         GovEmployeeType::class,
         IndigenousCommunity::class,
         Language::class,
@@ -153,6 +155,15 @@ class GraphQLServiceProvider extends ServiceProvider
                 return new EnumType([
                     'name' => 'GovEmployeeType',
                     'values' => array_column(GovEmployeeType::cases(), 'name'),
+                ]);
+            }
+        );
+        $typeRegistry->registerLazy(
+            'FinalDecision',
+            static function (): EnumType {
+                return new EnumType([
+                    'name' => 'FinalDecision',
+                    'values' => array_column(FinalDecision::cases(), 'name'),
                 ]);
             }
         );
