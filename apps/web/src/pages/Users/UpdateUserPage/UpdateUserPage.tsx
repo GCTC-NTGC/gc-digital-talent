@@ -148,7 +148,7 @@ export const UpdateUserForm = ({
   const languageOptions = localizedEnumToOptions(data?.languages, intl);
 
   return (
-    <section data-h2-container="base(left, s)">
+    <section data-h2-wrapper="base(left, s)">
       <FormProvider {...methods}>
         <form
           onSubmit={handleSubmit(onSubmit)}

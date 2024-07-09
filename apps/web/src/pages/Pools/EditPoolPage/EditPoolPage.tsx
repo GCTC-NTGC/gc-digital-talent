@@ -461,7 +461,7 @@ export const EditPoolForm = ({
     <>
       <SEO title={pageTitle} description={pageSubtitle} />
       <AdminContentWrapper>
-        <div data-h2-container="base(left, large, 0)">
+        <div data-h2-wrapper="base(left, large, 0)">
           <TableOfContents.Wrapper>
             <TableOfContents.Navigation>
               <TableOfContents.List

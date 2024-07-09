@@ -120,10 +120,7 @@ export const Component = () => {
   return (
     <>
       <Hero title={pageTitle} subtitle={subtitle} crumbs={crumbs} />
-      <div
-        data-h2-margin="base(x3)"
-        data-h2-container="base(center, small, x1)"
-      >
+      <div data-h2-margin="base(x3)" data-h2-wrapper="base(center, small, x1)">
         <Heading size="h3" data-h2-margin="base(0, 0, x1, 0)">
           {pageTitle}
         </Heading>

@@ -110,7 +110,7 @@ const colorMap = new Map<Color, Record<string, string>>([
         base:selectors[.Chip--dismissible:focus-visible](black)
       `,
       "data-h2-border":
-        "base(thin solid warning.darkest) base:selectors[.Chip--dismissible:focus-](thin solid black)",
+        "base(thin solid warning.darkest) base:selectors[.Chip--dismissible:focus-visible](thin solid black)",
     },
   ],
   [

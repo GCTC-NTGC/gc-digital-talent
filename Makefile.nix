@@ -1,4 +1,5 @@
 # Usage:
+# make -f Makefile.nix [command]
 # setup_all          # setup all the components
 # refresh_all        # refresh all the components
 # make setup_api     # build the Laravel backend

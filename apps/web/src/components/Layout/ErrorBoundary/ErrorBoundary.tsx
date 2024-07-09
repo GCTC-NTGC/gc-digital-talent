@@ -43,7 +43,7 @@ export const ErrorBoundary = () => {
         data-h2-padding="base(x3, 0)"
       >
         <div
-          data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
+          data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
           data-h2-text-align="base(center)"
         >
           <Heading

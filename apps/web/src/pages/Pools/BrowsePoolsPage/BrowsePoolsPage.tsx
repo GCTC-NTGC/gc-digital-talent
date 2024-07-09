@@ -160,7 +160,7 @@ export const Component = () => {
         />
         <div
           data-h2-position="base(relative)"
-          data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
+          data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
           style={{ zIndex: 1 }}
         >
           <div>
@@ -249,7 +249,7 @@ export const Component = () => {
       >
         <div
           data-h2-position="base(relative)"
-          data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
+          data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
         >
           <div
             data-h2-display="base(grid)"

@@ -6,7 +6,7 @@ import react from "@vitejs/plugin-react";
 import { createHtmlPlugin } from "vite-plugin-html";
 import { Plugin, defineConfig } from "vite";
 
-import { hydrogen_watch } from "@hydrogen-css/hydrogen/lib/watch";
+import { hydrogen_watch } from "@hydrogen-css/hydrogen";
 
 dotenv.config({ path: "./.env" });
 

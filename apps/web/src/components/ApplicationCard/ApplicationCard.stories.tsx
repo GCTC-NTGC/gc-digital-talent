@@ -34,7 +34,7 @@ export default {
 
 const Template: StoryFn<typeof ApplicationCard> = () => {
   return (
-    <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+    <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
       <div
         data-h2-display="base(flex)"
         data-h2-flex-direction="base(column)"
