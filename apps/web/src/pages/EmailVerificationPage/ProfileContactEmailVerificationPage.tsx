@@ -65,7 +65,7 @@ const ProfileContactEmailVerificationPage = () => {
       >
         <div
           data-h2-padding="base(x2) "
-          data-h2-background-color="base(white) base:dark(background)"
+          data-h2-background="base(foreground)"
           data-h2-radius="p-tablet(rounded)"
           data-h2-shadow="base(large)"
         >
