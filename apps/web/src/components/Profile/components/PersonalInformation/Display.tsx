@@ -106,7 +106,7 @@ const Display = ({
         type="button"
         mode="inline"
         color="error"
-        data-h2-margin="base(x.15)" // line up with chip
+        data-h2-margin="base(0 0 x.15 0)" // line up with chip
         onClick={handleVerifyNowClick}
         disabled={mutationSubmitting}
       >
@@ -156,7 +156,7 @@ const Display = ({
         <FieldDisplay
           hasError={!email}
           label={intl.formatMessage(commonMessages.email)}
-          data-h2-margin="base(x.15)" // line up with chip
+          data-h2-margin="base(0 0 x.15 0)" // line up with chip
         >
           {email || notProvided}
         </FieldDisplay>
