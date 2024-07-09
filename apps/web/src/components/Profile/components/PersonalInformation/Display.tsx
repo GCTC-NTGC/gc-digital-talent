@@ -16,6 +16,9 @@ import { useAuthorization } from "@gc-digital-talent/auth";
 
 import profileMessages from "~/messages/profileMessages";
 import useRoutes from "~/hooks/useRoutes";
+// not importing a whole page, just a context
+// eslint-disable-next-line no-restricted-imports
+import { useApplicationContext } from "~/pages/Applications/ApplicationContext";
 
 import FieldDisplay from "../FieldDisplay";
 
@@ -53,6 +56,10 @@ const Display = ({
   const { userAuthInfo } = useAuthorization();
   const navigate = useNavigate();
   const routes = useRoutes();
+  const applicationContext = useApplicationContext();
+
+  // only show email verification if NOT in an application currently
+  const showEmailVerification = !applicationContext.currentStepOrdinal;
 
   const [{ fetching: mutationSubmitting }, executeSendEmailMutation] =
     useMutation(SendVerificationEmail_Mutation);
@@ -76,6 +83,41 @@ const Display = ({
         toast.error(intl.formatMessage(commonMessages.error));
       });
   };
+
+  const emailVerificationComponents = isEmailVerified ? (
+    <Chip color="success">
+      {intl.formatMessage({
+        defaultMessage: "Verified",
+        id: "GMglI5",
+        description: "The email address has been verified to be owned by user",
+      })}
+    </Chip>
+  ) : (
+    <>
+      <Chip color="error">
+        {intl.formatMessage({
+          defaultMessage: "Unverified",
+          id: "tUIvbq",
+          description:
+            "The email address has not been verified to be owned by user",
+        })}
+      </Chip>
+      <Button
+        type="button"
+        mode="inline"
+        color="error"
+        data-h2-margin="base(x.15)" // line up with chip
+        onClick={handleVerifyNowClick}
+        disabled={mutationSubmitting}
+      >
+        {intl.formatMessage({
+          defaultMessage: "Verify now",
+          id: "ADPfNp",
+          description: "Button to start the email address verification process",
+        })}
+      </Button>
+    </>
+  );
 
   return (
     <div
@@ -118,42 +160,7 @@ const Display = ({
         >
           {email || notProvided}
         </FieldDisplay>
-        {isEmailVerified ? (
-          <Chip color="success">
-            {intl.formatMessage({
-              defaultMessage: "Verified",
-              id: "GMglI5",
-              description:
-                "The email address has been verified to be owned by user",
-            })}
-          </Chip>
-        ) : (
-          <>
-            <Chip color="error">
-              {intl.formatMessage({
-                defaultMessage: "Unverified",
-                id: "tUIvbq",
-                description:
-                  "The email address has not been verified to be owned by user",
-              })}
-            </Chip>
-            <Button
-              type="button"
-              mode="inline"
-              color="error"
-              data-h2-margin="base(x.15)" // line up with chip
-              onClick={handleVerifyNowClick}
-              disabled={mutationSubmitting}
-            >
-              {intl.formatMessage({
-                defaultMessage: "Verify now",
-                id: "ADPfNp",
-                description:
-                  "Button to start the email address verification process",
-              })}
-            </Button>
-          </>
-        )}
+        {showEmailVerification ? emailVerificationComponents : null}
       </div>
       <FieldDisplay
         hasError={!telephone}
