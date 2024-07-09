@@ -31,6 +31,8 @@ use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
 
+use function PHPUnit\Framework\assertSame;
+
 class UserTest extends TestCase
 {
     use MakesGraphQLRequests;
@@ -2483,5 +2485,53 @@ class UserTest extends TestCase
         )->assertJsonFragment([
             'sub' => 'admin123',
         ]);
+    }
+
+    public function testUsersNestedPoolCandidates(): void
+    {
+        // applicant has one submitted and one draft application
+        $applicant = User::factory()->asApplicant()->create();
+        $draftApplication = PoolCandidate::factory()->create([
+            'user_id' => $applicant->id,
+            'pool_candidate_status' => PoolCandidateStatus::DRAFT->name,
+            'submitted_at' => null,
+        ]);
+        $submittedApplication = PoolCandidate::factory()->create([
+            'user_id' => $applicant->id,
+            'pool_candidate_status' => PoolCandidateStatus::NEW_APPLICATION->name,
+            'submitted_at' => config('constants.past_date'),
+        ]);
+
+        $candidateCount = count(PoolCandidate::all());
+        assertSame(2, $candidateCount);
+
+        $query =
+            /** @lang GraphQL */
+            '
+            query user($id: UUID!) {
+                user(id: $id) {
+                    poolCandidates {
+                        id
+                    }
+                }
+            }
+        ';
+
+        // assert admin can fetch applicant user and their applications without error
+        // assert the JSON superset only contains one application
+        $this->actingAs($this->platformAdmin, 'api')
+            ->graphQL($query,
+                [
+                    'id' => $applicant->id,
+                ]
+            )->assertJson([
+                'data' => [
+                    'user' => [
+                        'poolCandidates' => [
+                            ['id' => $submittedApplication->id],
+                        ],
+                    ],
+                ],
+            ]);
     }
 }
