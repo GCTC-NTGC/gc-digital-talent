@@ -23,7 +23,7 @@ jobs:
     if: ${{ github.ref_name == 'main' || github.run_attempt > 1 }}
     runs-on: ubuntu-22.04
     env:
-      PNPM_VERSION: "8.15.7"
+      PNPM_VERSION: "9.5"
     steps:
       - uses: actions/checkout@v4
         with:

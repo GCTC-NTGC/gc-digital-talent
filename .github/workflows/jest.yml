@@ -15,7 +15,7 @@ jobs:
     name: Jest
     runs-on: ubuntu-22.04
     env:
-      PNPM_VERSION: "8.15.7"
+      PNPM_VERSION: "9.5"
 
     steps:
       - name: Get number of CPU cores
