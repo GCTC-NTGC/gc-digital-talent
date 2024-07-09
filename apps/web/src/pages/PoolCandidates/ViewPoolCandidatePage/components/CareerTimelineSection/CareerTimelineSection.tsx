@@ -5,7 +5,7 @@ import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Button, Heading, Well } from "@gc-digital-talent/ui";
 import { Experience } from "@gc-digital-talent/graphql";
-import { navigationMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSortAndFilter, {
@@ -36,6 +36,7 @@ const CareerTimelineSection = ({ experiences }: CareerTimelineSectionProps) => {
   );
 
   const hasExperiences = !!experiences.length;
+  const hasExperiencesByType = !!experienceList.length;
 
   return (
     <>
@@ -73,17 +74,23 @@ const CareerTimelineSection = ({ experiences }: CareerTimelineSectionProps) => {
           data-h2-flex-direction="base(column)"
           data-h2-gap="base(x.5 0)"
         >
-          {experienceList.map((experience) => (
-            <ExperienceCard
-              key={experience.id}
-              experience={experience}
-              headingLevel="h3"
-              showSkills={false}
-              showEdit={false}
-              isOpen={isExpanded(experience.id)}
-              onOpenChange={() => toggleExpandedItem(experience.id)}
-            />
-          ))}
+          {hasExperiencesByType ? (
+            experienceList.map((experience) => (
+              <ExperienceCard
+                key={experience.id}
+                experience={experience}
+                headingLevel="h3"
+                showSkills={false}
+                showEdit={false}
+                isOpen={isExpanded(experience.id)}
+                onOpenChange={() => toggleExpandedItem(experience.id)}
+              />
+            ))
+          ) : (
+            <Well data-h2-text-align="base(center)">
+              <p>{intl.formatMessage(commonMessages.noExperiencesOfType)}</p>
+            </Well>
+          )}
         </div>
       ) : (
         <Well>

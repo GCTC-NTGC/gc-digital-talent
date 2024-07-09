@@ -23,7 +23,6 @@ import {
   Maybe,
   PoolCandidateStatus,
   PublishingGroup,
-  PriorityWeight,
   OverallAssessmentStatus,
   AssessmentResultStatus,
   ClaimVerificationResult,
@@ -145,7 +144,7 @@ export const getResultsDecision = (
   }
 
   const requiredSkillAssessments = step.poolSkills?.filter(
-    (poolSkill) => poolSkill?.type === PoolSkillType.Essential,
+    (poolSkill) => poolSkill?.type?.value === PoolSkillType.Essential,
   );
 
   requiredSkillAssessments?.forEach((skillAssessment) => {
@@ -159,7 +158,7 @@ export const getResultsDecision = (
     }
 
     assessmentResults.forEach((assessmentResult) => {
-      switch (assessmentResult.assessmentDecision) {
+      switch (assessmentResult.assessmentDecision?.value) {
         case null:
         case undefined:
           hasToAssess = true;
@@ -176,7 +175,7 @@ export const getResultsDecision = (
   });
 
   // Check for Education requirement if this is an ApplicationScreening step
-  if (step.type === AssessmentStepType.ApplicationScreening) {
+  if (step.type?.value === AssessmentStepType.ApplicationScreening) {
     const educationResults = stepResults.filter(
       (result) =>
         result.assessmentResultType === AssessmentResultType.Education,
@@ -189,7 +188,7 @@ export const getResultsDecision = (
       if (result.assessmentDecision === null) {
         hasToAssess = true;
       }
-      switch (result.assessmentDecision) {
+      switch (result.assessmentDecision?.value) {
         case null:
           hasToAssess = true;
           break;
@@ -526,22 +525,6 @@ export const derivedStatusLabel = (
       : statusMap.get(status); // regular label
 
   return combinedStatus ?? null;
-};
-
-export const getPriorityWeight = (priorityWeight: number): PriorityWeight => {
-  if (priorityWeight === 10) {
-    return PriorityWeight.PriorityEntitlement;
-  }
-
-  if (priorityWeight === 20) {
-    return PriorityWeight.Veteran;
-  }
-
-  if (priorityWeight === 30) {
-    return PriorityWeight.CitizenOrPermanentResident;
-  }
-
-  return PriorityWeight.Other;
 };
 
 export const priorityWeightAfterVerification = (

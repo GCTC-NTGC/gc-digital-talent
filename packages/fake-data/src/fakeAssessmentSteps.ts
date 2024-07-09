@@ -6,6 +6,8 @@ import {
   Maybe,
 } from "@gc-digital-talent/graphql";
 
+import toLocalizedEnum from "./fakeLocalizedEnum";
+
 const generateAssessmentStep = (
   amount: number,
   sortOrder?: number,
@@ -13,11 +15,12 @@ const generateAssessmentStep = (
 ): AssessmentStep => {
   return {
     id: faker.string.uuid(),
-    type:
+    type: toLocalizedEnum(
       type ||
-      faker.helpers.arrayElement<AssessmentStepType>(
-        Object.values(AssessmentStepType),
-      ),
+        faker.helpers.arrayElement<AssessmentStepType>(
+          Object.values(AssessmentStepType),
+        ),
+    ),
     sortOrder:
       sortOrder ??
       faker.number.int({

@@ -142,7 +142,7 @@ const AssessmentResult = ({
               ClaimVerificationResult.Rejected && (
               <Priority type="entitlement" />
             )}
-          {result.poolCandidate.user.armedForcesStatus ===
+          {result.poolCandidate.user.armedForcesStatus?.value ===
             ArmedForcesStatus.Veteran &&
             result.poolCandidate.veteranVerification !==
               ClaimVerificationResult.Rejected && <Priority type="veteran" />}

@@ -7,11 +7,12 @@ export type DialogType =
   | "GENERIC";
 
 const useDialogType = (assessmentStep?: AssessmentStep): DialogType => {
-  if (assessmentStep?.type === AssessmentStepType.ApplicationScreening) {
+  if (assessmentStep?.type?.value === AssessmentStepType.ApplicationScreening) {
     return "APPLICATION_SCREENING";
   }
   if (
-    assessmentStep?.type === AssessmentStepType.ScreeningQuestionsAtApplication
+    assessmentStep?.type?.value ===
+    AssessmentStepType.ScreeningQuestionsAtApplication
   ) {
     return "SCREENING_QUESTIONS";
   }

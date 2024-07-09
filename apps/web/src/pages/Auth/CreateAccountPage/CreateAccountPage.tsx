@@ -9,15 +9,11 @@ import {
   Input,
   RadioGroup,
   Submit,
-  enumToOptions,
+  localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
-import {
-  commonMessages,
-  errorMessages,
-  getLanguage,
-} from "@gc-digital-talent/i18n";
+import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
 import { emptyToNull, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   graphql,
@@ -79,6 +75,13 @@ export const CreateAccount_QueryFragment = graphql(/** GraphQL */ `
       level
       minSalary
       maxSalary
+    }
+    languages: localizedEnumStrings(enumName: "Language") {
+      value
+      label {
+        en
+        fr
+      }
     }
   }
 `);
@@ -251,10 +254,7 @@ export const CreateAccountForm = ({
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
-                  items={enumToOptions(Language).map(({ value }) => ({
-                    value,
-                    label: intl.formatMessage(getLanguage(value)),
-                  }))}
+                  items={localizedEnumToOptions(result?.languages, intl)}
                   defaultSelected={Language.En}
                 />
                 <p data-h2-margin="base(x1, 0, x.5, 0)">

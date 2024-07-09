@@ -23,7 +23,13 @@ import { PublishedEditableSectionProps } from "../../types";
 const UpdatePublishedProcessDialog_Fragment = graphql(/* GraphQL */ `
   fragment UpdatePublishedProcessDialog on Pool {
     id
-    stream
+    stream {
+      value
+      label {
+        en
+        fr
+      }
+    }
     name {
       en
       fr

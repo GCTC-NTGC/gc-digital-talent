@@ -2,7 +2,7 @@ import { IntlShape } from "react-intl";
 
 import {
   AssessmentDecision,
-  AssessmentResult,
+  AssessmentDecisionLevel,
   AssessmentResultJustification,
   AssessmentResultType,
   CreateAssessmentResultInput,
@@ -12,15 +12,13 @@ import {
 
 import { NO_DECISION } from "~/utils/assessmentResults";
 
+type MaybeJustification = Maybe<AssessmentResultJustification>;
+
 export type FormValues = {
-  assessmentDecision:
-    | AssessmentResult["assessmentDecision"]
-    | typeof NO_DECISION;
-  justifications:
-    | AssessmentResult["justifications"]
-    | AssessmentResultJustification;
-  assessmentDecisionLevel: AssessmentResult["assessmentDecisionLevel"];
-  skillDecisionNotes: AssessmentResult["skillDecisionNotes"];
+  assessmentDecision?: Maybe<AssessmentDecision | typeof NO_DECISION>;
+  justifications?: MaybeJustification[] | MaybeJustification;
+  assessmentDecisionLevel?: Maybe<AssessmentDecisionLevel>;
+  skillDecisionNotes?: Maybe<string>;
 };
 
 type FormValuesToApiCreateInputArgs = {

@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
 import { Well } from "@gc-digital-talent/ui";
-import { commonMessages, getWorkRegion } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { insertBetween } from "@gc-digital-talent/helpers";
 import { User } from "@gc-digital-talent/graphql";
 
@@ -14,7 +14,7 @@ const WorkLocationSection = ({ user }: { user: User }) => {
   const intl = useIntl();
   // generate array of location preferences localized and formatted with spaces/commas
   const regionPreferencesSquished = user.locationPreferences?.map((region) =>
-    region ? intl.formatMessage(getWorkRegion(region)) : "",
+    getLocalizedName(region?.label, intl, true),
   );
   const regionPreferences = regionPreferencesSquished
     ? insertBetween(", ", regionPreferencesSquished)

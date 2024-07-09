@@ -1,28 +1,51 @@
 import { useIntl } from "react-intl";
+import { useQuery } from "urql";
 
 import {
   Input,
   RadioGroup,
   Select,
-  enumToOptions,
+  localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import {
   errorMessages,
   formMessages,
   getArmedForcesStatusesProfile,
   getCitizenshipStatusesProfile,
-  getLanguage,
-  getProvinceOrTerritory,
 } from "@gc-digital-talent/i18n";
-import { Language, ProvinceOrTerritory } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import { FormFieldProps } from "../../types";
 import useDirtyFields from "../../hooks/useDirtyFields";
 import { armedForcesStatusOrdered, citizenshipStatusesOrdered } from "./utils";
 
+const PersonalInformationFormOptions_Query = graphql(/* GraphQL */ `
+  query PersonalInformationFormOptions {
+    languages: localizedEnumStrings(enumName: "Language") {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    provinceOrTerritories: localizedEnumStrings(
+      enumName: "ProvinceOrTerritory"
+    ) {
+      value
+      label {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 const FormFields = ({ labels }: FormFieldProps) => {
   const intl = useIntl();
+  const [{ data }] = useQuery({ query: PersonalInformationFormOptions_Query });
   useDirtyFields("personal");
+
+  const languageOptions = localizedEnumToOptions(data?.languages, intl);
 
   return (
     <>
@@ -88,10 +111,7 @@ const FormFields = ({ labels }: FormFieldProps) => {
             description:
               "Placeholder displayed on the About Me form province or territory field.",
           })}
-          options={enumToOptions(ProvinceOrTerritory).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getProvinceOrTerritory(value)),
-          }))}
+          options={localizedEnumToOptions(data?.provinceOrTerritories, intl)}
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
@@ -109,10 +129,7 @@ const FormFields = ({ labels }: FormFieldProps) => {
           idPrefix="preferredLang"
           name="preferredLang"
           rules={{ required: intl.formatMessage(errorMessages.required) }}
-          items={enumToOptions(Language).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getLanguage(value)),
-          }))}
+          items={languageOptions}
         />
         <RadioGroup
           id="preferredLanguageForInterview"
@@ -120,10 +137,7 @@ const FormFields = ({ labels }: FormFieldProps) => {
           idPrefix="preferredLanguageForInterview"
           name="preferredLanguageForInterview"
           rules={{ required: intl.formatMessage(errorMessages.required) }}
-          items={enumToOptions(Language).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getLanguage(value)),
-          }))}
+          items={languageOptions}
         />
         <RadioGroup
           id="preferredLanguageForExam"
@@ -131,10 +145,7 @@ const FormFields = ({ labels }: FormFieldProps) => {
           idPrefix="preferredLanguageForExam"
           name="preferredLanguageForExam"
           rules={{ required: intl.formatMessage(errorMessages.required) }}
-          items={enumToOptions(Language).map(({ value }) => ({
-            value,
-            label: intl.formatMessage(getLanguage(value)),
-          }))}
+          items={languageOptions}
         />
       </div>
       <div data-h2-margin-bottom="base(x1)">

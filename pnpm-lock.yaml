@@ -551,6 +551,9 @@ importers:
       '@gc-digital-talent/graphql':
         specifier: workspace:*
         version: link:../graphql
+      '@gc-digital-talent/i18n':
+        specifier: workspace:*
+        version: link:../i18n
       enforce-unique:
         specifier: ^1.3.0
         version: 1.3.0

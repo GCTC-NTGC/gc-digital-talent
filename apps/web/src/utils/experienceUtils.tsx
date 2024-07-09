@@ -431,8 +431,8 @@ const getAwardExperienceDefaultValues = (experience: AwardExperience) => {
     awardTitle: title,
     issuedBy,
     awardedDate,
-    awardedTo,
-    awardedScope,
+    awardedTo: awardedTo?.value,
+    awardedScope: awardedScope?.value,
   };
 };
 
@@ -475,8 +475,8 @@ const getEducationExperienceDefaultValues = (
     endDate,
   } = experience;
   return {
-    educationType: type,
-    educationStatus: status,
+    educationType: type?.value,
+    educationStatus: status?.value,
     areaOfStudy,
     institution,
     thesisTitle,

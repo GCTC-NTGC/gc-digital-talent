@@ -4,7 +4,6 @@ import { AnimatePresence, m, usePresence } from "framer-motion";
 import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
 import BellAlertIconSm from "@heroicons/react/20/solid/BellAlertIcon";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
-import EllipsisVerticalIcon from "@heroicons/react/20/solid/EllipsisVerticalIcon";
 import { UseQueryExecute } from "urql";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -37,13 +36,6 @@ const NotificationCount_Query = graphql(/* GraphQL */ `
     }
   }
 `);
-
-const ellipsis = () => (
-  <EllipsisVerticalIcon
-    data-h2-width="base(x.75)"
-    data-h2-vertical-align="base(middle)"
-  />
-);
 
 const DialogPortalWithPresence = ({
   executeQuery,
@@ -141,17 +133,12 @@ const DialogPortalWithPresence = ({
             </div>
             <DialogPrimitive.Description>
               <p>
-                {intl.formatMessage(
-                  {
-                    defaultMessage:
-                      "Welcome to your notification panel. Click or tap a notification to be taken to the relevant page. Use the <icon></icon> icon to mark a specific notification as read, pin it, or delete it.",
-                    id: "koUnRG",
-                    description: "Instructions on how to manage notifications",
-                  },
-                  {
-                    icon: () => ellipsis(),
-                  },
-                )}
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Welcome to your notification panel. Click or activate a notification to be taken to the relevant page. Each notification can be marked as read or deleted.",
+                  id: "qek0N+",
+                  description: "Instructions on how to manage notifications",
+                })}
               </p>
             </DialogPrimitive.Description>
           </div>
