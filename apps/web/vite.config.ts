@@ -4,6 +4,7 @@ import childProcess from "child_process";
 import dotenv from "dotenv";
 import react from "@vitejs/plugin-react";
 import { createHtmlPlugin } from "vite-plugin-html";
+import { compression } from "vite-plugin-compression2";
 import { Plugin, defineConfig } from "vite";
 
 import { hydrogen_watch } from "@hydrogen-css/hydrogen";
@@ -225,5 +226,6 @@ export default defineConfig(({ command }) => ({
         ],
       },
     }),
+    compression(),
   ],
 }));

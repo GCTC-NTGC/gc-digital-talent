@@ -66,6 +66,7 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
       }
       user {
         ...ApplicationProfileDetails
+        ...ProfileDocument
         id
         firstName
         lastName
@@ -612,6 +613,10 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
       assessmentStatus {
         currentStep
         overallAssessmentStatus
+        assessmentStepStatuses {
+          step
+          decision
+        }
       }
     }
     departments {
@@ -793,6 +798,7 @@ export const ViewPoolCandidate = ({
                 <ErrorBoundary>
                   <ApplicationInformation
                     poolQuery={poolCandidate.pool}
+                    user={poolCandidate.user}
                     snapshot={parsedSnapshot}
                     application={snapshotCandidate}
                   />
