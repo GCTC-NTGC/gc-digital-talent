@@ -92,13 +92,14 @@
     "eslint": "^8.57.0",
     "jest": "^29.7.0",
     "jest-axe": "^9.0.0",
-    "jest-fail-on-console": "^3.3.0",
     "jest-diff": "^29.7.0",
+    "jest-fail-on-console": "^3.3.0",
     "prettier": "^3.3.2",
     "ts-jest": "^29.1.5",
     "tsconfig": "workspace:*",
     "typescript": "^5.5.3",
     "vite": "^5.3.3",
+    "vite-plugin-compression2": "^1.1.2",
     "vite-plugin-html": "^3.2.2"
   }
 }
