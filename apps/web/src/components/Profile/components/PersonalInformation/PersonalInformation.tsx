@@ -13,6 +13,7 @@ import {
   hasEmptyRequiredFields,
 } from "~/validators/profile/about";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
+import { useApplicationContext } from "~/pages/Applications/ApplicationContext";
 
 import { SectionProps } from "../../types";
 import FormActions from "../FormActions";
@@ -38,6 +39,8 @@ const PersonalInformation = ({
     emptyRequired,
     fallbackIcon: UserIcon,
   });
+  const applicationContext = useApplicationContext();
+  const isInApplication = !!applicationContext.currentStepOrdinal;
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     return onUpdate(user.id, formValuesToSubmitData(formValues, user))
@@ -103,7 +106,11 @@ const PersonalInformation = ({
       )}
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
-          {isNull ? <NullDisplay /> : <Display user={user} />}
+          {isNull ? (
+            <NullDisplay />
+          ) : (
+            <Display user={user} showEmailVerification={!isInApplication} />
+          )}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
           <BasicForm

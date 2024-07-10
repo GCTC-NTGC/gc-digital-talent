@@ -16,9 +16,6 @@ import { useAuthorization } from "@gc-digital-talent/auth";
 
 import profileMessages from "~/messages/profileMessages";
 import useRoutes from "~/hooks/useRoutes";
-// not importing a whole page, just a context
-// eslint-disable-next-line no-restricted-imports
-import { useApplicationContext } from "~/pages/Applications/ApplicationContext";
 
 import FieldDisplay from "../FieldDisplay";
 
@@ -33,6 +30,7 @@ const SendVerificationEmail_Mutation = graphql(/* GraphQL */ `
 
 interface DisplayProps {
   user: User;
+  showEmailVerification?: boolean;
 }
 
 const Display = ({
@@ -50,16 +48,13 @@ const Display = ({
     citizenship,
     armedForcesStatus,
   },
+  showEmailVerification = false,
 }: DisplayProps) => {
   const intl = useIntl();
   const notProvided = intl.formatMessage(commonMessages.notProvided);
   const { userAuthInfo } = useAuthorization();
   const navigate = useNavigate();
   const routes = useRoutes();
-  const applicationContext = useApplicationContext();
-
-  // only show email verification if NOT in an application currently
-  const showEmailVerification = !applicationContext.currentStepOrdinal;
 
   const [{ fetching: mutationSubmitting }, executeSendEmailMutation] =
     useMutation(SendVerificationEmail_Mutation);
