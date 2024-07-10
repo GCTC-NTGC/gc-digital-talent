@@ -250,6 +250,9 @@ importers:
       vite:
         specifier: ^5.3.3
         version: 5.3.3
+      vite-plugin-compression2:
+        specifier: ^1.1.2
+        version: 1.1.2
       vite-plugin-html:
         specifier: ^3.2.2
         version: 3.2.2(vite@5.3.3)
@@ -15742,6 +15745,14 @@ packages:
   /vary@1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
+    dev: true
+
+  /vite-plugin-compression2@1.1.2:
+    resolution: {integrity: sha512-kZ2ZG85uPc5o1ehz2uCNXg1uh05AtSyZ0rMQfHl90WHLP+wkxFTMm8wAhEKERtcbl7lMJXiOnHpwSWG+GloaoA==}
+    dependencies:
+      '@rollup/pluginutils': 5.1.0
+    transitivePeerDependencies:
+      - rollup
     dev: true
 
   /vite-plugin-html@3.2.2(vite@5.3.3):
