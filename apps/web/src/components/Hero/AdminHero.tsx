@@ -33,7 +33,7 @@ const AdminHero = ({
       data-h2-background="base(linear-gradient(92deg, rgba(175, 103, 255, 0.10) 1.42%, rgba(0, 195, 183, 0.10) 98.58%))"
       data-h2-margin-bottom="base(x3)"
     >
-      <div data-h2-container="base(center, full, x1) base(center, full, x2)">
+      <div data-h2-wrapper="base(center, full, x1) base(center, full, x2)">
         <div data-h2-color="base(black)" data-h2-padding="base(x2 0)">
           <div
             data-h2-display="base(flex)"

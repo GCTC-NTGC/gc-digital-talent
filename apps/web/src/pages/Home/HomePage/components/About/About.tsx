@@ -20,7 +20,7 @@ const About = () => {
         data-h2-position="base(relative)"
         data-h2-padding="base(calc((3rem * var(--h2-line-height-copy)) + 3%), 0, x3, 0) p-tablet(calc((4rem * var(--h2-line-height-copy)) + 3%), 0, x4, 0) l-tablet(calc((6rem * var(--h2-line-height-copy)) + 3%), 0, x6, 0)"
       >
-        <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+        <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
           <div data-h2-color="base:all(black)">
             <Heading
               level="h2"

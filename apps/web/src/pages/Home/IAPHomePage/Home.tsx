@@ -180,7 +180,7 @@ export const Home = ({ query }: HomeProps) => {
         {/* About section */}
         <div data-h2-layer="base(1, relative)">
           <div
-            data-h2-container="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
+            data-h2-wrapper="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
             data-h2-position="base(relative)"
           >
             <div
@@ -299,7 +299,7 @@ export const Home = ({ query }: HomeProps) => {
         {/* Learn section */}
         <div>
           <div
-            data-h2-container="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
+            data-h2-wrapper="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
             data-h2-position="base(relative)"
           >
             <div data-h2-padding="p-tablet(x2) l-tablet(x3)">
@@ -408,7 +408,7 @@ export const Home = ({ query }: HomeProps) => {
           data-h2-margin="base(x2, 0, 0, 0)"
         >
           <div
-            data-h2-container="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
+            data-h2-wrapper="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
             data-h2-position="base(relative)"
           >
             <div data-h2-padding="p-tablet(x2) l-tablet(x3)">
@@ -534,7 +534,7 @@ export const Home = ({ query }: HomeProps) => {
             backgroundPosition: "right 10% center",
           }}
         >
-          <div data-h2-container="base(center, medium, x1) l-tablet(center, medium, x2)">
+          <div data-h2-wrapper="base(center, medium, x1) l-tablet(center, medium, x2)">
             <Heading
               light
               data-h2-color="base:all(white)"
@@ -558,7 +558,7 @@ export const Home = ({ query }: HomeProps) => {
             backgroundPosition: "top center",
           }}
         >
-          <div data-h2-container="base(center, iap-home, x1) p-tablet(center, iap-home, x2)">
+          <div data-h2-wrapper="base(center, iap-home, x1) p-tablet(center, iap-home, x2)">
             <div>
               <div
                 data-h2-shadow="base(l)"
@@ -661,7 +661,7 @@ export const Home = ({ query }: HomeProps) => {
             />
           </div>
           <div
-            data-h2-container="base(center, iap-home, x1) p-tablet(center, iap-home, x2)"
+            data-h2-wrapper="base(center, iap-home, x1) p-tablet(center, iap-home, x2)"
             data-h2-position="base(relative)"
           >
             <div

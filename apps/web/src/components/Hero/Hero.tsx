@@ -130,7 +130,7 @@ const Hero = ({
           </div>
         </div>
         <div
-          data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
+          data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
           data-h2-layer="base(3, relative)"
         >
           <div
@@ -199,7 +199,7 @@ const Hero = ({
         <>
           <Flourish />
           <div
-            data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
+            data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
             data-h2-position="base(relative)"
             data-h2-margin="base(-x5, auto, 0, auto)"
             data-h2-z-index="base(4)"

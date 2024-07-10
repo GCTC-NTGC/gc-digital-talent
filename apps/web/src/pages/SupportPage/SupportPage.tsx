@@ -63,7 +63,7 @@ export const Component = () => {
         />
         <div
           data-h2-position="base(relative)"
-          data-h2-container="base(center, small, x1) p-tablet(center, small, x2)"
+          data-h2-wrapper="base(center, small, x1) p-tablet(center, small, x2)"
         >
           <div
             data-h2-padding="base(x2)"

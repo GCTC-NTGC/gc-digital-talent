@@ -150,7 +150,7 @@ export const CreatePoolForm = ({
   }));
 
   return (
-    <div data-h2-container="base(left, small, 0)">
+    <div data-h2-wrapper="base(left, small, 0)">
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div

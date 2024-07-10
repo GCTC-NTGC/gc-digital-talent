@@ -6,9 +6,7 @@
     "roadmap": "https://github.com/orgs/hydrogen-css/projects/3/views/3",
     "settings": "https://hydrogen.design/en/docs/configuration/"
   },
-  "temp": [
-    "../*/src/views/*.html"
-  ],
+  "temp": ["../*/src/views/*.html"],
   "input": [
     "apps/web/public",
     "apps/web/src/components",
@@ -30,7 +28,9 @@
     "include_reset_css": true,
     "export_variable_file": false,
     "browser_prefix_css": true,
-    "minify_css": true
+    "minify_css": true,
+    "error_recovery": false,
+    "write_css_file": true
   },
   "logging": {
     "generate_logs": false,
@@ -41,23 +41,23 @@
     "queries": [
       {
         "key": "print",
-        "query": "print"
+        "query": "@media print"
       },
       {
         "key": "p-tablet",
-        "query": "screen and (min-width: 48em)"
+        "query": "@media screen and (min-width: 48em)"
       },
       {
         "key": "l-tablet",
-        "query": "screen and (min-width: 67.5em)"
+        "query": "@media screen and (min-width: 67.5em)"
       },
       {
         "key": "laptop",
-        "query": "screen and (min-width: 80em)"
+        "query": "@media screen and (min-width: 80em)"
       },
       {
         "key": "desktop",
-        "query": "screen and (min-width: 100em)"
+        "query": "@media screen and (min-width: 100em)"
       }
     ]
   },
@@ -238,56 +238,6 @@
           "default": {
             "color": "#E31C3D",
             "modifiers": []
-          }
-        }
-      ],
-      "containers": [
-        {
-          "key": "s",
-          "default": {
-            "max_width": "39rem"
-          }
-        },
-        {
-          "key": "small",
-          "default": {
-            "max_width": "39rem"
-          }
-        },
-        {
-          "key": "m",
-          "default": {
-            "max_width": "60rem"
-          }
-        },
-        {
-          "key": "medium",
-          "default": {
-            "max_width": "60rem"
-          }
-        },
-        {
-          "key": "l",
-          "default": {
-            "max_width": "80rem"
-          }
-        },
-        {
-          "key": "large",
-          "default": {
-            "max_width": "70rem"
-          }
-        },
-        {
-          "key": "full",
-          "default": {
-            "max_width": "none"
-          }
-        },
-        {
-          "key": "iap-home",
-          "default": {
-            "max_width": "70rem"
           }
         }
       ],
@@ -544,7 +494,57 @@
           }
         }
       ],
-      "transitions": {}
+      "transitions": {},
+      "wrappers": [
+        {
+          "key": "s",
+          "default": {
+            "max_width": "39rem"
+          }
+        },
+        {
+          "key": "small",
+          "default": {
+            "max_width": "39rem"
+          }
+        },
+        {
+          "key": "m",
+          "default": {
+            "max_width": "60rem"
+          }
+        },
+        {
+          "key": "medium",
+          "default": {
+            "max_width": "60rem"
+          }
+        },
+        {
+          "key": "l",
+          "default": {
+            "max_width": "80rem"
+          }
+        },
+        {
+          "key": "large",
+          "default": {
+            "max_width": "70rem"
+          }
+        },
+        {
+          "key": "full",
+          "default": {
+            "max_width": "none"
+          }
+        },
+        {
+          "key": "iap-home",
+          "default": {
+            "max_width": "70rem"
+          }
+        }
+      ]
     },
     {
       "key": "iap",

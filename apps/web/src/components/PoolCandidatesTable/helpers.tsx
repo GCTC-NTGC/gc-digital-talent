@@ -426,6 +426,7 @@ export const PoolCandidatesTable_SelectPoolCandidatesQuery = graphql(
           }
         }
         user {
+          ...ProfileDocument
           id
           email
           firstName

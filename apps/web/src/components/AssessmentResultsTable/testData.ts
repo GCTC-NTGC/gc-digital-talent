@@ -87,7 +87,7 @@ export const applicationScreeningStep: AssessmentStep = {
   sortOrder: 1,
   poolSkills: [...essentialPoolSkills, ...nonEssentialPoolSkills],
 };
-export const applicationScreeningResults: AssessmentResult[] = [
+const applicationScreeningResults: AssessmentResult[] = [
   getAssessmentResult(applicationScreeningStep, undefined, undefined),
   getAssessmentResult(applicationScreeningStep, undefined, undefined),
   getAssessmentResult(
@@ -111,7 +111,7 @@ export const screeningQuestionsStep: AssessmentStep = {
   sortOrder: 2,
   poolSkills: [essentialPoolSkills[1], nonEssentialPoolSkills[0]],
 };
-export const screeningQuestionsResults: AssessmentResult[] = [
+const screeningQuestionsResults: AssessmentResult[] = [
   getAssessmentResult(
     screeningQuestionsStep,
     AssessmentResultType.Skill,
@@ -129,7 +129,7 @@ export const referenceCheckStep: AssessmentStep = {
   sortOrder: 4,
   poolSkills: [essentialPoolSkills[0]],
 };
-export const referenceCheckResults: AssessmentResult[] = [
+const referenceCheckResults: AssessmentResult[] = [
   getAssessmentResult(
     referenceCheckStep,
     AssessmentResultType.Skill,
@@ -147,7 +147,7 @@ export const interviewGroupStep: AssessmentStep = {
   sortOrder: 3,
   poolSkills: [...essentialPoolSkills],
 };
-export const interviewGroupResults: AssessmentResult[] = [
+const interviewGroupResults: AssessmentResult[] = [
   getAssessmentResult(
     interviewGroupStep,
     AssessmentResultType.Skill,

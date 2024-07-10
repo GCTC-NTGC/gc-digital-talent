@@ -45,7 +45,7 @@ const NotificationsPage = () => {
         crumbs={breadcrumbs}
       />
       <section data-h2-margin="base(x3, 0)">
-        <div data-h2-container="base(center, large, x1) p-tablet(center, large, x2)">
+        <div data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)">
           <Sidebar.Wrapper>
             <Sidebar.Sidebar>
               <CardBasic>
