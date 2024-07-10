@@ -1093,11 +1093,15 @@ class PoolCandidate extends Model
                     }
                 } else {
                     if ($poolSkill->skill->category === SkillCategory::TECHNICAL->name) {
+                        $isClaimed = false;
                         $snapshot = $this->profile_snapshot;
-                        $claimedSkills = collect($snapshot['userSkills']);
-                        $isClaimed = $claimedSkills->contains(function ($userSkill) use ($poolSkill) {
-                            return $userSkill['skill']['id'] === $poolSkill->skill_id;
-                        });
+
+                        if ($snapshot) {
+                            $claimedSkills = collect($snapshot['userSkills']);
+                            $isClaimed = $claimedSkills->contains(function ($userSkill) use ($poolSkill) {
+                                return $userSkill['skill']['id'] === $poolSkill->skill_id;
+                            });
+                        }
 
                         if (! $isClaimed) {
                             continue;
@@ -1188,7 +1192,7 @@ class PoolCandidate extends Model
 
         if ($currentStep >= $totalSteps) {
             $lastStepDecision = end($decisions);
-            if ($lastStepDecision['decision'] !== AssessmentDecision::HOLD->name) {
+            if ($lastStepDecision['decision'] !== AssessmentDecision::HOLD->name && ! is_null($lastStepDecision['decision'])) {
                 $overallAssessmentStatus = OverallAssessmentStatus::QUALIFIED->name;
                 $currentStep = null;
             }
