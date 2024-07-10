@@ -1043,32 +1043,6 @@ class PoolCandidate extends Model
 
             $isApplicationScreening = $step->type === AssessmentStepType::APPLICATION_SCREENING->name;
             $stepResults = $this->assessmentResults->where('assessment_step_id', $stepId);
-            $hasEssentialSkillsToAssess = $step->poolSkills->contains(function ($poolSkill) {
-                return $poolSkill->type === PoolSkillType::ESSENTIAL->name;
-            });
-
-            // If no essential skills are to be assessed
-            // and not on application screening (requires education assessment)
-            // then it is an automatic pass
-            if (! $hasEssentialSkillsToAssess && ! $isApplicationScreening) {
-                $decisions[] = [
-                    'step' => $stepId,
-                    'decision' => AssessmentDecision::SUCCESSFUL->name,
-                ];
-
-                continue;
-            }
-
-            // Nothing has been assessed or, not all claimed skills have been assessed
-            // so we can't assign a decision yet
-            if ($stepResults->isEmpty()) {
-                $decisions[] = [
-                    'step' => $stepId,
-                    'decision' => null,
-                ];
-
-                continue;
-            }
 
             foreach ($step->poolSkills as $poolSkill) {
                 $result = $stepResults->firstWhere('pool_skill_id', $poolSkill->id);
@@ -1107,12 +1081,12 @@ class PoolCandidate extends Model
                             continue;
                         }
 
-                        if (! $result || is_null($result->assessment_decision)) {
-                            $hasToAssess = true;
+                    }
 
-                            continue;
-                        }
+                    if (! $result || is_null($result->assessment_decision)) {
+                        $hasToAssess = true;
 
+                        continue;
                     }
                 }
             }
@@ -1126,6 +1100,8 @@ class PoolCandidate extends Model
 
                         continue;
                     }
+
+                    $decision = $result->assessment_decision;
 
                     if ($decision === AssessmentDecision::UNSUCCESSFUL->name) {
                         $hasFailure = true;
