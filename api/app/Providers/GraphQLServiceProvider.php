@@ -71,7 +71,7 @@ use App\Enums\SkillLevel;
 use App\Enums\WhenSkillUsed;
 use App\Enums\WorkRegion;
 use App\GraphQL\Operators\PostgreSQLOperator;
-use App\Models\PoolSkill;
+use App\Traits\HasLocalization;
 use GraphQL\Type\Definition\EnumType;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
@@ -79,51 +79,11 @@ use GraphQL\Type\Definition\Type;
 use Illuminate\Support\ServiceProvider;
 use Nuwave\Lighthouse\Schema\TypeRegistry;
 use Nuwave\Lighthouse\WhereConditions\Operator;
+use Spatie\StructureDiscoverer\Data\DiscoveredStructure;
+use Spatie\StructureDiscoverer\Discover;
 
 class GraphQLServiceProvider extends ServiceProvider
 {
-    protected $localizedEnums = [
-        ArmedForcesStatus::class,
-        AssessmentDecision::class,
-        AssessmentDecisionLevel::class,
-        AssessmentResultJustification::class,
-        AssessmentStepType::class,
-        AwardedScope::class,
-        AwardedTo::class,
-        CandidateExpiryFilter::class,
-        CandidateRemovalReason::class,
-        CandidateSuspendedFilter::class,
-        CitizenshipStatus::class,
-        EducationRequirementOption::class,
-        EducationStatus::class,
-        EducationType::class,
-        EstimatedLanguageAbility::class,
-        EvaluatedLanguageAbility::class,
-        GovEmployeeType::class,
-        IndigenousCommunity::class,
-        Language::class,
-        LanguageAbility::class,
-        OperationalRequirement::class,
-        PlacementType::class,
-        PoolCandidateSearchPositionType::class,
-        PoolCandidateSearchRequestReason::class,
-        PoolCandidateSearchStatus::class,
-        PoolCandidateStatus::class,
-        PoolLanguage::class,
-        PoolOpportunityLength::class,
-        PoolSkill::class,
-        PoolSkillType::class,
-        PoolStatus::class,
-        PoolStream::class,
-        PriorityWeight::class,
-        ProvinceOrTerritory::class,
-        PublishingGroup::class,
-        SecurityStatus::class,
-        SkillCategory::class,
-        SkillLevel::class,
-        WorkRegion::class,
-    ];
-
     public function boot(TypeRegistry $typeRegistry): void
     {
 
@@ -750,31 +710,37 @@ class GraphQLServiceProvider extends ServiceProvider
             }
         );
 
-        foreach ($this->localizedEnums as $enum) {
+        $localizedEnums = Discover::in(app_path('Enums'))
+            ->enums()
+            ->custom(function (DiscoveredStructure $structure) {
+                return in_array(HasLocalization::class, class_uses($structure->getFcqn()));
+            })
+            ->get();
+
+        foreach ($localizedEnums as $enum) {
             $name = class_basename($enum);
 
-            if (method_exists($enum, 'localizedString')) {
-                $typeRegistry->register(
-                    new ObjectType([
-                        'name' => 'Localized'.$name,
-                        'fields' => function () use ($typeRegistry, $name): array {
-                            return [
-                                'value' => Type::nonNull($typeRegistry->get($name)),
-                                'label' => Type::nonNull($typeRegistry->get('LocalizedString')),
-                            ];
-                        },
-                        /* @intelephense-ignore-next-line */
-                        'resolveField' => function ($value, array $args, $context, ResolveInfo $info) use ($enum) {
-                            switch ($info->fieldName) {
-                                case 'value': return $value;
-                                case 'label': return $enum::localizedString($value);
-                                default: return null;
-                            }
+            $typeRegistry->register(
+                new ObjectType([
+                    'name' => 'Localized'.$name,
+                    'fields' => function () use ($typeRegistry, $name): array {
+                        return [
+                            'value' => Type::nonNull($typeRegistry->get($name)),
+                            'label' => Type::nonNull($typeRegistry->get('LocalizedString')),
+                        ];
+                    },
+                    /** @disregard P1003 */
+                    'resolveField' => function ($value, array $args, $context, ResolveInfo $info) use ($enum) {
+                        switch ($info->fieldName) {
+                            case 'value': return $value;
+                                /** @disregard P1013, these enums do have the trait */
+                            case 'label': return $enum::localizedString($value);
+                            default: return null;
+                        }
 
-                        },
-                    ])
-                );
-            }
+                    },
+                ])
+            );
         }
     }
 
