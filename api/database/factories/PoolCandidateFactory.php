@@ -251,4 +251,14 @@ class PoolCandidateFactory extends Factory
                 ]);
         });
     }
+
+    /**
+     * Create a snapshot for the pool candidate
+     */
+    public function withSnapshot()
+    {
+        return $this->afterCreating(function (PoolCandidate $poolCandidate) {
+            $poolCandidate->setApplicationSnapshot();
+        });
+    }
 }
