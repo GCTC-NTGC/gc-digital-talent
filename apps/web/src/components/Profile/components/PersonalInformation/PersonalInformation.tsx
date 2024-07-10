@@ -13,6 +13,8 @@ import {
   hasEmptyRequiredFields,
 } from "~/validators/profile/about";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
+// not importing a whole page, just a context
+// eslint-disable-next-line no-restricted-imports
 import { useApplicationContext } from "~/pages/Applications/ApplicationContext";
 
 import { SectionProps } from "../../types";
