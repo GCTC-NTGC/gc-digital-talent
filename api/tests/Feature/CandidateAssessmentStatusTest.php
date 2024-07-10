@@ -15,6 +15,7 @@ use App\Models\PoolSkill;
 use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
+use App\Models\UserSkill;
 use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
@@ -497,6 +498,126 @@ class CandidateAssessmentStatusTest extends TestCase
                                 [
                                     'step' => $steps[1]->id,
                                     'decision' => AssessmentDecision::SUCCESSFUL->name,
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ]);
+    }
+
+    public function testMultipleEssentialMustPassToIncrementStep()
+    {
+
+        $pool = Pool::factory()
+            ->published()
+            ->create([
+                'team_id' => $this->team->id,
+            ]);
+
+        $technicalSkills = Skill::where('category', SkillCategory::TECHNICAL->name)->limit(2)->get();
+        $poolSkillOne = PoolSkill::create([
+            'pool_id' => $pool->id,
+            'skill_id' => $technicalSkills[0]->id,
+            'type' => PoolSkillType::ESSENTIAL->name,
+        ]);
+
+        // Non-essential skills must also be assessed if a user claims them
+        $poolSkillTwo = PoolSkill::create([
+            'pool_id' => $pool->id,
+            'skill_id' => $technicalSkills[1]->id,
+            'type' => PoolSkillType::NONESSENTIAL->name,
+        ]);
+
+        $user = User::factory()->create();
+        UserSkill::factory()->create([
+            'user_id' => $user->id,
+            'skill_id' => $poolSkillTwo->skill_id,
+        ]);
+
+        $candidate = PoolCandidate::factory()->withSnapshot()->create([
+            'user_id' => $user->id,
+            'pool_id' => $pool->id,
+            'submitted_at' => config('constants.past_date'),
+            'expiry_date' => config('constants.far_future_date'),
+        ]);
+
+        $stepOne = $pool->assessmentSteps->first();
+
+        $stepTwo = AssessmentStep::factory()
+            ->afterCreating(function (AssessmentStep $step) use ($poolSkillOne, $poolSkillTwo) {
+                $step->poolSkills()->sync([$poolSkillOne->id, $poolSkillTwo->id]);
+            })->create([
+                'pool_id' => $pool->id,
+            ]);
+
+        AssessmentResult::factory()
+            ->withResultType(AssessmentResultType::EDUCATION)
+            ->create([
+                'assessment_step_id' => $stepOne->id,
+                'pool_candidate_id' => $candidate->id,
+                'assessment_decision' => AssessmentDecision::SUCCESSFUL->name,
+            ]);
+
+        AssessmentResult::factory()
+            ->withResultType(AssessmentResultType::SKILL)
+            ->create([
+                'assessment_step_id' => $stepOne->id,
+                'pool_candidate_id' => $candidate->id,
+                'assessment_decision' => AssessmentDecision::SUCCESSFUL->name,
+                'pool_skill_id' => $poolSkillOne->id,
+            ]);
+
+        // Only one skill assessed so keep on step one with "to assess"
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($this->query, ['id' => $candidate->id])
+            ->assertJson([
+                'data' => [
+                    'poolCandidate' => [
+                        'assessmentStatus' => [
+                            'currentStep' => 1,
+                            'overallAssessmentStatus' => OverallAssessmentStatus::TO_ASSESS->name,
+                            'assessmentStepStatuses' => [
+                                [
+                                    'step' => $stepOne->id,
+                                    'decision' => null,
+                                ],
+                                [
+                                    'step' => $stepTwo->id,
+                                    'decision' => null,
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ]);
+
+        AssessmentResult::factory()
+            ->withResultType(AssessmentResultType::SKILL)
+            ->create([
+                'assessment_step_id' => $stepOne->id,
+                'pool_candidate_id' => $candidate->id,
+                'assessment_decision' => AssessmentDecision::SUCCESSFUL->name,
+                'pool_skill_id' => $poolSkillTwo->id,
+            ]);
+        //
+        // Both skills are now assessed so we can increment the step
+        $this->actingAs($this->adminUser, 'api')
+            ->graphQL($this->query, ['id' => $candidate->id])
+            ->assertJson([
+                'data' => [
+                    'poolCandidate' => [
+                        'assessmentStatus' => [
+                            'currentStep' => 2,
+                            'overallAssessmentStatus' => OverallAssessmentStatus::TO_ASSESS->name,
+                            'assessmentStepStatuses' => [
+                                [
+                                    'step' => $stepOne->id,
+                                    'decision' => AssessmentDecision::SUCCESSFUL->name,
+                                ],
+                                [
+                                    'step' => $stepTwo->id,
+                                    'decision' => null,
                                 ],
                             ],
                         ],
