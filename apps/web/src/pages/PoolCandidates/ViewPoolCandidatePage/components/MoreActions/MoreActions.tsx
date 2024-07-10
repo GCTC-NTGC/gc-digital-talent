@@ -50,6 +50,7 @@ export const MoreActions_Fragment = graphql(/* GraphQL */ `
       id
       firstName
       lastName
+      ...ProfileDocument
     }
     status {
       value
@@ -179,7 +180,8 @@ const MoreActions = ({
               mode="inline"
               color="secondary"
               pool={poolCandidate.pool}
-              user={parsedSnapshot}
+              snapshot={parsedSnapshot}
+              user={[poolCandidate.user]}
               buttonLabel={intl.formatMessage(commonMessages.print)}
             />
           </CardBasic>

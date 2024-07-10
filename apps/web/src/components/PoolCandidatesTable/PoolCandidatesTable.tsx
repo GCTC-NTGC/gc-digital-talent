@@ -82,6 +82,11 @@ import {
   jobPlacementDialogAccessor,
 } from "./JobPlacementDialog";
 import { PoolCandidate_BookmarkFragment } from "../CandidateBookmark/CandidateBookmark";
+import { ProfileDocument_Fragment } from "../ProfileDocument/ProfileDocument";
+
+type SelectedCandidate = PoolCandidate & {
+  user?: PoolCandidate["user"] & FragmentType<typeof ProfileDocument_Fragment>;
+};
 
 const columnHelper = createColumnHelper<PoolCandidateWithSkillCount>();
 
@@ -451,9 +456,9 @@ const PoolCandidatesTable = ({
   });
   const [isSelecting, setIsSelecting] = useState<boolean>(false);
   const [selectingFor, setSelectingFor] = useState<SelectingFor>(null);
-  const [selectedCandidates, setSelectedCandidates] = useState<PoolCandidate[]>(
-    [],
-  );
+  const [selectedCandidates, setSelectedCandidates] = useState<
+    SelectedCandidate[]
+  >([]);
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
   const initialFilters: PoolCandidateSearchInput = useMemo(
@@ -986,7 +991,7 @@ const PoolCandidatesTable = ({
       print={{
         component: (
           <UserProfilePrintButton
-            users={selectedCandidates}
+            users={selectedCandidates.map((candidate) => candidate.user)}
             beforePrint={async () => {
               await querySelected("print");
             }}
