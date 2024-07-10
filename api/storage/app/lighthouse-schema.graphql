@@ -1,45 +1,15 @@
-type LocalizedPoolCandidateSearchPositionType {
-  value: PoolCandidateSearchPositionType!
+type LocalizedArmedForcesStatus {
+  value: ArmedForcesStatus!
   label: LocalizedString!
 }
 
-type LocalizedEducationRequirementOption {
-  value: EducationRequirementOption!
+type LocalizedAssessmentDecision {
+  value: AssessmentDecision!
   label: LocalizedString!
 }
 
-type LocalizedSecurityStatus {
-  value: SecurityStatus!
-  label: LocalizedString!
-}
-
-type LocalizedPoolOpportunityLength {
-  value: PoolOpportunityLength!
-  label: LocalizedString!
-}
-
-type LocalizedWorkRegion {
-  value: WorkRegion!
-  label: LocalizedString!
-}
-
-type LocalizedCitizenshipStatus {
-  value: CitizenshipStatus!
-  label: LocalizedString!
-}
-
-type LocalizedOperationalRequirement {
-  value: OperationalRequirement!
-  label: LocalizedString!
-}
-
-type LocalizedPriorityWeight {
-  value: PriorityWeight!
-  label: LocalizedString!
-}
-
-type LocalizedSkillCategory {
-  value: SkillCategory!
+type LocalizedAssessmentDecisionLevel {
+  value: AssessmentDecisionLevel!
   label: LocalizedString!
 }
 
@@ -48,58 +18,8 @@ type LocalizedAssessmentResultJustification {
   label: LocalizedString!
 }
 
-type LocalizedCandidateRemovalReason {
-  value: CandidateRemovalReason!
-  label: LocalizedString!
-}
-
-type LocalizedPoolStatus {
-  value: PoolStatus!
-  label: LocalizedString!
-}
-
-type LocalizedPoolCandidateStatus {
-  value: PoolCandidateStatus!
-  label: LocalizedString!
-}
-
-type LocalizedLanguageAbility {
-  value: LanguageAbility!
-  label: LocalizedString!
-}
-
-type LocalizedLanguage {
-  value: Language!
-  label: LocalizedString!
-}
-
-type LocalizedCandidateSuspendedFilter {
-  value: CandidateSuspendedFilter!
-  label: LocalizedString!
-}
-
-type LocalizedCandidateExpiryFilter {
-  value: CandidateExpiryFilter!
-  label: LocalizedString!
-}
-
-type LocalizedProvinceOrTerritory {
-  value: ProvinceOrTerritory!
-  label: LocalizedString!
-}
-
-type LocalizedPoolSkillType {
-  value: PoolSkillType!
-  label: LocalizedString!
-}
-
-type LocalizedPoolStream {
-  value: PoolStream!
-  label: LocalizedString!
-}
-
-type LocalizedGovEmployeeType {
-  value: GovEmployeeType!
+type LocalizedAssessmentStepType {
+  value: AssessmentStepType!
   label: LocalizedString!
 }
 
@@ -113,53 +33,33 @@ type LocalizedAwardedTo {
   label: LocalizedString!
 }
 
-type LocalizedPublishingGroup {
-  value: PublishingGroup!
+type LocalizedCandidateExpiryFilter {
+  value: CandidateExpiryFilter!
   label: LocalizedString!
 }
 
-type LocalizedPoolLanguage {
-  value: PoolLanguage!
+type LocalizedCandidateRemovalReason {
+  value: CandidateRemovalReason!
   label: LocalizedString!
 }
 
-type LocalizedEstimatedLanguageAbility {
-  value: EstimatedLanguageAbility!
+type LocalizedCandidateSuspendedFilter {
+  value: CandidateSuspendedFilter!
   label: LocalizedString!
 }
 
-type LocalizedArmedForcesStatus {
-  value: ArmedForcesStatus!
+type LocalizedCitizenshipStatus {
+  value: CitizenshipStatus!
   label: LocalizedString!
 }
 
-type LocalizedAssessmentStepType {
-  value: AssessmentStepType!
+type LocalizedEducationRequirementOption {
+  value: EducationRequirementOption!
   label: LocalizedString!
 }
 
-type LocalizedSkillLevel {
-  value: SkillLevel!
-  label: LocalizedString!
-}
-
-type LocalizedAssessmentDecisionLevel {
-  value: AssessmentDecisionLevel!
-  label: LocalizedString!
-}
-
-type LocalizedAssessmentDecision {
-  value: AssessmentDecision!
-  label: LocalizedString!
-}
-
-type LocalizedPoolCandidateSearchRequestReason {
-  value: PoolCandidateSearchRequestReason!
-  label: LocalizedString!
-}
-
-type LocalizedEvaluatedLanguageAbility {
-  value: EvaluatedLanguageAbility!
+type LocalizedEducationStatus {
+  value: EducationStatus!
   label: LocalizedString!
 }
 
@@ -168,13 +68,18 @@ type LocalizedEducationType {
   label: LocalizedString!
 }
 
-type LocalizedPoolCandidateSearchStatus {
-  value: PoolCandidateSearchStatus!
+type LocalizedEstimatedLanguageAbility {
+  value: EstimatedLanguageAbility!
   label: LocalizedString!
 }
 
-type LocalizedPlacementType {
-  value: PlacementType!
+type LocalizedEvaluatedLanguageAbility {
+  value: EvaluatedLanguageAbility!
+  label: LocalizedString!
+}
+
+type LocalizedGovEmployeeType {
+  value: GovEmployeeType!
   label: LocalizedString!
 }
 
@@ -183,8 +88,103 @@ type LocalizedIndigenousCommunity {
   label: LocalizedString!
 }
 
-type LocalizedEducationStatus {
-  value: EducationStatus!
+type LocalizedLanguage {
+  value: Language!
+  label: LocalizedString!
+}
+
+type LocalizedLanguageAbility {
+  value: LanguageAbility!
+  label: LocalizedString!
+}
+
+type LocalizedOperationalRequirement {
+  value: OperationalRequirement!
+  label: LocalizedString!
+}
+
+type LocalizedPlacementType {
+  value: PlacementType!
+  label: LocalizedString!
+}
+
+type LocalizedPoolCandidateSearchPositionType {
+  value: PoolCandidateSearchPositionType!
+  label: LocalizedString!
+}
+
+type LocalizedPoolCandidateSearchRequestReason {
+  value: PoolCandidateSearchRequestReason!
+  label: LocalizedString!
+}
+
+type LocalizedPoolCandidateSearchStatus {
+  value: PoolCandidateSearchStatus!
+  label: LocalizedString!
+}
+
+type LocalizedPoolCandidateStatus {
+  value: PoolCandidateStatus!
+  label: LocalizedString!
+}
+
+type LocalizedPoolLanguage {
+  value: PoolLanguage!
+  label: LocalizedString!
+}
+
+type LocalizedPoolOpportunityLength {
+  value: PoolOpportunityLength!
+  label: LocalizedString!
+}
+
+type LocalizedPoolSkillType {
+  value: PoolSkillType!
+  label: LocalizedString!
+}
+
+type LocalizedPoolStatus {
+  value: PoolStatus!
+  label: LocalizedString!
+}
+
+type LocalizedPoolStream {
+  value: PoolStream!
+  label: LocalizedString!
+}
+
+type LocalizedPriorityWeight {
+  value: PriorityWeight!
+  label: LocalizedString!
+}
+
+type LocalizedProvinceOrTerritory {
+  value: ProvinceOrTerritory!
+  label: LocalizedString!
+}
+
+type LocalizedPublishingGroup {
+  value: PublishingGroup!
+  label: LocalizedString!
+}
+
+type LocalizedSecurityStatus {
+  value: SecurityStatus!
+  label: LocalizedString!
+}
+
+type LocalizedSkillCategory {
+  value: SkillCategory!
+  label: LocalizedString!
+}
+
+type LocalizedSkillLevel {
+  value: SkillLevel!
+  label: LocalizedString!
+}
+
+type LocalizedWorkRegion {
+  value: WorkRegion!
   label: LocalizedString!
 }
 
@@ -2325,84 +2325,33 @@ enum Language {
   FR
 }
 
-enum PoolCandidateSearchPositionType {
-  INDIVIDUAL_CONTRIBUTOR
-  TEAM_LEAD
+enum ApplicationStep {
+  WELCOME
+  SELF_DECLARATION
+  REVIEW_YOUR_PROFILE
+  REVIEW_YOUR_RESUME
+  EDUCATION_REQUIREMENTS
+  SKILL_REQUIREMENTS
+  SCREENING_QUESTIONS
+  REVIEW_AND_SUBMIT
 }
 
-enum EducationRequirementOption {
-  APPLIED_WORK
-  EDUCATION
-  PROFESSIONAL_DESIGNATION
-}
-
-enum SecurityStatus {
-  RELIABILITY
-  SECRET
-  TOP_SECRET
-}
-
-enum PoolOpportunityLength {
-  TERM_SIX_MONTHS
-  TERM_ONE_YEAR
-  TERM_TWO_YEARS
-  INDETERMINATE
-  VARIOUS
-}
-
-enum WorkRegion {
-  TELEWORK
-  NATIONAL_CAPITAL
-  ATLANTIC
-  QUEBEC
-  ONTARIO
-  PRAIRIE
-  BRITISH_COLUMBIA
-  NORTH
-}
-
-enum DisqualificationReason {
-  SCREENED_OUT_APPLICATION
-  SCREENED_OUT_ASSESSMENT
-}
-
-enum NotificationFamily {
-  SYSTEM_MESSAGE
-  APPLICATION_UPDATE
-  JOB_ALERT
-}
-
-enum AssessmentResultType {
-  EDUCATION
-  SKILL
-}
-
-enum CitizenshipStatus {
-  PERMANENT_RESIDENT
-  CITIZEN
-  OTHER
-}
-
-enum OperationalRequirement {
-  SHIFT_WORK
-  ON_CALL
-  TRAVEL
-  TRANSPORT_EQUIPMENT
-  DRIVERS_LICENSE
-  OVERTIME_OCCASIONAL
-  OVERTIME_REGULAR
-}
-
-enum PriorityWeight {
-  PRIORITY_ENTITLEMENT
+enum ArmedForcesStatus {
   VETERAN
-  CITIZEN_OR_PERMANENT_RESIDENT
-  OTHER
+  MEMBER
+  NON_CAF
 }
 
-enum SkillCategory {
-  TECHNICAL
-  BEHAVIOURAL
+enum AssessmentDecision {
+  HOLD
+  SUCCESSFUL
+  UNSUCCESSFUL
+}
+
+enum AssessmentDecisionLevel {
+  AT_REQUIRED
+  ABOVE_REQUIRED
+  ABOVE_AND_BEYOND_REQUIRED
 }
 
 enum AssessmentResultJustification {
@@ -2417,106 +2366,74 @@ enum AssessmentResultJustification {
   FAILED_OTHER
 }
 
+enum AssessmentResultType {
+  EDUCATION
+  SKILL
+}
+
+enum AssessmentStepType {
+  SCREENING_QUESTIONS_AT_APPLICATION
+  TECHNICAL_EXAM_AT_SITE
+  TECHNICAL_EXAM_AT_HOME
+  PSC_EXAM
+  INTERVIEW_GROUP
+  INTERVIEW_INDIVIDUAL
+  INTERVIEW_FOLLOWUP
+  REFERENCE_CHECK
+  APPLICATION_SCREENING
+  ADDITIONAL_ASSESSMENT
+}
+
+enum AwardedScope {
+  INTERNATIONAL
+  NATIONAL
+  PROVINCIAL
+  LOCAL
+  COMMUNITY
+  ORGANIZATIONAL
+  SUB_ORGANIZATIONAL
+}
+
+enum AwardedTo {
+  ME
+  MY_TEAM
+  MY_PROJECT
+  MY_ORGANIZATION
+}
+
+enum CandidateExpiryFilter {
+  ACTIVE
+  EXPIRED
+  ALL
+}
+
 enum CandidateRemovalReason {
   REQUESTED_TO_BE_WITHDRAWN
   NOT_RESPONSIVE
   OTHER
 }
 
-enum PoolStatus {
-  DRAFT
-  PUBLISHED
-  CLOSED
-  ARCHIVED
+enum CandidateSuspendedFilter {
+  ACTIVE
+  SUSPENDED
+  ALL
 }
 
-enum ContractCommodity {
-  TELECOM_SERVICES
-  SUPPORT_SERVICES
+enum CitizenshipStatus {
+  PERMANENT_RESIDENT
+  CITIZEN
   OTHER
 }
 
-enum PositionEmploymentType {
-  INDETERMINATE
-  TERM
-  LATERAL_DEPLOYMENT
-  SECONDMENT
-  ASSIGNMENT
-  OTHER
-}
-
-enum OperationsConsideration {
-  FINANCE_VEHICLE_NOT_USABLE
-  FUNDING_SECURED_COST_RECOVERY_BASIS
-  UNABLE_CREATE_NEW_INDETERMINATE
-  UNABLE_CREATE_NEW_TERM
-  UNABLE_CREATE_CLASSIFICATION_RESTRICTION
-  STAFFING_FREEZE
-  OTHER
-}
-
-enum ContractingRationale {
-  SHORTAGE_OF_TALENT
-  TIMING_REQUIREMENTS
-  HR_SITUATION
-  FINANCIAL_SITUATION
-  REQUIRES_INDEPENDENT
-  INTELLECTUAL_PROPERTY_FACTORS
-  OTHER
-}
-
-enum YesNo {
-  YES
-  NO
+enum ClaimVerificationResult {
+  ACCEPTED
+  REJECTED
+  UNVERIFIED
 }
 
 enum AdvertisementType {
   INTERNAL
   EXTERNAL
-}
-
-enum PersonnelLanguage {
-  ENGLISH_ONLY
-  FRENCH_ONLY
-  BILINGUAL_INTERMEDIATE
-  BILINGUAL_ADVANCED
-  OTHER
-}
-
-enum PersonnelScreeningLevel {
-  RELIABILITY
-  ENHANCED_RELIABILITY
-  SECRET
-  TOP_SECRET
-  OTHER
-}
-
-enum YesNoUnsure {
-  YES
-  NO
-  I_DONT_KNOW
-}
-
-enum PersonnelOtherRequirement {
-  SHIFT_WORK
-  ON_CALL_24_7
-  OVERTIME_SHORT_NOTICE
-  AS_NEEDED
-  OTHER
-}
-
-enum PersonnelTeleworkOption {
-  FULL_TIME
-  PART_TIME
-  NO
-}
-
-enum ContractSupplyMethod {
-  NOT_APPLICABLE
-  SOLUTIONS_BASED_INFORMATICS_PROFESSIONAL_SERVICES
-  TASK_BASED_INFORMATICS_PROFESSIONAL_SERVICES
-  TEMPORARY_HELP
-  OTHER
 }
 
 enum AdvertisingPlatform {
@@ -2529,15 +2446,6 @@ enum AdvertisingPlatform {
   OTHER
 }
 
-enum ContractStartTimeframe {
-  FROM_0_TO_3M
-  FROM_3M_TO_6M
-  FROM_6M_TO_1Y
-  FROM_1Y_TO_2Y
-  UNKNOWN
-  VARIABLE
-}
-
 enum ContractAuthority {
   HR
   PROCUREMENT
@@ -2546,17 +2454,10 @@ enum ContractAuthority {
   OTHER
 }
 
-enum ContractSolicitationProcedure {
-  ADVANCE_CONTRACT_AWARD_NOTICE
-  COMPETITIVE
-  NON_COMPETITIVE
-}
-
-enum PersonnelSkillExpertiseLevel {
-  BEGINNER
-  INTERMEDIATE
-  EXPERT
-  LEAD
+enum ContractCommodity {
+  TELECOM_SERVICES
+  SUPPORT_SERVICES
+  OTHER
 }
 
 enum ContractFteRange {
@@ -2576,10 +2477,27 @@ enum ContractInstrument {
   OTHER
 }
 
-enum PersonnelWorkLocation {
-  GC_PREMISES
-  OFFSITE_SPECIFIC
-  OFFSITE_ANY
+enum ContractSolicitationProcedure {
+  ADVANCE_CONTRACT_AWARD_NOTICE
+  COMPETITIVE
+  NON_COMPETITIVE
+}
+
+enum ContractStartTimeframe {
+  FROM_0_TO_3M
+  FROM_3M_TO_6M
+  FROM_6M_TO_1Y
+  FROM_1Y_TO_2Y
+  UNKNOWN
+  VARIABLE
+}
+
+enum ContractSupplyMethod {
+  NOT_APPLICABLE
+  SOLUTIONS_BASED_INFORMATICS_PROFESSIONAL_SERVICES
+  TASK_BASED_INFORMATICS_PROFESSIONAL_SERVICES
+  TEMPORARY_HELP
+  OTHER
 }
 
 enum ContractValueRange {
@@ -2593,6 +2511,217 @@ enum ContractValueRange {
   FROM_10M_TO_15M
   FROM_15M_TO_25M
   GREATER_THAN_25M
+}
+
+enum ContractingRationale {
+  SHORTAGE_OF_TALENT
+  TIMING_REQUIREMENTS
+  HR_SITUATION
+  FINANCIAL_SITUATION
+  REQUIRES_INDEPENDENT
+  INTELLECTUAL_PROPERTY_FACTORS
+  OTHER
+}
+
+enum OperationsConsideration {
+  FINANCE_VEHICLE_NOT_USABLE
+  FUNDING_SECURED_COST_RECOVERY_BASIS
+  UNABLE_CREATE_NEW_INDETERMINATE
+  UNABLE_CREATE_NEW_TERM
+  UNABLE_CREATE_CLASSIFICATION_RESTRICTION
+  STAFFING_FREEZE
+  OTHER
+}
+
+enum PersonnelLanguage {
+  ENGLISH_ONLY
+  FRENCH_ONLY
+  BILINGUAL_INTERMEDIATE
+  BILINGUAL_ADVANCED
+  OTHER
+}
+
+enum PersonnelOtherRequirement {
+  SHIFT_WORK
+  ON_CALL_24_7
+  OVERTIME_SHORT_NOTICE
+  AS_NEEDED
+  OTHER
+}
+
+enum PersonnelScreeningLevel {
+  RELIABILITY
+  ENHANCED_RELIABILITY
+  SECRET
+  TOP_SECRET
+  OTHER
+}
+
+enum PersonnelSkillExpertiseLevel {
+  BEGINNER
+  INTERMEDIATE
+  EXPERT
+  LEAD
+}
+
+enum PersonnelTeleworkOption {
+  FULL_TIME
+  PART_TIME
+  NO
+}
+
+enum PersonnelWorkLocation {
+  GC_PREMISES
+  OFFSITE_SPECIFIC
+  OFFSITE_ANY
+}
+
+enum PositionEmploymentType {
+  INDETERMINATE
+  TERM
+  LATERAL_DEPLOYMENT
+  SECONDMENT
+  ASSIGNMENT
+  OTHER
+}
+
+enum YesNo {
+  YES
+  NO
+}
+
+enum YesNoUnsure {
+  YES
+  NO
+  I_DONT_KNOW
+}
+
+enum DisqualificationReason {
+  SCREENED_OUT_APPLICATION
+  SCREENED_OUT_ASSESSMENT
+}
+
+enum EducationRequirementOption {
+  APPLIED_WORK
+  EDUCATION
+  PROFESSIONAL_DESIGNATION
+}
+
+enum EducationStatus {
+  SUCCESS_CREDENTIAL
+  SUCCESS_NO_CREDENTIAL
+  IN_PROGRESS
+  AUDITED
+  DID_NOT_COMPLETE
+}
+
+enum EducationType {
+  DIPLOMA
+  BACHELORS_DEGREE
+  MASTERS_DEGREE
+  PHD
+  POST_DOCTORAL_FELLOWSHIP
+  ONLINE_COURSE
+  CERTIFICATION
+  OTHER
+}
+
+enum EstimatedLanguageAbility {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum EvaluatedLanguageAbility {
+  X
+  A
+  B
+  C
+  E
+  P
+  NOT_ASSESSED
+}
+
+enum GenericJobTitleKey {
+  TECHNICIAN_IT01
+  ANALYST_IT02
+  TEAM_LEADER_IT03
+  TECHNICAL_ADVISOR_IT03
+  SENIOR_ADVISOR_IT04
+  MANAGER_IT04
+  EXECUTIVE_EX03
+}
+
+enum GovEmployeeType {
+  STUDENT
+  CASUAL
+  TERM
+  INDETERMINATE
+}
+
+enum IndigenousCommunity {
+  STATUS_FIRST_NATIONS
+  NON_STATUS_FIRST_NATIONS
+  INUIT
+  METIS
+  OTHER
+  LEGACY_IS_INDIGENOUS
+}
+
+enum LanguageAbility {
+  ENGLISH
+  FRENCH
+  BILINGUAL
+}
+
+enum NotificationFamily {
+  SYSTEM_MESSAGE
+  APPLICATION_UPDATE
+  JOB_ALERT
+}
+
+enum OperationalRequirement {
+  SHIFT_WORK
+  ON_CALL
+  TRAVEL
+  TRANSPORT_EQUIPMENT
+  DRIVERS_LICENSE
+  OVERTIME_OCCASIONAL
+  OVERTIME_REGULAR
+}
+
+enum OverallAssessmentStatus {
+  TO_ASSESS
+  DISQUALIFIED
+  QUALIFIED
+}
+
+enum PlacementType {
+  PLACED_TENTATIVE
+  PLACED_CASUAL
+  PLACED_TERM
+  PLACED_INDETERMINATE
+}
+
+enum PoolCandidateSearchPositionType {
+  INDIVIDUAL_CONTRIBUTOR
+  TEAM_LEAD
+}
+
+enum PoolCandidateSearchRequestReason {
+  IMMEDIATE_HIRE
+  UPCOMING_NEED
+  GENERAL_INTEREST
+  REQUIRED_BY_DIRECTIVE
+}
+
+enum PoolCandidateSearchStatus {
+  NEW
+  IN_PROGRESS
+  WAITING
+  DONE
+  DONE_NO_CANDIDATES
+  NOT_COMPLIANT
 }
 
 enum PoolCandidateStatus {
@@ -2617,48 +2746,32 @@ enum PoolCandidateStatus {
   REMOVED
 }
 
-enum WhenSkillUsed {
-  CURRENT
-  PAST
-}
-
-enum LanguageAbility {
+enum PoolLanguage {
   ENGLISH
   FRENCH
-  BILINGUAL
+  VARIOUS
+  BILINGUAL_INTERMEDIATE
+  BILINGUAL_ADVANCED
 }
 
-enum CandidateSuspendedFilter {
-  ACTIVE
-  SUSPENDED
-  ALL
-}
-
-enum CandidateExpiryFilter {
-  ACTIVE
-  EXPIRED
-  ALL
-}
-
-enum ProvinceOrTerritory {
-  BRITISH_COLUMBIA
-  ALBERTA
-  SASKATCHEWAN
-  MANITOBA
-  ONTARIO
-  QUEBEC
-  NEW_BRUNSWICK
-  NOVA_SCOTIA
-  PRINCE_EDWARD_ISLAND
-  NEWFOUNDLAND_AND_LABRADOR
-  YUKON
-  NORTHWEST_TERRITORIES
-  NUNAVUT
+enum PoolOpportunityLength {
+  TERM_SIX_MONTHS
+  TERM_ONE_YEAR
+  TERM_TWO_YEARS
+  INDETERMINATE
+  VARIOUS
 }
 
 enum PoolSkillType {
   ESSENTIAL
   NONESSENTIAL
+}
+
+enum PoolStatus {
+  DRAFT
+  PUBLISHED
+  CLOSED
+  ARCHIVED
 }
 
 enum PoolStream {
@@ -2680,34 +2793,27 @@ enum PositionDuration {
   PERMANENT
 }
 
-enum GovEmployeeType {
-  STUDENT
-  CASUAL
-  TERM
-  INDETERMINATE
+enum PriorityWeight {
+  PRIORITY_ENTITLEMENT
+  VETERAN
+  CITIZEN_OR_PERMANENT_RESIDENT
+  OTHER
 }
 
-enum AwardedScope {
-  INTERNATIONAL
-  NATIONAL
-  PROVINCIAL
-  LOCAL
-  COMMUNITY
-  ORGANIZATIONAL
-  SUB_ORGANIZATIONAL
-}
-
-enum AwardedTo {
-  ME
-  MY_TEAM
-  MY_PROJECT
-  MY_ORGANIZATION
-}
-
-enum OverallAssessmentStatus {
-  TO_ASSESS
-  DISQUALIFIED
-  QUALIFIED
+enum ProvinceOrTerritory {
+  BRITISH_COLUMBIA
+  ALBERTA
+  SASKATCHEWAN
+  MANITOBA
+  ONTARIO
+  QUEBEC
+  NEW_BRUNSWICK
+  NOVA_SCOTIA
+  PRINCE_EDWARD_ISLAND
+  NEWFOUNDLAND_AND_LABRADOR
+  YUKON
+  NORTHWEST_TERRITORIES
+  NUNAVUT
 }
 
 enum PublishingGroup {
@@ -2718,48 +2824,15 @@ enum PublishingGroup {
   OTHER
 }
 
-enum ApplicationStep {
-  WELCOME
-  SELF_DECLARATION
-  REVIEW_YOUR_PROFILE
-  REVIEW_YOUR_RESUME
-  EDUCATION_REQUIREMENTS
-  SKILL_REQUIREMENTS
-  SCREENING_QUESTIONS
-  REVIEW_AND_SUBMIT
+enum SecurityStatus {
+  RELIABILITY
+  SECRET
+  TOP_SECRET
 }
 
-enum PoolLanguage {
-  ENGLISH
-  FRENCH
-  VARIOUS
-  BILINGUAL_INTERMEDIATE
-  BILINGUAL_ADVANCED
-}
-
-enum EstimatedLanguageAbility {
-  BEGINNER
-  INTERMEDIATE
-  ADVANCED
-}
-
-enum ArmedForcesStatus {
-  VETERAN
-  MEMBER
-  NON_CAF
-}
-
-enum AssessmentStepType {
-  SCREENING_QUESTIONS_AT_APPLICATION
-  TECHNICAL_EXAM_AT_SITE
-  TECHNICAL_EXAM_AT_HOME
-  PSC_EXAM
-  INTERVIEW_GROUP
-  INTERVIEW_INDIVIDUAL
-  INTERVIEW_FOLLOWUP
-  REFERENCE_CHECK
-  APPLICATION_SCREENING
-  ADDITIONAL_ASSESSMENT
+enum SkillCategory {
+  TECHNICAL
+  BEHAVIOURAL
 }
 
 enum SkillLevel {
@@ -2769,91 +2842,18 @@ enum SkillLevel {
   LEAD
 }
 
-enum AssessmentDecisionLevel {
-  AT_REQUIRED
-  ABOVE_REQUIRED
-  ABOVE_AND_BEYOND_REQUIRED
+enum WhenSkillUsed {
+  CURRENT
+  PAST
 }
 
-enum AssessmentDecision {
-  HOLD
-  SUCCESSFUL
-  UNSUCCESSFUL
-}
-
-enum PoolCandidateSearchRequestReason {
-  IMMEDIATE_HIRE
-  UPCOMING_NEED
-  GENERAL_INTEREST
-  REQUIRED_BY_DIRECTIVE
-}
-
-enum EvaluatedLanguageAbility {
-  X
-  A
-  B
-  C
-  E
-  P
-  NOT_ASSESSED
-}
-
-enum EducationType {
-  DIPLOMA
-  BACHELORS_DEGREE
-  MASTERS_DEGREE
-  PHD
-  POST_DOCTORAL_FELLOWSHIP
-  ONLINE_COURSE
-  CERTIFICATION
-  OTHER
-}
-
-enum PoolCandidateSearchStatus {
-  NEW
-  IN_PROGRESS
-  WAITING
-  DONE
-  DONE_NO_CANDIDATES
-  NOT_COMPLIANT
-}
-
-enum PlacementType {
-  PLACED_TENTATIVE
-  PLACED_CASUAL
-  PLACED_TERM
-  PLACED_INDETERMINATE
-}
-
-enum GenericJobTitleKey {
-  TECHNICIAN_IT01
-  ANALYST_IT02
-  TEAM_LEADER_IT03
-  TECHNICAL_ADVISOR_IT03
-  SENIOR_ADVISOR_IT04
-  MANAGER_IT04
-  EXECUTIVE_EX03
-}
-
-enum IndigenousCommunity {
-  STATUS_FIRST_NATIONS
-  NON_STATUS_FIRST_NATIONS
-  INUIT
-  METIS
-  OTHER
-  LEGACY_IS_INDIGENOUS
-}
-
-enum ClaimVerificationResult {
-  ACCEPTED
-  REJECTED
-  UNVERIFIED
-}
-
-enum EducationStatus {
-  SUCCESS_CREDENTIAL
-  SUCCESS_NO_CREDENTIAL
-  IN_PROGRESS
-  AUDITED
-  DID_NOT_COMPLETE
+enum WorkRegion {
+  TELEWORK
+  NATIONAL_CAPITAL
+  ATLANTIC
+  QUEBEC
+  ONTARIO
+  PRAIRIE
+  BRITISH_COLUMBIA
+  NORTH
 }

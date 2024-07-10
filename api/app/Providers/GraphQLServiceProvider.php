@@ -14,6 +14,7 @@ use Nuwave\Lighthouse\Schema\TypeRegistry;
 use Nuwave\Lighthouse\WhereConditions\Operator;
 use Spatie\StructureDiscoverer\Data\DiscoveredStructure;
 use Spatie\StructureDiscoverer\Discover;
+use Spatie\StructureDiscoverer\Enums\Sort;
 
 class GraphQLServiceProvider extends ServiceProvider
 {
@@ -37,6 +38,7 @@ class GraphQLServiceProvider extends ServiceProvider
             ->enums()
                 // Language has a custom implementation
             ->custom(fn (DiscoveredStructure $structure) => $structure->name !== 'Language')
+            ->sortBy(Sort::Name)
             ->get();
 
         foreach ($enums as $enum) {
@@ -60,6 +62,7 @@ class GraphQLServiceProvider extends ServiceProvider
             ->custom(function (DiscoveredStructure $structure) {
                 return in_array(HasLocalization::class, class_uses($structure->getFcqn()));
             })
+            ->sortBy(Sort::Name)
             ->get();
 
         foreach ($localizedEnums as $enum) {
