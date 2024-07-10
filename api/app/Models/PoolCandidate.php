@@ -1084,7 +1084,7 @@ class PoolCandidate extends Model
 
                         continue;
                     }
-                } else {
+                } else { // $poolSkill is an ASSET skill
 
                     // We do not need to evaluate non-essential technical skills that are not on
                     // the users snapshot, so skip the result check
