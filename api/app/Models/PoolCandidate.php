@@ -1022,6 +1022,24 @@ class PoolCandidate extends Model
         );
     }
 
+    /**
+     * Determines a candidates current assessment status
+     * based on the following logic:
+     *
+     *   foreach step in pool->assessmentSteps
+     *       foreach skill in assessmentStep->skills:
+     *           result = find matching assessment result
+     *           if skill is essential:
+     *               if result is UNSUCCESSFUL, THEN mark UNSUCCESSFUL and exit loop
+     *               if result is HOLD THEN mark HOLD and continue loop (to look for failures)
+     *               if result is null or undecided, THEN mark TO ASSESS and continue loop (to look for failures)
+     *           else if skill is asset:
+     *               if skill is Technical AND user did not claim skill, THEN skip and continue loop
+     *               else if null or undecided THEN mark TO ASSESS and continue loop (to look for essential failures)
+     *               else mark nothing and continue, since the result doesn't actually matter
+     *       and if step is Application Assessment then repeat the Essential switch statement education assessment result
+     *       stepStatus is first of UNSUCCESSFUL, TO ASSESS, HOLD, and else QUALIFIED
+     */
     public function computeAssessmentStatus()
     {
         $decisions = [];
@@ -1055,6 +1073,7 @@ class PoolCandidate extends Model
                         continue;
                     }
 
+                    // UNSUFFCESSFUL on essential skills always takes precedence over other statuses, so we can exit the loop right away.
                     if ($decision === AssessmentDecision::UNSUCCESSFUL->name) {
                         $hasFailure = true;
                         break;
@@ -1066,6 +1085,9 @@ class PoolCandidate extends Model
                         continue;
                     }
                 } else {
+
+                    // We do not need to evaluate non-essential technical skills that are not on
+                    // the users snapshot, so skip the result check
                     if ($poolSkill->skill->category === SkillCategory::TECHNICAL->name) {
                         $isClaimed = false;
                         $snapshot = $this->profile_snapshot;
