@@ -506,7 +506,7 @@ class CandidateAssessmentStatusTest extends TestCase
             ]);
     }
 
-    public function testMultipleEssentialMustPassToIncrementStep()
+    public function testAllSkillsMustPassToIncrementStep()
     {
 
         $pool = Pool::factory()
@@ -529,6 +529,15 @@ class CandidateAssessmentStatusTest extends TestCase
             'type' => PoolSkillType::NONESSENTIAL->name,
         ]);
 
+        $stepOne = $pool->assessmentSteps->first();
+
+        $stepTwo = AssessmentStep::factory()
+            ->afterCreating(function (AssessmentStep $step) use ($poolSkillOne, $poolSkillTwo) {
+                $step->poolSkills()->sync([$poolSkillOne->id, $poolSkillTwo->id]);
+            })->create([
+                'pool_id' => $pool->id,
+            ]);
+
         $user = User::factory()->create();
         UserSkill::factory()->create([
             'user_id' => $user->id,
@@ -541,15 +550,6 @@ class CandidateAssessmentStatusTest extends TestCase
             'submitted_at' => config('constants.past_date'),
             'expiry_date' => config('constants.far_future_date'),
         ]);
-
-        $stepOne = $pool->assessmentSteps->first();
-
-        $stepTwo = AssessmentStep::factory()
-            ->afterCreating(function (AssessmentStep $step) use ($poolSkillOne, $poolSkillTwo) {
-                $step->poolSkills()->sync([$poolSkillOne->id, $poolSkillTwo->id]);
-            })->create([
-                'pool_id' => $pool->id,
-            ]);
 
         AssessmentResult::factory()
             ->withResultType(AssessmentResultType::EDUCATION)
