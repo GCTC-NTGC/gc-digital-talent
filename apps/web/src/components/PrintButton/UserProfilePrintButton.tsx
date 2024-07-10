@@ -9,16 +9,18 @@ import {
   Color,
   DropdownMenu,
 } from "@gc-digital-talent/ui";
-import { PoolCandidate, User } from "@gc-digital-talent/graphql";
+import { FragmentType } from "@gc-digital-talent/graphql";
 
 import printStyles from "~/styles/printStyles";
-import ProfileDocument from "~/components/ProfileDocument/ProfileDocument";
+import ProfileDocument, {
+  ProfileDocument_Fragment,
+} from "~/components/ProfileDocument/ProfileDocument";
 import SpinnerIcon from "~/components/SpinnerIcon/SpinnerIcon";
 
 type UserProfileDocumentTypes = "all-info" | "anonymous";
 
 interface UserProfilePrintButtonProps {
-  users: User[] | PoolCandidate[];
+  users: FragmentType<typeof ProfileDocument_Fragment>[];
   color: Color;
   mode: ButtonLinkMode;
   fontSize?: "caption" | "body";
@@ -140,8 +142,8 @@ const UserProfilePrintButton = ({
       </DropdownMenu.Root>
       <ProfileDocument
         anonymous={isAnonymous === "anonymous"}
-        results={users}
         ref={componentRef}
+        userQuery={users}
       />
     </>
   );
