@@ -470,7 +470,7 @@ class Pool extends Model
         }
 
         // empty defaults to all but archived
-        $query->orWhere(function ($query) {
+        $query->where(function ($query) {
             self::scopeNotArchived($query);
         });
 
