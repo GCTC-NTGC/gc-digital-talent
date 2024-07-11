@@ -42,12 +42,12 @@ class GraphQLServiceProvider extends ServiceProvider
             ->sortBy(Sort::Name)
             ->get();
 
+        /** @var \UnitEnum $enum */
         foreach ($enums as $enum) {
             $name = class_basename($enum);
             $typeRegistry->registerLazy(
                 $name,
                 static function () use ($name, $enum): EnumType {
-                    /** @disregard P1013, discovered enum types are no inferred but it does have cases method */
                     $values = array_column($enum::cases(), 'name');
 
                     return new EnumType([
@@ -68,8 +68,18 @@ class GraphQLServiceProvider extends ServiceProvider
             ->sortBy(Sort::Name)
             ->get();
 
+        /** @var HasLocalization $enum */
         foreach ($localizedEnums as $enum) {
             $name = class_basename($enum);
+
+            /** @disregard P1003 We don't need to use args or context vars in our resolver */
+            $resolver = function ($value, $args, $context, ResolveInfo $info) use ($enum) {
+                switch ($info->fieldName) {
+                    case 'value': return $value;
+                    case 'label': return $enum::localizedString($value);
+                    default: return null;
+                }
+            };
 
             $typeRegistry->register(
                 new ObjectType([
@@ -80,16 +90,7 @@ class GraphQLServiceProvider extends ServiceProvider
                             'label' => Type::nonNull($typeRegistry->get('LocalizedString')),
                         ];
                     },
-                    /** @disregard P1003, we don't use these args from function on purpose */
-                    'resolveField' => function ($value, array $args, $context, ResolveInfo $info) use ($enum) {
-                        switch ($info->fieldName) {
-                            case 'value': return $value;
-                                /** @disregard P1013, these enums do have the trait with this method */
-                            case 'label': return $enum::localizedString($value);
-                            default: return null;
-                        }
-
-                    },
+                    'resolveField' => $resolver,
                 ])
             );
         }
