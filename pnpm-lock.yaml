@@ -106,8 +106,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/ui
       '@heroicons/react':
-        specifier: ^2.1.4
-        version: 2.1.4(react@18.3.1)
+        specifier: ^2.1.5
+        version: 2.1.5(react@18.3.1)
       '@microsoft/applicationinsights-web':
         specifier: ^3.3.0
         version: 3.3.0(tslib@2.6.3)
@@ -604,8 +604,8 @@ importers:
         specifier: workspace:*
         version: link:../ui
       '@heroicons/react':
-        specifier: ^2.1.4
-        version: 2.1.4(react@18.3.1)
+        specifier: ^2.1.5
+        version: 2.1.5(react@18.3.1)
       '@hookform/error-message':
         specifier: ^2.0.1
         version: 2.0.1(react-dom@18.3.1(react@18.3.1))(react-hook-form@7.52.1(react@18.3.1))(react@18.3.1)
@@ -1056,8 +1056,8 @@ importers:
   packages/toast:
     dependencies:
       '@heroicons/react':
-        specifier: ^2.1.4
-        version: 2.1.4(react@18.3.1)
+        specifier: ^2.1.5
+        version: 2.1.5(react@18.3.1)
       react-toastify:
         specifier: ^10.0.4
         version: 10.0.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1107,8 +1107,8 @@ importers:
         specifier: workspace:*
         version: link:../jest-helpers
       '@heroicons/react':
-        specifier: ^2.1.4
-        version: 2.1.4(react@18.3.1)
+        specifier: ^2.1.5
+        version: 2.1.5(react@18.3.1)
       '@radix-ui/react-accordion':
         specifier: ^1.2.0
         version: 1.2.0(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -2578,8 +2578,8 @@ packages:
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
 
-  '@heroicons/react@2.1.4':
-    resolution: {integrity: sha512-ju0wj0wwrUTMQ2Yceyrma7TKuI3BpSjp+qKqV81K9KGcUHdvTMdiwfRc2cwXBp3uXtKuDZkh0v03nWOQnJFv2Q==}
+  '@heroicons/react@2.1.5':
+    resolution: {integrity: sha512-FuzFN+BsHa+7OxbvAERtgBTNeZpUjgM/MIizfVkSCL2/edriN0Hx/DWRCR//aPYwO5QX/YlgLGXk+E3PcfZwjA==}
     peerDependencies:
       react: '>= 16'
 
@@ -10666,7 +10666,7 @@ snapshots:
     dependencies:
       graphql: 16.9.0
 
-  '@heroicons/react@2.1.4(react@18.3.1)':
+  '@heroicons/react@2.1.5(react@18.3.1)':
     dependencies:
       react: 18.3.1
 
