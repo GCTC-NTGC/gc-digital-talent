@@ -245,6 +245,13 @@ const createRoute = (locale: Locales) =>
                     },
                   ],
                 },
+                {
+                  path: "verify-contact-email",
+                  lazy: () =>
+                    import(
+                      "../pages/EmailVerificationPage/ProfileContactEmailVerificationPage"
+                    ),
+                },
               ],
             },
             {

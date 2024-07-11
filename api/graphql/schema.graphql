@@ -48,7 +48,7 @@ type User {
   firstName: String @rename(attribute: "first_name")
   lastName: String @rename(attribute: "last_name")
   email: Email
-  emailVerifiedAt: DateTime @rename(attribute: "email_verified_at")
+  isEmailVerified: Boolean
   telephone: PhoneNumber
   preferredLang: LocalizedLanguage @rename(attribute: "preferred_lang")
   preferredLanguageForInterview: LocalizedLanguage
