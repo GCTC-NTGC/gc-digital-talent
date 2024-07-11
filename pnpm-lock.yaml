@@ -57,9 +57,12 @@ importers:
       sinon:
         specifier: ^18.0.0
         version: 18.0.0
+      typescript:
+        specifier: ^5.5.3
+        version: 5.5.3
       typescript-eslint:
         specifier: ^7.16.0
-        version: 7.16.0(eslint@8.57.0)
+        version: 7.16.0(eslint@8.57.0)(typescript@5.5.3)
 
   apps/web:
     dependencies:
@@ -508,7 +511,7 @@ importers:
         version: 3.0.0(eslint@8.57.0)(typescript@5.5.3)
       eslint-plugin-formatjs:
         specifier: ^4.13.3
-        version: 4.13.3(eslint@8.57.0)(ts-jest@29.2.2(typescript@5.5.3))
+        version: 4.13.3(eslint@8.57.0)(ts-jest@29.2.2(jest@29.7.0(@types/node@20.14.10))(typescript@5.5.3))
       eslint-plugin-import:
         specifier: ^2.29.1
         version: 2.29.1(@typescript-eslint/parser@7.16.0(eslint@8.57.0)(typescript@5.5.3))(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0)
@@ -539,6 +542,9 @@ importers:
       eslint-plugin-turbo:
         specifier: ^2.0.6
         version: 2.0.6(eslint@8.57.0)
+      jest:
+        specifier: ^29.7.0
+        version: 29.7.0(@types/node@20.14.10)
       prettier:
         specifier: ^3.3.2
         version: 3.3.2
@@ -981,7 +987,7 @@ importers:
     devDependencies:
       '@formatjs/ts-transformer':
         specifier: ^3.13.14
-        version: 3.13.14(ts-jest@29.2.2(@babel/core@7.24.7)(esbuild@0.21.5)(typescript@5.5.3))
+        version: 3.13.14(ts-jest@29.2.2(@babel/core@7.24.7)(esbuild@0.21.5)(jest@29.7.0(@types/node@20.14.10))(typescript@5.5.3))
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config-custom
@@ -997,6 +1003,9 @@ importers:
       '@storybook/builder-vite':
         specifier: ^8.2.1
         version: 8.2.1(storybook@8.2.1(@babel/preset-env@7.24.7(@babel/core@7.24.7)))(typescript@5.5.3)(vite@5.3.3(@types/node@20.14.10)(lightningcss@1.25.1)(terser@5.31.1))
+      '@storybook/preview-api':
+        specifier: ^8.2.1
+        version: 8.2.1(storybook@8.2.1(@babel/preset-env@7.24.7(@babel/core@7.24.7)))
       '@storybook/react-vite':
         specifier: ^8.2.1
         version: 8.2.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.18.0)(storybook@8.2.1(@babel/preset-env@7.24.7(@babel/core@7.24.7)))(typescript@5.5.3)(vite@5.3.3(@types/node@20.14.10)(lightningcss@1.25.1)(terser@5.31.1))
@@ -1006,6 +1015,9 @@ importers:
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
+      jest:
+        specifier: ^29.7.0
+        version: 29.7.0(@types/node@20.14.10)
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -3409,6 +3421,11 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+
+  '@storybook/preview-api@8.2.1':
+    resolution: {integrity: sha512-hBmlGmIlcvfEktqlUHhPRu8216IfT0oareIMn7Zut7hNfymWIXg+svNMNDkgydvYzyOJdl9l8lGDJXIBse3fkA==}
+    peerDependencies:
+      storybook: ^8.2.1
 
   '@storybook/react-dom-shim@8.2.1':
     resolution: {integrity: sha512-c6nfjyqiNduN6qk9yMP3EVNMslTJB+KGpKEDjpNOBGrTLkapp4dKTk8fN3EiFc3jEwhfN+xY+19eXwq7JBWCtg==}
@@ -9632,7 +9649,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.5.3
 
-  '@formatjs/ts-transformer@3.13.14(ts-jest@29.2.2(@babel/core@7.24.7)(esbuild@0.21.5)(typescript@5.5.3))':
+  '@formatjs/ts-transformer@3.13.14(ts-jest@29.2.2(@babel/core@7.24.7)(esbuild@0.21.5)(jest@29.7.0(@types/node@20.14.10))(typescript@5.5.3))':
     dependencies:
       '@formatjs/icu-messageformat-parser': 2.7.8
       '@types/json-stable-stringify': 1.0.36
@@ -9642,9 +9659,9 @@ snapshots:
       tslib: 2.6.3
       typescript: 5.5.3
     optionalDependencies:
-      ts-jest: 29.2.2(@babel/core@7.24.7)(esbuild@0.21.5)(typescript@5.5.3)
+      ts-jest: 29.2.2(@babel/core@7.24.7)(esbuild@0.21.5)(jest@29.7.0(@types/node@20.14.10))(typescript@5.5.3)
 
-  '@formatjs/ts-transformer@3.13.14(ts-jest@29.2.2(typescript@5.5.3))':
+  '@formatjs/ts-transformer@3.13.14(ts-jest@29.2.2(jest@29.7.0(@types/node@20.14.10))(typescript@5.5.3))':
     dependencies:
       '@formatjs/icu-messageformat-parser': 2.7.8
       '@types/json-stable-stringify': 1.0.36
@@ -11256,6 +11273,10 @@ snapshots:
     dependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
+
+  '@storybook/preview-api@8.2.1(storybook@8.2.1(@babel/preset-env@7.24.7(@babel/core@7.24.7)))':
+    dependencies:
+      storybook: 8.2.1(@babel/preset-env@7.24.7(@babel/core@7.24.7))
 
   '@storybook/react-dom-shim@8.2.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.2.1(@babel/preset-env@7.24.7(@babel/core@7.24.7)))':
     dependencies:
@@ -13314,10 +13335,10 @@ snapshots:
       eslint-utils: 2.1.0
       regexpp: 3.2.0
 
-  eslint-plugin-formatjs@4.13.3(eslint@8.57.0)(ts-jest@29.2.2(typescript@5.5.3)):
+  eslint-plugin-formatjs@4.13.3(eslint@8.57.0)(ts-jest@29.2.2(jest@29.7.0(@types/node@20.14.10))(typescript@5.5.3)):
     dependencies:
       '@formatjs/icu-messageformat-parser': 2.7.8
-      '@formatjs/ts-transformer': 3.13.14(ts-jest@29.2.2(typescript@5.5.3))
+      '@formatjs/ts-transformer': 3.13.14(ts-jest@29.2.2(jest@29.7.0(@types/node@20.14.10))(typescript@5.5.3))
       '@types/eslint': 8.56.10
       '@types/picomatch': 2.3.4
       '@typescript-eslint/utils': 6.21.0(eslint@8.57.0)(typescript@5.5.3)
@@ -16723,11 +16744,12 @@ snapshots:
       '@jest/types': 29.6.3
       babel-jest: 29.7.0(@babel/core@7.24.7)
 
-  ts-jest@29.2.2(@babel/core@7.24.7)(esbuild@0.21.5)(typescript@5.5.3):
+  ts-jest@29.2.2(@babel/core@7.24.7)(esbuild@0.21.5)(jest@29.7.0(@types/node@20.14.10))(typescript@5.5.3):
     dependencies:
       bs-logger: 0.2.6
       ejs: 3.1.10
       fast-json-stable-stringify: 2.1.0
+      jest: 29.7.0(@types/node@20.14.10)
       jest-util: 29.7.0
       json5: 2.2.3
       lodash.memoize: 4.1.2
@@ -16851,12 +16873,14 @@ snapshots:
       is-typed-array: 1.1.13
       possible-typed-array-names: 1.0.0
 
-  typescript-eslint@7.16.0(eslint@8.57.0):
+  typescript-eslint@7.16.0(eslint@8.57.0)(typescript@5.5.3):
     dependencies:
       '@typescript-eslint/eslint-plugin': 7.16.0(@typescript-eslint/parser@7.16.0(eslint@8.57.0)(typescript@5.5.3))(eslint@8.57.0)(typescript@5.5.3)
       '@typescript-eslint/parser': 7.16.0(eslint@8.57.0)(typescript@5.5.3)
       '@typescript-eslint/utils': 7.16.0(eslint@8.57.0)(typescript@5.5.3)
       eslint: 8.57.0
+    optionalDependencies:
+      typescript: 5.5.3
     transitivePeerDependencies:
       - supports-color
 
