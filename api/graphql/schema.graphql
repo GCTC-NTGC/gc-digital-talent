@@ -250,8 +250,7 @@ type Pool implements HasRoleAssignments {
   location: LocalizedString @rename(attribute: "advertisement_location")
   securityClearance: LocalizedSecurityStatus
     @rename(attribute: "security_clearance")
-  language: LocalizedPoolLanguage
-    @rename(attribute: "advertisement_language")
+  language: LocalizedPoolLanguage @rename(attribute: "advertisement_language")
   status: LocalizedPoolStatus @rename(attribute: "status")
   stream: LocalizedPoolStream
   processNumber: String @rename(attribute: "process_number")
@@ -898,11 +897,7 @@ type Query {
         ]
       )
   ): [Pool]!
-    @paginate(
-      defaultCount: 10
-      maxCount: 1000
-      scopes: ["authorizedToView", "notArchived"]
-    )
+    @paginate(defaultCount: 10, maxCount: 1000, scopes: ["authorizedToView"])
     @canResolved(ability: "view")
   poolCandidate(id: UUID! @eq): PoolCandidate
     @find
