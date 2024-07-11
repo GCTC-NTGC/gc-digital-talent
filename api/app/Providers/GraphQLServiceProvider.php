@@ -34,9 +34,10 @@ class GraphQLServiceProvider extends ServiceProvider
             }
         );
 
+        // Discover all enums in the App\Enum namepsace to register them with GraphQL
         $enums = Discover::in(app_path('Enums'))
             ->enums()
-                // Language has a custom implementation
+                // TODO: Language has a custom implementation remove in #10964
             ->custom(fn (DiscoveredStructure $structure) => $structure->name !== 'Language')
             ->sortBy(Sort::Name)
             ->get();
@@ -46,7 +47,7 @@ class GraphQLServiceProvider extends ServiceProvider
             $typeRegistry->registerLazy(
                 $name,
                 static function () use ($name, $enum): EnumType {
-                    /** @disregard P1013 */
+                    /** @disregard P1013, discovered enum types are no inferred but it does have cases method */
                     $values = array_column($enum::cases(), 'name');
 
                     return new EnumType([
@@ -57,6 +58,8 @@ class GraphQLServiceProvider extends ServiceProvider
             );
         }
 
+        // Discover all enums in the App\Enum namespace that implement the HasLocalization trait
+        // and register them as a LocalizedEnum type in GraphQL
         $localizedEnums = Discover::in(app_path('Enums'))
             ->enums()
             ->custom(function (DiscoveredStructure $structure) {
@@ -77,11 +80,11 @@ class GraphQLServiceProvider extends ServiceProvider
                             'label' => Type::nonNull($typeRegistry->get('LocalizedString')),
                         ];
                     },
-                    /** @disregard P1003 */
+                    /** @disregard P1003, we don't use these args from function on purpose */
                     'resolveField' => function ($value, array $args, $context, ResolveInfo $info) use ($enum) {
                         switch ($info->fieldName) {
                             case 'value': return $value;
-                                /** @disregard P1013, these enums do have the trait */
+                                /** @disregard P1013, these enums do have the trait with this method */
                             case 'label': return $enum::localizedString($value);
                             default: return null;
                         }
