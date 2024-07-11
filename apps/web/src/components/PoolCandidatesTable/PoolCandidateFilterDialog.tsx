@@ -28,7 +28,7 @@ import FilterDialog, {
 import { FormValues } from "./types";
 import PoolFilterInput from "../PoolFilterInput/PoolFilterInput";
 
-export const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
+const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
   fragment PoolCandidateFilterDialog on Query {
     classifications {
       group
