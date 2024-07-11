@@ -22,7 +22,7 @@
     "@gc-digital-talent/logger": "workspace:*",
     "@gc-digital-talent/storage": "workspace:*",
     "@gc-digital-talent/ui": "workspace:*",
-    "@heroicons/react": "^2.1.4",
+    "@heroicons/react": "^2.1.5",
     "@hookform/error-message": "^2.0.1",
     "@tiptap/extension-character-count": "^2.4.0",
     "@tiptap/extension-link": "^2.4.0",
@@ -30,7 +30,7 @@
     "@tiptap/starter-kit": "^2.4.0",
     "date-fns": "^3.6.0",
     "downshift": "^9.0.6",
-    "framer-motion": "^11.2.12",
+    "framer-motion": "^11.3.2",
     "lodash": "^4.17.21",
     "react-dom": "^18.2.0"
   },
