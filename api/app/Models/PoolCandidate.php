@@ -1218,6 +1218,7 @@ class PoolCandidate extends Model
 
     public function computeFinalDecision()
     {
+        $this->load(['user']);
 
         $status = $this->pool_candidate_status;
         $decision = null;
