@@ -21,12 +21,10 @@
     "@gc-digital-talent/graphql": "workspace:*",
     "@playwright/test": "^1.45.1",
     "@types/node": "^20.14.10",
-    "@types/sinon": "^17.0.3",
     "axe-core": "^4.9.1",
     "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
     "eslint-plugin-playwright": "^1.6.2",
-    "sinon": "^18.0.0",
     "typescript": "^5.5.3",
     "typescript-eslint": "^7.16.0"
   },
