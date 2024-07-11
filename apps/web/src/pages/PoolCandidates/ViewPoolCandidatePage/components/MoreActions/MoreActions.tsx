@@ -2,7 +2,6 @@ import { useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/20/solid/UserCircleIcon";
 
 import {
-  Department,
   FragmentType,
   Maybe,
   User,

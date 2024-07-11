@@ -403,6 +403,11 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
   }
 `);
 
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["Skill", "SkillFamily"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
+  requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
+};
+
 const defaultState = {
   ...INITIAL_STATE,
   // hiddenColumnIds: ["candidacyStatus", "notes"],
@@ -588,6 +593,7 @@ const PoolCandidatesTable = ({
 
   const [{ data: tableData, fetching: fetchingTableData }] = useQuery({
     query: CandidatesTable_Query,
+    context,
   });
   const allSkills = unpackMaybes(tableData?.skills);
   const filteredSkillIds = filterState?.applicantFilter?.skills

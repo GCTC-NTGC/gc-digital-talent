@@ -1,5 +1,4 @@
 import { MessageDescriptor, useIntl } from "react-intl";
-import { OperationContext, useQuery } from "urql";
 
 import {
   Checkbox,
@@ -28,11 +27,6 @@ import FilterDialog, {
 } from "../FilterDialog/FilterDialog";
 import { FormValues } from "./types";
 import PoolFilterInput from "../PoolFilterInput/PoolFilterInput";
-
-const context: Partial<OperationContext> = {
-  additionalTypenames: ["Skill", "SkillFamily"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
-  requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
-};
 
 export const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
   fragment PoolCandidateFilterDialog on Query {

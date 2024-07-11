@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { useMutation, useQuery } from "urql";
+import { useMutation } from "urql";
 
 import {
   RadioGroup,
@@ -11,7 +11,6 @@ import {
   objectsToSortedOptions,
 } from "@gc-digital-talent/forms";
 import {
-  Department,
   FragmentType,
   PlacementType,
   PoolCandidateStatus,
