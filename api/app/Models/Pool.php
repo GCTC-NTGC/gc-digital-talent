@@ -465,7 +465,14 @@ class Pool extends Model
                     $query->orWhereNull('published_at');
                 }
             });
+
+            return $query;
         }
+
+        // empty defaults to all but archived
+        $query->orWhere(function ($query) {
+            self::scopeNotArchived($query);
+        });
 
         return $query;
     }
