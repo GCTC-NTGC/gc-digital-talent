@@ -2,12 +2,7 @@ import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import {
-  Department,
-  FragmentType,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -23,6 +18,7 @@ import adminMessages from "~/messages/adminMessages";
 import {
   JobPlacementDialog_Fragment,
   jobPlacementDialogAccessor,
+  JobPlacementOptionsFragmentType,
 } from "~/components/PoolCandidatesTable/JobPlacementDialog";
 import cells from "~/components/Table/cells";
 import accessors from "~/components/Table/accessors";
@@ -150,13 +146,13 @@ const UserCandidatesTableStrings_Query = graphql(/* GraphQL */ `
 
 interface UserCandidatesTableProps {
   userQuery: FragmentType<typeof UserCandidatesTableRow_Fragment>;
-  departments: Department[];
+  jobPlacementOptions: JobPlacementOptionsFragmentType;
   title: string;
 }
 
 const UserCandidatesTable = ({
   userQuery,
-  departments,
+  jobPlacementOptions,
   title,
 }: UserCandidatesTableProps) => {
   const intl = useIntl();
@@ -248,7 +244,7 @@ const UserCandidatesTable = ({
         cell: ({ row: { original: poolCandidate } }) =>
           jobPlacementDialogAccessor(
             poolCandidate as FragmentType<typeof JobPlacementDialog_Fragment>,
-            departments,
+            jobPlacementOptions,
           ),
         enableSorting: false,
       },

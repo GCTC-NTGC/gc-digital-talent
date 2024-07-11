@@ -18,6 +18,7 @@ import {
 
 import JobPlacementDialog, {
   JobPlacementDialog_Fragment,
+  JobPlacementOptions_Query,
 } from "./JobPlacementDialog";
 
 const fakedCandidate = fakePoolCandidates(1)[0];
@@ -43,17 +44,14 @@ export default {
   component: JobPlacementDialog,
   decorators: [OverlayOrDialogDecorator, MockGraphqlDecorator],
   args: {
-    departments,
     defaultOpen: true,
-  },
-  parameters: {
-    apiResponses: {
-      JobPlacementOptions: {
-        data: {
-          placementTypes: fakeLocalizedEnum(PlacementType),
-        },
+    jobPlacementOptions: makeFragmentData(
+      {
+        departments,
+        placementTypes: fakeLocalizedEnum(PlacementType),
       },
-    },
+      JobPlacementOptions_Query,
+    ),
   },
 } as Meta;
 

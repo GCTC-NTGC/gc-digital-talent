@@ -19,6 +19,7 @@ import {
 } from "~/constants/poolCandidate";
 import useRoutes from "~/hooks/useRoutes";
 import JobPlacementDialog, {
+  JobPlacementOptionsFragmentType,
   PLACEMENT_TYPE_STATUSES,
 } from "~/components/PoolCandidatesTable/JobPlacementDialog";
 import { isQualifiedStatus, isRemovedStatus } from "~/utils/poolCandidate";
@@ -66,12 +67,12 @@ export const MoreActions_Fragment = graphql(/* GraphQL */ `
 
 interface MoreActionsProps {
   poolCandidate: FragmentType<typeof MoreActions_Fragment>;
-  departments: Department[];
+  jobPlacementOptions: JobPlacementOptionsFragmentType;
 }
 
 const MoreActions = ({
   poolCandidate: poolCandidateQuery,
-  departments,
+  jobPlacementOptions,
 }: MoreActionsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -142,7 +143,7 @@ const MoreActions = ({
                   {intl.formatMessage(commonMessages.dividingColon)}
                   <JobPlacementDialog
                     jobPlacementDialogQuery={poolCandidate}
-                    departments={departments}
+                    optionsQuery={jobPlacementOptions}
                     context="view"
                   />
                 </span>
