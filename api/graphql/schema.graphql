@@ -390,7 +390,7 @@ type PoolCandidate {
     @canRoot(ability: "viewAssessment")
   assessmentStatus: AssessmentResultStatus
     @rename(attribute: "computed_assessment_status")
-  finalDecision: LocalizedFinalDecision @localizeEnum(rename: "computed_final_decision")
+  finalDecision: LocalizedFinalDecision @rename(attribute: "computed_final_decision")
   finalDecisionAt: DateTime
     @rename(attribute: "final_decision_at")
     @canRoot(ability: "viewStatus")
