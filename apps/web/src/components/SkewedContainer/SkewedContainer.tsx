@@ -41,7 +41,7 @@ const SkewedContainer = ({ children }: SkewedContainerProps) => {
       </div>
       <div
         data-h2-position="base(relative)"
-        data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
+        data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
       >
         <div data-h2-padding="base(x3, 0) p-tablet(x5, 0, x4, 0) l-tablet(x7, 0, x6, 0)">
           {children}

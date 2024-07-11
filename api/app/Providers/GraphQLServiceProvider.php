@@ -75,6 +75,7 @@ use App\GraphQL\Operators\PostgreSQLOperator;
 use App\Models\PoolSkill;
 use GraphQL\Type\Definition\EnumType;
 use GraphQL\Type\Definition\ObjectType;
+use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
 use Illuminate\Support\ServiceProvider;
 use Nuwave\Lighthouse\Schema\TypeRegistry;
@@ -772,6 +773,15 @@ class GraphQLServiceProvider extends ServiceProvider
                                 'value' => Type::nonNull($typeRegistry->get($name)),
                                 'label' => Type::nonNull($typeRegistry->get('LocalizedString')),
                             ];
+                        },
+                        /* @intelephense-ignore-next-line */
+                        'resolveField' => function ($value, array $args, $context, ResolveInfo $info) use ($enum) {
+                            switch ($info->fieldName) {
+                                case 'value': return $value;
+                                case 'label': return $enum::localizedString($value);
+                                default: return null;
+                            }
+
                         },
                     ])
                 );

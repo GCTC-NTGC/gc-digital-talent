@@ -12,12 +12,14 @@ import {
 } from "@gc-digital-talent/ui";
 import { FragmentType, User } from "@gc-digital-talent/graphql";
 
+import ProfileDocument, {
+  ProfileDocument_Fragment,
+} from "~/components/ProfileDocument/ProfileDocument";
 import printStyles from "~/styles/printStyles";
 
 import ApplicationPrintDocument, {
   ApplicationPrintDocument_PoolFragment,
 } from "./ApplicationPrintDocument";
-import ProfileDocument from "../../../../../components/ProfileDocument/ProfileDocument";
 
 const printApplication = defineMessage({
   defaultMessage: "Print application",
@@ -26,7 +28,8 @@ const printApplication = defineMessage({
 });
 
 interface ApplicationPrintButtonProps {
-  user: User;
+  snapshot: User;
+  user: FragmentType<typeof ProfileDocument_Fragment>[];
   pool: FragmentType<typeof ApplicationPrintDocument_PoolFragment>;
   color: Color;
   mode: ButtonLinkMode;
@@ -34,6 +37,7 @@ interface ApplicationPrintButtonProps {
 }
 
 const ApplicationPrintButton = ({
+  snapshot,
   user,
   pool,
   color,
@@ -113,12 +117,12 @@ const ApplicationPrintButton = ({
         </DropdownMenu.Content>
       </DropdownMenu.Root>
       <ApplicationPrintDocument
-        user={user}
+        user={snapshot}
         poolQuery={pool}
         ref={applicationRef}
       />
-      <ProfileDocument results={[user]} ref={fullProfileRef} />
-      <ProfileDocument anonymous results={[user]} ref={anonymousProfileRef} />
+      <ProfileDocument userQuery={user} ref={fullProfileRef} />
+      <ProfileDocument anonymous userQuery={user} ref={anonymousProfileRef} />
     </>
   );
 };

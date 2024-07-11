@@ -106,7 +106,7 @@ export const SearchForm = ({
 
   return (
     <div
-      data-h2-container="base(center, large, x1) p-tablet(center, large, x2)"
+      data-h2-wrapper="base(center, large, x1) p-tablet(center, large, x2)"
       data-h2-margin-bottom="base(x3)"
     >
       <FormProvider {...methods}>

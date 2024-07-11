@@ -187,7 +187,7 @@ export const Component = () => {
 
       <div data-h2-layer="base(1, relative)">
         <div
-          data-h2-container="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
+          data-h2-wrapper="base(center, iap-home, x1) l-tablet(center, iap-home, x2)"
           data-h2-position="base(relative)"
         >
           {/* pull-up overlap */}
@@ -567,7 +567,7 @@ export const Component = () => {
         </div>
       </div>
 
-      <div data-h2-container="base(center, iap-home, x1) l-tablet(center, iap-home, x2)">
+      <div data-h2-wrapper="base(center, iap-home, x1) l-tablet(center, iap-home, x2)">
         <div data-h2-padding="base(x2) p-tablet(x2.5) l-tablet(x3)">
           {/* ready for IT section */}
           <div data-h2-flex-grid="base(stretch, x3, x1) p-tablet(stretch, x2, x1) l-tablet(stretch, x3, x1)">

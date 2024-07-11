@@ -920,7 +920,7 @@
     "description": "Label for a year input field"
   },
   "iYNLo1": {
-    "defaultMessage": "e suis un <strong>membre actif </strong> des Forces armées canadiennes.",
+    "defaultMessage": "Je suis un <strong>membre actif </strong> des Forces armées canadiennes.",
     "description": "declare self to be a CAF member"
   },
   "ijGl5r": {
@@ -1236,7 +1236,7 @@
     "description": "Descriptor for an info alert"
   },
   "vPDtGU": {
-    "defaultMessage": "e ne suis pas membre des Forces armées canadiennes.",
+    "defaultMessage": "Je ne suis pas membre des Forces armées canadiennes.",
     "description": "declare self to not be in the CAF without bolding"
   },
   "vvtqRv": {

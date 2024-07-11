@@ -5,4 +5,4 @@ declare module "*.svg";
 declare module "*.webp";
 
 // Hydrogen
-declare module "@hydrogen-css/hydrogen/lib/watch";
+declare module "@hydrogen-css/hydrogen";
