@@ -2191,6 +2191,10 @@
     "defaultMessage": "Demande de renseignements",
     "description": "Heading for the request information section of the single search request view."
   },
+  "ADPfNp": {
+    "defaultMessage": "Valider dès maintenant",
+    "description": "Button to start the email address verification process"
+  },
   "AJs1VQ": {
     "defaultMessage": "Question (FR)",
     "description": "Label for an French general question"
@@ -3327,6 +3331,10 @@
     "defaultMessage": "Mettre à jour un ministère",
     "description": "Page title for the department edit page"
   },
+  "GMglI5": {
+    "defaultMessage": "Adresse courriel validée",
+    "description": "The email address has been verified to be owned by user"
+  },
   "GNHnrr": {
     "defaultMessage": "Veuillez partager vos expériences à temps partiel, à plein temps, dans le cadre d’un emploi à votre compte, d’une bourse, d’une organisation sans but lucratif ou de tout stage.",
     "description": "Description for work experience section"
@@ -3726,6 +3734,10 @@
   "Iodi0/": {
     "defaultMessage": "Nos concepteurs prêtent une attention particulière aux éléments suivants : ",
     "description": "Intro to list of items designers consider for accessibility"
+  },
+  "IrV/w5": {
+    "defaultMessage": "Valider l’adresse courriel",
+    "description": "breadcrumb for email verification page"
   },
   "Is1RHA": {
     "defaultMessage": "« Identité autochtone désigne les personnes s'identifiant aux peuples autochtones du Canada. Cela comprend les personnes qui s'identifient à titre de membres des Premières Nations (Indiens de l'Amérique du Nord), Métis et/ou Inuits, et/ou les personnes qui déclarent être des Indiens inscrits ou des Indiens des traités (aux termes de la Loi sur les Indiens du Canada), et/ou les personnes qui sont membres d'une Première Nation ou d'une bande indienne. Le paragraphe 35 (2) de la Loi constitutionnelle de 1982 précise que l'expression « peuples autochtones du Canada » s'entend notamment des Indiens, des Inuits et des Métis du Canada. »",
@@ -10521,6 +10533,10 @@
   "tSAjnB": {
     "defaultMessage": "La plateforme Talents numériques du GC offre plusieurs ressources utiles pour faciliter l’exécution de vos responsabilités en vertu de la Directive sur les talents numériques. Il s’agit notamment de formulaires en ligne, de conseils de mise en œuvre et de liens vers la Directive.",
     "description": "Summary of the directive on digital talent"
+  },
+  "tUIvbq": {
+    "defaultMessage": "Adresse courriel non validée",
+    "description": "The email address has not been verified to be owned by user"
   },
   "tXw1VV": {
     "defaultMessage": "Aux fins de cette exigence, les contrats sur les services numériques comprennent tout contrat, quel que soit le type de contrat ou la procédure d'appel d'offres, qui appuie l’élaboration ou la réalisation d’initiatives, de produits ou de services numériques du GC, tels que les contrats portant sur :",
