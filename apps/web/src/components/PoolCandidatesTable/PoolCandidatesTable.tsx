@@ -7,7 +7,7 @@ import {
   SortingState,
   createColumnHelper,
 } from "@tanstack/react-table";
-import { useClient, useQuery } from "urql";
+import { OperationContext, useClient, useQuery } from "urql";
 import isEqual from "lodash/isEqual";
 import DataLoader from "dataloader";
 
